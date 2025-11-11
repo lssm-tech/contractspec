@@ -1,0 +1,50 @@
+import { describe, expect, it } from 'vitest';
+import {
+  createDefaultTransformEngine,
+  type PresentationDescriptorV2,
+  registerBasicValidation,
+  registerDefaultReactRenderer,
+} from './presentations.v2';
+
+const mk = (
+  over: Partial<PresentationDescriptorV2> = {}
+): PresentationDescriptorV2 => ({
+  meta: { name: 'x.test', version: 1, description: 'desc' },
+  source: { type: 'blocknotejs', docJson: { type: 'doc' } },
+  targets: ['markdown', 'application/json', 'application/xml'],
+  ...over,
+});
+
+describe('TransformEngine', () => {
+  it('renders markdown/json/xml with PII redaction', async () => {
+    const engine = registerBasicValidation(
+      registerDefaultReactRenderer(createDefaultTransformEngine())
+    );
+    const d = mk({ policy: { pii: ['meta.name'] } });
+    const md = await engine.render<{ mimeType: 'text/markdown'; body: string }>(
+      'markdown',
+      d
+    );
+    expect(md.mimeType).toBe('text/markdown');
+    const js = await engine.render<{
+      mimeType: 'application/json';
+      body: string;
+    }>('application/json', d);
+    expect(js.mimeType).toBe('application/json');
+    expect(js.body).toContain('[REDACTED]');
+    const xml = await engine.render<{
+      mimeType: 'application/xml';
+      body: string;
+    }>('application/xml', d);
+    expect(xml.mimeType).toBe('application/xml');
+    expect(xml.body).toContain('%5BREDACTED%5D');
+  });
+
+  it('validates meta.description presence', async () => {
+    const engine = registerBasicValidation(
+      registerDefaultReactRenderer(createDefaultTransformEngine())
+    );
+    const bad = mk({ meta: { name: 'a', version: 1, description: '' } as any });
+    await expect(engine.render('application/json', bad)).rejects.toThrow();
+  });
+});
