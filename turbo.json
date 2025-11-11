@@ -1,0 +1,156 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NEXT_PUBLIC_ARTISAN_SENTRY_DSN",
+    "NEXT_PUBLIC_COLIVING_SENTRY_DSN",
+    "NEXT_PUBLIC_STRIT_SENTRY_DSN",
+
+    "NEXT_PUBLIC_ARTISAN_POSTHOG_KEY",
+    "NEXT_PUBLIC_COLIVING_POSTHOG_KEY",
+    "EXPO_PUBLIC_COLIVING_POSTHOG_KEY",
+    "NEXT_PUBLIC_STRIT_POSTHOG_KEY",
+
+    "SENTRY_AUTH_TOKEN",
+    "SENTRY_ORG",
+    "SENTRY_PROJECT",
+    "NEXT_PUBLIC_POSTHOG_HOST",
+
+    "COLIVING_POSTGRES_PRISMA_URL",
+    "COLIVING_POSTGRES_NON_POOLING",
+    "COLIVING_POSTGRES_URL",
+    "COLIVING_POSTGRES_URL_NON_POOLING",
+    "COLIVING_POSTGRES_USER",
+    "COLIVING_POSTGRES_PASSWORD",
+    "COLIVING_POSTGRES_DATABASE",
+    "COLIVING_POSTGRES_HOST",
+    "NEXT_PUBLIC_COLIVING_SUPABASE_URL",
+    "COLIVING_SUPABASE_URL",
+    "COLIVING_NEXT_PUBLIC_SUPABASE_URL",
+    "COLIVING_SUPABASE_SERVICE_ROLE_KEY",
+    "NEXT_PUBLIC_COLIVING_SUPABASE_ANON_KEY",
+    "COLIVING_NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "COLIVING_SUPABASE_ANON_KEY",
+    "COLIVING_SUPABASE_JWT_SECRET",
+
+    "STRIT_POSTGRES_PRISMA_URL",
+    "STRIT_POSTGRES_NON_POOLING",
+    "NEXT_PUBLIC_STRIT_SUPABASE_URL",
+    "STRIT_SUPABASE_SERVICE_ROLE_KEY",
+    "NEXT_PUBLIC_STRIT_SUPABASE_ANON_KEY",
+
+    "ARTISAN_POSTGRES_PRISMA_URL",
+    "ARTISAN_POSTGRES_NON_POOLING",
+    "NEXT_PUBLIC_ARTISAN_SUPABASE_URL",
+    "ARTISAN_SUPABASE_SERVICE_ROLE_KEY",
+    "NEXT_PUBLIC_ARTISAN_SUPABASE_ANON_KEY",
+
+    "POSTGRES_PRISMA_URL",
+    "POSTGRES_NON_POOLING",
+    "SUPABASE_SERVICE_ROLE_KEY",
+
+    "BETTER_AUTH_SECRET",
+    "INSEE_API_TOKEN",
+    "COLIVING_RESEND_API_KEY",
+    "STRIT_RESEND_API_KEY",
+    "RESEND_API_KEY",
+    "STRIT_EMAIL_FROM",
+    "FROM_EMAIL",
+    "TO_EMAIL",
+
+    "GROQ_API_KEY",
+    "OPENAI_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "PERPLEXITY_API_KEY",
+
+    "DEEPL_API_KEY",
+
+    "CRON_SECRET",
+
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "STRIPE_BOOST_MONTHLY_PRICE_ID",
+    "STRIPE_BOOST_ANNUAL_PRICE_ID",
+    "STRIPE_PRO_AI_MONTHLY_PRICE_ID",
+    "STRIPE_PRO_AI_ANNUAL_PRICE_ID",
+
+    "TELNYX_API_KEY",
+    "TELNYX_MESSAGING_PROFILE_ID",
+    "NEXT_PUBLIC_LSSM_POSTHOG_KEY",
+    "EXPO_PUBLIC_LSSM_POSTHOG_KEY",
+    "NEXT_PUBLIC_LSSM_SUPABASE_URL",
+    "NEXT_PUBLIC_LSSM_SUPABASE_ANON_KEY",
+    "LSSM_POSTGRES_PRISMA_URL",
+    "LSSM_POSTGRES_NON_POOLING",
+    "LSSM_SUPABASE_SERVICE_ROLE_KEY"
+  ],
+  "tasks": {
+    "clean": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^db:generate", "^build", "db:generate"],
+      "outputLogs": "new-only",
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "tsdown.config.js",
+        "src/**",
+        ".env*",
+        "prisma/**",
+        "public/**"
+      ],
+      "outputs": [
+        "dist/**",
+        "generated/**",
+        ".next/**",
+        "!.next/cache/**",
+        "src/generated/**"
+      ]
+    },
+    "build:types": {
+      "cache": true,
+      "outputLogs": "new-only",
+      "dependsOn": ["^build:types"],
+      "inputs": [
+        "public/**",
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsdown.config.js"
+      ]
+    },
+    "dev": {
+      "dependsOn": ["^db:generate"],
+      "cache": false,
+      "persistent": true
+    },
+    "gql:generate": {
+      "cache": false
+    },
+    "gql:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": true,
+      "outputLogs": "new-only",
+      "inputs": ["prisma/**"],
+      "outputs": ["src/generated/**"]
+    },
+    "db:seed": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:deploy": {
+      "cache": false
+    },
+    "lint": {
+      "outputLogs": "new-only",
+      "dependsOn": ["^lint"]
+    }
+  }
+}

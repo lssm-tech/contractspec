@@ -1,0 +1,128 @@
+{
+  "name": "lssm",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*/tools/*",
+    "packages/*/libs/*",
+    "packages/*/modules/*",
+    "packages/*/bundles/*",
+    "packages/*/apps/*"
+  ],
+  "scripts": {
+    "knip": "knip",
+    "clean": "turbo run clean",
+    "lint": "turbo run lint --continue",
+    "dev": "turbo run dev --filter=\"!@lssm/app.*\"",
+    "dev:web:lssm": "turbo run dev --filter=\"@lssm/app.web-lssm\"",
+    "dev:web:sites": "turbo run dev --filter=\"@lssm/app.web-sites\"",
+    "dev:web:third": "turbo run dev --filter=\"@lssm/app.web-third\"",
+    "dev:api:lssm": "turbo run dev --filter=\"@lssm/app.api-lssm\"",
+    "dev:mobile:coliving": "turbo run dev --filter=\"@lssm/app.mobile-coliving\"",
+    "dev:mobile:artisan": "turbo run dev --filter=\"@lssm/app.mobile-artisan\"",
+    "dev:web:coliving": "turbo run dev --filter=\"@lssm/app.web-coliving\"",
+    "dev:web:artisan": "turbo run dev --filter=\"@lssm/app.web-artisan\"",
+    "dev:web:strit": "turbo run dev --filter=\"@lssm/app.web-strit\"",
+    "dev:api:coliving": "turbo run dev --filter=\"@lssm/app.api-coliving\"",
+    "dev:api:artisan": "turbo run dev --filter=\"@lssm/app.api-artisan\"",
+    "dev:api:strit": "turbo run dev --filter=\"@lssm/app.api-strit\"",
+    "dev:api": "turbo run dev --filter=\"@lssm/app.api-*\"",
+    "dev:not-apps": "turbo watch build --filter=\"!@lssm/app.*\"",
+    "build": "turbo run build",
+    "build:web:lssm": "turbo run build --filter=\"@lssm/app.web-lssm\"",
+    "build:web:sites": "turbo run build --filter=\"@lssm/app.web-sites\"",
+    "build:web:third": "turbo run build --filter=\"@lssm/app.web-third\"",
+    "build:api:lssm": "turbo run build --filter=\"@lssm/app.api-lssm\"",
+    "build:coliving": "turbo run build --filter=\"@lssm/*-coliving\"",
+    "build:artisan": "turbo run build --filter=\"@lssm/*-artisan\"",
+    "build:strit": "turbo run build --filter=\"@lssm/*-strit\"",
+    "build:mobile:coliving": "turbo run build --filter=\"@lssm/app.*-coliving\"",
+    "build:web:coliving": "turbo run build --filter=\"@lssm/app.web-coliving\"",
+    "build:web:artisan": "turbo run build --filter=\"@lssm/app.web-artisan\"",
+    "build:web:strit": "turbo run build --filter=\"@lssm/app.web-strit\"",
+    "build:api:coliving": "turbo run build --filter=\"@lssm/app.api-coliving\"",
+    "build:api:artisan": "turbo run build --filter=\"@lssm/app.api-artisan\"",
+    "build:api:strit": "turbo run build --filter=\"@lssm/app.api-strit\"",
+    "build:api": "turbo run build --filter=\"@lssm/app.api-*\"",
+    "build:types": "turbo run build:types",
+    "build:types:strit": "turbo run build:types --filter=\"@lssm/*-strit\"",
+    "build:types:artisan": "turbo run build:types --filter=\"@lssm/*-artisan\"",
+    "build:types:coliving": "turbo run build:types --filter=\"@lssm/*-coliving\"",
+    "build:not-apps": "turbo run build --filter=\"!@lssm/app.*\"",
+    "build:not-apps:coliving": "turbo run build --filter=\"!@lssm/app.*\" --filter=\"@lssm/*-coliving\"",
+    "build:not-apps:artisan": "turbo run build --filter=\"!@lssm/app.*\" --filter=\"@lssm/*-artisan\"",
+    "build:not-apps:strit": "turbo run build --filter=\"!@lssm/app.*\" --filter=\"@lssm/*-strit\"",
+    "db:generate": "turbo run db:generate",
+    "validate:content": "turbo run validate:content --filter=\"@lssm/app.web-strit\"",
+    "mcp:inspect": "mcp-inspector --transport http --server-url http://localhost:3000/api/mcp",
+    "llms:gen": "node tools/generate-presentations-manifest.mjs packages/hcircle/apps/web-coliving/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-lssm/src/app && node tools/generate-presentations-manifest.mjs packages/artisanos/apps/web-artisan/src/app && node tools/generate-presentations-manifest.mjs packages/strit/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-third/src/app",
+    "llms:check": "node tools/verify-md-coverage.mjs packages/hcircle/apps/web-coliving/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-lssm/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/artisanos/apps/web-artisan/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/strit/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-third/src/app --min=0.3"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.13.0",
+    "@eslint/js": "^9.37.0",
+    "@eslint/json": "^0.13.2",
+    "@types/bun": "^1.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-i18next": "^6.1.3",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "knip": "^5.66.2",
+    "memoirist": "^0.4.0",
+    "next": "15.5.6",
+    "prettier": "3.6.2",
+    "prettier-plugin-prisma": "^5.0.0",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "typescript-eslint": "^8.46.2"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "turbo": "^2.5.8",
+    "semver": "^7.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "author": "Théo Boutron <tboutron@lssm.co>",
+  "packageManager": "bun@1.3.0",
+  "prisma": {
+    "schema": "packages/libs/database/prisma/schema.prisma"
+  },
+  "overrides": {
+    "nativewind": "5.0.0-preview.2",
+    "expo": "^54.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.4",
+    "@types/react": "~19.1.17",
+    "@types/react-dom": "^19.1.10",
+    "react-native-css": "3.0.0",
+    "lightningcss": "1.30.1",
+    "posthog-js": "1.266.3"
+  },
+  "resolutions": {
+    "nativewind": "5.0.0-preview.2",
+    "expo": "^54.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.4",
+    "@types/react": "~19.1.17",
+    "@types/react-dom": "^19.1.10",
+    "next": "15.5.6",
+    "react-native-css": "3.0.0",
+    "posthog-js": "1.266.3",
+    "lightningcss": "1.30.1"
+  }
+}

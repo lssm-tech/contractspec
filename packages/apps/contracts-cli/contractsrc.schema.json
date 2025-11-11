@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Contracts CLI Configuration",
+  "description": "Configuration file for @lssm/tool.contracts-cli",
+  "type": "object",
+  "properties": {
+    "aiProvider": {
+      "type": "string",
+      "enum": ["claude", "openai", "ollama", "custom"],
+      "default": "claude",
+      "description": "AI provider for spec generation and code assistance"
+    },
+    "aiModel": {
+      "type": "string",
+      "description": "Model name to use with the AI provider"
+    },
+    "customEndpoint": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Custom endpoint URL for AI provider (OpenAI-compatible)"
+    },
+    "customApiKey": {
+      "type": ["string", "null"],
+      "description": "API key for custom endpoint"
+    },
+    "outputDir": {
+      "type": "string",
+      "default": "./src",
+      "description": "Default output directory for generated files"
+    },
+    "conventions": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "string",
+          "default": "interactions/commands|queries",
+          "description": "Directory pattern for operation specs"
+        },
+        "events": {
+          "type": "string",
+          "default": "events",
+          "description": "Directory for event specs"
+        },
+        "presentations": {
+          "type": "string",
+          "default": "presentations",
+          "description": "Directory for presentation specs"
+        },
+        "forms": {
+          "type": "string",
+          "default": "forms",
+          "description": "Directory for form specs"
+        }
+      }
+    },
+    "defaultOwners": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^@"
+      },
+      "default": [],
+      "description": "Default owners for new specs"
+    },
+    "defaultTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Default tags for new specs"
+    }
+  }
+}
+

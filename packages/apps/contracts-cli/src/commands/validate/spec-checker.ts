@@ -1,0 +1,180 @@
+/**
+ * Validate contract spec structure and content
+ */
+
+export interface ValidationResult {
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+}
+
+/**
+ * Validate spec structure
+ */
+export function validateSpecStructure(code: string, fileName: string): ValidationResult {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+
+  // Check for required exports
+  const hasExport = /export\s+(const|let)\s+\w+/.test(code);
+  if (!hasExport) {
+    errors.push('No exported spec found');
+  }
+
+  // Validate operation specs
+  if (fileName.includes('.contracts.')) {
+    validateOperationSpec(code, errors, warnings);
+  }
+
+  // Validate event specs
+  if (fileName.includes('.event.')) {
+    validateEventSpec(code, errors, warnings);
+  }
+
+  // Validate presentation specs
+  if (fileName.includes('.presentation.')) {
+    validatePresentationSpec(code, errors, warnings);
+  }
+
+  // Common validations
+  validateCommonFields(code, errors, warnings);
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+  };
+}
+
+/**
+ * Validate operation spec
+ */
+function validateOperationSpec(code: string, errors: string[], warnings: string[]) {
+  // Check for defineCommand or defineQuery
+  const hasDefine = /define(Command|Query)/.test(code);
+  if (!hasDefine) {
+    errors.push('Missing defineCommand or defineQuery call');
+  }
+
+  // Check for required meta fields
+  if (!code.includes('meta:')) {
+    errors.push('Missing meta section');
+  }
+
+  if (!code.includes('io:')) {
+    errors.push('Missing io section');
+  }
+
+  if (!code.includes('policy:')) {
+    errors.push('Missing policy section');
+  }
+
+  // Check for name
+  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid name field');
+  }
+
+  // Check for version
+  if (!code.match(/version:\s*\d+/)) {
+    errors.push('Missing or invalid version field');
+  }
+
+  // Check for kind
+  if (!code.match(/kind:\s*['"](?:command|query)['"]/)) {
+    errors.push('Missing or invalid kind field (must be "command" or "query")');
+  }
+
+  // Warnings
+  if (!code.includes('acceptance:')) {
+    warnings.push('No acceptance scenarios defined');
+  }
+
+  if (!code.includes('examples:')) {
+    warnings.push('No examples provided');
+  }
+
+  if (code.includes('TODO')) {
+    warnings.push('Contains TODO items that need completion');
+  }
+}
+
+/**
+ * Validate event spec
+ */
+function validateEventSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.includes('defineEvent')) {
+    errors.push('Missing defineEvent call');
+  }
+
+  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid name field');
+  }
+
+  if (!code.match(/version:\s*\d+/)) {
+    errors.push('Missing or invalid version field');
+  }
+
+  if (!code.includes('payload:')) {
+    errors.push('Missing payload field');
+  }
+
+  // Check for past tense naming convention
+  const nameMatch = code.match(/name:\s*['"]([^'"]+)['"]/);
+  if (nameMatch && nameMatch[1]) {
+    const eventName = nameMatch[1].split('.').pop() || '';
+    if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
+      warnings.push('Event name should use past tense (e.g., "created", "updated")');
+    }
+  }
+}
+
+/**
+ * Validate presentation spec
+ */
+function validatePresentationSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*PresentationSpec\s*=/)) {
+    errors.push('Missing PresentationSpec type annotation');
+  }
+
+  if (!code.includes('meta:')) {
+    errors.push('Missing meta section');
+  }
+
+  if (!code.includes('content:')) {
+    errors.push('Missing content section');
+  }
+
+  if (!code.match(/kind:\s*['"](?:web_component|markdown|data)['"]/)) {
+    errors.push('Missing or invalid kind field');
+  }
+}
+
+/**
+ * Validate common fields across all spec types
+ */
+function validateCommonFields(code: string, errors: string[], warnings: string[]) {
+  // Check for SchemaModel import
+  if (code.includes('SchemaModel') && !code.includes("from '@lssm/lib.schema'")) {
+    errors.push('Missing import for SchemaModel from @lssm/lib.schema');
+  }
+
+  // Check for contracts import
+  if (!code.includes("from '@lssm/lib.contracts'")) {
+    errors.push('Missing import from @lssm/lib.contracts');
+  }
+
+  // Check owners format
+  const ownersMatch = code.match(/owners:\s*\[(.*?)\]/s);
+  if (ownersMatch) {
+    const ownersContent = ownersMatch[1];
+    if (ownersContent && !ownersContent.includes('@')) {
+      warnings.push('Owners should start with @ (e.g., "@team")');
+    }
+  }
+
+  // Check for stability
+  if (!code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)) {
+    warnings.push('Missing or invalid stability field');
+  }
+}
+
