@@ -51,7 +51,7 @@ contractspec create --ai --provider ollama --model codellama
 
 ### `contractspec build`
 
-Generate implementation code from contract specs using AI agents.
+Generate implementation code from contract specs using AI agents with automatic fallbacks.
 
 **Options:**
 - `--output-dir <dir>` - Output directory (default: ./generated)
@@ -60,6 +60,8 @@ Generate implementation code from contract specs using AI agents.
 - `--agent-mode <mode>` - Agent mode: simple, cursor, claude-code, openai-codex
 - `--no-tests` - Skip test generation
 - `--no-agent` - Disable AI (use basic templates)
+
+> ℹ️ The build command automatically orchestrates between the selected agent and lightweight templates. If an agent becomes unavailable (missing API key, Cursor not running, etc.) the CLI falls back to deterministic templates so the build never blocks.
 
 **Examples:**
 
@@ -88,6 +90,8 @@ Validate contract specifications and optionally verify implementations against s
 - `--check-handlers` - Verify handler implementations exist
 - `--check-tests` - Verify test coverage
 - `-i, --interactive` - Interactive mode - prompt for what to validate
+
+> ℹ️ When no validation scope is provided, the CLI prompts you to choose between spec-only validation or full spec + implementation validation. In non-interactive environments it defaults to spec-only. Use `--check-implementation` to skip the prompt.
 
 **Examples:**
 

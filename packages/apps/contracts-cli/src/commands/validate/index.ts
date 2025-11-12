@@ -39,19 +39,25 @@ export async function validateCommand(
 
   console.log(chalk.gray(`Validating: ${specFile}\n`));
 
-  // Interactive mode - ask what to validate
-  let validateImplementation = options.checkImplementation || false;
+  const shouldPrompt = typeof options.checkImplementation !== 'boolean';
 
-  if (options.interactive) {
-    const choice = await select({
-      message: 'What would you like to validate?',
-      choices: [
-        { name: 'Spec file only', value: 'spec' },
-        { name: 'Spec file + implementation', value: 'both' },
-      ],
-    });
+  let validateImplementation = Boolean(options.checkImplementation);
 
-    validateImplementation = choice === 'both';
+  if (shouldPrompt) {
+    if (process.stdout.isTTY) {
+      const choice = await select({
+        message: 'Validate only the spec or also the implementation?',
+        default: 'spec',
+        choices: [
+          { name: 'Spec file only', value: 'spec' },
+          { name: 'Spec + implementation (AI-assisted)', value: 'both' },
+        ],
+      });
+
+      validateImplementation = choice === 'both';
+    } else {
+      validateImplementation = false;
+    }
   }
 
   // Run validations
@@ -128,12 +134,16 @@ async function validateImplementation_AI(
 ): Promise<{ success: boolean }> {
   console.log(chalk.cyan('\n🤖 Validating implementation with AI...'));
 
-  // Check if AI is available
-  const validation = await validateProvider(config);
-  if (!validation.success) {
-    console.log(chalk.yellow(`  ⚠️  AI not available: ${validation.error}`));
-    console.log(chalk.gray('  Skipping AI validation'));
-    return { success: true };
+  if (config.agentMode === 'simple') {
+    const providerStatus = await validateProvider(config);
+    if (!providerStatus.success) {
+      console.log(
+        chalk.yellow(
+          `  ⚠️  AI provider unavailable (${providerStatus.error}). Skipping implementation validation.`
+        )
+      );
+      return { success: true };
+    }
   }
 
   // Find implementation file

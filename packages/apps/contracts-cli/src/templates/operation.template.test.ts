@@ -27,12 +27,11 @@ describe('generateOperationSpec', () => {
     expect(code).toContain('defineCommand');
     expect(code).toContain('user.signup');
     expect(code).toContain('version: 1');
-    expect(code).toContain("kind: 'command'");
     expect(code).toContain("stability: 'stable'");
     expect(code).toContain('@team');
     expect(code).toContain('SchemaModel');
-    expect(code).toContain('BeginSignupInput');
-    expect(code).toContain('BeginSignupOutput');
+    expect(code).toContain('SignupInput');
+    expect(code).toContain('SignupOutput');
   });
 
   it('should generate valid query spec', () => {

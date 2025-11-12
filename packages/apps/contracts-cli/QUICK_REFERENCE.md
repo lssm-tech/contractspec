@@ -24,6 +24,7 @@ contractspec build spec.ts --no-agent
 ```bash
 # Basic build
 contractspec build user.contracts.ts
+# (Falls back to templates automatically if the requested agent is unavailable)
 
 # Production build with tests
 contractspec build user.contracts.ts --agent-mode claude-code
@@ -46,6 +47,9 @@ contractspec validate user.contracts.ts --check-implementation
 
 # Interactive validation
 contractspec validate user.contracts.ts -i
+
+# Default prompt (no flags): choose spec-only vs spec+implementation
+contractspec validate user.contracts.ts
 
 # Validate with specific implementation
 contractspec validate user.contracts.ts \
@@ -96,7 +100,7 @@ contractspec validate spec.contracts.ts --check-implementation
 # Fast validation in CI
 contractspec validate '**/*.contracts.ts' --agent-mode simple
 
-# Validate implementations
+# Validate implementations (skip prompt)
 contractspec validate '**/*.contracts.ts' --check-implementation
 ```
 
