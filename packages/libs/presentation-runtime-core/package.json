@@ -1,0 +1,42 @@
+{
+  "name": "@lssm/lib.presentation-runtime-core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit -p tsconfig.json",
+    "dev": "bun run build:bundle --watch",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.0"
+  },
+  "devDependencies": {
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
+  }
+}

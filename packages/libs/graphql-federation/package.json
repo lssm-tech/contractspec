@@ -1,0 +1,46 @@
+{
+  "name": "@lssm/lib.graphql-federation",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pothos federation helpers and subgraph schema export utilities",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@pothos/core": "^4.9.1",
+    "@pothos/plugin-federation": "^4.0.0",
+    "@pothos/plugin-directives": "^4.2.3",
+    "graphql": "^16.8.1",
+    "@apollo/subgraph": "^2.8.0"
+  },
+  "peerDependencies": {
+    "graphql": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./*"
+  }
+}

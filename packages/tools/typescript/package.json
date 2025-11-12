@@ -1,0 +1,7 @@
+{
+  "name": "@lssm/tool.typescript",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "type": "module"
+}

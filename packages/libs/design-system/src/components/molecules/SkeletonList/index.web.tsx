@@ -1,0 +1,9 @@
+import * as React from 'react';
+import { SkeletonList as UISkeletonList } from '@lssm/lib.ui-kit-web/ui/molecules/SkeletonList';
+import type { SkeletonListProps } from './types';
+
+export function SkeletonList({ count = 10, className }: SkeletonListProps) {
+  return <UISkeletonList count={count} className={className} />;
+}
+
+export default SkeletonList;

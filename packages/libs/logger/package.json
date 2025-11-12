@@ -1,0 +1,118 @@
+{
+  "name": "@lssm/lib.logger",
+  "version": "1.0.0",
+  "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
+  "keywords": [
+    "logging",
+    "bun",
+    "elysia",
+    "tracing",
+    "performance"
+  ],
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "elysia": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "elysia": {
+      "optional": true
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./context": {
+      "import": "./dist/context.js",
+      "require": "./dist/context.cjs"
+    },
+    "./elysia-plugin": {
+      "import": "./dist/elysia-plugin.js",
+      "require": "./dist/elysia-plugin.cjs"
+    },
+    "./formatters": {
+      "import": "./dist/formatters.js",
+      "require": "./dist/formatters.cjs"
+    },
+    "./logger": {
+      "import": "./dist/logger.js",
+      "require": "./dist/logger.cjs"
+    },
+    "./timer": {
+      "import": "./dist/timer.js",
+      "require": "./dist/timer.cjs"
+    },
+    "./tracer": {
+      "import": "./dist/tracer.js",
+      "require": "./dist/tracer.cjs"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs"
+    },
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      },
+      "./context": {
+        "import": "./dist/context.js",
+        "require": "./dist/context.cjs"
+      },
+      "./elysia-plugin": {
+        "import": "./dist/elysia-plugin.js",
+        "require": "./dist/elysia-plugin.cjs"
+      },
+      "./formatters": {
+        "import": "./dist/formatters.js",
+        "require": "./dist/formatters.cjs"
+      },
+      "./logger": {
+        "import": "./dist/logger.js",
+        "require": "./dist/logger.cjs"
+      },
+      "./timer": {
+        "import": "./dist/timer.js",
+        "require": "./dist/timer.cjs"
+      },
+      "./tracer": {
+        "import": "./dist/tracer.js",
+        "require": "./dist/tracer.cjs"
+      },
+      "./types": {
+        "import": "./dist/types.js",
+        "require": "./dist/types.cjs"
+      },
+      "./*": "./*"
+    }
+  },
+  "module": "./dist/index.js"
+}

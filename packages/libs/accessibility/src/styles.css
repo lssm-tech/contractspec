@@ -1,0 +1,71 @@
+:root {
+  --a11y-text-scale: 1;
+  --a11y-letter-spacing: normal;
+  --a11y-word-spacing: normal;
+  --a11y-line-height: 1.5;
+  --a11y-underline-links: auto;
+  --a11y-focus-ring-width: 2px;
+  --a11y-reduce-motion: system;
+  --a11y-contrast-mode: normal;
+  --a11y-font-family-alt-enabled: 0;
+}
+
+html,
+body {
+  font-size: calc(16px * var(--a11y-text-scale));
+}
+
+body,
+p,
+li {
+  letter-spacing: var(--a11y-letter-spacing);
+  word-spacing: var(--a11y-word-spacing);
+  line-height: var(--a11y-line-height);
+}
+
+a {
+  text-decoration: var(--a11y-underline-links);
+}
+
+:where(button, [role='button'], a, input, select, textarea) {
+  outline-offset: 2px;
+  min-height: var(--a11y-target-min, 0);
+  min-width: var(--a11y-target-min, 0);
+}
+
+:where(:focus-visible) {
+  outline: var(--a11y-focus-ring-width) solid currentColor;
+}
+
+/* High contrast mode surface example tokens (apps should map their colors) */
+:root[data-contrast='high'],
+:root[style*='--a11y-contrast-mode: high'] {
+  /* Apps can read this signal to swap theme */
+}
+
+/* Dyslexia-friendly font: consumers should apply a font-family when enabled */
+:root[style*='--a11y-font-family-alt-enabled: 1'] body {
+  font-family: var(--font-dyslexia, system-ui, sans-serif);
+}
+
+/* Respect reduced motion preference and explicit override */
+@media (prefers-reduced-motion: reduce) {
+  :root[style*='--a11y-reduce-motion: system'] * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root[style*='--a11y-reduce-motion: reduce'] * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Explicit fallbacks for environments not honoring custom properties thoroughly */
+body {
+  /* If variables are missing, ensure readable defaults */
+  letter-spacing: var(--a11y-letter-spacing, normal);
+  word-spacing: var(--a11y-word-spacing, normal);
+  line-height: var(--a11y-line-height, 1.5);
+}

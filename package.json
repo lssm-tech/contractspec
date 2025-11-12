@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*/tools/*",
-    "packages/*/libs/*",
-    "packages/*/modules/*",
-    "packages/*/bundles/*",
-    "packages/*/apps/*"
+    "packages/tools/*",
+    "packages/libs/*",
+    "packages/modules/*",
+    "packages/bundles/*",
+    "packages/apps/*"
   ],
   "scripts": {
     "knip": "knip",

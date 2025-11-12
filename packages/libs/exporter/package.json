@@ -1,0 +1,39 @@
+{
+  "name": "@lssm/lib.exporter",
+  "version": "0.0.0",
+  "description": "Generic CSV and XML exporters usable across web and mobile.",
+  "type": "module",
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./*"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
+  }
+}

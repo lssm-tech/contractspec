@@ -1,0 +1,17 @@
+{
+  "name": "@lssm/tool.tsdown",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared tsdown config presets for LSSM monorepo",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "tsdown": "^0.15.4"
+  }
+}
