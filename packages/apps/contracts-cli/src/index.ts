@@ -1,9 +1,9 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { loadConfig, mergeConfig } from './utils/config.js';
+import { loadConfig, mergeConfig } from './utils/config';
 import { createCommand } from './commands/create/index';
 import { buildCommand } from './commands/build/index';
-import { validateCommand } from './commands/validate/index.js';
+import { validateCommand } from './commands/validate/index';
 
 const program = new Command();
 

@@ -1,15 +1,23 @@
-import type { PresentationSpecData } from '../types.js';
+import type { PresentationSpecData } from '../types';
 
 /**
  * Generate presentation spec TypeScript code
  */
 export function generatePresentationSpec(data: PresentationSpecData): string {
-  const { name, version, description, stability, owners, tags, presentationKind } = data;
-  
+  const {
+    name,
+    version,
+    description,
+    stability,
+    owners,
+    tags,
+    presentationKind,
+  } = data;
+
   const varName = toPascalCase(name.replace(/\./g, '_')) + 'Presentation';
 
   let contentBlock = '';
-  
+
   switch (presentationKind) {
     case 'web_component':
       contentBlock = `  content: {
@@ -28,7 +36,7 @@ export function generatePresentationSpec(data: PresentationSpecData): string {
     ],
   },`;
       break;
-    
+
     case 'markdown':
       contentBlock = `  content: {
     kind: 'markdown',
@@ -40,7 +48,7 @@ TODO: Add markdown content here
     // Or use resourceUri: 'feature://${name}/guide.md'
   },`;
       break;
-    
+
     case 'data':
       contentBlock = `  content: {
     kind: 'data',
@@ -85,4 +93,3 @@ function toPascalCase(str: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join('');
 }
-

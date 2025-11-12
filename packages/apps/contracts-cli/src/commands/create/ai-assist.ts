@@ -1,8 +1,14 @@
 import ora from 'ora';
 import chalk from 'chalk';
-import { AIClient } from '../../ai/client.js';
-import type { Config } from '../../utils/config.js';
-import type { OpKind, PresentationKind, OperationSpecData, EventSpecData, PresentationSpecData } from '../../types.js';
+import { AIClient } from '../../ai/client';
+import type { Config } from '../../utils/config';
+import type {
+  EventSpecData,
+  OperationSpecData,
+  OpKind,
+  PresentationKind,
+  PresentationSpecData,
+} from '../../types';
 
 /**
  * Use AI to generate operation spec from description
@@ -102,4 +108,3 @@ export async function aiGeneratePresentation(
     throw error;
   }
 }
-

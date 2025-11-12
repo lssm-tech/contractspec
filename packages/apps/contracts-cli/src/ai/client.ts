@@ -1,21 +1,21 @@
 import { generateObject, generateText, streamText } from 'ai';
 import { z } from 'zod';
-import { getAIProvider } from './providers.js';
-import type { Config } from '../utils/config.js';
+import { getAIProvider } from './providers';
+import type { Config } from '../utils/config';
 import {
   buildOperationSpecPrompt,
   buildEventSpecPrompt,
   buildPresentationSpecPrompt,
   getSystemPrompt,
-} from './prompts/spec-creation.js';
+} from './prompts/spec-creation';
 import {
   buildHandlerPrompt,
   buildComponentPrompt,
   buildFormPrompt,
   buildTestPrompt,
   getCodeGenSystemPrompt,
-} from './prompts/code-generation.js';
-import type { OpKind, PresentationKind } from '../types.js';
+} from './prompts/code-generation';
+import type { OpKind, PresentationKind } from '../types';
 
 /**
  * AI Client for spec creation and code generation

@@ -3,10 +3,10 @@ import { existsSync } from 'fs';
 import chalk from 'chalk';
 import { basename, dirname, join } from 'path';
 import { select } from '@inquirer/prompts';
-import { AgentOrchestrator } from '../../ai/agents/index.js';
-import { validateProvider } from '../../ai/providers.js';
-import { validateSpecStructure } from './spec-checker.js';
-import type { Config } from '../../utils/config.js';
+import { AgentOrchestrator } from '../../ai/agents/index';
+import { validateProvider } from '../../ai/providers';
+import { validateSpecStructure } from './spec-checker';
+import type { Config } from '../../utils/config';
 
 interface ValidateOptions {
   checkHandlers?: boolean;
@@ -41,7 +41,7 @@ export async function validateCommand(
 
   // Interactive mode - ask what to validate
   let validateImplementation = options.checkImplementation || false;
-  
+
   if (options.interactive) {
     const choice = await select({
       message: 'What would you like to validate?',
@@ -50,7 +50,7 @@ export async function validateCommand(
         { name: 'Spec file + implementation', value: 'both' },
       ],
     });
-    
+
     validateImplementation = choice === 'both';
   }
 
@@ -60,7 +60,7 @@ export async function validateCommand(
   // 1. Spec structure validation
   console.log(chalk.cyan('📋 Checking spec structure...'));
   const structureResult = validateSpecStructure(specCode, fileName);
-  
+
   if (structureResult.valid) {
     console.log(chalk.green('  ✅ Spec structure is valid'));
   } else {
@@ -87,7 +87,7 @@ export async function validateCommand(
       options,
       config
     );
-    
+
     if (!implResult.success) {
       hasErrors = true;
     }
@@ -138,19 +138,27 @@ async function validateImplementation_AI(
 
   // Find implementation file
   let implementationPath = options.implementationPath;
-  
+
   if (!implementationPath) {
     // Try to infer from spec file path
     const specDir = dirname(specFile);
     const specBaseName = basename(specFile, '.ts');
-    
+
     // Try common patterns
     const possiblePaths = [
       join(specDir, specBaseName.replace('.contracts', '.handler') + '.ts'),
       join(specDir, specBaseName.replace('.presentation', '') + '.tsx'),
       join(specDir, specBaseName.replace('.form', '.form') + '.tsx'),
-      join(dirname(specDir), 'handlers', specBaseName.replace('.contracts', '.handler') + '.ts'),
-      join(dirname(specDir), 'components', specBaseName.replace('.presentation', '') + '.tsx'),
+      join(
+        dirname(specDir),
+        'handlers',
+        specBaseName.replace('.contracts', '.handler') + '.ts'
+      ),
+      join(
+        dirname(specDir),
+        'components',
+        specBaseName.replace('.presentation', '') + '.tsx'
+      ),
     ];
 
     for (const path of possiblePaths) {
@@ -180,40 +188,46 @@ async function validateImplementation_AI(
 
   if (result.success) {
     console.log(chalk.green('  ✅ Implementation matches specification'));
-    
+
     if (result.suggestions && result.suggestions.length > 0) {
       console.log(chalk.cyan('\n  💡 Suggestions:'));
-      result.suggestions.forEach(s => console.log(chalk.gray(`     • ${s}`)));
+      result.suggestions.forEach((s) => console.log(chalk.gray(`     • ${s}`)));
     }
-    
+
     return { success: true };
   } else {
     console.log(chalk.red('  ❌ Implementation has issues:\n'));
-    
+
     if (result.errors && result.errors.length > 0) {
       console.log(chalk.red('  Errors:'));
-      result.errors.forEach(e => console.log(chalk.red(`     • ${e}`)));
+      result.errors.forEach((e) => console.log(chalk.red(`     • ${e}`)));
     }
-    
+
     if (result.warnings && result.warnings.length > 0) {
       console.log(chalk.yellow('\n  Warnings:'));
-      result.warnings.forEach(w => console.log(chalk.yellow(`     • ${w}`)));
+      result.warnings.forEach((w) => console.log(chalk.yellow(`     • ${w}`)));
     }
-    
+
     if (result.suggestions && result.suggestions.length > 0) {
       console.log(chalk.cyan('\n  Suggestions:'));
-      result.suggestions.forEach(s => console.log(chalk.gray(`     • ${s}`)));
+      result.suggestions.forEach((s) => console.log(chalk.gray(`     • ${s}`)));
     }
-    
+
     // Show validation report if available
     if (result.code) {
       console.log(chalk.gray('\n  Detailed Report:'));
       console.log(chalk.gray('  ' + '-'.repeat(60)));
-      console.log(chalk.gray(result.code.split('\n').map(l => `  ${l}`).join('\n')));
+      console.log(
+        chalk.gray(
+          result.code
+            .split('\n')
+            .map((l) => `  ${l}`)
+            .join('\n')
+        )
+      );
       console.log(chalk.gray('  ' + '-'.repeat(60)));
     }
-    
+
     return { success: false };
   }
 }
-

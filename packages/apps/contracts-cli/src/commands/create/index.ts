@@ -1,18 +1,30 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import ora from 'ora';
-import { join } from 'path';
-import { operationWizard } from './wizards/operation.js';
-import { eventWizard } from './wizards/event.js';
-import { presentationWizard } from './wizards/presentation.js';
-import { aiGenerateOperation, aiGenerateEvent, aiGeneratePresentation } from './ai-assist.js';
-import { generateOperationSpec } from '../../templates/operation.template.js';
-import { generateEventSpec } from '../../templates/event.template.js';
-import { generatePresentationSpec } from '../../templates/presentation.template.js';
-import { writeFileSafe, resolveOutputPath, generateFileName } from '../../utils/fs.js';
-import { validateProvider } from '../../ai/providers.js';
-import type { Config } from '../../utils/config.js';
-import type { SpecType, OperationSpecData, EventSpecData, PresentationSpecData } from '../../types.js';
+import { operationWizard } from './wizards/operation';
+import { eventWizard } from './wizards/event';
+import { presentationWizard } from './wizards/presentation';
+import {
+  aiGenerateEvent,
+  aiGenerateOperation,
+  aiGeneratePresentation,
+} from './ai-assist';
+import { generateOperationSpec } from '../../templates/operation.template';
+import { generateEventSpec } from '../../templates/event.template';
+import { generatePresentationSpec } from '../../templates/presentation.template';
+import {
+  generateFileName,
+  resolveOutputPath,
+  writeFileSafe,
+} from '../../utils/fs';
+import { validateProvider } from '../../ai/providers';
+import type { Config } from '../../utils/config';
+import type {
+  EventSpecData,
+  OperationSpecData,
+  PresentationSpecData,
+  SpecType,
+} from '../../types';
 
 interface CreateOptions {
   type?: SpecType;
@@ -30,7 +42,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
 
   // Determine spec type
   let specType = options.type;
-  
+
   if (!specType) {
     const { selectedType } = await inquirer.prompt([
       {
@@ -104,12 +116,13 @@ async function createOperationSpec(options: CreateOptions, config: Config) {
         type: 'input',
         name: 'description',
         message: 'Describe what this operation should do:',
-        validate: (input: string) => input.trim().length > 0 || 'Description required',
+        validate: (input: string) =>
+          input.trim().length > 0 || 'Description required',
       },
     ]);
 
     const aiData = await aiGenerateOperation(description, kind, config);
-    
+
     // Allow user to review and modify AI-generated data
     const { confirmOrEdit } = await inquirer.prompt([
       {
@@ -132,18 +145,25 @@ async function createOperationSpec(options: CreateOptions, config: Config) {
 
   // Generate code
   const code = generateOperationSpec(specData);
-  
+
   // Write file
   const basePath = options.outputDir || config.outputDir;
   const fileName = generateFileName(specData.name, '.contracts.ts');
-  const filePath = resolveOutputPath(basePath, 'operation', config.conventions, fileName);
-  
+  const filePath = resolveOutputPath(
+    basePath,
+    'operation',
+    config.conventions,
+    fileName
+  );
+
   const spinner = ora('Writing spec file...').start();
   await writeFileSafe(filePath, code);
   spinner.succeed(chalk.green(`Spec created: ${filePath}`));
 
   console.log(chalk.cyan('\n✨ Next steps:'));
-  console.log(chalk.gray(`  1. Review and complete the TODO items in ${filePath}`));
+  console.log(
+    chalk.gray(`  1. Review and complete the TODO items in ${filePath}`)
+  );
   console.log(chalk.gray(`  2. Define input/output schemas`));
   console.log(chalk.gray(`  3. Run: contractspec build ${filePath}`));
 }
@@ -160,12 +180,13 @@ async function createEventSpec(options: CreateOptions, config: Config) {
         type: 'input',
         name: 'description',
         message: 'Describe this event (what happened and when it is emitted):',
-        validate: (input: string) => input.trim().length > 0 || 'Description required',
+        validate: (input: string) =>
+          input.trim().length > 0 || 'Description required',
       },
     ]);
 
     const aiData = await aiGenerateEvent(description, config);
-    
+
     const { confirmOrEdit } = await inquirer.prompt([
       {
         type: 'list',
@@ -186,18 +207,25 @@ async function createEventSpec(options: CreateOptions, config: Config) {
 
   // Generate code
   const code = generateEventSpec(specData);
-  
+
   // Write file
   const basePath = options.outputDir || config.outputDir;
   const fileName = generateFileName(specData.name, '.event.ts');
-  const filePath = resolveOutputPath(basePath, 'event', config.conventions, fileName);
-  
+  const filePath = resolveOutputPath(
+    basePath,
+    'event',
+    config.conventions,
+    fileName
+  );
+
   const spinner = ora('Writing spec file...').start();
   await writeFileSafe(filePath, code);
   spinner.succeed(chalk.green(`Spec created: ${filePath}`));
 
   console.log(chalk.cyan('\n✨ Next steps:'));
-  console.log(chalk.gray(`  1. Review and define the payload schema in ${filePath}`));
+  console.log(
+    chalk.gray(`  1. Review and define the payload schema in ${filePath}`)
+  );
   console.log(chalk.gray(`  2. Verify PII fields are correctly marked`));
 }
 
@@ -223,12 +251,13 @@ async function createPresentationSpec(options: CreateOptions, config: Config) {
         type: 'input',
         name: 'description',
         message: 'Describe this presentation:',
-        validate: (input: string) => input.trim().length > 0 || 'Description required',
+        validate: (input: string) =>
+          input.trim().length > 0 || 'Description required',
       },
     ]);
 
     const aiData = await aiGeneratePresentation(description, kind, config);
-    
+
     const { confirmOrEdit } = await inquirer.prompt([
       {
         type: 'list',
@@ -249,18 +278,24 @@ async function createPresentationSpec(options: CreateOptions, config: Config) {
 
   // Generate code
   const code = generatePresentationSpec(specData);
-  
+
   // Write file
   const basePath = options.outputDir || config.outputDir;
   const fileName = generateFileName(specData.name, '.presentation.ts');
-  const filePath = resolveOutputPath(basePath, 'presentation', config.conventions, fileName);
-  
+  const filePath = resolveOutputPath(
+    basePath,
+    'presentation',
+    config.conventions,
+    fileName
+  );
+
   const spinner = ora('Writing spec file...').start();
   await writeFileSafe(filePath, code);
   spinner.succeed(chalk.green(`Spec created: ${filePath}`));
 
   console.log(chalk.cyan('\n✨ Next steps:'));
   console.log(chalk.gray(`  1. Complete the TODO items in ${filePath}`));
-  console.log(chalk.gray(`  2. Run: contractspec build ${filePath} to generate component`));
+  console.log(
+    chalk.gray(`  2. Run: contractspec build ${filePath} to generate component`)
+  );
 }
-
