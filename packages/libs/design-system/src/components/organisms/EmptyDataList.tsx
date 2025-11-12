@@ -13,9 +13,8 @@ import type { EmptyDataListProps } from './EmptyDataList.types';
 export function EmptyDataList({
   emptyListTitle,
   emptyListDescription,
-  emtptyListDescription,
-  CreateButton,
-  SecondaryButton,
+  createButton,
+  secondaryButton,
   media,
   mediaVariant = 'icon',
   learnMoreHref,
@@ -25,7 +24,6 @@ export function EmptyDataList({
   handleLearnMore,
   className,
 }: EmptyDataListProps) {
-  const description = emptyListDescription ?? emtptyListDescription;
   const learnMore = onLearnMore ?? handleLearnMore;
 
   return (
@@ -33,14 +31,14 @@ export function EmptyDataList({
       <EmptyHeader>
         {media ? <EmptyMedia variant={mediaVariant}>{media}</EmptyMedia> : null}
         {emptyListTitle ? <EmptyTitle>{emptyListTitle}</EmptyTitle> : null}
-        {description ? (
-          <EmptyDescription>{description}</EmptyDescription>
+        {emptyListDescription ? (
+          <EmptyDescription>{emptyListDescription}</EmptyDescription>
         ) : null}
       </EmptyHeader>
       <EmptyContent>
         <div className="flex gap-2">
-          {CreateButton}
-          {SecondaryButton}
+          {createButton}
+          {secondaryButton}
         </div>
       </EmptyContent>
       {(learnMoreHref || learnMore) && learnMoreLabel ? (

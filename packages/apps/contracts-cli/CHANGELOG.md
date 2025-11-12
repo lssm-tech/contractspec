@@ -19,6 +19,8 @@ Initial version
 - Handler and component generation
 - Test generation
 - Comprehensive documentation and examples
+- Agent-driven build workflow with automatic fallback to deterministic templates
+- AI-powered implementation validation with consistent agent orchestration
 
 ### Features
 - Interactive CLI with Commander.js
@@ -28,3 +30,4 @@ Initial version
 - BYOLLM (Bring Your Own LLM) support
 - Validation with detailed error messages
 - Type-safe code generation
+- `contractspec validate` now prompts for spec-only vs implementation validation unless `--check-implementation` is provided

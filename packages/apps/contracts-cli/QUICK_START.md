@@ -54,6 +54,7 @@ This generates:
 
 ```bash
 pnpm exec contractspec validate src/interactions/commands/user-signup.contracts.ts
+# You'll be prompted to validate the spec only or the implementation as well.
 ```
 
 ## Using Local Models (Free!)
