@@ -4,16 +4,16 @@
  */
 
 import { generateText } from 'ai';
-import { getAIProvider } from '../providers.js';
-import type { Config } from '../../utils/config.js';
-import type { AgentProvider, AgentTask, AgentResult } from './types.js';
+import { getAIProvider } from '../providers';
+import type { Config } from '../../utils/config';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
 import {
-  buildHandlerPrompt,
   buildComponentPrompt,
   buildFormPrompt,
+  buildHandlerPrompt,
   buildTestPrompt,
   getCodeGenSystemPrompt,
-} from '../prompts/code-generation.js';
+} from '../prompts/code-generation';
 
 export class SimpleAgent implements AgentProvider {
   name = 'simple' as const;
@@ -56,7 +56,7 @@ export class SimpleAgent implements AgentProvider {
   async validate(task: AgentTask): Promise<AgentResult> {
     try {
       const model = getAIProvider(this.config);
-      
+
       const prompt = `
 Review the following implementation against its specification.
 
@@ -76,18 +76,22 @@ Provide a detailed validation report:
       const result = await generateText({
         model,
         prompt,
-        system: 'You are a code review expert. Provide thorough, constructive feedback.',
+        system:
+          'You are a code review expert. Provide thorough, constructive feedback.',
       });
 
       // Parse validation result
-      const hasErrors = result.text.toLowerCase().includes('error') || 
-                       result.text.toLowerCase().includes('missing') ||
-                       result.text.toLowerCase().includes('incorrect');
+      const hasErrors =
+        result.text.toLowerCase().includes('error') ||
+        result.text.toLowerCase().includes('missing') ||
+        result.text.toLowerCase().includes('incorrect');
 
       return {
         success: !hasErrors,
         code: result.text,
-        warnings: hasErrors ? ['Implementation may not match specification'] : [],
+        warnings: hasErrors
+          ? ['Implementation may not match specification']
+          : [],
         metadata: {
           validationType: 'simple-llm',
         },
@@ -104,7 +108,10 @@ Provide a detailed validation report:
     switch (task.type) {
       case 'generate':
         // Infer what to generate from spec
-        if (task.specCode.includes('.contracts.') || task.specCode.includes('kind:')) {
+        if (
+          task.specCode.includes('.contracts.') ||
+          task.specCode.includes('kind:')
+        ) {
           return buildHandlerPrompt(task.specCode);
         } else if (task.specCode.includes('.presentation.')) {
           return buildComponentPrompt(task.specCode);

@@ -2,11 +2,11 @@
  * Agent system exports
  */
 
-export { AgentOrchestrator } from './orchestrator.js';
-export { SimpleAgent } from './simple-agent.js';
-export { CursorAgent } from './cursor-agent.js';
-export { ClaudeCodeAgent } from './claude-code-agent.js';
-export { OpenAICodexAgent } from './openai-codex-agent.js';
+export { AgentOrchestrator } from './orchestrator';
+export { SimpleAgent } from './simple-agent';
+export { CursorAgent } from './cursor-agent';
+export { ClaudeCodeAgent } from './claude-code-agent';
+export { OpenAICodexAgent } from './openai-codex-agent';
 
 export type {
   AgentMode,
@@ -14,4 +14,4 @@ export type {
   AgentResult,
   AgentProvider,
   AgentConfig,
-} from './types.js';
+} from './types';

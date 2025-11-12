@@ -9,7 +9,7 @@ import { join } from 'path';
 import { homedir, tmpdir } from 'os';
 import { existsSync } from 'fs';
 import { promisify } from 'util';
-import type { AgentProvider, AgentResult, AgentTask } from './types.js';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
 
 const execAsync = promisify(exec);
 

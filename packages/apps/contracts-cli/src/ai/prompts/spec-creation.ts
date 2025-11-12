@@ -1,4 +1,4 @@
-import type { OpKind, PresentationKind, Stability } from '../../types.js';
+import type { OpKind, PresentationKind } from '../../types';
 
 /**
  * Build prompt for creating operation spec from description
@@ -105,9 +105,12 @@ Always use proper dot notation for names and ensure all metadata is meaningful a
 /**
  * Create example-based prompt for better results
  */
-export function addExampleContext(basePrompt: string, examples: string[]): string {
+export function addExampleContext(
+  basePrompt: string,
+  examples: string[]
+): string {
   if (examples.length === 0) return basePrompt;
-  
+
   return `${basePrompt}
 
 Here are some good examples for reference:
@@ -116,4 +119,3 @@ ${examples.join('\n\n')}
 
 Follow this structure and quality level.`;
 }
-

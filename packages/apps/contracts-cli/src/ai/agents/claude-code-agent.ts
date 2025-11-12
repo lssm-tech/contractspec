@@ -5,7 +5,7 @@
 
 import { anthropic } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
-import type { AgentProvider, AgentTask, AgentResult } from './types.js';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
 
 export class ClaudeCodeAgent implements AgentProvider {
   name = 'claude-code' as const;
@@ -23,7 +23,9 @@ export class ClaudeCodeAgent implements AgentProvider {
     if (!this.apiKey) {
       return {
         success: false,
-        errors: ['ANTHROPIC_API_KEY not set. Claude Code agent requires API access.'],
+        errors: [
+          'ANTHROPIC_API_KEY not set. Claude Code agent requires API access.',
+        ],
       };
     }
 
@@ -106,7 +108,8 @@ Be thorough and precise. Use a critical but constructive tone.
       const result = await generateText({
         model,
         prompt,
-        system: 'You are a senior software engineer performing a critical code review.',
+        system:
+          'You are a senior software engineer performing a critical code review.',
         temperature: 0.3,
       });
 
@@ -145,7 +148,10 @@ Your code is:
 Generate clean, idiomatic TypeScript code that exactly matches the specification.`;
 
     if (task.type === 'test') {
-      return basePrompt + '\n\nYou are also an expert in testing. Write comprehensive tests using Vitest.';
+      return (
+        basePrompt +
+        '\n\nYou are also an expert in testing. Write comprehensive tests using Vitest.'
+      );
     }
 
     return basePrompt;
@@ -164,7 +170,9 @@ Generate clean, idiomatic TypeScript code that exactly matches the specification
 
   private extractCode(text: string): string {
     // Extract code from markdown code blocks
-    const codeBlockMatch = text.match(/```(?:typescript|ts|tsx)?\n([\s\S]*?)\n```/);
+    const codeBlockMatch = text.match(
+      /```(?:typescript|ts|tsx)?\n([\s\S]*?)\n```/
+    );
     if (codeBlockMatch && codeBlockMatch[1]) {
       return codeBlockMatch[1];
     }
@@ -213,7 +221,11 @@ Generate clean, idiomatic TypeScript code that exactly matches the specification
 
     for (const line of lines) {
       const lower = line.toLowerCase();
-      if (lower.includes('warning') || lower.includes('should') || lower.includes('consider')) {
+      if (
+        lower.includes('warning') ||
+        lower.includes('should') ||
+        lower.includes('consider')
+      ) {
         warnings.push(line.trim());
       }
     }

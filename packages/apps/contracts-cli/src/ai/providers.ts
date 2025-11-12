@@ -2,7 +2,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type { LanguageModel } from 'ai';
-import type { Config } from '../utils/config.js';
+import type { Config } from '../utils/config';
 
 /**
  * Initialize AI provider based on configuration
@@ -36,9 +36,9 @@ export function getAIProvider(config: Config): LanguageModel {
           'Custom endpoint required. Set customEndpoint in .contractsrc.json or CONTRACTSPEC_LLM_ENDPOINT env var'
         );
       }
-      
+
       const model = aiModel || 'default';
-      
+
       // For custom endpoints, use openai with environment variable for baseURL
       // The @ai-sdk/openai package reads from OPENAI_BASE_URL env var
       // For now, just use the default openai model
@@ -59,12 +59,12 @@ export async function validateProvider(
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const { aiProvider } = config;
-    
+
     // For Ollama, we can't easily validate without making a request
     if (aiProvider === 'ollama') {
       return { success: true };
     }
-    
+
     // For cloud providers, check API key exists
     if (aiProvider === 'claude' && !process.env.ANTHROPIC_API_KEY) {
       return {
@@ -72,14 +72,14 @@ export async function validateProvider(
         error: 'ANTHROPIC_API_KEY environment variable not set',
       };
     }
-    
+
     if (aiProvider === 'openai' && !process.env.OPENAI_API_KEY) {
       return {
         success: false,
         error: 'OPENAI_API_KEY environment variable not set',
       };
     }
-    
+
     return { success: true };
   } catch (error) {
     return {
@@ -110,4 +110,3 @@ export function getRecommendedModels(provider: Config['aiProvider']): string[] {
       return [];
   }
 }
-

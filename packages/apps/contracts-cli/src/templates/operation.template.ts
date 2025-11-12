@@ -1,11 +1,23 @@
-import type { OperationSpecData } from '../types.js';
+import type { OperationSpecData } from '../types';
 
 /**
  * Generate operation spec TypeScript code
  */
 export function generateOperationSpec(data: OperationSpecData): string {
-  const { name, version, kind, description, goal, context, stability, owners, tags, auth, flags } = data;
-  
+  const {
+    name,
+    version,
+    kind,
+    description,
+    goal,
+    context,
+    stability,
+    owners,
+    tags,
+    auth,
+    flags,
+  } = data;
+
   const specVarName = toPascalCase(name.split('.').pop() || 'Unknown') + 'Spec';
   const inputSchemaName = specVarName.replace('Spec', 'Input');
   const outputSchemaName = specVarName.replace('Spec', 'Output');
@@ -64,7 +76,7 @@ export const ${specVarName} = define${capitalize(kind)}({
   },
 
   sideEffects: {
-    ${data.emitsEvents ? 'emits: [\n      // Define events to emit\n      // { ref: SomeEventSpec, when: \'always\' }\n    ],' : '// emits: [],'}
+    ${data.emitsEvents ? "emits: [\n      // Define events to emit\n      // { ref: SomeEventSpec, when: 'always' }\n    ]," : '// emits: [],'}
     analytics: [
       // Define analytics events
     ],
@@ -102,9 +114,5 @@ function capitalize(str: string): string {
 }
 
 function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map(capitalize)
-    .join('');
+  return str.split(/[-_.]/).map(capitalize).join('');
 }
-

@@ -1,15 +1,20 @@
-import { select, input, number, confirm } from '@inquirer/prompts';
-import type { OperationSpecData } from '../../../types.js';
+import { confirm, input, number, select } from '@inquirer/prompts';
+import type { OperationSpecData } from '../../../types';
 
 /**
  * Interactive wizard for creating operation specs
  */
-export async function operationWizard(defaults?: Partial<OperationSpecData>): Promise<OperationSpecData> {
+export async function operationWizard(
+  defaults?: Partial<OperationSpecData>
+): Promise<OperationSpecData> {
   // Use type assertion to work around inquirer v12's stricter types
   const kind = await select({
     message: 'Operation kind:',
     choices: [
-      { name: 'Command (changes state, has side effects)', value: 'command' as const },
+      {
+        name: 'Command (changes state, has side effects)',
+        value: 'command' as const,
+      },
       { name: 'Query (read-only, idempotent)', value: 'query' as const },
     ],
     default: defaults?.kind || 'command',
@@ -39,7 +44,8 @@ export async function operationWizard(defaults?: Partial<OperationSpecData>): Pr
   const description = await input({
     message: 'Short description (1-2 sentences):',
     default: defaults?.description,
-    validate: (input: string) => input.trim().length > 0 || 'Description is required',
+    validate: (input: string) =>
+      input.trim().length > 0 || 'Description is required',
   });
 
   const goal = await input({
@@ -49,12 +55,15 @@ export async function operationWizard(defaults?: Partial<OperationSpecData>): Pr
   });
 
   const context = await input({
-    message: 'Context (background, constraints, what it does/doesn\'t do):',
+    message: "Context (background, constraints, what it does/doesn't do):",
     default: defaults?.context,
-    validate: (input: string) => input.trim().length > 0 || 'Context is required',
+    validate: (input: string) =>
+      input.trim().length > 0 || 'Context is required',
   });
 
-  const stability = await select<'experimental' | 'beta' | 'stable' | 'deprecated'>({
+  const stability = await select<
+    'experimental' | 'beta' | 'stable' | 'deprecated'
+  >({
     message: 'Stability:',
     choices: ['experimental', 'beta', 'stable', 'deprecated'],
     // default: defaults?.stability || 'beta',
@@ -62,11 +71,14 @@ export async function operationWizard(defaults?: Partial<OperationSpecData>): Pr
 
   const owners = await input({
     message: 'Owners (comma-separated, e.g., "@team, @person"):',
-    default: defaults?.owners?.join(', ') || '@team', 
+    default: defaults?.owners?.join(', ') || '@team',
     // transformer: (input: string) => input.split(',').map((s) => s.trim()).filter(Boolean),
     validate: (input: string) => {
       if (input.length === 0) return 'At least one owner is required';
-      const owners = input.split(',').map((s) => s.trim()).filter(Boolean);
+      const owners = input
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
       if (!owners.every((o) => o.startsWith('@'))) {
         return 'Owners must start with @';
       }
@@ -74,7 +86,7 @@ export async function operationWizard(defaults?: Partial<OperationSpecData>): Pr
     },
   });
 
-  const tags = await input({  
+  const tags = await input({
     message: 'Tags (comma-separated, e.g., "auth, signup"):',
     default: defaults?.tags?.join(', ') || '',
     // filter: (input: string) => input.split(',').map((s) => s.trim()).filter(Boolean),
@@ -118,13 +130,21 @@ export async function operationWizard(defaults?: Partial<OperationSpecData>): Pr
     goal,
     context,
     stability,
-    owners: owners.split(',').map((s) => s.trim()).filter(Boolean),
-    tags: tags.split(',').map((s) => s.trim()).filter(Boolean),
+    owners: owners
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
+    tags: tags
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
     auth: auth,
     hasInput: hasInput,
     hasOutput: hasOutput,
-    flags: flags.split(',').map((s) => s.trim()).filter(Boolean),
+    flags: flags
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
     emitsEvents: emitsEvents,
   };
 }
-

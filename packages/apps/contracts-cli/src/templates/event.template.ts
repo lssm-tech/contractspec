@@ -1,11 +1,12 @@
-import type { EventSpecData } from '../types.js';
+import type { EventSpecData } from '../types';
 
 /**
  * Generate event spec TypeScript code
  */
 export function generateEventSpec(data: EventSpecData): string {
-  const { name, version, description, stability, owners, tags, piiFields } = data;
-  
+  const { name, version, description, stability, owners, tags, piiFields } =
+    data;
+
   const eventVarName = toPascalCase(name.replace(/\./g, '_')) + 'V' + version;
   const payloadSchemaName = eventVarName + 'Payload';
 
@@ -41,4 +42,3 @@ function toPascalCase(str: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join('');
 }
-

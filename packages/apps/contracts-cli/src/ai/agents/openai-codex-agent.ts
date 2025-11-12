@@ -5,7 +5,7 @@
 
 import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
-import type { AgentProvider, AgentTask, AgentResult } from './types.js';
+import type { AgentProvider, AgentResult, AgentTask } from './types';
 
 export class OpenAICodexAgent implements AgentProvider {
   name = 'openai-codex' as const;
@@ -23,7 +23,9 @@ export class OpenAICodexAgent implements AgentProvider {
     if (!this.apiKey) {
       return {
         success: false,
-        errors: ['OPENAI_API_KEY not set. OpenAI Codex agent requires API access.'],
+        errors: [
+          'OPENAI_API_KEY not set. OpenAI Codex agent requires API access.',
+        ],
       };
     }
 
@@ -98,7 +100,8 @@ Format as a structured report.
       const result = await generateText({
         model,
         prompt,
-        system: 'You are a senior software engineer performing thorough code review.',
+        system:
+          'You are a senior software engineer performing thorough code review.',
         temperature: 0.3,
       });
 
@@ -150,7 +153,9 @@ Generate production-quality code that is:
 Output only the code without explanations unless specifically asked.`;
 
     if (task.type === 'test') {
-      return basePrompt + '\n\nGenerate comprehensive test suites using Vitest.';
+      return (
+        basePrompt + '\n\nGenerate comprehensive test suites using Vitest.'
+      );
     }
 
     return basePrompt;
@@ -160,13 +165,13 @@ Output only the code without explanations unless specifically asked.`;
     switch (task.type) {
       case 'generate':
         return `Implement this specification:\n\n${task.specCode}\n\nProvide complete, production-ready TypeScript code.`;
-      
+
       case 'test':
         return `Create comprehensive tests:\n\nSpec:\n${task.specCode}\n\nImplementation:\n${task.existingCode}\n\nGenerate complete Vitest test suite.`;
-      
+
       case 'refactor':
         return `Refactor this code while maintaining functionality:\n\n${task.existingCode}\n\nSpec:\n${task.specCode}`;
-      
+
       default:
         return task.specCode;
     }
@@ -174,7 +179,9 @@ Output only the code without explanations unless specifically asked.`;
 
   private extractCode(text: string): string {
     // Extract from markdown code blocks
-    const match = text.match(/```(?:typescript|ts|tsx|javascript|js)?\n([\s\S]*?)\n```/);
+    const match = text.match(
+      /```(?:typescript|ts|tsx|javascript|js)?\n([\s\S]*?)\n```/
+    );
     return match && match[1] ? match[1] : text;
   }
 

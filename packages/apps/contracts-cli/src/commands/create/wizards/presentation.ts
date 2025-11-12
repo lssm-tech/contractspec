@@ -1,10 +1,16 @@
 import inquirer from 'inquirer';
-import type { PresentationSpecData, PresentationKind, Stability } from '../../../types.js';
+import type {
+  PresentationKind,
+  PresentationSpecData,
+  Stability,
+} from '../../../types';
 
 /**
  * Interactive wizard for creating presentation specs
  */
-export async function presentationWizard(defaults?: Partial<PresentationSpecData>): Promise<PresentationSpecData> {
+export async function presentationWizard(
+  defaults?: Partial<PresentationSpecData>
+): Promise<PresentationSpecData> {
   // Use type assertion to work around inquirer v12's stricter types
   const answers = await inquirer.prompt([
     {
@@ -47,7 +53,8 @@ export async function presentationWizard(defaults?: Partial<PresentationSpecData
       name: 'description',
       message: 'Description (what this presentation shows/provides):',
       default: defaults?.description,
-      validate: (input: string) => input.trim().length > 0 || 'Description is required',
+      validate: (input: string) =>
+        input.trim().length > 0 || 'Description is required',
     },
     {
       type: 'list',
@@ -61,7 +68,11 @@ export async function presentationWizard(defaults?: Partial<PresentationSpecData
       name: 'owners',
       message: 'Owners (comma-separated):',
       default: defaults?.owners?.join(', ') || '@team',
-      filter: (input: string) => input.split(',').map((s) => s.trim()).filter(Boolean),
+      filter: (input: string) =>
+        input
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
       validate: (input: string[]) => {
         if (input.length === 0) return 'At least one owner is required';
         if (!input.every((o) => o.startsWith('@'))) {
@@ -75,7 +86,11 @@ export async function presentationWizard(defaults?: Partial<PresentationSpecData
       name: 'tags',
       message: 'Tags (comma-separated):',
       default: defaults?.tags?.join(', ') || '',
-      filter: (input: string) => input.split(',').map((s) => s.trim()).filter(Boolean),
+      filter: (input: string) =>
+        input
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
     },
   ] as any);
 
@@ -89,4 +104,3 @@ export async function presentationWizard(defaults?: Partial<PresentationSpecData
     tags: answers.tags,
   };
 }
-
