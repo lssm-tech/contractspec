@@ -3,20 +3,20 @@
  * Leverages Windsurf AI capabilities and Cursor IDE integration for code generation and validation
  */
 
-import { spawn, exec } from 'child_process';
-import { writeFile, readFile, mkdir, rm } from 'fs/promises';
-import { join, dirname } from 'path';
-import { tmpdir, homedir } from 'os';
+import { exec, spawn } from 'child_process';
+import { mkdir, readFile, rm, writeFile } from 'fs/promises';
+import { join } from 'path';
+import { homedir, tmpdir } from 'os';
 import { existsSync } from 'fs';
 import { promisify } from 'util';
-import type { AgentProvider, AgentTask, AgentResult } from './types.js';
+import type { AgentProvider, AgentResult, AgentTask } from './types.js';
 
 const execAsync = promisify(exec);
 
 export class CursorAgent implements AgentProvider {
   name = 'cursor' as const;
   private cursorPath: string | null = null;
-  private isWindsurf: boolean = false;
+  private isWindsurf = false;
   private composerPort: string;
 
   constructor() {
@@ -26,44 +26,6 @@ export class CursorAgent implements AgentProvider {
 
   canHandle(task: AgentTask): boolean {
     return this.isCursorAvailable();
-  }
-
-  /**
-   * Detect if running in Cursor/Windsurf environment
-   */
-  private detectEnvironment(): void {
-    // Check for Windsurf/Cursor environment variables
-    this.isWindsurf = !!(
-      process.env.WINDSURF_SESSION || 
-      process.env.CURSOR_USER_DATA ||
-      process.env.VSCODE_CWD?.includes('Cursor') ||
-      process.env.VSCODE_CWD?.includes('Windsurf')
-    );
-    
-    // Try to locate cursor executable
-    const possiblePaths = [
-      '/usr/local/bin/cursor',
-      '/Applications/Cursor.app/Contents/MacOS/Cursor',
-      '/Applications/Windsurf.app/Contents/MacOS/Windsurf',
-      join(homedir(), '.cursor', 'cursor'),
-      join(homedir(), 'AppData', 'Local', 'Programs', 'cursor', 'Cursor.exe'),
-      join(homedir(), 'AppData', 'Local', 'Programs', 'windsurf', 'Windsurf.exe'),
-      'cursor', // In PATH
-      'windsurf', // In PATH
-    ];
-
-    for (const path of possiblePaths) {
-      if (path.includes('cursor') || path.includes('Cursor') || path.includes('windsurf') || path.includes('Windsurf')) {
-        try {
-          if (existsSync(path)) {
-            this.cursorPath = path;
-            break;
-          }
-        } catch {
-          continue;
-        }
-      }
-    }
   }
 
   async generate(task: AgentTask): Promise<AgentResult> {
@@ -93,10 +55,13 @@ export class CursorAgent implements AgentProvider {
       // Create validation context
       await this.setupValidationWorkspace(task, workDir);
 
-      const result = await this.executeWithBestMethod({
-        ...task,
-        type: 'validate',
-      }, workDir);
+      const result = await this.executeWithBestMethod(
+        {
+          ...task,
+          type: 'validate',
+        },
+        workDir
+      );
 
       // Cleanup
       await this.cleanupWorkDir(workDir);
@@ -111,15 +76,71 @@ export class CursorAgent implements AgentProvider {
   }
 
   /**
+   * Detect if running in Cursor/Windsurf environment
+   */
+  private detectEnvironment(): void {
+    // Check for Windsurf/Cursor environment variables
+    this.isWindsurf = !!(
+      process.env.WINDSURF_SESSION ||
+      process.env.CURSOR_USER_DATA ||
+      process.env.VSCODE_CWD?.includes('Cursor') ||
+      process.env.VSCODE_CWD?.includes('Windsurf')
+    );
+
+    // Try to locate cursor executable
+    const possiblePaths = [
+      '/usr/local/bin/cursor',
+      '/Applications/Cursor.app/Contents/MacOS/Cursor',
+      '/Applications/Windsurf.app/Contents/MacOS/Windsurf',
+      join(homedir(), '.cursor', 'cursor'),
+      join(homedir(), 'AppData', 'Local', 'Programs', 'cursor', 'Cursor.exe'),
+      join(
+        homedir(),
+        'AppData',
+        'Local',
+        'Programs',
+        'windsurf',
+        'Windsurf.exe'
+      ),
+      'cursor', // In PATH
+      'windsurf', // In PATH
+    ];
+
+    for (const path of possiblePaths) {
+      if (
+        path.includes('cursor') ||
+        path.includes('Cursor') ||
+        path.includes('windsurf') ||
+        path.includes('Windsurf')
+      ) {
+        try {
+          if (existsSync(path)) {
+            this.cursorPath = path;
+            break;
+          }
+        } catch {
+          continue;
+        }
+      }
+    }
+  }
+
+  /**
    * Execute task using the best available method
    */
-  private async executeWithBestMethod(task: AgentTask, workDir: string): Promise<AgentResult> {
+  private async executeWithBestMethod(
+    task: AgentTask,
+    workDir: string
+  ): Promise<AgentResult> {
     // Try methods in order of preference
     const methods = [
-      { name: 'windsurf-api', fn: () => this.useWindsurfAPI(task, workDir) },
-      { name: 'composer-api', fn: () => this.useComposerAPI(task, workDir) },
+      // { name: 'windsurf-api', fn: () => this.useWindsurfAPI(task, workDir) },
+      // { name: 'composer-api', fn: () => this.useComposerAPI(task, workDir) },
       { name: 'cursor-cli', fn: () => this.useCursorCLI(task, workDir) },
-      { name: 'file-based', fn: () => this.useFileBasedApproach(task, workDir) },
+      {
+        name: 'file-based',
+        fn: () => this.useFileBasedApproach(task, workDir),
+      },
     ];
 
     for (const method of methods) {
@@ -154,100 +175,113 @@ export class CursorAgent implements AgentProvider {
   /**
    * Use Windsurf's native API
    */
-  private async useWindsurfAPI(task: AgentTask, workDir: string): Promise<AgentResult> {
-    if (!this.isWindsurf) {
-      throw new Error('Not in Windsurf environment');
-    }
-
-    const apiUrl = `http://localhost:${this.composerPort}/api/ai/generate`;
-    
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Windsurf-Session': process.env.WINDSURF_SESSION || '',
-        },
-        body: JSON.stringify({
-          task: task.type,
-          specification: task.specCode,
-          existingCode: task.existingCode,
-          targetPath: task.targetPath,
-          instructions: this.buildDetailedPrompt(task),
-        }),
-        signal: AbortSignal.timeout(30000), // 30 second timeout
-      });
-
-      if (!response.ok) {
-        throw new Error(`Windsurf API returned ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      return {
-        success: true,
-        code: data.code || data.output || data.result,
-        warnings: data.warnings,
-        suggestions: data.suggestions,
-        metadata: {
-          agentMode: 'cursor',
-          method: 'windsurf-api',
-          model: data.model,
-        },
-      };
-    } catch (error) {
-      throw new Error(`Windsurf API failed: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  }
+  // private async useWindsurfAPI(
+  //   task: AgentTask,
+  //   workDir: string
+  // ): Promise<AgentResult> {
+  //   if (!this.isWindsurf) {
+  //     throw new Error('Not in Windsurf environment');
+  //   }
+  //
+  //   const apiUrl = `http://localhost:${this.composerPort}/api/ai/generate`;
+  //
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'X-Windsurf-Session': process.env.WINDSURF_SESSION || '',
+  //       },
+  //       body: JSON.stringify({
+  //         task: task.type,
+  //         specification: task.specCode,
+  //         existingCode: task.existingCode,
+  //         targetPath: task.targetPath,
+  //         instructions: this.buildDetailedPrompt(task),
+  //       }),
+  //       signal: AbortSignal.timeout(30000), // 30 second timeout
+  //     });
+  //
+  //     if (!response.ok) {
+  //       throw new Error(`Windsurf API returned ${response.status}`);
+  //     }
+  //
+  //     const data = await response.json();
+  //
+  //     return {
+  //       success: true,
+  //       code: data.code || data.output || data.result,
+  //       warnings: data.warnings,
+  //       suggestions: data.suggestions,
+  //       metadata: {
+  //         agentMode: 'cursor',
+  //         method: 'windsurf-api',
+  //         model: data.model,
+  //       },
+  //     };
+  //   } catch (error) {
+  //     throw new Error(
+  //       `Windsurf API failed: ${error instanceof Error ? error.message : String(error)}`
+  //     );
+  //   }
+  // }
 
   /**
    * Use Cursor Composer API
    */
-  private async useComposerAPI(task: AgentTask, workDir: string): Promise<AgentResult> {
-    const apiUrl = `http://localhost:${this.composerPort}/api/compose`;
-    
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          instruction: this.buildDetailedPrompt(task),
-          files: await this.prepareFilesForAPI(task, workDir),
-          workDir,
-          options: {
-            type: task.type,
-            streaming: false,
-          },
-        }),
-        signal: AbortSignal.timeout(30000),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Composer API returned ${response.status}`);
-      }
-
-      const result = await response.json();
-      
-      return {
-        success: true,
-        code: result.code || result.output || result.content,
-        metadata: {
-          agentMode: 'cursor',
-          method: 'composer-api',
-        },
-      };
-    } catch (error) {
-      throw new Error(`Composer API failed: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  }
+  // private async useComposerAPI(
+  //   task: AgentTask,
+  //   workDir: string
+  // ): Promise<AgentResult> {
+  //   const apiUrl = `http://localhost:${this.composerPort}/api/compose`;
+  //
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         instruction: this.buildDetailedPrompt(task),
+  //         files: await this.prepareFilesForAPI(task, workDir),
+  //         workDir,
+  //         options: {
+  //           type: task.type,
+  //           streaming: false,
+  //         },
+  //       }),
+  //       signal: AbortSignal.timeout(30000),
+  //     });
+  //
+  //     if (!response.ok) {
+  //       throw new Error(`Composer API returned ${response.status}`);
+  //     }
+  //
+  //     const result = await response.json();
+  //
+  //     return {
+  //       success: true,
+  //       code: result.code || result.output || result.content,
+  //       metadata: {
+  //         agentMode: 'cursor',
+  //         method: 'composer-api',
+  //       },
+  //     };
+  //   } catch (error) {
+  //     throw new Error(
+  //       `Composer API failed: ${error instanceof Error ? error.message : String(error)}`
+  //     );
+  //   }
+  // }
 
   /**
    * Use Cursor CLI directly
    */
-  private async useCursorCLI(task: AgentTask, workDir: string): Promise<AgentResult> {
+  private async useCursorCLI(
+    task: AgentTask,
+    workDir: string
+  ): Promise<AgentResult> {
     if (!this.cursorPath) {
       throw new Error('Cursor executable not found');
     }
@@ -267,7 +301,7 @@ export class CursorAgent implements AgentProvider {
     return new Promise((resolve, reject) => {
       // Launch Cursor with the workspace
       const args = ['--wait', '--new-window', workDir];
-      
+
       const cursor = spawn(this.cursorPath!, args, {
         cwd: workDir,
         stdio: 'pipe',
@@ -307,7 +341,11 @@ export class CursorAgent implements AgentProvider {
             reject(new Error('Failed to read generated output'));
           }
         } else {
-          reject(new Error(`Cursor CLI exited with code ${code}. No output generated.`));
+          reject(
+            new Error(
+              `Cursor CLI exited with code ${code}. No output generated.`
+            )
+          );
         }
       });
 
@@ -322,7 +360,10 @@ export class CursorAgent implements AgentProvider {
   /**
    * File-based approach - create workspace and instructions for manual completion
    */
-  private async useFileBasedApproach(task: AgentTask, workDir: string): Promise<AgentResult> {
+  private async useFileBasedApproach(
+    task: AgentTask,
+    workDir: string
+  ): Promise<AgentResult> {
     // Create comprehensive workspace with instructions
     const specPath = join(workDir, 'SPECIFICATION.ts');
     const instructionsPath = join(workDir, 'INSTRUCTIONS.md');
@@ -333,7 +374,9 @@ export class CursorAgent implements AgentProvider {
     await writeFile(templatePath, this.generateTemplate(task));
 
     // Create a README for the workspace
-    await writeFile(join(workDir, 'README.md'), `# Cursor Agent Workspace
+    await writeFile(
+      join(workDir, 'README.md'),
+      `# Cursor Agent Workspace
 
 This workspace was prepared for Cursor AI code generation.
 
@@ -349,7 +392,8 @@ This workspace was prepared for Cursor AI code generation.
 4. Save the result as output.ts
 
 Workspace path: ${workDir}
-`);
+`
+    );
 
     return {
       success: false,
@@ -370,19 +414,29 @@ Workspace path: ${workDir}
   /**
    * Setup workspace for validation
    */
-  private async setupValidationWorkspace(task: AgentTask, workDir: string): Promise<void> {
+  private async setupValidationWorkspace(
+    task: AgentTask,
+    workDir: string
+  ): Promise<void> {
     await writeFile(join(workDir, 'specification.ts'), task.specCode);
-    await writeFile(join(workDir, 'implementation.ts'), task.existingCode || '// No implementation');
-    await writeFile(join(workDir, 'VALIDATION_INSTRUCTIONS.md'), this.buildValidationPrompt(task));
+    await writeFile(
+      join(workDir, 'implementation.ts'),
+      task.existingCode || '// No implementation'
+    );
+    await writeFile(
+      join(workDir, 'VALIDATION_INSTRUCTIONS.md'),
+      this.buildValidationPrompt(task)
+    );
   }
 
   /**
    * Prepare files for API submission
    */
-  private async prepareFilesForAPI(task: AgentTask, workDir: string): Promise<Array<{ path: string; content: string }>> {
-    const files = [
-      { path: 'spec.ts', content: task.specCode },
-    ];
+  private async prepareFilesForAPI(
+    task: AgentTask,
+    workDir: string
+  ): Promise<{ path: string; content: string }[]> {
+    const files = [{ path: 'spec.ts', content: task.specCode }];
 
     if (task.existingCode) {
       files.push({ path: 'existing.ts', content: task.existingCode });
@@ -396,7 +450,7 @@ Workspace path: ${workDir}
    */
   private buildDetailedPrompt(task: AgentTask): string {
     const header = `# AI Code Generation Task - Cursor Agent\n\n**Task Type:** ${task.type}\n**Generated:** ${new Date().toISOString()}\n\n`;
-    
+
     const specification = `## Specification\n\n\`\`\`typescript\n${task.specCode}\n\`\`\`\n\n`;
 
     const taskInstructions = {
@@ -502,7 +556,11 @@ ${task.existingCode || ''}
 Refactored code that maintains functionality while improving quality.`,
     };
 
-    return header + specification + (taskInstructions[task.type] || taskInstructions.generate);
+    return (
+      header +
+      specification +
+      (taskInstructions[task.type] || taskInstructions.generate)
+    );
   }
 
   /**
@@ -563,7 +621,10 @@ Suggest specific improvements with code examples where applicable.`;
   private generateTemplate(task: AgentTask): string {
     return `// Auto-generated template for ${task.type} task
 // Specification:
-${task.specCode.split('\n').map(line => `// ${line}`).join('\n')}
+${task.specCode
+  .split('\n')
+  .map((line) => `// ${line}`)
+  .join('\n')}
 
 // TODO: Implement according to specification
 // Use Cursor AI to complete this implementation
@@ -595,7 +656,7 @@ export function implementation() {
    */
   private hasComposerAPI(): boolean {
     return !!(
-      process.env.CURSOR_COMPOSER_PORT || 
+      process.env.CURSOR_COMPOSER_PORT ||
       process.env.CURSOR_API_ENABLED ||
       this.isWindsurf
     );
