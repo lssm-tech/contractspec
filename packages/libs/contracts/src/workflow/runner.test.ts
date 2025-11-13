@@ -4,10 +4,11 @@ import {
   type WorkflowSpec,
   type Step,
 } from './spec';
-import { WorkflowRunner } from './runner';
+import { WorkflowRunner, type WorkflowRunnerConfig } from './runner';
 import { InMemoryStateStore } from './adapters/memory-store';
 import type { WorkflowState } from './state';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+import type { ResolvedAppConfig } from '../app-config/runtime';
 
 function workflowSpec(overrides?: {
   steps?: Step[];
@@ -55,12 +56,19 @@ function workflowSpec(overrides?: {
   };
 }
 
-function createRunner(spec: WorkflowSpec, events: Array<{ event: string; payload: any }>) {
+function createRunner(
+  spec: WorkflowSpec,
+  events: Array<{ event: string; payload: any }>,
+  options?: Pick<
+    WorkflowRunnerConfig,
+    'appConfigProvider' | 'enforceCapabilities'
+  >
+) {
   const registry = new WorkflowRegistry();
   registry.register(spec);
   const store = new InMemoryStateStore();
 
-  const opExecutor = vi.fn(async (op: { name: string }) => {
+  const opExecutor = vi.fn(async (op: { name: string }, _input?: unknown, _ctx?: unknown) => {
     if (op.name === 'sigil.start') return { approved: true };
     if (op.name === 'sigil.finish') return { done: true };
     return {};
@@ -70,6 +78,8 @@ function createRunner(spec: WorkflowSpec, events: Array<{ event: string; payload
     registry,
     stateStore: store,
     opExecutor,
+    appConfigProvider: options?.appConfigProvider,
+    enforceCapabilities: options?.enforceCapabilities,
     eventEmitter: (event, payload) => events.push({ event, payload }),
   });
 
@@ -109,6 +119,55 @@ describe('WorkflowRunner', () => {
     expect(state.status).toBe('completed');
     expect(state.currentStep).toBe('finish');
     expect(events.some(({ event }) => event === 'workflow.step_completed')).toBe(true);
+  });
+
+  it('provides resolved app config context to the operation executor', async () => {
+    const events: Array<{ event: string; payload: any }> = [];
+    const spec = workflowSpec();
+    const resolvedAppConfig: ResolvedAppConfig = {
+      appId: 'demo-app',
+      tenantId: 'tenant-1',
+      blueprintName: 'demo.blueprint',
+      blueprintVersion: 1,
+      configVersion: 1,
+      capabilities: { enabled: [], disabled: [] },
+      features: { include: [], exclude: [] },
+      dataViews: {},
+      workflows: {},
+      policies: [],
+      experiments: { catalog: [], active: [], paused: [] },
+      featureFlags: [],
+      routes: [],
+      integrations: [],
+      knowledge: [],
+    };
+
+    const { runner, opExecutor } = createRunner(spec, events, {
+      appConfigProvider: async () => resolvedAppConfig,
+    });
+
+    const workflowId = await runner.start(spec.meta.name);
+    await runner.executeStep(workflowId);
+
+    const context = opExecutor.mock.calls[0]?.[2] as any;
+    expect(context?.resolvedAppConfig).toBe(resolvedAppConfig);
+    expect(context?.integrations).toEqual(resolvedAppConfig.integrations);
+    expect(context?.knowledge).toEqual(resolvedAppConfig.knowledge);
+  });
+
+  it('invokes capability enforcement hook before executing operation', async () => {
+    const events: Array<{ event: string; payload: any }> = [];
+    const spec = workflowSpec();
+    const enforceCapabilities = vi.fn();
+
+    const { runner } = createRunner(spec, events, { enforceCapabilities });
+    const workflowId = await runner.start(spec.meta.name);
+    await runner.executeStep(workflowId);
+
+    expect(enforceCapabilities).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'sigil.start' }),
+      expect.objectContaining({ step: expect.objectContaining({ id: 'start' }) })
+    );
   });
 
   it('rejects step execution when guard evaluates to false', async () => {

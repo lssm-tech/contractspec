@@ -10,6 +10,11 @@ import type {
   RateLimitDefinition,
 } from './policy/spec';
 import type { TelemetryTracker } from './telemetry';
+import type {
+  ResolvedAppConfig,
+  ResolvedIntegration,
+  ResolvedKnowledge,
+} from './app-config/runtime';
 
 export interface FieldLevelDecision {
   field: string;
@@ -82,4 +87,10 @@ export interface HandlerCtx {
     version: number,
     payload: unknown
   ) => Promise<void>;
+  /** Resolved application configuration for the current execution context */
+  appConfig?: ResolvedAppConfig;
+  /** Resolved integration connections available to this execution */
+  integrations?: ResolvedIntegration[];
+  /** Resolved knowledge spaces available to this execution */
+  knowledge?: ResolvedKnowledge[];
 }
