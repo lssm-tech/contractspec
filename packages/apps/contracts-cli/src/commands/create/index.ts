@@ -5,6 +5,7 @@ import { operationWizard } from './wizards/operation';
 import { eventWizard } from './wizards/event';
 import { presentationWizard } from './wizards/presentation';
 import { workflowWizard } from './wizards/workflow';
+import { dataViewWizard } from './wizards/data-view';
 import {
   aiGenerateEvent,
   aiGenerateOperation,
@@ -14,6 +15,7 @@ import { generateOperationSpec } from '../../templates/operation.template';
 import { generateEventSpec } from '../../templates/event.template';
 import { generatePresentationSpec } from '../../templates/presentation.template';
 import { generateWorkflowSpec } from '../../templates/workflow.template';
+import { generateDataViewSpec } from '../../templates/data-view.template';
 import {
   generateFileName,
   resolveOutputPath,
@@ -22,6 +24,7 @@ import {
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
 import type {
+  DataViewSpecData,
   EventSpecData,
   OperationSpecData,
   PresentationSpecData,
@@ -55,6 +58,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Operation (Command/Query)', value: 'operation' },
           { name: 'Event', value: 'event' },
           { name: 'Presentation', value: 'presentation' },
+          { name: 'Data view', value: 'data-view' },
           { name: 'Workflow', value: 'workflow' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
@@ -87,6 +91,9 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'workflow':
       await createWorkflowSpec(options, config);
+      break;
+    case 'data-view':
+      await createDataViewSpec(options, config);
       break;
     case 'form':
       console.log(chalk.yellow('Form spec creation coming soon!'));
@@ -338,6 +345,40 @@ async function createWorkflowSpec(options: CreateOptions, config: Config) {
   console.log(
     chalk.gray(
       `  2. Generate a runner scaffold: contractspec build ${filePath}`
+    )
+  );
+}
+
+async function createDataViewSpec(options: CreateOptions, config: Config) {
+  if (options.ai) {
+    console.log(
+      chalk.yellow(
+        '⚠️  AI-assisted data view generation is not available yet. Switching to interactive wizard.'
+      )
+    );
+  }
+
+  const specData: DataViewSpecData = await dataViewWizard();
+  const code = generateDataViewSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.data-view.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'data-view',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing data view spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(chalk.gray(`  1. Wire the data view spec into your registry.`));
+  console.log(
+    chalk.gray(
+      `  2. Render it with DataViewRenderer or tailor a component to your UI.`
     )
   );
 }

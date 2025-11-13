@@ -144,5 +144,11 @@ export { FormCardLayout } from './components/forms/FormCardLayout';
 export { FormStepsLayout } from './components/forms/FormStepsLayout';
 export { FormOneByOneLayout } from './components/forms/FormOneByOneLayout';
 
+// Data views
+export { DataViewList } from './components/data-view/DataViewList';
+export { DataViewTable } from './components/data-view/DataViewTable';
+export { DataViewDetail } from './components/data-view/DataViewDetail';
+export { DataViewRenderer } from './components/data-view/DataViewRenderer';
+
 // Overlays re-exports (web default; native via Metro alias)
 // Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues

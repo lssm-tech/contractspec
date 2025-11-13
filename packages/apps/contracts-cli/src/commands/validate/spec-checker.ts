@@ -40,6 +40,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validateWorkflowSpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.data-view.')) {
+    validateDataViewSpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -209,6 +213,27 @@ function validateCommonFields(code: string, errors: string[], warnings: string[]
   // Check for stability
   if (!code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)) {
     warnings.push('Missing or invalid stability field');
+  }
+}
+
+function validateDataViewSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*DataViewSpec\s*=/)) {
+    errors.push('Missing DataViewSpec type annotation');
+  }
+  if (!code.includes('meta:')) {
+    errors.push('Missing meta section');
+  }
+  if (!code.includes('source:')) {
+    errors.push('Missing source section');
+  }
+  if (!code.includes('view:')) {
+    errors.push('Missing view section');
+  }
+  if (!code.match(/kind:\s*['"](list|table|detail|grid)['"]/)) {
+    errors.push('Missing or invalid view.kind (list/table/detail/grid)');
+  }
+  if (!code.match(/fields:\s*\[/)) {
+    warnings.push('No fields defined for data view');
   }
 }
 
