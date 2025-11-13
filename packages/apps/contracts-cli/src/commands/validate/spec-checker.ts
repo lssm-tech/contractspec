@@ -156,17 +156,17 @@ function validateExperimentSpec(code: string, errors: string[], warnings: string
 }
 
 function validateAppConfigSpec(code: string, errors: string[], warnings: string[]) {
-  if (!code.match(/:\s*AppConfigSpec\s*=/)) {
-    errors.push('Missing AppConfigSpec type annotation');
+  if (!code.match(/:\s*AppBlueprintSpec\s*=/)) {
+    errors.push('Missing AppBlueprintSpec type annotation');
   }
   if (!code.includes('meta:')) {
-    errors.push('AppConfigSpec must define meta');
+    errors.push('AppBlueprintSpec must define meta');
   }
   if (!code.includes('appId')) {
-    warnings.push('AppConfig meta missing appId assignment');
+    warnings.push('AppBlueprint meta missing appId assignment');
   }
   if (!code.includes('capabilities')) {
-    warnings.push('AppConfig spec does not declare capabilities');
+    warnings.push('App blueprint spec does not declare capabilities');
   }
 }
 

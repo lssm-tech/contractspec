@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { composeAppConfig } from './runtime';
-import type { AppConfigSpec } from './spec';
+import { resolveAppConfig, composeAppConfig } from './runtime';
+import {
+  type AppBlueprintSpec,
+  type TenantAppConfig,
+} from './spec';
 import {
   CapabilityRegistry,
   type CapabilitySpec,
 } from '../capabilities';
-import { StabilityEnum, type Owner, type Tag } from '../ownership';
 import { FeatureRegistry, type FeatureModuleSpec } from '../features';
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
 import { WorkflowRegistry, type WorkflowSpec } from '../workflow/spec';
@@ -19,6 +21,7 @@ import {
   ExperimentRegistry,
   type ExperimentSpec,
 } from '../experiments/spec';
+import { StabilityEnum, type Owner, type Tag } from '../ownership';
 
 const ownership = {
   title: 'Sample',
@@ -29,32 +32,37 @@ const ownership = {
   stability: StabilityEnum.Experimental,
 } as const;
 
-function makeCapability(): CapabilitySpec {
+function makeCapability(
+  key = 'core.sample',
+  version = 1
+): CapabilitySpec {
   return {
     meta: {
       ...ownership,
-      key: 'core.sample',
-      version: 1,
+      key,
+      version,
       kind: 'integration',
     },
     provides: [],
   };
 }
 
-function makeFeature(): FeatureModuleSpec {
+function makeFeature(key = 'core-shell'): FeatureModuleSpec {
   return {
     meta: {
       ...ownership,
-      key: 'core-shell',
+      key,
     },
   };
 }
 
-function makeDataView(): DataViewSpec {
+function makeDataView(
+  name = 'core.dashboard.view'
+): DataViewSpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.dashboard.view',
+      name,
       version: 1,
       entity: 'dashboard',
     },
@@ -74,11 +82,13 @@ function makeDataView(): DataViewSpec {
   };
 }
 
-function makeWorkflow(): WorkflowSpec {
+function makeWorkflow(
+  name = 'core.onboarding'
+): WorkflowSpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.onboarding',
+      name,
       version: 1,
     },
     definition: {
@@ -112,11 +122,11 @@ function makePolicy(): PolicySpec {
   };
 }
 
-function makeTheme(): ThemeSpec {
+function makeTheme(name = 'core.theme'): ThemeSpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.theme',
+      name,
       version: 1,
     },
     tokens: {
@@ -136,11 +146,11 @@ function makeTheme(): ThemeSpec {
   };
 }
 
-function makeTelemetry(): TelemetrySpec {
+function makeTelemetry(name = 'core.telemetry'): TelemetrySpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.telemetry',
+      name,
       version: 1,
       domain: 'core',
     },
@@ -158,11 +168,11 @@ function makeTelemetry(): TelemetrySpec {
   };
 }
 
-function makeExperiment(): ExperimentSpec {
+function makeExperiment(name = 'core.experiment'): ExperimentSpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.experiment',
+      name,
       version: 1,
       domain: 'core',
     },
@@ -175,14 +185,12 @@ function makeExperiment(): ExperimentSpec {
   };
 }
 
-const baseConfig: AppConfigSpec = {
+const blueprint: AppBlueprintSpec = {
   meta: {
     ...ownership,
-    name: 'tenant.core.app',
+    name: 'core.app',
     version: 1,
     appId: 'core-app',
-    tenantId: 'tenant',
-    environment: 'production',
   },
   capabilities: {
     enabled: [{ key: 'core.sample', version: 1 }],
@@ -206,56 +214,191 @@ const baseConfig: AppConfigSpec = {
   experiments: {
     active: [{ name: 'core.experiment', version: 1 }],
   },
+  featureFlags: [{ key: 'beta', enabled: false }],
+  routes: [
+    {
+      path: '/dashboard',
+      label: 'Dashboard',
+      dataView: 'dashboard',
+    },
+  ],
+  notes: 'Default blueprint',
 };
 
+const tenantConfig: TenantAppConfig = {
+  meta: {
+    id: 'tenant-config-1',
+    tenantId: 'tenant',
+    appId: 'core-app',
+    blueprintName: blueprint.meta.name,
+    blueprintVersion: blueprint.meta.version,
+    environment: 'production',
+    version: 2,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  capabilities: {
+    disable: [{ key: 'core.sample', version: 1 }],
+    enable: [{ key: 'core.tenant-extension', version: 1 }],
+  },
+  dataViewOverrides: [
+    {
+      slot: 'dashboard',
+      pointer: { name: 'core.dashboard.alt', version: 1 },
+    },
+  ],
+  workflowOverrides: [
+    {
+      slot: 'onboarding',
+      pointer: { name: 'core.onboarding.alt', version: 1 },
+    },
+  ],
+  additionalPolicies: [{ name: 'core.policy.tenant', version: 1 }],
+  themeOverride: {
+    primary: { name: 'core.theme.alt', version: 1 },
+  },
+  telemetryOverride: {
+    spec: { name: 'core.telemetry.alt', version: 1 },
+    disabledEvents: ['core.event'],
+  },
+  experiments: {
+    paused: [{ name: 'core.experiment', version: 1 }],
+    active: [{ name: 'core.experiment.alt', version: 1 }],
+  },
+  featureFlags: [{ key: 'beta', enabled: true, description: 'Tenant opt-in' }],
+  routeOverrides: [
+    {
+      path: '/dashboard',
+      label: 'Tenant Dashboard',
+      featureFlag: 'beta',
+    },
+  ],
+  notes: 'Tenant specific overrides',
+};
+
+describe('resolveAppConfig', () => {
+  it('merges blueprint and tenant config', () => {
+    const resolved = resolveAppConfig(blueprint, tenantConfig);
+    expect(resolved.appId).toBe('core-app');
+    expect(resolved.tenantId).toBe('tenant');
+    expect(resolved.capabilities.enabled).toHaveLength(1);
+    expect(resolved.capabilities.disabled).toHaveLength(1);
+    expect(resolved.capabilities.enabled[0]?.key).toBe('core.tenant-extension');
+    expect(resolved.dataViews.dashboard?.name).toBe('core.dashboard.alt');
+    expect(resolved.workflows.onboarding?.name).toBe('core.onboarding.alt');
+    expect(resolved.theme?.primary.name).toBe('core.theme.alt');
+    expect(resolved.telemetry?.spec?.name).toBe('core.telemetry.alt');
+    expect(resolved.experiments.active).toEqual([
+      { name: 'core.experiment.alt', version: 1 },
+    ]);
+    expect(resolved.experiments.paused).toEqual([
+      { name: 'core.experiment', version: 1 },
+    ]);
+    expect(resolved.featureFlags[0]?.enabled).toBe(true);
+    expect(resolved.routes[0]?.label).toBe('Tenant Dashboard');
+    expect(resolved.notes).toBe('Tenant specific overrides');
+  });
+});
+
 describe('composeAppConfig', () => {
-  it('resolves references across registries', () => {
-    const capabilities = new CapabilityRegistry().register(makeCapability());
-    const features = new FeatureRegistry().register(makeFeature());
-    const dataViews = new DataViewRegistry().register(makeDataView());
-    const workflows = new WorkflowRegistry().register(makeWorkflow());
-    const policies = new PolicyRegistry().register(makePolicy());
-    const themes = new ThemeRegistry().register(makeTheme());
-    const telemetry = new TelemetryRegistry().register(makeTelemetry());
-    const experiments = new ExperimentRegistry().register(makeExperiment());
+  it('materializes resolved config against registries', () => {
+    const capabilities = new CapabilityRegistry()
+      .register(makeCapability())
+      .register(makeCapability('core.tenant-extension', 1));
+    const features = new FeatureRegistry()
+      .register(makeFeature())
+      .register(makeFeature('core-shell-optional'));
+    const dataViews = new DataViewRegistry()
+      .register(makeDataView())
+      .register(makeDataView('core.dashboard.alt'));
+    const workflows = new WorkflowRegistry()
+      .register(makeWorkflow())
+      .register(makeWorkflow('core.onboarding.alt'));
+    const policies = new PolicyRegistry()
+      .register(makePolicy())
+      .register({
+        meta: {
+          ...ownership,
+          name: 'core.policy.tenant',
+          version: 1,
+          scope: 'feature',
+        },
+        rules: [
+          {
+            effect: 'allow',
+            actions: ['edit'],
+            resource: { type: 'any' },
+          },
+        ],
+      });
+    const themes = new ThemeRegistry()
+      .register(makeTheme())
+      .register(makeTheme('core.theme.alt'));
+    const telemetry = new TelemetryRegistry()
+      .register(makeTelemetry())
+      .register(makeTelemetry('core.telemetry.alt'));
+    const experiments = new ExperimentRegistry()
+      .register(makeExperiment())
+      .register(makeExperiment('core.experiment.alt'));
 
-    const composition = composeAppConfig(baseConfig, {
-      capabilities,
-      features,
-      dataViews,
-      workflows,
-      policies,
-      themes,
-      telemetry,
-      experiments,
-    });
+    const composition = composeAppConfig(
+      blueprint,
+      tenantConfig,
+      {
+        capabilities,
+        features,
+        dataViews,
+        workflows,
+        policies,
+        themes,
+        telemetry,
+        experiments,
+      },
+      { strict: false }
+    );
 
+    expect(composition.resolved.tenantId).toBe('tenant');
     expect(composition.capabilities).toHaveLength(1);
-    expect(Object.keys(composition.dataViews)).toEqual(['dashboard']);
-    expect(Object.keys(composition.workflows)).toEqual(['onboarding']);
-    expect(composition.policies).toHaveLength(1);
-    expect(composition.theme?.meta.name).toBe('core.theme');
-    expect(composition.telemetry?.meta.name).toBe('core.telemetry');
+    expect(composition.dataViews.dashboard!.meta.name).toBe(
+      'core.dashboard.alt'
+    );
+    expect(composition.workflows.onboarding!.meta.name).toBe(
+      'core.onboarding.alt'
+    );
+    expect(composition.policies).toHaveLength(2);
+    expect(composition.theme?.meta.name).toBe('core.theme.alt');
+    expect(composition.telemetry?.meta.name).toBe('core.telemetry.alt');
     expect(composition.experiments.active).toHaveLength(1);
     expect(composition.missing).toHaveLength(0);
   });
 
   it('records missing references when registries are absent', () => {
-    const composition = composeAppConfig(baseConfig, {}, { strict: false });
+    const composition = composeAppConfig(
+      blueprint,
+      tenantConfig,
+      {},
+      { strict: false }
+    );
     expect(composition.missing).not.toHaveLength(0);
-    const identifiers = composition.missing.map((m) => m.type);
-    expect(identifiers).toContain('capability');
-    expect(identifiers).toContain('feature');
-    expect(identifiers).toContain('dataView');
-    expect(identifiers).toContain('workflow');
-    expect(identifiers).toContain('policy');
-    expect(identifiers).toContain('theme');
-    expect(identifiers).toContain('telemetry');
-    expect(identifiers).toContain('experiment');
+    const types = composition.missing.map((item) => item.type);
+    expect(types).toEqual(
+      expect.arrayContaining([
+        'capability',
+        'feature',
+        'dataView',
+        'workflow',
+        'policy',
+        'theme',
+        'telemetry',
+        'experiment',
+      ])
+    );
   });
 
-  it('throws when strict mode and missing references', () => {
-    expect(() => composeAppConfig(baseConfig, {}, { strict: true })).toThrow();
+  it('throws when strict mode and references missing', () => {
+    expect(() =>
+      composeAppConfig(blueprint, tenantConfig, {}, { strict: true })
+    ).toThrow();
   });
 });
 

@@ -240,12 +240,10 @@ export interface AppRouteConfigData {
   experimentVersion?: number;
 }
 
-export interface AppConfigSpecData extends BaseSpecData {
+export interface AppBlueprintSpecData extends BaseSpecData {
   title: string;
   domain: string;
   appId: string;
-  tenantId?: string;
-  environment?: string;
   capabilitiesEnabled: string[];
   capabilitiesDisabled: string[];
   featureIncludes: string[];
