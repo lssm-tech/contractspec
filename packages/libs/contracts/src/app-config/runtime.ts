@@ -19,6 +19,18 @@ import type {
   ExperimentSpec,
 } from '../experiments/spec';
 import type {
+  IntegrationSpec,
+  IntegrationSpecRegistry,
+} from '../integrations/spec';
+import type { IntegrationConnection } from '../integrations/connection';
+import type { AppIntegrationBinding } from '../integrations/binding';
+import type {
+  KnowledgeSpaceSpec,
+  KnowledgeSpaceRegistry,
+} from '../knowledge/spec';
+import type { KnowledgeSourceConfig } from '../knowledge/source';
+import type { AppKnowledgeBinding } from '../knowledge/binding';
+import type {
   AppBlueprintSpec,
   AppRouteConfig,
   AppThemeBinding,
@@ -29,6 +41,18 @@ import type {
   TenantRouteOverride,
   TenantSpecOverride,
 } from './spec';
+
+export interface ResolvedIntegration {
+  binding: AppIntegrationBinding;
+  connection: IntegrationConnection;
+  spec: IntegrationSpec;
+}
+
+export interface ResolvedKnowledge {
+  binding: AppKnowledgeBinding;
+  space: KnowledgeSpaceSpec;
+  sources: KnowledgeSourceConfig[];
+}
 
 export interface ResolvedAppConfig {
   appId: string;
@@ -57,6 +81,8 @@ export interface ResolvedAppConfig {
   };
   featureFlags: FeatureFlagState[];
   routes: AppRouteConfig[];
+  integrations: ResolvedIntegration[];
+  knowledge: ResolvedKnowledge[];
   notes?: string;
 }
 
@@ -74,6 +100,8 @@ export interface AppComposition {
     active: ExperimentSpec[];
     paused: ExperimentSpec[];
   };
+  integrations: ResolvedIntegration[];
+  knowledge: ResolvedKnowledge[];
   missing: MissingReference[];
 }
 
@@ -86,11 +114,22 @@ export interface MissingReference {
     | 'policy'
     | 'theme'
     | 'telemetry'
-    | 'experiment';
+    | 'experiment'
+    | 'integrationConnection'
+    | 'integrationSpec'
+    | 'knowledgeSpace'
+    | 'knowledgeSource';
   identifier: string;
 }
 
-export interface AppCompositionDeps {
+export interface ResolveAppConfigDeps {
+  integrationSpecs?: IntegrationSpecRegistry;
+  integrationConnections?: IntegrationConnection[];
+  knowledgeSpaces?: KnowledgeSpaceRegistry;
+  knowledgeSources?: KnowledgeSourceConfig[];
+}
+
+export interface AppCompositionDeps extends ResolveAppConfigDeps {
   capabilities?: CapabilityRegistry;
   features?: FeatureRegistry;
   dataViews?: DataViewRegistry;
@@ -107,7 +146,8 @@ export interface ComposeOptions {
 
 export function resolveAppConfig(
   blueprint: AppBlueprintSpec,
-  tenant: TenantAppConfig
+  tenant: TenantAppConfig,
+  deps: ResolveAppConfigDeps = {}
 ): ResolvedAppConfig {
   const capabilities = mergeCapabilities(
     blueprint.capabilities,
@@ -146,6 +186,16 @@ export function resolveAppConfig(
     blueprint.routes ?? [],
     tenant.routeOverrides ?? []
   );
+  const integrations = resolveIntegrationBindings(
+    tenant.integrations,
+    deps.integrationConnections,
+    deps.integrationSpecs
+  );
+  const knowledge = resolveKnowledgeBindings(
+    tenant.knowledge,
+    deps.knowledgeSpaces,
+    deps.knowledgeSources
+  );
 
   return {
     appId: blueprint.meta.appId,
@@ -164,6 +214,8 @@ export function resolveAppConfig(
     experiments,
     featureFlags,
     routes,
+    integrations,
+    knowledge,
     notes: tenant.notes ?? blueprint.notes,
   };
 }
@@ -174,8 +226,23 @@ export function composeAppConfig(
   deps: AppCompositionDeps,
   options: ComposeOptions = {}
 ): AppComposition {
-  const resolved = resolveAppConfig(blueprint, tenant);
+  const resolved = resolveAppConfig(blueprint, tenant, deps);
   const missing: MissingReference[] = [];
+
+  missing.push(
+    ...collectMissingIntegrations(
+      tenant.integrations ?? [],
+      deps.integrationConnections,
+      deps.integrationSpecs
+    )
+  );
+  missing.push(
+    ...collectMissingKnowledge(
+      tenant.knowledge ?? [],
+      deps.knowledgeSpaces,
+      deps.knowledgeSources
+    )
+  );
 
   const capabilities = resolveCapabilityRefs(
     resolved.capabilities.enabled,
@@ -245,6 +312,8 @@ export function composeAppConfig(
     themeFallbacks: fallbacks,
     telemetry,
     experiments,
+    integrations: resolved.integrations,
+    knowledge: resolved.knowledge,
     missing,
   };
 }
@@ -448,6 +517,150 @@ function mergeRoutes(
     routes.set(existing.path, existing);
   }
   return [...routes.values()];
+}
+
+function resolveIntegrationBindings(
+  bindings: AppIntegrationBinding[] | undefined,
+  connections: IntegrationConnection[] | undefined,
+  specs: IntegrationSpecRegistry | undefined
+): ResolvedIntegration[] {
+  if (!bindings?.length || !connections || !specs) return [];
+  const connectionById = new Map<string, IntegrationConnection>();
+  for (const connection of connections) {
+    connectionById.set(connection.meta.id, connection);
+  }
+
+  return bindings
+    .map((binding) => {
+      const connection = connectionById.get(binding.connectionId);
+      if (!connection) return null;
+      const spec = specs.get(
+        connection.meta.integrationKey,
+        connection.meta.integrationVersion
+      );
+      if (!spec) return null;
+      return {
+        binding,
+        connection,
+        spec,
+      };
+    })
+    .filter((entry): entry is ResolvedIntegration => entry !== null);
+}
+
+function resolveKnowledgeBindings(
+  bindings: AppKnowledgeBinding[] | undefined,
+  spaces: KnowledgeSpaceRegistry | undefined,
+  sources: KnowledgeSourceConfig[] | undefined
+): ResolvedKnowledge[] {
+  if (!bindings?.length || !spaces) return [];
+  const sourceList = sources ?? [];
+  return bindings
+    .map((binding) => {
+      const space = spaces.get(binding.spaceKey, binding.spaceVersion);
+      if (!space) return null;
+      const relevantSources = sourceList.filter((source) => {
+        if (source.meta.spaceKey !== binding.spaceKey) return false;
+        if (binding.spaceVersion != null) {
+          return source.meta.spaceVersion === binding.spaceVersion;
+        }
+        return true;
+      });
+      return {
+        binding,
+        space,
+        sources: relevantSources,
+      };
+    })
+    .filter((entry): entry is ResolvedKnowledge => entry !== null);
+}
+
+function collectMissingIntegrations(
+  bindings: AppIntegrationBinding[],
+  connections: IntegrationConnection[] | undefined,
+  specs: IntegrationSpecRegistry | undefined
+): MissingReference[] {
+  if (!bindings.length) return [];
+  if (!connections && !specs) return [];
+
+  const missing: MissingReference[] = [];
+  const connectionById = new Map<string, IntegrationConnection>();
+  if (connections) {
+    for (const connection of connections) {
+      connectionById.set(connection.meta.id, connection);
+    }
+  }
+
+  for (const binding of bindings) {
+    const connection = connectionById.get(binding.connectionId);
+    if (!connection) {
+      if (connections) {
+        missing.push({
+          type: 'integrationConnection',
+          identifier: binding.connectionId,
+        });
+      }
+      continue;
+    }
+    if (specs) {
+      const spec = specs.get(
+        connection.meta.integrationKey,
+        connection.meta.integrationVersion
+      );
+      if (!spec) {
+        missing.push({
+          type: 'integrationSpec',
+          identifier: `${connection.meta.integrationKey}@${
+            connection.meta.integrationVersion
+          }`,
+        });
+      }
+    }
+  }
+
+  return missing;
+}
+
+function collectMissingKnowledge(
+  bindings: AppKnowledgeBinding[],
+  spaces: KnowledgeSpaceRegistry | undefined,
+  sources: KnowledgeSourceConfig[] | undefined
+): MissingReference[] {
+  if (!bindings.length || !spaces) return [];
+  const missing: MissingReference[] = [];
+  const sourceList = sources ?? [];
+
+  for (const binding of bindings) {
+    const space = spaces.get(binding.spaceKey, binding.spaceVersion);
+    if (!space) {
+      missing.push({
+        type: 'knowledgeSpace',
+        identifier: binding.spaceVersion
+          ? `${binding.spaceKey}@${binding.spaceVersion}`
+          : binding.spaceKey,
+      });
+      continue;
+    }
+    if (sources) {
+      const relevantSources = sourceList.filter((source) => {
+        if (source.meta.spaceKey !== binding.spaceKey) return false;
+        if (binding.spaceVersion != null) {
+          return source.meta.spaceVersion === binding.spaceVersion;
+        }
+        return true;
+      });
+      if (relevantSources.length === 0) {
+        missing.push({
+          type: 'knowledgeSource',
+          identifier: binding.spaceVersion
+            ? `${binding.spaceKey}@${binding.spaceVersion}`
+            : binding.spaceKey,
+        });
+      }
+    }
+  }
+
+  return missing;
 }
 
 function resolveCapabilityRefs(

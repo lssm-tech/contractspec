@@ -4,6 +4,8 @@ import type { FeatureRef } from '../features';
 import type { PolicyRef } from '../policy/spec';
 import type { ThemeRef } from '../themes';
 import type { ExperimentRef } from '../experiments/spec';
+import type { AppIntegrationBinding } from '../integrations/binding';
+import type { AppKnowledgeBinding } from '../knowledge/binding';
 
 export interface SpecPointer {
   name: string;
@@ -167,8 +169,8 @@ export interface TenantAppConfig {
   };
   featureFlags?: FeatureFlagState[];
   routeOverrides?: TenantRouteOverride[];
-  integrations?: unknown; // TODO: App integrations bindings
-  knowledge?: unknown; // TODO: Knowledge graph / corpus bindings
+  integrations?: AppIntegrationBinding[];
+  knowledge?: AppKnowledgeBinding[];
   notes?: string;
 }
 
