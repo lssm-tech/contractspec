@@ -255,8 +255,13 @@ function makeIntegrationConnection(
     config: {
       region: 'us-east-1',
     },
+    secretProvider: 'vault',
     secretRef: `vault://integrations/${tenantId}/${id}`,
-    status: 'active',
+    status: 'connected',
+    health: {
+      status: 'connected',
+      checkedAt: new Date(timestamp),
+    },
   };
 }
 
@@ -380,6 +385,7 @@ const tenantConfig: TenantAppConfig = {
     blueprintVersion: blueprint.meta.version,
     environment: 'production',
     version: 2,
+    status: 'published',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },

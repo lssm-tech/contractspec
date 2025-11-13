@@ -1,10 +1,10 @@
 {
   "meta": {
     "name": "artisan.payments.catalog",
-    "version": 1,
-    "defaultLocale": "en",
-    "supportedLocales": ["en", "fr"]
+    "version": 1
   },
+  "defaultLocale": "en",
+  "supportedLocales": ["en", "fr"],
   "entries": [
     {
       "key": "artisan.payments.appName",

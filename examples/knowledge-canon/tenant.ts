@@ -9,6 +9,7 @@ export const artisanKnowledgeTenantConfig: TenantAppConfig = {
     blueprintVersion: 1,
     environment: 'production',
     version: 1,
+    status: 'published',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },

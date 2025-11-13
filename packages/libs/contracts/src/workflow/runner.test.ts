@@ -4,11 +4,17 @@ import {
   type WorkflowSpec,
   type Step,
 } from './spec';
-import { WorkflowRunner, type WorkflowRunnerConfig } from './runner';
+import {
+  WorkflowRunner,
+  WorkflowPreFlightError,
+  type WorkflowRunnerConfig,
+} from './runner';
 import { InMemoryStateStore } from './adapters/memory-store';
 import type { WorkflowState } from './state';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 import type { ResolvedAppConfig } from '../app-config/runtime';
+import type { ResolvedIntegration } from '../app-config/runtime';
+import type { ConnectionStatus } from '../integrations/connection';
 
 function workflowSpec(overrides?: {
   steps?: Step[];
@@ -86,6 +92,100 @@ function createRunner(
   return { runner, store, opExecutor };
 }
 
+function makeResolvedIntegration(
+  slotId: string,
+  status: ConnectionStatus = 'connected'
+): ResolvedIntegration {
+  const timestamp = new Date().toISOString();
+  return {
+    slot: {
+      slotId,
+      requiredCategory: 'payments',
+      allowedModes: ['managed'],
+      requiredCapabilities: [],
+      required: true,
+      description: 'Required payments provider',
+    },
+    binding: {
+      slotId,
+      connectionId: 'conn-1',
+    },
+    connection: {
+      meta: {
+        id: 'conn-1',
+        tenantId: 'tenant-1',
+        integrationKey: 'payments.stripe',
+        integrationVersion: 1,
+        label: 'Stripe',
+        environment: 'production',
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      },
+      ownershipMode: 'managed',
+      config: {},
+      secretProvider: 'vault',
+      secretRef: 'vault://tenant-1/conn-1',
+      status,
+    },
+    spec: {
+      meta: {
+        title: 'Stripe',
+        description: 'Stripe integration',
+        domain: 'payments',
+        owners: [OwnersEnum.PlatformSigil],
+        tags: [],
+        stability: StabilityEnum.Experimental,
+        key: 'payments.stripe',
+        version: 1,
+        category: 'payments',
+        displayName: 'Stripe',
+      },
+      supportedModes: ['managed'],
+      capabilities: {
+        provides: [],
+      },
+      configSchema: { schema: {} },
+      secretSchema: { schema: {} },
+    },
+  };
+}
+
+function makeResolvedConfig(
+  overrides: Partial<ResolvedAppConfig> = {}
+): ResolvedAppConfig {
+  return {
+    appId: 'demo-app',
+    tenantId: 'tenant-1',
+    blueprintName: 'demo.blueprint',
+    blueprintVersion: 1,
+    configVersion: 1,
+    environment: undefined,
+    capabilities: { enabled: [], disabled: [] },
+    features: { include: [], exclude: [] },
+    dataViews: {},
+    workflows: {},
+    policies: [],
+    experiments: { catalog: [], active: [], paused: [] },
+    featureFlags: [],
+    routes: [],
+    integrations: [],
+    knowledge: [],
+    translation: {
+      defaultLocale: 'en',
+      supportedLocales: ['en'],
+      blueprintCatalog: { name: 'demo.catalog', version: 1 },
+      tenantOverrides: [],
+    },
+    branding: {
+      appName: 'Demo App',
+      assets: {},
+      colors: { primary: '#000000', secondary: '#ffffff' },
+      domain: 'tenant-1.demo.localhost',
+    },
+    ...overrides,
+  };
+}
+
 describe('WorkflowRunner', () => {
   it('executes automation and human steps until completion', async () => {
     const events: Array<{ event: string; payload: any }> = [];
@@ -124,35 +224,7 @@ describe('WorkflowRunner', () => {
   it('provides resolved app config context to the operation executor', async () => {
     const events: Array<{ event: string; payload: any }> = [];
     const spec = workflowSpec();
-    const resolvedAppConfig: ResolvedAppConfig = {
-      appId: 'demo-app',
-      tenantId: 'tenant-1',
-      blueprintName: 'demo.blueprint',
-      blueprintVersion: 1,
-      configVersion: 1,
-      capabilities: { enabled: [], disabled: [] },
-      features: { include: [], exclude: [] },
-      dataViews: {},
-      workflows: {},
-      policies: [],
-      experiments: { catalog: [], active: [], paused: [] },
-      featureFlags: [],
-      routes: [],
-      integrations: [],
-      knowledge: [],
-      translation: {
-        defaultLocale: 'en',
-        supportedLocales: ['en'],
-        blueprintCatalog: { name: 'demo.catalog', version: 1 },
-        tenantOverrides: [],
-      },
-      branding: {
-        appName: 'Demo App',
-        assets: {},
-        colors: { primary: '#000000', secondary: '#ffffff' },
-        domain: 'tenant-1.demo.localhost',
-      },
-    };
+    const resolvedAppConfig = makeResolvedConfig();
 
     const { runner, opExecutor } = createRunner(spec, events, {
       appConfigProvider: async () => resolvedAppConfig,
@@ -182,6 +254,98 @@ describe('WorkflowRunner', () => {
       expect.objectContaining({ name: 'sigil.start' }),
       expect.objectContaining({ step: expect.objectContaining({ id: 'start' }) })
     );
+  });
+
+  it('fails to start when a required integration slot is not bound', async () => {
+    const events: Array<{ event: string; payload: any }> = [];
+    const spec = workflowSpec({
+      steps: [
+        {
+          id: 'start',
+          type: 'automation',
+          label: 'Start',
+          action: { operation: { name: 'sigil.start', version: 1 } },
+          requiredIntegrations: ['payments.primary'],
+        },
+      ],
+      transitions: [],
+    });
+
+    const resolvedConfig = makeResolvedConfig({ integrations: [] });
+    const { runner } = createRunner(spec, events, {
+      appConfigProvider: async () => resolvedConfig,
+    });
+
+    await expect(runner.start(spec.meta.name)).rejects.toBeInstanceOf(
+      WorkflowPreFlightError
+    );
+  });
+
+  it('fails to start when required capabilities are missing', async () => {
+    const events: Array<{ event: string; payload: any }> = [];
+    const spec = workflowSpec({
+      steps: [
+        {
+          id: 'start',
+          type: 'automation',
+          label: 'Start',
+          action: { operation: { name: 'sigil.start', version: 1 } },
+          requiredCapabilities: [{ key: 'core.sample', version: 1 }],
+        },
+      ],
+      transitions: [],
+    });
+
+    const resolvedConfig = makeResolvedConfig({
+      capabilities: { enabled: [], disabled: [] },
+    });
+
+    const { runner } = createRunner(spec, events, {
+      appConfigProvider: async () => resolvedConfig,
+    });
+
+    await expect(runner.start(spec.meta.name)).rejects.toBeInstanceOf(
+      WorkflowPreFlightError
+    );
+  });
+
+  it('allows workflow start when pre-flight requirements are satisfied', async () => {
+    const events: Array<{ event: string; payload: any }> = [];
+    const spec = workflowSpec({
+      steps: [
+        {
+          id: 'start',
+          type: 'automation',
+          label: 'Start',
+          action: { operation: { name: 'sigil.start', version: 1 } },
+          requiredIntegrations: ['payments.primary'],
+          requiredCapabilities: [{ key: 'core.sample', version: 1 }],
+        },
+        {
+          id: 'finish',
+          type: 'automation',
+          label: 'Finish',
+          action: { operation: { name: 'sigil.finish', version: 1 } },
+        },
+      ],
+      transitions: [{ from: 'start', to: 'finish' }],
+    });
+
+    const resolvedConfig = makeResolvedConfig({
+      capabilities: {
+        enabled: [{ key: 'core.sample', version: 1 }],
+        disabled: [],
+      },
+      integrations: [makeResolvedIntegration('payments.primary', 'connected')],
+    });
+
+    const { runner } = createRunner(spec, events, {
+      appConfigProvider: async () => resolvedConfig,
+    });
+
+    const workflowId = await runner.start(spec.meta.name);
+    expect(workflowId).toBeTruthy();
+    expect(events[0]).toMatchObject({ event: 'workflow.started' });
   });
 
   it('rejects step execution when guard evaluates to false', async () => {

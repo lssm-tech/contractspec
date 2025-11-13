@@ -15,7 +15,8 @@ export const stripeLiveConnection: IntegrationConnection = {
   config: {
     accountId: 'acct_xxx',
   },
+  secretProvider: 'vault',
   secretRef: 'vault://integrations/artisan-co/conn-stripe-live',
-  status: 'active',
+  status: 'connected',
 };
 

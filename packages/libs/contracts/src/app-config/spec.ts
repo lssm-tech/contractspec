@@ -12,6 +12,7 @@ import type { AppIntegrationBinding } from '../integrations/binding';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { BrandingDefaults, TenantBrandingConfig } from './branding';
 import type { Locale, TranslationEntry } from '../translations/catalog';
+import type { ConfigStatus } from './lifecycle';
 
 export interface SpecPointer {
   name: string;
@@ -151,6 +152,13 @@ export interface TenantAppConfigMeta {
   environment?: string;
   /** Monotonic version for auditing changes to the tenant config. */
   version: number;
+  status: ConfigStatus;
+  createdBy?: string;
+  publishedBy?: string;
+  publishedAt?: string | Date;
+  rolledBackFrom?: number;
+  rolledBackTo?: number;
+  changeSummary?: string;
   createdAt?: string | Date;
   updatedAt?: string | Date;
 }

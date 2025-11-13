@@ -19,9 +19,42 @@ const IntegrationConnectionRecord = new SchemaModel({
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    healthStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    healthCheckedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
+    healthLatencyMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    healthErrorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    healthErrorMessage: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    usageRequestCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
+    usageSuccessCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
+    usageErrorCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
+    usageLastUsedAt: {
+      type: ScalarTypeEnum.DateTime(),
+      isOptional: true,
+    },
+    usageLastErrorAt: {
+      type: ScalarTypeEnum.DateTime(),
+      isOptional: true,
+    },
+    usageLastErrorCode: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
@@ -36,6 +69,7 @@ const CreateIntegrationConnectionInput = new SchemaModel({
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     config: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
@@ -50,6 +84,7 @@ const UpdateIntegrationConnectionInput = new SchemaModel({
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     config: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
   },
@@ -93,8 +128,10 @@ const TestIntegrationConnectionOutput = new SchemaModel({
   name: 'TestIntegrationConnectionOutput',
   fields: {
     success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+    status: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     latencyMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     error: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    errorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
 
