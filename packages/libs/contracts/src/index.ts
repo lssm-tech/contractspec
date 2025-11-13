@@ -29,4 +29,5 @@ export * from './experiments/spec';
 export * from './experiments/evaluator';
 export * from './app-config/spec';
 export * from './app-config/runtime';
+export * from './regenerator';
 export * from './workflow';
