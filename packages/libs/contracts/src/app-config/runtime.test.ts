@@ -21,6 +21,16 @@ import {
   ExperimentRegistry,
   type ExperimentSpec,
 } from '../experiments/spec';
+import {
+  IntegrationSpecRegistry,
+  type IntegrationSpec,
+} from '../integrations/spec';
+import type { IntegrationConnection } from '../integrations/connection';
+import {
+  KnowledgeSpaceRegistry,
+  type KnowledgeSpaceSpec,
+} from '../knowledge/spec';
+import type { KnowledgeSourceConfig } from '../knowledge/source';
 import { StabilityEnum, type Owner, type Tag } from '../ownership';
 
 const ownership = {
@@ -185,6 +195,105 @@ function makeExperiment(name = 'core.experiment'): ExperimentSpec {
   };
 }
 
+function makeIntegrationSpec(
+  key = 'core.integration',
+  version = 1
+): IntegrationSpec {
+  return {
+    meta: {
+      ...ownership,
+      key,
+      version,
+      category: 'payments',
+      displayName: 'Core Integration',
+    },
+    capabilities: {
+      provides: [{ key: 'core.tenant-extension', version: 1 }],
+    },
+    configSchema: {
+      schema: {
+        type: 'object',
+        required: ['apiKey'],
+        properties: {
+          apiKey: { type: 'string' },
+        },
+      },
+      example: { apiKey: 'sk_test' },
+    },
+  };
+}
+
+function makeIntegrationConnection(
+  id = 'conn-primary',
+  tenantId = 'tenant',
+  integrationKey = 'core.integration',
+  integrationVersion = 1
+): IntegrationConnection {
+  const timestamp = new Date().toISOString();
+  return {
+    meta: {
+      id,
+      tenantId,
+      integrationKey,
+      integrationVersion,
+      label: 'Primary Integration',
+      environment: 'production',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    },
+    config: {
+      apiKey: 'sk_test_key',
+    },
+    status: 'active',
+  };
+}
+
+function makeKnowledgeSpace(
+  key = 'product-canon',
+  version = 1
+): KnowledgeSpaceSpec {
+  return {
+    meta: {
+      ...ownership,
+      key,
+      version,
+      category: 'canonical',
+      displayName: 'Product Canon',
+    },
+    retention: { ttlDays: null },
+    access: {
+      policy: { name: 'core.policy', version: 1 },
+      trustLevel: 'high',
+      automationWritable: false,
+    },
+    indexing: {
+      vectorDbIntegration: 'core.vector',
+    },
+  };
+}
+
+function makeKnowledgeSource(
+  id = 'source-primary',
+  tenantId = 'tenant',
+  spaceKey = 'product-canon',
+  spaceVersion = 1
+): KnowledgeSourceConfig {
+  const timestamp = new Date().toISOString();
+  return {
+    meta: {
+      id,
+      tenantId,
+      spaceKey,
+      spaceVersion,
+      label: 'Primary Source',
+      sourceType: 'manual',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    },
+    config: {},
+  };
+}
+
 const blueprint: AppBlueprintSpec = {
   meta: {
     ...ownership,
@@ -273,6 +382,18 @@ const tenantConfig: TenantAppConfig = {
       featureFlag: 'beta',
     },
   ],
+  integrations: [
+    {
+      connectionId: 'conn-primary',
+      satisfiesCapabilities: [{ key: 'core.tenant-extension', version: 1 }],
+    },
+  ],
+  knowledge: [
+    {
+      spaceKey: 'product-canon',
+      spaceVersion: 1,
+    },
+  ],
   notes: 'Tenant specific overrides',
 };
 
@@ -297,6 +418,30 @@ describe('resolveAppConfig', () => {
     expect(resolved.featureFlags[0]?.enabled).toBe(true);
     expect(resolved.routes[0]?.label).toBe('Tenant Dashboard');
     expect(resolved.notes).toBe('Tenant specific overrides');
+    expect(resolved.integrations).toEqual([]);
+    expect(resolved.knowledge).toEqual([]);
+  });
+
+  it('resolves integrations and knowledge when dependencies provided', () => {
+    const integrationSpecs = new IntegrationSpecRegistry().register(
+      makeIntegrationSpec()
+    );
+    const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+      makeKnowledgeSpace()
+    );
+    const resolved = resolveAppConfig(blueprint, tenantConfig, {
+      integrationSpecs,
+      integrationConnections: [makeIntegrationConnection()],
+      knowledgeSpaces,
+      knowledgeSources: [makeKnowledgeSource()],
+    });
+
+    expect(resolved.integrations).toHaveLength(1);
+    expect(resolved.integrations[0]?.connection.meta.id).toBe('conn-primary');
+    expect(resolved.integrations[0]?.spec.meta.key).toBe('core.integration');
+    expect(resolved.knowledge).toHaveLength(1);
+    expect(resolved.knowledge[0]?.space.meta.key).toBe('product-canon');
+    expect(resolved.knowledge[0]?.sources).toHaveLength(1);
   });
 });
 
@@ -340,6 +485,14 @@ describe('composeAppConfig', () => {
     const experiments = new ExperimentRegistry()
       .register(makeExperiment())
       .register(makeExperiment('core.experiment.alt'));
+    const integrationSpecs = new IntegrationSpecRegistry().register(
+      makeIntegrationSpec()
+    );
+    const integrationConnections = [makeIntegrationConnection()];
+    const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+      makeKnowledgeSpace()
+    );
+    const knowledgeSources = [makeKnowledgeSource()];
 
     const composition = composeAppConfig(
       blueprint,
@@ -353,6 +506,10 @@ describe('composeAppConfig', () => {
         themes,
         telemetry,
         experiments,
+        integrationSpecs,
+        integrationConnections,
+        knowledgeSpaces,
+        knowledgeSources,
       },
       { strict: false }
     );
@@ -369,6 +526,11 @@ describe('composeAppConfig', () => {
     expect(composition.theme?.meta.name).toBe('core.theme.alt');
     expect(composition.telemetry?.meta.name).toBe('core.telemetry.alt');
     expect(composition.experiments.active).toHaveLength(1);
+    expect(composition.integrations).toHaveLength(1);
+    expect(composition.integrations[0]?.connection.meta.id).toBe('conn-primary');
+    expect(composition.knowledge).toHaveLength(1);
+    expect(composition.knowledge[0]?.space.meta.key).toBe('product-canon');
+    expect(composition.knowledge[0]?.sources).toHaveLength(1);
     expect(composition.missing).toHaveLength(0);
   });
 
@@ -395,10 +557,49 @@ describe('composeAppConfig', () => {
     );
   });
 
+  it('reports missing integration and knowledge dependencies when incomplete', () => {
+    const integrationSpecs = new IntegrationSpecRegistry().register(
+      makeIntegrationSpec()
+    );
+    const integrationConnections = [
+      makeIntegrationConnection('conn-primary', 'tenant', 'core.integration', 2),
+    ];
+    const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+      makeKnowledgeSpace()
+    );
+    const knowledgeSources: KnowledgeSourceConfig[] = [];
+
+    const composition = composeAppConfig(
+      blueprint,
+      tenantConfig,
+      {
+        integrationSpecs,
+        integrationConnections,
+        knowledgeSpaces,
+        knowledgeSources,
+      },
+      { strict: false }
+    );
+
+    expect(composition.resolved.integrations).toHaveLength(0);
+    expect(composition.missing).toEqual(
+      expect.arrayContaining([
+        {
+          type: 'integrationSpec',
+          identifier: 'core.integration@2',
+        },
+        {
+          type: 'knowledgeSource',
+          identifier: 'product-canon@1',
+        },
+      ])
+    );
+  });
+
   it('throws when strict mode and references missing', () => {
     expect(() =>
       composeAppConfig(blueprint, tenantConfig, {}, { strict: true })
-    ).toThrow();
+    ).toThrow(/missing references/);
   });
 });
 
