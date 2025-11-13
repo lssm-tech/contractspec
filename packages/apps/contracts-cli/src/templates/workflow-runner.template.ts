@@ -41,6 +41,13 @@ export const ${runnerName} = new WorkflowRunner({
       \`opExecutor for \${operation.name}.v\${operation.version} is not implemented\`
     );
   },
+  // appConfigProvider: async (state) => {
+  //   // TODO: return the ResolvedAppConfig for this workflow run (tenant/environment)
+  //   return undefined;
+  // },
+  // enforceCapabilities: async (operation, context) => {
+  //   // TODO: ensure required capabilities are satisfied using context.integrations/context.resolvedAppConfig
+  // },
   eventEmitter: (event, payload) => {
     // TODO: forward workflow events to telemetry or logging sinks
     // console.log(event, payload);

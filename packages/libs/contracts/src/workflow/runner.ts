@@ -8,10 +8,18 @@ import type {
 import type { StateStore, WorkflowState, StepExecution } from './state';
 import { evaluateExpression } from './expression';
 import type { OpRef } from '../features';
+import type {
+  ResolvedAppConfig,
+  ResolvedIntegration,
+  ResolvedKnowledge,
+} from '../app-config/runtime';
 
 export interface OperationExecutorContext {
   workflow: WorkflowState;
   step: Step;
+  resolvedAppConfig?: ResolvedAppConfig;
+  integrations?: ResolvedIntegration[];
+  knowledge?: ResolvedKnowledge[];
 }
 
 export type OperationExecutor = (
@@ -37,6 +45,13 @@ export interface WorkflowRunnerConfig {
   opExecutor: OperationExecutor;
   guardEvaluator?: GuardEvaluator;
   eventEmitter?: (event: string, payload: Record<string, unknown>) => void;
+  appConfigProvider?: (
+    state: WorkflowState
+  ) => ResolvedAppConfig | undefined | Promise<ResolvedAppConfig | undefined>;
+  enforceCapabilities?: (
+    operation: OpRef,
+    context: OperationExecutorContext
+  ) => void | Promise<void>;
 }
 
 export class WorkflowRunner {
@@ -211,7 +226,20 @@ export class WorkflowRunner {
       const op = step.action?.operation;
       if (!op)
         throw new Error(`Automation step "${step.id}" requires an operation.`);
-      return this.config.opExecutor(op, input, { workflow: state, step });
+      const resolvedAppConfig = this.config.appConfigProvider
+        ? await this.config.appConfigProvider(state)
+        : undefined;
+      const executorContext: OperationExecutorContext = {
+        workflow: state,
+        step,
+        resolvedAppConfig,
+        integrations: resolvedAppConfig?.integrations ?? [],
+        knowledge: resolvedAppConfig?.knowledge ?? [],
+      };
+      if (this.config.enforceCapabilities) {
+        await this.config.enforceCapabilities(op, executorContext);
+      }
+      return this.config.opExecutor(op, input, executorContext);
     }
 
     if (step.type === 'human') {
