@@ -1,6 +1,8 @@
-import type { AppConfigSpecData } from '../types';
+import type { AppBlueprintSpecData } from '../types';
 
-export function generateAppConfigSpec(data: AppConfigSpecData): string {
+export function generateAppBlueprintSpec(
+  data: AppBlueprintSpecData
+): string {
   const exportName =
     toPascalCase(data.name.split('.').pop() ?? 'App') + 'AppConfig';
 
@@ -18,9 +20,9 @@ export function generateAppConfigSpec(data: AppConfigSpecData): string {
     ? `  notes: '${escapeString(data.notes)}',\n`
     : '';
 
-  return `import type { AppConfigSpec } from '@lssm/lib.contracts/app-config';
+  return `import type { AppBlueprintSpec } from '@lssm/lib.contracts/app-config';
 
-export const ${exportName}: AppConfigSpec = {
+export const ${exportName}: AppBlueprintSpec = {
   meta: {
     name: '${escapeString(data.name)}',
     version: ${data.version},
@@ -31,13 +33,11 @@ export const ${exportName}: AppConfigSpec = {
     tags: [${data.tags.map((tag) => `'${escapeString(tag)}'`).join(', ')}],
     stability: '${data.stability}',
     appId: '${escapeString(data.appId)}',
-    ${data.tenantId ? `tenantId: '${escapeString(data.tenantId)}',` : ''}
-    ${data.environment ? `environment: '${escapeString(data.environment)}',` : ''}
   },
 ${capabilitiesSection}${featuresSection}${dataViewsSection}${workflowsSection}${policiesSection}${themeSection}${telemetrySection}${experimentsSection}${flagsSection}${routesSection}${notesSection}};\n`;
 }
 
-function buildCapabilitiesSection(data: AppConfigSpecData): string {
+function buildCapabilitiesSection(data: AppBlueprintSpecData): string {
   if (
     data.capabilitiesEnabled.length === 0 &&
     data.capabilitiesDisabled.length === 0
@@ -59,7 +59,7 @@ function buildCapabilitiesSection(data: AppConfigSpecData): string {
   return `  capabilities: {\n${enabled}${disabled}  },\n`;
 }
 
-function buildFeaturesSection(data: AppConfigSpecData): string {
+function buildFeaturesSection(data: AppBlueprintSpecData): string {
   if (data.featureIncludes.length === 0 && data.featureExcludes.length === 0) {
     return '';
   }
@@ -80,7 +80,7 @@ function buildFeaturesSection(data: AppConfigSpecData): string {
 
 function buildMappingSection(
   prop: 'dataViews' | 'workflows',
-  mappings: AppConfigSpecData['dataViews']
+  mappings: AppBlueprintSpecData['dataViews']
 ): string {
   if (mappings.length === 0) return '';
   const body = mappings
@@ -94,7 +94,7 @@ function buildMappingSection(
   return `  ${prop}: {\n${body}\n  },\n`;
 }
 
-function buildPolicySection(data: AppConfigSpecData): string {
+function buildPolicySection(data: AppBlueprintSpecData): string {
   if (data.policyRefs.length === 0) return '';
   const entries = data.policyRefs
     .map(
@@ -106,7 +106,7 @@ function buildPolicySection(data: AppConfigSpecData): string {
   return `  policies: [\n${entries}\n  ],\n`;
 }
 
-function buildThemeSection(data: AppConfigSpecData): string {
+function buildThemeSection(data: AppBlueprintSpecData): string {
   if (!data.theme) return '';
   const primary = `    primary: { name: '${escapeString(data.theme.name)}', version: ${data.theme.version} },\n`;
   const fallbacks =
@@ -121,7 +121,7 @@ function buildThemeSection(data: AppConfigSpecData): string {
   return `  theme: {\n${primary}${fallbacks}  },\n`;
 }
 
-function buildTelemetrySection(data: AppConfigSpecData): string {
+function buildTelemetrySection(data: AppBlueprintSpecData): string {
   if (!data.telemetry) return '';
   return `  telemetry: {
     spec: {
@@ -134,7 +134,7 @@ function buildTelemetrySection(data: AppConfigSpecData): string {
   },\n`;
 }
 
-function buildExperimentsSection(data: AppConfigSpecData): string {
+function buildExperimentsSection(data: AppBlueprintSpecData): string {
   if (
     data.activeExperiments.length === 0 &&
     data.pausedExperiments.length === 0
@@ -156,7 +156,7 @@ function buildExperimentsSection(data: AppConfigSpecData): string {
   return `  experiments: {\n${active}${paused}  },\n`;
 }
 
-function buildFeatureFlagsSection(data: AppConfigSpecData): string {
+function buildFeatureFlagsSection(data: AppBlueprintSpecData): string {
   if (data.featureFlags.length === 0) return '';
   const flags = data.featureFlags
     .map(
@@ -171,7 +171,7 @@ function buildFeatureFlagsSection(data: AppConfigSpecData): string {
   return `  featureFlags: [\n${flags}\n  ],\n`;
 }
 
-function buildRoutesSection(data: AppConfigSpecData): string {
+function buildRoutesSection(data: AppBlueprintSpecData): string {
   if (data.routes.length === 0) return '';
   const routes = data.routes
     .map((route) => {

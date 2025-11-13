@@ -450,7 +450,7 @@ function detectSpecType(specFile: string, specCode: string): SpecBuildType {
   if (file.includes('.experiment.') || /ExperimentSpec/.test(specCode)) {
     return 'experiment';
   }
-  if (file.includes('.app-config.') || /AppConfigSpec/.test(specCode)) {
+  if (file.includes('.app-config.') || /AppBlueprintSpec/.test(specCode)) {
     return 'app-config';
   }
   if (file.includes('.migration.') || /MigrationSpec/.test(specCode)) {

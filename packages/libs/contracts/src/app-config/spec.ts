@@ -38,21 +38,17 @@ export interface AppThemeBinding {
   fallbacks?: ThemeRef[];
 }
 
-export interface AppConfigMeta extends OwnerShipMeta {
-  /** Fully qualified config name (e.g. "tenantA.artisan.app"). */
+export interface AppBlueprintMeta extends OwnerShipMeta {
+  /** Fully qualified blueprint name (e.g. "artisan.app"). */
   name: string;
-  /** Version of this configuration. Increment on breaking changes. */
+  /** Versioned definition of the blueprint. Increment on breaking changes. */
   version: number;
   /** Logical application id (e.g. "artisan"). */
   appId: string;
-  /** Optional tenant/customer identifier. */
-  tenantId?: string;
-  /** Optional environment label (e.g. "production"). */
-  environment?: string;
 }
 
-export interface AppConfigSpec {
-  meta: AppConfigMeta;
+export interface AppBlueprintSpec {
+  meta: AppBlueprintMeta;
   capabilities?: {
     enabled?: CapabilityRef[];
     disabled?: CapabilityRef[];
@@ -75,30 +71,30 @@ export interface AppConfigSpec {
   notes?: string;
 }
 
-const configKey = (meta: Pick<AppConfigMeta, 'name' | 'version'>) =>
+const blueprintKey = (meta: Pick<AppBlueprintMeta, 'name' | 'version'>) =>
   `${meta.name}.v${meta.version}`;
 
-export class AppConfigRegistry {
-  private readonly items = new Map<string, AppConfigSpec>();
+export class AppBlueprintRegistry {
+  private readonly items = new Map<string, AppBlueprintSpec>();
 
-  register(spec: AppConfigSpec): this {
-    const key = configKey(spec.meta);
+  register(spec: AppBlueprintSpec): this {
+    const key = blueprintKey(spec.meta);
     if (this.items.has(key)) {
-      throw new Error(`Duplicate AppConfig ${key}`);
+      throw new Error(`Duplicate AppBlueprint ${key}`);
     }
     this.items.set(key, spec);
     return this;
   }
 
-  list(): AppConfigSpec[] {
+  list(): AppBlueprintSpec[] {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): AppConfigSpec | undefined {
+  get(name: string, version?: number): AppBlueprintSpec | undefined {
     if (version != null) {
-      return this.items.get(configKey({ name, version }));
+      return this.items.get(blueprintKey({ name, version }));
     }
-    let latest: AppConfigSpec | undefined;
+    let latest: AppBlueprintSpec | undefined;
     let maxVersion = -Infinity;
     for (const spec of this.items.values()) {
       if (spec.meta.name !== name) continue;
@@ -111,7 +107,68 @@ export class AppConfigRegistry {
   }
 }
 
-export function makeAppConfigKey(meta: AppConfigMeta) {
-  return configKey(meta);
+export function makeAppBlueprintKey(meta: AppBlueprintMeta) {
+  return blueprintKey(meta);
+}
+
+export interface TenantAppConfigMeta {
+  id: string;
+  tenantId: string;
+  appId: string;
+  blueprintName: string;
+  blueprintVersion: number;
+  environment?: string;
+  /** Monotonic version for auditing changes to the tenant config. */
+  version: number;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+}
+
+export interface TenantSpecOverride {
+  slot: string;
+  pointer?: SpecPointer | null;
+}
+
+export interface TenantRouteOverride {
+  path: string;
+  label?: string | null;
+  dataView?: string | null;
+  workflow?: string | null;
+  guard?: (PolicyRef | null);
+  featureFlag?: string | null;
+  experiment?: (ExperimentRef | null);
+}
+
+export interface TenantAppConfig {
+  meta: TenantAppConfigMeta;
+  capabilities?: {
+    enable?: CapabilityRef[];
+    disable?: CapabilityRef[];
+  };
+  features?: {
+    include?: FeatureRef[];
+    exclude?: FeatureRef[];
+  };
+  dataViewOverrides?: TenantSpecOverride[];
+  workflowOverrides?: TenantSpecOverride[];
+  additionalPolicies?: PolicyRef[];
+  themeOverride?: {
+    primary?: ThemeRef | null;
+    fallbacks?: ThemeRef[];
+  };
+  telemetryOverride?: {
+    spec?: SpecPointer | null;
+    disabledEvents?: string[];
+    samplingOverrides?: Record<string, number>;
+  };
+  experiments?: {
+    active?: ExperimentRef[];
+    paused?: ExperimentRef[];
+  };
+  featureFlags?: FeatureFlagState[];
+  routeOverrides?: TenantRouteOverride[];
+  integrations?: unknown; // TODO: App integrations bindings
+  knowledge?: unknown; // TODO: Knowledge graph / corpus bindings
+  notes?: string;
 }
 

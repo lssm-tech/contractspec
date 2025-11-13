@@ -32,7 +32,7 @@ import {
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
 import type {
-  AppConfigSpecData,
+  AppBlueprintSpecData,
   DataViewSpecData,
   EventSpecData,
   ExperimentSpecData,
@@ -75,7 +75,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Migration', value: 'migration' },
           { name: 'Telemetry', value: 'telemetry' },
           { name: 'Experiment', value: 'experiment' },
-          { name: 'App Config', value: 'app-config' },
+          { name: 'App Blueprint', value: 'app-config' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -496,7 +496,7 @@ async function createAppConfig(options: CreateOptions, config: Config) {
     );
   }
 
-  const specData: AppConfigSpecData = await appConfigWizard();
+  const specData: AppBlueprintSpecData = await appConfigWizard();
   const code = generateAppConfigSpec(specData);
 
   const basePath = options.outputDir || config.outputDir;
@@ -515,12 +515,12 @@ async function createAppConfig(options: CreateOptions, config: Config) {
   console.log(chalk.cyan('\n✨ Next steps:'));
   console.log(
     chalk.gray(
-      `  1. Register this config in an AppConfigRegistry for your tenant/app.`
+      `  1. Register this blueprint in an AppBlueprintRegistry for global distribution.`
     )
   );
   console.log(
     chalk.gray(
-      `  2. Use composeAppConfig() to resolve dependencies before deploying.`
+      `  2. Use resolveAppConfig/composeAppConfig with tenant overrides before deploying.`
     )
   );
 }

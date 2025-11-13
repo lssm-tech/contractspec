@@ -2,12 +2,12 @@ import { confirm, input, number, select } from '@inquirer/prompts';
 import type {
   AppConfigFeatureFlagData,
   AppConfigMappingData,
-  AppConfigSpecData,
+  AppBlueprintSpecData,
   AppRouteConfigData,
   Stability,
 } from '../../../types';
 
-export async function appConfigWizard(): Promise<AppConfigSpecData> {
+export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
   const name = await input({
     message: 'Config name (e.g., "tenant.app"):',
     validate: required,
@@ -63,16 +63,6 @@ export async function appConfigWizard(): Promise<AppConfigSpecData> {
     validate: required,
   });
 
-  const tenantId = await input({
-    message: 'Tenant id (optional):',
-    default: '',
-  });
-
-  const environment = await input({
-    message: 'Environment (optional, e.g., production):',
-    default: 'production',
-  });
-
   const capabilitiesEnabled = await collectList(
     'Enable capabilities (comma-separated keys, optional):'
   );
@@ -112,8 +102,6 @@ export async function appConfigWizard(): Promise<AppConfigSpecData> {
     tags: splitList(tagsInput),
     stability,
     appId,
-    tenantId: tenantId || undefined,
-    environment: environment || undefined,
     capabilitiesEnabled,
     capabilitiesDisabled,
     featureIncludes,
@@ -180,7 +168,7 @@ async function collectPolicyRefs(): Promise<{ name: string; version?: number }[]
 }
 
 async function collectThemeBinding(): Promise<
-  AppConfigSpecData['theme']
+  AppBlueprintSpecData['theme']
 > {
   const attach = await confirm({
     message: 'Bind a primary theme?',
