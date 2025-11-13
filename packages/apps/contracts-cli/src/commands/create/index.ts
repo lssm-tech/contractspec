@@ -22,7 +22,7 @@ import { generateWorkflowSpec } from '../../templates/workflow.template';
 import { generateMigrationSpec } from '../../templates/migration.template';
 import { generateTelemetrySpec } from '../../templates/telemetry.template';
 import { generateExperimentSpec } from '../../templates/experiment.template';
-import { generateAppConfigSpec } from '../../templates/app-config.template';
+import { generateAppBlueprintSpec } from '../../templates/app-config.template';
 import { generateDataViewSpec } from '../../templates/data-view.template';
 import {
   generateFileName,
@@ -497,7 +497,7 @@ async function createAppConfig(options: CreateOptions, config: Config) {
   }
 
   const specData: AppBlueprintSpecData = await appConfigWizard();
-  const code = generateAppConfigSpec(specData);
+  const code = generateAppBlueprintSpec(specData);
 
   const basePath = options.outputDir || config.outputDir;
   const fileName = generateFileName(specData.name, '.app-config.ts');
