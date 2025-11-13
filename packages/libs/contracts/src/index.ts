@@ -16,4 +16,5 @@ export * from './features';
 export * from './ownership';
 export * from './forms';
 export * from './onboarding-base';
+export * from './capabilities';
 export * from './workflow';

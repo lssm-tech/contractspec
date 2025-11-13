@@ -3,6 +3,11 @@ import type {
   PresentationDescriptorV2,
 } from './presentations.v2';
 import type { OwnerShipMeta } from './ownership';
+import type {
+  CapabilityRef,
+  CapabilityRequirement,
+  CapabilityRegistry,
+} from './capabilities';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export interface FeatureModuleMeta extends OwnerShipMeta {
@@ -40,6 +45,11 @@ export interface FeatureModuleSpec {
   events?: EventRef[];
   /** Presentations associated to this feature. */
   presentations?: PresentationRef[];
+  /** Capability bindings exposed/required by this feature. */
+  capabilities?: {
+    provides?: CapabilityRef[];
+    requires?: CapabilityRequirement[];
+  };
   /** Optional: link ops to presentations for traceability (e.g., ui for op) */
   opToPresentation?: { op: OpRef; pres: PresentationRef }[];
   /** Optional: declare per-presentation target requirements (V2 descriptors) */
@@ -88,6 +98,7 @@ export function installFeature(
     ops?: import('./registry').SpecRegistry;
     presentations?: import('./presentations').PresentationRegistry;
     descriptorsV2?: PresentationDescriptorV2[];
+    capabilities?: CapabilityRegistry;
   }
 ) {
   // Validate referenced ops exist if registry provided
@@ -145,6 +156,30 @@ export function installFeature(
             `installFeature: linked presentation not found ${link.pres.name}.v${link.pres.version}`
           );
       }
+    }
+  }
+  // Validate capability bindings when registry provided
+  if (deps.capabilities && feature.capabilities?.provides) {
+    for (const cap of feature.capabilities.provides) {
+      const spec = deps.capabilities.get(cap.key, cap.version);
+      if (!spec)
+        throw new Error(
+          `installFeature: capability not registered ${cap.key}.v${cap.version}`
+        );
+    }
+  }
+  if (feature.capabilities?.requires?.length) {
+    if (!deps.capabilities)
+      throw new Error(
+        `installFeature: capability registry required to validate capability requirements for ${feature.meta.key}`
+      );
+    const provided = feature.capabilities.provides ?? [];
+    for (const req of feature.capabilities.requires) {
+      const satisfied = deps.capabilities.satisfies(req, provided);
+      if (!satisfied)
+        throw new Error(
+          `installFeature: capability requirement not satisfied ${req.key}${req.version ? `.v${req.version}` : ''}`
+        );
     }
   }
   deps.features.register(feature);
