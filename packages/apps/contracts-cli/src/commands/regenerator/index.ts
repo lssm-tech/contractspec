@@ -1,7 +1,15 @@
 import { dynamicImport } from '../../utils/dynamicImport';
 import type { Config } from '../../utils/config';
 import { resolvePathFromCwd } from '../../utils/fs';
-import { RegeneratorService } from '@lssm/lib.contracts/regenerator';
+import {
+  ExecutorProposalSink,
+  ProposalExecutor,
+  RegeneratorService,
+} from '@lssm/lib.contracts/regenerator';
+import type {
+  ProposalExecutorDeps,
+  ExecutorSinkOptions,
+} from '@lssm/lib.contracts/regenerator';
 import type {
   AppBlueprintSpec,
   TenantAppConfig,
@@ -19,6 +27,8 @@ interface RegeneratorCliOptions {
   pollInterval?: number;
   batchDuration?: number;
   contexts?: string;
+  executor?: string;
+  dryRun?: boolean;
 }
 
 export async function regeneratorCommand(
@@ -32,12 +42,13 @@ export async function regeneratorCommand(
   const resolvedBlueprintPath = resolvePathFromCwd(blueprintPath);
   const resolvedTenantPath = resolvePathFromCwd(tenantPath);
   const resolvedRulesPath = resolvePathFromCwd(rulesPath);
-  const resolvedSinkPath = resolvePathFromCwd(sinkPath);
 
   const blueprintModule = await dynamicImport(resolvedBlueprintPath);
   const tenantModule = await dynamicImport(resolvedTenantPath);
   const rulesModule = await dynamicImport(resolvedRulesPath);
-  const sinkModule = await dynamicImport(resolvedSinkPath);
+  const sinkResolution = await resolveSink(sinkPath, options);
+  const sinkModule = sinkResolution.module;
+  const executorModule = sinkResolution.executorModule;
 
   const blueprint = extractDefault<AppBlueprintSpec>(
     blueprintModule,
@@ -53,7 +64,7 @@ export async function regeneratorCommand(
       'RegenerationRule'
     )
   );
-  const sink = extractDefault<ProposalSink>(sinkModule, 'ProposalSink');
+  const sink = sinkResolution.sink;
 
   const contexts = await loadContexts(
     options.contexts,
@@ -61,7 +72,7 @@ export async function regeneratorCommand(
     tenantConfig
   );
 
-  const adapters = extractAdapters(rulesModule, sinkModule);
+  const adapters = extractAdapters(rulesModule, sinkModule, executorModule);
 
   const service = new RegeneratorService({
     contexts,
@@ -132,24 +143,132 @@ async function loadContexts(
   return value as RegenerationContext[];
 }
 
+async function resolveSink(
+  sinkPath: string,
+  options: RegeneratorCliOptions
+): Promise<{
+  sink: ProposalSink;
+  module?: Record<string, unknown>;
+  executorModule?: Record<string, unknown>;
+}> {
+  if (sinkPath === 'auto') {
+    if (!options.executor) {
+      throw new Error(
+        'Sink path "auto" requires --executor <module> to instantiate ProposalExecutor'
+      );
+    }
+    const { sink, module } = await createExecutorSink(options.executor, options);
+    return { sink, executorModule: module };
+  }
+
+  const resolvedSinkPath = resolvePathFromCwd(sinkPath);
+  const sinkModule = await dynamicImport(resolvedSinkPath);
+  const sink = extractDefault<ProposalSink>(sinkModule, 'ProposalSink');
+  return { sink, module: sinkModule };
+}
+
 function extractAdapters(
-  rulesModule: Record<string, unknown>,
-  sinkModule: Record<string, unknown>
+  ...modules: Array<Record<string, unknown> | undefined>
 ): SignalAdapters {
   const adapters: SignalAdapters = {};
 
-  const telemetry = (rulesModule.telemetry ??
-    sinkModule.telemetry) as SignalAdapters['telemetry'];
-  if (telemetry) adapters.telemetry = telemetry;
-
-  const errors = (rulesModule.errors ??
-    sinkModule.errors) as SignalAdapters['errors'];
-  if (errors) adapters.errors = errors;
-
-  const behavior = (rulesModule.behavior ??
-    sinkModule.behavior) as SignalAdapters['behavior'];
-  if (behavior) adapters.behavior = behavior;
+  for (const module of modules) {
+    if (!module) continue;
+    if (!adapters.telemetry && module.telemetry) {
+      adapters.telemetry = module.telemetry as SignalAdapters['telemetry'];
+    }
+    if (!adapters.errors && module.errors) {
+      adapters.errors = module.errors as SignalAdapters['errors'];
+    }
+    if (!adapters.behavior && module.behavior) {
+      adapters.behavior = module.behavior as SignalAdapters['behavior'];
+    }
+  }
 
   return adapters;
+}
+
+async function createExecutorSink(
+  executorPath: string,
+  options: RegeneratorCliOptions
+): Promise<{ sink: ProposalSink; module: Record<string, unknown> }> {
+  const resolvedExecutorPath = resolvePathFromCwd(executorPath);
+  const executorModule = await dynamicImport(resolvedExecutorPath);
+  const executor = await instantiateExecutor(executorModule);
+  const sinkOptions = normalizeExecutorSinkOptions(executorModule, options);
+  const sink = new ExecutorProposalSink(executor, sinkOptions);
+  return { sink, module: executorModule };
+}
+
+async function instantiateExecutor(
+  module: Record<string, unknown>
+): Promise<ProposalExecutor> {
+  const candidates = [
+    module.executor,
+    module.default,
+    module.createExecutor,
+    module.create,
+  ];
+
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+
+    if (isProposalExecutor(candidate)) {
+      return candidate;
+    }
+
+    if (typeof candidate === 'function') {
+      const result = await candidate();
+      if (isProposalExecutor(result)) {
+        return result;
+      }
+      if (isExecutorDeps(result)) {
+        return new ProposalExecutor(result);
+      }
+    } else if (isExecutorDeps(candidate)) {
+      return new ProposalExecutor(candidate);
+    }
+  }
+
+  if (isExecutorDeps(module.deps)) {
+    return new ProposalExecutor(module.deps);
+  }
+
+  throw new Error(
+    'Executor module must export a ProposalExecutor instance, factory, or dependency object'
+  );
+}
+
+function normalizeExecutorSinkOptions(
+  module: Record<string, unknown>,
+  options: RegeneratorCliOptions
+): ExecutorSinkOptions {
+  const normalized: ExecutorSinkOptions = {};
+
+  if (module.sinkOptions && typeof module.sinkOptions === 'object') {
+    Object.assign(normalized, module.sinkOptions as ExecutorSinkOptions);
+  }
+  if (typeof module.onResult === 'function') {
+    normalized.onResult = module.onResult as ExecutorSinkOptions['onResult'];
+  }
+  if (module.logger && typeof module.logger === 'object') {
+    normalized.logger = module.logger as ExecutorSinkOptions['logger'];
+  }
+  if (typeof module.dryRun === 'boolean') {
+    normalized.dryRun = module.dryRun;
+  }
+  if (typeof options.dryRun === 'boolean') {
+    normalized.dryRun = options.dryRun;
+  }
+
+  return normalized;
+}
+
+function isProposalExecutor(value: unknown): value is ProposalExecutor {
+  return Boolean(value) && typeof (value as ProposalExecutor).execute === 'function';
+}
+
+function isExecutorDeps(value: unknown): value is ProposalExecutorDeps {
+  return typeof value === 'object' && value !== null;
 }
 
