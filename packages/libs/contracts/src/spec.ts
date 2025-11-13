@@ -6,6 +6,7 @@ import type { EventSpec } from './events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor } from './resources';
 import type { Owner, Stability, Tag } from './ownership';
+import type { PolicyRef } from './policy/spec';
 
 export type OpKind = 'command' | 'query';
 
@@ -82,6 +83,14 @@ export interface ContractSpec<
     escalate?: 'human_review' | null;
     /** JSONPath-like pointers to redact from logs/prompts */
     pii?: string[];
+    /** Referenced policy specs governing access */
+    policies?: PolicyRef[];
+    /** Field-level overrides referencing policy specs */
+    fieldPolicies?: {
+      field: string;
+      actions: ('read' | 'write')[];
+      policy?: PolicyRef;
+    }[];
   };
 
   sideEffects?: {
