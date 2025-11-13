@@ -140,7 +140,10 @@ program
   .argument('<blueprint-file>', 'Path to AppBlueprintSpec file')
   .argument('<tenant-file>', 'Path to TenantAppConfig file')
   .argument('<rules-file>', 'Path to module exporting regenerator rules')
-  .argument('<sink-file>', 'Path to module exporting a proposal sink')
+  .argument(
+    '<sink-file>',
+    'Path to module exporting a proposal sink (use "auto" with --executor)'
+  )
   .option('-p, --poll-interval <ms>', 'Polling interval in ms (default 60000)', (value) =>
     Number.parseInt(value, 10)
   )
@@ -149,6 +152,11 @@ program
   )
   .option('--once', 'Run a single evaluation cycle then exit')
   .option('--contexts <path>', 'Optional file exporting an array of RegenerationContext overrides')
+  .option(
+    '--executor <path>',
+    'Module exporting a ProposalExecutor instance, factory, or deps (required when sink is "auto")'
+  )
+  .option('--dry-run', 'Execute proposals in dry-run mode when using executor sink')
   .action(async (blueprintPath, tenantPath, rulesPath, sinkPath, options) => {
     try {
       const config = await loadConfig();
