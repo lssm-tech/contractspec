@@ -4,7 +4,11 @@
 export type Actor = 'anonymous' | 'user' | 'admin';
 export type Channel = 'web' | 'mobile' | 'job' | 'agent';
 
-import type { PolicySpec } from './policy/spec';
+import type {
+  ConsentDefinition,
+  PolicySpec,
+  RateLimitDefinition,
+} from './policy/spec';
 
 export interface FieldLevelDecision {
   field: string;
@@ -15,10 +19,12 @@ export interface FieldLevelDecision {
 export interface PolicyDecision {
   effect: 'allow' | 'deny';
   reason?: string;
-  rateLimit?: { rpm: number; key: string };
+  rateLimit?: Pick<RateLimitDefinition, 'rpm' | 'key' | 'windowSeconds' | 'burst'>;
   escalate?: 'human_review' | null;
   fieldDecisions?: FieldLevelDecision[];
   pii?: PolicySpec['pii'];
+  requiredConsents?: ConsentDefinition[];
+  evaluatedBy?: 'engine' | 'opa';
 }
 
 export interface PolicyDeciderInput {

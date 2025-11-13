@@ -5,16 +5,27 @@ import {
   type PolicyRule,
   type FieldPolicyRule,
   type PolicyCondition,
+  type ConsentDefinition,
+  type RateLimitDefinition,
+  type RelationshipMatcher,
 } from './spec';
 import type { PolicyDecision, FieldLevelDecision } from '../types';
+
+export interface SubjectRelationship {
+  relation: string;
+  object: string;
+  objectType?: string;
+}
 
 export interface SubjectContext {
   roles?: string[];
   attributes?: Record<string, unknown>;
+  relationships?: SubjectRelationship[];
 }
 
 export interface ResourceContext {
   type: string;
+  id?: string;
   fields?: string[];
   attributes?: Record<string, unknown>;
 }
@@ -25,6 +36,14 @@ export interface DecisionContext {
   context?: Record<string, unknown>;
   action: string;
   policies: PolicyRef[];
+  consents?: string[];
+  flags?: string[];
+}
+
+interface RuleEvaluation {
+  rule: PolicyRule;
+  missingConsents: ConsentDefinition[];
+  rateLimit?: PolicyDecision['rateLimit'];
 }
 
 export class PolicyEngine {
@@ -33,23 +52,56 @@ export class PolicyEngine {
   decide(input: DecisionContext): PolicyDecision {
     const policies = this.resolvePolicies(input.policies);
     let allowReason: string | undefined;
+    let appliedRateLimit: PolicyDecision['rateLimit'];
+    let escalate: 'human_review' | null | undefined;
+
     for (const policy of policies) {
-      const match = this.matchRuleSet(policy.rules, input);
-      if (match?.effect === 'deny')
-        return { effect: 'deny', reason: match.reason ?? policy.meta.name };
-      if (match?.effect === 'allow' && !allowReason) {
-        allowReason = match.reason ?? policy.meta.name;
+      const match = this.matchRuleSet(policy, input);
+      if (!match) continue;
+      if (match.rule.effect === 'deny') {
+        return {
+          effect: 'deny',
+          reason: match.rule.reason ?? policy.meta.name,
+          requiredConsents: match.missingConsents.length
+            ? match.missingConsents
+            : undefined,
+          evaluatedBy: 'engine',
+        };
+      }
+      if (match.rule.effect === 'allow') {
+        if (match.missingConsents.length) {
+          return {
+            effect: 'deny',
+            reason: 'consent_required',
+            requiredConsents: match.missingConsents,
+            evaluatedBy: 'engine',
+          };
+        }
+        if (!allowReason) {
+          allowReason = match.rule.reason ?? policy.meta.name;
+        }
+        if (!appliedRateLimit && match.rateLimit) {
+          appliedRateLimit = match.rateLimit;
+        }
+        if (!escalate && match.rule.escalate) {
+          escalate = match.rule.escalate;
+        }
       }
     }
 
     const fieldDecisions = this.evaluateFields(policies, input);
     const pii = policies.find((p) => p.pii)?.pii;
+    const escalateValue =
+      typeof escalate === 'undefined' ? undefined : escalate;
 
     return {
       effect: allowReason ? 'allow' : 'deny',
       reason: allowReason,
+      rateLimit: appliedRateLimit,
+      escalate: escalateValue,
       fieldDecisions: fieldDecisions.length ? fieldDecisions : undefined,
       pii,
+      evaluatedBy: 'engine',
     };
   }
 
@@ -67,17 +119,26 @@ export class PolicyEngine {
   }
 
   private matchRuleSet(
-    rules: PolicyRule[],
+    policy: PolicySpec,
     input: DecisionContext
-  ): PolicyRule | undefined {
-    let allowMatch: PolicyRule | undefined;
-    for (const rule of rules) {
+  ): RuleEvaluation | undefined {
+    let allowMatch: RuleEvaluation | undefined;
+    for (const rule of policy.rules) {
       if (!rule.actions.includes(input.action)) continue;
       if (!matchesSubject(rule, input.subject)) continue;
       if (!matchesResource(rule, input.resource)) continue;
+      if (!matchesFlags(rule, input)) continue;
+      if (!matchesRelationships(rule.relationships, input)) continue;
       if (!matchesConditions(rule, input)) continue;
-      if (rule.effect === 'deny') return rule;
-      if (rule.effect === 'allow' && !allowMatch) allowMatch = rule;
+      const missingConsents = collectMissingConsents(rule, policy, input);
+      const rateLimit = resolveRateLimit(rule, policy, input);
+      const evaluation: RuleEvaluation = {
+        rule,
+        missingConsents,
+        rateLimit,
+      };
+      if (rule.effect === 'deny') return evaluation;
+      if (rule.effect === 'allow' && !allowMatch) allowMatch = evaluation;
     }
     return allowMatch;
   }
@@ -156,6 +217,56 @@ function matchesResource(
   return true;
 }
 
+function matchesFlags(rule: PolicyRule, input: DecisionContext): boolean {
+  if (!rule.flags?.length) return true;
+  const available = new Set<string>();
+  if (input.flags) {
+    for (const flag of input.flags) available.add(flag);
+  }
+  const attributeFlags = input.subject.attributes?.featureFlags;
+  if (Array.isArray(attributeFlags)) {
+    for (const flag of attributeFlags) available.add(flag);
+  }
+  return rule.flags.every((flag) => available.has(flag));
+}
+
+function matchesRelationships(
+  matchers: RelationshipMatcher[] | undefined,
+  input: DecisionContext
+): boolean {
+  if (!matchers || matchers.length === 0) return true;
+  const relationships = input.subject.relationships ?? [];
+  const resourceId = getResourceId(input.resource);
+  const resourceType = input.resource.type;
+
+  return matchers.every((matcher) =>
+    relationships.some((relation) => {
+      if (relation.relation !== matcher.relation) return false;
+
+      const typeMatches =
+        !matcher.objectType ||
+        relation.objectType === matcher.objectType ||
+        matcher.objectType === resourceType;
+
+      if (!typeMatches) return false;
+
+      if (!matcher.objectId) return true;
+
+      if (matcher.objectId === '$resource') {
+        if (resourceId) {
+          return relation.object === resourceId;
+        }
+        return (
+          relation.object === resourceType ||
+          relation.objectType === resourceType
+        );
+      }
+
+      return relation.object === matcher.objectId;
+    })
+  );
+}
+
 function matchesConditions(
   rule: { conditions?: PolicyCondition[] },
   input: DecisionContext
@@ -179,6 +290,64 @@ function matchAttributes(
     if (attrMatcher.oneOf && !attrMatcher.oneOf.includes(value)) return false;
   }
   return true;
+}
+
+function collectMissingConsents(
+  rule: PolicyRule,
+  policy: PolicySpec,
+  input: DecisionContext
+): ConsentDefinition[] {
+  if (!rule.requiresConsent?.length) return [];
+  const granted = new Set(input.consents ?? []);
+  const missingIds = rule.requiresConsent.filter((id) => !granted.has(id));
+  if (missingIds.length === 0) return [];
+  return resolveConsentDefinitions(policy, missingIds);
+}
+
+function resolveConsentDefinitions(
+  policy: PolicySpec,
+  ids: string[]
+): ConsentDefinition[] {
+  const catalog = policy.consents ?? [];
+  return ids.map((id) => {
+    const found = catalog.find((consent) => consent.id === id);
+    return (
+      found ?? {
+        id,
+        scope: 'unspecified',
+        purpose: 'unspecified',
+        description: `Consent "${id}" required by ${policy.meta.name}`,
+        required: true,
+      }
+    );
+  });
+}
+
+function resolveRateLimit(
+  rule: PolicyRule,
+  policy: PolicySpec,
+  input: DecisionContext
+): PolicyDecision['rateLimit'] | undefined {
+  if (!rule.rateLimit) return undefined;
+  const definition: RateLimitDefinition | undefined =
+    typeof rule.rateLimit === 'string'
+      ? (policy.rateLimits ?? []).find((item) => item.id === rule.rateLimit)
+      : rule.rateLimit;
+
+  if (!definition) {
+    throw new Error(
+      `PolicyEngine: rate limit "${String(
+        rule.rateLimit
+      )}" not declared in ${policy.meta.name}`
+    );
+  }
+
+  return {
+    rpm: definition.rpm,
+    key: definition.key ?? input.resource.type,
+    windowSeconds: definition.windowSeconds,
+    burst: definition.burst,
+  };
 }
 
 function evaluateCondition(
@@ -212,5 +381,13 @@ function evaluateCondition(
 
 function transformExpression(expression: string): string {
   return expression.replace(/&&/g, '&&').replace(/\|\|/g, '||');
+}
+
+function getResourceId(resource: ResourceContext): string | undefined {
+  if (resource.id) return resource.id;
+  const candidate = resource.attributes?.id;
+  if (typeof candidate === 'string') return candidate;
+  if (typeof candidate === 'number') return String(candidate);
+  return undefined;
 }
 
