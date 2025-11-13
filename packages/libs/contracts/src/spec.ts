@@ -7,6 +7,7 @@ import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor } from './resources';
 import type { Owner, Stability, Tag } from './ownership';
 import type { PolicyRef } from './policy/spec';
+import type { TestSpecRef } from './tests/spec';
 
 export type OpKind = 'command' | 'query';
 
@@ -115,6 +116,8 @@ export interface ContractSpec<
     success?: TelemetryTrigger;
     failure?: TelemetryTrigger;
   };
+
+  tests?: TestSpecRef[];
 
   transport?: {
     rest?: {
