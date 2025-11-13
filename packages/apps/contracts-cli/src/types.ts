@@ -6,7 +6,8 @@ export type SpecType =
   | 'feature'
   | 'workflow'
   | 'data-view'
-  | 'migration';
+  | 'migration'
+  | 'telemetry';
 
 export type OpKind = 'command' | 'query';
 
@@ -100,6 +101,57 @@ export interface DataViewSpecData extends BaseSpecData {
   fields: DataViewFieldData[];
   primaryField?: string;
   secondaryFields?: string[];
+}
+
+export type TelemetryPrivacy = 'public' | 'internal' | 'pii' | 'sensitive';
+
+export interface TelemetryPropertyData {
+  name: string;
+  type: 'string' | 'number' | 'boolean' | 'timestamp' | 'json';
+  required?: boolean;
+  pii?: boolean;
+  redact?: boolean;
+  description?: string;
+}
+
+export interface TelemetryAnomalyRuleData {
+  metric: string;
+  min?: number;
+  max?: number;
+}
+
+export interface TelemetryEventData {
+  name: string;
+  version: number;
+  what: string;
+  who?: string;
+  why?: string;
+  privacy: TelemetryPrivacy;
+  properties: TelemetryPropertyData[];
+  retentionDays?: number;
+  retentionPolicy?: 'archive' | 'delete';
+  samplingRate?: number;
+  samplingConditions?: string;
+  anomalyEnabled?: boolean;
+  anomalyMinimumSample?: number;
+  anomalyRules?: TelemetryAnomalyRuleData[];
+  anomalyActions?: ('alert' | 'log' | 'trigger_regen')[];
+  tags?: string[];
+}
+
+export interface TelemetryProviderData {
+  type: 'posthog' | 'segment' | 'opentelemetry' | 'internal';
+  config: string;
+}
+
+export interface TelemetrySpecData extends BaseSpecData {
+  domain: string;
+  defaultRetentionDays?: number;
+  defaultSamplingRate?: number;
+  providers?: TelemetryProviderData[];
+  anomalyEnabled?: boolean;
+  anomalyCheckIntervalMs?: number;
+  events: TelemetryEventData[];
 }
 
 export type MigrationStepKind = 'schema' | 'data' | 'validation';
