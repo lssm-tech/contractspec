@@ -37,7 +37,8 @@ export function resolveOutputPath(
     | 'workflow'
     | 'data-view'
     | 'migration'
-    | 'telemetry',
+    | 'telemetry'
+    | 'experiment',
   conventions: Record<string, string>,
   fileName: string
 ): string {
@@ -70,6 +71,9 @@ export function resolveOutputPath(
       break;
     case 'telemetry':
       subPath = conventions.telemetry || 'telemetry';
+      break;
+    case 'experiment':
+      subPath = conventions.experiments || 'experiments';
       break;
     default:
       subPath = '';

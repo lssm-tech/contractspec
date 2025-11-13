@@ -8,6 +8,7 @@ import type {
   CapabilityRequirement,
   CapabilityRegistry,
 } from './capabilities';
+import type { ExperimentRef } from './experiments/spec';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export interface FeatureModuleMeta extends OwnerShipMeta {
@@ -45,6 +46,8 @@ export interface FeatureModuleSpec {
   events?: EventRef[];
   /** Presentations associated to this feature. */
   presentations?: PresentationRef[];
+  /** Experiments related to this feature. */
+  experiments?: ExperimentRef[];
   /** Capability bindings exposed/required by this feature. */
   capabilities?: {
     provides?: CapabilityRef[];

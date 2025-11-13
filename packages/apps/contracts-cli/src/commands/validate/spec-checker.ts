@@ -52,6 +52,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validateTelemetrySpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.experiment.')) {
+    validateExperimentSpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -129,6 +133,21 @@ function validateTelemetrySpec(code: string, errors: string[], warnings: string[
 
   if (!code.match(/privacy:\s*'(public|internal|pii|sensitive)'/)) {
     warnings.push('No explicit privacy classification found');
+  }
+}
+
+function validateExperimentSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*ExperimentSpec\s*=/)) {
+    errors.push('Missing ExperimentSpec type annotation');
+  }
+  if (!code.includes('controlVariant')) {
+    errors.push('ExperimentSpec must declare controlVariant');
+  }
+  if (!code.includes('variants:')) {
+    errors.push('ExperimentSpec must declare variants');
+  }
+  if (!code.match(/allocation:\s*{/)) {
+    warnings.push('ExperimentSpec missing allocation configuration');
   }
 }
 

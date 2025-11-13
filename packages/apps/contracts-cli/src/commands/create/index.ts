@@ -7,6 +7,7 @@ import { presentationWizard } from './wizards/presentation';
 import { workflowWizard } from './wizards/workflow';
 import { migrationWizard } from './wizards/migration';
 import { telemetryWizard } from './wizards/telemetry';
+import { experimentWizard } from './wizards/experiment';
 import { dataViewWizard } from './wizards/data-view';
 import {
   aiGenerateEvent,
@@ -19,6 +20,7 @@ import { generatePresentationSpec } from '../../templates/presentation.template'
 import { generateWorkflowSpec } from '../../templates/workflow.template';
 import { generateMigrationSpec } from '../../templates/migration.template';
 import { generateTelemetrySpec } from '../../templates/telemetry.template';
+import { generateExperimentSpec } from '../../templates/experiment.template';
 import { generateDataViewSpec } from '../../templates/data-view.template';
 import {
   generateFileName,
@@ -30,6 +32,7 @@ import type { Config } from '../../utils/config';
 import type {
   DataViewSpecData,
   EventSpecData,
+  ExperimentSpecData,
   MigrationSpecData,
   OperationSpecData,
   PresentationSpecData,
@@ -68,6 +71,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Workflow', value: 'workflow' },
           { name: 'Migration', value: 'migration' },
           { name: 'Telemetry', value: 'telemetry' },
+          { name: 'Experiment', value: 'experiment' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -105,6 +109,9 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'telemetry':
       await createTelemetrySpec(options, config);
+      break;
+    case 'experiment':
+      await createExperimentSpec(options, config);
       break;
     case 'data-view':
       await createDataViewSpec(options, config);
@@ -431,6 +438,44 @@ async function createTelemetrySpec(options: CreateOptions, config: Config) {
   console.log(
     chalk.gray(
       `  2. Link ContractSpec and WorkflowSpec telemetry settings to these events.`
+    )
+  );
+}
+
+async function createExperimentSpec(options: CreateOptions, config: Config) {
+  if (options.ai) {
+    console.log(
+      chalk.yellow(
+        '⚠️  AI-assisted experiment generation is not available yet. Switching to interactive wizard.'
+      )
+    );
+  }
+
+  const specData: ExperimentSpecData = await experimentWizard();
+  const code = generateExperimentSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.experiment.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'experiment',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing experiment spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(
+    chalk.gray(
+      `  1. Register the experiment in your ExperimentRegistry and wire overrides.`
+    )
+  );
+  console.log(
+    chalk.gray(
+      `  2. Use ExperimentEvaluator to assign variants in your runtime.`
     )
   );
 }
