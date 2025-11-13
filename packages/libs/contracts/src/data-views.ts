@@ -1,5 +1,6 @@
 import type { OwnerShipMeta } from './ownership';
 import type { OpRef, EventRef, PresentationRef } from './features';
+import type { ExperimentRef } from './experiments/spec';
 
 export type DataViewKind = 'list' | 'detail' | 'table' | 'grid';
 
@@ -138,6 +139,7 @@ export interface DataViewSpec {
   view: DataViewConfig;
   states?: DataViewStates;
   policy?: { flags?: string[]; pii?: string[] };
+  experiments?: ExperimentRef[];
 }
 
 function keyOf(spec: DataViewSpec) {

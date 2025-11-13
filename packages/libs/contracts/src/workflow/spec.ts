@@ -1,5 +1,6 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { OpRef } from '../features';
+import type { ExperimentRef } from '../experiments/spec';
 
 /**
  * Reference to a form spec declared in {@link FormRegistry}.
@@ -96,6 +97,7 @@ export interface WorkflowSpec {
   meta: WorkflowMeta;
   definition: WorkflowDefinition;
   policy?: { flags?: string[] };
+  experiments?: ExperimentRef[];
 }
 
 function workflowKey(meta: WorkflowMeta) {

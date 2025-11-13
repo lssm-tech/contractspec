@@ -25,4 +25,6 @@ export * from './themes';
 export * from './migrations';
 export * from './telemetry';
 export * from './tests';
+export * from './experiments/spec';
+export * from './experiments/evaluator';
 export * from './workflow';

@@ -7,7 +7,8 @@ export type SpecType =
   | 'workflow'
   | 'data-view'
   | 'migration'
-  | 'telemetry';
+  | 'telemetry'
+  | 'experiment';
 
 export type OpKind = 'command' | 'query';
 
@@ -152,6 +153,65 @@ export interface TelemetrySpecData extends BaseSpecData {
   anomalyEnabled?: boolean;
   anomalyCheckIntervalMs?: number;
   events: TelemetryEventData[];
+}
+
+export interface ExperimentVariantOverrideData {
+  type: 'dataView' | 'workflow' | 'theme' | 'policy' | 'presentation';
+  target: string;
+  version?: number;
+}
+
+export interface ExperimentVariantData {
+  id: string;
+  name: string;
+  description?: string;
+  weight?: number;
+  overrides?: ExperimentVariantOverrideData[];
+}
+
+export interface TargetingRuleData {
+  variantId: string;
+  percentage?: number;
+  policy?: { name: string; version?: number };
+  expression?: string;
+}
+
+export interface RandomAllocationData {
+  type: 'random';
+  salt?: string;
+}
+
+export interface StickyAllocationData {
+  type: 'sticky';
+  attribute: 'userId' | 'organizationId' | 'sessionId';
+  salt?: string;
+}
+
+export interface TargetedAllocationData {
+  type: 'targeted';
+  fallback?: 'control' | 'random';
+  rules: TargetingRuleData[];
+}
+
+export type ExperimentAllocationData =
+  | RandomAllocationData
+  | StickyAllocationData
+  | TargetedAllocationData;
+
+export interface ExperimentMetricData {
+  name: string;
+  eventName: string;
+  eventVersion: number;
+  aggregation: 'count' | 'avg' | 'p75' | 'p90' | 'p95' | 'p99';
+  target?: number;
+}
+
+export interface ExperimentSpecData extends BaseSpecData {
+  domain: string;
+  controlVariant: string;
+  variants: ExperimentVariantData[];
+  allocation: ExperimentAllocationData;
+  successMetrics?: ExperimentMetricData[];
 }
 
 export type MigrationStepKind = 'schema' | 'data' | 'validation';
