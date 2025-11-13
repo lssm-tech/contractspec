@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises';
-import { dirname, join } from 'path';
+import { dirname, join, isAbsolute } from 'path';
 import { existsSync } from 'fs';
 
 /**
@@ -100,5 +100,11 @@ export function generateFileName(
     .toLowerCase();
   
   return `${kebab}${extension}`;
+}
+
+export function resolvePathFromCwd(targetPath: string): string {
+  return isAbsolute(targetPath)
+    ? targetPath
+    : join(process.cwd(), targetPath);
 }
 
