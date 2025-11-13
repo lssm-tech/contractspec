@@ -44,6 +44,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validateDataViewSpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.migration.')) {
+    validateMigrationSpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -180,6 +184,32 @@ function validateWorkflowSpec(code: string, errors: string[], warnings: string[]
 
   if (!code.match(/domain:\s*['"][^'"]+['"]/)) {
     warnings.push('Missing domain field');
+  }
+
+  if (code.includes('TODO')) {
+    warnings.push('Contains TODO items that need completion');
+  }
+}
+
+function validateMigrationSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*MigrationSpec\s*=/)) {
+    errors.push('Missing MigrationSpec type annotation');
+  }
+
+  if (!code.includes('plan:')) {
+    errors.push('Missing plan section');
+  } else {
+    if (!code.includes('up:')) {
+      errors.push('Migration must define at least one up step');
+    }
+  }
+
+  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid migration name');
+  }
+
+  if (!code.match(/version:\s*\d+/)) {
+    errors.push('Missing or invalid migration version');
   }
 
   if (code.includes('TODO')) {

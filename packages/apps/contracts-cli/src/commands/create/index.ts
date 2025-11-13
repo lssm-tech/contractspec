@@ -5,6 +5,7 @@ import { operationWizard } from './wizards/operation';
 import { eventWizard } from './wizards/event';
 import { presentationWizard } from './wizards/presentation';
 import { workflowWizard } from './wizards/workflow';
+import { migrationWizard } from './wizards/migration';
 import { dataViewWizard } from './wizards/data-view';
 import {
   aiGenerateEvent,
@@ -15,6 +16,7 @@ import { generateOperationSpec } from '../../templates/operation.template';
 import { generateEventSpec } from '../../templates/event.template';
 import { generatePresentationSpec } from '../../templates/presentation.template';
 import { generateWorkflowSpec } from '../../templates/workflow.template';
+import { generateMigrationSpec } from '../../templates/migration.template';
 import { generateDataViewSpec } from '../../templates/data-view.template';
 import {
   generateFileName,
@@ -26,6 +28,7 @@ import type { Config } from '../../utils/config';
 import type {
   DataViewSpecData,
   EventSpecData,
+  MigrationSpecData,
   OperationSpecData,
   PresentationSpecData,
   SpecType,
@@ -60,6 +63,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Presentation', value: 'presentation' },
           { name: 'Data view', value: 'data-view' },
           { name: 'Workflow', value: 'workflow' },
+          { name: 'Migration', value: 'migration' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -91,6 +95,9 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'workflow':
       await createWorkflowSpec(options, config);
+      break;
+    case 'migration':
+      await createMigrationSpec(options, config);
       break;
     case 'data-view':
       await createDataViewSpec(options, config);
@@ -379,6 +386,40 @@ async function createDataViewSpec(options: CreateOptions, config: Config) {
   console.log(
     chalk.gray(
       `  2. Render it with DataViewRenderer or tailor a component to your UI.`
+    )
+  );
+}
+
+async function createMigrationSpec(options: CreateOptions, config: Config) {
+  if (options.ai) {
+    console.log(
+      chalk.yellow(
+        '⚠️  AI-assisted migration generation is not available yet. Switching to interactive wizard.'
+      )
+    );
+  }
+
+  const specData: MigrationSpecData = await migrationWizard();
+  const code = generateMigrationSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.migration.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'migration',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing migration spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(chalk.gray(`  1. Review the migration steps in ${filePath}.`));
+  console.log(
+    chalk.gray(
+      `  2. Integrate with your migration runner or build tooling (coming soon).`
     )
   );
 }

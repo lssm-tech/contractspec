@@ -5,7 +5,8 @@ export type SpecType =
   | 'form'
   | 'feature'
   | 'workflow'
-  | 'data-view';
+  | 'data-view'
+  | 'migration';
 
 export type OpKind = 'command' | 'query';
 
@@ -99,6 +100,28 @@ export interface DataViewSpecData extends BaseSpecData {
   fields: DataViewFieldData[];
   primaryField?: string;
   secondaryFields?: string[];
+}
+
+export type MigrationStepKind = 'schema' | 'data' | 'validation';
+
+export interface MigrationStepData {
+  kind: MigrationStepKind;
+  description?: string;
+  sql?: string;
+  script?: string;
+  assertion?: string;
+  timeoutMs?: number;
+  retries?: number;
+  preChecks?: Array<{ description: string; expression: string }>;
+  postChecks?: Array<{ description: string; expression: string }>;
+}
+
+export interface MigrationSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  dependencies: string[];
+  up: MigrationStepData[];
+  down?: MigrationStepData[];
 }
 
 export interface AIGenerationOptions {

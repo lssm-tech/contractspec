@@ -35,7 +35,8 @@ export function resolveOutputPath(
     | 'form'
     | 'feature'
     | 'workflow'
-    | 'data-view',
+    | 'data-view'
+    | 'migration',
   conventions: Record<string, string>,
   fileName: string
 ): string {
@@ -62,6 +63,9 @@ export function resolveOutputPath(
       break;
     case 'data-view':
       subPath = conventions['data-views'] || conventions.dataViews || 'data-views';
+      break;
+    case 'migration':
+      subPath = conventions.migrations || 'migrations';
       break;
     default:
       subPath = '';
