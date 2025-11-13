@@ -49,6 +49,9 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./app-config": "./src/app-config/index.ts",
+    "./app-config/runtime": "./src/app-config/runtime.ts",
+    "./app-config/spec": "./src/app-config/spec.ts",
     "./capabilities": "./src/capabilities.ts",
     "./client": "./src/client/index.ts",
     "./client/react": "./src/client/react/index.ts",
@@ -119,6 +122,9 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./app-config": "./dist/app-config/index.js",
+      "./app-config/runtime": "./dist/app-config/runtime.js",
+      "./app-config/spec": "./dist/app-config/spec.js",
       "./capabilities": "./dist/capabilities.js",
       "./client": "./dist/client/index.js",
       "./client/react": "./dist/client/react/index.js",

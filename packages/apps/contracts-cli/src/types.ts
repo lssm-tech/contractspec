@@ -8,7 +8,8 @@ export type SpecType =
   | 'data-view'
   | 'migration'
   | 'telemetry'
-  | 'experiment';
+  | 'experiment'
+  | 'app-config';
 
 export type OpKind = 'command' | 'query';
 
@@ -212,6 +213,54 @@ export interface ExperimentSpecData extends BaseSpecData {
   variants: ExperimentVariantData[];
   allocation: ExperimentAllocationData;
   successMetrics?: ExperimentMetricData[];
+}
+
+export interface AppConfigMappingData {
+  slot: string;
+  name: string;
+  version?: number;
+}
+
+export interface AppConfigFeatureFlagData {
+  key: string;
+  enabled: boolean;
+  variant?: string;
+  description?: string;
+}
+
+export interface AppRouteConfigData {
+  path: string;
+  label?: string;
+  dataView?: string;
+  workflow?: string;
+  guardName?: string;
+  guardVersion?: number;
+  featureFlag?: string;
+  experimentName?: string;
+  experimentVersion?: number;
+}
+
+export interface AppConfigSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  appId: string;
+  tenantId?: string;
+  environment?: string;
+  capabilitiesEnabled: string[];
+  capabilitiesDisabled: string[];
+  featureIncludes: string[];
+  featureExcludes: string[];
+  dataViews: AppConfigMappingData[];
+  workflows: AppConfigMappingData[];
+  policyRefs: { name: string; version?: number }[];
+  theme?: { name: string; version: number };
+  themeFallbacks: { name: string; version: number }[];
+  telemetry?: { name: string; version?: number };
+  activeExperiments: { name: string; version?: number }[];
+  pausedExperiments: { name: string; version?: number }[];
+  featureFlags: AppConfigFeatureFlagData[];
+  routes: AppRouteConfigData[];
+  notes?: string;
 }
 
 export type MigrationStepKind = 'schema' | 'data' | 'validation';

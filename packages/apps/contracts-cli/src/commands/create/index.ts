@@ -8,6 +8,7 @@ import { workflowWizard } from './wizards/workflow';
 import { migrationWizard } from './wizards/migration';
 import { telemetryWizard } from './wizards/telemetry';
 import { experimentWizard } from './wizards/experiment';
+import { appConfigWizard } from './wizards/app-config';
 import { dataViewWizard } from './wizards/data-view';
 import {
   aiGenerateEvent,
@@ -21,6 +22,7 @@ import { generateWorkflowSpec } from '../../templates/workflow.template';
 import { generateMigrationSpec } from '../../templates/migration.template';
 import { generateTelemetrySpec } from '../../templates/telemetry.template';
 import { generateExperimentSpec } from '../../templates/experiment.template';
+import { generateAppConfigSpec } from '../../templates/app-config.template';
 import { generateDataViewSpec } from '../../templates/data-view.template';
 import {
   generateFileName,
@@ -30,6 +32,7 @@ import {
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
 import type {
+  AppConfigSpecData,
   DataViewSpecData,
   EventSpecData,
   ExperimentSpecData,
@@ -72,6 +75,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Migration', value: 'migration' },
           { name: 'Telemetry', value: 'telemetry' },
           { name: 'Experiment', value: 'experiment' },
+          { name: 'App Config', value: 'app-config' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -112,6 +116,9 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'experiment':
       await createExperimentSpec(options, config);
+      break;
+    case 'app-config':
+      await createAppConfig(options, config);
       break;
     case 'data-view':
       await createDataViewSpec(options, config);
@@ -476,6 +483,44 @@ async function createExperimentSpec(options: CreateOptions, config: Config) {
   console.log(
     chalk.gray(
       `  2. Use ExperimentEvaluator to assign variants in your runtime.`
+    )
+  );
+}
+
+async function createAppConfig(options: CreateOptions, config: Config) {
+  if (options.ai) {
+    console.log(
+      chalk.yellow(
+        '⚠️  AI-assisted app configuration is not available yet. Switching to interactive wizard.'
+      )
+    );
+  }
+
+  const specData: AppConfigSpecData = await appConfigWizard();
+  const code = generateAppConfigSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.app-config.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'app-config',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing app config spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(
+    chalk.gray(
+      `  1. Register this config in an AppConfigRegistry for your tenant/app.`
+    )
+  );
+  console.log(
+    chalk.gray(
+      `  2. Use composeAppConfig() to resolve dependencies before deploying.`
     )
   );
 }
