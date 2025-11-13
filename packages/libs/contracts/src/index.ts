@@ -24,4 +24,5 @@ export * from './policy/opa-adapter';
 export * from './themes';
 export * from './migrations';
 export * from './telemetry';
+export * from './tests';
 export * from './workflow';

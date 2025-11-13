@@ -4,6 +4,7 @@ import { loadConfig, mergeConfig } from './utils/config';
 import { createCommand } from './commands/create/index';
 import { buildCommand } from './commands/build/index';
 import { validateCommand } from './commands/validate/index';
+import { testCommand } from './commands/test/index';
 
 const program = new Command();
 
@@ -20,7 +21,7 @@ program
   .description('Create a new contract specification')
   .option(
     '-t, --type <type>',
-    'Spec type: operation, event, presentation, form, feature'
+    'Spec type: operation, event, presentation, form, feature, workflow, data-view, migration, telemetry'
   )
   .option('--ai', 'Use AI to generate spec from description')
   .option(
@@ -102,6 +103,26 @@ program
       const config = await loadConfig();
       const mergedConfig = mergeConfig(config, options);
       await validateCommand(specFile, options, mergedConfig);
+    } catch (error) {
+      console.error(
+        chalk.red('\n❌ Error:'),
+        error instanceof Error ? error.message : String(error)
+      );
+      process.exit(1);
+    }
+  });
+
+// Test command
+program
+  .command('test')
+  .description('Run TestSpec scenarios against a SpecRegistry')
+  .argument('<spec-file>', 'Path to TestSpec file')
+  .option('-r, --registry <path>', 'Path to module exporting a SpecRegistry or factory')
+  .option('--json', 'Output JSON results')
+  .action(async (specFile, options) => {
+    try {
+      const config = await loadConfig();
+      await testCommand(specFile, options, config);
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),
