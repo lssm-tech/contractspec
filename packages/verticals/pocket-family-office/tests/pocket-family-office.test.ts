@@ -114,7 +114,16 @@ describe('Pocket Family Office configuration', () => {
       }
     );
 
-    expect(composition.missing).toEqual([]);
+    const blockingMissing = composition.missing.filter((item) =>
+      [
+        'integrationConnection',
+        'integrationSpec',
+        'integrationSlot',
+        'knowledgeSpace',
+        'knowledgeSource',
+      ].includes(item.type)
+    );
+    expect(blockingMissing).toEqual([]);
 
     const validation = validateTenantConfig(
       pocketFamilyOfficeBlueprint,

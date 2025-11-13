@@ -27,7 +27,7 @@
     "googleapis": "^166.0.0",
     "elevenlabs": "^1.59.0",
     "@google-cloud/storage": "^7.8.0",
-    "stripe": "^15.9.0",
+    "stripe": "^19.1.0",
     "postmark": "^4.0.4",
     "twilio": "^5.10.5",
     "@lssm/lib.schema": "workspace:*",
