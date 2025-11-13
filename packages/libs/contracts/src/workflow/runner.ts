@@ -12,7 +12,10 @@ import type {
   ResolvedAppConfig,
   ResolvedIntegration,
   ResolvedKnowledge,
+  ResolvedTranslation,
 } from '../app-config/runtime';
+import type { ResolvedBranding } from '../app-config/branding';
+import type { SecretProvider, TranslationResolver } from '../types';
 
 export interface OperationExecutorContext {
   workflow: WorkflowState;
@@ -20,6 +23,10 @@ export interface OperationExecutorContext {
   resolvedAppConfig?: ResolvedAppConfig;
   integrations?: ResolvedIntegration[];
   knowledge?: ResolvedKnowledge[];
+  branding?: ResolvedBranding;
+  translation?: ResolvedTranslation;
+  translationResolver?: TranslationResolver;
+  secretProvider?: SecretProvider;
 }
 
 export type OperationExecutor = (
@@ -52,6 +59,8 @@ export interface WorkflowRunnerConfig {
     operation: OpRef,
     context: OperationExecutorContext
   ) => void | Promise<void>;
+  secretProvider?: SecretProvider;
+  translationResolver?: TranslationResolver;
 }
 
 export class WorkflowRunner {
@@ -235,6 +244,10 @@ export class WorkflowRunner {
         resolvedAppConfig,
         integrations: resolvedAppConfig?.integrations ?? [],
         knowledge: resolvedAppConfig?.knowledge ?? [],
+        branding: resolvedAppConfig?.branding,
+        translation: resolvedAppConfig?.translation,
+        translationResolver: this.config.translationResolver,
+        secretProvider: this.config.secretProvider,
       };
       if (this.config.enforceCapabilities) {
         await this.config.enforceCapabilities(op, executorContext);

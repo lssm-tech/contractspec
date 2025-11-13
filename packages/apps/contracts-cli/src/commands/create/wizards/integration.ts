@@ -6,6 +6,8 @@ import type {
   IntegrationConfigFieldData,
   IntegrationConfigFieldType,
   IntegrationHealthCheckMethod,
+  IntegrationOwnershipModeData,
+  IntegrationSecretFieldData,
   IntegrationSpecData,
   Stability,
 } from '../../../types';
@@ -119,6 +121,10 @@ export async function integrationWizard(
     default: defaults?.tags?.join(', ') ?? '',
   });
 
+  const supportedModes = await collectSupportedModes(
+    defaults?.supportedModes ?? ['managed']
+  );
+
   const capabilitiesProvided = await collectProvidedCapabilities(
     defaults?.capabilitiesProvided
   );
@@ -128,6 +134,7 @@ export async function integrationWizard(
   );
 
   const configFields = await collectConfigFields(defaults?.configFields);
+  const secretFields = await collectSecretFields(defaults?.secretFields);
 
   const docsUrl = await input({
     message: 'Documentation URL (optional):',
@@ -157,6 +164,30 @@ export async function integrationWizard(
     validate: positiveInt,
   });
 
+  let byokSetupInstructions = defaults?.byokSetupInstructions;
+  let byokRequiredScopes = defaults?.byokRequiredScopes;
+  if (supportedModes.includes('byok')) {
+    const instructions = await input({
+      message:
+        'BYOK setup instructions (visible to tenants, optional):',
+      default: byokSetupInstructions ?? '',
+    });
+    byokSetupInstructions = instructions.trim() || undefined;
+
+    const scopesInput = await input({
+      message:
+        'BYOK required scopes (comma-separated, optional):',
+      default: (byokRequiredScopes ?? []).join(', '),
+    });
+    byokRequiredScopes = splitList(scopesInput);
+    if (byokRequiredScopes.length === 0) {
+      byokRequiredScopes = undefined;
+    }
+  } else {
+    byokSetupInstructions = undefined;
+    byokRequiredScopes = undefined;
+  }
+
   return {
     name,
     version,
@@ -168,15 +199,46 @@ export async function integrationWizard(
     domain,
     displayName,
     category,
+    supportedModes,
     capabilitiesProvided,
     capabilitiesRequired,
     configFields,
+    secretFields,
     docsUrl: docsUrl.trim() || undefined,
     rateLimitRpm,
     rateLimitRph,
     healthCheckMethod,
     healthCheckTimeoutMs,
+    byokSetupInstructions,
+    byokRequiredScopes,
   };
+}
+
+async function collectSupportedModes(
+  defaults: IntegrationOwnershipModeData[]
+): Promise<IntegrationOwnershipModeData[]> {
+  const hasManagedDefault = defaults.includes('managed');
+  const hasByokDefault = defaults.includes('byok');
+
+  const supportsManaged = await confirm({
+    message: 'Does this integration support platform-managed credentials?',
+    default: hasManagedDefault || !hasByokDefault,
+  });
+
+  const supportsByok = await confirm({
+    message: 'Does this integration support tenant BYOK credentials?',
+    default: hasByokDefault,
+  });
+
+  const modes: IntegrationOwnershipModeData[] = [];
+  if (supportsManaged) modes.push('managed');
+  if (supportsByok) modes.push('byok');
+
+  if (modes.length === 0) {
+    modes.push('managed');
+  }
+
+  return modes;
 }
 
 async function collectProvidedCapabilities(
@@ -277,7 +339,7 @@ async function collectConfigFields(
     const def = defaults?.[index];
     const key = await input({
       message: 'Config field key (e.g., "apiKey"):',
-      default: def?.key ?? (fields.length === 0 ? 'apiKey' : ''),
+      default: def?.key ?? (fields.length === 0 ? 'apiUrl' : ''),
       validate: (value: string) =>
         value.trim().length > 0 || 'Config key is required',
     });
@@ -307,6 +369,55 @@ async function collectConfigFields(
 
     addAnother = await confirm({
       message: 'Add another config field?',
+      default: false,
+    });
+    index += 1;
+  }
+
+  return fields;
+}
+
+async function collectSecretFields(
+  defaults?: IntegrationSecretFieldData[]
+): Promise<IntegrationSecretFieldData[]> {
+  const hasSecrets = await confirm({
+    message: 'Does this integration require secrets (API keys, tokens)?',
+    default: Boolean(defaults && defaults.length > 0),
+  });
+  if (!hasSecrets) return [];
+
+  const fields: IntegrationSecretFieldData[] = [];
+  let addAnother = true;
+  let index = 0;
+
+  while (addAnother || fields.length === 0) {
+    const def = defaults?.[index];
+    const key = await input({
+      message: 'Secret field key (e.g., "apiKey"):',
+      default: def?.key ?? (fields.length === 0 ? 'apiKey' : ''),
+      validate: (value: string) =>
+        value.trim().length > 0 || 'Secret key is required',
+    });
+
+    const required = await confirm({
+      message: 'Is this secret required?',
+      default: def?.required ?? true,
+    });
+
+    const description = await input({
+      message: 'Secret description (optional, helps tenants understand usage):',
+      default: def?.description ?? '',
+    });
+
+    fields.push({
+      key,
+      type: 'string',
+      required,
+      description: description.trim() || undefined,
+    });
+
+    addAnother = await confirm({
+      message: 'Add another secret field?',
       default: false,
     });
     index += 1;

@@ -14,7 +14,10 @@ import type {
   ResolvedAppConfig,
   ResolvedIntegration,
   ResolvedKnowledge,
+  ResolvedTranslation,
 } from './app-config/runtime';
+import type { ResolvedBranding } from './app-config/branding';
+import type { Locale, MessageKey } from './translations/catalog';
 
 export interface FieldLevelDecision {
   field: string;
@@ -55,6 +58,15 @@ export type RateLimiter = (
   rpm: number
 ) => Promise<void>;
 
+export interface SecretProvider {
+  getSecret<T = unknown>(reference: string): Promise<T>;
+}
+
+export type TranslationResolver = (
+  key: MessageKey,
+  locale?: Locale
+) => Promise<string | null> | string | null;
+
 /** Outbox/bus event publisher (after validation & guarding) */
 export type EventPublisher = (envelope: {
   name: string;
@@ -80,6 +92,8 @@ export interface HandlerCtx {
   telemetry?: TelemetryTracker;
   /** Event publisher (outbox+bus) */
   eventPublisher?: EventPublisher;
+  /** Secret provider for secure credentials */
+  secretProvider?: SecretProvider;
 
   /** Internal pipe: filled by executor to enforce declared events */
   __emitGuard__?: (
@@ -93,4 +107,11 @@ export interface HandlerCtx {
   integrations?: ResolvedIntegration[];
   /** Resolved knowledge spaces available to this execution */
   knowledge?: ResolvedKnowledge[];
+  /** Resolved branding context */
+  branding?: ResolvedBranding;
+  /** Translation context */
+  translation?: {
+    config: ResolvedTranslation;
+    resolve?: TranslationResolver;
+  };
 }

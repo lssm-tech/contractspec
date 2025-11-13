@@ -207,10 +207,20 @@ function makeIntegrationSpec(
       category: 'payments',
       displayName: 'Core Integration',
     },
+    supportedModes: ['managed', 'byok'],
     capabilities: {
       provides: [{ key: 'core.tenant-extension', version: 1 }],
     },
     configSchema: {
+      schema: {
+        type: 'object',
+        properties: {
+          region: { type: 'string' },
+        },
+      },
+      example: { region: 'us-east-1' },
+    },
+    secretSchema: {
       schema: {
         type: 'object',
         required: ['apiKey'],
@@ -241,9 +251,11 @@ function makeIntegrationConnection(
       createdAt: timestamp,
       updatedAt: timestamp,
     },
+    ownershipMode: 'managed',
     config: {
-      apiKey: 'sk_test_key',
+      region: 'us-east-1',
     },
+    secretRef: `vault://integrations/${tenantId}/${id}`,
     status: 'active',
   };
 }
@@ -306,6 +318,31 @@ const blueprint: AppBlueprintSpec = {
   },
   features: {
     include: [{ key: 'core-shell' }],
+  },
+  integrationSlots: [
+    {
+      slotId: 'primary-payments',
+      requiredCategory: 'payments',
+      allowedModes: ['managed', 'byok'],
+      requiredCapabilities: [{ key: 'core.tenant-extension', version: 1 }],
+      required: true,
+      description: 'Primary payments processor slot',
+    },
+  ],
+  branding: {
+    appNameKey: 'core.app.name',
+    assets: [
+      { type: 'logo', url: 'https://cdn.lssm.dev/core/logo.png' },
+      { type: 'favicon', url: 'https://cdn.lssm.dev/core/favicon.ico' },
+    ],
+    colorTokens: {
+      primary: 'colors.brand.primary',
+      secondary: 'colors.brand.secondary',
+    },
+  },
+  translationCatalog: {
+    name: 'core.app.catalog',
+    version: 1,
   },
   dataViews: {
     dashboard: { name: 'core.dashboard.view', version: 1 },
@@ -384,8 +421,13 @@ const tenantConfig: TenantAppConfig = {
   ],
   integrations: [
     {
+      slotId: 'primary-payments',
       connectionId: 'conn-primary',
-      satisfiesCapabilities: [{ key: 'core.tenant-extension', version: 1 }],
+      scope: {
+        workflows: ['onboarding'],
+        operations: ['payments.charge'],
+      },
+      priority: 1,
     },
   ],
   knowledge: [
@@ -394,6 +436,27 @@ const tenantConfig: TenantAppConfig = {
       spaceVersion: 1,
     },
   ],
+  locales: {
+    defaultLocale: 'en',
+    enabledLocales: ['en', 'fr'],
+  },
+  translationOverrides: {
+    entries: [
+      { key: 'core.app.name', locale: 'en', value: 'Tenant Control Center' },
+      { key: 'core.app.name', locale: 'fr', value: 'Centre de contrôle' },
+    ],
+  },
+  branding: {
+    appName: { en: 'Tenant Control Center' },
+    assets: [
+      { type: 'logo', url: 'https://assets.tenant.dev/logo.png' },
+      { type: 'logo-dark', url: 'https://assets.tenant.dev/logo-dark.png' },
+    ],
+    colors: {
+      primary: '#FF6B4A',
+    },
+    customDomain: 'app.tenant.dev',
+  },
   notes: 'Tenant specific overrides',
 };
 
@@ -420,6 +483,25 @@ describe('resolveAppConfig', () => {
     expect(resolved.notes).toBe('Tenant specific overrides');
     expect(resolved.integrations).toEqual([]);
     expect(resolved.knowledge).toEqual([]);
+    expect(resolved.branding.appName).toBe('Tenant Control Center');
+    expect(resolved.branding.assets.logo).toBe(
+      'https://assets.tenant.dev/logo.png'
+    );
+    expect(resolved.branding.assets.favicon).toBe(
+      'https://cdn.lssm.dev/core/favicon.ico'
+    );
+    expect(resolved.branding.colors.primary).toBe('#FF6B4A');
+    expect(resolved.branding.colors.secondary).toBe('colors.brand.secondary');
+    expect(resolved.branding.domain).toBe('app.tenant.dev');
+    expect(resolved.translation.defaultLocale).toBe('en');
+    expect(resolved.translation.supportedLocales).toEqual(
+      expect.arrayContaining(['en', 'fr'])
+    );
+    expect(resolved.translation.blueprintCatalog).toEqual({
+      name: 'core.app.catalog',
+      version: 1,
+    });
+    expect(resolved.translation.tenantOverrides).toHaveLength(2);
   });
 
   it('resolves integrations and knowledge when dependencies provided', () => {
@@ -437,6 +519,7 @@ describe('resolveAppConfig', () => {
     });
 
     expect(resolved.integrations).toHaveLength(1);
+  expect(resolved.integrations[0]?.slot.slotId).toBe('primary-payments');
     expect(resolved.integrations[0]?.connection.meta.id).toBe('conn-primary');
     expect(resolved.integrations[0]?.spec.meta.key).toBe('core.integration');
     expect(resolved.knowledge).toHaveLength(1);
@@ -527,11 +610,20 @@ describe('composeAppConfig', () => {
     expect(composition.telemetry?.meta.name).toBe('core.telemetry.alt');
     expect(composition.experiments.active).toHaveLength(1);
     expect(composition.integrations).toHaveLength(1);
+  expect(composition.integrations[0]?.slot.slotId).toBe('primary-payments');
     expect(composition.integrations[0]?.connection.meta.id).toBe('conn-primary');
     expect(composition.knowledge).toHaveLength(1);
     expect(composition.knowledge[0]?.space.meta.key).toBe('product-canon');
     expect(composition.knowledge[0]?.sources).toHaveLength(1);
     expect(composition.missing).toHaveLength(0);
+    expect(composition.resolved.branding.appName).toBe(
+      'Tenant Control Center'
+    );
+    expect(composition.resolved.branding.domain).toBe('app.tenant.dev');
+    expect(composition.resolved.translation.defaultLocale).toBe('en');
+    expect(composition.resolved.translation.supportedLocales).toEqual(
+      expect.arrayContaining(['en', 'fr'])
+    );
   });
 
   it('records missing references when registries are absent', () => {
@@ -586,7 +678,11 @@ describe('composeAppConfig', () => {
       expect.arrayContaining([
         {
           type: 'integrationSpec',
-          identifier: 'core.integration@2',
+        identifier: 'spec:core.integration.v2',
+      },
+      {
+        type: 'integrationSlot',
+        identifier: 'slot:primary-payments',
         },
         {
           type: 'knowledgeSource',

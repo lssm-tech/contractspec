@@ -34,4 +34,6 @@ export * from './knowledge';
 export * from './integrations/contracts';
 export * from './knowledge/contracts';
 export * from './regenerator';
+export * from './translations/catalog';
+export * from './translations/tenant';
 export * from './workflow';

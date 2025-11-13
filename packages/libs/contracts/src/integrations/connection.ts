@@ -1,3 +1,5 @@
+import type { IntegrationOwnershipMode } from './spec';
+
 export type ConnectionStatus =
   | 'active'
   | 'inactive'
@@ -19,8 +21,14 @@ export interface IntegrationConnectionMeta {
 
 export interface IntegrationConnection {
   meta: IntegrationConnectionMeta;
+  /** Ownership mode indicating who controls credentials. */
+  ownershipMode: IntegrationOwnershipMode;
+  /** External provider account/project identifier (BYOK scenarios). */
+  externalAccountId?: string;
   /** Encrypted configuration matching IntegrationSpec.configSchema. */
   config: Record<string, unknown>;
+  /** Reference to external secret store entry containing credentials. */
+  secretRef: string;
   status: ConnectionStatus;
   /** Last health check result. */
   lastHealthCheck?: {

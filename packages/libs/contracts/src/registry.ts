@@ -184,6 +184,19 @@ export class SpecRegistry {
     };
 
     // 4) Execute handler with guarded ctx
+    if (ctx.appConfig) {
+      if (!ctx.branding) {
+        ctx.branding = ctx.appConfig.branding;
+      }
+      if (!ctx.translation) {
+        ctx.translation = { config: ctx.appConfig.translation };
+      } else if (!ctx.translation.config) {
+        ctx.translation = {
+          ...ctx.translation,
+          config: ctx.appConfig.translation,
+        };
+      }
+    }
     const telemetryContext = ctx.telemetry;
     const trackTelemetry = async (
       trigger: TelemetryTrigger | undefined,

@@ -302,6 +302,8 @@ export type IntegrationCategoryData =
 
 export type IntegrationConfigFieldType = 'string' | 'number' | 'boolean';
 
+export type IntegrationOwnershipModeData = 'managed' | 'byok';
+
 export type IntegrationHealthCheckMethod = 'ping' | 'list' | 'custom';
 
 export interface IntegrationCapabilityRefData {
@@ -323,19 +325,25 @@ export interface IntegrationConfigFieldData {
   description?: string;
 }
 
+export interface IntegrationSecretFieldData extends IntegrationConfigFieldData {}
+
 export interface IntegrationSpecData extends BaseSpecData {
   title: string;
   domain: string;
   displayName: string;
   category: IntegrationCategoryData;
+  supportedModes: IntegrationOwnershipModeData[];
   capabilitiesProvided: IntegrationCapabilityRefData[];
   capabilitiesRequired: IntegrationCapabilityRequirementData[];
   configFields: IntegrationConfigFieldData[];
+  secretFields: IntegrationSecretFieldData[];
   docsUrl?: string;
   rateLimitRpm?: number;
   rateLimitRph?: number;
   healthCheckMethod: IntegrationHealthCheckMethod;
   healthCheckTimeoutMs?: number;
+  byokSetupInstructions?: string;
+  byokRequiredScopes?: string[];
 }
 
 export type KnowledgeCategoryData =

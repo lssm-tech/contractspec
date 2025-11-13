@@ -4,8 +4,14 @@ import type { FeatureRef } from '../features';
 import type { PolicyRef } from '../policy/spec';
 import type { ThemeRef } from '../themes';
 import type { ExperimentRef } from '../experiments/spec';
+import type {
+  IntegrationCategory,
+  IntegrationOwnershipMode,
+} from '../integrations/spec';
 import type { AppIntegrationBinding } from '../integrations/binding';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
+import type { BrandingDefaults, TenantBrandingConfig } from './branding';
+import type { Locale, TranslationEntry } from '../translations/catalog';
 
 export interface SpecPointer {
   name: string;
@@ -20,6 +26,26 @@ export interface AppRouteConfig {
   guard?: PolicyRef;
   featureFlag?: string;
   experiment?: ExperimentRef;
+}
+
+export interface TranslationCatalogPointer {
+  name: string;
+  version: number;
+}
+
+export interface AppIntegrationSlot {
+  /** Slot identifier unique within the blueprint (e.g., "primaryPayments"). */
+  slotId: string;
+  /** Integration category required to satisfy this slot. */
+  requiredCategory: IntegrationCategory;
+  /** Ownership modes allowed for this slot (defaults to any supported mode). */
+  allowedModes?: IntegrationOwnershipMode[];
+  /** Capabilities that must be provided by the integration spec. */
+  requiredCapabilities?: CapabilityRef[];
+  /** Whether this slot must be satisfied for the app to function. */
+  required?: boolean;
+  /** Description for App Studio UX. */
+  description?: string;
 }
 
 export interface FeatureFlagState {
@@ -59,6 +85,9 @@ export interface AppBlueprintSpec {
     include?: FeatureRef[];
     exclude?: FeatureRef[];
   };
+  integrationSlots?: AppIntegrationSlot[];
+  branding?: BrandingDefaults;
+  translationCatalog?: TranslationCatalogPointer;
   dataViews?: Record<string, SpecPointer>;
   workflows?: Record<string, SpecPointer>;
   policies?: PolicyRef[];
@@ -171,6 +200,14 @@ export interface TenantAppConfig {
   routeOverrides?: TenantRouteOverride[];
   integrations?: AppIntegrationBinding[];
   knowledge?: AppKnowledgeBinding[];
+  locales?: {
+    defaultLocale: Locale;
+    enabledLocales: Locale[];
+  };
+  translationOverrides?: {
+    entries?: TranslationEntry[];
+  };
+  branding?: TenantBrandingConfig;
   notes?: string;
 }
 

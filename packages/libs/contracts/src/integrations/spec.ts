@@ -19,6 +19,8 @@ export type IntegrationCategory =
   | 'helpdesk'
   | 'custom';
 
+export type IntegrationOwnershipMode = 'managed' | 'byok';
+
 export interface IntegrationMeta extends OwnerShipMeta {
   /** Stable provider slug (e.g., "stripe", "openai"). */
   key: string;
@@ -42,6 +44,20 @@ export interface IntegrationConfigSchema {
   example?: Record<string, unknown>;
 }
 
+export interface IntegrationSecretSchema {
+  /** JSON Schema or SchemaModel describing secret fields. */
+  schema: unknown;
+  /** Redacted example for documentation/UI. */
+  example?: Record<string, string>;
+}
+
+export interface IntegrationByokSetup {
+  /** Human-readable instructions for tenants configuring BYOK accounts. */
+  setupInstructions?: string;
+  /** Required scopes/permissions for BYOK accounts. */
+  requiredScopes?: string[];
+}
+
 export interface IntegrationHealthCheck {
   /** Endpoint or method to validate connection health. */
   method?: 'ping' | 'list' | 'custom';
@@ -51,10 +67,14 @@ export interface IntegrationHealthCheck {
 
 export interface IntegrationSpec {
   meta: IntegrationMeta;
+  /** Supported ownership modes for this provider. */
+  supportedModes: IntegrationOwnershipMode[];
   /** Which capabilities this integration provides/requires. */
   capabilities: IntegrationCapabilityMapping;
   /** Configuration schema (API keys, endpoints, etc.). */
   configSchema: IntegrationConfigSchema;
+  /** Secret schema (API/key material stored via secretRef). */
+  secretSchema: IntegrationSecretSchema;
   /** Optional health check configuration. */
   healthCheck?: IntegrationHealthCheck;
   /** Documentation URL. */
@@ -64,6 +84,8 @@ export interface IntegrationSpec {
     rateLimit?: { rpm?: number; rph?: number };
     quotas?: Record<string, number>;
   };
+  /** Provider-specific metadata for BYOK setup flows. */
+  byokSetup?: IntegrationByokSetup;
 }
 
 const integrationKey = (meta: Pick<IntegrationMeta, 'key' | 'version'>) =>

@@ -17,13 +17,26 @@ const makeSpec = (
     tags: ['payments'],
     stability: 'stable',
   },
+  supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [{ key: 'payments.psp', version: 1 }],
   },
   configSchema: {
     schema: {
       type: 'object',
+      properties: {
+        accountId: { type: 'string' },
+      },
+    },
+    example: { accountId: 'acct_123' },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
       required: ['apiKey'],
+      properties: {
+        apiKey: { type: 'string' },
+      },
     },
     example: { apiKey: 'sk_test_123' },
   },
