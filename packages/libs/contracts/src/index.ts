@@ -21,4 +21,5 @@ export * from './data-views';
 export * from './policy/spec';
 export * from './policy/engine';
 export * from './themes';
+export * from './migrations';
 export * from './workflow';
