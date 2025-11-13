@@ -5,6 +5,7 @@ import { createCommand } from './commands/create/index';
 import { buildCommand } from './commands/build/index';
 import { validateCommand } from './commands/validate/index';
 import { testCommand } from './commands/test/index';
+import { regeneratorCommand } from './commands/regenerator/index';
 
 const program = new Command();
 
@@ -123,6 +124,43 @@ program
     try {
       const config = await loadConfig();
       await testCommand(specFile, options, config);
+    } catch (error) {
+      console.error(
+        chalk.red('\n❌ Error:'),
+        error instanceof Error ? error.message : String(error)
+      );
+      process.exit(1);
+    }
+  });
+
+// Regenerator command
+program
+  .command('regenerator')
+  .description('Operate the Regenerator daemon')
+  .argument('<blueprint-file>', 'Path to AppBlueprintSpec file')
+  .argument('<tenant-file>', 'Path to TenantAppConfig file')
+  .argument('<rules-file>', 'Path to module exporting regenerator rules')
+  .argument('<sink-file>', 'Path to module exporting a proposal sink')
+  .option('-p, --poll-interval <ms>', 'Polling interval in ms (default 60000)', (value) =>
+    Number.parseInt(value, 10)
+  )
+  .option('-b, --batch-duration <ms>', 'Lookback duration in ms (default 300000)', (value) =>
+    Number.parseInt(value, 10)
+  )
+  .option('--once', 'Run a single evaluation cycle then exit')
+  .option('--contexts <path>', 'Optional file exporting an array of RegenerationContext overrides')
+  .action(async (blueprintPath, tenantPath, rulesPath, sinkPath, options) => {
+    try {
+      const config = await loadConfig();
+      const mergedConfig = mergeConfig(config, options);
+      await regeneratorCommand(
+        blueprintPath,
+        tenantPath,
+        rulesPath,
+        sinkPath,
+        options,
+        mergedConfig
+      );
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),
