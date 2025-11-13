@@ -4,13 +4,22 @@
 export type Actor = 'anonymous' | 'user' | 'admin';
 export type Channel = 'web' | 'mobile' | 'job' | 'agent';
 
-export type PolicyDecision =
-  | {
-      effect: 'allow';
-      rateLimit?: { rpm: number; key: string };
-      escalate?: 'human_review' | null;
-    }
-  | { effect: 'deny'; reason?: string };
+import type { PolicySpec } from './policy/spec';
+
+export interface FieldLevelDecision {
+  field: string;
+  effect: 'allow' | 'deny';
+  reason?: string;
+}
+
+export interface PolicyDecision {
+  effect: 'allow' | 'deny';
+  reason?: string;
+  rateLimit?: { rpm: number; key: string };
+  escalate?: 'human_review' | null;
+  fieldDecisions?: FieldLevelDecision[];
+  pii?: PolicySpec['pii'];
+}
 
 export interface PolicyDeciderInput {
   service: string; // e.g., "sigil"
