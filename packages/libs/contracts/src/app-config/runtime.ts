@@ -31,7 +31,19 @@ import type {
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type {
+  BrandingAssetRef,
+  BrandingDefaults,
+  ResolvedBranding,
+  TenantBrandingAsset,
+  TenantBrandingConfig,
+} from './branding';
+import type {
+  Locale,
+  TranslationEntry,
+} from '../translations/catalog';
+import type {
   AppBlueprintSpec,
+  AppIntegrationSlot,
   AppRouteConfig,
   AppThemeBinding,
   FeatureFlagState,
@@ -40,9 +52,11 @@ import type {
   TenantAppConfig,
   TenantRouteOverride,
   TenantSpecOverride,
+  TranslationCatalogPointer,
 } from './spec';
 
 export interface ResolvedIntegration {
+  slot: AppIntegrationSlot;
   binding: AppIntegrationBinding;
   connection: IntegrationConnection;
   spec: IntegrationSpec;
@@ -52,6 +66,13 @@ export interface ResolvedKnowledge {
   binding: AppKnowledgeBinding;
   space: KnowledgeSpaceSpec;
   sources: KnowledgeSourceConfig[];
+}
+
+export interface ResolvedTranslation {
+  defaultLocale: Locale;
+  supportedLocales: Locale[];
+  blueprintCatalog?: TranslationCatalogPointer;
+  tenantOverrides: TranslationEntry[];
 }
 
 export interface ResolvedAppConfig {
@@ -83,6 +104,8 @@ export interface ResolvedAppConfig {
   routes: AppRouteConfig[];
   integrations: ResolvedIntegration[];
   knowledge: ResolvedKnowledge[];
+  translation: ResolvedTranslation;
+  branding: ResolvedBranding;
   notes?: string;
 }
 
@@ -117,6 +140,7 @@ export interface MissingReference {
     | 'experiment'
     | 'integrationConnection'
     | 'integrationSpec'
+    | 'integrationSlot'
     | 'knowledgeSpace'
     | 'knowledgeSource';
   identifier: string;
@@ -186,7 +210,8 @@ export function resolveAppConfig(
     blueprint.routes ?? [],
     tenant.routeOverrides ?? []
   );
-  const integrations = resolveIntegrationBindings(
+  const { resolved: integrations } = evaluateIntegrationSlots(
+    blueprint.integrationSlots,
     tenant.integrations,
     deps.integrationConnections,
     deps.integrationSpecs
@@ -195,6 +220,12 @@ export function resolveAppConfig(
     tenant.knowledge,
     deps.knowledgeSpaces,
     deps.knowledgeSources
+  );
+  const branding = resolveBranding(blueprint.branding, tenant);
+  const translation = resolveTranslation(
+    blueprint.translationCatalog,
+    tenant.locales,
+    tenant.translationOverrides
   );
 
   return {
@@ -216,6 +247,8 @@ export function resolveAppConfig(
     routes,
     integrations,
     knowledge,
+    translation,
+    branding,
     notes: tenant.notes ?? blueprint.notes,
   };
 }
@@ -229,13 +262,14 @@ export function composeAppConfig(
   const resolved = resolveAppConfig(blueprint, tenant, deps);
   const missing: MissingReference[] = [];
 
-  missing.push(
-    ...collectMissingIntegrations(
-      tenant.integrations ?? [],
-      deps.integrationConnections,
-      deps.integrationSpecs
-    )
+  const integrationEvaluation = evaluateIntegrationSlots(
+    blueprint.integrationSlots,
+    tenant.integrations,
+    deps.integrationConnections,
+    deps.integrationSpecs
   );
+  resolved.integrations = integrationEvaluation.resolved;
+  missing.push(...integrationEvaluation.missing);
   missing.push(
     ...collectMissingKnowledge(
       tenant.knowledge ?? [],
@@ -466,6 +500,112 @@ function mergeExperiments(
   return { catalog, active, paused };
 }
 
+function resolveBranding(
+  defaults: BrandingDefaults | undefined,
+  tenant: TenantAppConfig
+): ResolvedBranding {
+  const override = tenant.branding;
+  const tenantMeta = tenant.meta;
+  const baseDomain = 'app.localhost';
+  const domain =
+    override?.customDomain ??
+    (override?.subdomain
+      ? `${override.subdomain}.${baseDomain}`
+      : `${tenantMeta.tenantId}.${baseDomain}`);
+
+  const localePreferenceOrder: string[] = [];
+  if (tenant.locales?.defaultLocale) {
+    localePreferenceOrder.push(tenant.locales.defaultLocale);
+  }
+  if (override?.appName) {
+    localePreferenceOrder.push('default', 'en');
+  }
+
+  let appName: string | undefined;
+  if (override?.appName) {
+    for (const key of localePreferenceOrder) {
+      const candidate = override.appName[key];
+      if (candidate) {
+        appName = candidate;
+        break;
+      }
+    }
+    if (!appName) {
+      const [, firstValue] =
+        Object.entries(override.appName)[0] ?? [];
+      if (typeof firstValue === 'string') {
+        appName = firstValue;
+      }
+    }
+  }
+  if (!appName) {
+    appName = defaults?.appNameKey ?? tenantMeta.appId;
+  }
+
+  const assetEntries = new Map<
+    BrandingAssetRef['type'],
+    string | undefined
+  >();
+
+  const applyAssets = (
+    assets?: Array<BrandingAssetRef | TenantBrandingAsset>
+  ) => {
+    if (!assets) return;
+    for (const asset of assets) {
+      if (!asset?.type) continue;
+      if ('url' in asset && asset.url) {
+        assetEntries.set(asset.type, asset.url);
+      }
+    }
+  };
+
+  applyAssets(defaults?.assets);
+  applyAssets(override?.assets);
+
+  const assets: ResolvedBranding['assets'] = {
+    logo: assetEntries.get('logo'),
+    logoDark: assetEntries.get('logo-dark'),
+    favicon: assetEntries.get('favicon'),
+    ogImage: assetEntries.get('og-image'),
+  };
+
+  const colors: ResolvedBranding['colors'] = {
+    primary:
+      override?.colors?.primary ??
+      defaults?.colorTokens?.primary ??
+      '#1f2937',
+    secondary:
+      override?.colors?.secondary ??
+      defaults?.colorTokens?.secondary ??
+      '#4b5563',
+  };
+
+  return {
+    appName,
+    assets,
+    colors,
+    domain,
+  };
+}
+
+function resolveTranslation(
+  catalogPointer: TranslationCatalogPointer | undefined,
+  locales: TenantAppConfig['locales'],
+  overrides: TenantAppConfig['translationOverrides']
+): ResolvedTranslation {
+  const defaultLocale = locales?.defaultLocale ?? 'en';
+  const enabled = locales?.enabledLocales ?? [];
+  const supportedLocales = dedupeStrings([defaultLocale, ...enabled]);
+  const entries = overrides?.entries ?? [];
+
+  return {
+    defaultLocale,
+    supportedLocales,
+    blueprintCatalog: catalogPointer,
+    tenantOverrides: entries,
+  };
+}
+
 function mergeFeatureFlags(
   blueprint: FeatureFlagState[],
   overrides: FeatureFlagState[]
@@ -519,33 +659,168 @@ function mergeRoutes(
   return [...routes.values()];
 }
 
-function resolveIntegrationBindings(
+function evaluateIntegrationSlots(
+  slots: AppIntegrationSlot[] | undefined,
   bindings: AppIntegrationBinding[] | undefined,
   connections: IntegrationConnection[] | undefined,
   specs: IntegrationSpecRegistry | undefined
-): ResolvedIntegration[] {
-  if (!bindings?.length || !connections || !specs) return [];
+): { resolved: ResolvedIntegration[]; missing: MissingReference[] } {
+  const resolved: ResolvedIntegration[] = [];
+  const missing: MissingReference[] = [];
+  const missingKeys = new Set<string>();
+
+  const recordMissing = (entry: MissingReference) => {
+    const key = `${entry.type}:${entry.identifier}`;
+    if (missingKeys.has(key)) return;
+    missingKeys.add(key);
+    missing.push(entry);
+  };
+
+  const slotList = slots ?? [];
+  const slotById = new Map<string, AppIntegrationSlot>();
+  for (const slot of slotList) {
+    slotById.set(slot.slotId, slot);
+  }
+
+  const bindingsBySlot = new Map<string, AppIntegrationBinding[]>();
+  for (const binding of bindings ?? []) {
+    const slot = slotById.get(binding.slotId);
+    if (!slot) {
+      recordMissing({
+        type: 'integrationSlot',
+        identifier: `slot:${binding.slotId}`,
+      });
+      continue;
+    }
+    const entries = bindingsBySlot.get(binding.slotId);
+    if (entries) entries.push(binding);
+    else bindingsBySlot.set(binding.slotId, [binding]);
+  }
+
+  for (const slot of slotList) {
+    const slotBindings = bindingsBySlot.get(slot.slotId) ?? [];
+    if (slot.required && slotBindings.length === 0) {
+      recordMissing({
+        type: 'integrationSlot',
+        identifier: `slot:${slot.slotId}`,
+      });
+    }
+  }
+
+  if (!connections || !specs) {
+    return { resolved, missing };
+  }
+
   const connectionById = new Map<string, IntegrationConnection>();
   for (const connection of connections) {
     connectionById.set(connection.meta.id, connection);
   }
 
-  return bindings
-    .map((binding) => {
+  for (const slot of slotList) {
+    const slotBindings = bindingsBySlot.get(slot.slotId) ?? [];
+    if (slotBindings.length === 0) continue;
+
+    const orderedBindings = [...slotBindings].sort((a, b) => {
+      const aPriority = a.priority ?? Number.MAX_SAFE_INTEGER;
+      const bPriority = b.priority ?? Number.MAX_SAFE_INTEGER;
+      if (aPriority === bPriority) return 0;
+      return aPriority < bPriority ? -1 : 1;
+    });
+
+    let slotResolved = false;
+    for (const binding of orderedBindings) {
       const connection = connectionById.get(binding.connectionId);
-      if (!connection) return null;
+      if (!connection) {
+        recordMissing({
+          type: 'integrationConnection',
+          identifier: `connection:${binding.connectionId}`,
+        });
+        continue;
+      }
+
       const spec = specs.get(
         connection.meta.integrationKey,
         connection.meta.integrationVersion
       );
-      if (!spec) return null;
-      return {
+      if (!spec) {
+        recordMissing({
+          type: 'integrationSpec',
+          identifier: `spec:${connection.meta.integrationKey}.v${connection.meta.integrationVersion}`,
+        });
+        continue;
+      }
+
+      if (spec.meta.category !== slot.requiredCategory) {
+        recordMissing({
+          type: 'integrationSpec',
+          identifier: `spec:${spec.meta.key}.category`,
+        });
+        continue;
+      }
+
+      if (!spec.supportedModes.includes(connection.ownershipMode)) {
+        recordMissing({
+          type: 'integrationSpec',
+          identifier: `spec:${spec.meta.key}.mode:${connection.ownershipMode}`,
+        });
+        continue;
+      }
+
+      if (
+        slot.allowedModes &&
+        slot.allowedModes.length > 0 &&
+        !slot.allowedModes.includes(connection.ownershipMode)
+      ) {
+        recordMissing({
+          type: 'integrationConnection',
+          identifier: `connection:${connection.meta.id}:mode`,
+        });
+        continue;
+      }
+
+      if (
+        slot.requiredCapabilities &&
+        !slot.requiredCapabilities.every((requirement) =>
+          integrationProvidesCapability(spec, requirement)
+        )
+      ) {
+        recordMissing({
+          type: 'integrationSpec',
+          identifier: `spec:${spec.meta.key}.capabilities`,
+        });
+        continue;
+      }
+
+      resolved.push({
+        slot,
         binding,
         connection,
         spec,
-      };
-    })
-    .filter((entry): entry is ResolvedIntegration => entry !== null);
+      });
+      slotResolved = true;
+      break;
+    }
+
+    if (!slotResolved && slot.required) {
+      recordMissing({
+        type: 'integrationSlot',
+        identifier: `slot:${slot.slotId}`,
+      });
+    }
+  }
+
+  return { resolved, missing };
+}
+
+function integrationProvidesCapability(
+  spec: IntegrationSpec,
+  required: CapabilityRef
+): boolean {
+  return spec.capabilities.provides.some((capability) => {
+    if (capability.key !== required.key) return false;
+    if (required.version == null) return true;
+    return capability.version === required.version;
+  });
 }
 
 function resolveKnowledgeBindings(
@@ -573,52 +848,6 @@ function resolveKnowledgeBindings(
       };
     })
     .filter((entry): entry is ResolvedKnowledge => entry !== null);
-}
-
-function collectMissingIntegrations(
-  bindings: AppIntegrationBinding[],
-  connections: IntegrationConnection[] | undefined,
-  specs: IntegrationSpecRegistry | undefined
-): MissingReference[] {
-  if (!bindings.length) return [];
-  if (!connections && !specs) return [];
-
-  const missing: MissingReference[] = [];
-  const connectionById = new Map<string, IntegrationConnection>();
-  if (connections) {
-    for (const connection of connections) {
-      connectionById.set(connection.meta.id, connection);
-    }
-  }
-
-  for (const binding of bindings) {
-    const connection = connectionById.get(binding.connectionId);
-    if (!connection) {
-      if (connections) {
-        missing.push({
-          type: 'integrationConnection',
-          identifier: binding.connectionId,
-        });
-      }
-      continue;
-    }
-    if (specs) {
-      const spec = specs.get(
-        connection.meta.integrationKey,
-        connection.meta.integrationVersion
-      );
-      if (!spec) {
-        missing.push({
-          type: 'integrationSpec',
-          identifier: `${connection.meta.integrationKey}@${
-            connection.meta.integrationVersion
-          }`,
-        });
-      }
-    }
-  }
-
-  return missing;
 }
 
 function collectMissingKnowledge(

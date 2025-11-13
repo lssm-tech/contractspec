@@ -11,11 +11,11 @@ export const stripeLiveConnection: IntegrationConnection = {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
+  ownershipMode: 'managed',
   config: {
-    apiKey: 'sk_live_xxx',
-    webhookSecret: 'whsec_xxx',
     accountId: 'acct_xxx',
   },
+  secretRef: 'vault://integrations/artisan-co/conn-stripe-live',
   status: 'active',
 };
 

@@ -14,6 +14,7 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
     tags: ['vector-db', 'search'],
     stability: StabilityEnum.Experimental,
   },
+  supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [
       { key: 'vector-db.search', version: 1 },
@@ -30,15 +31,10 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
   configSchema: {
     schema: {
       type: 'object',
-      required: ['apiUrl'],
       properties: {
         apiUrl: {
           type: 'string',
           description: 'Base URL for the Qdrant instance (e.g., https://qdrant.example.com).',
-        },
-        apiKey: {
-          type: 'string',
-          description: 'Optional API key if authentication is enabled.',
         },
         collectionPrefix: {
           type: 'string',
@@ -48,8 +44,21 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
     },
     example: {
       apiUrl: 'https://qdrant.example.com',
-      apiKey: 'qdrant-api-key',
       collectionPrefix: 'tenant_',
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      properties: {
+        apiKey: {
+          type: 'string',
+          description: 'API key or token when authentication is enabled.',
+        },
+      },
+    },
+    example: {
+      apiKey: 'qdrant-api-key',
     },
   },
   healthCheck: {
@@ -62,6 +71,10 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
       collections: 100,
       pointsPerCollection: 1_000_000,
     },
+  },
+  byokSetup: {
+    setupInstructions:
+      'Provide the HTTPS endpoint of your Qdrant cluster and generate an API key with read/write access to the collections that will be managed.',
   },
 };
 

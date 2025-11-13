@@ -14,6 +14,7 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
     tags: ['email', 'transactional'],
     stability: StabilityEnum.Stable,
   },
+  supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [{ key: 'email.transactional', version: 1 }],
     requires: [
@@ -27,12 +28,7 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
   configSchema: {
     schema: {
       type: 'object',
-      required: ['serverToken'],
       properties: {
-        serverToken: {
-          type: 'string',
-          description: 'Server token for the Postmark account.',
-        },
         messageStream: {
           type: 'string',
           description: 'Optional message stream identifier (e.g., transactional).',
@@ -44,9 +40,23 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
       },
     },
     example: {
-      serverToken: 'server-12345',
       messageStream: 'outbound',
       fromEmail: 'notifications@example.com',
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      required: ['serverToken'],
+      properties: {
+        serverToken: {
+          type: 'string',
+          description: 'Server token for the Postmark account.',
+        },
+      },
+    },
+    example: {
+      serverToken: 'server-***',
     },
   },
   healthCheck: {
@@ -58,6 +68,10 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
     rateLimit: {
       rpm: 500,
     },
+  },
+  byokSetup: {
+    setupInstructions:
+      'Create a Postmark server token with outbound send permissions and configure allowed from addresses.',
   },
 };
 

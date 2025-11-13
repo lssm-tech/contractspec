@@ -16,6 +16,7 @@ export const stripeIntegrationSpec: IntegrationSpec = {
     tags: ['payments', 'psp'],
     stability: StabilityEnum.Stable,
   },
+  supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [{ key: 'payments.psp', version: 1 }],
     requires: [
@@ -29,26 +30,40 @@ export const stripeIntegrationSpec: IntegrationSpec = {
   configSchema: {
     schema: {
       type: 'object',
-      required: ['apiKey', 'webhookSecret'],
       properties: {
-        apiKey: {
-          type: 'string',
-          description: 'Stripe secret API key (sk_live_... or sk_test_...)',
-        },
-        webhookSecret: {
-          type: 'string',
-          description: 'Signing secret for webhook verification',
-        },
         accountId: {
           type: 'string',
-          description: 'Connected account ID when using Stripe Connect',
+          description: 'Connected account ID when using Stripe Connect (BYOK).',
+        },
+        region: {
+          type: 'string',
+          description: 'Optional Stripe region or data residency hint.',
         },
       },
     },
     example: {
-      apiKey: 'sk_test_123',
-      webhookSecret: 'whsec_123',
       accountId: 'acct_123',
+      region: 'us-east-1',
+    },
+  },
+  secretSchema: {
+    schema: {
+      type: 'object',
+      required: ['apiKey', 'webhookSecret'],
+      properties: {
+        apiKey: {
+          type: 'string',
+          description: 'Stripe secret API key (sk_live_... or sk_test_...).',
+        },
+        webhookSecret: {
+          type: 'string',
+          description: 'Signing secret for webhook verification.',
+        },
+      },
+    },
+    example: {
+      apiKey: 'sk_live_***',
+      webhookSecret: 'whsec_***',
     },
   },
   healthCheck: {
@@ -61,6 +76,11 @@ export const stripeIntegrationSpec: IntegrationSpec = {
       rpm: 1000,
       rph: 20000,
     },
+  },
+  byokSetup: {
+    setupInstructions:
+      'Create a restricted Stripe API key with write access to Charges and provide a webhook signing secret.',
+    requiredScopes: ['charges:write', 'customers:read'],
   },
 };
 

@@ -1,10 +1,8 @@
-import type { CapabilityRef } from '../capabilities';
-
 export interface AppIntegrationBinding {
+  /** Which slot this binding satisfies. */
+  slotId: string;
   /** Which IntegrationConnection to use. */
   connectionId: string;
-  /** Which capabilities this binding satisfies for this app. */
-  satisfiesCapabilities: CapabilityRef[];
   /** Optional: scope to specific workflows/features. */
   scope?: {
     workflows?: string[];

@@ -14,8 +14,8 @@ export const artisanStripeTenantConfig: TenantAppConfig = {
   },
   integrations: [
     {
+      slotId: 'primary-payments',
       connectionId: 'conn-stripe-live',
-      satisfiesCapabilities: [{ key: 'payments.psp', version: 1 }],
       scope: {
         workflows: ['collectPayment'],
         operations: ['payments.stripe.chargeCard'],
@@ -23,6 +23,31 @@ export const artisanStripeTenantConfig: TenantAppConfig = {
     },
   ],
   knowledge: [],
+  locales: {
+    defaultLocale: 'en',
+    enabledLocales: ['en', 'es'],
+  },
+  translationOverrides: {
+    entries: [
+      {
+        key: 'artisan.payments.appName',
+        locale: 'en',
+        value: 'Artisan Payments Portal',
+      },
+    ],
+  },
+  branding: {
+    appName: { en: 'Artisan Payments Portal' },
+    assets: [
+      { type: 'logo', url: 'https://tenant.artisanos.dev/logo.png' },
+      { type: 'logo-dark', url: 'https://tenant.artisanos.dev/logo-dark.png' },
+    ],
+    colors: {
+      primary: '#F97316',
+      secondary: '#1F2937',
+    },
+    customDomain: 'pay.artisanos.dev',
+  },
   notes: 'Stripe connection bound for production payments.',
 };
 

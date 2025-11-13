@@ -1,5 +1,6 @@
 import type {
   IntegrationConfigFieldData,
+  IntegrationSecretFieldData,
   IntegrationSpecData,
   Stability,
 } from '../types';
@@ -8,6 +9,13 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
   const specName = toPascalCase(data.name.split('.').pop() ?? 'Integration');
   const varName = `${specName}IntegrationSpec`;
   const registerFn = `register${specName}Integration`;
+
+  const supportedModes = data.supportedModes.length
+    ? data.supportedModes
+    : ['managed'];
+  const supportedModesLine = supportedModes
+    .map((mode) => `'${mode}'`)
+    .join(', ');
 
   const provides = data.capabilitiesProvided
     .map(
@@ -34,12 +42,19 @@ ${data.capabilitiesRequired
     ],`
       : '';
 
-  const schema = renderConfigSchema(data.configFields);
-  const example = renderConfigExample(data.configFields);
+  const configSchema = renderConfigSchema(data.configFields);
+  const configExample = renderConfigExample(data.configFields);
+  const secretSchema = renderSecretSchema(data.secretFields);
+  const secretExample = renderSecretExample(data.secretFields);
   const docsUrl = data.docsUrl
     ? `  docsUrl: '${escape(data.docsUrl)}',\n`
     : '';
   const constraints = renderConstraints(data.rateLimitRpm, data.rateLimitRph);
+  const byokSetup = renderByokSetup(
+    supportedModes,
+    data.byokSetupInstructions,
+    data.byokRequiredScopes
+  );
 
   return `import { StabilityEnum } from '@lssm/lib.contracts/ownership';
 import type { IntegrationSpec } from '@lssm/lib.contracts/integrations/spec';
@@ -58,16 +73,21 @@ export const ${varName}: IntegrationSpec = {
     tags: [${data.tags.map((tag) => `'${escape(tag)}'`).join(', ')}],
     stability: StabilityEnum.${stabilityToEnum(data.stability)},
   },
+  supportedModes: [${supportedModesLine}],
   capabilities: {
     provides: [
 ${provides}
     ],
 ${requires.length > 0 ? `${requires}\n` : ''}  },
   configSchema: {
-${schema}
-    example: ${example},
+${configSchema}
+    example: ${configExample},
   },
-${docsUrl}${constraints}  healthCheck: {
+  secretSchema: {
+${secretSchema}
+    example: ${secretExample},
+  },
+${docsUrl}${constraints}${byokSetup}  healthCheck: {
     method: '${data.healthCheckMethod}',
     timeoutMs: ${data.healthCheckTimeoutMs},
   },
@@ -91,26 +111,61 @@ function renderConfigSchema(fields: IntegrationConfigFieldData[]): string {
 `
       : '';
 
-  const properties = fields
-    .map((field) => {
-      const description = field.description
-        ? `, description: '${escape(field.description)}'`
-        : '';
-      return `        ${field.key}: { type: '${mapConfigType(
-        field.type
-      )}'${description} }`;
-    })
-    .join(',\n');
+  const properties = fields.length
+    ? fields
+        .map((field) => {
+          const description = field.description
+            ? `, description: '${escape(field.description)}'`
+            : '';
+          return `        ${field.key}: { type: '${mapConfigType(
+            field.type
+          )}'${description} }`;
+        })
+        .join(',\n')
+    : '';
 
   return `    schema: {
       type: 'object',
 ${requiredBlock}      properties: {
-${properties}
+${properties || '      '}
+      },
+    },\n`;
+}
+
+function renderSecretSchema(fields: IntegrationSecretFieldData[]): string {
+  const requiredFields = fields.filter((field) => field.required);
+  const requiredBlock =
+    requiredFields.length > 0
+      ? `      required: [${requiredFields
+          .map((field) => `'${field.key}'`)
+          .join(', ')}],
+`
+      : '';
+
+  const properties = fields.length
+    ? fields
+        .map((field) => {
+          const description = field.description
+            ? `, description: '${escape(field.description)}'`
+            : '';
+          return `        ${field.key}: { type: 'string'${description} }`;
+        })
+        .join(',\n')
+    : '';
+
+  return `    schema: {
+      type: 'object',
+${requiredBlock}      properties: {
+${properties || '      '}
       },
     },\n`;
 }
 
 function renderConfigExample(fields: IntegrationConfigFieldData[]): string {
+  if (fields.length === 0) {
+    return `{}`;
+  }
+
   const exampleEntries = fields.map((field) => {
     switch (field.type) {
       case 'number':
@@ -122,6 +177,20 @@ function renderConfigExample(fields: IntegrationConfigFieldData[]): string {
         return `    ${field.key}: '${field.key.toUpperCase()}_VALUE'`;
     }
   });
+
+  return `{
+${exampleEntries.join(',\n')}
+  }`;
+}
+
+function renderSecretExample(fields: IntegrationSecretFieldData[]): string {
+  if (fields.length === 0) {
+    return `{}`;
+  }
+
+  const exampleEntries = fields.map(
+    (field) => `    ${field.key}: '${field.key.toUpperCase()}_SECRET'`
+  );
 
   return `{
 ${exampleEntries.join(',\n')}
@@ -141,6 +210,34 @@ function renderConstraints(
 ${entries.join(',\n')}
     },
   },
+`;
+}
+
+function renderByokSetup(
+  modes: string[],
+  instructions?: string,
+  scopes?: string[]
+): string {
+  if (!modes.includes('byok')) {
+    return '';
+  }
+
+  const instructionsLine = instructions
+    ? `    setupInstructions: '${escape(instructions)}',\n`
+    : '';
+  const scopesLine =
+    scopes && scopes.length
+      ? `    requiredScopes: [${scopes
+          .map((scope) => `'${escape(scope)}'`)
+          .join(', ')}],\n`
+      : '';
+
+  if (!instructionsLine && !scopesLine) {
+    return '';
+  }
+
+  return `  byokSetup: {
+${instructionsLine}${scopesLine}  },
 `;
 }
 

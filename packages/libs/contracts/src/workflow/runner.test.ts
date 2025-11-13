@@ -140,6 +140,18 @@ describe('WorkflowRunner', () => {
       routes: [],
       integrations: [],
       knowledge: [],
+      translation: {
+        defaultLocale: 'en',
+        supportedLocales: ['en'],
+        blueprintCatalog: { name: 'demo.catalog', version: 1 },
+        tenantOverrides: [],
+      },
+      branding: {
+        appName: 'Demo App',
+        assets: {},
+        colors: { primary: '#000000', secondary: '#ffffff' },
+        domain: 'tenant-1.demo.localhost',
+      },
     };
 
     const { runner, opExecutor } = createRunner(spec, events, {
@@ -153,6 +165,8 @@ describe('WorkflowRunner', () => {
     expect(context?.resolvedAppConfig).toBe(resolvedAppConfig);
     expect(context?.integrations).toEqual(resolvedAppConfig.integrations);
     expect(context?.knowledge).toEqual(resolvedAppConfig.knowledge);
+    expect(context?.branding).toEqual(resolvedAppConfig.branding);
+    expect(context?.translation).toEqual(resolvedAppConfig.translation);
   });
 
   it('invokes capability enforcement hook before executing operation', async () => {
