@@ -25,6 +25,15 @@ export interface EmitDeclInline {
 export type EmitDecl = EmitDeclRef | EmitDeclInline;
 export const isEmitDeclRef = (e: EmitDecl): e is EmitDeclRef => 'ref' in e;
 
+export interface TelemetryTrigger {
+  event: { name: string; version?: number };
+  properties?: (args: {
+    input: unknown;
+    output?: unknown;
+    error?: unknown;
+  }) => Record<string, unknown>;
+}
+
 export interface ContractSpec<
   Input extends AnySchemaModel,
   Output extends AnySchemaModel | ResourceRefDescriptor<boolean>,
@@ -100,6 +109,11 @@ export interface ContractSpec<
     analytics?: string[];
     /** Audit intents (labels); the service decides storage */
     audit?: string[];
+  };
+
+  telemetry?: {
+    success?: TelemetryTrigger;
+    failure?: TelemetryTrigger;
   };
 
   transport?: {

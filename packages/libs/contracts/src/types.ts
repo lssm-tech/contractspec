@@ -9,6 +9,7 @@ import type {
   PolicySpec,
   RateLimitDefinition,
 } from './policy/spec';
+import type { TelemetryTracker } from './telemetry';
 
 export interface FieldLevelDecision {
   field: string;
@@ -70,6 +71,8 @@ export interface HandlerCtx {
   decide?: PolicyDecider;
   /** Rate limiter (e.g., Redis) */
   rateLimit?: RateLimiter;
+  /** Telemetry tracker */
+  telemetry?: TelemetryTracker;
   /** Event publisher (outbox+bus) */
   eventPublisher?: EventPublisher;
 

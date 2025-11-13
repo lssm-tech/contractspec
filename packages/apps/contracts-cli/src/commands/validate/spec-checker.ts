@@ -48,6 +48,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validateMigrationSpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.telemetry.')) {
+    validateTelemetrySpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -107,6 +111,24 @@ function validateOperationSpec(code: string, errors: string[], warnings: string[
 
   if (code.includes('TODO')) {
     warnings.push('Contains TODO items that need completion');
+  }
+}
+
+function validateTelemetrySpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*TelemetrySpec\s*=/)) {
+    errors.push('Missing TelemetrySpec type annotation');
+  }
+
+  if (!code.match(/meta:\s*{[\s\S]*name:/)) {
+    errors.push('TelemetrySpec.meta is required');
+  }
+
+  if (!code.includes('events:')) {
+    errors.push('TelemetrySpec must declare events');
+  }
+
+  if (!code.match(/privacy:\s*'(public|internal|pii|sensitive)'/)) {
+    warnings.push('No explicit privacy classification found');
   }
 }
 

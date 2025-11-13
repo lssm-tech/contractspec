@@ -6,7 +6,7 @@
  *
  * Includes a minimal OpRegistry shim for backward-compat (deprecated).
  */
-import { type ContractSpec, isEmitDeclRef } from './spec';
+import { type ContractSpec, type TelemetryTrigger, isEmitDeclRef } from './spec';
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
 import { eventKey } from './events';
@@ -184,10 +184,54 @@ export class SpecRegistry {
     };
 
     // 4) Execute handler with guarded ctx
-    const result = await handler(parsedInput, {
-      ...ctx,
-      __emitGuard__: emitGuard,
-    });
+    const telemetryContext = ctx.telemetry;
+    const trackTelemetry = async (
+      trigger: TelemetryTrigger | undefined,
+      details: { input: unknown; output?: unknown; error?: unknown }
+    ) => {
+      if (!telemetryContext || !trigger?.event) return;
+      try {
+        const props = trigger.properties?.(details) ?? {};
+        await telemetryContext.track(
+          trigger.event.name,
+          trigger.event.version ?? 1,
+          props,
+          {
+            tenantId: ctx.organizationId ?? undefined,
+            organizationId: ctx.organizationId,
+            userId: ctx.userId,
+            actor: ctx.actor,
+            channel: ctx.channel,
+            metadata: ctx.traceId ? { traceId: ctx.traceId } : undefined,
+          }
+        );
+      } catch (_error) {
+        // Best-effort telemetry: swallow errors to avoid breaking the handler.
+      }
+    };
+
+    let result: unknown;
+    try {
+      result = await handler(parsedInput, {
+        ...ctx,
+        __emitGuard__: emitGuard,
+      });
+    } catch (error) {
+      if (spec.telemetry?.failure) {
+        await trackTelemetry(spec.telemetry.failure, {
+          input: parsedInput ?? rawInput,
+          error,
+        });
+      }
+      throw error;
+    }
+
+    if (spec.telemetry?.success) {
+      await trackTelemetry(spec.telemetry.success, {
+        input: parsedInput ?? rawInput,
+        output: result,
+      });
+    }
 
     // 5) Validate output when the spec declares a SchemaModel output.
     const outputModel = spec.io.output as
