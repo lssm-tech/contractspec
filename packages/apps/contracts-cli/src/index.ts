@@ -22,7 +22,7 @@ program
   .description('Create a new contract specification')
   .option(
     '-t, --type <type>',
-    'Spec type: operation, event, presentation, form, feature, workflow, data-view, migration, telemetry'
+    'Spec type: operation, event, presentation, form, feature, workflow, data-view, migration, telemetry, experiment, app-config, integration, knowledge'
   )
   .option('--ai', 'Use AI to generate spec from description')
   .option(

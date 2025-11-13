@@ -10,6 +10,8 @@ import { telemetryWizard } from './wizards/telemetry';
 import { experimentWizard } from './wizards/experiment';
 import { appConfigWizard } from './wizards/app-config';
 import { dataViewWizard } from './wizards/data-view';
+import { integrationWizard } from './wizards/integration';
+import { knowledgeWizard } from './wizards/knowledge';
 import {
   aiGenerateEvent,
   aiGenerateOperation,
@@ -24,6 +26,8 @@ import { generateTelemetrySpec } from '../../templates/telemetry.template';
 import { generateExperimentSpec } from '../../templates/experiment.template';
 import { generateAppBlueprintSpec } from '../../templates/app-config.template';
 import { generateDataViewSpec } from '../../templates/data-view.template';
+import { generateIntegrationSpec } from '../../templates/integration.template';
+import { generateKnowledgeSpaceSpec } from '../../templates/knowledge.template';
 import {
   generateFileName,
   resolveOutputPath,
@@ -36,6 +40,8 @@ import type {
   DataViewSpecData,
   EventSpecData,
   ExperimentSpecData,
+  IntegrationSpecData,
+  KnowledgeSpaceSpecData,
   MigrationSpecData,
   OperationSpecData,
   PresentationSpecData,
@@ -76,6 +82,8 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Telemetry', value: 'telemetry' },
           { name: 'Experiment', value: 'experiment' },
           { name: 'App Blueprint', value: 'app-config' },
+          { name: 'Integration', value: 'integration' },
+          { name: 'Knowledge Space', value: 'knowledge' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -122,6 +130,12 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'data-view':
       await createDataViewSpec(options, config);
+      break;
+    case 'integration':
+      await createIntegrationSpec(options, config);
+      break;
+    case 'knowledge':
+      await createKnowledgeSpec(options, config);
       break;
     case 'form':
       console.log(chalk.yellow('Form spec creation coming soon!'));
@@ -407,6 +421,65 @@ async function createDataViewSpec(options: CreateOptions, config: Config) {
   console.log(
     chalk.gray(
       `  2. Render it with DataViewRenderer or tailor a component to your UI.`
+    )
+  );
+}
+
+async function createIntegrationSpec(
+  options: CreateOptions,
+  config: Config
+) {
+  const specData: IntegrationSpecData = await integrationWizard();
+  const code = generateIntegrationSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.integration.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'integration',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing integration spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(
+    chalk.gray('  1. Register the integration spec in your integration registry.')
+  );
+  console.log(
+    chalk.gray(
+      '  2. Create tenant IntegrationConnections and bindings referencing this spec.'
+    )
+  );
+}
+
+async function createKnowledgeSpec(options: CreateOptions, config: Config) {
+  const specData: KnowledgeSpaceSpecData = await knowledgeWizard();
+  const code = generateKnowledgeSpaceSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.knowledge.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'knowledge',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing knowledge space spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(
+    chalk.gray('  1. Register the knowledge space spec in your knowledge registry.')
+  );
+  console.log(
+    chalk.gray(
+      '  2. Configure KnowledgeSourceConfig entries and TenantAppConfig bindings.'
     )
   );
 }
