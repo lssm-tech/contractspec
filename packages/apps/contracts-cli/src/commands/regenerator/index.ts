@@ -12,7 +12,7 @@ import type {
   RegenerationRule,
 } from '@lssm/lib.contracts/regenerator/types';
 import type { SignalAdapters } from '@lssm/lib.contracts/regenerator/adapters';
-import { composeAppConfig, resolveAppConfig } from '@lssm/lib.contracts/app-config';
+import { resolveAppConfig } from '@lssm/lib.contracts/app-config';
 
 interface RegeneratorCliOptions {
   once?: boolean;
