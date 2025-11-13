@@ -4,6 +4,7 @@ import ora from 'ora';
 import { operationWizard } from './wizards/operation';
 import { eventWizard } from './wizards/event';
 import { presentationWizard } from './wizards/presentation';
+import { workflowWizard } from './wizards/workflow';
 import {
   aiGenerateEvent,
   aiGenerateOperation,
@@ -12,6 +13,7 @@ import {
 import { generateOperationSpec } from '../../templates/operation.template';
 import { generateEventSpec } from '../../templates/event.template';
 import { generatePresentationSpec } from '../../templates/presentation.template';
+import { generateWorkflowSpec } from '../../templates/workflow.template';
 import {
   generateFileName,
   resolveOutputPath,
@@ -53,6 +55,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
           { name: 'Operation (Command/Query)', value: 'operation' },
           { name: 'Event', value: 'event' },
           { name: 'Presentation', value: 'presentation' },
+          { name: 'Workflow', value: 'workflow' },
           { name: 'Form', value: 'form' },
           { name: 'Feature', value: 'feature' },
         ],
@@ -81,6 +84,9 @@ export async function createCommand(options: CreateOptions, config: Config) {
       break;
     case 'presentation':
       await createPresentationSpec(options, config);
+      break;
+    case 'workflow':
+      await createWorkflowSpec(options, config);
       break;
     case 'form':
       console.log(chalk.yellow('Form spec creation coming soon!'));
@@ -297,5 +303,41 @@ async function createPresentationSpec(options: CreateOptions, config: Config) {
   console.log(chalk.gray(`  1. Complete the TODO items in ${filePath}`));
   console.log(
     chalk.gray(`  2. Run: contractspec build ${filePath} to generate component`)
+  );
+}
+
+async function createWorkflowSpec(options: CreateOptions, config: Config) {
+  if (options.ai) {
+    console.log(
+      chalk.yellow(
+        '⚠️  AI-assisted workflow generation is not available yet. Switching to interactive wizard.'
+      )
+    );
+  }
+
+  const specData = await workflowWizard();
+  const code = generateWorkflowSpec(specData);
+
+  const basePath = options.outputDir || config.outputDir;
+  const fileName = generateFileName(specData.name, '.workflow.ts');
+  const filePath = resolveOutputPath(
+    basePath,
+    'workflow',
+    config.conventions,
+    fileName
+  );
+
+  const spinner = ora('Writing workflow spec...').start();
+  await writeFileSafe(filePath, code);
+  spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  console.log(chalk.cyan('\n✨ Next steps:'));
+  console.log(
+    chalk.gray(`  1. Review step actions and adjust operations/forms in ${filePath}`)
+  );
+  console.log(
+    chalk.gray(
+      `  2. Generate a runner scaffold: contractspec build ${filePath}`
+    )
   );
 }

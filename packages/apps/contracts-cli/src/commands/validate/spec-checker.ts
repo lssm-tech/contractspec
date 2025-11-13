@@ -36,6 +36,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validatePresentationSpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.workflow.')) {
+    validateWorkflowSpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -146,6 +150,36 @@ function validatePresentationSpec(code: string, errors: string[], warnings: stri
 
   if (!code.match(/kind:\s*['"](?:web_component|markdown|data)['"]/)) {
     errors.push('Missing or invalid kind field');
+  }
+}
+
+function validateWorkflowSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*WorkflowSpec\s*=/)) {
+    errors.push('Missing WorkflowSpec type annotation');
+  }
+
+  if (!code.includes('definition:')) {
+    errors.push('Missing definition section');
+  }
+
+  if (!code.includes('steps:')) {
+    errors.push('Workflow must declare steps');
+  }
+
+  if (!code.includes('transitions:')) {
+    warnings.push('No transitions declared; workflow will complete after first step.');
+  }
+
+  if (!code.match(/title:\s*['"][^'"]+['"]/)) {
+    warnings.push('Missing workflow title');
+  }
+
+  if (!code.match(/domain:\s*['"][^'"]+['"]/)) {
+    warnings.push('Missing domain field');
+  }
+
+  if (code.includes('TODO')) {
+    warnings.push('Contains TODO items that need completion');
   }
 }
 
