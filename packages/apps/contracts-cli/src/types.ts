@@ -1,10 +1,18 @@
-export type SpecType = 'operation' | 'event' | 'presentation' | 'form' | 'feature';
+export type SpecType =
+  | 'operation'
+  | 'event'
+  | 'presentation'
+  | 'form'
+  | 'feature'
+  | 'workflow';
 
 export type OpKind = 'command' | 'query';
 
 export type PresentationKind = 'web_component' | 'markdown' | 'data';
 
 export type Stability = 'experimental' | 'beta' | 'stable' | 'deprecated';
+
+export type StepType = 'human' | 'automation' | 'decision';
 
 export interface BaseSpecData {
   name: string;
@@ -43,6 +51,30 @@ export interface FeatureSpecData extends BaseSpecData {
   operations: Array<{ name: string; version: number }>;
   events: Array<{ name: string; version: number }>;
   presentations: Array<{ name: string; version: number }>;
+}
+
+export interface WorkflowStepData {
+  id: string;
+  label: string;
+  type: StepType;
+  description?: string;
+  operation?: { name: string; version: number };
+  form?: { key: string; version: number };
+}
+
+export interface WorkflowTransitionData {
+  from: string;
+  to: string;
+  condition?: string;
+}
+
+export interface WorkflowSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  entryStepId?: string;
+  steps: WorkflowStepData[];
+  transitions: WorkflowTransitionData[];
+  policyFlags: string[];
 }
 
 export interface AIGenerationOptions {

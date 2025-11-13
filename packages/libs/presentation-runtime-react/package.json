@@ -22,7 +22,9 @@
     "@lssm/lib.presentation-runtime-core": "workspace:*"
   },
   "dependencies": {
-    "@lssm/lib.presentation-runtime-core": "workspace:*"
+    "@lssm/lib.presentation-runtime-core": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*"
   },
   "typesVersions": {
     "*": {
@@ -33,11 +35,17 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./useWorkflow": "./src/useWorkflow.ts",
+    "./WorkflowStepper": "./src/WorkflowStepper.tsx",
+    "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx",
     "./*": "./*"
   },
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./useWorkflow": "./dist/useWorkflow.js",
+      "./WorkflowStepper": "./dist/WorkflowStepper.js",
+      "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
       "./*": "./*"
     }
   }

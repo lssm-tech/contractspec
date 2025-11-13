@@ -306,6 +306,8 @@
       "name": "@lssm/lib.presentation-runtime-react",
       "version": "0.1.0",
       "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.presentation-runtime-core": "workspace:*",
       },
       "peerDependencies": {

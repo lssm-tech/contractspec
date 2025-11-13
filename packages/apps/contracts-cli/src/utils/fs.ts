@@ -28,7 +28,13 @@ export async function writeFileSafe(
  */
 export function resolveOutputPath(
   basePath: string,
-  specType: 'operation' | 'event' | 'presentation' | 'form' | 'feature',
+  specType:
+    | 'operation'
+    | 'event'
+    | 'presentation'
+    | 'form'
+    | 'feature'
+    | 'workflow',
   conventions: Record<string, string>,
   fileName: string
 ): string {
@@ -49,6 +55,9 @@ export function resolveOutputPath(
       break;
     case 'feature':
       subPath = 'features';
+      break;
+    case 'workflow':
+      subPath = conventions.workflows || 'workflows';
       break;
     default:
       subPath = '';

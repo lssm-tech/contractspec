@@ -228,3 +228,11 @@ export function useListCoordinator<
     clearAll,
   } as const;
 }
+
+export { useWorkflow } from './useWorkflow';
+export type {
+  UseWorkflowOptions,
+  UseWorkflowResult,
+} from './useWorkflow';
+export { WorkflowStepper } from './WorkflowStepper';
+export { WorkflowStepRenderer } from './WorkflowStepRenderer';
