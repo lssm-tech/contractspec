@@ -9,7 +9,9 @@ export type SpecType =
   | 'migration'
   | 'telemetry'
   | 'experiment'
-  | 'app-config';
+  | 'app-config'
+  | 'integration'
+  | 'knowledge';
 
 export type OpKind = 'command' | 'query';
 
@@ -281,6 +283,87 @@ export interface MigrationSpecData extends BaseSpecData {
   dependencies: string[];
   up: MigrationStepData[];
   down?: MigrationStepData[];
+}
+
+export type IntegrationCategoryData =
+  | 'payments'
+  | 'email'
+  | 'calendar'
+  | 'sms'
+  | 'ai-llm'
+  | 'ai-voice'
+  | 'speech-to-text'
+  | 'vector-db'
+  | 'storage'
+  | 'accounting'
+  | 'crm'
+  | 'helpdesk'
+  | 'custom';
+
+export type IntegrationConfigFieldType = 'string' | 'number' | 'boolean';
+
+export type IntegrationHealthCheckMethod = 'ping' | 'list' | 'custom';
+
+export interface IntegrationCapabilityRefData {
+  key: string;
+  version: number;
+}
+
+export interface IntegrationCapabilityRequirementData {
+  key: string;
+  version?: number;
+  optional?: boolean;
+  reason?: string;
+}
+
+export interface IntegrationConfigFieldData {
+  key: string;
+  type: IntegrationConfigFieldType;
+  required: boolean;
+  description?: string;
+}
+
+export interface IntegrationSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  displayName: string;
+  category: IntegrationCategoryData;
+  capabilitiesProvided: IntegrationCapabilityRefData[];
+  capabilitiesRequired: IntegrationCapabilityRequirementData[];
+  configFields: IntegrationConfigFieldData[];
+  docsUrl?: string;
+  rateLimitRpm?: number;
+  rateLimitRph?: number;
+  healthCheckMethod: IntegrationHealthCheckMethod;
+  healthCheckTimeoutMs?: number;
+}
+
+export type KnowledgeCategoryData =
+  | 'canonical'
+  | 'operational'
+  | 'external'
+  | 'ephemeral';
+
+export type KnowledgeTrustLevel = 'high' | 'medium' | 'low';
+
+export interface KnowledgeRetentionData {
+  ttlDays?: number | null;
+  archiveAfterDays?: number;
+}
+
+export interface KnowledgeSpaceSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  displayName: string;
+  category: KnowledgeCategoryData;
+  retention: KnowledgeRetentionData;
+  policyName?: string;
+  policyVersion?: number;
+  trustLevel: KnowledgeTrustLevel;
+  automationWritable: boolean;
+  embeddingModel?: string;
+  chunkSize?: number;
+  vectorDbIntegration?: string;
 }
 
 export interface AIGenerationOptions {

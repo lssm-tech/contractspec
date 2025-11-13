@@ -35,6 +35,8 @@ type SpecBuildType =
   | 'migration'
   | 'experiment'
   | 'app-config'
+  | 'integration'
+  | 'knowledge'
   | 'unknown';
 
 type GenerationTarget = 'handler' | 'component' | 'form';
@@ -61,7 +63,9 @@ export async function buildCommand(
     specType === 'migration' ||
     specType === 'telemetry' ||
     specType === 'experiment' ||
-    specType === 'app-config'
+    specType === 'app-config' ||
+    specType === 'integration' ||
+    specType === 'knowledge'
   ) {
     console.log(
       chalk.yellow('ℹ️  This spec type does not require build artifacts. Skipping.')
@@ -455,6 +459,12 @@ function detectSpecType(specFile: string, specCode: string): SpecBuildType {
   }
   if (file.includes('.migration.') || /MigrationSpec/.test(specCode)) {
     return 'migration';
+  }
+  if (file.includes('.integration.') || /IntegrationSpec/.test(specCode)) {
+    return 'integration';
+  }
+  if (file.includes('.knowledge.') || /KnowledgeSpaceSpec/.test(specCode)) {
+    return 'knowledge';
   }
   return 'unknown';
 }
