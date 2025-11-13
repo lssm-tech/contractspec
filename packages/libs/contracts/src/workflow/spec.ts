@@ -1,3 +1,4 @@
+import type { CapabilityRef } from '../capabilities';
 import type { OwnerShipMeta } from '../ownership';
 import type { OpRef } from '../features';
 import type { ExperimentRef } from '../experiments/spec';
@@ -51,6 +52,10 @@ export interface Step {
   guard?: GuardCondition;
   timeoutMs?: number;
   retry?: RetryPolicy;
+  /** Integration slot identifiers required before this step can execute. */
+  requiredIntegrations?: string[];
+  /** Capabilities that must be enabled for this step to execute. */
+  requiredCapabilities?: CapabilityRef[];
 }
 
 export interface Transition {

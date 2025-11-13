@@ -1,10 +1,24 @@
 import type { IntegrationOwnershipMode } from './spec';
 
-export type ConnectionStatus =
-  | 'active'
-  | 'inactive'
-  | 'error'
-  | 'pending_verification';
+export type ConnectionStatus = 'connected' | 'disconnected' | 'error' | 'unknown';
+
+export interface IntegrationConnectionHealth {
+  status: ConnectionStatus;
+  checkedAt?: Date;
+  latencyMs?: number;
+  errorCode?: string;
+  errorMessage?: string;
+}
+
+export interface IntegrationUsageMetrics {
+  requestCount?: number;
+  successCount?: number;
+  errorCount?: number;
+  lastUsed?: Date;
+  lastSuccessAt?: Date;
+  lastErrorAt?: Date;
+  lastErrorCode?: string;
+}
 
 export interface IntegrationConnectionMeta {
   id: string;
@@ -28,18 +42,12 @@ export interface IntegrationConnection {
   /** Encrypted configuration matching IntegrationSpec.configSchema. */
   config: Record<string, unknown>;
   /** Reference to external secret store entry containing credentials. */
+  secretProvider: string;
   secretRef: string;
   status: ConnectionStatus;
   /** Last health check result. */
-  lastHealthCheck?: {
-    timestamp: Date;
-    success: boolean;
-    error?: string;
-  };
+  health?: IntegrationConnectionHealth;
   /** Usage tracking. */
-  usage?: {
-    requestCount?: number;
-    lastUsed?: Date;
-  };
+  usage?: IntegrationUsageMetrics;
 }
 

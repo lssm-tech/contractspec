@@ -39,6 +39,7 @@ const tenantConfig: TenantAppConfig = {
     blueprintName: blueprint.meta.name,
     blueprintVersion: blueprint.meta.version,
     version: 1,
+    status: 'draft',
   },
 };
 

@@ -17,5 +17,7 @@ export interface AppKnowledgeBinding {
   };
   /** Priority when multiple spaces overlap. */
   priority?: number;
+  /** Whether access to the space is required (blocking) or optional. */
+  required?: boolean;
 }
 

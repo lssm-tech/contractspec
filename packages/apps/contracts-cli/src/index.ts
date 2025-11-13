@@ -84,6 +84,23 @@ program
     'Validate a contract specification and optionally its implementation'
   )
   .argument('<spec-file>', 'Path to spec file')
+  .option('--blueprint <path>', 'Path to AppBlueprintSpec module for validation')
+  .option(
+    '--tenant-config <path>',
+    'Path to TenantAppConfig file for validation (requires --blueprint)'
+  )
+  .option(
+    '--connections <paths...>',
+    'Paths to modules or JSON files exporting IntegrationConnection entries'
+  )
+  .option(
+    '--integration-registrars <paths...>',
+    'Modules that register integration specs (supporting optional #exportName)'
+  )
+  .option(
+    '--translation-catalog <path>',
+    'Path to a blueprint translation catalog JSON/module'
+  )
   .option(
     '--check-implementation',
     'Validate implementation against spec using AI'

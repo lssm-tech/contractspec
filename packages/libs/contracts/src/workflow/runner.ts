@@ -8,6 +8,7 @@ import type {
 import type { StateStore, WorkflowState, StepExecution } from './state';
 import { evaluateExpression } from './expression';
 import type { OpRef } from '../features';
+import type { CapabilityRef } from '../capabilities';
 import type {
   ResolvedAppConfig,
   ResolvedIntegration,
@@ -34,6 +35,23 @@ export type OperationExecutor = (
   input: unknown,
   context: OperationExecutorContext
 ) => Promise<unknown>;
+
+export type WorkflowPreFlightIssueType = 'integration' | 'capability';
+
+export type WorkflowPreFlightIssueSeverity = 'error' | 'warning';
+
+export interface WorkflowPreFlightIssue {
+  stepId: string;
+  type: WorkflowPreFlightIssueType;
+  identifier: string;
+  severity: WorkflowPreFlightIssueSeverity;
+  reason: string;
+}
+
+export interface WorkflowPreFlightResult {
+  canStart: boolean;
+  issues: WorkflowPreFlightIssue[];
+}
 
 export interface GuardContext {
   workflow: WorkflowState;
@@ -66,6 +84,15 @@ export interface WorkflowRunnerConfig {
 export class WorkflowRunner {
   constructor(private readonly config: WorkflowRunnerConfig) {}
 
+  async preFlightCheck(
+    workflowName: string,
+    version?: number,
+    resolvedConfig?: ResolvedAppConfig
+  ): Promise<WorkflowPreFlightResult> {
+    const spec = this.getSpec(workflowName, version);
+    return this.performPreFlight(spec, resolvedConfig);
+  }
+
   async start(
     workflowName: string,
     version?: number,
@@ -87,6 +114,18 @@ export class WorkflowRunner {
       createdAt: now,
       updatedAt: now,
     };
+
+    const resolvedAppConfig = this.config.appConfigProvider
+      ? await this.config.appConfigProvider(state)
+      : undefined;
+
+    const preFlightResult = await this.performPreFlight(
+      spec,
+      resolvedAppConfig
+    );
+    if (!preFlightResult.canStart) {
+      throw new WorkflowPreFlightError(preFlightResult.issues);
+    }
 
     await this.config.stateStore.create(state);
     this.emit('workflow.started', {
@@ -203,6 +242,75 @@ export class WorkflowRunner {
       workflowId,
       workflowName: state.workflowName,
     });
+  }
+
+  private async performPreFlight(
+    spec: WorkflowSpec,
+    resolvedConfig?: ResolvedAppConfig
+  ): Promise<WorkflowPreFlightResult> {
+    if (!resolvedConfig) {
+      return { canStart: true, issues: [] };
+    }
+
+    const issues: WorkflowPreFlightIssue[] = [];
+    const integrationBySlot = new Map<string, ResolvedIntegration>();
+    for (const integration of resolvedConfig.integrations) {
+      integrationBySlot.set(integration.slot.slotId, integration);
+    }
+
+    for (const step of spec.definition.steps) {
+      for (const slotId of step.requiredIntegrations ?? []) {
+        const integration = integrationBySlot.get(slotId);
+        if (!integration) {
+          issues.push({
+            stepId: step.id,
+            type: 'integration',
+            identifier: slotId,
+            severity: 'error',
+            reason: `Integration slot "${slotId}" is not bound in the resolved app config.`,
+          });
+          continue;
+        }
+        const status = integration.connection.status;
+        if (status === 'disconnected' || status === 'error') {
+          issues.push({
+            stepId: step.id,
+            type: 'integration',
+            identifier: slotId,
+            severity: 'error',
+            reason: `Integration slot "${slotId}" is in status "${status}".`,
+          });
+        } else if (status === 'unknown') {
+          issues.push({
+            stepId: step.id,
+            type: 'integration',
+            identifier: slotId,
+            severity: 'warning',
+            reason: `Integration slot "${slotId}" reports unknown health status.`,
+          });
+        }
+      }
+    }
+
+    const enabledCapabilities = new Set(
+      resolvedConfig.capabilities.enabled.map(capabilityKey)
+    );
+    for (const step of spec.definition.steps) {
+      for (const required of step.requiredCapabilities ?? []) {
+        if (!enabledCapabilities.has(capabilityKey(required))) {
+          issues.push({
+            stepId: step.id,
+            type: 'capability',
+            identifier: capabilityKey(required),
+            severity: 'error',
+            reason: `Capability "${required.key}@${required.version}" is not enabled.`,
+          });
+        }
+      }
+    }
+
+    const canStart = issues.every((issue) => issue.severity !== 'error');
+    return { canStart, issues };
   }
 
   private async evaluateGuard(
@@ -345,5 +453,21 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isTerminalStatus(status: WorkflowState['status']) {
   return status === 'completed' || status === 'failed' || status === 'cancelled';
+}
+
+export class WorkflowPreFlightError extends Error {
+  constructor(public readonly issues: WorkflowPreFlightIssue[]) {
+    super(
+      `Workflow pre-flight failed: ${issues
+        .filter((issue) => issue.severity === 'error')
+        .map((issue) => `${issue.type}:${issue.identifier}`)
+        .join(', ')}`
+    );
+    this.name = 'WorkflowPreFlightError';
+  }
+}
+
+function capabilityKey(ref: CapabilityRef): string {
+  return `${ref.key}@${ref.version}`;
 }
 

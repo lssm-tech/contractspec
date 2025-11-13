@@ -9,6 +9,7 @@ export const artisanStripeTenantConfig: TenantAppConfig = {
     blueprintVersion: 1,
     environment: 'production',
     version: 1,
+    status: 'published',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -25,7 +26,7 @@ export const artisanStripeTenantConfig: TenantAppConfig = {
   knowledge: [],
   locales: {
     defaultLocale: 'en',
-    enabledLocales: ['en', 'es'],
+    enabledLocales: ['en', 'fr'],
   },
   translationOverrides: {
     entries: [
