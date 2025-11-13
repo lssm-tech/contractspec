@@ -31,5 +31,7 @@ export * from './app-config/spec';
 export * from './app-config/runtime';
 export * from './integrations';
 export * from './knowledge';
+export * from './integrations/contracts';
+export * from './knowledge/contracts';
 export * from './regenerator';
 export * from './workflow';
