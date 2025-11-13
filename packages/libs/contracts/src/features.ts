@@ -66,6 +66,10 @@ export interface FeatureModuleSpec {
   }[];
 }
 
+export interface FeatureRef {
+  key: string;
+}
+
 function keyOf(f: FeatureModuleSpec) {
   return f.meta.key;
 }

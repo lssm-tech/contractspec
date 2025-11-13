@@ -56,6 +56,10 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
     validateExperimentSpec(code, errors, warnings);
   }
 
+  if (fileName.includes('.app-config.')) {
+    validateAppConfigSpec(code, errors, warnings);
+  }
+
   // Common validations
   validateCommonFields(code, errors, warnings);
 
@@ -148,6 +152,21 @@ function validateExperimentSpec(code: string, errors: string[], warnings: string
   }
   if (!code.match(/allocation:\s*{/)) {
     warnings.push('ExperimentSpec missing allocation configuration');
+  }
+}
+
+function validateAppConfigSpec(code: string, errors: string[], warnings: string[]) {
+  if (!code.match(/:\s*AppConfigSpec\s*=/)) {
+    errors.push('Missing AppConfigSpec type annotation');
+  }
+  if (!code.includes('meta:')) {
+    errors.push('AppConfigSpec must define meta');
+  }
+  if (!code.includes('appId')) {
+    warnings.push('AppConfig meta missing appId assignment');
+  }
+  if (!code.includes('capabilities')) {
+    warnings.push('AppConfig spec does not declare capabilities');
   }
 }
 

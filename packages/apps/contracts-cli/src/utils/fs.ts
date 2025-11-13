@@ -38,7 +38,8 @@ export function resolveOutputPath(
     | 'data-view'
     | 'migration'
     | 'telemetry'
-    | 'experiment',
+    | 'experiment'
+    | 'app-config',
   conventions: Record<string, string>,
   fileName: string
 ): string {
@@ -74,6 +75,9 @@ export function resolveOutputPath(
       break;
     case 'experiment':
       subPath = conventions.experiments || 'experiments';
+      break;
+    case 'app-config':
+      subPath = conventions.appConfig || 'app-config';
       break;
     default:
       subPath = '';
