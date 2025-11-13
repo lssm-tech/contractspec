@@ -202,5 +202,11 @@ export { DataViewTable } from './components/data-view/DataViewTable';
 export { DataViewDetail } from './components/data-view/DataViewDetail';
 export { DataViewRenderer } from './components/data-view/DataViewRenderer';
 
+// Data views
+export { DataViewList } from './components/data-view/DataViewList';
+export { DataViewTable } from './components/data-view/DataViewTable';
+export { DataViewDetail } from './components/data-view/DataViewDetail';
+export { DataViewRenderer } from './components/data-view/DataViewRenderer';
+
 // Overlays re-exports (web default; native via Metro alias)
 // Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues

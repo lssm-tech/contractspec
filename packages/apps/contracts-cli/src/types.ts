@@ -4,7 +4,8 @@ export type SpecType =
   | 'presentation'
   | 'form'
   | 'feature'
-  | 'workflow';
+  | 'workflow'
+  | 'data-view';
 
 export type OpKind = 'command' | 'query';
 
@@ -75,6 +76,29 @@ export interface WorkflowSpecData extends BaseSpecData {
   steps: WorkflowStepData[];
   transitions: WorkflowTransitionData[];
   policyFlags: string[];
+}
+
+export type DataViewKind = 'list' | 'detail' | 'table' | 'grid';
+
+export interface DataViewFieldData {
+  key: string;
+  label: string;
+  dataPath: string;
+  format?: string;
+  sortable?: boolean;
+  filterable?: boolean;
+}
+
+export interface DataViewSpecData extends BaseSpecData {
+  title: string;
+  domain: string;
+  entity: string;
+  kind: DataViewKind;
+  primaryOperation: { name: string; version: number };
+  itemOperation?: { name: string; version: number };
+  fields: DataViewFieldData[];
+  primaryField?: string;
+  secondaryFields?: string[];
 }
 
 export interface AIGenerationOptions {
