@@ -20,6 +20,7 @@ export * from './capabilities';
 export * from './data-views';
 export * from './policy/spec';
 export * from './policy/engine';
+export * from './policy/opa-adapter';
 export * from './themes';
 export * from './migrations';
 export * from './workflow';

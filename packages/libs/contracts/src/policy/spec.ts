@@ -2,6 +2,45 @@ import type { OwnerShipMeta } from '../ownership';
 
 export type PolicyEffect = 'allow' | 'deny';
 
+export interface RelationshipDefinition {
+  subjectType: string;
+  relation: string;
+  objectType: string;
+  description?: string;
+  transitive?: boolean;
+}
+
+export interface RelationshipMatcher {
+  relation: string;
+  objectType?: string;
+  objectId?: string;
+}
+
+export interface ConsentDefinition {
+  id: string;
+  scope: string;
+  purpose: string;
+  description?: string;
+  lawfulBasis?: 'consent' | 'contract' | 'legal_obligation' | 'legitimate_interest';
+  expiresInDays?: number;
+  required?: boolean;
+}
+
+export interface RateLimitDefinition {
+  id: string;
+  rpm: number;
+  key?: string;
+  windowSeconds?: number;
+  burst?: number;
+}
+
+export interface PolicyOPAConfig {
+  /** Fully-qualified package, e.g. "sigil.authz" */
+  package: string;
+  /** Optional rule within package (defaults to "allow") */
+  decision?: string;
+}
+
 export interface PolicyMeta extends OwnerShipMeta {
   /** Fully-qualified policy name (e.g., "sigil.core.default"). */
   name: string;
@@ -38,6 +77,11 @@ export interface PolicyRule {
   actions: string[];
   subject?: SubjectMatcher;
   resource?: ResourceMatcher;
+  relationships?: RelationshipMatcher[];
+  requiresConsent?: string[];
+  flags?: string[];
+  rateLimit?: string | RateLimitDefinition;
+  escalate?: 'human_review' | null;
   conditions?: PolicyCondition[];
   reason?: string;
 }
@@ -63,6 +107,10 @@ export interface PolicySpec {
   rules: PolicyRule[];
   fieldPolicies?: FieldPolicyRule[];
   pii?: PIIPolicy;
+  relationships?: RelationshipDefinition[];
+  consents?: ConsentDefinition[];
+  rateLimits?: RateLimitDefinition[];
+  opa?: PolicyOPAConfig;
 }
 
 export interface PolicyRef {

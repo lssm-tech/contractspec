@@ -143,7 +143,9 @@ export class SpecRegistry {
         );
       }
       if (decision.rateLimit && ctx.rateLimit) {
-        await ctx.rateLimit(decision.rateLimit.key, 1, decision.rateLimit.rpm);
+        const key = decision.rateLimit.key ?? 'default';
+        const rpm = decision.rateLimit.rpm ?? 60;
+        await ctx.rateLimit(key, 1, rpm);
       }
       // escalations are advisory; adapter may short-circuit if needed
     }
