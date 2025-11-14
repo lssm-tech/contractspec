@@ -1,15 +1,14 @@
 import type { SpecRegistry } from '../registry';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ContractSpec } from '../spec';
-import type { ResourceRefDescriptor } from '../resources';
 import type { HandlerCtx } from '../types';
 import { createMcpHandler } from 'mcp-handler';
+import type {
+  ReadResourceTemplateCallback,
+  ToolCallback,
+} from '@modelcontextprotocol/sdk/server/mcp.js';
 import { ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { defaultMcpTool, jsonSchemaForSpec } from '../jsonschema';
-import type {
-  CallToolResult,
-  ReadResourceResult,
-} from '@modelcontextprotocol/sdk/types.js';
 
 export function makeNextMcpServerFromRegistry(
   reg: SpecRegistry,
@@ -27,18 +26,17 @@ export function makeNextMcpServerFromRegistry(
             spec.transport?.mcp?.toolName ??
             defaultMcpTool(spec.meta.name, spec.meta.version);
 
-          server.registerResource(
+          (server as any).registerResource(
             resourceName,
             new ResourceTemplate('users://{userId}/profile', {
               list: undefined,
             }),
-
             {
               // name: resourceName,
               description: spec.meta.description,
               inputSchema: input,
             },
-            async (uri: URL, args, _req): Promise<ReadResourceResult> => {
+            (async (uri: URL, args, _req) => {
               const result = await reg.execute(
                 spec.meta.name,
                 spec.meta.version,
@@ -47,7 +45,7 @@ export function makeNextMcpServerFromRegistry(
               );
               // return { content: [{ type: 'json', json: result }] };
               return { contents: [{ uri: uri.href, text: String(result) }] };
-            }
+            }) as ReadResourceTemplateCallback
           );
         } else if (meta.kind === 'command') {
           const toolName =
@@ -61,7 +59,7 @@ export function makeNextMcpServerFromRegistry(
               description: spec.meta.description,
               inputSchema: input as any,
             },
-            async (args, _req): Promise<CallToolResult> => {
+            (async (args: any, _req: any) => {
               const result = await reg.execute(
                 spec.meta.name,
                 spec.meta.version,
@@ -70,7 +68,7 @@ export function makeNextMcpServerFromRegistry(
               );
               // return { content: [{ type: 'json', json: result }] };
               return { content: [{ type: 'text', text: String(result) }] };
-            }
+            }) as ToolCallback
           );
         } else {
           throw new Error(`Unsupported kind: ${meta.kind}`);

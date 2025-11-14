@@ -10,9 +10,9 @@ import type { PresentationRegistry } from '../presentations';
 import { jsonSchemaForPresentation } from '../presentations';
 import {
   createDefaultTransformEngine,
-  registerDefaultReactRenderer,
-  registerBasicValidation,
   type PresentationDescriptorV2,
+  registerBasicValidation,
+  registerDefaultReactRenderer,
 } from '../presentations.v2';
 import type { PromptRegistry } from '../promptRegistry';
 import type { HandlerCtx } from '../types';
@@ -20,7 +20,6 @@ import { defaultMcpTool, jsonSchemaForSpec } from '../jsonschema';
 import type {
   CallToolResult,
   GetPromptResult,
-  ReadResourceResult,
 } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import z from 'zod';
@@ -106,7 +105,7 @@ export function createMcpServer(
     //   })
     // );
 
-    server.registerResource(
+    (server as any).registerResource(
       resource.meta.uriTemplate.split(':')[0]!,
       new ResourceTemplate(resource.meta.uriTemplate, {} as any),
       {
@@ -116,7 +115,7 @@ export function createMcpServer(
           // metadata: `${op.meta.name}.input.v${op.meta.version}`,
         }),
       },
-      async (_uri: any, args: any, _req: any): Promise<ReadResourceResult> => {
+      async (_uri: any, args: any, _req: any) => {
         const ctx = ctxFactories.resourceCtx();
         const out = await resource.resolve(args, ctx);
         if (typeof out.data === 'string') {
@@ -155,18 +154,14 @@ export function createMcpServer(
       const baseUri = `presentation://${p.meta.name}/v${p.meta.version}`;
 
       // Generic metadata
-      server.registerResource(
+      (server as any).registerResource(
         baseKey,
         new ResourceTemplate(baseUri, {} as any),
         {
           description: p.meta.description ?? 'Presentation',
           inputSchema: z.toJSONSchema(z.object({})),
         },
-        async (
-          _uri: any,
-          _args: any,
-          _req: any
-        ): Promise<ReadResourceResult> => {
+        async (_uri: any, _args: any, _req: any) => {
           if (p.content.kind === 'markdown') {
             const text = p.content.content
               ? p.content.content
@@ -224,7 +219,7 @@ export function createMcpServer(
       for (const v of variants) {
         const key = `${baseKey}${v.ext}`;
         const uri = `${baseUri}${v.ext}`;
-        server.registerResource(
+        (server as any).registerResource(
           key,
           new ResourceTemplate(uri, {} as any),
           {
@@ -294,7 +289,7 @@ export function createMcpServer(
       const baseKey = `presentation.${d.meta.name.replace(/\./g, '_')}.v${d.meta.version}`;
       const baseUri = `presentation://${d.meta.name}/v${d.meta.version}`;
 
-      server.registerResource(
+      (server as any).registerResource(
         baseKey,
         new ResourceTemplate(baseUri, {} as any),
         {
@@ -326,7 +321,7 @@ export function createMcpServer(
       for (const v of variants) {
         const key = `${baseKey}${v.ext}`;
         const uri = `${baseUri}${v.ext}`;
-        server.registerResource(
+        (server as any).registerResource(
           key,
           new ResourceTemplate(uri, {} as any),
           {
