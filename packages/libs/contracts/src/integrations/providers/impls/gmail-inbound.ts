@@ -1,5 +1,4 @@
 import { google, type gmail_v1 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 
 import type {
   EmailInboundProvider,
@@ -10,7 +9,7 @@ import type {
 } from '../email';
 
 export interface GmailInboundProviderOptions {
-  auth: AuthClient;
+  auth: gmail_v1.Options['auth'];
   userId?: string;
   gmail?: gmail_v1.Gmail;
   includeSpamTrash?: boolean;
@@ -20,8 +19,10 @@ export class GmailInboundProvider implements EmailInboundProvider {
   private readonly gmail: gmail_v1.Gmail;
   private readonly userId: string;
   private readonly includeSpamTrash: boolean;
+  private readonly auth: gmail_v1.Options['auth'];
 
   constructor(options: GmailInboundProviderOptions) {
+    this.auth = options.auth;
     this.gmail =
       options.gmail ??
       google.gmail({
@@ -40,6 +41,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
       q: query?.query,
       labelIds: query?.label ? [query.label] : undefined,
       includeSpamTrash: this.includeSpamTrash,
+      auth: this.auth,
     });
 
     const threads = await Promise.all(
@@ -57,6 +59,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
       id: threadId,
       userId: this.userId,
       format: 'full',
+      auth: this.auth,
     });
     const thread = response.data;
     if (!thread) return null;
@@ -72,16 +75,24 @@ export class GmailInboundProvider implements EmailInboundProvider {
       ])
     );
 
+    const firstMessage = messages[0];
+    const lastMessage = messages[messages.length - 1];
     const updatedAt =
-      messages.length > 0
-        ? messages[messages.length - 1].receivedAt ?? messages[0].sentAt
-        : new Date();
+      lastMessage?.receivedAt ??
+      lastMessage?.sentAt ??
+      firstMessage?.receivedAt ??
+      firstMessage?.sentAt ??
+      new Date();
 
     const labels = Array.from(
       new Set(
-        messages.flatMap((message) => message.metadata?.labelIds ?? []).filter(
-          (label): label is string => Boolean(label)
-        )
+        messages
+          .flatMap((message) => {
+            const labelField = message.metadata?.labelIds;
+            if (!labelField) return [];
+            return labelField.split(',').map((label) => label.trim());
+          })
+          .filter((label): label is string => Boolean(label))
       )
     );
 
@@ -91,7 +102,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
       snippet: thread.snippet ?? '',
       participants,
       messages,
-      updatedAt: updatedAt ?? new Date(),
+      updatedAt,
       labels,
       metadata: thread.historyId ? { historyId: thread.historyId } : undefined,
     };
@@ -112,6 +123,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
       labelIds: query.label ? [query.label] : undefined,
       q: q.join(' '),
       includeSpamTrash: this.includeSpamTrash,
+      auth: this.auth,
     });
 
     const messages = await Promise.all(
@@ -121,6 +133,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
           userId: this.userId,
           id: item.id,
           format: 'full',
+          auth: this.auth,
         });
         if (!full.data) return null;
         return this.transformMessage(full.data);
@@ -138,7 +151,9 @@ export class GmailInboundProvider implements EmailInboundProvider {
   private transformMessage(message: gmail_v1.Schema$Message): EmailMessage {
     const headers = message.payload?.headers ?? [];
     const subject = headerValue(headers, 'Subject') ?? '';
-    const from = parseAddress(headerValue(headers, 'From'));
+    const from =
+      parseAddress(headerValue(headers, 'From')) ??
+      inferFallbackAddress('from', message.id);
     const to = parseAddressList(headerValue(headers, 'To'));
     const cc = parseAddressList(headerValue(headers, 'Cc'));
     const bcc = parseAddressList(headerValue(headers, 'Bcc'));
@@ -148,6 +163,13 @@ export class GmailInboundProvider implements EmailInboundProvider {
     const timestamp = message.internalDate
       ? new Date(Number(message.internalDate))
       : new Date();
+
+    const metadata: Record<string, string> = {
+      ...(message.labelIds?.length
+        ? { labelIds: message.labelIds.join(',') }
+        : {}),
+      ...(message.historyId ? { historyId: message.historyId } : {}),
+    };
 
     return {
       id: message.id ?? '',
@@ -166,10 +188,7 @@ export class GmailInboundProvider implements EmailInboundProvider {
       headers: Object.fromEntries(
         headers.map((header) => [header.name ?? '', header.value ?? ''])
       ),
-      metadata: {
-        labelIds: message.labelIds,
-        historyId: message.historyId,
-      },
+      metadata: Object.keys(metadata).length > 0 ? metadata : undefined,
     };
   }
 }
@@ -178,17 +197,34 @@ function headerValue(
   headers: gmail_v1.Schema$MessagePartHeader[],
   name: string
 ): string | undefined {
-  return headers.find(
-    (header) => header.name?.toLowerCase() === name.toLowerCase()
-  )?.value;
+  const header = headers.find(
+    (candidate) => candidate.name?.toLowerCase() === name.toLowerCase()
+  );
+  const value = header?.value;
+  return typeof value === 'string' ? value : undefined;
 }
 
 function parseAddress(header?: string): { email: string; name?: string } | null {
   const addresses = parseAddressList(header);
-  return addresses.length > 0 ? addresses[0] : null;
+  if (addresses.length === 0) {
+    return null;
+  }
+  return addresses[0]!;
 }
 
-function parseAddressList(header?: string) {
+function inferFallbackAddress(
+  field: string,
+  messageId?: string | null
+): { email: string; name?: string } {
+  const suffix = messageId
+    ? messageId.replace(/[^\w]/g, '').slice(-8) || 'unknown'
+    : 'unknown';
+  return {
+    email: `${field}-${suffix}@mail.local`,
+  };
+}
+
+function parseAddressList(header?: string): Array<{ email: string; name?: string }> {
   if (!header) return [];
   return header
     .split(',')
@@ -200,7 +236,10 @@ function parseAddressList(header?: string) {
         return { email: value };
       }
       const name = match[1]?.trim();
-      const email = match[2].trim();
+      const email = match[2]?.trim();
+      if (!email) {
+        return { email: value };
+      }
       return name ? { email, name } : { email };
     });
 }
@@ -224,7 +263,7 @@ function extractContent(payload?: gmail_v1.Schema$MessagePart): {
   if (!payload) {
     return { attachments: [] };
   }
-  const attachments: EmailMessage['attachments'] = [];
+  const attachments: NonNullable<EmailMessage['attachments']> = [];
   const visit = (part?: gmail_v1.Schema$MessagePart): {
     text?: string;
     html?: string;
@@ -247,7 +286,7 @@ function extractContent(payload?: gmail_v1.Schema$MessagePart): {
       return { html: decodeBase64Url(data) };
     }
     if (part.parts?.length) {
-      return part.parts.reduce(
+      return part.parts.reduce<{ text?: string; html?: string }>(
         (acc, nested) => {
           const value = visit(nested);
           return {
@@ -255,7 +294,7 @@ function extractContent(payload?: gmail_v1.Schema$MessagePart): {
             html: value.html ?? acc.html,
           };
         },
-        { text: undefined, html: undefined }
+        {}
       );
     }
     return {};
@@ -267,8 +306,10 @@ function extractContent(payload?: gmail_v1.Schema$MessagePart): {
 
 function decodeBase64Url(data: string): string {
   const normalized = data.replace(/-/g, '+').replace(/_/g, '/');
-  const buffer = Buffer.from(normalized, 'base64');
-  return buffer.toString('utf-8');
+  const padding = normalized.length % 4;
+  const padded =
+    padding === 0 ? normalized : normalized + '='.repeat(4 - padding);
+  return Buffer.from(padded, 'base64').toString('utf-8');
 }
 
 

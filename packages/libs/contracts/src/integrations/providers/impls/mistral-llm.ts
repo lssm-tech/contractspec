@@ -54,10 +54,8 @@ export class MistralLLMProvider implements LLMProvider {
     messages: LLMMessage[],
     options: LLMChatOptions = {}
   ): AsyncIterable<LLMStreamChunk> {
-    const request = this.buildChatRequest(messages, {
-      ...options,
-      stream: true,
-    });
+    const request = this.buildChatRequest(messages, options);
+    request.stream = true;
     const stream = await this.client.chat.stream(request);
 
     const aggregatedParts: LLMContentPart[] = [];
@@ -110,8 +108,11 @@ export class MistralLLMProvider implements LLMProvider {
       }
 
       if (event.data.usage) {
-        usage = this.fromUsage(event.data.usage);
-        yield { type: 'usage', usage };
+        const usageEntry = this.fromUsage(event.data.usage);
+        if (usageEntry) {
+          usage = usageEntry;
+          yield { type: 'usage', usage: usageEntry };
+        }
       }
     }
 
@@ -133,7 +134,7 @@ export class MistralLLMProvider implements LLMProvider {
       response: {
         message,
         usage,
-        finishReason,
+        finishReason: mapFinishReason(finishReason),
       },
     };
   }
@@ -149,7 +150,7 @@ export class MistralLLMProvider implements LLMProvider {
     const model = options.model ?? this.defaultModel;
     const mappedMessages = messages.map((message) =>
       this.toMistralMessage(message)
-    ) as components.Messages[];
+    );
 
     const request: components.ChatCompletionRequest = {
       model,
@@ -184,6 +185,9 @@ export class MistralLLMProvider implements LLMProvider {
         },
       }));
     }
+    if (options.responseFormat === 'json') {
+      request.responseFormat = { type: 'json_object' };
+    }
 
     return request;
   }
@@ -192,22 +196,31 @@ export class MistralLLMProvider implements LLMProvider {
     response: components.ChatCompletionResponse
   ): LLMResponse {
     const firstChoice = response.choices[0];
+    if (!firstChoice) {
+      return {
+        message: {
+          role: 'assistant',
+          content: [{ type: 'text', text: '' }],
+        },
+        usage: this.fromUsage(response.usage),
+        raw: response,
+      };
+    }
     const message = this.fromAssistantMessage(firstChoice.message);
     return {
       message,
       usage: this.fromUsage(response.usage),
-      finishReason: (firstChoice.finishReason ?? undefined) as
-        | LLMResponse['finishReason']
-        | undefined,
+      finishReason: mapFinishReason(firstChoice.finishReason),
       raw: response,
     };
   }
 
-  private fromUsage(usage: components.UsageInfo): LLMTokenUsage {
+  private fromUsage(usage: components.UsageInfo | undefined): LLMTokenUsage | undefined {
+    if (!usage) return undefined;
     return {
-      promptTokens: usage.promptTokens,
-      completionTokens: usage.completionTokens,
-      totalTokens: usage.totalTokens,
+      promptTokens: usage.promptTokens ?? 0,
+      completionTokens: usage.completionTokens ?? 0,
+      totalTokens: usage.totalTokens ?? 0,
     };
   }
 
@@ -316,6 +329,26 @@ export class MistralLLMProvider implements LLMProvider {
         arguments: call.arguments,
       },
     }));
+  }
+}
+
+function mapFinishReason(
+  reason?: string | null
+): LLMResponse['finishReason'] | undefined {
+  if (!reason) return undefined;
+  const normalized = reason.toLowerCase();
+  switch (normalized) {
+    case 'stop':
+      return 'stop';
+    case 'length':
+      return 'length';
+    case 'tool_call':
+    case 'tool_calls':
+      return 'tool_call';
+    case 'content_filter':
+      return 'content_filter';
+    default:
+      return undefined;
   }
 }
 

@@ -1,14 +1,13 @@
 import type { gmail_v1 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 import { describe, expect, it, vi } from 'vitest';
 
 import { GmailOutboundProvider } from './gmail-outbound';
 
 describe('GmailOutboundProvider', () => {
   it('sends email with correct payload', async () => {
-    const gmail = createMockGmail();
+    const { gmail, send } = createMockGmail();
     const provider = new GmailOutboundProvider({
-      auth: {} as AuthClient,
+      auth: {} as gmail_v1.Options['auth'],
       gmail,
     });
 
@@ -20,8 +19,15 @@ describe('GmailOutboundProvider', () => {
       htmlBody: '<strong>HTML</strong>',
     });
 
-    expect(gmail.users.messages.send).toHaveBeenCalled();
-    const call = gmail.users.messages.send.mock.calls[0][0];
+    expect(send).toHaveBeenCalled();
+    const [firstCall] = send.mock.calls;
+    if (!firstCall) {
+      throw new Error('Expected Gmail send to be called at least once');
+    }
+    const [call] = firstCall;
+    if (!call?.requestBody?.raw) {
+      throw new Error('Expected Gmail payload to include raw content');
+    }
     const raw = call.requestBody.raw;
     const decoded = Buffer.from(raw.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf-8');
     expect(decoded).toContain('Subject: Test');
@@ -31,15 +37,20 @@ describe('GmailOutboundProvider', () => {
 });
 
 function createMockGmail() {
-  return {
+  const send = vi.fn<
+    [gmail_v1.Params$Resource$Users$Messages$Send],
+    Promise<{ data: { id: string } }>
+  >(async () => ({
+    data: { id: 'sent-message' },
+  }));
+  const gmail = {
     users: {
       messages: {
-        send: vi.fn(async () => ({
-          data: { id: 'sent-message' },
-        })),
+        send,
       },
     },
   } as unknown as gmail_v1.Gmail;
+  return { gmail, send };
 }
 
 

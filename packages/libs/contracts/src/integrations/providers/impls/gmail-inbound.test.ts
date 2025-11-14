@@ -1,5 +1,4 @@
 import type { gmail_v1 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 import { describe, expect, it, vi } from 'vitest';
 
 import { GmailInboundProvider } from './gmail-inbound';
@@ -8,9 +7,9 @@ const now = Date.now();
 
 describe('GmailInboundProvider', () => {
   it('lists and transforms threads', async () => {
-    const gmail = createMockGmail();
+    const { gmail } = createMockGmail();
     const provider = new GmailInboundProvider({
-      auth: {} as AuthClient,
+      auth: {} as gmail_v1.Options['auth'],
       gmail,
     });
 
@@ -18,16 +17,23 @@ describe('GmailInboundProvider', () => {
     expect(gmail.users.threads.list).toHaveBeenCalled();
     expect(threads).toHaveLength(1);
     const thread = threads[0];
+    if (!thread) {
+      throw new Error('Expected a thread to be returned for assertions.');
+    }
     expect(thread.id).toBe('thread-1');
     expect(thread.subject).toBe('Hello');
-    expect(thread.messages[0].textBody).toBe('Plain text body');
-    expect(thread.messages[0].htmlBody).toContain('<p>');
+    const firstMessage = thread.messages[0];
+    if (!firstMessage) {
+      throw new Error('Expected the thread to include at least one message.');
+    }
+    expect(firstMessage.textBody).toBe('Plain text body');
+    expect(firstMessage.htmlBody).toContain('<p>');
   });
 
   it('retrieves messages since a timestamp', async () => {
-    const gmail = createMockGmail();
+    const { gmail } = createMockGmail();
     const provider = new GmailInboundProvider({
-      auth: {} as AuthClient,
+      auth: {} as gmail_v1.Options['auth'],
       gmail,
     });
 
@@ -38,11 +44,17 @@ describe('GmailInboundProvider', () => {
 
     expect(gmail.users.messages.list).toHaveBeenCalled();
     expect(result.messages).toHaveLength(1);
-    expect(result.messages[0].subject).toBe('Hello');
+    const firstMessage = result.messages[0];
+    if (!firstMessage) {
+      throw new Error('Expected at least one message in the result');
+    }
+    expect(firstMessage.subject).toBe('Hello');
   });
 });
 
-function createMockGmail() {
+function createMockGmail(): {
+  gmail: gmail_v1.Gmail;
+} {
   const message = buildMessage();
   const gmail = {
     users: {
@@ -64,7 +76,7 @@ function createMockGmail() {
       },
     },
   } as unknown as gmail_v1.Gmail;
-  return gmail;
+  return { gmail };
 }
 
 function buildMessage(): gmail_v1.Schema$Message {

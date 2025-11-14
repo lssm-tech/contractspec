@@ -12,13 +12,13 @@ describe('Job handlers', () => {
     await handler({
       id: 'job',
       type: 'gmail-sync',
-      payload: { labelIds: ['INBOX'] },
+      payload: { label: 'INBOX' },
       status: 'pending',
       attempts: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    expect(adapter.syncThreads).toHaveBeenCalledWith({ labelIds: ['INBOX'] });
+    expect(adapter.syncThreads).toHaveBeenCalledWith({ label: 'INBOX' });
   });
 
   it('downloads object and delegates to storage adapter', async () => {

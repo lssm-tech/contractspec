@@ -21,7 +21,7 @@ export interface StripePaymentsProviderOptions {
   stripe?: Stripe;
 }
 
-const API_VERSION: Stripe.LatestApiVersion = '2024-06-20';
+const API_VERSION: Stripe.LatestApiVersion = '2025-10-29.clover';
 
 export class StripePaymentsProvider implements PaymentsProvider {
   private readonly stripe: Stripe;
@@ -88,27 +88,34 @@ export class StripePaymentsProvider implements PaymentsProvider {
     const refund = await this.stripe.refunds.create({
       payment_intent: input.paymentIntentId,
       amount: input.amount?.amount,
-      reason: input.reason ?? undefined,
+      reason: mapRefundReason(input.reason),
       metadata: input.metadata,
     });
+    const paymentIntentId =
+      typeof refund.payment_intent === 'string'
+        ? refund.payment_intent
+        : refund.payment_intent?.id ?? '';
     return {
       id: refund.id,
-      paymentIntentId: refund.payment_intent ?? '',
+      paymentIntentId,
       amount: {
         amount: refund.amount ?? 0,
         currency: refund.currency?.toUpperCase() ?? 'USD',
       },
-      status: refund.status ?? 'pending',
+      status: mapRefundStatus(refund.status),
       reason: refund.reason ?? undefined,
-      metadata: refund.metadata as Record<string, string>,
+      metadata: this.toMetadata(refund.metadata),
       createdAt: refund.created ? new Date(refund.created * 1000) : undefined,
     };
   }
 
   async listInvoices(query?: ListInvoicesQuery): Promise<PaymentInvoice[]> {
+    const requestedStatus = query?.status?.[0];
+    const stripeStatus =
+      requestedStatus && requestedStatus !== 'deleted' ? requestedStatus : undefined;
     const response = await this.stripe.invoices.list({
       customer: query?.customerId,
-      status: query?.status?.[0],
+      status: stripeStatus,
       limit: query?.limit,
       starting_after: query?.startingAfter,
     });
@@ -126,50 +133,65 @@ export class StripePaymentsProvider implements PaymentsProvider {
     });
     return response.data.map((charge) => ({
       id: charge.id,
-      paymentIntentId: charge.payment_intent ?? undefined,
+      paymentIntentId:
+        typeof charge.payment_intent === 'string'
+          ? charge.payment_intent
+          : charge.payment_intent?.id,
       amount: {
         amount: charge.amount,
         currency: charge.currency?.toUpperCase() ?? 'USD',
       },
       type: 'capture',
-      status: charge.status === 'succeeded' ? 'succeeded' : 'failed',
+      status: mapChargeStatus(charge.status),
       description: charge.description ?? undefined,
       createdAt: new Date(charge.created * 1000),
-      metadata: charge.metadata as Record<string, string>,
-      score: charge.balance_transaction ?? undefined,
+      metadata: this.mergeMetadata(this.toMetadata(charge.metadata), {
+        balanceTransaction: typeof charge.balance_transaction === 'string'
+          ? charge.balance_transaction
+          : undefined,
+      }),
     }));
   }
 
   private toCustomer(customer: Stripe.Customer): PaymentCustomer {
+    const metadata = this.toMetadata(customer.metadata);
+    const updatedAtValue = metadata?.updatedAt;
     return {
       id: customer.id,
       email: customer.email ?? undefined,
       name: customer.name ?? undefined,
-      metadata: customer.metadata as Record<string, string>,
+      metadata,
       createdAt: customer.created ? new Date(customer.created * 1000) : undefined,
-      updatedAt: customer.metadata?.updatedAt
-        ? new Date(customer.metadata.updatedAt)
-        : undefined,
+      updatedAt: updatedAtValue ? new Date(updatedAtValue) : undefined,
     };
   }
 
   private toPaymentIntent(intent: Stripe.PaymentIntent): PaymentIntent {
+    const metadata = this.toMetadata(intent.metadata);
     return {
       id: intent.id,
-      amount: this.toMoney(intent.amount_received || intent.amount, intent.currency),
-      status: intent.status,
-      customerId: typeof intent.customer === 'string' ? intent.customer : intent.customer?.id,
+      amount: this.toMoney(
+        intent.amount_received ?? intent.amount ?? 0,
+        intent.currency
+      ),
+      status: mapPaymentIntentStatus(intent.status),
+      customerId:
+        typeof intent.customer === 'string'
+          ? intent.customer
+          : intent.customer?.id,
       description: intent.description ?? undefined,
       clientSecret: intent.client_secret ?? undefined,
-      metadata: intent.metadata as Record<string, string>,
+      metadata,
       createdAt: new Date(intent.created * 1000),
-      updatedAt: intent.last_payment_error?.created
-        ? new Date(intent.last_payment_error.created * 1000)
-        : undefined,
+      updatedAt:
+        intent.canceled_at != null
+          ? new Date(intent.canceled_at * 1000)
+          : new Date(intent.created * 1000),
     };
   }
 
   private toInvoice(invoice: Stripe.Invoice): PaymentInvoice {
+    const metadata = this.toMetadata(invoice.metadata);
     return {
       id: invoice.id,
       number: invoice.number ?? undefined,
@@ -182,7 +204,7 @@ export class StripePaymentsProvider implements PaymentsProvider {
           : invoice.customer?.id,
       dueDate: invoice.due_date ? new Date(invoice.due_date * 1000) : undefined,
       hostedInvoiceUrl: invoice.hosted_invoice_url ?? undefined,
-      metadata: invoice.metadata as Record<string, string>,
+      metadata,
       createdAt: invoice.created ? new Date(invoice.created * 1000) : undefined,
       updatedAt: invoice.status_transitions?.finalized_at
         ? new Date(invoice.status_transitions.finalized_at * 1000)
@@ -195,6 +217,100 @@ export class StripePaymentsProvider implements PaymentsProvider {
       amount,
       currency: currency?.toUpperCase() ?? 'USD',
     };
+  }
+
+  private toMetadata(
+    metadata: Stripe.Metadata | Stripe.Metadata | null | undefined
+  ): Record<string, string> | undefined {
+    if (!metadata) return undefined;
+    const entries = Object.entries(metadata).filter(
+      (entry): entry is [string, string] => typeof entry[1] === 'string'
+    );
+    if (entries.length === 0) return undefined;
+    return Object.fromEntries(entries);
+  }
+
+  private mergeMetadata(
+    base: Record<string, string> | undefined,
+    extras: Record<string, string | undefined>
+  ): Record<string, string> | undefined {
+    const filteredExtras = Object.entries(extras).filter(
+      (entry): entry is [string, string] => typeof entry[1] === 'string'
+    );
+    if (!base && filteredExtras.length === 0) {
+      return undefined;
+    }
+    return {
+      ...(base ?? {}),
+      ...Object.fromEntries(filteredExtras),
+    };
+  }
+}
+
+function mapRefundReason(
+  reason?: string
+): Stripe.RefundCreateParams.Reason | undefined {
+  if (!reason) return undefined;
+  const allowed: Stripe.RefundCreateParams.Reason[] = [
+    'duplicate',
+    'fraudulent',
+    'requested_by_customer',
+  ];
+  return allowed.includes(reason as Stripe.RefundCreateParams.Reason)
+    ? (reason as Stripe.RefundCreateParams.Reason)
+    : undefined;
+}
+
+function mapPaymentIntentStatus(
+  status: string | null | undefined
+): PaymentIntent['status'] {
+  switch (status) {
+    case 'requires_payment_method':
+      return 'requires_payment_method';
+    case 'requires_confirmation':
+      return 'requires_confirmation';
+    case 'requires_action':
+    case 'requires_capture':
+      return 'requires_action';
+    case 'processing':
+      return 'processing';
+    case 'succeeded':
+      return 'succeeded';
+    case 'canceled':
+      return 'canceled';
+    default:
+      return 'requires_payment_method';
+  }
+}
+
+function mapRefundStatus(
+  status: string | null | undefined
+): PaymentRefund['status'] {
+  switch (status) {
+    case 'pending':
+    case 'succeeded':
+    case 'failed':
+    case 'canceled':
+      return status;
+    default:
+      return 'pending';
+  }
+}
+
+function mapChargeStatus(
+  status: string | null | undefined
+): PaymentTransaction['status'] {
+  switch (status) {
+    case 'pending':
+    case 'processing':
+      return 'pending';
+    case 'succeeded':
+      return 'succeeded';
+    case 'failed':
+    case 'canceled':
+      return 'failed';
+    default:
+      return 'pending';
   }
 }
 

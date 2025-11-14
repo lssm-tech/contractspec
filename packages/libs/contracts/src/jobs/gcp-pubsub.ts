@@ -47,8 +47,8 @@ export class GcpPubSubQueue implements JobQueue {
     };
   }
 
-  register(jobType: string, handler: JobHandler): void {
-    this.handlers.set(jobType, handler);
+  register<TPayload>(jobType: string, handler: JobHandler<TPayload>): void {
+    this.handlers.set(jobType, handler as JobHandler);
   }
 
   start(): void {

@@ -12,7 +12,7 @@ export interface VoiceSynthesisInput {
   text: string;
   voiceId?: string;
   language?: string;
-  style?: string;
+  style?: number;
   stability?: number;
   similarityBoost?: number;
   format?: 'mp3' | 'wav' | 'ogg' | 'pcm';

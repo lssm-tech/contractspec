@@ -1,4 +1,5 @@
 import { protos, SecretManagerServiceClient } from '@google-cloud/secret-manager';
+import type { CallOptions } from 'google-gax';
 
 import { normalizeSecretPayload, parseSecretUri, SecretProviderError } from './provider';
 import type {
@@ -54,18 +55,18 @@ export class GcpSecretManagerProvider implements SecretProvider {
   async getSecret(
     reference: SecretReference,
     options?: { version?: string },
-    callOptions?: Parameters<SecretManagerClient['accessSecretVersion']>[1]
+    callOptions?: CallOptions
   ): Promise<SecretValue> {
     const location = this.parseReference(reference);
     const secretVersionName = this.buildVersionName(location, options?.version);
     try {
-      const [result] = await this.client.accessSecretVersion(
+      const response = await this.client.accessSecretVersion(
         {
           name: secretVersionName,
         },
-        callOptions
+        callOptions ?? {}
       );
-
+      const [result] = response;
       const payload = result.payload;
       if (!payload?.data) {
         throw new SecretProviderError({
@@ -105,12 +106,21 @@ export class GcpSecretManagerProvider implements SecretProvider {
     await this.ensureSecretExists(location, payload);
 
     try {
-      const [version] = await this.client.addSecretVersion({
+      const response = await this.client.addSecretVersion({
         parent: secretName,
         payload: {
           data,
         },
       });
+      if (!response) {
+        throw new SecretProviderError({
+          message: `No version returned when adding secret version for ${secretName}`,
+          provider: this.id,
+          reference,
+          code: 'UNKNOWN',
+        });
+      }
+      const [version] = response;
       const versionName = version?.name ?? `${secretName}/versions/latest`;
       return {
         reference: `gcp://${versionName}`,
@@ -171,9 +181,8 @@ export class GcpSecretManagerProvider implements SecretProvider {
       });
     }
 
-    const projectId = segments[1] || this.explicitProjectId;
-    const indexOfSecrets = segments.indexOf('secrets');
-    if (!projectId || indexOfSecrets === -1 || indexOfSecrets + 1 >= segments.length) {
+    const projectIdCandidate = segments[1] ?? this.explicitProjectId;
+    if (!projectIdCandidate) {
       throw new SecretProviderError({
         message: `Unable to resolve project or secret from reference "${parsed.path}"`,
         provider: this.id,
@@ -182,7 +191,27 @@ export class GcpSecretManagerProvider implements SecretProvider {
       });
     }
 
-    const secretId = segments[indexOfSecrets + 1];
+    const indexOfSecrets = segments.indexOf('secrets');
+    if (indexOfSecrets === -1 || indexOfSecrets + 1 >= segments.length) {
+      throw new SecretProviderError({
+        message: `Unable to resolve project or secret from reference "${parsed.path}"`,
+        provider: this.id,
+        reference,
+        code: 'INVALID',
+      });
+    }
+
+    const resolvedProjectId = projectIdCandidate;
+    const secretIdCandidate = segments[indexOfSecrets + 1];
+    if (!secretIdCandidate) {
+      throw new SecretProviderError({
+        message: `Unable to resolve secret ID from reference "${parsed.path}"`,
+        provider: this.id,
+        reference,
+        code: 'INVALID',
+      });
+    }
+    const secretId = secretIdCandidate;
     const indexOfVersions = segments.indexOf('versions');
     const version =
       parsed.extras?.version ??
@@ -191,7 +220,7 @@ export class GcpSecretManagerProvider implements SecretProvider {
         : undefined);
 
     return {
-      projectId,
+      projectId: resolvedProjectId,
       secretId,
       version,
     };

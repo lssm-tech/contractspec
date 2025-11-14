@@ -18,6 +18,7 @@ import type {
 } from './app-config/runtime';
 import type { ResolvedBranding } from './app-config/branding';
 import type { Locale, MessageKey } from './translations/catalog';
+import type { SecretProvider } from './integrations/secrets/provider';
 
 export interface FieldLevelDecision {
   field: string;
