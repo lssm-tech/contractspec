@@ -11,6 +11,7 @@ import type {
   OpenBankingListTransactionsParams,
   OpenBankingListTransactionsResult,
   OpenBankingProvider,
+  OpenBankingTransaction,
 } from '../openbanking';
 import {
   PowensClient,
@@ -190,7 +191,7 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
   private mapTransaction(
     transaction: PowensTransaction,
     context: ProviderContext
-  ) {
+  ): OpenBankingTransaction {
     return {
       id: transaction.uuid,
       externalId: transaction.uuid,

@@ -1,11 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import type {
-  AppIntegrationBinding,
-  AppIntegrationSlot,
-} from '../../app-config/spec';
+import type { AppIntegrationSlot } from '../../app-config/spec';
 import type { ResolvedAppConfig } from '../../app-config/runtime';
 import type { IntegrationConnection } from '../connection';
 import type { IntegrationSpec } from '../spec';
+import type { AppIntegrationBinding } from '../binding';
 import { ensurePrimaryOpenBankingIntegration } from './guards';
 
 function buildResolvedConfig(
@@ -20,6 +18,8 @@ function buildResolvedConfig(
     slotId: 'primaryOpenBanking',
     connectionId: integration?.meta?.id ?? 'conn-powens',
   };
+  const { specKey, ...connectionOverrides } = integration ?? {};
+
   const connection: IntegrationConnection = {
     meta: {
       id: integration?.meta?.id ?? 'conn-powens',
@@ -39,7 +39,7 @@ function buildResolvedConfig(
 
   const spec: IntegrationSpec = {
     meta: {
-      key: integration?.specKey ?? 'openbanking.powens',
+      key: specKey ?? 'openbanking.powens',
       version: 1,
       category: 'open-banking',
       displayName: 'Powens Open Banking',
@@ -56,37 +56,48 @@ function buildResolvedConfig(
     secretSchema: { schema: {} },
   };
 
-  const resolved = {
+  const resolved: ResolvedAppConfig = {
     appId: 'app',
     tenantId: 'tenant',
     blueprintName: 'pfo',
     blueprintVersion: 1,
     configVersion: 1,
-    capabilities: { enabled: [], disabled: [] } as any,
-    features: { include: [], exclude: [] } as any,
-    dataViews: {} as any,
-    workflows: {} as any,
-    policies: [] as any,
+    capabilities: { enabled: [], disabled: [] },
+    features: { include: [], exclude: [] },
+    dataViews: {},
+    workflows: {},
+    policies: [],
     integrations: integration
       ? [
           {
             slot,
             binding,
-            connection: { ...connection, ...integration },
+            connection: { ...connection, ...connectionOverrides },
             spec,
           },
         ]
       : [],
-    theme: undefined,
-    telemetry: undefined,
     knowledge: [],
-    translations: {
+    translation: {
       defaultLocale: 'en',
       supportedLocales: ['en'],
+      tenantOverrides: [],
     },
-    routes: [] as any,
+    branding: {
+      appName: 'Pocket Family Office',
+      assets: {},
+      colors: { primary: '#000000', secondary: '#FFFFFF' },
+      domain: 'pfo.local',
+    },
+    experiments: {
+      catalog: [],
+      active: [],
+      paused: [],
+    },
+    featureFlags: [],
+    routes: [],
     notes: undefined,
-  } as ResolvedAppConfig;
+  };
   return resolved;
 }
 

@@ -151,12 +151,39 @@ export const OpenBankingSyncAccounts = defineCommand({
     auth: 'admin',
   },
   telemetry: {
-    events: [
-      {
-        name: OPENBANKING_TELEMETRY_EVENTS.accountsSynced,
-        description: 'Powens account synchronisation completed.',
+    success: {
+      event: { name: OPENBANKING_TELEMETRY_EVENTS.accountsSynced },
+      properties: ({ input, output }) => {
+        const payload = input as {
+          tenantId?: string;
+          connectionId?: string;
+        };
+        const result = output as {
+          synced?: number;
+          failed?: number;
+        } | null;
+        return {
+          tenantId: payload?.tenantId,
+          connectionId: payload?.connectionId,
+          synced: result?.synced,
+          failed: result?.failed,
+        };
       },
-    ],
+    },
+    failure: {
+      event: { name: OPENBANKING_TELEMETRY_EVENTS.accountsSyncFailed },
+      properties: ({ input, error }) => {
+        const payload = input as {
+          tenantId?: string;
+          connectionId?: string;
+        };
+        return {
+          tenantId: payload?.tenantId,
+          connectionId: payload?.connectionId,
+          error: error instanceof Error ? error.message : String(error ?? 'unknown'),
+        };
+      },
+    },
   },
 });
 

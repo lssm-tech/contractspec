@@ -22,7 +22,6 @@ export const financialOverviewKnowledgeSpace: KnowledgeSpaceSpec = {
     policy: { name: 'knowledge.access.financial-overview', version: 1 },
     trustLevel: 'medium',
     automationWritable: true,
-    workflowWritable: true,
   },
   indexing: {
     embeddingModel: 'mistral-embed',
