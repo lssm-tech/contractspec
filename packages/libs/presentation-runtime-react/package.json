@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,19 +19,12 @@
     "react": "^19.1.0",
     "react-hook-form": "7.65.0",
     "zod": "^4.1.5",
-    "@lssm/lib.presentation-runtime-core": "workspace:*"
+    "@lssm/lib.presentation-runtime-core": "^1.0.0"
   },
   "dependencies": {
-    "@lssm/lib.presentation-runtime-core": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.design-system": "workspace:*"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
+    "@lssm/lib.presentation-runtime-core": "workspace:^1.0.0",
+    "@lssm/lib.contracts": "workspace:^1.0.0",
+    "@lssm/lib.design-system": "workspace:^1.0.0"
   },
   "exports": {
     ".": "./src/index.ts",
@@ -47,6 +40,11 @@
       "./WorkflowStepper": "./dist/WorkflowStepper.js",
       "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
       "./*": "./*"
-    }
-  }
+    },
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }

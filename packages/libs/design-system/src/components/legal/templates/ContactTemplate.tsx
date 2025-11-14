@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LegalPageLayout } from '../organisms/LegalPageLayout';
 import { ContactFields } from '../molecules/ContactFields';
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '../../../index';
 
 export function ContactTemplate({
   title = 'Contact',

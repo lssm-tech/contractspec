@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,13 +22,6 @@
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
-  },
   "exports": {
     ".": "./src/index.ts",
     "./*": "./*"
@@ -37,6 +30,11 @@
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
-    }
-  }
+    },
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }

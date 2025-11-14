@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import * as Sentry from '@sentry/nextjs';
+// import * as Sentry from '@sentry/nextjs';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from '../../button';
 
@@ -109,12 +109,12 @@ export class ErrorBoundary extends React.Component<
     const errorId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
     // Log to Sentry with additional context
-    Sentry.withScope((scope) => {
-      scope.setTag('errorBoundary', true);
-      scope.setContext('errorInfo', { ...errorInfo });
-      scope.setContext('errorId', { errorId });
-      Sentry.captureException(error);
-    });
+    // Sentry.withScope((scope) => {
+    //   scope.setTag('errorBoundary', true);
+    //   scope.setContext('errorInfo', { ...errorInfo });
+    //   scope.setContext('errorId', { errorId });
+    //   Sentry.captureException(error);
+    // });
 
     // Update state with error ID
     this.setState({ errorId });

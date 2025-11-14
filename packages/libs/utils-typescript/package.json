@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.utils-typescript",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
@@ -16,13 +16,6 @@
     "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
   },
   "type": "module",
   "main": "./dist/index.cjs",
@@ -158,130 +151,24 @@
   "publishConfig": {
     "exports": {
       ".": {
+        "types": "./dist/index.d.ts",
         "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.js"
       },
-      "./lib/AwaitedResult": {
-        "import": "./dist/lib/AwaitedResult.js",
-        "require": "./dist/lib/AwaitedResult.cjs"
+      "./*": {
+        "types": "./dist/*.d.ts",
+        "import": "./dist/*.js",
+        "require": "./dist/*.cjs",
+        "default": "./dist/*.js"
       },
-      "./lib/BrowserNativeObject": {
-        "import": "./dist/lib/BrowserNativeObject.js",
-        "require": "./dist/lib/BrowserNativeObject.cjs"
-      },
-      "./lib/DeepInfiniteArray": {
-        "import": "./dist/lib/DeepInfiniteArray.js",
-        "require": "./dist/lib/DeepInfiniteArray.cjs"
-      },
-      "./lib/DeepKeepOnly": {
-        "import": "./dist/lib/DeepKeepOnly.js",
-        "require": "./dist/lib/DeepKeepOnly.cjs"
-      },
-      "./lib/DeepKey": {
-        "import": "./dist/lib/DeepKey.js",
-        "require": "./dist/lib/DeepKey.cjs"
-      },
-      "./lib/DeepMap": {
-        "import": "./dist/lib/DeepMap.js",
-        "require": "./dist/lib/DeepMap.cjs"
-      },
-      "./lib/DeepNullable": {
-        "import": "./dist/lib/DeepNullable.js",
-        "require": "./dist/lib/DeepNullable.cjs"
-      },
-      "./lib/DeepOr": {
-        "import": "./dist/lib/DeepOr.js",
-        "require": "./dist/lib/DeepOr.cjs"
-      },
-      "./lib/DeepPartial": {
-        "import": "./dist/lib/DeepPartial.js",
-        "require": "./dist/lib/DeepPartial.cjs"
-      },
-      "./lib/DeepReplace": {
-        "import": "./dist/lib/DeepReplace.js",
-        "require": "./dist/lib/DeepReplace.cjs"
-      },
-      "./lib/DeepReplaceNullByUndefined": {
-        "import": "./dist/lib/DeepReplaceNullByUndefined.js",
-        "require": "./dist/lib/DeepReplaceNullByUndefined.cjs"
-      },
-      "./lib/DeepValue": {
-        "import": "./dist/lib/DeepValue.js",
-        "require": "./dist/lib/DeepValue.cjs"
-      },
-      "./lib/DictionaryFromEnum": {
-        "import": "./dist/lib/DictionaryFromEnum.js",
-        "require": "./dist/lib/DictionaryFromEnum.cjs"
-      },
-      "./lib/DictionaryFromEnumMapping": {
-        "import": "./dist/lib/DictionaryFromEnumMapping.js",
-        "require": "./dist/lib/DictionaryFromEnumMapping.cjs"
-      },
-      "./lib/EmptyRecord": {
-        "import": "./dist/lib/EmptyRecord.js",
-        "require": "./dist/lib/EmptyRecord.cjs"
-      },
-      "./lib/Identified": {
-        "import": "./dist/lib/Identified.js",
-        "require": "./dist/lib/Identified.cjs"
-      },
-      "./lib/IdentifiedLabel": {
-        "import": "./dist/lib/IdentifiedLabel.js",
-        "require": "./dist/lib/IdentifiedLabel.cjs"
-      },
-      "./lib/IsAny": {
-        "import": "./dist/lib/IsAny.js",
-        "require": "./dist/lib/IsAny.cjs"
-      },
-      "./lib/Json": {
-        "import": "./dist/lib/Json.js",
-        "require": "./dist/lib/Json.cjs"
-      },
-      "./lib/KeepOnly": {
-        "import": "./dist/lib/KeepOnly.js",
-        "require": "./dist/lib/KeepOnly.cjs"
-      },
-      "./lib/Maybe": {
-        "import": "./dist/lib/Maybe.js",
-        "require": "./dist/lib/Maybe.cjs"
-      },
-      "./lib/MaybeArray": {
-        "import": "./dist/lib/MaybeArray.js",
-        "require": "./dist/lib/MaybeArray.cjs"
-      },
-      "./lib/NestedValue": {
-        "import": "./dist/lib/NestedValue.js",
-        "require": "./dist/lib/NestedValue.cjs"
-      },
-      "./lib/NonUndefined": {
-        "import": "./dist/lib/NonUndefined.js",
-        "require": "./dist/lib/NonUndefined.cjs"
-      },
-      "./lib/Primitive": {
-        "import": "./dist/lib/Primitive.js",
-        "require": "./dist/lib/Primitive.cjs"
-      },
-      "./lib/Replaced": {
-        "import": "./dist/lib/Replaced.js",
-        "require": "./dist/lib/Replaced.cjs"
-      },
-      "./lib/ReverseMap": {
-        "import": "./dist/lib/ReverseMap.js",
-        "require": "./dist/lib/ReverseMap.cjs"
-      },
-      "./lib/Satisfies": {
-        "import": "./dist/lib/Satisfies.js",
-        "require": "./dist/lib/Satisfies.cjs"
-      },
-      "./lib/StringKey": {
-        "import": "./dist/lib/StringKey.js",
-        "require": "./dist/lib/StringKey.cjs"
-      },
-      "./lib/StringKeysOnly": {
-        "import": "./dist/lib/StringKeysOnly.js",
-        "require": "./dist/lib/StringKeysOnly.cjs"
-      },
-      "./*": "./*"
-    }
-  }
+      "./*.css": "./dist/*.css",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }

@@ -1,8 +1,14 @@
 {
   "extends": "@lssm/tool.typescript/react-library.json",
-  "include": ["ui"],
-  "exclude": ["node_modules"],
+  "include": [
+    "ui",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "rootDir": "."
   }
 }

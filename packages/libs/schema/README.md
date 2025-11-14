@@ -6,6 +6,20 @@ A small schema dictionary to describe operation I/O once and export to:
 - Pothos (GraphQL type refs)
 - JSON Schema (via `zod-to-json-schema` or custom `getJsonSchema()` on `FieldType`)
 
+## Installation
+
+```bash
+npm install @lssm/lib.schema
+# or
+bun add @lssm/lib.schema
+```
+
+The package ships only pre-built `dist/` artifacts and type declarations. Import helpers directly, e.g.:
+
+```ts
+import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+```
+
 ## Primitives
 
 - `FieldType<T>` wraps a GraphQLScalarType and carries a zod schema, plus optional JSON Schema definition.

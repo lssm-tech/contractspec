@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {
@@ -26,7 +26,6 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "src",
     "README.md"
   ],
   "module": "./dist/index.js",
@@ -34,6 +33,7 @@
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
-    }
+    },
+    "access": "public"
   }
 }

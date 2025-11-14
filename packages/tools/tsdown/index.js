@@ -1,13 +1,29 @@
 import { defineConfig } from 'tsdown';
 
+const obfuscation = {
+  minify: {
+    compress: {
+      dropConsole: false,
+      dropDebugger: true,
+      unused: true,
+    },
+    mangle: {
+      toplevel: true,
+      keepNames: false,
+    },
+    codegen: {
+      removeWhitespace: true,
+    },
+  },
+};
+
 export const base = defineConfig({
   exports: {
     all: true,
     // devExports: true,
   },
-  clean: false,
-  // clean: true,
-  sourcemap: true,
+  clean: true,
+  sourcemap: false,
   format: ['esm', 'cjs'],
   // format: ['esm'],
   target: 'esnext',
@@ -18,7 +34,6 @@ export const base = defineConfig({
   // bundle: false,
   unbundle: true,
   splitting: false,
-  minify: false,
   // treeshake: false,
 
   entry: [
@@ -41,6 +56,9 @@ const sharedExternal = [
   'server-only',
   '@lssm/lib.ui-kit-web',
   '@lssm/lib.ui-kit',
+  '@lssm/lib.ui-kit/*',
+  '@lssm/lib.ui-kit-web/*',
+  '@lssm/lib.ui-kit-web/ui/*',
   'lucide-react',
   'lucide-react-native',
   'react-native',
@@ -62,12 +80,27 @@ const sharedExternal = [
   '@tanstack/query-core',
   '@tanstack/react-query',
   '@tanstack/react-query-devtools',
+  '@sentry/nextjs',
+  'react-map-gl',
+  'react-map-gl/maplibre',
+  'maplibre-gl',
+  'node:buffer',
+  'node:timers/promises',
+  'node:crypto',
+  'node:assert',
+  'node:url',
+  '@google-cloud/secret-manager',
+  '@google-cloud/storage',
+  '@google-cloud/pubsub',
+  'googleapis',
+  'postmark',
 ];
 
 export const reactLibrary = defineConfig({
   ...base,
   format: ['esm'],
   external: [...sharedExternal],
+  minify: false,
 });
 
 export const moduleLibrary = defineConfig({
@@ -80,6 +113,7 @@ export const moduleLibrary = defineConfig({
     devExports: true,
   },
   skipNodeModulesBundle: true,
+  ...obfuscation,
 });
 
 export const nodeLib = defineConfig({
@@ -87,6 +121,7 @@ export const nodeLib = defineConfig({
   format: ['esm', 'cjs'],
   platform: 'node',
   external: [...sharedExternal],
+  ...obfuscation,
 });
 
 export const nodeDatabaseLib = defineConfig({
@@ -96,9 +131,11 @@ export const nodeDatabaseLib = defineConfig({
   // platform: 'neutral',
   unbundle: true,
   external: [...sharedExternal],
+  ...obfuscation,
 });
 
 export default defineConfig((_options) => ({
   ...base,
+  ...obfuscation,
   // Packages can still provide their own local tsup.config to override.
 }));

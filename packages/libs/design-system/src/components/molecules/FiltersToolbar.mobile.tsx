@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Input } from '@lssm/lib.design-system';
+import { Button, Input } from '../../index';
 import { VStack, HStack } from '@lssm/lib.ui-kit/ui/stack';
 import type { FiltersToolbarProps } from './FiltersToolbar';
 

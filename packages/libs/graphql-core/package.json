@@ -1,13 +1,11 @@
 {
   "name": "@lssm/lib.graphql-core",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "src",
     "README.md"
   ],
   "scripts": {
@@ -28,7 +26,7 @@
     "graphql": ">=16.0.0"
   },
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
