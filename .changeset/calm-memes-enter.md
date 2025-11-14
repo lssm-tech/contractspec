@@ -1,6 +1,5 @@
 ---
 '@lssm/tool.contracts-cli': minor
-'@lssm/apps.web-contractspec-landing': minor
 '@lssm/lib.accessibility': minor
 '@lssm/lib.bus': minor
 '@lssm/lib.contracts': minor
