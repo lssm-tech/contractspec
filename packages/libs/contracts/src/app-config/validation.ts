@@ -672,13 +672,13 @@ const tenantBrandingRule: TenantRule = {
       const allowed =
         ALLOWED_ASSET_EXTENSIONS[asset.type] ?? ALLOWED_ASSET_EXTENSIONS.logo;
       const extension = extractExtension(asset.url);
-      if (extension && !allowed.includes(extension)) {
+      if (extension && allowed && !allowed.includes(extension)) {
         issues.push(
           issue({
             code: 'UNEXPECTED_ASSET_TYPE',
             severity: 'warning',
             path: `${assetPath}.url`,
-            message: `Asset "${asset.type}" should use one of: ${allowed.join(
+            message: `Asset "${asset.type}" should use one of: ${(allowed ?? []).join(
               ', '
             )}. Detected "${extension}".`,
           })
@@ -843,7 +843,7 @@ const resolvedIntegrationRule: ResolvedRule = {
     }
     for (const integration of resolved.integrations) {
       if (
-        integration.connection.status === 'inactive' ||
+        integration.connection.status === 'disconnected' ||
         integration.connection.status === 'error'
       ) {
         issues.push(
@@ -926,10 +926,11 @@ function lookupIntegrationSpec(
 }
 
 function extractExtension(url: string): string | undefined {
-  const clean = url.split('?')[0];
-  const lastDot = clean.lastIndexOf('.');
+  const [raw] = url.split('?');
+  if (!raw) return undefined;
+  const lastDot = raw.lastIndexOf('.');
   if (lastDot === -1) return undefined;
-  return clean.slice(lastDot + 1).toLowerCase();
+  return raw.slice(lastDot + 1).toLowerCase();
 }
 
 function normalizeCatalogs(

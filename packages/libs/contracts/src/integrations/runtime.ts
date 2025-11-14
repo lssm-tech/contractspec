@@ -2,11 +2,7 @@ import { performance } from 'node:perf_hooks';
 import type { ResolvedAppConfig, ResolvedIntegration } from '../app-config/runtime';
 import type { ConnectionStatus, IntegrationConnection } from './connection';
 import type { IntegrationSpec } from './spec';
-import type {
-  SecretProvider,
-  SecretReference,
-  SecretValue,
-} from './secrets/provider';
+import type { SecretProvider, SecretValue } from './secrets/provider';
 
 export interface IntegrationTraceMetadata {
   blueprintName: string;
@@ -32,6 +28,21 @@ export interface IntegrationTelemetryEvent {
 
 export interface IntegrationTelemetryEmitter {
   record(event: IntegrationTelemetryEvent): Promise<void> | void;
+}
+
+export type IntegrationInvocationStatus = 'success' | 'error';
+
+export interface IntegrationContext {
+  tenantId: string;
+  appId: string;
+  environment?: string;
+  slotId?: string;
+  spec: IntegrationSpec;
+  connection: IntegrationConnection;
+  secretProvider: SecretProvider;
+  secretReference: string;
+  trace: IntegrationTraceMetadata;
+  config?: Record<string, unknown>;
 }
 
 export interface IntegrationCallContext {

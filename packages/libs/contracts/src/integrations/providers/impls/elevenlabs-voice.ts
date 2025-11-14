@@ -1,5 +1,5 @@
-import { ElevenLabsClient } from 'elevenlabs';
-import type { ElevenLabs } from 'elevenlabs/api';
+import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
+import type { ElevenLabs } from '@elevenlabs/elevenlabs-js';
 import type { Readable } from 'node:stream';
 
 import type {
@@ -55,13 +55,13 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
   async listVoices(): Promise<Voice[]> {
     const response = await this.client.voices.getAll();
     return (response.voices ?? []).map((voice) => ({
-      id: voice.voice_id ?? '',
+      id: voice.voiceId ?? '',
       name: voice.name ?? '',
       description: voice.description ?? undefined,
       language: voice.labels?.language ?? undefined,
       metadata: {
-        category: voice.category,
-        previewUrl: voice.preview_url,
+        category: voice.category ?? '',
+        previewUrl: voice.previewUrl ?? '',
       },
     }));
   }

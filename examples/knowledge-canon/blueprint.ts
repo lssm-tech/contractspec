@@ -21,3 +21,5 @@ export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
     'Workflows and assistants running on this blueprint should bind the Product Canon knowledge space.',
 };
 
+
+

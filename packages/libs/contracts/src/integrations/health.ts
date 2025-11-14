@@ -80,9 +80,12 @@ export class IntegrationHealthService {
       errorMessage,
       occurredAt: result.checkedAt ?? this.nowFn(),
       metadata: {
-        blueprint: context.trace.blueprintName,
-        blueprintVersion: context.trace.blueprintVersion,
-        configVersion: context.trace.configVersion,
+        ...(context.trace
+          ? {
+              blueprint: `${context.trace.blueprintName}.v${context.trace.blueprintVersion}`,
+              configVersion: context.trace.configVersion,
+            }
+          : {}),
         status: result.status,
       },
     });

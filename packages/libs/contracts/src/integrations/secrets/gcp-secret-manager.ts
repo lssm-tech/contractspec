@@ -1,14 +1,8 @@
-import type { CallOptions } from '@google-cloud/secret-manager';
-import {
-  protos,
-  SecretManagerServiceClient,
-} from '@google-cloud/secret-manager';
+import { protos, SecretManagerServiceClient } from '@google-cloud/secret-manager';
 
-import {
-  normalizeSecretPayload,
-  parseSecretUri,
+import { normalizeSecretPayload, parseSecretUri, SecretProviderError } from './provider';
+import type {
   SecretProvider,
-  SecretProviderError,
   SecretReference,
   SecretRotationResult,
   SecretValue,
@@ -60,7 +54,7 @@ export class GcpSecretManagerProvider implements SecretProvider {
   async getSecret(
     reference: SecretReference,
     options?: { version?: string },
-    callOptions?: CallOptions
+    callOptions?: Parameters<SecretManagerClient['accessSecretVersion']>[1]
   ): Promise<SecretValue> {
     const location = this.parseReference(reference);
     const secretVersionName = this.buildVersionName(location, options?.version);

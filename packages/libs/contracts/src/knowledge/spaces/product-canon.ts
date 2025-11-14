@@ -38,3 +38,5 @@ export function registerProductCanonKnowledgeSpace(
   return registry.register(productCanonKnowledgeSpace);
 }
 
+
+

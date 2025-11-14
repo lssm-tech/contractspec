@@ -16,7 +16,8 @@ import type {
   ResolvedTranslation,
 } from '../app-config/runtime';
 import type { ResolvedBranding } from '../app-config/branding';
-import type { SecretProvider, TranslationResolver } from '../types';
+import type { TranslationResolver } from '../types';
+import type { SecretProvider } from '../integrations/secrets/provider';
 
 export interface OperationExecutorContext {
   workflow: WorkflowState;
