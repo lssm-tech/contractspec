@@ -20,6 +20,7 @@
 '@lssm/lib.ui-kit-web': minor
 '@lssm/lib.utils-typescript': minor
 '@lssm/tool.tsdown': minor
+'@lssm/tool.typescript': minor
 ---
 
 fix publish
