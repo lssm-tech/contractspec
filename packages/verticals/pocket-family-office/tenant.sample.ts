@@ -23,6 +23,7 @@ export const pocketFamilyOfficeTenantSample: TenantAppConfig = {
     { slotId: 'primaryLLM', connectionId: 'conn-mistral-primary' },
     { slotId: 'primaryVectorDb', connectionId: 'conn-qdrant-finance' },
     { slotId: 'primaryStorage', connectionId: 'conn-gcs-documents' },
+    { slotId: 'primaryOpenBanking', connectionId: 'conn-powens-primary' },
     { slotId: 'emailInbound', connectionId: 'conn-gmail-threads' },
     { slotId: 'emailOutbound', connectionId: 'conn-postmark-outbound' },
     { slotId: 'calendarScheduling', connectionId: 'conn-google-calendar' },
@@ -45,6 +46,18 @@ export const pocketFamilyOfficeTenantSample: TenantAppConfig = {
       scope: {
         workflows: ['pfo.workflow.ingest-email-threads'],
       },
+    },
+    {
+      spaceKey: 'knowledge.financial-overview',
+      scope: {
+        workflows: [
+          'pfo.workflow.sync-openbanking-transactions',
+          'pfo.workflow.refresh-openbanking-balances',
+          'pfo.workflow.generate-financial-summary',
+          'pfo.workflow.generate-openbanking-overview',
+        ],
+      },
+      required: false,
     },
   ],
   locales: {

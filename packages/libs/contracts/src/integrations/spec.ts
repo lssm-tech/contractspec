@@ -17,6 +17,7 @@ export type IntegrationCategory =
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'open-banking'
   | 'custom';
 
 export type IntegrationOwnershipMode = 'managed' | 'byok';

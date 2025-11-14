@@ -30,6 +30,7 @@ const CATEGORY_CHOICES: { name: string; value: IntegrationCategoryData }[] = [
   { name: 'Vector Database', value: 'vector-db' },
   { name: 'Object Storage', value: 'storage' },
   { name: 'Accounting', value: 'accounting' },
+  { name: 'Open Banking', value: 'open-banking' },
   { name: 'CRM', value: 'crm' },
   { name: 'Helpdesk', value: 'helpdesk' },
   { name: 'Custom', value: 'custom' },

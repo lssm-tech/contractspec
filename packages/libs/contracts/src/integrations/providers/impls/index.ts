@@ -9,6 +9,8 @@ export * from './gcs-storage';
 export * from './stripe-payments';
 export * from './postmark-email';
 export * from './twilio-sms';
+export * from './powens-client';
+export * from './powens-openbanking';
 export * from './provider-factory';
 
 

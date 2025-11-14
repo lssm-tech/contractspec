@@ -298,6 +298,7 @@ export type IntegrationCategoryData =
   | 'accounting'
   | 'crm'
   | 'helpdesk'
+  | 'open-banking'
   | 'custom';
 
 export type IntegrationConfigFieldType = 'string' | 'number' | 'boolean';

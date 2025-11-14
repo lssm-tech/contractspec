@@ -181,6 +181,25 @@ export const pocketFamilyOfficeConnections: IntegrationConnection[] = [
     status: 'connected',
     health: { status: 'connected', checkedAt: now, latencyMs: 220 },
   },
+  {
+    meta: {
+      ...baseMeta,
+      id: 'conn-powens-primary',
+      integrationKey: 'openbanking.powens',
+      integrationVersion: 1,
+      label: 'Powens Open Banking',
+    },
+    ownershipMode: 'byok',
+    config: {
+      environment: 'sandbox',
+      baseUrl: 'https://api-sandbox.powens.com/v2',
+    },
+    secretProvider: 'gcp-secret-manager',
+    secretRef:
+      'gcp://projects/pfo-hackathon/secrets/powens-credentials/versions/latest',
+    status: 'connected',
+    health: { status: 'connected', checkedAt: now, latencyMs: 410 },
+  },
 ];
 
 export function getPocketFamilyOfficeConnection(
