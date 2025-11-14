@@ -88,7 +88,12 @@ export const CreateTenantConfigDraftCommand = defineCommand({
   },
   policy: LifecyclePolicy,
   sideEffects: {
-    emits: [ConfigDraftCreatedEvent],
+    emits: [
+      {
+        ref: ConfigDraftCreatedEvent,
+        when: 'after successful draft creation',
+      },
+    ],
   },
 });
 
@@ -133,7 +138,12 @@ export const PromoteTenantConfigToPreviewCommand = defineCommand({
   },
   policy: LifecyclePolicy,
   sideEffects: {
-    emits: [ConfigPromotedToPreviewEvent],
+    emits: [
+      {
+        ref: ConfigPromotedToPreviewEvent,
+        when: 'after promotion to preview',
+      },
+    ],
   },
 });
 
@@ -180,7 +190,12 @@ export const PublishTenantConfigCommand = defineCommand({
   },
   policy: LifecyclePolicy,
   sideEffects: {
-    emits: [ConfigPublishedEvent],
+    emits: [
+      {
+        ref: ConfigPublishedEvent,
+        when: 'after publish succeeds',
+      },
+    ],
   },
 });
 
@@ -223,7 +238,12 @@ export const RollbackTenantConfigCommand = defineCommand({
   },
   policy: LifecyclePolicy,
   sideEffects: {
-    emits: [ConfigRolledBackEvent],
+    emits: [
+      {
+        ref: ConfigRolledBackEvent,
+        when: 'after rollback completes',
+      },
+    ],
   },
 });
 

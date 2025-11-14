@@ -16,3 +16,5 @@ Usage sketch:
 3. Compose the app configuration and pass the `ResolvedAppConfig` to your workflow runner / agent runtime.
 4. Use helpers similar to `selectKnowledgeBindings` to scope which spaces can answer a given request before dispatching to embedding/vector services.
 
+
+

@@ -58,10 +58,6 @@ export type RateLimiter = (
   rpm: number
 ) => Promise<void>;
 
-export interface SecretProvider {
-  getSecret<T = unknown>(reference: string): Promise<T>;
-}
-
 export type TranslationResolver = (
   key: MessageKey,
   locale?: Locale
