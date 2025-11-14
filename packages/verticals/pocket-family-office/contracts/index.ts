@@ -5,6 +5,7 @@ import {
   StabilityEnum,
   TagsEnum,
 } from '@lssm/lib.contracts/ownership';
+import { OPENBANKING_TELEMETRY_EVENTS } from '@lssm/lib.contracts/integrations';
 
 const UploadDocumentInput = z.object({
   bucket: z.string().min(1),
@@ -264,6 +265,66 @@ export const dispatchFinancialSummaryContract: ContractSpec<
   },
 };
 
+const OpenBankingOverviewInput = z.object({
+  tenantId: z.string().min(1),
+  accountIds: z.array(z.string().min(1)).optional(),
+  period: z.enum(['week', 'month', 'quarter']).default('month'),
+  asOf: z.coerce.date().optional(),
+  includeCategories: z.boolean().default(true),
+  includeCashflowTrend: z.boolean().default(true),
+});
+
+const OpenBankingOverviewOutput = z.object({
+  knowledgeEntryId: z.string(),
+  periodStart: z.coerce.date(),
+  periodEnd: z.coerce.date(),
+  generatedAt: z.coerce.date(),
+  summaryPath: z.string().optional(),
+});
+
+export type OpenBankingOverviewInput = z.infer<
+  typeof OpenBankingOverviewInput
+>;
+export type OpenBankingOverviewOutput = z.infer<
+  typeof OpenBankingOverviewOutput
+>;
+
+export const generateOpenBankingOverviewContract: ContractSpec<
+  OpenBankingOverviewInput,
+  OpenBankingOverviewOutput
+> = {
+  meta: {
+    name: 'pfo.openbanking.generate-overview',
+    version: 1,
+    kind: 'command',
+    title: 'Generate Open Banking Overview',
+    description:
+      'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
+    domain: 'finance',
+    owners: [OwnersEnum.PlatformFinance],
+    tags: ['open-banking', 'summary', TagsEnum.Automation],
+    stability: StabilityEnum.Experimental,
+  },
+  io: {
+    input: OpenBankingOverviewInput,
+    output: OpenBankingOverviewOutput,
+  },
+  policy: {
+    auth: {
+      scopes: ['openbanking:derive'],
+    },
+  },
+  telemetry: {
+    events: [
+      {
+        name: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
+        description:
+          'Derived financial overview generated from Powens banking data.',
+      },
+    ],
+  },
+};
+
 export const pocketFamilyOfficeContracts: Record<
   string,
   ContractSpec<any, any>
@@ -273,5 +334,7 @@ export const pocketFamilyOfficeContracts: Record<
   'pfo.summary.generate': generateFinancialSummaryContract,
   'pfo.summary.dispatch': dispatchFinancialSummaryContract,
   'pfo.email.sync-threads': syncEmailThreadsContract,
+  'pfo.openbanking.generate-overview':
+    generateOpenBankingOverviewContract,
 };
 

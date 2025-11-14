@@ -17,6 +17,7 @@ export * from './ownership';
 export * from './forms';
 export * from './onboarding-base';
 export * from './capabilities';
+export * from './capabilities/openbanking';
 export * from './data-views';
 export * from './policy/spec';
 export * from './policy/engine';

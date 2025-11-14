@@ -18,6 +18,9 @@ import type { ObjectStorageProvider } from '../storage';
 import type { VoiceProvider } from '../voice';
 import type { LLMProvider } from '../llm';
 import type { EmbeddingProvider } from '../embedding';
+import type { OpenBankingProvider } from '../openbanking';
+import { PowensOpenBankingProvider } from './powens-openbanking';
+import type { PowensEnvironment } from './powens-client';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
@@ -195,6 +198,56 @@ export class IntegrationProviderFactory {
       default:
         throw new Error(
           `Unsupported embeddings integration: ${context.spec.meta.key}`
+        );
+    }
+  }
+
+  async createOpenBankingProvider(
+    context: IntegrationContext
+  ): Promise<OpenBankingProvider> {
+    const secrets = await this.loadSecrets(context);
+    const config = context.config as {
+      environment?: string;
+      baseUrl?: string;
+      region?: string;
+      pollingIntervalMs?: number;
+    };
+
+    switch (context.spec.meta.key) {
+      case 'openbanking.powens': {
+        const environmentValue = requireConfig<string>(
+          context,
+          'environment',
+          'Powens environment (sandbox | production) must be specified in integration config.'
+        );
+        if (
+          environmentValue !== 'sandbox' &&
+          environmentValue !== 'production'
+        ) {
+          throw new Error(
+            `Powens environment "${environmentValue}" is invalid. Expected "sandbox" or "production".`
+          );
+        }
+
+        return new PowensOpenBankingProvider({
+          clientId: requireSecret<string>(
+            secrets,
+            'clientId',
+            'Powens clientId is required'
+          ),
+          clientSecret: requireSecret<string>(
+            secrets,
+            'clientSecret',
+            'Powens clientSecret is required'
+          ),
+          apiKey: secrets.apiKey as string | undefined,
+          environment: environmentValue as PowensEnvironment,
+          baseUrl: config?.baseUrl as string | undefined,
+        });
+      }
+      default:
+        throw new Error(
+          `Unsupported open banking integration: ${context.spec.meta.key}`
         );
     }
   }

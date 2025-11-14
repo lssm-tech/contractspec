@@ -10,6 +10,7 @@ import {
   registerGoogleCalendarIntegration,
   registerElevenLabsIntegration,
   registerTwilioSmsIntegration,
+  registerPowensIntegration,
 } from '@lssm/lib.contracts/integrations/providers';
 import { composeAppConfig } from '@lssm/lib.contracts/app-config/runtime';
 import { validateTenantConfig } from '@lssm/lib.contracts/app-config/validation';
@@ -17,6 +18,7 @@ import { KnowledgeSpaceRegistry } from '@lssm/lib.contracts/knowledge/spec';
 import {
   registerFinancialDocsKnowledgeSpace,
   registerEmailThreadsKnowledgeSpace,
+  registerFinancialOverviewKnowledgeSpace,
 } from '@lssm/lib.contracts/knowledge/spaces';
 import { DocumentProcessor } from '@lssm/lib.contracts/knowledge/ingestion/document-processor';
 import { EmbeddingService } from '@lssm/lib.contracts/knowledge/ingestion/embedding-service';
@@ -61,6 +63,7 @@ describe('Pocket Family Office blueprint', () => {
         'primaryLLM',
         'primaryVectorDb',
         'primaryStorage',
+        'primaryOpenBanking',
         'emailInbound',
         'emailOutbound',
         'calendarScheduling',
@@ -82,7 +85,11 @@ describe('Pocket Family Office configuration', () => {
               registerGmailIntegration(
                 registerGcsStorageIntegration(
                   registerQdrantIntegration(
-                    registerMistralIntegration(new IntegrationSpecRegistry())
+                    registerPowensIntegration(
+                      registerMistralIntegration(
+                        new IntegrationSpecRegistry()
+                      )
+                    )
                   )
                 )
               )
@@ -95,7 +102,11 @@ describe('Pocket Family Office configuration', () => {
 
   function buildKnowledgeRegistry() {
     return registerEmailThreadsKnowledgeSpace(
-      registerFinancialDocsKnowledgeSpace(new KnowledgeSpaceRegistry())
+      registerFinancialDocsKnowledgeSpace(
+        registerFinancialOverviewKnowledgeSpace(
+          new KnowledgeSpaceRegistry()
+        )
+      )
     );
   }
 

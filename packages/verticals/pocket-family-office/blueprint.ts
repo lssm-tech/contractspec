@@ -35,6 +35,9 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       cap('sms.outbound', 1),
       cap('ai.voice.synthesis', 1),
       cap('payments.psp', 1),
+      cap('openbanking.accounts.read', 1),
+      cap('openbanking.transactions.read', 1),
+      cap('openbanking.balances.read', 1),
     ],
   },
   integrationSlots: [
@@ -63,6 +66,19 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       requiredCapabilities: [cap('storage.objects', 1)],
       required: true,
       description: 'Object storage used for raw uploads and normalised documents.',
+    },
+    {
+      slotId: 'primaryOpenBanking',
+      requiredCategory: 'open-banking',
+      allowedModes: ['byok'],
+      requiredCapabilities: [
+        cap('openbanking.accounts.read', 1),
+        cap('openbanking.transactions.read', 1),
+        cap('openbanking.balances.read', 1),
+      ],
+      required: true,
+      description:
+        'Powens BYOK connection powering bank account, transaction, and balance synchronisation.',
     },
     {
       slotId: 'emailInbound',
@@ -129,6 +145,22 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
     },
     ingestEmailThreads: {
       name: 'pfo.workflow.ingest-email-threads',
+      version: 1,
+    },
+    syncOpenBankingAccounts: {
+      name: 'pfo.workflow.sync-openbanking-accounts',
+      version: 1,
+    },
+    syncOpenBankingTransactions: {
+      name: 'pfo.workflow.sync-openbanking-transactions',
+      version: 1,
+    },
+    refreshOpenBankingBalances: {
+      name: 'pfo.workflow.refresh-openbanking-balances',
+      version: 1,
+    },
+    generateOpenBankingOverview: {
+      name: 'pfo.workflow.generate-openbanking-overview',
       version: 1,
     },
   },

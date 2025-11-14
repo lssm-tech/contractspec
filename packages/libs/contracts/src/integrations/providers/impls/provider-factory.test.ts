@@ -13,6 +13,7 @@ import { GoogleCloudStorageProvider } from './gcs-storage';
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
+import { PowensOpenBankingProvider } from './powens-openbanking';
 
 describe('IntegrationProviderFactory', () => {
   const factory = new IntegrationProviderFactory();
@@ -90,6 +91,17 @@ describe('IntegrationProviderFactory', () => {
     expect(llm).toBeInstanceOf(MistralLLMProvider);
     expect(embedding).toBeInstanceOf(MistralEmbeddingProvider);
   });
+
+  it('creates Powens open banking provider', async () => {
+    const provider = await factory.createOpenBankingProvider(
+      buildContext({
+        key: 'openbanking.powens',
+        config: { environment: 'sandbox' },
+        secret: { clientId: 'client', clientSecret: 'secret' },
+      })
+    );
+    expect(provider).toBeInstanceOf(PowensOpenBankingProvider);
+  });
 });
 
 function buildContext({
@@ -105,7 +117,8 @@ function buildContext({
     meta: {
       key,
       version: 1,
-      category: key.split('.')[0] as any,
+      category:
+        key.startsWith('openbanking.') ? ('open-banking' as any) : ((key.split('.')[0] as any)),
       displayName: key,
       title: key,
       description: `${key} provider`,

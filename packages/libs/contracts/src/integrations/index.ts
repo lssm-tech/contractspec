@@ -5,4 +5,8 @@ export * from './providers';
 export * from './secrets';
 export * from './runtime';
 export * from './health';
+export * from './openbanking/models';
+export * from './openbanking/contracts';
+export * from './openbanking/guards';
+export * from './openbanking/telemetry';
 
