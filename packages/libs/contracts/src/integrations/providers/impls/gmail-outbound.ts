@@ -1,5 +1,4 @@
 import { google, type gmail_v1 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 
 import type {
   EmailAttachment,
@@ -9,7 +8,7 @@ import type {
 } from '../email';
 
 export interface GmailOutboundProviderOptions {
-  auth: AuthClient;
+  auth: gmail_v1.Options['auth'];
   userId?: string;
   gmail?: gmail_v1.Gmail;
 }
@@ -17,8 +16,10 @@ export interface GmailOutboundProviderOptions {
 export class GmailOutboundProvider implements EmailOutboundProvider {
   private readonly gmail: gmail_v1.Gmail;
   private readonly userId: string;
+  private readonly auth: gmail_v1.Options['auth'];
 
   constructor(options: GmailOutboundProviderOptions) {
+    this.auth = options.auth;
     this.gmail =
       options.gmail ??
       google.gmail({
@@ -37,6 +38,7 @@ export class GmailOutboundProvider implements EmailOutboundProvider {
       requestBody: {
         raw,
       },
+      auth: this.auth,
     });
 
     const id = response.data.id ?? '';

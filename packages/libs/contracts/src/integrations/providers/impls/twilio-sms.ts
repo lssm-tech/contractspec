@@ -40,9 +40,10 @@ export class TwilioSmsProvider implements SmsProvider {
       body: message.body ?? input.body,
       status: mapStatus(message.status),
       sentAt: message.dateCreated ? new Date(message.dateCreated) : undefined,
-      deliveredAt: message.dateDelivered
-        ? new Date(message.dateDelivered)
-        : undefined,
+      deliveredAt:
+        message.status === 'delivered' && message.dateUpdated
+          ? new Date(message.dateUpdated)
+          : undefined,
       price: message.price ? Number(message.price) : undefined,
       priceCurrency: message.priceUnit ?? undefined,
       errorCode: message.errorCode ? String(message.errorCode) : undefined,

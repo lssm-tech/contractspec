@@ -73,8 +73,11 @@ function buildAttachments(
     .filter((attachment) => attachment.data)
     .map((attachment) => ({
       Name: attachment.filename,
-      Content: Buffer.from(attachment.data ?? []).toString('base64'),
+      Content: Buffer.from(attachment.data ?? new Uint8Array()).toString('base64'),
       ContentType: attachment.contentType,
+      ContentID: null,
+      ContentLength: attachment.sizeBytes,
+      Disposition: 'attachment',
     }));
 }
 

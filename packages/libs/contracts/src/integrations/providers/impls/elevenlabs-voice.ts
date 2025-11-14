@@ -1,6 +1,5 @@
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 import type { ElevenLabs } from '@elevenlabs/elevenlabs-js';
-import type { Readable } from 'node:stream';
 
 import type {
   Voice,
@@ -16,14 +15,19 @@ export interface ElevenLabsVoiceProviderOptions {
   client?: ElevenLabsClient;
 }
 
-const FORMAT_MAP: Record<string, ElevenLabs.OutputFormat> = {
+const FORMAT_MAP: Record<
+  NonNullable<VoiceSynthesisInput['format']>,
+  ElevenLabs.TextToSpeechConvertRequestOutputFormat
+> = {
   mp3: 'mp3_44100_128',
   wav: 'pcm_44100',
   ogg: 'mp3_44100_128',
   pcm: 'pcm_16000',
 };
 
-const SAMPLE_RATE: Record<ElevenLabs.OutputFormat, number> = {
+const SAMPLE_RATE: Partial<
+  Record<ElevenLabs.TextToSpeechConvertRequestOutputFormat, number>
+> = {
   mp3_22050_32: 22050,
   mp3_44100_32: 44100,
   mp3_44100_64: 44100,
@@ -56,44 +60,98 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
     const response = await this.client.voices.getAll();
     return (response.voices ?? []).map((voice) => ({
       id: voice.voiceId ?? '',
-      name: voice.name ?? '',
+      name: voice.name ?? voice.voiceId ?? '',
       description: voice.description ?? undefined,
       language: voice.labels?.language ?? undefined,
+      gender: normalizeGender(voice.labels?.gender),
+      previewUrl: voice.previewUrl ?? undefined,
       metadata: {
         category: voice.category ?? '',
-        previewUrl: voice.previewUrl ?? '',
+        ...voice.labels,
       },
     }));
   }
 
   async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {
-    const outputFormat =
-      FORMAT_MAP[input.format ?? 'mp3'] ?? 'mp3_44100_128';
-    const stream = await this.client.generate({
-      voiceId: input.voiceId ?? this.defaultVoiceId,
+    const voiceId = input.voiceId ?? this.defaultVoiceId;
+    if (!voiceId) {
+      throw new Error('Voice ID is required for ElevenLabs synthesis.');
+    }
+
+    const formatKey = input.format ?? 'mp3';
+    const outputFormat = FORMAT_MAP[formatKey] ?? FORMAT_MAP.mp3;
+    const sampleRate =
+      input.sampleRateHz ??
+      SAMPLE_RATE[outputFormat] ??
+      SAMPLE_RATE.mp3_44100_128 ??
+      44100;
+
+    const voiceSettings =
+      input.stability != null ||
+      input.similarityBoost != null ||
+      input.style != null
+        ? {
+            ...(input.stability != null ? { stability: input.stability } : {}),
+            ...(input.similarityBoost != null
+              ? { similarityBoost: input.similarityBoost }
+              : {}),
+            ...(input.style != null ? { style: input.style } : {}),
+          }
+        : undefined;
+
+    const stream = await this.client.textToSpeech.convert(voiceId, {
       text: input.text,
-      model_id: this.modelId,
-      output_format: outputFormat,
+      modelId: this.modelId,
+      outputFormat,
+      voiceSettings,
     });
-    const buffer = await readStream(stream);
+
+    const audio = await readWebStream(stream);
+
     return {
-      audio: new Uint8Array(buffer),
-      format: input.format ?? 'mp3',
-      sampleRateHz: input.sampleRateHz ?? SAMPLE_RATE[outputFormat],
+      audio,
+      format: formatKey,
+      sampleRateHz: sampleRate,
       durationSeconds: undefined,
       url: undefined,
     };
   }
 }
 
-async function readStream(stream: Readable): Promise<Buffer> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of stream) {
-    chunks.push(
-      typeof chunk === 'string' ? Buffer.from(chunk, 'utf-8') : Buffer.from(chunk)
-    );
+function normalizeGender(
+  value: string | undefined
+): 'male' | 'female' | 'neutral' | undefined {
+  if (!value) return undefined;
+  const normalized = value.toLowerCase();
+  if (normalized === 'male' || normalized === 'female' || normalized === 'neutral') {
+    return normalized;
   }
-  return Buffer.concat(chunks);
+  return undefined;
 }
+
+async function readWebStream(
+  stream: ReadableStream<Uint8Array>
+): Promise<Uint8Array> {
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) {
+      chunks.push(value);
+    }
+  }
+
+  const length = chunks.reduce((total, chunk) => total + chunk.length, 0);
+  const result = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) {
+    result.set(chunk, offset);
+    offset += chunk.length;
+  }
+  return result;
+}
+
 
 

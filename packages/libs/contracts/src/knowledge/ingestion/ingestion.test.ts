@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { EmbeddingProvider } from '../../integrations/providers/embedding';
+import type {
+  EmbeddingDocument,
+  EmbeddingProvider,
+  EmbeddingResult,
+} from '../../integrations/providers/embedding';
 import type { VectorStoreProvider } from '../../integrations/providers/vector-store';
 import type { EmailInboundProvider, EmailThread } from '../../integrations/providers/email';
 import type { GetObjectResult } from '../../integrations/providers/storage';
@@ -19,7 +23,11 @@ describe('Knowledge ingestion services', () => {
       data: new Uint8Array(Buffer.from('Hello world')),
     });
     expect(fragments).toHaveLength(1);
-    expect(fragments[0].text).toBe('Hello world');
+    const firstFragment = fragments[0];
+    if (!firstFragment) {
+      throw new Error('Expected at least one fragment from processor');
+    }
+    expect(firstFragment.text).toBe('Hello world');
   });
 
   it('embeds fragments in batches', async () => {
@@ -89,15 +97,23 @@ describe('Knowledge ingestion services', () => {
 
 function createEmbeddingProvider() {
   return {
-    embedDocuments: vi.fn(async (documents) =>
-      documents.map((doc) => ({
-        id: doc.id,
+    embedDocuments: vi.fn(
+      async (documents: EmbeddingDocument[]): Promise<EmbeddingResult[]> =>
+        documents.map((doc) => ({
+          id: doc.id,
+          vector: [0.1, 0.2],
+          dimensions: 2,
+          model: 'test',
+        }))
+    ),
+    embedQuery: vi.fn(
+      async (): Promise<EmbeddingResult> => ({
+        id: 'query',
         vector: [0.1, 0.2],
         dimensions: 2,
         model: 'test',
-      }))
+      })
     ),
-    embedQuery: vi.fn(),
   } as unknown as EmbeddingProvider;
 }
 
@@ -126,7 +142,7 @@ function createGmailProvider() {
         bcc: [],
         sentAt: new Date(),
         textBody: 'Message body',
-      } as any,
+      },
     ],
     updatedAt: new Date(),
   };

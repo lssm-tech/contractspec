@@ -85,14 +85,22 @@ export class GoogleCloudStorageProvider implements ObjectStorageProvider {
   async listObjects(query: ListObjectsQuery): Promise<ListObjectsResult> {
     const bucketName = query.bucket ?? this.bucketName;
     const bucket = this.storage.bucket(bucketName);
-    const [files, , response] = await bucket.getFiles({
+    const [files, nextQuery, response] = await bucket.getFiles({
       prefix: query.prefix,
       maxResults: query.maxResults,
       pageToken: query.pageToken,
     });
+    const nextTokenFromQuery =
+      typeof nextQuery === 'object' && nextQuery !== null && 'pageToken' in nextQuery
+        ? (nextQuery as { pageToken?: string }).pageToken
+        : undefined;
+    const nextTokenFromResponse =
+      response && typeof response === 'object' && 'nextPageToken' in response
+        ? (response as { nextPageToken?: string }).nextPageToken
+        : undefined;
     return {
       objects: files.map((file) => toMetadata(file.metadata)),
-      nextPageToken: response?.nextPageToken ?? undefined,
+      nextPageToken: nextTokenFromQuery ?? nextTokenFromResponse ?? undefined,
     };
   }
 }

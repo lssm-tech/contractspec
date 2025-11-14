@@ -3,15 +3,16 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { StripePaymentsProvider } from './stripe-payments';
 
-const sampleCustomer: Stripe.Customer = {
+const sampleCustomer = {
   id: 'cus_123',
   object: 'customer',
   created: Math.floor(Date.now() / 1000),
   email: 'user@example.com',
   metadata: {},
-};
+  livemode: false,
+} as Stripe.Customer;
 
-const sampleIntent: Stripe.PaymentIntent = {
+const sampleIntent = {
   id: 'pi_123',
   object: 'payment_intent',
   amount: 1000,
@@ -20,16 +21,9 @@ const sampleIntent: Stripe.PaymentIntent = {
   created: Math.floor(Date.now() / 1000),
   livemode: false,
   metadata: {},
-  charges: {
-    object: 'list',
-    data: [],
-    has_more: false,
-    total_count: 0,
-    url: '',
-  },
-};
+} as Stripe.PaymentIntent;
 
-const sampleInvoice: Stripe.Invoice = {
+const sampleInvoice = {
   id: 'in_123',
   object: 'invoice',
   amount_due: 1000,
@@ -38,15 +32,9 @@ const sampleInvoice: Stripe.Invoice = {
   status: 'draft',
   livemode: false,
   metadata: {},
-  lines: {
-    object: 'list',
-    data: [],
-    has_more: false,
-    url: '',
-  },
-};
+} as Stripe.Invoice;
 
-const sampleCharge: Stripe.Charge = {
+const sampleCharge = {
   id: 'ch_123',
   object: 'charge',
   amount: 1000,
@@ -60,46 +48,8 @@ const sampleCharge: Stripe.Charge = {
   livemode: false,
   metadata: {},
   payment_intent: 'pi_123',
-  billing_details: {
-    address: null,
-    email: null,
-    name: null,
-    phone: null,
-  },
-  outcome: null,
-  payment_method_details: {
-    card: {
-      brand: 'visa',
-      checks: null,
-      country: null,
-      exp_month: null,
-      exp_year: null,
-      fingerprint: null,
-      funding: 'credit',
-      installments: null,
-      last4: '4242',
-      mandate: null,
-      network: null,
-      three_d_secure: null,
-      wallet: null,
-      generated_from: null,
-    },
-    type: 'card',
-  },
-  source: null,
-  statement_descriptor: null,
-  statement_descriptor_suffix: null,
-  fraud_details: null,
-  receipt_number: null,
-  refunds: {
-    object: 'list',
-    data: [],
-    has_more: false,
-    total_count: 0,
-    url: '',
-  },
   description: null,
-};
+} as Stripe.Charge;
 
 describe('StripePaymentsProvider', () => {
   it('creates and retrieves customers', async () => {
@@ -165,7 +115,11 @@ describe('StripePaymentsProvider', () => {
 
     const transactions = await provider.listTransactions();
     expect(transactions).toHaveLength(1);
-    expect(transactions[0].paymentIntentId).toBe('pi_123');
+    const firstTransaction = transactions[0];
+    if (!firstTransaction) {
+      throw new Error('Expected at least one transaction');
+    }
+    expect(firstTransaction.paymentIntentId).toBe('pi_123');
   });
 });
 
@@ -181,15 +135,21 @@ function createMockStripe() {
       cancel: vi.fn(async () => sampleIntent),
     },
     refunds: {
-      create: vi.fn(async () => ({
-        id: 're_123',
-        amount: 500,
-        currency: 'usd',
-        status: 'succeeded',
-        payment_intent: 'pi_123',
-        metadata: {},
-        created: Math.floor(Date.now() / 1000),
-      })),
+      create: vi.fn(async () =>
+        ({
+          id: 're_123',
+          object: 'refund',
+          amount: 500,
+          currency: 'usd',
+          status: 'succeeded',
+          payment_intent: 'pi_123',
+          metadata: {},
+          created: Math.floor(Date.now() / 1000),
+          balance_transaction: null,
+          charge: null,
+          reason: null,
+        } as Stripe.Refund)
+      ),
     },
     invoices: {
       list: vi.fn(async () => ({

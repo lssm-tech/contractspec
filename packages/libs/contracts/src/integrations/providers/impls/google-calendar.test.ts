@@ -1,5 +1,4 @@
 import type { calendar_v3 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 import { describe, expect, it, vi } from 'vitest';
 
 import { GoogleCalendarProvider } from './google-calendar';
@@ -8,7 +7,7 @@ describe('GoogleCalendarProvider', () => {
   it('lists events', async () => {
     const calendar = createMockCalendar();
     const provider = new GoogleCalendarProvider({
-      auth: {} as AuthClient,
+      auth: {} as calendar_v3.Options['auth'],
       calendar,
     });
 
@@ -20,13 +19,17 @@ describe('GoogleCalendarProvider', () => {
 
     expect(calendar.events.list).toHaveBeenCalled();
     expect(result.events).toHaveLength(1);
-    expect(result.events[0].title).toBe('Planning');
+    const firstEvent = result.events[0];
+    if (!firstEvent) {
+      throw new Error('Expected at least one calendar event');
+    }
+    expect(firstEvent.title).toBe('Planning');
   });
 
   it('creates events with reminders', async () => {
     const calendar = createMockCalendar();
     const provider = new GoogleCalendarProvider({
-      auth: {} as AuthClient,
+      auth: {} as calendar_v3.Options['auth'],
       calendar,
     });
 
@@ -46,7 +49,7 @@ describe('GoogleCalendarProvider', () => {
   it('updates events', async () => {
     const calendar = createMockCalendar();
     const provider = new GoogleCalendarProvider({
-      auth: {} as AuthClient,
+      auth: {} as calendar_v3.Options['auth'],
       calendar,
     });
 
@@ -66,15 +69,17 @@ describe('GoogleCalendarProvider', () => {
   it('deletes events', async () => {
     const calendar = createMockCalendar();
     const provider = new GoogleCalendarProvider({
-      auth: {} as AuthClient,
+      auth: {} as calendar_v3.Options['auth'],
       calendar,
     });
 
     await provider.deleteEvent('primary', 'event-1');
-    expect(calendar.events.delete).toHaveBeenCalledWith({
+  expect(calendar.events.delete).toHaveBeenCalledWith(
+    expect.objectContaining({
       calendarId: 'primary',
       eventId: 'event-1',
-    });
+    })
+  );
   });
 });
 

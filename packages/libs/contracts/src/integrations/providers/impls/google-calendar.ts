@@ -1,5 +1,4 @@
 import { google, type calendar_v3 } from 'googleapis';
-import type { AuthClient } from 'google-auth-library';
 
 import type {
   CalendarEvent,
@@ -11,7 +10,7 @@ import type {
 } from '../calendar';
 
 export interface GoogleCalendarProviderOptions {
-  auth: AuthClient;
+  auth: calendar_v3.Options['auth'];
   calendar?: calendar_v3.Calendar;
   calendarId?: string;
 }
@@ -19,8 +18,10 @@ export interface GoogleCalendarProviderOptions {
 export class GoogleCalendarProvider implements CalendarProvider {
   private readonly calendar: calendar_v3.Calendar;
   private readonly defaultCalendarId: string;
+  private readonly auth: calendar_v3.Options['auth'];
 
   constructor(options: GoogleCalendarProviderOptions) {
+    this.auth = options.auth;
     this.calendar =
       options.calendar ??
       google.calendar({
@@ -39,6 +40,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
       pageToken: query.pageToken,
       singleEvents: true,
       orderBy: 'startTime',
+      auth: this.auth,
     });
 
     const events =
@@ -58,6 +60,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
       calendarId,
       requestBody: this.toGoogleEvent(input),
       conferenceDataVersion: input.conference?.create ? 1 : undefined,
+      auth: this.auth,
     });
     return this.fromGoogleEvent(calendarId, response.data);
   }
@@ -72,6 +75,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
       eventId,
       requestBody: this.toGoogleEvent(input),
       conferenceDataVersion: input.conference?.create ? 1 : undefined,
+      auth: this.auth,
     });
     return this.fromGoogleEvent(calendarId, response.data);
   }
@@ -80,6 +84,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
     await this.calendar.events.delete({
       calendarId: calendarId ?? this.defaultCalendarId,
       eventId,
+      auth: this.auth,
     });
   }
 
@@ -94,13 +99,14 @@ export class GoogleCalendarProvider implements CalendarProvider {
         email: attendee.email ?? '',
         name: attendee.displayName ?? undefined,
         optional: attendee.optional ?? undefined,
-        responseStatus: attendee.responseStatus ?? undefined,
+        responseStatus: normalizeResponseStatus(attendee.responseStatus),
       })) ?? [];
     const reminders =
       event.reminders?.overrides?.map((reminder) => ({
         method: (reminder.method as 'email' | 'popup') ?? 'popup',
         minutesBeforeStart: reminder.minutes ?? 0,
       })) ?? [];
+    const metadata = buildMetadata(event);
     return {
       id: event.id ?? '',
       calendarId,
@@ -112,8 +118,11 @@ export class GoogleCalendarProvider implements CalendarProvider {
       allDay: event.start?.date ? true : undefined,
       attendees,
       reminders,
-      conferenceLink: event.hangoutLink ?? event.conferenceData?.entryPoints?.[0]?.uri,
-      metadata: event,
+      conferenceLink:
+        event.hangoutLink ??
+        event.conferenceData?.entryPoints?.find((entry) => entry.uri)?.uri ??
+        undefined,
+      metadata,
       createdAt: event.created ? new Date(event.created) : undefined,
       updatedAt: event.updated ? new Date(event.updated) : undefined,
     };
@@ -156,6 +165,15 @@ export class GoogleCalendarProvider implements CalendarProvider {
         },
       };
     }
+    if (input.metadata) {
+      event.extendedProperties = {
+        ...(event.extendedProperties ?? {}),
+        private: {
+          ...(event.extendedProperties?.private ?? {}),
+          ...input.metadata,
+        },
+      };
+    }
     return event;
   }
 }
@@ -174,6 +192,42 @@ function formatDateTime(date: Date, allDay?: boolean): calendar_v3.Schema$EventD
     return { date: date.toISOString().slice(0, 10) };
   }
   return { dateTime: date.toISOString() };
+}
+
+type CalendarResponseStatus = 'needsAction' | 'declined' | 'tentative' | 'accepted';
+
+function normalizeResponseStatus(
+  status?: string | null
+): CalendarResponseStatus | undefined {
+  if (!status) return undefined;
+  const allowed: CalendarResponseStatus[] = [
+    'needsAction',
+    'declined',
+    'tentative',
+    'accepted',
+  ];
+  return allowed.includes(status as CalendarResponseStatus)
+    ? (status as CalendarResponseStatus)
+    : undefined;
+}
+
+function buildMetadata(event: calendar_v3.Schema$Event): Record<string, string> | undefined {
+  const metadata: Record<string, string> = {};
+  if (event.status) metadata.status = event.status;
+  if (event.htmlLink) metadata.htmlLink = event.htmlLink;
+  if (event.iCalUID) metadata.iCalUID = event.iCalUID;
+  if (event.etag) metadata.etag = event.etag;
+  if (event.conferenceData?.conferenceSolution?.name) {
+    metadata.conferenceSolution = event.conferenceData.conferenceSolution.name;
+  }
+  if (event.extendedProperties?.private) {
+    Object.entries(event.extendedProperties.private).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        metadata[`extended.${key}`] = value;
+      }
+    });
+  }
+  return Object.keys(metadata).length > 0 ? metadata : undefined;
 }
 
 

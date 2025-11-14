@@ -62,7 +62,7 @@ export class KnowledgeAccessGuard {
     }
 
     if (this.requireWorkflowBinding && context.workflowName) {
-      const allowedWorkflows = binding.binding.scope?.workflows;
+      const allowedWorkflows = binding.scope?.workflows;
       if (allowedWorkflows && !allowedWorkflows.includes(context.workflowName)) {
         return {
           allowed: false,
@@ -72,7 +72,7 @@ export class KnowledgeAccessGuard {
     }
 
     if (this.requireAgentBinding && context.agentName) {
-      const allowedAgents = binding.binding.scope?.agents;
+      const allowedAgents = binding.scope?.agents;
       if (allowedAgents && !allowedAgents.includes(context.agentName)) {
         return {
           allowed: false,

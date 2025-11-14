@@ -108,8 +108,10 @@ export function parseSecretUri(reference: SecretReference): ParsedSecretUri {
       .split('&')
       .filter(Boolean)
       .map((pair) => {
-        const [key, value] = pair.split('=');
-        return [decodeURIComponent(key), decodeURIComponent(value ?? '')];
+        const [keyRaw, valueRaw] = pair.split('=');
+        const key = keyRaw ?? '';
+        const value = valueRaw ?? '';
+        return [decodeURIComponent(key), decodeURIComponent(value)];
       })
   );
 
