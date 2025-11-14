@@ -2,6 +2,21 @@
 
 Purpose: Provide a single, typed source of truth for backend operations, events, prompts/resources, and UI/data presentations. This enables consistent adapters (REST/GraphQL/MCP/UI), high‑quality docs, and agent-friendly automation across apps.
 
+### Installation
+
+```bash
+npm install @lssm/lib.contracts @lssm/lib.schema
+# or
+bun add @lssm/lib.contracts @lssm/lib.schema
+```
+
+Import from the scoped entry points for leaner bundles:
+
+- `@lssm/lib.contracts/client` – browser-safe helpers (`client/react`, render drivers, SDK).
+- `@lssm/lib.contracts/server` – Node adapters (REST, GraphQL, MCP).
+- `@lssm/lib.contracts/types` – runtime context types (`HandlerCtx`, `PolicyDecision`, etc.).
+- `@lssm/lib.contracts/types/all` – type-only re-exports across the package (compiles to an empty JS module).
+
 ### Today (already implemented)
 
 - **Operations (ContractSpec)**: versioned `command`/`query` definitions with `meta`, `io` (zod-backed via `@lssm/lib.schema`), `policy`, `sideEffects` (declared events), `transport` hints, and `acceptance` examples. See `src/spec.ts` and `src/registry.ts`.

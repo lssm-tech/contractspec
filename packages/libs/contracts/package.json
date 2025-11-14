@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.contracts",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -30,7 +30,7 @@
     "stripe": "^19.1.0",
     "postmark": "^4.0.4",
     "twilio": "^5.10.5",
-    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.schema": "workspace:^1.0.0",
     "@modelcontextprotocol/sdk": "^1.20.1",
     "mcp-handler": "^1.0.2",
     "zod": "^4.1.5"
@@ -48,13 +48,6 @@
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.65.0",
     "@hookform/resolvers": "^5.2.2"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
   },
   "exports": {
     ".": "./src/index.ts",
@@ -212,6 +205,7 @@
     "./translations/catalog": "./src/translations/catalog.ts",
     "./translations/tenant": "./src/translations/tenant.ts",
     "./types": "./src/types.ts",
+    "./types/all": "./src/types/all.ts",
     "./workflow": "./src/workflow/index.ts",
     "./workflow/adapters": "./src/workflow/adapters/index.ts",
     "./workflow/adapters/db-adapter": "./src/workflow/adapters/db-adapter.ts",
@@ -385,6 +379,7 @@
       "./translations/catalog": "./dist/translations/catalog.js",
       "./translations/tenant": "./dist/translations/tenant.js",
       "./types": "./dist/types.js",
+      "./types/all": "./dist/types/all.js",
       "./workflow": "./dist/workflow/index.js",
       "./workflow/adapters": "./dist/workflow/adapters/index.js",
       "./workflow/adapters/db-adapter": "./dist/workflow/adapters/db-adapter.js",
@@ -396,6 +391,11 @@
       "./workflow/state": "./dist/workflow/state.js",
       "./workflow/validation": "./dist/workflow/validation.js",
       "./*": "./*"
-    }
-  }
+    },
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }

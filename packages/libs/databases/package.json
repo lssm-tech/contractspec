@@ -1,8 +1,7 @@
 {
   "name": "@lssm/lib.databases",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
-  "private": true,
   "bin": {
     "databases": "dist/cli.js"
   },
@@ -26,5 +25,24 @@
     ".": "./dist/index.js",
     "./cli": "./dist/cli.js",
     "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./*": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
+      },
+      "./*.css": "./dist/*.css",
+      "./package.json": "./package.json"
+    }
   }
 }
