@@ -46,9 +46,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          bun node packages/contractspec/scripts/publish-packages.js
+          bun node scripts/publish-packages.js
 
       - name: Publish packages (dry run)
         if: ${{ inputs.dry_run }}
         run: |
-          DRY_RUN=true bun node packages/contractspec/scripts/publish-packages.js
+          DRY_RUN=true bun node scripts/publish-packages.js
