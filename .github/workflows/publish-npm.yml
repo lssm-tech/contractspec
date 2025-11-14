@@ -35,8 +35,7 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
 
       - name: Install dependencies
-        run: bun install
-        # run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build libraries
         run: bun run build:not-apps
@@ -46,9 +45,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          bun run scripts/publish-packages.js
+          bun changeset version
+          bun changeset publish
 
       - name: Publish packages (dry run)
         if: ${{ inputs.dry_run }}
+        env:
+          DRY_RUN: "true"
         run: |
-          DRY_RUN=true bun run scripts/publish-packages.js
+          bun changeset publish
