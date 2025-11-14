@@ -38,6 +38,10 @@ jobs:
         run: bun install
         # run: bun install --frozen-lockfile
 
+      - name: Version packages
+        run: |
+          bun changeset version
+
       - name: Build libraries
         run: bun run build:not-apps
 
@@ -46,7 +50,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          bun changeset version
           bun changeset publish
 
       - name: Publish packages (dry run)
