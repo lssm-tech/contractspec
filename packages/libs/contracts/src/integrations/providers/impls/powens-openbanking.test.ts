@@ -9,6 +9,19 @@ function createResponse(body: unknown, status = 200): Response {
   });
 }
 
+function createFetchMock() {
+  const handler = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+  const fetchFn = ((...args: Parameters<typeof fetch>) =>
+    handler(...args)) as typeof fetch;
+  Object.defineProperty(fetchFn, 'preconnect', {
+    value: vi.fn<
+      Parameters<typeof fetch.preconnect>,
+      ReturnType<typeof fetch.preconnect>
+    >(),
+  });
+  return { fetch: fetchFn, handler };
+}
+
 const TOKEN_RESPONSE = {
   access_token: 'powens-token',
   expires_in: 3600,
@@ -17,8 +30,8 @@ const TOKEN_RESPONSE = {
 
 describe('PowensOpenBankingProvider', () => {
   it('maps Powens account payloads to canonical summaries', async () => {
-    const fetchMock = vi
-      .fn()
+    const { fetch: fetchImpl, handler } = createFetchMock();
+    handler
       .mockResolvedValueOnce(createResponse(TOKEN_RESPONSE))
       .mockResolvedValueOnce(
         createResponse({
@@ -55,7 +68,7 @@ describe('PowensOpenBankingProvider', () => {
       clientId: 'client',
       clientSecret: 'secret',
       environment: 'sandbox',
-      fetchImpl: fetchMock,
+      fetchImpl,
     });
 
     const result = (await provider.listAccounts({
@@ -65,7 +78,8 @@ describe('PowensOpenBankingProvider', () => {
     })) as OpenBankingListAccountsResult;
 
     expect(result.accounts).toHaveLength(1);
-    const [account] = result.accounts;
+    expect(result.accounts[0]).toBeDefined();
+    const account = result.accounts[0]!;
     expect(account.displayName).toBe('Family Checking');
     expect(account.currency).toBe('EUR');
     expect(account.connectionId).toBe('conn-powens-primary');
@@ -75,8 +89,9 @@ describe('PowensOpenBankingProvider', () => {
   });
 
   it('maps Powens balances to canonical balance records', async () => {
-    const fetchMock = vi
-      .fn()
+    const { fetch: fetchImpl, handler: balancesHandler } =
+      createFetchMock();
+    balancesHandler
       .mockResolvedValueOnce(createResponse(TOKEN_RESPONSE))
       .mockResolvedValueOnce(
         createResponse({
@@ -106,7 +121,7 @@ describe('PowensOpenBankingProvider', () => {
       clientId: 'client',
       clientSecret: 'secret',
       environment: 'sandbox',
-      fetchImpl: fetchMock,
+      fetchImpl,
     });
 
     // prime token cache
@@ -123,18 +138,20 @@ describe('PowensOpenBankingProvider', () => {
     });
 
     expect(balances).toHaveLength(2);
-    expect(balances[0].type).toBe('current');
-    expect(balances[0].amount).toBe(1200.5);
-    expect(balances[0].lastUpdatedAt).toBe('2025-01-20T08:30:00Z');
+    expect(balances[0]).toBeDefined();
+    const firstBalance = balances[0]!;
+    expect(firstBalance.type).toBe('current');
+    expect(firstBalance.amount).toBe(1200.5);
+    expect(firstBalance.lastUpdatedAt).toBe('2025-01-20T08:30:00Z');
   });
 
   it('throws when userId is not provided for account listing', async () => {
-    const fetchMock = vi.fn();
+    const { fetch: fetchImpl } = createFetchMock();
     const provider = new PowensOpenBankingProvider({
       clientId: 'client',
       clientSecret: 'secret',
       environment: 'sandbox',
-      fetchImpl: fetchMock,
+      fetchImpl,
     });
 
     await expect(

@@ -261,7 +261,8 @@ export class PowensClient {
         signal: controller.signal,
       });
 
-      const requestId = response.headers.get('x-request-id') ?? undefined;
+      const requestId: string | undefined =
+        response.headers.get('x-request-id') ?? undefined;
 
       if (!response.ok) {
         let errorBody: unknown;
@@ -270,20 +271,16 @@ export class PowensClient {
         } catch {
           // ignore parsing errors
         }
-        const message =
-          (typeof errorBody === 'object' &&
-            errorBody !== null &&
-            'message' in errorBody &&
-            typeof (errorBody as Record<string, unknown>).message === 'string'
-            ? (errorBody as Record<string, unknown>).message
-            : `Powens API request failed with status ${response.status}`);
-        const code =
-          typeof errorBody === 'object' &&
-          errorBody !== null &&
-          'code' in errorBody &&
-          typeof (errorBody as Record<string, unknown>).code === 'string'
-            ? (errorBody as Record<string, unknown>).code
+        const errorObject =
+          typeof errorBody === 'object' && errorBody !== null
+            ? (errorBody as Record<string, unknown>)
             : undefined;
+        const message: string =
+          typeof errorObject?.message === 'string'
+            ? errorObject.message
+            : `Powens API request failed with status ${response.status}`;
+        const code =
+          typeof errorObject?.code === 'string' ? errorObject.code : undefined;
         throw new PowensClientError(
           message,
           response.status,
@@ -365,15 +362,21 @@ export class PowensClient {
       } catch {
         // ignore
       }
-      const message =
-        (typeof errorBody === 'object' &&
-          errorBody !== null &&
-          'error_description' in errorBody &&
-          typeof (errorBody as Record<string, unknown>).error_description ===
-            'string'
-          ? (errorBody as Record<string, unknown>).error_description
-          : 'Failed to obtain Powens access token');
-      throw new PowensClientError(message, response.status, undefined, undefined, errorBody);
+      const errorObject =
+        typeof errorBody === 'object' && errorBody !== null
+          ? (errorBody as Record<string, unknown>)
+          : undefined;
+      const message: string =
+        typeof errorObject?.error_description === 'string'
+          ? errorObject.error_description
+          : 'Failed to obtain Powens access token';
+      throw new PowensClientError(
+        message,
+        response.status,
+        undefined,
+        undefined,
+        errorBody
+      );
     }
 
     const payload = (await response.json()) as PowensOAuthTokenResponse;

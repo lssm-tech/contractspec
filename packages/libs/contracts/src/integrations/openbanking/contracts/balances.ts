@@ -114,12 +114,41 @@ export const OpenBankingRefreshBalances = defineCommand({
     auth: 'admin',
   },
   telemetry: {
-    events: [
-      {
-        name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed,
-        description: 'Open banking balances refreshed and persisted.',
+    success: {
+      event: { name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed },
+      properties: ({ input, output }) => {
+        const payload = input as {
+          tenantId?: string;
+          accountId?: string;
+        };
+        const result = output as {
+          balances?: unknown[];
+          refreshedAt?: string;
+        } | null;
+        return {
+          tenantId: payload?.tenantId,
+          accountId: payload?.accountId,
+          refreshedAt: result?.refreshedAt,
+          balanceCount: Array.isArray(result?.balances)
+            ? result?.balances.length
+            : undefined,
+        };
       },
-    ],
+    },
+    failure: {
+      event: { name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshFailed },
+      properties: ({ input, error }) => {
+        const payload = input as {
+          tenantId?: string;
+          accountId?: string;
+        };
+        return {
+          tenantId: payload?.tenantId,
+          accountId: payload?.accountId,
+          error: error instanceof Error ? error.message : String(error ?? 'unknown'),
+        };
+      },
+    },
   },
 });
 
