@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ui-kit-web",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -79,7 +79,7 @@
     "typescript": "^5.9.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "@types/geojson": "^7946.0.14",
     "@sentry/nextjs": "^9.35.0",
     "maplibre-gl": "^5.7.3",

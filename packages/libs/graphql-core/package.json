@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-core",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,22 +25,15 @@
   "peerDependencies": {
     "graphql": ">=16.0.0"
   },
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": "./dist/index.js",
-      "./*": "./*"
-    }
-  },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
   },
   "type": "module",
   "module": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./*": "./*"
   }
 }

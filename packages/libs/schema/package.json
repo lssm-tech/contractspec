@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.schema",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,8 +12,8 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
   },
@@ -25,27 +25,16 @@
     "dist",
     "README.md"
   ],
-  "exports": {
-    ".": "./src/index.ts",
-    "./EnumType": "./src/EnumType.ts",
-    "./FieldType": "./src/FieldType.ts",
-    "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
-    "./SchemaModel": "./src/SchemaModel.ts",
-    "./*": "./*"
-  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": "./dist/index.js",
-      "./EnumType": "./dist/EnumType.js",
-      "./FieldType": "./dist/FieldType.js",
-      "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
-      "./SchemaModel": "./dist/SchemaModel.js",
-      "./*": "./*"
-    }
+  "exports": {
+    ".": "./dist/index.js",
+    "./EnumType": "./dist/EnumType.js",
+    "./FieldType": "./dist/FieldType.js",
+    "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
+    "./SchemaModel": "./dist/SchemaModel.js",
+    "./*": "./*"
   }
 }

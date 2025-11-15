@@ -101,6 +101,7 @@ export const reactLibrary = defineConfig({
   format: ['esm'],
   external: [...sharedExternal],
   minify: false,
+  platform: 'browser',
 });
 
 export const moduleLibrary = defineConfig({

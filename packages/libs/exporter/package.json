@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {
@@ -14,13 +14,9 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./*": "./*"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -29,11 +25,8 @@
     "README.md"
   ],
   "module": "./dist/index.js",
-  "publishConfig": {
-    "exports": {
-      ".": "./dist/index.js",
-      "./*": "./*"
-    },
-    "access": "public"
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./*"
   }
 }

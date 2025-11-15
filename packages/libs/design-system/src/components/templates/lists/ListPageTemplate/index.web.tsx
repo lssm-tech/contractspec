@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
 import { PageHeaderResponsive } from '../../../organisms/PageHeaderResponsive';
-import { FiltersToolbar } from '../../../molecules/FiltersToolbar.mobile';
+import { FiltersToolbar } from '../../../molecules/FiltersToolbar';
 import { AiLinkButton } from '../../../molecules/AiLinkButton';
 import type { ListPageTemplateProps } from './types';
 import { Skeleton } from '@lssm/lib.ui-kit-web/ui/skeleton';

@@ -39,6 +39,7 @@ jobs:
         # run: bun install --frozen-lockfile
 
       - name: Version packages
+        if: ${{ inputs.dry_run != true }}
         run: |
           bun changeset version
 
