@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.accessibility",
-  "version": "1.7.0",
+  "version": "1.7.2",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,9 +12,9 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.design-system": "^1.7.0",
-    "@lssm/lib.ui-kit": "^1.7.0",
-    "@lssm/lib.ui-kit-web": "^1.7.0"
+    "@lssm/lib.design-system": "^1.7.2",
+    "@lssm/lib.ui-kit": "^1.7.2",
+    "@lssm/lib.ui-kit-web": "^1.7.2"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "*",
@@ -35,16 +35,12 @@
     "./dist/*.css"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    },
-    "./*.css": "./dist/*.css",
-    "./package.json": "./package.json"
+    ".": "./dist/index.js",
+    "./AccessibilityPanel": "./dist/AccessibilityPanel.js",
+    "./AccessibilityProvider": "./dist/AccessibilityProvider.js",
+    "./next-route-announcer": "./dist/next-route-announcer.js",
+    "./preferences": "./dist/preferences.js",
+    "./*": "./*"
   },
   "files": [
     "dist",

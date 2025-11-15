@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.7.2
+
+### Patch Changes
+
+- fix typing
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.2
+  - @lssm/lib.schema@1.7.2
+
+## 0.7.1
+
+### Patch Changes
+
+- fix typing
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.1
+  - @lssm/lib.schema@1.7.1
+
 ## 0.7.0
 
 ### Minor Changes
