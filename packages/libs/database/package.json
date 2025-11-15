@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.database",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "type": "module",
   "bin": {
     "database": "dist/cli.js"
@@ -27,34 +27,19 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.15.9"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./cli": "./dist/cli.js",
-    "./*": "./*"
-  },
   "files": [
     "dist",
     "README.md"
   ],
-  "publishConfig": {
-    "access": "public",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "./*": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
-      },
-      "./*.css": "./dist/*.css",
-      "./package.json": "./package.json"
-    }
+  "exports": {
+    ".": "./dist/index.js",
+    "./cli": "./dist/cli.js",
+    "./*": "./*"
   }
 }
