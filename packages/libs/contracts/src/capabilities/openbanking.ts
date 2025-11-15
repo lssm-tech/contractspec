@@ -106,3 +106,5 @@ export function registerOpenBankingCapabilities(
     .register(openBankingBalancesReadCapability);
 }
 
+
+
