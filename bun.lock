@@ -35,7 +35,7 @@
     },
     "packages/apps/contracts-cli": {
       "name": "@lssm/tool.contracts-cli",
-      "version": "0.0.1",
+      "version": "0.7.2",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -63,7 +63,7 @@
     },
     "packages/apps/web-landing": {
       "name": "@lssm/apps.web-contractspec-landing",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
         "@posthog/react": "^1.4.0",
@@ -132,7 +132,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:^1.0.0",
         "@lssm/lib.ui-kit": "workspace:^1.0.0",
@@ -151,7 +151,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:^1.0.0",
         "@lssm/lib.schema": "workspace:^1.0.0",
@@ -171,12 +171,12 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.24.0",
         "@google-cloud/secret-manager": "^6.1.1",
         "@google-cloud/storage": "^7.8.0",
-        "@lssm/lib.schema": "workspace:^1.0.0",
+        "@lssm/lib.schema": "^1.7.2",
         "@mistralai/mistralai": "^1.2.3",
         "@modelcontextprotocol/sdk": "^1.20.1",
         "@qdrant/js-client-rest": "^1.11.0",
@@ -188,8 +188,8 @@
         "zod": "^4.1.5",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "@types/express": "^5.0.3",
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
@@ -212,7 +212,7 @@
     },
     "packages/libs/database": {
       "name": "@lssm/lib.database",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -229,7 +229,7 @@
     },
     "packages/libs/databases": {
       "name": "@lssm/lib.databases",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -244,12 +244,12 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
-        "@lssm/lib.contracts": "workspace:^1.0.0",
-        "@lssm/lib.ui-kit": "workspace:^1.0.0",
-        "@lssm/lib.ui-kit-web": "workspace:^1.0.0",
+        "@lssm/lib.contracts": "^1.7.2",
+        "@lssm/lib.ui-kit": "^1.7.2",
+        "@lssm/lib.ui-kit-web": "^1.7.2",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^0.535.0",
@@ -260,7 +260,7 @@
         "zod": "^4.1.5",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "@types/node": "^24.9.0",
         "@types/react-dom": "^19.0.14",
         "postcss": "^8.5",
@@ -271,7 +271,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.15.9",
@@ -285,7 +285,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.15.9",
@@ -294,7 +294,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -315,7 +315,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@apollo/subgraph": "^2.8.0",
         "@pothos/core": "^4.9.1",
@@ -334,7 +334,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@lssm/lib.schema": "workspace:^1.0.0",
         "@pothos/core": "^4.9.1",
@@ -357,7 +357,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -373,7 +373,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "devDependencies": {
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
@@ -384,14 +384,15 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "1.0.0",
+      "version": "8.0.2",
       "dependencies": {
-        "@lssm/lib.contracts": "workspace:^1.0.0",
-        "@lssm/lib.design-system": "workspace:^1.0.0",
-        "@lssm/lib.presentation-runtime-core": "workspace:^1.0.0",
+        "@lssm/lib.contracts": "^1.7.2",
+        "@lssm/lib.design-system": "^1.7.2",
+        "@lssm/lib.presentation-runtime-core": "^1.7.2",
+        "@lssm/lib.ui-kit-web": "^1.7.2",
       },
       "peerDependencies": {
-        "@lssm/lib.presentation-runtime-core": "^1.0.0",
+        "@lssm/lib.presentation-runtime-core": "^1.7.2",
         "react": "^19.1.0",
         "react-hook-form": "7.66.0",
         "zod": "^4.1.5",
@@ -399,12 +400,13 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "1.0.0",
+      "version": "8.0.2",
       "dependencies": {
-        "@lssm/lib.presentation-runtime-core": "workspace:^1.0.0",
+        "@lssm/lib.presentation-runtime-core": "^1.7.2",
+        "@lssm/lib.ui-kit": "^1.7.2",
       },
       "peerDependencies": {
-        "@lssm/lib.presentation-runtime-core": "^1.0.0",
+        "@lssm/lib.presentation-runtime-core": "^1.7.2",
         "react": "^19.1.0",
         "react-hook-form": "7.66.0",
         "react-native": "*",
@@ -413,21 +415,21 @@
     },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "^4.1.5",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
       },
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
@@ -498,14 +500,14 @@
       },
       "devDependencies": {
         "@babel/core": "^7.28.4",
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
       },
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@radix-ui/react-accordion": "^1.2.11",
@@ -550,7 +552,7 @@
         "vaul": "^1.1.2",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "@sentry/nextjs": "^9.35.0",
         "@types/geojson": "^7946.0.14",
         "@types/jest": "^30.0.0",
@@ -576,7 +578,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.0.0",
+      "version": "1.7.2",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -586,13 +588,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "0.1.0",
+      "version": "0.8.2",
       "peerDependencies": {
         "tsdown": "^0.15.4",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
+      "version": "0.7.2",
       "devDependencies": {
         "typescript": "^5.9.3",
       },

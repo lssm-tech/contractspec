@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import * as LabelPrimitive from '@radix-ui/react-label';
-import { Slot } from '@radix-ui/react-slot';
+import * as Slot from '@rn-primitives/slot';
+import { View as RNView } from 'react-native';
 import {
   Controller,
   type ControllerProps,
@@ -107,12 +107,18 @@ function FormLabel({
   );
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+function FormControl({
+  asChild = false,
+  ...props
+}: React.ComponentProps<typeof RNView> & {
+  asChild?: boolean;
+}) {
+  const Component = asChild ? Slot.Text : RNView;
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
   return (
-    <Slot
+    <Component
       data-slot="form-control"
       id={formItemId}
       aria-describedby={

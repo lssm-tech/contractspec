@@ -170,6 +170,7 @@
     "./ui/separator": "./dist/ui/separator.js",
     "./ui/sheet": "./dist/ui/sheet.js",
     "./ui/sidebar": "./dist/ui/sidebar.js",
+    "./ui/sidebar-right": "./dist/ui/sidebar-right.js",
     "./ui/skeleton": "./dist/ui/skeleton.js",
     "./ui/skip-link": "./dist/ui/skip-link.js",
     "./ui/slider": "./dist/ui/slider.js",

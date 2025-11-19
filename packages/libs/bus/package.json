@@ -36,10 +36,19 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./eventBus": "./dist/eventBus.js",
-    "./inMemoryBus": "./dist/inMemoryBus.js",
-    "./subscriber": "./dist/subscriber.js",
+    ".": "./src/index.ts",
+    "./eventBus": "./src/eventBus.ts",
+    "./inMemoryBus": "./src/inMemoryBus.ts",
+    "./subscriber": "./src/subscriber.ts",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./eventBus": "./dist/eventBus.js",
+      "./inMemoryBus": "./dist/inMemoryBus.js",
+      "./subscriber": "./dist/subscriber.js",
+      "./*": "./*"
+    }
   }
 }

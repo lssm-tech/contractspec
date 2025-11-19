@@ -31,7 +31,13 @@
   "type": "module",
   "module": "./dist/index.js",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
   }
 }

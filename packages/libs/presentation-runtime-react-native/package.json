@@ -23,14 +23,21 @@
     "@lssm/lib.presentation-runtime-core": "^1.7.2"
   },
   "dependencies": {
-    "@lssm/lib.presentation-runtime-core": "^1.7.2"
+    "@lssm/lib.presentation-runtime-core": "^1.7.2",
+    "@lssm/lib.ui-kit": "^1.7.2"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
   }
 }

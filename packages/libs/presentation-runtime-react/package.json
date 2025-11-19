@@ -24,17 +24,27 @@
   "dependencies": {
     "@lssm/lib.presentation-runtime-core": "^1.7.2",
     "@lssm/lib.contracts": "^1.7.2",
-    "@lssm/lib.design-system": "^1.7.2"
+    "@lssm/lib.design-system": "^1.7.2",
+    "@lssm/lib.ui-kit-web": "^1.7.2"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./useWorkflow": "./dist/useWorkflow.js",
-    "./WorkflowStepper": "./dist/WorkflowStepper.js",
-    "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
+    ".": "./src/index.ts",
+    "./useWorkflow": "./src/useWorkflow.ts",
+    "./WorkflowStepper": "./src/WorkflowStepper.tsx",
+    "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./useWorkflow": "./dist/useWorkflow.js",
+      "./WorkflowStepper": "./dist/WorkflowStepper.js",
+      "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
+      "./*": "./*"
+    }
   }
 }

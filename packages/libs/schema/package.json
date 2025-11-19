@@ -30,11 +30,21 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./EnumType": "./dist/EnumType.js",
-    "./FieldType": "./dist/FieldType.js",
-    "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
-    "./SchemaModel": "./dist/SchemaModel.js",
+    ".": "./src/index.ts",
+    "./EnumType": "./src/EnumType.ts",
+    "./FieldType": "./src/FieldType.ts",
+    "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
+    "./SchemaModel": "./src/SchemaModel.ts",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./EnumType": "./dist/EnumType.js",
+      "./FieldType": "./dist/FieldType.js",
+      "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
+      "./SchemaModel": "./dist/SchemaModel.js",
+      "./*": "./*"
+    }
   }
 }
