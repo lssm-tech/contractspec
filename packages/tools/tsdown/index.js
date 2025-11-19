@@ -20,7 +20,7 @@ const obfuscation = {
 export const base = defineConfig({
   exports: {
     all: true,
-    // devExports: true,
+    devExports: false,
   },
   clean: true,
   sourcemap: false,
