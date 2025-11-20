@@ -5,6 +5,9 @@ on:
     branches:
       - main
     paths:
+      - "**/*"
+      - "package.json"
+      - "bun.lockb"
       - "!.changeset/**"
       - "!CHANGELOG.md"
 
@@ -34,8 +37,8 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Generate Canary Versions
-        run: bun run ./scripts/canary-version.mjs
+      - name: Version packages (canary snapshot)
+        run: bun changeset version --snapshot canary
 
       - name: Build libraries
         run: bun run build:not-apps
@@ -45,7 +48,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TAG: canary
         run: |
-          # We skip changeset publish here and call our script directly
-          # because we've already manually updated versions in package.json
-          # and we don't want Changesets to interfere or look for changeset files
-          bun run ./scripts/publish-packages.js
+          bun changeset publish --tag canary
