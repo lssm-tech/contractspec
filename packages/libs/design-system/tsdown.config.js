@@ -12,9 +12,4 @@ export default defineConfig({
     '!src/**/*.test.tsx',
     '!src/**/__tests__/**',
   ],
-  exports: {
-    all: true,
-    devExports: true,
-  },
-  skipNodeModulesBundle: true,
 });

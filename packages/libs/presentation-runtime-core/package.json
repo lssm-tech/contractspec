@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-core",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -27,7 +27,7 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./*": "./*"
   },
   "publishConfig": {

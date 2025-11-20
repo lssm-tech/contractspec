@@ -240,3 +240,4 @@ export function registerKnowledgeContracts(registry: SpecRegistry) {
 
 
 
+

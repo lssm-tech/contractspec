@@ -111,7 +111,7 @@ export const moduleLibrary = defineConfig({
   platform: 'neutral',
   exports: {
     all: true,
-    devExports: true,
+    devExports: false,
   },
   skipNodeModulesBundle: true,
   ...obfuscation,

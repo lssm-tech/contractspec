@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.error",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -31,10 +31,10 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./appError": "./src/appError.ts",
-    "./codes": "./src/codes.ts",
-    "./http": "./src/http.ts",
+    ".": "./dist/index.js",
+    "./appError": "./dist/appError.js",
+    "./codes": "./dist/codes.js",
+    "./http": "./dist/http.js",
     "./*": "./*"
   },
   "publishConfig": {

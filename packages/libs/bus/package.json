@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.bus",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -19,8 +19,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lssm/lib.schema": "^1.7.2",
-    "@lssm/lib.contracts": "^1.7.2"
+    "@lssm/lib.schema": "^1.7.4",
+    "@lssm/lib.contracts": "^1.7.4"
   },
   "peerDependencies": {
     "elysia": "^1.4.11",
@@ -36,10 +36,10 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./eventBus": "./src/eventBus.ts",
-    "./inMemoryBus": "./src/inMemoryBus.ts",
-    "./subscriber": "./src/subscriber.ts",
+    ".": "./dist/index.js",
+    "./eventBus": "./dist/eventBus.js",
+    "./inMemoryBus": "./dist/inMemoryBus.js",
+    "./subscriber": "./dist/subscriber.js",
     "./*": "./*"
   },
   "publishConfig": {

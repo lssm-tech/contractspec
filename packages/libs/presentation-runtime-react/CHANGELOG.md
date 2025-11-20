@@ -1,5 +1,27 @@
 # @lssm/lib.presentation-runtime-react
 
+## 8.0.4
+
+### Patch Changes
+
+- fix typing
+- Updated dependencies
+  - @lssm/lib.presentation-runtime-core@1.7.4
+  - @lssm/lib.design-system@1.7.4
+  - @lssm/lib.ui-kit-web@1.7.4
+  - @lssm/lib.contracts@1.7.4
+
+## 8.0.3
+
+### Patch Changes
+
+- add right-sidebar
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.3
+  - @lssm/lib.design-system@1.7.3
+  - @lssm/lib.presentation-runtime-core@1.7.3
+  - @lssm/lib.ui-kit-web@1.7.3
+
 ## 8.0.2
 
 ### Patch Changes

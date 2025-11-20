@@ -1,5 +1,17 @@
 # @lssm/lib.logger
 
+## 1.7.4
+
+### Patch Changes
+
+- fix typing
+
+## 1.7.3
+
+### Patch Changes
+
+- add right-sidebar
+
 ## 1.7.2
 
 ### Patch Changes

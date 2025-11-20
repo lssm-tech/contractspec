@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.schema",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -30,11 +30,11 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./EnumType": "./src/EnumType.ts",
-    "./FieldType": "./src/FieldType.ts",
-    "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
-    "./SchemaModel": "./src/SchemaModel.ts",
+    ".": "./dist/index.js",
+    "./EnumType": "./dist/EnumType.js",
+    "./FieldType": "./dist/FieldType.js",
+    "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
+    "./SchemaModel": "./dist/SchemaModel.js",
     "./*": "./*"
   },
   "publishConfig": {
