@@ -627,6 +627,24 @@
   - @contractspec/lib.contracts-spec@1.7.3
   - @contractspec/lib.schema@1.7.3
 
+## 1.7.4
+
+### Patch Changes
+
+- fix typing
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.4
+  - @lssm/lib.schema@1.7.4
+
+## 1.7.3
+
+### Patch Changes
+
+- add right-sidebar
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.3
+  - @lssm/lib.schema@1.7.3
+
 ## 1.7.2
 
 ### Patch Changes

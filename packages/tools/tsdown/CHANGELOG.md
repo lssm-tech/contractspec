@@ -352,6 +352,18 @@
 
 - add right-sidebar
 
+## 0.8.4
+
+### Patch Changes
+
+- fix typing
+
+## 0.8.3
+
+### Patch Changes
+
+- add right-sidebar
+
 ## 0.8.2
 
 ### Patch Changes

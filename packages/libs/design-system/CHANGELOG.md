@@ -752,6 +752,26 @@
   - @contractspec/lib.ui-kit@1.7.3
   - @contractspec/lib.ui-kit-web@1.7.3
 
+## 1.7.4
+
+### Patch Changes
+
+- fix typing
+- Updated dependencies
+  - @lssm/lib.ui-kit-web@1.7.4
+  - @lssm/lib.contracts@1.7.4
+  - @lssm/lib.ui-kit@1.7.4
+
+## 1.7.3
+
+### Patch Changes
+
+- add right-sidebar
+- Updated dependencies
+  - @lssm/lib.contracts@1.7.3
+  - @lssm/lib.ui-kit@1.7.3
+  - @lssm/lib.ui-kit-web@1.7.3
+
 ## 1.7.2
 
 ### Patch Changes
