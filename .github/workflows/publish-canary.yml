@@ -51,3 +51,4 @@ jobs:
           NPM_TAG: canary
         run: |
           bun changeset publish --tag canary
+
