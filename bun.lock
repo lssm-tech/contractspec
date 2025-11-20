@@ -35,7 +35,7 @@
     },
     "packages/apps/contracts-cli": {
       "name": "@lssm/tool.contracts-cli",
-      "version": "0.7.2",
+      "version": "0.7.4",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -63,7 +63,7 @@
     },
     "packages/apps/web-landing": {
       "name": "@lssm/apps.web-contractspec-landing",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
         "@posthog/react": "^1.4.0",
@@ -132,7 +132,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:^1.0.0",
         "@lssm/lib.ui-kit": "workspace:^1.0.0",
@@ -151,7 +151,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:^1.0.0",
         "@lssm/lib.schema": "workspace:^1.0.0",
@@ -171,12 +171,12 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.24.0",
         "@google-cloud/secret-manager": "^6.1.1",
         "@google-cloud/storage": "^7.8.0",
-        "@lssm/lib.schema": "^1.7.2",
+        "@lssm/lib.schema": "^1.7.4",
         "@mistralai/mistralai": "^1.2.3",
         "@modelcontextprotocol/sdk": "^1.20.1",
         "@qdrant/js-client-rest": "^1.11.0",
@@ -212,7 +212,7 @@
     },
     "packages/libs/database": {
       "name": "@lssm/lib.database",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -229,7 +229,7 @@
     },
     "packages/libs/databases": {
       "name": "@lssm/lib.databases",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -244,12 +244,12 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
-        "@lssm/lib.contracts": "^1.7.2",
-        "@lssm/lib.ui-kit": "^1.7.2",
-        "@lssm/lib.ui-kit-web": "^1.7.2",
+        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.ui-kit": "^1.7.4",
+        "@lssm/lib.ui-kit-web": "^1.7.4",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^0.535.0",
@@ -271,7 +271,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.15.9",
@@ -285,7 +285,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.15.9",
@@ -294,7 +294,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -315,7 +315,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@apollo/subgraph": "^2.8.0",
         "@pothos/core": "^4.9.1",
@@ -334,7 +334,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@lssm/lib.schema": "workspace:^1.0.0",
         "@pothos/core": "^4.9.1",
@@ -357,7 +357,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -371,9 +371,31 @@
         "elysia",
       ],
     },
+    "packages/libs/multi-tenancy": {
+      "name": "@lssm/lib.multi-tenancy",
+      "version": "0.0.1",
+      "devDependencies": {
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0",
+      },
+      "peerDependencies": {
+        "@prisma/client": "*",
+      },
+    },
+    "packages/libs/observability": {
+      "name": "@lssm/lib.observability",
+      "version": "0.0.1",
+      "devDependencies": {
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0",
+      },
+      "peerDependencies": {
+        "@opentelemetry/api": "*",
+      },
+    },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "devDependencies": {
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
@@ -384,15 +406,15 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "8.0.2",
+      "version": "8.0.4",
       "dependencies": {
-        "@lssm/lib.contracts": "^1.7.2",
-        "@lssm/lib.design-system": "^1.7.2",
-        "@lssm/lib.presentation-runtime-core": "^1.7.2",
-        "@lssm/lib.ui-kit-web": "^1.7.2",
+        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.design-system": "^1.7.4",
+        "@lssm/lib.presentation-runtime-core": "^1.7.4",
+        "@lssm/lib.ui-kit-web": "^1.7.4",
       },
       "peerDependencies": {
-        "@lssm/lib.presentation-runtime-core": "^1.7.2",
+        "@lssm/lib.presentation-runtime-core": "^1.7.4",
         "react": "^19.1.0",
         "react-hook-form": "7.66.0",
         "zod": "^4.1.5",
@@ -400,22 +422,30 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "8.0.2",
+      "version": "8.0.4",
       "dependencies": {
-        "@lssm/lib.presentation-runtime-core": "^1.7.2",
-        "@lssm/lib.ui-kit": "^1.7.2",
+        "@lssm/lib.presentation-runtime-core": "^1.7.4",
+        "@lssm/lib.ui-kit": "^1.7.4",
       },
       "peerDependencies": {
-        "@lssm/lib.presentation-runtime-core": "^1.7.2",
+        "@lssm/lib.presentation-runtime-core": "^1.7.4",
         "react": "^19.1.0",
         "react-hook-form": "7.66.0",
         "react-native": "*",
         "zod": "^4.1.5",
       },
     },
+    "packages/libs/resilience": {
+      "name": "@lssm/lib.resilience",
+      "version": "0.0.1",
+      "devDependencies": {
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0",
+      },
+    },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "^4.1.5",
@@ -429,7 +459,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
@@ -507,7 +537,7 @@
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@radix-ui/react-accordion": "^1.2.11",
@@ -578,7 +608,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.7.2",
+      "version": "1.7.4",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -588,14 +618,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "0.8.2",
+      "version": "0.8.4",
       "peerDependencies": {
         "tsdown": "^0.15.4",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
-      "version": "0.7.2",
+      "version": "0.7.4",
       "devDependencies": {
         "typescript": "^5.9.3",
       },
@@ -1228,11 +1258,17 @@
 
     "@lssm/lib.logger": ["@lssm/lib.logger@workspace:packages/libs/logger"],
 
+    "@lssm/lib.multi-tenancy": ["@lssm/lib.multi-tenancy@workspace:packages/libs/multi-tenancy"],
+
+    "@lssm/lib.observability": ["@lssm/lib.observability@workspace:packages/libs/observability"],
+
     "@lssm/lib.presentation-runtime-core": ["@lssm/lib.presentation-runtime-core@workspace:packages/libs/presentation-runtime-core"],
 
     "@lssm/lib.presentation-runtime-react": ["@lssm/lib.presentation-runtime-react@workspace:packages/libs/presentation-runtime-react"],
 
     "@lssm/lib.presentation-runtime-react-native": ["@lssm/lib.presentation-runtime-react-native@workspace:packages/libs/presentation-runtime-react-native"],
+
+    "@lssm/lib.resilience": ["@lssm/lib.resilience@workspace:packages/libs/resilience"],
 
     "@lssm/lib.schema": ["@lssm/lib.schema@workspace:packages/libs/schema"],
 
