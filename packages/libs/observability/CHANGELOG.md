@@ -9,3 +9,4 @@
 - Metrics collection (counters, histograms)
 - Structured logging with trace correlation
 - HTTP tracing middleware
+
