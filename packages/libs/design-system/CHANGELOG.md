@@ -752,6 +752,19 @@
   - @contractspec/lib.ui-kit@1.7.3
   - @contractspec/lib.ui-kit-web@1.7.3
 
+## 1.8.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
+### Patch Changes
+
+- Updated dependencies [f1f4ddd]
+  - @lssm/lib.ui-kit-web@1.8.0
+  - @lssm/lib.contracts@1.8.0
+  - @lssm/lib.ui-kit@1.8.0
+
 ## 1.7.4
 
 ### Patch Changes

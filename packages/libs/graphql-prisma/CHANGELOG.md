@@ -546,6 +546,17 @@
 - Updated dependencies
   - @contractspec/lib.schema@1.7.3
 
+## 1.8.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
+### Patch Changes
+
+- Updated dependencies [f1f4ddd]
+  - @lssm/lib.schema@1.8.0
+
 ## 1.7.4
 
 ### Patch Changes
