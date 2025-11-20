@@ -6,7 +6,11 @@
  *
  * Includes a minimal OpRegistry shim for backward-compat (deprecated).
  */
-import { type ContractSpec, type TelemetryTrigger, isEmitDeclRef } from './spec';
+import {
+  type ContractSpec,
+  type TelemetryTrigger,
+  isEmitDeclRef,
+} from './spec';
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
 import { eventKey } from './events';
@@ -33,7 +37,13 @@ export class SpecRegistry {
   private specs = new Map<OperationKey, AnySpec>();
   private handlers = new Map<OperationKey, AnyHandler>();
 
-  /** Register a ContractSpec. Throws if duplicate key. */
+  /**
+   * Registers a ContractSpec definition.
+   *
+   * @param spec - The contract specification to register.
+   * @returns The registry instance for chaining.
+   * @throws If a spec with the same name and version is already registered.
+   */
   register<
     I extends AnySchemaModel,
     O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
@@ -44,7 +54,14 @@ export class SpecRegistry {
     return this;
   }
 
-  /** Bind a handler implementation to a previously-registered spec. */
+  /**
+   * Binds a runtime handler implementation to a previously registered spec.
+   *
+   * @param spec - The spec to bind to.
+   * @param handler - The async function implementing the business logic.
+   * @returns The registry instance for chaining.
+   * @throws If the spec is not found or a handler is already bound.
+   */
   bind<
     I extends AnySchemaModel,
     O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
@@ -59,7 +76,13 @@ export class SpecRegistry {
     return this;
   }
 
-  /** Retrieve a spec; if version omitted, returns highest version. */
+  /**
+   * Retrieves a registered spec by name and version.
+   * If version is omitted, returns the highest version found.
+   *
+   * @param name - Operation name.
+   * @param version - (Optional) Specific version.
+   */
   getSpec(name: string, version?: number): AnySpec | undefined {
     if (version != null) return this.specs.get(opKey(name, version));
     // find highest version by scanning keys of the same name
@@ -75,7 +98,9 @@ export class SpecRegistry {
     return found;
   }
 
-  /** Retrieve a handler for given name/version. */
+  /**
+   * Retrieves the bound handler for a spec.
+   */
   getHandler(name: string, version?: number): AnyHandler | undefined {
     const spec = this.getSpec(name, version);
     if (!spec) return undefined;
@@ -98,11 +123,17 @@ export class SpecRegistry {
   }
 
   /**
-   * Execute an operation by name/version:
-   * - Validates input against zod
-   * - Enforces policy (auth/flags/rate-limit/escalation)
-   * - Guards event emission to declared events (via ctx.__emitGuard__)
-   * - Validates output (SchemaModel outputs)
+   * Execute an operation by name/version with full runtime protections:
+   * 1. Validates input against Zod schema.
+   * 2. Enforces policy (Auth, RBAC, Rate Limits) via PDP.
+   * 3. Guards event emission to ensure only declared events are sent.
+   * 4. Validates output against Zod schema (if applicable).
+   * 5. Tracks telemetry (success/failure).
+   *
+   * @param name - Operation name.
+   * @param version - Operation version (optional, defaults to latest).
+   * @param rawInput - The raw input payload (e.g. from JSON body).
+   * @param ctx - The runtime context (actor, tenant, etc.).
    */
   async execute(
     name: string,

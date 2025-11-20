@@ -9,6 +9,9 @@ import type { Owner, Stability, Tag } from './ownership';
 import type { PolicyRef } from './policy/spec';
 import type { TestSpecRef } from './tests/spec';
 
+/**
+ * Distinguishes between state-changing operations (command) and read-only operations (query).
+ */
 export type OpKind = 'command' | 'query';
 
 // preferred: reference a declared event
@@ -23,6 +26,10 @@ export interface EmitDeclInline {
   when: string;
   payload: AnySchemaModel;
 }
+/**
+ * Declaration of an event that an operation may emit.
+ * Can be a reference to an `EventSpec` or an inline definition.
+ */
 export type EmitDecl = EmitDeclRef | EmitDeclInline;
 export const isEmitDeclRef = (e: EmitDecl): e is EmitDeclRef => 'ref' in e;
 
@@ -35,6 +42,13 @@ export interface TelemetryTrigger {
   }) => Record<string, unknown>;
 }
 
+/**
+ * The core specification interface for any operation (Command or Query).
+ *
+ * @template Input - The Zod-backed schema model for the input payload.
+ * @template Output - The Zod-backed schema model for the output payload, or a resource reference.
+ * @template Events - Tuple of events that this operation may emit.
+ */
 export interface ContractSpec<
   Input extends AnySchemaModel,
   Output extends AnySchemaModel | ResourceRefDescriptor<boolean>,
@@ -157,6 +171,10 @@ export type AnyContractSpec = ContractSpec<
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
 
+/**
+ * Helper to define a Command (write operation).
+ * Sets `kind: 'command'` and defaults `idempotent: false`.
+ */
 export const defineCommand = <
   I extends AnySchemaModel,
   O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
@@ -177,6 +195,10 @@ export const defineCommand = <
   },
 });
 
+/**
+ * Helper to define a Query (read-only operation).
+ * Sets `kind: 'query'` and forces `idempotent: true`.
+ */
 export const defineQuery = <
   I extends AnySchemaModel,
   O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
