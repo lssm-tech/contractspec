@@ -5,11 +5,11 @@ on:
     branches:
       - main
     paths:
-      - "packages/contractspec/**"
+      - "./**"
       - "package.json"
       - "bun.lockb"
-      - "!packages/contractspec/.changeset/**"
-      - "!packages/contractspec/CHANGELOG.md"
+      - "!.changeset/**"
+      - "!CHANGELOG.md"
 
 jobs:
   publish-canary:
@@ -38,7 +38,7 @@ jobs:
         run: bun install
 
       - name: Generate Canary Versions
-        run: bun packages/contractspec/scripts/canary-version.mjs
+        run: bun scripts/canary-version.mjs
 
       - name: Build libraries
         run: bun run build:not-apps
@@ -51,4 +51,4 @@ jobs:
           # We skip changeset publish here and call our script directly
           # because we've already manually updated versions in package.json
           # and we don't want Changesets to interfere or look for changeset files
-          bun packages/contractspec/scripts/publish-packages.js
+          bun scripts/publish-packages.js
