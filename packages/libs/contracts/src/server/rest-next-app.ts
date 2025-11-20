@@ -3,10 +3,30 @@ import type { SpecRegistry } from '../registry';
 import type { HandlerCtx } from '../types';
 
 /**
- * Build a single Next.js App Router handler for a catch-all route:
- *   app/api/[...all]/route.ts
+ * Creates a Next.js App Router route handler for ContractSpec operations.
  *
- * You can also call this from a specific route; it matches full paths internally.
+ * This function returns a handler suitable for `export const { GET, POST }` in a `route.ts` file.
+ * It handles:
+ * - Path parsing to determine the operation name and version.
+ * - Body parsing (JSON).
+ * - Context creation via `ctxFactory`.
+ * - Execution via `SpecRegistry`.
+ * - Response formatting (JSON success/error).
+ *
+ * @param reg - The SpecRegistry containing the operations.
+ * @param ctxFactory - A factory function to build the `HandlerCtx` (e.g., auth, tenant) from the request.
+ * @param options - Optional configuration for the REST handler.
+ * @returns A function `(req: Request) => Promise<Response>`.
+ *
+ * @example
+ * ```ts
+ * // app/api/[...route]/route.ts
+ * import { makeNextAppHandler } from '@lssm/lib.contracts/server/rest-next-app';
+ * import { registry } from '@/lib/registry';
+ *
+ * const handler = makeNextAppHandler(registry, (req) => ({ actor: 'anonymous' }));
+ * export { handler as GET, handler as POST };
+ * ```
  */
 export function makeNextAppHandler(
   reg: SpecRegistry,

@@ -25,10 +25,23 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 import z from 'zod';
 
 /**
- * Build a unified MCP server exposing:
- * - tools: all command specs from SpecRegistry
- * - resources: list/read via ResourceRegistry
- * - prompts: list/get via PromptRegistry
+ * Creates a unified Model Context Protocol (MCP) server exposing operations, resources, and prompts.
+ *
+ * This function takes registries for operations, resources, and prompts, and exposes them as
+ * MCP Tools, Resources, and Prompts respectively. It enables AI agents to discover and interact
+ * with the application's capabilities.
+ *
+ * Features:
+ * - **Tools**: Exposes `command` operations as executable tools.
+ * - **Resources**: Exposes `ResourceRegistry` entries and `PresentationSpec`s (Markdown/JSON) as read-only resources.
+ * - **Prompts**: Exposes `PromptRegistry` entries as templated prompts.
+ *
+ * @param server - The `McpServer` instance to populate.
+ * @param ops - Registry containing operations (tools).
+ * @param resources - Registry containing data resources.
+ * @param prompts - Registry containing prompt templates.
+ * @param ctxFactories - Factories to create context for tools, resources, and prompts execution.
+ * @returns The populated `McpServer` instance.
  */
 export function createMcpServer(
   server: McpServer,
@@ -36,19 +49,24 @@ export function createMcpServer(
   resources: ResourceRegistry,
   prompts: PromptRegistry,
   ctxFactories: {
+    /** Factory for tool execution context (e.g., system actor) */
     toolCtx: () => HandlerCtx;
+    /** Factory for prompt rendering context */
     promptCtx: () => {
       userId?: string | null;
       orgId?: string | null;
       locale?: string;
     };
+    /** Factory for resource resolution context */
     resourceCtx: () => {
       userId?: string | null;
       orgId?: string | null;
       locale?: string;
     };
-    presentations?: PresentationRegistry; // optional extra carrier without breaking call sites
-    presentationsV2?: PresentationDescriptorV2[]; // unified descriptors
+    /** Optional registry for V1 presentations */
+    presentations?: PresentationRegistry;
+    /** Optional list of V2 presentation descriptors */
+    presentationsV2?: PresentationDescriptorV2[];
   }
 ) {
   /* ---------- Tools (commands) ---------- */

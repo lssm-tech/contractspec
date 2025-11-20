@@ -21,8 +21,21 @@ import {
 } from '../contracts-adapter-hydration';
 
 /**
- * Register all ContractSpecs from a SpecRegistry onto a Pothos builder
- * as Query/Mutation fields, mapping inputs/outputs and applying auth gate.
+ * Registers all ContractSpecs from a SpecRegistry onto a Pothos SchemaBuilder.
+ *
+ * This adapter:
+ * 1. Discovers output types from specs and registers them as Pothos object types.
+ * 2. Maps `ContractSpec` inputs to Pothos input types.
+ * 3. Mounts `query` specs as `Query` fields and `command` specs as `Mutation` fields.
+ * 4. Wraps the resolver to:
+ *    - Enforce auth policies (basic check).
+ *    - Build a `HandlerCtx`.
+ *    - Execute via `SpecRegistry`.
+ *    - Hydrate resource references if applicable.
+ *
+ * @param builder - The Pothos SchemaBuilder instance.
+ * @param reg - The SpecRegistry containing operations.
+ * @param resources - (Optional) ResourceRegistry for hydrating resource references.
  */
 export function registerContractsOnBuilder<T extends SchemaTypes>(
   builder: PothosSchemaTypes.SchemaBuilder<T>,
