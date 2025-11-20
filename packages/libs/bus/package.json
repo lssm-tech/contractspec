@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.bus",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -19,8 +19,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lssm/lib.schema": "^1.7.4",
-    "@lssm/lib.contracts": "^1.7.4"
+    "@lssm/lib.schema": "^1.8.0",
+    "@lssm/lib.contracts": "^1.8.0"
   },
   "peerDependencies": {
     "elysia": "^1.4.11",

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.databases",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "type": "module",
   "bin": {
     "databases": "dist/cli.js"

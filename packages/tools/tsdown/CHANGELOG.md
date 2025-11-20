@@ -1,5 +1,11 @@
 # @lssm/tool.tsdown
 
+## 0.9.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
 ## 0.8.4
 
 ### Patch Changes

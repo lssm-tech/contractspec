@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.accessibility",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,9 +12,9 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.design-system": "^1.7.4",
-    "@lssm/lib.ui-kit": "^1.7.4",
-    "@lssm/lib.ui-kit-web": "^1.7.4"
+    "@lssm/lib.design-system": "^1.8.0",
+    "@lssm/lib.ui-kit": "^1.8.0",
+    "@lssm/lib.ui-kit-web": "^1.8.0"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "*",
