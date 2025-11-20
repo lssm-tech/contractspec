@@ -35,7 +35,7 @@ jobs:
         run: bun install
 
       - name: Generate Canary Versions
-        run: bun scripts/canary-version.mjs
+        run: bun run ./scripts/canary-version.mjs
 
       - name: Build libraries
         run: bun run build:not-apps
@@ -48,4 +48,4 @@ jobs:
           # We skip changeset publish here and call our script directly
           # because we've already manually updated versions in package.json
           # and we don't want Changesets to interfere or look for changeset files
-          bun scripts/publish-packages.js
+          bun run ./scripts/publish-packages.js
