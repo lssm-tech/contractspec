@@ -42,3 +42,4 @@ await service.provision({
 ## Documentation
 
 Full docs: https://contractspec.chaman.ventures/docs/libraries/multi-tenancy
+
