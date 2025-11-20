@@ -110,6 +110,7 @@ export class WorkflowRunner {
       workflowVersion: spec.meta.version,
       currentStep: entryStepId,
       data: { ...(initialData ?? {}) },
+      retryCounts: {},
       history: [],
       status: 'running',
       createdAt: now,
@@ -209,11 +210,46 @@ export class WorkflowRunner {
     } catch (error) {
       execution.status = 'failed';
       execution.completedAt = new Date();
-      execution.error =
-        error instanceof Error ? error.message : String(error);
+      execution.error = error instanceof Error ? error.message : String(error);
       workingState.history.push(execution);
-      workingState.status = 'failed';
       workingState.updatedAt = new Date();
+
+      if (step.retry) {
+        const retries = state.retryCounts?.[step.id] ?? 0;
+        if (retries < step.retry.maxAttempts) {
+          const backoff = step.retry.backoff ?? 'exponential';
+          const baseDelay = step.retry.delayMs ?? 1000;
+          const delay =
+            backoff === 'exponential'
+              ? baseDelay * Math.pow(2, retries)
+              : baseDelay;
+          const cappedDelay = Math.min(
+            delay,
+            step.retry.maxDelayMs ?? Infinity
+          );
+
+          workingState.retryCounts = {
+            ...(state.retryCounts ?? {}),
+            [step.id]: retries + 1,
+          };
+          workingState.status = 'running';
+
+          await this.config.stateStore.update(workflowId, () => workingState);
+          this.emit('workflow.step_retrying', {
+            workflowId,
+            workflowName: state.workflowName,
+            stepId: step.id,
+            attempt: retries + 1,
+            delay: cappedDelay,
+            error: execution.error,
+          });
+
+          await new Promise((resolve) => setTimeout(resolve, cappedDelay));
+          return this.executeStep(workflowId, input);
+        }
+      }
+
+      workingState.status = 'failed';
       await this.config.stateStore.update(workflowId, () => workingState);
       this.emit('workflow.step_failed', {
         workflowId,
@@ -221,8 +257,92 @@ export class WorkflowRunner {
         stepId: step.id,
         error: execution.error ?? 'unknown',
       });
+
+      // Trigger compensation if configured
+      if (spec.definition.compensation?.trigger === 'on_failure') {
+        await this.rollback(workflowId);
+      }
+
       throw error;
     }
+  }
+
+  async rollback(workflowId: string): Promise<void> {
+    const state = await this.getStateOrThrow(workflowId);
+    const spec = this.getSpec(state.workflowName, state.workflowVersion);
+
+    if (!spec.definition.compensation) {
+      return;
+    }
+
+    this.emit('workflow.rollback_started', { workflowId });
+
+    // Filter history for completed automation steps in reverse order
+    const completedSteps = state.history
+      .filter((h) => h.status === 'completed')
+      .reverse();
+
+    for (const execution of completedSteps) {
+      const compStep = spec.definition.compensation.steps.find(
+        (s) => s.stepId === execution.stepId
+      );
+      if (compStep) {
+        const input = {
+          stepId: execution.stepId,
+          originalInput: execution.input,
+          originalOutput: execution.output,
+          workflowData: state.data,
+        };
+
+        try {
+          // Create a context for the compensation step
+          // We use the same state as it provides access to data/history
+          const step = getCurrentStep(spec, execution.stepId);
+          const resolvedAppConfig = this.config.appConfigProvider
+            ? await this.config.appConfigProvider(state)
+            : undefined;
+
+          const executorContext: OperationExecutorContext = {
+            workflow: state,
+            step,
+            resolvedAppConfig,
+            integrations: resolvedAppConfig?.integrations ?? [],
+            knowledge: resolvedAppConfig?.knowledge ?? [],
+            branding: resolvedAppConfig?.branding,
+            translation: resolvedAppConfig?.translation,
+            translationResolver: this.config.translationResolver,
+            secretProvider: this.config.secretProvider,
+          };
+
+          await this.config.opExecutor(
+            compStep.operation,
+            input,
+            executorContext
+          );
+
+          this.emit('workflow.compensation_step_completed', {
+            workflowId,
+            stepId: execution.stepId,
+            compensationOp: compStep.operation.name,
+          });
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error ? error.message : String(error);
+          this.emit('workflow.compensation_step_failed', {
+            workflowId,
+            stepId: execution.stepId,
+            compensationOp: compStep.operation.name,
+            error: errorMessage,
+          });
+          // We continue with other compensations even if one fails (best effort)
+        }
+      }
+    }
+
+    // We don't change status from 'failed' or 'cancelled' usually,
+    // but we might want to mark that rollback was attempted/completed.
+    // For now, just emitting events is enough.
+    this.emit('workflow.rollback_completed', { workflowId });
   }
 
   async getState(workflowId: string): Promise<WorkflowState> {
@@ -390,7 +510,9 @@ export class WorkflowRunner {
           output,
         })
       ) {
-        const target = spec.definition.steps.find((s) => s.id === transition.to);
+        const target = spec.definition.steps.find(
+          (s) => s.id === transition.to
+        );
         if (!target)
           throw new Error(
             `Transition ${transition.from} -> ${transition.to} points to missing step.`
@@ -445,15 +567,13 @@ function hasOutgoing(spec: WorkflowSpec, stepId: string): boolean {
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return (
-    value != null &&
-    typeof value === 'object' &&
-    !Array.isArray(value)
-  );
+  return value != null && typeof value === 'object' && !Array.isArray(value);
 }
 
 function isTerminalStatus(status: WorkflowState['status']) {
-  return status === 'completed' || status === 'failed' || status === 'cancelled';
+  return (
+    status === 'completed' || status === 'failed' || status === 'cancelled'
+  );
 }
 
 export class WorkflowPreFlightError extends Error {
@@ -471,4 +591,3 @@ export class WorkflowPreFlightError extends Error {
 function capabilityKey(ref: CapabilityRef): string {
   return `${ref.key}@${ref.version}`;
 }
-

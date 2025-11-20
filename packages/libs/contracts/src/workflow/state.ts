@@ -16,6 +16,7 @@ export interface WorkflowState {
   workflowVersion: number;
   currentStep: string;
   data: Record<string, unknown>;
+  retryCounts?: Record<string, number>;
   history: StepExecution[];
   status: WorkflowStatus;
   createdAt: Date;
@@ -35,4 +36,3 @@ export interface StateStore {
   ): Promise<WorkflowState>;
   list(filters?: WorkflowStateFilters): Promise<WorkflowState[]>;
 }
-

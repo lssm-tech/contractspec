@@ -1,0 +1,33 @@
+{
+  "name": "@lssm/lib.observability",
+  "version": "0.0.1",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./logging": "./dist/logging/index.mjs",
+    "./metrics": "./dist/metrics/index.mjs",
+    "./tracing": "./dist/tracing/index.mjs",
+    "./tracing/middleware": "./dist/tracing/middleware.mjs",
+    "./*": "./*"
+  },
+  "module": "./dist/index.mjs"
+}
