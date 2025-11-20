@@ -1,5 +1,19 @@
 # @lssm/lib.presentation-runtime-react
 
+## 9.0.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
+### Patch Changes
+
+- Updated dependencies [f1f4ddd]
+  - @lssm/lib.presentation-runtime-core@1.8.0
+  - @lssm/lib.design-system@1.8.0
+  - @lssm/lib.ui-kit-web@1.8.0
+  - @lssm/lib.contracts@1.8.0
+
 ## 8.0.4
 
 ### Patch Changes

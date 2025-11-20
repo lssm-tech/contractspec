@@ -1,5 +1,11 @@
 # @lssm/lib.graphql-core
 
+## 1.8.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
 ## 1.7.4
 
 ### Patch Changes
