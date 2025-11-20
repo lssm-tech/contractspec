@@ -41,3 +41,4 @@ const update: DeepPartial<User> = {
   profile: { name: 'Alice' }, // Valid
 };
 ```
+

@@ -45,3 +45,4 @@ await bus.publish('user.created', { userId: '123', email: 'test@example.com' });
 // 4. Cleanup
 unsubscribe();
 ```
+

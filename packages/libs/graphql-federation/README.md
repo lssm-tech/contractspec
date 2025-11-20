@@ -30,3 +30,4 @@ builder.asEntity(User, {
   resolveReference: (ref) => getUser(ref.id),
 });
 ```
+

@@ -35,3 +35,4 @@ const csv = toCSV(data);
 // Generate XML string
 const xml = toXML(data, { rootName: 'Users', itemName: 'User' });
 ```
+
