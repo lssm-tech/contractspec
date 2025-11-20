@@ -136,7 +136,7 @@ const getPublishedVersions = (packageName) => {
   }
 };
 
-const publishSinglePackage = ({ name, dir }, versionMap, dryRun) => {
+const publishSinglePackage = ({ name, dir }, versionMap, dryRun, npmTag = 'latest') => {
   const pkgDir = path.join(repoRoot, dir);
   const manifestPath = path.join(pkgDir, 'package.json');
   const original = fs.readFileSync(manifestPath, 'utf8');
@@ -147,7 +147,7 @@ const publishSinglePackage = ({ name, dir }, versionMap, dryRun) => {
     updateWorkspaceSpecifiers(manifest, versionMap);
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
-    console.log(`\n[publish] ${name}@${version}`);
+    console.log(`\n[publish] ${name}@${version} (tag: ${npmTag})`);
 
     if (dryRun) {
       console.log(
@@ -166,7 +166,7 @@ const publishSinglePackage = ({ name, dir }, versionMap, dryRun) => {
       return { name, version, published: false, reason: 'already-published' };
     }
 
-    execSync('npm publish --access public --ignore-scripts', {
+    execSync(`npm publish --access public --tag ${npmTag} --ignore-scripts`, {
       cwd: pkgDir,
       stdio: 'inherit',
     });
@@ -177,7 +177,7 @@ const publishSinglePackage = ({ name, dir }, versionMap, dryRun) => {
   }
 };
 
-export async function publishPackages({ packageNames, dryRun } = {}) {
+export async function publishPackages({ packageNames, dryRun, npmTag = 'latest' } = {}) {
   const versionMap = buildLocalVersionMap();
   const targets =
     packageNames && packageNames.length > 0
@@ -192,7 +192,7 @@ export async function publishPackages({ packageNames, dryRun } = {}) {
       console.warn(`[publish] Package ${name} is not in the release map.`);
       continue;
     }
-    results.push(publishSinglePackage(descriptor, versionMap, dryRun));
+    results.push(publishSinglePackage(descriptor, versionMap, dryRun, npmTag));
   }
 
   return results;
@@ -204,5 +204,6 @@ const isExecutedDirectly =
 
 if (isExecutedDirectly) {
   const dryRun = process.env.DRY_RUN === 'true' || process.env.DRY_RUN === '1';
-  await publishPackages({ dryRun });
+  const npmTag = process.env.NPM_TAG || 'latest';
+  await publishPackages({ dryRun, npmTag });
 }
