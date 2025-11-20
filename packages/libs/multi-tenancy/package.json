@@ -1,0 +1,35 @@
+{
+  "name": "@lssm/lib.multi-tenancy",
+  "version": "0.0.1",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@prisma/client": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./isolation": "./dist/isolation/index.mjs",
+    "./isolation/validator": "./dist/isolation/validator.mjs",
+    "./provisioning": "./dist/provisioning/index.mjs",
+    "./provisioning/service": "./dist/provisioning/service.mjs",
+    "./rls": "./dist/rls/index.mjs",
+    "./rls/prisma-middleware": "./dist/rls/prisma-middleware.mjs",
+    "./*": "./*"
+  },
+  "module": "./dist/index.mjs"
+}
