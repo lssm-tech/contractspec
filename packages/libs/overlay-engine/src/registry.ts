@@ -42,13 +42,20 @@ export class OverlayRegistry {
 
   constructor(private readonly options: OverlayRegistryOptions = {}) {}
 
-  register(overlay: OverlayInput, options?: { skipValidation?: boolean }): SignedOverlaySpec {
+  register(
+    overlay: OverlayInput,
+    options?: { skipValidation?: boolean }
+  ): SignedOverlaySpec {
     if (!options?.skipValidation) {
       const validator = this.options.validator ?? defaultOverlayValidator;
       const result = validator(overlay as SignedOverlaySpec);
       if (!result.valid) {
-        const reason = result.issues.map((issue) => `${issue.code}: ${issue.message}`).join('; ');
-        throw new Error(`Overlay "${overlay.overlayId}" failed validation: ${reason}`);
+        const reason = result.issues
+          .map((issue) => `${issue.code}: ${issue.message}`)
+          .join('; ');
+        throw new Error(
+          `Overlay "${overlay.overlayId}" failed validation: ${reason}`
+        );
       }
     }
 
@@ -113,7 +120,9 @@ export class OverlayRegistry {
     }
 
     if (!this.options.allowUnsigned) {
-      throw new Error(`Overlay "${input.overlayId}" must be signed before registration.`);
+      throw new Error(
+        `Overlay "${input.overlayId}" must be signed before registration.`
+      );
     }
 
     return input as SignedOverlaySpec;
@@ -130,15 +139,17 @@ function isSignedOverlay(spec: OverlayInput): spec is SignedOverlaySpec {
 
 function computeSpecificity(appliesTo: OverlayAppliesTo): number {
   let score = 0;
-  (Object.keys(SCOPE_WEIGHTS) as (keyof OverlayScopeContext)[]).forEach((key) => {
-    const hasValue =
-      key === 'tags'
-        ? Array.isArray(appliesTo.tags) && appliesTo.tags.length > 0
-        : Boolean(appliesTo[key]);
-    if (hasValue) {
-      score += SCOPE_WEIGHTS[key];
+  (Object.keys(SCOPE_WEIGHTS) as (keyof OverlayScopeContext)[]).forEach(
+    (key) => {
+      const hasValue =
+        key === 'tags'
+          ? Array.isArray(appliesTo.tags) && appliesTo.tags.length > 0
+          : Boolean(appliesTo[key]);
+      if (hasValue) {
+        score += SCOPE_WEIGHTS[key];
+      }
     }
-  });
+  );
   return score;
 }
 
@@ -175,4 +186,3 @@ function matches(appliesTo: OverlayAppliesTo, ctx: OverlayLookup): boolean {
 
   return true;
 }
-

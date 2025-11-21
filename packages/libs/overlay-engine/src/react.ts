@@ -6,7 +6,7 @@ import { OverlayEngine } from './runtime';
 export function useOverlay<T extends OverlayRenderable>(
   engine: OverlayEngine | undefined,
   params: OverlayApplyParams<T>,
-  deps: DependencyList = [],
+  deps: DependencyList = []
 ): OverlayRuntimeResult<T> {
   return useMemo(() => {
     if (!engine) {
@@ -22,9 +22,8 @@ export function useOverlay<T extends OverlayRenderable>(
 export function useOverlayFields<T extends OverlayRenderable>(
   engine: OverlayEngine | undefined,
   params: OverlayApplyParams<T>,
-  deps: DependencyList = [],
+  deps: DependencyList = []
 ): T['fields'] {
   const result = useOverlay(engine, params, deps);
   return result.target.fields;
 }
-

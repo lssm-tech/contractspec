@@ -8,7 +8,8 @@ export interface OverlayEngineOptions {
   audit?: (event: OverlayAuditEvent) => void;
 }
 
-export interface OverlayApplyParams<T extends OverlayRenderable> extends OverlayLookup {
+export interface OverlayApplyParams<T extends OverlayRenderable>
+  extends OverlayLookup {
   target: T;
   overlays?: SignedOverlaySpec[];
   strict?: ApplyOverlayOptions['strict'];
@@ -28,7 +29,9 @@ export class OverlayEngine {
     this.audit = options.audit;
   }
 
-  apply<T extends OverlayRenderable>(params: OverlayApplyParams<T>): OverlayRuntimeResult<T> {
+  apply<T extends OverlayRenderable>(
+    params: OverlayApplyParams<T>
+  ): OverlayRuntimeResult<T> {
     const overlays =
       params.overlays ??
       this.registry.forContext({
@@ -76,4 +79,3 @@ function extractContext(params: OverlayLookup): OverlayAuditEvent['context'] {
     tags: params.tags,
   };
 }
-
