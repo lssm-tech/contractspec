@@ -141,14 +141,28 @@ export class SpecRegistry {
     rawInput: unknown,
     ctx: HandlerCtx
   ): Promise<unknown> {
-    const spec = this.getSpec(name, version);
-    if (!spec)
+    const baseSpec = this.getSpec(name, version);
+    if (!baseSpec)
       throw new Error(
         `Spec not found for ${name}${version ? `.v${version}` : ''}`
       );
+    const spec =
+      (await ctx.specVariantResolver?.resolve(
+        {
+          name: baseSpec.meta.name,
+          version: baseSpec.meta.version,
+          kind: baseSpec.meta.kind,
+        },
+        ctx
+      )) ?? baseSpec;
 
-    const key = opKey(spec.meta.name, spec.meta.version);
-    const handler = this.handlers.get(key);
+    let key = opKey(spec.meta.name, spec.meta.version);
+    let handler = this.handlers.get(key);
+    if (!handler) {
+      const fallbackKey = opKey(baseSpec.meta.name, baseSpec.meta.version);
+      handler = this.handlers.get(fallbackKey);
+      key = fallbackKey;
+    }
     if (!handler) throw new Error(`No handler bound for ${key}`);
 
     // 1) Validate input

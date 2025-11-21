@@ -1,0 +1,46 @@
+{
+  "name": "@lssm/lib.analytics",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./churn": "./dist/churn/index.js",
+    "./churn/predictor": "./dist/churn/predictor.js",
+    "./cohort": "./dist/cohort/index.js",
+    "./cohort/tracker": "./dist/cohort/tracker.js",
+    "./funnel": "./dist/funnel/index.js",
+    "./funnel/analyzer": "./dist/funnel/analyzer.js",
+    "./growth": "./dist/growth/index.js",
+    "./growth/hypothesis-generator": "./dist/growth/hypothesis-generator.js",
+    "./types": "./dist/types.js",
+    "./*": "./*"
+  }
+}

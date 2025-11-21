@@ -43,8 +43,10 @@
         "@ai-sdk/anthropic": "^2.0.40",
         "@ai-sdk/openai": "^2.0.60",
         "@inquirer/prompts": "^7.10.1",
-        "@lssm/lib.contracts": "workspace:*",
-        "@lssm/lib.schema": "workspace:*",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.database": "*",
+        "@lssm/lib.schema": "*",
+        "@lssm/lib.testing": "*",
         "ai": "^5.0.86",
         "chalk": "^5.6.2",
         "commander": "^14.0.2",
@@ -265,7 +267,7 @@
         "prisma": "^6.17.1",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.15.9",
       },
     },
@@ -324,6 +326,25 @@
         "elysia": "^1.4.11",
         "express": "^5.1.0",
         "next": "15.5.6",
+      },
+    },
+    "packages/libs/evolution": {
+      "name": "@lssm/lib.evolution",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "^*",
+        "@lssm/lib.observability": "*",
+        "@lssm/lib.schema": "*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+      "peerDependencies": {
+        "@prisma/client": "*",
       },
     },
     "packages/libs/exporter": {
@@ -403,6 +424,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@lssm/lib.analytics": "^0.1.0",
+        "@lssm/lib.contracts": "^1.7.4",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "*",
@@ -519,6 +541,20 @@
       "version": "0.1.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "^0.1.0",
+        "@lssm/lib.contracts": "^1.7.4",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
+    "packages/libs/testing": {
+      "name": "@lssm/lib.testing",
+      "version": "0.1.0",
+      "dependencies": {
         "@lssm/lib.contracts": "^1.7.4",
       },
       "devDependencies": {
@@ -1326,6 +1362,8 @@
 
     "@lssm/lib.error": ["@lssm/lib.error@workspace:packages/libs/error"],
 
+    "@lssm/lib.evolution": ["@lssm/lib.evolution@workspace:packages/libs/evolution"],
+
     "@lssm/lib.exporter": ["@lssm/lib.exporter@workspace:packages/libs/exporter"],
 
     "@lssm/lib.graphql-core": ["@lssm/lib.graphql-core@workspace:packages/libs/graphql-core"],
@@ -1353,6 +1391,8 @@
     "@lssm/lib.schema": ["@lssm/lib.schema@workspace:packages/libs/schema"],
 
     "@lssm/lib.support-bot": ["@lssm/lib.support-bot@workspace:packages/libs/support-bot"],
+
+    "@lssm/lib.testing": ["@lssm/lib.testing@workspace:packages/libs/testing"],
 
     "@lssm/lib.ui-kit": ["@lssm/lib.ui-kit@workspace:packages/libs/ui-kit"],
 

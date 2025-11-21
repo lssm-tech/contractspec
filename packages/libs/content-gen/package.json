@@ -1,0 +1,45 @@
+{
+  "name": "@lssm/lib.content-gen",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "^1.7.4"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./generators": "./dist/generators/index.js",
+    "./generators/blog": "./dist/generators/blog.js",
+    "./generators/email": "./dist/generators/email.js",
+    "./generators/landing-page": "./dist/generators/landing-page.js",
+    "./generators/social": "./dist/generators/social.js",
+    "./seo": "./dist/seo/index.js",
+    "./seo/optimizer": "./dist/seo/optimizer.js",
+    "./types": "./dist/types.js",
+    "./*": "./*"
+  }
+}

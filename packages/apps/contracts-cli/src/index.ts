@@ -5,6 +5,7 @@ import { createCommand } from './commands/create/index';
 import { buildCommand } from './commands/build/index';
 import { validateCommand } from './commands/validate/index';
 import { testCommand } from './commands/test/index';
+import { generateGoldenTestsCommand } from './commands/test/generate';
 import { regeneratorCommand } from './commands/regenerator/index';
 
 const program = new Command();
@@ -84,7 +85,10 @@ program
     'Validate a contract specification and optionally its implementation'
   )
   .argument('<spec-file>', 'Path to spec file')
-  .option('--blueprint <path>', 'Path to AppBlueprintSpec module for validation')
+  .option(
+    '--blueprint <path>',
+    'Path to AppBlueprintSpec module for validation'
+  )
   .option(
     '--tenant-config <path>',
     'Path to TenantAppConfig file for validation (requires --blueprint)'
@@ -130,17 +134,69 @@ program
     }
   });
 
-// Test command
-program
+const testProgram = program
   .command('test')
   .description('Run TestSpec scenarios against a SpecRegistry')
   .argument('<spec-file>', 'Path to TestSpec file')
-  .option('-r, --registry <path>', 'Path to module exporting a SpecRegistry or factory')
+  .option(
+    '-r, --registry <path>',
+    'Path to module exporting a SpecRegistry or factory'
+  )
   .option('--json', 'Output JSON results')
   .action(async (specFile, options) => {
     try {
       const config = await loadConfig();
       await testCommand(specFile, options, config);
+    } catch (error) {
+      console.error(
+        chalk.red('\n❌ Error:'),
+        error instanceof Error ? error.message : String(error)
+      );
+      process.exit(1);
+    }
+  });
+
+testProgram
+  .command('generate')
+  .description('Generate golden tests from captured traffic')
+  .requiredOption(
+    '-o, --operation <name>',
+    'Operation name, e.g. billing.createInvoice'
+  )
+  .requiredOption('-O, --output <path>', 'Destination test file')
+  .requiredOption(
+    '--runner-import <path>',
+    'Module path that exports the runner function used in generated tests'
+  )
+  .option('--runner-fn <name>', 'Exported runner function name', 'runContract')
+  .option('--suite-name <name>', 'Override suite name')
+  .option('--framework <name>', 'vitest (default) or jest', 'vitest')
+  .option('--from-production', 'Pull snapshots from production database', false)
+  .option(
+    '--days <number>',
+    'Lookback window in days',
+    (value) => Number(value),
+    7
+  )
+  .option(
+    '--sample-rate <number>',
+    'Sample subset of traffic (0-1)',
+    (value) => Number(value),
+    1
+  )
+  .action(async (cmdOptions) => {
+    try {
+      await generateGoldenTestsCommand({
+        operation: cmdOptions.operation,
+        output: cmdOptions.output,
+        runnerImport: cmdOptions.runnerImport,
+        runnerFn: cmdOptions.runnerFn,
+        suiteName: cmdOptions.suiteName,
+        framework: cmdOptions.framework,
+        fromProduction: cmdOptions.fromProduction,
+        days: cmdOptions.days,
+        sampleRate: cmdOptions.sampleRate,
+      });
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),
@@ -161,19 +217,29 @@ program
     '<sink-file>',
     'Path to module exporting a proposal sink (use "auto" with --executor)'
   )
-  .option('-p, --poll-interval <ms>', 'Polling interval in ms (default 60000)', (value) =>
-    Number.parseInt(value, 10)
+  .option(
+    '-p, --poll-interval <ms>',
+    'Polling interval in ms (default 60000)',
+    (value) => Number.parseInt(value, 10)
   )
-  .option('-b, --batch-duration <ms>', 'Lookback duration in ms (default 300000)', (value) =>
-    Number.parseInt(value, 10)
+  .option(
+    '-b, --batch-duration <ms>',
+    'Lookback duration in ms (default 300000)',
+    (value) => Number.parseInt(value, 10)
   )
   .option('--once', 'Run a single evaluation cycle then exit')
-  .option('--contexts <path>', 'Optional file exporting an array of RegenerationContext overrides')
+  .option(
+    '--contexts <path>',
+    'Optional file exporting an array of RegenerationContext overrides'
+  )
   .option(
     '--executor <path>',
     'Module exporting a ProposalExecutor instance, factory, or deps (required when sink is "auto")'
   )
-  .option('--dry-run', 'Execute proposals in dry-run mode when using executor sink')
+  .option(
+    '--dry-run',
+    'Execute proposals in dry-run mode when using executor sink'
+  )
   .action(async (blueprintPath, tenantPath, rulesPath, sinkPath, options) => {
     try {
       const config = await loadConfig();
