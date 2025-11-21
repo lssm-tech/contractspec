@@ -1,5 +1,6 @@
 import { Logger } from '@lssm/lib.observability';
 import { randomUUID } from 'node:crypto';
+import type { LifecycleStage } from '@lssm/lib.lifecycle';
 import {
   type IntentPattern,
   type OperationCoordinate,
@@ -203,7 +204,8 @@ export class SpecAnalyzer {
 
   suggestOptimizations(
     stats: SpecUsageStats[],
-    anomalies: SpecAnomaly[]
+    anomalies: SpecAnomaly[],
+    lifecycleContext?: { stage: LifecycleStage }
   ): OptimizationHint[] {
     const anomaliesByOp = new Map<string, SpecAnomaly[]>(
       this.groupByOperation(anomalies)
@@ -215,43 +217,58 @@ export class SpecAnalyzer {
       const opAnomalies = anomaliesByOp.get(opKey) ?? [];
       for (const anomaly of opAnomalies) {
         if (anomaly.metric === 'latency') {
-          hints.push({
-            operation: stat.operation,
-            category: 'performance',
-            summary: 'Latency regression detected',
-            justification: `P99 latency at ${stat.p99LatencyMs}ms`,
-            recommendedActions: [
-              'Add batching or caching layer',
-              'Replay golden tests to capture slow inputs',
-            ],
-          });
+          hints.push(
+            this.applyLifecycleContext(
+              {
+                operation: stat.operation,
+                category: 'performance',
+                summary: 'Latency regression detected',
+                justification: `P99 latency at ${stat.p99LatencyMs}ms`,
+                recommendedActions: [
+                  'Add batching or caching layer',
+                  'Replay golden tests to capture slow inputs',
+                ],
+              },
+              lifecycleContext?.stage
+            )
+          );
         } else if (anomaly.metric === 'error-rate') {
           const topError = Object.entries(stat.topErrors).sort(
             (a, b) => b[1] - a[1]
           )[0]?.[0];
-          hints.push({
-            operation: stat.operation,
-            category: 'error-handling',
-            summary: 'Error spike detected',
-            justification: topError
-              ? `Dominant error code ${topError}`
-              : 'Increase in failures',
-            recommendedActions: [
-              'Generate regression spec from failing payloads',
-              'Add policy guardrails before rollout',
-            ],
-          });
+          hints.push(
+            this.applyLifecycleContext(
+              {
+                operation: stat.operation,
+                category: 'error-handling',
+                summary: 'Error spike detected',
+                justification: topError
+                  ? `Dominant error code ${topError}`
+                  : 'Increase in failures',
+                recommendedActions: [
+                  'Generate regression spec from failing payloads',
+                  'Add policy guardrails before rollout',
+                ],
+              },
+              lifecycleContext?.stage
+            )
+          );
         } else if (anomaly.metric === 'throughput') {
-          hints.push({
+          hints.push(
+            this.applyLifecycleContext(
+              {
             operation: stat.operation,
             category: 'performance',
-            summary: 'Throughput drop detected',
-            justification: 'Significant traffic reduction relative to baseline',
+                summary: 'Throughput drop detected',
+                justification: 'Significant traffic reduction relative to baseline',
             recommendedActions: [
-              'Validate routing + feature flag bucketing',
-              'Backfill spec variant to rehydrate demand',
+                  'Validate routing + feature flag bucketing',
+                  'Backfill spec variant to rehydrate demand',
             ],
-          });
+              },
+              lifecycleContext?.stage
+            )
+          );
         }
       }
     }
@@ -340,6 +357,27 @@ export class SpecAnalyzer {
     }
     return map;
   }
+
+  private applyLifecycleContext(
+    hint: OptimizationHint,
+    stage?: LifecycleStage
+  ): OptimizationHint {
+    if (stage === undefined) return hint;
+    const band = mapStageBand(stage);
+    const advice = LIFECYCLE_HINTS[band]?.[hint.category];
+    if (!advice) {
+      return { ...hint, lifecycleStage: stage };
+    }
+    return {
+      ...hint,
+      lifecycleStage: stage,
+      lifecycleNotes: advice.message,
+      recommendedActions: dedupeActions([
+        ...hint.recommendedActions,
+        ...advice.supplementalActions,
+      ]),
+    };
+  }
 }
 
 function percentile(values: number[], p: number): number {
@@ -348,4 +386,73 @@ function percentile(values: number[], p: number): number {
   const idx = Math.min(values.length - 1, Math.floor(p * values.length));
   return values[idx]!;
 }
+
+type StageBand = 'early' | 'pmf' | 'scale' | 'mature';
+
+const mapStageBand = (stage: LifecycleStage): StageBand => {
+  if (stage <= 2) return 'early';
+  if (stage === LifecycleStage.ProductMarketFit) return 'pmf';
+  if (stage === LifecycleStage.GrowthScaleUp || stage === LifecycleStage.ExpansionPlatform) {
+    return 'scale';
+  }
+  return 'mature';
+};
+
+const LIFECYCLE_HINTS: Record<
+  StageBand,
+  Partial<
+    Record<
+      OptimizationHint['category'],
+      { message: string; supplementalActions: string[] }
+    >
+  >
+> = {
+  early: {
+    performance: {
+      message: 'Favor guardrails that protect learning velocity before heavy rewrites.',
+      supplementalActions: ['Wrap risky changes behind progressive delivery flags'],
+    },
+    'error-handling': {
+      message: 'Make failures loud and recoverable so you can learn faster.',
+      supplementalActions: ['Add auto-rollbacks or manual kill switches'],
+    },
+  },
+  pmf: {
+    performance: {
+      message: 'Stabilize the core use case to avoid regressions while demand grows.',
+      supplementalActions: ['Instrument regression tests on critical specs'],
+    },
+  },
+  scale: {
+    performance: {
+      message: 'Prioritize resilience and multi-tenant safety as volumes expand.',
+      supplementalActions: ['Introduce workload partitioning or isolation per tenant'],
+    },
+    'error-handling': {
+      message: 'Contain blast radius with policy fallbacks and circuit breakers.',
+      supplementalActions: ['Add circuit breakers to high-risk operations'],
+    },
+  },
+  mature: {
+    performance: {
+      message: 'Optimize for margins and predictable SLAs.',
+      supplementalActions: ['Capture unit-cost impacts alongside latency fixes'],
+    },
+    'error-handling': {
+      message: 'Prevent regressions with automated regression specs before deploy.',
+      supplementalActions: ['Run auto-evolution simulations on renewal scenarios'],
+    },
+  },
+};
+
+const dedupeActions = (actions: string[]): string[] => {
+  const seen = new Set<string>();
+  const ordered: string[] = [];
+  for (const action of actions) {
+    if (seen.has(action)) continue;
+    seen.add(action);
+    ordered.push(action);
+  }
+  return ordered;
+};
 

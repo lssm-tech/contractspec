@@ -1,9 +1,6 @@
-import type {
-  ContractSpec,
-  OpKind,
-  ResourceRefDescriptor,
-} from '@lssm/lib.contracts';
+import type { ContractSpec, OpKind, ResourceRefDescriptor } from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { LifecycleStage } from '@lssm/lib.lifecycle';
 
 export type AnomalySeverity = 'low' | 'medium' | 'high';
 export type SuggestionStatus = 'pending' | 'approved' | 'rejected';
@@ -149,5 +146,7 @@ export interface OptimizationHint {
   summary: string;
   justification: string;
   recommendedActions: string[];
+  lifecycleStage?: LifecycleStage;
+  lifecycleNotes?: string;
 }
 

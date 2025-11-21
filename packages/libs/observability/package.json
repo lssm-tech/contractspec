@@ -32,6 +32,7 @@
     "./logging": "./dist/logging/index.mjs",
     "./metrics": "./dist/metrics/index.mjs",
     "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
+    "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
     "./tracing": "./dist/tracing/index.mjs",
     "./tracing/middleware": "./dist/tracing/middleware.mjs",
     "./*": "./*"

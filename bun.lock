@@ -207,6 +207,25 @@
         "react-native": "0.81.4",
       },
     },
+    "packages/bundles/lifecycle-managed": {
+      "name": "@lssm/bundle.lifecycle-managed",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.ai-agent": "workspace:*",
+        "@lssm/lib.analytics": "workspace:*",
+        "@lssm/lib.lifecycle": "workspace:*",
+        "@lssm/lib.observability": "workspace:*",
+        "@lssm/module.lifecycle-advisor": "workspace:*",
+        "@lssm/module.lifecycle-core": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.16.6",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
       "version": "1.7.4",
@@ -509,6 +528,17 @@
         "@lssm/lib.analytics": "^0.1.0",
         "@lssm/lib.contracts": "^1.7.4",
       },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.16.6",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
+    "packages/libs/lifecycle": {
+      "name": "@lssm/lib.lifecycle",
+      "version": "0.0.1",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -880,6 +910,34 @@
       "version": "0.0.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.16.6",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
+    "packages/modules/lifecycle-advisor": {
+      "name": "@lssm/module.lifecycle-advisor",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.lifecycle": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.16.6",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
+    "packages/modules/lifecycle-core": {
+      "name": "@lssm/module.lifecycle-core",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.lifecycle": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -1533,6 +1591,8 @@
 
     "@lssm/bundle.contractspec-studio": ["@lssm/bundle.contractspec-studio@workspace:packages/bundles/contractspec-studio"],
 
+    "@lssm/bundle.lifecycle-managed": ["@lssm/bundle.lifecycle-managed@workspace:packages/bundles/lifecycle-managed"],
+
     "@lssm/lib.accessibility": ["@lssm/lib.accessibility@workspace:packages/libs/accessibility"],
 
     "@lssm/lib.ai-agent": ["@lssm/lib.ai-agent@workspace:packages/libs/ai-agent"],
@@ -1566,6 +1626,8 @@
     "@lssm/lib.graphql-prisma": ["@lssm/lib.graphql-prisma@workspace:packages/libs/graphql-prisma"],
 
     "@lssm/lib.growth": ["@lssm/lib.growth@workspace:packages/libs/growth"],
+
+    "@lssm/lib.lifecycle": ["@lssm/lib.lifecycle@workspace:packages/libs/lifecycle"],
 
     "@lssm/lib.logger": ["@lssm/lib.logger@workspace:packages/libs/logger"],
 
@@ -1602,6 +1664,10 @@
     "@lssm/lib.utils-typescript": ["@lssm/lib.utils-typescript@workspace:packages/libs/utils-typescript"],
 
     "@lssm/lib.workflow-composer": ["@lssm/lib.workflow-composer@workspace:packages/libs/workflow-composer"],
+
+    "@lssm/module.lifecycle-advisor": ["@lssm/module.lifecycle-advisor@workspace:packages/modules/lifecycle-advisor"],
+
+    "@lssm/module.lifecycle-core": ["@lssm/module.lifecycle-core@workspace:packages/modules/lifecycle-core"],
 
     "@lssm/tool.tsdown": ["@lssm/tool.tsdown@workspace:packages/tools/tsdown"],
 

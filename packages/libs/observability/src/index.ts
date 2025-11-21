@@ -26,6 +26,11 @@ export {
   type EvolutionPipelineEvent,
   type EvolutionPipelineOptions,
 } from './pipeline/evolution-pipeline';
+export {
+  LifecycleKpiPipeline,
+  type LifecycleKpiPipelineOptions,
+  type LifecyclePipelineEvent,
+} from './pipeline/lifecycle-pipeline';
 
 export type { LogLevel, LogEntry } from './logging';
 

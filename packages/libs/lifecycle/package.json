@@ -1,6 +1,6 @@
 {
-  "name": "@lssm/lib.analytics",
-  "version": "0.1.0",
+  "name": "@lssm/lib.lifecycle",
+  "version": "0.0.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -20,9 +20,7 @@
     "lint:check": "eslint src",
     "test": "vitest run"
   },
-  "dependencies": {
-    "dayjs": "^1.11.13"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
@@ -32,18 +30,6 @@
   },
   "exports": {
     ".": "./dist/index.js",
-    "./churn": "./dist/churn/index.js",
-    "./churn/predictor": "./dist/churn/predictor.js",
-    "./cohort": "./dist/cohort/index.js",
-    "./cohort/tracker": "./dist/cohort/tracker.js",
-    "./funnel": "./dist/funnel/index.js",
-    "./funnel/analyzer": "./dist/funnel/analyzer.js",
-    "./growth": "./dist/growth/index.js",
-    "./growth/hypothesis-generator": "./dist/growth/hypothesis-generator.js",
-    "./lifecycle": "./dist/lifecycle/index.js",
-    "./lifecycle/metric-collectors": "./dist/lifecycle/metric-collectors.js",
-    "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
-    "./types": "./dist/types.js",
     "./*": "./*"
   }
 }
