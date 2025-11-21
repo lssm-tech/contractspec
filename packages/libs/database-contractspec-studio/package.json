@@ -1,0 +1,122 @@
+{
+  "name": "@lssm/lib.database-contractspec-studio",
+  "version": "0.0.0",
+  "scripts": {
+    "clean": "rm -rf dist src/generated",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run build:bundle",
+    "build:types": "tsc --noEmit",
+    "build:bundle": "tsdown",
+    "dev": "bun run build:bundle --watch",
+    "prisma:import": "bun database import --target .",
+    "prisma:check": "bun database check --target .",
+    "db:migrate": "bun database migrate:dev",
+    "db:deploy": "bun database migrate:deploy",
+    "db:generate": "bun prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "db:seed": "bun database seed",
+    "db:reset": "prisma db push --skip-generate --force-reset && bun run db:seed",
+    "db:reset:full": "bun run db:generate && bun run db:reset",
+    "generate": "bun run db:generate"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.0.0"
+  },
+  "devDependencies": {
+    "@lssm/app.cli-database": "workspace:*",
+    "prisma": "^7.0.0",
+    "tsdown": "^0.16.6"
+  },
+  "main": "./dist/index.mjs",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./enums": "./src/enums.ts",
+    "./generated/pothos-types": "./src/generated/pothos-types.ts",
+    "./generated/prisma/browser": "./src/generated/prisma/browser.ts",
+    "./generated/prisma/client": "./src/generated/prisma/client.ts",
+    "./generated/prisma/commonInputTypes": "./src/generated/prisma/commonInputTypes.ts",
+    "./generated/prisma/enums": "./src/generated/prisma/enums.ts",
+    "./generated/prisma/internal/class": "./src/generated/prisma/internal/class.ts",
+    "./generated/prisma/internal/prismaNamespace": "./src/generated/prisma/internal/prismaNamespace.ts",
+    "./generated/prisma/internal/prismaNamespaceBrowser": "./src/generated/prisma/internal/prismaNamespaceBrowser.ts",
+    "./generated/prisma/models": "./src/generated/prisma/models.ts",
+    "./generated/prisma/models/Account": "./src/generated/prisma/models/Account.ts",
+    "./generated/prisma/models/ApiKey": "./src/generated/prisma/models/ApiKey.ts",
+    "./generated/prisma/models/Invitation": "./src/generated/prisma/models/Invitation.ts",
+    "./generated/prisma/models/Member": "./src/generated/prisma/models/Member.ts",
+    "./generated/prisma/models/OAuthAccessToken": "./src/generated/prisma/models/OAuthAccessToken.ts",
+    "./generated/prisma/models/OAuthApplication": "./src/generated/prisma/models/OAuthApplication.ts",
+    "./generated/prisma/models/OAuthConsent": "./src/generated/prisma/models/OAuthConsent.ts",
+    "./generated/prisma/models/Organization": "./src/generated/prisma/models/Organization.ts",
+    "./generated/prisma/models/Passkey": "./src/generated/prisma/models/Passkey.ts",
+    "./generated/prisma/models/Permission": "./src/generated/prisma/models/Permission.ts",
+    "./generated/prisma/models/PolicyBinding": "./src/generated/prisma/models/PolicyBinding.ts",
+    "./generated/prisma/models/Referral": "./src/generated/prisma/models/Referral.ts",
+    "./generated/prisma/models/ReferralReward": "./src/generated/prisma/models/ReferralReward.ts",
+    "./generated/prisma/models/Role": "./src/generated/prisma/models/Role.ts",
+    "./generated/prisma/models/Session": "./src/generated/prisma/models/Session.ts",
+    "./generated/prisma/models/SsoProvider": "./src/generated/prisma/models/SsoProvider.ts",
+    "./generated/prisma/models/Team": "./src/generated/prisma/models/Team.ts",
+    "./generated/prisma/models/TeamMember": "./src/generated/prisma/models/TeamMember.ts",
+    "./generated/prisma/models/User": "./src/generated/prisma/models/User.ts",
+    "./generated/prisma/models/Verification": "./src/generated/prisma/models/Verification.ts",
+    "./models": "./src/models.ts",
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist",
+    "generated"
+  ],
+  "type": "module",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./client": "./dist/client.mjs",
+      "./enums": "./dist/enums.mjs",
+      "./generated/pothos-types": "./dist/generated/pothos-types.mjs",
+      "./generated/prisma/browser": "./dist/generated/prisma/browser.mjs",
+      "./generated/prisma/client": "./dist/generated/prisma/client.mjs",
+      "./generated/prisma/commonInputTypes": "./dist/generated/prisma/commonInputTypes.mjs",
+      "./generated/prisma/enums": "./dist/generated/prisma/enums.mjs",
+      "./generated/prisma/internal/class": "./dist/generated/prisma/internal/class.mjs",
+      "./generated/prisma/internal/prismaNamespace": "./dist/generated/prisma/internal/prismaNamespace.mjs",
+      "./generated/prisma/internal/prismaNamespaceBrowser": "./dist/generated/prisma/internal/prismaNamespaceBrowser.mjs",
+      "./generated/prisma/models": "./dist/generated/prisma/models.mjs",
+      "./generated/prisma/models/Account": "./dist/generated/prisma/models/Account.mjs",
+      "./generated/prisma/models/ApiKey": "./dist/generated/prisma/models/ApiKey.mjs",
+      "./generated/prisma/models/Invitation": "./dist/generated/prisma/models/Invitation.mjs",
+      "./generated/prisma/models/Member": "./dist/generated/prisma/models/Member.mjs",
+      "./generated/prisma/models/OAuthAccessToken": "./dist/generated/prisma/models/OAuthAccessToken.mjs",
+      "./generated/prisma/models/OAuthApplication": "./dist/generated/prisma/models/OAuthApplication.mjs",
+      "./generated/prisma/models/OAuthConsent": "./dist/generated/prisma/models/OAuthConsent.mjs",
+      "./generated/prisma/models/Organization": "./dist/generated/prisma/models/Organization.mjs",
+      "./generated/prisma/models/Passkey": "./dist/generated/prisma/models/Passkey.mjs",
+      "./generated/prisma/models/Permission": "./dist/generated/prisma/models/Permission.mjs",
+      "./generated/prisma/models/PolicyBinding": "./dist/generated/prisma/models/PolicyBinding.mjs",
+      "./generated/prisma/models/Referral": "./dist/generated/prisma/models/Referral.mjs",
+      "./generated/prisma/models/ReferralReward": "./dist/generated/prisma/models/ReferralReward.mjs",
+      "./generated/prisma/models/Role": "./dist/generated/prisma/models/Role.mjs",
+      "./generated/prisma/models/Session": "./dist/generated/prisma/models/Session.mjs",
+      "./generated/prisma/models/SsoProvider": "./dist/generated/prisma/models/SsoProvider.mjs",
+      "./generated/prisma/models/Team": "./dist/generated/prisma/models/Team.mjs",
+      "./generated/prisma/models/TeamMember": "./dist/generated/prisma/models/TeamMember.mjs",
+      "./generated/prisma/models/User": "./dist/generated/prisma/models/User.mjs",
+      "./generated/prisma/models/Verification": "./dist/generated/prisma/models/Verification.mjs",
+      "./models": "./dist/models.mjs",
+      "./*": "./*"
+    }
+  }
+}

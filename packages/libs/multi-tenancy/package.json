@@ -15,7 +15,7 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@prisma/client": "*"
+    "@prisma/client": "7.0.0"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

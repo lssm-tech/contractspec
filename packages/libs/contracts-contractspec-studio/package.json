@@ -1,0 +1,72 @@
+{
+  "name": "@lssm/lib.contracts-contractspec-studio",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./enums": "./src/enums/index.ts",
+    "./enums/recurrence": "./src/enums/recurrence.ts",
+    "./enums/spot": "./src/enums/spot.ts",
+    "./interactions": "./src/interactions/index.ts",
+    "./interactions/commands": "./src/interactions/commands/index.ts",
+    "./interactions/commands/availability.contracts": "./src/interactions/commands/availability.contracts.ts",
+    "./interactions/commands/bookings.contracts": "./src/interactions/commands/bookings.contracts.ts",
+    "./interactions/commands/definitions.contracts": "./src/interactions/commands/definitions.contracts.ts",
+    "./interactions/queries": "./src/interactions/queries/index.ts",
+    "./interactions/queries/availability-definitions.queries": "./src/interactions/queries/availability-definitions.queries.ts",
+    "./interactions/queries/availability.queries": "./src/interactions/queries/availability.queries.ts",
+    "./interactions/queries/cities-spots.queries": "./src/interactions/queries/cities-spots.queries.ts",
+    "./interactions/queries/definitions.queries": "./src/interactions/queries/definitions.queries.ts",
+    "./*": "./*"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./enums": "./dist/enums/index.js",
+      "./enums/recurrence": "./dist/enums/recurrence.js",
+      "./enums/spot": "./dist/enums/spot.js",
+      "./interactions": "./dist/interactions/index.js",
+      "./interactions/commands": "./dist/interactions/commands/index.js",
+      "./interactions/commands/availability.contracts": "./dist/interactions/commands/availability.contracts.js",
+      "./interactions/commands/bookings.contracts": "./dist/interactions/commands/bookings.contracts.js",
+      "./interactions/commands/definitions.contracts": "./dist/interactions/commands/definitions.contracts.js",
+      "./interactions/queries": "./dist/interactions/queries/index.js",
+      "./interactions/queries/availability-definitions.queries": "./dist/interactions/queries/availability-definitions.queries.js",
+      "./interactions/queries/availability.queries": "./dist/interactions/queries/availability.queries.js",
+      "./interactions/queries/cities-spots.queries": "./dist/interactions/queries/cities-spots.queries.js",
+      "./interactions/queries/definitions.queries": "./dist/interactions/queries/definitions.queries.js",
+      "./*": "./*"
+    }
+  }
+}
