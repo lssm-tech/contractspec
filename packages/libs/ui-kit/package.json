@@ -69,8 +69,8 @@
     "expo-web-browser": "^14.2.0",
     "lucide-react-native": "^0.511.0",
     "nativewind": "5.0.0-preview.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -87,7 +87,7 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.15.9",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "exports": {

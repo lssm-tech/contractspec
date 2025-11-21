@@ -16,18 +16,18 @@
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.15.9"
+    "tsdown": "^0.16.6"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./cli": "./dist/cli.js",
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
     "./*": "./*"
   }
 }

@@ -23,7 +23,7 @@
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.15.9",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -42,38 +42,38 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./context": {
-      "import": "./dist/context.js",
+      "import": "./dist/context.mjs",
       "require": "./dist/context.cjs"
     },
     "./elysia-plugin": {
-      "import": "./dist/elysia-plugin.js",
+      "import": "./dist/elysia-plugin.mjs",
       "require": "./dist/elysia-plugin.cjs"
     },
     "./formatters": {
-      "import": "./dist/formatters.js",
+      "import": "./dist/formatters.mjs",
       "require": "./dist/formatters.cjs"
     },
     "./logger": {
-      "import": "./dist/logger.js",
+      "import": "./dist/logger.mjs",
       "require": "./dist/logger.cjs"
     },
     "./timer": {
-      "import": "./dist/timer.js",
+      "import": "./dist/timer.mjs",
       "require": "./dist/timer.cjs"
     },
     "./tracer": {
-      "import": "./dist/tracer.js",
+      "import": "./dist/tracer.mjs",
       "require": "./dist/tracer.cjs"
     },
     "./types": {
-      "import": "./dist/types.js",
+      "import": "./dist/types.mjs",
       "require": "./dist/types.cjs"
     },
     "./*": "./*"
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.mjs"
 }
