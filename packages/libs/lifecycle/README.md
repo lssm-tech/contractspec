@@ -44,3 +44,4 @@ console.log(summary.title); // "Stage 2 · MVP & Early Traction"
 
 This library intentionally ships no IO logic so it can run in browsers, Node runtimes, and design tools.*** End Patch
 
+

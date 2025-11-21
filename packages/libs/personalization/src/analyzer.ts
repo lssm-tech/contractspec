@@ -98,3 +98,4 @@ function detectLayout(summary: BehaviorSummary): BehaviorInsights['layoutPrefere
   return 'form';
 }
 
+

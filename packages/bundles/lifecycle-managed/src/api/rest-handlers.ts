@@ -30,3 +30,4 @@ export const createLifecycleHandlers = (service: LifecycleAssessmentService) => 
   },
 });
 
+

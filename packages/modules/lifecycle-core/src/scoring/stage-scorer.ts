@@ -117,3 +117,4 @@ const evaluateSignalKinds = (signals: LifecycleSignal[]): Record<string, number>
 const isStageValue = (value: string | LifecycleStage): value is LifecycleStage =>
   typeof value === 'number' && value in LIFECYCLE_STAGE_META;
 
+

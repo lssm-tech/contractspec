@@ -13,3 +13,4 @@ export const lifecycleFlags = [
   ContractSpecFeatureFlags.LIFECYCLE_MANAGED_SERVICE,
 ];
 
+
