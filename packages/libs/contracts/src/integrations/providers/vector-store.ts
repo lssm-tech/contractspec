@@ -43,5 +43,3 @@ export interface VectorStoreProvider {
   search(query: VectorSearchQuery): Promise<VectorSearchResult[]>;
   delete(request: VectorDeleteRequest): Promise<void>;
 }
-
-

@@ -22,14 +22,17 @@ export class SupportFeedbackLoop {
   metrics(): FeedbackMetrics {
     const total = this.history.length;
     const autoResolved = this.history.filter(
-      (entry) => !entry.resolution.actions.some((action) => action.type === 'escalate')
+      (entry) =>
+        !entry.resolution.actions.some((action) => action.type === 'escalate')
     ).length;
     const escalated = total - autoResolved;
     const avgConfidence =
       total === 0
         ? 0
-        : this.history.reduce((sum, entry) => sum + entry.resolution.confidence, 0) /
-          total;
+        : this.history.reduce(
+            (sum, entry) => sum + entry.resolution.confidence,
+            0
+          ) / total;
     const avgResponseTimeMs =
       this.responseTimes.size === 0
         ? 0
@@ -50,7 +53,9 @@ export class SupportFeedbackLoop {
     if (!recent.length) return 'No feedback recorded yet.';
     return recent
       .map((entry) => {
-        const status = entry.resolution.actions.some((action) => action.type === 'escalate')
+        const status = entry.resolution.actions.some(
+          (action) => action.type === 'escalate'
+        )
           ? 'Escalated'
           : 'Auto-resolved';
         return `${entry.ticket.subject} – ${status} (confidence: ${entry.resolution.confidence})`;

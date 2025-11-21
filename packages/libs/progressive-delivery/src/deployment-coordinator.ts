@@ -9,7 +9,10 @@ export interface DeploymentCoordinatorOptions {
   controller: CanaryController;
   trafficShifter: TrafficShifter;
   rollbackManager: RollbackManager;
-  applyTrafficSplit: (stage: CanaryStage, split: TrafficSplit) => void | Promise<void>;
+  applyTrafficSplit: (
+    stage: CanaryStage,
+    split: TrafficSplit
+  ) => void | Promise<void>;
   eventBus?: DeploymentEventBus;
 }
 

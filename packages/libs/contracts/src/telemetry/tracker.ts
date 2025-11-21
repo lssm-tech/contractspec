@@ -51,7 +51,10 @@ const maskValue = (value: unknown) => {
   if (Array.isArray(value)) return value.map(() => 'REDACTED');
   if (typeof value === 'object') {
     return Object.fromEntries(
-      Object.keys(value as Record<string, unknown>).map((key) => [key, 'REDACTED'])
+      Object.keys(value as Record<string, unknown>).map((key) => [
+        key,
+        'REDACTED',
+      ])
     );
   }
   return 'REDACTED';
@@ -92,10 +95,17 @@ export class TelemetryTracker {
     const definition = this.registry.findEventDef(name, version);
     if (!definition) return false;
 
-    const spec = this.registry.getSpecForEvent(definition.name, definition.version);
+    const spec = this.registry.getSpecForEvent(
+      definition.name,
+      definition.version
+    );
     if (!spec) return false;
 
-    if (!this.shouldSample(definition.sampling ?? spec.config?.defaultSamplingRate)) {
+    if (
+      !this.shouldSample(
+        definition.sampling ?? spec.config?.defaultSamplingRate
+      )
+    ) {
       return false;
     }
 
@@ -151,4 +161,3 @@ export class TelemetryTracker {
     return result;
   }
 }
-

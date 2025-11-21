@@ -63,27 +63,24 @@ const proposal: SpecChangeProposal = {
 describe('ExecutorProposalSink', () => {
   it('invokes executor and result handler', async () => {
     const executor = new ProposalExecutor();
-    const executeSpy = vi
-      .spyOn(executor, 'execute')
-      .mockResolvedValue({
-        proposalId: proposal.id,
-        contextId: context.id,
-        startedAt: new Date(),
-        finishedAt: new Date(),
-        status: 'success',
-        actions: [],
-      } satisfies ProposalExecutionResult);
+    const executeSpy = vi.spyOn(executor, 'execute').mockResolvedValue({
+      proposalId: proposal.id,
+      contextId: context.id,
+      startedAt: new Date(),
+      finishedAt: new Date(),
+      status: 'success',
+      actions: [],
+    } satisfies ProposalExecutionResult);
 
-    const onResult = vi.fn<
-      [ExecutorResultPayload],
-      Awaited<void>
-    >();
+    const onResult = vi.fn<[ExecutorResultPayload], Awaited<void>>();
     const logger = { info: vi.fn(), error: vi.fn() };
     const sink = new ExecutorProposalSink(executor, { onResult, logger });
 
     await sink.submit(context, proposal);
 
-    expect(executeSpy).toHaveBeenCalledWith(context, proposal, { dryRun: false });
+    expect(executeSpy).toHaveBeenCalledWith(context, proposal, {
+      dryRun: false,
+    });
     expect(onResult).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledWith(
       '[regenerator] proposal executed',
@@ -111,21 +108,20 @@ describe('ExecutorProposalSink', () => {
 
   it('passes dry-run flag through to executor', async () => {
     const executor = new ProposalExecutor();
-    const executeSpy = vi
-      .spyOn(executor, 'execute')
-      .mockResolvedValue({
-        proposalId: proposal.id,
-        contextId: context.id,
-        startedAt: new Date(),
-        finishedAt: new Date(),
-        status: 'partial',
-        actions: [],
-      } satisfies ProposalExecutionResult);
+    const executeSpy = vi.spyOn(executor, 'execute').mockResolvedValue({
+      proposalId: proposal.id,
+      contextId: context.id,
+      startedAt: new Date(),
+      finishedAt: new Date(),
+      status: 'partial',
+      actions: [],
+    } satisfies ProposalExecutionResult);
 
     const sink = new ExecutorProposalSink(executor, { dryRun: true });
     await sink.submit(context, proposal);
 
-    expect(executeSpy).toHaveBeenCalledWith(context, proposal, { dryRun: true });
+    expect(executeSpy).toHaveBeenCalledWith(context, proposal, {
+      dryRun: true,
+    });
   });
 });
-

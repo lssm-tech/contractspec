@@ -70,7 +70,12 @@ export class LandingPageGenerator {
         secondaryCta: 'View docs',
       },
       highlights: brief.solutions.slice(0, 3).map((solution, index) => ({
-        heading: ['Policy-safe by default', 'Auto-adapts per tenant', 'Launch-ready in days'][index] ?? 'Key capability',
+        heading:
+          [
+            'Policy-safe by default',
+            'Auto-adapts per tenant',
+            'Launch-ready in days',
+          ][index] ?? 'Key capability',
         body: solution,
       })),
       socialProof: {
@@ -87,8 +92,7 @@ export class LandingPageGenerator {
     const faqs: ContentBlock[] = [
       {
         heading: 'How does this keep policies enforced?',
-        body:
-          'All workflows compile from TypeScript specs and pass through PDP checks before execution, so no shadow logic slips through.',
+        body: 'All workflows compile from TypeScript specs and pass through PDP checks before execution, so no shadow logic slips through.',
       },
       {
         heading: 'Will it fit our existing stack?',

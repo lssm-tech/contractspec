@@ -29,4 +29,3 @@ export interface WorkflowExtension extends WorkflowExtensionScope {
 export interface ComposeParams extends WorkflowExtensionScope {
   base: WorkflowSpec;
 }
-

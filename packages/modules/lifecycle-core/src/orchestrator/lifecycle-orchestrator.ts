@@ -3,10 +3,7 @@ import type {
   LifecycleAssessmentInput,
   LifecycleMilestone,
 } from '@lssm/lib.lifecycle';
-import {
-  LIFECYCLE_STAGE_META,
-  LifecycleStage,
-} from '@lssm/lib.lifecycle';
+import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
 import { StageSignalCollector } from '../collectors/signal-collector';
 import { StageScorer } from '../scoring/stage-scorer';
 import { LifecycleMilestonePlanner } from '../planning/milestone-planner';
@@ -53,7 +50,7 @@ export class LifecycleOrchestrator {
   getUpcomingMilestones(
     stage: LifecycleStage,
     completedMilestoneIds: string[] = [],
-    limit = 5,
+    limit = 5
   ): LifecycleMilestone[] {
     if (!this.planner) return [];
     return this.planner.getUpcoming(stage, completedMilestoneIds, limit);
@@ -66,5 +63,3 @@ const fallbackScore = () => ({
   confidence: 0.3,
   supportingSignals: [],
 });
-
-

@@ -30,7 +30,8 @@ export const LifecycleAdvisorAgent = defineAgent({
     },
     {
       name: 'fetch_playbook',
-      description: 'Retrieve stage-specific playbook (actions, ceremonies, libraries).',
+      description:
+        'Retrieve stage-specific playbook (actions, ceremonies, libraries).',
       schema: {
         type: 'object',
         properties: {
@@ -59,5 +60,3 @@ export const LifecycleAdvisorAgent = defineAgent({
     flags: ['lifecycle_advisor'],
   },
 });
-
-

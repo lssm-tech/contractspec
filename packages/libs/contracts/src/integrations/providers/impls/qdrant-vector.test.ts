@@ -114,5 +114,3 @@ function createMockClient(options: MockOptions = {}) {
     delete: vi.fn(async () => ({})),
   } as unknown as QdrantClient;
 }
-
-

@@ -65,7 +65,7 @@ type ValidationCategory =
   | 'policy'
   | 'experiment';
 
-type BlueprintRule = {
+interface BlueprintRule {
   scope: 'blueprint';
   name: string;
   category: ValidationCategory;
@@ -73,9 +73,9 @@ type BlueprintRule = {
     blueprint: AppBlueprintSpec,
     context: ValidationContext
   ) => ValidationIssue[];
-};
+}
 
-type TenantRule = {
+interface TenantRule {
   scope: 'tenant';
   name: string;
   category: ValidationCategory;
@@ -84,9 +84,9 @@ type TenantRule = {
     tenant: TenantAppConfig,
     context: ValidationContext
   ) => ValidationIssue[];
-};
+}
 
-type ResolvedRule = {
+interface ResolvedRule {
   scope: 'resolved';
   name: string;
   category: ValidationCategory;
@@ -95,7 +95,7 @@ type ResolvedRule = {
     resolved: ResolvedAppConfig,
     context: ValidationContext
   ) => ValidationIssue[];
-};
+}
 
 type ValidationRule = BlueprintRule | TenantRule | ResolvedRule;
 
@@ -149,8 +149,7 @@ class ValidationRuleRegistry {
   }
 }
 
-const DOMAIN_REGEX =
-  /^(?!:\/\/)([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[A-Za-z]{2,}$/;
+const DOMAIN_REGEX = /^(?!:\/\/)([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[A-Za-z]{2,}$/;
 
 const HTTPS_URL_REGEX = /^https:\/\//i;
 
@@ -678,9 +677,9 @@ const tenantBrandingRule: TenantRule = {
             code: 'UNEXPECTED_ASSET_TYPE',
             severity: 'warning',
             path: `${assetPath}.url`,
-            message: `Asset "${asset.type}" should use one of: ${(allowed ?? []).join(
-              ', '
-            )}. Detected "${extension}".`,
+            message: `Asset "${asset.type}" should use one of: ${(
+              allowed ?? []
+            ).join(', ')}. Detected "${extension}".`,
           })
         );
       }
@@ -958,8 +957,5 @@ function hasTranslationEntry(
   key: string,
   locale: string
 ): boolean {
-  return entries.some(
-    (entry) => entry.key === key && entry.locale === locale
-  );
+  return entries.some((entry) => entry.key === key && entry.locale === locale);
 }
-

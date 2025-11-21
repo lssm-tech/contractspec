@@ -11,14 +11,15 @@ export class LifecycleMilestonePlanner {
   getUpcoming(
     stage: LifecycleStage,
     completedIds: string[] = [],
-    limit = 5,
+    limit = 5
   ): LifecycleMilestone[] {
     const completedSet = new Set(completedIds);
     return this.milestones
-      .filter((milestone) => milestone.stage === stage && !completedSet.has(milestone.id))
+      .filter(
+        (milestone) =>
+          milestone.stage === stage && !completedSet.has(milestone.id)
+      )
       .sort((a, b) => a.priority - b.priority)
       .slice(0, limit);
   }
 }
-
-

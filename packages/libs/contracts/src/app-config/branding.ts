@@ -48,10 +48,3 @@ export interface ResolvedBranding {
   };
   domain: string;
 }
-
-
-
-
-
-
-

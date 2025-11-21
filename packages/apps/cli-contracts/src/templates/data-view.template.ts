@@ -88,4 +88,3 @@ function toPascalCase(value: string): string {
 function escape(value: string): string {
   return value.replace(/'/g, "\\'");
 }
-

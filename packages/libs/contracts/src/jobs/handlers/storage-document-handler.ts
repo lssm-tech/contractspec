@@ -24,5 +24,3 @@ export function createStorageDocumentHandler(
     await adapter.ingestObject(object);
   };
 }
-
-

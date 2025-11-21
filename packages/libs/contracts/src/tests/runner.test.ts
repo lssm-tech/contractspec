@@ -127,4 +127,3 @@ describe('TestRunner', () => {
     expect(failedScenario?.assertionResults[0]?.status).toBe('failed');
   });
 });
-

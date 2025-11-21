@@ -18,7 +18,7 @@ const DEFAULT_THRESHOLD = 3;
 export class BehaviorAnalyzer {
   constructor(
     private readonly store: BehaviorStore,
-    private readonly options: BehaviorAnalyzerOptions = {},
+    private readonly options: BehaviorAnalyzerOptions = {}
   ) {}
 
   async analyze(params: AnalyzeParams): Promise<BehaviorInsights> {
@@ -39,7 +39,7 @@ export class BehaviorAnalyzer {
 
 function buildInsights(
   summary: BehaviorSummary,
-  options: BehaviorAnalyzerOptions,
+  options: BehaviorAnalyzerOptions
 ): BehaviorInsights {
   const threshold = options.fieldInactivityThreshold ?? DEFAULT_THRESHOLD;
   const minSamples = options.minSamples ?? 10;
@@ -56,21 +56,21 @@ function buildInsights(
     }
   }
 
-  const workflowBottlenecks = Object.entries(summary.workflowStepCounts).flatMap(
-    ([workflow, steps]) => {
-      const total = Object.values(steps).reduce((acc, value) => acc + value, 0);
-      if (!total || total < minSamples) {
-        return [];
-      }
-      return Object.entries(steps)
-        .filter(([, count]) => count / total < 0.4)
-        .map(([step, count]) => ({
-          workflow,
-          step,
-          dropRate: 1 - count / total,
-        }));
-    },
-  );
+  const workflowBottlenecks = Object.entries(
+    summary.workflowStepCounts
+  ).flatMap(([workflow, steps]) => {
+    const total = Object.values(steps).reduce((acc, value) => acc + value, 0);
+    if (!total || total < minSamples) {
+      return [];
+    }
+    return Object.entries(steps)
+      .filter(([, count]) => count / total < 0.4)
+      .map(([step, count]) => ({
+        workflow,
+        step,
+        dropRate: 1 - count / total,
+      }));
+  });
 
   const layoutPreference = detectLayout(summary);
 
@@ -83,7 +83,9 @@ function buildInsights(
   };
 }
 
-function detectLayout(summary: BehaviorSummary): BehaviorInsights['layoutPreference'] {
+function detectLayout(
+  summary: BehaviorSummary
+): BehaviorInsights['layoutPreference'] {
   const fieldCount = Object.keys(summary.fieldCounts).length;
   if (!fieldCount) {
     return undefined;
@@ -97,5 +99,3 @@ function detectLayout(summary: BehaviorSummary): BehaviorInsights['layoutPrefere
   }
   return 'form';
 }
-
-

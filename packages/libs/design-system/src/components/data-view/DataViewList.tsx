@@ -42,7 +42,7 @@ export function DataViewList({
     return (
       <div className={cn('flex w-full flex-col gap-4', className)}>
         {emptyState ?? (
-          <div className="rounded-md border border-dashed border-muted-foreground/40 p-8 text-center text-sm text-muted-foreground">
+          <div className="border-muted-foreground/40 text-muted-foreground rounded-md border border-dashed p-8 text-center text-sm">
             No records available.
           </div>
         )}
@@ -57,21 +57,21 @@ export function DataViewList({
           type="button"
           key={idx}
           className={cn(
-            'flex w-full flex-col gap-2 rounded-lg border border-muted bg-card p-4 text-left shadow-sm transition hover:border-primary/40 hover:shadow-md focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+            'border-muted bg-card hover:border-primary/40 focus-visible:border-primary focus-visible:ring-primary/40 flex w-full flex-col gap-2 rounded-lg border p-4 text-left shadow-sm transition hover:shadow-md focus-visible:ring-2 focus-visible:outline-none',
             view.layout === 'compact' && 'md:flex-row md:items-center md:gap-4'
           )}
           onClick={() => onSelect?.(item)}
         >
           <div className="flex flex-1 flex-col gap-1">
             {primaryField ? (
-              <span className="text-base font-medium text-foreground">
+              <span className="text-foreground text-base font-medium">
                 {displayValue(item, fields, primaryField)}
               </span>
             ) : null}
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex flex-wrap gap-x-4 gap-y-1 text-sm">
               {secondaryFieldKeys(view, primaryField).map((fieldKey) => (
                 <span key={fieldKey} className="flex items-center gap-1.5">
-                  <span className="font-medium text-foreground/80">
+                  <span className="text-foreground/80 font-medium">
                     {fieldLabel(fields, fieldKey)}
                   </span>
                   <span>{displayValue(item, fields, fieldKey)}</span>
@@ -115,4 +115,3 @@ function secondaryFieldKeys(view: DataViewListConfig, primaryField?: string) {
     .map((field) => field.key)
     .filter((key) => key !== primaryField);
 }
-

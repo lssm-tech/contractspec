@@ -71,7 +71,9 @@ ${metrics}
 `;
 }
 
-function renderAllocation(allocation: ExperimentSpecData['allocation']): string {
+function renderAllocation(
+  allocation: ExperimentSpecData['allocation']
+): string {
   switch (allocation.type) {
     case 'random':
       return `{
@@ -123,6 +125,7 @@ function escapeString(value: string): string {
 }
 
 function renderUnsupportedAllocation(allocation: never): string {
-  throw new Error(`Unsupported allocation type ${(allocation as unknown) as string}`);
+  throw new Error(
+    `Unsupported allocation type ${allocation as unknown as string}`
+  );
 }
-

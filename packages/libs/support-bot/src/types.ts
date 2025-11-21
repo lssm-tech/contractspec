@@ -9,7 +9,11 @@ export type TicketCategory =
   | 'compliance'
   | 'other';
 export type TicketChannel = 'email' | 'chat' | 'phone' | 'portal';
-export type TicketSentiment = 'positive' | 'neutral' | 'negative' | 'frustrated';
+export type TicketSentiment =
+  | 'positive'
+  | 'neutral'
+  | 'negative'
+  | 'frustrated';
 
 export interface SupportTicket {
   id: string;

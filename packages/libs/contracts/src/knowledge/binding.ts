@@ -20,4 +20,3 @@ export interface AppKnowledgeBinding {
   /** Whether access to the space is required (blocking) or optional. */
   required?: boolean;
 }
-

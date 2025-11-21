@@ -151,7 +151,8 @@ export class PolicyEngine {
     for (const policy of policies) {
       if (!policy.fieldPolicies) continue;
       for (const rule of policy.fieldPolicies) {
-        if (!rule.actions.includes(mapActionToFieldAction(input.action))) continue;
+        if (!rule.actions.includes(mapActionToFieldAction(input.action)))
+          continue;
         if (!matchesSubject(rule, input.subject)) continue;
         if (!matchesResource(rule, input.resource)) continue;
         if (!matchesConditions(rule, input)) continue;
@@ -390,4 +391,3 @@ function getResourceId(resource: ResourceContext): string | undefined {
   if (typeof candidate === 'number') return String(candidate);
   return undefined;
 }
-

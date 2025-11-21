@@ -8,7 +8,9 @@ export interface SupportBotDefinition {
   autoEscalateThreshold?: number;
 }
 
-export function defineSupportBot(definition: SupportBotDefinition): SupportBotSpec {
+export function defineSupportBot(
+  definition: SupportBotDefinition
+): SupportBotSpec {
   const base = defineAgent({
     ...definition.base,
     policy: {
@@ -21,8 +23,8 @@ export function defineSupportBot(definition: SupportBotDefinition): SupportBotSp
         confidenceThreshold:
           definition.autoEscalateThreshold ??
           definition.base.policy?.escalation?.confidenceThreshold ??
-            definition.base.policy?.confidence?.min ??
-            0.7,
+          definition.base.policy?.confidence?.min ??
+          0.7,
         ...definition.base.policy?.escalation,
       },
     },

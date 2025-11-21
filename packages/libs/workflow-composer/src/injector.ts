@@ -2,7 +2,10 @@ import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
 import type { WorkflowExtension, StepInjection } from './types';
 import { validateExtension } from './validator';
 
-export function applyWorkflowExtension(base: WorkflowSpec, extension: WorkflowExtension): WorkflowSpec {
+export function applyWorkflowExtension(
+  base: WorkflowSpec,
+  extension: WorkflowExtension
+): WorkflowSpec {
   validateExtension(extension, base);
   const spec = cloneWorkflowSpec(base);
 
@@ -20,7 +23,8 @@ export function applyWorkflowExtension(base: WorkflowSpec, extension: WorkflowEx
 
   if (hiddenSet.size) {
     transitions = transitions.filter(
-      (transition) => !hiddenSet.has(transition.from) && !hiddenSet.has(transition.to),
+      (transition) =>
+        !hiddenSet.has(transition.from) && !hiddenSet.has(transition.to)
     );
   }
 
@@ -38,7 +42,10 @@ export function applyWorkflowExtension(base: WorkflowSpec, extension: WorkflowEx
   return spec;
 }
 
-function insertStep(steps: WorkflowSpec['definition']['steps'], injection: StepInjection) {
+function insertStep(
+  steps: WorkflowSpec['definition']['steps'],
+  injection: StepInjection
+) {
   const anchorIndex = resolveAnchorIndex(steps, injection);
   if (anchorIndex === -1) {
     throw new Error(`Unable to place injected step "${injection.inject.id}"`);
@@ -46,7 +53,10 @@ function insertStep(steps: WorkflowSpec['definition']['steps'], injection: StepI
   steps.splice(anchorIndex, 0, { ...injection.inject });
 }
 
-function resolveAnchorIndex(steps: WorkflowSpec['definition']['steps'], injection: StepInjection) {
+function resolveAnchorIndex(
+  steps: WorkflowSpec['definition']['steps'],
+  injection: StepInjection
+) {
   if (injection.after) {
     const idx = steps.findIndex((step) => step.id === injection.after);
     return idx === -1 ? -1 : idx + 1;
@@ -58,7 +68,10 @@ function resolveAnchorIndex(steps: WorkflowSpec['definition']['steps'], injectio
   return steps.length;
 }
 
-function wireTransitions(transitions: WorkflowSpec['definition']['transitions'], injection: StepInjection) {
+function wireTransitions(
+  transitions: WorkflowSpec['definition']['transitions'],
+  injection: StepInjection
+) {
   if (!injection.inject.id) return;
 
   if (injection.transitionFrom) {
@@ -79,7 +92,7 @@ function wireTransitions(transitions: WorkflowSpec['definition']['transitions'],
 }
 
 function dedupeTransitions(
-  transitions: WorkflowSpec['definition']['transitions'],
+  transitions: WorkflowSpec['definition']['transitions']
 ): WorkflowSpec['definition']['transitions'] {
   const seen = new Set<string>();
   const result: typeof transitions = [];
@@ -95,4 +108,3 @@ function dedupeTransitions(
 function cloneWorkflowSpec(spec: WorkflowSpec): WorkflowSpec {
   return JSON.parse(JSON.stringify(spec));
 }
-

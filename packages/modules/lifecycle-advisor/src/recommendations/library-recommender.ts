@@ -7,26 +7,22 @@ export interface LibraryRecommendation {
   description: string;
 }
 
-type LibraryStageEntry = {
+interface LibraryStageEntry {
   stage: LifecycleStage;
   items: LibraryRecommendation[];
-};
+}
 
 const LIBRARY_MAP = new Map<LifecycleStage, LibraryRecommendation[]>(
-  (libraryMap as LibraryStageEntry[]).map((entry) => [
-    entry.stage,
-    entry.items,
-  ]),
+  (libraryMap as LibraryStageEntry[]).map((entry) => [entry.stage, entry.items])
 );
 
 export class ContractSpecLibraryRecommender {
   private readonly mapping: Map<LifecycleStage, LibraryRecommendation[]>;
 
   constructor(overrides?: LibraryStageEntry[]) {
-    this.mapping =
-      overrides?.length
-        ? new Map(overrides.map((entry) => [entry.stage, entry.items]))
-        : LIBRARY_MAP;
+    this.mapping = overrides?.length
+      ? new Map(overrides.map((entry) => [entry.stage, entry.items]))
+      : LIBRARY_MAP;
   }
 
   recommend(stage: LifecycleStage, limit = 4): LibraryRecommendation[] {
@@ -35,5 +31,3 @@ export class ContractSpecLibraryRecommender {
     return items.slice(0, limit);
   }
 }
-
-

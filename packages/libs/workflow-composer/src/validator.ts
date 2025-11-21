@@ -6,7 +6,10 @@ export interface WorkflowExtensionValidationIssue {
   message: string;
 }
 
-export function validateExtension(extension: WorkflowExtension, base: WorkflowSpec) {
+export function validateExtension(
+  extension: WorkflowExtension,
+  base: WorkflowSpec
+) {
   const issues: WorkflowExtensionValidationIssue[] = [];
   const stepIds = new Set(base.definition.steps.map((step) => step.id));
 
@@ -50,9 +53,11 @@ export function validateExtension(extension: WorkflowExtension, base: WorkflowSp
   });
 
   if (issues.length) {
-    const reason = issues.map((issue) => `${issue.code}: ${issue.message}`).join('; ');
-    throw new Error(`Invalid workflow extension for ${extension.workflow}: ${reason}`);
+    const reason = issues
+      .map((issue) => `${issue.code}: ${issue.message}`)
+      .join('; ');
+    throw new Error(
+      `Invalid workflow extension for ${extension.workflow}: ${reason}`
+    );
   }
 }
-
-

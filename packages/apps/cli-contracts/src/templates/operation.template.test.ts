@@ -82,4 +82,3 @@ describe('generateOperationSpec', () => {
     expect(code).toContain("'feature_b'");
   });
 });
-

@@ -1,4 +1,8 @@
-import type { SignedOverlaySpec, OverlayScopeContext, OverlayTargetRef } from './spec';
+import type {
+  SignedOverlaySpec,
+  OverlayScopeContext,
+  OverlayTargetRef,
+} from './spec';
 
 export interface OverlayRenderableField {
   key: string;
@@ -18,18 +22,20 @@ export interface OverlayLayoutConfig {
   [key: string]: unknown;
 }
 
-export interface OverlayRenderable<TField extends OverlayRenderableField = OverlayRenderableField> {
+export interface OverlayRenderable<
+  TField extends OverlayRenderableField = OverlayRenderableField,
+> {
   fields: TField[];
   layout?: OverlayLayoutConfig;
   metadata?: Record<string, unknown>;
 }
 
-export interface OverlayMatchContext extends OverlayScopeContext, OverlayTargetRef {}
+export interface OverlayMatchContext
+  extends OverlayScopeContext,
+    OverlayTargetRef {}
 
 export interface OverlayAuditEvent {
   overlay: Pick<SignedOverlaySpec, 'overlayId' | 'version'>;
   context: OverlayScopeContext;
   timestamp: string;
 }
-
-

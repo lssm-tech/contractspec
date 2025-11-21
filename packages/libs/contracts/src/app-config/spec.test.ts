@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  AppBlueprintRegistry,
-  type AppBlueprintSpec,
-} from './spec';
+import { AppBlueprintRegistry, type AppBlueprintSpec } from './spec';
 import { StabilityEnum, type Owner, type Tag } from '../ownership';
 
 const baseMeta = {
@@ -43,7 +40,8 @@ describe('AppBlueprintRegistry', () => {
     const registry = new AppBlueprintRegistry();
     const spec = makeBlueprint(1);
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate AppBlueprint/);
+    expect(() => registry.register(spec)).toThrowError(
+      /Duplicate AppBlueprint/
+    );
   });
 });
-

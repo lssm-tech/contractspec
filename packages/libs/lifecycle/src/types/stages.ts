@@ -38,14 +38,21 @@ export const LIFECYCLE_STAGE_ORDER: LifecycleStage[] = [
   LifecycleStage.MaturityRenewal,
 ];
 
-export const LIFECYCLE_STAGE_META: Record<LifecycleStage, LifecycleStageMetadata> = {
+export const LIFECYCLE_STAGE_META: Record<
+  LifecycleStage,
+  LifecycleStageMetadata
+> = {
   [LifecycleStage.Exploration]: {
     id: LifecycleStage.Exploration,
     order: 0,
     slug: 'exploration',
     name: 'Exploration / Ideation',
     question: 'Is there a problem worth my time?',
-    signals: ['20+ discovery interviews', 'Clear problem statement', 'Named ICP'],
+    signals: [
+      '20+ discovery interviews',
+      'Clear problem statement',
+      'Named ICP',
+    ],
     traps: ['Branding before discovery', 'Premature tooling decisions'],
     focusAreas: ['Customer discovery', 'Problem definition', 'Segment clarity'],
   },
@@ -75,7 +82,11 @@ export const LIFECYCLE_STAGE_META: Record<LifecycleStage, LifecycleStageMetadata
     slug: 'product-market-fit',
     name: 'Product–Market Fit',
     question: 'Is this pulling us forward?',
-    signals: ['Retention without heroics', 'Organic word-of-mouth', 'Value stories'],
+    signals: [
+      'Retention without heroics',
+      'Organic word-of-mouth',
+      'Value stories',
+    ],
     traps: ['Hero growth that does not scale', 'Ignoring churn signals'],
     focusAreas: ['Retention', 'Reliability', 'ICP clarity'],
   },
@@ -85,8 +96,15 @@ export const LIFECYCLE_STAGE_META: Record<LifecycleStage, LifecycleStageMetadata
     slug: 'growth-scale-up',
     name: 'Growth / Scale-up',
     question: 'Can we grow this repeatably?',
-    signals: ['Predictable channels', 'Specialized hires', 'Unit economics on track'],
-    traps: ['Paid spend masking retention gaps', 'Infra debt blocking launches'],
+    signals: [
+      'Predictable channels',
+      'Specialized hires',
+      'Unit economics on track',
+    ],
+    traps: [
+      'Paid spend masking retention gaps',
+      'Infra debt blocking launches',
+    ],
     focusAreas: ['Ops systems', 'Growth loops', 'Reliability engineering'],
   },
   [LifecycleStage.ExpansionPlatform]: {
@@ -111,12 +129,14 @@ export const LIFECYCLE_STAGE_META: Record<LifecycleStage, LifecycleStageMetadata
   },
 };
 
-export const getLifecycleStageBySlug = (slug: LifecycleStageSlug): LifecycleStage => {
-  const entry = Object.values(LIFECYCLE_STAGE_META).find((meta) => meta.slug === slug);
+export const getLifecycleStageBySlug = (
+  slug: LifecycleStageSlug
+): LifecycleStage => {
+  const entry = Object.values(LIFECYCLE_STAGE_META).find(
+    (meta) => meta.slug === slug
+  );
   if (!entry) {
     throw new Error(`Unknown lifecycle stage slug: ${slug}`);
   }
   return entry.id;
 };
-
-

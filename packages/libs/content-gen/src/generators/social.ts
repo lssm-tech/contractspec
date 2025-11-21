@@ -67,7 +67,9 @@ export class SocialPostGenerator {
 
   private buildHashtags(brief: ContentBrief): string[] {
     const base = [
-      brief.audience.industry ? `#${camel(brief.audience.industry)}` : '#operations',
+      brief.audience.industry
+        ? `#${camel(brief.audience.industry)}`
+        : '#operations',
       '#automation',
       '#aiops',
       '#compliance',

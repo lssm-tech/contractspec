@@ -1,4 +1,7 @@
-export type BehaviorEventType = 'field_access' | 'feature_usage' | 'workflow_step';
+export type BehaviorEventType =
+  | 'field_access'
+  | 'feature_usage'
+  | 'workflow_step';
 
 export interface BehaviorEventBase {
   id?: string;
@@ -29,7 +32,10 @@ export interface WorkflowStepEvent extends BehaviorEventBase {
   status: 'entered' | 'completed' | 'skipped' | 'errored';
 }
 
-export type BehaviorEvent = FieldAccessEvent | FeatureUsageEvent | WorkflowStepEvent;
+export type BehaviorEvent =
+  | FieldAccessEvent
+  | FeatureUsageEvent
+  | WorkflowStepEvent;
 
 export interface BehaviorQuery {
   tenantId?: string;
@@ -54,12 +60,10 @@ export interface BehaviorInsights {
   unusedFields: string[];
   frequentlyUsedFields: string[];
   suggestedHiddenFields: string[];
-  workflowBottlenecks: Array<{
+  workflowBottlenecks: {
     workflow: string;
     step: string;
     dropRate: number;
-  }>;
+  }[];
   layoutPreference?: 'form' | 'grid' | 'list' | 'table';
 }
-
-

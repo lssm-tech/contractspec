@@ -65,7 +65,3 @@ export function createRlsMiddleware(getTenantId: TenantIdProvider) {
     return next(params);
   };
 }
-
-
-
-

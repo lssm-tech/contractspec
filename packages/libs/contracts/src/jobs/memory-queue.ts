@@ -1,11 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import type {
-  EnqueueOptions,
-  Job,
-  JobHandler,
-  JobQueue,
-} from './queue';
+import type { EnqueueOptions, Job, JobHandler, JobQueue } from './queue';
 
 export class MemoryJobQueue implements JobQueue {
   private readonly jobs: Job[] = [];
@@ -59,7 +54,9 @@ export class MemoryJobQueue implements JobQueue {
 
   private async processNext() {
     if (this.processing) return;
-    const job = this.jobs.find((j) => j.status === 'pending' && j.updatedAt <= new Date());
+    const job = this.jobs.find(
+      (j) => j.status === 'pending' && j.updatedAt <= new Date()
+    );
     if (!job) return;
     const handler = this.handlers.get(job.type);
     if (!handler) return;
@@ -83,5 +80,3 @@ export class MemoryJobQueue implements JobQueue {
     }
   }
 }
-
-

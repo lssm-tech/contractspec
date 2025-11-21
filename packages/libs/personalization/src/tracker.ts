@@ -125,7 +125,8 @@ export class BehaviorTracker {
 
     this.tracer.startActiveSpan(`personalization.${event.type}`, (span) => {
       span.setAttribute('tenant.id', this.context.tenantId);
-      if (this.context.userId) span.setAttribute('user.id', this.context.userId);
+      if (this.context.userId)
+        span.setAttribute('user.id', this.context.userId);
       span.setAttribute('personalization.event_type', event.type);
       span.end();
     });
@@ -138,4 +139,3 @@ export class BehaviorTracker {
 
 export const createBehaviorTracker = (options: BehaviorTrackerOptions) =>
   new BehaviorTracker(options);
-

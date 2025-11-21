@@ -4,13 +4,10 @@ export const ContractSpecFeatureFlags = {
   LIFECYCLE_MANAGED_SERVICE: 'lifecycle_managed_service',
 } as const;
 
-export type ContractSpecFeatureFlag =
-  keyof typeof ContractSpecFeatureFlags;
+export type ContractSpecFeatureFlag = keyof typeof ContractSpecFeatureFlags;
 
 export const lifecycleFlags = [
   ContractSpecFeatureFlags.LIFECYCLE_DETECTION_ALPHA,
   ContractSpecFeatureFlags.LIFECYCLE_ADVISOR_ALPHA,
   ContractSpecFeatureFlags.LIFECYCLE_MANAGED_SERVICE,
 ];
-
-

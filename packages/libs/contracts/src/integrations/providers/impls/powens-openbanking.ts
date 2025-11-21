@@ -23,8 +23,7 @@ import {
   type PowensConnectionStatusResponse,
 } from './powens-client';
 
-export interface PowensOpenBankingProviderOptions
-  extends PowensClientOptions {}
+export interface PowensOpenBankingProviderOptions extends PowensClientOptions {}
 
 interface ProviderContext {
   tenantId: string;
@@ -165,7 +164,9 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
       accountNumberMasked: account.metadata?.account_number_masked as
         | string
         | undefined,
-      ownership: this.mapOwnership(account.metadata?.ownership as string | undefined),
+      ownership: this.mapOwnership(
+        account.metadata?.ownership as string | undefined
+      ),
       status: this.mapAccountStatus(account.status),
       lastSyncedAt: account.metadata?.last_sync_at as string | undefined,
       metadata: account.metadata,
@@ -233,10 +234,7 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
     };
   }
 
-  private toContext(
-    tenantId: string,
-    connectionId: string
-  ): ProviderContext {
+  private toContext(tenantId: string, connectionId: string): ProviderContext {
     return { tenantId, connectionId };
   }
 
@@ -307,15 +305,12 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
 
   private handleError(operation: string, error: unknown): never {
     if (error instanceof PowensClientError) {
-      this.logger?.error?.(
-        `[PowensOpenBankingProvider] ${operation} failed`,
-        {
-          status: error.status,
-          code: error.code,
-          requestId: error.requestId,
-          message: error.message,
-        }
-      );
+      this.logger?.error?.(`[PowensOpenBankingProvider] ${operation} failed`, {
+        status: error.status,
+        code: error.code,
+        requestId: error.requestId,
+        message: error.message,
+      });
       throw error;
     }
     this.logger?.error?.(
@@ -327,5 +322,3 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
       : new Error(`Powens operation "${operation}" failed`);
   }
 }
-
-

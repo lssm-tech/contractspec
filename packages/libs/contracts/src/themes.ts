@@ -52,16 +52,14 @@ export interface ThemeRef {
   version: number;
 }
 
-const themeKey = (ref: ThemeRef | ThemeMeta) =>
-  `${ref.name}.v${ref.version}`;
+const themeKey = (ref: ThemeRef | ThemeMeta) => `${ref.name}.v${ref.version}`;
 
 export class ThemeRegistry {
   private readonly items = new Map<string, ThemeSpec>();
 
   register(spec: ThemeSpec): this {
     const key = themeKey(spec.meta);
-    if (this.items.has(key))
-      throw new Error(`Duplicate theme ${key}`);
+    if (this.items.has(key)) throw new Error(`Duplicate theme ${key}`);
     this.items.set(key, spec);
     return this;
   }
@@ -88,4 +86,3 @@ export class ThemeRegistry {
 export function makeThemeRef(spec: ThemeSpec): ThemeRef {
   return { name: spec.meta.name, version: spec.meta.version };
 }
-

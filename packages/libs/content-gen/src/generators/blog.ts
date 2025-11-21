@@ -1,5 +1,9 @@
 import type { LLMProvider } from '@lssm/lib.contracts/integrations/providers/llm';
-import type { ContentBrief, GeneratedContent, GeneratorOptions } from '../types';
+import type {
+  ContentBrief,
+  GeneratedContent,
+  GeneratorOptions,
+} from '../types';
 
 export class BlogGenerator {
   private readonly llm?: LLMProvider;
@@ -19,7 +23,9 @@ export class BlogGenerator {
     return this.generateDeterministic(brief);
   }
 
-  private async generateWithLlm(brief: ContentBrief): Promise<GeneratedContent> {
+  private async generateWithLlm(
+    brief: ContentBrief
+  ): Promise<GeneratedContent> {
     const response = await this.llm!.chat(
       [
         {
@@ -72,7 +78,10 @@ export class BlogGenerator {
       {
         heading: 'Proof it works',
         body: 'Teams using the blueprint report measurable wins.',
-        bullets: brief.metrics ?? ['Launch workflows in minutes', 'Cut review time by 60%'],
+        bullets: brief.metrics ?? [
+          'Launch workflows in minutes',
+          'Cut review time by 60%',
+        ],
       },
     ];
 
@@ -82,7 +91,8 @@ export class BlogGenerator {
       intro,
       sections,
       outro:
-        brief.callToAction ?? 'Ready to see it live? Spin up a sandbox in under 5 minutes.',
+        brief.callToAction ??
+        'Ready to see it live? Spin up a sandbox in under 5 minutes.',
     };
   }
 

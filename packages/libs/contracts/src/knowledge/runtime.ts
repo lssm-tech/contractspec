@@ -1,4 +1,7 @@
-import type { ResolvedAppConfig, ResolvedKnowledge } from '../app-config/runtime';
+import type {
+  ResolvedAppConfig,
+  ResolvedKnowledge,
+} from '../app-config/runtime';
 import type { KnowledgeCategory } from './spec';
 
 export interface KnowledgeAccessContext {
@@ -44,7 +47,10 @@ export class KnowledgeAccessGuard {
   ): KnowledgeAccessResult {
     const { binding, space } = spaceBinding;
 
-    if (binding.required !== false && !this.isSpaceBound(spaceBinding, appConfig)) {
+    if (
+      binding.required !== false &&
+      !this.isSpaceBound(spaceBinding, appConfig)
+    ) {
       return {
         allowed: false,
         reason: `Knowledge space "${space.meta.key}" is not bound in the resolved app config.`,
@@ -63,7 +69,10 @@ export class KnowledgeAccessGuard {
 
     if (this.requireWorkflowBinding && context.workflowName) {
       const allowedWorkflows = binding.scope?.workflows;
-      if (allowedWorkflows && !allowedWorkflows.includes(context.workflowName)) {
+      if (
+        allowedWorkflows &&
+        !allowedWorkflows.includes(context.workflowName)
+      ) {
         return {
           allowed: false,
           reason: `Workflow "${context.workflowName}" is not authorized to access knowledge space "${space.meta.key}".`,
@@ -104,7 +113,3 @@ export class KnowledgeAccessGuard {
     );
   }
 }
-
-
-
-

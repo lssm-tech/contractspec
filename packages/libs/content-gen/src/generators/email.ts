@@ -24,7 +24,9 @@ export class EmailCampaignGenerator {
     return this.generateFallback(input);
   }
 
-  private async generateWithLlm(input: EmailCampaignBrief): Promise<EmailDraft | null> {
+  private async generateWithLlm(
+    input: EmailCampaignBrief
+  ): Promise<EmailDraft | null> {
     const response = await this.llm!.chat(
       [
         {
@@ -62,14 +64,18 @@ export class EmailCampaignGenerator {
 
   private generateFallback(input: EmailCampaignBrief): EmailDraft {
     const { brief, variant } = input;
-    const subject = this.subjects(brief.title, variant)[0] ?? `${brief.title} update`;
+    const subject =
+      this.subjects(brief.title, variant)[0] ?? `${brief.title} update`;
     const previewText = this.defaultPreview(input);
     const body = this.renderBody(input);
     const cta = brief.callToAction ?? 'Explore the sandbox';
     return { subject, previewText, body, cta, variant };
   }
 
-  private subjects(title: string, variant: EmailCampaignBrief['variant']): string[] {
+  private subjects(
+    title: string,
+    variant: EmailCampaignBrief['variant']
+  ): string[] {
     switch (variant) {
       case 'announcement':
         return [`Launch: ${title}`, `${title} is live`, `New: ${title}`];
@@ -90,7 +96,8 @@ export class EmailCampaignGenerator {
     const { brief, variant } = input;
     const greeting = 'Hi there,';
     const hook = this.variantHook(variant, brief);
-    const proof = brief.metrics?.map((metric) => `• ${metric}`).join('\n') ?? '';
+    const proof =
+      brief.metrics?.map((metric) => `• ${metric}`).join('\n') ?? '';
     return `${greeting}
 
 ${hook}
@@ -104,7 +111,10 @@ ${brief.callToAction ?? 'Spin up a sandbox'} → ${(input.cadenceDay ?? 0) + 1}
 `;
   }
 
-  private variantHook(variant: EmailCampaignBrief['variant'], brief: EmailCampaignBrief['brief']): string {
+  private variantHook(
+    variant: EmailCampaignBrief['variant'],
+    brief: EmailCampaignBrief['brief']
+  ): string {
     switch (variant) {
       case 'announcement':
         return `${brief.title} is live. ${brief.summary}`;

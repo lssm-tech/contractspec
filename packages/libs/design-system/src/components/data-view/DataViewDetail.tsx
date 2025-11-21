@@ -37,13 +37,13 @@ export function DataViewDetail({
     return (
       <div className={cn('flex w-full flex-col gap-4', className)}>
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-foreground">
+          <h3 className="text-foreground text-base font-semibold">
             {spec.meta.title}
           </h3>
           {headerActions}
         </div>
         {emptyState ?? (
-          <div className="rounded-md border border-dashed border-muted-foreground/40 p-8 text-center text-sm text-muted-foreground">
+          <div className="border-muted-foreground/40 text-muted-foreground rounded-md border border-dashed p-8 text-center text-sm">
             Select a record to view details.
           </div>
         )}
@@ -60,10 +60,12 @@ export function DataViewDetail({
     <div className={cn('flex w-full flex-col gap-6', className)}>
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-foreground">
+          <h3 className="text-foreground text-xl font-semibold">
             {spec.meta.title}
           </h3>
-          <p className="text-sm text-muted-foreground">{spec.meta.description}</p>
+          <p className="text-muted-foreground text-sm">
+            {spec.meta.description}
+          </p>
         </div>
         {headerActions}
       </div>
@@ -71,15 +73,15 @@ export function DataViewDetail({
         {sections.map((section, idx) => (
           <div
             key={idx}
-            className="rounded-lg border border-border bg-card p-4 shadow-sm"
+            className="border-border bg-card rounded-lg border p-4 shadow-sm"
           >
             {section.title ? (
-              <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              <h4 className="text-muted-foreground mb-2 text-sm font-semibold tracking-wide uppercase">
                 {section.title}
               </h4>
             ) : null}
             {section.description ? (
-              <p className="mb-4 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mb-4 text-sm">
                 {section.description}
               </p>
             ) : null}
@@ -90,10 +92,10 @@ export function DataViewDetail({
                 const value = getAtPath(item, field.dataPath);
                 return (
                   <div key={field.key} className="flex flex-col gap-1">
-                    <dt className="text-xs font-semibold uppercase text-muted-foreground/80">
+                    <dt className="text-muted-foreground/80 text-xs font-semibold uppercase">
                       {field.label}
                     </dt>
-                    <dd className="text-sm text-foreground">
+                    <dd className="text-foreground text-sm">
                       {formatValue(value, field.format)}
                     </dd>
                   </div>
@@ -110,4 +112,3 @@ export function DataViewDetail({
 function fieldByKey(fields: DataViewField[], key: string) {
   return fields.find((field) => field.key === key);
 }
-

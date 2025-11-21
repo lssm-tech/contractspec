@@ -45,4 +45,3 @@ export const validators = {
   owner: z.string().startsWith('@'),
   tag: z.string().min(1),
 };
-

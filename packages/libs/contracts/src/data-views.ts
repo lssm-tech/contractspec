@@ -178,4 +178,3 @@ export class DataViewRegistry {
 export function dataViewKey(spec: DataViewSpec) {
   return keyOf(spec);
 }
-

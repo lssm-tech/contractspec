@@ -91,7 +91,9 @@ describe('MistralLLMProvider', () => {
       client,
     });
     await expect(
-      provider.countTokens([{ role: 'user', content: [{ type: 'text', text: 'Hello' }] }])
+      provider.countTokens([
+        { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
+      ])
     ).rejects.toThrow();
   });
 });
@@ -164,5 +166,3 @@ function asyncIterable<T>(items: T[]): AsyncIterable<T> {
     },
   };
 }
-
-

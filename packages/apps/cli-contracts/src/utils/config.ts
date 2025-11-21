@@ -4,9 +4,13 @@ import { join } from 'path';
 import { z } from 'zod';
 
 const ConfigSchema = z.object({
-  aiProvider: z.enum(['claude', 'openai', 'ollama', 'custom']).default('claude'),
+  aiProvider: z
+    .enum(['claude', 'openai', 'ollama', 'custom'])
+    .default('claude'),
   aiModel: z.string().optional(),
-  agentMode: z.enum(['simple', 'cursor', 'claude-code', 'openai-codex']).default('simple'),
+  agentMode: z
+    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
+    .default('simple'),
   customEndpoint: z.string().url().nullable().optional(),
   customApiKey: z.string().nullable().optional(),
   outputDir: z.string().default('./src'),
@@ -41,17 +45,19 @@ const DEFAULT_CONFIG: Config = {
  */
 export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
   const configPath = join(cwd, '.contractsrc.json');
-  
+
   if (!existsSync(configPath)) {
     return DEFAULT_CONFIG;
   }
-  
+
   try {
     const content = await readFile(configPath, 'utf-8');
     const parsed = JSON.parse(content);
     return ConfigSchema.parse(parsed);
   } catch (error) {
-    console.warn(`Warning: Could not parse .contractsrc.json, using defaults. Error: ${error}`);
+    console.warn(
+      `Warning: Could not parse .contractsrc.json, using defaults. Error: ${error}`
+    );
     return DEFAULT_CONFIG;
   }
 }
@@ -71,20 +77,23 @@ export function mergeConfig(
 ): Config {
   return {
     ...config,
-    aiProvider: (options.provider as Config['aiProvider']) || 
-                 (process.env.CONTRACTSPEC_AI_PROVIDER as Config['aiProvider']) || 
-                 config.aiProvider,
-    aiModel: options.model || 
-             process.env.CONTRACTSPEC_AI_MODEL || 
-             config.aiModel,
-    agentMode: (options.agentMode as Config['agentMode']) ||
-               (process.env.CONTRACTSPEC_AGENT_MODE as Config['agentMode']) ||
-               config.agentMode,
-    customEndpoint: options.endpoint || 
-                   process.env.CONTRACTSPEC_LLM_ENDPOINT || 
-                   config.customEndpoint || undefined,
-    customApiKey: process.env.CONTRACTSPEC_LLM_API_KEY || 
-                 config.customApiKey || undefined,
+    aiProvider:
+      (options.provider as Config['aiProvider']) ||
+      (process.env.CONTRACTSPEC_AI_PROVIDER as Config['aiProvider']) ||
+      config.aiProvider,
+    aiModel:
+      options.model || process.env.CONTRACTSPEC_AI_MODEL || config.aiModel,
+    agentMode:
+      (options.agentMode as Config['agentMode']) ||
+      (process.env.CONTRACTSPEC_AGENT_MODE as Config['agentMode']) ||
+      config.agentMode,
+    customEndpoint:
+      options.endpoint ||
+      process.env.CONTRACTSPEC_LLM_ENDPOINT ||
+      config.customEndpoint ||
+      undefined,
+    customApiKey:
+      process.env.CONTRACTSPEC_LLM_API_KEY || config.customApiKey || undefined,
     outputDir: options.outputDir || config.outputDir,
   };
 }
@@ -106,4 +115,3 @@ export function getApiKey(provider: Config['aiProvider']): string | undefined {
       return undefined;
   }
 }
-

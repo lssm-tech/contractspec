@@ -16,7 +16,7 @@ export interface LifecycleMetricSource {
 }
 
 export const collectLifecycleMetrics = async (
-  source: LifecycleMetricSource,
+  source: LifecycleMetricSource
 ): Promise<LifecycleMetricSnapshot> => {
   const [
     activeUsers,
@@ -49,7 +49,7 @@ export const collectLifecycleMetrics = async (
 
 export const metricsToSignals = (
   metrics: LifecycleMetricSnapshot,
-  tenantId?: string,
+  tenantId?: string
 ): LifecycleSignal[] =>
   Object.entries(metrics)
     .filter(([, value]) => value !== undefined && value !== null)
@@ -79,7 +79,7 @@ export interface LifecycleStageChangePayload {
 }
 
 export const createStageChangeEvent = (
-  payload: LifecycleStageChangePayload,
+  payload: LifecycleStageChangePayload
 ): AnalyticsEvent => ({
   name: lifecycleEventNames.stageChanged,
   userId: 'system',
@@ -87,5 +87,3 @@ export const createStageChangeEvent = (
   timestamp: new Date(),
   properties: payload,
 });
-
-

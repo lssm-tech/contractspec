@@ -18,7 +18,7 @@ export interface ContentBrief {
   complianceNotes?: string[];
   audience: AudienceProfile;
   callToAction?: string;
-  references?: Array<{ label: string; url: string }>;
+  references?: { label: string; url: string }[];
 }
 
 export interface ContentBlock {

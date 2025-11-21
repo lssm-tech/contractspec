@@ -140,4 +140,3 @@ Generate production-ready code that is:
 
 Always prioritize code quality, safety, and user experience.`;
 }
-

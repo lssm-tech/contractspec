@@ -3,7 +3,11 @@ import type {
   VectorStoreProvider,
   VectorSearchResult,
 } from '../../integrations/providers/vector-store';
-import type { LLMProvider, LLMMessage, LLMResponse } from '../../integrations/providers/llm';
+import type {
+  LLMProvider,
+  LLMMessage,
+  LLMResponse,
+} from '../../integrations/providers/llm';
 
 export interface KnowledgeQueryConfig {
   collection: string;
@@ -14,11 +18,9 @@ export interface KnowledgeQueryConfig {
 
 export interface KnowledgeAnswer {
   answer: string;
-  references: Array<
-    VectorSearchResult & {
-      text?: string;
-    }
-  >;
+  references: (VectorSearchResult & {
+    text?: string;
+  })[];
   usage?: LLMResponse['usage'];
 }
 
@@ -104,5 +106,3 @@ function extractText(result: VectorSearchResult): string {
   if (typeof payload.content === 'string') return payload.content;
   return JSON.stringify(payload);
 }
-
-

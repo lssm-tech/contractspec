@@ -257,14 +257,15 @@ export class SpecAnalyzer {
           hints.push(
             this.applyLifecycleContext(
               {
-            operation: stat.operation,
-            category: 'performance',
+                operation: stat.operation,
+                category: 'performance',
                 summary: 'Throughput drop detected',
-                justification: 'Significant traffic reduction relative to baseline',
-            recommendedActions: [
+                justification:
+                  'Significant traffic reduction relative to baseline',
+                recommendedActions: [
                   'Validate routing + feature flag bucketing',
                   'Backfill spec variant to rehydrate demand',
-            ],
+                ],
               },
               lifecycleContext?.stage
             )
@@ -392,7 +393,10 @@ type StageBand = 'early' | 'pmf' | 'scale' | 'mature';
 const mapStageBand = (stage: LifecycleStage): StageBand => {
   if (stage <= 2) return 'early';
   if (stage === LifecycleStage.ProductMarketFit) return 'pmf';
-  if (stage === LifecycleStage.GrowthScaleUp || stage === LifecycleStage.ExpansionPlatform) {
+  if (
+    stage === LifecycleStage.GrowthScaleUp ||
+    stage === LifecycleStage.ExpansionPlatform
+  ) {
     return 'scale';
   }
   return 'mature';
@@ -409,8 +413,11 @@ const LIFECYCLE_HINTS: Record<
 > = {
   early: {
     performance: {
-      message: 'Favor guardrails that protect learning velocity before heavy rewrites.',
-      supplementalActions: ['Wrap risky changes behind progressive delivery flags'],
+      message:
+        'Favor guardrails that protect learning velocity before heavy rewrites.',
+      supplementalActions: [
+        'Wrap risky changes behind progressive delivery flags',
+      ],
     },
     'error-handling': {
       message: 'Make failures loud and recoverable so you can learn faster.',
@@ -419,28 +426,38 @@ const LIFECYCLE_HINTS: Record<
   },
   pmf: {
     performance: {
-      message: 'Stabilize the core use case to avoid regressions while demand grows.',
+      message:
+        'Stabilize the core use case to avoid regressions while demand grows.',
       supplementalActions: ['Instrument regression tests on critical specs'],
     },
   },
   scale: {
     performance: {
-      message: 'Prioritize resilience and multi-tenant safety as volumes expand.',
-      supplementalActions: ['Introduce workload partitioning or isolation per tenant'],
+      message:
+        'Prioritize resilience and multi-tenant safety as volumes expand.',
+      supplementalActions: [
+        'Introduce workload partitioning or isolation per tenant',
+      ],
     },
     'error-handling': {
-      message: 'Contain blast radius with policy fallbacks and circuit breakers.',
+      message:
+        'Contain blast radius with policy fallbacks and circuit breakers.',
       supplementalActions: ['Add circuit breakers to high-risk operations'],
     },
   },
   mature: {
     performance: {
       message: 'Optimize for margins and predictable SLAs.',
-      supplementalActions: ['Capture unit-cost impacts alongside latency fixes'],
+      supplementalActions: [
+        'Capture unit-cost impacts alongside latency fixes',
+      ],
     },
     'error-handling': {
-      message: 'Prevent regressions with automated regression specs before deploy.',
-      supplementalActions: ['Run auto-evolution simulations on renewal scenarios'],
+      message:
+        'Prevent regressions with automated regression specs before deploy.',
+      supplementalActions: [
+        'Run auto-evolution simulations on renewal scenarios',
+      ],
     },
   },
 };
@@ -455,4 +472,3 @@ const dedupeActions = (actions: string[]): string[] => {
   }
   return ordered;
 };
-

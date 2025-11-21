@@ -4,18 +4,15 @@ import type {
   LifecycleRecommendation,
   LifecycleAction,
 } from '@lssm/lib.lifecycle';
-import {
-  LIFECYCLE_STAGE_META,
-  LifecycleStage,
-} from '@lssm/lib.lifecycle';
+import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
 import playbooks from '../data/stage-playbooks.json' assert { type: 'json' };
 
-type StagePlaybook = {
+interface StagePlaybook {
   stage: LifecycleStage;
   actions: LifecycleAction[];
   focusAreas?: string[];
   ceremony?: LifecycleRecommendation['ceremony'];
-};
+}
 
 export interface RecommendationOptions {
   limit?: number;
@@ -29,25 +26,25 @@ const PLAYBOOK_MAP = new Map<LifecycleStage, StagePlaybook>(
       ...entry,
       stage: entry.stage as LifecycleStage,
     },
-  ]),
+  ])
 );
 
 export class LifecycleRecommendationEngine {
   private readonly playbooks: Map<LifecycleStage, StagePlaybook>;
 
   constructor(overrides?: StagePlaybook[]) {
-    this.playbooks =
-      overrides?.length
-        ? new Map(overrides.map((entry) => [entry.stage, entry]))
-        : PLAYBOOK_MAP;
+    this.playbooks = overrides?.length
+      ? new Map(overrides.map((entry) => [entry.stage, entry]))
+      : PLAYBOOK_MAP;
   }
 
   generate(
     assessment: LifecycleAssessment,
-    options: RecommendationOptions = {},
+    options: RecommendationOptions = {}
   ): LifecycleRecommendation {
     const entry =
-      this.playbooks.get(assessment.stage) ?? createFallbackPlaybook(assessment.stage);
+      this.playbooks.get(assessment.stage) ??
+      createFallbackPlaybook(assessment.stage);
     const limit = options.limit ?? 3;
     const actions = (entry.actions ?? []).slice(0, limit);
     const finalActions =
@@ -69,7 +66,10 @@ const createFallbackPlaybook = (stage: LifecycleStage): StagePlaybook => ({
   focusAreas: LIFECYCLE_STAGE_META[stage].focusAreas,
 });
 
-const fallbackActions = (assessment: LifecycleAssessment, limit: number): LifecycleAction[] =>
+const fallbackActions = (
+  assessment: LifecycleAssessment,
+  limit: number
+): LifecycleAction[] =>
   (assessment.focusAreas ?? LIFECYCLE_STAGE_META[assessment.stage].focusAreas)
     .slice(0, limit)
     .map((focus, index) => ({
@@ -82,5 +82,3 @@ const fallbackActions = (assessment: LifecycleAssessment, limit: number): Lifecy
       effortLevel: 's',
       category: 'product',
     }));
-
-

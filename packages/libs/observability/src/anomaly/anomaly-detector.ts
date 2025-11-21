@@ -36,7 +36,10 @@ export class AnomalyDetector {
 
     const signals: AnomalySignal[] = [];
 
-    const errorDelta = this.relativeDelta(point.errorRate, baselineSnapshot.errorRate);
+    const errorDelta = this.relativeDelta(
+      point.errorRate,
+      baselineSnapshot.errorRate
+    );
     if (errorDelta > this.thresholds.errorRateDelta) {
       signals.push({
         type: 'error_rate_spike',
@@ -46,7 +49,10 @@ export class AnomalyDetector {
       });
     }
 
-    const latencyDelta = this.relativeDelta(point.latencyP99, baselineSnapshot.latencyP99);
+    const latencyDelta = this.relativeDelta(
+      point.latencyP99,
+      baselineSnapshot.latencyP99
+    );
     if (latencyDelta > this.thresholds.latencyDelta) {
       signals.push({
         type: 'latency_regression',
@@ -56,7 +62,10 @@ export class AnomalyDetector {
       });
     }
 
-    const throughputDelta = this.relativeDrop(point.throughput, baselineSnapshot.throughput);
+    const throughputDelta = this.relativeDrop(
+      point.throughput,
+      baselineSnapshot.throughput
+    );
     if (throughputDelta > this.thresholds.throughputDrop) {
       signals.push({
         type: 'throughput_drop',

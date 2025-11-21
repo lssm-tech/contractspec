@@ -1,10 +1,6 @@
 import { CanaryAnalyzer, type AnalysisResult } from './canary-analyzer';
 import { DeploymentEventBus } from './events';
-import type {
-  CanaryStage,
-  DeploymentStrategy,
-  MetricsProvider,
-} from './types';
+import type { CanaryStage, DeploymentStrategy, MetricsProvider } from './types';
 
 const DEFAULT_STAGES: CanaryStage[] = [
   { percentage: 1, minDurationMs: 5 * 60 * 1000, label: '1%' },
@@ -41,7 +37,10 @@ export class CanaryController {
       payload: { stage },
     });
 
-    const metrics = await this.options.metricsProvider(stage, stage.minDurationMs);
+    const metrics = await this.options.metricsProvider(
+      stage,
+      stage.minDurationMs
+    );
     const analysis = this.options.analyzer.evaluate(stage, metrics);
 
     this.options.eventBus?.emit({

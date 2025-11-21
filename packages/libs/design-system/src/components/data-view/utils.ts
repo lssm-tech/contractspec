@@ -68,4 +68,3 @@ function formatDate(
   }
   return String(value ?? '');
 }
-

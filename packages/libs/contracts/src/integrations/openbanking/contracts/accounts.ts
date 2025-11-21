@@ -1,19 +1,13 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-  type ContractSpec,
-} from '../../../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, type ContractSpec } from '../../../spec';
 import type { SpecRegistry } from '../../../registry';
 import { BankAccountRecord } from '../models';
 import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
 
 const OpenBankingListAccountsInput = new SchemaModel({
   name: 'OpenBankingListAccountsInput',
-  description: 'Parameters for listing bank accounts through the open banking provider.',
+  description:
+    'Parameters for listing bank accounts through the open banking provider.',
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     userId: { type: ScalarTypeEnum.ID(), isOptional: false },
@@ -27,7 +21,8 @@ const OpenBankingListAccountsInput = new SchemaModel({
 
 const OpenBankingListAccountsOutput = new SchemaModel({
   name: 'OpenBankingListAccountsOutput',
-  description: 'Paginated list of bank accounts available to the tenant and user.',
+  description:
+    'Paginated list of bank accounts available to the tenant and user.',
   fields: {
     accounts: {
       type: BankAccountRecord,
@@ -93,7 +88,8 @@ export const OpenBankingListAccounts = defineQuery({
   meta: {
     name: 'openbanking.accounts.list',
     version: 1,
-    description: 'List bank accounts available to a tenant/user via Powens Open Banking.',
+    description:
+      'List bank accounts available to a tenant/user via Powens Open Banking.',
     goal: 'Provide downstream workflows with the set of accounts accessible via the configured open banking connection.',
     context:
       'Used by Pocket Family Office dashboards and sync workflows to enumerate bank accounts prior to syncing balances or transactions.',
@@ -114,7 +110,8 @@ export const OpenBankingGetAccount = defineQuery({
   meta: {
     name: 'openbanking.accounts.get',
     version: 1,
-    description: 'Retrieve the canonical bank account record for the given account identifier.',
+    description:
+      'Retrieve the canonical bank account record for the given account identifier.',
     goal: 'Allow user-facing experiences and automations to display up-to-date account metadata.',
     context:
       'Invoked by UI surfaces and workflow automation steps that require detailed metadata for a specific bank account.',
@@ -135,7 +132,8 @@ export const OpenBankingSyncAccounts = defineCommand({
   meta: {
     name: 'openbanking.accounts.sync',
     version: 1,
-    description: 'Initiate a synchronisation run to refresh bank account metadata from Powens.',
+    description:
+      'Initiate a synchronisation run to refresh bank account metadata from Powens.',
     goal: 'Keep canonical bank account records aligned with the external open banking provider.',
     context:
       'Triggered by scheduled workflows or manual operator actions to reconcile account metadata prior to transaction/balance syncs.',
@@ -180,19 +178,22 @@ export const OpenBankingSyncAccounts = defineCommand({
         return {
           tenantId: payload?.tenantId,
           connectionId: payload?.connectionId,
-          error: error instanceof Error ? error.message : String(error ?? 'unknown'),
+          error:
+            error instanceof Error ? error.message : String(error ?? 'unknown'),
         };
       },
     },
   },
 });
 
-export const openBankingAccountContracts: Record<string, ContractSpec<any, any>> =
-  {
-    OpenBankingListAccounts,
-    OpenBankingGetAccount,
-    OpenBankingSyncAccounts,
-  };
+export const openBankingAccountContracts: Record<
+  string,
+  ContractSpec<any, any>
+> = {
+  OpenBankingListAccounts,
+  OpenBankingGetAccount,
+  OpenBankingSyncAccounts,
+};
 
 export function registerOpenBankingAccountContracts(
   registry: SpecRegistry
@@ -202,4 +203,3 @@ export function registerOpenBankingAccountContracts(
     .register(OpenBankingGetAccount)
     .register(OpenBankingSyncAccounts);
 }
-

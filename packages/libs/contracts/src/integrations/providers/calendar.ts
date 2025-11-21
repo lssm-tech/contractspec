@@ -84,5 +84,3 @@ export interface CalendarProvider {
   ): Promise<CalendarEvent>;
   deleteEvent(calendarId: string, eventId: string): Promise<void>;
 }
-
-

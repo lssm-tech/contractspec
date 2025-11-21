@@ -53,4 +53,3 @@ export type * from '../regenerator/adapters';
 export type * from '../migrations';
 export type * from '../themes';
 export type * from '../translations/catalog';
-

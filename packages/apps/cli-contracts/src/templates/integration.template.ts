@@ -18,27 +18,21 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
     .join(', ');
 
   const provides = data.capabilitiesProvided
-    .map(
-      (cap) => `      { key: '${cap.key}', version: ${cap.version} }`
-    )
+    .map((cap) => `      { key: '${cap.key}', version: ${cap.version} }`)
     .join(',\n');
 
   const requires =
     data.capabilitiesRequired.length > 0
       ? `    requires: [
 ${data.capabilitiesRequired
-        .map((req) => {
-          const version =
-            typeof req.version === 'number'
-              ? `, version: ${req.version}`
-              : '';
-          const optional = req.optional ? ', optional: true' : '';
-          const reason = req.reason
-            ? `, reason: '${escape(req.reason)}'`
-            : '';
-          return `      { key: '${req.key}'${version}${optional}${reason} }`;
-        })
-        .join(',\n')}
+  .map((req) => {
+    const version =
+      typeof req.version === 'number' ? `, version: ${req.version}` : '';
+    const optional = req.optional ? ', optional: true' : '';
+    const reason = req.reason ? `, reason: '${escape(req.reason)}'` : '';
+    return `      { key: '${req.key}'${version}${optional}${reason} }`;
+  })
+  .join(',\n')}
     ],`
       : '';
 
@@ -46,9 +40,7 @@ ${data.capabilitiesRequired
   const configExample = renderConfigExample(data.configFields);
   const secretSchema = renderSecretSchema(data.secretFields);
   const secretExample = renderSecretExample(data.secretFields);
-  const docsUrl = data.docsUrl
-    ? `  docsUrl: '${escape(data.docsUrl)}',\n`
-    : '';
+  const docsUrl = data.docsUrl ? `  docsUrl: '${escape(data.docsUrl)}',\n` : '';
   const constraints = renderConstraints(data.rateLimitRpm, data.rateLimitRph);
   const byokSetup = renderByokSetup(
     supportedModes,
@@ -197,10 +189,7 @@ ${exampleEntries.join(',\n')}
   }`;
 }
 
-function renderConstraints(
-  rpm?: number,
-  rph?: number
-): string {
+function renderConstraints(rpm?: number, rph?: number): string {
   if (rpm == null && rph == null) return '';
   const entries: string[] = [];
   if (rpm != null) entries.push(`      rpm: ${rpm}`);
@@ -278,4 +267,3 @@ function toPascalCase(value: string): string {
 function escape(value: string): string {
   return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }
-

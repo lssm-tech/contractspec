@@ -129,4 +129,3 @@ export class TestRegistry {
 export function makeTestKey(meta: TestSpecMeta) {
   return testKey(meta);
 }
-

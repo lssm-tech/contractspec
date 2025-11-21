@@ -17,11 +17,11 @@ export interface IntentSignal {
   confidence: number;
   description: string;
   metadata?: Record<string, unknown>;
-  evidence: Array<{
+  evidence: {
     type: 'metric' | 'sequence' | 'anomaly';
     description: string;
     data?: Record<string, unknown>;
-  }>;
+  }[];
 }
 
 export interface IntentDetectorOptions {
@@ -185,5 +185,3 @@ export class IntentDetector {
     return signals;
   }
 }
-
-

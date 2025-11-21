@@ -73,5 +73,3 @@ export class MistralEmbeddingProvider implements EmbeddingProvider {
     return result;
   }
 }
-
-

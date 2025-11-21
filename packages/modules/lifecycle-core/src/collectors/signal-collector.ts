@@ -4,11 +4,7 @@ import type {
   LifecycleMetricSnapshot,
   LifecycleSignal,
 } from '@lssm/lib.lifecycle';
-import {
-  CapitalPhase,
-  CompanyPhase,
-  ProductPhase,
-} from '@lssm/lib.lifecycle';
+import { CapitalPhase, CompanyPhase, ProductPhase } from '@lssm/lib.lifecycle';
 import type { AnalyticsAdapter } from '../adapters/analytics-adapter';
 import type { QuestionnaireAdapter } from '../adapters/questionnaire-adapter';
 import type { IntentAdapter } from '../adapters/intent-adapter';
@@ -40,7 +36,7 @@ export class StageSignalCollector {
   }
 
   async collect(
-    input: LifecycleAssessmentInput = {},
+    input: LifecycleAssessmentInput = {}
   ): Promise<StageSignalCollectorResult> {
     const axes: LifecycleAxes = {
       ...DEFAULT_AXES,
@@ -89,7 +85,7 @@ export class StageSignalCollector {
 }
 
 const mergeMetricSnapshots = (
-  snapshots: LifecycleMetricSnapshot[],
+  snapshots: LifecycleMetricSnapshot[]
 ): LifecycleMetricSnapshot =>
   snapshots.reduce<LifecycleMetricSnapshot>((acc, snapshot) => {
     Object.entries(snapshot ?? {}).forEach(([key, value]) => {
@@ -109,5 +105,3 @@ const dedupeSignals = (signals: LifecycleSignal[]): LifecycleSignal[] => {
     return true;
   });
 };
-
-

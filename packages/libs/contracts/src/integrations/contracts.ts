@@ -1,12 +1,5 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-  type ContractSpec,
-} from '../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, type ContractSpec } from '../spec';
 import type { SpecRegistry } from '../registry';
 
 const IntegrationConnectionRecord = new SchemaModel({
@@ -14,19 +7,40 @@ const IntegrationConnectionRecord = new SchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.ID(), isOptional: false },
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    integrationKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    integrationVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    integrationKey: {
+      type: ScalarTypeEnum.NonEmptyString(),
+      isOptional: false,
+    },
+    integrationVersion: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ownershipMode: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    externalAccountId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    secretProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     healthStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     healthCheckedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-    healthLatencyMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    healthErrorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    healthLatencyMs: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
+    healthErrorCode: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     healthErrorMessage: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: true,
@@ -64,12 +78,27 @@ const CreateIntegrationConnectionInput = new SchemaModel({
   name: 'CreateIntegrationConnectionInput',
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    integrationKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    integrationVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    integrationKey: {
+      type: ScalarTypeEnum.NonEmptyString(),
+      isOptional: false,
+    },
+    integrationVersion: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ownershipMode: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    externalAccountId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    secretProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     config: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
@@ -83,8 +112,14 @@ const UpdateIntegrationConnectionInput = new SchemaModel({
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     ownershipMode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    externalAccountId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    secretProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    externalAccountId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    secretProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     secretRef: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     config: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
   },
@@ -168,7 +203,8 @@ export const UpdateIntegrationConnection = defineCommand({
   meta: {
     name: 'integrations.connection.update',
     version: 1,
-    description: 'Update metadata or credentials for an integration connection.',
+    description:
+      'Update metadata or credentials for an integration connection.',
     goal: 'Allow secure rotation of credentials and metadata adjustments.',
     context:
       'Supports rotating API keys, toggling status, or updating labels for tenant integrations.',
@@ -234,7 +270,8 @@ export const TestIntegrationConnection = defineCommand({
   meta: {
     name: 'integrations.connection.test',
     version: 1,
-    description: 'Run a health check against a configured integration connection.',
+    description:
+      'Run a health check against a configured integration connection.',
     goal: 'Validate credentials and connectivity for external providers.',
     context:
       'Triggered manually or by background monitors to confirm provider availability.',
@@ -252,10 +289,7 @@ export const TestIntegrationConnection = defineCommand({
   },
 });
 
-export const integrationContracts: Record<
-  string,
-  ContractSpec<any, any>
-> = {
+export const integrationContracts: Record<string, ContractSpec<any, any>> = {
   CreateIntegrationConnection,
   UpdateIntegrationConnection,
   DeleteIntegrationConnection,
@@ -271,4 +305,3 @@ export function registerIntegrationContracts(registry: SpecRegistry) {
     .register(ListIntegrationConnections)
     .register(TestIntegrationConnection);
 }
-

@@ -122,4 +122,3 @@ function toIso(value?: Date | string): string | undefined {
   }
   return value.toISOString();
 }
-

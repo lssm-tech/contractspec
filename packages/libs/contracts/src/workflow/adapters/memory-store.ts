@@ -1,8 +1,4 @@
-import type {
-  StateStore,
-  WorkflowState,
-  WorkflowStateFilters,
-} from '../state';
+import type { StateStore, WorkflowState, WorkflowStateFilters } from '../state';
 
 function cloneState(state: WorkflowState): WorkflowState {
   return {
@@ -45,8 +41,7 @@ export class InMemoryStateStore implements StateStore {
     updater: (current: WorkflowState) => WorkflowState
   ): Promise<WorkflowState> {
     const current = this.items.get(workflowId);
-    if (!current)
-      throw new Error(`Workflow state not found for ${workflowId}`);
+    if (!current) throw new Error(`Workflow state not found for ${workflowId}`);
     const next = cloneState(updater(cloneState(current)));
     this.items.set(workflowId, next);
     return cloneState(next);
@@ -77,4 +72,3 @@ function deepCopy<T>(value: T): T {
   }
   return value;
 }
-

@@ -12,9 +12,11 @@ export class SeoOptimizer {
 
   private keywords(brief: ContentBrief): string[] {
     const base = [brief.title, ...brief.problems, ...brief.solutions];
-    return [...new Set(base.flatMap((entry) => entry.toLowerCase().split(/\s+/)))].filter(
-      (word) => word.length > 3
-    ).slice(0, 12);
+    return [
+      ...new Set(base.flatMap((entry) => entry.toLowerCase().split(/\s+/))),
+    ]
+      .filter((word) => word.length > 3)
+      .slice(0, 12);
   }
 
   private slugify(text: string): string {

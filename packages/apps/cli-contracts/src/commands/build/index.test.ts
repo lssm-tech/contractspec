@@ -6,13 +6,15 @@ describe('build command internals', () => {
 
   describe('detectSpecType', () => {
     it('detects operation specs by filename', () => {
-      expect(detectSpecType('user.contracts.ts', 'defineCommand({})')).toBe('operation');
+      expect(detectSpecType('user.contracts.ts', 'defineCommand({})')).toBe(
+        'operation'
+      );
     });
 
     it('detects presentation specs by content', () => {
-      expect(detectSpecType('some-file.ts', 'export interface PresentationSpec {}')).toBe(
-        'presentation'
-      );
+      expect(
+        detectSpecType('some-file.ts', 'export interface PresentationSpec {}')
+      ).toBe('presentation');
     });
 
     it('falls back to unknown for unrecognized specs', () => {
@@ -42,9 +44,3 @@ describe('build command internals', () => {
     });
   });
 });
-
-
-
-
-
-

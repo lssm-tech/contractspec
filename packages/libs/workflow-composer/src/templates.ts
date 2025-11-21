@@ -1,4 +1,8 @@
-import type { Step, StepAction, StepType } from '@lssm/lib.contracts/workflow/spec';
+import type {
+  Step,
+  StepAction,
+  StepType,
+} from '@lssm/lib.contracts/workflow/spec';
 
 export interface StepTemplateOptions {
   id: string;
@@ -24,5 +28,3 @@ export function approvalStepTemplate(options: StepTemplateOptions): Step {
       : undefined,
   };
 }
-
-

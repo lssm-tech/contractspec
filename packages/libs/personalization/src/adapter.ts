@@ -1,4 +1,7 @@
-import type { OverlayModification, OverlaySpec } from '@lssm/lib.overlay-engine';
+import type {
+  OverlayModification,
+  OverlaySpec,
+} from '@lssm/lib.overlay-engine';
 import type { BehaviorInsights } from './types';
 
 export interface OverlaySuggestionOptions {
@@ -18,7 +21,7 @@ export interface WorkflowAdaptation {
 
 export function insightsToOverlaySuggestion(
   insights: BehaviorInsights,
-  options: OverlaySuggestionOptions,
+  options: OverlaySuggestionOptions
 ): OverlaySpec | null {
   const modifications: OverlayModification[] = [];
 
@@ -58,12 +61,12 @@ export function insightsToOverlaySuggestion(
   };
 }
 
-export function insightsToWorkflowAdaptations(insights: BehaviorInsights): WorkflowAdaptation[] {
+export function insightsToWorkflowAdaptations(
+  insights: BehaviorInsights
+): WorkflowAdaptation[] {
   return insights.workflowBottlenecks.map((bottleneck) => ({
     workflow: bottleneck.workflow,
     step: bottleneck.step,
     note: `High drop rate (${Math.round(bottleneck.dropRate * 100)}%) detected`,
   }));
 }
-
-

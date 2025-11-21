@@ -84,7 +84,12 @@ export class SLOMonitor {
       this.lastIncidentAt = now;
     }
 
-    return { snapshot, burnRate: burn.burnRate, incidents, lastIncidentAt: this.lastIncidentAt };
+    return {
+      snapshot,
+      burnRate: burn.burnRate,
+      incidents,
+      lastIncidentAt: this.lastIncidentAt,
+    };
   }
 
   getHistory() {

@@ -46,7 +46,7 @@ export function resolveOutputPath(
   fileName: string
 ): string {
   let subPath: string;
-  
+
   switch (specType) {
     case 'operation':
       subPath = conventions.operations || 'interactions';
@@ -67,7 +67,8 @@ export function resolveOutputPath(
       subPath = conventions.workflows || 'workflows';
       break;
     case 'data-view':
-      subPath = conventions['data-views'] || conventions.dataViews || 'data-views';
+      subPath =
+        conventions['data-views'] || conventions.dataViews || 'data-views';
       break;
     case 'migration':
       subPath = conventions.migrations || 'migrations';
@@ -90,29 +91,23 @@ export function resolveOutputPath(
     default:
       subPath = '';
   }
-  
+
   return join(basePath, subPath, fileName);
 }
 
 /**
  * Generate unique filename to avoid conflicts
  */
-export function generateFileName(
-  baseName: string,
-  extension: string = '.ts'
-): string {
+export function generateFileName(baseName: string, extension = '.ts'): string {
   // Convert camelCase or dot notation to kebab-case
   const kebab = baseName
     .replace(/\./g, '-')
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .toLowerCase();
-  
+
   return `${kebab}${extension}`;
 }
 
 export function resolvePathFromCwd(targetPath: string): string {
-  return isAbsolute(targetPath)
-    ? targetPath
-    : join(process.cwd(), targetPath);
+  return isAbsolute(targetPath) ? targetPath : join(process.cwd(), targetPath);
 }
-

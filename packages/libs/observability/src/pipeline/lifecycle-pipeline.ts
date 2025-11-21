@@ -8,12 +8,22 @@ import {
 } from '../metrics';
 
 export type LifecyclePipelineEvent =
-  | { type: 'assessment.recorded'; payload: { tenantId?: string; stage: LifecycleStage } }
+  | {
+      type: 'assessment.recorded';
+      payload: { tenantId?: string; stage: LifecycleStage };
+    }
   | {
       type: 'stage.changed';
-      payload: { tenantId?: string; previousStage?: LifecycleStage; nextStage: LifecycleStage };
+      payload: {
+        tenantId?: string;
+        previousStage?: LifecycleStage;
+        nextStage: LifecycleStage;
+      };
     }
-  | { type: 'confidence.low'; payload: { tenantId?: string; confidence: number } };
+  | {
+      type: 'confidence.low';
+      payload: { tenantId?: string; confidence: number };
+    };
 
 export interface LifecycleKpiPipelineOptions {
   meterName?: string;
@@ -34,17 +44,17 @@ export class LifecycleKpiPipeline {
     this.assessmentCounter = createCounter(
       'lifecycle_assessments_total',
       'Total lifecycle assessments',
-      meterName,
+      meterName
     );
     this.confidenceHistogram = createHistogram(
       'lifecycle_assessment_confidence',
       'Lifecycle assessment confidence distribution',
-      meterName,
+      meterName
     );
     this.stageUpDownCounter = createUpDownCounter(
       'lifecycle_stage_tenants',
       'Current tenants per lifecycle stage',
-      meterName,
+      meterName
     );
     this.emitter = options.emitter ?? new EventEmitter();
     this.lowConfidenceThreshold = options.lowConfidenceThreshold ?? 0.4;
@@ -93,5 +103,3 @@ export class LifecycleKpiPipeline {
     } satisfies LifecyclePipelineEvent);
   }
 }
-
-

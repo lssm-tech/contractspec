@@ -31,5 +31,3 @@ export function serialize(value: unknown) {
     2
   );
 }
-
-

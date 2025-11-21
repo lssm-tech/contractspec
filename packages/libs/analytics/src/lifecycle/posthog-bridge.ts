@@ -12,7 +12,7 @@ export interface PostHogLikeClient {
 export const trackLifecycleAssessment = async (
   client: PostHogLikeClient,
   tenantId: string,
-  assessment: LifecycleAssessment,
+  assessment: LifecycleAssessment
 ) => {
   await client.capture({
     distinctId: tenantId,
@@ -29,7 +29,7 @@ export const trackLifecycleStageChange = async (
   client: PostHogLikeClient,
   tenantId: string,
   previousStage: number | undefined,
-  nextStage: number,
+  nextStage: number
 ) => {
   await client.capture({
     distinctId: tenantId,
@@ -40,5 +40,3 @@ export const trackLifecycleStageChange = async (
     },
   });
 };
-
-

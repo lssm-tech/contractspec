@@ -1,4 +1,8 @@
-import type { ContractSpec, OpKind, ResourceRefDescriptor } from '@lssm/lib.contracts';
+import type {
+  ContractSpec,
+  OpKind,
+  ResourceRefDescriptor,
+} from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { LifecycleStage } from '@lssm/lib.lifecycle';
 
@@ -149,4 +153,3 @@ export interface OptimizationHint {
   lifecycleStage?: LifecycleStage;
   lifecycleNotes?: string;
 }
-

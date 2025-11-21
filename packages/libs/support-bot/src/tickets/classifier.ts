@@ -82,7 +82,9 @@ export class TicketClassifier {
       );
       const content = llmResult.message.content.find((part) => 'text' in part);
       if (content && 'text' in content) {
-        const parsed = JSON.parse(content.text) as Partial<TicketClassification>;
+        const parsed = JSON.parse(
+          content.text
+        ) as Partial<TicketClassification>;
         return {
           ...heuristics,
           ...parsed,
@@ -121,7 +123,7 @@ export class TicketClassifier {
   private detectCategory(text: string): TicketCategory {
     for (const [category, keywords] of Object.entries(this.keywords) as [
       TicketCategory,
-      string[]
+      string[],
     ][]) {
       if (keywords.some((keyword) => text.includes(keyword))) {
         return category;
@@ -131,7 +133,12 @@ export class TicketClassifier {
   }
 
   private detectPriority(text: string): TicketPriority {
-    for (const priority of ['urgent', 'high', 'medium', 'low'] as TicketPriority[]) {
+    for (const priority of [
+      'urgent',
+      'high',
+      'medium',
+      'low',
+    ] as TicketPriority[]) {
       if (PRIORITY_HINTS[priority].some((word) => text.includes(word))) {
         return priority;
       }
@@ -155,11 +162,13 @@ export class TicketClassifier {
 
   private extractIntents(text: string): string[] {
     const intents: string[] = [];
-    if (text.includes('refund') || text.includes('chargeback')) intents.push('refund');
+    if (text.includes('refund') || text.includes('chargeback'))
+      intents.push('refund');
     if (text.includes('payout')) intents.push('payout');
     if (text.includes('login')) intents.push('login-help');
     if (text.includes('feature')) intents.push('feature-request');
-    if (text.includes('bug') || text.includes('error')) intents.push('bug-report');
+    if (text.includes('bug') || text.includes('error'))
+      intents.push('bug-report');
     return intents.length ? intents : ['general'];
   }
 

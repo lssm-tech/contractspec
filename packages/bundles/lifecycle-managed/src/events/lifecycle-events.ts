@@ -7,7 +7,7 @@ export interface ManagedLifecycleEvent {
 }
 
 export type LifecycleEventPublisher = (
-  event: ManagedLifecycleEvent,
+  event: ManagedLifecycleEvent
 ) => Promise<void> | void;
 
 export class LifecycleEventBridge {
@@ -47,5 +47,3 @@ export class LifecycleEventBridge {
     }
   }
 }
-
-

@@ -26,7 +26,11 @@
     "base": 0.45,
     "metrics": {
       "activeUsers": { "weight": 0.25, "direction": "gte", "threshold": 25 },
-      "weeklyActiveUsers": { "weight": 0.25, "direction": "gte", "threshold": 20 },
+      "weeklyActiveUsers": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 20
+      },
       "retentionRate": { "weight": 0.2, "direction": "gte", "threshold": 0.25 }
     },
     "signalKinds": {
@@ -37,8 +41,16 @@
   "ProductMarketFit": {
     "base": 0.5,
     "metrics": {
-      "retentionRate": { "weight": 0.35, "direction": "gte", "threshold": 0.45 },
-      "monthlyRecurringRevenue": { "weight": 0.25, "direction": "gte", "threshold": 10000 },
+      "retentionRate": {
+        "weight": 0.35,
+        "direction": "gte",
+        "threshold": 0.45
+      },
+      "monthlyRecurringRevenue": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 10000
+      },
       "customerCount": { "weight": 0.2, "direction": "gte", "threshold": 30 }
     },
     "signalKinds": {
@@ -50,7 +62,11 @@
     "base": 0.55,
     "metrics": {
       "retentionRate": { "weight": 0.2, "direction": "gte", "threshold": 0.55 },
-      "monthlyRecurringRevenue": { "weight": 0.3, "direction": "gte", "threshold": 50000 },
+      "monthlyRecurringRevenue": {
+        "weight": 0.3,
+        "direction": "gte",
+        "threshold": 50000
+      },
       "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 15 }
     },
     "signalKinds": {
@@ -61,7 +77,11 @@
   "ExpansionPlatform": {
     "base": 0.6,
     "metrics": {
-      "monthlyRecurringRevenue": { "weight": 0.35, "direction": "gte", "threshold": 150000 },
+      "monthlyRecurringRevenue": {
+        "weight": 0.35,
+        "direction": "gte",
+        "threshold": 150000
+      },
       "customerCount": { "weight": 0.2, "direction": "gte", "threshold": 100 },
       "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 40 }
     },
@@ -73,7 +93,11 @@
   "MaturityRenewal": {
     "base": 0.6,
     "metrics": {
-      "monthlyRecurringRevenue": { "weight": 0.25, "direction": "gte", "threshold": 250000 },
+      "monthlyRecurringRevenue": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 250000
+      },
       "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 80 },
       "burnMultiple": { "weight": 0.2, "direction": "lte", "threshold": 1.5 }
     },
@@ -83,5 +107,3 @@
     }
   }
 }
-
-

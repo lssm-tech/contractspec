@@ -49,4 +49,3 @@ describe('Job queues', () => {
     expect(publishMessage).toHaveBeenCalled();
   });
 });
-

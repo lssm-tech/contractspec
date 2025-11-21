@@ -11,5 +11,3 @@ export function createGmailSyncHandler(
     await adapter.syncThreads(job.payload);
   };
 }
-
-

@@ -1,9 +1,5 @@
 import { calculateSampleCost, defaultCostModel } from './cost-model';
-import type {
-  CostModel,
-  CostSample,
-  OperationCostSummary,
-} from './types';
+import type { CostModel, CostSample, OperationCostSummary } from './types';
 
 export interface CostTrackerOptions {
   costModel?: CostModel;

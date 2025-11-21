@@ -94,7 +94,7 @@ export class StripePaymentsProvider implements PaymentsProvider {
     const paymentIntentId =
       typeof refund.payment_intent === 'string'
         ? refund.payment_intent
-        : refund.payment_intent?.id ?? '';
+        : (refund.payment_intent?.id ?? '');
     return {
       id: refund.id,
       paymentIntentId,
@@ -112,7 +112,9 @@ export class StripePaymentsProvider implements PaymentsProvider {
   async listInvoices(query?: ListInvoicesQuery): Promise<PaymentInvoice[]> {
     const requestedStatus = query?.status?.[0];
     const stripeStatus =
-      requestedStatus && requestedStatus !== 'deleted' ? requestedStatus : undefined;
+      requestedStatus && requestedStatus !== 'deleted'
+        ? requestedStatus
+        : undefined;
     const response = await this.stripe.invoices.list({
       customer: query?.customerId,
       status: stripeStatus,
@@ -146,9 +148,10 @@ export class StripePaymentsProvider implements PaymentsProvider {
       description: charge.description ?? undefined,
       createdAt: new Date(charge.created * 1000),
       metadata: this.mergeMetadata(this.toMetadata(charge.metadata), {
-        balanceTransaction: typeof charge.balance_transaction === 'string'
-          ? charge.balance_transaction
-          : undefined,
+        balanceTransaction:
+          typeof charge.balance_transaction === 'string'
+            ? charge.balance_transaction
+            : undefined,
       }),
     }));
   }
@@ -161,7 +164,9 @@ export class StripePaymentsProvider implements PaymentsProvider {
       email: customer.email ?? undefined,
       name: customer.name ?? undefined,
       metadata,
-      createdAt: customer.created ? new Date(customer.created * 1000) : undefined,
+      createdAt: customer.created
+        ? new Date(customer.created * 1000)
+        : undefined,
       updatedAt: updatedAtValue ? new Date(updatedAtValue) : undefined,
     };
   }
@@ -313,5 +318,3 @@ function mapChargeStatus(
       return 'pending';
   }
 }
-
-

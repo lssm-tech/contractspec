@@ -69,4 +69,3 @@ describe('knowledge space specs', () => {
     expect(registered?.access.trustLevel).toBe('high');
   });
 });
-

@@ -139,5 +139,3 @@ export function normalizeSecretPayload(
 
   return Buffer.from(payload.data, 'utf-8');
 }
-
-

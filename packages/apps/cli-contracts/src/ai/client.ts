@@ -35,15 +35,25 @@ export class AIClient {
       description: z.string().describe('Clear, concise summary'),
       goal: z.string().describe('Business purpose'),
       context: z.string().describe('Background and constraints'),
-      stability: z.enum(['experimental', 'beta', 'stable', 'deprecated']).default('beta'),
+      stability: z
+        .enum(['experimental', 'beta', 'stable', 'deprecated'])
+        .default('beta'),
       owners: z.array(z.string()).describe('Team/person owners with @ prefix'),
       tags: z.array(z.string()).describe('Categorization tags'),
-      auth: z.enum(['anonymous', 'user', 'admin']).describe('Required auth level'),
+      auth: z
+        .enum(['anonymous', 'user', 'admin'])
+        .describe('Required auth level'),
       inputShape: z.string().describe('Description of input structure'),
       outputShape: z.string().describe('Description of output structure'),
       flags: z.array(z.string()).describe('Feature flags').default([]),
-      possibleEvents: z.array(z.string()).describe('Events this may emit').default([]),
-      analytics: z.array(z.string()).describe('Analytics events to track').default([]),
+      possibleEvents: z
+        .array(z.string())
+        .describe('Events this may emit')
+        .default([]),
+      analytics: z
+        .array(z.string())
+        .describe('Analytics events to track')
+        .default([]),
     });
 
     const prompt = buildOperationSpecPrompt(description, kind);
@@ -68,7 +78,9 @@ export class AIClient {
       name: z.string().describe('Dot notation name like "domain.event_name"'),
       version: z.number().int().positive().default(1),
       description: z.string().describe('When this event is emitted'),
-      stability: z.enum(['experimental', 'beta', 'stable', 'deprecated']).default('beta'),
+      stability: z
+        .enum(['experimental', 'beta', 'stable', 'deprecated'])
+        .default('beta'),
       owners: z.array(z.string()).default([]),
       tags: z.array(z.string()).default([]),
       payloadShape: z.string().describe('Description of event payload'),
@@ -97,7 +109,9 @@ export class AIClient {
       name: z.string(),
       version: z.number().int().positive().default(1),
       description: z.string(),
-      stability: z.enum(['experimental', 'beta', 'stable', 'deprecated']).default('beta'),
+      stability: z
+        .enum(['experimental', 'beta', 'stable', 'deprecated'])
+        .default('beta'),
       owners: z.array(z.string()).default([]),
       tags: z.array(z.string()).default([]),
       componentKey: z.string().optional(),
@@ -186,7 +200,10 @@ export class AIClient {
   /**
    * Stream code generation for better UX
    */
-  async streamCodeGeneration(prompt: string, onChunk: (text: string) => void): Promise<string> {
+  async streamCodeGeneration(
+    prompt: string,
+    onChunk: (text: string) => void
+  ): Promise<string> {
     const model = getAIProvider(this.config);
 
     const result = await streamText({
@@ -196,7 +213,7 @@ export class AIClient {
     });
 
     let fullText = '';
-    
+
     for await (const chunk of result.textStream) {
       fullText += chunk;
       onChunk(chunk);
@@ -205,4 +222,3 @@ export class AIClient {
     return fullText;
   }
 }
-

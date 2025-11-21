@@ -74,12 +74,12 @@ describe('GoogleCalendarProvider', () => {
     });
 
     await provider.deleteEvent('primary', 'event-1');
-  expect(calendar.events.delete).toHaveBeenCalledWith(
-    expect.objectContaining({
-      calendarId: 'primary',
-      eventId: 'event-1',
-    })
-  );
+    expect(calendar.events.delete).toHaveBeenCalledWith(
+      expect.objectContaining({
+        calendarId: 'primary',
+        eventId: 'event-1',
+      })
+    );
   });
 });
 
@@ -105,5 +105,3 @@ function createMockCalendar() {
     },
   } as unknown as calendar_v3.Calendar;
 }
-
-

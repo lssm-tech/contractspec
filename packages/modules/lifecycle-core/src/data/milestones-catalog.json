@@ -6,7 +6,10 @@
     "title": "Write the pain statement",
     "description": "Capture the clearest description of the top problem in the customer’s own words.",
     "priority": 1,
-    "actionItems": ["Interview at least 5 ideal customers", "Synthesize quotes into a one-page brief"]
+    "actionItems": [
+      "Interview at least 5 ideal customers",
+      "Synthesize quotes into a one-page brief"
+    ]
   },
   {
     "id": "stage1-prototype-loop",
@@ -15,7 +18,10 @@
     "title": "Prototype feedback loop",
     "description": "Ship a clickable prototype and gather 3 rounds of feedback.",
     "priority": 2,
-    "actionItems": ["Create a low-fidelity prototype", "Schedule standing feedback calls"]
+    "actionItems": [
+      "Create a low-fidelity prototype",
+      "Schedule standing feedback calls"
+    ]
   },
   {
     "id": "stage2-activation",
@@ -24,7 +30,10 @@
     "title": "Activation checklist",
     "description": "Define the minimum steps required for a new user to succeed.",
     "priority": 1,
-    "actionItems": ["Document onboarding flow", "Instrument activation analytics"]
+    "actionItems": [
+      "Document onboarding flow",
+      "Instrument activation analytics"
+    ]
   },
   {
     "id": "stage3-retention-narrative",
@@ -33,7 +42,10 @@
     "title": "Retention narrative",
     "description": "Create the before/after story that proves why users stay.",
     "priority": 2,
-    "actionItems": ["Interview 3 retained users", "Publish a one-pager with concrete metrics"]
+    "actionItems": [
+      "Interview 3 retained users",
+      "Publish a one-pager with concrete metrics"
+    ]
   },
   {
     "id": "stage4-growth-loop",
@@ -42,7 +54,11 @@
     "title": "Install a growth loop",
     "description": "Stand up a repeatable acquisition → activation → referral motion.",
     "priority": 1,
-    "actionItems": ["Define loop metrics", "Assign owners for each stage", "Review weekly"]
+    "actionItems": [
+      "Define loop metrics",
+      "Assign owners for each stage",
+      "Review weekly"
+    ]
   },
   {
     "id": "stage5-platform-blueprint",
@@ -51,7 +67,10 @@
     "title": "Platform blueprint",
     "description": "Align on APIs, integrations, and governance for partners.",
     "priority": 2,
-    "actionItems": ["Create integration scoring rubric", "Publish partner onboarding checklist"]
+    "actionItems": [
+      "Create integration scoring rubric",
+      "Publish partner onboarding checklist"
+    ]
   },
   {
     "id": "stage6-renewal-ops",
@@ -60,8 +79,9 @@
     "title": "Renewal operating rhythm",
     "description": "Decide whether to optimize, reinvest, or sunset each major surface.",
     "priority": 1,
-    "actionItems": ["Hold quarterly renewal review", "Document reinvestment bets"]
+    "actionItems": [
+      "Hold quarterly renewal review",
+      "Document reinvestment bets"
+    ]
   }
 ]
-
-

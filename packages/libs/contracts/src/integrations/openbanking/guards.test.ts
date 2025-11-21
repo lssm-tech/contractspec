@@ -124,4 +124,3 @@ describe('ensurePrimaryOpenBankingIntegration', () => {
     expect(result.integration?.connection.status).toBe('connected');
   });
 });
-

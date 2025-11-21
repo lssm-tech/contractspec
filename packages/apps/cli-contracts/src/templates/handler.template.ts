@@ -1,9 +1,14 @@
 /**
  * Generate handler implementation template
  */
-export function generateHandlerTemplate(specName: string, kind: 'command' | 'query'): string {
-  const handlerName = toCamelCase(specName.split('.').pop() || 'unknown') + 'Handler';
-  const specVarName = toPascalCase(specName.split('.').pop() || 'Unknown') + 'Spec';
+export function generateHandlerTemplate(
+  specName: string,
+  kind: 'command' | 'query'
+): string {
+  const handlerName =
+    toCamelCase(specName.split('.').pop() || 'unknown') + 'Handler';
+  const specVarName =
+    toPascalCase(specName.split('.').pop() || 'Unknown') + 'Spec';
 
   return `import type { ContractHandler } from '@lssm/lib.contracts';
 import { ${specVarName} } from '../contracts/${toKebabCase(specName)}.contracts';
@@ -117,4 +122,3 @@ function toKebabCase(str: string): string {
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .toLowerCase();
 }
-

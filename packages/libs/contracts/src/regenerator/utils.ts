@@ -56,10 +56,7 @@ function normalizeTelemetryDates(
   };
 }
 
-function normalizeErrorDates(
-  signal: ErrorSignal,
-  clock: Clock
-): ErrorSignal {
+function normalizeErrorDates(signal: ErrorSignal, clock: Clock): ErrorSignal {
   return {
     ...signal,
     occurredAt: toDate(signal.occurredAt, clock),
@@ -85,10 +82,3 @@ function toDate(value: Date | string, clock: Clock): Date {
   }
   return parsed;
 }
-
-
-
-
-
-
-

@@ -34,9 +34,7 @@ export {
 
 export type { LogLevel, LogEntry } from './logging';
 
-export {
-  BaselineCalculator,
-} from './anomaly/baseline-calculator';
+export { BaselineCalculator } from './anomaly/baseline-calculator';
 export {
   AnomalyDetector,
   type AnomalySignal,

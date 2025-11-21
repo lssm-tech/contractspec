@@ -69,5 +69,3 @@ export class SpecExperimentController {
     return true;
   }
 }
-
-

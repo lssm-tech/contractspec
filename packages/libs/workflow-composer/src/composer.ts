@@ -20,13 +20,19 @@ export class WorkflowComposer {
       .filter((extension) => matches(params, extension))
       .sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
 
-    return applicable.reduce((acc, extension) => applyWorkflowExtension(acc, extension), params.base);
+    return applicable.reduce(
+      (acc, extension) => applyWorkflowExtension(acc, extension),
+      params.base
+    );
   }
 }
 
 function matches(params: ComposeParams, extension: WorkflowExtension) {
   if (extension.workflow !== params.base.meta.name) return false;
-  if (extension.baseVersion && extension.baseVersion !== params.base.meta.version) {
+  if (
+    extension.baseVersion &&
+    extension.baseVersion !== params.base.meta.version
+  ) {
     return false;
   }
   if (extension.tenantId && extension.tenantId !== params.tenantId) {
@@ -40,5 +46,3 @@ function matches(params: ComposeParams, extension: WorkflowExtension) {
   }
   return true;
 }
-
-

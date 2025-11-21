@@ -41,14 +41,14 @@ export function AgentMonitor({
             No active sessions in the last hour.
           </p>
         ) : (
-          <div className="divide-y divide-border rounded-md border">
+          <div className="divide-border divide-y rounded-md border">
             {sessions.map((session) => (
               <button
                 key={session.sessionId}
                 type="button"
                 onClick={() => onSelectSession?.(session)}
                 className={cn(
-                  'flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-muted/40',
+                  'hover:bg-muted/40 flex w-full items-center gap-4 px-4 py-3 text-left transition',
                   !onSelectSession && 'cursor-default'
                 )}
               >
@@ -60,7 +60,8 @@ export function AgentMonitor({
                     </span>
                   </p>
                   <p className="text-muted-foreground text-sm">
-                    {session.iterations ?? 0} turns · Updated {formatRelative(session.updatedAt)}
+                    {session.iterations ?? 0} turns · Updated{' '}
+                    {formatRelative(session.updatedAt)}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -69,7 +70,9 @@ export function AgentMonitor({
                   )}
                   <Badge
                     variant={
-                      session.status === highlightStatus ? 'destructive' : 'secondary'
+                      session.status === highlightStatus
+                        ? 'destructive'
+                        : 'secondary'
                     }
                   >
                     {session.status}
@@ -90,7 +93,9 @@ function ConfidencePill({ value }: { value: number }) {
     <div
       className={cn(
         'rounded-full px-3 py-1 text-sm font-medium',
-        percent >= 75 ? 'bg-emerald-500/15 text-emerald-500' : 'bg-amber-500/15 text-amber-600'
+        percent >= 75
+          ? 'bg-emerald-500/15 text-emerald-500'
+          : 'bg-amber-500/15 text-amber-600'
       )}
     >
       {percent}%
@@ -100,7 +105,9 @@ function ConfidencePill({ value }: { value: number }) {
 
 function formatRelative(date: Date) {
   const formatter = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' });
-  const deltaMinutes = Math.round((Date.now() - new Date(date).getTime()) / 60000);
+  const deltaMinutes = Math.round(
+    (Date.now() - new Date(date).getTime()) / 60000
+  );
   if (Math.abs(deltaMinutes) < 60) {
     return formatter.format(-deltaMinutes, 'minute');
   }

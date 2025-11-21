@@ -19,13 +19,21 @@ export class InMemoryTrackerStore implements TrackerStore {
     this.samples.push(sample);
   }
 
-  async listAssignments(experimentKey: string): Promise<ExperimentAssignment[]> {
-    return this.assignments.filter((assignment) => assignment.experimentKey === experimentKey);
+  async listAssignments(
+    experimentKey: string
+  ): Promise<ExperimentAssignment[]> {
+    return this.assignments.filter(
+      (assignment) => assignment.experimentKey === experimentKey
+    );
   }
 
-  async listSamples(experimentKey: string, metric: string): Promise<MetricSample[]> {
+  async listSamples(
+    experimentKey: string,
+    metric: string
+  ): Promise<MetricSample[]> {
     return this.samples.filter(
-      (sample) => sample.experimentKey === experimentKey && sample.metric === metric
+      (sample) =>
+        sample.experimentKey === experimentKey && sample.metric === metric
     );
   }
 }

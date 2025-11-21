@@ -123,7 +123,11 @@ function normalizeGender(
 ): 'male' | 'female' | 'neutral' | undefined {
   if (!value) return undefined;
   const normalized = value.toLowerCase();
-  if (normalized === 'male' || normalized === 'female' || normalized === 'neutral') {
+  if (
+    normalized === 'male' ||
+    normalized === 'female' ||
+    normalized === 'neutral'
+  ) {
     return normalized;
   }
   return undefined;
@@ -152,6 +156,3 @@ async function readWebStream(
   }
   return result;
 }
-
-
-

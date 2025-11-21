@@ -51,17 +51,28 @@ const HEALTH_CHECK_CHOICES: {
   value: IntegrationHealthCheckMethod;
   description: string;
 }[] = [
-  { name: 'Ping endpoint (default)', value: 'ping', description: 'Simple ping or status request' },
-  { name: 'List resources', value: 'list', description: 'List entities (e.g., customers) to validate access' },
-  { name: 'Custom (manual health check)', value: 'custom', description: 'Custom logic handled by connector implementation' },
+  {
+    name: 'Ping endpoint (default)',
+    value: 'ping',
+    description: 'Simple ping or status request',
+  },
+  {
+    name: 'List resources',
+    value: 'list',
+    description: 'List entities (e.g., customers) to validate access',
+  },
+  {
+    name: 'Custom (manual health check)',
+    value: 'custom',
+    description: 'Custom logic handled by connector implementation',
+  },
 ];
 
 export async function integrationWizard(
   defaults?: Partial<IntegrationSpecData>
 ): Promise<IntegrationSpecData> {
   const name = await input({
-    message:
-      'Integration key (dot notation, e.g., "payments.stripe"):',
+    message: 'Integration key (dot notation, e.g., "payments.stripe"):',
     default: defaults?.name,
     validate: validateDotNotation,
   });
@@ -82,7 +93,8 @@ export async function integrationWizard(
 
   const displayName = await input({
     message: 'Display name (UI label):',
-    default: defaults?.displayName ?? toTitleCase(name.split('.').pop() ?? name),
+    default:
+      defaults?.displayName ?? toTitleCase(name.split('.').pop() ?? name),
     validate: (value: string) =>
       value.trim().length > 0 || 'Display name is required',
   });
@@ -90,8 +102,7 @@ export async function integrationWizard(
   const title = await input({
     message: 'Title (internal title used in docs):',
     default: defaults?.title ?? `${displayName} Integration`,
-    validate: (value: string) =>
-      value.trim().length > 0 || 'Title is required',
+    validate: (value: string) => value.trim().length > 0 || 'Title is required',
   });
 
   const description = await input({
@@ -112,7 +123,8 @@ export async function integrationWizard(
   });
 
   const ownersInput = await input({
-    message: 'Owners (comma-separated, e.g., "@team.platform, @team.payments"):',
+    message:
+      'Owners (comma-separated, e.g., "@team.platform, @team.payments"):',
     default: defaults?.owners?.join(', ') ?? '@team.platform',
     validate: validateOwners,
   });
@@ -169,15 +181,13 @@ export async function integrationWizard(
   let byokRequiredScopes = defaults?.byokRequiredScopes;
   if (supportedModes.includes('byok')) {
     const instructions = await input({
-      message:
-        'BYOK setup instructions (visible to tenants, optional):',
+      message: 'BYOK setup instructions (visible to tenants, optional):',
       default: byokSetupInstructions ?? '',
     });
     byokSetupInstructions = instructions.trim() || undefined;
 
     const scopesInput = await input({
-      message:
-        'BYOK required scopes (comma-separated, optional):',
+      message: 'BYOK required scopes (comma-separated, optional):',
       default: (byokRequiredScopes ?? []).join(', '),
     });
     byokRequiredScopes = splitList(scopesInput);
@@ -478,4 +488,3 @@ function toTitleCase(value: string): string {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 }
-

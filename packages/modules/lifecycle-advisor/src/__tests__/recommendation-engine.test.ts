@@ -1,7 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { LifecycleRecommendationEngine } from '../recommendations/recommendation-engine';
 import { ContractSpecLibraryRecommender } from '../recommendations/library-recommender';
-import { LifecycleStage, ProductPhase, CompanyPhase, CapitalPhase } from '@lssm/lib.lifecycle';
+import {
+  LifecycleStage,
+  ProductPhase,
+  CompanyPhase,
+  CapitalPhase,
+} from '@lssm/lib.lifecycle';
 
 const mockAssessment = {
   stage: LifecycleStage.GrowthScaleUp,
@@ -35,7 +40,9 @@ describe('LifecycleRecommendationEngine', () => {
     });
 
     expect(recommendation.actions.length).toBeGreaterThan(0);
-    expect(recommendation.upcomingMilestones?.[0]?.id).toBe('stage4-growth-loop');
+    expect(recommendation.upcomingMilestones?.[0]?.id).toBe(
+      'stage4-growth-loop'
+    );
   });
 });
 
@@ -46,5 +53,3 @@ describe('ContractSpecLibraryRecommender', () => {
     expect(libraries.some((lib) => lib.id.includes('lib.growth'))).toBe(true);
   });
 });
-
-

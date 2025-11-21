@@ -14,7 +14,9 @@ export interface SupportToolsetOptions {
   responder: AutoResponder;
 }
 
-export function createSupportTools(options: SupportToolsetOptions): AgentToolDefinitionWithHandler[] {
+export function createSupportTools(
+  options: SupportToolsetOptions
+): AgentToolDefinitionWithHandler[] {
   const classifyTool: AgentToolDefinitionWithHandler = {
     definition: {
       name: 'support_classify_ticket',
@@ -62,7 +64,8 @@ export function createSupportTools(options: SupportToolsetOptions): AgentToolDef
   const responderTool: AgentToolDefinitionWithHandler = {
     definition: {
       name: 'support_draft_response',
-      description: 'Draft a user-facing reply based on resolution + classification',
+      description:
+        'Draft a user-facing reply based on resolution + classification',
       inputSchema: {
         type: 'object',
         required: ['ticket', 'resolution', 'classification'],
@@ -80,7 +83,11 @@ export function createSupportTools(options: SupportToolsetOptions): AgentToolDef
       if (!resolution || !classification) {
         throw new Error('resolution and classification are required');
       }
-      const draft = await options.responder.draft(ticket, resolution, classification);
+      const draft = await options.responder.draft(
+        ticket,
+        resolution,
+        classification
+      );
       return {
         content: JSON.stringify(draft),
         metadata: { ticketId: ticket.id },
@@ -115,13 +122,15 @@ function ensureTicket(input: unknown): SupportTicket {
 }
 
 function extractResolution(input: unknown): SupportResolution | undefined {
-  if (!input || typeof input !== 'object' || !('resolution' in input)) return undefined;
+  if (!input || typeof input !== 'object' || !('resolution' in input))
+    return undefined;
   return (input as { resolution?: SupportResolution }).resolution;
 }
 
 function extractClassification(
   input: unknown
 ): TicketClassification | undefined {
-  if (!input || typeof input !== 'object' || !('classification' in input)) return undefined;
+  if (!input || typeof input !== 'object' || !('classification' in input))
+    return undefined;
   return (input as { classification?: TicketClassification }).classification;
 }

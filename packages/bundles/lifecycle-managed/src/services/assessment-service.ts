@@ -79,12 +79,12 @@ export class LifecycleAssessmentService {
   }
 
   async runAssessment(
-    request: LifecycleAssessmentRequest,
+    request: LifecycleAssessmentRequest
   ): Promise<LifecycleAssessmentResponse> {
     const assessment = await this.orchestrator.run(request);
     const upcoming = this.orchestrator.getUpcomingMilestones(
       assessment.stage,
-      request.completedMilestones,
+      request.completedMilestones
     );
     this.pipeline.recordAssessment(assessment, request.tenantId);
 
@@ -119,7 +119,7 @@ export class LifecycleAssessmentService {
         scorecard: [],
         generatedAt: new Date().toISOString(),
       },
-      { upcomingMilestones: this.orchestrator.getUpcomingMilestones(stage) },
+      { upcomingMilestones: this.orchestrator.getUpcomingMilestones(stage) }
     );
 
     return {
@@ -129,4 +129,3 @@ export class LifecycleAssessmentService {
     };
   }
 }
-

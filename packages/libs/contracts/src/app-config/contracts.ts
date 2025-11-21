@@ -1,11 +1,5 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-} from '../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '../spec';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 import type { ContractSpec } from '../spec';
 import type { SpecRegistry } from '../registry';
@@ -71,11 +65,20 @@ const TranslationEntryInput = new SchemaModel({
 const UpdateBlueprintTranslationInput = new SchemaModel({
   name: 'UpdateBlueprintTranslationInput',
   fields: {
-    blueprintName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    blueprintVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    blueprintName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    blueprintVersion: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     catalogName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     catalogVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    defaultLocale: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    defaultLocale: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     supportedLocales: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: false,
@@ -232,7 +235,10 @@ export const GetResolvedBrandingQuery = defineQuery({
       fields: {
         tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
         appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-        environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+        environment: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
       },
     }),
     output: new SchemaModel({
@@ -289,4 +295,3 @@ export function registerAppConfigContracts(registry: SpecRegistry) {
     .register(GetResolvedBrandingQuery)
     .register(ResolveMessageQuery);
 }
-

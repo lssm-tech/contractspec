@@ -13,13 +13,18 @@ export class ExperimentRegistry {
   }
 
   get(key: string, version?: number): ExperimentDefinition | undefined {
-    if (version != null) return this.experiments.get(this.makeKey(key, version));
-    const candidates = [...this.experiments.values()].filter((exp) => exp.key === key);
+    if (version != null)
+      return this.experiments.get(this.makeKey(key, version));
+    const candidates = [...this.experiments.values()].filter(
+      (exp) => exp.key === key
+    );
     return candidates.sort((a, b) => b.version - a.version)[0];
   }
 
   list(): ExperimentDefinition[] {
-    return [...this.experiments.values()].sort((a, b) => a.key.localeCompare(b.key));
+    return [...this.experiments.values()].sort((a, b) =>
+      a.key.localeCompare(b.key)
+    );
   }
 
   private makeKey(key: string, version: number) {

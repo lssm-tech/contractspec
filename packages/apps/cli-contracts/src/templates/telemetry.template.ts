@@ -44,16 +44,8 @@ ${event.anomalyRules
   .map(
     (rule) => `          {
             metric: '${escapeString(rule.metric)}',
-            ${
-              typeof rule.min === 'number'
-                ? `min: ${rule.min},`
-                : ''
-            }
-            ${
-              typeof rule.max === 'number'
-                ? `max: ${rule.max},`
-                : ''
-            }
+            ${typeof rule.min === 'number' ? `min: ${rule.min},` : ''}
+            ${typeof rule.max === 'number' ? `max: ${rule.max},` : ''}
           }`
   )
   .join(',\n')}
@@ -63,11 +55,11 @@ ${event.anomalyRules
           .join(', ')}],
       },`
         : event.anomalyEnabled
-        ? `      anomalyDetection: {
+          ? `      anomalyDetection: {
         enabled: true,
         ${typeof event.anomalyMinimumSample === 'number' ? `minimumSample: ${event.anomalyMinimumSample},` : ''}
       },`
-        : '';
+          : '';
 
       return `    {
       name: '${escapeString(event.name)}',
@@ -154,4 +146,3 @@ function formatConfigValue(value: string): string {
   }
   return `'${escapeString(trimmed)}'`;
 }
-

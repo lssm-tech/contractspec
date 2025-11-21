@@ -23,7 +23,7 @@ export class BaselineCalculator {
     sampleCount: 0,
   };
 
-  constructor(private readonly alpha: number = 0.2) {}
+  constructor(private readonly alpha = 0.2) {}
 
   update(point: MetricPoint): BaselineSnapshot {
     const { sampleCount } = this.snapshot;

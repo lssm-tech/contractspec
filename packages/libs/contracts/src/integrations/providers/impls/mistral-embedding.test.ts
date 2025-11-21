@@ -68,5 +68,3 @@ function createMockClient() {
     },
   } as unknown as Mistral;
 }
-
-

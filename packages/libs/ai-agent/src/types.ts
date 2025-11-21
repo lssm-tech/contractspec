@@ -113,7 +113,7 @@ export interface AgentToolContext {
 
 export interface AgentToolResult {
   content: string;
-  citations?: Array<{ label: string; url?: string; snippet?: string }>;
+  citations?: { label: string; url?: string; snippet?: string }[];
   metadata?: Record<string, string>;
 }
 
@@ -125,6 +125,7 @@ export interface AgentToolDefinitionWithHandler {
   handler: (input: unknown, ctx: AgentToolContext) => Promise<AgentToolResult>;
 }
 
-export interface AgentRunnerEventEmitter {
-  (event: AgentEventName, payload: AgentEventPayload): void | Promise<void>;
-}
+export type AgentRunnerEventEmitter = (
+  event: AgentEventName,
+  payload: AgentEventPayload
+) => void | Promise<void>;

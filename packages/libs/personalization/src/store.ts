@@ -35,7 +35,8 @@ export class InMemoryBehaviorStore implements BehaviorStore {
     events.forEach((event) => {
       switch (event.type) {
         case 'field_access':
-          summary.fieldCounts[event.field] = (summary.fieldCounts[event.field] ?? 0) + 1;
+          summary.fieldCounts[event.field] =
+            (summary.fieldCounts[event.field] ?? 0) + 1;
           break;
         case 'feature_usage':
           summary.featureCounts[event.feature] =
@@ -59,7 +60,10 @@ export class InMemoryBehaviorStore implements BehaviorStore {
   }
 }
 
-function filterEvents(events: BehaviorEvent[], query: BehaviorQuery): BehaviorEvent[] {
+function filterEvents(
+  events: BehaviorEvent[],
+  query: BehaviorQuery
+): BehaviorEvent[] {
   return events.filter((event) => {
     if (query.tenantId && event.tenantId !== query.tenantId) {
       return false;
@@ -77,17 +81,27 @@ function filterEvents(events: BehaviorEvent[], query: BehaviorQuery): BehaviorEv
       return false;
     }
 
-    if (query.operation && event.type === 'field_access' && event.operation !== query.operation) {
+    if (
+      query.operation &&
+      event.type === 'field_access' &&
+      event.operation !== query.operation
+    ) {
       return false;
     }
-    if (query.feature && event.type === 'feature_usage' && event.feature !== query.feature) {
+    if (
+      query.feature &&
+      event.type === 'feature_usage' &&
+      event.feature !== query.feature
+    ) {
       return false;
     }
-    if (query.workflow && event.type === 'workflow_step' && event.workflow !== query.workflow) {
+    if (
+      query.workflow &&
+      event.type === 'workflow_step' &&
+      event.workflow !== query.workflow
+    ) {
       return false;
     }
     return true;
   });
 }
-
-
