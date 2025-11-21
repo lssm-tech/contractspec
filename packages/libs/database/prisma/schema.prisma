@@ -68,3 +68,228 @@ model SpecExperimentMetric {
   @@index([variantId])
 }
 
+model UserBehaviorEvent {
+  id         String   @id @default(cuid())
+  tenantId   String
+  userId     String?
+  role       String?
+  device     String?
+  eventType  String
+  operation  String?
+  field      String?
+  feature    String?
+  workflow   String?
+  step       String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([tenantId, userId])
+  @@index([eventType])
+  @@index([workflow, step])
+}
+
+model OverlaySigningKey {
+  id        String    @id @default(cuid())
+  keyId     String    @unique
+  tenantId  String
+  publicKey String
+  algorithm String    @default("ed25519")
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+  overlays  Overlay[]
+}
+
+model Overlay {
+  id           String            @id @default(cuid())
+  overlayId    String
+  version      String
+  tenantId     String?
+  userId       String?
+  role         String?
+  device       String?
+  spec         Json
+  signature    String
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  signingKey   OverlaySigningKey @relation(fields: [signingKeyId], references: [id])
+  signingKeyId String
+
+  @@unique([overlayId, version])
+  @@index([tenantId, userId])
+}
+
+model SLODefinition {
+  id                  String         @id @default(cuid())
+  key                 String         @unique
+  capability          String?
+  description         String?
+  targetAvailability  Float
+  latencyP99TargetMs  Int?
+  latencyP95TargetMs  Int?
+  rollingWindowMs     Int
+  tags                String[]
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  snapshots           SLOSnapshot[]
+  incidents           SLOIncident[]
+  errorBudgets        ErrorBudget[]
+}
+
+model SLOSnapshot {
+  id                 String        @id @default(cuid())
+  definition         SLODefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  definitionId       String
+  availability       Float
+  latencyP99         Int?
+  latencyP95         Int?
+  goodCount          Int
+  badCount           Int
+  errorBudgetConsumed Float
+  windowMs           Int
+  recordedAt         DateTime      @default(now())
+
+  @@index([definitionId, recordedAt])
+}
+
+model ErrorBudget {
+  id            String        @id @default(cuid())
+  definition    SLODefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  definitionId  String
+  windowMs      Int
+  remaining     Float
+  consumed      Float
+  periodStart   DateTime
+  periodEnd     DateTime?
+  updatedAt     DateTime      @updatedAt
+
+  @@index([definitionId, periodStart])
+}
+
+model SLOIncident {
+  id            String        @id @default(cuid())
+  definition    SLODefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  definitionId  String
+  severity      String
+  reason        String
+  snapshotId    String?
+  metadata      Json?
+  createdAt     DateTime      @default(now())
+  acknowledgedAt DateTime?
+
+  @@index([definitionId, severity])
+}
+
+model OperationCost {
+  id           String   @id @default(cuid())
+  operation    String
+  tenantId     String?
+  totalCost    Float
+  breakdown    Json
+  sampleCount  Int      @default(0)
+  windowStart  DateTime
+  windowEnd    DateTime?
+  createdAt    DateTime @default(now())
+
+  @@index([operation, tenantId])
+  @@index([windowStart])
+}
+
+model TenantBudget {
+  id            String      @id @default(cuid())
+  tenantId      String      @unique
+  monthlyLimit  Float
+  currency      String?     @default("USD")
+  alertThreshold Float?     @default(0.8)
+  metadata      Json?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  alerts        CostAlert[]
+}
+
+model CostAlert {
+  id          String       @id @default(cuid())
+  tenant      TenantBudget @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  tenantId    String
+  totalCost   Float
+  limitValue  Float
+  triggeredAt DateTime     @default(now())
+  summary     Json
+}
+
+model OptimizationSuggestion {
+  id          String   @id @default(cuid())
+  operation   String
+  tenantId    String?
+  category    String
+  message     String
+  evidence    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([tenantId])
+}
+
+model Deployment {
+  id             String            @id @default(cuid())
+  operationName  String
+  operationVersion Int
+  strategy       Json
+  status         String            @default("in_progress")
+  startedAt      DateTime          @default(now())
+  completedAt    DateTime?
+  metadata       Json?
+  stages         DeploymentStage[]
+  rollbacks      RollbackEvent[]
+
+  @@index([operationName, operationVersion])
+}
+
+model DeploymentStage {
+  id             String     @id @default(cuid())
+  deployment     Deployment @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+  deploymentId   String
+  label          String
+  percentage     Int
+  status         String      @default("pending")
+  metrics        Json?
+  startedAt      DateTime    @default(now())
+  completedAt    DateTime?
+
+  @@index([deploymentId, label])
+}
+
+model RollbackEvent {
+  id             String     @id @default(cuid())
+  deployment     Deployment @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+  deploymentId   String
+  stage          DeploymentStage? @relation(fields: [stageId], references: [id], onDelete: SetNull)
+  stageId        String?
+  reason         String
+  triggeredAt    DateTime   @default(now())
+  metadata       Json?
+}
+
+model MetricBaseline {
+  id         String   @id @default(cuid())
+  scope      String
+  metrics    Json
+  windowMs   Int
+  sampleCount Int    @default(0)
+  calculatedAt DateTime @default(now())
+
+  @@index([scope])
+}
+
+model AnomalyEvent {
+  id           String     @id @default(cuid())
+  type         String
+  delta        Float
+  metrics      Json
+  baseline     Json
+  detectedAt   DateTime   @default(now())
+  deployment   Deployment? @relation(fields: [deploymentId], references: [id], onDelete: SetNull)
+  deploymentId String?
+  notes        Json?
+
+  @@index([type, detectedAt])
+}
+
