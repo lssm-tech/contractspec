@@ -1,4 +1,4 @@
-# @lssm/lib.database
+# @lssm/app.cli-database
 
 Prisma wrapper and CLI tools for managing database schemas, migrations, and seeding within the LSSM monorepo.
 
@@ -9,9 +9,9 @@ To abstract and standardize Prisma usage across multiple services and verticals.
 ## Installation
 
 ```bash
-npm install @lssm/lib.database
+npm install @lssm/app.cli-database
 # or
-bun add @lssm/lib.database
+bun add @lssm/app.cli-database
 ```
 
 ## Key Concepts
@@ -45,12 +45,8 @@ bun database seed
 ### In Code
 
 ```ts
-import { PrismaClient } from '@lssm/lib.database';
+import { PrismaClient } from '@lssm/app.cli-database';
 
 const prisma = new PrismaClient();
 const users = await prisma.user.findMany();
 ```
-
-
-
-

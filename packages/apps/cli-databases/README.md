@@ -1,4 +1,4 @@
-# @lssm/lib.databases
+# @lssm/app.cli-databases
 
 Orchestration CLI for managing database profiles and connection strategies.
 
@@ -9,9 +9,9 @@ To manage multi-database configurations (profiles) and orchestrate operations ac
 ## Installation
 
 ```bash
-npm install @lssm/lib.databases
+npm install @lssm/app.cli-databases
 # or
-bun add @lssm/lib.databases
+bun add @lssm/app.cli-databases
 ```
 
 ## Key Concepts

@@ -76,7 +76,7 @@ type TrafficSnapshotRow = {
 async function fetchSnapshotsFromProduction(
   options: GenerateGoldenOptions
 ): Promise<TrafficSnapshot[]> {
-  const { createPrismaClientFromEnv } = await import('@lssm/lib.database');
+  const { createPrismaClientFromEnv } = await import('@lssm/app.cli-database');
   const prisma = createPrismaClientFromEnv('DATABASE_URL');
   try {
     const since = options.days
@@ -119,4 +119,3 @@ async function fetchSnapshotsFromProduction(
     await prisma.$disconnect();
   }
 }
-

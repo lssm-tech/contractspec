@@ -4,7 +4,7 @@ import path from 'node:path';
 export interface DbConfig {
   dbId: string;
   cwd: string; // path to the DB package root where prisma/ lives
-  modules: string[]; // @lssm/lib.database-* modules to import
+  modules: string[]; // @lssm/app.cli-database-* modules to import
   configFile?: string; // override prisma config location (defaults to prisma.config.ts)
 }
 

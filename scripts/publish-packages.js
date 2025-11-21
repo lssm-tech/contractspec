@@ -35,8 +35,8 @@ const packagesByName = new Map(
       'packages/libs/presentation-runtime-react-native',
     ],
     ['@lssm/lib.bus', 'packages/libs/bus'],
-    ['@lssm/lib.database', 'packages/libs/database'],
-    ['@lssm/lib.databases', 'packages/libs/databases'],
+    ['@lssm/app.cli-database', 'packages/libs/database'],
+    ['@lssm/app.cli-databases', 'packages/libs/databases'],
   ].map(([name, dir]) => [name, { name, dir }])
 );
 

@@ -1,4 +1,4 @@
-# @lssm/lib.database
+# @lssm/app.cli-database
 
 ## 1.7.4
 

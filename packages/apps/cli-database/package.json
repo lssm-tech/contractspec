@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.database",
+  "name": "@lssm/app.cli-database",
   "version": "1.7.4",
   "type": "module",
   "bin": {
