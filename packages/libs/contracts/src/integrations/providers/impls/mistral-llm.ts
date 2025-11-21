@@ -215,7 +215,9 @@ export class MistralLLMProvider implements LLMProvider {
     };
   }
 
-  private fromUsage(usage: components.UsageInfo | undefined): LLMTokenUsage | undefined {
+  private fromUsage(
+    usage: components.UsageInfo | undefined
+  ): LLMTokenUsage | undefined {
     if (!usage) return undefined;
     return {
       promptTokens: usage.promptTokens ?? 0,
@@ -291,7 +293,7 @@ export class MistralLLMProvider implements LLMProvider {
       case 'assistant':
         return {
           role: 'assistant',
-          content: toolCalls.length > 0 ? null : textContent ?? '',
+          content: toolCalls.length > 0 ? null : (textContent ?? ''),
           toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
         };
       case 'tool':
@@ -351,5 +353,3 @@ function mapFinishReason(
       return undefined;
   }
 }
-
-

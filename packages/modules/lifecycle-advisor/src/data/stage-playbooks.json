@@ -76,7 +76,10 @@
         "estimatedImpact": "high",
         "effortLevel": "m",
         "category": "operations",
-        "recommendedLibraries": ["@lssm/lib.analytics", "@lssm/lib.observability"]
+        "recommendedLibraries": [
+          "@lssm/lib.analytics",
+          "@lssm/lib.observability"
+        ]
       },
       {
         "id": "stage2-weekly-sync",
@@ -224,5 +227,3 @@
     }
   }
 ]
-
-

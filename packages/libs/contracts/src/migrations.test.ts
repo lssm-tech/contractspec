@@ -27,8 +27,7 @@ const migration: MigrationSpec = {
       {
         kind: 'validation',
         description: 'Ensure table exists',
-        assertion:
-          "SELECT to_regclass('public.users') IS NOT NULL AS exists;",
+        assertion: "SELECT to_regclass('public.users') IS NOT NULL AS exists;",
       },
     ],
     down: [
@@ -76,4 +75,3 @@ describe('MigrationRegistry', () => {
     ]);
   });
 });
-

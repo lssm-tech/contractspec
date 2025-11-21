@@ -35,8 +35,3 @@ export function registerOpenBankingContracts(
     )
   );
 }
-
-
-
-
-

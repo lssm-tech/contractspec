@@ -82,7 +82,9 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
   const theme = await collectThemeBinding();
   const themeFallbacks = await collectThemeFallbacks();
   const telemetry = await collectSpecRef('Bind telemetry spec?');
-  const activeExperiments = await collectExperimentRefs('Activate experiments?');
+  const activeExperiments = await collectExperimentRefs(
+    'Activate experiments?'
+  );
   const pausedExperiments = await collectExperimentRefs('Pause experiments?');
   const featureFlags = await collectFeatureFlags();
   const routes = await collectRoutes();
@@ -120,7 +122,9 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
   };
 }
 
-async function collectMappings(promptMessage: string): Promise<AppConfigMappingData[]> {
+async function collectMappings(
+  promptMessage: string
+): Promise<AppConfigMappingData[]> {
   const mappings: AppConfigMappingData[] = [];
   let add = await confirm({ message: promptMessage, default: false });
   while (add) {
@@ -146,7 +150,9 @@ async function collectMappings(promptMessage: string): Promise<AppConfigMappingD
   return mappings;
 }
 
-async function collectPolicyRefs(): Promise<{ name: string; version?: number }[]> {
+async function collectPolicyRefs(): Promise<
+  { name: string; version?: number }[]
+> {
   const policies: { name: string; version?: number }[] = [];
   let add = await confirm({ message: 'Add policy reference?', default: false });
   while (add) {
@@ -162,14 +168,15 @@ async function collectPolicyRefs(): Promise<{ name: string; version?: number }[]
       name,
       version: typeof versionValue === 'number' ? versionValue : undefined,
     });
-    add = await confirm({ message: 'Add another policy reference?', default: false });
+    add = await confirm({
+      message: 'Add another policy reference?',
+      default: false,
+    });
   }
   return policies;
 }
 
-async function collectThemeBinding(): Promise<
-  AppBlueprintSpecData['theme']
-> {
+async function collectThemeBinding(): Promise<AppBlueprintSpecData['theme']> {
   const attach = await confirm({
     message: 'Bind a primary theme?',
     default: true,
@@ -187,7 +194,9 @@ async function collectThemeBinding(): Promise<
   return { name, version: versionValue ?? 1 };
 }
 
-async function collectThemeFallbacks(): Promise<{ name: string; version: number }[]> {
+async function collectThemeFallbacks(): Promise<
+  { name: string; version: number }[]
+> {
   const fallbacks: { name: string; version: number }[] = [];
   let add = await confirm({
     message: 'Add theme fallback?',
@@ -212,7 +221,9 @@ async function collectThemeFallbacks(): Promise<{ name: string; version: number 
   return fallbacks;
 }
 
-async function collectSpecRef(message: string): Promise<{ name: string; version?: number } | undefined> {
+async function collectSpecRef(
+  message: string
+): Promise<{ name: string; version?: number } | undefined> {
   const attach = await confirm({ message, default: false });
   if (!attach) return undefined;
   const name = await input({
@@ -338,7 +349,9 @@ async function collectRoutes(): Promise<AppRouteConfigData[]> {
         default: undefined,
       });
       experimentVersion =
-        typeof experimentVersionValue === 'number' ? experimentVersionValue : undefined;
+        typeof experimentVersionValue === 'number'
+          ? experimentVersionValue
+          : undefined;
     }
     routes.push({
       path,
@@ -393,4 +406,3 @@ function validateOwners(value: string) {
   }
   return true;
 }
-

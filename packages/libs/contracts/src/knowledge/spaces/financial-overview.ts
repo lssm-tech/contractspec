@@ -37,4 +37,3 @@ export function registerFinancialOverviewKnowledgeSpace(
 ): KnowledgeSpaceRegistry {
   return registry.register(financialOverviewKnowledgeSpace);
 }
-

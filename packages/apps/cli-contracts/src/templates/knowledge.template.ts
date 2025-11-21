@@ -3,9 +3,7 @@ import type { KnowledgeSpaceSpecData, Stability } from '../types';
 export function generateKnowledgeSpaceSpec(
   data: KnowledgeSpaceSpecData
 ): string {
-  const specName = toPascalCase(
-    data.name.split('.').pop() ?? 'KnowledgeSpace'
-  );
+  const specName = toPascalCase(data.name.split('.').pop() ?? 'KnowledgeSpace');
   const varName = `${specName}KnowledgeSpace`;
   const registerFn = `register${specName}KnowledgeSpace`;
 
@@ -37,9 +35,7 @@ export const ${varName}: KnowledgeSpaceSpec = {
   retention: ${retention},
   access: {
 ${access}${data.policyName ? `    policy: { name: '${data.policyName}',${data.policyVersion ? ` version: ${data.policyVersion}` : ''} },${policyComment}\n` : ''}  },
-${indexing}  description: '${escape(
-    data.description || data.displayName
-  )}',
+${indexing}  description: '${escape(data.description || data.displayName)}',
 };
 
 export function ${registerFn}(
@@ -55,8 +51,8 @@ function renderRetention(data: KnowledgeSpaceSpecData): string {
     data.retention.ttlDays === null
       ? 'null'
       : typeof data.retention.ttlDays === 'number'
-      ? String(data.retention.ttlDays)
-      : 'null';
+        ? String(data.retention.ttlDays)
+        : 'null';
   const archive =
     typeof data.retention.archiveAfterDays === 'number'
       ? `, archiveAfterDays: ${data.retention.archiveAfterDays}`
@@ -117,4 +113,3 @@ function toPascalCase(value: string): string {
 function escape(value: string): string {
   return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }
-

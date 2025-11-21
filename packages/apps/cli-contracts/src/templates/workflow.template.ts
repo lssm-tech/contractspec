@@ -4,9 +4,7 @@ export function generateWorkflowSpec(data: WorkflowSpecData): string {
   const specVarName =
     toPascalCase(data.name.split('.').pop() ?? 'Workflow') + 'Workflow';
 
-  const stepsCode = data.steps
-    .map((step) => formatStep(step))
-    .join(',\n');
+  const stepsCode = data.steps.map((step) => formatStep(step)).join(',\n');
 
   const transitionsCode = data.transitions
     .map(
@@ -99,4 +97,3 @@ function toPascalCase(value: string): string {
 function escapeString(value: string): string {
   return value.replace(/'/g, "\\'");
 }
-

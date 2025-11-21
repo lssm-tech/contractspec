@@ -16,4 +16,3 @@ export function createFileStateStore(
     'File-backed state store adapter not implemented. Provide a custom adapter that satisfies StateStore.'
   );
 }
-

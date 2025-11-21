@@ -62,7 +62,8 @@ export async function knowledgeWizard(
 
   const displayName = await input({
     message: 'Display name:',
-    default: defaults?.displayName ?? toTitleCase(name.split('.').pop() ?? name),
+    default:
+      defaults?.displayName ?? toTitleCase(name.split('.').pop() ?? name),
     validate: (value: string) =>
       value.trim().length > 0 || 'Display name is required',
   });
@@ -70,8 +71,7 @@ export async function knowledgeWizard(
   const title = await input({
     message: 'Title (internal title used in docs):',
     default: defaults?.title ?? `${displayName} Knowledge Space`,
-    validate: (value: string) =>
-      value.trim().length > 0 || 'Title is required',
+    validate: (value: string) => value.trim().length > 0 || 'Title is required',
   });
 
   const description = await input({
@@ -109,17 +109,16 @@ export async function knowledgeWizard(
       defaults?.retention?.ttlDays === null
         ? ''
         : defaults?.retention?.ttlDays != null
-        ? String(defaults.retention.ttlDays)
-        : category === 'canonical'
-        ? ''
-        : category === 'ephemeral'
-        ? '7'
-        : '',
+          ? String(defaults.retention.ttlDays)
+          : category === 'canonical'
+            ? ''
+            : category === 'ephemeral'
+              ? '7'
+              : '',
   });
 
   const archiveAfterRaw = await input({
-    message:
-      'Archive after days of inactivity (optional, blank to skip):',
+    message: 'Archive after days of inactivity (optional, blank to skip):',
     default:
       defaults?.retention?.archiveAfterDays != null
         ? String(defaults.retention.archiveAfterDays)
@@ -174,8 +173,7 @@ export async function knowledgeWizard(
 
   const chunkSizeRaw = await input({
     message: 'Chunk size (characters, optional):',
-    default:
-      defaults?.chunkSize != null ? String(defaults.chunkSize) : '800',
+    default: defaults?.chunkSize != null ? String(defaults.chunkSize) : '800',
   });
 
   const vectorDbIntegration = await input({
@@ -208,8 +206,7 @@ export async function knowledgeWizard(
     automationWritable,
     embeddingModel: embeddingModel.trim() || undefined,
     chunkSize: parseOptionalNumber(chunkSizeRaw),
-    vectorDbIntegration:
-      vectorDbIntegration.trim() || undefined,
+    vectorDbIntegration: vectorDbIntegration.trim() || undefined,
   };
 }
 
@@ -250,4 +247,3 @@ function toTitleCase(value: string): string {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 }
-

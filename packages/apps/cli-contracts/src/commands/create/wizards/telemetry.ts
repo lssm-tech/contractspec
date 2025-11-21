@@ -26,7 +26,10 @@ const PROPERTY_TYPE_CHOICES: {
   { name: 'JSON', value: 'json' },
 ];
 
-const PROVIDER_CHOICES: { name: string; value: TelemetryProviderData['type'] }[] = [
+const PROVIDER_CHOICES: {
+  name: string;
+  value: TelemetryProviderData['type'];
+}[] = [
   { name: 'PostHog', value: 'posthog' },
   { name: 'Segment', value: 'segment' },
   { name: 'OpenTelemetry', value: 'opentelemetry' },
@@ -36,8 +39,7 @@ const PROVIDER_CHOICES: { name: string; value: TelemetryProviderData['type'] }[]
 export async function telemetryWizard(): Promise<TelemetrySpecData> {
   const name = await input({
     message: 'Telemetry spec name (e.g., "sigil.telemetry"):',
-    validate: (value: string) =>
-      value.trim().length > 0 || 'Name is required',
+    validate: (value: string) => value.trim().length > 0 || 'Name is required',
   });
 
   const versionValue = await number({
@@ -333,7 +335,9 @@ async function collectProperties(): Promise<TelemetryPropertyData[]> {
   return properties;
 }
 
-async function collectAnomalyRules(): Promise<TelemetryEventData['anomalyRules']> {
+async function collectAnomalyRules(): Promise<
+  TelemetryEventData['anomalyRules']
+> {
   const rules: TelemetryEventData['anomalyRules'] = [];
   let addAnother = true;
   while (addAnother || rules.length === 0) {
@@ -385,4 +389,3 @@ function positiveNumber(value?: number) {
   }
   return true;
 }
-

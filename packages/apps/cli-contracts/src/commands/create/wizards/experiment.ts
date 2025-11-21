@@ -10,7 +10,10 @@ import type {
   TargetingRuleData,
 } from '../../../types';
 
-const ALLOCATION_CHOICES: { name: string; value: ExperimentAllocationData['type'] }[] = [
+const ALLOCATION_CHOICES: {
+  name: string;
+  value: ExperimentAllocationData['type'];
+}[] = [
   { name: 'Random', value: 'random' },
   { name: 'Sticky', value: 'sticky' },
   { name: 'Targeted', value: 'targeted' },
@@ -87,7 +90,9 @@ export async function experimentWizard(): Promise<ExperimentSpecData> {
   };
 }
 
-async function collectVariants(controlVariant: string): Promise<ExperimentVariantData[]> {
+async function collectVariants(
+  controlVariant: string
+): Promise<ExperimentVariantData[]> {
   const variants: ExperimentVariantData[] = [];
   let addAnother = true;
 
@@ -114,8 +119,7 @@ async function collectVariants(controlVariant: string): Promise<ExperimentVarian
     });
 
     const overrides = await collectOverrides();
-    const normalizedOverrides =
-      overrides.length > 0 ? overrides : undefined;
+    const normalizedOverrides = overrides.length > 0 ? overrides : undefined;
 
     variants.push({
       id,
@@ -190,15 +194,17 @@ async function collectAllocation(): Promise<ExperimentAllocationData> {
       return { type, salt: salt || undefined };
     }
     case 'sticky': {
-      const attribute = await select<'userId' | 'organizationId' | 'sessionId'>({
-        message: 'Sticky attribute:',
-        choices: [
-          { name: 'User ID', value: 'userId' },
-          { name: 'Organization ID', value: 'organizationId' },
-          { name: 'Session ID', value: 'sessionId' },
-        ],
-        default: 'userId',
-      });
+      const attribute = await select<'userId' | 'organizationId' | 'sessionId'>(
+        {
+          message: 'Sticky attribute:',
+          choices: [
+            { name: 'User ID', value: 'userId' },
+            { name: 'Organization ID', value: 'organizationId' },
+            { name: 'Session ID', value: 'sessionId' },
+          ],
+          default: 'userId',
+        }
+      );
       const salt = await input({
         message: 'Salt (optional):',
         default: '',
@@ -253,7 +259,8 @@ async function collectTargetingRules(): Promise<TargetingRuleData[]> {
         typeof policyVersionValue === 'number' ? policyVersionValue : undefined;
     }
     const expression = await input({
-      message: 'Expression (optional, e.g., "context.attributes.segment === \'vip\'"):',
+      message:
+        'Expression (optional, e.g., "context.attributes.segment === \'vip\'"):',
       default: '',
     });
     rules.push({
@@ -350,4 +357,3 @@ function validateOwners(value: string) {
   }
   return true;
 }
-

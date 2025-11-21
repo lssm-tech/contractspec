@@ -32,7 +32,8 @@ export class PostmarkEmailProvider implements EmailOutboundProvider {
     const request: PostmarkModels.Message = {
       From: formatAddress(message.from) ?? this.defaultFromEmail,
       To: message.to.map((addr) => formatAddress(addr)).join(', '),
-      Cc: message.cc?.map((addr) => formatAddress(addr)).join(', ') || undefined,
+      Cc:
+        message.cc?.map((addr) => formatAddress(addr)).join(', ') || undefined,
       Bcc:
         message.bcc?.map((addr) => formatAddress(addr)).join(', ') || undefined,
       ReplyTo: message.replyTo ? formatAddress(message.replyTo) : undefined,
@@ -73,12 +74,12 @@ function buildAttachments(
     .filter((attachment) => attachment.data)
     .map((attachment) => ({
       Name: attachment.filename,
-      Content: Buffer.from(attachment.data ?? new Uint8Array()).toString('base64'),
+      Content: Buffer.from(attachment.data ?? new Uint8Array()).toString(
+        'base64'
+      ),
       ContentType: attachment.contentType,
       ContentID: null,
       ContentLength: attachment.sizeBytes,
       Disposition: 'attachment',
     }));
 }
-
-

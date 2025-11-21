@@ -37,10 +37,3 @@ export function registerProductCanonKnowledgeSpace(
 ): KnowledgeSpaceRegistry {
   return registry.register(productCanonKnowledgeSpace);
 }
-
-
-
-
-
-
-

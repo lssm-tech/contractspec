@@ -1,7 +1,4 @@
-import {
-  QdrantClient,
-  type QdrantClientParams,
-} from '@qdrant/js-client-rest';
+import { QdrantClient, type QdrantClientParams } from '@qdrant/js-client-rest';
 
 import type {
   VectorDeleteRequest,
@@ -107,5 +104,3 @@ export class QdrantVectorProvider implements VectorStoreProvider {
     }
   }
 }
-
-

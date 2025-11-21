@@ -32,7 +32,11 @@ export class IntegrationProviderFactory {
     switch (context.spec.meta.key) {
       case 'payments.stripe':
         return new StripePaymentsProvider({
-          apiKey: requireSecret<string>(secrets, 'apiKey', 'Stripe API key is required'),
+          apiKey: requireSecret<string>(
+            secrets,
+            'apiKey',
+            'Stripe API key is required'
+          ),
         });
       default:
         throw new Error(
@@ -53,10 +57,10 @@ export class IntegrationProviderFactory {
             'serverToken',
             'Postmark server token is required'
           ),
-          defaultFromEmail:
-            (context.config as { fromEmail?: string }).fromEmail,
-          messageStream:
-            (context.config as { messageStream?: string }).messageStream,
+          defaultFromEmail: (context.config as { fromEmail?: string })
+            .fromEmail,
+          messageStream: (context.config as { messageStream?: string })
+            .messageStream,
         });
       default:
         throw new Error(
@@ -65,9 +69,7 @@ export class IntegrationProviderFactory {
     }
   }
 
-  async createSmsProvider(
-    context: IntegrationContext
-  ): Promise<SmsProvider> {
+  async createSmsProvider(context: IntegrationContext): Promise<SmsProvider> {
     const secrets = await this.loadSecrets(context);
     switch (context.spec.meta.key) {
       case 'sms.twilio':
@@ -159,9 +161,7 @@ export class IntegrationProviderFactory {
     }
   }
 
-  async createLlmProvider(
-    context: IntegrationContext
-  ): Promise<LLMProvider> {
+  async createLlmProvider(context: IntegrationContext): Promise<LLMProvider> {
     const secrets = await this.loadSecrets(context);
     switch (context.spec.meta.key) {
       case 'ai-llm.mistral':
@@ -302,5 +302,3 @@ function requireConfig<T>(
   }
   return value as T;
 }
-
-

@@ -2,7 +2,10 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { EmbeddingProvider } from '../../integrations/providers/embedding';
 import type { VectorStoreProvider } from '../../integrations/providers/vector-store';
-import type { LLMProvider, LLMResponse } from '../../integrations/providers/llm';
+import type {
+  LLMProvider,
+  LLMResponse,
+} from '../../integrations/providers/llm';
 import { KnowledgeQueryService } from './service';
 
 describe('KnowledgeQueryService', () => {
@@ -45,7 +48,9 @@ function createVectorStoreProvider() {
       {
         id: 'doc-1',
         score: 0.92,
-        payload: { text: 'Project Aurora is a financial automation initiative.' },
+        payload: {
+          text: 'Project Aurora is a financial automation initiative.',
+        },
       },
       {
         id: 'doc-2',
@@ -63,7 +68,12 @@ function createLlmProvider() {
     chat: vi.fn(async () => ({
       message: {
         role: 'assistant',
-        content: [{ type: 'text', text: 'Project Aurora automates financial workflows.' }],
+        content: [
+          {
+            type: 'text',
+            text: 'Project Aurora automates financial workflows.',
+          },
+        ],
       },
       usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 },
     })),

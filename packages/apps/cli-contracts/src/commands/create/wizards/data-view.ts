@@ -67,8 +67,7 @@ export async function dataViewWizard(
   const title = await input({
     message: 'Title (human label):',
     default: defaults?.title ?? toTitleCase(name),
-    validate: (value: string) =>
-      value.trim().length > 0 || 'Title is required',
+    validate: (value: string) => value.trim().length > 0 || 'Title is required',
   });
 
   const description = await input({
@@ -116,9 +115,8 @@ export async function dataViewWizard(
     validate: positiveInt,
   });
 
-  let itemOperation:
-    | { name: string; version: number }
-    | undefined = defaults?.itemOperation;
+  let itemOperation: { name: string; version: number } | undefined =
+    defaults?.itemOperation;
 
   if (kind === 'detail') {
     const needsItemOperation = await confirm({
@@ -275,4 +273,3 @@ function validateOwners(value: string) {
   }
   return true;
 }
-

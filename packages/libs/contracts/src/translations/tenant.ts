@@ -10,10 +10,3 @@ export interface TenantTranslationOverride {
   enabledLocales?: Locale[];
   updatedAt?: string;
 }
-
-
-
-
-
-
-

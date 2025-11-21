@@ -1,7 +1,14 @@
-import { protos, SecretManagerServiceClient } from '@google-cloud/secret-manager';
+import {
+  protos,
+  SecretManagerServiceClient,
+} from '@google-cloud/secret-manager';
 import type { CallOptions } from 'google-gax';
 
-import { normalizeSecretPayload, parseSecretUri, SecretProviderError } from './provider';
+import {
+  normalizeSecretPayload,
+  parseSecretUri,
+  SecretProviderError,
+} from './provider';
 import type {
   SecretProvider,
   SecretReference,
@@ -233,7 +240,8 @@ export class GcpSecretManagerProvider implements SecretProvider {
     const projectId = location.projectId ?? this.explicitProjectId;
     if (!projectId) {
       throw new SecretProviderError({
-        message: 'Project ID must be provided either in reference or provider configuration',
+        message:
+          'Project ID must be provided either in reference or provider configuration',
         provider: this.id,
         reference: `gcp://projects//secrets/${location.secretId}`,
         code: 'INVALID',
@@ -323,7 +331,9 @@ function toSecretProviderError(params: {
 
   const code = deriveErrorCode(error);
   const message =
-    error instanceof Error ? error.message : `Unknown error during ${operation}`;
+    error instanceof Error
+      ? error.message
+      : `Unknown error during ${operation}`;
 
   const providerError = new SecretProviderError({
     message,
@@ -355,5 +365,3 @@ function deriveErrorCode(error: unknown): SecretProviderError['code'] {
   if (code === 3 || code === 'INVALID_ARGUMENT') return 'INVALID';
   return 'UNKNOWN';
 }
-
-

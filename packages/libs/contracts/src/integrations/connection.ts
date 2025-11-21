@@ -1,6 +1,10 @@
 import type { IntegrationOwnershipMode } from './spec';
 
-export type ConnectionStatus = 'connected' | 'disconnected' | 'error' | 'unknown';
+export type ConnectionStatus =
+  | 'connected'
+  | 'disconnected'
+  | 'error'
+  | 'unknown';
 
 export interface IntegrationConnectionHealth {
   status: ConnectionStatus;
@@ -50,4 +54,3 @@ export interface IntegrationConnection {
   /** Usage tracking. */
   usage?: IntegrationUsageMetrics;
 }
-

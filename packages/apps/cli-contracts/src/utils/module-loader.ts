@@ -41,4 +41,3 @@ export async function loadTypeScriptModule(filePath: string): Promise<any> {
 
   return moduleObject.exports;
 }
-

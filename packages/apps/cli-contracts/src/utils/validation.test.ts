@@ -77,4 +77,3 @@ describe('validators', () => {
     expect(result2.success).toBe(false);
   });
 });
-

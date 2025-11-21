@@ -1,8 +1,6 @@
 import type { AppBlueprintSpecData } from '../types';
 
-export function generateAppBlueprintSpec(
-  data: AppBlueprintSpecData
-): string {
+export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
   const exportName =
     toPascalCase(data.name.split('.').pop() ?? 'App') + 'AppConfig';
 
@@ -187,7 +185,9 @@ function buildRoutesSection(data: AppBlueprintSpecData): string {
                 : ''
             } }`
           : null,
-        route.featureFlag ? `featureFlag: '${escapeString(route.featureFlag)}'` : null,
+        route.featureFlag
+          ? `featureFlag: '${escapeString(route.featureFlag)}'`
+          : null,
         route.experimentName
           ? `experiment: { name: '${escapeString(route.experimentName)}'${
               typeof route.experimentVersion === 'number'
@@ -223,4 +223,3 @@ function toPascalCase(value: string): string {
 function escapeString(value: string): string {
   return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
-

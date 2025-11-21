@@ -107,4 +107,3 @@ describe('ExperimentEvaluator', () => {
     expect(controlResult?.variant.id).toBe('control');
   });
 });
-

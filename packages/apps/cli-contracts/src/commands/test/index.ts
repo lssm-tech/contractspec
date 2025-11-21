@@ -124,7 +124,9 @@ function isTestSpec(value: unknown): value is TestSpec {
 }
 
 async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
-  const exports = (await loadTypeScriptModule(modulePath)) as LoadedRegistryModule;
+  const exports = (await loadTypeScriptModule(
+    modulePath
+  )) as LoadedRegistryModule;
 
   if (exports instanceof SpecRegistry) {
     return exports;
@@ -137,8 +139,8 @@ async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
     typeof exports.createRegistry === 'function'
       ? exports.createRegistry
       : typeof exports.default === 'function'
-      ? (exports.default as () => Promise<SpecRegistry> | SpecRegistry)
-      : undefined;
+        ? (exports.default as () => Promise<SpecRegistry> | SpecRegistry)
+        : undefined;
 
   if (factory) {
     const result = await factory();
@@ -173,4 +175,3 @@ function logScenarioResults(result: Awaited<ReturnType<TestRunner['run']>>) {
     }
   }
 }
-

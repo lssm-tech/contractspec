@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { ResolvedAppConfig, ResolvedIntegration } from '../app-config/runtime';
+import type {
+  ResolvedAppConfig,
+  ResolvedIntegration,
+} from '../app-config/runtime';
 import type { IntegrationConnection } from './connection';
 import type { IntegrationSpec } from './spec';
 import { IntegrationCallGuard } from './runtime';
@@ -8,7 +11,11 @@ import type {
   IntegrationTelemetryEmitter,
   IntegrationTelemetryEvent,
 } from './runtime';
-import type { SecretProvider, SecretReference, SecretValue } from './secrets/provider';
+import type {
+  SecretProvider,
+  SecretReference,
+  SecretValue,
+} from './secrets/provider';
 
 const baseSpec: IntegrationSpec = {
   meta: {
@@ -29,7 +36,9 @@ const baseSpec: IntegrationSpec = {
   secretSchema: { schema: {} },
 };
 
-function makeConnection(status: IntegrationConnection['status'] = 'connected'): IntegrationConnection {
+function makeConnection(
+  status: IntegrationConnection['status'] = 'connected'
+): IntegrationConnection {
   const now = new Date().toISOString();
   return {
     meta: {
@@ -72,7 +81,9 @@ function makeResolvedIntegration(
   };
 }
 
-function makeResolvedConfig(overrides: Partial<ResolvedAppConfig> = {}): ResolvedAppConfig {
+function makeResolvedConfig(
+  overrides: Partial<ResolvedAppConfig> = {}
+): ResolvedAppConfig {
   return {
     appId: 'demo-app',
     tenantId: 'tenant-1',
@@ -169,7 +180,10 @@ describe('IntegrationCallGuard', () => {
     const guard = new IntegrationCallGuard(new MockSecretProvider(), {
       telemetry,
     });
-    const integration = makeResolvedIntegration('payments.primary', 'disconnected');
+    const integration = makeResolvedIntegration(
+      'payments.primary',
+      'disconnected'
+    );
     const config = makeResolvedConfig({ integrations: [integration] });
 
     const result = await guard.executeWithGuards(
@@ -195,7 +209,10 @@ describe('IntegrationCallGuard', () => {
       telemetry,
       maxAttempts: 1,
     });
-    const integration = makeResolvedIntegration('payments.primary', 'connected');
+    const integration = makeResolvedIntegration(
+      'payments.primary',
+      'connected'
+    );
     const config = makeResolvedConfig({ integrations: [integration] });
 
     const result = await guard.executeWithGuards(
@@ -230,21 +247,22 @@ describe('IntegrationCallGuard', () => {
       sleep,
       maxAttempts: 3,
     });
-    const integration = makeResolvedIntegration('payments.primary', 'connected');
+    const integration = makeResolvedIntegration(
+      'payments.primary',
+      'connected'
+    );
     const config = makeResolvedConfig({ integrations: [integration] });
 
-    const executor = vi
-      .fn()
-      .mockImplementation(async () => {
-        attempt += 1;
-        if (attempt < 2) {
-          const error = new Error('timeout');
-          (error as any).retryable = true;
-          (error as any).code = 'ETIMEDOUT';
-          throw error;
-        }
-        return { status: 'ok' };
-      });
+    const executor = vi.fn().mockImplementation(async () => {
+      attempt += 1;
+      if (attempt < 2) {
+        const error = new Error('timeout');
+        (error as any).retryable = true;
+        (error as any).code = 'ETIMEDOUT';
+        throw error;
+      }
+      return { status: 'ok' };
+    });
 
     const result = await guard.executeWithGuards(
       'payments.primary',
@@ -272,7 +290,10 @@ describe('IntegrationCallGuard', () => {
       telemetry,
       maxAttempts: 3,
     });
-    const integration = makeResolvedIntegration('payments.primary', 'connected');
+    const integration = makeResolvedIntegration(
+      'payments.primary',
+      'connected'
+    );
     const config = makeResolvedConfig({ integrations: [integration] });
 
     const executor = vi.fn(async () => {
@@ -299,11 +320,3 @@ describe('IntegrationCallGuard', () => {
     });
   });
 });
-
-
-
-
-
-
-
-

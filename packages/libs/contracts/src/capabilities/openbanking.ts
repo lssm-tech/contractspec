@@ -22,19 +22,22 @@ export const openBankingAccountsReadCapability: CapabilitySpec = {
       surface: 'operation',
       name: 'openbanking.accounts.list',
       version: 1,
-      description: 'List bank accounts linked to a Powens open banking connection.',
+      description:
+        'List bank accounts linked to a Powens open banking connection.',
     },
     {
       surface: 'operation',
       name: 'openbanking.accounts.get',
       version: 1,
-      description: 'Retrieve the canonical bank account record for a specific account.',
+      description:
+        'Retrieve the canonical bank account record for a specific account.',
     },
     {
       surface: 'operation',
       name: 'openbanking.accounts.sync',
       version: 1,
-      description: 'Trigger a refresh of bank account metadata from the open banking provider.',
+      description:
+        'Trigger a refresh of bank account metadata from the open banking provider.',
     },
   ],
 };
@@ -57,13 +60,15 @@ export const openBankingTransactionsReadCapability: CapabilitySpec = {
       surface: 'operation',
       name: 'openbanking.transactions.list',
       version: 1,
-      description: 'List transactions for a given bank account with optional date filtering.',
+      description:
+        'List transactions for a given bank account with optional date filtering.',
     },
     {
       surface: 'operation',
       name: 'openbanking.transactions.sync',
       version: 1,
-      description: 'Synchronise transactions from the open banking provider into the canonical ledger.',
+      description:
+        'Synchronise transactions from the open banking provider into the canonical ledger.',
     },
   ],
 };
@@ -86,7 +91,8 @@ export const openBankingBalancesReadCapability: CapabilitySpec = {
       surface: 'operation',
       name: 'openbanking.balances.get',
       version: 1,
-      description: 'Retrieve the latest known balances for a specified bank account.',
+      description:
+        'Retrieve the latest known balances for a specified bank account.',
     },
     {
       surface: 'operation',
@@ -105,8 +111,3 @@ export function registerOpenBankingCapabilities(
     .register(openBankingTransactionsReadCapability)
     .register(openBankingBalancesReadCapability);
 }
-
-
-
-
-

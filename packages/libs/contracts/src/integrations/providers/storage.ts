@@ -58,5 +58,3 @@ export interface ObjectStorageProvider {
   ): Promise<{ url: string; expiresAt: Date }>;
   listObjects(query: ListObjectsQuery): Promise<ListObjectsResult>;
 }
-
-

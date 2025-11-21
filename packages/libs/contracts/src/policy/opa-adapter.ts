@@ -62,8 +62,7 @@ export class OPAPolicyAdapter<Result = OPAEvaluationResult | null> {
       ...engineDecision,
       effect: opaResult.effect ?? engineDecision.effect,
       reason: opaResult.reason ?? engineDecision.reason,
-      fieldDecisions:
-        opaResult.fieldDecisions ?? engineDecision.fieldDecisions,
+      fieldDecisions: opaResult.fieldDecisions ?? engineDecision.fieldDecisions,
       requiredConsents: mergedRequiredConsents.length
         ? mergedRequiredConsents
         : undefined,
@@ -130,4 +129,3 @@ function resolveConsentAcrossPolicies(
     required: true,
   };
 }
-

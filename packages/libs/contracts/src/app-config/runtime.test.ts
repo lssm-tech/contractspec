@@ -1,26 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { resolveAppConfig, composeAppConfig } from './runtime';
-import {
-  type AppBlueprintSpec,
-  type TenantAppConfig,
-} from './spec';
-import {
-  CapabilityRegistry,
-  type CapabilitySpec,
-} from '../capabilities';
+import { type AppBlueprintSpec, type TenantAppConfig } from './spec';
+import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { FeatureRegistry, type FeatureModuleSpec } from '../features';
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
 import { WorkflowRegistry, type WorkflowSpec } from '../workflow/spec';
 import { PolicyRegistry, type PolicySpec } from '../policy/spec';
 import { ThemeRegistry, type ThemeSpec } from '../themes';
-import {
-  TelemetryRegistry,
-  type TelemetrySpec,
-} from '../telemetry/spec';
-import {
-  ExperimentRegistry,
-  type ExperimentSpec,
-} from '../experiments/spec';
+import { TelemetryRegistry, type TelemetrySpec } from '../telemetry/spec';
+import { ExperimentRegistry, type ExperimentSpec } from '../experiments/spec';
 import {
   IntegrationSpecRegistry,
   type IntegrationSpec,
@@ -42,10 +30,7 @@ const ownership = {
   stability: StabilityEnum.Experimental,
 } as const;
 
-function makeCapability(
-  key = 'core.sample',
-  version = 1
-): CapabilitySpec {
+function makeCapability(key = 'core.sample', version = 1): CapabilitySpec {
   return {
     meta: {
       ...ownership,
@@ -66,9 +51,7 @@ function makeFeature(key = 'core-shell'): FeatureModuleSpec {
   };
 }
 
-function makeDataView(
-  name = 'core.dashboard.view'
-): DataViewSpec {
+function makeDataView(name = 'core.dashboard.view'): DataViewSpec {
   return {
     meta: {
       ...ownership,
@@ -92,9 +75,7 @@ function makeDataView(
   };
 }
 
-function makeWorkflow(
-  name = 'core.onboarding'
-): WorkflowSpec {
+function makeWorkflow(name = 'core.onboarding'): WorkflowSpec {
   return {
     meta: {
       ...ownership,
@@ -525,7 +506,7 @@ describe('resolveAppConfig', () => {
     });
 
     expect(resolved.integrations).toHaveLength(1);
-  expect(resolved.integrations[0]?.slot.slotId).toBe('primary-payments');
+    expect(resolved.integrations[0]?.slot.slotId).toBe('primary-payments');
     expect(resolved.integrations[0]?.connection.meta.id).toBe('conn-primary');
     expect(resolved.integrations[0]?.spec.meta.key).toBe('core.integration');
     expect(resolved.knowledge).toHaveLength(1);
@@ -548,23 +529,21 @@ describe('composeAppConfig', () => {
     const workflows = new WorkflowRegistry()
       .register(makeWorkflow())
       .register(makeWorkflow('core.onboarding.alt'));
-    const policies = new PolicyRegistry()
-      .register(makePolicy())
-      .register({
-        meta: {
-          ...ownership,
-          name: 'core.policy.tenant',
-          version: 1,
-          scope: 'feature',
+    const policies = new PolicyRegistry().register(makePolicy()).register({
+      meta: {
+        ...ownership,
+        name: 'core.policy.tenant',
+        version: 1,
+        scope: 'feature',
+      },
+      rules: [
+        {
+          effect: 'allow',
+          actions: ['edit'],
+          resource: { type: 'any' },
         },
-        rules: [
-          {
-            effect: 'allow',
-            actions: ['edit'],
-            resource: { type: 'any' },
-          },
-        ],
-      });
+      ],
+    });
     const themes = new ThemeRegistry()
       .register(makeTheme())
       .register(makeTheme('core.theme.alt'));
@@ -616,15 +595,15 @@ describe('composeAppConfig', () => {
     expect(composition.telemetry?.meta.name).toBe('core.telemetry.alt');
     expect(composition.experiments.active).toHaveLength(1);
     expect(composition.integrations).toHaveLength(1);
-  expect(composition.integrations[0]?.slot.slotId).toBe('primary-payments');
-    expect(composition.integrations[0]?.connection.meta.id).toBe('conn-primary');
+    expect(composition.integrations[0]?.slot.slotId).toBe('primary-payments');
+    expect(composition.integrations[0]?.connection.meta.id).toBe(
+      'conn-primary'
+    );
     expect(composition.knowledge).toHaveLength(1);
     expect(composition.knowledge[0]?.space.meta.key).toBe('product-canon');
     expect(composition.knowledge[0]?.sources).toHaveLength(1);
     expect(composition.missing).toHaveLength(0);
-    expect(composition.resolved.branding.appName).toBe(
-      'Tenant Control Center'
-    );
+    expect(composition.resolved.branding.appName).toBe('Tenant Control Center');
     expect(composition.resolved.branding.domain).toBe('app.tenant.dev');
     expect(composition.resolved.translation.defaultLocale).toBe('en');
     expect(composition.resolved.translation.supportedLocales).toEqual(
@@ -660,7 +639,12 @@ describe('composeAppConfig', () => {
       makeIntegrationSpec()
     );
     const integrationConnections = [
-      makeIntegrationConnection('conn-primary', 'tenant', 'core.integration', 2),
+      makeIntegrationConnection(
+        'conn-primary',
+        'tenant',
+        'core.integration',
+        2
+      ),
     ];
     const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
       makeKnowledgeSpace()
@@ -684,11 +668,11 @@ describe('composeAppConfig', () => {
       expect.arrayContaining([
         {
           type: 'integrationSpec',
-        identifier: 'spec:core.integration.v2',
-      },
-      {
-        type: 'integrationSlot',
-        identifier: 'slot:primary-payments',
+          identifier: 'spec:core.integration.v2',
+        },
+        {
+          type: 'integrationSlot',
+          identifier: 'slot:primary-payments',
         },
         {
           type: 'knowledgeSource',
@@ -704,4 +688,3 @@ describe('composeAppConfig', () => {
     ).toThrow(/missing references/);
   });
 });
-

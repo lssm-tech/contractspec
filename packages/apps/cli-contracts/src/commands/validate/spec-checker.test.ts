@@ -29,7 +29,10 @@ export const TestSpec = defineCommand({
 });
     `;
 
-    const result = validateSpecStructure(validOperationSpec, 'test.contracts.ts');
+    const result = validateSpecStructure(
+      validOperationSpec,
+      'test.contracts.ts'
+    );
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -95,4 +98,3 @@ export const TestSpec = defineCommand({
     expect(result.errors.some((e) => e.includes('import'))).toBe(true);
   });
 });
-

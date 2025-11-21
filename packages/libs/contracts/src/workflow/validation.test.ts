@@ -18,10 +18,10 @@ const DummyModel = new SchemaModel({
   },
 });
 
-function createOperation(name: string, version: number): ContractSpec<
-  typeof DummyModel,
-  typeof DummyModel
-> {
+function createOperation(
+  name: string,
+  version: number
+): ContractSpec<typeof DummyModel, typeof DummyModel> {
   return {
     meta: {
       name,
@@ -128,9 +128,7 @@ describe('WorkflowRegistry', () => {
     const registry = new WorkflowRegistry();
     const spec = sampleWorkflowSpec();
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(
-      /Duplicate workflow/
-    );
+    expect(() => registry.register(spec)).toThrowError(/Duplicate workflow/);
   });
 });
 
@@ -145,7 +143,9 @@ describe('validateWorkflowSpec', () => {
 
     const issues = validateWorkflowSpec(spec, { operations, forms });
     expect(errors(issues)).toHaveLength(0);
-    expect(() => assertWorkflowSpecValid(spec, { operations, forms })).not.toThrow();
+    expect(() =>
+      assertWorkflowSpecValid(spec, { operations, forms })
+    ).not.toThrow();
   });
 
   it('flags transitions pointing to unknown steps', () => {
@@ -182,18 +182,17 @@ describe('validateWorkflowSpec', () => {
     const operations = new SpecRegistry();
     operations.register(createOperation('sigil.start', 1));
     const issues = validateWorkflowSpec(spec, { operations });
-    expect(errors(issues).some((issue) => /unknown operation/.test(issue.message))).toBe(
-      true
-    );
+    expect(
+      errors(issues).some((issue) => /unknown operation/.test(issue.message))
+    ).toBe(true);
   });
 
   it('flags missing form references when registry provided', () => {
     const spec = sampleWorkflowSpec();
     const forms = new FormRegistry();
     const issues = validateWorkflowSpec(spec, { forms });
-    expect(errors(issues).some((issue) => /unknown form/.test(issue.message))).toBe(
-      true
-    );
+    expect(
+      errors(issues).some((issue) => /unknown form/.test(issue.message))
+    ).toBe(true);
   });
 });
-

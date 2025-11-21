@@ -1,9 +1,7 @@
 import type { MigrationSpecData } from '../types';
 
 export function generateMigrationSpec(data: MigrationSpecData): string {
-  const specName = toPascalCase(
-    data.name.split('.').pop() ?? 'Migration'
-  );
+  const specName = toPascalCase(data.name.split('.').pop() ?? 'Migration');
   const migrationVar = `${specName}Migration`;
 
   const dependencies =
@@ -85,4 +83,3 @@ function toPascalCase(value: string): string {
 function escape(value: string): string {
   return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }
-

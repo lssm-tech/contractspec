@@ -99,11 +99,12 @@ export async function regeneratorCommand(
   });
 }
 
-function extractDefault<T>(module: Record<string, unknown>, typeName: string): T {
+function extractDefault<T>(
+  module: Record<string, unknown>,
+  typeName: string
+): T {
   const value =
-    'default' in module && module.default
-      ? module.default
-      : module[typeName];
+    'default' in module && module.default ? module.default : module[typeName];
 
   if (!value) {
     throw new Error(`Module must export a default ${typeName}`);
@@ -157,7 +158,10 @@ async function resolveSink(
         'Sink path "auto" requires --executor <module> to instantiate ProposalExecutor'
       );
     }
-    const { sink, module } = await createExecutorSink(options.executor, options);
+    const { sink, module } = await createExecutorSink(
+      options.executor,
+      options
+    );
     return { sink, executorModule: module };
   }
 
@@ -168,7 +172,7 @@ async function resolveSink(
 }
 
 function extractAdapters(
-  ...modules: Array<Record<string, unknown> | undefined>
+  ...modules: (Record<string, unknown> | undefined)[]
 ): SignalAdapters {
   const adapters: SignalAdapters = {};
 
@@ -265,10 +269,11 @@ function normalizeExecutorSinkOptions(
 }
 
 function isProposalExecutor(value: unknown): value is ProposalExecutor {
-  return Boolean(value) && typeof (value as ProposalExecutor).execute === 'function';
+  return (
+    Boolean(value) && typeof (value as ProposalExecutor).execute === 'function'
+  );
 }
 
 function isExecutorDeps(value: unknown): value is ProposalExecutorDeps {
   return typeof value === 'object' && value !== null;
 }
-

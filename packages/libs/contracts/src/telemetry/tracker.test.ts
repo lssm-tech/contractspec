@@ -123,4 +123,3 @@ describe('TelemetryTracker', () => {
     expect(event.value).toBe(3000);
   });
 });
-

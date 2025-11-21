@@ -113,5 +113,3 @@ function encodeBase64Url(content: string) {
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
-
-

@@ -28,7 +28,8 @@ export const mistralIntegrationSpec: IntegrationSpec = {
       properties: {
         model: {
           type: 'string',
-          description: 'Default chat completion model (e.g., mistral-large-latest).',
+          description:
+            'Default chat completion model (e.g., mistral-large-latest).',
         },
         embeddingModel: {
           type: 'string',
@@ -48,7 +49,8 @@ export const mistralIntegrationSpec: IntegrationSpec = {
       properties: {
         apiKey: {
           type: 'string',
-          description: 'Mistral API key with access to chat and embeddings endpoints.',
+          description:
+            'Mistral API key with access to chat and embeddings endpoints.',
         },
       },
     },
@@ -77,5 +79,3 @@ export function registerMistralIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(mistralIntegrationSpec);
 }
-
-

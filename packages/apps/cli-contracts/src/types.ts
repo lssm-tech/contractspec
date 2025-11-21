@@ -55,9 +55,9 @@ export interface FormSpecData extends BaseSpecData {
 
 export interface FeatureSpecData extends BaseSpecData {
   key: string;
-  operations: Array<{ name: string; version: number }>;
-  events: Array<{ name: string; version: number }>;
-  presentations: Array<{ name: string; version: number }>;
+  operations: { name: string; version: number }[];
+  events: { name: string; version: number }[];
+  presentations: { name: string; version: number }[];
 }
 
 export interface WorkflowStepData {
@@ -273,8 +273,8 @@ export interface MigrationStepData {
   assertion?: string;
   timeoutMs?: number;
   retries?: number;
-  preChecks?: Array<{ description: string; expression: string }>;
-  postChecks?: Array<{ description: string; expression: string }>;
+  preChecks?: { description: string; expression: string }[];
+  postChecks?: { description: string; expression: string }[];
 }
 
 export interface MigrationSpecData extends BaseSpecData {
@@ -326,7 +326,8 @@ export interface IntegrationConfigFieldData {
   description?: string;
 }
 
-export interface IntegrationSecretFieldData extends IntegrationConfigFieldData {}
+export interface IntegrationSecretFieldData
+  extends IntegrationConfigFieldData {}
 
 export interface IntegrationSpecData extends BaseSpecData {
   title: string;
@@ -387,4 +388,3 @@ export interface GenerationResult {
   filePath: string;
   specType: SpecType;
 }
-

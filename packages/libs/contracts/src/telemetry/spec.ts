@@ -1,11 +1,7 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { EventKey } from '../events';
 
-export type TelemetryPrivacyLevel =
-  | 'public'
-  | 'internal'
-  | 'pii'
-  | 'sensitive';
+export type TelemetryPrivacyLevel = 'public' | 'internal' | 'pii' | 'sensitive';
 
 export interface TelemetryMeta extends OwnerShipMeta {
   /** Fully-qualified telemetry spec name (e.g., "sigil.core"). */
@@ -30,10 +26,7 @@ export interface TelemetryAnomalyThreshold {
   max?: number;
 }
 
-export type TelemetryAnomalyAction =
-  | 'alert'
-  | 'log'
-  | 'trigger_regen';
+export type TelemetryAnomalyAction = 'alert' | 'log' | 'trigger_regen';
 
 export interface TelemetryAnomalyDetectionConfig {
   enabled: boolean;
@@ -117,7 +110,7 @@ export class TelemetryRegistry {
     this.items.set(key, spec);
     for (const event of spec.events) {
       this.eventsByKey.set(`${event.name}.v${event.version}`, event);
-       this.specByEventKey.set(`${event.name}.v${event.version}`, spec);
+      this.specByEventKey.set(`${event.name}.v${event.version}`, spec);
     }
     return this;
   }
@@ -160,10 +153,7 @@ export class TelemetryRegistry {
     return latest;
   }
 
-  getSpecForEvent(
-    name: string,
-    version?: number
-  ): TelemetrySpec | undefined {
+  getSpecForEvent(name: string, version?: number): TelemetrySpec | undefined {
     if (version != null) {
       return this.specByEventKey.get(`${name}.v${version}`);
     }
@@ -185,4 +175,3 @@ export class TelemetryRegistry {
 export function makeTelemetryKey(meta: TelemetryMeta) {
   return telemetryKey(meta);
 }
-

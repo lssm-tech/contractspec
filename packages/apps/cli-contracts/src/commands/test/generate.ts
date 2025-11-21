@@ -60,7 +60,7 @@ export async function generateGoldenTestsCommand(
   );
 }
 
-type TrafficSnapshotRow = {
+interface TrafficSnapshotRow {
   id: string;
   operationName: string;
   operationVersion: number;
@@ -71,7 +71,7 @@ type TrafficSnapshotRow = {
   channel: string | null;
   payload: unknown;
   recordedAt: Date;
-};
+}
 
 async function fetchSnapshotsFromProduction(
   options: GenerateGoldenOptions

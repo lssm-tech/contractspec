@@ -27,10 +27,3 @@ export interface BlueprintTranslationCatalog {
   supportedLocales: Locale[];
   entries: TranslationEntry[];
 }
-
-
-
-
-
-
-

@@ -91,7 +91,9 @@ export class GoogleCloudStorageProvider implements ObjectStorageProvider {
       pageToken: query.pageToken,
     });
     const nextTokenFromQuery =
-      typeof nextQuery === 'object' && nextQuery !== null && 'pageToken' in nextQuery
+      typeof nextQuery === 'object' &&
+      nextQuery !== null &&
+      'pageToken' in nextQuery
         ? (nextQuery as { pageToken?: string }).pageToken
         : undefined;
     const nextTokenFromResponse =
@@ -105,9 +107,7 @@ export class GoogleCloudStorageProvider implements ObjectStorageProvider {
   }
 }
 
-function toBuffer(
-  data: Uint8Array | ArrayBuffer
-): Buffer {
+function toBuffer(data: Uint8Array | ArrayBuffer): Buffer {
   if (data instanceof Uint8Array) {
     return Buffer.from(data);
   }
@@ -126,5 +126,3 @@ function toMetadata(metadata: any): StorageObjectMetadata {
     metadata: metadata.metadata,
   };
 }
-
-

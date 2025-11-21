@@ -382,7 +382,9 @@ async function createWorkflowSpec(options: CreateOptions, config: Config) {
 
   console.log(chalk.cyan('\n✨ Next steps:'));
   console.log(
-    chalk.gray(`  1. Review step actions and adjust operations/forms in ${filePath}`)
+    chalk.gray(
+      `  1. Review step actions and adjust operations/forms in ${filePath}`
+    )
   );
   console.log(
     chalk.gray(
@@ -425,10 +427,7 @@ async function createDataViewSpec(options: CreateOptions, config: Config) {
   );
 }
 
-async function createIntegrationSpec(
-  options: CreateOptions,
-  config: Config
-) {
+async function createIntegrationSpec(options: CreateOptions, config: Config) {
   const specData: IntegrationSpecData = await integrationWizard();
   const code = generateIntegrationSpec(specData);
 
@@ -447,7 +446,9 @@ async function createIntegrationSpec(
 
   console.log(chalk.cyan('\n✨ Next steps:'));
   console.log(
-    chalk.gray('  1. Register the integration spec in your integration registry.')
+    chalk.gray(
+      '  1. Register the integration spec in your integration registry.'
+    )
   );
   console.log(
     chalk.gray(
@@ -475,7 +476,9 @@ async function createKnowledgeSpec(options: CreateOptions, config: Config) {
 
   console.log(chalk.cyan('\n✨ Next steps:'));
   console.log(
-    chalk.gray('  1. Register the knowledge space spec in your knowledge registry.')
+    chalk.gray(
+      '  1. Register the knowledge space spec in your knowledge registry.'
+    )
   );
   console.log(
     chalk.gray(

@@ -78,7 +78,11 @@ export async function migrationWizard(
     default: (defaults?.dependencies ?? []).join(', '),
   });
 
-  const upSteps = await collectSteps('Add an up step?', defaults?.up ?? [], true);
+  const upSteps = await collectSteps(
+    'Add an up step?',
+    defaults?.up ?? [],
+    true
+  );
 
   let downSteps: MigrationStepData[] | undefined = defaults?.down;
   const needDown = await confirm({
@@ -86,7 +90,11 @@ export async function migrationWizard(
     default: (defaults?.down?.length ?? 0) > 0,
   });
   if (needDown) {
-    downSteps = await collectSteps('Add a down step?', defaults?.down ?? [], false);
+    downSteps = await collectSteps(
+      'Add a down step?',
+      defaults?.down ?? [],
+      false
+    );
   } else {
     downSteps = undefined;
   }
@@ -199,4 +207,3 @@ function validateOwners(value: string) {
   }
   return true;
 }
-

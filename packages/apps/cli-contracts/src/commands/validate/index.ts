@@ -165,9 +165,10 @@ export async function validateCommand(
   console.log(chalk.green('✅ Validation passed'));
 }
 
-async function validateBlueprint(
-  blueprintPath: string
-): Promise<{ spec: AppBlueprintSpec; report: ReturnType<typeof validateBlueprintSpec> }> {
+async function validateBlueprint(blueprintPath: string): Promise<{
+  spec: AppBlueprintSpec;
+  report: ReturnType<typeof validateBlueprintSpec>;
+}> {
   const resolvedPath = resolve(process.cwd(), blueprintPath);
   if (!existsSync(resolvedPath)) {
     console.error(chalk.red(`❌ Blueprint file not found: ${resolvedPath}`));
@@ -190,10 +191,15 @@ async function validateTenantConfig(
   blueprint: AppBlueprintSpec,
   tenantPath: string,
   options: ValidateOptions
-): Promise<{ config: TenantAppConfig; report: ReturnType<typeof validateTenantConfigSpecs> }> {
+): Promise<{
+  config: TenantAppConfig;
+  report: ReturnType<typeof validateTenantConfigSpecs>;
+}> {
   const resolvedPath = resolve(process.cwd(), tenantPath);
   if (!existsSync(resolvedPath)) {
-    console.error(chalk.red(`❌ Tenant config file not found: ${resolvedPath}`));
+    console.error(
+      chalk.red(`❌ Tenant config file not found: ${resolvedPath}`)
+    );
     process.exit(1);
   }
 
@@ -229,7 +235,9 @@ async function validateTenantConfig(
   return { config: tenant, report };
 }
 
-async function loadModule(modulePath: string): Promise<Record<string, unknown>> {
+async function loadModule(
+  modulePath: string
+): Promise<Record<string, unknown>> {
   try {
     const url = pathToFileURL(modulePath).href;
     return await import(url);
@@ -239,7 +247,9 @@ async function loadModule(modulePath: string): Promise<Record<string, unknown>> 
         `❌ Failed to load module at ${modulePath}. Ensure it is compiled to JavaScript or use node --loader to handle TypeScript.`
       )
     );
-    console.error(chalk.red(error instanceof Error ? error.message : String(error)));
+    console.error(
+      chalk.red(error instanceof Error ? error.message : String(error))
+    );
     process.exit(1);
   }
 }
@@ -276,9 +286,7 @@ async function loadTenantConfig(tenantPath: string): Promise<TenantAppConfig> {
   const candidates = Object.values(mod).filter(isTenantConfig);
   if (candidates.length === 0) {
     console.error(
-      chalk.red(
-        '❌ Tenant config module does not export a TenantAppConfig.'
-      )
+      chalk.red('❌ Tenant config module does not export a TenantAppConfig.')
     );
     process.exit(1);
   }
@@ -297,7 +305,9 @@ function printValidationReport(
   if (report.errors.length) {
     console.log(chalk.red('\n  Errors:'));
     for (const issue of report.errors) {
-      console.log(chalk.red(`   • [${issue.code}] ${issue.path}: ${issue.message}`));
+      console.log(
+        chalk.red(`   • [${issue.code}] ${issue.path}: ${issue.message}`)
+      );
     }
   }
 
@@ -313,7 +323,9 @@ function printValidationReport(
   if (report.info.length) {
     console.log(chalk.gray('\n  Info:'));
     for (const issue of report.info) {
-      console.log(chalk.gray(`   • [${issue.code}] ${issue.path}: ${issue.message}`));
+      console.log(
+        chalk.gray(`   • [${issue.code}] ${issue.path}: ${issue.message}`)
+      );
     }
   }
 }
@@ -340,9 +352,7 @@ function isTenantConfig(value: unknown): value is TenantAppConfig {
 export type { ValidateOptions };
 export { validateBlueprint, validateTenantConfig };
 
-function normalizePathOption(
-  value?: string | string[]
-): string[] {
+function normalizePathOption(value?: string | string[]): string[] {
   if (!value) return [];
   const values = Array.isArray(value) ? value : value.split(',');
   return values.map((entry) => entry.trim()).filter(Boolean);
@@ -358,7 +368,9 @@ async function loadIntegrationConnections(
   for (const path of paths) {
     const resolved = resolve(process.cwd(), path);
     if (!existsSync(resolved)) {
-      console.warn(chalk.yellow(`  ⚠️  Connection file not found: ${resolved}`));
+      console.warn(
+        chalk.yellow(`  ⚠️  Connection file not found: ${resolved}`)
+      );
       continue;
     }
 
@@ -397,7 +409,9 @@ async function loadTranslationCatalog(
   if (!path) return undefined;
   const resolved = resolve(process.cwd(), path);
   if (!existsSync(resolved)) {
-    console.warn(chalk.yellow(`  ⚠️  Translation catalog not found: ${resolved}`));
+    console.warn(
+      chalk.yellow(`  ⚠️  Translation catalog not found: ${resolved}`)
+    );
     return undefined;
   }
 
@@ -423,10 +437,14 @@ async function loadTranslationCatalog(
     );
     return undefined;
   }
-  return normaliseTranslationCatalog(catalogs[0] as BlueprintTranslationCatalog);
+  return normaliseTranslationCatalog(
+    catalogs[0] as BlueprintTranslationCatalog
+  );
 }
 
-function isIntegrationConnection(value: unknown): value is IntegrationConnection {
+function isIntegrationConnection(
+  value: unknown
+): value is IntegrationConnection {
   return (
     typeof value === 'object' &&
     value !== null &&

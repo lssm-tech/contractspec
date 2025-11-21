@@ -2,7 +2,13 @@ import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import chalk from 'chalk';
 import ora from 'ora';
-import { basename, dirname, join, relative, resolve as resolvePath } from 'path';
+import {
+  basename,
+  dirname,
+  join,
+  relative,
+  resolve as resolvePath,
+} from 'path';
 import { AgentOrchestrator } from '../../ai/agents/index';
 import { validateProvider } from '../../ai/providers';
 import {
@@ -68,7 +74,9 @@ export async function buildCommand(
     specType === 'knowledge'
   ) {
     console.log(
-      chalk.yellow('ℹ️  This spec type does not require build artifacts. Skipping.')
+      chalk.yellow(
+        'ℹ️  This spec type does not require build artifacts. Skipping.'
+      )
     );
     return;
   }
@@ -105,7 +113,13 @@ export async function buildCommand(
       await buildOperation(specFile, specCode, options, config, orchestrator);
       break;
     case 'presentation':
-      await buildPresentation(specFile, specCode, options, config, orchestrator);
+      await buildPresentation(
+        specFile,
+        specCode,
+        options,
+        config,
+        orchestrator
+      );
       break;
     case 'form':
       await buildForm(specFile, specCode, options, config, orchestrator);
@@ -128,10 +142,16 @@ async function buildOperation(
   config: Config,
   orchestrator: AgentOrchestrator | null
 ) {
-  const specName = extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
+  const specName =
+    extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
   const operationKind = extractOperationKind(specCode) || 'command';
   const sanitizedName = toKebabCase(specName);
-  const output = resolveOperationPaths(specFile, sanitizedName, options, config);
+  const output = resolveOperationPaths(
+    specFile,
+    sanitizedName,
+    options,
+    config
+  );
 
   const handlerResult = await generateWithAgent(
     orchestrator,
@@ -161,7 +181,8 @@ async function buildOperation(
       }
     );
 
-    const testCode = testsResult?.code ?? generateTestTemplate(specName, 'handler');
+    const testCode =
+      testsResult?.code ?? generateTestTemplate(specName, 'handler');
     await writeFileSafe(output.testPath, ensureTrailingNewline(testCode));
     console.log(chalk.green(`✅ Tests written to ${output.testPath}`));
   }
@@ -176,10 +197,18 @@ async function buildPresentation(
   config: Config,
   orchestrator: AgentOrchestrator | null
 ) {
-  const specName = extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
-  const description = extractMetaValue(specCode, 'description') || 'Generated presentation component';
+  const specName =
+    extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
+  const description =
+    extractMetaValue(specCode, 'description') ||
+    'Generated presentation component';
   const sanitizedName = toKebabCase(specName);
-  const output = resolvePresentationPaths(specFile, sanitizedName, options, config);
+  const output = resolvePresentationPaths(
+    specFile,
+    sanitizedName,
+    options,
+    config
+  );
 
   const componentResult = await generateWithAgent(
     orchestrator,
@@ -195,7 +224,10 @@ async function buildPresentation(
   const componentCode =
     componentResult?.code ?? generateComponentTemplate(specName, description);
 
-  await writeFileSafe(output.componentPath, ensureTrailingNewline(componentCode));
+  await writeFileSafe(
+    output.componentPath,
+    ensureTrailingNewline(componentCode)
+  );
   console.log(chalk.green(`✅ Component written to ${output.componentPath}`));
 
   if (!options.noTests) {
@@ -209,7 +241,8 @@ async function buildPresentation(
       }
     );
 
-    const testCode = testsResult?.code ?? generateTestTemplate(specName, 'component');
+    const testCode =
+      testsResult?.code ?? generateTestTemplate(specName, 'component');
     await writeFileSafe(output.testPath, ensureTrailingNewline(testCode));
     console.log(chalk.green(`✅ Tests written to ${output.testPath}`));
   }
@@ -224,20 +257,17 @@ async function buildForm(
   config: Config,
   orchestrator: AgentOrchestrator | null
 ) {
-  const specName = extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
+  const specName =
+    extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
   const sanitizedName = toKebabCase(specName);
   const output = resolveFormPaths(specFile, sanitizedName, options, config);
 
-  const formResult = await generateWithAgent(
-    orchestrator,
-    config.agentMode,
-    {
-      label: 'form component',
-      target: 'form',
-      specCode,
-      targetPath: output.formPath,
-    }
-  );
+  const formResult = await generateWithAgent(orchestrator, config.agentMode, {
+    label: 'form component',
+    target: 'form',
+    specCode,
+    targetPath: output.formPath,
+  });
 
   const formCode =
     formResult?.code ??
@@ -289,8 +319,7 @@ async function buildWorkflow(
     extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
   const sanitizedName = toKebabCase(specName);
   const exportName =
-    extractWorkflowExportName(specCode) ||
-    `${toPascalCase(specName)}Workflow`;
+    extractWorkflowExportName(specCode) || `${toPascalCase(specName)}Workflow`;
   const runnerName = `${toPascalCase(specName)}Runner`;
   const runnerPath = resolveWorkflowRunnerPath(
     specFile,
@@ -322,8 +351,7 @@ async function buildDataView(
     extractMetaValue(specCode, 'name') || deriveNameFromFile(specFile);
   const sanitizedName = toKebabCase(specName);
   const exportName =
-    extractDataViewExportName(specCode) ||
-    `${toPascalCase(specName)}DataView`;
+    extractDataViewExportName(specCode) || `${toPascalCase(specName)}DataView`;
   const rendererName = `${toPascalCase(specName)}Renderer`;
   const rendererPath = resolveDataViewRendererPath(
     specFile,
@@ -342,9 +370,7 @@ async function buildDataView(
   });
 
   await writeFileSafe(rendererPath, ensureTrailingNewline(rendererCode));
-  console.log(
-    chalk.green(`✅ Data view renderer written to ${rendererPath}`)
-  );
+  console.log(chalk.green(`✅ Data view renderer written to ${rendererPath}`));
   console.log(chalk.cyan('\n✨ Build complete!'));
 }
 
@@ -362,7 +388,9 @@ async function generateWithAgent(
     return null;
   }
 
-  const spinner = ora(`🤖 Generating ${task.label} using ${agentMode} agent...`).start();
+  const spinner = ora(
+    `🤖 Generating ${task.label} using ${agentMode} agent...`
+  ).start();
   try {
     const result = await orchestrator.generate(task.specCode, task.targetPath);
 
@@ -373,7 +401,9 @@ async function generateWithAgent(
     }
 
     spinner.warn(
-      chalk.yellow(`Agent could not produce a ${task.label}. Falling back to template.`)
+      chalk.yellow(
+        `Agent could not produce a ${task.label}. Falling back to template.`
+      )
     );
     logAgentInsights(result);
     return null;
@@ -400,7 +430,9 @@ async function generateTestsWithAgent(
     return null;
   }
 
-  const spinner = ora(`🤖 Generating ${task.target} tests using ${agentMode} agent...`).start();
+  const spinner = ora(
+    `🤖 Generating ${task.target} tests using ${agentMode} agent...`
+  ).start();
   try {
     const result = await orchestrator.generateTests(
       task.specCode,
@@ -414,7 +446,9 @@ async function generateTestsWithAgent(
     }
 
     spinner.warn(
-      chalk.yellow(`Agent could not produce ${task.target} tests. Falling back to template.`)
+      chalk.yellow(
+        `Agent could not produce ${task.target} tests. Falling back to template.`
+      )
     );
     logAgentInsights(result);
     return null;
@@ -496,7 +530,9 @@ function resolveOperationPaths(
 ) {
   const baseDir = resolveBaseOutputDir(options, config, 'handlers');
   const handlerDir = baseDir ?? join(dirname(specFile), '..', 'handlers');
-  const normalizedHandlerDir = handlerDir.endsWith('handlers') ? handlerDir : join(handlerDir, 'handlers');
+  const normalizedHandlerDir = handlerDir.endsWith('handlers')
+    ? handlerDir
+    : join(handlerDir, 'handlers');
 
   return {
     handlerPath: join(normalizedHandlerDir, `${sanitizedName}.handler.ts`),
@@ -530,7 +566,9 @@ function resolveFormPaths(
 ) {
   const baseDir = resolveBaseOutputDir(options, config, 'forms');
   const formsDir = baseDir ?? join(dirname(specFile), '..', 'forms');
-  const normalizedFormsDir = formsDir.endsWith('forms') ? formsDir : join(formsDir, 'forms');
+  const normalizedFormsDir = formsDir.endsWith('forms')
+    ? formsDir
+    : join(formsDir, 'forms');
 
   return {
     formPath: join(normalizedFormsDir, `${sanitizedName}.form.tsx`),
@@ -630,10 +668,8 @@ export const __buildInternals = {
 };
 
 function extractWorkflowExportName(specCode: string): string | null {
-  const match = specCode.match(
-    /export\s+const\s+(\w+)\s*:\s*WorkflowSpec/
-  );
-  return match ? match[1] ?? null : null;
+  const match = specCode.match(/export\s+const\s+(\w+)\s*:\s*WorkflowSpec/);
+  return match ? (match[1] ?? null) : null;
 }
 
 function computeRelativeImport(specFile: string, runnerPath: string): string {
@@ -644,17 +680,13 @@ function computeRelativeImport(specFile: string, runnerPath: string): string {
 }
 
 function extractDataViewExportName(specCode: string): string | null {
-  const match = specCode.match(
-    /export\s+const\s+(\w+)\s*:\s*DataViewSpec/
-  );
-  return match ? match[1] ?? null : null;
+  const match = specCode.match(/export\s+const\s+(\w+)\s*:\s*DataViewSpec/);
+  return match ? (match[1] ?? null) : null;
 }
 
 function extractDataViewKind(specCode: string): string | null {
-  const match = specCode.match(
-    /view\s*:\s*{[\s\S]*?kind:\s*['"]([^'"]+)['"]/
-  );
-  return match ? match[1] ?? null : null;
+  const match = specCode.match(/view\s*:\s*{[\s\S]*?kind:\s*['"]([^'"]+)['"]/);
+  return match ? (match[1] ?? null) : null;
 }
 
 function generateDataViewRendererTemplate({

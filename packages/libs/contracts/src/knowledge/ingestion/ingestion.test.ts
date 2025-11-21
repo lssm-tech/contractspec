@@ -6,7 +6,10 @@ import type {
   EmbeddingResult,
 } from '../../integrations/providers/embedding';
 import type { VectorStoreProvider } from '../../integrations/providers/vector-store';
-import type { EmailInboundProvider, EmailThread } from '../../integrations/providers/email';
+import type {
+  EmailInboundProvider,
+  EmailThread,
+} from '../../integrations/providers/email';
 import type { GetObjectResult } from '../../integrations/providers/storage';
 import { DocumentProcessor } from './document-processor';
 import { EmbeddingService } from './embedding-service';
@@ -47,12 +50,8 @@ describe('Knowledge ingestion services', () => {
     const provider = createVectorStoreProvider();
     const indexer = new VectorIndexer(provider, { collection: 'knowledge' });
     await indexer.upsert(
-      [
-        { id: '1', documentId: 'doc', text: 'text', metadata: {} },
-      ],
-      [
-        { id: '1', vector: [0.1, 0.2], dimensions: 2, model: 'test' },
-      ]
+      [{ id: '1', documentId: 'doc', text: 'text', metadata: {} }],
+      [{ id: '1', vector: [0.1, 0.2], dimensions: 2, model: 'test' }]
     );
     expect(provider.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -68,7 +67,12 @@ describe('Knowledge ingestion services', () => {
     const indexer = new VectorIndexer(createVectorStoreProvider(), {
       collection: 'knowledge',
     });
-    const adapter = new GmailIngestionAdapter(gmail, processor, embeddings, indexer);
+    const adapter = new GmailIngestionAdapter(
+      gmail,
+      processor,
+      embeddings,
+      indexer
+    );
 
     await adapter.syncThreads();
     expect(gmail.listThreads).toHaveBeenCalled();

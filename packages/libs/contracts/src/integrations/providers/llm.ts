@@ -18,10 +18,7 @@ export interface LLMToolResultPart {
   output: string;
 }
 
-export type LLMContentPart =
-  | LLMTextPart
-  | LLMToolCallPart
-  | LLMToolResultPart;
+export type LLMContentPart = LLMTextPart | LLMToolCallPart | LLMToolResultPart;
 
 export interface LLMMessage {
   role: LLMRole;
@@ -93,15 +90,10 @@ export interface TokenCountResult {
 }
 
 export interface LLMProvider {
-  chat(
-    messages: LLMMessage[],
-    options?: LLMChatOptions
-  ): Promise<LLMResponse>;
+  chat(messages: LLMMessage[], options?: LLMChatOptions): Promise<LLMResponse>;
   stream(
     messages: LLMMessage[],
     options?: LLMChatOptions
   ): AsyncIterable<LLMStreamChunk>;
   countTokens(messages: LLMMessage[]): Promise<TokenCountResult>;
 }
-
-

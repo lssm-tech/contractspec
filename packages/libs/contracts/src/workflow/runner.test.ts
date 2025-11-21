@@ -1,9 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import {
-  WorkflowRegistry,
-  type WorkflowSpec,
-  type Step,
-} from './spec';
+import { WorkflowRegistry, type WorkflowSpec, type Step } from './spec';
 import {
   WorkflowRunner,
   WorkflowPreFlightError,
@@ -53,18 +49,17 @@ function workflowSpec(overrides?: {
           action: { operation: { name: 'sigil.finish', version: 1 } },
         },
       ],
-      transitions:
-        overrides?.transitions ?? [
-          { from: 'start', to: 'review' },
-          { from: 'review', to: 'finish', condition: 'data.approved === true' },
-        ],
+      transitions: overrides?.transitions ?? [
+        { from: 'start', to: 'review' },
+        { from: 'review', to: 'finish', condition: 'data.approved === true' },
+      ],
     },
   };
 }
 
 function createRunner(
   spec: WorkflowSpec,
-  events: Array<{ event: string; payload: any }>,
+  events: { event: string; payload: any }[],
   options?: Pick<
     WorkflowRunnerConfig,
     'appConfigProvider' | 'enforceCapabilities'
@@ -74,11 +69,13 @@ function createRunner(
   registry.register(spec);
   const store = new InMemoryStateStore();
 
-  const opExecutor = vi.fn(async (op: { name: string }, _input?: unknown, _ctx?: unknown) => {
-    if (op.name === 'sigil.start') return { approved: true };
-    if (op.name === 'sigil.finish') return { done: true };
-    return {};
-  });
+  const opExecutor = vi.fn(
+    async (op: { name: string }, _input?: unknown, _ctx?: unknown) => {
+      if (op.name === 'sigil.start') return { approved: true };
+      if (op.name === 'sigil.finish') return { done: true };
+      return {};
+    }
+  );
 
   const runner = new WorkflowRunner({
     registry,
@@ -188,7 +185,7 @@ function makeResolvedConfig(
 
 describe('WorkflowRunner', () => {
   it('executes automation and human steps until completion', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec();
     const { runner, store, opExecutor } = createRunner(spec, events);
 
@@ -206,7 +203,9 @@ describe('WorkflowRunner', () => {
     expect(opExecutor).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'sigil.start' }),
       undefined,
-      expect.objectContaining({ step: expect.objectContaining({ id: 'start' }) })
+      expect.objectContaining({
+        step: expect.objectContaining({ id: 'start' }),
+      })
     );
 
     await runner.executeStep(workflowId, { confirmation: true });
@@ -218,11 +217,13 @@ describe('WorkflowRunner', () => {
     state = await runner.getState(workflowId);
     expect(state.status).toBe('completed');
     expect(state.currentStep).toBe('finish');
-    expect(events.some(({ event }) => event === 'workflow.step_completed')).toBe(true);
+    expect(
+      events.some(({ event }) => event === 'workflow.step_completed')
+    ).toBe(true);
   });
 
   it('provides resolved app config context to the operation executor', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec();
     const resolvedAppConfig = makeResolvedConfig();
 
@@ -242,7 +243,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('invokes capability enforcement hook before executing operation', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec();
     const enforceCapabilities = vi.fn();
 
@@ -252,12 +253,14 @@ describe('WorkflowRunner', () => {
 
     expect(enforceCapabilities).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'sigil.start' }),
-      expect.objectContaining({ step: expect.objectContaining({ id: 'start' }) })
+      expect.objectContaining({
+        step: expect.objectContaining({ id: 'start' }),
+      })
     );
   });
 
   it('fails to start when a required integration slot is not bound', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -282,7 +285,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('fails to start when required capabilities are missing', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -310,7 +313,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('allows workflow start when pre-flight requirements are satisfied', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -349,7 +352,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('rejects step execution when guard evaluates to false', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const guardedSpec = workflowSpec({
       steps: [
         {
@@ -379,14 +382,16 @@ describe('WorkflowRunner', () => {
       data: {},
     }));
 
-    await expect(runner.executeStep(workflowId)).rejects.toThrow(/GuardRejected/);
+    await expect(runner.executeStep(workflowId)).rejects.toThrow(
+      /GuardRejected/
+    );
     const state = await runner.getState(workflowId);
     expect(state.currentStep).toBe('review');
     expect(state.status).toBe('running');
   });
 
   it('cancels a workflow', async () => {
-    const events: Array<{ event: string; payload: any }> = [];
+    const events: { event: string; payload: any }[] = [];
     const spec = workflowSpec();
     const { runner } = createRunner(spec, events);
 
@@ -394,7 +399,8 @@ describe('WorkflowRunner', () => {
     await runner.cancel(workflowId);
     const state = await runner.getState(workflowId);
     expect(state.status).toBe('cancelled');
-    expect(events.some(({ event }) => event === 'workflow.cancelled')).toBe(true);
+    expect(events.some(({ event }) => event === 'workflow.cancelled')).toBe(
+      true
+    );
   });
 });
-

@@ -25,7 +25,8 @@ export const elevenLabsIntegrationSpec: IntegrationSpec = {
       properties: {
         defaultVoiceId: {
           type: 'string',
-          description: 'Optional default voice identifier for synthesis requests.',
+          description:
+            'Optional default voice identifier for synthesis requests.',
         },
       },
     },
@@ -69,5 +70,3 @@ export function registerElevenLabsIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(elevenLabsIntegrationSpec);
 }
-
-

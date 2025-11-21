@@ -135,20 +135,21 @@ function createMockStripe() {
       cancel: vi.fn(async () => sampleIntent),
     },
     refunds: {
-      create: vi.fn(async () =>
-        ({
-          id: 're_123',
-          object: 'refund',
-          amount: 500,
-          currency: 'usd',
-          status: 'succeeded',
-          payment_intent: 'pi_123',
-          metadata: {},
-          created: Math.floor(Date.now() / 1000),
-          balance_transaction: null,
-          charge: null,
-          reason: null,
-        } as Stripe.Refund)
+      create: vi.fn(
+        async () =>
+          ({
+            id: 're_123',
+            object: 'refund',
+            amount: 500,
+            currency: 'usd',
+            status: 'succeeded',
+            payment_intent: 'pi_123',
+            metadata: {},
+            created: Math.floor(Date.now() / 1000),
+            balance_transaction: null,
+            charge: null,
+            reason: null,
+          }) as Stripe.Refund
       ),
     },
     invoices: {
@@ -163,4 +164,3 @@ function createMockStripe() {
     },
   } as unknown as Stripe;
 }
-

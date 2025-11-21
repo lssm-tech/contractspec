@@ -72,13 +72,15 @@ const proposal: SpecChangeProposal = {
   signalIds: ['telemetry:workflow.failure'],
 };
 
-function createDeps(overrides: Partial<{
-  blueprintUpdater: BlueprintUpdater;
-  tenantConfigUpdater: TenantConfigUpdater;
-  testExecutor: TestExecutor;
-  migrationExecutor: MigrationExecutor;
-  regenerationTrigger: RegenerationTrigger;
-}> = {}) {
+function createDeps(
+  overrides: Partial<{
+    blueprintUpdater: BlueprintUpdater;
+    tenantConfigUpdater: TenantConfigUpdater;
+    testExecutor: TestExecutor;
+    migrationExecutor: MigrationExecutor;
+    regenerationTrigger: RegenerationTrigger;
+  }> = {}
+) {
   const defaults = {
     blueprintUpdater: {
       applyBlueprintUpdate: vi.fn().mockResolvedValue({ status: 'applied' }),
@@ -138,7 +140,9 @@ describe('ProposalExecutor', () => {
     const skippedKinds = result.actions
       .filter((action) => action.status === 'skipped')
       .map((action) => action.action.kind);
-    expect(skippedKinds).toEqual(expect.arrayContaining(['run_tests', 'run_migrations']));
+    expect(skippedKinds).toEqual(
+      expect.arrayContaining(['run_tests', 'run_migrations'])
+    );
   });
 
   it('records failure when dependency throws', async () => {
@@ -165,9 +169,10 @@ describe('ProposalExecutor', () => {
     const result = await executor.execute(context, proposal, { dryRun: true });
 
     expect(result.status).toBe('partial');
-    expect(result.actions.every((action) => action.status === 'skipped')).toBe(true);
+    expect(result.actions.every((action) => action.status === 'skipped')).toBe(
+      true
+    );
     expect(result.actions[0]?.reason).toBe('dry_run');
     expect(deps.testExecutor.runTests).not.toHaveBeenCalled();
   });
 });
-

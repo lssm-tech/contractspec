@@ -157,8 +157,3 @@ export interface OpenBankingProvider {
     params: OpenBankingGetConnectionStatusParams
   ): Promise<OpenBankingConnectionStatus>;
 }
-
-
-
-
-

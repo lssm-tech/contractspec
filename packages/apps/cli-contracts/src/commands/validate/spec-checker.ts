@@ -11,7 +11,10 @@ export interface ValidationResult {
 /**
  * Validate spec structure
  */
-export function validateSpecStructure(code: string, fileName: string): ValidationResult {
+export function validateSpecStructure(
+  code: string,
+  fileName: string
+): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
@@ -73,7 +76,11 @@ export function validateSpecStructure(code: string, fileName: string): Validatio
 /**
  * Validate operation spec
  */
-function validateOperationSpec(code: string, errors: string[], warnings: string[]) {
+function validateOperationSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   // Check for defineCommand or defineQuery
   const hasDefine = /define(Command|Query)/.test(code);
   if (!hasDefine) {
@@ -122,7 +129,11 @@ function validateOperationSpec(code: string, errors: string[], warnings: string[
   }
 }
 
-function validateTelemetrySpec(code: string, errors: string[], warnings: string[]) {
+function validateTelemetrySpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*TelemetrySpec\s*=/)) {
     errors.push('Missing TelemetrySpec type annotation');
   }
@@ -140,7 +151,11 @@ function validateTelemetrySpec(code: string, errors: string[], warnings: string[
   }
 }
 
-function validateExperimentSpec(code: string, errors: string[], warnings: string[]) {
+function validateExperimentSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*ExperimentSpec\s*=/)) {
     errors.push('Missing ExperimentSpec type annotation');
   }
@@ -155,7 +170,11 @@ function validateExperimentSpec(code: string, errors: string[], warnings: string
   }
 }
 
-function validateAppConfigSpec(code: string, errors: string[], warnings: string[]) {
+function validateAppConfigSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*AppBlueprintSpec\s*=/)) {
     errors.push('Missing AppBlueprintSpec type annotation');
   }
@@ -195,7 +214,9 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
   if (nameMatch && nameMatch[1]) {
     const eventName = nameMatch[1].split('.').pop() || '';
     if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
-      warnings.push('Event name should use past tense (e.g., "created", "updated")');
+      warnings.push(
+        'Event name should use past tense (e.g., "created", "updated")'
+      );
     }
   }
 }
@@ -203,7 +224,11 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
 /**
  * Validate presentation spec
  */
-function validatePresentationSpec(code: string, errors: string[], warnings: string[]) {
+function validatePresentationSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*PresentationSpec\s*=/)) {
     errors.push('Missing PresentationSpec type annotation');
   }
@@ -221,7 +246,11 @@ function validatePresentationSpec(code: string, errors: string[], warnings: stri
   }
 }
 
-function validateWorkflowSpec(code: string, errors: string[], warnings: string[]) {
+function validateWorkflowSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*WorkflowSpec\s*=/)) {
     errors.push('Missing WorkflowSpec type annotation');
   }
@@ -235,7 +264,9 @@ function validateWorkflowSpec(code: string, errors: string[], warnings: string[]
   }
 
   if (!code.includes('transitions:')) {
-    warnings.push('No transitions declared; workflow will complete after first step.');
+    warnings.push(
+      'No transitions declared; workflow will complete after first step.'
+    );
   }
 
   if (!code.match(/title:\s*['"][^'"]+['"]/)) {
@@ -251,7 +282,11 @@ function validateWorkflowSpec(code: string, errors: string[], warnings: string[]
   }
 }
 
-function validateMigrationSpec(code: string, errors: string[], warnings: string[]) {
+function validateMigrationSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*MigrationSpec\s*=/)) {
     errors.push('Missing MigrationSpec type annotation');
   }
@@ -280,9 +315,16 @@ function validateMigrationSpec(code: string, errors: string[], warnings: string[
 /**
  * Validate common fields across all spec types
  */
-function validateCommonFields(code: string, errors: string[], warnings: string[]) {
+function validateCommonFields(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   // Check for SchemaModel import
-  if (code.includes('SchemaModel') && !code.includes("from '@lssm/lib.schema'")) {
+  if (
+    code.includes('SchemaModel') &&
+    !code.includes("from '@lssm/lib.schema'")
+  ) {
     errors.push('Missing import for SchemaModel from @lssm/lib.schema');
   }
 
@@ -301,12 +343,18 @@ function validateCommonFields(code: string, errors: string[], warnings: string[]
   }
 
   // Check for stability
-  if (!code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)) {
+  if (
+    !code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)
+  ) {
     warnings.push('Missing or invalid stability field');
   }
 }
 
-function validateDataViewSpec(code: string, errors: string[], warnings: string[]) {
+function validateDataViewSpec(
+  code: string,
+  errors: string[],
+  warnings: string[]
+) {
   if (!code.match(/:\s*DataViewSpec\s*=/)) {
     errors.push('Missing DataViewSpec type annotation');
   }
@@ -326,4 +374,3 @@ function validateDataViewSpec(code: string, errors: string[], warnings: string[]
     warnings.push('No fields defined for data view');
   }
 }
-

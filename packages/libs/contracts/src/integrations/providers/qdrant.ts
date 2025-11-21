@@ -24,7 +24,8 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
       {
         key: 'ai.embeddings',
         optional: true,
-        reason: 'Required if vectors are generated via hosted embedding services',
+        reason:
+          'Required if vectors are generated via hosted embedding services',
       },
     ],
   },
@@ -34,11 +35,13 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
       properties: {
         apiUrl: {
           type: 'string',
-          description: 'Base URL for the Qdrant instance (e.g., https://qdrant.example.com).',
+          description:
+            'Base URL for the Qdrant instance (e.g., https://qdrant.example.com).',
         },
         collectionPrefix: {
           type: 'string',
-          description: 'Prefix applied to all collection names for this tenant.',
+          description:
+            'Prefix applied to all collection names for this tenant.',
         },
       },
     },
@@ -83,4 +86,3 @@ export function registerQdrantIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(qdrantIntegrationSpec);
 }
-
