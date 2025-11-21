@@ -149,6 +149,34 @@
         "react": "19.1.0",
       },
     },
+    "packages/libs/ai-agent": {
+      "name": "@lssm/lib.ai-agent",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "^1.7.4",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
+    "packages/libs/analytics": {
+      "name": "@lssm/lib.analytics",
+      "version": "0.1.0",
+      "dependencies": {
+        "dayjs": "^1.11.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
       "version": "1.7.4",
@@ -167,6 +195,20 @@
         "elysia": "^1.4.11",
         "express": "^5.1.0",
         "next": "15.5.6",
+      },
+    },
+    "packages/libs/content-gen": {
+      "name": "@lssm/lib.content-gen",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "^1.7.4",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
       },
     },
     "packages/libs/contracts": {
@@ -247,6 +289,7 @@
       "version": "1.7.4",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
+        "@lssm/lib.ai-agent": "^0.1.0",
         "@lssm/lib.contracts": "^1.7.4",
         "@lssm/lib.ui-kit": "^1.7.4",
         "@lssm/lib.ui-kit-web": "^1.7.4",
@@ -355,6 +398,20 @@
         "graphql": ">=16.0.0",
       },
     },
+    "packages/libs/growth": {
+      "name": "@lssm/lib.growth",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.analytics": "^0.1.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
+      },
+    },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
       "version": "1.7.4",
@@ -455,6 +512,21 @@
         "@lssm/tool.typescript": "*",
         "tsdown": "^0.15.9",
         "typescript": "^5.9.3",
+      },
+    },
+    "packages/libs/support-bot": {
+      "name": "@lssm/lib.support-bot",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.ai-agent": "^0.1.0",
+        "@lssm/lib.contracts": "^1.7.4",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
+        "tsdown": "^0.15.9",
+        "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
       },
     },
     "packages/libs/ui-kit": {
@@ -1236,7 +1308,13 @@
 
     "@lssm/lib.accessibility": ["@lssm/lib.accessibility@workspace:packages/libs/accessibility"],
 
+    "@lssm/lib.ai-agent": ["@lssm/lib.ai-agent@workspace:packages/libs/ai-agent"],
+
+    "@lssm/lib.analytics": ["@lssm/lib.analytics@workspace:packages/libs/analytics"],
+
     "@lssm/lib.bus": ["@lssm/lib.bus@workspace:packages/libs/bus"],
+
+    "@lssm/lib.content-gen": ["@lssm/lib.content-gen@workspace:packages/libs/content-gen"],
 
     "@lssm/lib.contracts": ["@lssm/lib.contracts@workspace:packages/libs/contracts"],
 
@@ -1256,6 +1334,8 @@
 
     "@lssm/lib.graphql-prisma": ["@lssm/lib.graphql-prisma@workspace:packages/libs/graphql-prisma"],
 
+    "@lssm/lib.growth": ["@lssm/lib.growth@workspace:packages/libs/growth"],
+
     "@lssm/lib.logger": ["@lssm/lib.logger@workspace:packages/libs/logger"],
 
     "@lssm/lib.multi-tenancy": ["@lssm/lib.multi-tenancy@workspace:packages/libs/multi-tenancy"],
@@ -1271,6 +1351,8 @@
     "@lssm/lib.resilience": ["@lssm/lib.resilience@workspace:packages/libs/resilience"],
 
     "@lssm/lib.schema": ["@lssm/lib.schema@workspace:packages/libs/schema"],
+
+    "@lssm/lib.support-bot": ["@lssm/lib.support-bot@workspace:packages/libs/support-bot"],
 
     "@lssm/lib.ui-kit": ["@lssm/lib.ui-kit@workspace:packages/libs/ui-kit"],
 

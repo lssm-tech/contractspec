@@ -2,10 +2,10 @@ import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 
 export type KnowledgeCategory =
-  | 'canonical'
-  | 'operational'
-  | 'external'
-  | 'ephemeral';
+  | 'canonical' // Ground truth - product specs, schemas, official policies
+  | 'operational' // Internal docs - support tickets, runbooks, sales materials
+  | 'external' // Third-party - PSP docs, regulations, integration guides
+  | 'ephemeral'; // Temporary - agent scratchpads, session context, drafts
 
 export interface KnowledgeSpaceMeta extends OwnerShipMeta {
   /** Stable space identifier (e.g., "product-canon", "support-faq"). */
@@ -92,10 +92,3 @@ export class KnowledgeSpaceRegistry {
 export function makeKnowledgeSpaceKey(meta: KnowledgeSpaceMeta) {
   return knowledgeKey(meta);
 }
-
-
-
-
-
-
-

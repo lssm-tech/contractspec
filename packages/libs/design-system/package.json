@@ -18,6 +18,7 @@
   "tree-shake": true,
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
+    "@lssm/lib.ai-agent": "^0.1.0",
     "@lssm/lib.contracts": "^1.7.4",
     "@lssm/lib.ui-kit": "^1.7.4",
     "@lssm/lib.ui-kit-web": "^1.7.4",
@@ -46,6 +47,8 @@
   ],
   "exports": {
     ".": "./dist/index.js",
+    "./components/agent/AgentMonitor": "./dist/components/agent/AgentMonitor.js",
+    "./components/agent/ApprovalQueue": "./dist/components/agent/ApprovalQueue.js",
     "./components/atoms/ActionButtons": "./dist/components/atoms/ActionButtons.js",
     "./components/atoms/Button": "./dist/components/atoms/Button.js",
     "./components/atoms/Button.mobile": "./dist/components/atoms/Button.mobile.js",
