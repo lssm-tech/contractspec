@@ -12,8 +12,8 @@
 '@lssm/lib.resilience': minor
 '@lssm/lib.ui-kit-web': minor
 '@lssm/lib.contracts': minor
-'@lssm/lib.databases': minor
-'@lssm/lib.database': minor
+'@lssm/app.cli-databases': minor
+'@lssm/app.cli-database': minor
 '@lssm/lib.exporter': minor
 '@lssm/lib.ui-kit': minor
 '@lssm/lib.error': minor
