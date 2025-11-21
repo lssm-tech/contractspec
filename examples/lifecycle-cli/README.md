@@ -10,3 +10,4 @@ bunx tsx packages/contractspec/examples/lifecycle-cli/demo.ts
 
 Feel free to tweak the mock data in `demo.ts` to experiment with different lifecycle stages.*** End Patch
 
+

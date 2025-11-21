@@ -15,3 +15,4 @@ export interface SpecVariantResolver {
   ): Promise<RuntimeContract | undefined> | RuntimeContract | undefined;
 }
 
+
