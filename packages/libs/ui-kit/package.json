@@ -86,7 +86,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3"
   },

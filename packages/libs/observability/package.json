@@ -23,6 +23,10 @@
   },
   "exports": {
     ".": "./dist/index.mjs",
+    "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
+    "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
+    "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
+    "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
     "./intent/aggregator": "./dist/intent/aggregator.mjs",
     "./intent/detector": "./dist/intent/detector.mjs",
     "./logging": "./dist/logging/index.mjs",

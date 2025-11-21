@@ -28,3 +28,17 @@ export {
 } from './pipeline/evolution-pipeline';
 
 export type { LogLevel, LogEntry } from './logging';
+
+export {
+  BaselineCalculator,
+} from './anomaly/baseline-calculator';
+export {
+  AnomalyDetector,
+  type AnomalySignal,
+  type AnomalyThresholds,
+} from './anomaly/anomaly-detector';
+export {
+  RootCauseAnalyzer,
+  type RootCauseAnalysis,
+} from './anomaly/root-cause-analyzer';
+export { AlertManager } from './anomaly/alert-manager';
