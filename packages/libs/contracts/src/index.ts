@@ -28,6 +28,7 @@ export * from './telemetry';
 export * from './tests';
 export * from './experiments/spec';
 export * from './experiments/evaluator';
+export * from './experiments/spec-resolver';
 export * from './app-config/spec';
 export * from './app-config/runtime';
 export * from './integrations';

@@ -84,6 +84,7 @@
     "./events": "./dist/events.js",
     "./experiments/evaluator": "./dist/experiments/evaluator.js",
     "./experiments/spec": "./dist/experiments/spec.js",
+    "./experiments/spec-resolver": "./dist/experiments/spec-resolver.js",
     "./features": "./dist/features.js",
     "./forms": "./dist/forms.js",
     "./install": "./dist/install.js",

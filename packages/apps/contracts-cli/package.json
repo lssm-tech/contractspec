@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@lssm/lib.contracts": "*",
+    "@lssm/lib.database": "*",
+    "@lssm/lib.testing": "*",
     "@lssm/lib.schema": "*",
     "ai": "^5.0.86",
     "@ai-sdk/anthropic": "^2.0.40",

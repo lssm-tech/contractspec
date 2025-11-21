@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SpecSuggestion {
+  id        String   @id
+  status    String
+  payload   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model IntentSnapshot {
+  id               String   @id @default(cuid())
+  operationName    String
+  operationVersion Int
+  confidence       Float
+  payload          Json
+  detectedAt       DateTime @default(now())
+
+  @@index([operationName, operationVersion])
+}
+
+model TrafficSnapshot {
+  id               String   @id @default(cuid())
+  operationName    String
+  operationVersion Int
+  success          Boolean
+  durationMs       Int?
+  tenantId         String?
+  userId           String?
+  channel          String?
+  payload          Json
+  recordedAt       DateTime @default(now())
+
+  @@index([operationName, operationVersion])
+  @@index([tenantId])
+}
+
+model SpecExperiment {
+  id               String                 @id @default(cuid())
+  operationName    String
+  operationVersion Int
+  status           String                 @default("draft")
+  config           Json
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  metrics          SpecExperimentMetric[]
+
+  @@unique([operationName, operationVersion])
+}
+
+model SpecExperimentMetric {
+  id           String         @id @default(cuid())
+  experiment   SpecExperiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  experimentId String
+  variantId    String
+  metric       String
+  value        Float
+  recordedAt   DateTime       @default(now())
+
+  @@index([experimentId, metric])
+  @@index([variantId])
+}
+
