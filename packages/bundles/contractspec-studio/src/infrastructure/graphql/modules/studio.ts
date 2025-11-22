@@ -13,7 +13,11 @@ import {
 } from '@lssm/lib.database-contractspec-studio';
 import { DeploymentOrchestrator } from '../../deployment/orchestrator';
 import { requireFeatureFlag } from '../guards/feature-flags';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
+import {
+  toInputJson,
+  toNullableJsonValue,
+} from '../../../utils/prisma-json';
 
 export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
   const ProjectTierEnum = builder.enumType('ProjectTierEnum', {
@@ -292,8 +296,11 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
             type: args.input.type,
             name: args.input.name,
             version: args.input.version,
-            content: args.input.content,
-            metadata: args.input.metadata ?? undefined,
+            content: toInputJson(args.input.content),
+            metadata:
+              args.input.metadata === undefined
+                ? undefined
+                : toNullableJsonValue(args.input.metadata),
           },
         });
       },
@@ -316,8 +323,14 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
           data: {
             name: args.input.name ?? undefined,
             version: args.input.version ?? undefined,
-            content: args.input.content ?? undefined,
-            metadata: args.input.metadata ?? undefined,
+            content:
+              args.input.content === undefined
+                ? undefined
+                : toInputJson(args.input.content),
+            metadata:
+              args.input.metadata === undefined
+                ? undefined
+                : toNullableJsonValue(args.input.metadata),
           },
         });
       },
@@ -349,9 +362,12 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
 
 function requireAuthAndGet(
   ctx: Parameters<typeof requireAuth>[0]
-): NonNullable<typeof ctx.user> {
+): NonNullable<typeof ctx.user> & { organizationId: string } {
   requireAuth(ctx);
-  return ctx.user;
+  if (!ctx.user?.organizationId) {
+    throw new Error('Organization context is required.');
+  }
+  return ctx.user as NonNullable<typeof ctx.user> & { organizationId: string };
 }
 
 async function getProjectForOrg(projectId: string, organizationId: string) {

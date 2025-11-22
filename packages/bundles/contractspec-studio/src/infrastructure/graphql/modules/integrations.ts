@@ -8,8 +8,8 @@ import {
   type StudioIntegration,
   type KnowledgeSource,
 } from '@lssm/lib.database-contractspec-studio';
-import { StudioIntegrationModule } from '../../modules/integrations';
-import { StudioKnowledgeModule } from '../../modules/knowledge';
+import { StudioIntegrationModule } from '../../../modules/integrations';
+import { StudioKnowledgeModule } from '../../../modules/knowledge';
 import type {
   EmbeddingDocument,
   EmbeddingProvider,
@@ -17,13 +17,145 @@ import type {
   LLMMessage,
   LLMProvider,
   LLMResponse,
+  LLMStreamChunk,
+  LLMChatOptions,
   TokenCountResult,
   VectorDocument,
   VectorStoreProvider,
   VectorSearchResult,
 } from '@lssm/lib.contracts';
 import { requireFeatureFlag } from '../guards/feature-flags';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
+
+const VECTOR_DIMENSIONS = 12;
+
+function encodeText(text: string): number[] {
+  const vector = new Array<number>(VECTOR_DIMENSIONS).fill(0);
+  for (let i = 0; i < text.length; i += 1) {
+    const charCode = text.charCodeAt(i);
+    const index = i % VECTOR_DIMENSIONS;
+    vector[index] = (vector[index] ?? 0) + charCode / 255;
+  }
+  return vector;
+}
+
+function cosineSimilarity(a: number[], b?: number[]): number {
+  if (!b || a.length === 0 || b.length === 0) return 0;
+  let dot = 0;
+  let aNorm = 0;
+  let bNorm = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    dot += a[i]! * (b[i] ?? 0);
+    aNorm += a[i]! * a[i]!;
+    bNorm += (b[i] ?? 0) * (b[i] ?? 0);
+  }
+  if (!aNorm || !bNorm) return 0;
+  return dot / (Math.sqrt(aNorm) * Math.sqrt(bNorm));
+}
+
+class LocalEmbeddingProvider implements EmbeddingProvider {
+  async embedDocuments(documents: EmbeddingDocument[]): Promise<EmbeddingResult[]> {
+    return documents.map((doc) => ({
+      id: doc.id,
+      vector: encodeText(doc.text),
+      dimensions: VECTOR_DIMENSIONS,
+      model: 'local-embedding',
+    }));
+  }
+
+  async embedQuery(query: string): Promise<EmbeddingResult> {
+    return {
+      id: 'query',
+      vector: encodeText(query),
+      dimensions: VECTOR_DIMENSIONS,
+      model: 'local-embedding',
+    };
+  }
+}
+
+class InMemoryVectorStore implements VectorStoreProvider {
+  private readonly collections = new Map<string, VectorDocument[]>();
+
+  async upsert(request: { collection: string; documents: VectorDocument[] }) {
+    const docs = this.collections.get(request.collection) ?? [];
+    request.documents.forEach((doc) => {
+      const existingIndex = docs.findIndex((item) => item.id === doc.id);
+      if (existingIndex >= 0) {
+        docs[existingIndex] = doc;
+      } else {
+        docs.push(doc);
+      }
+    });
+    this.collections.set(request.collection, docs);
+  }
+
+  async search(query: {
+    collection: string;
+    vector: number[];
+    topK: number;
+  }): Promise<VectorSearchResult[]> {
+    const docs = this.collections.get(query.collection) ?? [];
+    const scored = docs.map((doc) => ({
+      id: doc.id,
+      score: cosineSimilarity(query.vector, doc.vector),
+      payload: doc.payload,
+      vector: doc.vector,
+    }));
+    return scored.sort((a, b) => b.score - a.score).slice(0, query.topK);
+  }
+
+  async delete(request: { collection: string; ids: string[] }) {
+    const docs = this.collections.get(request.collection) ?? [];
+    this.collections.set(
+      request.collection,
+      docs.filter((doc) => !request.ids.includes(doc.id))
+    );
+  }
+}
+
+class EchoLLMProvider implements LLMProvider {
+  async chat(messages: LLMMessage[], options?: LLMChatOptions): Promise<LLMResponse> {
+    const last = messages[messages.length - 1];
+    const prompt = last?.content
+      .map((part) => ('text' in part ? part.text : ''))
+      .join('\n');
+    return {
+      message: {
+        role: 'assistant',
+        content: [
+          {
+            type: 'text',
+            text: `Based on available knowledge, here is a concise answer:\n${prompt}`,
+          },
+        ],
+      },
+      usage: {
+        promptTokens: prompt?.length ?? 0,
+        completionTokens: 32,
+        totalTokens: (prompt?.length ?? 0) + 32,
+      },
+    };
+  }
+
+  async *stream(
+    messages: LLMMessage[],
+    options?: LLMChatOptions
+  ): AsyncIterable<LLMStreamChunk> {
+    const response = await this.chat(messages, options);
+    yield { type: 'end', response };
+  }
+
+  async countTokens(messages: LLMMessage[]): Promise<TokenCountResult> {
+    const total = messages
+      .map((msg) =>
+        msg.content
+          .map((part) => ('text' in part ? part.text.length : 0))
+          .reduce((acc, value) => acc + value, 0)
+      )
+      .reduce((acc, value) => acc + value, 0);
+    return { promptTokens: total };
+  }
+}
 
 const integrationModule = new StudioIntegrationModule();
 const knowledgeModule = new StudioKnowledgeModule({
@@ -198,9 +330,9 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
     studioIntegrations: t.field({
       type: [StudioIntegrationType],
       resolve: async (_root, _args, ctx) => {
-        const user = requireAuthAndGet(ctx);
+        const organizationId = requireOrganizationId(ctx);
         return studioDb.studioIntegration.findMany({
-          where: { organizationId: user.organizationId },
+          where: { organizationId },
           orderBy: { createdAt: 'desc' },
         });
       },
@@ -211,10 +343,10 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         projectId: t.arg.string(),
       },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
+        const organizationId = requireOrganizationId(ctx);
         return studioDb.knowledgeSource.findMany({
           where: {
-            organizationId: user.organizationId,
+            organizationId,
             projectId: args.projectId ?? undefined,
           },
           orderBy: { createdAt: 'desc' },
@@ -227,8 +359,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: QueryKnowledgeInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
-        await ensureOrgHasKnowledge(user.organizationId);
+        const organizationId = requireOrganizationId(ctx);
+        await ensureOrgHasKnowledge(organizationId);
         const answer = await knowledgeModule.queryKnowledge({
           question: args.input.query,
           collection: args.input.collection,
@@ -252,14 +384,14 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: ConnectIntegrationInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
+        const organizationId = requireOrganizationId(ctx);
         requireFeatureFlag(
           ctx,
           ContractSpecFeatureFlags.STUDIO_INTEGRATION_HUB,
           'Integration hub is not enabled for this tenant.'
         );
         return integrationModule.connectIntegration({
-          organizationId: user.organizationId,
+          organizationId,
           provider: args.input.provider as IntegrationProvider,
           credentials: (args.input.credentials ?? {}) as Record<string, string>,
           projectId: args.input.projectId ?? undefined,
@@ -272,8 +404,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       type: 'Boolean',
       args: { id: t.arg.string({ required: true }) },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
-        await ensureIntegrationAccess(args.id, user.organizationId);
+        const organizationId = requireOrganizationId(ctx);
+        await ensureIntegrationAccess(args.id, organizationId);
         await integrationModule.disconnectIntegration(args.id);
         return true;
       },
@@ -282,8 +414,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       type: SyncResultType,
       args: { id: t.arg.string({ required: true }) },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
-        await ensureIntegrationAccess(args.id, user.organizationId);
+        const organizationId = requireOrganizationId(ctx);
+        await ensureIntegrationAccess(args.id, organizationId);
         return integrationModule.syncIntegration(args.id);
       },
     }),
@@ -293,7 +425,7 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: IndexKnowledgeInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const user = requireAuthAndGet(ctx);
+        const organizationId = requireOrganizationId(ctx);
         requireFeatureFlag(
           ctx,
           ContractSpecFeatureFlags.STUDIO_KNOWLEDGE_HUB,
@@ -303,7 +435,7 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
           toRawDocument(doc as KnowledgeDocumentInputShape)
         );
         return knowledgeModule.indexSource({
-          organizationId: user.organizationId,
+          organizationId,
           projectId: args.input.projectId ?? undefined,
           type: args.input.type as KnowledgeSourceType,
           name: args.input.name,
@@ -357,136 +489,16 @@ async function ensureOrgHasKnowledge(organizationId: string) {
   }
 }
 
-class LocalEmbeddingProvider implements EmbeddingProvider {
-  async embedDocuments(documents: EmbeddingDocument[]): Promise<EmbeddingResult[]> {
-    return documents.map((doc) => ({
-      id: doc.id,
-      vector: encodeText(doc.text),
-      dimensions: VECTOR_DIMENSIONS,
-      model: 'local-embedding',
-    }));
-  }
-
-  async embedQuery(query: string): Promise<EmbeddingResult> {
-    return {
-      id: 'query',
-      vector: encodeText(query),
-      dimensions: VECTOR_DIMENSIONS,
-      model: 'local-embedding',
-    };
-  }
-}
-
-class InMemoryVectorStore implements VectorStoreProvider {
-  private readonly collections = new Map<string, VectorDocument[]>();
-
-  async upsert(request: { collection: string; documents: VectorDocument[] }) {
-    const docs = this.collections.get(request.collection) ?? [];
-    request.documents.forEach((doc) => {
-      const existingIndex = docs.findIndex((item) => item.id === doc.id);
-      if (existingIndex >= 0) {
-        docs[existingIndex] = doc;
-      } else {
-        docs.push(doc);
-      }
-    });
-    this.collections.set(request.collection, docs);
-  }
-
-  async search(query: {
-    collection: string;
-    vector: number[];
-    topK: number;
-  }): Promise<VectorSearchResult[]> {
-    const docs = this.collections.get(query.collection) ?? [];
-    const scored = docs.map((doc) => ({
-      id: doc.id,
-      score: cosineSimilarity(query.vector, doc.vector),
-      payload: doc.payload,
-      vector: doc.vector,
-    }));
-    return scored
-      .sort((a, b) => b.score - a.score)
-      .slice(0, query.topK);
-  }
-
-  async delete(request: { collection: string; ids: string[] }) {
-    const docs = this.collections.get(request.collection) ?? [];
-    this.collections.set(
-      request.collection,
-      docs.filter((doc) => !request.ids.includes(doc.id))
-    );
-  }
-}
-
-class EchoLLMProvider implements LLMProvider {
-  async chat(messages: LLMMessage[]): Promise<LLMResponse> {
-    const last = messages[messages.length - 1];
-    const prompt = last?.content
-      .map((part) => ('text' in part ? part.text : ''))
-      .join('\n');
-    return {
-      message: {
-        role: 'assistant',
-        content: [
-          {
-            type: 'text',
-            text: `Based on available knowledge, here is a concise answer:\n${prompt}`,
-          },
-        ],
-      },
-      usage: {
-        promptTokens: prompt?.length ?? 0,
-        completionTokens: 32,
-        totalTokens: (prompt?.length ?? 0) + 32,
-      },
-    };
-  }
-
-  async stream() {
-    throw new Error('Streaming not supported in local provider');
-  }
-
-  async countTokens(messages: LLMMessage[]): Promise<TokenCountResult> {
-    const total = messages
-      .map((msg) =>
-        msg.content
-          .map((part) => ('text' in part ? part.text.length : 0))
-          .reduce((acc, value) => acc + value, 0)
-      )
-      .reduce((acc, value) => acc + value, 0);
-    return { promptTokens: total };
-  }
-}
-
-const VECTOR_DIMENSIONS = 12;
-
-function encodeText(text: string): number[] {
-  const vector = new Array<number>(VECTOR_DIMENSIONS).fill(0);
-  for (let i = 0; i < text.length; i += 1) {
-    const charCode = text.charCodeAt(i);
-    const index = i % VECTOR_DIMENSIONS;
-    vector[index] += charCode / 255;
-  }
-  return vector;
-}
-
-function cosineSimilarity(a: number[], b?: number[]): number {
-  if (!b || a.length === 0 || b.length === 0) return 0;
-  let dot = 0;
-  let aNorm = 0;
-  let bNorm = 0;
-  for (let i = 0; i < a.length; i += 1) {
-    dot += a[i]! * (b[i] ?? 0);
-    aNorm += a[i]! * a[i]!;
-    bNorm += (b[i] ?? 0) * (b[i] ?? 0);
-  }
-  if (!aNorm || !bNorm) return 0;
-  return dot / (Math.sqrt(aNorm) * Math.sqrt(bNorm));
-}
-
 function requireAuthAndGet(ctx: Parameters<typeof requireAuth>[0]) {
   requireAuth(ctx);
   return ctx.user!;
+}
+
+function requireOrganizationId(ctx: Parameters<typeof requireAuth>[0]): string {
+  const user = requireAuthAndGet(ctx);
+  if (!user.organizationId) {
+    throw new Error('Organization context is required for this operation.');
+  }
+  return user.organizationId;
 }
 

@@ -1,7 +1,5 @@
 import { Elysia } from 'elysia';
 import * as Y from 'yjs';
-import { prisma } from '@lssm/app.cli-database-strit';
-
 // In-memory rooms keyed by `${contentId}:${locale}`
 const rooms = new Map<string, { doc: Y.Doc; clients: Set<any> }>();
 
@@ -65,21 +63,13 @@ export const collabModule = new Elysia({ name: 'collab-module' })
         if (!docId) return;
 
         const roomKey = `${docId}:${locale}`;
-        let room = rooms.get(roomKey);
-        if (!room) {
-          const doc = new Y.Doc();
-          const row = await prisma.contentLocale.findUnique({
-            select: { yState: true },
-            where: { contentId_locale: { contentId: docId, locale } },
-          });
-          if (row?.yState) {
-            try {
-              Y.applyUpdate(doc, new Uint8Array(row.yState as Uint8Array));
-            } catch {}
-          }
-          room = { doc, clients: new Set() };
-          rooms.set(roomKey, room);
-        }
+        const room =
+          rooms.get(roomKey) ??
+          (() => {
+            const nextRoom = { doc: new Y.Doc(), clients: new Set<any>() };
+            rooms.set(roomKey, nextRoom);
+            return nextRoom;
+          })();
 
         if (type === 'join' || (!b64 && !type)) {
           room.clients.add(ws);
@@ -97,12 +87,6 @@ export const collabModule = new Elysia({ name: 'collab-module' })
           room.clients.add(ws);
           const incoming = Uint8Array.from(Buffer.from(b64, 'base64'));
           Y.applyUpdate(room.doc, incoming);
-          const snapshot = Y.encodeStateAsUpdate(room.doc);
-          await prisma.contentLocale.update({
-            where: { contentId_locale: { contentId: docId, locale } },
-            data: { yState: snapshot },
-          });
-
           for (const client of room.clients) {
             if (client !== ws) {
               try {

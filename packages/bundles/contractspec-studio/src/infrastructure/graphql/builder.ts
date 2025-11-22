@@ -1,54 +1,15 @@
 import {
-  ComplianceBadgeStatus,
-  DocumentStatus,
   getDatamodel,
-  OrganizationType,
   type PothosPrismaTypes,
   prisma,
-} from '@lssm/app.cli-database-strit';
+} from '@lssm/lib.database-contractspec-studio';
 import { createPrismaSchemaBuilder } from '@lssm/lib.graphql-prisma';
 import { createLoggerTracing } from '@lssm/lib.graphql-prisma';
 import type { Context } from './types';
 
-interface SellerComplianceData {
-  sellerId: string;
-  badge: ComplianceBadgeStatus;
-  missingCore: boolean;
-  expiring: boolean;
-  uploadedCount: number;
-  hasVerifiedKBIS?: boolean;
-  hasVerifiedUser?: boolean;
-}
-
-interface UserKycStatusData {
-  phoneVerified: boolean;
-  hasVerifiedIdDocument: boolean;
-  isVerified: boolean;
-}
-
-interface SellerKycStatusData {
-  hasVerifiedKBIS: boolean;
-  hasVerifiedUser: boolean;
-  isVerified: boolean;
-}
-
 export const gqlSchemaBuilder = createPrismaSchemaBuilder<
   Context,
-  PothosPrismaTypes,
-  {
-    SellerCompliance: SellerComplianceData;
-    UserKycStatus: UserKycStatusData;
-    SellerKycStatus: SellerKycStatusData;
-  },
-  {
-    ComplianceBadgeStatus: {
-      Input: ComplianceBadgeStatus;
-      Output: ComplianceBadgeStatus;
-    };
-    OrganizationType: { Input: OrganizationType; Output: OrganizationType };
-    DocumentStatus: { Input: DocumentStatus; Output: DocumentStatus };
-    DocumentType: { Input: DocumentType; Output: DocumentType };
-  }
+  PothosPrismaTypes
 >({
   prisma: {
     client: prisma,

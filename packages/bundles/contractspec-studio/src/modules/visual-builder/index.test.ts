@@ -10,6 +10,11 @@ describe('VisualBuilderModule', () => {
 
   beforeEach(() => {
     randomUUIDSpy.mockReturnValue('generated-node-id');
+    prismaMock.studioSpec.findFirst.mockResolvedValue({
+      id: 'spec-1',
+      projectId: 'project-1',
+      name: 'Visual Builder Canvas',
+    } as any);
   });
 
   it('creates a canvas overlay when rendering for the first time', async () => {
@@ -17,12 +22,20 @@ describe('VisualBuilderModule', () => {
     prismaMock.studioOverlay.create.mockResolvedValue({
       id: 'canvas-1',
       projectId: 'project-1',
+      specId: 'spec-1',
       content: null,
     } as any);
 
     const canvas = await module.renderCanvas('project-1');
 
-    expect(prismaMock.studioOverlay.create).toHaveBeenCalled();
+    expect(prismaMock.studioOverlay.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          projectId: 'project-1',
+          specId: 'spec-1',
+        }),
+      })
+    );
     expect(canvas.projectId).toBe('project-1');
     expect(canvas.nodes).toEqual([]);
   });
@@ -108,4 +121,6 @@ describe('VisualBuilderModule', () => {
     expect(result.files[0]?.contents).toContain('Hero');
   });
 });
+
+
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AlertCircle, Sparkles, Save } from 'lucide-react';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
 
 export interface SpecEditorProps {
@@ -20,7 +20,9 @@ export interface SpecEditorProps {
   isValidating?: boolean;
 }
 
-const SPEC_TYPES: SpecEditorProps['type'][] = [
+type SpecType = NonNullable<SpecEditorProps['type']>;
+
+const SPEC_TYPES: SpecType[] = [
   'CAPABILITY',
   'DATAVIEW',
   'WORKFLOW',
@@ -70,7 +72,7 @@ export function SpecEditor({
             className="border-border rounded-md border bg-background px-3 py-2 text-sm"
             value={type}
             onChange={(event) =>
-              onTypeChange?.(event.target.value as SpecEditorProps['type'])
+              onTypeChange?.(event.target.value as SpecType)
             }
           >
             {SPEC_TYPES.map((item) => (

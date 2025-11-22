@@ -7,7 +7,7 @@ import {
   ShieldOff,
 } from 'lucide-react';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 
 export interface DeploymentHistoryItem {
   id: string;

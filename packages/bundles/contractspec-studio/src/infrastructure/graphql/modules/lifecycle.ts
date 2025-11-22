@@ -2,7 +2,7 @@ import { gqlSchemaBuilder } from '../builder';
 import { requireAuth } from '../types';
 import {
   prisma as studioDb,
-  LifecycleStage,
+  LifecycleStage as PrismaLifecycleStage,
   MilestoneStatus,
   type OrganizationLifecycleProfile,
   type LifecycleAssessment as PrismaLifecycleAssessment,
@@ -16,7 +16,16 @@ import {
   type LifecycleAction,
   type LifecycleMilestone,
   type LifecycleRecommendation,
+  type LifecycleSignal,
 } from '@lssm/lib.lifecycle';
+import {
+  toInputJson,
+  toJsonNullValue,
+} from '../../../utils/prisma-json';
+import {
+  toPrismaLifecycleStage,
+  fromPrismaLifecycleStage,
+} from '../../../utils/lifecycle-stage';
 
 const lifecycleService = new LifecycleAssessmentService({
   collector: {},
@@ -24,7 +33,7 @@ const lifecycleService = new LifecycleAssessmentService({
 
 export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
   const LifecycleStageEnum = builder.enumType('LifecycleStageEnum', {
-    values: Object.values(LifecycleStage),
+    values: Object.values(PrismaLifecycleStage),
   });
   const MilestoneStatusEnum = builder.enumType('MilestoneStatusEnum', {
     values: Object.values(MilestoneStatus),
@@ -37,7 +46,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         id: t.exposeID('id'),
         stage: t.field({
           type: LifecycleStageEnum,
-          resolve: (action) => action.stage,
+          resolve: (action) => toPrismaLifecycleStage(action.stage),
         }),
         title: t.exposeString('title'),
         description: t.exposeString('description'),
@@ -59,7 +68,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         id: t.exposeID('id'),
         stage: t.field({
           type: LifecycleStageEnum,
-          resolve: (milestone) => milestone.stage,
+          resolve: (milestone) => toPrismaLifecycleStage(milestone.stage),
         }),
         category: t.exposeString('category'),
         title: t.exposeString('title'),
@@ -79,7 +88,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
       fields: (t) => ({
         stage: t.field({
           type: LifecycleStageEnum,
-          resolve: (rec) => rec.stage,
+          resolve: (rec) => toPrismaLifecycleStage(rec.stage),
         }),
         actions: t.field({
           type: [LifecycleActionType],
@@ -100,7 +109,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
                 copy: inner.exposeString('copy'),
                 cues: inner.field({
                   type: ['String'],
-                  resolve: (ceremony) => ceremony.cues,
+                  resolve: (ceremony) => ceremony.cues ?? [],
                 }),
               }),
             }),
@@ -209,7 +218,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
           resolve: (profile) =>
             studioDb.lifecycleMilestoneProgress.findMany({
               where: { profileId: profile.id },
-              orderBy: { createdAt: 'desc' },
+              orderBy: { startedAt: 'desc' },
             }),
         }),
       }),
@@ -217,10 +226,10 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
 
   const AssessmentInput = builder.inputType('LifecycleAssessmentInput', {
     fields: (t) => ({
-      axes: t.field({ type: 'JSON' }),
-      metrics: t.field({ type: 'JSON' }),
-      signals: t.field({ type: 'JSON' }),
-      questionnaireAnswers: t.field({ type: 'JSON' }),
+      axes: t.field({ type: 'JSON', required: false }),
+      metrics: t.field({ type: 'JSON', required: false }),
+      signals: t.field({ type: 'JSON', required: false }),
+      questionnaireAnswers: t.field({ type: 'JSON', required: false }),
     }),
   });
 
@@ -252,7 +261,9 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
       resolve: async (_root, _args, ctx) => {
         const user = requireAuthAndGet(ctx);
         const profile = await getOrCreateProfile(user.organizationId);
-        return lifecycleService.getStagePlaybook(profile.currentStage)
+        return lifecycleService.getStagePlaybook(
+          fromPrismaLifecycleStage(profile.currentStage)
+        )
           .recommendation;
       },
     }),
@@ -271,7 +282,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
           tenantId: user.organizationId,
           axes: (args.input?.axes as Record<string, unknown>) ?? undefined,
           metrics: (args.input?.metrics as Record<string, number>) ?? undefined,
-          signals: (args.input?.signals as any[]) ?? undefined,
+          signals: (args.input?.signals as LifecycleSignal[]) ?? undefined,
           questionnaireAnswers:
             (args.input?.questionnaireAnswers as Record<string, unknown>) ??
             undefined,
@@ -281,10 +292,10 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         return studioDb.lifecycleAssessment.create({
           data: {
             profileId: profile.id,
-            stage: result.assessment.stage,
+            stage: toPrismaLifecycleStage(result.assessment.stage),
             confidence: result.assessment.confidence,
-            focusAreas: result.assessment.focusAreas,
-            signals: result.assessment.signals,
+            focusAreas: toInputJson(result.assessment.focusAreas ?? []),
+            signals: toInputJson(result.assessment.signals ?? []),
           },
         });
       },
@@ -335,9 +346,14 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
   }));
 }
 
-function requireAuthAndGet(ctx: Parameters<typeof requireAuth>[0]) {
+function requireAuthAndGet(
+  ctx: Parameters<typeof requireAuth>[0]
+): NonNullable<typeof ctx.user> & { organizationId: string } {
   requireAuth(ctx);
-  return ctx.user!;
+  if (!ctx.user?.organizationId) {
+    throw new Error('Organization context is required.');
+  }
+  return ctx.user as NonNullable<typeof ctx.user> & { organizationId: string };
 }
 
 async function getOrCreateProfile(organizationId: string) {
@@ -348,15 +364,15 @@ async function getOrCreateProfile(organizationId: string) {
   return studioDb.organizationLifecycleProfile.create({
     data: {
       organizationId,
-      currentStage: LifecycleStage.EXPLORATION,
-      detectedStage: LifecycleStage.EXPLORATION,
+      currentStage: PrismaLifecycleStage.EXPLORATION,
+      detectedStage: PrismaLifecycleStage.EXPLORATION,
       confidence: 0.5,
       productPhase: 'Sketch',
       companyPhase: 'Solo',
       capitalPhase: 'Bootstrapped',
       lastAssessment: new Date(),
-      metrics: {},
-      signals: [],
+      metrics: toInputJson({}),
+      signals: toInputJson([]),
     },
   });
 }
@@ -368,11 +384,11 @@ async function updateProfileFromAssessment(
   await studioDb.organizationLifecycleProfile.update({
     where: { id: profileId },
     data: {
-      currentStage: result.assessment.stage,
-      detectedStage: result.assessment.stage,
+      currentStage: toPrismaLifecycleStage(result.assessment.stage),
+      detectedStage: toPrismaLifecycleStage(result.assessment.stage),
       confidence: result.assessment.confidence,
-      metrics: result.assessment.metrics ?? {},
-      signals: result.assessment.signals,
+      metrics: toJsonNullValue(result.assessment.metrics ?? {}),
+      signals: toJsonNullValue(result.assessment.signals ?? []),
       lastAssessment: new Date(),
       nextAssessment: addDays(new Date(), 30),
     },

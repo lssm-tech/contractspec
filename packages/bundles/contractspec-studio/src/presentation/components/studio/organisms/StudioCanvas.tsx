@@ -11,7 +11,7 @@ import type {
   ComponentNode,
 } from '../../../../modules/visual-builder';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
 
 export interface StudioCanvasProps {

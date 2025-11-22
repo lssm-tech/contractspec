@@ -7,7 +7,7 @@ import {
   type StudioProject,
 } from '@lssm/lib.database-contractspec-studio';
 import { SharedDeployer, type SharedDeployerOptions } from './shared-deployer';
-import { DeploymentConfig, type DeploymentResult } from './types';
+import type { DeploymentConfig, DeploymentResult } from './types';
 
 export interface DeploymentOrchestratorOptions extends SharedDeployerOptions {}
 

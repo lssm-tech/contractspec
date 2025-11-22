@@ -1,5 +1,8 @@
 import { gqlSchemaBuilder } from '../builder';
-import { OrganizationType, prisma } from '@lssm/app.cli-database-strit';
+import {
+  OrganizationType,
+  prisma,
+} from '@lssm/lib.database-contractspec-studio';
 import { auth } from '../../../application/services/auth';
 
 export function registerAuthSchema(builder: typeof gqlSchemaBuilder) {
@@ -42,25 +45,14 @@ export function registerAuthSchema(builder: typeof gqlSchemaBuilder) {
       name: t.exposeString('name', { nullable: false }),
       slug: t.exposeString('slug', { nullable: true }),
       type: t.expose('type', { type: OrganizationTypeEnum }),
-      companyName: t.exposeString('companyName', { nullable: true }),
-      siret: t.exposeString('siret', { nullable: true }),
-      cityId: t.exposeString('cityId', { nullable: true }),
       logo: t.exposeString('logo', { nullable: true }),
-      complianceBadge: t.exposeString('complianceBadge', {
-        nullable: false,
-      }),
+      description: t.exposeString('description', { nullable: true }),
       metadata: t.string({
         nullable: true,
         resolve: (o) => (o.metadata ? JSON.stringify(o.metadata) : null),
       }),
-      onboardingCompleted: t.exposeBoolean('onboardingCompleted', {
-        nullable: false,
-      }),
-      onboardingStep: t.exposeString('onboardingStep', { nullable: true }),
-      createdAt: t.field({
-        type: 'Date',
-        resolve: (o) => o.createdAt,
-      }),
+      createdAt: t.field({ type: 'Date', resolve: (o) => o.createdAt }),
+      updatedAt: t.field({ type: 'Date', resolve: (o) => o.updatedAt }),
     }),
   });
 

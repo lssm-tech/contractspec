@@ -4,7 +4,6 @@ import {
   prisma,
   EvolutionStatus,
   EvolutionTrigger,
-  type Prisma,
 } from '@lssm/lib.database-contractspec-studio';
 import {
   SpecAnalyzer,
@@ -14,6 +13,11 @@ import {
   type SpecUsageStats,
   type SpecAnomaly,
 } from '@lssm/lib.evolution';
+import {
+  toInputJson,
+  toJsonNullValue,
+  toNullableJsonValue,
+} from '../../utils/prisma-json';
 
 export interface AnalyzeProjectOptions {
   samples: OperationMetricSample[];
@@ -88,9 +92,9 @@ export class StudioEvolutionModule {
         projectId,
         trigger: options.trigger ?? EvolutionTrigger.MANUAL,
         status: EvolutionStatus.SUGGESTIONS_READY,
-        signals: options.signals ?? [],
-        context: options.context ?? {},
-        suggestions: suggestions as unknown as Prisma.JsonValue,
+        signals: toInputJson(options.signals ?? []),
+        context: toInputJson(options.context ?? {}),
+        suggestions: toInputJson(suggestions),
         startedAt: new Date(),
         completedAt: suggestions.length ? null : new Date(),
       },
@@ -130,7 +134,7 @@ export class StudioEvolutionModule {
       where: { id: sessionId },
       data: {
         status: EvolutionStatus.APPLYING,
-        appliedChanges: applied as unknown as Prisma.JsonValue,
+        appliedChanges: toJsonNullValue(applied),
       },
     });
 
@@ -144,7 +148,7 @@ export class StudioEvolutionModule {
       where: { id: sessionId },
       data: {
         status: EvolutionStatus.COMPLETED,
-        appliedChanges: applied as unknown as Prisma.JsonValue,
+        appliedChanges: toNullableJsonValue(applied),
         completedAt: new Date(),
       },
     });

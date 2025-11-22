@@ -8,7 +8,7 @@ vi.mock('@lssm/lib.database-contractspec-studio', async () => {
     );
   return {
     ...actual,
-    prisma: prismaMock as typeof actual.prisma,
+    prisma: prismaMock as unknown as typeof actual.prisma,
   };
 });
 

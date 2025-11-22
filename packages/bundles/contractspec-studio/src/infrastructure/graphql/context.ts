@@ -1,11 +1,10 @@
 'use server';
 
 import { Logger } from '@lssm/lib.logger';
-import type { Session, User } from 'better-auth';
-import type { Context } from './types';
+import type { Context, AuthSession, AuthUser } from './types';
 import { auth } from '../../application/services/auth';
 import { headers } from 'next/headers';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 
 export async function createContext({
   user,
@@ -14,8 +13,8 @@ export async function createContext({
   headers,
   featureFlags,
 }: {
-  user?: User | null;
-  session?: Session | null;
+  user?: AuthUser | null;
+  session?: AuthSession | null;
   logger: Logger;
   headers: Headers;
   featureFlags?: Record<string, boolean>;

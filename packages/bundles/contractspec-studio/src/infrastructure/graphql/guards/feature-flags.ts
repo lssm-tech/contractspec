@@ -1,7 +1,7 @@
 import {
   ContractSpecFeatureFlags,
   type ContractSpecFeatureFlag,
-} from '@lssm/lib.progressive-delivery/feature-flags';
+} from '@lssm/lib.progressive-delivery';
 import type { Context } from '../types';
 
 type FeatureFlagName =

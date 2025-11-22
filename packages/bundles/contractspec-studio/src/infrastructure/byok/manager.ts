@@ -2,9 +2,11 @@ import {
   prisma as studioDb,
   IntegrationProvider,
   type StudioIntegration,
+  Prisma,
 } from '@lssm/lib.database-contractspec-studio';
 import { CredentialEncryption } from './encryption';
 import type { CredentialTestResult, EncryptedCredentials } from './types';
+import { toJsonNullValue } from '../../utils/prisma-json';
 
 export interface BYOKManagerOptions {
   encryption?: CredentialEncryption;
@@ -35,7 +37,7 @@ export class BYOKManager {
         ...(integrationId ? { id: integrationId } : {}),
       },
       data: {
-        credentials: encrypted as unknown as Record<string, unknown>,
+        credentials: toJsonNullValue(encrypted),
       },
     });
   }
@@ -88,7 +90,7 @@ export class BYOKManager {
         await studioDb.studioIntegration.update({
           where: { id: integration.id },
           data: {
-            credentials: encrypted as unknown as Record<string, unknown>,
+            credentials: toJsonNullValue(encrypted),
           },
         });
       })
@@ -106,7 +108,7 @@ export class BYOKManager {
         provider,
         ...(integrationId ? { id: integrationId } : {}),
       },
-      data: { credentials: null },
+      data: { credentials: Prisma.JsonNull },
     });
   }
 

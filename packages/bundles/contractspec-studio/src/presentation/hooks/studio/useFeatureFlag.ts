@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 
 type FeatureFlagName =
   (typeof ContractSpecFeatureFlags)[keyof typeof ContractSpecFeatureFlags];
@@ -9,7 +9,7 @@ type FeatureFlagName =
 const BASE_FLAGS = Object.values(ContractSpecFeatureFlags).reduce<
   Record<string, boolean>
 >((acc, flag) => {
-  acc[flag] = true;
+  acc[flag as string] = true;
   return acc;
 }, {});
 
