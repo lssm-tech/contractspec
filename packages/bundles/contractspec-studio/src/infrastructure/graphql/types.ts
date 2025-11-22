@@ -1,10 +1,19 @@
 import { Logger } from '@lssm/lib.logger';
-import type { User } from 'better-auth';
-import type { auth } from '../../application/services/auth';
 
-export type Session = typeof auth.$Infer.Session;
-export type AuthUser = Session['user'];
-export type AuthSession = Session['session'];
+export interface AuthUser {
+  id?: string;
+  email?: string;
+  organizationId?: string;
+  role?: string;
+  [key: string]: unknown;
+}
+
+export interface AuthSession {
+  id?: string;
+  organizationId?: string;
+  [key: string]: unknown;
+}
+
 export interface Context {
   user?: AuthUser;
   session?: AuthSession;
@@ -15,7 +24,7 @@ export interface Context {
 
 export function requireAuth(
   ctx: Context
-): asserts ctx is Context & { user: User } {
+): asserts ctx is Context & { user: AuthUser } {
   if (!ctx.user) {
     console.log('Unauthorized', { user: ctx.user });
     throw new Error('Unauthorized');

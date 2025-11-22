@@ -2,8 +2,11 @@ import { randomUUID } from 'node:crypto';
 import {
   prisma,
   type StudioOverlay,
+  type StudioSpec,
   type Prisma,
+  SpecType,
 } from '@lssm/lib.database-contractspec-studio';
+import { toInputJson } from '../../utils/prisma-json';
 
 export interface ComponentDefinition {
   type: string;
@@ -29,6 +32,8 @@ export interface GeneratedCode {
 }
 
 const CANVAS_OVERLAY_NAME = 'visual-builder.canvas';
+const CANVAS_SPEC_NAME = 'Visual Builder Canvas';
+const CANVAS_SPEC_VERSION = '1.0.0';
 
 export class VisualBuilderModule {
   async renderCanvas(projectId: string): Promise<CanvasState> {
@@ -98,16 +103,18 @@ export class VisualBuilderModule {
   }
 
   private async ensureCanvas(projectId: string) {
+    const spec = await this.ensureCanvasSpec(projectId);
     let overlay = await prisma.studioOverlay.findFirst({
-      where: { projectId, name: CANVAS_OVERLAY_NAME },
+      where: { projectId, specId: spec.id, name: CANVAS_OVERLAY_NAME },
     });
 
     if (!overlay) {
       overlay = await prisma.studioOverlay.create({
         data: {
           projectId,
+          specId: spec.id,
           name: CANVAS_OVERLAY_NAME,
-          content: this.defaultState(projectId) as Prisma.JsonValue,
+          content: toInputJson(this.defaultState(projectId)),
         },
       });
     }
@@ -126,13 +133,21 @@ export class VisualBuilderModule {
   }
 
   private normalizeState(overlay: StudioOverlay): CanvasState {
-    if (
-      overlay.content &&
-      typeof overlay.content === 'object' &&
-      'nodes' in overlay.content
-    ) {
-      const state = overlay.content as CanvasState;
-      return { ...state, id: overlay.id, projectId: overlay.projectId };
+    if (isCanvasStateJson(overlay.content)) {
+      const record = overlay.content as {
+        id?: string;
+        nodes?: ComponentNode[];
+        updatedAt?: string;
+      };
+      return {
+        id: record.id ?? overlay.id,
+        projectId: overlay.projectId,
+        nodes: Array.isArray(record.nodes) ? record.nodes : [],
+        updatedAt:
+          typeof record.updatedAt === 'string'
+            ? record.updatedAt
+            : new Date().toISOString(),
+      };
     }
     return this.defaultState(overlay.projectId, overlay.id);
   }
@@ -153,7 +168,7 @@ export class VisualBuilderModule {
     state.updatedAt = new Date().toISOString();
     await prisma.studioOverlay.update({
       where: { id: canvasId },
-      data: { content: state as Prisma.JsonValue },
+      data: { content: toInputJson(state) },
     });
   }
 
@@ -196,5 +211,29 @@ export class VisualBuilderModule {
       ];
     });
   }
+
+  private async ensureCanvasSpec(projectId: string): Promise<StudioSpec> {
+    const existing = await prisma.studioSpec.findFirst({
+      where: { projectId, name: CANVAS_SPEC_NAME },
+    });
+    if (existing) return existing;
+
+    return prisma.studioSpec.create({
+      data: {
+        projectId,
+        type: SpecType.COMPONENT,
+        name: CANVAS_SPEC_NAME,
+        version: CANVAS_SPEC_VERSION,
+        content: toInputJson({}),
+        metadata: toInputJson({ kind: 'visual-builder', version: 1 }),
+      },
+    });
+  }
+}
+
+function isCanvasStateJson(
+  value: Prisma.JsonValue
+): value is Prisma.JsonObject {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value));
 }
 

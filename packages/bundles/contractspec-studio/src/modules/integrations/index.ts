@@ -6,6 +6,7 @@ import {
   type Prisma,
   type StudioIntegration,
 } from '@lssm/lib.database-contractspec-studio';
+import { toInputJson, toNullableJsonValue } from '../../utils/prisma-json';
 
 export interface ConnectIntegrationInput {
   organizationId: string;
@@ -47,15 +48,12 @@ class JsonCredentialStore implements CredentialStore {
   }
 
   async decrypt(payload: Prisma.JsonValue): Promise<Record<string, string>> {
-    if (
-      !payload ||
-      typeof payload !== 'object' ||
-      !('encoded' in payload) ||
-      typeof payload.encoded !== 'string'
-    ) {
+    const record = payload as Record<string, unknown>;
+    const encoded = record?.encoded;
+    if (typeof encoded !== 'string') {
       throw new Error('Invalid credential payload');
     }
-    const decoded = Buffer.from(payload.encoded, 'base64').toString('utf-8');
+    const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
     return JSON.parse(decoded);
   }
 }
@@ -89,8 +87,8 @@ export class StudioIntegrationModule {
         projectId: input.projectId,
         provider: input.provider,
         name: input.name ?? input.provider,
-        credentials: encrypted,
-        config: input.config ?? {},
+        credentials: toInputJson(encrypted),
+        config: toNullableJsonValue(input.config ?? {}),
         enabled: true,
       },
     });

@@ -35,10 +35,15 @@ export function IntegrationSettings({
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type, checked } = event.target;
+    const target = event.target;
+    const { name, value, type } = target;
+    const nextValue =
+      type === 'checkbox' && target instanceof HTMLInputElement
+        ? target.checked
+        : value;
     setValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: nextValue,
     }));
   };
 

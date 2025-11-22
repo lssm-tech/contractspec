@@ -3,8 +3,11 @@ import type { LifecycleAssessment } from '@lssm/lib.lifecycle';
 import {
   prisma,
   Environment,
+  DeploymentStatus,
 } from '@lssm/lib.database-contractspec-studio';
 import { LifecycleKpiPipeline } from '@lssm/lib.observability/pipeline/lifecycle-pipeline';
+import { toInputJson } from '../../utils/prisma-json';
+import { toPrismaLifecycleStage } from '../../utils/lifecycle-stage';
 
 export type StudioAnalyticsEvent =
   | {
@@ -70,22 +73,26 @@ export class StudioAnalyticsModule {
         ...state,
         lifecycleAssessments: state.lifecycleAssessments + 1,
       }));
+      const stage = toPrismaLifecycleStage(event.payload.assessment.stage);
+      const metricsPayload = event.payload.assessment.metrics ?? {};
+      const signalsPayload = event.payload.assessment.signals ?? [];
       await prisma.organizationLifecycleProfile.upsert({
         where: { organizationId: event.organizationId },
         update: {
-          detectedStage: event.payload.assessment.stage,
+          detectedStage: stage,
           confidence: event.payload.assessment.confidence,
-          metrics: event.payload.assessment.signals ?? {},
+          metrics: toInputJson(metricsPayload),
+          signals: toInputJson(signalsPayload),
           lastAssessment: new Date(),
         },
         create: {
           organizationId: event.organizationId,
-          currentStage: event.payload.assessment.stage,
-          detectedStage: event.payload.assessment.stage,
+          currentStage: stage,
+          detectedStage: stage,
           confidence: event.payload.assessment.confidence,
           lastAssessment: new Date(),
-          metrics: event.payload.assessment.signals ?? {},
-          signals: event.payload.assessment.signals ?? {},
+          metrics: toInputJson(metricsPayload),
+          signals: toInputJson(signalsPayload),
         },
       });
     }
@@ -97,7 +104,8 @@ export class StudioAnalyticsModule {
           environment:
             this.resolveEnvironment(event.environment) ??
             Environment.DEVELOPMENT,
-          status: 'PENDING',
+          status: DeploymentStatus.PENDING,
+          version: `auto-${Date.now()}`,
         },
       });
     }

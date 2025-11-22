@@ -1,50 +1,49 @@
 import { vi } from 'vitest';
 
-type ModelMethods = Record<string, ReturnType<typeof vi.fn>>;
+type MockFn = ReturnType<typeof vi.fn>;
 
-function createModel(methods: string[]): ModelMethods {
-  return methods.reduce<ModelMethods>((acc, method) => {
+function createModel<T extends string>(
+  methods: readonly T[]
+): Record<T, MockFn> {
+  return methods.reduce<Record<T, MockFn>>((acc, method) => {
     acc[method] = vi.fn();
     return acc;
-  }, {});
+  }, {} as Record<T, MockFn>);
 }
 
 export const prismaMock = {
-  organizationLifecycleProfile: createModel([
-    'upsert',
-    'findUnique',
-    'findUniqueOrThrow',
-    'create',
-    'update',
-  ]),
-  lifecycleAssessment: createModel(['findMany', 'create']),
-  lifecycleMilestoneProgress: createModel([
-    'findMany',
-    'findFirst',
-    'create',
-    'update',
-  ]),
-  studioProject: createModel([
-    'findMany',
-    'findFirst',
-    'create',
-    'update',
-  ]),
-  studioSpec: createModel(['count', 'findMany', 'findUnique', 'create', 'update']),
-  studioOverlay: createModel(['count', 'findFirst', 'create', 'findUnique', 'update']),
-  studioIntegration: createModel([
-    'count',
-    'findMany',
-    'findFirst',
-    'findUnique',
-    'findUniqueOrThrow',
-    'create',
-    'update',
-  ]),
-  knowledgeSource: createModel(['create', 'findMany', 'count']),
-  studioDeployment: createModel(['create', 'aggregate', 'findMany', 'update']),
-  evolutionSession: createModel(['create', 'update']),
-  organization: createModel(['findFirst']),
+  organizationLifecycleProfile: createModel(
+    ['upsert', 'findUnique', 'findUniqueOrThrow', 'create', 'update'] as const
+  ),
+  lifecycleAssessment: createModel(['findMany', 'create'] as const),
+  lifecycleMilestoneProgress: createModel(
+    ['findMany', 'findFirst', 'create', 'update'] as const
+  ),
+  studioProject: createModel(['findMany', 'findFirst', 'create', 'update'] as const),
+  studioSpec: createModel(
+    ['count', 'findMany', 'findUnique', 'create', 'update'] as const
+  ),
+  studioOverlay: createModel(
+    ['count', 'findFirst', 'create', 'findUnique', 'update'] as const
+  ),
+  studioIntegration: createModel(
+    [
+      'count',
+      'findMany',
+      'findFirst',
+      'findUnique',
+      'findUniqueOrThrow',
+      'create',
+      'update',
+      'updateMany',
+    ] as const
+  ),
+  knowledgeSource: createModel(['create', 'findMany', 'count'] as const),
+  studioDeployment: createModel(
+    ['create', 'aggregate', 'findMany', 'update', 'findFirst', 'findUnique'] as const
+  ),
+  evolutionSession: createModel(['create', 'update'] as const),
+  organization: createModel(['findFirst'] as const),
   $transaction: vi.fn(async (actions: Promise<unknown>[]) => Promise.all(actions)),
 };
 

@@ -43,3 +43,5 @@ console.log(assessment.stage, assessment.confidence);
 Adapters are interfaces—you can implement them inside bundles, Studio services, or examples without touching this module.*** End Patch
 
 
+
+

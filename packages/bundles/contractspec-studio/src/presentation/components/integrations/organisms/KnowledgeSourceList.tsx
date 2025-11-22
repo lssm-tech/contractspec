@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BookCopy, RefreshCcw, Plus } from 'lucide-react';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
-import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery/feature-flags';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
 
 export interface KnowledgeSourceItem {

@@ -5,11 +5,10 @@ const config = {
       bodySizeLimit: '2mb',
     },
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default config;
+
+
 
 

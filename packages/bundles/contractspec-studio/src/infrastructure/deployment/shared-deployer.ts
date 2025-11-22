@@ -1,9 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Logger } from '@lssm/lib.logger';
-import {
-  DeploymentConfig,
-  DeploymentTarget,
-} from './types';
+import type { DeploymentConfig, DeploymentTarget } from './types';
 
 export interface SharedDeployerOptions {
   logger?: Logger;
