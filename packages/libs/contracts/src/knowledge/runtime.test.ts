@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import type { ResolvedAppConfig, ResolvedKnowledge } from '../app-config/runtime';
+import type {
+  ResolvedAppConfig,
+  ResolvedKnowledge,
+} from '../app-config/runtime';
 import type { KnowledgeSpaceSpec } from './spec';
 import type { AppKnowledgeBinding } from './binding';
 import { KnowledgeAccessGuard } from './runtime';
@@ -41,7 +44,9 @@ function makeResolvedKnowledge(
   };
 }
 
-function makeAppConfig(overrides: Partial<ResolvedAppConfig> = {}): ResolvedAppConfig {
+function makeAppConfig(
+  overrides: Partial<ResolvedAppConfig> = {}
+): ResolvedAppConfig {
   return {
     appId: 'demo-app',
     tenantId: 'tenant-1',
@@ -81,11 +86,15 @@ describe('KnowledgeAccessGuard', () => {
     const resolved = makeResolvedKnowledge();
     const appConfig = makeAppConfig({ knowledge: [] });
 
-    const result = guard.checkAccess(resolved, {
-      tenantId: 'tenant-1',
-      appId: 'demo-app',
-      operation: 'read',
-    }, appConfig);
+    const result = guard.checkAccess(
+      resolved,
+      {
+        tenantId: 'tenant-1',
+        appId: 'demo-app',
+        operation: 'read',
+      },
+      appConfig
+    );
 
     expect(result.allowed).toBe(false);
     expect(result.reason).toMatch(/is not bound/);
@@ -198,11 +207,3 @@ describe('KnowledgeAccessGuard', () => {
     expect(result.severity).toBe('warning');
   });
 });
-
-
-
-
-
-
-
-

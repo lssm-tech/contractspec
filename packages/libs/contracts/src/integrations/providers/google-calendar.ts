@@ -75,5 +75,3 @@ export function registerGoogleCalendarIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(googleCalendarIntegrationSpec);
 }
-
-

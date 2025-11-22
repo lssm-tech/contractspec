@@ -12,6 +12,6 @@
     "README.md"
   ],
   "peerDependencies": {
-    "tsdown": "^0.15.4"
+    "tsdown": "^0.16.6"
   }
 }

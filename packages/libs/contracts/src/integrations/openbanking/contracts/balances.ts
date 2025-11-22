@@ -1,19 +1,13 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-  type ContractSpec,
-} from '../../../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, type ContractSpec } from '../../../spec';
 import type { SpecRegistry } from '../../../registry';
 import { AccountBalanceRecord } from '../models';
 import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
 
 const OpenBankingGetBalancesInput = new SchemaModel({
   name: 'OpenBankingGetBalancesInput',
-  description: 'Parameters for retrieving bank account balances from the canonical ledger.',
+  description:
+    'Parameters for retrieving bank account balances from the canonical ledger.',
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     accountId: { type: ScalarTypeEnum.ID(), isOptional: false },
@@ -98,7 +92,8 @@ export const OpenBankingRefreshBalances = defineCommand({
   meta: {
     name: 'openbanking.balances.refresh',
     version: 1,
-    description: 'Refresh balances for a bank account via the configured open banking provider.',
+    description:
+      'Refresh balances for a bank account via the configured open banking provider.',
     goal: 'Ensure canonical balance records reflect the latest values from Powens.',
     context:
       'Triggered by scheduled workflows before generating summaries or forecasting cashflow.',
@@ -145,18 +140,21 @@ export const OpenBankingRefreshBalances = defineCommand({
         return {
           tenantId: payload?.tenantId,
           accountId: payload?.accountId,
-          error: error instanceof Error ? error.message : String(error ?? 'unknown'),
+          error:
+            error instanceof Error ? error.message : String(error ?? 'unknown'),
         };
       },
     },
   },
 });
 
-export const openBankingBalanceContracts: Record<string, ContractSpec<any, any>> =
-  {
-    OpenBankingGetBalances,
-    OpenBankingRefreshBalances,
-  };
+export const openBankingBalanceContracts: Record<
+  string,
+  ContractSpec<any, any>
+> = {
+  OpenBankingGetBalances,
+  OpenBankingRefreshBalances,
+};
 
 export function registerOpenBankingBalanceContracts(
   registry: SpecRegistry
@@ -165,4 +163,3 @@ export function registerOpenBankingBalanceContracts(
     .register(OpenBankingGetBalances)
     .register(OpenBankingRefreshBalances);
 }
-

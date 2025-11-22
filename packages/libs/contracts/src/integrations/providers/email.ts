@@ -89,5 +89,3 @@ export interface EmailInboundProvider {
     query: EmailMessagesSinceQuery
   ): Promise<{ messages: EmailMessage[]; nextPageToken?: string }>;
 }
-
-

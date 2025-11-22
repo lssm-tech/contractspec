@@ -29,9 +29,7 @@ export class GmailOutboundProvider implements EmailOutboundProvider {
     this.userId = options.userId ?? 'me';
   }
 
-  async sendEmail(
-    message: EmailOutboundMessage
-  ): Promise<EmailOutboundResult> {
+  async sendEmail(message: EmailOutboundMessage): Promise<EmailOutboundResult> {
     const raw = encodeMessage(message);
     const response = await this.gmail.users.messages.send({
       userId: this.userId,
@@ -129,7 +127,11 @@ function buildAlternativePart(
 }
 
 function buildTextPart(contentType: string, content: string) {
-  return `Content-Type: ${contentType}\r\n` + 'Content-Transfer-Encoding: 7bit\r\n\r\n' + content;
+  return (
+    `Content-Type: ${contentType}\r\n` +
+    'Content-Transfer-Encoding: 7bit\r\n\r\n' +
+    content
+  );
 }
 
 function buildAttachmentPart(
@@ -138,9 +140,7 @@ function buildAttachmentPart(
 ): string {
   const data = attachment.data ?? new Uint8Array();
   const encoded =
-    data.byteLength > 0
-      ? Buffer.from(data).toString('base64')
-      : '';
+    data.byteLength > 0 ? Buffer.from(data).toString('base64') : '';
   return (
     `\r\n--${boundary}\r\n` +
     `Content-Type: ${attachment.contentType}; name="${attachment.filename}"\r\n` +
@@ -156,5 +156,3 @@ function formatAddress(address: { email: string; name?: string }) {
   }
   return address.email;
 }
-
-

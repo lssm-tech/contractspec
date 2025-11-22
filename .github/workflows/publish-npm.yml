@@ -45,6 +45,8 @@ jobs:
         run: bun install
 
       - name: Build libraries
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
         run: bun run build:not-apps
 
       - name: Create Release Pull Request or Publish to npm

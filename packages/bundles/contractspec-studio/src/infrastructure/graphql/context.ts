@@ -1,0 +1,118 @@
+'use server';
+
+import { Logger } from '@lssm/lib.logger';
+import type { Context, AuthSession, AuthUser } from './types';
+import { auth } from '../../application/services/auth';
+import { headers } from 'next/headers';
+import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
+
+export async function createContext({
+  user,
+  session,
+  logger,
+  headers,
+  featureFlags,
+}: {
+  user?: AuthUser | null;
+  session?: AuthSession | null;
+  logger: Logger;
+  headers: Headers;
+  featureFlags?: Record<string, boolean>;
+}): Promise<Context> {
+  return {
+    user: user ?? undefined,
+    session: session ?? undefined,
+    headers,
+    logger,
+    featureFlags: buildFeatureFlagState(featureFlags),
+  };
+}
+
+export const createNextjsContext = async ({
+  request,
+}: {
+  request: Request;
+}) => {
+  // console.log(
+  //   'gql create nextjs context ENVI',
+  //   process.env.NODE_ENV,
+  //   'headers',
+  //   request.headers
+  // );
+  let session = await auth.api.getSession({ headers: request.headers });
+  // console.log('gql create context', session);
+  if (!session?.user) {
+    // console.log('no user, trying again');
+    session = await auth.api.getSession({ headers: await headers() });
+    // console.log('gql create context', session);
+  }
+  const headerFlags = parseFeatureFlagPayload(
+    request.headers.get('x-lssm-feature-flags')
+  );
+  return createContext({
+    user: session?.user,
+    session: session?.session ?? undefined,
+    logger: console as any,
+    headers: request.headers,
+    featureFlags: headerFlags,
+  });
+};
+
+function buildFeatureFlagState(
+  overrides?: Record<string, boolean>
+): Record<string, boolean> {
+  const base = Object.values(ContractSpecFeatureFlags).reduce<
+    Record<string, boolean>
+  >((acc, flag) => {
+    acc[flag] = true;
+    return acc;
+  }, {});
+
+  const envOverrides = parseFeatureFlagPayload(
+    process.env.STUDIO_FEATURE_FLAGS
+  );
+
+  return {
+    ...base,
+    ...(envOverrides ?? {}),
+    ...(overrides ?? {}),
+  };
+}
+
+function parseFeatureFlagPayload(
+  payload?: string | null
+): Record<string, boolean> | undefined {
+  if (!payload) {
+    return undefined;
+  }
+
+  try {
+    const parsed = JSON.parse(payload) as Record<string, boolean>;
+    if (parsed && typeof parsed === 'object') {
+      return Object.entries(parsed).reduce<Record<string, boolean>>(
+        (acc, [key, value]) => {
+          acc[key] = Boolean(value);
+          return acc;
+        },
+        {}
+      );
+    }
+  } catch {
+    // Fallback to comma-separated list, e.g. "flag_a=true,flag_b=false"
+    const entries = payload.split(',');
+    const parsedEntries = entries.reduce<Record<string, boolean>>(
+      (acc, entry) => {
+        const [flag, value] = entry.split('=').map((part) => part.trim());
+        if (!flag) return acc;
+        acc[flag] = value === undefined ? true : value === 'true';
+        return acc;
+      },
+      {}
+    );
+    if (Object.keys(parsedEntries).length) {
+      return parsedEntries;
+    }
+  }
+
+  return undefined;
+}

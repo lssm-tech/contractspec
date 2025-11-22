@@ -7,37 +7,95 @@ import { fileURLToPath } from 'node:url';
 
 const repoRoot = process.cwd();
 
+/**
+ * Recursively finds all package.json files in a directory
+ */
+const findPackageJsonFiles = (dir, files = []) => {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    // Skip node_modules and .turbo directories
+    if (entry.name === 'node_modules' || entry.name === '.turbo') {
+      continue;
+    }
+
+    if (entry.isDirectory()) {
+      findPackageJsonFiles(fullPath, files);
+    } else if (entry.name === 'package.json') {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+};
+
+/**
+ * Automatically discovers all publishable packages in the monorepo.
+ * A package is publishable if:
+ * 1. It has a package.json file
+ * 2. It does NOT have "private": true in package.json
+ */
+const discoverPublishablePackages = () => {
+  const packagesRoot = path.join(repoRoot, 'packages');
+  const packageJsonFiles = findPackageJsonFiles(packagesRoot);
+
+  const packages = [];
+
+  for (const fullPath of packageJsonFiles) {
+    const pkgDir = path.relative(repoRoot, path.dirname(fullPath));
+
+    try {
+      const manifest = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+
+      // Skip private packages
+      if (manifest.private === true) {
+        console.log(
+          `[discover] Skipping private package: ${manifest.name || pkgDir}`
+        );
+        continue;
+      }
+
+      // Skip tool packages (they are dev dependencies for the monorepo)
+      if (
+        pkgDir.startsWith('packages/tools/') ||
+        manifest.name?.startsWith('@lssm/tool.')
+      ) {
+        console.log(
+          `[discover] Skipping tool package: ${manifest.name || pkgDir}`
+        );
+        continue;
+      }
+
+      // Skip packages without a name
+      if (!manifest.name) {
+        console.log(`[discover] Skipping package without name: ${pkgDir}`);
+        continue;
+      }
+
+      packages.push({
+        name: manifest.name,
+        dir: pkgDir,
+        version: manifest.version,
+      });
+    } catch (error) {
+      console.warn(`[discover] Error reading ${fullPath}:`, error.message);
+    }
+  }
+
+  console.log(`\n[discover] Found ${packages.length} publishable packages:\n`);
+  packages.forEach((pkg) => {
+    console.log(`  - ${pkg.name}@${pkg.version} (${pkg.dir})`);
+  });
+  console.log('');
+
+  return packages;
+};
+
+// Build the package map
 const packagesByName = new Map(
-  [
-    ['@lssm/lib.utils-typescript', 'packages/libs/utils-typescript'],
-    ['@lssm/lib.logger', 'packages/libs/logger'],
-    ['@lssm/lib.schema', 'packages/libs/schema'],
-    ['@lssm/lib.contracts', 'packages/libs/contracts'],
-    ['@lssm/lib.graphql-core', 'packages/libs/graphql-core'],
-    ['@lssm/lib.graphql-prisma', 'packages/libs/graphql-prisma'],
-    ['@lssm/lib.graphql-federation', 'packages/libs/graphql-federation'],
-    ['@lssm/lib.error', 'packages/libs/error'],
-    ['@lssm/lib.exporter', 'packages/libs/exporter'],
-    ['@lssm/lib.ui-kit', 'packages/libs/ui-kit'],
-    ['@lssm/lib.ui-kit-web', 'packages/libs/ui-kit-web'],
-    ['@lssm/lib.design-system', 'packages/libs/design-system'],
-    ['@lssm/lib.accessibility', 'packages/libs/accessibility'],
-    [
-      '@lssm/lib.presentation-runtime-core',
-      'packages/libs/presentation-runtime-core',
-    ],
-    [
-      '@lssm/lib.presentation-runtime-react',
-      'packages/libs/presentation-runtime-react',
-    ],
-    [
-      '@lssm/lib.presentation-runtime-react-native',
-      'packages/libs/presentation-runtime-react-native',
-    ],
-    ['@lssm/lib.bus', 'packages/libs/bus'],
-    ['@lssm/lib.database', 'packages/libs/database'],
-    ['@lssm/lib.databases', 'packages/libs/databases'],
-  ].map(([name, dir]) => [name, { name, dir }])
+  discoverPublishablePackages().map((pkg) => [pkg.name, pkg])
 );
 
 const workspacePrefix = 'workspace:';
@@ -136,7 +194,12 @@ const getPublishedVersions = (packageName) => {
   }
 };
 
-const publishSinglePackage = ({ name, dir }, versionMap, dryRun, npmTag = 'latest') => {
+const publishSinglePackage = (
+  { name, dir },
+  versionMap,
+  dryRun,
+  npmTag = 'latest'
+) => {
   const pkgDir = path.join(repoRoot, dir);
   const manifestPath = path.join(pkgDir, 'package.json');
   const original = fs.readFileSync(manifestPath, 'utf8');
@@ -177,7 +240,11 @@ const publishSinglePackage = ({ name, dir }, versionMap, dryRun, npmTag = 'lates
   }
 };
 
-export async function publishPackages({ packageNames, dryRun, npmTag = 'latest' } = {}) {
+export async function publishPackages({
+  packageNames,
+  dryRun,
+  npmTag = 'latest',
+} = {}) {
   const versionMap = buildLocalVersionMap();
   const targets =
     packageNames && packageNames.length > 0

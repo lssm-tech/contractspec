@@ -81,4 +81,3 @@ describe('ThemeRegistry', () => {
     expect(ref).toEqual({ name: 'design.pastel', version: 1 });
   });
 });
-

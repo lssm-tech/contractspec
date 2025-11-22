@@ -1,0 +1,15 @@
+{
+  "extends": "@lssm/tool.typescript/base.json",
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext",
+    "target": "es2022",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "types": ["bun-types", "node"]
+  }
+}
+

@@ -173,9 +173,9 @@ export interface TenantRouteOverride {
   label?: string | null;
   dataView?: string | null;
   workflow?: string | null;
-  guard?: (PolicyRef | null);
+  guard?: PolicyRef | null;
   featureFlag?: string | null;
-  experiment?: (ExperimentRef | null);
+  experiment?: ExperimentRef | null;
 }
 
 export interface TenantAppConfig {
@@ -218,4 +218,3 @@ export interface TenantAppConfig {
   branding?: TenantBrandingConfig;
   notes?: string;
 }
-

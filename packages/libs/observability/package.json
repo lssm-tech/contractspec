@@ -14,6 +14,9 @@
     "lint:check": "eslint src",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@lssm/lib.lifecycle": "workspace:*"
+  },
   "peerDependencies": {
     "@opentelemetry/api": "*"
   },
@@ -23,8 +26,16 @@
   },
   "exports": {
     ".": "./dist/index.mjs",
+    "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
+    "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
+    "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
+    "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
+    "./intent/aggregator": "./dist/intent/aggregator.mjs",
+    "./intent/detector": "./dist/intent/detector.mjs",
     "./logging": "./dist/logging/index.mjs",
     "./metrics": "./dist/metrics/index.mjs",
+    "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
+    "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
     "./tracing": "./dist/tracing/index.mjs",
     "./tracing/middleware": "./dist/tracing/middleware.mjs",
     "./*": "./*"

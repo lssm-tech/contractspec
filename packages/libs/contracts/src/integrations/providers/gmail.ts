@@ -61,7 +61,8 @@ export const gmailIntegrationSpec: IntegrationSpec = {
         },
         redirectUri: {
           type: 'string',
-          description: 'Optional redirect URI used when issuing the refresh token.',
+          description:
+            'Optional redirect URI used when issuing the refresh token.',
         },
       },
     },
@@ -92,5 +93,3 @@ export function registerGmailIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(gmailIntegrationSpec);
 }
-
-

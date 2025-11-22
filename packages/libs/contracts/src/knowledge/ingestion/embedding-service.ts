@@ -14,7 +14,9 @@ export class EmbeddingService {
     this.batchSize = batchSize;
   }
 
-  async embedFragments(fragments: DocumentFragment[]): Promise<EmbeddingResult[]> {
+  async embedFragments(
+    fragments: DocumentFragment[]
+  ): Promise<EmbeddingResult[]> {
     const results: EmbeddingResult[] = [];
     for (let i = 0; i < fragments.length; i += this.batchSize) {
       const slice = fragments.slice(i, i + this.batchSize);
@@ -29,5 +31,3 @@ export class EmbeddingService {
     return results;
   }
 }
-
-

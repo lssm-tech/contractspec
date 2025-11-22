@@ -14,7 +14,9 @@ export class GmailIngestionAdapter {
     private readonly indexer: VectorIndexer
   ) {}
 
-  async syncThreads(query?: Parameters<EmailInboundProvider['listThreads']>[0]) {
+  async syncThreads(
+    query?: Parameters<EmailInboundProvider['listThreads']>[0]
+  ) {
     const threads = await this.gmail.listThreads(query);
     for (const thread of threads) {
       await this.ingestThread(thread);
@@ -44,7 +46,10 @@ export class GmailIngestionAdapter {
 }
 
 function composeThreadText(thread: EmailThread): string {
-  const header = [`Subject: ${thread.subject ?? ''}`, `Snippet: ${thread.snippet ?? ''}`];
+  const header = [
+    `Subject: ${thread.subject ?? ''}`,
+    `Snippet: ${thread.snippet ?? ''}`,
+  ];
   const messageTexts = thread.messages.map((message) => {
     const parts = [
       `From: ${formatAddress(message.from)}`,
@@ -66,5 +71,3 @@ function formatAddress(address: { email: string; name?: string }): string {
 function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, ' ');
 }
-
-

@@ -7,7 +7,11 @@ import type {
   SpecChangeProposal,
 } from './types';
 import type { SignalAdapters } from './adapters';
-import { telemetryToEnvelope, errorToEnvelope, behaviorToEnvelope } from './utils';
+import {
+  telemetryToEnvelope,
+  errorToEnvelope,
+  behaviorToEnvelope,
+} from './utils';
 
 export interface RegeneratorOptions {
   contexts: RegenerationContext[];
@@ -32,9 +36,7 @@ export class RegeneratorService {
   private readonly clock: () => Date;
 
   constructor(private readonly options: RegeneratorOptions) {
-    this.contexts = new Map(
-      options.contexts.map((ctx) => [ctx.id, ctx])
-    );
+    this.contexts = new Map(options.contexts.map((ctx) => [ctx.id, ctx]));
     this.pollInterval = options.pollIntervalMs ?? DEFAULT_POLL_INTERVAL;
     this.batchDuration = options.batchDurationMs ?? DEFAULT_BATCH_DURATION;
     this.clock = options.clock ?? (() => new Date());
@@ -88,7 +90,6 @@ export class RegeneratorService {
       try {
         proposals = await rule.evaluate(context, signals);
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error(
           `[regenerator] rule ${rule.id} failed`,
           error instanceof Error ? error : new Error(String(error))
@@ -159,10 +160,3 @@ export class RegeneratorService {
     }
   }
 }
-
-
-
-
-
-
-

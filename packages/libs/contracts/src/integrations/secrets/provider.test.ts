@@ -4,7 +4,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { GcpSecretManagerProvider } from './gcp-secret-manager';
 import { EnvSecretProvider } from './env-secret-provider';
-import { normalizeSecretPayload, parseSecretUri, SecretProviderError } from './provider';
+import {
+  normalizeSecretPayload,
+  parseSecretUri,
+  SecretProviderError,
+} from './provider';
 import type { SecretProvider } from './provider';
 import { SecretProviderManager } from './manager';
 
@@ -302,5 +306,3 @@ function createStaticProvider(params: {
     setSecret: ReturnType<typeof vi.fn>;
   };
 }
-
-

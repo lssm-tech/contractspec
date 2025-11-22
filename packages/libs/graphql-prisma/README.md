@@ -23,7 +23,7 @@ bun add @lssm/lib.graphql-prisma
 
 ```ts
 import { builder } from '@lssm/lib.graphql-prisma';
-import { prisma } from '@lssm/lib.database';
+import { prisma } from '@lssm/app.cli-database';
 
 builder.prismaObject('User', {
   fields: (t) => ({
@@ -32,5 +32,10 @@ builder.prismaObject('User', {
   }),
 });
 ```
+
+
+
+
+
 
 

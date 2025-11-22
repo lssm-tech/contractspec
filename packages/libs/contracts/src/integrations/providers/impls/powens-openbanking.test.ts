@@ -89,8 +89,7 @@ describe('PowensOpenBankingProvider', () => {
   });
 
   it('maps Powens balances to canonical balance records', async () => {
-    const { fetch: fetchImpl, handler: balancesHandler } =
-      createFetchMock();
+    const { fetch: fetchImpl, handler: balancesHandler } = createFetchMock();
     balancesHandler
       .mockResolvedValueOnce(createResponse(TOKEN_RESPONSE))
       .mockResolvedValueOnce(
@@ -163,4 +162,3 @@ describe('PowensOpenBankingProvider', () => {
     ).rejects.toThrowError(/requires the upstream userId/i);
   });
 });
-

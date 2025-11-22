@@ -61,16 +61,17 @@ export class MigrationRegistry {
 
   register(spec: MigrationSpec): this {
     const key = migrationKey(spec.meta.name, spec.meta.version);
-    if (this.items.has(key))
-      throw new Error(`Duplicate migration ${key}`);
+    if (this.items.has(key)) throw new Error(`Duplicate migration ${key}`);
     this.items.set(key, spec);
     return this;
   }
 
   list(): MigrationSpec[] {
-    return [...this.items.values()].sort(
-      (a, b) =>
-        compareKey(migrationKey(a.meta.name, a.meta.version), migrationKey(b.meta.name, b.meta.version))
+    return [...this.items.values()].sort((a, b) =>
+      compareKey(
+        migrationKey(a.meta.name, a.meta.version),
+        migrationKey(b.meta.name, b.meta.version)
+      )
     );
   }
 

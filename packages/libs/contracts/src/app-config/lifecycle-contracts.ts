@@ -50,7 +50,10 @@ const CreateDraftInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    blueprintName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    blueprintName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     blueprintVersion: {
       type: ScalarTypeEnum.Int_unsecure(),
       isOptional: false,
@@ -339,5 +342,3 @@ export function registerAppConfigLifecycleContracts(registry: SpecRegistry) {
     .register(ListTenantConfigVersionsQuery)
     .register(GetTenantConfigVersionQuery);
 }
-
-

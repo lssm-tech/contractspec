@@ -41,6 +41,8 @@ jobs:
         run: bun changeset version --snapshot canary
 
       - name: Build libraries
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
         run: bun run build:not-apps
 
       - name: Publish packages (canary)
@@ -49,4 +51,8 @@ jobs:
           NPM_TAG: canary
         run: |
           bun changeset publish --tag canary
+
+
+
+
 

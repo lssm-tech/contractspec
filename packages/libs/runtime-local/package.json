@@ -1,0 +1,57 @@
+{
+  "name": "@lssm/lib.runtime-local",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "bun run build:bundle && bun run build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun run build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun run lint:check",
+    "lint:check": "eslint src",
+    "lint:fix": "eslint src --fix"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.6",
+    "@graphql-tools/schema": "^10.0.17",
+    "eventemitter3": "^5.0.1",
+    "graphql": "^16.9.0",
+    "sql.js": "^1.9.0"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@types/sql.js": "^1.4.9",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./database/sqlite-wasm": "./src/database/sqlite-wasm.ts",
+    "./database/sqlite-wasm-stub": "./src/database/sqlite-wasm-stub.ts",
+    "./events/local-pubsub": "./src/events/local-pubsub.ts",
+    "./graphql/local-client": "./src/graphql/local-client.ts",
+    "./runtime/services": "./src/runtime/services.ts",
+    "./storage/indexeddb": "./src/storage/indexeddb.ts",
+    "./utils/id": "./src/utils/id.ts",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./database/sqlite-wasm": "./dist/database/sqlite-wasm.js",
+      "./database/sqlite-wasm-stub": "./dist/database/sqlite-wasm-stub.js",
+      "./events/local-pubsub": "./dist/events/local-pubsub.js",
+      "./graphql/local-client": "./dist/graphql/local-client.js",
+      "./runtime/services": "./dist/runtime/services.js",
+      "./storage/indexeddb": "./dist/storage/indexeddb.js",
+      "./utils/id": "./dist/utils/id.js",
+      "./*": "./*"
+    }
+  }
+}

@@ -12,4 +12,3 @@ export interface AppIntegrationBinding {
   /** Priority when multiple connections provide same capability. */
   priority?: number;
 }
-

@@ -117,8 +117,9 @@ function buildContext({
     meta: {
       key,
       version: 1,
-      category:
-        key.startsWith('openbanking.') ? ('open-banking' as any) : ((key.split('.')[0] as any)),
+      category: key.startsWith('openbanking.')
+        ? ('open-banking' as any)
+        : (key.split('.')[0] as any),
       displayName: key,
       title: key,
       description: `${key} provider`,

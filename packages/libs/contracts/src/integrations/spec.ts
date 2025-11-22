@@ -1,8 +1,5 @@
 import type { OwnerShipMeta } from '../ownership';
-import type {
-  CapabilityRef,
-  CapabilityRequirement,
-} from '../capabilities';
+import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
 
 export type IntegrationCategory =
   | 'payments'
@@ -132,4 +129,3 @@ export class IntegrationSpecRegistry {
 export function makeIntegrationSpecKey(meta: IntegrationMeta) {
   return integrationKey(meta);
 }
-

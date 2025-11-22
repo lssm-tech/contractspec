@@ -72,5 +72,3 @@ function buildReadable(buffer: Buffer) {
   readable.push(null);
   return readable;
 }
-
-

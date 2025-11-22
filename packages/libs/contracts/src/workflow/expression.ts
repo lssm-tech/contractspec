@@ -13,10 +13,12 @@ export function evaluateExpression(
   if (!trimmed) return true;
 
   const orParts = splitByOperator(trimmed, '||');
-  if (orParts.length > 1) return orParts.some((part) => evaluateExpression(part, ctx));
+  if (orParts.length > 1)
+    return orParts.some((part) => evaluateExpression(part, ctx));
 
   const andParts = splitByOperator(trimmed, '&&');
-  if (andParts.length > 1) return andParts.every((part) => evaluateExpression(part, ctx));
+  if (andParts.length > 1)
+    return andParts.every((part) => evaluateExpression(part, ctx));
 
   return evaluateSingle(trimmed, ctx);
 }
@@ -35,14 +37,16 @@ function evaluateSingle(expr: string, ctx: ExpressionContext): boolean {
       string,
       string,
       ComparisonOperator,
-      string
+      string,
     ];
     const left = resolveRoot(root, ctx, path);
     const right = parseLiteral(rawRight);
     return compare(left, right, operator);
   }
 
-  const truthyMatch = trimmed.match(/^(data|input|output)\.([A-Za-z0-9_.\[\]]+)$/);
+  const truthyMatch = trimmed.match(
+    /^(data|input|output)\.([A-Za-z0-9_.\[\]]+)$/
+  );
   if (truthyMatch) {
     const [, root, path] = truthyMatch as [string, string, string];
     const value = resolveRoot(root, ctx, path);
@@ -101,11 +105,7 @@ function resolveRoot(
   path: string
 ): unknown {
   const source =
-    root === 'data'
-      ? ctx.data
-      : root === 'input'
-        ? ctx.input
-        : ctx.output;
+    root === 'data' ? ctx.data : root === 'input' ? ctx.input : ctx.output;
   return resolvePath(source, path);
 }
 
@@ -159,4 +159,3 @@ function splitByOperator(expr: string, operator: '&&' | '||'): string[] {
   if (buffer.trim().length) parts.push(buffer.trim());
   return parts;
 }
-

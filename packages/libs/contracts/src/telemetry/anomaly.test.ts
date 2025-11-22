@@ -63,4 +63,3 @@ describe('TelemetryAnomalyMonitor', () => {
     expect(events).toEqual([2000]);
   });
 });
-

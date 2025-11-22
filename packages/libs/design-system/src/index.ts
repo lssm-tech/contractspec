@@ -29,6 +29,8 @@ export {
 // Molecules
 export { NavMain } from './components/molecules/NavMain';
 export { NavUser } from './components/molecules/NavUser';
+export { ApprovalQueue } from './components/agent/ApprovalQueue';
+export { AgentMonitor } from './components/agent/AgentMonitor';
 
 // Organisms
 export { AppSidebar } from './components/organisms/AppSidebar';

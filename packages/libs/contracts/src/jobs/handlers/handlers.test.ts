@@ -33,7 +33,10 @@ describe('Job handlers', () => {
     const adapter = {
       ingestObject: vi.fn(async () => {}),
     };
-    const handler = createStorageDocumentHandler(storage as any, adapter as any);
+    const handler = createStorageDocumentHandler(
+      storage as any,
+      adapter as any
+    );
     await handler({
       id: 'job',
       type: 'storage-document',
@@ -51,4 +54,3 @@ describe('Job handlers', () => {
     expect(adapter.ingestObject).toHaveBeenCalled();
   });
 });
-

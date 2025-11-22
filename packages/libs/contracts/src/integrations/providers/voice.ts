@@ -32,5 +32,3 @@ export interface VoiceProvider {
   listVoices(): Promise<Voice[]>;
   synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult>;
 }
-
-

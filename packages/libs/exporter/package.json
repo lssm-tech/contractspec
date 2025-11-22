@@ -14,8 +14,8 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "*",
-    "tsdown": "^0.15.9",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "main": "./dist/index.js",

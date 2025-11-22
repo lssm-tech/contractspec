@@ -31,7 +31,8 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
       properties: {
         messageStream: {
           type: 'string',
-          description: 'Optional message stream identifier (e.g., transactional).',
+          description:
+            'Optional message stream identifier (e.g., transactional).',
         },
         fromEmail: {
           type: 'string',
@@ -80,4 +81,3 @@ export function registerPostmarkIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(postmarkIntegrationSpec);
 }
-

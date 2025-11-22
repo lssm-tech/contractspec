@@ -19,6 +19,7 @@ import type {
 import type { ResolvedBranding } from './app-config/branding';
 import type { Locale, MessageKey } from './translations/catalog';
 import type { SecretProvider } from './integrations/secrets/provider';
+import type { SpecVariantResolver } from './experiments/spec-resolver';
 
 export interface FieldLevelDecision {
   field: string;
@@ -29,7 +30,10 @@ export interface FieldLevelDecision {
 export interface PolicyDecision {
   effect: 'allow' | 'deny';
   reason?: string;
-  rateLimit?: Pick<RateLimitDefinition, 'rpm' | 'key' | 'windowSeconds' | 'burst'>;
+  rateLimit?: Pick<
+    RateLimitDefinition,
+    'rpm' | 'key' | 'windowSeconds' | 'burst'
+  >;
   escalate?: 'human_review' | null;
   fieldDecisions?: FieldLevelDecision[];
   pii?: PolicySpec['pii'];
@@ -111,4 +115,6 @@ export interface HandlerCtx {
     config: ResolvedTranslation;
     resolve?: TranslationResolver;
   };
+  /** Optional spec variant resolver for experiments */
+  specVariantResolver?: SpecVariantResolver;
 }

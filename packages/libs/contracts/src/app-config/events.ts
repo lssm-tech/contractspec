@@ -23,7 +23,10 @@ export const ConfigDraftCreatedEvent = defineEvent({
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
       version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-      blueprintName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+      blueprintName: {
+        type: ScalarTypeEnum.String_unsecure(),
+        isOptional: false,
+      },
       blueprintVersion: {
         type: ScalarTypeEnum.Int_unsecure(),
         isOptional: false,
@@ -114,11 +117,3 @@ export const ConfigRolledBackEvent = defineEvent({
     },
   }),
 });
-
-
-
-
-
-
-
-

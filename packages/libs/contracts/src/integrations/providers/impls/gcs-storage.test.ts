@@ -99,4 +99,3 @@ function createMockStorage() {
     bucket: vi.fn(() => bucket),
   } as unknown as any;
 }
-

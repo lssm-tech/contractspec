@@ -1,0 +1,33 @@
+{
+  "name": "@lssm/app.cli-databases",
+  "version": "1.7.4",
+  "type": "module",
+  "bin": {
+    "databases": "dist/cli.js"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsdown",
+    "dev": "bun run build --watch"
+  },
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "execa": "^9.5.1"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "tsdown": "^0.16.6"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./*": "./*"
+  }
+}

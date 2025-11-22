@@ -29,7 +29,10 @@ describe('GmailOutboundProvider', () => {
       throw new Error('Expected Gmail payload to include raw content');
     }
     const raw = call.requestBody.raw;
-    const decoded = Buffer.from(raw.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf-8');
+    const decoded = Buffer.from(
+      raw.replace(/-/g, '+').replace(/_/g, '/'),
+      'base64'
+    ).toString('utf-8');
     expect(decoded).toContain('Subject: Test');
     expect(decoded).toContain('Content-Type: multipart/alternative');
     expect(result.id).toBe('sent-message');
@@ -52,5 +55,3 @@ function createMockGmail() {
   } as unknown as gmail_v1.Gmail;
   return { gmail, send };
 }
-
-

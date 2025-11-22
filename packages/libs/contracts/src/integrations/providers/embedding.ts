@@ -24,5 +24,3 @@ export interface EmbeddingProvider {
     options?: { model?: string }
   ): Promise<EmbeddingResult>;
 }
-
-

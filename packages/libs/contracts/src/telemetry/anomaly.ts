@@ -83,4 +83,3 @@ export class TelemetryAnomalyMonitor {
     this.samples.clear();
   }
 }
-

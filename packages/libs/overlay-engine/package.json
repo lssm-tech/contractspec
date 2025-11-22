@@ -1,0 +1,48 @@
+{
+  "name": "@lssm/lib.overlay-engine",
+  "version": "0.0.1",
+  "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "fast-json-stable-stringify": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./dist/react.js",
+    "./*": "./*"
+  }
+}

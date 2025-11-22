@@ -1,0 +1,55 @@
+{
+  "name": "@lssm/lib.growth",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lssm/lib.analytics": "^0.1.0",
+    "@lssm/lib.contracts": "^1.7.4"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./experiments": "./dist/experiments/index.js",
+    "./experiments/registry": "./dist/experiments/registry.js",
+    "./experiments/runner": "./dist/experiments/runner.js",
+    "./lifecycle": "./dist/lifecycle/index.js",
+    "./lifecycle/experiment-templates": "./dist/lifecycle/experiment-templates.js",
+    "./spec-experiments": "./dist/spec-experiments/index.js",
+    "./spec-experiments/adapter": "./dist/spec-experiments/adapter.js",
+    "./spec-experiments/analysis": "./dist/spec-experiments/analysis.js",
+    "./spec-experiments/controller": "./dist/spec-experiments/controller.js",
+    "./spec-experiments/registry": "./dist/spec-experiments/registry.js",
+    "./spec-experiments/runner": "./dist/spec-experiments/runner.js",
+    "./spec-experiments/types": "./dist/spec-experiments/types.js",
+    "./stats": "./dist/stats/index.js",
+    "./stats/engine": "./dist/stats/engine.js",
+    "./tracker": "./dist/tracker/index.js",
+    "./tracker/tracker": "./dist/tracker/tracker.js",
+    "./types": "./dist/types.js",
+    "./*": "./*"
+  }
+}

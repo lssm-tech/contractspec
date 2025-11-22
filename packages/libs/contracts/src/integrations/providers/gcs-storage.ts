@@ -81,5 +81,3 @@ export function registerGcsStorageIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(gcsStorageIntegrationSpec);
 }
-
-

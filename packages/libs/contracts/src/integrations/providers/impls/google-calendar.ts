@@ -31,7 +31,9 @@ export class GoogleCalendarProvider implements CalendarProvider {
     this.defaultCalendarId = options.calendarId ?? 'primary';
   }
 
-  async listEvents(query: CalendarListEventsQuery): Promise<CalendarListEventsResult> {
+  async listEvents(
+    query: CalendarListEventsQuery
+  ): Promise<CalendarListEventsResult> {
     const response = await this.calendar.events.list({
       calendarId: query.calendarId ?? this.defaultCalendarId,
       timeMin: query.timeMin?.toISOString(),
@@ -178,23 +180,28 @@ export class GoogleCalendarProvider implements CalendarProvider {
   }
 }
 
-function parseDateTime(
-  time?: calendar_v3.Schema$EventDateTime | null
-): Date {
+function parseDateTime(time?: calendar_v3.Schema$EventDateTime | null): Date {
   if (!time) return new Date();
   if (time.dateTime) return new Date(time.dateTime);
   if (time.date) return new Date(`${time.date}T00:00:00`);
   return new Date();
 }
 
-function formatDateTime(date: Date, allDay?: boolean): calendar_v3.Schema$EventDateTime {
+function formatDateTime(
+  date: Date,
+  allDay?: boolean
+): calendar_v3.Schema$EventDateTime {
   if (allDay) {
     return { date: date.toISOString().slice(0, 10) };
   }
   return { dateTime: date.toISOString() };
 }
 
-type CalendarResponseStatus = 'needsAction' | 'declined' | 'tentative' | 'accepted';
+type CalendarResponseStatus =
+  | 'needsAction'
+  | 'declined'
+  | 'tentative'
+  | 'accepted';
 
 function normalizeResponseStatus(
   status?: string | null
@@ -211,7 +218,9 @@ function normalizeResponseStatus(
     : undefined;
 }
 
-function buildMetadata(event: calendar_v3.Schema$Event): Record<string, string> | undefined {
+function buildMetadata(
+  event: calendar_v3.Schema$Event
+): Record<string, string> | undefined {
   const metadata: Record<string, string> = {};
   if (event.status) metadata.status = event.status;
   if (event.htmlLink) metadata.htmlLink = event.htmlLink;
@@ -229,5 +238,3 @@ function buildMetadata(event: calendar_v3.Schema$Event): Record<string, string> 
   }
   return Object.keys(metadata).length > 0 ? metadata : undefined;
 }
-
-
