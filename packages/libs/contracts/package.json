@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.contracts",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -30,7 +30,7 @@
     "stripe": "^19.1.0",
     "postmark": "^4.0.4",
     "twilio": "^5.10.5",
-    "@lssm/lib.schema": "^1.7.4",
+    "@lssm/lib.schema": "^1.8.0",
     "@modelcontextprotocol/sdk": "^1.20.1",
     "mcp-handler": "^1.0.2",
     "zod": "^4.1.5"

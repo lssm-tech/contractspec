@@ -1,5 +1,17 @@
 # @lssm/lib.bus
 
+## 1.8.0
+
+### Minor Changes
+
+- f1f4ddd: Foundation Hardening
+
+### Patch Changes
+
+- Updated dependencies [f1f4ddd]
+  - @lssm/lib.contracts@1.8.0
+  - @lssm/lib.schema@1.8.0
+
 ## 1.7.4
 
 ### Patch Changes
