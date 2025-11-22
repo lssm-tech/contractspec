@@ -31,6 +31,9 @@
     "@contractspec/lib.contracts-spec": "workspace:*",
     "@contractspec/lib.contracts-integrations": "workspace:*"
   },
+  "dependencies": {
+    "@lssm/lib.lifecycle": "workspace:*"
+  },
   "peerDependencies": {
     "@opentelemetry/api": "*"
   },

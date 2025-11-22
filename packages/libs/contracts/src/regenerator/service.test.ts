@@ -52,8 +52,9 @@ const resolvedContext: RegenerationContext = {
 
 class MockTelemetryAdapter implements TelemetrySignalProvider {
   public polls: { since: Date; until: Date }[] = [];
-  public signals: Parameters<NonNullable<TelemetrySignalProvider>['pollTelemetry']>[2][] =
-  > = [];
+  public signals: Parameters<
+    NonNullable<TelemetrySignalProvider>['pollTelemetry']
+  >[2][] = [];
 
   constructor(private readonly payload: number[]) {}
 
@@ -114,7 +115,10 @@ class MockRule implements RegenerationRule {
 }
 
 class RecordingSink implements ProposalSink {
-  public proposals: { context: RegenerationContext; proposal: SpecChangeProposal }[] = [];
+  public proposals: {
+    context: RegenerationContext;
+    proposal: SpecChangeProposal;
+  }[] = [];
 
   async submit(
     context: RegenerationContext,

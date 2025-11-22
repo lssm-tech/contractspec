@@ -107,3 +107,7 @@ function matchesRequirement(
 export function capabilityKey(spec: CapabilitySpec) {
   return capKey(spec.meta.key, spec.meta.version);
 }
+
+export function defineCapability(spec: CapabilitySpec): CapabilitySpec {
+  return spec;
+}

@@ -36,6 +36,8 @@
     "./experiments": "./dist/experiments/index.js",
     "./experiments/registry": "./dist/experiments/registry.js",
     "./experiments/runner": "./dist/experiments/runner.js",
+    "./lifecycle": "./dist/lifecycle/index.js",
+    "./lifecycle/experiment-templates": "./dist/lifecycle/experiment-templates.js",
     "./spec-experiments": "./dist/spec-experiments/index.js",
     "./spec-experiments/adapter": "./dist/spec-experiments/adapter.js",
     "./spec-experiments/analysis": "./dist/spec-experiments/analysis.js",
