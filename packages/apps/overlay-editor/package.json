@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.overlay-editor",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.overlay-engine": "workspace:*",
+    "@lssm/lib.overlay-engine": "*",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0"
@@ -23,7 +23,3 @@
     "typescript": "^5.6.3"
   }
 }
-
-
-
-
