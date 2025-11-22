@@ -152,10 +152,7 @@ export class VisualBuilderModule {
     return this.defaultState(overlay.projectId, overlay.id);
   }
 
-  private defaultState(
-    projectId: string,
-    overlayId?: string
-  ): CanvasState {
+  private defaultState(projectId: string, overlayId?: string): CanvasState {
     return {
       id: overlayId ?? randomUUID(),
       projectId,
@@ -236,4 +233,3 @@ function isCanvasStateJson(
 ): value is Prisma.JsonObject {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value));
 }
-

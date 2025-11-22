@@ -14,4 +14,8 @@ export * from './integrations/organisms/IntegrationMarketplace';
 export * from './integrations/organisms/IntegrationSettings';
 export * from './integrations/organisms/KnowledgeSourceList';
 export * from './shared/FeatureGateNotice';
+export * from './templates/todos';
+export * from './templates/messaging';
+export * from './templates/recipes';
+export * from './templates/shared';
 

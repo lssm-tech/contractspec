@@ -20,7 +20,7 @@ model OrganizationLifecycleProfile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  organization Organization             @relation(fields: [organizationId], references: [id])
+  organization Organization                 @relation(fields: [organizationId], references: [id])
   assessments  LifecycleAssessment[]
   milestones   LifecycleMilestoneProgress[]
 
@@ -29,9 +29,9 @@ model OrganizationLifecycleProfile {
 }
 
 model LifecycleAssessment {
-  id        String         @id @default(cuid())
-  profileId String
-  stage     LifecycleStage
+  id         String         @id @default(cuid())
+  profileId  String
+  stage      LifecycleStage
   confidence Float
   focusAreas Json
   signals    Json
@@ -46,8 +46,8 @@ model LifecycleAssessment {
 }
 
 model LifecycleMilestoneProgress {
-  id        String   @id @default(cuid())
-  profileId String
+  id          String          @id @default(cuid())
+  profileId   String
   milestoneId String
   category    String
   status      MilestoneStatus
@@ -81,6 +81,3 @@ enum MilestoneStatus {
 
   @@schema("lssm_sigil")
 }
-
-
-

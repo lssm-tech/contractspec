@@ -164,17 +164,17 @@ model Organization {
   onboardingStep      String? // Current step if not completed
 
   // Relations
-  members        Member[]
-  invitations    Invitation[]
+  members            Member[]
+  invitations        Invitation[]
   /// Teams within the organization (Better Auth teams)
-  teams          Team[]
-  policyBindings PolicyBinding[]
+  teams              Team[]
+  policyBindings     PolicyBinding[]
   /// Enterprise SSO providers configured for this organization
-  ssoProviders   SsoProvider[]
-  lifecycleProfile OrganizationLifecycleProfile?
-  studioProjects   StudioProject[]
+  ssoProviders       SsoProvider[]
+  lifecycleProfile   OrganizationLifecycleProfile?
+  studioProjects     StudioProject[]
   studioIntegrations StudioIntegration[]
-  knowledgeSources KnowledgeSource[]
+  knowledgeSources   KnowledgeSource[]
 
   // Referral system
   referralCode String? @unique // Unique referral code for this user

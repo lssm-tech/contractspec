@@ -23,21 +23,37 @@ class BuilderStub {
     return { implement: () => ({}) };
   }
 
+  objectType() {
+    return {};
+  }
+
   inputType() {
     return {};
+  }
+
+  private helpers() {
+    const argFn = ((config?: any) => config) as any;
+    argFn.string = (config?: any) => ({ type: 'String', ...config });
+    argFn.boolean = (config?: any) => ({ type: 'Boolean', ...config });
+    return {
+      field: (config: any) => config,
+      arg: argFn,
+      string: argFn.string,
+      boolean: argFn.boolean,
+    };
   }
 
   queryFields(
     cb: (t: { field: (config: any) => any }) => Record<string, any>
   ) {
-    const fields = cb({ field: (config) => config });
+    const fields = cb(this.helpers() as any);
     Object.assign(this.queryFieldsMap, fields);
   }
 
   mutationFields(
     cb: (t: { field: (config: any) => any }) => Record<string, any>
   ) {
-    const fields = cb({ field: (config) => config });
+    const fields = cb(this.helpers() as any);
     Object.assign(this.mutationFieldsMap, fields);
   }
 }
@@ -122,6 +138,3 @@ describe('Project lifecycle e2e', () => {
     expect(deployProjectMock).toHaveBeenCalledTimes(2);
   });
 });
-
-
-
