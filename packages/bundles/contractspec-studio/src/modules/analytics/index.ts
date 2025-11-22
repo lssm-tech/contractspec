@@ -145,19 +145,15 @@ export class StudioAnalyticsModule {
     projectId: string,
     updater: (state: ProjectEventState) => ProjectEventState
   ) {
-    const current =
-      this.projectState.get(projectId) ?? {
-        lifecycleAssessments: 0,
-      };
+    const current = this.projectState.get(projectId) ?? {
+      lifecycleAssessments: 0,
+    };
     const next = updater(current);
     this.projectState.set(projectId, next);
   }
 
-  private resolveEnvironment(
-    value: string
-  ): Environment | undefined {
+  private resolveEnvironment(value: string): Environment | undefined {
     const key = value.toUpperCase() as keyof typeof Environment;
     return Environment[key];
   }
 }
-

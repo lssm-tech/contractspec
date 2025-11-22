@@ -22,6 +22,15 @@ export interface SpecEditorProps {
 
 type SpecType = NonNullable<SpecEditorProps['type']>;
 
+type MonacoEditorProps = {
+  height?: string | number;
+  defaultLanguage?: string;
+  theme?: string;
+  value?: string;
+  onChange?: (value: string | undefined) => void;
+  options?: Record<string, unknown>;
+};
+
 const SPEC_TYPES: SpecType[] = [
   'CAPABILITY',
   'DATAVIEW',
@@ -47,6 +56,24 @@ export function SpecEditor({
   const autoEvolutionEnabled = useStudioFeatureFlag(
     ContractSpecFeatureFlags.STUDIO_AUTO_EVOLUTION
   );
+  const [MonacoEditor, setMonacoEditor] =
+    React.useState<React.ComponentType<MonacoEditorProps> | null>(null);
+
+  React.useEffect(() => {
+    let mounted = true;
+    import('@monaco-editor/react')
+      .then((mod) => {
+        if (mounted) {
+          setMonacoEditor(() => mod.default);
+        }
+      })
+      .catch(() => {
+        setMonacoEditor(null);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   React.useEffect(() => {
     setLocalContent(content);
@@ -106,12 +133,31 @@ export function SpecEditor({
           <label className="text-xs uppercase tracking-wide text-muted-foreground">
             Spec content
           </label>
-          <textarea
-            className="border-border font-mono text-sm leading-relaxed h-[360px] w-full rounded-xl border bg-background/70 p-4"
-            value={localContent}
-            onChange={(event) => handleChange(event.target.value)}
-            spellCheck={false}
-          />
+          <div className="relative h-[360px] overflow-hidden rounded-xl border border-border bg-background/70">
+            {MonacoEditor ? (
+              <MonacoEditor
+                height="360px"
+                defaultLanguage="typescript"
+                theme="vs-dark"
+                value={localContent}
+                onChange={(value) => handleChange(value ?? '')}
+                options={{
+                  minimap: { enabled: false },
+                  fontSize: 14,
+                  lineNumbers: 'on',
+                  scrollBeyondLastLine: false,
+                  wordWrap: 'on',
+                }}
+              />
+            ) : (
+              <textarea
+                className="h-full w-full bg-transparent p-4 font-mono text-sm leading-relaxed"
+                value={localContent}
+                onChange={(event) => handleChange(event.target.value)}
+                spellCheck={false}
+              />
+            )}
+          </div>
         </div>
         <div className="space-y-4">
           <section className="rounded-xl border border-border bg-background p-4">

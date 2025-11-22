@@ -186,6 +186,23 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     }),
   });
 
+  const SaveTemplateInput = builder.inputType('SaveTemplateInput', {
+    fields: (t) => ({
+      organizationId: t.string({ required: true }),
+      templateId: t.string({ required: true }),
+      projectName: t.string({ required: true }),
+      payload: t.string({ required: true }),
+      description: t.string(),
+    }),
+  });
+
+  const SaveTemplateResultType = builder.objectType('SaveTemplateResult', {
+    fields: (t) => ({
+      projectId: t.exposeString('projectId'),
+      status: t.exposeString('status'),
+    }),
+  });
+
   builder.queryFields((t) => ({
     studioProject: t.field({
       type: StudioProjectType,
@@ -355,6 +372,51 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
         }
         const orchestrator = new DeploymentOrchestrator();
         return orchestrator.deployProject(project, args.input.environment);
+      },
+    }),
+    saveTemplateToStudio: t.field({
+      type: SaveTemplateResultType,
+      args: {
+        input: t.arg({ type: SaveTemplateInput, required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        if (user.organizationId !== args.input.organizationId) {
+          throw new Error('Organization mismatch while saving template.');
+        }
+
+        const project = await studioDb.studioProject.create({
+          data: {
+            name: args.input.projectName,
+            description:
+              args.input.description ??
+              `Imported from ${args.input.templateId} template.`,
+            tier: ProjectTier.STARTER,
+            deploymentMode: DeploymentMode.SHARED,
+            organizationId: user.organizationId,
+            byokEnabled: false,
+            evolutionEnabled: true,
+          },
+        });
+
+        // Persist a placeholder spec so the UI has something to display.
+        await studioDb.studioSpec.create({
+          data: {
+            projectId: project.id,
+            type: SpecType.COMPONENT,
+            name: `${args.input.templateId} bootstrap`,
+            version: '1.0.0',
+            content: toInputJson({
+              source: 'template-runtime',
+              payloadSize: Buffer.from(args.input.payload, 'base64').length,
+            }),
+          },
+        });
+
+        return {
+          projectId: project.id,
+          status: 'QUEUED',
+        };
       },
     }),
   }));

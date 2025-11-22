@@ -1,20 +1,20 @@
 /// Integration hub models for Studio tenants.
 
 model StudioIntegration {
-  id             String             @id @default(cuid())
+  id             String              @id @default(cuid())
   organizationId String
   projectId      String?
   provider       IntegrationProvider
   name           String
-  enabled        Boolean            @default(true)
+  enabled        Boolean             @default(true)
   credentials    Json
   config         Json?
   lastUsed       DateTime?
-  usageCount     Int                @default(0)
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
+  usageCount     Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization   @relation(fields: [organizationId], references: [id])
   project      StudioProject? @relation(fields: [projectId], references: [id])
 
   @@index([organizationId, provider])
@@ -23,7 +23,7 @@ model StudioIntegration {
 }
 
 model KnowledgeSource {
-  id             String             @id @default(cuid())
+  id             String              @id @default(cuid())
   organizationId String
   projectId      String?
   type           KnowledgeSourceType
@@ -31,12 +31,12 @@ model KnowledgeSource {
   url            String?
   content        Json?
   embeddings     Json?
-  indexed        Boolean            @default(false)
+  indexed        Boolean             @default(false)
   lastIndexed    DateTime?
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization   @relation(fields: [organizationId], references: [id])
   project      StudioProject? @relation(fields: [projectId], references: [id])
 
   @@index([organizationId, type])
@@ -67,6 +67,3 @@ enum KnowledgeSourceType {
 
   @@schema("lssm_sigil")
 }
-
-
-

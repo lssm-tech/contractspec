@@ -25,4 +25,3 @@ export function toNullableJsonValue(
   }
   return value as unknown as Prisma.InputJsonValue;
 }
-

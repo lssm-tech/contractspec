@@ -1,16 +1,16 @@
 /// Auto-evolution tracking for Studio projects.
 
 model EvolutionSession {
-  id        String          @id @default(cuid())
-  projectId String
-  trigger   EvolutionTrigger
-  status    EvolutionStatus
-  signals   Json
-  context   Json
+  id             String           @id @default(cuid())
+  projectId      String
+  trigger        EvolutionTrigger
+  status         EvolutionStatus
+  signals        Json
+  context        Json
   suggestions    Json
   appliedChanges Json?
-  startedAt DateTime @default(now())
-  completedAt DateTime?
+  startedAt      DateTime         @default(now())
+  completedAt    DateTime?
 
   project StudioProject @relation(fields: [projectId], references: [id])
 
@@ -38,6 +38,3 @@ enum EvolutionStatus {
 
   @@schema("lssm_sigil")
 }
-
-
-

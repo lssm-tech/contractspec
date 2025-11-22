@@ -54,7 +54,9 @@ function cosineSimilarity(a: number[], b?: number[]): number {
 }
 
 class LocalEmbeddingProvider implements EmbeddingProvider {
-  async embedDocuments(documents: EmbeddingDocument[]): Promise<EmbeddingResult[]> {
+  async embedDocuments(
+    documents: EmbeddingDocument[]
+  ): Promise<EmbeddingResult[]> {
     return documents.map((doc) => ({
       id: doc.id,
       vector: encodeText(doc.text),
@@ -114,7 +116,10 @@ class InMemoryVectorStore implements VectorStoreProvider {
 }
 
 class EchoLLMProvider implements LLMProvider {
-  async chat(messages: LLMMessage[], options?: LLMChatOptions): Promise<LLMResponse> {
+  async chat(
+    messages: LLMMessage[],
+    options?: LLMChatOptions
+  ): Promise<LLMResponse> {
     const last = messages[messages.length - 1];
     const prompt = last?.content
       .map((part) => ('text' in part ? part.text : ''))
@@ -236,9 +241,12 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
     });
 
   const SyncResultType = builder
-    .objectRef<{ integrationId: string; status: string; syncedAt: Date; usageCount: number }>(
-      'IntegrationSyncResult'
-    )
+    .objectRef<{
+      integrationId: string;
+      status: string;
+      syncedAt: Date;
+      usageCount: number;
+    }>('IntegrationSyncResult')
     .implement({
       fields: (t) => ({
         integrationId: t.exposeString('integrationId'),
@@ -272,33 +280,27 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       }),
     });
 
-  const KnowledgeDocumentInput = builder.inputType(
-    'KnowledgeDocumentInput',
-    {
-      fields: (t) => ({
-        id: t.string({ required: true }),
-        text: t.string({ required: true }),
-        mimeType: t.string(),
-        metadata: t.field({ type: 'JSON' }),
-      }),
-    }
-  );
+  const KnowledgeDocumentInput = builder.inputType('KnowledgeDocumentInput', {
+    fields: (t) => ({
+      id: t.string({ required: true }),
+      text: t.string({ required: true }),
+      mimeType: t.string(),
+      metadata: t.field({ type: 'JSON' }),
+    }),
+  });
 
-  const ConnectIntegrationInput = builder.inputType(
-    'ConnectIntegrationInput',
-    {
-      fields: (t) => ({
-        provider: t.field({
-          type: IntegrationProviderEnum,
-          required: true,
-        }),
-        credentials: t.field({ type: 'JSON', required: true }),
-        projectId: t.string(),
-        name: t.string(),
-        config: t.field({ type: 'JSON' }),
+  const ConnectIntegrationInput = builder.inputType('ConnectIntegrationInput', {
+    fields: (t) => ({
+      provider: t.field({
+        type: IntegrationProviderEnum,
+        required: true,
       }),
-    }
-  );
+      credentials: t.field({ type: 'JSON', required: true }),
+      projectId: t.string(),
+      name: t.string(),
+      config: t.field({ type: 'JSON' }),
+    }),
+  });
 
   const IndexKnowledgeInput = builder.inputType('IndexKnowledgeInput', {
     fields: (t) => ({
@@ -442,7 +444,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
           documents,
           namespace: args.input.namespace ?? undefined,
           collection: args.input.collection ?? undefined,
-          metadata: (args.input.metadata as Record<string, string>) ?? undefined,
+          metadata:
+            (args.input.metadata as Record<string, string>) ?? undefined,
         });
       },
     }),
@@ -501,4 +504,3 @@ function requireOrganizationId(ctx: Parameters<typeof requireAuth>[0]): string {
   }
   return user.organizationId;
 }
-

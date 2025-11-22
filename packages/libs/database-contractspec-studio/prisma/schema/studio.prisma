@@ -2,12 +2,12 @@
 /// Stored in the `lssm_sigil` schema alongside core tenant data.
 
 model StudioProject {
-  id             String          @id @default(cuid())
+  id             String         @id @default(cuid())
   organizationId String
   name           String
   description    String?
-  tier           ProjectTier      @default(STARTER)
-  deploymentMode DeploymentMode   @default(SHARED)
+  tier           ProjectTier    @default(STARTER)
+  deploymentMode DeploymentMode @default(SHARED)
 
   // Bring Your Own Key / infra
   byokEnabled Boolean @default(false)
@@ -20,13 +20,19 @@ model StudioProject {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  organization     Organization      @relation(fields: [organizationId], references: [id])
-  specs            StudioSpec[]
-  overlays         StudioOverlay[]
-  deployments      StudioDeployment[]
-  integrations     StudioIntegration[]
-  knowledgeSources KnowledgeSource[]
-  evolutionSessions EvolutionSession[]
+  organization             Organization              @relation(fields: [organizationId], references: [id])
+  specs                    StudioSpec[]
+  overlays                 StudioOverlay[]
+  deployments              StudioDeployment[]
+  integrations             StudioIntegration[]
+  knowledgeSources         KnowledgeSource[]
+  evolutionSessions        EvolutionSession[]
+  taskCategories           TaskCategory[]
+  tasks                    Task[]
+  conversations            Conversation[]
+  conversationParticipants ConversationParticipant[]
+  messages                 Message[]
+  recipes                  Recipe[]
 
   @@index([organizationId])
   @@map("studio_project")
@@ -45,7 +51,7 @@ model StudioSpec {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  project  StudioProject  @relation(fields: [projectId], references: [id])
+  project  StudioProject   @relation(fields: [projectId], references: [id])
   overlays StudioOverlay[]
 
   @@index([projectId, type])
@@ -54,13 +60,13 @@ model StudioSpec {
 }
 
 model StudioOverlay {
-  id         String @id @default(cuid())
-  projectId  String
-  specId     String
-  name       String
-  content    Json
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(cuid())
+  projectId String
+  specId    String
+  name      String
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   project StudioProject @relation(fields: [projectId], references: [id])
   spec    StudioSpec    @relation(fields: [specId], references: [id])
@@ -74,12 +80,12 @@ model StudioOverlay {
 model StudioDeployment {
   id               String           @id @default(cuid())
   projectId        String
-  environment      Environment       @default(DEVELOPMENT)
+  environment      Environment      @default(DEVELOPMENT)
   status           DeploymentStatus
   version          String
   url              String?
   infrastructureId String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime         @default(now())
   deployedAt       DateTime?
 
   project StudioProject @relation(fields: [projectId], references: [id])
@@ -131,4 +137,3 @@ enum DeploymentStatus {
 
   @@schema("lssm_sigil")
 }
-
