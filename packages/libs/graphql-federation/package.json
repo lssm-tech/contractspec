@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-federation",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "description": "Pothos federation helpers and subgraph schema export utilities",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
     "graphql": ">=16.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

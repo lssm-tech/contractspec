@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.schema",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,8 +12,8 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

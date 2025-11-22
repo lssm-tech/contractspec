@@ -1,5 +1,17 @@
 # @lssm/tool.tsdown
 
+## 0.10.1
+
+### Patch Changes
+
+- fix
+
+## 0.10.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
 ## 0.9.0
 
 ### Minor Changes

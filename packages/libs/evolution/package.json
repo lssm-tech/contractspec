@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.evolution",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,16 +21,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.observability": "workspace:*",
-    "@lssm/lib.schema": "workspace:*"
+    "@lssm/lib.contracts": "*",
+    "@lssm/lib.observability": "*",
+    "@lssm/lib.schema": "*"
   },
   "peerDependencies": {
     "@prisma/client": "7.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

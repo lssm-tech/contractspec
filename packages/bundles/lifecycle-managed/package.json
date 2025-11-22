@@ -1,6 +1,6 @@
 {
   "name": "@lssm/bundle.lifecycle-managed",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,16 +21,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.ai-agent": "workspace:*",
-    "@lssm/lib.analytics": "workspace:*",
-    "@lssm/lib.lifecycle": "workspace:*",
-    "@lssm/lib.observability": "workspace:*",
-    "@lssm/module.lifecycle-advisor": "workspace:*",
-    "@lssm/module.lifecycle-core": "workspace:*"
+    "@lssm/lib.ai-agent": "*",
+    "@lssm/lib.analytics": "*",
+    "@lssm/lib.lifecycle": "*",
+    "@lssm/lib.observability": "*",
+    "@lssm/module.lifecycle-advisor": "*",
+    "@lssm/module.lifecycle-core": "*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

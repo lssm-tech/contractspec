@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-database",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "type": "module",
   "bin": {
     "database": "dist/cli.js"
@@ -27,7 +27,7 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.16.6"
   },
   "main": "./dist/index.mjs",

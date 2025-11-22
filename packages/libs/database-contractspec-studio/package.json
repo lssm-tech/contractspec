@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.database-contractspec-studio",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "scripts": {
     "clean": "rm -rf dist src/generated",
     "lint": "bun run lint:fix",
@@ -25,7 +25,7 @@
     "@prisma/adapter-pg": "^7.0.0"
   },
   "devDependencies": {
-    "@lssm/app.cli-database": "workspace:*",
+    "@lssm/app.cli-database": "*",
     "prisma": "^7.0.0",
     "tsdown": "^0.16.6"
   },

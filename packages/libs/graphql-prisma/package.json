@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-prisma",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lssm/lib.schema": "^1.8.0",
+    "@lssm/lib.schema": "^1.9.1",
     "@pothos/core": "^4.9.1",
     "@pothos/plugin-complexity": "^4.1.2",
     "@pothos/plugin-dataloader": "^4.4.2",
@@ -28,7 +28,7 @@
     "graphql": ">=16.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.runtime-local",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "type": "module",
   "private": true,
   "main": "./dist/index.js",
@@ -24,8 +24,8 @@
     "sql.js": "^1.9.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "@types/sql.js": "^1.4.9",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"

@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.9.1
+
+### Patch Changes
+
+- fix
+- Updated dependencies
+  - @lssm/app.cli-database@1.9.1
+  - @lssm/lib.contracts@1.9.1
+  - @lssm/lib.testing@0.2.1
+  - @lssm/lib.schema@1.9.1
+
+## 0.9.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
+### Patch Changes
+
+- Updated dependencies [b1d0876]
+  - @lssm/app.cli-database@1.9.0
+  - @lssm/lib.contracts@1.9.0
+  - @lssm/lib.testing@0.2.0
+  - @lssm/lib.schema@1.9.0
+
 ## 0.8.0
 
 ### Minor Changes

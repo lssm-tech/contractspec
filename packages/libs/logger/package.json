@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.logger",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "logging",
@@ -21,8 +21,8 @@
     "dev": "bun build:bundle --watch"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

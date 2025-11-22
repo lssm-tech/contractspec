@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.lifecycle",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,8 +22,8 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

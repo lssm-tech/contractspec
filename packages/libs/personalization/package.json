@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.personalization",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,16 +22,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.bus": "workspace:*",
-    "@lssm/lib.overlay-engine": "workspace:*",
+    "@lssm/lib.bus": "*",
+    "@lssm/lib.overlay-engine": "*",
     "@opentelemetry/api": "^1.9.0"
   },
   "peerDependencies": {
     "@opentelemetry/api": "^1.9.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

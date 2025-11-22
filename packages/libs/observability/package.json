@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.observability",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
@@ -15,7 +15,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.lifecycle": "workspace:*"
+    "@lssm/lib.lifecycle": "*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"

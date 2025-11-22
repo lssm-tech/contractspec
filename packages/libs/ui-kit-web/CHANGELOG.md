@@ -1,5 +1,17 @@
 # @lssm/lib.ui-kit-web
 
+## 1.9.1
+
+### Patch Changes
+
+- fix
+
+## 1.9.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
 ## 1.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.analytics",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -24,8 +24,8 @@
     "dayjs": "^1.11.13"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

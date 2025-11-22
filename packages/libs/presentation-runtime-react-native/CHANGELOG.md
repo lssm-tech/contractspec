@@ -1,5 +1,26 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 10.0.1
+
+### Patch Changes
+
+- fix
+- Updated dependencies
+  - @lssm/lib.presentation-runtime-core@1.9.1
+  - @lssm/lib.ui-kit@1.9.1
+
+## 10.0.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
+### Patch Changes
+
+- Updated dependencies [b1d0876]
+  - @lssm/lib.presentation-runtime-core@1.9.0
+  - @lssm/lib.ui-kit@1.9.0
+
 ## 9.0.0
 
 ### Minor Changes

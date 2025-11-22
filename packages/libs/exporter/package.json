@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

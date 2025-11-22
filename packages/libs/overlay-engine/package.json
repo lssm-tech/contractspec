@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.overlay-engine",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts": "*",
     "fast-json-stable-stringify": "^2.1.0"
   },
   "peerDependencies": {
@@ -34,8 +34,8 @@
     }
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

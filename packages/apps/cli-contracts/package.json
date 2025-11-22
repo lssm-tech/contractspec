@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-contracts",
-  "version": "0.8.0",
+  "version": "0.9.1",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "type": "module",
   "main": "./dist/index.js",
@@ -17,10 +17,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/app.cli-database": "workspace:*",
-    "@lssm/lib.testing": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "*",
+    "@lssm/app.cli-database": "*",
+    "@lssm/lib.testing": "*",
+    "@lssm/lib.schema": "*",
     "ai": "^5.0.98",
     "@ai-sdk/anthropic": "^2.0.45",
     "@ai-sdk/openai": "^2.0.71",

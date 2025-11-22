@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.cost-tracking",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,11 +21,11 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@lssm/lib.observability": "workspace:*"
+    "@lssm/lib.observability": "*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"

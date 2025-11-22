@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.bus",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,15 +12,15 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "*",
     "@types/express": "^5.0.3",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@lssm/lib.schema": "*",
+    "@lssm/lib.contracts": "*"
   },
   "peerDependencies": {
     "elysia": "^1.4.11",
