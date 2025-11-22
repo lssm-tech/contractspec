@@ -10,3 +10,4 @@ export default defineConfig(() => ({
   skipNodeModulesBundle: true,
 }));
 
+

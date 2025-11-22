@@ -21,8 +21,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.analytics": "^0.1.0",
-    "@lssm/lib.contracts": "^1.7.4"
+    "@lssm/lib.analytics": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
