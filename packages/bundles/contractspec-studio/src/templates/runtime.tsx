@@ -21,6 +21,8 @@ import {
   type TemplateId,
 } from './registry';
 
+export type { TemplateId };
+
 export interface TemplateRuntimeContextValue {
   template: TemplateDefinition;
   runtime: LocalRuntimeServices;
@@ -127,9 +129,9 @@ export function useTemplateRuntime(): TemplateRuntimeContextValue {
 }
 
 export type TemplateComponentRegistration = Partial<{
-  list: React.ComponentType;
-  detail: React.ComponentType;
-  form: React.ComponentType;
+  list: React.ComponentType<any>;
+  detail: React.ComponentType<any>;
+  form: React.ComponentType<any>;
 }>;
 
 class TemplateComponentRegistry {

@@ -14,10 +14,7 @@ import {
 import { DeploymentOrchestrator } from '../../deployment/orchestrator';
 import { requireFeatureFlag } from '../guards/feature-flags';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
-import {
-  toInputJson,
-  toNullableJsonValue,
-} from '../../../utils/prisma-json';
+import { toInputJson, toNullableJsonValue } from '../../../utils/prisma-json';
 
 export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
   const ProjectTierEnum = builder.enumType('ProjectTierEnum', {
@@ -36,33 +33,31 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     values: Object.values(DeploymentStatus),
   });
 
-  const StudioSpecType = builder
-    .objectRef<StudioSpec>('StudioSpec')
-    .implement({
-      fields: (t) => ({
-        id: t.exposeID('id'),
-        projectId: t.exposeString('projectId'),
-        type: t.field({
-          type: SpecTypeEnum,
-          resolve: (spec) => spec.type,
-        }),
-        name: t.exposeString('name'),
-        version: t.exposeString('version'),
-        content: t.field({
-          type: 'JSON',
-          resolve: (spec) => spec.content,
-        }),
-        metadata: t.field({
-          type: 'JSON',
-          nullable: true,
-          resolve: (spec) => spec.metadata ?? null,
-        }),
-        updatedAt: t.field({
-          type: 'Date',
-          resolve: (spec) => spec.updatedAt,
-        }),
+  const StudioSpecType = builder.objectRef<StudioSpec>('StudioSpec').implement({
+    fields: (t) => ({
+      id: t.exposeID('id'),
+      projectId: t.exposeString('projectId'),
+      type: t.field({
+        type: SpecTypeEnum,
+        resolve: (spec) => spec.type,
       }),
-    });
+      name: t.exposeString('name'),
+      version: t.exposeString('version'),
+      content: t.field({
+        type: 'JSON',
+        resolve: (spec) => spec.content,
+      }),
+      metadata: t.field({
+        type: 'JSON',
+        nullable: true,
+        resolve: (spec) => spec.metadata ?? null,
+      }),
+      updatedAt: t.field({
+        type: 'Date',
+        resolve: (spec) => spec.updatedAt,
+      }),
+    }),
+  });
 
   const StudioDeploymentType = builder
     .objectRef<StudioDeployment>('StudioDeployment')
@@ -80,7 +75,9 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
         }),
         version: t.exposeString('version'),
         url: t.exposeString('url', { nullable: true }),
-        infrastructureId: t.exposeString('infrastructureId', { nullable: true }),
+        infrastructureId: t.exposeString('infrastructureId', {
+          nullable: true,
+        }),
         createdAt: t.field({
           type: 'Date',
           resolve: (deployment) => deployment.createdAt,
@@ -196,12 +193,17 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     }),
   });
 
-  const SaveTemplateResultType = builder.objectType('SaveTemplateResult', {
-    fields: (t) => ({
-      projectId: t.exposeString('projectId'),
-      status: t.exposeString('status'),
-    }),
-  });
+  const SaveTemplateResultType = builder
+    .objectRef<{
+      projectId: string;
+      status: string;
+    }>('SaveTemplateResult')
+    .implement({
+      fields: (t) => ({
+        projectId: t.exposeString('projectId'),
+        status: t.exposeString('status'),
+      }),
+    });
 
   builder.queryFields((t) => ({
     studioProject: t.field({
@@ -268,8 +270,7 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
             name: args.input.name,
             description: args.input.description ?? undefined,
             tier: args.input.tier,
-            deploymentMode:
-              args.input.deploymentMode ?? DeploymentMode.SHARED,
+            deploymentMode: args.input.deploymentMode ?? DeploymentMode.SHARED,
             byokEnabled: args.input.byokEnabled ?? false,
             evolutionEnabled: args.input.evolutionEnabled ?? true,
             organizationId: user.organizationId,
@@ -445,4 +446,3 @@ async function getProjectForOrg(projectId: string, organizationId: string) {
 async function ensureProjectAccess(projectId: string, organizationId: string) {
   await getProjectForOrg(projectId, organizationId);
 }
-
