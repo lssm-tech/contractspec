@@ -38,3 +38,4 @@ enum EvolutionStatus {
 
   @@schema("lssm_sigil")
 }
+

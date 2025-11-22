@@ -67,3 +67,4 @@ enum KnowledgeSourceType {
 
   @@schema("lssm_sigil")
 }
+

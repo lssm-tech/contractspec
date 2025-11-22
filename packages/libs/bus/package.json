@@ -19,8 +19,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lssm/lib.schema": "^1.8.0",
-    "@lssm/lib.contracts": "^1.8.0"
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
   },
   "peerDependencies": {
     "elysia": "^1.4.11",

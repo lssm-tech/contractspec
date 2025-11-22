@@ -59,3 +59,4 @@ export function RecipeCard({ recipe, onSelect, onToggleFavorite }: RecipeCardPro
   );
 }
 
+

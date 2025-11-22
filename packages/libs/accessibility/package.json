@@ -12,9 +12,9 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.design-system": "^1.8.0",
-    "@lssm/lib.ui-kit": "^1.8.0",
-    "@lssm/lib.ui-kit-web": "^1.8.0"
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",

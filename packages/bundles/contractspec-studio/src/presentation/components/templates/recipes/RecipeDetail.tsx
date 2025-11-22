@@ -53,3 +53,4 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
     </article>
   );
 }
+

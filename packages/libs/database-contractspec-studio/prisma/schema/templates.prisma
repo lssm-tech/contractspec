@@ -200,3 +200,4 @@ model RecipeInstruction {
   @@map("template_recipe_instruction")
   @@schema("lssm_sigil")
 }
+
