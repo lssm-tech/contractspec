@@ -45,11 +45,11 @@
         "@ai-sdk/anthropic": "^2.0.45",
         "@ai-sdk/openai": "^2.0.71",
         "@inquirer/prompts": "^7.10.1",
-        "@lssm/app.cli-database": "workspace:*",
-        "@lssm/lib.contracts": "workspace:*",
-        "@lssm/lib.schema": "workspace:*",
-        "@lssm/lib.testing": "workspace:*",
-        "ai": "^5.0.98",
+        "@lssm/app.cli-database": "*",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.schema": "*",
+        "@lssm/lib.testing": "*",
+        "ai": "^5.0.100",
         "chalk": "^5.6.2",
         "commander": "^14.0.2",
         "ollama-ai-provider": "^1.2.0",
@@ -78,7 +78,7 @@
         "prisma": "^7.0.0",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.16.6",
       },
     },
@@ -93,7 +93,7 @@
         "minimist": "^1.2.8",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.16.6",
       },
     },
@@ -101,7 +101,7 @@
       "name": "@lssm/app.overlay-editor",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.overlay-engine": "workspace:*",
+        "@lssm/lib.overlay-engine": "*",
         "next": "16.0.3",
         "react": "19.2.0",
         "react-dom": "19.2.0",
@@ -118,9 +118,9 @@
       "version": "0.2.2",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
-        "@lssm/bundle.contractspec-studio": "workspace:*",
-        "@lssm/lib.progressive-delivery": "workspace:*",
-        "@lssm/lib.ui-kit-web": "workspace:*",
+        "@lssm/bundle.contractspec-studio": "*",
+        "@lssm/lib.progressive-delivery": "*",
+        "@lssm/lib.ui-kit-web": "*",
         "@posthog/react": "^1.4.0",
         "@radix-ui/react-accordion": "1.2.12",
         "@radix-ui/react-alert-dialog": "1.1.15",
@@ -155,7 +155,7 @@
         "clsx": "^2.1.1",
         "cmdk": "1.1.1",
         "date-fns": "4.1.0",
-        "embla-carousel-react": "8.5.1",
+        "embla-carousel-react": "8.6.0",
         "input-otp": "1.4.1",
         "link": "latest",
         "lucide-react": "^0.454.0",
@@ -193,16 +193,16 @@
         "@apollo/client": "^3.11.6",
         "@dnd-kit/core": "^6.1.0",
         "@dnd-kit/sortable": "^10.0.0",
-        "@lssm/bundle.lifecycle-managed": "workspace:*",
-        "@lssm/lib.contracts": "workspace:*",
-        "@lssm/lib.contracts-contractspec-studio": "workspace:*",
-        "@lssm/lib.database-contractspec-studio": "workspace:*",
-        "@lssm/lib.design-system": "workspace:*",
-        "@lssm/lib.evolution": "workspace:*",
-        "@lssm/lib.lifecycle": "workspace:*",
-        "@lssm/lib.logger": "workspace:*",
-        "@lssm/lib.observability": "workspace:*",
-        "@lssm/lib.ui-kit": "workspace:*",
+        "@lssm/bundle.lifecycle-managed": "*",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.contracts-contractspec-studio": "*",
+        "@lssm/lib.database-contractspec-studio": "*",
+        "@lssm/lib.design-system": "*",
+        "@lssm/lib.evolution": "*",
+        "@lssm/lib.lifecycle": "*",
+        "@lssm/lib.logger": "*",
+        "@lssm/lib.observability": "*",
+        "@lssm/lib.ui-kit": "*",
         "@monaco-editor/react": "^4.6.0",
         "@posthog/react": "^1.2.3",
         "@tanstack/react-query": "^5.89.0",
@@ -213,8 +213,8 @@
         "tailwindcss": "4.1.15",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -229,16 +229,16 @@
       "name": "@lssm/bundle.lifecycle-managed",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.ai-agent": "workspace:*",
-        "@lssm/lib.analytics": "workspace:*",
-        "@lssm/lib.lifecycle": "workspace:*",
-        "@lssm/lib.observability": "workspace:*",
-        "@lssm/module.lifecycle-advisor": "workspace:*",
-        "@lssm/module.lifecycle-core": "workspace:*",
+        "@lssm/lib.ai-agent": "*",
+        "@lssm/lib.analytics": "*",
+        "@lssm/lib.lifecycle": "*",
+        "@lssm/lib.observability": "*",
+        "@lssm/module.lifecycle-advisor": "*",
+        "@lssm/module.lifecycle-core": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -248,13 +248,13 @@
       "name": "@lssm/lib.accessibility",
       "version": "1.9.1",
       "dependencies": {
-        "@lssm/lib.design-system": "^1.7.4",
-        "@lssm/lib.ui-kit": "^1.7.4",
-        "@lssm/lib.ui-kit-web": "^1.7.4",
+        "@lssm/lib.design-system": "*",
+        "@lssm/lib.ui-kit": "*",
+        "@lssm/lib.ui-kit-web": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -284,8 +284,8 @@
         "dayjs": "^1.11.13",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -295,12 +295,12 @@
       "name": "@lssm/lib.bus",
       "version": "1.9.1",
       "dependencies": {
-        "@lssm/lib.contracts": "^1.7.4",
-        "@lssm/lib.schema": "^1.7.4",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.schema": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "@types/express": "^5.0.3",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
@@ -315,11 +315,11 @@
       "name": "@lssm/lib.content-gen",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.contracts": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -337,7 +337,7 @@
         "@modelcontextprotocol/sdk": "^1.20.1",
         "@qdrant/js-client-rest": "^1.16.0",
         "googleapis": "^166.0.0",
-        "mcp-handler": "^1.0.2",
+        "mcp-handler": "^1.0.4",
         "postmark": "^4.0.4",
         "stripe": "^19.1.0",
         "twilio": "^5.10.5",
@@ -370,12 +370,12 @@
       "name": "@lssm/lib.contracts-contractspec-studio",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.contracts": "workspace:*",
-        "@lssm/lib.schema": "workspace:*",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.schema": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -384,14 +384,14 @@
       "name": "@lssm/lib.cost-tracking",
       "version": "1.0.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
       },
       "peerDependencies": {
-        "@lssm/lib.observability": "workspace:*",
+        "@lssm/lib.observability": "*",
       },
     },
     "packages/libs/database-contractspec-studio": {
@@ -401,7 +401,7 @@
         "@prisma/adapter-pg": "^7.0.0",
       },
       "devDependencies": {
-        "@lssm/app.cli-database": "workspace:*",
+        "@lssm/app.cli-database": "*",
         "prisma": "^7.0.0",
         "tsdown": "^0.16.6",
       },
@@ -438,7 +438,7 @@
       "name": "@lssm/lib.error",
       "version": "1.9.1",
       "devDependencies": {
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -452,13 +452,13 @@
       "name": "@lssm/lib.evolution",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.contracts": "^*",
-        "@lssm/lib.observability": "workspace:*",
-        "@lssm/lib.schema": "workspace:*",
+        "@lssm/lib.contracts": "*",
+        "@lssm/lib.observability": "*",
+        "@lssm/lib.schema": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -471,7 +471,7 @@
       "name": "@lssm/lib.exporter",
       "version": "1.9.1",
       "devDependencies": {
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -489,7 +489,7 @@
         "graphql-scalars": "^1.22.5",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -508,7 +508,7 @@
         "graphql": "^16.8.1",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -520,7 +520,7 @@
       "name": "@lssm/lib.graphql-prisma",
       "version": "1.9.1",
       "dependencies": {
-        "@lssm/lib.schema": "^1.7.4",
+        "@lssm/lib.schema": "^1.9.1",
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
         "@pothos/plugin-dataloader": "^4.4.2",
@@ -531,7 +531,7 @@
         "graphql-scalars": "^1.22.5",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.tsdown": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -543,12 +543,12 @@
       "name": "@lssm/lib.growth",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.analytics": "^0.1.0",
-        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.analytics": "*",
+        "@lssm/lib.contracts": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -558,8 +558,8 @@
       "name": "@lssm/lib.lifecycle",
       "version": "0.1.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -569,8 +569,8 @@
       "name": "@lssm/lib.logger",
       "version": "1.9.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -596,7 +596,7 @@
       "name": "@lssm/lib.observability",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.lifecycle": "workspace:*",
+        "@lssm/lib.lifecycle": "*",
       },
       "devDependencies": {
         "typescript": "^5.0.0",
@@ -610,12 +610,12 @@
       "name": "@lssm/lib.overlay-engine",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.contracts": "*",
         "fast-json-stable-stringify": "^2.1.0",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -631,13 +631,13 @@
       "name": "@lssm/lib.personalization",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.bus": "workspace:*",
-        "@lssm/lib.overlay-engine": "workspace:*",
+        "@lssm/lib.bus": "*",
+        "@lssm/lib.overlay-engine": "*",
         "@opentelemetry/api": "^1.9.0",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -692,14 +692,14 @@
       "name": "@lssm/lib.progressive-delivery",
       "version": "1.0.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
       },
       "peerDependencies": {
-        "@lssm/lib.observability": "workspace:*",
+        "@lssm/lib.observability": "*",
       },
     },
     "packages/libs/resilience": {
@@ -721,8 +721,8 @@
         "sql.js": "^1.9.0",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "@types/sql.js": "^1.4.9",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
@@ -746,26 +746,26 @@
       "name": "@lssm/lib.slo",
       "version": "1.0.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
       },
       "peerDependencies": {
-        "@lssm/lib.observability": "workspace:*",
+        "@lssm/lib.observability": "*",
       },
     },
     "packages/libs/support-bot": {
       "name": "@lssm/lib.support-bot",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.ai-agent": "^0.1.0",
-        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.ai-agent": "^0.2.1",
+        "@lssm/lib.contracts": "^1.9.1",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -775,11 +775,11 @@
       "name": "@lssm/lib.testing",
       "version": "0.2.1",
       "dependencies": {
-        "@lssm/lib.contracts": "^1.7.4",
+        "@lssm/lib.contracts": "^1.9.1",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -911,7 +911,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "*",
-        "@sentry/nextjs": "^9.35.0",
+        "@sentry/nextjs": "^9.47.1",
         "@types/geojson": "^7946.0.14",
         "@types/jest": "^30.0.0",
         "@types/node": "^24.9.0",
@@ -938,8 +938,8 @@
       "name": "@lssm/lib.utils-typescript",
       "version": "1.9.1",
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -948,11 +948,11 @@
       "name": "@lssm/lib.workflow-composer",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.contracts": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -962,11 +962,11 @@
       "name": "@lssm/module.lifecycle-advisor",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.lifecycle": "workspace:*",
+        "@lssm/lib.lifecycle": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -976,11 +976,11 @@
       "name": "@lssm/module.lifecycle-core",
       "version": "0.1.1",
       "dependencies": {
-        "@lssm/lib.lifecycle": "workspace:*",
+        "@lssm/lib.lifecycle": "*",
       },
       "devDependencies": {
-        "@lssm/tool.tsdown": "workspace:*",
-        "@lssm/tool.typescript": "workspace:*",
+        "@lssm/tool.tsdown": "*",
+        "@lssm/tool.typescript": "*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
         "vitest": "^1.6.0",
@@ -1020,7 +1020,7 @@
 
     "@ai-sdk/anthropic": ["@ai-sdk/anthropic@2.0.45", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-Ipv62vavDCmrV/oE/lXehL9FzwQuZOnnlhPEftWizx464Wb6lvnBTJx8uhmEYruFSzOWTI95Z33ncZ4tA8E6RQ=="],
 
-    "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.13", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-q8M+7+VEKp91I295cjNDgQ4LyGImKj5cDLVARDay7nBTXGjIRZOlthYE7K6Rbz2yHKFyTmKH7MMkYavAM7L/UQ=="],
+    "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.14", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-QU+ZVizSXN/V5uWgwapXrCLvkUEmmJeojAbikMH4gLgbeQF3oRugcQm3D8X9B+Rnestbz5cevNap7vKyJT/jfA=="],
 
     "@ai-sdk/openai": ["@ai-sdk/openai@2.0.71", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-tg+gj+R0z/On9P4V7hy7/7o04cQPjKGayMCL3gzWD/aNGjAKkhEnaocuNDidSnghizt8g2zJn16cAuAolnW+qQ=="],
 
@@ -2286,17 +2286,17 @@
 
     "@sec-ant/readable-stream": ["@sec-ant/readable-stream@0.4.1", "", {}, "sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg=="],
 
-    "@sentry-internal/browser-utils": ["@sentry-internal/browser-utils@9.46.0", "", { "dependencies": { "@sentry/core": "9.46.0" } }, "sha512-Q0CeHym9wysku8mYkORXmhtlBE0IrafAI+NiPSqxOBKXGOCWKVCvowHuAF56GwPFic2rSrRnub5fWYv7T1jfEQ=="],
+    "@sentry-internal/browser-utils": ["@sentry-internal/browser-utils@9.47.1", "", { "dependencies": { "@sentry/core": "9.47.1" } }, "sha512-twv6YhrUlPkvKz4/iQDH4KHgcv9t4cMjmZPf4/dCSCXn4/GOjzjx2d74c1w+1KOdS7lcsQzI+MtbK6SeYLiGfQ=="],
 
-    "@sentry-internal/feedback": ["@sentry-internal/feedback@9.46.0", "", { "dependencies": { "@sentry/core": "9.46.0" } }, "sha512-KLRy3OolDkGdPItQ3obtBU2RqDt9+KE8z7r7Gsu7c6A6A89m8ZVlrxee3hPQt6qp0YY0P8WazpedU3DYTtaT8w=="],
+    "@sentry-internal/feedback": ["@sentry-internal/feedback@9.47.1", "", { "dependencies": { "@sentry/core": "9.47.1" } }, "sha512-xJ4vKvIpAT8e+Sz80YrsNinPU0XV7jPxPjdZ4ex8R2mMvx7pM0gq8JiR/sIVmNiOE0WiUDr6VwLDE8j2APSRMA=="],
 
-    "@sentry-internal/replay": ["@sentry-internal/replay@9.46.0", "", { "dependencies": { "@sentry-internal/browser-utils": "9.46.0", "@sentry/core": "9.46.0" } }, "sha512-+8JUblxSSnN0FXcmOewbN+wIc1dt6/zaSeAvt2xshrfrLooVullcGsuLAiPhY0d/e++Fk06q1SAl9g4V0V13gg=="],
+    "@sentry-internal/replay": ["@sentry-internal/replay@9.47.1", "", { "dependencies": { "@sentry-internal/browser-utils": "9.47.1", "@sentry/core": "9.47.1" } }, "sha512-O9ZEfySpstGtX1f73m3NbdbS2utwPikaFt6sgp74RG4ZX4LlXe99VAjKR464xKECpYsLmj2bYpiK4opURF0pBA=="],
 
-    "@sentry-internal/replay-canvas": ["@sentry-internal/replay-canvas@9.46.0", "", { "dependencies": { "@sentry-internal/replay": "9.46.0", "@sentry/core": "9.46.0" } }, "sha512-QcBjrdRWFJrrrjbmrr2bbrp2R9RYj1KMEbhHNT2Lm1XplIQw+tULEKOHxNtkUFSLR1RNje7JQbxhzM1j95FxVQ=="],
+    "@sentry-internal/replay-canvas": ["@sentry-internal/replay-canvas@9.47.1", "", { "dependencies": { "@sentry-internal/replay": "9.47.1", "@sentry/core": "9.47.1" } }, "sha512-r9nve+l5+elGB9NXSN1+PUgJy790tXN1e8lZNH2ziveoU91jW4yYYt34mHZ30fU9tOz58OpaRMj3H3GJ/jYZVA=="],
 
     "@sentry/babel-plugin-component-annotate": ["@sentry/babel-plugin-component-annotate@3.6.1", "", {}, "sha512-zmvUa4RpzDG3LQJFpGCE8lniz8Rk1Wa6ZvvK+yEH+snZeaHHRbSnAQBMR607GOClP+euGHNO2YtaY4UAdNTYbg=="],
 
-    "@sentry/browser": ["@sentry/browser@9.46.0", "", { "dependencies": { "@sentry-internal/browser-utils": "9.46.0", "@sentry-internal/feedback": "9.46.0", "@sentry-internal/replay": "9.46.0", "@sentry-internal/replay-canvas": "9.46.0", "@sentry/core": "9.46.0" } }, "sha512-NOnCTQCM0NFuwbyt4DYWDNO2zOTj1mCf43hJqGDFb1XM9F++7zAmSNnCx4UrEoBTiFOy40McJwBBk9D1blSktA=="],
+    "@sentry/browser": ["@sentry/browser@9.47.1", "", { "dependencies": { "@sentry-internal/browser-utils": "9.47.1", "@sentry-internal/feedback": "9.47.1", "@sentry-internal/replay": "9.47.1", "@sentry-internal/replay-canvas": "9.47.1", "@sentry/core": "9.47.1" } }, "sha512-at5JOLziw5QpVYytxTDU6xijdV6lDQ/Rxp/qXJaHXud3gIK4suv2cXW+tupJfwoUoHFCnDNfccjCmPmP0yRqiA=="],
 
     "@sentry/bundler-plugin-core": ["@sentry/bundler-plugin-core@3.6.1", "", { "dependencies": { "@babel/core": "^7.18.5", "@sentry/babel-plugin-component-annotate": "3.6.1", "@sentry/cli": "^2.49.0", "dotenv": "^16.3.1", "find-up": "^5.0.0", "glob": "^9.3.2", "magic-string": "0.30.8", "unplugin": "1.0.1" } }, "sha512-/ubWjPwgLep84sUPzHfKL2Ns9mK9aQrEX4aBFztru7ygiJidKJTxYGtvjh4dL2M1aZ0WRQYp+7PF6+VKwdZXcQ=="],
 
@@ -2318,19 +2318,19 @@
 
     "@sentry/cli-win32-x64": ["@sentry/cli-win32-x64@2.58.2", "", { "os": "win32", "cpu": "x64" }, "sha512-2NAFs9UxVbRztQbgJSP5i8TB9eJQ7xraciwj/93djrSMHSEbJ0vC47TME0iifgvhlHMs5vqETOKJtfbbpQAQFA=="],
 
-    "@sentry/core": ["@sentry/core@9.46.0", "", {}, "sha512-it7JMFqxVproAgEtbLgCVBYtQ9fIb+Bu0JD+cEplTN/Ukpe6GaolyYib5geZqslVxhp2sQgT+58aGvfd/k0N8Q=="],
+    "@sentry/core": ["@sentry/core@9.47.1", "", {}, "sha512-KX62+qIt4xgy8eHKHiikfhz2p5fOciXd0Cl+dNzhgPFq8klq4MGMNaf148GB3M/vBqP4nw/eFvRMAayFCgdRQw=="],
 
-    "@sentry/nextjs": ["@sentry/nextjs@9.46.0", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/semantic-conventions": "^1.34.0", "@rollup/plugin-commonjs": "28.0.1", "@sentry-internal/browser-utils": "9.46.0", "@sentry/core": "9.46.0", "@sentry/node": "9.46.0", "@sentry/opentelemetry": "9.46.0", "@sentry/react": "9.46.0", "@sentry/vercel-edge": "9.46.0", "@sentry/webpack-plugin": "^3.5.0", "chalk": "3.0.0", "resolve": "1.22.8", "rollup": "^4.35.0", "stacktrace-parser": "^0.1.10" }, "peerDependencies": { "next": "^13.2.0 || ^14.0 || ^15.0.0-rc.0" } }, "sha512-3kRTM4yFXV33+SqQd8Et6nsP2DlS/REKbiVvpt8fB8kP6m/cq9plnj9/dqzd9dL1YDiK7g6Lm1Ff9ZSCOhOm/w=="],
+    "@sentry/nextjs": ["@sentry/nextjs@9.47.1", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/semantic-conventions": "^1.34.0", "@rollup/plugin-commonjs": "28.0.1", "@sentry-internal/browser-utils": "9.47.1", "@sentry/core": "9.47.1", "@sentry/node": "9.47.1", "@sentry/opentelemetry": "9.47.1", "@sentry/react": "9.47.1", "@sentry/vercel-edge": "9.47.1", "@sentry/webpack-plugin": "^3.5.0", "chalk": "3.0.0", "resolve": "1.22.8", "rollup": "^4.35.0", "stacktrace-parser": "^0.1.10" }, "peerDependencies": { "next": "^13.2.0 || ^14.0 || ^15.0.0-rc.0" } }, "sha512-uUcYbUHIXfmPDfakoXWoZl4u/6IMTzrlinQxlbHLYqIHRuclkqvViq6AMNmIwEYrLjRsNKFvFe32QMAHsce2NQ=="],
 
-    "@sentry/node": ["@sentry/node@9.46.0", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1", "@opentelemetry/core": "^1.30.1", "@opentelemetry/instrumentation": "^0.57.2", "@opentelemetry/instrumentation-amqplib": "^0.46.1", "@opentelemetry/instrumentation-connect": "0.43.1", "@opentelemetry/instrumentation-dataloader": "0.16.1", "@opentelemetry/instrumentation-express": "0.47.1", "@opentelemetry/instrumentation-fs": "0.19.1", "@opentelemetry/instrumentation-generic-pool": "0.43.1", "@opentelemetry/instrumentation-graphql": "0.47.1", "@opentelemetry/instrumentation-hapi": "0.45.2", "@opentelemetry/instrumentation-http": "0.57.2", "@opentelemetry/instrumentation-ioredis": "0.47.1", "@opentelemetry/instrumentation-kafkajs": "0.7.1", "@opentelemetry/instrumentation-knex": "0.44.1", "@opentelemetry/instrumentation-koa": "0.47.1", "@opentelemetry/instrumentation-lru-memoizer": "0.44.1", "@opentelemetry/instrumentation-mongodb": "0.52.0", "@opentelemetry/instrumentation-mongoose": "0.46.1", "@opentelemetry/instrumentation-mysql": "0.45.1", "@opentelemetry/instrumentation-mysql2": "0.45.2", "@opentelemetry/instrumentation-pg": "0.51.1", "@opentelemetry/instrumentation-redis-4": "0.46.1", "@opentelemetry/instrumentation-tedious": "0.18.1", "@opentelemetry/instrumentation-undici": "0.10.1", "@opentelemetry/resources": "^1.30.1", "@opentelemetry/sdk-trace-base": "^1.30.1", "@opentelemetry/semantic-conventions": "^1.34.0", "@prisma/instrumentation": "6.11.1", "@sentry/core": "9.46.0", "@sentry/node-core": "9.46.0", "@sentry/opentelemetry": "9.46.0", "import-in-the-middle": "^1.14.2", "minimatch": "^9.0.0" } }, "sha512-pRLqAcd7GTGvN8gex5FtkQR5Mcol8gOy1WlyZZFq4rBbVtMbqKOQRhohwqnb+YrnmtFpj7IZ7KNDo077MvNeOQ=="],
+    "@sentry/node": ["@sentry/node@9.47.1", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1", "@opentelemetry/core": "^1.30.1", "@opentelemetry/instrumentation": "^0.57.2", "@opentelemetry/instrumentation-amqplib": "^0.46.1", "@opentelemetry/instrumentation-connect": "0.43.1", "@opentelemetry/instrumentation-dataloader": "0.16.1", "@opentelemetry/instrumentation-express": "0.47.1", "@opentelemetry/instrumentation-fs": "0.19.1", "@opentelemetry/instrumentation-generic-pool": "0.43.1", "@opentelemetry/instrumentation-graphql": "0.47.1", "@opentelemetry/instrumentation-hapi": "0.45.2", "@opentelemetry/instrumentation-http": "0.57.2", "@opentelemetry/instrumentation-ioredis": "0.47.1", "@opentelemetry/instrumentation-kafkajs": "0.7.1", "@opentelemetry/instrumentation-knex": "0.44.1", "@opentelemetry/instrumentation-koa": "0.47.1", "@opentelemetry/instrumentation-lru-memoizer": "0.44.1", "@opentelemetry/instrumentation-mongodb": "0.52.0", "@opentelemetry/instrumentation-mongoose": "0.46.1", "@opentelemetry/instrumentation-mysql": "0.45.1", "@opentelemetry/instrumentation-mysql2": "0.45.2", "@opentelemetry/instrumentation-pg": "0.51.1", "@opentelemetry/instrumentation-redis-4": "0.46.1", "@opentelemetry/instrumentation-tedious": "0.18.1", "@opentelemetry/instrumentation-undici": "0.10.1", "@opentelemetry/resources": "^1.30.1", "@opentelemetry/sdk-trace-base": "^1.30.1", "@opentelemetry/semantic-conventions": "^1.34.0", "@prisma/instrumentation": "6.11.1", "@sentry/core": "9.47.1", "@sentry/node-core": "9.47.1", "@sentry/opentelemetry": "9.47.1", "import-in-the-middle": "^1.14.2", "minimatch": "^9.0.0" } }, "sha512-CDbkasBz3fnWRKSFs6mmaRepM2pa+tbZkrqhPWifFfIkJDidtVW40p6OnquTvPXyPAszCnDZRnZT14xyvNmKPQ=="],
 
-    "@sentry/node-core": ["@sentry/node-core@9.46.0", "", { "dependencies": { "@sentry/core": "9.46.0", "@sentry/opentelemetry": "9.46.0", "import-in-the-middle": "^1.14.2" }, "peerDependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1 || ^2.0.0", "@opentelemetry/core": "^1.30.1 || ^2.0.0", "@opentelemetry/instrumentation": ">=0.57.1 <1", "@opentelemetry/resources": "^1.30.1 || ^2.0.0", "@opentelemetry/sdk-trace-base": "^1.30.1 || ^2.0.0", "@opentelemetry/semantic-conventions": "^1.34.0" } }, "sha512-XRVu5pqoklZeh4wqhxCLZkz/ipoKhitctgEFXX9Yh1e1BoHM2pIxT52wf+W6hHM676TFmFXW3uKBjsmRM3AjgA=="],
+    "@sentry/node-core": ["@sentry/node-core@9.47.1", "", { "dependencies": { "@sentry/core": "9.47.1", "@sentry/opentelemetry": "9.47.1", "import-in-the-middle": "^1.14.2" }, "peerDependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1 || ^2.0.0", "@opentelemetry/core": "^1.30.1 || ^2.0.0", "@opentelemetry/instrumentation": ">=0.57.1 <1", "@opentelemetry/resources": "^1.30.1 || ^2.0.0", "@opentelemetry/sdk-trace-base": "^1.30.1 || ^2.0.0", "@opentelemetry/semantic-conventions": "^1.34.0" } }, "sha512-7TEOiCGkyShJ8CKtsri9lbgMCbB+qNts2Xq37itiMPN2m+lIukK3OX//L8DC5nfKYZlgikrefS63/vJtm669hQ=="],
 
-    "@sentry/opentelemetry": ["@sentry/opentelemetry@9.46.0", "", { "dependencies": { "@sentry/core": "9.46.0" }, "peerDependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1 || ^2.0.0", "@opentelemetry/core": "^1.30.1 || ^2.0.0", "@opentelemetry/sdk-trace-base": "^1.30.1 || ^2.0.0", "@opentelemetry/semantic-conventions": "^1.34.0" } }, "sha512-w2zTxqrdmwRok0cXBoh+ksXdGRUHUZhlpfL/H2kfTodOL+Mk8rW72qUmfqQceXoqgbz8UyK8YgJbyt+XS5H4Qg=="],
+    "@sentry/opentelemetry": ["@sentry/opentelemetry@9.47.1", "", { "dependencies": { "@sentry/core": "9.47.1" }, "peerDependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "^1.30.1 || ^2.0.0", "@opentelemetry/core": "^1.30.1 || ^2.0.0", "@opentelemetry/sdk-trace-base": "^1.30.1 || ^2.0.0", "@opentelemetry/semantic-conventions": "^1.34.0" } }, "sha512-STtFpjF7lwzeoedDJV+5XA6P89BfmFwFftmHSGSe3UTI8z8IoiR5yB6X2vCjSPvXlfeOs13qCNNCEZyznxM8Xw=="],
 
-    "@sentry/react": ["@sentry/react@9.46.0", "", { "dependencies": { "@sentry/browser": "9.46.0", "@sentry/core": "9.46.0", "hoist-non-react-statics": "^3.3.2" }, "peerDependencies": { "react": "^16.14.0 || 17.x || 18.x || 19.x" } }, "sha512-2NTlke1rKAJO2JIY1RCrv8EjfXXkLc+AC61PpgF1QjH/cz0NuCZ6gpQi6M5qS7anAGPjaOE1t3QdLeOEI/Q3kA=="],
+    "@sentry/react": ["@sentry/react@9.47.1", "", { "dependencies": { "@sentry/browser": "9.47.1", "@sentry/core": "9.47.1", "hoist-non-react-statics": "^3.3.2" }, "peerDependencies": { "react": "^16.14.0 || 17.x || 18.x || 19.x" } }, "sha512-Anqt0hG1R+nktlwEiDc2FmD+6DUGMJOLuArgr7q1cSCdPbK2Gb1eZ2rF57Ui+CDo9XLvlX9QP2is/M08rrVe3w=="],
 
-    "@sentry/vercel-edge": ["@sentry/vercel-edge@9.46.0", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/resources": "^1.30.1", "@opentelemetry/semantic-conventions": "^1.34.0", "@sentry/core": "9.46.0", "@sentry/opentelemetry": "9.46.0" } }, "sha512-F380tmDJt/u8FjjGFygsBtNqWVqbK3cefcoa8K3Ok2Vt70nhL7e5jOcWXr5sZqBksMYBPnbe1nSY9I84RvkYrQ=="],
+    "@sentry/vercel-edge": ["@sentry/vercel-edge@9.47.1", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/resources": "^1.30.1", "@opentelemetry/semantic-conventions": "^1.34.0", "@sentry/core": "9.47.1", "@sentry/opentelemetry": "9.47.1" } }, "sha512-mLdI/wF+toYu2i3VRcGdUn3AeTpPmAemI2Pnu6oomLKBDFnkjhCLnwCd5xuHLESJR1aJkB4M3g2+7DZcGTspXg=="],
 
     "@sentry/webpack-plugin": ["@sentry/webpack-plugin@3.6.1", "", { "dependencies": { "@sentry/bundler-plugin-core": "3.6.1", "unplugin": "1.0.1", "uuid": "^9.0.0" }, "peerDependencies": { "webpack": ">=4.40.0" } }, "sha512-F2yqwbdxfCENMN5u4ih4WfOtGjW56/92DBC0bU6un7Ns/l2qd+wRONIvrF+58rl/VkCFfMlUtZTVoKGRyMRmHA=="],
 
@@ -2450,7 +2450,7 @@
 
     "@types/body-parser": ["@types/body-parser@1.19.6", "", { "dependencies": { "@types/connect": "*", "@types/node": "*" } }, "sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g=="],
 
-    "@types/bun": ["@types/bun@1.3.2", "", { "dependencies": { "bun-types": "1.3.2" } }, "sha512-t15P7k5UIgHKkxwnMNkJbWlh/617rkDGEdSsDbu+qNHTaz9SKf7aC8fiIlUdD5RPpH6GEkP0cK7WlvmrEBRtWg=="],
+    "@types/bun": ["@types/bun@1.3.3", "", { "dependencies": { "bun-types": "1.3.3" } }, "sha512-ogrKbJ2X5N0kWLLFKeytG0eHDleBYtngtlbu9cyBKFtNL3cnpDZkNdQj8flVf6WTZUX5ulI9AY1oa7ljhSrp+g=="],
 
     "@types/caseless": ["@types/caseless@0.12.5", "", {}, "sha512-hWtVTC2q7hc7xZ/RLbxapMvDMgUnDvKvMOpKal4DrMyfGBUfB1oKaZlIRr6mJL+If3bAP6sV/QneGzF6tJjZDg=="],
 
@@ -2730,7 +2730,7 @@
 
     "agent-base": ["agent-base@6.0.2", "", { "dependencies": { "debug": "4" } }, "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="],
 
-    "ai": ["ai@5.0.98", "", { "dependencies": { "@ai-sdk/gateway": "2.0.13", "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-RpMnwnml68Swblobvk6IdF7HLZrog72Ve6H5J3aN+A/JPg4y5CjCXeQyK1N4wJStyuTa6AoKYfJR5F4e/aVpHQ=="],
+    "ai": ["ai@5.0.100", "", { "dependencies": { "@ai-sdk/gateway": "2.0.14", "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.17", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-+ANP4EJomTcUKdEF3UpVAWEl6DGn+ozDLxVZKXmTV7NRfyEC2cLYcKwoU4o3sKJpqXMUKNzpFlJFBKOcsKdMyg=="],
 
     "ajv": ["ajv@6.12.6", "", { "dependencies": { "fast-deep-equal": "^3.1.1", "fast-json-stable-stringify": "^2.0.0", "json-schema-traverse": "^0.4.1", "uri-js": "^4.2.2" } }, "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g=="],
 
@@ -2888,7 +2888,7 @@
 
     "buffer-from": ["buffer-from@1.1.2", "", {}, "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="],
 
-    "bun-types": ["bun-types@1.3.2", "", { "dependencies": { "@types/node": "*" }, "peerDependencies": { "@types/react": "^19" } }, "sha512-i/Gln4tbzKNuxP70OWhJRZz1MRfvqExowP7U6JKoI8cntFrtxg7RJK3jvz7wQW54UuvNC8tbKHHri5fy74FVqg=="],
+    "bun-types": ["bun-types@1.3.3", "", { "dependencies": { "@types/node": "*" } }, "sha512-z3Xwlg7j2l9JY27x5Qn3Wlyos8YAp0kKRlrePAOjgjMGS5IG6E7Jnlx736vH9UVI4wUICwwhC9anYL++XeOgTQ=="],
 
     "burnt": ["burnt@0.13.0", "", { "dependencies": { "sf-symbols-typescript": "^1.0.0", "sonner": "^2.0.1" }, "peerDependencies": { "expo": "*", "react": "*", "react-native": "*" } }, "sha512-LjlQa7CLkGWUdz08YUIaGCJ8BLXib31/ztKqowgwqd7UH283A/kmdCj+1PYAQwDQEMPNmvSUfFHrjXbcwZibFQ=="],
 
@@ -3200,11 +3200,11 @@
 
     "elysia": ["elysia@1.4.16", "", { "dependencies": { "cookie": "^1.0.2", "exact-mirror": "0.2.3", "fast-decode-uri-component": "^1.0.1", "memoirist": "^0.4.0" }, "peerDependencies": { "@sinclair/typebox": ">= 0.34.0 < 1", "@types/bun": ">= 1.2.0", "file-type": ">= 20.0.0", "openapi-types": ">= 12.0.0", "typescript": ">= 5.0.0" }, "optionalPeers": ["@types/bun", "typescript"] }, "sha512-KZtKN160/bdWVKg2hEgyoNXY8jRRquc+m6PboyisaLZL891I+Ufb7Ja6lDAD7vMQur8sLEWIcidZOzj5lWw9UA=="],
 
-    "embla-carousel": ["embla-carousel@8.5.1", "", {}, "sha512-JUb5+FOHobSiWQ2EJNaueCNT/cQU9L6XWBbWmorWPQT9bkbk+fhsuLr8wWrzXKagO3oWszBO7MSx+GfaRk4E6A=="],
+    "embla-carousel": ["embla-carousel@8.6.0", "", {}, "sha512-SjWyZBHJPbqxHOzckOfo8lHisEaJWmwd23XppYFYVh10bU66/Pn5tkVkbkCMZVdbUE5eTCI2nD8OyIP4Z+uwkA=="],
 
-    "embla-carousel-react": ["embla-carousel-react@8.5.1", "", { "dependencies": { "embla-carousel": "8.5.1", "embla-carousel-reactive-utils": "8.5.1" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-z9Y0K84BJvhChXgqn2CFYbfEi6AwEr+FFVVKm/MqbTQ2zIzO1VQri6w67LcfpVF0AjbhwVMywDZqY4alYkjW5w=="],
+    "embla-carousel-react": ["embla-carousel-react@8.6.0", "", { "dependencies": { "embla-carousel": "8.6.0", "embla-carousel-reactive-utils": "8.6.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-0/PjqU7geVmo6F734pmPqpyHqiM99olvyecY7zdweCw+6tKEXnrE90pBiBbMMU8s5tICemzpQ3hi5EpxzGW+JA=="],
 
-    "embla-carousel-reactive-utils": ["embla-carousel-reactive-utils@8.5.1", "", { "peerDependencies": { "embla-carousel": "8.5.1" } }, "sha512-n7VSoGIiiDIc4MfXF3ZRTO59KDp820QDuyBDGlt5/65+lumPHxX2JLz0EZ23hZ4eg4vZGUXwMkYv02fw2JVo/A=="],
+    "embla-carousel-reactive-utils": ["embla-carousel-reactive-utils@8.6.0", "", { "peerDependencies": { "embla-carousel": "8.6.0" } }, "sha512-fMVUDUEx0/uIEDM0Mz3dHznDhfX+znCCDCeIophYb1QGVM7YThSWX+wz11zlYwWFOr74b4QLGg0hrGPJeG2s4A=="],
 
     "emittery": ["emittery@0.13.1", "", {}, "sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ=="],
 
@@ -4056,7 +4056,7 @@
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
 
-    "mcp-handler": ["mcp-handler@1.0.3", "", { "dependencies": { "chalk": "^5.3.0", "commander": "^11.1.0", "redis": "^4.6.0" }, "peerDependencies": { "@modelcontextprotocol/sdk": "^1.17.2", "next": ">=13.0.0" }, "optionalPeers": ["next"], "bin": { "mcp-adapter": "dist/cli/index.js", "mcp-handler": "dist/cli/index.js", "create-mcp-route": "dist/cli/index.js" } }, "sha512-AQ8I1a6wyfK0hIHeGqvjXqKHGvABDvw5dvwJvMjUiuKAUDgFsFtPExqThFOE/boOTbBKXn7fPSJ94soT0GjL+A=="],
+    "mcp-handler": ["mcp-handler@1.0.4", "", { "dependencies": { "chalk": "^5.3.0", "commander": "^11.1.0", "redis": "^4.6.0" }, "peerDependencies": { "@modelcontextprotocol/sdk": "^1.22.0", "next": ">=13.0.0" }, "optionalPeers": ["next"], "bin": { "create-mcp-route": "dist/cli/index.js", "mcp-handler": "dist/cli/index.js", "mcp-adapter": "dist/cli/index.js" } }, "sha512-bp5Xp6jKF8H3vh3Xadr83YZxHekKCXcbenTIej3DR0MK8GpQDMHNU/RDBvIRbs/7VRViPPkjMcWLsx+WYVICNw=="],
 
     "mdast-util-find-and-replace": ["mdast-util-find-and-replace@3.0.2", "", { "dependencies": { "@types/mdast": "^4.0.0", "escape-string-regexp": "^5.0.0", "unist-util-is": "^6.0.0", "unist-util-visit-parents": "^6.0.0" } }, "sha512-Tmd1Vg/m3Xz43afeNxDIhWRtFZgM2VLyaf4vSTYwudTyeuTneoL3qtWMA5jeLyz/O1vDJmmV4QuScFCA2tBPwg=="],
 
@@ -5552,8 +5552,6 @@
 
     "@lssm/lib.ui-kit-web/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
 
-    "@lssm/lib.ui-kit-web/embla-carousel-react": ["embla-carousel-react@8.6.0", "", { "dependencies": { "embla-carousel": "8.6.0", "embla-carousel-reactive-utils": "8.6.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-0/PjqU7geVmo6F734pmPqpyHqiM99olvyecY7zdweCw+6tKEXnrE90pBiBbMMU8s5tICemzpQ3hi5EpxzGW+JA=="],
-
     "@lssm/lib.ui-kit-web/input-otp": ["input-otp@1.4.2", "", { "peerDependencies": { "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA=="],
 
     "@lssm/lib.ui-kit-web/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
@@ -6513,10 +6511,6 @@
     "@lssm/lib.design-system/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
 
     "@lssm/lib.ui-kit-web/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
-
-    "@lssm/lib.ui-kit-web/embla-carousel-react/embla-carousel": ["embla-carousel@8.6.0", "", {}, "sha512-SjWyZBHJPbqxHOzckOfo8lHisEaJWmwd23XppYFYVh10bU66/Pn5tkVkbkCMZVdbUE5eTCI2nD8OyIP4Z+uwkA=="],
-
-    "@lssm/lib.ui-kit-web/embla-carousel-react/embla-carousel-reactive-utils": ["embla-carousel-reactive-utils@8.6.0", "", { "peerDependencies": { "embla-carousel": "8.6.0" } }, "sha512-fMVUDUEx0/uIEDM0Mz3dHznDhfX+znCCDCeIophYb1QGVM7YThSWX+wz11zlYwWFOr74b4QLGg0hrGPJeG2s4A=="],
 
     "@lssm/lib.ui-kit-web/react-day-picker/@date-fns/tz": ["@date-fns/tz@1.4.1", "", {}, "sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA=="],
 

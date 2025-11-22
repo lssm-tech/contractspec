@@ -21,7 +21,7 @@
     "@lssm/app.cli-database": "*",
     "@lssm/lib.testing": "*",
     "@lssm/lib.schema": "*",
-    "ai": "^5.0.98",
+    "ai": "^5.0.100",
     "@ai-sdk/anthropic": "^2.0.45",
     "@ai-sdk/openai": "^2.0.71",
     "ollama-ai-provider": "^1.2.0",
