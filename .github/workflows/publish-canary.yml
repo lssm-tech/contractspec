@@ -44,6 +44,7 @@ jobs:
       - name: Build libraries
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
         run: bun run build:not-apps
 
       - name: Publish packages (canary)
