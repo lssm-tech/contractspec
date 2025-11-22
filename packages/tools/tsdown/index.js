@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsdown';
 
-const obfuscation = {
+const obfuscation = defineConfig({
   minify: {
     compress: {
       dropConsole: false,
@@ -15,7 +15,7 @@ const obfuscation = {
       removeWhitespace: true,
     },
   },
-};
+});
 
 export const base = defineConfig({
   exports: {
@@ -24,7 +24,8 @@ export const base = defineConfig({
   },
   clean: true,
   sourcemap: false,
-  format: ['esm', 'cjs'],
+  format: ['esm'],
+  // format: ['esm', 'cjs'],
   // format: ['esm'],
   target: 'esnext',
   // Let packages add their own externals; keep common ones minimal.
@@ -119,7 +120,8 @@ export const moduleLibrary = defineConfig({
 
 export const nodeLib = defineConfig({
   ...base,
-  format: ['esm', 'cjs'],
+  format: ['esm'],
+  // format: ['esm', 'cjs'],
   platform: 'node',
   external: [...sharedExternal],
   ...obfuscation,

@@ -18,134 +18,41 @@
     "typescript": "^5.9.3"
   },
   "type": "module",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
+  "types": "./dist/index.d.mts",
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./lib/AwaitedResult": {
-      "import": "./dist/lib/AwaitedResult.mjs",
-      "require": "./dist/lib/AwaitedResult.cjs"
-    },
-    "./lib/BrowserNativeObject": {
-      "import": "./dist/lib/BrowserNativeObject.mjs",
-      "require": "./dist/lib/BrowserNativeObject.cjs"
-    },
-    "./lib/DeepInfiniteArray": {
-      "import": "./dist/lib/DeepInfiniteArray.mjs",
-      "require": "./dist/lib/DeepInfiniteArray.cjs"
-    },
-    "./lib/DeepKeepOnly": {
-      "import": "./dist/lib/DeepKeepOnly.mjs",
-      "require": "./dist/lib/DeepKeepOnly.cjs"
-    },
-    "./lib/DeepKey": {
-      "import": "./dist/lib/DeepKey.mjs",
-      "require": "./dist/lib/DeepKey.cjs"
-    },
-    "./lib/DeepMap": {
-      "import": "./dist/lib/DeepMap.mjs",
-      "require": "./dist/lib/DeepMap.cjs"
-    },
-    "./lib/DeepNullable": {
-      "import": "./dist/lib/DeepNullable.mjs",
-      "require": "./dist/lib/DeepNullable.cjs"
-    },
-    "./lib/DeepOr": {
-      "import": "./dist/lib/DeepOr.mjs",
-      "require": "./dist/lib/DeepOr.cjs"
-    },
-    "./lib/DeepPartial": {
-      "import": "./dist/lib/DeepPartial.mjs",
-      "require": "./dist/lib/DeepPartial.cjs"
-    },
-    "./lib/DeepReplace": {
-      "import": "./dist/lib/DeepReplace.mjs",
-      "require": "./dist/lib/DeepReplace.cjs"
-    },
-    "./lib/DeepReplaceNullByUndefined": {
-      "import": "./dist/lib/DeepReplaceNullByUndefined.mjs",
-      "require": "./dist/lib/DeepReplaceNullByUndefined.cjs"
-    },
-    "./lib/DeepValue": {
-      "import": "./dist/lib/DeepValue.mjs",
-      "require": "./dist/lib/DeepValue.cjs"
-    },
-    "./lib/DictionaryFromEnum": {
-      "import": "./dist/lib/DictionaryFromEnum.mjs",
-      "require": "./dist/lib/DictionaryFromEnum.cjs"
-    },
-    "./lib/DictionaryFromEnumMapping": {
-      "import": "./dist/lib/DictionaryFromEnumMapping.mjs",
-      "require": "./dist/lib/DictionaryFromEnumMapping.cjs"
-    },
-    "./lib/EmptyRecord": {
-      "import": "./dist/lib/EmptyRecord.mjs",
-      "require": "./dist/lib/EmptyRecord.cjs"
-    },
-    "./lib/Identified": {
-      "import": "./dist/lib/Identified.mjs",
-      "require": "./dist/lib/Identified.cjs"
-    },
-    "./lib/IdentifiedLabel": {
-      "import": "./dist/lib/IdentifiedLabel.mjs",
-      "require": "./dist/lib/IdentifiedLabel.cjs"
-    },
-    "./lib/IsAny": {
-      "import": "./dist/lib/IsAny.mjs",
-      "require": "./dist/lib/IsAny.cjs"
-    },
-    "./lib/Json": {
-      "import": "./dist/lib/Json.mjs",
-      "require": "./dist/lib/Json.cjs"
-    },
-    "./lib/KeepOnly": {
-      "import": "./dist/lib/KeepOnly.mjs",
-      "require": "./dist/lib/KeepOnly.cjs"
-    },
-    "./lib/Maybe": {
-      "import": "./dist/lib/Maybe.mjs",
-      "require": "./dist/lib/Maybe.cjs"
-    },
-    "./lib/MaybeArray": {
-      "import": "./dist/lib/MaybeArray.mjs",
-      "require": "./dist/lib/MaybeArray.cjs"
-    },
-    "./lib/NestedValue": {
-      "import": "./dist/lib/NestedValue.mjs",
-      "require": "./dist/lib/NestedValue.cjs"
-    },
-    "./lib/NonUndefined": {
-      "import": "./dist/lib/NonUndefined.mjs",
-      "require": "./dist/lib/NonUndefined.cjs"
-    },
-    "./lib/Primitive": {
-      "import": "./dist/lib/Primitive.mjs",
-      "require": "./dist/lib/Primitive.cjs"
-    },
-    "./lib/Replaced": {
-      "import": "./dist/lib/Replaced.mjs",
-      "require": "./dist/lib/Replaced.cjs"
-    },
-    "./lib/ReverseMap": {
-      "import": "./dist/lib/ReverseMap.mjs",
-      "require": "./dist/lib/ReverseMap.cjs"
-    },
-    "./lib/Satisfies": {
-      "import": "./dist/lib/Satisfies.mjs",
-      "require": "./dist/lib/Satisfies.cjs"
-    },
-    "./lib/StringKey": {
-      "import": "./dist/lib/StringKey.mjs",
-      "require": "./dist/lib/StringKey.cjs"
-    },
-    "./lib/StringKeysOnly": {
-      "import": "./dist/lib/StringKeysOnly.mjs",
-      "require": "./dist/lib/StringKeysOnly.cjs"
-    },
+    ".": "./dist/index.mjs",
+    "./lib/AwaitedResult": "./dist/lib/AwaitedResult.mjs",
+    "./lib/BrowserNativeObject": "./dist/lib/BrowserNativeObject.mjs",
+    "./lib/DeepInfiniteArray": "./dist/lib/DeepInfiniteArray.mjs",
+    "./lib/DeepKeepOnly": "./dist/lib/DeepKeepOnly.mjs",
+    "./lib/DeepKey": "./dist/lib/DeepKey.mjs",
+    "./lib/DeepMap": "./dist/lib/DeepMap.mjs",
+    "./lib/DeepNullable": "./dist/lib/DeepNullable.mjs",
+    "./lib/DeepOr": "./dist/lib/DeepOr.mjs",
+    "./lib/DeepPartial": "./dist/lib/DeepPartial.mjs",
+    "./lib/DeepReplace": "./dist/lib/DeepReplace.mjs",
+    "./lib/DeepReplaceNullByUndefined": "./dist/lib/DeepReplaceNullByUndefined.mjs",
+    "./lib/DeepValue": "./dist/lib/DeepValue.mjs",
+    "./lib/DictionaryFromEnum": "./dist/lib/DictionaryFromEnum.mjs",
+    "./lib/DictionaryFromEnumMapping": "./dist/lib/DictionaryFromEnumMapping.mjs",
+    "./lib/EmptyRecord": "./dist/lib/EmptyRecord.mjs",
+    "./lib/Identified": "./dist/lib/Identified.mjs",
+    "./lib/IdentifiedLabel": "./dist/lib/IdentifiedLabel.mjs",
+    "./lib/IsAny": "./dist/lib/IsAny.mjs",
+    "./lib/Json": "./dist/lib/Json.mjs",
+    "./lib/KeepOnly": "./dist/lib/KeepOnly.mjs",
+    "./lib/Maybe": "./dist/lib/Maybe.mjs",
+    "./lib/MaybeArray": "./dist/lib/MaybeArray.mjs",
+    "./lib/NestedValue": "./dist/lib/NestedValue.mjs",
+    "./lib/NonUndefined": "./dist/lib/NonUndefined.mjs",
+    "./lib/Primitive": "./dist/lib/Primitive.mjs",
+    "./lib/Replaced": "./dist/lib/Replaced.mjs",
+    "./lib/ReverseMap": "./dist/lib/ReverseMap.mjs",
+    "./lib/Satisfies": "./dist/lib/Satisfies.mjs",
+    "./lib/StringKey": "./dist/lib/StringKey.mjs",
+    "./lib/StringKeysOnly": "./dist/lib/StringKeysOnly.mjs",
     "./*": "./*"
   },
   "publishConfig": {
