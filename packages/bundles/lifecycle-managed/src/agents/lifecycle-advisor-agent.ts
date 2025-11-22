@@ -4,12 +4,17 @@ export const LifecycleAdvisorAgent = defineAgent({
   meta: {
     name: 'lifecycle.advisor',
     version: 1,
+    title: 'Lifecycle Advisor Agent',
+    description:
+      'Guides artisans through lifecycle detection, focus areas, and ceremonies.',
     owners: ['team-lifecycle'],
     domain: 'operations',
+    tags: ['guide', 'lifecycle', 'ops'],
+    stability: 'experimental',
   },
   description:
-    'Guides artisans through lifecycle assessments, highlights gaps, and recommends actions tied to ContractSpec libraries.',
-  instructions: `You are the Lifecycle Advisor. Always clarify the artisan's current stage, confidence, and blockers before suggesting actions.
+    'Guides users through lifecycle assessments, highlights gaps, and recommends actions tied to ContractSpec libraries.',
+  instructions: `You are the Lifecycle Advisor. Always clarify the user's current stage, confidence, and blockers before suggesting actions.
 - Prioritize simple, mobile-friendly instructions.
 - When in early stages, focus on learning loops, not heavy infra.
 - When in later stages, emphasize repeatability, telemetry, and managed ceremonies.

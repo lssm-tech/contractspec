@@ -31,7 +31,7 @@ describe('LifecycleRecommendationEngine', () => {
         {
           id: 'stage4-growth-loop',
           stage: LifecycleStage.GrowthScaleUp,
-          category: 'growth',
+          category: 'operations',
           title: 'Codify a growth loop',
           description: 'Document owners and metrics',
           priority: 1,

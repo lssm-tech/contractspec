@@ -6,7 +6,16 @@ import type {
 import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
 import stageWeights from '../data/stage-weights.json' assert { type: 'json' };
 
-type MetricKey = keyof LifecycleMetricSnapshot;
+type NumericMetricKey = Extract<
+  {
+    [Key in keyof LifecycleMetricSnapshot]: LifecycleMetricSnapshot[Key] extends
+      | number
+      | undefined
+      ? Key
+      : never;
+  }[keyof LifecycleMetricSnapshot],
+  string
+>;
 
 interface MetricWeightConfig {
   weight: number;
@@ -16,7 +25,7 @@ interface MetricWeightConfig {
 
 interface StageWeightConfig {
   base: number;
-  metrics?: Record<MetricKey, MetricWeightConfig>;
+  metrics?: Partial<Record<NumericMetricKey, MetricWeightConfig>>;
   signalKinds?: Partial<Record<string, number>>;
 }
 
@@ -54,9 +63,9 @@ export class StageScorer {
         if (config.metrics) {
           Object.entries(config.metrics).forEach(
             ([metricKey, metricConfig]) => {
-              const value = input.metrics[metricKey as MetricKey];
+              const value = input.metrics[metricKey as NumericMetricKey];
               if (value === undefined || value === null) return;
-              if (passesThreshold(value as number, metricConfig)) {
+              if (passesThreshold(value, metricConfig)) {
                 score += metricConfig.weight;
                 contributions += 1;
                 supportingSignals.push(`metric:${metricKey}`);
@@ -70,7 +79,7 @@ export class StageScorer {
         if (config.signalKinds) {
           Object.entries(config.signalKinds).forEach(([kind, weight]) => {
             const strength = kindStrength[kind] ?? 0;
-            if (strength > 0) {
+            if (strength > 0 && typeof weight === 'number') {
               score += weight;
               contributions += 1;
               supportingSignals.push(`signal:${kind}`);

@@ -1,0 +1,70 @@
+/// Integration hub models for Studio tenants.
+
+model StudioIntegration {
+  id             String             @id @default(cuid())
+  organizationId String
+  projectId      String?
+  provider       IntegrationProvider
+  name           String
+  enabled        Boolean            @default(true)
+  credentials    Json
+  config         Json?
+  lastUsed       DateTime?
+  usageCount     Int                @default(0)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  project      StudioProject? @relation(fields: [projectId], references: [id])
+
+  @@index([organizationId, provider])
+  @@map("studio_integration")
+  @@schema("lssm_sigil")
+}
+
+model KnowledgeSource {
+  id             String             @id @default(cuid())
+  organizationId String
+  projectId      String?
+  type           KnowledgeSourceType
+  name           String
+  url            String?
+  content        Json?
+  embeddings     Json?
+  indexed        Boolean            @default(false)
+  lastIndexed    DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  project      StudioProject? @relation(fields: [projectId], references: [id])
+
+  @@index([organizationId, type])
+  @@map("knowledge_source")
+  @@schema("lssm_sigil")
+}
+
+enum IntegrationProvider {
+  OPENAI
+  ANTHROPIC
+  POSTHOG
+  STRIPE
+  GITHUB
+  SLACK
+  NOTION
+  AIRTABLE
+  CUSTOM
+
+  @@schema("lssm_sigil")
+}
+
+enum KnowledgeSourceType {
+  DOCUMENTATION
+  API_SPEC
+  CODE_REPOSITORY
+  NOTION_DATABASE
+  CUSTOM
+
+  @@schema("lssm_sigil")
+}
+

@@ -9,6 +9,9 @@ import { registerStritNotificationsSchema } from './modules/notifications';
 import { registerAdminSchema } from './modules/admin';
 import { registerComplianceSchema } from './modules/compliance';
 import { registerAuthSchema } from './modules/auth';
+import { registerStudioSchema } from './modules/studio';
+import { registerLifecycleSchema } from './modules/lifecycle';
+import { registerIntegrationsSchema } from './modules/integrations';
 import { registerOnboardingSchema } from './modules/onboarding';
 import { registerAISchema } from './modules/ai';
 import { registerGdprSchema } from './modules/gdpr';
@@ -42,4 +45,7 @@ registerGeoAreasSchema(gqlSchemaBuilder, { geoAreas: new GeoAreasService() });
 registerGeoHeatmapSchema(gqlSchemaBuilder, {
   heatmap: new GeoHeatmapService(),
 });
+registerStudioSchema(gqlSchemaBuilder);
+registerLifecycleSchema(gqlSchemaBuilder);
+registerIntegrationsSchema(gqlSchemaBuilder);
 export const schema = gqlSchemaBuilder.toSchema();

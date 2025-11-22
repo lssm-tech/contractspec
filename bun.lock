@@ -184,12 +184,18 @@
       "name": "@lssm/bundle.contractspec-studio",
       "version": "0.0.0",
       "dependencies": {
+        "@lssm/bundle.lifecycle-managed": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.contracts-contractspec-studio": "workspace:*",
         "@lssm/lib.database-contractspec-studio": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.evolution": "workspace:*",
+        "@lssm/lib.lifecycle": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.observability": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
         "@posthog/react": "^1.2.3",
+        "@tanstack/react-query": "^5.89.0",
         "nativewind": "5.0.0-preview.2",
         "react-hook-form": "7.66.1",
         "resend": "^6.5.2",
@@ -200,6 +206,7 @@
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
+        "vitest": "^1.6.0",
       },
       "peerDependencies": {
         "nativewind": "5.0.0-preview.2",
@@ -577,6 +584,9 @@
     "packages/libs/observability": {
       "name": "@lssm/lib.observability",
       "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.lifecycle": "workspace:*",
+      },
       "devDependencies": {
         "typescript": "^5.0.0",
         "vitest": "^1.0.0",
@@ -2322,6 +2332,10 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.1.17", "", { "os": "win32", "cpu": "x64" }, "sha512-SKWM4waLuqx0IH+FMDUw6R66Hu4OuTALFgnleKbqhgGU30DY20NORZMZUKgLRjQXNN2TLzKvh48QXTig4h4bGw=="],
 
     "@tailwindcss/postcss": ["@tailwindcss/postcss@4.1.17", "", { "dependencies": { "@alloc/quick-lru": "^5.2.0", "@tailwindcss/node": "4.1.17", "@tailwindcss/oxide": "4.1.17", "postcss": "^8.4.41", "tailwindcss": "4.1.17" } }, "sha512-+nKl9N9mN5uJ+M7dBOOCzINw94MPstNR/GtIhz1fpZysxL/4a+No64jCBD6CPN+bIHWFx3KWuu8XJRrj/572Dw=="],
+
+    "@tanstack/query-core": ["@tanstack/query-core@5.90.10", "", {}, "sha512-EhZVFu9rl7GfRNuJLJ3Y7wtbTnENsvzp+YpcAV7kCYiXni1v8qZh++lpw4ch4rrwC0u/EZRnBHIehzCGzwXDSQ=="],
+
+    "@tanstack/react-query": ["@tanstack/react-query@5.90.10", "", { "dependencies": { "@tanstack/query-core": "5.90.10" }, "peerDependencies": { "react": "^18 || ^19" } }, "sha512-BKLss9Y8PQ9IUjPYQiv3/Zmlx92uxffUOX8ZZNoQlCIZBJPT5M+GOMQj7xislvVQ6l1BstBjcX0XB/aHfFYVNw=="],
 
     "@testing-library/dom": ["@testing-library/dom@10.4.1", "", { "dependencies": { "@babel/code-frame": "^7.10.4", "@babel/runtime": "^7.12.5", "@types/aria-query": "^5.0.1", "aria-query": "5.3.0", "dom-accessibility-api": "^0.5.9", "lz-string": "^1.5.0", "picocolors": "1.1.1", "pretty-format": "^27.0.2" } }, "sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg=="],
 

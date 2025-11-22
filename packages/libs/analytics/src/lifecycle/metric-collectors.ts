@@ -85,5 +85,5 @@ export const createStageChangeEvent = (
   userId: 'system',
   tenantId: payload.tenantId,
   timestamp: new Date(),
-  properties: payload,
+  properties: { ...payload },
 });

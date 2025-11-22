@@ -2,6 +2,7 @@ import type {
   LifecycleAssessment,
   LifecycleAssessmentInput,
   LifecycleMilestone,
+  LifecycleMetricSnapshot,
 } from '@lssm/lib.lifecycle';
 import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
 import { StageSignalCollector } from '../collectors/signal-collector';
@@ -39,7 +40,7 @@ export class LifecycleOrchestrator {
       confidence: top.confidence,
       axes: collected.axes,
       signals: collected.signals,
-      metrics: collected.metrics,
+      metrics: toMetricRecord(collected.metrics),
       gaps: meta.focusAreas.slice(0, 3),
       focusAreas: meta.focusAreas,
       scorecard,
@@ -63,3 +64,16 @@ const fallbackScore = () => ({
   confidence: 0.3,
   supportingSignals: [],
 });
+
+const toMetricRecord = (
+  snapshot: LifecycleMetricSnapshot
+): Record<string, number | undefined> =>
+  Object.entries(snapshot ?? {}).reduce<Record<string, number | undefined>>(
+    (acc, [key, value]) => {
+      if (typeof value === 'number') {
+        acc[key] = value;
+      }
+      return acc;
+    },
+    {}
+  );

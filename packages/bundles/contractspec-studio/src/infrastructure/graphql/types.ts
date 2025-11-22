@@ -10,6 +10,7 @@ export interface Context {
   session?: AuthSession;
   logger: Logger;
   headers: Headers;
+  featureFlags: Record<string, boolean>;
 }
 
 export function requireAuth(

@@ -171,6 +171,10 @@ model Organization {
   policyBindings PolicyBinding[]
   /// Enterprise SSO providers configured for this organization
   ssoProviders   SsoProvider[]
+  lifecycleProfile OrganizationLifecycleProfile?
+  studioProjects   StudioProject[]
+  studioIntegrations StudioIntegration[]
+  knowledgeSources KnowledgeSource[]
 
   // Referral system
   referralCode String? @unique // Unique referral code for this user
