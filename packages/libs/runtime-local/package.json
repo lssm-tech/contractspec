@@ -31,14 +31,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./database/sqlite-wasm": "./src/database/sqlite-wasm.ts",
-    "./database/sqlite-wasm-stub": "./src/database/sqlite-wasm-stub.ts",
-    "./events/local-pubsub": "./src/events/local-pubsub.ts",
-    "./graphql/local-client": "./src/graphql/local-client.ts",
-    "./runtime/services": "./src/runtime/services.ts",
-    "./storage/indexeddb": "./src/storage/indexeddb.ts",
-    "./utils/id": "./src/utils/id.ts",
+    ".": "./dist/index.js",
+    "./database/sqlite-wasm": "./dist/database/sqlite-wasm.js",
+    "./database/sqlite-wasm-stub": "./dist/database/sqlite-wasm-stub.js",
+    "./events/local-pubsub": "./dist/events/local-pubsub.js",
+    "./graphql/local-client": "./dist/graphql/local-client.js",
+    "./runtime/services": "./dist/runtime/services.js",
+    "./storage/indexeddb": "./dist/storage/indexeddb.js",
+    "./utils/id": "./dist/utils/id.js",
     "./*": "./*"
   },
   "publishConfig": {

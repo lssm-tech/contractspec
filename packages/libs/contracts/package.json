@@ -32,7 +32,7 @@
     "twilio": "^5.10.5",
     "@lssm/lib.schema": "*",
     "@modelcontextprotocol/sdk": "^1.20.1",
-    "mcp-handler": "^1.0.2",
+    "mcp-handler": "^1.0.4",
     "zod": "^4.1.5"
   },
   "peerDependencies": {
