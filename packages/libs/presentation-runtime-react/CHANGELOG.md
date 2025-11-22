@@ -1,5 +1,16 @@
 # @lssm/lib.presentation-runtime-react
 
+## 10.0.2
+
+### Patch Changes
+
+- fix dependencies
+- Updated dependencies
+  - @lssm/lib.ui-kit-web@1.9.2
+  - @lssm/lib.contracts@1.9.2
+  - @lssm/lib.design-system@1.9.2
+  - @lssm/lib.presentation-runtime-core@1.9.2
+
 ## 10.0.1
 
 ### Patch Changes

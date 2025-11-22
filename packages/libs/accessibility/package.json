@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.accessibility",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",

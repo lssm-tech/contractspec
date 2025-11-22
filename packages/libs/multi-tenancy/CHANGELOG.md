@@ -1,5 +1,11 @@
 # @lssm/lib.multi-tenancy
 
+## 0.2.2
+
+### Patch Changes
+
+- fix dependencies
+
 ## 0.2.1
 
 ### Patch Changes

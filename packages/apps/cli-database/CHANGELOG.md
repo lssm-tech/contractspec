@@ -1,5 +1,11 @@
 # @lssm/app.cli-database
 
+## 1.9.2
+
+### Patch Changes
+
+- fix dependencies
+
 ## 1.9.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @lssm/lib.workflow-composer
 
+## 0.1.2
+
+### Patch Changes
+
+- fix dependencies
+- Updated dependencies
+  - @lssm/lib.contracts@1.9.2
+
 ## 0.1.1
 
 ### Patch Changes

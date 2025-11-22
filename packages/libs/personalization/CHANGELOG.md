@@ -1,5 +1,14 @@
 # @lssm/lib.personalization
 
+## 0.1.2
+
+### Patch Changes
+
+- fix dependencies
+- Updated dependencies
+  - @lssm/lib.bus@1.9.2
+  - @lssm/lib.overlay-engine@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
