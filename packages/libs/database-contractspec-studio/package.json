@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.database-contractspec-studio",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "clean": "rm -rf dist src/generated",
     "lint": "bun run lint:fix",

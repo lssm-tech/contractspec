@@ -352,6 +352,12 @@
 
 - add right-sidebar
 
+## 0.10.2
+
+### Patch Changes
+
+- fix dependencies
+
 ## 0.10.1
 
 ### Patch Changes

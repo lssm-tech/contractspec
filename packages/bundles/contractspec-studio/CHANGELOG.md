@@ -1,0 +1,55 @@
+# @lssm/bundle.contractspec-studio
+
+## 0.1.2
+
+### Patch Changes
+
+- fix dependencies
+- Updated dependencies
+  - @lssm/lib.contracts-contractspec-studio@0.1.2
+  - @lssm/lib.database-contractspec-studio@0.1.2
+  - @lssm/bundle.lifecycle-managed@0.1.2
+  - @lssm/lib.evolution@0.2.2
+  - @lssm/lib.lifecycle@0.1.2
+  - @lssm/lib.contracts@1.9.2
+  - @lssm/lib.design-system@1.9.2
+  - @lssm/lib.logger@1.9.2
+  - @lssm/lib.observability@0.2.2
+  - @lssm/lib.ui-kit@1.9.2
+
+## 0.1.1
+
+### Patch Changes
+
+- fix
+- Updated dependencies
+  - @lssm/lib.contracts-contractspec-studio@0.1.1
+  - @lssm/lib.database-contractspec-studio@0.1.1
+  - @lssm/bundle.lifecycle-managed@0.1.1
+  - @lssm/lib.design-system@1.9.1
+  - @lssm/lib.observability@0.2.1
+  - @lssm/lib.contracts@1.9.1
+  - @lssm/lib.evolution@0.2.1
+  - @lssm/lib.lifecycle@0.1.1
+  - @lssm/lib.logger@1.9.1
+  - @lssm/lib.ui-kit@1.9.1
+
+## 0.1.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
+### Patch Changes
+
+- Updated dependencies [b1d0876]
+  - @lssm/lib.contracts-contractspec-studio@0.1.0
+  - @lssm/lib.database-contractspec-studio@0.1.0
+  - @lssm/bundle.lifecycle-managed@0.1.0
+  - @lssm/lib.design-system@1.9.0
+  - @lssm/lib.observability@0.2.0
+  - @lssm/lib.contracts@1.9.0
+  - @lssm/lib.evolution@0.2.0
+  - @lssm/lib.lifecycle@0.1.0
+  - @lssm/lib.logger@1.9.0
+  - @lssm/lib.ui-kit@1.9.0
