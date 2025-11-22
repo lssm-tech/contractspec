@@ -139,4 +139,3 @@ export class StudioIntegrationModule {
     return this.credentials.decrypt(integration.credentials);
   }
 }
-

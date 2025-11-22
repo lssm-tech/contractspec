@@ -20,12 +20,14 @@ interface SessionResponse {
 
 export const auth = {
   api: {
-    async getSession(_: { headers?: HeaderInput }): Promise<SessionResponse | null> {
+    async getSession(_: {
+      headers?: HeaderInput;
+    }): Promise<SessionResponse | null> {
       return null;
     },
     async listUserAccounts(_: {
       headers?: HeaderInput;
-    }): Promise<Array<{ providerId: string }>> {
+    }): Promise<{ providerId: string }[]> {
       return [];
     },
     async unlinkAccount(_: {
@@ -36,4 +38,3 @@ export const auth = {
     },
   },
 };
-

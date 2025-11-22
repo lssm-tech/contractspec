@@ -452,12 +452,12 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
   }));
 }
 
-type KnowledgeDocumentInputShape = {
+interface KnowledgeDocumentInputShape {
   id: string;
   text: string;
   mimeType?: string | null;
   metadata?: Record<string, string>;
-};
+}
 
 function toRawDocument(input: KnowledgeDocumentInputShape) {
   return {

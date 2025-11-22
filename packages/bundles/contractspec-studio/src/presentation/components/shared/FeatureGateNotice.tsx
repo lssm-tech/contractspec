@@ -16,8 +16,8 @@ export function FeatureGateNotice({
 }: FeatureGateNoticeProps) {
   return (
     <div className="text-center">
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted/40">
-        <Lock className="h-5 w-5 text-muted-foreground" />
+      <div className="bg-muted/40 mx-auto flex h-12 w-12 items-center justify-center rounded-full">
+        <Lock className="text-muted-foreground h-5 w-5" />
       </div>
       <h3 className="mt-4 text-lg font-semibold">{title}</h3>
       <p className="text-muted-foreground mt-2 text-sm">{description}</p>
@@ -33,7 +33,3 @@ export function FeatureGateNotice({
     </div>
   );
 }
-
-
-
-

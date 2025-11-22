@@ -15,9 +15,7 @@ declare module 'sql.js' {
   }
 
   export interface SqlJsStatic {
-    Database: {
-      new (data?: Uint8Array): Database;
-    };
+    Database: new (data?: Uint8Array) => Database;
   }
 
   export interface InitSqlJsOptions {
@@ -28,5 +26,3 @@ declare module 'sql.js' {
     options?: InitSqlJsOptions
   ): Promise<SqlJsStatic>;
 }
-
-

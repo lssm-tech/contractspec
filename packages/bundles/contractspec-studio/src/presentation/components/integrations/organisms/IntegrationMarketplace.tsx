@@ -33,7 +33,10 @@ export function IntegrationMarketplace({
   );
 
   const categories = React.useMemo(
-    () => Array.from(new Set(integrations.map((integration) => integration.category))),
+    () =>
+      Array.from(
+        new Set(integrations.map((integration) => integration.category))
+      ),
     [integrations]
   );
 
@@ -48,7 +51,7 @@ export function IntegrationMarketplace({
 
   if (!integrationHubEnabled) {
     return (
-      <div className="rounded-2xl border border-dashed border-border bg-card/40 p-8 text-center">
+      <div className="border-border bg-card/40 rounded-2xl border border-dashed p-8 text-center">
         <FeatureGateNotice
           title="Integration hub is still locked"
           description="Enable STUDIO_INTEGRATION_HUB to connect third-party providers and route credentials via BYOK."
@@ -59,31 +62,32 @@ export function IntegrationMarketplace({
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide">
+          <p className="text-sm font-semibold tracking-wide uppercase">
             Integration marketplace
           </p>
           <p className="text-muted-foreground text-sm">
-            Connect AI providers, payments, analytics, and internal tools with BYOK controls.
+            Connect AI providers, payments, analytics, and internal tools with
+            BYOK controls.
           </p>
         </div>
         <Boxes className="text-muted-foreground h-5 w-5" />
       </header>
       <div className="flex flex-wrap gap-3">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+        <div className="relative min-w-[200px] flex-1">
+          <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <input
             type="search"
-            className="border-border w-full rounded-md border bg-background pl-9 pr-3 py-2 text-sm"
+            className="border-border bg-background w-full rounded-md border py-2 pr-3 pl-9 text-sm"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search providers"
           />
         </div>
         <select
-          className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+          className="border-border bg-background rounded-md border px-3 py-2 text-sm"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
@@ -112,7 +116,7 @@ export function IntegrationMarketplace({
             />
           ))
         ) : (
-          <div className="text-muted-foreground rounded-xl border border-dashed border-border p-6 text-center text-sm md:col-span-2">
+          <div className="text-muted-foreground border-border rounded-xl border border-dashed p-6 text-center text-sm md:col-span-2">
             No integrations match your filters.
           </div>
         )}
@@ -120,4 +124,3 @@ export function IntegrationMarketplace({
     </div>
   );
 }
-

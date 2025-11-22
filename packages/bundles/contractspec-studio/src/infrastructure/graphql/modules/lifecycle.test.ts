@@ -44,9 +44,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -88,7 +86,9 @@ describe('lifecycle GraphQL module', () => {
     const resolver = builder.queryFieldsMap.lifecycleProfile.resolve;
     const profile = await resolver({}, {}, baseCtx);
 
-    expect(prismaMock.organizationLifecycleProfile.findUnique).toHaveBeenCalled();
+    expect(
+      prismaMock.organizationLifecycleProfile.findUnique
+    ).toHaveBeenCalled();
     expect(profile.id).toBe('profile-1');
   });
 
@@ -145,7 +145,3 @@ describe('lifecycle GraphQL module', () => {
     expect(progress.id).toBe('milestone-1');
   });
 });
-
-
-
-

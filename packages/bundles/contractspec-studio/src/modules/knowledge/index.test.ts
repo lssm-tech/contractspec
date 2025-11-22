@@ -6,14 +6,11 @@ const embedFragmentsMock = vi.fn();
 const vectorUpsertMock = vi.fn();
 const queryMock = vi.fn();
 
-vi.mock(
-  '@lssm/lib.contracts/knowledge/ingestion/document-processor',
-  () => ({
-    DocumentProcessor: class {
-      process = processMock;
-    },
-  })
-);
+vi.mock('@lssm/lib.contracts/knowledge/ingestion/document-processor', () => ({
+  DocumentProcessor: class {
+    process = processMock;
+  },
+}));
 
 vi.mock('@lssm/lib.contracts/knowledge/ingestion/embedding-service', () => ({
   EmbeddingService: class {
@@ -110,7 +107,3 @@ describe('StudioKnowledgeModule', () => {
     expect(response).toEqual({ answer: '42' });
   });
 });
-
-
-
-

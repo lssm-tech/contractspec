@@ -22,9 +22,7 @@ function parseEnvFlags(): Record<string, boolean> {
   return parseFlagPayload(payload);
 }
 
-function parseFlagPayload(
-  payload?: string | null
-): Record<string, boolean> {
+function parseFlagPayload(payload?: string | null): Record<string, boolean> {
   if (!payload) return {};
   try {
     const parsed = JSON.parse(payload) as Record<string, boolean>;
@@ -46,7 +44,9 @@ function parseFlagPayload(
   return {};
 }
 
-function normalizeFlags(input: Record<string, unknown>): Record<string, boolean> {
+function normalizeFlags(
+  input: Record<string, unknown>
+): Record<string, boolean> {
   return Object.entries(input).reduce<Record<string, boolean>>(
     (acc, [key, value]) => {
       acc[key] = Boolean(value);
@@ -58,9 +58,8 @@ function normalizeFlags(input: Record<string, unknown>): Record<string, boolean>
 
 function readWindowFlags(): Record<string, boolean> {
   if (typeof window === 'undefined') return {};
-  const runtimeFlags = (
-    window as WindowWithStudioFlags
-  ).__STUDIO_FEATURE_FLAGS__;
+  const runtimeFlags = (window as WindowWithStudioFlags)
+    .__STUDIO_FEATURE_FLAGS__;
   if (!runtimeFlags || typeof runtimeFlags !== 'object') {
     return {};
   }
@@ -83,4 +82,3 @@ export function useStudioFeatureFlag(flag: FeatureFlagName): boolean {
   const featureFlags = useStudioFeatureFlags();
   return featureFlags[flag] ?? false;
 }
-

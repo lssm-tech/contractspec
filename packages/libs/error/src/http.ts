@@ -1,4 +1,3 @@
-import { isAppError } from './appError';
 import { ErrorCode } from './codes';
 
 /**

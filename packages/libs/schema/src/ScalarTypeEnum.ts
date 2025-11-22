@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type GraphQLScalarTypeConfig, Kind, type ValueNode } from 'graphql';
+import { Kind, type ValueNode } from 'graphql';
 import { FieldType } from './FieldType';
 
 // Helpers to build standard scalars

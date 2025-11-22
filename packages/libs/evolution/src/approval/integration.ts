@@ -191,6 +191,3 @@ function deserializeSuggestion(payload: unknown): SpecSuggestion | undefined {
     },
   } as SpecSuggestion;
 }
-
-
-

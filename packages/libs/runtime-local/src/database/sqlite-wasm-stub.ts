@@ -11,9 +11,7 @@ export type LocalDbValue =
   | Uint8Array
   | undefined;
 
-export interface LocalRow {
-  [key: string]: LocalDbValue;
-}
+export type LocalRow = Record<string, LocalDbValue>;
 
 export class LocalSQLiteDatabase {
   constructor() {
@@ -51,5 +49,3 @@ export class LocalSQLiteDatabase {
     throw new Error('LocalSQLiteDatabase can only be used in the browser');
   }
 }
-
-

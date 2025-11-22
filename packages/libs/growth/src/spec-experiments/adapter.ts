@@ -92,6 +92,3 @@ export function createSpecVariantResolver(
     },
   };
 }
-
-
-

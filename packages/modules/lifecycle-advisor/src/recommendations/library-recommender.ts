@@ -31,6 +31,3 @@ export class ContractSpecLibraryRecommender {
     return items.slice(0, limit);
   }
 }
-
-
-

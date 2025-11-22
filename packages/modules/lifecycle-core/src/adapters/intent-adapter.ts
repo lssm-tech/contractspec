@@ -7,6 +7,3 @@ export interface IntentAdapterResult {
 export interface IntentAdapter {
   fetch(): Promise<IntentAdapterResult>;
 }
-
-
-

@@ -31,7 +31,7 @@ export function KnowledgeSourceList({
 
   if (!knowledgeHubEnabled) {
     return (
-      <div className="rounded-2xl border border-dashed border-border bg-card/40 p-8 text-center">
+      <div className="border-border bg-card/40 rounded-2xl border border-dashed p-8 text-center">
         <FeatureGateNotice
           title="Knowledge hub is paused"
           description="Turn on STUDIO_KNOWLEDGE_HUB to index docs and feed answers into the Studio canvas."
@@ -41,17 +41,21 @@ export function KnowledgeSourceList({
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide">
+          <p className="text-sm font-semibold tracking-wide uppercase">
             Knowledge sources
           </p>
           <p className="text-muted-foreground text-sm">
             Manage documentation, specs, and repos powering Studio RAG flows.
           </p>
         </div>
-        <button type="button" className="btn-primary inline-flex items-center gap-2" onClick={onAdd}>
+        <button
+          type="button"
+          className="btn-primary inline-flex items-center gap-2"
+          onClick={onAdd}
+        >
           <Plus className="h-4 w-4" />
           Add source
         </button>
@@ -61,15 +65,13 @@ export function KnowledgeSourceList({
           sources.map((source) => (
             <div
               key={source.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-background p-4"
+              className="border-border bg-background flex flex-wrap items-center justify-between gap-3 rounded-xl border p-4"
             >
               <div className="flex items-center gap-3">
                 <BookCopy className="text-muted-foreground h-8 w-8" />
                 <div>
                   <p className="text-base font-semibold">{source.name}</p>
-                  <p className="text-muted-foreground text-sm">
-                    {source.type}
-                  </p>
+                  <p className="text-muted-foreground text-sm">{source.type}</p>
                   <p className="text-muted-foreground text-xs">
                     {source.indexed
                       ? `Indexed ${source.lastIndexed ? new Date(source.lastIndexed).toLocaleString() : ''}`
@@ -97,7 +99,7 @@ export function KnowledgeSourceList({
             </div>
           ))
         ) : (
-          <div className="text-muted-foreground rounded-xl border border-dashed border-border p-6 text-center text-sm">
+          <div className="text-muted-foreground border-border rounded-xl border border-dashed p-6 text-center text-sm">
             No knowledge sources added yet.
           </div>
         )}
@@ -105,4 +107,3 @@ export function KnowledgeSourceList({
     </div>
   );
 }
-

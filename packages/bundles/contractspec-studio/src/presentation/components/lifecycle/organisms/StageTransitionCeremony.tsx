@@ -17,13 +17,13 @@ export function StageTransitionCeremony({
   onCelebrate,
 }: StageTransitionCeremonyProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-emerald-500/10 p-6 shadow-lg">
+    <div className="border-border overflow-hidden rounded-2xl border bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-emerald-500/10 p-6 shadow-lg">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-violet-500">
+          <p className="text-sm font-semibold tracking-wide text-violet-500 uppercase">
             Stage transition
           </p>
-          <p className="text-2xl font-bold text-foreground">
+          <p className="text-foreground text-2xl font-bold">
             {fromStage} → {toStage}
           </p>
           <p className="text-muted-foreground mt-1 text-sm">
@@ -40,8 +40,8 @@ export function StageTransitionCeremony({
         </button>
       </div>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <section className="rounded-xl border border-white/20 bg-background/60 p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <section className="bg-background/60 rounded-xl border border-white/20 p-4">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm font-semibold tracking-wide uppercase">
             <Sparkles className="h-4 w-4" />
             Milestones unlocked
           </div>
@@ -56,14 +56,14 @@ export function StageTransitionCeremony({
                 </li>
               ))
             ) : (
-              <li className="text-muted-foreground rounded-lg border border-dashed border-border px-3 py-2">
+              <li className="text-muted-foreground border-border rounded-lg border border-dashed px-3 py-2">
                 No milestones recorded yet.
               </li>
             )}
           </ul>
         </section>
-        <section className="rounded-xl border border-white/20 bg-background/60 p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <section className="bg-background/60 rounded-xl border border-white/20 p-4">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm font-semibold tracking-wide uppercase">
             <CalendarDays className="h-4 w-4" />
             Next actions
           </div>
@@ -78,7 +78,7 @@ export function StageTransitionCeremony({
                 </li>
               ))
             ) : (
-              <li className="text-muted-foreground rounded-lg border border-dashed border-border px-3 py-2">
+              <li className="text-muted-foreground border-border rounded-lg border border-dashed px-3 py-2">
                 Define the post-ceremony commitments.
               </li>
             )}
@@ -88,7 +88,3 @@ export function StageTransitionCeremony({
     </div>
   );
 }
-
-
-
-

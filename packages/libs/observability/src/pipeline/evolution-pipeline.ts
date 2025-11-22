@@ -88,6 +88,3 @@ export class EvolutionPipeline {
     this.emitter.emit('event', event);
   }
 }
-
-
-

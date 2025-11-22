@@ -1,9 +1,6 @@
 export type TemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
 
-export type TemplateCategory =
-  | 'productivity'
-  | 'communication'
-  | 'content';
+export type TemplateCategory = 'productivity' | 'communication' | 'content';
 
 export type TemplateComplexity = 'beginner' | 'intermediate' | 'advanced';
 
@@ -138,10 +135,7 @@ export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {
     if (filter.category && template.category !== filter.category) {
       return false;
     }
-    if (
-      filter.complexity &&
-      template.complexity !== filter.complexity
-    ) {
+    if (filter.complexity && template.complexity !== filter.complexity) {
       return false;
     }
     if (
@@ -159,5 +153,3 @@ export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {
 export function getTemplate(id: TemplateId): TemplateDefinition | undefined {
   return TEMPLATE_REGISTRY.find((template) => template.id === id);
 }
-
-

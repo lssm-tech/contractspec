@@ -50,9 +50,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -87,7 +85,9 @@ describe('integrations GraphQL module', () => {
   });
 
   it('lists studio integrations for the organization', async () => {
-    prismaMock.studioIntegration.findMany.mockResolvedValue([{ id: 'int-1' }] as any);
+    prismaMock.studioIntegration.findMany.mockResolvedValue([
+      { id: 'int-1' },
+    ] as any);
 
     const resolver = builder.queryFieldsMap.studioIntegrations.resolve;
     const list = await resolver({}, {}, baseCtx);
@@ -140,7 +140,11 @@ describe('integrations GraphQL module', () => {
     queryKnowledgeMock.mockResolvedValue({ answer: '42' });
 
     const resolver = builder.queryFieldsMap.queryKnowledge.resolve;
-    const answer = await resolver({}, { input: { query: 'meaning?' } }, baseCtx);
+    const answer = await resolver(
+      {},
+      { input: { query: 'meaning?' } },
+      baseCtx
+    );
 
     expect(queryKnowledgeMock).toHaveBeenCalledWith(
       expect.objectContaining({ question: 'meaning?' })
@@ -148,7 +152,3 @@ describe('integrations GraphQL module', () => {
     expect(answer).toEqual({ answer: '42' });
   });
 });
-
-
-
-

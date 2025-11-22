@@ -53,6 +53,3 @@ describe('ContractSpecLibraryRecommender', () => {
     expect(libraries.some((lib) => lib.id.includes('lib.growth'))).toBe(true);
   });
 });
-
-
-

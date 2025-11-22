@@ -46,9 +46,7 @@ describe('StudioIntegrationModule', () => {
     const module = new StudioIntegrationModule({
       credentialStore: credentialStoreMock as any,
     });
-    credentialStoreMock.encrypt.mockRejectedValue(
-      new Error('cannot encrypt')
-    );
+    credentialStoreMock.encrypt.mockRejectedValue(new Error('cannot encrypt'));
 
     await expect(
       module.connectIntegration({
@@ -101,7 +99,3 @@ describe('StudioIntegrationModule', () => {
     expect(credentials).toEqual({ apiKey: 'secret' });
   });
 });
-
-
-
-

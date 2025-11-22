@@ -13,7 +13,9 @@ describe('StudioAnalyticsModule', () => {
 
   it('tracks lifecycle assessments and persists profile state', async () => {
     const module = new StudioAnalyticsModule({ pipeline: pipelineMock as any });
-    prismaMock.organizationLifecycleProfile.upsert.mockResolvedValue({ id: 'profile-1' });
+    prismaMock.organizationLifecycleProfile.upsert.mockResolvedValue({
+      id: 'profile-1',
+    });
 
     await module.trackEvent({
       type: 'lifecycle.assessment',
@@ -86,7 +88,3 @@ describe('StudioAnalyticsModule', () => {
     expect(metrics.lastEventAt).toBeInstanceOf(Date);
   });
 });
-
-
-
-

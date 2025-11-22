@@ -91,7 +91,7 @@ export function DeploymentPanel({
   const latest = filtered[0];
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-lg font-semibold">Deployments</p>
@@ -103,11 +103,11 @@ export function DeploymentPanel({
       </header>
       <div className="flex flex-wrap items-center gap-2">
         <select
-          className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+          className="border-border bg-background rounded-md border px-3 py-2 text-sm"
           value={env}
           onChange={(event) => {
-            const nextEnv =
-              event.target.value as DeploymentHistoryItem['environment'];
+            const nextEnv = event.target
+              .value as DeploymentHistoryItem['environment'];
             setEnv(nextEnv);
             onEnvironmentChange?.(nextEnv);
           }}
@@ -136,10 +136,10 @@ export function DeploymentPanel({
         </div>
       )}
       {latest ? (
-        <div className="rounded-xl border border-border bg-background p-4">
+        <div className="border-border bg-background rounded-xl border p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide">
+              <p className="text-sm font-semibold tracking-wide uppercase">
                 Latest status
               </p>
               <p className="text-muted-foreground text-xs">
@@ -164,15 +164,15 @@ export function DeploymentPanel({
           </dl>
         </div>
       ) : (
-        <div className="text-muted-foreground rounded-xl border border-dashed border-border p-6 text-center text-sm">
+        <div className="text-muted-foreground border-border rounded-xl border border-dashed p-6 text-center text-sm">
           No deployments yet for {env.toLowerCase()}.
         </div>
       )}
       <section className="space-y-2">
-        <p className="text-sm font-semibold uppercase tracking-wide">
+        <p className="text-sm font-semibold tracking-wide uppercase">
           Deployment history
         </p>
-        <div className="divide-border divide-y rounded-xl border border-border bg-background">
+        <div className="divide-border border-border bg-background divide-y rounded-xl border">
           {filtered.slice(0, 5).map((deployment) => (
             <div
               key={deployment.id}
@@ -212,11 +212,7 @@ export function DeploymentPanel({
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: DeploymentHistoryItem['status'];
-}) {
+function StatusBadge({ status }: { status: DeploymentHistoryItem['status'] }) {
   const tone = statusTone[status];
   return (
     <span
@@ -224,10 +220,10 @@ function StatusBadge({
         tone === 'success'
           ? 'bg-emerald-500/10 text-emerald-500'
           : tone === 'danger'
-          ? 'bg-red-500/10 text-red-500'
-          : tone === 'warning'
-          ? 'bg-amber-500/10 text-amber-500'
-          : 'bg-blue-500/10 text-blue-500'
+            ? 'bg-red-500/10 text-red-500'
+            : tone === 'warning'
+              ? 'bg-amber-500/10 text-amber-500'
+              : 'bg-blue-500/10 text-blue-500'
       }`}
     >
       <ShieldCheck className="h-3 w-3" />
@@ -235,4 +231,3 @@ function StatusBadge({
     </span>
   );
 }
-

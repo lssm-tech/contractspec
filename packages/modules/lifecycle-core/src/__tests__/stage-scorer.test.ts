@@ -51,6 +51,3 @@ describe('StageScorer', () => {
     expect(scores[0]?.stage).toBe(LifecycleStage.Exploration);
   });
 });
-
-
-

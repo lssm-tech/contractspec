@@ -18,10 +18,7 @@ import {
   type LifecycleRecommendation,
   type LifecycleSignal,
 } from '@lssm/lib.lifecycle';
-import {
-  toInputJson,
-  toJsonNullValue,
-} from '../../../utils/prisma-json';
+import { toInputJson, toJsonNullValue } from '../../../utils/prisma-json';
 import {
   toPrismaLifecycleStage,
   fromPrismaLifecycleStage,
@@ -100,9 +97,9 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         }),
         ceremony: t.field({
           type: builder
-            .objectRef<NonNullable<LifecycleRecommendation['ceremony']>>(
-              'LifecycleCeremony'
-            )
+            .objectRef<
+              NonNullable<LifecycleRecommendation['ceremony']>
+            >('LifecycleCeremony')
             .implement({
               fields: (inner) => ({
                 title: inner.exposeString('title'),
@@ -156,8 +153,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         confidence: t.exposeFloat('confidence'),
         focusAreas: t.field({
           type: ['String'],
-          resolve: (assessment) =>
-            (assessment.focusAreas as string[]) ?? [],
+          resolve: (assessment) => (assessment.focusAreas as string[]) ?? [],
         }),
         signals: t.field({
           type: 'JSON',
@@ -263,8 +259,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
         const profile = await getOrCreateProfile(user.organizationId);
         return lifecycleService.getStagePlaybook(
           fromPrismaLifecycleStage(profile.currentStage)
-        )
-          .recommendation;
+        ).recommendation;
       },
     }),
   }));
@@ -324,8 +319,7 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
                 args.status === MilestoneStatus.COMPLETED
                   ? new Date()
                   : existing.completedAt,
-              startedAt:
-                existing.startedAt ?? new Date(),
+              startedAt: existing.startedAt ?? new Date(),
             },
           });
         }
@@ -400,4 +394,3 @@ function addDays(date: Date, days: number) {
   next.setDate(next.getDate() + days);
   return next;
 }
-

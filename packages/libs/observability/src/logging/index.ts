@@ -54,6 +54,3 @@ export class Logger {
 export const logger = new Logger(
   process.env.OTEL_SERVICE_NAME || 'unknown-service'
 );
-
-
-

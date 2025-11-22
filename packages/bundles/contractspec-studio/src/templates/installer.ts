@@ -46,8 +46,7 @@ export class TemplateInstaller {
   private readonly fetchImpl: typeof fetch;
 
   constructor(options: TemplateInstallerOptions = {}) {
-    this.runtime =
-      options.runtime ?? new LocalRuntimeServices();
+    this.runtime = options.runtime ?? new LocalRuntimeServices();
     this.endpoint = options.endpoint ?? '/api/graphql';
     this.fetchImpl = options.fetchImpl ?? fetch;
   }
@@ -59,22 +58,13 @@ export class TemplateInstaller {
   list(filter?: TemplateFilter): TemplateDefinition[] {
     return filter
       ? TEMPLATE_REGISTRY.filter((template) => {
-          if (
-            filter.category &&
-            filter.category !== template.category
-          ) {
+          if (filter.category && filter.category !== template.category) {
             return false;
           }
-          if (
-            filter.complexity &&
-            filter.complexity !== template.complexity
-          ) {
+          if (filter.complexity && filter.complexity !== template.complexity) {
             return false;
           }
-          if (
-            filter.tag &&
-            !template.tags.includes(filter.tag)
-          ) {
+          if (filter.tag && !template.tags.includes(filter.tag)) {
             return false;
           }
           return true;
@@ -101,29 +91,24 @@ export class TemplateInstaller {
   ): Promise<SaveTemplateResult> {
     const snapshot = this.runtime.db.export();
     const payload = toBase64(snapshot);
-    const response = await this.fetchImpl(
-      options.endpoint ?? this.endpoint,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(options.token
-            ? { Authorization: `Bearer ${options.token}` }
-            : {}),
-        },
-        body: JSON.stringify({
-          query: SAVE_TEMPLATE_MUTATION,
-          variables: {
-            input: {
-              templateId: options.templateId,
-              projectName: options.projectName,
-              organizationId: options.organizationId,
-              payload,
-            },
+    const response = await this.fetchImpl(options.endpoint ?? this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),
+      },
+      body: JSON.stringify({
+        query: SAVE_TEMPLATE_MUTATION,
+        variables: {
+          input: {
+            templateId: options.templateId,
+            projectName: options.projectName,
+            organizationId: options.organizationId,
+            payload,
           },
-        }),
-      }
-    );
+        },
+      }),
+    });
 
     if (!response.ok) {
       throw new Error(
@@ -160,4 +145,3 @@ function toBase64(bytes: Uint8Array): string {
   });
   return btoa(binary);
 }
-

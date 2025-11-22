@@ -159,7 +159,8 @@ export class LocalRuntimeServices {
       {
         senderId: 'claire',
         senderName: 'Claire',
-        content: 'Morning! Just ran the lifecycle scan, team is still in MVP->PMF crossover.',
+        content:
+          'Morning! Just ran the lifecycle scan, team is still in MVP->PMF crossover.',
       },
       {
         senderId: 'amir',
@@ -169,7 +170,8 @@ export class LocalRuntimeServices {
       {
         senderId: 'theo',
         senderName: 'Théo',
-        content: 'Great — I will stitch the new template bundles before the demo.',
+        content:
+          'Great — I will stitch the new template bundles before the demo.',
       },
     ];
 
@@ -266,12 +268,14 @@ export class LocalRuntimeServices {
     const instructions = [
       {
         contentEn: 'Assemble your intent signals and highlight hottest leads.',
-        contentFr: 'Assemblez vos signaux d’intention et mettez en avant les plus chauds.',
+        contentFr:
+          'Assemblez vos signaux d’intention et mettez en avant les plus chauds.',
         ordering: 1,
       },
       {
         contentEn: 'Walk the team through policies and approvals.',
-        contentFr: 'Faites passer l’équipe à travers les politiques et validations.',
+        contentFr:
+          'Faites passer l’équipe à travers les politiques et validations.',
         ordering: 2,
       },
       {
@@ -296,5 +300,3 @@ export class LocalRuntimeServices {
     }
   }
 }
-
-

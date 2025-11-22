@@ -19,10 +19,10 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
           : 'text-violet-200 bg-violet-500/10 border-violet-500/40';
 
   return (
-    <div className="flex items-start gap-4 rounded-2xl border border-border/70 bg-card/60 p-4 transition hover:border-border">
+    <div className="border-border/70 bg-card/60 hover:border-border flex items-start gap-4 rounded-2xl border p-4 transition">
       <button
         type="button"
-        className="rounded-full border border-border p-2 text-muted-foreground hover:bg-muted/40"
+        className="border-border text-muted-foreground hover:bg-muted/40 rounded-full border p-2"
         aria-pressed={task.completed}
         onClick={() => onToggle?.(task)}
       >
@@ -44,23 +44,25 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
           >
             {task.title}
           </p>
-          <span className={`rounded-full border px-2 py-0.5 text-xs ${badgeColor}`}>
+          <span
+            className={`rounded-full border px-2 py-0.5 text-xs ${badgeColor}`}
+          >
             {task.priority.charAt(0) + task.priority.slice(1).toLowerCase()}
           </span>
           {task.category ? (
-            <span className="rounded-full bg-muted/40 px-2 py-0.5 text-xs text-muted-foreground">
+            <span className="bg-muted/40 text-muted-foreground rounded-full px-2 py-0.5 text-xs">
               {task.category.name}
             </span>
           ) : null}
           {task.dueDate ? (
-            <span className="text-xs text-muted-foreground">
+            <span className="text-muted-foreground text-xs">
               Due {new Date(task.dueDate).toLocaleDateString()}
             </span>
           ) : null}
         </div>
 
         {task.description ? (
-          <p className="text-sm text-muted-foreground">{task.description}</p>
+          <p className="text-muted-foreground text-sm">{task.description}</p>
         ) : null}
 
         {task.tags.length ? (
@@ -68,7 +70,7 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
             {task.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-muted/40 px-2 py-0.5 text-xs text-muted-foreground"
+                className="bg-muted/40 text-muted-foreground rounded-full px-2 py-0.5 text-xs"
               >
                 #{tag}
               </span>
@@ -88,5 +90,3 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
     </div>
   );
 }
-
-

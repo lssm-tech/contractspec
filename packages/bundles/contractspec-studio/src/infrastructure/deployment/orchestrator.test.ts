@@ -82,8 +82,8 @@ describe('DeploymentOrchestrator', () => {
     );
 
     expect(sharedDeployMock).toHaveBeenCalled();
-    const targetEnv = prismaMock.studioDeployment.update.mock.calls[0]?.[0]
-      ?.data?.url;
+    const targetEnv =
+      prismaMock.studioDeployment.update.mock.calls[0]?.[0]?.data?.url;
     expect(targetEnv).toBe('https://dedicated.example.com');
   });
 
@@ -127,7 +127,3 @@ describe('DeploymentOrchestrator', () => {
     expect(status?.status).toBe('DEPLOYED');
   });
 });
-
-
-
-

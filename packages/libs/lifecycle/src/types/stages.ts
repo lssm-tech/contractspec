@@ -140,6 +140,3 @@ export const getLifecycleStageBySlug = (
   }
   return entry.id;
 };
-
-
-

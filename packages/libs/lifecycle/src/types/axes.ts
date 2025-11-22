@@ -36,6 +36,3 @@ export interface LifecycleAxisSnapshot {
   rationale?: string;
   confidence: number; // 0-1
 }
-
-
-

@@ -31,9 +31,9 @@ export function LifecycleJourney({
 }: LifecycleJourneyProps) {
   const activeIndex = stages.indexOf(currentStage);
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-wide">
+        <p className="text-sm font-semibold tracking-wide uppercase">
           Lifecycle journey
         </p>
         <p className="text-muted-foreground text-sm">
@@ -42,17 +42,18 @@ export function LifecycleJourney({
       </header>
       <div className="hidden md:grid md:grid-cols-7 md:gap-3">
         {stages.map((stage, index) => {
-          const isCompleted = completedStages.includes(stage) || index < activeIndex;
+          const isCompleted =
+            completedStages.includes(stage) || index < activeIndex;
           const isActive = index === activeIndex;
           return (
             <div key={stage} className="text-center">
               <div
-                className={`mx-auto h-12 w-12 rounded-full border-2 flex items-center justify-center text-sm font-bold ${
+                className={`mx-auto flex h-12 w-12 items-center justify-center rounded-full border-2 text-sm font-bold ${
                   isActive
                     ? 'border-primary bg-primary/10 text-primary'
                     : isCompleted
-                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600'
-                    : 'border-border text-muted-foreground'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600'
+                      : 'border-border text-muted-foreground'
                 }`}
               >
                 {index + 1}
@@ -64,7 +65,8 @@ export function LifecycleJourney({
       </div>
       <div className="space-y-3 md:hidden">
         {stages.map((stage, index) => {
-          const isCompleted = completedStages.includes(stage) || index < activeIndex;
+          const isCompleted =
+            completedStages.includes(stage) || index < activeIndex;
           const isActive = index === activeIndex;
           return (
             <div
@@ -73,8 +75,8 @@ export function LifecycleJourney({
                 isActive
                   ? 'border-primary/50 bg-primary/5'
                   : isCompleted
-                  ? 'border-emerald-500/40 bg-emerald-500/5'
-                  : 'border-border'
+                    ? 'border-emerald-500/40 bg-emerald-500/5'
+                    : 'border-border'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -95,7 +97,3 @@ export function LifecycleJourney({
     </div>
   );
 }
-
-
-
-
