@@ -35,9 +35,7 @@ export class CredentialEncryption {
     };
   }
 
-  decrypt<T = Record<string, string>>(
-    encrypted: EncryptedCredentials
-  ): T {
+  decrypt<T = Record<string, string>>(encrypted: EncryptedCredentials): T {
     const key = deriveKey(encrypted.organizationId);
     const decipher = createDecipheriv(
       ALGORITHM,
@@ -59,7 +57,3 @@ function deriveKey(organizationId: string) {
     .digest()
     .subarray(0, 32);
 }
-
-
-
-

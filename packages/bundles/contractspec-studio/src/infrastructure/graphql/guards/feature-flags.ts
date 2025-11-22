@@ -7,10 +7,7 @@ import type { Context } from '../types';
 type FeatureFlagName =
   (typeof ContractSpecFeatureFlags)[ContractSpecFeatureFlag];
 
-export function hasFeatureFlag(
-  ctx: Context,
-  flag: FeatureFlagName
-): boolean {
+export function hasFeatureFlag(ctx: Context, flag: FeatureFlagName): boolean {
   return ctx.featureFlags?.[flag] ?? false;
 }
 
@@ -23,4 +20,3 @@ export function requireFeatureFlag(
     throw new Error(message ?? `Feature ${flag} is not enabled`);
   }
 }
-

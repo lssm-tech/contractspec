@@ -67,6 +67,3 @@ export interface BehaviorInsights {
   }[];
   layoutPreference?: 'form' | 'grid' | 'list' | 'table';
 }
-
-
-

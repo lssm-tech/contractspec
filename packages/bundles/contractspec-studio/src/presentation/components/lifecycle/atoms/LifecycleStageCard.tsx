@@ -70,17 +70,17 @@ export function LifecycleStageCard({
 }: LifecycleStageCardProps) {
   return (
     <div
-      className={`rounded-2xl border bg-card p-4 shadow-sm ${stageTone[stage].ring} ${stageTone[stage].accent}`}
+      className={`bg-card rounded-2xl border p-4 shadow-sm ${stageTone[stage].ring} ${stageTone[stage].accent}`}
     >
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-sm uppercase tracking-wide text-muted-foreground">
+          <p className="text-muted-foreground text-sm tracking-wide uppercase">
             Current stage
           </p>
           <p className="text-xl font-semibold">{stageLabel[stage]}</p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <p className="text-muted-foreground text-sm font-semibold tracking-wide uppercase">
             Confidence
           </p>
           <p className="text-2xl font-bold">{Math.round(confidence * 100)}%</p>
@@ -89,27 +89,27 @@ export function LifecycleStageCard({
       {description && (
         <p className="text-muted-foreground mt-3 text-sm">{description}</p>
       )}
-      <dl className="mt-4 grid gap-3 rounded-xl border border-border bg-background/60 p-4 text-sm md:grid-cols-3">
+      <dl className="border-border bg-background/60 mt-4 grid gap-3 rounded-xl border p-4 text-sm md:grid-cols-3">
         <div>
-          <dt className="text-muted-foreground uppercase tracking-wide text-xs">
+          <dt className="text-muted-foreground text-xs tracking-wide uppercase">
             Product phase
           </dt>
           <dd className="font-semibold">{axes.product ?? '—'}</dd>
         </div>
         <div>
-          <dt className="text-muted-foreground uppercase tracking-wide text-xs">
+          <dt className="text-muted-foreground text-xs tracking-wide uppercase">
             Company phase
           </dt>
           <dd className="font-semibold">{axes.company ?? '—'}</dd>
         </div>
         <div>
-          <dt className="text-muted-foreground uppercase tracking-wide text-xs">
+          <dt className="text-muted-foreground text-xs tracking-wide uppercase">
             Capital phase
           </dt>
           <dd className="font-semibold">{axes.capital ?? '—'}</dd>
         </div>
       </dl>
-      <footer className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+      <footer className="text-muted-foreground mt-3 flex items-center justify-between text-xs">
         <span className="inline-flex items-center gap-1">
           <Activity className="h-3 w-3" />
           Lifecycle advisory
@@ -121,7 +121,3 @@ export function LifecycleStageCard({
     </div>
   );
 }
-
-
-
-

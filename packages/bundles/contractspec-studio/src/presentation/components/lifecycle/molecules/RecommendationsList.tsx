@@ -26,9 +26,9 @@ export function RecommendationsList({
   onToggle,
 }: RecommendationsListProps) {
   return (
-    <div className="space-y-3 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-3 rounded-2xl border p-4">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-wide">
+        <p className="text-sm font-semibold tracking-wide uppercase">
           Recommendations
         </p>
         <p className="text-muted-foreground text-sm">
@@ -53,7 +53,7 @@ export function RecommendationsList({
               >
                 <div className="mt-1">
                   {item.completed ? (
-                    <CheckCircle2 className="text-emerald-500 h-5 w-5" />
+                    <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                   ) : (
                     <Circle className="text-muted-foreground h-5 w-5" />
                   )}
@@ -62,7 +62,7 @@ export function RecommendationsList({
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-semibold">{item.title}</p>
                     <span
-                      className={`inline-flex rounded-full border px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${tone[item.priority]}`}
+                      className={`inline-flex rounded-full border px-2 py-0.5 text-xs font-semibold tracking-wide uppercase ${tone[item.priority]}`}
                     >
                       {item.priority}
                     </span>
@@ -82,7 +82,7 @@ export function RecommendationsList({
             </button>
           ))
         ) : (
-          <div className="text-muted-foreground rounded-xl border border-dashed border-border p-6 text-center text-sm">
+          <div className="text-muted-foreground border-border rounded-xl border border-dashed p-6 text-center text-sm">
             No recommendations yet. Run an assessment to populate this list.
           </div>
         )}
@@ -90,7 +90,3 @@ export function RecommendationsList({
     </div>
   );
 }
-
-
-
-

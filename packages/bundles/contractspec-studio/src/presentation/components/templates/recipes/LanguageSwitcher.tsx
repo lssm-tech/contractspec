@@ -5,13 +5,15 @@ export interface LanguageSwitcherProps {
 
 export function LanguageSwitcher({ locale, onChange }: LanguageSwitcherProps) {
   return (
-    <div className="inline-flex rounded-full border border-border bg-card p-1 text-xs font-semibold text-muted-foreground">
+    <div className="border-border bg-card text-muted-foreground inline-flex rounded-full border p-1 text-xs font-semibold">
       {(['EN', 'FR'] as const).map((language) => (
         <button
           key={language}
           type="button"
           className={`rounded-full px-3 py-1 transition ${
-            locale === language ? 'bg-violet-500 text-white' : 'hover:text-foreground'
+            locale === language
+              ? 'bg-violet-500 text-white'
+              : 'hover:text-foreground'
           }`}
           onClick={() => onChange(language)}
         >
@@ -21,5 +23,3 @@ export function LanguageSwitcher({ locale, onChange }: LanguageSwitcherProps) {
     </div>
   );
 }
-
-

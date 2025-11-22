@@ -74,7 +74,7 @@ export function StudioProjectList({
         {Array.from({ length: 3 }).map((_, idx) => (
           <div
             key={idx}
-            className="h-32 animate-pulse rounded-xl border border-dashed border-muted-foreground/30 bg-muted/30"
+            className="border-muted-foreground/30 bg-muted/30 h-32 animate-pulse rounded-xl border border-dashed"
           />
         ))}
       </div>
@@ -151,13 +151,13 @@ function FiltersRow({
   onRefresh,
 }: FiltersRowProps) {
   return (
-    <div className="border-border flex flex-wrap items-center gap-3 rounded-xl border bg-card p-4">
-      <div className="text-muted-foreground inline-flex items-center gap-2 text-sm uppercase tracking-wide">
+    <div className="border-border bg-card flex flex-wrap items-center gap-3 rounded-xl border p-4">
+      <div className="text-muted-foreground inline-flex items-center gap-2 text-sm tracking-wide uppercase">
         <Filter className="h-4 w-4" />
         Filters
       </div>
       <select
-        className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+        className="border-border bg-background rounded-md border px-3 py-2 text-sm"
         aria-label="Filter by tier"
         value={tierFilter}
         onChange={(event) => onTierChange(event.target.value as TierFilter)}
@@ -168,7 +168,7 @@ function FiltersRow({
         <option value="ENTERPRISE">Enterprise</option>
       </select>
       <select
-        className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+        className="border-border bg-background rounded-md border px-3 py-2 text-sm"
         aria-label="Filter by deployment mode"
         value={modeFilter}
         onChange={(event) => onModeChange(event.target.value as ModeFilter)}
@@ -189,7 +189,3 @@ function FiltersRow({
     </div>
   );
 }
-
-
-
-

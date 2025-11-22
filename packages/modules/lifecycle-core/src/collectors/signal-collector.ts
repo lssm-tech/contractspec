@@ -109,6 +109,3 @@ const dedupeSignals = (signals: LifecycleSignal[]): LifecycleSignal[] => {
     return true;
   });
 };
-
-
-

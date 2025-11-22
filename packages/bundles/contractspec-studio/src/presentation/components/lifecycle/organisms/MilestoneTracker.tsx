@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Award, Filter } from 'lucide-react';
 
-export type MilestoneStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'SKIPPED';
+export type MilestoneStatus =
+  | 'NOT_STARTED'
+  | 'IN_PROGRESS'
+  | 'COMPLETED'
+  | 'SKIPPED';
 
 export interface Milestone {
   id: string;
@@ -36,10 +40,10 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
       : milestones.filter((item) => item.category === category);
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide">
+          <p className="text-sm font-semibold tracking-wide uppercase">
             Milestone tracker
           </p>
           <p className="text-muted-foreground text-sm">
@@ -49,7 +53,7 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
         <div className="inline-flex items-center gap-2">
           <Filter className="text-muted-foreground h-4 w-4" />
           <select
-            className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+            className="border-border bg-background rounded-md border px-3 py-2 text-sm"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           >
@@ -67,12 +71,12 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
           filtered.map((milestone) => (
             <div
               key={milestone.id}
-              className="rounded-xl border border-border bg-background p-4"
+              className="border-border bg-background rounded-xl border p-4"
             >
               <div className="flex items-center justify-between">
                 <p className="text-base font-semibold">{milestone.title}</p>
                 <span
-                  className={`inline-flex rounded-full border px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${statusStyles[milestone.status]}`}
+                  className={`inline-flex rounded-full border px-2 py-0.5 text-xs font-semibold tracking-wide uppercase ${statusStyles[milestone.status]}`}
                 >
                   {milestone.status.replace('_', ' ').toLowerCase()}
                 </span>
@@ -82,7 +86,7 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
                   {milestone.description}
                 </p>
               )}
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+              <div className="text-muted-foreground mt-3 flex flex-wrap items-center gap-4 text-xs">
                 <span className="inline-flex items-center gap-1">
                   <Award className="h-3 w-3" />
                   {milestone.category}
@@ -102,7 +106,7 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
             </div>
           ))
         ) : (
-          <div className="text-muted-foreground rounded-xl border border-dashed border-border p-6 text-center text-sm md:col-span-2">
+          <div className="text-muted-foreground border-border rounded-xl border border-dashed p-6 text-center text-sm md:col-span-2">
             No milestones for this category yet.
           </div>
         )}
@@ -110,7 +114,3 @@ export function MilestoneTracker({ milestones }: MilestoneTrackerProps) {
     </div>
   );
 }
-
-
-
-

@@ -38,6 +38,3 @@ export interface OverlayAuditEvent {
   context: OverlayScopeContext;
   timestamp: string;
 }
-
-
-

@@ -20,19 +20,22 @@ export const MessagingCapability = defineCapability({
       surface: 'operation',
       name: 'template.messaging.conversation.create',
       version: 1,
-      description: 'Create a direct or group conversation scoped to a Studio project.',
+      description:
+        'Create a direct or group conversation scoped to a Studio project.',
     },
     {
       surface: 'operation',
       name: 'template.messaging.conversation.list',
       version: 1,
-      description: 'List conversations with pagination, unread counts, and filters.',
+      description:
+        'List conversations with pagination, unread counts, and filters.',
     },
     {
       surface: 'operation',
       name: 'template.messaging.message.send',
       version: 1,
-      description: 'Send a message with attachments and optimistic delivery state.',
+      description:
+        'Send a message with attachments and optimistic delivery state.',
     },
     {
       surface: 'operation',
@@ -55,5 +58,3 @@ export const MessagingCapability = defineCapability({
   ],
   requires: [{ key: 'studio.project', version: 1 }],
 });
-
-

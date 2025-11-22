@@ -162,4 +162,3 @@ export class StudioEvolutionModule {
     return { sessionId, applied };
   }
 }
-

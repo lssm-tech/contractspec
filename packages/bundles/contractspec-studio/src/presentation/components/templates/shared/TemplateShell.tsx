@@ -69,4 +69,3 @@ export function TemplateShell({
     </TemplateRuntimeProvider>
   );
 }
-

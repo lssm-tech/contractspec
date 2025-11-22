@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Play, Pencil, Archive, Layers, Server } from 'lucide-react';
-import {
-  EntityCard,
-  StatusChip,
-} from '@lssm/lib.design-system';
+import { EntityCard, StatusChip } from '@lssm/lib.design-system';
 
 export interface StudioProjectSummary {
   id: string;
@@ -36,10 +33,11 @@ const tierColor: Record<
   ENTERPRISE: { tone: 'success', label: 'Enterprise' },
 };
 
-const deploymentLabel: Record<StudioProjectSummary['deploymentMode'], string> = {
-  SHARED: 'Shared deployment',
-  DEDICATED: 'Dedicated deployment',
-};
+const deploymentLabel: Record<StudioProjectSummary['deploymentMode'], string> =
+  {
+    SHARED: 'Shared deployment',
+    DEDICATED: 'Dedicated deployment',
+  };
 
 export function StudioProjectCard({
   project,
@@ -69,21 +67,21 @@ export function StudioProjectCard({
       }
       cardSubtitle={
         <span className="text-muted-foreground flex items-center gap-1 text-base">
-          <Server className="h-3.5 w-3.5 text-muted-foreground" />
+          <Server className="text-muted-foreground h-3.5 w-3.5" />
           {deploymentLabel[project.deploymentMode]}
         </span>
       }
       meta={
         <div className="text-muted-foreground space-y-2 text-sm">
           <div className="flex items-center gap-2">
-            <Layers className="h-3.5 w-3.5 text-muted-foreground" />
+            <Layers className="text-muted-foreground h-3.5 w-3.5" />
             <span>
               {project.specCount ?? 0} specs · {project.overlayCount ?? 0}{' '}
               overlays
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Play className="h-3.5 w-3.5 text-muted-foreground" />
+            <Play className="text-muted-foreground h-3.5 w-3.5" />
             {lastDeployment ? (
               <span>
                 Last deployment:{' '}
@@ -128,7 +126,7 @@ export function StudioProjectCard({
           </button>
           <button
             type="button"
-            className="btn-ghost inline-flex items-center gap-1 text-sm text-destructive hover:text-destructive"
+            className="btn-ghost text-destructive hover:text-destructive inline-flex items-center gap-1 text-sm"
             onClick={() => onArchive?.(project.id)}
             disabled={disabled}
           >
@@ -140,7 +138,3 @@ export function StudioProjectCard({
     />
   );
 }
-
-
-
-

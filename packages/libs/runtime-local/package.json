@@ -12,9 +12,9 @@
     "build:types": "tsc --noEmit",
     "dev": "bun run build:bundle --watch",
     "clean": "rimraf dist .turbo",
-    "lint": "bun run lint:check",
-    "lint:check": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
   },
   "dependencies": {
     "@apollo/client": "^3.11.6",

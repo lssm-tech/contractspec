@@ -49,7 +49,7 @@ export function IntegrationSettings({
 
   return (
     <form
-      className="space-y-4 rounded-2xl border border-border bg-card p-4"
+      className="border-border bg-card space-y-4 rounded-2xl border p-4"
       onSubmit={(event) => {
         event.preventDefault();
         onSave?.(values);
@@ -57,7 +57,7 @@ export function IntegrationSettings({
     >
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide">
+          <p className="text-sm font-semibold tracking-wide uppercase">
             {provider} credentials
           </p>
           <p className="text-muted-foreground text-sm">
@@ -70,11 +70,11 @@ export function IntegrationSettings({
         <label className="space-y-1 text-sm">
           <span className="font-semibold">API key</span>
           <div className="relative">
-            <Key className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+            <Key className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <input
               type="text"
               name="apiKey"
-              className="border-border w-full rounded-md border bg-background pl-9 pr-3 py-2"
+              className="border-border bg-background w-full rounded-md border py-2 pr-3 pl-9"
               value={values.apiKey}
               onChange={handleChange}
               required
@@ -86,19 +86,19 @@ export function IntegrationSettings({
           <input
             type="password"
             name="secret"
-            className="border-border w-full rounded-md border bg-background px-3 py-2"
+            className="border-border bg-background w-full rounded-md border px-3 py-2"
             value={values.secret}
             onChange={handleChange}
           />
         </label>
       </div>
-      <label className="flex items-center gap-3 rounded-xl border border-border bg-background p-4 text-sm">
+      <label className="border-border bg-background flex items-center gap-3 rounded-xl border p-4 text-sm">
         <input
           type="checkbox"
           name="byok"
           checked={values.byok}
           onChange={handleChange}
-          className="h-4 w-4 rounded border-border"
+          className="border-border h-4 w-4 rounded"
         />
         <div>
           <p className="font-semibold">Store secrets via BYOK</p>
@@ -111,7 +111,7 @@ export function IntegrationSettings({
         <span className="font-semibold">Configuration (JSON)</span>
         <textarea
           name="config"
-          className="border-border font-mono min-h-[140px] w-full rounded-xl border bg-background/70 p-3 text-sm"
+          className="border-border bg-background/70 min-h-[140px] w-full rounded-xl border p-3 font-mono text-sm"
           value={values.config}
           onChange={handleChange}
         />
@@ -137,4 +137,3 @@ export function IntegrationSettings({
     </form>
   );
 }
-

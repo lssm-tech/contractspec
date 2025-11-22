@@ -26,16 +26,11 @@ export class LocalStorageService {
       return (FALLBACK_STORE.get(key) as TValue | undefined) ?? fallback;
     }
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(
-        this.storeName,
-        'readonly'
-      );
+      const tx = db.transaction(this.storeName, 'readonly');
       const store = tx.objectStore(this.storeName);
       const request = store.get(key);
       request.onsuccess = () => {
-        resolve(
-          (request.result as TValue | undefined) ?? fallback
-        );
+        resolve((request.result as TValue | undefined) ?? fallback);
       };
       request.onerror = () => reject(request.error);
     });
@@ -48,10 +43,7 @@ export class LocalStorageService {
       return;
     }
     await new Promise<void>((resolve, reject) => {
-      const tx = db.transaction(
-        this.storeName,
-        'readwrite'
-      );
+      const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
       const request = store.put(value, key);
       request.onsuccess = () => resolve();
@@ -66,10 +58,7 @@ export class LocalStorageService {
       return;
     }
     await new Promise<void>((resolve, reject) => {
-      const tx = db.transaction(
-        this.storeName,
-        'readwrite'
-      );
+      const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
       const request = store.delete(key);
       request.onsuccess = () => resolve();
@@ -84,10 +73,7 @@ export class LocalStorageService {
       return;
     }
     await new Promise<void>((resolve, reject) => {
-      const tx = db.transaction(
-        this.storeName,
-        'readwrite'
-      );
+      const tx = db.transaction(this.storeName, 'readwrite');
       const store = tx.objectStore(this.storeName);
       const request = store.clear();
       request.onsuccess = () => resolve();
@@ -128,5 +114,3 @@ export class LocalStorageService {
     });
   }
 }
-
-

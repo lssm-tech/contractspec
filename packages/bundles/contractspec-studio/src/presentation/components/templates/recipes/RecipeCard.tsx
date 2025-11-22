@@ -8,12 +8,16 @@ export interface RecipeCardProps {
   onToggleFavorite?: (recipe: Recipe) => void;
 }
 
-export function RecipeCard({ recipe, onSelect, onToggleFavorite }: RecipeCardProps) {
+export function RecipeCard({
+  recipe,
+  onSelect,
+  onToggleFavorite,
+}: RecipeCardProps) {
   return (
     <button
       type="button"
       onClick={() => onSelect?.(recipe)}
-      className="flex flex-col gap-3 rounded-2xl border border-border bg-card text-left transition hover:border-violet-400"
+      className="border-border bg-card flex flex-col gap-3 rounded-2xl border text-left transition hover:border-violet-400"
     >
       {recipe.heroImageUrl ? (
         <img
@@ -22,7 +26,7 @@ export function RecipeCard({ recipe, onSelect, onToggleFavorite }: RecipeCardPro
           className="h-40 w-full rounded-t-2xl object-cover"
         />
       ) : (
-        <div className="h-40 rounded-t-2xl bg-muted" />
+        <div className="bg-muted h-40 rounded-t-2xl" />
       )}
       <div className="space-y-2 p-4">
         <div className="flex items-center justify-between">
@@ -39,13 +43,15 @@ export function RecipeCard({ recipe, onSelect, onToggleFavorite }: RecipeCardPro
               onToggleFavorite?.(recipe);
             }}
           >
-            <Heart className={`h-4 w-4 ${recipe.isFavorite ? 'fill-red-400' : ''}`} />
+            <Heart
+              className={`h-4 w-4 ${recipe.isFavorite ? 'fill-red-400' : ''}`}
+            />
           </button>
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="text-muted-foreground line-clamp-2 text-sm">
           {recipe.description}
         </p>
-        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+        <div className="text-muted-foreground flex flex-wrap gap-3 text-xs">
           {recipe.prepTimeMinutes ? (
             <span>Prep {recipe.prepTimeMinutes}m</span>
           ) : null}
@@ -58,5 +64,3 @@ export function RecipeCard({ recipe, onSelect, onToggleFavorite }: RecipeCardPro
     </button>
   );
 }
-
-

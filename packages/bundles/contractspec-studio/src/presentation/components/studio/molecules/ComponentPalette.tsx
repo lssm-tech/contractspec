@@ -28,10 +28,9 @@ export function ComponentPalette({
   onSelect,
 }: ComponentPaletteProps) {
   const [search, setSearch] = React.useState('');
-  const [category, setCategory] =
-    React.useState<ComponentPaletteProps['components'][number]['category'] | 'all'>(
-      'all'
-    );
+  const [category, setCategory] = React.useState<
+    ComponentPaletteProps['components'][number]['category'] | 'all'
+  >('all');
 
   const filtered = React.useMemo(() => {
     return components.filter((component) => {
@@ -45,10 +44,10 @@ export function ComponentPalette({
   }, [components, search, category]);
 
   return (
-    <div className="space-y-3 rounded-xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-3 rounded-xl border p-4">
       <header className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide">
+          <p className="text-sm font-semibold tracking-wide uppercase">
             Component palette
           </p>
           <p className="text-muted-foreground text-xs">
@@ -58,18 +57,18 @@ export function ComponentPalette({
         <PanelsTopLeft className="text-muted-foreground h-5 w-5" />
       </header>
       <div className="flex flex-wrap gap-2">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+        <div className="relative min-w-[200px] flex-1">
+          <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <input
             type="text"
-            className="border-border w-full rounded-md border bg-background pl-9 pr-3 py-2 text-sm"
+            className="border-border bg-background w-full rounded-md border py-2 pr-3 pl-9 text-sm"
             placeholder="Search components"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
         </div>
         <select
-          className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+          className="border-border bg-background rounded-md border px-3 py-2 text-sm"
           value={category}
           onChange={(event) =>
             setCategory(event.target.value as typeof category)
@@ -86,7 +85,7 @@ export function ComponentPalette({
       </div>
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className="text-muted-foreground rounded-lg border border-dashed border-border p-6 text-center text-sm">
+          <div className="text-muted-foreground border-border rounded-lg border border-dashed p-6 text-center text-sm">
             No components match your filters.
           </div>
         ) : (
@@ -94,7 +93,7 @@ export function ComponentPalette({
             <button
               key={component.id}
               type="button"
-              className="border-border hover:border-primary/60 focus-visible:border-primary focus-visible:ring-primary/20 flex w-full items-center justify-between rounded-lg border bg-background px-4 py-3 text-left text-sm transition hover:bg-primary/5 focus-visible:ring-2 focus-visible:outline-none"
+              className="border-border hover:border-primary/60 focus-visible:border-primary focus-visible:ring-primary/20 bg-background hover:bg-primary/5 flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left text-sm transition focus-visible:ring-2 focus-visible:outline-none"
               draggable
               onClick={() => onSelect?.(component)}
               onDragStart={(event) => {
@@ -107,11 +106,10 @@ export function ComponentPalette({
               <div>
                 <p className="font-semibold">{component.label}</p>
                 <p className="text-muted-foreground text-xs">
-                  {component.description ??
-                    CATEGORY_LABEL[component.category]}
+                  {component.description ?? CATEGORY_LABEL[component.category]}
                 </p>
               </div>
-              <span className="text-muted-foreground text-xs uppercase tracking-wide">
+              <span className="text-muted-foreground text-xs tracking-wide uppercase">
                 {CATEGORY_LABEL[component.category]}
               </span>
             </button>
@@ -121,7 +119,3 @@ export function ComponentPalette({
     </div>
   );
 }
-
-
-
-

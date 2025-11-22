@@ -13,16 +13,14 @@ export interface Recipe {
     nameEn: string;
     nameFr: string;
   } | null;
-  ingredients: Array<{
+  ingredients: {
     id: string;
     name: string;
     quantity: string;
-  }>;
-  instructions: Array<{
+  }[];
+  instructions: {
     id: string;
     content: string;
     ordering: number;
-  }>;
+  }[];
 }
-
-

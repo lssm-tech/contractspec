@@ -71,7 +71,3 @@ export const KnowledgeHubCapability = defineCapability({
     { key: 'studio.integration-hub', version: 1, optional: true },
   ],
 });
-
-
-
-

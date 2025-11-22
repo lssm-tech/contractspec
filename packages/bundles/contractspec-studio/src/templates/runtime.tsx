@@ -48,8 +48,7 @@ export function TemplateRuntimeProvider({
   lazy = false,
   children,
 }: TemplateRuntimeProviderProps) {
-  const [value, setValue] =
-    useState<TemplateRuntimeContextValue | null>(null);
+  const [value, setValue] = useState<TemplateRuntimeContextValue | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,8 +84,7 @@ export function TemplateRuntimeProvider({
           previous
             ? {
                 ...previous,
-                components:
-                  templateComponentRegistry.get(templateId),
+                components: templateComponentRegistry.get(templateId),
               }
             : previous
         );
@@ -111,9 +109,7 @@ export function TemplateRuntimeProvider({
 
   return (
     <TemplateRuntimeContext.Provider value={memoizedValue}>
-      <ApolloProvider client={memoizedValue.client}>
-        {children}
-      </ApolloProvider>
+      <ApolloProvider client={memoizedValue.client}>{children}</ApolloProvider>
     </TemplateRuntimeContext.Provider>
   );
 }
@@ -139,16 +135,14 @@ class TemplateComponentRegistry {
     TemplateId,
     TemplateComponentRegistration
   >();
-  private readonly listeners = new Set<
-    (templateId: TemplateId) => void
-  >();
+  private readonly listeners = new Set<(templateId: TemplateId) => void>();
 
   register(
     templateId: TemplateId,
     registration: TemplateComponentRegistration
   ) {
     this.components.set(templateId, registration);
-      this.listeners.forEach((listener) => listener(templateId));
+    this.listeners.forEach((listener) => listener(templateId));
   }
 
   get(templateId: TemplateId) {
@@ -163,8 +157,7 @@ class TemplateComponentRegistry {
   }
 }
 
-export const templateComponentRegistry =
-  new TemplateComponentRegistry();
+export const templateComponentRegistry = new TemplateComponentRegistry();
 
 export function registerTemplateComponents(
   templateId: TemplateId,
@@ -172,4 +165,3 @@ export function registerTemplateComponents(
 ) {
   templateComponentRegistry.register(templateId, components);
 }
-

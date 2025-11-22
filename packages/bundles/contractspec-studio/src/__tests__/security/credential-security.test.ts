@@ -31,14 +31,11 @@ describe('Credential security', () => {
       apiKey: 'secret',
     });
 
-    const updateCall = prismaMock.studioIntegration.updateMany.mock.calls[0]?.[0];
+    const updateCall =
+      prismaMock.studioIntegration.updateMany.mock.calls[0]?.[0];
     const storedCredentials = updateCall?.data?.credentials;
     expect(storedCredentials).toBeDefined();
     expect(storedCredentials.ciphertext).toBeDefined();
     expect(JSON.stringify(storedCredentials)).not.toContain('secret');
   });
 });
-
-
-
-

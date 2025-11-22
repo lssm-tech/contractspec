@@ -63,7 +63,7 @@ export function StudioCanvas({
 
   if (!visualBuilderEnabled) {
     return (
-      <div className="rounded-2xl border border-dashed border-border bg-card/40 p-8 text-center">
+      <div className="border-border bg-card/40 rounded-2xl border border-dashed p-8 text-center">
         <FeatureGateNotice
           title="Visual builder in private preview"
           description="Your workspace is still on the shared canvas track. Enable STUDIO_VISUAL_BUILDER to unlock drag-and-drop editing."
@@ -90,7 +90,9 @@ export function StudioCanvas({
           >
             <ZoomOut className="h-4 w-4" />
           </button>
-          <span className="text-sm tabular-nums">{Math.round(zoom * 100)}%</span>
+          <span className="text-sm tabular-nums">
+            {Math.round(zoom * 100)}%
+          </span>
           <button
             type="button"
             className="btn-ghost inline-flex h-9 w-9 items-center justify-center rounded-full"
@@ -114,14 +116,14 @@ export function StudioCanvas({
         </div>
       </header>
       <div
-        className={`border-border grid gap-4 rounded-2xl border bg-card p-4 ${
-          isFullScreen ? 'fixed inset-6 z-50 bg-background shadow-2xl' : ''
+        className={`border-border bg-card grid gap-4 rounded-2xl border p-4 ${
+          isFullScreen ? 'bg-background fixed inset-6 z-50 shadow-2xl' : ''
         }`}
         style={isFullScreen ? undefined : { minHeight: height }}
       >
         <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
           <div
-            className="border-border relative overflow-hidden rounded-xl border bg-muted/40"
+            className="border-border bg-muted/40 relative overflow-hidden rounded-xl border"
             style={{ minHeight: height }}
           >
             <div
@@ -173,16 +175,19 @@ export function StudioCanvas({
               )}
             </div>
           </div>
-          <aside className="space-y-3 rounded-xl border border-border bg-background p-4">
+          <aside className="border-border bg-background space-y-3 rounded-xl border p-4">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold uppercase tracking-wide">
+              <p className="text-sm font-semibold tracking-wide uppercase">
                 Component tree
               </p>
               <span className="text-muted-foreground text-xs">
                 {nodes.length} root node{nodes.length === 1 ? '' : 's'}
               </span>
             </div>
-            <div className="space-y-2 overflow-y-auto" style={{ maxHeight: height - 96 }}>
+            <div
+              className="space-y-2 overflow-y-auto"
+              style={{ maxHeight: height - 96 }}
+            >
               {nodes.length ? (
                 nodes.map((node) => (
                   <TreeNode
@@ -225,7 +230,7 @@ function CanvasNodeCard({
 }: CanvasNodeCardProps) {
   return (
     <div
-      className={`rounded-xl border bg-card p-4 shadow-sm transition ${
+      className={`bg-card rounded-xl border p-4 shadow-sm transition ${
         selectedNodeId === node.id
           ? 'border-primary shadow-primary/20'
           : 'border-border'
@@ -262,7 +267,7 @@ function CanvasNodeCard({
             <GripVertical className="h-4 w-4" />
           </button>
         ) : (
-          <span className="text-xs font-mono text-muted-foreground">
+          <span className="text-muted-foreground font-mono text-xs">
             {node.id.slice(0, 6)}
           </span>
         )}
@@ -302,7 +307,7 @@ function TreeNode({
         onClick={() => onSelectNode?.(node.id)}
       >
         <span className="font-medium">{node.type}</span>
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">
+        <span className="text-muted-foreground text-xs tracking-wide uppercase">
           {node.children?.length ?? 0}
         </span>
       </button>
@@ -343,4 +348,3 @@ function SortableCanvasNode(props: CanvasNodeCardProps) {
     </div>
   );
 }
-

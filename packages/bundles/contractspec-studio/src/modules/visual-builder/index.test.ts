@@ -121,6 +121,3 @@ describe('VisualBuilderModule', () => {
     expect(result.files[0]?.contents).toContain('Hero');
   });
 });
-
-
-

@@ -43,9 +43,7 @@ class BuilderStub {
     };
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb(this.helpers() as any);
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -99,8 +97,7 @@ describe('Project lifecycle e2e', () => {
 
     const createProject = builder.mutationFieldsMap.createStudioProject.resolve;
     const createSpec = builder.mutationFieldsMap.createStudioSpec.resolve;
-    const deployProject =
-      builder.mutationFieldsMap.deployStudioProject.resolve;
+    const deployProject = builder.mutationFieldsMap.deployStudioProject.resolve;
 
     const project = await createProject(
       {},

@@ -41,9 +41,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -67,7 +65,7 @@ const baseCtx: Context = {
   logger: console as any,
   headers: {} as Headers,
   featureFlags: {
-    'studio_dedicated_deployment': true,
+    studio_dedicated_deployment: true,
   },
 };
 
@@ -159,9 +157,8 @@ describe('studio GraphQL module', () => {
 
   it('rejects access when user context is missing', async () => {
     const resolver = builder.queryFieldsMap.myStudioProjects.resolve;
-    await expect(resolver({}, {}, { ...baseCtx, user: undefined })).rejects.toThrow(
-      /Unauthorized/
-    );
+    await expect(
+      resolver({}, {}, { ...baseCtx, user: undefined })
+    ).rejects.toThrow(/Unauthorized/);
   });
 });
-

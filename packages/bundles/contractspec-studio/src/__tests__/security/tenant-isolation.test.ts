@@ -32,9 +32,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -66,9 +64,9 @@ describe('tenant isolation', () => {
     prismaMock.studioProject.findFirst.mockResolvedValue(null);
 
     const resolver = studioBuilder.queryFieldsMap.studioProject.resolve;
-    await expect(
-      resolver({}, { id: 'proj-foreign' }, ctx)
-    ).rejects.toThrow(/Project not found/);
+    await expect(resolver({}, { id: 'proj-foreign' }, ctx)).rejects.toThrow(
+      /Project not found/
+    );
 
     expect(prismaMock.studioProject.findFirst).toHaveBeenCalledWith({
       where: { id: 'proj-foreign', organizationId: 'org-safe' },
@@ -78,7 +76,8 @@ describe('tenant isolation', () => {
   it('scopes integration listings to the current organization', async () => {
     prismaMock.studioIntegration.findMany.mockResolvedValue([] as any);
 
-    const resolver = integrationsBuilder.queryFieldsMap.studioIntegrations.resolve;
+    const resolver =
+      integrationsBuilder.queryFieldsMap.studioIntegrations.resolve;
     await resolver({}, {}, ctx);
 
     expect(prismaMock.studioIntegration.findMany).toHaveBeenCalledWith(
@@ -88,7 +87,3 @@ describe('tenant isolation', () => {
     );
   });
 });
-
-
-
-

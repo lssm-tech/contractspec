@@ -80,4 +80,3 @@ export class SharedDeployer {
     this.logger?.info?.('shared-deployer.health', { namespace });
   }
 }
-

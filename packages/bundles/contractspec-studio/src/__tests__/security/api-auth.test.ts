@@ -18,9 +18,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -43,15 +41,15 @@ const anonymousCtx: Context = {
 describe('API authentication', () => {
   it('rejects project queries without authentication', async () => {
     const resolver = studioBuilder.queryFieldsMap.myStudioProjects.resolve;
-    await expect(resolver({}, {}, anonymousCtx)).rejects.toThrow(/Unauthorized/);
+    await expect(resolver({}, {}, anonymousCtx)).rejects.toThrow(
+      /Unauthorized/
+    );
   });
 
   it('rejects lifecycle profile access for anonymous sessions', async () => {
     const resolver = lifecycleBuilder.queryFieldsMap.lifecycleProfile.resolve;
-    await expect(resolver({}, {}, anonymousCtx)).rejects.toThrow(/Unauthorized/);
+    await expect(resolver({}, {}, anonymousCtx)).rejects.toThrow(
+      /Unauthorized/
+    );
   });
 });
-
-
-
-

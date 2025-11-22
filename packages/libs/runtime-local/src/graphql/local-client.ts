@@ -5,11 +5,7 @@ import {
 } from '@apollo/client';
 import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import {
-  GraphQLScalarType,
-  Kind,
-  type GraphQLResolveInfo,
-} from 'graphql';
+import { GraphQLScalarType, Kind, type GraphQLResolveInfo } from 'graphql';
 
 import { LocalDatabase, type LocalRow } from '../database/sqlite-wasm';
 import { LocalStorageService } from '../storage/indexeddb';
@@ -356,7 +352,8 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_task WHERE id = ? LIMIT 1`,
             [id]
           );
-          if (!rows.length || !rows[0]) throw new Error('Failed to create task');
+          if (!rows.length || !rows[0])
+            throw new Error('Failed to create task');
           return mapTask(rows[0]);
         },
         updateTask: async (
@@ -415,10 +412,7 @@ export class LocalGraphQLClient {
           args: { id: string },
           ctx: ResolverContext
         ) => {
-          await ctx.db.run(
-            `DELETE FROM template_task WHERE id = ?`,
-            [args.id]
-          );
+          await ctx.db.run(`DELETE FROM template_task WHERE id = ?`, [args.id]);
           return true;
         },
         createConversation: async (
@@ -463,7 +457,8 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_conversation WHERE id = ? LIMIT 1`,
             [id]
           );
-          if (!rows.length || !rows[0]) throw new Error('Failed to create conversation');
+          if (!rows.length || !rows[0])
+            throw new Error('Failed to create conversation');
           return mapConversation(rows[0]);
         },
         sendMessage: async (
@@ -497,7 +492,8 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_message WHERE id = ?`,
             [id]
           );
-          if (!rows.length || !rows[0]) throw new Error('Failed to send message');
+          if (!rows.length || !rows[0])
+            throw new Error('Failed to send message');
           const message = mapMessage(rows[0]);
           ctx.pubsub.emit('message:new', message);
           return message;
@@ -536,7 +532,11 @@ export class LocalGraphQLClient {
         },
       },
       Task: {
-        category: async (parent: LocalRow, _: unknown, ctx: ResolverContext) => {
+        category: async (
+          parent: LocalRow,
+          _: unknown,
+          ctx: ResolverContext
+        ) => {
           if (!parent.categoryId) return null;
           const rows = await ctx.db.exec(
             `SELECT * FROM template_task_category WHERE id = ? LIMIT 1`,
@@ -733,4 +733,3 @@ function mapRecipeInstruction(row: LocalRow, locale: 'EN' | 'FR') {
     ordering: row.ordering ?? 0,
   };
 }
-

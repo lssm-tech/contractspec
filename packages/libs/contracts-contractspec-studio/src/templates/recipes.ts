@@ -20,7 +20,8 @@ export const RecipeCapability = defineCapability({
       surface: 'operation',
       name: 'template.recipe.list',
       version: 1,
-      description: 'List recipes with category, difficulty, and locale filters.',
+      description:
+        'List recipes with category, difficulty, and locale filters.',
     },
     {
       surface: 'operation',
@@ -32,16 +33,16 @@ export const RecipeCapability = defineCapability({
       surface: 'operation',
       name: 'template.recipe.search',
       version: 1,
-      description: 'Search recipes by ingredient, tag, or free text with i18n support.',
+      description:
+        'Search recipes by ingredient, tag, or free text with i18n support.',
     },
     {
       surface: 'operation',
       name: 'template.recipe.favorite',
       version: 1,
-      description: 'Toggle recipe favorites for showcasing personalization patterns.',
+      description:
+        'Toggle recipe favorites for showcasing personalization patterns.',
     },
   ],
   requires: [{ key: 'studio.project', version: 1 }],
 });
-
-

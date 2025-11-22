@@ -62,9 +62,7 @@ describe('StudioEvolutionModule', () => {
     );
     expect(result).toMatchObject({
       sessionId: 'session-1',
-      suggestions: [
-        expect.objectContaining({ id: 'suggestion-1' }),
-      ],
+      suggestions: [expect.objectContaining({ id: 'suggestion-1' })],
     });
   });
 
@@ -73,7 +71,9 @@ describe('StudioEvolutionModule', () => {
       analyzer: analyzerMock as any,
       generator: generatorMock as any,
     });
-    prismaMock.evolutionSession.update.mockResolvedValue({ id: 'session-1' } as any);
+    prismaMock.evolutionSession.update.mockResolvedValue({
+      id: 'session-1',
+    } as any);
 
     const suggestions = [
       {
@@ -82,7 +82,11 @@ describe('StudioEvolutionModule', () => {
       },
     ] as any;
 
-    const result = await module.applyEvolution('project-1', 'session-1', suggestions);
+    const result = await module.applyEvolution(
+      'project-1',
+      'session-1',
+      suggestions
+    );
 
     expect(prismaMock.evolutionSession.update).toHaveBeenCalledTimes(2);
     expect(result.applied[0]).toMatchObject({
@@ -91,7 +95,3 @@ describe('StudioEvolutionModule', () => {
     });
   });
 });
-
-
-
-

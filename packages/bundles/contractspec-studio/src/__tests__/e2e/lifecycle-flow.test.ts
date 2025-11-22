@@ -35,9 +35,7 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
-  ) {
+  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
     const fields = cb({ field: (config) => config });
     Object.assign(this.queryFieldsMap, fields);
   }
@@ -114,4 +112,3 @@ describe('Lifecycle flow e2e', () => {
     expect(progress.status).toBe('IN_PROGRESS');
   });
 });
-

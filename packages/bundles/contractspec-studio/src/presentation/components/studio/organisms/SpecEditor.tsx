@@ -22,14 +22,14 @@ export interface SpecEditorProps {
 
 type SpecType = NonNullable<SpecEditorProps['type']>;
 
-type MonacoEditorProps = {
+interface MonacoEditorProps {
   height?: string | number;
   defaultLanguage?: string;
   theme?: string;
   value?: string;
   onChange?: (value: string | undefined) => void;
   options?: Record<string, unknown>;
-};
+}
 
 const SPEC_TYPES: SpecType[] = [
   'CAPABILITY',
@@ -85,7 +85,7 @@ export function SpecEditor({
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-card p-4">
+    <div className="border-border bg-card space-y-4 rounded-2xl border p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-lg font-semibold">Spec editor</p>
@@ -96,11 +96,9 @@ export function SpecEditor({
         </div>
         <div className="inline-flex gap-2">
           <select
-            className="border-border rounded-md border bg-background px-3 py-2 text-sm"
+            className="border-border bg-background rounded-md border px-3 py-2 text-sm"
             value={type}
-            onChange={(event) =>
-              onTypeChange?.(event.target.value as SpecType)
-            }
+            onChange={(event) => onTypeChange?.(event.target.value as SpecType)}
           >
             {SPEC_TYPES.map((item) => (
               <option key={item} value={item}>
@@ -130,10 +128,10 @@ export function SpecEditor({
       </header>
       <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
         <div className="space-y-2">
-          <label className="text-xs uppercase tracking-wide text-muted-foreground">
+          <label className="text-muted-foreground text-xs tracking-wide uppercase">
             Spec content
           </label>
-          <div className="relative h-[360px] overflow-hidden rounded-xl border border-border bg-background/70">
+          <div className="border-border bg-background/70 relative h-[360px] overflow-hidden rounded-xl border">
             {MonacoEditor ? (
               <MonacoEditor
                 height="360px"
@@ -160,16 +158,16 @@ export function SpecEditor({
           </div>
         </div>
         <div className="space-y-4">
-          <section className="rounded-xl border border-border bg-background p-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wide">
+          <section className="border-border bg-background rounded-xl border p-4">
+            <h3 className="text-sm font-semibold tracking-wide uppercase">
               Metadata
             </h3>
-            <pre className="text-muted-foreground mt-2 max-h-64 overflow-auto rounded-lg bg-muted/40 p-3 text-xs">
+            <pre className="text-muted-foreground bg-muted/40 mt-2 max-h-64 overflow-auto rounded-lg p-3 text-xs">
               {JSON.stringify(metadata ?? { version: '1.0.0' }, null, 2)}
             </pre>
           </section>
-          <section className="rounded-xl border border-border bg-background p-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wide">
+          <section className="border-border bg-background rounded-xl border p-4">
+            <h3 className="text-sm font-semibold tracking-wide uppercase">
               Validation
             </h3>
             {validationErrors?.length ? (
@@ -177,7 +175,7 @@ export function SpecEditor({
                 {validationErrors.map((error) => (
                   <li
                     key={error}
-                    className="flex items-start gap-2 rounded-lg bg-destructive/10 p-2 text-xs text-destructive"
+                    className="bg-destructive/10 text-destructive flex items-start gap-2 rounded-lg p-2 text-xs"
                   >
                     <AlertCircle className="mt-0.5 h-3.5 w-3.5" />
                     {error}
@@ -197,8 +195,8 @@ export function SpecEditor({
               Preview spec
             </button>
           </section>
-          <section className="rounded-xl border border-dashed border-border bg-background/60 p-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wide">
+          <section className="border-border bg-background/60 rounded-xl border border-dashed p-4">
+            <h3 className="text-sm font-semibold tracking-wide uppercase">
               Auto-evolution suggestions
             </h3>
             {autoEvolutionEnabled ? (
@@ -208,13 +206,13 @@ export function SpecEditor({
                   can apply the change or dismiss it with one tap.
                 </p>
                 <ul className="space-y-2">
-                  <li className="rounded-lg bg-muted/40 p-3">
+                  <li className="bg-muted/40 rounded-lg p-3">
                     <p className="font-medium">
                       Promote onboarding tour to primary CTA
                     </p>
                     <p className="text-muted-foreground text-xs">
-                      Spike in drop-offs during setup. Suggested change increases
-                      completion by 18% in simulation.
+                      Spike in drop-offs during setup. Suggested change
+                      increases completion by 18% in simulation.
                     </p>
                   </li>
                 </ul>
@@ -232,4 +230,3 @@ export function SpecEditor({
     </div>
   );
 }
-

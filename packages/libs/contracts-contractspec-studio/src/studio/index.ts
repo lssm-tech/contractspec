@@ -61,7 +61,8 @@ export const SpecEditorCapability = defineCapability({
       surface: 'operation',
       name: 'studio.spec.create',
       version: 1,
-      description: 'Create a spec for capabilities, workflows, policies, or components.',
+      description:
+        'Create a spec for capabilities, workflows, policies, or components.',
     },
     {
       surface: 'operation',
@@ -121,7 +122,8 @@ export const VisualBuilderCapability = defineCapability({
       surface: 'operation',
       name: 'studio.canvas.generateCode',
       version: 1,
-      description: 'Generate production-ready code artifacts from a canvas snapshot.',
+      description:
+        'Generate production-ready code artifacts from a canvas snapshot.',
     },
   ],
   requires: [
@@ -129,7 +131,3 @@ export const VisualBuilderCapability = defineCapability({
     { key: 'studio.spec-editor', version: 1 },
   ],
 });
-
-
-
-
