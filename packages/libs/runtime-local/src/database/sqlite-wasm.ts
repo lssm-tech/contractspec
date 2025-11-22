@@ -1,7 +1,4 @@
-import initSqlJs, {
-  type Database,
-  type SqlJsStatic,
-} from 'sql.js';
+import initSqlJs, { type Database, type SqlJsStatic } from 'sql.js';
 
 export type LocalDbValue =
   | string
@@ -10,6 +7,8 @@ export type LocalDbValue =
   | null
   | Uint8Array
   | undefined;
+
+type SqlBindValue = string | number | null | Uint8Array;
 
 export type LocalRow = Record<string, LocalDbValue>;
 
@@ -143,7 +142,7 @@ export class LocalDatabase {
   async init(options: LocalDatabaseInitOptions = {}): Promise<void> {
     if (this.initialized) return;
     this.SQL = await initSqlJs({
-      locateFile: (file) =>
+      locateFile: (file: string) =>
         `${options.modulesPath ?? '/sql-wasm'}/${file}`,
     });
     this.db = options.seed
@@ -160,7 +159,10 @@ export class LocalDatabase {
     const database = this.ensureDb();
     const statement = database.prepare(sql);
     try {
-      statement.bind(params.map((value) => this.normalizeValue(value)));
+      const bindParams = params.map((value) =>
+        this.normalizeValue(value)
+      ) as SqlBindValue[];
+      statement.bind(bindParams);
       const rows: T[] = [];
       while (statement.step()) {
         rows.push(statement.getAsObject() as T);
@@ -175,7 +177,10 @@ export class LocalDatabase {
     const database = this.ensureDb();
     const statement = database.prepare(sql);
     try {
-      statement.bind(params.map((value) => this.normalizeValue(value)));
+      const bindParams = params.map((value) =>
+        this.normalizeValue(value)
+      ) as SqlBindValue[];
+      statement.bind(bindParams);
       statement.step();
     } finally {
       statement.free();
@@ -207,7 +212,7 @@ export class LocalDatabase {
     }
   }
 
-  private normalizeValue(value: LocalDbValue): LocalDbValue {
+  private normalizeValue(value: LocalDbValue): SqlBindValue {
     if (typeof value === 'boolean') {
       return value ? 1 : 0;
     }
@@ -223,4 +228,3 @@ export class LocalDatabase {
     return this.db;
   }
 }
-

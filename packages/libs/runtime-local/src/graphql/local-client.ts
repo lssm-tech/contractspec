@@ -240,7 +240,7 @@ export class LocalGraphQLClient {
 
     this.apollo = new ApolloClient({
       cache: new InMemoryCache({ canonizeResults: false }),
-      link: new SchemaLink<ResolverContext>({
+      link: new SchemaLink({
         schema,
         context: () => ({
           db: this.options.db,
@@ -322,7 +322,7 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_recipe WHERE id = ? LIMIT 1`,
             [args.id]
           );
-          if (!rows.length) return null;
+          if (!rows.length || !rows[0]) return null;
           return mapRecipe(rows[0], args.locale);
         },
       },
@@ -345,18 +345,19 @@ export class LocalGraphQLClient {
               args.input.title as string,
               (args.input.description as string | undefined) ?? null,
               0,
-              args.input.priority ?? 'MEDIUM',
+              (args.input.priority as string | undefined) ?? 'MEDIUM',
               (args.input.dueDate as string | undefined) ?? null,
               tags,
               now,
               now,
             ]
           );
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_task WHERE id = ? LIMIT 1`,
             [id]
           );
-          return mapTask(row);
+          if (!rows.length || !rows[0]) throw new Error('Failed to create task');
+          return mapTask(rows[0]);
         },
         updateTask: async (
           _: ResolverParent,
@@ -375,21 +376,22 @@ export class LocalGraphQLClient {
                  updatedAt = ?
              WHERE id = ?`,
             [
-              args.input.categoryId ?? null,
-              args.input.title ?? null,
-              args.input.description ?? null,
-              args.input.priority ?? null,
-              args.input.dueDate ?? null,
+              (args.input.categoryId as string | undefined) ?? null,
+              (args.input.title as string | undefined) ?? null,
+              (args.input.description as string | undefined) ?? null,
+              (args.input.priority as string | undefined) ?? null,
+              (args.input.dueDate as string | undefined) ?? null,
               args.input.tags ? JSON.stringify(args.input.tags) : null,
               now,
               args.id,
             ]
           );
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_task WHERE id = ? LIMIT 1`,
             [args.id]
           );
-          return mapTask(row);
+          if (!rows.length || !rows[0]) throw new Error('Task not found');
+          return mapTask(rows[0]);
         },
         toggleTask: async (
           _: ResolverParent,
@@ -401,11 +403,12 @@ export class LocalGraphQLClient {
             `UPDATE template_task SET completed = ?, updatedAt = ? WHERE id = ?`,
             [args.completed ? 1 : 0, now, args.id]
           );
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_task WHERE id = ? LIMIT 1`,
             [args.id]
           );
-          return mapTask(row);
+          if (!rows.length || !rows[0]) throw new Error('Task not found');
+          return mapTask(rows[0]);
         },
         deleteTask: async (
           _: ResolverParent,
@@ -456,11 +459,12 @@ export class LocalGraphQLClient {
             );
           }
 
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_conversation WHERE id = ? LIMIT 1`,
             [id]
           );
-          return mapConversation(row);
+          if (!rows.length || !rows[0]) throw new Error('Failed to create conversation');
+          return mapConversation(rows[0]);
         },
         sendMessage: async (
           _: ResolverParent,
@@ -487,13 +491,14 @@ export class LocalGraphQLClient {
           );
           await ctx.db.run(
             `UPDATE template_conversation SET lastMessageId = ?, updatedAt = ? WHERE id = ?`,
-            [id, now, args.input.conversationId]
+            [id, now, args.input.conversationId as string]
           );
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_message WHERE id = ?`,
             [id]
           );
-          const message = mapMessage(row);
+          if (!rows.length || !rows[0]) throw new Error('Failed to send message');
+          const message = mapMessage(rows[0]);
           ctx.pubsub.emit('message:new', message);
           return message;
         },
@@ -521,12 +526,13 @@ export class LocalGraphQLClient {
             `UPDATE template_recipe SET isFavorite = ?, updatedAt = ? WHERE id = ?`,
             [args.isFavorite ? 1 : 0, now, args.id]
           );
-          const [row] = await ctx.db.exec(
+          const rows = await ctx.db.exec(
             `SELECT * FROM template_recipe WHERE id = ? LIMIT 1`,
             [args.id]
           );
+          if (!rows.length || !rows[0]) throw new Error('Recipe not found');
           const locale: 'EN' | 'FR' = 'EN';
-          return mapRecipe(row, locale);
+          return mapRecipe(rows[0], locale);
         },
       },
       Task: {
@@ -536,7 +542,7 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_task_category WHERE id = ? LIMIT 1`,
             [parent.categoryId]
           );
-          if (!rows.length) return null;
+          if (!rows.length || !rows[0]) return null;
           return mapTaskCategory(rows[0]);
         },
       },
@@ -575,7 +581,7 @@ export class LocalGraphQLClient {
             `SELECT * FROM template_recipe_category WHERE id = ? LIMIT 1`,
             [parent.categoryId]
           );
-          if (!rows.length) return null;
+          if (!rows.length || !rows[0]) return null;
           return mapRecipeCategory(rows[0]);
         },
         ingredients: async (
