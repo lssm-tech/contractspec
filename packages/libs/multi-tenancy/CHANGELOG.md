@@ -1,5 +1,11 @@
 # @lssm/lib.multi-tenancy
 
+## 0.3.0
+
+### Minor Changes
+
+- fix
+
 ## 0.2.2
 
 ### Patch Changes
@@ -32,3 +38,5 @@
 - Row-Level Security Prisma middleware
 - Tenant provisioning service
 - Isolation validation utilities
+
+

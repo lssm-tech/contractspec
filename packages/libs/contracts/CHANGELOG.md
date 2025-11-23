@@ -1,5 +1,16 @@
 # @lssm/lib.contracts
 
+## 1.10.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.schema@1.10.0
+
 ## 1.9.2
 
 ### Patch Changes

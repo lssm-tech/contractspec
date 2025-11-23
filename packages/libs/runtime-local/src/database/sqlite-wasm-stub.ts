@@ -49,3 +49,5 @@ export class LocalSQLiteDatabase {
     throw new Error('LocalSQLiteDatabase can only be used in the browser');
   }
 }
+
+

@@ -1,5 +1,11 @@
 # @lssm/tool.typescript
 
+## 0.10.0
+
+### Minor Changes
+
+- fix
+
 ## 0.9.2
 
 ### Patch Changes

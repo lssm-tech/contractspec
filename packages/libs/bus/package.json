@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.bus",
-  "version": "1.9.2",
+  "version": "1.10.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",

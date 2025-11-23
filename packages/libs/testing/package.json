@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.testing",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,7 +21,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "^1.9.2"
+    "@lssm/lib.contracts": "^1.10.0"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "*",
@@ -35,3 +35,5 @@
     "./*": "./*"
   }
 }
+
+

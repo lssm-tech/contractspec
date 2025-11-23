@@ -26,3 +26,5 @@ declare module 'sql.js' {
     options?: InitSqlJsOptions
   ): Promise<SqlJsStatic>;
 }
+
+

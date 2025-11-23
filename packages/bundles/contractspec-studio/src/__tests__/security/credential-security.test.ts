@@ -39,3 +39,5 @@ describe('Credential security', () => {
     expect(JSON.stringify(storedCredentials)).not.toContain('secret');
   });
 });
+
+

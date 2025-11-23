@@ -1,5 +1,16 @@
 # @lssm/lib.overlay-engine
 
+## 0.2.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.10.0
+
 ## 0.1.2
 
 ### Patch Changes
@@ -30,3 +41,5 @@
 ## 0.0.1
 
 - Initial release with OverlaySpec definitions, signing helpers, registry, validator, merge/runtime utilities, and React hooks.
+
+

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.resilience",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
@@ -28,3 +28,5 @@
   },
   "module": "./dist/index.mjs"
 }
+
+
