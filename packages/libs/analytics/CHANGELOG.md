@@ -513,6 +513,12 @@
 
 - fix
 
+## 0.3.0
+
+### Minor Changes
+
+- fix
+
 ## 0.2.2
 
 ### Patch Changes

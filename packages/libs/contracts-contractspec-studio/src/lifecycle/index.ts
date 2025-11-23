@@ -37,3 +37,5 @@ export const LifecycleAssessmentCapability = defineCapability({
   ],
   requires: [{ key: 'studio.project', version: 1 }],
 });
+
+

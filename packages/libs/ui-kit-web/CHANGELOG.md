@@ -519,6 +519,12 @@
 
 - add right-sidebar
 
+## 1.10.0
+
+### Minor Changes
+
+- fix
+
 ## 1.9.2
 
 ### Patch Changes

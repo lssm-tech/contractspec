@@ -105,6 +105,18 @@
   - @contractspec/lib.presentation-runtime-core@1.56.0
   - @contractspec/lib.ui-kit@1.56.0
 
+## 11.0.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.presentation-runtime-core@1.10.0
+  - @lssm/lib.ui-kit@1.10.0
+
 ## 10.0.2
 
 ### Patch Changes

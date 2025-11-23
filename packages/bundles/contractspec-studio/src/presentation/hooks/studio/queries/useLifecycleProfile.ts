@@ -63,3 +63,5 @@ export function useLifecycleProfile() {
     staleTime: 60_000,
   });
 }
+
+

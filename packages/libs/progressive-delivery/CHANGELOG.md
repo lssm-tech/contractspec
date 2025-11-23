@@ -257,6 +257,17 @@
 - Updated dependencies
   - @contractspec/lib.observability@0.3.0
 
+## 2.0.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.observability@0.3.0
+
 ## 1.0.2
 
 ### Patch Changes

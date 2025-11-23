@@ -672,6 +672,19 @@
   - @contractspec/lib.ui-kit@1.7.3
   - @contractspec/lib.ui-kit-web@1.7.3
 
+## 1.10.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.design-system@1.10.0
+  - @lssm/lib.ui-kit@1.10.0
+  - @lssm/lib.ui-kit-web@1.10.0
+
 ## 1.9.2
 
 ### Patch Changes

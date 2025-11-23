@@ -627,6 +627,18 @@
   - @contractspec/lib.contracts-spec@1.7.3
   - @contractspec/lib.schema@1.7.3
 
+## 1.10.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.10.0
+  - @lssm/lib.schema@1.10.0
+
 ## 1.9.2
 
 ### Patch Changes

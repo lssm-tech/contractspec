@@ -1,5 +1,25 @@
 # @lssm/bundle.contractspec-studio
 
+## 0.2.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts-contractspec-studio@0.2.0
+  - @lssm/bundle.lifecycle-managed@0.2.0
+  - @lssm/lib.contracts@1.10.0
+  - @lssm/lib.database-contractspec-studio@0.2.0
+  - @lssm/lib.design-system@1.10.0
+  - @lssm/lib.evolution@0.3.0
+  - @lssm/lib.lifecycle@0.2.0
+  - @lssm/lib.logger@1.10.0
+  - @lssm/lib.observability@0.3.0
+  - @lssm/lib.ui-kit@1.10.0
+
 ## 0.1.2
 
 ### Patch Changes

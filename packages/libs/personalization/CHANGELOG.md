@@ -748,6 +748,18 @@
   - @contractspec/lib.overlay-engine@0.1.0
   - @contractspec/lib.bus@1.9.0
 
+## 0.2.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.bus@1.10.0
+  - @lssm/lib.overlay-engine@0.2.0
+
 ## 0.1.2
 
 ### Patch Changes
@@ -781,3 +793,5 @@
 ## 0.0.1
 
 - Initial release with tracker, analyzer, adapter, and store primitives.
+
+

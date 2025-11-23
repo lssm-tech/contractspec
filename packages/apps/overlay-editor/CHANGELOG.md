@@ -1,5 +1,16 @@
 # @lssm/app.overlay-editor
 
+## 0.3.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.overlay-engine@0.2.0
+
 ## 0.2.2
 
 ### Patch Changes

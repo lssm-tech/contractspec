@@ -132,6 +132,20 @@
   - @contractspec/lib.ui-kit-web@1.56.0
   - @contractspec/lib.contracts-spec@1.56.0
 
+## 11.0.0
+
+### Minor Changes
+
+- fix
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.10.0
+  - @lssm/lib.design-system@1.10.0
+  - @lssm/lib.presentation-runtime-core@1.10.0
+  - @lssm/lib.ui-kit-web@1.10.0
+
 ## 10.0.2
 
 ### Patch Changes

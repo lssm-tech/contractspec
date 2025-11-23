@@ -23,3 +23,5 @@ export interface Message {
   createdAt: string;
   status: 'SENT' | 'DELIVERED' | 'READ';
 }
+
+

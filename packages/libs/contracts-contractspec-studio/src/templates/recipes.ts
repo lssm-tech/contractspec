@@ -46,3 +46,5 @@ export const RecipeCapability = defineCapability({
   ],
   requires: [{ key: 'studio.project', version: 1 }],
 });
+
+
