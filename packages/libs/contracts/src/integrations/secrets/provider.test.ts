@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import type { SecretManagerServiceClient } from '@google-cloud/secret-manager';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'bun:test';
 
 import { GcpSecretManagerProvider } from './gcp-secret-manager';
 import { EnvSecretProvider } from './env-secret-provider';
@@ -82,7 +82,7 @@ describe('GcpSecretManagerProvider', () => {
     });
 
     expect(result.version).toBe('2');
-    expect(client.createSecret).toHaveBeenCalledOnce();
+    expect(client.createSecret).toHaveBeenCalledTimes(1);
     expect(client.addSecretVersion).toHaveBeenCalledWith({
       parent: 'projects/demo-project/secrets/new-secret',
       payload: { data: expect.any(Uint8Array) },

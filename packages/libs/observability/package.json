@@ -12,7 +12,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run"
+    "test": "bun run"
   },
   "dependencies": {
     "@lssm/lib.lifecycle": "*"
@@ -21,8 +21,7 @@
     "@opentelemetry/api": "*"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "typescript": "^5.0.0"
   },
   "exports": {
     ".": "./dist/index.mjs",

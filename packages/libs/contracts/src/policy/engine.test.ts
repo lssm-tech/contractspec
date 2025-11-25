@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { PolicyEngine } from './engine';
 import { PolicyRegistry, type PolicySpec } from './spec';
 import { StabilityEnum, type Tag, type Owner } from '../ownership';

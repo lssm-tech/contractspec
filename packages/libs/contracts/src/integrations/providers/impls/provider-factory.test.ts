@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
 import type { IntegrationConnection } from '../../connection';
 import type { IntegrationSpec } from '../../spec';

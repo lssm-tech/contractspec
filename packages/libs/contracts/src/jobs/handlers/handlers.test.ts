@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { createGmailSyncHandler } from './gmail-sync-handler';
 import { createStorageDocumentHandler } from './storage-document-handler';

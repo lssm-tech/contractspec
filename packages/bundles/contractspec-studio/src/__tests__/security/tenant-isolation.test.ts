@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { registerStudioSchema } from '../../infrastructure/graphql/modules/studio';
 import { registerIntegrationsSchema } from '../../infrastructure/graphql/modules/integrations';
 import type { Context } from '../../infrastructure/graphql/types';
@@ -87,5 +87,10 @@ describe('tenant isolation', () => {
     );
   });
 });
+
+
+
+
+
 
 

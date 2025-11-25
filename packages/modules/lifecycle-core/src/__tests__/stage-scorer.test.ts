@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { StageScorer } from '../scoring/stage-scorer';
 import { LifecycleStage } from '@lssm/lib.lifecycle';
 
@@ -51,5 +51,10 @@ describe('StageScorer', () => {
     expect(scores[0]?.stage).toBe(LifecycleStage.Exploration);
   });
 });
+
+
+
+
+
 
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
 import { WorkflowRegistry, type WorkflowSpec } from './spec';
 import {

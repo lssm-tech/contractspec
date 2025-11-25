@@ -78,7 +78,7 @@ export function generateTestTemplate(
   const importPath = type === 'handler' ? '../handlers' : '../components';
   const testName = toPascalCase(targetName);
 
-  return `import { describe, it, expect } from 'vitest';
+  return `import { describe, it, expect } from 'bun:test';
 import { ${testName} } from '${importPath}/${toKebabCase(targetName)}';
 
 describe('${testName}', () => {

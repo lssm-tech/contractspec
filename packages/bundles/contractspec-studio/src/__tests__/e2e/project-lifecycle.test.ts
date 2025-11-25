@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { registerStudioSchema } from '../../infrastructure/graphql/modules/studio';
 import type { Context } from '../../infrastructure/graphql/types';
 import { prismaMock } from '../mocks/prisma';

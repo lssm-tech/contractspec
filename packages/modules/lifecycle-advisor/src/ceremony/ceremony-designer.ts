@@ -1,6 +1,6 @@
 import type { LifecycleRecommendation } from '@lssm/lib.lifecycle';
 import { LifecycleStage } from '@lssm/lib.lifecycle';
-import playbooks from '../data/stage-playbooks.json' assert { type: 'json' };
+import stagePlaybooks from '../data/stage-playbooks';
 
 type CeremonyConfig = NonNullable<LifecycleRecommendation['ceremony']>;
 
@@ -10,7 +10,7 @@ interface PlaybookCeremonyEntry {
 }
 
 const CEREMONY_MAP = new Map<LifecycleStage, CeremonyConfig | undefined>(
-  (playbooks as PlaybookCeremonyEntry[]).map((entry) => [
+  (stagePlaybooks as PlaybookCeremonyEntry[]).map((entry) => [
     entry.stage,
     entry.ceremony,
   ])
@@ -29,5 +29,3 @@ export class LifecycleCeremonyDesigner {
     return this.ceremonies.get(stage);
   }
 }
-
-

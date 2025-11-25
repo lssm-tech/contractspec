@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { AppBlueprintRegistry, type AppBlueprintSpec } from './spec';
 import { StabilityEnum, type Owner, type Tag } from '../ownership';
 

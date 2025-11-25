@@ -19,7 +19,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run"
+    "test": "bun run"
   },
   "dependencies": {
     "@lssm/lib.contracts": "*",
@@ -37,8 +37,7 @@
     "@lssm/tool.tsdown": "*",
     "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
-    "typescript": "^5.9.3",
-    "vitest": "^1.6.0"
+    "typescript": "^5.9.3"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -46,5 +45,3 @@
     "./*": "./*"
   }
 }
-
-

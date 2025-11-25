@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'bun:test';
 import { registerLifecycleSchema } from '../../infrastructure/graphql/modules/lifecycle';
 import type { Context } from '../../infrastructure/graphql/types';
 import { prismaMock } from '../mocks/prisma';

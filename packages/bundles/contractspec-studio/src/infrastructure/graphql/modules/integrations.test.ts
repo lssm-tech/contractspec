@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'bun:test';
 import { registerIntegrationsSchema } from './integrations';
 import type { Context } from '../types';
 import { prismaMock } from '../../../__tests__/mocks/prisma';
@@ -152,5 +152,10 @@ describe('integrations GraphQL module', () => {
     expect(answer).toEqual({ answer: '42' });
   });
 });
+
+
+
+
+
 
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { CredentialEncryption } from './encryption';
 
 describe('CredentialEncryption', () => {
@@ -36,5 +36,10 @@ describe('CredentialEncryption', () => {
     expect(secondEncryption.decrypt(second)).toEqual({ token: 'two' });
   });
 });
+
+
+
+
+
 
 

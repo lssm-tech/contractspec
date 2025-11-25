@@ -1,15 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { PowensClient, PowensClientError } from './powens-client';
 
 function createFetchMock() {
-  const handler = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+  const handler = vi.fn<typeof fetch>();
   const fetchFn = ((...args: Parameters<typeof fetch>) =>
     handler(...args)) as typeof fetch;
   Object.defineProperty(fetchFn, 'preconnect', {
-    value: vi.fn<
-      Parameters<typeof fetch.preconnect>,
-      ReturnType<typeof fetch.preconnect>
-    >(),
+    value: vi.fn<typeof fetch.preconnect>(),
   });
   return { fetch: fetchFn, handler };
 }
@@ -64,8 +61,8 @@ describe('PowensClient', () => {
     expect(String(tokenRequest[0])).toContain('/oauth/token');
     expect(String(firstCall[0])).toContain('/users/user-1/accounts');
     expect(String(secondCall[0])).toContain('/users/user-1/accounts');
-    const headers = (firstCall[1]?.headers ?? {}) as Record<string, string>;
-    expect(headers.Authorization).toBe('Bearer token-123');
+    const authHeader = getHeader(firstCall[1], 'Authorization');
+    expect(authHeader).toBe('Bearer token-123');
   });
 
   it('throws PowensClientError when API responds with non-2xx', async () => {
@@ -100,3 +97,20 @@ describe('PowensClient', () => {
     ).rejects.toBeInstanceOf(PowensClientError);
   });
 });
+
+function getHeader(init: RequestInit | undefined, name: string) {
+  if (!init?.headers) return undefined;
+  const target = name.toLowerCase();
+  const headers = init.headers;
+  if (headers instanceof Headers) {
+    return headers.get(name) ?? headers.get(target);
+  }
+  if (Array.isArray(headers)) {
+    const entry = headers.find(
+      ([key]) => key.toLowerCase() === target || key === name
+    );
+    return entry?.[1];
+  }
+  const record = headers as Record<string, string | undefined>;
+  return record[name] ?? record[target];
+}

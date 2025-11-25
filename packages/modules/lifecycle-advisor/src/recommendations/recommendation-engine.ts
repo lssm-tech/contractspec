@@ -5,14 +5,11 @@ import type {
   LifecycleAction,
 } from '@lssm/lib.lifecycle';
 import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
-import playbooks from '../data/stage-playbooks.json' assert { type: 'json' };
+import stagePlaybooks, {
+  type StagePlaybookData,
+} from '../data/stage-playbooks';
 
-interface StagePlaybook {
-  stage: LifecycleStage;
-  actions: LifecycleAction[];
-  focusAreas?: string[];
-  ceremony?: LifecycleRecommendation['ceremony'];
-}
+interface StagePlaybook extends StagePlaybookData {}
 
 export interface RecommendationOptions {
   limit?: number;
@@ -20,7 +17,7 @@ export interface RecommendationOptions {
 }
 
 const PLAYBOOK_MAP = new Map<LifecycleStage, StagePlaybook>(
-  (playbooks as StagePlaybook[]).map((entry) => [
+  stagePlaybooks.map((entry) => [
     entry.stage,
     {
       ...entry,
@@ -82,5 +79,3 @@ const fallbackActions = (
       effortLevel: 's',
       category: 'product',
     }));
-
-

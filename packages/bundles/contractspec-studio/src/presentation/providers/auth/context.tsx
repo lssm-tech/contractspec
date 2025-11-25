@@ -3,7 +3,10 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { authClient } from './index';
 import { initPosthog, posthog } from '../../libs/posthog/client';
-import { graphql, type Organization } from '@lssm/lib.gql-client-strit';
+import {
+  graphql,
+  type Organization,
+} from '@lssm/lib.gql-client-contractspec-studio';
 import { useGraphQL } from '../../libs/gql-client';
 
 // type Session = typeof authClient.$Infer.Session;

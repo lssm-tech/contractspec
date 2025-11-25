@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import type { EmbeddingProvider } from '../../integrations/providers/embedding';
 import type { VectorStoreProvider } from '../../integrations/providers/vector-store';

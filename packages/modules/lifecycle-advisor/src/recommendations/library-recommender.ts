@@ -1,5 +1,7 @@
 import { LifecycleStage } from '@lssm/lib.lifecycle';
-import libraryMap from '../data/library-stage-map.json' assert { type: 'json' };
+import libraryStageMap, {
+  type LibraryStageEntry,
+} from '../data/library-stage-map';
 
 export interface LibraryRecommendation {
   id: string;
@@ -7,13 +9,8 @@ export interface LibraryRecommendation {
   description: string;
 }
 
-interface LibraryStageEntry {
-  stage: LifecycleStage;
-  items: LibraryRecommendation[];
-}
-
 const LIBRARY_MAP = new Map<LifecycleStage, LibraryRecommendation[]>(
-  (libraryMap as LibraryStageEntry[]).map((entry) => [entry.stage, entry.items])
+  libraryStageMap.map((entry) => [entry.stage, entry.items])
 );
 
 export class ContractSpecLibraryRecommender {
@@ -31,5 +28,10 @@ export class ContractSpecLibraryRecommender {
     return items.slice(0, limit);
   }
 }
+
+
+
+
+
 
 

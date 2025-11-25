@@ -5,10 +5,11 @@ import {
   genericOAuthClient,
   inferOrgAdditionalFields,
   organizationClient,
-  passkeyClient,
   phoneNumberClient,
 } from 'better-auth/client/plugins';
-import { auth } from '../../../application';
+import { passkeyClient } from '@better-auth/passkey/client';
+
+type ContractSpecAuth = typeof import('../../../application').auth;
 
 // function resolveBaseUrl() {
 //   const envUrl = process.env.NEXT_PUBLIC_SIGIL_API_URL;
@@ -34,7 +35,7 @@ export const authClient = createAuthClient({
     genericOAuthClient(),
     organizationClient({
       teams: { enabled: true },
-      schema: inferOrgAdditionalFields<typeof auth>(),
+      schema: inferOrgAdditionalFields<ContractSpecAuth>(),
     }),
   ],
 });

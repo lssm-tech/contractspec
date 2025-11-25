@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { LifecycleAssessmentService } from '../services/assessment-service';
 import { ProductPhase, CompanyPhase, CapitalPhase } from '@lssm/lib.lifecycle';
 
@@ -42,5 +42,10 @@ describe('LifecycleAssessmentService', () => {
     expect(result.libraries.length).toBeGreaterThan(0);
   });
 });
+
+
+
+
+
 
 

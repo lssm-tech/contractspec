@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'bun:test';
 import { gql } from '@apollo/client';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

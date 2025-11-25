@@ -42,6 +42,8 @@ export function createPrismaSchemaBuilder<
   Objects extends object = object,
   Scalars extends object = object,
 >(options: PrismaBuilderOptions) {
+  const debugBuilder =
+    process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
   // const plugins: (keyof PothosSchemaTypes.Plugins<SchemaTypes>)[] = [
   const plugins = [
     RelayPlugin,
@@ -92,10 +94,23 @@ export function createPrismaSchemaBuilder<
     },
   });
 
+  if (debugBuilder) {
+    console.log('[graphql-prisma] initializing schema builder');
+  }
+
   Object.entries(ScalarTypeEnum).forEach(([name, type]) => {
-    if (!['ID', 'Boolean'].includes(name)) {
-      builder.addScalarType(name as any, type());
+    if (['ID', 'Boolean'].includes(name)) {
+      return;
     }
+    if (typeof type !== 'function') {
+      throw new Error(
+        `ScalarTypeEnum entry "${name}" must be a function but received ${typeof type}`
+      );
+    }
+    if (debugBuilder) {
+      console.log(`[graphql-prisma] registering scalar ${name}`);
+    }
+    builder.addScalarType(name as any, type());
   });
   builder.addScalarType('GeoJSON', GeoJSONResolver);
 
@@ -107,6 +122,10 @@ export function createPrismaSchemaBuilder<
   builder.mutationType({
     fields: (t) => ({}),
   });
+
+  if (debugBuilder) {
+    console.log('[graphql-prisma] schema builder ready');
+  }
 
   return builder;
 }

@@ -32,12 +32,17 @@ export function generateVitestSuite(options: VitestAdapterOptions) {
     .join('\n');
 
   return `
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { ${options.runnerFunction} } from '${options.runnerImport}';
 
 describe('${options.suiteName}', () => {${caseBlocks}
 });
 `.trim();
 }
+
+
+
+
+
 
 

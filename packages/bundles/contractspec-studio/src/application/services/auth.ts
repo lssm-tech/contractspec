@@ -7,18 +7,17 @@ import {
   organization,
 } from 'better-auth/plugins';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { prisma } from '@lssm/lib.database-strit';
+import { prisma } from '@lssm/lib.database-contractspec-studio';
 import { expo } from '@better-auth/expo';
-import { passkey } from 'better-auth/plugins/passkey';
+import { passkey } from '@better-auth/passkey';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Resend } from 'resend';
 import { nextCookies } from 'better-auth/next-js';
 import { phoneNumber } from 'better-auth/plugins';
-import * as jose from 'jose';
 import type { GenericOAuthConfig } from 'better-auth/plugins/generic-oauth';
-import { OrganizationType } from '@lssm/lib.database-strit/enums';
-import { telnyxSMS } from './sms';
+import { OrganizationType } from '@lssm/lib.database-contractspec-studio/enums';
+// import { telnyxSMS } from './sms';
 
 export const auth = betterAuth({
   telemetry: { enabled: false },
@@ -26,19 +25,10 @@ export const auth = betterAuth({
     provider: 'postgresql',
   }),
   trustedOrigins: [
-    // Basic scheme
-    'app.strit://',
-
-    // Web support
-    'https://immense-toucan-hot.ngrok-free.app',
-    'https://strit.app',
-    'https://www.strit.app',
-    'https://strit.academy',
-    'https://www.strit.academy',
+    'https://contractspec.chaman.ventures',
+    'https://studio.contractspec.chaman.ventures',
     'http://localhost:3000',
     'http://localhost:3002',
-    'http://localhost:8080',
-    'http://localhost:8082',
   ],
   advanced: {
     disableCSRFCheck: true,
@@ -48,7 +38,8 @@ export const auth = betterAuth({
     // Send password reset email using Resend
     async sendResetPassword({ url, user }) {
       const apiKey = process.env.RESEND_API_KEY;
-      const from = process.env.STRIT_EMAIL_FROM || 'no-reply@strit.app';
+      const from =
+        process.env.CONTRACTSPEC_EMAIL_FROM || 'no-reply@contractspec.run';
       if (!apiKey) {
         console.warn('RESEND_API_KEY is not set; logging reset URL');
         console.log('Reset password URL:', url);
@@ -91,121 +82,45 @@ export const auth = betterAuth({
         },
       },
     }),
-    phoneNumber({
-      sendOTP: async ({ phoneNumber, code }, _request) => {
-        // Format phoneNumber number to E.164 format
-        const formattedPhone = telnyxSMS.formatPhoneNumber(phoneNumber);
+    // phoneNumber({
+    //   sendOTP: async ({ phoneNumber, code }, _request) => {
+    //     // Format phoneNumber number to E.164 format
+    //     const formattedPhone = telnyxSMS.formatPhoneNumber(phoneNumber);
 
-        // Validate phoneNumber number
-        if (!telnyxSMS.isValidPhoneNumber(formattedPhone)) {
-          throw new Error('Invalid phone number format');
-        }
+    //     // Validate phoneNumber number
+    //     if (!telnyxSMS.isValidPhoneNumber(formattedPhone)) {
+    //       throw new Error('Invalid phone number format');
+    //     }
 
-        // Send OTP via Telnyx
-        await telnyxSMS.sendOTP(formattedPhone, code);
-      },
-      sendPasswordResetOTP: async ({ phoneNumber, code }, _request) => {
-        // Format phone number to E.164 format
-        const formattedPhone = telnyxSMS.formatPhoneNumber(phoneNumber);
+    //     // Send OTP via Telnyx
+    //     await telnyxSMS.sendOTP(formattedPhone, code);
+    //   },
+    //   sendPasswordResetOTP: async ({ phoneNumber, code }, _request) => {
+    //     // Format phone number to E.164 format
+    //     const formattedPhone = telnyxSMS.formatPhoneNumber(phoneNumber);
 
-        // Validate phone number
-        if (!telnyxSMS.isValidPhoneNumber(formattedPhone)) {
-          throw new Error('Invalid phone number format');
-        }
+    //     // Validate phone number
+    //     if (!telnyxSMS.isValidPhoneNumber(formattedPhone)) {
+    //       throw new Error('Invalid phone number format');
+    //     }
 
-        // Send password reset OTP via Telnyx
-        await telnyxSMS.sendPasswordResetOTP(formattedPhone, code);
-      },
-      phoneNumberValidator: (phoneNumber: string) => {
-        return telnyxSMS.isValidPhoneNumber(phoneNumber);
-      },
-      otpLength: 6,
-      expiresIn: 300, // 5 minutes
-      allowedAttempts: 3,
-    }),
-    // Social & OIDC providers (FranceConnect+, Google, Apple, Microsoft, LinkedIn)
+    //     // Send password reset OTP via Telnyx
+    //     await telnyxSMS.sendPasswordResetOTP(formattedPhone, code);
+    //   },
+    //   phoneNumberValidator: (phoneNumber: string) => {
+    //     return telnyxSMS.isValidPhoneNumber(phoneNumber);
+    //   },
+    //   otpLength: 6,
+    //   expiresIn: 300, // 5 minutes
+    //   allowedAttempts: 3,
+    // }),
+    // Social & OIDC providers (Google, Apple, Microsoft, LinkedIn)
     genericOAuth({
       config: (function buildProviders() {
         const providers: GenericOAuthConfig[] = [];
 
-        // FranceConnect+ (country provider)
-        const fcDiscovery = process.env.STRIT_FRANCECONNECTPLUS_DISCOVERY_URL;
-        const fcClientId = process.env.STRIT_FRANCECONNECTPLUS_CLIENT_ID;
-        const fcClientSecret =
-          process.env.STRIT_FRANCECONNECTPLUS_CLIENT_SECRET;
-        const fcPrivateKeyPem =
-          process.env.STRIT_FRANCECONNECTPLUS_ENC_PRIVATE_KEY_PEM;
-        if (fcDiscovery && fcClientId && fcClientSecret && fcPrivateKeyPem) {
-          const encPrivateKeyPromise = jose.importPKCS8(
-            fcPrivateKeyPem,
-            'RSA-OAEP-256'
-          );
-          providers.push({
-            providerId: 'franceconnectplus',
-            discoveryUrl: fcDiscovery,
-            clientId: fcClientId,
-            clientSecret: fcClientSecret,
-            authentication: 'post',
-            responseType: 'code',
-            pkce: false,
-            scopes: ['openid', 'profile', 'email', 'birth', 'identite_pivot'],
-            authorizationUrlParams: {
-              acr_values: 'eidas2',
-              claims: JSON.stringify({
-                id_token: { amr: { essential: true } },
-              }),
-            },
-            async getUserInfo(tokens: any) {
-              const discovery = tokens.discovery!;
-              const jwks = jose.createRemoteJWKSet(new URL(discovery.jwks_uri));
-              const privateKey = await encPrivateKeyPromise;
-
-              // Decrypt + verify id_token (JWE->JWS)
-              const decId = await jose.compactDecrypt(
-                tokens.idToken!,
-                privateKey
-              );
-              const idJws = new TextDecoder().decode(decId.plaintext);
-              const { payload: idPayload } = await jose.jwtVerify(idJws, jwks, {
-                issuer: discovery.issuer,
-                audience: fcClientId,
-                algorithms: ['ES256'],
-              });
-              const acr = String(idPayload.acr ?? '');
-              if (!(acr === 'eidas2' || acr === 'eidas3')) {
-                throw new Error(`FranceConnect+ LoA too low: acr=${acr}`);
-              }
-
-              // Fetch + decrypt + verify userinfo (JWE->JWS)
-              const uiRes = await fetch(discovery.userinfo_endpoint!, {
-                headers: { Authorization: `Bearer ${tokens.accessToken}` },
-              });
-              const jwe = await uiRes.text();
-              const dec = await jose.compactDecrypt(jwe, privateKey);
-              const jws = new TextDecoder().decode(dec.plaintext);
-              const { payload } = await jose.jwtVerify(jws, jwks, {
-                issuer: discovery.issuer,
-                audience: fcClientId,
-                algorithms: ['ES256'],
-              });
-              const p: any = payload;
-              return {
-                id: p.sub,
-                email: p.email ?? null,
-                name:
-                  [p.given_name, p.family_name].filter(Boolean).join(' ') ||
-                  null,
-                emailVerified: true,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              } as any;
-            },
-          });
-        }
-
-        // Private providers
-        const googleId = process.env.STRIT_GOOGLE_CLIENT_ID;
-        const googleSecret = process.env.STRIT_GOOGLE_CLIENT_SECRET;
+        const googleId = process.env.CONTRACTSPEC_GOOGLE_CLIENT_ID;
+        const googleSecret = process.env.CONTRACTSPEC_GOOGLE_CLIENT_SECRET;
         if (googleId && googleSecret) {
           providers.push({
             providerId: 'google',
@@ -217,8 +132,8 @@ export const auth = betterAuth({
           });
         }
 
-        const appleId = process.env.STRIT_APPLE_CLIENT_ID;
-        const appleSecret = process.env.STRIT_APPLE_CLIENT_SECRET;
+        const appleId = process.env.CONTRACTSPEC_APPLE_CLIENT_ID;
+        const appleSecret = process.env.CONTRACTSPEC_APPLE_CLIENT_SECRET;
         if (appleId && appleSecret) {
           providers.push({
             providerId: 'apple',
@@ -230,8 +145,8 @@ export const auth = betterAuth({
           });
         }
 
-        const msId = process.env.STRIT_MICROSOFT_CLIENT_ID;
-        const msSecret = process.env.STRIT_MICROSOFT_CLIENT_SECRET;
+        const msId = process.env.CONTRACTSPEC_MICROSOFT_CLIENT_ID;
+        const msSecret = process.env.CONTRACTSPEC_MICROSOFT_CLIENT_SECRET;
         if (msId && msSecret) {
           providers.push({
             providerId: 'microsoft',
@@ -243,8 +158,8 @@ export const auth = betterAuth({
           });
         }
 
-        const liId = process.env.STRIT_LINKEDIN_CLIENT_ID;
-        const liSecret = process.env.STRIT_LINKEDIN_CLIENT_SECRET;
+        const liId = process.env.CONTRACTSPEC_LINKEDIN_CLIENT_ID;
+        const liSecret = process.env.CONTRACTSPEC_LINKEDIN_CLIENT_SECRET;
         if (liId && liSecret) {
           providers.push({
             providerId: 'linkedin',
@@ -347,7 +262,7 @@ export const requireActiveOrganization = async () => {
   }
   const activeOrganizationId = session?.session?.activeOrganizationId;
   if (!activeOrganizationId) {
-    redirect('/login');
+    redirect('/onboarding/org-select');
   }
   return { session, activeOrganizationId, userId: session.user.id };
 };
@@ -366,7 +281,7 @@ export const assertsActiveOrganization = async () => {
   return { session, activeOrganizationId, userId: session.user.id };
 };
 
-const assertsPlatformAdmin = async () => {
+export const assertsPlatformAdmin = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });

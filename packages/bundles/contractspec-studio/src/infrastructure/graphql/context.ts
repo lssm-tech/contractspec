@@ -1,5 +1,3 @@
-'use server';
-
 import { Logger } from '@lssm/lib.logger';
 import type { Context, AuthSession, AuthUser } from './types';
 import { auth } from '../../application/services/auth';

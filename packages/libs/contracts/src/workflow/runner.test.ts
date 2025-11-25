@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { WorkflowRegistry, type WorkflowSpec, type Step } from './spec';
 import {
   WorkflowRunner,

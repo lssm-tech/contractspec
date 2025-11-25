@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { LifecycleRecommendationEngine } from '../recommendations/recommendation-engine';
 import { ContractSpecLibraryRecommender } from '../recommendations/library-recommender';
 import {
@@ -53,5 +53,10 @@ describe('ContractSpecLibraryRecommender', () => {
     expect(libraries.some((lib) => lib.id.includes('lib.growth'))).toBe(true);
   });
 });
+
+
+
+
+
 
 

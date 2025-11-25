@@ -1,5 +1,5 @@
 import type { calendar_v3 } from 'googleapis';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GoogleCalendarProvider } from './google-calendar';
 

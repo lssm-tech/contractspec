@@ -24,11 +24,21 @@ export interface CanvasState {
   projectId: string;
   nodes: ComponentNode[];
   updatedAt: string;
+  versions: CanvasVersionSnapshot[];
 }
 
 export interface GeneratedCode {
   components: number;
   files: { path: string; contents: string }[];
+}
+
+export interface CanvasVersionSnapshot {
+  id: string;
+  label: string;
+  status: 'draft' | 'deployed';
+  nodes: ComponentNode[];
+  createdAt: string;
+  createdBy?: string;
 }
 
 const CANVAS_OVERLAY_NAME = 'visual-builder.canvas';
@@ -39,6 +49,19 @@ export class VisualBuilderModule {
   async renderCanvas(projectId: string): Promise<CanvasState> {
     const { state } = await this.ensureCanvas(projectId);
     return state;
+  }
+
+  async loadCanvasRecord(projectId: string) {
+    return this.ensureCanvas(projectId);
+  }
+
+  async loadCanvasById(canvasId: string) {
+    const overlay = await this.getCanvasOverlay(canvasId);
+    return { overlay, state: this.normalizeState(overlay) };
+  }
+
+  async saveCanvasState(canvasId: string, state: CanvasState) {
+    await this.persistState(canvasId, state);
   }
 
   async addComponent(
@@ -138,6 +161,7 @@ export class VisualBuilderModule {
         id?: string;
         nodes?: ComponentNode[];
         updatedAt?: string;
+        versions?: CanvasVersionSnapshot[];
       };
       return {
         id: record.id ?? overlay.id,
@@ -147,6 +171,9 @@ export class VisualBuilderModule {
           typeof record.updatedAt === 'string'
             ? record.updatedAt
             : new Date().toISOString(),
+        versions: Array.isArray(record.versions)
+          ? (record.versions as CanvasVersionSnapshot[])
+          : [],
       };
     }
     return this.defaultState(overlay.projectId, overlay.id);
@@ -158,6 +185,7 @@ export class VisualBuilderModule {
       projectId,
       nodes: [],
       updatedAt: new Date().toISOString(),
+      versions: [],
     };
   }
 

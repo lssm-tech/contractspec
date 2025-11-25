@@ -11,9 +11,112 @@ export interface PaletteComponent extends ComponentDefinition {
 }
 
 export interface ComponentPaletteProps {
-  components: PaletteComponent[];
+  components?: PaletteComponent[];
   onSelect?: (component: PaletteComponent) => void;
 }
+
+const PALETTE_COMPONENTS: PaletteComponent[] = [
+  {
+    id: 'layout-container',
+    label: 'Container',
+    category: 'layout',
+    description: 'Responsive wrapper with padded content area.',
+    type: 'Container',
+    props: { padding: 'xl', maxWidth: '6xl' },
+  },
+  {
+    id: 'layout-grid',
+    label: 'Grid layout',
+    category: 'layout',
+    description: 'Two-column responsive grid with gap controls.',
+    type: 'Grid',
+    props: { columns: 2, gap: 24 },
+  },
+  {
+    id: 'layout-stack',
+    label: 'Stack',
+    category: 'layout',
+    description: 'Vertical stack with consistent spacing.',
+    type: 'Stack',
+    props: { gap: 16 },
+  },
+  {
+    id: 'action-button',
+    label: 'CTA Button',
+    category: 'actions',
+    description: 'Design-system button with primary styling.',
+    type: 'Button',
+    props: { label: 'Primary action', variant: 'primary', size: 'lg' },
+  },
+  {
+    id: 'input-text',
+    label: 'Text input',
+    category: 'inputs',
+    description: 'Form input with design-system validation states.',
+    type: 'Input',
+    props: { placeholder: 'Enter text…' },
+  },
+  {
+    id: 'input-textarea',
+    label: 'Textarea',
+    category: 'inputs',
+    description: 'Multi-line input for descriptions or comments.',
+    type: 'Textarea',
+    props: { placeholder: 'Add more details…', rows: 4 },
+  },
+  {
+    id: 'content-card',
+    label: 'Card',
+    category: 'content',
+    description: 'Neutral card wrapper with title and body content.',
+    type: 'Card',
+    props: { title: 'Card title', subtitle: 'Supporting copy' },
+  },
+  {
+    id: 'stat-card',
+    label: 'Stat card',
+    category: 'data',
+    description: 'Metric card with value and delta indicator.',
+    type: 'StatCard',
+    props: { label: 'Open tickets', value: 18, delta: '+3 vs yesterday' },
+  },
+  {
+    id: 'template-task-list',
+    label: 'Task list (todos)',
+    category: 'data',
+    description: 'Full todos experience with filters and priorities.',
+    type: 'TaskList',
+    props: { projectId: 'demo' },
+  },
+  {
+    id: 'template-messaging',
+    label: 'Messaging workspace',
+    category: 'data',
+    description: 'Conversations list and live message thread.',
+    type: 'MessagingWorkspace',
+    props: { projectId: 'demo' },
+  },
+  {
+    id: 'template-recipes',
+    label: 'Recipe browser',
+    category: 'content',
+    description: 'i18n-ready recipe explorer with detail view.',
+    type: 'RecipeList',
+    props: { locale: 'EN', projectId: 'demo' },
+  },
+  {
+    id: 'template-shell',
+    label: 'Template shell',
+    category: 'layout',
+    description: 'Shared shell with heading + runtime indicator.',
+    type: 'TemplateShell',
+    props: {
+      templateId: 'todos-app',
+      title: 'Templates',
+      description: 'Wraps template components with runtime context.',
+    },
+  },
+];
 
 const CATEGORY_LABEL: Record<PaletteComponent['category'], string> = {
   layout: 'Layout',
@@ -24,12 +127,12 @@ const CATEGORY_LABEL: Record<PaletteComponent['category'], string> = {
 };
 
 export function ComponentPalette({
-  components,
+  components = PALETTE_COMPONENTS,
   onSelect,
 }: ComponentPaletteProps) {
   const [search, setSearch] = React.useState('');
   const [category, setCategory] = React.useState<
-    ComponentPaletteProps['components'][number]['category'] | 'all'
+    PaletteComponent['category'] | 'all'
   >('all');
 
   const filtered = React.useMemo(() => {
@@ -119,5 +222,3 @@ export function ComponentPalette({
     </div>
   );
 }
-
-

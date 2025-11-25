@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { resolveAppConfig, composeAppConfig } from './runtime';
 import { type AppBlueprintSpec, type TenantAppConfig } from './spec';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';

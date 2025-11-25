@@ -28,7 +28,17 @@ const lifecycleService = new LifecycleAssessmentService({
   collector: {},
 });
 
+const debugGraphQL =
+  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+
+if (debugGraphQL) {
+  console.log('[graphql-lifecycle] module loaded');
+}
+
 export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
+  if (debugGraphQL) {
+    console.log('[graphql-lifecycle] registering schema');
+  }
   const LifecycleStageEnum = builder.enumType('LifecycleStageEnum', {
     values: Object.values(PrismaLifecycleStage),
   });
@@ -338,6 +348,10 @@ export function registerLifecycleSchema(builder: typeof gqlSchemaBuilder) {
       },
     }),
   }));
+
+  if (debugGraphQL) {
+    console.log('[graphql-lifecycle] schema ready');
+  }
 }
 
 function requireAuthAndGet(

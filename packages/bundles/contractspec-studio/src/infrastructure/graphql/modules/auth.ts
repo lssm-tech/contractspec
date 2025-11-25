@@ -5,7 +5,17 @@ import {
 } from '@lssm/lib.database-contractspec-studio';
 import { auth } from '../../../application/services/auth';
 
+const debugGraphQL =
+  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+
+if (debugGraphQL) {
+  console.log('[graphql-auth] module loaded');
+}
+
 export function registerAuthSchema(builder: typeof gqlSchemaBuilder) {
+  if (debugGraphQL) {
+    console.log('[graphql-auth] registering schema');
+  }
   const OrganizationTypeEnum = builder.enumType('OrganizationType', {
     values: Object.values(OrganizationType),
   });
@@ -222,4 +232,8 @@ export function registerAuthSchema(builder: typeof gqlSchemaBuilder) {
       },
     })
   );
+
+  if (debugGraphQL) {
+    console.log('[graphql-auth] schema ready');
+  }
 }
