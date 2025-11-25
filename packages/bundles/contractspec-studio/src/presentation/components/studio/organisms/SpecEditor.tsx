@@ -3,6 +3,8 @@ import { AlertCircle, Sparkles, Save } from 'lucide-react';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
+import { registerSpecEditorMonacoTypes } from './monaco-spec-types';
+import { SpecPreview, type SpecPreviewProps } from './SpecPreview';
 
 export interface SpecEditorProps {
   projectId: string;
@@ -11,6 +13,7 @@ export interface SpecEditorProps {
   content: string;
   metadata?: Record<string, unknown>;
   validationErrors?: string[];
+  previewArtifacts?: SpecPreviewProps['artifacts'];
   onChange?: (content: string) => void;
   onTypeChange?: (type: SpecEditorProps['type']) => void;
   onValidate?: () => Promise<void> | void;
@@ -39,11 +42,165 @@ const SPEC_TYPES: SpecType[] = [
   'COMPONENT',
 ];
 
+const SPEC_TEMPLATES: Record<SpecType, string> = {
+  CAPABILITY: `import { defineCapability, StabilityEnum, schemaModel } from '@lssm/lib.contracts';
+
+export const FieldDispatchCapability = defineCapability({
+  meta: {
+    key: 'ops.dispatch.field',
+    version: 1,
+    kind: 'command',
+    title: 'Route field crews',
+    description: 'Assign the best crew to an incoming work order',
+    domain: 'operations',
+    owners: ['team.ops'],
+    tags: ['dispatch', 'ops'],
+    stability: StabilityEnum.Beta,
+  },
+  provides: {
+    operation: 'dispatchFieldCrew',
+  },
+  io: {
+    input: schemaModel({
+      kind: 'object',
+      fields: {
+        workOrderId: { type: 'string' },
+        requestedSlot: { type: 'datetime' },
+      },
+    }),
+    output: schemaModel({
+      kind: 'object',
+      fields: {
+        crewId: { type: 'string' },
+        slot: { type: 'datetime' },
+      },
+    }),
+  },
+  policy: {
+    auth: { roles: ['ops.dispatcher'] },
+  },
+});
+`,
+  WORKFLOW: `import { defineWorkflow, StabilityEnum } from '@lssm/lib.contracts';
+
+export const IntakeWorkflow = defineWorkflow({
+  meta: {
+    key: 'ops.intake.workflow',
+    version: 1,
+    kind: 'workflow',
+    title: 'Lead intake',
+    description: 'Qualify, approve, and schedule new leads',
+    domain: 'operations',
+    owners: ['team.ops'],
+    tags: ['workflow'],
+    stability: StabilityEnum.Experimental,
+  },
+  steps: {
+    collectDetails: { action: 'leads.collectDetails' },
+    qualifying: { action: 'leads.qualify' },
+    schedule: { action: 'dispatch.createSlot' },
+  },
+  transitions: {
+    collectDetails: ['qualifying'],
+    qualifying: ['schedule'],
+  },
+});
+`,
+  POLICY: `import { definePolicy } from '@lssm/lib.contracts';
+
+export const DispatchPolicy = definePolicy({
+  meta: {
+    key: 'ops.dispatch.policy',
+    version: 1,
+    kind: 'policy',
+    title: 'Dispatch guardrails',
+    domain: 'operations',
+    owners: ['team.security'],
+    tags: ['policy'],
+  },
+  rules: {
+    allowDispatchers: {
+      effect: 'allow',
+      when: {
+        rolesInclude: 'ops.dispatcher',
+      },
+    },
+    denyWhenMaintenance: {
+      effect: 'deny',
+      when: {
+        featureFlagDisabled: 'dispatching_enabled',
+      },
+    },
+  },
+});
+`,
+  DATAVIEW: `import { defineDataView } from '@lssm/lib.contracts';
+
+export const CrewScheduleView = defineDataView({
+  meta: {
+    key: 'ops.crews.schedule',
+    version: 1,
+    kind: 'dataview',
+    title: 'Crew schedule board',
+    domain: 'operations',
+    owners: ['team.ops'],
+    tags: ['dataview'],
+  },
+  view: {
+    kind: 'table',
+    fields: [
+      { key: 'crewName', label: 'Crew' },
+      { key: 'slot', label: 'Next slot' },
+      { key: 'status', label: 'Status' },
+    ],
+  },
+  source: {
+    primary: 'dispatch.listCrewSlots',
+  },
+});
+`,
+  COMPONENT: `import { defineComponentSpec } from '@lssm/lib.contracts';
+
+export const CrewBoardComponent = defineComponentSpec({
+  meta: {
+    key: 'ops.crews.board',
+    version: 1,
+    kind: 'component',
+    title: 'Crew board',
+    description: 'Visual board of crew availability',
+    domain: 'operations',
+    owners: ['team.design'],
+    tags: ['component'],
+  },
+  props: {
+    crews: {
+      type: 'array',
+      of: {
+        type: 'object',
+        fields: {
+          id: { type: 'string' },
+          name: { type: 'string' },
+          status: { type: 'string' },
+        },
+      },
+    },
+  },
+  states: {
+    empty: { message: 'No crews scheduled yet' },
+  },
+});
+`,
+};
+
+type MonacoEditorModule = typeof import('@monaco-editor/react');
+
 export function SpecEditor({
+  projectId,
   type = 'CAPABILITY',
   content,
   metadata,
   validationErrors,
+  previewArtifacts,
   onChange,
   onTypeChange,
   onValidate,
@@ -58,30 +215,61 @@ export function SpecEditor({
   );
   const [MonacoEditor, setMonacoEditor] =
     React.useState<React.ComponentType<MonacoEditorProps> | null>(null);
+  const hasRegisteredTypes = React.useRef(false);
 
   React.useEffect(() => {
     let mounted = true;
+
     import('@monaco-editor/react')
-      .then((mod) => {
-        if (mounted) {
-          setMonacoEditor(() => mod.default);
+      .then(async (mod: MonacoEditorModule) => {
+        if (!mounted) return;
+        setMonacoEditor(() => mod.default);
+
+        if (!hasRegisteredTypes.current && mod.loader) {
+          try {
+            const monaco = await mod.loader.init();
+            if (mounted && monaco) {
+              registerSpecEditorMonacoTypes(
+                monaco as unknown as Parameters<
+                  typeof registerSpecEditorMonacoTypes
+                >[0]
+              );
+              hasRegisteredTypes.current = true;
+            }
+          } catch (error) {
+            console.error('Failed to initialize Monaco editor', error);
+          }
         }
       })
       .catch(() => {
         setMonacoEditor(null);
       });
+
     return () => {
       mounted = false;
     };
   }, []);
 
   React.useEffect(() => {
-    setLocalContent(content);
-  }, [content]);
+    if (content && content.trim().length > 0) {
+      setLocalContent(content);
+      return;
+    }
+    const template = SPEC_TEMPLATES[type];
+    setLocalContent(template);
+    onChange?.(template);
+  }, [content, type, onChange]);
 
   const handleChange = (value: string) => {
     setLocalContent(value);
     onChange?.(value);
+  };
+
+  const handleTypeSelect = (nextType: SpecType) => {
+    onTypeChange?.(nextType);
+    const template = SPEC_TEMPLATES[nextType];
+    setLocalContent(template);
+    onChange?.(template);
   };
 
   return (
@@ -98,7 +286,9 @@ export function SpecEditor({
           <select
             className="border-border bg-background rounded-md border px-3 py-2 text-sm"
             value={type}
-            onChange={(event) => onTypeChange?.(event.target.value as SpecType)}
+            onChange={(event) =>
+              handleTypeSelect(event.target.value as SpecType)
+            }
           >
             {SPEC_TYPES.map((item) => (
               <option key={item} value={item}>
@@ -194,6 +384,16 @@ export function SpecEditor({
             >
               Preview spec
             </button>
+            {previewArtifacts ? (
+              <div className="mt-3">
+                <SpecPreview
+                  projectId={projectId}
+                  type={type}
+                  artifacts={previewArtifacts}
+                  validationErrors={validationErrors}
+                />
+              </div>
+            ) : null}
           </section>
           <section className="border-border bg-background/60 rounded-xl border border-dashed p-4">
             <h3 className="text-sm font-semibold tracking-wide uppercase">

@@ -1,5 +1,6 @@
 export * from './studio/molecules/StudioProjectCard';
 export * from './studio/molecules/ComponentPalette';
+export * from './studio/molecules/PropertyEditor';
 export * from './studio/molecules/DeploymentPanel';
 export * from './studio/organisms/StudioProjectList';
 export * from './studio/organisms/StudioCanvas';

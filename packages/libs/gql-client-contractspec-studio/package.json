@@ -1,0 +1,46 @@
+{
+  "name": "@lssm/lib.gql-client-contractspec-studio",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "concurrently \"bun build:bundle --watch\" \"bun gql:dev\"",
+    "gql:generate": "bun graphql-codegen --config codegen.ts",
+    "gql:dev": "bun graphql-codegen --config codegen.ts --watch"
+  },
+  "dependencies": {
+    "@graphql-codegen/client-preset": "^5.0.1",
+    "@lssm/lib.schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.16",
+    "@graphql-codegen/cli": "^6.0.0",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@parcel/watcher": "^2.5.1",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./*"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
+  }
+}

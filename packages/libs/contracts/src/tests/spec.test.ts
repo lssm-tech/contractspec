@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { TestRegistry, type TestSpec, makeTestKey } from './spec';
 import { StabilityEnum } from '../ownership';
 

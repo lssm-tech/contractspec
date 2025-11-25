@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'bun:test';
 import type { DeploymentConfig } from './types';
 import { prismaMock } from '../../__tests__/mocks/prisma';
 
@@ -127,5 +127,10 @@ describe('DeploymentOrchestrator', () => {
     expect(status?.status).toBe('DEPLOYED');
   });
 });
+
+
+
+
+
 
 

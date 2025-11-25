@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { MigrationRegistry, type MigrationSpec } from './migrations';
 import { StabilityEnum, type Tag, type Owner } from './ownership';
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { CredentialEncryption } from '../../infrastructure/byok/encryption';
 import { BYOKManager } from '../../infrastructure/byok/manager';
 import { prismaMock } from '../mocks/prisma';
@@ -39,5 +39,10 @@ describe('Credential security', () => {
     expect(JSON.stringify(storedCredentials)).not.toContain('secret');
   });
 });
+
+
+
+
+
 
 

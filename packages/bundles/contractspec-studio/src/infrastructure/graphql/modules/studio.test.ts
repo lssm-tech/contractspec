@@ -1,11 +1,14 @@
 'use client';
 
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'bun:test';
 import { registerStudioSchema } from './studio';
 import type { Context } from '../types';
 import { prismaMock } from '../../../__tests__/mocks/prisma';
 
 const deployProjectMock = vi.fn();
+const saveDraftMock = vi.fn();
+const deployVersionMock = vi.fn();
+const undoVersionMock = vi.fn();
 
 vi.mock('../../deployment/orchestrator', () => ({
   DeploymentOrchestrator: class {
@@ -13,9 +16,23 @@ vi.mock('../../deployment/orchestrator', () => ({
   },
 }));
 
+vi.mock('../../../modules/visual-builder/versioning', () => ({
+  CanvasVersionManager: class {
+    saveDraft = saveDraftMock;
+    deploy = deployVersionMock;
+    undo = undoVersionMock;
+  },
+}));
+
 class BuilderStub {
   queryFieldsMap: Record<string, any> = {};
   mutationFieldsMap: Record<string, any> = {};
+  private argBuilder = Object.assign((config: any) => config, {
+    string: () => ({}),
+    boolean: () => ({}),
+    int: () => ({}),
+    id: () => ({}),
+  });
 
   enumType() {
     return {};
@@ -41,15 +58,23 @@ class BuilderStub {
     return {};
   }
 
-  queryFields(cb: (t: { field: (config: any) => any }) => Record<string, any>) {
-    const fields = cb({ field: (config) => config });
+  queryFields(
+    cb: (t: { field: (config: any) => any; arg: any }) => Record<string, any>
+  ) {
+    const fields = cb({
+      field: (config) => config,
+      arg: this.argBuilder,
+    });
     Object.assign(this.queryFieldsMap, fields);
   }
 
   mutationFields(
-    cb: (t: { field: (config: any) => any }) => Record<string, any>
+    cb: (t: { field: (config: any) => any; arg: any }) => Record<string, any>
   ) {
-    const fields = cb({ field: (config) => config });
+    const fields = cb({
+      field: (config) => config,
+      arg: this.argBuilder,
+    });
     Object.assign(this.mutationFieldsMap, fields);
   }
 }
@@ -59,6 +84,7 @@ registerStudioSchema(builder as any);
 
 const baseCtx: Context = {
   user: {
+    id: 'user-1',
     organizationId: 'org-1',
   } as any,
   session: undefined,
@@ -72,6 +98,9 @@ const baseCtx: Context = {
 describe('studio GraphQL module', () => {
   beforeEach(() => {
     deployProjectMock.mockReset();
+    saveDraftMock.mockReset();
+    deployVersionMock.mockReset();
+    undoVersionMock.mockReset();
   });
 
   it('returns studio projects scoped to the organization', async () => {
@@ -160,5 +189,103 @@ describe('studio GraphQL module', () => {
     await expect(
       resolver({}, {}, { ...baseCtx, user: undefined })
     ).rejects.toThrow(/Unauthorized/);
+  });
+
+  it('saves a canvas draft via the version manager', async () => {
+    const snapshot = {
+      id: 'ver-1',
+      label: 'Draft #1',
+      status: 'draft',
+      nodes: [],
+      createdAt: new Date().toISOString(),
+    };
+    prismaMock.studioOverlay.findUnique.mockResolvedValue({
+      id: 'canvas-1',
+      projectId: 'proj-1',
+    } as any);
+    prismaMock.studioProject.findFirst.mockResolvedValue({
+      id: 'proj-1',
+      organizationId: 'org-1',
+    } as any);
+    saveDraftMock.mockResolvedValue(snapshot);
+
+    const resolver = builder.mutationFieldsMap.saveCanvasDraft.resolve;
+    const result = await resolver(
+      {},
+      { input: { canvasId: 'canvas-1', nodes: [], label: 'Draft #1' } },
+      baseCtx
+    );
+
+    expect(prismaMock.studioOverlay.findUnique).toHaveBeenCalledWith({
+      where: { id: 'canvas-1' },
+      select: { projectId: true },
+    });
+    expect(prismaMock.studioProject.findFirst).toHaveBeenCalledWith({
+      where: { id: 'proj-1', organizationId: 'org-1' },
+    });
+    expect(saveDraftMock).toHaveBeenCalledWith(
+      'canvas-1',
+      [],
+      expect.objectContaining({ label: 'Draft #1', userId: 'user-1' })
+    );
+    expect(result).toEqual(snapshot);
+  });
+
+  it('deploys a canvas version after ensuring access', async () => {
+    const snapshot = {
+      id: 'ver-2',
+      label: 'Draft #2',
+      status: 'deployed',
+      nodes: [],
+      createdAt: new Date().toISOString(),
+    };
+    prismaMock.studioOverlay.findUnique.mockResolvedValue({
+      id: 'canvas-2',
+      projectId: 'proj-2',
+    } as any);
+    prismaMock.studioProject.findFirst.mockResolvedValue({
+      id: 'proj-2',
+      organizationId: 'org-1',
+    } as any);
+    deployVersionMock.mockResolvedValue(snapshot);
+
+    const resolver = builder.mutationFieldsMap.deployCanvasVersion.resolve;
+    const result = await resolver(
+      {},
+      { input: { canvasId: 'canvas-2', versionId: 'ver-2' } },
+      baseCtx
+    );
+
+    expect(deployVersionMock).toHaveBeenCalledWith('canvas-2', 'ver-2');
+    expect(result).toEqual(snapshot);
+  });
+
+  it('undoes the latest canvas version and returns the previous snapshot', async () => {
+    const previous = {
+      id: 'ver-3',
+      label: 'Draft #3',
+      status: 'draft',
+      nodes: [],
+      createdAt: new Date().toISOString(),
+    };
+    prismaMock.studioOverlay.findUnique.mockResolvedValue({
+      id: 'canvas-3',
+      projectId: 'proj-3',
+    } as any);
+    prismaMock.studioProject.findFirst.mockResolvedValue({
+      id: 'proj-3',
+      organizationId: 'org-1',
+    } as any);
+    undoVersionMock.mockResolvedValue(previous);
+
+    const resolver = builder.mutationFieldsMap.undoCanvasVersion.resolve;
+    const result = await resolver(
+      {},
+      { input: { canvasId: 'canvas-3' } },
+      baseCtx
+    );
+
+    expect(undoVersionMock).toHaveBeenCalledWith('canvas-3');
+    expect(result).toEqual(previous);
   });
 });

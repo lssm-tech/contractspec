@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { ThemeRegistry, makeThemeRef, type ThemeSpec } from './themes';
 import { StabilityEnum, type Tag, type Owner } from './ownership';
 

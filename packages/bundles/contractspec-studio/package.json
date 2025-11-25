@@ -10,15 +10,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run",
+    "test": "bun run",
     "test:watch": "vitest watch"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "*",
     "@lssm/tool.typescript": "*",
     "tsdown": "^0.16.6",
-    "typescript": "^5.9.3",
-    "vitest": "^1.6.0"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "nativewind": "5.0.0-preview.2",
@@ -26,6 +25,8 @@
     "react-native": "0.81.4"
   },
   "dependencies": {
+    "@better-auth/expo": "1.4.1",
+    "@better-auth/passkey": "1.4.1",
     "@monaco-editor/react": "^4.6.0",
     "@apollo/client": "^3.11.6",
     "@dnd-kit/core": "^6.1.0",
@@ -37,16 +38,19 @@
     "@lssm/lib.logger": "*",
     "@lssm/lib.observability": "*",
     "@lssm/lib.contracts-contractspec-studio": "*",
+    "@lssm/lib.gql-client-contractspec-studio": "*",
     "@lssm/lib.database-contractspec-studio": "*",
     "@lssm/lib.design-system": "*",
     "@lssm/lib.ui-kit": "*",
     "@tanstack/react-query": "^5.89.0",
+    "better-auth": "1.4.1",
     "graphql": "^16.9.0",
-    "@posthog/react": "^1.2.3",
+    "@posthog/react": "^1.5.0",
+    "posthog-react-native": "^4.13.0",
     "nativewind": "5.0.0-preview.2",
     "react-hook-form": "7.66.1",
     "resend": "^6.5.2",
-    "tailwindcss": "4.1.15"
+    "tailwindcss": "4.1.17"
   },
   "typesVersions": {
     "*": {
@@ -88,6 +92,7 @@
     "./modules/integrations": "./dist/modules/integrations/index.js",
     "./modules/knowledge": "./dist/modules/knowledge/index.js",
     "./modules/visual-builder": "./dist/modules/visual-builder/index.js",
+    "./modules/visual-builder/versioning": "./dist/modules/visual-builder/versioning.js",
     "./presentation": "./dist/presentation/index.js",
     "./presentation/components": "./dist/presentation/components/index.js",
     "./presentation/components/integrations": "./dist/presentation/components/integrations/index.js",
@@ -105,8 +110,11 @@
     "./presentation/components/studio": "./dist/presentation/components/studio/index.js",
     "./presentation/components/studio/molecules/ComponentPalette": "./dist/presentation/components/studio/molecules/ComponentPalette.js",
     "./presentation/components/studio/molecules/DeploymentPanel": "./dist/presentation/components/studio/molecules/DeploymentPanel.js",
+    "./presentation/components/studio/molecules/PropertyEditor": "./dist/presentation/components/studio/molecules/PropertyEditor.js",
     "./presentation/components/studio/molecules/StudioProjectCard": "./dist/presentation/components/studio/molecules/StudioProjectCard.js",
+    "./presentation/components/studio/organisms/monaco-spec-types": "./dist/presentation/components/studio/organisms/monaco-spec-types.js",
     "./presentation/components/studio/organisms/SpecEditor": "./dist/presentation/components/studio/organisms/SpecEditor.js",
+    "./presentation/components/studio/organisms/SpecPreview": "./dist/presentation/components/studio/organisms/SpecPreview.js",
     "./presentation/components/studio/organisms/StudioCanvas": "./dist/presentation/components/studio/organisms/StudioCanvas.js",
     "./presentation/components/studio/organisms/StudioProjectList": "./dist/presentation/components/studio/organisms/StudioProjectList.js",
     "./presentation/components/templates/messaging": "./dist/presentation/components/templates/messaging/index.js",
@@ -137,6 +145,15 @@
     "./presentation/hooks/studio/queries/useLifecycleProfile": "./dist/presentation/hooks/studio/queries/useLifecycleProfile.js",
     "./presentation/hooks/studio/queries/useStudioProjects": "./dist/presentation/hooks/studio/queries/useStudioProjects.js",
     "./presentation/hooks/studio/useFeatureFlag": "./dist/presentation/hooks/studio/useFeatureFlag.js",
+    "./presentation/libs/gql-client": "./dist/presentation/libs/gql-client.js",
+    "./presentation/libs/posthog/client": "./dist/presentation/libs/posthog/client.js",
+    "./presentation/libs/posthog/native": "./dist/presentation/libs/posthog/native.js",
+    "./presentation/libs/posthog/server": "./dist/presentation/libs/posthog/server.js",
+    "./presentation/providers/auth": "./dist/presentation/providers/auth/index.js",
+    "./presentation/providers/auth/context": "./dist/presentation/providers/auth/context.js",
+    "./presentation/providers/auth/Guard": "./dist/presentation/providers/auth/Guard.js",
+    "./presentation/providers/auth/index.native": "./dist/presentation/providers/auth/index.native.js",
+    "./presentation/providers/auth/index.web": "./dist/presentation/providers/auth/index.web.js",
     "./templates/installer": "./dist/templates/installer.js",
     "./templates/registry": "./dist/templates/registry.js",
     "./templates/runtime": "./dist/templates/runtime.js",

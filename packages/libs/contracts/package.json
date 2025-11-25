@@ -10,15 +10,14 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run"
+    "test": "bun run"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "*",
     "@lssm/tool.typescript": "*",
     "@types/express": "^5.0.3",
     "tsdown": "^0.16.6",
-    "typescript": "^5.9.3",
-    "vitest": "^1.6.0"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@google-cloud/secret-manager": "^6.1.1",
@@ -29,11 +28,11 @@
     "@google-cloud/storage": "^7.8.0",
     "stripe": "^19.1.0",
     "postmark": "^4.0.4",
-    "twilio": "^5.10.5",
+    "twilio": "^5.10.6",
     "@lssm/lib.schema": "*",
     "@modelcontextprotocol/sdk": "^1.20.1",
     "mcp-handler": "^1.0.4",
-    "zod": "^4.1.5"
+    "zod": "^4.1.13"
   },
   "peerDependencies": {
     "@pothos/core": "^4.9.1",
@@ -41,9 +40,9 @@
     "elysia": "^1.4.11",
     "express": "^5.1.0",
     "graphql-scalars": "^1.24.2",
-    "next": "16.0.3",
-    "@blocknote/core": "^0.41.1",
-    "@blocknote/react": "^0.41.1",
+    "next": "16.0.4",
+    "@blocknote/core": "^0.42.3",
+    "@blocknote/react": "^0.42.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.66.1",

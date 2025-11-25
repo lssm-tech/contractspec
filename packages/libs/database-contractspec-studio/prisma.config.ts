@@ -8,6 +8,6 @@ export default defineConfig({
     // seed: "bun run prisma/seed.ts",
   },
   datasource: {
-    url: process.env.CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING,
+    url: process.env.CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING!,
   },
 });

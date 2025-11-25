@@ -53,6 +53,13 @@ function cosineSimilarity(a: number[], b?: number[]): number {
   return dot / (Math.sqrt(aNorm) * Math.sqrt(bNorm));
 }
 
+const debugGraphQL =
+  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+
+if (debugGraphQL) {
+  console.log('[graphql-integrations] module loaded');
+}
+
 class LocalEmbeddingProvider implements EmbeddingProvider {
   async embedDocuments(
     documents: EmbeddingDocument[]
@@ -171,6 +178,9 @@ const knowledgeModule = new StudioKnowledgeModule({
 });
 
 export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
+  if (debugGraphQL) {
+    console.log('[graphql-integrations] registering schema');
+  }
   const IntegrationProviderEnum = builder.enumType('IntegrationProviderEnum', {
     values: Object.values(IntegrationProvider),
   });
@@ -450,6 +460,10 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       },
     }),
   }));
+
+  if (debugGraphQL) {
+    console.log('[graphql-integrations] schema ready');
+  }
 }
 
 interface KnowledgeDocumentInputShape {

@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { TelemetryRegistry, type TelemetrySpec } from './spec';
 import { TelemetryTracker, type RuntimeTelemetryProvider } from './tracker';
-import { TelemetryAnomalyMonitor } from './anomaly';
+import { TelemetryAnomalyMonitor, type TelemetryAnomalyEvent } from './anomaly';
 import { StabilityEnum } from '../ownership';
 
 const telemetrySpec: TelemetrySpec = {
@@ -46,7 +46,7 @@ const telemetrySpec: TelemetrySpec = {
 const createRegistry = () => new TelemetryRegistry().register(telemetrySpec);
 
 const createProvider = () => {
-  const send = vi.fn();
+  const send = vi.fn<RuntimeTelemetryProvider['send']>();
   const provider: RuntimeTelemetryProvider = {
     id: 'memory',
     send,
@@ -74,7 +74,14 @@ describe('TelemetryTracker', () => {
 
     expect(tracked).toBe(true);
     expect(send).toHaveBeenCalledTimes(1);
-    const dispatch = send.mock.calls[0][0];
+    const firstCall = send.mock.calls[0];
+    if (!firstCall) {
+      throw new Error('Expected telemetry provider to be called at least once');
+    }
+    const [dispatch] = firstCall;
+    if (!dispatch) {
+      throw new Error('Expected telemetry dispatch payload');
+    }
     expect(dispatch.properties.userId).toBe('REDACTED');
     expect(dispatch.properties.workflow).toBe('primary');
   });
@@ -101,7 +108,7 @@ describe('TelemetryTracker', () => {
   it('invokes anomaly monitor when thresholds exceeded', async () => {
     const registry = createRegistry();
     const { provider } = createProvider();
-    const onAnomaly = vi.fn();
+    const onAnomaly = vi.fn<(event: TelemetryAnomalyEvent) => void>();
     const monitor = new TelemetryAnomalyMonitor({ onAnomaly });
     const tracker = new TelemetryTracker({
       registry,
@@ -118,7 +125,14 @@ describe('TelemetryTracker', () => {
     );
 
     expect(onAnomaly).toHaveBeenCalledTimes(1);
-    const event = onAnomaly.mock.calls[0][0];
+    const firstAnomalyCall = onAnomaly.mock.calls[0];
+    if (!firstAnomalyCall) {
+      throw new Error('Expected anomaly monitor to be invoked');
+    }
+    const [event] = firstAnomalyCall;
+    if (!event) {
+      throw new Error('Expected anomaly payload');
+    }
     expect(event.metric).toBe('durationMs');
     expect(event.value).toBe(3000);
   });

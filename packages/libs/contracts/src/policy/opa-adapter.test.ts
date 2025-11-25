@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { OPAPolicyAdapter, buildOPAInput, type OPAClient } from './opa-adapter';
 import { PolicyRegistry } from './spec';
 import type { PolicySpec } from './spec';

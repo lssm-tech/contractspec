@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach } from 'bun:test';
 import { StudioIntegrationModule } from '../../modules/integrations';
 import { prismaMock } from '../mocks/prisma';
 
@@ -47,5 +47,10 @@ describe('Integration flow e2e', () => {
     expect(creds).toEqual({ apiKey: 'plain' });
   });
 });
+
+
+
+
+
 
 

@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'bun:test';
 import { registerLifecycleSchema } from './lifecycle';
 import type { Context } from '../types';
 import { prismaMock } from '../../../__tests__/mocks/prisma';
@@ -145,5 +145,10 @@ describe('lifecycle GraphQL module', () => {
     expect(progress.id).toBe('milestone-1');
   });
 });
+
+
+
+
+
 
 

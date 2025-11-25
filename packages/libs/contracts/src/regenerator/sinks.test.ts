@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { ExecutorProposalSink } from './sinks';
 import { ProposalExecutor } from './executor';
 import type { ExecutorResultPayload } from './sinks';
@@ -72,7 +72,7 @@ describe('ExecutorProposalSink', () => {
       actions: [],
     } satisfies ProposalExecutionResult);
 
-    const onResult = vi.fn<[ExecutorResultPayload], Awaited<void>>();
+    const onResult = vi.fn<(payload: ExecutorResultPayload) => void>();
     const logger = { info: vi.fn(), error: vi.fn() };
     const sink = new ExecutorProposalSink(executor, { onResult, logger });
 

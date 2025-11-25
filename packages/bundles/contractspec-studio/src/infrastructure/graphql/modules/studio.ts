@@ -15,8 +15,23 @@ import { DeploymentOrchestrator } from '../../deployment/orchestrator';
 import { requireFeatureFlag } from '../guards/feature-flags';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { toInputJson, toNullableJsonValue } from '../../../utils/prisma-json';
+import type {
+  CanvasVersionSnapshot,
+  ComponentNode,
+} from '../../../modules/visual-builder';
+import { CanvasVersionManager } from '../../../modules/visual-builder/versioning';
+
+const debugGraphQL =
+  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+
+if (debugGraphQL) {
+  console.log('[graphql-studio] module loaded');
+}
 
 export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
+  if (debugGraphQL) {
+    console.log('[graphql-studio] registering schema');
+  }
   const ProjectTierEnum = builder.enumType('ProjectTierEnum', {
     values: Object.values(ProjectTier),
   });
@@ -31,6 +46,12 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
   });
   const DeploymentStatusEnum = builder.enumType('DeploymentStatusEnum', {
     values: Object.values(DeploymentStatus),
+  });
+  const CanvasVersionStatusEnum = builder.enumType('CanvasVersionStatusEnum', {
+    values: {
+      DRAFT: { value: 'draft' },
+      DEPLOYED: { value: 'deployed' },
+    },
   });
 
   const StudioSpecType = builder.objectRef<StudioSpec>('StudioSpec').implement({
@@ -131,6 +152,29 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       }),
     });
 
+  const CanvasVersionType = builder
+    .objectRef<CanvasVersionSnapshot>('CanvasVersion')
+    .implement({
+      fields: (t) => ({
+        id: t.exposeID('id'),
+        label: t.exposeString('label'),
+        status: t.field({
+          type: CanvasVersionStatusEnum,
+          resolve: (version) =>
+            version.status === 'deployed' ? 'deployed' : 'draft',
+        }),
+        nodes: t.field({
+          type: 'JSON',
+          resolve: (version) => version.nodes,
+        }),
+        createdAt: t.field({
+          type: 'Date',
+          resolve: (version) => new Date(version.createdAt),
+        }),
+        createdBy: t.exposeString('createdBy', { nullable: true }),
+      }),
+    });
+
   const CreateProjectInput = builder.inputType('CreateProjectInput', {
     fields: (t) => ({
       name: t.string({ required: true }),
@@ -190,6 +234,30 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       projectName: t.string({ required: true }),
       payload: t.string({ required: true }),
       description: t.string(),
+    }),
+  });
+
+  const SaveCanvasDraftInput = builder.inputType('SaveCanvasDraftInput', {
+    fields: (t) => ({
+      canvasId: t.string({ required: true }),
+      nodes: t.field({ type: 'JSON', required: true }),
+      label: t.string(),
+    }),
+  });
+
+  const DeployCanvasVersionInput = builder.inputType(
+    'DeployCanvasVersionInput',
+    {
+      fields: (t) => ({
+        canvasId: t.string({ required: true }),
+        versionId: t.string({ required: true }),
+      }),
+    }
+  );
+
+  const UndoCanvasInput = builder.inputType('UndoCanvasInput', {
+    fields: (t) => ({
+      canvasId: t.string({ required: true }),
     }),
   });
 
@@ -353,6 +421,47 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
         });
       },
     }),
+    saveCanvasDraft: t.field({
+      type: CanvasVersionType,
+      args: {
+        input: t.arg({ type: SaveCanvasDraftInput, required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        await ensureCanvasAccess(args.input.canvasId, user.organizationId);
+        const nodes = toComponentNodes(args.input.nodes);
+        const manager = new CanvasVersionManager();
+        return manager.saveDraft(args.input.canvasId, nodes, {
+          label: args.input.label ?? undefined,
+          userId: ctx.user?.id,
+        });
+      },
+    }),
+    deployCanvasVersion: t.field({
+      type: CanvasVersionType,
+      args: {
+        input: t.arg({ type: DeployCanvasVersionInput, required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        await ensureCanvasAccess(args.input.canvasId, user.organizationId);
+        const manager = new CanvasVersionManager();
+        return manager.deploy(args.input.canvasId, args.input.versionId);
+      },
+    }),
+    undoCanvasVersion: t.field({
+      type: CanvasVersionType,
+      nullable: true,
+      args: {
+        input: t.arg({ type: UndoCanvasInput, required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        await ensureCanvasAccess(args.input.canvasId, user.organizationId);
+        const manager = new CanvasVersionManager();
+        return manager.undo(args.input.canvasId);
+      },
+    }),
     deployStudioProject: t.field({
       type: StudioDeploymentType,
       args: {
@@ -421,6 +530,10 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
     }),
   }));
+
+  if (debugGraphQL) {
+    console.log('[graphql-studio] schema ready');
+  }
 }
 
 function requireAuthAndGet(
@@ -445,4 +558,23 @@ async function getProjectForOrg(projectId: string, organizationId: string) {
 
 async function ensureProjectAccess(projectId: string, organizationId: string) {
   await getProjectForOrg(projectId, organizationId);
+}
+
+async function ensureCanvasAccess(canvasId: string, organizationId: string) {
+  const overlay = await studioDb.studioOverlay.findUnique({
+    where: { id: canvasId },
+    select: { projectId: true },
+  });
+  if (!overlay) {
+    throw new Error('Canvas not found');
+  }
+  await ensureProjectAccess(overlay.projectId, organizationId);
+  return overlay.projectId;
+}
+
+function toComponentNodes(value: unknown): ComponentNode[] {
+  if (!Array.isArray(value)) {
+    throw new Error('Canvas nodes input must be an array');
+  }
+  return value as ComponentNode[];
 }

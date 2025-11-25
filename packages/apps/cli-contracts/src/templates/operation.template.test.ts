@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { generateOperationSpec } from './operation.template';
 import type { OperationSpecData } from '../types';
 

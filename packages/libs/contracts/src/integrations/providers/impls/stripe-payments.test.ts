@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { StripePaymentsProvider } from './stripe-payments';
 

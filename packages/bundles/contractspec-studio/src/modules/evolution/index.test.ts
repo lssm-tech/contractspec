@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'bun:test';
 import { StudioEvolutionModule } from './index';
 import { prismaMock } from '../../__tests__/mocks/prisma';
 
@@ -95,5 +95,10 @@ describe('StudioEvolutionModule', () => {
     });
   });
 });
+
+
+
+
+
 
 

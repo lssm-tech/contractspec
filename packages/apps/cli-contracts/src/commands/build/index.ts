@@ -291,7 +291,7 @@ async function buildForm(
 
     const testCode =
       testsResult?.code ??
-      `import { describe, it, expect } from 'vitest';
+      `import { describe, it, expect } from 'bun:test';
 
 // TODO: implement tests for ${specName} form component
 

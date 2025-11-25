@@ -1,5 +1,5 @@
 import type { gmail_v1 } from 'googleapis';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GmailOutboundProvider } from './gmail-outbound';
 
@@ -40,10 +40,11 @@ describe('GmailOutboundProvider', () => {
 });
 
 function createMockGmail() {
-  const send = vi.fn<
-    [gmail_v1.Params$Resource$Users$Messages$Send],
-    Promise<{ data: { id: string } }>
-  >(async () => ({
+  type GmailSendFn = (
+    params: gmail_v1.Params$Resource$Users$Messages$Send
+  ) => Promise<{ data: { id: string } }>;
+
+  const send = vi.fn<GmailSendFn>(async () => ({
     data: { id: 'sent-message' },
   }));
   const gmail = {
