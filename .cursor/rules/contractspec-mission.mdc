@@ -1,0 +1,219 @@
+---
+alwaysApply: true
+---
+
+# Equitya Mission & Context
+
+"AI must understand the core mission and target audience of Equitya to make informed decisions about features, UX, and technical architecture. Every choice should serve the goal of democratizing UHNWI-level wealth management."
+
+---
+
+## Mission Statement
+
+**An AI Personal CFO that helps anyone manage and understand their money with the clarity and strategy of an ultra-high-net-worth individual.**
+
+---
+
+## Core Value Proposition
+
+### Goal
+
+Turn messy, real-life finances into a clear, actionable wealth strategy, as if the user had a dedicated family office.
+
+### How We Do It
+
+Build a full picture of their situation (professional + personal + tax + goals), generate a tailored plan, keep it updated over time, and explain every decision in plain language.
+
+### Who It's For
+
+People with **non-trivial money flows**, such as:
+
+- Freelancers & independents
+- Company owners & directors (SASU, SARL, etc.)
+- Creators & knowledge workers
+- Couples with one or more professional structures
+- Anyone with **decent to high income** but money scattered across accounts, entities, taxes, and half-baked goals
+
+**In short:** _"Wealth management at UHNWI quality, for people whose life is complex but not billionaire-level."_
+
+---
+
+## Principles
+
+### 1. UHNWI Quality, Not UHNWI Complexity
+
+Deliver the strategic clarity and holistic approach of a family office CFO, but with the simplicity and accessibility that serves busy professionals. High sophistication in the backend, radical simplicity in the frontend.
+
+### 2. Real-Life Messiness First
+
+Acknowledge that our users' financial lives are complex by nature: multiple revenue streams, mixed personal/professional entities, tax optimization needs, and evolving goals. The platform must embrace this complexity, not pretend it doesn't exist.
+
+### 3. Explain Everything
+
+Never assume the user understands financial jargon or strategy. Every recommendation, every number, every decision must be explainable in plain language. The AI is not just executing—it's teaching.
+
+### 4. Holistic, Not Siloed
+
+A true personal CFO sees the whole picture: income, expenses, investments, tax, retirement, family, business structures. Features must connect across domains, not treat each financial aspect in isolation.
+
+### 5. Actionable, Not Informational
+
+The goal is not to show data—it's to drive decisions. Every insight should lead to a clear, prioritized action. The user should always know "what should I do next?"
+
+### 6. Privacy & Trust as Foundation
+
+Users are sharing their entire financial life. Security, privacy, and transparency about data usage are non-negotiable. Every feature must be designed with trust in mind.
+
+---
+
+## Target User Archetypes
+
+### Archetype 1: The Freelance Professional
+
+- **Profile:** Independent consultant, designer, developer, or specialist
+- **Pain Points:** Irregular income, managing quarterly taxes, retirement planning without employer benefits, mixing personal and business expenses
+- **Needs:** Cash flow forecasting, tax optimization, simple business entity management
+
+### Archetype 2: The Small Business Owner
+
+- **Profile:** Founder or director of SASU/SARL with 0-10 employees
+- **Pain Points:** Optimizing salary vs. dividends, managing company + personal finances, succession planning, VAT and social contributions
+- **Needs:** Entity-aware wealth strategy, tax optimization across personal and corporate structures
+
+### Archetype 3: The Creator/Knowledge Worker
+
+- **Profile:** Content creator, course seller, author, or coach with multiple revenue streams
+- **Pain Points:** Unpredictable income, intellectual property management, international payments, scaling without complexity
+- **Needs:** Revenue stream analysis, tax-efficient structure recommendations, growth strategy
+
+### Archetype 4: The Dual-Career Couple
+
+- **Profile:** Two professionals or entrepreneurs managing household + business finances
+- **Pain Points:** Coordinating financial goals, optimizing joint vs. separate structures, family planning, inheritance
+- **Needs:** Household-level strategy, joint tax optimization, long-term family wealth planning
+
+---
+
+## Design & Development Heuristics
+
+### Feature Design
+
+✅ Does this feature help the user make a financial decision?
+✅ Does it connect to other aspects of their financial life (holistic view)?
+✅ Is the output actionable, not just informational?
+✅ Can a non-financial expert understand what to do next?
+✅ Does it handle real-life messiness (incomplete data, changing goals, multiple entities)?
+❌ Does this feature add complexity without clear strategic value?
+❌ Is this optimized for "power users" at the expense of clarity?
+
+### UX & Messaging
+
+✅ Is the language plain, conversational, and jargon-free?
+✅ Does every screen have a clear next action?
+✅ Are we explaining _why_ we recommend something, not just _what_ to do?
+✅ Is the interface mobile-friendly for users who are busy and on-the-go?
+✅ Does the experience feel like talking to a trusted advisor, not using software?
+❌ Are we overwhelming the user with charts, tables, or options?
+❌ Are we assuming the user already knows financial concepts?
+
+### AI Behavior
+
+✅ Is the AI proactive in identifying problems before the user asks?
+✅ Does the AI explain its reasoning in simple terms?
+✅ Is the AI connecting dots across different financial domains?
+✅ Does the AI adapt its recommendations as the user's situation evolves?
+✅ Is the AI transparent about confidence levels and data gaps?
+❌ Is the AI giving generic advice that could apply to anyone?
+❌ Is the AI using technical financial language without translation?
+
+### Technical Architecture
+
+✅ Can this logic be reused across different user archetypes?
+✅ Does this support multi-entity financial modeling (personal + business)?
+✅ Is privacy and data security built-in, not bolted on?
+✅ Can the system handle incomplete or evolving data gracefully?
+✅ Are we building for scale without sacrificing personalization?
+❌ Are we building features that only work for simple, single-entity finances?
+❌ Are we making architectural choices that lock us into rigid models?
+
+---
+
+## Competitive Differentiation
+
+**We are NOT:**
+
+- A budgeting app (Mint, YNAB)
+- A pure investment tracker (Personal Capital)
+- An accounting tool (QuickBooks, FreshBooks)
+- A robo-advisor (Betterment, Wealthfront)
+
+**We ARE:**
+
+- A holistic wealth strategist that combines all of the above
+- An AI-powered CFO that understands the full context of your life
+- A platform built for the complexity of modern professional income
+- A personal family office experience at accessible scale
+
+---
+
+## Competitive Landscape & Inspirations
+
+### Strategic Positioning
+
+**Market Focus:** Europe-first (starting with France), B2C direct-to-consumer model
+
+**Geographic Advantage:** Deep expertise in European tax systems, French legal structures (SASU, SARL), and professional income optimization unique to the European market.
+
+### Inspirational References
+
+#### Range.com — MVP/v0 Inspiration
+
+All-in-one wealth management platform for high earners ($200k+) in the US market. Flat-fee pricing model (0% AUM), team of specialized advisors (CFPs, tax professionals), 24/7 platform access.
+
+**What we emulate:** Holistic approach, transparent pricing, multi-specialist team model, premium positioning without complexity.
+
+**How we differentiate:** Europe/France focus, SASU/SARL expertise, French tax system optimization, potentially more accessible pricing tiers.
+
+#### Nextvestment.com — Long-term Vision
+
+AI-native engagement layer for wealth management with B2B2C model (sells to financial institutions). "Questions → Signals → Outcomes" workflow, compliance-first architecture, $65B AUM across institutions.
+
+**What we emulate:** AI-first architecture, compliance rigor, signal detection from user interactions, scalable infrastructure.
+
+**Strategic path:** Start B2C to validate product-market fit, potentially add B2B2C layer for European banks seeking digital transformation.
+
+#### Julius.ai — Data Visualization Inspiration
+
+Conversational data analysis platform with natural language queries, no-code data exploration, instant insights generation.
+
+**What we emulate:** Natural language financial queries, interactive charts, conversational UX for complex financial data, making sophisticated analysis accessible.
+
+### Primary Competitor
+
+#### Finary — French Market Leader
+
+Founded 2020, leading French digital wealth management platform. Strengths: Asset aggregation, investment tracking, crypto management, budget management, established market presence.
+
+**Equitya's Differentiators:**
+
+- AI-powered CFO advice (not just tracking and aggregation)
+- Professional structure optimization (SASU vs SARL, salary vs dividends)
+- Tax optimization strategy beyond basic tracking
+- Personalized, actionable recommendations with plain-language explanations
+- UHNWI-quality strategic advice for non-billionaires
+- Multi-entity financial modeling (personal + business structures)
+
+### Market Opportunity
+
+**Gap in Market:** No European platform combines Range's holistic advisory approach with deep French/European tax expertise and AI-powered personalization. Finary excels at aggregation but lacks strategic CFO-level advice. Traditional advisors charge 1% AUM with limited accessibility.
+
+**Equitya's Position:** UHNWI-quality wealth strategy, AI-powered, Europe-native, accessible to professionals with complex income structures.
+
+---
+
+## References
+
+- See `docs/product/competitive-analysis.md` for detailed competitive analysis and feature gap analysis
+- See `docs/product/wealthos-*.md` for specific feature specs aligned with this mission
+- See `low-tech-friendly-ux.mdc` for how we make this accessible to all users
+- See `code-organization.mdc` for how we structure code to support this holistic approach
