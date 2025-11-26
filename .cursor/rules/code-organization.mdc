@@ -1,0 +1,642 @@
+---
+description: Governs package organization, dependency flow, and component hierarchy across the monorepo.
+globs:
+alwaysApply: true
+---
+
+# Code Organization & Dependency Architecture
+
+"Code must live in the right layer: AI logic is collaborative infrastructure, platform code is thin adapters, business logic is portable, and UI is composed from design tokens — never from raw HTML."
+
+## Core Principles
+
+- **Layered Architecture**: AI → Bundles → Apps, with clear dependency flow and no circular references.
+- **Collaborative AI**: AI logic lives in reusable libraries to enable non-technical collaboration and multi-platform reuse.
+- **Platform Neutrality**: Business logic must be platform-agnostic; apps are thin presentation layers.
+- **Component Hierarchy**: All UI must use design-system components; raw HTML elements are forbidden in application code.
+- **Domain-Driven Organization**: Code is grouped by business domain, not by technical layer or file type.
+- **Radical Modularity**: Files and components must be small, focused, and composable. Large files are a code smell.
+- **Reusability First**: Every piece of logic, component, or service should be designed for reuse across features and platforms.
+
+---
+
+## Code Splitting & File Organization
+
+**Rule**: No file should exceed 250 lines of code. Components and functions should be small, focused, and composable.
+
+### Size Limits & Thresholds
+
+- **Components**: Max 150 lines (including types and hooks)
+- **Services/Use Cases**: Max 200 lines
+- **Utilities/Helpers**: Max 100 lines
+- **Files with >250 lines**: Must be split immediately
+
+**Why**: Large files are hard to review, test, and maintain. They usually indicate multiple responsibilities that should be separated.
+
+### Business Domain Grouping
+
+**Rule**: Organize code by business domain, not by technical concern.
+
+### ✅ Good: Domain-Driven Structure
+
+```
+bundles/equitya/src/
+├── application/
+│   ├── wealth/              # Wealth management domain
+│   │   ├── portfolio-analysis.service.ts
+│   │   ├── asset-allocation.service.ts
+│   │   └── performance-tracking.service.ts
+│   ├── recommendations/     # Recommendations domain
+│   │   ├── generate-recommendations.service.ts
+│   │   └── prioritize-recommendations.service.ts
+│   └── onboarding/          # Onboarding domain
+│       ├── complete-profile.service.ts
+│       └── setup-preferences.service.ts
+├── domain/
+│   ├── wealth/
+│   │   ├── portfolio.entity.ts
+│   │   ├── asset.entity.ts
+│   │   └── transaction.entity.ts
+│   └── recommendations/
+│       ├── recommendation.entity.ts
+│       └── priority.value-object.ts
+└── presentation/
+    ├── wealth/              # Wealth UI components
+    │   ├── molecules/
+    │   │   ├── AssetCard/
+    │   │   └── PortfolioSummary/
+    │   └── organisms/
+    │       ├── PortfolioOverview/
+    │       └── AssetAllocationChart/
+    └── recommendations/     # Recommendations UI components
+        ├── molecules/
+        │   └── RecommendationCard/
+        └── organisms/
+            └── RecommendationsList/
+```
+
+### ❌ Forbidden: Technical Grouping
+
+```
+bundles/equitya/src/
+├── services/               # Too generic, mixed domains
+│   ├── portfolio.service.ts
+│   ├── recommendations.service.ts
+│   └── onboarding.service.ts
+├── entities/               # All entities mixed together
+│   ├── portfolio.ts
+│   ├── asset.ts
+│   ├── recommendation.ts
+│   └── user.ts
+└── components/             # All UI mixed together
+    ├── PortfolioOverview.tsx
+    ├── RecommendationsList.tsx
+    └── OnboardingWizard.tsx
+```
+
+### Component Splitting Strategy
+
+**When to split a component**:
+
+1. Component exceeds 150 lines
+2. Multiple responsibilities are present
+3. Repeated logic appears in multiple places
+4. Nested components are defined inline
+5. Component has more than 5-7 props
+
+**How to split**:
+
+```tsx
+// ❌ Bad: Monolithic component (300+ lines)
+export const PortfolioDashboard = () => {
+  // 50 lines of state management
+  // 100 lines of data fetching logic
+  // 150 lines of JSX with inline components
+  return <div>{/* Massive JSX tree */}</div>;
+};
+
+// ✅ Good: Split into focused components
+// PortfolioDashboard.tsx (50 lines)
+export const PortfolioDashboard = () => {
+  const portfolio = usePortfolioData();
+  return (
+    <DashboardLayout>
+      <PortfolioHeader portfolio={portfolio} />
+      <PortfolioMetrics portfolio={portfolio} />
+      <AssetAllocationSection portfolio={portfolio} />
+      <RecentTransactionsSection portfolio={portfolio} />
+    </DashboardLayout>
+  );
+};
+
+// usePortfolioData.ts (40 lines)
+export const usePortfolioData = () => {
+  // Focused hook for data fetching
+};
+
+// PortfolioHeader.tsx (30 lines)
+export const PortfolioHeader = ({ portfolio }) => {
+  // Focused component
+};
+
+// PortfolioMetrics.tsx (40 lines)
+export const PortfolioMetrics = ({ portfolio }) => {
+  // Focused component
+};
+```
+
+### Service Splitting Strategy
+
+**When to split a service**:
+
+1. Service exceeds 200 lines
+2. Multiple use cases are handled
+3. Different domains are mixed
+4. Complex orchestration logic
+
+**How to split**:
+
+```typescript
+// ❌ Bad: God service (500+ lines)
+export class WealthService {
+  analyzePortfolio() {
+    /* ... */
+  }
+  generateRecommendations() {
+    /* ... */
+  }
+  calculateRisk() {
+    /* ... */
+  }
+  processTransaction() {
+    /* ... */
+  }
+  updatePreferences() {
+    /* ... */
+  }
+  // ... 20 more methods
+}
+
+// ✅ Good: Focused services by domain
+// portfolio-analysis.service.ts (150 lines)
+export class PortfolioAnalysisService {
+  analyzePortfolio() {
+    /* ... */
+  }
+  calculateAllocation() {
+    /* ... */
+  }
+  assessDiversification() {
+    /* ... */
+  }
+}
+
+// recommendation.service.ts (120 lines)
+export class RecommendationService {
+  generateRecommendations() {
+    /* ... */
+  }
+  prioritizeRecommendations() {
+    /* ... */
+  }
+}
+
+// risk-assessment.service.ts (100 lines)
+export class RiskAssessmentService {
+  calculateRisk() {
+    /* ... */
+  }
+  assessVolatility() {
+    /* ... */
+  }
+}
+
+// transaction.service.ts (80 lines)
+export class TransactionService {
+  processTransaction() {
+    /* ... */
+  }
+  validateTransaction() {
+    /* ... */
+  }
+}
+```
+
+### Reusability Patterns
+
+**Extract reusable logic**:
+
+```typescript
+// ❌ Bad: Duplicated logic across files
+// In portfolio.service.ts
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(value);
+};
+
+// In transaction.service.ts
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(value);
+};
+
+// ✅ Good: Shared utility
+// libs/utils/currency.util.ts
+export const formatCurrency = (value: number, currency = 'USD') => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).format(value);
+};
+
+// Both services import and use it
+import { formatCurrency } from '@/libs/utils/currency.util';
+```
+
+**Design for composition**:
+
+```tsx
+// ✅ Good: Composable components
+export const Card = ({ children, className }) => (
+  <div className={cn('rounded-lg border p-4', className)}>
+    {children}
+  </div>
+)
+
+export const CardHeader = ({ children }) => (
+  <div className="mb-2 font-semibold">{children}</div>
+)
+
+export const CardContent = ({ children }) => (
+  <div>{children}</div>
+)
+
+// Used in multiple domains
+<Card>
+  <CardHeader>Portfolio Value</CardHeader>
+  <CardContent>$123,456</CardContent>
+</Card>
+
+<Card>
+  <CardHeader>Recommendation</CardHeader>
+  <CardContent>Rebalance your portfolio</CardContent>
+</Card>
+```
+
+### Dev Heuristics — File Size & Splitting
+
+✅ Is this file under 250 lines?
+✅ Does this file have a single, clear responsibility?
+✅ Is the code organized by business domain, not by file type?
+✅ Can this logic be reused in other features or platforms?
+✅ Are components small enough to understand in one screen?
+✅ Would splitting this file make the codebase easier to navigate?
+❌ Am I about to add a 10th method to this service? → Split it.
+❌ Does this component do 3+ different things? → Split it.
+❌ Am I copy-pasting this logic for the 2nd time? → Extract it.
+
+---
+
+## Package Responsibilities
+
+### 1. `packages/libs/ai-core/` — Generic AI Infrastructure
+
+**Purpose**: Houses generic AI orchestration infrastructure (orchestrator, tool registry, LLM providers). **Will be replaced by ContractSpec in the future.**
+
+**Why Here**: Provides reusable AI infrastructure without business logic dependencies. Pure orchestration layer.
+
+**Structure**:
+
+```
+ai-core/
+├── src/
+│   ├── orchestrator.ts    # AI orchestrator (provider-agnostic)
+│   ├── tool-registry.ts   # Tool registration
+│   ├── types.ts           # AI types (AIMessage, ToolDefinition, etc.)
+│   ├── providers/
+│   │   └── index.ts       # LLM provider factory (Mistral, Anthropic, OpenAI, Groq)
+│   └── converters/
+│       └── contract-to-tool.ts  # Contract spec adapter
+```
+
+**What Goes Here**:
+
+- Generic AI orchestration logic
+- Tool registry and registration
+- LLM provider adapters (without observability - that's added at app layer)
+- Type definitions for AI interactions
+- Contract spec converters
+
+**What Does NOT Go Here**:
+
+- Business-specific agents (→ bundles/application/wealth-discovery/, wealth-assistant/)
+- Prompts (→ bundles/application/\*/prompts/)
+- Business-specific tools (→ bundles/application/\*/tools/)
+- Observability/tracing (→ added at apps layer)
+
+**Dev Heuristics**:
+✅ Is this pure AI infrastructure with no business logic?
+✅ Can this be used by any application without modification?
+✅ Does this have zero dependencies on business bundles?
+
+---
+
+### 1b. AI Agents & Tools (in bundles)
+
+**Purpose**: Business-specific AI agents, tools, and prompts live in the bundle, organized by module.
+
+**Structure**:
+
+```
+bundles/equitya/src/application/
+├── wealth-discovery/           # Discovery agent module
+│   ├── index.ts
+│   ├── discovery-agent.ts
+│   └── prompts/
+│       └── discovery-system.prompt.ts
+│
+├── wealth-assistant/           # Assistant agent module
+│   ├── index.ts
+│   ├── assistant-agent.ts
+│   ├── prompts/
+│   │   ├── assistant-system.prompt.ts
+│   │   └── tool-guidance.prompt.ts
+│   └── tools/                  # Assistant-specific tools
+│       ├── index.ts
+│       ├── banking.tool.ts
+│       ├── crm.tool.ts
+│       ├── documentation.tool.ts
+│       ├── organization.tool.ts
+│       ├── search.tool.ts
+│       └── user-profile.tool.ts
+│
+└── services/
+    └── wealth-advisory/
+        └── tools/              # Advisory-specific tools
+            ├── index.ts
+            ├── client-overview.tool.ts
+            ├── wealth-snapshot.tool.ts
+            ├── cashflow-summary.tool.ts
+            └── ...
+```
+
+**Prompt File Convention**: Each prompt in its own file with `.prompt.ts` extension:
+
+```typescript
+// discovery-system.prompt.ts
+export const DISCOVERY_SYSTEM_PROMPT = `You are the AI financial advisor...`;
+
+// tool-guidance.prompt.ts
+export const buildToolGuidancePrompt = (clientId: string) =>
+  `# AVAILABLE TOOLS...`;
+```
+
+**What Goes Here**:
+
+- Business-specific AI agents (DiscoveryAgent, AssistantAgent)
+- Domain-specific prompts (one per file)
+- Domain-specific tools (one tool per file, `*.tool.ts`)
+- Tool orchestration for specific use cases
+
+**Dev Heuristics**:
+✅ Is this agent/tool specific to a business domain?
+✅ Is each prompt in its own `*.prompt.ts` file?
+✅ Is each tool in its own `*.tool.ts` file?
+✅ Are agents clearly separated by purpose (discovery vs assistant)?
+✅ Can non-technical teammates review and understand the prompts?
+
+---
+
+### 2. `packages/bundles/equitya/` — Core Business Logic
+
+**Purpose**: Contains domain logic, application services, infrastructure adapters, and reusable UI components. **Organized by business domain.**
+
+**Structure** (domain-first organization):
+
+```
+equitya/
+├── src/
+│   ├── domain/                    # Pure business logic by domain
+│   │   ├── wealth/                # Wealth management entities
+│   │   ├── recommendations/       # Recommendation entities
+│   │   └── onboarding/            # Onboarding entities
+│   ├── application/               # Use cases by domain
+│   │   ├── wealth/                # Portfolio, assets, transactions
+│   │   ├── recommendations/       # Generate, prioritize recommendations
+│   │   └── onboarding/            # Profile, preferences, setup
+│   ├── infrastructure/            # Infrastructure adapters by domain
+│   │   ├── wealth/                # Wealth data repositories
+│   │   ├── recommendations/       # Recommendation repositories
+│   │   └── shared/                # Shared infrastructure (cache, logging)
+│   └── presentation/              # Reusable UI by domain + shared atoms
+│       ├── wealth/                # Wealth-specific components
+│       │   ├── molecules/
+│       │   └── organisms/
+│       ├── recommendations/       # Recommendation-specific components
+│       │   ├── molecules/
+│       │   └── organisms/
+│       └── shared/                # Shared UI atoms & molecules
+│           ├── atoms/             # Design system extensions
+│           └── molecules/         # Cross-domain molecules
+```
+
+**What Goes Here**:
+
+- Domain models and business rules (grouped by domain)
+- Application services and use cases (grouped by domain)
+- Infrastructure adapters (Prisma, GraphQL clients, external APIs)
+- **Equitya-specific UI components** (highest priority in component hierarchy)
+- Feature-specific molecules and organisms (organized by domain)
+
+**What Does NOT Go Here**:
+
+- Generic AI orchestration (→ libs/ai-core)
+- Platform routing, middleware, or deployment config (→ apps)
+- Raw HTML elements (div, button, span, input, etc.)
+- Generic utilities not tied to business domains (→ libs)
+
+**Dev Heuristics**:
+✅ Can this logic run on web, mobile, and API without changes?
+✅ Is this component reusable across multiple features or screens?
+✅ Does this component compose from the design system, not raw HTML?
+✅ Is this code grouped with related domain concepts, not scattered by file type?
+✅ Does this file belong to a clear business domain (wealth, recommendations, etc.)?
+
+---
+
+### 3. `packages/apps/` — Platform-Specific Entry Points
+
+**Purpose**: Thin adapters for platform-specific concerns (routing, middleware, deployment, native APIs).
+
+**What Goes Here**:
+
+- Next.js routing and API routes (`web-app/`)
+- Platform-specific middleware (auth, i18n, feature flags)
+- Deployment and build configuration
+- Platform entry points and bootstrapping
+- Page-level composition (importing from bundles)
+
+**What Does NOT Go Here**:
+
+- Business logic (→ bundles)
+- Reusable UI components (→ bundles/presentation)
+- AI agents or tools (→ bundles/application/wealth-\*)
+- Data fetching logic (→ bundles/application)
+
+**Dev Heuristics**:
+✅ Is this code specific to Next.js, React Native, or another platform?
+✅ Does this file only wire together logic from bundles and libraries?
+✅ Can this be replaced with a different framework without rewriting business logic?
+
+---
+
+## Component Hierarchy — Forbidden: Raw HTML
+
+**Rule**: Never use raw HTML elements (`div`, `button`, `span`, `input`, `form`, etc.) directly in application code.
+
+**Component Priority** (use the highest available):
+
+1. **Equitya-specific components** (`packages/bundles/equitya/src/presentation/`)
+2. **Design system components** (`@lssm/lib.design-system`)
+3. **UI kit components** (`@lssm/lib.ui-kit-web`)
+
+### ✅ Good: Composed from Design System
+
+```tsx
+// In bundles/equitya/src/presentation/organisms/LoginForm.tsx
+import { Button } from '@lssm/lib.design-system';
+import { Input } from '@lssm/lib.ui-kit-web';
+import { FormContainer } from '../molecules/FormContainer';
+
+export const LoginForm = ({ onSubmit, isLoading }) => (
+  <FormContainer onSubmit={onSubmit}>
+    <Input label="Email" type="email" />
+    <Input label="Password" type="password" />
+    <Button loading={isLoading}>Login</Button>
+  </FormContainer>
+);
+```
+
+### ❌ Forbidden: Raw HTML Elements
+
+```tsx
+// NEVER do this in application code
+export const LoginForm = ({ onSubmit }) => (
+  <div className="form-container">
+    <input type="email" placeholder="Email" />
+    <input type="password" placeholder="Password" />
+    <button type="submit">Login</button>
+  </div>
+);
+```
+
+### Exception: Creating New Design System Components
+
+Raw HTML is **only allowed** when creating new design system atoms within:
+
+- `packages/bundles/equitya/src/presentation/atoms/`
+- Or when contributing to `@lssm/lib.design-system` or `@lssm/lib.ui-kit-web`
+
+These new atoms must:
+
+- Follow the design token system
+- Be fully typed
+- Include proper accessibility attributes
+- Be documented and reviewed
+
+---
+
+## Dependency Flow
+
+**Allowed**:
+
+```
+apps → bundles → libs (ai-core, database, contracts, etc.)
+       ↓
+     No upward dependencies
+```
+
+**Example**:
+
+```
+apps/web-app
+  └── bundles/equitya
+        ├── application/wealth-discovery  (business agents)
+        ├── application/wealth-assistant  (business agents + tools)
+        └── libs/ai-core                  (generic orchestration)
+```
+
+**Forbidden**:
+
+- `libs` importing from `bundles`
+- `bundles` importing from `apps`
+- Circular dependencies at any level
+
+---
+
+## Dev Heuristics — Where Does This Code Go?
+
+**Generic AI infrastructure?** → `packages/libs/ai-core/`
+✅ Is this pure orchestration without business logic?
+✅ Is this a provider adapter, registry, or type definition?
+✅ Does it have zero dependencies on business bundles?
+
+**Business-specific AI?** → `packages/bundles/equitya/application/wealth-*/`
+✅ Is this an agent specific to a business domain?
+✅ Is this a prompt for a specific use case?
+✅ Is this a tool that operates on business data?
+✅ Is the prompt in its own `*.prompt.ts` file?
+✅ Is the tool in its own `*.tool.ts` file?
+
+**Business logic?** → `packages/bundles/equitya/`
+✅ Is this domain logic, a use case, or a data adapter?
+✅ Is this a reusable UI component?
+✅ Can this be shared across platforms?
+✅ Does this belong to a clear business domain (wealth, recommendations, etc.)?
+✅ Is the file under 250 lines? If not, can it be split?
+
+**Platform-specific?** → `packages/apps/`
+✅ Is this Next.js routing, middleware, or deployment config?
+✅ Does this only wire together imports from bundles?
+✅ Is this truly platform-specific and not reusable?
+
+**UI component?** → Check hierarchy
+✅ Does an Equitya-specific component already exist?
+✅ Does `@lssm/lib.design-system` provide this?
+✅ Does `@lssm/lib.ui-kit-web` provide this?
+✅ Is this component under 150 lines? If not, can it be split?
+✅ Is this component reusable across multiple features?
+❌ Am I about to use a raw `<div>` or `<button>`? → STOP, use or create a design system component.
+
+**Reusable utility?** → Consider extraction
+✅ Is this logic duplicated in 2+ places?
+✅ Can this be used across multiple domains?
+✅ Is this a pure function with no side effects?
+→ Extract to a shared utility in the appropriate layer
+
+**Large file?** → Split immediately
+❌ Is this file over 250 lines?
+❌ Does this component/service have multiple responsibilities?
+❌ Are there nested components defined inline?
+→ Break it down by domain, responsibility, or composition
+
+---
+
+## Migration & Enforcement
+
+- **Existing code**: Refactor opportunistically during feature work or dedicated cleanup tasks.
+- **New code**: Must follow these rules from day one.
+- **Code review**: Reviewers should flag violations with reference to this rule.
+- **AI behavior**: AI should refuse to generate raw HTML in application code and suggest design system components.
+
+---
+
+## References
+
+- See `backend.mdc` for hexagonal architecture within bundles
+- See `frontend.mdc` for atomic design and component patterns
+- See `ai-agent.mdc` for AI context and behavior guidelines
