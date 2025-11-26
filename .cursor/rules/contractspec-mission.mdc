@@ -2,15 +2,15 @@
 alwaysApply: true
 ---
 
-# Equitya Mission & Context
+# ContractSpec Mission & Context
 
-"AI must understand the core mission and target audience of Equitya to make informed decisions about features, UX, and technical architecture. Every choice should serve the goal of democratizing UHNWI-level wealth management."
+"AI must understand the core mission and vision of ContractSpec to make informed decisions about features, DX, and technical architecture. Every choice should serve the goal of compiling intents into customized, personalized, auto-evolutive codebases."
 
 ---
 
 ## Mission Statement
 
-**An AI Personal CFO that helps anyone manage and understand their money with the clarity and strategy of an ultra-high-net-worth individual.**
+**ContractSpec compiles intents into a customized & personalized, auto-evolutive codebase.**
 
 ---
 
@@ -18,79 +18,81 @@ alwaysApply: true
 
 ### Goal
 
-Turn messy, real-life finances into a clear, actionable wealth strategy, as if the user had a dedicated family office.
+Transform high-level intents and specifications into fully functional, multi-platform code that evolves automatically as requirements change. No more glue code, no more boilerplate — just declare what you want, and ContractSpec makes it happen.
 
 ### How We Do It
 
-Build a full picture of their situation (professional + personal + tax + goals), generate a tailored plan, keep it updated over time, and explain every decision in plain language.
+1. **Spec-First Definition**: Define operations, events, and presentations in pure TypeScript using `defineCommand`, `defineQuery`, and `defineEvent`.
+2. **Runtime Adapters**: The spec _is_ the code. Runtime adapters (REST, GraphQL, MCP, UI) automatically generate endpoints, schemas, and interfaces without code duplication.
+3. **Auto-Evolution**: As your product evolves, ContractSpec suggests and applies improvements automatically, keeping your codebase aligned with best practices.
+4. **Lifecycle Management**: Track and guide users through product adoption with ceremonies, milestones, and personalized recommendations.
 
 ### Who It's For
 
-People with **non-trivial money flows**, such as:
+**Developers and teams building modern, AI-first products** who want to:
 
-- Freelancers & independents
-- Company owners & directors (SASU, SARL, etc.)
-- Creators & knowledge workers
-- Couples with one or more professional structures
-- Anyone with **decent to high income** but money scattered across accounts, entities, taxes, and half-baked goals
+- Ship faster without sacrificing quality
+- Maintain a single source of truth for their API contracts
+- Automatically generate multi-platform adapters
+- Let their codebase evolve intelligently over time
 
-**In short:** _"Wealth management at UHNWI quality, for people whose life is complex but not billionaire-level."_
+**In short:** _"From intent to production-ready code, with auto-evolution built in."_
 
 ---
 
 ## Principles
 
-### 1. UHNWI Quality, Not UHNWI Complexity
+### 1. Spec-First, Code-Second
 
-Deliver the strategic clarity and holistic approach of a family office CFO, but with the simplicity and accessibility that serves busy professionals. High sophistication in the backend, radical simplicity in the frontend.
+The specification is the source of truth. Code is generated from specs, not the other way around. This ensures consistency across platforms and eliminates drift between documentation and implementation.
 
-### 2. Real-Life Messiness First
+### 2. Intent Over Implementation
 
-Acknowledge that our users' financial lives are complex by nature: multiple revenue streams, mixed personal/professional entities, tax optimization needs, and evolving goals. The platform must embrace this complexity, not pretend it doesn't exist.
+Focus on _what_ you want to achieve, not _how_ to implement it. ContractSpec handles the implementation details, allowing developers to work at a higher level of abstraction.
 
-### 3. Explain Everything
+### 3. Auto-Evolution as Default
 
-Never assume the user understands financial jargon or strategy. Every recommendation, every number, every decision must be explainable in plain language. The AI is not just executing—it's teaching.
+Codebases should improve over time without manual intervention. ContractSpec monitors patterns, suggests optimizations, and applies improvements automatically when appropriate.
 
-### 4. Holistic, Not Siloed
+### 4. Composable by Design
 
-A true personal CFO sees the whole picture: income, expenses, investments, tax, retirement, family, business structures. Features must connect across domains, not treat each financial aspect in isolation.
+Everything is a building block. Specs, adapters, and components are designed to be composed, extended, and reused across projects and platforms.
 
-### 5. Actionable, Not Informational
+### 5. Multi-Platform from One Source
 
-The goal is not to show data—it's to drive decisions. Every insight should lead to a clear, prioritized action. The user should always know "what should I do next?"
+Define once, deploy everywhere. A single spec generates REST APIs, GraphQL schemas, MCP tools for AI agents, and type-safe client SDKs — all from one definition.
 
-### 6. Privacy & Trust as Foundation
+### 6. Observability Built-In
 
-Users are sharing their entire financial life. Security, privacy, and transparency about data usage are non-negotiable. Every feature must be designed with trust in mind.
+Every operation is traceable, measurable, and debuggable by default. No additional instrumentation required — observability is part of the spec.
 
 ---
 
 ## Target User Archetypes
 
-### Archetype 1: The Freelance Professional
+### Archetype 1: The AI-First Developer
 
-- **Profile:** Independent consultant, designer, developer, or specialist
-- **Pain Points:** Irregular income, managing quarterly taxes, retirement planning without employer benefits, mixing personal and business expenses
-- **Needs:** Cash flow forecasting, tax optimization, simple business entity management
+- **Profile:** Building products with AI agents, LLMs, and conversational interfaces
+- **Pain Points:** Exposing APIs to AI agents requires custom MCP servers, prompt engineering complexity, inconsistent tool definitions
+- **Needs:** Automatic MCP adapter generation, type-safe tool definitions, AI-native observability
 
-### Archetype 2: The Small Business Owner
+### Archetype 2: The Startup/Indie Hacker
 
-- **Profile:** Founder or director of SASU/SARL with 0-10 employees
-- **Pain Points:** Optimizing salary vs. dividends, managing company + personal finances, succession planning, VAT and social contributions
-- **Needs:** Entity-aware wealth strategy, tax optimization across personal and corporate structures
+- **Profile:** Solo founder or small team shipping fast with limited resources
+- **Pain Points:** Too much boilerplate, maintaining consistency across frontend/backend, documentation drift
+- **Needs:** Rapid prototyping, automatic API generation, zero-config deployment
 
-### Archetype 3: The Creator/Knowledge Worker
+### Archetype 3: The Platform Team
 
-- **Profile:** Content creator, course seller, author, or coach with multiple revenue streams
-- **Pain Points:** Unpredictable income, intellectual property management, international payments, scaling without complexity
-- **Needs:** Revenue stream analysis, tax-efficient structure recommendations, growth strategy
+- **Profile:** Engineering team responsible for standardizing APIs and contracts across the organization
+- **Pain Points:** Inconsistent API designs, duplicated validation logic, schema drift between services
+- **Needs:** Centralized contract definitions, automated compliance checks, cross-team consistency
 
-### Archetype 4: The Dual-Career Couple
+### Archetype 4: The Enterprise Team
 
-- **Profile:** Two professionals or entrepreneurs managing household + business finances
-- **Pain Points:** Coordinating financial goals, optimizing joint vs. separate structures, family planning, inheritance
-- **Needs:** Household-level strategy, joint tax optimization, long-term family wealth planning
+- **Profile:** Large team prioritizing maintainability, security, and governance
+- **Pain Points:** Technical debt accumulation, onboarding complexity, audit trails
+- **Needs:** Auto-evolution with guardrails, comprehensive audit logging, lifecycle governance
 
 ---
 
@@ -98,43 +100,43 @@ Users are sharing their entire financial life. Security, privacy, and transparen
 
 ### Feature Design
 
-✅ Does this feature help the user make a financial decision?
-✅ Does it connect to other aspects of their financial life (holistic view)?
-✅ Is the output actionable, not just informational?
-✅ Can a non-financial expert understand what to do next?
-✅ Does it handle real-life messiness (incomplete data, changing goals, multiple entities)?
-❌ Does this feature add complexity without clear strategic value?
-❌ Is this optimized for "power users" at the expense of clarity?
+✅ Does this feature reduce boilerplate for developers?
+✅ Does it follow the spec-first philosophy?
+✅ Is the output automatically generated from the spec, not manually maintained?
+✅ Does it work across all runtime adapters (REST, GraphQL, MCP)?
+✅ Does it handle evolution gracefully (backwards compatibility, migrations)?
+❌ Does this feature require developers to write glue code?
+❌ Is this implementation-first rather than spec-first?
 
-### UX & Messaging
+### DX & Messaging
 
-✅ Is the language plain, conversational, and jargon-free?
-✅ Does every screen have a clear next action?
-✅ Are we explaining _why_ we recommend something, not just _what_ to do?
-✅ Is the interface mobile-friendly for users who are busy and on-the-go?
-✅ Does the experience feel like talking to a trusted advisor, not using software?
-❌ Are we overwhelming the user with charts, tables, or options?
-❌ Are we assuming the user already knows financial concepts?
+✅ Is the API intuitive and self-documenting?
+✅ Can a developer understand what a spec does without reading implementation code?
+✅ Are error messages clear and actionable?
+✅ Does the CLI provide helpful guidance and suggestions?
+✅ Does the experience feel like "declaring intent" rather than "writing code"?
+❌ Are we requiring excessive configuration?
+❌ Are we exposing internal complexity to the developer?
 
-### AI Behavior
+### AI Behavior (for ContractSpec Studio)
 
-✅ Is the AI proactive in identifying problems before the user asks?
-✅ Does the AI explain its reasoning in simple terms?
-✅ Is the AI connecting dots across different financial domains?
-✅ Does the AI adapt its recommendations as the user's situation evolves?
-✅ Is the AI transparent about confidence levels and data gaps?
-❌ Is the AI giving generic advice that could apply to anyone?
-❌ Is the AI using technical financial language without translation?
+✅ Is the AI suggesting improvements based on the spec's intent?
+✅ Does the AI explain its evolution suggestions in simple terms?
+✅ Is the AI connecting patterns across different specs?
+✅ Does the AI adapt its recommendations as the project evolves?
+✅ Is the AI transparent about what changes it will make?
+❌ Is the AI making changes without clear justification?
+❌ Is the AI using technical jargon without explanation?
 
 ### Technical Architecture
 
-✅ Can this logic be reused across different user archetypes?
-✅ Does this support multi-entity financial modeling (personal + business)?
-✅ Is privacy and data security built-in, not bolted on?
-✅ Can the system handle incomplete or evolving data gracefully?
-✅ Are we building for scale without sacrificing personalization?
-❌ Are we building features that only work for simple, single-entity finances?
-❌ Are we making architectural choices that lock us into rigid models?
+✅ Is this logic expressed in the spec, not in adapter-specific code?
+✅ Can this be reused across different runtime adapters?
+✅ Is observability automatic, not opt-in?
+✅ Can the system handle schema evolution gracefully?
+✅ Are we building for extensibility without over-engineering?
+❌ Are we building adapter-specific features that can't be generalized?
+❌ Are we making architectural choices that lock developers into specific platforms?
 
 ---
 
@@ -142,17 +144,17 @@ Users are sharing their entire financial life. Security, privacy, and transparen
 
 **We are NOT:**
 
-- A budgeting app (Mint, YNAB)
-- A pure investment tracker (Personal Capital)
-- An accounting tool (QuickBooks, FreshBooks)
-- A robo-advisor (Betterment, Wealthfront)
+- A code generator like Swagger/OpenAPI codegen (generates once, then you maintain)
+- A schema-first tool like Prisma (database-centric, not API-centric)
+- A GraphQL-only solution like Hasura (single protocol, not multi-platform)
+- A no-code platform (we're for developers, not non-technical users)
 
 **We ARE:**
 
-- A holistic wealth strategist that combines all of the above
-- An AI-powered CFO that understands the full context of your life
-- A platform built for the complexity of modern professional income
-- A personal family office experience at accessible scale
+- A spec-first platform where the spec _is_ the runtime
+- A multi-platform adapter generator from a single source of truth
+- An auto-evolutive system that improves your codebase over time
+- A developer tool that feels like "declaring intent" rather than "writing code"
 
 ---
 
@@ -160,60 +162,78 @@ Users are sharing their entire financial life. Security, privacy, and transparen
 
 ### Strategic Positioning
 
-**Market Focus:** Europe-first (starting with France), B2C direct-to-consumer model
+**Market Focus:** Developer-first, spec-first tooling for modern AI-first products
 
-**Geographic Advantage:** Deep expertise in European tax systems, French legal structures (SASU, SARL), and professional income optimization unique to the European market.
+**Technical Advantage:** Runtime adapters that don't require code generation — the spec is directly interpretable at runtime, eliminating drift between definition and implementation.
 
 ### Inspirational References
 
-#### Range.com — MVP/v0 Inspiration
+#### Prisma — Schema-First Inspiration
 
-All-in-one wealth management platform for high earners ($200k+) in the US market. Flat-fee pricing model (0% AUM), team of specialized advisors (CFPs, tax professionals), 24/7 platform access.
+Type-safe database client generated from schema. Clear separation between definition (schema.prisma) and implementation.
 
-**What we emulate:** Holistic approach, transparent pricing, multi-specialist team model, premium positioning without complexity.
+**What we emulate:** Schema-first philosophy, type safety, excellent DX, clear mental model.
 
-**How we differentiate:** Europe/France focus, SASU/SARL expertise, French tax system optimization, potentially more accessible pricing tiers.
+**How we differentiate:** API-centric (not database-centric), multi-platform (not just ORM), runtime adapters (not compile-time generation).
 
-#### Nextvestment.com — Long-term Vision
+#### tRPC — Type Safety Inspiration
 
-AI-native engagement layer for wealth management with B2B2C model (sells to financial institutions). "Questions → Signals → Outcomes" workflow, compliance-first architecture, $65B AUM across institutions.
+End-to-end type safety without code generation. Procedure-based API definition.
 
-**What we emulate:** AI-first architecture, compliance rigor, signal detection from user interactions, scalable infrastructure.
+**What we emulate:** Zero-config type safety, procedure-based thinking, excellent TypeScript integration.
 
-**Strategic path:** Start B2C to validate product-market fit, potentially add B2B2C layer for European banks seeking digital transformation.
+**How we differentiate:** Multi-protocol (REST, GraphQL, MCP), spec includes metadata (owners, stability, observability), auto-evolution.
 
-#### Julius.ai — Data Visualization Inspiration
+#### Swagger/OpenAPI — Contract-First Inspiration
 
-Conversational data analysis platform with natural language queries, no-code data exploration, instant insights generation.
+Industry standard for API documentation and code generation.
 
-**What we emulate:** Natural language financial queries, interactive charts, conversational UX for complex financial data, making sophisticated analysis accessible.
+**What we emulate:** Contract-first thinking, comprehensive documentation, ecosystem support.
 
-### Primary Competitor
+**How we differentiate:** TypeScript-native (not YAML), runtime adapters (not codegen), includes business logic (not just schema).
 
-#### Finary — French Market Leader
+#### Anthropic MCP — AI Integration Inspiration
 
-Founded 2020, leading French digital wealth management platform. Strengths: Asset aggregation, investment tracking, crypto management, budget management, established market presence.
+Model Context Protocol for AI agent tool definitions.
 
-**Equitya's Differentiators:**
+**What we emulate:** Structured tool definitions for AI, type-safe parameter schemas.
 
-- AI-powered CFO advice (not just tracking and aggregation)
-- Professional structure optimization (SASU vs SARL, salary vs dividends)
-- Tax optimization strategy beyond basic tracking
-- Personalized, actionable recommendations with plain-language explanations
-- UHNWI-quality strategic advice for non-billionaires
-- Multi-entity financial modeling (personal + business structures)
+**How we differentiate:** Unified definition (same spec powers REST, GraphQL, and MCP), automatic adapter generation.
 
 ### Market Opportunity
 
-**Gap in Market:** No European platform combines Range's holistic advisory approach with deep French/European tax expertise and AI-powered personalization. Finary excels at aggregation but lacks strategic CFO-level advice. Traditional advisors charge 1% AUM with limited accessibility.
+**Gap in Market:** No platform combines spec-first API definition with multi-platform runtime adapters AND auto-evolution. Existing tools either generate code (requiring maintenance) or are locked to single protocols.
 
-**Equitya's Position:** UHNWI-quality wealth strategy, AI-powered, Europe-native, accessible to professionals with complex income structures.
+**ContractSpec's Position:** Spec-first, TypeScript-native, multi-platform runtime adapters with auto-evolution built in.
+
+---
+
+## Key Concepts
+
+### ContractSpec
+
+A unified specification that defines operations (commands/queries), events, and presentations. The spec is the single source of truth for all runtime behavior.
+
+### Runtime Adapters
+
+Platform-specific interpreters that read specs and expose them as APIs:
+- **REST Adapter**: Exposes specs as REST endpoints
+- **GraphQL Adapter**: Generates GraphQL schema from specs
+- **MCP Adapter**: Exposes specs as AI agent tools
+
+### Auto-Evolution
+
+The system's ability to monitor usage patterns, detect improvements, and apply them automatically. Evolution is tracked, reversible, and explainable.
+
+### Lifecycle Management
+
+Tracking where a user/project is in their journey and providing contextual guidance, ceremonies (meaningful transitions), and recommendations.
 
 ---
 
 ## References
 
-- See `docs/product/competitive-analysis.md` for detailed competitive analysis and feature gap analysis
-- See `docs/product/wealthos-*.md` for specific feature specs aligned with this mission
-- See `low-tech-friendly-ux.mdc` for how we make this accessible to all users
-- See `code-organization.mdc` for how we structure code to support this holistic approach
+- See `docs/` for detailed technical documentation
+- See `examples/` for implementation patterns
+- See `code-organization.mdc` for package structure and dependency rules
+- See `packages/libs/contracts/README.md` for core contract definitions
