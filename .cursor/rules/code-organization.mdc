@@ -1,17 +1,17 @@
 ---
-description: Governs package organization, dependency flow, and component hierarchy across the monorepo.
+description: Governs package organization, dependency flow, and component hierarchy across the ContractSpec monorepo.
 globs:
 alwaysApply: true
 ---
 
 # Code Organization & Dependency Architecture
 
-"Code must live in the right layer: AI logic is collaborative infrastructure, platform code is thin adapters, business logic is portable, and UI is composed from design tokens — never from raw HTML."
+"Code must live in the right layer: Contracts define behavior, libs provide infrastructure, bundles compose business logic, and apps are thin platform adapters. UI is composed from design tokens — never from raw HTML."
 
 ## Core Principles
 
-- **Layered Architecture**: AI → Bundles → Apps, with clear dependency flow and no circular references.
-- **Collaborative AI**: AI logic lives in reusable libraries to enable non-technical collaboration and multi-platform reuse.
+- **Layered Architecture**: Libs → Bundles → Apps, with clear dependency flow and no circular references.
+- **Spec-First Development**: Contracts and specs live in reusable libraries to enable multi-platform runtime adapters.
 - **Platform Neutrality**: Business logic must be platform-agnostic; apps are thin presentation layers.
 - **Component Hierarchy**: All UI must use design-system components; raw HTML elements are forbidden in application code.
 - **Domain-Driven Organization**: Code is grouped by business domain, not by technical layer or file type.
@@ -40,58 +40,81 @@ alwaysApply: true
 ### ✅ Good: Domain-Driven Structure
 
 ```
-bundles/equitya/src/
+bundles/contractspec-studio/src/
 ├── application/
-│   ├── wealth/              # Wealth management domain
-│   │   ├── portfolio-analysis.service.ts
-│   │   ├── asset-allocation.service.ts
-│   │   └── performance-tracking.service.ts
-│   ├── recommendations/     # Recommendations domain
-│   │   ├── generate-recommendations.service.ts
-│   │   └── prioritize-recommendations.service.ts
-│   └── onboarding/          # Onboarding domain
-│       ├── complete-profile.service.ts
-│       └── setup-preferences.service.ts
+│   ├── services/              # Core application services
+│   │   ├── auth.ts
+│   │   └── index.ts
+├── modules/
+│   ├── studio/                # Visual builder domain
+│   │   ├── index.ts
+│   │   └── versioning.ts
+│   ├── lifecycle/             # Lifecycle management domain
+│   │   ├── index.ts
+│   │   └── index.test.ts
+│   ├── integrations/          # Integration marketplace domain
+│   │   ├── index.ts
+│   │   └── index.test.ts
+│   ├── evolution/             # Auto-evolution domain
+│   │   ├── index.ts
+│   │   └── index.test.ts
+│   ├── knowledge/             # Knowledge sources domain
+│   │   ├── index.ts
+│   │   └── index.test.ts
+│   └── analytics/             # Analytics & metrics domain
+│       ├── index.ts
+│       └── index.test.ts
 ├── domain/
-│   ├── wealth/
-│   │   ├── portfolio.entity.ts
-│   │   ├── asset.entity.ts
-│   │   └── transaction.entity.ts
-│   └── recommendations/
-│       ├── recommendation.entity.ts
-│       └── priority.value-object.ts
+│   └── index.ts
+├── infrastructure/
+│   ├── graphql/               # GraphQL adapters
+│   ├── elysia/                # HTTP server adapters
+│   ├── byok/                  # Bring-your-own-key encryption
+│   └── deployment/            # Deployment orchestration
 └── presentation/
-    ├── wealth/              # Wealth UI components
+    ├── studio/                # Studio UI components
     │   ├── molecules/
-    │   │   ├── AssetCard/
-    │   │   └── PortfolioSummary/
+    │   │   ├── ComponentPalette.tsx
+    │   │   ├── PropertyEditor.tsx
+    │   │   └── DeploymentPanel.tsx
     │   └── organisms/
-    │       ├── PortfolioOverview/
-    │       └── AssetAllocationChart/
-    └── recommendations/     # Recommendations UI components
+    │       ├── SpecEditor.tsx
+    │       ├── SpecPreview.tsx
+    │       └── StudioCanvas.tsx
+    ├── lifecycle/             # Lifecycle UI components
+    │   ├── atoms/
+    │   │   └── LifecycleStageCard.tsx
+    │   ├── molecules/
+    │   │   └── RecommendationsList.tsx
+    │   └── organisms/
+    │       ├── LifecycleJourney.tsx
+    │       ├── MilestoneTracker.tsx
+    │       └── StageTransitionCeremony.tsx
+    └── integrations/          # Integration UI components
         ├── molecules/
-        │   └── RecommendationCard/
+        │   └── IntegrationCard.tsx
         └── organisms/
-            └── RecommendationsList/
+            ├── IntegrationMarketplace.tsx
+            └── KnowledgeSourceList.tsx
 ```
 
 ### ❌ Forbidden: Technical Grouping
 
 ```
-bundles/equitya/src/
+bundles/contractspec-studio/src/
 ├── services/               # Too generic, mixed domains
-│   ├── portfolio.service.ts
-│   ├── recommendations.service.ts
-│   └── onboarding.service.ts
+│   ├── studio.service.ts
+│   ├── lifecycle.service.ts
+│   └── integrations.service.ts
 ├── entities/               # All entities mixed together
-│   ├── portfolio.ts
-│   ├── asset.ts
-│   ├── recommendation.ts
+│   ├── project.ts
+│   ├── spec.ts
+│   ├── integration.ts
 │   └── user.ts
 └── components/             # All UI mixed together
-    ├── PortfolioOverview.tsx
-    ├── RecommendationsList.tsx
-    └── OnboardingWizard.tsx
+    ├── StudioCanvas.tsx
+    ├── LifecycleJourney.tsx
+    └── IntegrationMarketplace.tsx
 ```
 
 ### Component Splitting Strategy
@@ -108,7 +131,7 @@ bundles/equitya/src/
 
 ```tsx
 // ❌ Bad: Monolithic component (300+ lines)
-export const PortfolioDashboard = () => {
+export const StudioWorkspace = () => {
   // 50 lines of state management
   // 100 lines of data fetching logic
   // 150 lines of JSX with inline components
@@ -116,31 +139,31 @@ export const PortfolioDashboard = () => {
 };
 
 // ✅ Good: Split into focused components
-// PortfolioDashboard.tsx (50 lines)
-export const PortfolioDashboard = () => {
-  const portfolio = usePortfolioData();
+// StudioWorkspace.tsx (50 lines)
+export const StudioWorkspace = () => {
+  const project = useStudioProject();
   return (
-    <DashboardLayout>
-      <PortfolioHeader portfolio={portfolio} />
-      <PortfolioMetrics portfolio={portfolio} />
-      <AssetAllocationSection portfolio={portfolio} />
-      <RecentTransactionsSection portfolio={portfolio} />
-    </DashboardLayout>
+    <WorkspaceLayout>
+      <StudioHeader project={project} />
+      <StudioCanvas project={project} />
+      <PropertyEditor project={project} />
+      <DeploymentPanel project={project} />
+    </WorkspaceLayout>
   );
 };
 
-// usePortfolioData.ts (40 lines)
-export const usePortfolioData = () => {
+// useStudioProject.ts (40 lines)
+export const useStudioProject = () => {
   // Focused hook for data fetching
 };
 
-// PortfolioHeader.tsx (30 lines)
-export const PortfolioHeader = ({ portfolio }) => {
+// StudioHeader.tsx (30 lines)
+export const StudioHeader = ({ project }) => {
   // Focused component
 };
 
-// PortfolioMetrics.tsx (40 lines)
-export const PortfolioMetrics = ({ portfolio }) => {
+// StudioCanvas.tsx (40 lines)
+export const StudioCanvas = ({ project }) => {
   // Focused component
 };
 ```
@@ -158,65 +181,65 @@ export const PortfolioMetrics = ({ portfolio }) => {
 
 ```typescript
 // ❌ Bad: God service (500+ lines)
-export class WealthService {
-  analyzePortfolio() {
+export class ContractSpecService {
+  createProject() {
     /* ... */
   }
-  generateRecommendations() {
+  deploySpec() {
     /* ... */
   }
-  calculateRisk() {
+  evolveContract() {
     /* ... */
   }
-  processTransaction() {
+  manageIntegrations() {
     /* ... */
   }
-  updatePreferences() {
+  trackLifecycle() {
     /* ... */
   }
   // ... 20 more methods
 }
 
 // ✅ Good: Focused services by domain
-// portfolio-analysis.service.ts (150 lines)
-export class PortfolioAnalysisService {
-  analyzePortfolio() {
+// project.service.ts (150 lines)
+export class ProjectService {
+  createProject() {
     /* ... */
   }
-  calculateAllocation() {
+  updateProject() {
     /* ... */
   }
-  assessDiversification() {
-    /* ... */
-  }
-}
-
-// recommendation.service.ts (120 lines)
-export class RecommendationService {
-  generateRecommendations() {
-    /* ... */
-  }
-  prioritizeRecommendations() {
+  listProjects() {
     /* ... */
   }
 }
 
-// risk-assessment.service.ts (100 lines)
-export class RiskAssessmentService {
-  calculateRisk() {
+// deployment.service.ts (120 lines)
+export class DeploymentService {
+  deploySpec() {
     /* ... */
   }
-  assessVolatility() {
+  rollbackDeployment() {
     /* ... */
   }
 }
 
-// transaction.service.ts (80 lines)
-export class TransactionService {
-  processTransaction() {
+// evolution.service.ts (100 lines)
+export class EvolutionService {
+  evolveContract() {
     /* ... */
   }
-  validateTransaction() {
+  suggestImprovements() {
+    /* ... */
+  }
+}
+
+// integration.service.ts (80 lines)
+export class IntegrationService {
+  connectIntegration() {
+    /* ... */
+  }
+  validateConnection() {
     /* ... */
   }
 }
@@ -228,33 +251,24 @@ export class TransactionService {
 
 ```typescript
 // ❌ Bad: Duplicated logic across files
-// In portfolio.service.ts
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(value);
+// In project.service.ts
+const formatSpecVersion = (version: number) => {
+  return `v${version.toString().padStart(3, '0')}`;
 };
 
-// In transaction.service.ts
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(value);
+// In deployment.service.ts
+const formatSpecVersion = (version: number) => {
+  return `v${version.toString().padStart(3, '0')}`;
 };
 
 // ✅ Good: Shared utility
-// libs/utils/currency.util.ts
-export const formatCurrency = (value: number, currency = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-  }).format(value);
+// libs/utils-typescript/src/format.util.ts
+export const formatSpecVersion = (version: number) => {
+  return `v${version.toString().padStart(3, '0')}`;
 };
 
 // Both services import and use it
-import { formatCurrency } from '@/libs/utils/currency.util';
+import { formatSpecVersion } from '@lssm/lib.utils-typescript';
 ```
 
 **Design for composition**:
@@ -277,13 +291,13 @@ export const CardContent = ({ children }) => (
 
 // Used in multiple domains
 <Card>
-  <CardHeader>Portfolio Value</CardHeader>
-  <CardContent>$123,456</CardContent>
+  <CardHeader>Project: my-api</CardHeader>
+  <CardContent>12 specs deployed</CardContent>
 </Card>
 
 <Card>
-  <CardHeader>Recommendation</CardHeader>
-  <CardContent>Rebalance your portfolio</CardContent>
+  <CardHeader>Integration</CardHeader>
+  <CardContent>Connected to Stripe</CardContent>
 </Card>
 ```
 
@@ -303,158 +317,91 @@ export const CardContent = ({ children }) => (
 
 ## Package Responsibilities
 
-### 1. `packages/libs/ai-core/` — Generic AI Infrastructure
+### 1. `packages/libs/` — Shared Infrastructure & Contracts
 
-**Purpose**: Houses generic AI orchestration infrastructure (orchestrator, tool registry, LLM providers). **Will be replaced by ContractSpec in the future.**
+**Purpose**: Houses shared infrastructure, contracts, utilities, and design system components used across the monorepo.
 
-**Why Here**: Provides reusable AI infrastructure without business logic dependencies. Pure orchestration layer.
-
-**Structure**:
+**Key Libraries**:
 
 ```
-ai-core/
-├── src/
-│   ├── orchestrator.ts    # AI orchestrator (provider-agnostic)
-│   ├── tool-registry.ts   # Tool registration
-│   ├── types.ts           # AI types (AIMessage, ToolDefinition, etc.)
-│   ├── providers/
-│   │   └── index.ts       # LLM provider factory (Mistral, Anthropic, OpenAI, Groq)
-│   └── converters/
-│       └── contract-to-tool.ts  # Contract spec adapter
+libs/
+├── contracts/              # Core ContractSpec definitions (defineCommand, defineQuery, SpecRegistry)
+├── ai-agent/               # AI agent orchestration and LLM providers
+├── evolution/              # Auto-evolution engine
+├── schema/                 # Zod-based schema definitions
+├── design-system/          # Shared design tokens and atoms
+├── ui-kit/                 # Cross-platform UI components
+├── ui-kit-web/             # Web-specific UI components
+├── analytics/              # Analytics and tracking
+├── observability/          # Logging, tracing, metrics
+├── multi-tenancy/          # Tenant isolation utilities
+├── progressive-delivery/   # Feature flags and rollouts
+└── utils-typescript/       # TypeScript utilities
 ```
 
 **What Goes Here**:
 
-- Generic AI orchestration logic
-- Tool registry and registration
-- LLM provider adapters (without observability - that's added at app layer)
-- Type definitions for AI interactions
-- Contract spec converters
+- Generic infrastructure with no business logic dependencies
+- Contract definitions and runtime adapters
+- Design system components
+- Pure utilities and type helpers
 
 **What Does NOT Go Here**:
 
-- Business-specific agents (→ bundles/application/wealth-discovery/, wealth-assistant/)
-- Prompts (→ bundles/application/\*/prompts/)
-- Business-specific tools (→ bundles/application/\*/tools/)
-- Observability/tracing (→ added at apps layer)
+- Business-specific logic (→ bundles)
+- Platform-specific adapters (→ apps)
+- Application-specific prompts or tools
 
 **Dev Heuristics**:
-✅ Is this pure AI infrastructure with no business logic?
+✅ Is this pure infrastructure with no business logic?
 ✅ Can this be used by any application without modification?
 ✅ Does this have zero dependencies on business bundles?
 
 ---
 
-### 1b. AI Agents & Tools (in bundles)
+### 2. `packages/bundles/contractspec-studio/` — Core Business Logic
 
-**Purpose**: Business-specific AI agents, tools, and prompts live in the bundle, organized by module.
-
-**Structure**:
-
-```
-bundles/equitya/src/application/
-├── wealth-discovery/           # Discovery agent module
-│   ├── index.ts
-│   ├── discovery-agent.ts
-│   └── prompts/
-│       └── discovery-system.prompt.ts
-│
-├── wealth-assistant/           # Assistant agent module
-│   ├── index.ts
-│   ├── assistant-agent.ts
-│   ├── prompts/
-│   │   ├── assistant-system.prompt.ts
-│   │   └── tool-guidance.prompt.ts
-│   └── tools/                  # Assistant-specific tools
-│       ├── index.ts
-│       ├── banking.tool.ts
-│       ├── crm.tool.ts
-│       ├── documentation.tool.ts
-│       ├── organization.tool.ts
-│       ├── search.tool.ts
-│       └── user-profile.tool.ts
-│
-└── services/
-    └── wealth-advisory/
-        └── tools/              # Advisory-specific tools
-            ├── index.ts
-            ├── client-overview.tool.ts
-            ├── wealth-snapshot.tool.ts
-            ├── cashflow-summary.tool.ts
-            └── ...
-```
-
-**Prompt File Convention**: Each prompt in its own file with `.prompt.ts` extension:
-
-```typescript
-// discovery-system.prompt.ts
-export const DISCOVERY_SYSTEM_PROMPT = `You are the AI financial advisor...`;
-
-// tool-guidance.prompt.ts
-export const buildToolGuidancePrompt = (clientId: string) =>
-  `# AVAILABLE TOOLS...`;
-```
-
-**What Goes Here**:
-
-- Business-specific AI agents (DiscoveryAgent, AssistantAgent)
-- Domain-specific prompts (one per file)
-- Domain-specific tools (one tool per file, `*.tool.ts`)
-- Tool orchestration for specific use cases
-
-**Dev Heuristics**:
-✅ Is this agent/tool specific to a business domain?
-✅ Is each prompt in its own `*.prompt.ts` file?
-✅ Is each tool in its own `*.tool.ts` file?
-✅ Are agents clearly separated by purpose (discovery vs assistant)?
-✅ Can non-technical teammates review and understand the prompts?
-
----
-
-### 2. `packages/bundles/equitya/` — Core Business Logic
-
-**Purpose**: Contains domain logic, application services, infrastructure adapters, and reusable UI components. **Organized by business domain.**
+**Purpose**: Contains domain logic, application services, infrastructure adapters, and reusable UI components for ContractSpec Studio. **Organized by business domain.**
 
 **Structure** (domain-first organization):
 
 ```
-equitya/
+contractspec-studio/
 ├── src/
-│   ├── domain/                    # Pure business logic by domain
-│   │   ├── wealth/                # Wealth management entities
-│   │   ├── recommendations/       # Recommendation entities
-│   │   └── onboarding/            # Onboarding entities
-│   ├── application/               # Use cases by domain
-│   │   ├── wealth/                # Portfolio, assets, transactions
-│   │   ├── recommendations/       # Generate, prioritize recommendations
-│   │   └── onboarding/            # Profile, preferences, setup
-│   ├── infrastructure/            # Infrastructure adapters by domain
-│   │   ├── wealth/                # Wealth data repositories
-│   │   ├── recommendations/       # Recommendation repositories
-│   │   └── shared/                # Shared infrastructure (cache, logging)
-│   └── presentation/              # Reusable UI by domain + shared atoms
-│       ├── wealth/                # Wealth-specific components
-│       │   ├── molecules/
-│       │   └── organisms/
-│       ├── recommendations/       # Recommendation-specific components
-│       │   ├── molecules/
-│       │   └── organisms/
-│       └── shared/                # Shared UI atoms & molecules
-│           ├── atoms/             # Design system extensions
-│           └── molecules/         # Cross-domain molecules
+│   ├── domain/                    # Pure business logic
+│   ├── application/               # Application services
+│   │   └── services/              # Auth, etc.
+│   ├── modules/                   # Feature modules by domain
+│   │   ├── studio/                # Visual builder
+│   │   ├── lifecycle/             # Lifecycle management
+│   │   ├── integrations/          # Integration marketplace
+│   │   ├── evolution/             # Auto-evolution
+│   │   ├── knowledge/             # Knowledge sources
+│   │   └── analytics/             # Metrics and tracking
+│   ├── infrastructure/            # Infrastructure adapters
+│   │   ├── graphql/               # GraphQL schema and resolvers
+│   │   ├── elysia/                # HTTP server
+│   │   ├── byok/                  # Encryption
+│   │   └── deployment/            # Deployment orchestration
+│   ├── presentation/              # Reusable UI by domain
+│   │   ├── studio/                # Studio-specific components
+│   │   ├── lifecycle/             # Lifecycle-specific components
+│   │   ├── integrations/          # Integration-specific components
+│   │   └── templates/             # Reusable template components
+│   └── templates/                 # Application templates (todos, recipes, etc.)
 ```
 
 **What Goes Here**:
 
 - Domain models and business rules (grouped by domain)
 - Application services and use cases (grouped by domain)
-- Infrastructure adapters (Prisma, GraphQL clients, external APIs)
-- **Equitya-specific UI components** (highest priority in component hierarchy)
+- Infrastructure adapters (Prisma, GraphQL, external APIs)
+- **ContractSpec-specific UI components** (highest priority in component hierarchy)
 - Feature-specific molecules and organisms (organized by domain)
 
 **What Does NOT Go Here**:
 
-- Generic AI orchestration (→ libs/ai-core)
+- Generic contract definitions (→ libs/contracts)
 - Platform routing, middleware, or deployment config (→ apps)
 - Raw HTML elements (div, button, span, input, etc.)
 - Generic utilities not tied to business domains (→ libs)
@@ -464,7 +411,7 @@ equitya/
 ✅ Is this component reusable across multiple features or screens?
 ✅ Does this component compose from the design system, not raw HTML?
 ✅ Is this code grouped with related domain concepts, not scattered by file type?
-✅ Does this file belong to a clear business domain (wealth, recommendations, etc.)?
+✅ Does this file belong to a clear business domain (studio, lifecycle, integrations, etc.)?
 
 ---
 
@@ -472,9 +419,20 @@ equitya/
 
 **Purpose**: Thin adapters for platform-specific concerns (routing, middleware, deployment, native APIs).
 
+**Apps**:
+
+```
+apps/
+├── web-landing/            # Marketing site (Next.js)
+├── overlay-editor/         # Overlay editor (Next.js)
+├── cli-contracts/          # CLI for contract management
+├── cli-database/           # CLI for database management
+└── cli-databases/          # CLI for multi-database management
+```
+
 **What Goes Here**:
 
-- Next.js routing and API routes (`web-app/`)
+- Next.js routing and API routes
 - Platform-specific middleware (auth, i18n, feature flags)
 - Deployment and build configuration
 - Platform entry points and bootstrapping
@@ -484,13 +442,36 @@ equitya/
 
 - Business logic (→ bundles)
 - Reusable UI components (→ bundles/presentation)
-- AI agents or tools (→ bundles/application/wealth-\*)
+- Contract definitions (→ libs/contracts)
 - Data fetching logic (→ bundles/application)
 
 **Dev Heuristics**:
-✅ Is this code specific to Next.js, React Native, or another platform?
+✅ Is this code specific to Next.js, CLI, or another platform?
 ✅ Does this file only wire together logic from bundles and libraries?
 ✅ Can this be replaced with a different framework without rewriting business logic?
+
+---
+
+### 4. `packages/modules/` — Lifecycle Modules
+
+**Purpose**: Self-contained modules for lifecycle management features.
+
+```
+modules/
+├── lifecycle-core/         # Core lifecycle definitions
+└── lifecycle-advisor/      # AI-powered lifecycle recommendations
+```
+
+---
+
+### 5. `packages/verticals/` — Domain-Specific Implementations
+
+**Purpose**: Complete vertical implementations demonstrating ContractSpec in specific domains.
+
+```
+verticals/
+└── pocket-family-office/   # Family office automation vertical
+```
 
 ---
 
@@ -500,23 +481,23 @@ equitya/
 
 **Component Priority** (use the highest available):
 
-1. **Equitya-specific components** (`packages/bundles/equitya/src/presentation/`)
+1. **ContractSpec-specific components** (`packages/bundles/contractspec-studio/src/presentation/`)
 2. **Design system components** (`@lssm/lib.design-system`)
 3. **UI kit components** (`@lssm/lib.ui-kit-web`)
 
 ### ✅ Good: Composed from Design System
 
 ```tsx
-// In bundles/equitya/src/presentation/organisms/LoginForm.tsx
+// In bundles/contractspec-studio/src/presentation/organisms/ProjectForm.tsx
 import { Button } from '@lssm/lib.design-system';
 import { Input } from '@lssm/lib.ui-kit-web';
 import { FormContainer } from '../molecules/FormContainer';
 
-export const LoginForm = ({ onSubmit, isLoading }) => (
+export const ProjectForm = ({ onSubmit, isLoading }) => (
   <FormContainer onSubmit={onSubmit}>
-    <Input label="Email" type="email" />
-    <Input label="Password" type="password" />
-    <Button loading={isLoading}>Login</Button>
+    <Input label="Project Name" type="text" />
+    <Input label="Description" type="text" />
+    <Button loading={isLoading}>Create Project</Button>
   </FormContainer>
 );
 ```
@@ -525,11 +506,11 @@ export const LoginForm = ({ onSubmit, isLoading }) => (
 
 ```tsx
 // NEVER do this in application code
-export const LoginForm = ({ onSubmit }) => (
+export const ProjectForm = ({ onSubmit }) => (
   <div className="form-container">
-    <input type="email" placeholder="Email" />
-    <input type="password" placeholder="Password" />
-    <button type="submit">Login</button>
+    <input type="text" placeholder="Project Name" />
+    <input type="text" placeholder="Description" />
+    <button type="submit">Create Project</button>
   </div>
 );
 ```
@@ -538,8 +519,8 @@ export const LoginForm = ({ onSubmit }) => (
 
 Raw HTML is **only allowed** when creating new design system atoms within:
 
-- `packages/bundles/equitya/src/presentation/atoms/`
-- Or when contributing to `@lssm/lib.design-system` or `@lssm/lib.ui-kit-web`
+- `packages/libs/design-system/src/atoms/`
+- Or when contributing to `@lssm/lib.ui-kit` or `@lssm/lib.ui-kit-web`
 
 These new atoms must:
 
@@ -555,7 +536,7 @@ These new atoms must:
 **Allowed**:
 
 ```
-apps → bundles → libs (ai-core, database, contracts, etc.)
+apps → bundles → libs (contracts, ai-agent, design-system, etc.)
        ↓
      No upward dependencies
 ```
@@ -563,11 +544,11 @@ apps → bundles → libs (ai-core, database, contracts, etc.)
 **Example**:
 
 ```
-apps/web-app
-  └── bundles/equitya
-        ├── application/wealth-discovery  (business agents)
-        ├── application/wealth-assistant  (business agents + tools)
-        └── libs/ai-core                  (generic orchestration)
+apps/web-landing
+  └── bundles/contractspec-studio
+        ├── modules/studio           (visual builder)
+        ├── modules/lifecycle        (lifecycle management)
+        └── libs/contracts           (core contract definitions)
 ```
 
 **Forbidden**:
@@ -580,23 +561,16 @@ apps/web-app
 
 ## Dev Heuristics — Where Does This Code Go?
 
-**Generic AI infrastructure?** → `packages/libs/ai-core/`
-✅ Is this pure orchestration without business logic?
-✅ Is this a provider adapter, registry, or type definition?
+**Generic infrastructure?** → `packages/libs/`
+✅ Is this pure infrastructure without business logic?
+✅ Is this a contract definition, adapter, or utility?
 ✅ Does it have zero dependencies on business bundles?
 
-**Business-specific AI?** → `packages/bundles/equitya/application/wealth-*/`
-✅ Is this an agent specific to a business domain?
-✅ Is this a prompt for a specific use case?
-✅ Is this a tool that operates on business data?
-✅ Is the prompt in its own `*.prompt.ts` file?
-✅ Is the tool in its own `*.tool.ts` file?
-
-**Business logic?** → `packages/bundles/equitya/`
+**Business-specific logic?** → `packages/bundles/contractspec-studio/`
 ✅ Is this domain logic, a use case, or a data adapter?
 ✅ Is this a reusable UI component?
 ✅ Can this be shared across platforms?
-✅ Does this belong to a clear business domain (wealth, recommendations, etc.)?
+✅ Does this belong to a clear business domain (studio, lifecycle, integrations, etc.)?
 ✅ Is the file under 250 lines? If not, can it be split?
 
 **Platform-specific?** → `packages/apps/`
@@ -605,7 +579,7 @@ apps/web-app
 ✅ Is this truly platform-specific and not reusable?
 
 **UI component?** → Check hierarchy
-✅ Does an Equitya-specific component already exist?
+✅ Does a ContractSpec-specific component already exist?
 ✅ Does `@lssm/lib.design-system` provide this?
 ✅ Does `@lssm/lib.ui-kit-web` provide this?
 ✅ Is this component under 150 lines? If not, can it be split?
@@ -639,4 +613,4 @@ apps/web-app
 
 - See `backend.mdc` for hexagonal architecture within bundles
 - See `frontend.mdc` for atomic design and component patterns
-- See `ai-agent.mdc` for AI context and behavior guidelines
+- See `contractspec-mission.mdc` for mission and context guidelines
