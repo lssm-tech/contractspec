@@ -1,98 +1,159 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
 
 # ContractSpec Mission & Context
 
-"AI must understand the core mission and vision of ContractSpec to make informed decisions about features, DX, and technical architecture. Every choice should serve the goal of compiling intents into customized, personalized, auto-evolutive codebases."
+"AI must understand that ContractSpec is NOT just codegen. It's the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. Every decision should reinforce this positioning: we're the safety layer for AI-coded systems."
 
 ---
 
 ## Mission Statement
 
-**ContractSpec compiles intents into a customized & personalized, auto-evolutive codebase.**
+**ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.**
 
 ---
 
-## Core Value Proposition
+## The Problem We Solve
 
-### Goal
+In 2025/2026, "vibe coding" and AI agents generate enormous amounts of code. But they have critical limitations:
 
-Transform high-level intents and specifications into fully functional, multi-platform code that evolves automatically as requirements change. No more glue code, no more boilerplate — just declare what you want, and ContractSpec makes it happen.
+- **They can't enforce invariants** — AI-generated code drifts from business rules over time
+- **They break multi-surface consistency** — API, DB, UI, and events get out of sync
+- **They hallucinate refactors** — AI "improvements" introduce subtle bugs and break contracts
+- **They destroy long-term maintainability** — no source of truth, no safe regeneration path
 
-### How We Do It
+**The result:** Teams ship fast initially, then spend months untangling AI-generated spaghetti.
 
-1. **Spec-First Definition**: Define operations, events, and presentations in pure TypeScript using `defineCommand`, `defineQuery`, and `defineEvent`.
-2. **Runtime Adapters**: The spec _is_ the code. Runtime adapters (REST, GraphQL, MCP, UI) automatically generate endpoints, schemas, and interfaces without code duplication.
-3. **Auto-Evolution**: As your product evolves, ContractSpec suggests and applies improvements automatically, keeping your codebase aligned with best practices.
-4. **Lifecycle Management**: Track and guide users through product adoption with ceremonies, milestones, and personalized recommendations.
+---
 
-### Who It's For
+## Our Role
 
-**Developers and teams building modern, AI-first products** who want to:
+ContractSpec is the **safety and governance layer for AI-coded systems**:
 
-- Ship faster without sacrificing quality
-- Maintain a single source of truth for their API contracts
-- Automatically generate multi-platform adapters
-- Let their codebase evolve intelligently over time
+1. **Canonical Source of Truth** — Contracts and specs define what the system _should_ do, not just what it _does_
+2. **Safe Regeneration** — Generate and regenerate code across surfaces (API, DB, UI, events) without breaking invariants
+3. **Multi-Surface Consistency** — One spec, multiple outputs, always in sync
+4. **AI Governance** — Constrain what AI agents can change, enforce contracts they must respect
 
-**In short:** _"From intent to production-ready code, with auto-evolution built in."_
+---
+
+## Core Positioning
+
+> **"You keep your app.**
+> **We stabilize it, one module at a time.**
+> **You own the code. It's standard tech.**
+> **We're the compiler, not the prison."**
+
+---
+
+## Key Fears We Must Address
+
+### Fear 1: "I already have an app"
+
+**Reality:** ContractSpec works with existing codebases. You don't start over — you stabilize incrementally, one module at a time. Start with one API endpoint, one data model, one contract.
+
+### Fear 2: "Vendor lock-in / losing ownership"
+
+**Reality:** You own the generated code. It's standard TypeScript, standard SQL, standard GraphQL. ContractSpec is a compiler — like TypeScript itself. You can eject at any time and keep everything.
+
+### Fear 3: "Adoption cost / learning curve"
+
+**Reality:** Specs are just TypeScript. If you can write `z.object({ name: z.string() })`, you can write a ContractSpec. No new language, no magic DSL, no YAML.
+
+### Fear 4: "Forced migrations / magical runtime"
+
+**Reality:** ContractSpec generates plain code you can read, debug, and modify. There's no proprietary runtime you depend on. Migrations are explicit, reversible, and in your control.
+
+---
+
+## Target Users (ICP Tiers)
+
+### Tier 1: Priority (Now)
+
+**AI-Native Startups & Technical Founders**
+
+- **Profile:** Solo founders or small teams using Cursor, Copilot, Claude, or AI agents heavily
+- **Pain:** Messy AI-generated backends and frontends, inconsistent APIs, code that's hard to refactor
+- **Need:** A way to stabilize AI-generated code without rewriting it
+
+**Small Teams with AI-Generated Chaos**
+
+- **Profile:** 2-10 person teams that shipped fast with AI and now have tech debt
+- **Pain:** Multiple surfaces out of sync, no source of truth, afraid to touch AI-generated code
+- **Need:** Incremental stabilization, safe regeneration, contracts as guardrails
+
+### Tier 2: Growth (Next)
+
+**AI Dev Agencies**
+
+- **Profile:** Agencies building many projects for clients using AI-assisted development
+- **Pain:** Repeating the same patterns, inconsistent quality across projects, handoff nightmares
+- **Need:** Reusable templates, consistent contracts, professional handoff artifacts
+
+**Scaleups with Compliance/Governance Needs**
+
+- **Profile:** Growing companies that need audit trails, API governance, or regulatory compliance
+- **Pain:** AI-generated code doesn't meet compliance requirements, no audit trail
+- **Need:** Governance layer, change tracking, contract enforcement
+
+### Tier 3: Later (Future)
+
+**Platform Teams / Enterprises**
+
+- **Profile:** Engineering teams standardizing APIs and contracts across large organizations
+- **Pain:** Inconsistent API designs across teams, schema drift, onboarding complexity
+- **Need:** Centralized contract definitions, cross-team consistency, automated compliance
 
 ---
 
 ## Principles
 
-### 1. Spec-First, Code-Second
+### 1. Compiler, Not Prison
 
-The specification is the source of truth. Code is generated from specs, not the other way around. This ensures consistency across platforms and eliminates drift between documentation and implementation.
+ContractSpec is a tool in your toolchain, not a platform you're locked into. Generated code is yours. Standards are industry standards. You can always eject.
 
-### 2. Intent Over Implementation
+### 2. Incremental Adoption
 
-Focus on _what_ you want to achieve, not _how_ to implement it. ContractSpec handles the implementation details, allowing developers to work at a higher level of abstraction.
+You don't rewrite your app. You stabilize one module at a time. Start small, prove value, expand gradually.
 
-### 3. Auto-Evolution as Default
+### 3. Spec-First, AI-Safe
 
-Codebases should improve over time without manual intervention. ContractSpec monitors patterns, suggests optimizations, and applies improvements automatically when appropriate.
+Specs are the source of truth. AI agents read specs, not implementations. AI-generated code that violates specs gets flagged and rejected.
 
-### 4. Composable by Design
+### 4. Multi-Surface Consistency
 
-Everything is a building block. Specs, adapters, and components are designed to be composed, extended, and reused across projects and platforms.
+One spec generates API endpoints, database schemas, UI types, event definitions, and MCP tools. All surfaces stay in sync because they share the same source.
 
-### 5. Multi-Platform from One Source
+### 5. Safe Regeneration
 
-Define once, deploy everywhere. A single spec generates REST APIs, GraphQL schemas, MCP tools for AI agents, and type-safe client SDKs — all from one definition.
+You can regenerate code at any time without fear. Specs enforce invariants. Breaking changes are caught at compile time, not runtime.
 
-### 6. Observability Built-In
+### 6. Standard Tech, No Magic
 
-Every operation is traceable, measurable, and debuggable by default. No additional instrumentation required — observability is part of the spec.
+TypeScript, Zod, Prisma, GraphQL, REST — all standard. No proprietary runtime, no magic. Just a compiler that outputs code you already know.
 
 ---
 
-## Target User Archetypes
+## Business Model
 
-### Archetype 1: The AI-First Developer
+### Core SaaS
 
-- **Profile:** Building products with AI agents, LLMs, and conversational interfaces
-- **Pain Points:** Exposing APIs to AI agents requires custom MCP servers, prompt engineering complexity, inconsistent tool definitions
-- **Needs:** Automatic MCP adapter generation, type-safe tool definitions, AI-native observability
+- Per project / per team / per seat pricing
+- Free tier for individual developers and small projects
+- Team tier for collaboration features
 
-### Archetype 2: The Startup/Indie Hacker
+### Usage-Based
 
-- **Profile:** Solo founder or small team shipping fast with limited resources
-- **Pain Points:** Too much boilerplate, maintaining consistency across frontend/backend, documentation drift
-- **Needs:** Rapid prototyping, automatic API generation, zero-config deployment
+- Regenerations and spec operations
+- CI/CD integration credits
+- Evolution suggestions and auto-fixes
 
-### Archetype 3: The Platform Team
+### Future: Marketplace
 
-- **Profile:** Engineering team responsible for standardizing APIs and contracts across the organization
-- **Pain Points:** Inconsistent API designs, duplicated validation logic, schema drift between services
-- **Needs:** Centralized contract definitions, automated compliance checks, cross-team consistency
-
-### Archetype 4: The Enterprise Team
-
-- **Profile:** Large team prioritizing maintainability, security, and governance
-- **Pain Points:** Technical debt accumulation, onboarding complexity, audit trails
-- **Needs:** Auto-evolution with guardrails, comprehensive audit logging, lifecycle governance
+- Templates and modules
+- Vertical-specific contract libraries
+- Enterprise custom integrations
 
 ---
 
@@ -100,43 +161,41 @@ Every operation is traceable, measurable, and debuggable by default. No addition
 
 ### Feature Design
 
-✅ Does this feature reduce boilerplate for developers?
-✅ Does it follow the spec-first philosophy?
-✅ Is the output automatically generated from the spec, not manually maintained?
-✅ Does it work across all runtime adapters (REST, GraphQL, MCP)?
-✅ Does it handle evolution gracefully (backwards compatibility, migrations)?
-❌ Does this feature require developers to write glue code?
-❌ Is this implementation-first rather than spec-first?
+✅ Does this feature help stabilize AI-generated code?
+✅ Does it work with existing codebases (incremental adoption)?
+✅ Does it generate standard, ejectable code?
+✅ Does it enforce contracts across multiple surfaces?
+✅ Can AI agents read and respect this spec?
+❌ Does this feature create lock-in?
+❌ Does this require a full rewrite to adopt?
+❌ Does this introduce proprietary runtime dependencies?
 
 ### DX & Messaging
 
-✅ Is the API intuitive and self-documenting?
-✅ Can a developer understand what a spec does without reading implementation code?
-✅ Are error messages clear and actionable?
-✅ Does the CLI provide helpful guidance and suggestions?
-✅ Does the experience feel like "declaring intent" rather than "writing code"?
-❌ Are we requiring excessive configuration?
-❌ Are we exposing internal complexity to the developer?
+✅ Does messaging emphasize "stabilize" not "replace"?
+✅ Is the learning curve minimal (just TypeScript)?
+✅ Is it clear you own the generated code?
+✅ Does the experience feel like a compiler, not a platform?
+❌ Are we using language that implies lock-in?
+❌ Are we hiding the generated code from developers?
 
-### AI Behavior (for ContractSpec Studio)
+### AI Safety & Governance
 
-✅ Is the AI suggesting improvements based on the spec's intent?
-✅ Does the AI explain its evolution suggestions in simple terms?
-✅ Is the AI connecting patterns across different specs?
-✅ Does the AI adapt its recommendations as the project evolves?
-✅ Is the AI transparent about what changes it will make?
-❌ Is the AI making changes without clear justification?
-❌ Is the AI using technical jargon without explanation?
+✅ Can this spec be used to validate AI-generated code?
+✅ Does this help AI agents understand system constraints?
+✅ Is contract violation detectable at compile time?
+✅ Are breaking changes explicit and auditable?
+❌ Does this allow AI to bypass contract enforcement?
+❌ Does this make it harder to audit AI-generated changes?
 
 ### Technical Architecture
 
-✅ Is this logic expressed in the spec, not in adapter-specific code?
-✅ Can this be reused across different runtime adapters?
-✅ Is observability automatic, not opt-in?
-✅ Can the system handle schema evolution gracefully?
-✅ Are we building for extensibility without over-engineering?
-❌ Are we building adapter-specific features that can't be generalized?
-❌ Are we making architectural choices that lock developers into specific platforms?
+✅ Is the generated code standard tech (no magic)?
+✅ Can developers read and modify generated code?
+✅ Is ejection possible at any point?
+✅ Does this maintain multi-surface consistency?
+❌ Are we introducing proprietary abstractions?
+❌ Are we making decisions that increase lock-in?
 
 ---
 
@@ -144,90 +203,64 @@ Every operation is traceable, measurable, and debuggable by default. No addition
 
 **We are NOT:**
 
-- A code generator like Swagger/OpenAPI codegen (generates once, then you maintain)
-- A schema-first tool like Prisma (database-centric, not API-centric)
-- A GraphQL-only solution like Hasura (single protocol, not multi-platform)
-- A no-code platform (we're for developers, not non-technical users)
+- A code generator you run once and maintain forever (Swagger/OpenAPI codegen)
+- A database-centric tool that forces your architecture (Prisma-first)
+- A no-code platform for non-technical users
+- A proprietary runtime you can't escape
 
 **We ARE:**
 
-- A spec-first platform where the spec _is_ the runtime
-- A multi-platform adapter generator from a single source of truth
-- An auto-evolutive system that improves your codebase over time
-- A developer tool that feels like "declaring intent" rather than "writing code"
-
----
-
-## Competitive Landscape & Inspirations
-
-### Strategic Positioning
-
-**Market Focus:** Developer-first, spec-first tooling for modern AI-first products
-
-**Technical Advantage:** Runtime adapters that don't require code generation — the spec is directly interpretable at runtime, eliminating drift between definition and implementation.
-
-### Inspirational References
-
-#### Prisma — Schema-First Inspiration
-
-Type-safe database client generated from schema. Clear separation between definition (schema.prisma) and implementation.
-
-**What we emulate:** Schema-first philosophy, type safety, excellent DX, clear mental model.
-
-**How we differentiate:** API-centric (not database-centric), multi-platform (not just ORM), runtime adapters (not compile-time generation).
-
-#### tRPC — Type Safety Inspiration
-
-End-to-end type safety without code generation. Procedure-based API definition.
-
-**What we emulate:** Zero-config type safety, procedure-based thinking, excellent TypeScript integration.
-
-**How we differentiate:** Multi-protocol (REST, GraphQL, MCP), spec includes metadata (owners, stability, observability), auto-evolution.
-
-#### Swagger/OpenAPI — Contract-First Inspiration
-
-Industry standard for API documentation and code generation.
-
-**What we emulate:** Contract-first thinking, comprehensive documentation, ecosystem support.
-
-**How we differentiate:** TypeScript-native (not YAML), runtime adapters (not codegen), includes business logic (not just schema).
-
-#### Anthropic MCP — AI Integration Inspiration
-
-Model Context Protocol for AI agent tool definitions.
-
-**What we emulate:** Structured tool definitions for AI, type-safe parameter schemas.
-
-**How we differentiate:** Unified definition (same spec powers REST, GraphQL, and MCP), automatic adapter generation.
-
-### Market Opportunity
-
-**Gap in Market:** No platform combines spec-first API definition with multi-platform runtime adapters AND auto-evolution. Existing tools either generate code (requiring maintenance) or are locked to single protocols.
-
-**ContractSpec's Position:** Spec-first, TypeScript-native, multi-platform runtime adapters with auto-evolution built in.
+- The **compiler** that keeps AI-generated code safe and consistent
+- A **governance layer** for AI-coded systems
+- A **stabilization tool** for existing messy codebases
+- A **contract-first** approach with standard tech outputs
 
 ---
 
 ## Key Concepts
 
-### ContractSpec
+### Contracts (Specs)
 
-A unified specification that defines operations (commands/queries), events, and presentations. The spec is the single source of truth for all runtime behavior.
+The canonical source of truth. Contracts define operations (commands/queries), events, and presentations. AI agents and code generators read contracts to understand system constraints.
 
-### Runtime Adapters
+### Multi-Surface Generation
 
-Platform-specific interpreters that read specs and expose them as APIs:
-- **REST Adapter**: Exposes specs as REST endpoints
-- **GraphQL Adapter**: Generates GraphQL schema from specs
-- **MCP Adapter**: Exposes specs as AI agent tools
+One contract generates multiple outputs:
 
-### Auto-Evolution
+- **REST API**: Type-safe endpoints with validation
+- **GraphQL Schema**: Automatically generated resolvers
+- **Database Schema**: Prisma migrations and types
+- **MCP Tools**: AI agent tool definitions
+- **Client SDKs**: Type-safe API clients
 
-The system's ability to monitor usage patterns, detect improvements, and apply them automatically. Evolution is tracked, reversible, and explainable.
+### Safe Regeneration
 
-### Lifecycle Management
+The ability to regenerate code at any time without breaking invariants. Specs enforce constraints. Breaking changes are caught early.
 
-Tracking where a user/project is in their journey and providing contextual guidance, ceremonies (meaningful transitions), and recommendations.
+### Incremental Adoption
+
+You don't rewrite your app. You introduce contracts module by module. Start with one endpoint, one entity, one surface. Expand as you see value.
+
+---
+
+## Messaging Guidelines
+
+### Use This Language
+
+- "Stabilize your AI-generated code"
+- "Compiler for AI-coded systems"
+- "You own the code"
+- "Standard tech, no lock-in"
+- "One module at a time"
+- "Safe regeneration"
+
+### Avoid This Language
+
+- "Platform" (implies lock-in)
+- "Rewrite your app" (implies big-bang adoption)
+- "Our runtime" (implies dependency)
+- "Magic" (implies hidden complexity)
+- "Replace your stack" (implies migration)
 
 ---
 
