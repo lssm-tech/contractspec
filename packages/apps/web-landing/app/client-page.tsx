@@ -2,21 +2,19 @@
 
 import Link from 'next/link';
 import {
-  ChevronRight,
-  Calendar,
   AlertTriangle,
+  Calendar,
+  CheckCircle,
+  ChevronRight,
+  Code,
+  FileCode,
   Layers,
   RefreshCw,
   Shield,
-  Code,
-  CheckCircle,
-  XCircle,
   Unlock,
+  XCircle,
   Zap,
-  GitBranch,
-  FileCode,
 } from 'lucide-react';
-import Image from 'next/image';
 
 export default function ClientPage() {
   return (
@@ -64,51 +62,51 @@ export default function ClientPage() {
       </section>
 
       {/* Social Proof */}
-      <section className="section-padding border-border border-b">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-muted-foreground mb-6 text-center text-sm">
-            Powering production applications
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {[
-              {
-                name: 'HCircle',
-                logo: '/assets/images/used-by/hcircle.png',
-                url: 'https://hcircle.app/',
-              },
-              {
-                name: 'ArtisanOS',
-                logo: '/assets/images/used-by/artisanos.png',
-                url: 'https://artisanos.app/',
-                inverted: true,
-              },
-              {
-                name: 'Strit',
-                logo: '/assets/images/used-by/strit.png',
-                url: 'https://strit.academy/',
-              },
-            ].map((client) => (
-              <Link
-                key={client.name}
-                href={client.url}
-                className="text-muted-foreground flex flex-col items-center px-4 text-sm font-medium"
-                target="_blank"
-              >
-                <div className="relative h-16 w-16">
-                  <Image
-                    src={client.logo}
-                    alt={`${client.name} Logo`}
-                    layout="fill"
-                    objectFit="fit"
-                    className={client.inverted ? 'invert' : ''}
-                  />
-                </div>
-                {client.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/*<section className="section-padding border-border border-b">*/}
+      {/*  <div className="mx-auto max-w-6xl">*/}
+      {/*    <p className="text-muted-foreground mb-6 text-center text-sm">*/}
+      {/*      Powering production applications*/}
+      {/*    </p>*/}
+      {/*    <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">*/}
+      {/*      {[*/}
+      {/*        {*/}
+      {/*          name: 'HCircle',*/}
+      {/*          logo: '/assets/images/used-by/hcircle.png',*/}
+      {/*          url: 'https://hcircle.app/',*/}
+      {/*        },*/}
+      {/*        {*/}
+      {/*          name: 'ArtisanOS',*/}
+      {/*          logo: '/assets/images/used-by/artisanos.png',*/}
+      {/*          url: 'https://artisanos.app/',*/}
+      {/*          inverted: true,*/}
+      {/*        },*/}
+      {/*        {*/}
+      {/*          name: 'Strit',*/}
+      {/*          logo: '/assets/images/used-by/strit.png',*/}
+      {/*          url: 'https://strit.academy/',*/}
+      {/*        },*/}
+      {/*      ].map((client) => (*/}
+      {/*        <Link*/}
+      {/*          key={client.name}*/}
+      {/*          href={client.url}*/}
+      {/*          className="text-muted-foreground flex flex-col items-center px-4 text-sm font-medium"*/}
+      {/*          target="_blank"*/}
+      {/*        >*/}
+      {/*          <div className="relative h-16 w-16">*/}
+      {/*            <Image*/}
+      {/*              src={client.logo}*/}
+      {/*              alt={`${client.name} Logo`}*/}
+      {/*              layout="fill"*/}
+      {/*              objectFit="fit"*/}
+      {/*              className={client.inverted ? 'invert' : ''}*/}
+      {/*            />*/}
+      {/*          </div>*/}
+      {/*          {client.name}*/}
+      {/*        </Link>*/}
+      {/*      ))}*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
 
       {/* The Problem Section */}
       <section className="section-padding border-border bg-muted/30 border-b">
@@ -216,7 +214,7 @@ export default function ClientPage() {
       </section>
 
       {/* Key Fears Addressed */}
-      <section className="section-padding border-border border-b bg-muted/20">
+      <section className="section-padding border-border bg-muted/20 border-b">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 space-y-4 text-center">
             <p className="text-xs font-semibold tracking-[0.2em] text-violet-500 uppercase">
@@ -235,13 +233,13 @@ export default function ClientPage() {
               {
                 fear: '"I already have an app"',
                 reality:
-                  'ContractSpec works with existing codebases. You don\'t start over — you stabilize incrementally, one module at a time. Start with one API endpoint, one data model, one contract.',
+                  "ContractSpec works with existing codebases. You don't start over — you stabilize incrementally, one module at a time. Start with one API endpoint, one data model, one contract.",
                 icon: CheckCircle,
               },
               {
                 fear: '"Vendor lock-in / losing ownership"',
                 reality:
-                  'You own the generated code. It\'s standard TypeScript, standard SQL, standard GraphQL. ContractSpec is a compiler — like TypeScript itself. You can eject anytime.',
+                  "You own the generated code. It's standard TypeScript, standard SQL, standard GraphQL. ContractSpec is a compiler — like TypeScript itself. You can eject anytime.",
                 icon: Unlock,
               },
               {
@@ -253,7 +251,7 @@ export default function ClientPage() {
               {
                 fear: '"Forced migrations / magical runtime"',
                 reality:
-                  'ContractSpec generates plain code you can read, debug, and modify. There\'s no proprietary runtime. Migrations are explicit, reversible, and in your control.',
+                  "ContractSpec generates plain code you can read, debug, and modify. There's no proprietary runtime. Migrations are explicit, reversible, and in your control.",
                 icon: Zap,
               },
             ].map((item) => (
@@ -279,7 +277,7 @@ export default function ClientPage() {
       </section>
 
       {/* Core Positioning */}
-      <section className="section-padding border-border bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-blue-500/5 border-b">
+      <section className="section-padding border-border border-b bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-blue-500/5">
         <div className="mx-auto max-w-4xl space-y-8 text-center">
           <h2 className="text-3xl font-bold md:text-4xl">
             You keep your app.
@@ -388,7 +386,7 @@ export default function ClientPage() {
       </section>
 
       {/* What You Get */}
-      <section className="section-padding border-border border-b bg-muted/30">
+      <section className="section-padding border-border bg-muted/30 border-b">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 space-y-4 text-center">
             <h2 className="text-3xl font-bold md:text-4xl">
@@ -501,7 +499,7 @@ export default function ClientPage() {
       </section>
 
       {/* Developer Experience */}
-      <section className="section-padding border-border border-b bg-muted/20">
+      <section className="section-padding border-border bg-muted/20 border-b">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
             Built for developers
