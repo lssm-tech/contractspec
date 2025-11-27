@@ -37,7 +37,7 @@
     },
     "packages/apps/cli-contracts": {
       "name": "@lssm/app.cli-contracts",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -58,6 +58,7 @@
         "zod": "^4.1.13",
       },
       "devDependencies": {
+        "@lssm/tool.typescript": "workspace:*",
         "@types/inquirer": "^9.0.7",
         "@types/node": "^22.10.2",
         "eslint": "^9.17.0",
@@ -66,7 +67,7 @@
     },
     "packages/apps/cli-database": {
       "name": "@lssm/app.cli-database",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -83,7 +84,7 @@
     },
     "packages/apps/cli-databases": {
       "name": "@lssm/app.cli-databases",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -98,7 +99,7 @@
     },
     "packages/apps/overlay-editor": {
       "name": "@lssm/app.overlay-editor",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.overlay-engine": "workspace:*",
         "next": "16.0.4",
@@ -117,9 +118,11 @@
       "version": "0.2.2",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
-        "@lssm/bundle.contractspec-studio": "*",
-        "@lssm/lib.progressive-delivery": "*",
-        "@lssm/lib.ui-kit-web": "*",
+        "@lssm/bundle.contractspec-studio": "latest",
+        "@lssm/lib.database-contractspec-studio": "latest",
+        "@lssm/lib.design-system": "latest",
+        "@lssm/lib.progressive-delivery": "latest",
+        "@lssm/lib.ui-kit-web": "latest",
         "@posthog/react": "^1.5.0",
         "@radix-ui/react-accordion": "1.2.12",
         "@radix-ui/react-alert-dialog": "1.1.15",
@@ -188,7 +191,7 @@
     },
     "packages/bundles/contractspec-studio": {
       "name": "@lssm/bundle.contractspec-studio",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@apollo/client": "^3.11.6",
         "@better-auth/expo": "1.4.1",
@@ -202,9 +205,12 @@
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.evolution": "workspace:*",
         "@lssm/lib.gql-client-contractspec-studio": "workspace:*",
+        "@lssm/lib.graphql-prisma": "workspace:*",
         "@lssm/lib.lifecycle": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
         "@lssm/lib.observability": "workspace:*",
+        "@lssm/lib.progressive-delivery": "workspace:*",
+        "@lssm/lib.runtime-local": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
         "@monaco-editor/react": "^4.6.0",
         "@posthog/react": "^1.5.0",
@@ -232,7 +238,7 @@
     },
     "packages/bundles/lifecycle-managed": {
       "name": "@lssm/bundle.lifecycle-managed",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.analytics": "workspace:*",
@@ -250,7 +256,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -269,7 +275,7 @@
     },
     "packages/libs/ai-agent": {
       "name": "@lssm/lib.ai-agent",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -282,7 +288,7 @@
     },
     "packages/libs/analytics": {
       "name": "@lssm/lib.analytics",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
@@ -296,7 +302,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -316,7 +322,7 @@
     },
     "packages/libs/content-gen": {
       "name": "@lssm/lib.content-gen",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -329,11 +335,12 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.25.0",
         "@google-cloud/secret-manager": "^6.1.1",
         "@google-cloud/storage": "^7.8.0",
+        "@lssm/lib.graphql-federation": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "@mistralai/mistralai": "^1.2.3",
         "@modelcontextprotocol/sdk": "^1.20.1",
@@ -369,7 +376,7 @@
     },
     "packages/libs/contracts-contractspec-studio": {
       "name": "@lssm/lib.contracts-contractspec-studio",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -383,7 +390,7 @@
     },
     "packages/libs/cost-tracking": {
       "name": "@lssm/lib.cost-tracking",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -396,7 +403,7 @@
     },
     "packages/libs/database-contractspec-studio": {
       "name": "@lssm/lib.database-contractspec-studio",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@prisma/adapter-pg": "^7.0.0",
       },
@@ -408,7 +415,7 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -426,6 +433,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "@types/node": "^24.9.0",
         "@types/react-dom": "^19.0.14",
         "postcss": "^8.5",
@@ -436,7 +444,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
@@ -450,9 +458,11 @@
     },
     "packages/libs/evolution": {
       "name": "@lssm/lib.evolution",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
+        "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.lifecycle": "workspace:*",
         "@lssm/lib.observability": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
       },
@@ -468,7 +478,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
@@ -477,6 +487,7 @@
     },
     "packages/libs/gql-client-contractspec-studio": {
       "name": "@lssm/lib.gql-client-contractspec-studio",
+      "version": "0.1.0",
       "dependencies": {
         "@graphql-codegen/client-preset": "^5.0.1",
         "@lssm/lib.schema": "workspace:*",
@@ -493,7 +504,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -505,6 +516,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -514,7 +526,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@apollo/subgraph": "^2.8.0",
         "@pothos/core": "^4.9.1",
@@ -524,6 +536,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -533,9 +546,9 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
-        "@lssm/lib.schema": "^1.10.0",
+        "@lssm/lib.schema": "^1.11.0",
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
         "@pothos/plugin-dataloader": "^4.4.2",
@@ -547,6 +560,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
@@ -556,7 +570,7 @@
     },
     "packages/libs/growth": {
       "name": "@lssm/lib.growth",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.analytics": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -570,7 +584,7 @@
     },
     "packages/libs/lifecycle": {
       "name": "@lssm/lib.lifecycle",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -580,7 +594,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -596,8 +610,10 @@
     },
     "packages/libs/multi-tenancy": {
       "name": "@lssm/lib.multi-tenancy",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "typescript": "^5.0.0",
       },
       "peerDependencies": {
@@ -606,7 +622,7 @@
     },
     "packages/libs/observability": {
       "name": "@lssm/lib.observability",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -619,7 +635,7 @@
     },
     "packages/libs/overlay-engine": {
       "name": "@lssm/lib.overlay-engine",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "fast-json-stable-stringify": "^2.1.0",
@@ -639,7 +655,7 @@
     },
     "packages/libs/personalization": {
       "name": "@lssm/lib.personalization",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.overlay-engine": "workspace:*",
@@ -657,7 +673,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "devDependencies": {
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
@@ -668,7 +684,7 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "11.0.0",
+      "version": "12.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
@@ -684,7 +700,7 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "11.0.0",
+      "version": "12.0.0",
       "dependencies": {
         "@lssm/lib.presentation-runtime-core": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -699,7 +715,7 @@
     },
     "packages/libs/progressive-delivery": {
       "name": "@lssm/lib.progressive-delivery",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -712,14 +728,16 @@
     },
     "packages/libs/resilience": {
       "name": "@lssm/lib.resilience",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "typescript": "^5.0.0",
       },
     },
     "packages/libs/runtime-local": {
       "name": "@lssm/lib.runtime-local",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@apollo/client": "^3.11.6",
         "@graphql-tools/schema": "^10.0.17",
@@ -737,7 +755,7 @@
     },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "^4.1.13",
@@ -751,7 +769,7 @@
     },
     "packages/libs/slo": {
       "name": "@lssm/lib.slo",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -764,7 +782,7 @@
     },
     "packages/libs/support-bot": {
       "name": "@lssm/lib.support-bot",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "^0.3.0",
         "@lssm/lib.contracts": "^1.10.0",
@@ -778,9 +796,9 @@
     },
     "packages/libs/testing": {
       "name": "@lssm/lib.testing",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "dependencies": {
-        "@lssm/lib.contracts": "^1.10.0",
+        "@lssm/lib.contracts": "^1.11.0",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -791,7 +809,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
@@ -863,13 +881,14 @@
       "devDependencies": {
         "@babel/core": "^7.28.4",
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.6",
         "typescript": "^5.9.3",
       },
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@radix-ui/react-accordion": "^1.2.11",
@@ -915,6 +934,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "@sentry/nextjs": "^10.26.0",
         "@types/geojson": "^7946.0.14",
         "@types/jest": "^30.0.0",
@@ -940,7 +960,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -950,7 +970,7 @@
     },
     "packages/libs/workflow-composer": {
       "name": "@lssm/lib.workflow-composer",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -963,7 +983,7 @@
     },
     "packages/modules/lifecycle-advisor": {
       "name": "@lssm/module.lifecycle-advisor",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -976,7 +996,7 @@
     },
     "packages/modules/lifecycle-core": {
       "name": "@lssm/module.lifecycle-core",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -989,14 +1009,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "0.11.0",
+      "version": "0.12.0",
       "peerDependencies": {
         "tsdown": "^0.16.6",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "devDependencies": {
         "typescript": "^5.9.3",
       },
@@ -5868,6 +5888,16 @@
 
     "@lssm/app.overlay-editor/@types/node": ["@types/node@20.19.25", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-ZsJzA5thDQMSQO788d7IocwwQbI8B5OPzmqNvpf3NY/+MHDAS759Wo0gd2WQeXYt5AAAQjzcrTVC6SKCuYgoCQ=="],
 
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio": ["@lssm/bundle.contractspec-studio@0.2.0", "", { "dependencies": { "@apollo/client": "^3.11.6", "@dnd-kit/core": "^6.1.0", "@dnd-kit/sortable": "^10.0.0", "@lssm/bundle.lifecycle-managed": "*", "@lssm/lib.contracts": "*", "@lssm/lib.contracts-contractspec-studio": "*", "@lssm/lib.database-contractspec-studio": "*", "@lssm/lib.design-system": "*", "@lssm/lib.evolution": "*", "@lssm/lib.lifecycle": "*", "@lssm/lib.logger": "*", "@lssm/lib.observability": "*", "@lssm/lib.ui-kit": "*", "@monaco-editor/react": "^4.6.0", "@posthog/react": "^1.2.3", "@tanstack/react-query": "^5.89.0", "graphql": "^16.9.0", "nativewind": "5.0.0-preview.2", "react-hook-form": "7.66.1", "resend": "^6.5.2", "tailwindcss": "4.1.15" }, "peerDependencies": { "react": "19.2.0", "react-native": "0.81.4" } }, "sha512-vIqjdlTMjfcNjYBtsuwv+l/IjElOdgPxt6zluXzaa7ZxrtRWOXWt82TFFv3cuO05yzD+WkigpaIa7GVU4GqmSg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.database-contractspec-studio": ["@lssm/lib.database-contractspec-studio@0.2.0", "", { "dependencies": { "@prisma/adapter-pg": "^7.0.0" } }, "sha512-pPp+X88YLO9F1wGzscvKe1rkiR0mnL3LLs8E9Pp1nWkoP+glo+XrVotBE/q0nU8dErwTwTRGE1bDSW31Z2hydA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system": ["@lssm/lib.design-system@1.10.0", "", { "dependencies": { "@hookform/resolvers": "5.2.2", "@lssm/lib.ai-agent": "*", "@lssm/lib.contracts": "*", "@lssm/lib.ui-kit": "*", "@lssm/lib.ui-kit-web": "*", "class-variance-authority": "^0.7.1", "clsx": "^2.1.1", "lucide-react": "^0.535.0", "react": "19.2.0", "react-dom": "^19.2.0", "tailwind-merge": "^3.3.1", "tailwindcss-animate": "^1.0.7", "zod": "^4.1.5" } }, "sha512-PxGnyEZNh9BdnZEsRFak4wewHvPYtU5sOwJaFQY40LblCVtBQGg0H4Fo+cAkSylMfbQNKWfa/UXXzkXfeuQuCg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.progressive-delivery": ["@lssm/lib.progressive-delivery@2.0.0", "", { "peerDependencies": { "@lssm/lib.observability": "*" } }, "sha512-DxUTtiYCP4bZVutqZ0STcazy1BPucfSlJ3vXYvQg3j1T6r9vqoRqfFfVjSE/njpnHdfSNIVcFZ3KLpqy4Kj6gQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web": ["@lssm/lib.ui-kit-web@1.10.0", "", { "dependencies": { "@hookform/resolvers": "5.2.2", "@radix-ui/react-accordion": "^1.2.11", "@radix-ui/react-alert-dialog": "^1.1.14", "@radix-ui/react-aspect-ratio": "^1.1.7", "@radix-ui/react-avatar": "^1.1.10", "@radix-ui/react-checkbox": "^1.3.2", "@radix-ui/react-collapsible": "^1.1.11", "@radix-ui/react-context-menu": "^2.2.15", "@radix-ui/react-dialog": "^1.1.14", "@radix-ui/react-dropdown-menu": "^2.1.15", "@radix-ui/react-hover-card": "^1.1.14", "@radix-ui/react-label": "^2.1.0", "@radix-ui/react-menubar": "^1.1.15", "@radix-ui/react-navigation-menu": "^1.2.13", "@radix-ui/react-popover": "^1.1.14", "@radix-ui/react-progress": "^1.1.7", "@radix-ui/react-radio-group": "^1.3.7", "@radix-ui/react-scroll-area": "^1.2.9", "@radix-ui/react-select": "^2.1.1", "@radix-ui/react-separator": "^1.1.7", "@radix-ui/react-slider": "^1.3.5", "@radix-ui/react-slot": "^1.2.3", "@radix-ui/react-switch": "^1.2.5", "@radix-ui/react-tabs": "^1.1.12", "@radix-ui/react-toast": "^1.2.1", "@radix-ui/react-toggle": "^1.1.9", "@radix-ui/react-toggle-group": "^1.1.10", "@radix-ui/react-tooltip": "^1.2.7", "class-variance-authority": "^0.7.1", "clsx": "^2.1.1", "cmdk": "^1.1.1", "embla-carousel-react": "^8.6.0", "input-otp": "^1.4.2", "lucide-react": "^0.535.0", "next": "16.0.3", "next-themes": "^0.4.3", "react-day-picker": "^9.10.0", "react-hook-form": "7.66.1", "react-resizable-panels": "^3.0.6", "tailwind-merge": "^3.3.1", "vaul": "^1.1.2" }, "peerDependencies": { "@sentry/nextjs": "^10.26.0", "maplibre-gl": "^5.7.3", "react": "^19.2.0", "react-dom": ">=19.2.0", "react-map-gl": "^8.0.4" } }, "sha512-XThF4n3FuVMI54uRxUC+HwIotjtdLUiFtTu4hXlnCFB3yVPuipG+bpS5Rb5tOAfrodImeSD2tyTLA5HQxhiFXw=="],
+
     "@lssm/lib.contracts/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
 
     "@lssm/lib.design-system/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
@@ -6824,6 +6854,34 @@
 
     "@jest/types/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.database-contractspec-studio": ["@lssm/lib.database-contractspec-studio@workspace:packages/libs/database-contractspec-studio"],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system": ["@lssm/lib.design-system@workspace:packages/libs/design-system"],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/tailwindcss": ["tailwindcss@4.1.15", "", {}, "sha512-k2WLnWkYFkdpRv+Oby3EBXIyQC8/s1HOFMBUViwtAh6Z5uAozeUSMQlIsn/c6Q2iJzqG6aJT3wdPaRNj70iYxQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web": ["@lssm/lib.ui-kit-web@workspace:packages/libs/ui-kit-web"],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/input-otp": ["input-otp@1.4.2", "", { "peerDependencies": { "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next": ["next@16.0.3", "", { "dependencies": { "@next/env": "16.0.3", "@swc/helpers": "0.5.15", "caniuse-lite": "^1.0.30001579", "postcss": "8.4.31", "styled-jsx": "5.1.6" }, "optionalDependencies": { "@next/swc-darwin-arm64": "16.0.3", "@next/swc-darwin-x64": "16.0.3", "@next/swc-linux-arm64-gnu": "16.0.3", "@next/swc-linux-arm64-musl": "16.0.3", "@next/swc-linux-x64-gnu": "16.0.3", "@next/swc-linux-x64-musl": "16.0.3", "@next/swc-win32-arm64-msvc": "16.0.3", "@next/swc-win32-x64-msvc": "16.0.3", "sharp": "^0.34.4" }, "peerDependencies": { "@opentelemetry/api": "^1.1.0", "@playwright/test": "^1.51.1", "babel-plugin-react-compiler": "*", "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "sass": "^1.3.0" }, "optionalPeers": ["@opentelemetry/api", "@playwright/test", "babel-plugin-react-compiler", "sass"], "bin": { "next": "dist/bin/next" } }, "sha512-Ka0/iNBblPFcIubTA1Jjh6gvwqfjrGq1Y2MTI5lbjeLIAfmC+p5bQmojpRZqgHHVu5cG4+qdIiwXiBSm/8lZ3w=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/react-day-picker": ["react-day-picker@9.11.2", "", { "dependencies": { "@date-fns/tz": "^1.4.1", "date-fns": "^4.1.0", "date-fns-jalali": "^4.1.0-0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-TD/xMUGg2oiKX8jUR21MST5pj+7Y36097YtnDHQFlIcZOu3mbLLw2B2JqEByEGrR3HHveWYnKlyls6WqJgohAg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/react-resizable-panels": ["react-resizable-panels@3.0.6", "", { "peerDependencies": { "react": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-b3qKHQ3MLqOgSS+FRYKapNkJZf5EQzuf6+RLiq1/IlTHw99YrZ2NJZLk4hQIzTnnIkRg2LUqyVinu6YWWpUYew=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
+
     "@lssm/lib.design-system/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
 
     "@lssm/lib.ui-kit-web/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
@@ -7574,6 +7632,46 @@
 
     "@jest/types/chalk/supports-color/has-flag": ["has-flag@4.0.0", "", {}, "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="],
 
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@lssm/lib.ui-kit-web": ["@lssm/lib.ui-kit-web@workspace:packages/libs/ui-kit-web"],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/input-otp": ["input-otp@1.4.2", "", { "peerDependencies": { "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-day-picker": ["react-day-picker@9.11.2", "", { "dependencies": { "@date-fns/tz": "^1.4.1", "date-fns": "^4.1.0", "date-fns-jalali": "^4.1.0-0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-TD/xMUGg2oiKX8jUR21MST5pj+7Y36097YtnDHQFlIcZOu3mbLLw2B2JqEByEGrR3HHveWYnKlyls6WqJgohAg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-resizable-panels": ["react-resizable-panels@3.0.6", "", { "peerDependencies": { "react": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-b3qKHQ3MLqOgSS+FRYKapNkJZf5EQzuf6+RLiq1/IlTHw99YrZ2NJZLk4hQIzTnnIkRg2LUqyVinu6YWWpUYew=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/env": ["@next/env@16.0.3", "", {}, "sha512-IqgtY5Vwsm14mm/nmQaRMmywCU+yyMIYfk3/MHZ2ZTJvwVbBn3usZnjMi1GacrMVzVcAxJShTCpZlPs26EdEjQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-darwin-arm64": ["@next/swc-darwin-arm64@16.0.3", "", { "os": "darwin", "cpu": "arm64" }, "sha512-MOnbd92+OByu0p6QBAzq1ahVWzF6nyfiH07dQDez4/Nku7G249NjxDVyEfVhz8WkLiOEU+KFVnqtgcsfP2nLXg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-darwin-x64": ["@next/swc-darwin-x64@16.0.3", "", { "os": "darwin", "cpu": "x64" }, "sha512-i70C4O1VmbTivYdRlk+5lj9xRc2BlK3oUikt3yJeHT1unL4LsNtN7UiOhVanFdc7vDAgZn1tV/9mQwMkWOJvHg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-linux-arm64-gnu": ["@next/swc-linux-arm64-gnu@16.0.3", "", { "os": "linux", "cpu": "arm64" }, "sha512-O88gCZ95sScwD00mn/AtalyCoykhhlokxH/wi1huFK+rmiP5LAYVs/i2ruk7xST6SuXN4NI5y4Xf5vepb2jf6A=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-linux-arm64-musl": ["@next/swc-linux-arm64-musl@16.0.3", "", { "os": "linux", "cpu": "arm64" }, "sha512-CEErFt78S/zYXzFIiv18iQCbRbLgBluS8z1TNDQoyPi8/Jr5qhR3e8XHAIxVxPBjDbEMITprqELVc5KTfFj0gg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-linux-x64-gnu": ["@next/swc-linux-x64-gnu@16.0.3", "", { "os": "linux", "cpu": "x64" }, "sha512-Tc3i+nwt6mQ+Dwzcri/WNDj56iWdycGVh5YwwklleClzPzz7UpfaMw1ci7bLl6GRYMXhWDBfe707EXNjKtiswQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-linux-x64-musl": ["@next/swc-linux-x64-musl@16.0.3", "", { "os": "linux", "cpu": "x64" }, "sha512-zTh03Z/5PBBPdTurgEtr6nY0vI9KR9Ifp/jZCcHlODzwVOEKcKRBtQIGrkc7izFgOMuXDEJBmirwpGqdM/ZixA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-win32-arm64-msvc": ["@next/swc-win32-arm64-msvc@16.0.3", "", { "os": "win32", "cpu": "arm64" }, "sha512-Jc1EHxtZovcJcg5zU43X3tuqzl/sS+CmLgjRP28ZT4vk869Ncm2NoF8qSTaL99gh6uOzgM99Shct06pSO6kA6g=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/@next/swc-win32-x64-msvc": ["@next/swc-win32-x64-msvc@16.0.3", "", { "os": "win32", "cpu": "x64" }, "sha512-N7EJ6zbxgIYpI/sWNzpVKRMbfEGgsWuOIvzkML7wxAAZhPk1Msxuo/JDu1PKjWGrAoOLaZcIX5s+/pF5LIbBBg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/next/postcss": ["postcss@8.4.31", "", { "dependencies": { "nanoid": "^3.3.6", "picocolors": "^1.0.0", "source-map-js": "^1.0.2" } }, "sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.ui-kit-web/react-day-picker/@date-fns/tz": ["@date-fns/tz@1.4.1", "", {}, "sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA=="],
+
     "@manypkg/find-root/find-up/locate-path/p-locate": ["p-locate@4.1.0", "", { "dependencies": { "p-limit": "^2.2.0" } }, "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A=="],
 
     "@react-native/dev-middleware/serve-static/send/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="],
@@ -7924,6 +8022,18 @@
 
     "@jest/types/chalk/ansi-styles/color-convert/color-name": ["color-name@1.1.4", "", {}, "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="],
 
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@lssm/lib.ui-kit-web/input-otp": ["input-otp@1.4.2", "", { "peerDependencies": { "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-day-picker": ["react-day-picker@9.11.2", "", { "dependencies": { "@date-fns/tz": "^1.4.1", "date-fns": "^4.1.0", "date-fns-jalali": "^4.1.0-0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-TD/xMUGg2oiKX8jUR21MST5pj+7Y36097YtnDHQFlIcZOu3mbLLw2B2JqEByEGrR3HHveWYnKlyls6WqJgohAg=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-resizable-panels": ["react-resizable-panels@3.0.6", "", { "peerDependencies": { "react": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-b3qKHQ3MLqOgSS+FRYKapNkJZf5EQzuf6+RLiq1/IlTHw99YrZ2NJZLk4hQIzTnnIkRg2LUqyVinu6YWWpUYew=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-day-picker/@date-fns/tz": ["@date-fns/tz@1.4.1", "", {}, "sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA=="],
+
     "@react-native/dev-middleware/serve-static/send/debug/ms": ["ms@2.0.0", "", {}, "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="],
 
     "babel-jest/chalk/ansi-styles/color-convert/color-name": ["color-name@1.1.4", "", {}, "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="],
@@ -8061,6 +8171,8 @@
     "@jest/globals/jest-mock/jest-util/chalk/ansi-styles/color-convert": ["color-convert@2.0.1", "", { "dependencies": { "color-name": "~1.1.4" } }, "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="],
 
     "@jest/globals/jest-mock/jest-util/chalk/supports-color/has-flag": ["has-flag@4.0.0", "", {}, "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="],
+
+    "@lssm/apps.web-contractspec-landing/@lssm/bundle.contractspec-studio/@lssm/lib.design-system/@lssm/lib.ui-kit-web/react-day-picker/@date-fns/tz": ["@date-fns/tz@1.4.1", "", {}, "sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA=="],
 
     "expect/jest-util/chalk/ansi-styles/color-convert/color-name": ["color-name@1.1.4", "", {}, "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="],
 

@@ -18,6 +18,8 @@
     "@prisma/client": "7.0.0"
   },
   "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "^5.0.0"
   },
   "exports": {

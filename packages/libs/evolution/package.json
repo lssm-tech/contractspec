@@ -21,7 +21,9 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@lssm/lib.ai-agent": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.lifecycle": "workspace:*",
     "@lssm/lib.observability": "workspace:*",
     "@lssm/lib.schema": "workspace:*"
   },
