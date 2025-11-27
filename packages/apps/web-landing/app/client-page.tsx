@@ -568,7 +568,7 @@ export default function ClientPage() {
               Get started free
             </Link>
             <Link href="/contact" className="btn-ghost">
-              Book 15-min demo
+              Book a demo
             </Link>
           </div>
         </div>
