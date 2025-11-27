@@ -12,5 +12,8 @@
   ],
   "peerDependencies": {
     "tsdown": "^0.16.6"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

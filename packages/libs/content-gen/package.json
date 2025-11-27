@@ -40,5 +40,8 @@
     "./seo/optimizer": "./dist/seo/optimizer.js",
     "./types": "./dist/types.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

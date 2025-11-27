@@ -30,5 +30,8 @@
     "./rls/prisma-middleware": "./dist/rls/prisma-middleware.mjs",
     "./*": "./*"
   },
-  "module": "./dist/index.mjs"
+  "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  }
 }

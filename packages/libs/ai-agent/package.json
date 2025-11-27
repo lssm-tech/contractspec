@@ -42,5 +42,8 @@
     "./tools/executor": "./dist/tools/executor.js",
     "./types": "./dist/types.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

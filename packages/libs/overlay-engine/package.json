@@ -43,5 +43,8 @@
     ".": "./dist/index.js",
     "./react": "./dist/react.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

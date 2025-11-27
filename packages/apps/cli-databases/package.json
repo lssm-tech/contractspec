@@ -29,5 +29,8 @@
     ".": "./dist/index.mjs",
     "./cli": "./dist/cli.mjs",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

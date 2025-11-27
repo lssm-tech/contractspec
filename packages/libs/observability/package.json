@@ -39,5 +39,8 @@
     "./tracing/middleware": "./dist/tracing/middleware.mjs",
     "./*": "./*"
   },
-  "module": "./dist/index.mjs"
+  "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  }
 }

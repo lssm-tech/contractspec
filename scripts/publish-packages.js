@@ -16,8 +16,12 @@ const findPackageJsonFiles = (dir, files = []) => {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
 
-    // Skip node_modules and .turbo directories
-    if (entry.name === 'node_modules' || entry.name === '.turbo') {
+    // Skip node_modules, .turbo, and .next directories
+    if (
+      entry.name === 'node_modules' ||
+      entry.name === '.turbo' ||
+      entry.name === '.next'
+    ) {
       continue;
     }
 
@@ -98,160 +102,78 @@ const packagesByName = new Map(
   discoverPublishablePackages().map((pkg) => [pkg.name, pkg])
 );
 
-const workspacePrefix = 'workspace:';
-
-const readManifest = (pkgDir) => {
-  const manifestPath = path.join(repoRoot, pkgDir, 'package.json');
-  return JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-};
-
-const buildLocalVersionMap = () => {
-  const map = new Map();
-  for (const { name, dir } of packagesByName.values()) {
-    const manifest = readManifest(dir);
-    map.set(name, manifest.version);
-  }
-  return map;
-};
-
-const resolveSpecifier = (rawValue, depName, versionMap) => {
-  if (typeof rawValue !== 'string' || !rawValue.startsWith(workspacePrefix)) {
-    return rawValue;
-  }
-
-  const linkedVersion = versionMap.get(depName);
-  if (!linkedVersion) {
-    console.warn(
-      `[publish] ${depName} referenced via "${rawValue}" but no local version is available; leaving specifier untouched.`
-    );
-    return rawValue;
-  }
-
-  const hint = rawValue.slice(workspacePrefix.length);
-
-  if (hint === '' || hint === '*' || hint === linkedVersion) {
-    return linkedVersion;
-  }
-
-  if (hint === '^' || hint === '~') {
-    return `${hint}${linkedVersion}`;
-  }
-
-  if (/^[~^]/.test(hint)) {
-    return `${hint[0]}${linkedVersion}`;
-  }
-
-  const op = ['<=', '>=', '<', '>'].find((candidate) =>
-    hint.startsWith(candidate)
-  );
-  if (op) {
-    return `${op}${linkedVersion}`;
-  }
-
-  if (/^\d/.test(hint)) {
-    return linkedVersion;
-  }
-
-  return linkedVersion;
-};
-
-const updateWorkspaceSpecifiers = (manifest, versionMap) => {
-  let changed = false;
-  for (const field of [
-    'dependencies',
-    'devDependencies',
-    'optionalDependencies',
-  ]) {
-    const block = manifest[field];
-    if (!block) continue;
-    for (const dep of Object.keys(block)) {
-      const replacement = resolveSpecifier(block[dep], dep, versionMap);
-      if (replacement !== block[dep]) {
-        block[dep] = replacement;
-        changed = true;
-      }
-    }
-  }
-  return changed;
-};
-
-const getPublishedVersions = (packageName) => {
-  try {
-    const raw = execSync(`npm view ${packageName} versions --json`, {
-      stdio: ['ignore', 'pipe', 'pipe'],
-    })
-      .toString()
-      .trim();
-    if (!raw) {
-      return [];
-    }
-    return JSON.parse(raw);
-  } catch {
-    console.log(
-      `[publish] No registry versions found for ${packageName}; treating as first release.`
-    );
-    return [];
-  }
-};
-
-const publishSinglePackage = (
-  { name, dir },
-  versionMap,
-  dryRun,
-  npmTag = 'latest'
-) => {
+/**
+ * Publishes a single package using bun publish.
+ *
+ * bun publish automatically:
+ * - Strips workspace: and catalog: protocols from package.json
+ * - Handles authentication via NPM_CONFIG_TOKEN env var
+ *
+ * @see https://bun.com/docs/pm/cli/publish.md
+ */
+const publishSinglePackage = ({ name, dir }, dryRun, npmTag = 'latest') => {
   const pkgDir = path.join(repoRoot, dir);
   const manifestPath = path.join(pkgDir, 'package.json');
-  const original = fs.readFileSync(manifestPath, 'utf8');
-  const manifest = JSON.parse(original);
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const version = manifest.version;
 
+  console.log(`\n[publish] ${name}@${version} (tag: ${npmTag})`);
+
+  if (dryRun) {
+    console.log(
+      `[publish] DRY_RUN=true → running bun publish --dry-run for ${name}@${version}`
+    );
+    try {
+      execSync(`bun publish --access public --tag ${npmTag} --dry-run`, {
+        cwd: pkgDir,
+        stdio: 'inherit',
+      });
+    } catch {
+      // Dry run failures are informational only
+    }
+    return { name, version, published: false, reason: 'dry-run' };
+  }
+
   try {
-    updateWorkspaceSpecifiers(manifest, versionMap);
-    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+    // bun publish with --tolerate-republish exits 0 if version already exists
+    // This is cleaner than manually checking npm view beforehand
+    execSync(
+      `bun publish --access public --tag ${npmTag} --tolerate-republish`,
+      {
+        cwd: pkgDir,
+        stdio: 'inherit',
+      }
+    );
 
-    console.log(`\n[publish] ${name}@${version} (tag: ${npmTag})`);
-
-    if (dryRun) {
-      console.log(
-        `[publish] DRY_RUN=true → skipping npm publish for ${name}@${version}`
-      );
-      return { name, version, published: false, reason: 'dry-run' };
-    }
-
-    const publishedVersions = getPublishedVersions(name);
-    const alreadyPublished = Array.isArray(publishedVersions)
-      ? publishedVersions.includes(version)
-      : publishedVersions === version;
-
-    if (alreadyPublished) {
-      console.log(`[publish] Skipping ${name}@${version} (already published).`);
-      return { name, version, published: false, reason: 'already-published' };
-    }
-
-    execSync(`npm publish --access public --tag ${npmTag} --ignore-scripts`, {
-      cwd: pkgDir,
-      stdio: 'inherit',
-    });
-
+    console.log(`[publish] ✓ Published ${name}@${version}`);
     return { name, version, published: true };
-  } finally {
-    fs.writeFileSync(manifestPath, original);
+  } catch (error) {
+    console.error(`[publish] ✗ Failed to publish ${name}@${version}`);
+    console.error(error.message);
+    return { name, version, published: false, reason: 'error', error };
   }
 };
 
+/**
+ * Publishes packages to npm using bun publish.
+ *
+ * @param {Object} options
+ * @param {string[]} [options.packageNames] - Specific packages to publish (all if empty)
+ * @param {boolean} [options.dryRun] - If true, runs bun publish --dry-run
+ * @param {string} [options.npmTag] - npm tag to use (default: 'latest')
+ */
 export async function publishPackages({
   packageNames,
   dryRun,
   npmTag = 'latest',
 } = {}) {
-  const versionMap = buildLocalVersionMap();
   const targets =
     packageNames && packageNames.length > 0
       ? packageNames
       : Array.from(packagesByName.keys());
 
   const results = [];
+  const failed = [];
 
   for (const name of targets) {
     const descriptor = packagesByName.get(name);
@@ -259,12 +181,43 @@ export async function publishPackages({
       console.warn(`[publish] Package ${name} is not in the release map.`);
       continue;
     }
-    results.push(publishSinglePackage(descriptor, versionMap, dryRun, npmTag));
+
+    const result = publishSinglePackage(descriptor, dryRun, npmTag);
+    results.push(result);
+
+    if (result.reason === 'error') {
+      failed.push(result);
+    }
+  }
+
+  // Summary
+  console.log('\n[publish] === Summary ===');
+  const published = results.filter((r) => r.published);
+  const skipped = results.filter((r) => !r.published && r.reason !== 'error');
+
+  if (published.length > 0) {
+    console.log(`\n[publish] ✓ Published ${published.length} packages:`);
+    published.forEach((r) => console.log(`  - ${r.name}@${r.version}`));
+  }
+
+  if (skipped.length > 0) {
+    console.log(`\n[publish] ⊘ Skipped ${skipped.length} packages:`);
+    skipped.forEach((r) =>
+      console.log(`  - ${r.name}@${r.version} (${r.reason})`)
+    );
+  }
+
+  if (failed.length > 0) {
+    console.log(`\n[publish] ✗ Failed ${failed.length} packages:`);
+    failed.forEach((r) => console.log(`  - ${r.name}@${r.version}`));
+    // Exit with error if any packages failed
+    process.exitCode = 1;
   }
 
   return results;
 }
 
+// CLI execution
 const currentFilePath = fileURLToPath(import.meta.url);
 const isExecutedDirectly =
   process.argv[1] && path.resolve(process.argv[1]) === currentFilePath;

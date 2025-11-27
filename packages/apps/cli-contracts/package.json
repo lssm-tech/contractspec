@@ -44,5 +44,8 @@
     "code-generation",
     "ai",
     "typescript"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

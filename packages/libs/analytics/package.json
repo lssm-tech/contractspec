@@ -45,5 +45,8 @@
     "./lifecycle/posthog-bridge": "./dist/lifecycle/posthog-bridge.js",
     "./types": "./dist/types.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -43,5 +43,8 @@
     "./tickets/classifier": "./dist/tickets/classifier.js",
     "./types": "./dist/types.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
