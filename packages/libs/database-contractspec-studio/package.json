@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.database-contractspec-studio",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "clean": "rm -rf dist src/generated",
     "lint": "bun run lint:fix",
@@ -22,8 +22,12 @@
     "db:reset:full": "bun run db:generate && bun run db:reset",
     "generate": "bun run db:generate"
   },
+  "peerDependencies": {
+    "@prisma/client": "^7.0.1"
+  },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1"
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^7.0.1"
   },
   "devDependencies": {
     "@lssm/app.cli-database": "workspace:*",
