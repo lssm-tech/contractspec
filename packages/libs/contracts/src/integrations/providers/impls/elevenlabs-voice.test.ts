@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
 
@@ -72,5 +72,3 @@ function buildReadable(buffer: Buffer) {
   readable.push(null);
   return readable;
 }
-
-

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { OPAPolicyAdapter, buildOPAInput, type OPAClient } from './opa-adapter';
 import { PolicyRegistry } from './spec';
 import type { PolicySpec } from './spec';
@@ -84,7 +84,11 @@ describe('OPAPolicyAdapter', () => {
       decisionPath: 'core/authz/allow',
     });
 
-    const decision = await adapter.evaluate(context, [samplePolicy], engineDecision);
+    const decision = await adapter.evaluate(
+      context,
+      [samplePolicy],
+      engineDecision
+    );
     expect(client.lastInput).toBeDefined();
     expect(decision.effect).toBe('deny');
     expect(decision.reason).toBe('opa_override');
@@ -92,4 +96,3 @@ describe('OPAPolicyAdapter', () => {
     expect(decision.evaluatedBy).toBe('opa');
   });
 });
-

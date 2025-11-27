@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { ExperimentRegistry } from './spec';
 import { ExperimentEvaluator } from './evaluator';
 import { StabilityEnum } from '../ownership';
@@ -107,4 +107,3 @@ describe('ExperimentEvaluator', () => {
     expect(controlResult?.variant.id).toBe('control');
   });
 });
-

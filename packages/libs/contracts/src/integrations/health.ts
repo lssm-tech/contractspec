@@ -5,7 +5,8 @@ import type {
   IntegrationTelemetryEmitter,
 } from './runtime';
 
-export interface IntegrationHealthCheckResult extends IntegrationConnectionHealth {
+export interface IntegrationHealthCheckResult
+  extends IntegrationConnectionHealth {
   metadata?: Record<string, string>;
 }
 
@@ -98,5 +99,3 @@ function extractErrorCode(error: unknown): string | undefined {
   if (candidate.code == null) return undefined;
   return String(candidate.code);
 }
-
-

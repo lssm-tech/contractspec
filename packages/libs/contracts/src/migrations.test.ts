@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { MigrationRegistry, type MigrationSpec } from './migrations';
 import { StabilityEnum, type Tag, type Owner } from './ownership';
 
@@ -27,8 +27,7 @@ const migration: MigrationSpec = {
       {
         kind: 'validation',
         description: 'Ensure table exists',
-        assertion:
-          "SELECT to_regclass('public.users') IS NOT NULL AS exists;",
+        assertion: "SELECT to_regclass('public.users') IS NOT NULL AS exists;",
       },
     ],
     down: [
@@ -76,4 +75,3 @@ describe('MigrationRegistry', () => {
     ]);
   });
 });
-

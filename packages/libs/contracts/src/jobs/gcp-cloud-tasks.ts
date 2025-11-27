@@ -88,5 +88,3 @@ export class GcpCloudTasksQueue implements JobQueue {
     this.handlers.clear();
   }
 }
-
-

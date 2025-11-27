@@ -1,6 +1,6 @@
 import type { Mistral } from '@mistralai/mistralai';
 import type * as components from '@mistralai/mistralai/models/components/index.js';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { MistralLLMProvider } from './mistral-llm';
 
@@ -91,7 +91,9 @@ describe('MistralLLMProvider', () => {
       client,
     });
     await expect(
-      provider.countTokens([{ role: 'user', content: [{ type: 'text', text: 'Hello' }] }])
+      provider.countTokens([
+        { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
+      ])
     ).rejects.toThrow();
   });
 });
@@ -164,5 +166,3 @@ function asyncIterable<T>(items: T[]): AsyncIterable<T> {
     },
   };
 }
-
-

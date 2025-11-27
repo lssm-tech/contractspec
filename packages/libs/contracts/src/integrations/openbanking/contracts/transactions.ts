@@ -1,19 +1,13 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-  type ContractSpec,
-} from '../../../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, type ContractSpec } from '../../../spec';
 import type { SpecRegistry } from '../../../registry';
 import { BankTransactionRecord } from '../models';
 import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
 
 const OpenBankingListTransactionsInput = new SchemaModel({
   name: 'OpenBankingListTransactionsInput',
-  description: 'Parameters for listing bank transactions from the canonical ledger.',
+  description:
+    'Parameters for listing bank transactions from the canonical ledger.',
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     accountId: { type: ScalarTypeEnum.ID(), isOptional: false },
@@ -65,7 +59,10 @@ const OpenBankingSyncTransactionsOutput = new SchemaModel({
     failed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     earliestSyncedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     latestSyncedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-    nextSinceToken: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    nextSinceToken: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     errors: {
       type: ScalarTypeEnum.String_unsecure(),
       isArray: true,
@@ -78,7 +75,8 @@ export const OpenBankingListTransactions = defineQuery({
   meta: {
     name: 'openbanking.transactions.list',
     version: 1,
-    description: 'List bank transactions that have been normalised into the canonical ledger.',
+    description:
+      'List bank transactions that have been normalised into the canonical ledger.',
     goal: 'Allow downstream analytics and UI surfaces to page through canonical bank transactions.',
     context:
       'Used by Pocket Family Office dashboards, reconciliation workflows, and analytics data views.',
@@ -149,7 +147,8 @@ export const OpenBankingSyncTransactions = defineCommand({
         return {
           tenantId: payload?.tenantId,
           accountId: payload?.accountId,
-          error: error instanceof Error ? error.message : String(error ?? 'unknown'),
+          error:
+            error instanceof Error ? error.message : String(error ?? 'unknown'),
         };
       },
     },
@@ -171,4 +170,3 @@ export function registerOpenBankingTransactionContracts(
     .register(OpenBankingListTransactions)
     .register(OpenBankingSyncTransactions);
 }
-

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.resilience",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
@@ -12,11 +12,10 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run"
+    "test": "bun run"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "typescript": "^5.0.0"
   },
   "exports": {
     ".": "./dist/index.mjs",

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
 import {
   registerMistralIntegration,
@@ -86,9 +86,7 @@ describe('Pocket Family Office configuration', () => {
                 registerGcsStorageIntegration(
                   registerQdrantIntegration(
                     registerPowensIntegration(
-                      registerMistralIntegration(
-                        new IntegrationSpecRegistry()
-                      )
+                      registerMistralIntegration(new IntegrationSpecRegistry())
                     )
                   )
                 )
@@ -103,9 +101,7 @@ describe('Pocket Family Office configuration', () => {
   function buildKnowledgeRegistry() {
     return registerEmailThreadsKnowledgeSpace(
       registerFinancialDocsKnowledgeSpace(
-        registerFinancialOverviewKnowledgeSpace(
-          new KnowledgeSpaceRegistry()
-        )
+        registerFinancialOverviewKnowledgeSpace(new KnowledgeSpaceRegistry())
       )
     );
   }
@@ -186,9 +182,8 @@ describe('Pocket Family Office configuration', () => {
         text: fragment.text,
       },
     }));
-    const fragmentEmbeddings = await embeddingService.embedFragments(
-      enrichedFragments
-    );
+    const fragmentEmbeddings =
+      await embeddingService.embedFragments(enrichedFragments);
     await indexer.upsert(enrichedFragments, fragmentEmbeddings);
 
     const queryService = new KnowledgeQueryService(
@@ -202,9 +197,7 @@ describe('Pocket Family Office configuration', () => {
       }
     );
 
-    const answer = await queryService.query(
-      'What invoices are due next week?'
-    );
+    const answer = await queryService.query('What invoices are due next week?');
 
     expect(answer.answer).toContain('Invoice #2025-01');
     expect(answer.references[0].text).toContain('Solar Co-op');
@@ -244,7 +237,9 @@ class FakeEmbeddingProvider implements EmbeddingProvider {
     while (padded.length < this.dimensions) {
       padded.push(0);
     }
-    const norm = Math.sqrt(padded.reduce((sum, value) => sum + value * value, 0));
+    const norm = Math.sqrt(
+      padded.reduce((sum, value) => sum + value * value, 0)
+    );
     return padded.map((value) => (norm === 0 ? 0 : value / norm));
   }
 }
@@ -357,4 +352,3 @@ function cosineSimilarity(a: number[], b: number[]): number {
   const denominator = Math.sqrt(normA) * Math.sqrt(normB);
   return denominator === 0 ? 0 : dot / denominator;
 }
-

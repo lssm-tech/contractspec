@@ -1,7 +1,4 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
 
 export const BankAccountRecord = new SchemaModel({
   name: 'BankAccountRecord',
@@ -14,17 +11,26 @@ export const BankAccountRecord = new SchemaModel({
     connectionId: { type: ScalarTypeEnum.ID(), isOptional: false },
     externalId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     institutionId: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    institutionName: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+    institutionName: {
+      type: ScalarTypeEnum.NonEmptyString(),
+      isOptional: false,
+    },
     institutionLogoUrl: { type: ScalarTypeEnum.URL(), isOptional: true },
     iban: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     bic: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     accountType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     currency: { type: ScalarTypeEnum.Currency(), isOptional: false },
     displayName: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    accountNumberMasked: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    accountNumberMasked: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     productCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     balance: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    availableBalance: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    availableBalance: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     lastSyncedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -48,8 +54,14 @@ export const BankTransactionRecord = new SchemaModel({
     bookingDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     valueDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    counterpartyName: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    counterpartyAccount: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    counterpartyName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    counterpartyAccount: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     merchantCategoryCode: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: true,
@@ -81,7 +93,10 @@ export const AccountBalanceRecord = new SchemaModel({
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     connectionId: { type: ScalarTypeEnum.ID(), isOptional: false },
     balanceType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    currentBalance: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+    currentBalance: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: false,
+    },
     availableBalance: {
       type: ScalarTypeEnum.Float_unsecure(),
       isOptional: true,
@@ -92,9 +107,3 @@ export const AccountBalanceRecord = new SchemaModel({
     metadata: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
   },
 });
-
-
-
-
-
-

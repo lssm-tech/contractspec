@@ -21,7 +21,11 @@ export interface ConsentDefinition {
   scope: string;
   purpose: string;
   description?: string;
-  lawfulBasis?: 'consent' | 'contract' | 'legal_obligation' | 'legitimate_interest';
+  lawfulBasis?:
+    | 'consent'
+    | 'contract'
+    | 'legal_obligation'
+    | 'legitimate_interest';
   expiresInDays?: number;
   required?: boolean;
 }
@@ -125,8 +129,7 @@ export class PolicyRegistry {
 
   register(spec: PolicySpec): this {
     const key = policyKey(spec.meta.name, spec.meta.version);
-    if (this.items.has(key))
-      throw new Error(`Duplicate policy ${key}`);
+    if (this.items.has(key)) throw new Error(`Duplicate policy ${key}`);
     this.items.set(key, spec);
     return this;
   }
@@ -153,4 +156,3 @@ export class PolicyRegistry {
 export function makePolicyKey(ref: PolicyRef) {
   return policyKey(ref.name, ref.version);
 }
-

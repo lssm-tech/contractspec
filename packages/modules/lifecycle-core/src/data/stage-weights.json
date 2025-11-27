@@ -1,0 +1,109 @@
+{
+  "Exploration": {
+    "base": 0.35,
+    "metrics": {
+      "activeUsers": { "weight": -0.3, "direction": "lte", "threshold": 5 },
+      "customerCount": { "weight": -0.2, "direction": "lte", "threshold": 3 },
+      "teamSize": { "weight": -0.1, "direction": "lte", "threshold": 3 }
+    },
+    "signalKinds": {
+      "qualitative": 0.4,
+      "metric": 0.1
+    }
+  },
+  "ProblemSolutionFit": {
+    "base": 0.4,
+    "metrics": {
+      "activeUsers": { "weight": 0.2, "direction": "gte", "threshold": 5 },
+      "customerCount": { "weight": 0.2, "direction": "gte", "threshold": 3 }
+    },
+    "signalKinds": {
+      "qualitative": 0.3,
+      "event": 0.1
+    }
+  },
+  "MvpEarlyTraction": {
+    "base": 0.45,
+    "metrics": {
+      "activeUsers": { "weight": 0.25, "direction": "gte", "threshold": 25 },
+      "weeklyActiveUsers": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 20
+      },
+      "retentionRate": { "weight": 0.2, "direction": "gte", "threshold": 0.25 }
+    },
+    "signalKinds": {
+      "metric": 0.15,
+      "event": 0.1
+    }
+  },
+  "ProductMarketFit": {
+    "base": 0.5,
+    "metrics": {
+      "retentionRate": {
+        "weight": 0.35,
+        "direction": "gte",
+        "threshold": 0.45
+      },
+      "monthlyRecurringRevenue": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 10000
+      },
+      "customerCount": { "weight": 0.2, "direction": "gte", "threshold": 30 }
+    },
+    "signalKinds": {
+      "metric": 0.15,
+      "event": 0.1
+    }
+  },
+  "GrowthScaleUp": {
+    "base": 0.55,
+    "metrics": {
+      "retentionRate": { "weight": 0.2, "direction": "gte", "threshold": 0.55 },
+      "monthlyRecurringRevenue": {
+        "weight": 0.3,
+        "direction": "gte",
+        "threshold": 50000
+      },
+      "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 15 }
+    },
+    "signalKinds": {
+      "event": 0.2,
+      "metric": 0.15
+    }
+  },
+  "ExpansionPlatform": {
+    "base": 0.6,
+    "metrics": {
+      "monthlyRecurringRevenue": {
+        "weight": 0.35,
+        "direction": "gte",
+        "threshold": 150000
+      },
+      "customerCount": { "weight": 0.2, "direction": "gte", "threshold": 100 },
+      "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 40 }
+    },
+    "signalKinds": {
+      "event": 0.2,
+      "milestone": 0.1
+    }
+  },
+  "MaturityRenewal": {
+    "base": 0.6,
+    "metrics": {
+      "monthlyRecurringRevenue": {
+        "weight": 0.25,
+        "direction": "gte",
+        "threshold": 250000
+      },
+      "teamSize": { "weight": 0.15, "direction": "gte", "threshold": 80 },
+      "burnMultiple": { "weight": 0.2, "direction": "lte", "threshold": 1.5 }
+    },
+    "signalKinds": {
+      "event": 0.2,
+      "milestone": 0.15
+    }
+  }
+}

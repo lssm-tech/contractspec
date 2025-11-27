@@ -1,17 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { IntegrationSpecRegistry } from '../spec';
-import {
-  registerStripeIntegration,
-  stripeIntegrationSpec,
-} from './stripe';
+import { registerStripeIntegration, stripeIntegrationSpec } from './stripe';
 import {
   postmarkIntegrationSpec,
   registerPostmarkIntegration,
 } from './postmark';
-import {
-  qdrantIntegrationSpec,
-  registerQdrantIntegration,
-} from './qdrant';
+import { qdrantIntegrationSpec, registerQdrantIntegration } from './qdrant';
 
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
@@ -48,4 +42,3 @@ describe('integration provider specs', () => {
     ]);
   });
 });
-

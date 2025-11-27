@@ -1,8 +1,4 @@
-export type JobStatus =
-  | 'pending'
-  | 'running'
-  | 'completed'
-  | 'failed';
+export type JobStatus = 'pending' | 'running' | 'completed' | 'failed';
 
 export interface Job<TPayload = unknown> {
   id: string;
@@ -35,5 +31,3 @@ export interface JobQueue {
   start(): void;
   stop(): Promise<void>;
 }
-
-

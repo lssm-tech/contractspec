@@ -1,5 +1,5 @@
 import type { calendar_v3 } from 'googleapis';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GoogleCalendarProvider } from './google-calendar';
 
@@ -74,12 +74,12 @@ describe('GoogleCalendarProvider', () => {
     });
 
     await provider.deleteEvent('primary', 'event-1');
-  expect(calendar.events.delete).toHaveBeenCalledWith(
-    expect.objectContaining({
-      calendarId: 'primary',
-      eventId: 'event-1',
-    })
-  );
+    expect(calendar.events.delete).toHaveBeenCalledWith(
+      expect.objectContaining({
+        calendarId: 'primary',
+        eventId: 'event-1',
+      })
+    );
   });
 });
 
@@ -105,5 +105,3 @@ function createMockCalendar() {
     },
   } as unknown as calendar_v3.Calendar;
 }
-
-

@@ -64,9 +64,7 @@ export class TwilioSmsProvider implements SmsProvider {
   }
 }
 
-function mapStatus(
-  status: string | null
-): SmsMessage['status'] {
+function mapStatus(status: string | null): SmsMessage['status'] {
   switch (status) {
     case 'queued':
     case 'accepted':
@@ -88,5 +86,3 @@ function mapStatus(
       return 'queued';
   }
 }
-
-

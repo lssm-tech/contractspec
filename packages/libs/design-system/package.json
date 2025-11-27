@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.design-system",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -18,25 +18,26 @@
   "tree-shake": true,
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
-    "@lssm/lib.contracts": "^1.8.0",
-    "@lssm/lib.ui-kit": "^1.8.0",
-    "@lssm/lib.ui-kit-web": "^1.8.0",
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.ui-kit": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.535.0",
-    "react": "19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "19.2.0",
+    "react-dom": "^19.2.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.1.5"
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^24.9.0",
     "@types/react-dom": "^19.0.14",
     "postcss": "^8.5",
     "tailwindcss": "4.1.15",
-    "tsdown": "^0.15.9",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "module": "./dist/index.js",
@@ -46,6 +47,8 @@
   ],
   "exports": {
     ".": "./dist/index.js",
+    "./components/agent/AgentMonitor": "./dist/components/agent/AgentMonitor.js",
+    "./components/agent/ApprovalQueue": "./dist/components/agent/ApprovalQueue.js",
     "./components/atoms/ActionButtons": "./dist/components/atoms/ActionButtons.js",
     "./components/atoms/Button": "./dist/components/atoms/Button.js",
     "./components/atoms/Button.mobile": "./dist/components/atoms/Button.mobile.js",

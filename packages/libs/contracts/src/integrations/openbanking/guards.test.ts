@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import type { AppIntegrationSlot } from '../../app-config/spec';
 import type { ResolvedAppConfig } from '../../app-config/runtime';
 import type { IntegrationConnection } from '../connection';
@@ -124,4 +124,3 @@ describe('ensurePrimaryOpenBankingIntegration', () => {
     expect(result.integration?.connection.status).toBe('connected');
   });
 });
-

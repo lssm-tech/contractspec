@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { KnowledgeSpaceRegistry } from '../spec';
 import {
   productCanonKnowledgeSpace,
@@ -69,4 +69,3 @@ describe('knowledge space specs', () => {
     expect(registered?.access.trustLevel).toBe('high');
   });
 });
-

@@ -116,8 +116,3 @@ export function registerPowensIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(powensIntegrationSpec);
 }
-
-
-
-
-

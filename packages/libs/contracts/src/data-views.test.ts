@@ -1,8 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import {
-  DataViewRegistry,
-  type DataViewSpec,
-} from './data-views';
+import { describe, expect, it } from 'bun:test';
+import { DataViewRegistry, type DataViewSpec } from './data-views';
 import { StabilityEnum, type Tag, type Owner } from './ownership';
 
 const baseMeta = {
@@ -75,4 +72,3 @@ describe('DataViewRegistry', () => {
     expect(() => registry.register(spec)).toThrowError(/Duplicate data view/);
   });
 });
-

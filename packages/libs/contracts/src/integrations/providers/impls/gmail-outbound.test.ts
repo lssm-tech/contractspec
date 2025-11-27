@@ -1,5 +1,5 @@
 import type { gmail_v1 } from 'googleapis';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GmailOutboundProvider } from './gmail-outbound';
 
@@ -29,7 +29,10 @@ describe('GmailOutboundProvider', () => {
       throw new Error('Expected Gmail payload to include raw content');
     }
     const raw = call.requestBody.raw;
-    const decoded = Buffer.from(raw.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf-8');
+    const decoded = Buffer.from(
+      raw.replace(/-/g, '+').replace(/_/g, '/'),
+      'base64'
+    ).toString('utf-8');
     expect(decoded).toContain('Subject: Test');
     expect(decoded).toContain('Content-Type: multipart/alternative');
     expect(result.id).toBe('sent-message');
@@ -37,10 +40,11 @@ describe('GmailOutboundProvider', () => {
 });
 
 function createMockGmail() {
-  const send = vi.fn<
-    [gmail_v1.Params$Resource$Users$Messages$Send],
-    Promise<{ data: { id: string } }>
-  >(async () => ({
+  type GmailSendFn = (
+    params: gmail_v1.Params$Resource$Users$Messages$Send
+  ) => Promise<{ data: { id: string } }>;
+
+  const send = vi.fn<GmailSendFn>(async () => ({
     data: { id: 'sent-message' },
   }));
   const gmail = {
@@ -52,5 +56,3 @@ function createMockGmail() {
   } as unknown as gmail_v1.Gmail;
   return { gmail, send };
 }
-
-

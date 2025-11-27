@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-core",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,7 +19,7 @@
     "typescript": "^5.9.0"
   },
   "devDependencies": {
-    "tsdown": "^0.15.9",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "files": [

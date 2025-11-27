@@ -51,13 +51,13 @@ export function DataViewTable({
     return (
       <div className={cn('flex w-full flex-col gap-4', className)}>
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-foreground">
+          <h3 className="text-foreground text-base font-semibold">
             {spec.meta.title}
           </h3>
           {headerActions}
         </div>
         {emptyState ?? (
-          <div className="rounded-md border border-dashed border-muted-foreground/40 p-8 text-center text-sm text-muted-foreground">
+          <div className="border-muted-foreground/40 text-muted-foreground rounded-md border border-dashed p-8 text-center text-sm">
             No records available.
           </div>
         )}
@@ -68,15 +68,15 @@ export function DataViewTable({
   return (
     <div className={cn('flex w-full flex-col gap-4', className)}>
       <div className="flex items-center justify-between">
-        <h3 className="text-base font-semibold text-foreground">
+        <h3 className="text-foreground text-base font-semibold">
           {spec.meta.title}
         </h3>
         {headerActions}
       </div>
-      <div className="overflow-x-auto rounded-lg border border-border bg-card shadow-sm">
+      <div className="border-border bg-card overflow-x-auto rounded-lg border shadow-sm">
         <table
           className={cn(
-            'min-w-full divide-y divide-border text-sm',
+            'divide-border min-w-full divide-y text-sm',
             view.density === 'compact' ? 'text-sm' : 'text-base'
           )}
         >
@@ -87,7 +87,7 @@ export function DataViewTable({
                   key={`${column.field}.${columnIdx}`}
                   scope="col"
                   className={cn(
-                    'px-4 py-3 text-left font-semibold text-muted-foreground',
+                    'text-muted-foreground px-4 py-3 text-left font-semibold',
                     alignmentClass(column.align)
                   )}
                 >
@@ -96,13 +96,13 @@ export function DataViewTable({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-border bg-background">
+          <tbody className="divide-border bg-background divide-y">
             {items.map((item, rowIdx) => (
               <tr
                 key={rowIdx}
                 className={cn(
                   onRowClick &&
-                    'cursor-pointer hover:bg-muted/30 transition-colors'
+                    'hover:bg-muted/30 cursor-pointer transition-colors'
                 )}
                 onClick={() => onRowClick?.(item)}
               >
@@ -110,7 +110,7 @@ export function DataViewTable({
                   <td
                     key={column.field}
                     className={cn(
-                      'px-4 py-3 text-foreground',
+                      'text-foreground px-4 py-3',
                       alignmentClass(column.align)
                     )}
                   >
@@ -158,4 +158,3 @@ function alignmentClass(
       return 'text-left';
   }
 }
-

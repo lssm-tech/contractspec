@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
 import type { ResolvedAppConfig } from './runtime';
 import type { AppBlueprintSpec, TenantAppConfig } from './spec';
@@ -245,4 +245,3 @@ describe('validateResolvedConfig', () => {
     );
   });
 });
-

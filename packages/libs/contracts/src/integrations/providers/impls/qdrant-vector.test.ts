@@ -1,5 +1,5 @@
 import type { QdrantClient } from '@qdrant/js-client-rest';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { QdrantVectorProvider } from './qdrant-vector';
 
@@ -114,5 +114,3 @@ function createMockClient(options: MockOptions = {}) {
     delete: vi.fn(async () => ({})),
   } as unknown as QdrantClient;
 }
-
-

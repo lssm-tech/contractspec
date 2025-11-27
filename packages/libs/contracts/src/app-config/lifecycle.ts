@@ -30,11 +30,3 @@ export interface ConfigVersionHistory {
   transitions: ConfigTransition[];
   currentPublished?: number;
 }
-
-
-
-
-
-
-
-

@@ -1,4 +1,8 @@
-import type { SpecChangeProposal, ProposalAction, RegenerationContext } from './types';
+import type {
+  SpecChangeProposal,
+  ProposalAction,
+  RegenerationContext,
+} from './types';
 
 export type ExecutionStatus = 'success' | 'skipped' | 'failed';
 
@@ -22,11 +26,23 @@ export interface ProposalExecutionResult {
   actions: ActionExecutionResult[];
 }
 
-export type UpdateBlueprintAction = Extract<ProposalAction, { kind: 'update_blueprint' }>;
-export type UpdateTenantConfigAction = Extract<ProposalAction, { kind: 'update_tenant_config' }>;
+export type UpdateBlueprintAction = Extract<
+  ProposalAction,
+  { kind: 'update_blueprint' }
+>;
+export type UpdateTenantConfigAction = Extract<
+  ProposalAction,
+  { kind: 'update_tenant_config' }
+>;
 export type RunTestsAction = Extract<ProposalAction, { kind: 'run_tests' }>;
-export type RunMigrationsAction = Extract<ProposalAction, { kind: 'run_migrations' }>;
-export type TriggerRegenerationAction = Extract<ProposalAction, { kind: 'trigger_regeneration' }>;
+export type RunMigrationsAction = Extract<
+  ProposalAction,
+  { kind: 'run_migrations' }
+>;
+export type TriggerRegenerationAction = Extract<
+  ProposalAction,
+  { kind: 'trigger_regeneration' }
+>;
 
 export interface BlueprintUpdater {
   applyBlueprintUpdate(
@@ -92,7 +108,6 @@ export class ProposalExecutor {
     const actionResults: ActionExecutionResult[] = [];
 
     for (const [index, action] of proposal.actions.entries()) {
-      // eslint-disable-next-line no-await-in-loop
       const result = await this.executeAction({
         index,
         action,
@@ -161,15 +176,25 @@ export class ProposalExecutor {
           if (!updater) {
             return complete('skipped', { reason: 'missing_blueprint_updater' });
           }
-          const output = await updater.applyBlueprintUpdate(context, proposal, action);
+          const output = await updater.applyBlueprintUpdate(
+            context,
+            proposal,
+            action
+          );
           return complete('success', { output });
         }
         case 'update_tenant_config': {
           const updater = this.deps.tenantConfigUpdater;
           if (!updater) {
-            return complete('skipped', { reason: 'missing_tenant_config_updater' });
+            return complete('skipped', {
+              reason: 'missing_tenant_config_updater',
+            });
           }
-          const output = await updater.applyTenantConfigUpdate(context, proposal, action);
+          const output = await updater.applyTenantConfigUpdate(
+            context,
+            proposal,
+            action
+          );
           return complete('success', { output });
         }
         case 'run_tests': {
@@ -183,17 +208,29 @@ export class ProposalExecutor {
         case 'run_migrations': {
           const executor = this.deps.migrationExecutor;
           if (!executor) {
-            return complete('skipped', { reason: 'missing_migration_executor' });
+            return complete('skipped', {
+              reason: 'missing_migration_executor',
+            });
           }
-          const output = await executor.runMigrations(context, proposal, action);
+          const output = await executor.runMigrations(
+            context,
+            proposal,
+            action
+          );
           return complete('success', { output });
         }
         case 'trigger_regeneration': {
           const trigger = this.deps.regenerationTrigger;
           if (!trigger) {
-            return complete('skipped', { reason: 'missing_regeneration_trigger' });
+            return complete('skipped', {
+              reason: 'missing_regeneration_trigger',
+            });
           }
-          const output = await trigger.triggerRegeneration(context, proposal, action);
+          const output = await trigger.triggerRegeneration(
+            context,
+            proposal,
+            action
+          );
           return complete('success', { output });
         }
         default: {
@@ -208,12 +245,16 @@ export class ProposalExecutor {
   }
 }
 
-function summarizeStatus(actionResults: ActionExecutionResult[]): ProposalExecutionResult['status'] {
+function summarizeStatus(
+  actionResults: ActionExecutionResult[]
+): ProposalExecutionResult['status'] {
   if (actionResults.some((result) => result.status === 'failed')) {
     return 'failed';
   }
-  if (actionResults.some((result) => result.status === 'success') &&
-      actionResults.some((result) => result.status === 'skipped')) {
+  if (
+    actionResults.some((result) => result.status === 'success') &&
+    actionResults.some((result) => result.status === 'skipped')
+  ) {
     return 'partial';
   }
   if (actionResults.every((result) => result.status === 'skipped')) {
@@ -221,10 +262,3 @@ function summarizeStatus(actionResults: ActionExecutionResult[]): ProposalExecut
   }
   return 'success';
 }
-
-
-
-
-
-
-

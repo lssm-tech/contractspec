@@ -1,2 +1,1 @@
 export { IsolationValidator } from './validator';
-

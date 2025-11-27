@@ -51,8 +51,7 @@ export function validateWorkflowSpec(
   }
 
   const stepsById = indexSteps(definition, issues);
-  const entryStepId =
-    definition.entryStepId ?? definition.steps[0]?.id ?? null;
+  const entryStepId = definition.entryStepId ?? definition.steps[0]?.id ?? null;
 
   if (!entryStepId) {
     issues.push({
@@ -158,10 +157,7 @@ function buildAdjacency(
     }
 
     adjacency.get(transition.from)?.add(transition.to);
-    incoming.set(
-      transition.to,
-      (incoming.get(transition.to) ?? 0) + 1
-    );
+    incoming.set(transition.to, (incoming.get(transition.to) ?? 0) + 1);
 
     validateTransition(transition, issues);
   }
@@ -287,4 +283,3 @@ function detectCycles(
 
   for (const node of adjacency.keys()) dfs(node);
 }
-

@@ -1,12 +1,5 @@
-import {
-  ScalarTypeEnum,
-  SchemaModel,
-} from '@lssm/lib.schema';
-import {
-  defineCommand,
-  defineQuery,
-  type ContractSpec,
-} from '../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, type ContractSpec } from '../spec';
 import type { SpecRegistry } from '../registry';
 
 const KnowledgeSyncSchedule = new SchemaModel({
@@ -28,7 +21,10 @@ const KnowledgeSourceRecord = new SchemaModel({
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     syncSchedule: { type: KnowledgeSyncSchedule, isOptional: true },
-    lastSyncStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    lastSyncStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     lastSyncAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     itemsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
@@ -234,10 +230,3 @@ export function registerKnowledgeContracts(registry: SpecRegistry) {
     .register(ListKnowledgeSources)
     .register(TriggerKnowledgeSourceSync);
 }
-
-
-
-
-
-
-

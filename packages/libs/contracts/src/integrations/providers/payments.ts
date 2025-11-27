@@ -77,13 +77,7 @@ export interface RefundPaymentInput {
 export interface PaymentInvoice {
   id: string;
   number?: string;
-  status:
-    | 'draft'
-    | 'open'
-    | 'paid'
-    | 'uncollectible'
-    | 'void'
-    | 'deleted';
+  status: 'draft' | 'open' | 'paid' | 'uncollectible' | 'void' | 'deleted';
   amountDue: Money;
   amountPaid?: Money;
   customerId?: string;
@@ -122,9 +116,7 @@ export interface ListTransactionsQuery {
 export interface PaymentsProvider {
   createCustomer(input: CreateCustomerInput): Promise<PaymentCustomer>;
   getCustomer(customerId: string): Promise<PaymentCustomer | null>;
-  createPaymentIntent(
-    input: CreatePaymentIntentInput
-  ): Promise<PaymentIntent>;
+  createPaymentIntent(input: CreatePaymentIntentInput): Promise<PaymentIntent>;
   capturePayment(
     paymentIntentId: string,
     input?: CapturePaymentInput
@@ -136,5 +128,3 @@ export interface PaymentsProvider {
     query?: ListTransactionsQuery
   ): Promise<PaymentTransaction[]>;
 }
-
-

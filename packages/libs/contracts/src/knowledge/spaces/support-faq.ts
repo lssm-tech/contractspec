@@ -37,10 +37,3 @@ export function registerSupportFaqKnowledgeSpace(
 ): KnowledgeSpaceRegistry {
   return registry.register(supportFaqKnowledgeSpace);
 }
-
-
-
-
-
-
-

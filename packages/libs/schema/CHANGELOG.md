@@ -1,5 +1,29 @@
 # @lssm/lib.schema
 
+## 1.10.0
+
+### Minor Changes
+
+- fix
+
+## 1.9.2
+
+### Patch Changes
+
+- fix dependencies
+
+## 1.9.1
+
+### Patch Changes
+
+- fix
+
+## 1.9.0
+
+### Minor Changes
+
+- b1d0876: Managed platform
+
 ## 1.8.0
 
 ### Minor Changes

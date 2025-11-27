@@ -38,5 +38,3 @@ export interface SmsProvider {
   sendSms(input: SendSmsInput): Promise<SmsMessage>;
   getDeliveryStatus(messageId: string): Promise<SmsDeliveryStatus>;
 }
-
-

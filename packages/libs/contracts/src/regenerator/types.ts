@@ -1,7 +1,4 @@
-import type {
-  AppBlueprintSpec,
-  TenantAppConfig,
-} from '../app-config/spec';
+import type { AppBlueprintSpec, TenantAppConfig } from '../app-config/spec';
 import type { ResolvedAppConfig } from '../app-config/runtime';
 import type { TelemetrySpec } from '../telemetry/spec';
 
@@ -116,7 +113,11 @@ export type ProposalAction =
 
 export interface ProposalBlocker {
   description: string;
-  kind: 'missing_context' | 'insufficient_data' | 'user_feedback' | 'manual_review';
+  kind:
+    | 'missing_context'
+    | 'insufficient_data'
+    | 'user_feedback'
+    | 'manual_review';
 }
 
 export interface RegenerationContext {
@@ -141,10 +142,3 @@ export interface ProposalSink {
     proposal: SpecChangeProposal
   ): Promise<void>;
 }
-
-
-
-
-
-
-

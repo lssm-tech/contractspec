@@ -1,6 +1,11 @@
 import { createHash } from 'node:crypto';
 import type { PolicyRef } from '../policy/spec';
-import type { ExperimentRegistry, ExperimentSpec, ExperimentVariant, TargetingRule } from './spec';
+import type {
+  ExperimentRegistry,
+  ExperimentSpec,
+  ExperimentVariant,
+  TargetingRule,
+} from './spec';
 
 export interface ExperimentContext {
   experiment: string;
@@ -19,8 +24,14 @@ export interface ExperimentEvaluation {
 
 export interface ExperimentEvaluatorConfig {
   registry: ExperimentRegistry;
-  policyChecker?: (policy: PolicyRef, context: ExperimentContext) => Promise<boolean> | boolean;
-  expressionEvaluator?: (expression: string, context: ExperimentContext) => boolean;
+  policyChecker?: (
+    policy: PolicyRef,
+    context: ExperimentContext
+  ) => Promise<boolean> | boolean;
+  expressionEvaluator?: (
+    expression: string,
+    context: ExperimentContext
+  ) => boolean;
 }
 
 export class ExperimentEvaluator {
@@ -34,47 +45,64 @@ export class ExperimentEvaluator {
     this.expressionEvaluator = config.expressionEvaluator;
   }
 
-  async chooseVariant(context: ExperimentContext): Promise<ExperimentEvaluation | null> {
+  async chooseVariant(
+    context: ExperimentContext
+  ): Promise<ExperimentEvaluation | null> {
     const experiment = this.registry.get(context.experiment, context.version);
     if (!experiment) return null;
 
-    const control = experiment.variants.find((variant) => variant.id === experiment.controlVariant);
-    if (!control) throw new Error(`Experiment ${experiment.meta.name} missing control variant ${experiment.controlVariant}`);
+    const control = experiment.variants.find(
+      (variant) => variant.id === experiment.controlVariant
+    );
+    if (!control)
+      throw new Error(
+        `Experiment ${experiment.meta.name} missing control variant ${experiment.controlVariant}`
+      );
 
     switch (experiment.allocation.type) {
       case 'random':
         return {
-          variant: this.pickByWeight(experiment, this.randomSeed(context, experiment.allocation.salt)),
+          variant: this.pickByWeight(
+            experiment,
+            this.randomSeed(context, experiment.allocation.salt)
+          ),
           reason: 'random',
         };
       case 'sticky':
         return {
           variant: this.pickByWeight(
             experiment,
-            this.stickySeed(context, experiment.allocation.attribute, experiment.allocation.salt)
+            this.stickySeed(
+              context,
+              experiment.allocation.attribute,
+              experiment.allocation.salt
+            )
           ),
           reason: 'sticky',
         };
-      case 'targeted':
-        {
-          const targeted = await this.evaluateTargeting(experiment, context, experiment.allocation.rules);
-          if (targeted) {
-            return {
-              variant: targeted,
-              reason: 'targeted',
-            };
-          }
-          if (experiment.allocation.fallback === 'random') {
-            return {
-              variant: this.pickByWeight(experiment, this.randomSeed(context)),
-              reason: 'random',
-            };
-          }
+      case 'targeted': {
+        const targeted = await this.evaluateTargeting(
+          experiment,
+          context,
+          experiment.allocation.rules
+        );
+        if (targeted) {
           return {
-            variant: control,
-            reason: 'control',
+            variant: targeted,
+            reason: 'targeted',
           };
         }
+        if (experiment.allocation.fallback === 'random') {
+          return {
+            variant: this.pickByWeight(experiment, this.randomSeed(context)),
+            reason: 'random',
+          };
+        }
+        return {
+          variant: control,
+          reason: 'control',
+        };
+      }
       default:
         return {
           variant: control,
@@ -83,9 +111,15 @@ export class ExperimentEvaluator {
     }
   }
 
-  private pickByWeight(experiment: ExperimentSpec, seed: number): ExperimentVariant {
+  private pickByWeight(
+    experiment: ExperimentSpec,
+    seed: number
+  ): ExperimentVariant {
     const variants = experiment.variants;
-    const totalWeight = variants.reduce((sum, variant) => sum + (variant.weight ?? 1), 0);
+    const totalWeight = variants.reduce(
+      (sum, variant) => sum + (variant.weight ?? 1),
+      0
+    );
     const target = seed * totalWeight;
     let cumulative = 0;
     for (const variant of variants) {
@@ -106,7 +140,11 @@ export class ExperimentEvaluator {
     return this.hashToUnitInterval(base + salt);
   }
 
-  private stickySeed(context: ExperimentContext, attribute: 'userId' | 'organizationId' | 'sessionId', salt = ''): number {
+  private stickySeed(
+    context: ExperimentContext,
+    attribute: 'userId' | 'organizationId' | 'sessionId',
+    salt = ''
+  ): number {
     const value = context[attribute];
     if (!value) return this.randomSeed(context, salt);
     return this.hashToUnitInterval(`${value}-${salt}`);
@@ -138,7 +176,10 @@ export class ExperimentEvaluator {
     return null;
   }
 
-  private async matchesRule(rule: TargetingRule, context: ExperimentContext): Promise<boolean> {
+  private async matchesRule(
+    rule: TargetingRule,
+    context: ExperimentContext
+  ): Promise<boolean> {
     if (rule.policy && this.policyChecker) {
       const allowed = await this.policyChecker(rule.policy, context);
       if (!allowed) return false;
@@ -157,4 +198,3 @@ export class ExperimentEvaluator {
     return true;
   }
 }
-

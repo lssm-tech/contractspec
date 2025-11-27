@@ -23,18 +23,16 @@ export class GcpPubSubQueue implements JobQueue {
     payload: TPayload,
     _options: EnqueueOptions = {}
   ): Promise<Job<TPayload>> {
-    await this.options.client
-      .topic(this.options.topicName)
-      .publishMessage({
-        data: Buffer.from(
-          JSON.stringify({
-            id: randomUUID(),
-            type: jobType,
-            payload,
-          }),
-          'utf-8'
-        ),
-      });
+    await this.options.client.topic(this.options.topicName).publishMessage({
+      data: Buffer.from(
+        JSON.stringify({
+          id: randomUUID(),
+          type: jobType,
+          payload,
+        }),
+        'utf-8'
+      ),
+    });
 
     return {
       id: randomUUID(),
@@ -59,5 +57,3 @@ export class GcpPubSubQueue implements JobQueue {
     this.handlers.clear();
   }
 }
-
-

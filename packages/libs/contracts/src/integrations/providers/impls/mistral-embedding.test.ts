@@ -1,6 +1,6 @@
 import type { Mistral } from '@mistralai/mistralai';
 import type * as components from '@mistralai/mistralai/models/components/index.js';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { MistralEmbeddingProvider } from './mistral-embedding';
 
@@ -68,5 +68,3 @@ function createMockClient() {
     },
   } as unknown as Mistral;
 }
-
-

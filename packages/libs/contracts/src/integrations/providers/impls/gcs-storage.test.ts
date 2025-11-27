@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GoogleCloudStorageProvider } from './gcs-storage';
 
@@ -99,4 +99,3 @@ function createMockStorage() {
     bucket: vi.fn(() => bucket),
   } as unknown as any;
 }
-

@@ -21,9 +21,11 @@ jobs:
       issues: read
       packages: write
     env:
-      BUN_VERSION: 1.3.2
+      BUN_VERSION: 1.3.3
       # Increase memory for large builds
-      NODE_OPTIONS: --max-old-space-size=6144
+      NODE_OPTIONS: --max-old-space-size=4024
+      TURBO_TELEMETRY_DISABLED: 1
+      DO_NOT_TRACK: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,7 +39,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
@@ -45,6 +47,9 @@ jobs:
         run: bun install
 
       - name: Build libraries
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
         run: bun run build:not-apps
 
       - name: Create Release Pull Request or Publish to npm
@@ -52,9 +57,9 @@ jobs:
         uses: changesets/action@v1
         with:
           # The command to update versions, changelogs, and changeset files
-          version: bun changeset version
+          version: bun changeset version --verbose
           # The command to publish packages
-          publish: bun changeset publish
+          publish: bun changeset publish --verbose
           commit: "chore: version packages"
           title: "Version Packages"
         env:

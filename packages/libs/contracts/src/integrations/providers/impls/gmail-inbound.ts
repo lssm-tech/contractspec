@@ -204,7 +204,9 @@ function headerValue(
   return typeof value === 'string' ? value : undefined;
 }
 
-function parseAddress(header?: string): { email: string; name?: string } | null {
+function parseAddress(
+  header?: string
+): { email: string; name?: string } | null {
   const addresses = parseAddressList(header);
   if (addresses.length === 0) {
     return null;
@@ -224,7 +226,7 @@ function inferFallbackAddress(
   };
 }
 
-function parseAddressList(header?: string): Array<{ email: string; name?: string }> {
+function parseAddressList(header?: string): { email: string; name?: string }[] {
   if (!header) return [];
   return header
     .split(',')
@@ -245,7 +247,10 @@ function parseAddressList(header?: string): Array<{ email: string; name?: string
 }
 
 function dedupeAddresses(
-  addresses: (ReturnType<typeof parseAddress> | { email: string; name?: string })[]
+  addresses: (
+    | ReturnType<typeof parseAddress>
+    | { email: string; name?: string }
+  )[]
 ) {
   const map = new Map<string, { email: string; name?: string }>();
   for (const address of addresses) {
@@ -264,7 +269,9 @@ function extractContent(payload?: gmail_v1.Schema$MessagePart): {
     return { attachments: [] };
   }
   const attachments: NonNullable<EmailMessage['attachments']> = [];
-  const visit = (part?: gmail_v1.Schema$MessagePart): {
+  const visit = (
+    part?: gmail_v1.Schema$MessagePart
+  ): {
     text?: string;
     html?: string;
   } => {
@@ -311,5 +318,3 @@ function decodeBase64Url(data: string): string {
     padding === 0 ? normalized : normalized + '='.repeat(4 - padding);
   return Buffer.from(padded, 'base64').toString('utf-8');
 }
-
-

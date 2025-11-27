@@ -1,0 +1,47 @@
+{
+  "name": "@lssm/lib.support-bot",
+  "version": "0.3.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
+  },
+  "dependencies": {
+    "@lssm/lib.ai-agent": "^0.3.0",
+    "@lssm/lib.contracts": "^1.10.0"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./bot": "./dist/bot/index.js",
+    "./bot/auto-responder": "./dist/bot/auto-responder.js",
+    "./bot/feedback-loop": "./dist/bot/feedback-loop.js",
+    "./bot/tools": "./dist/bot/tools.js",
+    "./rag": "./dist/rag/index.js",
+    "./rag/ticket-resolver": "./dist/rag/ticket-resolver.js",
+    "./spec": "./dist/spec.js",
+    "./tickets": "./dist/tickets/index.js",
+    "./tickets/classifier": "./dist/tickets/classifier.js",
+    "./types": "./dist/types.js",
+    "./*": "./*"
+  }
+}

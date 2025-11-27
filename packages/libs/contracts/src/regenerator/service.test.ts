@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { RegeneratorService } from './service';
 import type {
   ProposalSink,
@@ -51,17 +51,14 @@ const resolvedContext: RegenerationContext = {
 };
 
 class MockTelemetryAdapter implements TelemetrySignalProvider {
-  public polls: Array<{ since: Date; until: Date }> = [];
-  public signals: Array<Parameters<NonNullable<TelemetrySignalProvider>['pollTelemetry']>[2]> =
-    [];
+  public polls: { since: Date; until: Date }[] = [];
+  public signals: Parameters<
+    NonNullable<TelemetrySignalProvider>['pollTelemetry']
+  >[2][] = [];
 
   constructor(private readonly payload: number[]) {}
 
-  async pollTelemetry(
-    _context: RegenerationContext,
-    since: Date,
-    until: Date
-  ) {
+  async pollTelemetry(_context: RegenerationContext, since: Date, until: Date) {
     this.polls.push({ since, until });
     return this.payload.map((count, index) => ({
       eventName: 'demo.event',
@@ -77,7 +74,10 @@ class MockTelemetryAdapter implements TelemetrySignalProvider {
 class MockRule implements RegenerationRule {
   public invocations: RegeneratorSignal[][] = [];
 
-  constructor(public readonly id: string, private readonly condition: (signals: RegeneratorSignal[]) => boolean) {}
+  constructor(
+    public readonly id: string,
+    private readonly condition: (signals: RegeneratorSignal[]) => boolean
+  ) {}
 
   description = 'Mock rule';
 
@@ -100,7 +100,10 @@ class MockRule implements RegenerationRule {
           tenantScoped: true,
         },
         actions: [
-          { kind: 'update_tenant_config', summary: 'Introduce alternate workflow' },
+          {
+            kind: 'update_tenant_config',
+            summary: 'Introduce alternate workflow',
+          },
           { kind: 'run_tests', tests: ['workflows/onboarding.spec.ts'] },
         ],
         blockers: [],
@@ -112,9 +115,15 @@ class MockRule implements RegenerationRule {
 }
 
 class RecordingSink implements ProposalSink {
-  public proposals: Array<{ context: RegenerationContext; proposal: SpecChangeProposal }> = [];
+  public proposals: {
+    context: RegenerationContext;
+    proposal: SpecChangeProposal;
+  }[] = [];
 
-  async submit(context: RegenerationContext, proposal: SpecChangeProposal): Promise<void> {
+  async submit(
+    context: RegenerationContext,
+    proposal: SpecChangeProposal
+  ): Promise<void> {
     this.proposals.push({ context, proposal });
   }
 }
@@ -128,7 +137,8 @@ describe('RegeneratorService', () => {
         (signal) => signal.type === 'telemetry'
       );
       return telemetrySignals.some(
-        (envelope) => envelope.type === 'telemetry' && envelope.signal.count >= 7
+        (envelope) =>
+          envelope.type === 'telemetry' && envelope.signal.count >= 7
       );
     });
 
@@ -169,4 +179,3 @@ describe('RegeneratorService', () => {
     expect(sink.proposals).toHaveLength(0);
   });
 });
-

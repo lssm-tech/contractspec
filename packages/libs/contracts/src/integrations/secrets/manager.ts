@@ -29,7 +29,7 @@ export interface SecretProviderManagerOptions {
    * Providers to pre-register. They are registered in array order with
    * descending priority (first entry wins ties).
    */
-  providers?: Array<{ provider: SecretProvider; priority?: number }>;
+  providers?: { provider: SecretProvider; priority?: number }[];
 }
 
 /**
@@ -97,12 +97,7 @@ export class SecretProviderManager implements SecretProvider {
       }
     }
 
-    throw this.composeError(
-      'getSecret',
-      reference,
-      errors,
-      options?.version
-    );
+    throw this.composeError('getSecret', reference, errors, options?.version);
   }
 
   async setSecret(
@@ -204,5 +199,3 @@ function safeCanHandle(
 }
 
 type SecretFetchOptions = Parameters<SecretProvider['getSecret']>[1];
-
-

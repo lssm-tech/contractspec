@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { evaluateExpression } from './expression';
 
 describe('evaluateExpression', () => {
@@ -18,8 +18,12 @@ describe('evaluateExpression', () => {
   });
 
   it('handles numeric comparisons and conjunctions', () => {
-    expect(evaluateExpression('data.count > 2 && data.count < 5', ctx)).toBe(true);
-    expect(evaluateExpression('data.count >= 4 && data.count < 5', ctx)).toBe(false);
+    expect(evaluateExpression('data.count > 2 && data.count < 5', ctx)).toBe(
+      true
+    );
+    expect(evaluateExpression('data.count >= 4 && data.count < 5', ctx)).toBe(
+      false
+    );
   });
 
   it('supports negation', () => {
@@ -37,4 +41,3 @@ describe('evaluateExpression', () => {
     expect(evaluateExpression('data.missing', ctx)).toBe(false);
   });
 });
-

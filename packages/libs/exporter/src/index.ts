@@ -37,7 +37,7 @@ export function toCsvGeneric<TMeta extends CsvXmlExportMeta>(
   for (const it of payload.items) {
     const row = [
       ...metaCols.map((k) => escapeCsv(String(payload.meta[k] ?? ''))),
-      ...itemCols.map((k) => escapeCsv(String((it as any)[k] ?? ''))),
+      ...itemCols.map((k) => escapeCsv(String(it[k] ?? ''))),
     ];
     lines.push(row.join(','));
   }

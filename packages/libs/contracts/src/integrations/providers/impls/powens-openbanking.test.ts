@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import { PowensOpenBankingProvider } from './powens-openbanking';
 import type { OpenBankingListAccountsResult } from '../openbanking';
 
@@ -10,14 +10,11 @@ function createResponse(body: unknown, status = 200): Response {
 }
 
 function createFetchMock() {
-  const handler = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>();
+  const handler = vi.fn<typeof fetch>();
   const fetchFn = ((...args: Parameters<typeof fetch>) =>
     handler(...args)) as typeof fetch;
   Object.defineProperty(fetchFn, 'preconnect', {
-    value: vi.fn<
-      Parameters<typeof fetch.preconnect>,
-      ReturnType<typeof fetch.preconnect>
-    >(),
+    value: vi.fn<typeof fetch.preconnect>(),
   });
   return { fetch: fetchFn, handler };
 }
@@ -89,8 +86,7 @@ describe('PowensOpenBankingProvider', () => {
   });
 
   it('maps Powens balances to canonical balance records', async () => {
-    const { fetch: fetchImpl, handler: balancesHandler } =
-      createFetchMock();
+    const { fetch: fetchImpl, handler: balancesHandler } = createFetchMock();
     balancesHandler
       .mockResolvedValueOnce(createResponse(TOKEN_RESPONSE))
       .mockResolvedValueOnce(
@@ -163,4 +159,3 @@ describe('PowensOpenBankingProvider', () => {
     ).rejects.toThrowError(/requires the upstream userId/i);
   });
 });
-

@@ -1,8 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import {
-  CapabilityRegistry,
-  type CapabilitySpec,
-} from './capabilities';
+import { describe, expect, it } from 'bun:test';
+import { CapabilityRegistry, type CapabilitySpec } from './capabilities';
 import { StabilityEnum, type Owner, type Tag } from './ownership';
 
 const baseMeta = {
@@ -86,4 +83,3 @@ describe('CapabilityRegistry', () => {
     expect(providedResult).toBe(true);
   });
 });
-

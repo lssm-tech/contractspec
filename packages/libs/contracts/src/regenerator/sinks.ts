@@ -1,4 +1,8 @@
-import type { ProposalSink, RegenerationContext, SpecChangeProposal } from './types';
+import type {
+  ProposalSink,
+  RegenerationContext,
+  SpecChangeProposal,
+} from './types';
 import { ProposalExecutor } from './executor';
 import type { ProposalExecutionResult } from './executor';
 
@@ -10,7 +14,11 @@ export interface ExecutorResultPayload {
 
 export interface ExecutorSinkLogger {
   info?: (message: string, meta?: Record<string, unknown>) => void;
-  error?: (message: string, error: Error, meta?: Record<string, unknown>) => void;
+  error?: (
+    message: string,
+    error: Error,
+    meta?: Record<string, unknown>
+  ) => void;
 }
 
 export interface ExecutorSinkOptions {
@@ -54,10 +62,3 @@ export class ExecutorProposalSink implements ProposalSink {
     }
   }
 }
-
-
-
-
-
-
-

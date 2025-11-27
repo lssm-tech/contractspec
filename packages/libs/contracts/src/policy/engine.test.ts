@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { PolicyEngine } from './engine';
 import { PolicyRegistry, type PolicySpec } from './spec';
 import { StabilityEnum, type Tag, type Owner } from '../ownership';
@@ -30,7 +30,11 @@ const policy: PolicySpec = {
       effect: 'allow',
       actions: ['write'],
       relationships: [
-        { relation: 'manager_of', objectId: '$resource', objectType: 'resident' },
+        {
+          relation: 'manager_of',
+          objectId: '$resource',
+          objectType: 'resident',
+        },
       ],
       resource: { type: 'resident' },
       reason: 'Managers can update assigned residents',
@@ -168,7 +172,11 @@ describe('PolicyEngine', () => {
       subject: {
         roles: ['manager'],
         relationships: [
-          { relation: 'manager_of', object: 'resident-123', objectType: 'resident' },
+          {
+            relation: 'manager_of',
+            object: 'resident-123',
+            objectType: 'resident',
+          },
         ],
       },
       resource: { type: 'resident', id: 'resident-123' },
@@ -188,4 +196,3 @@ describe('PolicyEngine', () => {
     expect(decision.effect).toBe('deny');
   });
 });
-

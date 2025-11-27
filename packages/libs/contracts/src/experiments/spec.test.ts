@@ -1,8 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import {
-  ExperimentRegistry,
-  type ExperimentSpec,
-} from './spec';
+import { describe, expect, it } from 'bun:test';
+import { ExperimentRegistry, type ExperimentSpec } from './spec';
 import { StabilityEnum } from '../ownership';
 
 const sampleExperiment = (version: number): ExperimentSpec => ({
@@ -47,4 +44,3 @@ describe('ExperimentRegistry', () => {
     expect(() => registry.register(spec)).toThrowError(/Duplicate experiment/);
   });
 });
-

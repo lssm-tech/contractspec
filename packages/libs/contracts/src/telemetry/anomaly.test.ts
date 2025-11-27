@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { TelemetryAnomalyMonitor } from './anomaly';
 import type { TelemetryDispatch } from './tracker';
 import type { TelemetrySpec } from './spec';
@@ -63,4 +63,3 @@ describe('TelemetryAnomalyMonitor', () => {
     expect(events).toEqual([2000]);
   });
 });
-

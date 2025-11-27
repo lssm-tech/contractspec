@@ -1,9 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import {
-  TestRegistry,
-  type TestSpec,
-  makeTestKey,
-} from './spec';
+import { describe, expect, it } from 'bun:test';
+import { TestRegistry, type TestSpec, makeTestKey } from './spec';
 import { StabilityEnum } from '../ownership';
 
 const sampleSpec = (version: number): TestSpec => ({
@@ -20,7 +16,10 @@ const sampleSpec = (version: number): TestSpec => ({
   scenarios: [
     {
       name: 'creates a new user',
-      when: { operation: { name: 'sigil.addUser' }, input: { email: 'a@b.com' } },
+      when: {
+        operation: { name: 'sigil.addUser' },
+        input: { email: 'a@b.com' },
+      },
       then: [{ type: 'expectOutput', match: { success: true } }],
     },
   ],
@@ -55,4 +54,3 @@ describe('TestRegistry', () => {
     expect(makeTestKey(spec.meta)).toBe('sigil.contract.add_user.tests.v1');
   });
 });
-

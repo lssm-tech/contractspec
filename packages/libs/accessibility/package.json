@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.accessibility",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,19 +12,19 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.design-system": "^1.8.0",
-    "@lssm/lib.ui-kit": "^1.8.0",
-    "@lssm/lib.ui-kit-web": "^1.8.0"
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
-    "tsdown": "^0.15.9",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "react": "19.1.0",
-    "next": "15.5.6"
+    "react": "19.2.0",
+    "next": "16.0.4"
   },
   "type": "module",
   "main": "./dist/index.js",

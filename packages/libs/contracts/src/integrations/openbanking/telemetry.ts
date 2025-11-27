@@ -25,11 +25,15 @@ export type OpenBankingTelemetryEvent =
   (typeof OPENBANKING_TELEMETRY_EVENTS)[keyof typeof OPENBANKING_TELEMETRY_EVENTS];
 
 export function redactOpenBankingTelemetryPayload<
-  T extends Record<string, unknown>
+  T extends Record<string, unknown>,
 >(payload: T): T {
   const redacted: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(payload)) {
-    if (OPENBANKING_PII_FIELDS.includes(key as (typeof OPENBANKING_PII_FIELDS)[number])) {
+    if (
+      OPENBANKING_PII_FIELDS.includes(
+        key as (typeof OPENBANKING_PII_FIELDS)[number]
+      )
+    ) {
       redacted[key] = maskValue(value);
     } else if (Array.isArray(value)) {
       redacted[key] = value.map((item) =>
@@ -54,8 +58,3 @@ function maskValue(value: unknown): string {
   if (str.length <= 4) return '*'.repeat(str.length);
   return `${'*'.repeat(Math.max(str.length - 4, 0))}${str.slice(-4)}`;
 }
-
-
-
-
-

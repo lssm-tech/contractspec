@@ -33,7 +33,9 @@ export class DocumentProcessor {
       this.extractors.get(document.mimeType.toLowerCase()) ??
       this.extractors.get('*/*');
     if (!extractor) {
-      throw new Error(`No extractor registered for mime type ${document.mimeType}`);
+      throw new Error(
+        `No extractor registered for mime type ${document.mimeType}`
+      );
     }
     const fragments = await extractor(document);
     if (fragments.length === 0) {
@@ -49,7 +51,9 @@ export class DocumentProcessor {
     return fragments;
   }
 
-  private async extractText(document: RawDocument): Promise<DocumentFragment[]> {
+  private async extractText(
+    document: RawDocument
+  ): Promise<DocumentFragment[]> {
     const text = Buffer.from(document.data).toString('utf-8');
     return [
       {
@@ -61,7 +65,9 @@ export class DocumentProcessor {
     ];
   }
 
-  private async extractJson(document: RawDocument): Promise<DocumentFragment[]> {
+  private async extractJson(
+    document: RawDocument
+  ): Promise<DocumentFragment[]> {
     const text = Buffer.from(document.data).toString('utf-8');
     try {
       const json = JSON.parse(text);
@@ -81,4 +87,3 @@ export class DocumentProcessor {
     }
   }
 }
-

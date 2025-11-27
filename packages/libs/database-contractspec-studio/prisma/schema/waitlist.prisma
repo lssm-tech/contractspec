@@ -1,0 +1,20 @@
+// model WaitingList {
+//   id          String  @id @default(uuid(7))
+//   /// Preferred given name (mapped from Better Auth `name` on sign-up)
+//   firstName   String?
+//   /// Family name / surname
+//   lastName    String?
+//   email       String
+//   phoneNumber String?
+//
+//   // Store userType/phone/city or any extra structured info here for reuse across apps
+//   metadata  Json?
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   user      User?
+//
+//   @@map("waiting_list")
+//   @@schema("public")
+// }
+//
+//

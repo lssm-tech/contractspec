@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import {
   FeatureRegistry,
   installFeature,
@@ -67,9 +67,9 @@ describe('installFeature capability validation', () => {
     const capabilities = new CapabilityRegistry();
     const spec = featureWithCapabilities();
 
-    expect(() =>
-      installFeature(spec, { features, capabilities })
-    ).toThrowError(/capability requirement not satisfied/);
+    expect(() => installFeature(spec, { features, capabilities })).toThrowError(
+      /capability requirement not satisfied/
+    );
   });
 
   it('allows instal when capability registry contains the required capability', () => {
@@ -97,4 +97,3 @@ describe('installFeature capability validation', () => {
     ).not.toThrow();
   });
 });
-

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.logger",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "logging",
@@ -21,9 +21,9 @@
     "dev": "bun build:bundle --watch"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "*",
-    "@lssm/tool.tsdown": "*",
-    "tsdown": "^0.15.9",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -34,46 +34,22 @@
       "optional": true
     }
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.cts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./context": {
-      "import": "./dist/context.js",
-      "require": "./dist/context.cjs"
-    },
-    "./elysia-plugin": {
-      "import": "./dist/elysia-plugin.js",
-      "require": "./dist/elysia-plugin.cjs"
-    },
-    "./formatters": {
-      "import": "./dist/formatters.js",
-      "require": "./dist/formatters.cjs"
-    },
-    "./logger": {
-      "import": "./dist/logger.js",
-      "require": "./dist/logger.cjs"
-    },
-    "./timer": {
-      "import": "./dist/timer.js",
-      "require": "./dist/timer.cjs"
-    },
-    "./tracer": {
-      "import": "./dist/tracer.js",
-      "require": "./dist/tracer.cjs"
-    },
-    "./types": {
-      "import": "./dist/types.js",
-      "require": "./dist/types.cjs"
-    },
+    ".": "./dist/index.mjs",
+    "./context": "./dist/context.mjs",
+    "./elysia-plugin": "./dist/elysia-plugin.mjs",
+    "./formatters": "./dist/formatters.mjs",
+    "./logger": "./dist/logger.mjs",
+    "./timer": "./dist/timer.mjs",
+    "./tracer": "./dist/tracer.mjs",
+    "./types": "./dist/types.mjs",
     "./*": "./*"
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.mjs"
 }

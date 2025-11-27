@@ -37,10 +37,7 @@ import type {
   TenantBrandingAsset,
   TenantBrandingConfig,
 } from './branding';
-import type {
-  Locale,
-  TranslationEntry,
-} from '../translations/catalog';
+import type { Locale, TranslationEntry } from '../translations/catalog';
 import type {
   AppBlueprintSpec,
   AppIntegrationSlot,
@@ -177,10 +174,7 @@ export function resolveAppConfig(
     blueprint.capabilities,
     tenant.capabilities
   );
-  const features = mergeFeatures(
-    blueprint.features,
-    tenant.features
-  );
+  const features = mergeFeatures(blueprint.features, tenant.features);
   const dataViews = mergeMappings(
     blueprint.dataViews ?? {},
     tenant.dataViewOverrides
@@ -304,11 +298,7 @@ export function composeAppConfig(
     missing
   );
 
-  const policies = resolvePolicies(
-    resolved.policies,
-    deps.policies,
-    missing
-  );
+  const policies = resolvePolicies(resolved.policies, deps.policies, missing);
 
   const { theme, fallbacks, themeMissing } = resolveThemeBinding(
     resolved.theme,
@@ -474,13 +464,9 @@ function mergeExperiments(
   const tenantPaused = tenant?.paused;
 
   const activeSource =
-    tenantActive && tenantActive.length > 0
-      ? tenantActive
-      : defaultActive;
+    tenantActive && tenantActive.length > 0 ? tenantActive : defaultActive;
   const pausedSource =
-    tenantPaused && tenantPaused.length > 0
-      ? tenantPaused
-      : defaultPaused;
+    tenantPaused && tenantPaused.length > 0 ? tenantPaused : defaultPaused;
 
   const active = dedupeRefs(activeSource, experimentKey);
   let paused = dedupeRefs(pausedSource, experimentKey);
@@ -531,8 +517,7 @@ function resolveBranding(
       }
     }
     if (!appName) {
-      const [, firstValue] =
-        Object.entries(override.appName)[0] ?? [];
+      const [, firstValue] = Object.entries(override.appName)[0] ?? [];
       if (typeof firstValue === 'string') {
         appName = firstValue;
       }
@@ -542,14 +527,9 @@ function resolveBranding(
     appName = defaults?.appNameKey ?? tenantMeta.appId;
   }
 
-  const assetEntries = new Map<
-    BrandingAssetRef['type'],
-    string | undefined
-  >();
+  const assetEntries = new Map<BrandingAssetRef['type'], string | undefined>();
 
-  const applyAssets = (
-    assets?: Array<BrandingAssetRef | TenantBrandingAsset>
-  ) => {
+  const applyAssets = (assets?: (BrandingAssetRef | TenantBrandingAsset)[]) => {
     if (!assets) return;
     for (const asset of assets) {
       if (!asset?.type) continue;
@@ -571,9 +551,7 @@ function resolveBranding(
 
   const colors: ResolvedBranding['colors'] = {
     primary:
-      override?.colors?.primary ??
-      defaults?.colorTokens?.primary ??
-      '#1f2937',
+      override?.colors?.primary ?? defaults?.colorTokens?.primary ?? '#1f2937',
     secondary:
       override?.colors?.secondary ??
       defaults?.colorTokens?.secondary ??
@@ -1143,10 +1121,7 @@ function experimentKey(ref: ExperimentRef) {
   return `${ref.name}${ref.version ? `.v${ref.version}` : ''}`;
 }
 
-function dedupeRefs<T>(
-  refs: T[],
-  keyFn: (value: T) => string
-): T[] {
+function dedupeRefs<T>(refs: T[], keyFn: (value: T) => string): T[] {
   const map = new Map<string, T>();
   for (const ref of refs) {
     map.set(keyFn(ref), ref);
@@ -1157,4 +1132,3 @@ function dedupeRefs<T>(
 function dedupeStrings(values: string[]): string[] {
   return [...new Set(values)];
 }
-

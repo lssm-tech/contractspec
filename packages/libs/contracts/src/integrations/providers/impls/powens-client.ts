@@ -114,7 +114,13 @@ export class PowensClientError extends Error {
   readonly requestId?: string;
   readonly response?: unknown;
 
-  constructor(message: string, status: number, code?: string, requestId?: string, response?: unknown) {
+  constructor(
+    message: string,
+    status: number,
+    code?: string,
+    requestId?: string,
+    response?: unknown
+  ) {
     super(message);
     this.name = 'PowensClientError';
     this.status = status;
@@ -164,12 +170,13 @@ export class PowensClient {
     includeBalances?: boolean;
     institutionUuid?: string;
   }): Promise<PowensAccountListResponse> {
-    const searchParams: Record<string, string | number | boolean | undefined> = {
-      cursor: params.cursor,
-      limit: params.limit,
-      include_balances: params.includeBalances,
-      institution_uuid: params.institutionUuid,
-    };
+    const searchParams: Record<string, string | number | boolean | undefined> =
+      {
+        cursor: params.cursor,
+        limit: params.limit,
+        include_balances: params.includeBalances,
+        institution_uuid: params.institutionUuid,
+      };
     const response = await this.request<PowensAccountListResponse>({
       method: 'GET',
       path: `/users/${encodeURIComponent(params.userUuid)}/accounts`,
@@ -193,13 +200,14 @@ export class PowensClient {
     to?: string;
     includePending?: boolean;
   }): Promise<PowensTransactionListResponse> {
-    const searchParams: Record<string, string | number | boolean | undefined> = {
-      cursor: params.cursor,
-      limit: params.limit,
-      from: params.from,
-      to: params.to,
-      include_pending: params.includePending,
-    };
+    const searchParams: Record<string, string | number | boolean | undefined> =
+      {
+        cursor: params.cursor,
+        limit: params.limit,
+        from: params.from,
+        to: params.to,
+        include_pending: params.includePending,
+      };
     return this.request<PowensTransactionListResponse>({
       method: 'GET',
       path: `/accounts/${encodeURIComponent(params.accountUuid)}/transactions`,
@@ -381,10 +389,9 @@ export class PowensClient {
 
     const payload = (await response.json()) as PowensOAuthTokenResponse;
     const expiresAt = Date.now() + payload.expires_in * 1000;
-    this.logger?.debug?.(
-      '[PowensClient] Received access token',
-      { expiresIn: payload.expires_in }
-    );
+    this.logger?.debug?.('[PowensClient] Received access token', {
+      expiresIn: payload.expires_in,
+    });
     return {
       accessToken: payload.access_token,
       expiresAt,
@@ -392,4 +399,3 @@ export class PowensClient {
     };
   }
 }
-

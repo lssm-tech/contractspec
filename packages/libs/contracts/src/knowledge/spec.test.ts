@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { KnowledgeSpaceRegistry } from './spec';
 import type { KnowledgeSpaceSpec, KnowledgeCategory } from './spec';
 
@@ -44,25 +44,28 @@ describe('KnowledgeSpaceRegistry', () => {
     const spec = makeSpec();
 
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate KnowledgeSpaceSpec/);
+    expect(() => registry.register(spec)).toThrowError(
+      /Duplicate KnowledgeSpaceSpec/
+    );
   });
 
-  it.each<KnowledgeCategory>(['canonical', 'operational', 'external', 'ephemeral'])(
-    'filters by category (%s)',
-    (category) => {
-      const registry = new KnowledgeSpaceRegistry();
-      const spec = makeSpec({
-        meta: {
-          ...makeSpec().meta,
-          key: `space-${category}`,
-          category,
-        },
-      });
+  it.each<KnowledgeCategory>([
+    'canonical',
+    'operational',
+    'external',
+    'ephemeral',
+  ])('filters by category (%s)', (category) => {
+    const registry = new KnowledgeSpaceRegistry();
+    const spec = makeSpec({
+      meta: {
+        ...makeSpec().meta,
+        key: `space-${category}`,
+        category,
+      },
+    });
 
-      registry.register(spec);
+    registry.register(spec);
 
-      expect(registry.getByCategory(category)).toEqual([spec]);
-    }
-  );
+    expect(registry.getByCategory(category)).toEqual([spec]);
+  });
 });
-

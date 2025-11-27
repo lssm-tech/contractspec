@@ -89,4 +89,3 @@ export function registerStripeIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(stripeIntegrationSpec);
 }
-

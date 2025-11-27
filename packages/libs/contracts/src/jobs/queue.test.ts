@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { MemoryJobQueue } from './memory-queue';
 import { GcpCloudTasksQueue } from './gcp-cloud-tasks';
@@ -49,4 +49,3 @@ describe('Job queues', () => {
     expect(publishMessage).toHaveBeenCalled();
   });
 });
-

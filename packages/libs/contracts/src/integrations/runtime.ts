@@ -1,5 +1,8 @@
 import { performance } from 'node:perf_hooks';
-import type { ResolvedAppConfig, ResolvedIntegration } from '../app-config/runtime';
+import type {
+  ResolvedAppConfig,
+  ResolvedIntegration,
+} from '../app-config/runtime';
 import type { ConnectionStatus, IntegrationConnection } from './connection';
 import type { IntegrationSpec } from './spec';
 import type { SecretProvider, SecretValue } from './secrets/provider';
@@ -100,10 +103,7 @@ export class IntegrationCallGuard {
     options: IntegrationCallGuardOptions = {}
   ) {
     this.telemetry = options.telemetry;
-    this.maxAttempts = Math.max(
-      1,
-      options.maxAttempts ?? DEFAULT_MAX_ATTEMPTS
-    );
+    this.maxAttempts = Math.max(1, options.maxAttempts ?? DEFAULT_MAX_ATTEMPTS);
     this.backoffMs = options.backoffMs ?? DEFAULT_BACKOFF_MS;
     this.shouldRetry =
       options.shouldRetry ??
@@ -209,8 +209,7 @@ export class IntegrationCallGuard {
             success: false,
             error: {
               code: this.errorCodeFor(error),
-              message:
-                error instanceof Error ? error.message : String(error),
+              message: error instanceof Error ? error.message : String(error),
               retryable,
               cause: error,
             },
@@ -268,11 +267,7 @@ export class IntegrationCallGuard {
     const text = new TextDecoder().decode(secret.data);
     try {
       const parsed = JSON.parse(text);
-      if (
-        parsed &&
-        typeof parsed === 'object' &&
-        !Array.isArray(parsed)
-      ) {
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
         const entries = Object.entries(parsed).filter(
           ([, value]) =>
             typeof value === 'string' ||
@@ -341,8 +336,7 @@ export class IntegrationCallGuard {
       metadata: {
         latencyMs: 0,
         connectionId: integration?.connection.meta.id ?? 'unknown',
-        ownershipMode:
-          integration?.connection.ownershipMode ?? 'managed',
+        ownershipMode: integration?.connection.ownershipMode ?? 'managed',
         attempts,
       },
     };
@@ -378,9 +372,7 @@ export class IntegrationCallGuard {
   }
 }
 
-export function ensureConnectionReady(
-  integration: ResolvedIntegration
-): void {
+export function ensureConnectionReady(integration: ResolvedIntegration): void {
   const status = integration.connection.status;
   if (status === 'disconnected' || status === 'error') {
     throw new Error(

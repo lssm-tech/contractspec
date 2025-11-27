@@ -74,5 +74,3 @@ export function registerTwilioSmsIntegration(
 ): IntegrationSpecRegistry {
   return registry.register(twilioSmsIntegrationSpec);
 }
-
-

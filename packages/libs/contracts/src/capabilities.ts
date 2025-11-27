@@ -1,11 +1,6 @@
 import type { OwnerShipMeta } from './ownership';
 
-export type CapabilityKind =
-  | 'api'
-  | 'event'
-  | 'data'
-  | 'ui'
-  | 'integration';
+export type CapabilityKind = 'api' | 'event' | 'data' | 'ui' | 'integration';
 
 export type CapabilitySurface =
   | 'operation'
@@ -55,8 +50,7 @@ export class CapabilityRegistry {
 
   register(spec: CapabilitySpec): this {
     const key = capKey(spec.meta.key, spec.meta.version);
-    if (this.items.has(key))
-      throw new Error(`Duplicate capability ${key}`);
+    if (this.items.has(key)) throw new Error(`Duplicate capability ${key}`);
     this.items.set(key, spec);
     return this;
   }
@@ -84,18 +78,13 @@ export class CapabilityRegistry {
     additional?: CapabilityRef[] | undefined
   ): boolean {
     if (requirement.optional) return true;
-    if (
-      additional?.some((ref) =>
-        matchesRequirement(ref, requirement)
-      )
-    )
+    if (additional?.some((ref) => matchesRequirement(ref, requirement)))
       return true;
     const spec = requirement.version
       ? this.get(requirement.key, requirement.version)
       : this.get(requirement.key);
     if (!spec) return false;
-    if (requirement.kind && spec.meta.kind !== requirement.kind)
-      return false;
+    if (requirement.kind && spec.meta.kind !== requirement.kind) return false;
     if (
       requirement.version != null &&
       spec.meta.version !== requirement.version
@@ -119,3 +108,6 @@ export function capabilityKey(spec: CapabilitySpec) {
   return capKey(spec.meta.key, spec.meta.version);
 }
 
+export function defineCapability(spec: CapabilitySpec): CapabilitySpec {
+  return spec;
+}

@@ -1,5 +1,5 @@
 import type { gmail_v1 } from 'googleapis';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 
 import { GmailInboundProvider } from './gmail-inbound';
 
@@ -113,5 +113,3 @@ function encodeBase64Url(content: string) {
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
-
-

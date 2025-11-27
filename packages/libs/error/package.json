@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.error",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "scripts": {
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
@@ -12,15 +12,15 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "*",
-    "tsdown": "^0.15.9",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {},
   "peerDependencies": {
     "elysia": "^1.4.11",
     "express": "^5.1.0",
-    "next": "15.5.6"
+    "next": "16.0.4"
   },
   "type": "module",
   "main": "./dist/index.js",

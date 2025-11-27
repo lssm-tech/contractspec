@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { IntegrationSpecRegistry } from './spec';
 import type { IntegrationCategory, IntegrationSpec } from './spec';
 
@@ -59,27 +59,26 @@ describe('IntegrationSpecRegistry', () => {
     const spec = makeSpec();
 
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate IntegrationSpec/);
+    expect(() => registry.register(spec)).toThrowError(
+      /Duplicate IntegrationSpec/
+    );
   });
 
-  it.each<IntegrationCategory>([
-    'payments',
-    'email',
-    'calendar',
-    'ai-llm',
-  ])('filters by category (%s)', (category) => {
-    const registry = new IntegrationSpecRegistry();
-    const spec = makeSpec({
-      meta: {
-        ...makeSpec().meta,
-        key: `integration-${category}`,
-        category,
-      },
-    });
+  it.each<IntegrationCategory>(['payments', 'email', 'calendar', 'ai-llm'])(
+    'filters by category (%s)',
+    (category) => {
+      const registry = new IntegrationSpecRegistry();
+      const spec = makeSpec({
+        meta: {
+          ...makeSpec().meta,
+          key: `integration-${category}`,
+          category,
+        },
+      });
 
-    registry.register(spec);
+      registry.register(spec);
 
-    expect(registry.getByCategory(category)).toEqual([spec]);
-  });
+      expect(registry.getByCategory(category)).toEqual([spec]);
+    }
+  );
 });
-

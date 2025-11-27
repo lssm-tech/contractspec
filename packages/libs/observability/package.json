@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.observability",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
@@ -12,19 +12,29 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "vitest run"
+    "test": "bun run"
+  },
+  "dependencies": {
+    "@lssm/lib.lifecycle": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "typescript": "^5.0.0"
   },
   "exports": {
     ".": "./dist/index.mjs",
+    "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
+    "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
+    "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
+    "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
+    "./intent/aggregator": "./dist/intent/aggregator.mjs",
+    "./intent/detector": "./dist/intent/detector.mjs",
     "./logging": "./dist/logging/index.mjs",
     "./metrics": "./dist/metrics/index.mjs",
+    "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
+    "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
     "./tracing": "./dist/tracing/index.mjs",
     "./tracing/middleware": "./dist/tracing/middleware.mjs",
     "./*": "./*"
