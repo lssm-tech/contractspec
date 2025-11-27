@@ -66,6 +66,9 @@ const sharedExternal = [
   'react-native-safe-area-context',
   'expo',
   'expo-router',
+  '@prisma/client',
+  '@prisma/client/runtime/client',
+  '@prisma/client/runtime',
   '@prisma/adapter-pg',
   'pg',
   'graphql',
@@ -134,7 +137,8 @@ export const nodeDatabaseLib = defineConfig({
   // platform: 'neutral',
   unbundle: true,
   external: [...sharedExternal],
-  ...obfuscation,
+  // ...obfuscation,
+  entry: ['src/index.ts', 'src/client.ts', 'src/enums.ts', 'src/models.ts'],
 });
 
 export default defineConfig((_options) => ({

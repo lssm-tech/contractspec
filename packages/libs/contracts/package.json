@@ -42,7 +42,7 @@
     "elysia": "^1.4.11",
     "express": "^5.1.0",
     "graphql-scalars": "^1.24.2",
-    "next": "16.0.4",
+    "next": "16.0.5",
     "@blocknote/core": "^0.42.3",
     "@blocknote/react": "^0.42.3",
     "react": "^19.2.0",
