@@ -11,6 +11,11 @@ on:
       - "!.changeset/**"
       - "!CHANGELOG.md"
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # Required for OIDC
+
 jobs:
   publish-canary:
     runs-on: ubuntu-latest
