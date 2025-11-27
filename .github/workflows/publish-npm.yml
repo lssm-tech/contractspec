@@ -55,9 +55,9 @@ jobs:
         uses: changesets/action@v1
         with:
           # The command to update versions, changelogs, and changeset files
-          version: bun changeset version
+          version: bun changeset version --verbose
           # The command to publish packages
-          publish: bun changeset publish
+          publish: bun changeset publish --verbose
           commit: "chore: version packages"
           title: "Version Packages"
         env:

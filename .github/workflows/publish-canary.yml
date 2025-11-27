@@ -39,7 +39,7 @@ jobs:
         run: bun install
 
       - name: Version packages (canary snapshot)
-        run: bun changeset version --snapshot canary
+        run: bun changeset version --snapshot canary --verbose
 
       - name: Build libraries
         env:
