@@ -45,6 +45,7 @@ const SAMPLE_PROJECTS = [
 const SAMPLE_CANVAS: CanvasState = {
   id: 'canvas-demo',
   projectId: 'proj-ops',
+  versions: [],
   nodes: [
     {
       id: 'hero',
@@ -122,8 +123,7 @@ export default function StudioExperienceClient() {
   const [selectedProjectId, setSelectedProjectId] =
     useState<string>('proj-ops');
   const [feedback, setFeedback] = useState<string | null>(null);
-  const [specType, setSpecType] =
-    useState<SpecEditorProps['type']>('WORKFLOW');
+  const [specType, setSpecType] = useState<SpecEditorProps['type']>('WORKFLOW');
   const [specArtifacts, setSpecArtifacts] = useState<
     SpecPreviewArtifacts | undefined
   >(undefined);
@@ -192,10 +192,7 @@ export default function StudioExperienceClient() {
       return;
     }
     const nextType = activeProject?.specs?.[0]?.type;
-    if (
-      nextType &&
-      SPEC_TYPES.includes(nextType as SpecEditorProps['type'])
-    ) {
+    if (nextType && SPEC_TYPES.includes(nextType as SpecEditorProps['type'])) {
       setSpecType(nextType as SpecEditorProps['type']);
     }
   }, [previewMode, activeProject?.id, activeProject?.specs]);
@@ -218,12 +215,10 @@ export default function StudioExperienceClient() {
     }
     return (activeProject.deployments ?? []).map((deployment) => ({
       id: deployment.id,
-      environment: (
-        deployment.environment ?? 'DEVELOPMENT'
-      ) as DeploymentHistoryItem['environment'],
-      status: (
-        deployment.status ?? 'PENDING'
-      ) as DeploymentHistoryItem['status'],
+      environment: (deployment.environment ??
+        'DEVELOPMENT') as DeploymentHistoryItem['environment'],
+      status: (deployment.status ??
+        'PENDING') as DeploymentHistoryItem['status'],
       version: deployment.version ?? deployment.id,
       url: (deployment as { url?: string | null })?.url ?? null,
       deployedAt: deployment.deployedAt ?? null,
@@ -399,9 +394,7 @@ export default function StudioExperienceClient() {
             onDeploy={(projectId) =>
               handleProjectNavigation(projectId, 'deploy')
             }
-            onEdit={(projectId) =>
-              handleProjectNavigation(projectId, 'specs')
-            }
+            onEdit={(projectId) => handleProjectNavigation(projectId, 'specs')}
             onArchive={handleProjectArchive}
             emptyState={
               <div className="space-y-2">

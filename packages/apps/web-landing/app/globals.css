@@ -1,5 +1,12 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@source '../components/**/*.{ts,tsx}';
+@source './**/*.{ts,tsx}';
+@source '../../../bundles/*/src/**/*.{ts,tsx}';
+@source '../../../modules/*/src/**/*.{ts,tsx}';
+@source '../../../libs/*/src/**/*.{ts,tsx}';
+@source '../../../libs/*/ui/**/*.{ts,tsx}';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -142,19 +149,19 @@
   }
 
   .card-subtle {
-    @apply bg-card/50 border border-border backdrop-blur-sm rounded-2xl;
+    @apply bg-card/50 border-border rounded-2xl border backdrop-blur-sm;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium text-sm transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium text-sm transition-all duration-200 border border-border text-foreground hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+    @apply border-border text-foreground hover:bg-card focus-visible:ring-ring inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none;
   }
 
   .badge {
-    @apply inline-block px-3 py-1 text-xs font-medium text-muted-foreground border border-border rounded-full bg-card/50;
+    @apply text-muted-foreground border-border bg-card/50 inline-block rounded-full border px-3 py-1 text-xs font-medium;
   }
 
   .fade-in {

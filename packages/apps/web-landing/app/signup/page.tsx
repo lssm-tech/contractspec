@@ -1,5 +1,5 @@
-import SignupPageClient from "./client"
+import { SignupPageClient } from './client';
 
 export default function SignupPage() {
-  return <SignupPageClient />
+  return <SignupPageClient />;
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -6,29 +6,28 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
 import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
+import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
+import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@lssm/lib.ui-kit-web/ui/input-group';
 
-type EmailPasswordClient = {
-  email?: {
-    signUp?: (payload: { email: string; password: string }) => Promise<unknown>;
-  };
-  signUp?: (payload: { email: string; password: string }) => Promise<unknown>;
-};
-
-export default function SignupPageClient() {
-  const router = useRouter();
+export function SignupPageClient() {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
-    confirmPassword: '',
     agreeToTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const updateField = (
-    field: 'email' | 'password' | 'confirmPassword',
+    field: 'email' | 'password' | 'username',
     value: string
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -38,13 +37,8 @@ export default function SignupPageClient() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.email || !formData.password || !formData.username) {
       setError('All fields are required');
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
       return;
     }
 
@@ -61,58 +55,71 @@ export default function SignupPageClient() {
     setLoading(true);
     setError('');
 
-    try {
-      const client = authClient as unknown as EmailPasswordClient;
-      if (client.email?.signUp) {
-        await client.email.signUp({
-          email: formData.email,
-          password: formData.password,
-        });
-      } else if (client.signUp) {
-        await client.signUp({
-          email: formData.email,
-          password: formData.password,
-        });
-      } else {
-        throw new Error('Auth client is not configured for email sign-up.');
+    await authClient.signUp.email(
+      {
+        email: formData.email,
+        password: formData.password,
+        name: formData.username,
+        // image, // User image URL (optional)
+        callbackURL: '/studio',
+      },
+      {
+        onError: (ctx) => {
+          setLoading(false);
+          setError(ctx.error.message);
+        },
       }
-
-      router.replace('/onboarding/org-select');
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Unable to create account.'
-      );
-    } finally {
-      setLoading(false);
-    }
+    );
   };
 
   return (
-    <main className="pt-24 min-h-screen flex items-center justify-center">
+    <main className="flex min-h-screen items-center justify-center pt-24">
       <section className="section-padding w-full max-w-md">
         <div className="space-y-8">
-          <div className="text-center space-y-2">
+          <div className="space-y-2 text-center">
             <h1 className="text-4xl font-bold">Create account</h1>
             <p className="text-muted-foreground">
               Join ContractSpec to build policy-safe apps
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="card-subtle p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="card-subtle space-y-6 p-8">
             {error ? (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg text-sm">
+              <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-300">
                 {error}
               </div>
             ) : null}
 
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
+              <Label htmlFor="username" className="text-sm font-medium">
+                Username
+              </Label>
+
+              <InputGroup>
+                <InputGroupInput
+                  id="username"
+                  placeholder="john_doe"
+                  value={formData.username}
+                  onChange={(value) =>
+                    updateField('username', value.target.value)
+                  }
+                  required
+                  autoComplete="username"
+                />
+                <InputGroupAddon align="inline-start">
+                  <Label htmlFor="username">@</Label>
+                </InputGroupAddon>
+              </InputGroup>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium">
                 Email
-              </label>
+              </Label>
               <Input
                 id="email"
+                keyboard={{ kind: 'email' }}
                 name="email"
-                type="email"
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={(value) => updateField('email', value)}
@@ -121,72 +128,50 @@ export default function SignupPageClient() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
+              <Label htmlFor="password" className="text-sm font-medium">
                 Password
-              </label>
-              <div className="relative">
-                <Input
+              </Label>
+              <InputGroup>
+                <InputGroupInput
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
                   value={formData.password}
-                  onChange={(value) => updateField('password', value)}
+                  onChange={(value) =>
+                    updateField('password', value.target.value)
+                  }
                   required
-                  className="pr-12"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((state) => !state)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  aria-label="Toggle password visibility"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-sm font-medium">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={(value) => updateField('confirmPassword', value)}
-                  required
-                  className="pr-12"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword((state) => !state)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  aria-label="Toggle confirm password visibility"
-                >
-                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    aria-label="Copy"
+                    title="Copy"
+                    size="icon-xs"
+                    onClick={() => setShowPassword((state) => !state)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </div>
 
             <div className="flex items-start gap-2">
-              <input
-                type="checkbox"
+              <Checkbox
                 id="agreeToTerms"
                 name="agreeToTerms"
                 checked={formData.agreeToTerms}
-                onChange={(event) =>
+                onCheckedChange={(checked) =>
                   setFormData((prev) => ({
                     ...prev,
-                    agreeToTerms: event.currentTarget.checked,
+                    agreeToTerms: checked === true,
                   }))
                 }
-                className="mt-1 w-4 h-4 rounded accent-violet-500"
               />
-              <label htmlFor="agreeToTerms" className="text-sm text-muted-foreground">
+              <Label
+                htmlFor="agreeToTerms"
+                className="text-muted-foreground inline-block text-sm"
+              >
                 I agree to the{' '}
                 <Link
                   href="/legal/terms"
@@ -201,13 +186,14 @@ export default function SignupPageClient() {
                 >
                   Privacy Policy
                 </Link>
-              </label>
+              </Label>
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              variant="outline"
+              className="w-full disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? 'Creating account…' : 'Create account'}
             </Button>
@@ -218,7 +204,7 @@ export default function SignupPageClient() {
               Already have an account?{' '}
               <Link
                 href="/login"
-                className="text-violet-400 hover:text-violet-300 font-medium"
+                className="font-medium text-violet-400 hover:text-violet-300"
               >
                 Sign in
               </Link>
