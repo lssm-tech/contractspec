@@ -50,5 +50,8 @@
     "./tracker/tracker": "./dist/tracker/tracker.js",
     "./types": "./dist/types.js",
     "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

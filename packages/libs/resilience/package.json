@@ -25,5 +25,8 @@
     "./timeout": "./dist/timeout/index.mjs",
     "./*": "./*"
   },
-  "module": "./dist/index.mjs"
+  "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  }
 }
