@@ -1,5 +1,15 @@
 # @lssm/lib.accessibility
 
+## 1.11.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.design-system@1.11.1
+  - @lssm/lib.ui-kit@1.11.1
+  - @lssm/lib.ui-kit-web@1.11.1
+
 ## 1.11.0
 
 ### Minor Changes

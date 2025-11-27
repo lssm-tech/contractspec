@@ -1,5 +1,14 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 12.0.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.presentation-runtime-core@1.11.1
+  - @lssm/lib.ui-kit@1.11.1
+
 ## 12.0.0
 
 ### Minor Changes

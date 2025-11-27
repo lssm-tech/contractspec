@@ -1,5 +1,18 @@
 # @lssm/bundle.lifecycle-managed
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.ai-agent@0.4.1
+  - @lssm/lib.analytics@0.4.1
+  - @lssm/lib.lifecycle@0.3.1
+  - @lssm/lib.observability@0.4.1
+  - @lssm/module.lifecycle-advisor@0.3.1
+  - @lssm/module.lifecycle-core@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes

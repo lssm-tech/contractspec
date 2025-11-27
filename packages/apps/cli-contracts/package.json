@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-contracts",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,5 +1,14 @@
 # @lssm/lib.contracts-contractspec-studio
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.contracts@1.11.1
+  - @lssm/lib.schema@1.11.1
+
 ## 0.3.0
 
 ### Minor Changes

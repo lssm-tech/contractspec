@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.workflow-composer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
   "type": "module",
   "main": "./dist/index.js",

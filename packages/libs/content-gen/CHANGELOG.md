@@ -1,5 +1,13 @@
 # @lssm/lib.content-gen
 
+## 0.4.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.contracts@1.11.1
+
 ## 0.4.0
 
 ### Minor Changes

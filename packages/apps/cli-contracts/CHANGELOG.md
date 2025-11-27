@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/app.cli-database@1.11.1
+  - @lssm/lib.contracts@1.11.1
+  - @lssm/lib.schema@1.11.1
+  - @lssm/lib.testing@0.4.1
+
 ## 0.11.0
 
 ### Minor Changes
