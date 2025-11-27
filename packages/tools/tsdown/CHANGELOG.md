@@ -1,5 +1,11 @@
 # @lssm/tool.tsdown
 
+## 0.12.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
 ## 0.11.0
 
 ### Minor Changes

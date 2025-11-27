@@ -1,5 +1,11 @@
 # @lssm/lib.resilience
 
+## 0.4.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
 ## 0.3.0
 
 ### Minor Changes
@@ -39,14 +45,3 @@
 - Retry utilities with exponential backoff
 - Timeout wrappers
 - Fallback strategies
-
-
-
-
-
-
-
-
-
-
-

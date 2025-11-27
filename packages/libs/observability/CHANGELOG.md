@@ -1,5 +1,16 @@
 # @lssm/lib.observability
 
+## 0.4.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/lib.lifecycle@0.3.0
+
 ## 0.3.0
 
 ### Minor Changes
@@ -53,14 +64,3 @@
 - Metrics collection (counters, histograms)
 - Structured logging with trace correlation
 - HTTP tracing middleware
-
-
-
-
-
-
-
-
-
-
-
