@@ -79,10 +79,10 @@
       "outputLogs": "new-only",
       "inputs": [
         "$TURBO_DEFAULT$",
+        ".env*",
         "tsdown.config.js",
         "src/**",
-        ".env*",
-        "prisma/**",
+        "!src/generated/**",
         "public/**"
       ],
       "outputs": [

@@ -49,7 +49,7 @@ jobs:
       - name: Build libraries
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
         run: bun run build:not-apps
 
       - name: Create Release Pull Request or Publish to npm
