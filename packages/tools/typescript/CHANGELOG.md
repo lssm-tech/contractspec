@@ -1,5 +1,11 @@
 # @lssm/tool.typescript
 
+## 0.11.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
 ## 0.10.0
 
 ### Minor Changes

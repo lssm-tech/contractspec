@@ -1,5 +1,16 @@
 # @lssm/module.lifecycle-advisor
 
+## 0.3.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/lib.lifecycle@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
