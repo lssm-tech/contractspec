@@ -39,6 +39,7 @@
   "type": "module",
   "module": "./dist/index.js",
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
