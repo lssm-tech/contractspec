@@ -1,5 +1,14 @@
 # @lssm/lib.contracts
 
+## 1.11.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.graphql-federation@1.11.1
+  - @lssm/lib.schema@1.11.1
+
 ## 1.11.0
 
 ### Minor Changes

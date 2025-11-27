@@ -553,6 +553,14 @@
 - Updated dependencies [b1d0876]
   - @contractspec/lib.contracts-spec@1.9.0
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.contracts@1.11.1
+
 ## 0.3.0
 
 ### Minor Changes

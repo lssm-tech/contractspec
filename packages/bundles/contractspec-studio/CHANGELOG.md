@@ -1,5 +1,26 @@
 # @lssm/bundle.contractspec-studio
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/bundle.lifecycle-managed@0.3.1
+  - @lssm/lib.contracts@1.11.1
+  - @lssm/lib.contracts-contractspec-studio@0.3.1
+  - @lssm/lib.database-contractspec-studio@0.3.1
+  - @lssm/lib.design-system@1.11.1
+  - @lssm/lib.evolution@0.4.1
+  - @lssm/lib.gql-client-contractspec-studio@0.1.1
+  - @lssm/lib.graphql-prisma@1.11.1
+  - @lssm/lib.lifecycle@0.3.1
+  - @lssm/lib.logger@1.11.1
+  - @lssm/lib.observability@0.4.1
+  - @lssm/lib.progressive-delivery@3.0.1
+  - @lssm/lib.runtime-local@0.3.1
+  - @lssm/lib.ui-kit@1.11.1
+
 ## 0.3.0
 
 ### Minor Changes

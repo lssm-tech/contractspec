@@ -752,6 +752,17 @@
   - @contractspec/lib.ui-kit@1.7.3
   - @contractspec/lib.ui-kit-web@1.7.3
 
+## 1.11.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.ai-agent@0.4.1
+  - @lssm/lib.contracts@1.11.1
+  - @lssm/lib.ui-kit@1.11.1
+  - @lssm/lib.ui-kit-web@1.11.1
+
 ## 1.11.0
 
 ### Minor Changes

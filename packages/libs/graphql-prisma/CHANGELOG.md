@@ -546,6 +546,14 @@
 - Updated dependencies
   - @contractspec/lib.schema@1.7.3
 
+## 1.11.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.schema@1.11.1
+
 ## 1.11.0
 
 ### Minor Changes

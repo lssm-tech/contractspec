@@ -748,6 +748,15 @@
   - @contractspec/lib.overlay-engine@0.1.0
   - @contractspec/lib.bus@1.9.0
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.bus@1.11.1
+  - @lssm/lib.overlay-engine@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes

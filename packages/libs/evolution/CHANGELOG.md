@@ -725,6 +725,18 @@
   - @contractspec/lib.observability@0.3.0
   - @contractspec/lib.schema@1.10.0
 
+## 0.4.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.ai-agent@0.4.1
+  - @lssm/lib.contracts@1.11.1
+  - @lssm/lib.lifecycle@0.3.1
+  - @lssm/lib.observability@0.4.1
+  - @lssm/lib.schema@1.11.1
+
 ## 0.4.0
 
 ### Minor Changes

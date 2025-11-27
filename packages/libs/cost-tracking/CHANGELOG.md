@@ -344,6 +344,14 @@
 - Updated dependencies
   - @contractspec/lib.observability@0.3.0
 
+## 3.0.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.observability@0.4.1
+
 ## 3.0.0
 
 ### Minor Changes

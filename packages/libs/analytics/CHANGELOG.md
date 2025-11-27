@@ -513,6 +513,14 @@
 
 - fix
 
+## 0.4.1
+
+### Patch Changes
+
+- Fix dependencies
+- Updated dependencies
+  - @lssm/lib.lifecycle@0.3.1
+
 ## 0.4.0
 
 ### Minor Changes
