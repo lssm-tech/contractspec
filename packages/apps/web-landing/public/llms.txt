@@ -1,0 +1,44 @@
+## ContractSpec Web – LLM Guide
+
+Purpose
+- Marketing + documentation hub for the ContractSpec stack (specs, AI ops, lifecycle engine).
+
+Primary Sections
+- Landing Hero (`/`) – overview tiles for specs, overlays, lifecycle guidance.
+- Docs index (`/docs`) – cards linking to installation, specs, AI toolkit, lifecycle engine.
+- Blog/Changelog (static MDX feed).
+
+Routing
+- `/` landing
+- `/docs` documentation index (App Router page)
+- `/docs/product/lifecycle-stages` lifecycle reference
+
+Authentication
+- None; static Next.js site.
+
+APIs Consumed
+- Static content only; optional PostHog analytics (browser SDK) with documented events in `docs/llms.txt`.
+
+Lifecycle Surface
+- Quick links promote lifecycle docs.
+- CTA copy references @lssm/bundle.lifecycle-managed for managed guidance.
+
+LLM Usage
+- Use this file to understand routing + entry points.
+- For deep lifecycle implementation, read `docs/product/lifecycle-stages.md` + `docs/tech/lifecycle-stage-system.md`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
