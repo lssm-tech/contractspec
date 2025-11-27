@@ -33,6 +33,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^22.10.2",
     "vitest": "^1.6.0",

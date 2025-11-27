@@ -30,6 +30,7 @@
     "postmark": "^4.0.4",
     "twilio": "^5.10.6",
     "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.graphql-federation": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.20.1",
     "mcp-handler": "^1.0.4",
     "zod": "^4.1.13"
