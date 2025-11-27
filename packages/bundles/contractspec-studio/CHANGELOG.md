@@ -1,5 +1,26 @@
 # @lssm/bundle.contractspec-studio
 
+## 0.3.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/bundle.lifecycle-managed@0.3.0
+  - @lssm/lib.contracts@1.11.0
+  - @lssm/lib.contracts-contractspec-studio@0.3.0
+  - @lssm/lib.database-contractspec-studio@0.3.0
+  - @lssm/lib.design-system@1.11.0
+  - @lssm/lib.evolution@0.4.0
+  - @lssm/lib.gql-client-contractspec-studio@0.1.0
+  - @lssm/lib.lifecycle@0.3.0
+  - @lssm/lib.logger@1.11.0
+  - @lssm/lib.observability@0.4.0
+  - @lssm/lib.ui-kit@1.11.0
+
 ## 0.2.0
 
 ### Minor Changes

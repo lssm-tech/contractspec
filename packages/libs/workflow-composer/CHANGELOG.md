@@ -1,5 +1,16 @@
 # @lssm/lib.workflow-composer
 
+## 0.3.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/lib.contracts@1.11.0
+
 ## 0.2.0
 
 ### Minor Changes
@@ -41,14 +52,3 @@
 ## 0.0.1
 
 - Initial release with composer, injector, merger, and validator utilities.
-
-
-
-
-
-
-
-
-
-
-

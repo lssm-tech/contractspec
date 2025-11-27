@@ -1,5 +1,16 @@
 # @lssm/lib.slo
 
+## 3.0.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/lib.observability@0.4.0
+
 ## 2.0.0
 
 ### Minor Changes

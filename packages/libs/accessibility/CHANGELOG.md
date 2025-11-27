@@ -1,5 +1,18 @@
 # @lssm/lib.accessibility
 
+## 1.11.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
+### Patch Changes
+
+- Updated dependencies [b7621d3]
+  - @lssm/lib.design-system@1.11.0
+  - @lssm/lib.ui-kit@1.11.0
+  - @lssm/lib.ui-kit-web@1.11.0
+
 ## 1.10.0
 
 ### Minor Changes
