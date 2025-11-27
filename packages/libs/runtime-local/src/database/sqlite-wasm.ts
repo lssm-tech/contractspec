@@ -142,8 +142,9 @@ export class LocalDatabase {
   async init(options: LocalDatabaseInitOptions = {}): Promise<void> {
     if (this.initialized) return;
     this.SQL = await initSqlJs({
-      locateFile: (file: string) =>
-        `${options.modulesPath ?? '/sql-wasm'}/${file}`,
+      // locateFile: (file: string) =>
+      //   `${options.modulesPath ?? '/sql-wasm'}/${file}`,
+      locateFile: (file) => `https://sql.js.org/dist/${file}`,
     });
     this.db = options.seed
       ? new this.SQL.Database(options.seed)

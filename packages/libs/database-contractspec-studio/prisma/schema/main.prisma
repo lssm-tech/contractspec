@@ -8,7 +8,8 @@ generator client {
   output   = "../../src/generated/prisma"
 
   engineType             = "client"
-  runtime                = "nodejs"
+  runtime                = "bun"
+  // runtime                = "nodejs"
   moduleFormat           = "esm"
   generatedFileExtension = "ts"
   importFileExtension    = "ts"
