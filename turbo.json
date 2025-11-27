@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "concurrency": "3",
+  "concurrency": "2",
   "globalEnv": [
     "NEXT_PUBLIC_CONTRACTSPEC_STUDIO_SENTRY_DSN",
     "SENTRY_AUTH_TOKEN",
