@@ -15,6 +15,7 @@
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",

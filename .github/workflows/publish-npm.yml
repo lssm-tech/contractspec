@@ -57,12 +57,13 @@ jobs:
         uses: changesets/action@v1
         with:
           # The command to update versions, changelogs, and changeset files
-          version: bun changeset version --verbose
+          version: bun run release:version
           # The command to publish packages
-          publish: bun changeset publish --verbose
+          publish: bun run release:publish
           commit: "chore: version packages"
           title: "Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

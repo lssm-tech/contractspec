@@ -70,6 +70,10 @@
     "clean": {
       "cache": false
     },
+    "publish:pkg": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^db:generate", "^build", "db:generate"],
       "outputLogs": "new-only",

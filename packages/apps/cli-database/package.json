@@ -7,6 +7,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "build": "tsdown",
     "dev": "bun run build --watch",
     "lint": "bun run lint:fix",

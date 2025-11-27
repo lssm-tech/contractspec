@@ -10,6 +10,8 @@
     "packages/apps/*"
   ],
   "scripts": {
+    "release:version": "changeset version --verbose && bun update",
+    "release:publish": "turbo run publish:pkg --no-cache",
     "knip": "knip",
     "clean": "turbo run clean",
     "lint": "turbo run lint --continue",

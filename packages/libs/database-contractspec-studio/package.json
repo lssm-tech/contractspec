@@ -6,6 +6,7 @@
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "build": "bun run build:bundle",
     "build:types": "tsc --noEmit",
     "build:bundle": "tsdown",
