@@ -1,6 +1,3 @@
 [submodule "package-related/france-geojson"]
 	path = package-related/france-geojson
 	url = git@github.com:lssm-tech/france-geojson.git
-[submodule "packages/apps/web-manually-coded"]
-	path = packages/apps/web-landing
-	url = git@github.com:lssm-tech/website.contract-spec.git
