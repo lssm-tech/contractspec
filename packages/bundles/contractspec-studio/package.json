@@ -168,6 +168,7 @@
   },
   "type": "module",
   "publishConfig": {
+    "access": "public",
     "exports": {
       "./application": "./dist/application/index.js",
       "./application/services": "./dist/application/services/index.js",

@@ -44,6 +44,7 @@
     "./*": "./*"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./eventBus": "./dist/eventBus.js",

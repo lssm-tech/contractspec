@@ -48,6 +48,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./integrations": "./dist/integrations/index.js",

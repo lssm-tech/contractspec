@@ -199,6 +199,7 @@
     "./*": "./*"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./components/atoms/ActionButtons": "./dist/components/atoms/ActionButtons.js",

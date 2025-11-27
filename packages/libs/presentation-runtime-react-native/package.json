@@ -36,6 +36,7 @@
     "./*": "./*"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
