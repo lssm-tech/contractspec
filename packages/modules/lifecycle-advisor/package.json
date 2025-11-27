@@ -22,11 +22,11 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.lifecycle": "*"
+    "@lssm/lib.lifecycle": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

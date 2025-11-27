@@ -21,16 +21,16 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.ai-agent": "*",
-    "@lssm/lib.analytics": "*",
-    "@lssm/lib.lifecycle": "*",
-    "@lssm/lib.observability": "*",
-    "@lssm/module.lifecycle-advisor": "*",
-    "@lssm/module.lifecycle-core": "*"
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.analytics": "workspace:*",
+    "@lssm/lib.lifecycle": "workspace:*",
+    "@lssm/lib.observability": "workspace:*",
+    "@lssm/module.lifecycle-advisor": "workspace:*",
+    "@lssm/module.lifecycle-core": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
