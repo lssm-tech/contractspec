@@ -105,7 +105,8 @@
         ".next/**",
         "!.next/cache/**",
         "src/generated/**"
-      ]
+      ],
+      "concurrency": 2
     },
     "build:types": {
       "cache": true,
