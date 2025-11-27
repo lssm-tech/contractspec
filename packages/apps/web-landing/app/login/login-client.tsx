@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -6,6 +6,14 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
 import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
+import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
+import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@lssm/lib.ui-kit-web/ui/input-group';
 
 type EmailPasswordClient = {
   email?: {
@@ -76,31 +84,31 @@ export default function LoginPageClient() {
   };
 
   return (
-    <main className="pt-24 min-h-screen flex items-center justify-center">
+    <main className="flex min-h-screen items-center justify-center pt-24">
       <section className="section-padding w-full max-w-md">
         <div className="space-y-8">
-          <div className="text-center space-y-2">
+          <div className="space-y-2 text-center">
             <h1 className="text-4xl font-bold">Sign in</h1>
             <p className="text-muted-foreground">
               Welcome back to ContractSpec
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="card-subtle p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="card-subtle space-y-6 p-8">
             {error ? (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg text-sm">
+              <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-300">
                 {error}
               </div>
             ) : null}
 
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
+              <Label htmlFor="email" className="text-sm font-medium">
                 Email
-              </label>
+              </Label>
               <Input
                 id="email"
                 name="email"
-                type="email"
+                keyboard={{ kind: 'email' }}
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={(value) => updateField('email', value)}
@@ -110,9 +118,9 @@ export default function LoginPageClient() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="text-sm font-medium">
+                <Label htmlFor="password" className="text-sm font-medium">
                   Password
-                </label>
+                </Label>
                 <Link
                   href="/forgot-password"
                   className="text-xs text-violet-400 hover:text-violet-300"
@@ -120,51 +128,57 @@ export default function LoginPageClient() {
                   Forgot password?
                 </Link>
               </div>
-              <div className="relative">
-                <Input
+              <InputGroup>
+                <InputGroupInput
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
                   value={formData.password}
-                  onChange={(value) => updateField('password', value)}
+                  onChange={(value) =>
+                    updateField('password', value.target.value)
+                  }
                   required
                   className="pr-12"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((state) => !state)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  aria-label="Toggle password visibility"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    aria-label="Copy"
+                    title="Copy"
+                    size="icon-xs"
+                    onClick={() => setShowPassword((state) => !state)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </div>
 
             <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
+              <Checkbox
                 id="rememberMe"
                 name="rememberMe"
                 checked={formData.rememberMe}
-                onChange={(event) =>
+                onCheckedChange={(checked) =>
                   setFormData((prev) => ({
                     ...prev,
-                    rememberMe: event.currentTarget.checked,
+                    rememberMe: checked === true,
                   }))
                 }
-                className="w-4 h-4 rounded accent-violet-500"
               />
-              <label htmlFor="rememberMe" className="text-sm text-muted-foreground">
+              <Label
+                htmlFor="rememberMe"
+                // className="text-muted-foreground text-sm"
+              >
                 Remember me
-              </label>
+              </Label>
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              variant="outline"
+              className="w-full disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? 'Signing in…' : 'Sign in'}
             </Button>
@@ -175,7 +189,7 @@ export default function LoginPageClient() {
               Don&apos;t have an account?{' '}
               <Link
                 href="/signup"
-                className="text-violet-400 hover:text-violet-300 font-medium"
+                className="font-medium text-violet-400 hover:text-violet-300"
               >
                 Create one
               </Link>
