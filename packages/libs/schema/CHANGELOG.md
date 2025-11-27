@@ -364,6 +364,12 @@
 
 - add right-sidebar
 
+## 1.11.0
+
+### Minor Changes
+
+- b7621d3: Fix version
+
 ## 1.10.0
 
 ### Minor Changes
