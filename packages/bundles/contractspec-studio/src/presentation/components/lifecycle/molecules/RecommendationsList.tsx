@@ -90,13 +90,3 @@ export function RecommendationsList({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

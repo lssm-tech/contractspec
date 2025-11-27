@@ -131,13 +131,3 @@ export const VisualBuilderCapability = defineCapability({
     { key: 'studio.spec-editor', version: 1 },
   ],
 });
-
-
-
-
-
-
-
-
-
-

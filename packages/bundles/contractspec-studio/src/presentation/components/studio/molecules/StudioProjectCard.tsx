@@ -138,13 +138,3 @@ export function StudioProjectCard({
     />
   );
 }
-
-
-
-
-
-
-
-
-
-

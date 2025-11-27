@@ -53,8 +53,7 @@ function cosineSimilarity(a: number[], b?: number[]): number {
   return dot / (Math.sqrt(aNorm) * Math.sqrt(bNorm));
 }
 
-const debugGraphQL =
-  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+const debugGraphQL = process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
 
 if (debugGraphQL) {
   console.log('[graphql-integrations] module loaded');

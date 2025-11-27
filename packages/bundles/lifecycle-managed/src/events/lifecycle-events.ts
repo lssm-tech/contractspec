@@ -47,13 +47,3 @@ export class LifecycleEventBridge {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-

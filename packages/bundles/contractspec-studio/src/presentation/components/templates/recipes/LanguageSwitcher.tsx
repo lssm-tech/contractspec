@@ -23,13 +23,3 @@ export function LanguageSwitcher({ locale, onChange }: LanguageSwitcherProps) {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

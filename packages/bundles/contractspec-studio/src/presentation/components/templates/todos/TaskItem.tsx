@@ -90,13 +90,3 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

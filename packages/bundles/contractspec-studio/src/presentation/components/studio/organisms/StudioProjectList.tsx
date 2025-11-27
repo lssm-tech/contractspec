@@ -189,13 +189,3 @@ function FiltersRow({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

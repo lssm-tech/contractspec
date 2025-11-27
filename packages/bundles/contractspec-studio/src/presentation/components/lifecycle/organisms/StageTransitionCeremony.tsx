@@ -88,13 +88,3 @@ export function StageTransitionCeremony({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

@@ -81,12 +81,3 @@ export class CanvasVersionManager {
     return JSON.parse(JSON.stringify(nodes));
   }
 }
-
-
-
-
-
-
-
-
-

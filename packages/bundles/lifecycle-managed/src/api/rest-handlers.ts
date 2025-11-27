@@ -37,13 +37,3 @@ export const createLifecycleHandlers = (
     return { status: 200, body: result };
   },
 });
-
-
-
-
-
-
-
-
-
-

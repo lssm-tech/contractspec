@@ -21,8 +21,7 @@ import type {
 } from '../../../modules/visual-builder';
 import { CanvasVersionManager } from '../../../modules/visual-builder/versioning';
 
-const debugGraphQL =
-  process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
+const debugGraphQL = process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
 
 if (debugGraphQL) {
   console.log('[graphql-studio] module loaded');

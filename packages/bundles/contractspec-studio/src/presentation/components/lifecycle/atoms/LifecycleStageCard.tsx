@@ -121,13 +121,3 @@ export function LifecycleStageCard({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

@@ -42,13 +42,3 @@ export type RuntimeContract = OperationSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
-
-
-
-
-
-
-
-
-
-

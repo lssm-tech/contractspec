@@ -106,13 +106,3 @@ export class LifecycleKpiPipeline {
     } satisfies LifecyclePipelineEvent);
   }
 }
-
-
-
-
-
-
-
-
-
-

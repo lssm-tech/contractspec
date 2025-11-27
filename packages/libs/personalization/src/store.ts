@@ -105,13 +105,3 @@ function filterEvents(
     return true;
   });
 }
-
-
-
-
-
-
-
-
-
-

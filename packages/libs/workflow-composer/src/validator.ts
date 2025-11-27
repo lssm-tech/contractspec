@@ -61,13 +61,3 @@ export function validateExtension(
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

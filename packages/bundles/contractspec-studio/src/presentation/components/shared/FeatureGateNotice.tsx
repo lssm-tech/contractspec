@@ -33,13 +33,3 @@ export function FeatureGateNotice({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
