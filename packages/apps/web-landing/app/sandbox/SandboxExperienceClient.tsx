@@ -81,6 +81,7 @@ const TEMPLATE_LIBRARY: Record<
 const DEMO_CANVAS: CanvasState = {
   id: 'sandbox-canvas',
   projectId: 'sandbox',
+  versions: [],
   nodes: [
     {
       id: 'kanban',
@@ -188,7 +189,7 @@ export default function SandboxExperienceClient() {
   };
 
   return (
-    <main className="section-padding space-y-8 py-16">
+    <main className="section-padding space-y-8 py-16 pt-24">
       <header className="space-y-2 text-center">
         <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Live sandbox
@@ -208,7 +209,7 @@ export default function SandboxExperienceClient() {
           <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Templates
           </p>
-          <div className="mt-3 space-y-2">
+          <div className="mt-3 grid grid-cols-1 justify-center gap-2 md:grid-cols-2 lg:grid-cols-4">
             {(Object.keys(TEMPLATE_LIBRARY) as TemplateId[]).map((id) => (
               <button
                 key={id}
@@ -232,7 +233,7 @@ export default function SandboxExperienceClient() {
           <p className="text-muted-foreground mt-6 text-xs font-semibold tracking-wide uppercase">
             Modes
           </p>
-          <div className="mt-3 space-y-2">
+          <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {(['playground', 'specs', 'builder'] as Mode[]).map((modeId) => (
               <button
                 key={modeId}

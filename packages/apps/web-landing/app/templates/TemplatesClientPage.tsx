@@ -335,14 +335,13 @@ export default function TemplatesClientPage() {
           </div>
         </section>
       </main>
-      <ClientOnly>
-        {preview ? (
-          <TemplatePreviewModal
-            templateId={preview}
-            onClose={() => setPreview(null)}
-          />
-        ) : null}
-      </ClientOnly>
+
+      {preview ? (
+        <TemplatePreviewModal
+          templateId={preview}
+          onClose={() => setPreview(null)}
+        />
+      ) : null}
     </>
   );
 }
