@@ -92,13 +92,3 @@ export function createSpecVariantResolver(
     },
   };
 }
-
-
-
-
-
-
-
-
-
-

@@ -153,13 +153,3 @@ export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {
 export function getTemplate(id: TemplateId): TemplateDefinition | undefined {
   return TEMPLATE_REGISTRY.find((template) => template.id === id);
 }
-
-
-
-
-
-
-
-
-
-

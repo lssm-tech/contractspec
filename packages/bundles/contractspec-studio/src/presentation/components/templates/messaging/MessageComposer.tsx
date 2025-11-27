@@ -81,13 +81,3 @@ export function MessageComposer({
     </form>
   );
 }
-
-
-
-
-
-
-
-
-
-

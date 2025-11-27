@@ -19,7 +19,7 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
 
   if (!node) {
     return (
-      <div className="border-border bg-card/40 rounded-2xl border border-dashed p-6 text-center text-sm text-muted-foreground">
+      <div className="border-border bg-card/40 text-muted-foreground rounded-2xl border border-dashed p-6 text-center text-sm">
         Select a component to edit its properties.
       </div>
     );
@@ -61,7 +61,7 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
   const propEntries = Object.entries(node.props ?? {});
 
   return (
-    <div className="border-border bg-card rounded-2xl border p-5 space-y-5">
+    <div className="border-border bg-card space-y-5 rounded-2xl border p-5">
       <div>
         <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           {node.type}
@@ -81,11 +81,15 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
           propEntries.map(([key, value]) => (
             <div
               key={key}
-              className="flex flex-col gap-2 rounded-xl border border-border p-3"
+              className="border-border flex flex-col gap-2 rounded-xl border p-3"
             >
               <div className="flex items-center justify-between gap-3">
                 <label className="text-sm font-medium">{key}</label>
-                <Button variant="ghost" size="sm" onClick={() => removeProp(key)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeProp(key)}
+                >
                   Remove
                 </Button>
               </div>
@@ -114,12 +118,3 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-

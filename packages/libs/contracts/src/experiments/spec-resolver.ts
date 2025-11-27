@@ -14,13 +14,3 @@ export interface SpecVariantResolver {
     ctx: HandlerCtx
   ): Promise<RuntimeContract | undefined> | RuntimeContract | undefined;
 }
-
-
-
-
-
-
-
-
-
-

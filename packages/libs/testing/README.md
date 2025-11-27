@@ -1,6 +1,8 @@
-## @lssm/lib.testing
+# @lssm/lib.testing
 
-Golden-test utilities for ContractSpec operations.
+**Safe regeneration verification** — Capture production traffic and generate golden tests automatically.
+
+Golden-test utilities that record real requests/responses and generate runnable test suites. Prove that regenerated code behaves identically to the original.
 
 - **TrafficRecorder** captures production requests/responses with sampling + sanitization.
 - **GoldenTestGenerator** converts snapshots into runnable suites.

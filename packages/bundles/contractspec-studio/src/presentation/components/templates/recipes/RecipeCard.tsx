@@ -64,13 +64,3 @@ export function RecipeCard({
     </button>
   );
 }
-
-
-
-
-
-
-
-
-
-

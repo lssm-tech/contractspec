@@ -118,10 +118,7 @@ function ArtifactsPanel({
 }) {
   if (!artifacts) {
     return (
-      <EmptyState
-      >
-        Run preview to generate artifacts for this spec.
-      </EmptyState>
+      <EmptyState>Run preview to generate artifacts for this spec.</EmptyState>
     );
   }
 
@@ -143,9 +140,7 @@ function ArtifactsPanel({
 function SchemaPreview({ schema }: { schema?: string }) {
   if (!schema) {
     return (
-      <EmptyState>
-        Schema will appear here after running preview.
-      </EmptyState>
+      <EmptyState>Schema will appear here after running preview.</EmptyState>
     );
   }
   return (
@@ -181,13 +176,11 @@ function RestPreview({
           key={`${endpoint.method}-${endpoint.path}`}
           className="bg-card rounded-lg p-3 text-xs"
         >
-          <p className="font-mono text-foreground">
+          <p className="text-foreground font-mono">
             {endpoint.method} {endpoint.path}
           </p>
           {endpoint.description ? (
-            <p className="text-muted-foreground mt-1">
-              {endpoint.description}
-            </p>
+            <p className="text-muted-foreground mt-1">{endpoint.description}</p>
           ) : null}
         </div>
       ))}
@@ -201,11 +194,7 @@ function ComponentPreview({
   components?: SpecPreviewArtifacts['components'];
 }) {
   if (!components?.length) {
-    return (
-      <EmptyState>
-        Run preview to hydrate component artifacts.
-      </EmptyState>
-    );
+    return <EmptyState>Run preview to hydrate component artifacts.</EmptyState>;
   }
   return (
     <div className="mt-3 space-y-2">
@@ -229,4 +218,3 @@ function EmptyState({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

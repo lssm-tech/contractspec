@@ -99,13 +99,3 @@ describe('StudioIntegrationModule', () => {
     expect(credentials).toEqual({ apiKey: 'secret' });
   });
 });
-
-
-
-
-
-
-
-
-
-

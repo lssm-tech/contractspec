@@ -1,6 +1,8 @@
 # @lssm/lib.ai-agent
 
-Stateful AI agent orchestration for ContractSpec apps. The library wraps LLM providers, tool execution, knowledge bindings, and per-tenant guardrails so that agents can triage tickets, run growth experiments, or automate DevOps tasks with the same primitives used by workflows.
+**AI governance for ContractSpec** — Constrain what AI agents can change, enforce contracts they must respect.
+
+Stateful AI agent orchestration with type-safe specs, tool execution, knowledge bindings, and per-tenant guardrails. Agents read contracts as their source of truth, enabling triage, growth experiments, and DevOps automation with contract-enforced safety.
 
 ## Features
 

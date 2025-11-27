@@ -1,6 +1,10 @@
 # @lssm/lib.schema
 
-A small schema dictionary to describe operation I/O once and export to:
+**Multi-surface consistency starts here** — Define schemas once, export to Zod, GraphQL, and JSON Schema.
+
+A schema dictionary to describe operation I/O once and generate consistent types across all surfaces (API, database, UI). Part of ContractSpec's spec-first approach.
+
+## Exports to:
 
 - zod (runtime validation)
 - Pothos (GraphQL type refs)

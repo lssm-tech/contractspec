@@ -97,13 +97,3 @@ export function LifecycleJourney({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-

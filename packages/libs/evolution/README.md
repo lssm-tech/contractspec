@@ -1,6 +1,10 @@
 # @lssm/lib.evolution
 
-Utilities for ContractSpec auto-evolution:
+**Safe regeneration for ContractSpec** — Evolve specs automatically while preserving invariants.
+
+Auto-evolution utilities that analyze telemetry, suggest spec improvements, and route changes through approval workflows. Regenerate code safely, one module at a time.
+
+## Capabilities:
 
 - Analyze telemetry to find anomalous specs
 - Convert detected intent into spec suggestions

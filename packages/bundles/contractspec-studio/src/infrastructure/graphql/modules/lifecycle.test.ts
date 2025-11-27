@@ -145,13 +145,3 @@ describe('lifecycle GraphQL module', () => {
     expect(progress.id).toBe('milestone-1');
   });
 });
-
-
-
-
-
-
-
-
-
-

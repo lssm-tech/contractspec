@@ -92,7 +92,10 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'high',
         effortLevel: 'm',
         category: 'operations',
-        recommendedLibraries: ['@lssm/lib.analytics', '@lssm/lib.observability'],
+        recommendedLibraries: [
+          '@lssm/lib.analytics',
+          '@lssm/lib.observability',
+        ],
       },
       {
         id: 'stage2-weekly-sync',
@@ -131,8 +134,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         id: 'stage3-incident-review',
         stage: LifecycleStage.ProductMarketFit,
         title: 'Lightweight incident review',
-        description:
-          'Review the last 2 reliability hiccups and capture fixes.',
+        description: 'Review the last 2 reliability hiccups and capture fixes.',
         priority: 2,
         estimatedImpact: 'medium',
         effortLevel: 's',
@@ -165,8 +167,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         id: 'stage4-hiring-map',
         stage: LifecycleStage.GrowthScaleUp,
         title: 'Create hiring map',
-        description:
-          'List specialized roles you need in the next 2 quarters.',
+        description: 'List specialized roles you need in the next 2 quarters.',
         priority: 2,
         estimatedImpact: 'medium',
         effortLevel: 'm',
@@ -199,8 +200,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         id: 'stage5-experiment-portfolio',
         stage: LifecycleStage.ExpansionPlatform,
         title: 'Expansion experiment portfolio',
-        description:
-          'List the top 3 markets or product lines with owners.',
+        description: 'List the top 3 markets or product lines with owners.',
         priority: 2,
         estimatedImpact: 'medium',
         effortLevel: 'm',
@@ -249,7 +249,3 @@ const stagePlaybooks: StagePlaybookData[] = [
 ];
 
 export default stagePlaybooks;
-
-
-
-

@@ -53,13 +53,3 @@ describe('API authentication', () => {
     );
   });
 });
-
-
-
-
-
-
-
-
-
-
