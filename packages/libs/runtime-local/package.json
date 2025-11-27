@@ -42,6 +42,7 @@
     "./*": "./*"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.js",
       "./database/sqlite-wasm": "./dist/database/sqlite-wasm.js",

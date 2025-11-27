@@ -102,6 +102,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": "./dist/index.mjs",
       "./client": "./dist/client.mjs",
