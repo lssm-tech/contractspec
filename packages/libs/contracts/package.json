@@ -13,8 +13,8 @@
     "test": "bun run"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
@@ -29,7 +29,7 @@
     "stripe": "^19.1.0",
     "postmark": "^4.0.4",
     "twilio": "^5.10.6",
-    "@lssm/lib.schema": "*",
+    "@lssm/lib.schema": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.20.1",
     "mcp-handler": "^1.0.4",
     "zod": "^4.1.13"
