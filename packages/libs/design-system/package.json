@@ -18,10 +18,10 @@
   "tree-shake": true,
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
-    "@lssm/lib.ai-agent": "*",
-    "@lssm/lib.contracts": "*",
-    "@lssm/lib.ui-kit": "*",
-    "@lssm/lib.ui-kit-web": "*",
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.ui-kit": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.535.0",
@@ -32,7 +32,7 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^24.9.0",
     "@types/react-dom": "^19.0.14",
     "postcss": "^8.5",

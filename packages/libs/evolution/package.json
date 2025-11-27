@@ -21,16 +21,16 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "*",
-    "@lssm/lib.observability": "*",
-    "@lssm/lib.schema": "*"
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.observability": "workspace:*",
+    "@lssm/lib.schema": "workspace:*"
   },
   "peerDependencies": {
     "@prisma/client": "7.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

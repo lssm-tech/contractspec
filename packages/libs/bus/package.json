@@ -12,15 +12,15 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lssm/lib.schema": "*",
-    "@lssm/lib.contracts": "*"
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
   },
   "peerDependencies": {
     "elysia": "^1.4.11",

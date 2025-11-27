@@ -79,7 +79,7 @@
     "typescript": "^5.9.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "@types/geojson": "^7946.0.14",
     "@sentry/nextjs": "^10.26.0",
     "maplibre-gl": "^5.7.3",

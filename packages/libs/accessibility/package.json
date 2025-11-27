@@ -12,13 +12,13 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.design-system": "*",
-    "@lssm/lib.ui-kit": "*",
-    "@lssm/lib.ui-kit-web": "*"
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

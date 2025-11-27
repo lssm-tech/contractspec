@@ -12,8 +12,8 @@
     "dev": "bun build:bundle --watch"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "*",
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

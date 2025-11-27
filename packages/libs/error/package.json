@@ -12,7 +12,7 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

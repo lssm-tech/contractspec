@@ -17,10 +17,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "*",
-    "@lssm/app.cli-database": "*",
-    "@lssm/lib.testing": "*",
-    "@lssm/lib.schema": "*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/app.cli-database": "workspace:*",
+    "@lssm/lib.testing": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "ai": "^5.0.101",
     "@ai-sdk/anthropic": "^2.0.45",
     "@ai-sdk/openai": "^2.0.72",

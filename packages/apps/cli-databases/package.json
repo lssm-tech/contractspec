@@ -15,7 +15,7 @@
     "execa": "^9.5.1"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.16.6"
   },
   "main": "./dist/index.mjs",

@@ -28,7 +28,7 @@
     "graphql": ">=16.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },

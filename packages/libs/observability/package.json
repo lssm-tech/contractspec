@@ -15,7 +15,7 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.lifecycle": "*"
+    "@lssm/lib.lifecycle": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"

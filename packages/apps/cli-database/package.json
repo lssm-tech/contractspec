@@ -27,7 +27,7 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.16.6"
   },
   "main": "./dist/index.mjs",
