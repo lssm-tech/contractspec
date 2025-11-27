@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "concurrency": 1,
   "globalEnv": [
     "NEXT_PUBLIC_ARTISAN_SENTRY_DSN",
     "NEXT_PUBLIC_COLIVING_SENTRY_DSN",
@@ -105,8 +106,7 @@
         ".next/**",
         "!.next/cache/**",
         "src/generated/**"
-      ],
-      "concurrency": 1
+      ]
     },
     "build:types": {
       "cache": true,
