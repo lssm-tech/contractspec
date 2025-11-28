@@ -26,7 +26,7 @@ const DEPLOY_MUTATION = /* GraphQL */ `
 `;
 
 async function deployProjectRequest(input: DeployProjectInput) {
-  const response = await fetch('/api/studio/graphql', {
+  const response = await fetch('/api/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

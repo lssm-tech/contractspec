@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
-  DeploymentPanel,
   type DeploymentHistoryItem,
+  DeploymentPanel,
 } from '@lssm/bundle.contractspec-studio/presentation/components/studio/molecules/DeploymentPanel';
 import {
   SpecEditor,
@@ -380,7 +380,6 @@ export default function StudioExperienceClient() {
             <div className="space-y-4">
               {Array.from({ length: 2 }).map((_, index) => (
                 <div
-                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className="border-border bg-muted/30 h-36 animate-pulse rounded-xl border border-dashed"
                 />

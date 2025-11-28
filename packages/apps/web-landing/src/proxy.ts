@@ -1,4 +1,6 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
+import { headers } from 'next/headers';
+import { auth } from '@lssm/bundle.contractspec-studio/application/services/auth';
 
 const PUBLIC_ROUTES = [
   '/',
@@ -19,47 +21,6 @@ const isRouteMatch = (pathname: string, route: string) => {
   return pathname === route || pathname.startsWith(`${route}/`);
 };
 
-const SESSION_ENDPOINT = '/api/auth/session';
-const SESSION_FETCH_TIMEOUT = 4_000;
-
-type AuthSessionResponse = {
-  user?: { id?: string };
-  session?: { activeOrganizationId?: string | null };
-} | null;
-
-const fetchSession = async (
-  request: NextRequest
-): Promise<AuthSessionResponse> => {
-  const sessionUrl = request.nextUrl.clone();
-  sessionUrl.pathname = SESSION_ENDPOINT;
-  sessionUrl.search = '';
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), SESSION_FETCH_TIMEOUT);
-
-  try {
-    const response = await fetch(sessionUrl, {
-      headers: {
-        cookie: request.headers.get('cookie') ?? '',
-        'user-agent': request.headers.get('user-agent') ?? '',
-      },
-      cache: 'no-store',
-      credentials: 'include',
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      return null;
-    }
-
-    return (await response.json().catch(() => null)) as AuthSessionResponse;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timeout);
-  }
-};
-
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get('host') ?? '';
@@ -73,7 +34,9 @@ export async function proxy(request: NextRequest) {
   }
 
   if (pathname.startsWith('/studio')) {
-    const session = await fetchSession(request);
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
     if (!session?.user?.id) {
       return NextResponse.redirect(new URL('/login', request.url));
     }

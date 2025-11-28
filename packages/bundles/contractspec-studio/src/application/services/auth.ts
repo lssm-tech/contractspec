@@ -210,33 +210,38 @@ export const auth = betterAuth({
   },
   user: {
     fields: {
-      name: 'firstName',
+      // name: 'firstName',
     },
     additionalFields: {
+      firstName: {
+        type: 'string',
+        required: false,
+        input: true,
+      },
       lastName: {
         type: 'string',
         required: false,
         input: true,
       },
-      lang: {
+      locale: {
         type: 'string',
         required: false,
-        defaultValue: 'fr',
+        defaultValue: 'en',
         input: true,
       },
-      whitelistId: {
-        type: 'string',
-        required: false,
-        defaultValue: null,
-        input: false,
-      },
-      whitelistedAt: {
-        fieldName: 'whitelistedAt',
-        type: 'date',
-        required: false,
-        defaultValue: null,
-        input: false,
-      },
+      // whitelistId: {
+      //   type: 'string',
+      //   required: false,
+      //   defaultValue: null,
+      //   input: false,
+      // },
+      // whitelistedAt: {
+      //   fieldName: 'whitelistedAt',
+      //   type: 'date',
+      //   required: false,
+      //   defaultValue: null,
+      //   input: false,
+      // },
       onboardingCompleted: {
         type: 'boolean',
         required: false,

@@ -1,0 +1,9 @@
+[test]
+root = "."
+environment = "node"
+setup = ["src/__tests__/setup.ts"]
+coverage = true
+coverageProvider = "v8"
+coverageReporter = ["text", "json", "html"]
+coverageExclude = ["**/*.test.ts", "**/__tests__/**"]
+globals = true
