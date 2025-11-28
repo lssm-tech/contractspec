@@ -204,6 +204,9 @@
         "@dnd-kit/sortable": "^10.0.0",
         "@elysiajs/graphql-yoga": "^1.4.0",
         "@lssm/bundle.lifecycle-managed": "workspace:*",
+        "@lssm/example.agent-console": "workspace:*",
+        "@lssm/example.crm-pipeline": "workspace:*",
+        "@lssm/example.saas-boilerplate": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.contracts-contractspec-studio": "workspace:*",
         "@lssm/lib.database-contractspec-studio": "workspace:*",
@@ -256,6 +259,59 @@
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.8",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/agent-console": {
+      "name": "@lssm/example.agent-console",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.identity-rbac": "workspace:*",
+        "@lssm/lib.jobs": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.audit-trail": "workspace:*",
+        "zod": "^3.23.8",
+      },
+      "devDependencies": {
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.12.6",
+        "typescript": "^5.8.3",
+      },
+    },
+    "packages/examples/crm-pipeline": {
+      "name": "@lssm/example.crm-pipeline",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.bus": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.identity-rbac": "workspace:*",
+        "@lssm/lib.jobs": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.audit-trail": "workspace:*",
+        "@lssm/module.notifications": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/saas-boilerplate": {
+      "name": "@lssm/example.saas-boilerplate",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.bus": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.identity-rbac": "workspace:*",
+        "@lssm/lib.jobs": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.audit-trail": "workspace:*",
+        "@lssm/module.notifications": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.typescript": "workspace:*",
         "typescript": "^5.9.3",
       },
     },
@@ -567,7 +623,7 @@
       "name": "@lssm/lib.graphql-prisma",
       "version": "1.12.0",
       "dependencies": {
-        "@lssm/lib.schema": "^1.11.1",
+        "@lssm/lib.schema": "workspace:*",
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
         "@pothos/plugin-dataloader": "^4.4.2",
@@ -1877,6 +1933,12 @@
     "@lssm/bundle.contractspec-studio": ["@lssm/bundle.contractspec-studio@workspace:packages/bundles/contractspec-studio"],
 
     "@lssm/bundle.lifecycle-managed": ["@lssm/bundle.lifecycle-managed@workspace:packages/bundles/lifecycle-managed"],
+
+    "@lssm/example.agent-console": ["@lssm/example.agent-console@workspace:packages/examples/agent-console"],
+
+    "@lssm/example.crm-pipeline": ["@lssm/example.crm-pipeline@workspace:packages/examples/crm-pipeline"],
+
+    "@lssm/example.saas-boilerplate": ["@lssm/example.saas-boilerplate@workspace:packages/examples/saas-boilerplate"],
 
     "@lssm/lib.accessibility": ["@lssm/lib.accessibility@workspace:packages/libs/accessibility"],
 
@@ -5610,6 +5672,8 @@
 
     "unc-path-regex": ["unc-path-regex@0.1.2", "", {}, "sha512-eXL4nmJT7oCpkZsHZUOJo8hcX3GbsiDOa0Qu9F646fi8dT3XuSVopVqAcEiVzSKKH7UoDti23wNX3qGFxcW5Qg=="],
 
+    "unconfig": ["unconfig@7.4.1", "", { "dependencies": { "@quansync/fs": "^0.1.5", "defu": "^6.1.4", "jiti": "^2.6.1", "quansync": "^0.2.11", "unconfig-core": "7.4.1" } }, "sha512-uyQ7LElcGizrOGZyIq9KU+xkuEjcRf9IpmDTkCSYv5mEeZzrXSj6rb51C0L+WTedsmAoVxW9WKrLWhSwebIM9Q=="],
+
     "unconfig-core": ["unconfig-core@7.4.1", "", { "dependencies": { "@quansync/fs": "^0.1.5", "quansync": "^0.2.11" } }, "sha512-Bp/bPZjV2Vl/fofoA2OYLSnw1Z0MOhCX7zHnVCYrazpfZvseBbGhwcNQMxsg185Mqh7VZQqK3C8hFG/Dyng+yA=="],
 
     "undici": ["undici@6.22.0", "", {}, "sha512-hU/10obOIu62MGYjdskASR3CUAiYaFTtC9Pa6vHyf//mAipSvSQg6od2CnJswq7fvzNS3zJhxoRkgNVaHurWKw=="],
@@ -6087,6 +6151,10 @@
     "@jest/types/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
     "@lssm/app.overlay-editor/@types/node": ["@types/node@20.19.25", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-ZsJzA5thDQMSQO788d7IocwwQbI8B5OPzmqNvpf3NY/+MHDAS759Wo0gd2WQeXYt5AAAQjzcrTVC6SKCuYgoCQ=="],
+
+    "@lssm/example.agent-console/tsdown": ["tsdown@0.12.9", "", { "dependencies": { "ansis": "^4.1.0", "cac": "^6.7.14", "chokidar": "^4.0.3", "debug": "^4.4.1", "diff": "^8.0.2", "empathic": "^2.0.0", "hookable": "^5.5.3", "rolldown": "^1.0.0-beta.19", "rolldown-plugin-dts": "^0.13.12", "semver": "^7.7.2", "tinyexec": "^1.0.1", "tinyglobby": "^0.2.14", "unconfig": "^7.3.2" }, "peerDependencies": { "@arethetypeswrong/core": "^0.18.1", "publint": "^0.3.0", "typescript": "^5.0.0", "unplugin-lightningcss": "^0.4.0", "unplugin-unused": "^0.5.0" }, "optionalPeers": ["@arethetypeswrong/core", "publint", "typescript", "unplugin-lightningcss", "unplugin-unused"], "bin": { "tsdown": "dist/run.mjs" } }, "sha512-MfrXm9PIlT3saovtWKf/gCJJ/NQCdE0SiREkdNC+9Qy6UHhdeDPxnkFaBD7xttVUmgp0yUHtGirpoLB+OVLuLA=="],
+
+    "@lssm/example.agent-console/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@lssm/lib.contracts/@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
 
@@ -7116,6 +7184,10 @@
 
     "@jest/types/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
+    "@lssm/example.agent-console/tsdown/chokidar": ["chokidar@4.0.3", "", { "dependencies": { "readdirp": "^4.0.1" } }, "sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA=="],
+
+    "@lssm/example.agent-console/tsdown/rolldown-plugin-dts": ["rolldown-plugin-dts@0.13.14", "", { "dependencies": { "@babel/generator": "^7.28.0", "@babel/parser": "^7.28.0", "@babel/types": "^7.28.1", "ast-kit": "^2.1.1", "birpc": "^2.5.0", "debug": "^4.4.1", "dts-resolver": "^2.1.1", "get-tsconfig": "^4.10.1" }, "peerDependencies": { "@typescript/native-preview": ">=7.0.0-dev.20250601.1", "rolldown": "^1.0.0-beta.9", "typescript": "^5.0.0", "vue-tsc": "^2.2.0 || ^3.0.0" }, "optionalPeers": ["@typescript/native-preview", "typescript", "vue-tsc"] }, "sha512-wjNhHZz9dlN6PTIXyizB6u/mAg1wEFMW9yw7imEVe3CxHSRnNHVyycIX0yDEOVJfDNISLPbkCIPEpFpizy5+PQ=="],
+
     "@lssm/lib.design-system/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
 
     "@lssm/lib.ui-kit-web/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
@@ -7907,6 +7979,8 @@
     "@jest/types/chalk/ansi-styles/color-convert": ["color-convert@2.0.1", "", { "dependencies": { "color-name": "~1.1.4" } }, "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="],
 
     "@jest/types/chalk/supports-color/has-flag": ["has-flag@4.0.0", "", {}, "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="],
+
+    "@lssm/example.agent-console/tsdown/chokidar/readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
 
     "@manypkg/find-root/find-up/locate-path/p-locate": ["p-locate@4.1.0", "", { "dependencies": { "p-limit": "^2.2.0" } }, "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A=="],
 

@@ -29,7 +29,7 @@ import {
   RunEntity,
   CreateToolCommand,
   ExecuteAgentCommand 
-} from '@contractspec/example.agent-console';
+} from '@lssm/example.agent-console';
 
 // Define a tool
 const searchTool = {

@@ -1,86 +1,87 @@
 'use client';
 
-import { useState } from 'react';
+/**
+ * SaaS Project List - Standalone project list component
+ */
+import { StatCard, StatCardGroup, StatusChip, EntityCard, EmptyState, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
+import { useProjectList } from './hooks/useProjectList';
 
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  status: 'active' | 'archived';
-  memberCount: number;
-  createdAt: string;
+interface SaasProjectListProps {
+  onProjectClick?: (projectId: string) => void;
 }
 
-const SAMPLE_PROJECTS: Project[] = [
-  {
-    id: 'proj-1',
-    name: 'Marketing Site',
-    description: 'Company marketing website and blog',
-    status: 'active',
-    memberCount: 5,
-    createdAt: '2025-01-15',
-  },
-  {
-    id: 'proj-2',
-    name: 'Customer Portal',
-    description: 'Self-service customer dashboard',
-    status: 'active',
-    memberCount: 8,
-    createdAt: '2025-02-01',
-  },
-  {
-    id: 'proj-3',
-    name: 'Analytics Dashboard',
-    description: 'Internal metrics and reporting',
-    status: 'active',
-    memberCount: 3,
-    createdAt: '2025-02-20',
-  },
-];
+const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
+  ACTIVE: 'success',
+  DRAFT: 'neutral',
+  ARCHIVED: 'danger',
+};
 
-export function SaasProjectList() {
-  const [projects] = useState<Project[]>(SAMPLE_PROJECTS);
+export function SaasProjectList({ onProjectClick }: SaasProjectListProps) {
+  const { data, loading, error, stats, refetch } = useProjectList();
+
+  if (loading && !data) {
+    return <LoaderBlock label="Loading projects..." />;
+  }
+
+  if (error) {
+    return (
+      <ErrorState
+        title="Failed to load projects"
+        description={error.message}
+        action={{ label: 'Retry', onClick: refetch }}
+      />
+    );
+  }
+
+  if (!data?.projects.length) {
+    return (
+      <EmptyState
+        title="No projects found"
+        description="Create your first project to get started."
+        action={{ label: 'Create Project', onClick: () => {} }}
+      />
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Projects</h3>
-        <button
-          type="button"
-          className="rounded-lg bg-violet-500 px-4 py-2 text-sm font-medium text-white hover:bg-violet-600"
-        >
-          New Project
-        </button>
-      </div>
+    <div className="space-y-6">
+      {stats && (
+        <StatCardGroup>
+          <StatCard label="Total Projects" value={stats.total} />
+          <StatCard label="Active" value={stats.activeCount} variant="success" />
+          <StatCard label="Draft" value={stats.draftCount} variant="neutral" />
+        </StatCardGroup>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
-          <div
+        {data.projects.map((project) => (
+          <EntityCard
             key={project.id}
-            className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <h4 className="font-semibold">{project.name}</h4>
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                  {project.description}
-                </p>
+            title={project.name}
+            subtitle={project.slug ?? project.id}
+            description={project.description}
+            onClick={() => onProjectClick?.(project.id)}
+            footer={
+              <div className="flex items-center justify-between">
+                <StatusChip
+                  status={project.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
+                  variant={statusVariantMap[project.status] ?? 'neutral'}
+                >
+                  {project.status}
+                </StatusChip>
+                <div className="flex gap-1">
+                  {project.tags.slice(0, 2).map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <span
-                className={`rounded-full px-2 py-1 text-xs font-medium ${
-                  project.status === 'active'
-                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                    : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-400'
-                }`}
-              >
-                {project.status}
-              </span>
-            </div>
-            <div className="mt-4 flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-400">
-              <span>{project.memberCount} members</span>
-              <span>{project.createdAt}</span>
-            </div>
-          </div>
+            }
+          />
         ))}
       </div>
     </div>

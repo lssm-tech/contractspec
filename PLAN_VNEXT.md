@@ -650,18 +650,18 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 
 ### Application Examples
 
-| Example                  | Phase | Status      | Package                                  |
-| ------------------------ | ----- | ----------- | ---------------------------------------- |
-| SaaS Boilerplate         | 1     | ✅ Complete | `@contractspec/example.saas-boilerplate` |
-| CRM Pipeline             | 1     | ✅ Complete | `@contractspec/example.crm-pipeline`     |
-| Agent Console            | 1     | ✅ Complete | `@contractspec/example.agent-console`    |
-| Workflow/Approval System | 2     | 🔲 Pending  | -                                        |
-| Marketplace              | 2     | 🔲 Pending  | -                                        |
-| Integration Hub          | 3     | 🔲 Pending  | -                                        |
-| Analytics Dashboard      | 3     | 🔲 Pending  | -                                        |
-| Service Business OS      | 4     | 🔲 Pending  | -                                        |
-| Team Hub                 | 4     | 🔲 Pending  | -                                        |
-| Wealth Snapshot          | 4     | 🔲 Pending  | -                                        |
+| Example                  | Phase | Status      | Package                          |
+| ------------------------ | ----- | ----------- | -------------------------------- |
+| SaaS Boilerplate         | 1     | ✅ Complete | `@lssm/example.saas-boilerplate` |
+| CRM Pipeline             | 1     | ✅ Complete | `@lssm/example.crm-pipeline`     |
+| Agent Console            | 1     | ✅ Complete | `@lssm/example.agent-console`    |
+| Workflow/Approval System | 2     | 🔲 Pending  | -                                |
+| Marketplace              | 2     | 🔲 Pending  | -                                |
+| Integration Hub          | 3     | 🔲 Pending  | -                                |
+| Analytics Dashboard      | 3     | 🔲 Pending  | -                                |
+| Service Business OS      | 4     | 🔲 Pending  | -                                |
+| Team Hub                 | 4     | 🔲 Pending  | -                                |
+| Wealth Snapshot          | 4     | 🔲 Pending  | -                                |
 
 ### Studio Integration
 
@@ -701,17 +701,17 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
    - Templates: BasicTemplateRenderer
    - Contracts: SendNotification, ListUserNotifications, MarkRead, UpdatePreferences
 
-5. **`@contractspec/example.saas-boilerplate`** - SaaS foundation
+5. **`@lssm/example.saas-boilerplate`** - SaaS foundation
    - Entities: Project, AppSettings, UserSettings, BillingUsage
    - Contracts: CreateProject, GetProject, RecordUsage, GetOrganizationUsage
    - Events: ProjectCreated, UsageRecorded
 
-6. **`@contractspec/example.crm-pipeline`** - Sales CRM
+6. **`@lssm/example.crm-pipeline`** - Sales CRM
    - Entities: Contact, Company, Deal, Pipeline, Stage, Task
    - Contracts: CreateDeal, UpdateDealStage, GetDeal
    - Events: DealCreated, DealStageMoved, TaskCompleted
 
-7. **`@contractspec/example.agent-console`** - AI agent management
+7. **`@lssm/example.agent-console`** - AI agent management
    - Entities: Tool, Agent, AgentTool, Run, RunStep, RunLog
    - Contracts: CreateTool, CreateAgent, ExecuteAgent, GetRun, GetRunSteps, GetRunLogs, GetRunMetrics
    - Events: ToolCreated, AgentCreated, RunStarted, RunCompleted, RunFailed, ToolInvoked

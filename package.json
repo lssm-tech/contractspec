@@ -6,6 +6,7 @@
     "packages/tools/*",
     "packages/libs/*",
     "packages/modules/*",
+    "packages/examples/*",
     "packages/bundles/*",
     "packages/apps/*"
   ],

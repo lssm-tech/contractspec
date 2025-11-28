@@ -4,6 +4,9 @@
 export * from './entities';
 export * from './contracts';
 export * from './events';
+export * from './handlers';
+export * from './presentations';
+export * from './feature';
 
 // Schema composition configuration
 import { identityRbacSchemaContribution } from '@lssm/lib.identity-rbac';

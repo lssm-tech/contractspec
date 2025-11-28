@@ -4,10 +4,44 @@
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
   "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./entities": {
+      "import": "./dist/entities/index.js",
+      "types": "./dist/entities/index.d.ts"
+    },
+    "./contracts": {
+      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts"
+    },
+    "./events": {
+      "import": "./dist/events.js",
+      "types": "./dist/events.d.ts"
+    },
+    "./handlers": {
+      "import": "./dist/handlers/index.js",
+      "types": "./dist/handlers/index.d.ts"
+    },
+    "./presentations": {
+      "import": "./dist/presentations/index.js",
+      "types": "./dist/presentations/index.d.ts"
+    },
+    "./feature": {
+      "import": "./dist/feature.js",
+      "types": "./dist/feature.d.ts"
+    }
+  },
   "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
     "db:generate": "database schema:generate",
-    "db:migrate": "database migrate:dev",
-    "dev": "bun run --watch src/index.ts"
+    "db:migrate": "database migrate:dev"
   },
   "dependencies": {
     "@lssm/lib.schema": "workspace:*",

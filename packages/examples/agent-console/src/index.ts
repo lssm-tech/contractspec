@@ -11,7 +11,7 @@
  *   RunEntity,
  *   CreateToolCommand,
  *   ExecuteAgentCommand
- * } from '@contractspec/example.agent-console';
+ * } from '@lssm/example.agent-console';
  * ```
  */
 
@@ -23,3 +23,12 @@ export * from './contracts';
 
 // Event exports
 export * from './events';
+
+// Handler exports (for sandbox/demo use)
+export * from './handlers';
+
+// Presentation exports
+export * from './presentations';
+
+// Feature spec export
+export * from './feature';

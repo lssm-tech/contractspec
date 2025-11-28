@@ -1,7 +1,6 @@
 {
-  "name": "@contractspec/example.agent-console",
+  "name": "@lssm/example.agent-console",
   "version": "0.0.1",
-  "private": true,
   "description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,6 +21,18 @@
     "./events": {
       "import": "./dist/events.js",
       "types": "./dist/events.d.ts"
+    },
+    "./handlers": {
+      "import": "./dist/handlers/index.js",
+      "types": "./dist/handlers/index.d.ts"
+    },
+    "./presentations": {
+      "import": "./dist/presentations/index.js",
+      "types": "./dist/presentations/index.d.ts"
+    },
+    "./feature": {
+      "import": "./dist/feature.js",
+      "types": "./dist/feature.d.ts"
     }
   },
   "scripts": {
@@ -33,7 +44,7 @@
     "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/modules.audit-trail": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
     "@lssm/lib.jobs": "workspace:*",
     "zod": "^3.23.8"
   },
