@@ -102,7 +102,7 @@ export function CrmDashboard() {
       {/* Header with Create Button */}
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">CRM Pipeline</h2>
-        <Button onPress={() => setIsCreateModalOpen(true)}>
+        <Button onClick={() => setIsCreateModalOpen(true)}>
           <span className="mr-2">+</span> Create Deal
         </Button>
       </div>
@@ -132,7 +132,7 @@ export function CrmDashboard() {
       {/* Navigation Tabs */}
       <nav className="bg-muted flex gap-1 rounded-lg p-1" role="tablist">
         {tabs.map((tab) => (
-          <button
+          <Button
             key={tab.id}
             type="button"
             role="tab"
@@ -146,7 +146,7 @@ export function CrmDashboard() {
           >
             <span>{tab.icon}</span>
             {tab.label}
-          </button>
+          </Button>
         ))}
       </nav>
 

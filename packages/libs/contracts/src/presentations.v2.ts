@@ -1,6 +1,7 @@
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { BlockConfig } from '@blocknote/core';
+import { schemaToMarkdown } from './schema-to-markdown';
 
 /** Supported render targets for the transform engine and descriptors. */
 export type PresentationTarget =
@@ -62,6 +63,10 @@ export interface RenderContext {
   featureFlags?: string[];
   /** Redaction hook for custom PII handling. */
   redact?: (path: string, value: unknown) => unknown;
+  /** Optional data for schema-driven rendering (arrays or objects). */
+  data?: unknown;
+  /** Optional async data fetcher for renderers that need to load data on demand. */
+  fetchData?: () => Promise<unknown>;
 }
 
 export interface PresentationRenderer<TOut> {
@@ -156,9 +161,30 @@ export function createDefaultTransformEngine() {
   };
 
   // markdown output for both blocknote and component
+  // Supports schema-driven rendering when ctx.data is provided
   engine.register<{ mimeType: 'text/markdown'; body: string }>({
     target: 'markdown',
-    async render(desc) {
+    async render(desc, ctx) {
+      // Try to get data from context or fetch it
+      let data = ctx?.data;
+      if (!data && ctx?.fetchData) {
+        data = await ctx.fetchData();
+      }
+
+      // Schema-driven rendering when data and schema are available
+      if (
+        desc.source.type === 'component' &&
+        desc.source.props &&
+        data !== undefined
+      ) {
+        const body = schemaToMarkdown(desc.source.props, data, {
+          title: desc.meta.description ?? desc.meta.name,
+          description: `${desc.meta.name} v${desc.meta.version}`,
+        });
+        return { mimeType: 'text/markdown', body };
+      }
+
+      // BlockNote rendering
       if (desc.source.type === 'blocknotejs') {
         // TODO: convert BlockNote doc JSON → markdown (placeholder for now)
         const raw =
@@ -168,6 +194,8 @@ export function createDefaultTransformEngine() {
         const redacted = applyPii(desc, { text: raw });
         return { mimeType: 'text/markdown', body: String(redacted.text) };
       }
+
+      // Fallback: render metadata only for component descriptors
       if (desc.source.type === 'component') {
         const header = `# ${desc.meta.name} v${desc.meta.version}`;
         const about = desc.meta.description

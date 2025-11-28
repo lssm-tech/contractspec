@@ -39,6 +39,7 @@ export * from './regenerator';
 export * from './translations/catalog';
 export * from './translations/tenant';
 export * from './workflow';
+export * from './schema-to-markdown';
 
 // Re-export defineSchemaModel for convenience
 export { defineSchemaModel } from '@lssm/lib.schema';

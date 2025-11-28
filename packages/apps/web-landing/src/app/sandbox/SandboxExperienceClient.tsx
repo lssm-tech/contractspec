@@ -1,8 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import type { CanvasState } from '@lssm/bundle.contractspec-studio/modules/visual-builder';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
@@ -78,8 +77,64 @@ const StudioCanvas = dynamic(
   { ssr: false }
 );
 
+const MarkdownView = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.MarkdownView
+    ),
+  { ssr: false }
+);
+
+const BuilderPanel = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.BuilderPanel
+    ),
+  { ssr: false }
+);
+
+const SpecEditorPanel = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.SpecEditorPanel
+    ),
+  { ssr: false }
+);
+
+const EvolutionDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.EvolutionDashboard
+    ),
+  { ssr: false }
+);
+
+const EvolutionSidebar = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.EvolutionSidebar
+    ),
+  { ssr: false }
+);
+
+const OverlayContextProvider = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.OverlayContextProvider
+    ),
+  { ssr: false }
+);
+
+const PersonalizationInsights = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.PersonalizationInsights
+    ),
+  { ssr: false }
+);
+
 type SandboxTemplateId = TemplateId;
-type Mode = 'playground' | 'specs' | 'builder';
+type Mode = 'playground' | 'specs' | 'builder' | 'markdown' | 'evolution';
 
 const TEMPLATE_LIBRARY: Record<
   SandboxTemplateId,
@@ -118,170 +173,107 @@ const TEMPLATE_LIBRARY: Record<
   },
 };
 
-const DEMO_CANVAS: CanvasState = {
-  id: 'sandbox-canvas',
-  projectId: 'sandbox',
-  versions: [],
-  nodes: [
-    {
-      id: 'kanban',
-      type: 'KanbanBoard',
-      props: { columns: 3 },
-      children: [
-        {
-          id: 'card-1',
-          type: 'Card',
-          props: { heading: 'Signals', body: 'Usage, telemetry, tickets' },
-        },
-        {
-          id: 'card-2',
-          type: 'Card',
-          props: { heading: 'Policies', body: 'Approval flows' },
-        },
-      ],
-    },
-  ],
-  updatedAt: new Date().toISOString(),
-};
+/** Hook to track behavior events in the sandbox */
+function useSandboxBehaviorTracking(
+  templateId: TemplateId,
+  mode: Mode,
+  pushLog: (message: string) => void
+) {
+  const [eventCount, setEventCount] = useState(0);
 
-const SPEC_SNIPPETS: Record<TemplateId, string> = {
-  'todos-app': `contractSpec("tasks.board.v1", {
-  goal: "Assign and approve craft work",
-  transport: { gql: { field: "tasksBoard" } },
-  io: {
-    input: { tenantId: "string", assignee: "string" },
-    output: { tasks: "array" }
-  }
-});`,
-  'messaging-app': `contractSpec("messaging.send.v1", {
-  goal: "Deliver intent-rich updates",
-  io: {
-    input: { conversationId: "string", body: "richtext" },
-    output: { messageId: "string", deliveredAt: "ISO8601" }
-  }
-});`,
-  'recipe-app-i18n': `contractSpec("recipes.lookup.v1", {
-  goal: "Serve bilingual rituals",
-  io: {
-    input: { locale: "enum<'EN'|'FR'>", slug: "string" },
-    output: { title: "string", content: "markdown" }
-  }
-});`,
-  'saas-boilerplate': `contractSpec("saas.project.create.v1", {
-  goal: "Create a new project in an organization",
-  transport: { gql: { mutation: "createProject" } },
-  io: {
-    input: { 
-      orgId: "string",
-      name: "string",
-      description: "string?"
-    },
-    output: { 
-      project: {
-        id: "string",
-        name: "string",
-        createdAt: "ISO8601"
-      }
-    }
-  },
-  policy: { auth: "user", rbac: "org:member" }
-});`,
-  'crm-pipeline': `contractSpec("crm.deal.updateStage.v1", {
-  goal: "Move a deal to a different pipeline stage",
-  transport: { gql: { mutation: "updateDealStage" } },
-  io: {
-    input: { 
-      dealId: "string",
-      stageId: "string",
-      notes: "string?"
-    },
-    output: { 
-      deal: {
-        id: "string",
-        stage: "string",
-        probability: "number"
-      }
-    }
-  },
-  events: ["deal.stage.changed"]
-});`,
-  'agent-console': `contractSpec("agent.run.execute.v1", {
-  goal: "Execute an agent run with specified tools",
-  transport: { gql: { mutation: "executeAgentRun" } },
-  io: {
-    input: { 
-      agentId: "string",
-      input: "string",
-      tools: "string[]?"
-    },
-    output: { 
-      runId: "string",
-      status: "enum<'running'|'completed'|'failed'>",
-      steps: "number"
-    }
-  },
-  events: ["run.started", "run.completed", "run.failed"]
-});`,
-};
+  // Track template changes
+  useEffect(() => {
+    setEventCount((prev) => prev + 1);
+  }, [templateId]);
+
+  // Track mode changes
+  useEffect(() => {
+    setEventCount((prev) => prev + 1);
+  }, [mode]);
+
+  // Return event count for display
+  return { eventCount };
+}
 
 export default function SandboxExperienceClient() {
   const [templateId, setTemplateId] = useState<TemplateId>('todos-app');
   const [mode, setMode] = useState<Mode>('playground');
+  const [showEvolutionSidebar, setShowEvolutionSidebar] = useState(true);
+  const [showInsights, setShowInsights] = useState(false);
   const [logs, setLogs] = useState<string[]>([
     'Sandbox ready – instant local runtime hydrated.',
   ]);
-  const [spec, setSpec] = useState(SPEC_SNIPPETS['todos-app']);
-  const [selectedNode, setSelectedNode] = useState<string | undefined>();
 
   const template = TEMPLATE_LIBRARY[templateId];
+
+  const pushLog = useCallback((message: string) => {
+    setLogs((prev) => [message, ...prev].slice(0, 6));
+  }, []);
+
+  // Behavior tracking
+  const { eventCount } = useSandboxBehaviorTracking(templateId, mode, pushLog);
+
+  // Handle expanding to evolution dashboard from sidebar
+  const handleExpandToEvolution = useCallback(() => {
+    setMode('evolution');
+    pushLog('Expanded to Evolution dashboard');
+  }, [pushLog]);
+
+  // Check if sidebar should be shown for current mode
+  const showSidebarForMode = mode === 'playground' || mode === 'specs' || mode === 'builder';
 
   const mainPanel = useMemo(() => {
     switch (mode) {
       case 'playground':
         return (
-          <TemplateShell
-            templateId={templateId}
-            title={template.title}
-            description={template.description}
-            projectId="sandbox"
-            showSaveAction={false}
-          >
-            {template.component}
-          </TemplateShell>
+          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+            <TemplateShell
+              templateId={templateId}
+              title={template.title}
+              description={template.description}
+              projectId="sandbox"
+              showSaveAction={false}
+            >
+              {template.component}
+            </TemplateShell>
+          </OverlayContextProvider>
         );
       case 'specs':
         return (
-          <div className="border-border bg-card rounded-2xl border p-4">
-            <SpecEditor
-              projectId="sandbox"
-              type="CAPABILITY"
-              content={spec}
-              onChange={setSpec}
-              metadata={{ template: templateId }}
-              onSave={() => pushLog('Spec saved locally')}
-              onValidate={() => pushLog('Spec validated')}
+          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+            <SpecEditorPanel
+              templateId={templateId}
+              SpecEditor={SpecEditor}
+              onLog={pushLog}
             />
-          </div>
+          </OverlayContextProvider>
         );
       case 'builder':
         return (
-          <StudioCanvas
-            state={DEMO_CANVAS}
-            selectedNodeId={selectedNode}
-            onSelectNode={(nodeId) => {
-              setSelectedNode(nodeId);
-              pushLog(`Selected node ${nodeId}`);
-            }}
-          />
+          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+            <BuilderPanel
+              templateId={templateId}
+              StudioCanvas={StudioCanvas}
+              onLog={pushLog}
+            />
+          </OverlayContextProvider>
+        );
+      case 'markdown':
+        return (
+          <div className="border-border bg-card rounded-2xl border p-4">
+            <MarkdownView templateId={templateId} />
+          </div>
+        );
+      case 'evolution':
+        return (
+          <div className="border-border bg-card rounded-2xl border p-4">
+            <EvolutionDashboard templateId={templateId} onLog={pushLog} />
+          </div>
         );
       default:
         return null;
     }
-  }, [mode, template, templateId, spec, selectedNode]);
-
-  const pushLog = (message: string) => {
-    setLogs((prev) => [message, ...prev].slice(0, 6));
-  };
+  }, [mode, template, templateId, pushLog]);
 
   return (
     <main className="section-padding space-y-8 py-16 pt-24">
@@ -318,7 +310,6 @@ export default function SandboxExperienceClient() {
                 }`}
                 onClick={() => {
                   setTemplateId(id);
-                  setSpec(SPEC_SNIPPETS[id]);
                   pushLog(`Switched to template ${id}`);
                 }}
               >
@@ -330,8 +321,8 @@ export default function SandboxExperienceClient() {
           <p className="text-muted-foreground mt-6 text-xs font-semibold tracking-wide uppercase">
             Modes
           </p>
-          <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
-            {(['playground', 'specs', 'builder'] as Mode[]).map((modeId) => (
+          <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-5">
+            {(['playground', 'specs', 'builder', 'markdown', 'evolution'] as Mode[]).map((modeId) => (
               <button
                 key={modeId}
                 type="button"
@@ -349,13 +340,75 @@ export default function SandboxExperienceClient() {
                   ? 'Template playground'
                   : modeId === 'specs'
                     ? 'Spec editor'
-                    : 'Visual builder'}
+                    : modeId === 'builder'
+                      ? 'Visual builder'
+                      : modeId === 'markdown'
+                        ? 'Markdown preview'
+                        : '🤖 AI Evolution'}
               </button>
             ))}
           </div>
         </aside>
 
-        <section className="space-y-4">{mainPanel}</section>
+        {/* Main content with optional sidebar */}
+        <div className={`grid gap-6 ${showSidebarForMode && showEvolutionSidebar ? 'lg:grid-cols-[1fr,320px]' : ''}`}>
+          <section className="space-y-4">{mainPanel}</section>
+
+          {/* Evolution Sidebar - shown in playground, specs, and builder modes */}
+          {showSidebarForMode && showEvolutionSidebar && (
+            <aside className="space-y-4">
+              <EvolutionSidebar
+                templateId={templateId}
+                onLog={pushLog}
+                onExpandToDashboard={handleExpandToEvolution}
+              />
+              
+              {/* Personalization toggle button */}
+              {!showInsights && (
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2 text-sm transition hover:bg-blue-500/20"
+                  onClick={() => setShowInsights(true)}
+                >
+                  <span>📊</span>
+                  <span>Show Insights ({eventCount} events)</span>
+                </button>
+              )}
+
+              {showInsights && (
+                <PersonalizationInsights
+                  templateId={templateId}
+                  onToggle={() => setShowInsights(false)}
+                />
+              )}
+            </aside>
+          )}
+        </div>
+
+        {/* Toggle sidebar button when hidden */}
+        {showSidebarForMode && !showEvolutionSidebar && (
+          <button
+            type="button"
+            className="fixed right-4 bottom-24 z-50 flex items-center gap-2 rounded-full border border-violet-500/50 bg-violet-500/20 px-4 py-2 text-sm shadow-lg backdrop-blur transition hover:bg-violet-500/30"
+            onClick={() => setShowEvolutionSidebar(true)}
+          >
+            <span>🤖</span>
+            <span>AI Insights</span>
+          </button>
+        )}
+
+        {/* Hide sidebar toggle in sidebar modes */}
+        {showSidebarForMode && showEvolutionSidebar && (
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              className="text-muted-foreground hover:text-foreground text-xs underline"
+              onClick={() => setShowEvolutionSidebar(false)}
+            >
+              Hide AI sidebar
+            </button>
+          </div>
+        )}
       </div>
 
       <section className="border-border bg-card rounded-2xl border p-4">

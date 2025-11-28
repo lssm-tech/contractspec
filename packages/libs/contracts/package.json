@@ -195,6 +195,7 @@
     "./regenerator/utils": "./dist/regenerator/utils.js",
     "./registry": "./dist/registry.js",
     "./resources": "./dist/resources.js",
+    "./schema-to-markdown": "./dist/schema-to-markdown.js",
     "./server": "./dist/server/index.js",
     "./server/graphql-pothos": "./dist/server/graphql-pothos.js",
     "./server/graphql-schema-export": "./dist/server/graphql-schema-export.js",
