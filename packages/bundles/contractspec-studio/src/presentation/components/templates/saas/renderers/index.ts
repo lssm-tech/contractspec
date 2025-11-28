@@ -1,4 +1,8 @@
 // SaaS renderers
 export { projectListReactRenderer } from './project-list.renderer';
-export { projectListMarkdownRenderer } from './project-list.markdown';
+export {
+  projectListMarkdownRenderer,
+  saasDashboardMarkdownRenderer,
+  saasBillingMarkdownRenderer,
+} from './project-list.markdown';
 

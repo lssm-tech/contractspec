@@ -162,6 +162,8 @@ export function createDefaultTransformEngine() {
 
   // markdown output for both blocknote and component
   // Supports schema-driven rendering when ctx.data is provided
+  // NOTE: This is a fallback renderer - custom template renderers should be registered
+  // AFTER this one and will take priority for presentations they handle
   engine.register<{ mimeType: 'text/markdown'; body: string }>({
     target: 'markdown',
     async render(desc, ctx) {
@@ -172,16 +174,38 @@ export function createDefaultTransformEngine() {
       }
 
       // Schema-driven rendering when data and schema are available
+      // Only use schema-driven rendering for SIMPLE data structures:
+      // - Arrays of items (for table rendering)
+      // - Simple objects matching schema fields (for detail rendering)
+      // Complex composite objects (with nested arrays) should be handled by custom renderers
       if (
         desc.source.type === 'component' &&
         desc.source.props &&
         data !== undefined
       ) {
-        const body = schemaToMarkdown(desc.source.props, data, {
-          title: desc.meta.description ?? desc.meta.name,
-          description: `${desc.meta.name} v${desc.meta.version}`,
-        });
-        return { mimeType: 'text/markdown', body };
+        // Check if data is compatible with schema-driven rendering
+        const isArray = Array.isArray(data);
+        const isSimpleObject =
+          !isArray &&
+          typeof data === 'object' &&
+          data !== null &&
+          !Object.values(data).some(
+            (v) => Array.isArray(v) || (typeof v === 'object' && v !== null)
+          );
+
+        // Only use schema-driven rendering for simple structures
+        if (isArray || isSimpleObject) {
+          const body = schemaToMarkdown(desc.source.props, data, {
+            title: desc.meta.description ?? desc.meta.name,
+            description: `${desc.meta.name} v${desc.meta.version}`,
+          });
+          return { mimeType: 'text/markdown', body };
+        }
+
+        // Complex data structure - throw to let custom renderers handle
+        throw new Error(
+          `Complex data structure for ${desc.meta.name} - expecting custom renderer`
+        );
       }
 
       // BlockNote rendering
@@ -195,7 +219,17 @@ export function createDefaultTransformEngine() {
         return { mimeType: 'text/markdown', body: String(redacted.text) };
       }
 
-      // Fallback: render metadata only for component descriptors
+      // When data is provided but no schema is available, throw to allow
+      // custom renderers in the chain to handle it (they may have their own
+      // data fetching and formatting logic)
+      if (desc.source.type === 'component' && data !== undefined) {
+        throw new Error(
+          `No schema (source.props) available for ${desc.meta.name} - expecting custom renderer`
+        );
+      }
+
+      // Metadata-only fallback: only use when no data is expected
+      // (e.g., for documentation/introspection purposes)
       if (desc.source.type === 'component') {
         const header = `# ${desc.meta.name} v${desc.meta.version}`;
         const about = desc.meta.description

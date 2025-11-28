@@ -20,6 +20,7 @@ interface ToolItem {
 
 /**
  * Markdown renderer for agent-console.tool.registry presentation
+ * Only handles ToolRegistryView component
  */
 export const toolRegistryMarkdownRenderer: PresentationRenderer<{
   mimeType: string;
@@ -27,6 +28,14 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
 }> = {
   target: 'markdown',
   render: async (desc: PresentationDescriptorV2) => {
+    // Only handle ToolRegistryView
+    if (
+      desc.source.type !== 'component' ||
+      desc.source.componentKey !== 'ToolRegistryView'
+    ) {
+      throw new Error('toolRegistryMarkdownRenderer: not ToolRegistryView');
+    }
+
     // Fetch data using mock handler
     const data = await mockListToolsHandler({
       organizationId: 'demo-org',

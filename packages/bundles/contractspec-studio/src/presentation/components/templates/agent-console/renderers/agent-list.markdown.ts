@@ -16,6 +16,7 @@ type Agent = AgentSummary;
 
 /**
  * Markdown renderer for agent-console.agent.list presentation
+ * Only handles AgentListView component
  */
 export const agentListMarkdownRenderer: PresentationRenderer<{
   mimeType: string;
@@ -23,6 +24,14 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
 }> = {
   target: 'markdown',
   render: async (desc: PresentationDescriptorV2) => {
+    // Only handle AgentListView
+    if (
+      desc.source.type !== 'component' ||
+      desc.source.componentKey !== 'AgentListView'
+    ) {
+      throw new Error('agentListMarkdownRenderer: not AgentListView');
+    }
+
     // Fetch data using mock handler
     const data = await mockListAgentsHandler({
       organizationId: 'demo-org',

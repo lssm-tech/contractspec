@@ -17,14 +17,18 @@ import {
   agentListReactRenderer,
   runListMarkdownRenderer,
   toolRegistryMarkdownRenderer,
+  agentDashboardMarkdownRenderer,
 } from '../presentation/components/templates/agent-console/renderers';
 import {
   projectListMarkdownRenderer,
   projectListReactRenderer,
+  saasDashboardMarkdownRenderer,
+  saasBillingMarkdownRenderer,
 } from '../presentation/components/templates/saas/renderers';
 import {
   crmPipelineMarkdownRenderer,
   crmPipelineReactRenderer,
+  crmDashboardMarkdownRenderer,
 } from '../presentation/components/templates/crm/renderers';
 
 /**
@@ -45,6 +49,11 @@ export function createTemplateTransformEngine(): TransformEngine {
 
 /**
  * Register all template-specific renderers
+ *
+ * Custom markdown renderers are registered here and will be tried AFTER
+ * the default schema-driven renderer. Each custom renderer is responsible
+ * for checking if it handles the specific presentation (via componentKey)
+ * and throwing if not, allowing the next renderer in the chain to try.
  */
 function registerTemplateRenderers(engine: TransformEngine): void {
   // Agent Console renderers
@@ -52,14 +61,18 @@ function registerTemplateRenderers(engine: TransformEngine): void {
   engine.register(agentListMarkdownRenderer);
   engine.register(runListMarkdownRenderer);
   engine.register(toolRegistryMarkdownRenderer);
+  engine.register(agentDashboardMarkdownRenderer);
 
   // SaaS Boilerplate renderers
   engine.register(projectListReactRenderer);
   engine.register(projectListMarkdownRenderer);
+  engine.register(saasDashboardMarkdownRenderer);
+  engine.register(saasBillingMarkdownRenderer);
 
   // CRM Pipeline renderers
   engine.register(crmPipelineReactRenderer);
   engine.register(crmPipelineMarkdownRenderer);
+  engine.register(crmDashboardMarkdownRenderer);
 }
 
 /**
