@@ -1,5 +1,12 @@
 import { defineConfig } from 'tsdown';
 
+export const withDevExports = ({
+  exports: {
+    all: true,
+    devExports: true,
+  },
+});
+
 const obfuscation = defineConfig({
   minify: {
     compress: {

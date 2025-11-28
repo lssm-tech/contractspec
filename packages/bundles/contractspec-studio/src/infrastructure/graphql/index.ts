@@ -1,9 +1,23 @@
-export { schema } from './schema';
-export { createNextjsContext } from './context';
+import { yoga } from '@elysiajs/graphql-yoga';
+import type { AnyElysia } from 'elysia';
+import { schema } from './schema';
+import { createNextjsContext } from './context';
 
-export function mountStritGraphQL(app: unknown): unknown {
-  console.warn(
-    '[contractspec-studio] GraphQL server mounting is not available in this bundle.'
-  );
-  return app;
+export function mountContractSpecStudioGraphQL(
+  app: AnyElysia,
+  path = '/graphql'
+) {
+  const graphlYogaServer = yoga({
+    schema,
+    path: path,
+    landingPage: false,
+    logging: true,
+    fetchAPI: { Response, Request },
+
+    context: createNextjsContext,
+  });
+
+  return app.use(graphlYogaServer);
 }
+
+export { schema };

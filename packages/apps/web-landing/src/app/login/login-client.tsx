@@ -55,32 +55,23 @@ export default function LoginPageClient() {
 
     setLoading(true);
     setError('');
-    try {
-      const client = authClient as unknown as EmailPasswordClient;
-      if (client.email?.signIn) {
-        await client.email.signIn({
-          email: formData.email,
-          password: formData.password,
-          rememberMe: formData.rememberMe,
-        });
-      } else if (client.signIn) {
-        await client.signIn({
-          identifier: formData.email,
-          password: formData.password,
-          rememberMe: formData.rememberMe,
-        });
-      } else {
-        throw new Error('Auth client is not configured for email sign-in.');
+    await authClient.signIn.email(
+      {
+        email: formData.email,
+        password: formData.password,
+        rememberMe: formData.rememberMe,
+      },
+      {
+        onSuccess: (ctx) => {
+          setLoading(false);
+          router.push('/studio');
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          setError(ctx.error.message);
+        },
       }
-      router.replace('/studio');
-      router.refresh();
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Unable to sign in right now.'
-      );
-    } finally {
-      setLoading(false);
-    }
+    );
   };
 
   return (

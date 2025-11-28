@@ -31,7 +31,7 @@ export type StudioProjectsFetcher = (variables: {
   organizationId?: string;
 }) => Promise<StudioProjectsResponse>;
 
-const DEFAULT_ENDPOINT = '/api/studio/graphql';
+const DEFAULT_ENDPOINT = '/api/graphql';
 
 const PROJECTS_QUERY = /* GraphQL */ `
   query StudioProjects {

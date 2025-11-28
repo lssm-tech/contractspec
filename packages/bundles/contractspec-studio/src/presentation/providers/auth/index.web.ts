@@ -21,9 +21,8 @@ type ContractSpecAuth = typeof import('../../../application').auth;
 export const authClient = createAuthClient({
   basePath: '/api/auth',
   baseURL:
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3002'
-      : process.env.NEXT_PUBLIC_SIGIL_API_URL || 'https://www.strit.app',
+    process.env.NEXT_PUBLIC_SIGIL_API_URL ||
+    'https://contractspec.chaman.ventures',
   fetchOptions: {
     credentials: 'include',
   },

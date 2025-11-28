@@ -61,9 +61,12 @@ export function SignupPageClient() {
         password: formData.password,
         name: formData.username,
         // image, // User image URL (optional)
-        callbackURL: '/studio',
       },
       {
+        onSuccess: (ctx) => {
+          setLoading(false);
+          router.push('/studio');
+        },
         onError: (ctx) => {
           setLoading(false);
           setError(ctx.error.message);
