@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import type { CanvasState } from '@lssm/bundle.contractspec-studio/modules/visual-builder';
+import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
@@ -63,21 +64,19 @@ const AgentDashboard = dynamic(
 
 const SpecEditor = dynamic(
   () =>
-    import(
-      '@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/SpecEditor'
-    ).then((mod) => mod.SpecEditor),
+    import('@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/SpecEditor').then(
+      (mod) => mod.SpecEditor
+    ),
   { ssr: false }
 );
 
 const StudioCanvas = dynamic(
   () =>
-    import(
-      '@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/StudioCanvas'
-    ).then((mod) => mod.StudioCanvas),
+    import('@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/StudioCanvas').then(
+      (mod) => mod.StudioCanvas
+    ),
   { ssr: false }
 );
-
-import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
 type SandboxTemplateId = TemplateId;
 type Mode = 'playground' | 'specs' | 'builder';
@@ -300,7 +299,9 @@ export default function SandboxExperienceClient() {
         </p>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[240px,1fr]">
+      <div
+      //className="grid gap-6 lg:grid-cols-[240px,1fr]"
+      >
         <aside className="border-border bg-card rounded-2xl border p-4">
           <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Templates
