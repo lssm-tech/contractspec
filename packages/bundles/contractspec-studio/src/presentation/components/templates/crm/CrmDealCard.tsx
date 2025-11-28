@@ -3,7 +3,7 @@
 /**
  * CRM Deal Card - Individual deal card for kanban board
  */
-import type { Deal } from '@lssm/example.crm-pipeline/handlers';
+import type { Deal } from './hooks/useDealList';
 
 interface CrmDealCardProps {
   deal: Deal;
@@ -29,18 +29,18 @@ export function CrmDealCard({ deal, onClick }: CrmDealCardProps) {
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer rounded-lg border border-border bg-card p-3 shadow-sm transition-shadow hover:shadow-md"
+      className="border-border bg-card cursor-pointer rounded-lg border p-3 shadow-sm transition-shadow hover:shadow-md"
     >
       {/* Deal Name */}
       <h4 className="font-medium leading-snug">{deal.name}</h4>
 
       {/* Deal Value */}
-      <div className="mt-2 text-lg font-semibold text-primary">
+      <div className="text-primary mt-2 text-lg font-semibold">
         {formatCurrency(deal.value, deal.currency)}
       </div>
 
       {/* Meta Info */}
-      <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+      <div className="text-muted-foreground mt-3 flex items-center justify-between text-xs">
         {/* Expected Close */}
         {daysUntilClose !== null && (
           <span

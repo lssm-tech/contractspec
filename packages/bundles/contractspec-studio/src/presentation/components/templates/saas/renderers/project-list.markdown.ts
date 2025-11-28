@@ -1,8 +1,11 @@
 /**
  * Markdown renderer for SaaS Project List presentation
+ *
+ * Uses dynamic import to ensure correct build order.
  */
 import type { PresentationRenderer } from '@lssm/lib.contracts';
-import { mockListProjectsHandler } from '@lssm/example.saas-boilerplate/handlers';
+import type { Project } from '../hooks/useProjectList';
+import { mockListProjectsHandler } from '@lssm/example.saas-boilerplate/handlers/index';
 
 export const projectListMarkdownRenderer: PresentationRenderer<{
   mimeType: string;
@@ -11,7 +14,6 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
   target: 'markdown',
   render: async (desc, ctx) => {
     const data = await mockListProjectsHandler({
-      organizationId: 'demo-org',
       limit: 20,
       offset: 0,
     });
@@ -28,8 +30,14 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
     } else {
       for (const project of data.projects) {
         const status =
-          project.status === 'ACTIVE' ? '✅' : project.status === 'ARCHIVED' ? '📦' : '⏸️';
-        lines.push(`- ${status} **${project.name}** - ${project.status}`);
+          project.status === 'ACTIVE'
+            ? '✅'
+            : project.status === 'ARCHIVED'
+              ? '📦'
+              : '⏸️';
+        lines.push(
+          `- ${status} **${(project as Project).name}** - ${project.status}`
+        );
       }
     }
 
@@ -39,4 +47,3 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-

@@ -6,39 +6,40 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./entities": {
-      "import": "./dist/entities/index.js",
-      "types": "./dist/entities/index.d.ts"
-    },
-    "./contracts": {
-      "import": "./dist/contracts/index.js",
-      "types": "./dist/contracts/index.d.ts"
-    },
-    "./events": {
-      "import": "./dist/events.js",
-      "types": "./dist/events.d.ts"
-    },
-    "./handlers": {
-      "import": "./dist/handlers/index.js",
-      "types": "./dist/handlers/index.d.ts"
-    },
-    "./presentations": {
-      "import": "./dist/presentations/index.js",
-      "types": "./dist/presentations/index.d.ts"
-    },
-    "./feature": {
-      "import": "./dist/feature.js",
-      "types": "./dist/feature.d.ts"
-    }
+    ".": "./src/index.ts",
+    "./contracts/agent": "./src/contracts/agent.ts",
+    "./contracts/index": "./src/contracts/index.ts",
+    "./contracts/run": "./src/contracts/run.ts",
+    "./contracts/tool": "./src/contracts/tool.ts",
+    "./entities/agent": "./src/entities/agent.ts",
+    "./entities/index": "./src/entities/index.ts",
+    "./entities/log": "./src/entities/log.ts",
+    "./entities/run": "./src/entities/run.ts",
+    "./entities/tool": "./src/entities/tool.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers/agent.handlers": "./src/handlers/agent.handlers.ts",
+    "./handlers/index": "./src/handlers/index.ts",
+    "./handlers/mock-data": "./src/handlers/mock-data.ts",
+    "./handlers/run.handlers": "./src/handlers/run.handlers.ts",
+    "./handlers/tool.handlers": "./src/handlers/tool.handlers.ts",
+    "./presentations/agent-list": "./src/presentations/agent-list.ts",
+    "./presentations/dashboard": "./src/presentations/dashboard.ts",
+    "./presentations/index": "./src/presentations/index.ts",
+    "./presentations/run-list": "./src/presentations/run-list.ts",
+    "./presentations/tool-registry": "./src/presentations/tool-registry.ts",
+    "./*": "./*"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit"
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
   },
   "dependencies": {
     "@lssm/lib.schema": "workspace:*",
@@ -49,8 +50,37 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.12.6",
-    "typescript": "^5.8.3"
+    "tsdown": "^0.16.8",
+    "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts/agent": "./dist/contracts/agent.js",
+      "./contracts/index": "./dist/contracts/index.js",
+      "./contracts/run": "./dist/contracts/run.js",
+      "./contracts/tool": "./dist/contracts/tool.js",
+      "./entities/agent": "./dist/entities/agent.js",
+      "./entities/index": "./dist/entities/index.js",
+      "./entities/log": "./dist/entities/log.js",
+      "./entities/run": "./dist/entities/run.js",
+      "./entities/tool": "./dist/entities/tool.js",
+      "./events": "./dist/events.js",
+      "./feature": "./dist/feature.js",
+      "./handlers/agent.handlers": "./dist/handlers/agent.handlers.js",
+      "./handlers/index": "./dist/handlers/index.js",
+      "./handlers/mock-data": "./dist/handlers/mock-data.js",
+      "./handlers/run.handlers": "./dist/handlers/run.handlers.js",
+      "./handlers/tool.handlers": "./dist/handlers/tool.handlers.js",
+      "./presentations/agent-list": "./dist/presentations/agent-list.js",
+      "./presentations/dashboard": "./dist/presentations/dashboard.js",
+      "./presentations/index": "./dist/presentations/index.js",
+      "./presentations/run-list": "./dist/presentations/run-list.js",
+      "./presentations/tool-registry": "./dist/presentations/tool-registry.js",
+      "./*": "./*"
+    }
   }
 }

@@ -4,23 +4,7 @@
  * These overlays customize the presentation for different contexts
  * (e.g., demo users, different roles).
  */
-
-export interface OverlayDefinition {
-  overlayId: string;
-  version: string;
-  description: string;
-  appliesTo: {
-    presentation?: string;
-    role?: string;
-    feature?: string;
-  };
-  modifications: Array<
-    | { type: 'hideField'; field: string; reason?: string }
-    | { type: 'renameLabel'; field: string; newLabel: string }
-    | { type: 'addBadge'; position: string; label: string; variant?: string }
-    | { type: 'setDefault'; field: string; value: unknown }
-  >;
-}
+import type { OverlayDefinition } from '../../shared/overlay-types';
 
 /**
  * Demo user overlay - hides advanced configuration options
@@ -34,10 +18,27 @@ export const agentConsoleDemoOverlay: OverlayDefinition = {
     role: 'demo',
   },
   modifications: [
-    { type: 'hideField', field: 'modelConfig', reason: 'Advanced config not relevant for demo' },
-    { type: 'hideField', field: 'webhookConfig', reason: 'Integration not available in demo' },
-    { type: 'renameLabel', field: 'systemPrompt', newLabel: 'Agent Instructions' },
-    { type: 'addBadge', position: 'header', label: 'Demo Mode', variant: 'warning' },
+    {
+      type: 'hideField',
+      field: 'modelConfig',
+      reason: 'Advanced config not relevant for demo',
+    },
+    {
+      type: 'hideField',
+      field: 'webhookConfig',
+      reason: 'Integration not available in demo',
+    },
+    {
+      type: 'renameLabel',
+      field: 'systemPrompt',
+      newLabel: 'Agent Instructions',
+    },
+    {
+      type: 'addBadge',
+      position: 'header',
+      label: 'Demo Mode',
+      variant: 'warning',
+    },
   ],
 };
 
@@ -53,9 +54,17 @@ export const agentConsoleReadOnlyOverlay: OverlayDefinition = {
     role: 'viewer',
   },
   modifications: [
-    { type: 'hideField', field: 'deleteButton', reason: 'No delete permission' },
+    {
+      type: 'hideField',
+      field: 'deleteButton',
+      reason: 'No delete permission',
+    },
     { type: 'hideField', field: 'editButton', reason: 'No edit permission' },
-    { type: 'hideField', field: 'createButton', reason: 'No create permission' },
+    {
+      type: 'hideField',
+      field: 'createButton',
+      reason: 'No create permission',
+    },
   ],
 };
 
@@ -66,4 +75,3 @@ export const agentConsoleOverlays: OverlayDefinition[] = [
   agentConsoleDemoOverlay,
   agentConsoleReadOnlyOverlay,
 ];
-

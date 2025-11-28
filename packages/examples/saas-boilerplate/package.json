@@ -3,45 +3,39 @@
   "version": "1.0.0",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
-  "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./entities": {
-      "import": "./dist/entities/index.js",
-      "types": "./dist/entities/index.d.ts"
-    },
-    "./contracts": {
-      "import": "./dist/contracts/index.js",
-      "types": "./dist/contracts/index.d.ts"
-    },
-    "./events": {
-      "import": "./dist/events.js",
-      "types": "./dist/events.d.ts"
-    },
-    "./handlers": {
-      "import": "./dist/handlers/index.js",
-      "types": "./dist/handlers/index.d.ts"
-    },
-    "./presentations": {
-      "import": "./dist/presentations/index.js",
-      "types": "./dist/presentations/index.d.ts"
-    },
-    "./feature": {
-      "import": "./dist/feature.js",
-      "types": "./dist/feature.d.ts"
-    }
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/billing": "./src/contracts/billing.ts",
+    "./contracts/project": "./src/contracts/project.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/billing": "./src/entities/billing.ts",
+    "./entities/project": "./src/entities/project.ts",
+    "./entities/settings": "./src/entities/settings.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/billing.handlers": "./src/handlers/billing.handlers.ts",
+    "./handlers/mock-data": "./src/handlers/mock-data.ts",
+    "./handlers/project.handlers": "./src/handlers/project.handlers.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./presentations/billing": "./src/presentations/billing.ts",
+    "./presentations/dashboard": "./src/presentations/dashboard.ts",
+    "./presentations/project-list": "./src/presentations/project-list.ts",
+    "./*": "./*"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit",
-    "db:generate": "database schema:generate",
-    "db:migrate": "database migrate:dev"
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
   },
   "dependencies": {
     "@lssm/lib.schema": "workspace:*",
@@ -54,8 +48,33 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./contracts/billing": "./dist/contracts/billing.js",
+      "./contracts/project": "./dist/contracts/project.js",
+      "./entities": "./dist/entities/index.js",
+      "./entities/billing": "./dist/entities/billing.js",
+      "./entities/project": "./dist/entities/project.js",
+      "./entities/settings": "./dist/entities/settings.js",
+      "./events": "./dist/events.js",
+      "./feature": "./dist/feature.js",
+      "./handlers": "./dist/handlers/index.js",
+      "./handlers/billing.handlers": "./dist/handlers/billing.handlers.js",
+      "./handlers/mock-data": "./dist/handlers/mock-data.js",
+      "./handlers/project.handlers": "./dist/handlers/project.handlers.js",
+      "./presentations": "./dist/presentations/index.js",
+      "./presentations/billing": "./dist/presentations/billing.js",
+      "./presentations/dashboard": "./dist/presentations/dashboard.js",
+      "./presentations/project-list": "./dist/presentations/project-list.js",
+      "./*": "./*"
+    }
   }
 }
-

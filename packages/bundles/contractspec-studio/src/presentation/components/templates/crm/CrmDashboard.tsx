@@ -7,8 +7,13 @@
  * and design-system components.
  */
 import { useState } from 'react';
-import { StatCard, StatCardGroup, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
-import { useDealList } from './hooks/useDealList';
+import {
+  StatCard,
+  StatCardGroup,
+  LoaderBlock,
+  ErrorState,
+} from '@lssm/lib.design-system';
+import { useDealList, type Deal } from './hooks/useDealList';
 import { CrmPipelineBoard } from './CrmPipelineBoard';
 
 type Tab = 'pipeline' | 'list' | 'metrics';
@@ -24,7 +29,8 @@ function formatCurrency(value: number, currency: string = 'USD'): string {
 
 export function CrmDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('pipeline');
-  const { data, dealsByStage, stages, loading, error, stats, refetch } = useDealList();
+  const { data, dealsByStage, stages, loading, error, stats, refetch } =
+    useDealList();
 
   const tabs: Array<{ id: Tab; label: string; icon: string }> = [
     { id: 'pipeline', label: 'Pipeline', icon: '📊' },
@@ -41,7 +47,8 @@ export function CrmDashboard() {
       <ErrorState
         title="Failed to load CRM"
         description={error.message}
-        action={{ label: 'Retry', onClick: refetch }}
+        onRetry={refetch}
+        retryLabel="Retry"
       />
     );
   }
@@ -54,31 +61,24 @@ export function CrmDashboard() {
           <StatCard
             label="Total Pipeline"
             value={formatCurrency(stats.totalValue)}
-            description={`${stats.total} deals`}
+            hint={`${stats.total} deals`}
           />
           <StatCard
             label="Open Deals"
             value={formatCurrency(stats.openValue)}
-            description={`${stats.openCount} active`}
-            variant="warning"
+            hint={`${stats.openCount} active`}
           />
           <StatCard
             label="Won"
             value={formatCurrency(stats.wonValue)}
-            description={`${stats.wonCount} closed`}
-            variant="success"
+            hint={`${stats.wonCount} closed`}
           />
-          <StatCard
-            label="Lost"
-            value={stats.lostCount}
-            description="deals lost"
-            variant="danger"
-          />
+          <StatCard label="Lost" value={stats.lostCount} hint="deals lost" />
         </StatCardGroup>
       )}
 
       {/* Navigation Tabs */}
-      <nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+      <nav className="bg-muted flex gap-1 rounded-lg p-1" role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -110,28 +110,34 @@ export function CrmDashboard() {
   );
 }
 
-function DealListTab({ data }: { data: ReturnType<typeof useDealList>['data'] }) {
+function DealListTab({
+  data,
+}: {
+  data: ReturnType<typeof useDealList>['data'];
+}) {
   if (!data?.deals.length) {
     return (
-      <div className="flex h-64 items-center justify-center text-muted-foreground">
+      <div className="text-muted-foreground flex h-64 items-center justify-center">
         No deals found
       </div>
     );
   }
 
   return (
-    <div className="rounded-lg border border-border">
+    <div className="border-border rounded-lg border">
       <table className="w-full">
-        <thead className="border-b border-border bg-muted/30">
+        <thead className="border-border bg-muted/30 border-b">
           <tr>
             <th className="px-4 py-3 text-left text-sm font-medium">Deal</th>
             <th className="px-4 py-3 text-left text-sm font-medium">Value</th>
             <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-            <th className="px-4 py-3 text-left text-sm font-medium">Expected Close</th>
+            <th className="px-4 py-3 text-left text-sm font-medium">
+              Expected Close
+            </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-border">
-          {data.deals.map((deal) => (
+        <tbody className="divide-border divide-y">
+          {data.deals.map((deal: Deal) => (
             <tr key={deal.id} className="hover:bg-muted/50">
               <td className="px-4 py-3">
                 <div className="font-medium">{deal.name}</div>
@@ -152,7 +158,7 @@ function DealListTab({ data }: { data: ReturnType<typeof useDealList>['data'] })
                   {deal.status}
                 </span>
               </td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="text-muted-foreground px-4 py-3">
                 {deal.expectedCloseDate?.toLocaleDateString() ?? '-'}
               </td>
             </tr>
@@ -163,30 +169,37 @@ function DealListTab({ data }: { data: ReturnType<typeof useDealList>['data'] })
   );
 }
 
-function MetricsTab({ stats }: { stats: ReturnType<typeof useDealList>['stats'] }) {
+function MetricsTab({
+  stats,
+}: {
+  stats: ReturnType<typeof useDealList>['stats'];
+}) {
   if (!stats) return null;
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <h3 className="mb-4 text-lg font-semibold">Pipeline Overview</h3>
         <dl className="grid gap-4 sm:grid-cols-3">
           <div>
-            <dt className="text-sm text-muted-foreground">Win Rate</dt>
+            <dt className="text-muted-foreground text-sm">Win Rate</dt>
             <dd className="text-2xl font-semibold">
               {stats.total > 0
                 ? ((stats.wonCount / stats.total) * 100).toFixed(0)
-                : 0}%
+                : 0}
+              %
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-muted-foreground">Avg Deal Size</dt>
+            <dt className="text-muted-foreground text-sm">Avg Deal Size</dt>
             <dd className="text-2xl font-semibold">
-              {formatCurrency(stats.total > 0 ? stats.totalValue / stats.total : 0)}
+              {formatCurrency(
+                stats.total > 0 ? stats.totalValue / stats.total : 0
+              )}
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-muted-foreground">Conversion</dt>
+            <dt className="text-muted-foreground text-sm">Conversion</dt>
             <dd className="text-2xl font-semibold">
               {stats.wonCount} / {stats.total}
             </dd>

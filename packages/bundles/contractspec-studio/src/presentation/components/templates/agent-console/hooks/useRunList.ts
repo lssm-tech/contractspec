@@ -1,115 +1,104 @@
 /**
  * Hook for fetching and managing run list data
+ *
+ * Uses dynamic imports for handlers to ensure correct build order.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   mockListRunsHandler,
   mockGetRunMetricsHandler,
-  type ListRunsInput,
-  type ListRunsOutput,
-  type RunMetrics,
-} from '@lssm/example.agent-console/handlers';
+} from '@lssm/example.agent-console/handlers/index';
 
-export interface UseRunListOptions {
-  organizationId?: string;
-  agentId?: string;
-  status?:
+// Re-export types for convenience
+export interface Run {
+  id: string;
+  agentId: string;
+  agentName: string;
+  status:
     | 'QUEUED'
     | 'IN_PROGRESS'
     | 'COMPLETED'
     | 'FAILED'
     | 'CANCELLED'
     | 'EXPIRED';
+  queuedAt: Date;
+  startedAt?: Date;
+  completedAt?: Date;
+  durationMs?: number;
+  inputTokens: number;
+  outputTokens: number;
+  totalTokens: number;
+  estimatedCostUsd?: number;
+  stepCount: number;
+  toolCallCount: number;
+}
+
+export interface RunMetrics {
+  totalRuns: number;
+  successRate: number;
+  avgDurationMs: number;
+  totalTokens: number;
+  totalCostUsd: number;
+}
+
+export interface ListRunsOutput {
+  items: Run[];
+  total: number;
+  hasMore: boolean;
+}
+
+export interface UseRunListOptions {
+  agentId?: string;
+  status?: Run['status'] | 'all';
   limit?: number;
 }
 
-export interface UseRunListState {
-  data: ListRunsOutput | null;
-  metrics: RunMetrics | null;
-  loading: boolean;
-  error: Error | null;
-}
-
 export function useRunList(options: UseRunListOptions = {}) {
-  const [state, setState] = useState<UseRunListState>({
-    data: null,
-    metrics: null,
-    loading: true,
-    error: null,
-  });
+  const [data, setData] = useState<ListRunsOutput | null>(null);
+  const [metrics, setMetrics] = useState<RunMetrics | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
 
-  const input: ListRunsInput = useMemo(
-    () => ({
-      organizationId: options.organizationId ?? 'demo-org',
-      agentId: options.agentId,
-      status: options.status,
-      limit: options.limit ?? 20,
-      offset: (page - 1) * (options.limit ?? 20),
-    }),
-    [
-      options.organizationId,
-      options.agentId,
-      options.status,
-      options.limit,
-      page,
-    ]
-  );
-
   const fetchData = useCallback(async () => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+    setLoading(true);
+    setError(null);
+
     try {
       const [runsResult, metricsResult] = await Promise.all([
-        mockListRunsHandler(input),
+        mockListRunsHandler({
+          organizationId: 'demo-org',
+          agentId: options.agentId,
+          status: options.status === 'all' ? undefined : options.status,
+          limit: options.limit ?? 20,
+          offset: (page - 1) * (options.limit ?? 20),
+        }),
         mockGetRunMetricsHandler({
-          organizationId: input.organizationId ?? 'demo-org',
-          agentId: input.agentId,
-          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-          endDate: new Date(),
-          granularity: 'day',
+          organizationId: 'demo-org',
+          agentId: options.agentId,
         }),
       ]);
-      setState({
-        data: runsResult,
-        metrics: metricsResult,
-        loading: false,
-        error: null,
-      });
+      setData(runsResult);
+      setMetrics(metricsResult);
     } catch (err) {
-      setState({
-        data: null,
-        metrics: null,
-        loading: false,
-        error: err instanceof Error ? err : new Error('Unknown error'),
-      });
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      setLoading(false);
     }
-  }, [input]);
+  }, [options.agentId, options.status, options.limit, page]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const refetch = useCallback(() => {
-    fetchData();
-  }, [fetchData]);
-
-  const nextPage = useCallback(() => {
-    if (state.data?.hasMore) {
-      setPage((p) => p + 1);
-    }
-  }, [state.data?.hasMore]);
-
-  const prevPage = useCallback(() => {
-    if (page > 1) {
-      setPage((p) => p - 1);
-    }
-  }, [page]);
-
   return {
-    ...state,
+    data,
+    metrics,
+    loading,
+    error,
     page,
-    refetch,
-    nextPage,
-    prevPage,
+    refetch: fetchData,
+    nextPage: () => setPage((p) => p + 1),
+    prevPage: () => page > 1 && setPage((p) => p - 1),
   };
 }

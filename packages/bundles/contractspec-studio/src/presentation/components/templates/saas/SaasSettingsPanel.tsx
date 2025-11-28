@@ -12,24 +12,28 @@ export function SaasSettingsPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <h3 className="mb-4 text-lg font-semibold">Organization Settings</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">Organization Name</label>
+            <label className="block text-sm font-medium">
+              Organization Name
+            </label>
             <input
               type="text"
               value={orgName}
               onChange={(e) => setOrgName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2"
+              className="border-input bg-background mt-1 block w-full rounded-md border px-3 py-2"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Default Timezone</label>
+            <label className="block text-sm font-medium">
+              Default Timezone
+            </label>
             <select
               value={timezone}
               onChange={(e) => setTimezone(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2"
+              className="border-input bg-background mt-1 block w-full rounded-md border px-3 py-2"
             >
               <option value="UTC">UTC</option>
               <option value="America/New_York">America/New_York</option>
@@ -39,13 +43,11 @@ export function SaasSettingsPanel() {
           </div>
         </div>
         <div className="mt-6">
-          <Button variant="primary" size="sm">
-            Save Changes
-          </Button>
+          <Button variant="default">Save Changes</Button>
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <h3 className="mb-4 text-lg font-semibold">Notifications</h3>
         <div className="space-y-3">
           {[
@@ -57,7 +59,7 @@ export function SaasSettingsPanel() {
               <input
                 type="checkbox"
                 defaultChecked={item.defaultChecked}
-                className="h-4 w-4 rounded border-input"
+                className="border-input h-4 w-4 rounded"
               />
               <span className="text-sm">{item.label}</span>
             </label>

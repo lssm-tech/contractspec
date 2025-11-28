@@ -1,13 +1,12 @@
 import { z } from 'zod';
 import type {
-  EntitySpec,
-  EntityField,
-  EntityScalarField,
-  EntityEnumField,
-  EntityRelationField,
-  PrismaScalarType,
   EntityEnumDef,
+  EntityEnumField,
+  EntityField,
   EntityIndex,
+  EntityRelationField,
+  EntityScalarField,
+  EntitySpec,
 } from './types';
 
 /**
@@ -175,7 +174,7 @@ export const field = {
     return {
       kind: 'scalar',
       type: 'String',
-      zod: z.string().email(),
+      zod: z.email(),
       ...opts,
     };
   },
@@ -187,7 +186,7 @@ export const field = {
     return {
       kind: 'scalar',
       type: 'String',
-      zod: z.string().url(),
+      zod: z.url(),
       ...opts,
     };
   },

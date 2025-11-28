@@ -1,10 +1,7 @@
 import { defineConfig } from 'tsdown';
+import { moduleLibrary, withDevExports } from '@lssm/tool.tsdown';
 
-export default defineConfig({
-  entry: ['src/index.ts', 'src/entities/index.ts', 'src/contracts/index.ts', 'src/events.ts'],
-  format: ['esm'],
-  dts: true,
-  clean: true,
-  sourcemap: true,
-});
-
+export default defineConfig((options) => ({
+  ...moduleLibrary,
+  ...withDevExports,
+}));

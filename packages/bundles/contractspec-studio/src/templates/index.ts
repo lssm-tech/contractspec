@@ -42,5 +42,11 @@ export {
 } from './engine';
 
 // Installer
-export { TemplateInstaller, type InstallOptions } from './installer';
+export {
+  TemplateInstaller,
+  type InstallTemplateOptions,
+  type SaveTemplateOptions,
+  type TemplateInstallerOptions,
+  type SaveTemplateResult,
+} from './installer';
 

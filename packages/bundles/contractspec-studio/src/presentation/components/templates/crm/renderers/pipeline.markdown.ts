@@ -1,8 +1,14 @@
 /**
  * Markdown renderer for CRM Pipeline presentation
+ *
+ * Imports handlers from the hooks module to ensure correct build order.
  */
 import type { PresentationRenderer } from '@lssm/lib.contracts';
-import { mockListDealsHandler, mockGetPipelineStagesHandler, type Deal } from '@lssm/example.crm-pipeline/handlers';
+import type { Deal } from '../hooks/useDealList';
+import {
+  mockListDealsHandler,
+  mockGetPipelineStagesHandler,
+} from '@lssm/example.crm-pipeline/handlers/index';
 
 function formatCurrency(value: number, currency: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
@@ -28,7 +34,7 @@ export const crmPipelineMarkdownRenderer: PresentationRenderer<{
     const dealsByStage: Record<string, Deal[]> = {};
     for (const stage of stages) {
       dealsByStage[stage.id] = dealsResult.deals.filter(
-        (d) => d.stageId === stage.id && d.status === 'OPEN'
+        (d: Deal) => d.stageId === stage.id && d.status === 'OPEN'
       );
     }
 
@@ -41,19 +47,26 @@ export const crmPipelineMarkdownRenderer: PresentationRenderer<{
       '',
     ];
 
-    for (const stage of stages.sort((a, b) => a.position - b.position)) {
+    for (const stage of stages.sort(
+      (a: { position: number }, b: { position: number }) =>
+        a.position - b.position
+    )) {
       const stageDeals = dealsByStage[stage.id] ?? [];
-      const stageValue = stageDeals.reduce((sum, d) => sum + d.value, 0);
+      const stageValue = stageDeals.reduce((sum, d: Deal) => sum + d.value, 0);
 
       lines.push(`## ${stage.name}`);
-      lines.push(`_${stageDeals.length} deals · ${formatCurrency(stageValue)}_`);
+      lines.push(
+        `_${stageDeals.length} deals · ${formatCurrency(stageValue)}_`
+      );
       lines.push('');
 
       if (stageDeals.length === 0) {
         lines.push('_No deals_');
       } else {
         for (const deal of stageDeals) {
-          lines.push(`- **${deal.name}** - ${formatCurrency(deal.value, deal.currency)}`);
+          lines.push(
+            `- **${deal.name}** - ${formatCurrency(deal.value, deal.currency)}`
+          );
         }
       }
 
@@ -66,4 +79,3 @@ export const crmPipelineMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-

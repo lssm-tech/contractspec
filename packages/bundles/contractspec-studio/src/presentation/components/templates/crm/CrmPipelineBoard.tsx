@@ -3,7 +3,7 @@
 /**
  * CRM Pipeline Board - Kanban-style deal board
  */
-import type { Deal } from '@lssm/example.crm-pipeline/handlers';
+import type { Deal } from './hooks/useDealList';
 import { CrmDealCard } from './CrmDealCard';
 
 interface CrmPipelineBoardProps {
@@ -36,17 +36,17 @@ export function CrmPipelineBoard({
         return (
           <div
             key={stage.id}
-            className="flex w-72 flex-shrink-0 flex-col rounded-lg bg-muted/30"
+            className="bg-muted/30 flex w-72 flex-shrink-0 flex-col rounded-lg"
           >
             {/* Stage Header */}
-            <div className="flex items-center justify-between border-b border-border px-3 py-2">
+            <div className="border-border flex items-center justify-between border-b px-3 py-2">
               <div>
                 <h3 className="font-medium">{stage.name}</h3>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {deals.length} deals · {formatCurrency(stageValue)}
                 </p>
               </div>
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-medium">
+              <span className="bg-muted flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium">
                 {deals.length}
               </span>
             </div>
@@ -54,7 +54,7 @@ export function CrmPipelineBoard({
             {/* Deals Column */}
             <div className="flex flex-1 flex-col gap-2 p-2">
               {deals.length === 0 ? (
-                <div className="flex h-24 items-center justify-center rounded-md border-2 border-dashed border-muted-foreground/20 text-xs text-muted-foreground">
+                <div className="border-muted-foreground/20 text-muted-foreground flex h-24 items-center justify-center rounded-md border-2 border-dashed text-xs">
                   No deals
                 </div>
               ) : (

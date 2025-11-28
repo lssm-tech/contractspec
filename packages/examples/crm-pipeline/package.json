@@ -6,41 +6,34 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./entities": {
-      "import": "./dist/entities/index.js",
-      "types": "./dist/entities/index.d.ts"
-    },
-    "./contracts": {
-      "import": "./dist/contracts/index.js",
-      "types": "./dist/contracts/index.d.ts"
-    },
-    "./events": {
-      "import": "./dist/events.js",
-      "types": "./dist/events.d.ts"
-    },
-    "./handlers": {
-      "import": "./dist/handlers/index.js",
-      "types": "./dist/handlers/index.d.ts"
-    },
-    "./presentations": {
-      "import": "./dist/presentations/index.js",
-      "types": "./dist/presentations/index.d.ts"
-    },
-    "./feature": {
-      "import": "./dist/feature.js",
-      "types": "./dist/feature.d.ts"
-    }
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/deal": "./src/contracts/deal.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/company": "./src/entities/company.ts",
+    "./entities/contact": "./src/entities/contact.ts",
+    "./entities/deal": "./src/entities/deal.ts",
+    "./entities/task": "./src/entities/task.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/deal.handlers": "./src/handlers/deal.handlers.ts",
+    "./handlers/mock-data": "./src/handlers/mock-data.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./presentations/dashboard": "./src/presentations/dashboard.ts",
+    "./presentations/pipeline": "./src/presentations/pipeline.ts",
+    "./*": "./*"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit",
-    "db:generate": "database schema:generate",
-    "db:migrate": "database migrate:dev"
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
   },
   "dependencies": {
     "@lssm/lib.schema": "workspace:*",
@@ -53,7 +46,31 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./contracts/deal": "./dist/contracts/deal.js",
+      "./entities": "./dist/entities/index.js",
+      "./entities/company": "./dist/entities/company.js",
+      "./entities/contact": "./dist/entities/contact.js",
+      "./entities/deal": "./dist/entities/deal.js",
+      "./entities/task": "./dist/entities/task.js",
+      "./events": "./dist/events.js",
+      "./feature": "./dist/feature.js",
+      "./handlers": "./dist/handlers/index.js",
+      "./handlers/deal.handlers": "./dist/handlers/deal.handlers.js",
+      "./handlers/mock-data": "./dist/handlers/mock-data.js",
+      "./presentations": "./dist/presentations/index.js",
+      "./presentations/dashboard": "./dist/presentations/dashboard.js",
+      "./presentations/pipeline": "./dist/presentations/pipeline.js",
+      "./*": "./*"
+    }
   }
 }

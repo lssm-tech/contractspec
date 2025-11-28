@@ -4,25 +4,7 @@
  * These overlays customize the presentation for different contexts
  * (e.g., demo users, different subscription tiers).
  */
-
-export interface OverlayDefinition {
-  overlayId: string;
-  version: string;
-  description: string;
-  appliesTo: {
-    presentation?: string;
-    role?: string;
-    feature?: string;
-    tier?: string;
-  };
-  modifications: Array<
-    | { type: 'hideField'; field: string; reason?: string }
-    | { type: 'renameLabel'; field: string; newLabel: string }
-    | { type: 'addBadge'; position: string; label: string; variant?: string }
-    | { type: 'setDefault'; field: string; value: unknown }
-    | { type: 'setLimit'; field: string; max: number; message?: string }
-  >;
-}
+import type { OverlayDefinition } from '../../shared/overlay-types';
 
 /**
  * Free tier overlay - shows upgrade prompts and limits
@@ -64,4 +46,3 @@ export const saasDemoOverlay: OverlayDefinition = {
  * All overlays for saas-boilerplate
  */
 export const saasOverlays: OverlayDefinition[] = [saasFreeUserOverlay, saasDemoOverlay];
-
