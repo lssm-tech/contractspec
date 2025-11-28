@@ -665,11 +665,33 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 
 ### Studio Integration
 
-| Task               | Status      | Notes                               |
-| ------------------ | ----------- | ----------------------------------- |
-| Template Registry  | ✅ Complete | All Phase 1 examples registered     |
-| Sandbox Components | 🔲 Pending  | UI components for new templates     |
-| Documentation      | 🔲 Pending  | Quickstart guides for each template |
+| Task                        | Status      | Notes                                                          |
+| --------------------------- | ----------- | -------------------------------------------------------------- |
+| Template Registry           | ✅ Complete | All Phase 1 examples registered                                |
+| Sandbox Playground Mode     | ✅ Complete | Interactive playground for templates                           |
+| Sandbox Specs Mode          | ✅ Complete | Spec editor with validation/save/reset                         |
+| Sandbox Builder Mode        | ✅ Complete | Visual canvas with node editing                                |
+| Sandbox Markdown Mode       | ✅ Complete | LLM-friendly markdown rendering with schema-driven generation  |
+| Sandbox Evolution Mode      | ✅ Complete | AI-powered evolution dashboard with anomaly detection          |
+| TransformEngine v2          | ✅ Complete | Multi-target rendering (react, markdown, json, xml)            |
+| Presentation Renderers      | ✅ Complete | Custom markdown renderers for all Phase 1 templates            |
+| Overlay Engine              | ✅ Complete | Context-aware UI customization                                 |
+| Behavior Tracking           | ✅ Complete | User behavior tracking with personalization insights           |
+| Workflow Composer           | ✅ Complete | Workflow specification composer with extensions                |
+| Documentation               | 🔲 Pending  | Quickstart guides for each template                            |
+
+### Presentation Layer (presentations.v2)
+
+| Feature                     | Status      | Notes                                                          |
+| --------------------------- | ----------- | -------------------------------------------------------------- |
+| PresentationDescriptorV2    | ✅ Complete | Normalized descriptor with meta, source, policy, targets       |
+| TransformEngine             | ✅ Complete | Pluggable renderer/validator registration                      |
+| React Renderer              | ✅ Complete | Returns serializable ReactRenderDescriptor                     |
+| Markdown Renderer           | ✅ Complete | Schema-driven + custom renderer fallback chain                 |
+| JSON/XML Renderers          | ✅ Complete | Basic serialization with PII redaction                         |
+| Schema-to-Markdown          | ✅ Complete | Auto-generate markdown tables/lists from SchemaModel           |
+| Data Compatibility Check    | ✅ Complete | Smart detection of simple vs complex data structures           |
+| BlockNote Support           | 🔲 Pending  | Full BlockNote → Markdown conversion                           |
 
 ---
 
@@ -739,3 +761,39 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 - Added new categories: business, ai
 - Added `package` field for Git-clonable templates
 - Added `usesModules` field for cross-cutting module dependencies
+
+### ContractSpec Studio Sandbox
+
+1. **Multi-Mode Experience** - Sandbox supports 5 modes:
+   - Playground: Interactive template demos
+   - Specs: TypeScript spec editor with validation
+   - Builder: Visual canvas with drag-drop nodes
+   - Markdown: LLM-friendly markdown preview of data
+   - Evolution: AI-powered app evolution dashboard
+
+2. **Presentation System (v2)** - Complete presentation layer:
+   - `PresentationDescriptorV2`: Normalized descriptors with meta, source, policy, targets
+   - `TransformEngine`: Pluggable multi-target rendering (react, markdown, json, xml)
+   - Schema-driven markdown: Auto-generates tables/lists from `SchemaModel`
+   - Custom renderer chain: Schema-driven → custom renderer fallback
+   - Data compatibility detection: Smart routing for simple vs complex data
+
+3. **Template Markdown Renderers**:
+   - Agent Console: Dashboard, Agent List, Run List, Tool Registry
+   - SaaS Boilerplate: Dashboard, Project List, Billing Settings
+   - CRM Pipeline: Dashboard, Pipeline Kanban
+
+4. **Evolution System Integration**:
+   - `EvolutionDashboard`: Usage stats, anomaly detection, AI suggestions
+   - `EvolutionSidebar`: Compact view for use alongside other tools
+   - Integration with `@lssm/lib.evolution` (SpecAnalyzer, AISpecGenerator, SpecSuggestionOrchestrator)
+
+5. **Personalization & Overlay**:
+   - `OverlayContextProvider`: Context-aware UI customization
+   - `useBehaviorTracking`: User behavior tracking and recommendations
+   - `PersonalizationInsights`: Display usage summaries and recommendations
+
+6. **Workflow Composer**:
+   - `useWorkflowComposer`: Compose workflow specs with extensions
+   - Step injection, hiding, and reordering
+   - TypeScript code generation for workflows
