@@ -12,9 +12,12 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const SaasBoilerplateFeature: FeatureModuleSpec = {
   meta: {
     key: 'saas-boilerplate',
+    title: 'SaaS Boilerplate',
+    description: 'SaaS application foundation with projects, billing, and settings',
     domain: 'saas',
     owners: ['saas-team'],
     tags: ['saas', 'projects', 'billing'],
+    stability: 'experimental',
   },
 
   // All contract operations included in this feature

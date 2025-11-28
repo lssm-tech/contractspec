@@ -12,9 +12,12 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const AgentConsoleFeature: FeatureModuleSpec = {
   meta: {
     key: 'agent-console',
+    title: 'AI Agent Console',
+    description: 'AI agent orchestration with tools, runs, and logs management',
     domain: 'ai-ops',
     owners: ['agent-console-team'],
     tags: ['ai', 'agents', 'orchestration'],
+    stability: 'experimental',
   },
 
   // All contract operations included in this feature

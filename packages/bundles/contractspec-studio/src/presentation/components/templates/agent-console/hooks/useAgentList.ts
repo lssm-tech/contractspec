@@ -1,37 +1,22 @@
 /**
  * Hook for fetching and managing agent list data
  *
- * Uses dynamic imports for handlers to ensure correct build order.
+ * Uses handlers from the agent-console example package.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { mockListAgentsHandler } from '@lssm/example.agent-console/handlers/index';
+import {
+  mockListAgentsHandler,
+  type AgentSummary,
+  type ListAgentsOutput as HandlerListAgentsOutput,
+} from '@lssm/example.agent-console/handlers/index';
 
 // Re-export types for convenience
-export interface Agent {
-  id: string;
-  organizationId: string;
-  name: string;
-  description: string;
-  status: 'ACTIVE' | 'INACTIVE' | 'ARCHIVED';
-  modelProvider: string;
-  modelName: string;
-  systemPrompt: string;
-  toolIds: string[];
-  totalRuns: number;
-  successfulRuns: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface ListAgentsOutput {
-  items: Agent[];
-  total: number;
-  hasMore: boolean;
-}
+export type Agent = AgentSummary;
+export type ListAgentsOutput = HandlerListAgentsOutput;
 
 export interface UseAgentListOptions {
   search?: string;
-  status?: 'ACTIVE' | 'INACTIVE' | 'ARCHIVED' | 'all';
+  status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ARCHIVED' | 'all';
   limit?: number;
 }
 
@@ -70,8 +55,9 @@ export function useAgentList(options: UseAgentListOptions = {}) {
     if (!data) return null;
     return {
       total: data.total,
-      active: data.items.filter((a: Agent) => a.status === 'ACTIVE').length,
-      inactive: data.items.filter((a: Agent) => a.status === 'INACTIVE').length,
+      active: data.items.filter((a) => a.status === 'ACTIVE').length,
+      paused: data.items.filter((a) => a.status === 'PAUSED').length,
+      draft: data.items.filter((a) => a.status === 'DRAFT').length,
     };
   }, [data]);
 

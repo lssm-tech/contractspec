@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   mockListProjectsHandler,
   mockGetSubscriptionHandler,
-} from '@lssm/example.saas-boilerplate/handlers/index';
+} from '@lssm/example.saas-boilerplate/handlers';
 
 // Re-export types for convenience
 export interface Project {

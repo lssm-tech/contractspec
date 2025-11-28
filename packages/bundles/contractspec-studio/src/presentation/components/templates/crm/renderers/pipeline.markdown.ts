@@ -8,7 +8,7 @@ import type { Deal } from '../hooks/useDealList';
 import {
   mockListDealsHandler,
   mockGetPipelineStagesHandler,
-} from '@lssm/example.crm-pipeline/handlers/index';
+} from '@lssm/example.crm-pipeline/handlers';
 
 function formatCurrency(value: number, currency: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {

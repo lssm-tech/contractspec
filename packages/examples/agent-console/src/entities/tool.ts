@@ -4,7 +4,6 @@ import {
   field,
   index,
 } from '@lssm/lib.schema/entity';
-import { z } from 'zod';
 
 /**
  * Tool category for organization and filtering
@@ -49,15 +48,13 @@ export const ToolEntity = defineEntity({
     organizationId: field.string({
       description: 'Organization that owns this tool',
     }),
-    name: field.string({ zod: z.string().min(1).max(100) }),
+    name: field.string({ description: 'Tool name (1-100 chars)' }),
     slug: field.string({
-      zod: z
-        .string()
-        .min(1)
-        .max(100)
-        .regex(/^[a-z0-9-]+$/),
+      description: 'URL-safe identifier (lowercase, numbers, hyphens)',
     }),
-    description: field.string({ zod: z.string().max(1000) }),
+    description: field.string({
+      description: 'Tool description (max 1000 chars)',
+    }),
     category: field.enum('ToolCategory', { default: 'UTILITY' }),
     status: field.enum('ToolStatus', { default: 'DRAFT' }),
     // JSON Schema for tool parameters

@@ -1,51 +1,21 @@
 /**
  * Hook for fetching and managing run list data
  *
- * Uses dynamic imports for handlers to ensure correct build order.
+ * Uses handlers from the agent-console example package.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   mockListRunsHandler,
   mockGetRunMetricsHandler,
+  type RunSummary,
+  type ListRunsOutput as HandlerListRunsOutput,
+  type RunMetrics as HandlerRunMetrics,
 } from '@lssm/example.agent-console/handlers/index';
 
 // Re-export types for convenience
-export interface Run {
-  id: string;
-  agentId: string;
-  agentName: string;
-  status:
-    | 'QUEUED'
-    | 'IN_PROGRESS'
-    | 'COMPLETED'
-    | 'FAILED'
-    | 'CANCELLED'
-    | 'EXPIRED';
-  queuedAt: Date;
-  startedAt?: Date;
-  completedAt?: Date;
-  durationMs?: number;
-  inputTokens: number;
-  outputTokens: number;
-  totalTokens: number;
-  estimatedCostUsd?: number;
-  stepCount: number;
-  toolCallCount: number;
-}
-
-export interface RunMetrics {
-  totalRuns: number;
-  successRate: number;
-  avgDurationMs: number;
-  totalTokens: number;
-  totalCostUsd: number;
-}
-
-export interface ListRunsOutput {
-  items: Run[];
-  total: number;
-  hasMore: boolean;
-}
+export type Run = RunSummary;
+export type ListRunsOutput = HandlerListRunsOutput;
+export type RunMetrics = HandlerRunMetrics;
 
 export interface UseRunListOptions {
   agentId?: string;
@@ -76,6 +46,8 @@ export function useRunList(options: UseRunListOptions = {}) {
         mockGetRunMetricsHandler({
           organizationId: 'demo-org',
           agentId: options.agentId,
+          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+          endDate: new Date(),
         }),
       ]);
       setData(runsResult);

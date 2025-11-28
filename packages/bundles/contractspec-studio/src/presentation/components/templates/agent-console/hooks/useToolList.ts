@@ -1,37 +1,26 @@
 /**
  * Hook for fetching and managing tool list data
  *
- * Uses dynamic imports for handlers to ensure correct build order.
+ * Uses handlers from the agent-console example package.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { mockListToolsHandler } from '@lssm/example.agent-console/handlers/index';
+import {
+  mockListToolsHandler,
+  type ToolSummary,
+  type ListToolsOutput as HandlerListToolsOutput,
+} from '@lssm/example.agent-console/handlers/index';
 
 // Re-export types for convenience
-export interface Tool {
-  id: string;
-  organizationId: string;
-  name: string;
-  slug: string;
-  description: string;
-  version: string;
-  category: string;
-  status: 'ACTIVE' | 'INACTIVE' | 'DEPRECATED' | 'DISABLED';
-  inputSchema: Record<string, unknown>;
-  outputSchema: Record<string, unknown>;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export type Tool = ToolSummary;
+export type ListToolsOutput = HandlerListToolsOutput;
 
-export interface ListToolsOutput {
-  items: Tool[];
-  total: number;
-  hasMore: boolean;
-}
+export type ToolCategory = Tool['category'];
+export type ToolStatus = Tool['status'];
 
 export interface UseToolListOptions {
   search?: string;
-  category?: string;
-  status?: 'ACTIVE' | 'INACTIVE' | 'DEPRECATED' | 'all';
+  category?: ToolCategory;
+  status?: ToolStatus | 'all';
   limit?: number;
 }
 
@@ -71,14 +60,15 @@ export function useToolList(options: UseToolListOptions = {}) {
     if (!data) return { stats: null, groupedByCategory: {}, categoryStats: [] };
     const items = data.items;
 
-    const active = items.filter((t: Tool) => t.status === 'ACTIVE').length;
-    const inactive = items.filter((t: Tool) => t.status === 'INACTIVE').length;
+    const active = items.filter((t) => t.status === 'ACTIVE').length;
+    const deprecated = items.filter((t) => t.status === 'DEPRECATED').length;
+    const disabled = items.filter((t) => t.status === 'DISABLED').length;
 
     // Group by category
     const grouped: Record<string, Tool[]> = {};
     const byCategory: Record<string, number> = {};
 
-    items.forEach((t: Tool) => {
+    items.forEach((t) => {
       const cat = t.category;
       if (!grouped[cat]) grouped[cat] = [];
       grouped[cat].push(t);
@@ -94,7 +84,8 @@ export function useToolList(options: UseToolListOptions = {}) {
       stats: {
         total: data.total,
         active,
-        inactive,
+        deprecated,
+        disabled,
         topCategories: catStats.slice(0, 5),
       },
       groupedByCategory: grouped,

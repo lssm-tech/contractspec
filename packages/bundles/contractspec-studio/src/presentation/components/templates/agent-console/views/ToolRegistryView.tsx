@@ -35,7 +35,7 @@ function getStatusTone(
   switch (status) {
     case 'ACTIVE':
       return 'success';
-    case 'INACTIVE':
+    case 'DRAFT':
       return 'neutral';
     case 'DEPRECATED':
       return 'warning';
