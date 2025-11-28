@@ -24,6 +24,7 @@ function formatDuration(ms: number): string {
 
 /**
  * Markdown renderer for agent-console.run.list presentation
+ * Only handles RunListView component
  */
 export const runListMarkdownRenderer: PresentationRenderer<{
   mimeType: string;
@@ -31,6 +32,14 @@ export const runListMarkdownRenderer: PresentationRenderer<{
 }> = {
   target: 'markdown',
   render: async (desc: PresentationDescriptorV2) => {
+    // Only handle RunListView
+    if (
+      desc.source.type !== 'component' ||
+      desc.source.componentKey !== 'RunListView'
+    ) {
+      throw new Error('runListMarkdownRenderer: not RunListView');
+    }
+
     // Fetch data using mock handler
     const data = (await mockListRunsHandler({
       organizationId: 'demo-org',
