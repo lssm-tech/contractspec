@@ -13,19 +13,3 @@ Composable behavior tracking and personalization primitives for ContractSpec app
 - `adapter` – bridges insights into OverlaySpecs or WorkflowComposer extensions.
 
 See `docs/tech/personalization/behavior-tracking.md` for full usage notes.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
