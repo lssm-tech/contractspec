@@ -1,24 +1,21 @@
 /**
  * Hook for CRM deal mutations (commands)
  *
- * Wires UI actions to ContractSpec command handlers:
- * - CreateDealContract -> mockCreateDealHandler
- * - MoveDealContract -> mockMoveDealHandler
- * - WinDealContract -> mockWinDealHandler
- * - LoseDealContract -> mockLoseDealHandler
+ * Uses runtime-local database-backed handlers for:
+ * - CreateDealContract
+ * - MoveDealContract
+ * - WinDealContract
+ * - LoseDealContract
  */
 import { useState, useCallback } from 'react';
-import {
-  mockCreateDealHandler,
-  mockMoveDealHandler,
-  mockWinDealHandler,
-  mockLoseDealHandler,
-  type CreateDealInput,
-  type MoveDealInput,
-  type WinDealInput,
-  type LoseDealInput,
-  type Deal,
-} from '@lssm/example.crm-pipeline/handlers';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  CreateDealInput,
+  MoveDealInput,
+  WinDealInput,
+  LoseDealInput,
+  Deal,
+} from '@lssm/lib.runtime-local';
 
 export interface MutationState<T> {
   loading: boolean;
@@ -32,6 +29,9 @@ export interface UseDealMutationsOptions {
 }
 
 export function useDealMutations(options: UseDealMutationsOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { crm } = handlers;
+
   const [createState, setCreateState] = useState<MutationState<Deal>>({
     loading: false,
     error: null,
@@ -63,7 +63,8 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
     async (input: CreateDealInput): Promise<Deal | null> => {
       setCreateState({ loading: true, error: null, data: null });
       try {
-        const result = await mockCreateDealHandler(input, {
+        const result = await crm.createDeal(input, {
+          projectId,
           ownerId: 'user-1', // Demo user
         });
         setCreateState({ loading: false, error: null, data: result });
@@ -76,7 +77,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [crm, projectId, options]
   );
 
   /**
@@ -86,7 +87,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
     async (input: MoveDealInput): Promise<Deal | null> => {
       setMoveState({ loading: true, error: null, data: null });
       try {
-        const result = await mockMoveDealHandler(input);
+        const result = await crm.moveDeal(input);
         setMoveState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -97,7 +98,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [crm, options]
   );
 
   /**
@@ -107,7 +108,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
     async (input: WinDealInput): Promise<Deal | null> => {
       setWinState({ loading: true, error: null, data: null });
       try {
-        const result = await mockWinDealHandler(input);
+        const result = await crm.winDeal(input);
         setWinState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -118,7 +119,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [crm, options]
   );
 
   /**
@@ -128,7 +129,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
     async (input: LoseDealInput): Promise<Deal | null> => {
       setLoseState({ loading: true, error: null, data: null });
       try {
-        const result = await mockLoseDealHandler(input);
+        const result = await crm.loseDeal(input);
         setLoseState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -139,7 +140,7 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [crm, options]
   );
 
   return {

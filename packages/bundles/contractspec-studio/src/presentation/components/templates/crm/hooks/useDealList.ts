@@ -1,37 +1,19 @@
 /**
  * Hook for fetching and managing deal list data
  *
- * Uses dynamic imports for handlers to ensure correct build order.
+ * Uses runtime-local database-backed handlers.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  mockGetDealsByStageHandler,
-  mockGetPipelineStagesHandler,
-  mockListDealsHandler,
-} from '@lssm/example.crm-pipeline/handlers';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  Deal as RuntimeDeal,
+  Stage,
+  ListDealsOutput as RuntimeListDealsOutput,
+} from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience
-export interface Deal {
-  id: string;
-  name: string;
-  value: number;
-  currency: string;
-  pipelineId: string;
-  stageId: string;
-  status: 'OPEN' | 'WON' | 'LOST' | 'STALE';
-  contactId?: string;
-  companyId?: string;
-  ownerId: string;
-  expectedCloseDate?: Date;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface ListDealsOutput {
-  deals: Deal[];
-  total: number;
-  totalValue: number;
-}
+export type Deal = RuntimeDeal;
+export type ListDealsOutput = RuntimeListDealsOutput;
 
 export interface UseDealListOptions {
   pipelineId?: string;
@@ -42,11 +24,12 @@ export interface UseDealListOptions {
 }
 
 export function useDealList(options: UseDealListOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { crm } = handlers;
+
   const [data, setData] = useState<ListDealsOutput | null>(null);
   const [dealsByStage, setDealsByStage] = useState<Record<string, Deal[]>>({});
-  const [stages, setStages] = useState<
-    { id: string; name: string; position: number }[]
-  >([]);
+  const [stages, setStages] = useState<Stage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
@@ -59,7 +42,8 @@ export function useDealList(options: UseDealListOptions = {}) {
 
     try {
       const [dealsResult, stageDealsResult, stagesResult] = await Promise.all([
-        mockListDealsHandler({
+        crm.listDeals({
+          projectId,
           pipelineId,
           stageId: options.stageId,
           status: options.status === 'all' ? undefined : options.status,
@@ -67,23 +51,20 @@ export function useDealList(options: UseDealListOptions = {}) {
           limit: options.limit ?? 50,
           offset: (page - 1) * (options.limit ?? 50),
         }),
-        mockGetDealsByStageHandler({ pipelineId }),
-        mockGetPipelineStagesHandler({ pipelineId }),
+        crm.getDealsByStage({ projectId, pipelineId }),
+        crm.getPipelineStages({ pipelineId }),
       ]);
       setData(dealsResult);
       setDealsByStage(stageDealsResult);
       setStages(stagesResult);
-      console.log('fetching deals for pipeline', {
-        dealsResult,
-        stageDealsResult,
-        stagesResult,
-      });
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'));
     } finally {
       setLoading(false);
     }
   }, [
+    crm,
+    projectId,
     pipelineId,
     options.stageId,
     options.status,

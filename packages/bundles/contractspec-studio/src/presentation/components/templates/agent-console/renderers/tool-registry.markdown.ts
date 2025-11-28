@@ -7,13 +7,15 @@ import type {
   PresentationRenderer,
   PresentationDescriptorV2,
 } from '@lssm/lib.contracts';
-import type { Tool } from '../hooks/useToolList';
 import { mockListToolsHandler } from '@lssm/example.agent-console/handlers/index';
 
-interface ToolListOutput {
-  items: Tool[];
-  total: number;
-  hasMore: boolean;
+interface ToolItem {
+  id: string;
+  name: string;
+  description?: string;
+  version: string;
+  category: string;
+  status: string;
 }
 
 /**
@@ -26,11 +28,11 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
   target: 'markdown',
   render: async (desc: PresentationDescriptorV2) => {
     // Fetch data using mock handler
-    const data = (await mockListToolsHandler({
+    const data = await mockListToolsHandler({
       organizationId: 'demo-org',
       limit: 50,
       offset: 0,
-    })) as ToolListOutput;
+    });
 
     // Generate markdown
     const lines: string[] = [
@@ -43,8 +45,8 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
     ];
 
     // Group by category
-    const byCategory: Record<string, Tool[]> = {};
-    for (const tool of data.items) {
+    const byCategory: Record<string, ToolItem[]> = {};
+    for (const tool of data.items as ToolItem[]) {
       const cat = tool.category;
       if (!byCategory[cat]) byCategory[cat] = [];
       byCategory[cat].push(tool);
@@ -63,7 +65,7 @@ export const toolRegistryMarkdownRenderer: PresentationRenderer<{
               : '❌';
         lines.push(`### ${statusIcon} ${tool.name} v${tool.version}`);
         lines.push('');
-        lines.push(`> \`${tool.slug}\``);
+        lines.push(`> \`${tool.id}\``);
         lines.push('');
         if (tool.description) {
           lines.push(tool.description);

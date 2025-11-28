@@ -4,8 +4,14 @@
  * Uses dynamic import to ensure correct build order.
  */
 import type { PresentationRenderer } from '@lssm/lib.contracts';
-import type { Project } from '../hooks/useProjectList';
 import { mockListProjectsHandler } from '@lssm/example.saas-boilerplate/handlers';
+
+interface ProjectItem {
+  id: string;
+  name: string;
+  status: string;
+  description?: string;
+}
 
 export const projectListMarkdownRenderer: PresentationRenderer<{
   mimeType: string;
@@ -18,6 +24,12 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
       offset: 0,
     });
 
+    // The example handler returns 'projects', not 'items'
+    const items =
+      (data as { projects?: ProjectItem[]; items?: ProjectItem[] }).projects ??
+      (data as { items?: ProjectItem[] }).items ??
+      [];
+
     const lines: string[] = [
       '# Projects',
       '',
@@ -25,19 +37,17 @@ export const projectListMarkdownRenderer: PresentationRenderer<{
       '',
     ];
 
-    if (data.projects.length === 0) {
+    if (items.length === 0) {
       lines.push('_No projects found._');
     } else {
-      for (const project of data.projects) {
+      for (const project of items) {
         const status =
           project.status === 'ACTIVE'
             ? '✅'
             : project.status === 'ARCHIVED'
               ? '📦'
               : '⏸️';
-        lines.push(
-          `- ${status} **${(project as Project).name}** - ${project.status}`
-        );
+        lines.push(`- ${status} **${project.name}** - ${project.status}`);
       }
     }
 

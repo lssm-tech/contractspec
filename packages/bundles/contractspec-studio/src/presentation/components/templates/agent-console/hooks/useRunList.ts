@@ -1,21 +1,20 @@
 /**
  * Hook for fetching and managing run list data
  *
- * Uses handlers from the agent-console example package.
+ * Uses runtime-local database-backed handlers.
  */
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListRunsHandler,
-  mockGetRunMetricsHandler,
-  type RunSummary,
-  type ListRunsOutput as HandlerListRunsOutput,
-  type RunMetrics as HandlerRunMetrics,
-} from '@lssm/example.agent-console/handlers/index';
+import { useState, useEffect, useCallback } from 'react';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  Run as RuntimeRun,
+  ListRunsOutput as RuntimeListRunsOutput,
+  RunMetrics as RuntimeRunMetrics,
+} from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience
-export type Run = RunSummary;
-export type ListRunsOutput = HandlerListRunsOutput;
-export type RunMetrics = HandlerRunMetrics;
+export type Run = RuntimeRun;
+export type ListRunsOutput = RuntimeListRunsOutput;
+export type RunMetrics = RuntimeRunMetrics;
 
 export interface UseRunListOptions {
   agentId?: string;
@@ -24,6 +23,9 @@ export interface UseRunListOptions {
 }
 
 export function useRunList(options: UseRunListOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { agent } = handlers;
+
   const [data, setData] = useState<ListRunsOutput | null>(null);
   const [metrics, setMetrics] = useState<RunMetrics | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,15 +38,15 @@ export function useRunList(options: UseRunListOptions = {}) {
 
     try {
       const [runsResult, metricsResult] = await Promise.all([
-        mockListRunsHandler({
-          organizationId: 'demo-org',
+        agent.listRuns({
+          projectId,
           agentId: options.agentId,
           status: options.status === 'all' ? undefined : options.status,
           limit: options.limit ?? 20,
           offset: (page - 1) * (options.limit ?? 20),
         }),
-        mockGetRunMetricsHandler({
-          organizationId: 'demo-org',
+        agent.getRunMetrics({
+          projectId,
           agentId: options.agentId,
           startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
           endDate: new Date(),
@@ -57,7 +59,7 @@ export function useRunList(options: UseRunListOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [options.agentId, options.status, options.limit, page]);
+  }, [agent, projectId, options.agentId, options.status, options.limit, page]);
 
   useEffect(() => {
     fetchData();

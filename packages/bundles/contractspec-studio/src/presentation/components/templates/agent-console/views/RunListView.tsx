@@ -24,13 +24,12 @@ function getStatusTone(
   switch (status) {
     case 'COMPLETED':
       return 'success';
-    case 'IN_PROGRESS':
+    case 'RUNNING':
       return 'warning';
     case 'QUEUED':
       return 'neutral';
     case 'FAILED':
     case 'CANCELLED':
-    case 'EXPIRED':
       return 'danger';
     default:
       return 'neutral';

@@ -279,7 +279,7 @@ function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
         </p>
       )}
       <div className="mt-3 flex items-center justify-between">
-        <span className="text-muted-foreground text-xs">v{agent.version}</span>
+        <span className="text-muted-foreground text-xs">{agent.modelName}</span>
         <Button variant="ghost" size="sm" onPress={onClick}>
           Actions
         </Button>

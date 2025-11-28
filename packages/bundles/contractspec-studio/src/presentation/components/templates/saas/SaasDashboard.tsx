@@ -43,8 +43,6 @@ function getStatusTone(
       return 'neutral';
     case 'ARCHIVED':
       return 'warning';
-    case 'DELETED':
-      return 'danger';
     default:
       return 'neutral';
   }
@@ -106,21 +104,13 @@ export function SaasDashboard() {
       {/* Stats Row */}
       {stats && subscription && (
         <StatCardGroup>
-          <StatCard
-            label="Projects"
-            value={`${stats.total} / ${stats.projectLimit}`}
-            hint={`${stats.usagePercent.toFixed(0)}% used`}
-          />
-          <StatCard label="Active" value={stats.activeCount} />
+          <StatCard label="Projects" value={stats.total.toString()} />
+          <StatCard label="Active" value={stats.activeCount.toString()} />
+          <StatCard label="Draft" value={stats.draftCount.toString()} />
           <StatCard
             label="Plan"
-            value={subscription.planName}
+            value={subscription.plan}
             hint={subscription.status}
-          />
-          <StatCard
-            label="API Calls"
-            value={`${(subscription.usage.apiCalls / 1000).toFixed(0)}K`}
-            hint={`of ${(subscription.limits.apiCalls / 1000).toFixed(0)}K`}
           />
         </StatCardGroup>
       )}
@@ -197,7 +187,7 @@ interface ProjectsTabProps {
 }
 
 function ProjectsTab({ data, onProjectClick }: ProjectsTabProps) {
-  if (!data?.projects.length) {
+  if (!data?.items.length) {
     return (
       <EmptyState
         title="No projects yet"
@@ -209,11 +199,11 @@ function ProjectsTab({ data, onProjectClick }: ProjectsTabProps) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.projects.map((project: Project) => (
+        {data.items.map((project: Project) => (
           <EntityCard
             key={project.id}
             cardTitle={project.name}
-            cardSubtitle={project.slug}
+            cardSubtitle={project.tier}
             meta={
               <p className="text-muted-foreground text-sm">
                 {project.description}
@@ -249,41 +239,19 @@ function ProjectsTab({ data, onProjectClick }: ProjectsTabProps) {
 function BillingTab({ subscription }: { subscription: Subscription | null }) {
   if (!subscription) return null;
 
-  const usageItems = [
-    {
-      label: 'Projects',
-      used: subscription.usage.projects,
-      limit: subscription.limits.projects,
-    },
-    {
-      label: 'Team Members',
-      used: subscription.usage.users,
-      limit: subscription.limits.users,
-    },
-    {
-      label: 'Storage (GB)',
-      used: subscription.usage.storage,
-      limit: subscription.limits.storage,
-    },
-    {
-      label: 'API Calls',
-      used: subscription.usage.apiCalls,
-      limit: subscription.limits.apiCalls,
-    },
-  ];
-
   return (
     <div className="space-y-6">
       <div className="border-border bg-card rounded-xl border p-6">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold">
-              {subscription.planName} Plan
-            </h3>
+            <h3 className="text-lg font-semibold">{subscription.plan} Plan</h3>
             <p className="text-muted-foreground text-sm">
               Current period:{' '}
               {subscription.currentPeriodStart.toLocaleDateString()} -{' '}
               {subscription.currentPeriodEnd.toLocaleDateString()}
+            </p>
+            <p className="text-muted-foreground text-sm">
+              Billing cycle: {subscription.billingCycle}
             </p>
           </div>
           <StatusChip tone="success" label={subscription.status} />
@@ -302,30 +270,14 @@ function BillingTab({ subscription }: { subscription: Subscription | null }) {
         </div>
       </div>
 
-      <div className="border-border bg-card rounded-xl border p-6">
-        <h4 className="mb-4 font-medium">Usage</h4>
-        <div className="space-y-4">
-          {usageItems.map((item) => {
-            const pct = (item.used / item.limit) * 100;
-            return (
-              <div key={item.label}>
-                <div className="flex justify-between text-sm">
-                  <span>{item.label}</span>
-                  <span className="text-muted-foreground">
-                    {item.used.toLocaleString()} / {item.limit.toLocaleString()}
-                  </span>
-                </div>
-                <div className="bg-muted mt-1 h-2 overflow-hidden rounded-full">
-                  <div
-                    className={`h-full ${pct > 80 ? 'bg-red-500' : pct > 60 ? 'bg-yellow-500' : 'bg-green-500'}`}
-                    style={{ width: `${Math.min(pct, 100)}%` }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+      {subscription.cancelAtPeriodEnd && (
+        <div className="border-border bg-destructive/10 text-destructive rounded-xl border p-4">
+          <p className="text-sm font-medium">
+            ⚠️ Your subscription will be cancelled at the end of the current
+            period.
+          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 }

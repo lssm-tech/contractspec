@@ -1,53 +1,22 @@
 /**
  * Hook for fetching and managing project list data
  *
- * Uses dynamic imports for handlers to ensure correct build order.
+ * Uses runtime-local database-backed handlers.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListProjectsHandler,
-  mockGetSubscriptionHandler,
-} from '@lssm/example.saas-boilerplate/handlers';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  Project as RuntimeProject,
+  Subscription as RuntimeSubscription,
+  ListProjectsOutput as RuntimeListProjectsOutput,
+} from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience
-export interface Project {
-  id: string;
-  name: string;
-  description?: string;
-  slug?: string;
-  organizationId: string;
-  createdBy: string;
-  status: 'DRAFT' | 'ACTIVE' | 'ARCHIVED' | 'DELETED';
-  isPublic: boolean;
-  tags: string[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface Subscription {
-  id: string;
-  organizationId: string;
-  planId: string;
-  planName: string;
-  status: string;
-  currentPeriodStart: Date;
-  currentPeriodEnd: Date;
-  limits: {
-    projects: number;
-    users: number;
-    storage: number;
-    apiCalls: number;
-  };
-  usage: {
-    projects: number;
-    users: number;
-    storage: number;
-    apiCalls: number;
-  };
-}
+export type Project = RuntimeProject;
+export type Subscription = RuntimeSubscription;
 
 export interface ListProjectsOutput {
-  projects: Project[];
+  items: Project[];
   total: number;
 }
 
@@ -58,6 +27,9 @@ export interface UseProjectListOptions {
 }
 
 export function useProjectList(options: UseProjectListOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { saas } = handlers;
+
   const [data, setData] = useState<ListProjectsOutput | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,22 +42,26 @@ export function useProjectList(options: UseProjectListOptions = {}) {
 
     try {
       const [projectsResult, subscriptionResult] = await Promise.all([
-        mockListProjectsHandler({
+        saas.listProjects({
+          projectId,
           status: options.status === 'all' ? undefined : options.status,
           search: options.search,
           limit: options.limit ?? 20,
           offset: (page - 1) * (options.limit ?? 20),
         }),
-        mockGetSubscriptionHandler(),
+        saas.getSubscription({ projectId }),
       ]);
-      setData(projectsResult);
+      setData({
+        items: projectsResult.items,
+        total: projectsResult.total,
+      });
       setSubscription(subscriptionResult);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'));
     } finally {
       setLoading(false);
     }
-  }, [options.status, options.search, options.limit, page]);
+  }, [saas, projectId, options.status, options.search, options.limit, page]);
 
   useEffect(() => {
     fetchData();
@@ -93,17 +69,17 @@ export function useProjectList(options: UseProjectListOptions = {}) {
 
   // Calculate stats
   const stats = useMemo(() => {
-    if (!data || !subscription) return null;
-    const items = data.projects;
+    if (!data) return null;
+    const items = data.items;
     return {
       total: data.total,
-      activeCount: items.filter((p: Project) => p.status === 'ACTIVE').length,
-      draftCount: items.filter((p: Project) => p.status === 'DRAFT').length,
-      projectLimit: subscription.limits.projects,
-      usagePercent:
-        (subscription.usage.projects / subscription.limits.projects) * 100,
+      activeCount: items.filter((p) => p.status === 'ACTIVE').length,
+      draftCount: items.filter((p) => p.status === 'DRAFT').length,
+      // Subscription stats are optional since they may not be seeded
+      projectLimit: 10, // Default limit for demo
+      usagePercent: Math.min((data.total / 10) * 100, 100),
     };
-  }, [data, subscription]);
+  }, [data]);
 
   return {
     data,

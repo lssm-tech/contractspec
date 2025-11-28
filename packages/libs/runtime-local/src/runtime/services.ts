@@ -316,29 +316,308 @@ export class LocalRuntimeServices {
   }
 
   private async seedSaasBoilerplate(projectId: string): Promise<void> {
-    // SaaS Boilerplate template seeds organizations, projects, and settings
-    // These are external examples that load from their own packages
-    console.log(
-      `[runtime-local] SaaS Boilerplate template initialized for project: ${projectId}`
+    // Check if already seeded
+    const existing = await this.db.exec(
+      `SELECT COUNT(*) as count FROM saas_project WHERE projectId = ?`,
+      [projectId]
     );
-    // Seed data would come from @lssm/example.saas-boilerplate package
+    if ((existing[0]?.count as number) > 0) return;
+
+    const organizationId = generateId('org');
+
+    // Seed subscription
+    await this.db.run(
+      `INSERT INTO saas_subscription (id, projectId, organizationId, plan, status, billingCycle, currentPeriodStart, currentPeriodEnd)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        generateId('sub'),
+        projectId,
+        organizationId,
+        'PRO',
+        'ACTIVE',
+        'MONTHLY',
+        new Date().toISOString(),
+        new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      ]
+    );
+
+    // Seed projects
+    const projects = [
+      {
+        name: 'Marketing Website',
+        description: 'Company marketing site',
+        status: 'ACTIVE',
+        tier: 'PRO',
+      },
+      {
+        name: 'Internal Dashboard',
+        description: 'Analytics and metrics',
+        status: 'ACTIVE',
+        tier: 'FREE',
+      },
+      {
+        name: 'Mobile App MVP',
+        description: 'iOS/Android prototype',
+        status: 'DRAFT',
+        tier: 'FREE',
+      },
+    ];
+
+    for (const project of projects) {
+      await this.db.run(
+        `INSERT INTO saas_project (id, projectId, organizationId, name, description, status, tier)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          generateId('proj'),
+          projectId,
+          organizationId,
+          project.name,
+          project.description,
+          project.status,
+          project.tier,
+        ]
+      );
+    }
+
+    console.log(
+      `[runtime-local] SaaS Boilerplate seeded for project: ${projectId}`
+    );
   }
 
   private async seedCrmPipeline(projectId: string): Promise<void> {
-    // CRM Pipeline template seeds contacts, companies, deals, and pipelines
-    // These are external examples that load from their own packages
-    console.log(
-      `[runtime-local] CRM Pipeline template initialized for project: ${projectId}`
+    // Check if already seeded
+    const existing = await this.db.exec(
+      `SELECT COUNT(*) as count FROM crm_pipeline WHERE projectId = ?`,
+      [projectId]
     );
-    // Seed data would come from @lssm/example.crm-pipeline package
+    if ((existing[0]?.count as number) > 0) return;
+
+    // Create pipeline
+    const pipelineId = 'pipeline-1';
+    await this.db.run(
+      `INSERT INTO crm_pipeline (id, projectId, name) VALUES (?, ?, ?)`,
+      [pipelineId, projectId, 'Sales Pipeline']
+    );
+
+    // Create stages
+    const stages = [
+      { id: 'stage-1', name: 'Lead', position: 1 },
+      { id: 'stage-2', name: 'Qualified', position: 2 },
+      { id: 'stage-3', name: 'Proposal', position: 3 },
+      { id: 'stage-4', name: 'Negotiation', position: 4 },
+      { id: 'stage-5', name: 'Closed', position: 5 },
+    ];
+
+    for (const stage of stages) {
+      await this.db.run(
+        `INSERT INTO crm_stage (id, pipelineId, name, position) VALUES (?, ?, ?, ?)`,
+        [stage.id, pipelineId, stage.name, stage.position]
+      );
+    }
+
+    // Seed deals
+    const deals = [
+      {
+        name: 'Enterprise License - Acme Corp',
+        value: 75000,
+        stageId: 'stage-3',
+        status: 'OPEN',
+      },
+      {
+        name: 'Startup Plan - TechStart Inc',
+        value: 12000,
+        stageId: 'stage-2',
+        status: 'OPEN',
+      },
+      {
+        name: 'Professional Services - Global Ltd',
+        value: 45000,
+        stageId: 'stage-4',
+        status: 'OPEN',
+      },
+      {
+        name: 'Annual Contract - SmallBiz Co',
+        value: 8500,
+        stageId: 'stage-1',
+        status: 'OPEN',
+      },
+      {
+        name: 'Custom Integration - MegaCorp',
+        value: 125000,
+        stageId: 'stage-5',
+        status: 'WON',
+      },
+      {
+        name: 'Pilot Project - NewCo',
+        value: 5000,
+        stageId: 'stage-2',
+        status: 'LOST',
+      },
+    ];
+
+    for (const deal of deals) {
+      await this.db.run(
+        `INSERT INTO crm_deal (id, projectId, pipelineId, stageId, name, value, currency, status, ownerId)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          generateId('deal'),
+          projectId,
+          pipelineId,
+          deal.stageId,
+          deal.name,
+          deal.value,
+          'USD',
+          deal.status,
+          'user-1',
+        ]
+      );
+    }
+
+    console.log(
+      `[runtime-local] CRM Pipeline seeded for project: ${projectId}`
+    );
   }
 
   private async seedAgentConsole(projectId: string): Promise<void> {
-    // Agent Console template seeds tools, agents, and sample runs
-    // These are external examples that load from their own packages
-    console.log(
-      `[runtime-local] Agent Console template initialized for project: ${projectId}`
+    // Check if already seeded
+    const existing = await this.db.exec(
+      `SELECT COUNT(*) as count FROM agent_definition WHERE projectId = ?`,
+      [projectId]
     );
-    // Seed data would come from @lssm/example.agent-console package
+    if ((existing[0]?.count as number) > 0) return;
+
+    const organizationId = generateId('org');
+
+    // Seed tools
+    const tools = [
+      {
+        name: 'Web Search',
+        description: 'Search the web for information',
+        category: 'RETRIEVAL',
+      },
+      {
+        name: 'Code Interpreter',
+        description: 'Execute Python code',
+        category: 'COMPUTATION',
+      },
+      {
+        name: 'Email Sender',
+        description: 'Send emails via API',
+        category: 'COMMUNICATION',
+      },
+      {
+        name: 'Database Query',
+        description: 'Query SQL databases',
+        category: 'RETRIEVAL',
+      },
+      {
+        name: 'File Reader',
+        description: 'Read and parse files',
+        category: 'UTILITY',
+      },
+    ];
+
+    const toolIds: string[] = [];
+    for (const tool of tools) {
+      const id = generateId('tool');
+      toolIds.push(id);
+      await this.db.run(
+        `INSERT INTO agent_tool (id, projectId, organizationId, name, description, category, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          id,
+          projectId,
+          organizationId,
+          tool.name,
+          tool.description,
+          tool.category,
+          'ACTIVE',
+        ]
+      );
+    }
+
+    // Seed agents
+    const agents = [
+      {
+        name: 'Research Assistant',
+        description: 'Helps with research tasks',
+        model: 'gpt-4',
+        status: 'ACTIVE',
+      },
+      {
+        name: 'Code Helper',
+        description: 'Assists with coding',
+        model: 'gpt-4',
+        status: 'ACTIVE',
+      },
+      {
+        name: 'Email Drafter',
+        description: 'Drafts professional emails',
+        model: 'gpt-3.5-turbo',
+        status: 'PAUSED',
+      },
+    ];
+
+    for (const agent of agents) {
+      const agentId = generateId('agent');
+      await this.db.run(
+        `INSERT INTO agent_definition (id, projectId, organizationId, name, description, modelName, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          agentId,
+          projectId,
+          organizationId,
+          agent.name,
+          agent.description,
+          agent.model,
+          agent.status,
+        ]
+      );
+
+      // Assign some tools
+      const toolsToAssign = toolIds.slice(0, Math.floor(Math.random() * 3) + 1);
+      for (const toolId of toolsToAssign) {
+        await this.db.run(
+          `INSERT INTO agent_tool_assignment (id, agentId, toolId) VALUES (?, ?, ?)`,
+          [generateId('assign'), agentId, toolId]
+        );
+      }
+    }
+
+    // Seed some sample runs
+    const agentRows = await this.db.exec<{ id: string }>(
+      `SELECT id FROM agent_definition WHERE projectId = ? LIMIT 1`,
+      [projectId]
+    );
+
+    if (agentRows.length > 0) {
+      const agentId = agentRows[0]!.id;
+      const runs = [
+        { status: 'COMPLETED', tokens: 1200, duration: 3500 },
+        { status: 'COMPLETED', tokens: 800, duration: 2100 },
+        { status: 'FAILED', tokens: 150, duration: 500 },
+      ];
+
+      for (const run of runs) {
+        await this.db.run(
+          `INSERT INTO agent_run (id, projectId, agentId, status, totalTokens, durationMs, queuedAt, completedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          [
+            generateId('run'),
+            projectId,
+            agentId,
+            run.status,
+            run.tokens,
+            run.duration,
+            new Date().toISOString(),
+            run.status === 'COMPLETED' ? new Date().toISOString() : null,
+          ]
+        );
+      }
+    }
+
+    console.log(
+      `[runtime-local] Agent Console seeded for project: ${projectId}`
+    );
   }
 }

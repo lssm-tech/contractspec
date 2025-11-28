@@ -9,7 +9,5 @@ export {
   type UseAgentMutationsOptions,
   type CreateAgentInput,
   type UpdateAgentInput,
-  type ExecuteAgentInput,
-  type CancelRunInput,
 } from './useAgentMutations';
 

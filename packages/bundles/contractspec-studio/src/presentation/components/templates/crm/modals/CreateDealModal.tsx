@@ -7,7 +7,18 @@
  */
 import { useState } from 'react';
 import { Button, Input } from '@lssm/lib.design-system';
-import type { CreateDealInput } from '@lssm/example.crm-pipeline/handlers';
+
+// Local type definition for modal props
+export interface CreateDealInput {
+  name: string;
+  value: number;
+  currency: string;
+  pipelineId: string;
+  stageId: string;
+  expectedCloseDate?: Date;
+  contactId?: string;
+  companyId?: string;
+}
 
 interface CreateDealModalProps {
   isOpen: boolean;

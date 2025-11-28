@@ -7,7 +7,15 @@
  */
 import { useState } from 'react';
 import { Button, Input } from '@lssm/lib.design-system';
-import type { CreateAgentInput } from '../hooks/useAgentMutations';
+
+// Local type definition for modal props
+export interface CreateAgentInput {
+  name: string;
+  description?: string;
+  modelProvider: string;
+  modelName: string;
+  systemPrompt?: string;
+}
 
 interface CreateAgentModalProps {
   isOpen: boolean;
@@ -17,11 +25,13 @@ interface CreateAgentModalProps {
 }
 
 const MODEL_PROVIDERS = [
-  { value: 'OPENAI', label: 'OpenAI', models: ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'] },
-  { value: 'ANTHROPIC', label: 'Anthropic', models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku'] },
-  { value: 'GOOGLE', label: 'Google', models: ['gemini-pro', 'gemini-ultra'] },
-  { value: 'MISTRAL', label: 'Mistral', models: ['mistral-large', 'mistral-medium', 'mistral-small'] },
+  { value: 'openai', label: 'OpenAI', models: ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'] },
+  { value: 'anthropic', label: 'Anthropic', models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku'] },
+  { value: 'google', label: 'Google', models: ['gemini-pro', 'gemini-ultra'] },
+  { value: 'mistral', label: 'Mistral', models: ['mistral-large', 'mistral-medium', 'mistral-small'] },
 ] as const;
+
+type ModelProvider = (typeof MODEL_PROVIDERS)[number]['value'];
 
 export function CreateAgentModal({
   isOpen,
@@ -30,9 +40,8 @@ export function CreateAgentModal({
   isLoading = false,
 }: CreateAgentModalProps) {
   const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
-  const [modelProvider, setModelProvider] = useState<CreateAgentInput['modelProvider']>('OPENAI');
+  const [modelProvider, setModelProvider] = useState<ModelProvider>('openai');
   const [modelName, setModelName] = useState('gpt-4o');
   const [systemPrompt, setSystemPrompt] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -49,56 +58,29 @@ export function CreateAgentModal({
       return;
     }
 
-    if (!slug.trim()) {
-      setError('Slug is required');
-      return;
-    }
-
-    if (!systemPrompt.trim()) {
-      setError('System prompt is required');
-      return;
-    }
-
     try {
       await onSubmit({
-        organizationId: 'demo-org',
         name: name.trim(),
-        slug: slug.trim(),
         description: description.trim() || undefined,
         modelProvider,
         modelName,
-        systemPrompt: systemPrompt.trim(),
+        systemPrompt: systemPrompt.trim() || undefined,
       });
 
       // Reset form
       setName('');
-      setSlug('');
       setDescription('');
-      setModelProvider('OPENAI');
+      setModelProvider('openai');
       setModelName('gpt-4o');
       setSystemPrompt('');
       onClose();
     } catch (err) {
-      if (err instanceof Error && err.message === 'SLUG_EXISTS') {
-        setError('An agent with this slug already exists');
-      } else {
-        setError(err instanceof Error ? err.message : 'Failed to create agent');
-      }
+      setError(err instanceof Error ? err.message : 'Failed to create agent');
     }
   };
 
-  // Auto-generate slug from name
-  const handleNameChange = (value: string) => {
-    setName(value);
-    const autoSlug = value
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-');
-    setSlug(autoSlug);
-  };
-
   // Update model when provider changes
-  const handleProviderChange = (provider: CreateAgentInput['modelProvider']) => {
+  const handleProviderChange = (provider: ModelProvider) => {
     setModelProvider(provider);
     const providerConfig = MODEL_PROVIDERS.find((p) => p.value === provider);
     if (providerConfig) {
@@ -132,30 +114,10 @@ export function CreateAgentModal({
             <Input
               id="agent-name"
               value={name}
-              onChange={(e) => handleNameChange(e)}
+              onChange={(e) => setName(e)}
               placeholder="e.g., Customer Support Bot"
               disabled={isLoading}
             />
-          </div>
-
-          {/* Slug */}
-          <div>
-            <label
-              htmlFor="agent-slug"
-              className="text-muted-foreground mb-1 block text-sm font-medium"
-            >
-              Slug *
-            </label>
-            <Input
-              id="agent-slug"
-              value={slug}
-              onChange={(e) => setSlug(e)}
-              placeholder="customer-support-bot"
-              disabled={isLoading}
-            />
-            <p className="text-muted-foreground mt-1 text-xs">
-              Used in API calls and URLs
-            </p>
           </div>
 
           {/* Description */}
@@ -189,7 +151,7 @@ export function CreateAgentModal({
               <select
                 id="model-provider"
                 value={modelProvider}
-                onChange={(e) => handleProviderChange(e.target.value as CreateAgentInput['modelProvider'])}
+                onChange={(e) => handleProviderChange(e.target.value as ModelProvider)}
                 disabled={isLoading}
                 className="border-input bg-background focus:ring-ring h-10 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none disabled:opacity-50"
               >
@@ -229,7 +191,7 @@ export function CreateAgentModal({
               htmlFor="system-prompt"
               className="text-muted-foreground mb-1 block text-sm font-medium"
             >
-              System Prompt *
+              System Prompt
             </label>
             <textarea
               id="system-prompt"

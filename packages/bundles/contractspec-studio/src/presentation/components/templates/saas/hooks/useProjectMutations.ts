@@ -1,20 +1,18 @@
 /**
  * Hook for SaaS project mutations (commands)
  *
- * Wires UI actions to ContractSpec command handlers:
- * - CreateProjectContract -> mockCreateProjectHandler
- * - UpdateProjectContract -> mockUpdateProjectHandler
- * - DeleteProjectContract -> mockDeleteProjectHandler
+ * Uses runtime-local database-backed handlers for:
+ * - CreateProjectContract
+ * - UpdateProjectContract
+ * - DeleteProjectContract
  */
 import { useState, useCallback } from 'react';
-import {
-  mockCreateProjectHandler,
-  mockUpdateProjectHandler,
-  mockDeleteProjectHandler,
-  type CreateProjectInput,
-  type UpdateProjectInput,
-  type Project,
-} from '@lssm/example.saas-boilerplate/handlers';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  CreateProjectInput,
+  UpdateProjectInput,
+  Project,
+} from '@lssm/lib.runtime-local';
 
 export interface MutationState<T> {
   loading: boolean;
@@ -28,6 +26,9 @@ export interface UseProjectMutationsOptions {
 }
 
 export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { saas } = handlers;
+
   const [createState, setCreateState] = useState<MutationState<Project>>({
     loading: false,
     error: null,
@@ -53,9 +54,9 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
     async (input: CreateProjectInput): Promise<Project | null> => {
       setCreateState({ loading: true, error: null, data: null });
       try {
-        const result = await mockCreateProjectHandler(input, {
+        const result = await saas.createProject(input, {
+          projectId,
           organizationId: 'demo-org',
-          userId: 'demo-user',
         });
         setCreateState({ loading: false, error: null, data: result });
         options.onSuccess?.();
@@ -67,7 +68,7 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [saas, projectId, options]
   );
 
   /**
@@ -77,7 +78,7 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
     async (input: UpdateProjectInput): Promise<Project | null> => {
       setUpdateState({ loading: true, error: null, data: null });
       try {
-        const result = await mockUpdateProjectHandler(input);
+        const result = await saas.updateProject(input);
         setUpdateState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -88,20 +89,20 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [saas, options]
   );
 
   /**
    * Delete a project (soft delete)
    */
   const deleteProject = useCallback(
-    async (projectId: string): Promise<boolean> => {
+    async (id: string): Promise<boolean> => {
       setDeleteState({ loading: true, error: null, data: null });
       try {
-        const result = await mockDeleteProjectHandler({ projectId });
-        setDeleteState({ loading: false, error: null, data: result });
+        await saas.deleteProject(id);
+        setDeleteState({ loading: false, error: null, data: { success: true } });
         options.onSuccess?.();
-        return result.success;
+        return true;
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to delete project');
         setDeleteState({ loading: false, error, data: null });
@@ -109,15 +110,15 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
         return false;
       }
     },
-    [options]
+    [saas, options]
   );
 
   /**
    * Archive a project (status change)
    */
   const archiveProject = useCallback(
-    async (projectId: string): Promise<Project | null> => {
-      return updateProject({ projectId, status: 'ARCHIVED' });
+    async (id: string): Promise<Project | null> => {
+      return updateProject({ id, status: 'ARCHIVED' });
     },
     [updateProject]
   );
@@ -126,8 +127,8 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
    * Activate a project (status change)
    */
   const activateProject = useCallback(
-    async (projectId: string): Promise<Project | null> => {
-      return updateProject({ projectId, status: 'ACTIVE' });
+    async (id: string): Promise<Project | null> => {
+      return updateProject({ id, status: 'ACTIVE' });
     },
     [updateProject]
   );

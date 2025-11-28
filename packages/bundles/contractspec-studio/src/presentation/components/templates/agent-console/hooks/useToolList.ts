@@ -1,18 +1,18 @@
 /**
  * Hook for fetching and managing tool list data
  *
- * Uses handlers from the agent-console example package.
+ * Uses runtime-local database-backed handlers.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListToolsHandler,
-  type ToolSummary,
-  type ListToolsOutput as HandlerListToolsOutput,
-} from '@lssm/example.agent-console/handlers/index';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  Tool as RuntimeTool,
+  ListToolsOutput as RuntimeListToolsOutput,
+} from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience
-export type Tool = ToolSummary;
-export type ListToolsOutput = HandlerListToolsOutput;
+export type Tool = RuntimeTool;
+export type ListToolsOutput = RuntimeListToolsOutput;
 
 export type ToolCategory = Tool['category'];
 export type ToolStatus = Tool['status'];
@@ -25,6 +25,9 @@ export interface UseToolListOptions {
 }
 
 export function useToolList(options: UseToolListOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { agent } = handlers;
+
   const [data, setData] = useState<ListToolsOutput | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -35,8 +38,8 @@ export function useToolList(options: UseToolListOptions = {}) {
     setError(null);
 
     try {
-      const result = await mockListToolsHandler({
-        organizationId: 'demo-org',
+      const result = await agent.listTools({
+        projectId,
         search: options.search,
         category: options.category,
         status: options.status === 'all' ? undefined : options.status,
@@ -49,7 +52,15 @@ export function useToolList(options: UseToolListOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [options.search, options.category, options.status, options.limit, page]);
+  }, [
+    agent,
+    projectId,
+    options.search,
+    options.category,
+    options.status,
+    options.limit,
+    page,
+  ]);
 
   useEffect(() => {
     fetchData();
