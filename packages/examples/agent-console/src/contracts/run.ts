@@ -1,5 +1,5 @@
-import { defineCommand, defineQuery, defineSchemaModel } from '@lssm/lib.contracts';
-import { ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
+import {defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
