@@ -321,7 +321,7 @@ export class LocalRuntimeServices {
     console.log(
       `[runtime-local] SaaS Boilerplate template initialized for project: ${projectId}`
     );
-    // Seed data would come from @contractspec/example.saas-boilerplate package
+    // Seed data would come from @lssm/example.saas-boilerplate package
   }
 
   private async seedCrmPipeline(projectId: string): Promise<void> {
@@ -330,7 +330,7 @@ export class LocalRuntimeServices {
     console.log(
       `[runtime-local] CRM Pipeline template initialized for project: ${projectId}`
     );
-    // Seed data would come from @contractspec/example.crm-pipeline package
+    // Seed data would come from @lssm/example.crm-pipeline package
   }
 
   private async seedAgentConsole(projectId: string): Promise<void> {
@@ -339,6 +339,6 @@ export class LocalRuntimeServices {
     console.log(
       `[runtime-local] Agent Console template initialized for project: ${projectId}`
     );
-    // Seed data would come from @contractspec/example.agent-console package
+    // Seed data would come from @lssm/example.agent-console package
   }
 }

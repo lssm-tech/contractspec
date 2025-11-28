@@ -1,117 +1,242 @@
 'use client';
 
-import { useState } from 'react';
-import { SaasProjectList } from './SaasProjectList';
-import { SaasSettingsPanel } from './SaasSettingsPanel';
+/**
+ * SaaS Dashboard
+ *
+ * Properly integrated with ContractSpec example handlers
+ * and design-system components.
+ */
+import { useState, useMemo } from 'react';
+import { StatCard, StatCardGroup, StatusChip, EntityCard, EmptyState, LoaderBlock, ErrorState, Button } from '@lssm/lib.design-system';
+import { useProjectList } from './hooks/useProjectList';
 
-type Tab = 'projects' | 'members' | 'settings' | 'billing';
+type Tab = 'projects' | 'billing' | 'settings';
+
+const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
+  ACTIVE: 'success',
+  DRAFT: 'neutral',
+  ARCHIVED: 'danger',
+};
 
 export function SaasDashboard() {
-  const [tab, setTab] = useState<Tab>('projects');
+  const [activeTab, setActiveTab] = useState<Tab>('projects');
+  const { data, subscription, loading, error, stats, refetch } = useProjectList();
 
-  const tabs: { id: Tab; label: string }[] = [
-    { id: 'projects', label: 'Projects' },
-    { id: 'members', label: 'Team' },
-    { id: 'settings', label: 'Settings' },
-    { id: 'billing', label: 'Billing' },
+  const tabs: Array<{ id: Tab; label: string; icon: string }> = [
+    { id: 'projects', label: 'Projects', icon: '📁' },
+    { id: 'billing', label: 'Billing', icon: '💳' },
+    { id: 'settings', label: 'Settings', icon: '⚙️' },
   ];
+
+  if (loading && !data) {
+    return <LoaderBlock label="Loading dashboard..." />;
+  }
+
+  if (error) {
+    return (
+      <ErrorState
+        title="Failed to load dashboard"
+        description={error.message}
+        action={{ label: 'Retry', onClick: refetch }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
+      {/* Stats Row */}
+      {stats && subscription && (
+        <StatCardGroup>
+          <StatCard
+            label="Projects"
+            value={`${stats.total} / ${stats.projectLimit}`}
+            description={`${stats.usagePercent.toFixed(0)}% used`}
+          />
+          <StatCard label="Active" value={stats.activeCount} variant="success" />
+          <StatCard
+            label="Plan"
+            value={subscription.planName}
+            description={subscription.status}
+          />
+          <StatCard
+            label="API Calls"
+            value={`${(subscription.usage.apiCalls / 1000).toFixed(0)}K`}
+            description={`of ${(subscription.limits.apiCalls / 1000).toFixed(0)}K`}
+          />
+        </StatCardGroup>
+      )}
+
       {/* Navigation Tabs */}
-      <nav className="flex gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-800">
-        {tabs.map((t) => (
+      <nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+        {tabs.map((tab) => (
           <button
-            key={t.id}
+            key={tab.id}
             type="button"
-            onClick={() => setTab(t.id)}
-            className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition ${
-              tab === t.id
-                ? 'bg-white text-zinc-900 shadow dark:bg-zinc-700 dark:text-white'
-                : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+              activeTab === tab.id
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            {t.label}
+            <span>{tab.icon}</span>
+            {tab.label}
           </button>
         ))}
       </nav>
 
       {/* Tab Content */}
-      <div className="min-h-[400px]">
-        {tab === 'projects' && <SaasProjectList />}
-        {tab === 'members' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Team Members</h3>
-              <button
-                type="button"
-                className="rounded-lg bg-violet-500 px-4 py-2 text-sm font-medium text-white hover:bg-violet-600"
-              >
-                Invite Member
-              </button>
-            </div>
-            <div className="space-y-2">
-              {[
-                { name: 'Alice Chen', role: 'Owner', email: 'alice@acme.com' },
-                { name: 'Bob Smith', role: 'Admin', email: 'bob@acme.com' },
-                {
-                  name: 'Carol Johnson',
-                  role: 'Member',
-                  email: 'carol@acme.com',
-                },
-              ].map((member, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-800"
+      <div className="min-h-[400px]" role="tabpanel">
+        {activeTab === 'projects' && <ProjectsTab data={data} />}
+        {activeTab === 'billing' && <BillingTab subscription={subscription} />}
+        {activeTab === 'settings' && <SettingsTab />}
+      </div>
+    </div>
+  );
+}
+
+function ProjectsTab({ data }: { data: ReturnType<typeof useProjectList>['data'] }) {
+  if (!data?.projects.length) {
+    return (
+      <EmptyState
+        title="No projects yet"
+        description="Create your first project to get started."
+        action={{ label: 'Create Project', onClick: () => {} }}
+      />
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Your Projects</h3>
+        <Button variant="primary" size="sm">
+          New Project
+        </Button>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {data.projects.map((project) => (
+          <EntityCard
+            key={project.id}
+            title={project.name}
+            subtitle={project.slug}
+            description={project.description}
+            footer={
+              <div className="flex items-center justify-between">
+                <StatusChip
+                  status={project.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
+                  variant={statusVariantMap[project.status] ?? 'neutral'}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-sm font-medium text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">
-                      {member.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </div>
-                    <div>
-                      <p className="font-medium">{member.name}</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                        {member.email}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-400">
-                    {member.role}
+                  {project.status}
+                </StatusChip>
+                <span className="text-xs text-muted-foreground">
+                  {project.updatedAt.toLocaleDateString()}
+                </span>
+              </div>
+            }
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BillingTab({ subscription }: { subscription: ReturnType<typeof useProjectList>['subscription'] }) {
+  if (!subscription) return null;
+
+  const usageItems = [
+    {
+      label: 'Projects',
+      used: subscription.usage.projects,
+      limit: subscription.limits.projects,
+    },
+    {
+      label: 'Team Members',
+      used: subscription.usage.users,
+      limit: subscription.limits.users,
+    },
+    {
+      label: 'Storage (GB)',
+      used: subscription.usage.storage,
+      limit: subscription.limits.storage,
+    },
+    {
+      label: 'API Calls',
+      used: subscription.usage.apiCalls,
+      limit: subscription.limits.apiCalls,
+    },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-border bg-card p-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="text-lg font-semibold">{subscription.planName} Plan</h3>
+            <p className="text-sm text-muted-foreground">
+              Current period: {subscription.currentPeriodStart.toLocaleDateString()} -{' '}
+              {subscription.currentPeriodEnd.toLocaleDateString()}
+            </p>
+          </div>
+          <StatusChip variant="success">{subscription.status}</StatusChip>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-6">
+        <h4 className="mb-4 font-medium">Usage</h4>
+        <div className="space-y-4">
+          {usageItems.map((item) => {
+            const pct = (item.used / item.limit) * 100;
+            return (
+              <div key={item.label}>
+                <div className="flex justify-between text-sm">
+                  <span>{item.label}</span>
+                  <span className="text-muted-foreground">
+                    {item.used.toLocaleString()} / {item.limit.toLocaleString()}
                   </span>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-        {tab === 'settings' && <SaasSettingsPanel />}
-        {tab === 'billing' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Billing & Usage</h3>
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                { label: 'Current Plan', value: 'Professional', sub: '$49/mo' },
-                { label: 'Usage This Month', value: '2,847', sub: 'API calls' },
-                { label: 'Next Invoice', value: '$49.00', sub: 'Due Mar 1' },
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-800"
-                >
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {stat.label}
-                  </p>
-                  <p className="mt-1 text-2xl font-semibold">{stat.value}</p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {stat.sub}
-                  </p>
+                <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className={`h-full ${pct > 80 ? 'bg-red-500' : pct > 60 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                    style={{ width: `${Math.min(pct, 100)}%` }}
+                  />
                 </div>
-              ))}
-            </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SettingsTab() {
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-border bg-card p-6">
+        <h3 className="mb-4 text-lg font-semibold">Organization Settings</h3>
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm font-medium">Organization Name</label>
+            <input
+              type="text"
+              defaultValue="Demo Organization"
+              className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2"
+            />
           </div>
-        )}
+          <div>
+            <label className="text-sm font-medium">Default Timezone</label>
+            <select className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2">
+              <option>UTC</option>
+              <option>America/New_York</option>
+              <option>Europe/London</option>
+              <option>Asia/Tokyo</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   );

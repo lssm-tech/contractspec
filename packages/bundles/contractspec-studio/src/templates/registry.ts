@@ -32,6 +32,7 @@ export interface TemplateDefinition {
     list: string;
     detail: string;
     form?: string;
+    dashboard?: string;
   };
   preview?: {
     demoUrl?: string;
@@ -45,6 +46,12 @@ export interface TemplateDefinition {
   package?: string;
   /** Whether this template uses the new cross-cutting modules */
   usesModules?: string[];
+  /** Feature spec key from the example package */
+  featureSpec?: string;
+  /** List of presentation names available for this template */
+  presentations?: string[];
+  /** List of render targets supported (default: ['react']) */
+  renderTargets?: Array<'react' | 'markdown' | 'json' | 'xml'>;
 }
 
 export interface TemplateFilter {
@@ -179,9 +186,10 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       ],
     },
     components: {
-      list: 'ProjectList',
-      detail: 'ProjectDetail',
+      list: 'SaasProjectList',
+      detail: 'SaasSettingsPanel',
       form: 'ProjectForm',
+      dashboard: 'SaasDashboard',
     },
     preview: {
       demoUrl: '/sandbox?template=saas-boilerplate',
@@ -189,8 +197,15 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     docs: {
       quickstart: '/docs/templates/saas-boilerplate',
     },
-    package: '@contractspec/example.saas-boilerplate',
+    package: '@lssm/example.saas-boilerplate',
     usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+    featureSpec: 'saas-boilerplate',
+    presentations: [
+      'saas-boilerplate.dashboard',
+      'saas-boilerplate.project.list',
+      'saas-boilerplate.billing.settings',
+    ],
+    renderTargets: ['react', 'markdown'],
   },
   {
     id: 'crm-pipeline',
@@ -215,9 +230,10 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       contracts: ['crm.deal.create', 'crm.deal.updateStage', 'crm.deal.get'],
     },
     components: {
-      list: 'DealList',
-      detail: 'DealDetail',
+      list: 'CrmPipelineBoard',
+      detail: 'CrmDealCard',
       form: 'DealForm',
+      dashboard: 'CrmDashboard',
     },
     preview: {
       demoUrl: '/sandbox?template=crm-pipeline',
@@ -225,8 +241,11 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     docs: {
       quickstart: '/docs/templates/crm-pipeline',
     },
-    package: '@contractspec/example.crm-pipeline',
+    package: '@lssm/example.crm-pipeline',
     usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+    featureSpec: 'crm-pipeline',
+    presentations: ['crm-pipeline.dashboard', 'crm-pipeline.deal.pipeline'],
+    renderTargets: ['react', 'markdown'],
   },
   {
     id: 'agent-console',
@@ -259,9 +278,10 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       ],
     },
     components: {
-      list: 'AgentList',
-      detail: 'AgentDetail',
-      form: 'AgentForm',
+      list: 'AgentListView',
+      detail: 'AgentRunList',
+      form: 'AgentToolRegistry',
+      dashboard: 'AgentDashboard',
     },
     preview: {
       demoUrl: '/sandbox?template=agent-console',
@@ -269,12 +289,20 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     docs: {
       quickstart: '/docs/templates/agent-console',
     },
-    package: '@contractspec/example.agent-console',
+    package: '@lssm/example.agent-console',
     usesModules: [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.jobs',
       '@lssm/modules.audit-trail',
     ],
+    featureSpec: 'agent-console',
+    presentations: [
+      'agent-console.dashboard',
+      'agent-console.agent.list',
+      'agent-console.run.list',
+      'agent-console.tool.registry',
+    ],
+    renderTargets: ['react', 'markdown'],
   },
 ];
 

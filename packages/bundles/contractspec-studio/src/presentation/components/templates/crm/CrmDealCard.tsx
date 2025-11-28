@@ -1,58 +1,78 @@
 'use client';
 
-export interface Deal {
-  id: string;
-  name: string;
-  company: string;
-  value: number;
-  stage: string;
-  probability: number;
-  contactName: string;
-  lastActivity: string;
-}
+/**
+ * CRM Deal Card - Individual deal card for kanban board
+ */
+import type { Deal } from '@lssm/example.crm-pipeline/handlers';
 
 interface CrmDealCardProps {
   deal: Deal;
-  onSelect?: (deal: Deal) => void;
+  onClick?: () => void;
 }
 
-export function CrmDealCard({ deal, onSelect }: CrmDealCardProps) {
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-    }).format(value);
+function formatCurrency(value: number, currency: string): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+export function CrmDealCard({ deal, onClick }: CrmDealCardProps) {
+  const daysUntilClose = deal.expectedCloseDate
+    ? Math.ceil(
+        (deal.expectedCloseDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+      )
+    : null;
 
   return (
     <div
-      onClick={() => onSelect?.(deal)}
-      className="cursor-pointer rounded-lg border border-zinc-200 bg-white p-3 shadow-sm transition hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
+      onClick={onClick}
+      className="cursor-pointer rounded-lg border border-border bg-card p-3 shadow-sm transition-shadow hover:shadow-md"
     >
-      <div className="flex items-start justify-between">
-        <div className="flex-1 truncate">
-          <h4 className="truncate font-medium">{deal.name}</h4>
-          <p className="truncate text-sm text-zinc-500 dark:text-zinc-400">
-            {deal.company}
-          </p>
-        </div>
+      {/* Deal Name */}
+      <h4 className="font-medium leading-snug">{deal.name}</h4>
+
+      {/* Deal Value */}
+      <div className="mt-2 text-lg font-semibold text-primary">
+        {formatCurrency(deal.value, deal.currency)}
       </div>
 
-      <div className="mt-3 flex items-center justify-between">
-        <span className="text-sm font-semibold text-violet-600 dark:text-violet-400">
-          {formatCurrency(deal.value)}
-        </span>
-        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-700 dark:text-zinc-400">
-          {deal.probability}%
-        </span>
-      </div>
+      {/* Meta Info */}
+      <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+        {/* Expected Close */}
+        {daysUntilClose !== null && (
+          <span
+            className={
+              daysUntilClose < 0
+                ? 'text-red-500'
+                : daysUntilClose <= 7
+                  ? 'text-yellow-600 dark:text-yellow-500'
+                  : ''
+            }
+          >
+            {daysUntilClose < 0
+              ? `${Math.abs(daysUntilClose)}d overdue`
+              : daysUntilClose === 0
+                ? 'Due today'
+                : `${daysUntilClose}d left`}
+          </span>
+        )}
 
-      <div className="mt-2 flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-        <span className="truncate">{deal.contactName}</span>
-        <span>·</span>
-        <span>{deal.lastActivity}</span>
+        {/* Status Badge */}
+        <span
+          className={`rounded px-1.5 py-0.5 text-xs font-medium ${
+            deal.status === 'WON'
+              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+              : deal.status === 'LOST'
+                ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+          }`}
+        >
+          {deal.status}
+        </span>
       </div>
     </div>
   );
 }
-

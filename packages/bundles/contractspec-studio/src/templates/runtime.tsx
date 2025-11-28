@@ -11,6 +11,7 @@ import {
   type ApolloClient,
   type NormalizedCacheObject,
 } from '@apollo/client';
+import type { TransformEngine } from '@lssm/lib.contracts';
 
 import { LocalRuntimeServices } from '@lssm/lib.runtime-local';
 
@@ -20,6 +21,7 @@ import {
   type TemplateDefinition,
   type TemplateId,
 } from './registry';
+import { getTemplateEngine } from './engine';
 
 export type { TemplateId };
 
@@ -31,6 +33,8 @@ export interface TemplateRuntimeContextValue {
   components?: TemplateComponentRegistration;
   templateId: TemplateId;
   projectId: string;
+  /** TransformEngine for rendering presentations */
+  engine: TransformEngine;
 }
 
 const TemplateRuntimeContext =
@@ -66,6 +70,10 @@ export function TemplateRuntimeProvider({
         await installer.install(templateId, { projectId: resolvedProjectId });
       }
       if (cancelled) return;
+
+      // Get the shared TransformEngine
+      const engine = getTemplateEngine();
+
       setValue({
         template,
         runtime,
@@ -74,6 +82,7 @@ export function TemplateRuntimeProvider({
         components: templateComponentRegistry.get(templateId),
         templateId,
         projectId: resolvedProjectId,
+        engine,
       });
     };
 
@@ -122,6 +131,14 @@ export function useTemplateRuntime(): TemplateRuntimeContextValue {
     );
   }
   return context;
+}
+
+/**
+ * Hook to access the TransformEngine for rendering presentations
+ */
+export function useTemplateEngine(): TransformEngine {
+  const context = useTemplateRuntime();
+  return context.engine;
 }
 
 export type TemplateComponentRegistration = Partial<{
