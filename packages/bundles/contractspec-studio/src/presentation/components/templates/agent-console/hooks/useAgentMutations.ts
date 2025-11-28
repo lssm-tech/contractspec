@@ -174,7 +174,6 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
             message: input.message,
             context: input.context,
           },
-          sessionId: input.sessionId,
         });
         setExecuteState({ loading: false, error: null, data: result });
         options.onSuccess?.();
