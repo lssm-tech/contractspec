@@ -4,23 +4,7 @@
  * These overlays customize the presentation for different contexts
  * (e.g., demo users, different roles).
  */
-
-export interface OverlayDefinition {
-  overlayId: string;
-  version: string;
-  description: string;
-  appliesTo: {
-    presentation?: string;
-    role?: string;
-    feature?: string;
-  };
-  modifications: Array<
-    | { type: 'hideField'; field: string; reason?: string }
-    | { type: 'renameLabel'; field: string; newLabel: string }
-    | { type: 'addBadge'; position: string; label: string; variant?: string }
-    | { type: 'setDefault'; field: string; value: unknown }
-  >;
-}
+import type { OverlayDefinition } from '../../shared/overlay-types';
 
 /**
  * Demo user overlay - sample data mode
@@ -62,4 +46,3 @@ export const crmSalesRepOverlay: OverlayDefinition = {
  * All overlays for crm-pipeline
  */
 export const crmOverlays: OverlayDefinition[] = [crmDemoOverlay, crmSalesRepOverlay];
-

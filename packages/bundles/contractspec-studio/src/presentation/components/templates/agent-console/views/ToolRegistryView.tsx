@@ -3,11 +3,21 @@
 /**
  * Tool Registry View - Shows available tools organized by category
  */
-import { StatCard, StatCardGroup, StatusChip, EntityCard, EmptyState, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
-import { useToolList } from '../hooks/useToolList';
+import {
+  StatCard,
+  StatCardGroup,
+  StatusChip,
+  EntityCard,
+  EmptyState,
+  LoaderBlock,
+  ErrorState,
+  Button,
+} from '@lssm/lib.design-system';
+import { useToolList, type Tool } from '../hooks/useToolList';
 
 interface ToolRegistryViewProps {
   onToolClick?: (toolId: string) => void;
+  onCreateTool?: () => void;
 }
 
 const categoryIcons: Record<string, string> = {
@@ -19,15 +29,29 @@ const categoryIcons: Record<string, string> = {
   CUSTOM: '⚙️',
 };
 
-const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
-  ACTIVE: 'success',
-  DRAFT: 'neutral',
-  DEPRECATED: 'warning',
-  DISABLED: 'danger',
-};
+function getStatusTone(
+  status: Tool['status']
+): 'success' | 'warning' | 'neutral' | 'danger' {
+  switch (status) {
+    case 'ACTIVE':
+      return 'success';
+    case 'INACTIVE':
+      return 'neutral';
+    case 'DEPRECATED':
+      return 'warning';
+    case 'DISABLED':
+      return 'danger';
+    default:
+      return 'neutral';
+  }
+}
 
-export function ToolRegistryView({ onToolClick }: ToolRegistryViewProps) {
-  const { data, loading, error, groupedByCategory, categoryStats, refetch } = useToolList();
+export function ToolRegistryView({
+  onToolClick,
+  onCreateTool,
+}: ToolRegistryViewProps) {
+  const { data, loading, error, groupedByCategory, categoryStats, refetch } =
+    useToolList();
 
   if (loading && !data) {
     return <LoaderBlock label="Loading tools..." />;
@@ -38,7 +62,8 @@ export function ToolRegistryView({ onToolClick }: ToolRegistryViewProps) {
       <ErrorState
         title="Failed to load tools"
         description={error.message}
-        action={{ label: 'Retry', onClick: refetch }}
+        onRetry={refetch}
+        retryLabel="Retry"
       />
     );
   }
@@ -48,7 +73,11 @@ export function ToolRegistryView({ onToolClick }: ToolRegistryViewProps) {
       <EmptyState
         title="No tools registered"
         description="Create your first tool to extend agent capabilities."
-        action={{ label: 'Create Tool', onClick: () => {} }}
+        primaryAction={
+          onCreateTool ? (
+            <Button onPress={onCreateTool}>Create Tool</Button>
+          ) : undefined
+        }
       />
     );
   }
@@ -73,30 +102,34 @@ export function ToolRegistryView({ onToolClick }: ToolRegistryViewProps) {
           <div className="flex items-center gap-2">
             <span className="text-2xl">{categoryIcons[category]}</span>
             <h3 className="text-lg font-semibold">{category}</h3>
-            <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-              {tools.length}
+            <span className="bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-xs">
+              {(tools as Tool[]).length}
             </span>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {tools.map((tool) => (
+            {(tools as Tool[]).map((tool) => (
               <EntityCard
                 key={tool.id}
-                title={tool.name}
-                subtitle={`v${tool.version}`}
-                description={tool.description}
-                onClick={() => onToolClick?.(tool.id)}
-                footer={
-                  <div className="flex items-center justify-between">
-                    <StatusChip
-                      status={tool.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
-                      variant={statusVariantMap[tool.status] ?? 'neutral'}
-                    >
-                      {tool.status}
-                    </StatusChip>
-                    <code className="text-xs text-muted-foreground">{tool.slug}</code>
-                  </div>
+                cardTitle={tool.name}
+                cardSubtitle={`v${tool.version}`}
+                meta={
+                  <p className="text-muted-foreground text-sm">
+                    {tool.description}
+                  </p>
                 }
+                chips={
+                  <StatusChip
+                    tone={getStatusTone(tool.status)}
+                    label={tool.status}
+                  />
+                }
+                footer={
+                  <code className="text-muted-foreground text-xs">
+                    {tool.slug}
+                  </code>
+                }
+                onClick={onToolClick ? () => onToolClick(tool.id) : undefined}
               />
             ))}
           </div>
@@ -105,4 +138,3 @@ export function ToolRegistryView({ onToolClick }: ToolRegistryViewProps) {
     </div>
   );
 }
-

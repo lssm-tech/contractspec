@@ -7,11 +7,11 @@
  * design-system components, and presentation-runtime patterns.
  */
 import { useState, useMemo } from 'react';
-import { StatCard, StatCardGroup, Button } from '@lssm/lib.design-system';
+import { StatCard, StatCardGroup } from '@lssm/lib.design-system';
 import { AgentListView } from './views/AgentListView';
 import { RunListView } from './views/RunListView';
 import { ToolRegistryView } from './views/ToolRegistryView';
-import { useRunList } from './hooks/useRunList';
+import { useRunList, type RunMetrics } from './hooks/useRunList';
 
 type Tab = 'runs' | 'agents' | 'tools' | 'metrics';
 
@@ -30,22 +30,22 @@ export function AgentDashboard() {
   const summaryStats = useMemo(() => {
     if (!metrics) {
       return [
-        { label: 'Total Runs', value: '-', change: 'Loading...' },
-        { label: 'Success Rate', value: '-', change: '' },
-        { label: 'Total Tokens', value: '-', change: '' },
-        { label: 'Total Cost', value: '-', change: '' },
+        { label: 'Total Runs', value: '-', hint: 'Loading...' },
+        { label: 'Success Rate', value: '-', hint: '' },
+        { label: 'Total Tokens', value: '-', hint: '' },
+        { label: 'Total Cost', value: '-', hint: '' },
       ];
     }
     return [
       {
         label: 'Total Runs',
         value: metrics.totalRuns.toLocaleString(),
-        change: `${metrics.completedRuns} completed`,
+        hint: `${(metrics.successRate * 100).toFixed(0)}% success`,
       },
       {
         label: 'Success Rate',
         value: `${(metrics.successRate * 100).toFixed(0)}%`,
-        change: `${metrics.failedRuns} failed`,
+        hint: 'of all runs',
       },
       {
         label: 'Total Tokens',
@@ -53,12 +53,12 @@ export function AgentDashboard() {
           metrics.totalTokens >= 1000000
             ? `${(metrics.totalTokens / 1000000).toFixed(1)}M`
             : `${(metrics.totalTokens / 1000).toFixed(0)}K`,
-        change: 'This period',
+        hint: 'This period',
       },
       {
         label: 'Total Cost',
         value: `$${metrics.totalCostUsd.toFixed(2)}`,
-        change: 'This period',
+        hint: 'This period',
       },
     ];
   }, [metrics]);
@@ -72,14 +72,13 @@ export function AgentDashboard() {
             key={i}
             label={stat.label}
             value={stat.value}
-            description={stat.change}
-            loading={metricsLoading && stat.value === '-'}
+            hint={stat.hint}
           />
         ))}
       </StatCardGroup>
 
       {/* Navigation Tabs */}
-      <nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+      <nav className="bg-muted flex gap-1 rounded-lg p-1" role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -113,14 +112,18 @@ export function AgentDashboard() {
 /**
  * Metrics View - Shows usage analytics
  */
-function MetricsView({ metrics }: { metrics: ReturnType<typeof useRunList>['metrics'] }) {
+function MetricsView({ metrics }: { metrics: RunMetrics | null }) {
   if (!metrics) {
     return (
-      <div className="flex h-64 items-center justify-center text-muted-foreground">
+      <div className="text-muted-foreground flex h-64 items-center justify-center">
         Loading metrics...
       </div>
     );
   }
+
+  // Calculate derived metrics
+  const completedRuns = Math.round(metrics.totalRuns * metrics.successRate);
+  const failedRuns = metrics.totalRuns - completedRuns;
 
   return (
     <div className="space-y-6">
@@ -128,70 +131,67 @@ function MetricsView({ metrics }: { metrics: ReturnType<typeof useRunList>['metr
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Success/Failure breakdown */}
-        <div className="rounded-xl border border-border bg-card p-4">
+        <div className="border-border bg-card rounded-xl border p-4">
           <h4 className="font-medium">Run Outcomes</h4>
           <div className="mt-4 space-y-3">
             <ProgressBar
               label="Completed"
-              value={metrics.completedRuns}
+              value={completedRuns}
               total={metrics.totalRuns}
               color="bg-green-500"
             />
             <ProgressBar
               label="Failed"
-              value={metrics.failedRuns}
+              value={failedRuns}
               total={metrics.totalRuns}
               color="bg-red-500"
-            />
-            <ProgressBar
-              label="Other"
-              value={metrics.totalRuns - metrics.completedRuns - metrics.failedRuns}
-              total={metrics.totalRuns}
-              color="bg-yellow-500"
             />
           </div>
         </div>
 
-        {/* Timeline */}
-        <div className="rounded-xl border border-border bg-card p-4">
-          <h4 className="font-medium">Recent Activity</h4>
-          <div className="mt-4 space-y-2">
-            {metrics.timeline.map((point) => (
-              <div
-                key={point.period}
-                className="flex items-center justify-between text-sm"
-              >
-                <span className="text-muted-foreground">{point.period}</span>
-                <div className="flex gap-4">
-                  <span>{point.runs} runs</span>
-                  <span className="text-muted-foreground">${point.costUsd.toFixed(2)}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Key Stats */}
+        <div className="border-border bg-card rounded-xl border p-4">
+          <h4 className="font-medium">Performance</h4>
+          <dl className="mt-4 grid grid-cols-2 gap-4">
+            <div>
+              <dt className="text-muted-foreground text-sm">Avg Duration</dt>
+              <dd className="text-xl font-semibold">
+                {(metrics.avgDurationMs / 1000).toFixed(1)}s
+              </dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground text-sm">Success Rate</dt>
+              <dd className="text-xl font-semibold">
+                {(metrics.successRate * 100).toFixed(0)}%
+              </dd>
+            </div>
+          </dl>
         </div>
       </div>
 
       {/* Key Metrics */}
-      <div className="rounded-xl border border-border bg-card p-4">
+      <div className="border-border bg-card rounded-xl border p-4">
         <h4 className="font-medium">Key Metrics</h4>
         <dl className="mt-4 grid gap-4 sm:grid-cols-3">
           <div>
-            <dt className="text-sm text-muted-foreground">Avg Duration</dt>
+            <dt className="text-muted-foreground text-sm">Total Runs</dt>
             <dd className="text-2xl font-semibold">
-              {(metrics.averageDurationMs / 1000).toFixed(1)}s
+              {metrics.totalRuns.toLocaleString()}
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-muted-foreground">Total Tokens</dt>
+            <dt className="text-muted-foreground text-sm">Total Tokens</dt>
             <dd className="text-2xl font-semibold">
               {(metrics.totalTokens / 1000).toFixed(0)}K
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-muted-foreground">Cost per Run</dt>
+            <dt className="text-muted-foreground text-sm">Cost per Run</dt>
             <dd className="text-2xl font-semibold">
-              ${metrics.totalRuns > 0 ? (metrics.totalCostUsd / metrics.totalRuns).toFixed(4) : '0'}
+              $
+              {metrics.totalRuns > 0
+                ? (metrics.totalCostUsd / metrics.totalRuns).toFixed(4)
+                : '0'}
             </dd>
           </div>
         </dl>
@@ -220,7 +220,7 @@ function ProgressBar({
           {value} ({pct.toFixed(0)}%)
         </span>
       </div>
-      <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted">
+      <div className="bg-muted mt-1 h-2 overflow-hidden rounded-full">
         <div className={`h-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>

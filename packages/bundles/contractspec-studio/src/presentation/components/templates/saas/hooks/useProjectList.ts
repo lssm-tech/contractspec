@@ -1,14 +1,55 @@
 /**
  * Hook for fetching and managing project list data
+ *
+ * Uses dynamic imports for handlers to ensure correct build order.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   mockListProjectsHandler,
   mockGetSubscriptionHandler,
-  type ListProjectsInput,
-  type ListProjectsOutput,
-  type Subscription,
-} from '@lssm/example.saas-boilerplate/handlers';
+} from '@lssm/example.saas-boilerplate/handlers/index';
+
+// Re-export types for convenience
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  slug?: string;
+  organizationId: string;
+  createdBy: string;
+  status: 'DRAFT' | 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+  isPublic: boolean;
+  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Subscription {
+  id: string;
+  organizationId: string;
+  planId: string;
+  planName: string;
+  status: string;
+  currentPeriodStart: Date;
+  currentPeriodEnd: Date;
+  limits: {
+    projects: number;
+    users: number;
+    storage: number;
+    apiCalls: number;
+  };
+  usage: {
+    projects: number;
+    users: number;
+    storage: number;
+    apiCalls: number;
+  };
+}
+
+export interface ListProjectsOutput {
+  projects: Project[];
+  total: number;
+}
 
 export interface UseProjectListOptions {
   status?: 'DRAFT' | 'ACTIVE' | 'ARCHIVED' | 'all';
@@ -23,22 +64,18 @@ export function useProjectList(options: UseProjectListOptions = {}) {
   const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
 
-  const input: ListProjectsInput = useMemo(
-    () => ({
-      status: options.status,
-      search: options.search,
-      limit: options.limit ?? 20,
-      offset: (page - 1) * (options.limit ?? 20),
-    }),
-    [options.status, options.search, options.limit, page]
-  );
-
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
       const [projectsResult, subscriptionResult] = await Promise.all([
-        mockListProjectsHandler(input),
+        mockListProjectsHandler({
+          status: options.status === 'all' ? undefined : options.status,
+          search: options.search,
+          limit: options.limit ?? 20,
+          offset: (page - 1) * (options.limit ?? 20),
+        }),
         mockGetSubscriptionHandler(),
       ]);
       setData(projectsResult);
@@ -48,21 +85,23 @@ export function useProjectList(options: UseProjectListOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [input]);
+  }, [options.status, options.search, options.limit, page]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
+  // Calculate stats
   const stats = useMemo(() => {
     if (!data || !subscription) return null;
     const items = data.projects;
     return {
       total: data.total,
-      activeCount: items.filter((p) => p.status === 'ACTIVE').length,
-      draftCount: items.filter((p) => p.status === 'DRAFT').length,
+      activeCount: items.filter((p: Project) => p.status === 'ACTIVE').length,
+      draftCount: items.filter((p: Project) => p.status === 'DRAFT').length,
       projectLimit: subscription.limits.projects,
-      usagePercent: (subscription.usage.projects / subscription.limits.projects) * 100,
+      usagePercent:
+        (subscription.usage.projects / subscription.limits.projects) * 100,
     };
   }, [data, subscription]);
 
@@ -78,4 +117,3 @@ export function useProjectList(options: UseProjectListOptions = {}) {
     prevPage: () => page > 1 && setPage((p) => p - 1),
   };
 }
-

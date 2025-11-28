@@ -1,31 +1,26 @@
 'use client';
 
 /**
- * Agent List View - Uses design-system components and hooks
+ * Agent List View
+ *
+ * Displays a list of AI agents with their status and basic info.
+ * Uses design-system components with correct props.
  */
-import { StatCard, StatCardGroup, StatusChip, EntityCard, EmptyState, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
-import { useAgentList } from '../hooks/useAgentList';
+import { Button, StatCard, StatCardGroup, EntityCard, StatusChip, LoaderBlock, ErrorState, EmptyState } from '@lssm/lib.design-system';
+import { useAgentList, type Agent } from '../hooks/useAgentList';
 
-interface AgentListViewProps {
-  onAgentClick?: (agentId: string) => void;
+function getStatusTone(status: Agent['status']): 'success' | 'warning' | 'neutral' {
+  switch (status) {
+    case 'ACTIVE':
+      return 'success';
+    case 'INACTIVE':
+      return 'warning';
+    case 'ARCHIVED':
+      return 'neutral';
+  }
 }
 
-const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
-  ACTIVE: 'success',
-  PAUSED: 'warning',
-  DRAFT: 'neutral',
-  ARCHIVED: 'danger',
-};
-
-const modelProviderIcons: Record<string, string> = {
-  OPENAI: '🤖',
-  ANTHROPIC: '🧠',
-  GOOGLE: '🔍',
-  MISTRAL: '💨',
-  CUSTOM: '⚙️',
-};
-
-export function AgentListView({ onAgentClick }: AgentListViewProps) {
+export function AgentListView() {
   const { data, loading, error, stats, refetch } = useAgentList();
 
   if (loading && !data) {
@@ -37,7 +32,8 @@ export function AgentListView({ onAgentClick }: AgentListViewProps) {
       <ErrorState
         title="Failed to load agents"
         description={error.message}
-        action={{ label: 'Retry', onClick: refetch }}
+        onRetry={refetch}
+        retryLabel="Retry"
       />
     );
   }
@@ -45,57 +41,56 @@ export function AgentListView({ onAgentClick }: AgentListViewProps) {
   if (!data?.items.length) {
     return (
       <EmptyState
-        title="No agents found"
+        title="No agents yet"
         description="Create your first AI agent to get started."
-        action={{ label: 'Create Agent', onClick: () => {} }}
       />
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* Stats Row */}
+      {/* Stats */}
       {stats && (
         <StatCardGroup>
           <StatCard label="Total Agents" value={stats.total} />
-          <StatCard label="Active" value={stats.activeCount} variant="success" />
-          <StatCard label="Paused" value={stats.pausedCount} variant="warning" />
-          <StatCard label="Draft" value={stats.draftCount} variant="neutral" />
+          <StatCard label="Active" value={stats.active} />
+          <StatCard label="Inactive" value={stats.inactive} />
         </StatCardGroup>
       )}
 
-      {/* Agent Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {/* Actions */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Agents</h3>
+        <Button onPress={() => alert('Create Agent clicked!')}>
+          Create Agent
+        </Button>
+      </div>
+
+      {/* Agent List */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {data.items.map((agent) => (
           <EntityCard
             key={agent.id}
-            title={agent.name}
-            subtitle={`${modelProviderIcons[agent.modelProvider] ?? ''} ${agent.modelName} · v${agent.version}`}
-            description={agent.description}
-            onClick={() => onAgentClick?.(agent.id)}
-            footer={
-              <div className="flex items-center justify-between">
-                <StatusChip
-                  status={agent.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
-                  variant={statusVariantMap[agent.status] ?? 'neutral'}
-                >
-                  {agent.status}
-                </StatusChip>
-                <span className="text-xs text-muted-foreground">
-                  {agent.createdAt.toLocaleDateString()}
-                </span>
-              </div>
+            cardTitle={agent.name}
+            cardSubtitle={agent.modelName}
+            meta={
+              <p className="text-muted-foreground text-sm">{agent.description}</p>
             }
+            chips={
+              <StatusChip
+                tone={getStatusTone(agent.status)}
+                label={agent.status}
+              />
+            }
+            footer={
+              <span className="text-muted-foreground text-xs">
+                Created {agent.createdAt.toLocaleDateString()}
+              </span>
+            }
+            onClick={() => alert(`View agent: ${agent.name}`)}
           />
         ))}
-      </div>
-
-      {/* Pagination indicator */}
-      <div className="text-center text-sm text-muted-foreground">
-        Showing {data.items.length} of {data.total} agents
-        {data.hasMore && ' • Scroll for more'}
       </div>
     </div>
   );
 }
-

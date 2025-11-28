@@ -6,21 +6,44 @@
  * Properly integrated with ContractSpec example handlers
  * and design-system components.
  */
-import { useState, useMemo } from 'react';
-import { StatCard, StatCardGroup, StatusChip, EntityCard, EmptyState, LoaderBlock, ErrorState, Button } from '@lssm/lib.design-system';
-import { useProjectList } from './hooks/useProjectList';
+import { useState } from 'react';
+import {
+  StatCard,
+  StatCardGroup,
+  StatusChip,
+  EntityCard,
+  EmptyState,
+  LoaderBlock,
+  ErrorState,
+  Button,
+} from '@lssm/lib.design-system';
+import {
+  useProjectList,
+  type Project,
+  type Subscription,
+} from './hooks/useProjectList';
 
 type Tab = 'projects' | 'billing' | 'settings';
 
-const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
-  ACTIVE: 'success',
-  DRAFT: 'neutral',
-  ARCHIVED: 'danger',
-};
+function getStatusTone(
+  status: Project['status']
+): 'success' | 'warning' | 'neutral' | 'danger' {
+  switch (status) {
+    case 'ACTIVE':
+      return 'success';
+    case 'DRAFT':
+      return 'neutral';
+    case 'ARCHIVED':
+      return 'danger';
+    default:
+      return 'neutral';
+  }
+}
 
 export function SaasDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('projects');
-  const { data, subscription, loading, error, stats, refetch } = useProjectList();
+  const { data, subscription, loading, error, stats, refetch } =
+    useProjectList();
 
   const tabs: Array<{ id: Tab; label: string; icon: string }> = [
     { id: 'projects', label: 'Projects', icon: '📁' },
@@ -37,7 +60,8 @@ export function SaasDashboard() {
       <ErrorState
         title="Failed to load dashboard"
         description={error.message}
-        action={{ label: 'Retry', onClick: refetch }}
+        onRetry={refetch}
+        retryLabel="Retry"
       />
     );
   }
@@ -50,24 +74,24 @@ export function SaasDashboard() {
           <StatCard
             label="Projects"
             value={`${stats.total} / ${stats.projectLimit}`}
-            description={`${stats.usagePercent.toFixed(0)}% used`}
+            hint={`${stats.usagePercent.toFixed(0)}% used`}
           />
-          <StatCard label="Active" value={stats.activeCount} variant="success" />
+          <StatCard label="Active" value={stats.activeCount} />
           <StatCard
             label="Plan"
             value={subscription.planName}
-            description={subscription.status}
+            hint={subscription.status}
           />
           <StatCard
             label="API Calls"
             value={`${(subscription.usage.apiCalls / 1000).toFixed(0)}K`}
-            description={`of ${(subscription.limits.apiCalls / 1000).toFixed(0)}K`}
+            hint={`of ${(subscription.limits.apiCalls / 1000).toFixed(0)}K`}
           />
         </StatCardGroup>
       )}
 
       {/* Navigation Tabs */}
-      <nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+      <nav className="bg-muted flex gap-1 rounded-lg p-1" role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -97,13 +121,21 @@ export function SaasDashboard() {
   );
 }
 
-function ProjectsTab({ data }: { data: ReturnType<typeof useProjectList>['data'] }) {
+function ProjectsTab({
+  data,
+}: {
+  data: ReturnType<typeof useProjectList>['data'];
+}) {
   if (!data?.projects.length) {
     return (
       <EmptyState
         title="No projects yet"
         description="Create your first project to get started."
-        action={{ label: 'Create Project', onClick: () => {} }}
+        primaryAction={
+          <Button onPress={() => alert('Create Project clicked!')}>
+            Create Project
+          </Button>
+        }
       />
     );
   }
@@ -112,30 +144,32 @@ function ProjectsTab({ data }: { data: ReturnType<typeof useProjectList>['data']
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Your Projects</h3>
-        <Button variant="primary" size="sm">
+        <Button variant="default" onPress={() => alert('New Project clicked!')}>
           New Project
         </Button>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.projects.map((project) => (
+        {data.projects.map((project: Project) => (
           <EntityCard
             key={project.id}
-            title={project.name}
-            subtitle={project.slug}
-            description={project.description}
+            cardTitle={project.name}
+            cardSubtitle={project.slug}
+            meta={
+              <p className="text-muted-foreground text-sm">
+                {project.description}
+              </p>
+            }
+            chips={
+              <StatusChip
+                tone={getStatusTone(project.status)}
+                label={project.status}
+              />
+            }
             footer={
-              <div className="flex items-center justify-between">
-                <StatusChip
-                  status={project.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
-                  variant={statusVariantMap[project.status] ?? 'neutral'}
-                >
-                  {project.status}
-                </StatusChip>
-                <span className="text-xs text-muted-foreground">
-                  {project.updatedAt.toLocaleDateString()}
-                </span>
-              </div>
+              <span className="text-muted-foreground text-xs">
+                {project.updatedAt.toLocaleDateString()}
+              </span>
             }
           />
         ))}
@@ -144,7 +178,7 @@ function ProjectsTab({ data }: { data: ReturnType<typeof useProjectList>['data']
   );
 }
 
-function BillingTab({ subscription }: { subscription: ReturnType<typeof useProjectList>['subscription'] }) {
+function BillingTab({ subscription }: { subscription: Subscription | null }) {
   if (!subscription) return null;
 
   const usageItems = [
@@ -172,20 +206,23 @@ function BillingTab({ subscription }: { subscription: ReturnType<typeof useProje
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold">{subscription.planName} Plan</h3>
-            <p className="text-sm text-muted-foreground">
-              Current period: {subscription.currentPeriodStart.toLocaleDateString()} -{' '}
+            <h3 className="text-lg font-semibold">
+              {subscription.planName} Plan
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              Current period:{' '}
+              {subscription.currentPeriodStart.toLocaleDateString()} -{' '}
               {subscription.currentPeriodEnd.toLocaleDateString()}
             </p>
           </div>
-          <StatusChip variant="success">{subscription.status}</StatusChip>
+          <StatusChip tone="success" label={subscription.status} />
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <h4 className="mb-4 font-medium">Usage</h4>
         <div className="space-y-4">
           {usageItems.map((item) => {
@@ -198,7 +235,7 @@ function BillingTab({ subscription }: { subscription: ReturnType<typeof useProje
                     {item.used.toLocaleString()} / {item.limit.toLocaleString()}
                   </span>
                 </div>
-                <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted">
+                <div className="bg-muted mt-1 h-2 overflow-hidden rounded-full">
                   <div
                     className={`h-full ${pct > 80 ? 'bg-red-500' : pct > 60 ? 'bg-yellow-500' : 'bg-green-500'}`}
                     style={{ width: `${Math.min(pct, 100)}%` }}
@@ -216,7 +253,7 @@ function BillingTab({ subscription }: { subscription: ReturnType<typeof useProje
 function SettingsTab() {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="border-border bg-card rounded-xl border p-6">
         <h3 className="mb-4 text-lg font-semibold">Organization Settings</h3>
         <div className="space-y-4">
           <div>
@@ -224,12 +261,12 @@ function SettingsTab() {
             <input
               type="text"
               defaultValue="Demo Organization"
-              className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2"
+              className="border-input bg-background mt-1 block w-full rounded-md border px-3 py-2"
             />
           </div>
           <div>
             <label className="text-sm font-medium">Default Timezone</label>
-            <select className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2">
+            <select className="border-input bg-background mt-1 block w-full rounded-md border px-3 py-2">
               <option>UTC</option>
               <option>America/New_York</option>
               <option>Europe/London</option>

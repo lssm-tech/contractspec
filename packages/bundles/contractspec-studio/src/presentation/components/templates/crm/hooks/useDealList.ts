@@ -1,15 +1,37 @@
 /**
  * Hook for fetching and managing deal list data
+ *
+ * Uses dynamic imports for handlers to ensure correct build order.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   mockListDealsHandler,
   mockGetDealsByStageHandler,
   mockGetPipelineStagesHandler,
-  type ListDealsInput,
-  type ListDealsOutput,
-  type Deal,
-} from '@lssm/example.crm-pipeline/handlers';
+} from '@lssm/example.crm-pipeline/handlers/index';
+
+// Re-export types for convenience
+export interface Deal {
+  id: string;
+  name: string;
+  value: number;
+  currency: string;
+  pipelineId: string;
+  stageId: string;
+  status: 'OPEN' | 'WON' | 'LOST' | 'STALE';
+  contactId?: string;
+  companyId?: string;
+  ownerId: string;
+  expectedCloseDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ListDealsOutput {
+  deals: Deal[];
+  total: number;
+  totalValue: number;
+}
 
 export interface UseDealListOptions {
   pipelineId?: string;
@@ -22,31 +44,29 @@ export interface UseDealListOptions {
 export function useDealList(options: UseDealListOptions = {}) {
   const [data, setData] = useState<ListDealsOutput | null>(null);
   const [dealsByStage, setDealsByStage] = useState<Record<string, Deal[]>>({});
-  const [stages, setStages] = useState<Array<{ id: string; name: string; position: number }>>([]);
+  const [stages, setStages] = useState<
+    Array<{ id: string; name: string; position: number }>
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
 
   const pipelineId = options.pipelineId ?? 'pipeline-1';
 
-  const input: ListDealsInput = useMemo(
-    () => ({
-      pipelineId,
-      stageId: options.stageId,
-      status: options.status,
-      search: options.search,
-      limit: options.limit ?? 50,
-      offset: (page - 1) * (options.limit ?? 50),
-    }),
-    [pipelineId, options.stageId, options.status, options.search, options.limit, page]
-  );
-
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
       const [dealsResult, stageDealsResult, stagesResult] = await Promise.all([
-        mockListDealsHandler(input),
+        mockListDealsHandler({
+          pipelineId,
+          stageId: options.stageId,
+          status: options.status === 'all' ? undefined : options.status,
+          search: options.search,
+          limit: options.limit ?? 50,
+          offset: (page - 1) * (options.limit ?? 50),
+        }),
         mockGetDealsByStageHandler({ pipelineId }),
         mockGetPipelineStagesHandler({ pipelineId }),
       ]);
@@ -58,7 +78,14 @@ export function useDealList(options: UseDealListOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [input, pipelineId]);
+  }, [
+    pipelineId,
+    options.stageId,
+    options.status,
+    options.search,
+    options.limit,
+    page,
+  ]);
 
   useEffect(() => {
     fetchData();
@@ -67,17 +94,17 @@ export function useDealList(options: UseDealListOptions = {}) {
   // Calculate stats
   const stats = useMemo(() => {
     if (!data) return null;
-    const open = data.deals.filter((d) => d.status === 'OPEN');
-    const won = data.deals.filter((d) => d.status === 'WON');
-    const lost = data.deals.filter((d) => d.status === 'LOST');
+    const open = data.deals.filter((d: Deal) => d.status === 'OPEN');
+    const won = data.deals.filter((d: Deal) => d.status === 'WON');
+    const lost = data.deals.filter((d: Deal) => d.status === 'LOST');
 
     return {
       total: data.total,
       totalValue: data.totalValue,
       openCount: open.length,
-      openValue: open.reduce((sum, d) => sum + d.value, 0),
+      openValue: open.reduce((sum: number, d: Deal) => sum + d.value, 0),
       wonCount: won.length,
-      wonValue: won.reduce((sum, d) => sum + d.value, 0),
+      wonValue: won.reduce((sum: number, d: Deal) => sum + d.value, 0),
       lostCount: lost.length,
     };
   }, [data]);
@@ -95,4 +122,3 @@ export function useDealList(options: UseDealListOptions = {}) {
     prevPage: () => page > 1 && setPage((p) => p - 1),
   };
 }
-

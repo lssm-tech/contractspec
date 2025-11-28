@@ -3,6 +3,11 @@
  *
  * Creates and configures a TransformEngine for rendering template presentations
  * to multiple targets (React, Markdown, JSON).
+ *
+ * Note: This file provides engine creation functions.
+ * The actual presentation definitions are in example packages.
+ * Import presentations dynamically or use the main templates/engine.ts
+ * which handles the build order correctly.
  */
 import {
   TransformEngine,
@@ -10,22 +15,7 @@ import {
   registerDefaultReactRenderer,
   registerBasicValidation,
   type PresentationDescriptorV2,
-  type PresentationRenderer,
 } from '@lssm/lib.contracts';
-
-// Import presentations from examples
-import { AgentConsolePresentations } from '@lssm/example.agent-console/presentations';
-import { SaasBoilerplatePresentations } from '@lssm/example.saas-boilerplate/presentations';
-import { CrmPipelinePresentations } from '@lssm/example.crm-pipeline/presentations';
-
-/**
- * All registered presentation descriptors
- */
-export const allPresentations: PresentationDescriptorV2[] = [
-  ...AgentConsolePresentations,
-  ...SaasBoilerplatePresentations,
-  ...CrmPipelinePresentations,
-];
 
 /**
  * Create a configured TransformEngine for template rendering
@@ -43,22 +33,26 @@ export function createTemplateTransformEngine(): TransformEngine {
 }
 
 /**
- * Get a presentation descriptor by name and version
+ * Find a presentation by name and version from a list
  */
-export function getPresentation(
+export function findPresentation(
+  presentations: PresentationDescriptorV2[],
   name: string,
   version: number
 ): PresentationDescriptorV2 | undefined {
-  return allPresentations.find(
+  return presentations.find(
     (p) => p.meta.name === name && p.meta.version === version
   );
 }
 
 /**
- * Get all presentations for a given domain
+ * Get all presentations for a given domain from a list
  */
-export function getPresentationsByDomain(domain: string): PresentationDescriptorV2[] {
-  return allPresentations.filter((p) => p.meta.domain === domain);
+export function filterPresentationsByDomain(
+  presentations: PresentationDescriptorV2[],
+  domain: string
+): PresentationDescriptorV2[] {
+  return presentations.filter((p) => p.meta.domain === domain);
 }
 
 /**
@@ -81,3 +75,6 @@ export function getTemplateEngine(): TransformEngine {
   return engineInstance;
 }
 
+export function resetTemplateEngine(): void {
+  engineInstance = null;
+}

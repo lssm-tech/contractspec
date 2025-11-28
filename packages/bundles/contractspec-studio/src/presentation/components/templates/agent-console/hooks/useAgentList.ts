@@ -1,98 +1,88 @@
 /**
  * Hook for fetching and managing agent list data
  *
- * Connects to mock handlers for demo/sandbox use
+ * Uses dynamic imports for handlers to ensure correct build order.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListAgentsHandler,
-  type ListAgentsInput,
-  type ListAgentsOutput,
-} from '@lssm/example.agent-console/handlers';
+import { mockListAgentsHandler } from '@lssm/example.agent-console/handlers/index';
+
+// Re-export types for convenience
+export interface Agent {
+  id: string;
+  organizationId: string;
+  name: string;
+  description: string;
+  status: 'ACTIVE' | 'INACTIVE' | 'ARCHIVED';
+  modelProvider: string;
+  modelName: string;
+  systemPrompt: string;
+  toolIds: string[];
+  totalRuns: number;
+  successfulRuns: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ListAgentsOutput {
+  items: Agent[];
+  total: number;
+  hasMore: boolean;
+}
 
 export interface UseAgentListOptions {
-  organizationId?: string;
-  status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ARCHIVED';
-  modelProvider?: 'OPENAI' | 'ANTHROPIC' | 'GOOGLE' | 'MISTRAL' | 'CUSTOM';
   search?: string;
+  status?: 'ACTIVE' | 'INACTIVE' | 'ARCHIVED' | 'all';
   limit?: number;
 }
 
-export interface UseAgentListState {
-  data: ListAgentsOutput | null;
-  loading: boolean;
-  error: Error | null;
-}
-
 export function useAgentList(options: UseAgentListOptions = {}) {
-  const [state, setState] = useState<UseAgentListState>({
-    data: null,
-    loading: true,
-    error: null,
-  });
+  const [data, setData] = useState<ListAgentsOutput | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
 
-  const input: ListAgentsInput = useMemo(
-    () => ({
-      organizationId: options.organizationId ?? 'demo-org',
-      status: options.status,
-      modelProvider: options.modelProvider,
-      search: options.search,
-      limit: options.limit ?? 20,
-      offset: (page - 1) * (options.limit ?? 20),
-    }),
-    [options.organizationId, options.status, options.modelProvider, options.search, options.limit, page]
-  );
-
   const fetchData = useCallback(async () => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+    setLoading(true);
+    setError(null);
+
     try {
-      const result = await mockListAgentsHandler(input);
-      setState({ data: result, loading: false, error: null });
+      const result = await mockListAgentsHandler({
+        organizationId: 'demo-org',
+        search: options.search,
+        status: options.status === 'all' ? undefined : options.status,
+        limit: options.limit ?? 20,
+        offset: (page - 1) * (options.limit ?? 20),
+      });
+      setData(result);
     } catch (err) {
-      setState({ data: null, loading: false, error: err instanceof Error ? err : new Error('Unknown error') });
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      setLoading(false);
     }
-  }, [input]);
+  }, [options.search, options.status, options.limit, page]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const refetch = useCallback(() => {
-    fetchData();
-  }, [fetchData]);
-
-  const nextPage = useCallback(() => {
-    if (state.data?.hasMore) {
-      setPage((p) => p + 1);
-    }
-  }, [state.data?.hasMore]);
-
-  const prevPage = useCallback(() => {
-    if (page > 1) {
-      setPage((p) => p - 1);
-    }
-  }, [page]);
-
-  // Compute stats from data
+  // Calculate stats
   const stats = useMemo(() => {
-    if (!state.data) return null;
-    const items = state.data.items;
+    if (!data) return null;
     return {
-      total: state.data.total,
-      activeCount: items.filter((a) => a.status === 'ACTIVE').length,
-      pausedCount: items.filter((a) => a.status === 'PAUSED').length,
-      draftCount: items.filter((a) => a.status === 'DRAFT').length,
+      total: data.total,
+      active: data.items.filter((a: Agent) => a.status === 'ACTIVE').length,
+      inactive: data.items.filter((a: Agent) => a.status === 'INACTIVE').length,
     };
-  }, [state.data]);
+  }, [data]);
 
   return {
-    ...state,
+    data,
+    loading,
+    error,
     stats,
     page,
-    refetch,
-    nextPage,
-    prevPage,
+    refetch: fetchData,
+    nextPage: () => setPage((p) => p + 1),
+    prevPage: () => page > 1 && setPage((p) => p - 1),
   };
 }
-

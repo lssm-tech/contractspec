@@ -3,22 +3,39 @@
 /**
  * Run List View - Shows agent execution runs with stats
  */
-import { StatCard, StatCardGroup, StatusChip, EmptyState, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
-import { useRunList } from '../hooks/useRunList';
+import {
+  StatCard,
+  StatCardGroup,
+  StatusChip,
+  EmptyState,
+  LoaderBlock,
+  ErrorState,
+} from '@lssm/lib.design-system';
+import { useRunList, type Run } from '../hooks/useRunList';
 
 interface RunListViewProps {
   agentId?: string;
   onRunClick?: (runId: string) => void;
 }
 
-const statusVariantMap: Record<string, 'success' | 'warning' | 'neutral' | 'danger'> = {
-  COMPLETED: 'success',
-  IN_PROGRESS: 'warning',
-  QUEUED: 'neutral',
-  FAILED: 'danger',
-  CANCELLED: 'danger',
-  EXPIRED: 'danger',
-};
+function getStatusTone(
+  status: Run['status']
+): 'success' | 'warning' | 'neutral' | 'danger' {
+  switch (status) {
+    case 'COMPLETED':
+      return 'success';
+    case 'IN_PROGRESS':
+      return 'warning';
+    case 'QUEUED':
+      return 'neutral';
+    case 'FAILED':
+    case 'CANCELLED':
+    case 'EXPIRED':
+      return 'danger';
+    default:
+      return 'neutral';
+  }
+}
 
 function formatDuration(ms?: number): string {
   if (!ms) return '-';
@@ -50,7 +67,8 @@ export function RunListView({ agentId, onRunClick }: RunListViewProps) {
       <ErrorState
         title="Failed to load runs"
         description={error.message}
-        action={{ label: 'Retry', onClick: refetch }}
+        onRetry={refetch}
+        retryLabel="Retry"
       />
     );
   }
@@ -73,36 +91,53 @@ export function RunListView({ agentId, onRunClick }: RunListViewProps) {
           <StatCard
             label="Success Rate"
             value={`${(metrics.successRate * 100).toFixed(1)}%`}
-            variant={metrics.successRate >= 0.9 ? 'success' : metrics.successRate >= 0.7 ? 'warning' : 'danger'}
           />
-          <StatCard label="Total Tokens" value={formatTokens(metrics.totalTokens)} />
-          <StatCard label="Total Cost" value={`$${metrics.totalCostUsd.toFixed(2)}`} />
+          <StatCard
+            label="Total Tokens"
+            value={formatTokens(metrics.totalTokens)}
+          />
+          <StatCard
+            label="Total Cost"
+            value={`$${metrics.totalCostUsd.toFixed(2)}`}
+          />
         </StatCardGroup>
       )}
 
       {/* Run List */}
-      <div className="rounded-lg border border-border">
+      <div className="border-border rounded-lg border">
         <table className="w-full">
-          <thead className="border-b border-border bg-muted/30">
+          <thead className="border-border bg-muted/30 border-b">
             <tr>
-              <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Run</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Agent</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Tokens</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Duration</th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Cost</th>
+              <th className="text-muted-foreground px-4 py-3 text-left text-sm font-medium">
+                Run
+              </th>
+              <th className="text-muted-foreground px-4 py-3 text-left text-sm font-medium">
+                Agent
+              </th>
+              <th className="text-muted-foreground px-4 py-3 text-left text-sm font-medium">
+                Status
+              </th>
+              <th className="text-muted-foreground px-4 py-3 text-right text-sm font-medium">
+                Tokens
+              </th>
+              <th className="text-muted-foreground px-4 py-3 text-right text-sm font-medium">
+                Duration
+              </th>
+              <th className="text-muted-foreground px-4 py-3 text-right text-sm font-medium">
+                Cost
+              </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
-            {data.items.map((run) => (
+          <tbody className="divide-border divide-y">
+            {data.items.map((run: Run) => (
               <tr
                 key={run.id}
-                className="cursor-pointer transition-colors hover:bg-muted/50"
+                className="hover:bg-muted/50 cursor-pointer transition-colors"
                 onClick={() => onRunClick?.(run.id)}
               >
                 <td className="px-4 py-3">
                   <div className="font-mono text-sm">{run.id.slice(-8)}</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-muted-foreground text-xs">
                     {run.queuedAt.toLocaleString()}
                   </div>
                 </td>
@@ -111,11 +146,9 @@ export function RunListView({ agentId, onRunClick }: RunListViewProps) {
                 </td>
                 <td className="px-4 py-3">
                   <StatusChip
-                    status={run.status.toLowerCase() as 'active' | 'warning' | 'neutral'}
-                    variant={statusVariantMap[run.status] ?? 'neutral'}
-                  >
-                    {run.status}
-                  </StatusChip>
+                    tone={getStatusTone(run.status)}
+                    label={run.status}
+                  />
                 </td>
                 <td className="px-4 py-3 text-right font-mono text-sm">
                   {formatTokens(run.totalTokens)}
@@ -133,10 +166,9 @@ export function RunListView({ agentId, onRunClick }: RunListViewProps) {
       </div>
 
       {/* Pagination */}
-      <div className="text-center text-sm text-muted-foreground">
+      <div className="text-muted-foreground text-center text-sm">
         Showing {data.items.length} of {data.total} runs
       </div>
     </div>
   );
 }
-

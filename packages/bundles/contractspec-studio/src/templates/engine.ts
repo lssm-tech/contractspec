@@ -48,18 +48,18 @@ export function createTemplateTransformEngine(): TransformEngine {
  */
 function registerTemplateRenderers(engine: TransformEngine): void {
   // Agent Console renderers
-  engine.registerRenderer('agent-console.agent.list', 'react', agentListReactRenderer);
-  engine.registerRenderer('agent-console.agent.list', 'markdown', agentListMarkdownRenderer);
-  engine.registerRenderer('agent-console.run.list', 'markdown', runListMarkdownRenderer);
-  engine.registerRenderer('agent-console.tool.registry', 'markdown', toolRegistryMarkdownRenderer);
+  engine.register(agentListReactRenderer);
+  engine.register(agentListMarkdownRenderer);
+  engine.register(runListMarkdownRenderer);
+  engine.register(toolRegistryMarkdownRenderer);
 
   // SaaS Boilerplate renderers
-  engine.registerRenderer('saas-boilerplate.project.list', 'react', projectListReactRenderer);
-  engine.registerRenderer('saas-boilerplate.project.list', 'markdown', projectListMarkdownRenderer);
+  engine.register(projectListReactRenderer);
+  engine.register(projectListMarkdownRenderer);
 
   // CRM Pipeline renderers
-  engine.registerRenderer('crm-pipeline.deal.pipeline', 'react', crmPipelineReactRenderer);
-  engine.registerRenderer('crm-pipeline.deal.pipeline', 'markdown', crmPipelineMarkdownRenderer);
+  engine.register(crmPipelineReactRenderer);
+  engine.register(crmPipelineMarkdownRenderer);
 }
 
 /**
@@ -83,4 +83,3 @@ export function getTemplateEngine(): TransformEngine {
 export function resetTemplateEngine(): void {
   templateEngine = null;
 }
-

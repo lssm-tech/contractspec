@@ -1,11 +1,25 @@
 /**
  * Markdown Renderer for Agent List Presentation
+ *
+ * Uses dynamic import for handlers to ensure correct build order.
  */
 import type {
   PresentationRenderer,
   PresentationDescriptorV2,
 } from '@lssm/lib.contracts';
-import { mockListAgentsHandler } from '@lssm/example.agent-console/handlers';
+import type { Agent } from '../hooks/useAgentList';
+import { mockListAgentsHandler } from '@lssm/example.agent-console/handlers/index';
+
+interface AgentListOutput {
+  items: Agent[];
+  total: number;
+  hasMore: boolean;
+}
+
+// Dynamic import to ensure build order
+async function getHandlers() {
+  return { mockListAgentsHandler };
+}
 
 /**
  * Markdown renderer for agent-console.agent.list presentation
@@ -17,11 +31,11 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
   target: 'markdown',
   render: async (desc: PresentationDescriptorV2) => {
     // Fetch data using mock handler
-    const data = await mockListAgentsHandler({
+    const data = (await mockListAgentsHandler({
       organizationId: 'demo-org',
       limit: 50,
       offset: 0,
-    });
+    })) as AgentListOutput;
 
     // Generate markdown
     const lines: string[] = [
@@ -36,21 +50,18 @@ export const agentListMarkdownRenderer: PresentationRenderer<{
     ];
 
     // Group by status
-    const byStatus = data.items.reduce(
-      (acc, agent) => {
-        if (!acc[agent.status]) acc[agent.status] = [];
-        acc[agent.status].push(agent);
-        return acc;
-      },
-      {} as Record<string, typeof data.items>
-    );
+    const byStatus: Record<string, Agent[]> = {};
+    for (const agent of data.items) {
+      if (!byStatus[agent.status]) byStatus[agent.status] = [];
+      byStatus[agent.status].push(agent);
+    }
 
     for (const [status, agents] of Object.entries(byStatus)) {
       lines.push(`### ${status} (${agents.length})`);
       lines.push('');
-      for (const agent of agents) {
+      for (const agent of agents!) {
         lines.push(
-          `- **${agent.name}** (${agent.modelProvider}/${agent.modelName}) - v${agent.version}`
+          `- **${agent.name}** (${agent.modelProvider}/${agent.modelName})`
         );
         if (agent.description) {
           lines.push(`  > ${agent.description}`);

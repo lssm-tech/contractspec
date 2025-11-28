@@ -1,18 +1,37 @@
 /**
  * Hook for fetching and managing tool list data
+ *
+ * Uses dynamic imports for handlers to ensure correct build order.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListToolsHandler,
-  type ListToolsInput,
-  type ListToolsOutput,
-} from '@lssm/example.agent-console/handlers';
+import { mockListToolsHandler } from '@lssm/example.agent-console/handlers/index';
+
+// Re-export types for convenience
+export interface Tool {
+  id: string;
+  organizationId: string;
+  name: string;
+  slug: string;
+  description: string;
+  version: string;
+  category: string;
+  status: 'ACTIVE' | 'INACTIVE' | 'DEPRECATED' | 'DISABLED';
+  inputSchema: Record<string, unknown>;
+  outputSchema: Record<string, unknown>;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ListToolsOutput {
+  items: Tool[];
+  total: number;
+  hasMore: boolean;
+}
 
 export interface UseToolListOptions {
-  organizationId?: string;
-  category?: 'RETRIEVAL' | 'COMPUTATION' | 'COMMUNICATION' | 'INTEGRATION' | 'UTILITY' | 'CUSTOM';
-  status?: 'DRAFT' | 'ACTIVE' | 'DEPRECATED' | 'DISABLED';
   search?: string;
+  category?: string;
+  status?: 'ACTIVE' | 'INACTIVE' | 'DEPRECATED' | 'all';
   limit?: number;
 }
 
@@ -22,78 +41,77 @@ export function useToolList(options: UseToolListOptions = {}) {
   const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
 
-  const input: ListToolsInput = useMemo(
-    () => ({
-      organizationId: options.organizationId ?? 'demo-org',
-      category: options.category,
-      status: options.status,
-      search: options.search,
-      limit: options.limit ?? 20,
-      offset: (page - 1) * (options.limit ?? 20),
-    }),
-    [options.organizationId, options.category, options.status, options.search, options.limit, page]
-  );
-
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
-      const result = await mockListToolsHandler(input);
+      const result = await mockListToolsHandler({
+        organizationId: 'demo-org',
+        search: options.search,
+        category: options.category,
+        status: options.status === 'all' ? undefined : options.status,
+        limit: options.limit ?? 50,
+        offset: (page - 1) * (options.limit ?? 50),
+      });
       setData(result);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'));
     } finally {
       setLoading(false);
     }
-  }, [input]);
+  }, [options.search, options.category, options.status, options.limit, page]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const refetch = useCallback(() => {
-    fetchData();
-  }, [fetchData]);
+  // Calculate stats and grouping
+  const { stats, groupedByCategory, categoryStats } = useMemo(() => {
+    if (!data) return { stats: null, groupedByCategory: {}, categoryStats: [] };
+    const items = data.items;
 
-  // Group tools by category
-  const groupedByCategory = useMemo(() => {
-    if (!data?.items) return {};
-    return data.items.reduce(
-      (acc, tool) => {
-        const category = tool.category;
-        if (!acc[category]) acc[category] = [];
-        acc[category].push(tool);
-        return acc;
-      },
-      {} as Record<string, typeof data.items>
-    );
-  }, [data?.items]);
+    const active = items.filter((t: Tool) => t.status === 'ACTIVE').length;
+    const inactive = items.filter((t: Tool) => t.status === 'INACTIVE').length;
 
-  // Stats by category
-  const categoryStats = useMemo(() => {
-    if (!data?.items) return [];
-    const counts = data.items.reduce(
-      (acc, tool) => {
-        acc[tool.category] = (acc[tool.category] ?? 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>
-    );
-    return Object.entries(counts)
+    // Group by category
+    const grouped: Record<string, Tool[]> = {};
+    const byCategory: Record<string, number> = {};
+
+    items.forEach((t: Tool) => {
+      const cat = t.category;
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(t);
+      byCategory[cat] = (byCategory[cat] || 0) + 1;
+    });
+
+    // Category stats sorted by count
+    const catStats = Object.entries(byCategory)
       .map(([category, count]) => ({ category, count }))
       .sort((a, b) => b.count - a.count);
-  }, [data?.items]);
+
+    return {
+      stats: {
+        total: data.total,
+        active,
+        inactive,
+        topCategories: catStats.slice(0, 5),
+      },
+      groupedByCategory: grouped,
+      categoryStats: catStats,
+    };
+  }, [data]);
 
   return {
     data,
     loading,
     error,
-    page,
-    refetch,
+    stats,
     groupedByCategory,
     categoryStats,
-    nextPage: () => data?.hasMore && setPage((p) => p + 1),
+    page,
+    refetch: fetchData,
+    nextPage: () => setPage((p) => p + 1),
     prevPage: () => page > 1 && setPage((p) => p - 1),
   };
 }
-
