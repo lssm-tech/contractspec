@@ -40,12 +40,15 @@ const RecipesExperience = dynamic(
   { ssr: false }
 );
 
-type TemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+
+// Note: New templates (saas-boilerplate, crm-pipeline, agent-console) don't have UI components yet
+type LegacyTemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
 
 const templates = [
   {
     id: 'starter-kit',
-    templateId: 'todos-app' as TemplateId,
+    templateId: 'todos-app' as LegacyTemplateId,
     title: 'Starter Kit',
     description:
       'A minimal template to get you running in minutes. Perfect for exploring the engine.',
@@ -57,7 +60,7 @@ const templates = [
   },
   {
     id: 'plumber-ops',
-    templateId: 'messaging-app' as TemplateId,
+    templateId: 'messaging-app' as LegacyTemplateId,
     title: 'Plumber Ops',
     description:
       'Complete workflow: Quotes → Deposit → Job → Invoice → Payment. Policy-enforced approvals.',
@@ -68,7 +71,7 @@ const templates = [
   },
   {
     id: 'coliving-management',
-    templateId: 'recipe-app-i18n' as TemplateId,
+    templateId: 'recipe-app-i18n' as LegacyTemplateId,
     title: 'Coliving Management',
     description:
       'Coliving management: Onboarding, chores, shared wallet. Multi-party approvals built-in.',
@@ -79,7 +82,7 @@ const templates = [
   },
   {
     id: 'chores-allowance',
-    templateId: 'todos-app' as TemplateId,
+    templateId: 'todos-app' as LegacyTemplateId,
     title: 'Chores & Allowance',
     description:
       'Family task management with approval workflows. Teach financial accountability safely.',
@@ -90,7 +93,7 @@ const templates = [
   },
   {
     id: 'service-dispatch',
-    templateId: 'messaging-app' as TemplateId,
+    templateId: 'messaging-app' as LegacyTemplateId,
     title: 'Service Dispatch',
     description:
       'Field service scheduling, routing, and invoicing. Real-time coordination with policy gates.',
@@ -101,7 +104,7 @@ const templates = [
   },
   {
     id: 'content-review',
-    templateId: 'todos-app' as TemplateId,
+    templateId: 'todos-app' as LegacyTemplateId,
     title: 'Content Review',
     description:
       'Multi-stage approval workflow for content. Audit trail for every decision.',

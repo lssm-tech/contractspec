@@ -627,4 +627,115 @@ For each example:
 4. Implement Phase 2–4 examples, reusing cross-cutting modules.
 5. Continuously validate **spec-first**, **multi-surface**, **safe regeneration** behavior.
 
-Focus on correctness, clarity, reusability, and alignment with ContractSpec’s role as the **spec + compiler + governance layer for AI-era software**.
+Focus on correctness, clarity, reusability, and alignment with ContractSpec's role as the **spec + compiler + governance layer for AI-era software**.
+
+---
+
+## Progress Tracking (vNext Major Release)
+
+### Cross-cutting Modules
+
+| Module                      | Status      | Package                                      | Notes                                                                       |
+| --------------------------- | ----------- | -------------------------------------------- | --------------------------------------------------------------------------- |
+| Entity Definition System    | ✅ Complete | `@lssm/lib.schema/entity`                    | `defineEntity()`, types, Prisma generator                                   |
+| CLI Database Enhancement    | ✅ Complete | `@lssm/app.cli-database`                     | `schema:generate`, `schema:compose` commands                                |
+| Identity & RBAC             | ✅ Complete | `@lssm/lib.identity-rbac`                    | User, Org, Member, Role, Permission entities; contracts; policy engine      |
+| Event Bus & Audit Trail     | ✅ Complete | `@lssm/lib.bus`, `@lssm/modules.audit-trail` | AuditableEventBus, EventMetadata, filtering; AuditLog entity                |
+| Notification Center         | ✅ Complete | `@lssm/modules.notifications`                | Notification, Preference, DeliveryLog entities; channel adapters; templates |
+| Background Jobs & Scheduler | ✅ Complete | `@lssm/lib.jobs`                             | Job, ScheduledJob entities; memory queue; cron scheduler                    |
+| Feature Flags & Experiments | 🔲 Pending  | -                                            | Phase 2                                                                     |
+| Files & Attachments         | 🔲 Pending  | -                                            | Phase 2                                                                     |
+| Usage & Metering            | 🔲 Pending  | -                                            | Phase 2                                                                     |
+| Learning Journey            | 🔲 Pending  | -                                            | Phase 2                                                                     |
+
+### Application Examples
+
+| Example                  | Phase | Status      | Package                                  |
+| ------------------------ | ----- | ----------- | ---------------------------------------- |
+| SaaS Boilerplate         | 1     | ✅ Complete | `@contractspec/example.saas-boilerplate` |
+| CRM Pipeline             | 1     | ✅ Complete | `@contractspec/example.crm-pipeline`     |
+| Agent Console            | 1     | ✅ Complete | `@contractspec/example.agent-console`    |
+| Workflow/Approval System | 2     | 🔲 Pending  | -                                        |
+| Marketplace              | 2     | 🔲 Pending  | -                                        |
+| Integration Hub          | 3     | 🔲 Pending  | -                                        |
+| Analytics Dashboard      | 3     | 🔲 Pending  | -                                        |
+| Service Business OS      | 4     | 🔲 Pending  | -                                        |
+| Team Hub                 | 4     | 🔲 Pending  | -                                        |
+| Wealth Snapshot          | 4     | 🔲 Pending  | -                                        |
+
+### Studio Integration
+
+| Task               | Status      | Notes                               |
+| ------------------ | ----------- | ----------------------------------- |
+| Template Registry  | ✅ Complete | All Phase 1 examples registered     |
+| Sandbox Components | 🔲 Pending  | UI components for new templates     |
+| Documentation      | 🔲 Pending  | Quickstart guides for each template |
+
+---
+
+## What Was Delivered (vNext Phase 1)
+
+### New Packages Created
+
+1. **`@lssm/lib.identity-rbac`** - Identity and RBAC foundation
+   - Entities: User, Organization, Member, Role, Permission, PolicyBinding
+   - Contracts: CreateUser, GetUser, CreateOrg, AddMember, AssignRole, CheckPermission
+   - Events: UserCreated, OrgCreated, MemberAdded, RoleAssigned
+   - Policy engine placeholder
+
+2. **`@lssm/lib.jobs`** - Background jobs and scheduling
+   - Entities: Job, ScheduledJob
+   - Queue: MemoryJobQueue implementation
+   - Scheduler: NodeCronScheduler implementation
+   - Contracts: EnqueueJob, GetJobStatus, ScheduleRecurringJob
+   - Events: JobEnqueued, JobCompleted, JobFailed
+
+3. **`@lssm/modules.audit-trail`** - Audit logging
+   - Entities: AuditLog
+   - Contracts: ListAuditLogs, GetAuditLogById
+   - Storage: InMemoryAuditLogStorage adapter
+
+4. **`@lssm/modules.notifications`** - Notification center
+   - Entities: Notification, NotificationPreference, DeliveryLog
+   - Channels: Email, InApp adapters
+   - Templates: BasicTemplateRenderer
+   - Contracts: SendNotification, ListUserNotifications, MarkRead, UpdatePreferences
+
+5. **`@contractspec/example.saas-boilerplate`** - SaaS foundation
+   - Entities: Project, AppSettings, UserSettings, BillingUsage
+   - Contracts: CreateProject, GetProject, RecordUsage, GetOrganizationUsage
+   - Events: ProjectCreated, UsageRecorded
+
+6. **`@contractspec/example.crm-pipeline`** - Sales CRM
+   - Entities: Contact, Company, Deal, Pipeline, Stage, Task
+   - Contracts: CreateDeal, UpdateDealStage, GetDeal
+   - Events: DealCreated, DealStageMoved, TaskCompleted
+
+7. **`@contractspec/example.agent-console`** - AI agent management
+   - Entities: Tool, Agent, AgentTool, Run, RunStep, RunLog
+   - Contracts: CreateTool, CreateAgent, ExecuteAgent, GetRun, GetRunSteps, GetRunLogs, GetRunMetrics
+   - Events: ToolCreated, AgentCreated, RunStarted, RunCompleted, RunFailed, ToolInvoked
+
+### Enhanced Packages
+
+1. **`@lssm/lib.schema`** - Added entity definition system
+   - `defineEntity()` helper
+   - Entity types and configuration
+   - Prisma schema generator (placeholder)
+
+2. **`@lssm/lib.bus`** - Added audit and filtering capabilities
+   - `AuditableEventBus` wrapper
+   - `EventMetadata` types
+   - `FilteredEventBus` for event filtering
+
+3. **`@lssm/app.cli-database`** - Added schema management commands
+   - `schema:generate` command
+   - `schema:compose` command
+   - `MergedPrismaConfig` types
+
+### Template Registry Updates
+
+- Added 3 new templates to Studio: saas-boilerplate, crm-pipeline, agent-console
+- Added new categories: business, ai
+- Added `package` field for Git-clonable templates
+- Added `usesModules` field for cross-cutting module dependencies

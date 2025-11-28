@@ -1,0 +1,45 @@
+{
+  "name": "@contractspec/example.agent-console",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./entities": {
+      "import": "./dist/entities/index.js",
+      "types": "./dist/entities/index.d.ts"
+    },
+    "./contracts": {
+      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts"
+    },
+    "./events": {
+      "import": "./dist/events.js",
+      "types": "./dist/events.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/modules.audit-trail": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.12.6",
+    "typescript": "^5.8.3"
+  }
+}

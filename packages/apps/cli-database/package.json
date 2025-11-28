@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-database",
-  "version": "1.12.0",
+  "version": "2.0.0",
   "type": "module",
   "bin": {
     "database": "dist/cli.js"
@@ -19,16 +19,21 @@
     "dbs:migrate": "bun database migrate:dev",
     "dbs:deploy": "bun database migrate:deploy",
     "dbs:status": "bun database migrate:status",
-    "dbs:seed": "bun database seed"
+    "dbs:seed": "bun database seed",
+    "schema:generate": "bun database schema:generate",
+    "schema:compose": "bun database schema:compose"
   },
   "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
     "@prisma/adapter-pg": "^7.0.1",
     "@prisma/client": "^7.0.1",
     "prisma": "^7.0.1",
-    "minimist": "^1.2.8"
+    "minimist": "^1.2.8",
+    "execa": "^9.5.3"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
+    "@types/minimist": "^1.2.5",
     "tsdown": "^0.16.8"
   },
   "main": "./dist/index.mjs",

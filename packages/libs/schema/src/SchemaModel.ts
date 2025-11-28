@@ -97,3 +97,11 @@ export type ZodShapeFromFields<F extends SchemaModelFieldsAnyConfig> = {
  */
 export type TopLevelZodFromModel<F extends SchemaModelFieldsAnyConfig> =
   z.ZodObject<ZodShapeFromFields<F>>;
+
+/**
+ * Helper to define a SchemaModel with type inference.
+ * Equivalent to `new SchemaModel(config)` but with better ergonomics.
+ */
+export const defineSchemaModel = <Fields extends SchemaModelFieldsAnyConfig>(
+  config: SchemaModelConfig<Fields>
+): SchemaModel<Fields> => new SchemaModel(config);

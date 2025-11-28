@@ -1,0 +1,27 @@
+{
+  "name": "@lssm/example.crm-pipeline",
+  "version": "1.0.0",
+  "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "db:generate": "database schema:generate",
+    "db:migrate": "database migrate:dev",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.bus": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/module.notifications": "workspace:*",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}
+

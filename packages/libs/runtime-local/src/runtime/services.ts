@@ -9,7 +9,13 @@ export interface LocalRuntimeInitOptions {
 }
 
 export interface TemplateSeedOptions {
-  templateId: 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+  templateId:
+    | 'todos-app'
+    | 'messaging-app'
+    | 'recipe-app-i18n'
+    | 'saas-boilerplate'
+    | 'crm-pipeline'
+    | 'agent-console';
   projectId?: string;
 }
 
@@ -54,6 +60,15 @@ export class LocalRuntimeServices {
         break;
       case 'recipe-app-i18n':
         await this.seedRecipes(projectId);
+        break;
+      case 'saas-boilerplate':
+        await this.seedSaasBoilerplate(projectId);
+        break;
+      case 'crm-pipeline':
+        await this.seedCrmPipeline(projectId);
+        break;
+      case 'agent-console':
+        await this.seedAgentConsole(projectId);
         break;
       default:
         throw new Error(`Unknown template ${options.templateId}`);
@@ -298,5 +313,32 @@ export class LocalRuntimeServices {
         ]
       );
     }
+  }
+
+  private async seedSaasBoilerplate(projectId: string): Promise<void> {
+    // SaaS Boilerplate template seeds organizations, projects, and settings
+    // These are external examples that load from their own packages
+    console.log(
+      `[runtime-local] SaaS Boilerplate template initialized for project: ${projectId}`
+    );
+    // Seed data would come from @contractspec/example.saas-boilerplate package
+  }
+
+  private async seedCrmPipeline(projectId: string): Promise<void> {
+    // CRM Pipeline template seeds contacts, companies, deals, and pipelines
+    // These are external examples that load from their own packages
+    console.log(
+      `[runtime-local] CRM Pipeline template initialized for project: ${projectId}`
+    );
+    // Seed data would come from @contractspec/example.crm-pipeline package
+  }
+
+  private async seedAgentConsole(projectId: string): Promise<void> {
+    // Agent Console template seeds tools, agents, and sample runs
+    // These are external examples that load from their own packages
+    console.log(
+      `[runtime-local] Agent Console template initialized for project: ${projectId}`
+    );
+    // Seed data would come from @contractspec/example.agent-console package
   }
 }

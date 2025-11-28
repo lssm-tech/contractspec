@@ -1,6 +1,17 @@
-export type TemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+export type TemplateId =
+  | 'todos-app'
+  | 'messaging-app'
+  | 'recipe-app-i18n'
+  | 'saas-boilerplate'
+  | 'crm-pipeline'
+  | 'agent-console';
 
-export type TemplateCategory = 'productivity' | 'communication' | 'content';
+export type TemplateCategory =
+  | 'productivity'
+  | 'communication'
+  | 'content'
+  | 'business'
+  | 'ai';
 
 export type TemplateComplexity = 'beginner' | 'intermediate' | 'advanced';
 
@@ -30,6 +41,10 @@ export interface TemplateDefinition {
     quickstart?: string;
     reference?: string;
   };
+  /** Package name for external examples that can be cloned via Git */
+  package?: string;
+  /** Whether this template uses the new cross-cutting modules */
+  usesModules?: string[];
 }
 
 export interface TemplateFilter {
@@ -127,6 +142,140 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       quickstart: '/docs/templates/recipe-app-i18n',
     },
   },
+  // ============================================
+  // New Phase 1 Examples (using cross-cutting modules)
+  // ============================================
+  {
+    id: 'saas-boilerplate',
+    name: 'SaaS Boilerplate',
+    description:
+      'Complete SaaS foundation with multi-tenant organizations, projects, settings, and billing usage tracking.',
+    category: 'business',
+    complexity: 'intermediate',
+    icon: '🚀',
+    features: [
+      'Multi-tenancy',
+      'Organizations',
+      'Projects',
+      'Settings',
+      'Billing Usage',
+      'RBAC',
+    ],
+    tags: ['saas', 'multi-tenant', 'billing', 'starter', 'boilerplate'],
+    schema: {
+      models: [
+        'Organization',
+        'Member',
+        'Project',
+        'AppSettings',
+        'UserSettings',
+        'BillingUsage',
+      ],
+      contracts: [
+        'saas.project.create',
+        'saas.project.get',
+        'saas.billing.recordUsage',
+        'saas.billing.getOrganizationUsage',
+      ],
+    },
+    components: {
+      list: 'ProjectList',
+      detail: 'ProjectDetail',
+      form: 'ProjectForm',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=saas-boilerplate',
+    },
+    docs: {
+      quickstart: '/docs/templates/saas-boilerplate',
+    },
+    package: '@contractspec/example.saas-boilerplate',
+    usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+  },
+  {
+    id: 'crm-pipeline',
+    name: 'CRM Pipeline',
+    description:
+      'Sales CRM with contacts, companies, deals, pipeline stages, and task management.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '💼',
+    features: [
+      'Contacts',
+      'Companies',
+      'Deals',
+      'Pipelines',
+      'Stages',
+      'Tasks',
+      'Kanban',
+    ],
+    tags: ['crm', 'sales', 'pipeline', 'deals', 'contacts'],
+    schema: {
+      models: ['Contact', 'Company', 'Deal', 'Pipeline', 'Stage', 'Task'],
+      contracts: ['crm.deal.create', 'crm.deal.updateStage', 'crm.deal.get'],
+    },
+    components: {
+      list: 'DealList',
+      detail: 'DealDetail',
+      form: 'DealForm',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=crm-pipeline',
+    },
+    docs: {
+      quickstart: '/docs/templates/crm-pipeline',
+    },
+    package: '@contractspec/example.crm-pipeline',
+    usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+  },
+  {
+    id: 'agent-console',
+    name: 'Agent Console',
+    description:
+      'AI agent orchestration platform with tools, agents, runs, and execution logs.',
+    category: 'ai',
+    complexity: 'advanced',
+    icon: '🤖',
+    features: [
+      'Tool Registry',
+      'Agent Configuration',
+      'Run Execution',
+      'Step Tracking',
+      'Execution Logs',
+      'Token Tracking',
+      'Cost Estimation',
+    ],
+    tags: ['ai', 'agents', 'llm', 'tools', 'orchestration'],
+    schema: {
+      models: ['Tool', 'Agent', 'AgentTool', 'Run', 'RunStep', 'RunLog'],
+      contracts: [
+        'agent.tool.create',
+        'agent.agent.create',
+        'agent.run.execute',
+        'agent.run.get',
+        'agent.run.getSteps',
+        'agent.run.getLogs',
+        'agent.run.getMetrics',
+      ],
+    },
+    components: {
+      list: 'AgentList',
+      detail: 'AgentDetail',
+      form: 'AgentForm',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=agent-console',
+    },
+    docs: {
+      quickstart: '/docs/templates/agent-console',
+    },
+    package: '@contractspec/example.agent-console',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.jobs',
+      '@lssm/modules.audit-trail',
+    ],
+  },
 ];
 
 export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {
@@ -152,4 +301,22 @@ export function listTemplates(filter?: TemplateFilter): TemplateDefinition[] {
 
 export function getTemplate(id: TemplateId): TemplateDefinition | undefined {
   return TEMPLATE_REGISTRY.find((template) => template.id === id);
+}
+
+/**
+ * Get templates that use a specific cross-cutting module
+ */
+export function getTemplatesByModule(
+  modulePackage: string
+): TemplateDefinition[] {
+  return TEMPLATE_REGISTRY.filter((template) =>
+    template.usesModules?.includes(modulePackage)
+  );
+}
+
+/**
+ * Get all templates with external packages (clonable via Git)
+ */
+export function getClonableTemplates(): TemplateDefinition[] {
+  return TEMPLATE_REGISTRY.filter((template) => !!template.package);
 }
