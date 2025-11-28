@@ -41,7 +41,9 @@ interface JsonSchema {
  * @param schema - JSON Schema object
  * @returns Zod schema
  */
-export function jsonSchemaToZod(schema: JsonSchema | Record<string, unknown>): ZodType {
+export function jsonSchemaToZod(
+  schema: JsonSchema | Record<string, unknown>
+): ZodType {
   const s = schema as JsonSchema;
 
   // Handle nullable
@@ -56,7 +58,10 @@ export function jsonSchemaToZod(schema: JsonSchema | Record<string, unknown>): Z
 
   // Handle enum
   if (s.enum) {
-    const values = s.enum as [string | number | boolean, ...(string | number | boolean)[]];
+    const values = s.enum as [
+      string | number | boolean,
+      ...(string | number | boolean)[],
+    ];
     return makeNullable(z.enum(values.map(String) as [string, ...string[]]));
   }
 
@@ -162,7 +167,9 @@ function buildNumberSchema(schema: JsonSchema): ZodType {
 }
 
 function buildArraySchema(schema: JsonSchema): ZodType {
-  const itemsSchema = schema.items ? jsonSchemaToZod(schema.items) : z.unknown();
+  const itemsSchema = schema.items
+    ? jsonSchemaToZod(schema.items)
+    : z.unknown();
   let zodSchema = z.array(itemsSchema);
 
   if (schema.description) {
@@ -197,12 +204,9 @@ function buildObjectSchema(schema: JsonSchema): ZodType {
  * @param schema - Optional JSON Schema object
  * @returns Zod schema (defaults to empty object schema)
  */
-export function jsonSchemaToZodSafe(
-  schema?: Record<string, unknown>
-): ZodType {
+export function jsonSchemaToZodSafe(schema?: Record<string, unknown>): ZodType {
   if (!schema || Object.keys(schema).length === 0) {
     return z.object({});
   }
   return jsonSchemaToZod(schema);
 }
-
