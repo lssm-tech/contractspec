@@ -553,6 +553,17 @@
 - Updated dependencies [b1d0876]
   - @contractspec/lib.contracts-spec@1.9.0
 
+## 0.4.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.12.0
+
 ## 0.3.1
 
 ### Patch Changes

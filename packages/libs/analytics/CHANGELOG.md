@@ -513,6 +513,17 @@
 
 - fix
 
+## 0.5.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.lifecycle@0.4.0
+
 ## 0.4.1
 
 ### Patch Changes

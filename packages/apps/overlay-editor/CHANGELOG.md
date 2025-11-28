@@ -1,5 +1,16 @@
 # @lssm/app.overlay-editor
 
+## 0.5.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.overlay-engine@0.4.0
+
 ## 0.4.1
 
 ### Patch Changes

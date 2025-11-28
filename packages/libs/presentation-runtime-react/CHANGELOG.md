@@ -132,6 +132,20 @@
   - @contractspec/lib.ui-kit-web@1.56.0
   - @contractspec/lib.contracts-spec@1.56.0
 
+## 13.0.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.12.0
+  - @lssm/lib.design-system@1.12.0
+  - @lssm/lib.presentation-runtime-core@1.12.0
+  - @lssm/lib.ui-kit-web@1.12.0
+
 ## 12.0.1
 
 ### Patch Changes

@@ -609,6 +609,17 @@
   - @contractspec/lib.progressive-delivery@4.0.0
   - @contractspec/lib.ui-kit-web@1.12.0
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/bundle.contractspec-studio@0.4.0
+  - @lssm/lib.database-contractspec-studio@0.4.0
+  - @lssm/lib.design-system@1.12.0
+  - @lssm/lib.progressive-delivery@4.0.0
+  - @lssm/lib.ui-kit-web@1.12.0
+
 ## 0.2.3
 
 ### Patch Changes

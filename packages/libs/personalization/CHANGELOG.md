@@ -748,6 +748,18 @@
   - @contractspec/lib.overlay-engine@0.1.0
   - @contractspec/lib.bus@1.9.0
 
+## 0.4.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.bus@1.12.0
+  - @lssm/lib.overlay-engine@0.4.0
+
 ## 0.3.1
 
 ### Patch Changes

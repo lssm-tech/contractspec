@@ -352,6 +352,12 @@
 
 - add right-sidebar
 
+## 0.13.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
 ## 0.12.1
 
 ### Patch Changes

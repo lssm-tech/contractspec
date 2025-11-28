@@ -257,6 +257,17 @@
 - Updated dependencies
   - @contractspec/lib.observability@0.3.0
 
+## 4.0.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.observability@0.5.0
+
 ## 3.0.1
 
 ### Patch Changes

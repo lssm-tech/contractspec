@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.12.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/app.cli-database@1.12.0
+  - @lssm/lib.contracts@1.12.0
+  - @lssm/lib.schema@1.12.0
+  - @lssm/lib.testing@0.5.0
+
 ## 0.11.1
 
 ### Patch Changes

@@ -334,6 +334,12 @@
 
 - b1d0876: Managed platform
 
+## 1.12.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
 ## 1.11.1
 
 ### Patch Changes
