@@ -3,10 +3,15 @@
 /**
  * SaaS Dashboard
  *
- * Properly integrated with ContractSpec example handlers
+ * Fully integrated with ContractSpec example handlers
  * and design-system components.
+ *
+ * Commands wired:
+ * - CreateProjectContract -> Create Project button + modal
+ * - UpdateProjectContract -> Edit project via modal
+ * - DeleteProjectContract -> Delete project via modal
  */
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import {
   StatCard,
   StatCardGroup,
@@ -22,6 +27,9 @@ import {
   type Project,
   type Subscription,
 } from './hooks/useProjectList';
+import { useProjectMutations } from './hooks/useProjectMutations';
+import { CreateProjectModal } from './modals/CreateProjectModal';
+import { ProjectActionsModal } from './modals/ProjectActionsModal';
 
 type Tab = 'projects' | 'billing' | 'settings';
 
@@ -34,6 +42,8 @@ function getStatusTone(
     case 'DRAFT':
       return 'neutral';
     case 'ARCHIVED':
+      return 'warning';
+    case 'DELETED':
       return 'danger';
     default:
       return 'neutral';
@@ -42,8 +52,23 @@ function getStatusTone(
 
 export function SaasDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('projects');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectActionsOpen, setIsProjectActionsOpen] = useState(false);
+
   const { data, subscription, loading, error, stats, refetch } =
     useProjectList();
+
+  const mutations = useProjectMutations({
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const handleProjectClick = useCallback((project: Project) => {
+    setSelectedProject(project);
+    setIsProjectActionsOpen(true);
+  }, []);
 
   const tabs: Array<{ id: Tab; label: string; icon: string }> = [
     { id: 'projects', label: 'Projects', icon: '📁' },
@@ -68,6 +93,16 @@ export function SaasDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">SaaS Dashboard</h2>
+        {activeTab === 'projects' && (
+          <Button onPress={() => setIsCreateModalOpen(true)}>
+            <span className="mr-2">+</span> New Project
+          </Button>
+        )}
+      </div>
+
       {/* Stats Row */}
       {stats && subscription && (
         <StatCardGroup>
@@ -113,42 +148,66 @@ export function SaasDashboard() {
 
       {/* Tab Content */}
       <div className="min-h-[400px]" role="tabpanel">
-        {activeTab === 'projects' && <ProjectsTab data={data} />}
+        {activeTab === 'projects' && (
+          <ProjectsTab data={data} onProjectClick={handleProjectClick} />
+        )}
         {activeTab === 'billing' && <BillingTab subscription={subscription} />}
         {activeTab === 'settings' && <SettingsTab />}
       </div>
+
+      {/* Create Project Modal */}
+      <CreateProjectModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSubmit={async (input) => {
+          await mutations.createProject(input);
+        }}
+        isLoading={mutations.createState.loading}
+      />
+
+      {/* Project Actions Modal */}
+      <ProjectActionsModal
+        isOpen={isProjectActionsOpen}
+        project={selectedProject}
+        onClose={() => {
+          setIsProjectActionsOpen(false);
+          setSelectedProject(null);
+        }}
+        onUpdate={async (input) => {
+          await mutations.updateProject(input);
+        }}
+        onArchive={async (projectId) => {
+          await mutations.archiveProject(projectId);
+        }}
+        onActivate={async (projectId) => {
+          await mutations.activateProject(projectId);
+        }}
+        onDelete={async (projectId) => {
+          await mutations.deleteProject(projectId);
+        }}
+        isLoading={mutations.isLoading}
+      />
     </div>
   );
 }
 
-function ProjectsTab({
-  data,
-}: {
+interface ProjectsTabProps {
   data: ReturnType<typeof useProjectList>['data'];
-}) {
+  onProjectClick?: (project: Project) => void;
+}
+
+function ProjectsTab({ data, onProjectClick }: ProjectsTabProps) {
   if (!data?.projects.length) {
     return (
       <EmptyState
         title="No projects yet"
         description="Create your first project to get started."
-        primaryAction={
-          <Button onPress={() => alert('Create Project clicked!')}>
-            Create Project
-          </Button>
-        }
       />
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Your Projects</h3>
-        <Button variant="default" onPress={() => alert('New Project clicked!')}>
-          New Project
-        </Button>
-      </div>
-
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data.projects.map((project: Project) => (
           <EntityCard
@@ -167,9 +226,18 @@ function ProjectsTab({
               />
             }
             footer={
-              <span className="text-muted-foreground text-xs">
-                {project.updatedAt.toLocaleDateString()}
-              </span>
+              <div className="flex items-center justify-between w-full">
+                <span className="text-muted-foreground text-xs">
+                  {project.updatedAt.toLocaleDateString()}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => onProjectClick?.(project)}
+                >
+                  Actions
+                </Button>
+              </div>
             }
           />
         ))}
@@ -219,6 +287,15 @@ function BillingTab({ subscription }: { subscription: Subscription | null }) {
             </p>
           </div>
           <StatusChip tone="success" label={subscription.status} />
+        </div>
+
+        <div className="mt-4 flex gap-3">
+          <Button variant="outline" onPress={() => alert('Upgrade clicked!')}>
+            Upgrade Plan
+          </Button>
+          <Button variant="ghost" onPress={() => alert('Manage Billing clicked!')}>
+            Manage Billing
+          </Button>
         </div>
       </div>
 
@@ -272,6 +349,11 @@ function SettingsTab() {
               <option>Europe/London</option>
               <option>Asia/Tokyo</option>
             </select>
+          </div>
+          <div className="pt-2">
+            <Button onPress={() => alert('Settings saved!')}>
+              Save Settings
+            </Button>
           </div>
         </div>
       </div>

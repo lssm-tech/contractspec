@@ -3,22 +3,32 @@
 /**
  * CRM Dashboard
  *
- * Properly integrated with ContractSpec example handlers
+ * Fully integrated with ContractSpec example handlers
  * and design-system components.
+ *
+ * Commands wired:
+ * - CreateDealContract -> Create Deal button + modal
+ * - MoveDealContract -> Move deal between stages
+ * - WinDealContract -> Mark deal as won
+ * - LoseDealContract -> Mark deal as lost
  */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
+  Button,
+  ErrorState,
+  LoaderBlock,
   StatCard,
   StatCardGroup,
-  LoaderBlock,
-  ErrorState,
 } from '@lssm/lib.design-system';
-import { useDealList, type Deal } from './hooks/useDealList';
+import { type Deal, useDealList } from './hooks/useDealList';
+import { useDealMutations } from './hooks/useDealMutations';
 import { CrmPipelineBoard } from './CrmPipelineBoard';
+import { CreateDealModal } from './modals/CreateDealModal';
+import { DealActionsModal } from './modals/DealActionsModal';
 
 type Tab = 'pipeline' | 'list' | 'metrics';
 
-function formatCurrency(value: number, currency: string = 'USD'): string {
+function formatCurrency(value: number, currency = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
@@ -29,10 +39,44 @@ function formatCurrency(value: number, currency: string = 'USD'): string {
 
 export function CrmDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('pipeline');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [isDealActionsOpen, setIsDealActionsOpen] = useState(false);
+
   const { data, dealsByStage, stages, loading, error, stats, refetch } =
     useDealList();
 
-  const tabs: Array<{ id: Tab; label: string; icon: string }> = [
+  const mutations = useDealMutations({
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const handleDealClick = useCallback(
+    (dealId: string) => {
+      // Find deal in data
+      const deal = dealsByStage
+        ? Object.values(dealsByStage)
+            .flat()
+            .find((d) => d.id === dealId)
+        : null;
+
+      if (deal) {
+        setSelectedDeal(deal);
+        setIsDealActionsOpen(true);
+      }
+    },
+    [dealsByStage]
+  );
+
+  const handleDealMove = useCallback(
+    async (dealId: string, toStageId: string) => {
+      await mutations.moveDeal({ dealId, stageId: toStageId });
+    },
+    [mutations]
+  );
+
+  const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'pipeline', label: 'Pipeline', icon: '📊' },
     { id: 'list', label: 'All Deals', icon: '📋' },
     { id: 'metrics', label: 'Metrics', icon: '📈' },
@@ -55,6 +99,14 @@ export function CrmDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Header with Create Button */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">CRM Pipeline</h2>
+        <Button onPress={() => setIsCreateModalOpen(true)}>
+          <span className="mr-2">+</span> Create Deal
+        </Button>
+      </div>
+
       {/* Stats Row */}
       {stats && (
         <StatCardGroup>
@@ -101,20 +153,61 @@ export function CrmDashboard() {
       {/* Tab Content */}
       <div className="min-h-[400px]" role="tabpanel">
         {activeTab === 'pipeline' && (
-          <CrmPipelineBoard dealsByStage={dealsByStage} stages={stages} />
+          <CrmPipelineBoard
+            dealsByStage={dealsByStage}
+            stages={stages}
+            onDealClick={handleDealClick}
+            onDealMove={handleDealMove}
+          />
         )}
-        {activeTab === 'list' && <DealListTab data={data} />}
+        {activeTab === 'list' && (
+          <DealListTab data={data} onDealClick={handleDealClick} />
+        )}
         {activeTab === 'metrics' && <MetricsTab stats={stats} />}
       </div>
+
+      {/* Create Deal Modal */}
+      <CreateDealModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSubmit={async (input) => {
+          await mutations.createDeal(input);
+        }}
+        stages={stages}
+        isLoading={mutations.createState.loading}
+      />
+
+      {/* Deal Actions Modal */}
+      <DealActionsModal
+        isOpen={isDealActionsOpen}
+        deal={selectedDeal}
+        stages={stages}
+        onClose={() => {
+          setIsDealActionsOpen(false);
+          setSelectedDeal(null);
+        }}
+        onWin={async (input) => {
+          await mutations.winDeal(input);
+        }}
+        onLose={async (input) => {
+          await mutations.loseDeal(input);
+        }}
+        onMove={async (input) => {
+          await mutations.moveDeal(input);
+          refetch();
+        }}
+        isLoading={mutations.isLoading}
+      />
     </div>
   );
 }
 
-function DealListTab({
-  data,
-}: {
+interface DealListTabProps {
   data: ReturnType<typeof useDealList>['data'];
-}) {
+  onDealClick?: (dealId: string) => void;
+}
+
+function DealListTab({ data, onDealClick }: DealListTabProps) {
   if (!data?.deals.length) {
     return (
       <div className="text-muted-foreground flex h-64 items-center justify-center">
@@ -134,6 +227,7 @@ function DealListTab({
             <th className="px-4 py-3 text-left text-sm font-medium">
               Expected Close
             </th>
+            <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-border divide-y">
@@ -160,6 +254,15 @@ function DealListTab({
               </td>
               <td className="text-muted-foreground px-4 py-3">
                 {deal.expectedCloseDate?.toLocaleDateString() ?? '-'}
+              </td>
+              <td className="px-4 py-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => onDealClick?.(deal.id)}
+                >
+                  Actions
+                </Button>
               </td>
             </tr>
           ))}

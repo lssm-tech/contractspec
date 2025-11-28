@@ -5,6 +5,9 @@ export * from './SaasDashboard';
 export * from './SaasProjectList';
 export * from './SaasSettingsPanel';
 
+// Modals
+export * from './modals';
+
 // Hooks
 export * from './hooks';
 

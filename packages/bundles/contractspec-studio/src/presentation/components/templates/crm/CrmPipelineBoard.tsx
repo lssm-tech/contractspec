@@ -2,7 +2,15 @@
 
 /**
  * CRM Pipeline Board - Kanban-style deal board
+ *
+ * Features:
+ * - Visual pipeline stages
+ * - Deal cards with click actions
+ * - Quick move dropdown per card
+ * - Drag-and-drop ready (UI only, no lib dependency)
  */
+import { useState } from 'react';
+import { Button } from '@lssm/lib.design-system';
 import type { Deal } from './hooks/useDealList';
 import { CrmDealCard } from './CrmDealCard';
 
@@ -23,9 +31,18 @@ export function CrmPipelineBoard({
   dealsByStage,
   stages,
   onDealClick,
+  onDealMove,
 }: CrmPipelineBoardProps) {
+  // Track which deal has the quick-move dropdown open
+  const [quickMoveOpen, setQuickMoveOpen] = useState<string | null>(null);
+
   // Sort stages by position
   const sortedStages = [...stages].sort((a, b) => a.position - b.position);
+
+  const handleQuickMove = (dealId: string, toStageId: string) => {
+    onDealMove?.(dealId, toStageId);
+    setQuickMoveOpen(null);
+  };
 
   return (
     <div className="flex gap-4 overflow-x-auto pb-4">
@@ -59,11 +76,55 @@ export function CrmPipelineBoard({
                 </div>
               ) : (
                 deals.map((deal) => (
-                  <CrmDealCard
-                    key={deal.id}
-                    deal={deal}
-                    onClick={() => onDealClick?.(deal.id)}
-                  />
+                  <div key={deal.id} className="group relative">
+                    <CrmDealCard
+                      deal={deal}
+                      onClick={() => onDealClick?.(deal.id)}
+                    />
+
+                    {/* Quick Move Button */}
+                    {deal.status === 'OPEN' && onDealMove && (
+                      <div className="absolute top-1 right-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setQuickMoveOpen(
+                              quickMoveOpen === deal.id ? null : deal.id
+                            );
+                          }}
+                          className="bg-background border-border hover:bg-muted flex h-6 w-6 items-center justify-center rounded border text-xs shadow-sm"
+                          title="Quick move"
+                        >
+                          ➡️
+                        </button>
+
+                        {/* Quick Move Dropdown */}
+                        {quickMoveOpen === deal.id && (
+                          <div className="bg-card border-border absolute top-7 right-0 z-20 min-w-[140px] rounded-lg border py-1 shadow-lg">
+                            <p className="text-muted-foreground px-3 py-1 text-xs font-medium">
+                              Move to:
+                            </p>
+                            {sortedStages
+                              .filter((s) => s.id !== deal.stageId)
+                              .map((s) => (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleQuickMove(deal.id, s.id);
+                                  }}
+                                  className="hover:bg-muted w-full px-3 py-1.5 text-left text-sm"
+                                >
+                                  {s.name}
+                                </button>
+                              ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 ))
               )}
             </div>

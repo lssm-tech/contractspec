@@ -5,6 +5,9 @@ export * from './CrmDashboard';
 export * from './CrmPipelineBoard';
 export * from './CrmDealCard';
 
+// Modals
+export * from './modals';
+
 // Hooks
 export * from './hooks';
 

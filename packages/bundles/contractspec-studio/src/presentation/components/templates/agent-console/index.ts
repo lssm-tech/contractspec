@@ -8,6 +8,9 @@ export * from './AgentToolRegistry';
 // View components
 export * from './views';
 
+// Modals
+export * from './modals';
+
 // Data hooks
 export * from './hooks';
 
