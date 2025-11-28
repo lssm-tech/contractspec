@@ -11,8 +11,8 @@ export async function createContext({
   featureFlags,
 }: Context): Promise<Context> {
   return {
-    user: user ?? undefined,
-    session: session ?? undefined,
+    user: user ?? null,
+    session: session ?? null,
     organization,
     headers,
     logger,
@@ -26,22 +26,24 @@ export const createNextjsContext = async ({
   request: Request;
 }) => {
   const session = await auth.api.getSession({ headers: request.headers });
-  const organization = await auth.api.getFullOrganization({
-    query: {
-      organizationId: session?.session?.activeOrganizationId,
-      membersLimit: 0,
-    },
-    // This endpoint requires session cookies.
-    headers: request.headers,
-  });
+  const organization = session?.session?.activeOrganizationId
+    ? await auth.api.getFullOrganization({
+        query: {
+          organizationId: session.session.activeOrganizationId,
+          membersLimit: 0,
+        },
+        // This endpoint requires session cookies.
+        headers: request.headers,
+      })
+    : null;
   const headerFlags = parseFeatureFlagPayload(
     request.headers.get('x-lssm-feature-flags')
   );
   // console.log('organization gql', organization);
   // console.log('session user gql', session?.user);
   return createContext({
-    user: session?.user,
-    session: session?.session ?? undefined,
+    user: session?.user || null,
+    session: session?.session || null,
     organization,
     logger: console as any,
     headers: request.headers,

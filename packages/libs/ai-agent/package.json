@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ai-agent",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,14 +19,18 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "ai": "beta",
+    "@ai-sdk/mcp": "beta",
     "@ai-sdk/mistral": "beta",
     "@ai-sdk/openai": "beta",
     "@ai-sdk/anthropic": "beta",
-    "@lssm/lib.contracts": "workspace:*"
+    "@modelcontextprotocol/sdk": "^1.23.0",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
@@ -36,15 +40,31 @@
   },
   "exports": {
     ".": "./dist/index.js",
+    "./agent": "./dist/agent/index.js",
+    "./agent/agent-factory": "./dist/agent/agent-factory.js",
+    "./agent/contract-spec-agent": "./dist/agent/contract-spec-agent.js",
     "./approval": "./dist/approval/index.js",
     "./approval/workflow": "./dist/approval/workflow.js",
+    "./knowledge": "./dist/knowledge/index.js",
+    "./knowledge/injector": "./dist/knowledge/injector.js",
     "./memory": "./dist/memory/index.js",
     "./memory/in-memory": "./dist/memory/in-memory.js",
     "./memory/manager": "./dist/memory/manager.js",
-    "./runner": "./dist/runner.js",
-    "./spec": "./dist/spec.js",
+    "./schema": "./dist/schema/index.js",
+    "./schema/json-schema-to-zod": "./dist/schema/json-schema-to-zod.js",
+    "./schema/schema-output": "./dist/schema/schema-output.js",
+    "./session": "./dist/session/index.js",
+    "./session/store": "./dist/session/store.js",
+    "./spec": "./dist/spec/index.js",
+    "./spec/registry": "./dist/spec/registry.js",
+    "./spec/spec": "./dist/spec/spec.js",
+    "./telemetry": "./dist/telemetry/index.js",
+    "./telemetry/adapter": "./dist/telemetry/adapter.js",
     "./tools": "./dist/tools/index.js",
-    "./tools/executor": "./dist/tools/executor.js",
+    "./tools/knowledge-tool": "./dist/tools/knowledge-tool.js",
+    "./tools/mcp-client": "./dist/tools/mcp-client.js",
+    "./tools/mcp-server": "./dist/tools/mcp-server.js",
+    "./tools/tool-adapter": "./dist/tools/tool-adapter.js",
     "./types": "./dist/types.js",
     "./*": "./*"
   },

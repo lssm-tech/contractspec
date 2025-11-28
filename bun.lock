@@ -277,13 +277,17 @@
     },
     "packages/libs/ai-agent": {
       "name": "@lssm/lib.ai-agent",
-      "version": "0.4.1",
+      "version": "1.0.0",
       "dependencies": {
         "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/mcp": "beta",
         "@ai-sdk/mistral": "beta",
         "@ai-sdk/openai": "beta",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.knowledge": "workspace:*",
+        "@modelcontextprotocol/sdk": "^1.23.0",
         "ai": "beta",
+        "zod": "^4.1.13",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -349,7 +353,7 @@
         "@lssm/lib.graphql-federation": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "@mistralai/mistralai": "^1.2.3",
-        "@modelcontextprotocol/sdk": "^1.20.1",
+        "@modelcontextprotocol/sdk": "^1.23.0",
         "@qdrant/js-client-rest": "^1.16.0",
         "googleapis": "^166.0.0",
         "mcp-handler": "^1.0.4",
@@ -468,13 +472,15 @@
     },
     "packages/libs/evolution": {
       "name": "@lssm/lib.evolution",
-      "version": "0.4.1",
+      "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.lifecycle": "workspace:*",
         "@lssm/lib.observability": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
+        "ai": "beta",
+        "zod": "^4.1.13",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -583,6 +589,19 @@
       "version": "0.4.1",
       "dependencies": {
         "@lssm/lib.analytics": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.16.8",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/libs/knowledge": {
+      "name": "@lssm/lib.knowledge",
+      "version": "1.0.0",
+      "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
       "devDependencies": {
@@ -1054,6 +1073,8 @@
     "@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.64", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.20", "@ai-sdk/provider-utils": "4.0.0-beta.38" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-js2ajAAiwsWD3FlPbSlqLpbbGwrgkg/B81ecBoh+mF/kdad8ocqz/Z85RWWjX3cIBQCUluV/tgsPyj0Z7Hp7Vg=="],
 
     "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.0-beta.66", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.20", "@ai-sdk/provider-utils": "4.0.0-beta.38", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-9H4Y4pFcTlDqLOjhJNfHVJrmQiGGqzQLIDNKSGhab90KYgeZc7NouQF752jUIlEZCY1S4QynuUKISTUsKR6Qjg=="],
+
+    "@ai-sdk/mcp": ["@ai-sdk/mcp@1.0.0-beta.22", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.20", "@ai-sdk/provider-utils": "4.0.0-beta.38", "pkce-challenge": "^5.0.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-oVHGBO7OQFYXU9T62p3Ro6c4NXlcC2kFXhcAoo6O7feKA3E7K3uhGe3qfMFd9mhIhpvQR8OAbz0mCv4beBW5/w=="],
 
     "@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.0-beta.40", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.20", "@ai-sdk/provider-utils": "4.0.0-beta.38" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-igMDCVS8i28ZROPrqQbBfzeGNBrd5gLXK67yRan2l8+Fw/yiE6iOY5b+CVPY5EwCmPluZkCCC2RPht6pxcmjRg=="],
 
@@ -1830,6 +1851,8 @@
     "@lssm/lib.graphql-prisma": ["@lssm/lib.graphql-prisma@workspace:packages/libs/graphql-prisma"],
 
     "@lssm/lib.growth": ["@lssm/lib.growth@workspace:packages/libs/growth"],
+
+    "@lssm/lib.knowledge": ["@lssm/lib.knowledge@workspace:packages/libs/knowledge"],
 
     "@lssm/lib.lifecycle": ["@lssm/lib.lifecycle@workspace:packages/libs/lifecycle"],
 
@@ -6000,6 +6023,8 @@
     "@lssm/lib.design-system/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
 
     "@lssm/lib.design-system/tailwindcss": ["tailwindcss@4.1.15", "", {}, "sha512-k2WLnWkYFkdpRv+Oby3EBXIyQC8/s1HOFMBUViwtAh6Z5uAozeUSMQlIsn/c6Q2iJzqG6aJT3wdPaRNj70iYxQ=="],
+
+    "@lssm/lib.support-bot/@lssm/lib.ai-agent": ["@lssm/lib.ai-agent@0.4.1", "", { "dependencies": { "@lssm/lib.contracts": "1.11.1" } }, "sha512-WvC2qAnXCDU2r3WZmU//lu7n88OwN+tEje/qcDxd+gxWlyRx8bCoQZSc47/8yzncEePTwCGSCIVWOK2hMaDvpw=="],
 
     "@lssm/lib.ui-kit/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
 

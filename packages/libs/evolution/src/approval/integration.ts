@@ -26,11 +26,17 @@ export class SpecSuggestionOrchestrator {
   ) {
     await this.options.repository.create(suggestion);
     if (session && this.options.approval) {
-      await this.options.approval.requestApproval(
-        session,
-        approvalReason ?? suggestion.proposal.summary,
-        { suggestionId: suggestion.id }
-      );
+      // AI SDK v6: requestApproval takes a single params object
+      await this.options.approval.requestApproval({
+        sessionId: session.sessionId,
+        agentId: session.agentId,
+        tenantId: session.tenantId,
+        toolName: 'evolution.apply_suggestion',
+        toolCallId: suggestion.id,
+        toolArgs: { suggestionId: suggestion.id },
+        reason: approvalReason ?? suggestion.proposal.summary,
+        payload: { suggestionId: suggestion.id },
+      });
     }
     return suggestion;
   }

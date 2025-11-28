@@ -341,9 +341,9 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
     studioIntegrations: t.field({
       type: [StudioIntegrationType],
       resolve: async (_root, _args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
+        const organization = requireOrganization(ctx);
         return studioDb.studioIntegration.findMany({
-          where: { organizationId },
+          where: { organizationId: organization.id },
           orderBy: { createdAt: 'desc' },
         });
       },
@@ -354,10 +354,10 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         projectId: t.arg.string(),
       },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
+        const organization = requireOrganization(ctx);
         return studioDb.knowledgeSource.findMany({
           where: {
-            organizationId,
+            organizationId: organization.id,
             projectId: args.projectId ?? undefined,
           },
           orderBy: { createdAt: 'desc' },
@@ -370,8 +370,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: QueryKnowledgeInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
-        await ensureOrgHasKnowledge(organizationId);
+        const organization = requireOrganization(ctx);
+        await ensureOrgHasKnowledge(organization.id);
         const answer = await knowledgeModule.queryKnowledge({
           question: args.input.query,
           collection: args.input.collection,
@@ -395,14 +395,14 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: ConnectIntegrationInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
+        const organization = requireOrganization(ctx);
         requireFeatureFlag(
           ctx,
           ContractSpecFeatureFlags.STUDIO_INTEGRATION_HUB,
           'Integration hub is not enabled for this tenant.'
         );
         return integrationModule.connectIntegration({
-          organizationId,
+          organizationId: organization.id,
           provider: args.input.provider as IntegrationProvider,
           credentials: (args.input.credentials ?? {}) as Record<string, string>,
           projectId: args.input.projectId ?? undefined,
@@ -415,8 +415,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       type: 'Boolean',
       args: { id: t.arg.string({ required: true }) },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
-        await ensureIntegrationAccess(args.id, organizationId);
+        const organization = requireOrganization(ctx);
+        await ensureIntegrationAccess(args.id, organization.id);
         await integrationModule.disconnectIntegration(args.id);
         return true;
       },
@@ -425,8 +425,8 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       type: SyncResultType,
       args: { id: t.arg.string({ required: true }) },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
-        await ensureIntegrationAccess(args.id, organizationId);
+        const organization = requireOrganization(ctx);
+        await ensureIntegrationAccess(args.id, organization.id);
         return integrationModule.syncIntegration(args.id);
       },
     }),
@@ -436,7 +436,7 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         input: t.arg({ type: IndexKnowledgeInput, required: true }),
       },
       resolve: async (_root, args, ctx) => {
-        const organizationId = requireOrganizationId(ctx);
+        const organization = requireOrganization(ctx);
         requireFeatureFlag(
           ctx,
           ContractSpecFeatureFlags.STUDIO_KNOWLEDGE_HUB,
@@ -446,7 +446,7 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
           toRawDocument(doc as KnowledgeDocumentInputShape)
         );
         return knowledgeModule.indexSource({
-          organizationId,
+          organizationId: organization.id,
           projectId: args.input.projectId ?? undefined,
           type: args.input.type as KnowledgeSourceType,
           name: args.input.name,
@@ -510,10 +510,9 @@ function requireAuthAndGet(ctx: Parameters<typeof requireAuth>[0]) {
   return ctx.user!;
 }
 
-function requireOrganizationId(ctx: Parameters<typeof requireAuth>[0]): string {
-  const user = requireAuthAndGet(ctx);
-  if (!user.organizationId) {
+function requireOrganization(ctx: Parameters<typeof requireAuth>[0]) {
+  if (!ctx.organization) {
     throw new Error('Organization context is required for this operation.');
   }
-  return user.organizationId;
+  return ctx.organization;
 }

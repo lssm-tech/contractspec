@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import type { CoreMessage } from 'ai';
 import type { AgentMessage, AgentSessionState } from '../types';
 
 export interface AgentMemoryEntry {
@@ -31,6 +32,76 @@ export interface AgentMemoryManager {
     session: AgentSessionState
   ): Promise<AgentMemorySnapshot | undefined>;
   prune(session: AgentSessionState): Promise<void>;
+}
+
+/**
+ * Extract text content from a CoreMessage.
+ * Handles both string content and array content parts.
+ */
+function extractMessageContent(message: CoreMessage): string {
+  const content = message.content;
+
+  // Handle string content directly
+  if (typeof content === 'string') {
+    return content;
+  }
+
+  // Handle array content (parts)
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => {
+        if (typeof part === 'string') return part;
+        if ('text' in part && typeof part.text === 'string') return part.text;
+        return '';
+      })
+      .filter(Boolean)
+      .join('');
+  }
+
+  return '';
+}
+
+/**
+ * Extract text content from an AgentMessage.
+ */
+function extractAgentMessageContent(message: AgentMessage): string {
+  const content = message.content;
+
+  if (typeof content === 'string') {
+    return content;
+  }
+
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => {
+        if (typeof part === 'string') return part;
+        if ('text' in part && typeof part.text === 'string') return part.text;
+        return '';
+      })
+      .filter(Boolean)
+      .join('');
+  }
+
+  return '';
+}
+
+/**
+ * Map CoreMessage role to memory entry type.
+ */
+function roleToEntryType(
+  role: CoreMessage['role']
+): 'user' | 'assistant' | 'tool' | 'system' {
+  switch (role) {
+    case 'assistant':
+      return 'assistant';
+    case 'system':
+      return 'system';
+    case 'tool':
+      return 'tool';
+    case 'user':
+    default:
+      return 'user';
+  }
 }
 
 export abstract class BaseAgentMemoryManager implements AgentMemoryManager {
@@ -70,11 +141,8 @@ export abstract class BaseAgentMemoryManager implements AgentMemoryManager {
         entries: session.messages.map<AgentMemoryEntry>((message) => ({
           id: randomUUID(),
           createdAt: new Date(),
-          type: message.role === 'assistant' ? 'assistant' : 'user',
-          content: message.content
-            .map((part) => ('text' in part ? part.text : ''))
-            .join(''),
-          metadata: message.metadata,
+          type: roleToEntryType(message.role),
+          content: extractMessageContent(message),
         })),
       },
     };
@@ -89,9 +157,7 @@ export function trackMessageInMemory(
   if (!manager) return;
   void manager.append(session, {
     type: message.role,
-    content: message.content
-      .map((part) => ('text' in part ? part.text : ''))
-      .join(''),
+    content: extractAgentMessageContent(message),
     metadata: message.metadata,
   });
 }

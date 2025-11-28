@@ -357,7 +357,7 @@ function requireAuthAndGet(
   ctx: Parameters<typeof requireAuth>[0]
 ): NonNullable<typeof ctx.user> & { organizationId: string } {
   requireAuth(ctx);
-  if (!ctx.user?.organizationId) {
+  if (!ctx.organization) {
     throw new Error('Organization context is required.');
   }
   return ctx.user as NonNullable<typeof ctx.user> & { organizationId: string };

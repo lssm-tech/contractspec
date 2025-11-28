@@ -14,7 +14,6 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Resend } from 'resend';
 import { nextCookies } from 'better-auth/next-js';
-import { phoneNumber } from 'better-auth/plugins';
 import type { GenericOAuthConfig } from 'better-auth/plugins/generic-oauth';
 import { OrganizationType } from '@lssm/lib.database-contractspec-studio/enums';
 // import { telnyxSMS } from './sms';
@@ -65,7 +64,7 @@ export const auth = betterAuth({
     passkey(),
     apiKey(),
     openAPI(),
-    expo() as any,
+    expo(),
     organization({
       teams: {
         enabled: true,

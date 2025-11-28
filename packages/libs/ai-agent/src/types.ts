@@ -1,8 +1,50 @@
-import type {
-  LLMMessage,
-  LLMResponse,
-  LLMToolDefinition,
-} from '@lssm/lib.contracts/integrations/providers/llm';
+import type { CoreMessage, StepResult, LanguageModelUsage, ToolSet } from 'ai';
+
+// ============================================================================
+// Tool Call/Result Types (simplified from AI SDK v6)
+// ============================================================================
+
+/**
+ * Simplified tool call type for ContractSpec usage.
+ * Compatible with AI SDK v6 TypedToolCall.
+ */
+export interface ToolCallInfo {
+  type: 'tool-call';
+  toolCallId: string;
+  toolName: string;
+  args: unknown;
+}
+
+/**
+ * Simplified tool result type for ContractSpec usage.
+ * Compatible with AI SDK v6 TypedToolResult.
+ */
+export interface ToolResultInfo {
+  type: 'tool-result';
+  toolCallId: string;
+  toolName: string;
+  output: unknown;
+}
+
+// ============================================================================
+// Agent Message (CoreMessage with metadata extension)
+// ============================================================================
+
+/**
+ * Extended message type that adds metadata support to CoreMessage.
+ * Used for session memory tracking.
+ */
+export interface AgentMessage {
+  role: 'user' | 'assistant' | 'system' | 'tool';
+  content:
+    | string
+    | Array<{ type: string; text?: string; [key: string]: unknown }>;
+  metadata?: Record<string, string>;
+}
+
+// ============================================================================
+// Agent Status & Events
+// ============================================================================
 
 export type AgentStatus =
   | 'idle'
@@ -15,84 +57,199 @@ export type AgentStatus =
 export type AgentEventName =
   | 'agent.session.created'
   | 'agent.session.updated'
-  | 'agent.iteration.started'
-  | 'agent.iteration.completed'
+  | 'agent.step.started'
+  | 'agent.step.completed'
   | 'agent.tool.called'
   | 'agent.tool.completed'
   | 'agent.tool.failed'
+  | 'agent.tool.approval_requested'
   | 'agent.escalated'
-  | 'agent.approval_requested'
-  | 'agent.approval_resolved'
   | 'agent.completed'
   | 'agent.failed';
 
 export interface AgentEventPayload {
   sessionId: string;
-  agent: string;
+  agentId: string;
   tenantId?: string;
-  iteration?: number;
+  stepIndex?: number;
   toolName?: string;
   metadata?: Record<string, unknown>;
 }
 
-export type AgentMessageMetadata = Record<string, string>;
+// ============================================================================
+// Call Options (AI SDK v6 callOptionsSchema integration)
+// ============================================================================
 
-export interface AgentMessage extends Omit<LLMMessage, 'metadata'> {
-  metadata?: AgentMessageMetadata;
+/**
+ * Runtime context passed to agent calls via AI SDK v6 callOptionsSchema.
+ * Maps to ContractSpec's tenant/actor system.
+ */
+export interface AgentCallOptions {
+  /** Tenant scoping for guardrails and data isolation */
+  tenantId?: string;
+  /** Unique end-user identifier (for personalization) */
+  actorId?: string;
+  /** Session to resume; new session created when omitted */
+  sessionId?: string;
+  /** Arbitrary metadata forwarded to events and tool handlers */
+  metadata?: Record<string, string>;
 }
+
+// ============================================================================
+// Session Management
+// ============================================================================
 
 export interface AgentSessionState {
   sessionId: string;
-  agent: string;
-  version: number;
+  agentId: string;
   tenantId?: string;
+  actorId?: string;
   status: AgentStatus;
-  messages: AgentMessage[];
+  messages: CoreMessage[];
+  steps: StepResult<ToolSet>[];
   createdAt: Date;
   updatedAt: Date;
-  iterations: number;
-  lastConfidence?: number;
-  lastToolName?: string;
   metadata?: Record<string, string>;
 }
 
-export interface AgentRunRequestInput {
-  /** Agent name, e.g. `support.bot`. */
-  agent: string;
-  /** Optional version. Defaults to latest registered version. */
-  version?: number;
-  /** User-provided input or ticket description. */
-  input: string;
-  /** Tenant scoping for guardrails. */
+// ============================================================================
+// Agent Generation Parameters
+// ============================================================================
+
+export interface AgentGenerateParams {
+  /** User prompt or message */
+  prompt: string;
+  /** System prompt override (appended to agent instructions) */
+  systemOverride?: string;
+  /** Runtime context options */
+  options?: AgentCallOptions;
+  /** Maximum number of steps/iterations */
+  maxSteps?: number;
+  /** Abort signal for cancellation */
+  signal?: AbortSignal;
+}
+
+export interface AgentStreamParams extends AgentGenerateParams {
+  /** Called when a step completes */
+  onStepFinish?: (step: StepResult<ToolSet>) => void | Promise<void>;
+}
+
+// ============================================================================
+// Agent Results
+// ============================================================================
+
+export interface AgentGenerateResult<TOutput = string> {
+  /** The final text response */
+  text: string;
+  /** Structured output if configured */
+  output?: TOutput;
+  /** All steps taken during generation */
+  steps: StepResult<ToolSet>[];
+  /** All tool calls made during generation */
+  toolCalls: ToolCallInfo[];
+  /** All tool results */
+  toolResults: ToolResultInfo[];
+  /** Reason generation finished */
+  finishReason:
+    | 'stop'
+    | 'tool-calls'
+    | 'length'
+    | 'content-filter'
+    | 'error'
+    | 'other'
+    | 'unknown';
+  /** Token usage statistics */
+  usage?: LanguageModelUsage;
+  /** Updated session state */
+  session?: AgentSessionState;
+  /** Whether approval is pending for a tool call */
+  pendingApproval?: {
+    toolName: string;
+    toolCallId: string;
+    args: unknown;
+  };
+}
+
+// ============================================================================
+// Tool Types (AI SDK aligned)
+// ============================================================================
+
+/**
+ * Context provided to tool handlers during execution.
+ */
+export interface ToolExecutionContext {
+  agentId: string;
+  sessionId: string;
   tenantId?: string;
-  /** Unique end-user identifier (for personalization). */
   actorId?: string;
-  /** Session to resume; new session created when omitted. */
-  sessionId?: string;
-  /** Arbitrary metadata forwarded to events and tool handlers. */
   metadata?: Record<string, string>;
-  /** Optional additional system instructions appended to the agent spec. */
+  signal?: AbortSignal;
+}
+
+/**
+ * Handler function for a tool.
+ */
+export type ToolHandler<TInput = unknown, TOutput = string> = (
+  input: TInput,
+  context: ToolExecutionContext
+) => Promise<TOutput>;
+
+// ============================================================================
+// Telemetry Types (for Evolution integration)
+// ============================================================================
+
+export interface AgentStepMetrics {
+  agentId: string;
+  stepIndex: number;
+  toolCalls: {
+    toolName: string;
+    durationMs?: number;
+    success: boolean;
+    error?: string;
+  }[];
+  finishReason: string;
+  usage?: LanguageModelUsage;
+  timestamp: Date;
+}
+
+// ============================================================================
+// Event Emitter
+// ============================================================================
+
+export type AgentEventEmitter = (
+  event: AgentEventName,
+  payload: AgentEventPayload
+) => void | Promise<void>;
+
+// ============================================================================
+// Legacy Compatibility Types (for migration)
+// ============================================================================
+
+/** @deprecated Use AgentGenerateParams instead */
+export interface AgentRunRequestInput {
+  agent: string;
+  version?: number;
+  input: string;
+  tenantId?: string;
+  actorId?: string;
+  sessionId?: string;
+  metadata?: Record<string, string>;
   instructionsOverride?: string;
 }
 
+/** @deprecated Use AgentGenerateResult instead */
 export interface AgentRunResult {
   session: AgentSessionState;
-  response: LLMResponse;
   outputText: string;
   confidence: number;
   iterations: number;
   requiresEscalation: boolean;
   approvalRequestId?: string;
-  finishReason:
-    | 'stop'
-    | 'tool_call'
-    | 'timeout'
-    | 'max_iterations'
-    | 'length'
-    | 'content_filter';
+  finishReason: string;
   toolInvocations: AgentToolInvocation[];
 }
 
+/** @deprecated Use ToolCallInfo instead */
 export interface AgentToolInvocation {
   name: string;
   arguments: unknown;
@@ -103,6 +260,7 @@ export interface AgentToolInvocation {
   error?: string;
 }
 
+/** @deprecated Use ToolExecutionContext instead */
 export interface AgentToolContext {
   session: AgentSessionState;
   tenantId?: string;
@@ -111,21 +269,9 @@ export interface AgentToolContext {
   emit: (event: AgentEventName, payload: AgentEventPayload) => void;
 }
 
+/** @deprecated Use ToolHandler instead */
 export interface AgentToolResult {
   content: string;
   citations?: { label: string; url?: string; snippet?: string }[];
   metadata?: Record<string, string>;
 }
-
-export interface AgentToolDefinitionWithHandler {
-  definition: LLMToolDefinition;
-  timeoutMs?: number;
-  requiresApproval?: boolean;
-  allowedAgents?: string[];
-  handler: (input: unknown, ctx: AgentToolContext) => Promise<AgentToolResult>;
-}
-
-export type AgentRunnerEventEmitter = (
-  event: AgentEventName,
-  payload: AgentEventPayload
-) => void | Promise<void>;

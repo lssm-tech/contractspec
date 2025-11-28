@@ -9,8 +9,9 @@ import { auth } from '../../application/services/auth';
 //   [key: string]: unknown;
 // }
 
-export type AuthUser = typeof auth.$Infer.User;
-export type AuthSession = typeof auth.$Infer.Session;
+export type BetterAuthSession = typeof auth.$Infer.Session;
+export type AuthUser = BetterAuthSession['user'];
+export type AuthSession = BetterAuthSession['session'];
 export type AuthOrganization = typeof auth.$Infer.Organization;
 
 // export interface AuthSession {
@@ -20,12 +21,12 @@ export type AuthOrganization = typeof auth.$Infer.Organization;
 // }
 
 export interface Context {
-  user?: AuthUser;
-  session?: AuthSession;
-  organization?: AuthOrganization;
+  user: null | AuthUser;
+  session: null | AuthSession;
+  organization: null | AuthOrganization;
   logger: Logger;
   headers: Headers;
-  featureFlags: Record<string, boolean>;
+  featureFlags: undefined | Record<string, boolean>;
 }
 
 export function requireAuth(
