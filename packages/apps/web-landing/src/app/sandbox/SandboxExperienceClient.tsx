@@ -37,6 +37,30 @@ const RecipesExperience = dynamic(
   { ssr: false }
 );
 
+const SaasDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.SaasDashboard
+    ),
+  { ssr: false }
+);
+
+const CrmDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.CrmDashboard
+    ),
+  { ssr: false }
+);
+
+const AgentDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.AgentDashboard
+    ),
+  { ssr: false }
+);
+
 const SpecEditor = dynamic(
   () =>
     import(
@@ -55,8 +79,7 @@ const StudioCanvas = dynamic(
 
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
-// Note: New templates (saas-boilerplate, crm-pipeline, agent-console) don't have sandbox components yet
-type SandboxTemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+type SandboxTemplateId = TemplateId;
 type Mode = 'playground' | 'specs' | 'builder';
 
 const TEMPLATE_LIBRARY: Record<
@@ -78,6 +101,21 @@ const TEMPLATE_LIBRARY: Record<
     title: 'Ceremony recipes',
     description: 'Flip between English and French without reloading.',
     component: <RecipesExperience />,
+  },
+  'saas-boilerplate': {
+    title: 'SaaS Boilerplate',
+    description: 'Multi-tenant orgs, projects, settings, and billing.',
+    component: <SaasDashboard />,
+  },
+  'crm-pipeline': {
+    title: 'CRM Pipeline',
+    description: 'Contacts, deals, pipelines, and task management.',
+    component: <CrmDashboard />,
+  },
+  'agent-console': {
+    title: 'AI Agent Console',
+    description: 'Tools, agents, runs, and execution metrics.',
+    component: <AgentDashboard />,
   },
 };
 
@@ -129,6 +167,61 @@ const SPEC_SNIPPETS: Record<TemplateId, string> = {
     input: { locale: "enum<'EN'|'FR'>", slug: "string" },
     output: { title: "string", content: "markdown" }
   }
+});`,
+  'saas-boilerplate': `contractSpec("saas.project.create.v1", {
+  goal: "Create a new project in an organization",
+  transport: { gql: { mutation: "createProject" } },
+  io: {
+    input: { 
+      orgId: "string",
+      name: "string",
+      description: "string?"
+    },
+    output: { 
+      project: {
+        id: "string",
+        name: "string",
+        createdAt: "ISO8601"
+      }
+    }
+  },
+  policy: { auth: "user", rbac: "org:member" }
+});`,
+  'crm-pipeline': `contractSpec("crm.deal.updateStage.v1", {
+  goal: "Move a deal to a different pipeline stage",
+  transport: { gql: { mutation: "updateDealStage" } },
+  io: {
+    input: { 
+      dealId: "string",
+      stageId: "string",
+      notes: "string?"
+    },
+    output: { 
+      deal: {
+        id: "string",
+        stage: "string",
+        probability: "number"
+      }
+    }
+  },
+  events: ["deal.stage.changed"]
+});`,
+  'agent-console': `contractSpec("agent.run.execute.v1", {
+  goal: "Execute an agent run with specified tools",
+  transport: { gql: { mutation: "executeAgentRun" } },
+  io: {
+    input: { 
+      agentId: "string",
+      input: "string",
+      tools: "string[]?"
+    },
+    output: { 
+      runId: "string",
+      status: "enum<'running'|'completed'|'failed'>",
+      steps: "number"
+    }
+  },
+  events: ["run.started", "run.completed", "run.failed"]
 });`,
 };
 

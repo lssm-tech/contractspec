@@ -40,15 +40,36 @@ const RecipesExperience = dynamic(
   { ssr: false }
 );
 
-import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+const SaasDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.SaasDashboard
+    ),
+  { ssr: false }
+);
 
-// Note: New templates (saas-boilerplate, crm-pipeline, agent-console) don't have UI components yet
-type LegacyTemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+const CrmDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.CrmDashboard
+    ),
+  { ssr: false }
+);
+
+const AgentDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.AgentDashboard
+    ),
+  { ssr: false }
+);
+
+import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
 const templates = [
   {
     id: 'starter-kit',
-    templateId: 'todos-app' as LegacyTemplateId,
+    templateId: 'todos-app' as TemplateId,
     title: 'Starter Kit',
     description:
       'A minimal template to get you running in minutes. Perfect for exploring the engine.',
@@ -58,9 +79,51 @@ const templates = [
     previewUrl: '/sandbox?template=starter-kit',
     docsUrl: '/docs/getting-started/hello-world',
   },
+  // ============================================
+  // Phase 1 Examples (using cross-cutting modules)
+  // ============================================
+  {
+    id: 'saas-boilerplate',
+    templateId: 'saas-boilerplate' as TemplateId,
+    title: 'SaaS Boilerplate',
+    description:
+      'Complete SaaS foundation with multi-tenant orgs, projects, settings, and billing usage.',
+    tags: ['SaaS', 'Business'],
+    capabilities: 'Multi-tenancy, RBAC, Projects, Billing',
+    isNew: true,
+    previewUrl: '/sandbox?template=saas-boilerplate',
+    docsUrl: '/docs/templates/saas-boilerplate',
+  },
+  {
+    id: 'crm-pipeline',
+    templateId: 'crm-pipeline' as TemplateId,
+    title: 'CRM Pipeline',
+    description:
+      'Sales CRM with contacts, companies, deals, pipeline stages, and task management.',
+    tags: ['CRM', 'Business'],
+    capabilities: 'Contacts, Deals, Pipelines, Tasks',
+    isNew: true,
+    previewUrl: '/sandbox?template=crm-pipeline',
+    docsUrl: '/docs/templates/crm-pipeline',
+  },
+  {
+    id: 'agent-console',
+    templateId: 'agent-console' as TemplateId,
+    title: 'AI Agent Console',
+    description:
+      'AI agent orchestration platform with tools, agents, runs, and execution logs.',
+    tags: ['AI', 'Ops'],
+    capabilities: 'Tools, Agents, Runs, Metrics',
+    isNew: true,
+    previewUrl: '/sandbox?template=agent-console',
+    docsUrl: '/docs/templates/agent-console',
+  },
+  // ============================================
+  // Classic Templates
+  // ============================================
   {
     id: 'plumber-ops',
-    templateId: 'messaging-app' as LegacyTemplateId,
+    templateId: 'messaging-app' as TemplateId,
     title: 'Plumber Ops',
     description:
       'Complete workflow: Quotes → Deposit → Job → Invoice → Payment. Policy-enforced approvals.',
@@ -71,7 +134,7 @@ const templates = [
   },
   {
     id: 'coliving-management',
-    templateId: 'recipe-app-i18n' as LegacyTemplateId,
+    templateId: 'recipe-app-i18n' as TemplateId,
     title: 'Coliving Management',
     description:
       'Coliving management: Onboarding, chores, shared wallet. Multi-party approvals built-in.',
@@ -82,7 +145,7 @@ const templates = [
   },
   {
     id: 'chores-allowance',
-    templateId: 'todos-app' as LegacyTemplateId,
+    templateId: 'todos-app' as TemplateId,
     title: 'Chores & Allowance',
     description:
       'Family task management with approval workflows. Teach financial accountability safely.',
@@ -93,7 +156,7 @@ const templates = [
   },
   {
     id: 'service-dispatch',
-    templateId: 'messaging-app' as LegacyTemplateId,
+    templateId: 'messaging-app' as TemplateId,
     title: 'Service Dispatch',
     description:
       'Field service scheduling, routing, and invoicing. Real-time coordination with policy gates.',
@@ -104,7 +167,7 @@ const templates = [
   },
   {
     id: 'content-review',
-    templateId: 'todos-app' as LegacyTemplateId,
+    templateId: 'todos-app' as TemplateId,
     title: 'Content Review',
     description:
       'Multi-stage approval workflow for content. Audit trail for every decision.',
@@ -117,6 +180,10 @@ const templates = [
 
 const allTags = [
   'Getting Started',
+  'SaaS',
+  'Business',
+  'CRM',
+  'AI',
   'Trades',
   'Coliving',
   'Family',
@@ -218,8 +285,13 @@ export default function TemplatesClientPage() {
                 {filtered.map((template, i) => (
                   <div
                     key={i}
-                    className="card-subtle flex flex-col space-y-4 p-6 transition-colors hover:border-violet-500/50"
+                    className="card-subtle relative flex flex-col space-y-4 p-6 transition-colors hover:border-violet-500/50"
                   >
+                    {'isNew' in template && template.isNew && (
+                      <span className="absolute top-3 right-3 rounded-full bg-green-500 px-2 py-0.5 text-xs font-semibold text-white">
+                        New
+                      </span>
+                    )}
                     <div>
                       <h3 className="text-lg font-bold">{template.title}</h3>
                       <p className="text-muted-foreground mt-1 text-sm">
@@ -391,6 +463,39 @@ function TemplatePreviewModal({
             showSaveAction={false}
           >
             <RecipesExperience />
+          </TemplateShell>
+        );
+      case 'saas-boilerplate':
+        return (
+          <TemplateShell
+            templateId="saas-boilerplate"
+            title="SaaS Boilerplate"
+            description="Multi-tenant organizations, projects, settings, and billing usage tracking."
+            showSaveAction={false}
+          >
+            <SaasDashboard />
+          </TemplateShell>
+        );
+      case 'crm-pipeline':
+        return (
+          <TemplateShell
+            templateId="crm-pipeline"
+            title="CRM Pipeline"
+            description="Sales CRM with contacts, companies, deals, and pipeline stages."
+            showSaveAction={false}
+          >
+            <CrmDashboard />
+          </TemplateShell>
+        );
+      case 'agent-console':
+        return (
+          <TemplateShell
+            templateId="agent-console"
+            title="AI Agent Console"
+            description="AI agent orchestration with tools, agents, runs, and execution logs."
+            showSaveAction={false}
+          >
+            <AgentDashboard />
           </TemplateShell>
         );
       default:
