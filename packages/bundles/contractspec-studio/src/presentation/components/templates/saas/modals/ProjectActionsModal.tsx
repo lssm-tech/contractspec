@@ -6,9 +6,23 @@
  * Wires to UpdateProjectContract, DeleteProjectContract
  * via useProjectMutations hook.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Input } from '@lssm/lib.design-system';
-import type { Project, UpdateProjectInput } from '@lssm/example.saas-boilerplate/handlers';
+
+// Local type definitions for modal props
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  status: 'DRAFT' | 'ACTIVE' | 'ARCHIVED';
+  tier: 'FREE' | 'PRO' | 'ENTERPRISE';
+}
+
+export interface UpdateProjectInput {
+  id: string;
+  name?: string;
+  description?: string;
+}
 
 type ActionMode = 'menu' | 'edit' | 'archive' | 'delete';
 
@@ -36,7 +50,6 @@ export function ProjectActionsModal({
   const [mode, setMode] = useState<ActionMode>('menu');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [isPublic, setIsPublic] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const resetForm = () => {
@@ -45,7 +58,6 @@ export function ProjectActionsModal({
     if (project) {
       setName(project.name);
       setDescription(project.description ?? '');
-      setIsPublic(project.isPublic);
     }
   };
 
@@ -55,13 +67,12 @@ export function ProjectActionsModal({
   };
 
   // Initialize form when project changes
-  useState(() => {
+  useEffect(() => {
     if (project) {
       setName(project.name);
       setDescription(project.description ?? '');
-      setIsPublic(project.isPublic);
     }
-  });
+  }, [project]);
 
   const handleEdit = async () => {
     if (!project) return;
@@ -74,10 +85,9 @@ export function ProjectActionsModal({
 
     try {
       await onUpdate({
-        projectId: project.id,
+        id: project.id,
         name: name.trim(),
         description: description.trim() || undefined,
-        isPublic,
       });
       handleClose();
     } catch (err) {
@@ -93,7 +103,9 @@ export function ProjectActionsModal({
       await onArchive(project.id);
       handleClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to archive project');
+      setError(
+        err instanceof Error ? err.message : 'Failed to archive project'
+      );
     }
   };
 
@@ -105,7 +117,9 @@ export function ProjectActionsModal({
       await onActivate(project.id);
       handleClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to activate project');
+      setError(
+        err instanceof Error ? err.message : 'Failed to activate project'
+      );
     }
   };
 
@@ -137,8 +151,7 @@ export function ProjectActionsModal({
         <div className="border-border mb-4 border-b pb-4">
           <h2 className="text-xl font-semibold">{project.name}</h2>
           <p className="text-muted-foreground text-sm">
-            {project.slug && <>/{project.slug} · </>}
-            {project.status}
+            {project.tier} · {project.status}
           </p>
         </div>
 
@@ -227,20 +240,6 @@ export function ProjectActionsModal({
               />
             </div>
 
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                id="edit-public"
-                checked={isPublic}
-                onChange={(e) => setIsPublic(e.target.checked)}
-                disabled={isLoading}
-                className="h-4 w-4 rounded border-gray-300"
-              />
-              <label htmlFor="edit-public" className="text-sm">
-                Make this project public
-              </label>
-            </div>
-
             {error && (
               <div className="bg-destructive/10 text-destructive rounded-md p-3 text-sm">
                 {error}
@@ -267,7 +266,10 @@ export function ProjectActionsModal({
           <div className="space-y-4">
             <p className="text-muted-foreground">
               Are you sure you want to archive{' '}
-              <span className="text-foreground font-medium">{project.name}</span>?
+              <span className="text-foreground font-medium">
+                {project.name}
+              </span>
+              ?
             </p>
             <p className="text-muted-foreground text-sm">
               Archived projects can be restored later.
@@ -299,7 +301,10 @@ export function ProjectActionsModal({
           <div className="space-y-4">
             <p className="text-muted-foreground">
               Are you sure you want to delete{' '}
-              <span className="text-foreground font-medium">{project.name}</span>?
+              <span className="text-foreground font-medium">
+                {project.name}
+              </span>
+              ?
             </p>
             <p className="text-destructive text-sm">
               This action cannot be undone.
@@ -333,4 +338,3 @@ export function ProjectActionsModal({
     </div>
   );
 }
-

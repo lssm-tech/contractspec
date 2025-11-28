@@ -126,7 +126,7 @@ export function ToolRegistryView({
                 }
                 footer={
                   <code className="text-muted-foreground text-xs">
-                    {tool.slug}
+                    {tool.name}
                   </code>
                 }
                 onClick={onToolClick ? () => onToolClick(tool.id) : undefined}

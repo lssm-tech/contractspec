@@ -7,7 +7,13 @@
  */
 import { useState } from 'react';
 import { Button, Input } from '@lssm/lib.design-system';
-import type { CreateProjectInput } from '@lssm/example.saas-boilerplate/handlers';
+
+// Local type definition for modal props
+export interface CreateProjectInput {
+  name: string;
+  description?: string;
+  tier: 'FREE' | 'PRO' | 'ENTERPRISE';
+}
 
 interface CreateProjectModalProps {
   isOpen: boolean;
@@ -15,6 +21,12 @@ interface CreateProjectModalProps {
   onSubmit: (input: CreateProjectInput) => Promise<void>;
   isLoading?: boolean;
 }
+
+const TIERS: { value: CreateProjectInput['tier']; label: string }[] = [
+  { value: 'FREE', label: 'Free' },
+  { value: 'PRO', label: 'Pro' },
+  { value: 'ENTERPRISE', label: 'Enterprise' },
+];
 
 export function CreateProjectModal({
   isOpen,
@@ -24,9 +36,7 @@ export function CreateProjectModal({
 }: CreateProjectModalProps) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [slug, setSlug] = useState('');
-  const [isPublic, setIsPublic] = useState(false);
-  const [tagsInput, setTagsInput] = useState('');
+  const [tier, setTier] = useState<CreateProjectInput['tier']>('FREE');
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,40 +53,16 @@ export function CreateProjectModal({
       await onSubmit({
         name: name.trim(),
         description: description.trim() || undefined,
-        slug: slug.trim() || undefined,
-        isPublic,
-        tags: tagsInput
-          .split(',')
-          .map((t) => t.trim())
-          .filter((t) => t.length > 0),
+        tier,
       });
 
       // Reset form
       setName('');
       setDescription('');
-      setSlug('');
-      setIsPublic(false);
-      setTagsInput('');
+      setTier('FREE');
       onClose();
     } catch (err) {
-      if (err instanceof Error && err.message === 'SLUG_EXISTS') {
-        setError('A project with this slug already exists');
-      } else {
-        setError(err instanceof Error ? err.message : 'Failed to create project');
-      }
-    }
-  };
-
-  // Auto-generate slug from name
-  const handleNameChange = (value: string) => {
-    setName(value);
-    if (!slug) {
-      // Only auto-generate if user hasn't customized the slug
-      const autoSlug = value
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-');
-      setSlug(autoSlug);
+      setError(err instanceof Error ? err.message : 'Failed to create project');
     }
   };
 
@@ -106,30 +92,10 @@ export function CreateProjectModal({
             <Input
               id="project-name"
               value={name}
-              onChange={(e) => handleNameChange(e)}
+              onChange={(e) => setName(e)}
               placeholder="e.g., My Awesome Project"
               disabled={isLoading}
             />
-          </div>
-
-          {/* Project Slug */}
-          <div>
-            <label
-              htmlFor="project-slug"
-              className="text-muted-foreground mb-1 block text-sm font-medium"
-            >
-              URL Slug
-            </label>
-            <Input
-              id="project-slug"
-              value={slug}
-              onChange={(e) => setSlug(e)}
-              placeholder="my-awesome-project"
-              disabled={isLoading}
-            />
-            <p className="text-muted-foreground mt-1 text-xs">
-              Used in project URLs. Leave empty to auto-generate.
-            </p>
           </div>
 
           {/* Description */}
@@ -151,39 +117,29 @@ export function CreateProjectModal({
             />
           </div>
 
-          {/* Tags */}
+          {/* Tier */}
           <div>
             <label
-              htmlFor="project-tags"
+              htmlFor="project-tier"
               className="text-muted-foreground mb-1 block text-sm font-medium"
             >
-              Tags
+              Tier
             </label>
-            <Input
-              id="project-tags"
-              value={tagsInput}
-              onChange={(e) => setTagsInput(e)}
-              placeholder="frontend, react, design-system"
+            <select
+              id="project-tier"
+              value={tier}
+              onChange={(e) =>
+                setTier(e.target.value as CreateProjectInput['tier'])
+              }
               disabled={isLoading}
-            />
-            <p className="text-muted-foreground mt-1 text-xs">
-              Comma-separated list of tags.
-            </p>
-          </div>
-
-          {/* Public Toggle */}
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              id="project-public"
-              checked={isPublic}
-              onChange={(e) => setIsPublic(e.target.checked)}
-              disabled={isLoading}
-              className="h-4 w-4 rounded border-gray-300"
-            />
-            <label htmlFor="project-public" className="text-sm">
-              Make this project public
-            </label>
+              className="border-input bg-background focus:ring-ring h-10 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none disabled:opacity-50"
+            >
+              {TIERS.map((t) => (
+                <option key={t.value} value={t.value}>
+                  {t.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Error Message */}
@@ -212,4 +168,3 @@ export function CreateProjectModal({
     </div>
   );
 }
-

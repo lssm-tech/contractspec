@@ -8,12 +8,33 @@
  */
 import { useState } from 'react';
 import { Button, Input } from '@lssm/lib.design-system';
-import type {
-  Deal,
-  WinDealInput,
-  LoseDealInput,
-  MoveDealInput,
-} from '@lssm/example.crm-pipeline/handlers';
+
+// Local type definitions for modal props
+export interface Deal {
+  id: string;
+  name: string;
+  value: number;
+  currency: string;
+  stageId: string;
+  status: 'OPEN' | 'WON' | 'LOST' | 'STALE';
+}
+
+export interface WinDealInput {
+  dealId: string;
+  wonSource?: string;
+  notes?: string;
+}
+
+export interface LoseDealInput {
+  dealId: string;
+  lostReason: string;
+  notes?: string;
+}
+
+export interface MoveDealInput {
+  dealId: string;
+  stageId: string;
+}
 
 type ActionMode = 'menu' | 'win' | 'lose' | 'move';
 

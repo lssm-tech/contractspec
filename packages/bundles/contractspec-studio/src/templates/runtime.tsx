@@ -13,7 +13,15 @@ import {
 } from '@apollo/client';
 import type { TransformEngine } from '@lssm/lib.contracts';
 
-import { LocalRuntimeServices } from '@lssm/lib.runtime-local';
+import {
+  LocalRuntimeServices,
+  createCrmHandlers,
+  createSaasHandlers,
+  createAgentHandlers,
+  type CrmHandlers,
+  type SaasHandlers,
+  type AgentHandlers,
+} from '@lssm/lib.runtime-local';
 
 import { TemplateInstaller } from './installer';
 import {
@@ -25,6 +33,15 @@ import { getTemplateEngine } from './engine';
 
 export type { TemplateId };
 
+/**
+ * Template-specific handlers created from the runtime database
+ */
+export interface TemplateHandlers {
+  crm: CrmHandlers;
+  saas: SaasHandlers;
+  agent: AgentHandlers;
+}
+
 export interface TemplateRuntimeContextValue {
   template: TemplateDefinition;
   runtime: LocalRuntimeServices;
@@ -35,6 +52,8 @@ export interface TemplateRuntimeContextValue {
   projectId: string;
   /** TransformEngine for rendering presentations */
   engine: TransformEngine;
+  /** Database-backed handlers for template operations */
+  handlers: TemplateHandlers;
 }
 
 const TemplateRuntimeContext =
@@ -74,6 +93,13 @@ export function TemplateRuntimeProvider({
       // Get the shared TransformEngine
       const engine = getTemplateEngine();
 
+      // Create database-backed handlers
+      const handlers: TemplateHandlers = {
+        crm: createCrmHandlers(runtime.db),
+        saas: createSaasHandlers(runtime.db),
+        agent: createAgentHandlers(runtime.db),
+      };
+
       setValue({
         template,
         runtime,
@@ -83,6 +109,7 @@ export function TemplateRuntimeProvider({
         templateId,
         projectId: resolvedProjectId,
         engine,
+        handlers,
       });
     };
 
@@ -139,6 +166,38 @@ export function useTemplateRuntime(): TemplateRuntimeContextValue {
 export function useTemplateEngine(): TransformEngine {
   const context = useTemplateRuntime();
   return context.engine;
+}
+
+/**
+ * Hook to access the database-backed template handlers
+ */
+export function useTemplateHandlers(): TemplateHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers;
+}
+
+/**
+ * Hook to access CRM-specific handlers
+ */
+export function useCrmHandlers(): CrmHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.crm;
+}
+
+/**
+ * Hook to access SaaS-specific handlers
+ */
+export function useSaasHandlers(): SaasHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.saas;
+}
+
+/**
+ * Hook to access Agent Console-specific handlers
+ */
+export function useAgentHandlers(): AgentHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.agent;
 }
 
 export type TemplateComponentRegistration = Partial<{

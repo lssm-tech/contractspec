@@ -132,6 +132,211 @@ const DEFAULT_MIGRATIONS: string[] = [
     ordering INTEGER DEFAULT 0
   );
 `,
+  // ============ CRM Pipeline Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS crm_pipeline (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS crm_stage (
+    id TEXT PRIMARY KEY,
+    pipelineId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    position INTEGER NOT NULL,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (pipelineId) REFERENCES crm_pipeline(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS crm_deal (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    pipelineId TEXT NOT NULL,
+    stageId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    value REAL NOT NULL DEFAULT 0,
+    currency TEXT DEFAULT 'USD',
+    status TEXT DEFAULT 'OPEN',
+    contactId TEXT,
+    companyId TEXT,
+    ownerId TEXT NOT NULL,
+    expectedCloseDate TEXT,
+    wonSource TEXT,
+    lostReason TEXT,
+    notes TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (pipelineId) REFERENCES crm_pipeline(id),
+    FOREIGN KEY (stageId) REFERENCES crm_stage(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS crm_company (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    domain TEXT,
+    industry TEXT,
+    size TEXT,
+    website TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS crm_contact (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    companyId TEXT,
+    firstName TEXT NOT NULL,
+    lastName TEXT,
+    email TEXT,
+    phone TEXT,
+    title TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (companyId) REFERENCES crm_company(id)
+  );
+`,
+  // ============ SaaS Boilerplate Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS saas_project (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    status TEXT DEFAULT 'DRAFT',
+    tier TEXT DEFAULT 'FREE',
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS saas_subscription (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    plan TEXT NOT NULL DEFAULT 'FREE',
+    status TEXT DEFAULT 'ACTIVE',
+    billingCycle TEXT DEFAULT 'MONTHLY',
+    currentPeriodStart TEXT,
+    currentPeriodEnd TEXT,
+    cancelAtPeriodEnd INTEGER DEFAULT 0,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS saas_usage (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    metricName TEXT NOT NULL,
+    value REAL NOT NULL DEFAULT 0,
+    periodStart TEXT NOT NULL,
+    periodEnd TEXT NOT NULL,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  // ============ Agent Console Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS agent_tool (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    version TEXT DEFAULT '1.0.0',
+    category TEXT DEFAULT 'UTILITY',
+    status TEXT DEFAULT 'ACTIVE',
+    inputSchema TEXT,
+    outputSchema TEXT,
+    endpoint TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS agent_definition (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    modelProvider TEXT DEFAULT 'openai',
+    modelName TEXT DEFAULT 'gpt-4',
+    systemPrompt TEXT,
+    temperature REAL DEFAULT 0.7,
+    maxTokens INTEGER DEFAULT 4096,
+    status TEXT DEFAULT 'DRAFT',
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS agent_tool_assignment (
+    id TEXT PRIMARY KEY,
+    agentId TEXT NOT NULL,
+    toolId TEXT NOT NULL,
+    assignedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agentId) REFERENCES agent_definition(id),
+    FOREIGN KEY (toolId) REFERENCES agent_tool(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS agent_run (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    agentId TEXT NOT NULL,
+    status TEXT DEFAULT 'QUEUED',
+    input TEXT,
+    output TEXT,
+    totalTokens INTEGER DEFAULT 0,
+    promptTokens INTEGER DEFAULT 0,
+    completionTokens INTEGER DEFAULT 0,
+    estimatedCostUsd REAL DEFAULT 0,
+    durationMs INTEGER,
+    errorMessage TEXT,
+    queuedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    startedAt TEXT,
+    completedAt TEXT,
+    FOREIGN KEY (agentId) REFERENCES agent_definition(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS agent_run_step (
+    id TEXT PRIMARY KEY,
+    runId TEXT NOT NULL,
+    stepNumber INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    toolId TEXT,
+    toolInput TEXT,
+    toolOutput TEXT,
+    reasoning TEXT,
+    tokensUsed INTEGER DEFAULT 0,
+    durationMs INTEGER,
+    status TEXT DEFAULT 'PENDING',
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (runId) REFERENCES agent_run(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS agent_run_log (
+    id TEXT PRIMARY KEY,
+    runId TEXT NOT NULL,
+    level TEXT DEFAULT 'INFO',
+    message TEXT NOT NULL,
+    metadata TEXT,
+    timestamp TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (runId) REFERENCES agent_run(id)
+  );
+`,
 ];
 
 export class LocalDatabase {

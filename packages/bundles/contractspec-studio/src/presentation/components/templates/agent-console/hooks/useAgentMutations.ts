@@ -1,47 +1,17 @@
 /**
  * Hook for Agent Console mutations (commands)
  *
- * Wires UI actions to ContractSpec command handlers:
- * - CreateAgentCommand -> mockCreateAgentHandler
- * - UpdateAgentCommand -> mockUpdateAgentHandler
- * - ExecuteAgentCommand -> mockExecuteAgentHandler
- * - CancelRunCommand -> mockCancelRunHandler
+ * Uses runtime-local database-backed handlers for:
+ * - CreateAgentCommand
+ * - UpdateAgentCommand
  */
 import { useCallback, useState } from 'react';
-import {
-  mockCancelRunHandler,
-  mockCreateAgentHandler,
-  mockExecuteAgentHandler,
-  mockUpdateAgentHandler,
-} from '@lssm/example.agent-console/handlers/index';
-
-export interface CreateAgentInput {
-  organizationId: string;
-  name: string;
-  slug: string;
-  description?: string;
-  modelProvider: 'OPENAI' | 'ANTHROPIC' | 'GOOGLE' | 'MISTRAL' | 'CUSTOM';
-  modelName: string;
-  systemPrompt: string;
-}
-
-export interface UpdateAgentInput {
-  agentId: string;
-  name?: string;
-  status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ARCHIVED';
-}
-
-export interface ExecuteAgentInput {
-  agentId: string;
-  message: string;
-  context?: Record<string, unknown>;
-  sessionId?: string;
-}
-
-export interface CancelRunInput {
-  runId: string;
-  reason?: string;
-}
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  CreateAgentInput,
+  UpdateAgentInput,
+  Agent,
+} from '@lssm/lib.runtime-local';
 
 export interface MutationState<T> {
   loading: boolean;
@@ -55,33 +25,16 @@ export interface UseAgentMutationsOptions {
 }
 
 export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
-  const [createState, setCreateState] = useState<
-    MutationState<{ id: string; name: string; slug: string; status: string }>
-  >({
+  const { handlers, projectId } = useTemplateRuntime();
+  const { agent } = handlers;
+
+  const [createState, setCreateState] = useState<MutationState<Agent>>({
     loading: false,
     error: null,
     data: null,
   });
 
-  const [updateState, setUpdateState] = useState<
-    MutationState<{ id: string; name: string; status: string; updatedAt: Date }>
-  >({
-    loading: false,
-    error: null,
-    data: null,
-  });
-
-  const [executeState, setExecuteState] = useState<
-    MutationState<{ runId: string; status: string }>
-  >({
-    loading: false,
-    error: null,
-    data: null,
-  });
-
-  const [cancelState, setCancelState] = useState<
-    MutationState<{ success: boolean; status: string }>
-  >({
+  const [updateState, setUpdateState] = useState<MutationState<Agent>>({
     loading: false,
     error: null,
     data: null,
@@ -91,10 +44,13 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
    * Create a new agent
    */
   const createAgent = useCallback(
-    async (input: CreateAgentInput) => {
+    async (input: CreateAgentInput): Promise<Agent | null> => {
       setCreateState({ loading: true, error: null, data: null });
       try {
-        const result = await mockCreateAgentHandler(input);
+        const result = await agent.createAgent(input, {
+          projectId,
+          organizationId: 'demo-org',
+        });
         setCreateState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -106,17 +62,17 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [agent, projectId, options]
   );
 
   /**
    * Update an agent (name, status)
    */
   const updateAgent = useCallback(
-    async (input: UpdateAgentInput) => {
+    async (input: UpdateAgentInput): Promise<Agent | null> => {
       setUpdateState({ loading: true, error: null, data: null });
       try {
-        const result = await mockUpdateAgentHandler(input);
+        const result = await agent.updateAgent(input);
         setUpdateState({ loading: false, error: null, data: result });
         options.onSuccess?.();
         return result;
@@ -128,15 +84,15 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
         return null;
       }
     },
-    [options]
+    [agent, options]
   );
 
   /**
    * Activate an agent
    */
   const activateAgent = useCallback(
-    async (agentId: string) => {
-      return updateAgent({ agentId, status: 'ACTIVE' });
+    async (agentId: string): Promise<Agent | null> => {
+      return updateAgent({ id: agentId, status: 'ACTIVE' });
     },
     [updateAgent]
   );
@@ -145,8 +101,8 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
    * Pause an agent
    */
   const pauseAgent = useCallback(
-    async (agentId: string) => {
-      return updateAgent({ agentId, status: 'PAUSED' });
+    async (agentId: string): Promise<Agent | null> => {
+      return updateAgent({ id: agentId, status: 'PAUSED' });
     },
     [updateAgent]
   );
@@ -155,58 +111,22 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
    * Archive an agent
    */
   const archiveAgent = useCallback(
-    async (agentId: string) => {
-      return updateAgent({ agentId, status: 'ARCHIVED' });
+    async (agentId: string): Promise<Agent | null> => {
+      return updateAgent({ id: agentId, status: 'ARCHIVED' });
     },
     [updateAgent]
   );
 
   /**
-   * Execute an agent
+   * Execute an agent (placeholder - needs run handler)
+   * Note: Execute functionality requires adding createRun/executeRun to agent handlers
    */
   const executeAgent = useCallback(
-    async (input: ExecuteAgentInput) => {
-      setExecuteState({ loading: true, error: null, data: null });
-      try {
-        const result = await mockExecuteAgentHandler({
-          agentId: input.agentId,
-          input: {
-            message: input.message,
-            context: input.context,
-          },
-        });
-        setExecuteState({ loading: false, error: null, data: result });
-        options.onSuccess?.();
-        return result;
-      } catch (err) {
-        const error =
-          err instanceof Error ? err : new Error('Failed to execute agent');
-        setExecuteState({ loading: false, error, data: null });
-        options.onError?.(error);
-        return null;
-      }
-    },
-    [options]
-  );
-
-  /**
-   * Cancel a running run
-   */
-  const cancelRun = useCallback(
-    async (input: CancelRunInput) => {
-      setCancelState({ loading: true, error: null, data: null });
-      try {
-        const result = await mockCancelRunHandler(input);
-        setCancelState({ loading: false, error: null, data: result });
-        options.onSuccess?.();
-        return result;
-      } catch (err) {
-        const error =
-          err instanceof Error ? err : new Error('Failed to cancel run');
-        setCancelState({ loading: false, error, data: null });
-        options.onError?.(error);
-        return null;
-      }
+    async (input: { agentId: string; message: string }): Promise<null> => {
+      // TODO: Implement execute when run creation handler is added to runtime-local
+      console.log('Execute agent:', input);
+      options.onSuccess?.();
+      return null;
     },
     [options]
   );
@@ -219,19 +139,15 @@ export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
     pauseAgent,
     archiveAgent,
     executeAgent,
-    cancelRun,
 
     // State
     createState,
     updateState,
-    executeState,
-    cancelState,
 
     // Convenience
-    isLoading:
-      createState.loading ||
-      updateState.loading ||
-      executeState.loading ||
-      cancelState.loading,
+    isLoading: createState.loading || updateState.loading,
   };
 }
+
+// Re-export types for convenience
+export type { CreateAgentInput, UpdateAgentInput, Agent };

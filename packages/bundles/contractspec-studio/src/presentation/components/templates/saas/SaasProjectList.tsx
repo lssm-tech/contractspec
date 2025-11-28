@@ -56,7 +56,7 @@ export function SaasProjectList({
     );
   }
 
-  if (!data?.projects.length) {
+  if (!data?.items.length) {
     return (
       <EmptyState
         title="No projects found"
@@ -74,18 +74,18 @@ export function SaasProjectList({
     <div className="space-y-6">
       {stats && (
         <StatCardGroup>
-          <StatCard label="Total Projects" value={stats.total} />
-          <StatCard label="Active" value={stats.activeCount} />
-          <StatCard label="Draft" value={stats.draftCount} />
+          <StatCard label="Total Projects" value={stats.total.toString()} />
+          <StatCard label="Active" value={stats.activeCount.toString()} />
+          <StatCard label="Draft" value={stats.draftCount.toString()} />
         </StatCardGroup>
       )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.projects.map((project: Project) => (
+        {data.items.map((project: Project) => (
           <EntityCard
             key={project.id}
             cardTitle={project.name}
-            cardSubtitle={project.slug ?? project.id}
+            cardSubtitle={project.tier}
             meta={
               <p className="text-muted-foreground text-sm">
                 {project.description}
@@ -98,16 +98,9 @@ export function SaasProjectList({
               />
             }
             footer={
-              <div className="flex gap-1">
-                {project.tags.slice(0, 2).map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 text-xs"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <span className="text-muted-foreground text-xs">
+                {project.updatedAt.toLocaleDateString()}
+              </span>
             }
             onClick={
               onProjectClick ? () => onProjectClick(project.id) : undefined

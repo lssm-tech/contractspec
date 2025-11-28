@@ -4,11 +4,25 @@
  * Imports handlers from the hooks module to ensure correct build order.
  */
 import type { PresentationRenderer } from '@lssm/lib.contracts';
-import type { Deal } from '../hooks/useDealList';
 import {
   mockListDealsHandler,
   mockGetPipelineStagesHandler,
 } from '@lssm/example.crm-pipeline/handlers';
+
+interface DealItem {
+  id: string;
+  name: string;
+  value: number;
+  currency: string;
+  stageId: string;
+  status: string;
+}
+
+interface StageItem {
+  id: string;
+  name: string;
+  position: number;
+}
 
 function formatCurrency(value: number, currency: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
@@ -30,11 +44,14 @@ export const crmPipelineMarkdownRenderer: PresentationRenderer<{
       mockGetPipelineStagesHandler({ pipelineId }),
     ]);
 
+    const deals = dealsResult.deals as DealItem[];
+    const stageList = stages as StageItem[];
+
     // Group deals by stage
-    const dealsByStage: Record<string, Deal[]> = {};
-    for (const stage of stages) {
-      dealsByStage[stage.id] = dealsResult.deals.filter(
-        (d: Deal) => d.stageId === stage.id && d.status === 'OPEN'
+    const dealsByStage: Record<string, DealItem[]> = {};
+    for (const stage of stageList) {
+      dealsByStage[stage.id] = deals.filter(
+        (d) => d.stageId === stage.id && d.status === 'OPEN'
       );
     }
 
@@ -47,12 +64,9 @@ export const crmPipelineMarkdownRenderer: PresentationRenderer<{
       '',
     ];
 
-    for (const stage of stages.sort(
-      (a: { position: number }, b: { position: number }) =>
-        a.position - b.position
-    )) {
+    for (const stage of stageList.sort((a, b) => a.position - b.position)) {
       const stageDeals = dealsByStage[stage.id] ?? [];
-      const stageValue = stageDeals.reduce((sum, d: Deal) => sum + d.value, 0);
+      const stageValue = stageDeals.reduce((sum, d) => sum + d.value, 0);
 
       lines.push(`## ${stage.name}`);
       lines.push(

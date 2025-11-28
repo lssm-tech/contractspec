@@ -1,18 +1,18 @@
 /**
  * Hook for fetching and managing agent list data
  *
- * Uses handlers from the agent-console example package.
+ * Uses runtime-local database-backed handlers.
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  mockListAgentsHandler,
-  type AgentSummary,
-  type ListAgentsOutput as HandlerListAgentsOutput,
-} from '@lssm/example.agent-console/handlers/index';
+import { useTemplateRuntime } from '../../../../../templates/runtime';
+import type {
+  Agent as RuntimeAgent,
+  ListAgentsOutput as RuntimeListAgentsOutput,
+} from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience
-export type Agent = AgentSummary;
-export type ListAgentsOutput = HandlerListAgentsOutput;
+export type Agent = RuntimeAgent;
+export type ListAgentsOutput = RuntimeListAgentsOutput;
 
 export interface UseAgentListOptions {
   search?: string;
@@ -21,6 +21,9 @@ export interface UseAgentListOptions {
 }
 
 export function useAgentList(options: UseAgentListOptions = {}) {
+  const { handlers, projectId } = useTemplateRuntime();
+  const { agent } = handlers;
+
   const [data, setData] = useState<ListAgentsOutput | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -31,8 +34,8 @@ export function useAgentList(options: UseAgentListOptions = {}) {
     setError(null);
 
     try {
-      const result = await mockListAgentsHandler({
-        organizationId: 'demo-org',
+      const result = await agent.listAgents({
+        projectId,
         search: options.search,
         status: options.status === 'all' ? undefined : options.status,
         limit: options.limit ?? 20,
@@ -44,7 +47,7 @@ export function useAgentList(options: UseAgentListOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [options.search, options.status, options.limit, page]);
+  }, [agent, projectId, options.search, options.status, options.limit, page]);
 
   useEffect(() => {
     fetchData();
