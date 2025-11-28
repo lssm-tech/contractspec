@@ -4,7 +4,12 @@ export type TemplateId =
   | 'recipe-app-i18n'
   | 'saas-boilerplate'
   | 'crm-pipeline'
-  | 'agent-console';
+  | 'agent-console'
+  // Phase 2-3 Examples
+  | 'workflow-system'
+  | 'marketplace'
+  | 'integration-hub'
+  | 'analytics-dashboard';
 
 export type TemplateCategory =
   | 'productivity'
@@ -301,6 +306,230 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       'agent-console.agent.list',
       'agent-console.run.list',
       'agent-console.tool.registry',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  // ============================================
+  // Phase 2 Examples
+  // ============================================
+  {
+    id: 'workflow-system',
+    name: 'Workflow / Approval System',
+    description:
+      'Configurable workflow engine with role-based approvals, state machines, and audit trails.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '🔄',
+    features: [
+      'Workflow Definitions',
+      'State Machines',
+      'Multi-step Approvals',
+      'Role-based Transitions',
+      'Delegation',
+      'Audit Trail',
+    ],
+    tags: ['workflow', 'approval', 'bpm', 'state-machine', 'enterprise'],
+    schema: {
+      models: ['WorkflowDefinition', 'WorkflowStep', 'WorkflowInstance', 'Approval'],
+      contracts: [
+        'workflow.definition.create',
+        'workflow.instance.start',
+        'workflow.step.approve',
+        'workflow.step.reject',
+      ],
+    },
+    components: {
+      list: 'WorkflowDefinitionList',
+      detail: 'WorkflowInstanceDetail',
+      form: 'WorkflowDefinitionEditor',
+      dashboard: 'WorkflowDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=workflow-system',
+    },
+    docs: {
+      quickstart: '/docs/templates/workflow-system',
+    },
+    package: '@lssm/example.workflow-system',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.feature-flags',
+      '@lssm/modules.audit-trail',
+      '@lssm/modules.notifications',
+    ],
+    featureSpec: 'workflow-system',
+    presentations: [
+      'workflow-system.dashboard',
+      'workflow-system.definition.list',
+      'workflow-system.instance.detail',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'marketplace',
+    name: 'Marketplace (2-sided)',
+    description:
+      'Full marketplace platform with stores, products, orders, payouts, and reviews.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '🛒',
+    features: [
+      'Stores',
+      'Products',
+      'Orders',
+      'Payments',
+      'Payouts',
+      'Reviews',
+      'File Uploads',
+    ],
+    tags: ['marketplace', 'ecommerce', 'orders', 'payments', 'reviews'],
+    schema: {
+      models: ['Store', 'Product', 'Order', 'OrderItem', 'Payout', 'Review'],
+      contracts: [
+        'marketplace.store.create',
+        'marketplace.product.add',
+        'marketplace.order.place',
+        'marketplace.payout.process',
+        'marketplace.review.submit',
+      ],
+    },
+    components: {
+      list: 'ProductCatalog',
+      detail: 'OrderDetail',
+      form: 'ProductForm',
+      dashboard: 'MarketplaceDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=marketplace',
+    },
+    docs: {
+      quickstart: '/docs/templates/marketplace',
+    },
+    package: '@lssm/example.marketplace',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.files',
+      '@lssm/lib.metering',
+      '@lssm/modules.audit-trail',
+      '@lssm/modules.notifications',
+    ],
+    featureSpec: 'marketplace',
+    presentations: [
+      'marketplace.dashboard',
+      'marketplace.product.catalog',
+      'marketplace.order.list',
+      'marketplace.store.manage',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  // ============================================
+  // Phase 3 Examples
+  // ============================================
+  {
+    id: 'integration-hub',
+    name: 'Integration Hub',
+    description:
+      'Connect and sync data between external services with field mappings and scheduled syncs.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '🔗',
+    features: [
+      'Integrations',
+      'Connections',
+      'Sync Configs',
+      'Field Mappings',
+      'Scheduled Syncs',
+      'Sync Logs',
+    ],
+    tags: ['integrations', 'api', 'sync', 'etl', 'connectors'],
+    schema: {
+      models: ['Integration', 'Connection', 'SyncConfig', 'FieldMapping'],
+      contracts: [
+        'integration.create',
+        'integration.connect',
+        'integration.configureSync',
+        'integration.mapFields',
+        'integration.runSync',
+      ],
+    },
+    components: {
+      list: 'IntegrationList',
+      detail: 'ConnectionDetail',
+      form: 'SyncConfigEditor',
+      dashboard: 'IntegrationDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=integration-hub',
+    },
+    docs: {
+      quickstart: '/docs/templates/integration-hub',
+    },
+    package: '@lssm/example.integration-hub',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.files',
+      '@lssm/lib.feature-flags',
+      '@lssm/modules.audit-trail',
+      '@lssm/modules.notifications',
+    ],
+    featureSpec: 'integration-hub',
+    presentations: [
+      'integration-hub.dashboard',
+      'integration-hub.connection.list',
+      'integration-hub.sync.config',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'analytics-dashboard',
+    name: 'Analytics Dashboard',
+    description:
+      'Build custom dashboards with drag-and-drop widgets, query builder, and scheduled reports.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '📊',
+    features: [
+      'Dashboards',
+      'Widgets',
+      'Query Builder',
+      'Visualizations',
+      'Scheduled Reports',
+      'Public Sharing',
+    ],
+    tags: ['analytics', 'dashboards', 'reporting', 'visualization', 'bi'],
+    schema: {
+      models: ['Dashboard', 'Widget', 'Query', 'Report'],
+      contracts: [
+        'analytics.dashboard.create',
+        'analytics.widget.add',
+        'analytics.query.execute',
+        'analytics.dashboard.get',
+      ],
+    },
+    components: {
+      list: 'DashboardList',
+      detail: 'DashboardView',
+      form: 'QueryBuilder',
+      dashboard: 'AnalyticsDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=analytics-dashboard',
+    },
+    docs: {
+      quickstart: '/docs/templates/analytics-dashboard',
+    },
+    package: '@lssm/example.analytics-dashboard',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.metering',
+      '@lssm/modules.audit-trail',
+      '@lssm/modules.notifications',
+    ],
+    featureSpec: 'analytics-dashboard',
+    presentations: [
+      'analytics-dashboard.dashboard',
+      'analytics-dashboard.list',
+      'analytics-dashboard.query.builder',
     ],
     renderTargets: ['react', 'markdown'],
   },

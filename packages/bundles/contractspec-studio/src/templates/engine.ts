@@ -30,6 +30,27 @@ import {
   crmPipelineReactRenderer,
   crmDashboardMarkdownRenderer,
 } from '../presentation/components/templates/crm/renderers';
+// Phase 2-3 template renderers
+import {
+  workflowDashboardMarkdownRenderer,
+  workflowDefinitionListMarkdownRenderer,
+  workflowInstanceDetailMarkdownRenderer,
+} from '../presentation/components/templates/workflow-system/renderers';
+import {
+  marketplaceDashboardMarkdownRenderer,
+  productCatalogMarkdownRenderer,
+  orderListMarkdownRenderer,
+} from '../presentation/components/templates/marketplace/renderers';
+import {
+  integrationDashboardMarkdownRenderer,
+  connectionListMarkdownRenderer,
+  syncConfigMarkdownRenderer,
+} from '../presentation/components/templates/integration-hub/renderers';
+import {
+  analyticsDashboardMarkdownRenderer,
+  dashboardListMarkdownRenderer,
+  queryBuilderMarkdownRenderer,
+} from '../presentation/components/templates/analytics-dashboard/renderers';
 
 /**
  * Create a TransformEngine configured for template rendering
@@ -73,6 +94,26 @@ function registerTemplateRenderers(engine: TransformEngine): void {
   engine.register(crmPipelineReactRenderer);
   engine.register(crmPipelineMarkdownRenderer);
   engine.register(crmDashboardMarkdownRenderer);
+
+  // Workflow System renderers
+  engine.register(workflowDashboardMarkdownRenderer);
+  engine.register(workflowDefinitionListMarkdownRenderer);
+  engine.register(workflowInstanceDetailMarkdownRenderer);
+
+  // Marketplace renderers
+  engine.register(marketplaceDashboardMarkdownRenderer);
+  engine.register(productCatalogMarkdownRenderer);
+  engine.register(orderListMarkdownRenderer);
+
+  // Integration Hub renderers
+  engine.register(integrationDashboardMarkdownRenderer);
+  engine.register(connectionListMarkdownRenderer);
+  engine.register(syncConfigMarkdownRenderer);
+
+  // Analytics Dashboard renderers
+  engine.register(analyticsDashboardMarkdownRenderer);
+  engine.register(dashboardListMarkdownRenderer);
+  engine.register(queryBuilderMarkdownRenderer);
 }
 
 /**
