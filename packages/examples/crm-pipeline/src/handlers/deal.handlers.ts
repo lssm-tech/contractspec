@@ -71,7 +71,15 @@ export interface ListDealsOutput {
 export async function mockListDealsHandler(
   input: ListDealsInput
 ): Promise<ListDealsOutput> {
-  const { pipelineId, stageId, status, ownerId, search, limit = 20, offset = 0 } = input;
+  const {
+    pipelineId,
+    stageId,
+    status,
+    ownerId,
+    search,
+    limit = 20,
+    offset = 0,
+  } = input;
 
   let filtered = [...MOCK_DEALS];
 
@@ -118,7 +126,8 @@ export async function mockCreateDealHandler(
   context: { ownerId: string }
 ): Promise<Deal> {
   const now = new Date();
-  return {
+
+  const deal: Deal = {
     id: `deal-${Date.now()}`,
     name: input.name,
     value: input.value,
@@ -133,62 +142,81 @@ export async function mockCreateDealHandler(
     createdAt: now,
     updatedAt: now,
   };
+
+  MOCK_DEALS.push(deal);
+
+  return deal;
 }
 
 /**
  * Mock handler for MoveDealContract
  */
 export async function mockMoveDealHandler(input: MoveDealInput): Promise<Deal> {
-  const deal = MOCK_DEALS.find((d) => d.id === input.dealId);
-
-  if (!deal) {
+  const dealIndex = MOCK_DEALS.findIndex((d) => d.id === input.dealId);
+  if (dealIndex === -1) {
     throw new Error('NOT_FOUND');
   }
+  const deal = MOCK_DEALS[dealIndex]!;
 
   const stage = MOCK_STAGES.find((s) => s.id === input.stageId);
   if (!stage) {
     throw new Error('INVALID_STAGE');
   }
 
-  return {
+  const updatedDeal: Deal = {
     ...deal,
     stageId: input.stageId,
     updatedAt: new Date(),
   };
+
+  MOCK_DEALS[dealIndex] = updatedDeal;
+
+  return updatedDeal;
 }
 
 /**
  * Mock handler for WinDealContract
  */
 export async function mockWinDealHandler(input: WinDealInput): Promise<Deal> {
-  const deal = MOCK_DEALS.find((d) => d.id === input.dealId);
-
+  const dealIndex = MOCK_DEALS.findIndex((d) => d.id === input.dealId);
+  if (dealIndex === -1) {
+    throw new Error('NOT_FOUND');
+  }
+  const deal = MOCK_DEALS[dealIndex]!;
   if (!deal) {
     throw new Error('NOT_FOUND');
   }
 
-  return {
+  const updatedDeal: Deal = {
     ...deal,
-    status: 'WON',
+    status: 'WON' as const,
     updatedAt: new Date(),
   };
+
+  MOCK_DEALS[dealIndex] = updatedDeal;
+
+  return updatedDeal;
 }
 
 /**
  * Mock handler for LoseDealContract
  */
 export async function mockLoseDealHandler(input: LoseDealInput): Promise<Deal> {
-  const deal = MOCK_DEALS.find((d) => d.id === input.dealId);
-
-  if (!deal) {
+  const dealIndex = MOCK_DEALS.findIndex((d) => d.id === input.dealId);
+  if (dealIndex === -1) {
     throw new Error('NOT_FOUND');
   }
+  const deal = MOCK_DEALS[dealIndex]!;
 
-  return {
+  const updatedDeal: Deal = {
     ...deal,
-    status: 'LOST',
+    status: 'LOST' as const,
     updatedAt: new Date(),
   };
+
+  MOCK_DEALS[dealIndex] = updatedDeal;
+
+  return updatedDeal;
 }
 
 /**
@@ -197,13 +225,15 @@ export async function mockLoseDealHandler(input: LoseDealInput): Promise<Deal> {
 export async function mockGetDealsByStageHandler(input: {
   pipelineId: string;
 }): Promise<Record<string, Deal[]>> {
-  const deals = MOCK_DEALS.filter((d) => d.pipelineId === input.pipelineId && d.status === 'OPEN');
-  
+  const deals = MOCK_DEALS.filter(
+    (d) => d.pipelineId === input.pipelineId && d.status === 'OPEN'
+  );
+
   const grouped: Record<string, Deal[]> = {};
   for (const stage of MOCK_STAGES) {
     grouped[stage.id] = deals.filter((d) => d.stageId === stage.id);
   }
-  
+
   return grouped;
 }
 
@@ -215,4 +245,3 @@ export async function mockGetPipelineStagesHandler(input: {
 }) {
   return MOCK_STAGES.filter((s) => s.pipelineId === input.pipelineId);
 }
-

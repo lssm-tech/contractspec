@@ -3,11 +3,11 @@
  *
  * Uses dynamic imports for handlers to ensure correct build order.
  */
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  mockListDealsHandler,
   mockGetDealsByStageHandler,
   mockGetPipelineStagesHandler,
+  mockListDealsHandler,
 } from '@lssm/example.crm-pipeline/handlers';
 
 // Re-export types for convenience
@@ -45,7 +45,7 @@ export function useDealList(options: UseDealListOptions = {}) {
   const [data, setData] = useState<ListDealsOutput | null>(null);
   const [dealsByStage, setDealsByStage] = useState<Record<string, Deal[]>>({});
   const [stages, setStages] = useState<
-    Array<{ id: string; name: string; position: number }>
+    { id: string; name: string; position: number }[]
   >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -73,6 +73,11 @@ export function useDealList(options: UseDealListOptions = {}) {
       setData(dealsResult);
       setDealsByStage(stageDealsResult);
       setStages(stagesResult);
+      console.log('fetching deals for pipeline', {
+        dealsResult,
+        stageDealsResult,
+        stagesResult,
+      });
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'));
     } finally {

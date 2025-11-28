@@ -2,9 +2,34 @@
  * Mock data for crm-pipeline handlers
  */
 
+// ============ Types for Mock Data ============
+
+export interface MockDeal {
+  id: string;
+  name: string;
+  value: number;
+  currency: string;
+  pipelineId: string;
+  stageId: string;
+  status: 'OPEN' | 'WON' | 'LOST' | 'STALE';
+  contactId?: string;
+  companyId?: string;
+  ownerId: string;
+  expectedCloseDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface MockStage {
+  id: string;
+  name: string;
+  position: number;
+  pipelineId: string;
+}
+
 // ============ Pipeline Stages Mock Data ============
 
-export const MOCK_STAGES = [
+export const MOCK_STAGES: MockStage[] = [
   { id: 'stage-1', name: 'Lead', position: 1, pipelineId: 'pipeline-1' },
   { id: 'stage-2', name: 'Qualified', position: 2, pipelineId: 'pipeline-1' },
   { id: 'stage-3', name: 'Proposal', position: 3, pipelineId: 'pipeline-1' },
@@ -14,7 +39,7 @@ export const MOCK_STAGES = [
 
 // ============ Deal Mock Data ============
 
-export const MOCK_DEALS = [
+export const MOCK_DEALS: MockDeal[] = [
   {
     id: 'deal-1',
     name: 'Enterprise License - Acme Corp',
@@ -22,7 +47,7 @@ export const MOCK_DEALS = [
     currency: 'USD',
     pipelineId: 'pipeline-1',
     stageId: 'stage-3',
-    status: 'OPEN' as const,
+    status: 'OPEN',
     contactId: 'contact-1',
     companyId: 'company-1',
     ownerId: 'user-1',
@@ -171,4 +196,3 @@ export const MOCK_CONTACTS = [
     createdAt: new Date('2023-12-10T00:00:00Z'),
   },
 ];
-
