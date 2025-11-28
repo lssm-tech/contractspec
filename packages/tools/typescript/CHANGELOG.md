@@ -1,5 +1,11 @@
 # @lssm/tool.typescript
 
+## 0.12.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
 ## 0.11.1
 
 ### Patch Changes

@@ -1,5 +1,29 @@
 # @lssm/bundle.contractspec-studio
 
+## 0.4.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/bundle.lifecycle-managed@0.4.0
+  - @lssm/lib.contracts@1.12.0
+  - @lssm/lib.contracts-contractspec-studio@0.4.0
+  - @lssm/lib.database-contractspec-studio@0.4.0
+  - @lssm/lib.design-system@1.12.0
+  - @lssm/lib.evolution@1.1.0
+  - @lssm/lib.gql-client-contractspec-studio@0.2.0
+  - @lssm/lib.graphql-prisma@1.12.0
+  - @lssm/lib.lifecycle@0.4.0
+  - @lssm/lib.logger@1.12.0
+  - @lssm/lib.observability@0.5.0
+  - @lssm/lib.progressive-delivery@4.0.0
+  - @lssm/lib.runtime-local@0.4.0
+  - @lssm/lib.ui-kit@1.12.0
+
 ## 0.3.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-react",
-  "version": "12.0.1",
+  "version": "13.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

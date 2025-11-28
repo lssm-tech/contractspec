@@ -1,5 +1,21 @@
 # @lssm/bundle.lifecycle-managed
 
+## 0.4.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.ai-agent@1.1.0
+  - @lssm/lib.analytics@0.5.0
+  - @lssm/lib.lifecycle@0.4.0
+  - @lssm/lib.observability@0.5.0
+  - @lssm/module.lifecycle-advisor@0.4.0
+  - @lssm/module.lifecycle-core@0.4.0
+
 ## 0.3.1
 
 ### Patch Changes

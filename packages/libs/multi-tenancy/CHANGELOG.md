@@ -1,5 +1,11 @@
 # @lssm/lib.multi-tenancy
 
+## 0.5.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
 ## 0.4.1
 
 ### Patch Changes

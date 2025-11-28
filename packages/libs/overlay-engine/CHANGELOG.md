@@ -1,5 +1,16 @@
 # @lssm/lib.overlay-engine
 
+## 0.4.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.contracts@1.12.0
+
 ## 0.3.1
 
 ### Patch Changes

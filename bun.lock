@@ -37,7 +37,7 @@
     },
     "packages/apps/cli-contracts": {
       "name": "@lssm/app.cli-contracts",
-      "version": "0.11.1",
+      "version": "0.12.0",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -67,7 +67,7 @@
     },
     "packages/apps/cli-database": {
       "name": "@lssm/app.cli-database",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -84,7 +84,7 @@
     },
     "packages/apps/cli-databases": {
       "name": "@lssm/app.cli-databases",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -99,7 +99,7 @@
     },
     "packages/apps/overlay-editor": {
       "name": "@lssm/app.overlay-editor",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.overlay-engine": "workspace:*",
         "next": "16.0.5",
@@ -115,7 +115,7 @@
     },
     "packages/apps/web-landing": {
       "name": "@lssm/app.web-contractspec-landing",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
         "@lssm/bundle.contractspec-studio": "workspace:*",
@@ -192,7 +192,7 @@
     },
     "packages/bundles/contractspec-studio": {
       "name": "@lssm/bundle.contractspec-studio",
-      "version": "0.3.2",
+      "version": "0.4.0",
       "dependencies": {
         "@apollo/client": "^3.11.6",
         "@better-auth/expo": "1.4.1",
@@ -240,7 +240,7 @@
     },
     "packages/bundles/lifecycle-managed": {
       "name": "@lssm/bundle.lifecycle-managed",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.analytics": "workspace:*",
@@ -258,7 +258,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -277,7 +277,7 @@
     },
     "packages/libs/ai-agent": {
       "name": "@lssm/lib.ai-agent",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": {
         "@ai-sdk/anthropic": "beta",
         "@ai-sdk/mcp": "beta",
@@ -298,7 +298,7 @@
     },
     "packages/libs/analytics": {
       "name": "@lssm/lib.analytics",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
@@ -312,7 +312,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -332,7 +332,7 @@
     },
     "packages/libs/content-gen": {
       "name": "@lssm/lib.content-gen",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -345,7 +345,7 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.25.0",
         "@google-cloud/secret-manager": "^6.1.1",
@@ -386,7 +386,7 @@
     },
     "packages/libs/contracts-contractspec-studio": {
       "name": "@lssm/lib.contracts-contractspec-studio",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -400,7 +400,7 @@
     },
     "packages/libs/cost-tracking": {
       "name": "@lssm/lib.cost-tracking",
-      "version": "3.0.1",
+      "version": "4.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -413,7 +413,7 @@
     },
     "packages/libs/database-contractspec-studio": {
       "name": "@lssm/lib.database-contractspec-studio",
-      "version": "0.3.2",
+      "version": "0.4.0",
       "dependencies": {
         "@prisma/adapter-pg": "^7.0.1",
         "@prisma/client": "^7.0.1",
@@ -429,7 +429,7 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -458,7 +458,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.8",
@@ -472,7 +472,7 @@
     },
     "packages/libs/evolution": {
       "name": "@lssm/lib.evolution",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -494,7 +494,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.16.8",
@@ -503,7 +503,7 @@
     },
     "packages/libs/gql-client-contractspec-studio": {
       "name": "@lssm/lib.gql-client-contractspec-studio",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "dependencies": {
         "@graphql-codegen/client-preset": "^5.0.1",
         "@lssm/lib.schema": "workspace:*",
@@ -520,7 +520,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -542,7 +542,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@apollo/subgraph": "^2.8.0",
         "@pothos/core": "^4.9.1",
@@ -562,7 +562,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@lssm/lib.schema": "^1.11.1",
         "@pothos/core": "^4.9.1",
@@ -586,7 +586,7 @@
     },
     "packages/libs/growth": {
       "name": "@lssm/lib.growth",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.analytics": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -600,7 +600,7 @@
     },
     "packages/libs/knowledge": {
       "name": "@lssm/lib.knowledge",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -613,7 +613,7 @@
     },
     "packages/libs/lifecycle": {
       "name": "@lssm/lib.lifecycle",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -623,7 +623,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -639,7 +639,7 @@
     },
     "packages/libs/multi-tenancy": {
       "name": "@lssm/lib.multi-tenancy",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -651,7 +651,7 @@
     },
     "packages/libs/observability": {
       "name": "@lssm/lib.observability",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -664,7 +664,7 @@
     },
     "packages/libs/overlay-engine": {
       "name": "@lssm/lib.overlay-engine",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "fast-json-stable-stringify": "^2.1.0",
@@ -684,7 +684,7 @@
     },
     "packages/libs/personalization": {
       "name": "@lssm/lib.personalization",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.overlay-engine": "workspace:*",
@@ -702,7 +702,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "devDependencies": {
         "tsdown": "^0.16.8",
         "typescript": "^5.9.3",
@@ -713,7 +713,7 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "12.0.1",
+      "version": "13.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
@@ -729,7 +729,7 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "12.0.1",
+      "version": "13.0.0",
       "dependencies": {
         "@lssm/lib.presentation-runtime-core": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -744,7 +744,7 @@
     },
     "packages/libs/progressive-delivery": {
       "name": "@lssm/lib.progressive-delivery",
-      "version": "3.0.1",
+      "version": "4.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -757,7 +757,7 @@
     },
     "packages/libs/resilience": {
       "name": "@lssm/lib.resilience",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -766,7 +766,7 @@
     },
     "packages/libs/runtime-local": {
       "name": "@lssm/lib.runtime-local",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@apollo/client": "^3.11.6",
         "@graphql-tools/schema": "^10.0.17",
@@ -785,7 +785,7 @@
     },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "^4.1.13",
@@ -799,7 +799,7 @@
     },
     "packages/libs/slo": {
       "name": "@lssm/lib.slo",
-      "version": "3.0.1",
+      "version": "4.0.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -812,10 +812,10 @@
     },
     "packages/libs/support-bot": {
       "name": "@lssm/lib.support-bot",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
-        "@lssm/lib.ai-agent": "^0.4.1",
-        "@lssm/lib.contracts": "^1.11.1",
+        "@lssm/lib.ai-agent": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -826,7 +826,7 @@
     },
     "packages/libs/testing": {
       "name": "@lssm/lib.testing",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "dependencies": {
         "@lssm/lib.contracts": "^1.11.1",
       },
@@ -839,7 +839,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
@@ -918,7 +918,7 @@
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@radix-ui/react-accordion": "^1.2.11",
@@ -990,7 +990,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.11.1",
+      "version": "1.12.0",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1000,7 +1000,7 @@
     },
     "packages/libs/workflow-composer": {
       "name": "@lssm/lib.workflow-composer",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1013,7 +1013,7 @@
     },
     "packages/modules/lifecycle-advisor": {
       "name": "@lssm/module.lifecycle-advisor",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1026,7 +1026,7 @@
     },
     "packages/modules/lifecycle-core": {
       "name": "@lssm/module.lifecycle-core",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1039,14 +1039,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "0.12.1",
+      "version": "0.13.0",
       "peerDependencies": {
         "tsdown": "^0.16.8",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
-      "version": "0.11.1",
+      "version": "0.12.0",
       "devDependencies": {
         "typescript": "^5.9.3",
       },
@@ -6023,8 +6023,6 @@
     "@lssm/lib.design-system/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
 
     "@lssm/lib.design-system/tailwindcss": ["tailwindcss@4.1.15", "", {}, "sha512-k2WLnWkYFkdpRv+Oby3EBXIyQC8/s1HOFMBUViwtAh6Z5uAozeUSMQlIsn/c6Q2iJzqG6aJT3wdPaRNj70iYxQ=="],
-
-    "@lssm/lib.support-bot/@lssm/lib.ai-agent": ["@lssm/lib.ai-agent@0.4.1", "", { "dependencies": { "@lssm/lib.contracts": "1.11.1" } }, "sha512-WvC2qAnXCDU2r3WZmU//lu7n88OwN+tEje/qcDxd+gxWlyRx8bCoQZSc47/8yzncEePTwCGSCIVWOK2hMaDvpw=="],
 
     "@lssm/lib.ui-kit/tailwind-merge": ["tailwind-merge@3.4.0", "", {}, "sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g=="],
 

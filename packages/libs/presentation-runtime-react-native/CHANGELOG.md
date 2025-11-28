@@ -1,5 +1,17 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 13.0.0
+
+### Minor Changes
+
+- Refactor to be compatible with ai-sdk v6
+
+### Patch Changes
+
+- Updated dependencies
+  - @lssm/lib.presentation-runtime-core@1.12.0
+  - @lssm/lib.ui-kit@1.12.0
+
 ## 12.0.1
 
 ### Patch Changes

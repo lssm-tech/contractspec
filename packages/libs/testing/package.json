@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.testing",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,7 +22,7 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "^1.11.1"
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
