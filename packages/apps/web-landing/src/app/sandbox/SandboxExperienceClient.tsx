@@ -53,11 +53,14 @@ const StudioCanvas = dynamic(
   { ssr: false }
 );
 
-type TemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
+import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+
+// Note: New templates (saas-boilerplate, crm-pipeline, agent-console) don't have sandbox components yet
+type SandboxTemplateId = 'todos-app' | 'messaging-app' | 'recipe-app-i18n';
 type Mode = 'playground' | 'specs' | 'builder';
 
 const TEMPLATE_LIBRARY: Record<
-  TemplateId,
+  SandboxTemplateId,
   { title: string; description: string; component: JSX.Element }
 > = {
   'todos-app': {
