@@ -18,4 +18,7 @@ export * from './shared/FeatureGateNotice';
 export * from './templates/todos';
 export * from './templates/messaging';
 export * from './templates/recipes';
+export * from './templates/saas';
+export * from './templates/crm';
+export * from './templates/agent-console';
 export * from './templates/shared';
