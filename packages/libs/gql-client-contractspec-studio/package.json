@@ -24,7 +24,7 @@
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@parcel/watcher": "^2.5.1",
-    "tsdown": "^0.16.6",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3"
   },
   "main": "./dist/index.js",
