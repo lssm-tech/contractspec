@@ -32,7 +32,7 @@
   "devDependencies": {
     "@lssm/app.cli-database": "workspace:*",
     "prisma": "^7.0.1",
-    "tsdown": "^0.16.6"
+    "tsdown": "^0.16.8"
   },
   "main": "./dist/index.mjs",
   "exports": {

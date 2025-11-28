@@ -22,12 +22,16 @@
     "test": "bun run"
   },
   "dependencies": {
+    "ai": "beta",
+    "@ai-sdk/mistral": "beta",
+    "@ai-sdk/openai": "beta",
+    "@ai-sdk/anthropic": "beta",
     "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.16.6",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3"
   },
   "exports": {

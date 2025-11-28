@@ -39,7 +39,7 @@
     "@types/react-dom": "^19.0.14",
     "postcss": "^8.5",
     "tailwindcss": "4.1.15",
-    "tsdown": "^0.16.6",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3"
   },
   "module": "./dist/index.js",
