@@ -18,9 +18,17 @@ import {
   createCrmHandlers,
   createSaasHandlers,
   createAgentHandlers,
+  createWorkflowHandlers,
+  createMarketplaceHandlers,
+  createIntegrationHandlers,
+  createAnalyticsHandlers,
   type CrmHandlers,
   type SaasHandlers,
   type AgentHandlers,
+  type WorkflowHandlers,
+  type MarketplaceHandlers,
+  type IntegrationHandlers,
+  type AnalyticsHandlers,
 } from '@lssm/lib.runtime-local';
 
 import { TemplateInstaller } from './installer';
@@ -40,6 +48,10 @@ export interface TemplateHandlers {
   crm: CrmHandlers;
   saas: SaasHandlers;
   agent: AgentHandlers;
+  workflow: WorkflowHandlers;
+  marketplace: MarketplaceHandlers;
+  integration: IntegrationHandlers;
+  analytics: AnalyticsHandlers;
 }
 
 export interface TemplateRuntimeContextValue {
@@ -98,6 +110,10 @@ export function TemplateRuntimeProvider({
         crm: createCrmHandlers(runtime.db),
         saas: createSaasHandlers(runtime.db),
         agent: createAgentHandlers(runtime.db),
+        workflow: createWorkflowHandlers(runtime.db),
+        marketplace: createMarketplaceHandlers(runtime.db),
+        integration: createIntegrationHandlers(runtime.db),
+        analytics: createAnalyticsHandlers(runtime.db),
       };
 
       setValue({
@@ -198,6 +214,38 @@ export function useSaasHandlers(): SaasHandlers {
 export function useAgentHandlers(): AgentHandlers {
   const context = useTemplateRuntime();
   return context.handlers.agent;
+}
+
+/**
+ * Hook to access Workflow-specific handlers
+ */
+export function useWorkflowHandlers(): WorkflowHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.workflow;
+}
+
+/**
+ * Hook to access Marketplace-specific handlers
+ */
+export function useMarketplaceHandlers(): MarketplaceHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.marketplace;
+}
+
+/**
+ * Hook to access Integration Hub-specific handlers
+ */
+export function useIntegrationHandlers(): IntegrationHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.integration;
+}
+
+/**
+ * Hook to access Analytics Dashboard-specific handlers
+ */
+export function useAnalyticsHandlers(): AnalyticsHandlers {
+  const context = useTemplateRuntime();
+  return context.handlers.analytics;
 }
 
 export type TemplateComponentRegistration = Partial<{

@@ -30,8 +30,8 @@
     ".": "./dist/index.js",
     "./contracts": "./dist/contracts/index.js",
     "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
     "./evaluation": "./dist/evaluation/index.js",
+    "./events": "./dist/events.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -43,4 +43,3 @@
     "access": "public"
   }
 }
-

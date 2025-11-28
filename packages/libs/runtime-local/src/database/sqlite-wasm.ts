@@ -337,6 +337,256 @@ const DEFAULT_MIGRATIONS: string[] = [
     FOREIGN KEY (runId) REFERENCES agent_run(id)
   );
 `,
+  // ============ Workflow System Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS workflow_definition (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT DEFAULT 'APPROVAL',
+    status TEXT DEFAULT 'DRAFT',
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS workflow_step (
+    id TEXT PRIMARY KEY,
+    definitionId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    stepOrder INTEGER NOT NULL,
+    type TEXT DEFAULT 'APPROVAL',
+    requiredRoles TEXT,
+    autoApproveCondition TEXT,
+    timeoutHours INTEGER,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (definitionId) REFERENCES workflow_definition(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS workflow_instance (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    definitionId TEXT NOT NULL,
+    status TEXT DEFAULT 'PENDING',
+    currentStepId TEXT,
+    data TEXT,
+    requestedBy TEXT NOT NULL,
+    startedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    completedAt TEXT,
+    FOREIGN KEY (definitionId) REFERENCES workflow_definition(id),
+    FOREIGN KEY (currentStepId) REFERENCES workflow_step(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS workflow_approval (
+    id TEXT PRIMARY KEY,
+    instanceId TEXT NOT NULL,
+    stepId TEXT NOT NULL,
+    status TEXT DEFAULT 'PENDING',
+    actorId TEXT,
+    comment TEXT,
+    decidedAt TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (instanceId) REFERENCES workflow_instance(id),
+    FOREIGN KEY (stepId) REFERENCES workflow_step(id)
+  );
+`,
+  // ============ Marketplace Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_store (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    status TEXT DEFAULT 'PENDING',
+    rating REAL DEFAULT 0,
+    reviewCount INTEGER DEFAULT 0,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_product (
+    id TEXT PRIMARY KEY,
+    storeId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    price REAL NOT NULL DEFAULT 0,
+    currency TEXT DEFAULT 'USD',
+    status TEXT DEFAULT 'DRAFT',
+    stock INTEGER DEFAULT 0,
+    category TEXT,
+    imageUrl TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (storeId) REFERENCES marketplace_store(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_order (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    storeId TEXT NOT NULL,
+    customerId TEXT NOT NULL,
+    status TEXT DEFAULT 'PENDING',
+    total REAL NOT NULL DEFAULT 0,
+    currency TEXT DEFAULT 'USD',
+    shippingAddress TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (storeId) REFERENCES marketplace_store(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_order_item (
+    id TEXT PRIMARY KEY,
+    orderId TEXT NOT NULL,
+    productId TEXT NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1,
+    price REAL NOT NULL DEFAULT 0,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (orderId) REFERENCES marketplace_order(id),
+    FOREIGN KEY (productId) REFERENCES marketplace_product(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_payout (
+    id TEXT PRIMARY KEY,
+    storeId TEXT NOT NULL,
+    amount REAL NOT NULL DEFAULT 0,
+    currency TEXT DEFAULT 'USD',
+    status TEXT DEFAULT 'PENDING',
+    processedAt TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (storeId) REFERENCES marketplace_store(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS marketplace_review (
+    id TEXT PRIMARY KEY,
+    productId TEXT NOT NULL,
+    customerId TEXT NOT NULL,
+    orderId TEXT,
+    rating INTEGER NOT NULL,
+    comment TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (productId) REFERENCES marketplace_product(id)
+  );
+`,
+  // ============ Integration Hub Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS integration (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL,
+    status TEXT DEFAULT 'INACTIVE',
+    iconUrl TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS integration_connection (
+    id TEXT PRIMARY KEY,
+    integrationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    status TEXT DEFAULT 'DISCONNECTED',
+    credentials TEXT,
+    config TEXT,
+    lastSyncAt TEXT,
+    errorMessage TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (integrationId) REFERENCES integration(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS integration_sync_config (
+    id TEXT PRIMARY KEY,
+    connectionId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    sourceEntity TEXT NOT NULL,
+    targetEntity TEXT NOT NULL,
+    frequency TEXT DEFAULT 'DAILY',
+    status TEXT DEFAULT 'ACTIVE',
+    lastRunAt TEXT,
+    lastRunStatus TEXT,
+    recordsSynced INTEGER DEFAULT 0,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (connectionId) REFERENCES integration_connection(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS integration_field_mapping (
+    id TEXT PRIMARY KEY,
+    syncConfigId TEXT NOT NULL,
+    sourceField TEXT NOT NULL,
+    targetField TEXT NOT NULL,
+    transformType TEXT,
+    transformConfig TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (syncConfigId) REFERENCES integration_sync_config(id)
+  );
+`,
+  // ============ Analytics Dashboard Tables ============
+  `
+  CREATE TABLE IF NOT EXISTS analytics_dashboard (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL,
+    description TEXT,
+    status TEXT DEFAULT 'DRAFT',
+    refreshInterval TEXT DEFAULT 'NONE',
+    isPublic INTEGER DEFAULT 0,
+    shareToken TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS analytics_widget (
+    id TEXT PRIMARY KEY,
+    dashboardId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    gridX INTEGER DEFAULT 0,
+    gridY INTEGER DEFAULT 0,
+    gridWidth INTEGER DEFAULT 6,
+    gridHeight INTEGER DEFAULT 4,
+    queryId TEXT,
+    config TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (dashboardId) REFERENCES analytics_dashboard(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS analytics_query (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    organizationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL,
+    definition TEXT NOT NULL,
+    sql TEXT,
+    cacheTtlSeconds INTEGER DEFAULT 300,
+    isShared INTEGER DEFAULT 0,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`,
 ];
 
 export class LocalDatabase {
