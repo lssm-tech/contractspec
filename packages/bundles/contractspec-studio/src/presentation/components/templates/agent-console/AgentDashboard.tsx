@@ -156,7 +156,7 @@ function MetricsView({ metrics }: { metrics: RunMetrics | null }) {
             <div>
               <dt className="text-muted-foreground text-sm">Avg Duration</dt>
               <dd className="text-xl font-semibold">
-                {(metrics.avgDurationMs / 1000).toFixed(1)}s
+                {(metrics.averageDurationMs / 1000).toFixed(1)}s
               </dd>
             </div>
             <div>

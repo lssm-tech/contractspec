@@ -13,9 +13,12 @@ function getStatusTone(status: Agent['status']): 'success' | 'warning' | 'neutra
   switch (status) {
     case 'ACTIVE':
       return 'success';
-    case 'INACTIVE':
+    case 'PAUSED':
+    case 'DRAFT':
       return 'warning';
     case 'ARCHIVED':
+      return 'neutral';
+    default:
       return 'neutral';
   }
 }
@@ -54,7 +57,8 @@ export function AgentListView() {
         <StatCardGroup>
           <StatCard label="Total Agents" value={stats.total} />
           <StatCard label="Active" value={stats.active} />
-          <StatCard label="Inactive" value={stats.inactive} />
+          <StatCard label="Paused" value={stats.paused} />
+          <StatCard label="Draft" value={stats.draft} />
         </StatCardGroup>
       )}
 

@@ -5,7 +5,7 @@
  */
 import type { PresentationRenderer } from '@lssm/lib.contracts';
 import type { Project } from '../hooks/useProjectList';
-import { mockListProjectsHandler } from '@lssm/example.saas-boilerplate/handlers/index';
+import { mockListProjectsHandler } from '@lssm/example.saas-boilerplate/handlers';
 
 export const projectListMarkdownRenderer: PresentationRenderer<{
   mimeType: string;

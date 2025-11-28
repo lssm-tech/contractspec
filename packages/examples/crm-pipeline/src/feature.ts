@@ -12,9 +12,12 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const CrmPipelineFeature: FeatureModuleSpec = {
   meta: {
     key: 'crm-pipeline',
+    title: 'CRM Pipeline',
+    description: 'CRM and sales pipeline management with deals, contacts, and companies',
     domain: 'crm',
     owners: ['crm-team'],
     tags: ['crm', 'sales', 'pipeline', 'deals'],
+    stability: 'experimental',
   },
 
   // All contract operations included in this feature

@@ -8,7 +8,7 @@ import {
   mockListDealsHandler,
   mockGetDealsByStageHandler,
   mockGetPipelineStagesHandler,
-} from '@lssm/example.crm-pipeline/handlers/index';
+} from '@lssm/example.crm-pipeline/handlers';
 
 // Re-export types for convenience
 export interface Deal {

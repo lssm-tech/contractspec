@@ -6,25 +6,25 @@
  */
 import {
   createDefaultTransformEngine,
-  registerDefaultReactRenderer,
   registerBasicValidation,
+  registerDefaultReactRenderer,
   type TransformEngine,
-} from '@lssm/lib.contracts';
+} from '@lssm/lib.contracts/presentations.v2';
 
 // Import template renderers
 import {
-  agentListReactRenderer,
   agentListMarkdownRenderer,
+  agentListReactRenderer,
   runListMarkdownRenderer,
   toolRegistryMarkdownRenderer,
 } from '../presentation/components/templates/agent-console/renderers';
 import {
-  projectListReactRenderer,
   projectListMarkdownRenderer,
+  projectListReactRenderer,
 } from '../presentation/components/templates/saas/renderers';
 import {
-  crmPipelineReactRenderer,
   crmPipelineMarkdownRenderer,
+  crmPipelineReactRenderer,
 } from '../presentation/components/templates/crm/renderers';
 
 /**
