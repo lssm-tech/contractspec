@@ -80,7 +80,9 @@ export function DealActionsModal({
       });
       handleClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to mark deal as won');
+      setError(
+        err instanceof Error ? err.message : 'Failed to mark deal as won'
+      );
     }
   };
 
@@ -101,7 +103,9 @@ export function DealActionsModal({
       });
       handleClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to mark deal as lost');
+      setError(
+        err instanceof Error ? err.message : 'Failed to mark deal as lost'
+      );
     }
   };
 
@@ -391,4 +395,3 @@ export function DealActionsModal({
     </div>
   );
 }
-

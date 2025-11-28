@@ -226,7 +226,7 @@ function ProjectsTab({ data, onProjectClick }: ProjectsTabProps) {
               />
             }
             footer={
-              <div className="flex items-center justify-between w-full">
+              <div className="flex w-full items-center justify-between">
                 <span className="text-muted-foreground text-xs">
                   {project.updatedAt.toLocaleDateString()}
                 </span>
@@ -293,7 +293,10 @@ function BillingTab({ subscription }: { subscription: Subscription | null }) {
           <Button variant="outline" onPress={() => alert('Upgrade clicked!')}>
             Upgrade Plan
           </Button>
-          <Button variant="ghost" onPress={() => alert('Manage Billing clicked!')}>
+          <Button
+            variant="ghost"
+            onPress={() => alert('Manage Billing clicked!')}
+          >
             Manage Billing
           </Button>
         </div>

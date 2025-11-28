@@ -2,7 +2,6 @@ export { useDealList, type UseDealListOptions } from './useDealList';
 export {
   useDealMutations,
   type UseDealMutationsOptions,
-  type MutationState,
 } from './useDealMutations';
 
 // Note: For deal types (CreateDealInput, MoveDealInput, etc.), import directly from:

@@ -231,7 +231,11 @@ function AgentListViewWithActions({
       {/* Agent Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data.items.map((agent) => (
-          <AgentCard key={agent.id} agent={agent} onClick={() => onAgentClick(agent)} />
+          <AgentCard
+            key={agent.id}
+            agent={agent}
+            onClick={() => onAgentClick(agent)}
+          />
         ))}
       </div>
     </div>
@@ -241,17 +245,13 @@ function AgentListViewWithActions({
 /**
  * Agent Card Component
  */
-function AgentCard({
-  agent,
-  onClick,
-}: {
-  agent: Agent;
-  onClick: () => void;
-}) {
+function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
   const statusColors: Record<string, string> = {
-    ACTIVE: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+    ACTIVE:
+      'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
     DRAFT: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-    PAUSED: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+    PAUSED:
+      'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
     ARCHIVED: 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400',
   };
 
@@ -261,18 +261,20 @@ function AgentCard({
       className="border-border bg-card cursor-pointer rounded-xl border p-4 transition-all hover:shadow-md"
     >
       <div className="flex items-start justify-between">
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold truncate">{agent.name}</h3>
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate font-semibold">{agent.name}</h3>
           <p className="text-muted-foreground text-sm">
             {agent.modelProvider} / {agent.modelName}
           </p>
         </div>
-        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${statusColors[agent.status]}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs font-medium ${statusColors[agent.status]}`}
+        >
           {agent.status}
         </span>
       </div>
       {agent.description && (
-        <p className="text-muted-foreground mt-2 text-sm line-clamp-2">
+        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
           {agent.description}
         </p>
       )}
