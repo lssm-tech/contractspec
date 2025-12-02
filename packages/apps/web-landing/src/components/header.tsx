@@ -78,11 +78,11 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden items-center gap-3 md:flex">
-            <Link href="/sandbox" className="btn-ghost text-sm">
-              Try sandbox
-            </Link>
-            <Link href="/contact" className="btn-primary text-sm">
+            <Link href="/contact#call" className="btn-ghost text-sm">
               Book a demo
+            </Link>
+            <Link href="/contact#waitlist" className="btn-primary text-sm">
+              Join the waitlist
             </Link>
           </div>
 
@@ -130,11 +130,11 @@ export default function Header() {
               Changelog
             </Link>
             <div className="flex flex-col gap-2 pt-2">
-              <Link href="/sandbox" className="btn-ghost text-center text-sm">
-                Try sandbox
+              <Link href="/contact" className="btn-ghost text-center text-sm">
+                Book a demo
               </Link>
-              <Link href="/contact" className="btn-primary text-center text-sm">
-                Book a call
+              <Link href="/pricing#waitlist" className="btn-primary text-center text-sm">
+                Join the waitlist
               </Link>
             </div>
           </nav>

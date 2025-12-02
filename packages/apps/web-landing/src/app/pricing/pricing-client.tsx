@@ -2,107 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle, ChevronDown, ChevronRight, Zap } from 'lucide-react';
-import { Switch } from '@lssm/lib.ui-kit-web/ui/switch';
-
-interface Plan {
-  name: string;
-  subtitle: string;
-  monthlyPrice: number | 'custom';
-  annualPrice: number | 'custom';
-  description: string;
-  features: string[];
-  highlight?: boolean;
-  cta: string;
-  ctaLink: string;
-}
-
-const plans: Plan[] = [
-  {
-    name: 'Free',
-    subtitle: 'For individuals & small projects',
-    monthlyPrice: 0,
-    annualPrice: 0,
-    description:
-      'Perfect for trying ContractSpec on a side project or learning spec-first development.',
-    features: [
-      '1 project',
-      '50 regenerations/month',
-      'All code generators (API, DB, UI)',
-      'Standard TypeScript output',
-      'Community support',
-      'No lock-in — eject anytime',
-    ],
-    cta: 'Start free',
-    ctaLink: '/docs/quickstart',
-  },
-  {
-    name: 'Pro',
-    subtitle: 'For teams & collaboration',
-    monthlyPrice: 29,
-    annualPrice: 24,
-    description:
-      'For teams shipping production apps with AI assistance who need stability and collaboration.',
-    features: [
-      'Unlimited projects',
-      '500 regenerations/month',
-      'Team collaboration (5 seats)',
-      'CI/CD integration',
-      'Evolution suggestions',
-      'Priority email support',
-      'Contract versioning',
-      'Golden test generation',
-    ],
-    highlight: true,
-    cta: 'Start 14-day trial',
-    ctaLink: '/contact',
-  },
-  {
-    name: 'Business',
-    subtitle: 'For agencies & compliance needs',
-    monthlyPrice: 99,
-    annualPrice: 79,
-    description:
-      'For agencies building multiple projects or companies needing governance and compliance.',
-    features: [
-      'Everything in Pro',
-      'Unlimited regenerations',
-      'Unlimited team seats',
-      'Audit trail & compliance reports',
-      'Contract enforcement policies',
-      'Custom templates',
-      'SSO/SAML',
-      'Dedicated support',
-      'SLA guarantee',
-    ],
-    cta: 'Contact sales',
-    ctaLink: '/contact',
-  },
-];
-
-interface UsageAddon {
-  name: string;
-  description: string;
-  price: string;
-}
-
-const usageAddons: UsageAddon[] = [
-  {
-    name: 'Extra regenerations',
-    description: "Beyond your plan's included regenerations",
-    price: '$0.10 per regeneration',
-  },
-  {
-    name: 'Extra team seats',
-    description: 'Additional collaborators beyond plan limits',
-    price: '$10/seat/month',
-  },
-  {
-    name: 'CI/CD minutes',
-    description: 'Automated regeneration on git push',
-    price: '$0.05 per minute',
-  },
-];
+import { CheckCircle, ChevronDown, ChevronRight } from 'lucide-react';
+import { WaitlistSection } from '@/components/waitlist-section';
+import { PricingThinkingModal } from '@/components/pricing-thinking-modal';
 
 interface FAQ {
   question: string;
@@ -111,50 +13,37 @@ interface FAQ {
 
 const faqs: FAQ[] = [
   {
-    question: 'What happens to my code if I stop paying?',
+    question: 'Can I pay for ContractSpec today?',
     answer:
-      "You keep everything. ContractSpec generates standard TypeScript, Prisma schemas, and GraphQL/REST endpoints. There's no runtime dependency. If you cancel, your generated code continues to work. You just can't regenerate or use evolution suggestions anymore.",
+      "Not yet. We're pre-PMF and working closely with a small set of design partners. They get full access during early access and will be first to move onto paid plans once we're confident in the value and stability.",
   },
   {
-    question: 'Can I eject from ContractSpec?',
+    question: 'What will you charge for later?',
     answer:
-      "Yes, anytime. The generated code is yours — it's standard tech with no proprietary abstractions. You can stop using ContractSpec and maintain the code manually. We're a compiler, not a prison.",
+      'Our plan is to charge based on usage: regenerations, AI agent actions, and number of active projects. A generous free tier will stay available so smaller teams and experiments can thrive.',
   },
   {
-    question: 'What counts as a regeneration?',
+    question: 'What do I get as a design partner?',
     answer:
-      "A regeneration is when you run ContractSpec to generate or update code from your specs. Viewing specs, editing specs, and reading docs don't count. Only actual code generation counts against your limit.",
+      'Direct collaboration on features, priority onboarding, and a founding discount when paid plans launch. You also shape how ContractSpec works for teams like yours.',
   },
   {
-    question: 'Do I need to learn a new language?',
+    question: 'Will you ever charge per seat?',
     answer:
-      'No. Specs are written in TypeScript with Zod schemas. If you can write z.object({ name: z.string() }), you can write ContractSpec specs. No DSL, no YAML, no magic.',
-  },
-  {
-    question: 'Can I use ContractSpec with my existing codebase?',
-    answer:
-      "Yes. ContractSpec supports incremental adoption. Start with one API endpoint or one data model. You don't need to rewrite your app — you stabilize it one module at a time.",
-  },
-  {
-    question: 'What surfaces can ContractSpec generate?',
-    answer:
-      'REST APIs, GraphQL schemas, Prisma database schemas, React forms/views, MCP tools for AI agents, TypeScript types, and validation logic. All from the same spec.',
-  },
-  {
-    question: 'Is there a free trial for paid plans?',
-    answer:
-      'Yes. Pro and Business plans come with a 14-day free trial. No credit card required to start.',
-  },
-  {
-    question: 'Can I change plans later?',
-    answer:
-      "Yes. Upgrade or downgrade anytime. If you downgrade, you keep access to existing projects and generated code — you just can't exceed the new plan's limits.",
+      'No. We want everyone in your team to use ContractSpec without friction. Pricing is tied to how much of your system we help you maintain, not how many teammates you invite.',
   },
 ];
 
 export default function PricingClient() {
-  const [annual, setAnnual] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [pricingModalOpen, setPricingModalOpen] = useState(false);
+
+  const scrollToWaitlist = () => {
+    const waitlistElement = document.getElementById('waitlist');
+    if (waitlistElement) {
+      waitlistElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <main className="pt-24">
@@ -162,137 +51,286 @@ export default function PricingClient() {
       <section className="section-padding hero-gradient relative">
         <div className="mx-auto max-w-4xl space-y-6 text-center">
           <h1 className="text-5xl leading-tight font-bold md:text-6xl">
-            Simple, transparent pricing
+            Transparent, usage-based pricing – after we earn it.
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-            Start free. Scale with your team. No surprise bills. No lock-in.
+            ContractSpec is in design-partner early access. You can't pay us
+            yet. You can, however, help shape the compiler that will run your
+            AI-native stack.
           </p>
 
-          {/* Billing toggle */}
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <span
-              className={`text-sm ${!annual ? 'text-foreground' : 'text-muted-foreground'}`}
+          <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
+            <button
+              onClick={scrollToWaitlist}
+              className="btn-primary inline-flex items-center gap-2"
             >
-              Monthly
-            </span>
-            <Switch
-              className="h-7 w-12"
-              thumbClassName="h-6 w-6 data-[state=checked]:translate-x-5"
-              onClick={() => setAnnual(!annual)}
-              // className={`relative h-7 w-14 rounded-full transition-colors ${
-              //   annual ? 'bg-violet-500' : 'bg-muted'
-              // }`}
-              // className={`size-14`}
-            />
-            <span
-              className={`text-sm ${annual ? 'text-foreground' : 'text-muted-foreground'}`}
-            >
-              Annual{' '}
-              <span className="font-medium text-emerald-400">(Save 17%)</span>
-            </span>
+              Apply as a design partner <ChevronRight size={16} />
+            </button>
+            <Link href="/contact" className="btn-ghost">
+              Talk to us
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Plans */}
+      {/* Design-Partner Highlight Strip */}
+      <section className="section-padding border-border border-b">
+        <div className="mx-auto max-w-6xl">
+          <div className="card-subtle flex flex-col gap-6 p-8 md:flex-row md:items-center">
+            <div className="flex-1 space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1">
+                <span className="text-sm font-medium text-violet-300">
+                  Now accepting design partners
+                </span>
+              </div>
+              <h2 className="text-2xl font-bold">
+                Help us design the compiler for AI-native software.
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                We work closely with a small group of teams building serious
+                products with AI. You bring real-world complexity, we bring
+                the spec-first engine and a lot of attention.
+              </p>
+            </div>
+            <div className="flex-1 space-y-4">
+              <ul className="text-muted-foreground space-y-2 text-sm">
+                <li className="flex gap-2">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Early access to ContractSpec Studio
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Hands-on onboarding and architecture help
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Influence over roadmap and features
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Priority support during early access
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Founding discount when paid plans launch
+                </li>
+              </ul>
+              <button
+                onClick={scrollToWaitlist}
+                className="btn-primary w-full md:w-auto"
+              >
+                Apply to the waitlist
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Future Pricing Tiers */}
       <section className="section-padding border-border border-b">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-6 md:grid-cols-3">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`card-subtle relative space-y-6 p-6 ${
-                  plan.highlight ? 'bg-violet-500/5 ring-2 ring-violet-500' : ''
-                }`}
-              >
-                {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">
-                    Most Popular
+            {/* Design Partner (Current) */}
+            <div className="card-subtle relative space-y-6 p-6 bg-violet-500/5 ring-2 ring-violet-500">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">
+                Current
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold">Design Partner</h2>
+                <div className="space-y-1">
+                  <div className="text-2xl font-bold">
+                    Free during early access
                   </div>
-                )}
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold">{plan.name}</h2>
-                  <p className="text-muted-foreground text-sm">
-                    {plan.subtitle}
+                  <p className="text-muted-foreground text-xs">
+                    Founding discount when paid plans launch
                   </p>
                 </div>
-                <div className="space-y-1">
-                  {plan.monthlyPrice === 'custom' ? (
-                    <div className="text-4xl font-bold">Custom</div>
-                  ) : (
-                    <>
-                      <div className="text-4xl font-bold">
-                        ${annual ? plan.annualPrice : plan.monthlyPrice}
-                        <span className="text-muted-foreground text-lg font-normal">
-                          /mo
-                        </span>
-                      </div>
-                      {annual && plan.monthlyPrice > 0 && (
-                        <p className="text-muted-foreground text-xs">
-                          Billed annually
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  {plan.description}
-                </p>
-                <ul className="space-y-3">
-                  {plan.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="text-muted-foreground flex gap-3 text-sm"
-                    >
-                      <CheckCircle
-                        size={16}
-                        className="mt-0.5 flex-shrink-0 text-violet-400"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={plan.ctaLink}
-                  className={`inline-flex w-full items-center justify-center gap-2 ${
-                    plan.highlight ? 'btn-primary' : 'btn-ghost'
-                  }`}
-                >
-                  {plan.cta} <ChevronRight size={16} />
-                </Link>
               </div>
-            ))}
+              <ul className="space-y-3">
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Use ContractSpec Studio for real projects during early access
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Work directly with the founder on architecture & use cases
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Reasonable "fair use" limits on regenerations and AI credits
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Priority support & feedback loops
+                </li>
+              </ul>
+              <button
+                onClick={scrollToWaitlist}
+                className="btn-primary w-full"
+              >
+                Apply as a design partner
+              </button>
+            </div>
+
+            {/* Builder (Coming Soon) */}
+            <div className="card-subtle relative space-y-6 p-6">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-muted border border-border px-3 py-1 text-xs font-medium">
+                Coming soon
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold">Builder</h2>
+                <div className="space-y-1">
+                  <div className="text-2xl font-bold">
+                    Usage-based, for solo builders and small teams
+                  </div>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                Pay only for what you regenerate and the AI you consume. No
+                seat-based pricing, and a generous free tier for experiments.
+              </p>
+              <ul className="space-y-2">
+                <li className="text-muted-foreground text-sm">1–3 projects</li>
+                <li className="text-muted-foreground text-sm">
+                  Generous monthly free regenerations
+                </li>
+                <li className="text-muted-foreground text-sm">
+                  Pay-as-you-go beyond the free tier
+                </li>
+              </ul>
+              <button
+                disabled
+                className="btn-ghost w-full cursor-not-allowed opacity-50"
+              >
+                Available after public launch
+              </button>
+            </div>
+
+            {/* Team / Enterprise (Coming Soon) */}
+            <div className="card-subtle relative space-y-6 p-6">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-muted border border-border px-3 py-1 text-xs font-medium">
+                Coming soon
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold">Team & Platform</h2>
+                <div className="space-y-1">
+                  <div className="text-2xl font-bold">
+                    Custom, for teams standardizing on ContractSpec
+                  </div>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                For teams running multiple apps or platforms on ContractSpec,
+                with stricter governance, data, and compliance needs.
+              </p>
+              <ul className="space-y-3">
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Multiple projects and environments
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Advanced RBAC and policy packs
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  SSO, audit trails, and longer retention
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Priority support & SLAs
+                </li>
+              </ul>
+              <Link href="/contact" className="btn-ghost w-full">
+                Talk to us
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Usage-based add-ons */}
+      {/* How Pricing Will Work */}
       <section className="section-padding border-border bg-muted/20 border-b">
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1">
-              <Zap size={16} className="text-emerald-400" />
-              <span className="text-sm font-medium text-emerald-300">
-                Usage-Based Add-ons
-              </span>
-            </div>
-            <h2 className="text-3xl font-bold">Scale as you grow</h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl">
-              Need more? Pay only for what you use beyond your plan limits.
+            <h2 className="text-3xl font-bold">
+              How ContractSpec pricing will work
+            </h2>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+              We charge based on how much of your stack we help you maintain,
+              not how many people click around in the UI.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            {usageAddons.map((addon) => (
-              <div key={addon.name} className="card-subtle space-y-3 p-6">
-                <h3 className="font-bold">{addon.name}</h3>
-                <p className="text-muted-foreground text-sm">
-                  {addon.description}
-                </p>
-                <p className="text-sm font-medium text-violet-400">
-                  {addon.price}
-                </p>
-              </div>
-            ))}
+            <div className="card-subtle space-y-3 p-6">
+              <h3 className="font-bold">Generous free tier</h3>
+              <p className="text-muted-foreground text-sm">
+                One serious project, small spec, and enough monthly
+                regenerations to ship something real.
+              </p>
+            </div>
+            <div className="card-subtle space-y-3 p-6">
+              <h3 className="font-bold">Usage-based beyond free</h3>
+              <p className="text-muted-foreground text-sm">
+                You pay for regenerations and AI agent actions, not per-seat.
+                The more your system evolves via ContractSpec, the more you
+                pay.
+              </p>
+            </div>
+            <div className="card-subtle space-y-3 p-6">
+              <h3 className="font-bold">No lock-in</h3>
+              <p className="text-muted-foreground text-sm">
+                Generated code is standard, readable, and exportable. If you
+                leave, your app keeps running.
+              </p>
+            </div>
+          </div>
+          <div className="pt-6 text-center">
+            <button
+              onClick={() => setPricingModalOpen(true)}
+              className="btn-ghost"
+            >
+              View our tentative pricing model
+            </button>
           </div>
         </div>
       </section>
@@ -326,31 +364,30 @@ export default function PricingClient() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section-padding hero-gradient">
-        <div className="mx-auto max-w-4xl space-y-6 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">
-            Ready to stabilize your codebase?
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Start free. No credit card required. Upgrade when you're ready.
-          </p>
-          <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Link
-              href="/docs/quickstart"
-              className="btn-primary inline-flex items-center gap-2"
-            >
-              Get started free <ChevronRight size={16} />
-            </Link>
-            <Link href="/contact" className="btn-ghost">
-              Talk to sales
+          <div className="pt-4 text-center">
+            <p className="text-muted-foreground mb-2 text-sm">
+              Still unsure?
+            </p>
+            <Link href="/contact" className="text-violet-400 hover:text-violet-300 text-sm font-medium">
+              Contact us →
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Waitlist Section */}
+      <section className="section-padding hero-gradient">
+        <div className="mx-auto max-w-4xl">
+          <WaitlistSection />
+        </div>
+      </section>
+
+      {/* Pricing Thinking Modal */}
+      <PricingThinkingModal
+        open={pricingModalOpen}
+        onOpenChange={setPricingModalOpen}
+        onApplyClick={scrollToWaitlist}
+      />
     </main>
   );
 }
