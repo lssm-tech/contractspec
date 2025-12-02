@@ -15,13 +15,14 @@ import {
   XCircle,
   Zap,
 } from 'lucide-react';
+import CollapsibleCard from '@lssm/lib.design-system/components/molecules/CollapsibleCard';
 
 export default function ClientPage() {
   return (
     <main className="pt-24">
       {/* Hero Section */}
       <section className="section-padding hero-gradient relative">
-        <div className="fade-in mx-auto max-w-4xl space-y-6 text-center">
+        <div className="fade-in mx-auto max-w-5xl space-y-6 text-center">
           <div className="space-y-4">
             <h1 className="text-5xl leading-tight font-bold text-pretty md:text-6xl">
               Stabilize your AI-generated code
@@ -44,14 +45,14 @@ export default function ClientPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-8">
             {[
-              'Safe Regeneration',
+              // 'Safe Regeneration',
               'Multi-Surface Sync',
               'No Lock-in',
-              'Just TypeScript',
-              'You Own the Code',
-              'Incremental Adoption',
+              // 'Just TypeScript',
+              // 'You Own the Code',
+              // 'Incremental Adoption',
               'Standard Tech',
-              'AI Governance',
+              // 'AI Governance',
             ].map((chip) => (
               <span key={chip} className="badge">
                 {chip}

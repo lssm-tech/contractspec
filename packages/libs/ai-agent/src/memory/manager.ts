@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { CoreMessage } from 'ai';
+import type { ModelMessage } from 'ai';
 import type { AgentMessage, AgentSessionState } from '../types';
 
 export interface AgentMemoryEntry {
@@ -35,10 +35,10 @@ export interface AgentMemoryManager {
 }
 
 /**
- * Extract text content from a CoreMessage.
+ * Extract text content from a ModelMessage.
  * Handles both string content and array content parts.
  */
-function extractMessageContent(message: CoreMessage): string {
+function extractMessageContent(message: ModelMessage): string {
   const content = message.content;
 
   // Handle string content directly
@@ -86,10 +86,10 @@ function extractAgentMessageContent(message: AgentMessage): string {
 }
 
 /**
- * Map CoreMessage role to memory entry type.
+ * Map ModelMessage role to memory entry type.
  */
 function roleToEntryType(
-  role: CoreMessage['role']
+  role: ModelMessage['role']
 ): 'user' | 'assistant' | 'tool' | 'system' {
   switch (role) {
     case 'assistant':

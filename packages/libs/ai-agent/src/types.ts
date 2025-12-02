@@ -1,4 +1,4 @@
-import type { CoreMessage, StepResult, LanguageModelUsage, ToolSet } from 'ai';
+import type { LanguageModelUsage, ModelMessage, StepResult, ToolSet } from 'ai';
 
 // ============================================================================
 // Tool Call/Result Types (simplified from AI SDK v6)
@@ -27,11 +27,11 @@ export interface ToolResultInfo {
 }
 
 // ============================================================================
-// Agent Message (CoreMessage with metadata extension)
+// Agent Message (ModelMessage with metadata extension)
 // ============================================================================
 
 /**
- * Extended message type that adds metadata support to CoreMessage.
+ * Extended message type that adds metadata support to ModelMessage.
  * Used for session memory tracking.
  */
 export interface AgentMessage {
@@ -103,7 +103,7 @@ export interface AgentSessionState {
   tenantId?: string;
   actorId?: string;
   status: AgentStatus;
-  messages: CoreMessage[];
+  messages: ModelMessage[];
   steps: StepResult<ToolSet>[];
   createdAt: Date;
   updatedAt: Date;

@@ -15,7 +15,7 @@ export * from './approval';
 export type {
   LanguageModel,
   Tool,
-  CoreMessage,
+  ModelMessage,
   StepResult,
   LanguageModelUsage,
   ToolSet,

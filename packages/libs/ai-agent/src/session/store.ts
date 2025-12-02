@@ -1,5 +1,5 @@
-import type { CoreMessage, StepResult, ToolSet } from 'ai';
-import type { AgentSessionState, AgentStatus } from '../types';
+import type { ModelMessage, StepResult, ToolSet } from 'ai';
+import type { AgentSessionState } from '../types';
 
 /**
  * Interface for persisting agent session state.
@@ -28,7 +28,7 @@ export interface AgentSessionStore {
   /**
    * Append a message to a session.
    */
-  appendMessage(sessionId: string, message: CoreMessage): Promise<void>;
+  appendMessage(sessionId: string, message: ModelMessage): Promise<void>;
 
   /**
    * Update session properties.
@@ -88,7 +88,7 @@ export class InMemorySessionStore implements AgentSessionStore {
     }
   }
 
-  async appendMessage(sessionId: string, message: CoreMessage): Promise<void> {
+  async appendMessage(sessionId: string, message: ModelMessage): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (session) {
       session.messages.push(message);
