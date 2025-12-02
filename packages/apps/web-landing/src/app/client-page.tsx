@@ -294,7 +294,7 @@ export default function ClientPage() {
           </p>
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
             <Link
-              href="/docs/quickstart"
+              href="/contact"
               className="btn-primary inline-flex items-center gap-2"
             >
               Start stabilizing <ChevronRight size={16} />

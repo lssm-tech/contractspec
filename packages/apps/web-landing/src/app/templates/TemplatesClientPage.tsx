@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+import {HStack, VStack} from '@lssm/lib.ui-kit-web/ui/stack';
+import {H1, H2, H3, H4, P, BlockQuote, Code, Lead, Large, Small, Muted} from '@lssm/lib.ui-kit-web/ui/typography';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
