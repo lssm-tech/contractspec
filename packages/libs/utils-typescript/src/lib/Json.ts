@@ -20,8 +20,9 @@ export declare type NonJsonValue<ExtraTypes> =
   | ExtraTypes;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface NonJsonArray<ExtraTypes>
-  extends Array<NonJsonValue<ExtraTypes>> {}
+export interface NonJsonArray<ExtraTypes> extends Array<
+  NonJsonValue<ExtraTypes>
+> {}
 
 export interface NonJsonObject<ExtraTypes> {
   [key: string]: NonJsonValue<ExtraTypes>;

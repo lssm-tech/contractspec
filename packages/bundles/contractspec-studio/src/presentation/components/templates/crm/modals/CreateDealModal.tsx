@@ -24,7 +24,7 @@ interface CreateDealModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (input: CreateDealInput) => Promise<void>;
-  stages: Array<{ id: string; name: string }>;
+  stages: { id: string; name: string }[];
   isLoading?: boolean;
 }
 

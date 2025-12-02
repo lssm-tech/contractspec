@@ -71,8 +71,7 @@ export function createKnowledgeInjector(retriever?: KnowledgeRetriever) {
     /**
      * Check if a knowledge space is available.
      */
-    hasSpace: (spaceKey: string) =>
-      retriever?.supportsSpace(spaceKey) ?? false,
+    hasSpace: (spaceKey: string) => retriever?.supportsSpace(spaceKey) ?? false,
 
     /**
      * List available knowledge spaces.
@@ -80,4 +79,3 @@ export function createKnowledgeInjector(retriever?: KnowledgeRetriever) {
     listSpaces: () => retriever?.listSpaces() ?? [],
   };
 }
-

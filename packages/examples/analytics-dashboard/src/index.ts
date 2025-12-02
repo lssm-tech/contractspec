@@ -1,15 +1,15 @@
 /**
  * @lssm/example.analytics-dashboard
- * 
+ *
  * Analytics Dashboard Example
- * 
+ *
  * A comprehensive analytics and dashboarding solution demonstrating:
  * - Customizable dashboards with drag-and-drop widgets
  * - Visual query builder with multiple query types
  * - Real-time data visualization
  * - Scheduled report generation
  * - Public dashboard sharing
- * 
+ *
  * This example showcases integration with:
  * - @lssm/lib.metering for usage data
  * - @lssm/lib.identity-rbac for access control
@@ -82,4 +82,3 @@ export { AnalyticsDashboardPresentations } from './presentations';
 
 // ============ Feature ============
 export { AnalyticsDashboardFeature } from './feature';
-

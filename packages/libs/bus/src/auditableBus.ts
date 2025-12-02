@@ -66,7 +66,10 @@ export interface AuditableEventBusOptions {
   /** Default metadata to include with all events */
   defaultMetadata?: EventMetadata;
   /** Filter function to decide which events to audit */
-  shouldAudit?: (eventName: string, envelope: AuditableEventEnvelope) => boolean;
+  shouldAudit?: (
+    eventName: string,
+    envelope: AuditableEventEnvelope
+  ) => boolean;
   /** Transform function for audit records */
   transformAuditRecord?: (record: AuditRecord) => AuditRecord;
 }
@@ -177,10 +180,7 @@ export function makeAuditablePublisher<T extends AnySchemaModel>(
         ...options?.metadata,
       },
     };
-    await bus.publish(
-      eventKey(spec.name, spec.version),
-      encodeEvent(envelope)
-    );
+    await bus.publish(eventKey(spec.name, spec.version), encodeEvent(envelope));
   };
 }
 
@@ -206,7 +206,9 @@ export class InMemoryAuditStorage implements AuditStorage {
     }
 
     if (options.targetId) {
-      results = results.filter((r) => r.metadata?.targetId === options.targetId);
+      results = results.filter(
+        (r) => r.metadata?.targetId === options.targetId
+      );
     }
 
     if (options.orgId) {
@@ -218,9 +220,7 @@ export class InMemoryAuditStorage implements AuditStorage {
     }
 
     if (options.from) {
-      results = results.filter(
-        (r) => new Date(r.occurredAt) >= options.from!
-      );
+      results = results.filter((r) => new Date(r.occurredAt) >= options.from!);
     }
 
     if (options.to) {
@@ -267,4 +267,3 @@ export function createAuditableEventBus(
     ...options,
   });
 }
-

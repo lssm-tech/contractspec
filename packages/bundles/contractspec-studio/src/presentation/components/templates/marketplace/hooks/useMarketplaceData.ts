@@ -38,7 +38,9 @@ export function useMarketplaceData(projectId = 'local-project') {
       setOrders(orderResult.orders);
       setTotalRevenue(orderResult.totalRevenue);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to load marketplace'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to load marketplace')
+      );
     } finally {
       setLoading(false);
     }
@@ -67,4 +69,3 @@ export function useMarketplaceData(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
-

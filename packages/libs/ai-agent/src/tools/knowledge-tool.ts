@@ -47,7 +47,9 @@ ${spaceDescriptions}`,
       spaceKey: z
         .enum(optionalSpaces as [string, ...string[]])
         .optional()
-        .describe('Specific knowledge space to query. If omitted, searches all available spaces.'),
+        .describe(
+          'Specific knowledge space to query. If omitted, searches all available spaces.'
+        ),
       topK: z
         .number()
         .optional()
@@ -56,7 +58,8 @@ ${spaceDescriptions}`,
     }),
     execute: async ({ query, spaceKey, topK }) => {
       const spacesToSearch = spaceKey ? [spaceKey] : optionalSpaces;
-      const allResults: { space: string; content: string; score: number }[] = [];
+      const allResults: { space: string; content: string; score: number }[] =
+        [];
 
       for (const space of spacesToSearch) {
         try {
@@ -95,4 +98,3 @@ ${spaceDescriptions}`,
     },
   });
 }
-

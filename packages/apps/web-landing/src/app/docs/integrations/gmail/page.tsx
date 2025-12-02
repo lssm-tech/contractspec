@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Gmail API Integration: ContractSpec Docs",
+  title: 'Gmail API Integration: ContractSpec Docs',
   description:
-    "Process inbound emails and manage threads with Gmail API in ContractSpec.",
+    'Process inbound emails and manage threads with Gmail API in ContractSpec.',
 };
 
 export default function GmailIntegrationPage() {
@@ -24,7 +24,7 @@ export default function GmailIntegrationPage() {
         <p className="text-muted-foreground">
           Configure OAuth 2.0 credentials in Google Cloud Console:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
@@ -34,7 +34,7 @@ GOOGLE_REDIRECT_URI=https://your-app.com/auth/google/callback`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Reading emails</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: gmail-list-messages
 provider:
   type: gmail
@@ -62,7 +62,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Use cases</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Parse support emails and create tickets</li>
           <li>Extract attachments and process them</li>
           <li>Build email-to-task workflows</li>
@@ -81,4 +81,3 @@ outputs:
     </div>
   );
 }
-

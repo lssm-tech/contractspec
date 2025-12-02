@@ -23,10 +23,7 @@ export interface AgentSessionStore {
   /**
    * Append a step to a session.
    */
-  appendStep(
-    sessionId: string,
-    step: StepResult<ToolSet>
-  ): Promise<void>;
+  appendStep(sessionId: string, step: StepResult<ToolSet>): Promise<void>;
 
   /**
    * Append a message to a session.
@@ -113,7 +110,10 @@ export class InMemorySessionStore implements AgentSessionStore {
     return this.sessions.delete(sessionId);
   }
 
-  async listByAgent(agentId: string, limit = 100): Promise<AgentSessionState[]> {
+  async listByAgent(
+    agentId: string,
+    limit = 100
+  ): Promise<AgentSessionState[]> {
     const results: AgentSessionState[] = [];
     for (const session of this.sessions.values()) {
       if (session.agentId === agentId) {
@@ -163,4 +163,3 @@ export function createInMemorySessionStore(): AgentSessionStore {
 export function generateSessionId(): string {
   return `sess_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 }
-

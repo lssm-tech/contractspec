@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type React from "react";
+import type React from 'react';
 
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import DocsSidebar from "@/components/docs-sidebar";
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import DocsSidebar from '@/components/docs-sidebar';
 
 export default function DocsLayout({
   children,
@@ -14,10 +14,10 @@ export default function DocsLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="md:hidden fixed bottom-6 right-6 z-40 p-3 bg-violet-500 text-white rounded-full hover:bg-violet-600 transition-colors"
+        className="fixed right-6 bottom-6 z-40 rounded-full bg-violet-500 p-3 text-white transition-colors hover:bg-violet-600 md:hidden"
         aria-label="Toggle sidebar"
       >
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -34,8 +34,8 @@ export default function DocsLayout({
 
         {/* Sidebar */}
         <div
-          className={`fixed md:relative z-30 transition-all duration-200 ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          className={`fixed z-30 transition-all duration-200 md:relative ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
           }`}
         >
           <DocsSidebar onItemClick={() => setSidebarOpen(false)} />
@@ -43,7 +43,7 @@ export default function DocsLayout({
 
         {/* Main Content */}
         <main className="flex-1 overflow-hidden">
-          <div className="mx-auto px-4 md:px-8 py-8">{children}</div>
+          <div className="mx-auto px-4 py-8 md:px-8">{children}</div>
         </main>
       </div>
     </div>

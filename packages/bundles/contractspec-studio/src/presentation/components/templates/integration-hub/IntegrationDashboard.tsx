@@ -19,13 +19,18 @@ import { useIntegrationData } from './hooks/useIntegrationData';
 type Tab = 'integrations' | 'connections' | 'syncs';
 
 const STATUS_COLORS: Record<string, string> = {
-  ACTIVE: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  ACTIVE:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   INACTIVE: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
-  CONNECTED: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-  DISCONNECTED: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
-  PENDING: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  CONNECTED:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  DISCONNECTED:
+    'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
+  PENDING:
+    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
   ERROR: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-  PAUSED: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  PAUSED:
+    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
 };
 
 const TYPE_ICONS: Record<string, string> = {
@@ -39,7 +44,15 @@ const TYPE_ICONS: Record<string, string> = {
 
 export function IntegrationDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('integrations');
-  const { integrations, connections, syncConfigs, loading, error, stats, refetch } = useIntegrationData();
+  const {
+    integrations,
+    connections,
+    syncConfigs,
+    loading,
+    error,
+    stats,
+    refetch,
+  } = useIntegrationData();
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'integrations', label: 'Integrations', icon: '🔌' },
@@ -122,14 +135,20 @@ export function IntegrationDashboard() {
                 className="border-border bg-card hover:bg-muted/50 cursor-pointer rounded-lg border p-4 transition-colors"
               >
                 <div className="mb-3 flex items-center gap-3">
-                  <span className="text-2xl">{TYPE_ICONS[integration.type] ?? '⚙️'}</span>
+                  <span className="text-2xl">
+                    {TYPE_ICONS[integration.type] ?? '⚙️'}
+                  </span>
                   <div>
                     <h3 className="font-medium">{integration.name}</h3>
-                    <p className="text-muted-foreground text-sm">{integration.type}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {integration.type}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[integration.status] ?? ''}`}>
+                  <span
+                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[integration.status] ?? ''}`}
+                  >
                     {integration.status}
                   </span>
                   <span className="text-muted-foreground text-xs">
@@ -139,7 +158,7 @@ export function IntegrationDashboard() {
               </div>
             ))}
             {integrations.length === 0 && (
-              <div className="col-span-full flex h-64 items-center justify-center text-muted-foreground">
+              <div className="text-muted-foreground col-span-full flex h-64 items-center justify-center">
                 No integrations configured
               </div>
             )}
@@ -151,9 +170,15 @@ export function IntegrationDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Connection</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Last Sync</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Connection
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Last Sync
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -163,7 +188,9 @@ export function IntegrationDashboard() {
                       <div className="font-medium">{conn.name}</div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[conn.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[conn.status] ?? ''}`}
+                      >
                         {conn.status}
                       </span>
                     </td>
@@ -174,7 +201,10 @@ export function IntegrationDashboard() {
                 ))}
                 {connections.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={3}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No connections found
                     </td>
                   </tr>
@@ -189,10 +219,18 @@ export function IntegrationDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Sync Config</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Frequency</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Records</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Sync Config
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Frequency
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Records
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -206,7 +244,9 @@ export function IntegrationDashboard() {
                     </td>
                     <td className="px-4 py-3 text-sm">{sync.frequency}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[sync.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[sync.status] ?? ''}`}
+                      >
                         {sync.status}
                       </span>
                     </td>
@@ -217,7 +257,10 @@ export function IntegrationDashboard() {
                 ))}
                 {syncConfigs.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No sync configurations found
                     </td>
                   </tr>
@@ -230,4 +273,3 @@ export function IntegrationDashboard() {
     </div>
   );
 }
-

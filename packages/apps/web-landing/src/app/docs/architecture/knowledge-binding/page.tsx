@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Knowledge Binding: ContractSpec Docs",
+  title: 'Knowledge Binding: ContractSpec Docs',
   description:
-    "Learn how apps bind to knowledge spaces through AppKnowledgeBinding in ContractSpec.",
+    'Learn how apps bind to knowledge spaces through AppKnowledgeBinding in ContractSpec.',
 };
 
 export default function KnowledgeBindingPage() {
@@ -24,7 +24,7 @@ export default function KnowledgeBindingPage() {
         <p className="text-muted-foreground">
           Knowledge binding follows a three-layer model:
         </p>
-        <ol className="space-y-3 text-muted-foreground list-decimal list-inside">
+        <ol className="text-muted-foreground list-inside list-decimal space-y-3">
           <li>
             <strong>KnowledgeSpaceSpec</strong> (global) - Defines a logical
             knowledge domain
@@ -51,7 +51,7 @@ export default function KnowledgeBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 1: Blueprint declares knowledge needs
           </h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// AppBlueprintSpec
 {
   id: "support-app",
@@ -84,7 +84,7 @@ export default function KnowledgeBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 2: Tenant configures sources
           </h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// KnowledgeSourceConfig (per-tenant)
 [
   {
@@ -122,7 +122,7 @@ export default function KnowledgeBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 3: TenantAppConfig binds spaces
           </h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// TenantAppConfig
 {
   tenantId: "acme-corp",
@@ -167,7 +167,7 @@ export default function KnowledgeBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 4: Workflow uses knowledge
           </h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// WorkflowSpec
 workflowId: answer-question
 version: 1.0.0
@@ -221,17 +221,17 @@ steps:
           Different knowledge categories have different trust levels and access
           patterns:
         </p>
-        <div className="overflow-x-auto rounded-lg border border-border/50">
+        <div className="border-border/50 overflow-x-auto rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead className="bg-card/50">
-              <tr className="border-b border-border/50">
+              <tr className="border-border/50 border-b">
                 <th className="px-4 py-3 font-semibold">Category</th>
                 <th className="px-4 py-3 font-semibold">Trust Level</th>
                 <th className="px-4 py-3 font-semibold">Use Cases</th>
                 <th className="px-4 py-3 font-semibold">Policy Impact</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/50">
+            <tbody className="divide-border/50 divide-y">
               <tr>
                 <td className="px-4 py-3 font-mono text-xs">canonical</td>
                 <td className="px-4 py-3">Highest</td>
@@ -274,7 +274,7 @@ steps:
         <p className="text-muted-foreground">
           Workflows can query multiple knowledge spaces and combine results:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`knowledgeBindings: [
   {
     spaceId: "product-canon",
@@ -309,14 +309,12 @@ steps:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Security & validation</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             Knowledge sources are validated before sync - credentials and
             permissions checked
           </li>
-          <li>
-            PDP enforces which workflows/agents can access which spaces
-          </li>
+          <li>PDP enforces which workflows/agents can access which spaces</li>
           <li>
             All knowledge queries are audited with search terms and results
           </li>
@@ -333,7 +331,7 @@ steps:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             Use canonical spaces for policy-critical decisions, operational for
             suggestions
@@ -345,9 +343,7 @@ steps:
           <li>
             Set up monitoring for sync failures and stale knowledge sources
           </li>
-          <li>
-            Document the purpose and trust level of each knowledge space
-          </li>
+          <li>Document the purpose and trust level of each knowledge space</li>
           <li>
             Test knowledge queries in sandbox before promoting to production
           </li>
@@ -371,4 +367,3 @@ steps:
     </div>
   );
 }
-

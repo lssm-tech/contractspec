@@ -71,7 +71,8 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to create deal');
+        const error =
+          err instanceof Error ? err : new Error('Failed to create deal');
         setCreateState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -92,7 +93,8 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to move deal');
+        const error =
+          err instanceof Error ? err : new Error('Failed to move deal');
         setMoveState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -113,7 +115,8 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to mark deal as won');
+        const error =
+          err instanceof Error ? err : new Error('Failed to mark deal as won');
         setWinState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -134,7 +137,8 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to mark deal as lost');
+        const error =
+          err instanceof Error ? err : new Error('Failed to mark deal as lost');
         setLoseState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -167,4 +171,3 @@ export function useDealMutations(options: UseDealMutationsOptions = {}) {
 
 // Note: Types are re-exported from the handlers package
 // Consumers should import types directly from '@lssm/example.crm-pipeline/handlers'
-

@@ -124,7 +124,14 @@ export const CreateUserContract = defineCommand({
     auth: 'anonymous',
   },
   sideEffects: {
-    emits: [{ name: 'user.created', version: 1, when: 'User is successfully created', payload: UserProfileModel }],
+    emits: [
+      {
+        name: 'user.created',
+        version: 1,
+        when: 'User is successfully created',
+        payload: UserProfileModel,
+      },
+    ],
     audit: ['user.created'],
   },
 });
@@ -174,7 +181,14 @@ export const UpdateUserContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'user.updated', version: 1, when: 'User profile is updated', payload: UserProfileModel }],
+    emits: [
+      {
+        name: 'user.updated',
+        version: 1,
+        when: 'User profile is updated',
+        payload: UserProfileModel,
+      },
+    ],
     audit: ['user.updated'],
   },
 });
@@ -191,7 +205,8 @@ export const DeleteUserContract = defineCommand({
     tags: ['identity', 'user', 'delete'],
     description: 'Delete user account and all associated data.',
     goal: 'Allow users to delete their account (GDPR compliance).',
-    context: 'Self-service account deletion. Cascades to memberships, sessions, etc.',
+    context:
+      'Self-service account deletion. Cascades to memberships, sessions, etc.',
   },
   io: {
     input: DeleteUserInputModel,
@@ -202,7 +217,14 @@ export const DeleteUserContract = defineCommand({
     escalate: 'human_review',
   },
   sideEffects: {
-    emits: [{ name: 'user.deleted', version: 1, when: 'User account is deleted', payload: UserDeletedPayloadModel }],
+    emits: [
+      {
+        name: 'user.deleted',
+        version: 1,
+        when: 'User account is deleted',
+        payload: UserDeletedPayloadModel,
+      },
+    ],
     audit: ['user.deleted'],
   },
 });

@@ -22,14 +22,14 @@ export default function ManifestoPage() {
           <p className="text-muted-foreground">
             ContractSpec is a tool in your toolchain, not a platform you're
             locked into. Like TypeScript compiles to JavaScript, ContractSpec
-            compiles specs to standard code. The generated output is yours—readable,
-            modifiable, and ejectable at any time.
+            compiles specs to standard code. The generated output is
+            yours—readable, modifiable, and ejectable at any time.
           </p>
           <p className="text-muted-foreground">
             We believe developers should own their code. There's no proprietary
             runtime, no vendor-specific abstractions, no magic that hides
-            complexity. You can always see what ContractSpec generates, understand
-            it, and take it with you if you leave.
+            complexity. You can always see what ContractSpec generates,
+            understand it, and take it with you if you leave.
           </p>
         </div>
 
@@ -38,8 +38,8 @@ export default function ManifestoPage() {
           <p className="text-muted-foreground">
             Everything ContractSpec generates uses technology you already know:
             TypeScript, Zod, Prisma, GraphQL, REST, React. There's no new
-            language to learn, no YAML configuration hell, no DSL that only works
-            in our ecosystem.
+            language to learn, no YAML configuration hell, no DSL that only
+            works in our ecosystem.
           </p>
           <p className="text-muted-foreground">
             Specs are just TypeScript. If you can write{' '}
@@ -70,14 +70,14 @@ export default function ManifestoPage() {
           <p className="text-muted-foreground">
             In 2025, AI agents generate enormous amounts of code. But they can't
             enforce invariants, they break multi-surface consistency, and they
-            hallucinate refactors. The result is code that's hard to maintain and
-            dangerous to trust.
+            hallucinate refactors. The result is code that's hard to maintain
+            and dangerous to trust.
           </p>
           <p className="text-muted-foreground">
-            ContractSpec provides the governance layer. Contracts define what the
-            system <em>should</em> do. AI agents read specs, not implementations.
-            Code that violates contracts gets flagged and rejected before it can
-            cause damage.
+            ContractSpec provides the governance layer. Contracts define what
+            the system <em>should</em> do. AI agents read specs, not
+            implementations. Code that violates contracts gets flagged and
+            rejected before it can cause damage.
           </p>
         </div>
 

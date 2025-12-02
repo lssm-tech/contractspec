@@ -10,4 +10,3 @@ export { agentListMarkdownRenderer } from './agent-list.markdown';
 export { runListMarkdownRenderer } from './run-list.markdown';
 export { toolRegistryMarkdownRenderer } from './tool-registry.markdown';
 export { agentDashboardMarkdownRenderer } from './dashboard.markdown';
-

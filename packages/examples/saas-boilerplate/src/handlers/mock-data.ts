@@ -108,4 +108,3 @@ export const MOCK_USAGE_SUMMARY = {
     { date: '2024-04-05', apiCalls: 3800, storageGb: 12.5 },
   ],
 };
-

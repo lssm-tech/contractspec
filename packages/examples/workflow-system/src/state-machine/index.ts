@@ -1,6 +1,6 @@
 /**
  * Workflow State Machine Engine
- * 
+ *
  * Provides state machine logic for workflow transitions.
  * This is a spec-level abstraction that defines the interface
  * for workflow state transitions.
@@ -28,7 +28,15 @@ export interface TransitionDefinition {
 export interface StateMachineStep {
   key: string;
   name: string;
-  type: 'START' | 'APPROVAL' | 'TASK' | 'CONDITION' | 'PARALLEL' | 'WAIT' | 'ACTION' | 'END';
+  type:
+    | 'START'
+    | 'APPROVAL'
+    | 'TASK'
+    | 'CONDITION'
+    | 'PARALLEL'
+    | 'WAIT'
+    | 'ACTION'
+    | 'END';
   /** Map of action -> transition definition */
   transitions: Record<string, string | TransitionDefinition>;
   /** For approval steps: how approvals are handled */
@@ -57,14 +65,22 @@ export interface StateMachineDefinition {
  */
 export interface StateMachineState {
   currentStepKey: string;
-  status: 'PENDING' | 'RUNNING' | 'WAITING' | 'PAUSED' | 'COMPLETED' | 'CANCELLED' | 'FAILED' | 'TIMEOUT';
+  status:
+    | 'PENDING'
+    | 'RUNNING'
+    | 'WAITING'
+    | 'PAUSED'
+    | 'COMPLETED'
+    | 'CANCELLED'
+    | 'FAILED'
+    | 'TIMEOUT';
   contextData: Record<string, unknown>;
-  history: Array<{
+  history: {
     stepKey: string;
     action: string;
     timestamp: Date;
     executedBy: string;
-  }>;
+  }[];
 }
 
 /**
@@ -145,33 +161,56 @@ export class BasicStateMachineEngine implements IStateMachineEngine {
   ): { allowed: boolean; reason?: string } {
     // Check if state allows transitions
     if (state.status !== 'RUNNING' && state.status !== 'WAITING') {
-      return { allowed: false, reason: `Workflow is ${state.status}, cannot transition` };
+      return {
+        allowed: false,
+        reason: `Workflow is ${state.status}, cannot transition`,
+      };
     }
 
     const currentStep = definition.steps[state.currentStepKey];
     if (!currentStep) {
-      return { allowed: false, reason: `Step ${state.currentStepKey} not found` };
+      return {
+        allowed: false,
+        reason: `Step ${state.currentStepKey} not found`,
+      };
     }
 
     // Check if action exists for this step
     const transition = currentStep.transitions[action];
     if (!transition) {
-      return { allowed: false, reason: `Action ${action} not available in step ${state.currentStepKey}` };
+      return {
+        allowed: false,
+        reason: `Action ${action} not available in step ${state.currentStepKey}`,
+      };
     }
 
     // Check role-based access
     if (currentStep.allowedRoles && currentStep.allowedRoles.length > 0) {
-      const hasRole = currentStep.allowedRoles.some(role => context.userRoles.includes(role));
+      const hasRole = currentStep.allowedRoles.some((role) =>
+        context.userRoles.includes(role)
+      );
       if (!hasRole) {
-        return { allowed: false, reason: `User lacks required role for this action` };
+        return {
+          allowed: false,
+          reason: `User lacks required role for this action`,
+        };
       }
     }
 
     // Check transition-specific roles if defined
-    if (typeof transition === 'object' && transition.allowedRoles && transition.allowedRoles.length > 0) {
-      const hasRole = transition.allowedRoles.some(role => context.userRoles.includes(role));
+    if (
+      typeof transition === 'object' &&
+      transition.allowedRoles &&
+      transition.allowedRoles.length > 0
+    ) {
+      const hasRole = transition.allowedRoles.some((role) =>
+        context.userRoles.includes(role)
+      );
       if (!hasRole) {
-        return { allowed: false, reason: `User lacks required role for action ${action}` };
+        return {
+          allowed: false,
+          reason: `User lacks required role for action ${action}`,
+        };
       }
     }
 
@@ -192,7 +231,7 @@ export class BasicStateMachineEngine implements IStateMachineEngine {
       return [];
     }
 
-    return Object.keys(currentStep.transitions).filter(action => {
+    return Object.keys(currentStep.transitions).filter((action) => {
       const result = this.canTransition(definition, state, action, context);
       return result.allowed;
     });
@@ -216,8 +255,27 @@ export class BasicStateMachineEngine implements IStateMachineEngine {
     }
 
     const currentStep = definition.steps[state.currentStepKey];
+    if (!currentStep) {
+      return {
+        success: false,
+        previousStepKey: state.currentStepKey,
+        currentStepKey: state.currentStepKey,
+        status: state.status,
+        error: `Current step ${state.currentStepKey} not found`,
+      };
+    }
     const transition = currentStep.transitions[action];
-    const targetStepKey = typeof transition === 'string' ? transition : transition.targetStepKey;
+    if (!transition) {
+      return {
+        success: false,
+        previousStepKey: state.currentStepKey,
+        currentStepKey: state.currentStepKey,
+        status: state.status,
+        error: `Transition for action ${action} not found`,
+      };
+    }
+    const targetStepKey =
+      typeof transition === 'string' ? transition : transition.targetStepKey;
     const targetStep = definition.steps[targetStepKey];
 
     if (!targetStep) {
@@ -254,21 +312,32 @@ export class BasicStateMachineEngine implements IStateMachineEngine {
     // In production, this should use a proper expression language
     try {
       // Simple property checks like "amount > 1000"
-      const match = expression.match(/^(\w+)\s*(>=|<=|>|<|===|!==|==|!=)\s*(.+)$/);
+      const match = expression.match(
+        /^(\w+)\s*(>=|<=|>|<|===|!==|==|!=)\s*(.+)$/
+      );
       if (match) {
         const [, prop, operator, value] = match;
+        if (!prop || !operator || value === undefined) {
+          return false;
+        }
         const propValue = contextData[prop];
         const compareValue = JSON.parse(value);
 
         switch (operator) {
-          case '>': return Number(propValue) > Number(compareValue);
-          case '<': return Number(propValue) < Number(compareValue);
-          case '>=': return Number(propValue) >= Number(compareValue);
-          case '<=': return Number(propValue) <= Number(compareValue);
+          case '>':
+            return Number(propValue) > Number(compareValue);
+          case '<':
+            return Number(propValue) < Number(compareValue);
+          case '>=':
+            return Number(propValue) >= Number(compareValue);
+          case '<=':
+            return Number(propValue) <= Number(compareValue);
           case '===':
-          case '==': return propValue === compareValue;
+          case '==':
+            return propValue === compareValue;
           case '!==':
-          case '!=': return propValue !== compareValue;
+          case '!=':
+            return propValue !== compareValue;
         }
       }
 
@@ -303,7 +372,7 @@ export function buildStateMachineDefinition(
     version: number;
     initialStepId: string | null;
   },
-  steps: Array<{
+  steps: {
     key: string;
     name: string;
     type: string;
@@ -312,7 +381,7 @@ export function buildStateMachineDefinition(
     approverRoles?: string[];
     timeoutSeconds?: number;
     conditionExpression?: string;
-  }>
+  }[]
 ): StateMachineDefinition {
   const stepMap: Record<string, StateMachineStep> = {};
 
@@ -330,7 +399,7 @@ export function buildStateMachineDefinition(
   }
 
   // Find initial step
-  const startStep = steps.find(s => s.type === 'START');
+  const startStep = steps.find((s) => s.type === 'START');
   const initialStepKey = startStep?.key ?? steps[0]?.key ?? '';
 
   return {
@@ -356,4 +425,3 @@ export function createInitialState(
     history: [],
   };
 }
-

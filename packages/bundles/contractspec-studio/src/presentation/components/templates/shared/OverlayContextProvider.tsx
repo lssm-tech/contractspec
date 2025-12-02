@@ -93,7 +93,11 @@ export function OverlayContextProvider({
         return false;
       }
 
-      if (conditions.device && conditions.device !== 'any' && conditions.device !== device) {
+      if (
+        conditions.device &&
+        conditions.device !== 'any' &&
+        conditions.device !== device
+      ) {
         return false;
       }
 
@@ -148,10 +152,11 @@ export function OverlayContextProvider({
 
   // Check if field is hidden
   const isHidden = useMemo(
-    () => (path: string): boolean => {
-      const overlay = overlayMap.get(path);
-      return overlay?.modifications.some((m) => m.op === 'hide') ?? false;
-    },
+    () =>
+      (path: string): boolean => {
+        const overlay = overlayMap.get(path);
+        return overlay?.modifications.some((m) => m.op === 'hide') ?? false;
+      },
     [overlayMap]
   );
 
@@ -161,7 +166,9 @@ export function OverlayContextProvider({
       (path: string, defaultLabel: string): string => {
         const overlay = overlayMap.get(path);
         const relabel = overlay?.modifications.find((m) => m.op === 'relabel');
-        return relabel && relabel.op === 'relabel' ? relabel.label : defaultLabel;
+        return relabel && relabel.op === 'relabel'
+          ? relabel.label
+          : defaultLabel;
       },
     [overlayMap]
   );
@@ -264,7 +271,10 @@ export function useIsInOverlayContext(): boolean {
 /**
  * Get template-specific overlays
  */
-function getTemplateOverlays(templateId: TemplateId, role: string): OverlaySpec[] {
+function getTemplateOverlays(
+  templateId: TemplateId,
+  role: string
+): OverlaySpec[] {
   // Demo overlays for each template
   const templateOverlays: Record<string, OverlaySpec[]> = {
     'crm-pipeline': [
@@ -333,4 +343,3 @@ function getTemplateOverlays(templateId: TemplateId, role: string): OverlaySpec[
 
   return templateOverlays[templateId] ?? [];
 }
-

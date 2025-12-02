@@ -46,35 +46,67 @@ export {
 } from './review';
 
 // Schema contribution
-import { StoreStatusEnum, StoreTypeEnum, StoreEntity, StoreCategoryEntity } from './store';
-import { ProductStatusEnum, ProductTypeEnum, ProductEntity, ProductVariantEntity, CategoryEntity } from './product';
-import { OrderStatusEnum, PaymentStatusEnum, OrderEntity, OrderItemEntity, RefundEntity, RefundItemEntity } from './order';
-import { PayoutStatusEnum, PayoutScheduleEnum, PayoutEntity, PayoutItemEntity, BankAccountEntity, PayoutSettingsEntity } from './payout';
-import { ReviewStatusEnum, ReviewTypeEnum, ReviewEntity, ReviewResponseEntity, ReviewVoteEntity, ReviewReportEntity } from './review';
+import {
+  StoreStatusEnum,
+  StoreTypeEnum,
+  StoreEntity,
+  StoreCategoryEntity,
+} from './store';
+import {
+  ProductStatusEnum,
+  ProductTypeEnum,
+  ProductEntity,
+  ProductVariantEntity,
+  CategoryEntity,
+} from './product';
+import {
+  OrderStatusEnum,
+  PaymentStatusEnum,
+  OrderEntity,
+  OrderItemEntity,
+  RefundEntity,
+  RefundItemEntity,
+} from './order';
+import {
+  PayoutStatusEnum,
+  PayoutScheduleEnum,
+  PayoutEntity,
+  PayoutItemEntity,
+  BankAccountEntity,
+  PayoutSettingsEntity,
+} from './payout';
+import {
+  ReviewStatusEnum,
+  ReviewTypeEnum,
+  ReviewEntity,
+  ReviewResponseEntity,
+  ReviewVoteEntity,
+  ReviewReportEntity,
+} from './review';
 import type { ModuleSchemaContribution } from '@lssm/lib.schema';
 
 export const marketplaceEntities = [
   // Store
   StoreEntity,
   StoreCategoryEntity,
-  
+
   // Product
   ProductEntity,
   ProductVariantEntity,
   CategoryEntity,
-  
+
   // Order
   OrderEntity,
   OrderItemEntity,
   RefundEntity,
   RefundItemEntity,
-  
+
   // Payout
   PayoutEntity,
   PayoutItemEntity,
   BankAccountEntity,
   PayoutSettingsEntity,
-  
+
   // Review
   ReviewEntity,
   ReviewResponseEntity,
@@ -98,4 +130,3 @@ export const marketplaceSchemaContribution: ModuleSchemaContribution = {
     ReviewTypeEnum,
   ],
 };
-

@@ -207,7 +207,7 @@ export class ContractSpecAgent {
         type: 'tool-call' as const,
         toolCallId: tc.toolCallId,
         toolName: tc.toolName,
-        args: 'args' in tc ? tc.args : ('input' in tc ? tc.input : undefined),
+        args: 'args' in tc ? tc.args : 'input' in tc ? tc.input : undefined,
       })),
       toolResults: result.toolResults.map((tr) => ({
         type: 'tool-result' as const,
@@ -247,11 +247,10 @@ export class ContractSpecAgent {
   /**
    * Handle step completion for persistence and telemetry.
    */
-  private async handleStepFinish(
-    step: StepResult<ToolSet>
-  ): Promise<void> {
+  private async handleStepFinish(step: StepResult<ToolSet>): Promise<void> {
     // 1. Persist to session store
-    const sessionId = (step as { options?: AgentCallOptions }).options?.sessionId;
+    const sessionId = (step as { options?: AgentCallOptions }).options
+      ?.sessionId;
     if (sessionId && this.config.sessionStore) {
       await this.config.sessionStore.appendStep(sessionId, step);
     }

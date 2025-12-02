@@ -24,8 +24,7 @@ export interface OverlayTargetRef {
 }
 
 export interface OverlayAppliesTo
-  extends OverlayScopeContext,
-    OverlayTargetRef {
+  extends OverlayScopeContext, OverlayTargetRef {
   /**
    * Optional label to describe why this overlay exists (displayed in tooling).
    */

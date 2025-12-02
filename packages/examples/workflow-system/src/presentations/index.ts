@@ -29,7 +29,6 @@ export const WorkflowDesignerPresentation: PresentationDescriptorV2 = {
   targets: ['react'],
   policy: {
     flags: ['workflow.designer.enabled'],
-    roles: ['admin', 'workflow_designer'],
   },
 };
 
@@ -273,7 +272,6 @@ export const WorkflowMetricsPresentation: PresentationDescriptorV2 = {
   targets: ['react', 'markdown'],
   policy: {
     flags: ['workflow.metrics.enabled'],
-    roles: ['admin', 'workflow_manager'],
   },
 };
 
@@ -284,19 +282,18 @@ export const WorkflowSystemPresentations = {
   WorkflowDesignerPresentation,
   WorkflowListPresentation,
   WorkflowDetailPresentation,
-  
+
   // Instance
   InstanceListPresentation,
   InstanceDetailPresentation,
   ProgressTrackerPresentation,
-  
+
   // Approval
   ApprovalInboxPresentation,
   ApprovalDetailPresentation,
   ApprovalFormPresentation,
   PendingApprovalsBadgePresentation,
-  
+
   // Dashboard
   WorkflowMetricsPresentation,
 };
-

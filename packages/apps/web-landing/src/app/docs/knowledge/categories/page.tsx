@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Knowledge Categories: ContractSpec Docs",
+  title: 'Knowledge Categories: ContractSpec Docs',
   description:
-    "Understand the four knowledge categories in ContractSpec and how they affect trust and decision-making.",
+    'Understand the four knowledge categories in ContractSpec and how they affect trust and decision-making.',
 };
 
 export default function KnowledgeCategoriesPage() {
@@ -22,7 +22,7 @@ export default function KnowledgeCategoriesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">The four categories</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type KnowledgeCategory =
   | "canonical"   // Internal ground truth
   | "operational" // Internal operational docs
@@ -39,8 +39,8 @@ export default function KnowledgeCategoriesPage() {
           </p>
           <div className="space-y-3">
             <div>
-              <h4 className="font-semibold text-sm mb-2">What it contains:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">What it contains:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>Official product specifications and schemas</li>
                 <li>Company policies and procedures</li>
                 <li>Legal terms and compliance requirements</li>
@@ -49,8 +49,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">How it's used:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">How it's used:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>
                   <strong>Policy decisions</strong> - Can drive PDP decisions
                 </li>
@@ -69,8 +69,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">Examples:</h4>
-              <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+              <h4 className="mb-2 text-sm font-semibold">Examples:</h4>
+              <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
                 <pre>{`// Product Canon space
 {
   id: "product-canon",
@@ -94,7 +94,7 @@ export default function KnowledgeCategoriesPage() {
 }`}</pre>
               </div>
             </div>
-            <div className="card-subtle p-3 bg-violet-500/10 border-violet-500/30">
+            <div className="card-subtle border-violet-500/30 bg-violet-500/10 p-3">
               <p className="text-sm text-violet-300">
                 <strong>⚠️ Important:</strong> Canonical knowledge is immutable
                 once indexed. Changes require re-sync and versioning.
@@ -110,8 +110,8 @@ export default function KnowledgeCategoriesPage() {
           </p>
           <div className="space-y-3">
             <div>
-              <h4 className="font-semibold text-sm mb-2">What it contains:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">What it contains:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>Support ticket history and resolutions</li>
                 <li>Internal runbooks and playbooks</li>
                 <li>Sales materials and customer communications</li>
@@ -120,8 +120,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">How it's used:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">How it's used:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>
                   <strong>Context</strong> - Provides helpful context for
                   decisions
@@ -141,8 +141,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">Examples:</h4>
-              <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+              <h4 className="mb-2 text-sm font-semibold">Examples:</h4>
+              <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
                 <pre>{`// Support History space
 {
   id: "support-history",
@@ -176,8 +176,8 @@ export default function KnowledgeCategoriesPage() {
           </p>
           <div className="space-y-3">
             <div>
-              <h4 className="font-semibold text-sm mb-2">What it contains:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">What it contains:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>Third-party integration documentation (Stripe, Twilio)</li>
                 <li>Regulatory and compliance documents</li>
                 <li>Industry standards and best practices</li>
@@ -186,8 +186,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">How it's used:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">How it's used:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>
                   <strong>Reference</strong> - Consulted but not authoritative
                 </li>
@@ -205,8 +205,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">Examples:</h4>
-              <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+              <h4 className="mb-2 text-sm font-semibold">Examples:</h4>
+              <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
                 <pre>{`// External Provider Docs space
 {
   id: "provider-docs",
@@ -230,7 +230,7 @@ export default function KnowledgeCategoriesPage() {
 }`}</pre>
               </div>
             </div>
-            <div className="card-subtle p-3 bg-amber-500/10 border-amber-500/30">
+            <div className="card-subtle border-amber-500/30 bg-amber-500/10 p-3">
               <p className="text-sm text-amber-300">
                 <strong>⚠️ Note:</strong> External knowledge should be clearly
                 marked in agent responses as "according to [source]" to indicate
@@ -247,8 +247,8 @@ export default function KnowledgeCategoriesPage() {
           </p>
           <div className="space-y-3">
             <div>
-              <h4 className="font-semibold text-sm mb-2">What it contains:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">What it contains:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>Agent conversation history and scratchpads</li>
                 <li>Session-specific context and state</li>
                 <li>Draft documents and work-in-progress</li>
@@ -257,8 +257,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">How it's used:</h4>
-              <ul className="space-y-1 text-muted-foreground list-disc list-inside ml-4 text-sm">
+              <h4 className="mb-2 text-sm font-semibold">How it's used:</h4>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-1 text-sm">
                 <li>
                   <strong>Session continuity</strong> - Maintains conversation
                   context
@@ -277,8 +277,8 @@ export default function KnowledgeCategoriesPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-sm mb-2">Examples:</h4>
-              <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+              <h4 className="mb-2 text-sm font-semibold">Examples:</h4>
+              <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
                 <pre>{`// Agent Scratchpad space
 {
   id: "agent-scratchpad",
@@ -302,7 +302,7 @@ export default function KnowledgeCategoriesPage() {
 }`}</pre>
               </div>
             </div>
-            <div className="card-subtle p-3 bg-red-500/10 border-red-500/30">
+            <div className="card-subtle border-red-500/30 bg-red-500/10 p-3">
               <p className="text-sm text-red-300">
                 <strong>⚠️ Critical:</strong> Ephemeral knowledge is never used
                 for policy decisions, compliance checks, or any authoritative
@@ -315,10 +315,10 @@ export default function KnowledgeCategoriesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Category comparison</h2>
-        <div className="overflow-x-auto rounded-lg border border-border/50">
+        <div className="border-border/50 overflow-x-auto rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead className="bg-card/50">
-              <tr className="border-b border-border/50">
+              <tr className="border-border/50 border-b">
                 <th className="px-4 py-3 font-semibold">Feature</th>
                 <th className="px-4 py-3 font-semibold">Canonical</th>
                 <th className="px-4 py-3 font-semibold">Operational</th>
@@ -326,7 +326,7 @@ export default function KnowledgeCategoriesPage() {
                 <th className="px-4 py-3 font-semibold">Ephemeral</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/50">
+            <tbody className="divide-border/50 divide-y">
               <tr>
                 <td className="px-4 py-3 font-semibold">Trust Level</td>
                 <td className="px-4 py-3">Highest</td>
@@ -369,7 +369,7 @@ export default function KnowledgeCategoriesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             Use canonical for anything that affects policy, pricing, or
             compliance
@@ -385,7 +385,8 @@ export default function KnowledgeCategoriesPage() {
             Use ephemeral for temporary working memory that shouldn't persist
           </li>
           <li>
-            Never mix categories in a single knowledge space - keep them separate
+            Never mix categories in a single knowledge space - keep them
+            separate
           </li>
           <li>
             Document the category and purpose of each knowledge space clearly
@@ -404,4 +405,3 @@ export default function KnowledgeCategoriesPage() {
     </div>
   );
 }
-

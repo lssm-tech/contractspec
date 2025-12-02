@@ -9,4 +9,3 @@ export * from './policies';
 
 // Domain events
 export * from './events';
-

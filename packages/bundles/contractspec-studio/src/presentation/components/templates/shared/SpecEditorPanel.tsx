@@ -68,9 +68,7 @@ export function SpecEditorPanel({
       const warnCount = result.errors.filter(
         (e) => e.severity === 'warning'
       ).length;
-      onLog?.(
-        `Spec validation: ${errorCount} errors, ${warnCount} warnings`
-      );
+      onLog?.(`Spec validation: ${errorCount} errors, ${warnCount} warnings`);
     }
   }, [validate, onLog]);
 
@@ -95,14 +93,21 @@ export function SpecEditorPanel({
             Validate
           </Button>
           {isDirty && (
-            <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+            <Badge
+              variant="secondary"
+              className="border-amber-500/30 bg-amber-500/20 text-amber-400"
+            >
               Unsaved changes
             </Badge>
           )}
           {validation && (
             <Badge
               variant={validation.valid ? 'default' : 'destructive'}
-              className={validation.valid ? 'bg-green-500/20 text-green-400 border-green-500/30' : ''}
+              className={
+                validation.valid
+                  ? 'border-green-500/30 bg-green-500/20 text-green-400'
+                  : ''
+              }
             >
               {validation.valid
                 ? 'Valid'
@@ -133,9 +138,7 @@ export function SpecEditorPanel({
               <li
                 key={`${error.line}-${error.message}-${index}`}
                 className={`text-xs ${
-                  error.severity === 'error'
-                    ? 'text-red-400'
-                    : 'text-amber-400'
+                  error.severity === 'error' ? 'text-red-400' : 'text-amber-400'
                 }`}
               >
                 Line {error.line}: {error.message}
@@ -160,4 +163,3 @@ export function SpecEditorPanel({
     </div>
   );
 }
-

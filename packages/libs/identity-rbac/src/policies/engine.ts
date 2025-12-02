@@ -156,8 +156,8 @@ export interface PolicyBindingForEval {
  * RBAC Policy Engine for permission checks.
  */
 export class RBACPolicyEngine {
-  private roleCache: Map<string, RoleWithPermissions> = new Map();
-  private bindingCache: Map<string, PolicyBindingForEval[]> = new Map();
+  private roleCache = new Map<string, RoleWithPermissions>();
+  private bindingCache = new Map<string, PolicyBindingForEval[]>();
 
   /**
    * Check if a user has a specific permission.
@@ -297,4 +297,3 @@ export class RBACPolicyEngine {
 export function createRBACEngine(): RBACPolicyEngine {
   return new RBACPolicyEngine();
 }
-

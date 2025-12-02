@@ -24,8 +24,19 @@ export {
 // Schema contribution
 import { ContactEntity, ContactStatusEnum } from './contact';
 import { CompanyEntity, CompanySizeEnum } from './company';
-import { PipelineEntity, StageEntity, DealEntity, DealStatusEnum } from './deal';
-import { TaskEntity, ActivityEntity, TaskTypeEnum, TaskPriorityEnum, TaskStatusEnum } from './task';
+import {
+  PipelineEntity,
+  StageEntity,
+  DealEntity,
+  DealStatusEnum,
+} from './deal';
+import {
+  TaskEntity,
+  ActivityEntity,
+  TaskTypeEnum,
+  TaskPriorityEnum,
+  TaskStatusEnum,
+} from './task';
 import type { ModuleSchemaContribution } from '@lssm/lib.schema';
 
 export const crmPipelineEntities = [
@@ -50,4 +61,3 @@ export const crmPipelineSchemaContribution: ModuleSchemaContribution = {
     TaskStatusEnum,
   ],
 };
-

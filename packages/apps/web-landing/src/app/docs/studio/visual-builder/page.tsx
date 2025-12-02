@@ -18,7 +18,7 @@ export default function StudioVisualBuilderDocs() {
   return (
     <main className="space-y-12 py-12">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Visual builder
         </p>
         <h1 className="text-4xl font-bold">Canvas, palette, and spec editor</h1>
@@ -27,38 +27,42 @@ export default function StudioVisualBuilderDocs() {
           Every action updates the underlying spec and can be undone.
         </p>
       </header>
-      <section className="rounded-2xl border border-border bg-card p-6">
+      <section className="border-border bg-card rounded-2xl border p-6">
         <Image
           src="/assets/images/studio/visual-builder.png"
           alt="Studio visual builder overview"
           width={1024}
           height={576}
-          className="rounded-xl border border-border"
+          className="border-border rounded-xl border"
         />
       </section>
       <section className="grid gap-4 md:grid-cols-2">
         <article className="card-subtle space-y-2 p-6">
           <h2 className="text-2xl font-semibold">Canvas controls</h2>
           <p className="text-muted-foreground text-sm">
-            Drag to pan, scroll/ pinch to zoom. The right panel shows a tree view.
+            Drag to pan, scroll/ pinch to zoom. The right panel shows a tree
+            view.
           </p>
         </article>
         <article className="card-subtle space-y-2 p-6">
           <h2 className="text-2xl font-semibold">Component palette</h2>
           <p className="text-muted-foreground text-sm">
-            Search by intent (“capture payment”) or category. Drag components or tap to add.
+            Search by intent (“capture payment”) or category. Drag components or
+            tap to add.
           </p>
         </article>
         <article className="card-subtle space-y-2 p-6">
           <h2 className="text-2xl font-semibold">Spec editor</h2>
           <p className="text-muted-foreground text-sm">
-            Toggle between visual and code views. Changes stay in sync and include diff previews.
+            Toggle between visual and code views. Changes stay in sync and
+            include diff previews.
           </p>
         </article>
         <article className="card-subtle space-y-2 p-6">
           <h2 className="text-2xl font-semibold">Deploy panel</h2>
           <p className="text-muted-foreground text-sm">
-            Choose environment, review validations, and deploy with one button. Rollback is one tap away.
+            Choose environment, review validations, and deploy with one button.
+            Rollback is one tap away.
           </p>
         </article>
       </section>
@@ -73,18 +77,3 @@ export default function StudioVisualBuilderDocs() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

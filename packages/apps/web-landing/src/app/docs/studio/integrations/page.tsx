@@ -25,13 +25,14 @@ export default function StudioIntegrationsDocs() {
   return (
     <main className="space-y-12 py-12">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Integration hub
         </p>
         <h1 className="text-4xl font-bold">Unified connections with BYOK</h1>
         <p className="text-muted-foreground max-w-3xl text-lg">
-          Manage SaaS providers and knowledge sources without scattering secrets across tools.
-          Studio gives you a simple card layout plus CLI automation.
+          Manage SaaS providers and knowledge sources without scattering secrets
+          across tools. Studio gives you a simple card layout plus CLI
+          automation.
         </p>
       </header>
       <section className="grid gap-4 md:grid-cols-3">
@@ -45,25 +46,10 @@ export default function StudioIntegrationsDocs() {
       <section className="space-y-2">
         <h2 className="text-2xl font-semibold">Monitoring</h2>
         <p className="text-muted-foreground text-sm">
-          Every integration exposes sync logs and failure alerts. Use the webhook to forward sync
-          events to Slack or PagerDuty.
+          Every integration exposes sync logs and failure alerts. Use the
+          webhook to forward sync events to Slack or PagerDuty.
         </p>
       </section>
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

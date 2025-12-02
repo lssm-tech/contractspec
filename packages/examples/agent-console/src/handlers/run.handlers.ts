@@ -9,7 +9,13 @@ export interface ListRunsInput {
   agentId?: string;
   userId?: string;
   sessionId?: string;
-  status?: 'QUEUED' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
+  status?:
+    | 'QUEUED'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'FAILED'
+    | 'CANCELLED'
+    | 'EXPIRED';
   startDate?: Date;
   endDate?: Date;
   limit?: number;
@@ -20,7 +26,13 @@ export interface RunSummary {
   id: string;
   agentId: string;
   agentName: string;
-  status: 'QUEUED' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
+  status:
+    | 'QUEUED'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'FAILED'
+    | 'CANCELLED'
+    | 'EXPIRED';
   totalTokens: number;
   durationMs?: number;
   estimatedCostUsd?: number;
@@ -48,7 +60,13 @@ export interface Run {
   sessionId?: string;
   input: Record<string, unknown>;
   output?: Record<string, unknown>;
-  status: 'QUEUED' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
+  status:
+    | 'QUEUED'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'FAILED'
+    | 'CANCELLED'
+    | 'EXPIRED';
   errorMessage?: string;
   errorCode?: string;
   totalTokens: number;
@@ -73,7 +91,13 @@ export interface RunStep {
   toolName?: string;
   input?: Record<string, unknown>;
   output?: Record<string, unknown>;
-  status: 'QUEUED' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
+  status:
+    | 'QUEUED'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'FAILED'
+    | 'CANCELLED'
+    | 'EXPIRED';
   errorMessage?: string;
   tokensUsed: number;
   durationMs?: number;
@@ -179,33 +203,37 @@ export async function mockGetRunHandler(input: GetRunInput): Promise<Run> {
   };
 
   if (input.includeSteps) {
-    result.steps = MOCK_RUN_STEPS.filter((s) => s.runId === input.runId).map((s) => ({
-      id: s.id,
-      stepNumber: s.stepNumber,
-      type: s.type,
-      toolId: s.toolId,
-      toolName: s.toolName,
-      input: s.input,
-      output: s.output,
-      status: s.status,
-      errorMessage: undefined,
-      tokensUsed: s.tokensUsed,
-      durationMs: s.durationMs,
-      startedAt: s.startedAt,
-      completedAt: s.completedAt,
-    }));
+    result.steps = MOCK_RUN_STEPS.filter((s) => s.runId === input.runId).map(
+      (s) => ({
+        id: s.id,
+        stepNumber: s.stepNumber,
+        type: s.type,
+        toolId: s.toolId,
+        toolName: s.toolName,
+        input: s.input,
+        output: s.output,
+        status: s.status,
+        errorMessage: undefined,
+        tokensUsed: s.tokensUsed,
+        durationMs: s.durationMs,
+        startedAt: s.startedAt,
+        completedAt: s.completedAt,
+      })
+    );
   }
 
   if (input.includeLogs) {
-    result.logs = MOCK_RUN_LOGS.filter((l) => l.runId === input.runId).map((l) => ({
-      id: l.id,
-      stepId: l.stepId,
-      level: l.level,
-      message: l.message,
-      data: l.data,
-      source: l.source,
-      timestamp: l.timestamp,
-    }));
+    result.logs = MOCK_RUN_LOGS.filter((l) => l.runId === input.runId).map(
+      (l) => ({
+        id: l.id,
+        stepId: l.stepId,
+        level: l.level,
+        message: l.message,
+        data: l.data,
+        source: l.source,
+        timestamp: l.timestamp,
+      })
+    );
   }
 
   return result;
@@ -231,13 +259,26 @@ export async function mockGetRunMetricsHandler(
   const totalCost = runs.reduce((sum, r) => sum + (r.estimatedCostUsd ?? 0), 0);
   const avgDuration =
     completed.length > 0
-      ? completed.reduce((sum, r) => sum + (r.durationMs ?? 0), 0) / completed.length
+      ? completed.reduce((sum, r) => sum + (r.durationMs ?? 0), 0) /
+        completed.length
       : 0;
 
   // Generate mock timeline
   const timeline: TimelineDataPoint[] = [
-    { period: '2024-04-14', runs: 2, tokens: 7200, costUsd: 0.0168, avgDurationMs: 30000 },
-    { period: '2024-04-15', runs: 3, tokens: 5550, costUsd: 0.0137, avgDurationMs: 3600 },
+    {
+      period: '2024-04-14',
+      runs: 2,
+      tokens: 7200,
+      costUsd: 0.0168,
+      avgDurationMs: 30000,
+    },
+    {
+      period: '2024-04-15',
+      runs: 3,
+      tokens: 5550,
+      costUsd: 0.0137,
+      avgDurationMs: 3600,
+    },
   ];
 
   return {
@@ -270,7 +311,10 @@ export async function mockExecuteAgentHandler(input: {
 /**
  * Mock handler for CancelRunCommand
  */
-export async function mockCancelRunHandler(input: { runId: string; reason?: string }) {
+export async function mockCancelRunHandler(input: {
+  runId: string;
+  reason?: string;
+}) {
   const run = MOCK_RUNS.find((r) => r.id === input.runId);
   if (!run) {
     throw new Error('RUN_NOT_FOUND');
@@ -285,4 +329,3 @@ export async function mockCancelRunHandler(input: { runId: string; reason?: stri
     status: 'CANCELLED' as const,
   };
 }
-

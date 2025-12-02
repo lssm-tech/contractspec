@@ -13,7 +13,8 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
   meta: {
     key: 'workflow-system',
     title: 'Workflow & Approval System',
-    description: 'State machine-based workflow engine with role-based approvals, delegation, and escalation',
+    description:
+      'State machine-based workflow engine with role-based approvals, delegation, and escalation',
     domain: 'workflow',
     owners: ['workflow-team'],
     tags: ['workflow', 'approval', 'state-machine', 'automation'],
@@ -29,7 +30,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { name: 'workflow.definition.publish', version: 1 },
     { name: 'workflow.definition.list', version: 1 },
     { name: 'workflow.definition.get', version: 1 },
-    
+
     // Workflow instance operations
     { name: 'workflow.instance.start', version: 1 },
     { name: 'workflow.instance.transition', version: 1 },
@@ -38,7 +39,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { name: 'workflow.instance.cancel', version: 1 },
     { name: 'workflow.instance.list', version: 1 },
     { name: 'workflow.instance.get', version: 1 },
-    
+
     // Approval operations
     { name: 'workflow.approval.decide', version: 1 },
     { name: 'workflow.approval.delegate', version: 1 },
@@ -54,7 +55,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { name: 'workflow.definition.updated', version: 1 },
     { name: 'workflow.definition.published', version: 1 },
     { name: 'workflow.step.added', version: 1 },
-    
+
     // Instance events
     { name: 'workflow.instance.started', version: 1 },
     { name: 'workflow.step.entered', version: 1 },
@@ -65,7 +66,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { name: 'workflow.instance.resumed', version: 1 },
     { name: 'workflow.instance.failed', version: 1 },
     { name: 'workflow.instance.timeout', version: 1 },
-    
+
     // Approval events
     { name: 'workflow.approval.requested', version: 1 },
     { name: 'workflow.approval.decided', version: 1 },
@@ -79,40 +80,76 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { name: 'workflow.designer', version: 1 },
     { name: 'workflow.definition.list', version: 1 },
     { name: 'workflow.definition.detail', version: 1 },
-    
+
     // Instance
     { name: 'workflow.instance.list', version: 1 },
     { name: 'workflow.instance.detail', version: 1 },
     { name: 'workflow.instance.progress', version: 1 },
-    
+
     // Approval
     { name: 'workflow.approval.inbox', version: 1 },
     { name: 'workflow.approval.detail', version: 1 },
     { name: 'workflow.approval.form', version: 1 },
     { name: 'workflow.approval.badge', version: 1 },
-    
+
     // Dashboard
     { name: 'workflow.metrics', version: 1 },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
-    { op: { name: 'workflow.definition.list', version: 1 }, pres: { name: 'workflow.definition.list', version: 1 } },
-    { op: { name: 'workflow.instance.list', version: 1 }, pres: { name: 'workflow.instance.list', version: 1 } },
-    { op: { name: 'workflow.approval.list.mine', version: 1 }, pres: { name: 'workflow.approval.inbox', version: 1 } },
-    { op: { name: 'workflow.approval.decide', version: 1 }, pres: { name: 'workflow.approval.form', version: 1 } },
+    {
+      op: { name: 'workflow.definition.list', version: 1 },
+      pres: { name: 'workflow.definition.list', version: 1 },
+    },
+    {
+      op: { name: 'workflow.instance.list', version: 1 },
+      pres: { name: 'workflow.instance.list', version: 1 },
+    },
+    {
+      op: { name: 'workflow.approval.list.mine', version: 1 },
+      pres: { name: 'workflow.approval.inbox', version: 1 },
+    },
+    {
+      op: { name: 'workflow.approval.decide', version: 1 },
+      pres: { name: 'workflow.approval.form', version: 1 },
+    },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     { name: 'workflow.designer', version: 1, targets: ['react'] },
-    { name: 'workflow.definition.list', version: 1, targets: ['react', 'markdown'] },
-    { name: 'workflow.definition.detail', version: 1, targets: ['react', 'markdown'] },
-    { name: 'workflow.instance.list', version: 1, targets: ['react', 'markdown'] },
-    { name: 'workflow.instance.detail', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'workflow.definition.list',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'workflow.definition.detail',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'workflow.instance.list',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'workflow.instance.detail',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
     { name: 'workflow.instance.progress', version: 1, targets: ['react'] },
-    { name: 'workflow.approval.inbox', version: 1, targets: ['react', 'markdown'] },
-    { name: 'workflow.approval.detail', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'workflow.approval.inbox',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'workflow.approval.detail',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
     { name: 'workflow.metrics', version: 1, targets: ['react', 'markdown'] },
   ],
 
@@ -131,4 +168,3 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     ],
   },
 };
-

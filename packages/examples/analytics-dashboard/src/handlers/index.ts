@@ -29,7 +29,13 @@ export async function handleCreateDashboard(
     dateRange?: unknown;
   },
   context: AnalyticsHandlerContext
-): Promise<{ id: string; name: string; slug: string; status: string; createdAt: Date }> {
+): Promise<{
+  id: string;
+  name: string;
+  slug: string;
+  status: string;
+  createdAt: Date;
+}> {
   const id = `dash_${Date.now()}`;
   const now = new Date();
 
@@ -113,7 +119,13 @@ export async function handleCreateQuery(
     isShared?: boolean;
   },
   context: AnalyticsHandlerContext
-): Promise<{ id: string; name: string; type: string; isShared: boolean; createdAt: Date }> {
+): Promise<{
+  id: string;
+  name: string;
+  type: string;
+  isShared: boolean;
+  createdAt: Date;
+}> {
   const id = `query_${Date.now()}`;
   const now = new Date();
 
@@ -153,18 +165,26 @@ export async function handleListDashboards(
   },
   context: AnalyticsHandlerContext
 ): Promise<{ dashboards: unknown[]; total: number }> {
-  let dashboards = Array.from(mockAnalyticsStore.dashboards.values())
-    .filter((d) => (d as { organizationId: string }).organizationId === context.organizationId);
+  let dashboards = Array.from(mockAnalyticsStore.dashboards.values()).filter(
+    (d) =>
+      (d as { organizationId: string }).organizationId ===
+      context.organizationId
+  );
 
   if (input.status) {
-    dashboards = dashboards.filter((d) => (d as { status: string }).status === input.status);
+    dashboards = dashboards.filter(
+      (d) => (d as { status: string }).status === input.status
+    );
   }
 
   if (input.search) {
     const search = input.search.toLowerCase();
-    dashboards = dashboards.filter((d) => 
-      (d as { name: string }).name.toLowerCase().includes(search) ||
-      (d as { description?: string }).description?.toLowerCase().includes(search)
+    dashboards = dashboards.filter(
+      (d) =>
+        (d as { name: string }).name.toLowerCase().includes(search) ||
+        (d as { description?: string }).description
+          ?.toLowerCase()
+          .includes(search)
     );
   }
 
@@ -197,9 +217,10 @@ export async function handleGetDashboard(
     dashboard = mockAnalyticsStore.dashboards.get(input.dashboardId);
   } else if (input.slug) {
     dashboard = Array.from(mockAnalyticsStore.dashboards.values()).find(
-      (d) => 
+      (d) =>
         (d as { slug: string }).slug === input.slug &&
-        (d as { organizationId: string }).organizationId === context.organizationId
+        (d as { organizationId: string }).organizationId ===
+          context.organizationId
     );
   } else if (input.shareToken) {
     dashboard = Array.from(mockAnalyticsStore.dashboards.values()).find(
@@ -213,9 +234,10 @@ export async function handleGetDashboard(
 
   // Get widgets for dashboard
   const widgets = Array.from(mockAnalyticsStore.widgets.values()).filter(
-    (w) => (w as { dashboardId: string }).dashboardId === (dashboard as { id: string }).id
+    (w) =>
+      (w as { dashboardId: string }).dashboardId ===
+      (dashboard as { id: string }).id
   );
 
   return { ...dashboard, widgets };
 }
-

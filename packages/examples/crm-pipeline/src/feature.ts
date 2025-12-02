@@ -13,7 +13,8 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
   meta: {
     key: 'crm-pipeline',
     title: 'CRM Pipeline',
-    description: 'CRM and sales pipeline management with deals, contacts, and companies',
+    description:
+      'CRM and sales pipeline management with deals, contacts, and companies',
     domain: 'crm',
     owners: ['crm-team'],
     tags: ['crm', 'sales', 'pipeline', 'deals'],
@@ -51,16 +52,30 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
 
   // Link operations to their primary presentations
   opToPresentation: [
-    { op: { name: 'crm.deal.list', version: 1 }, pres: { name: 'crm.pipeline.kanban', version: 1 } },
-    { op: { name: 'crm.deal.move', version: 1 }, pres: { name: 'crm.pipeline.kanban', version: 1 } },
+    {
+      op: { name: 'crm.deal.list', version: 1 },
+      pres: { name: 'crm.pipeline.kanban', version: 1 },
+    },
+    {
+      op: { name: 'crm.deal.move', version: 1 },
+      pres: { name: 'crm.pipeline.kanban', version: 1 },
+    },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     { name: 'crm.dashboard', version: 1, targets: ['react', 'markdown'] },
     { name: 'crm.pipeline.kanban', version: 1, targets: ['react', 'markdown'] },
-    { name: 'crm.deal.list', version: 1, targets: ['react', 'markdown', 'application/json'] },
-    { name: 'crm.pipeline.metrics', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'crm.deal.list',
+      version: 1,
+      targets: ['react', 'markdown', 'application/json'],
+    },
+    {
+      name: 'crm.pipeline.metrics',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
   ],
 
   // Capability requirements
@@ -72,4 +87,3 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
     ],
   },
 };
-

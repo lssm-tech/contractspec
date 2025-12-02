@@ -18,7 +18,7 @@ import { workflowSystemSchemaContribution } from './entities';
 
 /**
  * Complete schema composition for Workflow System.
- * 
+ *
  * This example demonstrates:
  * - State machine-based workflow execution
  * - Role-based approval chains
@@ -38,4 +38,3 @@ export const schemaComposition = {
   provider: 'postgresql' as const,
   outputPath: './prisma/schema/generated.prisma',
 };
-

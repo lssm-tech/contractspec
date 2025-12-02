@@ -61,9 +61,10 @@ export async function trackAgentStep(
     const toolSample: OperationMetricSample = {
       operation: { name: `${name}.${toolCall.toolName}`, version },
       durationMs: durationMs ?? 0,
-      success: step.toolResults?.some(
-        (r) => r.toolCallId === toolCall.toolCallId && r.output !== undefined
-      ) ?? false,
+      success:
+        step.toolResults?.some(
+          (r) => r.toolCallId === toolCall.toolCallId && r.output !== undefined
+        ) ?? false,
       timestamp: new Date(),
       metadata: {
         agentId,
@@ -135,4 +136,3 @@ export function createInMemoryTelemetryCollector(): InMemoryTelemetryCollector {
 export const noopTelemetryCollector: TelemetryCollector = {
   collect: async () => {},
 };
-

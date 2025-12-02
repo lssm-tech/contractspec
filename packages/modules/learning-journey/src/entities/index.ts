@@ -62,4 +62,3 @@ export const learningJourneySchemaContribution: ModuleSchemaContribution = {
   entities: learningJourneyEntities,
   enums: learningJourneyEnums,
 };
-

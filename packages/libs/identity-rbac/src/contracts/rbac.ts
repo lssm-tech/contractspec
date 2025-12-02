@@ -13,7 +13,11 @@ export const RoleModel = new SchemaModel({
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    permissions: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    permissions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -48,7 +52,11 @@ export const CreateRoleInputModel = new SchemaModel({
   fields: {
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    permissions: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    permissions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
   },
 });
 
@@ -59,7 +67,11 @@ export const UpdateRoleInputModel = new SchemaModel({
     roleId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    permissions: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
+    permissions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
   },
 });
 
@@ -129,7 +141,11 @@ export const ListUserPermissionsOutputModel = new SchemaModel({
   name: 'ListUserPermissionsOutput',
   description: 'Output for listing user permissions',
   fields: {
-    permissions: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    permissions: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
     roles: { type: RoleModel, isOptional: false, isArray: true },
   },
 });
@@ -289,7 +305,14 @@ export const AssignRoleContract = defineCommand({
     auth: 'admin',
   },
   sideEffects: {
-    emits: [{ name: 'role.assigned', version: 1, when: 'Role is assigned', payload: PolicyBindingModel }],
+    emits: [
+      {
+        name: 'role.assigned',
+        version: 1,
+        when: 'Role is assigned',
+        payload: PolicyBindingModel,
+      },
+    ],
     audit: ['role.assigned'],
   },
 });
@@ -324,7 +347,14 @@ export const RevokeRoleContract = defineCommand({
     auth: 'admin',
   },
   sideEffects: {
-    emits: [{ name: 'role.revoked', version: 1, when: 'Role is revoked', payload: BindingIdPayloadModel }],
+    emits: [
+      {
+        name: 'role.revoked',
+        version: 1,
+        when: 'Role is revoked',
+        payload: BindingIdPayloadModel,
+      },
+    ],
     audit: ['role.revoked'],
   },
 });

@@ -160,4 +160,3 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
 export function agentKey(meta: AgentMeta): string {
   return `${meta.name}.v${meta.version}`;
 }
-

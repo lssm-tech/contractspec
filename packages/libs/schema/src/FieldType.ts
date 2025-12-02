@@ -1,8 +1,10 @@
 import { z } from 'zod';
 import { GraphQLScalarType, type GraphQLScalarTypeConfig } from 'graphql';
 
-export interface FieldTypeConfig<TInternal, TExternal = TInternal>
-  extends GraphQLScalarTypeConfig<TInternal, TExternal> {
+export interface FieldTypeConfig<
+  TInternal,
+  TExternal = TInternal,
+> extends GraphQLScalarTypeConfig<TInternal, TExternal> {
   zod: z.ZodType<TInternal>;
   jsonSchema: unknown | (() => unknown);
 }

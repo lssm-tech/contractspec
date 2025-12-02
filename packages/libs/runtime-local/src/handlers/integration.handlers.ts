@@ -83,12 +83,12 @@ export interface ConfigureSyncInput {
 
 export interface MapFieldsInput {
   syncConfigId: string;
-  mappings: Array<{
+  mappings: {
     sourceField: string;
     targetField: string;
     transformType?: FieldMapping['transformType'];
     transformConfig?: Record<string, unknown>;
-  }>;
+  }[];
 }
 
 export interface ListIntegrationsInput {
@@ -222,7 +222,8 @@ function rowToSyncConfig(row: SyncConfigRow): SyncConfig {
     frequency: row.frequency as SyncConfig['frequency'],
     status: row.status as SyncConfig['status'],
     lastRunAt: row.lastRunAt ? new Date(row.lastRunAt) : undefined,
-    lastRunStatus: row.lastRunStatus as SyncConfig['lastRunStatus'] ?? undefined,
+    lastRunStatus:
+      (row.lastRunStatus as SyncConfig['lastRunStatus']) ?? undefined,
     recordsSynced: row.recordsSynced,
     createdAt: new Date(row.createdAt),
     updatedAt: new Date(row.updatedAt),
@@ -235,8 +236,11 @@ function rowToFieldMapping(row: FieldMappingRow): FieldMapping {
     syncConfigId: row.syncConfigId,
     sourceField: row.sourceField,
     targetField: row.targetField,
-    transformType: row.transformType as FieldMapping['transformType'] ?? undefined,
-    transformConfig: row.transformConfig ? JSON.parse(row.transformConfig) : undefined,
+    transformType:
+      (row.transformType as FieldMapping['transformType']) ?? undefined,
+    transformConfig: row.transformConfig
+      ? JSON.parse(row.transformConfig)
+      : undefined,
     createdAt: new Date(row.createdAt),
   };
 }
@@ -314,10 +318,9 @@ export function createIntegrationHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM integration WHERE id = ?`,
-      [id]
-    )) as unknown as IntegrationRow[];
+    const rows = (await db.exec(`SELECT * FROM integration WHERE id = ?`, [
+      id,
+    ])) as unknown as IntegrationRow[];
 
     return rowToIntegration(rows[0]!);
   }
@@ -363,7 +366,9 @@ export function createIntegrationHandlers(db: LocalDatabase) {
   /**
    * Connect a service
    */
-  async function connectService(input: ConnectServiceInput): Promise<Connection> {
+  async function connectService(
+    input: ConnectServiceInput
+  ): Promise<Connection> {
     const id = generateId('conn');
     const now = new Date().toISOString();
 
@@ -516,7 +521,9 @@ export function createIntegrationHandlers(db: LocalDatabase) {
           mapping.sourceField,
           mapping.targetField,
           mapping.transformType ?? null,
-          mapping.transformConfig ? JSON.stringify(mapping.transformConfig) : null,
+          mapping.transformConfig
+            ? JSON.stringify(mapping.transformConfig)
+            : null,
           now,
         ]
       );
@@ -535,7 +542,9 @@ export function createIntegrationHandlers(db: LocalDatabase) {
   /**
    * Get field mappings for a sync config
    */
-  async function getFieldMappings(syncConfigId: string): Promise<FieldMapping[]> {
+  async function getFieldMappings(
+    syncConfigId: string
+  ): Promise<FieldMapping[]> {
     const rows = (await db.exec(
       `SELECT * FROM integration_field_mapping WHERE syncConfigId = ?`,
       [syncConfigId]
@@ -594,4 +603,3 @@ export function createIntegrationHandlers(db: LocalDatabase) {
 }
 
 export type IntegrationHandlers = ReturnType<typeof createIntegrationHandlers>;
-

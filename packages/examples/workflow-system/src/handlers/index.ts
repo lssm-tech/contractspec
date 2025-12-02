@@ -1,13 +1,21 @@
 /**
  * Workflow System Handlers
- * 
+ *
  * These are reference handler implementations that demonstrate
  * how to handle workflow system contracts. In production, these
  * would be adapted to specific infrastructure.
  */
 
-import type { StateMachineDefinition, StateMachineState, TransitionContext } from '../state-machine';
-import { createStateMachineEngine, buildStateMachineDefinition, createInitialState } from '../state-machine';
+import type {
+  StateMachineDefinition,
+  StateMachineState,
+  TransitionContext,
+} from '../state-machine';
+import {
+  createStateMachineEngine,
+  buildStateMachineDefinition,
+  createInitialState,
+} from '../state-machine';
 
 // ============ Types ============
 
@@ -34,7 +42,15 @@ export interface WorkflowStepRecord {
   key: string;
   name: string;
   description?: string;
-  type: 'START' | 'APPROVAL' | 'TASK' | 'CONDITION' | 'PARALLEL' | 'WAIT' | 'ACTION' | 'END';
+  type:
+    | 'START'
+    | 'APPROVAL'
+    | 'TASK'
+    | 'CONDITION'
+    | 'PARALLEL'
+    | 'WAIT'
+    | 'ACTION'
+    | 'END';
   position: number;
   transitions: Record<string, string>;
   approvalMode?: 'ANY' | 'ALL' | 'MAJORITY' | 'SEQUENTIAL';
@@ -49,7 +65,15 @@ export interface WorkflowInstanceRecord {
   workflowDefinitionId: string;
   referenceId?: string;
   referenceType?: string;
-  status: 'PENDING' | 'RUNNING' | 'WAITING' | 'PAUSED' | 'COMPLETED' | 'CANCELLED' | 'FAILED' | 'TIMEOUT';
+  status:
+    | 'PENDING'
+    | 'RUNNING'
+    | 'WAITING'
+    | 'PAUSED'
+    | 'COMPLETED'
+    | 'CANCELLED'
+    | 'FAILED'
+    | 'TIMEOUT';
   currentStepId?: string;
   contextData: Record<string, unknown>;
   triggeredBy: string;
@@ -73,7 +97,14 @@ export interface ApprovalRequestRecord {
   approverRole?: string;
   title: string;
   description?: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'DELEGATED' | 'ESCALATED' | 'WITHDRAWN' | 'EXPIRED';
+  status:
+    | 'PENDING'
+    | 'APPROVED'
+    | 'REJECTED'
+    | 'DELEGATED'
+    | 'ESCALATED'
+    | 'WITHDRAWN'
+    | 'EXPIRED';
   decision?: 'APPROVE' | 'REJECT' | 'REQUEST_CHANGES' | 'DELEGATE' | 'ABSTAIN';
   decisionComment?: string;
   decidedAt?: Date;
@@ -103,7 +134,10 @@ export const mockDataStore = {
   steps: new Map<string, WorkflowStepRecord>(),
   instances: new Map<string, WorkflowInstanceRecord>(),
   approvals: new Map<string, ApprovalRequestRecord>(),
-  stepExecutions: new Map<string, { id: string; instanceId: string; stepId: string; status: string }>(),
+  stepExecutions: new Map<
+    string,
+    { id: string; instanceId: string; stepId: string; status: string }
+  >(),
 };
 
 // ============ Workflow Definition Handlers ============
@@ -146,7 +180,15 @@ export async function handleAddStep(
     key: string;
     name: string;
     description?: string;
-    type: 'START' | 'APPROVAL' | 'TASK' | 'CONDITION' | 'PARALLEL' | 'WAIT' | 'ACTION' | 'END';
+    type:
+      | 'START'
+      | 'APPROVAL'
+      | 'TASK'
+      | 'CONDITION'
+      | 'PARALLEL'
+      | 'WAIT'
+      | 'ACTION'
+      | 'END';
     position?: number;
     transitions: Record<string, string>;
     approvalMode?: 'ANY' | 'ALL' | 'MAJORITY' | 'SEQUENTIAL';
@@ -159,8 +201,9 @@ export async function handleAddStep(
   const now = new Date();
 
   // Calculate position
-  const existingSteps = Array.from(mockDataStore.steps.values())
-    .filter(s => s.workflowDefinitionId === input.workflowId);
+  const existingSteps = Array.from(mockDataStore.steps.values()).filter(
+    (s) => s.workflowDefinitionId === input.workflowId
+  );
   const position = input.position ?? existingSteps.length;
 
   const step: WorkflowStepRecord = {
@@ -224,8 +267,12 @@ export async function handleStartWorkflow(
   context: HandlerContext
 ): Promise<WorkflowInstanceRecord> {
   // Find active workflow by key
-  const workflow = Array.from(mockDataStore.workflows.values())
-    .find(w => w.key === input.workflowKey && w.status === 'ACTIVE' && w.organizationId === context.organizationId);
+  const workflow = Array.from(mockDataStore.workflows.values()).find(
+    (w) =>
+      w.key === input.workflowKey &&
+      w.status === 'ACTIVE' &&
+      w.organizationId === context.organizationId
+  );
 
   if (!workflow) {
     throw new Error(`Active workflow ${input.workflowKey} not found`);
@@ -274,7 +321,13 @@ export async function handleTransitionWorkflow(
     comment?: string;
   },
   context: HandlerContext
-): Promise<{ success: boolean; instance: WorkflowInstanceRecord; previousStepKey?: string; currentStepKey?: string; message?: string }> {
+): Promise<{
+  success: boolean;
+  instance: WorkflowInstanceRecord;
+  previousStepKey?: string;
+  currentStepKey?: string;
+  message?: string;
+}> {
   const instance = mockDataStore.instances.get(input.instanceId);
   if (!instance) {
     throw new Error(`Instance ${input.instanceId} not found`);
@@ -286,13 +339,22 @@ export async function handleTransitionWorkflow(
   }
 
   // Get all steps for this workflow
-  const steps = Array.from(mockDataStore.steps.values())
-    .filter(s => s.workflowDefinitionId === workflow.id);
+  const steps = Array.from(mockDataStore.steps.values()).filter(
+    (s) => s.workflowDefinitionId === workflow.id
+  );
 
   // Build state machine
-  const definition = buildStateMachineDefinition(workflow, steps);
-  const currentStep = steps.find(s => s.id === instance.currentStepId);
-  
+  const definition = buildStateMachineDefinition(
+    {
+      key: workflow.key,
+      name: workflow.name,
+      version: workflow.version,
+      initialStepId: workflow.initialStepId ?? null,
+    },
+    steps
+  );
+  const currentStep = steps.find((s) => s.id === instance.currentStepId);
+
   const state: StateMachineState = {
     currentStepKey: currentStep?.key ?? '',
     status: instance.status,
@@ -307,7 +369,12 @@ export async function handleTransitionWorkflow(
   };
 
   const engine = createStateMachineEngine();
-  const result = engine.transition(definition, state, input.action, transitionContext);
+  const result = engine.transition(
+    definition,
+    state,
+    input.action,
+    transitionContext
+  );
 
   if (!result.success) {
     return {
@@ -319,8 +386,8 @@ export async function handleTransitionWorkflow(
 
   // Update instance
   const previousStepKey = currentStep?.key;
-  const newStep = steps.find(s => s.key === result.currentStepKey);
-  
+  const newStep = steps.find((s) => s.key === result.currentStepKey);
+
   instance.currentStepId = newStep?.id;
   instance.status = result.status;
   instance.contextData = { ...instance.contextData, ...input.data };
@@ -394,7 +461,10 @@ export async function handleSubmitDecision(
   }
 
   // Verify approver
-  if (request.approverId !== context.userId && !context.userRoles.includes(request.approverRole ?? '')) {
+  if (
+    request.approverId !== context.userId &&
+    !context.userRoles.includes(request.approverRole ?? '')
+  ) {
     throw new Error('User is not authorized to make this decision');
   }
 
@@ -434,19 +504,33 @@ export async function handleSubmitDecision(
 
 export async function handleListMyApprovals(
   input: {
-    status?: 'PENDING' | 'APPROVED' | 'REJECTED' | 'DELEGATED' | 'ESCALATED' | 'WITHDRAWN' | 'EXPIRED';
+    status?:
+      | 'PENDING'
+      | 'APPROVED'
+      | 'REJECTED'
+      | 'DELEGATED'
+      | 'ESCALATED'
+      | 'WITHDRAWN'
+      | 'EXPIRED';
     limit?: number;
     offset?: number;
   },
   context: HandlerContext
-): Promise<{ requests: ApprovalRequestRecord[]; total: number; pendingCount: number }> {
-  let requests = Array.from(mockDataStore.approvals.values())
-    .filter(r => r.approverId === context.userId || context.userRoles.includes(r.approverRole ?? ''));
+): Promise<{
+  requests: ApprovalRequestRecord[];
+  total: number;
+  pendingCount: number;
+}> {
+  let requests = Array.from(mockDataStore.approvals.values()).filter(
+    (r) =>
+      r.approverId === context.userId ||
+      context.userRoles.includes(r.approverRole ?? '')
+  );
 
-  const pendingCount = requests.filter(r => r.status === 'PENDING').length;
+  const pendingCount = requests.filter((r) => r.status === 'PENDING').length;
 
   if (input.status) {
-    requests = requests.filter(r => r.status === input.status);
+    requests = requests.filter((r) => r.status === input.status);
   }
 
   const total = requests.length;
@@ -459,4 +543,3 @@ export async function handleListMyApprovals(
 
   return { requests, total, pendingCount };
 }
-

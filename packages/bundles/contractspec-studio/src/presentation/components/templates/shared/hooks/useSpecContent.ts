@@ -14,11 +14,11 @@ const SPEC_STORAGE_KEY = 'contractspec-spec-content';
  */
 export interface SpecValidationResult {
   valid: boolean;
-  errors: Array<{
+  errors: {
     line: number;
     message: string;
     severity: 'error' | 'warning';
-  }>;
+  }[];
 }
 
 /**
@@ -239,4 +239,3 @@ export function useSpecContent(templateId: TemplateId): UseSpecContentReturn {
     lastSaved,
   };
 }
-

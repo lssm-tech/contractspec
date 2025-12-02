@@ -61,6 +61,38 @@ const AgentDashboard = dynamic(
   { ssr: false }
 );
 
+const WorkflowDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.WorkflowDashboard
+    ),
+  { ssr: false }
+);
+
+const MarketplaceDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.MarketplaceDashboard
+    ),
+  { ssr: false }
+);
+
+const IntegrationDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.IntegrationDashboard
+    ),
+  { ssr: false }
+);
+
+const AnalyticsDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.AnalyticsDashboard
+    ),
+  { ssr: false }
+);
+
 const SpecEditor = dynamic(
   () =>
     import('@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/SpecEditor').then(
@@ -171,6 +203,26 @@ const TEMPLATE_LIBRARY: Record<
     description: 'Tools, agents, runs, and execution metrics.',
     component: <AgentDashboard />,
   },
+  'workflow-system': {
+    title: 'Workflow System',
+    description: 'Multi-step workflows with approvals and state machine.',
+    component: <WorkflowDashboard />,
+  },
+  marketplace: {
+    title: 'Marketplace',
+    description: 'Stores, products, orders, payouts, and reviews.',
+    component: <MarketplaceDashboard />,
+  },
+  'integration-hub': {
+    title: 'Integration Hub',
+    description: 'Third-party integrations with sync and mapping.',
+    component: <IntegrationDashboard />,
+  },
+  'analytics-dashboard': {
+    title: 'Analytics Dashboard',
+    description: 'Dashboards, widgets, and saved queries.',
+    component: <AnalyticsDashboard />,
+  },
 };
 
 /** Hook to track behavior events in the sandbox */
@@ -220,13 +272,18 @@ export default function SandboxExperienceClient() {
   }, [pushLog]);
 
   // Check if sidebar should be shown for current mode
-  const showSidebarForMode = mode === 'playground' || mode === 'specs' || mode === 'builder';
+  const showSidebarForMode =
+    mode === 'playground' || mode === 'specs' || mode === 'builder';
 
   const mainPanel = useMemo(() => {
     switch (mode) {
       case 'playground':
         return (
-          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+          <OverlayContextProvider
+            templateId={templateId}
+            role="user"
+            device="desktop"
+          >
             <TemplateShell
               templateId={templateId}
               title={template.title}
@@ -240,7 +297,11 @@ export default function SandboxExperienceClient() {
         );
       case 'specs':
         return (
-          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+          <OverlayContextProvider
+            templateId={templateId}
+            role="user"
+            device="desktop"
+          >
             <SpecEditorPanel
               templateId={templateId}
               SpecEditor={SpecEditor}
@@ -250,7 +311,11 @@ export default function SandboxExperienceClient() {
         );
       case 'builder':
         return (
-          <OverlayContextProvider templateId={templateId} role="user" device="desktop">
+          <OverlayContextProvider
+            templateId={templateId}
+            role="user"
+            device="desktop"
+          >
             <BuilderPanel
               templateId={templateId}
               StudioCanvas={StudioCanvas}
@@ -322,7 +387,15 @@ export default function SandboxExperienceClient() {
             Modes
           </p>
           <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-5">
-            {(['playground', 'specs', 'builder', 'markdown', 'evolution'] as Mode[]).map((modeId) => (
+            {(
+              [
+                'playground',
+                'specs',
+                'builder',
+                'markdown',
+                'evolution',
+              ] as Mode[]
+            ).map((modeId) => (
               <button
                 key={modeId}
                 type="button"
@@ -351,7 +424,9 @@ export default function SandboxExperienceClient() {
         </aside>
 
         {/* Main content with optional sidebar */}
-        <div className={`grid gap-6 ${showSidebarForMode && showEvolutionSidebar ? 'lg:grid-cols-[1fr,320px]' : ''}`}>
+        <div
+          className={`grid gap-6 ${showSidebarForMode && showEvolutionSidebar ? 'lg:grid-cols-[1fr,320px]' : ''}`}
+        >
           <section className="space-y-4">{mainPanel}</section>
 
           {/* Evolution Sidebar - shown in playground, specs, and builder modes */}
@@ -362,7 +437,7 @@ export default function SandboxExperienceClient() {
                 onLog={pushLog}
                 onExpandToDashboard={handleExpandToEvolution}
               />
-              
+
               {/* Personalization toggle button */}
               {!showInsights && (
                 <button

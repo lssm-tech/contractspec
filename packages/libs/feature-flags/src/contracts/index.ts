@@ -35,7 +35,10 @@ export const TargetingRuleModel = defineSchemaModel({
     attribute: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     operator: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     value: { type: ScalarTypeEnum.JSON(), isOptional: false },
-    rolloutPercentage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    rolloutPercentage: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     serveValue: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     serveVariant: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
@@ -54,10 +57,16 @@ export const ExperimentModel = defineSchemaModel({
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     variants: { type: ScalarTypeEnum.JSON(), isOptional: false },
     metrics: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    audiencePercentage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    audiencePercentage: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     endedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-    winningVariant: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    winningVariant: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     results: { type: ScalarTypeEnum.JSON(), isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -170,7 +179,10 @@ const CreateRuleInput = defineSchemaModel({
     attribute: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     operator: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     value: { type: ScalarTypeEnum.JSON(), isOptional: false },
-    rolloutPercentage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    rolloutPercentage: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     serveValue: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     serveVariant: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
@@ -195,7 +207,10 @@ const CreateExperimentInput = defineSchemaModel({
     flagId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     variants: { type: ScalarTypeEnum.JSON(), isOptional: false },
     metrics: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    audiencePercentage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    audiencePercentage: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     scheduledStartAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     scheduledEndAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -216,7 +231,10 @@ const StopExperimentInput = defineSchemaModel({
   fields: {
     experimentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    winningVariant: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    winningVariant: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
@@ -455,7 +473,7 @@ export const EvaluateFlagContract = defineQuery({
     },
   },
   policy: {
-    auth: 'none',
+    auth: 'anonymous',
   },
 });
 
@@ -674,4 +692,3 @@ export const GetExperimentContract = defineQuery({
     auth: 'user',
   },
 });
-

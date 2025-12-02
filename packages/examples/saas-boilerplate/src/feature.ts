@@ -13,7 +13,8 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
   meta: {
     key: 'saas-boilerplate',
     title: 'SaaS Boilerplate',
-    description: 'SaaS application foundation with projects, billing, and settings',
+    description:
+      'SaaS application foundation with projects, billing, and settings',
     domain: 'saas',
     owners: ['saas-team'],
     tags: ['saas', 'projects', 'billing'],
@@ -61,17 +62,37 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
 
   // Link operations to their primary presentations
   opToPresentation: [
-    { op: { name: 'saas.project.list', version: 1 }, pres: { name: 'saas.project.list', version: 1 } },
-    { op: { name: 'saas.project.get', version: 1 }, pres: { name: 'saas.project.detail', version: 1 } },
-    { op: { name: 'saas.billing.getSubscription', version: 1 }, pres: { name: 'saas.billing.subscription', version: 1 } },
-    { op: { name: 'saas.billing.getUsageSummary', version: 1 }, pres: { name: 'saas.billing.usage', version: 1 } },
+    {
+      op: { name: 'saas.project.list', version: 1 },
+      pres: { name: 'saas.project.list', version: 1 },
+    },
+    {
+      op: { name: 'saas.project.get', version: 1 },
+      pres: { name: 'saas.project.detail', version: 1 },
+    },
+    {
+      op: { name: 'saas.billing.getSubscription', version: 1 },
+      pres: { name: 'saas.billing.subscription', version: 1 },
+    },
+    {
+      op: { name: 'saas.billing.getUsageSummary', version: 1 },
+      pres: { name: 'saas.billing.usage', version: 1 },
+    },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     { name: 'saas.dashboard', version: 1, targets: ['react', 'markdown'] },
-    { name: 'saas.project.list', version: 1, targets: ['react', 'markdown', 'application/json'] },
-    { name: 'saas.billing.subscription', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'saas.project.list',
+      version: 1,
+      targets: ['react', 'markdown', 'application/json'],
+    },
+    {
+      name: 'saas.billing.subscription',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
     { name: 'saas.billing.usage', version: 1, targets: ['react', 'markdown'] },
   ],
 
@@ -84,4 +105,3 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
     ],
   },
 };
-

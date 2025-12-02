@@ -326,8 +326,7 @@ export interface IntegrationConfigFieldData {
   description?: string;
 }
 
-export interface IntegrationSecretFieldData
-  extends IntegrationConfigFieldData {}
+export interface IntegrationSecretFieldData extends IntegrationConfigFieldData {}
 
 export interface IntegrationSpecData extends BaseSpecData {
   title: string;

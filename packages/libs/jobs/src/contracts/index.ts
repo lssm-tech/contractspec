@@ -33,7 +33,10 @@ export const ScheduledJobModel = defineSchemaModel({
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    cronExpression: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    cronExpression: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     timezone: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jobType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     enabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
@@ -101,7 +104,10 @@ const CreateScheduledJobInput = defineSchemaModel({
   fields: {
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    cronExpression: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    cronExpression: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     timezone: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     jobType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     payload: { type: ScalarTypeEnum.JSON(), isOptional: true },
@@ -174,7 +180,14 @@ export const EnqueueJobContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'job.enqueued', version: 1, when: 'Job is enqueued', payload: JobEnqueuedPayload }],
+    emits: [
+      {
+        name: 'job.enqueued',
+        version: 1,
+        when: 'Job is enqueued',
+        payload: JobEnqueuedPayload,
+      },
+    ],
   },
 });
 
@@ -237,7 +250,14 @@ export const CancelJobContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'job.cancelled', version: 1, when: 'Job is cancelled', payload: JobCancelledPayload }],
+    emits: [
+      {
+        name: 'job.cancelled',
+        version: 1,
+        when: 'Job is cancelled',
+        payload: JobCancelledPayload,
+      },
+    ],
   },
 });
 

@@ -180,4 +180,3 @@ export function defineJobType<TPayload>(
 ): JobTypeDef<TPayload> {
   return def;
 }
-

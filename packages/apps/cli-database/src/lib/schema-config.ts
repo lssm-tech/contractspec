@@ -28,13 +28,15 @@ export function defineSchemaConfig(config: SchemaConfig): SchemaConfig {
 /**
  * Load schema configuration from a file.
  */
-export async function loadSchemaConfig(configPath: string): Promise<SchemaConfig | null> {
+export async function loadSchemaConfig(
+  configPath: string
+): Promise<SchemaConfig | null> {
   try {
     // Try to import as ESM module
     const absolutePath = configPath.startsWith('/')
       ? configPath
       : `${process.cwd()}/${configPath}`;
-    
+
     const module = await import(absolutePath);
     return module.default ?? module.config ?? module;
   } catch (error) {
@@ -47,4 +49,3 @@ export async function loadSchemaConfig(configPath: string): Promise<SchemaConfig
  * Re-export types for convenience.
  */
 export type { ModuleSchemaContribution };
-

@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Knowledge Spaces: ContractSpec Docs",
+  title: 'Knowledge Spaces: ContractSpec Docs',
   description:
-    "Learn about KnowledgeSpaceSpec and how to define logical knowledge domains in ContractSpec.",
+    'Learn about KnowledgeSpaceSpec and how to define logical knowledge domains in ContractSpec.',
 };
 
 export default function KnowledgeSpacesPage() {
@@ -22,7 +22,7 @@ export default function KnowledgeSpacesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">KnowledgeSpaceSpec</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type KnowledgeSpaceSpec = {
   id: string;
   label: string;
@@ -56,8 +56,8 @@ export default function KnowledgeSpacesPage() {
         <h2 className="text-2xl font-bold">Common knowledge spaces</h2>
         <div className="space-y-6">
           <div className="card-subtle p-4">
-            <h3 className="text-lg font-semibold mb-2">Product Canon</h3>
-            <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+            <h3 className="mb-2 text-lg font-semibold">Product Canon</h3>
+            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
               <pre>{`{
   id: "product-canon",
   label: "Product Canon",
@@ -70,15 +70,15 @@ export default function KnowledgeSpacesPage() {
   retentionPolicy: { versions: 10 }
 }`}</pre>
             </div>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               <strong>Use cases:</strong> Invoice generation, quote creation,
               product recommendations, schema validation
             </p>
           </div>
 
           <div className="card-subtle p-4">
-            <h3 className="text-lg font-semibold mb-2">Support History</h3>
-            <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+            <h3 className="mb-2 text-lg font-semibold">Support History</h3>
+            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
               <pre>{`{
   id: "support-history",
   label: "Support History",
@@ -91,15 +91,17 @@ export default function KnowledgeSpacesPage() {
   retentionPolicy: { days: 365 }
 }`}</pre>
             </div>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               <strong>Use cases:</strong> Customer support, troubleshooting,
               similar issue detection
             </p>
           </div>
 
           <div className="card-subtle p-4">
-            <h3 className="text-lg font-semibold mb-2">External Provider Docs</h3>
-            <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+            <h3 className="mb-2 text-lg font-semibold">
+              External Provider Docs
+            </h3>
+            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
               <pre>{`{
   id: "provider-docs",
   label: "External Provider Docs",
@@ -111,15 +113,15 @@ export default function KnowledgeSpacesPage() {
   retentionPolicy: { days: 90 }
 }`}</pre>
             </div>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               <strong>Use cases:</strong> Integration help, API reference,
               troubleshooting external services
             </p>
           </div>
 
           <div className="card-subtle p-4">
-            <h3 className="text-lg font-semibold mb-2">Agent Scratchpad</h3>
-            <div className="bg-background/50 p-3 rounded border border-border font-mono text-xs text-muted-foreground overflow-x-auto">
+            <h3 className="mb-2 text-lg font-semibold">Agent Scratchpad</h3>
+            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-xs">
               <pre>{`{
   id: "agent-scratchpad",
   label: "Agent Scratchpad",
@@ -132,7 +134,7 @@ export default function KnowledgeSpacesPage() {
   retentionPolicy: { days: 1 }
 }`}</pre>
             </div>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               <strong>Use cases:</strong> Conversation continuity, intermediate
               calculations, session state
             </p>
@@ -142,16 +144,16 @@ export default function KnowledgeSpacesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Storage strategies</h2>
-        <div className="overflow-x-auto rounded-lg border border-border/50">
+        <div className="border-border/50 overflow-x-auto rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead className="bg-card/50">
-              <tr className="border-b border-border/50">
+              <tr className="border-border/50 border-b">
                 <th className="px-4 py-3 font-semibold">Strategy</th>
                 <th className="px-4 py-3 font-semibold">Best For</th>
                 <th className="px-4 py-3 font-semibold">Providers</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/50">
+            <tbody className="divide-border/50 divide-y">
               <tr>
                 <td className="px-4 py-3 font-mono text-xs">vector</td>
                 <td className="px-4 py-3">
@@ -180,7 +182,7 @@ export default function KnowledgeSpacesPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             Choose storage strategy based on query patterns - use vector for
             semantic, search for exact
@@ -193,9 +195,7 @@ export default function KnowledgeSpacesPage() {
             Use consistent vector dimensions across spaces that will be queried
             together
           </li>
-          <li>
-            Document the intended audience and use cases for each space
-          </li>
+          <li>Document the intended audience and use cases for each space</li>
           <li>
             Monitor space size and query performance - add sharding if needed
           </li>
@@ -213,4 +213,3 @@ export default function KnowledgeSpacesPage() {
     </div>
   );
 }
-

@@ -19,7 +19,11 @@ const UserUpdatedPayload = new SchemaModel({
   description: 'Payload for user updated event',
   fields: {
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    updatedFields: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    updatedFields: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -63,7 +67,11 @@ const OrgUpdatedPayload = new SchemaModel({
   description: 'Payload for org updated event',
   fields: {
     orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    updatedFields: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+    updatedFields: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
     updatedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },

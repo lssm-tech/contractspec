@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'SLO Library',
-  description: 'Define and monitor availability + latency targets with burn-rate alerts.',
+  description:
+    'Define and monitor availability + latency targets with burn-rate alerts.',
 };
 
 export default function SLOLibraryPage() {
@@ -42,9 +43,10 @@ const { snapshot, burnRate } = monitor.recordWindow({
 });`}
         </pre>
         <p className="text-muted-foreground text-sm">
-          When burn rate exceeds the configured thresholds the monitor calls your
-          <code>IncidentManager</code>, providing the snapshot that triggered the
-          alert.
+          When burn rate exceeds the configured thresholds the monitor calls
+          your
+          <code>IncidentManager</code>, providing the snapshot that triggered
+          the alert.
         </p>
       </div>
 

@@ -30,47 +30,47 @@ export const ReviewEntity = defineEntity({
   map: 'review',
   fields: {
     id: field.id({ description: 'Unique review ID' }),
-    
+
     // Type and target
     type: field.enum('ReviewType', { default: 'PRODUCT' }),
     productId: field.string({ isOptional: true }),
     storeId: field.string({ isOptional: true }),
     orderId: field.string({ isOptional: true }),
     orderItemId: field.string({ isOptional: true }),
-    
+
     // Author
     authorId: field.foreignKey({ description: 'Reviewer user ID' }),
-    
+
     // Content
     rating: field.int({ description: 'Rating 1-5' }),
     title: field.string({ isOptional: true }),
     content: field.string({ isOptional: true }),
-    
+
     // Verification
     isVerifiedPurchase: field.boolean({ default: false }),
-    
+
     // Status
     status: field.enum('ReviewStatus', { default: 'PENDING' }),
-    
+
     // Media (using file attachments)
     hasMedia: field.boolean({ default: false }),
-    
+
     // Helpfulness
     helpfulCount: field.int({ default: 0 }),
     notHelpfulCount: field.int({ default: 0 }),
-    
+
     // Moderation
     moderatedBy: field.string({ isOptional: true }),
     moderatedAt: field.dateTime({ isOptional: true }),
     moderationNote: field.string({ isOptional: true }),
-    
+
     // Response
     hasResponse: field.boolean({ default: false }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     product: field.belongsTo('Product', ['productId'], ['id']),
     store: field.belongsTo('Store', ['storeId'], ['id']),
@@ -100,24 +100,23 @@ export const ReviewResponseEntity = defineEntity({
   fields: {
     id: field.id(),
     reviewId: field.foreignKey(),
-    
+
     // Author (usually store owner)
     authorId: field.foreignKey(),
-    
+
     // Content
     content: field.string(),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    review: field.belongsTo('Review', ['reviewId'], ['id'], { onDelete: 'Cascade' }),
+    review: field.belongsTo('Review', ['reviewId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
-  indexes: [
-    index.on(['reviewId']),
-    index.on(['authorId']),
-  ],
+  indexes: [index.on(['reviewId']), index.on(['authorId'])],
 });
 
 /**
@@ -132,18 +131,17 @@ export const ReviewVoteEntity = defineEntity({
     id: field.id(),
     reviewId: field.foreignKey(),
     userId: field.foreignKey(),
-    
+
     isHelpful: field.boolean(),
-    
+
     createdAt: field.createdAt(),
-    
+
     // Relations
-    review: field.belongsTo('Review', ['reviewId'], ['id'], { onDelete: 'Cascade' }),
+    review: field.belongsTo('Review', ['reviewId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
-  indexes: [
-    index.on(['reviewId', 'userId']).unique(),
-    index.on(['userId']),
-  ],
+  indexes: [index.unique(['reviewId', 'userId']), index.on(['userId'])],
 });
 
 /**
@@ -158,18 +156,18 @@ export const ReviewReportEntity = defineEntity({
     id: field.id(),
     reviewId: field.foreignKey(),
     reporterId: field.foreignKey(),
-    
+
     reason: field.string({ description: 'Report reason category' }),
     details: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.string({ default: '"PENDING"' }),
     resolvedBy: field.string({ isOptional: true }),
     resolvedAt: field.dateTime({ isOptional: true }),
     resolution: field.string({ isOptional: true }),
-    
+
     createdAt: field.createdAt(),
-    
+
     // Relations
     review: field.belongsTo('Review', ['reviewId'], ['id']),
   },
@@ -179,4 +177,3 @@ export const ReviewReportEntity = defineEntity({
     index.on(['reporterId']),
   ],
 });
-

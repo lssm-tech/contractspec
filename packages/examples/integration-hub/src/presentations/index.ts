@@ -2,7 +2,12 @@
  * Integration Hub Presentation Descriptors
  */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { IntegrationModel, ConnectionModel, SyncConfigModel, SyncRunModel } from '../contracts';
+import {
+  IntegrationModel,
+  ConnectionModel,
+  SyncConfigModel,
+  SyncRunModel,
+} from '../contracts';
 
 // ============ Integration Presentations ============
 
@@ -88,7 +93,6 @@ export const ConnectionSetupPresentation: PresentationDescriptorV2 = {
   targets: ['react'],
   policy: {
     flags: ['integration.enabled'],
-    roles: ['admin', 'integration_admin'],
   },
 };
 
@@ -133,7 +137,6 @@ export const SyncConfigEditorPresentation: PresentationDescriptorV2 = {
   targets: ['react'],
   policy: {
     flags: ['integration.sync.enabled'],
-    roles: ['admin', 'integration_admin'],
   },
 };
 
@@ -154,7 +157,6 @@ export const FieldMappingEditorPresentation: PresentationDescriptorV2 = {
   targets: ['react'],
   policy: {
     flags: ['integration.sync.enabled'],
-    roles: ['admin', 'integration_admin'],
   },
 };
 
@@ -259,4 +261,3 @@ export const IntegrationHubPresentations = {
   IntegrationHealthPresentation,
   SyncActivityPresentation,
 };
-

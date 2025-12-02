@@ -21,24 +21,41 @@ export const OrganizationEntity = defineEntity({
   fields: {
     id: field.id({ description: 'Unique organization identifier' }),
     name: field.string({ description: 'Organization display name' }),
-    slug: field.string({ isOptional: true, isUnique: true, description: 'URL-friendly identifier' }),
+    slug: field.string({
+      isOptional: true,
+      isUnique: true,
+      description: 'URL-friendly identifier',
+    }),
     logo: field.url({ isOptional: true, description: 'Organization logo URL' }),
-    description: field.string({ isOptional: true, description: 'Organization description' }),
-    metadata: field.json({ isOptional: true, description: 'Arbitrary organization metadata' }),
+    description: field.string({
+      isOptional: true,
+      description: 'Organization description',
+    }),
+    metadata: field.json({
+      isOptional: true,
+      description: 'Arbitrary organization metadata',
+    }),
     type: field.enum('OrganizationType', { description: 'Organization type' }),
-    
+
     // Onboarding
     onboardingCompleted: field.boolean({ default: false }),
     onboardingStep: field.string({ isOptional: true }),
-    
+
     // Referrals
-    referralCode: field.string({ isOptional: true, isUnique: true, description: 'Unique referral code' }),
-    referredBy: field.string({ isOptional: true, description: 'ID of referring user' }),
-    
+    referralCode: field.string({
+      isOptional: true,
+      isUnique: true,
+      description: 'Unique referral code',
+    }),
+    referredBy: field.string({
+      isOptional: true,
+      description: 'ID of referring user',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     members: field.hasMany('Member'),
     invitations: field.hasMany('Invitation'),
@@ -60,16 +77,18 @@ export const MemberEntity = defineEntity({
     id: field.id(),
     userId: field.foreignKey(),
     organizationId: field.foreignKey(),
-    role: field.string({ description: 'Role in organization (owner, admin, member)' }),
+    role: field.string({
+      description: 'Role in organization (owner, admin, member)',
+    }),
     createdAt: field.createdAt(),
-    
+
     // Relations
     user: field.belongsTo('User', ['userId'], ['id'], { onDelete: 'Cascade' }),
-    organization: field.belongsTo('Organization', ['organizationId'], ['id'], { onDelete: 'Cascade' }),
+    organization: field.belongsTo('Organization', ['organizationId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
-  indexes: [
-    index.unique(['userId', 'organizationId']),
-  ],
+  indexes: [index.unique(['userId', 'organizationId'])],
 });
 
 /**
@@ -84,18 +103,30 @@ export const InvitationEntity = defineEntity({
     id: field.id(),
     organizationId: field.foreignKey(),
     email: field.email({ description: 'Invited email address' }),
-    role: field.string({ isOptional: true, description: 'Role to assign on acceptance' }),
-    status: field.string({ default: '"pending"', description: 'Invitation status' }),
+    role: field.string({
+      isOptional: true,
+      description: 'Role to assign on acceptance',
+    }),
+    status: field.string({
+      default: '"pending"',
+      description: 'Invitation status',
+    }),
     acceptedAt: field.dateTime({ isOptional: true }),
     expiresAt: field.dateTime({ isOptional: true }),
-    inviterId: field.foreignKey({ description: 'User who sent the invitation' }),
+    inviterId: field.foreignKey({
+      description: 'User who sent the invitation',
+    }),
     teamId: field.string({ isOptional: true }),
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    organization: field.belongsTo('Organization', ['organizationId'], ['id'], { onDelete: 'Cascade' }),
-    inviter: field.belongsTo('User', ['inviterId'], ['id'], { onDelete: 'Cascade' }),
+    organization: field.belongsTo('Organization', ['organizationId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
+    inviter: field.belongsTo('User', ['inviterId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
     team: field.belongsTo('Team', ['teamId'], ['id'], { onDelete: 'Cascade' }),
   },
 });
@@ -114,9 +145,11 @@ export const TeamEntity = defineEntity({
     organizationId: field.foreignKey(),
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    organization: field.belongsTo('Organization', ['organizationId'], ['id'], { onDelete: 'Cascade' }),
+    organization: field.belongsTo('Organization', ['organizationId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
     members: field.hasMany('TeamMember'),
     invitations: field.hasMany('Invitation'),
   },
@@ -135,10 +168,9 @@ export const TeamMemberEntity = defineEntity({
     teamId: field.foreignKey(),
     userId: field.foreignKey(),
     createdAt: field.createdAt(),
-    
+
     // Relations
     team: field.belongsTo('Team', ['teamId'], ['id'], { onDelete: 'Cascade' }),
     user: field.belongsTo('User', ['userId'], ['id'], { onDelete: 'Cascade' }),
   },
 });
-

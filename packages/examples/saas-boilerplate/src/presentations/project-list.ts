@@ -11,7 +11,8 @@ export const ProjectListPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'saas.project.list',
     version: 1,
-    description: 'List view of projects with status, tags, and last updated info',
+    description:
+      'List view of projects with status, tags, and last updated info',
     domain: 'saas-boilerplate',
     owners: ['saas-team'],
     tags: ['project', 'list', 'dashboard'],
@@ -50,4 +51,3 @@ export const ProjectDetailPresentation: PresentationDescriptorV2 = {
     flags: ['saas.projects.enabled'],
   },
 };
-

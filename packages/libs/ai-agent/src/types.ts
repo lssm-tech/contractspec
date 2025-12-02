@@ -36,9 +36,7 @@ export interface ToolResultInfo {
  */
 export interface AgentMessage {
   role: 'user' | 'assistant' | 'system' | 'tool';
-  content:
-    | string
-    | Array<{ type: string; text?: string; [key: string]: unknown }>;
+  content: string | { type: string; text?: string; [key: string]: unknown }[];
   metadata?: Record<string, string>;
 }
 

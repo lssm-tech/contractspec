@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "S3-Compatible Storage Integration: ContractSpec Docs",
+  title: 'S3-Compatible Storage Integration: ContractSpec Docs',
   description:
-    "Store and retrieve files with S3-compatible object storage in ContractSpec.",
+    'Store and retrieve files with S3-compatible object storage in ContractSpec.',
 };
 
 export default function S3IntegrationPage() {
@@ -21,7 +21,7 @@ export default function S3IntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 S3_ENDPOINT=https://s3.fr-par.scw.cloud
 S3_ACCESS_KEY_ID=...
@@ -33,7 +33,7 @@ S3_REGION=fr-par`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Uploading files</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: s3-upload
 provider:
   type: s3
@@ -62,7 +62,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Generating presigned URLs</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: s3-presigned-url
 provider:
   type: s3
@@ -84,7 +84,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Use presigned URLs for secure, temporary access</li>
           <li>Set appropriate CORS policies for browser uploads</li>
           <li>Enable versioning for important files</li>
@@ -104,4 +104,3 @@ outputs:
     </div>
   );
 }
-

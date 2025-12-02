@@ -74,7 +74,10 @@ export function specToolsToAISDKTools(
  * ```
  */
 export function createToolHandler<TInput = unknown, TOutput = string>(
-  handler: (input: TInput, context: ToolExecutionContext) => Promise<TOutput> | TOutput
+  handler: (
+    input: TInput,
+    context: ToolExecutionContext
+  ) => Promise<TOutput> | TOutput
 ): ToolHandler<TInput, TOutput> {
   return async (input, context) => {
     return handler(input as TInput, context);
@@ -97,4 +100,3 @@ export function buildToolHandlers(
 ): Map<string, ToolHandler> {
   return new Map(Object.entries(handlersObj));
 }
-

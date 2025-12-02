@@ -10,7 +10,7 @@ export interface SchemaComposeArgs {
 
 /**
  * Compose multiple module schemas into a single Prisma schema.
- * 
+ *
  * Usage:
  *   database schema:compose --config ./schema.config.ts
  *   database schema:compose --modules "@lssm/lib.identity-rbac,@lssm/module.audit-trail"
@@ -48,7 +48,7 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   console.log('');
 
   // Collect all enums
-  const allEnums: Set<string> = new Set();
+  const allEnums = new Set<string>();
   modules.forEach((m) => {
     m.enums?.forEach((e) => allEnums.add(e.name));
     m.entities.forEach((entity) => {
@@ -73,7 +73,8 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   });
 
   // Determine output path
-  const outputPath = argv.output ?? config.outputPath ?? './prisma/schema/composed.prisma';
+  const outputPath =
+    argv.output ?? config.outputPath ?? './prisma/schema/composed.prisma';
   const outputDir = path.dirname(outputPath);
 
   // Ensure output directory exists
@@ -87,7 +88,9 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   // Generate summary
   const entityCount = modules.reduce((acc, m) => acc + m.entities.length, 0);
   const fieldCount = modules.reduce(
-    (acc, m) => acc + m.entities.reduce((eAcc, e) => eAcc + Object.keys(e.fields).length, 0),
+    (acc, m) =>
+      acc +
+      m.entities.reduce((eAcc, e) => eAcc + Object.keys(e.fields).length, 0),
     0
   );
 
@@ -103,4 +106,3 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   console.log('  1. Run: database generate');
   console.log('  2. Run: database migrate:dev --name <migration-name>');
 }
-

@@ -10,7 +10,7 @@ export interface SchemaGenerateArgs {
 
 /**
  * Generate Prisma schema from ContractSpec entity definitions.
- * 
+ *
  * Usage:
  *   database schema:generate --config ./schema.config.ts --output ./prisma/schema
  *   database schema:generate --module @lssm/lib.identity-rbac
@@ -54,7 +54,8 @@ export async function runSchemaGenerate(argv: SchemaGenerateArgs) {
   });
 
   // Determine output path
-  const outputPath = argv.output ?? config.outputPath ?? './prisma/schema/generated.prisma';
+  const outputPath =
+    argv.output ?? config.outputPath ?? './prisma/schema/generated.prisma';
   const outputDir = path.dirname(outputPath);
 
   // Ensure output directory exists
@@ -72,4 +73,3 @@ export async function runSchemaGenerate(argv: SchemaGenerateArgs) {
   console.log('  2. Run: database generate');
   console.log('  3. Run: database migrate:dev');
 }
-

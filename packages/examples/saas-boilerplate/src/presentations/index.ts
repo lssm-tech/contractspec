@@ -21,9 +21,18 @@ export {
 } from './dashboard';
 
 // Re-export all presentations as an array
-import { ProjectListPresentation, ProjectDetailPresentation } from './project-list';
-import { SubscriptionPresentation, UsageDashboardPresentation } from './billing';
-import { SaasDashboardPresentation, SettingsPanelPresentation } from './dashboard';
+import {
+  ProjectListPresentation,
+  ProjectDetailPresentation,
+} from './project-list';
+import {
+  SubscriptionPresentation,
+  UsageDashboardPresentation,
+} from './billing';
+import {
+  SaasDashboardPresentation,
+  SettingsPanelPresentation,
+} from './dashboard';
 
 export const SaasBoilerplatePresentations = [
   SaasDashboardPresentation,
@@ -33,4 +42,3 @@ export const SaasBoilerplatePresentations = [
   UsageDashboardPresentation,
   SettingsPanelPresentation,
 ];
-

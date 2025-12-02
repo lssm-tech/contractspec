@@ -1,8 +1,8 @@
 /**
  * Spaced Repetition System (SRS) Engine
- * 
+ *
  * Implements the SM-2 algorithm variant for optimal flashcard scheduling.
- * 
+ *
  * The algorithm calculates the optimal time to review a card based on:
  * - User's rating of recall difficulty (again, hard, good, easy)
  * - Current interval between reviews
@@ -215,7 +215,10 @@ export class SRSEngine {
         if (newStep >= steps.length) {
           isRelearning = false;
           // Use reduced interval after lapse
-          interval = Math.max(1, Math.floor(state.interval * this.config.newIntervalModifier));
+          interval = Math.max(
+            1,
+            Math.floor(state.interval * this.config.newIntervalModifier)
+          );
           nextReviewAt = this.addDays(now, interval);
         } else {
           interval = steps[newStep] ?? 10;
@@ -226,7 +229,10 @@ export class SRSEngine {
       case 'EASY':
         // Graduate immediately with slightly longer interval
         isRelearning = false;
-        interval = Math.max(1, Math.floor(state.interval * this.config.newIntervalModifier * 1.5));
+        interval = Math.max(
+          1,
+          Math.floor(state.interval * this.config.newIntervalModifier * 1.5)
+        );
         nextReviewAt = this.addDays(now, interval);
         break;
     }
@@ -264,7 +270,10 @@ export class SRSEngine {
         lapses++;
         isRelearning = true;
         learningStep = 0;
-        newEaseFactor = Math.max(this.config.minEaseFactor, newEaseFactor - 0.2);
+        newEaseFactor = Math.max(
+          this.config.minEaseFactor,
+          newEaseFactor - 0.2
+        );
         newInterval = state.interval; // Keep old interval for reference
         const relearnStep = this.config.relearningSteps[0] ?? 10;
         return {
@@ -280,7 +289,10 @@ export class SRSEngine {
 
       case 'HARD':
         // Reduce interval slightly, reduce ease
-        newEaseFactor = Math.max(this.config.minEaseFactor, newEaseFactor - 0.15);
+        newEaseFactor = Math.max(
+          this.config.minEaseFactor,
+          newEaseFactor - 0.15
+        );
         newInterval = Math.max(
           state.interval + 1,
           state.interval * this.config.hardIntervalModifier
@@ -289,14 +301,19 @@ export class SRSEngine {
 
       case 'GOOD':
         // Standard interval increase
-        newInterval = state.interval * newEaseFactor * this.config.intervalModifier;
+        newInterval =
+          state.interval * newEaseFactor * this.config.intervalModifier;
         repetitions++;
         break;
 
       case 'EASY':
         // Larger interval increase, increase ease
         newEaseFactor = newEaseFactor + 0.15;
-        newInterval = state.interval * newEaseFactor * this.config.easyBonus * this.config.intervalModifier;
+        newInterval =
+          state.interval *
+          newEaseFactor *
+          this.config.easyBonus *
+          this.config.intervalModifier;
         repetitions++;
         break;
     }
@@ -362,4 +379,3 @@ export class SRSEngine {
  * Default SRS engine instance.
  */
 export const srsEngine = new SRSEngine();
-

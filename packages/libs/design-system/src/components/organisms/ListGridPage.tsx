@@ -31,7 +31,8 @@ const gridGapVariants = cva('', {
 });
 
 export interface ListGridPageProps<T>
-  extends VariantProps<typeof containerVariants>,
+  extends
+    VariantProps<typeof containerVariants>,
     VariantProps<typeof gridGapVariants> {
   title: React.ReactNode;
   subtitle?: React.ReactNode;

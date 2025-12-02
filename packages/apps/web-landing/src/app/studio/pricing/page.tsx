@@ -171,17 +171,3 @@ export default function StudioPricingPage() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

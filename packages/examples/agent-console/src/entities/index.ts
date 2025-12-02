@@ -1,9 +1,5 @@
 // Tool entities
-export {
-  ToolEntity,
-  ToolCategoryEnum,
-  ToolStatusEnum,
-} from './tool';
+export { ToolEntity, ToolCategoryEnum, ToolStatusEnum } from './tool';
 
 // Agent entities
 export {

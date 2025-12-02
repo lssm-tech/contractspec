@@ -22,7 +22,7 @@ export const WorkflowTriggerTypeEnum = defineEntityEnum({
 
 /**
  * WorkflowDefinition entity - defines a workflow blueprint.
- * 
+ *
  * A workflow definition specifies the structure, steps, and rules
  * for a business process. Instances are created from definitions.
  */
@@ -33,48 +33,72 @@ export const WorkflowDefinitionEntity = defineEntity({
   map: 'workflow_definition',
   fields: {
     id: field.id({ description: 'Unique workflow definition ID' }),
-    
+
     // Identity
     name: field.string({ description: 'Human-readable workflow name' }),
-    key: field.string({ description: 'Unique key for referencing (e.g., "purchase_approval")' }),
-    description: field.string({ isOptional: true, description: 'Detailed description' }),
-    version: field.int({ default: 1, description: 'Version number for versioning definitions' }),
-    
+    key: field.string({
+      description: 'Unique key for referencing (e.g., "purchase_approval")',
+    }),
+    description: field.string({
+      isOptional: true,
+      description: 'Detailed description',
+    }),
+    version: field.int({
+      default: 1,
+      description: 'Version number for versioning definitions',
+    }),
+
     // Status
     status: field.enum('WorkflowStatus', { default: 'DRAFT' }),
-    
+
     // Trigger
     triggerType: field.enum('WorkflowTriggerType', { default: 'MANUAL' }),
-    triggerConfig: field.json({ isOptional: true, description: 'Trigger-specific configuration' }),
-    
+    triggerConfig: field.json({
+      isOptional: true,
+      description: 'Trigger-specific configuration',
+    }),
+
     // Initial step
-    initialStepId: field.string({ isOptional: true, description: 'First step when workflow starts' }),
-    
+    initialStepId: field.string({
+      isOptional: true,
+      description: 'First step when workflow starts',
+    }),
+
     // Feature flag integration
-    featureFlagKey: field.string({ isOptional: true, description: 'Feature flag to control availability' }),
-    
+    featureFlagKey: field.string({
+      isOptional: true,
+      description: 'Feature flag to control availability',
+    }),
+
     // Configuration
-    settings: field.json({ isOptional: true, description: 'Workflow-wide settings' }),
+    settings: field.json({
+      isOptional: true,
+      description: 'Workflow-wide settings',
+    }),
     metadata: field.json({ isOptional: true, description: 'Custom metadata' }),
-    
+
     // Ownership
     organizationId: field.foreignKey({ description: 'Owning organization' }),
-    createdBy: field.foreignKey({ description: 'User who created this workflow' }),
-    
+    createdBy: field.foreignKey({
+      description: 'User who created this workflow',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    publishedAt: field.dateTime({ isOptional: true, description: 'When workflow was activated' }),
-    
+    publishedAt: field.dateTime({
+      isOptional: true,
+      description: 'When workflow was activated',
+    }),
+
     // Relations
     steps: field.hasMany('WorkflowStep'),
     instances: field.hasMany('WorkflowInstance'),
   },
   indexes: [
-    index.on(['organizationId', 'key', 'version']).unique(),
+    index.unique(['organizationId', 'key', 'version']),
     index.on(['organizationId', 'status']),
     index.on(['key', 'version']),
   ],
   enums: [WorkflowStatusEnum, WorkflowTriggerTypeEnum],
 });
-

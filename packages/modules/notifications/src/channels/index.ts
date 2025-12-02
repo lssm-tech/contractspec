@@ -57,7 +57,9 @@ export interface ChannelDeliveryResult {
 export class InAppChannel implements NotificationChannel {
   readonly channelId = 'IN_APP';
 
-  async send(notification: ChannelNotification): Promise<ChannelDeliveryResult> {
+  async send(
+    notification: ChannelNotification
+  ): Promise<ChannelDeliveryResult> {
     // In-app notifications are stored directly in the database
     // The actual delivery is handled by the notification service
     return {
@@ -77,7 +79,9 @@ export class InAppChannel implements NotificationChannel {
 export class ConsoleChannel implements NotificationChannel {
   readonly channelId = 'CONSOLE';
 
-  async send(notification: ChannelNotification): Promise<ChannelDeliveryResult> {
+  async send(
+    notification: ChannelNotification
+  ): Promise<ChannelDeliveryResult> {
     console.log(`📬 [${notification.id}] ${notification.title}`);
     console.log(`   ${notification.body}`);
     if (notification.actionUrl) {
@@ -100,7 +104,9 @@ export class ConsoleChannel implements NotificationChannel {
 export abstract class EmailChannel implements NotificationChannel {
   readonly channelId = 'EMAIL';
 
-  abstract send(notification: ChannelNotification): Promise<ChannelDeliveryResult>;
+  abstract send(
+    notification: ChannelNotification
+  ): Promise<ChannelDeliveryResult>;
 
   async isAvailable(): Promise<boolean> {
     return true;
@@ -113,7 +119,9 @@ export abstract class EmailChannel implements NotificationChannel {
 export abstract class PushChannel implements NotificationChannel {
   readonly channelId = 'PUSH';
 
-  abstract send(notification: ChannelNotification): Promise<ChannelDeliveryResult>;
+  abstract send(
+    notification: ChannelNotification
+  ): Promise<ChannelDeliveryResult>;
 
   async isAvailable(): Promise<boolean> {
     return true;
@@ -126,7 +134,9 @@ export abstract class PushChannel implements NotificationChannel {
 export class WebhookChannel implements NotificationChannel {
   readonly channelId = 'WEBHOOK';
 
-  async send(notification: ChannelNotification): Promise<ChannelDeliveryResult> {
+  async send(
+    notification: ChannelNotification
+  ): Promise<ChannelDeliveryResult> {
     if (!notification.webhook?.url) {
       return {
         success: false,
@@ -158,7 +168,8 @@ export class WebhookChannel implements NotificationChannel {
     } catch (error) {
       return {
         success: false,
-        responseMessage: error instanceof Error ? error.message : 'Unknown error',
+        responseMessage:
+          error instanceof Error ? error.message : 'Unknown error',
       };
     }
   }
@@ -207,4 +218,3 @@ export function createChannelRegistry(): ChannelRegistry {
   registry.register(new WebhookChannel());
   return registry;
 }
-

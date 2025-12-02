@@ -1,12 +1,26 @@
-import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.crm-pipeline'] as const;
 
 // ============ Enums ============
 
-const DealStatusSchemaEnum = defineEnum('DealStatus', ['OPEN', 'WON', 'LOST', 'STALE']);
-export const DealStatusFilterEnum = defineEnum('DealStatusFilter', ['OPEN', 'WON', 'LOST', 'all']);
+const DealStatusSchemaEnum = defineEnum('DealStatus', [
+  'OPEN',
+  'WON',
+  'LOST',
+  'STALE',
+]);
+export const DealStatusFilterEnum = defineEnum('DealStatusFilter', [
+  'OPEN',
+  'WON',
+  'LOST',
+  'all',
+]);
 
 // ============ Schemas ============
 
@@ -109,8 +123,16 @@ export const ListDealsInputModel = defineSchemaModel({
     status: { type: DealStatusFilterEnum, isOptional: true },
     ownerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -148,7 +170,14 @@ export const CreateDealContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'deal.created', version: 1, when: 'Deal is created', payload: DealModel }],
+    emits: [
+      {
+        name: 'deal.created',
+        version: 1,
+        when: 'Deal is created',
+        payload: DealModel,
+      },
+    ],
     audit: ['deal.created'],
   },
 });
@@ -175,7 +204,14 @@ export const MoveDealContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'deal.moved', version: 1, when: 'Deal stage changed', payload: DealMovedPayloadModel }],
+    emits: [
+      {
+        name: 'deal.moved',
+        version: 1,
+        when: 'Deal stage changed',
+        payload: DealMovedPayloadModel,
+      },
+    ],
     audit: ['deal.moved'],
   },
 });
@@ -202,7 +238,14 @@ export const WinDealContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'deal.won', version: 1, when: 'Deal is won', payload: DealWonPayloadModel }],
+    emits: [
+      {
+        name: 'deal.won',
+        version: 1,
+        when: 'Deal is won',
+        payload: DealWonPayloadModel,
+      },
+    ],
     audit: ['deal.won'],
   },
 });
@@ -229,7 +272,14 @@ export const LoseDealContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'deal.lost', version: 1, when: 'Deal is lost', payload: DealLostPayloadModel }],
+    emits: [
+      {
+        name: 'deal.lost',
+        version: 1,
+        when: 'Deal is lost',
+        payload: DealLostPayloadModel,
+      },
+    ],
     audit: ['deal.lost'],
   },
 });

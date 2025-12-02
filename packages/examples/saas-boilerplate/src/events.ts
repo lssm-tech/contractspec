@@ -9,7 +9,10 @@ const ProjectCreatedPayload = defineSchemaModel({
   fields: {
     projectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -20,7 +23,11 @@ const ProjectUpdatedPayload = defineSchemaModel({
   description: 'Payload when a project is updated',
   fields: {
     projectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    updatedFields: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: false },
+    updatedFields: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: false,
+    },
     updatedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -31,7 +38,10 @@ const ProjectDeletedPayload = defineSchemaModel({
   description: 'Payload when a project is deleted',
   fields: {
     projectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     deletedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     deletedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -53,10 +63,16 @@ const UsageRecordedPayload = defineSchemaModel({
   name: 'UsageRecordedPayload',
   description: 'Payload when feature usage is recorded',
   fields: {
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     feature: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     quantity: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    billingPeriod: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    billingPeriod: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     recordedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -65,7 +81,10 @@ const UsageLimitReachedPayload = defineSchemaModel({
   name: 'UsageLimitReachedPayload',
   description: 'Payload when usage limit is reached',
   fields: {
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     feature: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     currentUsage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
@@ -77,10 +96,16 @@ const SubscriptionChangedPayload = defineSchemaModel({
   name: 'SubscriptionChangedPayload',
   description: 'Payload when subscription status changes',
   fields: {
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     previousPlan: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     newPlan: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     changedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },

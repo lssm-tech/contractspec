@@ -7,7 +7,8 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
   meta: {
     key: 'integration-hub',
     title: 'Integration Hub',
-    description: 'Connect and sync data with external systems through configurable integrations',
+    description:
+      'Connect and sync data with external systems through configurable integrations',
     domain: 'integration',
     owners: ['integration-team'],
     tags: ['integration', 'sync', 'etl', 'connectors'],
@@ -49,19 +50,40 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
   ],
 
   opToPresentation: [
-    { op: { name: 'integration.syncConfig.create', version: 1 }, pres: { name: 'integration.syncConfig.editor', version: 1 } },
-    { op: { name: 'integration.fieldMapping.add', version: 1 }, pres: { name: 'integration.fieldMapping.editor', version: 1 } },
-    { op: { name: 'integration.syncRun.list', version: 1 }, pres: { name: 'integration.syncRun.list', version: 1 } },
+    {
+      op: { name: 'integration.syncConfig.create', version: 1 },
+      pres: { name: 'integration.syncConfig.editor', version: 1 },
+    },
+    {
+      op: { name: 'integration.fieldMapping.add', version: 1 },
+      pres: { name: 'integration.fieldMapping.editor', version: 1 },
+    },
+    {
+      op: { name: 'integration.syncRun.list', version: 1 },
+      pres: { name: 'integration.syncRun.list', version: 1 },
+    },
   ],
 
   presentationsTargets: [
     { name: 'integration.list', version: 1, targets: ['react', 'markdown'] },
     { name: 'integration.detail', version: 1, targets: ['react', 'markdown'] },
-    { name: 'integration.syncConfig.list', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'integration.syncConfig.list',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
     { name: 'integration.syncConfig.editor', version: 1, targets: ['react'] },
     { name: 'integration.fieldMapping.editor', version: 1, targets: ['react'] },
-    { name: 'integration.syncRun.list', version: 1, targets: ['react', 'markdown'] },
-    { name: 'integration.syncRun.detail', version: 1, targets: ['react', 'markdown'] },
+    {
+      name: 'integration.syncRun.list',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'integration.syncRun.detail',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
   ],
 
   capabilities: {
@@ -79,4 +101,3 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
     ],
   },
 };
-

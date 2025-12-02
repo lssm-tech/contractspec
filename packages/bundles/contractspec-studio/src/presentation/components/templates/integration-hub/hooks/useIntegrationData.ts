@@ -1,7 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import type { Integration, Connection, SyncConfig } from '@lssm/lib.runtime-local';
+import type {
+  Integration,
+  Connection,
+  SyncConfig,
+} from '@lssm/lib.runtime-local';
 import { useIntegrationHandlers } from '../../../../../templates/runtime';
 
 export interface IntegrationStats {
@@ -36,7 +40,9 @@ export function useIntegrationData(projectId = 'local-project') {
       setConnections(connResult.connections);
       setSyncConfigs(syncResult.configs);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to load integrations'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to load integrations')
+      );
     } finally {
       setLoading(false);
     }
@@ -48,7 +54,8 @@ export function useIntegrationData(projectId = 'local-project') {
 
   const stats: IntegrationStats = {
     totalIntegrations: integrations.length,
-    activeIntegrations: integrations.filter((i) => i.status === 'ACTIVE').length,
+    activeIntegrations: integrations.filter((i) => i.status === 'ACTIVE')
+      .length,
     totalConnections: connections.length,
     connectedCount: connections.filter((c) => c.status === 'CONNECTED').length,
     totalSyncs: syncConfigs.length,
@@ -65,4 +72,3 @@ export function useIntegrationData(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
-

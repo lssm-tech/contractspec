@@ -6,11 +6,7 @@ export {
 } from './workflow';
 
 // Step entities
-export {
-  StepTypeEnum,
-  ApprovalModeEnum,
-  WorkflowStepEntity,
-} from './step';
+export { StepTypeEnum, ApprovalModeEnum, WorkflowStepEntity } from './step';
 
 // Instance entities
 export {
@@ -29,10 +25,24 @@ export {
 } from './approval';
 
 // Schema contribution
-import { WorkflowStatusEnum, WorkflowTriggerTypeEnum, WorkflowDefinitionEntity } from './workflow';
+import {
+  WorkflowStatusEnum,
+  WorkflowTriggerTypeEnum,
+  WorkflowDefinitionEntity,
+} from './workflow';
 import { StepTypeEnum, ApprovalModeEnum, WorkflowStepEntity } from './step';
-import { InstanceStatusEnum, StepExecutionStatusEnum, WorkflowInstanceEntity, StepExecutionEntity } from './instance';
-import { ApprovalStatusEnum, ApprovalDecisionEnum, ApprovalRequestEntity, ApprovalCommentEntity } from './approval';
+import {
+  InstanceStatusEnum,
+  StepExecutionStatusEnum,
+  WorkflowInstanceEntity,
+  StepExecutionEntity,
+} from './instance';
+import {
+  ApprovalStatusEnum,
+  ApprovalDecisionEnum,
+  ApprovalRequestEntity,
+  ApprovalCommentEntity,
+} from './approval';
 import type { ModuleSchemaContribution } from '@lssm/lib.schema';
 
 export const workflowSystemEntities = [
@@ -58,4 +68,3 @@ export const workflowSystemSchemaContribution: ModuleSchemaContribution = {
     ApprovalDecisionEnum,
   ],
 };
-

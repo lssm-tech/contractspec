@@ -46,7 +46,10 @@ const FlagToggledPayload = defineSchemaModel({
   fields: {
     flagId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     toggledBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     toggledAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -99,7 +102,10 @@ const ExperimentStartedPayload = defineSchemaModel({
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     flagId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     variants: { type: ScalarTypeEnum.JSON(), isOptional: false },
-    audiencePercentage: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    audiencePercentage: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     startedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -112,7 +118,10 @@ const ExperimentStoppedPayload = defineSchemaModel({
     experimentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    winningVariant: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    winningVariant: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     stoppedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     stoppedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -138,7 +147,10 @@ const VariantAssignedPayload = defineSchemaModel({
   description: 'Payload when a subject is assigned to an experiment variant',
   fields: {
     experimentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    experimentKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    experimentKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     subjectType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     subjectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     variant: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -275,4 +287,3 @@ export const FeatureFlagEvents = {
   FlagEvaluatedEvent,
   VariantAssignedEvent,
 };
-

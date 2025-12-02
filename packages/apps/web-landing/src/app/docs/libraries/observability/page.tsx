@@ -74,7 +74,3 @@ signals.forEach((signal) => {
     </div>
   );
 }
-
-
-
-

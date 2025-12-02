@@ -9,7 +9,10 @@ const DashboardCreatedPayload = defineSchemaModel({
     dashboardId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -42,7 +45,10 @@ const QueryCreatedPayload = defineSchemaModel({
     queryId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -54,7 +60,7 @@ const QueryExecutedPayload = defineSchemaModel({
     queryId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     executionTimeMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     rowCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    cached: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    cached: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     executedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -65,7 +71,7 @@ const DashboardViewedPayload = defineSchemaModel({
   fields: {
     dashboardId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     viewedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    isPublicView: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isPublicView: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -143,4 +149,3 @@ export const AnalyticsDashboardEvents = {
   DashboardViewedEvent,
   ReportGeneratedEvent,
 };
-

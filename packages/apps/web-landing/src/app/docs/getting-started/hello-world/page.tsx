@@ -12,7 +12,8 @@ export default function HelloWorldPage() {
       <div className="space-y-2">
         <h1 className="text-4xl font-bold">Your First Operation</h1>
         <p className="text-muted-foreground text-lg">
-          Build a payment capture operation with policy enforcement in under 10 minutes.
+          Build a payment capture operation with policy enforcement in under 10
+          minutes.
         </p>
       </div>
 
@@ -20,9 +21,9 @@ export default function HelloWorldPage() {
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">What you'll build</h2>
           <p className="text-muted-foreground">
-            A real-world payment processing operation that validates input, enforces
-            business rules, integrates with Stripe, and audits every transaction.
-            This is production-ready code, not a toy example.
+            A real-world payment processing operation that validates input,
+            enforces business rules, integrates with Stripe, and audits every
+            transaction. This is production-ready code, not a toy example.
           </p>
         </div>
 
@@ -129,7 +130,8 @@ export async function handleCapturePayment(input, ctx) {
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">3. Register and serve</h2>
           <p className="text-muted-foreground">
-            Wire it up in <code>lib/registry.ts</code> and <code>app/api/ops/[...route]/route.ts</code>:
+            Wire it up in <code>lib/registry.ts</code> and{' '}
+            <code>app/api/ops/[...route]/route.ts</code>:
           </p>
           <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// lib/registry.ts
@@ -157,8 +159,14 @@ export { handler as GET, handler as POST };`}</pre>
         <div className="card-subtle space-y-4 p-6">
           <h3 className="font-bold">What you just built:</h3>
           <ul className="text-muted-foreground space-y-2 text-sm">
-            <li>✓ Type-safe API endpoint at <code>/api/ops/billing.capturePayment</code></li>
-            <li>✓ Automatic input validation (amount must be positive, IDs required)</li>
+            <li>
+              ✓ Type-safe API endpoint at{' '}
+              <code>/api/ops/billing.capturePayment</code>
+            </li>
+            <li>
+              ✓ Automatic input validation (amount must be positive, IDs
+              required)
+            </li>
             <li>✓ Policy enforcement—only invoice owner can pay</li>
             <li>✓ Stripe integration with error handling</li>
             <li>✓ Database transaction with audit trail</li>

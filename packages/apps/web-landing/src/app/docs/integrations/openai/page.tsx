@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "OpenAI Integration: ContractSpec Docs",
+  title: 'OpenAI Integration: ContractSpec Docs',
   description:
-    "Use GPT models, embeddings, and Whisper speech-to-text with OpenAI in ContractSpec.",
+    'Use GPT models, embeddings, and Whisper speech-to-text with OpenAI in ContractSpec.',
 };
 
 export default function OpenAIIntegrationPage() {
@@ -21,7 +21,7 @@ export default function OpenAIIntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 OPENAI_API_KEY=sk-...
 OPENAI_ORGANIZATION=org-...`}</pre>
@@ -30,7 +30,7 @@ OPENAI_ORGANIZATION=org-...`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Chat completions</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: openai-chat
 provider:
   type: openai
@@ -62,7 +62,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Embeddings</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: openai-embeddings
 provider:
   type: openai
@@ -85,7 +85,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Whisper (Speech-to-Text)</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: openai-transcribe
 provider:
   type: openai
@@ -108,7 +108,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Use streaming for real-time chat responses</li>
           <li>Cache embeddings to reduce API costs</li>
           <li>Implement rate limiting to avoid quota issues</li>
@@ -128,4 +128,3 @@ outputs:
     </div>
   );
 }
-

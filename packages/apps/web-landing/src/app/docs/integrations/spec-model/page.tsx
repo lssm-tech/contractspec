@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Integration Spec Model: ContractSpec Docs",
+  title: 'Integration Spec Model: ContractSpec Docs',
   description:
-    "Learn about IntegrationSpec and IntegrationConnection in ContractSpec.",
+    'Learn about IntegrationSpec and IntegrationConnection in ContractSpec.',
 };
 
 export default function IntegrationSpecModelPage() {
@@ -26,7 +26,7 @@ export default function IntegrationSpecModelPage() {
           integration provider. It declares what the integration provides and
           what it requires.
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type IntegrationSpec = {
   id: string;
   label: string;
@@ -86,7 +86,7 @@ export default function IntegrationSpecModelPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Stripe IntegrationSpec</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`{
   id: "stripe",
   label: "Stripe",
@@ -162,7 +162,7 @@ export default function IntegrationSpecModelPage() {
           An <strong>IntegrationConnection</strong> is a per-tenant instance of
           an integration with configured credentials and environment settings.
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`type IntegrationConnection = {
   id: string;
   tenantId: string;
@@ -195,7 +195,7 @@ export default function IntegrationSpecModelPage() {
         <h2 className="text-2xl font-bold">
           Example: Stripe IntegrationConnection
         </h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`// Production connection
 {
   id: "conn_stripe_acme_prod",
@@ -240,18 +240,18 @@ export default function IntegrationSpecModelPage() {
           IntegrationConnections are periodically health-checked to ensure they
           remain valid:
         </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
-            <strong>API key validation</strong> - Test that credentials are still
-            valid
+            <strong>API key validation</strong> - Test that credentials are
+            still valid
           </li>
           <li>
             <strong>Connectivity check</strong> - Verify network access to the
             provider
           </li>
           <li>
-            <strong>Permission verification</strong> - Ensure required scopes are
-            granted
+            <strong>Permission verification</strong> - Ensure required scopes
+            are granted
           </li>
           <li>
             <strong>Webhook validation</strong> - Test webhook endpoint
@@ -269,47 +269,29 @@ export default function IntegrationSpecModelPage() {
         <p className="text-muted-foreground">
           Secrets (API keys, tokens) are never stored in plaintext:
         </p>
-        <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
-          <li>
-            User provides secrets through secure UI or API
-          </li>
-          <li>
-            Secrets are encrypted using tenant-specific keys
-          </li>
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
+          <li>User provides secrets through secure UI or API</li>
+          <li>Secrets are encrypted using tenant-specific keys</li>
           <li>
             Encrypted secrets are stored in secure vault (e.g., AWS Secrets
             Manager)
           </li>
-          <li>
-            IntegrationConnection stores only a reference (secretRef)
-          </li>
-          <li>
-            At runtime, secrets are decrypted on-demand and never logged
-          </li>
+          <li>IntegrationConnection stores only a reference (secretRef)</li>
+          <li>At runtime, secrets are decrypted on-demand and never logged</li>
         </ol>
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
-          <li>
-            Always maintain separate sandbox and production connections
-          </li>
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
+          <li>Always maintain separate sandbox and production connections</li>
           <li>
             Use descriptive connection IDs that include tenant and environment
           </li>
-          <li>
-            Monitor health check status and set up alerts for failures
-          </li>
-          <li>
-            Rotate secrets regularly and update secretRef accordingly
-          </li>
-          <li>
-            Document the purpose and ownership of each connection
-          </li>
-          <li>
-            Test connections in sandbox before enabling in production
-          </li>
+          <li>Monitor health check status and set up alerts for failures</li>
+          <li>Rotate secrets regularly and update secretRef accordingly</li>
+          <li>Document the purpose and ownership of each connection</li>
+          <li>Test connections in sandbox before enabling in production</li>
         </ul>
       </div>
 
@@ -327,4 +309,3 @@ export default function IntegrationSpecModelPage() {
     </div>
   );
 }
-

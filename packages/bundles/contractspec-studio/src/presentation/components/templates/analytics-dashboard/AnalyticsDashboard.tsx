@@ -19,9 +19,11 @@ import { useAnalyticsData } from './hooks/useAnalyticsData';
 type Tab = 'dashboards' | 'queries';
 
 const STATUS_COLORS: Record<string, string> = {
-  PUBLISHED: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  PUBLISHED:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   DRAFT: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
-  ARCHIVED: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  ARCHIVED:
+    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
 };
 
 const WIDGET_ICONS: Record<string, string> = {
@@ -41,8 +43,10 @@ const WIDGET_ICONS: Record<string, string> = {
 
 const QUERY_TYPE_COLORS: Record<string, string> = {
   SQL: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  METRIC: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
-  AGGREGATION: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
+  METRIC:
+    'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+  AGGREGATION:
+    'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
   CUSTOM: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
 };
 
@@ -148,7 +152,9 @@ export function AnalyticsDashboard() {
                 >
                   <div className="mb-2 flex items-center justify-between">
                     <h3 className="font-medium">{dashboard.name}</h3>
-                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[dashboard.status] ?? ''}`}>
+                    <span
+                      className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[dashboard.status] ?? ''}`}
+                    >
                       {dashboard.status}
                     </span>
                   </div>
@@ -158,13 +164,15 @@ export function AnalyticsDashboard() {
                   <div className="text-muted-foreground flex items-center justify-between text-xs">
                     <span>/{dashboard.slug}</span>
                     {dashboard.isPublic && (
-                      <span className="text-green-600 dark:text-green-400">🌐 Public</span>
+                      <span className="text-green-600 dark:text-green-400">
+                        🌐 Public
+                      </span>
                     )}
                   </div>
                 </div>
               ))}
               {dashboards.length === 0 && (
-                <div className="col-span-full flex h-64 items-center justify-center text-muted-foreground">
+                <div className="text-muted-foreground col-span-full flex h-64 items-center justify-center">
                   No dashboards created yet
                 </div>
               )}
@@ -183,14 +191,17 @@ export function AnalyticsDashboard() {
                       className="border-border bg-card rounded-lg border p-4"
                     >
                       <div className="mb-2 flex items-center gap-2">
-                        <span className="text-xl">{WIDGET_ICONS[widget.type] ?? '📊'}</span>
+                        <span className="text-xl">
+                          {WIDGET_ICONS[widget.type] ?? '📊'}
+                        </span>
                         <span className="font-medium">{widget.name}</span>
                       </div>
                       <div className="text-muted-foreground text-sm">
                         {widget.type.replace(/_/g, ' ')}
                       </div>
                       <div className="text-muted-foreground mt-2 text-xs">
-                        Position: ({widget.gridX}, {widget.gridY}) • {widget.gridWidth}x{widget.gridHeight}
+                        Position: ({widget.gridX}, {widget.gridY}) •{' '}
+                        {widget.gridWidth}x{widget.gridHeight}
                       </div>
                     </div>
                   ))}
@@ -205,10 +216,18 @@ export function AnalyticsDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Query</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Cache TTL</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Shared</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Query
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Type
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Cache TTL
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Shared
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -216,10 +235,14 @@ export function AnalyticsDashboard() {
                   <tr key={query.id} className="hover:bg-muted/50">
                     <td className="px-4 py-3">
                       <div className="font-medium">{query.name}</div>
-                      <div className="text-muted-foreground text-sm">{query.description}</div>
+                      <div className="text-muted-foreground text-sm">
+                        {query.description}
+                      </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${QUERY_TYPE_COLORS[query.type] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${QUERY_TYPE_COLORS[query.type] ?? ''}`}
+                      >
                         {query.type}
                       </span>
                     </td>
@@ -228,7 +251,9 @@ export function AnalyticsDashboard() {
                     </td>
                     <td className="px-4 py-3">
                       {query.isShared ? (
-                        <span className="text-green-600 dark:text-green-400">✓</span>
+                        <span className="text-green-600 dark:text-green-400">
+                          ✓
+                        </span>
                       ) : (
                         <span className="text-muted-foreground">—</span>
                       )}
@@ -237,7 +262,10 @@ export function AnalyticsDashboard() {
                 ))}
                 {queries.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No queries saved
                     </td>
                   </tr>
@@ -250,4 +278,3 @@ export function AnalyticsDashboard() {
     </div>
   );
 }
-

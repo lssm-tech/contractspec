@@ -29,12 +29,13 @@ export default function StudioByokDocs() {
   return (
     <main className="space-y-12 py-12">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           BYOK
         </p>
         <h1 className="text-4xl font-bold">Bring your own key to Studio</h1>
         <p className="text-muted-foreground max-w-3xl text-lg">
-          Keep secrets under your control. Studio never touches plaintext credentials; everything is encrypted with tenant-specific material.
+          Keep secrets under your control. Studio never touches plaintext
+          credentials; everything is encrypted with tenant-specific material.
         </p>
       </header>
       <section className="grid gap-4 md:grid-cols-2">
@@ -48,27 +49,14 @@ export default function StudioByokDocs() {
       <section className="space-y-2">
         <h2 className="text-2xl font-semibold">Audit trail</h2>
         <p className="text-muted-foreground text-sm">
-          Every decrypt operation logs who requested it, what integration was involved, and the purpose (sync, deploy, manual action).
+          Every decrypt operation logs who requested it, what integration was
+          involved, and the purpose (sync, deploy, manual action).
         </p>
         <p className="text-muted-foreground text-sm">
-          You can stream audit logs to your SIEM via webhooks or export CSVs for compliance reviews.
+          You can stream audit logs to your SIEM via webhooks or export CSVs for
+          compliance reviews.
         </p>
       </section>
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

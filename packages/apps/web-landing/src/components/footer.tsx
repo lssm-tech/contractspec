@@ -1,22 +1,22 @@
-import Link from "next/link";
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
-import NewsletterSignup from "./newsletter-signup";
+import Link from 'next/link';
+import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import NewsletterSignup from './newsletter-signup';
 
 export default function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
+    <footer className="bg-card border-border border-t">
+      <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16 lg:px-8">
         {/* Newsletter Section */}
-        <div className="mb-12 pb-12 border-b border-border flex justify-center items-center">
+        <div className="border-border mb-12 flex items-center justify-center border-b pb-12">
           <div className="max-w-md">
             <NewsletterSignup />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <div className="mb-8 grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <h3 className="font-bold mb-4">Product</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="mb-4 font-bold">Product</h3>
+            <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <Link href="/product" className="hover:text-foreground">
                   How it works
@@ -40,8 +40,8 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Docs</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="mb-4 font-bold">Docs</h3>
+            <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
                 <Link href="/docs" className="hover:text-foreground">
                   Getting started
@@ -60,8 +60,8 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Company</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="mb-4 font-bold">Company</h3>
+            <ul className="text-muted-foreground space-y-2 text-sm">
               {/* <li>
                 <Link href="/changelog" className="hover:text-foreground">
                   Changelog
@@ -102,11 +102,11 @@ export default function Footer() {
             </div>
           </div> */}
         </div>
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-sm text-muted-foreground">
+        <div className="border-border flex flex-col items-center justify-between border-t pt-8 md:flex-row">
+          <p className="text-muted-foreground text-sm">
             Built with ContractSpec © {new Date().getFullYear()}
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0 text-sm text-muted-foreground">
+          <div className="text-muted-foreground mt-4 flex gap-6 text-sm md:mt-0">
             <Link href="/legal/privacy" className="hover:text-foreground">
               Privacy
             </Link>

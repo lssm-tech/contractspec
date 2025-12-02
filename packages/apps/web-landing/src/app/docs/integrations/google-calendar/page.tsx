@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Google Calendar Integration: ContractSpec Docs",
+  title: 'Google Calendar Integration: ContractSpec Docs',
   description:
-    "Schedule events and manage calendars with Google Calendar API in ContractSpec.",
+    'Schedule events and manage calendars with Google Calendar API in ContractSpec.',
 };
 
 export default function GoogleCalendarIntegrationPage() {
@@ -20,7 +20,7 @@ export default function GoogleCalendarIntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
@@ -30,7 +30,7 @@ GOOGLE_CALENDAR_ID=primary`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Creating events</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: calendar-create-event
 provider:
   type: google-calendar
@@ -70,4 +70,3 @@ outputs:
     </div>
   );
 }
-

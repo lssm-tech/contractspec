@@ -115,7 +115,9 @@ export interface StorageAdapter {
   /**
    * Generate a presigned URL for downloading.
    */
-  createPresignedDownload(options: PresignedDownloadOptions): Promise<PresignedUrl>;
+  createPresignedDownload(
+    options: PresignedDownloadOptions
+  ): Promise<PresignedUrl>;
 
   /**
    * Get public URL for a file (if applicable).
@@ -163,10 +165,11 @@ export class LocalStorageAdapter implements StorageAdapter {
     await fs.mkdir(dir, { recursive: true });
 
     // Write file
-    const content = typeof options.content === 'string'
-      ? Buffer.from(options.content, 'base64')
-      : options.content;
-    
+    const content =
+      typeof options.content === 'string'
+        ? Buffer.from(options.content, 'base64')
+        : options.content;
+
     await fs.writeFile(fullPath, content);
 
     // Calculate checksum
@@ -216,7 +219,7 @@ export class LocalStorageAdapter implements StorageAdapter {
   }
 
   async list(options?: ListOptions): Promise<ListResult> {
-    const dir = options?.prefix 
+    const dir = options?.prefix
       ? path.join(this.basePath, options.prefix)
       : this.basePath;
 
@@ -248,14 +251,16 @@ export class LocalStorageAdapter implements StorageAdapter {
     }
   }
 
-  async createPresignedUpload(options: PresignedUploadOptions): Promise<PresignedUrl> {
+  async createPresignedUpload(
+    options: PresignedUploadOptions
+  ): Promise<PresignedUrl> {
     // Local storage doesn't support real presigned URLs
     // Return a placeholder that would work with a local upload endpoint
     const expiresIn = options.expiresIn || 3600;
     const expiresAt = new Date(Date.now() + expiresIn * 1000);
-    
+
     return {
-      url: this.baseUrl 
+      url: this.baseUrl
         ? `${this.baseUrl}/upload?path=${encodeURIComponent(options.path)}`
         : `/upload?path=${encodeURIComponent(options.path)}`,
       fields: {
@@ -266,10 +271,12 @@ export class LocalStorageAdapter implements StorageAdapter {
     };
   }
 
-  async createPresignedDownload(options: PresignedDownloadOptions): Promise<PresignedUrl> {
+  async createPresignedDownload(
+    options: PresignedDownloadOptions
+  ): Promise<PresignedUrl> {
     const expiresIn = options.expiresIn || 3600;
     const expiresAt = new Date(Date.now() + expiresIn * 1000);
-    
+
     return {
       url: this.baseUrl
         ? `${this.baseUrl}/download/${options.path}`
@@ -283,7 +290,10 @@ export class LocalStorageAdapter implements StorageAdapter {
     return `${this.baseUrl}/${filePath}`;
   }
 
-  async copy(sourcePath: string, destinationPath: string): Promise<StorageFile> {
+  async copy(
+    sourcePath: string,
+    destinationPath: string
+  ): Promise<StorageFile> {
     const sourceFullPath = path.join(this.basePath, sourcePath);
     const destFullPath = path.join(this.basePath, destinationPath);
     const destDir = path.dirname(destFullPath);
@@ -322,7 +332,7 @@ export interface S3StorageOptions {
 /**
  * S3 storage adapter interface.
  * Implementation would use AWS SDK or compatible client.
- * 
+ *
  * This is a placeholder that defines the interface.
  * Actual implementation would require @aws-sdk/client-s3 dependency.
  */
@@ -336,35 +346,55 @@ export class S3StorageAdapter implements StorageAdapter {
 
   async upload(options: UploadOptions): Promise<StorageFile> {
     // Placeholder - actual implementation would use S3 SDK
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the upload method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the upload method.'
+    );
   }
 
   async download(filePath: string): Promise<Buffer> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the download method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the download method.'
+    );
   }
 
   async delete(filePath: string): Promise<void> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the delete method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the delete method.'
+    );
   }
 
   async exists(filePath: string): Promise<boolean> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the exists method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the exists method.'
+    );
   }
 
   async getMetadata(filePath: string): Promise<StorageFile | null> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the getMetadata method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the getMetadata method.'
+    );
   }
 
   async list(options?: ListOptions): Promise<ListResult> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the list method.');
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the list method.'
+    );
   }
 
-  async createPresignedUpload(options: PresignedUploadOptions): Promise<PresignedUrl> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedUpload method.');
+  async createPresignedUpload(
+    options: PresignedUploadOptions
+  ): Promise<PresignedUrl> {
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedUpload method.'
+    );
   }
 
-  async createPresignedDownload(options: PresignedDownloadOptions): Promise<PresignedUrl> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedDownload method.');
+  async createPresignedDownload(
+    options: PresignedDownloadOptions
+  ): Promise<PresignedUrl> {
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedDownload method.'
+    );
   }
 
   getPublicUrl(filePath: string): string | null {
@@ -375,8 +405,13 @@ export class S3StorageAdapter implements StorageAdapter {
     return `https://${bucket}.s3.${region}.amazonaws.com/${filePath}`;
   }
 
-  async copy(sourcePath: string, destinationPath: string): Promise<StorageFile> {
-    throw new Error('S3 adapter requires @aws-sdk/client-s3. Install it and implement the copy method.');
+  async copy(
+    sourcePath: string,
+    destinationPath: string
+  ): Promise<StorageFile> {
+    throw new Error(
+      'S3 adapter requires @aws-sdk/client-s3. Install it and implement the copy method.'
+    );
   }
 }
 
@@ -387,15 +422,16 @@ export class S3StorageAdapter implements StorageAdapter {
  */
 export class InMemoryStorageAdapter implements StorageAdapter {
   readonly provider: StorageProvider = 'LOCAL';
-  private files: Map<string, { content: Buffer; metadata: StorageFile }> = new Map();
+  private files = new Map<string, { content: Buffer; metadata: StorageFile }>();
 
   async upload(options: UploadOptions): Promise<StorageFile> {
-    const content = typeof options.content === 'string'
-      ? Buffer.from(options.content, 'base64')
-      : options.content;
-    
+    const content =
+      typeof options.content === 'string'
+        ? Buffer.from(options.content, 'base64')
+        : options.content;
+
     const checksum = crypto.createHash('sha256').update(content).digest('hex');
-    
+
     const metadata: StorageFile = {
       path: options.path,
       size: content.length,
@@ -446,7 +482,9 @@ export class InMemoryStorageAdapter implements StorageAdapter {
     };
   }
 
-  async createPresignedUpload(options: PresignedUploadOptions): Promise<PresignedUrl> {
+  async createPresignedUpload(
+    options: PresignedUploadOptions
+  ): Promise<PresignedUrl> {
     const expiresAt = new Date(Date.now() + (options.expiresIn || 3600) * 1000);
     return {
       url: `/upload?path=${encodeURIComponent(options.path)}`,
@@ -455,7 +493,9 @@ export class InMemoryStorageAdapter implements StorageAdapter {
     };
   }
 
-  async createPresignedDownload(options: PresignedDownloadOptions): Promise<PresignedUrl> {
+  async createPresignedDownload(
+    options: PresignedDownloadOptions
+  ): Promise<PresignedUrl> {
     const expiresAt = new Date(Date.now() + (options.expiresIn || 3600) * 1000);
     return {
       url: `/download/${options.path}`,
@@ -467,7 +507,10 @@ export class InMemoryStorageAdapter implements StorageAdapter {
     return `/files/${filePath}`;
   }
 
-  async copy(sourcePath: string, destinationPath: string): Promise<StorageFile> {
+  async copy(
+    sourcePath: string,
+    destinationPath: string
+  ): Promise<StorageFile> {
     const source = this.files.get(sourcePath);
     if (!source) {
       throw new Error(`Source file not found: ${sourcePath}`);
@@ -505,15 +548,14 @@ export function createStorageAdapter(config: StorageConfig): StorageAdapter {
         throw new Error('Local storage configuration required');
       }
       return new LocalStorageAdapter(config.local);
-    
+
     case 'S3':
       if (!config.s3) {
         throw new Error('S3 storage configuration required');
       }
       return new S3StorageAdapter(config.s3);
-    
+
     default:
       throw new Error(`Unsupported storage provider: ${config.provider}`);
   }
 }
-

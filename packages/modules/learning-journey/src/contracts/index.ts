@@ -15,7 +15,10 @@ export const CourseModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     difficulty: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    estimatedDuration: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    estimatedDuration: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     thumbnailUrl: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -170,8 +173,16 @@ const LearnerDashboardModel = defineSchemaModel({
     currentStreak: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     dailyXpGoal: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     dailyXpProgress: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    activeEnrollments: { type: EnrollmentModel, isArray: true, isOptional: false },
-    recentAchievements: { type: AchievementModel, isArray: true, isOptional: false },
+    activeEnrollments: {
+      type: EnrollmentModel,
+      isArray: true,
+      isOptional: false,
+    },
+    recentAchievements: {
+      type: AchievementModel,
+      isArray: true,
+      isOptional: false,
+    },
     dueCardCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
@@ -343,4 +354,3 @@ export const GetLearnerDashboardContract = defineQuery({
     auth: 'user',
   },
 });
-

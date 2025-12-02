@@ -18,9 +18,22 @@ export const crmDemoOverlay: OverlayDefinition = {
     role: 'demo',
   },
   modifications: [
-    { type: 'hideField', field: 'importButton', reason: 'Not available in demo' },
-    { type: 'hideField', field: 'exportButton', reason: 'Not available in demo' },
-    { type: 'addBadge', position: 'header', label: 'Demo Mode', variant: 'warning' },
+    {
+      type: 'hideField',
+      field: 'importButton',
+      reason: 'Not available in demo',
+    },
+    {
+      type: 'hideField',
+      field: 'exportButton',
+      reason: 'Not available in demo',
+    },
+    {
+      type: 'addBadge',
+      position: 'header',
+      label: 'Demo Mode',
+      variant: 'warning',
+    },
   ],
 };
 
@@ -36,7 +49,11 @@ export const crmSalesRepOverlay: OverlayDefinition = {
     role: 'sales-rep',
   },
   modifications: [
-    { type: 'hideField', field: 'teamMetrics', reason: 'Team metrics for managers only' },
+    {
+      type: 'hideField',
+      field: 'teamMetrics',
+      reason: 'Team metrics for managers only',
+    },
     { type: 'hideField', field: 'pipelineSettings', reason: 'Admin only' },
     { type: 'renameLabel', field: 'deals', newLabel: 'My Deals' },
   ],
@@ -45,4 +62,7 @@ export const crmSalesRepOverlay: OverlayDefinition = {
 /**
  * All overlays for crm-pipeline
  */
-export const crmOverlays: OverlayDefinition[] = [crmDemoOverlay, crmSalesRepOverlay];
+export const crmOverlays: OverlayDefinition[] = [
+  crmDemoOverlay,
+  crmSalesRepOverlay,
+];

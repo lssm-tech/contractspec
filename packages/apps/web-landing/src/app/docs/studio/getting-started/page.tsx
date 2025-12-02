@@ -32,13 +32,13 @@ export default function StudioGettingStartedPage() {
   return (
     <main className="space-y-12 py-12">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Getting started
         </p>
         <h1 className="text-4xl font-bold">Launch your first Studio project</h1>
         <p className="text-muted-foreground max-w-3xl text-lg">
-          This short guide takes you from workspace creation to the first deployment. Every step
-          is mobile-friendly and safe to undo.
+          This short guide takes you from workspace creation to the first
+          deployment. Every step is mobile-friendly and safe to undo.
         </p>
       </header>
       <section className="grid gap-4">
@@ -55,7 +55,7 @@ export default function StudioGettingStartedPage() {
           Prefer automation? Use the CLI to pull specs and push overlays.
         </p>
         <pre className="bg-muted/40 border-border overflow-auto rounded-xl border p-4 text-left font-mono text-sm">
-{`# Authenticate
+          {`# Authenticate
 cs login
 
 # List projects
@@ -71,4 +71,3 @@ cs studio specs push <project-id>`}
     </main>
   );
 }
-

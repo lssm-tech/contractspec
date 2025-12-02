@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import LoginPageClient from "./login-client";
+import type { Metadata } from 'next';
+import LoginPageClient from './login-client';
 
 export const metadata: Metadata = {
-  title: "Sign In: ContractSpec",
-  description: "Sign in to your ContractSpec account.",
-  robots: "noindex, nofollow",
+  title: 'Sign In: ContractSpec',
+  description: 'Sign in to your ContractSpec account.',
+  robots: 'noindex, nofollow',
   openGraph: {
-    title: "Sign In: ContractSpec",
-    description: "Sign in to ContractSpec.",
-    url: "https://contractspec.chaman.ventures/login",
+    title: 'Sign In: ContractSpec',
+    description: 'Sign in to ContractSpec.',
+    url: 'https://contractspec.chaman.ventures/login',
   },
   alternates: {
-    canonical: "https://contractspec.chaman.ventures/login",
+    canonical: 'https://contractspec.chaman.ventures/login',
   },
 };
 

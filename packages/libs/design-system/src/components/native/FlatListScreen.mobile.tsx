@@ -8,7 +8,8 @@ import { Text } from '@lssm/lib.ui-kit/ui/text';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export interface FlatListScreenProps<T>
-  extends Omit<FlatListProps<T>, 'data' | 'renderItem'>,
+  extends
+    Omit<FlatListProps<T>, 'data' | 'renderItem'>,
     VariantProps<typeof containerVariants> {
   data: T[];
   renderItem: FlatListProps<T>['renderItem'];

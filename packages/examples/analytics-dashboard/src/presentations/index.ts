@@ -1,6 +1,6 @@
 /**
  * Analytics Dashboard Presentation Descriptors
- * 
+ *
  * These presentation descriptors define how analytics dashboards
  * and widgets should be rendered across different surfaces.
  */
@@ -11,7 +11,7 @@ export const DashboardListPresentation = {
   name: 'analytics.dashboards.list',
   type: 'list' as const,
   description: 'Dashboard listing page with search and filters',
-  
+
   layout: {
     header: {
       title: 'Analytics Dashboards',
@@ -139,7 +139,13 @@ export const DashboardEditorPresentation = {
     categories: [
       {
         name: 'Charts',
-        widgets: ['line_chart', 'bar_chart', 'pie_chart', 'area_chart', 'scatter_plot'],
+        widgets: [
+          'line_chart',
+          'bar_chart',
+          'pie_chart',
+          'area_chart',
+          'scatter_plot',
+        ],
       },
       {
         name: 'Data',
@@ -290,7 +296,17 @@ export const QueryBuilderPresentation = {
     },
     filterBuilder: {
       type: 'condition_builder',
-      operators: ['eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'in', 'contains', 'between'],
+      operators: [
+        'eq',
+        'neq',
+        'gt',
+        'gte',
+        'lt',
+        'lte',
+        'in',
+        'contains',
+        'between',
+      ],
     },
     sqlEditor: {
       type: 'code_editor',
@@ -310,4 +326,3 @@ export const AnalyticsDashboardPresentations = {
   WidgetConfigurationPresentation,
   QueryBuilderPresentation,
 };
-

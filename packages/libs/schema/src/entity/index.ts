@@ -2,4 +2,3 @@
 export * from './types';
 export * from './defineEntity';
 export * from './generator';
-

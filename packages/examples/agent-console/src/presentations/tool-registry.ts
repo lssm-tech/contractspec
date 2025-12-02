@@ -50,4 +50,3 @@ export const ToolDetailPresentation: PresentationDescriptorV2 = {
     flags: ['agent-console.enabled'],
   },
 };
-

@@ -13,7 +13,10 @@ export const FileModel = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     mimeType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     size: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    storageProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    storageProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     storagePath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     checksum: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -52,7 +55,10 @@ export const AttachmentModel = defineSchemaModel({
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    attachmentType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    attachmentType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     order: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
@@ -188,7 +194,10 @@ const AttachFileInput = defineSchemaModel({
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    attachmentType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    attachmentType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     order: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
@@ -210,7 +219,10 @@ const ListAttachmentsInput = defineSchemaModel({
   fields: {
     entityType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    attachmentType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    attachmentType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
@@ -618,4 +630,3 @@ export const CreatePresignedUrlContract = defineCommand({
     auth: 'user',
   },
 });
-

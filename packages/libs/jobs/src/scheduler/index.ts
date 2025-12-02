@@ -57,7 +57,14 @@ function getNextCronRun(
     next.setMilliseconds(0);
 
     // Handle simple cases
-    if (minute && hour && minute !== '*' && hour !== '*' && dayOfMonth === '*' && month === '*') {
+    if (
+      minute &&
+      hour &&
+      minute !== '*' &&
+      hour !== '*' &&
+      dayOfMonth === '*' &&
+      month === '*'
+    ) {
       // Daily at specific time
       const targetMinute = Number.parseInt(minute, 10);
       const targetHour = Number.parseInt(hour, 10);

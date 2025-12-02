@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { ClientOnly } from '@/components/client-only';
+import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
@@ -64,19 +64,49 @@ const AgentDashboard = dynamic(
   { ssr: false }
 );
 
-import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+const WorkflowDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.WorkflowDashboard
+    ),
+  { ssr: false }
+);
+
+const MarketplaceDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.MarketplaceDashboard
+    ),
+  { ssr: false }
+);
+
+const IntegrationDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.IntegrationDashboard
+    ),
+  { ssr: false }
+);
+
+const AnalyticsDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.AnalyticsDashboard
+    ),
+  { ssr: false }
+);
 
 const templates = [
   {
-    id: 'starter-kit',
+    id: 'minimal-example',
     templateId: 'todos-app' as TemplateId,
-    title: 'Starter Kit',
+    title: 'Minimal Example',
     description:
       'A minimal template to get you running in minutes. Perfect for exploring the engine.',
     tags: ['Getting Started'],
     capabilities: 'Basic Forms, Auth',
     isStarter: true,
-    previewUrl: '/sandbox?template=starter-kit',
+    previewUrl: '/sandbox?template=minimal-example',
     docsUrl: '/docs/getting-started/hello-world',
   },
   // ============================================
@@ -88,7 +118,7 @@ const templates = [
     title: 'SaaS Boilerplate',
     description:
       'Complete SaaS foundation with multi-tenant orgs, projects, settings, and billing usage.',
-    tags: ['SaaS', 'Business'],
+    tags: ['Getting Started', 'SaaS', 'Business'],
     capabilities: 'Multi-tenancy, RBAC, Projects, Billing',
     isNew: true,
     previewUrl: '/sandbox?template=saas-boilerplate',
@@ -117,6 +147,57 @@ const templates = [
     isNew: true,
     previewUrl: '/sandbox?template=agent-console',
     docsUrl: '/docs/templates/agent-console',
+  },
+  // ============================================
+  // Phase 2-4 Examples
+  // ============================================
+  {
+    id: 'workflow-system',
+    templateId: 'workflow-system' as TemplateId,
+    title: 'Workflow / Approval System',
+    description:
+      'Multi-step workflows with role-based approvals and state transitions.',
+    tags: ['Business', 'Ops'],
+    capabilities: 'Workflows, Approvals, State Machine',
+    isNew: true,
+    previewUrl: '/sandbox?template=workflow-system',
+    docsUrl: '/docs/templates/workflow-system',
+  },
+  {
+    id: 'marketplace',
+    templateId: 'marketplace' as TemplateId,
+    title: 'Marketplace',
+    description:
+      'Two-sided marketplace with stores, products, orders, and payouts.',
+    tags: ['Business', 'Payments'],
+    capabilities: 'Stores, Products, Orders, Payouts',
+    isNew: true,
+    previewUrl: '/sandbox?template=marketplace',
+    docsUrl: '/docs/templates/marketplace',
+  },
+  {
+    id: 'integration-hub',
+    templateId: 'integration-hub' as TemplateId,
+    title: 'Integration Hub',
+    description:
+      'Third-party integrations with connections, sync configs, and field mapping.',
+    tags: ['Ops', 'AI'],
+    capabilities: 'Integrations, Connections, Sync',
+    isNew: true,
+    previewUrl: '/sandbox?template=integration-hub',
+    docsUrl: '/docs/templates/integration-hub',
+  },
+  {
+    id: 'analytics-dashboard',
+    templateId: 'analytics-dashboard' as TemplateId,
+    title: 'Analytics Dashboard',
+    description:
+      'Custom dashboards with widgets, saved queries, and real-time visualization.',
+    tags: ['Business', 'Ops'],
+    capabilities: 'Dashboards, Widgets, Queries',
+    isNew: true,
+    previewUrl: '/sandbox?template=analytics-dashboard',
+    docsUrl: '/docs/templates/analytics-dashboard',
   },
   // ============================================
   // Classic Templates
@@ -496,6 +577,50 @@ function TemplatePreviewModal({
             showSaveAction={false}
           >
             <AgentDashboard />
+          </TemplateShell>
+        );
+      case 'workflow-system':
+        return (
+          <TemplateShell
+            templateId="workflow-system"
+            title="Workflow System"
+            description="Multi-step workflows with role-based approvals."
+            showSaveAction={false}
+          >
+            <WorkflowDashboard />
+          </TemplateShell>
+        );
+      case 'marketplace':
+        return (
+          <TemplateShell
+            templateId="marketplace"
+            title="Marketplace"
+            description="Two-sided marketplace with stores, products, and orders."
+            showSaveAction={false}
+          >
+            <MarketplaceDashboard />
+          </TemplateShell>
+        );
+      case 'integration-hub':
+        return (
+          <TemplateShell
+            templateId="integration-hub"
+            title="Integration Hub"
+            description="Third-party integrations with sync and field mapping."
+            showSaveAction={false}
+          >
+            <IntegrationDashboard />
+          </TemplateShell>
+        );
+      case 'analytics-dashboard':
+        return (
+          <TemplateShell
+            templateId="analytics-dashboard"
+            title="Analytics Dashboard"
+            description="Custom dashboards with widgets and queries."
+            showSaveAction={false}
+          >
+            <AnalyticsDashboard />
           </TemplateShell>
         );
       default:

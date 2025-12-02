@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Migrations: ContractSpec Docs",
+  title: 'Migrations: ContractSpec Docs',
   description:
-    "Learn how to manage schema and data migrations safely with MigrationSpec in ContractSpec.",
+    'Learn how to manage schema and data migrations safely with MigrationSpec in ContractSpec.',
 };
 
 export default function MigrationsPage() {
@@ -15,7 +15,7 @@ export default function MigrationsPage() {
         <p className="text-muted-foreground">
           A <strong>schema migration</strong> (also called a database migration)
           is a set of incremental, reversible changes to a database schema.
-          According to{" "}
+          According to{' '}
           <a
             href="https://en.wikipedia.org/wiki/Schema_migration"
             target="_blank"
@@ -37,7 +37,7 @@ export default function MigrationsPage() {
           restructuring relationships. Without a disciplined approach, these
           changes can lead to:
         </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Data loss or corruption</li>
           <li>Downtime during deployments</li>
           <li>
@@ -54,10 +54,10 @@ export default function MigrationsPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">How MigrationSpec works</h2>
         <p className="text-muted-foreground">
-          In ContractSpec, migrations are defined using{" "}
+          In ContractSpec, migrations are defined using{' '}
           <strong>MigrationSpec</strong>. Each migration has:
         </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             <strong>Version</strong> – A unique identifier (e.g.,
             "2025-11-13-001") that determines the order of execution.
@@ -88,7 +88,7 @@ export default function MigrationsPage() {
           Here's a migration that adds an email verification field to the users
           table:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`migrationId: add-email-verified
 version: 2025-11-13-001
 dependencies: []
@@ -122,7 +122,7 @@ validation:
           Migrations are applied automatically during deployment. The
           ContractSpec runtime:
         </p>
-        <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
           <li>
             Checks which migrations have already been applied (stored in a
             migrations table).
@@ -152,7 +152,7 @@ validation:
           backup. For destructive changes, it's best to use a multi-step
           migration:
         </p>
-        <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
           <li>Add the new column (reversible).</li>
           <li>
             Backfill data from the old column to the new column (reversible).
@@ -167,7 +167,7 @@ validation:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             <strong>Test migrations locally</strong> – Run them against a copy
             of production data to catch issues before deploying.
@@ -207,7 +207,7 @@ validation:
           example, adding a NOT NULL column to a large table can lock the table
           for minutes. To avoid this, use a multi-step approach:
         </p>
-        <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
           <li>Add the column as nullable.</li>
           <li>Backfill the column in batches (without locking the table).</li>
           <li>Add the NOT NULL constraint once all rows are populated.</li>

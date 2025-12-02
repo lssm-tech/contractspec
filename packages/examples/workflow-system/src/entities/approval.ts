@@ -6,13 +6,13 @@ import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
 export const ApprovalStatusEnum = defineEntityEnum({
   name: 'ApprovalStatus',
   values: [
-    'PENDING',      // Awaiting decision
-    'APPROVED',     // Approved
-    'REJECTED',     // Rejected
-    'DELEGATED',    // Delegated to another user
-    'ESCALATED',    // Escalated due to timeout
-    'WITHDRAWN',    // Request withdrawn
-    'EXPIRED',      // Request expired
+    'PENDING', // Awaiting decision
+    'APPROVED', // Approved
+    'REJECTED', // Rejected
+    'DELEGATED', // Delegated to another user
+    'ESCALATED', // Escalated due to timeout
+    'WITHDRAWN', // Request withdrawn
+    'EXPIRED', // Request expired
   ] as const,
   schema: 'workflow',
   description: 'Status of an approval request.',
@@ -23,14 +23,20 @@ export const ApprovalStatusEnum = defineEntityEnum({
  */
 export const ApprovalDecisionEnum = defineEntityEnum({
   name: 'ApprovalDecision',
-  values: ['APPROVE', 'REJECT', 'REQUEST_CHANGES', 'DELEGATE', 'ABSTAIN'] as const,
+  values: [
+    'APPROVE',
+    'REJECT',
+    'REQUEST_CHANGES',
+    'DELEGATE',
+    'ABSTAIN',
+  ] as const,
   schema: 'workflow',
   description: 'Possible approval decisions.',
 });
 
 /**
  * ApprovalRequest entity - a request for approval from a user.
- * 
+ *
  * Created when a workflow reaches an APPROVAL step. Multiple requests
  * may be created depending on the approval mode.
  */
@@ -41,52 +47,82 @@ export const ApprovalRequestEntity = defineEntity({
   map: 'approval_request',
   fields: {
     id: field.id({ description: 'Unique approval request ID' }),
-    
+
     // Parent
     workflowInstanceId: field.foreignKey(),
     stepExecutionId: field.foreignKey(),
-    
+
     // Approver
     approverId: field.foreignKey({ description: 'User requested to approve' }),
-    approverRole: field.string({ isOptional: true, description: 'Role of the approver' }),
-    
+    approverRole: field.string({
+      isOptional: true,
+      description: 'Role of the approver',
+    }),
+
     // Request details
     title: field.string({ description: 'Approval request title' }),
     description: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.enum('ApprovalStatus', { default: 'PENDING' }),
-    
+
     // Decision
     decision: field.enum('ApprovalDecision', { isOptional: true }),
-    decisionComment: field.string({ isOptional: true, description: 'Comment explaining decision' }),
+    decisionComment: field.string({
+      isOptional: true,
+      description: 'Comment explaining decision',
+    }),
     decidedAt: field.dateTime({ isOptional: true }),
-    
+
     // Delegation
-    delegatedTo: field.string({ isOptional: true, description: 'User delegated to' }),
+    delegatedTo: field.string({
+      isOptional: true,
+      description: 'User delegated to',
+    }),
     delegationReason: field.string({ isOptional: true }),
-    
+
     // Escalation
-    escalationLevel: field.int({ default: 0, description: 'Current escalation level' }),
+    escalationLevel: field.int({
+      default: 0,
+      description: 'Current escalation level',
+    }),
     escalatedAt: field.dateTime({ isOptional: true }),
-    
+
     // Deadlines
-    dueAt: field.dateTime({ isOptional: true, description: 'When approval is due' }),
+    dueAt: field.dateTime({
+      isOptional: true,
+      description: 'When approval is due',
+    }),
     reminderSentAt: field.dateTime({ isOptional: true }),
-    
+
     // Context - data to display for approval
-    contextSnapshot: field.json({ isOptional: true, description: 'Snapshot of relevant data for review' }),
-    
+    contextSnapshot: field.json({
+      isOptional: true,
+      description: 'Snapshot of relevant data for review',
+    }),
+
     // Order (for sequential approvals)
-    sequenceOrder: field.int({ default: 0, description: 'Order in approval chain' }),
-    
+    sequenceOrder: field.int({
+      default: 0,
+      description: 'Order in approval chain',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    workflowInstance: field.belongsTo('WorkflowInstance', ['workflowInstanceId'], ['id'], { onDelete: 'Cascade' }),
-    stepExecution: field.belongsTo('StepExecution', ['stepExecutionId'], ['id']),
+    workflowInstance: field.belongsTo(
+      'WorkflowInstance',
+      ['workflowInstanceId'],
+      ['id'],
+      { onDelete: 'Cascade' }
+    ),
+    stepExecution: field.belongsTo(
+      'StepExecution',
+      ['stepExecutionId'],
+      ['id']
+    ),
   },
   indexes: [
     index.on(['approverId', 'status']),
@@ -108,27 +144,32 @@ export const ApprovalCommentEntity = defineEntity({
   map: 'approval_comment',
   fields: {
     id: field.id(),
-    
+
     approvalRequestId: field.foreignKey(),
-    
+
     // Author
     authorId: field.foreignKey(),
-    
+
     // Content
     content: field.string({ description: 'Comment text' }),
-    
+
     // Type
-    isInternal: field.boolean({ default: false, description: 'Internal note vs public comment' }),
-    
+    isInternal: field.boolean({
+      default: false,
+      description: 'Internal note vs public comment',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
-    // Relations
-    approvalRequest: field.belongsTo('ApprovalRequest', ['approvalRequestId'], ['id'], { onDelete: 'Cascade' }),
-  },
-  indexes: [
-    index.on(['approvalRequestId', 'createdAt']),
-  ],
-});
 
+    // Relations
+    approvalRequest: field.belongsTo(
+      'ApprovalRequest',
+      ['approvalRequestId'],
+      ['id'],
+      { onDelete: 'Cascade' }
+    ),
+  },
+  indexes: [index.on(['approvalRequestId', 'createdAt'])],
+});

@@ -5,7 +5,10 @@ import { Button } from '@lssm/lib.design-system';
 import { Card } from '@lssm/lib.ui-kit-web/ui/card';
 import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
 import type { TemplateId } from '../../../../templates/registry';
-import { useBehaviorTracking, type BehaviorSummary } from './hooks/useBehaviorTracking';
+import {
+  useBehaviorTracking,
+  type BehaviorSummary,
+} from './hooks/useBehaviorTracking';
 
 export interface PersonalizationInsightsProps {
   templateId: TemplateId;
@@ -59,9 +62,7 @@ export function PersonalizationInsights({
       >
         <span>📊</span>
         <span>Insights</span>
-        <Badge variant="secondary">
-          {eventCount}
-        </Badge>
+        <Badge variant="secondary">{eventCount}</Badge>
       </button>
     );
   }
@@ -124,15 +125,12 @@ export function PersonalizationInsights({
         {/* Recommendations */}
         {summary.recommendations.length > 0 && (
           <div className="mb-4">
-            <h4 className="mb-2 text-xs font-semibold uppercase text-blue-400">
+            <h4 className="mb-2 text-xs font-semibold text-blue-400 uppercase">
               Recommendations
             </h4>
             <ul className="space-y-1">
               {summary.recommendations.map((rec, index) => (
-                <li
-                  key={index}
-                  className="flex items-start gap-2 text-sm"
-                >
+                <li key={index} className="flex items-start gap-2 text-sm">
                   <span className="text-blue-400">💡</span>
                   <span>{rec}</span>
                 </li>
@@ -144,7 +142,7 @@ export function PersonalizationInsights({
         {/* Unused Features */}
         {summary.unusedFeatures.length > 0 && (
           <div className="mb-4">
-            <h4 className="mb-2 text-xs font-semibold uppercase text-blue-400">
+            <h4 className="mb-2 text-xs font-semibold text-blue-400 uppercase">
               Try These Features
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -194,9 +192,7 @@ function StatCard({
   };
 
   return (
-    <div
-      className={`rounded-lg border p-3 text-center ${bgColors[variant]}`}
-    >
+    <div className={`rounded-lg border p-3 text-center ${bgColors[variant]}`}>
       <div className="mb-1 text-lg">{icon}</div>
       <div className="text-lg font-bold">{value}</div>
       <div className="text-muted-foreground text-xs">{label}</div>
@@ -219,7 +215,7 @@ function DetailedInsights({
       {/* Most Used Templates */}
       {summary.mostUsedTemplates.length > 0 && (
         <div>
-          <h4 className="mb-2 text-xs font-semibold uppercase text-blue-400">
+          <h4 className="mb-2 text-xs font-semibold text-blue-400 uppercase">
             Most Used Templates
           </h4>
           <div className="space-y-1">
@@ -239,7 +235,7 @@ function DetailedInsights({
       {/* Most Used Modes */}
       {summary.mostUsedModes.length > 0 && (
         <div>
-          <h4 className="mb-2 text-xs font-semibold uppercase text-blue-400">
+          <h4 className="mb-2 text-xs font-semibold text-blue-400 uppercase">
             Mode Usage
           </h4>
           <div className="space-y-1">
@@ -258,12 +254,16 @@ function DetailedInsights({
 
       {/* Features Used */}
       <div>
-        <h4 className="mb-2 text-xs font-semibold uppercase text-blue-400">
+        <h4 className="mb-2 text-xs font-semibold text-blue-400 uppercase">
           Features Used
         </h4>
         <div className="flex flex-wrap gap-2">
           {summary.featuresUsed.map((feature) => (
-            <Badge key={feature} variant="default" className="bg-green-500/20 text-green-400 border-green-500/30">
+            <Badge
+              key={feature}
+              variant="default"
+              className="border-green-500/30 bg-green-500/20 text-green-400"
+            >
               ✓ {formatFeatureName(feature)}
             </Badge>
           ))}
@@ -282,17 +282,12 @@ function DetailedInsights({
  * Format feature name for display
  */
 function formatFeatureName(feature: string): string {
-  return feature
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return feature.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 /**
  * Format template ID for display
  */
 function formatTemplateId(id: string): string {
-  return id
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return id.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
-

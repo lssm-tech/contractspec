@@ -18,7 +18,7 @@ import { marketplaceSchemaContribution } from './entities';
 
 /**
  * Complete schema composition for Marketplace.
- * 
+ *
  * This example demonstrates:
  * - Multi-vendor store management
  * - Product catalog with variants and categories
@@ -40,4 +40,3 @@ export const schemaComposition = {
   provider: 'postgresql' as const,
   outputPath: './prisma/schema/generated.prisma',
 };
-

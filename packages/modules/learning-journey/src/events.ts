@@ -112,7 +112,10 @@ const OnboardingStepCompletedPayload = defineSchemaModel({
     learnerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     trackId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     stepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    triggeringEvent: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    triggeringEvent: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     xpEarned: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -276,9 +279,18 @@ const AchievementUnlockedPayload = defineSchemaModel({
   description: 'Payload when an achievement is unlocked',
   fields: {
     learnerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    achievementId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    achievementKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    achievementName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    achievementId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    achievementKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    achievementName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     xpEarned: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     unlockedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -316,10 +328,16 @@ const CertificateIssuedPayload = defineSchemaModel({
   name: 'CertificateIssuedEventPayload',
   description: 'Payload when a certificate is issued',
   fields: {
-    certificateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    certificateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     learnerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     courseId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    certificateNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    certificateNumber: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     issuedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -352,4 +370,3 @@ export const LearningJourneyEvents = {
   DailyGoalCompletedEvent,
   CertificateIssuedEvent,
 };
-

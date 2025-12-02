@@ -31,8 +31,7 @@ export interface OverlayRenderable<
 }
 
 export interface OverlayMatchContext
-  extends OverlayScopeContext,
-    OverlayTargetRef {}
+  extends OverlayScopeContext, OverlayTargetRef {}
 
 export interface OverlayAuditEvent {
   overlay: Pick<SignedOverlaySpec, 'overlayId' | 'version'>;

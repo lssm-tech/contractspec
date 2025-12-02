@@ -12,4 +12,3 @@ export * from './contracts';
 
 // Domain events
 export * from './events';
-

@@ -11,39 +11,72 @@ export const AuditLogEntity = defineEntity({
   map: 'audit_log',
   fields: {
     id: field.id({ description: 'Unique audit log ID' }),
-    
+
     // Event info
     eventName: field.string({ description: 'Event name/type' }),
     eventVersion: field.int({ description: 'Event version' }),
     payload: field.json({ description: 'Event payload (may be redacted)' }),
-    
+
     // Actor info
-    actorId: field.string({ isOptional: true, description: 'User/service that triggered the event' }),
-    actorType: field.string({ isOptional: true, description: 'Actor type (user, system, service)' }),
-    actorEmail: field.string({ isOptional: true, description: 'Actor email (for searchability)' }),
-    
+    actorId: field.string({
+      isOptional: true,
+      description: 'User/service that triggered the event',
+    }),
+    actorType: field.string({
+      isOptional: true,
+      description: 'Actor type (user, system, service)',
+    }),
+    actorEmail: field.string({
+      isOptional: true,
+      description: 'Actor email (for searchability)',
+    }),
+
     // Target info
-    targetId: field.string({ isOptional: true, description: 'Resource affected by the event' }),
-    targetType: field.string({ isOptional: true, description: 'Resource type' }),
-    
+    targetId: field.string({
+      isOptional: true,
+      description: 'Resource affected by the event',
+    }),
+    targetType: field.string({
+      isOptional: true,
+      description: 'Resource type',
+    }),
+
     // Context
-    orgId: field.string({ isOptional: true, description: 'Organization context' }),
+    orgId: field.string({
+      isOptional: true,
+      description: 'Organization context',
+    }),
     tenantId: field.string({ isOptional: true, description: 'Tenant context' }),
-    
+
     // Tracing
-    traceId: field.string({ isOptional: true, description: 'Distributed trace ID' }),
+    traceId: field.string({
+      isOptional: true,
+      description: 'Distributed trace ID',
+    }),
     spanId: field.string({ isOptional: true, description: 'Span ID' }),
     requestId: field.string({ isOptional: true, description: 'Request ID' }),
     sessionId: field.string({ isOptional: true, description: 'Session ID' }),
-    
+
     // Client info
-    clientIp: field.string({ isOptional: true, description: 'Client IP address' }),
-    userAgent: field.string({ isOptional: true, description: 'User agent string' }),
-    
+    clientIp: field.string({
+      isOptional: true,
+      description: 'Client IP address',
+    }),
+    userAgent: field.string({
+      isOptional: true,
+      description: 'User agent string',
+    }),
+
     // Metadata
-    tags: field.json({ isOptional: true, description: 'Custom tags for filtering' }),
-    metadata: field.json({ isOptional: true, description: 'Additional metadata' }),
-    
+    tags: field.json({
+      isOptional: true,
+      description: 'Custom tags for filtering',
+    }),
+    metadata: field.json({
+      isOptional: true,
+      description: 'Additional metadata',
+    }),
+
     // Timestamps
     occurredAt: field.dateTime({ description: 'When the event occurred' }),
     recordedAt: field.createdAt({ description: 'When the log was recorded' }),
@@ -68,42 +101,36 @@ export const AuditLogArchiveEntity = defineEntity({
   map: 'audit_log_archive',
   fields: {
     id: field.id(),
-    
+
     // Batch info
     batchId: field.string({ description: 'Archive batch ID' }),
     logCount: field.int({ description: 'Number of logs in batch' }),
-    
+
     // Time range
     fromDate: field.dateTime({ description: 'Earliest log in batch' }),
     toDate: field.dateTime({ description: 'Latest log in batch' }),
-    
+
     // Storage
     storagePath: field.string({ description: 'Path to archived data' }),
     storageType: field.string({ description: 'Storage type (s3, gcs, file)' }),
     compressedSize: field.int({ description: 'Compressed size in bytes' }),
-    
+
     // Integrity
     checksum: field.string({ description: 'SHA-256 checksum' }),
-    
+
     // Retention
     retainUntil: field.dateTime({ description: 'When archive can be deleted' }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
   },
-  indexes: [
-    index.on(['fromDate', 'toDate']),
-    index.on(['retainUntil']),
-  ],
+  indexes: [index.on(['fromDate', 'toDate']), index.on(['retainUntil'])],
 });
 
 /**
  * All audit trail entities for schema composition.
  */
-export const auditTrailEntities = [
-  AuditLogEntity,
-  AuditLogArchiveEntity,
-];
+export const auditTrailEntities = [AuditLogEntity, AuditLogArchiveEntity];
 
 /**
  * Module schema contribution for audit trail.
@@ -112,4 +139,3 @@ export const auditTrailSchemaContribution: ModuleSchemaContribution = {
   moduleId: '@lssm/module.audit-trail',
   entities: auditTrailEntities,
 };
-

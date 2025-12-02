@@ -68,7 +68,7 @@ export function SaasDashboard() {
     setIsProjectActionsOpen(true);
   }, []);
 
-  const tabs: Array<{ id: Tab; label: string; icon: string }> = [
+  const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'projects', label: 'Projects', icon: '📁' },
     { id: 'billing', label: 'Billing', icon: '💳' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },

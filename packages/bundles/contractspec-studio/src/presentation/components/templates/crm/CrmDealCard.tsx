@@ -32,7 +32,7 @@ export function CrmDealCard({ deal, onClick }: CrmDealCardProps) {
       className="border-border bg-card cursor-pointer rounded-lg border p-3 shadow-sm transition-shadow hover:shadow-md"
     >
       {/* Deal Name */}
-      <h4 className="font-medium leading-snug">{deal.name}</h4>
+      <h4 className="leading-snug font-medium">{deal.name}</h4>
 
       {/* Deal Value */}
       <div className="text-primary mt-2 text-lg font-semibold">

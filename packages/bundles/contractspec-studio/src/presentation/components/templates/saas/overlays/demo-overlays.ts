@@ -18,9 +18,19 @@ export const saasFreeUserOverlay: OverlayDefinition = {
     tier: 'free',
   },
   modifications: [
-    { type: 'setLimit', field: 'projects', max: 3, message: 'Upgrade to create more projects' },
+    {
+      type: 'setLimit',
+      field: 'projects',
+      max: 3,
+      message: 'Upgrade to create more projects',
+    },
     { type: 'hideField', field: 'advancedSettings', reason: 'Pro feature' },
-    { type: 'addBadge', position: 'header', label: 'Free Plan', variant: 'default' },
+    {
+      type: 'addBadge',
+      position: 'header',
+      label: 'Free Plan',
+      variant: 'default',
+    },
   ],
 };
 
@@ -36,13 +46,29 @@ export const saasDemoOverlay: OverlayDefinition = {
     role: 'demo',
   },
   modifications: [
-    { type: 'hideField', field: 'billingSection', reason: 'Demo users cannot access billing' },
-    { type: 'hideField', field: 'deleteAccount', reason: 'Not available in demo' },
-    { type: 'addBadge', position: 'header', label: 'Demo Mode', variant: 'warning' },
+    {
+      type: 'hideField',
+      field: 'billingSection',
+      reason: 'Demo users cannot access billing',
+    },
+    {
+      type: 'hideField',
+      field: 'deleteAccount',
+      reason: 'Not available in demo',
+    },
+    {
+      type: 'addBadge',
+      position: 'header',
+      label: 'Demo Mode',
+      variant: 'warning',
+    },
   ],
 };
 
 /**
  * All overlays for saas-boilerplate
  */
-export const saasOverlays: OverlayDefinition[] = [saasFreeUserOverlay, saasDemoOverlay];
+export const saasOverlays: OverlayDefinition[] = [
+  saasFreeUserOverlay,
+  saasDemoOverlay,
+];

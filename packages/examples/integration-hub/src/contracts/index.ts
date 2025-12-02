@@ -1,15 +1,47 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.integration-hub'] as const;
 
 // ============ Enums ============
 
-const IntegrationStatusSchemaEnum = defineEnum('IntegrationStatus', ['DRAFT', 'ACTIVE', 'PAUSED', 'ERROR', 'ARCHIVED']);
-const ConnectionStatusSchemaEnum = defineEnum('ConnectionStatus', ['PENDING', 'CONNECTED', 'DISCONNECTED', 'ERROR', 'EXPIRED']);
-const SyncDirectionSchemaEnum = defineEnum('SyncDirection', ['INBOUND', 'OUTBOUND', 'BIDIRECTIONAL']);
-const SyncStatusSchemaEnum = defineEnum('SyncStatus', ['PENDING', 'RUNNING', 'COMPLETED', 'FAILED', 'CANCELLED']);
-const MappingTypeSchemaEnum = defineEnum('MappingType', ['DIRECT', 'TRANSFORM', 'LOOKUP', 'CONSTANT', 'COMPUTED']);
+const IntegrationStatusSchemaEnum = defineEnum('IntegrationStatus', [
+  'DRAFT',
+  'ACTIVE',
+  'PAUSED',
+  'ERROR',
+  'ARCHIVED',
+]);
+const ConnectionStatusSchemaEnum = defineEnum('ConnectionStatus', [
+  'PENDING',
+  'CONNECTED',
+  'DISCONNECTED',
+  'ERROR',
+  'EXPIRED',
+]);
+const SyncDirectionSchemaEnum = defineEnum('SyncDirection', [
+  'INBOUND',
+  'OUTBOUND',
+  'BIDIRECTIONAL',
+]);
+const SyncStatusSchemaEnum = defineEnum('SyncStatus', [
+  'PENDING',
+  'RUNNING',
+  'COMPLETED',
+  'FAILED',
+  'CANCELLED',
+]);
+const MappingTypeSchemaEnum = defineEnum('MappingType', [
+  'DIRECT',
+  'TRANSFORM',
+  'LOOKUP',
+  'CONSTANT',
+  'COMPUTED',
+]);
 
 // ============ Schemas ============
 
@@ -30,11 +62,17 @@ export const ConnectionModel = defineSchemaModel({
   name: 'ConnectionModel',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ConnectionStatusSchemaEnum, isOptional: false },
     authType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    externalAccountName: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    externalAccountName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     connectedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     lastHealthCheck: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     healthStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -48,8 +86,11 @@ export const FieldMappingModel = defineSchemaModel({
     sourceField: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     targetField: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     mappingType: { type: MappingTypeSchemaEnum, isOptional: false },
-    transformExpression: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    isRequired: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    transformExpression: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    isRequired: { type: ScalarTypeEnum.Boolean(), isOptional: false },
   },
 });
 
@@ -57,15 +98,18 @@ export const SyncConfigModel = defineSchemaModel({
   name: 'SyncConfigModel',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     direction: { type: SyncDirectionSchemaEnum, isOptional: false },
     sourceObject: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     targetObject: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    scheduleEnabled: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    scheduleEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     scheduleCron: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    isActive: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isActive: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     lastSyncAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     fieldMappings: { type: FieldMappingModel, isArray: true, isOptional: true },
   },
@@ -79,7 +123,10 @@ export const SyncRunModel = defineSchemaModel({
     status: { type: SyncStatusSchemaEnum, isOptional: false },
     direction: { type: SyncDirectionSchemaEnum, isOptional: false },
     trigger: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    recordsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    recordsProcessed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     recordsCreated: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     recordsUpdated: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     recordsFailed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
@@ -100,14 +147,20 @@ export const CreateIntegrationInputModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     provider: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     config: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    featureFlagKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    featureFlagKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
 export const CreateConnectionInputModel = defineSchemaModel({
   name: 'CreateConnectionInput',
   fields: {
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     authType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     credentials: { type: ScalarTypeEnum.JSON(), isOptional: true },
@@ -117,13 +170,16 @@ export const CreateConnectionInputModel = defineSchemaModel({
 export const CreateSyncConfigInputModel = defineSchemaModel({
   name: 'CreateSyncConfigInput',
   fields: {
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     direction: { type: SyncDirectionSchemaEnum, isOptional: false },
     sourceObject: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     targetObject: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    scheduleEnabled: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    scheduleEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     scheduleCron: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
@@ -135,10 +191,13 @@ export const AddFieldMappingInputModel = defineSchemaModel({
     sourceField: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     targetField: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     mappingType: { type: MappingTypeSchemaEnum, isOptional: false },
-    transformExpression: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    transformExpression: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     lookupConfig: { type: ScalarTypeEnum.JSON(), isOptional: true },
     constantValue: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    isRequired: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    isRequired: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     defaultValue: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
@@ -148,7 +207,7 @@ export const TriggerSyncInputModel = defineSchemaModel({
   fields: {
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     direction: { type: SyncDirectionSchemaEnum, isOptional: true },
-    fullSync: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    fullSync: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },
 });
 
@@ -157,8 +216,16 @@ export const ListSyncRunsInputModel = defineSchemaModel({
   fields: {
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: SyncStatusSchemaEnum, isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -184,9 +251,16 @@ export const CreateIntegrationContract = defineCommand({
     context: 'Integration setup.',
   },
   io: { input: CreateIntegrationInputModel, output: IntegrationModel },
-  policy: { auth: 'user', roles: ['admin', 'integration_admin'] },
+  policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'integration.created', version: 1, when: 'Integration created', payload: IntegrationModel }],
+    emits: [
+      {
+        name: 'integration.created',
+        version: 1,
+        when: 'Integration created',
+        payload: IntegrationModel,
+      },
+    ],
     audit: ['integration.created'],
   },
 });
@@ -203,9 +277,16 @@ export const CreateConnectionContract = defineCommand({
     context: 'Connection setup.',
   },
   io: { input: CreateConnectionInputModel, output: ConnectionModel },
-  policy: { auth: 'user', roles: ['admin', 'integration_admin'] },
+  policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'integration.connection.created', version: 1, when: 'Connection created', payload: ConnectionModel }],
+    emits: [
+      {
+        name: 'integration.connection.created',
+        version: 1,
+        when: 'Connection created',
+        payload: ConnectionModel,
+      },
+    ],
     audit: ['integration.connection.created'],
   },
 });
@@ -222,9 +303,16 @@ export const CreateSyncConfigContract = defineCommand({
     context: 'Sync setup.',
   },
   io: { input: CreateSyncConfigInputModel, output: SyncConfigModel },
-  policy: { auth: 'user', roles: ['admin', 'integration_admin'] },
+  policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'integration.syncConfig.created', version: 1, when: 'Sync config created', payload: SyncConfigModel }],
+    emits: [
+      {
+        name: 'integration.syncConfig.created',
+        version: 1,
+        when: 'Sync config created',
+        payload: SyncConfigModel,
+      },
+    ],
     audit: ['integration.syncConfig.created'],
   },
 });
@@ -241,9 +329,16 @@ export const AddFieldMappingContract = defineCommand({
     context: 'Mapping configuration.',
   },
   io: { input: AddFieldMappingInputModel, output: FieldMappingModel },
-  policy: { auth: 'user', roles: ['admin', 'integration_admin'] },
+  policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'integration.fieldMapping.added', version: 1, when: 'Mapping added', payload: FieldMappingModel }],
+    emits: [
+      {
+        name: 'integration.fieldMapping.added',
+        version: 1,
+        when: 'Mapping added',
+        payload: FieldMappingModel,
+      },
+    ],
   },
 });
 
@@ -261,9 +356,15 @@ export const TriggerSyncContract = defineCommand({
   io: { input: TriggerSyncInputModel, output: SyncRunModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'integration.sync.started', version: 1, when: 'Sync starts', payload: SyncRunModel }],
+    emits: [
+      {
+        name: 'integration.sync.started',
+        version: 1,
+        when: 'Sync starts',
+        payload: SyncRunModel,
+      },
+    ],
     audit: ['integration.sync.triggered'],
-    jobs: [{ name: 'integration.sync.execute', when: 'Sync triggered' }],
   },
 });
 
@@ -281,4 +382,3 @@ export const ListSyncRunsContract = defineQuery({
   io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
   policy: { auth: 'user' },
 });
-

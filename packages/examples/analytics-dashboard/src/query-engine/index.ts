@@ -1,6 +1,6 @@
 /**
  * Analytics Query Engine
- * 
+ *
  * Provides query execution and caching for analytics dashboards.
  */
 
@@ -39,7 +39,17 @@ export interface DimensionDefinition {
 
 export interface FilterDefinition {
   field: string;
-  operator: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | 'contains' | 'between';
+  operator:
+    | 'eq'
+    | 'neq'
+    | 'gt'
+    | 'gte'
+    | 'lt'
+    | 'lte'
+    | 'in'
+    | 'nin'
+    | 'contains'
+    | 'between';
   value: unknown;
 }
 
@@ -83,8 +93,14 @@ export interface ColumnDefinition {
 // ============ Query Engine Interface ============
 
 export interface IQueryEngine {
-  execute(definition: QueryDefinition, params: QueryParameters): Promise<QueryResult>;
-  validateQuery(definition: QueryDefinition): { valid: boolean; errors: string[] };
+  execute(
+    definition: QueryDefinition,
+    params: QueryParameters
+  ): Promise<QueryResult>;
+  validateQuery(definition: QueryDefinition): {
+    valid: boolean;
+    errors: string[];
+  };
 }
 
 // ============ Query Cache ============
@@ -108,7 +124,11 @@ export class InMemoryQueryCache implements IQueryCache {
     return { ...entry.result, cached: true, cachedAt: entry.expiresAt };
   }
 
-  async set(key: string, result: QueryResult, ttlSeconds: number): Promise<void> {
+  async set(
+    key: string,
+    result: QueryResult,
+    ttlSeconds: number
+  ): Promise<void> {
     const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
     this.cache.set(key, { result, expiresAt });
   }
@@ -132,7 +152,10 @@ export class BasicQueryEngine implements IQueryEngine {
     this.cache = cache ?? new InMemoryQueryCache();
   }
 
-  async execute(definition: QueryDefinition, params: QueryParameters): Promise<QueryResult> {
+  async execute(
+    definition: QueryDefinition,
+    params: QueryParameters
+  ): Promise<QueryResult> {
     const startTime = Date.now();
 
     // Validate query
@@ -187,7 +210,10 @@ export class BasicQueryEngine implements IQueryEngine {
     return result;
   }
 
-  validateQuery(definition: QueryDefinition): { valid: boolean; errors: string[] } {
+  validateQuery(definition: QueryDefinition): {
+    valid: boolean;
+    errors: string[];
+  } {
     const errors: string[] = [];
 
     if (!definition.type) {
@@ -207,12 +233,17 @@ export class BasicQueryEngine implements IQueryEngine {
         break;
       case 'AGGREGATION':
         if (!definition.aggregation) {
-          errors.push('Aggregation definition is required for AGGREGATION type');
+          errors.push(
+            'Aggregation definition is required for AGGREGATION type'
+          );
         } else {
           if (!definition.aggregation.source) {
             errors.push('Aggregation source is required');
           }
-          if (!definition.aggregation.measures || definition.aggregation.measures.length === 0) {
+          if (
+            !definition.aggregation.measures ||
+            definition.aggregation.measures.length === 0
+          ) {
             errors.push('At least one measure is required');
           }
         }
@@ -222,7 +253,10 @@ export class BasicQueryEngine implements IQueryEngine {
     return { valid: errors.length === 0, errors };
   }
 
-  private buildCacheKey(definition: QueryDefinition, params: QueryParameters): string {
+  private buildCacheKey(
+    definition: QueryDefinition,
+    params: QueryParameters
+  ): string {
     return JSON.stringify({ definition, params });
   }
 
@@ -233,12 +267,16 @@ export class BasicQueryEngine implements IQueryEngine {
     // In production, this would execute against a data warehouse
     // For demo, return mock data
     const columns: ColumnDefinition[] = [
-      ...aggregation.dimensions.map(d => ({
+      ...aggregation.dimensions.map((d) => ({
         name: d.name,
-        type: (d.type === 'NUMBER' ? 'NUMBER' : d.type === 'TIME' ? 'DATE' : 'STRING') as ColumnDefinition['type'],
+        type: (d.type === 'NUMBER'
+          ? 'NUMBER'
+          : d.type === 'TIME'
+            ? 'DATE'
+            : 'STRING') as ColumnDefinition['type'],
         label: d.name,
       })),
-      ...aggregation.measures.map(m => ({
+      ...aggregation.measures.map((m) => ({
         name: m.name,
         type: 'NUMBER' as const,
         label: m.name,
@@ -263,7 +301,7 @@ export class BasicQueryEngine implements IQueryEngine {
     _params: QueryParameters
   ): Promise<QueryResult> {
     // In production, this would fetch from metering service
-    const data = metricIds.map(id => ({
+    const data = metricIds.map((id) => ({
       metricId: id,
       value: Math.random() * 1000,
       change: (Math.random() - 0.5) * 20,
@@ -305,7 +343,7 @@ export class BasicQueryEngine implements IQueryEngine {
     const rowCount = 10;
 
     // Generate time series data if there's a time dimension
-    const timeDimension = aggregation.dimensions.find(d => d.type === 'TIME');
+    const timeDimension = aggregation.dimensions.find((d) => d.type === 'TIME');
 
     for (let i = 0; i < rowCount; i++) {
       const row: Record<string, unknown> = {};
@@ -338,4 +376,3 @@ export class BasicQueryEngine implements IQueryEngine {
 export function createQueryEngine(cache?: IQueryCache): IQueryEngine {
   return new BasicQueryEngine(cache);
 }
-

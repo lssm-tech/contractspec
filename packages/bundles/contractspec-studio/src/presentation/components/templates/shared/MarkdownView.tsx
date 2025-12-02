@@ -40,7 +40,8 @@ function getPresentationDescriptor(presentationName: string) {
   // Map presentation names to their descriptors
   const presentationMap: Record<string, unknown> = {
     // Agent Console
-    'agent-console.dashboard': AgentPresentations.AgentConsoleDashboardPresentation,
+    'agent-console.dashboard':
+      AgentPresentations.AgentConsoleDashboardPresentation,
     'agent-console.agent.list': AgentPresentations.AgentListPresentation,
     'agent-console.run.list': AgentPresentations.RunListPresentation,
     'agent-console.tool.registry': AgentPresentations.ToolRegistryPresentation,
@@ -116,7 +117,9 @@ export function MarkdownView({
 
       setMarkdownContent(result.body);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to render markdown'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to render markdown')
+      );
     } finally {
       setLoading(false);
     }
@@ -240,13 +243,13 @@ function MarkdownRenderer({ content }: { content: string }) {
       );
     } else if (line.startsWith('## ')) {
       rendered.push(
-        <h2 key={i} className="mb-3 mt-6 text-xl font-semibold">
+        <h2 key={i} className="mt-6 mb-3 text-xl font-semibold">
           {line.slice(3)}
         </h2>
       );
     } else if (line.startsWith('### ')) {
       rendered.push(
-        <h3 key={i} className="mb-2 mt-4 text-lg font-medium">
+        <h3 key={i} className="mt-4 mb-2 text-lg font-medium">
           {line.slice(4)}
         </h3>
       );
@@ -304,7 +307,11 @@ function MarkdownRenderer({ content }: { content: string }) {
     i++;
   }
 
-  return <div className="prose prose-sm dark:prose-invert max-w-none">{rendered}</div>;
+  return (
+    <div className="prose prose-sm dark:prose-invert max-w-none">
+      {rendered}
+    </div>
+  );
 }
 
 /**
@@ -398,4 +405,3 @@ function formatPresentationName(name: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
-

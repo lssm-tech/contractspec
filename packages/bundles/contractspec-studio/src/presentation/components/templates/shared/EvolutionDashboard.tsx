@@ -48,12 +48,22 @@ export function EvolutionDashboard({
       { name: `${templateId}.list`, duration: 150, success: true },
       { name: `${templateId}.list`, duration: 180, success: true },
       { name: `${templateId}.create`, duration: 350, success: true },
-      { name: `${templateId}.create`, duration: 420, success: false, error: 'VALIDATION_ERROR' },
+      {
+        name: `${templateId}.create`,
+        duration: 420,
+        success: false,
+        error: 'VALIDATION_ERROR',
+      },
       { name: `${templateId}.list`, duration: 200, success: true },
       { name: `${templateId}.get`, duration: 80, success: true },
       { name: `${templateId}.update`, duration: 280, success: true },
       { name: `${templateId}.list`, duration: 950, success: true }, // Slow
-      { name: `${templateId}.delete`, duration: 150, success: false, error: 'NOT_FOUND' },
+      {
+        name: `${templateId}.delete`,
+        duration: 150,
+        success: false,
+        error: 'NOT_FOUND',
+      },
       { name: `${templateId}.create`, duration: 380, success: true },
     ];
 
@@ -111,9 +121,7 @@ export function EvolutionDashboard({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">
-            {operationCount} ops tracked
-          </Badge>
+          <Badge variant="secondary">{operationCount} ops tracked</Badge>
           <Button variant="ghost" size="sm" onPress={handleClear}>
             Clear
           </Button>
@@ -123,7 +131,11 @@ export function EvolutionDashboard({
       {/* Actions */}
       <Card className="p-4">
         <div className="flex flex-wrap items-center gap-3">
-          <Button variant="default" size="sm" onPress={handleSimulateOperations}>
+          <Button
+            variant="default"
+            size="sm"
+            onPress={handleSimulateOperations}
+          >
             Simulate Operations
           </Button>
           <Button
@@ -168,13 +180,19 @@ export function EvolutionDashboard({
         <Card className="p-4">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="font-semibold">Detected Anomalies</h3>
-            <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+            <Badge
+              variant="secondary"
+              className="border-amber-500/30 bg-amber-500/20 text-amber-400"
+            >
               {anomalies.length} issues
             </Badge>
           </div>
           <div className="space-y-2">
             {anomalies.map((anomaly, index) => (
-              <AnomalyCard key={`${anomaly.operation.name}-${index}`} anomaly={anomaly} />
+              <AnomalyCard
+                key={`${anomaly.operation.name}-${index}`}
+                anomaly={anomaly}
+              />
             ))}
           </div>
         </Card>
@@ -187,7 +205,10 @@ export function EvolutionDashboard({
             <h3 className="font-semibold">AI Suggestions</h3>
             <div className="flex items-center gap-2">
               {pendingSuggestions.length > 0 && (
-                <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+                <Badge
+                  variant="secondary"
+                  className="border-amber-500/30 bg-amber-500/20 text-amber-400"
+                >
                   {pendingSuggestions.length} pending
                 </Badge>
               )}
@@ -245,7 +266,11 @@ function UsageStatCard({ stat }: { stat: SpecUsageStats }) {
         </span>
         <Badge
           variant={stat.errorRate > 0.1 ? 'destructive' : 'default'}
-          className={stat.errorRate > 0.1 ? '' : 'bg-green-500/20 text-green-400 border-green-500/30'}
+          className={
+            stat.errorRate > 0.1
+              ? ''
+              : 'border-green-500/30 bg-green-500/20 text-green-400'
+          }
         >
           {((1 - stat.errorRate) * 100).toFixed(0)}% success
         </Badge>
@@ -257,7 +282,9 @@ function UsageStatCard({ stat }: { stat: SpecUsageStats }) {
         </div>
         <div>
           <span className="text-muted-foreground">Avg Latency:</span>{' '}
-          <span className="font-medium">{stat.averageLatencyMs.toFixed(0)}ms</span>
+          <span className="font-medium">
+            {stat.averageLatencyMs.toFixed(0)}ms
+          </span>
         </div>
         <div>
           <span className="text-muted-foreground">P95:</span>{' '}
@@ -289,7 +316,11 @@ function AnomalyCard({ anomaly }: { anomaly: SpecAnomaly }) {
           className={`text-lg ${severityColors[anomaly.severity]}`}
           title={`${anomaly.severity} severity`}
         >
-          {anomaly.severity === 'high' ? '🔴' : anomaly.severity === 'medium' ? '🟠' : '🟡'}
+          {anomaly.severity === 'high'
+            ? '🔴'
+            : anomaly.severity === 'medium'
+              ? '🟠'
+              : '🟡'}
         </span>
         <div>
           <p className="text-sm font-medium">{anomaly.description}</p>
@@ -302,7 +333,7 @@ function AnomalyCard({ anomaly }: { anomaly: SpecAnomaly }) {
         variant={anomaly.severity === 'high' ? 'destructive' : 'secondary'}
         className={
           anomaly.severity === 'medium'
-            ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+            ? 'border-amber-500/30 bg-amber-500/20 text-amber-400'
             : ''
         }
       >
@@ -327,9 +358,15 @@ function SuggestionCard({
   const getStatusStyles = (status: string) => {
     switch (status) {
       case 'pending':
-        return { variant: 'secondary' as const, className: 'bg-amber-500/20 text-amber-400 border-amber-500/30' };
+        return {
+          variant: 'secondary' as const,
+          className: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
+        };
       case 'approved':
-        return { variant: 'default' as const, className: 'bg-green-500/20 text-green-400 border-green-500/30' };
+        return {
+          variant: 'default' as const,
+          className: 'bg-green-500/20 text-green-400 border-green-500/30',
+        };
       case 'rejected':
         return { variant: 'destructive' as const, className: '' };
       default:
@@ -365,13 +402,15 @@ function SuggestionCard({
       {suggestion.proposal.recommendedActions &&
         suggestion.proposal.recommendedActions.length > 0 && (
           <div className="mt-3">
-            <p className="mb-1 text-xs font-semibold uppercase text-violet-400">
+            <p className="mb-1 text-xs font-semibold text-violet-400 uppercase">
               Recommended Actions
             </p>
             <ul className="list-inside list-disc space-y-1 text-xs">
-              {suggestion.proposal.recommendedActions.slice(0, 3).map((action, i) => (
-                <li key={i}>{action}</li>
-              ))}
+              {suggestion.proposal.recommendedActions
+                .slice(0, 3)
+                .map((action, i) => (
+                  <li key={i}>{action}</li>
+                ))}
             </ul>
           </div>
         )}
@@ -382,9 +421,7 @@ function SuggestionCard({
             Confidence: {(suggestion.confidence * 100).toFixed(0)}%
           </span>
           <span className="text-muted-foreground">•</span>
-          <Badge variant="secondary">
-            {suggestion.priority}
-          </Badge>
+          <Badge variant="secondary">{suggestion.priority}</Badge>
         </div>
         {suggestion.status === 'pending' && (
           <div className="flex items-center gap-2">
@@ -441,4 +478,3 @@ function HintCard({ hint }: { hint: OptimizationHint }) {
     </div>
   );
 }
-

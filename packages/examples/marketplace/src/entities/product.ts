@@ -5,7 +5,14 @@ import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
  */
 export const ProductStatusEnum = defineEntityEnum({
   name: 'ProductStatus',
-  values: ['DRAFT', 'PENDING_REVIEW', 'ACTIVE', 'OUT_OF_STOCK', 'DISCONTINUED', 'REJECTED'] as const,
+  values: [
+    'DRAFT',
+    'PENDING_REVIEW',
+    'ACTIVE',
+    'OUT_OF_STOCK',
+    'DISCONTINUED',
+    'REJECTED',
+  ] as const,
   schema: 'marketplace',
   description: 'Status of a product listing.',
 });
@@ -30,25 +37,28 @@ export const ProductEntity = defineEntity({
   map: 'product',
   fields: {
     id: field.id({ description: 'Unique product ID' }),
-    
+
     // Store
     storeId: field.foreignKey(),
-    
+
     // Identity
     name: field.string({ description: 'Product name' }),
     slug: field.string({ description: 'URL-friendly identifier' }),
     description: field.string({ isOptional: true }),
     shortDescription: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.enum('ProductStatus', { default: 'DRAFT' }),
     type: field.enum('ProductType', { default: 'PHYSICAL' }),
-    
+
     // Pricing
     price: field.decimal({ description: 'Base price' }),
-    compareAtPrice: field.decimal({ isOptional: true, description: 'Original price for showing discounts' }),
+    compareAtPrice: field.decimal({
+      isOptional: true,
+      description: 'Original price for showing discounts',
+    }),
     currency: field.string({ default: '"USD"' }),
-    
+
     // Inventory
     sku: field.string({ isOptional: true }),
     barcode: field.string({ isOptional: true }),
@@ -56,37 +66,40 @@ export const ProductEntity = defineEntity({
     trackInventory: field.boolean({ default: true }),
     allowBackorder: field.boolean({ default: false }),
     lowStockThreshold: field.int({ default: 5 }),
-    
+
     // Physical properties
     weight: field.decimal({ isOptional: true }),
     weightUnit: field.string({ default: '"kg"' }),
-    
+
     // Categories
     categoryId: field.string({ isOptional: true }),
     tags: field.string({ isArray: true }),
-    
+
     // Media (using file attachments)
     primaryImageId: field.string({ isOptional: true }),
-    
+
     // SEO
     seoTitle: field.string({ isOptional: true }),
     seoDescription: field.string({ isOptional: true }),
-    
+
     // Attributes
-    attributes: field.json({ isOptional: true, description: 'Custom product attributes' }),
-    
+    attributes: field.json({
+      isOptional: true,
+      description: 'Custom product attributes',
+    }),
+
     // Reviews
     reviewCount: field.int({ default: 0 }),
     averageRating: field.decimal({ default: 0 }),
-    
+
     // Sales
     totalSold: field.int({ default: 0 }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
     publishedAt: field.dateTime({ isOptional: true }),
-    
+
     // Relations
     store: field.belongsTo('Store', ['storeId'], ['id']),
     variants: field.hasMany('ProductVariant'),
@@ -94,7 +107,7 @@ export const ProductEntity = defineEntity({
     reviews: field.hasMany('Review'),
   },
   indexes: [
-    index.on(['storeId', 'slug']).unique(),
+    index.unique(['storeId', 'slug']),
     index.on(['storeId', 'status']),
     index.on(['status', 'publishedAt']),
     index.on(['categoryId', 'status']),
@@ -116,37 +129,41 @@ export const ProductVariantEntity = defineEntity({
   fields: {
     id: field.id(),
     productId: field.foreignKey(),
-    
+
     // Identity
     name: field.string({ description: 'Variant name (e.g., "Large / Blue")' }),
-    
+
     // Options
-    options: field.json({ description: 'Variant options (e.g., {size: "L", color: "Blue"})' }),
-    
+    options: field.json({
+      description: 'Variant options (e.g., {size: "L", color: "Blue"})',
+    }),
+
     // Pricing
     price: field.decimal({ description: 'Variant-specific price' }),
     compareAtPrice: field.decimal({ isOptional: true }),
-    
+
     // Inventory
     sku: field.string({ isOptional: true }),
     barcode: field.string({ isOptional: true }),
     quantity: field.int({ default: 0 }),
-    
+
     // Media
     imageId: field.string({ isOptional: true }),
-    
+
     // Status
     isActive: field.boolean({ default: true }),
-    
+
     // Position
     position: field.int({ default: 0 }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    product: field.belongsTo('Product', ['productId'], ['id'], { onDelete: 'Cascade' }),
+    product: field.belongsTo('Product', ['productId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
   indexes: [
     index.on(['productId', 'sku']),
@@ -165,36 +182,35 @@ export const CategoryEntity = defineEntity({
   map: 'category',
   fields: {
     id: field.id(),
-    
+
     name: field.string(),
     slug: field.string(),
     description: field.string({ isOptional: true }),
-    
+
     // Hierarchy
     parentId: field.string({ isOptional: true }),
     path: field.string({ description: 'Full path for hierarchical queries' }),
     level: field.int({ default: 0 }),
-    
+
     // Display
     position: field.int({ default: 0 }),
     imageId: field.string({ isOptional: true }),
-    
+
     // Status
     isActive: field.boolean({ default: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     parent: field.belongsTo('Category', ['parentId'], ['id']),
     children: field.hasMany('Category'),
   },
   indexes: [
-    index.on(['slug']).unique(),
+    index.unique(['slug']),
     index.on(['parentId', 'position']),
     index.on(['path']),
     index.on(['isActive']),
   ],
 });
-

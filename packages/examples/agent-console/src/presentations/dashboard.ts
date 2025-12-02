@@ -11,7 +11,8 @@ export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.dashboard',
     version: 1,
-    description: 'Main dashboard for AI agent operations with stats, recent activity, and quick actions',
+    description:
+      'Main dashboard for AI agent operations with stats, recent activity, and quick actions',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['dashboard', 'overview'],
@@ -26,4 +27,3 @@ export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
     flags: ['agent-console.enabled'],
   },
 };
-

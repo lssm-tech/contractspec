@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Overlay Editor | ContractSpec Docs',
-  description: 'Guide to the drag-and-drop overlay editor and signing workflow.',
+  description:
+    'Guide to the drag-and-drop overlay editor and signing workflow.',
 };
 
 export default function OverlayEditorPage() {
@@ -34,11 +35,17 @@ export default function OverlayEditorPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Provisioning flow</h2>
         <ol className="list-decimal space-y-2 pl-6">
-          <li>Clone the repo and run <code>bun dev</code> inside the app.</li>
+          <li>
+            Clone the repo and run <code>bun dev</code> inside the app.
+          </li>
           <li>Use the UI to craft the overlay for a tenant.</li>
-          <li>Paste the tenant&apos;s PEM private key (stored in Vault/KMS).</li>
+          <li>
+            Paste the tenant&apos;s PEM private key (stored in Vault/KMS).
+          </li>
           <li>Click “Sign overlay” to get the final JSON payload.</li>
-          <li>Persist in the `Overlay` table and register with `OverlayRegistry`.</li>
+          <li>
+            Persist in the `Overlay` table and register with `OverlayRegistry`.
+          </li>
         </ol>
         <p>
           See also:{' '}
@@ -54,19 +61,3 @@ export default function OverlayEditorPage() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

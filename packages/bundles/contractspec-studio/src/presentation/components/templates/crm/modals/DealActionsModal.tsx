@@ -41,7 +41,7 @@ type ActionMode = 'menu' | 'win' | 'lose' | 'move';
 interface DealActionsModalProps {
   isOpen: boolean;
   deal: Deal | null;
-  stages: Array<{ id: string; name: string }>;
+  stages: { id: string; name: string }[];
   onClose: () => void;
   onWin: (input: WinDealInput) => Promise<void>;
   onLose: (input: LoseDealInput) => Promise<void>;

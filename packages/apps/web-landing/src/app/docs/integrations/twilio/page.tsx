@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Twilio Integration: ContractSpec Docs",
+  title: 'Twilio Integration: ContractSpec Docs',
   description:
-    "Send SMS notifications and messages with Twilio in ContractSpec.",
+    'Send SMS notifications and messages with Twilio in ContractSpec.',
 };
 
 export default function TwilioIntegrationPage() {
@@ -20,7 +20,7 @@ export default function TwilioIntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 TWILIO_ACCOUNT_SID=...
 TWILIO_AUTH_TOKEN=...
@@ -30,7 +30,7 @@ TWILIO_PHONE_NUMBER=+1234567890`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Sending SMS</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: twilio-send-sms
 provider:
   type: twilio
@@ -54,7 +54,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Use cases</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Order confirmations and shipping updates</li>
           <li>Two-factor authentication codes</li>
           <li>Appointment reminders</li>
@@ -64,7 +64,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Always use E.164 format for phone numbers (+1234567890)</li>
           <li>Keep messages under 160 characters to avoid splitting</li>
           <li>Implement rate limiting to prevent spam</li>
@@ -84,4 +84,3 @@ outputs:
     </div>
   );
 }
-

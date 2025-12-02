@@ -104,7 +104,10 @@ export const MOCK_TOOLS = [
     },
     outputSchema: { type: 'array', items: { type: 'object' } },
     implementationType: 'http' as const,
-    implementationConfig: { url: 'https://api.brave.com/search', method: 'GET' },
+    implementationConfig: {
+      url: 'https://api.brave.com/search',
+      method: 'GET',
+    },
     maxInvocationsPerMinute: 60,
     timeoutMs: 30000,
     version: '1.0.0',
@@ -175,7 +178,10 @@ export const MOCK_TOOLS = [
     parametersSchema: {
       type: 'object',
       properties: {
-        action: { type: 'string', enum: ['list_prs', 'get_pr', 'create_comment'] },
+        action: {
+          type: 'string',
+          enum: ['list_prs', 'get_pr', 'create_comment'],
+        },
         repo: { type: 'string' },
         params: { type: 'object' },
       },
@@ -201,11 +207,17 @@ export const MOCK_TOOLS = [
     parametersSchema: {
       type: 'object',
       properties: {
-        expression: { type: 'string', description: 'Math expression to evaluate' },
+        expression: {
+          type: 'string',
+          description: 'Math expression to evaluate',
+        },
       },
       required: ['expression'],
     },
-    outputSchema: { type: 'object', properties: { result: { type: 'number' } } },
+    outputSchema: {
+      type: 'object',
+      properties: { result: { type: 'number' } },
+    },
     implementationType: 'function' as const,
     implementationConfig: { handler: 'evaluateMath' },
     timeoutMs: 5000,
@@ -399,4 +411,3 @@ export const MOCK_RUN_LOGS = [
     source: 'orchestrator',
   },
 ];
-

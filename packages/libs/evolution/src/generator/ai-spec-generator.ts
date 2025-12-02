@@ -126,9 +126,7 @@ When generating suggestions:
   /**
    * Validate and enhance an existing suggestion using AI.
    */
-  async enhanceSuggestion(
-    suggestion: SpecSuggestion
-  ): Promise<SpecSuggestion> {
+  async enhanceSuggestion(suggestion: SpecSuggestion): Promise<SpecSuggestion> {
     const prompt = `Review and enhance this spec suggestion:
 
 Intent: ${suggestion.intent.type} - ${suggestion.intent.description}
@@ -266,7 +264,11 @@ Please provide an improved version with more specific recommendations.`;
 
     const intentScore = intent.confidence.score;
     const urgency =
-      intent.type === 'error-spike' ? 0.3 : intent.type === 'latency-regression' ? 0.2 : 0;
+      intent.type === 'error-spike'
+        ? 0.3
+        : intent.type === 'latency-regression'
+          ? 0.2
+          : 0;
 
     const combined = impactScore * 0.4 + intentScore * 0.4 + urgency;
 
@@ -296,4 +298,3 @@ export function createAISpecGenerator(
 ): AISpecGenerator {
   return new AISpecGenerator(config);
 }
-

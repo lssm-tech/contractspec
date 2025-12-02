@@ -1,6 +1,6 @@
 /**
  * XP (Experience Points) Engine
- * 
+ *
  * Calculates XP rewards for various learning activities.
  */
 
@@ -125,7 +125,8 @@ export class XPEngine {
       ...DEFAULT_XP_CONFIG,
       ...config,
       baseValues: { ...DEFAULT_XP_CONFIG.baseValues, ...config.baseValues },
-      scoreThresholds: config.scoreThresholds || DEFAULT_XP_CONFIG.scoreThresholds,
+      scoreThresholds:
+        config.scoreThresholds || DEFAULT_XP_CONFIG.scoreThresholds,
       streakTiers: config.streakTiers || DEFAULT_XP_CONFIG.streakTiers,
     };
   }
@@ -135,11 +136,11 @@ export class XPEngine {
    */
   calculate(input: XPCalculationInput): XPResult {
     const breakdown: XPBreakdown[] = [];
-    
+
     // Get base XP
     const baseXp = input.baseXp ?? this.config.baseValues[input.activity];
     let totalXp = baseXp;
-    
+
     breakdown.push({
       source: 'base',
       amount: baseXp,
@@ -160,7 +161,9 @@ export class XPEngine {
 
       // Perfect score bonus
       if (input.score === 100) {
-        const perfectBonus = Math.round(baseXp * (this.config.perfectScoreMultiplier - 1));
+        const perfectBonus = Math.round(
+          baseXp * (this.config.perfectScoreMultiplier - 1)
+        );
         totalXp += perfectBonus;
         breakdown.push({
           source: 'perfect_score',
@@ -222,10 +225,12 @@ export class XPEngine {
     return {
       totalXp: bonus,
       baseXp: bonus,
-      breakdown: [{
-        source: 'streak_bonus',
-        amount: bonus,
-      }],
+      breakdown: [
+        {
+          source: 'streak_bonus',
+          amount: bonus,
+        },
+      ],
     };
   }
 
@@ -245,10 +250,14 @@ export class XPEngine {
   /**
    * Get level from total XP.
    */
-  getLevelFromXp(totalXp: number): { level: number; xpInLevel: number; xpForNextLevel: number } {
+  getLevelFromXp(totalXp: number): {
+    level: number;
+    xpInLevel: number;
+    xpForNextLevel: number;
+  } {
     let level = 1;
     let xpRequired = this.getXpForLevel(level + 1);
-    
+
     while (totalXp >= xpRequired && level < 1000) {
       level++;
       xpRequired = this.getXpForLevel(level + 1);
@@ -256,7 +265,7 @@ export class XPEngine {
 
     const xpForCurrentLevel = this.getXpForLevel(level);
     const xpForNextLevel = this.getXpForLevel(level + 1);
-    
+
     return {
       level,
       xpInLevel: totalXp - xpForCurrentLevel,
@@ -289,4 +298,3 @@ export class XPEngine {
  * Default XP engine instance.
  */
 export const xpEngine = new XPEngine();
-

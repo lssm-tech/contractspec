@@ -171,10 +171,7 @@ export class DomainEventBus {
 /**
  * Create a domain-scoped event bus.
  */
-export function createDomainBus(
-  bus: EventBus,
-  domain: string
-): DomainEventBus {
+export function createDomainBus(bus: EventBus, domain: string): DomainEventBus {
   return new DomainEventBus(bus, domain);
 }
 
@@ -182,10 +179,10 @@ export function createDomainBus(
  * Event router that routes events to different handlers based on filters.
  */
 export class EventRouter {
-  private routes: Array<{
+  private routes: {
     filter: EventFilter;
     handler: (envelope: AuditableEventEnvelope) => Promise<void>;
-  }> = [];
+  }[] = [];
 
   /**
    * Add a route.
@@ -230,4 +227,3 @@ export class EventRouter {
 export function createEventRouter(): EventRouter {
   return new EventRouter();
 }
-

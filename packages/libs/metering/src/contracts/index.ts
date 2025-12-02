@@ -14,7 +14,10 @@ export const MetricDefinitionModel = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     unit: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    aggregationType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    aggregationType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     resetPeriod: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     category: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     isActive: { type: ScalarTypeEnum.Boolean(), isOptional: false },
@@ -32,7 +35,7 @@ export const UsageRecordModel = defineSchemaModel({
     metricKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     subjectType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     subjectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    quantity: { type: ScalarTypeEnum.Float(), isOptional: false },
+    quantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     resourceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     resourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -53,11 +56,11 @@ export const UsageSummaryModel = defineSchemaModel({
     periodType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     periodStart: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     periodEnd: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-    totalQuantity: { type: ScalarTypeEnum.Float(), isOptional: false },
+    totalQuantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     recordCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    minQuantity: { type: ScalarTypeEnum.Float(), isOptional: true },
-    maxQuantity: { type: ScalarTypeEnum.Float(), isOptional: true },
-    avgQuantity: { type: ScalarTypeEnum.Float(), isOptional: true },
+    minQuantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    maxQuantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    avgQuantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
   },
 });
 
@@ -70,11 +73,11 @@ export const UsageThresholdModel = defineSchemaModel({
     subjectType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     subjectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    threshold: { type: ScalarTypeEnum.Float(), isOptional: false },
-    warnThreshold: { type: ScalarTypeEnum.Float(), isOptional: true },
+    threshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+    warnThreshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     periodType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     action: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    currentValue: { type: ScalarTypeEnum.Float(), isOptional: false },
+    currentValue: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     isActive: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -90,7 +93,10 @@ const DefineMetricInput = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     unit: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    aggregationType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    aggregationType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     resetPeriod: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     category: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -156,13 +162,16 @@ const RecordUsageInput = defineSchemaModel({
     metricKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     subjectType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     subjectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    quantity: { type: ScalarTypeEnum.Float(), isOptional: false },
+    quantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     resourceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     resourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     metadata: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    idempotencyKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    idempotencyKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
@@ -204,7 +213,7 @@ const GetUsageOutput = defineSchemaModel({
   fields: {
     records: { type: UsageRecordModel, isArray: true, isOptional: false },
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    totalQuantity: { type: ScalarTypeEnum.Float(), isOptional: false },
+    totalQuantity: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
   },
 });
 
@@ -238,8 +247,8 @@ const CreateThresholdInput = defineSchemaModel({
     subjectType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     subjectId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    threshold: { type: ScalarTypeEnum.Float(), isOptional: false },
-    warnThreshold: { type: ScalarTypeEnum.Float(), isOptional: true },
+    threshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+    warnThreshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     periodType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     action: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     notifyEmails: { type: ScalarTypeEnum.JSON(), isOptional: true },
@@ -253,8 +262,8 @@ const UpdateThresholdInput = defineSchemaModel({
   fields: {
     thresholdId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    threshold: { type: ScalarTypeEnum.Float(), isOptional: true },
-    warnThreshold: { type: ScalarTypeEnum.Float(), isOptional: true },
+    threshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    warnThreshold: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     action: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     notifyEmails: { type: ScalarTypeEnum.JSON(), isOptional: true },
     notifyWebhook: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -480,7 +489,7 @@ export const RecordUsageContract = defineCommand({
     },
   },
   policy: {
-    auth: 'service',
+    auth: 'admin',
   },
 });
 
@@ -503,7 +512,7 @@ export const RecordBatchUsageContract = defineCommand({
     output: RecordBatchUsageOutput,
   },
   policy: {
-    auth: 'service',
+    auth: 'admin',
   },
 });
 
@@ -668,4 +677,3 @@ export const ListThresholdsContract = defineQuery({
     auth: 'user',
   },
 });
-

@@ -1,2 +1,4 @@
-export { useMarketplaceData, type MarketplaceStats } from './useMarketplaceData';
-
+export {
+  useMarketplaceData,
+  type MarketplaceStats,
+} from './useMarketplaceData';

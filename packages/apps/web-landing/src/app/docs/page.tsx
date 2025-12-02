@@ -202,14 +202,12 @@ contractspec build src/contracts/mySpec.ts`}</pre>
             },
             {
               title: 'AI Governance',
-              description:
-                'Agents, contract enforcement, approval workflows',
+              description: 'Agents, contract enforcement, approval workflows',
               href: '/docs/libraries/ai-agent',
             },
             {
               title: 'Architecture',
-              description:
-                'Multi-tenancy, integrations, knowledge sources',
+              description: 'Multi-tenancy, integrations, knowledge sources',
               href: '/docs/architecture',
             },
             {

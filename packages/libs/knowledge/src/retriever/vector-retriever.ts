@@ -89,9 +89,7 @@ export class VectorRetriever implements KnowledgeRetriever {
     return [...this.spaceCollections.keys()];
   }
 
-  private extractContent(
-    payload: Record<string, unknown> | undefined
-  ): string {
+  private extractContent(payload: Record<string, unknown> | undefined): string {
     if (!payload) return '';
     if (typeof payload.text === 'string') return payload.text;
     if (typeof payload.content === 'string') return payload.content;
@@ -107,4 +105,3 @@ export function createVectorRetriever(
 ): VectorRetriever {
   return new VectorRetriever(config);
 }
-

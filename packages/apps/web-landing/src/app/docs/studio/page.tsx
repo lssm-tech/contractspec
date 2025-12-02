@@ -39,13 +39,16 @@ export default function StudioDocsLanding() {
   return (
     <main className="space-y-16 py-16">
       <section className="section-padding">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Studio docs
         </p>
-        <h1 className="mt-4 text-4xl font-bold">Everything you need to run Studio.</h1>
+        <h1 className="mt-4 text-4xl font-bold">
+          Everything you need to run Studio.
+        </h1>
         <p className="text-muted-foreground mt-4 max-w-3xl text-lg">
-          ContractSpec Studio pairs a visual builder with managed infrastructure. These guides
-          keep teams aligned—especially when engineers and operators share the same console.
+          ContractSpec Studio pairs a visual builder with managed
+          infrastructure. These guides keep teams aligned—especially when
+          engineers and operators share the same console.
         </p>
       </section>
       <section className="section-padding grid gap-4">
@@ -55,7 +58,9 @@ export default function StudioDocsLanding() {
             href={section.href}
             className="card-subtle group space-y-2 p-6 transition hover:border-violet-500/40"
           >
-            <h2 className="text-xl font-semibold group-hover:text-violet-400">{section.title}</h2>
+            <h2 className="text-xl font-semibold group-hover:text-violet-400">
+              {section.title}
+            </h2>
             <p className="text-muted-foreground text-sm">{section.body}</p>
           </Link>
         ))}
@@ -63,18 +68,3 @@ export default function StudioDocsLanding() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -65,18 +65,18 @@ export function schemaToMarkdown(
 
   // Determine format based on data type if auto
   const effectiveFormat =
-    format === 'auto'
-      ? Array.isArray(data)
-        ? 'table'
-        : 'detail'
-      : format;
+    format === 'auto' ? (Array.isArray(data) ? 'table' : 'detail') : format;
 
   // Generate content based on format
   if (effectiveFormat === 'table' && Array.isArray(data)) {
     lines.push(schemaToMarkdownTable(schema, data, options));
   } else if (effectiveFormat === 'list' && Array.isArray(data)) {
     lines.push(schemaToMarkdownList(schema, data, options));
-  } else if (!Array.isArray(data) && data !== null && typeof data === 'object') {
+  } else if (
+    !Array.isArray(data) &&
+    data !== null &&
+    typeof data === 'object'
+  ) {
     lines.push(schemaToMarkdownDetail(schema, data, { ...options, maxDepth }));
   } else {
     // Fallback for primitive or null data
@@ -232,7 +232,9 @@ export function schemaToMarkdownSummary(
       const min = Math.min(...values);
       const max = Math.max(...values);
 
-      lines.push(`**${formatFieldName(fieldName)}:** Sum: ${formatNumber(sum)}, Avg: ${formatNumber(avg)}, Min: ${formatNumber(min)}, Max: ${formatNumber(max)}`);
+      lines.push(
+        `**${formatFieldName(fieldName)}:** Sum: ${formatNumber(sum)}, Avg: ${formatNumber(avg)}, Min: ${formatNumber(min)}, Max: ${formatNumber(max)}`
+      );
     }
   }
 
@@ -277,9 +279,10 @@ function getFieldMeta(
     const fieldConfig = schemaFields[name] as SchemaFieldConfig | undefined;
     const isNested = Boolean(
       fieldConfig?.type &&
-        typeof fieldConfig.type === 'object' &&
-        'config' in fieldConfig.type &&
-        typeof (fieldConfig.type as { config?: { fields?: unknown } }).config?.fields === 'object'
+      typeof fieldConfig.type === 'object' &&
+      'config' in fieldConfig.type &&
+      typeof (fieldConfig.type as { config?: { fields?: unknown } }).config
+        ?.fields === 'object'
     );
     return {
       name,
@@ -320,7 +323,8 @@ function formatCellValue(value: unknown): string {
   if (typeof value === 'boolean') return value ? '✓' : '✗';
   if (typeof value === 'number') return formatNumber(value);
   if (value instanceof Date) return formatDate(value);
-  if (typeof value === 'string' && isISODate(value)) return formatDate(new Date(value));
+  if (typeof value === 'string' && isISODate(value))
+    return formatDate(new Date(value));
   if (Array.isArray(value)) return `[${value.length} items]`;
   if (typeof value === 'object') return '[Object]';
 
@@ -332,12 +336,17 @@ function formatCellValue(value: unknown): string {
 /**
  * Format a value for detail view (allows more space)
  */
-function formatDetailValue(value: unknown, maxDepth: number, currentDepth: number): string {
+function formatDetailValue(
+  value: unknown,
+  maxDepth: number,
+  currentDepth: number
+): string {
   if (value === null || value === undefined) return '_none_';
   if (typeof value === 'boolean') return value ? 'Yes' : 'No';
   if (typeof value === 'number') return formatNumber(value);
   if (value instanceof Date) return formatDate(value);
-  if (typeof value === 'string' && isISODate(value)) return formatDate(new Date(value));
+  if (typeof value === 'string' && isISODate(value))
+    return formatDate(new Date(value));
 
   if (Array.isArray(value)) {
     if (value.length === 0) return '_empty list_';
@@ -364,13 +373,15 @@ function formatDetailValue(value: unknown, maxDepth: number, currentDepth: numbe
  * Format field name to human-readable label
  */
 function formatFieldName(name: string): string {
-  return name
-    // Split on camelCase
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    // Split on underscores
-    .replace(/_/g, ' ')
-    // Capitalize first letter
-    .replace(/^\w/, (c) => c.toUpperCase());
+  return (
+    name
+      // Split on camelCase
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      // Split on underscores
+      .replace(/_/g, ' ')
+      // Capitalize first letter
+      .replace(/^\w/, (c) => c.toUpperCase())
+  );
 }
 
 /**
@@ -409,4 +420,3 @@ function isISODate(str: string): boolean {
   const date = new Date(str);
   return !isNaN(date.getTime());
 }
-

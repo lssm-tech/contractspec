@@ -1,14 +1,47 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.analytics-dashboard'] as const;
 
 // ============ Enums ============
 
-const DashboardStatusSchemaEnum = defineEnum('DashboardStatus', ['DRAFT', 'PUBLISHED', 'ARCHIVED']);
-const WidgetTypeSchemaEnum = defineEnum('WidgetType', ['LINE_CHART', 'BAR_CHART', 'PIE_CHART', 'AREA_CHART', 'SCATTER_PLOT', 'METRIC', 'TABLE', 'HEATMAP', 'FUNNEL', 'MAP', 'TEXT', 'EMBED']);
-const QueryTypeSchemaEnum = defineEnum('QueryType', ['SQL', 'METRIC', 'AGGREGATION', 'CUSTOM']);
-const RefreshIntervalSchemaEnum = defineEnum('RefreshInterval', ['NONE', 'MINUTE', 'FIVE_MINUTES', 'FIFTEEN_MINUTES', 'HOUR', 'DAY']);
+const DashboardStatusSchemaEnum = defineEnum('DashboardStatus', [
+  'DRAFT',
+  'PUBLISHED',
+  'ARCHIVED',
+]);
+const WidgetTypeSchemaEnum = defineEnum('WidgetType', [
+  'LINE_CHART',
+  'BAR_CHART',
+  'PIE_CHART',
+  'AREA_CHART',
+  'SCATTER_PLOT',
+  'METRIC',
+  'TABLE',
+  'HEATMAP',
+  'FUNNEL',
+  'MAP',
+  'TEXT',
+  'EMBED',
+]);
+const QueryTypeSchemaEnum = defineEnum('QueryType', [
+  'SQL',
+  'METRIC',
+  'AGGREGATION',
+  'CUSTOM',
+]);
+const RefreshIntervalSchemaEnum = defineEnum('RefreshInterval', [
+  'NONE',
+  'MINUTE',
+  'FIVE_MINUTES',
+  'FIFTEEN_MINUTES',
+  'HOUR',
+  'DAY',
+]);
 
 // ============ Schemas ============
 
@@ -37,7 +70,7 @@ export const DashboardModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: DashboardStatusSchemaEnum, isOptional: false },
     refreshInterval: { type: RefreshIntervalSchemaEnum, isOptional: false },
-    isPublic: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isPublic: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     widgets: { type: WidgetModel, isArray: true, isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -53,7 +86,7 @@ export const QueryModel = defineSchemaModel({
     definition: { type: ScalarTypeEnum.JSON(), isOptional: false },
     sql: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     cacheTtlSeconds: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    isShared: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isShared: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -107,9 +140,13 @@ export const CreateQueryInputModel = defineSchemaModel({
     type: { type: QueryTypeSchemaEnum, isOptional: false },
     definition: { type: ScalarTypeEnum.JSON(), isOptional: false },
     sql: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    metricIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    metricIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     cacheTtlSeconds: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    isShared: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    isShared: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },
 });
 
@@ -120,7 +157,7 @@ export const ExecuteQueryInputModel = defineSchemaModel({
     parameters: { type: ScalarTypeEnum.JSON(), isOptional: true },
     dateRange: { type: ScalarTypeEnum.JSON(), isOptional: true },
     filters: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    forceRefresh: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    forceRefresh: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },
 });
 
@@ -129,8 +166,16 @@ export const ListDashboardsInputModel = defineSchemaModel({
   fields: {
     status: { type: DashboardStatusSchemaEnum, isOptional: true },
     search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -158,7 +203,14 @@ export const CreateDashboardContract = defineCommand({
   io: { input: CreateDashboardInputModel, output: DashboardModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'analytics.dashboard.created', version: 1, when: 'Dashboard created', payload: DashboardModel }],
+    emits: [
+      {
+        name: 'analytics.dashboard.created',
+        version: 1,
+        when: 'Dashboard created',
+        payload: DashboardModel,
+      },
+    ],
     audit: ['analytics.dashboard.created'],
   },
 });
@@ -177,7 +229,14 @@ export const AddWidgetContract = defineCommand({
   io: { input: AddWidgetInputModel, output: WidgetModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'analytics.widget.added', version: 1, when: 'Widget added', payload: WidgetModel }],
+    emits: [
+      {
+        name: 'analytics.widget.added',
+        version: 1,
+        when: 'Widget added',
+        payload: WidgetModel,
+      },
+    ],
   },
 });
 
@@ -195,7 +254,14 @@ export const CreateQueryContract = defineCommand({
   io: { input: CreateQueryInputModel, output: QueryModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'analytics.query.created', version: 1, when: 'Query created', payload: QueryModel }],
+    emits: [
+      {
+        name: 'analytics.query.created',
+        version: 1,
+        when: 'Query created',
+        payload: QueryModel,
+      },
+    ],
     audit: ['analytics.query.created'],
   },
 });
@@ -251,6 +317,5 @@ export const GetDashboardContract = defineQuery({
     context: 'Dashboard view.',
   },
   io: { input: GetDashboardInputModel, output: DashboardModel },
-  policy: { auth: 'optional' },
+  policy: { auth: 'anonymous' },
 });
-

@@ -1,6 +1,6 @@
 /**
  * Usage aggregation engine.
- * 
+ *
  * Provides periodic aggregation of usage records into summaries
  * for efficient billing and reporting queries.
  */
@@ -113,27 +113,27 @@ export interface AggregationError {
  */
 export function getPeriodStart(date: Date, periodType: PeriodType): Date {
   const d = new Date(date);
-  
+
   switch (periodType) {
     case 'HOURLY':
       d.setMinutes(0, 0, 0);
       return d;
-    
+
     case 'DAILY':
       d.setHours(0, 0, 0, 0);
       return d;
-    
+
     case 'WEEKLY':
       d.setHours(0, 0, 0, 0);
       const day = d.getDay();
       d.setDate(d.getDate() - day);
       return d;
-    
+
     case 'MONTHLY':
       d.setHours(0, 0, 0, 0);
       d.setDate(1);
       return d;
-    
+
     case 'YEARLY':
       d.setHours(0, 0, 0, 0);
       d.setMonth(0, 1);
@@ -146,23 +146,23 @@ export function getPeriodStart(date: Date, periodType: PeriodType): Date {
  */
 export function getPeriodEnd(date: Date, periodType: PeriodType): Date {
   const start = getPeriodStart(date, periodType);
-  
+
   switch (periodType) {
     case 'HOURLY':
       return new Date(start.getTime() + 60 * 60 * 1000);
-    
+
     case 'DAILY':
       return new Date(start.getTime() + 24 * 60 * 60 * 1000);
-    
+
     case 'WEEKLY':
       return new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
-    
+
     case 'MONTHLY': {
       const end = new Date(start);
       end.setMonth(end.getMonth() + 1);
       return end;
     }
-    
+
     case 'YEARLY': {
       const end = new Date(start);
       end.setFullYear(end.getFullYear() + 1);
@@ -180,7 +180,7 @@ export function formatPeriodKey(date: Date, periodType: PeriodType): string {
   const month = String(start.getMonth() + 1).padStart(2, '0');
   const day = String(start.getDate()).padStart(2, '0');
   const hour = String(start.getHours()).padStart(2, '0');
-  
+
   switch (periodType) {
     case 'HOURLY':
       return `${year}-${month}-${day}T${hour}`;
@@ -196,11 +196,15 @@ export function formatPeriodKey(date: Date, periodType: PeriodType): string {
 }
 
 function getWeekNumber(date: Date): string {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
   const dayNum = d.getUTCDay() || 7;
   d.setUTCDate(d.getUTCDate() + 4 - dayNum);
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const weekNum = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  const weekNum = Math.ceil(
+    ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+  );
   return String(weekNum).padStart(2, '0');
 }
 
@@ -208,7 +212,7 @@ function getWeekNumber(date: Date): string {
 
 /**
  * Usage aggregator.
- * 
+ *
  * Aggregates usage records into summaries based on period type.
  */
 export class UsageAggregator {
@@ -268,7 +272,7 @@ export class UsageAggregator {
     }
 
     // Mark records as aggregated
-    const recordIds = records.map(r => r.id);
+    const recordIds = records.map((r) => r.id);
     await this.storage.markRecordsAggregated(recordIds, new Date());
     result.recordsProcessed = records.length;
 
@@ -287,7 +291,7 @@ export class UsageAggregator {
     for (const record of records) {
       const periodKey = formatPeriodKey(record.timestamp, periodType);
       const groupKey = `${record.metricKey}::${record.subjectType}::${record.subjectId}::${periodKey}`;
-      
+
       const existing = groups.get(groupKey) || [];
       existing.push(record);
       groups.set(groupKey, existing);
@@ -306,7 +310,7 @@ export class UsageAggregator {
     result: AggregationResult
   ): Promise<void> {
     const [metricKey, subjectType, subjectId] = groupKey.split('::');
-    
+
     if (!metricKey || !subjectType || !subjectId || records.length === 0) {
       return;
     }
@@ -320,7 +324,7 @@ export class UsageAggregator {
     const aggregationType = metric?.aggregationType || 'SUM';
 
     // Calculate aggregated values
-    const quantities = records.map(r => r.quantity);
+    const quantities = records.map((r) => r.quantity);
     const aggregated = this.calculateAggregation(quantities, aggregationType);
 
     // Create or update summary
@@ -393,8 +397,8 @@ export class UsageAggregator {
  */
 export class InMemoryUsageStorage implements UsageStorage {
   private records: UsageRecord[] = [];
-  private summaries: Map<string, UsageSummary> = new Map();
-  private metrics: Map<string, MetricDefinition> = new Map();
+  private summaries = new Map<string, UsageSummary>();
+  private metrics = new Map<string, MetricDefinition>();
 
   addRecord(record: UsageRecord): void {
     this.records.push(record);
@@ -410,9 +414,11 @@ export class InMemoryUsageStorage implements UsageStorage {
     periodEnd: Date;
     limit?: number;
   }): Promise<UsageRecord[]> {
-    let records = this.records.filter(r => {
-      const inPeriod = r.timestamp >= options.periodStart && r.timestamp < options.periodEnd;
-      const matchesMetric = !options.metricKey || r.metricKey === options.metricKey;
+    let records = this.records.filter((r) => {
+      const inPeriod =
+        r.timestamp >= options.periodStart && r.timestamp < options.periodEnd;
+      const matchesMetric =
+        !options.metricKey || r.metricKey === options.metricKey;
       return inPeriod && matchesMetric;
     });
 
@@ -424,22 +430,30 @@ export class InMemoryUsageStorage implements UsageStorage {
   }
 
   async markRecordsAggregated(recordIds: string[]): Promise<void> {
-    this.records = this.records.filter(r => !recordIds.includes(r.id));
+    this.records = this.records.filter((r) => !recordIds.includes(r.id));
   }
 
-  async upsertSummary(summary: Omit<UsageSummary, 'id'>): Promise<UsageSummary> {
+  async upsertSummary(
+    summary: Omit<UsageSummary, 'id'>
+  ): Promise<UsageSummary> {
     const key = `${summary.metricKey}::${summary.subjectType}::${summary.subjectId}::${summary.periodType}::${summary.periodStart.toISOString()}`;
-    
+
     const existing = this.summaries.get(key);
     if (existing) {
       // Update existing summary
       existing.totalQuantity += summary.totalQuantity;
       existing.recordCount += summary.recordCount;
       if (summary.minQuantity !== undefined) {
-        existing.minQuantity = Math.min(existing.minQuantity ?? Infinity, summary.minQuantity);
+        existing.minQuantity = Math.min(
+          existing.minQuantity ?? Infinity,
+          summary.minQuantity
+        );
       }
       if (summary.maxQuantity !== undefined) {
-        existing.maxQuantity = Math.max(existing.maxQuantity ?? -Infinity, summary.maxQuantity);
+        existing.maxQuantity = Math.max(
+          existing.maxQuantity ?? -Infinity,
+          summary.maxQuantity
+        );
       }
       return existing;
     }
@@ -471,4 +485,3 @@ export class InMemoryUsageStorage implements UsageStorage {
     this.metrics.clear();
   }
 }
-

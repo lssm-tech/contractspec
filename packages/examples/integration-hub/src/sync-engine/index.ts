@@ -1,6 +1,6 @@
 /**
  * Sync Engine
- * 
+ *
  * Core sync logic for the Integration Hub.
  */
 
@@ -148,7 +148,7 @@ export class BasicFieldTransformer implements IFieldTransformer {
       if (expression.startsWith('string')) {
         return String(value);
       }
-      
+
       // Return as-is if no transformation matches
       return value;
     } catch {
@@ -204,9 +204,15 @@ export class BasicSyncEngine implements ISyncEngine {
           break;
 
         case 'TRANSFORM':
-          const sourceValue = this.getNestedValue(sourceRecord.data, mapping.sourceField);
+          const sourceValue = this.getNestedValue(
+            sourceRecord.data,
+            mapping.sourceField
+          );
           value = mapping.transformExpression
-            ? this.transformer.transform(sourceValue, mapping.transformExpression)
+            ? this.transformer.transform(
+                sourceValue,
+                mapping.transformExpression
+              )
             : sourceValue;
           break;
 
@@ -222,7 +228,10 @@ export class BasicSyncEngine implements ISyncEngine {
         case 'COMPUTED':
           // In production, this would evaluate a computed expression
           value = mapping.transformExpression
-            ? this.evaluateComputed(sourceRecord.data, mapping.transformExpression)
+            ? this.evaluateComputed(
+                sourceRecord.data,
+                mapping.transformExpression
+              )
             : null;
           break;
 
@@ -285,19 +294,27 @@ export class BasicSyncEngine implements ISyncEngine {
     return current;
   }
 
-  private setNestedValue(obj: Record<string, unknown>, path: string, value: unknown): void {
+  private setNestedValue(
+    obj: Record<string, unknown>,
+    path: string,
+    value: unknown
+  ): void {
     const parts = path.split('.');
     let current = obj;
 
     for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i];
+      if (part === undefined) continue;
       if (!(part in current)) {
         current[part] = {};
       }
       current = current[part] as Record<string, unknown>;
     }
 
-    current[parts[parts.length - 1]] = value;
+    const lastPart = parts[parts.length - 1];
+    if (lastPart !== undefined) {
+      current[lastPart] = value;
+    }
   }
 
   private evaluateComputed(
@@ -334,7 +351,7 @@ export function computeChecksum(data: Record<string, unknown>): string {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+    hash = (hash << 5) - hash + char;
     hash = hash & hash;
   }
   return hash.toString(16);
@@ -349,4 +366,3 @@ export function hasChanges(
   }
   return sourceChecksum !== targetChecksum;
 }
-

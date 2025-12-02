@@ -23,7 +23,10 @@ import {
   DealDetailPresentation,
   DealCardPresentation,
 } from './pipeline';
-import { CrmDashboardPresentation, PipelineMetricsPresentation } from './dashboard';
+import {
+  CrmDashboardPresentation,
+  PipelineMetricsPresentation,
+} from './dashboard';
 
 export const CrmPipelinePresentations = [
   CrmDashboardPresentation,
@@ -33,4 +36,3 @@ export const CrmPipelinePresentations = [
   DealCardPresentation,
   PipelineMetricsPresentation,
 ];
-

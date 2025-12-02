@@ -74,4 +74,3 @@ export function createStaticRetriever(
 ): StaticRetriever {
   return new StaticRetriever({ content });
 }
-

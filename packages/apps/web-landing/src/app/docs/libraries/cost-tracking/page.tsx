@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Cost Tracking Library',
-  description: 'Per-operation cost attribution, tenant budgets, and optimization suggestions.',
+  description:
+    'Per-operation cost attribution, tenant budgets, and optimization suggestions.',
 };
 
 export default function CostTrackingLibraryPage() {

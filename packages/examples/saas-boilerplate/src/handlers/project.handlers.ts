@@ -87,7 +87,9 @@ export async function mockListProjectsHandler(
 /**
  * Mock handler for GetProjectContract
  */
-export async function mockGetProjectHandler(input: { projectId: string }): Promise<Project> {
+export async function mockGetProjectHandler(input: {
+  projectId: string;
+}): Promise<Project> {
   const project = MOCK_PROJECTS.find((p) => p.id === input.projectId);
 
   if (!project) {
@@ -131,7 +133,9 @@ export async function mockCreateProjectHandler(
 /**
  * Mock handler for UpdateProjectContract
  */
-export async function mockUpdateProjectHandler(input: UpdateProjectInput): Promise<Project> {
+export async function mockUpdateProjectHandler(
+  input: UpdateProjectInput
+): Promise<Project> {
   const project = MOCK_PROJECTS.find((p) => p.id === input.projectId);
 
   if (!project) {
@@ -153,7 +157,9 @@ export async function mockUpdateProjectHandler(input: UpdateProjectInput): Promi
 /**
  * Mock handler for DeleteProjectContract
  */
-export async function mockDeleteProjectHandler(input: { projectId: string }): Promise<{ success: boolean }> {
+export async function mockDeleteProjectHandler(input: {
+  projectId: string;
+}): Promise<{ success: boolean }> {
   const project = MOCK_PROJECTS.find((p) => p.id === input.projectId);
 
   if (!project) {
@@ -162,4 +168,3 @@ export async function mockDeleteProjectHandler(input: { projectId: string }): Pr
 
   return { success: true };
 }
-

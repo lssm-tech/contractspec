@@ -37,7 +37,10 @@ export const MemberModel = new SchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     role: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     user: { type: MemberUserModel, isOptional: false },
@@ -164,7 +167,11 @@ export const ListUserOrgsOutputModel = new SchemaModel({
   name: 'ListUserOrgsOutput',
   description: 'Output for listing user organizations',
   fields: {
-    organizations: { type: OrganizationWithRoleModel, isOptional: false, isArray: true },
+    organizations: {
+      type: OrganizationWithRoleModel,
+      isOptional: false,
+      isArray: true,
+    },
   },
 });
 
@@ -200,7 +207,14 @@ export const CreateOrgContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'org.created', version: 1, when: 'Organization is created', payload: OrganizationModel }],
+    emits: [
+      {
+        name: 'org.created',
+        version: 1,
+        when: 'Organization is created',
+        payload: OrganizationModel,
+      },
+    ],
     audit: ['org.created'],
   },
 });
@@ -250,7 +264,14 @@ export const UpdateOrgContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'org.updated', version: 1, when: 'Organization is updated', payload: OrganizationModel }],
+    emits: [
+      {
+        name: 'org.updated',
+        version: 1,
+        when: 'Organization is updated',
+        payload: OrganizationModel,
+      },
+    ],
     audit: ['org.updated'],
   },
 });
@@ -291,7 +312,14 @@ export const InviteMemberContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'org.invite.sent', version: 1, when: 'Invitation is sent', payload: InvitationModel }],
+    emits: [
+      {
+        name: 'org.invite.sent',
+        version: 1,
+        when: 'Invitation is sent',
+        payload: InvitationModel,
+      },
+    ],
     audit: ['org.invite.sent'],
   },
 });
@@ -332,7 +360,14 @@ export const AcceptInviteContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'org.member.added', version: 1, when: 'Member joins org', payload: MemberModel }],
+    emits: [
+      {
+        name: 'org.member.added',
+        version: 1,
+        when: 'Member joins org',
+        payload: MemberModel,
+      },
+    ],
     audit: ['org.member.added'],
   },
 });
@@ -367,7 +402,14 @@ export const RemoveMemberContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'org.member.removed', version: 1, when: 'Member is removed', payload: MemberRemovedPayloadModel }],
+    emits: [
+      {
+        name: 'org.member.removed',
+        version: 1,
+        when: 'Member is removed',
+        payload: MemberRemovedPayloadModel,
+      },
+    ],
     audit: ['org.member.removed'],
   },
 });

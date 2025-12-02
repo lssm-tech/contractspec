@@ -15,7 +15,7 @@ import {
   InputGroupButton,
 } from '@lssm/lib.ui-kit-web/ui/input-group';
 
-type EmailPasswordClient = {
+interface EmailPasswordClient {
   email?: {
     signIn?: (payload: {
       email: string;
@@ -28,7 +28,7 @@ type EmailPasswordClient = {
     password: string;
     rememberMe?: boolean;
   }) => Promise<unknown>;
-};
+}
 
 export default function LoginPageClient() {
   const router = useRouter();

@@ -6,10 +6,16 @@ import { defineEvent } from '@lssm/lib.contracts';
 const IntegrationCreatedPayload = defineSchemaModel({
   name: 'IntegrationCreatedEventPayload',
   fields: {
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     provider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -18,7 +24,10 @@ const ConnectionCreatedPayload = defineSchemaModel({
   name: 'ConnectionCreatedEventPayload',
   fields: {
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     authType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -29,8 +38,14 @@ const ConnectionStatusChangedPayload = defineSchemaModel({
   name: 'ConnectionStatusChangedEventPayload',
   fields: {
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -41,7 +56,10 @@ const SyncConfigCreatedPayload = defineSchemaModel({
   name: 'SyncConfigCreatedEventPayload',
   fields: {
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceObject: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     targetObject: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -66,7 +84,10 @@ const SyncCompletedPayload = defineSchemaModel({
     syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    recordsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    recordsProcessed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     recordsCreated: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     recordsUpdated: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     recordsFailed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
@@ -81,7 +102,10 @@ const SyncFailedPayload = defineSchemaModel({
     syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    recordsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    recordsProcessed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -168,4 +192,3 @@ export const IntegrationHubEvents = {
   SyncFailedEvent,
   RecordSyncedEvent,
 };
-

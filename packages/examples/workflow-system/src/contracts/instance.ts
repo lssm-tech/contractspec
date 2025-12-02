@@ -1,11 +1,24 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.workflow-system'] as const;
 
 // ============ Enums ============
 
-const InstanceStatusSchemaEnum = defineEnum('InstanceStatus', ['PENDING', 'RUNNING', 'WAITING', 'PAUSED', 'COMPLETED', 'CANCELLED', 'FAILED', 'TIMEOUT']);
+const InstanceStatusSchemaEnum = defineEnum('InstanceStatus', [
+  'PENDING',
+  'RUNNING',
+  'WAITING',
+  'PAUSED',
+  'COMPLETED',
+  'CANCELLED',
+  'FAILED',
+  'TIMEOUT',
+]);
 
 // ============ Schemas ============
 
@@ -14,14 +27,20 @@ export const WorkflowInstanceModel = defineSchemaModel({
   description: 'A running workflow instance',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    workflowDefinitionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    workflowDefinitionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     referenceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     referenceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: InstanceStatusSchemaEnum, isOptional: false },
     currentStepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     contextData: { type: ScalarTypeEnum.JSON(), isOptional: true },
     triggeredBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     priority: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     dueAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     outcome: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -61,10 +80,16 @@ export const TransitionResultModel = defineSchemaModel({
   name: 'TransitionResult',
   description: 'Result of a workflow transition',
   fields: {
-    success: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     instance: { type: WorkflowInstanceModel, isOptional: false },
-    previousStepKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    currentStepKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    previousStepKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    currentStepKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     message: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
@@ -96,8 +121,16 @@ export const ListInstancesInputModel = defineSchemaModel({
     referenceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     referenceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     triggeredBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -105,7 +138,11 @@ export const ListInstancesOutputModel = defineSchemaModel({
   name: 'ListInstancesOutput',
   description: 'Output for listing workflow instances',
   fields: {
-    instances: { type: WorkflowInstanceModel, isArray: true, isOptional: false },
+    instances: {
+      type: WorkflowInstanceModel,
+      isArray: true,
+      isOptional: false,
+    },
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
@@ -135,8 +172,18 @@ export const StartWorkflowContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'workflow.instance.started', version: 1, when: 'Workflow starts', payload: WorkflowInstanceModel },
-      { name: 'workflow.step.entered', version: 1, when: 'First step entered', payload: WorkflowInstanceModel },
+      {
+        name: 'workflow.instance.started',
+        version: 1,
+        when: 'Workflow starts',
+        payload: WorkflowInstanceModel,
+      },
+      {
+        name: 'workflow.step.entered',
+        version: 1,
+        when: 'First step entered',
+        payload: WorkflowInstanceModel,
+      },
     ],
     audit: ['workflow.instance.started'],
   },
@@ -165,9 +212,24 @@ export const TransitionWorkflowContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'workflow.step.exited', version: 1, when: 'Step is exited', payload: WorkflowInstanceModel },
-      { name: 'workflow.step.entered', version: 1, when: 'New step is entered', payload: WorkflowInstanceModel },
-      { name: 'workflow.instance.completed', version: 1, when: 'Workflow reaches end', payload: WorkflowInstanceModel },
+      {
+        name: 'workflow.step.exited',
+        version: 1,
+        when: 'Step is exited',
+        payload: WorkflowInstanceModel,
+      },
+      {
+        name: 'workflow.step.entered',
+        version: 1,
+        when: 'New step is entered',
+        payload: WorkflowInstanceModel,
+      },
+      {
+        name: 'workflow.instance.completed',
+        version: 1,
+        when: 'Workflow reaches end',
+        payload: WorkflowInstanceModel,
+      },
     ],
     audit: ['workflow.instance.transitioned'],
   },
@@ -193,10 +255,16 @@ export const PauseWorkflowContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_manager'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.instance.paused', version: 1, when: 'Workflow is paused', payload: WorkflowInstanceModel }],
+    emits: [
+      {
+        name: 'workflow.instance.paused',
+        version: 1,
+        when: 'Workflow is paused',
+        payload: WorkflowInstanceModel,
+      },
+    ],
     audit: ['workflow.instance.paused'],
   },
 });
@@ -221,10 +289,16 @@ export const ResumeWorkflowContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_manager'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.instance.resumed', version: 1, when: 'Workflow is resumed', payload: WorkflowInstanceModel }],
+    emits: [
+      {
+        name: 'workflow.instance.resumed',
+        version: 1,
+        when: 'Workflow is resumed',
+        payload: WorkflowInstanceModel,
+      },
+    ],
     audit: ['workflow.instance.resumed'],
   },
 });
@@ -251,7 +325,14 @@ export const CancelWorkflowContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'workflow.instance.cancelled', version: 1, when: 'Workflow is cancelled', payload: WorkflowInstanceModel }],
+    emits: [
+      {
+        name: 'workflow.instance.cancelled',
+        version: 1,
+        when: 'Workflow is cancelled',
+        payload: WorkflowInstanceModel,
+      },
+    ],
     audit: ['workflow.instance.cancelled'],
   },
 });
@@ -308,4 +389,3 @@ export const GetInstanceContract = defineQuery({
     auth: 'user',
   },
 });
-

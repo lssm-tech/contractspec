@@ -18,8 +18,9 @@ const containerVariants = cva('items-center text-center', {
   },
 });
 
-export interface EmptyStateProps
-  extends VariantProps<typeof containerVariants> {
+export interface EmptyStateProps extends VariantProps<
+  typeof containerVariants
+> {
   icon?: React.ReactNode;
   title: React.ReactNode;
   description?: React.ReactNode;

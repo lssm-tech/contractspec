@@ -1,5 +1,9 @@
-import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
-import {defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
@@ -21,9 +25,19 @@ export const RunStepTypeEnum = defineEnum('RunStepType', [
   'ERROR',
 ]);
 
-export const LogLevelEnum = defineEnum('LogLevel', ['DEBUG', 'INFO', 'WARN', 'ERROR']);
+export const LogLevelEnum = defineEnum('LogLevel', [
+  'DEBUG',
+  'INFO',
+  'WARN',
+  'ERROR',
+]);
 
-export const GranularityEnum = defineEnum('Granularity', ['hour', 'day', 'week', 'month']);
+export const GranularityEnum = defineEnum('Granularity', [
+  'hour',
+  'day',
+  'week',
+  'month',
+]);
 
 // ============ Schemas ============
 
@@ -49,7 +63,11 @@ export const RunStepModel = defineSchemaModel({
     output: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     status: { type: RunStatusEnum, isOptional: false },
     errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    tokensUsed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
+    tokensUsed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
@@ -78,7 +96,10 @@ export const RunAgentRefModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    modelProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    modelProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     modelName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -88,7 +109,10 @@ export const RunModel = defineSchemaModel({
   description: 'Agent execution instance',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -97,12 +121,31 @@ export const RunModel = defineSchemaModel({
     status: { type: RunStatusEnum, isOptional: false },
     errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     errorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    promptTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    completionTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    totalIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
+    totalTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    promptTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    completionTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    totalIterations: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    estimatedCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    estimatedCostUsd: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     queuedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
@@ -123,7 +166,10 @@ export const RunSummaryModel = defineSchemaModel({
     status: { type: RunStatusEnum, isOptional: false },
     totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    estimatedCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    estimatedCostUsd: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     queuedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
@@ -166,7 +212,10 @@ export const ExecuteAgentCommand = defineCommand({
         sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         metadata: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
         stream: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-        maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+        maxIterations: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+        },
         timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
       },
     }),
@@ -175,7 +224,10 @@ export const ExecuteAgentCommand = defineCommand({
       fields: {
         runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
         status: { type: RunStatusEnum, isOptional: false },
-        estimatedWaitMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+        estimatedWaitMs: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+        },
       },
     }),
     errors: {
@@ -197,7 +249,14 @@ export const ExecuteAgentCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'run.started', version: 1, when: 'Run is queued', payload: RunSummaryModel }],
+    emits: [
+      {
+        name: 'run.started',
+        version: 1,
+        when: 'Run is queued',
+        payload: RunSummaryModel,
+      },
+    ],
     audit: ['run.started'],
   },
 });
@@ -250,7 +309,14 @@ export const CancelRunCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'run.cancelled', version: 1, when: 'Run is cancelled', payload: RunSummaryModel }],
+    emits: [
+      {
+        name: 'run.cancelled',
+        version: 1,
+        when: 'Run is cancelled',
+        payload: RunSummaryModel,
+      },
+    ],
     audit: ['run.cancelled'],
   },
 });
@@ -311,15 +377,26 @@ export const ListRunsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'ListRunsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
         agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         status: { type: RunStatusEnum, isOptional: true },
         startDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
         endDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -390,8 +467,16 @@ export const GetRunLogsQuery = defineQuery({
         runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
         level: { type: LogLevelEnum, isOptional: true },
         stepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 100 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 100,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -426,24 +511,47 @@ export const GetRunMetricsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'GetRunMetricsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         startDate: { type: ScalarTypeEnum.DateTime(), isOptional: false },
         endDate: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-        granularity: { type: GranularityEnum, isOptional: true, defaultValue: 'day' },
+        granularity: {
+          type: GranularityEnum,
+          isOptional: true,
+          defaultValue: 'day',
+        },
       },
     }),
     output: defineSchemaModel({
       name: 'GetRunMetricsOutput',
       fields: {
         totalRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        completedRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+        completedRuns: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: false,
+        },
         failedRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
         totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        totalCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        averageDurationMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        successRate: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        timeline: { type: TimelineDataPointModel, isArray: true, isOptional: false },
+        totalCostUsd: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        averageDurationMs: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        successRate: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        timeline: {
+          type: TimelineDataPointModel,
+          isArray: true,
+          isOptional: false,
+        },
       },
     }),
   },

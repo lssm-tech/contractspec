@@ -22,7 +22,7 @@ export interface MemoryQueueOptions {
  * In-memory job queue for development and testing.
  */
 export class MemoryJobQueue implements JobQueue {
-  private readonly jobs: Map<string, Job> = new Map();
+  private readonly jobs = new Map<string, Job>();
   private readonly handlers = new Map<string, JobHandler>();
   private timer?: ReturnType<typeof setInterval>;
   private activeCount = 0;
@@ -161,8 +161,7 @@ export class MemoryJobQueue implements JobQueue {
     const pendingJobs = Array.from(this.jobs.values())
       .filter(
         (j) =>
-          j.status === 'pending' &&
-          (!j.scheduledAt || j.scheduledAt <= now)
+          j.status === 'pending' && (!j.scheduledAt || j.scheduledAt <= now)
       )
       .sort((a, b) => {
         // Higher priority first
@@ -170,7 +169,9 @@ export class MemoryJobQueue implements JobQueue {
           return b.priority - a.priority;
         }
         // Earlier scheduled first
-        return (a.scheduledAt?.getTime() ?? 0) - (b.scheduledAt?.getTime() ?? 0);
+        return (
+          (a.scheduledAt?.getTime() ?? 0) - (b.scheduledAt?.getTime() ?? 0)
+        );
       });
 
     const job = pendingJobs[0];
@@ -191,7 +192,8 @@ export class MemoryJobQueue implements JobQueue {
       job.completedAt = new Date();
       job.result = result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       job.lastError = errorMessage;
 
       if (job.attempts >= job.maxRetries) {
@@ -208,4 +210,3 @@ export class MemoryJobQueue implements JobQueue {
     }
   }
 }
-

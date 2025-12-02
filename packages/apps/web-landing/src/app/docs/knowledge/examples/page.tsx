@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export const metadata = {
-  title: "Knowledge Examples: ContractSpec Docs",
+  title: 'Knowledge Examples: ContractSpec Docs',
   description:
-    "Real-world examples of knowledge spaces in ContractSpec applications.",
+    'Real-world examples of knowledge spaces in ContractSpec applications.',
 };
 
 export default function KnowledgeExamplesPage() {
@@ -19,13 +19,15 @@ export default function KnowledgeExamplesPage() {
 
       <div className="space-y-6">
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Example 1: ArtisanOS Support Agent</h2>
+          <h2 className="text-2xl font-bold">
+            Example 1: ArtisanOS Support Agent
+          </h2>
           <p className="text-muted-foreground">
             <strong>Context:</strong> ArtisanOS needs a support agent that can
             answer product questions using official documentation and learn from
             past support tickets.
           </p>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
@@ -85,12 +87,14 @@ steps:
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Example 2: HCircle Invoice Generation</h2>
+          <h2 className="text-2xl font-bold">
+            Example 2: HCircle Invoice Generation
+          </h2>
           <p className="text-muted-foreground">
             <strong>Context:</strong> HCircle needs to generate invoices using
             house playbook rules and resident service history.
           </p>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
@@ -150,7 +154,7 @@ steps:
             integrate with Stripe, using both internal guides and Stripe's
             official documentation.
           </p>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`// Knowledge spaces
 knowledgeSpaces: [
   {
@@ -226,7 +230,7 @@ steps:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Key patterns</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             <strong>Canonical first</strong> - Always search canonical spaces
             before operational or external
@@ -261,4 +265,3 @@ steps:
     </div>
   );
 }
-

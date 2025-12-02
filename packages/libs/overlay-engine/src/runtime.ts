@@ -8,8 +8,9 @@ export interface OverlayEngineOptions {
   audit?: (event: OverlayAuditEvent) => void;
 }
 
-export interface OverlayApplyParams<T extends OverlayRenderable>
-  extends OverlayLookup {
+export interface OverlayApplyParams<
+  T extends OverlayRenderable,
+> extends OverlayLookup {
   target: T;
   overlays?: SignedOverlaySpec[];
   strict?: ApplyOverlayOptions['strict'];

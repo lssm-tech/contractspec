@@ -1,6 +1,6 @@
 /**
  * Streak Tracking Engine
- * 
+ *
  * Manages daily learning streaks with timezone support and freeze protection.
  */
 
@@ -99,12 +99,18 @@ export class StreakEngine {
     }
 
     // Calculate days since last activity
-    const daysSinceActivity = this.getDaysBetween(state.lastActivityDate, todayDate);
+    const daysSinceActivity = this.getDaysBetween(
+      state.lastActivityDate,
+      todayDate
+    );
 
     if (daysSinceActivity === 1) {
       // Perfect - activity on consecutive day
       result.state.currentStreak = state.currentStreak + 1;
-      result.state.longestStreak = Math.max(result.state.currentStreak, state.longestStreak);
+      result.state.longestStreak = Math.max(
+        result.state.currentStreak,
+        state.longestStreak
+      );
       result.state.lastActivityAt = now;
       result.state.lastActivityDate = todayDate;
       result.streakMaintained = true;
@@ -121,7 +127,10 @@ export class StreakEngine {
       result.state.freezesRemaining = state.freezesRemaining - freezesNeeded;
       result.state.freezeUsedAt = now;
       result.state.currentStreak = state.currentStreak + 1; // Add today
-      result.state.longestStreak = Math.max(result.state.currentStreak, state.longestStreak);
+      result.state.longestStreak = Math.max(
+        result.state.currentStreak,
+        state.longestStreak
+      );
       result.state.lastActivityAt = now;
       result.state.lastActivityDate = todayDate;
       result.freezeUsed = true;
@@ -141,7 +150,10 @@ export class StreakEngine {
   /**
    * Check streak status without recording activity.
    */
-  checkStatus(state: StreakState, now: Date = new Date()): {
+  checkStatus(
+    state: StreakState,
+    now: Date = new Date()
+  ): {
     isActive: boolean;
     willExpireAt: Date | null;
     canUseFreeze: boolean;
@@ -157,7 +169,10 @@ export class StreakEngine {
     }
 
     const todayDate = this.getDateString(now);
-    const daysSinceActivity = this.getDaysBetween(state.lastActivityDate, todayDate);
+    const daysSinceActivity = this.getDaysBetween(
+      state.lastActivityDate,
+      todayDate
+    );
 
     if (daysSinceActivity === 0) {
       // Activity today - streak is active
@@ -238,10 +253,13 @@ export class StreakEngine {
   /**
    * Calculate streak milestones.
    */
-  getMilestones(currentStreak: number): { achieved: number[]; next: number | null } {
+  getMilestones(currentStreak: number): {
+    achieved: number[];
+    next: number | null;
+  } {
     const milestones = [3, 7, 14, 30, 60, 90, 180, 365, 500, 1000];
-    const achieved = milestones.filter(m => currentStreak >= m);
-    const next = milestones.find(m => currentStreak < m) ?? null;
+    const achieved = milestones.filter((m) => currentStreak >= m);
+    const next = milestones.find((m) => currentStreak < m) ?? null;
     return { achieved, next };
   }
 
@@ -280,4 +298,3 @@ export class StreakEngine {
  * Default streak engine instance.
  */
 export const streakEngine = new StreakEngine();
-

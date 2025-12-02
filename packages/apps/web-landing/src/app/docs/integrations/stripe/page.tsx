@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Stripe Integration: ContractSpec Docs",
+  title: 'Stripe Integration: ContractSpec Docs',
   description:
-    "Accept payments, manage subscriptions, and handle invoicing with Stripe in ContractSpec.",
+    'Accept payments, manage subscriptions, and handle invoicing with Stripe in ContractSpec.',
 };
 
 export default function StripeIntegrationPage() {
@@ -25,14 +25,14 @@ export default function StripeIntegrationPage() {
         <p className="text-muted-foreground">
           Add your Stripe credentials to your environment variables:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLISHABLE_KEY=pk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...`}</pre>
         </div>
         <p className="text-muted-foreground text-sm">
-          Get your API keys from the{" "}
+          Get your API keys from the{' '}
           <a
             href="https://dashboard.stripe.com/apikeys"
             target="_blank"
@@ -49,7 +49,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...`}</pre>
         <h2 className="text-2xl font-bold">Available capabilities</h2>
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">Payment Intents</h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`capabilityId: stripe-create-payment-intent
 provider:
   type: stripe
@@ -81,7 +81,7 @@ outputs:
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">Customers</h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`capabilityId: stripe-create-customer
 provider:
   type: stripe
@@ -107,7 +107,7 @@ outputs:
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">Subscriptions</h3>
-          <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`capabilityId: stripe-create-subscription
 provider:
   type: stripe
@@ -139,35 +139,33 @@ outputs:
           ContractSpec automatically handles Stripe webhooks. Configure your
           webhook endpoint in the Stripe Dashboard:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`https://your-app.com/api/webhooks/stripe`}</pre>
         </div>
-        <p className="text-muted-foreground">
-          Subscribe to these events:
-        </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <p className="text-muted-foreground">Subscribe to these events:</p>
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
-            <code className="bg-background/50 px-2 py-1 rounded">
+            <code className="bg-background/50 rounded px-2 py-1">
               payment_intent.succeeded
             </code>
           </li>
           <li>
-            <code className="bg-background/50 px-2 py-1 rounded">
+            <code className="bg-background/50 rounded px-2 py-1">
               payment_intent.payment_failed
             </code>
           </li>
           <li>
-            <code className="bg-background/50 px-2 py-1 rounded">
+            <code className="bg-background/50 rounded px-2 py-1">
               customer.subscription.created
             </code>
           </li>
           <li>
-            <code className="bg-background/50 px-2 py-1 rounded">
+            <code className="bg-background/50 rounded px-2 py-1">
               customer.subscription.updated
             </code>
           </li>
           <li>
-            <code className="bg-background/50 px-2 py-1 rounded">
+            <code className="bg-background/50 rounded px-2 py-1">
               customer.subscription.deleted
             </code>
           </li>
@@ -179,7 +177,7 @@ outputs:
         <p className="text-muted-foreground">
           Here's a complete payment workflow using Stripe:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`workflowId: process-payment
 version: 1.0.0
 
@@ -225,15 +223,15 @@ steps:
         <p className="text-muted-foreground">
           Use Stripe's test cards for development:
         </p>
-        <div className="overflow-x-auto rounded-lg border border-border/50">
+        <div className="border-border/50 overflow-x-auto rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead className="bg-card/50">
-              <tr className="border-b border-border/50">
+              <tr className="border-border/50 border-b">
                 <th className="px-4 py-3 font-semibold">Card Number</th>
                 <th className="px-4 py-3 font-semibold">Scenario</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/50">
+            <tbody className="divide-border/50 divide-y">
               <tr>
                 <td className="px-4 py-3 font-mono">4242 4242 4242 4242</td>
                 <td className="px-4 py-3">Successful payment</td>
@@ -253,7 +251,7 @@ steps:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Always use test mode during development</li>
           <li>Verify webhook signatures to prevent fraud</li>
           <li>Handle idempotency for payment operations</li>
@@ -276,4 +274,3 @@ steps:
     </div>
   );
 }
-

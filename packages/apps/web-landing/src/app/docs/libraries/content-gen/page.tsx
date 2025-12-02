@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Content Generation Library | ContractSpec',
-  description: 'Generate blog posts, landing pages, emails, social posts, and SEO metadata.',
+  description:
+    'Generate blog posts, landing pages, emails, social posts, and SEO metadata.',
 };
 
 export default function ContentGenLibraryPage() {
@@ -11,14 +12,15 @@ export default function ContentGenLibraryPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">@lssm/lib.content-gen</h1>
         <p className="text-muted-foreground text-lg">
-          Feed a single ContentBrief and produce cohesive marketing assets without touching a CMS.
+          Feed a single ContentBrief and produce cohesive marketing assets
+          without touching a CMS.
         </p>
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">One brief, many assets</h2>
         <pre className="bg-muted rounded-lg border p-4 text-sm">
-{`import {
+          {`import {
   BlogGenerator,
   LandingPageGenerator,
   EmailCampaignGenerator,
@@ -44,10 +46,12 @@ const seo = new SeoOptimizer().optimize(brief);`}
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">When to use</h2>
-        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Ship landing page refreshes whenever specs change.</li>
           <li>Automate release emails + nurture sequences per vertical.</li>
-          <li>Create social snippets that stay on-message with the same brief.</li>
+          <li>
+            Create social snippets that stay on-message with the same brief.
+          </li>
           <li>Generate SEO metadata + Schema.org markup alongside content.</li>
         </ul>
       </div>

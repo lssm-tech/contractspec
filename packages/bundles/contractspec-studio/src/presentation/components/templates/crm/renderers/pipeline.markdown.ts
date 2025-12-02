@@ -24,7 +24,7 @@ interface StageItem {
   position: number;
 }
 
-function formatCurrency(value: number, currency: string = 'USD'): string {
+function formatCurrency(value: number, currency = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,

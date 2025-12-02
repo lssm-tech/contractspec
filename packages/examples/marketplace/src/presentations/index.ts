@@ -2,7 +2,13 @@
  * Marketplace Presentation Descriptors
  */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { StoreModel, ProductModel, OrderModel, PayoutModel, ReviewModel } from '../contracts';
+import {
+  StoreModel,
+  ProductModel,
+  OrderModel,
+  PayoutModel,
+  ReviewModel,
+} from '../contracts';
 
 // ============ Store Presentations ============
 
@@ -268,23 +274,22 @@ export const MarketplacePresentations = {
   // Store
   StoreProfilePresentation,
   SellerDashboardPresentation,
-  
+
   // Product
   ProductCatalogPresentation,
   ProductDetailPresentation,
   ProductEditorPresentation,
-  
+
   // Order
   OrderListPresentation,
   OrderDetailPresentation,
   CheckoutPresentation,
-  
+
   // Payout
   PayoutListPresentation,
   PayoutDetailPresentation,
-  
+
   // Review
   ReviewListPresentation,
   ReviewFormPresentation,
 };
-

@@ -1,13 +1,32 @@
-import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
 // ============ Enums ============
 
-export const AgentStatusEnum = defineEnum('AgentStatus', ['DRAFT', 'ACTIVE', 'PAUSED', 'ARCHIVED']);
-export const ModelProviderEnum = defineEnum('ModelProvider', ['OPENAI', 'ANTHROPIC', 'GOOGLE', 'MISTRAL', 'CUSTOM']);
-export const ToolChoiceEnum = defineEnum('ToolChoice', ['auto', 'required', 'none']);
+export const AgentStatusEnum = defineEnum('AgentStatus', [
+  'DRAFT',
+  'ACTIVE',
+  'PAUSED',
+  'ARCHIVED',
+]);
+export const ModelProviderEnum = defineEnum('ModelProvider', [
+  'OPENAI',
+  'ANTHROPIC',
+  'GOOGLE',
+  'MISTRAL',
+  'CUSTOM',
+]);
+export const ToolChoiceEnum = defineEnum('ToolChoice', [
+  'auto',
+  'required',
+  'none',
+]);
 
 // ============ Schemas ============
 
@@ -16,7 +35,10 @@ export const AgentModel = defineSchemaModel({
   description: 'AI agent configuration',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -25,14 +47,37 @@ export const AgentModel = defineSchemaModel({
     modelName: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     modelConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     systemPrompt: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    userPromptTemplate: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    toolIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
-    toolChoice: { type: ToolChoiceEnum, isOptional: false, defaultValue: 'auto' },
-    maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 10 },
+    userPromptTemplate: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    toolIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
+    toolChoice: {
+      type: ToolChoiceEnum,
+      isOptional: false,
+      defaultValue: 'auto',
+    },
+    maxIterations: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 10,
+    },
     maxTokensPerRun: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 120000 },
+    timeoutMs: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 120000,
+    },
     version: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -71,7 +116,10 @@ export const AgentWithToolsModel = defineSchemaModel({
   description: 'Agent with associated tools',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -80,14 +128,25 @@ export const AgentWithToolsModel = defineSchemaModel({
     modelName: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     modelConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     systemPrompt: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    userPromptTemplate: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    toolIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    userPromptTemplate: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    toolIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     toolChoice: { type: ToolChoiceEnum, isOptional: false },
     maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     maxTokensPerRun: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     version: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     tools: { type: AgentToolRefModel, isArray: true, isOptional: true },
@@ -98,7 +157,10 @@ export const CreateAgentInputModel = defineSchemaModel({
   name: 'CreateAgentInput',
   description: 'Input for creating an agent',
   fields: {
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -106,13 +168,24 @@ export const CreateAgentInputModel = defineSchemaModel({
     modelName: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     modelConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     systemPrompt: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    userPromptTemplate: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    toolIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    userPromptTemplate: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    toolIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     toolChoice: { type: ToolChoiceEnum, isOptional: true },
     maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     maxTokensPerRun: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -126,13 +199,24 @@ export const UpdateAgentInputModel = defineSchemaModel({
     status: { type: AgentStatusEnum, isOptional: true },
     modelConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     systemPrompt: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    userPromptTemplate: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    toolIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    userPromptTemplate: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    toolIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     toolChoice: { type: ToolChoiceEnum, isOptional: true },
     maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     maxTokensPerRun: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -165,7 +249,8 @@ export const CreateAgentCommand = defineCommand({
     }),
     errors: {
       SLUG_EXISTS: {
-        description: 'An agent with this slug already exists in the organization',
+        description:
+          'An agent with this slug already exists in the organization',
         http: 409,
         gqlCode: 'SLUG_EXISTS',
         when: 'Slug is already taken',
@@ -176,7 +261,14 @@ export const CreateAgentCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'agent.created', version: 1, when: 'Agent is successfully created', payload: AgentSummaryModel }],
+    emits: [
+      {
+        name: 'agent.created',
+        version: 1,
+        when: 'Agent is successfully created',
+        payload: AgentSummaryModel,
+      },
+    ],
     audit: ['agent.created'],
   },
 });
@@ -219,7 +311,14 @@ export const UpdateAgentCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'agent.updated', version: 1, when: 'Agent is updated', payload: AgentSummaryModel }],
+    emits: [
+      {
+        name: 'agent.updated',
+        version: 1,
+        when: 'Agent is updated',
+        payload: AgentSummaryModel,
+      },
+    ],
     audit: ['agent.updated'],
   },
 });
@@ -279,12 +378,23 @@ export const ListAgentsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'ListAgentsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         status: { type: AgentStatusEnum, isOptional: true },
         modelProvider: { type: ModelProviderEnum, isOptional: true },
         search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -328,7 +438,10 @@ export const AssignToolToAgentCommand = defineCommand({
     output: defineSchemaModel({
       name: 'AssignToolToAgentOutput',
       fields: {
-        agentToolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        agentToolId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
         toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       },

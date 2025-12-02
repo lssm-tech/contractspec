@@ -4,4 +4,3 @@ export {
   dashboardListMarkdownRenderer,
   queryBuilderMarkdownRenderer,
 } from './analytics.markdown';
-

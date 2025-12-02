@@ -32,7 +32,8 @@ const gridVariants = cva('grid', {
 });
 
 export interface ListCardPageProps<T>
-  extends VariantProps<typeof containerVariants>,
+  extends
+    VariantProps<typeof containerVariants>,
     VariantProps<typeof gridVariants> {
   title: React.ReactNode;
   subtitle?: React.ReactNode;

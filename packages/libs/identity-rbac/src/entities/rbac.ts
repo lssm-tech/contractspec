@@ -11,11 +11,17 @@ export const RoleEntity = defineEntity({
   fields: {
     id: field.id(),
     name: field.string({ isUnique: true, description: 'Unique role name' }),
-    description: field.string({ isOptional: true, description: 'Role description' }),
-    permissions: field.string({ isArray: true, description: 'Array of permission names' }),
+    description: field.string({
+      isOptional: true,
+      description: 'Role description',
+    }),
+    permissions: field.string({
+      isArray: true,
+      description: 'Array of permission names',
+    }),
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     policyBindings: field.hasMany('PolicyBinding'),
   },
@@ -31,8 +37,14 @@ export const PermissionEntity = defineEntity({
   map: 'permission',
   fields: {
     id: field.id(),
-    name: field.string({ isUnique: true, description: 'Unique permission name' }),
-    description: field.string({ isOptional: true, description: 'Permission description' }),
+    name: field.string({
+      isUnique: true,
+      description: 'Unique permission name',
+    }),
+    description: field.string({
+      isOptional: true,
+      description: 'Permission description',
+    }),
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
   },
@@ -51,21 +63,22 @@ export const PolicyBindingEntity = defineEntity({
     roleId: field.foreignKey(),
     targetType: field.string({ description: '"user" or "organization"' }),
     targetId: field.string({ description: 'ID of User or Organization' }),
-    expiresAt: field.dateTime({ isOptional: true, description: 'When binding expires' }),
+    expiresAt: field.dateTime({
+      isOptional: true,
+      description: 'When binding expires',
+    }),
     createdAt: field.createdAt(),
-    
+
     // Optional direct relations
     userId: field.string({ isOptional: true }),
     organizationId: field.string({ isOptional: true }),
-    
+
     // Relations
     role: field.belongsTo('Role', ['roleId'], ['id'], { onDelete: 'Cascade' }),
     user: field.belongsTo('User', ['userId'], ['id']),
     organization: field.belongsTo('Organization', ['organizationId'], ['id']),
   },
-  indexes: [
-    index.on(['targetType', 'targetId']),
-  ],
+  indexes: [index.on(['targetType', 'targetId'])],
 });
 
 /**
@@ -79,11 +92,13 @@ export const ApiKeyEntity = defineEntity({
   fields: {
     id: field.id(),
     name: field.string({ description: 'API key name' }),
-    start: field.string({ description: 'Starting characters for identification' }),
+    start: field.string({
+      description: 'Starting characters for identification',
+    }),
     prefix: field.string({ description: 'API key prefix' }),
     key: field.string({ description: 'Hashed API key' }),
     userId: field.foreignKey(),
-    
+
     // Rate limiting
     refillInterval: field.int({ description: 'Refill interval in ms' }),
     refillAmount: field.int({ description: 'Amount to refill' }),
@@ -91,23 +106,23 @@ export const ApiKeyEntity = defineEntity({
     remaining: field.int({ description: 'Remaining requests' }),
     requestCount: field.int({ description: 'Total requests made' }),
     lastRequest: field.dateTime(),
-    
+
     // Limits
     enabled: field.boolean({ default: true }),
     rateLimitEnabled: field.boolean({ default: true }),
     rateLimitTimeWindow: field.int({ description: 'Rate limit window in ms' }),
     rateLimitMax: field.int({ description: 'Max requests in window' }),
-    
+
     // Expiration
     expiresAt: field.dateTime(),
-    
+
     // Permissions
     permissions: field.string({ isArray: true }),
     metadata: field.json({ isOptional: true }),
-    
+
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     user: field.belongsTo('User', ['userId'], ['id'], { onDelete: 'Cascade' }),
   },
@@ -133,9 +148,8 @@ export const PasskeyEntity = defineEntity({
     transports: field.string({ description: 'Transports' }),
     aaguid: field.string({ description: 'Authenticator GUID' }),
     createdAt: field.createdAt(),
-    
+
     // Relations
     user: field.belongsTo('User', ['userId'], ['id'], { onDelete: 'Cascade' }),
   },
 });
-

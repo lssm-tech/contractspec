@@ -81,7 +81,9 @@ export function AgentActionsModal({
     }
   };
 
-  const handleStatusChange = async (action: 'activate' | 'pause' | 'archive') => {
+  const handleStatusChange = async (
+    action: 'activate' | 'pause' | 'archive'
+  ) => {
     if (!agent) return;
     setError(null);
 
@@ -99,7 +101,9 @@ export function AgentActionsModal({
       }
       handleClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : `Failed to ${action} agent`);
+      setError(
+        err instanceof Error ? err.message : `Failed to ${action} agent`
+      );
     }
   };
 
@@ -122,12 +126,16 @@ export function AgentActionsModal({
             <span className="text-muted-foreground text-sm">
               {agent.modelProvider} / {agent.modelName}
             </span>
-            <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${getStatusColor(agent.status)}`}>
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs font-medium ${getStatusColor(agent.status)}`}
+            >
               {agent.status}
             </span>
           </div>
           {agent.description && (
-            <p className="text-muted-foreground mt-2 text-sm">{agent.description}</p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              {agent.description}
+            </p>
           )}
         </div>
 
@@ -290,4 +298,3 @@ export function AgentActionsModal({
     </div>
   );
 }
-

@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "ElevenLabs Integration: ContractSpec Docs",
+  title: 'ElevenLabs Integration: ContractSpec Docs',
   description:
-    "Generate realistic text-to-speech audio with ElevenLabs in ContractSpec.",
+    'Generate realistic text-to-speech audio with ElevenLabs in ContractSpec.',
 };
 
 export default function ElevenLabsIntegrationPage() {
@@ -21,7 +21,7 @@ export default function ElevenLabsIntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 ELEVENLABS_API_KEY=...`}</pre>
         </div>
@@ -29,7 +29,7 @@ ELEVENLABS_API_KEY=...`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Text-to-Speech</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: elevenlabs-tts
 provider:
   type: elevenlabs
@@ -55,7 +55,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Use cases</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Generate voiceovers for videos</li>
           <li>Create audio versions of articles</li>
           <li>Build voice assistants</li>
@@ -74,4 +74,3 @@ outputs:
     </div>
   );
 }
-

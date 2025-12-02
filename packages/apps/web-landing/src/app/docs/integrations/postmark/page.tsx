@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Postmark Integration: ContractSpec Docs",
+  title: 'Postmark Integration: ContractSpec Docs',
   description:
-    "Send transactional emails with high deliverability using Postmark in ContractSpec.",
+    'Send transactional emails with high deliverability using Postmark in ContractSpec.',
 };
 
 export default function PostmarkIntegrationPage() {
@@ -24,14 +24,14 @@ export default function PostmarkIntegrationPage() {
         <p className="text-muted-foreground">
           Add your Postmark credentials to your environment variables:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 POSTMARK_API_TOKEN=...
 POSTMARK_FROM_EMAIL=noreply@example.com
 POSTMARK_FROM_NAME="Your App Name"`}</pre>
         </div>
         <p className="text-muted-foreground text-sm">
-          Get your API token from the{" "}
+          Get your API token from the{' '}
           <a
             href="https://account.postmarkapp.com/servers"
             target="_blank"
@@ -46,7 +46,7 @@ POSTMARK_FROM_NAME="Your App Name"`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Sending emails</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: send-email
 provider:
   type: postmark
@@ -85,7 +85,7 @@ outputs:
           Postmark templates allow you to design emails in their dashboard and
           populate them with data:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: send-welcome-email
 provider:
   type: postmark
@@ -110,13 +110,13 @@ config:
         <p className="text-muted-foreground">
           Postmark can notify your app about delivery, bounces, and opens:
         </p>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`https://your-app.com/api/webhooks/postmark`}</pre>
         </div>
         <p className="text-muted-foreground">
           ContractSpec automatically processes these webhook events:
         </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
             <strong>Delivery</strong> – Email was successfully delivered
           </li>
@@ -137,7 +137,7 @@ config:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Use templates for consistent branding</li>
           <li>Always provide both HTML and plain text versions</li>
           <li>Monitor bounce rates and remove invalid addresses</li>
@@ -158,4 +158,3 @@ config:
     </div>
   );
 }
-

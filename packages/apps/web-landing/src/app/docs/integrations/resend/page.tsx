@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Resend Integration: ContractSpec Docs",
+  title: 'Resend Integration: ContractSpec Docs',
   description:
     "Send transactional emails with Resend's modern API in ContractSpec.",
 };
@@ -21,7 +21,7 @@ export default function ResendIntegrationPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 RESEND_API_KEY=re_...
 RESEND_FROM_EMAIL=onboarding@resend.dev`}</pre>
@@ -30,7 +30,7 @@ RESEND_FROM_EMAIL=onboarding@resend.dev`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Sending emails</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: resend-send-email
 provider:
   type: resend
@@ -58,7 +58,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Best practices</h2>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>Use React Email for type-safe templates</li>
           <li>Verify your domain for better deliverability</li>
           <li>Monitor email analytics in the Resend dashboard</li>
@@ -76,4 +76,3 @@ outputs:
     </div>
   );
 }
-

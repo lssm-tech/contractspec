@@ -50,39 +50,44 @@ export const IntegrationEntity = defineEntity({
   map: 'integration',
   fields: {
     id: field.id({ description: 'Unique integration ID' }),
-    
+
     // Identity
     name: field.string({ description: 'Integration name' }),
     slug: field.string({ description: 'URL-friendly identifier' }),
     description: field.string({ isOptional: true }),
-    
+
     // Provider
-    provider: field.string({ description: 'Integration provider (e.g., "salesforce", "hubspot")' }),
+    provider: field.string({
+      description: 'Integration provider (e.g., "salesforce", "hubspot")',
+    }),
     providerVersion: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.enum('IntegrationStatus', { default: 'DRAFT' }),
-    
+
     // Feature flag
     featureFlagKey: field.string({ isOptional: true }),
-    
+
     // Configuration
-    config: field.json({ isOptional: true, description: 'Integration-specific configuration' }),
-    
+    config: field.json({
+      isOptional: true,
+      description: 'Integration-specific configuration',
+    }),
+
     // Ownership
     organizationId: field.foreignKey(),
     createdBy: field.foreignKey(),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     connections: field.hasMany('Connection'),
     syncConfigs: field.hasMany('SyncConfig'),
   },
   indexes: [
-    index.on(['organizationId', 'slug']).unique(),
+    index.unique(['organizationId', 'slug']),
     index.on(['organizationId', 'status']),
     index.on(['provider']),
   ],
@@ -100,38 +105,45 @@ export const ConnectionEntity = defineEntity({
   fields: {
     id: field.id(),
     integrationId: field.foreignKey(),
-    
+
     // Identity
     name: field.string({ description: 'Connection name' }),
-    
+
     // Status
     status: field.enum('ConnectionStatus', { default: 'PENDING' }),
-    
+
     // Authentication (encrypted)
-    authType: field.string({ description: 'Auth type (oauth2, api_key, basic)' }),
-    credentials: field.json({ isOptional: true, description: 'Encrypted credentials' }),
-    
+    authType: field.string({
+      description: 'Auth type (oauth2, api_key, basic)',
+    }),
+    credentials: field.json({
+      isOptional: true,
+      description: 'Encrypted credentials',
+    }),
+
     // OAuth
     accessToken: field.string({ isOptional: true }),
     refreshToken: field.string({ isOptional: true }),
     tokenExpiresAt: field.dateTime({ isOptional: true }),
-    
+
     // External reference
     externalAccountId: field.string({ isOptional: true }),
     externalAccountName: field.string({ isOptional: true }),
-    
+
     // Health
     lastHealthCheck: field.dateTime({ isOptional: true }),
     healthStatus: field.string({ isOptional: true }),
     errorMessage: field.string({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
     connectedAt: field.dateTime({ isOptional: true }),
-    
+
     // Relations
-    integration: field.belongsTo('Integration', ['integrationId'], ['id'], { onDelete: 'Cascade' }),
+    integration: field.belongsTo('Integration', ['integrationId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
   indexes: [
     index.on(['integrationId', 'status']),
@@ -152,37 +164,37 @@ export const SyncConfigEntity = defineEntity({
     id: field.id(),
     integrationId: field.foreignKey(),
     connectionId: field.foreignKey(),
-    
+
     // Identity
     name: field.string({ description: 'Sync config name' }),
-    
+
     // Sync settings
     direction: field.enum('SyncDirection', { default: 'BIDIRECTIONAL' }),
-    
+
     // Object mapping
     sourceObject: field.string({ description: 'Source object type' }),
     targetObject: field.string({ description: 'Target object type' }),
-    
+
     // Schedule
     scheduleEnabled: field.boolean({ default: false }),
     scheduleCron: field.string({ isOptional: true }),
-    
+
     // Options
     createNew: field.boolean({ default: true }),
     updateExisting: field.boolean({ default: true }),
     deleteRemoved: field.boolean({ default: false }),
-    
+
     // Filtering
     sourceFilter: field.json({ isOptional: true }),
-    
+
     // Status
     isActive: field.boolean({ default: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
     lastSyncAt: field.dateTime({ isOptional: true }),
-    
+
     // Relations
     integration: field.belongsTo('Integration', ['integrationId'], ['id']),
     connection: field.belongsTo('Connection', ['connectionId'], ['id']),
@@ -208,34 +220,45 @@ export const FieldMappingEntity = defineEntity({
   fields: {
     id: field.id(),
     syncConfigId: field.foreignKey(),
-    
+
     // Source
     sourceField: field.string({ description: 'Source field path' }),
-    
+
     // Target
     targetField: field.string({ description: 'Target field path' }),
-    
+
     // Mapping type
     mappingType: field.enum('MappingType', { default: 'DIRECT' }),
-    
+
     // Transform
-    transformExpression: field.string({ isOptional: true, description: 'Transform expression for TRANSFORM type' }),
-    lookupConfig: field.json({ isOptional: true, description: 'Lookup configuration for LOOKUP type' }),
-    constantValue: field.json({ isOptional: true, description: 'Constant value for CONSTANT type' }),
-    
+    transformExpression: field.string({
+      isOptional: true,
+      description: 'Transform expression for TRANSFORM type',
+    }),
+    lookupConfig: field.json({
+      isOptional: true,
+      description: 'Lookup configuration for LOOKUP type',
+    }),
+    constantValue: field.json({
+      isOptional: true,
+      description: 'Constant value for CONSTANT type',
+    }),
+
     // Options
     isRequired: field.boolean({ default: false }),
     defaultValue: field.json({ isOptional: true }),
-    
+
     // Position
     position: field.int({ default: 0 }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    syncConfig: field.belongsTo('SyncConfig', ['syncConfigId'], ['id'], { onDelete: 'Cascade' }),
+    syncConfig: field.belongsTo('SyncConfig', ['syncConfigId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
   indexes: [
     index.on(['syncConfigId', 'position']),
@@ -255,17 +278,19 @@ export const SyncRunEntity = defineEntity({
   fields: {
     id: field.id(),
     syncConfigId: field.foreignKey(),
-    
+
     // Status
     status: field.enum('SyncStatus', { default: 'PENDING' }),
-    
+
     // Direction
     direction: field.enum('SyncDirection'),
-    
+
     // Trigger
-    trigger: field.string({ description: 'What triggered this run (schedule, manual, webhook)' }),
+    trigger: field.string({
+      description: 'What triggered this run (schedule, manual, webhook)',
+    }),
     triggeredBy: field.string({ isOptional: true }),
-    
+
     // Stats
     recordsProcessed: field.int({ default: 0 }),
     recordsCreated: field.int({ default: 0 }),
@@ -273,18 +298,18 @@ export const SyncRunEntity = defineEntity({
     recordsDeleted: field.int({ default: 0 }),
     recordsFailed: field.int({ default: 0 }),
     recordsSkipped: field.int({ default: 0 }),
-    
+
     // Error
     errorMessage: field.string({ isOptional: true }),
     errorDetails: field.json({ isOptional: true }),
-    
+
     // Timing
     startedAt: field.dateTime({ isOptional: true }),
     completedAt: field.dateTime({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
-    
+
     // Relations
     syncConfig: field.belongsTo('SyncConfig', ['syncConfigId'], ['id']),
     logs: field.hasMany('SyncLog'),
@@ -308,20 +333,25 @@ export const SyncLogEntity = defineEntity({
   fields: {
     id: field.id(),
     syncRunId: field.foreignKey(),
-    
+
     // Level
     level: field.string({ description: 'Log level (info, warn, error)' }),
-    
+
     // Content
     message: field.string(),
-    recordId: field.string({ isOptional: true, description: 'Related record ID' }),
+    recordId: field.string({
+      isOptional: true,
+      description: 'Related record ID',
+    }),
     details: field.json({ isOptional: true }),
-    
+
     // Timestamp
     createdAt: field.createdAt(),
-    
+
     // Relations
-    syncRun: field.belongsTo('SyncRun', ['syncRunId'], ['id'], { onDelete: 'Cascade' }),
+    syncRun: field.belongsTo('SyncRun', ['syncRunId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
   indexes: [
     index.on(['syncRunId', 'level']),
@@ -340,31 +370,31 @@ export const SyncRecordEntity = defineEntity({
   fields: {
     id: field.id(),
     syncConfigId: field.foreignKey(),
-    
+
     // Record IDs
     sourceId: field.string({ description: 'ID in source system' }),
     targetId: field.string({ description: 'ID in target system' }),
-    
+
     // Checksums for change detection
     sourceChecksum: field.string({ isOptional: true }),
     targetChecksum: field.string({ isOptional: true }),
-    
+
     // Last sync
     lastSyncedAt: field.dateTime(),
     lastSyncRunId: field.string({ isOptional: true }),
-    
+
     // Status
     syncStatus: field.string({ default: '"SYNCED"' }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     syncConfig: field.belongsTo('SyncConfig', ['syncConfigId'], ['id']),
   },
   indexes: [
-    index.on(['syncConfigId', 'sourceId']).unique(),
+    index.unique(['syncConfigId', 'sourceId']),
     index.on(['syncConfigId', 'targetId']),
     index.on(['lastSyncedAt']),
   ],
@@ -393,4 +423,3 @@ export const integrationHubSchemaContribution: ModuleSchemaContribution = {
     MappingTypeEnum,
   ],
 };
-

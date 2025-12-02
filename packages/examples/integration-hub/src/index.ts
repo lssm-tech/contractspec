@@ -19,7 +19,7 @@ import { integrationHubSchemaContribution } from './entities';
 
 /**
  * Complete schema composition for Integration Hub.
- * 
+ *
  * This example demonstrates:
  * - Integration connectors with OAuth and API key auth
  * - Bidirectional data synchronization
@@ -41,4 +41,3 @@ export const schemaComposition = {
   provider: 'postgresql' as const,
   outputPath: './prisma/schema/generated.prisma',
 };
-

@@ -31,8 +31,9 @@ const containerVariants = cva('', {
   },
 });
 
-export interface ListTablePageProps<T>
-  extends VariantProps<typeof containerVariants> {
+export interface ListTablePageProps<T> extends VariantProps<
+  typeof containerVariants
+> {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   items: T[];

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 import {
   ChevronRight,
   Layers,
@@ -12,18 +12,18 @@ import {
   GitBranch,
   Database,
   Zap,
-} from "lucide-react";
+} from 'lucide-react';
 
 export default function ProductClientPage() {
   return (
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding hero-gradient relative">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
+          <h1 className="text-5xl leading-tight font-bold md:text-6xl">
             Compiler for AI-coded systems
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             Define contracts once. Generate consistent code across API, DB, UI,
             and events. Regenerate safely anytime. No lock-in.
           </p>
@@ -42,53 +42,53 @@ export default function ProductClientPage() {
       </section>
 
       {/* Multi-Surface Consistency */}
-      <section className="section-padding border-b border-border">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <section className="section-padding border-border border-b">
+        <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 rounded-full border border-blue-500/20">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1">
               <Layers size={16} className="text-blue-400" />
               <span className="text-sm font-medium text-blue-300">
                 Multi-Surface Consistency
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl font-bold md:text-4xl">
               One contract, all surfaces in sync
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               Stop chasing drift between your API, database, UI, and events. One
               spec generates all outputs, guaranteed to stay consistent.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {[
               {
-                title: "REST & GraphQL API",
+                title: 'REST & GraphQL API',
                 description:
-                  "Type-safe endpoints with validation. Standard Express, Hono, Elysia, or Apollo handlers.",
+                  'Type-safe endpoints with validation. Standard Express, Hono, Elysia, or Apollo handlers.',
                 icon: Zap,
               },
               {
-                title: "Database Schema",
+                title: 'Database Schema',
                 description:
-                  "Prisma migrations and types generated from the same spec. Always in sync with your API.",
+                  'Prisma migrations and types generated from the same spec. Always in sync with your API.',
                 icon: Database,
               },
               {
-                title: "UI Components",
+                title: 'UI Components',
                 description:
-                  "React forms and views derived from specs. Validation and types flow through automatically.",
+                  'React forms and views derived from specs. Validation and types flow through automatically.',
                 icon: FileCode,
               },
               {
-                title: "MCP Tools & Events",
+                title: 'MCP Tools & Events',
                 description:
-                  "AI agent tool definitions and event schemas. Same contract, different surfaces.",
+                  'AI agent tool definitions and event schemas. Same contract, different surfaces.',
                 icon: GitBranch,
               },
             ].map((item, i) => (
-              <div key={i} className="card-subtle p-6 space-y-4">
+              <div key={i} className="card-subtle space-y-4 p-6">
                 <item.icon className="text-blue-400" size={24} />
-                <h3 className="font-bold text-lg">{item.title}</h3>
+                <h3 className="text-lg font-bold">{item.title}</h3>
                 <p className="text-muted-foreground text-sm">
                   {item.description}
                 </p>
@@ -99,62 +99,80 @@ export default function ProductClientPage() {
       </section>
 
       {/* Safe Regeneration */}
-      <section className="section-padding border-b border-border bg-muted/20">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <section className="section-padding border-border bg-muted/20 border-b">
+        <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1">
               <RefreshCw size={16} className="text-emerald-400" />
               <span className="text-sm font-medium text-emerald-300">
                 Safe Regeneration
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl font-bold md:text-4xl">
               Regenerate anytime without fear
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               Contracts enforce invariants. Breaking changes are caught at
               compile time, not production. Regenerate with confidence.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="card-subtle p-6 space-y-4">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="card-subtle space-y-4 p-6">
               <h3 className="font-bold">Spec-First Safety</h3>
               <p className="text-muted-foreground text-sm">
                 AI agents read specs, not implementations. Generated code that
                 violates contracts gets flagged automatically.
               </p>
-              <ul className="space-y-2 text-muted-foreground text-sm">
+              <ul className="text-muted-foreground space-y-2 text-sm">
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   Type-safe from spec to runtime
                 </li>
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   Invariants enforced at compile time
                 </li>
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   Breaking changes detected early
                 </li>
               </ul>
             </div>
-            <div className="card-subtle p-6 space-y-4">
+            <div className="card-subtle space-y-4 p-6">
               <h3 className="font-bold">Version Control Built-in</h3>
               <p className="text-muted-foreground text-sm">
                 Every spec change is tracked. Roll back to any previous version.
                 Migrations are explicit and reversible.
               </p>
-              <ul className="space-y-2 text-muted-foreground text-sm">
+              <ul className="text-muted-foreground space-y-2 text-sm">
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   Git-native spec history
                 </li>
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   Explicit migration paths
                 </li>
                 <li className="flex gap-3">
-                  <CheckCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 flex-shrink-0 text-emerald-400"
+                  />
                   One-click rollback
                 </li>
               </ul>
@@ -164,24 +182,24 @@ export default function ProductClientPage() {
       </section>
 
       {/* Contract Enforcement */}
-      <section className="section-padding border-b border-border">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <section className="section-padding border-border border-b">
+        <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-violet-500/10 rounded-full border border-violet-500/20">
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1">
               <Shield size={16} className="text-violet-400" />
               <span className="text-sm font-medium text-violet-300">
                 Contract Enforcement
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl font-bold md:text-4xl">
               AI governance that actually works
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               Constrain what AI agents can change. Enforce contracts they must
               respect. No more hallucinated refactors breaking your system.
             </p>
           </div>
-          <div className="card-subtle p-6 space-y-6">
+          <div className="card-subtle space-y-6 p-6">
             <div className="space-y-4">
               <h3 className="font-bold">How contract enforcement works</h3>
               <p className="text-muted-foreground text-sm">
@@ -190,20 +208,20 @@ export default function ProductClientPage() {
                 rejected before it can cause damage.
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
-                  title: "Define",
+                  title: 'Define',
                   description:
-                    "Write specs in TypeScript. Define inputs, outputs, and invariants.",
+                    'Write specs in TypeScript. Define inputs, outputs, and invariants.',
                 },
                 {
-                  title: "Generate",
+                  title: 'Generate',
                   description:
-                    "ContractSpec generates code across all surfaces from your specs.",
+                    'ContractSpec generates code across all surfaces from your specs.',
                 },
                 {
-                  title: "Enforce",
+                  title: 'Enforce',
                   description:
                     "Any code that violates specs is flagged. AI agents can't break contracts.",
                 },
@@ -214,7 +232,7 @@ export default function ProductClientPage() {
                       {i + 1}
                     </div>
                   </div>
-                  <h4 className="font-bold text-sm">{step.title}</h4>
+                  <h4 className="text-sm font-bold">{step.title}</h4>
                   <p className="text-muted-foreground text-xs">
                     {step.description}
                   </p>
@@ -226,58 +244,58 @@ export default function ProductClientPage() {
       </section>
 
       {/* No Lock-in */}
-      <section className="section-padding border-b border-border bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-blue-500/5">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <section className="section-padding border-border border-b bg-gradient-to-br from-violet-500/10 via-indigo-500/5 to-blue-500/5">
+        <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-500/10 rounded-full border border-pink-500/20">
+            <div className="inline-flex items-center gap-2 rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1">
               <Unlock size={16} className="text-pink-400" />
               <span className="text-sm font-medium text-pink-300">
                 No Lock-in
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl font-bold md:text-4xl">
               You own everything. Eject anytime.
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               ContractSpec is a compiler, not a prison. The generated code is
               yours — standard TypeScript, standard SQL, standard GraphQL.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="card-subtle p-6 space-y-4">
-              <h3 className="font-bold text-lg">Standard Tech Output</h3>
-              <ul className="space-y-3 text-muted-foreground text-sm">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="card-subtle space-y-4 p-6">
+              <h3 className="text-lg font-bold">Standard Tech Output</h3>
+              <ul className="text-muted-foreground space-y-3 text-sm">
                 {[
-                  "TypeScript you can read and modify",
-                  "Prisma migrations you can run manually",
-                  "GraphQL schemas you can serve anywhere",
-                  "React components with no magic",
-                  "REST handlers that work with any framework",
+                  'TypeScript you can read and modify',
+                  'Prisma migrations you can run manually',
+                  'GraphQL schemas you can serve anywhere',
+                  'React components with no magic',
+                  'REST handlers that work with any framework',
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3">
                     <CheckCircle
                       size={16}
-                      className="text-pink-400 flex-shrink-0 mt-0.5"
+                      className="mt-0.5 flex-shrink-0 text-pink-400"
                     />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="card-subtle p-6 space-y-4">
-              <h3 className="font-bold text-lg">No Proprietary Dependencies</h3>
-              <ul className="space-y-3 text-muted-foreground text-sm">
+            <div className="card-subtle space-y-4 p-6">
+              <h3 className="text-lg font-bold">No Proprietary Dependencies</h3>
+              <ul className="text-muted-foreground space-y-3 text-sm">
                 {[
-                  "No runtime library required",
-                  "No vendor-specific abstractions",
-                  "Works with your existing CI/CD",
-                  "Eject anytime, keep everything",
-                  "Open spec format",
+                  'No runtime library required',
+                  'No vendor-specific abstractions',
+                  'Works with your existing CI/CD',
+                  'Eject anytime, keep everything',
+                  'Open spec format',
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3">
                     <CheckCircle
                       size={16}
-                      className="text-pink-400 flex-shrink-0 mt-0.5"
+                      className="mt-0.5 flex-shrink-0 text-pink-400"
                     />
                     {item}
                   </li>
@@ -285,12 +303,12 @@ export default function ProductClientPage() {
               </ul>
             </div>
           </div>
-          <div className="text-center pt-4">
-            <p className="text-muted-foreground text-sm mb-4">
+          <div className="pt-4 text-center">
+            <p className="text-muted-foreground mb-4 text-sm">
               Like TypeScript compiles to JavaScript, ContractSpec compiles to
               standard code.
               <br />
-              <span className="text-violet-400 font-medium">
+              <span className="font-medium text-violet-400">
                 We're the compiler, not the prison.
               </span>
             </p>
@@ -299,34 +317,34 @@ export default function ProductClientPage() {
       </section>
 
       {/* Incremental Adoption */}
-      <section className="section-padding border-b border-border">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center">
+      <section className="section-padding border-border border-b">
+        <div className="mx-auto max-w-4xl space-y-8">
+          <h2 className="text-center text-3xl font-bold md:text-4xl">
             Start small. Expand gradually.
           </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-center text-lg">
             You don't rewrite your app. You stabilize one module at a time.
             Start with one endpoint, prove value, then expand.
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "Day 1",
+                title: 'Day 1',
                 description:
-                  "Pick one API endpoint. Write a spec. See what gets generated.",
+                  'Pick one API endpoint. Write a spec. See what gets generated.',
               },
               {
-                title: "Week 1",
+                title: 'Week 1',
                 description:
-                  "Add a few more specs. Compare generated code to existing code.",
+                  'Add a few more specs. Compare generated code to existing code.',
               },
               {
-                title: "Month 1",
+                title: 'Month 1',
                 description:
-                  "Migrate a full module. Enjoy multi-surface consistency.",
+                  'Migrate a full module. Enjoy multi-surface consistency.',
               },
             ].map((item, i) => (
-              <div key={i} className="card-subtle p-6 space-y-4 text-center">
+              <div key={i} className="card-subtle space-y-4 p-6 text-center">
                 <div className="text-2xl font-bold text-violet-400">
                   {item.title}
                 </div>
@@ -341,8 +359,8 @@ export default function ProductClientPage() {
 
       {/* CTA */}
       <section className="section-padding hero-gradient">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold">
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
+          <h2 className="text-3xl font-bold md:text-4xl">
             Ready to stabilize your AI-generated code?
           </h2>
           <p className="text-muted-foreground text-lg">

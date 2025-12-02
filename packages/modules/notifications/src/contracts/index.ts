@@ -1,4 +1,8 @@
-import { defineCommand, defineQuery, defineSchemaModel } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineQuery,
+  defineSchemaModel,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
 
 const OWNERS = ['platform.notifications'] as const;
@@ -41,7 +45,11 @@ export const NotificationModel = defineSchemaModel({
     body: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: NotificationStatusSchemaEnum, isOptional: false },
-    channels: { type: NotificationChannelSchemaEnum, isArray: true, isOptional: false },
+    channels: {
+      type: NotificationChannelSchemaEnum,
+      isArray: true,
+      isOptional: false,
+    },
     actionUrl: { type: ScalarTypeEnum.URL(), isOptional: true },
     readAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -54,13 +62,22 @@ export const NotificationPreferenceModel = defineSchemaModel({
   fields: {
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     globalEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-    channelPreferences: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
+    channelPreferences: {
+      type: ScalarTypeEnum.JSONObject(),
+      isOptional: false,
+    },
     typePreferences: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-    quietHoursStart: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    quietHoursStart: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     quietHoursEnd: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     timezone: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     digestEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-    digestFrequency: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    digestFrequency: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
@@ -73,7 +90,11 @@ export const SendNotificationInputModel = defineSchemaModel({
     title: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     body: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    channels: { type: NotificationChannelSchemaEnum, isArray: true, isOptional: true },
+    channels: {
+      type: NotificationChannelSchemaEnum,
+      isArray: true,
+      isOptional: true,
+    },
     actionUrl: { type: ScalarTypeEnum.URL(), isOptional: true },
     variables: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     metadata: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
@@ -86,8 +107,16 @@ export const ListNotificationsInputModel = defineSchemaModel({
   fields: {
     status: { type: NotificationFilterEnum, isOptional: true },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -95,7 +124,11 @@ export const ListNotificationsOutputModel = defineSchemaModel({
   name: 'ListNotificationsOutput',
   description: 'Output for listing notifications',
   fields: {
-    notifications: { type: NotificationModel, isArray: true, isOptional: false },
+    notifications: {
+      type: NotificationModel,
+      isArray: true,
+      isOptional: false,
+    },
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     unreadCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
@@ -108,11 +141,17 @@ export const UpdatePreferencesInputModel = defineSchemaModel({
     globalEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     channelPreferences: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     typePreferences: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-    quietHoursStart: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    quietHoursStart: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     quietHoursEnd: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     timezone: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     digestEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-    digestFrequency: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    digestFrequency: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
   },
 });
 
@@ -154,7 +193,14 @@ export const SendNotificationContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'notification.sent', version: 1, when: 'Notification is sent', payload: NotificationModel }],
+    emits: [
+      {
+        name: 'notification.sent',
+        version: 1,
+        when: 'Notification is sent',
+        payload: NotificationModel,
+      },
+    ],
   },
 });
 
@@ -199,7 +245,10 @@ export const MarkNotificationReadContract = defineCommand({
     input: defineSchemaModel({
       name: 'MarkNotificationReadInput',
       fields: {
-        notificationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        notificationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
       },
     }),
     output: NotificationModel,
@@ -301,7 +350,10 @@ export const DeleteNotificationContract = defineCommand({
     input: defineSchemaModel({
       name: 'DeleteNotificationInput',
       fields: {
-        notificationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        notificationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
       },
     }),
     output: defineSchemaModel({

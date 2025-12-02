@@ -15,7 +15,10 @@ export interface KnowledgeRetriever {
    * @param options - Retrieval options including space key and filters
    * @returns Array of retrieval results sorted by relevance
    */
-  retrieve(query: string, options: RetrievalOptions): Promise<RetrievalResult[]>;
+  retrieve(
+    query: string,
+    options: RetrievalOptions
+  ): Promise<RetrievalResult[]>;
 
   /**
    * Get static content by space key (for required knowledge injection).
@@ -53,4 +56,3 @@ export interface RetrieverConfig {
   /** Default minimum score threshold */
   defaultMinScore?: number;
 }
-

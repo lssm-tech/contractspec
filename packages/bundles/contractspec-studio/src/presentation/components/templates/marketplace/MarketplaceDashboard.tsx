@@ -19,16 +19,22 @@ import { useMarketplaceData } from './hooks/useMarketplaceData';
 type Tab = 'stores' | 'products' | 'orders';
 
 const STATUS_COLORS: Record<string, string> = {
-  ACTIVE: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-  PENDING: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  ACTIVE:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  PENDING:
+    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
   SUSPENDED: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
   DRAFT: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
-  OUT_OF_STOCK: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
+  OUT_OF_STOCK:
+    'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
   ARCHIVED: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
   CONFIRMED: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  PROCESSING: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
-  SHIPPED: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
-  DELIVERED: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  PROCESSING:
+    'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
+  SHIPPED:
+    'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+  DELIVERED:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   CANCELLED: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 };
 
@@ -43,7 +49,8 @@ function formatCurrency(value: number, currency = 'USD'): string {
 
 export function MarketplaceDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('stores');
-  const { stores, products, orders, loading, error, stats, refetch } = useMarketplaceData();
+  const { stores, products, orders, loading, error, stats, refetch } =
+    useMarketplaceData();
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'stores', label: 'Stores', icon: '🏪' },
@@ -83,11 +90,7 @@ export function MarketplaceDashboard() {
           value={stats.totalStores}
           hint={`${stats.activeStores} active`}
         />
-        <StatCard
-          label="Products"
-          value={stats.totalProducts}
-          hint="listed"
-        />
+        <StatCard label="Products" value={stats.totalProducts} hint="listed" />
         <StatCard
           label="Orders"
           value={stats.totalOrders}
@@ -128,10 +131,18 @@ export function MarketplaceDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Store</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Rating</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Reviews</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Store
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Rating
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Reviews
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -139,10 +150,14 @@ export function MarketplaceDashboard() {
                   <tr key={store.id} className="hover:bg-muted/50">
                     <td className="px-4 py-3">
                       <div className="font-medium">{store.name}</div>
-                      <div className="text-muted-foreground text-sm">{store.description}</div>
+                      <div className="text-muted-foreground text-sm">
+                        {store.description}
+                      </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[store.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[store.status] ?? ''}`}
+                      >
                         {store.status}
                       </span>
                     </td>
@@ -158,7 +173,10 @@ export function MarketplaceDashboard() {
                 ))}
                 {stores.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No stores found
                     </td>
                   </tr>
@@ -173,10 +191,18 @@ export function MarketplaceDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Product</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Price</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Stock</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Product
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Price
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Stock
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -184,14 +210,18 @@ export function MarketplaceDashboard() {
                   <tr key={product.id} className="hover:bg-muted/50">
                     <td className="px-4 py-3">
                       <div className="font-medium">{product.name}</div>
-                      <div className="text-muted-foreground text-sm">{product.category}</div>
+                      <div className="text-muted-foreground text-sm">
+                        {product.category}
+                      </div>
                     </td>
                     <td className="px-4 py-3 font-mono">
                       {formatCurrency(product.price, product.currency)}
                     </td>
                     <td className="px-4 py-3">{product.stock}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[product.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[product.status] ?? ''}`}
+                      >
                         {product.status}
                       </span>
                     </td>
@@ -199,7 +229,10 @@ export function MarketplaceDashboard() {
                 ))}
                 {products.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No products found
                     </td>
                   </tr>
@@ -214,11 +247,21 @@ export function MarketplaceDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Order ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Customer</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Total</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Date</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Order ID
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Customer
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Total
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Date
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -230,7 +273,9 @@ export function MarketplaceDashboard() {
                       {formatCurrency(order.total, order.currency)}
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[order.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[order.status] ?? ''}`}
+                      >
                         {order.status}
                       </span>
                     </td>
@@ -241,7 +286,10 @@ export function MarketplaceDashboard() {
                 ))}
                 {orders.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={5}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No orders found
                     </td>
                   </tr>
@@ -254,4 +302,3 @@ export function MarketplaceDashboard() {
     </div>
   );
 }
-

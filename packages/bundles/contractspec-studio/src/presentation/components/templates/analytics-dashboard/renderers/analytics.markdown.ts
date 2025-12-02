@@ -5,26 +5,121 @@ import type { PresentationRenderer } from '@lssm/lib.contracts';
 
 // Mock data for analytics rendering
 const mockDashboards = [
-  { id: 'dash-1', name: 'Sales Overview', slug: 'sales-overview', status: 'PUBLISHED', widgetCount: 8, viewCount: 1250, lastViewedAt: '2024-01-16T12:00:00Z' },
-  { id: 'dash-2', name: 'User Engagement', slug: 'user-engagement', status: 'PUBLISHED', widgetCount: 6, viewCount: 890, lastViewedAt: '2024-01-16T10:00:00Z' },
-  { id: 'dash-3', name: 'Product Analytics', slug: 'product-analytics', status: 'PUBLISHED', widgetCount: 10, viewCount: 560, lastViewedAt: '2024-01-15T14:00:00Z' },
-  { id: 'dash-4', name: 'Finance Report', slug: 'finance-report', status: 'DRAFT', widgetCount: 4, viewCount: 0, lastViewedAt: null },
+  {
+    id: 'dash-1',
+    name: 'Sales Overview',
+    slug: 'sales-overview',
+    status: 'PUBLISHED',
+    widgetCount: 8,
+    viewCount: 1250,
+    lastViewedAt: '2024-01-16T12:00:00Z',
+  },
+  {
+    id: 'dash-2',
+    name: 'User Engagement',
+    slug: 'user-engagement',
+    status: 'PUBLISHED',
+    widgetCount: 6,
+    viewCount: 890,
+    lastViewedAt: '2024-01-16T10:00:00Z',
+  },
+  {
+    id: 'dash-3',
+    name: 'Product Analytics',
+    slug: 'product-analytics',
+    status: 'PUBLISHED',
+    widgetCount: 10,
+    viewCount: 560,
+    lastViewedAt: '2024-01-15T14:00:00Z',
+  },
+  {
+    id: 'dash-4',
+    name: 'Finance Report',
+    slug: 'finance-report',
+    status: 'DRAFT',
+    widgetCount: 4,
+    viewCount: 0,
+    lastViewedAt: null,
+  },
 ];
 
 const mockWidgets = [
-  { id: 'w-1', dashboardId: 'dash-1', name: 'Total Revenue', type: 'METRIC', value: 125000, change: 12.5 },
-  { id: 'w-2', dashboardId: 'dash-1', name: 'Active Users', type: 'METRIC', value: 4500, change: 8.2 },
-  { id: 'w-3', dashboardId: 'dash-1', name: 'Revenue Trend', type: 'LINE_CHART', dataPoints: 30 },
-  { id: 'w-4', dashboardId: 'dash-1', name: 'Top Products', type: 'BAR_CHART', dataPoints: 10 },
-  { id: 'w-5', dashboardId: 'dash-2', name: 'Daily Active Users', type: 'LINE_CHART', dataPoints: 30 },
-  { id: 'w-6', dashboardId: 'dash-2', name: 'Session Duration', type: 'METRIC', value: 245, change: -3.1 },
+  {
+    id: 'w-1',
+    dashboardId: 'dash-1',
+    name: 'Total Revenue',
+    type: 'METRIC',
+    value: 125000,
+    change: 12.5,
+  },
+  {
+    id: 'w-2',
+    dashboardId: 'dash-1',
+    name: 'Active Users',
+    type: 'METRIC',
+    value: 4500,
+    change: 8.2,
+  },
+  {
+    id: 'w-3',
+    dashboardId: 'dash-1',
+    name: 'Revenue Trend',
+    type: 'LINE_CHART',
+    dataPoints: 30,
+  },
+  {
+    id: 'w-4',
+    dashboardId: 'dash-1',
+    name: 'Top Products',
+    type: 'BAR_CHART',
+    dataPoints: 10,
+  },
+  {
+    id: 'w-5',
+    dashboardId: 'dash-2',
+    name: 'Daily Active Users',
+    type: 'LINE_CHART',
+    dataPoints: 30,
+  },
+  {
+    id: 'w-6',
+    dashboardId: 'dash-2',
+    name: 'Session Duration',
+    type: 'METRIC',
+    value: 245,
+    change: -3.1,
+  },
 ];
 
 const mockQueries = [
-  { id: 'q-1', name: 'Monthly Revenue', type: 'AGGREGATION', isShared: true, executionCount: 1500 },
-  { id: 'q-2', name: 'User Growth', type: 'METRIC', isShared: true, executionCount: 890 },
-  { id: 'q-3', name: 'Product Sales', type: 'SQL', isShared: false, executionCount: 340 },
-  { id: 'q-4', name: 'Conversion Funnel', type: 'AGGREGATION', isShared: true, executionCount: 450 },
+  {
+    id: 'q-1',
+    name: 'Monthly Revenue',
+    type: 'AGGREGATION',
+    isShared: true,
+    executionCount: 1500,
+  },
+  {
+    id: 'q-2',
+    name: 'User Growth',
+    type: 'METRIC',
+    isShared: true,
+    executionCount: 890,
+  },
+  {
+    id: 'q-3',
+    name: 'Product Sales',
+    type: 'SQL',
+    isShared: false,
+    executionCount: 340,
+  },
+  {
+    id: 'q-4',
+    name: 'Conversion Funnel',
+    type: 'AGGREGATION',
+    isShared: true,
+    executionCount: 450,
+  },
 ];
 
 function formatNumber(value: number): string {
@@ -56,7 +151,9 @@ export const analyticsDashboardMarkdownRenderer: PresentationRenderer<{
       desc.source.type !== 'component' ||
       desc.source.componentKey !== 'AnalyticsDashboard'
     ) {
-      throw new Error('analyticsDashboardMarkdownRenderer: not AnalyticsDashboard');
+      throw new Error(
+        'analyticsDashboardMarkdownRenderer: not AnalyticsDashboard'
+      );
     }
 
     const dashboards = mockDashboards;
@@ -65,10 +162,20 @@ export const analyticsDashboardMarkdownRenderer: PresentationRenderer<{
 
     // Get the first dashboard for detailed view
     const dashboard = dashboards[0];
-    const dashboardWidgets = widgets.filter((w) => w.dashboardId === dashboard.id);
+    if (!dashboard) {
+      return {
+        mimeType: 'text/markdown',
+        body: '# No Dashboards\n\nNo dashboards available.',
+      };
+    }
+    const dashboardWidgets = widgets.filter(
+      (w) => w.dashboardId === dashboard.id
+    );
 
     // Calculate stats
-    const publishedDashboards = dashboards.filter((d) => d.status === 'PUBLISHED');
+    const publishedDashboards = dashboards.filter(
+      (d) => d.status === 'PUBLISHED'
+    );
     const totalViews = dashboards.reduce((sum, d) => sum + d.viewCount, 0);
     const sharedQueries = queries.filter((q) => q.isShared);
 
@@ -97,7 +204,9 @@ export const analyticsDashboardMarkdownRenderer: PresentationRenderer<{
     const chartWidgets = dashboardWidgets.filter((w) => w.type !== 'METRIC');
     for (const widget of chartWidgets) {
       const w = widget as { name: string; type: string; dataPoints: number };
-      lines.push(`- **${w.name}** (${w.type.replace('_', ' ')}) - ${w.dataPoints} data points`);
+      lines.push(
+        `- **${w.name}** (${w.type.replace('_', ' ')}) - ${w.dataPoints} data points`
+      );
     }
 
     lines.push('');
@@ -145,11 +254,13 @@ export const dashboardListMarkdownRenderer: PresentationRenderer<{
     ];
 
     for (const dashboard of dashboards) {
-      const lastViewed = dashboard.lastViewedAt 
+      const lastViewed = dashboard.lastViewedAt
         ? new Date(dashboard.lastViewedAt).toLocaleDateString()
         : 'Never';
       const statusIcon = dashboard.status === 'PUBLISHED' ? '🟢' : '⚫';
-      lines.push(`| [${dashboard.name}](/dashboards/${dashboard.slug}) | ${dashboard.widgetCount} | ${dashboard.viewCount.toLocaleString()} | ${statusIcon} ${dashboard.status} | ${lastViewed} |`);
+      lines.push(
+        `| [${dashboard.name}](/dashboards/${dashboard.slug}) | ${dashboard.widgetCount} | ${dashboard.viewCount.toLocaleString()} | ${statusIcon} ${dashboard.status} | ${lastViewed} |`
+      );
     }
 
     lines.push('');
@@ -197,7 +308,9 @@ export const queryBuilderMarkdownRenderer: PresentationRenderer<{
 
     for (const query of queries) {
       const sharedIcon = query.isShared ? '🌐' : '🔒';
-      lines.push(`| ${query.name} | ${query.type} | ${sharedIcon} | ${query.executionCount.toLocaleString()} |`);
+      lines.push(
+        `| ${query.name} | ${query.type} | ${sharedIcon} | ${query.executionCount.toLocaleString()} |`
+      );
     }
 
     lines.push('');
@@ -207,7 +320,9 @@ export const queryBuilderMarkdownRenderer: PresentationRenderer<{
     lines.push('Query usage metrics from the metering system.');
     lines.push('');
     lines.push('### AGGREGATION');
-    lines.push('Build aggregations with measures and dimensions without writing SQL.');
+    lines.push(
+      'Build aggregations with measures and dimensions without writing SQL.'
+    );
     lines.push('');
     lines.push('### SQL');
     lines.push('Write custom SQL queries for advanced analysis.');
@@ -226,4 +341,3 @@ export const queryBuilderMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-

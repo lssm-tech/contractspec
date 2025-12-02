@@ -115,9 +115,7 @@ export class FileSystemSuggestionWriter implements SpecSuggestionWriter {
   }
 }
 
-export class InMemorySpecSuggestionRepository
-  implements SpecSuggestionRepository
-{
+export class InMemorySpecSuggestionRepository implements SpecSuggestionRepository {
   private readonly items = new Map<string, SpecSuggestion>();
 
   async create(suggestion: SpecSuggestion): Promise<void> {

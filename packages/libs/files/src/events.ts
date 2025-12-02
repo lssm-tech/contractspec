@@ -11,7 +11,10 @@ const FileUploadedPayload = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     mimeType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     size: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    storageProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    storageProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     ownerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     orgId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     uploadedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -36,7 +39,10 @@ const FileDeletedPayload = defineSchemaModel({
   fields: {
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    storageProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    storageProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     storagePath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     deletedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     deletedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -65,7 +71,10 @@ const AttachmentAttachedPayload = defineSchemaModel({
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     entityId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    attachmentType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    attachmentType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     attachedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     attachedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -204,4 +213,3 @@ export const FileEvents = {
   UploadSessionStartedEvent,
   UploadSessionCompletedEvent,
 };
-

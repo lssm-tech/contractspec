@@ -31,7 +31,14 @@ export async function handleCreateIntegration(
     featureFlagKey?: string;
   },
   context: IntegrationHandlerContext
-): Promise<{ id: string; name: string; slug: string; provider: string; status: string; createdAt: Date }> {
+): Promise<{
+  id: string;
+  name: string;
+  slug: string;
+  provider: string;
+  status: string;
+  createdAt: Date;
+}> {
   const id = `int_${Date.now()}`;
   const now = new Date();
 
@@ -70,7 +77,13 @@ export async function handleCreateConnection(
     credentials?: unknown;
   },
   _context: IntegrationHandlerContext
-): Promise<{ id: string; integrationId: string; name: string; status: string; authType: string }> {
+): Promise<{
+  id: string;
+  integrationId: string;
+  name: string;
+  status: string;
+  authType: string;
+}> {
   const id = `conn_${Date.now()}`;
   const now = new Date();
 
@@ -108,7 +121,14 @@ export async function handleCreateSyncConfig(
     scheduleCron?: string;
   },
   _context: IntegrationHandlerContext
-): Promise<{ id: string; name: string; direction: string; sourceObject: string; targetObject: string; isActive: boolean }> {
+): Promise<{
+  id: string;
+  name: string;
+  direction: string;
+  sourceObject: string;
+  targetObject: string;
+  isActive: boolean;
+}> {
   const id = `sync_${Date.now()}`;
   const now = new Date();
 
@@ -155,13 +175,21 @@ export async function handleAddFieldMapping(
     defaultValue?: unknown;
   },
   _context: IntegrationHandlerContext
-): Promise<{ id: string; sourceField: string; targetField: string; mappingType: string }> {
+): Promise<{
+  id: string;
+  sourceField: string;
+  targetField: string;
+  mappingType: string;
+}> {
   const id = `map_${Date.now()}`;
   const now = new Date();
 
   // Get existing mappings count for position
-  const existingMappings = Array.from(mockIntegrationStore.fieldMappings.values())
-    .filter((m) => (m as { syncConfigId: string }).syncConfigId === input.syncConfigId);
+  const existingMappings = Array.from(
+    mockIntegrationStore.fieldMappings.values()
+  ).filter(
+    (m) => (m as { syncConfigId: string }).syncConfigId === input.syncConfigId
+  );
 
   const mapping = {
     id,
@@ -196,17 +224,27 @@ export async function handleTriggerSync(
     fullSync?: boolean;
   },
   context: IntegrationHandlerContext
-): Promise<{ id: string; syncConfigId: string; status: string; trigger: string; createdAt: Date }> {
+): Promise<{
+  id: string;
+  syncConfigId: string;
+  status: string;
+  trigger: string;
+  startedAt: Date;
+  createdAt: Date;
+}> {
   const id = `run_${Date.now()}`;
   const now = new Date();
 
   const syncConfig = mockIntegrationStore.syncConfigs.get(input.syncConfigId);
-  const direction = input.direction ?? (syncConfig as { direction: string } | undefined)?.direction ?? 'BIDIRECTIONAL';
+  const direction =
+    input.direction ??
+    (syncConfig as { direction: string } | undefined)?.direction ??
+    'BIDIRECTIONAL';
 
   const syncRun = {
     id,
     syncConfigId: input.syncConfigId,
-    status: 'PENDING',
+    status: 'RUNNING',
     direction,
     trigger: 'manual',
     triggeredBy: context.userId,
@@ -216,21 +254,18 @@ export async function handleTriggerSync(
     recordsDeleted: 0,
     recordsFailed: 0,
     recordsSkipped: 0,
+    startedAt: now,
     createdAt: now,
   };
 
   mockIntegrationStore.syncRuns.set(id, syncRun);
-
-  // In production, this would queue a background job
-  // For demo, we'll just mark it as running
-  (syncRun as { status: string }).status = 'RUNNING';
-  (syncRun as { startedAt: Date }).startedAt = now;
 
   return {
     id,
     syncConfigId: input.syncConfigId,
     status: 'RUNNING',
     trigger: 'manual',
+    startedAt: now,
     createdAt: now,
   };
 }
@@ -244,11 +279,14 @@ export async function handleListSyncRuns(
   },
   _context: IntegrationHandlerContext
 ): Promise<{ runs: unknown[]; total: number }> {
-  let runs = Array.from(mockIntegrationStore.syncRuns.values())
-    .filter((r) => (r as { syncConfigId: string }).syncConfigId === input.syncConfigId);
+  let runs = Array.from(mockIntegrationStore.syncRuns.values()).filter(
+    (r) => (r as { syncConfigId: string }).syncConfigId === input.syncConfigId
+  );
 
   if (input.status) {
-    runs = runs.filter((r) => (r as { status: string }).status === input.status);
+    runs = runs.filter(
+      (r) => (r as { status: string }).status === input.status
+    );
   }
 
   const total = runs.length;
@@ -265,4 +303,3 @@ export async function handleListSyncRuns(
 
   return { runs, total };
 }
-

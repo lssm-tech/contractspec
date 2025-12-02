@@ -97,17 +97,3 @@ export default function StudioDocsIndexPage() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

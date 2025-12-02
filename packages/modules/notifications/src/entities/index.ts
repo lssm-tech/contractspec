@@ -6,7 +6,14 @@ import type { ModuleSchemaContribution } from '@lssm/lib.schema';
  */
 export const NotificationStatusEnum = defineEntityEnum({
   name: 'NotificationStatus',
-  values: ['PENDING', 'SENT', 'DELIVERED', 'READ', 'FAILED', 'CANCELLED'] as const,
+  values: [
+    'PENDING',
+    'SENT',
+    'DELIVERED',
+    'READ',
+    'FAILED',
+    'CANCELLED',
+  ] as const,
   schema: 'lssm_notifications',
   description: 'Status of a notification.',
 });
@@ -31,46 +38,78 @@ export const NotificationEntity = defineEntity({
   map: 'notification',
   fields: {
     id: field.id({ description: 'Unique notification ID' }),
-    
+
     // Recipient
     userId: field.foreignKey({ description: 'Target user ID' }),
-    orgId: field.string({ isOptional: true, description: 'Organization context' }),
-    
+    orgId: field.string({
+      isOptional: true,
+      description: 'Organization context',
+    }),
+
     // Content
-    templateId: field.string({ isOptional: true, description: 'Template used' }),
+    templateId: field.string({
+      isOptional: true,
+      description: 'Template used',
+    }),
     title: field.string({ description: 'Notification title' }),
     body: field.string({ description: 'Notification body' }),
     actionUrl: field.string({ isOptional: true, description: 'Action URL' }),
     imageUrl: field.string({ isOptional: true, description: 'Image URL' }),
-    
+
     // Categorization
-    type: field.string({ description: 'Notification type (e.g., mention, update)' }),
-    category: field.string({ isOptional: true, description: 'Notification category' }),
+    type: field.string({
+      description: 'Notification type (e.g., mention, update)',
+    }),
+    category: field.string({
+      isOptional: true,
+      description: 'Notification category',
+    }),
     priority: field.enum('NotificationPriority', { default: 'NORMAL' }),
-    
+
     // Delivery
-    channels: field.string({ isArray: true, description: 'Target delivery channels' }),
+    channels: field.string({
+      isArray: true,
+      description: 'Target delivery channels',
+    }),
     status: field.enum('NotificationStatus', { default: 'PENDING' }),
-    
+
     // Tracking
     sentAt: field.dateTime({ isOptional: true }),
     deliveredAt: field.dateTime({ isOptional: true }),
     readAt: field.dateTime({ isOptional: true }),
-    
+
     // Metadata
-    metadata: field.json({ isOptional: true, description: 'Additional metadata' }),
-    variables: field.json({ isOptional: true, description: 'Template variables used' }),
-    
+    metadata: field.json({
+      isOptional: true,
+      description: 'Additional metadata',
+    }),
+    variables: field.json({
+      isOptional: true,
+      description: 'Template variables used',
+    }),
+
     // Source
-    triggeredBy: field.string({ isOptional: true, description: 'Event/action that triggered' }),
-    sourceId: field.string({ isOptional: true, description: 'Source entity ID' }),
-    sourceType: field.string({ isOptional: true, description: 'Source entity type' }),
-    
+    triggeredBy: field.string({
+      isOptional: true,
+      description: 'Event/action that triggered',
+    }),
+    sourceId: field.string({
+      isOptional: true,
+      description: 'Source entity ID',
+    }),
+    sourceType: field.string({
+      isOptional: true,
+      description: 'Source entity type',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    expiresAt: field.dateTime({ isOptional: true, description: 'Notification expiry' }),
-    
+    expiresAt: field.dateTime({
+      isOptional: true,
+      description: 'Notification expiry',
+    }),
+
     // Relations
     deliveryLogs: field.hasMany('DeliveryLog'),
   },
@@ -103,10 +142,13 @@ export const NotificationTemplateEntity = defineEntity({
   map: 'notification_template',
   fields: {
     id: field.id(),
-    templateId: field.string({ isUnique: true, description: 'Template identifier' }),
+    templateId: field.string({
+      isUnique: true,
+      description: 'Template identifier',
+    }),
     name: field.string({ description: 'Template display name' }),
     description: field.string({ isOptional: true }),
-    
+
     // Content by channel
     emailSubject: field.string({ isOptional: true }),
     emailBody: field.string({ isOptional: true }),
@@ -114,18 +156,21 @@ export const NotificationTemplateEntity = defineEntity({
     inAppBody: field.string({ isOptional: true }),
     pushTitle: field.string({ isOptional: true }),
     pushBody: field.string({ isOptional: true }),
-    
+
     // Settings
     defaultChannels: field.string({ isArray: true }),
     category: field.string({ isOptional: true }),
     priority: field.enum('NotificationPriority', { default: 'NORMAL' }),
-    
+
     // Variables schema
-    variablesSchema: field.json({ isOptional: true, description: 'JSON schema for variables' }),
-    
+    variablesSchema: field.json({
+      isOptional: true,
+      description: 'JSON schema for variables',
+    }),
+
     // State
     enabled: field.boolean({ default: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
@@ -144,31 +189,43 @@ export const NotificationPreferenceEntity = defineEntity({
   fields: {
     id: field.id(),
     userId: field.foreignKey(),
-    
+
     // Global settings
     globalEnabled: field.boolean({ default: true }),
-    quietHoursStart: field.string({ isOptional: true, description: 'Quiet hours start (HH:MM)' }),
-    quietHoursEnd: field.string({ isOptional: true, description: 'Quiet hours end (HH:MM)' }),
+    quietHoursStart: field.string({
+      isOptional: true,
+      description: 'Quiet hours start (HH:MM)',
+    }),
+    quietHoursEnd: field.string({
+      isOptional: true,
+      description: 'Quiet hours end (HH:MM)',
+    }),
     timezone: field.string({ default: '"UTC"' }),
-    
+
     // Channel preferences (JSON object: { email: true, push: false, ... })
-    channelPreferences: field.json({ description: 'Channel-level preferences' }),
-    
+    channelPreferences: field.json({
+      description: 'Channel-level preferences',
+    }),
+
     // Type preferences (JSON object: { mention: true, update: false, ... })
     typePreferences: field.json({ description: 'Type-level preferences' }),
-    
+
     // Digest settings
     digestEnabled: field.boolean({ default: false }),
-    digestFrequency: field.string({ isOptional: true, description: 'daily, weekly, etc.' }),
-    digestTime: field.string({ isOptional: true, description: 'Digest send time (HH:MM)' }),
-    
+    digestFrequency: field.string({
+      isOptional: true,
+      description: 'daily, weekly, etc.',
+    }),
+    digestTime: field.string({
+      isOptional: true,
+      description: 'Digest send time (HH:MM)',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
   },
-  indexes: [
-    index.unique(['userId']),
-  ],
+  indexes: [index.unique(['userId'])],
 });
 
 /**
@@ -182,31 +239,34 @@ export const DeliveryLogEntity = defineEntity({
   fields: {
     id: field.id(),
     notificationId: field.foreignKey(),
-    
+
     // Delivery info
     channel: field.enum('NotificationChannel'),
     status: field.enum('NotificationStatus'),
-    
+
     // Timing
     attemptedAt: field.dateTime(),
     deliveredAt: field.dateTime({ isOptional: true }),
-    
+
     // Response
     responseCode: field.string({ isOptional: true }),
     responseMessage: field.string({ isOptional: true }),
-    
+
     // External IDs
-    externalId: field.string({ isOptional: true, description: 'Provider message ID' }),
-    
+    externalId: field.string({
+      isOptional: true,
+      description: 'Provider message ID',
+    }),
+
     // Metadata
     metadata: field.json({ isOptional: true }),
-    
+
     // Relations
-    notification: field.belongsTo('Notification', ['notificationId'], ['id'], { onDelete: 'Cascade' }),
+    notification: field.belongsTo('Notification', ['notificationId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
-  indexes: [
-    index.on(['notificationId', 'channel']),
-  ],
+  indexes: [index.on(['notificationId', 'channel'])],
 });
 
 /**
@@ -231,4 +291,3 @@ export const notificationsSchemaContribution: ModuleSchemaContribution = {
     NotificationPriorityEnum,
   ],
 };
-

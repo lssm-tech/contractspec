@@ -18,7 +18,10 @@ const StoreStatusChangedPayload = defineSchemaModel({
   name: 'StoreStatusChangedEventPayload',
   fields: {
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -53,7 +56,10 @@ const InventoryUpdatedPayload = defineSchemaModel({
   fields: {
     productId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     variantId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    previousQuantity: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    previousQuantity: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     newQuantity: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -82,7 +88,10 @@ const OrderPaidPayload = defineSchemaModel({
     orderId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     orderNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     total: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-    paymentMethod: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    paymentMethod: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -92,7 +101,10 @@ const OrderStatusUpdatedPayload = defineSchemaModel({
   fields: {
     orderId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     orderNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     updatedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -104,7 +116,10 @@ const OrderShippedPayload = defineSchemaModel({
   fields: {
     orderId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     orderNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    trackingNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    trackingNumber: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     trackingUrl: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     carrier: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -146,7 +161,10 @@ const PayoutPaidPayload = defineSchemaModel({
     payoutNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     netAmount: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-    paymentReference: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    paymentReference: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -161,7 +179,7 @@ const ReviewCreatedPayload = defineSchemaModel({
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     authorId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     rating: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    isVerifiedPurchase: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isVerifiedPurchase: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -287,25 +305,24 @@ export const MarketplaceEvents = {
   // Store
   StoreCreatedEvent,
   StoreStatusChangedEvent,
-  
+
   // Product
   ProductCreatedEvent,
   ProductPublishedEvent,
   InventoryUpdatedEvent,
-  
+
   // Order
   OrderCreatedEvent,
   OrderPaidEvent,
   OrderStatusUpdatedEvent,
   OrderShippedEvent,
   OrderCompletedEvent,
-  
+
   // Payout
   PayoutCreatedEvent,
   PayoutPaidEvent,
-  
+
   // Review
   ReviewCreatedEvent,
   ReviewRespondedEvent,
 };
-

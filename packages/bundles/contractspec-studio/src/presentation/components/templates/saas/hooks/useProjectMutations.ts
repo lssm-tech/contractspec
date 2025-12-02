@@ -41,7 +41,9 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
     data: null,
   });
 
-  const [deleteState, setDeleteState] = useState<MutationState<{ success: boolean }>>({
+  const [deleteState, setDeleteState] = useState<
+    MutationState<{ success: boolean }>
+  >({
     loading: false,
     error: null,
     data: null,
@@ -62,7 +64,8 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to create project');
+        const error =
+          err instanceof Error ? err : new Error('Failed to create project');
         setCreateState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -83,7 +86,8 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
         options.onSuccess?.();
         return result;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to update project');
+        const error =
+          err instanceof Error ? err : new Error('Failed to update project');
         setUpdateState({ loading: false, error, data: null });
         options.onError?.(error);
         return null;
@@ -100,11 +104,16 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
       setDeleteState({ loading: true, error: null, data: null });
       try {
         await saas.deleteProject(id);
-        setDeleteState({ loading: false, error: null, data: { success: true } });
+        setDeleteState({
+          loading: false,
+          error: null,
+          data: { success: true },
+        });
         options.onSuccess?.();
         return true;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to delete project');
+        const error =
+          err instanceof Error ? err : new Error('Failed to delete project');
         setDeleteState({ loading: false, error, data: null });
         options.onError?.(error);
         return false;
@@ -147,10 +156,10 @@ export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
     deleteState,
 
     // Convenience
-    isLoading: createState.loading || updateState.loading || deleteState.loading,
+    isLoading:
+      createState.loading || updateState.loading || deleteState.loading,
   };
 }
 
 // Note: Types are re-exported from the handlers package
 // Consumers should import types directly from '@lssm/example.saas-boilerplate/handlers'
-

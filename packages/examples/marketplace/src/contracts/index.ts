@@ -1,15 +1,53 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.marketplace'] as const;
 
 // ============ Enums ============
 
-const StoreStatusSchemaEnum = defineEnum('StoreStatus', ['PENDING', 'ACTIVE', 'SUSPENDED', 'CLOSED']);
-const ProductStatusSchemaEnum = defineEnum('ProductStatus', ['DRAFT', 'PENDING_REVIEW', 'ACTIVE', 'OUT_OF_STOCK', 'DISCONTINUED', 'REJECTED']);
-const OrderStatusSchemaEnum = defineEnum('OrderStatus', ['PENDING', 'PAID', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'COMPLETED', 'CANCELLED', 'REFUNDED', 'PARTIALLY_REFUNDED', 'DISPUTED']);
-const PayoutStatusSchemaEnum = defineEnum('PayoutStatus', ['PENDING', 'PROCESSING', 'PAID', 'FAILED', 'CANCELLED']);
-const ReviewStatusSchemaEnum = defineEnum('ReviewStatus', ['PENDING', 'APPROVED', 'REJECTED', 'FLAGGED']);
+const StoreStatusSchemaEnum = defineEnum('StoreStatus', [
+  'PENDING',
+  'ACTIVE',
+  'SUSPENDED',
+  'CLOSED',
+]);
+const ProductStatusSchemaEnum = defineEnum('ProductStatus', [
+  'DRAFT',
+  'PENDING_REVIEW',
+  'ACTIVE',
+  'OUT_OF_STOCK',
+  'DISCONTINUED',
+  'REJECTED',
+]);
+const OrderStatusSchemaEnum = defineEnum('OrderStatus', [
+  'PENDING',
+  'PAID',
+  'PROCESSING',
+  'SHIPPED',
+  'DELIVERED',
+  'COMPLETED',
+  'CANCELLED',
+  'REFUNDED',
+  'PARTIALLY_REFUNDED',
+  'DISPUTED',
+]);
+const PayoutStatusSchemaEnum = defineEnum('PayoutStatus', [
+  'PENDING',
+  'PROCESSING',
+  'PAID',
+  'FAILED',
+  'CANCELLED',
+]);
+const ReviewStatusSchemaEnum = defineEnum('ReviewStatus', [
+  'PENDING',
+  'APPROVED',
+  'REJECTED',
+  'FLAGGED',
+]);
 
 // ============ Store Schemas ============
 
@@ -24,7 +62,7 @@ export const StoreModel = defineSchemaModel({
     status: { type: StoreStatusSchemaEnum, isOptional: false },
     ownerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     logoFileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    isVerified: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isVerified: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     totalProducts: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     averageRating: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -59,7 +97,10 @@ export const ProductModel = defineSchemaModel({
     currency: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     quantity: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     categoryId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    primaryImageId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    primaryImageId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     averageRating: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
     totalSold: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
@@ -90,8 +131,16 @@ export const ListProductsInputModel = defineSchemaModel({
     search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     minPrice: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
     maxPrice: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -140,7 +189,11 @@ export const CreateOrderInputModel = defineSchemaModel({
   name: 'CreateOrderInput',
   fields: {
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    items: { type: ScalarTypeEnum.JSON(), isOptional: false, description: 'Array of {productId, variantId?, quantity}' },
+    items: {
+      type: ScalarTypeEnum.JSON(),
+      isOptional: false,
+      description: 'Array of {productId, variantId?, quantity}',
+    },
     shippingAddress: { type: ScalarTypeEnum.JSON(), isOptional: true },
     billingAddress: { type: ScalarTypeEnum.JSON(), isOptional: true },
     buyerNote: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -152,7 +205,10 @@ export const UpdateOrderStatusInputModel = defineSchemaModel({
   fields: {
     orderId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: OrderStatusSchemaEnum, isOptional: false },
-    trackingNumber: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    trackingNumber: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     trackingUrl: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     note: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
@@ -185,8 +241,16 @@ export const ListPayoutsInputModel = defineSchemaModel({
   fields: {
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: PayoutStatusSchemaEnum, isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -213,9 +277,9 @@ export const ReviewModel = defineSchemaModel({
     title: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     content: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: ReviewStatusSchemaEnum, isOptional: false },
-    isVerifiedPurchase: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isVerifiedPurchase: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     helpfulCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    hasResponse: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    hasResponse: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -239,8 +303,16 @@ export const ListReviewsInputModel = defineSchemaModel({
     storeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: ReviewStatusSchemaEnum, isOptional: true },
     minRating: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -271,7 +343,14 @@ export const CreateStoreContract = defineCommand({
   io: { input: CreateStoreInputModel, output: StoreModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'marketplace.store.created', version: 1, when: 'Store is created', payload: StoreModel }],
+    emits: [
+      {
+        name: 'marketplace.store.created',
+        version: 1,
+        when: 'Store is created',
+        payload: StoreModel,
+      },
+    ],
     audit: ['marketplace.store.created'],
   },
 });
@@ -291,7 +370,14 @@ export const CreateProductContract = defineCommand({
   io: { input: CreateProductInputModel, output: ProductModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'marketplace.product.created', version: 1, when: 'Product is created', payload: ProductModel }],
+    emits: [
+      {
+        name: 'marketplace.product.created',
+        version: 1,
+        when: 'Product is created',
+        payload: ProductModel,
+      },
+    ],
     audit: ['marketplace.product.created'],
   },
 });
@@ -308,7 +394,7 @@ export const ListProductsContract = defineQuery({
     context: 'Product catalog, search.',
   },
   io: { input: ListProductsInputModel, output: ListProductsOutputModel },
-  policy: { auth: 'optional' },
+  policy: { auth: 'anonymous' },
 });
 
 // Order contracts
@@ -326,9 +412,15 @@ export const CreateOrderContract = defineCommand({
   io: { input: CreateOrderInputModel, output: OrderModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'marketplace.order.created', version: 1, when: 'Order is created', payload: OrderModel }],
+    emits: [
+      {
+        name: 'marketplace.order.created',
+        version: 1,
+        when: 'Order is created',
+        payload: OrderModel,
+      },
+    ],
     audit: ['marketplace.order.created'],
-    metering: [{ metric: 'orders.created', value: 1 }],
   },
 });
 
@@ -346,7 +438,14 @@ export const UpdateOrderStatusContract = defineCommand({
   io: { input: UpdateOrderStatusInputModel, output: OrderModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'marketplace.order.statusUpdated', version: 1, when: 'Status changes', payload: OrderModel }],
+    emits: [
+      {
+        name: 'marketplace.order.statusUpdated',
+        version: 1,
+        when: 'Status changes',
+        payload: OrderModel,
+      },
+    ],
     audit: ['marketplace.order.statusUpdated'],
   },
 });
@@ -382,7 +481,14 @@ export const CreateReviewContract = defineCommand({
   io: { input: CreateReviewInputModel, output: ReviewModel },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'marketplace.review.created', version: 1, when: 'Review is created', payload: ReviewModel }],
+    emits: [
+      {
+        name: 'marketplace.review.created',
+        version: 1,
+        when: 'Review is created',
+        payload: ReviewModel,
+      },
+    ],
     audit: ['marketplace.review.created'],
   },
 });
@@ -399,6 +505,5 @@ export const ListReviewsContract = defineQuery({
     context: 'Product page, store page.',
   },
   io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
-  policy: { auth: 'optional' },
+  policy: { auth: 'anonymous' },
 });
-

@@ -1,4 +1,8 @@
-import { defineCommand, defineQuery, defineSchemaModel } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineQuery,
+  defineSchemaModel,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
 
 const OWNERS = ['platform.audit-trail'] as const;
@@ -38,8 +42,16 @@ export const AuditQueryInputModel = defineSchemaModel({
     traceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     from: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     to: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 100 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 100,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -53,7 +65,11 @@ export const AuditQueryOutputModel = defineSchemaModel({
   },
 });
 
-export const ExportFormatEnum = defineEnum('ExportFormat', ['json', 'csv', 'parquet']);
+export const ExportFormatEnum = defineEnum('ExportFormat', [
+  'json',
+  'csv',
+  'parquet',
+]);
 
 export const AuditExportInputModel = defineSchemaModel({
   name: 'AuditExportInput',
@@ -63,11 +79,20 @@ export const AuditExportInputModel = defineSchemaModel({
     from: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     to: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     format: { type: ExportFormatEnum, isOptional: true, defaultValue: 'json' },
-    eventNames: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    eventNames: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
-export const ExportStatusEnum = defineEnum('ExportStatus', ['pending', 'processing', 'completed', 'failed']);
+export const ExportStatusEnum = defineEnum('ExportStatus', [
+  'pending',
+  'processing',
+  'completed',
+  'failed',
+]);
 
 export const AuditExportOutputModel = defineSchemaModel({
   name: 'AuditExportOutput',

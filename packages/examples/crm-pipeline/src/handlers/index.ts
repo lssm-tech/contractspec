@@ -25,4 +25,3 @@ export {
   type ListDealsInput,
   type ListDealsOutput,
 } from './deal.handlers';
-

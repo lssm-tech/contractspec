@@ -161,9 +161,6 @@ export class AgentFactory {
 /**
  * Create an agent factory.
  */
-export function createAgentFactory(
-  config: AgentFactoryConfig
-): AgentFactory {
+export function createAgentFactory(config: AgentFactoryConfig): AgentFactory {
   return new AgentFactory(config);
 }
-

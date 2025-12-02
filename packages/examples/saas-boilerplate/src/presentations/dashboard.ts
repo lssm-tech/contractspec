@@ -10,7 +10,8 @@ export const SaasDashboardPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'saas.dashboard',
     version: 1,
-    description: 'Main SaaS dashboard with project overview, usage stats, and quick actions',
+    description:
+      'Main SaaS dashboard with project overview, usage stats, and quick actions',
     domain: 'saas-boilerplate',
     owners: ['saas-team'],
     tags: ['dashboard', 'overview'],
@@ -48,4 +49,3 @@ export const SettingsPanelPresentation: PresentationDescriptorV2 = {
     flags: ['saas.enabled'],
   },
 };
-

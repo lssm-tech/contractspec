@@ -11,7 +11,8 @@ export const RunListPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.run.list',
     version: 1,
-    description: 'List view of agent execution runs with status, tokens, duration, and cost',
+    description:
+      'List view of agent execution runs with status, tokens, duration, and cost',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['run', 'list', 'history'],
@@ -73,4 +74,3 @@ export const RunMetricsPresentation: PresentationDescriptorV2 = {
     flags: ['agent-console.enabled'],
   },
 };
-

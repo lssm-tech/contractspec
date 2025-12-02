@@ -26,7 +26,12 @@ export {
 } from './rbac';
 
 // Re-export all entities as a module contribution
-import { UserEntity, SessionEntity, AccountEntity, VerificationEntity } from './user';
+import {
+  UserEntity,
+  SessionEntity,
+  AccountEntity,
+  VerificationEntity,
+} from './user';
 import {
   OrganizationTypeEnum,
   OrganizationEntity,
@@ -72,4 +77,3 @@ export const identityRbacSchemaContribution: ModuleSchemaContribution = {
   entities: identityRbacEntities,
   enums: [OrganizationTypeEnum],
 };
-

@@ -74,7 +74,14 @@ export interface AgentWithTools {
 export async function mockListAgentsHandler(
   input: ListAgentsInput
 ): Promise<ListAgentsOutput> {
-  const { organizationId, status, modelProvider, search, limit = 20, offset = 0 } = input;
+  const {
+    organizationId,
+    status,
+    modelProvider,
+    search,
+    limit = 20,
+    offset = 0,
+  } = input;
 
   let filtered = MOCK_AGENTS.filter((a) => a.organizationId === organizationId);
 
@@ -194,4 +201,3 @@ export async function mockUpdateAgentHandler(input: {
     updatedAt: new Date(),
   };
 }
-

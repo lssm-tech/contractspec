@@ -157,7 +157,8 @@ export const JobRetryingEvent = defineEvent({
 export const JobDeadLetteredEvent = defineEvent({
   name: 'job.dead_lettered',
   version: 1,
-  description: 'A job has exhausted all retries and moved to dead letter queue.',
+  description:
+    'A job has exhausted all retries and moved to dead letter queue.',
   payload: JobDeadLetteredPayload,
 });
 

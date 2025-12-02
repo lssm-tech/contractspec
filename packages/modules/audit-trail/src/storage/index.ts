@@ -1,4 +1,8 @@
-import type { AuditRecord, AuditQueryOptions, AuditStorage } from '@lssm/lib.bus';
+import type {
+  AuditRecord,
+  AuditQueryOptions,
+  AuditStorage,
+} from '@lssm/lib.bus';
 
 /**
  * Extended query options for audit storage.
@@ -18,7 +22,9 @@ export interface AuditStorageAdapter extends AuditStorage {
   /** Query audit records with extended options */
   query(options: ExtendedAuditQueryOptions): Promise<AuditRecord[]>;
   /** Count matching records */
-  count(options: Omit<ExtendedAuditQueryOptions, 'limit' | 'offset'>): Promise<number>;
+  count(
+    options: Omit<ExtendedAuditQueryOptions, 'limit' | 'offset'>
+  ): Promise<number>;
   /** Get a single record by ID */
   getById(id: string): Promise<AuditRecord | null>;
   /** Get all records for a trace */
@@ -52,11 +58,15 @@ export class InMemoryAuditStorage implements AuditStorageAdapter {
     }
 
     if (options.targetId) {
-      results = results.filter((r) => r.metadata?.targetId === options.targetId);
+      results = results.filter(
+        (r) => r.metadata?.targetId === options.targetId
+      );
     }
 
     if (options.targetType) {
-      results = results.filter((r) => r.metadata?.targetType === options.targetType);
+      results = results.filter(
+        (r) => r.metadata?.targetType === options.targetType
+      );
     }
 
     if (options.orgId) {
@@ -79,12 +89,14 @@ export class InMemoryAuditStorage implements AuditStorageAdapter {
     const orderBy = options.orderBy ?? 'occurredAt';
     const orderDir = options.orderDir ?? 'desc';
     results.sort((a, b) => {
-      const aTime = orderBy === 'occurredAt'
-        ? new Date(a.occurredAt).getTime()
-        : a.recordedAt.getTime();
-      const bTime = orderBy === 'occurredAt'
-        ? new Date(b.occurredAt).getTime()
-        : b.recordedAt.getTime();
+      const aTime =
+        orderBy === 'occurredAt'
+          ? new Date(a.occurredAt).getTime()
+          : a.recordedAt.getTime();
+      const bTime =
+        orderBy === 'occurredAt'
+          ? new Date(b.occurredAt).getTime()
+          : b.recordedAt.getTime();
       return orderDir === 'desc' ? bTime - aTime : aTime - bTime;
     });
 
@@ -111,9 +123,7 @@ export class InMemoryAuditStorage implements AuditStorageAdapter {
 
   async deleteOlderThan(date: Date): Promise<number> {
     const before = this.records.length;
-    this.records = this.records.filter(
-      (r) => new Date(r.occurredAt) >= date
-    );
+    this.records = this.records.filter((r) => new Date(r.occurredAt) >= date);
     return before - this.records.length;
   }
 
@@ -187,4 +197,3 @@ export class RetentionPolicy {
 export function createInMemoryAuditStorage(): InMemoryAuditStorage {
   return new InMemoryAuditStorage();
 }
-

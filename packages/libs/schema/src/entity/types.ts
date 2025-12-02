@@ -93,7 +93,10 @@ export interface EntityRelationField {
 /**
  * Union of all entity field types.
  */
-export type EntityField = EntityScalarField | EntityEnumField | EntityRelationField;
+export type EntityField =
+  | EntityScalarField
+  | EntityEnumField
+  | EntityRelationField;
 
 /**
  * Index definition for an entity.
@@ -160,4 +163,3 @@ export interface ModuleSchemaContribution {
   /** Shared enum definitions */
   enums?: EntityEnumDef[];
 }
-

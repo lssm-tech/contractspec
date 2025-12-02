@@ -1,6 +1,6 @@
 /**
  * Feature flag evaluation engine.
- * 
+ *
  * Provides deterministic evaluation of feature flags based on targeting rules
  * and experiment assignments.
  */
@@ -72,7 +72,7 @@ export interface EvaluationResult {
   experimentId?: string;
 }
 
-export type EvaluationReason = 
+export type EvaluationReason =
   | 'FLAG_OFF'
   | 'FLAG_ON'
   | 'DEFAULT_VALUE'
@@ -81,17 +81,17 @@ export type EvaluationReason =
   | 'EXPERIMENT_VARIANT'
   | 'FLAG_NOT_FOUND';
 
-export type RuleOperator = 
-  | 'EQ' 
-  | 'NEQ' 
-  | 'IN' 
-  | 'NIN' 
-  | 'CONTAINS' 
-  | 'NOT_CONTAINS' 
-  | 'GT' 
-  | 'GTE' 
-  | 'LT' 
-  | 'LTE' 
+export type RuleOperator =
+  | 'EQ'
+  | 'NEQ'
+  | 'IN'
+  | 'NIN'
+  | 'CONTAINS'
+  | 'NOT_CONTAINS'
+  | 'GT'
+  | 'GTE'
+  | 'LT'
+  | 'LTE'
   | 'PERCENTAGE';
 
 // ============ Hashing ============
@@ -100,12 +100,12 @@ export type RuleOperator =
  * Simple hash function for consistent bucketing.
  * Uses a deterministic algorithm so the same input always produces the same bucket.
  */
-export function hashToBucket(value: string, seed: string = ''): number {
+export function hashToBucket(value: string, seed = ''): number {
   const input = `${seed}:${value}`;
   let hash = 0;
   for (let i = 0; i < input.length; i++) {
     const char = input.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+    hash = (hash << 5) - hash + char;
     hash = hash & hash; // Convert to 32-bit integer
   }
   // Return a number between 0 and 99
@@ -129,52 +129,58 @@ export function evaluateRuleCondition(
   context: EvaluationContext
 ): boolean {
   const attributeValue = getAttributeValue(rule.attribute, context);
-  
+
   switch (rule.operator) {
     case 'EQ':
       return attributeValue === rule.value;
-    
+
     case 'NEQ':
       return attributeValue !== rule.value;
-    
+
     case 'IN':
       if (!Array.isArray(rule.value)) return false;
       return rule.value.includes(attributeValue);
-    
+
     case 'NIN':
       if (!Array.isArray(rule.value)) return true;
       return !rule.value.includes(attributeValue);
-    
+
     case 'CONTAINS':
-      if (typeof attributeValue !== 'string' || typeof rule.value !== 'string') return false;
+      if (typeof attributeValue !== 'string' || typeof rule.value !== 'string')
+        return false;
       return attributeValue.includes(rule.value);
-    
+
     case 'NOT_CONTAINS':
-      if (typeof attributeValue !== 'string' || typeof rule.value !== 'string') return true;
+      if (typeof attributeValue !== 'string' || typeof rule.value !== 'string')
+        return true;
       return !attributeValue.includes(rule.value);
-    
+
     case 'GT':
-      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number') return false;
+      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number')
+        return false;
       return attributeValue > rule.value;
-    
+
     case 'GTE':
-      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number') return false;
+      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number')
+        return false;
       return attributeValue >= rule.value;
-    
+
     case 'LT':
-      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number') return false;
+      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number')
+        return false;
       return attributeValue < rule.value;
-    
+
     case 'LTE':
-      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number') return false;
+      if (typeof attributeValue !== 'number' || typeof rule.value !== 'number')
+        return false;
       return attributeValue <= rule.value;
-    
+
     case 'PERCENTAGE':
       // Percentage-based targeting uses consistent hashing
       const bucket = hashToBucket(getSubjectId(context), rule.attribute);
       const percentage = typeof rule.value === 'number' ? rule.value : 0;
       return bucket < percentage;
-    
+
     default:
       return false;
   }
@@ -183,7 +189,10 @@ export function evaluateRuleCondition(
 /**
  * Get attribute value from context.
  */
-function getAttributeValue(attribute: string, context: EvaluationContext): unknown {
+function getAttributeValue(
+  attribute: string,
+  context: EvaluationContext
+): unknown {
   switch (attribute) {
     case 'userId':
       return context.userId;
@@ -206,8 +215,18 @@ export interface FlagRepository {
   getFlag(key: string, orgId?: string): Promise<FeatureFlag | null>;
   getRules(flagId: string): Promise<TargetingRule[]>;
   getActiveExperiment(flagId: string): Promise<Experiment | null>;
-  getExperimentAssignment(experimentId: string, subjectType: string, subjectId: string): Promise<string | null>;
-  saveExperimentAssignment(experimentId: string, subjectType: string, subjectId: string, variant: string, bucket: number): Promise<void>;
+  getExperimentAssignment(
+    experimentId: string,
+    subjectType: string,
+    subjectId: string
+  ): Promise<string | null>;
+  saveExperimentAssignment(
+    experimentId: string,
+    subjectType: string,
+    subjectId: string,
+    variant: string,
+    bucket: number
+  ): Promise<void>;
 }
 
 export interface EvaluationLogger {
@@ -234,7 +253,7 @@ export interface FlagEvaluatorOptions {
 
 /**
  * Feature flag evaluator.
- * 
+ *
  * Evaluates flags based on:
  * 1. Flag status (OFF/ON/GRADUAL)
  * 2. Targeting rules (in priority order)
@@ -255,7 +274,10 @@ export class FlagEvaluator {
   /**
    * Evaluate a feature flag.
    */
-  async evaluate(key: string, context: EvaluationContext): Promise<EvaluationResult> {
+  async evaluate(
+    key: string,
+    context: EvaluationContext
+  ): Promise<EvaluationResult> {
     const orgId = context.orgId;
     const flag = await this.repository.getFlag(key, orgId);
 
@@ -265,7 +287,11 @@ export class FlagEvaluator {
 
     // Check flag status
     if (flag.status === 'OFF') {
-      return this.logAndReturn(flag, context, this.makeResult(false, 'FLAG_OFF'));
+      return this.logAndReturn(
+        flag,
+        context,
+        this.makeResult(false, 'FLAG_OFF')
+      );
     }
 
     if (flag.status === 'ON') {
@@ -274,17 +300,20 @@ export class FlagEvaluator {
 
     // Status is GRADUAL - evaluate rules and experiments
     const rules = await this.repository.getRules(flag.id);
-    
+
     // Sort rules by priority (lower = higher priority)
     const sortedRules = [...rules]
-      .filter(r => r.enabled)
+      .filter((r) => r.enabled)
       .sort((a, b) => a.priority - b.priority);
 
     // Evaluate rules in order
     for (const rule of sortedRules) {
       if (evaluateRuleCondition(rule, context)) {
         // Rule matched - check for percentage rollout
-        if (rule.rolloutPercentage !== undefined && rule.rolloutPercentage !== null) {
+        if (
+          rule.rolloutPercentage !== undefined &&
+          rule.rolloutPercentage !== null
+        ) {
           const bucket = hashToBucket(getSubjectId(context), flag.key);
           if (bucket >= rule.rolloutPercentage) {
             continue; // User not in rollout percentage, try next rule
@@ -292,12 +321,11 @@ export class FlagEvaluator {
         }
 
         const enabled = rule.serveValue ?? true;
-        return this.logAndReturn(flag, context, this.makeResult(
-          enabled,
-          'RULE_MATCH',
-          rule.serveVariant,
-          rule.id
-        ));
+        return this.logAndReturn(
+          flag,
+          context,
+          this.makeResult(enabled, 'RULE_MATCH', rule.serveVariant, rule.id)
+        );
       }
     }
 
@@ -311,10 +339,11 @@ export class FlagEvaluator {
     }
 
     // Fall back to default value
-    return this.logAndReturn(flag, context, this.makeResult(
-      flag.defaultValue,
-      'DEFAULT_VALUE'
-    ));
+    return this.logAndReturn(
+      flag,
+      context,
+      this.makeResult(flag.defaultValue, 'DEFAULT_VALUE')
+    );
   }
 
   /**
@@ -325,10 +354,17 @@ export class FlagEvaluator {
     context: EvaluationContext
   ): Promise<EvaluationResult | null> {
     const subjectId = getSubjectId(context);
-    const subjectType = context.userId ? 'user' : (context.orgId ? 'org' : 'session');
+    const subjectType = context.userId
+      ? 'user'
+      : context.orgId
+        ? 'org'
+        : 'session';
 
     // Check audience percentage
-    const audienceBucket = hashToBucket(subjectId, `${experiment.key}:audience`);
+    const audienceBucket = hashToBucket(
+      subjectId,
+      `${experiment.key}:audience`
+    );
     if (audienceBucket >= experiment.audiencePercentage) {
       return null; // User not in experiment audience
     }
@@ -357,7 +393,7 @@ export class FlagEvaluator {
 
     // Control variant typically means feature is off
     const enabled = variant !== 'control';
-    
+
     return this.makeResult(
       enabled,
       'EXPERIMENT_VARIANT',
@@ -411,8 +447,12 @@ export class FlagEvaluator {
   ): EvaluationResult {
     if (this.logEvaluations && this.logger) {
       const subjectId = getSubjectId(context);
-      const subjectType = context.userId ? 'user' : (context.orgId ? 'org' : 'session');
-      
+      const subjectType = context.userId
+        ? 'user'
+        : context.orgId
+          ? 'org'
+          : 'session';
+
       this.logger.log({
         flagId: flag.id,
         flagKey: flag.key,
@@ -436,10 +476,10 @@ export class FlagEvaluator {
  * In-memory flag repository for testing and development.
  */
 export class InMemoryFlagRepository implements FlagRepository {
-  private flags: Map<string, FeatureFlag> = new Map();
-  private rules: Map<string, TargetingRule[]> = new Map();
-  private experiments: Map<string, Experiment> = new Map();
-  private assignments: Map<string, string> = new Map();
+  private flags = new Map<string, FeatureFlag>();
+  private rules = new Map<string, TargetingRule[]>();
+  private experiments = new Map<string, Experiment>();
+  private assignments = new Map<string, string>();
 
   addFlag(flag: FeatureFlag): void {
     this.flags.set(flag.key, flag);
@@ -493,4 +533,3 @@ export class InMemoryFlagRepository implements FlagRepository {
     this.assignments.clear();
   }
 }
-

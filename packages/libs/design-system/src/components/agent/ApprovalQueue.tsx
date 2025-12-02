@@ -62,7 +62,9 @@ export function ApprovalQueue({
             <TableBody>
               {requests.map((request) => (
                 <TableRow key={request.id}>
-                  <TableCell className="font-medium">{request.agentId}</TableCell>
+                  <TableCell className="font-medium">
+                    {request.agentId}
+                  </TableCell>
                   <TableCell className="max-w-sm truncate">
                     {request.reason}
                   </TableCell>

@@ -261,3 +261,4 @@ const result = await queryEngine.execute(
 | `query:execute` | Execute queries | viewer, analyst, admin |
 | `report:schedule` | Schedule reports | analyst, admin |
 
+

@@ -71,4 +71,3 @@ function formatAddress(address: { email: string; name?: string }): string {
 function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, ' ');
 }
-

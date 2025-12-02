@@ -30,62 +30,71 @@ export const StoreEntity = defineEntity({
   map: 'store',
   fields: {
     id: field.id({ description: 'Unique store ID' }),
-    
+
     // Identity
     name: field.string({ description: 'Store display name' }),
     slug: field.string({ description: 'URL-friendly identifier' }),
     description: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.enum('StoreStatus', { default: 'PENDING' }),
     type: field.enum('StoreType', { default: 'INDIVIDUAL' }),
-    
+
     // Owner
     ownerId: field.foreignKey({ description: 'Store owner user ID' }),
     organizationId: field.foreignKey({ isOptional: true }),
-    
+
     // Branding
-    logoFileId: field.string({ isOptional: true, description: 'Logo file reference' }),
-    bannerFileId: field.string({ isOptional: true, description: 'Banner file reference' }),
-    
+    logoFileId: field.string({
+      isOptional: true,
+      description: 'Logo file reference',
+    }),
+    bannerFileId: field.string({
+      isOptional: true,
+      description: 'Banner file reference',
+    }),
+
     // Contact
     email: field.string({ isOptional: true }),
     phone: field.string({ isOptional: true }),
     website: field.string({ isOptional: true }),
-    
+
     // Location
     country: field.string({ isOptional: true }),
     currency: field.string({ default: '"USD"' }),
     timezone: field.string({ isOptional: true }),
-    
+
     // Commission
-    commissionRate: field.decimal({ default: 0.1, description: 'Platform commission rate (e.g., 0.1 = 10%)' }),
-    
+    commissionRate: field.decimal({
+      default: 0.1,
+      description: 'Platform commission rate (e.g., 0.1 = 10%)',
+    }),
+
     // Verification
     isVerified: field.boolean({ default: false }),
     verifiedAt: field.dateTime({ isOptional: true }),
-    
+
     // Settings
     settings: field.json({ isOptional: true }),
     metadata: field.json({ isOptional: true }),
-    
+
     // Metrics (denormalized for performance)
     totalProducts: field.int({ default: 0 }),
     totalOrders: field.int({ default: 0 }),
     totalRevenue: field.decimal({ default: 0 }),
     averageRating: field.decimal({ default: 0 }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     products: field.hasMany('Product'),
     orders: field.hasMany('Order'),
     payouts: field.hasMany('Payout'),
   },
   indexes: [
-    index.on(['slug']).unique(),
+    index.unique(['slug']),
     index.on(['ownerId']),
     index.on(['status']),
     index.on(['country', 'status']),
@@ -108,13 +117,11 @@ export const StoreCategoryEntity = defineEntity({
     categoryId: field.foreignKey(),
     isPrimary: field.boolean({ default: false }),
     createdAt: field.createdAt(),
-    
-    // Relations
-    store: field.belongsTo('Store', ['storeId'], ['id'], { onDelete: 'Cascade' }),
-  },
-  indexes: [
-    index.on(['storeId', 'categoryId']).unique(),
-    index.on(['categoryId']),
-  ],
-});
 
+    // Relations
+    store: field.belongsTo('Store', ['storeId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
+  },
+  indexes: [index.unique(['storeId', 'categoryId']), index.on(['categoryId'])],
+});

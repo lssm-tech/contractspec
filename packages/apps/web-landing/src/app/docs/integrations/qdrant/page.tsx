@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: "Qdrant Integration: ContractSpec Docs",
+  title: 'Qdrant Integration: ContractSpec Docs',
   description:
-    "Build semantic search and RAG applications with Qdrant vector database in ContractSpec.",
+    'Build semantic search and RAG applications with Qdrant vector database in ContractSpec.',
 };
 
 export default function QdrantIntegrationPage() {
@@ -14,13 +14,14 @@ export default function QdrantIntegrationPage() {
         <h1 className="text-4xl font-bold">Qdrant</h1>
         <p className="text-muted-foreground">
           Qdrant is a high-performance vector database for semantic search,
-          recommendations, and RAG (Retrieval-Augmented Generation) applications.
+          recommendations, and RAG (Retrieval-Augmented Generation)
+          applications.
         </p>
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Setup</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`# .env
 QDRANT_URL=https://...
 QDRANT_API_KEY=...
@@ -30,7 +31,7 @@ QDRANT_COLLECTION=documents`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Storing vectors</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: qdrant-upsert
 provider:
   type: qdrant
@@ -56,7 +57,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Semantic search</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`capabilityId: qdrant-search
 provider:
   type: qdrant
@@ -87,7 +88,7 @@ outputs:
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">RAG workflow example</h2>
-        <div className="bg-background/50 p-4 rounded-lg border border-border font-mono text-sm text-muted-foreground overflow-x-auto">
+        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`workflowId: rag-query
 version: 1.0.0
 
@@ -128,4 +129,3 @@ steps:
     </div>
   );
 }
-
