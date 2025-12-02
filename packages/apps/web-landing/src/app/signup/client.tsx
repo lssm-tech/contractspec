@@ -16,6 +16,7 @@ import {
 } from '@lssm/lib.ui-kit-web/ui/input-group';
 
 export function SignupPageClient() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     email: '',

@@ -127,7 +127,7 @@ export default function StudioExperienceClient() {
   const [specArtifacts, setSpecArtifacts] = useState<
     SpecPreviewArtifacts | undefined
   >(undefined);
-  const feedbackTimer = useRef<NodeJS.Timeout | null>(null);
+  const feedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { isAuthenticated, organization } = useAuthContext();
   const previewMode = !isAuthenticated;
@@ -191,11 +191,25 @@ export default function StudioExperienceClient() {
       setSpecType('WORKFLOW');
       return;
     }
-    const nextType = activeProject?.specs?.[0]?.type;
-    if (nextType && SPEC_TYPES.includes(nextType as SpecEditorProps['type'])) {
-      setSpecType(nextType as SpecEditorProps['type']);
+    if (
+      activeProject &&
+      'specs' in activeProject &&
+      activeProject.specs &&
+      activeProject.specs.length > 0
+    ) {
+      const nextType = activeProject.specs[0]?.type;
+      const validTypes: SpecEditorProps['type'][] = [
+        'CAPABILITY',
+        'DATAVIEW',
+        'WORKFLOW',
+        'POLICY',
+        'COMPONENT',
+      ];
+      if (nextType && validTypes.includes(nextType as SpecEditorProps['type'])) {
+        setSpecType(nextType as SpecEditorProps['type']);
+      }
     }
-  }, [previewMode, activeProject?.id, activeProject?.specs]);
+  }, [previewMode, activeProject]);
 
   useEffect(() => {
     setSpecArtifacts(undefined);
@@ -213,16 +227,29 @@ export default function StudioExperienceClient() {
     if (!activeProject || !('deployments' in activeProject)) {
       return [];
     }
-    return (activeProject.deployments ?? []).map((deployment) => ({
-      id: deployment.id,
-      environment: (deployment.environment ??
-        'DEVELOPMENT') as DeploymentHistoryItem['environment'],
-      status: (deployment.status ??
-        'PENDING') as DeploymentHistoryItem['status'],
-      version: deployment.version ?? deployment.id,
-      url: (deployment as { url?: string | null })?.url ?? null,
-      deployedAt: deployment.deployedAt ?? null,
-    }));
+    return (activeProject.deployments ?? []).map((deployment) => {
+      const deploymentWithVersion = deployment as {
+        id: string;
+        environment?: string;
+        status?: string;
+        version?: string;
+        url?: string | null;
+        deployedAt?: string | null;
+      };
+      return {
+        id: deployment.id,
+        environment: (deployment.environment ??
+          'DEVELOPMENT') as DeploymentHistoryItem['environment'],
+        status: (deployment.status ??
+          'PENDING') as DeploymentHistoryItem['status'],
+        version:
+          deploymentWithVersion.version && typeof deploymentWithVersion.version === 'string'
+            ? deploymentWithVersion.version
+            : deployment.id,
+        url: deploymentWithVersion.url ?? null,
+        deployedAt: deploymentWithVersion.deployedAt ?? null,
+      };
+    });
   }, [previewMode, activeProject]);
 
   const canvasState = useMemo<CanvasState>(() => {
@@ -237,10 +264,23 @@ export default function StudioExperienceClient() {
     if (previewMode) {
       return { owner: 'ops.core', version: '1.0.0' };
     }
+    const specsCount =
+      activeProject && 'specs' in activeProject && activeProject.specs
+        ? activeProject.specs.length
+        : 0;
+    const version =
+      activeProject &&
+      'specs' in activeProject &&
+      activeProject.specs &&
+      activeProject.specs.length > 0 &&
+      'version' in activeProject.specs[0] &&
+      activeProject.specs[0].version
+        ? activeProject.specs[0].version
+        : '1.0.0';
     return {
       project: activeProject?.name,
-      specs: activeProject?.specs?.length ?? 0,
-      version: activeProject?.specs?.[0]?.version ?? '1.0.0',
+      specs: specsCount,
+      version,
     };
   }, [previewMode, activeProject]);
 

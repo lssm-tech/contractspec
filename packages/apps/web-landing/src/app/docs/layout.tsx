@@ -5,6 +5,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import DocsSidebar from '@/components/docs-sidebar';
+import { OpenWithAI } from '@/components/open-with-ai';
 
 export default function DocsLayout({
   children,
@@ -43,7 +44,12 @@ export default function DocsLayout({
 
         {/* Main Content */}
         <main className="flex-1 overflow-hidden">
-          <div className="mx-auto px-4 py-8 md:px-8">{children}</div>
+          <div className="mx-auto px-4 py-8 md:px-8">
+            <div className="mb-4 flex justify-end">
+              <OpenWithAI />
+            </div>
+            {children}
+          </div>
         </main>
       </div>
     </div>

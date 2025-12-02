@@ -11,7 +11,6 @@ import {
   SubmitWaitlistApplicationResult,
   SubmitWaitlistResult,
 } from '@/lib/email';
-import { Input } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
@@ -24,6 +23,7 @@ import {
 } from '@lssm/lib.ui-kit-web/ui/select';
 import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
 import { Switch } from '@lssm/lib.ui-kit-web/ui/switch';
+import { Input } from '@lssm/lib.ui-kit-web/ui/input';
 
 interface WaitlistSectionProps {
   variant?: 'default' | 'compact';
@@ -276,7 +276,6 @@ export function WaitlistSection({
                   id="waitlist-email"
                   {...designPartnerForm.register('email')}
                   type="email"
-                  keyboard={{ kind: 'email' }}
                   placeholder="your@email.com"
                   disabled={isPending || submitResult?.success}
                 />
@@ -460,7 +459,6 @@ export function WaitlistSection({
               id="waitlist-email"
               {...simpleForm.register('email')}
               type="email"
-              keyboard={{ kind: 'email' }}
               placeholder="your@email.com"
               disabled={isPending || submitResult?.success}
             />

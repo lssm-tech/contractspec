@@ -30,7 +30,7 @@ async function ensureUniqueSlug(base: string) {
 }
 
 export async function GET() {
-  const session = await auth.api.getSession({ headers: headers() });
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user?.id) {
     return unauthorized();
   }

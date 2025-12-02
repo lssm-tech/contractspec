@@ -19,7 +19,7 @@ export default function NewsletterSignup() {
     } else {
       return {
         success: false,
-        text: result.error || 'Something went wrong. Please try again.',
+        text: result.text || 'Something went wrong. Please try again.',
       };
     }
   };

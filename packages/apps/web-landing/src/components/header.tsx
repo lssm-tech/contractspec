@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import logoImage from '@/public/icon.png';
+import { OpenWithAI } from './open-with-ai';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,6 +79,7 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden items-center gap-3 md:flex">
+            <OpenWithAI />
             <Link href="/contact#call" className="btn-ghost text-sm">
               Book a demo
             </Link>
