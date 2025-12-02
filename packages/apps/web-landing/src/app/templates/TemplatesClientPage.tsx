@@ -8,6 +8,20 @@ import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 import {HStack, VStack} from '@lssm/lib.ui-kit-web/ui/stack';
 import {H1, H2, H3, H4, P, BlockQuote, Code, Lead, Large, Small, Muted} from '@lssm/lib.ui-kit-web/ui/typography';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@lssm/lib.ui-kit-web/ui/tooltip';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@lssm/lib.ui-kit-web/ui/dialog';
+import { WaitlistSection } from '@/components/waitlist-section';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
@@ -278,6 +292,7 @@ export default function TemplatesClientPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [preview, setPreview] = useState<TemplateId | null>(null);
+  const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
 
   const filtered = templates.filter((t) => {
     const matchTag = !selectedTag || t.tags.includes(selectedTag);
@@ -289,7 +304,7 @@ export default function TemplatesClientPage() {
   });
 
   return (
-    <>
+    <TooltipProvider>
       <main className="pt-24">
         {/* Hero */}
         <section className="section-padding hero-gradient border-border relative border-b">
@@ -400,22 +415,32 @@ export default function TemplatesClientPage() {
                       </div>
                     </div>
                     <div className="flex gap-2 pt-4">
-                      <Link
-                        href={template.previewUrl}
-                        className="btn-ghost flex-1 text-center text-xs"
-                      >
-                        Preview
-                      </Link>
-                      <Link
-                        href="#"
-                        className="btn-primary flex-1 text-center text-xs"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          setPreview(template.templateId);
-                        }}
-                      >
-                        Try now
-                      </Link>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            className="btn-ghost flex-1 text-center text-xs"
+                            onClick={() => setPreview(template.templateId)}
+                          >
+                            Preview
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Preview this template in a modal</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            className="btn-primary flex-1 text-center text-xs"
+                            onClick={() => setWaitlistModalOpen(true)}
+                          >
+                            Try now
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Join waitlist for early access</p>
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
                   </div>
                 ))}
@@ -500,7 +525,20 @@ export default function TemplatesClientPage() {
           onClose={() => setPreview(null)}
         />
       ) : null}
-    </>
+
+      <Dialog open={waitlistModalOpen} onOpenChange={setWaitlistModalOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Early Access Required</DialogTitle>
+            <DialogDescription>
+              ContractSpec is in design-partner early access. Join the waitlist
+              to get access to try templates and build with ContractSpec.
+            </DialogDescription>
+          </DialogHeader>
+          <WaitlistSection variant="compact" />
+        </DialogContent>
+      </Dialog>
+    </TooltipProvider>
   );
 }
 

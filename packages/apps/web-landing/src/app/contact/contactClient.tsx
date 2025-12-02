@@ -2,15 +2,12 @@
 
 import { useActionState } from 'react';
 import {
-  Mail,
   Calendar,
   MessageSquare,
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
 import {
-  joinWaitlist,
-  SubmitWaitlistResult,
   submitContactForm,
   SubmitContactFormResult,
 } from '@/lib/email';
@@ -18,32 +15,9 @@ import { Input } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import { WaitlistSection } from '@/components/waitlist-section';
 
 export default function ContactClient() {
-  // Waitlist form handler
-  const handleWaitlistSubmit = async (
-    _prevState: SubmitWaitlistResult | null,
-    formData: FormData
-  ): Promise<SubmitWaitlistResult> => {
-    const result = await joinWaitlist(formData);
-
-    if (result.success) {
-      return {
-        success: true,
-        text: 'Thanks for joining the waitlist! Check your inbox for a confirmation.',
-      };
-    } else {
-      return {
-        success: false,
-        text: result.text || 'Something went wrong. Please try again.',
-      };
-    }
-  };
-
-  const [waitlistResult, waitlistAction, waitlistPending] = useActionState<
-    SubmitWaitlistResult | null,
-    FormData
-  >(handleWaitlistSubmit, null);
 
   // Contact form handler
   const handleContactSubmit = async (
@@ -82,69 +56,10 @@ export default function ContactClient() {
         </div>
 
         {/* Waitlist Registration Section */}
-        <div className="card-subtle space-y-6 p-8">
-          <div className="flex items-center gap-3">
-            <Mail className="text-violet-400" size={24} />
-            <div>
-              <h2 className="text-2xl font-bold">Join the waitlist</h2>
-              <p className="text-muted-foreground text-sm">
-                Get early access to ContractSpec and stay updated on new features
-              </p>
-            </div>
-          </div>
-
-          <form action={waitlistAction} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="waitlist-email" className="text-sm font-medium">
-                Email
-              </Label>
-              <div className="relative">
-                <Mail
-                  className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2"
-                  size={16}
-                />
-                <Input
-                  id="waitlist-email"
-                  name="email"
-                  type="email"
-                  keyboard={{ kind: 'email' }}
-                  placeholder="your@email.com"
-                  disabled={waitlistPending || waitlistResult?.success}
-                  className="pl-10"
-                  required
-                />
-              </div>
-            </div>
-
-            {waitlistResult && !waitlistPending && (
-              <div
-                className={`flex items-center gap-2 rounded-lg p-3 text-sm ${
-                  waitlistResult.success
-                    ? 'border border-green-500/20 bg-green-500/10 text-green-400'
-                    : 'border border-red-500/20 bg-red-500/10 text-red-400'
-                }`}
-              >
-                {waitlistResult.success ? (
-                  <CheckCircle size={16} />
-                ) : (
-                  <AlertCircle size={16} />
-                )}
-                <span>{waitlistResult.text}</span>
-              </div>
-            )}
-
-            <Button
-              type="submit"
-              disabled={waitlistPending || waitlistResult?.success}
-              className="w-full"
-            >
-              {waitlistPending ? 'Joining...' : 'Join waitlist'}
-            </Button>
-          </form>
-        </div>
+        <WaitlistSection context="contact" />
 
         {/* Book a Call Section */}
-        <div className="card-subtle space-y-6 p-8">
+        <div className="card-subtle space-y-6 p-8" id="call">
           <div className="flex items-center gap-3">
             <Calendar className="text-blue-400" size={24} />
             <div>
@@ -167,7 +82,7 @@ export default function ContactClient() {
         </div>
 
         {/* Send Message Section */}
-        <div className="card-subtle space-y-6 p-8">
+        <div className="card-subtle space-y-6 p-8" id="message">
           <div className="flex items-center gap-3">
             <MessageSquare className="text-emerald-400" size={24} />
             <div>

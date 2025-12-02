@@ -35,11 +35,11 @@ export default function ClientPage() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Link href="/docs/quickstart" className="btn-primary">
-              Get started <ChevronRight size={16} />
+            <Link href="/pricing#waitlist" className="btn-primary">
+              Join waitlist <ChevronRight size={16} />
             </Link>
             <Link href="/contact" className="btn-ghost flex items-center gap-2">
-              <Calendar size={16} /> Book a demo
+              <Calendar size={16} /> Book a call
             </Link>
           </div>
 
@@ -294,13 +294,13 @@ export default function ClientPage() {
           </p>
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
             <Link
-              href="/contact"
+              href="/pricing#waitlist"
               className="btn-primary inline-flex items-center gap-2"
             >
-              Start stabilizing <ChevronRight size={16} />
+              Join waitlist <ChevronRight size={16} />
             </Link>
-            <Link href="/product" className="btn-ghost">
-              See how it works
+            <Link href="/contact" className="btn-ghost">
+              Book a call
             </Link>
           </div>
         </div>
@@ -565,11 +565,11 @@ export default function ClientPage() {
             Start with one module. See the difference. Expand at your own pace.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Link href="/docs/quickstart" className="btn-primary">
-              Get started free
+            <Link href="/pricing#waitlist" className="btn-primary">
+              Join waitlist
             </Link>
             <Link href="/contact" className="btn-ghost">
-              Book a demo
+              Book a call
             </Link>
           </div>
         </div>
