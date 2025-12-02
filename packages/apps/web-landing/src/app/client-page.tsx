@@ -15,7 +15,6 @@ import {
   XCircle,
   Zap,
 } from 'lucide-react';
-import CollapsibleCard from '@lssm/lib.design-system/components/molecules/CollapsibleCard';
 
 export default function ClientPage() {
   return (

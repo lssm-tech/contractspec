@@ -17,7 +17,7 @@ export class QueueStack {
     private env: Environment,
     private org: string
   ) {
-    this.apiMnq = new (MNQ.v1beta1 as any).API(client);
+    this.apiMnq = new MNQ.v1beta1.NatsAPI(client);
   }
 
   async plan(): Promise<{
@@ -32,7 +32,10 @@ export class QueueStack {
         const existing = await this.findQueue(queueName);
         return {
           name: queueName,
-          action: (existing ? 'no-op' : 'create') as 'create' | 'update' | 'no-op',
+          action: (existing ? 'no-op' : 'create') as
+            | 'create'
+            | 'update'
+            | 'no-op',
           current: existing,
         };
       })

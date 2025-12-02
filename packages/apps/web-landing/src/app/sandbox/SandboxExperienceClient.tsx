@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, useCallback, useEffect } from 'react';
+import type { JSX } from 'react';
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 
@@ -304,7 +305,14 @@ export default function SandboxExperienceClient() {
           >
             <SpecEditorPanel
               templateId={templateId}
-              SpecEditor={SpecEditor}
+              SpecEditor={SpecEditor as React.ComponentType<{
+                projectId: string;
+                type: 'CAPABILITY' | 'WORKFLOW' | 'COMPONENT' | 'INTEGRATION';
+                content: string;
+                onChange: (content: string) => void;
+                metadata?: Record<string, unknown>;
+                onValidate?: () => void;
+              }>}
               onLog={pushLog}
             />
           </OverlayContextProvider>
@@ -435,7 +443,7 @@ export default function SandboxExperienceClient() {
               <EvolutionSidebar
                 templateId={templateId}
                 onLog={pushLog}
-                onExpandToDashboard={handleExpandToEvolution}
+                onOpenEvolution={handleExpandToEvolution}
               />
 
               {/* Personalization toggle button */}

@@ -36,7 +36,10 @@ export default function OrgSelectClient() {
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [activateError, setActivateError] = useState<string | null>(null);
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<{
+    name: string;
+    type: OrganizationType;
+  }>({
     name: '',
     type: OrganizationType.CONTRACT_SPEC_CUSTOMER,
   });
