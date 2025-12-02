@@ -1,0 +1,54 @@
+name: Scaleway Infrastructure
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/contractspec/packages/tools/scaleway-infra/**'
+      - '.github/workflows/infra-scaleway.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build infrastructure tool
+        working-directory: packages/contractspec/packages/tools/scaleway-infra
+        run: bun run build
+      - name: Plan infrastructure changes
+        working-directory: packages/contractspec/packages/tools/scaleway-infra
+        env:
+          SCALEWAY_ACCESS_KEY: ${{ secrets.SCALEWAY_ACCESS_KEY }}
+          SCALEWAY_SECRET_KEY: ${{ secrets.SCALEWAY_SECRET_KEY }}
+          SCALEWAY_PROJECT_ID: ${{ secrets.SCALEWAY_PROJECT_ID }}
+          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stg' }}
+        run: bun dist/bin/deploy.js plan --env ${{ env.INFRA_ENV }} | cat
+
+  apply:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.ref == 'refs/heads/main' && github.event_name == 'push')
+    needs: plan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build infrastructure tool
+        working-directory: packages/contractspec/packages/tools/scaleway-infra
+        run: bun run build
+      - name: Apply infrastructure changes
+        working-directory: packages/contractspec/packages/tools/scaleway-infra
+        env:
+          SCALEWAY_ACCESS_KEY: ${{ secrets.SCALEWAY_ACCESS_KEY }}
+          SCALEWAY_SECRET_KEY: ${{ secrets.SCALEWAY_SECRET_KEY }}
+          SCALEWAY_PROJECT_ID: ${{ secrets.SCALEWAY_PROJECT_ID }}
+          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stg' }}
+        run: bun dist/bin/deploy.js apply --env ${{ env.INFRA_ENV }} --auto-approve
+
