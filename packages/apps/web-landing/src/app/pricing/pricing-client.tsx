@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle, ChevronDown, ChevronRight, Zap } from 'lucide-react';
+import { Switch } from '@lssm/lib.ui-kit-web/ui/switch';
 
 interface Plan {
   name: string;
@@ -174,18 +175,15 @@ export default function PricingClient() {
             >
               Monthly
             </span>
-            <button
+            <Switch
+              className="h-7 w-12"
+              thumbClassName="h-6 w-6 data-[state=checked]:translate-x-5"
               onClick={() => setAnnual(!annual)}
-              className={`relative h-7 w-14 rounded-full transition-colors ${
-                annual ? 'bg-violet-500' : 'bg-muted'
-              }`}
-            >
-              <span
-                className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-transform ${
-                  annual ? 'translate-x-8' : 'translate-x-1'
-                }`}
-              />
-            </button>
+              // className={`relative h-7 w-14 rounded-full transition-colors ${
+              //   annual ? 'bg-violet-500' : 'bg-muted'
+              // }`}
+              // className={`size-14`}
+            />
             <span
               className={`text-sm ${annual ? 'text-foreground' : 'text-muted-foreground'}`}
             >
