@@ -42,34 +42,34 @@ export const TaskEntity = defineEntity({
     id: field.id(),
     title: field.string({ description: 'Task title' }),
     description: field.string({ isOptional: true }),
-    
+
     // Type and priority
     type: field.enum('TaskType', { default: 'TODO' }),
     priority: field.enum('TaskPriority', { default: 'NORMAL' }),
     status: field.enum('TaskStatus', { default: 'PENDING' }),
-    
+
     // Schedule
     dueDate: field.dateTime({ isOptional: true }),
     reminderAt: field.dateTime({ isOptional: true }),
-    
+
     // Associations (polymorphic)
     contactId: field.string({ isOptional: true }),
     dealId: field.string({ isOptional: true }),
     companyId: field.string({ isOptional: true }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     assignedTo: field.foreignKey({ description: 'User assigned to this task' }),
     createdBy: field.foreignKey(),
-    
+
     // Completion
     completedAt: field.dateTime({ isOptional: true }),
     completedBy: field.string({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     contact: field.belongsTo('Contact', ['contactId'], ['id']),
     deal: field.belongsTo('Deal', ['dealId'], ['id']),
@@ -97,26 +97,29 @@ export const ActivityEntity = defineEntity({
     type: field.enum('TaskType'),
     subject: field.string(),
     description: field.string({ isOptional: true }),
-    
+
     // Associations
     contactId: field.string({ isOptional: true }),
     dealId: field.string({ isOptional: true }),
     companyId: field.string({ isOptional: true }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     performedBy: field.foreignKey(),
-    
+
     // Outcome
     outcome: field.string({ isOptional: true }),
-    
+
     // Timing
     occurredAt: field.dateTime(),
-    duration: field.int({ isOptional: true, description: 'Duration in minutes' }),
-    
+    duration: field.int({
+      isOptional: true,
+      description: 'Duration in minutes',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
-    
+
     // Relations
     contact: field.belongsTo('Contact', ['contactId'], ['id']),
     deal: field.belongsTo('Deal', ['dealId'], ['id']),
@@ -127,4 +130,3 @@ export const ActivityEntity = defineEntity({
     index.on(['dealId', 'occurredAt']),
   ],
 });
-

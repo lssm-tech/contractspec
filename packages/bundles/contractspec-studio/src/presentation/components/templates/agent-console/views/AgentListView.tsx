@@ -6,10 +6,21 @@
  * Displays a list of AI agents with their status and basic info.
  * Uses design-system components with correct props.
  */
-import { Button, StatCard, StatCardGroup, EntityCard, StatusChip, LoaderBlock, ErrorState, EmptyState } from '@lssm/lib.design-system';
+import {
+  Button,
+  StatCard,
+  StatCardGroup,
+  EntityCard,
+  StatusChip,
+  LoaderBlock,
+  ErrorState,
+  EmptyState,
+} from '@lssm/lib.design-system';
 import { useAgentList, type Agent } from '../hooks/useAgentList';
 
-function getStatusTone(status: Agent['status']): 'success' | 'warning' | 'neutral' {
+function getStatusTone(
+  status: Agent['status']
+): 'success' | 'warning' | 'neutral' {
   switch (status) {
     case 'ACTIVE':
       return 'success';
@@ -78,7 +89,9 @@ export function AgentListView() {
             cardTitle={agent.name}
             cardSubtitle={agent.modelName}
             meta={
-              <p className="text-muted-foreground text-sm">{agent.description}</p>
+              <p className="text-muted-foreground text-sm">
+                {agent.description}
+              </p>
             }
             chips={
               <StatusChip

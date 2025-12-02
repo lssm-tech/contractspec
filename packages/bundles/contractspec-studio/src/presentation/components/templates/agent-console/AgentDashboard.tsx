@@ -45,7 +45,7 @@ export function AgentDashboard() {
     setIsAgentActionsOpen(true);
   }, []);
 
-  const tabs: Array<{ id: Tab; label: string; icon: string }> = [
+  const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'runs', label: 'Runs', icon: '▶' },
     { id: 'agents', label: 'Agents', icon: '🤖' },
     { id: 'tools', label: 'Tools', icon: '🔧' },

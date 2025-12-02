@@ -16,7 +16,13 @@ export interface Dashboard {
   slug: string;
   description?: string;
   status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
-  refreshInterval: 'NONE' | 'MINUTE' | 'FIVE_MINUTES' | 'FIFTEEN_MINUTES' | 'HOUR' | 'DAY';
+  refreshInterval:
+    | 'NONE'
+    | 'MINUTE'
+    | 'FIVE_MINUTES'
+    | 'FIFTEEN_MINUTES'
+    | 'HOUR'
+    | 'DAY';
   isPublic: boolean;
   shareToken?: string;
   createdAt: Date;
@@ -27,7 +33,19 @@ export interface Widget {
   id: string;
   dashboardId: string;
   name: string;
-  type: 'LINE_CHART' | 'BAR_CHART' | 'PIE_CHART' | 'AREA_CHART' | 'SCATTER_PLOT' | 'METRIC' | 'TABLE' | 'HEATMAP' | 'FUNNEL' | 'MAP' | 'TEXT' | 'EMBED';
+  type:
+    | 'LINE_CHART'
+    | 'BAR_CHART'
+    | 'PIE_CHART'
+    | 'AREA_CHART'
+    | 'SCATTER_PLOT'
+    | 'METRIC'
+    | 'TABLE'
+    | 'HEATMAP'
+    | 'FUNNEL'
+    | 'MAP'
+    | 'TEXT'
+    | 'EMBED';
   gridX: number;
   gridY: number;
   gridWidth: number;
@@ -321,7 +339,12 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
    */
   async function updateDashboard(
     dashboardId: string,
-    updates: Partial<Pick<Dashboard, 'name' | 'description' | 'status' | 'refreshInterval' | 'isPublic'>>
+    updates: Partial<
+      Pick<
+        Dashboard,
+        'name' | 'description' | 'status' | 'refreshInterval' | 'isPublic'
+      >
+    >
   ): Promise<Dashboard> {
     const now = new Date().toISOString();
     const setClauses: string[] = ['updatedAt = ?'];
@@ -409,10 +432,9 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM analytics_widget WHERE id = ?`,
-      [id]
-    )) as unknown as WidgetRow[];
+    const rows = (await db.exec(`SELECT * FROM analytics_widget WHERE id = ?`, [
+      id,
+    ])) as unknown as WidgetRow[];
 
     return rowToWidget(rows[0]!);
   }
@@ -422,7 +444,18 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
    */
   async function updateWidget(
     widgetId: string,
-    updates: Partial<Pick<Widget, 'name' | 'gridX' | 'gridY' | 'gridWidth' | 'gridHeight' | 'queryId' | 'config'>>
+    updates: Partial<
+      Pick<
+        Widget,
+        | 'name'
+        | 'gridX'
+        | 'gridY'
+        | 'gridWidth'
+        | 'gridHeight'
+        | 'queryId'
+        | 'config'
+      >
+    >
   ): Promise<Widget> {
     const now = new Date().toISOString();
     const setClauses: string[] = ['updatedAt = ?'];
@@ -464,10 +497,9 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
       params
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM analytics_widget WHERE id = ?`,
-      [widgetId]
-    )) as unknown as WidgetRow[];
+    const rows = (await db.exec(`SELECT * FROM analytics_widget WHERE id = ?`, [
+      widgetId,
+    ])) as unknown as WidgetRow[];
 
     return rowToWidget(rows[0]!);
   }
@@ -482,7 +514,9 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
   /**
    * List queries
    */
-  async function listQueries(input: ListQueriesInput): Promise<ListQueriesOutput> {
+  async function listQueries(
+    input: ListQueriesInput
+  ): Promise<ListQueriesOutput> {
     const { projectId, type, isShared, search, limit = 20, offset = 0 } = input;
 
     let whereClause = 'WHERE projectId = ?';
@@ -549,10 +583,9 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM analytics_query WHERE id = ?`,
-      [id]
-    )) as unknown as QueryRow[];
+    const rows = (await db.exec(`SELECT * FROM analytics_query WHERE id = ?`, [
+      id,
+    ])) as unknown as QueryRow[];
 
     return rowToQuery(rows[0]!);
   }
@@ -561,10 +594,9 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
    * Get a query by ID
    */
   async function getQuery(queryId: string): Promise<Query | null> {
-    const rows = (await db.exec(
-      `SELECT * FROM analytics_query WHERE id = ?`,
-      [queryId]
-    )) as unknown as QueryRow[];
+    const rows = (await db.exec(`SELECT * FROM analytics_query WHERE id = ?`, [
+      queryId,
+    ])) as unknown as QueryRow[];
 
     return rows[0] ? rowToQuery(rows[0]) : null;
   }
@@ -585,4 +617,3 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
 }
 
 export type AnalyticsHandlers = ReturnType<typeof createAnalyticsHandlers>;
-

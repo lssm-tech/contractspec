@@ -175,17 +175,14 @@ export function useWorkflowComposer(
   /**
    * Remove an extension
    */
-  const removeExtension = useCallback(
-    (workflowName: string, index: number) => {
-      setExtensions((prev) => {
-        const forWorkflow = prev.filter((e) => e.workflow === workflowName);
-        const others = prev.filter((e) => e.workflow !== workflowName);
-        forWorkflow.splice(index, 1);
-        return [...others, ...forWorkflow];
-      });
-    },
-    []
-  );
+  const removeExtension = useCallback((workflowName: string, index: number) => {
+    setExtensions((prev) => {
+      const forWorkflow = prev.filter((e) => e.workflow === workflowName);
+      const others = prev.filter((e) => e.workflow !== workflowName);
+      forWorkflow.splice(index, 1);
+      return [...others, ...forWorkflow];
+    });
+  }, []);
 
   /**
    * Generate TypeScript code for the spec editor
@@ -671,4 +668,3 @@ function getTemplateWorkflows(templateId: TemplateId): WorkflowSpec[] {
 
   return templateWorkflows[templateId] ?? [];
 }
-

@@ -1,4 +1,8 @@
-import { defineCommand, defineQuery, defineSchemaModel } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineQuery,
+  defineSchemaModel,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
 
 const OWNERS = ['example.saas-boilerplate'] as const;
@@ -28,7 +32,10 @@ export const SubscriptionModel = defineSchemaModel({
   description: 'Organization subscription details',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     planId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     planName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: SubscriptionStatusSchemaEnum, isOptional: false },
@@ -95,7 +102,10 @@ export const GetUsageSummaryOutputModel = defineSchemaModel({
   name: 'GetUsageSummaryOutput',
   description: 'Output for usage summary',
   fields: {
-    billingPeriod: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    billingPeriod: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     usage: { type: UsageSummaryModel, isArray: true, isOptional: false },
   },
 });
@@ -166,7 +176,12 @@ export const RecordUsageContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'billing.usage.recorded', version: 1, when: 'Usage is recorded', payload: UsageRecordedPayloadModel },
+      {
+        name: 'billing.usage.recorded',
+        version: 1,
+        when: 'Usage is recorded',
+        payload: UsageRecordedPayloadModel,
+      },
     ],
   },
 });

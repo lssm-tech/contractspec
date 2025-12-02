@@ -74,7 +74,9 @@ export function useCanvasState(templateId: TemplateId): UseCanvasStateReturn {
   useEffect(() => {
     setLoading(true);
     try {
-      const stored = localStorage.getItem(`${CANVAS_STORAGE_KEY}-${templateId}`);
+      const stored = localStorage.getItem(
+        `${CANVAS_STORAGE_KEY}-${templateId}`
+      );
       if (stored) {
         const parsed = JSON.parse(stored) as CanvasState;
         // Validate the parsed state has required fields
@@ -171,7 +173,9 @@ export function useCanvasState(templateId: TemplateId): UseCanvasStateReturn {
               return {
                 ...node,
                 type: patch.type ?? node.type,
-                props: patch.props ? { ...node.props, ...patch.props } : node.props,
+                props: patch.props
+                  ? { ...node.props, ...patch.props }
+                  : node.props,
                 children: patch.children
                   ? patch.children.map(toComponentNode)
                   : node.children,
@@ -294,4 +298,3 @@ function createInitialState(templateId: TemplateId): CanvasState {
     versions: [],
   };
 }
-

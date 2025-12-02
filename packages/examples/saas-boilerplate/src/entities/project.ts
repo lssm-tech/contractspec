@@ -21,24 +21,38 @@ export const ProjectEntity = defineEntity({
   fields: {
     id: field.id({ description: 'Unique project ID' }),
     name: field.string({ description: 'Project name' }),
-    description: field.string({ isOptional: true, description: 'Project description' }),
-    slug: field.string({ isOptional: true, description: 'URL-friendly identifier' }),
-    
+    description: field.string({
+      isOptional: true,
+      description: 'Project description',
+    }),
+    slug: field.string({
+      isOptional: true,
+      description: 'URL-friendly identifier',
+    }),
+
     // Ownership
     organizationId: field.foreignKey({ description: 'Owning organization' }),
-    createdBy: field.foreignKey({ description: 'User who created the project' }),
-    
+    createdBy: field.foreignKey({
+      description: 'User who created the project',
+    }),
+
     // Status
     status: field.enum('ProjectStatus', { default: 'DRAFT' }),
-    
+
     // Settings
-    isPublic: field.boolean({ default: false, description: 'Whether project is publicly visible' }),
-    settings: field.json({ isOptional: true, description: 'Project-specific settings' }),
-    
+    isPublic: field.boolean({
+      default: false,
+      description: 'Whether project is publicly visible',
+    }),
+    settings: field.json({
+      isOptional: true,
+      description: 'Project-specific settings',
+    }),
+
     // Metadata
     tags: field.string({ isArray: true, description: 'Project tags' }),
     metadata: field.json({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
@@ -64,12 +78,11 @@ export const ProjectMemberEntity = defineEntity({
     id: field.id(),
     projectId: field.foreignKey(),
     userId: field.foreignKey(),
-    role: field.string({ description: 'Role in project (owner, editor, viewer)' }),
+    role: field.string({
+      description: 'Role in project (owner, editor, viewer)',
+    }),
     addedBy: field.string({ isOptional: true }),
     createdAt: field.createdAt(),
   },
-  indexes: [
-    index.unique(['projectId', 'userId']),
-  ],
+  indexes: [index.unique(['projectId', 'userId'])],
 });
-

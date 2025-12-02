@@ -6,7 +6,13 @@ import { MOCK_TOOLS } from './mock-data';
 // Types inferred from contract schemas
 export interface ListToolsInput {
   organizationId: string;
-  category?: 'RETRIEVAL' | 'COMPUTATION' | 'COMMUNICATION' | 'INTEGRATION' | 'UTILITY' | 'CUSTOM';
+  category?:
+    | 'RETRIEVAL'
+    | 'COMPUTATION'
+    | 'COMMUNICATION'
+    | 'INTEGRATION'
+    | 'UTILITY'
+    | 'CUSTOM';
   status?: 'DRAFT' | 'ACTIVE' | 'DEPRECATED' | 'DISABLED';
   search?: string;
   limit?: number;
@@ -18,7 +24,13 @@ export interface ToolSummary {
   name: string;
   slug: string;
   description: string;
-  category: 'RETRIEVAL' | 'COMPUTATION' | 'COMMUNICATION' | 'INTEGRATION' | 'UTILITY' | 'CUSTOM';
+  category:
+    | 'RETRIEVAL'
+    | 'COMPUTATION'
+    | 'COMMUNICATION'
+    | 'INTEGRATION'
+    | 'UTILITY'
+    | 'CUSTOM';
   status: 'DRAFT' | 'ACTIVE' | 'DEPRECATED' | 'DISABLED';
   version: string;
   createdAt: Date;
@@ -40,7 +52,13 @@ export interface Tool {
   name: string;
   slug: string;
   description: string;
-  category: 'RETRIEVAL' | 'COMPUTATION' | 'COMMUNICATION' | 'INTEGRATION' | 'UTILITY' | 'CUSTOM';
+  category:
+    | 'RETRIEVAL'
+    | 'COMPUTATION'
+    | 'COMMUNICATION'
+    | 'INTEGRATION'
+    | 'UTILITY'
+    | 'CUSTOM';
   status: 'DRAFT' | 'ACTIVE' | 'DEPRECATED' | 'DISABLED';
   parametersSchema: Record<string, unknown>;
   outputSchema?: Record<string, unknown>;
@@ -60,7 +78,14 @@ export interface Tool {
 export async function mockListToolsHandler(
   input: ListToolsInput
 ): Promise<ListToolsOutput> {
-  const { organizationId, category, status, search, limit = 20, offset = 0 } = input;
+  const {
+    organizationId,
+    category,
+    status,
+    search,
+    limit = 20,
+    offset = 0,
+  } = input;
 
   let filtered = MOCK_TOOLS.filter((t) => t.organizationId === organizationId);
 
@@ -161,4 +186,3 @@ export async function mockTestToolHandler(input: {
     durationMs: Math.floor(Math.random() * 1000) + 100,
   };
 }
-

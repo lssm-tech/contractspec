@@ -49,4 +49,3 @@ export {
   type TemplateInstallerOptions,
   type SaveTemplateResult,
 } from './installer';
-

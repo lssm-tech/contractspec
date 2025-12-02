@@ -6,4 +6,3 @@ export {
 
 // Note: For project types (CreateProjectInput, UpdateProjectInput, Project), import directly from:
 // import type { Project, CreateProjectInput, etc. } from '@lssm/example.saas-boilerplate/handlers';
-

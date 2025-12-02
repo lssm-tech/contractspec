@@ -9,7 +9,10 @@ const ContactCreatedPayload = defineSchemaModel({
   fields: {
     contactId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     email: { type: ScalarTypeEnum.EmailAddress(), isOptional: true },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     ownerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },

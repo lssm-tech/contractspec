@@ -1,2 +1,4 @@
-export { useIntegrationData, type IntegrationStats } from './useIntegrationData';
-
+export {
+  useIntegrationData,
+  type IntegrationStats,
+} from './useIntegrationData';

@@ -1,12 +1,30 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.workflow-system'] as const;
 
 // ============ Enums ============
 
-const ApprovalStatusSchemaEnum = defineEnum('ApprovalStatus', ['PENDING', 'APPROVED', 'REJECTED', 'DELEGATED', 'ESCALATED', 'WITHDRAWN', 'EXPIRED']);
-const ApprovalDecisionSchemaEnum = defineEnum('ApprovalDecision', ['APPROVE', 'REJECT', 'REQUEST_CHANGES', 'DELEGATE', 'ABSTAIN']);
+const ApprovalStatusSchemaEnum = defineEnum('ApprovalStatus', [
+  'PENDING',
+  'APPROVED',
+  'REJECTED',
+  'DELEGATED',
+  'ESCALATED',
+  'WITHDRAWN',
+  'EXPIRED',
+]);
+const ApprovalDecisionSchemaEnum = defineEnum('ApprovalDecision', [
+  'APPROVE',
+  'REJECT',
+  'REQUEST_CHANGES',
+  'DELEGATE',
+  'ABSTAIN',
+]);
 
 // ============ Schemas ============
 
@@ -15,15 +33,24 @@ export const ApprovalRequestModel = defineSchemaModel({
   description: 'An approval request',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    workflowInstanceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    stepExecutionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    workflowInstanceId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    stepExecutionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     approverId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     approverRole: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     title: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     status: { type: ApprovalStatusSchemaEnum, isOptional: false },
     decision: { type: ApprovalDecisionSchemaEnum, isOptional: true },
-    decisionComment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    decisionComment: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     decidedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     dueAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     contextSnapshot: { type: ScalarTypeEnum.JSON(), isOptional: true },
@@ -59,7 +86,7 @@ export const AddCommentInputModel = defineSchemaModel({
   fields: {
     requestId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     content: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    isInternal: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: true },
+    isInternal: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },
 });
 
@@ -68,10 +95,13 @@ export const ApprovalCommentModel = defineSchemaModel({
   description: 'A comment on an approval',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    approvalRequestId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    approvalRequestId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     authorId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     content: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    isInternal: { type: ScalarTypeEnum.Boolean_unsecure(), isOptional: false },
+    isInternal: { type: ScalarTypeEnum.Boolean(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -81,8 +111,16 @@ export const ListMyApprovalsInputModel = defineSchemaModel({
   description: 'Input for listing approvals assigned to current user',
   fields: {
     status: { type: ApprovalStatusSchemaEnum, isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -121,7 +159,12 @@ export const SubmitDecisionContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'workflow.approval.decided', version: 1, when: 'Decision is made', payload: ApprovalRequestModel },
+      {
+        name: 'workflow.approval.decided',
+        version: 1,
+        when: 'Decision is made',
+        payload: ApprovalRequestModel,
+      },
     ],
     audit: ['workflow.approval.decided'],
   },
@@ -150,7 +193,12 @@ export const DelegateApprovalContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'workflow.approval.delegated', version: 1, when: 'Approval is delegated', payload: ApprovalRequestModel },
+      {
+        name: 'workflow.approval.delegated',
+        version: 1,
+        when: 'Approval is delegated',
+        payload: ApprovalRequestModel,
+      },
     ],
     audit: ['workflow.approval.delegated'],
   },
@@ -179,7 +227,12 @@ export const AddApprovalCommentContract = defineCommand({
   },
   sideEffects: {
     emits: [
-      { name: 'workflow.approval.comment.added', version: 1, when: 'Comment is added', payload: ApprovalCommentModel },
+      {
+        name: 'workflow.approval.comment.added',
+        version: 1,
+        when: 'Comment is added',
+        payload: ApprovalCommentModel,
+      },
     ],
   },
 });
@@ -236,4 +289,3 @@ export const GetApprovalContract = defineQuery({
     auth: 'user',
   },
 });
-

@@ -1,36 +1,37 @@
-"use server"
+'use server';
 
-import { Resend } from "resend"
+import { Resend } from 'resend';
 
-export type SubmitContactFormResult = {
+export interface SubmitContactFormResult {
   success: boolean;
   text: string;
-};
+}
 
-export type SubmitNewsletterResult = {
+export interface SubmitNewsletterResult {
   success: boolean;
   text: string;
-};
+}
 
 export async function submitContactForm(formData: FormData) {
   try {
     // Check if API key is available
     if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY environment variable is not set")
+      console.error('RESEND_API_KEY environment variable is not set');
       return {
         success: false,
-        error: "Email service is not configured. Please contact us directly at contact@chaman.ventures",
-      }
+        error:
+          'Email service is not configured. Please contact us directly at contact@chaman.ventures',
+      };
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const name = formData.get("name") as string
-    const email = formData.get("email") as string
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
 
     // Basic validation
     if (!email) {
-      return { success: false, error: "Please fill in all required fields." }
+      return { success: false, error: 'Please fill in all required fields.' };
     }
 
     const emailContent = `
@@ -44,23 +45,24 @@ Venture Details:
 
 ---
 Submitted via Chaman Ventures contact form
-    `.trim()
+    `.trim();
 
     await resend.emails.send({
-      from: "Chaman Ventures <noreply@lssm.dev>",
-      to: ["contact@chaman.ventures"],
+      from: 'Chaman Ventures <noreply@lssm.dev>',
+      to: ['contact@chaman.ventures'],
       subject: `New ContractSpec Request from ${name || email}`,
       text: emailContent,
       replyTo: email,
-    })
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("Failed to send email:", error)
+    console.error('Failed to send email:', error);
     return {
       success: false,
-      error: "Failed to send message. Please contact us directly at contact@chaman.ventures",
-    }
+      error:
+        'Failed to send message. Please contact us directly at contact@chaman.ventures',
+    };
   }
 }
 
@@ -68,27 +70,27 @@ export async function subscribeToNewsletter(formData: FormData) {
   try {
     // Check if API key is available
     if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY environment variable is not set")
+      console.error('RESEND_API_KEY environment variable is not set');
       return {
         success: false,
-        error: "Newsletter service is not configured. Please try again later.",
-      }
+        error: 'Newsletter service is not configured. Please try again later.',
+      };
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const email = formData.get("email") as string
+    const email = formData.get('email') as string;
 
     // Basic validation
-    if (!email || !email.includes("@")) {
-      return { success: false, error: "Please enter a valid email address." }
+    if (!email || !email.includes('@')) {
+      return { success: false, error: 'Please enter a valid email address.' };
     }
 
     // Send welcome email
     await resend.emails.send({
-      from: "ContractSpec <noreply@lssm.dev>",
+      from: 'ContractSpec <noreply@lssm.dev>',
       to: [email],
-      subject: "Welcome to ContractSpec Newsletter",
+      subject: 'Welcome to ContractSpec Newsletter',
       text: `
 Welcome to ContractSpec!
 
@@ -130,22 +132,22 @@ Unsubscribe: Reply to this email with "unsubscribe"
           </p>
         </div>
       `,
-    })
+    });
 
     // Also notify the team
     await resend.emails.send({
-      from: "ContractSpec <noreply@lssm.dev>",
-      to: ["contact@chaman.ventures"],
+      from: 'ContractSpec <noreply@lssm.dev>',
+      to: ['contact@chaman.ventures'],
       subject: `New Newsletter Subscription: ${email}`,
       text: `New newsletter subscription from: ${email}`,
-    })
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("Failed to subscribe to newsletter:", error)
+    console.error('Failed to subscribe to newsletter:', error);
     return {
       success: false,
-      error: "Failed to subscribe. Please try again later.",
-    }
+      error: 'Failed to subscribe. Please try again later.',
+    };
   }
 }

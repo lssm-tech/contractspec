@@ -688,9 +688,24 @@ export class LocalRuntimeServices {
       // Add steps for the workflow
       if (workflow.name === 'Purchase Request Approval') {
         const steps = [
-          { name: 'Manager Approval', type: 'APPROVAL', requiredRoles: ['manager'], order: 1 },
-          { name: 'Finance Review', type: 'APPROVAL', requiredRoles: ['finance'], order: 2 },
-          { name: 'Executive Sign-off', type: 'APPROVAL', requiredRoles: ['executive'], order: 3 },
+          {
+            name: 'Manager Approval',
+            type: 'APPROVAL',
+            requiredRoles: ['manager'],
+            order: 1,
+          },
+          {
+            name: 'Finance Review',
+            type: 'APPROVAL',
+            requiredRoles: ['finance'],
+            order: 2,
+          },
+          {
+            name: 'Executive Sign-off',
+            type: 'APPROVAL',
+            requiredRoles: ['executive'],
+            order: 3,
+          },
         ];
 
         for (const step of steps) {
@@ -791,10 +806,34 @@ export class LocalRuntimeServices {
       // Add products for active stores
       if (store.status === 'ACTIVE' && store.name === 'Tech Gadgets Pro') {
         const products = [
-          { name: 'Wireless Earbuds Pro', price: 149.99, stock: 50, category: 'Audio', status: 'ACTIVE' },
-          { name: 'USB-C Hub 7-in-1', price: 59.99, stock: 100, category: 'Accessories', status: 'ACTIVE' },
-          { name: 'Mechanical Keyboard RGB', price: 129.99, stock: 25, category: 'Peripherals', status: 'ACTIVE' },
-          { name: 'Portable SSD 1TB', price: 99.99, stock: 0, category: 'Storage', status: 'OUT_OF_STOCK' },
+          {
+            name: 'Wireless Earbuds Pro',
+            price: 149.99,
+            stock: 50,
+            category: 'Audio',
+            status: 'ACTIVE',
+          },
+          {
+            name: 'USB-C Hub 7-in-1',
+            price: 59.99,
+            stock: 100,
+            category: 'Accessories',
+            status: 'ACTIVE',
+          },
+          {
+            name: 'Mechanical Keyboard RGB',
+            price: 129.99,
+            stock: 25,
+            category: 'Peripherals',
+            status: 'ACTIVE',
+          },
+          {
+            name: 'Portable SSD 1TB',
+            price: 99.99,
+            stock: 0,
+            category: 'Storage',
+            status: 'OUT_OF_STOCK',
+          },
         ];
 
         for (const product of products) {
@@ -839,9 +878,7 @@ export class LocalRuntimeServices {
       }
     }
 
-    console.log(
-      `[runtime-local] Marketplace seeded for project: ${projectId}`
-    );
+    console.log(`[runtime-local] Marketplace seeded for project: ${projectId}`);
   }
 
   private async seedIntegrationHub(projectId: string): Promise<void> {
@@ -856,10 +893,30 @@ export class LocalRuntimeServices {
 
     // Create integrations
     const integrations = [
-      { name: 'Salesforce', type: 'CRM', status: 'ACTIVE', iconUrl: '/icons/salesforce.svg' },
-      { name: 'HubSpot', type: 'MARKETING', status: 'ACTIVE', iconUrl: '/icons/hubspot.svg' },
-      { name: 'Stripe', type: 'PAYMENT', status: 'ACTIVE', iconUrl: '/icons/stripe.svg' },
-      { name: 'Slack', type: 'COMMUNICATION', status: 'INACTIVE', iconUrl: '/icons/slack.svg' },
+      {
+        name: 'Salesforce',
+        type: 'CRM',
+        status: 'ACTIVE',
+        iconUrl: '/icons/salesforce.svg',
+      },
+      {
+        name: 'HubSpot',
+        type: 'MARKETING',
+        status: 'ACTIVE',
+        iconUrl: '/icons/hubspot.svg',
+      },
+      {
+        name: 'Stripe',
+        type: 'PAYMENT',
+        status: 'ACTIVE',
+        iconUrl: '/icons/stripe.svg',
+      },
+      {
+        name: 'Slack',
+        type: 'COMMUNICATION',
+        status: 'INACTIVE',
+        iconUrl: '/icons/slack.svg',
+      },
       { name: 'Custom API', type: 'CUSTOM', status: 'INACTIVE', iconUrl: null },
     ];
 
@@ -897,8 +954,18 @@ export class LocalRuntimeServices {
         // Add sync configs for Salesforce
         if (integration.name === 'Salesforce') {
           const syncs = [
-            { name: 'Contact Sync', source: 'contacts', target: 'crm_contacts', frequency: 'HOURLY' },
-            { name: 'Deal Sync', source: 'opportunities', target: 'crm_deals', frequency: 'REALTIME' },
+            {
+              name: 'Contact Sync',
+              source: 'contacts',
+              target: 'crm_contacts',
+              frequency: 'HOURLY',
+            },
+            {
+              name: 'Deal Sync',
+              source: 'opportunities',
+              target: 'crm_deals',
+              frequency: 'REALTIME',
+            },
           ];
 
           for (const sync of syncs) {
@@ -962,7 +1029,11 @@ export class LocalRuntimeServices {
       {
         name: 'Revenue by Product',
         type: 'AGGREGATION',
-        definition: { dimension: 'product', metric: 'revenue', aggregation: 'sum' },
+        definition: {
+          dimension: 'product',
+          metric: 'revenue',
+          aggregation: 'sum',
+        },
       },
       {
         name: 'User Signups Over Time',
@@ -973,7 +1044,12 @@ export class LocalRuntimeServices {
       {
         name: 'Top Countries',
         type: 'AGGREGATION',
-        definition: { dimension: 'country', metric: 'users', aggregation: 'count', limit: 10 },
+        definition: {
+          dimension: 'country',
+          metric: 'users',
+          aggregation: 'count',
+          limit: 10,
+        },
       },
     ];
 
@@ -1047,12 +1123,47 @@ export class LocalRuntimeServices {
       );
 
       // Add widgets for published dashboards
-      if (dashboard.status === 'PUBLISHED' && dashboard.name === 'Executive Overview') {
+      if (
+        dashboard.status === 'PUBLISHED' &&
+        dashboard.name === 'Executive Overview'
+      ) {
         const widgets = [
-          { name: 'Daily Active Users', type: 'METRIC', gridX: 0, gridY: 0, gridWidth: 3, gridHeight: 2, queryId: queryIds[0] },
-          { name: 'Revenue Trend', type: 'LINE_CHART', gridX: 3, gridY: 0, gridWidth: 6, gridHeight: 4, queryId: queryIds[1] },
-          { name: 'User Growth', type: 'AREA_CHART', gridX: 0, gridY: 2, gridWidth: 3, gridHeight: 4, queryId: queryIds[2] },
-          { name: 'Top Countries', type: 'BAR_CHART', gridX: 9, gridY: 0, gridWidth: 3, gridHeight: 4, queryId: queryIds[3] },
+          {
+            name: 'Daily Active Users',
+            type: 'METRIC',
+            gridX: 0,
+            gridY: 0,
+            gridWidth: 3,
+            gridHeight: 2,
+            queryId: queryIds[0],
+          },
+          {
+            name: 'Revenue Trend',
+            type: 'LINE_CHART',
+            gridX: 3,
+            gridY: 0,
+            gridWidth: 6,
+            gridHeight: 4,
+            queryId: queryIds[1],
+          },
+          {
+            name: 'User Growth',
+            type: 'AREA_CHART',
+            gridX: 0,
+            gridY: 2,
+            gridWidth: 3,
+            gridHeight: 4,
+            queryId: queryIds[2],
+          },
+          {
+            name: 'Top Countries',
+            type: 'BAR_CHART',
+            gridX: 9,
+            gridY: 0,
+            gridWidth: 3,
+            gridHeight: 4,
+            queryId: queryIds[3],
+          },
         ];
 
         for (const widget of widgets) {

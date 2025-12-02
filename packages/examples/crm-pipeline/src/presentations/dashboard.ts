@@ -10,7 +10,8 @@ export const CrmDashboardPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'crm.dashboard',
     version: 1,
-    description: 'Main CRM dashboard with pipeline overview, deal stats, and activities',
+    description:
+      'Main CRM dashboard with pipeline overview, deal stats, and activities',
     domain: 'crm-pipeline',
     owners: ['crm-team'],
     tags: ['dashboard', 'overview'],
@@ -48,4 +49,3 @@ export const PipelineMetricsPresentation: PresentationDescriptorV2 = {
     flags: ['crm.metrics.enabled'],
   },
 };
-

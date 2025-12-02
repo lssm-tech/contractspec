@@ -25,10 +25,22 @@ interface CreateAgentModalProps {
 }
 
 const MODEL_PROVIDERS = [
-  { value: 'openai', label: 'OpenAI', models: ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'] },
-  { value: 'anthropic', label: 'Anthropic', models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku'] },
+  {
+    value: 'openai',
+    label: 'OpenAI',
+    models: ['gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
+  },
+  {
+    value: 'anthropic',
+    label: 'Anthropic',
+    models: ['claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku'],
+  },
   { value: 'google', label: 'Google', models: ['gemini-pro', 'gemini-ultra'] },
-  { value: 'mistral', label: 'Mistral', models: ['mistral-large', 'mistral-medium', 'mistral-small'] },
+  {
+    value: 'mistral',
+    label: 'Mistral',
+    models: ['mistral-large', 'mistral-medium', 'mistral-small'],
+  },
 ] as const;
 
 type ModelProvider = (typeof MODEL_PROVIDERS)[number]['value'];
@@ -46,7 +58,9 @@ export function CreateAgentModal({
   const [systemPrompt, setSystemPrompt] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const selectedProvider = MODEL_PROVIDERS.find((p) => p.value === modelProvider);
+  const selectedProvider = MODEL_PROVIDERS.find(
+    (p) => p.value === modelProvider
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,7 +113,7 @@ export function CreateAgentModal({
       />
 
       {/* Modal */}
-      <div className="bg-card border-border relative z-10 w-full max-w-lg rounded-xl border p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-card border-border relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border p-6 shadow-xl">
         <h2 className="mb-4 text-xl font-semibold">Create New Agent</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -151,7 +165,9 @@ export function CreateAgentModal({
               <select
                 id="model-provider"
                 value={modelProvider}
-                onChange={(e) => handleProviderChange(e.target.value as ModelProvider)}
+                onChange={(e) =>
+                  handleProviderChange(e.target.value as ModelProvider)
+                }
                 disabled={isLoading}
                 className="border-input bg-background focus:ring-ring h-10 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none disabled:opacity-50"
               >
@@ -200,7 +216,7 @@ export function CreateAgentModal({
               placeholder="You are a helpful assistant that..."
               rows={4}
               disabled={isLoading}
-              className="border-input bg-background focus:ring-ring w-full rounded-md border px-3 py-2 text-sm font-mono focus:ring-2 focus:outline-none disabled:opacity-50"
+              className="border-input bg-background focus:ring-ring w-full rounded-md border px-3 py-2 font-mono text-sm focus:ring-2 focus:outline-none disabled:opacity-50"
             />
             <p className="text-muted-foreground mt-1 text-xs">
               Instructions that define the agent's behavior
@@ -233,4 +249,3 @@ export function CreateAgentModal({
     </div>
   );
 }
-

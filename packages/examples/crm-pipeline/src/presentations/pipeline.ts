@@ -59,7 +59,8 @@ export const DealDetailPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'crm.deal.detail',
     version: 1,
-    description: 'Detailed view of a deal with activities, contacts, and history',
+    description:
+      'Detailed view of a deal with activities, contacts, and history',
     domain: 'crm-pipeline',
     owners: ['crm-team'],
     tags: ['deal', 'detail'],
@@ -98,4 +99,3 @@ export const DealCardPresentation: PresentationDescriptorV2 = {
     flags: ['crm.deals.enabled'],
   },
 };
-

@@ -123,8 +123,14 @@ export function createSaasHandlers(db: LocalDatabase) {
   async function listProjects(
     input: ListProjectsInput
   ): Promise<ListProjectsOutput> {
-    const { projectId, organizationId, status, search, limit = 20, offset = 0 } =
-      input;
+    const {
+      projectId,
+      organizationId,
+      status,
+      search,
+      limit = 20,
+      offset = 0,
+    } = input;
 
     let whereClause = 'WHERE projectId = ?';
     const params: (string | number)[] = [projectId];
@@ -166,10 +172,9 @@ export function createSaasHandlers(db: LocalDatabase) {
    * Get a single project
    */
   async function getProject(id: string): Promise<Project | null> {
-    const rows = (await db.exec(
-      `SELECT * FROM saas_project WHERE id = ?`,
-      [id]
-    )) as unknown as ProjectRow[];
+    const rows = (await db.exec(`SELECT * FROM saas_project WHERE id = ?`, [
+      id,
+    ])) as unknown as ProjectRow[];
     return rows[0] ? rowToProject(rows[0]) : null;
   }
 
@@ -199,10 +204,9 @@ export function createSaasHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM saas_project WHERE id = ?`,
-      [id]
-    )) as unknown as ProjectRow[];
+    const rows = (await db.exec(`SELECT * FROM saas_project WHERE id = ?`, [
+      id,
+    ])) as unknown as ProjectRow[];
 
     return rowToProject(rows[0]!);
   }
@@ -237,10 +241,9 @@ export function createSaasHandlers(db: LocalDatabase) {
       params
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM saas_project WHERE id = ?`,
-      [input.id]
-    )) as unknown as ProjectRow[];
+    const rows = (await db.exec(`SELECT * FROM saas_project WHERE id = ?`, [
+      input.id,
+    ])) as unknown as ProjectRow[];
 
     if (!rows[0]) {
       throw new Error('NOT_FOUND');
@@ -288,4 +291,3 @@ export function createSaasHandlers(db: LocalDatabase) {
 }
 
 export type SaasHandlers = ReturnType<typeof createSaasHandlers>;
-

@@ -20,25 +20,39 @@ export const SettingsEntity = defineEntity({
   map: 'settings',
   fields: {
     id: field.id(),
-    
+
     // Key identification
-    key: field.string({ description: 'Setting key (e.g., "theme", "notifications.email")' }),
-    
+    key: field.string({
+      description: 'Setting key (e.g., "theme", "notifications.email")',
+    }),
+
     // Scope
     scope: field.enum('SettingsScope'),
-    scopeId: field.string({ isOptional: true, description: 'ID of scoped entity (org, user, project)' }),
-    
+    scopeId: field.string({
+      isOptional: true,
+      description: 'ID of scoped entity (org, user, project)',
+    }),
+
     // Value
     value: field.json({ description: 'Setting value' }),
-    valueType: field.string({ default: '"string"', description: 'Type hint for value' }),
-    
+    valueType: field.string({
+      default: '"string"',
+      description: 'Type hint for value',
+    }),
+
     // Schema
-    schema: field.json({ isOptional: true, description: 'JSON schema for validation' }),
-    
+    schema: field.json({
+      isOptional: true,
+      description: 'JSON schema for validation',
+    }),
+
     // Metadata
     description: field.string({ isOptional: true }),
-    isSecret: field.boolean({ default: false, description: 'Whether value should be encrypted' }),
-    
+    isSecret: field.boolean({
+      default: false,
+      description: 'Whether value should be encrypted',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
@@ -63,20 +77,22 @@ export const FeatureFlagEntity = defineEntity({
     key: field.string({ isUnique: true, description: 'Feature flag key' }),
     name: field.string({ description: 'Human-readable name' }),
     description: field.string({ isOptional: true }),
-    
+
     // Status
     enabled: field.boolean({ default: false }),
-    
+
     // Targeting
     defaultValue: field.boolean({ default: false }),
     rules: field.json({ isOptional: true, description: 'Targeting rules' }),
-    
+
     // Rollout
-    rolloutPercentage: field.int({ default: 0, description: 'Percentage rollout (0-100)' }),
-    
+    rolloutPercentage: field.int({
+      default: 0,
+      description: 'Percentage rollout (0-100)',
+    }),
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
   },
 });
-

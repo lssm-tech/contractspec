@@ -39,9 +39,53 @@ export const QueryTypeEnum = defineEntityEnum({
 
 export const RefreshIntervalEnum = defineEntityEnum({
   name: 'RefreshInterval',
-  values: ['NONE', 'MINUTE', 'FIVE_MINUTES', 'FIFTEEN_MINUTES', 'HOUR', 'DAY'] as const,
+  values: [
+    'NONE',
+    'MINUTE',
+    'FIVE_MINUTES',
+    'FIFTEEN_MINUTES',
+    'HOUR',
+    'DAY',
+  ] as const,
   schema: 'analytics',
   description: 'Auto-refresh interval.',
+});
+
+export const ChartTypeEnum = defineEntityEnum({
+  name: 'ChartType',
+  values: [
+    'LINE',
+    'BAR',
+    'PIE',
+    'AREA',
+    'SCATTER',
+    'HEATMAP',
+    'FUNNEL',
+    'MAP',
+  ] as const,
+  schema: 'analytics',
+  description: 'Type of chart visualization.',
+});
+
+export const TimeRangeEnum = defineEntityEnum({
+  name: 'TimeRange',
+  values: [
+    'LAST_HOUR',
+    'LAST_24_HOURS',
+    'LAST_7_DAYS',
+    'LAST_30_DAYS',
+    'LAST_90_DAYS',
+    'CUSTOM',
+  ] as const,
+  schema: 'analytics',
+  description: 'Predefined time range options.',
+});
+
+export const ReportFormatEnum = defineEntityEnum({
+  name: 'ReportFormat',
+  values: ['PDF', 'CSV', 'EXCEL', 'PNG', 'JSON'] as const,
+  schema: 'analytics',
+  description: 'Report export format.',
 });
 
 // ============ Entities ============
@@ -56,41 +100,50 @@ export const DashboardEntity = defineEntity({
   map: 'dashboard',
   fields: {
     id: field.id({ description: 'Unique dashboard ID' }),
-    
+
     // Identity
     name: field.string({ description: 'Dashboard name' }),
     slug: field.string({ description: 'URL-friendly identifier' }),
     description: field.string({ isOptional: true }),
-    
+
     // Status
     status: field.enum('DashboardStatus', { default: 'DRAFT' }),
-    
+
     // Layout
-    layout: field.json({ isOptional: true, description: 'Grid layout configuration' }),
-    
+    layout: field.json({
+      isOptional: true,
+      description: 'Grid layout configuration',
+    }),
+
     // Settings
     refreshInterval: field.enum('RefreshInterval', { default: 'NONE' }),
-    dateRange: field.json({ isOptional: true, description: 'Default date range' }),
-    filters: field.json({ isOptional: true, description: 'Global dashboard filters' }),
-    
+    dateRange: field.json({
+      isOptional: true,
+      description: 'Default date range',
+    }),
+    filters: field.json({
+      isOptional: true,
+      description: 'Global dashboard filters',
+    }),
+
     // Sharing
     isPublic: field.boolean({ default: false }),
     shareToken: field.string({ isOptional: true }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     createdBy: field.foreignKey(),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
     publishedAt: field.dateTime({ isOptional: true }),
-    
+
     // Relations
     widgets: field.hasMany('Widget'),
   },
   indexes: [
-    index.on(['organizationId', 'slug']).unique(),
+    index.unique(['organizationId', 'slug']),
     index.on(['organizationId', 'status']),
     index.on(['shareToken']),
     index.on(['createdBy']),
@@ -109,41 +162,43 @@ export const WidgetEntity = defineEntity({
   fields: {
     id: field.id(),
     dashboardId: field.foreignKey(),
-    
+
     // Identity
     name: field.string({ description: 'Widget title' }),
     description: field.string({ isOptional: true }),
-    
+
     // Type
     type: field.enum('WidgetType', { default: 'LINE_CHART' }),
-    
+
     // Position in grid
     gridX: field.int({ default: 0 }),
     gridY: field.int({ default: 0 }),
     gridWidth: field.int({ default: 6 }),
     gridHeight: field.int({ default: 4 }),
-    
+
     // Query
     queryId: field.string({ isOptional: true }),
-    
+
     // Configuration
-    config: field.json({ isOptional: true, description: 'Widget-specific configuration' }),
-    
+    config: field.json({
+      isOptional: true,
+      description: 'Widget-specific configuration',
+    }),
+
     // Styling
     styling: field.json({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
-    dashboard: field.belongsTo('Dashboard', ['dashboardId'], ['id'], { onDelete: 'Cascade' }),
+    dashboard: field.belongsTo('Dashboard', ['dashboardId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
     query: field.belongsTo('Query', ['queryId'], ['id']),
   },
-  indexes: [
-    index.on(['dashboardId']),
-    index.on(['queryId']),
-  ],
+  indexes: [index.on(['dashboardId']), index.on(['queryId'])],
   enums: [WidgetTypeEnum],
 });
 
@@ -157,37 +212,37 @@ export const QueryEntity = defineEntity({
   map: 'query',
   fields: {
     id: field.id(),
-    
+
     // Identity
     name: field.string({ description: 'Query name' }),
     description: field.string({ isOptional: true }),
-    
+
     // Type
     type: field.enum('QueryType', { default: 'AGGREGATION' }),
-    
+
     // Query definition
     definition: field.json({ description: 'Query definition' }),
-    
+
     // SQL (for SQL type)
     sql: field.string({ isOptional: true }),
-    
+
     // Metric references (for METRIC type)
     metricIds: field.string({ isArray: true }),
-    
+
     // Caching
     cacheTtlSeconds: field.int({ default: 300 }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     createdBy: field.foreignKey(),
-    
+
     // Sharing
     isShared: field.boolean({ default: false }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     widgets: field.hasMany('Widget'),
   },
@@ -209,26 +264,26 @@ export const SavedFilterEntity = defineEntity({
   map: 'saved_filter',
   fields: {
     id: field.id(),
-    
+
     // Identity
     name: field.string(),
     description: field.string({ isOptional: true }),
-    
+
     // Filter
     filterConfig: field.json({ description: 'Filter configuration' }),
-    
+
     // Scope
     dashboardId: field.string({ isOptional: true }),
     isGlobal: field.boolean({ default: false }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     createdBy: field.foreignKey(),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     dashboard: field.belongsTo('Dashboard', ['dashboardId'], ['id']),
   },
@@ -249,35 +304,35 @@ export const ReportEntity = defineEntity({
   map: 'report',
   fields: {
     id: field.id(),
-    
+
     // Identity
     name: field.string(),
     description: field.string({ isOptional: true }),
-    
+
     // Source
     dashboardId: field.foreignKey({ isOptional: true }),
     queryIds: field.string({ isArray: true }),
-    
+
     // Schedule
     scheduleEnabled: field.boolean({ default: false }),
     scheduleCron: field.string({ isOptional: true }),
-    
+
     // Delivery
     recipients: field.string({ isArray: true }),
     format: field.string({ default: '"PDF"' }),
-    
+
     // Status
     lastRunAt: field.dateTime({ isOptional: true }),
     lastRunStatus: field.string({ isOptional: true }),
-    
+
     // Ownership
     organizationId: field.foreignKey(),
     createdBy: field.foreignKey(),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
     updatedAt: field.updatedAt(),
-    
+
     // Relations
     dashboard: field.belongsTo('Dashboard', ['dashboardId'], ['id']),
     runs: field.hasMany('ReportRun'),
@@ -300,30 +355,29 @@ export const ReportRunEntity = defineEntity({
   fields: {
     id: field.id(),
     reportId: field.foreignKey(),
-    
+
     // Status
     status: field.string({ default: '"PENDING"' }),
-    
+
     // Output
     fileId: field.string({ isOptional: true }),
-    
+
     // Error
     errorMessage: field.string({ isOptional: true }),
-    
+
     // Timing
     startedAt: field.dateTime({ isOptional: true }),
     completedAt: field.dateTime({ isOptional: true }),
-    
+
     // Timestamps
     createdAt: field.createdAt(),
-    
+
     // Relations
-    report: field.belongsTo('Report', ['reportId'], ['id'], { onDelete: 'Cascade' }),
+    report: field.belongsTo('Report', ['reportId'], ['id'], {
+      onDelete: 'Cascade',
+    }),
   },
-  indexes: [
-    index.on(['reportId', 'createdAt']),
-    index.on(['status']),
-  ],
+  indexes: [index.on(['reportId', 'createdAt']), index.on(['status'])],
 });
 
 // ============ Schema Contribution ============
@@ -345,6 +399,8 @@ export const analyticsDashboardSchemaContribution: ModuleSchemaContribution = {
     WidgetTypeEnum,
     QueryTypeEnum,
     RefreshIntervalEnum,
+    ChartTypeEnum,
+    TimeRangeEnum,
+    ReportFormatEnum,
   ],
 };
-

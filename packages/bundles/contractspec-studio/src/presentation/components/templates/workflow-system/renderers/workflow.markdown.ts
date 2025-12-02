@@ -10,8 +10,18 @@ const mockWorkflowDefinitions = [
     name: 'Purchase Approval',
     type: 'APPROVAL',
     steps: [
-      { id: 's1', name: 'Manager Review', order: 1, requiredRoles: ['manager'] },
-      { id: 's2', name: 'Finance Review', order: 2, requiredRoles: ['finance'] },
+      {
+        id: 's1',
+        name: 'Manager Review',
+        order: 1,
+        requiredRoles: ['manager'],
+      },
+      {
+        id: 's2',
+        name: 'Finance Review',
+        order: 2,
+        requiredRoles: ['finance'],
+      },
       { id: 's3', name: 'Final Approval', order: 3, requiredRoles: ['admin'] },
     ],
     status: 'ACTIVE',
@@ -21,7 +31,12 @@ const mockWorkflowDefinitions = [
     name: 'Leave Request',
     type: 'APPROVAL',
     steps: [
-      { id: 's1', name: 'Supervisor Approval', order: 1, requiredRoles: ['supervisor'] },
+      {
+        id: 's1',
+        name: 'Supervisor Approval',
+        order: 1,
+        requiredRoles: ['supervisor'],
+      },
       { id: 's2', name: 'HR Review', order: 2, requiredRoles: ['hr'] },
     ],
     status: 'ACTIVE',
@@ -83,7 +98,9 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
       desc.source.type !== 'component' ||
       desc.source.componentKey !== 'WorkflowDashboard'
     ) {
-      throw new Error('workflowDashboardMarkdownRenderer: not WorkflowDashboard');
+      throw new Error(
+        'workflowDashboardMarkdownRenderer: not WorkflowDashboard'
+      );
     }
 
     const definitions = mockWorkflowDefinitions;
@@ -92,8 +109,12 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
     // Calculate stats
     const activeDefinitions = definitions.filter((d) => d.status === 'ACTIVE');
     const pendingInstances = instances.filter((i) => i.status === 'PENDING');
-    const inProgressInstances = instances.filter((i) => i.status === 'IN_PROGRESS');
-    const completedInstances = instances.filter((i) => i.status === 'COMPLETED');
+    const inProgressInstances = instances.filter(
+      (i) => i.status === 'IN_PROGRESS'
+    );
+    const completedInstances = instances.filter(
+      (i) => i.status === 'COMPLETED'
+    );
 
     const lines: string[] = [
       '# Workflow Dashboard',
@@ -119,7 +140,9 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
       lines.push('| Name | Type | Steps | Status |');
       lines.push('|------|------|-------|--------|');
       for (const def of activeDefinitions) {
-        lines.push(`| ${def.name} | ${def.type} | ${def.steps.length} | ${def.status} |`);
+        lines.push(
+          `| ${def.name} | ${def.type} | ${def.steps.length} | ${def.status} |`
+        );
       }
     }
 
@@ -134,7 +157,9 @@ export const workflowDashboardMarkdownRenderer: PresentationRenderer<{
       lines.push('|----------|--------------|--------|---------|');
       for (const inst of instances.slice(0, 10)) {
         const startedDate = new Date(inst.startedAt).toLocaleDateString();
-        lines.push(`| ${inst.definitionName} | ${inst.requestedBy} | ${inst.status} | ${startedDate} |`);
+        lines.push(
+          `| ${inst.definitionName} | ${inst.requestedBy} | ${inst.status} | ${startedDate} |`
+        );
       }
     }
 
@@ -158,7 +183,9 @@ export const workflowDefinitionListMarkdownRenderer: PresentationRenderer<{
       desc.source.type !== 'component' ||
       desc.source.componentKey !== 'WorkflowDefinitionList'
     ) {
-      throw new Error('workflowDefinitionListMarkdownRenderer: not WorkflowDefinitionList');
+      throw new Error(
+        'workflowDefinitionListMarkdownRenderer: not WorkflowDefinitionList'
+      );
     }
 
     const definitions = mockWorkflowDefinitions;
@@ -179,7 +206,9 @@ export const workflowDefinitionListMarkdownRenderer: PresentationRenderer<{
       lines.push('');
 
       for (const step of def.steps) {
-        lines.push(`${step.order}. **${step.name}** - Roles: ${step.requiredRoles.join(', ')}`);
+        lines.push(
+          `${step.order}. **${step.name}** - Roles: ${step.requiredRoles.join(', ')}`
+        );
       }
 
       lines.push('');
@@ -205,11 +234,21 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
       desc.source.type !== 'component' ||
       desc.source.componentKey !== 'WorkflowInstanceDetail'
     ) {
-      throw new Error('workflowInstanceDetailMarkdownRenderer: not WorkflowInstanceDetail');
+      throw new Error(
+        'workflowInstanceDetailMarkdownRenderer: not WorkflowInstanceDetail'
+      );
     }
 
     const instance = mockWorkflowInstances[0];
-    const definition = mockWorkflowDefinitions.find((d) => d.id === instance.definitionId);
+    if (!instance) {
+      return {
+        mimeType: 'text/markdown',
+        body: '# No Workflow Instances\n\nNo workflow instances available.',
+      };
+    }
+    const definition = mockWorkflowDefinitions.find(
+      (d) => d.id === instance.definitionId
+    );
 
     const lines: string[] = [
       `# Workflow: ${instance.definitionName}`,
@@ -226,9 +265,10 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
     if (definition) {
       for (const step of definition.steps) {
         const isCurrent = step.id === instance.currentStepId;
-        const isCompleted = definition.steps.indexOf(step) < 
+        const isCompleted =
+          definition.steps.indexOf(step) <
           definition.steps.findIndex((s) => s.id === instance.currentStepId);
-        
+
         let status = '⬜ Pending';
         if (isCompleted) status = '✅ Completed';
         if (isCurrent) status = '🔄 In Progress';
@@ -250,4 +290,3 @@ export const workflowInstanceDetailMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-

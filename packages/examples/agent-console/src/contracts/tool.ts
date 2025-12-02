@@ -1,5 +1,9 @@
-import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
@@ -14,9 +18,18 @@ export const ToolCategoryEnum = defineEnum('ToolCategory', [
   'CUSTOM',
 ]);
 
-export const ToolStatusEnum = defineEnum('ToolStatus', ['DRAFT', 'ACTIVE', 'DEPRECATED', 'DISABLED']);
+export const ToolStatusEnum = defineEnum('ToolStatus', [
+  'DRAFT',
+  'ACTIVE',
+  'DEPRECATED',
+  'DISABLED',
+]);
 
-export const ImplementationTypeEnum = defineEnum('ImplementationType', ['http', 'function', 'workflow']);
+export const ImplementationTypeEnum = defineEnum('ImplementationType', [
+  'http',
+  'function',
+  'workflow',
+]);
 
 // ============ Schemas ============
 
@@ -25,7 +38,10 @@ export const ToolModel = defineSchemaModel({
   description: 'AI tool definition',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -34,11 +50,25 @@ export const ToolModel = defineSchemaModel({
     parametersSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
     outputSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     implementationType: { type: ImplementationTypeEnum, isOptional: false },
-    implementationConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-    maxInvocationsPerMinute: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 30000 },
+    implementationConfig: {
+      type: ScalarTypeEnum.JSONObject(),
+      isOptional: false,
+    },
+    maxInvocationsPerMinute: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
+    timeoutMs: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 30000,
+    },
     version: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -63,7 +93,10 @@ export const CreateToolInputModel = defineSchemaModel({
   name: 'CreateToolInput',
   description: 'Input for creating a tool',
   fields: {
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -71,10 +104,20 @@ export const CreateToolInputModel = defineSchemaModel({
     parametersSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
     outputSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     implementationType: { type: ImplementationTypeEnum, isOptional: false },
-    implementationConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-    maxInvocationsPerMinute: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    implementationConfig: {
+      type: ScalarTypeEnum.JSONObject(),
+      isOptional: false,
+    },
+    maxInvocationsPerMinute: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -88,10 +131,20 @@ export const UpdateToolInputModel = defineSchemaModel({
     status: { type: ToolStatusEnum, isOptional: true },
     parametersSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     outputSchema: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-    implementationConfig: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-    maxInvocationsPerMinute: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    implementationConfig: {
+      type: ScalarTypeEnum.JSONObject(),
+      isOptional: true,
+    },
+    maxInvocationsPerMinute: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+    },
     timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -135,7 +188,14 @@ export const CreateToolCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'tool.created', version: 1, when: 'Tool is successfully created', payload: ToolSummaryModel }],
+    emits: [
+      {
+        name: 'tool.created',
+        version: 1,
+        when: 'Tool is successfully created',
+        payload: ToolSummaryModel,
+      },
+    ],
     audit: ['tool.created'],
   },
 });
@@ -178,7 +238,14 @@ export const UpdateToolCommand = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'tool.updated', version: 1, when: 'Tool is updated', payload: ToolSummaryModel }],
+    emits: [
+      {
+        name: 'tool.updated',
+        version: 1,
+        when: 'Tool is updated',
+        payload: ToolSummaryModel,
+      },
+    ],
     audit: ['tool.updated'],
   },
 });
@@ -237,12 +304,23 @@ export const ListToolsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'ListToolsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         category: { type: ToolCategoryEnum, isOptional: true },
         status: { type: ToolStatusEnum, isOptional: true },
         search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({

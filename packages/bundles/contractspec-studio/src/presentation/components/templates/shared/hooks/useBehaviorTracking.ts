@@ -32,8 +32,8 @@ export interface BehaviorEvent {
 export interface BehaviorSummary {
   totalEvents: number;
   sessionDuration: number;
-  mostUsedTemplates: Array<{ templateId: TemplateId; count: number }>;
-  mostUsedModes: Array<{ mode: string; count: number }>;
+  mostUsedTemplates: { templateId: TemplateId; count: number }[];
+  mostUsedModes: { mode: string; count: number }[];
   featuresUsed: string[];
   unusedFeatures: string[];
   errorCount: number;
@@ -99,7 +99,7 @@ export function useBehaviorTracking(
       const stored = localStorage.getItem(BEHAVIOR_STORAGE_KEY);
       if (stored) {
         const data = JSON.parse(stored) as {
-          events: Array<Omit<BehaviorEvent, 'timestamp'> & { timestamp: string }>;
+          events: (Omit<BehaviorEvent, 'timestamp'> & { timestamp: string })[];
           sessionStart: string;
         };
         setEvents(
@@ -269,7 +269,7 @@ export function useBehaviorTracking(
 function generateRecommendations(
   featuresUsed: string[],
   unusedFeatures: string[],
-  mostUsedModes: Array<{ mode: string; count: number }>,
+  mostUsedModes: { mode: string; count: number }[],
   totalEvents: number
 ): string[] {
   const recommendations: string[] = [];
@@ -297,9 +297,7 @@ function generateRecommendations(
     !featuresUsed.includes('spec_validate') &&
     featuresUsed.includes('specs')
   ) {
-    recommendations.push(
-      "Don't forget to validate your specs before saving"
-    );
+    recommendations.push("Don't forget to validate your specs before saving");
   }
 
   if (
@@ -327,4 +325,3 @@ function generateRecommendations(
 
   return recommendations;
 }
-

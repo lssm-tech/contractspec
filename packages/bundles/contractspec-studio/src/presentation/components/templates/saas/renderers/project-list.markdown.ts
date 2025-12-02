@@ -102,9 +102,7 @@ export const saasDashboardMarkdownRenderer: PresentationRenderer<{
 
     const projects =
       (projectsData as { projects?: ProjectItem[] }).projects ?? [];
-    const activeProjects = projects.filter(
-      (p) => p.status === 'ACTIVE'
-    ).length;
+    const activeProjects = projects.filter((p) => p.status === 'ACTIVE').length;
     const archivedProjects = projects.filter(
       (p) => p.status === 'ARCHIVED'
     ).length;
@@ -145,7 +143,9 @@ export const saasDashboardMarkdownRenderer: PresentationRenderer<{
         );
       }
       if (projects.length > 10) {
-        lines.push(`| ... | ... | _${projectsData.total - 10} more projects_ |`);
+        lines.push(
+          `| ... | ... | _${projectsData.total - 10} more projects_ |`
+        );
       }
     }
 

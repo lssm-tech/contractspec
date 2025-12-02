@@ -11,13 +11,3 @@ export const metadata: Metadata = {
 export default function OrgSelectPage() {
   return <OrgSelectClient />;
 }
-
-
-
-
-
-
-
-
-
-

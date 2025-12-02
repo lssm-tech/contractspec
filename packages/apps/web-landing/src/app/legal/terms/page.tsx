@@ -1,13 +1,13 @@
 export default function TermsPage() {
   return (
-    <main className="pt-24 flex flex-col grow items-center justify-center">
+    <main className="flex grow flex-col items-center justify-center pt-24">
       <section className="section-padding">
-        <div className="max-w-2xl mx-auto prose prose-invert">
-          <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
-          <div className="space-y-6 text-muted-foreground">
+        <div className="prose prose-invert mx-auto max-w-2xl">
+          <h1 className="mb-8 text-4xl font-bold">Terms of Service</h1>
+          <div className="text-muted-foreground space-y-6">
             <p>Last updated: December 2025</p>
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">
+              <h2 className="text-foreground text-2xl font-bold">
                 Agreement to Terms
               </h2>
               <p>
@@ -16,7 +16,7 @@ export default function TermsPage() {
               </p>
             </section>
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">
+              <h2 className="text-foreground text-2xl font-bold">
                 Use License
               </h2>
               <p>
@@ -26,7 +26,7 @@ export default function TermsPage() {
               </p>
             </section>
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">Disclaimer</h2>
+              <h2 className="text-foreground text-2xl font-bold">Disclaimer</h2>
               <p>
                 The materials on ContractSpec's website are provided on an 'as
                 is' basis. ContractSpec makes no warranties, expressed or

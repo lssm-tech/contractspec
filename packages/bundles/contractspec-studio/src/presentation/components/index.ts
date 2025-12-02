@@ -21,4 +21,8 @@ export * from './templates/recipes';
 export * from './templates/saas';
 export * from './templates/crm';
 export * from './templates/agent-console';
+export * from './templates/workflow-system';
+export * from './templates/marketplace';
+export * from './templates/integration-hub';
+export * from './templates/analytics-dashboard';
 export * from './templates/shared';

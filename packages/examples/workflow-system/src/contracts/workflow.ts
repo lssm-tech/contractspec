@@ -1,14 +1,42 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.workflow-system'] as const;
 
 // ============ Enums ============
 
-const WorkflowStatusSchemaEnum = defineEnum('WorkflowStatus', ['DRAFT', 'ACTIVE', 'DEPRECATED', 'ARCHIVED']);
-const TriggerTypeSchemaEnum = defineEnum('WorkflowTriggerType', ['MANUAL', 'EVENT', 'SCHEDULED', 'API']);
-const StepTypeSchemaEnum = defineEnum('StepType', ['START', 'APPROVAL', 'TASK', 'CONDITION', 'PARALLEL', 'WAIT', 'ACTION', 'END']);
-const ApprovalModeSchemaEnum = defineEnum('ApprovalMode', ['ANY', 'ALL', 'MAJORITY', 'SEQUENTIAL']);
+const WorkflowStatusSchemaEnum = defineEnum('WorkflowStatus', [
+  'DRAFT',
+  'ACTIVE',
+  'DEPRECATED',
+  'ARCHIVED',
+]);
+const TriggerTypeSchemaEnum = defineEnum('WorkflowTriggerType', [
+  'MANUAL',
+  'EVENT',
+  'SCHEDULED',
+  'API',
+]);
+const StepTypeSchemaEnum = defineEnum('StepType', [
+  'START',
+  'APPROVAL',
+  'TASK',
+  'CONDITION',
+  'PARALLEL',
+  'WAIT',
+  'ACTION',
+  'END',
+]);
+const ApprovalModeSchemaEnum = defineEnum('ApprovalMode', [
+  'ANY',
+  'ALL',
+  'MAJORITY',
+  'SEQUENTIAL',
+]);
 
 // ============ Schemas ============
 
@@ -24,7 +52,11 @@ export const WorkflowStepModel = defineSchemaModel({
     position: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     transitions: { type: ScalarTypeEnum.JSON(), isOptional: false },
     approvalMode: { type: ApprovalModeSchemaEnum, isOptional: true },
-    approverRoles: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    approverRoles: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -40,8 +72,14 @@ export const WorkflowDefinitionModel = defineSchemaModel({
     status: { type: WorkflowStatusSchemaEnum, isOptional: false },
     triggerType: { type: TriggerTypeSchemaEnum, isOptional: false },
     initialStepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    featureFlagKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    featureFlagKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     steps: { type: WorkflowStepModel, isArray: true, isOptional: true },
@@ -57,7 +95,10 @@ export const CreateWorkflowInputModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     triggerType: { type: TriggerTypeSchemaEnum, isOptional: true },
     triggerConfig: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    featureFlagKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    featureFlagKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     settings: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
@@ -71,7 +112,10 @@ export const UpdateWorkflowInputModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     triggerType: { type: TriggerTypeSchemaEnum, isOptional: true },
     triggerConfig: { type: ScalarTypeEnum.JSON(), isOptional: true },
-    featureFlagKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    featureFlagKey: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     settings: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
@@ -88,8 +132,16 @@ export const AddStepInputModel = defineSchemaModel({
     position: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     transitions: { type: ScalarTypeEnum.JSON(), isOptional: false },
     approvalMode: { type: ApprovalModeSchemaEnum, isOptional: true },
-    approverRoles: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
-    approverUserIds: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    approverRoles: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
+    approverUserIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     timeoutSeconds: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     slaSeconds: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
   },
@@ -109,8 +161,16 @@ export const ListWorkflowsInputModel = defineSchemaModel({
   fields: {
     status: { type: WorkflowStatusSchemaEnum, isOptional: true },
     search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -118,7 +178,11 @@ export const ListWorkflowsOutputModel = defineSchemaModel({
   name: 'ListWorkflowsOutput',
   description: 'Output for listing workflows',
   fields: {
-    workflows: { type: WorkflowDefinitionModel, isArray: true, isOptional: false },
+    workflows: {
+      type: WorkflowDefinitionModel,
+      isArray: true,
+      isOptional: false,
+    },
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
@@ -145,10 +209,16 @@ export const CreateWorkflowContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_designer'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.definition.created', version: 1, when: 'Workflow is created', payload: WorkflowDefinitionModel }],
+    emits: [
+      {
+        name: 'workflow.definition.created',
+        version: 1,
+        when: 'Workflow is created',
+        payload: WorkflowDefinitionModel,
+      },
+    ],
     audit: ['workflow.definition.created'],
   },
 });
@@ -173,10 +243,16 @@ export const UpdateWorkflowContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_designer'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.definition.updated', version: 1, when: 'Workflow is updated', payload: WorkflowDefinitionModel }],
+    emits: [
+      {
+        name: 'workflow.definition.updated',
+        version: 1,
+        when: 'Workflow is updated',
+        payload: WorkflowDefinitionModel,
+      },
+    ],
     audit: ['workflow.definition.updated'],
   },
 });
@@ -201,10 +277,16 @@ export const AddStepContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_designer'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.step.added', version: 1, when: 'Step is added', payload: WorkflowStepModel }],
+    emits: [
+      {
+        name: 'workflow.step.added',
+        version: 1,
+        when: 'Step is added',
+        payload: WorkflowStepModel,
+      },
+    ],
     audit: ['workflow.step.added'],
   },
 });
@@ -229,10 +311,16 @@ export const PublishWorkflowContract = defineCommand({
   },
   policy: {
     auth: 'user',
-    roles: ['admin', 'workflow_designer'],
   },
   sideEffects: {
-    emits: [{ name: 'workflow.definition.published', version: 1, when: 'Workflow is published', payload: WorkflowDefinitionModel }],
+    emits: [
+      {
+        name: 'workflow.definition.published',
+        version: 1,
+        when: 'Workflow is published',
+        payload: WorkflowDefinitionModel,
+      },
+    ],
     audit: ['workflow.definition.published'],
   },
 });
@@ -289,4 +377,3 @@ export const GetWorkflowContract = defineQuery({
     auth: 'user',
   },
 });
-

@@ -16,7 +16,7 @@ import { CrmDealCard } from './CrmDealCard';
 
 interface CrmPipelineBoardProps {
   dealsByStage: Record<string, Deal[]>;
-  stages: Array<{ id: string; name: string; position: number }>;
+  stages: { id: string; name: string; position: number }[];
   onDealClick?: (dealId: string) => void;
   onDealMove?: (dealId: string, toStageId: string) => void;
 }

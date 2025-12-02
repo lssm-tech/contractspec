@@ -11,24 +11,28 @@ interface StudioCanvasProps {
   state: {
     id: string;
     projectId: string;
-    nodes: Array<{
+    nodes: {
       id: string;
       type: string;
       props?: Record<string, unknown>;
-      children?: Array<{ id: string; type: string; props?: Record<string, unknown> }>;
-    }>;
-    updatedAt: string;
-    versions: Array<{
-      id: string;
-      label: string;
-      status: 'draft' | 'deployed';
-      nodes: Array<{
+      children?: {
         id: string;
         type: string;
         props?: Record<string, unknown>;
-      }>;
+      }[];
+    }[];
+    updatedAt: string;
+    versions: {
+      id: string;
+      label: string;
+      status: 'draft' | 'deployed';
+      nodes: {
+        id: string;
+        type: string;
+        props?: Record<string, unknown>;
+      }[];
       createdAt: string;
-    }>;
+    }[];
   };
   selectedNodeId?: string;
   onSelectNode?: (nodeId: string) => void;
@@ -130,4 +134,3 @@ export function BuilderPanel({
     </div>
   );
 }
-

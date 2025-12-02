@@ -18,7 +18,9 @@ function generateId(): string {
  * Generate initial canvas state from a template's presentations.
  * Maps template presentations and components to canvas nodes.
  */
-export function generateCanvasFromTemplate(templateId: TemplateId): CanvasState {
+export function generateCanvasFromTemplate(
+  templateId: TemplateId
+): CanvasState {
   const template = getTemplate(templateId);
 
   if (!template) {
@@ -42,7 +44,12 @@ export function generateCanvasFromTemplate(templateId: TemplateId): CanvasState 
  */
 function generateNodesForTemplate(
   templateId: TemplateId,
-  components: { list: string; detail: string; form?: string; dashboard?: string }
+  components: {
+    list: string;
+    detail: string;
+    form?: string;
+    dashboard?: string;
+  }
 ): ComponentNode[] {
   switch (templateId) {
     case 'crm-pipeline':
@@ -418,4 +425,3 @@ function createEmptyCanvas(templateId: TemplateId): CanvasState {
     versions: [],
   };
 }
-

@@ -11,7 +11,10 @@ const WorkflowDefinitionPayload = defineSchemaModel({
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -43,7 +46,10 @@ const InstanceEventPayload = defineSchemaModel({
     referenceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     referenceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     triggeredBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -265,7 +271,7 @@ export const WorkflowSystemEvents = {
   WorkflowUpdatedEvent,
   WorkflowPublishedEvent,
   StepAddedEvent,
-  
+
   // Instance events
   InstanceStartedEvent,
   StepEnteredEvent,
@@ -276,11 +282,10 @@ export const WorkflowSystemEvents = {
   InstanceResumedEvent,
   InstanceFailedEvent,
   InstanceTimedOutEvent,
-  
+
   // Approval events
   ApprovalRequestedEvent,
   ApprovalDecidedEvent,
   ApprovalDelegatedEvent,
   ApprovalEscalatedEvent,
 };
-

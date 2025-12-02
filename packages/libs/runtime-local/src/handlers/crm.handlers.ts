@@ -241,10 +241,9 @@ export function createCrmHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [id]
-    )) as unknown as DealRow[];
+    const rows = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      id,
+    ])) as unknown as DealRow[];
 
     if (!rows[0]) {
       throw new Error('Failed to create deal');
@@ -260,20 +259,18 @@ export function createCrmHandlers(db: LocalDatabase) {
     const now = new Date().toISOString();
 
     // Verify deal exists
-    const existing = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const existing = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     if (!existing[0]) {
       throw new Error('NOT_FOUND');
     }
 
     // Verify stage exists
-    const stage = (await db.exec(
-      `SELECT * FROM crm_stage WHERE id = ?`,
-      [input.stageId]
-    )) as unknown as StageRow[];
+    const stage = (await db.exec(`SELECT * FROM crm_stage WHERE id = ?`, [
+      input.stageId,
+    ])) as unknown as StageRow[];
 
     if (!stage[0]) {
       throw new Error('INVALID_STAGE');
@@ -284,10 +281,9 @@ export function createCrmHandlers(db: LocalDatabase) {
       [input.stageId, now, input.dealId]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const rows = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     return rowToDeal(rows[0]!);
   }
@@ -299,10 +295,9 @@ export function createCrmHandlers(db: LocalDatabase) {
     const now = new Date().toISOString();
 
     // Verify deal exists
-    const existing = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const existing = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     if (!existing[0]) {
       throw new Error('NOT_FOUND');
@@ -313,10 +308,9 @@ export function createCrmHandlers(db: LocalDatabase) {
       [input.wonSource ?? null, input.notes ?? null, now, input.dealId]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const rows = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     return rowToDeal(rows[0]!);
   }
@@ -328,10 +322,9 @@ export function createCrmHandlers(db: LocalDatabase) {
     const now = new Date().toISOString();
 
     // Verify deal exists
-    const existing = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const existing = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     if (!existing[0]) {
       throw new Error('NOT_FOUND');
@@ -342,10 +335,9 @@ export function createCrmHandlers(db: LocalDatabase) {
       [input.lostReason, input.notes ?? null, now, input.dealId]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM crm_deal WHERE id = ?`,
-      [input.dealId]
-    )) as unknown as DealRow[];
+    const rows = (await db.exec(`SELECT * FROM crm_deal WHERE id = ?`, [
+      input.dealId,
+    ])) as unknown as DealRow[];
 
     return rowToDeal(rows[0]!);
   }
@@ -408,4 +400,3 @@ export function createCrmHandlers(db: LocalDatabase) {
 }
 
 export type CrmHandlers = ReturnType<typeof createCrmHandlers>;
-

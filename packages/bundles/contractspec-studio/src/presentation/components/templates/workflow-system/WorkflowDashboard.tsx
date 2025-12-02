@@ -19,19 +19,24 @@ import { useWorkflowList } from './hooks/useWorkflowList';
 type Tab = 'definitions' | 'instances';
 
 const STATUS_COLORS: Record<string, string> = {
-  ACTIVE: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  ACTIVE:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   DRAFT: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
-  ARCHIVED: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  ARCHIVED:
+    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
   PENDING: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  IN_PROGRESS: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
-  COMPLETED: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  IN_PROGRESS:
+    'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
+  COMPLETED:
+    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   REJECTED: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
   CANCELLED: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
 };
 
 export function WorkflowDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('definitions');
-  const { definitions, instances, loading, error, stats, refetch } = useWorkflowList();
+  const { definitions, instances, loading, error, stats, refetch } =
+    useWorkflowList();
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: 'definitions', label: 'Definitions', icon: '📋' },
@@ -115,10 +120,18 @@ export function WorkflowDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Name</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Created</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Name
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Type
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Created
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -126,11 +139,15 @@ export function WorkflowDashboard() {
                   <tr key={def.id} className="hover:bg-muted/50">
                     <td className="px-4 py-3">
                       <div className="font-medium">{def.name}</div>
-                      <div className="text-muted-foreground text-sm">{def.description}</div>
+                      <div className="text-muted-foreground text-sm">
+                        {def.description}
+                      </div>
                     </td>
                     <td className="px-4 py-3 font-mono text-sm">{def.type}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[def.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[def.status] ?? ''}`}
+                      >
                         {def.status}
                       </span>
                     </td>
@@ -141,7 +158,10 @@ export function WorkflowDashboard() {
                 ))}
                 {definitions.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No workflow definitions found
                     </td>
                   </tr>
@@ -156,10 +176,18 @@ export function WorkflowDashboard() {
             <table className="w-full">
               <thead className="border-border bg-muted/30 border-b">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Instance ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Requested By</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Started</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Instance ID
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Requested By
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">
+                    Started
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -167,7 +195,9 @@ export function WorkflowDashboard() {
                   <tr key={inst.id} className="hover:bg-muted/50">
                     <td className="px-4 py-3 font-mono text-sm">{inst.id}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[inst.status] ?? ''}`}>
+                      <span
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[inst.status] ?? ''}`}
+                      >
                         {inst.status}
                       </span>
                     </td>
@@ -179,7 +209,10 @@ export function WorkflowDashboard() {
                 ))}
                 {instances.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="text-muted-foreground px-4 py-8 text-center"
+                    >
                       No workflow instances found
                     </td>
                   </tr>
@@ -192,4 +225,3 @@ export function WorkflowDashboard() {
     </div>
   );
 }
-

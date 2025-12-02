@@ -56,7 +56,7 @@ export interface TemplateDefinition {
   /** List of presentation names available for this template */
   presentations?: string[];
   /** List of render targets supported (default: ['react']) */
-  renderTargets?: Array<'react' | 'markdown' | 'json' | 'xml'>;
+  renderTargets?: ('react' | 'markdown' | 'json' | 'xml')[];
 }
 
 export interface TemplateFilter {
@@ -330,7 +330,12 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     ],
     tags: ['workflow', 'approval', 'bpm', 'state-machine', 'enterprise'],
     schema: {
-      models: ['WorkflowDefinition', 'WorkflowStep', 'WorkflowInstance', 'Approval'],
+      models: [
+        'WorkflowDefinition',
+        'WorkflowStep',
+        'WorkflowInstance',
+        'Approval',
+      ],
       contracts: [
         'workflow.definition.create',
         'workflow.instance.start',

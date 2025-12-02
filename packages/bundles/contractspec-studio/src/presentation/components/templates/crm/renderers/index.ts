@@ -4,4 +4,3 @@ export {
   crmPipelineMarkdownRenderer,
   crmDashboardMarkdownRenderer,
 } from './pipeline.markdown';
-

@@ -27,9 +27,22 @@ export {
 } from '@lssm/lib.identity-rbac';
 
 // Schema contribution
-import { ProjectEntity, ProjectMemberEntity, ProjectStatusEnum } from './project';
-import { SettingsEntity, FeatureFlagEntity, SettingsScopeEnum } from './settings';
-import { SubscriptionEntity, BillingUsageEntity, UsageLimitEntity, SubscriptionStatusEnum } from './billing';
+import {
+  ProjectEntity,
+  ProjectMemberEntity,
+  ProjectStatusEnum,
+} from './project';
+import {
+  SettingsEntity,
+  FeatureFlagEntity,
+  SettingsScopeEnum,
+} from './settings';
+import {
+  SubscriptionEntity,
+  BillingUsageEntity,
+  UsageLimitEntity,
+  SubscriptionStatusEnum,
+} from './billing';
 import type { ModuleSchemaContribution } from '@lssm/lib.schema';
 
 export const saasBoilerplateEntities = [
@@ -45,10 +58,5 @@ export const saasBoilerplateEntities = [
 export const saasBoilerplateSchemaContribution: ModuleSchemaContribution = {
   moduleId: '@lssm/example.saas-boilerplate',
   entities: saasBoilerplateEntities,
-  enums: [
-    ProjectStatusEnum,
-    SettingsScopeEnum,
-    SubscriptionStatusEnum,
-  ],
+  enums: [ProjectStatusEnum, SettingsScopeEnum, SubscriptionStatusEnum],
 };
-

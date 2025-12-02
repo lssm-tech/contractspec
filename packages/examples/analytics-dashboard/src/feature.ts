@@ -1,6 +1,6 @@
 /**
  * Analytics Dashboard Feature Module
- * 
+ *
  * Comprehensive analytics and dashboarding solution for data visualization
  * and reporting across the platform.
  */
@@ -37,7 +37,7 @@ export const AnalyticsDashboardFeature = {
     addWidget: contracts.AddWidgetContract,
     getDashboard: contracts.GetDashboardContract,
     listDashboards: contracts.ListDashboardsContract,
-    
+
     // Query management
     createQuery: contracts.CreateQueryContract,
     executeQuery: contracts.ExecuteQueryContract,
@@ -179,4 +179,3 @@ export const AnalyticsDashboardFeature = {
     },
   },
 };
-

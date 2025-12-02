@@ -41,7 +41,13 @@ export interface Order {
   projectId: string;
   storeId: string;
   customerId: string;
-  status: 'PENDING' | 'CONFIRMED' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+  status:
+    | 'PENDING'
+    | 'CONFIRMED'
+    | 'PROCESSING'
+    | 'SHIPPED'
+    | 'DELIVERED'
+    | 'CANCELLED';
   total: number;
   currency: string;
   shippingAddress?: string;
@@ -96,7 +102,7 @@ export interface AddProductInput {
 
 export interface PlaceOrderInput {
   storeId: string;
-  items: Array<{ productId: string; quantity: number }>;
+  items: { productId: string; quantity: number }[];
   shippingAddress?: string;
 }
 
@@ -131,7 +137,14 @@ export interface ListOrdersInput {
   projectId: string;
   storeId?: string;
   customerId?: string;
-  status?: 'PENDING' | 'CONFIRMED' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'all';
+  status?:
+    | 'PENDING'
+    | 'CONFIRMED'
+    | 'PROCESSING'
+    | 'SHIPPED'
+    | 'DELIVERED'
+    | 'CANCELLED'
+    | 'all';
   limit?: number;
   offset?: number;
 }
@@ -373,7 +386,9 @@ export function createMarketplaceHandlers(db: LocalDatabase) {
   /**
    * List products
    */
-  async function listProducts(input: ListProductsInput): Promise<ListProductsOutput> {
+  async function listProducts(
+    input: ListProductsInput
+  ): Promise<ListProductsOutput> {
     const { storeId, status, category, search, limit = 20, offset = 0 } = input;
 
     let whereClause = 'WHERE 1=1';
@@ -454,7 +469,14 @@ export function createMarketplaceHandlers(db: LocalDatabase) {
    * List orders
    */
   async function listOrders(input: ListOrdersInput): Promise<ListOrdersOutput> {
-    const { projectId, storeId, customerId, status, limit = 20, offset = 0 } = input;
+    const {
+      projectId,
+      storeId,
+      customerId,
+      status,
+      limit = 20,
+      offset = 0,
+    } = input;
 
     let whereClause = 'WHERE projectId = ?';
     const params: (string | number)[] = [projectId];
@@ -510,7 +532,11 @@ export function createMarketplaceHandlers(db: LocalDatabase) {
 
     // Calculate total
     let total = 0;
-    const itemsToCreate: Array<{ productId: string; quantity: number; price: number }> = [];
+    const itemsToCreate: {
+      productId: string;
+      quantity: number;
+      price: number;
+    }[] = [];
 
     for (const item of input.items) {
       const products = (await db.exec(
@@ -554,7 +580,14 @@ export function createMarketplaceHandlers(db: LocalDatabase) {
       await db.run(
         `INSERT INTO marketplace_order_item (id, orderId, productId, quantity, price, createdAt)
          VALUES (?, ?, ?, ?, ?, ?)`,
-        [generateId('orditem'), orderId, item.productId, item.quantity, item.price, now]
+        [
+          generateId('orditem'),
+          orderId,
+          item.productId,
+          item.quantity,
+          item.price,
+          now,
+        ]
       );
     }
 
@@ -675,4 +708,3 @@ export function createMarketplaceHandlers(db: LocalDatabase) {
 }
 
 export type MarketplaceHandlers = ReturnType<typeof createMarketplaceHandlers>;
-

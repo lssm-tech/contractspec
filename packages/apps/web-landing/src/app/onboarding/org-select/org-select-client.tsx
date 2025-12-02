@@ -158,7 +158,7 @@ export default function OrgSelectClient() {
       </header>
 
       {error ? (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg text-sm text-center">
+        <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-center text-sm text-red-300">
           {error}
         </div>
       ) : null}
@@ -173,7 +173,7 @@ export default function OrgSelectClient() {
           </div>
 
           {loading ? (
-            <div className="border-border bg-card rounded-2xl border p-6 text-center text-sm text-muted-foreground">
+            <div className="border-border bg-card text-muted-foreground rounded-2xl border p-6 text-center text-sm">
               Loading workspaces…
             </div>
           ) : hasOrganizations ? (
@@ -190,7 +190,7 @@ export default function OrgSelectClient() {
                         {org.type.replaceAll('_', ' ')} · Role: {org.role}
                       </p>
                       {!org.onboardingCompleted ? (
-                        <p className="text-xs text-amber-300 mt-1">
+                        <p className="mt-1 text-xs text-amber-300">
                           Finish onboarding to unlock deployments
                         </p>
                       ) : null}
@@ -210,13 +210,13 @@ export default function OrgSelectClient() {
               ) : null}
             </div>
           ) : (
-            <div className="border-border bg-card rounded-2xl border p-6 text-center text-sm text-muted-foreground">
+            <div className="border-border bg-card text-muted-foreground rounded-2xl border p-6 text-center text-sm">
               No workspaces yet. Create one to get started.
             </div>
           )}
         </div>
 
-        <div className="border-border bg-card rounded-2xl border p-6 space-y-5">
+        <div className="border-border bg-card space-y-5 rounded-2xl border p-6">
           <div>
             <h2 className="text-xl font-semibold">Create a workspace</h2>
             <p className="text-muted-foreground text-sm">
@@ -283,4 +283,3 @@ export default function OrgSelectClient() {
     </main>
   );
 }
-

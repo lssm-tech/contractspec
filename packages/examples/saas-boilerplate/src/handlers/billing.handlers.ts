@@ -41,11 +41,11 @@ export interface UsageSummary {
   };
   activeProjects: number;
   activeUsers: number;
-  breakdown: Array<{
+  breakdown: {
     date: string;
     apiCalls: number;
     storageGb: number;
-  }>;
+  }[];
 }
 
 export interface RecordUsageInput {
@@ -61,7 +61,11 @@ export interface CheckFeatureAccessInput {
 
 export interface CheckFeatureAccessOutput {
   allowed: boolean;
-  reason?: 'PLAN_LIMIT' | 'FEATURE_NOT_INCLUDED' | 'QUOTA_EXCEEDED' | 'SUBSCRIPTION_INACTIVE';
+  reason?:
+    | 'PLAN_LIMIT'
+    | 'FEATURE_NOT_INCLUDED'
+    | 'QUOTA_EXCEEDED'
+    | 'SUBSCRIPTION_INACTIVE';
   currentUsage?: number;
   limit?: number;
 }
@@ -111,19 +115,19 @@ export async function mockCheckFeatureAccessHandler(
 
   // Simulate feature access checks
   const featureMap: Record<string, CheckFeatureAccessOutput> = {
-    'custom_domains': {
+    custom_domains: {
       allowed: true,
     },
-    'api_access': {
+    api_access: {
       allowed: true,
       currentUsage: MOCK_USAGE_SUMMARY.apiCalls.total,
       limit: MOCK_USAGE_SUMMARY.apiCalls.limit,
     },
-    'advanced_analytics': {
+    advanced_analytics: {
       allowed: false,
       reason: 'FEATURE_NOT_INCLUDED',
     },
-    'unlimited_projects': {
+    unlimited_projects: {
       allowed: false,
       reason: 'PLAN_LIMIT',
       currentUsage: MOCK_SUBSCRIPTION.usage.projects,
@@ -133,4 +137,3 @@ export async function mockCheckFeatureAccessHandler(
 
   return featureMap[feature] ?? { allowed: true };
 }
-

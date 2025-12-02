@@ -4,4 +4,3 @@ export {
   productCatalogMarkdownRenderer,
   orderListMarkdownRenderer,
 } from './marketplace.markdown';
-

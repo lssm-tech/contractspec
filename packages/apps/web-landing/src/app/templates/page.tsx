@@ -13,13 +13,3 @@ export const metadata: Metadata = {
 export default function TemplatesPage() {
   return <TemplatesClientPage />;
 }
-
-
-
-
-
-
-
-
-
-

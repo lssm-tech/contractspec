@@ -103,7 +103,13 @@ export interface ListWorkflowDefinitionsOutput {
 export interface ListWorkflowInstancesInput {
   projectId: string;
   definitionId?: string;
-  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED' | 'CANCELLED' | 'all';
+  status?:
+    | 'PENDING'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'REJECTED'
+    | 'CANCELLED'
+    | 'all';
   requestedBy?: string;
   limit?: number;
   offset?: number;
@@ -326,10 +332,9 @@ export function createWorkflowHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM workflow_step WHERE id = ?`,
-      [id]
-    )) as unknown as WorkflowStepRow[];
+    const rows = (await db.exec(`SELECT * FROM workflow_step WHERE id = ?`, [
+      id,
+    ])) as unknown as WorkflowStepRow[];
 
     return rowToStep(rows[0]!);
   }
@@ -352,7 +357,14 @@ export function createWorkflowHandlers(db: LocalDatabase) {
   async function listInstances(
     input: ListWorkflowInstancesInput
   ): Promise<ListWorkflowInstancesOutput> {
-    const { projectId, definitionId, status, requestedBy, limit = 20, offset = 0 } = input;
+    const {
+      projectId,
+      definitionId,
+      status,
+      requestedBy,
+      limit = 20,
+      offset = 0,
+    } = input;
 
     let whereClause = 'WHERE projectId = ?';
     const params: (string | number)[] = [projectId];
@@ -464,7 +476,13 @@ export function createWorkflowHandlers(db: LocalDatabase) {
     await db.run(
       `UPDATE workflow_approval SET status = 'APPROVED', actorId = ?, comment = ?, decidedAt = ? 
        WHERE instanceId = ? AND stepId = ? AND status = 'PENDING'`,
-      [context.actorId, input.comment ?? null, now, input.instanceId, instance.currentStepId]
+      [
+        context.actorId,
+        input.comment ?? null,
+        now,
+        input.instanceId,
+        instance.currentStepId,
+      ]
     );
 
     // Get next step
@@ -489,7 +507,13 @@ export function createWorkflowHandlers(db: LocalDatabase) {
       await db.run(
         `INSERT INTO workflow_approval (id, instanceId, stepId, status, createdAt)
          VALUES (?, ?, ?, ?, ?)`,
-        [generateId('wfappr'), input.instanceId, nextSteps[0].id, 'PENDING', now]
+        [
+          generateId('wfappr'),
+          input.instanceId,
+          nextSteps[0].id,
+          'PENDING',
+          now,
+        ]
       );
     } else {
       // Complete workflow
@@ -530,7 +554,13 @@ export function createWorkflowHandlers(db: LocalDatabase) {
     await db.run(
       `UPDATE workflow_approval SET status = 'REJECTED', actorId = ?, comment = ?, decidedAt = ? 
        WHERE instanceId = ? AND stepId = ? AND status = 'PENDING'`,
-      [context.actorId, input.reason, now, input.instanceId, instances[0].currentStepId]
+      [
+        context.actorId,
+        input.reason,
+        now,
+        input.instanceId,
+        instances[0].currentStepId,
+      ]
     );
 
     // Reject workflow
@@ -573,4 +603,3 @@ export function createWorkflowHandlers(db: LocalDatabase) {
 }
 
 export type WorkflowHandlers = ReturnType<typeof createWorkflowHandlers>;
-

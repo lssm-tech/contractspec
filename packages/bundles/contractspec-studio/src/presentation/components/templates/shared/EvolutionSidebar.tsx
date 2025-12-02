@@ -83,14 +83,15 @@ export function EvolutionSidebar({
         <span>🤖</span>
         <span>Evolution</span>
         {pendingSuggestions.length > 0 && (
-          <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+          <Badge
+            variant="secondary"
+            className="border-amber-500/30 bg-amber-500/20 text-amber-400"
+          >
             {pendingSuggestions.length}
           </Badge>
         )}
         {anomalies.length > 0 && pendingSuggestions.length === 0 && (
-          <Badge variant="destructive">
-            {anomalies.length}
-          </Badge>
+          <Badge variant="destructive">{anomalies.length}</Badge>
         )}
       </button>
     );
@@ -125,15 +126,18 @@ export function EvolutionSidebar({
       <div className="max-h-96 overflow-y-auto p-3">
         {/* Stats */}
         <div className="mb-3 flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">{operationCount} ops tracked</span>
+          <span className="text-muted-foreground">
+            {operationCount} ops tracked
+          </span>
           <div className="flex items-center gap-2">
             {anomalies.length > 0 && (
-              <Badge variant="destructive">
-                {anomalies.length} anomalies
-              </Badge>
+              <Badge variant="destructive">{anomalies.length} anomalies</Badge>
             )}
             {pendingSuggestions.length > 0 && (
-              <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+              <Badge
+                variant="secondary"
+                className="border-amber-500/30 bg-amber-500/20 text-amber-400"
+              >
                 {pendingSuggestions.length} pending
               </Badge>
             )}
@@ -149,7 +153,7 @@ export function EvolutionSidebar({
         {/* Top Anomalies */}
         {topAnomalies.length > 0 && (
           <div className="mb-4">
-            <p className="mb-2 text-xs font-semibold uppercase text-violet-400">
+            <p className="mb-2 text-xs font-semibold text-violet-400 uppercase">
               Top Issues
             </p>
             <div className="space-y-2">
@@ -182,7 +186,7 @@ export function EvolutionSidebar({
         {/* Pending Suggestions */}
         {pendingSuggestions.length > 0 && (
           <div>
-            <p className="mb-2 text-xs font-semibold uppercase text-violet-400">
+            <p className="mb-2 text-xs font-semibold text-violet-400 uppercase">
               Pending Suggestions
             </p>
             <div className="space-y-2">
@@ -250,9 +254,7 @@ function CompactSuggestionCard({
             {suggestion.proposal.summary}
           </p>
           <div className="mt-1 flex items-center gap-2 text-xs">
-            <Badge variant="secondary">
-              {suggestion.priority}
-            </Badge>
+            <Badge variant="secondary">{suggestion.priority}</Badge>
             <span className="text-muted-foreground">
               {(suggestion.confidence * 100).toFixed(0)}%
             </span>
@@ -278,4 +280,3 @@ function CompactSuggestionCard({
     </div>
   );
 }
-

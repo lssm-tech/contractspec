@@ -1,5 +1,9 @@
-import { defineCommand, defineQuery, } from '@lssm/lib.contracts/spec';
-import { defineSchemaModel, ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+} from '@lssm/lib.schema';
 
 const OWNERS = ['example.saas-boilerplate'] as const;
 
@@ -30,11 +34,18 @@ export const ProjectModel = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ProjectStatusSchemaEnum, isOptional: false },
     isPublic: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: false },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: false,
+    },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -48,7 +59,11 @@ export const CreateProjectInputModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     isPublic: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
   },
 });
 
@@ -61,7 +76,11 @@ export const UpdateProjectInputModel = defineSchemaModel({
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     isPublic: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: true },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: true,
+    },
     status: { type: ProjectStatusSchemaEnum, isOptional: true },
   },
 });
@@ -100,8 +119,16 @@ export const ListProjectsInputModel = defineSchemaModel({
   fields: {
     status: { type: ProjectStatusFilterEnum, isOptional: true },
     search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+    limit: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 20,
+    },
+    offset: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: true,
+      defaultValue: 0,
+    },
   },
 });
 
@@ -152,7 +179,14 @@ export const CreateProjectContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'project.created', version: 1, when: 'Project is created', payload: ProjectModel }],
+    emits: [
+      {
+        name: 'project.created',
+        version: 1,
+        when: 'Project is created',
+        payload: ProjectModel,
+      },
+    ],
     audit: ['project.created'],
   },
 });
@@ -210,7 +244,14 @@ export const UpdateProjectContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'project.updated', version: 1, when: 'Project is updated', payload: ProjectModel }],
+    emits: [
+      {
+        name: 'project.updated',
+        version: 1,
+        when: 'Project is updated',
+        payload: ProjectModel,
+      },
+    ],
     audit: ['project.updated'],
   },
 });
@@ -237,7 +278,14 @@ export const DeleteProjectContract = defineCommand({
     auth: 'user',
   },
   sideEffects: {
-    emits: [{ name: 'project.deleted', version: 1, when: 'Project is deleted', payload: ProjectDeletedPayloadModel }],
+    emits: [
+      {
+        name: 'project.deleted',
+        version: 1,
+        when: 'Project is deleted',
+        payload: ProjectDeletedPayloadModel,
+      },
+    ],
     audit: ['project.deleted'],
   },
 });

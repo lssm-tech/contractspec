@@ -53,4 +53,3 @@ export {
   ListMyApprovalsContract,
   GetApprovalContract,
 } from './approval';
-

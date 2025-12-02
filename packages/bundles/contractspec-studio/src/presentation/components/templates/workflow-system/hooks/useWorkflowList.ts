@@ -36,7 +36,9 @@ export function useWorkflowList(projectId = 'local-project') {
       setDefinitions(defResult.definitions);
       setInstances(instResult.instances);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to load workflows'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to load workflows')
+      );
     } finally {
       setLoading(false);
     }
@@ -51,7 +53,8 @@ export function useWorkflowList(projectId = 'local-project') {
     activeDefinitions: definitions.filter((d) => d.status === 'ACTIVE').length,
     totalInstances: instances.length,
     pendingInstances: instances.filter((i) => i.status === 'PENDING').length,
-    completedInstances: instances.filter((i) => i.status === 'COMPLETED').length,
+    completedInstances: instances.filter((i) => i.status === 'COMPLETED')
+      .length,
     rejectedInstances: instances.filter((i) => i.status === 'REJECTED').length,
   };
 
@@ -64,4 +67,3 @@ export function useWorkflowList(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
-

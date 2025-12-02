@@ -10,7 +10,8 @@ export const SubscriptionPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'saas.billing.subscription',
     version: 1,
-    description: 'Subscription status with plan info, limits, and current usage',
+    description:
+      'Subscription status with plan info, limits, and current usage',
     domain: 'saas-boilerplate',
     owners: ['saas-team'],
     tags: ['billing', 'subscription'],
@@ -48,4 +49,3 @@ export const UsageDashboardPresentation: PresentationDescriptorV2 = {
     flags: ['saas.billing.enabled'],
   },
 };
-

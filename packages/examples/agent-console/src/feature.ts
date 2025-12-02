@@ -79,21 +79,58 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
 
   // Link operations to their primary presentations
   opToPresentation: [
-    { op: { name: 'agent.agent.list', version: 1 }, pres: { name: 'agent-console.agent.list', version: 1 } },
-    { op: { name: 'agent.agent.get', version: 1 }, pres: { name: 'agent-console.agent.detail', version: 1 } },
-    { op: { name: 'agent.run.list', version: 1 }, pres: { name: 'agent-console.run.list', version: 1 } },
-    { op: { name: 'agent.run.get', version: 1 }, pres: { name: 'agent-console.run.detail', version: 1 } },
-    { op: { name: 'agent.run.getMetrics', version: 1 }, pres: { name: 'agent-console.run.metrics', version: 1 } },
-    { op: { name: 'agent.tool.list', version: 1 }, pres: { name: 'agent-console.tool.registry', version: 1 } },
-    { op: { name: 'agent.tool.get', version: 1 }, pres: { name: 'agent-console.tool.detail', version: 1 } },
+    {
+      op: { name: 'agent.agent.list', version: 1 },
+      pres: { name: 'agent-console.agent.list', version: 1 },
+    },
+    {
+      op: { name: 'agent.agent.get', version: 1 },
+      pres: { name: 'agent-console.agent.detail', version: 1 },
+    },
+    {
+      op: { name: 'agent.run.list', version: 1 },
+      pres: { name: 'agent-console.run.list', version: 1 },
+    },
+    {
+      op: { name: 'agent.run.get', version: 1 },
+      pres: { name: 'agent-console.run.detail', version: 1 },
+    },
+    {
+      op: { name: 'agent.run.getMetrics', version: 1 },
+      pres: { name: 'agent-console.run.metrics', version: 1 },
+    },
+    {
+      op: { name: 'agent.tool.list', version: 1 },
+      pres: { name: 'agent-console.tool.registry', version: 1 },
+    },
+    {
+      op: { name: 'agent.tool.get', version: 1 },
+      pres: { name: 'agent-console.tool.detail', version: 1 },
+    },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
-    { name: 'agent-console.dashboard', version: 1, targets: ['react', 'markdown'] },
-    { name: 'agent-console.agent.list', version: 1, targets: ['react', 'markdown', 'application/json'] },
-    { name: 'agent-console.run.list', version: 1, targets: ['react', 'markdown', 'application/json'] },
-    { name: 'agent-console.tool.registry', version: 1, targets: ['react', 'markdown', 'application/json'] },
+    {
+      name: 'agent-console.dashboard',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      name: 'agent-console.agent.list',
+      version: 1,
+      targets: ['react', 'markdown', 'application/json'],
+    },
+    {
+      name: 'agent-console.run.list',
+      version: 1,
+      targets: ['react', 'markdown', 'application/json'],
+    },
+    {
+      name: 'agent-console.tool.registry',
+      version: 1,
+      targets: ['react', 'markdown', 'application/json'],
+    },
   ],
 
   // Capability requirements
@@ -105,4 +142,3 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     ],
   },
 };
-

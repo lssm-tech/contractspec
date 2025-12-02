@@ -301,10 +301,9 @@ export function createAgentHandlers(db: LocalDatabase) {
    * Get a single agent
    */
   async function getAgent(id: string): Promise<Agent | null> {
-    const rows = (await db.exec(
-      `SELECT * FROM agent_definition WHERE id = ?`,
-      [id]
-    )) as unknown as AgentRow[];
+    const rows = (await db.exec(`SELECT * FROM agent_definition WHERE id = ?`, [
+      id,
+    ])) as unknown as AgentRow[];
     return rows[0] ? rowToAgent(rows[0]) : null;
   }
 
@@ -338,10 +337,9 @@ export function createAgentHandlers(db: LocalDatabase) {
       ]
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM agent_definition WHERE id = ?`,
-      [id]
-    )) as unknown as AgentRow[];
+    const rows = (await db.exec(`SELECT * FROM agent_definition WHERE id = ?`, [
+      id,
+    ])) as unknown as AgentRow[];
 
     return rowToAgent(rows[0]!);
   }
@@ -376,10 +374,9 @@ export function createAgentHandlers(db: LocalDatabase) {
       params
     );
 
-    const rows = (await db.exec(
-      `SELECT * FROM agent_definition WHERE id = ?`,
-      [input.id]
-    )) as unknown as AgentRow[];
+    const rows = (await db.exec(`SELECT * FROM agent_definition WHERE id = ?`, [
+      input.id,
+    ])) as unknown as AgentRow[];
 
     if (!rows[0]) {
       throw new Error('NOT_FOUND');
@@ -553,4 +550,3 @@ export function createAgentHandlers(db: LocalDatabase) {
 }
 
 export type AgentHandlers = ReturnType<typeof createAgentHandlers>;
-

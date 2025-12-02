@@ -15,7 +15,9 @@ export function useAnalyticsData(projectId = 'local-project') {
   const handlers = useAnalyticsHandlers();
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [queries, setQueries] = useState<Query[]>([]);
-  const [selectedDashboard, setSelectedDashboard] = useState<Dashboard | null>(null);
+  const [selectedDashboard, setSelectedDashboard] = useState<Dashboard | null>(
+    null
+  );
   const [widgets, setWidgets] = useState<Widget[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -36,12 +38,16 @@ export function useAnalyticsData(projectId = 'local-project') {
       // Select first dashboard if available
       if (dashResult.dashboards.length > 0 && !selectedDashboard) {
         const first = dashResult.dashboards[0];
-        setSelectedDashboard(first);
-        const dashboardWidgets = await handlers.getWidgets(first.id);
-        setWidgets(dashboardWidgets);
+        if (first) {
+          setSelectedDashboard(first);
+          const dashboardWidgets = await handlers.getWidgets(first.id);
+          setWidgets(dashboardWidgets);
+        }
       }
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to load analytics'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to load analytics')
+      );
     } finally {
       setLoading(false);
     }
@@ -51,15 +57,19 @@ export function useAnalyticsData(projectId = 'local-project') {
     fetchData();
   }, [fetchData]);
 
-  const selectDashboard = useCallback(async (dashboard: Dashboard) => {
-    setSelectedDashboard(dashboard);
-    const dashboardWidgets = await handlers.getWidgets(dashboard.id);
-    setWidgets(dashboardWidgets);
-  }, [handlers]);
+  const selectDashboard = useCallback(
+    async (dashboard: Dashboard) => {
+      setSelectedDashboard(dashboard);
+      const dashboardWidgets = await handlers.getWidgets(dashboard.id);
+      setWidgets(dashboardWidgets);
+    },
+    [handlers]
+  );
 
   const stats: AnalyticsStats = {
     totalDashboards: dashboards.length,
-    publishedDashboards: dashboards.filter((d) => d.status === 'PUBLISHED').length,
+    publishedDashboards: dashboards.filter((d) => d.status === 'PUBLISHED')
+      .length,
     totalQueries: queries.length,
     sharedQueries: queries.filter((q) => q.isShared).length,
   };
@@ -76,4 +86,3 @@ export function useAnalyticsData(projectId = 'local-project') {
     selectDashboard,
   };
 }
-

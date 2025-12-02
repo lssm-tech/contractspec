@@ -61,7 +61,9 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
     const completedRuns = runsData.items.filter(
       (r) => r.status === 'COMPLETED'
     ).length;
-    const failedRuns = runsData.items.filter((r) => r.status === 'FAILED').length;
+    const failedRuns = runsData.items.filter(
+      (r) => r.status === 'FAILED'
+    ).length;
     const totalTokens = runsData.items.reduce(
       (sum, r) => sum + (r.totalTokens ?? 0),
       0
@@ -130,7 +132,9 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
         );
       }
       if (runsData.items.length > 5) {
-        lines.push(`| ... | ... | ... | ... | ... | _${runsData.total - 5} more_ |`);
+        lines.push(
+          `| ... | ... | ... | ... | ... | _${runsData.total - 5} more_ |`
+        );
       }
     }
 
@@ -163,4 +167,3 @@ export const agentDashboardMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-

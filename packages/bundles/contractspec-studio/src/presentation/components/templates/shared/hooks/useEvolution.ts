@@ -152,7 +152,9 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
       );
       if (stored) {
         const data = JSON.parse(stored) as {
-          suggestions: Array<Omit<SpecSuggestion, 'createdAt'> & { createdAt: string }>;
+          suggestions: (Omit<SpecSuggestion, 'createdAt'> & {
+            createdAt: string;
+          })[];
         };
         setSuggestions(
           data.suggestions.map((s) => ({
@@ -228,7 +230,9 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
     groups.forEach((opSamples) => {
       if (opSamples.length < 3) return;
 
-      const durations = opSamples.map((s) => s.durationMs).sort((a, b) => a - b);
+      const durations = opSamples
+        .map((s) => s.durationMs)
+        .sort((a, b) => a - b);
       const errors = opSamples.filter((s) => !s.success);
       const totalCalls = opSamples.length;
       const errorRate = errors.length / totalCalls;
@@ -264,7 +268,8 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
       if (errorRate > 0.1) {
         detectedAnomalies.push({
           operation: stat.operation,
-          severity: errorRate > 0.3 ? 'high' : errorRate > 0.2 ? 'medium' : 'low',
+          severity:
+            errorRate > 0.3 ? 'high' : errorRate > 0.2 ? 'medium' : 'low',
           metric: 'error-rate',
           description: `Error rate ${(errorRate * 100).toFixed(1)}% exceeds threshold`,
           detectedAt: new Date(),
@@ -297,8 +302,7 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
     // Generate hints
     const newHints: OptimizationHint[] = detectedAnomalies.map((anomaly) => ({
       operation: anomaly.operation,
-      category:
-        anomaly.metric === 'latency' ? 'performance' : 'error-handling',
+      category: anomaly.metric === 'latency' ? 'performance' : 'error-handling',
       summary:
         anomaly.metric === 'latency'
           ? 'Latency regression detected'
@@ -306,8 +310,16 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
       justification: anomaly.description,
       recommendedActions:
         anomaly.metric === 'latency'
-          ? ['Add caching layer', 'Optimize database queries', 'Consider pagination']
-          : ['Add retry logic', 'Improve error handling', 'Add circuit breaker'],
+          ? [
+              'Add caching layer',
+              'Optimize database queries',
+              'Consider pagination',
+            ]
+          : [
+              'Add retry logic',
+              'Improve error handling',
+              'Add circuit breaker',
+            ],
     }));
     setHints(newHints);
   }, []);
@@ -335,21 +347,31 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
         description: anomaly.description,
         operation: anomaly.operation,
         confidence: {
-          score: anomaly.severity === 'high' ? 0.9 : anomaly.severity === 'medium' ? 0.7 : 0.5,
-          sampleSize: usageStats.find(
-            (s) => s.operation.name === anomaly.operation.name
-          )?.totalCalls ?? 0,
+          score:
+            anomaly.severity === 'high'
+              ? 0.9
+              : anomaly.severity === 'medium'
+                ? 0.7
+                : 0.5,
+          sampleSize:
+            usageStats.find((s) => s.operation.name === anomaly.operation.name)
+              ?.totalCalls ?? 0,
         },
       },
       target: anomaly.operation,
       proposal: {
         summary: generateSuggestionSummary(anomaly),
         rationale: generateSuggestionRationale(anomaly),
-        changeType: anomaly.metric === 'error-rate' ? 'policy-update' : 'revision',
+        changeType:
+          anomaly.metric === 'error-rate' ? 'policy-update' : 'revision',
         recommendedActions: generateRecommendedActions(anomaly),
       },
       confidence:
-        anomaly.severity === 'high' ? 0.85 : anomaly.severity === 'medium' ? 0.7 : 0.55,
+        anomaly.severity === 'high'
+          ? 0.85
+          : anomaly.severity === 'medium'
+            ? 0.7
+            : 0.55,
       createdAt: new Date(),
       createdBy: 'ai-evolution-agent',
       status: 'pending',
@@ -365,11 +387,7 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
    */
   const approveSuggestion = useCallback((id: string, notes?: string) => {
     setSuggestions((prev) =>
-      prev.map((s) =>
-        s.id === id
-          ? { ...s, status: 'approved' as const }
-          : s
-      )
+      prev.map((s) => (s.id === id ? { ...s, status: 'approved' as const } : s))
     );
   }, []);
 
@@ -378,11 +396,7 @@ export function useEvolution(templateId: TemplateId): UseEvolutionReturn {
    */
   const rejectSuggestion = useCallback((id: string, notes?: string) => {
     setSuggestions((prev) =>
-      prev.map((s) =>
-        s.id === id
-          ? { ...s, status: 'rejected' as const }
-          : s
-      )
+      prev.map((s) => (s.id === id ? { ...s, status: 'rejected' as const } : s))
     );
   }, []);
 
@@ -485,4 +499,3 @@ function generateRecommendedActions(anomaly: SpecAnomaly): string[] {
     'Monitor dependency health metrics',
   ];
 }
-

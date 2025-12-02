@@ -65,10 +65,12 @@ export default function StudioFeaturesPage() {
   return (
     <main className="space-y-16 py-16">
       <section className="section-padding text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
           Studio features
         </p>
-        <h1 className="mt-4 text-4xl font-bold">One platform, modular layers.</h1>
+        <h1 className="mt-4 text-4xl font-bold">
+          One platform, modular layers.
+        </h1>
         <p className="text-muted-foreground mx-auto mt-4 max-w-3xl text-lg">
           ContractSpec Studio orchestrates visual building, lifecycle guidance,
           auto-evolution, integrations, and documentation pipelines. Pick the
@@ -81,10 +83,12 @@ export default function StudioFeaturesPage() {
             key={feature.title}
             className="card-subtle space-y-4 p-6 transition hover:border-violet-500/40"
           >
-            <feature.icon className="text-violet-400 h-8 w-8" />
+            <feature.icon className="h-8 w-8 text-violet-400" />
             <div>
               <h2 className="text-2xl font-semibold">{feature.title}</h2>
-              <p className="text-muted-foreground mt-2 text-sm">{feature.body}</p>
+              <p className="text-muted-foreground mt-2 text-sm">
+                {feature.body}
+              </p>
             </div>
             <ul className="space-y-2 text-sm">
               {feature.bullets.map((bullet) => (
@@ -95,7 +99,7 @@ export default function StudioFeaturesPage() {
         ))}
       </section>
       <section className="section-padding text-center">
-        <p className="text-sm uppercase tracking-[0.3em] text-violet-400">
+        <p className="text-sm tracking-[0.3em] text-violet-400 uppercase">
           Next steps
         </p>
         <h2 className="mt-3 text-3xl font-semibold">
@@ -113,18 +117,3 @@ export default function StudioFeaturesPage() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
