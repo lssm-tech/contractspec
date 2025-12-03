@@ -146,3 +146,4 @@ describe('lifecycle GraphQL module', () => {
   });
 });
 
+

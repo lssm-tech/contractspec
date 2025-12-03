@@ -59,3 +59,4 @@ export const MessagingCapability = defineCapability({
   requires: [{ key: 'studio.project', version: 1 }],
 });
 
+

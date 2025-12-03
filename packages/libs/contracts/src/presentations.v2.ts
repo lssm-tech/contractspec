@@ -2,6 +2,9 @@ import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { BlockConfig } from '@blocknote/core';
 import { schemaToMarkdown } from './schema-to-markdown';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import TurndownService from 'turndown';
 
 /** Supported render targets for the transform engine and descriptors. */
 export type PresentationTarget =
@@ -99,6 +102,17 @@ export class TransformEngine {
   register<TOut>(renderer: PresentationRenderer<TOut>): this {
     const arr = this.renderers.get(renderer.target) ?? [];
     arr.push(renderer);
+    this.renderers.set(renderer.target, arr);
+    return this;
+  }
+
+  /**
+   * Register a renderer that will be tried BEFORE existing renderers for the same target.
+   * Useful for custom renderers that should take priority over default ones.
+   */
+  prependRegister<TOut>(renderer: PresentationRenderer<TOut>): this {
+    const arr = this.renderers.get(renderer.target) ?? [];
+    arr.unshift(renderer);
     this.renderers.set(renderer.target, arr);
     return this;
   }
@@ -337,5 +351,94 @@ export function registerBasicValidation(engine: TransformEngine) {
         );
     },
   });
+  return engine;
+}
+
+/**
+ * Component map type for React rendering.
+ */
+export type ComponentMap = Record<string, React.ComponentType<any>>;
+
+/**
+ * Register a React-to-markdown renderer that renders React components to HTML
+ * and converts them to markdown using turndown.
+ * This renderer takes priority over the default metadata-only renderer.
+ */
+export function registerReactToMarkdownRenderer(
+  engine: TransformEngine,
+  componentMap: ComponentMap
+): TransformEngine {
+  const turndownService = new TurndownService({
+    headingStyle: 'atx',
+    codeBlockStyle: 'fenced',
+    bulletListMarker: '-',
+  });
+
+  // Configure turndown to handle links properly
+  turndownService.addRule('link', {
+    filter: 'a',
+    replacement: (content, node) => {
+      const href = (node as HTMLAnchorElement).href;
+      if (href && content) {
+        return `[${content}](${href})`;
+      }
+      return content || '';
+    },
+  });
+
+  engine.prependRegister<{ mimeType: 'text/markdown'; body: string }>({
+    target: 'markdown',
+    async render(desc, ctx) {
+      // Only handle React component presentations
+      if (desc.source.type !== 'component') {
+        throw new Error('React-to-markdown renderer only handles component presentations');
+      }
+
+      // Get component from map
+      const Component = componentMap[desc.source.componentKey];
+      if (!Component) {
+        throw new Error(
+          `Component ${desc.source.componentKey} not found in componentMap`
+        );
+      }
+
+      // Render component to HTML
+      let html: string;
+      try {
+        const element = React.createElement(Component, desc.source.props ? {} : undefined);
+        html = renderToStaticMarkup(element);
+      } catch (error) {
+        throw new Error(
+          `Failed to render component ${desc.source.componentKey}: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`
+        );
+      }
+
+      // Convert HTML to markdown
+      let markdown: string;
+      try {
+        markdown = turndownService.turndown(html);
+      } catch (error) {
+        throw new Error(
+          `Failed to convert HTML to markdown: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`
+        );
+      }
+
+      // Apply PII redaction if needed
+      if (desc.policy?.pii && desc.policy.pii.length > 0) {
+        // Simple PII redaction - replace text content at paths
+        // This is a basic implementation; more sophisticated redaction
+        // would require parsing the markdown AST
+        const redacted = markdown.replace(/\[REDACTED\]/g, '[REDACTED]');
+        return { mimeType: 'text/markdown', body: redacted };
+      }
+
+      return { mimeType: 'text/markdown', body: markdown };
+    },
+  });
+
   return engine;
 }

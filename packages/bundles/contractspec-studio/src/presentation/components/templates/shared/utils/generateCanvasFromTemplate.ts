@@ -426,3 +426,4 @@ function createEmptyCanvas(templateId: TemplateId): CanvasState {
   };
 }
 
+

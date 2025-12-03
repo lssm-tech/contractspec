@@ -13,3 +13,4 @@ export interface QuestionnaireAdapter {
   fetch(): Promise<QuestionnaireAdapterResult>;
 }
 
+

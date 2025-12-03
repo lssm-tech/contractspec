@@ -10,12 +10,12 @@ import {
 import {
   submitContactForm,
   SubmitContactFormResult,
-} from '@/lib/email';
+} from '@lssm/bundle.contractspec-studio/presentation/libs/email';
 import { Input } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
-import { WaitlistSection } from '@/components/waitlist-section';
+import { WaitlistSection } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
 
 export default function ContactClient() {
 

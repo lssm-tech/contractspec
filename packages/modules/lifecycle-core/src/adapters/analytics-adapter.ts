@@ -14,3 +14,4 @@ export interface AnalyticsAdapter {
   fetch(): Promise<AnalyticsAdapterResult>;
 }
 
+

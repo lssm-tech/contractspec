@@ -7,7 +7,6 @@ import {
   schema,
 } from '@lssm/bundle.contractspec/infrastructure';
 import { Elysia } from 'elysia';
-import { exportContractsToGraphQLSchema } from '@lssm/lib.contracts';
 
 const PORT = 8080;
 

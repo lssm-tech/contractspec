@@ -56,3 +56,4 @@ export const TaskCrudCapability = defineCapability({
   requires: [{ key: 'studio.project', version: 1 }],
 });
 
+

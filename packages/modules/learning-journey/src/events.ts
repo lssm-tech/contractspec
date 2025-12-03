@@ -452,3 +452,4 @@ export const LearningJourneyEvents = {
   CertificateIssuedEvent,
 };
 
+

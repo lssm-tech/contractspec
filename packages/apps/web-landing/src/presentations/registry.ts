@@ -4,125 +4,116 @@ import type {
 } from '@lssm/lib.contracts/presentations.v2';
 import type { ComponentMap } from './types';
 
-// Import page components - Root pages
+// Import page components - Root/Marketing pages (from web-landing app, not bundle)
 import ClientPage from '@/app/client-page';
-import DocsIndexPage from '@/app/docs/page';
-import PricingClient from '@/app/pricing/pricing-client';
 import ProductClientPage from '@/app/product/product-client';
+import PricingClient from '@/app/pricing/pricing-client';
 import ContactClient from '@/app/contact/contactClient';
 import ChangelogPage from '@/app/changelog/page';
 
-// Import page components - Getting Started
-import InstallationPage from '@/app/docs/getting-started/installation/page';
-import HelloWorldPage from '@/app/docs/getting-started/hello-world/page';
-import CLIPage from '@/app/docs/getting-started/cli/page';
-import DataViewTutorialPage from '@/app/docs/getting-started/dataviews/page';
-
-// Import page components - Specs
-import SpecsOverviewPage from '@/app/docs/specs/page';
-import SpecsCapabilitiesPage from '@/app/docs/specs/capabilities/page';
-import SpecsDataViewsPage from '@/app/docs/specs/dataviews/page';
-import SpecsWorkflowsPage from '@/app/docs/specs/workflows/page';
-import SpecsPolicyPage from '@/app/docs/specs/policy/page';
-import SpecsOverlaysPage from '@/app/docs/specs/overlays/page';
-
-// Import page components - Libraries
-import LibrariesOverviewPage from '@/app/docs/libraries/page';
-import LibrariesContractsPage from '@/app/docs/libraries/contracts/page';
-import LibrariesAiAgentPage from '@/app/docs/libraries/ai-agent/page';
-import LibrariesAnalyticsPage from '@/app/docs/libraries/analytics/page';
-import LibrariesAccessibilityPage from '@/app/docs/libraries/accessibility/page';
-import LibrariesContentGenPage from '@/app/docs/libraries/content-gen/page';
-import LibrariesCostTrackingPage from '@/app/docs/libraries/cost-tracking/page';
-import LibrariesDataBackendPage from '@/app/docs/libraries/data-backend/page';
-import LibrariesDataViewsPage from '@/app/docs/libraries/data-views/page';
-import LibrariesDesignSystemPage from '@/app/docs/libraries/design-system/page';
-import LibrariesEvolutionPage from '@/app/docs/libraries/evolution/page';
-import LibrariesGraphQLPage from '@/app/docs/libraries/graphql/page';
-import LibrariesGrowthPage from '@/app/docs/libraries/growth/page';
-import LibrariesMultiTenancyPage from '@/app/docs/libraries/multi-tenancy/page';
-import LibrariesObservabilityPage from '@/app/docs/libraries/observability/page';
-import LibrariesOverlayEnginePage from '@/app/docs/libraries/overlay-engine/page';
-import LibrariesPersonalizationPage from '@/app/docs/libraries/personalization/page';
-import LibrariesProgressiveDeliveryPage from '@/app/docs/libraries/progressive-delivery/page';
-import LibrariesResiliencePage from '@/app/docs/libraries/resilience/page';
-import LibrariesRuntimePage from '@/app/docs/libraries/runtime/page';
-import LibrariesSchemaPage from '@/app/docs/libraries/schema/page';
-import LibrariesSLOPage from '@/app/docs/libraries/slo/page';
-import LibrariesSupportBotPage from '@/app/docs/libraries/support-bot/page';
-import LibrariesTestingPage from '@/app/docs/libraries/testing/page';
-import LibrariesUIKitPage from '@/app/docs/libraries/ui-kit/page';
-import LibrariesWorkflowsPage from '@/app/docs/libraries/workflows/page';
-import LibrariesWorkflowComposerPage from '@/app/docs/libraries/workflow-composer/page';
-
-// Import page components - Architecture
-import ArchitectureOverviewPage from '@/app/docs/architecture/page';
-import ArchitectureAppConfigPage from '@/app/docs/architecture/app-config/page';
-import ArchitectureMultiTenancyPage from '@/app/docs/architecture/multi-tenancy/page';
-import ArchitectureIntegrationBindingPage from '@/app/docs/architecture/integration-binding/page';
-import ArchitectureKnowledgeBindingPage from '@/app/docs/architecture/knowledge-binding/page';
-
-// Import page components - Advanced
-import AdvancedRenderersPage from '@/app/docs/advanced/renderers/page';
-import AdvancedMCPPage from '@/app/docs/advanced/mcp/page';
-import AdvancedTelemetryPage from '@/app/docs/advanced/telemetry/page';
-import AdvancedWorkflowMonitoringPage from '@/app/docs/advanced/workflow-monitoring/page';
-import AdvancedOverlayEditorPage from '@/app/docs/advanced/overlay-editor/page';
-import AdvancedSpecExperimentsPage from '@/app/docs/advanced/spec-experiments/page';
-
-// Import page components - Safety
-import SafetyOverviewPage from '@/app/docs/safety/page';
-import SafetySigningPage from '@/app/docs/safety/signing/page';
-import SafetyAuditingPage from '@/app/docs/safety/auditing/page';
-import SafetyMigrationsPage from '@/app/docs/safety/migrations/page';
-import SafetyPDPPage from '@/app/docs/safety/pdp/page';
-import SafetyTenantIsolationPage from '@/app/docs/safety/tenant-isolation/page';
-
-// Import page components - Integrations
-import IntegrationsOverviewPage from '@/app/docs/integrations/page';
-import IntegrationsCircuitBreakersPage from '@/app/docs/integrations/circuit-breakers/page';
-import IntegrationsElevenLabsPage from '@/app/docs/integrations/elevenlabs/page';
-import IntegrationsGmailPage from '@/app/docs/integrations/gmail/page';
-import IntegrationsGoogleCalendarPage from '@/app/docs/integrations/google-calendar/page';
-import IntegrationsOpenAIPage from '@/app/docs/integrations/openai/page';
-import IntegrationsPostmarkPage from '@/app/docs/integrations/postmark/page';
-import IntegrationsPowensPage from '@/app/docs/integrations/powens/page';
-import IntegrationsQdrantPage from '@/app/docs/integrations/qdrant/page';
-import IntegrationsResendPage from '@/app/docs/integrations/resend/page';
-import IntegrationsS3Page from '@/app/docs/integrations/s3/page';
-import IntegrationsSpecModelPage from '@/app/docs/integrations/spec-model/page';
-import IntegrationsStripePage from '@/app/docs/integrations/stripe/page';
-import IntegrationsTwilioPage from '@/app/docs/integrations/twilio/page';
-
-// Import page components - Knowledge
-import KnowledgeOverviewPage from '@/app/docs/knowledge/page';
-import KnowledgeCategoriesPage from '@/app/docs/knowledge/categories/page';
-import KnowledgeExamplesPage from '@/app/docs/knowledge/examples/page';
-import KnowledgeSourcesPage from '@/app/docs/knowledge/sources/page';
-import KnowledgeSpacesPage from '@/app/docs/knowledge/spaces/page';
-
-// Import page components - Comparison
-import ComparisonOverviewPage from '@/app/docs/comparison/page';
-import ComparisonAutomationPlatformsPage from '@/app/docs/comparison/automation-platforms/page';
-import ComparisonEnterprisePlatformsPage from '@/app/docs/comparison/enterprise-platforms/page';
-import ComparisonInternalToolBuildersPage from '@/app/docs/comparison/internal-tool-builders/page';
-import ComparisonWorkflowEnginesPage from '@/app/docs/comparison/workflow-engines/page';
-import ComparisonWindmillPage from '@/app/docs/comparison/windmill/page';
-
-// Import page components - Ops
-import OpsAutoEvolutionPage from '@/app/docs/ops/auto-evolution/page';
-import OpsDistributedTracingPage from '@/app/docs/ops/distributed-tracing/page';
-
-// Import page components - Manifesto
-import ManifestoPage from '@/app/docs/manifesto/page';
-
-// Import page components - Studio
-import StudioOverviewPage from '@/app/docs/studio/page';
-import StudioGettingStartedPage from '@/app/docs/studio/getting-started/page';
-import StudioVisualBuilderPage from '@/app/docs/studio/visual-builder/page';
-import StudioIntegrationsPage from '@/app/docs/studio/integrations/page';
-import StudioDeploymentsPage from '@/app/docs/studio/deployments/page';
-import StudioBYOKPage from '@/app/docs/studio/byok/page';
+import {
+  DocsIndexPage,
+  // Getting Started
+  InstallationPage,
+  HelloWorldPage,
+  CLIPage,
+  DataViewTutorialPage,
+  // Specs
+  SpecsOverviewPage,
+  SpecsCapabilitiesPage,
+  SpecsDataViewsPage,
+  SpecsWorkflowsPage,
+  SpecsPolicyPage,
+  SpecsOverlaysPage,
+  // Libraries
+  LibrariesOverviewPage,
+  LibrariesContractsPage,
+  LibrariesAiAgentPage,
+  LibrariesAnalyticsPage,
+  LibrariesAccessibilityPage,
+  LibrariesContentGenPage,
+  LibrariesCostTrackingPage,
+  LibrariesDataBackendPage,
+  LibrariesDataViewsPage,
+  LibrariesDesignSystemPage,
+  LibrariesEvolutionPage,
+  LibrariesGraphQLPage,
+  LibrariesGrowthPage,
+  LibrariesMultiTenancyPage,
+  LibrariesObservabilityPage,
+  LibrariesOverlayEnginePage,
+  LibrariesPersonalizationPage,
+  LibrariesProgressiveDeliveryPage,
+  LibrariesResiliencePage,
+  LibrariesRuntimePage,
+  LibrariesSchemaPage,
+  LibrariesSLOPage,
+  LibrariesSupportBotPage,
+  LibrariesTestingPage,
+  LibrariesUIKitPage,
+  LibrariesWorkflowsPage,
+  LibrariesWorkflowComposerPage,
+  // Architecture
+  ArchitectureOverviewPage,
+  ArchitectureAppConfigPage,
+  ArchitectureMultiTenancyPage,
+  ArchitectureIntegrationBindingPage,
+  ArchitectureKnowledgeBindingPage,
+  // Advanced
+  AdvancedRenderersPage,
+  AdvancedMCPPage,
+  AdvancedTelemetryPage,
+  AdvancedWorkflowMonitoringPage,
+  AdvancedOverlayEditorPage,
+  AdvancedSpecExperimentsPage,
+  // Safety
+  SafetyOverviewPage,
+  SafetySigningPage,
+  SafetyAuditingPage,
+  SafetyMigrationsPage,
+  SafetyPDPPage,
+  SafetyTenantIsolationPage,
+  // Integrations
+  IntegrationsOverviewPage,
+  IntegrationsCircuitBreakersPage,
+  IntegrationsElevenLabsPage,
+  IntegrationsGmailPage,
+  IntegrationsGoogleCalendarPage,
+  IntegrationsOpenAIPage,
+  IntegrationsPostmarkPage,
+  IntegrationsPowensPage,
+  IntegrationsQdrantPage,
+  IntegrationsResendPage,
+  IntegrationsS3Page,
+  IntegrationsSpecModelPage,
+  IntegrationsStripePage,
+  IntegrationsTwilioPage,
+  // Knowledge
+  KnowledgeOverviewPage,
+  KnowledgeCategoriesPage,
+  KnowledgeExamplesPage,
+  KnowledgeSourcesPage,
+  KnowledgeSpacesPage,
+  // Comparison
+  ComparisonOverviewPage,
+  ComparisonAutomationPlatformsPage,
+  ComparisonEnterprisePlatformsPage,
+  ComparisonInternalToolBuildersPage,
+  ComparisonWorkflowEnginesPage,
+  ComparisonWindmillPage,
+  // Ops
+  OpsAutoEvolutionPage,
+  OpsDistributedTracingPage,
+  // Manifesto
+  ManifestoPage,
+  // Studio
+  StudioOverviewPage,
+  StudioGettingStartedPage,
+  StudioVisualBuilderPage,
+  StudioIntegrationsPage,
+  StudioDeploymentsPage,
+  StudioBYOKPage,
+} from '@lssm/bundle.contractspec-studio/presentation/components/docs';
 
 /**
  * Component map for React rendering.
