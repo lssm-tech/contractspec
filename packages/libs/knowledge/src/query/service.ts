@@ -105,3 +105,4 @@ function extractText(result: VectorSearchResult): string {
   return JSON.stringify(payload);
 }
 
+

@@ -71,3 +71,4 @@ export const getStageLabel = (stage: LifecycleStage): string =>
 export const getStageOrderIndex = (stage: LifecycleStage): number =>
   LIFECYCLE_STAGE_ORDER.indexOf(stage);
 
+

@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import { cn } from '@lssm/bundle.contractspec-studio/presentation/libs/utils';
+import Link from '@lssm/lib.ui-link';
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 import {HStack, VStack} from '@lssm/lib.ui-kit-web/ui/stack';
@@ -21,7 +21,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@lssm/lib.ui-kit-web/ui/dialog';
-import { WaitlistSection } from '@/components/waitlist-section';
+import { WaitlistSection } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(

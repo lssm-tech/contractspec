@@ -7,11 +7,10 @@ import {
   registerBasicValidation,
   registerDefaultReactRenderer,
   TransformEngine,
+  type ComponentMap,
 } from '../../presentations.v2';
 import { type FeatureModuleSpec, FeatureRegistry } from '../../features';
 import type { BlockConfig } from '@blocknote/core';
-
-export type ComponentMap = Record<string, React.ComponentType<any>>;
 
 export function createEngineWithDefaults(): TransformEngine {
   return registerBasicValidation(

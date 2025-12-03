@@ -54,3 +54,4 @@ export interface LifecycleAssessmentInput {
   questionnaireAnswers?: Record<string, unknown>;
 }
 
+

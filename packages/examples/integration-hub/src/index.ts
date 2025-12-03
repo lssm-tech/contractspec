@@ -42,3 +42,4 @@ export const schemaComposition = {
   outputPath: './prisma/schema/generated.prisma',
 };
 
+

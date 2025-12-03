@@ -407,3 +407,4 @@ export const quizEntities = [
 
 export const quizEnums = [QuestionTypeEnum, QuizStatusEnum, AttemptStatusEnum];
 
+

@@ -7,7 +7,7 @@ function Link({
 }: React.HTMLProps<HTMLAnchorElement> & {
   href: string;
 }) {
-  return <a className={cn('className="text-primary underline"', className)} {...props} />;
+  return <a className={cn('text-primary underline', className)} {...props} />;
 }
 
-export { Link };
+export default Link;
