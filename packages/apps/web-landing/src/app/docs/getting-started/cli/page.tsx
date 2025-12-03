@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'CLI Reference: ContractSpec Docs',
-  description: 'Complete reference for the ContractSpec CLI commands.',
-};
+// export const metadata = {
+//   title: 'CLI Reference: ContractSpec Docs',
+//   description: 'Complete reference for the ContractSpec CLI commands.',
+// };
 
 export default function CLIPage() {
   const commands = [

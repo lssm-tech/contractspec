@@ -173,6 +173,7 @@ export function createDefaultTransformEngine() {
         data = await ctx.fetchData();
       }
 
+      console.log('render markdown', desc);
       // Schema-driven rendering when data and schema are available
       // Only use schema-driven rendering for SIMPLE data structures:
       // - Arrays of items (for table rendering)
@@ -183,6 +184,7 @@ export function createDefaultTransformEngine() {
         desc.source.props &&
         data !== undefined
       ) {
+        console.log('render markdown schema-driven');
         // Check if data is compatible with schema-driven rendering
         const isArray = Array.isArray(data);
         const isSimpleObject =
@@ -210,6 +212,7 @@ export function createDefaultTransformEngine() {
 
       // BlockNote rendering
       if (desc.source.type === 'blocknotejs') {
+        console.log('render markdown blocknotejs');
         // TODO: convert BlockNote doc JSON → markdown (placeholder for now)
         const raw =
           typeof desc.source.docJson === 'string'
@@ -223,6 +226,7 @@ export function createDefaultTransformEngine() {
       // custom renderers in the chain to handle it (they may have their own
       // data fetching and formatting logic)
       if (desc.source.type === 'component' && data !== undefined) {
+        console.log('render markdown component no schema');
         throw new Error(
           `No schema (source.props) available for ${desc.meta.name} - expecting custom renderer`
         );
@@ -231,6 +235,7 @@ export function createDefaultTransformEngine() {
       // Metadata-only fallback: only use when no data is expected
       // (e.g., for documentation/introspection purposes)
       if (desc.source.type === 'component') {
+        console.log('render markdown component metadata only');
         const header = `# ${desc.meta.name} v${desc.meta.version}`;
         const about = desc.meta.description
           ? `\n\n${desc.meta.description}`
