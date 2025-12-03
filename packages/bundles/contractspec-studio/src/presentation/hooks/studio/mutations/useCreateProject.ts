@@ -53,3 +53,4 @@ export function useCreateStudioProject() {
     mutationFn: createProjectRequest,
   });
 }
+

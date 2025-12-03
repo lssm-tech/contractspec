@@ -86,3 +86,4 @@ export function createKnowledgeInjector(
     listSpaces: () => retriever?.listSpaces() ?? [],
   };
 }
+

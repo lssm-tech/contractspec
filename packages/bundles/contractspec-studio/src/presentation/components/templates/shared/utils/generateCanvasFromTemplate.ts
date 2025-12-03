@@ -425,3 +425,4 @@ function createEmptyCanvas(templateId: TemplateId): CanvasState {
     versions: [],
   };
 }
+

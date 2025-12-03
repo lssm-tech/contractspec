@@ -70,3 +70,4 @@ export function insightsToWorkflowAdaptations(
     note: `High drop rate (${Math.round(bottleneck.dropRate * 100)}%) detected`,
   }));
 }
+

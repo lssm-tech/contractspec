@@ -87,3 +87,4 @@ export const createStageChangeEvent = (
   timestamp: new Date(),
   properties: { ...payload },
 });
+

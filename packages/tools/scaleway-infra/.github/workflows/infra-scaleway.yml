@@ -52,3 +52,4 @@ jobs:
           INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stg' }}
         run: bun dist/bin/deploy.js apply --env ${{ env.INFRA_ENV }} --auto-approve
 
+

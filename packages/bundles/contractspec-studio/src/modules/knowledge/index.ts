@@ -119,3 +119,4 @@ export class StudioKnowledgeModule {
     return service.query(input.question);
   }
 }
+

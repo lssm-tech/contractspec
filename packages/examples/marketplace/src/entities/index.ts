@@ -130,3 +130,4 @@ export const marketplaceSchemaContribution: ModuleSchemaContribution = {
     ReviewTypeEnum,
   ],
 };
+

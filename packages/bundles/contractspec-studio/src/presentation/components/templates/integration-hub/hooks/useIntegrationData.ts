@@ -72,3 +72,4 @@ export function useIntegrationData(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
+
