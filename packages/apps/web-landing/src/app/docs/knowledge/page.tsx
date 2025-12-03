@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Knowledge & Context: ContractSpec Docs',
-  description:
-    'Learn how ContractSpec manages knowledge and context for AI agents, workflows, and decision-making.',
-};
+// export const metadata = {
+//   title: 'Knowledge & Context: ContractSpec Docs',
+//   description:
+//     'Learn how ContractSpec manages knowledge and context for AI agents, workflows, and decision-making.',
+// };
 
 export default function KnowledgeOverviewPage() {
   return (

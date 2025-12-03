@@ -1,11 +1,10 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Getting Started with DataViews | ContractSpec',
-  description: 'Learn how to create and render your first DataView.',
-};
+// export const metadata: Metadata = {
+//   title: 'Getting Started with DataViews | ContractSpec',
+//   description: 'Learn how to create and render your first DataView.',
+// };
 
 export default function DataViewTutorialPage() {
   return (

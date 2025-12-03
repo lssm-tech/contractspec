@@ -1,31 +1,30 @@
 import Link from 'next/link';
-import { ChevronRight, Zap, BookOpen, Shield, Activity } from 'lucide-react';
-import type { Metadata } from 'next';
+import { Activity, BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Documentation – ContractSpec',
-  description:
-    'Learn to stabilize your AI-generated code. Define contracts, generate consistent code across all surfaces, regenerate safely.',
-  keywords: [
-    'documentation',
-    'guides',
-    'API reference',
-    'spec-first compiler',
-    'AI code stabilization',
-    'TypeScript',
-    'contracts',
-  ],
-  openGraph: {
-    title: 'Documentation – ContractSpec',
-    description:
-      'Learn to stabilize your AI-generated code with spec-first development.',
-    url: 'https://contractspec.chaman.ventures/docs',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://contractspec.chaman.ventures/docs',
-  },
-};
+// export const metadata: Metadata = {
+//   title: 'Documentation – ContractSpec',
+//   description:
+//     'Learn to stabilize your AI-generated code. Define contracts, generate consistent code across all surfaces, regenerate safely.',
+//   keywords: [
+//     'documentation',
+//     'guides',
+//     'API reference',
+//     'spec-first compiler',
+//     'AI code stabilization',
+//     'TypeScript',
+//     'contracts',
+//   ],
+//   openGraph: {
+//     title: 'Documentation – ContractSpec',
+//     description:
+//       'Learn to stabilize your AI-generated code with spec-first development.',
+//     url: 'https://contractspec.chaman.ventures/docs',
+//     type: 'website',
+//   },
+//   alternates: {
+//     canonical: 'https://contractspec.chaman.ventures/docs',
+//   },
+// };
 
 export default function DocsIndexPage() {
   return (

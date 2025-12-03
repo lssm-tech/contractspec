@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Gmail API Integration: ContractSpec Docs',
-  description:
-    'Process inbound emails and manage threads with Gmail API in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Gmail API Integration: ContractSpec Docs',
+//   description:
+//     'Process inbound emails and manage threads with Gmail API in ContractSpec.',
+// };
 
 export default function GmailIntegrationPage() {
   return (

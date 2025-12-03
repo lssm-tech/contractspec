@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Progressive Delivery Library',
-  description:
-    'Stage-based rollouts with traffic shifting, guardrails, and auto-rollback.',
-};
+// export const metadata: Metadata = {
+//   title: 'Progressive Delivery Library',
+//   description:
+//     'Stage-based rollouts with traffic shifting, guardrails, and auto-rollback.',
+// };
 
 export default function ProgressiveDeliveryPage() {
   return (

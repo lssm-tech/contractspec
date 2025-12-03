@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Workflow Library | ContractSpec',
-  description: 'Runtime orchestration engine for ContractSpec Workflows.',
-};
+// export const metadata: Metadata = {
+//   title: 'Workflow Library | ContractSpec',
+//   description: 'Runtime orchestration engine for ContractSpec Workflows.',
+// };
 
 export default function WorkflowLibraryPage() {
   return (

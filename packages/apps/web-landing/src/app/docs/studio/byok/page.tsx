@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Studio – BYOK Setup',
-  description:
-    'Configure Bring Your Own Key for ContractSpec Studio. Secure credentials, rotate keys, and audit access.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio – BYOK Setup',
+//   description:
+//     'Configure Bring Your Own Key for ContractSpec Studio. Secure credentials, rotate keys, and audit access.',
+// };
 
 const steps = [
   {

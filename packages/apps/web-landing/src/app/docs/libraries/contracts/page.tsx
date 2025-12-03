@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: '@lssm/lib.contracts: ContractSpec Docs',
-  description:
-    'Complete reference for the contracts library—define operations, events, and policies in pure TypeScript.',
-};
+// export const metadata = {
+//   title: '@lssm/lib.contracts: ContractSpec Docs',
+//   description:
+//     'Complete reference for the contracts library—define operations, events, and policies in pure TypeScript.',
+// };
 
 export default function ContractsLibraryPage() {
   return (

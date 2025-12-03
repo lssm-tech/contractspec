@@ -1,9 +1,8 @@
-import type { Metadata } from 'next';
-export const metadata: Metadata = {
-  title: 'Studio – Getting Started',
-  description:
-    'Create your first ContractSpec Studio project, add specs, and deploy to shared infrastructure.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio – Getting Started',
+//   description:
+//     'Create your first ContractSpec Studio project, add specs, and deploy to shared infrastructure.',
+// };
 
 const steps = [
   {

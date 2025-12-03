@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'SLO Library',
-  description:
-    'Define and monitor availability + latency targets with burn-rate alerts.',
-};
+// export const metadata: Metadata = {
+//   title: 'SLO Library',
+//   description:
+//     'Define and monitor availability + latency targets with burn-rate alerts.',
+// };
 
 export default function SLOLibraryPage() {
   return (

@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Auto-Evolution Runbook | ContractSpec',
-  description:
-    'Operate the telemetry → intent → spec pipeline with guardrails and approvals.',
-};
+// export const metadata: Metadata = {
+//   title: 'Auto-Evolution Runbook | ContractSpec',
+//   description:
+//     'Operate the telemetry → intent → spec pipeline with guardrails and approvals.',
+// };
 
 export default function AutoEvolutionOpsPage() {
   return (

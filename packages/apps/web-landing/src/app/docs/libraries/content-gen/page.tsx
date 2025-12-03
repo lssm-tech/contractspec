@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Content Generation Library | ContractSpec',
-  description:
-    'Generate blog posts, landing pages, emails, social posts, and SEO metadata.',
-};
+// export const metadata: Metadata = {
+//   title: 'Content Generation Library | ContractSpec',
+//   description:
+//     'Generate blog posts, landing pages, emails, social posts, and SEO metadata.',
+// };
 
 export default function ContentGenLibraryPage() {
   return (

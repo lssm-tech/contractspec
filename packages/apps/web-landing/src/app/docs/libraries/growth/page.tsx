@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Growth Experiments Library | ContractSpec',
-  description:
-    'Deterministic experiment registry, assignment, tracking, and stats.',
-};
+// export const metadata: Metadata = {
+//   title: 'Growth Experiments Library | ContractSpec',
+//   description:
+//     'Deterministic experiment registry, assignment, tracking, and stats.',
+// };
 
 export default function GrowthLibraryPage() {
   return (

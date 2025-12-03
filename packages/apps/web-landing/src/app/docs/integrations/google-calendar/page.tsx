@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Google Calendar Integration: ContractSpec Docs',
-  description:
-    'Schedule events and manage calendars with Google Calendar API in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Google Calendar Integration: ContractSpec Docs',
+//   description:
+//     'Schedule events and manage calendars with Google Calendar API in ContractSpec.',
+// };
 
 export default function GoogleCalendarIntegrationPage() {
   return (

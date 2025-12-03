@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Knowledge Sources: ContractSpec Docs',
-  description:
-    'Learn about KnowledgeSourceConfig and how to connect tenant data sources to knowledge spaces.',
-};
+// export const metadata = {
+//   title: 'Knowledge Sources: ContractSpec Docs',
+//   description:
+//     'Learn about KnowledgeSourceConfig and how to connect tenant data sources to knowledge spaces.',
+// };
 
 export default function KnowledgeSourcesPage() {
   return (

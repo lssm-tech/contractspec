@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Workflow Composer | ContractSpec',
-  description: 'Tenant-aware workflow extensions without forking specs.',
-};
+// export const metadata: Metadata = {
+//   title: 'Workflow Composer | ContractSpec',
+//   description: 'Tenant-aware workflow extensions without forking specs.',
+// };
 
 export default function WorkflowComposerPage() {
   return (

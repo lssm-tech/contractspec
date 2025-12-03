@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Qdrant Integration: ContractSpec Docs',
-  description:
-    'Build semantic search and RAG applications with Qdrant vector database in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Qdrant Integration: ContractSpec Docs',
+//   description:
+//     'Build semantic search and RAG applications with Qdrant vector database in ContractSpec.',
+// };
 
 export default function QdrantIntegrationPage() {
   return (

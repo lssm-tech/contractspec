@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'S3-Compatible Storage Integration: ContractSpec Docs',
-  description:
-    'Store and retrieve files with S3-compatible object storage in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'S3-Compatible Storage Integration: ContractSpec Docs',
+//   description:
+//     'Store and retrieve files with S3-compatible object storage in ContractSpec.',
+// };
 
 export default function S3IntegrationPage() {
   return (

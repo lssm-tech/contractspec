@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Hello World: ContractSpec Docs',
-  description: 'Create your first ContractSpec app in 5 minutes.',
-};
+// export const metadata = {
+//   title: 'Hello World: ContractSpec Docs',
+//   description: 'Create your first ContractSpec app in 5 minutes.',
+// };
 
 export default function HelloWorldPage() {
   return (

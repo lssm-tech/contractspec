@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Windmill Comparison: ContractSpec Docs',
-  description:
-    'Understand how Windmill compares to ContractSpec across entry model, policy enforcement, and personalisation.',
-};
+// export const metadata = {
+//   title: 'Windmill Comparison: ContractSpec Docs',
+//   description:
+//     'Understand how Windmill compares to ContractSpec across entry model, policy enforcement, and personalisation.',
+// };
 
 export default function WindmillComparisonPage() {
   return (

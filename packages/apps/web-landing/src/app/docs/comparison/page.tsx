@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Comparison Overview: ContractSpec Docs',
-  description:
-    'See how ContractSpec relates to workflow engines, internal-tool builders, automation platforms, and enterprise orchestrators.',
-};
+// export const metadata = {
+//   title: 'Comparison Overview: ContractSpec Docs',
+//   description:
+//     'See how ContractSpec relates to workflow engines, internal-tool builders, automation platforms, and enterprise orchestrators.',
+// };
 
 export default function ComparisonOverviewPage() {
   return (

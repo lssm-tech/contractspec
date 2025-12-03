@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Tenant Isolation Safety | ContractSpec',
-  description: 'How to ensure data never leaks between tenants.',
-};
+// export const metadata: Metadata = {
+//   title: 'Tenant Isolation Safety | ContractSpec',
+//   description: 'How to ensure data never leaks between tenants.',
+// };
 
 export default function TenantIsolationSafetyPage() {
   return (

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Audit Logs: ContractSpec Docs',
-  description:
-    'Learn how ContractSpec captures and stores audit logs for accountability, security, compliance, and debugging.',
-};
+// export const metadata = {
+//   title: 'Audit Logs: ContractSpec Docs',
+//   description:
+//     'Learn how ContractSpec captures and stores audit logs for accountability, security, compliance, and debugging.',
+// };
 
 export default function AuditingPage() {
   return (

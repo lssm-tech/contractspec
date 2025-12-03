@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Architecture: ContractSpec Docs',
-  description:
-    "Understand ContractSpec's architecture: app configuration, integrations, knowledge, and runtime resolution.",
-};
+// export const metadata = {
+//   title: 'Architecture: ContractSpec Docs',
+//   description:
+//     "Understand ContractSpec's architecture: app configuration, integrations, knowledge, and runtime resolution.",
+// };
 
 export default function ArchitectureOverviewPage() {
   return (

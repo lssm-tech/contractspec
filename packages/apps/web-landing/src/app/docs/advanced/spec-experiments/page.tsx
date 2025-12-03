@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Spec Experiments | ContractSpec',
-  description:
-    'Deterministic rollouts, guardrails, and automatic rollback for ContractSpec operations.',
-};
+// export const metadata: Metadata = {
+//   title: 'Spec Experiments | ContractSpec',
+//   description:
+//     'Deterministic rollouts, guardrails, and automatic rollback for ContractSpec operations.',
+// };
 
 export default function SpecExperimentsPage() {
   return (

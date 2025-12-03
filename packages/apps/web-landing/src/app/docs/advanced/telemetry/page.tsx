@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Telemetry: ContractSpec Docs',
-  description:
-    'Learn how to configure observability, metrics, logs, and traces in ContractSpec using TelemetrySpec.',
-};
+// export const metadata = {
+//   title: 'Telemetry: ContractSpec Docs',
+//   description:
+//     'Learn how to configure observability, metrics, logs, and traces in ContractSpec using TelemetrySpec.',
+// };
 
 export default function TelemetryPage() {
   return (

@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Multi-Tenancy Library | ContractSpec',
-  description: 'Utilities for RLS, provisioning, and isolation.',
-};
+// export const metadata: Metadata = {
+//   title: 'Multi-Tenancy Library | ContractSpec',
+//   description: 'Utilities for RLS, provisioning, and isolation.',
+// };
 
 export default function MultiTenancyLibraryPage() {
   return (

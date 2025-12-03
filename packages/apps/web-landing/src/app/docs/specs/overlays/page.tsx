@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Overlays: ContractSpec Docs',
-  description:
-    'Learn how OverlaySpecs enable safe, signed customization of UI layouts and field visibility in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Overlays: ContractSpec Docs',
+//   description:
+//     'Learn how OverlaySpecs enable safe, signed customization of UI layouts and field visibility in ContractSpec.',
+// };
 
 export default function OverlaysPage() {
   return (

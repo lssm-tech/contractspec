@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'MCP Adapters: ContractSpec Docs',
-  description:
-    'Learn how to integrate ContractSpec with Model Context Protocol (MCP) servers for AI-powered capabilities.',
-};
+// export const metadata = {
+//   title: 'MCP Adapters: ContractSpec Docs',
+//   description:
+//     'Learn how to integrate ContractSpec with Model Context Protocol (MCP) servers for AI-powered capabilities.',
+// };
 
 export default function MCPPage() {
   return (

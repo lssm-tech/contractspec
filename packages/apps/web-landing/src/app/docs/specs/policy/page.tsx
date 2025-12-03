@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Policy: ContractSpec Docs',
-  description:
-    'Learn how to define attribute-based access control and data protection policies in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Policy: ContractSpec Docs',
+//   description:
+//     'Learn how to define attribute-based access control and data protection policies in ContractSpec.',
+// };
 
 export default function PolicyPage() {
   return (

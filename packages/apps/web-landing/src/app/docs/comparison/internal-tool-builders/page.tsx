@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Internal-Tool Builders Comparison: ContractSpec Docs',
-  description:
-    'See how popular internal-tool builders compare to ContractSpec on UI generation, policies, and personalisation.',
-};
+// export const metadata = {
+//   title: 'Internal-Tool Builders Comparison: ContractSpec Docs',
+//   description:
+//     'See how popular internal-tool builders compare to ContractSpec on UI generation, policies, and personalisation.',
+// };
 
 export default function InternalToolBuildersComparisonPage() {
   return (

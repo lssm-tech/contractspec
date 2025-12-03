@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'DataView Library | ContractSpec',
-  description: 'Runtime and components for rendering DataViews.',
-};
+// export const metadata: Metadata = {
+//   title: 'DataView Library | ContractSpec',
+//   description: 'Runtime and components for rendering DataViews.',
+// };
 
 export default function DataViewLibraryPage() {
   return (

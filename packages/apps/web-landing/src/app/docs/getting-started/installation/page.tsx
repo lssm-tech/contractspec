@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Installation: ContractSpec Docs',
-  description:
-    'Install the ContractSpec CLI and set up your development environment.',
-};
+// export const metadata = {
+//   title: 'Installation: ContractSpec Docs',
+//   description:
+//     'Install the ContractSpec CLI and set up your development environment.',
+// };
 
 export default function InstallationPage() {
   return (

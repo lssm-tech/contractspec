@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Knowledge Binding: ContractSpec Docs',
-  description:
-    'Learn how apps bind to knowledge spaces through AppKnowledgeBinding in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Knowledge Binding: ContractSpec Docs',
+//   description:
+//     'Learn how apps bind to knowledge spaces through AppKnowledgeBinding in ContractSpec.',
+// };
 
 export default function KnowledgeBindingPage() {
   return (

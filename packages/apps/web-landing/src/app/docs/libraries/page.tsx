@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Libraries: ContractSpec Docs',
-  description:
-    'Explore the LSSM library ecosystem for building type-safe, policy-enforced applications.',
-};
+// export const metadata = {
+//   title: 'Libraries: ContractSpec Docs',
+//   description:
+//     'Explore the LSSM library ecosystem for building type-safe, policy-enforced applications.',
+// };
 
 export default function LibrariesOverviewPage() {
   return (

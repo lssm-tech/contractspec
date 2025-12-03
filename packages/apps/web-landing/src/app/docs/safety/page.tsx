@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Safety Overview: ContractSpec Docs',
-  description:
-    "Learn about ContractSpec's safety features: spec signing, policy decision points, audit logs, migrations, and more.",
-};
+// export const metadata = {
+//   title: 'Safety Overview: ContractSpec Docs',
+//   description:
+//     "Learn about ContractSpec's safety features: spec signing, policy decision points, audit logs, migrations, and more.",
+// };
 
 export default function SafetyOverviewPage() {
   return (

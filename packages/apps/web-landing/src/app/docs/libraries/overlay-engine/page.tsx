@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Overlay Engine | ContractSpec',
-  description: 'Signed overlays with cryptographic safety and React hooks.',
-};
+// export const metadata: Metadata = {
+//   title: 'Overlay Engine | ContractSpec',
+//   description: 'Signed overlays with cryptographic safety and React hooks.',
+// };
 
 export default function OverlayEnginePage() {
   return (

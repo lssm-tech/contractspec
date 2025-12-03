@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Specifications Overview: ContractSpec Docs',
-  description:
-    'Learn about all specification types in ContractSpec and why spec-first development matters.',
-};
+// export const metadata = {
+//   title: 'Specifications Overview: ContractSpec Docs',
+//   description:
+//     'Learn about all specification types in ContractSpec and why spec-first development matters.',
+// };
 
 export default function SpecsOverviewPage() {
   return (

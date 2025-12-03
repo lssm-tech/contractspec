@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Workflow Monitoring | ContractSpec',
-  description: 'Monitor SLAs, detect anomalies, and trace workflow execution.',
-};
+// export const metadata: Metadata = {
+//   title: 'Workflow Monitoring | ContractSpec',
+//   description: 'Monitor SLAs, detect anomalies, and trace workflow execution.',
+// };
 
 export default function WorkflowMonitoringPage() {
   return (

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Data & Backend Libraries: ContractSpec Docs',
-  description:
-    'Essential backend utilities for database, logging, error handling, and events.',
-};
+// export const metadata = {
+//   title: 'Data & Backend Libraries: ContractSpec Docs',
+//   description:
+//     'Essential backend utilities for database, logging, error handling, and events.',
+// };
 
 export default function DataBackendLibrariesPage() {
   return (

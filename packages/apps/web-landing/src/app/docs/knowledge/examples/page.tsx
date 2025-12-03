@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Knowledge Examples: ContractSpec Docs',
-  description:
-    'Real-world examples of knowledge spaces in ContractSpec applications.',
-};
+// export const metadata = {
+//   title: 'Knowledge Examples: ContractSpec Docs',
+//   description:
+//     'Real-world examples of knowledge spaces in ContractSpec applications.',
+// };
 
 export default function KnowledgeExamplesPage() {
   return (

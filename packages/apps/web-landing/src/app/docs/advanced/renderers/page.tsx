@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Custom Renderers: ContractSpec Docs',
-  description: 'Build custom renderers for different platforms and frameworks.',
-};
+// export const metadata = {
+//   title: 'Custom Renderers: ContractSpec Docs',
+//   description: 'Build custom renderers for different platforms and frameworks.',
+// };
 
 export default function RenderersPage() {
   return (

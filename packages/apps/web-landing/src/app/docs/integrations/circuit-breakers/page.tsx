@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Circuit Breakers for Integrations | ContractSpec',
-  description: 'How to wrap external integrations with circuit breakers.',
-};
+// export const metadata: Metadata = {
+//   title: 'Circuit Breakers for Integrations | ContractSpec',
+//   description: 'How to wrap external integrations with circuit breakers.',
+// };
 
 export default function CircuitBreakersIntegrationPage() {
   return (

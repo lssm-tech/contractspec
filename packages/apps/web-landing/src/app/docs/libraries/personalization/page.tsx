@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Personalization Library | ContractSpec',
-  description: 'Behavior tracking and insights for overlay automation.',
-};
+// export const metadata: Metadata = {
+//   title: 'Personalization Library | ContractSpec',
+//   description: 'Behavior tracking and insights for overlay automation.',
+// };
 
 export default function PersonalizationLibraryPage() {
   return (

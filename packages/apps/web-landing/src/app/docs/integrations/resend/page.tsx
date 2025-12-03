@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Resend Integration: ContractSpec Docs',
-  description:
-    "Send transactional emails with Resend's modern API in ContractSpec.",
-};
+// export const metadata = {
+//   title: 'Resend Integration: ContractSpec Docs',
+//   description:
+//     "Send transactional emails with Resend's modern API in ContractSpec.",
+// };
 
 export default function ResendIntegrationPage() {
   return (

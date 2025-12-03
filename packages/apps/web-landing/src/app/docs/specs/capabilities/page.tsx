@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Capabilities: ContractSpec Docs',
-  description: 'Learn how to define capabilities in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Capabilities: ContractSpec Docs',
+//   description: 'Learn how to define capabilities in ContractSpec.',
+// };
 
 export default function CapabilitiesPage() {
   return (

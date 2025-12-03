@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Policy Decision Points: ContractSpec Docs',
-  description:
-    "Learn how ContractSpec's Policy Decision Point (PDP) enforces access control and data protection policies.",
-};
+// export const metadata = {
+//   title: 'Policy Decision Points: ContractSpec Docs',
+//   description:
+//     "Learn how ContractSpec's Policy Decision Point (PDP) enforces access control and data protection policies.",
+// };
 
 export default function PDPPage() {
   return (

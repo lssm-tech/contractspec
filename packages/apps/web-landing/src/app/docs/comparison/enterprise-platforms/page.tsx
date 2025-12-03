@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Enterprise Orchestration Comparison: ContractSpec Docs',
-  description:
-    'See how Redwood RunMyJobs compares to ContractSpec for enterprise orchestration.',
-};
+// export const metadata = {
+//   title: 'Enterprise Orchestration Comparison: ContractSpec Docs',
+//   description:
+//     'See how Redwood RunMyJobs compares to ContractSpec for enterprise orchestration.',
+// };
 
 export default function EnterprisePlatformsComparisonPage() {
   return (

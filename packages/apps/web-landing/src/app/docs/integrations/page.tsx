@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Integrations: ContractSpec Docs',
-  description:
-    'Connect ContractSpec to payments, email, AI, storage, and other services through built-in integrations.',
-};
+// export const metadata = {
+//   title: 'Integrations: ContractSpec Docs',
+//   description:
+//     'Connect ContractSpec to payments, email, AI, storage, and other services through built-in integrations.',
+// };
 
 export default function IntegrationsOverviewPage() {
   return (

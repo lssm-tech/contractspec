@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Automation Platforms Comparison: ContractSpec Docs',
-  description:
-    'Compare automation platforms like Zapier, Make, n8n, and Pipedream with ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Automation Platforms Comparison: ContractSpec Docs',
+//   description:
+//     'Compare automation platforms like Zapier, Make, n8n, and Pipedream with ContractSpec.',
+// };
 
 export default function AutomationPlatformsComparisonPage() {
   return (

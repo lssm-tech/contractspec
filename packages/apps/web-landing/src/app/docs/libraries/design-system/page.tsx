@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: '@lssm/lib.design-system: ContractSpec Docs',
-  description:
-    'High-level design system components, patterns, and layouts for LSSM applications.',
-};
+// export const metadata = {
+//   title: '@lssm/lib.design-system: ContractSpec Docs',
+//   description:
+//     'High-level design system components, patterns, and layouts for LSSM applications.',
+// };
 
 export default function DesignSystemLibraryPage() {
   return (

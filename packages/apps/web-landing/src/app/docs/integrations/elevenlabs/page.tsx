@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'ElevenLabs Integration: ContractSpec Docs',
-  description:
-    'Generate realistic text-to-speech audio with ElevenLabs in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'ElevenLabs Integration: ContractSpec Docs',
+//   description:
+//     'Generate realistic text-to-speech audio with ElevenLabs in ContractSpec.',
+// };
 
 export default function ElevenLabsIntegrationPage() {
   return (

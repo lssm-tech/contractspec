@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Evolution Library | ContractSpec',
-  description:
-    'Adaptive spec suggestions, approvals, and variant orchestration for auto-evolving apps.',
-};
+// export const metadata: Metadata = {
+//   title: 'Evolution Library | ContractSpec',
+//   description:
+//     'Adaptive spec suggestions, approvals, and variant orchestration for auto-evolving apps.',
+// };
 
 export default function EvolutionLibraryPage() {
   return (

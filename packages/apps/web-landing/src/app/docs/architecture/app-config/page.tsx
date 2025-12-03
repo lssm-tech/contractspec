@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'App Configuration: ContractSpec Docs',
-  description:
-    'Learn about AppBlueprintSpec, TenantAppConfig, and ResolvedAppConfig in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'App Configuration: ContractSpec Docs',
+//   description:
+//     'Learn about AppBlueprintSpec, TenantAppConfig, and ResolvedAppConfig in ContractSpec.',
+// };
 
 export default function AppConfigPage() {
   return (

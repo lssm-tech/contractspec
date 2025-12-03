@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Migrations: ContractSpec Docs',
-  description:
-    'Learn how to manage schema and data migrations safely with MigrationSpec in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Migrations: ContractSpec Docs',
+//   description:
+//     'Learn how to manage schema and data migrations safely with MigrationSpec in ContractSpec.',
+// };
 
 export default function MigrationsPage() {
   return (

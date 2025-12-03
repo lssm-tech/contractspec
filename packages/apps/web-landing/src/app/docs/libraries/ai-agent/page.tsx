@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'AI Agent Library | ContractSpec',
-  description:
-    'Build safe AI copilots with specs, tools, memory, and approval workflows.',
-};
+// export const metadata: Metadata = {
+//   title: 'AI Agent Library | ContractSpec',
+//   description:
+//     'Build safe AI copilots with specs, tools, memory, and approval workflows.',
+// };
 
 export default function AiAgentLibraryPage() {
   return (

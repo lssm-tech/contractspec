@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Workflows: ContractSpec Docs',
-  description:
-    'Learn how to define multi-step workflows with retries, compensation, and monitoring in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Workflows: ContractSpec Docs',
+//   description:
+//     'Learn how to define multi-step workflows with retries, compensation, and monitoring in ContractSpec.',
+// };
 
 export default function WorkflowsPage() {
   return (

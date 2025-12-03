@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Runtime Libraries: ContractSpec Docs',
-  description:
-    'Presentation runtimes for rendering ContractSpec workflows and UIs.',
-};
+// export const metadata = {
+//   title: 'Runtime Libraries: ContractSpec Docs',
+//   description:
+//     'Presentation runtimes for rendering ContractSpec workflows and UIs.',
+// };
 
 export default function RuntimeLibrariesPage() {
   return (

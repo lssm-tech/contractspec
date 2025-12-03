@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Analytics Library | ContractSpec',
-  description:
-    'Funnels, cohorts, churn, and hypotheses without spinning up a warehouse.',
-};
+// export const metadata: Metadata = {
+//   title: 'Analytics Library | ContractSpec',
+//   description:
+//     'Funnels, cohorts, churn, and hypotheses without spinning up a warehouse.',
+// };
 
 export default function AnalyticsLibraryPage() {
   return (

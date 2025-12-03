@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: '@lssm/lib.schema: ContractSpec Docs',
-  description:
-    'Type-safe schema models that export to Zod, GraphQL, and JSON Schema.',
-};
+// export const metadata = {
+//   title: '@lssm/lib.schema: ContractSpec Docs',
+//   description:
+//     'Type-safe schema models that export to Zod, GraphQL, and JSON Schema.',
+// };
 
 export default function SchemaLibraryPage() {
   return (

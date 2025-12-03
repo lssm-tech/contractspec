@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Observability Library | ContractSpec',
-  description: 'OpenTelemetry integration for tracing, metrics, and logs.',
-};
+// export const metadata: Metadata = {
+//   title: 'Observability Library | ContractSpec',
+//   description: 'OpenTelemetry integration for tracing, metrics, and logs.',
+// };
 
 export default function ObservabilityLibraryPage() {
   return (

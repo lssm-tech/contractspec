@@ -1,27 +1,25 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Changelog: ContractSpec',
-  description:
-    'Updates and releases for ContractSpec. New features, improvements, and breaking changes for the spec-first compiler.',
-  keywords: [
-    'changelog',
-    'updates',
-    'releases',
-    'features',
-    'spec-first compiler',
-    'AI code stabilization',
-  ],
-  openGraph: {
-    title: 'Changelog: ContractSpec',
-    description: 'Latest releases and improvements to ContractSpec.',
-    url: 'https://contractspec.chaman.ventures/changelog',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://contractspec.chaman.ventures/changelog',
-  },
-};
+// export const metadata: Metadata = {
+//   title: 'Changelog: ContractSpec',
+//   description:
+//     'Updates and releases for ContractSpec. New features, improvements, and breaking changes for the spec-first compiler.',
+//   keywords: [
+//     'changelog',
+//     'updates',
+//     'releases',
+//     'features',
+//     'spec-first compiler',
+//     'AI code stabilization',
+//   ],
+//   openGraph: {
+//     title: 'Changelog: ContractSpec',
+//     description: 'Latest releases and improvements to ContractSpec.',
+//     url: 'https://contractspec.chaman.ventures/changelog',
+//     type: 'website',
+//   },
+//   alternates: {
+//     canonical: 'https://contractspec.chaman.ventures/changelog',
+//   },
+// };
 
 const changes = [
   {

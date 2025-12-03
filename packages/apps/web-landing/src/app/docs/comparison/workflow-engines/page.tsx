@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Workflow Engines Comparison: ContractSpec Docs',
-  description:
-    'Compare popular workflow engines with ContractSpec to understand core strengths and differences.',
-};
+// export const metadata = {
+//   title: 'Workflow Engines Comparison: ContractSpec Docs',
+//   description:
+//     'Compare popular workflow engines with ContractSpec to understand core strengths and differences.',
+// };
 
 export default function WorkflowEnginesComparisonPage() {
   return (

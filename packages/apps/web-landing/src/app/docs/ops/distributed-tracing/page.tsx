@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Distributed Tracing Operations | ContractSpec',
-  description: 'Running and configuring distributed tracing in production.',
-};
+// export const metadata: Metadata = {
+//   title: 'Distributed Tracing Operations | ContractSpec',
+//   description: 'Running and configuring distributed tracing in production.',
+// };
 
 export default function DistributedTracingOpsPage() {
   return (

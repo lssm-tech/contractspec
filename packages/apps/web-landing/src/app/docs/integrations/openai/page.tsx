@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'OpenAI Integration: ContractSpec Docs',
-  description:
-    'Use GPT models, embeddings, and Whisper speech-to-text with OpenAI in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'OpenAI Integration: ContractSpec Docs',
+//   description:
+//     'Use GPT models, embeddings, and Whisper speech-to-text with OpenAI in ContractSpec.',
+// };
 
 export default function OpenAIIntegrationPage() {
   return (

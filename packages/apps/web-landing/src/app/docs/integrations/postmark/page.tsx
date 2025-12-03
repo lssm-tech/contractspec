@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Postmark Integration: ContractSpec Docs',
-  description:
-    'Send transactional emails with high deliverability using Postmark in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Postmark Integration: ContractSpec Docs',
+//   description:
+//     'Send transactional emails with high deliverability using Postmark in ContractSpec.',
+// };
 
 export default function PostmarkIntegrationPage() {
   return (

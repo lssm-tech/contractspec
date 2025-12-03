@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 
-export const metadata: Metadata = {
-  title: 'Studio – Visual Builder Guide',
-  description:
-    'Understand the Studio visual builder: canvas controls, component palette, bindings, and validation.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio – Visual Builder Guide',
+//   description:
+//     'Understand the Studio visual builder: canvas controls, component palette, bindings, and validation.',
+// };
 
 const tips = [
   'Use two-finger drag on touch devices to pan the canvas.',

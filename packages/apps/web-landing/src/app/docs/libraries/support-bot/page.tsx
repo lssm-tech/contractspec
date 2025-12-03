@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Support Bot Library | ContractSpec',
-  description:
-    'Resolve tickets with classification, RAG, auto-response, and feedback loops.',
-};
+// export const metadata: Metadata = {
+//   title: 'Support Bot Library | ContractSpec',
+//   description:
+//     'Resolve tickets with classification, RAG, auto-response, and feedback loops.',
+// };
 
 export default function SupportBotLibraryPage() {
   return (

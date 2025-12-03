@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Resilience Library | ContractSpec',
-  description: 'Utilities for building robust, self-healing applications.',
-};
+// export const metadata: Metadata = {
+//   title: 'Resilience Library | ContractSpec',
+//   description: 'Utilities for building robust, self-healing applications.',
+// };
 
 export default function ResilienceLibraryPage() {
   return (

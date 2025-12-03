@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Knowledge Categories: ContractSpec Docs',
-  description:
-    'Understand the four knowledge categories in ContractSpec and how they affect trust and decision-making.',
-};
+// export const metadata = {
+//   title: 'Knowledge Categories: ContractSpec Docs',
+//   description:
+//     'Understand the four knowledge categories in ContractSpec and how they affect trust and decision-making.',
+// };
 
 export default function KnowledgeCategoriesPage() {
   return (

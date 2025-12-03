@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'DataViews: ContractSpec Docs',
-  description:
-    'Learn how to define data views for querying, filtering, and presenting data in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'DataViews: ContractSpec Docs',
+//   description:
+//     'Learn how to define data views for querying, filtering, and presenting data in ContractSpec.',
+// };
 
 export default function DataViewsPage() {
   return (

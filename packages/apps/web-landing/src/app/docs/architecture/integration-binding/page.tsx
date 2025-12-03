@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Integration Binding: ContractSpec Docs',
-  description:
-    'Learn how apps bind to integrations through AppIntegrationBinding in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Integration Binding: ContractSpec Docs',
+//   description:
+//     'Learn how apps bind to integrations through AppIntegrationBinding in ContractSpec.',
+// };
 
 export default function IntegrationBindingPage() {
   return (

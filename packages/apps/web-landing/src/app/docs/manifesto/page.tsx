@@ -1,8 +1,8 @@
-export const metadata = {
-  title: 'Manifesto: ContractSpec',
-  description:
-    'Our philosophy: compiler not prison, no lock-in, standard tech, incremental adoption, AI governance.',
-};
+// export const metadata = {
+//   title: 'Manifesto: ContractSpec',
+//   description:
+//     'Our philosophy: compiler not prison, no lock-in, standard tech, incremental adoption, AI governance.',
+// };
 
 export default function ManifestoPage() {
   return (

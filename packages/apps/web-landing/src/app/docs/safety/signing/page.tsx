@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Spec Signing: ContractSpec Docs',
-  description: 'Learn how spec signing ensures security and auditability.',
-};
+// export const metadata = {
+//   title: 'Spec Signing: ContractSpec Docs',
+//   description: 'Learn how spec signing ensures security and auditability.',
+// };
 
 export default function SigningPage() {
   return (

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Knowledge Spaces: ContractSpec Docs',
-  description:
-    'Learn about KnowledgeSpaceSpec and how to define logical knowledge domains in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Knowledge Spaces: ContractSpec Docs',
+//   description:
+//     'Learn about KnowledgeSpaceSpec and how to define logical knowledge domains in ContractSpec.',
+// };
 
 export default function KnowledgeSpacesPage() {
   return (

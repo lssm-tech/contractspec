@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: '@lssm/lib.ui-kit: ContractSpec Docs',
-  description: 'Universal UI components for React Native and Web.',
-};
+// export const metadata = {
+//   title: '@lssm/lib.ui-kit: ContractSpec Docs',
+//   description: 'Universal UI components for React Native and Web.',
+// };
 
 export default function UIKitLibraryPage() {
   return (

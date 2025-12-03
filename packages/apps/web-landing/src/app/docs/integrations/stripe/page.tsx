@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Stripe Integration: ContractSpec Docs',
-  description:
-    'Accept payments, manage subscriptions, and handle invoicing with Stripe in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Stripe Integration: ContractSpec Docs',
+//   description:
+//     'Accept payments, manage subscriptions, and handle invoicing with Stripe in ContractSpec.',
+// };
 
 export default function StripeIntegrationPage() {
   return (

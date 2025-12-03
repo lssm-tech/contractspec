@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Studio – Deployment Guide',
-  description:
-    'Learn how Studio provisions shared and dedicated environments, monitors health, and rolls back safely.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio – Deployment Guide',
+//   description:
+//     'Learn how Studio provisions shared and dedicated environments, monitors health, and rolls back safely.',
+// };
 
 const comparisons = [
   {

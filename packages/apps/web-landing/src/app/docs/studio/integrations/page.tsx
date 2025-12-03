@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Studio – Integration Hub Guide',
-  description:
-    'Connect providers, manage BYOK credentials, and sync data in the Studio Integration Hub.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio – Integration Hub Guide',
+//   description:
+//     'Connect providers, manage BYOK credentials, and sync data in the Studio Integration Hub.',
+// };
 
 const flow = [
   {

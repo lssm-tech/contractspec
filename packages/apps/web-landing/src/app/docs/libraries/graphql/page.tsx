@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'GraphQL Libraries: ContractSpec Docs',
-  description:
-    'Generate production-ready GraphQL schemas from ContractSpec definitions.',
-};
+// export const metadata = {
+//   title: 'GraphQL Libraries: ContractSpec Docs',
+//   description:
+//     'Generate production-ready GraphQL schemas from ContractSpec definitions.',
+// };
 
 export default function GraphQLLibrariesPage() {
   return (

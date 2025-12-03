@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Powens Open Banking: ContractSpec Docs',
-  description:
-    'Synchronise bank accounts, transactions, and balances with Powens in read-only mode for the Pocket Family Office vertical.',
-};
+// export const metadata = {
+//   title: 'Powens Open Banking: ContractSpec Docs',
+//   description:
+//     'Synchronise bank accounts, transactions, and balances with Powens in read-only mode for the Pocket Family Office vertical.',
+// };
 
 export default function PowensIntegrationPage() {
   return (

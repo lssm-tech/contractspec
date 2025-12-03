@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Twilio Integration: ContractSpec Docs',
-  description:
-    'Send SMS notifications and messages with Twilio in ContractSpec.',
-};
+// export const metadata = {
+//   title: 'Twilio Integration: ContractSpec Docs',
+//   description:
+//     'Send SMS notifications and messages with Twilio in ContractSpec.',
+// };
 
 export default function TwilioIntegrationPage() {
   return (

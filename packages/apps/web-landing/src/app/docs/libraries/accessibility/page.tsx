@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-export const metadata = {
-  title: '@lssm/lib.accessibility: ContractSpec Docs',
-  description: 'Accessibility primitives for WCAG compliance.',
-};
+// export const metadata = {
+//   title: '@lssm/lib.accessibility: ContractSpec Docs',
+//   description: 'Accessibility primitives for WCAG compliance.',
+// };
 
 export default function AccessibilityLibraryPage() {
   return (

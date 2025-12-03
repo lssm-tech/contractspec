@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Multi-Tenancy Architecture | ContractSpec',
-  description:
-    'Learn how ContractSpec handles data isolation and tenant management.',
-};
+// export const metadata: Metadata = {
+//   title: 'Multi-Tenancy Architecture | ContractSpec',
+//   description:
+//     'Learn how ContractSpec handles data isolation and tenant management.',
+// };
 
 export default function MultiTenancyArchitecturePage() {
   return (

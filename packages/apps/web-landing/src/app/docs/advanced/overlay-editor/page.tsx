@@ -1,11 +1,10 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Overlay Editor | ContractSpec Docs',
-  description:
-    'Guide to the drag-and-drop overlay editor and signing workflow.',
-};
+// export const metadata: Metadata = {
+//   title: 'Overlay Editor | ContractSpec Docs',
+//   description:
+//     'Guide to the drag-and-drop overlay editor and signing workflow.',
+// };
 
 export default function OverlayEditorPage() {
   return (

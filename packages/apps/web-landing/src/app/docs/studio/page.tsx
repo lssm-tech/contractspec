@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Studio Documentation – ContractSpec',
-  description:
-    'Official ContractSpec Studio documentation. Jump into getting started, visual builder, deployments, BYOK, and integration guides.',
-};
+// export const metadata: Metadata = {
+//   title: 'Studio Documentation – ContractSpec',
+//   description:
+//     'Official ContractSpec Studio documentation. Jump into getting started, visual builder, deployments, BYOK, and integration guides.',
+// };
 
 const sections = [
   {

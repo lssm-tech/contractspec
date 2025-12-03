@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Testing Library | ContractSpec',
-  description:
-    'Capture production traffic and generate golden tests from real requests.',
-};
+// export const metadata: Metadata = {
+//   title: 'Testing Library | ContractSpec',
+//   description:
+//     'Capture production traffic and generate golden tests from real requests.',
+// };
 
 export default function TestingLibraryPage() {
   return (
