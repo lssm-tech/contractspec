@@ -499,3 +499,4 @@ function generateRecommendedActions(anomaly: SpecAnomaly): string[] {
     'Monitor dependency health metrics',
   ];
 }
+

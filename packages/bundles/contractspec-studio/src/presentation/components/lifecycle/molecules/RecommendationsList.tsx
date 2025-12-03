@@ -90,3 +90,4 @@ export function RecommendationsList({
     </div>
   );
 }
+

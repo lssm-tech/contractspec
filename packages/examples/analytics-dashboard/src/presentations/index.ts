@@ -326,3 +326,4 @@ export const AnalyticsDashboardPresentations = {
   WidgetConfigurationPresentation,
   QueryBuilderPresentation,
 };
+

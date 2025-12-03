@@ -387,3 +387,4 @@ export const featureFlagsSchemaContribution: ModuleSchemaContribution = {
   entities: featureFlagEntities,
   enums: [FlagStatusEnum, RuleOperatorEnum, ExperimentStatusEnum],
 };
+

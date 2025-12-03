@@ -52,3 +52,4 @@ export interface KnowledgeAccessResult {
   reason?: string;
   severity?: 'error' | 'warning';
 }
+

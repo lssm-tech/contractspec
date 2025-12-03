@@ -27,3 +27,4 @@ export function mergeTags(
 ): ResourceTags {
   return { ...base, ...additional };
 }
+

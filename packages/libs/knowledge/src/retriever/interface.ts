@@ -56,3 +56,4 @@ export interface RetrieverConfig {
   /** Default minimum score threshold */
   defaultMinScore?: number;
 }
+

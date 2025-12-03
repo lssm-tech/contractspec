@@ -152,3 +152,4 @@ describe('integrations GraphQL module', () => {
     expect(answer).toEqual({ answer: '42' });
   });
 });
+

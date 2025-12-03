@@ -603,3 +603,4 @@ export function createIntegrationHandlers(db: LocalDatabase) {
 }
 
 export type IntegrationHandlers = ReturnType<typeof createIntegrationHandlers>;
+

@@ -173,3 +173,4 @@ export const ApprovalCommentEntity = defineEntity({
   },
   indexes: [index.on(['approvalRequestId', 'createdAt'])],
 });
+

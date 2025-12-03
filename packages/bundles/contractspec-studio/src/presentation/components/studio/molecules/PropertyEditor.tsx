@@ -118,3 +118,4 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
     </div>
   );
 }
+
