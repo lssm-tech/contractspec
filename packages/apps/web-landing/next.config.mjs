@@ -56,6 +56,21 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    const apiUrl = process.env.API_CONTRACTSPEC_URL || 'http://localhost:8080';
+    return [
+      {
+        source: '/:path*.md',
+        destination: `${apiUrl}/markdown/:path*`,
+        permanent: false,
+      },
+      {
+        source: '/:path*.mdx',
+        destination: `${apiUrl}/markdown/:path*`,
+        permanent: false,
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
 };
 
