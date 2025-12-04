@@ -1,6 +1,7 @@
 'use client';
 
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import {
   AlertTriangle,
   Calendar,

@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import {
   type DeploymentHistoryItem,
   DeploymentPanel,

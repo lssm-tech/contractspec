@@ -1,5 +1,9 @@
-// Re-export from bundle for backward compatibility
-export * from '@lssm/bundle.contractspec-studio/presentation/presentations';
+import type React from 'react';
+import type { PresentationDescriptorV2 } from '@lssm/lib.contracts/presentations.v2';
+import { presentationEngine } from './engine';
+import { componentMap } from './registry';
+import { renderFeaturePresentation } from '@lssm/lib.contracts/client/react/feature-render';
+import type { ComponentMap } from './types';
 
 /**
  * Render a presentation descriptor to markdown.

@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { cn } from '@lssm/bundle.contractspec-studio/presentation/libs/utils';
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
 import {HStack, VStack} from '@lssm/lib.ui-kit-web/ui/stack';
