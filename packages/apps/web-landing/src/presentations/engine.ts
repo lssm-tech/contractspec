@@ -2,6 +2,7 @@ import {
   createDefaultTransformEngine,
   registerDefaultReactRenderer,
   registerBasicValidation,
+  registerReactToMarkdownRenderer,
   type TransformEngine,
   type PresentationRenderer,
 } from '@lssm/lib.contracts/presentations.v2';
@@ -23,8 +24,10 @@ export function createPresentationEngine(
   // Register basic validation
   registerBasicValidation(engine);
   
-  // Register custom markdown renderers if needed
-  // (can be added later for complex pages)
+  // Register React-to-markdown renderer with component map
+  // This enables rendering React components to markdown for LLM consumption
+  const mapToUse = customComponentMap ?? componentMap;
+  registerReactToMarkdownRenderer(engine, mapToUse);
   
   return engine;
 }
