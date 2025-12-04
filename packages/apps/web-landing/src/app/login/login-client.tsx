@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';

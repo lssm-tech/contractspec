@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPresentationForRoute } from '@/presentations/registry';
-import { renderPresentationToMarkdown } from '@/lib/presentation-utils';
+import {
+  getPresentationForRoute,
+  getAllPresentationRoutes,
+  renderPresentationToMarkdown,
+} from '@lssm/bundle.contractspec-studio/presentation/presentations';
 
 /**
  * API route handler for markdown rendering via llms. subdomain or .md/.mdx extensions.
@@ -35,8 +38,6 @@ export async function GET(
     const descriptor = getPresentationForRoute(route);
     
     if (!descriptor) {
-      // Import getAllPresentationRoutes dynamically to avoid circular dependency
-      const { getAllPresentationRoutes } = await import('@/presentations/registry');
       const availableRoutes = getAllPresentationRoutes();
       
       return new NextResponse(

@@ -1,4 +1,5 @@
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import { ChevronRight } from 'lucide-react';
 
 // export const metadata: Metadata = {

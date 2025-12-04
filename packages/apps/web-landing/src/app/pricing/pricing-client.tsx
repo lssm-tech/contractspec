@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import { CheckCircle, ChevronDown, ChevronRight } from 'lucide-react';
 import { WaitlistSection, PricingThinkingModal } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
 

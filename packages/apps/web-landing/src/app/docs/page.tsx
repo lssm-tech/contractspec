@@ -1,4 +1,5 @@
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import { Activity, BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 
 // export const metadata: Metadata = {

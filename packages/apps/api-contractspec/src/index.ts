@@ -7,6 +7,11 @@ import {
   schema,
 } from '@lssm/bundle.contractspec-studio/infrastructure';
 import { Elysia } from 'elysia';
+import {
+  getPresentationForRoute,
+  getAllPresentationRoutes,
+  renderPresentationToMarkdown,
+} from '@lssm/bundle.contractspec-studio/presentation/presentations';
 
 const PORT = 8080;
 
@@ -48,38 +53,43 @@ const app = createContractSpecStudioElysiaServer({
     appLogger.info('Root endpoint accessed');
     return 'LSSM API - GraphQL endpoint available at /graphql';
   })
-  .get('/markdown/:path*', async ({ params, query }) => {
+  .get('/markdown/*', async ({ params, query }) => {
     try {
-      // Proxy to web-landing's llms route for markdown rendering
-      // In production, this should point to the actual web-landing deployment
-      const webLandingUrl = process.env.WEB_LANDING_URL || 'http://localhost:3000';
-      
-      // Get path from params
-      const pathSegments = params.path ? (Array.isArray(params.path) ? params.path : [params.path]) : [];
-      const path = pathSegments.length > 0 ? pathSegments.join('/') : '';
-      
-      // Construct URL to web-landing's llms route
-      const llmsPath = path ? `/llms/${path}` : '/llms';
-      const url = `${webLandingUrl}${llmsPath}`;
-      
-      // Fetch markdown from web-landing
-      const response = await fetch(url, {
-        headers: {
-          'Accept': 'text/markdown',
-        },
-      });
+      console.info('params', params);
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        return new Response(errorText, {
-          status: response.status,
-          headers: {
-            'Content-Type': 'text/plain',
-          },
-        });
+      let route = '/' + params['*'] + ('/');
+
+      // Handle .md or .mdx extension
+      if (route.endsWith('.md') || route.endsWith('.mdx')) {
+        route = route.replace(/\.mdx?$/, '');
       }
 
-      const markdown = await response.text();
+      // Normalize root route
+      if (route === '' || route === '/index') {
+        route = '/';
+      }
+
+      console.info('route', route);
+
+      // Get presentation descriptor
+      const descriptor = getPresentationForRoute(route);
+
+      if (!descriptor) {
+        const availableRoutes = getAllPresentationRoutes();
+
+        return new Response(
+          `No presentation found for route: ${route}\n\nAvailable routes:\n${availableRoutes.join('\n')}`,
+          {
+            status: 404,
+            headers: {
+              'Content-Type': 'text/plain',
+            },
+          }
+        );
+      }
+
+      // Render to markdown
+      const markdown = await renderPresentationToMarkdown(descriptor);
 
       // Return markdown with proper headers
       return new Response(markdown, {

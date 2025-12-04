@@ -1,4 +1,5 @@
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 
 // export const metadata: Metadata = {
 //   title: 'Overlay Editor | ContractSpec Docs',

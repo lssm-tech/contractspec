@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 import { Sparkles, Map, Shield, Plug, Layers3 } from 'lucide-react';
 
 export const metadata: Metadata = {

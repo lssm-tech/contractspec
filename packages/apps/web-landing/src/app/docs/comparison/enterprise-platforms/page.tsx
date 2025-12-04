@@ -1,4 +1,5 @@
-import Link from '@lssm/lib.ui-link';
+import Link from 'next/link';
+
 
 // export const metadata = {
 //   title: 'Enterprise Orchestration Comparison: ContractSpec Docs',

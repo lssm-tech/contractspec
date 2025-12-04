@@ -10,6 +10,7 @@ const nextConfig = {
   turbopack: {
     resolveAlias: {
       fs: { browser: 'browserify-fs' },
+      '@lssm/lib.ui-link': { browser: 'next/link' },
     },
   },
   // Configure webpack as fallback

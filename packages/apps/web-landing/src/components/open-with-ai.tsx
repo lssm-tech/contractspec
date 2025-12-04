@@ -19,8 +19,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
-import { getMarkdownUrl, aiChatProviders } from '@/lib/presentation-utils';
-import { hasPresentation } from '@/presentations/registry';
+import {
+  getMarkdownUrl,
+  aiChatProviders,
+  hasPresentation,
+} from '@lssm/bundle.contractspec-studio/presentation/presentations';
 
 interface OpenWithAIProps {
   /** Custom route path (defaults to current pathname) */
