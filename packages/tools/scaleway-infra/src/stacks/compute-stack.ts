@@ -1,16 +1,16 @@
-import { Instance } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { instanceConfig } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Instancev1 } from '@scaleway/sdk-instance';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { instanceConfig } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface ComputeResources {
   instanceIds: string[];
 }
 
 export class ComputeStack {
-  private apiInstance: Instance.v1.API;
+  private apiInstance: Instancev1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -20,7 +20,7 @@ export class ComputeStack {
     private privateNetworkId: string,
     private securityGroupId: string
   ) {
-    this.apiInstance = new Instance.v1.API(client);
+    this.apiInstance = new Instancev1.API(client);
   }
 
   async plan(): Promise<{
@@ -86,6 +86,7 @@ export class ComputeStack {
     const userData = this.generateUserData(name);
 
     const instanceResponse = await this.apiInstance.createServer({
+      protected: false,
       name,
       commercialType: instanceConfig.type,
       image: instanceConfig.image,

@@ -1,10 +1,9 @@
 // Note: Object Storage is not available in Scaleway JS SDK
 // This is a placeholder implementation
 // In production, use S3-compatible API directly or wait for SDK support
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import type { Environment } from '../config/index';
 
 export interface StorageResources {
   bucketNames: string[];

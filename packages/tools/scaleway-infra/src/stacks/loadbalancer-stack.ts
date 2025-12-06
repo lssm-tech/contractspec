@@ -1,8 +1,8 @@
-import { LB } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Lbv1 } from '@scaleway/sdk-lb';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface LoadBalancerResources {
   loadBalancerId: string;
@@ -11,7 +11,7 @@ export interface LoadBalancerResources {
 }
 
 export class LoadBalancerStack {
-  private apiLb: LB.v1.API;
+  private apiLb: Lbv1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -21,7 +21,7 @@ export class LoadBalancerStack {
     private privateNetworkId: string,
     private instanceIds: string[]
   ) {
-    this.apiLb = new LB.v1.API(client);
+    this.apiLb = new Lbv1.API(client);
   }
 
   async plan(): Promise<{
@@ -175,6 +175,7 @@ export class LoadBalancerStack {
     }
 
     const frontend = await this.apiLb.createFrontend({
+      enableAccessLogs: true,
       lbId,
       name: `${this.resourceNames.loadBalancer}-${protocol}`,
       inboundPort: port,

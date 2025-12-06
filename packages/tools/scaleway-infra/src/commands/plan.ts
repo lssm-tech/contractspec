@@ -1,17 +1,17 @@
-import { createScalewayClient } from '../clients/scaleway-client.js';
+import { createScalewayClient } from '../clients/scaleway-client';
 import {
   getConfig,
   getResourceNames,
   loadScalewayCredentials,
-} from '../config/index.js';
-import { NetworkingStack } from '../stacks/networking-stack.js';
-import { ComputeStack } from '../stacks/compute-stack.js';
-import { DatabaseStack } from '../stacks/database-stack.js';
-import { CacheStack } from '../stacks/cache-stack.js';
-import { StorageStack } from '../stacks/storage-stack.js';
-import { QueueStack } from '../stacks/queue-stack.js';
-import { LoadBalancerStack } from '../stacks/loadbalancer-stack.js';
-import { DnsStack } from '../stacks/dns-stack.js';
+} from '../config/index';
+import { NetworkingStack } from '../stacks/networking-stack';
+import { ComputeStack } from '../stacks/compute-stack';
+import { DatabaseStack } from '../stacks/database-stack';
+import { CacheStack } from '../stacks/cache-stack';
+import { StorageStack } from '../stacks/storage-stack';
+import { QueueStack } from '../stacks/queue-stack';
+import { LoadBalancerStack } from '../stacks/loadbalancer-stack';
+import { DnsStack } from '../stacks/dns-stack';
 
 export interface PlanResult {
   networking: Awaited<ReturnType<NetworkingStack['plan']>>;

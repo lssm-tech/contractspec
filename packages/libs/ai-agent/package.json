@@ -27,7 +27,7 @@
     "@ai-sdk/mistral": "beta",
     "@ai-sdk/openai": "beta",
     "@ai-sdk/anthropic": "beta",
-    "@modelcontextprotocol/sdk": "^1.23.0",
+    "@modelcontextprotocol/sdk": "^1.24.3",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",
     "zod": "^4.1.13"
@@ -35,7 +35,7 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.0",
     "typescript": "^5.9.3"
   },
   "exports": {

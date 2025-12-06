@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "minimist": "^1.2.8",
-    "execa": "^9.5.1"
+    "execa": "^9.6.1"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.16.8"
+    "tsdown": "^0.17.0"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

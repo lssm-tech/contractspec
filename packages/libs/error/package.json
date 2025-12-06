@@ -14,14 +14,14 @@
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {},
   "peerDependencies": {
-    "elysia": "^1.4.11",
-    "express": "^5.1.0",
-    "next": "16.0.5"
+    "elysia": "^1.4.18",
+    "express": "^5.2.1",
+    "next": "16.0.7"
   },
   "type": "module",
   "main": "./dist/index.js",

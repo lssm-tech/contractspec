@@ -1,41 +1,41 @@
 // Library exports for programmatic usage
-export { plan, formatPlan, type PlanResult } from './commands/plan.js';
-export { apply, type ApplyResult } from './commands/apply.js';
-export { destroy } from './commands/destroy.js';
-export { status, formatStatus, type StatusResult } from './commands/status.js';
+export { plan, formatPlan, type PlanResult } from './commands/plan';
+export { apply, type ApplyResult } from './commands/apply';
+export { destroy } from './commands/destroy';
+export { status, formatStatus, type StatusResult } from './commands/status';
 
 export type {
   Environment,
   InfrastructureConfig,
   ScalewayCredentials,
   VercelCredentials,
-} from './config/index.js';
+} from './config/index';
 export {
   getConfig,
   loadScalewayCredentials,
   loadVercelCredentials,
   getResourceNames,
-} from './config/index.js';
-export type { ResourceNames } from './config/resources.js';
-export { getResourceNames as getResourceNamesHelper } from './config/resources.js';
+} from './config/index';
+export type { ResourceNames } from './config/resources';
+export { getResourceNames as getResourceNamesHelper } from './config/resources';
 
-export { createScalewayClient, type ScalewayClient } from './clients/scaleway-client.js';
-export type { Client } from '@scaleway/sdk';
+export {
+  createScalewayClient,
+  type ScalewayClient,
+} from './clients/scaleway-client';
+export type { Client } from '@scaleway/sdk-client';
 
 export {
   NetworkingStack,
   type NetworkingResources,
-} from './stacks/networking-stack.js';
-export { ComputeStack, type ComputeResources } from './stacks/compute-stack.js';
-export {
-  DatabaseStack,
-  type DatabaseResources,
-} from './stacks/database-stack.js';
-export { CacheStack, type CacheResources } from './stacks/cache-stack.js';
-export { StorageStack, type StorageResources } from './stacks/storage-stack.js';
-export { QueueStack, type QueueResources } from './stacks/queue-stack.js';
+} from './stacks/networking-stack';
+export { ComputeStack, type ComputeResources } from './stacks/compute-stack';
+export { DatabaseStack, type DatabaseResources } from './stacks/database-stack';
+export { CacheStack, type CacheResources } from './stacks/cache-stack';
+export { StorageStack, type StorageResources } from './stacks/storage-stack';
+export { QueueStack, type QueueResources } from './stacks/queue-stack';
 export {
   LoadBalancerStack,
   type LoadBalancerResources,
-} from './stacks/loadbalancer-stack.js';
-export { DnsStack, type DnsResources } from './stacks/dns-stack.js';
+} from './stacks/loadbalancer-stack';
+export { DnsStack, type DnsResources } from './stacks/dns-stack';

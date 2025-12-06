@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
+import { gql } from '@apollo/client';
 import { MessageCircle, Users } from 'lucide-react';
 import { useMemo } from 'react';
 
@@ -31,7 +32,7 @@ export function ConversationList({
   onSelect,
 }: ConversationListProps) {
   const { projectId } = useTemplateRuntime();
-  const { data, loading } = useQuery(CONVERSATIONS_QUERY, {
+  const { data, loading } = useQuery<any>(CONVERSATIONS_QUERY, {
     variables: { projectId },
     fetchPolicy: 'cache-and-network',
   });

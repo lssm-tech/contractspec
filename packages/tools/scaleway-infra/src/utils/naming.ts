@@ -1,4 +1,4 @@
-import type { Environment } from '../config/index.js';
+import type { Environment } from '../config/index';
 
 export function formatResourceName(
   org: string,
@@ -25,7 +25,8 @@ export function parseResourceName(name: string): {
 
   const org = parts[0] ?? '';
   const envPart = parts[1];
-  const env: Environment | null = envPart === 'prod' ? 'prod' : envPart === 'stg' ? 'stg' : null;
+  const env: Environment | null =
+    envPart === 'prod' ? 'prod' : envPart === 'stg' ? 'stg' : null;
 
   if (!env || !org) {
     return null;
@@ -33,7 +34,8 @@ export function parseResourceName(name: string): {
 
   const role = parts.slice(2).join('-');
   const indexMatch = role.match(/-(\d+)$/);
-  const index = indexMatch && indexMatch[1] ? parseInt(indexMatch[1], 10) : undefined;
+  const index =
+    indexMatch && indexMatch[1] ? parseInt(indexMatch[1], 10) : undefined;
   const cleanRole = indexMatch ? role.replace(/-(\d+)$/, '') : role;
 
   return { org, env, role: cleanRole, index };

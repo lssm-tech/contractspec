@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client/react';
+import { gql } from '@apollo/client';
 
 import {
   registerTemplateComponents,
@@ -57,7 +58,7 @@ export function TaskList() {
     categoryId: 'all',
     search: '',
   });
-  const { data, loading } = useQuery(TASKS_QUERY, {
+  const { data, loading } = useQuery<any>(TASKS_QUERY, {
     variables: { projectId },
     fetchPolicy: 'cache-and-network',
   });

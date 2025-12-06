@@ -16,7 +16,7 @@
     "test": "bun run"
   },
   "peerDependencies": {
-    "@prisma/client": "7.0.1"
+    "@prisma/client": "7.1.0"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",

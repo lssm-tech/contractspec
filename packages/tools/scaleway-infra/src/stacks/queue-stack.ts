@@ -1,8 +1,8 @@
-import { MNQ } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Mnq } from '@scaleway/sdk';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface QueueResources {
   queueNames: string[];
@@ -17,7 +17,7 @@ export class QueueStack {
     private env: Environment,
     private org: string
   ) {
-    this.apiMnq = new MNQ.v1beta1.NatsAPI(client);
+    this.apiMnq = new Mnq.v1beta1.NatsAPI(client);
   }
 
   async plan(): Promise<{

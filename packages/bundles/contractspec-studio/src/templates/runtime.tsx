@@ -7,10 +7,12 @@ import {
   type PropsWithChildren,
 } from 'react';
 import {
-  ApolloProvider,
   type ApolloClient,
   type NormalizedCacheObject,
 } from '@apollo/client';
+import {
+  ApolloProvider,
+} from '@apollo/client/react';
 import type { TransformEngine } from '@lssm/lib.contracts';
 
 import {
@@ -58,7 +60,7 @@ export interface TemplateRuntimeContextValue {
   template: TemplateDefinition;
   runtime: LocalRuntimeServices;
   installer: TemplateInstaller;
-  client: ApolloClient<NormalizedCacheObject>;
+  client: ApolloClient;
   components?: TemplateComponentRegistration;
   templateId: TemplateId;
   projectId: string;

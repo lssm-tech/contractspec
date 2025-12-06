@@ -23,16 +23,16 @@
     "generate": "bun run db:generate"
   },
   "peerDependencies": {
-    "@prisma/client": "^7.0.1"
+    "@prisma/client": "^7.1.0"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1",
-    "@prisma/client": "^7.0.1"
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0"
   },
   "devDependencies": {
     "@lssm/app.cli-database": "workspace:*",
-    "prisma": "^7.0.1",
-    "tsdown": "^0.16.8"
+    "prisma": "^7.1.0",
+    "tsdown": "^0.17.0"
   },
   "main": "./dist/index.mjs",
   "exports": {

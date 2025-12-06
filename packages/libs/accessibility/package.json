@@ -20,12 +20,12 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "react": "19.2.0",
-    "next": "16.0.5"
+    "react": "19.2.1",
+    "next": "16.0.7"
   },
   "type": "module",
   "main": "./dist/index.js",

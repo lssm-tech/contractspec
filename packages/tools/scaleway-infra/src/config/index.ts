@@ -70,4 +70,4 @@ export function loadVercelCredentials(): VercelCredentials {
   return { token, teamId };
 }
 
-export { getResourceNames } from './resources.js';
+export { getResourceNames } from './resources';

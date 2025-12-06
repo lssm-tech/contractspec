@@ -25,16 +25,16 @@
   },
   "dependencies": {
     "@lssm/lib.schema": "workspace:*",
-    "@prisma/adapter-pg": "^7.0.1",
-    "@prisma/client": "^7.0.1",
-    "prisma": "^7.0.1",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "prisma": "^7.1.0",
     "minimist": "^1.2.8",
-    "execa": "^9.5.3"
+    "execa": "^9.6.1"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@types/minimist": "^1.2.5",
-    "tsdown": "^0.16.8"
+    "tsdown": "^0.17.0"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

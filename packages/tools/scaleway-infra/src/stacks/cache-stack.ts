@@ -1,16 +1,16 @@
-import { Redis } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { redisConfig } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Redisv1 } from '@scaleway/sdk-redis';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { redisConfig } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface CacheResources {
   instanceId: string;
 }
 
 export class CacheStack {
-  private apiRedis: Redis.v1.API;
+  private apiRedis: Redisv1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -20,7 +20,7 @@ export class CacheStack {
     private privateNetworkId: string,
     private securityGroupId: string
   ) {
-    this.apiRedis = new Redis.v1.API(client);
+    this.apiRedis = new Redisv1.API(client);
   }
 
   async plan(): Promise<{

@@ -1,11 +1,7 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  type NormalizedCacheObject,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { GraphQLScalarType, Kind, type GraphQLResolveInfo } from 'graphql';
+import { GraphQLScalarType, Kind } from 'graphql';
 
 import { LocalDatabase, type LocalRow } from '../database/sqlite-wasm';
 import { LocalStorageService } from '../storage/indexeddb';
@@ -226,7 +222,7 @@ export interface LocalGraphQLClientOptions {
 }
 
 export class LocalGraphQLClient {
-  readonly apollo: ApolloClient<NormalizedCacheObject>;
+  readonly apollo: ApolloClient;
 
   constructor(private readonly options: LocalGraphQLClientOptions) {
     const schema = makeExecutableSchema({
@@ -235,7 +231,8 @@ export class LocalGraphQLClient {
     });
 
     this.apollo = new ApolloClient({
-      cache: new InMemoryCache({ canonizeResults: false }),
+      // cache: new InMemoryCache({ canonizeResults: false }),
+      cache: new InMemoryCache(),
       link: new SchemaLink({
         schema,
         context: () => ({

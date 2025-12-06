@@ -1,5 +1,6 @@
-import { Client, createClient } from '@scaleway/sdk';
-import type { ScalewayCredentials } from '../config/index.js';
+import { createClient } from '@scaleway/sdk';
+import { Client } from '@scaleway/sdk-client';
+import type { ScalewayCredentials } from '../config/index';
 
 export interface ScalewayClientConfig {
   accessKey: string;

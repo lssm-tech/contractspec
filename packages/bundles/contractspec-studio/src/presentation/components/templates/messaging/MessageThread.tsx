@@ -1,4 +1,5 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client/react';
+import { gql } from '@apollo/client';
 import { useEffect, useRef } from 'react';
 
 import { useTemplateRuntime } from '../../../../templates/runtime';
@@ -34,7 +35,7 @@ export function MessageThread({
 }: MessageThreadProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const enabled = Boolean(conversationId);
-  const { data, loading } = useQuery(MESSAGES_QUERY, {
+  const { data, loading } = useQuery<any>(MESSAGES_QUERY, {
     variables: { conversationId },
     skip: !enabled,
     fetchPolicy: 'cache-and-network',

@@ -1,9 +1,9 @@
-import { RDB } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { databaseConfig, databases } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Rdbv1 } from '@scaleway/sdk';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { databaseConfig, databases } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface DatabaseResources {
   instanceId: string;
@@ -11,7 +11,7 @@ export interface DatabaseResources {
 }
 
 export class DatabaseStack {
-  private apiRdb: RDB.v1.API;
+  private apiRdb: Rdbv1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -21,7 +21,7 @@ export class DatabaseStack {
     private privateNetworkId: string,
     private securityGroupId: string
   ) {
-    this.apiRdb = new RDB.v1.API(client);
+    this.apiRdb = new Rdbv1.API(client);
   }
 
   async plan(): Promise<{
@@ -40,7 +40,10 @@ export class DatabaseStack {
           : null;
         return {
           name: dbName,
-          action: (existing ? 'no-op' : 'create') as 'create' | 'update' | 'no-op',
+          action: (existing ? 'no-op' : 'create') as
+            | 'create'
+            | 'update'
+            | 'no-op',
           current: existing,
         };
       })
@@ -85,6 +88,7 @@ export class DatabaseStack {
   private async findDatabase(instanceId: string, dbName: string) {
     try {
       const response = await this.apiRdb.listDatabases({
+        skipSizeRetrieval: true,
         instanceId,
         name: dbName,
       });

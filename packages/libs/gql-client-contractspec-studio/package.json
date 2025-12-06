@@ -15,7 +15,7 @@
     "gql:dev": "bun graphql-codegen --config codegen.ts --watch"
   },
   "dependencies": {
-    "@graphql-codegen/client-preset": "^5.0.1",
+    "@graphql-codegen/client-preset": "^5.2.1",
     "@lssm/lib.schema": "workspace:*"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@parcel/watcher": "^2.5.1",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.0",
     "typescript": "^5.9.3"
   },
   "main": "./dist/index.js",

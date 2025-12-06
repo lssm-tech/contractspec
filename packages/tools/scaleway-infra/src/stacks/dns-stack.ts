@@ -1,10 +1,31 @@
-import { Domain } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+// import { Domain } from '@scaleway/sdk';
+import { Domainv2beta1 } from '@scaleway/sdk-domain';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
-type DomainRecordType = 'unknown' | 'A' | 'AAAA' | 'CNAME' | 'TXT' | 'SRV' | 'TLSA' | 'MX' | 'NS' | 'PTR' | 'CAA' | 'ALIAS' | 'LOC' | 'SSHFP' | 'HINFO' | 'RP' | 'URI' | 'DS' | 'NAPTR' | 'DNAME';
+type DomainRecordType =
+  | 'unknown'
+  | 'A'
+  | 'AAAA'
+  | 'CNAME'
+  | 'TXT'
+  | 'SRV'
+  | 'TLSA'
+  | 'MX'
+  | 'NS'
+  | 'PTR'
+  | 'CAA'
+  | 'ALIAS'
+  | 'LOC'
+  | 'SSHFP'
+  | 'HINFO'
+  | 'RP'
+  | 'URI'
+  | 'DS'
+  | 'NAPTR'
+  | 'DNAME';
 
 export interface DnsResources {
   zoneIds: string[];
@@ -12,7 +33,7 @@ export interface DnsResources {
 }
 
 export class DnsStack {
-  private apiDns: Domain.v2beta1.API;
+  private apiDns: Domainv2beta1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -21,7 +42,7 @@ export class DnsStack {
     private org: string,
     private loadBalancerIp?: string
   ) {
-    this.apiDns = new Domain.v2beta1.API(client);
+    this.apiDns = new Domainv2beta1.API(client);
   }
 
   async plan(): Promise<{
@@ -41,7 +62,10 @@ export class DnsStack {
         const existing = await this.findZone(zoneName);
         return {
           name: zoneName,
-          action: (existing ? 'no-op' : 'create') as 'create' | 'update' | 'no-op',
+          action: (existing ? 'no-op' : 'create') as
+            | 'create'
+            | 'update'
+            | 'no-op',
           current: existing,
         };
       })
@@ -56,7 +80,10 @@ export class DnsStack {
         );
         return {
           name: `${record.name}.${record.zone}`,
-          action: (existing ? 'no-op' : 'create') as 'create' | 'update' | 'no-op',
+          action: (existing ? 'no-op' : 'create') as
+            | 'create'
+            | 'update'
+            | 'no-op',
           current: existing,
         };
       })
@@ -157,7 +184,7 @@ export class DnsStack {
       return existing;
     }
 
-    const config = await import('../config/index.js');
+    const config = await import('../config/index');
     const projectId = config.getConfig(this.env).projectId;
     const zone = await this.apiDns.createDNSZone({
       domain: name,
@@ -189,18 +216,22 @@ export class DnsStack {
 
     const dnsRecord = await this.apiDns.updateDNSZoneRecords({
       dnsZone: zoneDomain,
-      changes: [{
-        add: {
-          records: [{
-            name: `${record.name}.${record.zone}`,
-            type: record.type,
-            data: record.data,
-            ttl: 3600,
-            priority: 0,
-            id: '',
-          }],
+      changes: [
+        {
+          add: {
+            records: [
+              {
+                name: `${record.name}.${record.zone}`,
+                type: record.type,
+                data: record.data,
+                ttl: 3600,
+                priority: 0,
+                id: '',
+              },
+            ],
+          },
         },
-      }],
+      ],
       disallowNewZoneCreation: false,
     } as any);
 
@@ -213,7 +244,9 @@ export class DnsStack {
 
     const createdRecord = records.records?.[0];
     if (!createdRecord) {
-      throw new Error(`Failed to create DNS record ${record.name}.${record.zone}`);
+      throw new Error(
+        `Failed to create DNS record ${record.name}.${record.zone}`
+      );
     }
 
     return createdRecord;

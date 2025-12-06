@@ -1,4 +1,4 @@
-import type { Environment } from '../config/index.js';
+import type { Environment } from '../config/index';
 
 export interface ResourceTags {
   'managed-by': string;
@@ -27,5 +27,3 @@ export function mergeTags(
 ): ResourceTags {
   return { ...base, ...additional };
 }
-
-
