@@ -6,7 +6,7 @@ export function formatResourceName(
   role: string,
   index?: number
 ): string {
-  const envSuffix = env === 'prod' ? 'prod' : 'stg';
+  const envSuffix = env === 'prd' ? 'prd' : 'stg';
   const indexSuffix =
     index !== undefined ? `-${String(index).padStart(2, '0')}` : '';
   return `${org}-${envSuffix}-${role}${indexSuffix}`;
@@ -26,7 +26,7 @@ export function parseResourceName(name: string): {
   const org = parts[0] ?? '';
   const envPart = parts[1];
   const env: Environment | null =
-    envPart === 'prod' ? 'prod' : envPart === 'stg' ? 'stg' : null;
+    envPart === 'prd' ? 'prd' : envPart === 'stg' ? 'stg' : null;
 
   if (!env || !org) {
     return null;

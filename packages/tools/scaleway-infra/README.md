@@ -43,7 +43,7 @@ SCALEWAY_PROJECT_ID=your_project_id
 Optional:
 
 ```bash
-INFRA_ENV=prod  # or 'stg' (defaults to 'prod')
+INFRA_ENV=prd  # or 'stg' (defaults to 'prd')
 VERCEL_TOKEN=your_vercel_token  # For Vercel integration
 VERCEL_TEAM_ID=your_team_id  # Optional, if using team account
 ```
@@ -68,7 +68,7 @@ For CI/CD, configure these secrets in GitHub:
 Show what changes would be made without applying them:
 
 ```bash
-bun run plan [--env prod]
+bun run plan [--env prd]
 ```
 
 #### Apply
@@ -76,7 +76,7 @@ bun run plan [--env prod]
 Apply infrastructure changes:
 
 ```bash
-bun run apply [--env prod] [--auto-approve]
+bun run apply [--env prd] [--auto-approve]
 ```
 
 #### Destroy
@@ -84,7 +84,7 @@ bun run apply [--env prod] [--auto-approve]
 Destroy infrastructure (requires `--auto-approve`):
 
 ```bash
-bun run destroy [--env prod] [--auto-approve]
+bun run destroy [--env prd] [--auto-approve]
 ```
 
 #### Status
@@ -92,7 +92,7 @@ bun run destroy [--env prod] [--auto-approve]
 Show current infrastructure status:
 
 ```bash
-bun run status [--env prod]
+bun run status [--env prd]
 ```
 
 ### Programmatic Usage
@@ -101,15 +101,15 @@ bun run status [--env prod]
 import { plan, apply, status } from '@lssm/tool.scaleway-infra';
 
 // Plan changes
-const planResult = await plan('prod');
+const planResult = await plan('prd');
 console.log(planResult);
 
 // Apply changes
-const applyResult = await apply('prod', true);
+const applyResult = await apply('prd', true);
 console.log(applyResult);
 
 // Check status
-const statusResult = await status('prod');
+const statusResult = await status('prd');
 console.log(statusResult);
 ```
 

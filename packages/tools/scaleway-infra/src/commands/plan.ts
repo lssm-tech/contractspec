@@ -25,7 +25,7 @@ export interface PlanResult {
 }
 
 export async function plan(env?: string): Promise<PlanResult> {
-  const config = getConfig(env as 'prod' | 'stg');
+  const config = getConfig(env as 'prd' | 'stg');
   const credentials = loadScalewayCredentials();
   const client = createScalewayClient(credentials, config.region, config.zone);
   const resourceNames = getResourceNames(config.environment, config.org);

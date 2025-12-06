@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-export type Environment = 'prod' | 'stg';
+export type Environment = 'prd' | 'stg';
 
-export const EnvironmentSchema = z.enum(['prod', 'stg']);
+export const EnvironmentSchema = z.enum(['prd', 'stg']);
 
 export interface InfrastructureConfig {
   environment: Environment;
@@ -24,14 +24,14 @@ export interface VercelCredentials {
 }
 
 export const defaultConfig: Omit<InfrastructureConfig, 'projectId'> = {
-  environment: 'prod',
+  environment: 'prd',
   region: 'fr-par',
   zone: 'fr-par-1',
   org: 'lssm',
 };
 
 export function getConfig(env?: Environment): InfrastructureConfig {
-  const environment = env || (process.env.INFRA_ENV as Environment) || 'prod';
+  const environment = env || (process.env.INFRA_ENV as Environment) || 'prd';
   const projectId = process.env.SCALEWAY_PROJECT_ID || '';
 
   if (!projectId) {
