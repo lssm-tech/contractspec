@@ -69,5 +69,3 @@ export function useMarketplaceData(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
-
-

@@ -310,5 +310,3 @@ export const orderListMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-
-

@@ -24,5 +24,3 @@ export interface Recipe {
     ordering: number;
   }[];
 }
-
-

@@ -213,5 +213,3 @@ export const FileEvents = {
   UploadSessionStartedEvent,
   UploadSessionCompletedEvent,
 };
-
-

@@ -38,5 +38,3 @@ export { ManifestoPage } from './manifesto/ManifestoPage';
 
 // Studio
 export * from './studio';
-
-

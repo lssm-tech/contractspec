@@ -41,5 +41,3 @@ export const schemaComposition = {
   provider: 'postgresql' as const,
   outputPath: './prisma/schema/generated.prisma',
 };
-
-

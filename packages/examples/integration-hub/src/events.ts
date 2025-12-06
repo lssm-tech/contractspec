@@ -192,5 +192,3 @@ export const IntegrationHubEvents = {
   SyncFailedEvent,
   RecordSyncedEvent,
 };
-
-

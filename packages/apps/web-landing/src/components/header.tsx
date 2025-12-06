@@ -133,7 +133,10 @@ export default function Header() {
               <Link href="/contact" className="btn-ghost text-center text-sm">
                 Book a demo
               </Link>
-              <Link href="/pricing#waitlist" className="btn-primary text-center text-sm">
+              <Link
+                href="/pricing#waitlist"
+                className="btn-primary text-center text-sm"
+              >
                 Join the waitlist
               </Link>
             </div>

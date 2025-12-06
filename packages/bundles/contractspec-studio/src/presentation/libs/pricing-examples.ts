@@ -17,4 +17,3 @@ export const PRICING_EXAMPLES = {
     description: 'Higher limits + cheaper per-regen at scale',
   },
 } as const;
-

@@ -39,5 +39,3 @@ export type RuntimeContract = ContractSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
-
-

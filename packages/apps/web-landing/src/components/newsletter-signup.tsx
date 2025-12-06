@@ -1,6 +1,9 @@
 'use client';
 
-import { subscribeToNewsletter, SubmitNewsletterResult } from '@lssm/bundle.contractspec-studio/presentation/libs/email';
+import {
+  subscribeToNewsletter,
+  SubmitNewsletterResult,
+} from '@lssm/bundle.contractspec-studio/presentation/libs/email';
 import { useActionState } from 'react';
 import { Mail, CheckCircle, AlertCircle } from 'lucide-react';
 

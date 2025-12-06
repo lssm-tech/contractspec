@@ -603,5 +603,3 @@ export function createWorkflowHandlers(db: LocalDatabase) {
 }
 
 export type WorkflowHandlers = ReturnType<typeof createWorkflowHandlers>;
-
-

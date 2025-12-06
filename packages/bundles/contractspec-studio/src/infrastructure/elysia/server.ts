@@ -10,8 +10,9 @@ export interface ElysiaServerOptions {
   port?: number;
 }
 
-export function createContractSpecStudioElysiaServer(opts: ElysiaServerOptions) {
-
+export function createContractSpecStudioElysiaServer(
+  opts: ElysiaServerOptions
+) {
   const app = new Elysia()
     .use(cors())
     .use(

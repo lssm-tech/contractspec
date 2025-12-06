@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-
 // export const metadata = {
 //   title: 'Twilio Integration: ContractSpec Docs',
 //   description:

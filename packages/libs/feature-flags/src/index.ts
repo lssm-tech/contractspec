@@ -9,5 +9,3 @@ export * from './events';
 
 // Evaluation engine
 export * from './evaluation';
-
-

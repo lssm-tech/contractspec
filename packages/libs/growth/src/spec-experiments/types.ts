@@ -56,5 +56,3 @@ export interface SpecExperimentEvaluation {
   winner?: string;
   pValue?: number;
 }
-
-

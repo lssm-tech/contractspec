@@ -305,14 +305,16 @@ export default function SandboxExperienceClient() {
           >
             <SpecEditorPanel
               templateId={templateId}
-              SpecEditor={SpecEditor as React.ComponentType<{
-                projectId: string;
-                type: 'CAPABILITY' | 'WORKFLOW' | 'COMPONENT' | 'INTEGRATION';
-                content: string;
-                onChange: (content: string) => void;
-                metadata?: Record<string, unknown>;
-                onValidate?: () => void;
-              }>}
+              SpecEditor={
+                SpecEditor as React.ComponentType<{
+                  projectId: string;
+                  type: 'CAPABILITY' | 'WORKFLOW' | 'COMPONENT' | 'INTEGRATION';
+                  content: string;
+                  onChange: (content: string) => void;
+                  metadata?: Record<string, unknown>;
+                  onValidate?: () => void;
+                }>
+              }
               onLog={pushLog}
             />
           </OverlayContextProvider>

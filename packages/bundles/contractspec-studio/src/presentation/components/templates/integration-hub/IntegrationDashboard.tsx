@@ -273,5 +273,3 @@ export function IntegrationDashboard() {
     </div>
   );
 }
-
-

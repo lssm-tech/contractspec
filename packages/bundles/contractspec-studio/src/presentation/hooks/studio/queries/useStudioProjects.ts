@@ -102,5 +102,3 @@ export function useStudioProjects(
     staleTime: 30_000,
   });
 }
-
-

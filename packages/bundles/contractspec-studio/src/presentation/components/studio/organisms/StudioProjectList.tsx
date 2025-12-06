@@ -189,5 +189,3 @@ function FiltersRow({
     </div>
   );
 }
-
-

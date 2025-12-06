@@ -29,8 +29,7 @@ export async function submitContactForm(formData: FormData) {
       console.error('RESEND_API_KEY environment variable is not set');
       return {
         success: false,
-        text:
-          'Email service is not configured. Please contact us directly at contact@chaman.ventures',
+        text: 'Email service is not configured. Please contact us directly at contact@chaman.ventures',
       };
     }
 
@@ -75,8 +74,7 @@ Submitted via ContractSpec contact form
     console.error('Failed to send email:', error);
     return {
       success: false,
-      text:
-        'Failed to send message. Please contact us directly at contact@chaman.ventures',
+      text: 'Failed to send message. Please contact us directly at contact@chaman.ventures',
     };
   }
 }
@@ -197,7 +195,7 @@ export async function joinWaitlist(formData: FormData) {
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
       to: [email],
-      subject: 'You\'re on the ContractSpec waitlist!',
+      subject: "You're on the ContractSpec waitlist!",
       text: `
 You're on the waitlist!
 
@@ -312,7 +310,7 @@ export async function submitWaitlistApplication(formData: FormData) {
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
       to: [email],
-      subject: 'You\'re on the ContractSpec design partner waitlist!',
+      subject: "You're on the ContractSpec design partner waitlist!",
       text: `
 You're on the list.
 
@@ -406,4 +404,3 @@ Submitted via ContractSpec waitlist application form
     };
   }
 }
-

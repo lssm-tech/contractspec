@@ -412,5 +412,3 @@ export const learnerEntities = [
 ];
 
 export const learnerEnums = [EnrollmentStatusEnum, ProgressStatusEnum];
-
-

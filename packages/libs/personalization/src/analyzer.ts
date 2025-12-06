@@ -99,5 +99,3 @@ function detectLayout(
   }
   return 'form';
 }
-
-

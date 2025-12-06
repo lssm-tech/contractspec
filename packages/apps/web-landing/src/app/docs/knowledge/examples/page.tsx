@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-
 // export const metadata = {
 //   title: 'Knowledge Examples: ContractSpec Docs',
 //   description:

@@ -55,5 +55,3 @@ export interface LifecycleRecommendation {
     cues: string[];
   };
 }
-
-

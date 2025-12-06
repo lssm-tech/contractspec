@@ -4,7 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { CheckCircle, ChevronDown, ChevronRight } from 'lucide-react';
-import { WaitlistSection, PricingThinkingModal } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
+import {
+  WaitlistSection,
+  PricingThinkingModal,
+} from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
 
 interface FAQ {
   question: string;
@@ -88,8 +91,8 @@ export default function PricingClient() {
               </h2>
               <p className="text-muted-foreground text-sm">
                 We work closely with a small group of teams building serious
-                products with AI. You bring real-world complexity, we bring
-                the spec-first engine and a lot of attention.
+                products with AI. You bring real-world complexity, we bring the
+                spec-first engine and a lot of attention.
               </p>
             </div>
             <div className="flex-1 space-y-4">
@@ -146,7 +149,7 @@ export default function PricingClient() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-6 md:grid-cols-3">
             {/* Design Partner (Current) */}
-            <div className="card-subtle relative space-y-6 p-6 bg-violet-500/5 ring-2 ring-violet-500">
+            <div className="card-subtle relative space-y-6 bg-violet-500/5 p-6 ring-2 ring-violet-500">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">
                 Current
               </div>
@@ -191,17 +194,14 @@ export default function PricingClient() {
                   Priority support & feedback loops
                 </li>
               </ul>
-              <button
-                onClick={scrollToWaitlist}
-                className="btn-primary w-full"
-              >
+              <button onClick={scrollToWaitlist} className="btn-primary w-full">
                 Apply as a design partner
               </button>
             </div>
 
             {/* Builder (Coming Soon) */}
             <div className="card-subtle relative space-y-6 p-6">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-muted border border-border px-3 py-1 text-xs font-medium">
+              <div className="bg-muted border-border absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border px-3 py-1 text-xs font-medium">
                 Coming soon
               </div>
               <div className="space-y-2">
@@ -235,7 +235,7 @@ export default function PricingClient() {
 
             {/* Team / Enterprise (Coming Soon) */}
             <div className="card-subtle relative space-y-6 p-6">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-muted border border-border px-3 py-1 text-xs font-medium">
+              <div className="bg-muted border-border absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border px-3 py-1 text-xs font-medium">
                 Coming soon
               </div>
               <div className="space-y-2">
@@ -312,8 +312,7 @@ export default function PricingClient() {
               <h3 className="font-bold">Usage-based beyond free</h3>
               <p className="text-muted-foreground text-sm">
                 You pay for regenerations and AI agent actions, not per-seat.
-                The more your system evolves via ContractSpec, the more you
-                pay.
+                The more your system evolves via ContractSpec, the more you pay.
               </p>
             </div>
             <div className="card-subtle space-y-3 p-6">
@@ -365,10 +364,11 @@ export default function PricingClient() {
             ))}
           </div>
           <div className="pt-4 text-center">
-            <p className="text-muted-foreground mb-2 text-sm">
-              Still unsure?
-            </p>
-            <Link href="/contact" className="text-violet-400 hover:text-violet-300 text-sm font-medium">
+            <p className="text-muted-foreground mb-2 text-sm">Still unsure?</p>
+            <Link
+              href="/contact"
+              className="text-sm font-medium text-violet-400 hover:text-violet-300"
+            >
               Contact us →
             </Link>
           </div>

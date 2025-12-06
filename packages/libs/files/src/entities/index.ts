@@ -310,5 +310,3 @@ export const filesSchemaContribution: ModuleSchemaContribution = {
   entities: fileEntities,
   enums: [StorageProviderEnum, FileStatusEnum],
 };
-
-

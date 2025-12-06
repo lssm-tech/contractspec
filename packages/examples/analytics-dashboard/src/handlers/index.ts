@@ -241,5 +241,3 @@ export async function handleGetDashboard(
 
   return { ...dashboard, widgets };
 }
-
-

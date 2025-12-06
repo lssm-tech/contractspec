@@ -18,7 +18,6 @@ import { Label } from '@lssm/lib.ui-kit-web/ui/label';
 import { WaitlistSection } from './waitlist-section';
 
 export function ContactClient() {
-
   // Contact form handler
   const handleContactSubmit = async (
     _prevState: SubmitContactFormResult | null,
@@ -29,7 +28,7 @@ export function ContactClient() {
     if (result.success) {
       return {
         success: true,
-        text: 'Message sent successfully! We\'ll get back to you soon.',
+        text: "Message sent successfully! We'll get back to you soon.",
       };
     } else {
       return {
@@ -65,12 +64,13 @@ export function ContactClient() {
             <div>
               <h2 className="text-2xl font-bold">Book a 20-min call</h2>
               <p className="text-muted-foreground text-sm">
-                Schedule a walkthrough with our team to see ContractSpec in action
+                Schedule a walkthrough with our team to see ContractSpec in
+                action
               </p>
             </div>
           </div>
 
-          <div className="rounded-lg border border-border overflow-hidden">
+          <div className="border-border overflow-hidden rounded-lg border">
             <object
               data="https://meet.reclaimai.com/e/f863cb29-caac-44b6-972b-1407dd9545a3"
               width="100%"

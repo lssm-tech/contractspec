@@ -14,6 +14,3 @@ export interface RoutePresentation {
   route: string;
   descriptor: PresentationDescriptorV2;
 }
-
-
-

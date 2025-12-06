@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  ChevronDown,
-  Copy,
-  ExternalLink,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronDown, Copy, ExternalLink, Sparkles } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -93,19 +88,19 @@ export function OpenWithAI({
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>AI Access</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        
+
         <DropdownMenuItem onClick={handleOpenMarkdown}>
           <ExternalLink size={16} className="mr-2" />
           Open markdown version
         </DropdownMenuItem>
-        
+
         <DropdownMenuItem onClick={handleCopyMarkdownLink}>
           <Copy size={16} className="mr-2" />
           {copied ? 'Copied!' : 'Copy markdown link'}
         </DropdownMenuItem>
-        
+
         <DropdownMenuSeparator />
-        
+
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <Sparkles size={16} className="mr-2" />
@@ -126,6 +121,3 @@ export function OpenWithAI({
     </DropdownMenu>
   );
 }
-
-
-

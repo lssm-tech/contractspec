@@ -7,8 +7,20 @@ import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
-import {HStack, VStack} from '@lssm/lib.ui-kit-web/ui/stack';
-import {H1, H2, H3, H4, P, BlockQuote, Code, Lead, Large, Small, Muted} from '@lssm/lib.ui-kit-web/ui/typography';
+import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import {
+  H1,
+  H2,
+  H3,
+  H4,
+  P,
+  BlockQuote,
+  Code,
+  Lead,
+  Large,
+  Small,
+  Muted,
+} from '@lssm/lib.ui-kit-web/ui/typography';
 import {
   Tooltip,
   TooltipContent,
@@ -528,7 +540,7 @@ export default function TemplatesClientPage() {
       ) : null}
 
       <Dialog open={waitlistModalOpen} onOpenChange={setWaitlistModalOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Early Access Required</DialogTitle>
             <DialogDescription>

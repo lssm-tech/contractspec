@@ -107,5 +107,3 @@ describe('StudioKnowledgeModule', () => {
     expect(response).toEqual({ answer: '42' });
   });
 });
-
-

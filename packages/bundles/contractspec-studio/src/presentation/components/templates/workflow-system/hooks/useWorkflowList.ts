@@ -67,5 +67,3 @@ export function useWorkflowList(projectId = 'local-project') {
     refetch: fetchData,
   };
 }
-
-
