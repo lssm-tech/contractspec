@@ -1,19 +1,10 @@
-import {
-  VPC,
-  VPCGW,
-  Instance,
-  RDB,
-  Redis,
-  MNQ,
-  LB,
-  Domain,
-} from '@scaleway/sdk';
-import { createScalewayClient } from '../clients/scaleway-client.js';
+import { Domain, Instance, Lb, Rdb, Redis, Vpc, Vpcgw } from '@scaleway/sdk';
+import { createScalewayClient } from '../clients/scaleway-client';
 import {
   getConfig,
   getResourceNames,
   loadScalewayCredentials,
-} from '../config/index.js';
+} from '../config/index';
 
 export async function destroy(
   env?: string,
@@ -25,13 +16,13 @@ export async function destroy(
   const resourceNames = getResourceNames(config.environment, config.org);
 
   // Initialize API clients
-  const apiVpc = new VPC.v2.API(client);
-  const apiVpcGw = new VPCGW.v1.API(client);
+  const apiVpc = new Vpc.v2.API(client);
+  const apiVpcGw = new Vpcgw.v1.API(client);
   const apiInstance = new Instance.v1.API(client);
-  const apiRdb = new RDB.v1.API(client);
+  const apiRdb = new Rdb.v1.API(client);
   const apiRedis = new Redis.v1.API(client);
-  const apiMnq = new (MNQ.v1beta1 as any).API(client);
-  const apiLb = new LB.v1.API(client);
+  // const apiMnqSqs = new Mnqv1beta1.SqsAPI(client);
+  const apiLb = new Lb.v1.API(client);
   const apiDns = new Domain.v2beta1.API(client);
 
   if (!autoApprove) {
@@ -63,16 +54,18 @@ export async function destroy(
           for (const record of records.records || []) {
             await apiDns.updateDNSZoneRecords({
               dnsZone: zone.domain,
-              changes: [{
-                delete: {
-                  idFields: [{
-                    name: record.name,
-                    type: record.type,
-                  }],
+              changes: [
+                {
+                  delete: {
+                    idFields: {
+                      name: record.name,
+                      type: record.type,
+                    },
+                  },
                 },
-              }],
+              ],
               disallowNewZoneCreation: false,
-            } as any);
+            });
           }
           await apiDns.deleteDNSZone({ dnsZone: zone.domain });
         }
@@ -105,23 +98,23 @@ export async function destroy(
   }
 
   // Queues
-  try {
-    console.log('Destroying Queues...');
-    for (const queueName of resourceNames.queues) {
-      const queues = await apiMnq.listQueues({ name: queueName });
-      if (queues.queues && queues.queues.length > 0) {
-        await apiMnq.deleteQueue({ queueId: queues.queues[0].id });
-      }
-      // Delete DLQ
-      const dlqName = `${queueName}-dlq`;
-      const dlqs = await apiMnq.listQueues({ name: dlqName });
-      if (dlqs.queues && dlqs.queues.length > 0) {
-        await apiMnq.deleteQueue({ queueId: dlqs.queues[0].id });
-      }
-    }
-  } catch (error) {
-    console.error('Error destroying Queues:', error);
-  }
+  // try {
+  //   console.log('Destroying Queues...');
+  //   for (const queueName of resourceNames.queues) {
+  //     const queues = await apiMnqSqs.getSqsInfo({ name: queueName });
+  //     if (queues.queues && queues.queues.length > 0) {
+  //       await apiMnqSqs.deactivateSqs({ queueId: queues.queues[0].id });
+  //     }
+  //     // Delete DLQ
+  //     const dlqName = `${queueName}-dlq`;
+  //     const dlqs = await apiMnqSqs.getSqsInfo({ name: dlqName });
+  //     if (dlqs.queues && dlqs.queues.length > 0) {
+  //       await apiMnqSqs.deactivateSqs({ queueId: dlqs.queues[0].id });
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error('Error destroying Queues:', error);
+  // }
 
   // Storage (placeholder - not managed via SDK)
   console.log('Skipping Object Storage (not managed via SDK)');

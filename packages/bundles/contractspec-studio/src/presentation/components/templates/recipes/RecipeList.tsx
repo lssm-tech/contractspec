@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client/react';
+import { gql } from '@apollo/client';
 
 import {
   registerTemplateComponents,
@@ -55,7 +56,7 @@ export function RecipeList() {
   const [locale, setLocale] = useState<'EN' | 'FR'>('EN');
   const [selected, setSelected] = useState<Recipe | undefined>();
   const [search, setSearch] = useState('');
-  const { data, loading } = useQuery(RECIPES_QUERY, {
+  const { data, loading } = useQuery<any>(RECIPES_QUERY, {
     variables: { projectId, locale },
     fetchPolicy: 'cache-and-network',
   });

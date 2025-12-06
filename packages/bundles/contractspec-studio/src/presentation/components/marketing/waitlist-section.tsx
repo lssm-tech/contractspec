@@ -1,16 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { CheckCircle, AlertCircle } from 'lucide-react';
-import {
-  submitWaitlistApplication,
-  joinWaitlist,
-  type SubmitWaitlistApplicationResult,
-  type SubmitWaitlistResult,
-} from '../../libs/email';
+import z from 'zod';
+import { AlertCircle, CheckCircle } from 'lucide-react';
+import { joinWaitlist, submitWaitlistApplication } from '../../libs/email';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
@@ -33,16 +28,18 @@ interface WaitlistSectionProps {
 
 // Zod schemas
 const simpleWaitlistSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.email('Please enter a valid email address'),
 });
 
 const designPartnerSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Please enter a valid email address'),
+  email: z.email('Please enter a valid email address'),
   company: z.string().optional(),
   role: z.string().optional(),
   whatBuilding: z.string().min(1, 'Please tell us what you are building'),
-  whatSolving: z.string().min(1, 'Please tell us what ContractSpec will solve for you'),
+  whatSolving: z
+    .string()
+    .min(1, 'Please tell us what ContractSpec will solve for you'),
   teamSize: z.string().optional(),
   timeline: z.string().optional(),
   openToSessions: z.boolean().default(false),
@@ -72,8 +69,12 @@ export function WaitlistSection({
   });
 
   // Design partner form
-  const designPartnerForm = useForm<DesignPartnerFormData>({
-    resolver: zodResolver(designPartnerSchema),
+  const designPartnerForm = useForm({
+    resolver: zodResolver<
+      z.input<typeof designPartnerSchema>,
+      unknown,
+      z.output<typeof designPartnerSchema>
+    >(designPartnerSchema),
     defaultValues: {
       name: '',
       email: '',
@@ -168,7 +169,8 @@ export function WaitlistSection({
       } else {
         setSubmitResult({
           success: false,
-          text: result.text || 'Failed to submit application. Please try again.',
+          text:
+            result.text || 'Failed to submit application. Please try again.',
         });
       }
     } catch (error) {
@@ -196,7 +198,9 @@ export function WaitlistSection({
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1">
             <span className="text-sm font-medium text-violet-300">
-              {isDesignPartner ? 'Design Partner Waitlist' : 'Join the Waitlist'}
+              {isDesignPartner
+                ? 'Design Partner Waitlist'
+                : 'Join the Waitlist'}
             </span>
           </div>
           <h2 className="text-2xl font-bold">
@@ -213,9 +217,12 @@ export function WaitlistSection({
       )}
 
       {!isCompact && (
-        <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/20 p-4">
+        <div className="border-border bg-muted/20 flex items-center justify-between gap-4 rounded-lg border p-4">
           <div className="space-y-1">
-            <Label htmlFor="design-partner-toggle" className="text-sm font-medium">
+            <Label
+              htmlFor="design-partner-toggle"
+              className="text-sm font-medium"
+            >
               Apply as a design partner
             </Label>
             <p className="text-muted-foreground text-xs">
@@ -262,7 +269,7 @@ export function WaitlistSection({
                   disabled={isPending || submitResult?.success}
                 />
                 {designPartnerForm.formState.errors.name && (
-                  <p className="text-red-400 text-xs">
+                  <p className="text-xs text-red-400">
                     {designPartnerForm.formState.errors.name.message}
                   </p>
                 )}
@@ -280,7 +287,7 @@ export function WaitlistSection({
                   disabled={isPending || submitResult?.success}
                 />
                 {designPartnerForm.formState.errors.email && (
-                  <p className="text-red-400 text-xs">
+                  <p className="text-xs text-red-400">
                     {designPartnerForm.formState.errors.email.message}
                   </p>
                 )}
@@ -289,7 +296,10 @@ export function WaitlistSection({
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="waitlist-company" className="text-sm font-medium">
+                <Label
+                  htmlFor="waitlist-company"
+                  className="text-sm font-medium"
+                >
                   Company / Project Name
                 </Label>
                 <Input
@@ -320,7 +330,9 @@ export function WaitlistSection({
                     <SelectItem value="cto">CTO</SelectItem>
                     <SelectItem value="lead-engineer">Lead Engineer</SelectItem>
                     <SelectItem value="engineer">Engineer</SelectItem>
-                    <SelectItem value="product-manager">Product Manager</SelectItem>
+                    <SelectItem value="product-manager">
+                      Product Manager
+                    </SelectItem>
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
@@ -328,8 +340,12 @@ export function WaitlistSection({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="waitlist-what-building" className="text-sm font-medium">
-                What are you building with AI today? <span className="text-red-400">*</span>
+              <Label
+                htmlFor="waitlist-what-building"
+                className="text-sm font-medium"
+              >
+                What are you building with AI today?{' '}
+                <span className="text-red-400">*</span>
               </Label>
               <Textarea
                 id="waitlist-what-building"
@@ -339,15 +355,19 @@ export function WaitlistSection({
                 rows={4}
               />
               {designPartnerForm.formState.errors.whatBuilding && (
-                <p className="text-red-400 text-xs">
+                <p className="text-xs text-red-400">
                   {designPartnerForm.formState.errors.whatBuilding.message}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="waitlist-what-solving" className="text-sm font-medium">
-                What do you hope ContractSpec will solve for you? <span className="text-red-400">*</span>
+              <Label
+                htmlFor="waitlist-what-solving"
+                className="text-sm font-medium"
+              >
+                What do you hope ContractSpec will solve for you?{' '}
+                <span className="text-red-400">*</span>
               </Label>
               <Textarea
                 id="waitlist-what-solving"
@@ -357,7 +377,7 @@ export function WaitlistSection({
                 rows={4}
               />
               {designPartnerForm.formState.errors.whatSolving && (
-                <p className="text-red-400 text-xs">
+                <p className="text-xs text-red-400">
                   {designPartnerForm.formState.errors.whatSolving.message}
                 </p>
               )}
@@ -365,7 +385,10 @@ export function WaitlistSection({
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="waitlist-team-size" className="text-sm font-medium">
+                <Label
+                  htmlFor="waitlist-team-size"
+                  className="text-sm font-medium"
+                >
                   Team Size
                 </Label>
                 <Select
@@ -388,7 +411,10 @@ export function WaitlistSection({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="waitlist-timeline" className="text-sm font-medium">
+                <Label
+                  htmlFor="waitlist-timeline"
+                  className="text-sm font-medium"
+                >
                   Timeline
                 </Label>
                 <Select
@@ -417,13 +443,16 @@ export function WaitlistSection({
                   id="waitlist-open-to-sessions"
                   checked={designPartnerForm.watch('openToSessions')}
                   onCheckedChange={(checked) =>
-                    designPartnerForm.setValue('openToSessions', checked === true)
+                    designPartnerForm.setValue(
+                      'openToSessions',
+                      checked === true
+                    )
                   }
                   disabled={isPending || submitResult?.success}
                 />
                 <Label
                   htmlFor="waitlist-open-to-sessions"
-                  className="text-sm leading-relaxed cursor-pointer"
+                  className="cursor-pointer text-sm leading-relaxed"
                 >
                   I'm open to 1:1 product/design sessions
                 </Label>
@@ -443,7 +472,7 @@ export function WaitlistSection({
                 />
                 <Label
                   htmlFor="waitlist-case-studies"
-                  className="text-sm leading-relaxed cursor-pointer"
+                  className="cursor-pointer text-sm leading-relaxed"
                 >
                   I'm okay with anonymized case studies about our usage
                 </Label>
@@ -463,7 +492,7 @@ export function WaitlistSection({
               disabled={isPending || submitResult?.success}
             />
             {simpleForm.formState.errors.email && (
-              <p className="text-red-400 text-xs">
+              <p className="text-xs text-red-400">
                 {simpleForm.formState.errors.email.message}
               </p>
             )}
@@ -486,7 +515,7 @@ export function WaitlistSection({
             <div className="flex-1">
               {submitResult.success ? (
                 <>
-                  <p className="font-semibold mb-1">You're on the list.</p>
+                  <p className="mb-1 font-semibold">You're on the list.</p>
                   <p className="text-sm">{submitResult.text}</p>
                 </>
               ) : (
@@ -508,11 +537,10 @@ export function WaitlistSection({
               : 'Join waitlist'}
         </Button>
 
-        <p className="text-muted-foreground text-xs text-center">
+        <p className="text-muted-foreground text-center text-xs">
           No spam. We'll only email you about ContractSpec and your application.
         </p>
       </form>
     </div>
   );
 }
-

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
+import { gql } from '@apollo/client';
 
 import { useTemplateRuntime } from '../../../../templates/runtime';
 import { type TaskCategory, type TaskPriority } from './types';

@@ -1,8 +1,8 @@
-import { VPC, VPCGW, Instance } from '@scaleway/sdk';
-import type { ScalewayClient } from '../clients/scaleway-client.js';
-import type { ResourceNames } from '../config/resources.js';
-import { createResourceTags } from '../utils/tags.js';
-import type { Environment } from '../config/index.js';
+import { Instancev1, Vpcgwv2, Vpcv2 } from '@scaleway/sdk';
+import type { ScalewayClient } from '../clients/scaleway-client';
+import type { ResourceNames } from '../config/resources';
+import { createResourceTags } from '../utils/tags';
+import type { Environment } from '../config/index';
 
 export interface NetworkingResources {
   vpcId?: string;
@@ -14,9 +14,9 @@ export interface NetworkingResources {
 }
 
 export class NetworkingStack {
-  private apiVpc: VPC.v2.API;
-  private apiVpcGw: VPCGW.v1.API;
-  private apiInstance: Instance.v1.API;
+  private apiVpc: Vpcv2.API;
+  private apiVpcGw: Vpcgwv2.API;
+  private apiInstance: Instancev1.API;
 
   constructor(
     private client: ScalewayClient,
@@ -24,9 +24,9 @@ export class NetworkingStack {
     private env: Environment,
     private org: string
   ) {
-    this.apiVpc = new VPC.v2.API(client);
-    this.apiVpcGw = new VPCGW.v1.API(client);
-    this.apiInstance = new Instance.v1.API(client);
+    this.apiVpc = new Vpcv2.API(client);
+    this.apiVpcGw = new Vpcgwv2.API(client);
+    this.apiInstance = new Instancev1.API(client);
   }
 
   async plan(): Promise<{
@@ -80,7 +80,7 @@ export class NetworkingStack {
   async apply(): Promise<NetworkingResources> {
     const tags = createResourceTags(this.env, this.org);
 
-    // Create VPC
+    // Create Vpc
     const vpc = await this.ensureVpc(tags);
 
     // Create Private Network
@@ -168,6 +168,7 @@ export class NetworkingStack {
     }
 
     const vpc = await this.apiVpc.createVPC({
+      enableRouting: false,
       name: this.resourceNames.vpc,
       tags: Object.entries(tags).map(([k, v]) => `${k}=${v}`),
     });
@@ -185,6 +186,7 @@ export class NetworkingStack {
     }
 
     const pn = await this.apiVpc.createPrivateNetwork({
+      defaultRoutePropagationEnabled: true,
       name: this.resourceNames.privateNetwork,
       vpcId,
       tags: Object.entries(tags).map(([k, v]) => `${k}=${v}`),
@@ -212,6 +214,7 @@ export class NetworkingStack {
 
     // Attach to private network
     await this.apiVpcGw.createGatewayNetwork({
+      pushDefaultRoute: true,
       gatewayId: gateway.id,
       privateNetworkId: pnId,
       enableMasquerade: true,

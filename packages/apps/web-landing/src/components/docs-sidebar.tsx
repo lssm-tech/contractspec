@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
-export const docsSections = [
+const docsSections = [
   {
     title: 'Getting Started',
     items: [

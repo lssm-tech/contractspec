@@ -1,19 +1,10 @@
-import {
-  VPC,
-  VPCGW,
-  Instance,
-  RDB,
-  Redis,
-  MNQ,
-  LB,
-  Domain,
-} from '@scaleway/sdk';
-import { createScalewayClient } from '../clients/scaleway-client.js';
+import { Domain, Instance, Lb, Rdb, Redis, Vpc, Vpcgw } from '@scaleway/sdk';
+import { createScalewayClient } from '../clients/scaleway-client';
 import {
   getConfig,
   getResourceNames,
   loadScalewayCredentials,
-} from '../config/index.js';
+} from '../config/index';
 
 export interface StatusResult {
   networking: {
@@ -60,13 +51,13 @@ export async function status(env?: string): Promise<StatusResult> {
   const resourceNames = getResourceNames(config.environment, config.org);
 
   // Initialize API clients
-  const apiVpc = new VPC.v2.API(client);
-  const apiVpcGw = new VPCGW.v1.API(client);
+  const apiVpc = new Vpc.v2.API(client);
+  const apiVpcGw = new Vpcgw.v2.API(client);
   const apiInstance = new Instance.v1.API(client);
-  const apiRdb = new RDB.v1.API(client);
+  const apiRdb = new Rdb.v1.API(client);
   const apiRedis = new Redis.v1.API(client);
-  const apiMnq = new (MNQ.v1beta1 as any).API(client);
-  const apiLb = new LB.v1.API(client);
+  // const apiMnqSqs = new Mnqv1beta1.SqsAPI(client);
+  const apiLb = new Lb.v1.API(client);
   const apiDns = new Domain.v2beta1.API(client);
 
   // Check networking
@@ -108,6 +99,7 @@ export async function status(env?: string): Promise<StatusResult> {
     if (instance) {
       const dbs = await apiRdb.listDatabases({
         instanceId: instance.id,
+        skipSizeRetrieval: true,
       });
       dbCount = dbs.databases?.length || 0;
     }
@@ -119,13 +111,13 @@ export async function status(env?: string): Promise<StatusResult> {
   });
 
   // Check queues
-  let queueCount = 0;
-  for (const queueName of resourceNames.queues) {
-    const queues = await apiMnq.listQueues({ name: queueName });
-    if (queues.queues && queues.queues.length > 0) {
-      queueCount++;
-    }
-  }
+  // let queueCount = 0;
+  // for (const queueName of resourceNames.queues) {
+  //   const queues = await apiMnqSqs.listQueues({ name: queueName });
+  //   if (queues.queues && queues.queues.length > 0) {
+  //     queueCount++;
+  //   }
+  // }
 
   // Check load balancer
   const lbs = await apiLb.listLbs({ name: resourceNames.loadBalancer });
@@ -184,7 +176,7 @@ export async function status(env?: string): Promise<StatusResult> {
       buckets: resourceNames.buckets.length, // Placeholder
     },
     queues: {
-      queues: queueCount,
+      queues: -1,
     },
     loadBalancer: {
       instance: (lbs.lbs?.length || 0) > 0,
@@ -227,9 +219,7 @@ export function formatStatus(statusResult: StatusResult): string {
   lines.push('');
 
   lines.push('Database:');
-  lines.push(
-    `  Instance: ${statusResult.database.instance ? '✅' : '❌'}`
-  );
+  lines.push(`  Instance: ${statusResult.database.instance ? '✅' : '❌'}`);
   lines.push(`  Databases: ${statusResult.database.databases}`);
   lines.push('');
 
@@ -246,9 +236,7 @@ export function formatStatus(statusResult: StatusResult): string {
   lines.push('');
 
   lines.push('Load Balancer:');
-  lines.push(
-    `  LB: ${statusResult.loadBalancer.instance ? '✅' : '❌'}`
-  );
+  lines.push(`  LB: ${statusResult.loadBalancer.instance ? '✅' : '❌'}`);
   lines.push(`  Frontends: ${statusResult.loadBalancer.frontends}`);
   lines.push(`  Backends: ${statusResult.loadBalancer.backends}`);
   lines.push('');

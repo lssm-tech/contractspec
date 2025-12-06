@@ -1,4 +1,4 @@
-import type { Environment } from './index.js';
+import type { Environment } from './index';
 
 export interface ResourceNames {
   vpc: string;
@@ -87,5 +87,3 @@ export const databases = [
 ] as const;
 
 export type DatabaseName = (typeof databases)[number];
-
-
