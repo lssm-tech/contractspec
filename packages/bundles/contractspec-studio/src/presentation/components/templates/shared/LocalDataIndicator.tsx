@@ -35,5 +35,3 @@ export function LocalDataIndicator() {
     </div>
   );
 }
-
-

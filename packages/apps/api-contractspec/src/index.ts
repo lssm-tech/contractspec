@@ -57,7 +57,7 @@ const app = createContractSpecStudioElysiaServer({
     try {
       console.info('params', params);
 
-      let route = '/' + params['*'] + ('/');
+      let route = '/' + params['*'] + '/';
 
       // Handle .md or .mdx extension
       if (route.endsWith('.md') || route.endsWith('.mdx')) {
@@ -96,7 +96,8 @@ const app = createContractSpecStudioElysiaServer({
         status: 200,
         headers: {
           'Content-Type': 'text/markdown; charset=utf-8',
-          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+          'Cache-Control':
+            'public, s-maxage=3600, stale-while-revalidate=86400',
         },
       });
     } catch (error) {

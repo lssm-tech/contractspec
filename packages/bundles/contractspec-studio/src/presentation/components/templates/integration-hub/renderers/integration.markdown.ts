@@ -335,5 +335,3 @@ export const syncConfigMarkdownRenderer: PresentationRenderer<{
     };
   },
 };
-
-

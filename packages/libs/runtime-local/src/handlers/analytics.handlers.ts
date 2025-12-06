@@ -617,5 +617,3 @@ export function createAnalyticsHandlers(db: LocalDatabase) {
 }
 
 export type AnalyticsHandlers = ReturnType<typeof createAnalyticsHandlers>;
-
-

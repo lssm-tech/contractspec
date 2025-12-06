@@ -4,5 +4,3 @@ export {
   connectionListMarkdownRenderer,
   syncConfigMarkdownRenderer,
 } from './integration.markdown';
-
-

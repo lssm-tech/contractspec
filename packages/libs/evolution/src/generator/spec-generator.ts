@@ -212,5 +212,3 @@ function mergeContract(
     },
   } as AnyOperationSpec;
 }
-
-

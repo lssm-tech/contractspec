@@ -361,5 +361,3 @@ export const courseEnums = [
   LessonTypeEnum,
   ContentTypeEnum,
 ];
-
-

@@ -296,5 +296,3 @@ export const flashcardEntities = [
 ];
 
 export const flashcardEnums = [CardRatingEnum];
-
-

@@ -206,7 +206,10 @@ export default function StudioExperienceClient() {
         'POLICY',
         'COMPONENT',
       ];
-      if (nextType && validTypes.includes(nextType as SpecEditorProps['type'])) {
+      if (
+        nextType &&
+        validTypes.includes(nextType as SpecEditorProps['type'])
+      ) {
         setSpecType(nextType as SpecEditorProps['type']);
       }
     }
@@ -244,7 +247,8 @@ export default function StudioExperienceClient() {
         status: (deployment.status ??
           'PENDING') as DeploymentHistoryItem['status'],
         version:
-          deploymentWithVersion.version && typeof deploymentWithVersion.version === 'string'
+          deploymentWithVersion.version &&
+          typeof deploymentWithVersion.version === 'string'
             ? deploymentWithVersion.version
             : deployment.id,
         url: deploymentWithVersion.url ?? null,

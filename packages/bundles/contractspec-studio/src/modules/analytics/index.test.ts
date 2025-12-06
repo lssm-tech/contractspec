@@ -88,5 +88,3 @@ describe('StudioAnalyticsModule', () => {
     expect(metrics.lastEventAt).toBeInstanceOf(Date);
   });
 });
-
-

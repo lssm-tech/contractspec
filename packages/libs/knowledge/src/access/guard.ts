@@ -99,5 +99,3 @@ export class KnowledgeAccessGuard {
     );
   }
 }
-
-

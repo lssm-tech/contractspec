@@ -6,13 +6,8 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react';
-import {
-  type ApolloClient,
-  type NormalizedCacheObject,
-} from '@apollo/client';
-import {
-  ApolloProvider,
-} from '@apollo/client/react';
+import { type ApolloClient, type NormalizedCacheObject } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 import type { TransformEngine } from '@lssm/lib.contracts';
 
 import {

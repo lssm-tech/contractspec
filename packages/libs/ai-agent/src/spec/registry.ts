@@ -79,5 +79,3 @@ export class AgentRegistry extends SpecContractRegistry<'agent', AgentSpec> {
 export function createAgentRegistry(): AgentRegistry {
   return new AgentRegistry();
 }
-
-

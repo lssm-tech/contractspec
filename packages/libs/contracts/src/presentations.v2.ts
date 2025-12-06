@@ -391,7 +391,9 @@ export function registerReactToMarkdownRenderer(
     async render(desc, ctx) {
       // Only handle React component presentations
       if (desc.source.type !== 'component') {
-        throw new Error('React-to-markdown renderer only handles component presentations');
+        throw new Error(
+          'React-to-markdown renderer only handles component presentations'
+        );
       }
 
       // Get component from map
@@ -405,7 +407,10 @@ export function registerReactToMarkdownRenderer(
       // Render component to HTML
       let html: string;
       try {
-        const element = React.createElement(Component, desc.source.props ? {} : undefined);
+        const element = React.createElement(
+          Component,
+          desc.source.props ? {} : undefined
+        );
         html = renderToStaticMarkup(element);
       } catch (error) {
         throw new Error(

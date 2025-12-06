@@ -36,5 +36,3 @@ describe('CredentialEncryption', () => {
     expect(secondEncryption.decrypt(second)).toEqual({ token: 'two' });
   });
 });
-
-

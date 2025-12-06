@@ -81,7 +81,8 @@ const usageMetrics: UsageMetric[] = [
   {
     name: 'Projects',
     freeTier: `Free tier: ${PRICING_EXAMPLES.free.projects} project`,
-    beyond: 'Builder / Team: more projects included; extra projects available as you scale.',
+    beyond:
+      'Builder / Team: more projects included; extra projects available as you scale.',
   },
 ];
 
@@ -98,12 +99,12 @@ export function PricingThinkingModal({
 }: PricingThinkingModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full md:max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] w-full overflow-y-auto md:max-w-5xl">
         <DialogHeader>
           <DialogTitle>Tentative pricing (work in progress)</DialogTitle>
           <DialogDescription>
-            We're still in design-partner mode. This is a draft of how we
-            expect pricing to look once we open public access.
+            We're still in design-partner mode. This is a draft of how we expect
+            pricing to look once we open public access.
           </DialogDescription>
         </DialogHeader>
 
@@ -111,11 +112,11 @@ export function PricingThinkingModal({
           {/* High-level tiers */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-xs font-medium">
                 Draft
               </span>
-              <span className="text-xs text-muted-foreground">•</span>
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">•</span>
+              <span className="text-muted-foreground text-xs">
                 Subject to change
               </span>
             </div>
@@ -125,7 +126,7 @@ export function PricingThinkingModal({
                   key={tier.title}
                   className="card-subtle relative space-y-4 p-6"
                 >
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-muted border border-border px-2 py-0.5 text-xs font-medium">
+                  <div className="bg-muted border-border absolute -top-2 left-1/2 -translate-x-1/2 rounded-full border px-2 py-0.5 text-xs font-medium">
                     {tier.tag}
                   </div>
                   <div className="space-y-2 pt-2">
@@ -157,7 +158,7 @@ export function PricingThinkingModal({
           </div>
 
           {/* Usage-based detail */}
-          <div className="space-y-4 border-t border-border pt-6">
+          <div className="border-border space-y-4 border-t pt-6">
             <div>
               <h3 className="text-lg font-bold">
                 Usage-based, with a generous free tier
@@ -170,14 +171,14 @@ export function PricingThinkingModal({
               </p>
               <p className="text-muted-foreground mt-3 text-xs italic">
                 Free tier limits are intentionally small but useful: enough to
-                try the agent and regenerate a real project, not enough to run
-                a full team's workload for free.
+                try the agent and regenerate a real project, not enough to run a
+                full team's workload for free.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {usageMetrics.map((metric) => (
                 <div key={metric.name} className="card-subtle space-y-2 p-4">
-                  <h4 className="font-semibold text-sm">{metric.name}</h4>
+                  <h4 className="text-sm font-semibold">{metric.name}</h4>
                   <p className="text-muted-foreground text-xs">
                     {metric.freeTier}
                   </p>
@@ -190,7 +191,7 @@ export function PricingThinkingModal({
           </div>
 
           {/* Footer / Disclaimer */}
-          <div className="space-y-4 border-t border-border pt-6">
+          <div className="border-border space-y-4 border-t pt-6">
             <p className="text-muted-foreground text-xs">
               These numbers are examples only. Final pricing and limits will
               evolve as we learn from design partners.
@@ -221,4 +222,3 @@ export function PricingThinkingModal({
     </Dialog>
   );
 }
-

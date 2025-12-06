@@ -289,5 +289,3 @@ export const WorkflowSystemEvents = {
   ApprovalDelegatedEvent,
   ApprovalEscalatedEvent,
 };
-
-

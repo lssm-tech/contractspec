@@ -17,18 +17,18 @@ export function createPresentationEngine(
   customComponentMap?: ComponentMap
 ): TransformEngine {
   const engine = createDefaultTransformEngine();
-  
+
   // Register React renderer
   registerDefaultReactRenderer(engine);
-  
+
   // Register basic validation
   registerBasicValidation(engine);
-  
+
   // Register React-to-markdown renderer with component map
   // This enables rendering React components to markdown for LLM consumption
   const mapToUse = customComponentMap ?? componentMap;
   registerReactToMarkdownRenderer(engine, mapToUse);
-  
+
   return engine;
 }
 
@@ -37,4 +37,3 @@ export function createPresentationEngine(
  * Use this for rendering presentations.
  */
 export const presentationEngine = createPresentationEngine();
-

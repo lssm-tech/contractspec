@@ -7,7 +7,7 @@ import {
 
 /**
  * API route handler for markdown rendering via llms. subdomain or .md/.mdx extensions.
- * 
+ *
  * Routes:
  * - llms.contractspec.chaman.ventures/ → markdown of landing page
  * - llms.contractspec.chaman.ventures/docs.md → markdown of docs index
@@ -23,23 +23,23 @@ export async function GET(
     // Reconstruct path from params
     const pathSegments = resolvedParams.path ?? [];
     let route = pathSegments.length > 0 ? '/' + pathSegments.join('/') : '/';
-    
+
     // Handle .md or .mdx extension
     if (route.endsWith('.md') || route.endsWith('.mdx')) {
       route = route.replace(/\.mdx?$/, '');
     }
-    
+
     // Normalize root route (handle /index from proxy rewrite)
     if (route === '' || route === '/index') {
       route = '/';
     }
-    
+
     // Get presentation descriptor for this route
     const descriptor = getPresentationForRoute(route);
-    
+
     if (!descriptor) {
       const availableRoutes = getAllPresentationRoutes();
-      
+
       return new NextResponse(
         `No presentation found for route: ${route}\n\nAvailable routes:\n${availableRoutes.join('\n')}`,
         {
@@ -50,10 +50,10 @@ export async function GET(
         }
       );
     }
-    
+
     // Render to markdown
     const markdown = await renderPresentationToMarkdown(descriptor);
-    
+
     // Return markdown with proper headers
     return new NextResponse(markdown, {
       status: 200,
@@ -75,4 +75,3 @@ export async function GET(
     );
   }
 }
-

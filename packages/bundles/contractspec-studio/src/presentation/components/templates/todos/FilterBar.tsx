@@ -95,5 +95,3 @@ export function FilterBar({ value, onChange, categories }: FilterBarProps) {
     </div>
   );
 }
-
-

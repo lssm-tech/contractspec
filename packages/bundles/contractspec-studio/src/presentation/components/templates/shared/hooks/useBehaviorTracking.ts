@@ -325,5 +325,3 @@ function generateRecommendations(
 
   return recommendations;
 }
-
-

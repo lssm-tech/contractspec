@@ -35,5 +35,3 @@ describe('${options.suiteName}', () => {${caseBlocks}
 });
 `.trim();
 }
-
-

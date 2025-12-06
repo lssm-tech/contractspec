@@ -51,5 +51,3 @@ export const standardMetrics = {
     'Workflow execution duration'
   ),
 };
-
-

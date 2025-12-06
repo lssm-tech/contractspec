@@ -51,14 +51,17 @@ export async function renderPresentationToReact(
  */
 export function getMarkdownUrl(route: string, baseUrl?: string): string {
   const base = baseUrl ?? 'https://contractspec.chaman.ventures';
-  const llmsBase = base.replace('contractspec.chaman.ventures', 'llms.contractspec.chaman.ventures');
-  
+  const llmsBase = base.replace(
+    'contractspec.chaman.ventures',
+    'llms.contractspec.chaman.ventures'
+  );
+
   // Normalize route
   const normalizedRoute = route === '/' ? '/' : route.replace(/\/$/, '');
-  
+
   // Add .md extension if not root
   const path = normalizedRoute === '/' ? '/index.md' : `${normalizedRoute}.md`;
-  
+
   return `${llmsBase}${path}`;
 }
 
@@ -73,23 +76,27 @@ export interface AIChatProvider {
 export const aiChatProviders: AIChatProvider[] = [
   {
     name: 'ChatGPT',
-    getUrl: (url: string) => `https://chatgpt.com/?q=${encodeURIComponent(url)}`,
+    getUrl: (url: string) =>
+      `https://chatgpt.com/?q=${encodeURIComponent(url)}`,
   },
   {
     name: 'Claude',
-    getUrl: (url: string) => `https://claude.ai/new?url=${encodeURIComponent(url)}`,
+    getUrl: (url: string) =>
+      `https://claude.ai/new?url=${encodeURIComponent(url)}`,
   },
   {
     name: 'Grok',
-    getUrl: (url: string) => `https://x.com/i/grok?url=${encodeURIComponent(url)}`,
+    getUrl: (url: string) =>
+      `https://x.com/i/grok?url=${encodeURIComponent(url)}`,
   },
   {
     name: 'Mistral',
-    getUrl: (url: string) => `https://mistral.ai/chat?url=${encodeURIComponent(url)}`,
+    getUrl: (url: string) =>
+      `https://mistral.ai/chat?url=${encodeURIComponent(url)}`,
   },
   {
     name: 'Perplexity',
-    getUrl: (url: string) => `https://www.perplexity.ai/?q=${encodeURIComponent(url)}`,
+    getUrl: (url: string) =>
+      `https://www.perplexity.ai/?q=${encodeURIComponent(url)}`,
   },
 ];
-

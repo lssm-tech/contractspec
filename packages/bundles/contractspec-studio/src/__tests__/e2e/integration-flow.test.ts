@@ -47,5 +47,3 @@ describe('Integration flow e2e', () => {
     expect(creds).toEqual({ apiKey: 'plain' });
   });
 });
-
-
