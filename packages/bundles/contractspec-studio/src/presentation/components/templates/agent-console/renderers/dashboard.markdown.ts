@@ -4,14 +4,14 @@
  * Provides a comprehensive overview of agents, runs, and tools.
  */
 import type {
-  PresentationRenderer,
   PresentationDescriptorV2,
+  PresentationRenderer,
 } from '@lssm/lib.contracts';
 import {
   mockListAgentsHandler,
   mockListRunsHandler,
   mockListToolsHandler,
-} from '@lssm/example.agent-console/handlers/index';
+} from '@lssm/example.agent-console/handlers';
 
 function formatDuration(ms: number): string {
   if (ms < 1000) return `${ms}ms`;

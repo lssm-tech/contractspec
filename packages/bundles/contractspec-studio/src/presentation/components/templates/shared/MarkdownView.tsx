@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import { Button, LoaderBlock, ErrorState } from '@lssm/lib.design-system';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, ErrorState, LoaderBlock } from '@lssm/lib.design-system';
 import { Card } from '@lssm/lib.ui-kit-web/ui/card';
 import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
-import type { TransformEngine, PresentationTarget } from '@lssm/lib.contracts';
+import type { PresentationTarget, TransformEngine } from '@lssm/lib.contracts';
 import { getTemplateEngine } from '../../../../templates/engine';
 import { getTemplate, type TemplateId } from '../../../../templates/registry';
 import { fetchPresentationData } from './utils/fetchPresentationData';
 
 // Import presentations from examples
-import * as AgentPresentations from '@lssm/example.agent-console/presentations/index';
+import * as AgentPresentations from '@lssm/example.agent-console/presentations';
 import * as SaasPresentations from '@lssm/example.saas-boilerplate/presentations';
 import * as CrmPresentations from '@lssm/example.crm-pipeline/presentations';
 

@@ -19,7 +19,7 @@ import {
   mockListAgentsHandler,
   mockListRunsHandler,
   mockListToolsHandler,
-} from '@lssm/example.agent-console/handlers/index';
+} from '@lssm/example.agent-console/handlers';
 
 /**
  * Data fetcher result type

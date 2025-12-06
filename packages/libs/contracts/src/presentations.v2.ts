@@ -3,7 +3,6 @@ import type { OwnerShipMeta } from './ownership';
 import type { BlockConfig } from '@blocknote/core';
 import { schemaToMarkdown } from './schema-to-markdown';
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import TurndownService from 'turndown';
 
 /** Supported render targets for the transform engine and descriptors. */
@@ -395,6 +394,8 @@ export function registerReactToMarkdownRenderer(
           'React-to-markdown renderer only handles component presentations'
         );
       }
+
+      const { renderToStaticMarkup } = await import('react-dom/server');
 
       // Get component from map
       const Component = componentMap[desc.source.componentKey];

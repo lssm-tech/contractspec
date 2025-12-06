@@ -4,11 +4,11 @@
  * Uses dynamic import for handlers to ensure correct build order.
  */
 import type {
-  PresentationRenderer,
   PresentationDescriptorV2,
+  PresentationRenderer,
 } from '@lssm/lib.contracts';
 import type { Run } from '../hooks/useRunList';
-import { mockListRunsHandler } from '@lssm/example.agent-console/handlers/index';
+import { mockListRunsHandler } from '@lssm/example.agent-console/handlers';
 
 interface RunListOutput {
   items: Run[];
