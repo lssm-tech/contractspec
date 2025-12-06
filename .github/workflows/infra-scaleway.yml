@@ -5,8 +5,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'packages/contractspec/packages/tools/scaleway-infra/**'
-      - '.github/workflows/infra-scaleway.yml'
+      - "packages/tools/scaleway-infra/**"
+      - ".github/workflows/infra-scaleway.yml"
 
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
           SCALEWAY_ACCESS_KEY: ${{ secrets.SCALEWAY_ACCESS_KEY }}
           SCALEWAY_SECRET_KEY: ${{ secrets.SCALEWAY_SECRET_KEY }}
           SCALEWAY_PROJECT_ID: ${{ secrets.SCALEWAY_PROJECT_ID }}
-          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stg' }}
+          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prd' || 'stg' }}
         run: bun dist/bin/deploy.js plan --env ${{ env.INFRA_ENV }} | cat
 
   apply:
@@ -49,8 +49,5 @@ jobs:
           SCALEWAY_ACCESS_KEY: ${{ secrets.SCALEWAY_ACCESS_KEY }}
           SCALEWAY_SECRET_KEY: ${{ secrets.SCALEWAY_SECRET_KEY }}
           SCALEWAY_PROJECT_ID: ${{ secrets.SCALEWAY_PROJECT_ID }}
-          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stg' }}
+          INFRA_ENV: ${{ github.ref == 'refs/heads/main' && 'prd' || 'stg' }}
         run: bun dist/bin/deploy.js apply --env ${{ env.INFRA_ENV }} --auto-approve
-
-
-

@@ -45,10 +45,11 @@ export interface StatusResult {
 }
 
 export async function status(env?: string): Promise<StatusResult> {
-  const config = getConfig(env as 'prod' | 'stg');
+  const config = getConfig(env as 'prd' | 'stg');
   const credentials = loadScalewayCredentials();
   const client = createScalewayClient(credentials, config.region, config.zone);
   const resourceNames = getResourceNames(config.environment, config.org);
+  console.log('resourceNames', resourceNames);
 
   // Initialize API clients
   const apiVpc = new Vpc.v2.API(client);
@@ -62,12 +63,14 @@ export async function status(env?: string): Promise<StatusResult> {
 
   // Check networking
   const vpcs = await apiVpc.listVPCs({ name: resourceNames.vpc });
+  console.log('vpcs', vpcs);
   const pns = await apiVpc.listPrivateNetworks({
     name: resourceNames.privateNetwork,
   });
   const gateways = await apiVpcGw.listGateways({
     name: resourceNames.publicGateway,
   });
+  console.log('gateways', resourceNames.publicGateway, gateways);
   const backendSg = await apiInstance.listSecurityGroups({
     name: resourceNames.securityGroupBackend,
   });
@@ -81,6 +84,7 @@ export async function status(env?: string): Promise<StatusResult> {
   // Check compute
   let instanceCount = 0;
   for (let i = 1; i <= 10; i++) {
+    console.log('instances', resourceNames.instance(i));
     const instances = await apiInstance.listServers({
       name: resourceNames.instance(i),
     });

@@ -20,21 +20,22 @@ export function getResourceNames(
   env: Environment,
   org = 'lssm'
 ): ResourceNames {
-  const envSuffix = env === 'prod' ? 'prod' : 'stg';
+  const envSuffix = env === 'prd' ? 'prd' : 'stg';
+  const baseName = `${org}-${envSuffix}`;
 
   return {
-    vpc: `vpc-${org}-${envSuffix}`,
-    privateNetwork: `pn-${org}-${envSuffix}-core`,
-    publicGateway: `pgw-${org}-${envSuffix}-core`,
+    vpc: `${baseName}-vpc`,
+    privateNetwork: `${baseName}-vpc-pn-core`,
+    publicGateway: `${baseName}-pgw-core`,
     securityGroupBackend: `sg-${org}-${envSuffix}-backend`,
     securityGroupDb: `sg-${org}-${envSuffix}-db`,
     securityGroupRedis: `sg-${org}-${envSuffix}-redis`,
     instance: (index: number) =>
-      `${org}-${envSuffix}-core-${String(index).padStart(2, '0')}`,
-    postgresInstance: `pg-${org}-${envSuffix}`,
+      `${baseName}-instance-api-${String(index).padStart(2, '0')}`,
+    postgresInstance: `${baseName}-psql-01`,
     redisInstance: `redis-${org}-${envSuffix}`,
     buckets: [
-      `${org}-${envSuffix}-core`,
+      `${baseName}-core`,
       `equitya-${envSuffix}-files`,
       `artisanos-${envSuffix}-files`,
     ],
@@ -43,7 +44,7 @@ export function getResourceNames(
       `equitya-${envSuffix}-jobs`,
       `artisanos-${envSuffix}-jobs`,
     ],
-    loadBalancer: `lb-${org}-${envSuffix}`,
+    loadBalancer: `${baseName}-lb-core`,
     dnsZones: ['lssm.tech', 'lssm.world', 'lssm.community', 'lssm.cash'],
   };
 }

@@ -16,7 +16,7 @@ program
 program
   .command('plan')
   .description('Show infrastructure plan (dry-run)')
-  .option('-e, --env <env>', 'Environment (prod|stg)', 'prod')
+  .option('-e, --env <env>', 'Environment (prd|stg)', 'prd')
   .action(async (options) => {
     try {
       const planResult = await plan(options.env);
@@ -30,7 +30,7 @@ program
 program
   .command('apply')
   .description('Apply infrastructure changes')
-  .option('-e, --env <env>', 'Environment (prod|stg)', 'prod')
+  .option('-e, --env <env>', 'Environment (prd|stg)', 'prd')
   .option('--auto-approve', 'Skip confirmation prompt', false)
   .action(async (options) => {
     try {
@@ -44,7 +44,7 @@ program
 program
   .command('destroy')
   .description('Destroy infrastructure')
-  .option('-e, --env <env>', 'Environment (prod|stg)', 'prod')
+  .option('-e, --env <env>', 'Environment (prd|stg)', 'prd')
   .option('--auto-approve', 'Skip confirmation prompt', false)
   .action(async (options) => {
     try {
@@ -58,7 +58,7 @@ program
 program
   .command('status')
   .description('Show infrastructure status')
-  .option('-e, --env <env>', 'Environment (prod|stg)', 'prod')
+  .option('-e, --env <env>', 'Environment (prd|stg)', 'prd')
   .action(async (options) => {
     try {
       const statusResult = await status(options.env);

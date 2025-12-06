@@ -35,7 +35,7 @@ export class ComputeStack {
       action: 'create' | 'update' | 'no-op';
       current?: unknown;
     }[] = [];
-    const instanceCount = this.env === 'prod' ? 1 : 1; // Start with 1, can scale later
+    const instanceCount = this.env === 'prd' ? 1 : 1; // Start with 1, can scale later
 
     for (let i = 1; i <= instanceCount; i++) {
       const name = this.resourceNames.instance(i);
@@ -52,7 +52,7 @@ export class ComputeStack {
 
   async apply(): Promise<ComputeResources> {
     const tags = createResourceTags(this.env, this.org);
-    const instanceCount = this.env === 'prod' ? 1 : 1;
+    const instanceCount = this.env === 'prd' ? 1 : 1;
     const instanceIds: string[] = [];
 
     for (let i = 1; i <= instanceCount; i++) {

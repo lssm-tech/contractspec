@@ -5,9 +5,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'packages/contractspec/packages/bundles/contractspec-studio/**'
-      - 'packages/contractspec/packages/apps/**'
-      - '.github/workflows/deploy-services.yml'
+      - "packages/bundles/contractspec-studio/**"
+      - "packages/apps/**"
+      - ".github/workflows/deploy-services.yml"
 
 permissions:
   contents: read
@@ -39,6 +39,3 @@ jobs:
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker
           EOF
-
-
-
