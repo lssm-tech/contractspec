@@ -4,10 +4,10 @@
  * Uses dynamic import for handlers to ensure correct build order.
  */
 import type {
-  PresentationRenderer,
   PresentationDescriptorV2,
+  PresentationRenderer,
 } from '@lssm/lib.contracts';
-import { mockListToolsHandler } from '@lssm/example.agent-console/handlers/index';
+import { mockListToolsHandler } from '@lssm/example.agent-console/handlers';
 
 interface ToolItem {
   id: string;

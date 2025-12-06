@@ -4,13 +4,13 @@
  * Uses handlers from the agent-console example package.
  */
 import type {
-  PresentationRenderer,
   PresentationDescriptorV2,
+  PresentationRenderer,
 } from '@lssm/lib.contracts';
 import {
-  mockListAgentsHandler,
   type AgentSummary,
-} from '@lssm/example.agent-console/handlers/index';
+  mockListAgentsHandler,
+} from '@lssm/example.agent-console/handlers';
 
 type Agent = AgentSummary;
 
