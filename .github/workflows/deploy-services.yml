@@ -60,10 +60,13 @@ jobs:
           ssh-private-key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
       - name: Deploy to Scaleway instance
         env:
+          SCALEWAY_BASTION_USER: ${{ secrets.SCALEWAY_BASTION_USER }}
+          SCALEWAY_BASTION_HOST: ${{ secrets.SCALEWAY_BASTION_HOST }}
+          SCALEWAY_BASTION_PORT: ${{ secrets.SCALEWAY_BASTION_PORT }}
           SCALEWAY_HOST: ${{ secrets.SCALEWAY_HOST }}
           SCALEWAY_USER: ${{ secrets.SCALEWAY_USER }}
         run: |
-          ssh -J bastion@${SCALEWAY_BASTION_HOST} ${SCALEWAY_USER}@${SCALEWAY_HOST} << 'EOF'
+          ssh -J ${SCALEWAY_BASTION_USER}@${SCALEWAY_BASTION_HOST}:${SCALEWAY_BASTION_PORT} ${SCALEWAY_USER}@${SCALEWAY_HOST} << 'EOF'
             set -euo pipefail
 
             cd /srv/lssm
