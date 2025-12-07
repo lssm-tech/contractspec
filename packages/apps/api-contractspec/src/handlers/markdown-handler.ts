@@ -7,7 +7,7 @@ import {
 } from '@lssm/bundle.contractspec-studio/presentation/presentations';
 
 export const markdownHandler = new Elysia().get(
-  '/markdown/*',
+  '/docs/*',
   async ({ params, query }) => {
     try {
       console.info('params', params);
