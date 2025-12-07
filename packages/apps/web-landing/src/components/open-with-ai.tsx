@@ -15,10 +15,11 @@ import {
   DropdownMenuTrigger,
 } from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
 import {
-  getMarkdownUrl,
   aiChatProviders,
+  getMarkdownUrl,
   hasPresentation,
 } from '@lssm/bundle.contractspec-studio/presentation/presentations';
+import { Button } from '@lssm/lib.design-system';
 
 interface OpenWithAIProps {
   /** Custom route path (defaults to current pathname) */
@@ -76,14 +77,14 @@ export function OpenWithAI({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
+        <Button
           className="btn-ghost inline-flex items-center gap-2 text-sm"
           aria-label="Open with AI"
         >
           <Sparkles size={16} />
           {label}
           <ChevronDown size={16} />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>AI Access</DropdownMenuLabel>
