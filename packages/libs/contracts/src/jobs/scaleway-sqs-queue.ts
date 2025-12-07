@@ -208,7 +208,7 @@ export class ScalewaySqsJobQueue implements JobQueue {
           }
         }
       } catch (err) {
-        if (typeof err === 'object' && '$response' in err) {
+        if (!!err && typeof err === 'object' && '$response' in err) {
           console.error('[queue] Error while polling SQS', err, err.$response);
         } else {
           console.error('[queue] Error while polling SQS', err);
