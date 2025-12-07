@@ -28,6 +28,7 @@
     "build:types": "turbo run build:types",
     "build:not-apps": "turbo run build --filter=\"!@lssm/app.*\"",
     "db:generate": "turbo run db:generate",
+    "db:deploy": "turbo run db:deploy",
     "validate:content": "turbo run validate:content --filter=\"@lssm/app.web-strit\"",
     "mcp:inspect": "mcp-inspector --transport http --server-url http://localhost:3000/api/mcp",
     "llms:gen": "node tools/generate-presentations-manifest.mjs packages/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-lssm/src/app && node tools/generate-presentations-manifest.mjs packages/artisanos/apps/web-artisan/src/app && node tools/generate-presentations-manifest.mjs packages/strit/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-third/src/app",
