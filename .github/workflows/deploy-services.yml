@@ -63,13 +63,24 @@ jobs:
           SCALEWAY_USER: ${{ secrets.SCALEWAY_USER }}
         run: |
           ssh -o StrictHostKeyChecking=no ${SCALEWAY_USER}@${SCALEWAY_HOST} << 'EOF'
+            set -euo pipefail
+
             cd /srv/lssm
-            git pull origin main
+
+            # first deploy: clone; later: pull
+            if [ ! -d .git ]; then
+              git clone git@github.com:lssm-tech/contractspec.git .
+            fi
+
+            git fetch origin main
+            git reset --hard origin/main
+
             bun install --frozen-lockfile
             bun run build:server
-            bun run db:migrate || true
+            # bun run db:migrate || true
+
             sudo systemctl restart lssm-api lssm-worker
-            sudo systemctl status lssm-api lssm-worker
+            sudo systemctl status lssm-api lssm-worker --no-pager
           EOF
       - name: 'notify vercel'
         uses: 'vercel/repository-dispatch/actions/status@v1'
