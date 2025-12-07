@@ -60,7 +60,7 @@ jobs:
           # Target instance
           host: ${{ secrets.SCALEWAY_HOST }}
           username: ${{ secrets.SCALEWAY_USER }}
-          port: 22
+          # port: 22
 
           # SSH key used for BOTH bastion and target
           key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
