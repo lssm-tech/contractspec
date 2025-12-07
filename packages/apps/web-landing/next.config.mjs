@@ -58,16 +58,18 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    const apiUrl = process.env.API_CONTRACTSPEC_URL || 'http://localhost:8080';
+    // const apiUrl = process.env.API_CONTRACTSPEC_URL || 'https://api.lssm.tech';
+    const apiLlmsUrl =
+      process.env.API_CONTRACTSPEC_URL || `https://llms.contractspec.lssm.tech`;
     return [
       {
         source: '/:path*.md',
-        destination: `${apiUrl}/markdown/:path*`,
+        destination: `${apiLlmsUrl}/markdown/:path*`,
         permanent: false,
       },
       {
         source: '/:path*.mdx',
-        destination: `${apiUrl}/markdown/:path*`,
+        destination: `${apiLlmsUrl}/markdown/:path*`,
         permanent: false,
       },
     ];

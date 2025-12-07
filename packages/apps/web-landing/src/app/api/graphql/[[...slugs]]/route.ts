@@ -2,13 +2,10 @@ import { Elysia } from 'elysia';
 // import { WebStandardAdapter } from 'elysia/adapter/web-standard';
 import { mountContractSpecStudioGraphQL } from '@lssm/bundle.contractspec-studio/infrastructure';
 
-const app = mountContractSpecStudioGraphQL(
-  new Elysia({
-    prefix: '/api',
-    // adapter: WebStandardAdapter,
-  })
-  //   '/'
-);
+const app = new Elysia({
+  prefix: '/api',
+  // adapter: WebStandardAdapter,
+}).use(mountContractSpecStudioGraphQL());
 
 export const GET = app.handle;
 export const POST = app.handle;
