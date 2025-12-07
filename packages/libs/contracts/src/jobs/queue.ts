@@ -13,8 +13,8 @@ export interface Job<TPayload = unknown> {
 
 export interface EnqueueOptions {
   delaySeconds?: number;
-  dedupeKey?: string;
-  maxAttempts?: number;
+  dedupeKey?: string; // only effective if using FIFO queues
+  maxAttempts?: number; // advisory; DLQ is enforced at queue level
 }
 
 export type JobHandler<TPayload = unknown> = (

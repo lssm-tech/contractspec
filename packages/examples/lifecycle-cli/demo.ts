@@ -1,8 +1,8 @@
 import {
-  LifecycleAssessmentService,
   createLifecycleHandlers,
+  LifecycleAssessmentService,
 } from '@lssm/bundle.lifecycle-managed';
-import { ProductPhase, CompanyPhase, CapitalPhase } from '@lssm/lib.lifecycle';
+import { CapitalPhase, CompanyPhase, ProductPhase } from '@lssm/lib.lifecycle';
 
 async function main() {
   const service = new LifecycleAssessmentService({
@@ -61,18 +61,7 @@ void main().catch((error) => {
   process.exitCode = 1;
 });
 
+/*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts
+ */

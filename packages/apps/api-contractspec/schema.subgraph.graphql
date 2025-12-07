@@ -1,0 +1,461 @@
+type CanvasVersion {
+  createdAt: Date
+  createdBy: String
+  id: ID
+  label: String
+  nodes: JSON
+  status: CanvasVersionStatusEnum
+}
+
+enum CanvasVersionStatusEnum {
+  DEPLOYED
+  DRAFT
+}
+
+input ConnectIntegrationInput {
+  config: JSON!
+  credentials: JSON!
+  name: String!
+  projectId: String!
+  provider: IntegrationProviderEnum!
+}
+
+type ConnectionStatus {
+  linkedProviders: [String!]
+}
+
+scalar CountryCode
+
+input CreateProjectInput {
+  byokEnabled: Boolean!
+  deploymentMode: DeploymentModeEnum
+  description: String!
+  evolutionEnabled: Boolean!
+  name: String!
+  tier: ProjectTierEnum!
+}
+
+input CreateSpecInput {
+  content: JSON!
+  metadata: JSON!
+  name: String!
+  projectId: String!
+  type: SpecTypeEnum!
+  version: String!
+}
+
+scalar Currency
+
+scalar Date
+
+scalar DateTime
+
+input DeployCanvasVersionInput {
+  canvasId: String!
+  versionId: String!
+}
+
+input DeployProjectInput {
+  environment: EnvironmentEnum!
+  projectId: String!
+}
+
+enum DeploymentModeEnum {
+  DEDICATED
+  SHARED
+}
+
+enum DeploymentStatusEnum {
+  DEPLOYED
+  DEPLOYING
+  FAILED
+  PENDING
+  ROLLED_BACK
+}
+
+scalar EmailAddress
+
+enum EnvironmentEnum {
+  DEVELOPMENT
+  PRODUCTION
+  STAGING
+}
+
+"""Unvalidated float scalar"""
+scalar Float_unsecure
+
+"""
+A GeoJSON object as defined by RFC 7946: https://datatracker.ietf.org/doc/html/rfc7946
+"""
+scalar GeoJSON
+
+input IndexKnowledgeInput {
+  collection: String!
+  documents: [KnowledgeDocumentInput!]!
+  metadata: JSON!
+  name: String!
+  namespace: String!
+  projectId: String!
+  type: KnowledgeSourceTypeEnum!
+}
+
+"""Unvalidated integer scalar"""
+scalar Int_unsecure
+
+enum IntegrationProviderEnum {
+  AIRTABLE
+  ANTHROPIC
+  CUSTOM
+  GITHUB
+  NOTION
+  OPENAI
+  POSTHOG
+  SLACK
+  STRIPE
+}
+
+type IntegrationSyncResult {
+  integrationId: String
+  status: String
+  syncedAt: Date
+  usageCount: Int
+}
+
+scalar JSON
+
+scalar JSONObject
+
+type KnowledgeAnswer {
+  answer: String
+  references: JSON
+  usage: JSON
+}
+
+input KnowledgeDocumentInput {
+  id: String!
+  metadata: JSON!
+  mimeType: String!
+  text: String!
+}
+
+type KnowledgeSourceRecord {
+  content: JSON
+  createdAt: Date
+  id: ID
+  indexed: Boolean
+  lastIndexed: Date
+  name: String
+  organizationId: String
+  projectId: String
+  type: KnowledgeSourceTypeEnum
+  url: String
+}
+
+enum KnowledgeSourceTypeEnum {
+  API_SPEC
+  CODE_REPOSITORY
+  CUSTOM
+  DOCUMENTATION
+  NOTION_DATABASE
+}
+
+scalar Latitude
+
+type LifecycleAction {
+  category: String
+  description: String
+  effortLevel: String
+  estimatedImpact: String
+  id: ID
+  priority: Int
+  recommendedLibraries: [String!]
+  stage: LifecycleStageEnum
+  title: String
+}
+
+input LifecycleAssessmentInput {
+  axes: JSON
+  metrics: JSON
+  questionnaireAnswers: JSON
+  signals: JSON
+}
+
+type LifecycleAssessmentRecord {
+  confidence: Float
+  createdAt: Date
+  focusAreas: [String!]
+  id: ID
+  profileId: String
+  signals: JSON
+  stage: LifecycleStageEnum
+}
+
+type LifecycleCeremony {
+  copy: String
+  cues: [String!]
+  title: String
+}
+
+type LifecycleMilestone {
+  actionItems: [String!]
+  category: String
+  description: String
+  guideContent: String
+  id: ID
+  priority: Int
+  stage: LifecycleStageEnum
+  title: String
+}
+
+type LifecycleMilestoneProgress {
+  category: String
+  completedAt: Date
+  id: ID
+  milestoneId: String
+  startedAt: Date
+  status: MilestoneStatusEnum
+}
+
+type LifecycleRecommendation {
+  actions: [LifecycleAction!]
+  ceremony: LifecycleCeremony
+  stage: LifecycleStageEnum
+  upcomingMilestones: [LifecycleMilestone!]
+}
+
+enum LifecycleStageEnum {
+  EXPANSION_PLATFORM
+  EXPLORATION
+  GROWTH_SCALE_UP
+  MATURITY_OPTIMIZATION
+  MVP_EARLY_TRACTION
+  PROBLEM_SOLUTION_FIT
+  PRODUCT_MARKET_FIT
+}
+
+scalar Locale
+
+scalar Longitude
+
+enum MilestoneStatusEnum {
+  COMPLETED
+  IN_PROGRESS
+  NOT_STARTED
+  SKIPPED
+}
+
+type Mutation {
+  connectIntegration(input: ConnectIntegrationInput!): StudioIntegration
+  createStudioProject(input: CreateProjectInput!): StudioProject
+  createStudioSpec(input: CreateSpecInput!): StudioSpec
+  deployCanvasVersion(input: DeployCanvasVersionInput!): CanvasVersion
+  deployStudioProject(input: DeployProjectInput!): StudioDeployment
+  disconnectIntegration(id: String!): Boolean
+  indexKnowledgeSource(input: IndexKnowledgeInput!): KnowledgeSourceRecord
+  runLifecycleAssessment(input: LifecycleAssessmentInput!): LifecycleAssessmentRecord
+  saveCanvasDraft(input: SaveCanvasDraftInput!): CanvasVersion
+  saveTemplateToStudio(input: SaveTemplateInput!): SaveTemplateResult
+  setUserMetadata(json: String!): Boolean
+  syncIntegration(id: String!): IntegrationSyncResult
+  trackLifecycleMilestone(category: String!, milestoneId: String!, status: MilestoneStatusEnum!): LifecycleMilestoneProgress
+  undoCanvasVersion(input: UndoCanvasInput!): CanvasVersion
+  unlinkProvider(providerId: String!): Boolean
+  updateProfile(input: UpdateProfileInput!): User
+  updateStudioProject(id: String!, input: UpdateProjectInput!): StudioProject
+  updateStudioSpec(id: String!, input: UpdateSpecInput!): StudioSpec
+}
+
+scalar NonEmptyString
+
+type Organization {
+  createdAt: Date
+  description: String
+  id: ID!
+  logo: String
+  metadata: String
+  name: String!
+  slug: String
+  type: OrganizationType
+  updatedAt: Date
+}
+
+type OrganizationLifecycleProfile {
+  assessments: [LifecycleAssessmentRecord!]
+  capitalPhase: String
+  companyPhase: String
+  confidence: Float
+  currentStage: LifecycleStageEnum
+  detectedStage: LifecycleStageEnum
+  id: ID
+  lastAssessment: Date
+  metrics: JSON
+  milestones: [LifecycleMilestoneProgress!]
+  nextAssessment: Date
+  organizationId: String
+  productPhase: String
+  signals: JSON
+}
+
+enum OrganizationType {
+  CONTRACT_SPEC_CUSTOMER
+  PLATFORM_ADMIN
+}
+
+scalar PhoneNumber
+
+enum ProjectTierEnum {
+  ENTERPRISE
+  PROFESSIONAL
+  STARTER
+}
+
+type Query {
+  connectionStatus: ConnectionStatus
+  knowledgeSources(projectId: String!): [KnowledgeSourceRecord!]
+  lifecycleAssessments(limit: Int!): [LifecycleAssessmentRecord!]
+  lifecycleProfile: OrganizationLifecycleProfile
+  lifecycleRecommendations: LifecycleRecommendation
+  me: User
+  myActiveOrganization: Organization
+  myOrganizations: [Organization!]
+  myStudioProjects: [StudioProject!]
+  projectSpecs(projectId: String!): [StudioSpec!]
+  queryKnowledge(input: QueryKnowledgeInput!): KnowledgeAnswer
+  studioIntegrations: [StudioIntegration!]
+  studioProject(id: String!): StudioProject
+  studioSpec(id: String!): StudioSpec
+}
+
+input QueryKnowledgeInput {
+  collection: String!
+  namespace: String!
+  projectId: String!
+  query: String!
+  systemPrompt: String!
+  topK: Int!
+}
+
+input SaveCanvasDraftInput {
+  canvasId: String!
+  label: String!
+  nodes: JSON!
+}
+
+input SaveTemplateInput {
+  description: String!
+  organizationId: String!
+  payload: String!
+  projectName: String!
+  templateId: String!
+}
+
+type SaveTemplateResult {
+  projectId: String
+  status: String
+}
+
+enum SpecTypeEnum {
+  CAPABILITY
+  COMPONENT
+  DATAVIEW
+  POLICY
+  WORKFLOW
+}
+
+"""Unvalidated string scalar"""
+scalar String_unsecure
+
+type StudioDeployment {
+  createdAt: Date
+  deployedAt: Date
+  environment: EnvironmentEnum
+  id: ID
+  infrastructureId: String
+  projectId: String
+  status: DeploymentStatusEnum
+  url: String
+  version: String
+}
+
+type StudioIntegration {
+  config: JSON
+  createdAt: Date
+  enabled: Boolean
+  id: ID
+  lastUsed: Date
+  name: String
+  organizationId: String
+  projectId: String
+  provider: IntegrationProviderEnum
+  usageCount: Int
+}
+
+type StudioProject {
+  byokEnabled: Boolean
+  createdAt: Date
+  deploymentMode: DeploymentModeEnum
+  deployments: [StudioDeployment!]
+  description: String
+  evolutionEnabled: Boolean
+  id: ID
+  name: String
+  specs: [StudioSpec!]
+  tier: ProjectTierEnum
+  updatedAt: Date
+}
+
+type StudioSpec {
+  content: JSON
+  id: ID
+  metadata: JSON
+  name: String
+  projectId: String
+  type: SpecTypeEnum
+  updatedAt: Date
+  version: String
+}
+
+scalar Time
+
+scalar TimeZone
+
+scalar URL
+
+input UndoCanvasInput {
+  canvasId: String!
+}
+
+input UpdateProfileInput {
+  image: String
+  name: String
+}
+
+input UpdateProjectInput {
+  byokEnabled: Boolean!
+  deploymentMode: DeploymentModeEnum!
+  description: String!
+  evolutionEnabled: Boolean!
+  name: String!
+  tier: ProjectTierEnum!
+}
+
+input UpdateSpecInput {
+  content: JSON!
+  metadata: JSON!
+  name: String!
+  version: String!
+}
+
+type User {
+  createdAt: Date
+  email: String
+  emailVerified: Boolean
+  firstName: String
+  id: ID!
+  image: String
+  lastName: String
+  metadata: String
+  onboardingCompleted: Boolean
+  onboardingStep: String
+  updatedAt: Date
+}
