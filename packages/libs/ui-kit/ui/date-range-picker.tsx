@@ -3,7 +3,7 @@ import { Platform, Pressable, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { HStack, VStack } from './stack';
 import { Text } from './text';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 export interface DateRange {
   start: Date | null;

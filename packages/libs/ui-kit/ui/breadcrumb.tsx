@@ -3,7 +3,7 @@ import * as Slot from '@rn-primitives/slot';
 import { ChevronRight, MoreHorizontal } from 'lucide-react';
 import { Text, View, type ViewProps } from 'react-native';
 
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function Breadcrumb({ ...props }: React.ComponentProps<'nav'>) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;

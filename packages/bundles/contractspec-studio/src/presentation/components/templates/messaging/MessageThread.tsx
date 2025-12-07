@@ -1,3 +1,5 @@
+'use client';
+
 import { useMutation, useQuery } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 import { useEffect, useRef } from 'react';

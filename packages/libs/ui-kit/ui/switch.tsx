@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useColorScheme } from './useColorScheme';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function SwitchWeb({
   className,

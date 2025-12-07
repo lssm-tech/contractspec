@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link as LinkExpo, type LinkProps } from 'expo-router';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function Link({
   className,

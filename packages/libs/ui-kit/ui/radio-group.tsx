@@ -1,4 +1,4 @@
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import { Platform } from 'react-native';
 

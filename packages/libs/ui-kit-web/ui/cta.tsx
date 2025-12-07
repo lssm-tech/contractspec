@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, type ButtonProps } from './button';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 export type CtaProps = ButtonProps & {
   capture?: (cta: string) => void;

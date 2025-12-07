@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ClientPage from './client-page';
+import { LandingPage } from '@lssm/bundle.contractspec-studio/presentation';
 
 export const metadata: Metadata = {
   title: 'ContractSpec: Stabilize Your AI-Generated Code',
@@ -43,5 +43,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ClientPage />;
+  return <LandingPage />;
 }

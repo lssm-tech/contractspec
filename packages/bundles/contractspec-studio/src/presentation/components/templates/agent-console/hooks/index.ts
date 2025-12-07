@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Data hooks for agent-console template
  */

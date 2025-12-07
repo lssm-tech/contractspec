@@ -3,7 +3,7 @@
 import { GripVertical } from 'lucide-react';
 import * as ResizablePrimitive from 'react-resizable-panels';
 
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 const ResizablePanelGroup = ({
   className,

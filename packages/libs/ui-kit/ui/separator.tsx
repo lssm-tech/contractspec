@@ -1,6 +1,6 @@
 import * as SeparatorPrimitive from '@rn-primitives/separator';
 import * as React from 'react';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function Separator({
   className,

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { View, type ViewProps } from 'react-native';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import { Text } from './text';
 
 const alertVariants = cva(

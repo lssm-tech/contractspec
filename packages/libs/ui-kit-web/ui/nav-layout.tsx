@@ -8,7 +8,7 @@ import {
   NavigationMenuTrigger,
 } from './navigation-menu';
 import { cva } from 'class-variance-authority';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 export const navPanelVariants = cva('', {
   variants: {

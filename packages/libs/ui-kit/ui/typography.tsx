@@ -2,7 +2,7 @@ import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { Text, type TextProps } from './text';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 export type TypographyProps = TextProps & {
   asChild?: boolean;

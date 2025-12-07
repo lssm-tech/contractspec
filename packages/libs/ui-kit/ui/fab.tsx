@@ -5,7 +5,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import { Plus, X } from 'lucide-react-native';
 
 interface FABAction {

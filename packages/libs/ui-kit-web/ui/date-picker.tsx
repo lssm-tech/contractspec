@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Button } from './button';
 import { Calendar } from './calendar';
 import { Input } from './input';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 export interface DatePickerProps {
   value: Date | null;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { toggleTextVariants, toggleVariants } from './toggle';
 import { TextClassContext } from './text';
 import * as ToggleGroupPrimitive from '@rn-primitives/toggle-group';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 const ToggleGroupContext = React.createContext<VariantProps<
   typeof toggleVariants

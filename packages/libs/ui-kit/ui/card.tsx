@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { TextProps, ViewProps } from 'react-native';
 import { Text, View } from 'react-native';
 import { TextClassContext } from './text';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function Card({
   className,

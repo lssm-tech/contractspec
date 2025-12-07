@@ -1,6 +1,6 @@
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import * as React from 'react';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import { Check } from 'lucide-react-native';
 
 const Checkbox = React.forwardRef<

@@ -1,3 +1,5 @@
+'use client';
+
 export * from './molecules/StudioProjectCard';
 export * from './molecules/ComponentPalette';
 export * from './molecules/PropertyEditor';

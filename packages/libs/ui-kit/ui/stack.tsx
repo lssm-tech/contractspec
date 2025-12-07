@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { View } from 'react-native';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const baseStyle = 'flex';

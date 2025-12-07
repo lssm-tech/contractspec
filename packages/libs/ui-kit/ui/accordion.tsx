@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { ChevronDown } from './icons/ChevronDown';
 import { TextClassContext } from './text';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 function Accordion({
   children,

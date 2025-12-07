@@ -1,4 +1,4 @@
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import * as LabelPrimitive from '@rn-primitives/label';
 import { Platform } from 'react-native';
 

@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import NextLink from 'next/link';
 
 const Link = forwardRef<

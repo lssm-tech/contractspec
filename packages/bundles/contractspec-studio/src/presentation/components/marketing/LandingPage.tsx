@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-
+import Link from '@lssm/lib.ui-link';
 import {
   AlertTriangle,
   Calendar,
@@ -17,7 +16,7 @@ import {
   Zap,
 } from 'lucide-react';
 
-export default function ClientPage() {
+export function LandingPage() {
   return (
     <main className="pt-24">
       {/* Hero Section */}

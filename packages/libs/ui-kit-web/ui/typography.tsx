@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 import { Text, type TextProps } from './text';
-import { cn } from './utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 
 type TypographyProps = TextProps & {
   asChild?: boolean;
