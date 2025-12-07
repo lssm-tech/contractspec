@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec Pricing',
     description:
       'Free for individuals. Scale with your team. No surprise bills.',
-    url: 'https://contractspec.chaman.ventures/pricing',
+    url: 'https://contractspec.lssm.tech/pricing',
     type: 'website',
   },
   twitter: {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       'Free for individuals. Scale with your team. No surprise bills.',
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/pricing',
+    canonical: 'https://contractspec.lssm.tech/pricing',
   },
 };
 

@@ -24,8 +24,8 @@ export const auth = betterAuth({
     provider: 'postgresql',
   }),
   trustedOrigins: [
-    'https://contractspec.chaman.ventures',
-    'https://studio.contractspec.chaman.ventures',
+    'https://contractspec.lssm.tech',
+    'https://studio.contractspec.lssm.tech',
     'http://localhost:3000',
     'http://localhost:3002',
   ],

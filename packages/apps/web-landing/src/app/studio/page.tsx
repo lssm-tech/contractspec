@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Explore ContractSpec Studio in your browser: projects dashboard, visual canvas, spec editor, and deployment orchestration.',
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/studio',
+    canonical: 'https://contractspec.lssm.tech/studio',
   },
 };
 

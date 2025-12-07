@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Sign In: ContractSpec',
     description: 'Sign in to ContractSpec.',
-    url: 'https://contractspec.chaman.ventures/login',
+    url: 'https://contractspec.lssm.tech/login',
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/login',
+    canonical: 'https://contractspec.lssm.tech/login',
   },
 };
 

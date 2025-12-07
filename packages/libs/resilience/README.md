@@ -55,7 +55,7 @@ const result = await fallback(() => timeout(slowOperation, 5000), defaultValue);
 
 ## Documentation
 
-Full docs: https://contractspec.chaman.ventures/docs/libraries/resilience
+Full docs: https://contractspec.lssm.tech/docs/libraries/resilience
 
 
 

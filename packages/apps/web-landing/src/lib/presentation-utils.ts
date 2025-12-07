@@ -46,10 +46,10 @@ export async function renderPresentationToReact(
  * Uses llms. subdomain and .md extension.
  */
 export function getMarkdownUrl(route: string, baseUrl?: string): string {
-  const base = baseUrl ?? 'https://contractspec.chaman.ventures';
+  const base = baseUrl ?? 'https://contractspec.lssm.tech';
   const llmsBase = base.replace(
-    'contractspec.chaman.ventures',
-    'llms.contractspec.chaman.ventures'
+    'contractspec.lssm.tech',
+    'llms.contractspec.lssm.tech'
   );
 
   // Normalize route

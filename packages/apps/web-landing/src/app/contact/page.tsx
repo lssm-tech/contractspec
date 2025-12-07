@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ContactClient from './contactClient';
 
 export const metadata: Metadata = {
   title: 'Contact Us: ContractSpec',
@@ -7,14 +8,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Us: ContractSpec',
     description: 'Schedule a call with our team.',
-    url: 'https://contractspec.chaman.ventures/contact',
+    url: 'https://contractspec.lssm.tech/contact',
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/contact',
+    canonical: 'https://contractspec.lssm.tech/contact',
   },
 };
-
-import ContactClient from './contactClient';
 
 export default function ContactPage() {
   return <ContactClient />;
