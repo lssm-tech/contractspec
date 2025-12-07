@@ -87,7 +87,7 @@ jobs:
             git reset --hard origin/main
             
             /home/deploy/.bun/bin/bun install --frozen-lockfile
-            /home/deploy/.bun/bin/bun run build:server --concurrency 2
+            /home/deploy/.bun/bin/bun run build:server --concurrency 1
             # bun run db:migrate || true
             
             sudo systemctl restart lssm-api lssm-worker
