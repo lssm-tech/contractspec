@@ -39,7 +39,7 @@ bun add @lssm/lib.contracts @lssm/lib.schema
 
 ```ts
 import { defineCommand, defineQuery } from '@lssm/lib.contracts';
-import { z } from 'zod';
+import * as z from "zod";
 import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 
 const UserInput = new SchemaModel({

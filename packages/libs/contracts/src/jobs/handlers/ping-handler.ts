@@ -1,5 +1,5 @@
 // jobs/types/ping.ts
-import { z } from 'zod';
+import * as z from 'zod';
 import type { Job } from '../queue';
 import type { DefinedJob } from '../define-job';
 

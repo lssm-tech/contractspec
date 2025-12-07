@@ -1,5 +1,5 @@
 import type { PromptSpec } from './prompt';
-import { z } from 'zod';
+import * as z from 'zod';
 
 export class PromptRegistry {
   private prompts = new Map<string, PromptSpec<any>>(); // key = name.vX

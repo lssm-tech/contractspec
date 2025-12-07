@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import type { AnyContractSpec, ContractSpec, EmitDecl } from './spec';
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';

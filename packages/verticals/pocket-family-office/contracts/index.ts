@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import type { ContractSpec } from '@lssm/lib.contracts/spec';
 import {
   OwnersEnum,
@@ -172,7 +172,11 @@ export const generateFinancialSummaryContract: ContractSpec<
 const SyncEmailThreadsInput = z.object({
   labelIds: z.array(z.string()).default(['INBOX']),
   maxThreads: z.number().int().positive().max(500).default(50),
-  syncSinceMinutes: z.number().int().positive().default(60 * 24),
+  syncSinceMinutes: z
+    .number()
+    .int()
+    .positive()
+    .default(60 * 24),
 });
 
 const SyncEmailThreadsOutput = z.object({
@@ -282,9 +286,7 @@ const OpenBankingOverviewOutput = z.object({
   summaryPath: z.string().optional(),
 });
 
-export type OpenBankingOverviewInput = z.infer<
-  typeof OpenBankingOverviewInput
->;
+export type OpenBankingOverviewInput = z.infer<typeof OpenBankingOverviewInput>;
 export type OpenBankingOverviewOutput = z.infer<
   typeof OpenBankingOverviewOutput
 >;
@@ -334,7 +336,5 @@ export const pocketFamilyOfficeContracts: Record<
   'pfo.summary.generate': generateFinancialSummaryContract,
   'pfo.summary.dispatch': dispatchFinancialSummaryContract,
   'pfo.email.sync-threads': syncEmailThreadsContract,
-  'pfo.openbanking.generate-overview':
-    generateOpenBankingOverviewContract,
+  'pfo.openbanking.generate-overview': generateOpenBankingOverviewContract,
 };
-
