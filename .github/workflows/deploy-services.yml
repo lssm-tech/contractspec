@@ -67,6 +67,8 @@ jobs:
           SCALEWAY_USER: ${{ secrets.SCALEWAY_USER }}
         run: |
           ssh -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -o GlobalKnownHostsFile=/dev/null \
             -J "${SCALEWAY_BASTION_USER}@${SCALEWAY_BASTION_HOST}:${SCALEWAY_BASTION_PORT}" \
             "${SCALEWAY_USER}@${SCALEWAY_HOST}" << 'EOF'
             set -euo pipefail
