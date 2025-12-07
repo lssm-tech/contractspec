@@ -66,11 +66,11 @@ jobs:
           key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
 
           # Bastion hop
-          proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
-          proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
-          proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
-
-          fingerprint: "SHA256:xoCpmFw5cjMpWJLtyKWT6UiKQ1j5gRQd8A+DqZNGdys"
+#          proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
+#          proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
+#          proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
+#
+#          fingerprint: "SHA256:xoCpmFw5cjMpWJLtyKWT6UiKQ1j5gRQd8A+DqZNGdys"
           # Avoid host key prompts in CI
           # host_key_check: false
 
