@@ -28,14 +28,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
-    "./queue": "./dist/queue/index.js",
-    "./queue/memory-queue": "./dist/queue/memory-queue.js",
-    "./queue/types": "./dist/queue/types.js",
-    "./scheduler": "./dist/scheduler/index.js",
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./queue": "./src/queue/index.ts",
+    "./queue/memory-queue": "./src/queue/memory-queue.ts",
+    "./queue/types": "./src/queue/types.ts",
+    "./scheduler": "./src/scheduler/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -44,6 +44,17 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./entities": "./dist/entities/index.js",
+      "./events": "./dist/events.js",
+      "./queue": "./dist/queue/index.js",
+      "./queue/memory-queue": "./dist/queue/memory-queue.js",
+      "./queue/types": "./dist/queue/types.js",
+      "./scheduler": "./dist/scheduler/index.js",
+      "./*": "./*"
+    }
   }
 }

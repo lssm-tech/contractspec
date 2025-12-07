@@ -30,6 +30,7 @@ export type ButtonProps = Omit<
     onLongPress?: () => void;
     // Web-only optional onClick for compatibility
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    disabled?: boolean;
   };
 
 export function Button({

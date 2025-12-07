@@ -27,11 +27,16 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
-    "./cli": "./dist/cli.mjs",
+    ".": "./src/index.ts",
+    "./cli": "./src/cli.ts",
     "./*": "./*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./cli": "./dist/cli.mjs",
+      "./*": "./*"
+    }
   }
 }

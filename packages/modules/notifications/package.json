@@ -28,11 +28,11 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./channels": "./dist/channels/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./templates": "./dist/templates/index.js",
+    ".": "./src/index.ts",
+    "./channels": "./src/channels/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./templates": "./src/templates/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -41,6 +41,14 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./channels": "./dist/channels/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./entities": "./dist/entities/index.js",
+      "./templates": "./dist/templates/index.js",
+      "./*": "./*"
+    }
   }
 }

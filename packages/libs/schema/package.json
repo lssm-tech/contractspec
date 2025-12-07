@@ -31,26 +31,29 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./entity": "./dist/entity/index.js",
-    "./entity/defineEntity": "./dist/entity/defineEntity.js",
-    "./entity/generator": "./dist/entity/generator.js",
-    "./entity/types": "./dist/entity/types.js",
-    "./EnumType": "./dist/EnumType.js",
-    "./FieldType": "./dist/FieldType.js",
-    "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
-    "./SchemaModel": "./dist/SchemaModel.js",
+    ".": "./src/index.ts",
+    "./entity": "./src/entity/index.ts",
+    "./entity/defineEntity": "./src/entity/defineEntity.ts",
+    "./entity/generator": "./src/entity/generator.ts",
+    "./entity/types": "./src/entity/types.ts",
+    "./EnumType": "./src/EnumType.ts",
+    "./FieldType": "./src/FieldType.ts",
+    "./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
+    "./SchemaModel": "./src/SchemaModel.ts",
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
+      "./entity": "./dist/entity/index.js",
+      "./entity/defineEntity": "./dist/entity/defineEntity.js",
+      "./entity/generator": "./dist/entity/generator.js",
+      "./entity/types": "./dist/entity/types.js",
       "./EnumType": "./dist/EnumType.js",
       "./FieldType": "./dist/FieldType.js",
       "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
       "./SchemaModel": "./dist/SchemaModel.js",
-      "./entity": "./dist/entity/index.js",
       "./*": "./*"
     }
   }

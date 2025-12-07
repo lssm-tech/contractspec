@@ -32,14 +32,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./events": "./dist/events.js",
-    "./feature": "./dist/feature.js",
-    "./handlers": "./dist/handlers/index.js",
-    "./presentations": "./dist/presentations/index.js",
-    "./query-engine": "./dist/query-engine/index.js",
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./query-engine": "./src/query-engine/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -51,8 +51,8 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./entities": "./dist/entities/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./entities": "./dist/entities/index.js",
       "./events": "./dist/events.js",
       "./feature": "./dist/feature.js",
       "./handlers": "./dist/handlers/index.js",

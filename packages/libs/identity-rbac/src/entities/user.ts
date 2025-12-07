@@ -1,4 +1,3 @@
-import { z } from 'zod';
 import { defineEntity, field, index } from '@lssm/lib.schema';
 
 /**

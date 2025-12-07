@@ -24,17 +24,27 @@
     "typescript": "^5.0.0"
   },
   "exports": {
-    ".": "./dist/index.mjs",
-    "./isolation": "./dist/isolation/index.mjs",
-    "./isolation/validator": "./dist/isolation/validator.mjs",
-    "./provisioning": "./dist/provisioning/index.mjs",
-    "./provisioning/service": "./dist/provisioning/service.mjs",
-    "./rls": "./dist/rls/index.mjs",
-    "./rls/prisma-middleware": "./dist/rls/prisma-middleware.mjs",
+    ".": "./src/index.ts",
+    "./isolation": "./src/isolation/index.ts",
+    "./isolation/validator": "./src/isolation/validator.ts",
+    "./provisioning": "./src/provisioning/index.ts",
+    "./provisioning/service": "./src/provisioning/service.ts",
+    "./rls": "./src/rls/index.ts",
+    "./rls/prisma-middleware": "./src/rls/prisma-middleware.ts",
     "./*": "./*"
   },
   "module": "./dist/index.mjs",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./isolation": "./dist/isolation/index.mjs",
+      "./isolation/validator": "./dist/isolation/validator.mjs",
+      "./provisioning": "./dist/provisioning/index.mjs",
+      "./provisioning/service": "./dist/provisioning/service.mjs",
+      "./rls": "./dist/rls/index.mjs",
+      "./rls/prisma-middleware": "./dist/rls/prisma-middleware.mjs",
+      "./*": "./*"
+    }
   }
 }

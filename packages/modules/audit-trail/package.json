@@ -28,10 +28,10 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./entities": "./dist/entities/index.js",
-    "./storage": "./dist/storage/index.js",
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./storage": "./src/storage/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -40,6 +40,13 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./entities": "./dist/entities/index.js",
+      "./storage": "./dist/storage/index.js",
+      "./*": "./*"
+    }
   }
 }

@@ -42,18 +42,29 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
-    "./context": "./dist/context.mjs",
-    "./elysia-plugin": "./dist/elysia-plugin.mjs",
-    "./formatters": "./dist/formatters.mjs",
-    "./logger": "./dist/logger.mjs",
-    "./timer": "./dist/timer.mjs",
-    "./tracer": "./dist/tracer.mjs",
-    "./types": "./dist/types.mjs",
+    ".": "./src/index.ts",
+    "./context": "./src/context.ts",
+    "./elysia-plugin": "./src/elysia-plugin.ts",
+    "./formatters": "./src/formatters.ts",
+    "./logger": "./src/logger.ts",
+    "./timer": "./src/timer.ts",
+    "./tracer": "./src/tracer.ts",
+    "./types": "./src/types.ts",
     "./*": "./*"
   },
   "module": "./dist/index.mjs",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./context": "./dist/context.mjs",
+      "./elysia-plugin": "./dist/elysia-plugin.mjs",
+      "./formatters": "./dist/formatters.mjs",
+      "./logger": "./dist/logger.mjs",
+      "./timer": "./dist/timer.mjs",
+      "./tracer": "./dist/tracer.mjs",
+      "./types": "./dist/types.mjs",
+      "./*": "./*"
+    }
   }
 }

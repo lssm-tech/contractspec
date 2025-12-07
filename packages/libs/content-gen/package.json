@@ -31,18 +31,30 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./generators": "./dist/generators/index.js",
-    "./generators/blog": "./dist/generators/blog.js",
-    "./generators/email": "./dist/generators/email.js",
-    "./generators/landing-page": "./dist/generators/landing-page.js",
-    "./generators/social": "./dist/generators/social.js",
-    "./seo": "./dist/seo/index.js",
-    "./seo/optimizer": "./dist/seo/optimizer.js",
-    "./types": "./dist/types.js",
+    ".": "./src/index.ts",
+    "./generators": "./src/generators/index.ts",
+    "./generators/blog": "./src/generators/blog.ts",
+    "./generators/email": "./src/generators/email.ts",
+    "./generators/landing-page": "./src/generators/landing-page.ts",
+    "./generators/social": "./src/generators/social.ts",
+    "./seo": "./src/seo/index.ts",
+    "./seo/optimizer": "./src/seo/optimizer.ts",
+    "./types": "./src/types.ts",
     "./*": "./*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./generators": "./dist/generators/index.js",
+      "./generators/blog": "./dist/generators/blog.js",
+      "./generators/email": "./dist/generators/email.js",
+      "./generators/landing-page": "./dist/generators/landing-page.js",
+      "./generators/social": "./dist/generators/social.js",
+      "./seo": "./dist/seo/index.js",
+      "./seo/optimizer": "./dist/seo/optimizer.js",
+      "./types": "./dist/types.js",
+      "./*": "./*"
+    }
   }
 }

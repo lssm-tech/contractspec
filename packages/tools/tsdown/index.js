@@ -1,11 +1,11 @@
 import { defineConfig } from 'tsdown';
 
-export const withDevExports = ({
+export const withDevExports = {
   exports: {
     all: true,
     devExports: true,
   },
-});
+};
 
 const obfuscation = defineConfig({
   minify: {
@@ -27,18 +27,14 @@ const obfuscation = defineConfig({
 export const base = defineConfig({
   exports: {
     all: true,
-    devExports: false,
+    devExports: true,
   },
   clean: true,
   sourcemap: false,
   format: ['esm'],
-  // format: ['esm', 'cjs'],
-  // format: ['esm'],
   target: 'esnext',
-  // Let packages add their own externals; keep common ones minimal.
-  external: [],
 
-  dts: true,
+  dts: false,
   // bundle: false,
   unbundle: true,
   splitting: false,
@@ -53,64 +49,9 @@ export const base = defineConfig({
   ],
 });
 
-const sharedExternal = [
-  'next',
-  'next/headers',
-  'next/navigation',
-  'next/link',
-  'react',
-  'react-dom',
-  'react-native',
-  'server-only',
-  '@lssm/lib.ui-kit-web',
-  '@lssm/lib.ui-kit',
-  '@lssm/lib.ui-kit/*',
-  '@lssm/lib.ui-kit-web/*',
-  '@lssm/lib.ui-kit-web/ui/*',
-  'lucide-react',
-  'lucide-react-native',
-  'react-native',
-  'react-native-safe-area-context',
-  'expo',
-  'expo-router',
-  '@prisma/client',
-  '@prisma/client/runtime/client',
-  '@prisma/client/runtime',
-  '@prisma/adapter-pg',
-  'pg',
-  'graphql',
-  'elysia',
-  'posthog-node',
-  'posthog-js',
-  'posthog',
-  'posthog-browser',
-  'posthog-react',
-  'posthog-react-native',
-  'jotai',
-  'jotai-tanstack-query',
-  '@tanstack/query-core',
-  '@tanstack/react-query',
-  '@tanstack/react-query-devtools',
-  '@sentry/nextjs',
-  'react-map-gl',
-  'react-map-gl/maplibre',
-  'maplibre-gl',
-  'node:buffer',
-  'node:timers/promises',
-  'node:crypto',
-  'node:assert',
-  'node:url',
-  '@google-cloud/secret-manager',
-  '@google-cloud/storage',
-  '@google-cloud/pubsub',
-  'googleapis',
-  'postmark',
-];
-
 export const reactLibrary = defineConfig({
   ...base,
   format: ['esm'],
-  external: [...sharedExternal],
   minify: false,
   platform: 'browser',
 });
@@ -118,13 +59,7 @@ export const reactLibrary = defineConfig({
 export const moduleLibrary = defineConfig({
   ...base,
   format: ['esm'],
-  external: [...sharedExternal],
   platform: 'neutral',
-  exports: {
-    all: true,
-    devExports: false,
-  },
-  skipNodeModulesBundle: true,
   ...obfuscation,
 });
 
@@ -133,7 +68,6 @@ export const nodeLib = defineConfig({
   format: ['esm'],
   // format: ['esm', 'cjs'],
   platform: 'node',
-  external: [...sharedExternal],
   ...obfuscation,
 });
 
@@ -143,7 +77,6 @@ export const nodeDatabaseLib = defineConfig({
   platform: 'node',
   // platform: 'neutral',
   unbundle: true,
-  external: [...sharedExternal],
   // ...obfuscation,
   entry: ['src/index.ts', 'src/client.ts', 'src/enums.ts', 'src/models.ts'],
 });

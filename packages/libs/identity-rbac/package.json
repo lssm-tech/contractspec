@@ -27,18 +27,18 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/organization": "./dist/contracts/organization.js",
-    "./contracts/rbac": "./dist/contracts/rbac.js",
-    "./contracts/user": "./dist/contracts/user.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/organization": "./dist/entities/organization.js",
-    "./entities/rbac": "./dist/entities/rbac.js",
-    "./entities/user": "./dist/entities/user.js",
-    "./events": "./dist/events.js",
-    "./policies": "./dist/policies/index.js",
-    "./policies/engine": "./dist/policies/engine.js",
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/organization": "./src/contracts/organization.ts",
+    "./contracts/rbac": "./src/contracts/rbac.ts",
+    "./contracts/user": "./src/contracts/user.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/organization": "./src/entities/organization.ts",
+    "./entities/rbac": "./src/entities/rbac.ts",
+    "./entities/user": "./src/entities/user.ts",
+    "./events": "./src/events.ts",
+    "./policies": "./src/policies/index.ts",
+    "./policies/engine": "./src/policies/engine.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -47,6 +47,21 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./contracts/organization": "./dist/contracts/organization.js",
+      "./contracts/rbac": "./dist/contracts/rbac.js",
+      "./contracts/user": "./dist/contracts/user.js",
+      "./entities": "./dist/entities/index.js",
+      "./entities/organization": "./dist/entities/organization.js",
+      "./entities/rbac": "./dist/entities/rbac.js",
+      "./entities/user": "./dist/entities/user.js",
+      "./events": "./dist/events.js",
+      "./policies": "./dist/policies/index.js",
+      "./policies/engine": "./dist/policies/engine.js",
+      "./*": "./*"
+    }
   }
 }

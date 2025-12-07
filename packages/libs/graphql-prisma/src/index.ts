@@ -29,7 +29,9 @@ export interface PrismaBuilderOptions {
   federation?: boolean;
   prisma: {
     client: PrismaClient;
-    dmmf?: unknown;
+    dmmf?: {
+      datamodel: unknown;
+    };
     exposeDescriptions?: boolean;
     filterConnectionTotalCount?: boolean;
     onUnusedQuery?: 'warn' | null;
@@ -74,7 +76,8 @@ export function createPrismaSchemaBuilder<
     relay: {},
     prisma: {
       client: options.prisma.client,
-      ...(options.prisma.dmmf ? { dmmf: options.prisma.dmmf as any } : {}),
+      // ...(options.prisma.dmmf ? { dmmf: options.prisma.dmmf as any } : {}),
+      dmmf: (options.prisma.dmmf as any) || {},
       exposeDescriptions: options.prisma.exposeDescriptions ?? true,
       filterConnectionTotalCount:
         options.prisma.filterConnectionTotalCount ?? true,

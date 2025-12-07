@@ -37,25 +37,25 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./auditableBus": "./dist/auditableBus.js",
-    "./eventBus": "./dist/eventBus.js",
-    "./filtering": "./dist/filtering.js",
-    "./inMemoryBus": "./dist/inMemoryBus.js",
-    "./metadata": "./dist/metadata.js",
-    "./subscriber": "./dist/subscriber.js",
+    ".": "./src/index.ts",
+    "./auditableBus": "./src/auditableBus.ts",
+    "./eventBus": "./src/eventBus.ts",
+    "./filtering": "./src/filtering.ts",
+    "./inMemoryBus": "./src/inMemoryBus.ts",
+    "./metadata": "./src/metadata.ts",
+    "./subscriber": "./src/subscriber.ts",
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./eventBus": "./dist/eventBus.js",
-      "./inMemoryBus": "./dist/inMemoryBus.js",
-      "./subscriber": "./dist/subscriber.js",
-      "./metadata": "./dist/metadata.js",
       "./auditableBus": "./dist/auditableBus.js",
+      "./eventBus": "./dist/eventBus.js",
       "./filtering": "./dist/filtering.js",
+      "./inMemoryBus": "./dist/inMemoryBus.js",
+      "./metadata": "./dist/metadata.js",
+      "./subscriber": "./dist/subscriber.js",
       "./*": "./*"
     }
   }

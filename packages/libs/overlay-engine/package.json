@@ -41,11 +41,16 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./react": "./dist/react.js",
+    ".": "./src/index.ts",
+    "./react": "./src/react.ts",
     "./*": "./*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./react": "./dist/react.js",
+      "./*": "./*"
+    }
   }
 }

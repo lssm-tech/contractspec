@@ -32,10 +32,10 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./appError": "./dist/appError.js",
-    "./codes": "./dist/codes.js",
-    "./http": "./dist/http.js",
+    ".": "./src/index.ts",
+    "./appError": "./src/appError.ts",
+    "./codes": "./src/codes.ts",
+    "./http": "./src/http.ts",
     "./*": "./*"
   },
   "publishConfig": {

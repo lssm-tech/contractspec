@@ -27,21 +27,21 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./engines": "./dist/engines/index.js",
-    "./engines/srs": "./dist/engines/srs.js",
-    "./engines/streak": "./dist/engines/streak.js",
-    "./engines/xp": "./dist/engines/xp.js",
-    "./entities": "./dist/entities/index.js",
-    "./entities/ai": "./dist/entities/ai.js",
-    "./entities/course": "./dist/entities/course.js",
-    "./entities/flashcard": "./dist/entities/flashcard.js",
-    "./entities/gamification": "./dist/entities/gamification.js",
-    "./entities/learner": "./dist/entities/learner.js",
-    "./entities/onboarding": "./dist/entities/onboarding.js",
-    "./entities/quiz": "./dist/entities/quiz.js",
-    "./events": "./dist/events.js",
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./engines": "./src/engines/index.ts",
+    "./engines/srs": "./src/engines/srs.ts",
+    "./engines/streak": "./src/engines/streak.ts",
+    "./engines/xp": "./src/engines/xp.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/ai": "./src/entities/ai.ts",
+    "./entities/course": "./src/entities/course.ts",
+    "./entities/flashcard": "./src/entities/flashcard.ts",
+    "./entities/gamification": "./src/entities/gamification.ts",
+    "./entities/learner": "./src/entities/learner.ts",
+    "./entities/onboarding": "./src/entities/onboarding.ts",
+    "./entities/quiz": "./src/entities/quiz.ts",
+    "./events": "./src/events.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -50,6 +50,24 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./engines": "./dist/engines/index.js",
+      "./engines/srs": "./dist/engines/srs.js",
+      "./engines/streak": "./dist/engines/streak.js",
+      "./engines/xp": "./dist/engines/xp.js",
+      "./entities": "./dist/entities/index.js",
+      "./entities/ai": "./dist/entities/ai.js",
+      "./entities/course": "./dist/entities/course.js",
+      "./entities/flashcard": "./dist/entities/flashcard.js",
+      "./entities/gamification": "./dist/entities/gamification.js",
+      "./entities/learner": "./dist/entities/learner.js",
+      "./entities/onboarding": "./dist/entities/onboarding.js",
+      "./entities/quiz": "./dist/entities/quiz.js",
+      "./events": "./dist/events.js",
+      "./*": "./*"
+    }
   }
 }
