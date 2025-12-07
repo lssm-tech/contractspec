@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Ready-to-use, customizable application templates. Policies built in. One-click deploy.',
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/templates',
+    canonical: 'https://contractspec.lssm.tech/templates',
   },
 };
 

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec: Compiler for AI-Coded Systems',
     description:
       'Multi-surface consistency, safe regeneration, no lock-in. You own the code.',
-    url: 'https://contractspec.chaman.ventures/product',
+    url: 'https://contractspec.lssm.tech/product',
     type: 'website',
   },
   twitter: {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec Product: Compiler for AI-Coded Systems',
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/product',
+    canonical: 'https://contractspec.lssm.tech/product',
   },
 };
 

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec: Stabilize Your AI-Generated Code',
     description:
       'The compiler that keeps AI-written software coherent, safe, and regenerable. You own the code. Standard tech, no lock-in.',
-    url: 'https://contractspec.chaman.ventures',
+    url: 'https://contractspec.lssm.tech',
     siteName: 'ContractSpec',
     images: [
       {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures',
+    canonical: 'https://contractspec.lssm.tech',
   },
 };
 

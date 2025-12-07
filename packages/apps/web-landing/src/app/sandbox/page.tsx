@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Explore templates, specs, and visual builder in your browser. Fully local runtime, no infrastructure required.',
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/sandbox',
+    canonical: 'https://contractspec.lssm.tech/sandbox',
   },
 };
 

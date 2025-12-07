@@ -18,11 +18,11 @@ import { Activity, BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 //     title: 'Documentation – ContractSpec',
 //     description:
 //       'Learn to stabilize your AI-generated code with spec-first development.',
-//     url: 'https://contractspec.chaman.ventures/docs',
+//     url: 'https://contractspec.lssm.tech/docs',
 //     type: 'website',
 //   },
 //   alternates: {
-//     canonical: 'https://contractspec.chaman.ventures/docs',
+//     canonical: 'https://contractspec.lssm.tech/docs',
 //   },
 // };
 

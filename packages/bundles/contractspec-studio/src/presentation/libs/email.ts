@@ -29,7 +29,7 @@ export async function submitContactForm(formData: FormData) {
       console.error('RESEND_API_KEY environment variable is not set');
       return {
         success: false,
-        text: 'Email service is not configured. Please contact us directly at contact@chaman.ventures',
+        text: 'Email service is not configured. Please contact us directly at contact@lssm.tech',
       };
     }
 
@@ -63,7 +63,7 @@ Submitted via ContractSpec contact form
 
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
-      to: ['contact@chaman.ventures'],
+      to: ['contact@lssm.tech'],
       subject: `New Contact Form Message from ${name || email}`,
       text: emailContent,
       replyTo: email,
@@ -74,7 +74,7 @@ Submitted via ContractSpec contact form
     console.error('Failed to send email:', error);
     return {
       success: false,
-      text: 'Failed to send message. Please contact us directly at contact@chaman.ventures',
+      text: 'Failed to send message. Please contact us directly at contact@lssm.tech',
     };
   }
 }
@@ -122,7 +122,7 @@ Stay tuned for exciting updates!
 
 ---
 ContractSpec Team
-https://contractspec.chaman.ventures
+https://contractspec.lssm.tech
 
 Unsubscribe: Reply to this email with "unsubscribe"
       `.trim(),
@@ -141,7 +141,7 @@ Unsubscribe: Reply to this email with "unsubscribe"
           <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;" />
           <p style="color: #6b7280; font-size: 14px;">
             ContractSpec Team<br />
-            <a href="https://contractspec.chaman.ventures" style="color: #8b5cf6;">contractspec.chaman.ventures</a>
+            <a href="https://contractspec.lssm.tech" style="color: #8b5cf6;">contractspec.lssm.tech</a>
           </p>
           <p style="color: #9ca3af; font-size: 12px;">
             To unsubscribe, reply to this email with "unsubscribe"
@@ -153,7 +153,7 @@ Unsubscribe: Reply to this email with "unsubscribe"
     // Also notify the team
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
-      to: ['contact@chaman.ventures'],
+      to: ['contact@lssm.tech'],
       subject: `New Newsletter Subscription: ${email}`,
       text: `New newsletter subscription from: ${email}`,
     });
@@ -208,7 +208,7 @@ Thanks for joining the ContractSpec waitlist. You're now in line for early acces
 
 We'll notify you as soon as early access is available. In the meantime, you can:
 
-• Check out our docs: https://contractspec.chaman.ventures/docs
+• Check out our docs: https://contractspec.lssm.tech/docs
 • Follow our progress on GitHub
 • Book a demo call to see ContractSpec in action
 
@@ -216,7 +216,7 @@ We're excited to have you on board!
 
 ---
 ContractSpec Team
-https://contractspec.chaman.ventures
+https://contractspec.lssm.tech
 
 To remove yourself from the waitlist, reply to this email with "remove"
       `.trim(),
@@ -232,7 +232,7 @@ To remove yourself from the waitlist, reply to this email with "remove"
           </ul>
           <p>We'll notify you as soon as early access is available. In the meantime, you can:</p>
           <ul style="line-height: 1.8;">
-            <li>Check out our <a href="https://contractspec.chaman.ventures/docs" style="color: #8b5cf6;">docs</a></li>
+            <li>Check out our <a href="https://contractspec.lssm.tech/docs" style="color: #8b5cf6;">docs</a></li>
             <li>Follow our progress on GitHub</li>
             <li>Book a demo call to see ContractSpec in action</li>
           </ul>
@@ -240,7 +240,7 @@ To remove yourself from the waitlist, reply to this email with "remove"
           <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;" />
           <p style="color: #6b7280; font-size: 14px;">
             ContractSpec Team<br />
-            <a href="https://contractspec.chaman.ventures" style="color: #8b5cf6;">contractspec.chaman.ventures</a>
+            <a href="https://contractspec.lssm.tech" style="color: #8b5cf6;">contractspec.lssm.tech</a>
           </p>
           <p style="color: #9ca3af; font-size: 12px;">
             To remove yourself from the waitlist, reply to this email with "remove"
@@ -252,7 +252,7 @@ To remove yourself from the waitlist, reply to this email with "remove"
     // Also notify the team
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
-      to: ['contact@chaman.ventures'],
+      to: ['contact@lssm.tech'],
       subject: `New Waitlist Signup: ${email}`,
       text: `New waitlist signup from: ${email}`,
     });
@@ -322,14 +322,14 @@ What happens next:
 • During early access, you'll get hands-on support and influence over the roadmap
 
 In the meantime:
-• Check out our docs: https://contractspec.chaman.ventures/docs
-• Book a demo call: https://contractspec.chaman.ventures/contact
+• Check out our docs: https://contractspec.lssm.tech/docs
+• Book a demo call: https://contractspec.lssm.tech/contact
 
 We're excited about the possibility of working together!
 
 ---
 ContractSpec Team
-https://contractspec.chaman.ventures
+https://contractspec.lssm.tech
       `.trim(),
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -343,14 +343,14 @@ https://contractspec.chaman.ventures
           </ul>
           <h2 style="color: #8b5cf6; margin-top: 24px;">In the meantime:</h2>
           <ul style="line-height: 1.8;">
-            <li>Check out our <a href="https://contractspec.chaman.ventures/docs" style="color: #8b5cf6;">docs</a></li>
-            <li>Book a demo call: <a href="https://contractspec.chaman.ventures/contact" style="color: #8b5cf6;">contractspec.chaman.ventures/contact</a></li>
+            <li>Check out our <a href="https://contractspec.lssm.tech/docs" style="color: #8b5cf6;">docs</a></li>
+            <li>Book a demo call: <a href="https://contractspec.lssm.tech/contact" style="color: #8b5cf6;">contractspec.lssm.tech/contact</a></li>
           </ul>
           <p>We're excited about the possibility of working together!</p>
           <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;" />
           <p style="color: #6b7280; font-size: 14px;">
             ContractSpec Team<br />
-            <a href="https://contractspec.chaman.ventures" style="color: #8b5cf6;">contractspec.chaman.ventures</a>
+            <a href="https://contractspec.lssm.tech" style="color: #8b5cf6;">contractspec.lssm.tech</a>
           </p>
         </div>
       `,
@@ -386,7 +386,7 @@ Submitted via ContractSpec waitlist application form
 
     await resend.emails.send({
       from: 'ContractSpec <noreply@lssm.dev>',
-      to: ['contact@chaman.ventures'],
+      to: ['contact@lssm.tech'],
       subject: `New Design Partner Application: ${name} (${email})`,
       text: teamEmailContent,
       replyTo: email,

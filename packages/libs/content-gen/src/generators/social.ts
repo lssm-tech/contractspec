@@ -55,7 +55,7 @@ export class SocialPostGenerator {
         channel: 'twitter',
         body: `${brief.solutions[0]} in <60s. ${brief.solutions[1] ?? ''}`.trim(),
         hashtags: hashtags.slice(0, 3),
-        cta: '→ contractspec.chaman.ventures/sandbox',
+        cta: '→ contractspec.lssm.tech/sandbox',
       },
       {
         channel: 'threads',

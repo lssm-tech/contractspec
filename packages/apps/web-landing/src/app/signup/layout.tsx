@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Create Account: ContractSpec',
     description: 'Sign up for ContractSpec.',
-    url: 'https://contractspec.chaman.ventures/signup',
+    url: 'https://contractspec.lssm.tech/signup',
   },
   alternates: {
-    canonical: 'https://contractspec.chaman.ventures/signup',
+    canonical: 'https://contractspec.lssm.tech/signup',
   },
 };
 

@@ -13,11 +13,11 @@
 //   openGraph: {
 //     title: 'Changelog: ContractSpec',
 //     description: 'Latest releases and improvements to ContractSpec.',
-//     url: 'https://contractspec.chaman.ventures/changelog',
+//     url: 'https://contractspec.lssm.tech/changelog',
 //     type: 'website',
 //   },
 //   alternates: {
-//     canonical: 'https://contractspec.chaman.ventures/changelog',
+//     canonical: 'https://contractspec.lssm.tech/changelog',
 //   },
 // };
 

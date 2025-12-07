@@ -46,7 +46,7 @@ app.use(createTracingMiddleware());
 
 ## Documentation
 
-Full docs: https://contractspec.chaman.ventures/docs/libraries/observability
+Full docs: https://contractspec.lssm.tech/docs/libraries/observability
 
 
 

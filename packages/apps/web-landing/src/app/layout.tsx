@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { Metadata } from 'next';
-import { Geist, Inter } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { Analytics } from '@vercel/analytics/next';
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'ContractSpec: The Regenerative App Engine',
   description:
     'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase-policy-safe with signed overlays and one-click rollback.',
-  metadataBase: new URL('https://contractspec.chaman.ventures'),
+  metadataBase: new URL('https://contractspec.lssm.tech'),
   keywords: [
     'regenerative app engine',
     'auto-evolutive codebase',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec – The Regenerative App Engine',
     description:
       'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase: policy-safe with signed overlays and one-click rollback.',
-    url: 'https://contractspec.chaman.ventures',
+    url: 'https://contractspec.lssm.tech',
     siteName: 'ContractSpec',
     images: [
       {

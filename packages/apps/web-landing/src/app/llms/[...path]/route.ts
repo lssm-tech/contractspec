@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  getPresentationForRoute,
   getAllPresentationRoutes,
+  getPresentationForRoute,
   renderPresentationToMarkdown,
 } from '@lssm/bundle.contractspec-studio/presentation/presentations';
 
@@ -9,9 +9,9 @@ import {
  * API route handler for markdown rendering via llms. subdomain or .md/.mdx extensions.
  *
  * Routes:
- * - llms.contractspec.chaman.ventures/ → markdown of landing page
- * - llms.contractspec.chaman.ventures/docs.md → markdown of docs index
- * - llms.contractspec.chaman.ventures/docs/getting-started/installation.md → markdown of that page
+ * - llms.contractspec.lssm.tech/ → markdown of landing page
+ * - llms.contractspec.lssm.tech/docs.md → markdown of docs index
+ * - llms.contractspec.lssm.tech/docs/getting-started/installation.md → markdown of that page
  */
 export async function GET(
   request: NextRequest,

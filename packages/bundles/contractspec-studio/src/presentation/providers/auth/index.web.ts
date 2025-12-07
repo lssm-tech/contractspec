@@ -21,8 +21,7 @@ type ContractSpecAuth = typeof import('../../../application').auth;
 export const authClient = createAuthClient({
   basePath: '/api/auth',
   baseURL:
-    process.env.NEXT_PUBLIC_SIGIL_API_URL ||
-    'https://contractspec.chaman.ventures',
+    process.env.NEXT_PUBLIC_SIGIL_API_URL || 'https://contractspec.lssm.tech',
   fetchOptions: {
     credentials: 'include',
   },

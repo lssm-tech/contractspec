@@ -13,7 +13,7 @@ Goal: keep this as the source of truth for infra design, then progressively repl
 - **Frontend**
   - Next.js apps hosted on **Vercel Pro**
   - Custom domains:
-    - e.g. `app.equitya.lssm.tech`, `studio.contractspec.chaman.ventures`, etc.
+    - e.g. `app.equitya.lssm.tech`, `studio.contractspec.lssm.tech`, etc.
 
 - **Backend**
   - Single **Scaleway Instance** (`DEV1-M`, Debian) running:
