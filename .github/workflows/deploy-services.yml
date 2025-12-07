@@ -60,19 +60,15 @@ jobs:
           # Target instance
           host: ${{ secrets.SCALEWAY_HOST }}
           username: ${{ secrets.SCALEWAY_USER }}
-          # port: 22
+          port: 22
 
           # SSH key used for BOTH bastion and target
           key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
 
           # Bastion hop
-          # proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
-          # proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
-          # proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
-
-          # fingerprint: "SHA256:xoCpmFw5cjMpWJLtyKWT6UiKQ1j5gRQd8A+DqZNGdys"
-          # Avoid host key prompts in CI
-          # host_key_check: false
+          proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
+          proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
+          proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
 
           script: |
             set -euo pipefail
@@ -86,13 +82,13 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
-            /home/deploy/.bun/bin/bun install --frozen-lockfile
-            /home/deploy/.bun/bin/bun run build:server --concurrency 1
+            bun install --frozen-lockfile
+            bun run build:server --concurrency 1
             # bun run db:migrate || true
             
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker --no-pager
-      - name: 'notify vercel'
+      - name: 'Notify Vercel'
         uses: 'vercel/repository-dispatch/actions/status@v1'
         with:
           name: "Vercel - contractspec: deploy backend (services and db)"
