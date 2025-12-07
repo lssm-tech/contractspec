@@ -23,6 +23,8 @@
     "build": "turbo run build",
     "build:web": "turbo run build --filter=\"@lssm/app.web-*\"",
     "build:api": "turbo run build --filter=\"@lssm/app.api-*\"",
+    "build:worker": "turbo run build --filter=\"@lssm/app.worker-*\"",
+    "build:server": "turbo run build --filter=\"@lssm/app.api-*\" --filter=\"@lssm/app.worker-*\"",
     "build:types": "turbo run build:types",
     "build:not-apps": "turbo run build --filter=\"!@lssm/app.*\"",
     "db:generate": "turbo run db:generate",
