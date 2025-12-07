@@ -70,8 +70,9 @@ jobs:
           proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
           proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
 
+          fingerprint: "SHA256:xoCpmFw5cjMpWJLtyKWT6UiKQ1j5gRQd8A+DqZNGdys"
           # Avoid host key prompts in CI
-          host_key_check: false
+          # host_key_check: false
 
           script: |
             set -euo pipefail
