@@ -68,7 +68,7 @@ jobs:
         run: |
           ssh  -o StrictHostKeyChecking=no \
             -J "${SCALEWAY_BASTION_USER}@${SCALEWAY_BASTION_HOST}:${SCALEWAY_BASTION_PORT}" \
-            "${TARGET_USER}@${TARGET_HOST}" << 'EOF'
+            "${SCALEWAY_USER}@${SCALEWAY_HOST}" << 'EOF'
             set -euo pipefail
 
             cd /srv/lssm
