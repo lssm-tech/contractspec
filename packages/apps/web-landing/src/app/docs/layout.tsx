@@ -1,48 +1,42 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import DocsSidebar from '@/components/docs-sidebar';
 import { OpenWithAI } from '@/components/open-with-ai';
+import { DocsNavSidebar } from '@/app/docs/DocsNavSidebar';
+import { SidebarInset, SidebarProvider } from '@lssm/lib.ui-kit-web/ui/sidebar';
 
 export default function DocsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="bg-background min-h-screen">
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="fixed right-6 bottom-6 z-40 rounded-full bg-violet-500 p-3 text-white transition-colors hover:bg-violet-600 md:hidden"
-        aria-label="Toggle sidebar"
-      >
-        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+    <SidebarProvider>
+      <DocsNavSidebar />
 
-      <div className="flex min-h-screen pt-24">
-        {/* Mobile Sidebar Overlay */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 z-20 bg-black/50 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+      <SidebarInset>
+        {/*<header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 ">*/}
+        {/*  <SidebarTrigger className="-ml-1" />*/}
+        {/*  <Separator*/}
+        {/*    orientation="vertical"*/}
+        {/*    className="mr-2 data-[orientation=vertical]:h-4"*/}
+        {/*  />*/}
+        {/*  <Breadcrumb>*/}
+        {/*    <BreadcrumbList>*/}
+        {/*      <BreadcrumbItem className="hidden md:block">*/}
+        {/*        <BreadcrumbLink href="#">*/}
+        {/*          Building Your Application*/}
+        {/*        </BreadcrumbLink>*/}
+        {/*      </BreadcrumbItem>*/}
+        {/*      <BreadcrumbSeparator className="hidden md:block" />*/}
+        {/*      <BreadcrumbItem>*/}
+        {/*        <BreadcrumbPage>Data Fetching</BreadcrumbPage>*/}
+        {/*      </BreadcrumbItem>*/}
+        {/*    </BreadcrumbList>*/}
+        {/*  </Breadcrumb>*/}
+        {/*</header>*/}
 
-        {/* Sidebar */}
-        <div
-          className={`fixed z-30 transition-all duration-200 md:relative ${
-            sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-          }`}
-        >
-          <DocsSidebar onItemClick={() => setSidebarOpen(false)} />
-        </div>
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-hidden pt-24">
           <div className="mx-auto px-4 py-8 md:px-8">
             <div className="float-right mb-4 flex justify-end">
               <OpenWithAI />
@@ -50,7 +44,7 @@ export default function DocsLayout({
             {children}
           </div>
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

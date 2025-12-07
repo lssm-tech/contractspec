@@ -1,5 +1,5 @@
-import PricingClient from './pricing-client';
 import type { Metadata } from 'next';
+import { PricingClient } from '@lssm/bundle.contractspec-studio/presentation';
 
 export const metadata: Metadata = {
   title: 'Pricing - ContractSpec',

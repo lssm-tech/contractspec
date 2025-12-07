@@ -34,7 +34,7 @@ const faqs: FAQ[] = [
   },
 ];
 
-export function PricingClient() {
+export const PricingClient = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
 
@@ -49,9 +49,10 @@ export function PricingClient() {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding hero-gradient relative">
-        <div className="mx-auto max-w-4xl space-y-6 text-center">
+        <div className="mx-auto max-w-6xl space-y-6 text-center">
           <h1 className="text-5xl leading-tight font-bold md:text-6xl">
-            Transparent, usage-based pricing – after we earn it.
+            {/*Transparent, usage-based pricing – after we earn it.*/}
+            Transparent, usage-based pricing
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             ContractSpec is in design-partner early access. You can't pay us
@@ -88,8 +89,11 @@ export function PricingClient() {
               </h2>
               <p className="text-muted-foreground text-sm">
                 We work closely with a small group of teams building serious
-                products with AI. You bring real-world complexity, we bring the
-                spec-first engine and a lot of attention.
+                products with AI.
+                <span className="mt-2 block">
+                  You bring real-world complexity, we bring the spec-first
+                  engine and a lot of attention.
+                </span>
               </p>
             </div>
             <div className="flex-1 space-y-4">
@@ -387,4 +391,4 @@ export function PricingClient() {
       />
     </main>
   );
-}
+};
