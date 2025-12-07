@@ -54,6 +54,14 @@ const app = createContractSpecStudioElysiaServer({
     appLogger.info('Root endpoint accessed');
     return 'LSSM API - GraphQL endpoint available at /graphql';
   })
+  .get('/health', () => {
+    appLogger.info('Health endpoint accessed');
+    return 'OK';
+  })
+  .get('/healthz', () => {
+    appLogger.info('Healthz endpoint accessed');
+    return 'OK';
+  })
   .get('/markdown/*', async ({ params, query }) => {
     try {
       console.info('params', params);
