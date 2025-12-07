@@ -1,47 +1,70 @@
 import { Elysia } from 'elysia';
 import * as Y from 'yjs';
+import { z } from 'zod';
+
 // In-memory rooms keyed by `${contentId}:${locale}`
 const rooms = new Map<string, { doc: Y.Doc; clients: Set<any> }>();
 
 export const collabModule = new Elysia({ name: 'collab-module' })
   // Minimal server-processing endpoints used by BlockNote
-  .post('/server-processing/image', ({ body }) => {
-    const dataUrl = (body as any)?.dataUrl as string | undefined;
-    if (!dataUrl || !/^data:image\/(png|jpeg|webp);base64,/.test(dataUrl)) {
-      return new Response('Unsupported image payload', { status: 415 });
-    }
-    return new Response(JSON.stringify({ url: dataUrl }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  })
-  .post('/server-processing/file', async ({ body }) => {
-    const dataUrl = (body as any)?.dataUrl as string | undefined;
-    const filename = (body as any)?.name as string | undefined;
-    if (!dataUrl || !/^data:([\w-]+\/[\w-]+);base64,/.test(dataUrl)) {
-      return new Response('Unsupported file payload', { status: 415 });
-    }
-    // In production, persist file and return a durable URL
-    return new Response(
-      JSON.stringify({ url: dataUrl, name: filename || '' }),
-      {
-        headers: { 'Content-Type': 'application/json' },
+  .post(
+    '/server-processing/image',
+    ({ body }) => {
+      if (
+        !body.dataUrl ||
+        !/^data:image\/(png|jpeg|webp);base64,/.test(body.dataUrl)
+      ) {
+        return new Response('Unsupported image payload', { status: 415 });
       }
-    );
-  })
-  .post('/server-processing/embed', ({ body }) => {
-    const url = (body as any)?.url as string | undefined;
-    try {
-      const u = new URL(String(url || ''));
-      const allowed = ['www.youtube.com', 'youtu.be', 'vimeo.com'];
-      if (!allowed.includes(u.hostname))
-        return new Response('Forbidden', { status: 403 });
-      return new Response(JSON.stringify({ url: u.toString() }), {
+      return new Response(JSON.stringify({ url: body.dataUrl }), {
         headers: { 'Content-Type': 'application/json' },
       });
-    } catch {
-      return new Response('Invalid URL', { status: 400 });
+    },
+    {
+      body: z.object({ dataUrl: z.string() }),
     }
-  })
+  )
+  .post(
+    '/server-processing/file',
+    async ({ body }) => {
+      if (
+        !body.dataUrl ||
+        !/^data:([\w-]+\/[\w-]+);base64,/.test(body.dataUrl)
+      ) {
+        return new Response('Unsupported file payload', { status: 415 });
+      }
+      // In production, persist file and return a durable URL
+      return new Response(
+        JSON.stringify({ url: body.dataUrl, name: body.filename || '' }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    },
+    {
+      body: z.object({ dataUrl: z.string(), name: z.string().optional() }),
+    }
+  )
+  .post(
+    '/server-processing/embed',
+    ({ body }) => {
+      try {
+        const embedUrl = new URL(String(body.url || ''));
+        const allowed = ['www.youtube.com', 'youtu.be', 'vimeo.com'];
+        if (!allowed.includes(embedUrl.hostname)) {
+          return new Response('Forbidden', { status: 403 });
+        }
+        return new Response(JSON.stringify({ url: embedUrl.toString() }), {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      } catch {
+        return new Response('Invalid URL', { status: 400 });
+      }
+    },
+    {
+      body: z.object({ url: z.string() }),
+    }
+  )
   // Realtime collaboration WebSocket
   .ws('/ws/collab/:docId', {
     open() {

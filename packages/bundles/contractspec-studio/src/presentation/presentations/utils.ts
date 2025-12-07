@@ -50,7 +50,7 @@ export async function renderPresentationToReact(
  * Uses llms. subdomain and .md extension.
  */
 export function getMarkdownUrl(route: string, baseUrl?: string): string {
-  const base = baseUrl ?? 'https://contractspec.lssm.tech';
+  const base = baseUrl ?? 'https://contractspec.lssm.tech/mdx';
   const llmsBase = base.replace(
     'contractspec.lssm.tech',
     'llms.contractspec.lssm.tech'
@@ -58,11 +58,11 @@ export function getMarkdownUrl(route: string, baseUrl?: string): string {
 
   // Normalize route
   const normalizedRoute = route === '/' ? '/' : route.replace(/\/$/, '');
+  return `${llmsBase}${normalizedRoute}`;
 
   // Add .md extension if not root
-  const path = normalizedRoute === '/' ? '/index.md' : `${normalizedRoute}.md`;
-
-  return `${llmsBase}${path}`;
+  // const path = normalizedRoute === '/' ? '/index.md' : `${normalizedRoute}.md`;
+  // return `${llmsBase}${path}`;
 }
 
 /**

@@ -64,12 +64,12 @@ const nextConfig = {
     return [
       {
         source: '/:path*.md',
-        destination: `${apiLlmsUrl}/markdown/:path*`,
+        destination: `${apiLlmsUrl}/mdx/:path*`,
         permanent: false,
       },
       {
         source: '/:path*.mdx',
-        destination: `${apiLlmsUrl}/markdown/:path*`,
+        destination: `${apiLlmsUrl}/mdx/:path*`,
         permanent: false,
       },
     ];
