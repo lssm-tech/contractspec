@@ -21,15 +21,23 @@
     "typescript": "^5.0.0"
   },
   "exports": {
-    ".": "./dist/index.mjs",
-    "./circuit-breaker": "./dist/circuit-breaker/index.mjs",
-    "./fallback": "./dist/fallback/index.mjs",
-    "./retry": "./dist/retry/index.mjs",
-    "./timeout": "./dist/timeout/index.mjs",
+    ".": "./src/index.ts",
+    "./circuit-breaker": "./src/circuit-breaker/index.ts",
+    "./fallback": "./src/fallback/index.ts",
+    "./retry": "./src/retry/index.ts",
+    "./timeout": "./src/timeout/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.mjs",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./circuit-breaker": "./dist/circuit-breaker/index.mjs",
+      "./fallback": "./dist/fallback/index.mjs",
+      "./retry": "./dist/retry/index.mjs",
+      "./timeout": "./dist/timeout/index.mjs",
+      "./*": "./*"
+    }
   }
 }

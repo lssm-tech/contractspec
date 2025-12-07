@@ -31,14 +31,14 @@ export const base = defineConfig({
   skipNodeModulesBundle: true,
   exports: {
     all: true,
-    devExports: false,
+    devExports: true,
   },
   clean: true,
   sourcemap: false,
   format: ['esm'],
   target: 'esnext',
 
-  dts: true,
+  dts: false,
   // bundle: false,
   unbundle: true,
   splitting: false,

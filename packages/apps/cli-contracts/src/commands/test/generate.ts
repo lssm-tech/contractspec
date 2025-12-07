@@ -2,7 +2,6 @@ import path from 'node:path';
 import { writeFile } from 'node:fs/promises';
 import chalk from 'chalk';
 import { GoldenTestGenerator } from '@lssm/lib.testing';
-import type { TrafficSnapshot } from '@lssm/lib.testing';
 
 export interface GenerateGoldenOptions {
   operation: string;
@@ -32,7 +31,7 @@ export async function generateGoldenTestsCommand(
   }
 
   const snapshots = options.fromProduction
-    ? await fetchSnapshotsFromProduction(options)
+    ? [] //TODO: debug: await fetchSnapshotsFromProduction(options)
     : [];
 
   if (snapshots.length === 0) {
@@ -60,62 +59,63 @@ export async function generateGoldenTestsCommand(
   );
 }
 
-interface TrafficSnapshotRow {
-  id: string;
-  operationName: string;
-  operationVersion: number;
-  success: boolean;
-  durationMs: number | null;
-  tenantId: string | null;
-  userId: string | null;
-  channel: string | null;
-  payload: unknown;
-  recordedAt: Date;
-}
-
-async function fetchSnapshotsFromProduction(
-  options: GenerateGoldenOptions
-): Promise<TrafficSnapshot[]> {
-  const { createPrismaClientFromEnv } = await import('@lssm/app.cli-database');
-  const prisma = createPrismaClientFromEnv('DATABASE_URL');
-  try {
-    const since = options.days
-      ? new Date(Date.now() - options.days * 24 * 60 * 60 * 1000)
-      : undefined;
-    const rows = (await prisma.trafficSnapshot.findMany({
-      where: {
-        operationName: options.operation,
-        recordedAt: since ? { gte: since } : undefined,
-      },
-      orderBy: { recordedAt: 'desc' },
-    })) as TrafficSnapshotRow[];
-    const sampleRate =
-      options.sampleRate && options.sampleRate > 0
-        ? Math.min(1, options.sampleRate)
-        : 1;
-    return rows
-      .filter(() => (sampleRate >= 1 ? true : Math.random() <= sampleRate))
-      .map((row) => {
-        const payload = (row.payload as Record<string, unknown>) ?? {};
-        const input = payload.input ?? payload.request ?? null;
-        const output = payload.output ?? payload.response;
-        const error = payload.error as TrafficSnapshot['error'];
-        return {
-          id: row.id,
-          operation: { name: row.operationName, version: row.operationVersion },
-          input,
-          output,
-          error,
-          success: row.success,
-          timestamp: row.recordedAt,
-          durationMs: row.durationMs ?? undefined,
-          tenantId: row.tenantId ?? undefined,
-          userId: row.userId ?? undefined,
-          channel: row.channel ?? undefined,
-          metadata: payload.metadata as Record<string, unknown> | undefined,
-        } satisfies TrafficSnapshot;
-      });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
+// TODO DEBUG TrafficSnapshotRow + fetchSnapshotsFromProduction
+// interface TrafficSnapshotRow {
+//   id: string;
+//   operationName: string;
+//   operationVersion: number;
+//   success: boolean;
+//   durationMs: number | null;
+//   tenantId: string | null;
+//   userId: string | null;
+//   channel: string | null;
+//   payload: unknown;
+//   recordedAt: Date;
+// }
+//
+// async function fetchSnapshotsFromProduction(
+//   options: GenerateGoldenOptions
+// ): Promise<TrafficSnapshot[]> {
+//   const { createPrismaClientFromEnv } = await import('@lssm/app.cli-database');
+//   const prisma = createPrismaClientFromEnv('DATABASE_URL');
+//   try {
+//     const since = options.days
+//       ? new Date(Date.now() - options.days * 24 * 60 * 60 * 1000)
+//       : undefined;
+//     const rows = (await prisma.trafficSnapshot.findMany({
+//       where: {
+//         operationName: options.operation,
+//         recordedAt: since ? { gte: since } : undefined,
+//       },
+//       orderBy: { recordedAt: 'desc' },
+//     })) as TrafficSnapshotRow[];
+//     const sampleRate =
+//       options.sampleRate && options.sampleRate > 0
+//         ? Math.min(1, options.sampleRate)
+//         : 1;
+//     return rows
+//       .filter(() => (sampleRate >= 1 ? true : Math.random() <= sampleRate))
+//       .map((row) => {
+//         const payload = (row.payload as Record<string, unknown>) ?? {};
+//         const input = payload.input ?? payload.request ?? null;
+//         const output = payload.output ?? payload.response;
+//         const error = payload.error as TrafficSnapshot['error'];
+//         return {
+//           id: row.id,
+//           operation: { name: row.operationName, version: row.operationVersion },
+//           input,
+//           output,
+//           error,
+//           success: row.success,
+//           timestamp: row.recordedAt,
+//           durationMs: row.durationMs ?? undefined,
+//           tenantId: row.tenantId ?? undefined,
+//           userId: row.userId ?? undefined,
+//           channel: row.channel ?? undefined,
+//           metadata: payload.metadata as Record<string, unknown> | undefined,
+//         } satisfies TrafficSnapshot;
+//       });
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// }

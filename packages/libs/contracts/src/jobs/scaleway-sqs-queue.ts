@@ -38,7 +38,7 @@ export class ScalewaySqsJobQueue implements JobQueue {
 
     if (!accessKeyId || !secretAccessKey) {
       throw new Error(
-        'Missing SCALEWAY_ACCESS_KEY / SCALEWAY_SECRET_KEY in env'
+        'Missing SCALEWAY_ACCESS_KEY_QUEUE / SCALEWAY_SECRET_KEY_QUEUE in env'
       );
     }
 

@@ -20,7 +20,9 @@ async function main() {
   const replay = process.argv.includes('--replay');
 
   if (!accessKeyId || !secretAccessKey) {
-    console.error('Missing SCALEWAY_ACCESS_KEY / SCALEWAY_SECRET_KEY in env');
+    console.error(
+      'Missing SCALEWAY_ACCESS_KEY_QUEUE / SCALEWAY_SECRET_KEY_QUEUE in env'
+    );
     process.exit(1);
   }
 

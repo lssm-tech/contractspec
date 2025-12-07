@@ -164,8 +164,7 @@ export class LoadBalancerStack {
     lbId: string,
     protocol: 'http' | 'https',
     port: number,
-    backendId: string,
-    tags: Record<string, string>
+    backendId: string
   ) {
     const frontends = await this.findFrontends();
     const existing = protocol === 'http' ? frontends.http : frontends.https;
@@ -186,11 +185,7 @@ export class LoadBalancerStack {
     return frontend;
   }
 
-  private async ensureBackend(
-    lbId: string,
-    instanceId: string,
-    tags: Record<string, string>
-  ) {
+  private async ensureBackend(lbId: string, instanceId: string) {
     const backends = await this.findBackends();
     const existing = backends.find((b) => b.pool.includes(instanceId));
 
@@ -216,7 +211,7 @@ export class LoadBalancerStack {
       },
       stickySessions: 'cookie',
       serverIp: [instanceId], // This should be the private IP
-    } as any);
+    });
 
     return backend;
   }
