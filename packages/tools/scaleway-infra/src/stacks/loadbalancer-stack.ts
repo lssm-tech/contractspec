@@ -164,7 +164,8 @@ export class LoadBalancerStack {
     lbId: string,
     protocol: 'http' | 'https',
     port: number,
-    backendId: string
+    backendId: string,
+    tags: Record<string, string>
   ) {
     const frontends = await this.findFrontends();
     const existing = protocol === 'http' ? frontends.http : frontends.https;
@@ -185,7 +186,11 @@ export class LoadBalancerStack {
     return frontend;
   }
 
-  private async ensureBackend(lbId: string, instanceId: string) {
+  private async ensureBackend(
+    lbId: string,
+    instanceId: string,
+    tags: Record<string, string>
+  ) {
     const backends = await this.findBackends();
     const existing = backends.find((b) => b.pool.includes(instanceId));
 
