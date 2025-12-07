@@ -55,7 +55,7 @@ jobs:
     environment: Production
     steps:
       - name: Deploy via bastion
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1
         with:
           # Target instance
           host: ${{ secrets.SCALEWAY_HOST }}
