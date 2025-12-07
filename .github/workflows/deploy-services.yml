@@ -71,3 +71,7 @@ jobs:
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker
           EOF
+      - name: 'notify vercel'
+        uses: 'vercel/repository-dispatch/actions/status@v1'
+        with:
+          name: "Vercel - contractspec: deploy backend (services and db)"
