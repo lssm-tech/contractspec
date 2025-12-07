@@ -35,7 +35,7 @@ export const collabModule = new Elysia({ name: 'collab-module' })
       }
       // In production, persist file and return a durable URL
       return new Response(
-        JSON.stringify({ url: body.dataUrl, name: body.filename || '' }),
+        JSON.stringify({ url: body.dataUrl, name: body.name || '' }),
         {
           headers: { 'Content-Type': 'application/json' },
         }
