@@ -70,22 +70,19 @@ export const collabModule = new Elysia({ name: 'collab-module' })
     open() {
       // session/context binding can be added here if needed
     },
+    body: z.object({
+      type: z.string(),
+      docId: z.string(),
+      locale: z.string().trim().default('fr'),
+      update: z.base64(),
+      authorId: z.string().trim().optional(),
+      authorName: z.string().trim().optional(),
+    }),
     async message(ws, message) {
       try {
-        const data =
-          typeof message === 'string' ? JSON.parse(message) : (message as any);
-        const type = String((data as any).type || '').trim();
-        const docId = String((data as any).docId || '').trim();
-        const locale = String((data as any).locale || 'fr');
-        const b64 =
-          typeof (data as any).update === 'string'
-            ? String((data as any).update)
-            : '';
-        const authorId = String((data as any).authorId || '');
-        const authorName = String((data as any).authorName || '');
-        if (!docId) return;
+        if (!message.docId) return;
 
-        const roomKey = `${docId}:${locale}`;
+        const roomKey = `${message.docId}:${message.locale}`;
         const room =
           rooms.get(roomKey) ??
           (() => {
@@ -94,41 +91,59 @@ export const collabModule = new Elysia({ name: 'collab-module' })
             return nextRoom;
           })();
 
-        if (type === 'join' || (!b64 && !type)) {
+        if (message.type === 'join' || (!message.type && !message.update)) {
           room.clients.add(ws);
           const snapshot = Y.encodeStateAsUpdate(room.doc);
           const initB64 = Buffer.from(snapshot).toString('base64');
           try {
             ws.send(
-              JSON.stringify({ docId, locale, update: initB64, initial: true })
+              JSON.stringify({
+                docId: message.docId,
+                locale: message.locale,
+                update: initB64,
+                initial: true,
+              })
             );
           } catch {}
           return;
         }
 
-        if (b64) {
+        if (message.update) {
           room.clients.add(ws);
-          const incoming = Uint8Array.from(Buffer.from(b64, 'base64'));
+          const incoming = Uint8Array.from(
+            Buffer.from(message.update, 'base64')
+          );
           Y.applyUpdate(room.doc, incoming);
           for (const client of room.clients) {
             if (client !== ws) {
               try {
                 client.send(
-                  JSON.stringify({ docId, update: b64, authorId, authorName })
+                  JSON.stringify({
+                    docId: message.docId,
+                    update: message.update,
+                    authorId: message.authorId,
+                    authorName: message.authorName,
+                  })
                 );
               } catch {}
             }
           }
           console.info('WS collab message', {
-            docId,
-            locale: locale || 'no locale',
-            authorId,
-            authorName,
+            docId: message.docId,
+            locale: message.locale || 'no locale',
+            authorId: message.authorId,
+            authorName: message.authorName,
           });
           ws.send(JSON.stringify({ ok: true }));
         }
       } catch (e) {
-        console.error('WS collab error', { error: (e as Error).message });
+        if (e instanceof Error) {
+          console.error('WS collab error', { error: e.message });
+        } else if (!!e && typeof e === 'object' && 'message' in e) {
+          console.error('WS collab error', { error: e.message });
+        } else {
+          console.error('WS collab error', { error: String(e) });
+        }
       }
     },
     close() {
