@@ -1,12 +1,11 @@
 import { yoga } from '@elysiajs/graphql-yoga';
-import type { AnyElysia } from 'elysia';
+import { Elysia } from 'elysia';
 import { schema } from './schema';
 import { createNextjsContext } from './context';
 
-export function mountContractSpecStudioGraphQL(
-  app: AnyElysia,
-  path = '/graphql'
-) {
+export function mountContractSpecStudioGraphQL(path = '/graphql') {
+  const app = new Elysia();
+
   const graphlYogaServer = yoga({
     schema,
     path: path,
