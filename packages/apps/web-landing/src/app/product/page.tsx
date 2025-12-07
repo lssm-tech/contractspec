@@ -1,5 +1,5 @@
-import ProductClientPage from './product-client';
 import type { Metadata } from 'next';
+import { ProductClientPage } from '@lssm/bundle.contractspec-studio/presentation';
 
 export const metadata: Metadata = {
   title: 'ContractSpec: Compiler for AI-Coded Systems',

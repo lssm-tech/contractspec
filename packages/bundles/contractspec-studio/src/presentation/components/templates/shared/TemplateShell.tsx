@@ -62,7 +62,7 @@ export function TemplateShell({
             sidebar ? 'grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]' : 'w-full'
           }
         >
-          <main className="space-y-4">{children}</main>
+          <main className="space-y-4 p-2">{children}</main>
           {sidebar ? (
             <aside className="border-border bg-card rounded-2xl border p-4">
               {sidebar}
