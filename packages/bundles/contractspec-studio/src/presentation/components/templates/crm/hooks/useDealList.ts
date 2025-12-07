@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Hook for fetching and managing deal list data
  *
@@ -7,8 +9,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTemplateRuntime } from '../../../../../templates/runtime';
 import type {
   Deal as RuntimeDeal,
-  Stage,
   ListDealsOutput as RuntimeListDealsOutput,
+  Stage,
 } from '@lssm/lib.runtime-local';
 
 // Re-export types for convenience

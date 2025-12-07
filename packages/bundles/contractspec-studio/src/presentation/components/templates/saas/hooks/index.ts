@@ -1,3 +1,5 @@
+'use client';
+
 export { useProjectList, type UseProjectListOptions } from './useProjectList';
 export {
   useProjectMutations,

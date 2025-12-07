@@ -1,31 +1,33 @@
+'use client';
+
 import {
   createContext,
+  type PropsWithChildren,
   useContext,
   useEffect,
   useMemo,
   useState,
-  type PropsWithChildren,
 } from 'react';
-import { type ApolloClient, type NormalizedCacheObject } from '@apollo/client';
+import { type ApolloClient } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client/react';
 import type { TransformEngine } from '@lssm/lib.contracts';
 
 import {
-  LocalRuntimeServices,
-  createCrmHandlers,
-  createSaasHandlers,
-  createAgentHandlers,
-  createWorkflowHandlers,
-  createMarketplaceHandlers,
-  createIntegrationHandlers,
-  createAnalyticsHandlers,
-  type CrmHandlers,
-  type SaasHandlers,
   type AgentHandlers,
-  type WorkflowHandlers,
-  type MarketplaceHandlers,
-  type IntegrationHandlers,
   type AnalyticsHandlers,
+  createAgentHandlers,
+  createAnalyticsHandlers,
+  createCrmHandlers,
+  createIntegrationHandlers,
+  createMarketplaceHandlers,
+  createSaasHandlers,
+  createWorkflowHandlers,
+  type CrmHandlers,
+  type IntegrationHandlers,
+  LocalRuntimeServices,
+  type MarketplaceHandlers,
+  type SaasHandlers,
+  type WorkflowHandlers,
 } from '@lssm/lib.runtime-local';
 
 import { TemplateInstaller } from './installer';

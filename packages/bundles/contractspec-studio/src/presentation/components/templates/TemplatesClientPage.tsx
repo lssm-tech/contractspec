@@ -2,25 +2,11 @@
 
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
-import { cn } from '@lssm/bundle.contractspec-studio/presentation/libs/utils';
+import { cn } from '@lssm/lib.ui-kit-core/utils';
 import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
-import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
-import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  P,
-  BlockQuote,
-  Code,
-  Lead,
-  Large,
-  Small,
-  Muted,
-} from '@lssm/lib.ui-kit-web/ui/typography';
+import type { TemplateId } from '../../../templates/registry';
 import {
   Tooltip,
   TooltipContent,
@@ -34,68 +20,51 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@lssm/lib.ui-kit-web/ui/dialog';
-import { WaitlistSection } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
+import { WaitlistSection } from '../marketing';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
-  () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.TemplateShell
-    ),
+  () => import('./shared/TemplateShell').then((mod) => mod.TemplateShell),
   { ssr: false }
 );
 
 const TodosTaskList = dynamic(
-  () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.TaskList
-    ),
+  () => import('./todos/TaskList').then((mod) => mod.TaskList),
   { ssr: false }
 );
 
 const MessagingWorkspace = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+    import('./messaging/MessagingWorkspace').then(
       (mod) => mod.MessagingWorkspace
     ),
   { ssr: false }
 );
 
 const RecipesExperience = dynamic(
-  () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.RecipeList
-    ),
+  () => import('./recipes/RecipeList').then((mod) => mod.RecipeList),
   { ssr: false }
 );
 
 const SaasDashboard = dynamic(
-  () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.SaasDashboard
-    ),
+  () => import('./saas/SaasDashboard').then((mod) => mod.SaasDashboard),
   { ssr: false }
 );
 
 const CrmDashboard = dynamic(
-  () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.CrmDashboard
-    ),
+  () => import('./crm/CrmDashboard').then((mod) => mod.CrmDashboard),
   { ssr: false }
 );
 
 const AgentDashboard = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
-      (mod) => mod.AgentDashboard
-    ),
+    import('./agent-console/AgentDashboard').then((mod) => mod.AgentDashboard),
   { ssr: false }
 );
 
 const WorkflowDashboard = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+    import('./workflow-system/WorkflowDashboard').then(
       (mod) => mod.WorkflowDashboard
     ),
   { ssr: false }
@@ -103,7 +72,7 @@ const WorkflowDashboard = dynamic(
 
 const MarketplaceDashboard = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+    import('./marketplace/MarketplaceDashboard').then(
       (mod) => mod.MarketplaceDashboard
     ),
   { ssr: false }
@@ -111,7 +80,7 @@ const MarketplaceDashboard = dynamic(
 
 const IntegrationDashboard = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+    import('./integration-hub/IntegrationDashboard').then(
       (mod) => mod.IntegrationDashboard
     ),
   { ssr: false }
@@ -119,7 +88,7 @@ const IntegrationDashboard = dynamic(
 
 const AnalyticsDashboard = dynamic(
   () =>
-    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+    import('./analytics-dashboard/AnalyticsDashboard').then(
       (mod) => mod.AnalyticsDashboard
     ),
   { ssr: false }
@@ -301,7 +270,7 @@ const allTags = [
   'Payments',
 ];
 
-export default function TemplatesClientPage() {
+export const TemplatesPage = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [preview, setPreview] = useState<TemplateId | null>(null);
@@ -553,7 +522,7 @@ export default function TemplatesClientPage() {
       </Dialog>
     </TooltipProvider>
   );
-}
+};
 
 interface TemplatePreviewModalProps {
   templateId: TemplateId;

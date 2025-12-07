@@ -1,4 +1,4 @@
-export { ClientPage } from './ClientPage';
+export { LandingPage } from './LandingPage';
 export { ProductClientPage } from './ProductClientPage';
 export { PricingClient } from './PricingClient';
 export { ContactClient } from './ContactClient';

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import TemplatesClientPage from './TemplatesClientPage';
+import { TemplatesPage } from '@lssm/bundle.contractspec-studio/src/presentation/components/templates/TemplatesClientPage';
 
 export const metadata: Metadata = {
   title: 'Templates – ContractSpec',
@@ -10,6 +10,4 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TemplatesPage() {
-  return <TemplatesClientPage />;
-}
+export default TemplatesPage;

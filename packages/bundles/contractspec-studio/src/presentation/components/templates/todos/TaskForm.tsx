@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { gql } from '@apollo/client';
@@ -16,7 +18,6 @@ const CREATE_TASK = gql`
 
 export interface TaskFormProps {
   categories: TaskCategory[];
-  onCreated?: () => void;
 }
 
 export function TaskForm({ categories, onCreated }: TaskFormProps) {

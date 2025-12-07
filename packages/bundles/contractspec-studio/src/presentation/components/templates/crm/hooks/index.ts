@@ -1,3 +1,5 @@
+'use client';
+
 export { useDealList, type UseDealListOptions } from './useDealList';
 export {
   useDealMutations,
