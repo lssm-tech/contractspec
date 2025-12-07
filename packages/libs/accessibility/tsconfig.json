@@ -2,10 +2,7 @@
   "extends": "@lssm/tool.typescript/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "src",
-    "declaration": true,
-    "declarationMap": true,
-    "tsBuildInfoFile": ".tsbuildinfo"
+    "rootDir": "src"
   },
   "include": [
     "src/**/*"
