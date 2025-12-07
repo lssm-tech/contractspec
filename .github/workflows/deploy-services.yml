@@ -54,42 +54,43 @@ jobs:
     needs: build
     environment: Production
     steps:
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Deploy via bastion
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          ssh-private-key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
-      - name: Deploy to Scaleway instance
-        env:
-          SCALEWAY_BASTION_USER: ${{ secrets.SCALEWAY_BASTION_USER }}
-          SCALEWAY_BASTION_HOST: ${{ secrets.SCALEWAY_BASTION_HOST }}
-          SCALEWAY_BASTION_PORT: ${{ secrets.SCALEWAY_BASTION_PORT }}
-          SCALEWAY_HOST: ${{ secrets.SCALEWAY_HOST }}
-          SCALEWAY_USER: ${{ secrets.SCALEWAY_USER }}
-        run: |
-          ssh -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -o GlobalKnownHostsFile=/dev/null \
-            -J "${SCALEWAY_BASTION_USER}@${SCALEWAY_BASTION_HOST}:${SCALEWAY_BASTION_PORT}" \
-            "${SCALEWAY_USER}@${SCALEWAY_HOST}" << 'EOF'
+          # Target instance
+          host: ${{ secrets.SCALEWAY_HOST }}
+          username: ${{ secrets.SCALEWAY_USER }}
+          port: 22
+
+          # SSH key used for BOTH bastion and target
+          key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
+
+          # Bastion hop
+          proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
+          proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
+          proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
+
+          # Avoid host key prompts in CI
+          host_key_check: false
+
+          script: |
             set -euo pipefail
-
+            
             cd /srv/lssm
-
-            # first deploy: clone; later: pull
+            
             if [ ! -d .git ]; then
               git clone git@github.com:lssm-tech/contractspec.git .
             fi
-
+            
             git fetch origin main
             git reset --hard origin/main
-
+            
             bun install --frozen-lockfile
             bun run build:server
             # bun run db:migrate || true
-
+            
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker --no-pager
-          EOF
       - name: 'notify vercel'
         uses: 'vercel/repository-dispatch/actions/status@v1'
         with:
