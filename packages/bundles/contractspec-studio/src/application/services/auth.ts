@@ -9,7 +9,7 @@ import {
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { prisma } from '@lssm/lib.database-contractspec-studio';
 import { expo } from '@better-auth/expo';
-import { passkey } from '@better-auth/passkey';
+// import { passkey } from '@better-auth/passkey';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Resend } from 'resend';
@@ -61,7 +61,7 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     admin(),
-    passkey(),
+    // passkey(),
     apiKey(),
     openAPI(),
     expo(),

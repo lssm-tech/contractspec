@@ -7,7 +7,7 @@ import {
   organizationClient,
   phoneNumberClient,
 } from 'better-auth/client/plugins';
-import { passkeyClient } from '@better-auth/passkey/client';
+// import { passkeyClient } from '@better-auth/passkey/client';
 import { expoClient } from '@better-auth/expo/client';
 import * as SecureStore from 'expo-secure-store';
 import { auth } from '../../../application/services/auth';
@@ -22,7 +22,7 @@ export const authClient = createAuthClient({
   },
   plugins: [
     adminClient(),
-    passkeyClient(),
+    // passkeyClient(),
     apiKeyClient(),
     phoneNumberClient(),
     genericOAuthClient(),

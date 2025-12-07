@@ -7,7 +7,7 @@ import {
   organizationClient,
   phoneNumberClient,
 } from 'better-auth/client/plugins';
-import { passkeyClient } from '@better-auth/passkey/client';
+// import { passkeyClient } from '@better-auth/passkey/client';
 
 type ContractSpecAuth = typeof import('../../../application').auth;
 
@@ -28,7 +28,7 @@ export const authClient = createAuthClient({
   },
   plugins: [
     adminClient(),
-    passkeyClient(),
+    // passkeyClient(),
     apiKeyClient(),
     phoneNumberClient(),
     genericOAuthClient(),
