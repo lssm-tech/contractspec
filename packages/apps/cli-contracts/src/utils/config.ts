@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { z } from 'zod';
+import * as z from 'zod';
 
 const ConfigSchema = z.object({
   aiProvider: z

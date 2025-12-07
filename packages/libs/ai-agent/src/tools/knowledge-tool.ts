@@ -1,5 +1,5 @@
 import { tool, type Tool } from 'ai';
-import { z } from 'zod';
+import * as z from 'zod';
 import type { KnowledgeRetriever } from '@lssm/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '../spec/spec';
 

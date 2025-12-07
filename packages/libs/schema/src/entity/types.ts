@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
 /**
  * Prisma scalar types that can be used in entity field definitions.

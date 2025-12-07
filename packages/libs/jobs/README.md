@@ -27,7 +27,7 @@ bun add @lssm/lib.jobs
 
 ```typescript
 import { defineJobType } from '@lssm/lib.jobs';
-import { z } from 'zod';
+import * as z from "zod";
 
 const SendEmailJob = defineJobType({
   type: 'email.send',

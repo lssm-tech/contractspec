@@ -77,7 +77,7 @@ export default function Layout({ children }) {
         <h2 className="text-2xl font-bold">Example: Zod Form</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
           <pre>{`import { ZodForm } from '@lssm/lib.design-system/components/forms/ZodForm';
-import { z } from 'zod';
+import * as z from "zod";
 
 const schema = z.object({
   name: z.string().min(1),

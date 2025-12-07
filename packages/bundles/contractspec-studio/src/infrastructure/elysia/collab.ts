@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import * as Y from 'yjs';
-import { z } from 'zod';
+import * as z from 'zod';
 
 // In-memory rooms keyed by `${contentId}:${locale}`
 const rooms = new Map<string, { doc: Y.Doc; clients: Set<any> }>();
@@ -78,7 +78,7 @@ export const collabModule = new Elysia({ name: 'collab-module' })
       authorId: z.string().trim().optional(),
       authorName: z.string().trim().optional(),
     }),
-    async message(ws, message) {
+    message(ws, message) {
       try {
         if (!message.docId) return;
 

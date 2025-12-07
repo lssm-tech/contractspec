@@ -12,7 +12,7 @@ import type {
   TicketSentiment,
 } from '../types';
 import type { Tool } from '@ai-sdk/provider-utils';
-import { z } from 'zod';
+import * as z from 'zod';
 
 const ticketSchema = z.object({
   id: z.string(),

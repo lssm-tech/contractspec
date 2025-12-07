@@ -1,13 +1,13 @@
-import { generateText, Output } from 'ai';
 import type { LanguageModel } from 'ai';
-import { z } from 'zod';
+import { generateText, Output } from 'ai';
+import * as z from 'zod';
 import { randomUUID } from 'node:crypto';
 import type {
+  EvolutionConfig,
   IntentPattern,
   SpecSuggestion,
   SpecSuggestionProposal,
   SuggestionStatus,
-  EvolutionConfig,
 } from '../types';
 
 /**

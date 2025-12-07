@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { HStack, VStack } from './stack';
 import { Text } from './text';
-import { z } from 'zod';
+import * as z from 'zod';
 
 export const passwordSchema = z
   .string()

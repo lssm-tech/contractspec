@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import { Kind, type ValueNode } from 'graphql';
 import { FieldType } from './FieldType';
 

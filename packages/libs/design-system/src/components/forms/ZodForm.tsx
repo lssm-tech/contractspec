@@ -8,7 +8,7 @@ import {
   zodResolver,
 } from '@lssm/lib.ui-kit-web/ui/form';
 import type { FieldValues } from 'react-hook-form';
-import { z } from 'zod';
+import * as z from 'zod';
 
 // import { useForm, type UseFormReturn } from 'react-hook-form';
 

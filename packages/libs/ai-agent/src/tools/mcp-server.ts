@@ -1,5 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { z } from 'zod';
+import * as z from 'zod';
 import type { AgentSpec } from '../spec/spec';
 import type { ContractSpecAgent } from '../agent/contract-spec-agent';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';

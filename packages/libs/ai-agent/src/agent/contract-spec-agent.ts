@@ -1,14 +1,15 @@
 import {
   Experimental_Agent as ToolLoopAgent,
-  stepCountIs,
   type LanguageModel,
+  stepCountIs,
   type StepResult,
   type Tool,
   type ToolSet,
 } from 'ai';
-import { z } from 'zod';
+import * as z from 'zod';
 import type { KnowledgeRetriever } from '@lssm/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
+import { agentKey } from '../spec/spec';
 import type {
   AgentCallOptions,
   AgentGenerateParams,
@@ -21,7 +22,6 @@ import { createKnowledgeQueryTool } from '../tools/knowledge-tool';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
 import { type TelemetryCollector, trackAgentStep } from '../telemetry/adapter';
-import { agentKey } from '../spec/spec';
 
 /**
  * Call options schema for AI SDK v6.

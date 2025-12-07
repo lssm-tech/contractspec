@@ -1,6 +1,6 @@
 import { type AnyFieldType } from './FieldType';
 import { type AnyEnumType } from './EnumType';
-import { z } from 'zod';
+import * as z from 'zod';
 import type { Maybe } from 'graphql/jsutils/Maybe';
 
 type FieldLike = AnyFieldType | AnyEnumType | AnySchemaModel;

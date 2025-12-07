@@ -72,7 +72,7 @@ export default function Layout({ children }) {
 
 ```tsx
 import { ZodForm } from '@lssm/lib.design-system/components/forms/ZodForm';
-import { z } from 'zod';
+import * as z from "zod";
 
 const schema = z.object({
   name: z.string().min(1),
