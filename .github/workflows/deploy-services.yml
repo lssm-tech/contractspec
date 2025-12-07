@@ -66,9 +66,9 @@ jobs:
           key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
 
           # Bastion hop
-          proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
-          proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
-          proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
+          #proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
+          #proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
+          #proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
 
           script: |
             set -euo pipefail
@@ -84,7 +84,7 @@ jobs:
             
             bun install --frozen-lockfile
             bun run build:server --concurrency 1
-            # bun run db:migrate || true
+            bun run db:deploy || true
             
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker --no-pager
