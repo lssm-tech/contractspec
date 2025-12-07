@@ -211,7 +211,7 @@ export class LoadBalancerStack {
       },
       stickySessions: 'cookie',
       serverIp: [instanceId], // This should be the private IP
-    });
+    } as any);
 
     return backend;
   }
