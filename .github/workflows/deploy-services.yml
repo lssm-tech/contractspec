@@ -66,7 +66,9 @@ jobs:
           SCALEWAY_HOST: ${{ secrets.SCALEWAY_HOST }}
           SCALEWAY_USER: ${{ secrets.SCALEWAY_USER }}
         run: |
-          ssh -J ${SCALEWAY_BASTION_USER}@${SCALEWAY_BASTION_HOST}:${SCALEWAY_BASTION_PORT} ${SCALEWAY_USER}@${SCALEWAY_HOST} << 'EOF'
+          ssh  -o StrictHostKeyChecking=no \
+            -J "${BASTION_USER}@${BASTION_HOST}:${BASTION_PORT}" \
+            "${TARGET_USER}@${TARGET_HOST}" << 'EOF'
             set -euo pipefail
 
             cd /srv/lssm
