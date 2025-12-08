@@ -81,7 +81,7 @@ const AnalyticsDashboard = dynamic(
 );
 
 interface TemplatePreviewModalProps {
-  templateId: TemplateId;
+  templateId: TemplateId | null;
   onClose: () => void;
 }
 //
@@ -217,15 +217,15 @@ export const TemplatePreviewModal = ({
             <AnalyticsDashboard />
           </TemplateShell>
         );
+      case null:
+        return null;
       default:
         return null;
     }
   }, [templateId]);
 
-  console.log('state', !!previewComponent, templateId);
-
   return (
-    <Dialog open={!!previewComponent} onOpenChange={onClose} className="h-full">
+    <Dialog open={!!previewComponent} onOpenChange={onClose}>
       {/*<DialogTrigger asChild>*/}
       {/*  <Button variant="outline">Fullscreen Dialog</Button>*/}
       {/*</DialogTrigger>*/}
