@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { Dialog, DialogContent } from '@lssm/lib.ui-kit-web/ui/dialog';
 import { ScrollArea } from '@lssm/lib.ui-kit-web/ui/scroll-area';
 import { LoadingSpinner } from '@lssm/lib.ui-kit-web/ui/atoms/LoadingSpinner';
+import type { TemplateId } from '../../../templates/registry';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
