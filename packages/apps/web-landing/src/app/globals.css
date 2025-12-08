@@ -3,7 +3,6 @@
 
 @source './**/*.{ts,tsx}';
 @source '../**/*.{ts,tsx}';
-@source '../../**/*.{ts,tsx}';
 @source '../bundles/*/src/**/*.{ts,tsx}';
 @source '../modules/*/src/**/*.{ts,tsx}';
 @source '../libs/*/src/**/*.{ts,tsx}';
