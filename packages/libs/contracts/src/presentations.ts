@@ -68,6 +68,12 @@ function keyOf(p: PresentationSpec) {
 export class PresentationRegistry {
   private items = new Map<string, PresentationSpec>();
 
+  constructor(items?: PresentationSpec[]) {
+    if (items) {
+      items.forEach((p) => this.register(p));
+    }
+  }
+
   register(p: PresentationSpec): this {
     const key = keyOf(p);
     if (this.items.has(key)) throw new Error(`Duplicate presentation ${key}`);
@@ -103,7 +109,7 @@ export function jsonSchemaForPresentation(p: PresentationSpec) {
       tags: p.meta.tags ?? [],
       description: p.meta.description ?? '',
     },
-    kind: (p.content as any).kind as PresentationKind,
+    kind: p.content.kind as PresentationKind,
   } as const;
 
   if (p.content.kind === 'web_component') {
