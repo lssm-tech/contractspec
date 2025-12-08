@@ -20,7 +20,7 @@ export interface TaskFormProps {
   categories: TaskCategory[];
 }
 
-export function TaskForm({ categories, onCreated }: TaskFormProps) {
+export function TaskForm({ categories }: TaskFormProps) {
   const { projectId } = useTemplateRuntime();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -51,7 +51,7 @@ export function TaskForm({ categories, onCreated }: TaskFormProps) {
     setPriority('MEDIUM');
     setCategoryId('none');
     setTagsInput('');
-    onCreated?.();
+    // onCreated?.();
   };
 
   return (
