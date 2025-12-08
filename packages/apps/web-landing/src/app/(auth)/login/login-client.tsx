@@ -12,57 +12,56 @@ import { Label } from '@lssm/lib.ui-kit-web/ui/label';
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupInput,
   InputGroupButton,
+  InputGroupInput,
 } from '@lssm/lib.ui-kit-web/ui/input-group';
+import { ALLOW_SIGNUP } from '../constants';
 
-export function SignupPageClient() {
+interface EmailPasswordClient {
+  email?: {
+    signIn?: (payload: {
+      email: string;
+      password: string;
+      rememberMe?: boolean;
+    }) => Promise<unknown>;
+  };
+  signIn?: (payload: {
+    identifier: string;
+    password: string;
+    rememberMe?: boolean;
+  }) => Promise<unknown>;
+}
+
+export default function LoginPageClient() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
-    agreeToTerms: false,
+    rememberMe: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const updateField = (
-    field: 'email' | 'password' | 'username',
-    value: string
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const updateField = (name: 'email' | 'password', value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
     setError('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!formData.email || !formData.password || !formData.username) {
-      setError('All fields are required');
-      return;
-    }
-
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long');
-      return;
-    }
-
-    if (!formData.agreeToTerms) {
-      setError('You must agree to the terms to continue');
+    if (!formData.email || !formData.password) {
+      setError('Email and password are required');
       return;
     }
 
     setLoading(true);
     setError('');
-
-    await authClient.signUp.email(
+    await authClient.signIn.email(
       {
         email: formData.email,
         password: formData.password,
-        name: formData.username,
-        // image, // User image URL (optional)
+        rememberMe: formData.rememberMe,
       },
       {
         onSuccess: (ctx) => {
@@ -82,9 +81,9 @@ export function SignupPageClient() {
       <section className="section-padding w-full max-w-md">
         <div className="space-y-8">
           <div className="space-y-2 text-center">
-            <h1 className="text-4xl font-bold">Create account</h1>
+            <h1 className="text-4xl font-bold">Sign in</h1>
             <p className="text-muted-foreground">
-              Join ContractSpec to build policy-safe apps
+              Welcome back to ContractSpec
             </p>
           </div>
 
@@ -96,35 +95,13 @@ export function SignupPageClient() {
             ) : null}
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium">
-                Username
-              </Label>
-
-              <InputGroup>
-                <InputGroupInput
-                  id="username"
-                  placeholder="john_doe"
-                  value={formData.username}
-                  onChange={(value) =>
-                    updateField('username', value.target.value)
-                  }
-                  required
-                  autoComplete="username"
-                />
-                <InputGroupAddon align="inline-start">
-                  <Label htmlFor="username">@</Label>
-                </InputGroupAddon>
-              </InputGroup>
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium">
                 Email
               </Label>
               <Input
                 id="email"
-                keyboard={{ kind: 'email' }}
                 name="email"
+                keyboard={{ kind: 'email' }}
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={(value) => updateField('email', value)}
@@ -133,9 +110,19 @@ export function SignupPageClient() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">
-                Password
-              </Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-sm font-medium">
+                  Password
+                </Label>
+                {ALLOW_SIGNUP && (
+                  <Link
+                    href="/forgot-password"
+                    className="text-xs text-violet-400 hover:text-violet-300"
+                  >
+                    Forgot password?
+                  </Link>
+                )}
+              </div>
               <InputGroup>
                 <InputGroupInput
                   type={showPassword ? 'text' : 'password'}
@@ -147,6 +134,7 @@ export function SignupPageClient() {
                     updateField('password', value.target.value)
                   }
                   required
+                  className="pr-12"
                 />
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton
@@ -161,36 +149,23 @@ export function SignupPageClient() {
               </InputGroup>
             </div>
 
-            <div className="flex items-start gap-2">
+            <div className="flex items-center gap-2">
               <Checkbox
-                id="agreeToTerms"
-                name="agreeToTerms"
-                checked={formData.agreeToTerms}
+                id="rememberMe"
+                name="rememberMe"
+                checked={formData.rememberMe}
                 onCheckedChange={(checked) =>
                   setFormData((prev) => ({
                     ...prev,
-                    agreeToTerms: checked === true,
+                    rememberMe: checked === true,
                   }))
                 }
               />
               <Label
-                htmlFor="agreeToTerms"
-                className="text-muted-foreground inline-block text-sm"
+                htmlFor="rememberMe"
+                // className="text-muted-foreground text-sm"
               >
-                I agree to the{' '}
-                <Link
-                  href="/legal/terms"
-                  className="text-violet-400 hover:text-violet-300"
-                >
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link
-                  href="/legal/privacy"
-                  className="text-violet-400 hover:text-violet-300"
-                >
-                  Privacy Policy
-                </Link>
+                Remember me
               </Label>
             </div>
 
@@ -200,19 +175,28 @@ export function SignupPageClient() {
               variant="outline"
               className="w-full disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? 'Creating account…' : 'Create account'}
+              {loading ? 'Signing in…' : 'Sign in'}
             </Button>
           </form>
 
           <div className="text-center">
             <p className="text-muted-foreground">
-              Already have an account?{' '}
-              <Link
-                href="/login"
-                className="font-medium text-violet-400 hover:text-violet-300"
-              >
-                Sign in
-              </Link>
+              Don&apos;t have an account?{' '}
+              {ALLOW_SIGNUP ? (
+                <Link
+                  href="/signup"
+                  className="font-medium text-violet-400 hover:text-violet-300"
+                >
+                  Create one
+                </Link>
+              ) : (
+                <Link
+                  href="/contact#waitlist"
+                  className="font-medium text-violet-400 hover:text-violet-300"
+                >
+                  Apply to waitlist
+                </Link>
+              )}
             </p>
           </div>
         </div>

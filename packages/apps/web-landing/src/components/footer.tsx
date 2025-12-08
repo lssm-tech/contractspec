@@ -98,12 +98,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/legal/privacy" className="hover:text-foreground">
+                <Link
+                  href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/privacy"
+                  className="hover:text-foreground"
+                >
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link href="/legal/terms" className="hover:text-foreground">
+                <Link
+                  href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/terms"
+                  className="hover:text-foreground"
+                >
                   Terms
                 </Link>
               </li>
@@ -160,10 +166,16 @@ export default function Footer() {
             Built with ContractSpec © {new Date().getFullYear()}
           </p>
           <div className="text-muted-foreground mt-4 flex gap-6 text-sm md:mt-0">
-            <Link href="/legal/privacy" className="hover:text-foreground">
+            <Link
+              href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/privacy"
+              className="hover:text-foreground"
+            >
               Privacy
             </Link>
-            <Link href="/legal/terms" className="hover:text-foreground">
+            <Link
+              href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/terms"
+              className="hover:text-foreground"
+            >
               Terms
             </Link>
           </div>
