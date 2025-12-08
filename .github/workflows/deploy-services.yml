@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: read
+  actions: read      # required so it can call workflow-jobs API
+  statuses: write    # required so it can set the commit status
 
 jobs:
   build:
