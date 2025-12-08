@@ -1,16 +1,21 @@
 'use client';
 
 import { RefreshCw, Shield } from 'lucide-react';
-import { useActionState } from 'react';
 
 import { useTemplateRuntime } from '../../../../templates/runtime';
 
 export function LocalDataIndicator() {
   const { projectId, templateId, template, installer } = useTemplateRuntime();
-  // const [isResetting, setIsResetting] = useState(false);
-  const [_state, handleReset, isResetting] = useActionState(() => {
-    return installer.install(templateId, { projectId });
-  }, false);
+  const [isResetting, setIsResetting] = useState(false);
+
+  const handleReset = async () => {
+    setIsResetting(true);
+    try {
+      await installer.install(templateId, { projectId });
+    } finally {
+      setIsResetting(false);
+    }
+  };
 
   return (
     <div className="border-border bg-muted/40 text-muted-foreground inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs">
