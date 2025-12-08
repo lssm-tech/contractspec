@@ -1,37 +1,39 @@
 import * as React from 'react';
 import {
-  ZoomIn,
-  ZoomOut,
+  GripVertical,
   Maximize2,
   Minimize2,
   Square,
-  GripVertical,
   Trash2,
+  ZoomIn,
+  ZoomOut,
 } from 'lucide-react';
 import type {
   CanvasState,
-  ComponentNode,
   ComponentDefinition,
+  ComponentNode,
 } from '../../../../modules/visual-builder';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
 import { PropertyEditor } from '../molecules/PropertyEditor';
 import {
-  DndContext,
-  PointerSensor,
   closestCenter,
+  DndContext,
+  type DragEndEvent,
+  PointerSensor,
   useSensor,
   useSensors,
-  type DragEndEvent,
 } from '@dnd-kit/core';
 import {
+  arrayMove,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-  arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Button } from '@lssm/lib.design-system';
+import { cn } from '@lssm/lib.ui-kit-core';
 
 export interface StudioCanvasProps {
   state: CanvasState;
@@ -188,28 +190,25 @@ export function StudioCanvas({
           </p>
         </div>
         <div className="inline-flex items-center gap-2">
-          <button
-            type="button"
-            className="btn-ghost inline-flex h-9 w-9 items-center justify-center rounded-full"
+          <Button
+            variant="ghost"
             onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}
             aria-label="Zoom out"
           >
-            <ZoomOut className="h-4 w-4" />
-          </button>
+            <ZoomOut className="text-blue h-4 w-4" />
+          </Button>
           <span className="text-sm tabular-nums">
             {Math.round(zoom * 100)}%
           </span>
-          <button
-            type="button"
-            className="btn-ghost inline-flex h-9 w-9 items-center justify-center rounded-full"
+          <Button
+            variant="ghost"
             onClick={() => setZoom((value) => Math.min(2, value + 0.1))}
             aria-label="Zoom in"
           >
             <ZoomIn className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            className="btn-ghost inline-flex h-9 w-9 items-center justify-center rounded-full"
+          </Button>
+          <Button
+            variant="ghost"
             onClick={toggleFullScreen}
             aria-label={isFullScreen ? 'Exit full screen' : 'Enter full screen'}
           >
@@ -218,13 +217,14 @@ export function StudioCanvas({
             ) : (
               <Maximize2 className="h-4 w-4" />
             )}
-          </button>
+          </Button>
         </div>
       </header>
       <div
-        className={`border-border bg-card grid gap-4 rounded-2xl border p-4 ${
-          isFullScreen ? 'bg-background fixed inset-6 z-50 shadow-2xl' : ''
-        }`}
+        className={cn(
+          'border-border bg-card grid gap-4 rounded-2xl border p-4',
+          isFullScreen && 'bg-background fixed inset-6 z-50 shadow-2xl'
+        )}
         style={isFullScreen ? undefined : { minHeight: height }}
       >
         <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
@@ -388,23 +388,21 @@ function CanvasNodeCard({
         </div>
         <div className="inline-flex items-center gap-1">
           {dragHandleProps ? (
-            <button
-              type="button"
-              className="btn-ghost inline-flex h-8 w-8 items-center justify-center rounded-full"
+            <Button
+              variant="ghost"
               {...dragHandleProps}
               aria-label="Reorder component"
             >
               <GripVertical className="h-4 w-4" />
-            </button>
+            </Button>
           ) : (
             <span className="text-muted-foreground font-mono text-xs">
               {node.id.slice(0, 6)}
             </span>
           )}
           {onDeleteNode ? (
-            <button
-              type="button"
-              className="btn-ghost text-destructive hover:text-destructive inline-flex h-8 w-8 items-center justify-center rounded-full"
+            <Button
+              variant="ghost"
               aria-label={`Delete ${node.type}`}
               onClick={(event) => {
                 event.stopPropagation();
@@ -412,7 +410,7 @@ function CanvasNodeCard({
               }}
             >
               <Trash2 className="h-4 w-4" />
-            </button>
+            </Button>
           ) : null}
         </div>
       </div>
