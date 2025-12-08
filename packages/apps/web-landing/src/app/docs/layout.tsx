@@ -4,6 +4,16 @@ import type React from 'react';
 import { OpenWithAI } from '@/components/open-with-ai';
 import { DocsNavSidebar } from '@/app/docs/DocsNavSidebar';
 import { SidebarInset, SidebarProvider } from '@lssm/lib.ui-kit-web/ui/sidebar';
+// import {
+//   Breadcrumb,
+//   BreadcrumbItem,
+//   BreadcrumbLink,
+//   BreadcrumbList,
+//   BreadcrumbPage,
+//   BreadcrumbSeparator,
+// } from '@lssm/lib.ui-kit-web/ui/breadcrumb';
+// import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+import Footer from '@/components/footer';
 
 export default function DocsLayout({
   children,
@@ -15,7 +25,7 @@ export default function DocsLayout({
       <DocsNavSidebar />
 
       <SidebarInset>
-        {/*<header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 ">*/}
+        {/*<header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">*/}
         {/*  <SidebarTrigger className="-ml-1" />*/}
         {/*  <Separator*/}
         {/*    orientation="vertical"*/}
@@ -36,7 +46,7 @@ export default function DocsLayout({
         {/*  </Breadcrumb>*/}
         {/*</header>*/}
 
-        <main className="flex-1 overflow-hidden pt-24">
+        <main className="flex-1 overflow-hidden">
           <div className="mx-auto px-4 py-8 md:px-8">
             <div className="float-right mb-4 flex justify-end">
               <OpenWithAI />
@@ -44,6 +54,8 @@ export default function DocsLayout({
             {children}
           </div>
         </main>
+
+        <Footer />
       </SidebarInset>
     </SidebarProvider>
   );

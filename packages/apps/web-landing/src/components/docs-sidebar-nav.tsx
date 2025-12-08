@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
-
-const docsSections = [
+export const docsSections = [
+  {
+    title: 'Docs overview',
+    href: '/docs',
+    items: [],
+  },
   {
     title: 'Getting Started',
     items: [
@@ -148,67 +148,3 @@ const docsSections = [
     items: [{ title: 'Manifesto', href: '/docs/manifesto' }],
   },
 ];
-
-interface DocsSidebarProps {
-  onItemClick?: () => void;
-}
-
-export default function DocsSidebar({ onItemClick }: DocsSidebarProps) {
-  const pathname = usePathname();
-  const [openSections, setOpenSections] = useState<string[]>([
-    'Getting Started',
-    'Architecture',
-    'Core Concepts',
-  ]);
-
-  const toggleSection = (title: string) => {
-    setOpenSections((prev) =>
-      prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title]
-    );
-  };
-
-  const isItemActive = (href: string) => pathname === href;
-
-  return (
-    <aside className="border-border bg-card/30 min-h-screen w-64 border-r">
-      <nav className="sticky top-24 max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto p-6">
-        {docsSections.map((section) => (
-          <div key={section.title} className="space-y-2">
-            <button
-              onClick={() => toggleSection(section.title)}
-              className="text-foreground group flex w-full items-center justify-between text-sm font-semibold transition-colors hover:text-violet-400"
-            >
-              {section.title}
-              <ChevronDown
-                size={16}
-                className={`transition-transform ${
-                  openSections.includes(section.title) ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            {openSections.includes(section.title) && (
-              <ul className="border-border/50 space-y-1 border-l pl-2">
-                {section.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={onItemClick}
-                      className={`block rounded px-3 py-2 text-sm transition-colors ${
-                        isItemActive(item.href)
-                          ? 'border-l-2 border-violet-500 bg-violet-500/20 text-violet-300'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-card/50'
-                      }`}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
-      </nav>
-    </aside>
-  );
-}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GalleryVerticalEnd, Minus, Plus } from 'lucide-react';
+import { AnvilIcon, BookOpenIcon, HouseIcon, Minus, Plus } from 'lucide-react';
 import {
   Collapsible,
   CollapsibleContent,
@@ -17,212 +17,143 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
+  useSidebar,
 } from '@lssm/lib.ui-kit-web/ui/sidebar';
-import { DocsSearchForm } from '@/app/docs/DocsSearchForm';
+import { docsSections } from '@/components/docs-sidebar-nav';
+import { usePathname } from 'next/navigation';
+import { cn } from '@lssm/lib.ui-kit-core';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
 
 // This is sample data.
 const data = {
-  navMain: [
-    {
-      title: 'Getting Started',
-      url: '#',
-      items: [
-        {
-          title: 'Installation',
-          url: '#',
-        },
-        {
-          title: 'Project Structure',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Building Your Application',
-      url: '#',
-      items: [
-        {
-          title: 'Routing',
-          url: '#',
-        },
-        {
-          title: 'Data Fetching',
-          url: '#',
-          isActive: true,
-        },
-        {
-          title: 'Rendering',
-          url: '#',
-        },
-        {
-          title: 'Caching',
-          url: '#',
-        },
-        {
-          title: 'Styling',
-          url: '#',
-        },
-        {
-          title: 'Optimizing',
-          url: '#',
-        },
-        {
-          title: 'Configuring',
-          url: '#',
-        },
-        {
-          title: 'Testing',
-          url: '#',
-        },
-        {
-          title: 'Authentication',
-          url: '#',
-        },
-        {
-          title: 'Deploying',
-          url: '#',
-        },
-        {
-          title: 'Upgrading',
-          url: '#',
-        },
-        {
-          title: 'Examples',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'API Reference',
-      url: '#',
-      items: [
-        {
-          title: 'Components',
-          url: '#',
-        },
-        {
-          title: 'File Conventions',
-          url: '#',
-        },
-        {
-          title: 'Functions',
-          url: '#',
-        },
-        {
-          title: 'next.config.js Options',
-          url: '#',
-        },
-        {
-          title: 'CLI',
-          url: '#',
-        },
-        {
-          title: 'Edge Runtime',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Architecture',
-      url: '#',
-      items: [
-        {
-          title: 'Accessibility',
-          url: '#',
-        },
-        {
-          title: 'Fast Refresh',
-          url: '#',
-        },
-        {
-          title: 'Next.js Compiler',
-          url: '#',
-        },
-        {
-          title: 'Supported Browsers',
-          url: '#',
-        },
-        {
-          title: 'Turbopack',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Community',
-      url: '#',
-      items: [
-        {
-          title: 'Contribution Guide',
-          url: '#',
-        },
-      ],
-    },
+  navSpaces: [
+    { title: 'Home', href: '/', icon: <HouseIcon /> },
+    { title: 'Studio', href: '/studio', icon: <AnvilIcon /> },
   ],
+  navMain: docsSections,
 };
 
 export function DocsNavSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  const { isMobile } = useSidebar();
+
+  const isItemActive = (href: string) => pathname === href;
+
+  const activeSectionIndex = data.navMain.findIndex((section) => {
+    return (
+      isItemActive(section.href) ||
+      section.items.some((item) => isItemActive(item.href))
+    );
+  });
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">Documentation</span>
-                  <span className="">v1.0.0</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <DropdownMenu>
+            <SidebarMenuItem>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton size="lg" asChild>
+                  <a href="#">
+                    <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                      <BookOpenIcon className="size-4" />
+                    </div>
+                    <div className="flex flex-col gap-0.5 leading-none">
+                      <span className="font-medium">Documentation</span>
+                      <span className="">v1.0.0</span>
+                    </div>
+                  </a>
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side={isMobile ? 'bottom' : 'right'}
+                align={isMobile ? 'end' : 'start'}
+                // className="rounded-lg"
+              >
+                {data.navSpaces.map((item) => (
+                  <DropdownMenuItem asChild key={item.title}>
+                    <a href={item.href}>
+                      {item.icon}
+                      {item.title}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </SidebarMenuItem>
+          </DropdownMenu>
         </SidebarMenu>
-        <DocsSearchForm />
+
+        {/* TODO: plug a rag + fuzzy search into the search */}
+        {/*<DocsSearchForm />*/}
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map((item, index) => (
+            {data.navMain.map((section) => (
               <Collapsible
-                key={item.title}
-                defaultOpen={index === 1}
+                key={section.title}
+                defaultOpen={activeSectionIndex}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton>
-                      {item.title}{' '}
-                      <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
-                      <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+                  {section.items?.length ? (
+                    <React.Fragment key={section.title}>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton>
+                          {section.title}{' '}
+                          <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
+                          <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {section.items.map((sectionItem) => (
+                            <SidebarMenuSubItem key={sectionItem.title}>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={sectionItem.isActive}
+                                className={cn({
+                                  'text-primary': isItemActive(
+                                    sectionItem.href
+                                  ),
+                                })}
+                              >
+                                <a href={sectionItem.href}>
+                                  {sectionItem.title}
+                                </a>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </React.Fragment>
+                  ) : (
+                    <SidebarMenuButton key={section.title}>
+                      <a
+                        href={section.href}
+                        className={cn({
+                          'text-primary': isItemActive(section.href),
+                        })}
+                      >
+                        {section.title}
+                      </a>
                     </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  {item.items?.length ? (
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items.map((item) => (
-                          <SidebarMenuSubItem key={item.title}>
-                            <SidebarMenuSubButton
-                              asChild
-                              isActive={item.isActive}
-                            >
-                              <a href={item.url}>{item.title}</a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  ) : null}
+                  )}
                 </SidebarMenuItem>
               </Collapsible>
             ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarRail />
     </Sidebar>
   );

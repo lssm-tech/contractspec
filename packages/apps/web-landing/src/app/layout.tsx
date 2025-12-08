@@ -1,8 +1,6 @@
 import type React from 'react';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { AuthProvider } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
@@ -61,11 +59,7 @@ export default function RootLayout({
         className={`${geist.className} flex min-h-screen flex-col antialiased`}
       >
         <QueryProvider>
-          <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </QueryProvider>
         <Analytics />
       </body>
