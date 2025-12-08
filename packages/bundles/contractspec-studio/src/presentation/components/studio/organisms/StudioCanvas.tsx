@@ -32,7 +32,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button } from '@lssm/lib.design-system';
+// import { Button } from '@lssm/lib.design-system';
+import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { cn } from '@lssm/lib.ui-kit-core';
 
 export interface StudioCanvasProps {
@@ -463,11 +464,14 @@ function TreeNode({
           : undefined
       }
     >
-      <button
-        type="button"
-        className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-sm ${
+      <Button
+        // type="button"
+        // className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-sm ${
+        //   isSelected ? 'bg-primary/10 text-primary' : 'hover:bg-muted/40'
+        // }`}
+        className={
           isSelected ? 'bg-primary/10 text-primary' : 'hover:bg-muted/40'
-        }`}
+        }
         style={{ paddingLeft: depth * 16 + 8 }}
         onClick={() => onSelectNode?.(node.id)}
       >
@@ -475,7 +479,7 @@ function TreeNode({
         <span className="text-muted-foreground text-xs tracking-wide uppercase">
           {node.children?.length ?? 0}
         </span>
-      </button>
+      </Button>
       {node.children?.map((child) => (
         <TreeNode
           key={child.id}

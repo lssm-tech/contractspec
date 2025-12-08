@@ -1,10 +1,9 @@
 import {
   createDefaultTransformEngine,
-  registerDefaultReactRenderer,
   registerBasicValidation,
+  registerDefaultReactRenderer,
   registerReactToMarkdownRenderer,
   type TransformEngine,
-  type PresentationRenderer,
 } from '@lssm/lib.contracts/presentations.v2';
 import type { ComponentMap } from './types';
 import { componentMap } from './registry';
