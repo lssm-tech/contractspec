@@ -34,10 +34,7 @@ export function LandingPage() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Link
-              href="/pricing#waitlist"
-              className="text-primary btn-primary underline"
-            >
+            <Link href="/pricing#waitlist" className="btn-primary">
               Join waitlist <ChevronRight size={16} />
             </Link>
             <Link href="/contact" className="btn-ghost flex items-center gap-2">
