@@ -25,14 +25,14 @@ export const metadata: Metadata = {
       'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase: policy-safe with signed overlays and one-click rollback.',
     url: 'https://contractspec.lssm.tech',
     siteName: 'ContractSpec',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'ContractSpec: The Regenerative App Engine',
-      },
-    ],
+    // images: [
+    //   {
+    //     url: '/og-image.png',
+    //     width: 1200,
+    //     height: 630,
+    //     alt: 'ContractSpec: The Regenerative App Engine',
+    //   },
+    // ],
     type: 'website',
   },
   twitter: {

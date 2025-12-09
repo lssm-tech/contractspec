@@ -1,101 +1,29 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
-
 export async function GET() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#0b0f19', // ink
-          fontFamily: 'sans-serif',
-        }}
-      >
+      <div tw="flex flex-col w-full h-full items-center justify-center bg-[#0b0f19]">
         {/* Background Gradients */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '500px',
-            backgroundImage:
-              'radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.4) 0%, transparent 70%)', // violet with opacity
-          }}
-        />
+        <div tw="absolute top-0 left-0 right-0 h-[500px] flex bg-[radial-gradient(circle_at_50%_0%,_rgba(124,58,237,0.4)_0%,_transparent_70%)]" />
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10,
-            padding: '40px',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              fontSize: 84,
-              fontWeight: 900,
-              color: 'white',
-              letterSpacing: '-0.04em',
-              marginBottom: 24,
-              lineHeight: 1,
-              textShadow: '0 10px 30px rgba(0,0,0,0.5)',
-            }}
-          >
+        <div tw="flex flex-col items-center justify-center z-10 p-10">
+          <div tw="flex text-[84px] font-black text-white tracking-tighter mb-6 leading-none drop-shadow-2xl">
             ContractSpec
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              fontSize: 42,
-              fontWeight: 700,
-              color: '#d8b4fe', // lighter violet
-              textAlign: 'center',
-              marginBottom: 48,
-              letterSpacing: '-0.02em',
-            }}
-          >
+          <div tw="flex text-[42px] font-bold text-[#d8b4fe] text-center mb-12 tracking-tight">
             Stabilize Your AI-Generated Code
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              fontSize: 26,
-              color: '#e2e8f0', // slate-200
-              textAlign: 'center',
-              maxWidth: '900px',
-              lineHeight: 1.6,
-              fontWeight: 500,
-            }}
-          >
+          <div tw="flex text-[26px] text-slate-200 text-center max-w-[900px] leading-relaxed font-medium">
             The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.
             You own the code.
           </div>
         </div>
 
         {/* Decorative bottom bar */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            height: '8px',
-            background: 'linear-gradient(90deg, #7c3aed 0%, #4f46e5 100%)',
-          }}
-        />
+        <div tw="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-[#7c3aed] to-[#4f46e5]" />
       </div>
     ),
     {
