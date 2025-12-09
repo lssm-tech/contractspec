@@ -306,7 +306,7 @@ export function LandingPage() {
       </section>
 
       {/* Who It's For */}
-      <section className="section-padding border-border border-b">
+      <section id="audiance" className="section-padding border-border border-b">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 space-y-4 text-center">
             <p className="text-xs font-semibold tracking-[0.2em] text-blue-500 uppercase">
