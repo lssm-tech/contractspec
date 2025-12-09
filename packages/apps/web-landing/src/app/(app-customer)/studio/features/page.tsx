@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { Layers3, Map, Plug, Shield, Sparkles } from 'lucide-react';
+import { Bot, Layers3, Map, Plug, Shield, Sparkles, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Studio Features – ContractSpec',
@@ -23,21 +23,41 @@ const featureAreas = [
   {
     title: 'Auto-evolution',
     icon: Sparkles,
-    body: 'Usage patterns feed the evolution pipeline. Suggestions land in a review queue with diff previews.',
+    body: 'Safe regeneration that analyzes telemetry to evolve specs while preserving invariants.',
     bullets: [
-      'Signal ingestion from analytics + lifecycle',
-      'Spec diff previews with validation status',
-      'Apply + rollback suggestions in one click',
+      'Analyze telemetry to find usage anomalies',
+      'Personalization adapters for tailored UI overlays',
+      'Safe spec regeneration with approval workflows',
     ],
   },
   {
     title: 'Lifecycle advisor',
     icon: Map,
-    body: 'Stage detection, ceremony templates, and milestone trackers for founders and operators.',
+    body: 'Guidance layer that converts assessments into learning paths, library recommendations, and ceremony payloads.',
     bullets: [
-      'Stage detection from questionnaires + data',
-      'Ceremonial cards to mark transitions',
-      'Milestone tracker with category filters',
+      'Stage detection from questionnaires + analytics',
+      'Personalized learning paths & certifications',
+      'Ceremony templates & library adoption plans',
+    ],
+  },
+  {
+    title: 'AI Growth Engine',
+    icon: TrendingUp,
+    body: 'Experiment orchestration and automated content generation to drive product growth without a full platform.',
+    bullets: [
+      'Typed A/B testing & multi-arm bandits',
+      'Generate blogs, landing pages & email drips',
+      'SEO optimization & analytics tracking',
+    ],
+  },
+  {
+    title: 'AI Support Desk',
+    icon: Bot,
+    body: 'Production-ready support automation with knowledge grounding, ticket classification, and safety guardrails.',
+    bullets: [
+      'Auto-resolution with RAG pipelines',
+      'Tone-aware responses & escalation policies',
+      'Sentiment analysis & ticket classification',
     ],
   },
   {
