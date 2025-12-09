@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { Bot, Layers3, Map, Plug, Shield, Sparkles, TrendingUp } from 'lucide-react';
+import { Bot, Layers3, Map, Plug, Rocket, Shield, Sparkles, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Studio Features – ContractSpec',
@@ -18,6 +18,16 @@ const featureAreas = [
       'Drag-and-drop canvas synced to Studio specs',
       'Component palette with intents and bindings',
       'Deployment panels for shared & dedicated infra',
+    ],
+  },
+  {
+    title: 'Progressive Delivery & QA',
+    icon: Rocket,
+    body: 'Deploy with confidence using canary rollouts, traffic mirroring, and automated golden tests from production data.',
+    bullets: [
+      'Multi-environment pipelines (Dev, Staging, Prod)',
+      'Canary & Blue-Green strategies with auto-rollback',
+      'Golden test generation from real traffic',
     ],
   },
   {
