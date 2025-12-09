@@ -413,7 +413,7 @@ Each use-case is mapped to a provider + model. Centralised to allow:
 
 Infrastructure-as-code is implemented using the Scaleway JavaScript SDK.
 
-**Location**: `packages/contractspec/packages/tools/scaleway-infra/`
+**Location**: `packages/tools/scaleway-infra/`
 
 **Documentation**: See [scaleway-infra README](../../packages/tools/scaleway-infra/README.md)
 
