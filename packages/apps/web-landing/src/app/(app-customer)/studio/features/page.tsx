@@ -138,13 +138,13 @@ export default function StudioFeaturesPage() {
         </h2>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/packages/contractspec/packages/apps/web-landing/src/app/(app-customer)/studio/pricing"
+            href="/studio/pricing"
             className="btn-primary"
           >
             Compare plans
           </Link>
           <Link
-            href="/packages/contractspec/packages/apps/web-landing/src/app/(app-customer)/studio/docs"
+            href="/studio/docs"
             className="btn-ghost"
           >
             Browse docs

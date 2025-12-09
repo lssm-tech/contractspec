@@ -23,7 +23,7 @@ This tool provides both CLI and programmatic interfaces for managing Scaleway in
 ## Installation
 
 ```bash
-cd packages/contractspec/packages/tools/scaleway-infra
+cd packages/tools/scaleway-infra
 bun install
 bun run build
 ```

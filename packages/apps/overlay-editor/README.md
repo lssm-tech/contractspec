@@ -10,7 +10,7 @@ This Next.js app previews and signs OverlaySpecs. It ships with:
 
 ```bash
 bun install
-cd packages/contractspec/packages/apps/overlay-editor
+cd packages/apps/overlay-editor
 bun dev
 ```
 
