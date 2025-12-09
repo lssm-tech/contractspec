@@ -95,10 +95,7 @@ export class FileSystemSuggestionWriter implements SpecSuggestionWriter {
   constructor(options: FileSystemSuggestionWriterOptions = {}) {
     this.outputDir =
       options.outputDir ??
-      join(
-        process.cwd(),
-        'packages/contractspec/packages/libs/contracts/src/generated'
-      );
+      join(process.cwd(), 'packages/libs/contracts/src/generated');
     this.filenameTemplate =
       options.filenameTemplate ??
       ((suggestion) =>

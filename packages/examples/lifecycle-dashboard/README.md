@@ -12,7 +12,7 @@ This example shows a minimal App Router page that calls the lifecycle managed bu
 ### Run
 
 ```bash
-cd packages/contractspec/examples/lifecycle-dashboard
+cd packages/examples/lifecycle-dashboard
 bunx next dev
 ```
 

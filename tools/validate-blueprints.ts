@@ -3,37 +3,37 @@ import process from 'node:process';
 import chalk from 'chalk';
 import {
   validateBlueprint,
-  validateTenantConfig,
   type ValidateOptions,
+  validateTenantConfig,
 } from '../packages/apps/contracts-cli/src/commands/validate/index';
 
-type BlueprintTarget = {
+interface BlueprintTarget {
   specFile: string;
   blueprint: string;
   tenantConfig?: string;
   options?: Pick<ValidateOptions, 'connections' | 'translationCatalog'>;
-};
+}
 
 const targets: BlueprintTarget[] = [
   {
-    specFile: 'packages/contractspec/examples/integration-stripe/blueprint.ts',
-    blueprint: 'packages/contractspec/examples/integration-stripe/blueprint.ts',
-    tenantConfig: 'packages/contractspec/examples/integration-stripe/tenant.ts',
+    specFile: 'packages/examples/integration-stripe/blueprint.ts',
+    blueprint: 'packages/examples/integration-stripe/blueprint.ts',
+    tenantConfig: 'packages/examples/integration-stripe/tenant.ts',
     options: {
       connections: [
-        'packages/contractspec/examples/integration-stripe/connection.sample.ts',
+        'packages/examples/integration-stripe/connection.sample.ts',
       ],
       translationCatalog:
-        'packages/contractspec/examples/integration-stripe/translation.catalog.json',
+        'packages/examples/integration-stripe/translation.catalog.json',
       integrationRegistrars: [
-        'packages/contractspec/packages/libs/contracts/src/integrations/providers/stripe.ts#registerStripeIntegration',
+        'packages/libs/contracts/src/integrations/providers/stripe.ts#registerStripeIntegration',
       ],
     },
   },
   {
-    specFile: 'packages/contractspec/examples/knowledge-canon/blueprint.ts',
-    blueprint: 'packages/contractspec/examples/knowledge-canon/blueprint.ts',
-    tenantConfig: 'packages/contractspec/examples/knowledge-canon/tenant.ts',
+    specFile: 'packages/examples/knowledge-canon/blueprint.ts',
+    blueprint: 'packages/examples/knowledge-canon/blueprint.ts',
+    tenantConfig: 'packages/examples/knowledge-canon/tenant.ts',
   },
 ];
 
@@ -42,9 +42,7 @@ async function run() {
 
   for (const target of targets) {
     console.log(
-      chalk.bold(
-        `\n=== ${path.relative(process.cwd(), target.specFile)} ===`
-      )
+      chalk.bold(`\n=== ${path.relative(process.cwd(), target.specFile)} ===`)
     );
 
     const blueprintResult = await validateBlueprint(target.blueprint);
@@ -77,4 +75,3 @@ run().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-

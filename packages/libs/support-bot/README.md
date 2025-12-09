@@ -43,4 +43,4 @@ const outcome = await runner.run({
 });
 ```
 
-See `/packages/contractspec/examples/ai-support-bot` for an end-to-end integration with ticket ingestion, review queues, and analytics.
+See `/packages/examples/ai-support-bot` for an end-to-end integration with ticket ingestion, review queues, and analytics.

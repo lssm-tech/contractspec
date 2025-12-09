@@ -26,8 +26,7 @@ export default function OverlayEditorPage() {
           <li>Server action for PEM signing (Ed25519/RSA-PSS).</li>
         </ul>
         <p>
-          Project path:{' '}
-          <code>packages/contractspec/packages/apps/overlay-editor</code>
+          Project path: <code>packages/apps/overlay-editor</code>
         </p>
       </div>
 

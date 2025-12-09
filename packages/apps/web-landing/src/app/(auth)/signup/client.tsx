@@ -179,14 +179,14 @@ export function SignupPageClient() {
               >
                 I agree to the{' '}
                 <Link
-                  href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/terms"
+                  href="/legal/terms"
                   className="text-violet-400 hover:text-violet-300"
                 >
                   Terms of Service
                 </Link>{' '}
                 and{' '}
                 <Link
-                  href="/packages/contractspec/packages/apps/web-landing/src/app/(landing-marketing)/legal/privacy"
+                  href="/legal/privacy"
                   className="text-violet-400 hover:text-violet-300"
                 >
                   Privacy Policy
