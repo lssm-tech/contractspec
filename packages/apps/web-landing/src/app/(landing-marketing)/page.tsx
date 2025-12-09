@@ -21,21 +21,21 @@ export const metadata: Metadata = {
       'The compiler that keeps AI-written software coherent, safe, and regenerable. You own the code. Standard tech, no lock-in.',
     url: 'https://contractspec.lssm.tech',
     siteName: 'ContractSpec',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'ContractSpec: Stabilize Your AI-Generated Code',
-      },
-    ],
+    // images: [
+    //   {
+    //     url: '/og-image.png',
+    //     width: 1200,
+    //     height: 630,
+    //     alt: 'ContractSpec: Stabilize Your AI-Generated Code',
+    //   },
+    // ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ContractSpec: Stabilize Your AI-Generated Code',
     description: 'The compiler for AI-coded systems. You own the code.',
-    images: ['/og-image.png'],
+    // images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://contractspec.lssm.tech',

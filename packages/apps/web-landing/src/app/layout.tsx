@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec – The Regenerative App Engine',
     description:
       'Customized & personalized, auto-evolutive codebase: compiled from intent, enforced by policy.',
-    images: ['/og-image.png'],
+    // images: ['/og-image.png'],
   },
   icons: {
     icon: '/icon.png',
