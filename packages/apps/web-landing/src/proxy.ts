@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@lssm/bundle.contractspec-studio/application/services/auth';
+import path from 'path';
 
 const PUBLIC_ROUTES = [
   '/',
@@ -43,7 +44,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith('/studio')) {
+  if (pathname.startsWith('/studio') && pathname !== '/studio/features') {
     const session = await auth.api.getSession({
       headers: await headers(),
     });
