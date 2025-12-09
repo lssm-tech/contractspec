@@ -1,0 +1,35 @@
+---
+description: Documentation governance — keep `docs/` synchronized with the codebase. The agent MUST review docs before code edits and update them after.
+globs:
+alwaysApply: true
+---
+
+Docs as First‑Class, Synchronized Source
+
+Policy (mandatory)
+
+- Before any code edit:
+  - Run a brief read‑only scan of `docs/` to locate specs relevant to the intended change (prioritize `docs/tech`, `docs/product`, and `docs/ops`).
+  - Identify mismatches between the current code and the documentation; plan doc updates alongside the code change.
+- After the code edit (same turn when feasible):
+  - Update or create the corresponding documents in `docs/` so they accurately reflect the new behavior, types, APIs, feature flags, metrics, and UX flows.
+  - If no behavioral change, still fix any discovered doc drift.
+
+Traceability & Reversibility
+
+- Summarize which `docs/*` files were reviewed and which were updated as part of the change.
+- Keep edits minimal and modular so they can be reverted independently from code changes.
+
+Composability
+
+- When code introduces enums, feature flags, or APIs referenced in ≥2 places, ensure `docs/` includes a canonical definition to avoid drift.
+
+Heuristics
+✅ Always scan `docs/` before coding; update `docs/` after coding.
+✅ Prefer precise, implementation‑grounded updates over aspirational statements; clearly label roadmap vs current.
+✅ If change spans multiple domains and cannot be fully documented now, capture a concise deferred doc task with scope and owners.
+✅ Use the same naming and units (e.g., currency, enums) across code and docs; flag inconsistencies.
+
+Exceptions (narrow)
+
+- Trivial non‑functional edits (formatting, comments) may skip doc updates; note the skip explicitly.
