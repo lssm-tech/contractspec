@@ -12,6 +12,7 @@
     "start": "./server"
   },
   "dependencies": {
+    "@lssm/lib.graphql-federation": "workspace:*",
     "@lssm/bundle.contractspec-studio": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "elysia": "^1.4.18"
