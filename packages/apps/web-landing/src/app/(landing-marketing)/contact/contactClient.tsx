@@ -7,10 +7,8 @@ import {
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
-import {
-  submitContactForm,
-  SubmitContactFormResult,
-} from '@lssm/bundle.contractspec-studio/presentation/libs/email';
+import { submitContactForm } from '@lssm/bundle.contractspec-studio/presentation/libs/email/contact';
+import { SubmitContactFormResult } from '@lssm/bundle.contractspec-studio/presentation/libs/email/types';
 import { Input } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
