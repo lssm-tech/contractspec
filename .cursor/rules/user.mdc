@@ -19,3 +19,6 @@ Heuristics:
 ✅ Does the interface work seamlessly on mobile devices?
 ✅ Are errors, confirmations, and next steps always visible and understandable?
 ✅ Is the experience as simple as possible, but no simpler?
+✅ Copy avoids jargon; uses task-language and short sentences (≤8th grade).
+✅ Tap targets meet mobile guidance; key flows respond in <200ms UI feedback, <2s completion where possible.
+✅ Form errors are specific and placed inline with the field; provide corrective hints.

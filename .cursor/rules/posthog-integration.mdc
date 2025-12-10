@@ -14,6 +14,11 @@ If using TypeScript, use an enum to store flag names. If using JavaScript, store
 
 Gate flag-dependent code on a check that verifies the flag's values are valid and expected.
 
+SDK & env:
+
+- Use the approved PostHog SDK; keys/secrets come from env vars only.
+- Ensure capture endpoints and api/host URLs are set per environment; default to production-safe sampling.
+
 # Custom properties
 
 If a custom property for a person or event is at any point referenced in two or more files or two or more callsites in the same file, use an enum or const object, as above in feature flags.
@@ -21,3 +26,10 @@ If a custom property for a person or event is at any point referenced in two or 
 # Naming
 
 Before creating any new event or property names, consult with the developer for any existing naming convention. Consistency in naming is essential, and additional context may exist outside this project. Similarly, be careful about any changes to existing event and property names, as this may break reporting and distort data for the project.
+
+QA checklist:
+
+- Verify event name, props, distinct_id/user/tenant IDs are set.
+- Ensure no PII/secrets in props; hash or drop sensitive data.
+- Confirm flags/properties enums live in a single source of truth.
+- Add sampling when volume is high; document sampling rate per environment.

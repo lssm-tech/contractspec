@@ -1,6 +1,6 @@
 ---
 description: Enforce code quality, type safety, dependency hygiene, and innovation practices
-globs: 
+globs:
 alwaysApply: true
 ---
 
@@ -27,6 +27,7 @@ alwaysApply: true
 **Policy**: The `any` type is **forbidden** in application code. Every value must have an explicit, meaningful type.
 
 **Exceptions** (require explicit justification):
+
 1. **Third-party library gaps**: When a library lacks proper types, create a typed wrapper
 2. **Gradual migration**: When refactoring legacy code, use `unknown` instead of `any` and narrow progressively
 3. **Dynamic external data**: When dealing with truly dynamic external data, use `unknown` and validate with type guards
@@ -36,22 +37,22 @@ alwaysApply: true
 ```typescript
 // Domain entity with full typing
 interface Portfolio {
-  id: string
-  userId: string
-  totalValue: number
-  currency: 'EUR' | 'USD' | 'GBP'
-  assets: Asset[]
-  lastUpdated: Date
+  id: string;
+  userId: string;
+  totalValue: number;
+  currency: 'EUR' | 'USD' | 'GBP';
+  assets: Asset[];
+  lastUpdated: Date;
 }
 
 // Type-safe API response
 interface ApiResponse<T> {
-  data: T
+  data: T;
   meta: {
-    timestamp: string
-    version: string
-  }
-  errors?: ApiError[]
+    timestamp: string;
+    version: string;
+  };
+  errors?: ApiError[];
 }
 
 // Type guard for runtime validation
@@ -63,18 +64,18 @@ function isPortfolio(value: unknown): value is Portfolio {
     'userId' in value &&
     'totalValue' in value &&
     typeof (value as Portfolio).totalValue === 'number'
-  )
+  );
 }
 
 // Using unknown with type narrowing
 async function fetchPortfolio(id: string): Promise<Portfolio> {
-  const response: unknown = await fetch(`/api/portfolio/${id}`)
-  
+  const response: unknown = await fetch(`/api/portfolio/${id}`);
+
   if (!isPortfolio(response)) {
-    throw new Error('Invalid portfolio data')
+    throw new Error('Invalid portfolio data');
   }
-  
-  return response
+
+  return response;
 }
 ```
 
@@ -83,15 +84,15 @@ async function fetchPortfolio(id: string): Promise<Portfolio> {
 ```typescript
 // NEVER do this
 function processData(data: any) {
-  return data.value.map((item: any) => item.id)
+  return data.value.map((item: any) => item.id);
 }
 
 // NEVER do this
-const config: any = loadConfig()
+const config: any = loadConfig();
 
 // NEVER do this
 function handleEvent(event: any) {
-  console.log(event.target.value)
+  console.log(event.target.value);
 }
 ```
 
@@ -99,34 +100,34 @@ function handleEvent(event: any) {
 
 ```typescript
 // ✅ Good: Create typed wrapper for untyped library
-import { untypedLibrary } from 'some-untyped-lib'
+import { untypedLibrary } from 'some-untyped-lib';
 
 interface LibraryConfig {
-  apiKey: string
-  endpoint: string
-  timeout: number
+  apiKey: string;
+  endpoint: string;
+  timeout: number;
 }
 
 interface LibraryResponse {
-  status: 'success' | 'error'
-  data: unknown
+  status: 'success' | 'error';
+  data: unknown;
 }
 
 class TypedLibraryWrapper {
-  private client: typeof untypedLibrary
-  
+  private client: typeof untypedLibrary;
+
   constructor(config: LibraryConfig) {
-    this.client = untypedLibrary.init(config)
+    this.client = untypedLibrary.init(config);
   }
-  
+
   async fetch<T>(path: string): Promise<T> {
-    const response = await this.client.get(path) as LibraryResponse
-    
+    const response = (await this.client.get(path)) as LibraryResponse;
+
     if (response.status !== 'success') {
-      throw new Error('Library request failed')
+      throw new Error('Library request failed');
     }
-    
-    return response.data as T
+
+    return response.data as T;
   }
 }
 ```
@@ -138,14 +139,14 @@ class TypedLibraryWrapper {
 ```json
 {
   "compilerOptions": {
-    "strict": true,                          // Enable all strict checks
-    "noUncheckedIndexedAccess": true,        // Array/object access returns T | undefined
-    "noImplicitOverride": true,              // Require explicit override keyword
-    "noFallthroughCasesInSwitch": true,      // Prevent switch fallthrough bugs
-    "noImplicitReturns": true,               // All code paths must return
-    "noUnusedLocals": true,                  // Flag unused variables
-    "noUnusedParameters": true,              // Flag unused parameters
-    "exactOptionalPropertyTypes": true,      // Distinguish undefined from missing
+    "strict": true, // Enable all strict checks
+    "noUncheckedIndexedAccess": true, // Array/object access returns T | undefined
+    "noImplicitOverride": true, // Require explicit override keyword
+    "noFallthroughCasesInSwitch": true, // Prevent switch fallthrough bugs
+    "noImplicitReturns": true, // All code paths must return
+    "noUnusedLocals": true, // Flag unused variables
+    "noUnusedParameters": true, // Flag unused parameters
+    "exactOptionalPropertyTypes": true, // Distinguish undefined from missing
     "noPropertyAccessFromIndexSignature": true // Use bracket notation for dynamic access
   }
 }
@@ -241,6 +242,19 @@ bun audit
 
 ---
 
+## Production Readiness (must)
+
+- Performance: respect budgets (API p95 latency per service; bundle-size budgets per app); eliminate N+1; cache with clear TTL/invalidations.
+- Security: no secrets in code; env vars only; validate inputs at boundaries; redact PII in logs; minimal surface permissions.
+- Observability: structured logging with correlation/trace ids; emit latency/error metrics; provide health/readiness probes.
+- Flags/config: risky or user-facing changes ship behind feature flags or config switches with safe defaults and rollback.
+
+## Logging Policy
+
+- Use approved logging utilities; **never** `console.log` in production paths.
+- Include context (request id, user/tenant when allowed) without logging secrets/PII; prefer field-level redaction.
+- Choose levels intentionally (info/warn/error); avoid noisy debug logs in production; sample if high volume.
+
 ## Code Quality Standards
 
 ### File Size Limits (from `code-organization.mdc`)
@@ -253,6 +267,7 @@ bun audit
 ### Naming Conventions
 
 **Files & Directories**:
+
 - Components: `PascalCase.tsx` (e.g., `PortfolioCard.tsx`)
 - Hooks: `camelCase.ts` with `use` prefix (e.g., `usePortfolioData.ts`)
 - Utilities: `kebab-case.ts` (e.g., `format-currency.ts`)
@@ -260,6 +275,7 @@ bun audit
 - Constants: `UPPER_SNAKE_CASE.ts` (e.g., `API_ENDPOINTS.ts`)
 
 **Variables & Functions**:
+
 - Variables: `camelCase` (e.g., `portfolioValue`)
 - Functions: `camelCase` (e.g., `calculateTotalValue`)
 - Classes: `PascalCase` (e.g., `PortfolioService`)
@@ -275,41 +291,41 @@ bun audit
 // Define specific error types
 class PortfolioNotFoundError extends Error {
   constructor(portfolioId: string) {
-    super(`Portfolio not found: ${portfolioId}`)
-    this.name = 'PortfolioNotFoundError'
+    super(`Portfolio not found: ${portfolioId}`);
+    this.name = 'PortfolioNotFoundError';
   }
 }
 
 class InsufficientDataError extends Error {
   constructor(message: string) {
-    super(message)
-    this.name = 'InsufficientDataError'
+    super(message);
+    this.name = 'InsufficientDataError';
   }
 }
 
 // Use discriminated unions for results
-type Result<T, E = Error> = 
+type Result<T, E = Error> =
   | { success: true; data: T }
-  | { success: false; error: E }
+  | { success: false; error: E };
 
 // Explicit error handling
 async function getPortfolio(id: string): Promise<Result<Portfolio>> {
   try {
-    const portfolio = await db.portfolio.findUnique({ where: { id } })
-    
+    const portfolio = await db.portfolio.findUnique({ where: { id } });
+
     if (!portfolio) {
       return {
         success: false,
-        error: new PortfolioNotFoundError(id)
-      }
+        error: new PortfolioNotFoundError(id),
+      };
     }
-    
-    return { success: true, data: portfolio }
+
+    return { success: true, data: portfolio };
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error : new Error('Unknown error')
-    }
+      error: error instanceof Error ? error : new Error('Unknown error'),
+    };
   }
 }
 ```
@@ -319,17 +335,17 @@ async function getPortfolio(id: string): Promise<Result<Portfolio>> {
 ```typescript
 // NEVER do this
 try {
-  await doSomething()
+  await doSomething();
 } catch (e) {
-  console.log(e) // Silent failure
+  console.log(e); // Silent failure
 }
 
 // NEVER do this
 function processData(data: any) {
   try {
-    return data.value.map(item => item.id)
+    return data.value.map((item) => item.id);
   } catch {
-    return [] // Hiding errors
+    return []; // Hiding errors
   }
 }
 ```
@@ -340,16 +356,16 @@ function processData(data: any) {
 
 ```typescript
 // Use optional chaining and nullish coalescing
-const userName = user?.profile?.name ?? 'Anonymous'
+const userName = user?.profile?.name ?? 'Anonymous';
 
 // Use type guards
 function processUser(user: User | null) {
   if (!user) {
-    throw new Error('User is required')
+    throw new Error('User is required');
   }
-  
+
   // user is now guaranteed to be User
-  return user.name
+  return user.name;
 }
 
 // Use discriminated unions
@@ -357,7 +373,7 @@ type LoadingState<T> =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'success'; data: T }
-  | { status: 'error'; error: Error }
+  | { status: 'error'; error: Error };
 ```
 
 ---
@@ -367,6 +383,7 @@ type LoadingState<T> =
 ### Test Coverage Standards
 
 **Minimum coverage** (enforced by CI):
+
 - **Domain logic**: 90% coverage
 - **Application services**: 80% coverage
 - **UI components**: 70% coverage
@@ -381,52 +398,60 @@ describe('PortfolioService', () => {
     it('should sum all asset values correctly', () => {
       // Arrange
       const portfolio = createTestPortfolio({
-        assets: [
-          { value: 1000 },
-          { value: 2000 },
-          { value: 3000 }
-        ]
-      })
-      
+        assets: [{ value: 1000 }, { value: 2000 }, { value: 3000 }],
+      });
+
       // Act
-      const total = portfolioService.calculateTotalValue(portfolio)
-      
+      const total = portfolioService.calculateTotalValue(portfolio);
+
       // Assert
-      expect(total).toBe(6000)
-    })
-    
+      expect(total).toBe(6000);
+    });
+
     it('should handle empty portfolio', () => {
-      const portfolio = createTestPortfolio({ assets: [] })
-      const total = portfolioService.calculateTotalValue(portfolio)
-      expect(total).toBe(0)
-    })
-    
+      const portfolio = createTestPortfolio({ assets: [] });
+      const total = portfolioService.calculateTotalValue(portfolio);
+      expect(total).toBe(0);
+    });
+
     it('should throw error for invalid asset values', () => {
       const portfolio = createTestPortfolio({
-        assets: [{ value: -1000 }]
-      })
-      
-      expect(() => 
-        portfolioService.calculateTotalValue(portfolio)
-      ).toThrow(InvalidAssetValueError)
-    })
-  })
-})
+        assets: [{ value: -1000 }],
+      });
+
+      expect(() => portfolioService.calculateTotalValue(portfolio)).toThrow(
+        InvalidAssetValueError
+      );
+    });
+  });
+});
 ```
 
 ### Test Naming Convention
 
 ```typescript
 // Pattern: should [expected behavior] when [condition]
-it('should return user data when authentication succeeds')
-it('should throw error when user not found')
-it('should format currency with correct locale')
+it('should return user data when authentication succeeds');
+it('should throw error when user not found');
+it('should format currency with correct locale');
 
 // For edge cases
-it('should handle empty array gracefully')
-it('should prevent division by zero')
-it('should validate email format before submission')
+it('should handle empty array gracefully');
+it('should prevent division by zero');
+it('should validate email format before submission');
 ```
+
+---
+
+### Minimum test expectations by layer
+
+| Layer                   | Required tests                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Domain logic            | Unit + property-based where applicable; ≥90% coverage target        |
+| Application/services    | Unit + integration against ports; error/idempotency cases           |
+| Infrastructure/adapters | Contract/smoke tests against fakes; retries/timeouts covered        |
+| UI components           | Rendering + accessibility states; interactions; loading/error/empty |
+| Utilities               | Pure unit tests; edge cases and invalid inputs                      |
 
 ---
 
@@ -435,6 +460,7 @@ it('should validate email format before submission')
 ### Feature Flags for Progressive Rollout
 
 **Use feature flags for**:
+
 - New features in development
 - A/B testing experiments
 - Gradual rollouts to production
@@ -446,7 +472,7 @@ import { featureFlags } from '@/lib/feature-flags'
 
 export function PortfolioDashboard() {
   const showNewChart = featureFlags.isEnabled('new-portfolio-chart')
-  
+
   return (
     <div>
       {showNewChart ? (
@@ -465,29 +491,29 @@ export function PortfolioDashboard() {
 
 ```typescript
 // ✅ Good: Track feature usage and performance
-import { analytics } from '@/lib/analytics'
+import { analytics } from '@/lib/analytics';
 
 export async function generateRecommendations(userId: string) {
-  const startTime = performance.now()
-  
+  const startTime = performance.now();
+
   try {
-    const recommendations = await recommendationService.generate(userId)
-    
+    const recommendations = await recommendationService.generate(userId);
+
     analytics.track('recommendations_generated', {
       userId,
       count: recommendations.length,
-      duration: performance.now() - startTime
-    })
-    
-    return recommendations
+      duration: performance.now() - startTime,
+    });
+
+    return recommendations;
   } catch (error) {
     analytics.track('recommendations_error', {
       userId,
       error: error.message,
-      duration: performance.now() - startTime
-    })
-    
-    throw error
+      duration: performance.now() - startTime,
+    });
+
+    throw error;
   }
 }
 ```
@@ -495,27 +521,28 @@ export async function generateRecommendations(userId: string) {
 ### Documentation Requirements
 
 **Every public API must have**:
+
 1. **JSDoc comments** with description, parameters, return type, and examples
 2. **Type definitions** (TypeScript interfaces/types)
 3. **Usage examples** in code comments or separate docs
 4. **Error cases** documented
 
-```typescript
+````typescript
 /**
  * Calculates the total value of a portfolio including all assets.
- * 
+ *
  * @param portfolio - The portfolio to calculate value for
  * @param options - Optional calculation parameters
  * @returns The total portfolio value in the portfolio's currency
- * 
+ *
  * @throws {InsufficientDataError} When portfolio has no assets
  * @throws {InvalidCurrencyError} When currency conversion fails
- * 
+ *
  * @example
  * ```typescript
  * const portfolio = await getPortfolio('user-123')
- * const totalValue = calculatePortfolioValue(portfolio, { 
- *   includePending: true 
+ * const totalValue = calculatePortfolioValue(portfolio, {
+ *   includePending: true
  * })
  * console.log(`Total: ${totalValue}`)
  * ```
@@ -526,7 +553,7 @@ export function calculatePortfolioValue(
 ): number {
   // Implementation
 }
-```
+````
 
 ---
 
@@ -581,6 +608,7 @@ bun audit
 ### CI/CD Pipeline
 
 **Required checks** (must pass before merge):
+
 1. TypeScript compilation (strict mode)
 2. Linter (no errors, warnings allowed with justification)
 3. Tests (minimum coverage thresholds)
@@ -595,12 +623,14 @@ bun audit
 ### For Existing Code
 
 **Opportunistic refactoring**: When touching existing code, bring it up to standards
+
 - Replace `any` with proper types
 - Update outdated dependencies
 - Add missing tests
 - Split oversized files
 
 **Dedicated cleanup sprints**: Schedule periodic cleanup tasks
+
 - Dependency updates
 - Type safety improvements
 - Test coverage increases
@@ -609,6 +639,7 @@ bun audit
 ### For New Code
 
 **Zero tolerance**: All new code must meet these standards from day one
+
 - No `any` types
 - Latest dependencies
 - Full test coverage
@@ -619,6 +650,7 @@ bun audit
 ## Dev Heuristics
 
 ### Type Safety
+
 ✅ Is every value explicitly typed?
 ✅ Are type guards used for runtime validation?
 ✅ Are third-party library gaps wrapped with types?
@@ -627,6 +659,7 @@ bun audit
 ❌ Am I using `as` to force a type? → Validate with type guard instead
 
 ### Dependencies
+
 ✅ Is this dependency necessary?
 ✅ Is it at the latest stable version?
 ✅ Is it actively maintained?
@@ -635,6 +668,7 @@ bun audit
 ❌ Am I pinning a version? → Document why
 
 ### Code Quality
+
 ✅ Is this file under size limits?
 ✅ Does this have a single, clear responsibility?
 ✅ Is error handling explicit and comprehensive?
@@ -644,6 +678,7 @@ bun audit
 ❌ Am I repeating code? → Extract and reuse
 
 ### Innovation
+
 ✅ Is this feature behind a feature flag?
 ✅ Are metrics/analytics in place?
 ✅ Is there a rollback plan?

@@ -5,11 +5,20 @@ import {
   mountContractSpecStudioGraphQL,
   schema,
 } from '@lssm/bundle.contractspec-studio/infrastructure';
+import {
+  createCliMcpHandler,
+  createDocsMcpHandler,
+  createInternalMcpHandler,
+} from '@lssm/bundle.contractspec-studio/application';
 import { exportContractsToGraphQLSchema } from './utils/graphql-schema-export';
 import { markdownHandler } from './handlers/markdown-handler';
 import { betterAuthController } from './handlers/auth-controller';
 
 const PORT = 8080;
+
+const docsMcpHandler = createDocsMcpHandler('/api/mcp/docs');
+const cliMcpHandler = createCliMcpHandler('/api/mcp/cli');
+const internalMcpHandler = createInternalMcpHandler('/api/mcp/internal');
 
 const app = createContractSpecStudioElysiaServer({
   logger: appLogger,
@@ -20,6 +29,9 @@ const app = createContractSpecStudioElysiaServer({
     appLogger.info('Root endpoint accessed');
     return 'LSSM API - GraphQL endpoint available at /graphql';
   })
+  .post('/api/mcp/docs', ({ request }) => docsMcpHandler(request))
+  .post('/api/mcp/cli', ({ request }) => cliMcpHandler(request))
+  .post('/api/mcp/internal', ({ request }) => internalMcpHandler(request))
   .use(markdownHandler)
   .listen(PORT);
 exportContractsToGraphQLSchema(schema, __dirname);
@@ -49,6 +61,11 @@ appLogger.info('🚀 LSSM API Server successfully started', {
     graphql: '/graphql',
     auth: '/api',
     swagger: '/swagger',
+    mcp: {
+      docs: '/api/mcp/docs',
+      cli: '/api/mcp/cli',
+      internal: '/api/mcp/internal',
+    },
   },
 });
 
