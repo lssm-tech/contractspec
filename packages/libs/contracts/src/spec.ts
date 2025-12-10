@@ -6,6 +6,7 @@ import type { EventSpec } from './events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor } from './resources';
 import type { Owner, Stability, Tag } from './ownership';
+import type { DocId } from './docs/registry';
 import type { PolicyRef } from './policy/spec';
 import type { TestSpecRef } from './tests/spec';
 
@@ -75,6 +76,8 @@ export interface ContractSpec<
     goal: string;
     /** Background, constraints, scope edges (feeds docs & LLM context) */
     context: string;
+    /** Optional doc block id for this operation. */
+    docId?: DocId;
   };
 
   io: {

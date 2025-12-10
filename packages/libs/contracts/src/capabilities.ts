@@ -1,4 +1,5 @@
 import type { OwnerShipMeta } from './ownership';
+import type { DocId } from './docs/registry';
 
 export type CapabilityKind = 'api' | 'event' | 'data' | 'ui' | 'integration';
 
@@ -22,6 +23,8 @@ export interface CapabilityMeta extends OwnerShipMeta {
   /** Increment when the capability shape changes. */
   version: number;
   kind: CapabilityKind;
+  /** Optional doc block id for governance and navigation. */
+  docId?: DocId;
 }
 
 export interface CapabilityRequirement {

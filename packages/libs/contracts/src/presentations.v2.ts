@@ -1,6 +1,7 @@
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { BlockConfig } from '@blocknote/core';
+import type { DocId } from './docs/registry';
 import { schemaToMarkdown } from './schema-to-markdown';
 import React from 'react';
 import TurndownService from 'turndown';
@@ -19,6 +20,8 @@ export interface PresentationV2Meta extends Partial<OwnerShipMeta> {
   version: number;
   /** Human-readable description for docs/a11y. Required by validators. */
   description?: string;
+  /** Optional doc block id for this presentation. */
+  docId?: DocId;
 }
 
 /** React component presentation source. */

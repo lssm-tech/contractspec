@@ -3,6 +3,7 @@ import type {
   PresentationDescriptorV2,
 } from './presentations.v2';
 import type { OwnerShipMeta } from './ownership';
+import type { DocId } from './docs/registry';
 import type {
   CapabilityRef,
   CapabilityRequirement,
@@ -14,6 +15,8 @@ import type { ExperimentRef } from './experiments/spec';
 export interface FeatureModuleMeta extends OwnerShipMeta {
   /** Stable slug key used to identify this feature (e.g., "weekly_pulse"). */
   key: string;
+  /** Optional doc block id for this feature. */
+  docId?: DocId;
 }
 
 export interface OpRef {

@@ -1,0 +1,17 @@
+export * from './types';
+export * from './presentations';
+export * from './registry';
+export * from './tech-contracts.docs';
+export * from './meta.docs';
+import './PUBLISHING.docblock';
+import './accessibility_wcag_compliance_specs.docblock';
+import './tech/PHASE_1_QUICKSTART.docblock';
+import './tech/PHASE_2_AI_NATIVE_OPERATIONS.docblock';
+import './tech/PHASE_3_AUTO_EVOLUTION.docblock';
+import './tech/PHASE_4_PERSONALIZATION_ENGINE.docblock';
+import './tech/PHASE_5_ZERO_TOUCH_OPERATIONS.docblock';
+import './tech/lifecycle-stage-system.docblock';
+import './tech/presentation-runtime.docblock';
+import './tech/schema/README.docblock';
+import './tech/templates/runtime.docblock';
+import './tech/workflows/overview.docblock';
