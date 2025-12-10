@@ -7,10 +7,8 @@ import {
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
-import {
-  submitContactForm,
-  type SubmitContactFormResult,
-} from '../../libs/email';
+import { submitContactForm } from '../../libs/email/contact';
+import { type SubmitContactFormResult } from '../../libs/email/types';
 import { Input } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
 import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
