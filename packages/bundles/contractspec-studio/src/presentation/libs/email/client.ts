@@ -45,13 +45,10 @@ export const getEmailConfig = (): EmailConfigResult => {
   }
 
   const accessKey =
-    process.env.SCALEWAY_ACCESS_KEY ||
-    process.env.SCALEWAY_ACCESS_KEY_QUEUE;
+    process.env.SCALEWAY_ACCESS_KEY || process.env.SCALEWAY_ACCESS_KEY_QUEUE;
   const secretKey =
-    process.env.SCALEWAY_SECRET_KEY ||
-    process.env.SCALEWAY_SECRET_KEY_QUEUE;
-  const projectId =
-    process.env.SCALEWAY_PROJECT_ID;
+    process.env.SCALEWAY_SECRET_KEY || process.env.SCALEWAY_SECRET_KEY_QUEUE;
+  const projectId = process.env.SCALEWAY_PROJECT_ID;
 
   if (!accessKey || !secretKey || !projectId) {
     return {
@@ -61,9 +58,7 @@ export const getEmailConfig = (): EmailConfigResult => {
     };
   }
 
-  const region = mapRegion(
-      process.env.SCALEWAY_REGION
-  );
+  const region = mapRegion(process.env.SCALEWAY_REGION);
 
   cachedConfig = {
     accessKey,
@@ -72,27 +67,19 @@ export const getEmailConfig = (): EmailConfigResult => {
     region,
     defaultZone: `${region}-1`,
     from: {
-      email:
-        process.env.SCALEWAY_EMAIL_FROM_EMAIL ??
-        DEFAULT_FROM.email,
-      name:
-        process.env.SCALEWAY_EMAIL_FROM_NAME ??
-        DEFAULT_FROM.name,
+      email: process.env.SCALEWAY_EMAIL_FROM_EMAIL ?? DEFAULT_FROM.email,
+      name: process.env.SCALEWAY_EMAIL_FROM_NAME ?? DEFAULT_FROM.name,
     },
     teamInbox: {
-      email:
-        process.env.SCALEWAY_EMAIL_TEAM_EMAIL ??
-        DEFAULT_TEAM_INBOX.email,
-      name:
-        process.env.SCALEWAY_EMAIL_TEAM_NAME ??
-        DEFAULT_TEAM_INBOX.name,
+      email: process.env.SCALEWAY_EMAIL_TEAM_EMAIL ?? DEFAULT_TEAM_INBOX.email,
+      name: process.env.SCALEWAY_EMAIL_TEAM_NAME ?? DEFAULT_TEAM_INBOX.name,
     },
   };
 
   return { ok: true, config: cachedConfig };
 };
 
-const getTemClient = (config: EmailServiceConfig): Temv1alpha1.API => {
+const getTemClient = (config: EmailServiceConfig): EmailApi => {
   if (cachedClient) {
     return cachedClient;
   }
