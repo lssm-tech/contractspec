@@ -1,5 +1,6 @@
 import { type AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
+import type { DocId } from './docs/registry';
 
 /**
  * Typed event specification. Declare once, validate payloads at publish time,
@@ -18,6 +19,8 @@ export interface EventSpec<T extends AnySchemaModel> {
   payload: T;
   /** Optional ownership metadata for governance and docs. */
   ownership?: OwnerShipMeta;
+  /** Optional doc block id for this event. */
+  docId?: DocId;
 }
 
 /** Identity function to keep type inference when declaring events. */

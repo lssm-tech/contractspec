@@ -16,6 +16,7 @@ import type { HandlerCtx } from './types';
 import { eventKey } from './events';
 import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
 import type { HandlerFor } from './install';
+export { registerDocBlocks, defaultDocRegistry, docId } from './docs/registry';
 
 export type OperationKey = `${string}.v${number}`;
 

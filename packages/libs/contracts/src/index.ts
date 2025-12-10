@@ -40,6 +40,7 @@ export * from './translations/catalog';
 export * from './translations/tenant';
 export * from './workflow';
 export * from './schema-to-markdown';
+export * from './docs';
 
 // Re-export defineSchemaModel for convenience
 export { defineSchemaModel } from '@lssm/lib.schema';

@@ -2,7 +2,24 @@ import type {
   PresentationDescriptorV2,
   PresentationSourceComponentReact,
 } from '@lssm/lib.contracts/presentations.v2';
+import {
+  docBlocksToPresentationRoutes,
+  type DocPresentationRoute,
+} from '@lssm/lib.contracts/docs';
+import {
+  techContractsDocs,
+  metaDocs,
+  listRegisteredDocBlocks,
+} from '@lssm/lib.contracts/docs';
 import type { ComponentMap } from './types';
+import { opsDocBlocks } from '../components/docs/ops/ops.docs';
+import { opsTopDocs } from '../components/docs/ops/ops-top.docs';
+import { opsLifecycleDocs } from '../components/docs/ops/ops-lifecycle.docblocks';
+import { opsRunbookDocsA } from '../components/docs/ops/ops-runbooks-a.docblocks';
+import { opsRunbookDocsB } from '../components/docs/ops/ops-runbooks-b.docblocks';
+import { opsSloTenantDocs } from '../components/docs/ops/ops-slo-tenant.docblocks';
+import { productDocs } from '../components/docs/product/product.docblocks';
+import { techContractsDocBlocks } from '../components/docs/tech/contracts/tech-docs.docblocks';
 
 // Import page components - Root/Marketing pages (from bundle)
 import {
@@ -1134,6 +1151,30 @@ export const presentationRegistry = new Map<string, PresentationDescriptorV2>([
     ),
   ],
 ]);
+
+const docRoutes: DocPresentationRoute[] = docBlocksToPresentationRoutes(
+  [
+    ...opsDocBlocks,
+    ...opsTopDocs,
+    ...opsLifecycleDocs,
+    ...opsRunbookDocsA,
+    ...opsRunbookDocsB,
+    ...opsSloTenantDocs,
+    ...productDocs,
+    ...techContractsDocBlocks,
+    ...techContractsDocs,
+    ...metaDocs,
+    ...listRegisteredDocBlocks(),
+  ],
+  {
+    namespace: 'web-landing.docs',
+    routePrefix: '/docs',
+  }
+);
+
+for (const { route, descriptor } of docRoutes) {
+  presentationRegistry.set(route, descriptor);
+}
 
 /**
  * Get presentation descriptor for a given route.
