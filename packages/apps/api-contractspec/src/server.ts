@@ -5,7 +5,7 @@ import {
   mountContractSpecStudioGraphQL,
   schema,
 } from '@lssm/bundle.contractspec-studio/infrastructure';
-import { exportContractsToGraphQLSchema } from '@lssm/lib.contracts';
+import { exportContractsToGraphQLSchema } from './utils/graphql-schema-export';
 import { markdownHandler } from './handlers/markdown-handler';
 import { betterAuthController } from './handlers/auth-controller';
 

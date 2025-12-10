@@ -1,5 +1,4 @@
 export * from './graphql-pothos';
-export * from './graphql-schema-export';
 export * from './provider-mcp';
 export * from './rest-elysia';
 export * from './rest-express';

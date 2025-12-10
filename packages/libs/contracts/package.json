@@ -26,7 +26,6 @@
     "@elevenlabs/elevenlabs-js": "^2.26.0",
     "@google-cloud/secret-manager": "^6.1.1",
     "@google-cloud/storage": "^7.18.0",
-    "@lssm/lib.graphql-federation": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@mistralai/mistralai": "^1.2.3",
     "@modelcontextprotocol/sdk": "^1.24.3",
