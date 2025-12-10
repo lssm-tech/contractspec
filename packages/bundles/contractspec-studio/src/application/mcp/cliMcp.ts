@@ -212,7 +212,6 @@ function buildCliOps() {
     },
     policy: {
       auth: 'anonymous',
-      idempotent: true,
     },
   });
 

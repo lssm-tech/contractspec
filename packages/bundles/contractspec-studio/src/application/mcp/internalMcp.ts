@@ -141,7 +141,6 @@ function buildInternalOps() {
     },
     policy: {
       auth: 'anonymous',
-      idempotent: true,
     },
   });
 
