@@ -116,7 +116,7 @@ function buildDocPrompts() {
       render: async ({ topic, tag }) => {
         const parts = [
           {
-            type: 'text',
+            type: 'text' as const,
             text: `Use the docs index to choose DocBlocks. If a specific topic is provided, prefer docs whose id/title/summary match it.${topic ? ` Topic: ${topic}.` : ''}${tag ? ` Tag: ${tag}.` : ''}`,
           },
           {
@@ -197,7 +197,6 @@ function buildDocOps(routes: DocPresentationRoute[]) {
     },
     policy: {
       auth: 'anonymous',
-      idempotent: true,
     },
   });
 
