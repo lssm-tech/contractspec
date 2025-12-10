@@ -26,3 +26,4 @@ Reviews/checks:
 - Add security notes to PRs when touching auth/crypto/data access.
 - Run dependency audit; patch critical/high vulns before release.
 - Document any new data collected (purpose, retention, access).
+
