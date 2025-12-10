@@ -1,5 +1,3 @@
-'use server';
-
 import { createClient, Temv1alpha1 } from '@scaleway/sdk';
 import type { Region } from '@scaleway/sdk-client';
 import { Logger } from '@lssm/lib.logger';
