@@ -14,6 +14,13 @@ alwaysApply: true
 
 ---
 
+## How to use this in prompts/specs
+
+- Prepend the mission statement to agent/system prompts when generating or refactoring code.
+- Remind: we are a compiler, not a platform; outputs must stay ejectable, standard tech, and spec-first.
+- Default framing to users: “Stabilize your AI-generated code, one module at a time. You own the code.”
+- Reject approaches that introduce lock-in, hidden runtimes, or magic abstractions.
+
 ## The Problem We Solve
 
 In 2025/2026, "vibe coding" and AI agents generate enormous amounts of code. But they have critical limitations:

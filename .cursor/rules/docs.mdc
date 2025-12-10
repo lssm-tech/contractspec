@@ -1,6 +1,7 @@
 ---
 description: Documentation governance — keep `docs/` synchronized with the codebase. The agent MUST review docs before code edits and update them after.
 globs:
+  - '**/*.docblock.ts'
 alwaysApply: true
 ---
 
@@ -15,6 +16,7 @@ Policy (mandatory)
   - Update the relevant DocBlocks (not markdown files) so they reflect new behavior, types, APIs, feature flags, metrics, and UX flows.
   - If no behavioral change, still fix DocBlock drift.
   - Ensure DocBlock registration is intact (via `registerDocBlocks`/decorator) and required fields are present (`id/title/body/kind/route/visibility`).
+  - If a required DocBlock is missing, create it or flag the gap explicitly with path and owner; do not skip silently.
 
 Traceability & Reversibility
 
@@ -32,6 +34,7 @@ Heuristics
 ✅ Capture deferred doc tasks when spanning domains.
 ✅ Keep naming/units consistent across code and DocBlocks; flag inconsistencies.
 ✅ Ensure docIds are registered (`docId(...)` passes) and that routes/ids are unique.
+✅ When introducing shared enums/flags/APIs referenced in ≥2 places, ensure the canonical DocBlock exists and link via `docId`.
 ❌ Do not add markdown under `/docs`; use DocBlocks only.
 ❌ Do not create barrel doc registries; avoid aggregating DocBlocks in index files beyond required side-effect imports for registration.
 

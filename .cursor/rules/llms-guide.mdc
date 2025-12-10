@@ -54,3 +54,17 @@ Quality heuristics
 - Single source: one file per app. Do not scatter.
 - Machine-readable first: concise, structured sections; avoid prose-only walls of text.
 - Stable URL: links should be durable across deployments.
+
+Enforcement checklist (per app)
+
+- `public/llms.txt` (or `.md`) exists and is current.
+- Rewrites allow `/llms`, `/llms.txt`, `/llms.md`.
+- Subdomain `llms.<app-domain>` rewrites to `/llms`.
+- File served without auth; cached/static.
+- Update whenever domains, APIs, flags, data stores, or routing change.
+
+Verification (Next.js App Router)
+
+- `next.config` rewrites include `/llms*` → `public/llms.txt`.
+- Middleware handles host `llms.<domain>` → `/llms`.
+- Manual check: `curl <host>/llms` returns file; same for `/llms.txt` and `/llms.md`.

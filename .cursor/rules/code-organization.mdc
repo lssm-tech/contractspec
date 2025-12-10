@@ -1,6 +1,11 @@
 ---
 description: Governs package organization, dependency flow, and component hierarchy across the ContractSpec monorepo.
 globs:
+  - 'packages/libs/**'
+  - 'packages/bundles/**'
+  - 'packages/apps/**'
+  - 'packages/modules/**'
+  - 'packages/verticals/**'
 alwaysApply: true
 ---
 
@@ -541,6 +546,14 @@ apps → bundles → libs (contracts, ai-agent, design-system, etc.)
      No upward dependencies
 ```
 
+| From         | To            | Allowed? | Notes                                                       |
+| ------------ | ------------- | -------- | ----------------------------------------------------------- |
+| apps         | bundles, libs | ✅       | Apps stay thin; no business logic here.                     |
+| bundles      | libs          | ✅       | Business logic may consume shared infrastructure/contracts. |
+| bundles      | apps          | ❌       | Forbidden upward dependency.                                |
+| libs         | bundles/apps  | ❌       | Shared libs must not depend on business/app code.           |
+| cross-bundle | other bundles | 🚫       | Avoid; extract to shared libs/contracts instead.            |
+
 **Example**:
 
 ```
@@ -597,6 +610,14 @@ apps/web-landing
 ❌ Does this component/service have multiple responsibilities?
 ❌ Are there nested components defined inline?
 → Break it down by domain, responsibility, or composition
+
+---
+
+## Enforcement Notes
+
+- File length limits are hard caps: split before merging; do not defer.
+- New components/services must ship already split; no “follow-up” debt allowed.
+- Raw HTML prohibition is centralized here; see `frontend.mdc` for accessibility/state handling.
 
 ---
 

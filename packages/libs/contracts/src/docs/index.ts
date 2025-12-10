@@ -15,3 +15,4 @@ import './tech/presentation-runtime.docblock';
 import './tech/schema/README.docblock';
 import './tech/templates/runtime.docblock';
 import './tech/workflows/overview.docblock';
+import './tech/mcp-endpoints.docblock';
