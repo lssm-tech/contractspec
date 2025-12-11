@@ -12,7 +12,7 @@ import type {
   CreateProjectInput,
   UpdateProjectInput,
   Project,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 export interface MutationState<T> {
   loading: boolean;

@@ -8,7 +8,7 @@ import { useTemplateRuntime } from '../../../../../templates/runtime';
 import type {
   Tool as RuntimeTool,
   ListToolsOutput as RuntimeListToolsOutput,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 // Re-export types for convenience
 export type Tool = RuntimeTool;

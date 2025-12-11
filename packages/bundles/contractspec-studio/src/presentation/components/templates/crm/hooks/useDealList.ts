@@ -11,7 +11,7 @@ import type {
   Deal as RuntimeDeal,
   ListDealsOutput as RuntimeListDealsOutput,
   Stage,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 // Re-export types for convenience
 export type Deal = RuntimeDeal;

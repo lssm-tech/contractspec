@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { LocalRuntimeServices } from '@lssm/lib.runtime-local';
+import { LocalRuntimeServices } from '../../infrastructure/runtime-local-web';
 import { TemplateInstaller } from '../installer';
 
 const TASKS_QUERY = gql`

@@ -23,8 +23,8 @@ export const AnalyticsDashboardFeature = {
     '@lssm/lib.contracts',
     '@lssm/lib.identity-rbac',
     '@lssm/lib.metering',
-    '@lssm/modules.audit-trail',
-    '@lssm/modules.notifications',
+    '@lssm/module.audit-trail',
+    '@lssm/module.notifications',
   ],
 
   // ============ Schema Contribution ============

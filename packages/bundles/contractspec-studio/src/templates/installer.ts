@@ -1,4 +1,4 @@
-import { LocalRuntimeServices } from '@lssm/lib.runtime-local';
+import { LocalRuntimeServices } from '../infrastructure/runtime-local-web';
 
 import {
   TEMPLATE_REGISTRY,

@@ -8,7 +8,7 @@ import { useTemplateRuntime } from '../../../../../templates/runtime';
 import type {
   Agent as RuntimeAgent,
   ListAgentsOutput as RuntimeListAgentsOutput,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 // Re-export types for convenience
 export type Agent = RuntimeAgent;

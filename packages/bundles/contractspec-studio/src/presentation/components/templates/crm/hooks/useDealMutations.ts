@@ -15,7 +15,7 @@ import type {
   WinDealInput,
   LoseDealInput,
   Deal,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 export interface MutationState<T> {
   loading: boolean;

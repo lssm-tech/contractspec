@@ -5,7 +5,7 @@ import type {
   Integration,
   Connection,
   SyncConfig,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 import { useIntegrationHandlers } from '../../../../../templates/runtime';
 
 export interface IntegrationStats {
