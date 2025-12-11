@@ -333,6 +333,68 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/learning-journey-crm-onboarding": {
+      "name": "@lssm/example.learning-journey.crm-onboarding",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/example.crm-pipeline": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/learning-journey-platform-tour": {
+      "name": "@lssm/example.learning-journey.platform-tour",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/learning-journey-registry": {
+      "name": "@lssm/example.learning-journey.registry",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+        "@lssm/example.learning-journey.platform-tour": "workspace:*",
+        "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/learning-journey-studio-onboarding": {
+      "name": "@lssm/example.learning-journey.studio-onboarding",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/marketplace": {
       "name": "@lssm/example.marketplace",
       "version": "1.0.0",
@@ -2249,6 +2311,14 @@
     "@lssm/example.crm-pipeline": ["@lssm/example.crm-pipeline@workspace:packages/examples/crm-pipeline"],
 
     "@lssm/example.integration-hub": ["@lssm/example.integration-hub@workspace:packages/examples/integration-hub"],
+
+    "@lssm/example.learning-journey.crm-onboarding": ["@lssm/example.learning-journey.crm-onboarding@workspace:packages/examples/learning-journey-crm-onboarding"],
+
+    "@lssm/example.learning-journey.platform-tour": ["@lssm/example.learning-journey.platform-tour@workspace:packages/examples/learning-journey-platform-tour"],
+
+    "@lssm/example.learning-journey.registry": ["@lssm/example.learning-journey.registry@workspace:packages/examples/learning-journey-registry"],
+
+    "@lssm/example.learning-journey.studio-onboarding": ["@lssm/example.learning-journey.studio-onboarding@workspace:packages/examples/learning-journey-studio-onboarding"],
 
     "@lssm/example.marketplace": ["@lssm/example.marketplace@workspace:packages/examples/marketplace"],
 
@@ -6614,7 +6684,7 @@
 
     "@lssm/lib.ai-agent/@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.82", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ibaYVy77JpG5feoPhWRSwGOWHjjrrPIHQzRaEkehyH51bAV/yOAmRKRu2sqCgsrCWRIL3CTaQ3mLk/6UOLAuUg=="],
 
-    "@lssm/lib.ai-agent/@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.94", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-OzFvRoz6BXmTy1ocA2lLfqiZCjGb2ylDJopFAQkwdUZ4L9gPmu16elyqY8OC5JQzeLN+C6sx8sbXJ9WcqS29CQ=="],
+    "@lssm/lib.ai-agent/@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.95", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-SPUw+6rUJ+xEQDBvYUDsUO+baU+1/vvnsPk8L+Zj10QWkxECwbdKbW4hjsdZ+/gwz3HwPN4Jr8e3fWoaBUex4Q=="],
 
     "@lssm/lib.ai-agent/ai": ["ai@6.0.0-beta.148", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-Ml8RbKNcDFxr0yJQng8FhgYAc4ECTBSnRpl9//6dUIwWFubV1DFFYX0XpEVYU9XgcC18eJJ4IqYkWQgE73YGEQ=="],
 

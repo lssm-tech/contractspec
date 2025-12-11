@@ -10,5 +10,8 @@ export * from './events';
 // Engines (SRS, XP, Streak)
 export * from './engines';
 
+// Track spec types
+export * from './track-spec';
+
 // Documentation
 import './docs';
