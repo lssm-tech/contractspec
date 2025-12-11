@@ -189,6 +189,69 @@ const templateQuickstarts: DocBlock[] = [
 - Keep provider-agnostic schemas; map external fields declaratively.`,
   },
   {
+    id: 'docs.templates.learning-journey-studio-onboarding.quickstart',
+    title: 'Learning Journey — Studio Getting Started',
+    summary:
+      'Guide new Studio users through template spawn, spec edit, regeneration, playground, and evolution.',
+    route: '/docs/templates/learning-journey-studio-onboarding',
+    visibility: 'public',
+    kind: 'usage',
+    tags: ['template', 'quickstart', 'learning', 'onboarding'],
+    body: `## Goal
+- Complete the Studio onboarding journey and see progress tracked automatically.
+
+## Steps
+1) Open Sandbox Templates → "Learning Journey — Studio Getting Started".
+2) Seed the sandbox; events: template.instantiated, spec.changed, regeneration.completed.
+3) Start Playground session and run Evolution once; observe steps complete in progress widget.
+
+## Notes
+- Tracks use learning.onboarding.* contracts; events are tied to Studio actions.
+- XP/streak bonuses apply when completed within the streak window.`,
+  },
+  {
+    id: 'docs.templates.learning-journey-platform-tour.quickstart',
+    title: 'Learning Journey — Platform Primitives Tour',
+    summary:
+      'Hands-on tour across identity, audit, notifications, jobs, feature flags, files, and metering.',
+    route: '/docs/templates/learning-journey-platform-tour',
+    visibility: 'public',
+    kind: 'usage',
+    tags: ['template', 'quickstart', 'learning', 'platform'],
+    body: `## Goal
+- Touch each cross-cutting module once with event-driven completion.
+
+## Steps
+1) Sandbox Template → "Learning Journey — Platform Primitives Tour".
+2) Perform actions that emit: org.member.added, audit_log.created, notification.sent, job.completed, flag.toggled, attachment.attached, usage.recorded.
+3) View progress widget to confirm step completion and XP.
+
+## Notes
+- Uses learning.onboarding.recordEvent bound to module events.
+- Great for platform teams validating cross-module wiring.`,
+  },
+  {
+    id: 'docs.templates.learning-journey-crm-onboarding.quickstart',
+    title: 'Learning Journey — CRM First Win',
+    summary:
+      'Onboard CRM users from empty pipeline to first closed-won deal with follow-up.',
+    route: '/docs/templates/learning-journey-crm-onboarding',
+    visibility: 'public',
+    kind: 'usage',
+    tags: ['template', 'quickstart', 'learning', 'crm'],
+    body: `## Goal
+- Drive users to first closed-won deal and follow-up task.
+
+## Steps
+1) Sandbox Template → "Learning Journey — CRM First Win".
+2) Emit events: pipeline.created, contact.created, deal.created, deal.moved, deal.won, task.completed (follow_up).
+3) Confirm track completion and XP in progress widget.
+
+## Notes
+- Depends on CRM Pipeline example events.
+- Badge and streak bonus apply when finished within the window.`,
+  },
+  {
     id: 'docs.templates.analytics-dashboard.quickstart',
     title: 'Analytics Dashboard Quickstart',
     summary: 'Dashboards, widgets, query builder, and scheduled reports.',

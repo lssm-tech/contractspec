@@ -28,7 +28,6 @@
 '@lssm/lib.cost-tracking': patch
 '@lssm/lib.design-system': patch
 '@lssm/lib.multi-tenancy': patch
-'@lssm/lib.runtime-local': patch
 '@lssm/app.cli-database': patch
 '@lssm/lib.graphql-core': patch
 '@lssm/app.web-contractspec-landing': patch
