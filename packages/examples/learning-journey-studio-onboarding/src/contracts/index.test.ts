@@ -22,7 +22,7 @@ describe('studio onboarding contracts', () => {
   });
 
   it('allows recording events via demo handler', async () => {
-    const [step] = studioGettingStartedTrack.steps;
+    const step = studioGettingStartedTrack.steps[0];
     expect(step).toBeDefined();
     if (!step) throw new Error('Expected at least one onboarding step');
 

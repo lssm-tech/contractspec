@@ -11,10 +11,10 @@ export function HeroMarketingSection() {
   return (
     <MarketingSection tone="gradient" padding="spacious" align="center">
       <VStack gap="lg" align="center" className="text-center">
-        <H1 className="text-balance text-4xl font-bold leading-tight md:text-5xl">
+        <H1 className="text-4xl leading-tight font-bold text-balance md:text-5xl">
           Stabilize your AI-generated code
         </H1>
-        <Lead className="text-balance text-lg text-muted-foreground md:text-xl">
+        <Lead className="text-muted-foreground text-lg text-balance md:text-xl">
           ContractSpec is the compiler that keeps AI-written software coherent,
           safe, and regenerable. You keep your app. You own the code. One module
           at a time.
@@ -34,8 +34,9 @@ export function HeroMarketingSection() {
           {heroChips.map((chip) => (
             <Box
               key={chip}
-              as="span"
-              className="border-border text-foreground rounded-full border px-3 py-1 text-sm"
+              as="div"
+              role="presentation"
+              className="border-border text-foreground inline-flex items-center rounded-full border px-3 py-1 text-sm"
             >
               <Small className="font-medium">{chip}</Small>
             </Box>
