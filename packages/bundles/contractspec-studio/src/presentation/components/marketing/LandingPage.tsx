@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 import { HeroMarketingSection } from './sections/HeroMarketingSection';
 import { ProblemSection } from './sections/ProblemSection';
