@@ -37,6 +37,49 @@ const workflowSystemDocBlocks: DocBlock[] = [
 - Use Notification Center for approval requests and outcomes; attach files via Files module if needed.
 `,
   },
+  {
+    id: 'docs.examples.workflow-system.goal',
+    title: 'Workflow System — Goal',
+    summary:
+      'Why the workflow/approval template exists and outcomes it targets.',
+    kind: 'goal',
+    visibility: 'public',
+    route: '/docs/examples/workflow-system/goal',
+    tags: ['workflow', 'goal'],
+    body: `## Why it matters
+- Provides a regenerable, role-gated approval engine using declarative state machines.
+- Keeps workflow rules consistent across UI/API/events with auditability.
+
+## Business/Product goal
+- Enable approvals with clear transitions, reminders, and notifications.
+- Support compliance via Audit Trail and Feature Flags for staged changes.
+
+## Success criteria
+- State changes are declarative and regenerate cleanly.
+- Every transition emits auditable events and respects RBAC guards.`,
+  },
+  {
+    id: 'docs.examples.workflow-system.usage',
+    title: 'Workflow System — Usage',
+    summary: 'How to configure workflows, transitions, and regenerate safely.',
+    kind: 'usage',
+    visibility: 'public',
+    route: '/docs/examples/workflow-system/usage',
+    tags: ['workflow', 'usage'],
+    body: `## Setup
+1) Define WorkflowDefinition steps and allowed transitions with role gates in spec.
+2) Seed sample workflows/instances (if provided) or create via UI; enable reminders via Jobs.
+
+## Extend & regenerate
+1) Add steps/transitions or approval conditions in spec; include PII paths if comments/files.
+2) Regenerate to sync UI action buttons and API/state machine behavior.
+3) Use Feature Flags to trial new transitions or escalation rules.
+
+## Guardrails
+- Emit events for every transition; log to Audit Trail.
+- Use Notifications for approvals/rejections; schedule reminders for pending steps.
+- Keep transitions declarative; avoid imperative branching in handlers.`,
+  },
 ];
 
 registerDocBlocks(workflowSystemDocBlocks);

@@ -37,6 +37,49 @@ const marketplaceDocBlocks: DocBlock[] = [
 - Feature flags can gate beta checkout or new reviews flow.
 `,
   },
+  {
+    id: 'docs.examples.marketplace.goal',
+    title: 'Marketplace — Goal',
+    summary:
+      'Why this marketplace template exists and the outcomes it targets.',
+    kind: 'goal',
+    visibility: 'public',
+    route: '/docs/examples/marketplace/goal',
+    tags: ['marketplace', 'goal'],
+    body: `## Why it matters
+- Provides a regenerable 2-sided marketplace baseline without bespoke glue.
+- Keeps payouts, catalog, orders, and reviews consistent across surfaces.
+
+## Business/Product goal
+- Safe provider/client flows with auditable payouts and moderation-ready reviews.
+- Staged rollouts for payments/reviews via feature flags; explicit commission/tax fields.
+
+## Success criteria
+- Orders/payouts regenerate cleanly after spec changes.
+- Events emit for lifecycle + audit; PII is scoped/redacted in presentations.`,
+  },
+  {
+    id: 'docs.examples.marketplace.usage',
+    title: 'Marketplace — Usage',
+    summary: 'How to seed, extend, and safely regenerate the marketplace.',
+    kind: 'usage',
+    visibility: 'public',
+    route: '/docs/examples/marketplace/usage',
+    tags: ['marketplace', 'usage'],
+    body: `## Setup
+1) Seed sample stores/products/orders via template registry (or create via UI).
+2) Configure Files storage for media/receipts; set policy.pii for sensitive fields.
+
+## Extend & regenerate
+1) Adjust schemas for commission/tax/payout states or review moderation in the spec.
+2) Regenerate to sync UI, API, events, notifications.
+3) Gate risky changes (new payment providers) behind Feature Flags.
+
+## Guardrails
+- Emit events for order/payout state changes; log via Audit Trail.
+- Avoid hidden commission math—keep explicit fields.
+- Redact buyer/provider PII in markdown/JSON presentations.`,
+  },
 ];
 
 registerDocBlocks(marketplaceDocBlocks);

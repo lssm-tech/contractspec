@@ -32,3 +32,4 @@ export * from './presentations';
 
 // Feature spec export
 export * from './feature';
+import './docs';

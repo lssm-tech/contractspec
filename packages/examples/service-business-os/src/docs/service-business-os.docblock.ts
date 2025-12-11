@@ -30,6 +30,48 @@ const serviceBusinessDocBlocks: DocBlock[] = [
 - Dashboard, client list, quote list/detail, job board, invoice list, payment list (React + Markdown targets).
 `,
   },
+  {
+    id: 'docs.examples.service-business-os.goal',
+    title: 'Service Business OS — Goal',
+    summary: 'Why this field-service OS exists and outcomes it targets.',
+    kind: 'goal',
+    visibility: 'public',
+    route: '/docs/examples/service-business-os/goal',
+    tags: ['services', 'goal'],
+    body: `## Why it matters
+- Provides a regenerable, end-to-end service lifecycle (client → quote → job → invoice → payment).
+- Keeps pricing, scheduling, invoicing, and payments consistent across surfaces.
+
+## Business/Product goal
+- Deliver auditable quotes/jobs/invoices with notifications and reminders.
+- Support attachments and PII-safe flows; stage new payment rules via feature flags.
+
+## Success criteria
+- Spec changes regenerate UI/API/events cleanly across lifecycle steps.
+- Audit/Notifications/Jobs remain wired for every mutation.`,
+  },
+  {
+    id: 'docs.examples.service-business-os.usage',
+    title: 'Service Business OS — Usage',
+    summary: 'How to operate, extend, and regenerate the service OS safely.',
+    kind: 'usage',
+    visibility: 'public',
+    route: '/docs/examples/service-business-os/usage',
+    tags: ['services', 'usage'],
+    body: `## Setup
+1) Seed (if provided) or create client → quote → job → invoice → payment via UI.
+2) Configure Files for attachments and Notifications for quote/job/invoice events.
+
+## Extend & regenerate
+1) Adjust schemas: quote line items, job statuses, invoice terms, payment methods.
+2) Regenerate to sync UI/API/events; mark PII paths in policy.
+3) Use Feature Flags to trial new payment rules or reminder cadences.
+
+## Guardrails
+- Emit events for quote accepted/rejected, job scheduled/completed, invoice overdue, payment recorded.
+- Keep pricing/tax rules explicit in spec; avoid implicit handler math.
+- Use Audit Trail for lifecycle mutations; schedule reminders via Jobs.`,
+  },
 ];
 
 registerDocBlocks(serviceBusinessDocBlocks);
