@@ -112,6 +112,45 @@ const templates = [
     previewUrl: '/sandbox?template=integration-hub',
     docsUrl: '/docs/templates/integration-hub',
   },
+  // ============================================
+  // Learning Journeys
+  // ============================================
+  {
+    id: 'learning-journey-studio-onboarding',
+    templateId: 'learning-journey-studio-onboarding' as TemplateId,
+    title: 'Learning Journey — Studio Getting Started',
+    description:
+      'First 30 minutes in Studio: choose template, edit spec, regenerate, playground, evolution.',
+    tags: ['Learning', 'Onboarding'],
+    capabilities: 'Spec-first onboarding, XP/streak, progress widget',
+    isNew: true,
+    previewUrl: '/sandbox?template=learning-journey-studio-onboarding',
+    docsUrl: '/docs/templates/learning-journey-studio-onboarding',
+  },
+  {
+    id: 'learning-journey-platform-tour',
+    templateId: 'learning-journey-platform-tour' as TemplateId,
+    title: 'Learning Journey — Platform Primitives Tour',
+    description:
+      'Touch identity, audit, notifications, jobs, flags, files, metering once with guided steps.',
+    tags: ['Learning', 'Platform'],
+    capabilities: 'Cross-module tour with event-driven completion',
+    isNew: true,
+    previewUrl: '/sandbox?template=learning-journey-platform-tour',
+    docsUrl: '/docs/templates/learning-journey-platform-tour',
+  },
+  {
+    id: 'learning-journey-crm-onboarding',
+    templateId: 'learning-journey-crm-onboarding' as TemplateId,
+    title: 'Learning Journey — CRM First Win',
+    description:
+      'Get to first closed-won deal: pipeline, contact/company, deal, stages, follow-up.',
+    tags: ['Learning', 'CRM'],
+    capabilities: 'CRM onboarding with XP/streak/badge',
+    isNew: true,
+    previewUrl: '/sandbox?template=learning-journey-crm-onboarding',
+    docsUrl: '/docs/templates/learning-journey-crm-onboarding',
+  },
   {
     id: 'analytics-dashboard',
     templateId: 'analytics-dashboard' as TemplateId,
@@ -195,6 +234,8 @@ const allTags = [
   'Family',
   'Ops',
   'Payments',
+  'Learning',
+  'Platform',
 ];
 
 export const TemplatesPage = () => {
