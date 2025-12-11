@@ -1,11 +1,14 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { platformPrimitivesTourTrack } from '../track';
+import type {
+  PresentationDescriptorV2,
+  PresentationV2Meta,
+} from '@lssm/lib.contracts';
+import { PlatformTourTrackModel } from '../contracts';
 
-const baseMeta = {
+const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
   owners: ['examples.learning-journey.platform-tour'],
   tags: ['learning', 'platform', 'tour'],
-} as const;
+};
 
 export const PlatformTourTrackPresentation: PresentationDescriptorV2 = {
   meta: {
@@ -18,7 +21,7 @@ export const PlatformTourTrackPresentation: PresentationDescriptorV2 = {
     type: 'component',
     framework: 'react',
     componentKey: 'LearningTrackDetail',
-    props: platformPrimitivesTourTrack,
+    props: PlatformTourTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
 };

@@ -8,11 +8,11 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
     "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
     "./presentations": "./src/presentations/index.ts",
     "./track": "./src/track.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -42,11 +42,11 @@
     "exports": {
       ".": "./dist/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
       "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
       "./presentations": "./dist/presentations/index.js",
       "./track": "./dist/track.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
       "./*": "./*"
     }
   }

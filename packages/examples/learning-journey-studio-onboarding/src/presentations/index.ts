@@ -1,11 +1,14 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { studioGettingStartedTrack } from '../track';
+import type {
+  PresentationDescriptorV2,
+  PresentationV2Meta,
+} from '@lssm/lib.contracts';
+import { StudioOnboardingTrackModel } from '../contracts';
 
-const baseMeta = {
+const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
   owners: ['examples.learning-journey.studio-onboarding'],
   tags: ['learning', 'onboarding', 'studio'],
-} as const;
+};
 
 export const StudioOnboardingTrackPresentation: PresentationDescriptorV2 = {
   meta: {
@@ -18,7 +21,7 @@ export const StudioOnboardingTrackPresentation: PresentationDescriptorV2 = {
     type: 'component',
     framework: 'react',
     componentKey: 'LearningTrackDetail',
-    props: studioGettingStartedTrack,
+    props: StudioOnboardingTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
 };

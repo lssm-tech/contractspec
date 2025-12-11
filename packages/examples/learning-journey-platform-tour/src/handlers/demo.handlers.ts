@@ -1,4 +1,4 @@
-import { recordEvent } from '@lssm/example.learning-journey-registry/api';
+import { recordEvent } from '@lssm/example.learning-journey.registry/api';
 import { platformPrimitivesTourTrack } from '../track';
 
 interface EmitParams {
@@ -7,7 +7,7 @@ interface EmitParams {
   payload?: Record<string, unknown>;
 }
 
-const events = [
+export const platformTourEvents = [
   'org.member.added',
   'audit_log.created',
   'notification.sent',
@@ -17,7 +17,7 @@ const events = [
   'usage.recorded',
 ] as const;
 
-type PlatformEvent = (typeof events)[number];
+export type PlatformEvent = (typeof platformTourEvents)[number];
 
 export const emitPlatformTourEvent = (
   eventName: PlatformEvent,
@@ -25,11 +25,11 @@ export const emitPlatformTourEvent = (
 ) =>
   recordEvent({
     learnerId,
-    eventName,
+    name: eventName,
     occurredAt,
     payload,
     trackId: platformPrimitivesTourTrack.id,
   });
 
 export const emitAllPlatformTourEvents = (params: EmitParams) =>
-  events.map((name) => emitPlatformTourEvent(name, params));
+  platformTourEvents.map((name) => emitPlatformTourEvent(name, params));

@@ -93,6 +93,7 @@ export const GetStudioOnboardingTrack = defineQuery({
     }),
     output: TrackResponseModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const RecordStudioOnboardingEvent = defineCommand({
@@ -111,6 +112,7 @@ export const RecordStudioOnboardingEvent = defineCommand({
     input: RecordDemoEventInput,
     output: SuccessModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const studioOnboardingContracts = {

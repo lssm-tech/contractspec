@@ -1,11 +1,14 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { crmFirstWinTrack } from '../track';
+import type {
+  PresentationDescriptorV2,
+  PresentationV2Meta,
+} from '@lssm/lib.contracts';
+import { CrmOnboardingTrackModel } from '../contracts';
 
-const baseMeta = {
+const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
   owners: ['examples.learning-journey.crm-onboarding'],
   tags: ['learning', 'crm', 'onboarding'],
-} as const;
+};
 
 export const CrmOnboardingTrackPresentation: PresentationDescriptorV2 = {
   meta: {
@@ -18,7 +21,7 @@ export const CrmOnboardingTrackPresentation: PresentationDescriptorV2 = {
     type: 'component',
     framework: 'react',
     componentKey: 'LearningTrackDetail',
-    props: crmFirstWinTrack,
+    props: CrmOnboardingTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
 };

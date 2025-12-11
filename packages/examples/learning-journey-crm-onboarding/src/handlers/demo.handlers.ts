@@ -1,4 +1,4 @@
-import { recordEvent } from '@lssm/example.learning-journey-registry/api';
+import { recordEvent } from '@lssm/example.learning-journey.registry/api';
 import { crmFirstWinTrack } from '../track';
 
 interface EmitParams {
@@ -24,7 +24,7 @@ export const emitCrmOnboardingEvent = (
 ) =>
   recordEvent({
     learnerId,
-    eventName,
+    name: eventName,
     occurredAt,
     payload,
     trackId: crmFirstWinTrack.id,

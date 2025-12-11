@@ -2,8 +2,8 @@ import { learningJourneyTracks } from './tracks';
 import type {
   LearningJourneyTrackSpec,
   StepCompletionConditionSpec,
-} from './tracks';
-import type { LearningEvent, TrackProgress } from './api-types';
+} from '@lssm/module.learning-journey/track-spec';
+import type { LearningEvent, StepProgress, TrackProgress } from './api-types';
 import {
   getLearnerTracks,
   getTrackResolver,
@@ -119,7 +119,7 @@ export const recordEvent = (event: LearningEvent) => {
     const current = map.get(track.id) ?? initProgress(event.learnerId, track);
 
     let changed = false;
-    const steps = current.steps.map((step) => {
+    const steps: StepProgress[] = current.steps.map((step) => {
       if (step.status === 'COMPLETED') return step;
 
       const spec = track.steps.find((s) => s.id === step.id);
@@ -134,7 +134,7 @@ export const recordEvent = (event: LearningEvent) => {
           completedAt: event.occurredAt ?? new Date(),
           triggeringEvent: event.name,
           eventPayload: event.payload,
-        };
+        } satisfies StepProgress;
       }
 
       return step;
@@ -146,7 +146,7 @@ export const recordEvent = (event: LearningEvent) => {
 
     const xpEarned =
       steps.reduce((sum, s) => sum + s.xpEarned, 0) + (track.totalXp ?? 0);
-    let progress = {
+    let progress: TrackProgress = {
       ...current,
       steps,
       xpEarned,

@@ -52,9 +52,21 @@ export function MarketingComparisonSection({
             className="border-border/50 bg-card/50 rounded-xl border p-6"
           >
             <Small className="text-sm font-semibold">{col.title}</Small>
-            <VStack as="ul" gap="sm" align="start" className="list-none p-0">
+            <VStack
+              as="div"
+              role="list"
+              gap="sm"
+              align="start"
+              className="list-none p-0"
+            >
               {col.items.map((item, idx) => (
-                <HStack as="li" key={idx} gap="sm" align="start">
+                <HStack
+                  as="div"
+                  role="listitem"
+                  key={idx}
+                  gap="sm"
+                  align="start"
+                >
                   <CheckCircle className="mt-0.5 text-violet-400" size={18} />
                   <Muted className="text-sm leading-relaxed">{item}</Muted>
                 </HStack>

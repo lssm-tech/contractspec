@@ -1,4 +1,4 @@
-import { recordEvent } from '@lssm/example.learning-journey-registry/api';
+import { recordEvent } from '@lssm/example.learning-journey.registry/api';
 import { studioGettingStartedTrack } from '../track';
 
 interface EmitParams {
@@ -6,7 +6,7 @@ interface EmitParams {
   occurredAt?: Date;
 }
 
-const events = [
+export const studioOnboardingEvents = [
   'studio.template.instantiated',
   'spec.changed',
   'regeneration.completed',
@@ -14,7 +14,7 @@ const events = [
   'studio.evolution.applied',
 ] as const;
 
-type StudioEvent = (typeof events)[number];
+export type StudioEvent = (typeof studioOnboardingEvents)[number];
 
 export const emitStudioOnboardingEvent = (
   eventName: StudioEvent,
@@ -22,10 +22,10 @@ export const emitStudioOnboardingEvent = (
 ) =>
   recordEvent({
     learnerId,
-    eventName,
+    name: eventName,
     occurredAt,
     trackId: studioGettingStartedTrack.id,
   });
 
 export const emitAllStudioOnboardingEvents = (params: EmitParams) =>
-  events.map((name) => emitStudioOnboardingEvent(name, params));
+  studioOnboardingEvents.map((name) => emitStudioOnboardingEvent(name, params));
