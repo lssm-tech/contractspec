@@ -128,7 +128,7 @@ export function CreateAgentModal({
             <Input
               id="agent-name"
               value={name}
-              onChange={(e) => setName(e)}
+              onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Customer Support Bot"
               disabled={isLoading}
             />

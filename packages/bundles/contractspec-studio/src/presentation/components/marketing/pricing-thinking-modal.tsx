@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@lssm/lib.ui-kit-web/ui/dialog';
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
+import { Button } from '@lssm/lib.design-system';
 import { PRICING_EXAMPLES } from '../../libs/pricing-examples';
 
 interface PricingTier {

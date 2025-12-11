@@ -40,4 +40,3 @@ export interface DocBlock {
   stability?: Stability;
 }
 
-

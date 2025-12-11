@@ -33,7 +33,7 @@ export class DocRegistry {
     return this.routes.get(id);
   }
 
-  toRouteTuples(): Array<[string, PresentationDescriptorV2]> {
+  toRouteTuples(): [string, PresentationDescriptorV2][] {
     return this.list().map(({ route, descriptor }) => [route, descriptor]);
   }
 
@@ -44,7 +44,7 @@ export class DocRegistry {
   }
 }
 
-const requiredFields: Array<keyof DocBlock> = [
+const requiredFields: (keyof DocBlock)[] = [
   'id',
   'title',
   'body',

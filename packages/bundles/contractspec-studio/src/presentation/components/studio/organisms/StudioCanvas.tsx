@@ -33,7 +33,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 // import { Button } from '@lssm/lib.design-system';
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
+import { Button } from '@lssm/lib.design-system';
 import { cn } from '@lssm/lib.ui-kit-core';
 
 export interface StudioCanvasProps {

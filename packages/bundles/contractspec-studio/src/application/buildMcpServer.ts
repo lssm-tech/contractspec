@@ -15,9 +15,9 @@ import { createMcpHandler } from 'mcp-handler';
 import { buildPresentationRegistry } from '@lssm/lib.contracts-contractspec-studio';
 
 export function buildMcpServer() {
-  const ops = new SpecRegistry()//.register(BeginSignupSpec);
-  const prompts = new PromptRegistry()//.register(SignupHelpPrompt);
-  const resources = new ResourceRegistry()//.register(DocBySlug);
+  const ops = new SpecRegistry(); //.register(BeginSignupSpec);
+  const prompts = new PromptRegistry(); //.register(SignupHelpPrompt);
+  const resources = new ResourceRegistry(); //.register(DocBySlug);
   const presentations = buildPresentationRegistry();
   const engine = createDefaultTransformEngine();
   const presentationsV2 = buildPresentationDescriptorsV2();

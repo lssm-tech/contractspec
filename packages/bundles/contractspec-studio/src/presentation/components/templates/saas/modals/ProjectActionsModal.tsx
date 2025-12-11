@@ -218,7 +218,7 @@ export function ProjectActionsModal({
               <Input
                 id="edit-name"
                 value={name}
-                onChange={(e) => setName(e)}
+                onChange={(e) => setName(e.target.value)}
                 disabled={isLoading}
               />
             </div>

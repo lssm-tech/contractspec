@@ -7,8 +7,8 @@ import z from 'zod';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { joinWaitlist } from '../../libs/email/waitlist';
 import { submitWaitlistApplication } from '../../libs/email/waitlist-application';
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
-import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
+import { Button } from '@lssm/lib.design-system';
+import { Textarea } from '@lssm/lib.design-system';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
 import {
   Select,
@@ -19,7 +19,7 @@ import {
 } from '@lssm/lib.ui-kit-web/ui/select';
 import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
 import { Switch } from '@lssm/lib.ui-kit-web/ui/switch';
-import { Input } from '@lssm/lib.ui-kit-web/ui/input';
+import { Input } from '@lssm/lib.design-system';
 
 interface WaitlistSectionProps {
   variant?: 'default' | 'compact';

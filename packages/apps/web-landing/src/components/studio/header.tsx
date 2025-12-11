@@ -29,7 +29,10 @@ export default function StudioHeader() {
       <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/studio" className="flex items-center gap-2 text-xl font-bold">
+          <Link
+            href="/studio"
+            className="flex items-center gap-2 text-xl font-bold"
+          >
             <div className="relative h-6 w-6">
               <Image
                 src={logoImage}
@@ -108,10 +111,7 @@ export default function StudioHeader() {
               <Link href="/login" className="btn-ghost text-center text-sm">
                 Sign in
               </Link>
-              <Link
-                href="/signup"
-                className="btn-primary text-center text-sm"
-              >
+              <Link href="/signup" className="btn-primary text-center text-sm">
                 Get Started
               </Link>
             </div>

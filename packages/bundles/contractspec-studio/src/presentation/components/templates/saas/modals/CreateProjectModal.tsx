@@ -92,7 +92,7 @@ export function CreateProjectModal({
             <Input
               id="project-name"
               value={name}
-              onChange={(e) => setName(e)}
+              onChange={(e) => setName(e.target.value)}
               placeholder="e.g., My Awesome Project"
               disabled={isLoading}
             />

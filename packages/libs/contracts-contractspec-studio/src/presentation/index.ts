@@ -23,7 +23,7 @@ import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
 export function buildPresentationRegistry() {
   const reg = new PresentationRegistry();
 
-  return reg
+  return reg;
 }
 
 export function buildPresentationDescriptorsV2(): PresentationDescriptorV2[] {

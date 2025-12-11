@@ -13,4 +13,3 @@ export const opsDocBlocks: DocBlock[] = [
   ...opsSloTenantDocs,
 ];
 
-
