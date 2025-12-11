@@ -166,6 +166,14 @@ const PersonalizationInsights = dynamic(
   { ssr: false }
 );
 
+const LearningTrackList = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.LearningTrackList
+    ),
+  { ssr: false }
+);
+
 type SandboxTemplateId = TemplateId;
 type Mode = 'playground' | 'specs' | 'builder' | 'markdown' | 'evolution';
 
@@ -223,6 +231,46 @@ const TEMPLATE_LIBRARY: Record<
     title: 'Analytics Dashboard',
     description: 'Dashboards, widgets, and saved queries.',
     component: <AnalyticsDashboard />,
+  },
+  'learning-journey-studio-onboarding': {
+    title: 'Learning Journey — Studio',
+    description: 'First 30 minutes in ContractSpec Studio (track steps).',
+    component: (
+      <LearningTrackList templateId="learning-journey-studio-onboarding" />
+    ),
+  },
+  'learning-journey-platform-tour': {
+    title: 'Learning Journey — Platform Tour',
+    description: 'Cross-module tour using platform primitives.',
+    component: (
+      <LearningTrackList templateId="learning-journey-platform-tour" />
+    ),
+  },
+  'learning-journey-crm-onboarding': {
+    title: 'Learning Journey — CRM First Win',
+    description: 'CRM onboarding journey to first closed-won.',
+    component: (
+      <LearningTrackList templateId="learning-journey-crm-onboarding" />
+    ),
+  },
+  'learning-journey-duo-drills': {
+    title: 'Learning Journey — Duo Drills',
+    description: 'Drill/SRS learning journey with accuracy and mastery steps.',
+    component: <LearningTrackList templateId="learning-journey-duo-drills" />,
+  },
+  'learning-journey-ambient-coach': {
+    title: 'Learning Journey — Ambient Coach',
+    description: 'Contextual tips with acknowledge/action completions.',
+    component: (
+      <LearningTrackList templateId="learning-journey-ambient-coach" />
+    ),
+  },
+  'learning-journey-quest-challenges': {
+    title: 'Learning Journey — Quest Challenges',
+    description: 'Time-bound challenges with day unlocks and XP bonuses.',
+    component: (
+      <LearningTrackList templateId="learning-journey-quest-challenges" />
+    ),
   },
 };
 
@@ -346,6 +394,7 @@ export default function SandboxExperienceClient() {
           </div>
         );
       default:
+        shouldNot;
         return null;
     }
   }, [mode, template, templateId, pushLog]);

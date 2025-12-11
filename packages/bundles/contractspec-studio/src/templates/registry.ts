@@ -18,7 +18,10 @@ export type TemplateId =
   // Learning Journey Examples
   | 'learning-journey-studio-onboarding'
   | 'learning-journey-platform-tour'
-  | 'learning-journey-crm-onboarding';
+  | 'learning-journey-crm-onboarding'
+  | 'learning-journey-duo-drills'
+  | 'learning-journey-ambient-coach'
+  | 'learning-journey-quest-challenges';
 
 export type TemplateCategory =
   | 'productivity'
@@ -869,6 +872,135 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       '@lssm/module.notifications',
       '@lssm/example.crm-pipeline',
     ],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-duo-drills',
+    name: 'Learning Journey — Duo Drills',
+    description:
+      'Drill/SRS learning pattern with session completions, accuracy counts, and skill mastery.',
+    category: 'business',
+    complexity: 'beginner',
+    icon: '🧠',
+    features: [
+      'Drill sessions',
+      'Accuracy gating',
+      'SRS mastery',
+      'XP + streaks',
+    ],
+    tags: ['learning', 'drills', 'srs'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-duo-drills',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-duo-drills',
+    },
+    package: '@lssm/example.learning-journey.duo-drills',
+    usesModules: ['@lssm/module.learning-journey'],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-ambient-coach',
+    name: 'Learning Journey — Ambient Coach',
+    description:
+      'Contextual coaching tips with trigger/show/acknowledge/action flows tied to behavior patterns.',
+    category: 'business',
+    complexity: 'beginner',
+    icon: '💡',
+    features: [
+      'Tips/insights',
+      'Event triggers',
+      'Action/ack completion',
+      'XP/engagement',
+    ],
+    tags: ['learning', 'coach', 'ambient'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-ambient-coach',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-ambient-coach',
+    },
+    package: '@lssm/example.learning-journey.ambient-coach',
+    usesModules: ['@lssm/module.learning-journey'],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-quest-challenges',
+    name: 'Learning Journey — Quest Challenges',
+    description:
+      'Time-bound quest (e.g., 7-day money reset) with day unlocks, event completions, and XP bonus.',
+    category: 'business',
+    complexity: 'intermediate',
+    icon: '⏳',
+    features: [
+      'Day unlocks',
+      'Time windows',
+      'Quest XP bonus',
+      'Optional SRS recap',
+    ],
+    tags: ['learning', 'quest', 'challenge'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-quest-challenges',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-quest-challenges',
+    },
+    package: '@lssm/example.learning-journey.quest-challenges',
+    usesModules: ['@lssm/module.learning-journey'],
     presentations: [
       'learning.journey.track_list',
       'learning.journey.track_detail',

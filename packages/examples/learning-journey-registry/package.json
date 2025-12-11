@@ -28,8 +28,11 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
+    "@lssm/example.learning-journey.ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey.duo-drills": "workspace:*",
     "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
     "@lssm/example.learning-journey.platform-tour": "workspace:*",
+    "@lssm/example.learning-journey.quest-challenges": "workspace:*",
     "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
     "@lssm/module.learning-journey": "workspace:*"
   },
