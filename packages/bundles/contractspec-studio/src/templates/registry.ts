@@ -1,3 +1,5 @@
+import './docs';
+
 export type TemplateId =
   | 'todos-app'
   | 'messaging-app'

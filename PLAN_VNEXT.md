@@ -678,7 +678,7 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 | Overlay Engine          | ✅ Complete | Context-aware UI customization                                |
 | Behavior Tracking       | ✅ Complete | User behavior tracking with personalization insights          |
 | Workflow Composer       | ✅ Complete | Workflow specification composer with extensions               |
-| Documentation           | 🔲 Pending  | Quickstart guides for each template                           |
+| Documentation           | ✅ Complete | Quickstart guides for each template                           |
 
 ### Presentation Layer (presentations.v2)
 
@@ -691,7 +691,7 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 | JSON/XML Renderers       | ✅ Complete | Basic serialization with PII redaction                   |
 | Schema-to-Markdown       | ✅ Complete | Auto-generate markdown tables/lists from SchemaModel     |
 | Data Compatibility Check | ✅ Complete | Smart detection of simple vs complex data structures     |
-| BlockNote Support        | 🔲 Pending  | Full BlockNote → Markdown conversion                     |
+| BlockNote Support        | ✅ Complete | Full BlockNote → Markdown conversion                     |
 
 ---
 
