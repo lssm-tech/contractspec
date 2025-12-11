@@ -1,0 +1,46 @@
+{
+  "name": "@lssm/example.learning-journey.quest-challenges",
+  "version": "1.0.0",
+  "description": "Time-bound quest/challenge learning journey example.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./track": "./src/track.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/quest-challenges.docblock": "./src/docs/quest-challenges.docblock.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./track": "./dist/track.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/quest-challenges.docblock": "./dist/docs/quest-challenges.docblock.js",
+      "./*": "./*"
+    }
+  }
+}

@@ -6,8 +6,8 @@ import { StudioOnboardingTrackModel } from '../contracts';
 
 const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
-  owners: ['examples.learning-journey.studio-onboarding'],
-  tags: ['learning', 'onboarding', 'studio'],
+  owners: ['examples.learning-journey.studio-onboarding'] as string[],
+  tags: ['learning', 'onboarding', 'studio'] as string[],
 };
 
 export const StudioOnboardingTrackPresentation: PresentationDescriptorV2 = {

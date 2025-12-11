@@ -6,7 +6,7 @@ const registryDocBlocks: DocBlock[] = [
     id: 'docs.learning-journey.registry',
     title: 'Learning Journey — Example Track Registry',
     summary:
-      'Aggregates learning journey example tracks (Studio onboarding, Platform tour, CRM first win).',
+      'Aggregates learning journey example tracks (Studio onboarding, Platform tour, CRM first win, Drills, Ambient Coach, Quest challenges).',
     kind: 'usage',
     visibility: 'public',
     route: '/docs/learning-journey/registry',
@@ -15,6 +15,9 @@ const registryDocBlocks: DocBlock[] = [
 - \`studio_getting_started\` (Studio onboarding)
 - \`platform_primitives_tour\` (Platform primitives)
 - \`crm_first_win\` (CRM pipeline onboarding)
+- \`drills_language_basics\` (Drills & SRS)
+- \`money_ambient_coach\`, \`coliving_ambient_coach\` (Ambient tips)
+- \`money_reset_7day\` (Quest/challenge)
 
 ## Exports
 - \`learningJourneyTracks\` — raw specs

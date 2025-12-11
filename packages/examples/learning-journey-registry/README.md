@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey.registry
+# @lssm/example.learning-journey-registry
 
 Aggregated registry for learning journey example tracks.
 
@@ -12,7 +12,7 @@ Aggregated registry for learning journey example tracks.
 ## Usage
 
 ```ts
-import { onboardingTrackCatalog } from '@lssm/example.learning-journey.registry';
+import { onboardingTrackCatalog } from '@lssm/example.learning-journey-registry';
 // Feed into API/service that implements learning.onboarding.listTracks
 ```
 

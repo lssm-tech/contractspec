@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey.registry",
+  "name": "@lssm/example.learning-journey-registry",
   "version": "1.0.0",
   "description": "Registry that aggregates learning journey example tracks.",
   "type": "module",
@@ -8,10 +8,12 @@
   "exports": {
     ".": "./src/index.ts",
     "./api": "./src/api.ts",
-    "./tracks": "./src/tracks.ts",
-    "./presentations": "./src/presentations/index.ts",
+    "./api-types": "./src/api-types.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/learning-journey-registry.docblock": "./src/docs/learning-journey-registry.docblock.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./progress-store": "./src/progress-store.ts",
+    "./tracks": "./src/tracks.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -41,8 +43,13 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./api": "./dist/api.js",
+      "./api-types": "./dist/api-types.js",
       "./docs": "./dist/docs/index.js",
       "./docs/learning-journey-registry.docblock": "./dist/docs/learning-journey-registry.docblock.js",
+      "./presentations": "./dist/presentations/index.js",
+      "./progress-store": "./dist/progress-store.js",
+      "./tracks": "./dist/tracks.js",
       "./*": "./*"
     }
   }

@@ -30,6 +30,8 @@ export const initProgress = (
     id: step.id,
     status: 'PENDING',
     xpEarned: 0,
+    occurrences: 0,
+    masteryCount: 0,
   })),
   startedAt: undefined,
   completedAt: undefined,

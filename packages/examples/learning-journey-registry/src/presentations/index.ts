@@ -1,11 +1,12 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { onboardingTrackCatalog } from '../tracks';
-
-const baseMeta = {
+import type {
+  PresentationDescriptorV2,
+  PresentationV2Meta,
+} from '@lssm/lib.contracts';
+const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
-  owners: ['learning-team'],
-  tags: ['learning', 'journey', 'onboarding'],
-} as const;
+  owners: ['learning-team'] as string[],
+  tags: ['learning', 'journey', 'onboarding'] as string[],
+};
 
 export const LearningTrackListPresentation: PresentationDescriptorV2 = {
   meta: {
@@ -18,7 +19,6 @@ export const LearningTrackListPresentation: PresentationDescriptorV2 = {
     type: 'component',
     framework: 'react',
     componentKey: 'LearningTrackList',
-    props: onboardingTrackCatalog,
   },
   targets: ['react', 'markdown'],
 };

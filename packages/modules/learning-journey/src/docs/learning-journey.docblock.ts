@@ -18,6 +18,12 @@ const learningJourneyDocBlocks: DocBlock[] = [
 - **Engines**: spaced-repetition (SRS), streak calculator, XP progression.
 - **Events**: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded, onboarding.started/completed/step_completed.
 
+## Completion conditions
+- Event-based: name/version/source + payload filter
+- Count-based: require N events (optional time window)
+- Time-bounded: must complete within a window; steps can unlock by day/hour
+- SRS mastery: complete when cards/skills hit mastery thresholds (with required counts)
+
 ## Usage
 
 1) Compose schema
@@ -27,7 +33,7 @@ const learningJourneyDocBlocks: DocBlock[] = [
 - Import from \`@lssm/module.learning-journey\` into your spec registry.
 
 3) Bind to product actions
-- Tie \`Step\` completion conditions (event name/version/source + optional payload filter) to domain events (e.g., deal.created, agent.run.completed).
+- Tie \`Step\` completion conditions to domain events (e.g., deal.created, agent.run.completed, drill.session.completed).
 - Trigger notifications via Notification Center and audits on completion.
 
 4) Gamification

@@ -19,6 +19,11 @@ export interface StepProgress {
   completedAt?: Date;
   triggeringEvent?: string;
   eventPayload?: Record<string, unknown>;
+  occurrences?: number;
+  counterStartedAt?: Date;
+  availableAt?: Date;
+  dueAt?: Date;
+  masteryCount?: number;
 }
 
 export interface TrackProgress {

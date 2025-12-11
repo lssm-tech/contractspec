@@ -1,4 +1,3 @@
-import { recordEvent } from '@lssm/example.learning-journey.registry/api';
 import { crmFirstWinTrack } from '../track';
 
 interface EmitParams {
@@ -7,7 +6,17 @@ interface EmitParams {
   payload?: Record<string, unknown>;
 }
 
-const events = [
+interface LearningJourneyEvent {
+  learnerId: string;
+  name: string;
+  occurredAt: Date;
+  trackId: string;
+  payload?: Record<string, unknown>;
+}
+
+type RecordEvent = (event: LearningJourneyEvent) => unknown;
+
+export const crmOnboardingEvents = [
   'pipeline.created',
   'contact.created',
   'deal.created',
@@ -16,19 +25,27 @@ const events = [
   'task.completed',
 ] as const;
 
-type CrmEvent = (typeof events)[number];
+export type CrmEvent = (typeof crmOnboardingEvents)[number];
 
 export const emitCrmOnboardingEvent = (
   eventName: CrmEvent,
-  { learnerId, occurredAt = new Date(), payload }: EmitParams
-) =>
-  recordEvent({
+  { learnerId, occurredAt = new Date(), payload }: EmitParams,
+  record?: RecordEvent
+) => {
+  const event: LearningJourneyEvent = {
     learnerId,
     name: eventName,
     occurredAt,
     payload,
     trackId: crmFirstWinTrack.id,
-  });
+  };
+  return record ? record(event) : event;
+};
 
-export const emitAllCrmOnboardingEvents = (params: EmitParams) =>
-  events.map((name) => emitCrmOnboardingEvent(name, params));
+export const emitAllCrmOnboardingEvents = (
+  params: EmitParams,
+  record?: RecordEvent
+) =>
+  crmOnboardingEvents.map((name) =>
+    emitCrmOnboardingEvent(name, params, record)
+  );
