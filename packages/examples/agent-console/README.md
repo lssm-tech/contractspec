@@ -80,4 +80,4 @@ This example builds on the following cross-cutting modules:
 
 - `@lssm/lib.identity-rbac` - User and organization management
 - `@lssm/lib.jobs` - Async job processing for long-running agents
-- `@lssm/modules.audit-trail` - Audit logging for compliance
+- `@lssm/module.audit-trail` - Audit logging for compliance

@@ -36,6 +36,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/integration-hub.docblock": "./src/docs/integration-hub.docblock.ts",
     "./entities": "./src/entities/index.ts",
     "./events": "./src/events.ts",
     "./feature": "./src/feature.ts",
@@ -54,6 +56,8 @@
     "exports": {
       ".": "./dist/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
       "./entities": "./dist/entities/index.js",
       "./events": "./dist/events.js",
       "./feature": "./dist/feature.js",

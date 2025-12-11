@@ -1,4 +1,4 @@
-# @lssm/modules.learning-journey
+# @lssm/module.learning-journey
 
 Comprehensive learning journey engine for ContractSpec applications.
 
@@ -85,7 +85,7 @@ This module provides a complete learning platform engine that supports multiple 
 ### Spaced Repetition Engine (SRS)
 
 ```typescript
-import { SRSEngine } from '@lssm/modules.learning-journey/engines/srs';
+import { SRSEngine } from '@lssm/module.learning-journey/engines/srs';
 
 const engine = new SRSEngine();
 const nextReview = engine.calculateNextReview({
@@ -99,7 +99,7 @@ const nextReview = engine.calculateNextReview({
 ### XP Engine
 
 ```typescript
-import { XPEngine } from '@lssm/modules.learning-journey/engines/xp';
+import { XPEngine } from '@lssm/module.learning-journey/engines/xp';
 
 const engine = new XPEngine();
 const xp = engine.calculate({
@@ -112,7 +112,7 @@ const xp = engine.calculate({
 ### Streak Engine
 
 ```typescript
-import { StreakEngine } from '@lssm/modules.learning-journey/engines/streak';
+import { StreakEngine } from '@lssm/module.learning-journey/engines/streak';
 
 const engine = new StreakEngine();
 const streak = engine.update({
@@ -128,7 +128,7 @@ import {
   CourseEntity,
   LearnerEntity,
   SRSEngine,
-} from '@lssm/modules.learning-journey';
+} from '@lssm/module.learning-journey';
 
 // Enroll learner in course
 await enrollmentService.enroll({
@@ -165,12 +165,12 @@ This module integrates with:
 - `@lssm/lib.files` - Media attachments
 - `@lssm/lib.jobs` - Scheduled reminders, streak checks
 - `@lssm/lib.ai-agent` - AI-powered features
-- `@lssm/modules.notifications` - Learning reminders
+- `@lssm/module.notifications` - Learning reminders
 
 ## Schema Contribution
 
 ```typescript
-import { learningJourneySchemaContribution } from '@lssm/modules.learning-journey';
+import { learningJourneySchemaContribution } from '@lssm/module.learning-journey';
 
 export const schemaComposition = {
   modules: [

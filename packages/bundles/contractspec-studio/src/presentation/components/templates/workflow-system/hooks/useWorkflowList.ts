@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type {
   WorkflowDefinition,
   WorkflowInstance,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 import { useWorkflowHandlers } from '../../../../../templates/runtime';
 
 export interface WorkflowStats {

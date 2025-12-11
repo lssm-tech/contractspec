@@ -1,0 +1,24 @@
+{
+  "name": "@lssm/eslint-plugin-design-system",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node ./tests/prefer-design-system.test.js"
+  },
+  "peerDependencies": {
+    "eslint": "^9.37.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.37.0"
+  },
+  "license": "MIT",
+  "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps"
+}

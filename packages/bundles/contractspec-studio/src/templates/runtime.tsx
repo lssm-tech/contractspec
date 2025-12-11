@@ -28,7 +28,7 @@ import {
   type MarketplaceHandlers,
   type SaasHandlers,
   type WorkflowHandlers,
-} from '@lssm/lib.runtime-local';
+} from '../infrastructure/runtime-local-web';
 
 import { TemplateInstaller } from './installer';
 import {

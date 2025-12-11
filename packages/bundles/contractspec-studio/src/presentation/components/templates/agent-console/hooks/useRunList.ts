@@ -9,7 +9,7 @@ import type {
   ListRunsOutput as RuntimeListRunsOutput,
   Run as RuntimeRun,
   RunMetrics as RuntimeRunMetrics,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 // Re-export types for convenience
 export type Run = RuntimeRun;

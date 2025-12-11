@@ -9,7 +9,10 @@ export type TemplateId =
   | 'workflow-system'
   | 'marketplace'
   | 'integration-hub'
-  | 'analytics-dashboard';
+  | 'analytics-dashboard'
+  | 'service-business-os'
+  | 'team-hub'
+  | 'wealth-snapshot';
 
 export type TemplateCategory =
   | 'productivity'
@@ -203,7 +206,7 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       quickstart: '/docs/templates/saas-boilerplate',
     },
     package: '@lssm/example.saas-boilerplate',
-    usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+    usesModules: ['@lssm/lib.identity-rbac', '@lssm/module.audit-trail'],
     featureSpec: 'saas-boilerplate',
     presentations: [
       'saas-boilerplate.dashboard',
@@ -247,7 +250,7 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       quickstart: '/docs/templates/crm-pipeline',
     },
     package: '@lssm/example.crm-pipeline',
-    usesModules: ['@lssm/lib.identity-rbac', '@lssm/modules.audit-trail'],
+    usesModules: ['@lssm/lib.identity-rbac', '@lssm/module.audit-trail'],
     featureSpec: 'crm-pipeline',
     presentations: ['crm-pipeline.dashboard', 'crm-pipeline.deal.pipeline'],
     renderTargets: ['react', 'markdown'],
@@ -298,7 +301,7 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     usesModules: [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.jobs',
-      '@lssm/modules.audit-trail',
+      '@lssm/module.audit-trail',
     ],
     featureSpec: 'agent-console',
     presentations: [
@@ -359,8 +362,8 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     usesModules: [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.feature-flags',
-      '@lssm/modules.audit-trail',
-      '@lssm/modules.notifications',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
     ],
     featureSpec: 'workflow-system',
     presentations: [
@@ -415,8 +418,8 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.files',
       '@lssm/lib.metering',
-      '@lssm/modules.audit-trail',
-      '@lssm/modules.notifications',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
     ],
     featureSpec: 'marketplace',
     presentations: [
@@ -474,8 +477,8 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.files',
       '@lssm/lib.feature-flags',
-      '@lssm/modules.audit-trail',
-      '@lssm/modules.notifications',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
     ],
     featureSpec: 'integration-hub',
     presentations: [
@@ -527,14 +530,190 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
     usesModules: [
       '@lssm/lib.identity-rbac',
       '@lssm/lib.metering',
-      '@lssm/modules.audit-trail',
-      '@lssm/modules.notifications',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
     ],
     featureSpec: 'analytics-dashboard',
     presentations: [
       'analytics-dashboard.dashboard',
       'analytics-dashboard.list',
       'analytics-dashboard.query.builder',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'service-business-os',
+    name: 'Service Business OS',
+    description:
+      'Service business back-office: clients, quotes, jobs, invoices, payments.',
+    category: 'business',
+    complexity: 'advanced',
+    icon: '🧾',
+    features: [
+      'Clients',
+      'Quotes',
+      'Jobs',
+      'Invoices',
+      'Payments',
+      'Reminders',
+    ],
+    tags: ['services', 'operations', 'billing'],
+    schema: {
+      models: ['Client', 'Quote', 'Job', 'Invoice', 'Payment'],
+      contracts: [
+        'service.client.create',
+        'service.quote.create',
+        'service.quote.accept',
+        'service.job.schedule',
+        'service.job.complete',
+        'service.invoice.issue',
+        'service.payment.record',
+        'service.job.list',
+      ],
+    },
+    components: {
+      list: 'ServiceBusinessDashboard',
+      detail: 'ServiceJobBoard',
+      form: 'QuoteForm',
+      dashboard: 'ServiceBusinessDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=service-business-os',
+    },
+    docs: {
+      quickstart: '/docs/templates/service-business-os',
+    },
+    package: '@lssm/example.service-business-os',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.files',
+      '@lssm/lib.jobs',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
+    ],
+    featureSpec: 'service-business-os',
+    presentations: [
+      'service-business-os.dashboard',
+      'service-business-os.client.list',
+      'service-business-os.quote.list',
+      'service-business-os.quote.detail',
+      'service-business-os.job.board',
+      'service-business-os.invoice.list',
+      'service-business-os.payment.list',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'team-hub',
+    name: 'Team Hub',
+    description:
+      'Internal hub with spaces, tasks, rituals, and announcements with ceremonies.',
+    category: 'business',
+    complexity: 'intermediate',
+    icon: '🧭',
+    features: [
+      'Spaces/Projects',
+      'Tasks',
+      'Rituals',
+      'Announcements',
+      'Reminders',
+    ],
+    tags: ['collaboration', 'tasks', 'rituals'],
+    schema: {
+      models: ['Space', 'Task', 'Ritual', 'RitualOccurrence', 'Announcement'],
+      contracts: [
+        'team.space.create',
+        'team.task.create',
+        'team.task.updateStatus',
+        'team.task.list',
+        'team.ritual.schedule',
+        'team.ritual.logOccurrence',
+        'team.announcement.post',
+      ],
+    },
+    components: {
+      list: 'TeamHubDashboard',
+      detail: 'TeamHubTaskBoard',
+      form: 'TeamHubTaskForm',
+      dashboard: 'TeamHubDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=team-hub',
+    },
+    docs: {
+      quickstart: '/docs/templates/team-hub',
+    },
+    package: '@lssm/example.team-hub',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.jobs',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
+      '@lssm/lib.feature-flags',
+    ],
+    featureSpec: 'team-hub',
+    presentations: [
+      'team-hub.dashboard',
+      'team-hub.space.list',
+      'team-hub.task.board',
+      'team-hub.task.detail',
+      'team-hub.ritual.calendar',
+      'team-hub.announcement.feed',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'wealth-snapshot',
+    name: 'Wealth Snapshot',
+    description:
+      'Net-worth snapshot with accounts, assets, liabilities, goals, and indicators.',
+    category: 'business',
+    complexity: 'intermediate',
+    icon: '💰',
+    features: [
+      'Accounts',
+      'Assets',
+      'Liabilities',
+      'Goals',
+      'Net Worth Snapshots',
+    ],
+    tags: ['finance', 'net-worth', 'goals'],
+    schema: {
+      models: ['Account', 'Asset', 'Liability', 'Goal', 'NetWorthSnapshot'],
+      contracts: [
+        'wealth.account.create',
+        'wealth.asset.add',
+        'wealth.liability.add',
+        'wealth.goal.create',
+        'wealth.goal.update',
+        'wealth.networth.get',
+      ],
+    },
+    components: {
+      list: 'WealthSnapshotDashboard',
+      detail: 'WealthSnapshotAccounts',
+      form: 'WealthSnapshotGoalForm',
+      dashboard: 'WealthSnapshotDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=wealth-snapshot',
+    },
+    docs: {
+      quickstart: '/docs/templates/wealth-snapshot',
+    },
+    package: '@lssm/example.wealth-snapshot',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
+    ],
+    featureSpec: 'wealth-snapshot',
+    presentations: [
+      'wealth-snapshot.dashboard',
+      'wealth-snapshot.accounts.list',
+      'wealth-snapshot.assets.list',
+      'wealth-snapshot.liabilities.list',
+      'wealth-snapshot.goals.list',
     ],
     renderTargets: ['react', 'markdown'],
   },

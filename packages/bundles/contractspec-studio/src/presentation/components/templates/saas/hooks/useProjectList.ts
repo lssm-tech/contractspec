@@ -8,8 +8,7 @@ import { useTemplateRuntime } from '../../../../../templates/runtime';
 import type {
   Project as RuntimeProject,
   Subscription as RuntimeSubscription,
-  ListProjectsOutput as RuntimeListProjectsOutput,
-} from '@lssm/lib.runtime-local';
+} from '../../../../../infrastructure/runtime-local-web';
 
 // Re-export types for convenience
 export type Project = RuntimeProject;

@@ -8,6 +8,7 @@ export * from './handlers';
 export * from './presentations';
 export * from './sync-engine';
 export * from './feature';
+import './docs';
 
 // Schema composition configuration
 import { identityRbacSchemaContribution } from '@lssm/lib.identity-rbac';

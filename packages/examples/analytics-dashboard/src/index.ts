@@ -13,8 +13,8 @@
  * This example showcases integration with:
  * - @lssm/lib.metering for usage data
  * - @lssm/lib.identity-rbac for access control
- * - @lssm/modules.audit-trail for change tracking
- * - @lssm/modules.notifications for report delivery
+ * - @lssm/module.audit-trail for change tracking
+ * - @lssm/module.notifications for report delivery
  */
 
 // ============ Entities ============
@@ -82,3 +82,4 @@ export { AnalyticsDashboardPresentations } from './presentations';
 
 // ============ Feature ============
 export { AnalyticsDashboardFeature } from './feature';
+import './docs';

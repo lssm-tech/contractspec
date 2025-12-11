@@ -1,0 +1,66 @@
+{
+  "name": "@lssm/example.team-hub",
+  "version": "1.0.0",
+  "description": "Team Hub example with spaces, tasks, rituals, and announcements",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.bus": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/module.notifications": "workspace:*",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/team-hub.docblock": "./src/docs/team-hub.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./*": "./*"
+  },
+  "module": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/team-hub.docblock": "./dist/docs/team-hub.docblock.js",
+      "./entities": "./dist/entities/index.js",
+      "./events": "./dist/events.js",
+      "./feature": "./dist/feature.js",
+      "./handlers": "./dist/handlers/index.js",
+      "./presentations": "./dist/presentations/index.js",
+      "./*": "./*"
+    }
+  }
+}

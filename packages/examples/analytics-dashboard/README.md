@@ -235,8 +235,8 @@ const result = await queryEngine.execute(
 - `@lssm/lib.contracts` - Contract definitions
 - `@lssm/lib.identity-rbac` - Access control
 - `@lssm/lib.metering` - Usage metrics integration
-- `@lssm/modules.audit-trail` - Change tracking
-- `@lssm/modules.notifications` - Report delivery
+- `@lssm/module.audit-trail` - Change tracking
+- `@lssm/module.notifications` - Report delivery
 
 ## Feature Flags
 

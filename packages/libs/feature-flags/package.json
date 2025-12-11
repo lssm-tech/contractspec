@@ -29,6 +29,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/feature-flags.docblock": "./src/docs/feature-flags.docblock.ts",
     "./entities": "./src/entities/index.ts",
     "./evaluation": "./src/evaluation/index.ts",
     "./events": "./src/events.ts",
@@ -44,6 +46,8 @@
     "exports": {
       ".": "./dist/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/feature-flags.docblock": "./dist/docs/feature-flags.docblock.js",
       "./entities": "./dist/entities/index.js",
       "./evaluation": "./dist/evaluation/index.js",
       "./events": "./dist/events.js",

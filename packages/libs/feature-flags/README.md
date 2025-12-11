@@ -138,7 +138,7 @@ This module integrates with:
 
 - `@lssm/lib.identity-rbac` - User/org context for targeting
 - `@lssm/lib.analytics` - Evaluation tracking
-- `@lssm/modules.audit-trail` - Configuration changes
+- `@lssm/module.audit-trail` - Configuration changes
 
 ## Schema Contribution
 

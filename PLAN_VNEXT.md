@@ -635,63 +635,63 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
 
 ### Cross-cutting Modules
 
-| Module                      | Status      | Package                                      | Notes                                                                       |
-| --------------------------- | ----------- | -------------------------------------------- | --------------------------------------------------------------------------- |
-| Entity Definition System    | ✅ Complete | `@lssm/lib.schema/entity`                    | `defineEntity()`, types, Prisma generator                                   |
-| CLI Database Enhancement    | ✅ Complete | `@lssm/app.cli-database`                     | `schema:generate`, `schema:compose` commands                                |
-| Identity & RBAC             | ✅ Complete | `@lssm/lib.identity-rbac`                    | User, Org, Member, Role, Permission entities; contracts; policy engine      |
-| Event Bus & Audit Trail     | ✅ Complete | `@lssm/lib.bus`, `@lssm/modules.audit-trail` | AuditableEventBus, EventMetadata, filtering; AuditLog entity                |
-| Notification Center         | ✅ Complete | `@lssm/modules.notifications`                | Notification, Preference, DeliveryLog entities; channel adapters; templates |
-| Background Jobs & Scheduler | ✅ Complete | `@lssm/lib.jobs`                             | Job, ScheduledJob entities; memory queue; cron scheduler                    |
-| Feature Flags & Experiments | 🔲 Pending  | -                                            | Phase 2                                                                     |
-| Files & Attachments         | 🔲 Pending  | -                                            | Phase 2                                                                     |
-| Usage & Metering            | 🔲 Pending  | -                                            | Phase 2                                                                     |
-| Learning Journey            | 🔲 Pending  | -                                            | Phase 2                                                                     |
+| Module                      | Status      | Package                                     | Notes                                                                       |
+| --------------------------- | ----------- | ------------------------------------------- | --------------------------------------------------------------------------- |
+| Entity Definition System    | ✅ Complete | `@lssm/lib.schema/entity`                   | `defineEntity()`, types, Prisma generator                                   |
+| CLI Database Enhancement    | ✅ Complete | `@lssm/app.cli-database`                    | `schema:generate`, `schema:compose` commands                                |
+| Identity & RBAC             | ✅ Complete | `@lssm/lib.identity-rbac`                   | User, Org, Member, Role, Permission entities; contracts; policy engine      |
+| Event Bus & Audit Trail     | ✅ Complete | `@lssm/lib.bus`, `@lssm/module.audit-trail` | AuditableEventBus, EventMetadata, filtering; AuditLog entity                |
+| Notification Center         | ✅ Complete | `@lssm/module.notifications`                | Notification, Preference, DeliveryLog entities; channel adapters; templates |
+| Background Jobs & Scheduler | ✅ Complete | `@lssm/lib.jobs`                            | Job, ScheduledJob entities; memory queue; cron scheduler                    |
+| Feature Flags & Experiments | ✅ Complete | `@lssm/lib.feature-flags`                   | Targeting, rollout, experiments, eval logging                               |
+| Files & Attachments         | ✅ Complete | `@lssm/lib.files`                           | Files, versions, attachments, presigned URLs, storage adapters              |
+| Usage & Metering            | ✅ Complete | `@lssm/lib.metering`                        | Metrics, usage records, summaries, thresholds/alerts                        |
+| Learning Journey            | ✅ Complete | `@lssm/module.learning-journey`             | Tracks, steps, SRS/streak/XP engines, progress events                       |
 
 ### Application Examples
 
-| Example                  | Phase | Status      | Package                          |
-| ------------------------ | ----- | ----------- | -------------------------------- |
-| SaaS Boilerplate         | 1     | ✅ Complete | `@lssm/example.saas-boilerplate` |
-| CRM Pipeline             | 1     | ✅ Complete | `@lssm/example.crm-pipeline`     |
-| Agent Console            | 1     | ✅ Complete | `@lssm/example.agent-console`    |
-| Workflow/Approval System | 2     | 🔲 Pending  | -                                |
-| Marketplace              | 2     | 🔲 Pending  | -                                |
-| Integration Hub          | 3     | 🔲 Pending  | -                                |
-| Analytics Dashboard      | 3     | 🔲 Pending  | -                                |
-| Service Business OS      | 4     | 🔲 Pending  | -                                |
-| Team Hub                 | 4     | 🔲 Pending  | -                                |
-| Wealth Snapshot          | 4     | 🔲 Pending  | -                                |
+| Example                  | Phase | Status      | Package                             |
+| ------------------------ | ----- | ----------- | ----------------------------------- |
+| SaaS Boilerplate         | 1     | ✅ Complete | `@lssm/example.saas-boilerplate`    |
+| CRM Pipeline             | 1     | ✅ Complete | `@lssm/example.crm-pipeline`        |
+| Agent Console            | 1     | ✅ Complete | `@lssm/example.agent-console`       |
+| Workflow/Approval System | 2     | ✅ Complete | `@lssm/example.workflow-system`     |
+| Marketplace              | 2     | ✅ Complete | `@lssm/example.marketplace`         |
+| Integration Hub          | 3     | ✅ Complete | `@lssm/example.integration-hub`     |
+| Analytics Dashboard      | 3     | ✅ Complete | `@lssm/example.analytics-dashboard` |
+| Service Business OS      | 4     | ✅ Complete | `@lssm/example.service-business-os` |
+| Team Hub                 | 4     | ✅ Complete | `@lssm/example.team-hub`            |
+| Wealth Snapshot          | 4     | ✅ Complete | `@lssm/example.wealth-snapshot`     |
 
 ### Studio Integration
 
-| Task                        | Status      | Notes                                                          |
-| --------------------------- | ----------- | -------------------------------------------------------------- |
-| Template Registry           | ✅ Complete | All Phase 1 examples registered                                |
-| Sandbox Playground Mode     | ✅ Complete | Interactive playground for templates                           |
-| Sandbox Specs Mode          | ✅ Complete | Spec editor with validation/save/reset                         |
-| Sandbox Builder Mode        | ✅ Complete | Visual canvas with node editing                                |
-| Sandbox Markdown Mode       | ✅ Complete | LLM-friendly markdown rendering with schema-driven generation  |
-| Sandbox Evolution Mode      | ✅ Complete | AI-powered evolution dashboard with anomaly detection          |
-| TransformEngine v2          | ✅ Complete | Multi-target rendering (react, markdown, json, xml)            |
-| Presentation Renderers      | ✅ Complete | Custom markdown renderers for all Phase 1 templates            |
-| Overlay Engine              | ✅ Complete | Context-aware UI customization                                 |
-| Behavior Tracking           | ✅ Complete | User behavior tracking with personalization insights           |
-| Workflow Composer           | ✅ Complete | Workflow specification composer with extensions                |
-| Documentation               | 🔲 Pending  | Quickstart guides for each template                            |
+| Task                    | Status      | Notes                                                         |
+| ----------------------- | ----------- | ------------------------------------------------------------- |
+| Template Registry       | ✅ Complete | All Phase 1 examples registered                               |
+| Sandbox Playground Mode | ✅ Complete | Interactive playground for templates                          |
+| Sandbox Specs Mode      | ✅ Complete | Spec editor with validation/save/reset                        |
+| Sandbox Builder Mode    | ✅ Complete | Visual canvas with node editing                               |
+| Sandbox Markdown Mode   | ✅ Complete | LLM-friendly markdown rendering with schema-driven generation |
+| Sandbox Evolution Mode  | ✅ Complete | AI-powered evolution dashboard with anomaly detection         |
+| TransformEngine v2      | ✅ Complete | Multi-target rendering (react, markdown, json, xml)           |
+| Presentation Renderers  | ✅ Complete | Custom markdown renderers for all Phase 1 templates           |
+| Overlay Engine          | ✅ Complete | Context-aware UI customization                                |
+| Behavior Tracking       | ✅ Complete | User behavior tracking with personalization insights          |
+| Workflow Composer       | ✅ Complete | Workflow specification composer with extensions               |
+| Documentation           | 🔲 Pending  | Quickstart guides for each template                           |
 
 ### Presentation Layer (presentations.v2)
 
-| Feature                     | Status      | Notes                                                          |
-| --------------------------- | ----------- | -------------------------------------------------------------- |
-| PresentationDescriptorV2    | ✅ Complete | Normalized descriptor with meta, source, policy, targets       |
-| TransformEngine             | ✅ Complete | Pluggable renderer/validator registration                      |
-| React Renderer              | ✅ Complete | Returns serializable ReactRenderDescriptor                     |
-| Markdown Renderer           | ✅ Complete | Schema-driven + custom renderer fallback chain                 |
-| JSON/XML Renderers          | ✅ Complete | Basic serialization with PII redaction                         |
-| Schema-to-Markdown          | ✅ Complete | Auto-generate markdown tables/lists from SchemaModel           |
-| Data Compatibility Check    | ✅ Complete | Smart detection of simple vs complex data structures           |
-| BlockNote Support           | 🔲 Pending  | Full BlockNote → Markdown conversion                           |
+| Feature                  | Status      | Notes                                                    |
+| ------------------------ | ----------- | -------------------------------------------------------- |
+| PresentationDescriptorV2 | ✅ Complete | Normalized descriptor with meta, source, policy, targets |
+| TransformEngine          | ✅ Complete | Pluggable renderer/validator registration                |
+| React Renderer           | ✅ Complete | Returns serializable ReactRenderDescriptor               |
+| Markdown Renderer        | ✅ Complete | Schema-driven + custom renderer fallback chain           |
+| JSON/XML Renderers       | ✅ Complete | Basic serialization with PII redaction                   |
+| Schema-to-Markdown       | ✅ Complete | Auto-generate markdown tables/lists from SchemaModel     |
+| Data Compatibility Check | ✅ Complete | Smart detection of simple vs complex data structures     |
+| BlockNote Support        | 🔲 Pending  | Full BlockNote → Markdown conversion                     |
 
 ---
 
@@ -712,12 +712,12 @@ Focus on correctness, clarity, reusability, and alignment with ContractSpec's ro
    - Contracts: EnqueueJob, GetJobStatus, ScheduleRecurringJob
    - Events: JobEnqueued, JobCompleted, JobFailed
 
-3. **`@lssm/modules.audit-trail`** - Audit logging
+3. **`@lssm/module.audit-trail`** - Audit logging
    - Entities: AuditLog
    - Contracts: ListAuditLogs, GetAuditLogById
    - Storage: InMemoryAuditLogStorage adapter
 
-4. **`@lssm/modules.notifications`** - Notification center
+4. **`@lssm/module.notifications`** - Notification center
    - Entities: Notification, NotificationPreference, DeliveryLog
    - Channels: Email, InApp adapters
    - Templates: BasicTemplateRenderer

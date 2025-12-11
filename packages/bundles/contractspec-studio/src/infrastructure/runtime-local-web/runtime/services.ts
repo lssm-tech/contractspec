@@ -3,23 +3,14 @@ import { LocalStorageService } from '../storage/indexeddb';
 import { LocalGraphQLClient } from '../graphql/local-client';
 import { LocalEventBus } from '../events/local-pubsub';
 import { generateId } from '../utils/id';
+import type { TemplateId } from '../../../templates/registry';
 
 export interface LocalRuntimeInitOptions {
   modulesPath?: string;
 }
 
 export interface TemplateSeedOptions {
-  templateId:
-    | 'todos-app'
-    | 'messaging-app'
-    | 'recipe-app-i18n'
-    | 'saas-boilerplate'
-    | 'crm-pipeline'
-    | 'agent-console'
-    | 'workflow-system'
-    | 'marketplace'
-    | 'integration-hub'
-    | 'analytics-dashboard';
+  templateId: TemplateId;
   projectId?: string;
 }
 
@@ -86,6 +77,12 @@ export class LocalRuntimeServices {
       case 'analytics-dashboard':
         await this.seedAnalyticsDashboard(projectId);
         break;
+      case 'service-business-os':
+      case 'team-hub':
+      case 'wealth-snapshot':
+        throw new Error(
+          `Seeding not implemented for template ${options.templateId}`
+        );
       default:
         throw new Error(`Unknown template ${options.templateId}`);
     }

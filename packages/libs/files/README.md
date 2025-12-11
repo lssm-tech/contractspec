@@ -162,7 +162,7 @@ const attachments = await attachmentService.list({
 This module integrates with:
 
 - `@lssm/lib.identity-rbac` - Access control
-- `@lssm/modules.audit-trail` - File operations audit
+- `@lssm/module.audit-trail` - File operations audit
 
 ## Schema Contribution
 

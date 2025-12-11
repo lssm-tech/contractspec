@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import type { Store, Product, Order } from '@lssm/lib.runtime-local';
+import type { Store, Product, Order } from '../../../../../infrastructure/runtime-local-web';
 import { useMarketplaceHandlers } from '../../../../../templates/runtime';
 
 export interface MarketplaceStats {

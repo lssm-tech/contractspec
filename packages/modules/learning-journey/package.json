@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/modules.learning-journey",
+  "name": "@lssm/module.learning-journey",
   "version": "1.0.0",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "main": "./dist/index.js",
@@ -29,6 +29,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/learning-journey.docblock": "./src/docs/learning-journey.docblock.ts",
     "./engines": "./src/engines/index.ts",
     "./engines/srs": "./src/engines/srs.ts",
     "./engines/streak": "./src/engines/streak.ts",
@@ -54,6 +56,8 @@
     "exports": {
       ".": "./dist/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/learning-journey.docblock": "./dist/docs/learning-journey.docblock.js",
       "./engines": "./dist/engines/index.js",
       "./engines/srs": "./dist/engines/srs.js",
       "./engines/streak": "./dist/engines/streak.js",

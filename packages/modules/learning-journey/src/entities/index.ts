@@ -58,7 +58,7 @@ export const learningJourneyEnums = [
  * Module schema contribution for learning journey.
  */
 export const learningJourneySchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/modules.learning-journey',
+  moduleId: '@lssm/module.learning-journey',
   entities: learningJourneyEntities,
   enums: learningJourneyEnums,
 };

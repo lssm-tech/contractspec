@@ -36,6 +36,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./contracts": "./src/contracts/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/marketplace.docblock": "./src/docs/marketplace.docblock.ts",
     "./entities": "./src/entities/index.ts",
     "./entities/order": "./src/entities/order.ts",
     "./entities/payout": "./src/entities/payout.ts",
@@ -58,6 +60,8 @@
     "exports": {
       ".": "./dist/index.js",
       "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/marketplace.docblock": "./dist/docs/marketplace.docblock.js",
       "./entities": "./dist/entities/index.js",
       "./entities/order": "./dist/entities/order.js",
       "./entities/payout": "./dist/entities/payout.js",

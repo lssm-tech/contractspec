@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import type { Dashboard, Widget, Query } from '@lssm/lib.runtime-local';
+import type { Dashboard, Widget, Query
+} from '../../../../../infrastructure/runtime-local-web';
 import { useAnalyticsHandlers } from '../../../../../templates/runtime';
 
 export interface AnalyticsStats {

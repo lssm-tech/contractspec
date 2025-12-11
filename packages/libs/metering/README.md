@@ -162,7 +162,7 @@ await aggregator.aggregate({
 This module integrates with:
 
 - `@lssm/lib.jobs` - Scheduled aggregation jobs
-- `@lssm/modules.notifications` - Threshold alerts
+- `@lssm/module.notifications` - Threshold alerts
 - `@lssm/lib.identity-rbac` - Subject resolution
 
 ## Schema Contribution
