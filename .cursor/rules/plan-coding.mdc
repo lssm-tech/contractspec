@@ -19,5 +19,3 @@ Requirements:
 Failure handling:
 
 - If a DocBlock lacks `kind` or `visibility`, or uses values outside the allowed sets, stop and fix before continuing.
-
-Exit: Remove this rule only after the plan-done rule confirms final checks.

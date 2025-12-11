@@ -45,6 +45,22 @@ export { MarketingHeader } from './components/organisms/MarketingHeader';
 export { MarketingHeaderDesktop } from './components/organisms/MarketingHeaderDesktop';
 export { MarketingHeaderMobile } from './components/organisms/MarketingHeaderMobile';
 export { MarketingLayout } from './components/organisms/MarketingLayout';
+export {
+  MarketingSection,
+  type MarketingSectionTone,
+  type MarketingSectionPadding,
+} from './components/marketing/MarketingSection';
+export { MarketingCardsSection } from './components/marketing/MarketingCardsSection';
+export {
+  MarketingCard,
+  MarketingCardContent,
+  MarketingCardDescription,
+  MarketingCardHeader,
+  MarketingCardTitle,
+  type MarketingCardTone,
+} from './components/marketing/MarketingCard';
+export { MarketingIconCard } from './components/marketing/MarketingIconCard';
+export { MarketingStepCard } from './components/marketing/MarketingStepCard';
 export { AppLayout } from './components/organisms/AppLayout';
 export { AcademyLayout } from './components/organisms/AcademyLayout';
 export { AppHeader } from './components/organisms/AppHeader';
