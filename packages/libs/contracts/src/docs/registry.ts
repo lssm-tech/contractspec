@@ -77,3 +77,4 @@ export function docId(id: string): DocId {
   if (!found) throw new Error(`DocBlock not registered: ${id}`);
   return id as DocId;
 }
+

@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  MarketingCard,
-  MarketingCardContent,
-  MarketingCardTitle,
-  MarketingCardsSection,
-} from '@lssm/lib.design-system';
-import { Box, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Muted } from '@lssm/lib.ui-kit-web/ui/typography';
+import { IconGridSection } from './IconGridSection';
 
 const outputs = [
   {
@@ -17,7 +10,8 @@ const outputs = [
   },
   {
     title: 'GraphQL Schema',
-    description: 'Automatically generated resolvers. Standard Pothos/Apollo output.',
+    description:
+      'Automatically generated resolvers. Standard Pothos/Apollo output.',
     icon: '📊',
   },
   {
@@ -45,25 +39,21 @@ const outputs = [
 
 export function OutputsSection() {
   return (
-    <MarketingCardsSection
+    <IconGridSection
       tone="muted"
       columns={3}
       title="What ContractSpec generates"
       subtitle="One contract, multiple outputs. All in sync. All standard tech."
-    >
-      {outputs.map((item) => (
-        <MarketingCard key={item.title} tone="default">
-          <MarketingCardContent>
-            <VStack gap="sm">
-              <Box className="text-3xl" aria-hidden>
-                {item.icon}
-              </Box>
-              <MarketingCardTitle className="text-lg">{item.title}</MarketingCardTitle>
-              <Muted className="text-sm leading-relaxed">{item.description}</Muted>
-            </VStack>
-          </MarketingCardContent>
-        </MarketingCard>
-      ))}
-    </MarketingCardsSection>
+      iconRole="iconFirst"
+      items={outputs.map((item) => ({
+        icon: () => (
+          <span aria-hidden className="text-3xl">
+            {item.icon}
+          </span>
+        ),
+        title: item.title,
+        description: item.description,
+      }))}
+    />
   );
 }

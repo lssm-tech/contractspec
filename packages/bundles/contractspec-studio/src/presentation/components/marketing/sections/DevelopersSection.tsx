@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { MarketingSection } from '@lssm/lib.design-system';
-import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Muted, Small } from '@lssm/lib.ui-kit-web/ui/typography';
-import { CheckCircle } from 'lucide-react';
-import { ButtonLink } from '@lssm/lib.design-system';
-import { Box } from '@lssm/lib.ui-kit-web/ui/stack';
+import {
+  ButtonLink,
+  MarketingComparisonSection,
+} from '@lssm/lib.design-system';
 
 const standardTech = [
   'TypeScript & Zod — schemas you already know',
@@ -22,42 +20,19 @@ const noMagic = [
   'Open spec format',
 ];
 
-function BulletList({ items }: { items: string[] }) {
-  return (
-    <VStack as="ul" gap="sm" className="list-none p-0">
-      {items.map((item) => (
-        <HStack as="li" key={item} gap="sm" align="start">
-          <CheckCircle size={20} className="text-violet-400 flex-shrink-0" />
-          <Muted className="text-sm leading-relaxed">{item}</Muted>
-        </HStack>
-      ))}
-    </VStack>
-  );
-}
-
 export function DevelopersSection() {
   return (
-    <MarketingSection
+    <MarketingComparisonSection
       tone="muted"
       title="Built for developers"
       padding="comfortable"
-      align="center"
-    >
-      <HStack gap="2xl" align="start" justify="center" className="mt-6 flex-wrap">
-        <VStack gap="md" className="max-w-md">
-          <Small className="text-xl font-semibold">Standard Tech Stack</Small>
-          <BulletList items={standardTech} />
-        </VStack>
-        <VStack gap="md" className="max-w-md">
-          <Small className="text-xl font-semibold">No Magic, No Lock-in</Small>
-          <BulletList items={noMagic} />
-        </VStack>
-      </HStack>
-      <Box className="mt-8">
+      left={{ title: 'Standard Tech Stack', items: standardTech }}
+      right={{ title: 'No Magic, No Lock-in', items: noMagic }}
+      subtitle={
         <ButtonLink href="/docs">
           Read the docs <span aria-hidden>→</span>
         </ButtonLink>
-      </Box>
-    </MarketingSection>
+      }
+    />
   );
 }
