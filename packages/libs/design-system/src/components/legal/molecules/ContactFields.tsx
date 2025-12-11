@@ -23,7 +23,7 @@ export function ContactFields({
         <Label>Nom</Label>
         <Input
           value={value.name}
-          onChange={(v) => onChange({ ...value, name: v })}
+          onChange={(e) => onChange({ ...value, name: e.target.value })}
           disabled={disabled}
         />
       </div>
@@ -32,7 +32,7 @@ export function ContactFields({
         <Input
           type="email"
           value={value.email}
-          onChange={(v) => onChange({ ...value, email: v })}
+          onChange={(e) => onChange({ ...value, email: e.target.value })}
           disabled={disabled}
         />
       </div>
@@ -40,10 +40,10 @@ export function ContactFields({
         <Label>Objet</Label>
         <Input
           value={value.subject}
-          onChange={(v) =>
+          onChange={(e) =>
             onChange({
               ...value,
-              subject: v,
+              subject: e.target.value,
             })
           }
           disabled={disabled}
@@ -53,10 +53,10 @@ export function ContactFields({
         <Label>Message</Label>
         <Textarea
           value={value.message}
-          onChange={(v) =>
+          onChange={(e) =>
             onChange({
               ...value,
-              message: v,
+              message: e.target.value,
             })
           }
           disabled={disabled}

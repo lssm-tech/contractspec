@@ -249,4 +249,3 @@ export function createDocsMcpHandler(path = '/api/mcp/docs') {
     presentationsV2: routes.map(({ descriptor }) => descriptor),
   });
 }
-

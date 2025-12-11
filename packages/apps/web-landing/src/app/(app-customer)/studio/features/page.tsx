@@ -1,7 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { Bot, Layers3, Map, Plug, Rocket, Shield, Sparkles, TrendingUp } from 'lucide-react';
+import {
+  Bot,
+  Layers3,
+  Map,
+  Plug,
+  Rocket,
+  Shield,
+  Sparkles,
+  TrendingUp,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Studio Features – ContractSpec',
@@ -137,16 +146,10 @@ export default function StudioFeaturesPage() {
           Try Studio or chat with our crew.
         </h2>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/studio/pricing"
-            className="btn-primary"
-          >
+          <Link href="/studio/pricing" className="btn-primary">
             Compare plans
           </Link>
-          <Link
-            href="/studio/docs"
-            className="btn-ghost"
-          >
+          <Link href="/studio/docs" className="btn-ghost">
             Browse docs
           </Link>
         </div>

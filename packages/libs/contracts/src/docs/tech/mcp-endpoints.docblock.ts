@@ -29,4 +29,3 @@ Three dedicated MCP servers keep AI agents efficient and scoped:
 ];
 
 registerDocBlocks(tech_mcp_endpoints_DocBlocks);
-

@@ -9,11 +9,10 @@ import {
 } from 'lucide-react';
 import { submitContactForm } from '@lssm/bundle.contractspec-studio/presentation/libs/email/contact';
 import { SubmitContactFormResult } from '@lssm/bundle.contractspec-studio/presentation/libs/email/types';
-import { Input } from '@lssm/lib.design-system';
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
-import { Textarea } from '@lssm/lib.ui-kit-web/ui/textarea';
-import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import { ActionForm, Button, Input, Textarea } from '@lssm/lib.design-system';
 import { WaitlistSection } from '@lssm/bundle.contractspec-studio/presentation/components/marketing';
+import { VStack, HStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { H2, H1, Small, Muted } from '@lssm/lib.ui-kit-web/ui/typography';
 
 export default function ContactClient() {
   // Contact form handler
@@ -43,30 +42,29 @@ export default function ContactClient() {
 
   return (
     <section className="section-padding hero-gradient w-full">
-      <div className="mx-auto max-w-4xl space-y-16">
-        {/* Page Header */}
-        <div className="space-y-4 text-center">
-          <h1 className="text-5xl font-bold">Get in touch</h1>
-          <p className="text-muted-foreground text-lg">
+      <VStack className="mx-auto max-w-4xl gap-16">
+        <VStack className="gap-4 text-center">
+          <H1 className="text-5xl font-bold">Get in touch</H1>
+          <Muted className="text-lg">
             Choose how you'd like to connect with us
-          </p>
-        </div>
+          </Muted>
+        </VStack>
 
         {/* Waitlist Registration Section */}
         <WaitlistSection context="contact" />
 
         {/* Book a Call Section */}
-        <div className="card-subtle space-y-6 p-8" id="call">
-          <div className="flex items-center gap-3">
+        <VStack className="card-subtle gap-6 p-8" id="call">
+          <HStack className="items-center gap-3">
             <Calendar className="text-blue-400" size={24} />
-            <div>
-              <h2 className="text-2xl font-bold">Book a 20-min call</h2>
-              <p className="text-muted-foreground text-sm">
+            <VStack className="items-start gap-1">
+              <H2 className="text-2xl font-bold">Book a 20-min call</H2>
+              <Muted className="text-sm">
                 Schedule a walkthrough with our team to see ContractSpec in
                 action
-              </p>
-            </div>
-          </div>
+              </Muted>
+            </VStack>
+          </HStack>
 
           <div className="border-border overflow-hidden rounded-lg border">
             <object
@@ -77,91 +75,87 @@ export default function ContactClient() {
               aria-label="Calendar booking widget"
             />
           </div>
-        </div>
+        </VStack>
 
         {/* Send Message Section */}
-        <div className="card-subtle space-y-6 p-8" id="message">
-          <div className="flex items-center gap-3">
+        <VStack className="card-subtle gap-6 p-8" id="message">
+          <HStack className="items-center gap-3">
             <MessageSquare className="text-emerald-400" size={24} />
-            <div>
-              <h2 className="text-2xl font-bold">Send us a message</h2>
-              <p className="text-muted-foreground text-sm">
+            <VStack className="items-start gap-1">
+              <H2 className="text-2xl font-bold">Send us a message</H2>
+              <Muted className="text-sm">
                 Have questions or feedback? We'd love to hear from you
-              </p>
-            </div>
-          </div>
+              </Muted>
+            </VStack>
+          </HStack>
 
-          <form action={contactAction} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="contact-name" className="text-sm font-medium">
-                Name
-              </Label>
-              <Input
-                id="contact-name"
-                name="name"
-                type="text"
-                placeholder="Your name"
+          <ActionForm action={contactAction}>
+            <VStack className="gap-4">
+              <VStack className="gap-2">
+                <Small className="text-sm font-medium">Name</Small>
+                <Input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  disabled={contactPending || contactResult?.success}
+                  required
+                />
+              </VStack>
+
+              <VStack className="gap-2">
+                <Small className="text-sm font-medium">Email</Small>
+                <Input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  keyboard={{ kind: 'email' }}
+                  placeholder="your@email.com"
+                  disabled={contactPending || contactResult?.success}
+                  required
+                />
+              </VStack>
+
+              <VStack className="gap-2">
+                <Small className="text-sm font-medium">Message</Small>
+                <Textarea
+                  id="contact-message"
+                  name="message"
+                  placeholder="Tell us what's on your mind..."
+                  disabled={contactPending || contactResult?.success}
+                  rows={6}
+                  required
+                />
+              </VStack>
+
+              {contactResult && !contactPending && (
+                <HStack
+                  className={`items-center gap-2 rounded-lg p-3 text-sm ${
+                    contactResult.success
+                      ? 'border border-green-500/20 bg-green-500/10 text-green-400'
+                      : 'border border-red-500/20 bg-red-500/10 text-red-400'
+                  }`}
+                >
+                  {contactResult.success ? (
+                    <CheckCircle size={16} />
+                  ) : (
+                    <AlertCircle size={16} />
+                  )}
+                  <Small>{contactResult.text}</Small>
+                </HStack>
+              )}
+
+              <Button
+                type="submit"
                 disabled={contactPending || contactResult?.success}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="contact-email" className="text-sm font-medium">
-                Email
-              </Label>
-              <Input
-                id="contact-email"
-                name="email"
-                type="email"
-                keyboard={{ kind: 'email' }}
-                placeholder="your@email.com"
-                disabled={contactPending || contactResult?.success}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="contact-message" className="text-sm font-medium">
-                Message
-              </Label>
-              <Textarea
-                id="contact-message"
-                name="message"
-                placeholder="Tell us what's on your mind..."
-                disabled={contactPending || contactResult?.success}
-                rows={6}
-                required
-              />
-            </div>
-
-            {contactResult && !contactPending && (
-              <div
-                className={`flex items-center gap-2 rounded-lg p-3 text-sm ${
-                  contactResult.success
-                    ? 'border border-green-500/20 bg-green-500/10 text-green-400'
-                    : 'border border-red-500/20 bg-red-500/10 text-red-400'
-                }`}
+                className="w-full"
               >
-                {contactResult.success ? (
-                  <CheckCircle size={16} />
-                ) : (
-                  <AlertCircle size={16} />
-                )}
-                <span>{contactResult.text}</span>
-              </div>
-            )}
-
-            <Button
-              type="submit"
-              disabled={contactPending || contactResult?.success}
-              className="w-full"
-            >
-              {contactPending ? 'Sending...' : 'Send message'}
-            </Button>
-          </form>
-        </div>
-      </div>
+                {contactPending ? 'Sending...' : 'Send message'}
+              </Button>
+            </VStack>
+          </ActionForm>
+        </VStack>
+      </VStack>
     </section>
   );
 }

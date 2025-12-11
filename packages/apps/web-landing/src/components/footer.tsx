@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import NewsletterSignup from './newsletter-signup';
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -83,15 +84,15 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          {/* <div>
+          <div>
             <h3 className="font-bold mb-4">Social</h3>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <a href="https://github.com/lssm-tech/contractspec" className="text-muted-foreground hover:text-foreground transition-colors">
                 <Github size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Twitter size={20} />
-              </a>
+              {/*<a href="#" className="text-muted-foreground hover:text-foreground transition-colors">*/}
+              {/*  <Twitter size={20} />*/}
+              {/*</a>*/}
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
                 <Linkedin size={20} />
               </a>
@@ -99,7 +100,7 @@ export default function Footer() {
                 <Mail size={20} />
               </a>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="border-border flex flex-col items-center justify-between border-t pt-8 md:flex-row">
           <p className="text-muted-foreground text-sm">

@@ -100,10 +100,12 @@ export function MarketingHeader({
             </SheetTrigger>
 
             <SheetContent side="left" className="w-[320px] p-4">
-              <SheetHeader>
-                <CommandSearchTrigger groups={commandPaletteGroups} />
-                {/*<SheetTitle>Menu</SheetTitle>*/}
-              </SheetHeader>
+              {!!commandPaletteGroups?.length && (
+                <SheetHeader>
+                  <CommandSearchTrigger groups={commandPaletteGroups} />
+                  {/*<SheetTitle>Menu</SheetTitle>*/}
+                </SheetHeader>
+              )}
 
               {cta && (
                 <VStack className="mb-3">
@@ -158,15 +160,19 @@ export function MarketingHeader({
 
         <HStack className="flex items-center gap-2">
           {/* Desktop: show search trigger and custom right slot */}
-          <Box className="hidden items-center gap-2 md:flex">
-            <CommandSearchTrigger groups={commandPaletteGroups} />
-          </Box>
+          {!!commandPaletteGroups?.length && (
+            <Box className="hidden items-center gap-2 md:flex">
+              <CommandSearchTrigger groups={commandPaletteGroups} />
+            </Box>
+          )}
 
-          <LangSwitchDropdown
-            value={langSwitchProps.value}
-            onChange={langSwitchProps.onChange}
-            options={langSwitchProps.options}
-          />
+          {!!(langSwitchProps?.options?.length > 1) && (
+            <LangSwitchDropdown
+              value={langSwitchProps.value}
+              onChange={langSwitchProps.onChange}
+              options={langSwitchProps.options}
+            />
+          )}
 
           {right && <Box className="hidden md:flex">{right}</Box>}
 

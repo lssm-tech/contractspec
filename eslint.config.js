@@ -6,6 +6,8 @@ import json from '@eslint/json';
 // import css from '@eslint/css';
 import { defineConfig } from 'eslint/config';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import designSystemRules from '@lssm/eslint-plugin-design-system';
+const dsRecommended = designSystemRules.configs?.recommended || {};
 // import * as reactHooks from 'eslint-plugin-react-hooks';
 import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -18,7 +20,7 @@ export default defineConfig([
   i18next.configs['flat/recommended'],
   {
     // Global default: off (too noisy). Opt-in per app below.
-    // rules: { 'i18next/no-literal-string': ['error', { mode: 'all' }] },
+    rules: { 'i18next/no-literal-string': 'off' },
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
@@ -39,6 +41,7 @@ export default defineConfig([
     plugins: {
       react,
       'jsx-a11y': jsxA11y,
+      'design-system': designSystemRules,
     },
     languageOptions: {
       parserOptions: {
@@ -101,6 +104,36 @@ export default defineConfig([
       //   'error',
       //   { max: 300, skipBlankLines: true, skipComments: true },
       // ],
+    },
+  },
+  {
+    files: [
+      'packages/apps/web-landing/src/app/(landing-marketing)/**/*.{ts,tsx,js,jsx}',
+      'packages/apps/web-landing/src/components/**/*.{ts,tsx,js,jsx}',
+      'packages/bundles/contractspec-studio/src/presentation/**/*.{ts,tsx,js,jsx}',
+    ],
+    plugins: {
+      ...(dsRecommended.plugins || { 'design-system': designSystemRules }),
+    },
+    rules: {
+      ...(dsRecommended.rules || {}),
+      'design-system/prefer-design-system': [
+        'error',
+        {
+          intrinsicDisallowList: [
+            'button',
+            'input',
+            'textarea',
+            'select',
+            'option',
+            'form',
+            'label',
+          ],
+          localAllowPatterns: ['^\\./components', '^@/components'],
+        },
+      ],
+      'design-system/no-intrinsic-typography': 'error',
+      'design-system/design-import-boundary': 'error',
     },
   },
   {

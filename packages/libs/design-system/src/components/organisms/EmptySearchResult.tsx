@@ -44,9 +44,9 @@ export function EmptySearchResult({
       <EmptyContent>
         <Input
           value={q}
-          onChange={(v) => {
-            setQ(v);
-            onChange?.(v);
+          onChange={(e) => {
+            setQ(e.target.value);
+            onChange?.(e.target.value);
           }}
           placeholder="Search…"
           keyboard={{ kind: 'search' }}

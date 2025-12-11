@@ -162,4 +162,3 @@ export function createInternalMcpHandler(path = '/api/mcp/internal') {
     prompts: buildInternalPrompts(),
   });
 }
-

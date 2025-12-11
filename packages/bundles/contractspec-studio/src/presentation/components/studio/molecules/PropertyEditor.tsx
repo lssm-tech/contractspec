@@ -95,7 +95,7 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
               </div>
               <Input
                 value={normalizeValue(value)}
-                onChange={(next) => handlePropChange(key, next)}
+                onChange={(e) => handlePropChange(key, e.target.value)}
                 placeholder="Value"
               />
             </div>
@@ -108,7 +108,7 @@ export function PropertyEditor({ node, onChange }: PropertyEditorProps) {
         <div className="flex gap-2">
           <Input
             value={newPropName}
-            onChange={setNewPropName}
+            onChange={(e) => setNewPropName(e.target.value)}
             placeholder="propName"
             className="flex-1"
           />

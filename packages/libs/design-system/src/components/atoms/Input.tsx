@@ -6,12 +6,12 @@ import {
 import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
 
 interface BaseFieldProps {
-  value?: string | number;
-  defaultValue?: string | number;
-  onChange?: (text: string) => void;
+  // value?: string | number;
+  // defaultValue?: string | number;
+  // onChange?: (text: string) => void;
   onSubmit?: () => void;
   onFocus?: () => void;
-  onBlur?: () => void;
+  // onBlur?: () => void;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;
@@ -23,7 +23,7 @@ interface BaseFieldProps {
 
 export type InputProps = Omit<
   WebInputProps,
-  'onChange' | 'value' | 'defaultValue' | 'input'
+  'input' // | 'onChange' | 'value' | 'defaultValue'
 > &
   BaseFieldProps;
 
@@ -51,8 +51,9 @@ export function Input({
       className={className}
       value={value}
       defaultValue={defaultValue}
-      onChange={onChange ? (e) => onChange?.(e.target.value) : undefined}
+      // onChange={onChange ? (e) => onChange?.(e.target.value) : undefined}
       // onKeyDown={onKeyDown}
+      onChange={onChange}
       onFocus={onFocus}
       onBlur={onBlur}
       placeholder={placeholder}

@@ -18,12 +18,14 @@ export function MarketingLayout({
   className,
 }: MarketingLayoutProps) {
   return (
-    <VStack className={cn('bg-background min-h-svh', className)}>
+    <VStack gap="none" className={cn('bg-background min-h-svh', className)}>
       {header}
+
       {/* <main id="main" className="mx-auto w-full max-w-7xl px-4 py-8"> */}
       <main id="main" className="flex-1">
         {children}
       </main>
+
       {footer}
     </VStack>
   );

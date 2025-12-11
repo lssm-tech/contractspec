@@ -8,7 +8,9 @@ export default function StudioFooter() {
         {/* Newsletter Section */}
         <div className="border-border mb-12 flex items-center justify-center border-b pb-12">
           <div className="max-w-md text-center">
-            <h3 className="mb-2 text-lg font-semibold">Stay updated with Studio</h3>
+            <h3 className="mb-2 text-lg font-semibold">
+              Stay updated with Studio
+            </h3>
             <p className="text-muted-foreground mb-6 text-sm">
               Get the latest updates on features, templates, and releases.
             </p>
@@ -71,18 +73,12 @@ export default function StudioFooter() {
             <h3 className="mb-4 font-bold">Legal</h3>
             <ul className="text-muted-foreground space-y-2 text-sm">
               <li>
-                <Link
-                  href="/legal/privacy"
-                  className="hover:text-foreground"
-                >
+                <Link href="/legal/privacy" className="hover:text-foreground">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/legal/terms"
-                  className="hover:text-foreground"
-                >
+                <Link href="/legal/terms" className="hover:text-foreground">
                   Terms of Service
                 </Link>
               </li>

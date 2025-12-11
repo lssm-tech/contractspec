@@ -4,6 +4,23 @@ import { subscribeToNewsletter } from '@lssm/bundle.contractspec-studio/presenta
 import { SubmitNewsletterResult } from '@lssm/bundle.contractspec-studio/presentation/libs/email/types';
 import { useActionState } from 'react';
 import { Mail, CheckCircle, AlertCircle } from 'lucide-react';
+import {
+  ActionForm,
+  Button,
+  Input,
+  Link as DSLink,
+} from '@lssm/lib.design-system';
+import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { Small, Muted } from '@lssm/lib.ui-kit-web/ui/typography';
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@lssm/lib.ui-kit-web/ui/input-group"
 
 export default function NewsletterSignup() {
   const handleSubmit = async (
@@ -31,57 +48,57 @@ export default function NewsletterSignup() {
   >(handleSubmit, null);
 
   return (
-    <div className="space-y-3">
-      <h3 className="mb-2 font-bold">Stay updated</h3>
-      <p className="text-muted-foreground mb-4 text-sm">
+    <VStack className="gap-3">
+      <Small className="font-semibold">Stay updated</Small>
+      <Muted>
         Get the latest updates on new integrations, features, and templates.
-      </p>
-      <form action={submitAction} className="space-y-3">
-        <div className="flex gap-2">
-          <div className="relative flex-1">
-            <Mail
-              className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2"
-              size={16}
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="your@email.com"
-              disabled={isPending || submitResult?.success}
-              className="bg-background border-border w-full rounded-lg border py-2 pr-4 pl-10 text-sm focus:ring-2 focus:ring-violet-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              aria-label="Email address"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={isPending || submitResult?.success}
-            className="rounded-lg bg-violet-500 px-4 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-violet-600 disabled:cursor-not-allowed disabled:bg-violet-500/50"
-          >
-            {isPending ? '...' : 'Subscribe'}
-          </button>
-        </div>
+      </Muted>
+      <ActionForm action={submitAction}>
+        <VStack className="gap-3">
+          <HStack className="flex-wrap gap-2">
+            <InputGroup>
+              <InputGroupInput
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                disabled={isPending || submitResult?.success}
+                aria-label="Email address"
+                className="border-0 bg-transparent p-0 shadow-none focus-visible:ring-0"
+                required />
+              <InputGroupAddon>
+                <Mail />
+              </InputGroupAddon>
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton variant="secondary" type="submit"
+                                  disabled={isPending || submitResult?.success} size="sm">
+                  {isPending ? 'Sending…' : 'Subscribe'}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </HStack>
 
-        {submitResult && !isPending && (
-          <div
-            className={`flex items-center gap-2 rounded p-2 text-xs ${
-              submitResult.success
-                ? 'border border-green-500/20 bg-green-500/10 text-green-400'
-                : 'border border-red-500/20 bg-red-500/10 text-red-400'
-            }`}
-          >
-            {submitResult.success ? (
-              <CheckCircle size={14} />
-            ) : (
-              <AlertCircle size={14} />
-            )}
-            <span>{submitResult.text}</span>
-          </div>
-        )}
-      </form>
-      <p className="text-muted-foreground text-xs">
-        No spam. Unsubscribe anytime.
-      </p>
-    </div>
+          {submitResult && !isPending && (
+            <HStack
+              className={`items-center gap-2 rounded border p-2 text-xs ${
+                submitResult.success
+                  ? 'border-green-500/20 bg-green-500/10 text-green-400'
+                  : 'border-red-500/20 bg-red-500/10 text-red-400'
+              }`}
+            >
+              {submitResult.success ? (
+                <CheckCircle className="h-4 w-4" />
+              ) : (
+                <AlertCircle className="h-4 w-4" />
+              )}
+              <Small>{submitResult.text}</Small>
+            </HStack>
+          )}
+        </VStack>
+      </ActionForm>
+      <Muted className="text-xs">
+        No spam. Unsubscribe anytime. Manage preferences via{' '}
+        <DSLink href="/legal/privacy">Privacy</DSLink>.
+      </Muted>
+    </VStack>
   );
 }

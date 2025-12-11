@@ -116,7 +116,7 @@ export function CreateDealModal({
             <Input
               id="deal-name"
               value={name}
-              onChange={(e) => setName(e)}
+              onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Enterprise License - Acme Corp"
               disabled={isLoading}
             />
@@ -137,7 +137,7 @@ export function CreateDealModal({
                 min="0"
                 step="0.01"
                 value={value}
-                onChange={(e) => setValue(e)}
+                onChange={(e) => setValue(e.target.value)}
                 placeholder="50000"
                 disabled={isLoading}
               />
@@ -200,7 +200,7 @@ export function CreateDealModal({
               id="deal-close-date"
               type="date"
               value={expectedCloseDate}
-              onChange={(e) => setExpectedCloseDate(e)}
+              onChange={(e) => setExpectedCloseDate(e.target.value)}
               disabled={isLoading}
             />
           </div>

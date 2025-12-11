@@ -17,21 +17,21 @@ type PressableBridgeProps = Omit<
 export type ButtonProps = Omit<
   WebButtonProps,
   'onClick' | 'disabled' | 'children'
-> &
-  PressableBridgeProps & {
-    children: React.ReactNode;
-    loading?: boolean;
-    loadingText?: string; // ignored on web, present for API symmetry
-    spinnerPlacement?: SpinnerPlacement;
-    // Normalized events
-    onPress?: () => void;
-    onPressIn?: () => void;
-    onPressOut?: () => void;
-    onLongPress?: () => void;
-    // Web-only optional onClick for compatibility
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    disabled?: boolean;
-  };
+> & {
+  // PressableBridgeProps & {
+  children: React.ReactNode;
+  loading?: boolean;
+  loadingText?: string; // ignored on web, present for API symmetry
+  spinnerPlacement?: SpinnerPlacement;
+  // Normalized events
+  onPress?: () => void;
+  onPressIn?: () => void;
+  onPressOut?: () => void;
+  onLongPress?: () => void;
+  // Web-only optional onClick for compatibility
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+};
 
 export function Button({
   children,

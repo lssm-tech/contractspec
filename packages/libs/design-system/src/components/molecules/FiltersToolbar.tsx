@@ -54,7 +54,7 @@ export function FiltersToolbar({
             <div className="flex flex-1 items-center gap-2">
               <Input
                 value={q}
-                onChange={setQ}
+                onChange={(e) => setQ(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') onSearchSubmit?.();
                 }}

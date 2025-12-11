@@ -46,9 +46,7 @@ const candidateRoots = (() => {
 
 const docCache = new Map<string, string>();
 
-async function loadCliDoc(
-  key: keyof typeof CLI_DOC_PATHS
-): Promise<string> {
+async function loadCliDoc(key: keyof typeof CLI_DOC_PATHS): Promise<string> {
   if (docCache.has(key)) return docCache.get(key)!;
 
   const relative = CLI_DOC_PATHS[key];
@@ -167,7 +165,11 @@ function buildCliPrompts() {
           text: `Use CLI commands only from cli://commands. Prefer quickstart for newcomers and reference for options.${goal ? ` Goal: ${goal}.` : ''}`,
         },
         { type: 'resource' as const, uri: 'cli://commands', title: 'Commands' },
-        { type: 'resource' as const, uri: 'cli://doc/quickstart', title: 'Quickstart' },
+        {
+          type: 'resource' as const,
+          uri: 'cli://doc/quickstart',
+          title: 'Quickstart',
+        },
       ],
     })
   );
@@ -220,11 +222,10 @@ function buildCliOps() {
 
     if (lower.includes('create') || lower.includes('new')) {
       return {
-        command: prefersAi
-          ? 'contractspec create --ai'
-          : 'contractspec create',
+        command: prefersAi ? 'contractspec create --ai' : 'contractspec create',
         docUri: 'cli://doc/quickstart',
-        reason: 'Creates a new ContractSpec interactively (optionally with AI).',
+        reason:
+          'Creates a new ContractSpec interactively (optionally with AI).',
       };
     }
 
@@ -265,4 +266,3 @@ export function createCliMcpHandler(path = '/api/mcp/cli') {
     prompts: buildCliPrompts(),
   });
 }
-

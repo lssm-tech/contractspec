@@ -1,4 +1,5 @@
 import type React from 'react';
+import { MarketingLayout } from '@lssm/lib.design-system';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 
@@ -8,10 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <Header />
+    <MarketingLayout header={<Header />} footer={<Footer />}>
       {children}
-      <Footer />
-    </>
+    </MarketingLayout>
   );
 }

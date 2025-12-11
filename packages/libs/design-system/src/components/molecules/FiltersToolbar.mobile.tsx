@@ -34,7 +34,7 @@ export function FiltersToolbar({
           <HStack className="flex-1 items-center gap-2">
             <Input
               value={q}
-              onChange={setQ}
+              onChange={(e) => setQ(e.target.value)}
               placeholder={searchPlaceholder}
               keyboard={{ kind: 'search' }}
             />

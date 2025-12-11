@@ -129,8 +129,7 @@ export function docBlocksToPresentationSpecs(
 
 export function mapDocRoutes(
   routes: DocPresentationRoute[]
-): Array<[string, PresentationDescriptorV2]> {
+): [string, PresentationDescriptorV2][] {
   return routes.map(({ route, descriptor }) => [route, descriptor]);
 }
-
 

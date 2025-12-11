@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
 import { cva } from 'class-variance-authority';
+import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 
 export interface FooterProps {
   left?: React.ReactNode;
@@ -41,8 +42,9 @@ export function Footer({
       <div className="grid grid-cols-1 items-center gap-3 sm:grid-cols-3">
         <div className="flex items-center gap-3">{left}</div>
         <div className="text-muted-foreground text-center">{center}</div>
-        <div className="flex items-center justify-end gap-3">{right}</div>
+        <VStack>{right}</VStack>
       </div>
+
       {links && links.length > 0 && (
         <div className="text-muted-foreground mt-4 flex flex-wrap items-center justify-center gap-3 text-base">
           {links.map((l) => (

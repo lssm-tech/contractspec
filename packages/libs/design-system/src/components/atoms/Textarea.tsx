@@ -8,10 +8,10 @@ import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
 interface BaseFieldProps {
   value?: string;
   defaultValue?: string;
-  onChange?: (text: string) => void;
-  onSubmit?: () => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  // onChange?: (text: string) => void;
+  // onSubmit?: () => void;
+  // onFocus?: () => void;
+  // onBlur?: () => void;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;
@@ -22,11 +22,13 @@ interface BaseFieldProps {
   keyboard?: KeyboardOptions;
 }
 
-export type TextareaProps = Omit<
-  WebTextareaProps,
-  'onChange' | 'value' | 'defaultValue'
-> &
-  BaseFieldProps;
+export type TextareaProps = WebTextareaProps & BaseFieldProps;
+
+// export type TextareaProps = Omit<
+//   WebTextareaProps,
+//   // 'onChange' | 'value' | 'defaultValue'
+// > &
+//   BaseFieldProps;
 
 export function Textarea({
   value,
@@ -49,7 +51,7 @@ export function Textarea({
 
   const handleChange = React.useCallback<
     React.ChangeEventHandler<HTMLTextAreaElement>
-  >((e) => onChange?.(e.target.value), [onChange]);
+  >((e) => onChange?.(e), [onChange]);
 
   const handleKeyDown = React.useCallback<
     React.KeyboardEventHandler<HTMLTextAreaElement>
@@ -57,7 +59,7 @@ export function Textarea({
     (e) => {
       if (e.key === 'Enter' && webKeyboard.type !== 'search') {
         // For textarea, Enter inserts newline; onSubmit could be used with modifier
-        if (e.metaKey || e.ctrlKey) onSubmit?.();
+        if (e.metaKey || e.ctrlKey) onSubmit?.(e);
       }
     },
     [onSubmit, webKeyboard.type]

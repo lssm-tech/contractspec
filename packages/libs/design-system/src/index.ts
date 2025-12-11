@@ -145,6 +145,7 @@ export { FormSection, FormRow, FormGrid } from './components/forms/FormLayout';
 export { FormCardLayout } from './components/forms/FormCardLayout';
 export { FormStepsLayout } from './components/forms/FormStepsLayout';
 export { FormOneByOneLayout } from './components/forms/FormOneByOneLayout';
+export { ActionForm } from './components/forms/ActionForm';
 
 // Data views
 export { DataViewList } from './components/data-view/DataViewList';
