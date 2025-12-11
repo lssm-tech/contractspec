@@ -1,0 +1,47 @@
+{
+  "name": "@lssm/example.learning-journey.crm-onboarding",
+  "version": "1.0.0",
+  "description": "Learning journey track that onboards users to the CRM pipeline example.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./track": "./src/track.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/example.crm-pipeline": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./track": "./dist/track.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
+      "./*": "./*"
+    }
+  }
+}

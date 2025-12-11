@@ -1,0 +1,49 @@
+{
+  "name": "@lssm/example.learning-journey.registry",
+  "version": "1.0.0",
+  "description": "Registry that aggregates learning journey example tracks.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./tracks": "./src/tracks.ts",
+    "./presentations": "./src/presentations/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/learning-journey-registry.docblock": "./src/docs/learning-journey-registry.docblock.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "test": "bun test",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+    "@lssm/example.learning-journey.platform-tour": "workspace:*",
+    "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/learning-journey-registry.docblock": "./dist/docs/learning-journey-registry.docblock.js",
+      "./*": "./*"
+    }
+  }
+}
