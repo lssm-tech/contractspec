@@ -14,9 +14,9 @@ const learningJourneyDocBlocks: DocBlock[] = [
     body: `## Capabilities
 
 - **Entities**: Learner, Track, Module, Step, Progress, Quiz, Flashcard, AI Coach, Gamification (XP, streaks, badges).
-- **Contracts**: enroll/resume/advance steps, complete quizzes, record streaks, assign XP, fetch progress dashboards.
+- **Contracts**: enroll/resume/advance steps, complete quizzes, record streaks, assign XP, fetch progress dashboards, onboarding list/progress/recordEvent.
 - **Engines**: spaced-repetition (SRS), streak calculator, XP progression.
-- **Events**: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded.
+- **Events**: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded, onboarding.started/completed/step_completed.
 
 ## Usage
 
@@ -27,7 +27,7 @@ const learningJourneyDocBlocks: DocBlock[] = [
 - Import from \`@lssm/module.learning-journey\` into your spec registry.
 
 3) Bind to product actions
-- Tie \`Step\` completion conditions to domain events (e.g., deal.created, agent.run.completed).
+- Tie \`Step\` completion conditions (event name/version/source + optional payload filter) to domain events (e.g., deal.created, agent.run.completed).
 - Trigger notifications via Notification Center and audits on completion.
 
 4) Gamification
@@ -48,6 +48,7 @@ ${'```'},
 - Keep steps bound to real product events, not just button clicks.
 - Avoid storing PII in content; keep org/user scoping for multi-tenant isolation.
 - Emit analytics and audit logs for completions; respect \`prefers-reduced-motion\` in UIs consuming these specs.
+- Track completion bonuses: \`completionXpBonus\`, \`completionBadgeKey\`, optional \`streakHoursWindow\` + \`streakBonusXp\`.
 `,
   },
   {

@@ -76,6 +76,24 @@ export const OnboardingTrackEntity = defineEntity({
       default: 100,
       description: 'Total XP for completing track',
     }),
+    completionXpBonus: field.int({
+      isOptional: true,
+      description: 'Bonus XP for completing track',
+    }),
+    completionBadgeKey: field.string({
+      isOptional: true,
+      description: 'Badge awarded on completion',
+    }),
+
+    // Streak/tempo rules
+    streakHoursWindow: field.int({
+      isOptional: true,
+      description: 'Hours window to finish for streak bonus',
+    }),
+    streakBonusXp: field.int({
+      isOptional: true,
+      description: 'Bonus XP if completed within streak window',
+    }),
 
     // Organization scope
     orgId: field.string({
@@ -145,6 +163,14 @@ export const OnboardingStepEntity = defineEntity({
     }),
     completionEvent: field.string({
       description: 'Event that completes the step',
+    }),
+    completionEventVersion: field.int({
+      isOptional: true,
+      description: 'Version of the completion event',
+    }),
+    completionSourceModule: field.string({
+      isOptional: true,
+      description: 'Module emitting the completion event',
     }),
     completionEventFilter: field.json({
       isOptional: true,
