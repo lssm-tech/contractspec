@@ -12,788 +12,322 @@ Use the existing technical rules in the workspace for stack, libraries, and codi
 
 ---
 
-## Global goals for all work
+You are working inside the ContractSpec Studio monorepo.
 
-Across cross-cutting modules and examples, your objectives are:
+Context:
 
-1. **Spec-first design**
-   - Domain concepts and behavior live in ContractSpec.
-   - Code is a projection of the spec and can be regenerated deterministically.
-   - When behavior changes are needed, prefer editing the spec and regenerating.
+- ContractSpec is a **spec-first, policy-safe application compiler**.
+- The canonical truth is in the spec/IR; code is generated/regenerated from it.
+- The **Learning Journey** module is already implemented and marked as ✅ Complete in `PLAN_VNEXT.md`, with:
+  - tracks / modules / steps abstraction,
+  - SRS / streak / XP engines,
+  - progress events.
+- There are already example apps like:
+  - `@lssm/example.saas-boilerplate`
+  - `@lssm/example.crm-pipeline`
+  - `@lssm/example.agent-console`
+  - `@lssm/example.workflow-system`
+  - etc., all aligned to the stack & conventions described in `PLAN_VNEXT.md`.
 
-2. **Multi-surface coverage**
-   - Wherever relevant, keep DB schemas, APIs, UI, events, jobs, policies, and analytics consistent.
-   - Regeneration must align all surfaces.
+Goal of this task:
+Implement **three Learning Journey example packages** that focus on _learning & progression itself_, not on building new verticals from scratch.
 
-3. **Safe regeneration**
-   - Changes in the spec must:
-     - produce **clear, reviewable diffs**,
-     - be **reversible**,
-     - avoid silently breaking public contracts or critical flows.
+Backwards compatibility note:
 
-4. **No hard vendor lock-in**
-   - Generated code must rely on **standard tech** (TypeScript, Node, web frameworks, etc.).
-   - Apps should be runnable independently of ContractSpec at runtime.
-   - Users own their code and should be able to export it.
-
-5. **Incremental adoption**
-   - ContractSpec should be adoptable **module-by-module**, not only through big-bang rewrites.
-   - Integration strategies should support wrapping or extending existing apps.
+- You are allowed to introduce **breaking changes** in the Learning Journey module and its public API if that leads to a cleaner, more coherent design.
+- You do **not** need to preserve backward compatibility with any temporary/early experimentation in this area, as long as the rest of the examples still work or can be trivially adapted.
 
 ---
 
-## Ownership & lock-in principles (non-negotiable)
+## Step 0 – Understand existing Learning Journey implementation
 
-When designing modules and examples:
+1. Open and read `PLAN_VNEXT.md`, especially:
+   - The "Cross-cutting Modules" section.
+   - The `Learning Journey` entry.
+   - How examples are described and registered (Phase 1/2/3/4 examples).
+2. Scan the codebase for the Learning Journey implementation:
+   - Example search terms:
+     - `@lssm/module.learning`
+     - `learning-journey`
+     - `LearningJourneyTrack`
+     - `SRS`, `XP`, `streak` in relevant libs/modules.
+3. Identify:
+   - Where the **spec-level definitions** for learning journeys live.
+   - How **tracks / steps / progress events** are modeled (entities, events, contracts).
+   - How this module integrates with:
+     - identity & RBAC,
+     - event bus,
+     - notifications / jobs (if already wired),
+     - usage/metering (if any hooks exist).
 
-- Users **own 100% of the generated code**.
-- Code must be:
-  - readable,
-  - idiomatic for the chosen stack,
-  - runnable without a proprietary ContractSpec runtime.
-- The spec and IR should be **transparent and documented**, not opaque.
-- It must always be possible to:
-  - export the whole generated project,
-  - continue maintaining it without ContractSpec if necessary.
-
-If a design increases lock-in or hides too much logic in a non-standard runtime, prefer a different design.
-
----
-
-## AI behavior guidelines (for you as an agent)
-
-- Prefer **editing specs** (contracts, entities, workflows, policies, integrations) and then regenerating, rather than patching generated code across multiple layers.
-- **Explain changes**:
-  - what changed in the spec,
-  - why,
-  - expected impact on API, UI, DB, events, jobs.
-- Do not introduce “magic” behavior that:
-  - can’t be diffed,
-  - can’t be explained,
-  - can’t be audited.
-- Respect guardrails:
-  - no designs that create strong vendor lock-in,
-  - no hidden coupling outside the spec.
+Do **not** write code yet. First, build a mental map and then propose a short implementation plan.
 
 ---
 
-## Cross-cutting modules (build once, reuse everywhere)
+## Step 1 – Proposed implementation plan
 
-These are **core primitives** that many examples will depend on. Implement them as ContractSpec modules/packages that can be reused across apps.
+Propose a concise plan (in comments or as a single markdown summary) that covers:
 
-### 1. Identity, Organizations & RBAC
+1. **Domain model** of Learning Journey (as it exists now):
+   - Track, module, step.
+   - Step completion / progress events.
+   - XP, streak, SRS.
+2. Any **small API redesigns** needed to cleanly support the 3 examples:
+   - e.g. better typing for `completionCondition`,
+   - clearer linkage between “events from other modules” and “step progress”.
+3. The three example packages you will add, including **intended package names** and relationships:
+   - `@lssm/example.learning-journey.studio-onboarding`
+   - `@lssm/example.learning-journey.platform-tour`
+   - `@lssm/example.learning-journey.crm-onboarding`
+4. How each example will:
+   - Define a **track** (and optional sub-modules/sections).
+   - Bind steps to **events** coming from Studio, core modules, or CRM.
+   - Award XP / streaks.
+   - Optionally trigger **notifications** or scheduled nudges.
+5. Where the examples will be **wired into Studio**:
+   - E.g. template registry, onboarding flows, or a “Learning” section inside Studio, depending on what already exists.
 
-**Goal:**  
-Provide a reusable identity and authorization foundation for multi-tenant, multi-role applications.
-
-**Scope:**
-
-- `User`
-- `Org` (organization / tenant)
-- `OrgMembership` (role per org)
-- Basic RBAC policy primitives:
-  - org-level roles: `owner`, `admin`, `member`
-  - resource-level permissions (e.g. `can_manage_project`, `can_view_billing`)
-
-**Spec responsibilities:**
-
-- Expression of roles and permissions at spec level.
-- Rules like:
-  - “Who can create orgs?”
-  - “Who can invite members?”
-  - “Who can access resource X?”
-
-**Usage:**
-
-- Reused by: SaaS boilerplate, CRM, Agent console, Marketplace, Service OS, Wealth app, Team Hub, etc.
+When the plan is written, follow it and implement step by step.
 
 ---
 
-### 2. Event Bus & Audit Trail
+## Step 2 – Example 1: Studio Onboarding Learning Journey
 
-**Goal:**  
-Provide a consistent way to model events and audits across all apps.
+Business / product logic:
 
-**Scope:**
+This journey is for a new user landing in ContractSpec Studio.  
+Goal: **“First 30 minutes with Studio”** that takes a user from “what is this thing?” to “I’ve instantiated a template, modified the spec, regenerated, and played with the UI.”
 
-- Event definitions:
-  - name, domain, payload schema, severity
-- Audit log:
-  - `actor` (user/agent/system)
-  - `target` (resource reference)
-  - payload / diff
-  - timestamp
+Track concept:
 
-**Spec responsibilities:**
+- **Track key**: `studio_getting_started`
+- Target persona: new Studio user (developer / builder).
+- Outcome: user has:
+  - spawned a template sandbox,
+  - edited spec (not generated code),
+  - triggered regeneration,
+  - used Playground / Builder / Markdown / Evolution at least once.
 
-- Declare domain events like `deal.created`, `order.completed`, `agent.run.failed`, `invoice.sent`, etc.
-- Attach events to domain actions and workflows.
-- Provide retention and privacy metadata where needed.
+Suggested steps (exact naming can be adapted to match code style):
 
-**Usage:**
+1. `choose_template`
+   - Description: “Pick a Phase 1 template and create a sandbox.”
+   - Completion condition:
+     - Receipt of an event like `studio.template.instantiated` or equivalent.
+2. `edit_spec`
+   - Description: “Edit the spec for your sandbox (no touching generated code).”
+   - Completion:
+     - An event like `spec.changed` / `spec.saved` in the sandbox.
+3. `regenerate_app`
+   - Description: “Regenerate the application from the spec.”
+   - Completion:
+     - `regeneration.completed` event.
+4. `play_in_playground`
+   - Description: “Use the Playground mode or any runtime mode to interact with the app.”
+   - Completion:
+     - `playground.session.started` or equivalent.
+5. `try_evolution_mode`
+   - Description: “Use Evolution mode once to request a change from AI and regenerate.”
+   - Completion:
+     - An event such as `studio.evolution.applied` or the closest existing one.
 
-- Powering logging, analytics, notifications, workflows, and debugging across all examples.
+Implementation details:
 
----
+- Create a new **example package** for this track following the same structure as the other example packages:
+  - `@lssm/example.learning-journey.studio-onboarding`
+  - Put spec definitions where the other examples define their schemas/specs.
+- Define:
+  - A `LearningJourneyTrack` (or equivalent entity) for `studio_getting_started`.
+  - A set of `LearningJourneyStep` definitions keyed by the events above.
+- Wiring:
+  - Map real events from Studio to step completion using the existing bus / events system.
+  - Award XP for each step (e.g. simple 10–25 XP per step).
+  - Optionally define a **streak rule**:
+    - e.g. completing all steps within 48 hours of first interaction.
 
-### 3. Notification & Messaging Center
+Add minimal documentation (README in the package) explaining:
 
-**Goal:**  
-Model notifications in a consistent, reusable way.
-
-**Scope:**
-
-- `NotificationChannel`: email, in-app, webhook, etc.
-- `Template`: message body with variables/placeholders.
-- `NotificationRule` / trigger:
-  - event → recipients → channels → template.
-- Delivery records:
-  - queued, sent, failed, retries.
-
-**Spec responsibilities:**
-
-- Map domain events to notifications:
-  - e.g. `user.invited`, `invoice.overdue`, `workflow.approval_requested`.
-- Define who gets notified and through which channels.
-- Basic user/org preferences (opt-in/out by channel).
-
-**Usage:**
-
-- Used for invites, reminders, order updates, workflow approvals, learning nudges, etc.
-
----
-
-### 4. Background Jobs & Scheduler
-
-**Goal:**  
-Provide a generic system for asynchronous and scheduled work.
-
-**Scope:**
-
-- `Job`:
-  - type, payload, status, attempts, scheduled_at, last_error.
-- Job handlers / types:
-  - e.g. `send_notification`, `sync_integration`, `recalculate_metrics`, `expire_trial`.
-- Scheduling:
-  - support for recurring jobs (interval/cron-like spec).
-
-**Spec responsibilities:**
-
-- Declare job types and constraints:
-  - max retries, backoff policy, timeout.
-- Associate jobs with events or schedules:
-  - e.g. run nightly metrics, periodic sync, reminder jobs.
-
-**Usage:**
-
-- Integrations sync, notification delivery, metrics aggregation, periodic cleanups, learning reminders.
+- What this track is.
+- Which events complete each step.
+- How to plug it into the UI (if there’s a Learning UI already).
 
 ---
 
-### 5. Feature Flags & Experiments
+## Step 3 – Example 2: Platform Primitives Tour
 
-**Goal:**  
-Enable safe feature rollouts and experiments across apps.
+Business / product logic:
 
-**Scope:**
+This journey is for a developer who wants to understand **all cross-cutting modules** by touching each of them once.  
+It is intentionally product-agnostic: more like a “platform tour.”
 
-- `FeatureFlag`:
-  - key, description, status (on/off/gradual).
-- Targeting:
-  - by org, user, plan, or segment.
-- Optional experiments:
-  - variants, split ratios, monitored metrics.
+Track concept:
 
-**Spec responsibilities:**
+- **Track key**: `platform_primitives_tour`
+- Outcome: the user has:
+  - created an org & member,
+  - triggered an auditable event,
+  - sent a notification,
+  - scheduled and ran a job,
+  - used a feature flag,
+  - attached a file,
+  - generated some metered usage.
 
-- Define flags and where they apply:
-  - UI blocks, endpoints, behavior branches.
-- Ensure critical flows are protected and not randomly experimented on.
+Suggested steps (adapt event names to the actual codebase):
 
-**Usage:**
+1. `identity_rbac`
+   - “Create an org and add at least one member.”
+   - Completion:
+     - `identity.org.created` + `identity.org.member_added` or equivalent.
+2. `event_bus_audit`
+   - “Emit an auditable event.”
+   - Completion:
+     - `bus.event.emitted` with `audit` flag set, or an `audit_log.created` event.
+3. `notifications`
+   - “Send yourself (or a test user) a notification.”
+   - Completion:
+     - `notification.delivery.succeeded`.
+4. `jobs_scheduler`
+   - “Schedule a recurring or one-off background job and let it run at least once.”
+   - Completion:
+     - `job.scheduled` + `job.completed`.
+5. `feature_flags`
+   - “Create and flip a feature flag.”
+   - Completion:
+     - `feature_flag.created` + `feature_flag.updated` / evaluated.
+6. `files_attachments`
+   - “Attach a file to any entity.”
+   - Completion:
+     - `file.attached` or similar.
+7. `usage_metering`
+   - “Generate some usage for a metric (e.g. regenerations, agent runs).”
+   - Completion:
+     - `usage.recorded` or equivalent metering event.
 
-- Gradual rollouts for new features in CRM, Agent console, Marketplace, Wealth app, learning flows, etc.
+Implementation details:
 
----
+- New example package:
+  - `@lssm/example.learning-journey.platform-tour`
+- Define a single track `platform_primitives_tour` with the above steps.
+- Bind step completion to the actual event names used by:
+  - `@lssm/lib.identity`
+  - `@lssm/lib.bus`
+  - `@lssm/module.notifications`
+  - `@lssm/lib.jobs`
+  - `@lssm/lib.feature-flags`
+  - `@lssm/lib.files`
+  - `@lssm/lib.metering`
+- XP / streak:
+  - XP for each step.
+  - Optionally a **bonus XP** for finishing all steps.
+- This example should highlight:
+  - How to use Learning Journey purely as a **cross-module teaching layer** with no extra business entities.
 
-### 6. Files, Documents & Attachments
+Add a README describing:
 
-**Goal:**  
-Provide a consistent way to manage files and document attachments.
-
-**Scope:**
-
-- `File` / `Document`:
-  - id, owner, org, mime_type, size, storage location/provider, created_at.
-- Attachments:
-  - linking files to entities: deals, requests, jobs, assets, invoices, learning steps.
-
-**Spec responsibilities:**
-
-- Define which entities can have attachments.
-- Access control for files:
-  - who can upload, view, delete.
-- Basic retention rules.
-
-**Usage:**
-
-- Proposals, contracts, reports, photos, invoices, tax statements, learning materials.
-
----
-
-### 7. Usage, Metering & Billing Core
-
-**Goal:**  
-Define a generic metering system for usage-based features and billing.
-
-**Scope:**
-
-- `UsageRecord`:
-  - subject (org/user),
-  - metric key (`regenerations`, `agent_runs`, `api_calls`, `active_clients`, etc.),
-  - quantity, period.
-- `MetricDefinition`:
-  - name, unit, aggregation (daily/monthly), description.
-- Integration hooks with plans/billing where needed.
-
-**Spec responsibilities:**
-
-- Define billable metrics and how they are counted.
-- Associate metrics with pricing/plans externally (if required at this stage).
-
-**Usage:**
-
-- For ContractSpec Studio itself (regeneration, projects, seats).
-- For vertical apps that might meter by jobs, clients, processed docs, etc.
-
----
-
-### 8. Learning Journey / Self-Taught Engine
-
-**Goal:**  
-Provide a **Learning Journey Engine** that can orchestrate self-guided + product-integrated learning paths.
-
-**Scope:**
-
-- `Learner` profile (usually a user).
-- `Track`:
-  - e.g. “Get started with SaaS boilerplate”, “CRM basics”, “Equitya onboarding”.
-- `Module` / `Unit` within a track.
-- `Step`:
-  - can contain:
-    - content (lesson/explanation),
-    - optional bound product action (e.g. “create first deal”, “connect bank”),
-    - completion condition (event-driven).
-- `Progress` for learner/track.
-
-**Spec responsibilities:**
-
-- Describe the structure of tracks, modules, steps.
-- Bind steps to actual product events:
-  - completion is not just “next clicked” but “action happened”.
-
-**Usage:**
-
-- Onboarding to ContractSpec Studio itself.
-- Vertical self-taught journeys in Equitya, ArtisanOS, etc.
+- The developer persona.
+- How to run through the steps manually.
+- Where to inspect the recorded progress (DB/table/queries).
 
 ---
 
-## Application examples (reference apps) & priorities
+## Step 4 – Example 3: CRM “First Win” Onboarding Journey
 
-You will implement a set of example applications inside the Studio. Each should:
+Business / product logic:
 
-- Reuse the cross-cutting modules where applicable.
-- Be spec-first, multi-surface (DB/API/UI/events/permissions).
-- Demonstrate **safe regeneration**: changing the spec updates all surfaces coherently.
+This journey is attached to the existing **CRM Pipeline** example, and aims to help a new user go from **empty CRM** to **first closed-won deal**.
 
-Organize these under a clear structure (e.g., `examples/`), each with:
+Track concept:
 
-- ContractSpec definitions (spec/IR).
-- Generated adapters (API, UI, jobs, etc.).
-- A short README explaining purpose, entities, flows, and what to look at for regeneration.
+- **Track key**: `crm_first_win`
+- Persona: user adopting the CRM template.
+- Outcome: user has created basic CRM entities and successfully closed a deal as won.
 
-### Phase 1 – Core product examples (highest priority)
+Suggested steps (bind to the events already used by `@lssm/example.crm-pipeline`):
 
-#### 1) AI-Native SaaS Boilerplate (Auth + Orgs + Billing)
+1. `create_pipeline`
+   - “Create a pipeline and basic stages.”
+   - Completion:
+     - `crm.pipeline.created` plus at least N `crm.stage.created`.
+2. `create_contact_and_company`
+   - “Create a contact and a company.”
+   - Completion:
+     - `crm.contact.created`
+     - `crm.company.created`.
+3. `create_first_deal`
+   - “Log your first deal.”
+   - Completion:
+     - `crm.deal.created`.
+4. `move_deal_in_pipeline`
+   - “Move a deal across at least 3 stages.”
+   - Completion:
+     - multiple `crm.deal.stage_moved` events.
+5. `close_deal_won`
+   - “Close a deal as won.”
+   - Completion:
+     - `crm.deal.closed` with `status = "won"` or equivalent.
+6. (Optional) `setup_follow_up`
+   - “Create a follow-up task and notification for a contact or deal.”
+   - Completion:
+     - `crm.task.created` + `notification.delivery.succeeded`.
 
-_Priority: 1_
+Implementation details:
 
-**Goal:**  
-Provide a realistic SaaS base that many AI-native products could adopt.
+- New example package:
+  - `@lssm/example.learning-journey.crm-onboarding`
+- Reuse the CRM entities and events from `@lssm/example.crm-pipeline`.
+- Only add:
+  - Learning Journey track + steps.
+  - Event bindings.
+  - Optional on-completion XP and “small badge” (if there is a way to represent achievements/badges in the Learning Journey module; otherwise, keep it simple).
 
-**Scope:**
+Add a README explaining:
 
-- Users, orgs, memberships (reuse Identity & RBAC module).
-- Roles: owner/admin/member.
-- Projects/workspaces as core resource.
-- Basic billing & plan awareness (can leverage Usage & Billing core later).
-- Settings and simple audit log (via Event & Audit module).
-
-**Why it matters:**
-
-- Mirrors the starting point of many startups and agencies.
-- Stresses multi-tenant logic, RBAC, and plan-based feature gating.
-- Acts as a base for other examples if desired.
-
-**Constraints:**
-
-- Permissions and org/role rules expressed in the spec.
-- Regeneration must keep project/tenant boundaries safe.
-- Generated code is standard stack, no proprietary runtime.
-
----
-
-#### 2) CRM & Deal Pipeline (with Kanban)
-
-_Priority: 2_
-
-**Goal:**  
-Model a small CRM with contacts, companies, deals, pipeline stages, and tasks.
-
-**Scope:**
-
-- Contacts, companies, deals.
-- Pipeline stages (kanban-style).
-- Tasks / reminders.
-- Search/filter endpoints.
-- Events: `deal.created`, `deal.moved`, `task.completed` (via Event module).
-
-**Why it matters:**
-
-- Very common and highly relatable.
-- Demonstrates cross-entity relationships, UI views, and regen when changing pipelines or fields.
-
-**Constraints:**
-
-- Pipeline and required fields defined in the spec.
-- Changes to pipeline or fields propagate to forms, validation, and UI.
-- Regeneration must avoid breaking existing clients when possible.
+- How this track attaches to the CRM Pipeline example.
+- How a user is expected to progress.
+- Where to see their journey state.
 
 ---
 
-#### 3) AI Agent Ops Console (“AgentControl”)
+## Step 5 – API, UI & Docs Integration
 
-_Priority: 3_
-
-**Goal:**  
-Provide a console for managing AI agents, tools, and runs.
-
-**Scope:**
-
-- Tools registry (name, schemas, rate limits, auth).
-- Agents: model, tools, policies, config.
-- Runs: history, status, logs.
-- Events: `run.started`, `tool.called`, `run.failed`, `run.completed`.
-
-**Why it matters:**
-
-- Direct match to AI-first ICP.
-- Shows ContractSpec as a spec layer for tools, agents, and operations.
-
-**Constraints:**
-
-- Tool and agent definitions live in the spec.
-- UI should allow listing/inspect tools, agents, runs.
-- Regeneration must preserve run records and agent semantics.
+1. Ensure Learning Journey API / contracts expose enough information for:
+   - Listing tracks available to a user.
+   - Showing progress per track and per step.
+   - Marking steps as completed via events (no client-side hacks).
+2. If there is a **Studio UI** component for Learning Journeys (or a dedicated page):
+   - Register these three tracks so they show up in a meaningful place:
+     - `studio_getting_started` could be highlighted prominently for new users.
+     - `platform_primitives_tour` could live under “Developer / Platform”.
+     - `crm_first_win` could be surfaced when the CRM template is instantiated.
+3. Update or create **short documentation**:
+   - Either in `docs/` or as READMEs in each example package.
+   - Include:
+     - Purpose of each track.
+     - High-level structure (steps).
+     - Where to look in the spec & code.
 
 ---
 
-### Phase 2 – State, policy and multi-party flows
+## Step 6 – Tests & Validation
 
-#### 4) Workflow / Approval System (State Machine)
-
-_Priority: 4_
-
-**Goal:**  
-Implement a generic approval workflow system driven by state machines and policies.
-
-**Scope:**
-
-- Items/requests with states (draft, submitted, approved, rejected, etc.).
-- Workflow definitions: states + allowed transitions.
-- Role-based permissions on transitions.
-- Comments and history (via events/audit).
-
-**Why it matters:**
-
-- Ideal to showcase policy logic at spec level.
-- Demonstrates UI + API actions driven by the same state machine.
-
-**Constraints:**
-
-- State machine clearly expressed in the spec.
-- Regeneration must update allowed transitions and UI actions without silently breaking existing items.
-- Integrate with RBAC and Audit modules.
+1. Add **unit tests** or **integration tests** for the Learning Journey module and the new tracks:
+   - For each track, test that when the relevant events are emitted, steps transition from “not started” → “in progress” → “completed”.
+   - Test XP/streak logic for at least one track (e.g. `studio_getting_started`).
+2. Ensure the monorepo:
+   - Builds successfully.
+   - Passes existing tests.
+3. If necessary, update any tooling or generators that depend on Learning Journey definitions so they are aware of:
+   - track IDs / keys,
+   - step IDs / keys,
+   - any new fields added in this refactor.
 
 ---
 
-#### 5) Marketplace (2-sided, payouts & reviews)
-
-_Priority: 5_
-
-**Goal:**  
-Build a generic marketplace between providers and clients.
-
-**Scope:**
-
-- Providers and clients (reuse Identity/Org where possible).
-- Listings.
-- Orders and order lifecycle.
-- Commission and payout model.
-- Reviews/ratings.
-
-**Why it matters:**
-
-- Exercises multi-actor flows and money logic.
-- Very relevant to agencies and product builders.
-
-**Constraints:**
-
-- Commission logic and order states defined in the spec.
-- Events like `order.created`, `order.completed`, `payout.queued`, `review.posted`.
-- Regeneration must not silently alter payment semantics.
-
----
-
-### Phase 3 – Integrations and analytics
-
-#### 6) Integration Hub (3rd-Party Sync Center)
-
-_Priority: 6_
-
-**Goal:**  
-Model a generic sync center for external integrations.
-
-**Scope:**
-
-- `Integration` types (Slack, Notion, GitHub, etc.).
-- `Connection` per org/user (credentials, status).
-- Sync jobs + logs (reuse Jobs & Scheduler).
-- Mappings of remote → local entities.
-- Events for sync lifecycle.
-
-**Why it matters:**
-
-- Demonstrates ContractSpec’s ability to shape integration behaviors.
-- Useful for agencies and platform teams.
-
-**Constraints:**
-
-- Remain provider-agnostic where possible.
-- Job types and mappings at spec level.
-- Regeneration must preserve sync job history.
-
----
-
-#### 7) Analytics & Events Dashboard (Multi-tenant)
-
-_Priority: 7_
-
-**Goal:**  
-A basic analytics system built on top of the Event Bus.
-
-**Scope:**
-
-- Event type registry (reuse Event module).
-- Ingestion endpoints.
-- Simple queries:
-  - by event type,
-  - by timeframe,
-  - by org.
-- Dashboard views (counts, charts).
-
-**Why it matters:**
-
-- Uses events as a foundation for metrics and dashboards.
-- Shows co-evolution of event schemas and analytics.
-
-**Constraints:**
-
-- Event schemas and metrics definitions should live in the spec.
-- Regeneration must keep dashboards aligned with event changes.
-- Support multi-tenant isolation.
-
----
-
-### Phase 4 – Verticalized and workflow-heavy examples
-
-#### 8) Service Business OS (Jobs, Quotes, Invoices)
-
-_Priority: 8_
-
-**Goal:**  
-Implement a small back-office for service businesses.
-
-**Scope:**
-
-- Clients.
-- Quotes/proposals.
-- Jobs/interventions.
-- Invoices and payments.
-- Calendar or schedule view.
-
-**Why it matters:**
-
-- Applicable to artisan/field-service and agency-type verticals.
-- Good lifecycle: quote → job → invoice.
-
-**Constraints:**
-
-- States and transitions (e.g., quote accepted, job scheduled, invoice paid) defined in the spec.
-- Events: `quote.accepted`, `job.completed`, `invoice.sent`.
-- Regeneration must keep accounting-related flows coherent.
-
----
-
-#### 9) Team Hub (Tasks, Rituals, Announcements)
-
-_Priority: 9_
-
-**Goal:**  
-A lightweight internal tool with tasks, rituals, and announcements.
-
-**Scope:**
-
-- Spaces/projects.
-- Tasks.
-- Rituals (recurring meetings/check-ins).
-- Announcements.
-
-**Why it matters:**
-
-- Embeds your “ritual” / “ceremony” design philosophy.
-- Another realistic multi-entity internal app.
-
-**Constraints:**
-
-- Ritual configuration (schedule, participants, type) specified in the spec.
-- Events for ritual occurrences and task completions.
-- Regeneration must not break existing ritual schedules.
-
----
-
-#### 10) Wealth Snapshot Mini-App (Mini-Equitya)
-
-_Priority: 10_
-
-**Goal:**  
-Provide a simple wealth snapshot for a person or household.
-
-**Scope:**
-
-- Accounts.
-- Assets and liabilities.
-- Net worth and basic indicators (runway, savings rate).
-- Simple goals.
-
-**Why it matters:**
-
-- Exercises a more complex financial domain.
-- Connects ContractSpec to future Equitya/Wealth AI verticals.
-
-**Constraints:**
-
-- Domain must stay minimal but consistent.
-- Indicators and goal rules defined in the spec where possible.
-- Regeneration must not silently change financial meaning.
-
----
-
-## Using cross-cutting modules inside examples
-
-For each example:
-
-- Reuse the Identity & RBAC module for auth, orgs, and roles.
-- Emit domain events through the Event Bus.
-- Attach Notifications via Notification Center where appropriate.
-- Use Jobs & Scheduler for async or periodic work.
-- Use Files/Attachments for documents where relevant.
-- Use Usage & Metering where you want to track billable or important usage.
-- Use Learning Journey module to define onboarding/education flows where appropriate.
-- Use Feature Flags when introducing optional or experimental behavior.
-
----
-
-## Execution order (high-level)
-
-1. Implement core cross-cutting modules:
-   - Identity & RBAC,
-   - Event Bus & Audit Trail,
-   - Notification Center (initial),
-   - Background Jobs & Scheduler (basic).
-2. Implement Phase 1 examples on top of them.
-3. Expand cross-cutting modules (Files, Usage/Metering, Feature Flags, Learning Journeys).
-4. Implement Phase 2–4 examples, reusing cross-cutting modules.
-5. Continuously validate **spec-first**, **multi-surface**, **safe regeneration** behavior.
-
-Focus on correctness, clarity, reusability, and alignment with ContractSpec's role as the **spec + compiler + governance layer for AI-era software**.
-
----
-
-## Progress Tracking (vNext Major Release)
-
-### Cross-cutting Modules
-
-| Module                      | Status      | Package                                     | Notes                                                                       |
-| --------------------------- | ----------- | ------------------------------------------- | --------------------------------------------------------------------------- |
-| Entity Definition System    | ✅ Complete | `@lssm/lib.schema/entity`                   | `defineEntity()`, types, Prisma generator                                   |
-| CLI Database Enhancement    | ✅ Complete | `@lssm/app.cli-database`                    | `schema:generate`, `schema:compose` commands                                |
-| Identity & RBAC             | ✅ Complete | `@lssm/lib.identity-rbac`                   | User, Org, Member, Role, Permission entities; contracts; policy engine      |
-| Event Bus & Audit Trail     | ✅ Complete | `@lssm/lib.bus`, `@lssm/module.audit-trail` | AuditableEventBus, EventMetadata, filtering; AuditLog entity                |
-| Notification Center         | ✅ Complete | `@lssm/module.notifications`                | Notification, Preference, DeliveryLog entities; channel adapters; templates |
-| Background Jobs & Scheduler | ✅ Complete | `@lssm/lib.jobs`                            | Job, ScheduledJob entities; memory queue; cron scheduler                    |
-| Feature Flags & Experiments | ✅ Complete | `@lssm/lib.feature-flags`                   | Targeting, rollout, experiments, eval logging                               |
-| Files & Attachments         | ✅ Complete | `@lssm/lib.files`                           | Files, versions, attachments, presigned URLs, storage adapters              |
-| Usage & Metering            | ✅ Complete | `@lssm/lib.metering`                        | Metrics, usage records, summaries, thresholds/alerts                        |
-| Learning Journey            | ✅ Complete | `@lssm/module.learning-journey`             | Tracks, steps, SRS/streak/XP engines, progress events                       |
-
-### Application Examples
-
-| Example                  | Phase | Status      | Package                             |
-| ------------------------ | ----- | ----------- | ----------------------------------- |
-| SaaS Boilerplate         | 1     | ✅ Complete | `@lssm/example.saas-boilerplate`    |
-| CRM Pipeline             | 1     | ✅ Complete | `@lssm/example.crm-pipeline`        |
-| Agent Console            | 1     | ✅ Complete | `@lssm/example.agent-console`       |
-| Workflow/Approval System | 2     | ✅ Complete | `@lssm/example.workflow-system`     |
-| Marketplace              | 2     | ✅ Complete | `@lssm/example.marketplace`         |
-| Integration Hub          | 3     | ✅ Complete | `@lssm/example.integration-hub`     |
-| Analytics Dashboard      | 3     | ✅ Complete | `@lssm/example.analytics-dashboard` |
-| Service Business OS      | 4     | ✅ Complete | `@lssm/example.service-business-os` |
-| Team Hub                 | 4     | ✅ Complete | `@lssm/example.team-hub`            |
-| Wealth Snapshot          | 4     | ✅ Complete | `@lssm/example.wealth-snapshot`     |
-
-### Studio Integration
-
-| Task                    | Status      | Notes                                                         |
-| ----------------------- | ----------- | ------------------------------------------------------------- |
-| Template Registry       | ✅ Complete | All Phase 1 examples registered                               |
-| Sandbox Playground Mode | ✅ Complete | Interactive playground for templates                          |
-| Sandbox Specs Mode      | ✅ Complete | Spec editor with validation/save/reset                        |
-| Sandbox Builder Mode    | ✅ Complete | Visual canvas with node editing                               |
-| Sandbox Markdown Mode   | ✅ Complete | LLM-friendly markdown rendering with schema-driven generation |
-| Sandbox Evolution Mode  | ✅ Complete | AI-powered evolution dashboard with anomaly detection         |
-| TransformEngine v2      | ✅ Complete | Multi-target rendering (react, markdown, json, xml)           |
-| Presentation Renderers  | ✅ Complete | Custom markdown renderers for all Phase 1 templates           |
-| Overlay Engine          | ✅ Complete | Context-aware UI customization                                |
-| Behavior Tracking       | ✅ Complete | User behavior tracking with personalization insights          |
-| Workflow Composer       | ✅ Complete | Workflow specification composer with extensions               |
-| Documentation           | ✅ Complete | Quickstart guides for each template                           |
-
-### Presentation Layer (presentations.v2)
-
-| Feature                  | Status      | Notes                                                    |
-| ------------------------ | ----------- | -------------------------------------------------------- |
-| PresentationDescriptorV2 | ✅ Complete | Normalized descriptor with meta, source, policy, targets |
-| TransformEngine          | ✅ Complete | Pluggable renderer/validator registration                |
-| React Renderer           | ✅ Complete | Returns serializable ReactRenderDescriptor               |
-| Markdown Renderer        | ✅ Complete | Schema-driven + custom renderer fallback chain           |
-| JSON/XML Renderers       | ✅ Complete | Basic serialization with PII redaction                   |
-| Schema-to-Markdown       | ✅ Complete | Auto-generate markdown tables/lists from SchemaModel     |
-| Data Compatibility Check | ✅ Complete | Smart detection of simple vs complex data structures     |
-| BlockNote Support        | ✅ Complete | Full BlockNote → Markdown conversion                     |
-
----
-
-## What Was Delivered (vNext Phase 1)
-
-### New Packages Created
-
-1. **`@lssm/lib.identity-rbac`** - Identity and RBAC foundation
-   - Entities: User, Organization, Member, Role, Permission, PolicyBinding
-   - Contracts: CreateUser, GetUser, CreateOrg, AddMember, AssignRole, CheckPermission
-   - Events: UserCreated, OrgCreated, MemberAdded, RoleAssigned
-   - Policy engine placeholder
-
-2. **`@lssm/lib.jobs`** - Background jobs and scheduling
-   - Entities: Job, ScheduledJob
-   - Queue: MemoryJobQueue implementation
-   - Scheduler: NodeCronScheduler implementation
-   - Contracts: EnqueueJob, GetJobStatus, ScheduleRecurringJob
-   - Events: JobEnqueued, JobCompleted, JobFailed
-
-3. **`@lssm/module.audit-trail`** - Audit logging
-   - Entities: AuditLog
-   - Contracts: ListAuditLogs, GetAuditLogById
-   - Storage: InMemoryAuditLogStorage adapter
-
-4. **`@lssm/module.notifications`** - Notification center
-   - Entities: Notification, NotificationPreference, DeliveryLog
-   - Channels: Email, InApp adapters
-   - Templates: BasicTemplateRenderer
-   - Contracts: SendNotification, ListUserNotifications, MarkRead, UpdatePreferences
-
-5. **`@lssm/example.saas-boilerplate`** - SaaS foundation
-   - Entities: Project, AppSettings, UserSettings, BillingUsage
-   - Contracts: CreateProject, GetProject, RecordUsage, GetOrganizationUsage
-   - Events: ProjectCreated, UsageRecorded
-
-6. **`@lssm/example.crm-pipeline`** - Sales CRM
-   - Entities: Contact, Company, Deal, Pipeline, Stage, Task
-   - Contracts: CreateDeal, UpdateDealStage, GetDeal
-   - Events: DealCreated, DealStageMoved, TaskCompleted
-
-7. **`@lssm/example.agent-console`** - AI agent management
-   - Entities: Tool, Agent, AgentTool, Run, RunStep, RunLog
-   - Contracts: CreateTool, CreateAgent, ExecuteAgent, GetRun, GetRunSteps, GetRunLogs, GetRunMetrics
-   - Events: ToolCreated, AgentCreated, RunStarted, RunCompleted, RunFailed, ToolInvoked
-
-### Enhanced Packages
-
-1. **`@lssm/lib.schema`** - Added entity definition system
-   - `defineEntity()` helper
-   - Entity types and configuration
-   - Prisma schema generator (placeholder)
-
-2. **`@lssm/lib.bus`** - Added audit and filtering capabilities
-   - `AuditableEventBus` wrapper
-   - `EventMetadata` types
-   - `FilteredEventBus` for event filtering
-
-3. **`@lssm/app.cli-database`** - Added schema management commands
-   - `schema:generate` command
-   - `schema:compose` command
-   - `MergedPrismaConfig` types
-
-### Template Registry Updates
-
-- Added 3 new templates to Studio: saas-boilerplate, crm-pipeline, agent-console
-- Added new categories: business, ai
-- Added `package` field for Git-clonable templates
-- Added `usesModules` field for cross-cutting module dependencies
-
-### ContractSpec Studio Sandbox
-
-1. **Multi-Mode Experience** - Sandbox supports 5 modes:
-   - Playground: Interactive template demos
-   - Specs: TypeScript spec editor with validation
-   - Builder: Visual canvas with drag-drop nodes
-   - Markdown: LLM-friendly markdown preview of data
-   - Evolution: AI-powered app evolution dashboard
-
-2. **Presentation System (v2)** - Complete presentation layer:
-   - `PresentationDescriptorV2`: Normalized descriptors with meta, source, policy, targets
-   - `TransformEngine`: Pluggable multi-target rendering (react, markdown, json, xml)
-   - Schema-driven markdown: Auto-generates tables/lists from `SchemaModel`
-   - Custom renderer chain: Schema-driven → custom renderer fallback
-   - Data compatibility detection: Smart routing for simple vs complex data
-
-3. **Template Markdown Renderers**:
-   - Agent Console: Dashboard, Agent List, Run List, Tool Registry
-   - SaaS Boilerplate: Dashboard, Project List, Billing Settings
-   - CRM Pipeline: Dashboard, Pipeline Kanban
-
-4. **Evolution System Integration**:
-   - `EvolutionDashboard`: Usage stats, anomaly detection, AI suggestions
-   - `EvolutionSidebar`: Compact view for use alongside other tools
-   - Integration with `@lssm/lib.evolution` (SpecAnalyzer, AISpecGenerator, SpecSuggestionOrchestrator)
-
-5. **Personalization & Overlay**:
-   - `OverlayContextProvider`: Context-aware UI customization
-   - `useBehaviorTracking`: User behavior tracking and recommendations
-   - `PersonalizationInsights`: Display usage summaries and recommendations
-
-6. **Workflow Composer**:
-   - `useWorkflowComposer`: Compose workflow specs with extensions
-   - Step injection, hiding, and reordering
-   - TypeScript code generation for workflows
+Constraints & style:
+
+- Respect the stack, patterns, and naming conventions already used in:
+  - other modules,
+  - existing examples.
+- Be explicit in the spec/IR. The Learning Journey definitions should be readable by humans and AI.
+- Prefer clear, boring schema over clever abstractions.
+- If the existing Learning Journey code is messy or inconsistent with `PLAN_VNEXT.md`, clean it up while implementing these examples.
