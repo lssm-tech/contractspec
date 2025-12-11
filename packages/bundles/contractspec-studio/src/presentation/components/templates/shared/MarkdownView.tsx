@@ -13,6 +13,7 @@ import { fetchPresentationData } from './utils/fetchPresentationData';
 import * as AgentPresentations from '@lssm/example.agent-console/presentations';
 import * as SaasPresentations from '@lssm/example.saas-boilerplate/presentations';
 import * as CrmPresentations from '@lssm/example.crm-pipeline/presentations';
+import * as LearningJourneyPresentations from '@lssm/example.learning-journey-registry/presentations';
 
 export interface MarkdownViewProps {
   templateId: TemplateId;
@@ -53,6 +54,13 @@ function getPresentationDescriptor(presentationName: string) {
     // CRM Pipeline
     'crm-pipeline.dashboard': CrmPresentations.CrmDashboardPresentation,
     'crm-pipeline.deal.pipeline': CrmPresentations.PipelineKanbanPresentation,
+    // Learning Journey (registry)
+    'learning.journey.track_list':
+      LearningJourneyPresentations.LearningTrackListPresentation,
+    'learning.journey.track_detail':
+      LearningJourneyPresentations.LearningTrackDetailPresentation,
+    'learning.journey.progress_widget':
+      LearningJourneyPresentations.LearningTrackProgressWidgetPresentation,
   };
 
   return presentationMap[presentationName];

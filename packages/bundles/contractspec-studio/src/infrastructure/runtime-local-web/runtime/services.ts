@@ -77,6 +77,11 @@ export class LocalRuntimeServices {
       case 'analytics-dashboard':
         await this.seedAnalyticsDashboard(projectId);
         break;
+      case 'learning-journey-duo-drills':
+      case 'learning-journey-ambient-coach':
+      case 'learning-journey-quest-challenges':
+        // Learning journey examples are event-driven; no data seeding required.
+        break;
       case 'service-business-os':
       case 'team-hub':
       case 'wealth-snapshot':
