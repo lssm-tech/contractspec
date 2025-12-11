@@ -23,6 +23,11 @@ Learning Journey example that tours platform primitives.
 
 - Import track specs:  
   `import { platformLearningTracks } from '@lssm/example.learning-journey.platform-tour/track'`
+- Contracts/handlers for demos:  
+  `import { GetPlatformTourTrack, RecordPlatformTourEvent } from '@lssm/example.learning-journey.platform-tour/contracts'`  
+  `import { emitPlatformTourEvent } from '@lssm/example.learning-journey.platform-tour/handlers/demo.handlers'`
+- Presentations (react/markdown/json targets):  
+  `import { platformTourPresentations } from '@lssm/example.learning-journey.platform-tour/presentations'`
 - Register via onboarding API:
   - `learning.onboarding.listTracks`
   - `learning.onboarding.getProgress`

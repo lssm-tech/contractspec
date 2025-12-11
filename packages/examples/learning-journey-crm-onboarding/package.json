@@ -7,6 +7,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
+    "./presentations": "./src/presentations/index.ts",
     "./track": "./src/track.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
@@ -38,6 +41,9 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
+      "./presentations": "./dist/presentations/index.js",
       "./track": "./dist/track.js",
       "./docs": "./dist/docs/index.js",
       "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
