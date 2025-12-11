@@ -70,6 +70,29 @@ const saasBoilerplateDocBlocks: DocBlock[] = [
 - Tenant isolation is mandatory; enforce via RBAC/policies.
 - Usage/Metering drives billing/limits; keep units explicit.`,
   },
+  {
+    id: 'docs.examples.saas-boilerplate.constraints',
+    title: 'SaaS Boilerplate — Constraints & Safety',
+    summary:
+      'Internal guardrails for tenancy, RBAC, usage metering, and regeneration.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/saas-boilerplate/constraints',
+    tags: ['saas', 'constraints', 'internal'],
+    body: `## Constraints
+- Tenant isolation and RBAC must remain explicit in spec; no implicit defaults in code.
+- Events to emit: org.created, member.invited/accepted, project.created/updated, usage.recorded.
+- Regeneration must not change billing/usage semantics without spec diffs.
+
+## PII & Settings
+- Mark PII (user emails, names) for redaction; keep settings scoped to org/member.
+- Avoid leaking secrets/config in markdown/JSON presentations.
+
+## Verification
+- Add fixtures for usage recording and role changes.
+- Ensure Audit/Notifications remain wired for invites/project updates.
+- Use Feature Flags for new settings/billing fields; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(saasBoilerplateDocBlocks);

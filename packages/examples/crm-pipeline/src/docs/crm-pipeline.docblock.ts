@@ -70,6 +70,29 @@ const crmPipelineDocBlocks: DocBlock[] = [
 - Stage definitions should be declarative; enforce via spec and regeneration.
 - Use Notifications for deal/task updates; Audit Trail for state changes.`,
   },
+  {
+    id: 'docs.examples.crm-pipeline.constraints',
+    title: 'CRM Pipeline — Constraints & Safety',
+    summary:
+      'Internal guardrails for stages, PII, and regeneration semantics in the CRM template.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/crm-pipeline/constraints',
+    tags: ['crm', 'constraints', 'internal'],
+    body: `## Constraints
+- Stage definitions/order must remain declarative; no imperative overrides in code.
+- Events to emit: deal.created, stage.moved, task.completed, contact.updated (minimum).
+- Regeneration should not alter stage semantics without explicit spec change.
+
+## PII
+- Mark contact/company PII (emails, phones) for redaction in presentations.
+- Ensure MCP/web outputs avoid raw PII when not needed.
+
+## Verification
+- Add fixtures for stage move rules and SLA/task changes.
+- Ensure Audit/Notifications remain wired for stage and task events.
+- Use Feature Flags for experimental stages/SLAs; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(crmPipelineDocBlocks);

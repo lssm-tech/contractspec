@@ -80,6 +80,29 @@ const workflowSystemDocBlocks: DocBlock[] = [
 - Use Notifications for approvals/rejections; schedule reminders for pending steps.
 - Keep transitions declarative; avoid imperative branching in handlers.`,
   },
+  {
+    id: 'docs.examples.workflow-system.constraints',
+    title: 'Workflow System — Constraints & Safety',
+    summary:
+      'Internal guardrails for state machines, RBAC, and regeneration semantics.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/workflow-system/constraints',
+    tags: ['workflow', 'constraints', 'internal'],
+    body: `## Constraints
+- State machine (steps/transitions) must stay declarative in spec; no hidden code paths.
+- Events to emit: instance.started, step.completed/rejected, instance.finished.
+- Regeneration must not change approval logic without explicit spec diff.
+
+## PII & Compliance
+- Mark any PII in comments/attachments; redact in markdown/JSON.
+- Ensure Audit Trail captures every transition; Notifications for approvals/rejections.
+
+## Verification
+- Add fixtures for transition changes and role gates.
+- Validate reminders (Jobs) stay aligned with pending states after regeneration.
+- Use Feature Flags for new transitions/escalation rules; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(workflowSystemDocBlocks);

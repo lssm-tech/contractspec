@@ -80,6 +80,29 @@ const marketplaceDocBlocks: DocBlock[] = [
 - Avoid hidden commission math—keep explicit fields.
 - Redact buyer/provider PII in markdown/JSON presentations.`,
   },
+  {
+    id: 'docs.examples.marketplace.constraints',
+    title: 'Marketplace — Constraints & Safety',
+    summary:
+      'Internal guardrails for payouts, order states, and regeneration semantics.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/marketplace/constraints',
+    tags: ['marketplace', 'constraints', 'internal'],
+    body: `## Constraints
+- Commission logic and order states must stay spec-defined; never adjust in code-only patches.
+- Events to emit: order.created, order.completed, payout.queued, review.posted (minimum).
+- Regeneration must not change payment semantics without explicit spec diff.
+
+## Safety & PII
+- Redact buyer/provider identifiers in markdown/JSON outputs; scope payouts per tenant/org.
+- For MCP/web surfaces, avoid exposing raw payout calc inputs; use summaries.
+
+## Testing/Verification
+- Add fixtures covering order lifecycle and payout queueing.
+- Run regeneration diff when changing commission/tax fields; verify presentations updated.
+- Ensure Notifications/Audit wiring remains intact for order/payout/review events.`,
+  },
 ];
 
 registerDocBlocks(marketplaceDocBlocks);

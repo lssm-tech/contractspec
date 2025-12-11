@@ -78,6 +78,28 @@ const analyticsDashboardDocBlocks: DocBlock[] = [
 - Keep all query inputs validated; mark PII paths in policy.
 - Use Audit Trail for report deliveries; Notifications for scheduled sends.`,
   },
+  {
+    id: 'docs.examples.analytics-dashboard.constraints',
+    title: 'Analytics Dashboard — Constraints & Safety',
+    summary: 'Internal guardrails for queries, widgets, and regeneration.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/analytics-dashboard/constraints',
+    tags: ['analytics', 'constraints', 'internal'],
+    body: `## Constraints
+- Queries and widgets must declare inputs/validation in spec; no ad-hoc query strings.
+- Regeneration must preserve sampling/windowing semantics; document changes explicitly.
+- Events/usage metrics should remain consistent with Metering/Audit wiring.
+
+## PII & Data
+- Mark PII paths (user ids, emails) in presentations for redaction.
+- Avoid exposing raw query payloads in MCP/web without policy checks.
+
+## Verification
+- Add fixtures for widget/query schema changes and scheduled reports.
+- Run regeneration diff when adjusting query builders; ensure UI/markdown targets updated.
+- Confirm feature-flagged widgets default to safe/off for new tenants.`,
+  },
 ];
 
 registerDocBlocks(analyticsDashboardDocBlocks);

@@ -61,6 +61,7 @@ export {
 } from './components/marketing/MarketingCard';
 export { MarketingIconCard } from './components/marketing/MarketingIconCard';
 export { MarketingStepCard } from './components/marketing/MarketingStepCard';
+export { MarketingComparisonSection } from './components/marketing/MarketingComparisonSection';
 export { AppLayout } from './components/organisms/AppLayout';
 export { AcademyLayout } from './components/organisms/AcademyLayout';
 export { AppHeader } from './components/organisms/AppHeader';

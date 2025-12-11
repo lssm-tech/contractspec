@@ -69,6 +69,29 @@ const agentConsoleDocBlocks: DocBlock[] = [
 - Keep tool schemas explicit; enforce validation in spec.
 - Use Audit Trail for agent/run changes; Notifications for run outcomes.`,
   },
+  {
+    id: 'docs.examples.agent-console.constraints',
+    title: 'Agent Console — Constraints & Safety',
+    summary:
+      'Internal guardrails for tool/agent/run safety, PII, and regeneration.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/agent-console/constraints',
+    tags: ['ai', 'agents', 'constraints', 'internal'],
+    body: `## Constraints
+- Tool schemas (inputs/outputs) must be explicit in spec; no arbitrary untyped payloads.
+- Events to emit: tool.created, agent.created, run.started/completed/failed, tool.invoked.
+- Regeneration must not loosen execution policies or logging without explicit spec diff.
+
+## Safety & PII
+- Mark PII in run payloads/logs; redact in markdown/JSON targets.
+- Avoid exposing raw tool outputs to MCP/web without policy checks.
+
+## Verification
+- Add fixtures for tool schema changes and run lifecycle.
+- Ensure Audit/Notifications remain wired for runs; metrics collection unchanged.
+- Use Feature Flags to gate risky tools; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(agentConsoleDocBlocks);

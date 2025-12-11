@@ -70,6 +70,29 @@ const teamHubDocBlocks: DocBlock[] = [
 - Keep ritual cadence declarative; avoid hardcoded schedules.
 - Ensure announcements carry title/description for accessibility.`,
   },
+  {
+    id: 'docs.examples.team-hub.constraints',
+    title: 'Team Hub — Constraints & Safety',
+    summary:
+      'Internal guardrails for rituals, tasks, and announcements regeneration.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/team-hub/constraints',
+    tags: ['collaboration', 'constraints', 'internal'],
+    body: `## Constraints
+- Ritual cadence and task states must stay declarative in spec; no hardcoded schedules.
+- Events to emit: task.created/updated/completed, ritual.scheduled/completed, announcement.published.
+- Regeneration should not drop reminders or announcements routing.
+
+## PII & A11y
+- Mark PII (names/emails) for redaction in presentations.
+- Announcements must include title/description; respect accessibility guidance.
+
+## Verification
+- Add fixtures for ritual cadence changes and announcement targeting.
+- Ensure Notifications/Jobs wiring persists after regeneration.
+- Use Feature Flags to trial new boards/rituals with safe defaults.`,
+  },
 ];
 
 registerDocBlocks(teamHubDocBlocks);

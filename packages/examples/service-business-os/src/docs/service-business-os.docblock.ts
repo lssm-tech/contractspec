@@ -72,6 +72,29 @@ const serviceBusinessDocBlocks: DocBlock[] = [
 - Keep pricing/tax rules explicit in spec; avoid implicit handler math.
 - Use Audit Trail for lifecycle mutations; schedule reminders via Jobs.`,
   },
+  {
+    id: 'docs.examples.service-business-os.constraints',
+    title: 'Service Business OS — Constraints & Safety',
+    summary:
+      'Internal guardrails for quotes/jobs/invoices/payments and regeneration safety.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/service-business-os/constraints',
+    tags: ['services', 'constraints', 'internal'],
+    body: `## Constraints
+- Commission/tax/payment rules must be explicit in spec; no hidden handler math.
+- Events to emit: quote.sent/accepted/rejected, job.scheduled/completed, invoice.issued/overdue, payment.recorded.
+- Regeneration must not alter payment semantics without reviewed spec changes.
+
+## PII & Attachments
+- Mark PII paths (client contact, address); redact in markdown/JSON.
+- Files (quotes, receipts) should use presigned URLs with scoped access.
+
+## Verification
+- Add fixtures for quote/job/invoice state transitions.
+- Ensure Notifications/Audit/Jobs wiring persists after regeneration.
+- Use Feature Flags to trial new payment rules/reminder cadences; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(serviceBusinessDocBlocks);

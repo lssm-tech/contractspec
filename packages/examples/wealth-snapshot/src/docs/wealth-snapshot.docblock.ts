@@ -69,6 +69,29 @@ const wealthSnapshotDocBlocks: DocBlock[] = [
 - Redact sensitive identifiers in presentations.
 - Keep calculations (net worth) transparent and driven by spec fields.`,
   },
+  {
+    id: 'docs.examples.wealth-snapshot.constraints',
+    title: 'Wealth Snapshot — Constraints & Safety',
+    summary:
+      'Internal guardrails for finance data, PII, and regeneration semantics.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/wealth-snapshot/constraints',
+    tags: ['finance', 'constraints', 'internal'],
+    body: `## Constraints
+- Net worth and goal calculations must stay spec-driven; avoid hidden math.
+- Events to emit: asset.created/updated, liability.created/updated, goal.created/updated, snapshot.recorded.
+- Regeneration should not alter currency/unit semantics without explicit spec change.
+
+## PII & Sensitivity
+- Mark account identifiers, holder names, and addresses as PII; redact in presentations.
+- Avoid exposing raw balances in MCP/web without policy checks; prefer summaries.
+
+## Verification
+- Add fixtures for currency/unit changes and snapshot calculations.
+- Ensure Audit Trail covers all financial mutations; Notifications optional for goals/thresholds.
+- Use Feature Flags for new indicators/alert rules; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(wealthSnapshotDocBlocks);

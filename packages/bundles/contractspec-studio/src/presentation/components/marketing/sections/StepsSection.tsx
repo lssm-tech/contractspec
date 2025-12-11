@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  MarketingCardsSection,
-  MarketingStepCard,
-} from '@lssm/lib.design-system';
+import { IconGridSection } from './IconGridSection';
 
 const steps = [
   {
@@ -33,21 +30,26 @@ const steps = [
 
 export function StepsSection() {
   return (
-    <MarketingCardsSection
+    <IconGridSection
       tone="default"
       columns={4}
       title="How incremental adoption works"
       padding="comfortable"
-    >
-      {steps.map((item) => (
-        <MarketingStepCard
-          key={item.title}
-          step={item.step}
-          title={item.title}
-          description={item.description}
-          tone="muted"
-        />
-      ))}
-    </MarketingCardsSection>
+      iconRole="listing"
+      items={steps.map((item) => ({
+        icon: ({ className }) => (
+          <div
+            className={`bg-primary/15 flex h-10 w-10 items-center justify-center rounded-lg ${className ?? ''}`}
+          >
+            <span className="text-primary text-sm font-semibold">
+              {item.step}
+            </span>
+          </div>
+        ),
+        title: item.title,
+        description: item.description,
+        tone: 'muted',
+      }))}
+    />
   );
 }

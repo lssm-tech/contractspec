@@ -79,6 +79,29 @@ const integrationHubDocBlocks: DocBlock[] = [
 - Emit events for sync lifecycle; persist logs for audit.
 - Redact sensitive payload paths in presentations.`,
   },
+  {
+    id: 'docs.examples.integration-hub.constraints',
+    title: 'Integration Hub — Constraints & Safety',
+    summary:
+      'Internal guidance for sync lifecycle, mappings, and regeneration safety.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/examples/integration-hub/constraints',
+    tags: ['integrations', 'constraints', 'internal'],
+    body: `## Constraints
+- Mappings and sync states must remain declarative in spec; no hidden code transforms.
+- Events to emit at minimum: sync.started, sync.completed, sync.failed; connection.connected/disconnected.
+- Regeneration should not alter retry/backoff semantics without explicit spec change.
+
+## PII & Payloads
+- Treat payload archives as potentially sensitive; mark policy.pii paths.
+- For MCP/web, avoid exposing raw credentials/tokens; store via provider adapters only.
+
+## Verification
+- Include fixtures for mapping changes and sync retries.
+- Validate that scheduled jobs (cron) are spec-driven; Jobs module wiring intact.
+- Ensure Audit/Notifications receive sync lifecycle events.`,
+  },
 ];
 
 registerDocBlocks(integrationHubDocBlocks);

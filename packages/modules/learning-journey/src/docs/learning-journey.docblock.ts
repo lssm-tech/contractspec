@@ -94,6 +94,29 @@ ${'```'},
 - Emit analytics/audit for completions; respect user locale/accessibility in presentations.
 - Keep content free of PII; scope learners by org/tenant.`,
   },
+  {
+    id: 'docs.learning-journey.constraints',
+    title: 'Learning Journey — Constraints & Safety',
+    summary:
+      'Internal guardrails for progression, telemetry, and regeneration semantics.',
+    kind: 'reference',
+    visibility: 'internal',
+    route: '/docs/learning-journey/constraints',
+    tags: ['learning', 'constraints', 'internal'],
+    body: `## Constraints
+- Progression (tracks/modules/steps) and engines (SRS, streaks, XP) must stay declarative in spec.
+- Events to emit: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded.
+- Regeneration should not change scoring/streak rules without explicit spec change.
+
+## PII & Telemetry
+- Mark PII (learner identifiers) and redact in presentations; keep telemetry aggregated when possible.
+- Respect accessibility (prefers-reduced-motion) in UIs consuming these specs.
+
+## Verification
+- Add fixtures for streak/XP rule changes and quiz scoring.
+- Ensure Notifications/Audit wiring persists for completions; analytics emitted for progress.
+- Use Feature Flags to trial new tracks or reward rules; default safe/off.`,
+  },
 ];
 
 registerDocBlocks(learningJourneyDocBlocks);

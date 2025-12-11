@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 import {
   MarketingCardsSection,
   MarketingIconCard,
@@ -26,7 +27,21 @@ interface IconGridSectionProps {
   tone?: MarketingSectionTone;
   padding?: MarketingSectionPadding;
   columns?: 2 | 3 | 4;
+  iconRole?: IconGridSectionRole;
 }
+
+const itemVariants = cva('', {
+  variants: {
+    iconRole: {
+      iconFirst: '',
+      listing: 'items-start',
+      support: 'items-start',
+    },
+  },
+  defaultVariants: { iconRole: 'iconFirst' },
+});
+
+export type IconGridSectionRole = VariantProps<typeof itemVariants>['iconRole'];
 
 export function IconGridSection({
   eyebrow,
@@ -36,6 +51,7 @@ export function IconGridSection({
   tone = 'default',
   padding,
   columns = 3,
+  iconRole = 'iconFirst',
 }: IconGridSectionProps) {
   return (
     <MarketingCardsSection
@@ -43,7 +59,7 @@ export function IconGridSection({
       padding={padding}
       eyebrow={
         eyebrow ? (
-          <Muted className="text-xs font-semibold uppercase tracking-[0.2em]">
+          <Muted className="text-xs font-semibold tracking-[0.2em] uppercase">
             {eyebrow}
           </Muted>
         ) : null
@@ -60,6 +76,14 @@ export function IconGridSection({
           description={card.description}
           tone={card.tone}
           iconClassName={card.iconClassName}
+          variant={
+            iconRole === 'listing'
+              ? 'listing'
+              : iconRole === 'support'
+                ? 'support'
+                : 'iconFirst'
+          }
+          className={itemVariants({ iconRole })}
         />
       ))}
     </MarketingCardsSection>
