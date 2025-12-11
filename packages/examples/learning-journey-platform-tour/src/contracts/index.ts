@@ -93,6 +93,7 @@ export const GetPlatformTourTrack = defineQuery({
     }),
     output: TrackResponseModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const RecordPlatformTourEvent = defineCommand({
@@ -111,6 +112,7 @@ export const RecordPlatformTourEvent = defineCommand({
     input: RecordDemoEventInput,
     output: SuccessModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const platformTourContracts = {

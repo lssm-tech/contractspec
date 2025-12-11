@@ -93,6 +93,7 @@ export const GetCrmOnboardingTrack = defineQuery({
     }),
     output: TrackResponseModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const RecordCrmOnboardingEvent = defineCommand({
@@ -111,6 +112,7 @@ export const RecordCrmOnboardingEvent = defineCommand({
     input: RecordDemoEventInput,
     output: SuccessModel,
   },
+  policy: { auth: 'user' },
 });
 
 export const crmOnboardingContracts = {

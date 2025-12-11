@@ -6,7 +6,11 @@ import {
   platformTourContracts,
 } from './index';
 import { platformPrimitivesTourTrack } from '../track';
-import { emitPlatformTourEvent } from '../handlers/demo.handlers';
+import {
+  emitPlatformTourEvent,
+  platformTourEvents,
+} from '../handlers/demo.handlers';
+import type { PlatformEvent } from '../handlers/demo.handlers';
 
 describe('platform tour contracts', () => {
   it('exposes track metadata', () => {
@@ -19,12 +23,21 @@ describe('platform tour contracts', () => {
 
   it('allows recording events via demo handler', async () => {
     const [step] = platformPrimitivesTourTrack.steps;
-    const result = await emitPlatformTourEvent(
-      step.completion.eventName as any,
-      {
-        learnerId: 'demo-learner',
-      }
-    );
+    expect(step).toBeDefined();
+    if (!step) throw new Error('Expected at least one platform tour step');
+
+    const eventName = step.completion.eventName;
+    const isPlatformEvent = (value: string): value is PlatformEvent =>
+      platformTourEvents.includes(value as PlatformEvent);
+
+    expect(isPlatformEvent(eventName)).toBe(true);
+    if (!isPlatformEvent(eventName)) {
+      throw new Error(`Unexpected event name: ${eventName}`);
+    }
+
+    const result = await emitPlatformTourEvent(eventName, {
+      learnerId: 'demo-learner',
+    });
     expect(result).toBeDefined();
   });
 
