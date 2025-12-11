@@ -14,7 +14,11 @@ export type TemplateId =
   | 'analytics-dashboard'
   | 'service-business-os'
   | 'team-hub'
-  | 'wealth-snapshot';
+  | 'wealth-snapshot'
+  // Learning Journey Examples
+  | 'learning-journey-studio-onboarding'
+  | 'learning-journey-platform-tour'
+  | 'learning-journey-crm-onboarding';
 
 export type TemplateCategory =
   | 'productivity'
@@ -716,6 +720,159 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       'wealth-snapshot.assets.list',
       'wealth-snapshot.liabilities.list',
       'wealth-snapshot.goals.list',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-studio-onboarding',
+    name: 'Learning Journey — Studio Getting Started',
+    description:
+      'Guided first 30 minutes in ContractSpec Studio: template, spec edit, regenerate, playground, evolution.',
+    category: 'business',
+    complexity: 'beginner',
+    icon: '🎓',
+    features: [
+      'Template selection',
+      'Spec edit',
+      'Regeneration',
+      'Playground session',
+      'Evolution run',
+    ],
+    tags: ['learning', 'onboarding', 'studio'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-studio-onboarding',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-studio-onboarding',
+    },
+    package: '@lssm/example.learning-journey.studio-onboarding',
+    usesModules: [
+      '@lssm/module.learning-journey',
+      '@lssm/lib.identity-rbac',
+      '@lssm/module.notifications',
+    ],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-platform-tour',
+    name: 'Learning Journey — Platform Primitives Tour',
+    description:
+      'Cross-module tour touching identity, audit, notifications, jobs, flags, files, metering.',
+    category: 'business',
+    complexity: 'intermediate',
+    icon: '🧭',
+    features: [
+      'Org + member creation',
+      'Auditable event',
+      'Notification delivery',
+      'Job scheduling',
+      'Feature flag toggle',
+      'File attachment',
+      'Usage metering',
+    ],
+    tags: ['learning', 'platform', 'tour'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-platform-tour',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-platform-tour',
+    },
+    package: '@lssm/example.learning-journey.platform-tour',
+    usesModules: [
+      '@lssm/module.learning-journey',
+      '@lssm/lib.identity-rbac',
+      '@lssm/module.notifications',
+      '@lssm/lib.jobs',
+      '@lssm/lib.feature-flags',
+      '@lssm/lib.files',
+      '@lssm/lib.metering',
+      '@lssm/module.audit-trail',
+    ],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
+    ],
+    renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'learning-journey-crm-onboarding',
+    name: 'Learning Journey — CRM First Win',
+    description:
+      'Onboarding for CRM template: pipeline, contact/company, first deal, move stages, close won, follow-up task.',
+    category: 'business',
+    complexity: 'beginner',
+    icon: '📈',
+    features: [
+      'Pipeline creation',
+      'Contact + company',
+      'Deal creation',
+      'Stage movement',
+      'Close won',
+      'Follow-up task',
+    ],
+    tags: ['learning', 'crm', 'onboarding'],
+    schema: {
+      models: ['OnboardingTrack', 'OnboardingStep', 'OnboardingProgress'],
+      contracts: [
+        'learning.onboarding.listTracks',
+        'learning.onboarding.getProgress',
+        'learning.onboarding.recordEvent',
+      ],
+    },
+    components: {
+      list: 'LearningTrackList',
+      detail: 'LearningTrackDetail',
+      dashboard: 'LearningTrackProgressWidget',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=learning-journey-crm-onboarding',
+    },
+    docs: {
+      quickstart: '/docs/templates/learning-journey-crm-onboarding',
+    },
+    package: '@lssm/example.learning-journey.crm-onboarding',
+    usesModules: [
+      '@lssm/module.learning-journey',
+      '@lssm/lib.identity-rbac',
+      '@lssm/module.notifications',
+      '@lssm/example.crm-pipeline',
+    ],
+    presentations: [
+      'learning.journey.track_list',
+      'learning.journey.track_detail',
+      'learning.journey.progress_widget',
     ],
     renderTargets: ['react', 'markdown'],
   },
