@@ -132,4 +132,3 @@ export function mapDocRoutes(
 ): [string, PresentationDescriptorV2][] {
   return routes.map(({ route, descriptor }) => [route, descriptor]);
 }
-

@@ -16,4 +16,3 @@ Actions:
 
 - If any DocBlock is missing `kind`/`visibility` or uses invalid values, fix before closing the plan.
 - If PLAN_VNEXT doc items or BlockNote support are missing, add/fix before closing the plan.
-- Once checks pass, delete this file and `.cursor/rules/plan-coding.mdc` to end temporary enforcement.
