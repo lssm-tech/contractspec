@@ -231,7 +231,7 @@ export default function OrgSelectClient() {
           <div className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="orgName" className="text-sm font-medium">
-                Workspace name
+                Workspace name (can be changed later)
               </label>
               <Input
                 id="orgName"
