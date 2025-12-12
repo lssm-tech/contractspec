@@ -1,8 +1,6 @@
 ---
+trigger: model_decision
 description: Accessibility checklist (ARIA, keyboard, contrast, motion)
-globs:
-  - '**'
-alwaysApply: true
 ---
 
 # Accessibility
@@ -21,8 +19,3 @@ Testing:
 - Run axe (or equivalent) on affected views; fix blocking issues.
 - Verify keyboard-only flows for critical paths.
 - Screen reader smoke test for new dialogs/forms.
-
-
-
-
-
