@@ -3,9 +3,7 @@ import {
   collabModule,
   createContractSpecStudioElysiaServer,
   mountContractSpecStudioGraphQL,
-  schema,
 } from '@lssm/bundle.contractspec-studio/infrastructure';
-import { exportContractsToGraphQLSchema } from './utils/graphql-schema-export';
 import { markdownHandler } from './handlers/markdown-handler';
 import { betterAuthController } from './handlers/auth-controller';
 import { mcpHandler } from './handlers/mcp-handler';
@@ -24,7 +22,6 @@ const app = createContractSpecStudioElysiaServer({
   .use(markdownHandler)
   .use(mcpHandler)
   .listen(PORT);
-exportContractsToGraphQLSchema(schema, __dirname);
 
 // Startup logging
 appLogger.info('🦊 ContractSpec API Server starting', {

@@ -4,7 +4,7 @@ import { ScalarTypeEnum } from '@lssm/lib.schema';
 
 const schemaSources = [
   // Prefer local schema (workspace) to avoid requiring a running server
-  '../../apps/api-strit/schema.graphql',
+  '../../apps/api-contractspec/schema.graphql',
 ];
 if (process.env.GQL_SCHEMA_URL) {
   schemaSources.unshift(process.env.GQL_SCHEMA_URL);
@@ -13,14 +13,17 @@ if (process.env.GQL_SCHEMA_URL) {
 const config: CodegenConfig = {
   schema: schemaSources,
   documents: [
-    '../../apps/mobile-app-strit/src/**/*.tsx',
-    '../../apps/mobile-app-strit/src/**/*.ts',
-    '../../apps/mobile-academy-strit/src/**/*.tsx',
-    '../../apps/mobile-academy-strit/src/**/*.ts',
-    '../../apps/web-strit/src/**/*.tsx',
-    '../../apps/web-strit/src/**/*.ts',
-    '../../bundles/strit/src/**/*.ts',
-    '../../bundles/strit/src/**/*.tsx',
+    // '../../apps/mobile-app-strit/src/**/*.tsx',
+    // '../../apps/mobile-app-strit/src/**/*.ts',
+    '!../../apps/api-constractspec/src/**/*.test.ts',
+    '../../apps/api-constractspec/src/**/*.ts',
+    '../../apps/api-constractspec/src/**/*.tsx',
+    '!../../apps/web-landing/src/**/*.test.ts',
+    '../../apps/web-landing/src/**/*.ts',
+    '../../apps/web-landing/src/**/*.tsx',
+    '!../../bundles/contractspec-studio/src/**/*.test.ts',
+    '../../bundles/contractspec-studio/src/**/*.ts',
+    '../../bundles/contractspec-studio/src/**/*.tsx',
     'src/**/*.tsx',
     'src/**/*.ts',
     '!src/gql/**/*',
@@ -65,7 +68,7 @@ const config: CodegenConfig = {
       },
       presetConfig: {
         fragmentMasking: { unmaskFunctionName: 'getFragmentData' },
-      }
+      },
     },
   },
   hooks: { afterAllFileWrite: ['prettier --write'] },
