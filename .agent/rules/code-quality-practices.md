@@ -381,4 +381,3 @@ bun run tsc --noEmit
 - See `package-architecture.md` for dependency flow and component hierarchy
 - See `backend.mdc` for hexagonal architecture and domain logic
 - See `frontend.mdc` for component patterns and UI structure
-
