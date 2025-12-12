@@ -28,6 +28,161 @@ contractspec validate src/contracts/mySpec.ts
 
 ## Commands
 
+### `contractspec list`
+
+List all contract specifications in the project with filtering options.
+
+**Options:**
+- `--type <type>` - Filter by spec type (operation, event, presentation, etc.)
+- `--owner <owner>` - Filter by owner
+- `--tag <tag>` - Filter by tag
+- `--stability <level>` - Filter by stability (experimental, beta, stable, deprecated)
+- `--json` - Output as JSON for scripting
+
+**Examples:**
+
+```bash
+# List all specs
+contractspec list
+
+# Filter by type and stability
+contractspec list --type operation --stability stable
+
+# Find specs by owner
+contractspec list --owner @team-platform
+
+# JSON output for scripting
+contractspec list --json
+```
+
+### `contractspec watch`
+
+Watch contract specifications and auto-regenerate on changes.
+
+**Options:**
+- `--pattern <pattern>` - File pattern to watch (default: `**/*.contracts.ts`)
+- `--build` - Auto-run build command on changes
+- `--validate` - Auto-run validate command on changes
+- `--debounce <ms>` - Debounce delay in milliseconds (default: 500)
+
+**Examples:**
+
+```bash
+# Watch for changes and auto-build
+contractspec watch --build
+
+# Watch and auto-validate
+contractspec watch --validate
+
+# Custom pattern and debounce
+contractspec watch --pattern 'src/**/*.ts' --debounce 1000
+```
+
+### `contractspec sync`
+
+Sync contracts across multiple surfaces (API, DB, UI).
+
+**Options:**
+- `--surfaces <surfaces>` - Surfaces to sync (comma-separated, default: api,db,ui)
+- `--dry-run` - Show what would be synced without making changes
+- `--force` - Force regeneration even if specs haven't changed
+
+**Examples:**
+
+```bash
+# Sync all surfaces
+contractspec sync
+
+# Sync specific surfaces
+contractspec sync --surfaces api,ui
+
+# Preview changes
+contractspec sync --dry-run
+```
+
+### `contractspec clean`
+
+Clean generated files and build artifacts.
+
+**Options:**
+- `--dry-run` - Show what would be deleted without deleting
+- `--generated-only` - Only clean generated directories (generated/, dist/, .turbo/)
+- `--older-than <days>` - Only clean files older than specified days
+- `--force` - Skip confirmation prompts
+- `--git-clean` - Use `git clean -fdx` for comprehensive cleanup
+
+**Examples:**
+
+```bash
+# Clean all generated files
+contractspec clean
+
+# Preview cleanup
+contractspec clean --dry-run
+
+# Clean only old files
+contractspec clean --older-than 30
+
+# Use git clean
+contractspec clean --git-clean
+```
+
+### `contractspec deps`
+
+Analyze contract dependencies and relationships.
+
+**Options:**
+- `--spec <file>` - Analyze dependencies for specific spec
+- `--graph` - Generate dependency graph (requires graphviz)
+- `--circular` - Find circular dependencies
+- `--missing` - Find missing dependencies
+- `--json` - Output as JSON for scripting
+
+**Examples:**
+
+```bash
+# Show dependency overview
+contractspec deps
+
+# Analyze specific contract
+contractspec deps --spec user.contracts.ts
+
+# Find circular dependencies
+contractspec deps --circular
+
+# Generate graphviz graph
+contractspec deps --graph > deps.dot
+```
+
+### `contractspec diff`
+
+Compare contract specifications and show differences.
+
+**Arguments:**
+- `<spec1> <spec2>` - Two spec files to compare
+
+**Options:**
+- `--breaking` - Only show breaking changes
+- `--semantic` - Show semantic differences (not just text)
+- `--json` - Output as JSON for scripting
+- `--baseline <ref>` - Compare with git reference (branch/commit)
+
+**Examples:**
+
+```bash
+# Compare two specs
+contractspec diff spec1.ts spec2.ts
+
+# Compare with git branch
+contractspec diff spec.ts --baseline main
+
+# Show only breaking changes
+contractspec diff spec1.ts spec2.ts --breaking
+
+# Semantic comparison
+contractspec diff spec1.ts spec2.ts --semantic
+```
+
 ### `contractspec create`
 
 Interactive wizard to create contract specifications.
@@ -391,12 +546,17 @@ For more details, see [AGENT_MODES.md](./AGENT_MODES.md).
 - [x] AI-powered code generation
 - [x] Multiple agent modes (simple, cursor, claude-code, openai-codex)
 - [x] AI-powered implementation validation
+- [x] Contract listing and discovery (`contractspec list`)
+- [x] Watch mode for auto-regeneration (`contractspec watch`)
+- [x] Multi-surface synchronization (`contractspec sync`)
+- [x] Cleanup utilities (`contractspec clean`)
+- [x] Dependency analysis (`contractspec deps`)
+- [x] Contract diffing and comparison (`contractspec diff`)
 - [ ] Form spec generation
 - [ ] Feature spec bundling
 - [ ] Handler signature checking in validation
 - [ ] Test coverage validation
 - [ ] Interactive spec editing
-- [ ] Spec diffing and versioning
 - [ ] GraphQL schema generation
 - [ ] OpenAPI/Swagger export
 
