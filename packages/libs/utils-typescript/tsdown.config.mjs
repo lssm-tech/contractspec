@@ -1,9 +1,7 @@
 import { defineConfig } from 'tsdown';
-import { nodeLib } from '@lssm/tool.tsdown';
+import { moduleLibrary, nodeLib } from '@lssm/tool.tsdown';
 
 export default defineConfig(() => ({
-  ...nodeLib,
+  ...moduleLibrary,
   entry: ['src/index.ts', 'src/lib/**/*.ts'],
 }));
-
-

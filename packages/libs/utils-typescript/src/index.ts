@@ -30,3 +30,4 @@ export type * from './lib/ReverseMap';
 export type * from './lib/Satisfies';
 export type * from './lib/StringKey';
 export type * from './lib/StringKeysOnly';
+export * from './staticShouldNotHappen';

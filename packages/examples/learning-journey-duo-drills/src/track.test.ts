@@ -45,22 +45,21 @@ describe('duo drills track', () => {
       })),
     ];
 
-    const progress: StepState[] = drillsLanguageBasicsTrack.steps.map(
-      (step) => ({
+    const progress: StepState[] =
+      drillsLanguageBasicsTrack.steps.map<StepState>((step) => ({
         id: step.id,
         status: 'PENDING',
         occurrences: 0,
         masteryCount: 0,
-      })
-    );
+      }));
 
     events.forEach((event) => {
       drillsLanguageBasicsTrack.steps.forEach((stepSpec, index) => {
         const step = progress[index];
         if (!step || step.status === 'COMPLETED') return;
         const completion = stepSpec.completion;
-        const kind = completion.kind ?? 'event';
-        if (kind === 'event' && completion.eventName === event.name) {
+        if ((completion.kind ?? 'event') === 'event') {
+          if (completion.eventName !== event.name) return;
           if (
             matchesFilter(
               completion.payloadFilter,
@@ -71,7 +70,7 @@ describe('duo drills track', () => {
           }
           return;
         }
-        if (kind === 'count' && completion.kind === 'count') {
+        if (completion.kind === 'count') {
           if (
             completion.eventName === event.name &&
             matchesFilter(
@@ -86,7 +85,7 @@ describe('duo drills track', () => {
           }
           return;
         }
-        if (kind === 'srs_mastery' && completion.kind === 'srs_mastery') {
+        if (completion.kind === 'srs_mastery') {
           if (completion.eventName !== event.name) return;
           if (!matchesFilter(completion.payloadFilter, event.payload)) return;
           const masteryValue = (

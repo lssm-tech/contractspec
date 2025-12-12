@@ -2,8 +2,9 @@ import { LocalDatabase } from '../database/sqlite-wasm';
 import { LocalStorageService } from '../storage/indexeddb';
 import { LocalGraphQLClient } from '../graphql/local-client';
 import { LocalEventBus } from '../events/local-pubsub';
-import { generateId } from '../utils/id';
 import type { TemplateId } from '../../../templates/registry';
+import { staticShouldNotHappen } from '@lssm/lib.utils-typescript';
+import { generateId } from '../utils/id';
 
 export interface LocalRuntimeInitOptions {
   modulesPath?: string;
@@ -14,7 +15,7 @@ export interface TemplateSeedOptions {
   projectId?: string;
 }
 
-const DEFAULT_PROJECT_ID = 'local-project';
+const DEFAULT_PROJECT_ID = 'local-project' as const;
 
 export class LocalRuntimeServices {
   readonly db = new LocalDatabase();
@@ -77,6 +78,11 @@ export class LocalRuntimeServices {
       case 'analytics-dashboard':
         await this.seedAnalyticsDashboard(projectId);
         break;
+      case 'learning-journey-studio-onboarding':
+      case 'learning-journey-platform-tour':
+      case 'learning-journey-crm-onboarding':
+        // Existing learning journey examples rely on event-driven progress; no seed data required.
+        break;
       case 'learning-journey-duo-drills':
       case 'learning-journey-ambient-coach':
       case 'learning-journey-quest-challenges':
@@ -89,7 +95,7 @@ export class LocalRuntimeServices {
           `Seeding not implemented for template ${options.templateId}`
         );
       default:
-        throw new Error(`Unknown template ${options.templateId}`);
+        staticShouldNotHappen(options.templateId);
     }
   }
 
