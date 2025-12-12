@@ -235,7 +235,8 @@ const TEMPLATE_LIBRARY: Record<
   },
   'learning-journey-studio-onboarding': {
     title: 'Learning Journey — Studio Onboarding',
-    description: 'First 30 minutes in ContractSpec Studio with step-by-step guidance.',
+    description:
+      'First 30 minutes in ContractSpec Studio with step-by-step guidance.',
     component: (
       <LearningMiniApp templateId="learning-journey-studio-onboarding" />
     ),
@@ -243,16 +244,12 @@ const TEMPLATE_LIBRARY: Record<
   'learning-journey-platform-tour': {
     title: 'Learning Journey — Platform Tour',
     description: 'Cross-module tour using platform primitives.',
-    component: (
-      <LearningMiniApp templateId="learning-journey-platform-tour" />
-    ),
+    component: <LearningMiniApp templateId="learning-journey-platform-tour" />,
   },
   'learning-journey-crm-onboarding': {
     title: 'Learning Journey — CRM First Win',
     description: 'CRM onboarding journey with contextual coaching tips.',
-    component: (
-      <LearningMiniApp templateId="learning-journey-crm-onboarding" />
-    ),
+    component: <LearningMiniApp templateId="learning-journey-crm-onboarding" />,
   },
   'learning-journey-duo-drills': {
     title: 'Learning Journey — Duo Drills',
@@ -262,9 +259,7 @@ const TEMPLATE_LIBRARY: Record<
   'learning-journey-ambient-coach': {
     title: 'Learning Journey — Ambient Coach',
     description: 'Contextual coaching tips with engagement tracking.',
-    component: (
-      <LearningMiniApp templateId="learning-journey-ambient-coach" />
-    ),
+    component: <LearningMiniApp templateId="learning-journey-ambient-coach" />,
   },
   'learning-journey-quest-challenges': {
     title: 'Learning Journey — 7-Day Quest',
@@ -276,17 +271,29 @@ const TEMPLATE_LIBRARY: Record<
   'service-business-os': {
     title: 'Service Business OS',
     description: 'Appointments, clients, services, and scheduling.',
-    component: <div className="p-8 text-center text-muted-foreground">Service Business OS template coming soon</div>,
+    component: (
+      <div className="text-muted-foreground p-8 text-center">
+        Service Business OS template coming soon
+      </div>
+    ),
   },
   'team-hub': {
     title: 'Team Hub',
     description: 'Team collaboration, channels, and document sharing.',
-    component: <div className="p-8 text-center text-muted-foreground">Team Hub template coming soon</div>,
+    component: (
+      <div className="text-muted-foreground p-8 text-center">
+        Team Hub template coming soon
+      </div>
+    ),
   },
   'wealth-snapshot': {
     title: 'Wealth Snapshot',
     description: 'Net worth tracking, assets, and financial overview.',
-    component: <div className="p-8 text-center text-muted-foreground">Wealth Snapshot template coming soon</div>,
+    component: (
+      <div className="text-muted-foreground p-8 text-center">
+        Wealth Snapshot template coming soon
+      </div>
+    ),
   },
 };
 

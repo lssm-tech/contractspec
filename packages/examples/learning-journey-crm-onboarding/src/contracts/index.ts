@@ -120,3 +120,4 @@ export const crmOnboardingContracts = {
   RecordCrmOnboardingEvent,
   track: crmFirstWinTrack,
 };
+

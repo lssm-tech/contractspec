@@ -50,3 +50,4 @@ describe('quest challenges track', () => {
     expect(progress.every((s) => s.status === 'COMPLETED')).toBeTrue();
   });
 });
+

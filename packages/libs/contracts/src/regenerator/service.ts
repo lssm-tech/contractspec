@@ -29,7 +29,7 @@ const DEFAULT_BATCH_DURATION = 5 * 60_000;
 export class RegeneratorService {
   private readonly contexts: Map<string, RegenerationContext>;
   private readonly lastPoll = new Map<string, Date>();
-  private timer?: NodeJS.Timeout;
+  private timer?: NodeJS.Timeout | number;
   private running = false;
   private readonly pollInterval: number;
   private readonly batchDuration: number;
