@@ -6843,7 +6843,7 @@
 
     "@lssm/lib.ai-agent/@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.95", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-SPUw+6rUJ+xEQDBvYUDsUO+baU+1/vvnsPk8L+Zj10QWkxECwbdKbW4hjsdZ+/gwz3HwPN4Jr8e3fWoaBUex4Q=="],
 
-    "@lssm/lib.ai-agent/ai": ["ai@6.0.0-beta.148", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-Ml8RbKNcDFxr0yJQng8FhgYAc4ECTBSnRpl9//6dUIwWFubV1DFFYX0XpEVYU9XgcC18eJJ4IqYkWQgE73YGEQ=="],
+    "@lssm/lib.ai-agent/ai": ["ai@6.0.0-beta.149", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-I3vxRTBK8gsIo6IlUu/cIqqoyVh8dSSZmj882NkFWJY4/Mf+d7oDwDNe6tEBObbq6ByDzd4bzpc7AFMprYsbkA=="],
 
     "@lssm/lib.design-system/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
 
