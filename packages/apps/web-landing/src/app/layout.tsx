@@ -4,6 +4,7 @@ import { Geist } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { QueryProvider } from '@/components/query-provider';
+import { AuthProvider } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
 
 const geist = Geist({ subsets: ['latin'] });
 
@@ -57,7 +58,9 @@ export default function RootLayout({
       <body
         className={`${geist.className} flex min-h-screen flex-col antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
         <Analytics />
       </body>
     </html>
