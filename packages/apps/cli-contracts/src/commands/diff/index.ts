@@ -1,9 +1,10 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { existsSync, readFileSync } from 'node:fs';
-import { execSync } from 'node:child_process';
+import {
+  compareSpecs,
+  createNodeAdapters,
+} from '@lssm/bundle.contractspec-workspace';
 import { getErrorMessage } from '../../utils/errors';
-import { computeSemanticDiff } from './semantic';
 import { diffText } from './text';
 
 export const diffCommand = new Command('diff')
@@ -14,48 +15,38 @@ export const diffCommand = new Command('diff')
   .option('--json', 'Output as JSON for scripting')
   .option('--baseline <ref>', 'Compare spec1 against git ref (branch/commit)')
   .action(async (spec1, spec2, options) => {
-    const baseline: string | undefined = options.baseline;
+    const baseline: string | undefined = options.baseline as
+      | string
+      | undefined;
 
     try {
+      const adapters = createNodeAdapters({ silent: true });
       const aPath = spec1 as string;
+      const bPath = spec2 as string;
 
-      if (!existsSync(aPath)) {
+      // Check if first file exists
+      const exists = await adapters.fs.exists(aPath);
+      if (!exists) {
+        // eslint-disable-next-line no-console
         console.error(chalk.red(`File not found: ${aPath}`));
         process.exit(1);
       }
 
-      let bPath = spec2 as string;
-      let aContent = readFileSync(aPath, 'utf-8');
-      let bContent: string;
-
-      if (baseline) {
-        bPath = `${baseline}:${aPath}`;
-        try {
-          bContent = execSync(`git show ${baseline}:${aPath}`, {
-            encoding: 'utf-8',
-            stdio: ['ignore', 'pipe', 'pipe'],
-          });
-        } catch (error) {
-          console.error(chalk.red(`Could not load baseline version: ${getErrorMessage(error)}`));
-          process.exit(1);
-        }
-      } else {
-        if (!existsSync(bPath)) {
-          console.error(chalk.red(`File not found: ${bPath}`));
-          process.exit(1);
-        }
-        bContent = readFileSync(bPath, 'utf-8');
-      }
-
       if (options.semantic) {
-        const diffs = computeSemanticDiff(aContent, aPath, bContent, bPath, {
+        const result = await compareSpecs(aPath, bPath, adapters, {
+          baseline,
           breakingOnly: Boolean(options.breaking),
         });
 
         if (options.json) {
+          // eslint-disable-next-line no-console
           console.log(
             JSON.stringify(
-              { spec1: aPath, spec2: bPath, differences: diffs },
+              {
+                spec1: result.spec1,
+                spec2: result.spec2,
+                differences: result.differences,
+              },
               null,
               2
             )
@@ -63,18 +54,22 @@ export const diffCommand = new Command('diff')
           return;
         }
 
+        // eslint-disable-next-line no-console
         console.log(
-          chalk.bold(`\n📋 Semantic Comparison: ${aPath} ↔ ${bPath}`)
+          chalk.bold(`\n📋 Semantic Comparison: ${result.spec1} ↔ ${result.spec2}`)
         );
-        console.log(chalk.gray(`Differences: ${diffs.length}`));
+        // eslint-disable-next-line no-console
+        console.log(chalk.gray(`Differences: ${result.differences.length}`));
+        // eslint-disable-next-line no-console
         console.log('');
 
-        if (diffs.length === 0) {
+        if (result.differences.length === 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ No semantic differences found'));
           return;
         }
 
-        for (const diff of diffs) {
+        for (const diff of result.differences) {
           const icon =
             diff.type === 'breaking'
               ? '💥'
@@ -93,11 +88,14 @@ export const diffCommand = new Command('diff')
                   ? chalk.red
                   : chalk.yellow;
 
+          // eslint-disable-next-line no-console
           console.log(`${icon} ${color(diff.path)}: ${diff.description}`);
           if (typeof diff.oldValue !== 'undefined') {
+            // eslint-disable-next-line no-console
             console.log(`  ${chalk.red('-')} ${JSON.stringify(diff.oldValue)}`);
           }
           if (typeof diff.newValue !== 'undefined') {
+            // eslint-disable-next-line no-console
             console.log(`  ${chalk.green('+')} ${JSON.stringify(diff.newValue)}`);
           }
         }
@@ -106,14 +104,35 @@ export const diffCommand = new Command('diff')
       }
 
       // text diff
+      let aContent: string;
+      let bContent: string;
+      let actualBPath: string;
+
+      aContent = await adapters.fs.readFile(aPath);
+
+      if (baseline) {
+        bContent = await adapters.git.showFile(baseline, aPath);
+        actualBPath = `${baseline}:${aPath}`;
+      } else {
+        const existsB = await adapters.fs.exists(bPath);
+        if (!existsB) {
+          // eslint-disable-next-line no-console
+          console.error(chalk.red(`File not found: ${bPath}`));
+          process.exit(1);
+        }
+        bContent = await adapters.fs.readFile(bPath);
+        actualBPath = bPath;
+      }
+
       const result = baseline
         ? diffText(aPath, aPath, aContent, bContent)
-        : diffText(aPath, bPath);
+        : diffText(aPath, actualBPath);
 
       if (options.json) {
+        // eslint-disable-next-line no-console
         console.log(
           JSON.stringify(
-            { spec1: aPath, spec2: bPath, diff: result.output },
+            { spec1: aPath, spec2: actualBPath, diff: result.output },
             null,
             2
           )
@@ -121,10 +140,17 @@ export const diffCommand = new Command('diff')
         return;
       }
 
-      console.log(chalk.bold(`\n📋 Comparing: ${aPath} ↔ ${bPath}\n`));
-      console.log(result.output.trim().length ? result.output : chalk.gray('(no output)'));
+      // eslint-disable-next-line no-console
+      console.log(chalk.bold(`\n📋 Comparing: ${aPath} ↔ ${actualBPath}\n`));
+      // eslint-disable-next-line no-console
+      console.log(
+        result.output.trim().length ? result.output : chalk.gray('(no output)')
+      );
     } catch (error) {
-      console.error(chalk.red(`Error comparing specs: ${getErrorMessage(error)}`));
+      // eslint-disable-next-line no-console
+      console.error(
+        chalk.red(`Error comparing specs: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });

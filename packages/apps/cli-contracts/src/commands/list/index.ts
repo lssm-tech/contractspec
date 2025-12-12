@@ -1,9 +1,11 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { readFileSync } from 'node:fs';
-import { discoverSpecFiles } from '../../utils/spec-files';
+import {
+  listSpecs,
+  createNodeAdapters,
+  type SpecScanResult,
+} from '@lssm/bundle.contractspec-workspace';
 import { getErrorMessage } from '../../utils/errors';
-import { scanSpecSource } from '../../utils/spec-scan';
 import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
 
 type ListJsonRow = {
@@ -21,24 +23,34 @@ type ListJsonRow = {
 export const listCommand = new Command('list')
   .description('List all contract specs in the project')
   .option('--pattern <pattern>', 'File pattern to search (glob)')
-  .option('--deep', 'Load modules to extract richer metadata (executes spec modules)')
-  .option('--type <type>', 'Filter by spec type (operation, event, presentation, etc.)')
+  .option(
+    '--deep',
+    'Load modules to extract richer metadata (executes spec modules)'
+  )
+  .option(
+    '--type <type>',
+    'Filter by spec type (operation, event, presentation, etc.)'
+  )
   .option('--owner <owner>', 'Filter by owner')
   .option('--tag <tag>', 'Filter by tag')
-  .option('--stability <level>', 'Filter by stability (experimental, beta, stable, deprecated)')
+  .option(
+    '--stability <level>',
+    'Filter by stability (experimental, beta, stable, deprecated)'
+  )
   .option('--json', 'Output as JSON for scripting')
   .action(async (options) => {
     try {
-      const contractFiles = await discoverSpecFiles({ pattern: options.pattern });
+      const adapters = createNodeAdapters({ silent: true });
+      const specs = await listSpecs(adapters, {
+        pattern: options.pattern as string | undefined,
+        type: options.type as string | undefined,
+      });
 
       const rows: ListJsonRow[] = [];
 
-      for (const file of contractFiles) {
-        const code = readFileSync(file, 'utf-8');
-        const scan = scanSpecSource(code, file);
-
+      for (const scan of specs) {
         const baseRow: ListJsonRow = {
-          file,
+          file: scan.filePath,
           type: scan.specType,
           name: scan.name,
           description: scan.description,
@@ -51,21 +63,34 @@ export const listCommand = new Command('list')
 
         if (options.deep) {
           try {
-            const mod = await loadSpecModule(file);
+            const mod = await loadSpecModule(scan.filePath);
             const exported = pickSpecExport(mod);
             const record = exported as Record<string, unknown> | null;
-            const meta = record && typeof record === 'object' ? (record as { meta?: unknown }).meta : undefined;
+            const meta =
+              record && typeof record === 'object'
+                ? (record as { meta?: unknown }).meta
+                : undefined;
 
-            const maybeMeta = meta && typeof meta === 'object' ? (meta as Record<string, unknown>) : undefined;
-            const name = typeof maybeMeta?.name === 'string' ? maybeMeta.name : baseRow.name;
+            const maybeMeta =
+              meta && typeof meta === 'object'
+                ? (meta as Record<string, unknown>)
+                : undefined;
+            const name =
+              typeof maybeMeta?.name === 'string' ? maybeMeta.name : baseRow.name;
             const description =
-              typeof maybeMeta?.description === 'string' ? maybeMeta.description : baseRow.description;
+              typeof maybeMeta?.description === 'string'
+                ? maybeMeta.description
+                : baseRow.description;
             const stability =
-              typeof maybeMeta?.stability === 'string' ? maybeMeta.stability : baseRow.stability;
-            const owners =
-              Array.isArray(maybeMeta?.owners) ? (maybeMeta.owners as unknown[]).filter(isString) : baseRow.owners;
-            const tags =
-              Array.isArray(maybeMeta?.tags) ? (maybeMeta.tags as unknown[]).filter(isString) : baseRow.tags;
+              typeof maybeMeta?.stability === 'string'
+                ? maybeMeta.stability
+                : baseRow.stability;
+            const owners = Array.isArray(maybeMeta?.owners)
+              ? (maybeMeta.owners as unknown[]).filter(isString)
+              : baseRow.owners;
+            const tags = Array.isArray(maybeMeta?.tags)
+              ? (maybeMeta.tags as unknown[]).filter(isString)
+              : baseRow.tags;
 
             rows.push({
               ...baseRow,
@@ -74,15 +99,18 @@ export const listCommand = new Command('list')
               stability,
               owners,
               tags,
-              // if the module has `kind`, prefer it; otherwise keep scanned
               kind:
-                record && typeof (record as { kind?: unknown }).kind === 'string'
+                record &&
+                typeof (record as { kind?: unknown }).kind === 'string'
                   ? ((record as { kind?: string }).kind ?? baseRow.kind)
                   : baseRow.kind,
             });
           } catch (error) {
+            // eslint-disable-next-line no-console
             console.warn(
-              chalk.yellow(`Warning: Could not deep-load ${file}: ${getErrorMessage(error)}`)
+              chalk.yellow(
+                `Warning: Could not deep-load ${scan.filePath}: ${getErrorMessage(error)}`
+              )
             );
             rows.push(baseRow);
           }
@@ -91,72 +119,82 @@ export const listCommand = new Command('list')
         }
       }
 
-      // Apply filters
+      // Apply additional filters
       let filteredSpecs = rows;
-      if (options.type) {
-        filteredSpecs = filteredSpecs.filter(s => s.type === options.type);
-      }
       if (options.owner) {
-        filteredSpecs = filteredSpecs.filter(s =>
-          s.owners?.some((owner: string) => owner.includes(options.owner))
+        filteredSpecs = filteredSpecs.filter((s) =>
+          s.owners?.some((owner: string) =>
+            owner.includes(options.owner as string)
+          )
         );
       }
       if (options.tag) {
-        filteredSpecs = filteredSpecs.filter(s =>
-          s.tags?.some((tag: string) => tag.includes(options.tag))
+        filteredSpecs = filteredSpecs.filter((s) =>
+          s.tags?.some((tag: string) => tag.includes(options.tag as string))
         );
       }
       if (options.stability) {
-        filteredSpecs = filteredSpecs.filter(s => s.stability === options.stability);
+        filteredSpecs = filteredSpecs.filter(
+          (s) => s.stability === options.stability
+        );
       }
 
       if (options.json) {
         const stable = filteredSpecs
           .slice()
           .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
+        // eslint-disable-next-line no-console
         console.log(JSON.stringify(stable, null, 2));
       } else {
         if (filteredSpecs.length === 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.yellow('No contract specs found matching criteria.'));
           return;
         }
 
+        // eslint-disable-next-line no-console
         console.log(chalk.bold(`\n📋 Contract Specs (${filteredSpecs.length})\n`));
 
         const stable = filteredSpecs
           .slice()
           .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
 
-        stable.forEach(spec => {
+        stable.forEach((spec) => {
           const stabilityColors: Record<string, typeof chalk.white> = {
             experimental: chalk.red,
             beta: chalk.yellow,
             stable: chalk.green,
-            deprecated: chalk.gray
+            deprecated: chalk.gray,
           };
           const stabilityColor =
-            (spec.stability ? stabilityColors[spec.stability] : undefined) || chalk.white;
+            (spec.stability ? stabilityColors[spec.stability] : undefined) ??
+            chalk.white;
 
+          // eslint-disable-next-line no-console
           console.log(
             `${stabilityColor((spec.stability ?? 'unknown').toUpperCase())} ${chalk.cyan(
               spec.type
             )} ${chalk.bold(spec.name ?? '(no name)')}`
           );
+          // eslint-disable-next-line no-console
           console.log(`  📁 ${chalk.gray(spec.file)}`);
 
           if (spec.description) {
+            // eslint-disable-next-line no-console
             console.log(`  📝 ${chalk.gray(spec.description)}`);
           }
 
           if (spec.owners?.length) {
+            // eslint-disable-next-line no-console
             console.log(`  👥 ${chalk.gray(spec.owners.join(', '))}`);
           }
 
+          // eslint-disable-next-line no-console
           console.log('');
         });
       }
-
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(chalk.red(`Error listing specs: ${getErrorMessage(error)}`));
       process.exit(1);
     }

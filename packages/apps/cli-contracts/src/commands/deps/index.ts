@@ -1,18 +1,13 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-import { discoverSpecFiles } from '../../utils/spec-files';
-import { getErrorMessage } from '../../utils/errors';
-import { parseImportedSpecNames } from './parse-imports';
 import {
-  type ContractGraph,
-  type ContractNode,
-  buildReverseEdges,
-  detectCycles,
-  findMissingDependencies,
-  toDot,
-} from './graph';
+  analyzeDeps,
+  getContractNode,
+  exportGraphAsDot,
+  getGraphStats,
+  createNodeAdapters,
+} from '@lssm/bundle.contractspec-workspace';
+import { getErrorMessage } from '../../utils/errors';
 
 type OutputFormat = 'text' | 'json' | 'dot';
 
@@ -28,77 +23,58 @@ export const depsCommand = new Command('deps')
   .action(async (options) => {
     try {
       const format: OutputFormat = normalizeFormat(options);
+      const adapters = createNodeAdapters({ silent: true });
 
-      const files = await discoverSpecFiles({ pattern: options.pattern });
-      if (files.length === 0) {
+      const result = await analyzeDeps(adapters, {
+        pattern: options.pattern as string | undefined,
+      });
+
+      if (result.total === 0) {
+        // eslint-disable-next-line no-console
         console.log(chalk.yellow('No spec files found.'));
         return;
       }
 
-      const graph: ContractGraph = new Map();
-
-      for (const file of files) {
-        const content = readFileSync(file, 'utf-8');
-        const relativePath = path.relative(process.cwd(), file);
-
-        // Prefer explicit meta.name if present; otherwise fall back to filename stem.
-        const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
-        const inferredName = nameMatch?.[1]
-          ? nameMatch[1]
-          : path
-              .basename(file)
-              .replace(/\.[jt]s$/, '')
-              .replace(
-                /\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
-                ''
-              );
-
-        const finalName = inferredName || 'unknown';
-        const dependencies = parseImportedSpecNames(content, file);
-
-        const node: ContractNode = {
-          name: finalName,
-          file: relativePath,
-          dependencies,
-          dependents: [],
-        };
-
-        graph.set(finalName, node);
-      }
-
-      buildReverseEdges(graph);
-
       if (options.circular) {
-        const cycles = detectCycles(graph);
         if (format === 'json') {
-          console.log(JSON.stringify({ cycles }, null, 2));
+          // eslint-disable-next-line no-console
+          console.log(JSON.stringify({ cycles: result.cycles }, null, 2));
           return;
         }
-        if (cycles.length === 0) {
+        if (result.cycles.length === 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ No circular dependencies found'));
           return;
         }
-        console.log(chalk.red(`❌ Found ${cycles.length} circular dependencies:`));
-        cycles.forEach((cycle, idx) =>
+        // eslint-disable-next-line no-console
+        console.log(
+          chalk.red(`❌ Found ${result.cycles.length} circular dependencies:`)
+        );
+        result.cycles.forEach((cycle, idx) =>
+          // eslint-disable-next-line no-console
           console.log(`  ${idx + 1}. ${cycle.join(' → ')}`)
         );
         return;
       }
 
       if (options.missing) {
-        const missing = findMissingDependencies(graph);
         if (format === 'json') {
-          console.log(JSON.stringify({ missing }, null, 2));
+          // eslint-disable-next-line no-console
+          console.log(JSON.stringify({ missing: result.missing }, null, 2));
           return;
         }
-        if (missing.length === 0) {
+        if (result.missing.length === 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ All dependencies resolved'));
           return;
         }
+        // eslint-disable-next-line no-console
         console.log(chalk.red('❌ Found missing dependencies:'));
-        for (const entry of missing) {
+        for (const entry of result.missing) {
+          // eslint-disable-next-line no-console
           console.log(`  ${chalk.cyan(entry.contract)} is missing:`);
           for (const dep of entry.missing) {
+            // eslint-disable-next-line no-console
             console.log(`    ${chalk.red('→')} ${dep}`);
           }
         }
@@ -106,16 +82,18 @@ export const depsCommand = new Command('deps')
       }
 
       if (format === 'dot') {
-        console.log(toDot(graph));
+        // eslint-disable-next-line no-console
+        console.log(exportGraphAsDot(result.graph));
         return;
       }
 
       if (format === 'json') {
+        // eslint-disable-next-line no-console
         console.log(
           JSON.stringify(
             {
-              total: graph.size,
-              contracts: Array.from(graph.values()).map((n) => ({
+              total: result.total,
+              contracts: Array.from(result.graph.values()).map((n) => ({
                 name: n.name,
                 file: n.file,
                 dependencies: n.dependencies,
@@ -130,23 +108,29 @@ export const depsCommand = new Command('deps')
       }
 
       // text mode
-      const entryName: string | undefined = options.entry;
+      const entryName: string | undefined = options.entry as string | undefined;
       if (entryName) {
-        const node = graph.get(entryName);
+        const node = getContractNode(result.graph, entryName);
         if (!node) {
+          // eslint-disable-next-line no-console
           console.error(chalk.red(`Contract '${entryName}' not found.`));
           process.exitCode = 1;
           return;
         }
 
+        // eslint-disable-next-line no-console
         console.log(chalk.bold(`\n📋 Contract: ${node.name}`));
+        // eslint-disable-next-line no-console
         console.log(chalk.gray(`File: ${node.file}`));
+        // eslint-disable-next-line no-console
         console.log('');
 
         if (node.dependencies.length > 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.cyan('📥 Depends on:'));
           node.dependencies.forEach((dep) => {
-            const depNode = graph.get(dep);
+            const depNode = result.graph.get(dep);
+            // eslint-disable-next-line no-console
             console.log(
               `  ${chalk.green('→')} ${dep}${
                 depNode ? ` (${depNode.file})` : ' (missing)'
@@ -154,44 +138,59 @@ export const depsCommand = new Command('deps')
             );
           });
         } else {
+          // eslint-disable-next-line no-console
           console.log(chalk.gray('📥 No dependencies'));
         }
 
+        // eslint-disable-next-line no-console
         console.log('');
         if (node.dependents.length > 0) {
+          // eslint-disable-next-line no-console
           console.log(chalk.cyan('📤 Used by:'));
           node.dependents.forEach((dep) => {
-            const depNode = graph.get(dep);
+            const depNode = result.graph.get(dep);
+            // eslint-disable-next-line no-console
             console.log(
-              `  ${chalk.blue('←')} ${dep}${
-                depNode ? ` (${depNode.file})` : ''
-              }`
+              `  ${chalk.blue('←')} ${dep}${depNode ? ` (${depNode.file})` : ''}`
             );
           });
         } else {
+          // eslint-disable-next-line no-console
           console.log(chalk.gray('📤 Not used by other contracts'));
         }
         return;
       }
 
-      console.log(chalk.bold(`\n📊 Dependency Overview`));
-      console.log(chalk.gray(`Total contracts: ${graph.size}`));
-      const all = Array.from(graph.values());
-      const withDeps = all.filter((c) => c.dependencies.length > 0);
-      const withoutDeps = all.filter((c) => c.dependencies.length === 0);
-      const used = all.filter((c) => c.dependents.length > 0);
-      const unused = all.filter((c) => c.dependents.length === 0);
+      const stats = getGraphStats(result.graph);
+      const unused = Array.from(result.graph.values()).filter(
+        (c) => c.dependents.length === 0
+      );
 
-      console.log(chalk.gray(`Contracts with dependencies: ${withDeps.length}`));
-      console.log(chalk.gray(`Contracts without dependencies: ${withoutDeps.length}`));
-      console.log(chalk.gray(`Used contracts: ${used.length}`));
-      console.log(chalk.gray(`Unused contracts: ${unused.length}`));
+      // eslint-disable-next-line no-console
+      console.log(chalk.bold(`\n📊 Dependency Overview`));
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray(`Total contracts: ${stats.total}`));
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray(`Contracts with dependencies: ${stats.withDeps}`));
+      // eslint-disable-next-line no-console
+      console.log(
+        chalk.gray(`Contracts without dependencies: ${stats.withoutDeps}`)
+      );
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray(`Used contracts: ${stats.used}`));
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray(`Unused contracts: ${stats.unused}`));
 
       if (unused.length > 0) {
+        // eslint-disable-next-line no-console
         console.log(chalk.yellow('\n⚠️  Potentially unused contracts:'));
-        unused.forEach((c) => console.log(`  ${chalk.gray(c.name)} (${c.file})`));
+        unused.forEach((c) =>
+          // eslint-disable-next-line no-console
+          console.log(`  ${chalk.gray(c.name)} (${c.file})`)
+        );
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(
         chalk.red(`Error analyzing dependencies: ${getErrorMessage(error)}`)
       );
@@ -212,5 +211,3 @@ function normalizeFormat(options: unknown): OutputFormat {
   if (o.format === 'json') return 'json';
   return 'text';
 }
-
-

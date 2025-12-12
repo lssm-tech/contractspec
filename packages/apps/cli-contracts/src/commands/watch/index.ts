@@ -1,7 +1,7 @@
 import { Command } from 'commander';
-import chokidar from 'chokidar';
 import chalk from 'chalk';
 import path from 'node:path';
+import { createNodeAdapters } from '@lssm/bundle.contractspec-workspace';
 import { buildCommand } from '../build';
 import { validateCommand } from '../validate';
 import { loadConfig, mergeConfig } from '../../utils/config';
@@ -25,47 +25,56 @@ export const watchCommand = new Command('watch')
     500
   )
   .action(async (options) => {
-    const { pattern, build, validate, debounce, onStart, continueOnError } =
-      options as {
-        pattern: string;
-        build?: boolean;
-        validate?: boolean;
-        debounce: number;
-        onStart: 'none' | 'validate' | 'build' | 'both';
-        continueOnError: boolean;
-      };
+    const {
+      pattern,
+      build,
+      validate,
+      debounce,
+      onStart,
+      continueOnError,
+    } = options as {
+      pattern: string;
+      build?: boolean;
+      validate?: boolean;
+      debounce: number;
+      onStart: 'none' | 'validate' | 'build' | 'both';
+      continueOnError: boolean;
+    };
 
+    // eslint-disable-next-line no-console
     console.log(chalk.bold('👀 Watching contract specs...'));
+    // eslint-disable-next-line no-console
     console.log(chalk.gray(`Pattern: ${pattern}`));
+    // eslint-disable-next-line no-console
     console.log(chalk.gray(`Debounce: ${debounce}ms`));
 
-    if (build) console.log(chalk.gray('Auto-build: enabled'));
-    if (validate) console.log(chalk.gray('Auto-validate: enabled'));
-    if (onStart !== 'none')
+    if (build) {
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray('Auto-build: enabled'));
+    }
+    if (validate) {
+      // eslint-disable-next-line no-console
+      console.log(chalk.gray('Auto-validate: enabled'));
+    }
+    if (onStart !== 'none') {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray(`On start: ${onStart}`));
+    }
 
+    // eslint-disable-next-line no-console
     console.log('');
 
-    let debounceTimer: NodeJS.Timeout;
-
-    const watcher = chokidar.watch(pattern, {
-      ignored: ['node_modules/**', 'dist/**', '.turbo/**'],
-      persistent: true,
-      ignoreInitial: true
-      ,
-      awaitWriteFinish: {
-        stabilityThreshold: 250,
-        pollInterval: 50,
-      },
-    });
+    const adapters = createNodeAdapters({ silent: true });
 
     const runValidate = async (filePath: string) => {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('🔍 Validating...'));
       const config = await loadConfig();
       await validateCommand(filePath, {}, config);
     };
 
     const runBuild = async (filePath: string) => {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('🔨 Building...'));
       const config = await loadConfig();
       const merged = mergeConfig(config, {});
@@ -74,6 +83,7 @@ export const watchCommand = new Command('watch')
 
     const runActions = async (filePath: string) => {
       const relativePath = path.relative(process.cwd(), filePath);
+      // eslint-disable-next-line no-console
       console.log(chalk.blue(`📝 Changed: ${relativePath}`));
 
       const shouldValidate =
@@ -83,9 +93,13 @@ export const watchCommand = new Command('watch')
       if (shouldValidate) {
         try {
           await runValidate(filePath);
+          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ Validation passed'));
         } catch (error) {
-          console.log(chalk.red(`❌ Validation failed: ${getErrorMessage(error)}`));
+          // eslint-disable-next-line no-console
+          console.log(
+            chalk.red(`❌ Validation failed: ${getErrorMessage(error)}`)
+          );
           if (!continueOnError) {
             process.exitCode = 1;
           }
@@ -95,8 +109,10 @@ export const watchCommand = new Command('watch')
       if (shouldBuild) {
         try {
           await runBuild(filePath);
+          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ Build completed'));
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.log(chalk.red(`❌ Build failed: ${getErrorMessage(error)}`));
           if (!continueOnError) {
             process.exitCode = 1;
@@ -104,13 +120,13 @@ export const watchCommand = new Command('watch')
         }
       }
 
+      // eslint-disable-next-line no-console
       console.log('');
     };
 
     // Optional on-start run (only if --on-start is set)
     if (onStart !== 'none') {
-      // For on-start we run on the first matching file change list is not available;
-      // so we require the user to edit a file or pass --validate/--build for continuous.
+      // eslint-disable-next-line no-console
       console.log(
         chalk.yellow(
           '⚠️  --on-start is best used with a specific --pattern that targets one spec file.'
@@ -118,25 +134,29 @@ export const watchCommand = new Command('watch')
       );
     }
 
-    watcher.on('change', (filePath) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        void runActions(filePath);
-      }, debounce);
+    const watcher = adapters.watcher.watch({
+      pattern,
+      debounceMs: debounce,
+      ignore: ['node_modules/**', 'dist/**', '.turbo/**'],
     });
 
-    watcher.on('add', (filePath) => {
-      const relativePath = path.relative(process.cwd(), filePath);
-      console.log(chalk.green(`📄 Added: ${relativePath}`));
-    });
-
-    watcher.on('unlink', (filePath) => {
-      const relativePath = path.relative(process.cwd(), filePath);
-      console.log(chalk.red(`🗑️  Removed: ${relativePath}`));
+    watcher.on(async (event) => {
+      if (event.type === 'change') {
+        await runActions(event.path);
+      } else if (event.type === 'add') {
+        const relativePath = path.relative(process.cwd(), event.path);
+        // eslint-disable-next-line no-console
+        console.log(chalk.green(`📄 Added: ${relativePath}`));
+      } else if (event.type === 'unlink') {
+        const relativePath = path.relative(process.cwd(), event.path);
+        // eslint-disable-next-line no-console
+        console.log(chalk.red(`🗑️  Removed: ${relativePath}`));
+      }
     });
 
     // Graceful shutdown
     process.on('SIGINT', () => {
+      // eslint-disable-next-line no-console
       console.log(chalk.yellow('\n👋 Stopping watch mode...'));
       watcher.close();
       process.exit(0);

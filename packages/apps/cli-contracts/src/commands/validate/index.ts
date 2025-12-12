@@ -15,9 +15,12 @@ import type {
 import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/connection';
 import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
 import type { BlueprintTranslationCatalog } from '@lssm/lib.contracts/translations/catalog';
+import {
+  validateSpecStructure,
+  type WorkspaceConfig,
+} from '@lssm/bundle.contractspec-workspace';
 import { AgentOrchestrator } from '../../ai/agents/index';
 import { validateProvider } from '../../ai/providers';
-import { validateSpecStructure } from './spec-checker';
 import type { Config } from '../../utils/config';
 
 interface ValidateOptions {
