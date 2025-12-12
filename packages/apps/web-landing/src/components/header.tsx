@@ -1,7 +1,9 @@
 'use client';
 
-import { MarketingHeader, NavBrand, ButtonLink } from '@lssm/lib.design-system';
 import type { HeaderNavItem } from '@lssm/lib.design-system';
+import { ButtonLink, MarketingHeader, NavBrand } from '@lssm/lib.design-system';
+import Image from 'next/image';
+import appLogo from '../../public/logo-no-bg.png';
 
 const navItems: HeaderNavItem[] = [
   { label: 'Product', href: '/product' },
@@ -19,9 +21,17 @@ const langSwitchProps = {
 export default function Header() {
   return (
     <MarketingHeader
-      logo={<NavBrand title="ContractSpec" href="/" />}
+      logo={
+        <NavBrand
+          title="ContractSpec"
+          href="/"
+          logo={
+            <Image src={appLogo} alt="ContractSpec Logo" className="h-8 w-8" />
+          }
+        />
+      }
       nav={navItems}
-      cta={{ label: 'Join the waitlist', href: '/pricing#waitlist' }}
+      cta={{ label: 'Join the waitlist', href: '/contact#waitlist' }}
       right={
         <ButtonLink variant="ghost" href="/contact#call" size="sm">
           Book a demo

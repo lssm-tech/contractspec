@@ -1,0 +1,54 @@
+{
+  "name": "@lssm/example.learning-journey-ui-coaching",
+  "version": "1.0.0",
+  "description": "Contextual coaching UI with tip cards and engagement tracking.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./views": "./src/views/index.ts",
+    "./components": "./src/components/index.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/example.learning-journey-ui-shared": "workspace:*",
+    "@lssm/example.learning-journey.ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@types/react": "^19.1.6",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./views": "./dist/views/index.js",
+      "./components": "./dist/components/index.js",
+      "./*": "./*"
+    }
+  }
+}
+
