@@ -9,4 +9,5 @@ export * from './workflow-system';
 export * from './marketplace';
 export * from './integration-hub';
 export * from './analytics-dashboard';
+export * from './learning';
 export * from './shared';

@@ -395,7 +395,7 @@ export default function SandboxExperienceClient() {
           </div>
         );
       default:
-        staticShouldNotHappen(mode);
+        staticShouldNotHappen(mode as never);
         return null;
     }
   }, [mode, template, templateId, pushLog]);
