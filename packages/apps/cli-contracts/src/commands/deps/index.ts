@@ -1,251 +1,216 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { glob } from 'glob';
-import { readFileSync } from 'fs';
-import path from 'path';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { discoverSpecFiles } from '../../utils/spec-files';
+import { getErrorMessage } from '../../utils/errors';
+import { parseImportedSpecNames } from './parse-imports';
+import {
+  type ContractGraph,
+  type ContractNode,
+  buildReverseEdges,
+  detectCycles,
+  findMissingDependencies,
+  toDot,
+} from './graph';
 
-interface ContractDependency {
-  name: string;
-  file: string;
-  dependencies: string[];
-  dependents: string[];
-}
+type OutputFormat = 'text' | 'json' | 'dot';
 
 export const depsCommand = new Command('deps')
   .description('Analyze contract dependencies and relationships')
-  .option('--spec <file>', 'Analyze dependencies for specific spec')
-  .option('--graph', 'Generate dependency graph (requires graphviz)')
+  .option('--pattern <pattern>', 'File pattern to search (glob)')
+  .option('--entry <name>', 'Focus on a specific contract name')
+  .option('--format <format>', 'text|json|dot', 'text')
   .option('--circular', 'Find circular dependencies')
   .option('--missing', 'Find missing dependencies')
-  .option('--json', 'Output as JSON for scripting')
+  .option('--json', '(deprecated) Same as --format json')
+  .option('--graph', '(deprecated) Same as --format dot')
   .action(async (options) => {
-    const { spec: targetSpec, graph, circular, missing, json } = options;
-
     try {
-      console.log(chalk.bold('🔗 Analyzing contract dependencies...'));
+      const format: OutputFormat = normalizeFormat(options);
 
-      // Find all contract specs
-      const contractFiles = await glob('**/*.contracts.ts', {
-        ignore: ['node_modules/**', 'dist/**', '.turbo/**']
-      });
-
-      if (contractFiles.length === 0) {
-        console.log(chalk.yellow('No contract specs found.'));
+      const files = await discoverSpecFiles({ pattern: options.pattern });
+      if (files.length === 0) {
+        console.log(chalk.yellow('No spec files found.'));
         return;
       }
 
-      // Build dependency graph
-      const contracts: Map<string, ContractDependency> = new Map();
+      const graph: ContractGraph = new Map();
 
-      for (const file of contractFiles) {
-        try {
-          const content = readFileSync(file, 'utf-8');
-          const relativePath = path.relative(process.cwd(), file);
+      for (const file of files) {
+        const content = readFileSync(file, 'utf-8');
+        const relativePath = path.relative(process.cwd(), file);
 
-          // Extract contract name from file content or filename
-          const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
-          const contractName = nameMatch ? nameMatch[1] : path.basename(file, '.contracts.ts').replace(/\.contracts$/, '');
+        // Prefer explicit meta.name if present; otherwise fall back to filename stem.
+        const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
+        const inferredName = nameMatch?.[1]
+          ? nameMatch[1]
+          : path
+              .basename(file)
+              .replace(/\.[jt]s$/, '')
+              .replace(
+                /\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+                ''
+              );
 
-          // Extract imports to find dependencies
-          const imports: string[] = [];
-          const importRegex = /import\s+.*?\s+from\s+['"]([^'"]*\.contracts(?:\.[jt]s)?)['"]/g;
-          let match;
-          while ((match = importRegex.exec(content)) !== null) {
-            const importPath = match[1];
-            if (importPath) {
-              // Convert relative import to contract name
-              const resolvedPath = path.resolve(path.dirname(file), importPath);
-              const resolvedRelative = path.relative(process.cwd(), resolvedPath);
-              const depName = path.basename(resolvedRelative, path.extname(resolvedRelative))
-                .replace('.contracts', '');
-              imports.push(depName);
-            }
-          }
+        const finalName = inferredName || 'unknown';
+        const dependencies = parseImportedSpecNames(content, file);
 
-          const finalName = contractName || 'unknown';
-          contracts.set(finalName, {
-            name: finalName,
-            file: relativePath,
-            dependencies: imports,
-            dependents: []
-          });
+        const node: ContractNode = {
+          name: finalName,
+          file: relativePath,
+          dependencies,
+          dependents: [],
+        };
 
-        } catch (error: any) {
-          console.warn(chalk.yellow(`Warning: Could not analyze ${file}: ${error.message}`));
-        }
+        graph.set(finalName, node);
       }
 
-      // Build reverse dependencies (who depends on whom)
-      for (const [name, contract] of contracts) {
-        for (const dep of contract.dependencies) {
-          const depContract = contracts.get(dep);
-          if (depContract) {
-            depContract.dependents.push(name);
-          }
+      buildReverseEdges(graph);
+
+      if (options.circular) {
+        const cycles = detectCycles(graph);
+        if (format === 'json') {
+          console.log(JSON.stringify({ cycles }, null, 2));
+          return;
         }
+        if (cycles.length === 0) {
+          console.log(chalk.green('✅ No circular dependencies found'));
+          return;
+        }
+        console.log(chalk.red(`❌ Found ${cycles.length} circular dependencies:`));
+        cycles.forEach((cycle, idx) =>
+          console.log(`  ${idx + 1}. ${cycle.join(' → ')}`)
+        );
+        return;
       }
 
-      if (targetSpec) {
-        // Analyze specific contract
-        const contract = contracts.get(targetSpec);
-        if (!contract) {
-          console.error(chalk.red(`Contract '${targetSpec}' not found.`));
+      if (options.missing) {
+        const missing = findMissingDependencies(graph);
+        if (format === 'json') {
+          console.log(JSON.stringify({ missing }, null, 2));
+          return;
+        }
+        if (missing.length === 0) {
+          console.log(chalk.green('✅ All dependencies resolved'));
+          return;
+        }
+        console.log(chalk.red('❌ Found missing dependencies:'));
+        for (const entry of missing) {
+          console.log(`  ${chalk.cyan(entry.contract)} is missing:`);
+          for (const dep of entry.missing) {
+            console.log(`    ${chalk.red('→')} ${dep}`);
+          }
+        }
+        return;
+      }
+
+      if (format === 'dot') {
+        console.log(toDot(graph));
+        return;
+      }
+
+      if (format === 'json') {
+        console.log(
+          JSON.stringify(
+            {
+              total: graph.size,
+              contracts: Array.from(graph.values()).map((n) => ({
+                name: n.name,
+                file: n.file,
+                dependencies: n.dependencies,
+                dependents: n.dependents,
+              })),
+            },
+            null,
+            2
+          )
+        );
+        return;
+      }
+
+      // text mode
+      const entryName: string | undefined = options.entry;
+      if (entryName) {
+        const node = graph.get(entryName);
+        if (!node) {
+          console.error(chalk.red(`Contract '${entryName}' not found.`));
+          process.exitCode = 1;
           return;
         }
 
-        if (json) {
-          console.log(JSON.stringify(contract, null, 2));
-        } else {
-          console.log(chalk.bold(`\n📋 Contract: ${contract.name}`));
-          console.log(chalk.gray(`File: ${contract.file}`));
-          console.log('');
-
-          if (contract.dependencies.length > 0) {
-            console.log(chalk.cyan('📥 Depends on:'));
-            contract.dependencies.forEach(dep => {
-              const depContract = contracts.get(dep);
-              console.log(`  ${chalk.green('→')} ${dep}${depContract ? ` (${depContract.file})` : ' (missing)'}`);
-            });
-          } else {
-            console.log(chalk.gray('📥 No dependencies'));
-          }
-
-          console.log('');
-
-          if (contract.dependents.length > 0) {
-            console.log(chalk.cyan('📤 Used by:'));
-            contract.dependents.forEach(dep => {
-              const depContract = contracts.get(dep);
-              console.log(`  ${chalk.blue('←')} ${dep}${depContract ? ` (${depContract.file})` : ''}`);
-            });
-          } else {
-            console.log(chalk.gray('📤 Not used by other contracts'));
-          }
-        }
-      } else if (circular) {
-        // Find circular dependencies
-        const visited = new Set<string>();
-        const recursionStack = new Set<string>();
-        const cycles: string[][] = [];
-
-        function detectCycle(contractName: string, path: string[] = []): void {
-          if (recursionStack.has(contractName)) {
-            const cycleStart = path.indexOf(contractName);
-            if (cycleStart !== -1) {
-              cycles.push([...path.slice(cycleStart), contractName]);
-            }
-            return;
-          }
-
-          if (visited.has(contractName)) return;
-
-          visited.add(contractName);
-          recursionStack.add(contractName);
-
-          const contract = contracts.get(contractName);
-          if (contract) {
-            for (const dep of contract.dependencies) {
-              detectCycle(dep, [...path, contractName]);
-            }
-          }
-
-          recursionStack.delete(contractName);
-        }
-
-        for (const contractName of contracts.keys()) {
-          if (!visited.has(contractName)) {
-            detectCycle(contractName);
-          }
-        }
-
-        if (cycles.length === 0) {
-          console.log(chalk.green('✅ No circular dependencies found'));
-        } else {
-          console.log(chalk.red(`❌ Found ${cycles.length} circular dependencies:`));
-          cycles.forEach((cycle, index) => {
-            console.log(`  ${index + 1}. ${cycle.join(' → ')}`);
-          });
-        }
-      } else if (missing) {
-        // Find missing dependencies
-        const missingDeps: Array<{contract: string, missing: string[]}> = [];
-
-        for (const [name, contract] of contracts) {
-          const missing: string[] = [];
-          for (const dep of contract.dependencies) {
-            if (!contracts.has(dep)) {
-              missing.push(dep);
-            }
-          }
-          if (missing.length > 0) {
-            missingDeps.push({ contract: name, missing });
-          }
-        }
-
-        if (missingDeps.length === 0) {
-          console.log(chalk.green('✅ All dependencies resolved'));
-        } else {
-          console.log(chalk.red(`❌ Found missing dependencies:`));
-          missingDeps.forEach(({ contract, missing }) => {
-            console.log(`  ${chalk.cyan(contract)} is missing:`);
-            missing.forEach(dep => {
-              console.log(`    ${chalk.red('→')} ${dep}`);
-            });
-          });
-        }
-      } else if (graph) {
-        // Generate graphviz dot file
-        console.log('digraph ContractDependencies {');
-        console.log('  rankdir=LR;');
-        console.log('  node [shape=box];');
-
-        for (const [name, contract] of contracts) {
-          for (const dep of contract.dependencies) {
-            console.log(`  "${name}" -> "${dep}";`);
-          }
-        }
-
-        console.log('}');
+        console.log(chalk.bold(`\n📋 Contract: ${node.name}`));
+        console.log(chalk.gray(`File: ${node.file}`));
         console.log('');
-        console.log(chalk.gray('💡 Pipe to graphviz: cat deps.dot | dot -Tpng > deps.png'));
-      } else {
-        // Show overview
-        if (json) {
-          const overview = {
-            total: contracts.size,
-            contracts: Array.from(contracts.values()).map(c => ({
-              name: c.name,
-              file: c.file,
-              dependencies: c.dependencies,
-              dependents: c.dependents
-            }))
-          };
-          console.log(JSON.stringify(overview, null, 2));
+
+        if (node.dependencies.length > 0) {
+          console.log(chalk.cyan('📥 Depends on:'));
+          node.dependencies.forEach((dep) => {
+            const depNode = graph.get(dep);
+            console.log(
+              `  ${chalk.green('→')} ${dep}${
+                depNode ? ` (${depNode.file})` : ' (missing)'
+              }`
+            );
+          });
         } else {
-          console.log(chalk.bold(`\n📊 Dependency Overview`));
-          console.log(chalk.gray(`Total contracts: ${contracts.size}`));
-
-          const withDeps = Array.from(contracts.values()).filter(c => c.dependencies.length > 0);
-          const withoutDeps = Array.from(contracts.values()).filter(c => c.dependencies.length === 0);
-          const used = Array.from(contracts.values()).filter(c => c.dependents.length > 0);
-          const unused = Array.from(contracts.values()).filter(c => c.dependents.length === 0);
-
-          console.log(chalk.gray(`Contracts with dependencies: ${withDeps.length}`));
-          console.log(chalk.gray(`Contracts without dependencies: ${withoutDeps.length}`));
-          console.log(chalk.gray(`Used contracts: ${used.length}`));
-          console.log(chalk.gray(`Unused contracts: ${unused.length}`));
-
-          if (unused.length > 0) {
-            console.log(chalk.yellow('\n⚠️  Potentially unused contracts:'));
-            unused.forEach(c => {
-              console.log(`  ${chalk.gray(c.name)} (${c.file})`);
-            });
-          }
+          console.log(chalk.gray('📥 No dependencies'));
         }
+
+        console.log('');
+        if (node.dependents.length > 0) {
+          console.log(chalk.cyan('📤 Used by:'));
+          node.dependents.forEach((dep) => {
+            const depNode = graph.get(dep);
+            console.log(
+              `  ${chalk.blue('←')} ${dep}${
+                depNode ? ` (${depNode.file})` : ''
+              }`
+            );
+          });
+        } else {
+          console.log(chalk.gray('📤 Not used by other contracts'));
+        }
+        return;
       }
 
-    } catch (error: any) {
-      console.error(chalk.red(`Error analyzing dependencies: ${error.message}`));
+      console.log(chalk.bold(`\n📊 Dependency Overview`));
+      console.log(chalk.gray(`Total contracts: ${graph.size}`));
+      const all = Array.from(graph.values());
+      const withDeps = all.filter((c) => c.dependencies.length > 0);
+      const withoutDeps = all.filter((c) => c.dependencies.length === 0);
+      const used = all.filter((c) => c.dependents.length > 0);
+      const unused = all.filter((c) => c.dependents.length === 0);
+
+      console.log(chalk.gray(`Contracts with dependencies: ${withDeps.length}`));
+      console.log(chalk.gray(`Contracts without dependencies: ${withoutDeps.length}`));
+      console.log(chalk.gray(`Used contracts: ${used.length}`));
+      console.log(chalk.gray(`Unused contracts: ${unused.length}`));
+
+      if (unused.length > 0) {
+        console.log(chalk.yellow('\n⚠️  Potentially unused contracts:'));
+        unused.forEach((c) => console.log(`  ${chalk.gray(c.name)} (${c.file})`));
+      }
+    } catch (error) {
+      console.error(
+        chalk.red(`Error analyzing dependencies: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });
+
+function normalizeFormat(options: unknown): OutputFormat {
+  const o = options as {
+    format?: string;
+    json?: boolean;
+    graph?: boolean;
+  };
+
+  if (o.json) return 'json';
+  if (o.graph) return 'dot';
+  if (o.format === 'dot') return 'dot';
+  if (o.format === 'json') return 'json';
+  return 'text';
+}
+
+

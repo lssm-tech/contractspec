@@ -1,11 +1,27 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { readFileSync, existsSync } from 'fs';
-import { glob } from 'glob';
-import path from 'path';
+import { readFileSync } from 'node:fs';
+import { discoverSpecFiles } from '../../utils/spec-files';
+import { getErrorMessage } from '../../utils/errors';
+import { scanSpecSource } from '../../utils/spec-scan';
+import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
+
+type ListJsonRow = {
+  file: string;
+  type: string;
+  name?: string;
+  description?: string;
+  stability?: string;
+  owners?: string[];
+  tags?: string[];
+  version?: number;
+  kind?: string;
+};
 
 export const listCommand = new Command('list')
   .description('List all contract specs in the project')
+  .option('--pattern <pattern>', 'File pattern to search (glob)')
+  .option('--deep', 'Load modules to extract richer metadata (executes spec modules)')
   .option('--type <type>', 'Filter by spec type (operation, event, presentation, etc.)')
   .option('--owner <owner>', 'Filter by owner')
   .option('--tag <tag>', 'Filter by tag')
@@ -13,35 +29,70 @@ export const listCommand = new Command('list')
   .option('--json', 'Output as JSON for scripting')
   .action(async (options) => {
     try {
-      const contractFiles = await glob('**/*.contracts.ts', {
-        ignore: ['node_modules/**', 'dist/**', '.turbo/**']
-      });
+      const contractFiles = await discoverSpecFiles({ pattern: options.pattern });
 
-      const specs = [];
+      const rows: ListJsonRow[] = [];
 
       for (const file of contractFiles) {
-        try {
-          // Dynamic import of spec file
-          const specPath = path.resolve(file);
-          delete require.cache[specPath]; // Clear cache for re-import
-          const specModule = await import(specPath);
+        const code = readFileSync(file, 'utf-8');
+        const scan = scanSpecSource(code, file);
 
-          // Extract spec data (assuming standard export structure)
-          const spec = specModule.default || specModule.spec || specModule;
-          if (spec && spec.meta) {
-            specs.push({
-              file,
-              ...spec.meta,
-              type: spec.kind || 'unknown'
+        const baseRow: ListJsonRow = {
+          file,
+          type: scan.specType,
+          name: scan.name,
+          description: scan.description,
+          stability: scan.stability,
+          owners: scan.owners,
+          tags: scan.tags,
+          version: scan.version,
+          kind: scan.kind,
+        };
+
+        if (options.deep) {
+          try {
+            const mod = await loadSpecModule(file);
+            const exported = pickSpecExport(mod);
+            const record = exported as Record<string, unknown> | null;
+            const meta = record && typeof record === 'object' ? (record as { meta?: unknown }).meta : undefined;
+
+            const maybeMeta = meta && typeof meta === 'object' ? (meta as Record<string, unknown>) : undefined;
+            const name = typeof maybeMeta?.name === 'string' ? maybeMeta.name : baseRow.name;
+            const description =
+              typeof maybeMeta?.description === 'string' ? maybeMeta.description : baseRow.description;
+            const stability =
+              typeof maybeMeta?.stability === 'string' ? maybeMeta.stability : baseRow.stability;
+            const owners =
+              Array.isArray(maybeMeta?.owners) ? (maybeMeta.owners as unknown[]).filter(isString) : baseRow.owners;
+            const tags =
+              Array.isArray(maybeMeta?.tags) ? (maybeMeta.tags as unknown[]).filter(isString) : baseRow.tags;
+
+            rows.push({
+              ...baseRow,
+              name,
+              description,
+              stability,
+              owners,
+              tags,
+              // if the module has `kind`, prefer it; otherwise keep scanned
+              kind:
+                record && typeof (record as { kind?: unknown }).kind === 'string'
+                  ? ((record as { kind?: string }).kind ?? baseRow.kind)
+                  : baseRow.kind,
             });
+          } catch (error) {
+            console.warn(
+              chalk.yellow(`Warning: Could not deep-load ${file}: ${getErrorMessage(error)}`)
+            );
+            rows.push(baseRow);
           }
-        } catch (error: any) {
-          console.warn(chalk.yellow(`Warning: Could not load ${file}: ${error.message}`));
+        } else {
+          rows.push(baseRow);
         }
       }
 
       // Apply filters
-      let filteredSpecs = specs;
+      let filteredSpecs = rows;
       if (options.type) {
         filteredSpecs = filteredSpecs.filter(s => s.type === options.type);
       }
@@ -60,7 +111,10 @@ export const listCommand = new Command('list')
       }
 
       if (options.json) {
-        console.log(JSON.stringify(filteredSpecs, null, 2));
+        const stable = filteredSpecs
+          .slice()
+          .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
+        console.log(JSON.stringify(stable, null, 2));
       } else {
         if (filteredSpecs.length === 0) {
           console.log(chalk.yellow('No contract specs found matching criteria.'));
@@ -69,16 +123,25 @@ export const listCommand = new Command('list')
 
         console.log(chalk.bold(`\n📋 Contract Specs (${filteredSpecs.length})\n`));
 
-        filteredSpecs.forEach(spec => {
-          const stabilityColors: Record<string, any> = {
+        const stable = filteredSpecs
+          .slice()
+          .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
+
+        stable.forEach(spec => {
+          const stabilityColors: Record<string, typeof chalk.white> = {
             experimental: chalk.red,
             beta: chalk.yellow,
             stable: chalk.green,
             deprecated: chalk.gray
           };
-          const stabilityColor = stabilityColors[spec.stability || ''] || chalk.white;
+          const stabilityColor =
+            (spec.stability ? stabilityColors[spec.stability] : undefined) || chalk.white;
 
-          console.log(`${stabilityColor(spec.stability?.toUpperCase() || 'UNKNOWN')} ${chalk.cyan(spec.type)} ${chalk.bold(spec.name)}`);
+          console.log(
+            `${stabilityColor((spec.stability ?? 'unknown').toUpperCase())} ${chalk.cyan(
+              spec.type
+            )} ${chalk.bold(spec.name ?? '(no name)')}`
+          );
           console.log(`  📁 ${chalk.gray(spec.file)}`);
 
           if (spec.description) {
@@ -93,8 +156,12 @@ export const listCommand = new Command('list')
         });
       }
 
-    } catch (error: any) {
-      console.error(chalk.red(`Error listing specs: ${error.message}`));
+    } catch (error) {
+      console.error(chalk.red(`Error listing specs: ${getErrorMessage(error)}`));
       process.exit(1);
     }
   });
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}

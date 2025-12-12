@@ -6,18 +6,25 @@
 # Discovery & Management
 contractspec list                           # List all contracts
 contractspec list --type operation         # Filter contracts
+contractspec list --pattern 'src/**/*.ts'  # Custom discovery pattern
+contractspec list --deep                   # Load spec modules (richer metadata)
 contractspec deps                          # Analyze dependencies
 contractspec deps --circular               # Find circular deps
+contractspec deps --format dot > deps.dot  # GraphViz dot output
 
 # Development Workflow
 contractspec watch --build                # Auto-build on changes
 contractspec watch --validate             # Auto-validate on changes
+contractspec watch --on-start both         # Run on startup too
+contractspec watch --continue-on-error     # Keep watching even on failures
 
 # Maintenance & Comparison
 contractspec clean                        # Clean generated files
 contractspec clean --dry-run              # Preview cleanup
 contractspec diff spec1.ts spec2.ts       # Compare specs
-contractspec sync                         # Sync across surfaces
+contractspec diff spec.ts spec.ts --baseline main  # Compare with git baseline
+contractspec sync                         # Build all discovered specs
+contractspec sync --buckets api,ui        # Repeat builds into ./generated/<bucket>/
 
 # Validation & Testing
 contractspec validate '**/*.ts'           # Validate all specs
