@@ -4,6 +4,7 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import type { JSX } from 'react';
 import dynamic from 'next/dynamic';
 import type { TemplateId } from '@lssm/bundle.contractspec-studio/templates/registry';
+import { staticShouldNotHappen } from '@lssm/lib.utils-typescript';
 
 // Dynamically import template components with ssr: false to avoid SSR issues with sql.js
 const TemplateShell = dynamic(
@@ -394,7 +395,7 @@ export default function SandboxExperienceClient() {
           </div>
         );
       default:
-        shouldNot;
+        staticShouldNotHappen(mode);
         return null;
     }
   }, [mode, template, templateId, pushLog]);
