@@ -1,7 +1,6 @@
 ---
+trigger: always_on
 description: Enforce code quality, type safety, dependency hygiene, and innovation practices
-globs:
-alwaysApply: true
 ---
 
 # Code Quality, Stability & Innovation

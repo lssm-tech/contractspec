@@ -7,6 +7,12 @@ import { validateCommand } from './commands/validate/index';
 import { testCommand } from './commands/test/index';
 import { generateGoldenTestsCommand } from './commands/test/generate';
 import { regeneratorCommand } from './commands/regenerator/index';
+import { listCommand } from './commands/list/index';
+import { watchCommand } from './commands/watch/index';
+import { syncCommand } from './commands/sync/index';
+import { cleanCommand } from './commands/clean/index';
+import { depsCommand } from './commands/deps/index';
+import { diffCommand } from './commands/diff/index';
 
 const program = new Command();
 
@@ -16,6 +22,24 @@ program
     'CLI tool for creating, building, and validating contract specifications'
   )
   .version('0.0.1');
+
+// List command
+program.addCommand(listCommand);
+
+// Watch command
+program.addCommand(watchCommand);
+
+// Sync command
+program.addCommand(syncCommand);
+
+// Clean command
+program.addCommand(cleanCommand);
+
+// Deps command
+program.addCommand(depsCommand);
+
+// Diff command
+program.addCommand(diffCommand);
 
 // Create command
 program
