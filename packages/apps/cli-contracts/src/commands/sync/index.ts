@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { discoverSpecFiles } from '../../utils/spec-files';
+import { createNodeAdapters } from '@lssm/bundle.contractspec-workspace';
 import { loadConfig, mergeConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
 import { buildCommand } from '../build';
@@ -14,11 +14,7 @@ export const syncCommand = new Command('sync')
     'Optional output buckets (comma-separated). Builds are repeated into ./generated/<bucket>/',
     ''
   )
-  .option(
-    '--surfaces <surfaces>',
-    '(deprecated) Alias for --buckets',
-    ''
-  )
+  .option('--surfaces <surfaces>', '(deprecated) Alias for --buckets', '')
   .option('--validate', 'Validate each spec before building (spec-only)', false)
   .option('--dry-run', 'Show what would be synced without making changes')
   .action(async (options) => {
@@ -32,28 +28,39 @@ export const syncCommand = new Command('sync')
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // eslint-disable-next-line no-console
     console.log(chalk.bold('🔄 Syncing contracts...'));
     if (buckets.length > 0) {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray(`Buckets: ${buckets.join(', ')}`));
     } else {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('Mode: build-all (default outputDir)'));
     }
     if (shouldValidate) {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray('Validate: enabled (spec-only)'));
     }
-    if (dryRun) console.log(chalk.yellow('DRY RUN - No changes will be made'));
+    if (dryRun) {
+      // eslint-disable-next-line no-console
+      console.log(chalk.yellow('DRY RUN - No changes will be made'));
+    }
+    // eslint-disable-next-line no-console
     console.log('');
 
     try {
-      const contractFiles = await discoverSpecFiles({
+      const adapters = createNodeAdapters({ silent: true });
+      const contractFiles = await adapters.fs.glob({
         pattern: options.pattern as string | undefined,
       });
 
       if (contractFiles.length === 0) {
+        // eslint-disable-next-line no-console
         console.log(chalk.yellow('No spec files found.'));
         return;
       }
 
+      // eslint-disable-next-line no-console
       console.log(chalk.cyan(`Found ${contractFiles.length} spec files\n`));
 
       const baseConfig = await loadConfig();
@@ -63,19 +70,25 @@ export const syncCommand = new Command('sync')
       let failureCount = 0;
 
       for (const specFile of contractFiles) {
+        // eslint-disable-next-line no-console
         console.log(chalk.bold(`📋 ${specFile}`));
 
         const targets: Array<string | undefined> =
-          buckets.length > 0 ? buckets.map((b) => `./generated/${b}`) : [undefined];
+          buckets.length > 0
+            ? buckets.map((b) => `./generated/${b}`)
+            : [undefined];
 
         for (const targetOutputDir of targets) {
           const label = targetOutputDir ? `→ ${targetOutputDir}` : '→ default';
+          // eslint-disable-next-line no-console
           console.log(chalk.gray(`  ${label}`));
 
           if (dryRun) {
             if (shouldValidate) {
+              // eslint-disable-next-line no-console
               console.log(chalk.gray('    Would validate spec (spec-only)'));
             }
+            // eslint-disable-next-line no-console
             console.log(chalk.gray('    Would build artifacts'));
             continue;
           }
@@ -102,16 +115,22 @@ export const syncCommand = new Command('sync')
             successCount += 1;
           } catch (error) {
             failureCount += 1;
+            // eslint-disable-next-line no-console
             console.log(chalk.red(`    ❌ Failed: ${getErrorMessage(error)}`));
           }
         }
       }
 
       if (!dryRun) {
+        // eslint-disable-next-line no-console
         console.log('');
         if (failureCount === 0) {
-          console.log(chalk.green(`✅ Sync completed (${successCount} succeeded)`));
+          // eslint-disable-next-line no-console
+          console.log(
+            chalk.green(`✅ Sync completed (${successCount} succeeded)`)
+          );
         } else {
+          // eslint-disable-next-line no-console
           console.log(
             chalk.red(
               `❌ Sync completed with failures (${successCount} succeeded, ${failureCount} failed)`
@@ -121,6 +140,7 @@ export const syncCommand = new Command('sync')
         }
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(chalk.red(`Sync failed: ${getErrorMessage(error)}`));
       process.exit(1);
     }
