@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
 import { useTemplateRuntime } from '../../../../templates/runtime';
 import { type Message } from './types';
 
-const MESSAGES_QUERY = gql`
+export const MESSAGES_QUERY = gql`
   query Messages($conversationId: ID!) {
     messages(conversationId: $conversationId, limit: 50) {
       id

@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 import { Send } from 'lucide-react';
 import { useTemplateRuntime } from '../../../../templates/runtime';
+import { MESSAGES_QUERY } from './MessageThread';
 
 const SEND_MESSAGE = gql`
   mutation SendMessage($input: SendMessageInput!) {
@@ -44,13 +45,7 @@ export function MessageComposer({
       },
       refetchQueries: [
         {
-          query: gql`
-            query Messages($conversationId: ID!) {
-              messages(conversationId: $conversationId, limit: 50) {
-                id
-              }
-            }
-          `,
+          query: MESSAGES_QUERY,
           variables: { conversationId },
         },
       ],
