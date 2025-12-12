@@ -95,7 +95,7 @@ export class LocalRuntimeServices {
           `Seeding not implemented for template ${options.templateId}`
         );
       default:
-        staticShouldNotHappen(options.templateId);
+        staticShouldNotHappen(options.templateId as never);
     }
   }
 

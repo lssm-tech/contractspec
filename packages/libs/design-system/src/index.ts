@@ -76,6 +76,7 @@ export { CommandSearchTrigger } from './components/molecules/CommandSearchTrigge
 export { StatusChip } from './components/molecules/StatusChip';
 export { EntityCard } from './components/molecules/EntityCard';
 export { StatCard, StatCardGroup } from './components/molecules/StatCard';
+export { OverviewCard } from './components/molecules/OverviewCard';
 export { HoverPreview } from './components/molecules/HoverPreview';
 export { HoverPreviewSimple } from './components/molecules/hover-previews/Simple';
 export { HoverPreviewMedia } from './components/molecules/hover-previews/Media';
