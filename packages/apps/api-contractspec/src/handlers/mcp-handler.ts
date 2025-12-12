@@ -1,0 +1,26 @@
+import { Elysia } from 'elysia';
+import {
+  createCliMcpHandler,
+  createDocsMcpHandler,
+  createInternalMcpHandler,
+} from '@lssm/bundle.contractspec-studio/application';
+
+const docsMcpHandler = createDocsMcpHandler('/api/mcp/docs');
+const cliMcpHandler = createCliMcpHandler('/api/mcp/cli');
+const internalMcpHandler = createInternalMcpHandler('/api/mcp/internal');
+
+const mcpRoutesHandler = new Elysia()
+  .post('/docs', ({ request }) => docsMcpHandler(request))
+  .post('/cli', ({ request }) => cliMcpHandler(request))
+  .post('/internal', ({ request }) => internalMcpHandler(request));
+
+const withApiPrefixHandler = new Elysia().group('/api/mcp', (app) =>
+  app.use(mcpRoutesHandler)
+);
+const withoutApiPrefixHandler = new Elysia().group('/mcp', (app) =>
+  app.use(mcpRoutesHandler)
+);
+
+export const mcpHandler = new Elysia()
+  .use(withApiPrefixHandler)
+  .use(withoutApiPrefixHandler);
