@@ -410,16 +410,28 @@
       "name": "@lssm/example.learning-journey-registry",
       "version": "1.0.0",
       "dependencies": {
+        "@lssm/example.learning-journey-ui-coaching": "workspace:*",
+        "@lssm/example.learning-journey-ui-gamified": "workspace:*",
+        "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
+        "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/example.learning-journey.ambient-coach": "workspace:*",
         "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+        "@lssm/example.learning-journey.duo-drills": "workspace:*",
         "@lssm/example.learning-journey.platform-tour": "workspace:*",
+        "@lssm/example.learning-journey.quest-challenges": "workspace:*",
         "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
+        "react": "^19.1.0",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.1.6",
         "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
       },
     },
     "packages/examples/learning-journey-studio-onboarding": {
@@ -435,6 +447,95 @@
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/learning-journey-ui-coaching": {
+      "name": "@lssm/example.learning-journey-ui-coaching",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/example.learning-journey.ambient-coach": "workspace:*",
+        "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+        "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.ui-kit-web": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+        "react": "^19.1.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.1.6",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
+      },
+    },
+    "packages/examples/learning-journey-ui-gamified": {
+      "name": "@lssm/example.learning-journey-ui-gamified",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/example.learning-journey.duo-drills": "workspace:*",
+        "@lssm/example.learning-journey.quest-challenges": "workspace:*",
+        "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.ui-kit-web": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+        "react": "^19.1.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.1.6",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
+      },
+    },
+    "packages/examples/learning-journey-ui-onboarding": {
+      "name": "@lssm/example.learning-journey-ui-onboarding",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/example.learning-journey.platform-tour": "workspace:*",
+        "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
+        "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.ui-kit-web": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+        "react": "^19.1.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.1.6",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
+      },
+    },
+    "packages/examples/learning-journey-ui-shared": {
+      "name": "@lssm/example.learning-journey-ui-shared",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.ui-kit-web": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+        "react": "^19.1.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.1.6",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
       },
     },
     "packages/examples/marketplace": {
@@ -2355,6 +2456,14 @@
     "@lssm/example.integration-hub": ["@lssm/example.integration-hub@workspace:packages/examples/integration-hub"],
 
     "@lssm/example.learning-journey-registry": ["@lssm/example.learning-journey-registry@workspace:packages/examples/learning-journey-registry"],
+
+    "@lssm/example.learning-journey-ui-coaching": ["@lssm/example.learning-journey-ui-coaching@workspace:packages/examples/learning-journey-ui-coaching"],
+
+    "@lssm/example.learning-journey-ui-gamified": ["@lssm/example.learning-journey-ui-gamified@workspace:packages/examples/learning-journey-ui-gamified"],
+
+    "@lssm/example.learning-journey-ui-onboarding": ["@lssm/example.learning-journey-ui-onboarding@workspace:packages/examples/learning-journey-ui-onboarding"],
+
+    "@lssm/example.learning-journey-ui-shared": ["@lssm/example.learning-journey-ui-shared@workspace:packages/examples/learning-journey-ui-shared"],
 
     "@lssm/example.learning-journey.ambient-coach": ["@lssm/example.learning-journey.ambient-coach@workspace:packages/examples/learning-journey-ambient-coach"],
 
