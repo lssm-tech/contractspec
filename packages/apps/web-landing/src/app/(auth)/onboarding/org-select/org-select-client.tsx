@@ -23,10 +23,10 @@ const ORG_TYPE_OPTIONS: { label: string; value: OrganizationType }[] = [
     label: 'Workspace (recommended)',
     value: OrganizationType.CONTRACT_SPEC_CUSTOMER,
   },
-  {
-    label: 'Platform admin',
-    value: OrganizationType.PLATFORM_ADMIN,
-  },
+  // {
+  //   label: 'Platform admin',
+  //   value: OrganizationType.PLATFORM_ADMIN,
+  // },
 ];
 
 export default function OrgSelectClient() {
@@ -40,8 +40,8 @@ export default function OrgSelectClient() {
     name: string;
     type: OrganizationType;
   }>({
-    name: '',
-    type: OrganizationType.CONTRACT_SPEC_CUSTOMER,
+    name: ORG_TYPE_OPTIONS[0].label,
+    type: ORG_TYPE_OPTIONS[0].value,
   });
 
   const loadOrganizations = useCallback(async () => {
@@ -244,34 +244,40 @@ export default function OrgSelectClient() {
               />
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="orgType" className="text-sm font-medium">
-                Workspace type
-              </label>
+            {ORG_TYPE_OPTIONS.length > 1 && (
               <div className="space-y-2">
-                {ORG_TYPE_OPTIONS.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() =>
-                      setFormState((prev) => ({ ...prev, type: option.value }))
-                    }
-                    className={`w-full rounded-xl border px-4 py-3 text-left transition ${
-                      formState.type === option.value
-                        ? 'border-violet-500 bg-violet-500/10'
-                        : 'border-border hover:border-violet-500/40'
-                    }`}
-                  >
-                    <p className="font-medium">{option.label}</p>
-                    <p className="text-muted-foreground text-xs">
-                      {option.value === OrganizationType.CONTRACT_SPEC_CUSTOMER
-                        ? 'Recommended for builders and teams'
-                        : 'Reserved for platform maintainers'}
-                    </p>
-                  </button>
-                ))}
+                <label htmlFor="orgType" className="text-sm font-medium">
+                  Workspace type
+                </label>
+                <div className="space-y-2">
+                  {ORG_TYPE_OPTIONS.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() =>
+                        setFormState((prev) => ({
+                          ...prev,
+                          type: option.value,
+                        }))
+                      }
+                      className={`w-full rounded-xl border px-4 py-3 text-left transition ${
+                        formState.type === option.value
+                          ? 'border-violet-500 bg-violet-500/10'
+                          : 'border-border hover:border-violet-500/40'
+                      }`}
+                    >
+                      <p className="font-medium">{option.label}</p>
+                      <p className="text-muted-foreground text-xs">
+                        {option.value ===
+                        OrganizationType.CONTRACT_SPEC_CUSTOMER
+                          ? 'Recommended for builders and teams'
+                          : 'Reserved for platform maintainers'}
+                      </p>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <Button
               onClick={() => void createOrg()}
