@@ -33,6 +33,8 @@ contractspec validate src/contracts/mySpec.ts
 List all contract specifications in the project with filtering options.
 
 **Options:**
+- `--pattern <pattern>` - File pattern to search (glob)
+- `--deep` - Load spec modules to extract richer metadata (executes spec modules)
 - `--type <type>` - Filter by spec type (operation, event, presentation, etc.)
 - `--owner <owner>` - Filter by owner
 - `--tag <tag>` - Filter by tag
@@ -63,6 +65,8 @@ Watch contract specifications and auto-regenerate on changes.
 - `--pattern <pattern>` - File pattern to watch (default: `**/*.contracts.ts`)
 - `--build` - Auto-run build command on changes
 - `--validate` - Auto-run validate command on changes
+- `--on-start <mode>` - Run action on startup: none|validate|build|both (default: none)
+- `--continue-on-error` - Do not exit on build/validate errors
 - `--debounce <ms>` - Debounce delay in milliseconds (default: 500)
 
 **Examples:**
@@ -80,12 +84,14 @@ contractspec watch --pattern 'src/**/*.ts' --debounce 1000
 
 ### `contractspec sync`
 
-Sync contracts across multiple surfaces (API, DB, UI).
+Sync contracts by building all discovered specs.
 
 **Options:**
-- `--surfaces <surfaces>` - Surfaces to sync (comma-separated, default: api,db,ui)
+- `--pattern <pattern>` - File pattern to search (glob)
+- `--buckets <buckets>` - Optional output buckets (comma-separated). Builds repeat into `./generated/<bucket>/`
+- `--surfaces <surfaces>` - (deprecated) Alias for `--buckets`
+- `--validate` - Validate each spec before building (spec-only)
 - `--dry-run` - Show what would be synced without making changes
-- `--force` - Force regeneration even if specs haven't changed
 
 **Examples:**
 
@@ -106,10 +112,10 @@ Clean generated files and build artifacts.
 
 **Options:**
 - `--dry-run` - Show what would be deleted without deleting
-- `--generated-only` - Only clean generated directories (generated/, dist/, .turbo/)
+- `--generated-only` - Only clean generated directories (generated/, dist/, .turbo/, outputDir artifacts)
 - `--older-than <days>` - Only clean files older than specified days
 - `--force` - Skip confirmation prompts
-- `--git-clean` - Use `git clean -fdx` for comprehensive cleanup
+- `--git-clean` - Use `git clean -fdx` for comprehensive cleanup (requires confirmation or `--force`)
 
 **Examples:**
 
@@ -132,11 +138,13 @@ contractspec clean --git-clean
 Analyze contract dependencies and relationships.
 
 **Options:**
-- `--spec <file>` - Analyze dependencies for specific spec
-- `--graph` - Generate dependency graph (requires graphviz)
+- `--pattern <pattern>` - File pattern to search (glob)
+- `--entry <name>` - Focus on a specific contract name
+- `--format <format>` - text|json|dot (default: text)
+- `--graph` - (deprecated) Same as `--format dot`
 - `--circular` - Find circular dependencies
 - `--missing` - Find missing dependencies
-- `--json` - Output as JSON for scripting
+- `--json` - (deprecated) Same as `--format json`
 
 **Examples:**
 
@@ -145,13 +153,13 @@ Analyze contract dependencies and relationships.
 contractspec deps
 
 # Analyze specific contract
-contractspec deps --spec user.contracts.ts
+contractspec deps --entry user.signup
 
 # Find circular dependencies
 contractspec deps --circular
 
 # Generate graphviz graph
-contractspec deps --graph > deps.dot
+contractspec deps --format dot > deps.dot
 ```
 
 ### `contractspec diff`
@@ -174,7 +182,7 @@ Compare contract specifications and show differences.
 contractspec diff spec1.ts spec2.ts
 
 # Compare with git branch
-contractspec diff spec.ts --baseline main
+contractspec diff spec.ts spec.ts --baseline main
 
 # Show only breaking changes
 contractspec diff spec1.ts spec2.ts --breaking

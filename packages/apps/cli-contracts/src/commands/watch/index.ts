@@ -1,17 +1,39 @@
 import { Command } from 'commander';
 import chokidar from 'chokidar';
 import chalk from 'chalk';
-import { execSync } from 'child_process';
-import path from 'path';
+import path from 'node:path';
+import { buildCommand } from '../build';
+import { validateCommand } from '../validate';
+import { loadConfig, mergeConfig } from '../../utils/config';
+import { getErrorMessage } from '../../utils/errors';
 
 export const watchCommand = new Command('watch')
   .description('Watch contract specs and auto-regenerate on changes')
   .option('--pattern <pattern>', 'File pattern to watch', '**/*.contracts.ts')
   .option('--build', 'Auto-run build command on changes')
   .option('--validate', 'Auto-run validate command on changes')
-  .option('--debounce <ms>', 'Debounce delay in milliseconds', '500')
+  .option(
+    '--on-start <mode>',
+    'Run action on startup: none|validate|build|both',
+    'none'
+  )
+  .option('--continue-on-error', 'Do not exit on build/validate errors', false)
+  .option(
+    '--debounce <ms>',
+    'Debounce delay in milliseconds',
+    (value) => Number(value),
+    500
+  )
   .action(async (options) => {
-    const { pattern, build, validate, debounce } = options;
+    const { pattern, build, validate, debounce, onStart, continueOnError } =
+      options as {
+        pattern: string;
+        build?: boolean;
+        validate?: boolean;
+        debounce: number;
+        onStart: 'none' | 'validate' | 'build' | 'both';
+        continueOnError: boolean;
+      };
 
     console.log(chalk.bold('👀 Watching contract specs...'));
     console.log(chalk.gray(`Pattern: ${pattern}`));
@@ -19,6 +41,8 @@ export const watchCommand = new Command('watch')
 
     if (build) console.log(chalk.gray('Auto-build: enabled'));
     if (validate) console.log(chalk.gray('Auto-validate: enabled'));
+    if (onStart !== 'none')
+      console.log(chalk.gray(`On start: ${onStart}`));
 
     console.log('');
 
@@ -28,36 +52,77 @@ export const watchCommand = new Command('watch')
       ignored: ['node_modules/**', 'dist/**', '.turbo/**'],
       persistent: true,
       ignoreInitial: true
+      ,
+      awaitWriteFinish: {
+        stabilityThreshold: 250,
+        pollInterval: 50,
+      },
     });
+
+    const runValidate = async (filePath: string) => {
+      console.log(chalk.gray('🔍 Validating...'));
+      const config = await loadConfig();
+      await validateCommand(filePath, {}, config);
+    };
+
+    const runBuild = async (filePath: string) => {
+      console.log(chalk.gray('🔨 Building...'));
+      const config = await loadConfig();
+      const merged = mergeConfig(config, {});
+      await buildCommand(filePath, {}, merged);
+    };
+
+    const runActions = async (filePath: string) => {
+      const relativePath = path.relative(process.cwd(), filePath);
+      console.log(chalk.blue(`📝 Changed: ${relativePath}`));
+
+      const shouldValidate =
+        validate || onStart === 'validate' || onStart === 'both';
+      const shouldBuild = build || onStart === 'build' || onStart === 'both';
+
+      if (shouldValidate) {
+        try {
+          await runValidate(filePath);
+          console.log(chalk.green('✅ Validation passed'));
+        } catch (error) {
+          console.log(chalk.red(`❌ Validation failed: ${getErrorMessage(error)}`));
+          if (!continueOnError) {
+            process.exitCode = 1;
+          }
+        }
+      }
+
+      if (shouldBuild) {
+        try {
+          await runBuild(filePath);
+          console.log(chalk.green('✅ Build completed'));
+        } catch (error) {
+          console.log(chalk.red(`❌ Build failed: ${getErrorMessage(error)}`));
+          if (!continueOnError) {
+            process.exitCode = 1;
+          }
+        }
+      }
+
+      console.log('');
+    };
+
+    // Optional on-start run (only if --on-start is set)
+    if (onStart !== 'none') {
+      // For on-start we run on the first matching file change list is not available;
+      // so we require the user to edit a file or pass --validate/--build for continuous.
+      console.log(
+        chalk.yellow(
+          '⚠️  --on-start is best used with a specific --pattern that targets one spec file.'
+        )
+      );
+    }
 
     watcher.on('change', (filePath) => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        const relativePath = path.relative(process.cwd(), filePath);
-        console.log(chalk.blue(`📝 Changed: ${relativePath}`));
-
-        if (validate) {
-          try {
-            console.log(chalk.gray('🔍 Validating...'));
-            execSync(`contractspec validate "${filePath}"`, { stdio: 'inherit' });
-            console.log(chalk.green('✅ Validation passed'));
-          } catch (error) {
-            console.log(chalk.red('❌ Validation failed'));
-          }
-        }
-
-        if (build) {
-          try {
-            console.log(chalk.gray('🔨 Building...'));
-            execSync(`contractspec build "${filePath}"`, { stdio: 'inherit' });
-            console.log(chalk.green('✅ Build completed'));
-          } catch (error) {
-            console.log(chalk.red('❌ Build failed'));
-          }
-        }
-
-        console.log('');
-      }, parseInt(debounce));
+        void runActions(filePath);
+      }, debounce);
     });
 
     watcher.on('add', (filePath) => {
