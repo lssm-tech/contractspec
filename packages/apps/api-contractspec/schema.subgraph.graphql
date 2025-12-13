@@ -14,10 +14,13 @@ enum CanvasVersionStatusEnum {
 
 input ConnectIntegrationInput {
   config: JSON!
-  credentials: JSON!
+  credentials: JSON
   name: String!
+  ownershipMode: String!
   projectId: String!
   provider: IntegrationProviderEnum!
+  secretProvider: String!
+  secretRef: String!
 }
 
 type ConnectionStatus {
@@ -33,6 +36,7 @@ input CreateProjectInput {
   evolutionEnabled: Boolean!
   name: String!
   tier: ProjectTierEnum!
+  workspaceId: String!
 }
 
 input CreateSpecInput {
@@ -42,6 +46,11 @@ input CreateSpecInput {
   projectId: String!
   type: SpecTypeEnum!
   version: String!
+}
+
+input CreateStudioWorkspaceInput {
+  description: String!
+  name: String!
 }
 
 scalar Currency
@@ -248,6 +257,7 @@ type Mutation {
   connectIntegration(input: ConnectIntegrationInput!): StudioIntegration
   createStudioProject(input: CreateProjectInput!): StudioProject
   createStudioSpec(input: CreateSpecInput!): StudioSpec
+  createStudioWorkspace(input: CreateStudioWorkspaceInput!): StudioWorkspace
   deployCanvasVersion(input: DeployCanvasVersionInput!): CanvasVersion
   deployStudioProject(input: DeployProjectInput!): StudioDeployment
   disconnectIntegration(id: String!): Boolean
@@ -318,7 +328,8 @@ type Query {
   me: User
   myActiveOrganization: Organization
   myOrganizations: [Organization!]
-  myStudioProjects: [StudioProject!]
+  myStudioProjects(workspaceId: String!): [StudioProject!]
+  myStudioWorkspaces: [StudioWorkspace!]
   projectSpecs(projectId: String!): [StudioSpec!]
   queryKnowledge(input: QueryKnowledgeInput!): KnowledgeAnswer
   registryTemplate(id: String!): RegistryTemplate
@@ -413,6 +424,7 @@ type StudioProject {
   specs: [StudioSpec!]
   tier: ProjectTierEnum
   updatedAt: Date
+  workspaceId: String
 }
 
 type StudioSpec {
@@ -424,6 +436,15 @@ type StudioSpec {
   type: SpecTypeEnum
   updatedAt: Date
   version: String
+}
+
+type StudioWorkspace {
+  createdAt: Date
+  description: String
+  id: ID
+  name: String
+  organizationId: String
+  updatedAt: Date
 }
 
 scalar Time

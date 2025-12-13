@@ -19,3 +19,6 @@ import './tech/mcp-endpoints.docblock';
 import './tech/vscode-extension.docblock';
 import './tech/telemetry-ingest.docblock';
 import './tech/contracts/openapi-export.docblock';
+import './tech/studio/workspaces.docblock';
+import './tech/studio/sandbox-unlogged.docblock';
+import './tech/studio/workspace-ops.docblock';

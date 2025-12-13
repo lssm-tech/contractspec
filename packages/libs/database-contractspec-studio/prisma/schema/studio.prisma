@@ -1,9 +1,28 @@
 /// Studio project management models for ContractSpec Studio.
 /// Stored in the `lssm_sigil` schema alongside core tenant data.
 
+model StudioWorkspace {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  description    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization   @relation(fields: [organizationId], references: [id])
+  projects     StudioProject[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+  @@map("studio_workspace")
+  @@schema("lssm_sigil")
+}
+
 model StudioProject {
   id             String         @id @default(cuid())
   organizationId String
+  workspaceId    String
   name           String
   description    String?
   tier           ProjectTier    @default(STARTER)
@@ -21,6 +40,7 @@ model StudioProject {
   updatedAt DateTime @updatedAt
 
   organization             Organization              @relation(fields: [organizationId], references: [id])
+  workspace                StudioWorkspace           @relation(fields: [workspaceId], references: [id])
   specs                    StudioSpec[]
   overlays                 StudioOverlay[]
   deployments              StudioDeployment[]

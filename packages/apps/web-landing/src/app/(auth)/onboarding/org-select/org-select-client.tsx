@@ -237,8 +237,11 @@ export default function OrgSelectClient() {
                 id="orgName"
                 placeholder="e.g. Atlas Field Ops"
                 value={formState.name}
-                onChange={(value) =>
-                  setFormState((prev) => ({ ...prev, name: value }))
+                onChange={(event) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    name: event.target.value,
+                  }))
                 }
                 required
               />

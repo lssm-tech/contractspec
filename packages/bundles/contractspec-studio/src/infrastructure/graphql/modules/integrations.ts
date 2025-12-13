@@ -304,7 +304,10 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         type: IntegrationProviderEnum,
         required: true,
       }),
-      credentials: t.field({ type: 'JSON', required: true }),
+      ownershipMode: t.string(),
+      secretProvider: t.string(),
+      secretRef: t.string(),
+      credentials: t.field({ type: 'JSON', required: false }),
       projectId: t.string(),
       name: t.string(),
       config: t.field({ type: 'JSON' }),
@@ -404,7 +407,31 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
         return integrationModule.connectIntegration({
           organizationId: organization.id,
           provider: args.input.provider as IntegrationProvider,
-          credentials: (args.input.credentials ?? {}) as Record<string, string>,
+          ownershipMode:
+            typeof (args.input as { ownershipMode?: unknown }).ownershipMode ===
+            'string'
+              ? ((args.input as { ownershipMode: string }).ownershipMode as
+                  | 'managed'
+                  | 'byok')
+              : undefined,
+          secretProvider:
+            typeof (args.input as { secretProvider?: unknown })
+              .secretProvider === 'string'
+              ? ((args.input as { secretProvider: string })
+                  .secretProvider as string)
+              : undefined,
+          secretRef:
+            typeof (args.input as { secretRef?: unknown }).secretRef ===
+            'string'
+              ? ((args.input as { secretRef: string }).secretRef as string)
+              : undefined,
+          credentials:
+            (args.input as { credentials?: unknown }).credentials &&
+            typeof (args.input as { credentials?: unknown }).credentials ===
+              'object'
+              ? ((args.input as { credentials: Record<string, string> })
+                  .credentials as Record<string, string>)
+              : undefined,
           projectId: args.input.projectId ?? undefined,
           name: args.input.name ?? undefined,
           config: args.input.config ?? undefined,
