@@ -27,7 +27,7 @@ import LifecycleDashboard from '@lssm/example.lifecycle-dashboard/example';
 import LocaleJurisdictionGate from '@lssm/example.locale-jurisdiction-gate/example';
 import Marketplace from '@lssm/example.marketplace/example';
 import OpenbankingPowens from '@lssm/example.openbanking-powens/example';
-import { example as Personalization } from '@lssm/example.personalization';
+import Personalization from '@lssm/example.personalization/example';
 import PolicySafeKnowledgeAssistant from '@lssm/example.policy-safe-knowledge-assistant/example';
 import SaasBoilerplate from '@lssm/example.saas-boilerplate/example';
 import ServiceBusinessOs from '@lssm/example.service-business-os/example';
