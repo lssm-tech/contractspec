@@ -15,6 +15,7 @@ import { depsCommand } from './commands/deps/index';
 import { diffCommand } from './commands/diff/index';
 import { registryCommand } from './commands/registry/index';
 import { openapiCommand } from './commands/openapi/index';
+import { examplesCommand } from './commands/examples/index';
 
 const program = new Command();
 
@@ -48,6 +49,9 @@ program.addCommand(registryCommand);
 
 // OpenAPI export command
 program.addCommand(openapiCommand);
+
+// Examples command
+program.addCommand(examplesCommand);
 
 // Create command
 program

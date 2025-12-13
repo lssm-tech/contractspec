@@ -1,4 +1,6 @@
 export * from './TemplatesClientPage';
+export * from './TemplatesPage';
+export * from './SandboxExperienceClient';
 export * from './todos';
 export * from './messaging';
 export * from './recipes';

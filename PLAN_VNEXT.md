@@ -76,9 +76,9 @@ Propose a concise plan (in comments or as a single markdown summary) that covers
    - e.g. better typing for `completionCondition`,
    - clearer linkage between “events from other modules” and “step progress”.
 3. The three example packages you will add, including **intended package names** and relationships:
-   - `@lssm/example.learning-journey.studio-onboarding`
-   - `@lssm/example.learning-journey.platform-tour`
-   - `@lssm/example.learning-journey.crm-onboarding`
+   - `@lssm/example.learning-journey-studio-onboarding`
+   - `@lssm/example.learning-journey-platform-tour`
+   - `@lssm/example.learning-journey-crm-onboarding`
 4. How each example will:
    - Define a **track** (and optional sub-modules/sections).
    - Bind steps to **events** coming from Studio, core modules, or CRM.
@@ -134,7 +134,7 @@ Suggested steps (exact naming can be adapted to match code style):
 Implementation details:
 
 - Create a new **example package** for this track following the same structure as the other example packages:
-  - `@lssm/example.learning-journey.studio-onboarding`
+  - `@lssm/example.learning-journey-studio-onboarding`
   - Put spec definitions where the other examples define their schemas/specs.
 - Define:
   - A `LearningJourneyTrack` (or equivalent entity) for `studio_getting_started`.
@@ -206,7 +206,7 @@ Suggested steps (adapt event names to the actual codebase):
 Implementation details:
 
 - New example package:
-  - `@lssm/example.learning-journey.platform-tour`
+  - `@lssm/example.learning-journey-platform-tour`
 - Define a single track `platform_primitives_tour` with the above steps.
 - Bind step completion to the actual event names used by:
   - `@lssm/lib.identity`
@@ -273,7 +273,7 @@ Suggested steps (bind to the events already used by `@lssm/example.crm-pipeline`
 Implementation details:
 
 - New example package:
-  - `@lssm/example.learning-journey.crm-onboarding`
+  - `@lssm/example.learning-journey-crm-onboarding`
 - Reuse the CRM entities and events from `@lssm/example.crm-pipeline`.
 - Only add:
   - Learning Journey track + steps.

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { ExampleDefinition } from './types';
 
-const ExampleDefinitionSchema: z.ZodType<ExampleDefinition> = z.object({
+const ExampleDefinitionSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   summary: z.string().min(1),

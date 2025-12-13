@@ -11,6 +11,11 @@ import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import z from 'zod';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure';
+import {
+  getExample,
+  listExamples,
+  searchExamples,
+} from '@lssm/module.contractspec-examples';
 
 const INTERNAL_TAGS = ['internal', 'mcp'];
 const INTERNAL_OWNERS = ['@contractspec'];
@@ -25,6 +30,60 @@ const ENDPOINTS = {
 
 function buildInternalResources() {
   const resources = new ResourceRegistry();
+
+  resources.register(
+    defineResourceTemplate({
+      meta: {
+        uriTemplate: 'examples://list{?q}',
+        title: 'ContractSpec examples registry',
+        description:
+          'List available examples (templates, integrations, knowledge, scripts). Optional query `q` filters results.',
+        mimeType: 'application/json',
+        tags: ['examples', ...INTERNAL_TAGS],
+      },
+      input: z.object({ q: z.string().optional() }),
+      resolve: async ({ q }) => {
+        const items = q ? searchExamples(q) : [...listExamples()];
+        return {
+          uri: q ? `examples://list?q=${encodeURIComponent(q)}` : 'examples://list',
+          mimeType: 'application/json',
+          data: JSON.stringify(items, null, 2),
+        };
+      },
+    })
+  );
+
+  resources.register(
+    defineResourceTemplate({
+      meta: {
+        uriTemplate: 'examples://example/{id}',
+        title: 'ContractSpec example (by id)',
+        description: 'Fetch a single example manifest by id.',
+        mimeType: 'application/json',
+        tags: ['examples', ...INTERNAL_TAGS],
+      },
+      input: z.object({ id: z.string().min(1) }),
+      resolve: async ({ id }) => {
+        const example = getExample(id);
+        if (!example) {
+          return {
+            uri: `examples://example/${encodeURIComponent(id)}`,
+            mimeType: 'application/json',
+            data: JSON.stringify(
+              { error: 'not_found', id, message: `Unknown example id: ${id}` },
+              null,
+              2
+            ),
+          };
+        }
+        return {
+          uri: `examples://example/${encodeURIComponent(id)}`,
+          mimeType: 'application/json',
+          data: JSON.stringify(example, null, 2),
+        };
+      },
+    })
+  );
 
   resources.register(
     defineResourceTemplate({
