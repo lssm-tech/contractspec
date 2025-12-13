@@ -105,7 +105,9 @@ export const registryAddCommand = new Command('add')
   .action(async (type: string, name: string, options) => {
     try {
       const config = await loadConfig();
-      const registryUrl = resolveRegistryUrl(options.registryUrl as string | undefined);
+      const registryUrl = resolveRegistryUrl(
+        options.registryUrl as string | undefined
+      );
       const client = new RegistryClient({ registryUrl });
 
       const item = await client.getJson<ContractRegistryItem>(
@@ -136,13 +138,15 @@ export const registryAddCommand = new Command('add')
         );
       }
 
-      if (filesWithContent.length === 1) {
+      if (filesWithContent[0]) {
         const ext = defaultFileExtForType(type);
         const fileName = generateFileName(item.name, ext);
         const target = join(absoluteOutDir, fileName);
         await writeFileSafe(target, filesWithContent[0].content);
         // eslint-disable-next-line no-console
-        console.log(chalk.green(`✅ Installed ${type}/${item.name} → ${target}`));
+        console.log(
+          chalk.green(`✅ Installed ${type}/${item.name} → ${target}`)
+        );
         return;
       }
 
@@ -174,9 +178,9 @@ export const registryAddCommand = new Command('add')
       );
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(chalk.red(`Registry add failed: ${getErrorMessage(error)}`));
+      console.error(
+        chalk.red(`Registry add failed: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });
-
-

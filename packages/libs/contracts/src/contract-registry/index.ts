@@ -17,5 +17,3 @@ export type {
   ContractRegistryItemParsed,
   ContractRegistryManifestParsed,
 } from './schemas';
-
-

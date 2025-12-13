@@ -13,7 +13,9 @@ export const registrySearchCommand = new Command('search')
   .action(async (query: string, options) => {
     try {
       const client = new RegistryClient({
-        registryUrl: resolveRegistryUrl(options.registryUrl as string | undefined),
+        registryUrl: resolveRegistryUrl(
+          options.registryUrl as string | undefined
+        ),
       });
       const manifest = await client.getJson<ContractRegistryManifest>(
         '/r/contractspec.json'
@@ -23,7 +25,10 @@ export const registrySearchCommand = new Command('search')
       const typeFilter = (options.type as string | undefined)?.trim();
 
       const matches = manifest.items.filter((i) => {
-        if (typeFilter && i.type !== (`contractspec:${typeFilter}` as typeof i.type))
+        if (
+          typeFilter &&
+          i.type !== (`contractspec:${typeFilter}` as typeof i.type)
+        )
           return false;
         const hay = `${i.name} ${i.title} ${i.description}`.toLowerCase();
         return hay.includes(q);
@@ -48,9 +53,9 @@ export const registrySearchCommand = new Command('search')
         });
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(chalk.red(`Registry search failed: ${getErrorMessage(error)}`));
+      console.error(
+        chalk.red(`Registry search failed: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });
-
-
