@@ -8,4 +8,3 @@ export async function readJsonFile<T>(absolutePath: string): Promise<T> {
 export async function readTextFile(absolutePath: string): Promise<string> {
   return await readFile(absolutePath, 'utf8');
 }
-

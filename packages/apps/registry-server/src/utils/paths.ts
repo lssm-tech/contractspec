@@ -7,5 +7,3 @@ export function repoRoot(): string {
 export function fromRepoRoot(...segments: string[]): string {
   return path.join(repoRoot(), ...segments);
 }
-
-

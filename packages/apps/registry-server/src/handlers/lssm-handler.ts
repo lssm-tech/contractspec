@@ -3,28 +3,28 @@ import type { Logger } from '@lssm/lib.logger';
 import { readJsonFile, readTextFile } from '../utils/fs';
 import { fromRepoRoot } from '../utils/paths';
 
-type ShadcnRegistryManifest = {
+interface ShadcnRegistryManifest {
   $schema?: string;
   name: string;
   homepage?: string;
-  items: Array<{
+  items: {
     name: string;
     type: string;
     title?: string;
     description: string;
-    files: Array<{ path: string; type: string; target?: string }>;
+    files: { path: string; type: string; target?: string }[];
     dependencies?: string[];
     registryDependencies?: string[];
-  }>;
-};
+  }[];
+}
 
 export type ShadcnRegistryItemJson = ShadcnRegistryManifest['items'][number] & {
-  files: Array<{
+  files: {
     path: string;
     type: string;
     target?: string;
     content: string;
-  }>;
+  }[];
 };
 
 function stripJsonSuffix(nameOrNameJson: string): string {
@@ -87,5 +87,3 @@ export async function buildLssmManifestJson(
 
   return manifest;
 }
-
-

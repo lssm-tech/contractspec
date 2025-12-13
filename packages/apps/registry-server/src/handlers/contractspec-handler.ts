@@ -17,7 +17,9 @@ function stripJsonSuffix(nameOrNameJson: string): string {
 }
 
 export function getContractSpecRegistryPaths() {
-  const manifestPath = fromRepoRoot('packages/libs/contracts/registry/registry.json');
+  const manifestPath = fromRepoRoot(
+    'packages/libs/contracts/registry/registry.json'
+  );
   const contractsRoot = fromRepoRoot('packages/libs/contracts');
   return { manifestPath, contractsRoot };
 }
@@ -70,5 +72,3 @@ export async function buildContractSpecItemJson(
 
   return { ...item, files };
 }
-
-

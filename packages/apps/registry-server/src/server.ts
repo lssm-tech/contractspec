@@ -2,8 +2,14 @@ import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { serverTiming } from '@elysiajs/server-timing';
 import { elysiaLogger, Logger, LogLevel } from '@lssm/lib.logger';
-import { buildLssmItemJson, buildLssmManifestJson } from './handlers/lssm-handler';
-import { buildContractSpecItemJson, readContractSpecManifest } from './handlers/contractspec-handler';
+import {
+  buildLssmItemJson,
+  buildLssmManifestJson,
+} from './handlers/lssm-handler';
+import {
+  buildContractSpecItemJson,
+  readContractSpecManifest,
+} from './handlers/contractspec-handler';
 
 const PORT = Number(process.env.PORT ?? 8090);
 
@@ -16,7 +22,7 @@ const logger = new Logger({
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
-const app = new Elysia()
+export const app = new Elysia()
   .use(cors())
   .use(
     elysiaLogger({
@@ -101,5 +107,3 @@ logger.info('registry-server.started', {
 });
 
 export type App = typeof app;
-
-

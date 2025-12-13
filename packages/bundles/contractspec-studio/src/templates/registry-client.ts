@@ -33,12 +33,16 @@ export class ContractSpecRegistryClient {
       headers: { Accept: 'application/json' },
     });
     if (!res.ok) {
-      throw new Error(`Registry manifest fetch failed: ${res.status} ${res.statusText}`);
+      throw new Error(
+        `Registry manifest fetch failed: ${res.status} ${res.statusText}`
+      );
     }
     return (await res.json()) as ContractRegistryManifest;
   }
 
-  async listByType(type: ContractRegistryItemType): Promise<ContractRegistryItem[]> {
+  async listByType(
+    type: ContractRegistryItemType
+  ): Promise<ContractRegistryItem[]> {
     const manifest = await this.getManifest();
     return manifest.items.filter((i) => i.type === type);
   }
@@ -55,7 +59,10 @@ export class ContractSpecRegistryClient {
     }));
   }
 
-  async getItem(typeSegment: string, name: string): Promise<ContractRegistryItem> {
+  async getItem(
+    typeSegment: string,
+    name: string
+  ): Promise<ContractRegistryItem> {
     const res = await this.fetchImpl(
       `${this.baseUrl}/r/contractspec/${typeSegment}/${name}.json`,
       {
@@ -64,10 +71,10 @@ export class ContractSpecRegistryClient {
       }
     );
     if (!res.ok) {
-      throw new Error(`Registry item fetch failed: ${res.status} ${res.statusText}`);
+      throw new Error(
+        `Registry item fetch failed: ${res.status} ${res.statusText}`
+      );
     }
     return (await res.json()) as ContractRegistryItem;
   }
 }
-
-

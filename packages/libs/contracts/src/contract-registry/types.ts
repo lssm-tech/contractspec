@@ -54,5 +54,3 @@ export interface ContractRegistryManifest {
   homepage?: string;
   items: ContractRegistryItem[];
 }
-
-

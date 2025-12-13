@@ -73,5 +73,3 @@ export type ContractRegistryManifestParsed = z.infer<
   typeof ContractRegistryManifestSchema
 > &
   ContractRegistryManifest;
-
-
