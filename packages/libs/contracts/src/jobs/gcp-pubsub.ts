@@ -1,6 +1,12 @@
 import { randomUUID } from 'node:crypto';
 
-import type { EnqueueOptions, Job, JobHandler, JobQueue } from './queue';
+import {
+  DEFAULT_RETRY_POLICY,
+  type EnqueueOptions,
+  type Job,
+  type JobHandler,
+  type JobQueue,
+} from './queue';
 
 interface PubSubClientLike {
   topic(name: string): {
@@ -21,7 +27,7 @@ export class GcpPubSubQueue implements JobQueue {
   async enqueue<TPayload>(
     jobType: string,
     payload: TPayload,
-    _options: EnqueueOptions = {}
+    options: EnqueueOptions = {}
   ): Promise<Job<TPayload>> {
     await this.options.client.topic(this.options.topicName).publishMessage({
       data: Buffer.from(
@@ -37,15 +43,21 @@ export class GcpPubSubQueue implements JobQueue {
     return {
       id: randomUUID(),
       type: jobType,
+      version: 1,
       payload,
       status: 'pending',
+      priority: options.priority ?? 0,
       attempts: 0,
+      maxRetries: options.maxRetries ?? DEFAULT_RETRY_POLICY.maxRetries,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
   }
 
-  register<TPayload>(jobType: string, handler: JobHandler<TPayload>): void {
+  register<TPayload, TResult = void>(
+    jobType: string,
+    handler: JobHandler<TPayload, TResult>
+  ): void {
     this.handlers.set(jobType, handler as JobHandler);
   }
 

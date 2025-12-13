@@ -21,7 +21,8 @@ export type TemplateId =
   | 'learning-journey-crm-onboarding'
   | 'learning-journey-duo-drills'
   | 'learning-journey-ambient-coach'
-  | 'learning-journey-quest-challenges';
+  | 'learning-journey-quest-challenges'
+  | 'policy-safe-knowledge-assistant';
 
 export type TemplateCategory =
   | 'productivity'
@@ -1007,6 +1008,63 @@ export const TEMPLATE_REGISTRY: TemplateDefinition[] = [
       'learning.journey.progress_widget',
     ],
     renderTargets: ['react', 'markdown'],
+  },
+  {
+    id: 'policy-safe-knowledge-assistant',
+    name: 'Policy-safe Knowledge Assistant',
+    description:
+      'End-to-end: locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.',
+    category: 'ai',
+    complexity: 'advanced',
+    icon: '🛡️',
+    features: [
+      'Locale + jurisdiction gating',
+      'Versioned KB snapshots',
+      'HITL review pipeline',
+      'Learning hub (drills/coach/quests)',
+    ],
+    tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
+    schema: {
+      models: ['UserProfile', 'Rule', 'RuleVersion', 'KBSnapshot'],
+      contracts: [
+        'assistant.answer',
+        'assistant.explainConcept',
+        'kb.ingestSource',
+        'kb.upsertRuleVersion',
+        'kb.approveRuleVersion',
+        'kb.publishSnapshot',
+        'kb.search',
+        'kbPipeline.runWatch',
+        'kbPipeline.createReviewTask',
+        'kbPipeline.submitDecision',
+        'kbPipeline.publishIfReady',
+      ],
+    },
+    components: {
+      list: 'PolicySafeKnowledgeAssistantDashboard',
+      detail: 'PolicySafeKnowledgeAssistantDashboard',
+      dashboard: 'PolicySafeKnowledgeAssistantDashboard',
+    },
+    preview: {
+      demoUrl: '/sandbox?template=policy-safe-knowledge-assistant',
+    },
+    docs: {
+      quickstart: '/docs/examples/policy-safe-knowledge-assistant/usage',
+      reference: '/docs/examples/policy-safe-knowledge-assistant',
+    },
+    package: '@lssm/example.policy-safe-knowledge-assistant',
+    usesModules: [
+      '@lssm/lib.identity-rbac',
+      '@lssm/lib.jobs',
+      '@lssm/lib.feature-flags',
+      '@lssm/lib.files',
+      '@lssm/lib.metering',
+      '@lssm/module.audit-trail',
+      '@lssm/module.notifications',
+      '@lssm/module.learning-journey',
+    ],
+    presentations: [],
+    renderTargets: ['react'],
   },
 ];
 

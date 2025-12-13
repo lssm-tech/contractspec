@@ -1,6 +1,12 @@
 import { randomUUID } from 'node:crypto';
 
-import type { EnqueueOptions, Job, JobHandler, JobQueue } from './queue';
+import {
+  DEFAULT_RETRY_POLICY,
+  type EnqueueOptions,
+  type Job,
+  type JobHandler,
+  type JobQueue,
+} from './queue';
 
 interface CloudTasksClientLike {
   createTask(request: {
@@ -68,15 +74,21 @@ export class GcpCloudTasksQueue implements JobQueue {
     return {
       id: randomUUID(),
       type: jobType,
+      version: 1,
       payload,
       status: 'pending',
+      priority: options.priority ?? 0,
       attempts: 0,
+      maxRetries: options.maxRetries ?? DEFAULT_RETRY_POLICY.maxRetries,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
   }
 
-  register<TPayload>(jobType: string, handler: JobHandler<TPayload>): void {
+  register<TPayload, TResult = void>(
+    jobType: string,
+    handler: JobHandler<TPayload, TResult>
+  ): void {
     this.handlers.set(jobType, handler as JobHandler);
   }
 

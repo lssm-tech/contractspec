@@ -115,3 +115,7 @@ export {
   type ListQueriesInput,
   type ListQueriesOutput,
 } from './analytics.handlers';
+
+export {
+  createPolicySafeKnowledgeAssistantHandlers,
+} from './policy-safe-knowledge-assistant.handlers';

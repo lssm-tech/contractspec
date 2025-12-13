@@ -9,8 +9,8 @@
  * - After linking, you kick off the canonical sync workflow to hydrate accounts.
  */
 import type { NextRequest } from 'next/server';
-import { PowensOpenBankingProvider } from '@lssm/lib.contracts/integrations/providers/impls/powens-openbanking';
-import type { PowensEnvironment } from '@lssm/lib.contracts/integrations/providers/impls/powens-client';
+import { PowensOpenBankingProvider } from '@lssm/integration.providers-impls/impls/powens-openbanking';
+import type { PowensEnvironment } from '@lssm/integration.providers-impls/impls/powens-client';
 
 export async function powensOAuthCallbackHandler(req: NextRequest) {
   const url = new URL(req.url);

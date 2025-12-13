@@ -95,6 +95,14 @@ const AnalyticsDashboard = dynamic(
   { ssr: false }
 );
 
+const PolicySafeKnowledgeAssistantDashboard = dynamic(
+  () =>
+    import('@lssm/bundle.contractspec-studio/presentation/components').then(
+      (mod) => mod.PolicySafeKnowledgeAssistantDashboard
+    ),
+  { ssr: false }
+);
+
 const SpecEditor = dynamic(
   () =>
     import('@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/SpecEditor').then(
@@ -267,6 +275,12 @@ const TEMPLATE_LIBRARY: Record<
     component: (
       <LearningMiniApp templateId="learning-journey-quest-challenges" />
     ),
+  },
+  'policy-safe-knowledge-assistant': {
+    title: 'Policy-safe Knowledge Assistant',
+    description:
+      'Locale/jurisdiction gated answers with KB snapshots, HITL updates, and learning patterns.',
+    component: <PolicySafeKnowledgeAssistantDashboard />,
   },
   'service-business-os': {
     title: 'Service Business OS',

@@ -14,7 +14,8 @@
     "start": "./server"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*"
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/lib.logger": "workspace:*"
   },
   "devDependencies": {},
   "module": "src/index.ts",
