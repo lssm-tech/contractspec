@@ -7,3 +7,4 @@ export * from './diff';
 export * from './deps';
 export * from './list';
 export * from './config';
+export * from './build';

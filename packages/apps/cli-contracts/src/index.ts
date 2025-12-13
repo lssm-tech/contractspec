@@ -13,6 +13,7 @@ import { syncCommand } from './commands/sync/index';
 import { cleanCommand } from './commands/clean/index';
 import { depsCommand } from './commands/deps/index';
 import { diffCommand } from './commands/diff/index';
+import { registryCommand } from './commands/registry/index';
 
 const program = new Command();
 
@@ -40,6 +41,9 @@ program.addCommand(depsCommand);
 
 // Diff command
 program.addCommand(diffCommand);
+
+// Registry command
+program.addCommand(registryCommand);
 
 // Create command
 program

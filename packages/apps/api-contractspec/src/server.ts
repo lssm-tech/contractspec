@@ -9,6 +9,7 @@ import { exportContractsToGraphQLSchema } from './utils/graphql-schema-export';
 import { markdownHandler } from './handlers/markdown-handler';
 import { betterAuthController } from './handlers/auth-controller';
 import { mcpHandler } from './handlers/mcp-handler';
+import { telemetryHandler } from './handlers/telemetry-handler';
 
 const PORT = 8080;
 
@@ -23,6 +24,7 @@ const app = createContractSpecStudioElysiaServer({
   })
   .use(markdownHandler)
   .use(mcpHandler)
+  .use(telemetryHandler)
   .listen(PORT);
 exportContractsToGraphQLSchema(schema, __dirname);
 
@@ -56,6 +58,7 @@ appLogger.info('🚀 LSSM API Server successfully started', {
       cli: '/api/mcp/cli',
       internal: '/api/mcp/internal',
     },
+    telemetry: '/api/telemetry/ingest',
   },
 });
 

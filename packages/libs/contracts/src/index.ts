@@ -3,6 +3,7 @@ export * from './client';
 export * from './server';
 export * from './types';
 export * from './registry';
+export * from './contract-registry';
 export * from './install';
 export * from './jsonschema';
 export * from './prompt';

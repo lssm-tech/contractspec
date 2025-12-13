@@ -321,6 +321,8 @@ type Query {
   myStudioProjects: [StudioProject!]
   projectSpecs(projectId: String!): [StudioSpec!]
   queryKnowledge(input: QueryKnowledgeInput!): KnowledgeAnswer
+  registryTemplate(id: String!): RegistryTemplate
+  registryTemplates: [RegistryTemplate!]
   studioIntegrations: [StudioIntegration!]
   studioProject(id: String!): StudioProject
   studioSpec(id: String!): StudioSpec
@@ -333,6 +335,15 @@ input QueryKnowledgeInput {
   query: String!
   systemPrompt: String!
   topK: Int!
+}
+
+type RegistryTemplate {
+  description: String
+  id: String
+  name: String
+  registryUrl: String
+  source: String
+  tags: [String!]
 }
 
 input SaveCanvasDraftInput {
