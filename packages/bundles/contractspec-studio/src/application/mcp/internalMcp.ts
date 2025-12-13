@@ -45,7 +45,9 @@ function buildInternalResources() {
       resolve: async ({ q }) => {
         const items = q ? searchExamples(q) : [...listExamples()];
         return {
-          uri: q ? `examples://list?q=${encodeURIComponent(q)}` : 'examples://list',
+          uri: q
+            ? `examples://list?q=${encodeURIComponent(q)}`
+            : 'examples://list',
           mimeType: 'application/json',
           data: JSON.stringify(items, null, 2),
         };

@@ -25,7 +25,11 @@ export async function seedAnalyticsDashboard(params: {
       id: 'ad_query_2',
       name: 'Revenue by Product',
       type: 'AGGREGATION',
-      definition: { dimension: 'product', metric: 'revenue', aggregation: 'sum' },
+      definition: {
+        dimension: 'product',
+        metric: 'revenue',
+        aggregation: 'sum',
+      },
       sql: null,
     },
     {
@@ -184,5 +188,3 @@ export async function seedAnalyticsDashboard(params: {
     );
   }
 }
-
-
