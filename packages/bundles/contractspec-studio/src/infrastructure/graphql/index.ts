@@ -9,7 +9,7 @@ export function mountContractSpecStudioGraphQL(path = '/graphql') {
   const graphlYogaServer = yoga({
     schema,
     path: path,
-    landingPage: false,
+    landingPage: true,
     logging: true,
     fetchAPI: { Response, Request },
 
