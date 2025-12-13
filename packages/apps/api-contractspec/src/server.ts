@@ -20,7 +20,7 @@ const app = createContractSpecStudioElysiaServer({
 })
   .get('/', () => {
     appLogger.info('Root endpoint accessed');
-    return 'LSSM API - GraphQL endpoint available at /graphql';
+    return 'LSSM ContractSpec API - GraphQL endpoint available at /graphql';
   })
   .use(markdownHandler)
   .use(mcpHandler)
@@ -44,7 +44,7 @@ appLogger.info(
 );
 
 // Log successful startup
-appLogger.info('🚀 LSSM API Server successfully started', {
+appLogger.info('🚀 LSSM ContractSpec API Server successfully started', {
   hostname: app.server?.hostname,
   port: app.server?.port,
   endpoints: {

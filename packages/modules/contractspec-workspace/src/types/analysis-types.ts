@@ -19,6 +19,7 @@ export type AnalyzedSpecType =
   | 'app-config'
   | 'integration'
   | 'knowledge'
+  | 'form'
   | 'unknown';
 
 /**
