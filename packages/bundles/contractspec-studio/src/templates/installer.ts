@@ -7,6 +7,10 @@ import {
   type TemplateFilter,
   type TemplateId,
 } from './registry';
+import {
+  ContractSpecRegistryClient,
+  type RegistryTemplateSummary,
+} from './registry-client';
 
 const SAVE_TEMPLATE_MUTATION = `
   mutation SaveTemplateToStudio($input: SaveTemplateInput!) {
@@ -32,6 +36,8 @@ export interface SaveTemplateOptions {
 export interface TemplateInstallerOptions {
   runtime?: LocalRuntimeServices;
   endpoint?: string;
+  /** Optional registry server base URL (enables listing remote/community templates) */
+  registryUrl?: string;
   fetchImpl?: typeof fetch;
 }
 
@@ -43,11 +49,13 @@ export interface SaveTemplateResult {
 export class TemplateInstaller {
   private readonly runtime: LocalRuntimeServices;
   private readonly endpoint: string;
+  private readonly registryUrl: string | null;
   private readonly fetchImpl: typeof fetch;
 
   constructor(options: TemplateInstallerOptions = {}) {
     this.runtime = options.runtime ?? new LocalRuntimeServices();
     this.endpoint = options.endpoint ?? '/api/graphql';
+    this.registryUrl = options.registryUrl ? options.registryUrl.replace(/\/+$/, '') : null;
     this.fetchImpl = options.fetchImpl ?? fetch;
   }
 
@@ -70,6 +78,29 @@ export class TemplateInstaller {
           return true;
         })
       : TEMPLATE_REGISTRY;
+  }
+
+  /**
+   * List templates published to the ContractSpec Registry.
+   *
+   * Note: this returns *metadata* only. Installing still requires a local template
+   * implementation unless/until we support seeding templates from registry payloads.
+   */
+  async listRemoteTemplates(): Promise<RegistryTemplateSummary[]> {
+    if (!this.registryUrl) return [];
+    const client = new ContractSpecRegistryClient({
+      registryUrl: this.registryUrl,
+      fetchImpl: this.fetchImpl,
+    });
+    return await client.listTemplateSummaries();
+  }
+
+  /**
+   * Resolve a registry template id to a local TemplateId if available.
+   */
+  resolveLocalTemplateId(id: string): TemplateId | null {
+    const found = getTemplate(id as TemplateId);
+    return found ? (id as TemplateId) : null;
   }
 
   get(templateId: TemplateId): TemplateDefinition | undefined {

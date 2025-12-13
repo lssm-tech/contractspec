@@ -1,0 +1,35 @@
+# Source files (we only need the bundled dist)
+src/**
+*.ts
+!dist/**
+!assets/**
+assets/*.svg
+
+# Development files
+.vscode/**
+.github/**
+node_modules/**
+*.map
+
+# Build/dev configuration
+tsconfig.json
+esbuild.config.js
+.eslintrc*
+.prettierrc*
+
+# Documentation (keep README, exclude rest)
+AGENTS.md
+CHANGELOG.md
+
+# Test files
+**/*.test.ts
+__tests__/**
+coverage/**
+
+# Misc
+.gitignore
+.editorconfig
+*.log
+*.lock
+bun.lockb
+

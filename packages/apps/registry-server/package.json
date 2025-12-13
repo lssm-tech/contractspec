@@ -1,0 +1,23 @@
+{
+  "name": "@lssm/app.registry-server",
+  "version": "0.0.1",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "clean": "rm -rf dist server",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "dev": "bun run --watch src/server.ts",
+    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts",
+    "start": "./server"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.0",
+    "@elysiajs/server-timing": "^1.4.0",
+    "@lssm/lib.logger": "workspace:*",
+    "elysia": "^1.4.18"
+  }
+}
+
+

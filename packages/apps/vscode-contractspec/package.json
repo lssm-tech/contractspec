@@ -1,0 +1,175 @@
+{
+  "name": "contractspec",
+  "displayName": "ContractSpec",
+  "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
+  "version": "0.1.0",
+  "publisher": "lssm",
+  "license": "MIT",
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#0f172a",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm/contractspec"
+  },
+  "bugs": {
+    "url": "https://github.com/lssm/contractspec/issues"
+  },
+  "homepage": "https://contractspec.dev",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "contractspec",
+    "spec-first",
+    "contracts",
+    "typescript",
+    "code-generation",
+    "ai"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/*.contracts.ts",
+    "workspaceContains:**/*.event.ts",
+    "workspaceContains:**/*.presentation.ts",
+    "workspaceContains:**/*.workflow.ts",
+    "workspaceContains:**/*.telemetry.ts",
+    "workspaceContains:**/.contractsrc.json"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "contractspec.validate",
+        "title": "Validate Current Spec",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.validateWorkspace",
+        "title": "Validate All Specs in Workspace",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.build",
+        "title": "Build/Scaffold from Current Spec",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.listSpecs",
+        "title": "List All Specs",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.analyzeDeps",
+        "title": "Analyze Spec Dependencies",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.searchDocs",
+        "title": "Search ContractSpec Docs (MCP)",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registryBrowse",
+        "title": "Browse Registry",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registryAdd",
+        "title": "Add from Registry",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registrySearch",
+        "title": "Search Registry",
+        "category": "ContractSpec"
+      }
+    ],
+    "configuration": {
+      "title": "ContractSpec",
+      "properties": {
+        "contractspec.api.baseUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Base URL for ContractSpec API (enables MCP + remote telemetry). Leave empty for local-only mode."
+        },
+        "contractspec.telemetry.posthogHost": {
+          "type": "string",
+          "default": "https://eu.posthog.com",
+          "description": "PostHog host URL for direct telemetry (used when API baseUrl is not configured)."
+        },
+        "contractspec.telemetry.posthogProjectKey": {
+          "type": "string",
+          "default": "",
+          "description": "PostHog project key for direct telemetry. Required for telemetry when API baseUrl is not configured."
+        },
+        "contractspec.validation.onSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run validation automatically when saving spec files."
+        },
+        "contractspec.validation.onOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run validation automatically when opening spec files."
+        },
+        "contractspec.registry.baseUrl": {
+          "type": "string",
+          "default": "https://registry.contractspec.dev",
+          "description": "Base URL for ContractSpec registry. Used for browsing and installing specs/templates."
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "typescript",
+        "extensions": [
+          ".contracts.ts",
+          ".event.ts",
+          ".presentation.ts",
+          ".workflow.ts",
+          ".data-view.ts",
+          ".migration.ts",
+          ".telemetry.ts",
+          ".experiment.ts",
+          ".app-config.ts",
+          ".integration.ts",
+          ".knowledge.ts"
+        ]
+      }
+    ],
+    "snippets": [
+      {
+        "language": "typescript",
+        "path": "./snippets/contractspec.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "bun run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "dev": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "lint": "eslint src --fix",
+    "lint:check": "eslint src",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
+  },
+  "dependencies": {
+    "@lssm/bundle.contractspec-workspace": "workspace:*",
+    "@lssm/module.contractspec-workspace": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.9.3"
+  }
+}

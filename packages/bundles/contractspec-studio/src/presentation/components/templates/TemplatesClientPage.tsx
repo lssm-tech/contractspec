@@ -5,6 +5,8 @@ import { Search } from 'lucide-react';
 import { cn } from '@lssm/lib.ui-kit-core/utils';
 import Link from 'next/link';
 import type { TemplateId } from '../../../templates/registry';
+import { getTemplate } from '../../../templates/registry';
+import { useRegistryTemplates } from '../../hooks/useRegistryTemplates';
 import {
   Tooltip,
   TooltipContent,
@@ -243,6 +245,10 @@ export const TemplatesPage = () => {
   const [search, setSearch] = useState('');
   const [preview, setPreview] = useState<TemplateId | null>(null);
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
+  const [source, setSource] = useState<'local' | 'registry'>('local');
+
+  const { data: registryTemplates = [], isLoading: registryLoading } =
+    useRegistryTemplates();
 
   const filtered = templates.filter((t) => {
     const matchTag = !selectedTag || t.tags.includes(selectedTag);
@@ -272,6 +278,33 @@ export const TemplatesPage = () => {
         {/* Search & Filter */}
         <section className="section-padding border-border border-b">
           <div className="mx-auto max-w-6xl space-y-6">
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-muted-foreground text-sm">
+                Source:
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSource('local')}
+                  className={cn('rounded-full px-4 py-2 text-sm font-medium transition-colors', {
+                    'bg-violet-500 text-white': source === 'local',
+                    'bg-card border-border hover:bg-card/80 border': source !== 'local',
+                  })}
+                  aria-pressed={source === 'local'}
+                >
+                  Local
+                </button>
+                <button
+                  onClick={() => setSource('registry')}
+                  className={cn('rounded-full px-4 py-2 text-sm font-medium transition-colors', {
+                    'bg-violet-500 text-white': source === 'registry',
+                    'bg-card border-border hover:bg-card/80 border': source !== 'registry',
+                  })}
+                  aria-pressed={source === 'registry'}
+                >
+                  Community
+                </button>
+              </div>
+            </div>
             <div className="relative">
               <Search
                 className="text-muted-foreground absolute top-3 left-3"
@@ -322,7 +355,82 @@ export const TemplatesPage = () => {
         {/* Templates Grid */}
         <section className="section-padding">
           <div className="mx-auto max-w-6xl">
-            {filtered.length === 0 ? (
+            {source === 'registry' ? (
+              registryLoading ? (
+                <div className="py-12 text-center">
+                  <p className="text-muted-foreground">Loading community templates…</p>
+                </div>
+              ) : registryTemplates.length === 0 ? (
+                <div className="py-12 text-center">
+                  <p className="text-muted-foreground">
+                    No community templates found (configure `NEXT_PUBLIC_CONTRACTSPEC_REGISTRY_URL`).
+                  </p>
+                </div>
+              ) : (
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {registryTemplates.map((t) => (
+                    <div
+                      key={t.id}
+                      className="card-subtle relative flex flex-col space-y-4 p-6 transition-colors hover:border-violet-500/50"
+                    >
+                      <div>
+                        <h3 className="text-lg font-bold">{t.name}</h3>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                          {t.description}
+                        </p>
+                      </div>
+                      <div className="flex-1 space-y-2">
+                        <div className="flex flex-wrap gap-1">
+                          {t.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded border border-violet-500/20 bg-violet-500/10 px-2 py-1 text-xs text-violet-300"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-4">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              className="btn-ghost flex-1 text-center text-xs"
+                              onClick={() => {
+                                const local = getTemplate(t.id as TemplateId);
+                                if (!local) {
+                                  setWaitlistModalOpen(true);
+                                  return;
+                                }
+                                setPreview(t.id as TemplateId);
+                              }}
+                            >
+                              Preview
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Preview this template (if available locally)</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              className="btn-primary flex-1 text-center text-xs"
+                              onClick={() => setWaitlistModalOpen(true)}
+                            >
+                              Try now
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Join waitlist for early access</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            ) : filtered.length === 0 ? (
               <div className="py-12 text-center">
                 <p className="text-muted-foreground">
                   No templates match your filters. Try a different search.
