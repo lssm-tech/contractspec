@@ -4,6 +4,14 @@ import { IntegrationCard } from '../molecules/IntegrationCard';
 import { useStudioFeatureFlag } from '../../../hooks/studio';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { FeatureGateNotice } from '../../shared/FeatureGateNotice';
+import { Input } from '@lssm/lib.design-system';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@lssm/lib.ui-kit-web/ui/select';
 
 export interface MarketplaceIntegration {
   id: string;
@@ -78,26 +86,28 @@ export function IntegrationMarketplace({
       <div className="flex flex-wrap gap-3">
         <div className="relative min-w-[200px] flex-1">
           <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-          <input
+          <Input
             type="search"
-            className="border-border bg-background w-full rounded-md border py-2 pr-3 pl-9 text-sm"
+            aria-label="Search providers"
+            className="w-full py-2 pr-3 pl-9 text-sm"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search providers"
           />
         </div>
-        <select
-          className="border-border bg-background rounded-md border px-3 py-2 text-sm"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        >
-          <option value="all">All categories</option>
-          {categories.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="All categories" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All categories</SelectItem>
+            {categories.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {filtered.length ? (

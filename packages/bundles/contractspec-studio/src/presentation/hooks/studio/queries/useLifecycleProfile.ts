@@ -56,10 +56,11 @@ async function fetchLifecycleProfile() {
   return payload.data!;
 }
 
-export function useLifecycleProfile() {
+export function useLifecycleProfile(options: { enabled?: boolean } = {}) {
   return useQuery({
     queryKey: ['lifecycleProfile'],
     queryFn: fetchLifecycleProfile,
+    enabled: options.enabled ?? true,
     staleTime: 60_000,
   });
 }

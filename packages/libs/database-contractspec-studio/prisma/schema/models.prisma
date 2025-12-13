@@ -172,6 +172,7 @@ model Organization {
   /// Enterprise SSO providers configured for this organization
   ssoProviders       SsoProvider[]
   lifecycleProfile   OrganizationLifecycleProfile?
+  studioWorkspaces   StudioWorkspace[]
   studioProjects     StudioProject[]
   studioIntegrations StudioIntegration[]
   knowledgeSources   KnowledgeSource[]

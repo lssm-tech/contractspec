@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 export interface CreateProjectInput {
+  workspaceId?: string;
   name: string;
   description?: string;
   tier: 'STARTER' | 'PROFESSIONAL' | 'ENTERPRISE';

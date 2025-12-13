@@ -127,7 +127,7 @@ export function SignupPageClient() {
                 name="email"
                 placeholder="you@example.com"
                 value={formData.email}
-                onChange={(value) => updateField('email', value)}
+                onChange={(event) => updateField('email', event.target.value)}
                 required
               />
             </div>

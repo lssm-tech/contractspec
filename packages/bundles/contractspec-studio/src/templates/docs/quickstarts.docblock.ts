@@ -14,7 +14,7 @@ const templateQuickstarts: DocBlock[] = [
 - Explore the to-dos template and regenerate UI/API from the spec.
 
 ## Steps
-1) Open Studio Sandbox → Templates → "To-dos List App".
+1) Open \`/sandbox\` and pick "To-dos List App" in the Template selector.
 2) Seed the template (preloads categories and tasks) and open the Builder.
 3) Tweak the spec (e.g., add a priority enum value) and regenerate; forms and lists update automatically.
 
@@ -35,7 +35,7 @@ const templateQuickstarts: DocBlock[] = [
 - Spin up the messaging template and validate conversation/message flows.
 
 ## Steps
-1) In Sandbox Templates, select "Messaging Application".
+1) Open \`/sandbox\` and select "Messaging Application" in the Template selector.
 2) Seed the template to create sample conversations and participants.
 3) Regenerate after editing the message schema (e.g., add attachments) to see UI + API update.
 
@@ -56,7 +56,7 @@ const templateQuickstarts: DocBlock[] = [
 - Demonstrate an i18n-ready content app with schema-driven lists and details.
 
 ## Steps
-1) Pick "Recipe App (i18n)" in Sandbox Templates.
+1) Open \`/sandbox\` and pick "Recipe App (i18n)" in the Template selector.
 2) Seed sample recipes; open Markdown mode to view schema-driven docs.
 3) Change the schema (e.g., add nutrition fields) and regenerate to update forms/views.
 
@@ -77,7 +77,7 @@ const templateQuickstarts: DocBlock[] = [
 - Stand up the SaaS base: orgs, members, projects, settings, and billing usage.
 
 ## Steps
-1) Choose "SaaS Boilerplate" in Sandbox Templates.
+1) Open \`/sandbox\` and choose "SaaS Boilerplate" in the Template selector.
 2) Seed sample org/projects; inspect RBAC policies in the spec.
 3) Edit the Project schema (e.g., add an env label) and regenerate to sync API/UI/events.
 
@@ -98,7 +98,7 @@ const templateQuickstarts: DocBlock[] = [
 - Explore the CRM template with deals, stages, contacts, and tasks.
 
 ## Steps
-1) Select "CRM Pipeline" in Sandbox Templates.
+1) Open \`/sandbox\` and select "CRM Pipeline" in the Template selector.
 2) Seed pipeline + sample deals; open Builder to view stage-driven UI.
 3) Modify the Deal schema or stages and regenerate to see forms/kanban update.
 
@@ -118,7 +118,7 @@ const templateQuickstarts: DocBlock[] = [
 - Inspect tool/agent/run specs and see multi-surface generation.
 
 ## Steps
-1) Open "Agent Console" template in Sandbox.
+1) Open \`/sandbox\` and select "Agent Console" in the Template selector.
 2) Seed sample tools/agents/runs; view dashboards/presentations.
 3) Add a tool schema or run metric in the spec and regenerate; UI + API align automatically.
 
@@ -138,7 +138,7 @@ const templateQuickstarts: DocBlock[] = [
 - Configure and test approval workflows with role-gated transitions.
 
 ## Steps
-1) Pick "Workflow / Approval System" in Sandbox Templates.
+1) Open \`/sandbox\` and pick "Workflow / Approval System" in the Template selector.
 2) Seed sample definitions/instances; inspect state machine in the spec.
 3) Change allowed transitions or add an approval step; regenerate to update UI/actions.
 
@@ -159,7 +159,7 @@ const templateQuickstarts: DocBlock[] = [
 - Demonstrate provider/client flows, orders, and payouts.
 
 ## Steps
-1) Choose "Marketplace" template in Sandbox.
+1) Open \`/sandbox\` and choose "Marketplace" in the Template selector.
 2) Seed sample stores/products/orders; browse dashboards.
 3) Adjust commission or review schema and regenerate to keep UI/API/events consistent.
 
@@ -180,7 +180,7 @@ const templateQuickstarts: DocBlock[] = [
 - Model connectors, connections, and sync jobs with mappings.
 
 ## Steps
-1) Select "Integration Hub" in Sandbox Templates.
+1) Open \`/sandbox\` and select "Integration Hub" in the Template selector.
 2) Seed sample integrations/connections; inspect sync config + mappings.
 3) Add a mapping field or sync job type in the spec and regenerate; adapters stay aligned.
 
@@ -201,7 +201,7 @@ const templateQuickstarts: DocBlock[] = [
 - Complete the Studio onboarding journey and see progress tracked automatically.
 
 ## Steps
-1) Open Sandbox Templates → "Learning Journey — Studio Getting Started".
+1) Open \`/sandbox\` and pick "Learning Journey — Studio Getting Started" in the Template selector.
 2) Seed the sandbox; events: template.instantiated, spec.changed, regeneration.completed.
 3) Start Playground session and run Evolution once; observe steps complete in progress widget.
 
@@ -222,7 +222,7 @@ const templateQuickstarts: DocBlock[] = [
 - Touch each cross-cutting module once with event-driven completion.
 
 ## Steps
-1) Sandbox Template → "Learning Journey — Platform Primitives Tour".
+1) Open \`/sandbox\` and pick "Learning Journey — Platform Primitives Tour" in the Template selector.
 2) Perform actions that emit: org.member.added, audit_log.created, notification.sent, job.completed, flag.toggled, attachment.attached, usage.recorded.
 3) View progress widget to confirm step completion and XP.
 
@@ -243,7 +243,7 @@ const templateQuickstarts: DocBlock[] = [
 - Drive users to first closed-won deal and follow-up task.
 
 ## Steps
-1) Sandbox Template → "Learning Journey — CRM First Win".
+1) Open \`/sandbox\` and pick "Learning Journey — CRM First Win" in the Template selector.
 2) Emit events: pipeline.created, contact.created, deal.created, deal.moved, deal.won, task.completed (follow_up).
 3) Confirm track completion and XP in progress widget.
 
@@ -263,7 +263,7 @@ const templateQuickstarts: DocBlock[] = [
 - Build and view dashboards sourced from event/usage data.
 
 ## Steps
-1) Pick "Analytics Dashboard" in Sandbox.
+1) Open \`/sandbox\` and pick "Analytics Dashboard" in the Template selector.
 2) Seed sample dashboards/widgets; run example queries.
 3) Add a widget/query schema change and regenerate; presentations update accordingly.
 
@@ -284,7 +284,7 @@ const templateQuickstarts: DocBlock[] = [
 - Walk the service lifecycle from quote to payment.
 
 ## Steps
-1) In Sandbox Templates, select "Service Business OS".
+1) Open \`/sandbox\` and pick "Service Business OS" in the Template selector.
 2) (No auto-seed yet) Create a client, quote, job, and invoice via the spec-driven UI.
 3) Regenerate after adjusting quote/job/invoice fields to keep flows consistent.
 

@@ -2,6 +2,15 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import {
+  Boxes,
+  FileText,
+  GraduationCap,
+  LayoutGrid,
+  PlugZap,
+  Rocket,
+  Sparkles,
+} from 'lucide-react';
 
 import {
   type DeploymentHistoryItem,
@@ -17,12 +26,24 @@ import type { CanvasState } from '@lssm/bundle.contractspec-studio/modules/visua
 import { StudioCanvas } from '@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/StudioCanvas';
 import { StudioProjectList } from '@lssm/bundle.contractspec-studio/presentation/components/studio/organisms/StudioProjectList';
 import { useAuthContext } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
-import { useStudioProjects } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio/queries/useStudioProjects';
+import {
+  useStudioProjects,
+  useStudioWorkspaces,
+} from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 import { useDeployStudioProject } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio/mutations/useDeployProject';
+import {
+  WorkspaceProjectShellLayout,
+  IntegrationMarketplace,
+  EvolutionDashboard,
+  FloatingAssistant,
+  LearningCoach,
+  recordLearningEvent,
+} from '@lssm/bundle.contractspec-studio/presentation/components';
 
 const SAMPLE_PROJECTS = [
   {
     id: 'proj-ops',
+    workspaceId: 'ws-demo',
     name: 'Ops Playbook',
     description: 'Dispatching, approvals, intent scans.',
     tier: 'PROFESSIONAL',
@@ -33,6 +54,7 @@ const SAMPLE_PROJECTS = [
   },
   {
     id: 'proj-coliving',
+    workspaceId: 'ws-demo',
     name: 'Coliving Studio',
     description: 'Residents, subsidies, and lifecycle rituals.',
     tier: 'ENTERPRISE',
@@ -110,15 +132,21 @@ const SAMPLE_DEPLOYMENTS: DeploymentHistoryItem[] = [
   },
 ];
 
-const TABS = [
-  { id: 'projects', label: 'Projects' },
-  { id: 'canvas', label: 'Canvas' },
-  { id: 'specs', label: 'Specs' },
-  { id: 'deploy', label: 'Deploy' },
+const MODULES = [
+  { id: 'projects', label: 'Projects', icon: Boxes },
+  { id: 'canvas', label: 'Canvas', icon: LayoutGrid },
+  { id: 'specs', label: 'Specs', icon: FileText },
+  { id: 'deploy', label: 'Deploy', icon: Rocket },
+  { id: 'integrations', label: 'Integrations', icon: PlugZap },
+  { id: 'evolution', label: 'Evolution', icon: Sparkles },
+  { id: 'learning', label: 'Learning', icon: GraduationCap },
 ] as const;
 
 export default function StudioExperienceClient() {
-  const [tab, setTab] = useState<(typeof TABS)[number]['id']>('projects');
+  const [moduleId, setModuleId] =
+    useState<(typeof MODULES)[number]['id']>('projects');
+  const [selectedWorkspaceId, setSelectedWorkspaceId] =
+    useState<string>('ws-demo');
   const [selectedNode, setSelectedNode] = useState<string | undefined>();
   const [specText, setSpecText] = useState(SAMPLE_SPEC);
   const [selectedProjectId, setSelectedProjectId] =
@@ -132,12 +160,16 @@ export default function StudioExperienceClient() {
 
   const { isAuthenticated, organization } = useAuthContext();
   const previewMode = !isAuthenticated;
+  const { data: studioWorkspacesData } = useStudioWorkspaces({
+    enabled: isAuthenticated,
+  });
+  const workspaces = studioWorkspacesData?.myStudioWorkspaces ?? [];
   const {
     data: studioProjectsData,
     isLoading: projectsLoading,
     refetch: refetchProjects,
   } = useStudioProjects({
-    organizationId: organization?.id,
+    workspaceId: selectedWorkspaceId,
     enabled: isAuthenticated,
   });
   const deployProjectMutation = useDeployStudioProject();
@@ -160,8 +192,12 @@ export default function StudioExperienceClient() {
 
   useEffect(() => {
     if (previewMode) {
+      setSelectedWorkspaceId('ws-demo');
       setSelectedProjectId(SAMPLE_PROJECTS[0].id);
       return;
+    }
+    if (workspaces.length) {
+      setSelectedWorkspaceId((current) => current || workspaces[0]!.id);
     }
     if (!projects.length) {
       return;
@@ -172,7 +208,7 @@ export default function StudioExperienceClient() {
       }
       return projects[0].id;
     });
-  }, [previewMode, projects]);
+  }, [previewMode, projects, workspaces]);
 
   const activeProject = useMemo(() => {
     if (previewMode) {
@@ -299,11 +335,11 @@ export default function StudioExperienceClient() {
 
   const handleProjectNavigation = (
     projectId: string,
-    destination?: (typeof TABS)[number]['id']
+    destination?: (typeof MODULES)[number]['id']
   ) => {
     setSelectedProjectId(projectId);
     if (destination) {
-      setTab(destination);
+      setModuleId(destination);
     }
   };
 
@@ -400,7 +436,7 @@ export default function StudioExperienceClient() {
   };
 
   const tabContent = useMemo(() => {
-    switch (tab) {
+    switch (moduleId) {
       case 'projects': {
         if (previewMode) {
           return (
@@ -434,7 +470,7 @@ export default function StudioExperienceClient() {
         }
         return (
           <StudioProjectList
-            organizationId={organization?.id}
+            workspaceId={selectedWorkspaceId}
             onDeploy={(projectId) =>
               handleProjectNavigation(projectId, 'deploy')
             }
@@ -491,11 +527,49 @@ export default function StudioExperienceClient() {
             isDeploying={deployProjectMutation.isPending}
           />
         );
+      case 'integrations':
+        return (
+          <IntegrationMarketplace
+            integrations={[
+              {
+                id: 'int-github',
+                provider: 'GITHUB',
+                name: 'GitHub (Repo linking)',
+                category: 'storage',
+                enabled: true,
+                status: 'connected',
+              },
+              {
+                id: 'int-notion',
+                provider: 'NOTION',
+                name: 'Notion (Knowledge)',
+                category: 'knowledge',
+                enabled: false,
+                status: 'disconnected',
+              },
+            ]}
+            onToggle={() => pushFeedback('Connect/disconnect is coming next.')}
+            onConfigure={() => pushFeedback('Settings UI is coming next.')}
+          />
+        );
+      case 'evolution':
+        return <EvolutionDashboard templateId="todos-app" onLog={() => void 0} />;
+      case 'learning':
+        return (
+          <div className="space-y-4">
+            <LearningCoach
+              mode="studio"
+              onNavigateModule={(next: string) =>
+                setModuleId(next as (typeof MODULES)[number]['id'])
+              }
+            />
+          </div>
+        );
       default:
         return null;
     }
   }, [
-    tab,
+    moduleId,
     previewMode,
     projectsLoading,
     organization?.id,
@@ -510,60 +584,103 @@ export default function StudioExperienceClient() {
     deployProjectMutation.isPending,
   ]);
 
+  const handleModuleChange = (next: string) => {
+    recordLearningEvent({
+      name: `studio.module.opened:${next}`,
+      ts: Date.now(),
+    });
+    setModuleId(next as (typeof MODULES)[number]['id']);
+  };
+
   return (
-    <main className="section-padding space-y-10 py-16">
-      <header className="space-y-3 text-center">
-        <p className="text-xs font-semibold tracking-[0.3em] text-violet-400 uppercase">
-          ContractSpec Studio
-        </p>
-        <h1 className="text-4xl font-bold md:text-5xl">
-          Manage contracts, generate code, deploy with confidence.
-        </h1>
-        <p className="text-muted-foreground mx-auto max-w-3xl text-base">
-          Visual builder for defining contracts, generating multi-surface code,
-          and orchestrating deployments. Safe regeneration with version control.
-          The preview runs entirely in your browser, so you can explore safely.
-        </p>
-      </header>
-
-      {feedback && (
-        <div className="mx-auto max-w-2xl">
-          <div className="text-foreground rounded-xl border border-violet-500/50 bg-violet-500/10 px-4 py-3 text-center text-sm">
-            {feedback}
-          </div>
+    <WorkspaceProjectShellLayout
+      title="ContractSpec Studio"
+      subtitle={
+        previewMode
+          ? 'Preview mode (no auth, no persistence)'
+          : organization?.name ?? 'Studio'
+      }
+      workspaceSelect={{
+        label: 'Workspace',
+        value: previewMode
+          ? 'ws-demo'
+          : selectedWorkspaceId || workspaces[0]?.id || '',
+        options: previewMode
+          ? [{ value: 'ws-demo', label: 'Demo workspace' }]
+          : workspaces.map((ws) => ({ value: ws.id, label: ws.name })),
+        onChange: (value: string) => {
+          recordLearningEvent({
+            name: 'studio.workspace.selected',
+            ts: Date.now(),
+            payload: { workspaceId: value },
+          });
+          setSelectedWorkspaceId(value);
+        },
+        placeholder: 'Select workspace',
+      }}
+      projectSelect={{
+        label: 'Project',
+        value: selectedProjectId,
+        options: (previewMode ? SAMPLE_PROJECTS : projects).map((p) => ({
+          value: p.id,
+          label: p.name,
+        })),
+        onChange: (value: string) => {
+          recordLearningEvent({
+            name: 'studio.project.selected',
+            ts: Date.now(),
+            payload: { projectId: value },
+          });
+          setSelectedProjectId(value);
+        },
+        placeholder: 'Select project',
+      }}
+      environmentSelect={{
+        label: 'Environment',
+        value: 'DEVELOPMENT',
+        options: [
+          { value: 'DEVELOPMENT', label: 'Development' },
+          { value: 'STAGING', label: 'Staging' },
+          { value: 'PRODUCTION', label: 'Production' },
+        ],
+        onChange: () => {
+          pushFeedback('Environment picker will be wired into modules next.');
+        },
+      }}
+      modules={MODULES.map((m) => ({
+        id: m.id,
+        label: m.label,
+        icon: <m.icon className="h-4 w-4" />,
+      }))}
+      activeModuleId={moduleId}
+      onModuleChange={handleModuleChange}
+      headerRight={
+        previewMode ? (
+          <Link href="/login" className="text-sm font-semibold underline">
+            Sign in
+          </Link>
+        ) : (
+          <Link href="/studio/features" className="text-sm underline">
+            Studio features
+          </Link>
+        )
+      }
+      assistant={
+        <FloatingAssistant
+          context={{
+            mode: 'studio',
+            lifecycleEnabled: !previewMode,
+            templateId: 'todos-app',
+          }}
+        />
+      }
+    >
+      {feedback ? (
+        <div className="text-foreground mb-4 rounded-xl border border-violet-500/50 bg-violet-500/10 px-4 py-3 text-sm">
+          {feedback}
         </div>
-      )}
-
-      {previewMode && (
-        <div className="mx-auto max-w-3xl rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-900">
-          <p>
-            You&apos;re viewing the local preview surface.{' '}
-            <Link href="/login" className="font-semibold underline">
-              Sign in
-            </Link>{' '}
-            to enable saving, deployments, and organization-scoped data.
-          </p>
-        </div>
-      )}
-
-      <nav className="flex flex-wrap justify-center gap-3">
-        {TABS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-              tab === item.id
-                ? 'bg-violet-500 text-white'
-                : 'bg-muted text-muted-foreground hover:text-foreground'
-            }`}
-            onClick={() => setTab(item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </nav>
-
-      <section>{tabContent}</section>
-    </main>
+      ) : null}
+      {tabContent}
+    </WorkspaceProjectShellLayout>
   );
 }

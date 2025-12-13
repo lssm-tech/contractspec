@@ -44,7 +44,8 @@ export function DocsNavSidebar({
   const pathname = usePathname();
   const { isMobile } = useSidebar();
 
-  const isItemActive = (href: string) => pathname === href;
+  const isItemActive = (href?: string) =>
+    typeof href === 'string' && pathname === href;
 
   const activeSectionIndex = data.navMain.findIndex((section) => {
     return (
@@ -97,10 +98,10 @@ export function DocsNavSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map((section) => (
+            {data.navMain.map((section, idx) => (
               <Collapsible
                 key={section.title}
-                defaultOpen={activeSectionIndex}
+                defaultOpen={idx === activeSectionIndex}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
@@ -119,7 +120,7 @@ export function DocsNavSidebar({
                             <SidebarMenuSubItem key={sectionItem.title}>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={sectionItem.isActive}
+                                isActive={isItemActive(sectionItem.href)}
                                 className={cn({
                                   'text-primary': isItemActive(
                                     sectionItem.href

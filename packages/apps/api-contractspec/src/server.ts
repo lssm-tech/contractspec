@@ -10,6 +10,7 @@ import { markdownHandler } from './handlers/markdown-handler';
 import { betterAuthController } from './handlers/auth-controller';
 import { mcpHandler } from './handlers/mcp-handler';
 import { telemetryHandler } from './handlers/telemetry-handler';
+import { workspaceOpsHandler } from './handlers/workspace-ops-handler';
 
 const PORT = 8080;
 
@@ -25,6 +26,7 @@ const app = createContractSpecStudioElysiaServer({
   .use(markdownHandler)
   .use(mcpHandler)
   .use(telemetryHandler)
+  .use(workspaceOpsHandler)
   .listen(PORT);
 exportContractsToGraphQLSchema(schema, __dirname);
 
@@ -59,6 +61,7 @@ appLogger.info('🚀 LSSM ContractSpec API Server successfully started', {
       internal: '/api/mcp/internal',
     },
     telemetry: '/api/telemetry/ingest',
+    workspaceOps: '/api/workspace-ops',
   },
 });
 

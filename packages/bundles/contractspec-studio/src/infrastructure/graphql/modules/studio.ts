@@ -115,6 +115,7 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     .implement({
       fields: (t) => ({
         id: t.exposeID('id'),
+        workspaceId: t.exposeString('workspaceId'),
         name: t.exposeString('name'),
         description: t.exposeString('description', { nullable: true }),
         tier: t.field({
@@ -176,6 +177,7 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
 
   const CreateProjectInput = builder.inputType('CreateProjectInput', {
     fields: (t) => ({
+      workspaceId: t.string(),
       name: t.string({ required: true }),
       description: t.string(),
       tier: t.field({ type: ProjectTierEnum, required: true }),
@@ -285,10 +287,19 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     }),
     myStudioProjects: t.field({
       type: [StudioProjectType],
-      resolve: async (_root, _args, ctx) => {
+      args: {
+        workspaceId: t.arg.string(),
+      },
+      resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
+        if (args.workspaceId) {
+          await ensureWorkspaceAccess(args.workspaceId, user.organizationId);
+        }
         return studioDb.studioProject.findMany({
-          where: { organizationId: user.organizationId },
+          where: {
+            organizationId: user.organizationId,
+            workspaceId: args.workspaceId ?? undefined,
+          },
           orderBy: { createdAt: 'desc' },
         });
       },
@@ -332,8 +343,13 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
+        const workspaceId =
+          args.input.workspaceId ??
+          (await getOrCreateDefaultWorkspaceId(user.organizationId));
+        await ensureWorkspaceAccess(workspaceId, user.organizationId);
         return studioDb.studioProject.create({
           data: {
+            workspaceId,
             name: args.input.name,
             description: args.input.description ?? undefined,
             tier: args.input.tier,
@@ -494,8 +510,13 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
           throw new Error('Organization mismatch while saving template.');
         }
 
+        const workspaceId = await getOrCreateDefaultWorkspaceId(
+          user.organizationId
+        );
+
         const project = await studioDb.studioProject.create({
           data: {
+            workspaceId,
             name: args.input.projectName,
             description:
               args.input.description ??
@@ -557,6 +578,36 @@ async function getProjectForOrg(projectId: string, organizationId: string) {
 
 async function ensureProjectAccess(projectId: string, organizationId: string) {
   await getProjectForOrg(projectId, organizationId);
+}
+
+async function ensureWorkspaceAccess(workspaceId: string, organizationId: string) {
+  const workspace = await studioDb.studioWorkspace.findFirst({
+    where: { id: workspaceId, organizationId },
+    select: { id: true },
+  });
+  if (!workspace) {
+    throw new Error('Workspace not found');
+  }
+}
+
+async function getOrCreateDefaultWorkspaceId(organizationId: string) {
+  const existing = await studioDb.studioWorkspace.findFirst({
+    where: { organizationId },
+    orderBy: { createdAt: 'asc' },
+    select: { id: true },
+  });
+  if (existing?.id) {
+    return existing.id;
+  }
+  const created = await studioDb.studioWorkspace.create({
+    data: {
+      organizationId,
+      name: 'Default workspace',
+      description: 'Auto-created default workspace.',
+    },
+    select: { id: true },
+  });
+  return created.id;
 }
 
 async function ensureCanvasAccess(canvasId: string, organizationId: string) {

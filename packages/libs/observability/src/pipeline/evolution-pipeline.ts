@@ -26,7 +26,7 @@ export class EvolutionPipeline {
   private readonly onSnapshot?: (
     snapshot: IntentAggregatorSnapshot
   ) => Promise<void> | void;
-  private timer?: NodeJS.Timeout;
+  private timer?: ReturnType<typeof setInterval>;
   private previousMetrics?: ReturnType<IntentAggregator['flush']>['metrics'];
 
   constructor(options: EvolutionPipelineOptions = {}) {

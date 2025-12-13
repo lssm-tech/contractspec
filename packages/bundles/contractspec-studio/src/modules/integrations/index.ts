@@ -11,7 +11,15 @@ import { toInputJson, toNullableJsonValue } from '../../utils/prisma-json';
 export interface ConnectIntegrationInput {
   organizationId: string;
   provider: IntegrationProvider;
-  credentials: Record<string, string>;
+  /**
+   * Ownership mode for secrets. When omitted, defaults to managed.
+   * - managed: store encrypted payload in DB
+   * - byok: store only secret provider + ref (no plaintext secrets)
+   */
+  ownershipMode?: 'managed' | 'byok';
+  credentials?: Record<string, string>;
+  secretProvider?: string;
+  secretRef?: string;
   projectId?: string;
   name?: string;
   config?: Prisma.JsonValue;
@@ -49,6 +57,9 @@ class JsonCredentialStore implements CredentialStore {
 
   async decrypt(payload: Prisma.JsonValue): Promise<Record<string, string>> {
     const record = payload as Record<string, unknown>;
+    if (record?.mode === 'byok') {
+      throw new Error('Credentials are BYOK-referenced and cannot be decrypted');
+    }
     const encoded = record?.encoded;
     if (typeof encoded !== 'string') {
       throw new Error('Invalid credential payload');
@@ -75,11 +86,20 @@ export class StudioIntegrationModule {
   async connectIntegration(
     input: ConnectIntegrationInput
   ): Promise<StudioIntegration> {
-    const encrypted = await this.credentials.encrypt(
-      input.organizationId,
-      input.provider,
-      input.credentials
-    );
+    const ownershipMode = input.ownershipMode ?? 'managed';
+    const credentialPayload =
+      ownershipMode === 'byok'
+        ? {
+            mode: 'byok',
+            secretProvider: input.secretProvider ?? 'env',
+            secretRef: input.secretRef ?? '',
+            version: 1,
+          }
+        : await this.credentials.encrypt(
+            input.organizationId,
+            input.provider,
+            input.credentials ?? {}
+          );
 
     const integration = await prisma.studioIntegration.create({
       data: {
@@ -87,7 +107,7 @@ export class StudioIntegrationModule {
         projectId: input.projectId,
         provider: input.provider,
         name: input.name ?? input.provider,
-        credentials: toInputJson(encrypted),
+        credentials: toInputJson(credentialPayload),
         config: toNullableJsonValue(input.config ?? {}),
         enabled: true,
       },
@@ -96,6 +116,7 @@ export class StudioIntegrationModule {
     this.logger?.info?.('studio.integration.connected', {
       integrationId: integration.id,
       provider: input.provider,
+      ownershipMode,
     });
 
     return integration;

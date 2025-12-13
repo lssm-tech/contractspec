@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PlugZap, ToggleRight } from 'lucide-react';
+import { Button } from '@lssm/lib.design-system';
 
 export interface IntegrationCardProps {
   id: string;
@@ -38,14 +39,15 @@ export function IntegrationCard({
           <p className="text-xl font-semibold">{name}</p>
           <p className="text-muted-foreground text-sm">{provider}</p>
         </div>
-        <button
-          type="button"
+        <Button
+          variant="outline"
+          size="sm"
           className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase ${tone}`}
-          onClick={() => onToggle?.(id, !enabled)}
+          onPress={() => onToggle?.(id, !enabled)}
         >
           <ToggleRight className="h-3.5 w-3.5" />
           {enabled ? 'Enabled' : 'Disabled'}
-        </button>
+        </Button>
       </header>
       <div className="text-muted-foreground text-sm">
         {category && <span className="font-medium">{category}</span>}
@@ -63,20 +65,16 @@ export function IntegrationCard({
         </div>
       </div>
       <footer className="flex items-center gap-2">
-        <button
-          type="button"
-          className="btn-primary flex-1"
-          onClick={() => onConfigure?.(id)}
-        >
+        <Button className="flex-1" onPress={() => onConfigure?.(id)}>
           Configure
-        </button>
-        <button
-          type="button"
-          className="btn-ghost flex-1"
-          onClick={() => onToggle?.(id, !enabled)}
+        </Button>
+        <Button
+          variant="ghost"
+          className="flex-1"
+          onPress={() => onToggle?.(id, !enabled)}
         >
           {enabled ? 'Disconnect' : 'Connect'}
-        </button>
+        </Button>
       </footer>
     </div>
   );
