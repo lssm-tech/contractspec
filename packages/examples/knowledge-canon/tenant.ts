@@ -10,8 +10,8 @@ export const artisanKnowledgeTenantConfig: TenantAppConfig = {
     environment: 'production',
     version: 1,
     status: 'published',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: '2026-01-01T00:00:00.000Z',
+    updatedAt: '2026-01-01T00:00:00.000Z',
   },
   knowledge: [
     {

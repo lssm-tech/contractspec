@@ -8,8 +8,8 @@ export const stripeLiveConnection: IntegrationConnection = {
     integrationVersion: 1,
     label: 'Stripe Production',
     environment: 'production',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: '2026-01-01T00:00:00.000Z',
+    updatedAt: '2026-01-01T00:00:00.000Z',
   },
   ownershipMode: 'managed',
   config: {
