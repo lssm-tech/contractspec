@@ -12,7 +12,9 @@ export const registryListCommand = new Command('list')
   .action(async (options) => {
     try {
       const client = new RegistryClient({
-        registryUrl: resolveRegistryUrl(options.registryUrl as string | undefined),
+        registryUrl: resolveRegistryUrl(
+          options.registryUrl as string | undefined
+        ),
       });
       const manifest = await client.getJson<ContractRegistryManifest>(
         '/r/contractspec.json'
@@ -25,31 +27,27 @@ export const registryListCommand = new Command('list')
       });
 
       if (options.json) {
-        // eslint-disable-next-line no-console
         console.log(JSON.stringify({ ...manifest, items }, null, 2));
         return;
       }
 
-      // eslint-disable-next-line no-console
       console.log(chalk.bold(`\n📦 Registry Items (${items.length})\n`));
       items
         .slice()
         .sort((a, b) => a.name.localeCompare(b.name))
         .forEach((item) => {
-          // eslint-disable-next-line no-console
           console.log(
             `${chalk.cyan(item.type)} ${chalk.bold(item.name)} ${chalk.gray(
               `v${item.version}`
             )}`
           );
-          // eslint-disable-next-line no-console
+
           console.log(`  ${chalk.gray(item.description)}`);
         });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(chalk.red(`Registry list failed: ${getErrorMessage(error)}`));
+      console.error(
+        chalk.red(`Registry list failed: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });
-
-

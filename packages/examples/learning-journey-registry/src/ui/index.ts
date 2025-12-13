@@ -3,4 +3,3 @@ export {
   isLearningTemplate,
   getLearningTemplateIds,
 } from './LearningMiniApp';
-

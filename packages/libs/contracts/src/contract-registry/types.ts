@@ -9,7 +9,12 @@ export type ContractRegistryItemType =
   | 'contractspec:workflow'
   | 'contractspec:template'
   | 'contractspec:integration'
-  | 'contractspec:data-view';
+  | 'contractspec:data-view'
+  | 'contractspec:migration'
+  | 'contractspec:telemetry'
+  | 'contractspec:experiment'
+  | 'contractspec:app-config'
+  | 'contractspec:knowledge';
 
 export type JsonSchema = unknown;
 

@@ -181,4 +181,3 @@ export function ProgressView({ track, progress }: LearningViewProps) {
 
 // Re-export with correct name
 export { ProgressView as Progress };
-

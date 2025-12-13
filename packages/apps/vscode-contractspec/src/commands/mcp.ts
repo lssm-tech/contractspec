@@ -139,7 +139,10 @@ async function callDocsMcp(
 /**
  * Fetch full doc content from MCP.
  */
-async function fetchDocContent(baseUrl: string, docId: string): Promise<string> {
+async function fetchDocContent(
+  baseUrl: string,
+  docId: string
+): Promise<string> {
   const url = `${baseUrl.replace(/\/$/, '')}/api/mcp/docs`;
 
   const response = await fetch(url, {
@@ -170,4 +173,3 @@ async function fetchDocContent(baseUrl: string, docId: string): Promise<string> 
   const content = result.result?.contents?.[0];
   return content?.text ?? 'No content available';
 }
-

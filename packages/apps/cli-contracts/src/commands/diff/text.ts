@@ -22,9 +22,13 @@ export function diffText(
       // but execSync throws. We'll capture what we can from the error.
       const maybe = error as unknown as { stdout?: unknown; stderr?: unknown };
       const stdout =
-        typeof maybe.stdout === 'string' ? maybe.stdout : String(maybe.stdout ?? '');
+        typeof maybe.stdout === 'string'
+          ? maybe.stdout
+          : String(maybe.stdout ?? '');
       const stderr =
-        typeof maybe.stderr === 'string' ? maybe.stderr : String(maybe.stderr ?? '');
+        typeof maybe.stderr === 'string'
+          ? maybe.stderr
+          : String(maybe.stderr ?? '');
       const combined = `${stdout}${stderr}`;
       if (combined.trim().length > 0) {
         return { ok: true, output: combined };
@@ -51,5 +55,3 @@ export function diffText(
 
   return { ok: true, output: out.join('\n') };
 }
-
-

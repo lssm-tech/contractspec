@@ -47,4 +47,3 @@ export function StreakCounter({
     </div>
   );
 }
-

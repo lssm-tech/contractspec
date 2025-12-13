@@ -119,4 +119,3 @@ export function isLearningTemplate(
 export function getLearningTemplateIds(): LearningTemplateId[] {
   return Object.keys(TEMPLATE_TO_TRACK) as LearningTemplateId[];
 }
-

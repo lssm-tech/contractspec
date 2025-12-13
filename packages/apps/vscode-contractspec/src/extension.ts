@@ -42,4 +42,3 @@ export async function activate(
 export function deactivate(): void {
   telemetryReporter?.dispose();
 }
-

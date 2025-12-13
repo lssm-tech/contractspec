@@ -14,6 +14,7 @@ import { cleanCommand } from './commands/clean/index';
 import { depsCommand } from './commands/deps/index';
 import { diffCommand } from './commands/diff/index';
 import { registryCommand } from './commands/registry/index';
+import { openapiCommand } from './commands/openapi/index';
 
 const program = new Command();
 
@@ -44,6 +45,9 @@ program.addCommand(diffCommand);
 
 // Registry command
 program.addCommand(registryCommand);
+
+// OpenAPI export command
+program.addCommand(openapiCommand);
 
 // Create command
 program

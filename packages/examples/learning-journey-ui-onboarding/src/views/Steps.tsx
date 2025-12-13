@@ -90,4 +90,3 @@ export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
     </div>
   );
 }
-

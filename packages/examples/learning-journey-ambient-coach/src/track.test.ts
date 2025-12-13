@@ -2,10 +2,10 @@ import { describe, expect, it } from 'bun:test';
 
 import { moneyAmbientCoachTrack } from './track';
 
-type TestEvent = {
+interface TestEvent {
   name: string;
   payload?: Record<string, unknown>;
-};
+}
 
 const matchesFilter = (
   filter: Record<string, unknown> | undefined,

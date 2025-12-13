@@ -8,5 +8,3 @@ export const registryCommand = new Command('registry')
   .addCommand(registryAddCommand)
   .addCommand(registryListCommand)
   .addCommand(registrySearchCommand);
-
-

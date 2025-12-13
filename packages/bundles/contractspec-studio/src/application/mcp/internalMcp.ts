@@ -9,7 +9,8 @@ import {
 } from '@lssm/lib.contracts';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import z from 'zod';
-import { createMcpHttpHandler } from './common';
+import { createMcpElysiaHandler } from './common';
+import { appLogger } from '../../infrastructure';
 
 const INTERNAL_TAGS = ['internal', 'mcp'];
 const INTERNAL_OWNERS = ['@contractspec'];
@@ -154,7 +155,8 @@ function buildInternalOps() {
 }
 
 export function createInternalMcpHandler(path = '/api/mcp/internal') {
-  return createMcpHttpHandler({
+  return createMcpElysiaHandler({
+    logger: appLogger,
     path,
     serverName: 'contractspec-internal-mcp',
     ops: buildInternalOps(),

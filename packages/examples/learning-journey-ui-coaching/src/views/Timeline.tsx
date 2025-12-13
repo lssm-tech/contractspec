@@ -112,4 +112,3 @@ export function Timeline({ track, progress }: LearningViewProps) {
     </div>
   );
 }
-

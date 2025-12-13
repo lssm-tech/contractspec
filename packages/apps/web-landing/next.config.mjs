@@ -47,6 +47,25 @@ const nextConfig = {
   },
   async rewrites() {
     return [
+      // LLM guide file (static, no auth)
+      {
+        source: '/llms',
+        destination: '/llms.txt',
+      },
+      {
+        source: '/llms.md',
+        destination: '/llms.txt',
+      },
+      {
+        source: '/llms.mdx',
+        destination: '/llms.txt',
+      },
+      // Subdomain form: llms.<app-domain> → /llms.txt
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'llms.contractspec.lssm.tech' }],
+        destination: '/llms.txt',
+      },
       {
         source: '/ingest/static/:path*',
         destination: 'https://eu-assets.i.posthog.com/static/:path*',
@@ -62,6 +81,17 @@ const nextConfig = {
     const apiLlmsUrl =
       process.env.API_CONTRACTSPEC_URL || `https://llms.contractspec.lssm.tech`;
     return [
+      // Ensure local llms guide is served from /public even when generic .md redirects exist.
+      {
+        source: '/llms.md',
+        destination: '/llms.txt',
+        permanent: false,
+      },
+      {
+        source: '/llms.mdx',
+        destination: '/llms.txt',
+        permanent: false,
+      },
       {
         source: '/:path*.md',
         destination: `${apiLlmsUrl}/mdx/:path*`,

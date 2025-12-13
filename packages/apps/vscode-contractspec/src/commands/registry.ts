@@ -8,24 +8,24 @@ import * as vscode from 'vscode';
 import { getWorkspaceConfig, getWorkspaceRoot } from '../workspace/adapters';
 import path from 'node:path';
 
-type RegistryManifest = {
-  items: Array<{
+interface RegistryManifest {
+  items: {
     name: string;
     type: string; // e.g. contractspec:operation
     title: string;
     description: string;
     version: number;
-  }>;
-};
+  }[];
+}
 
-type RegistryItem = {
+interface RegistryItem {
   name: string;
   type: string;
   version: number;
   title: string;
   description: string;
-  files: Array<{ path: string; type: string; content?: string }>;
-};
+  files: { path: string; type: string; content?: string }[];
+}
 
 function getRegistryBaseUrl(): string {
   const config = vscode.workspace.getConfiguration('contractspec');
@@ -45,17 +45,24 @@ async function fetchJson<T>(url: string): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.text().catch(() => '');
-    throw new Error(`Registry request failed: ${res.status} ${res.statusText} ${body}`);
+    throw new Error(
+      `Registry request failed: ${res.status} ${res.statusText} ${body}`
+    );
   }
   return (await res.json()) as T;
 }
 
 function stripPrefix(type: string): string {
-  return type.startsWith('contractspec:') ? type.slice('contractspec:'.length) : type;
+  return type.startsWith('contractspec:')
+    ? type.slice('contractspec:'.length)
+    : type;
 }
 
 function toKebab(name: string): string {
-  return name.replace(/\./g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  return name
+    .replace(/\./g, '-')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .toLowerCase();
 }
 
 function extForType(type: string): string {
@@ -106,7 +113,9 @@ async function installRegistryItem(
   );
 
   if (filesWithContent.length === 0) {
-    throw new Error(`Registry item ${item.type}/${item.name} has no file contents`);
+    throw new Error(
+      `Registry item ${item.type}/${item.name} has no file contents`
+    );
   }
 
   const typeSegment = stripPrefix(item.type);
@@ -117,7 +126,9 @@ async function installRegistryItem(
     const fileName = `${toKebab(item.name)}${extForType(typeSegment)}`;
     const fileUri = vscode.Uri.joinPath(baseOut, fileName);
     await writeFileSafe(fileUri, filesWithContent[0].content);
-    outputChannel.appendLine(`✅ Installed ${item.type}/${item.name} → ${fileUri.fsPath}`);
+    outputChannel.appendLine(
+      `✅ Installed ${item.type}/${item.name} → ${fileUri.fsPath}`
+    );
     return;
   }
 
@@ -158,7 +169,9 @@ export async function browseRegistry(
   outputChannel.appendLine('\n=== ContractSpec Registry (Browse) ===');
   outputChannel.show(true);
 
-  const manifest = await fetchJson<RegistryManifest>(`${baseUrl}/r/contractspec.json`);
+  const manifest = await fetchJson<RegistryManifest>(
+    `${baseUrl}/r/contractspec.json`
+  );
   const types = Array.from(
     new Set(manifest.items.map((i) => stripPrefix(i.type)))
   ).sort((a, b) => a.localeCompare(b));
@@ -205,17 +218,25 @@ export async function searchRegistry(
   });
   if (!query) return;
 
-  outputChannel.appendLine(`\n=== ContractSpec Registry (Search: "${query}") ===`);
+  outputChannel.appendLine(
+    `\n=== ContractSpec Registry (Search: "${query}") ===`
+  );
   outputChannel.show(true);
 
-  const manifest = await fetchJson<RegistryManifest>(`${baseUrl}/r/contractspec.json`);
+  const manifest = await fetchJson<RegistryManifest>(
+    `${baseUrl}/r/contractspec.json`
+  );
   const q = query.toLowerCase();
   const matches = manifest.items
-    .filter((i) => `${i.name} ${i.title} ${i.description}`.toLowerCase().includes(q))
+    .filter((i) =>
+      `${i.name} ${i.title} ${i.description}`.toLowerCase().includes(q)
+    )
     .sort((a, b) => a.name.localeCompare(b.name));
 
   if (matches.length === 0) {
-    vscode.window.showInformationMessage('No registry items matched your query.');
+    vscode.window.showInformationMessage(
+      'No registry items matched your query.'
+    );
     outputChannel.appendLine('No matches.');
     return;
   }
@@ -243,5 +264,3 @@ export async function addFromRegistry(
   // Keep this intentionally simple: browse → install.
   await browseRegistry(outputChannel);
 }
-
-

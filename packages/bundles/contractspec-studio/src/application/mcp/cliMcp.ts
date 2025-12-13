@@ -11,7 +11,8 @@ import {
 } from '@lssm/lib.contracts';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import z from 'zod';
-import { createMcpHttpHandler } from './common';
+import { createMcpElysiaHandler } from './common';
+import { appLogger } from '../../infrastructure';
 
 const CLI_DOC_PATHS = {
   quickstart: 'packages/apps/cli-contracts/QUICK_START.md',
@@ -258,7 +259,8 @@ function buildCliOps() {
 }
 
 export function createCliMcpHandler(path = '/api/mcp/cli') {
-  return createMcpHttpHandler({
+  return createMcpElysiaHandler({
+    logger: appLogger,
     path,
     serverName: 'contractspec-cli-mcp',
     ops: buildCliOps(),

@@ -2,11 +2,11 @@ import { describe, expect, it } from 'bun:test';
 
 import { drillsLanguageBasicsTrack } from './track';
 
-type TestEvent = {
+interface TestEvent {
   name: string;
   payload?: Record<string, unknown>;
   occurredAt?: Date;
-};
+}
 
 const matchesFilter = (
   filter: Record<string, unknown> | undefined,
@@ -17,12 +17,12 @@ const matchesFilter = (
   return Object.entries(filter).every(([key, value]) => payload[key] === value);
 };
 
-type StepState = {
+interface StepState {
   id: string;
   status: 'PENDING' | 'COMPLETED';
   occurrences: number;
   masteryCount: number;
-};
+}
 
 describe('duo drills track', () => {
   it('advances on session completion, accuracy counts, and SRS mastery', () => {

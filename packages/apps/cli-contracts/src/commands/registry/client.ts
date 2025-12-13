@@ -1,8 +1,8 @@
 import { getErrorMessage } from '../../utils/errors';
 
-export type RegistryClientOptions = {
+export interface RegistryClientOptions {
   registryUrl: string;
-};
+}
 
 export class RegistryClient {
   private readonly registryUrl: string;
@@ -20,12 +20,16 @@ export class RegistryClient {
         headers: { Accept: 'application/json' },
       });
     } catch (error) {
-      throw new Error(`Registry request failed: ${url} (${getErrorMessage(error)})`);
+      throw new Error(
+        `Registry request failed: ${url} (${getErrorMessage(error)})`
+      );
     }
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
-      throw new Error(`Registry request failed: ${res.status} ${res.statusText} ${text}`);
+      throw new Error(
+        `Registry request failed: ${res.status} ${res.statusText} ${text}`
+      );
     }
 
     return (await res.json()) as T;
@@ -39,5 +43,3 @@ export function resolveRegistryUrl(cliRegistryUrl?: string): string {
     'http://localhost:8090'
   );
 }
-
-

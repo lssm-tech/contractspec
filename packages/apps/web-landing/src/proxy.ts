@@ -1,7 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@lssm/bundle.contractspec-studio/application/services/auth';
-import path from 'path';
 
 const PUBLIC_ROUTES = [
   '/',
@@ -48,7 +47,6 @@ export async function proxy(request: NextRequest) {
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    console.log('session', session);
     if (!session?.user?.id) {
       return NextResponse.redirect(new URL('/login', request.url));
     }

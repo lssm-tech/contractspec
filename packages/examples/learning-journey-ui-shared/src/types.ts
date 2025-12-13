@@ -59,4 +59,3 @@ export interface ViewTabsProps {
   onViewChange: (view: LearningView) => void;
   availableViews?: LearningView[];
 }
-

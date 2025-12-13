@@ -162,4 +162,3 @@ export function Overview({ track, progress, onStart }: GamifiedOverviewProps) {
     </div>
   );
 }
-

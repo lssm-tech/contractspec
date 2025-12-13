@@ -24,7 +24,10 @@ export function parseImportedSpecNames(
 
     const name = base
       .replace(/\.(ts|js)$/, '')
-      .replace(/\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/, '');
+      .replace(
+        /\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+        ''
+      );
 
     if (name.length > 0) {
       imports.push(name);
@@ -33,5 +36,3 @@ export function parseImportedSpecNames(
 
   return Array.from(new Set(imports)).sort((a, b) => a.localeCompare(b));
 }
-
-

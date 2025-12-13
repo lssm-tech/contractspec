@@ -5,9 +5,7 @@ import { loadTypeScriptModule } from './module-loader';
 
 export type LoadedModule = Record<string, unknown>;
 
-export async function loadSpecModule(
-  filePath: string
-): Promise<LoadedModule> {
+export async function loadSpecModule(filePath: string): Promise<LoadedModule> {
   const runtime = detectRuntime();
   const absolute = resolve(process.cwd(), filePath);
 
@@ -29,5 +27,3 @@ export function pickSpecExport(mod: LoadedModule): unknown {
   if (values.length === 1) return values[0];
   return mod;
 }
-
-

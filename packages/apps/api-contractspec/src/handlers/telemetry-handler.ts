@@ -49,9 +49,7 @@ export async function trackMcpRequest(
 /**
  * Send event to PostHog.
  */
-async function sendToPostHog(
-  payload: Record<string, unknown>
-): Promise<void> {
+async function sendToPostHog(payload: Record<string, unknown>): Promise<void> {
   const response = await fetch(`${POSTHOG_HOST}/capture/`, {
     method: 'POST',
     headers: {
@@ -138,4 +136,3 @@ export const telemetryHandler = new Elysia().group('/api/telemetry', (app) =>
       enabled: !!POSTHOG_PROJECT_KEY,
     }))
 );
-

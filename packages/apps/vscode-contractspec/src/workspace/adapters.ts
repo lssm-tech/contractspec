@@ -39,4 +39,3 @@ export async function getWorkspaceConfig() {
   const cwd = getWorkspaceRoot();
   return loadWorkspaceConfig(adapters.fs, cwd);
 }
-

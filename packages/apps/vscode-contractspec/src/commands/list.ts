@@ -4,7 +4,10 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import { listSpecs, groupSpecsByType } from '@lssm/bundle.contractspec-workspace';
+import {
+  listSpecs,
+  groupSpecsByType,
+} from '@lssm/bundle.contractspec-workspace';
 
 /**
  * List all spec files in the workspace.
@@ -86,4 +89,3 @@ export async function listAllSpecs(
 function getFileName(filePath: string): string {
   return filePath.split(/[/\\]/).pop() ?? filePath;
 }
-

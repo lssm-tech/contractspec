@@ -15,4 +15,3 @@ export type {
   BadgeDisplayProps,
   ViewTabsProps,
 } from './types';
-

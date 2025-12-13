@@ -16,16 +16,17 @@ This bundle provides platform-agnostic services that can be used by:
 ```
 bundle.contractspec-workspace
 ├── services/          # Use-case implementations
-│   ├── build.ts       # Build artifacts from specs
-│   ├── create.ts      # Create new specs
-│   ├── validate.ts    # Validate specs and implementations
-│   ├── diff.ts        # Compare specs
+│   ├── build.ts       # Build deterministic artifacts from specs (templates-first)
+│   ├── validate.ts    # Validate spec structure (and, later, implementation checks)
+│   ├── diff.ts        # Compare specs (semantic diff)
 │   ├── deps.ts        # Analyze dependencies
-│   ├── sync.ts        # Sync all specs
-│   ├── watch.ts       # Watch for changes
-│   ├── clean.ts       # Clean generated files
-│   ├── test.ts        # Run test specs
-│   └── regenerator.ts # Regenerator daemon
+│   ├── list.ts        # Discover specs by glob
+│   └── config.ts      # Load + merge workspace config (.contractsrc.json)
+│   ├── sync.ts        # Sync all specs (validate/build across a workspace)
+│   ├── watch.ts       # Watch specs and trigger validate/build
+│   ├── clean.ts       # Safe-by-default cleanup of generated artifacts
+│   ├── test.ts        # Run TestSpec scenarios (pure runner wrapper)
+│   └── regenerator.ts # Regenerator service wrapper (no module loading)
 ├── adapters/          # Runtime adapters (Node defaults)
 │   ├── fs.ts          # Filesystem operations
 │   ├── git.ts         # Git operations
@@ -47,17 +48,29 @@ bundle.contractspec-workspace
 
 ```typescript
 import {
-  BuildService,
-  ValidateService,
-  DepsService,
   createNodeAdapters,
+  loadWorkspaceConfig,
+  buildSpec,
 } from '@lssm/bundle.contractspec-workspace';
 
 // Create adapters for Node.js runtime
 const adapters = createNodeAdapters();
 
-// Use services
-const buildService = new BuildService(adapters);
-const result = await buildService.buildSpec('./my-spec.contracts.ts');
+// Load workspace config (or use defaults)
+const config = await loadWorkspaceConfig(adapters.fs);
+
+// Build deterministic artifacts from a spec (templates-first)
+const result = await buildSpec(
+  './my-spec.contracts.ts',
+  { fs: adapters.fs, logger: adapters.logger },
+  config
+);
 ```
+
+## Notes
+
+- `sync` / `watch` accept optional overrides so CLI (or an extension) can inject
+  richer build/validate behavior while reusing the deterministic orchestration.
+- `test` and `regenerator` deliberately avoid TypeScript module loading; callers
+  pass already-loaded specs/contexts/rules/sinks.
 

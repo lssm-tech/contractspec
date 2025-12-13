@@ -155,9 +155,10 @@ async function buildTarget(
         };
       }
 
-      const kind = specInfo.kind === 'command' || specInfo.kind === 'query'
-        ? specInfo.kind
-        : 'command';
+      const kind =
+        specInfo.kind === 'command' || specInfo.kind === 'query'
+          ? specInfo.kind
+          : 'command';
 
       code = generateHandlerTemplate(specInfo.name ?? 'unknown', kind);
       outputPath = resolveOutputPath(
@@ -306,4 +307,3 @@ function toKebabCase(str: string): string {
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .toLowerCase();
 }
-

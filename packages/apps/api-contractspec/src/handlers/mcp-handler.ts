@@ -1,14 +1,9 @@
 import { Elysia } from 'elysia';
-import {
-  createCliMcpHandler,
-  createDocsMcpHandler,
-  createInternalMcpHandler,
-} from '@lssm/bundle.contractspec-studio/application';
+import { createDocsMcpHandler } from '@lssm/bundle.contractspec-studio/application';
 import { trackMcpRequest } from './telemetry-handler';
 
-const docsMcpHandler = createDocsMcpHandler('/api/mcp/docs');
-const cliMcpHandler = createCliMcpHandler('/api/mcp/cli');
-const internalMcpHandler = createInternalMcpHandler('/api/mcp/internal');
+// const cliMcpHandler = createCliMcpHandler('/mcp/cli');
+// const internalMcpHandler = createInternalMcpHandler('/mcp/internal');
 
 /**
  * Wrap an MCP handler with telemetry tracking.
@@ -19,7 +14,8 @@ function withTelemetry(
 ) {
   return async (request: Request): Promise<Response> => {
     const startTime = performance.now();
-    const clientId = request.headers.get('x-contractspec-client-id') ?? undefined;
+    const clientId =
+      request.headers.get('x-contractspec-client-id') ?? undefined;
     let method = 'unknown';
 
     try {
@@ -49,30 +45,6 @@ function withTelemetry(
   };
 }
 
-const mcpRoutesHandler = new Elysia()
-  .post('/docs', ({ request }) => withTelemetry('docs', docsMcpHandler)(request))
-  .post('/cli', ({ request }) => withTelemetry('cli', cliMcpHandler)(request))
-  .post('/internal', ({ request }) =>
-    withTelemetry('internal', internalMcpHandler)(request)
-  );
-
-const withApiPrefixHandler = new Elysia().group('/api/mcp', (app) =>
-  app.use(mcpRoutesHandler).get('*', () => {
-    return new Response(
-      'MCP endpoints are available at /api/mcp/docs, /api/mcp/cli, and /api/mcp/internal (using POST requests)',
-      { status: 200 }
-    );
-  })
-);
-const withoutApiPrefixHandler = new Elysia().group('/mcp', (app) =>
-  app.use(mcpRoutesHandler).get('*', () => {
-    return new Response(
-      'MCP endpoints are available at /mcp/docs, /mcp/cli, and /mcp/internal (using POST requests)',
-      { status: 200 }
-    );
-  })
-);
-
-export const mcpHandler = new Elysia()
-  .use(withApiPrefixHandler)
-  .use(withoutApiPrefixHandler);
+export const mcpHandler = new Elysia().use(createDocsMcpHandler('/mcp/docs'));
+// .use(cliMcpHandler)
+// .use(internalMcpHandler);

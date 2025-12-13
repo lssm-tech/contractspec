@@ -143,7 +143,7 @@ export const registryAddCommand = new Command('add')
         const fileName = generateFileName(item.name, ext);
         const target = join(absoluteOutDir, fileName);
         await writeFileSafe(target, filesWithContent[0].content);
-        // eslint-disable-next-line no-console
+
         console.log(
           chalk.green(`✅ Installed ${type}/${item.name} → ${target}`)
         );
@@ -164,20 +164,18 @@ export const registryAddCommand = new Command('add')
         await writeFileSafe(target, f.content);
       }
 
-      // eslint-disable-next-line no-console
       console.log(
         chalk.green(
           `✅ Installed ${type}/${item.name} (${filesWithContent.length} files) → ${multiRoot}`
         )
       );
-      // eslint-disable-next-line no-console
+
       console.log(
         chalk.gray(
           'Note: multi-file items are staged under .contractspec/registry/; you can move them into your app structure.'
         )
       );
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(
         chalk.red(`Registry add failed: ${getErrorMessage(error)}`)
       );

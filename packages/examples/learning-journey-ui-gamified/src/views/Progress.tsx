@@ -34,7 +34,7 @@ export function Progress({ track, progress }: LearningViewProps) {
     });
   });
 
-  const surfaceColors: Array<'green' | 'blue' | 'violet' | 'orange'> = [
+  const surfaceColors: ('green' | 'blue' | 'violet' | 'orange')[] = [
     'green',
     'blue',
     'violet',
@@ -178,4 +178,3 @@ export function Progress({ track, progress }: LearningViewProps) {
     </div>
   );
 }
-

@@ -18,6 +18,9 @@ import type { BlueprintTranslationCatalog } from '@lssm/lib.contracts/translatio
 import {
   validateSpecStructure,
   type WorkspaceConfig,
+  createNodeAdapters,
+  loadWorkspaceConfig,
+  validateImplementationFiles,
 } from '@lssm/bundle.contractspec-workspace';
 import { AgentOrchestrator } from '../../ai/agents/index';
 import { validateProvider } from '../../ai/providers';
@@ -143,15 +146,53 @@ export async function validateCommand(
   // 3. Handler validation (if requested)
   if (options.checkHandlers) {
     console.log(chalk.cyan('\n🔧 Checking handler implementation...'));
-    console.log(chalk.yellow('  ⚠️  Handler validation not yet implemented'));
-    // TODO: Implement handler checking
+    const adapters = createNodeAdapters({ silent: true });
+    const workspaceConfig = await loadWorkspaceConfig(adapters.fs);
+    const result = await validateImplementationFiles(
+      specFile,
+      { fs: adapters.fs },
+      workspaceConfig,
+      { checkHandlers: true, outputDir: workspaceConfig.outputDir }
+    );
+
+    if (!result.valid) {
+      hasErrors = true;
+      for (const err of result.errors) {
+        console.log(chalk.red(`  ❌ ${err}`));
+      }
+    } else {
+      console.log(chalk.green('  ✅ Handler check passed'));
+    }
+
+    for (const warning of result.warnings) {
+      console.log(chalk.yellow(`  ⚠️  ${warning}`));
+    }
   }
 
   // 4. Test validation (if requested)
   if (options.checkTests) {
     console.log(chalk.cyan('\n🧪 Checking test coverage...'));
-    console.log(chalk.yellow('  ⚠️  Test validation not yet implemented'));
-    // TODO: Implement test checking
+    const adapters = createNodeAdapters({ silent: true });
+    const workspaceConfig = await loadWorkspaceConfig(adapters.fs);
+    const result = await validateImplementationFiles(
+      specFile,
+      { fs: adapters.fs },
+      workspaceConfig,
+      { checkTests: true, outputDir: workspaceConfig.outputDir }
+    );
+
+    if (!result.valid) {
+      hasErrors = true;
+      for (const err of result.errors) {
+        console.log(chalk.red(`  ❌ ${err}`));
+      }
+    } else {
+      console.log(chalk.green('  ✅ Test check passed'));
+    }
+
+    for (const warning of result.warnings) {
+      console.log(chalk.yellow(`  ⚠️  ${warning}`));
+    }
   }
 
   // Summary

@@ -162,4 +162,3 @@ export function ProgressView({ track, progress }: LearningViewProps) {
 }
 
 export { ProgressView as Progress };
-

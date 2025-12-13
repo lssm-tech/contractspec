@@ -99,4 +99,3 @@ export function TipFeed({ items }: TipFeedProps) {
     </div>
   );
 }
-

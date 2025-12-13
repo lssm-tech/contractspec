@@ -99,4 +99,3 @@ export function useLearningProgress(track: LearningJourneyTrackSpec) {
     incrementStreak,
   };
 }
-

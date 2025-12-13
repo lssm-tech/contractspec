@@ -49,4 +49,3 @@ export const emitAllCrmOnboardingEvents = (
   crmOnboardingEvents.map((name) =>
     emitCrmOnboardingEvent(name, params, record)
   );
-

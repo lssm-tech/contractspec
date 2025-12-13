@@ -13,7 +13,6 @@ import type {
   ListJobsContract,
 } from '../contracts';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function registerServiceBusinessHandlers() {
   // Wire contract names to runtime handlers in the host app.
   // Example:

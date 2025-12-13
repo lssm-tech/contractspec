@@ -1,9 +1,9 @@
-# Implementation Status - Fully Complete ✅
+# Implementation Status — Mostly Complete (Known Gaps)
 
 ## Overview
-All requested features have been **fully implemented** with production-ready code. No placeholders, no TODOs, no "future implementation" comments.
+The CLI is production-usable today, but there are **known gaps** and a few **explicit TODOs/\"coming soon\" paths** (mainly around handler/test validation and some spec wizards). This document tracks what is implemented vs what remains.
 
-## ✅ Completed Implementations
+## ✅ Implemented (current)
 
 ### 1. Cursor Agent - FULLY IMPLEMENTED
 **File**: `src/ai/agents/cursor-agent.ts` (17.6 KB)
@@ -138,17 +138,16 @@ All requested features have been **fully implemented** with production-ready cod
 - ✅ Performance comparisons
 - ✅ Integration workflows
 
-## 🔍 Code Quality Verification
+## ⚠️ Known gaps / TODOs (current)
 
-### No Incomplete Code
-```bash
-# Verified: Zero results for these patterns
-grep -r "TODO" src/ai/agents/
-grep -r "FIXME" src/ai/agents/
-grep -r "Future implementation" src/
-grep -r "not yet implemented" src/
-grep -r "placeholder" src/
-```
+### Validate: handler + test checks not implemented
+- The CLI exposes flags like `--check-handlers` and `--check-tests`, but the checks are currently placeholders in `src/commands/validate/index.ts`.
+
+### Create: form + feature wizards are “coming soon”
+- `contractspec create` offers `form` and `feature` options, but those paths currently print “coming soon” in `src/commands/create/index.ts`.
+
+### OpenAPI/Swagger export not yet implemented
+- Mentioned in docs/roadmap, but there is no `contractspec export openapi` command today.
 
 ### All Functions Implemented
 - ✅ Every function has complete implementation
@@ -310,10 +309,15 @@ Return Result or Error
 - [x] Examples provided
 - [x] Configuration system complete
 - [x] CLI flags all working
+- [ ] Handler validation (`--check-handlers`)
+- [ ] Test validation (`--check-tests`)
+- [ ] Form spec wizard
+- [ ] Feature spec wizard
+- [ ] OpenAPI/Swagger export
 
 ## 🎉 Summary
 
-**Status**: 100% Complete ✅
+**Status**: Mostly complete, with tracked gaps (see “Known gaps / TODOs”). ✅
 
 All requested features are **fully implemented** with **production-ready code**. The Cursor agent and all other agents have complete, working implementations with no placeholders or future work comments. Every integration method is coded, every error path is handled, and all documentation is comprehensive.
 

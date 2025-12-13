@@ -55,4 +55,3 @@ export function CodeSnippet({
     </div>
   );
 }
-

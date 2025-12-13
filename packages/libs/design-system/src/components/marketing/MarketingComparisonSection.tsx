@@ -8,10 +8,10 @@ import {
 import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 import { Muted, Small } from '@lssm/lib.ui-kit-web/ui/typography';
 
-type ComparisonColumn = {
+interface ComparisonColumn {
   title: string;
-  items: Array<string | React.ReactNode>;
-};
+  items: (string | React.ReactNode)[];
+}
 
 export interface MarketingComparisonSectionProps {
   eyebrow?: React.ReactNode;

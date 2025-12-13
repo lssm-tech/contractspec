@@ -59,11 +59,11 @@ export function detectCycles(graph: ContractGraph): string[][] {
   return cycles;
 }
 
-export function findMissingDependencies(graph: ContractGraph): Array<{
+export function findMissingDependencies(graph: ContractGraph): {
   contract: string;
   missing: string[];
-}> {
-  const missing: Array<{ contract: string; missing: string[] }> = [];
+}[] {
+  const missing: { contract: string; missing: string[] }[] = [];
 
   for (const [name, node] of graph) {
     const absent = node.dependencies.filter((dep) => !graph.has(dep));
@@ -93,5 +93,3 @@ export function toDot(graph: ContractGraph): string {
   lines.push('}');
   return lines.join('\n');
 }
-
-

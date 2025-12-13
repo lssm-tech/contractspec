@@ -40,12 +40,16 @@ export const Spec = defineCommand({
 });
 `;
 
-    const diffs = computeSemanticDiff(a, 'x.contracts.ts', b, 'x.contracts.ts', {
-      breakingOnly: true,
-    });
+    const diffs = computeSemanticDiff(
+      a,
+      'x.contracts.ts',
+      b,
+      'x.contracts.ts',
+      {
+        breakingOnly: true,
+      }
+    );
     // owners change is not breaking in our heuristic
     expect(diffs.length).toBe(0);
   });
 });
-
-

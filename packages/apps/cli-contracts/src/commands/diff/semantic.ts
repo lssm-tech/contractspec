@@ -18,19 +18,27 @@ export function computeSemanticDiff(
     label: 'Spec type',
   });
 
-  compareScalar(diffs, 'name', a.name, b.name, { breaking: true, label: 'Name' });
+  compareScalar(diffs, 'name', a.name, b.name, {
+    breaking: true,
+    label: 'Name',
+  });
   compareScalar(diffs, 'version', a.version, b.version, {
     breaking: true,
     label: 'Version',
   });
-  compareScalar(diffs, 'kind', a.kind, b.kind, { breaking: true, label: 'Kind' });
+  compareScalar(diffs, 'kind', a.kind, b.kind, {
+    breaking: true,
+    label: 'Kind',
+  });
 
   compareScalar(diffs, 'stability', a.stability, b.stability, {
     breaking: isStabilityDowngrade(a, b),
     label: 'Stability',
   });
 
-  compareArray(diffs, 'owners', a.owners ?? [], b.owners ?? [], { label: 'Owners' });
+  compareArray(diffs, 'owners', a.owners ?? [], b.owners ?? [], {
+    label: 'Owners',
+  });
   compareArray(diffs, 'tags', a.tags ?? [], b.tags ?? [], { label: 'Tags' });
 
   compareStructuralHints(diffs, a, b);
@@ -86,8 +94,8 @@ function isStabilityDowngrade(a: SpecScanResult, b: SpecScanResult): boolean {
     stable: 2,
     deprecated: 3,
   };
-  const aValue = a.stability ? order[a.stability] ?? 0 : 0;
-  const bValue = b.stability ? order[b.stability] ?? 0 : 0;
+  const aValue = a.stability ? (order[a.stability] ?? 0) : 0;
+  const bValue = b.stability ? (order[b.stability] ?? 0) : 0;
   // Moving toward deprecated is effectively a breaking signal for consumers.
   return bValue > aValue;
 }
@@ -123,5 +131,3 @@ function compareStructuralHints(
     label: 'definition section presence',
   });
 }
-
-

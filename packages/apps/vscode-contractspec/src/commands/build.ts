@@ -6,7 +6,10 @@
  */
 
 import * as vscode from 'vscode';
-import { getWorkspaceAdapters, getWorkspaceConfig } from '../workspace/adapters';
+import {
+  getWorkspaceAdapters,
+  getWorkspaceConfig,
+} from '../workspace/adapters';
 import {
   buildSpec,
   type BuildTarget,
@@ -192,4 +195,3 @@ function isSpecFile(filePath: string): boolean {
 
   return specExtensions.some((ext) => filePath.endsWith(ext));
 }
-

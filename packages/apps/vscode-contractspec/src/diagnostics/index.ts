@@ -139,7 +139,7 @@ function findRelevantRange(
   const text = document.getText();
 
   // Try to match common error patterns and find relevant code
-  const patterns: Array<{ pattern: RegExp; search: string }> = [
+  const patterns: { pattern: RegExp; search: string }[] = [
     { pattern: /Missing (meta|io|policy) section/, search: 'export' },
     { pattern: /Missing defineCommand or defineQuery/, search: 'export const' },
     { pattern: /Missing.*name field/, search: 'name:' },
@@ -196,4 +196,3 @@ function isSpecFile(filePath: string): boolean {
 function getFileName(filePath: string): string {
   return filePath.split(/[/\\]/).pop() ?? filePath;
 }
-
