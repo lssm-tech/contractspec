@@ -104,7 +104,7 @@ export default function LoginPageClient() {
                 keyboard={{ kind: 'email' }}
                 placeholder="you@example.com"
                 value={formData.email}
-                onChange={(value) => updateField('email', value)}
+                onChange={(value) => updateField('email', value.target.value)}
                 required
               />
             </div>

@@ -5,6 +5,7 @@
  */
 export * from './events';
 export * from './tracks';
+export { default as example } from './example';
 
 import './docs';
 

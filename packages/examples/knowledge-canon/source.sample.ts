@@ -8,8 +8,8 @@ export const productCanonNotionSource: KnowledgeSourceConfig = {
     spaceVersion: 1,
     label: 'Product Canon (Notion)',
     sourceType: 'notion',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: '2026-01-01T00:00:00.000Z',
+    updatedAt: '2026-01-01T00:00:00.000Z',
   },
   config: {
     notionDatabaseId: 'xxxxxxxxxxxxxxxx',
@@ -20,15 +20,8 @@ export const productCanonNotionSource: KnowledgeSourceConfig = {
     cron: '0 * * * *',
   },
   lastSync: {
-    timestamp: new Date().toISOString(),
+    timestamp: '2026-01-01T00:00:00.000Z',
     success: true,
     itemsProcessed: 128,
   },
 };
-
-
-
-
-
-
-

@@ -189,7 +189,8 @@
       "name": "@lssm/app.worker-contractspec",
       "version": "1.0.50",
       "dependencies": {
-        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.jobs": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
       },
     },
     "packages/bundles/contractspec-studio": {
@@ -1213,7 +1214,9 @@
       "name": "@lssm/lib.jobs",
       "version": "1.0.0",
       "dependencies": {
+        "@aws-sdk/client-sqs": "^3.882.0",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "cron-parser": "^5.4.0",
         "zod": "^4.1.13",
@@ -1679,6 +1682,19 @@
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/modules/contractspec-examples": {
+      "name": "@lssm/module.contractspec-examples",
+      "version": "0.1.0",
+      "dependencies": {
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
       },
     },
@@ -2806,6 +2822,8 @@
     "@lssm/lib.workflow-composer": ["@lssm/lib.workflow-composer@workspace:packages/libs/workflow-composer"],
 
     "@lssm/module.audit-trail": ["@lssm/module.audit-trail@workspace:packages/modules/audit-trail"],
+
+    "@lssm/module.contractspec-examples": ["@lssm/module.contractspec-examples@workspace:packages/modules/contractspec-examples"],
 
     "@lssm/module.contractspec-workspace": ["@lssm/module.contractspec-workspace@workspace:packages/modules/contractspec-workspace"],
 

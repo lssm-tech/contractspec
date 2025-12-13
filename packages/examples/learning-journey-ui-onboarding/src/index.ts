@@ -6,3 +6,5 @@ export { Overview, Steps, Progress, Timeline } from './views';
 
 // Components
 export { StepChecklist, CodeSnippet, JourneyMap } from './components';
+export { default as example } from './example';
+import './docs';

@@ -8,6 +8,7 @@ export * from './handlers';
 export * from './presentations';
 export * from './state-machine';
 export * from './feature';
+export { default as example } from './example';
 import './docs';
 
 // Schema composition configuration

@@ -1,0 +1,57 @@
+{
+  "name": "@lssm/example.personalization",
+  "version": "0.1.0",
+  "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/personalization.docblock": "./src/docs/personalization.docblock.ts",
+    "./behavior-tracking": "./src/behavior-tracking.ts",
+    "./overlay-customization": "./src/overlay-customization.ts",
+    "./workflow-extension": "./src/workflow-extension.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.personalization": "workspace:*",
+    "@lssm/lib.overlay-engine": "workspace:*",
+    "@lssm/lib.workflow-composer": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/personalization.docblock": "./dist/docs/personalization.docblock.js",
+      "./behavior-tracking": "./dist/behavior-tracking.js",
+      "./overlay-customization": "./dist/overlay-customization.js",
+      "./workflow-extension": "./dist/workflow-extension.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

@@ -1,0 +1,49 @@
+{
+  "name": "@lssm/example.lifecycle-dashboard",
+  "version": "0.1.0",
+  "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/lifecycle-dashboard.docblock": "./src/docs/lifecycle-dashboard.docblock.ts",
+    "./snippets/page": "./src/snippets/page.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/lifecycle-dashboard.docblock": "./dist/docs/lifecycle-dashboard.docblock.js",
+      "./snippets/page": "./dist/snippets/page.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

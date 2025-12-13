@@ -1,0 +1,52 @@
+{
+  "name": "@lssm/example.ai-support-bot",
+  "version": "0.1.0",
+  "description": "AI support bot example: classify and resolve a support ticket using @lssm/lib.support-bot.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/ai-support-bot.docblock": "./src/docs/ai-support-bot.docblock.ts",
+    "./setup": "./src/setup.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.support-bot": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/ai-support-bot.docblock": "./dist/docs/ai-support-bot.docblock.js",
+      "./setup": "./dist/setup.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

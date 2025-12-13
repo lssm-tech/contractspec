@@ -20,6 +20,12 @@ import {
   StatCard,
   StatCardGroup,
 } from '@lssm/lib.design-system';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@lssm/lib.ui-kit-web/ui/tabs';
 import { type Deal, useDealList } from './hooks/useDealList';
 import { useDealMutations } from './hooks/useDealMutations';
 import { CrmPipelineBoard } from './CrmPipelineBoard';
@@ -38,7 +44,6 @@ function formatCurrency(value: number, currency = 'USD'): string {
 }
 
 export function CrmDashboard() {
-  const [activeTab, setActiveTab] = useState<Tab>('pipeline');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [isDealActionsOpen, setIsDealActionsOpen] = useState(false);
@@ -75,12 +80,6 @@ export function CrmDashboard() {
     },
     [mutations]
   );
-
-  const tabs: { id: Tab; label: string; icon: string }[] = [
-    { id: 'pipeline', label: 'Pipeline', icon: '📊' },
-    { id: 'list', label: 'All Deals', icon: '📋' },
-    { id: 'metrics', label: 'Metrics', icon: '📈' },
-  ];
 
   if (loading && !data) {
     return <LoaderBlock label="Loading CRM..." />;
@@ -129,42 +128,40 @@ export function CrmDashboard() {
         </StatCardGroup>
       )}
 
-      {/* Navigation Tabs */}
-      <nav className="bg-muted flex gap-1 rounded-lg p-1" role="tablist">
-        {tabs.map((tab) => (
-          <Button
-            key={tab.id}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-              activeTab === tab.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <span>{tab.icon}</span>
-            {tab.label}
-          </Button>
-        ))}
-      </nav>
+      {/* Tabs */}
+      <Tabs defaultValue="pipeline" className="w-full">
+        <TabsList>
+          <TabsTrigger value="pipeline">
+            <span className="mr-2">📊</span>
+            Pipeline
+          </TabsTrigger>
+          <TabsTrigger value="list">
+            <span className="mr-2">📋</span>
+            All Deals
+          </TabsTrigger>
+          <TabsTrigger value="metrics">
+            <span className="mr-2">📈</span>
+            Metrics
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Tab Content */}
-      <div className="min-h-[400px]" role="tabpanel">
-        {activeTab === 'pipeline' && (
+        <TabsContent value="pipeline" className="min-h-[400px]">
           <CrmPipelineBoard
             dealsByStage={dealsByStage}
             stages={stages}
             onDealClick={handleDealClick}
             onDealMove={handleDealMove}
           />
-        )}
-        {activeTab === 'list' && (
+        </TabsContent>
+
+        <TabsContent value="list" className="min-h-[400px]">
           <DealListTab data={data} onDealClick={handleDealClick} />
-        )}
-        {activeTab === 'metrics' && <MetricsTab stats={stats} />}
-      </div>
+        </TabsContent>
+
+        <TabsContent value="metrics" className="min-h-[400px]">
+          <MetricsTab stats={stats} />
+        </TabsContent>
+      </Tabs>
 
       {/* Create Deal Modal */}
       <CreateDealModal

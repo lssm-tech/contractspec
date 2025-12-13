@@ -8,6 +8,7 @@ export * from './contracts';
 export * from './events';
 export * from './handlers';
 export * from './feature';
+export { default as example } from './example';
 
 import './docs';
 

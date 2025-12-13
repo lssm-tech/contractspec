@@ -82,4 +82,5 @@ export { AnalyticsDashboardPresentations } from './presentations';
 
 // ============ Feature ============
 export { AnalyticsDashboardFeature } from './feature';
+export { default as example } from './example';
 import './docs';

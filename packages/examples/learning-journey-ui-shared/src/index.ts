@@ -15,3 +15,6 @@ export type {
   BadgeDisplayProps,
   ViewTabsProps,
 } from './types';
+
+export { default as example } from './example';
+import './docs';

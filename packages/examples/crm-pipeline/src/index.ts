@@ -7,6 +7,7 @@ export * from './events';
 export * from './handlers';
 export * from './presentations';
 export * from './feature';
+export { default as example } from './example';
 import './docs';
 
 // Schema composition configuration

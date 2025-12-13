@@ -16,7 +16,10 @@ cd packages/examples/lifecycle-dashboard
 bunx next dev
 ```
 
-Make sure you register the API routes in your actual Next.js app; the page assumes they exist.*** End Patch
+Make sure you register the API routes in your actual Next.js app; the page assumes they exist.
+
+This example is now packaged as `@lssm/example.lifecycle-dashboard` and ships the page as a deterministic snippet:
+- `@lssm/example.lifecycle-dashboard/snippets/page`
 
 
 

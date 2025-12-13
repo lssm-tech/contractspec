@@ -1,0 +1,55 @@
+{
+  "name": "@lssm/example.knowledge-canon",
+  "version": "0.1.0",
+  "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
+    "./agent": "./src/agent.ts",
+    "./blueprint": "./src/blueprint.ts",
+    "./tenant": "./src/tenant.ts",
+    "./source.sample": "./src/source.sample.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/knowledge-canon.docblock": "./dist/docs/knowledge-canon.docblock.js",
+      "./agent": "./dist/agent.js",
+      "./blueprint": "./dist/blueprint.js",
+      "./tenant": "./dist/tenant.js",
+      "./source.sample": "./dist/source.sample.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

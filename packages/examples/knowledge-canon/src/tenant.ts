@@ -1,0 +1,3 @@
+export { artisanKnowledgeTenantConfig } from '../tenant';
+
+

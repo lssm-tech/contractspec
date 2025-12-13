@@ -8,20 +8,5 @@ Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP
 bunx tsx packages/examples/lifecycle-cli/demo.ts
 ```
 
-Feel free to tweak the mock data in `demo.ts` to experiment with different lifecycle stages.*** End Patch
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Feel free to tweak the mock data in `demo.ts` (or `src/demo.ts`) to experiment with different lifecycle stages.
 

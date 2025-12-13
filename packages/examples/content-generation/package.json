@@ -1,0 +1,51 @@
+{
+  "name": "@lssm/example.content-generation",
+  "version": "0.1.0",
+  "description": "Content generation example using @lssm/lib.content-gen.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/content-generation.docblock": "./src/docs/content-generation.docblock.ts",
+    "./generate": "./src/generate.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.content-gen": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/content-generation.docblock": "./dist/docs/content-generation.docblock.js",
+      "./generate": "./dist/generate.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

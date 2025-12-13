@@ -1,0 +1,3 @@
+export { artisanKnowledgeBlueprint } from '../blueprint';
+
+
