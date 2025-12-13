@@ -28,5 +28,3 @@ export interface McpCtxFactories {
   /** Optional list of V2 presentation descriptors */
   presentationsV2?: PresentationDescriptorV2[];
 }
-
-

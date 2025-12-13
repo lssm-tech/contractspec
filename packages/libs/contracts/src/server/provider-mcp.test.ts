@@ -70,5 +70,3 @@ describe('createMcpServer (MCP resources)', () => {
     ).not.toThrow();
   });
 });
-
-

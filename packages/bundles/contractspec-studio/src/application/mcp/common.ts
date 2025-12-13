@@ -8,6 +8,34 @@ import type { PresentationDescriptorV2 } from '@lssm/lib.contracts/presentations
 import { mcp } from 'elysia-mcp';
 import { Logger } from '@lssm/lib.logger';
 
+function createConsoleLikeLogger(logger: Logger) {
+  const isDebug = process.env.CONTRACTSPEC_MCP_DEBUG === '1';
+
+  const toMessage = (args: unknown[]) =>
+    args.map((a) => (typeof a === 'string' ? a : JSON.stringify(a))).join(' ');
+
+  return {
+    log: (...args: unknown[]) => {
+      if (!isDebug) return;
+      logger.info(toMessage(args));
+    },
+    info: (...args: unknown[]) => {
+      if (!isDebug) return;
+      logger.info(toMessage(args));
+    },
+    warn: (...args: unknown[]) => {
+      logger.warn(toMessage(args));
+    },
+    error: (...args: unknown[]) => {
+      logger.error(toMessage(args));
+    },
+    debug: (...args: unknown[]) => {
+      if (!isDebug) return;
+      logger.debug(toMessage(args));
+    },
+  };
+}
+
 interface McpHttpHandlerConfig {
   path: string;
   serverName: string;
@@ -66,11 +94,17 @@ export function createMcpElysiaHandler({
   logger.info('Setting up MCP handler...');
   return mcp({
     basePath: path,
-    logger: console,
+    // Do NOT use console.* in production paths; adapt to console-like interface for the plugin.
+    logger: createConsoleLikeLogger(logger),
     serverInfo: {
       name: serverName,
       version: '1.0.0',
     },
+    // Cursor MCP HTTP clients may not persist Mcp-Session-Id headers reliably.
+    // Run in stateless + JSON response mode by default to maximize compatibility.
+    // Set CONTRACTSPEC_MCP_STATEFUL=1 to restore sessionful behavior.
+    stateless: process.env.CONTRACTSPEC_MCP_STATEFUL !== '1',
+    enableJsonResponse: true,
     capabilities: {
       tools: {},
       resources: {},
