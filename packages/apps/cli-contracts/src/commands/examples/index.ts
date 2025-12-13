@@ -2,7 +2,12 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import { getExample, listExamples, searchExamples, validateExamples } from '@lssm/module.contractspec-examples';
+import {
+  getExample,
+  listExamples,
+  searchExamples,
+  validateExamples,
+} from '@lssm/module.contractspec-examples';
 
 type WorkspaceExampleFolderCheck = {
   exampleDir: string;
@@ -18,7 +23,9 @@ export const examplesCommand = new Command('examples')
       .option('--json', 'Output JSON', false)
       .option('-q, --query <query>', 'Filter by query')
       .action((options) => {
-        const items = options.query ? searchExamples(String(options.query)) : [...listExamples()];
+        const items = options.query
+          ? searchExamples(String(options.query))
+          : [...listExamples()];
         if (options.json) {
           // eslint-disable-next-line no-console
           console.log(JSON.stringify(items, null, 2));
@@ -26,7 +33,9 @@ export const examplesCommand = new Command('examples')
         }
         for (const ex of items) {
           // eslint-disable-next-line no-console
-          console.log(`${chalk.cyan(ex.id)}  ${ex.title}  ${chalk.gray(ex.kind)}`);
+          console.log(
+            `${chalk.cyan(ex.id)}  ${ex.title}  ${chalk.gray(ex.kind)}`
+          );
         }
       })
   )
@@ -49,9 +58,14 @@ export const examplesCommand = new Command('examples')
   )
   .addCommand(
     new Command('init')
-      .description('Write a small workspace stub for an example (manifest + README)')
+      .description(
+        'Write a small workspace stub for an example (manifest + README)'
+      )
       .argument('<id>', 'Example id')
-      .option('-o, --out-dir <dir>', 'Output directory (default: ./.contractspec/examples/<id>)')
+      .option(
+        '-o, --out-dir <dir>',
+        'Output directory (default: ./.contractspec/examples/<id>)'
+      )
       .action(async (id: string, options) => {
         const ex = getExample(id);
         if (!ex) {
@@ -117,13 +131,23 @@ export const examplesCommand = new Command('examples')
           return;
         }
 
-        const repoRoot = path.resolve(process.cwd(), String(options.repoRoot ?? '.'));
-        const checks = await validateWorkspaceExamplesFolder(repoRoot, examples);
+        const repoRoot = path.resolve(
+          process.cwd(),
+          String(options.repoRoot ?? '.')
+        );
+        const checks = await validateWorkspaceExamplesFolder(
+          repoRoot,
+          examples
+        );
         const failures = checks.filter((c) => c.errors.length > 0);
 
         if (failures.length) {
           // eslint-disable-next-line no-console
-          console.error(chalk.red(`❌ Workspace example package validation failed (${failures.length})`));
+          console.error(
+            chalk.red(
+              `❌ Workspace example package validation failed (${failures.length})`
+            )
+          );
           for (const f of failures) {
             // eslint-disable-next-line no-console
             console.error(chalk.red(`\n${f.exampleDir}`));
@@ -137,13 +161,17 @@ export const examplesCommand = new Command('examples')
         }
 
         // eslint-disable-next-line no-console
-        console.log(chalk.green(`✅ Examples valid (${examples.length} manifests, ${checks.length} folders)`));
+        console.log(
+          chalk.green(
+            `✅ Examples valid (${examples.length} manifests, ${checks.length} folders)`
+          )
+        );
       })
   );
 
 async function validateWorkspaceExamplesFolder(
   repoRoot: string,
-  examples: readonly ReturnType<typeof listExamples>
+  examples: ReturnType<typeof listExamples>
 ): Promise<WorkspaceExampleFolderCheck[]> {
   const dir = path.join(repoRoot, 'packages', 'examples');
   let entries: string[] = [];
@@ -155,13 +183,16 @@ async function validateWorkspaceExamplesFolder(
     return [
       {
         exampleDir: dir,
-        errors: ['Missing packages/examples folder (run from repo root or pass --repo-root)'],
+        errors: [
+          'Missing packages/examples folder (run from repo root or pass --repo-root)',
+        ],
       },
     ];
   }
 
   const byPackageName = new Map<string, string>();
-  for (const ex of examples) byPackageName.set(ex.entrypoints.packageName, ex.id);
+  for (const ex of examples)
+    byPackageName.set(ex.entrypoints.packageName, ex.id);
 
   const results: WorkspaceExampleFolderCheck[] = [];
   for (const name of entries) {
@@ -169,42 +200,56 @@ async function validateWorkspaceExamplesFolder(
     const errors: string[] = [];
     const pkgJsonPath = path.join(exampleDir, 'package.json');
 
-    const pkg = await readJson<{ name?: string; exports?: Record<string, string> }>(pkgJsonPath);
+    const pkg = await readJson<{
+      name?: string;
+      exports?: Record<string, string>;
+    }>(pkgJsonPath);
     const packageName = pkg?.name;
     if (!packageName) errors.push('package.json missing "name"');
     if (packageName && !packageName.startsWith('@lssm/example.')) {
-      errors.push(`package name must start with "@lssm/example." (got ${packageName})`);
+      errors.push(
+        `package name must start with "@lssm/example." (got ${packageName})`
+      );
     }
 
     const exportsMap = pkg?.exports ?? {};
-    if (!exportsMap['./example']) errors.push('package.json must export "./example"');
-    if (!exportsMap['./docs']) errors.push('package.json must export "./docs" (DocBlocks entry)');
+    if (!exportsMap['./example'])
+      errors.push('package.json must export "./example"');
+    if (!exportsMap['./docs'])
+      errors.push('package.json must export "./docs" (DocBlocks entry)');
 
     const srcExample = path.join(exampleDir, 'src', 'example.ts');
     if (!(await fileExists(srcExample))) errors.push('missing src/example.ts');
 
     const docsIndex = path.join(exampleDir, 'src', 'docs', 'index.ts');
-    if (!(await fileExists(docsIndex))) errors.push('missing src/docs/index.ts');
+    if (!(await fileExists(docsIndex)))
+      errors.push('missing src/docs/index.ts');
 
     const docblocks = await globDocBlocks(path.join(exampleDir, 'src', 'docs'));
     if (docblocks.length === 0) errors.push('missing src/docs/*.docblock.ts');
 
     if (packageName && !byPackageName.has(packageName)) {
-      errors.push('not present in EXAMPLE_REGISTRY (manifest not wired into examples module)');
+      errors.push(
+        'not present in EXAMPLE_REGISTRY (manifest not wired into examples module)'
+      );
     }
 
     results.push({ exampleDir, packageName, errors });
   }
 
   // Ensure every registry example maps to a workspace folder (excluding non-workspace/built-ins).
-  const folderPackageNames = new Set(results.map((r) => r.packageName).filter(Boolean) as string[]);
+  const folderPackageNames = new Set(
+    results.map((r) => r.packageName).filter(Boolean) as string[]
+  );
   for (const ex of examples) {
     if (!ex.entrypoints.packageName.startsWith('@lssm/example.')) continue;
     if (!folderPackageNames.has(ex.entrypoints.packageName)) {
       results.push({
         exampleDir: dir,
         packageName: ex.entrypoints.packageName,
-        errors: [`registry example "${ex.id}" points to missing workspace package ${ex.entrypoints.packageName}`],
+        errors: [
+          `registry example "${ex.id}" points to missing workspace package ${ex.entrypoints.packageName}`,
+        ],
       });
     }
   }
@@ -240,5 +285,3 @@ async function globDocBlocks(docsDir: string): Promise<string[]> {
     return [];
   }
 }
-
-
