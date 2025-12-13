@@ -2,21 +2,17 @@
 
 import { useMemo, useState } from 'react';
 import {
-  Input,
   Button,
   ButtonLink,
-  MarketingLayout,
-  MarketingSection,
-  Link as DsLink,
-} from '@lssm/lib.design-system';
-import { VStack, HStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import {
+  Input,
   MarketingCard,
   MarketingCardContent,
   MarketingCardDescription,
   MarketingCardHeader,
   MarketingCardTitle,
+  MarketingSection,
 } from '@lssm/lib.design-system';
+import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 import {
   listTemplates,
   type TemplateDefinition,
@@ -30,7 +26,7 @@ function matchesQuery(t: TemplateDefinition, query: string): boolean {
   return hay.includes(q);
 }
 
-export function TemplatesPage() {
+export function TemplatesMarketingPage() {
   const [query, setQuery] = useState('');
 
   const templates = useMemo(() => listTemplates(), []);
@@ -40,21 +36,21 @@ export function TemplatesPage() {
   );
 
   return (
-    <MarketingLayout>
+    <>
       <MarketingSection tone="default">
         <VStack as="header" gap="lg" align="center">
           <VStack gap="sm" align="center">
-            <DsLink href="/docs" variant="muted">
+            <ButtonLink href="/docs" variant="ghost">
               Docs
-            </DsLink>
-            <DsLink href="/sandbox" variant="muted">
+            </ButtonLink>
+            <ButtonLink href="/sandbox" variant="ghost">
               Open Sandbox
-            </DsLink>
+            </ButtonLink>
           </VStack>
           <VStack gap="sm" align="center">
-            <DsLink href="/templates" variant="primary">
+            <ButtonLink href="/templates" variant="default">
               Templates
-            </DsLink>
+            </ButtonLink>
           </VStack>
         </VStack>
       </MarketingSection>
@@ -62,9 +58,9 @@ export function TemplatesPage() {
       <MarketingSection tone="muted">
         <VStack gap="lg">
           <VStack gap="sm">
-            <DsLink href="/templates" variant="muted">
+            <ButtonLink href="/templates" variant="ghost">
               Browse all examples
-            </DsLink>
+            </ButtonLink>
           </VStack>
           <HStack gap="md" align="center" justify="between" wrap="wrap">
             <Input
@@ -97,22 +93,18 @@ export function TemplatesPage() {
                   <VStack gap="md">
                     <HStack gap="sm" wrap="wrap">
                       {t.tags.slice(0, 6).map((tag) => (
-                        <DsLink
+                        <ButtonLink
                           key={`${t.id}-${tag}`}
                           href={`/templates?tag=${encodeURIComponent(tag)}`}
-                          variant="muted"
+                          variant="ghost"
                         >
                           {tag}
-                        </DsLink>
+                        </ButtonLink>
                       ))}
                     </HStack>
                     <HStack gap="sm" justify="between" wrap="wrap">
                       <ButtonLinkToSandbox templateId={t.id} />
-                      <Button
-                        variant="outline"
-                        onPress={() => void 0}
-                        isDisabled
-                      >
+                      <Button variant="outline" onClick={() => void 0} disabled>
                         Install to Studio (soon)
                       </Button>
                     </HStack>
@@ -123,7 +115,7 @@ export function TemplatesPage() {
           </HStack>
         </VStack>
       </MarketingSection>
-    </MarketingLayout>
+    </>
   );
 }
 

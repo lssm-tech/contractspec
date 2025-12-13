@@ -1,5 +1,8 @@
 import type { LifecycleStage } from '@lssm/lib.lifecycle';
-import type { LifecycleAssessmentRequest } from '../services/assessment-service';
+import type {
+  LifecycleAssessmentRequest,
+  LifecycleAssessmentResponse,
+} from '../services/assessment-service';
 import { LifecycleAssessmentService } from '../services/assessment-service';
 
 export interface HttpRequest<
@@ -11,7 +14,7 @@ export interface HttpRequest<
   query?: Record<string, string | undefined>;
 }
 
-export interface HttpResponse<T = unknown> {
+export interface HttpResponse<T = Record<string, unknown>> {
   status: number;
   body: T;
 }
@@ -21,7 +24,7 @@ export const createLifecycleHandlers = (
 ) => ({
   runAssessment: async (
     req: HttpRequest<LifecycleAssessmentRequest>
-  ): Promise<HttpResponse> => {
+  ): Promise<HttpResponse<LifecycleAssessmentResponse>> => {
     const payload = req.body ?? {};
     const result = await service.runAssessment(payload);
     return { status: 200, body: result };

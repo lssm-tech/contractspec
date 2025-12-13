@@ -1,5 +1,5 @@
-import { Logger } from './logger';
-import { LogContext } from './context';
+import { Logger } from './logger.node';
+import { LogContext } from './context.node';
 import type { ContextData } from './types';
 import { Elysia } from 'elysia';
 

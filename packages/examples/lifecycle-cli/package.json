@@ -7,10 +7,10 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./example": "./src/example.ts",
+    "./demo": "./src/demo.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/lifecycle-cli.docblock": "./src/docs/lifecycle-cli.docblock.ts",
-    "./demo": "./src/demo.ts",
+    "./example": "./src/example.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -40,13 +40,12 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./example": "./dist/example.js",
+      "./demo": "./dist/demo.js",
       "./docs": "./dist/docs/index.js",
       "./docs/lifecycle-cli.docblock": "./dist/docs/lifecycle-cli.docblock.js",
-      "./demo": "./dist/demo.js",
+      "./example": "./dist/example.js",
       "./*": "./*"
     }
-  }
+  },
+  "module": "./dist/index.js"
 }
-
-

@@ -1,97 +1,25 @@
-import { AsyncLocalStorage } from 'node:async_hooks';
-import type { ContextData, TraceContext } from './types';
+/**
+ * Shared context types / interface.
+ *
+ * Runtime-specific implementations live in:
+ * - `./context.node.ts` (Node.js / Bun)
+ * - `./context.browser.ts` (Browser, via Zone.js)
+ *
+ * This file must remain free of runtime-specific imports so it can be safely
+ * referenced in any compilation context.
+ */
+export type { ContextData, TraceContext } from './types';
 
-interface LogContextData {
-  context: ContextData;
-  trace?: TraceContext;
-}
-
-export class LogContext {
-  private static instance: LogContext;
-  private storage: AsyncLocalStorage<LogContextData>;
-
-  constructor() {
-    this.storage = new AsyncLocalStorage<LogContextData>();
-  }
-
-  static getInstance(): LogContext {
-    if (!LogContext.instance) {
-      LogContext.instance = new LogContext();
-    }
-    return LogContext.instance;
-  }
-
-  /**
-   * Run a function with a new context
-   */
-  run<T>(context: ContextData, fn: () => T): T {
-    const contextData: LogContextData = {
-      context: { ...context },
-      trace: this.getCurrentTrace(),
-    };
-    return this.storage.run(contextData, fn) as T;
-  }
-
-  /**
-   * Run a function with an extended context (merges with current)
-   */
-  extend<T>(additionalContext: Partial<ContextData>, fn: () => T): T {
-    const currentContext = this.getContext();
-    const mergedContext: ContextData = {
-      ...currentContext,
-      ...additionalContext,
-    };
-    return this.run(mergedContext, fn);
-  }
-
-  /**
-   * Set context data for the current execution context
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set(key: string, value: any): void {
-    const current = this.storage.getStore();
-    if (current) {
-      current.context[key] = value;
-    }
-  }
-
-  /**
-   * Get a specific context value
-   */
-  get<T>(key: string): T | undefined {
-    const current = this.storage.getStore();
-    return current?.context?.[key];
-  }
-
-  /**
-   * Get all context data
-   */
-  getContext(): ContextData {
-    const current = this.storage.getStore();
-    return current?.context || {};
-  }
-
-  /**
-   * Set trace context
-   */
-  setTrace(trace: TraceContext): void {
-    const current = this.storage.getStore();
-    if (current) {
-      current.trace = trace;
-    }
-  }
-
-  /**
-   * Get current trace context
-   */
-  getCurrentTrace(): TraceContext | undefined {
-    const current = this.storage.getStore();
-    return current?.trace;
-  }
-  /**
-   * Generate a unique ID for requests/operations
-   */
-  generateId(): string {
-    return crypto.randomUUID();
-  }
+export interface LogContextApi {
+  run<T>(context: import('./types').ContextData, fn: () => T): T;
+  extend<T>(
+    additionalContext: Partial<import('./types').ContextData>,
+    fn: () => T
+  ): T;
+  set(key: string, value: unknown): void;
+  get<T>(key: string): T | undefined;
+  getContext(): import('./types').ContextData;
+  setTrace(trace: import('./types').TraceContext): void;
+  getCurrentTrace(): import('./types').TraceContext | undefined;
+  generateId(): string;
 }

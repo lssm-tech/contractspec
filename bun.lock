@@ -776,6 +776,7 @@
         "@lssm/example.learning-patterns": "workspace:*",
         "@lssm/example.locale-jurisdiction-gate": "workspace:*",
         "@lssm/example.versioned-knowledge-base": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.feature-flags": "workspace:*",
         "@lssm/lib.files": "workspace:*",
         "@lssm/lib.identity-rbac": "workspace:*",
@@ -1372,6 +1373,9 @@
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
       "version": "1.12.0",
+      "dependencies": {
+        "zone.js": "^0.15.0",
+      },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -7155,6 +7159,8 @@
     "zod": ["zod@4.1.13", "", {}, "sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig=="],
 
     "zod-to-json-schema": ["zod-to-json-schema@3.25.0", "", { "peerDependencies": { "zod": "^3.25 || ^4" } }, "sha512-HvWtU2UG41LALjajJrML6uQejQhNJx+JBO9IflpSja4R03iNWfKXrj6W2h7ljuLyc1nKS+9yDyL/9tD1U/yBnQ=="],
+
+    "zone.js": ["zone.js@0.15.1", "", {}, "sha512-XE96n56IQpJM7NAoXswY3XRLcWFW83xe0BiAOeMD7K5k5xecOeul3Qcpx6GqEeeHNkW5DWL5zOyTbEfB4eti8w=="],
 
     "zustand": ["zustand@5.0.9", "", { "peerDependencies": { "@types/react": ">=18.0.0", "immer": ">=9.0.6", "react": ">=18.0.0", "use-sync-external-store": ">=1.2.0" }, "optionalPeers": ["@types/react", "immer", "react", "use-sync-external-store"] }, "sha512-ALBtUj0AfjJt3uNRQoL1tL2tMvj6Gp/6e39dnfT6uzpelGru8v1tPOGBzayOWbPJvujM8JojDk3E1LxeFisBNg=="],
 

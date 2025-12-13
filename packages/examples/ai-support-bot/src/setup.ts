@@ -4,10 +4,12 @@ import { AutoResponder } from '@lssm/lib.support-bot/bot';
 import type { KnowledgeAnswer } from '@lssm/lib.knowledge/query/service';
 import type { SupportTicket } from '@lssm/lib.support-bot/types';
 import { Logger, LogLevel } from '@lssm/lib.logger';
+import type { LoggerConfig } from '@lssm/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as LoggerConfig['environment']) || 'development',
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
@@ -45,5 +47,3 @@ export async function runAiSupportBotExample(): Promise<void> {
     emailDraft: { subject: draft.subject, body: draft.body },
   });
 }
-
-

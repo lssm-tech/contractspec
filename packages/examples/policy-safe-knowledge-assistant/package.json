@@ -33,6 +33,7 @@
     "@lssm/example.versioned-knowledge-base": "workspace:*",
     "@lssm/example.kb-update-pipeline": "workspace:*",
     "@lssm/example.learning-patterns": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.identity-rbac": "workspace:*",
     "@lssm/lib.jobs": "workspace:*",
     "@lssm/lib.feature-flags": "workspace:*",

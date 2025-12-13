@@ -8,7 +8,7 @@ import { useSpecContent } from './hooks/useSpecContent';
 
 interface SpecEditorProps {
   projectId: string;
-  type: 'CAPABILITY' | 'WORKFLOW' | 'COMPONENT' | 'INTEGRATION';
+  type?: 'CAPABILITY' | 'DATAVIEW' | 'WORKFLOW' | 'POLICY' | 'COMPONENT';
   content: string;
   onChange: (content: string) => void;
   metadata?: Record<string, unknown>;

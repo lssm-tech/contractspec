@@ -4,10 +4,12 @@ import {
 } from '@lssm/bundle.lifecycle-managed';
 import { CapitalPhase, CompanyPhase, ProductPhase } from '@lssm/lib.lifecycle';
 import { Logger, LogLevel } from '@lssm/lib.logger';
+import type { LoggerConfig } from '@lssm/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as LoggerConfig['environment']) || 'development',
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
@@ -61,5 +63,3 @@ export async function runLifecycleCliDemo(): Promise<void> {
     libraries: response.body.libraries,
   });
 }
-
-
