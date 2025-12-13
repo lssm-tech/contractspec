@@ -12,9 +12,7 @@ function isEngineRenderOutput(
   x: unknown
 ): x is { mimeType?: string; body: string } {
   if (!x || typeof x !== 'object') return false;
-  return (
-    'body' in x && typeof (x as { body?: unknown }).body === 'string'
-  );
+  return 'body' in x && typeof (x as { body?: unknown }).body === 'string';
 }
 
 export function registerMcpPresentations(
@@ -43,9 +41,7 @@ export function registerMcpPresentations(
               ? p.content.content
               : `See resource: ${p.content.resourceUri ?? ''}`;
             return {
-              contents: [
-                { uri: baseUri, mimeType: 'text/markdown', text },
-              ],
+              contents: [{ uri: baseUri, mimeType: 'text/markdown', text }],
             };
           }
           if (p.content.kind === 'data') {
@@ -92,9 +88,7 @@ export function registerMcpPresentations(
         const key = `${baseKey}${v.ext}`;
         const uri = `${baseUri}${v.ext}`;
 
-        ctx.logger.info(
-          `Registering presentation resource ${uri} for ${key}`
-        );
+        ctx.logger.info(`Registering presentation resource ${uri} for ${key}`);
 
         server.registerResource(
           key,
@@ -117,11 +111,7 @@ export function registerMcpPresentations(
                   {
                     uri,
                     mimeType: 'application/json',
-                    text: JSON.stringify(
-                      jsonSchemaForPresentation(p),
-                      null,
-                      2
-                    ),
+                    text: JSON.stringify(jsonSchemaForPresentation(p), null, 2),
                   },
                 ],
               };
@@ -244,5 +234,3 @@ export function registerMcpPresentations(
     }
   }
 }
-
-

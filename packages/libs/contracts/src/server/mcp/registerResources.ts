@@ -5,7 +5,12 @@ import type { McpCtxFactories } from './mcpTypes';
 import { Buffer } from 'node:buffer';
 
 function mcpResourceMeta(resource: {
-  meta: { title: string; description?: string; mimeType: string; tags?: string[] };
+  meta: {
+    title: string;
+    description?: string;
+    mimeType: string;
+    tags?: string[];
+  };
 }) {
   return {
     title: resource.meta.title,
@@ -59,5 +64,3 @@ export function registerMcpResources(
     ctx.logger.info('Registered resource: ' + resource.meta.uriTemplate);
   }
 }
-
-

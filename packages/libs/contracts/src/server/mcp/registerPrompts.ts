@@ -44,23 +44,20 @@ export function registerMcpPrompts(
           link,
         });
 
-        const messages: GetPromptResult['messages'] = parts.map((p) =>
-          p.type === ('text' as const)
-            ? {
-                role: 'assistant',
-                content: { type: 'text' as const, text: p.text },
-              }
-            : {
-                role: 'assistant',
-                content: {
-                  type: 'text' as const,
+        // MCP expects each message's `content` to be an array of content blocks.
+        // We keep a single assistant message and encode all parts as text blocks.
+        const contents: GetPromptResult['messages'][number]['content'] =
+          parts.map((p) =>
+            p.type === 'text'
+              ? { type: 'text', text: p.text }
+              : {
+                  type: 'text',
                   text: `See resource: ${p.title ?? p.uri}\nURI: ${p.uri}`,
-                },
-              }
-        );
+                }
+          );
 
         return {
-          messages: messages,
+          messages: [{ role: 'assistant', content: contents }],
           description: prompt.meta.description,
         };
       }

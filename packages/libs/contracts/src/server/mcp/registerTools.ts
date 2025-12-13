@@ -20,7 +20,6 @@ export function registerMcpTools(
       toolName,
       {
         description: spec.meta.description,
-        // MCP SDK expects Zod (v3/v4) schemas, not JSON Schema objects.
         inputSchema: spec.io.input?.getZod(),
       },
       async (args: unknown): Promise<CallToolResult> => {
@@ -37,5 +36,3 @@ export function registerMcpTools(
     );
   }
 }
-
-
