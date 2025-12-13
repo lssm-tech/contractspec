@@ -23,6 +23,8 @@ import type {
 } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import z from 'zod';
+import { Logger } from '@lssm/lib.logger';
+import type { ReadResourceTemplateCallback } from '@modelcontextprotocol/sdk/dist/esm/server/mcp';
 
 /**
  * Creates a unified Model Context Protocol (MCP) server exposing operations, resources, and prompts.
@@ -49,6 +51,8 @@ export function createMcpServer(
   resources: ResourceRegistry,
   prompts: PromptRegistry,
   ctxFactories: {
+    logger: Logger;
+
     /** Factory for tool execution context (e.g., system actor) */
     toolCtx: () => HandlerCtx;
     /** Factory for prompt rendering context */
@@ -69,6 +73,8 @@ export function createMcpServer(
     presentationsV2?: PresentationDescriptorV2[];
   }
 ) {
+  ctxFactories.logger.info('Creating MCP server');
+
   /* ---------- Tools (commands) ---------- */
   for (const spec of ops.listSpecs()) {
     if (spec.meta.kind !== 'command') continue; // expose only commands as tools
@@ -103,29 +109,42 @@ export function createMcpServer(
 
   /* ---------- Resources (queries/views) ---------- */
   for (const resource of resources.listTemplates()) {
-    // server.registerPrompt(
-    //   'review-code',
-    //   {
-    //     title: 'Code Review',
-    //     description: 'Review code for best practices and potential issues',
-    //     argsSchema: { code: z.string() as any },
-    //   },
-    //   ({ code }: { code?: string }) => ({
-    //     messages: [
-    //       {
-    //         role: 'user',
-    //         content: {
-    //           type: 'text',
-    //           text: `Please review this code:\n\n${code}`,
-    //         },
-    //       },
-    //     ],
-    //   })
-    // );
+    ctxFactories.logger.info(
+      'Registering resource: ' + resource.meta.uriTemplate
+    );
 
-    (server as any).registerResource(
+    const readResourceTemplateCallback: ReadResourceTemplateCallback = async (
+      _uri,
+      args,
+      _req
+    ) => {
+      const ctx = ctxFactories.resourceCtx();
+      const out = await resource.resolve(args, ctx);
+      if (typeof out.data === 'string') {
+        return {
+          contents: [
+            {
+              uri: out.uri,
+              mimeType: out.mimeType ?? resource.meta.mimeType,
+              text: out.data,
+            },
+          ],
+        };
+      }
+      return {
+        contents: [
+          {
+            uri: out.uri,
+            mimeType: out.mimeType ?? resource.meta.mimeType,
+            blob: out.data.toString(),
+          },
+        ],
+      };
+    };
+
+    server.registerResource(
       resource.meta.uriTemplate.split(':')[0]!,
-      new ResourceTemplate(resource.meta.uriTemplate, {} as any),
+      new ResourceTemplate(resource.meta.uriTemplate, {}),
       {
         // name: resource.meta.title,
         description: resource.meta.description,
@@ -133,30 +152,10 @@ export function createMcpServer(
           // metadata: `${op.meta.name}.input.v${op.meta.version}`,
         }),
       },
-      async (_uri: any, args: any, _req: any) => {
-        const ctx = ctxFactories.resourceCtx();
-        const out = await resource.resolve(args, ctx);
-        if (typeof out.data === 'string') {
-          return {
-            contents: [
-              {
-                uri: out.uri,
-                mimeType: out.mimeType ?? resource.meta.mimeType,
-                text: out.data,
-              },
-            ],
-          };
-        }
-        return {
-          contents: [
-            {
-              uri: out.uri,
-              mimeType: out.mimeType ?? resource.meta.mimeType,
-              blob: out.data.toString(),
-            },
-          ],
-        };
-      }
+      readResourceTemplateCallback
+    );
+    ctxFactories.logger.info(
+      'Registered resource: ' + resource.meta.uriTemplate
     );
   }
 
@@ -237,6 +236,9 @@ export function createMcpServer(
       for (const v of variants) {
         const key = `${baseKey}${v.ext}`;
         const uri = `${baseUri}${v.ext}`;
+        ctxFactories.logger.info(
+          `Registering presentation resource ${uri} for ${key}`
+        );
         (server as any).registerResource(
           key,
           new ResourceTemplate(uri, {} as any),
@@ -307,6 +309,9 @@ export function createMcpServer(
       const baseKey = `presentation.${d.meta.name.replace(/\./g, '_')}.v${d.meta.version}`;
       const baseUri = `presentation://${d.meta.name}/v${d.meta.version}`;
 
+      ctxFactories.logger.info(
+        `Registering presentation descriptor ${baseUri} for ${baseKey}`
+      );
       (server as any).registerResource(
         baseKey,
         new ResourceTemplate(baseUri, {} as any),

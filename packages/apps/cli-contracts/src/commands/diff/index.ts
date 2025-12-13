@@ -15,9 +15,7 @@ export const diffCommand = new Command('diff')
   .option('--json', 'Output as JSON for scripting')
   .option('--baseline <ref>', 'Compare spec1 against git ref (branch/commit)')
   .action(async (spec1, spec2, options) => {
-    const baseline: string | undefined = options.baseline as
-      | string
-      | undefined;
+    const baseline: string | undefined = options.baseline as string | undefined;
 
     try {
       const adapters = createNodeAdapters({ silent: true });
@@ -27,7 +25,6 @@ export const diffCommand = new Command('diff')
       // Check if first file exists
       const exists = await adapters.fs.exists(aPath);
       if (!exists) {
-        // eslint-disable-next-line no-console
         console.error(chalk.red(`File not found: ${aPath}`));
         process.exit(1);
       }
@@ -39,7 +36,6 @@ export const diffCommand = new Command('diff')
         });
 
         if (options.json) {
-          // eslint-disable-next-line no-console
           console.log(
             JSON.stringify(
               {
@@ -54,17 +50,17 @@ export const diffCommand = new Command('diff')
           return;
         }
 
-        // eslint-disable-next-line no-console
         console.log(
-          chalk.bold(`\n📋 Semantic Comparison: ${result.spec1} ↔ ${result.spec2}`)
+          chalk.bold(
+            `\n📋 Semantic Comparison: ${result.spec1} ↔ ${result.spec2}`
+          )
         );
-        // eslint-disable-next-line no-console
+
         console.log(chalk.gray(`Differences: ${result.differences.length}`));
-        // eslint-disable-next-line no-console
+
         console.log('');
 
         if (result.differences.length === 0) {
-          // eslint-disable-next-line no-console
           console.log(chalk.green('✅ No semantic differences found'));
           return;
         }
@@ -88,15 +84,14 @@ export const diffCommand = new Command('diff')
                   ? chalk.red
                   : chalk.yellow;
 
-          // eslint-disable-next-line no-console
           console.log(`${icon} ${color(diff.path)}: ${diff.description}`);
           if (typeof diff.oldValue !== 'undefined') {
-            // eslint-disable-next-line no-console
             console.log(`  ${chalk.red('-')} ${JSON.stringify(diff.oldValue)}`);
           }
           if (typeof diff.newValue !== 'undefined') {
-            // eslint-disable-next-line no-console
-            console.log(`  ${chalk.green('+')} ${JSON.stringify(diff.newValue)}`);
+            console.log(
+              `  ${chalk.green('+')} ${JSON.stringify(diff.newValue)}`
+            );
           }
         }
 
@@ -116,7 +111,6 @@ export const diffCommand = new Command('diff')
       } else {
         const existsB = await adapters.fs.exists(bPath);
         if (!existsB) {
-          // eslint-disable-next-line no-console
           console.error(chalk.red(`File not found: ${bPath}`));
           process.exit(1);
         }
@@ -129,7 +123,6 @@ export const diffCommand = new Command('diff')
         : diffText(aPath, actualBPath);
 
       if (options.json) {
-        // eslint-disable-next-line no-console
         console.log(
           JSON.stringify(
             { spec1: aPath, spec2: actualBPath, diff: result.output },
@@ -140,14 +133,12 @@ export const diffCommand = new Command('diff')
         return;
       }
 
-      // eslint-disable-next-line no-console
       console.log(chalk.bold(`\n📋 Comparing: ${aPath} ↔ ${actualBPath}\n`));
-      // eslint-disable-next-line no-console
+
       console.log(
         result.output.trim().length ? result.output : chalk.gray('(no output)')
       );
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(
         chalk.red(`Error comparing specs: ${getErrorMessage(error)}`)
       );

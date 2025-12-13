@@ -34,5 +34,3 @@ export async function discoverSpecFiles(
   // Deduplicate + stable ordering
   return Array.from(new Set(all)).sort((a, b) => a.localeCompare(b));
 }
-
-

@@ -120,4 +120,3 @@ export const studioOnboardingContracts = {
   RecordStudioOnboardingEvent,
   track: studioGettingStartedTrack,
 };
-

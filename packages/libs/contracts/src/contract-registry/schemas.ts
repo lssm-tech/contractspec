@@ -16,6 +16,11 @@ const ContractRegistryItemTypeValues = [
   'contractspec:template',
   'contractspec:integration',
   'contractspec:data-view',
+  'contractspec:migration',
+  'contractspec:telemetry',
+  'contractspec:experiment',
+  'contractspec:app-config',
+  'contractspec:knowledge',
 ] as const satisfies readonly ContractRegistryItemType[];
 
 export const ContractRegistryItemTypeSchema = z.enum(

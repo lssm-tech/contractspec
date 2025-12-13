@@ -1,11 +1,20 @@
-// worker-main.ts
 import { registerAllJobs, ScalewaySqsJobQueue } from '@lssm/lib.contracts/jobs';
+import { Logger, LogLevel } from '@lssm/lib.logger';
+
+const logger = new Logger({
+  level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
+  environment: process.env.NODE_ENV || 'development',
+  enableTracing: true,
+  enableTiming: true,
+  enableContext: true,
+  enableColors: process.env.NODE_ENV !== 'production',
+});
 
 async function main() {
   const queueUrl = process.env.SCALEWAY_SQS_QUEUE_URL;
 
   if (!queueUrl) {
-    console.error('SCALEWAY_SQS_QUEUE_URL is not set');
+    logger.error('worker.missing_env', { key: 'SCALEWAY_SQS_QUEUE_URL' });
     process.exit(1);
   }
 
@@ -13,11 +22,11 @@ async function main() {
 
   registerAllJobs(queue);
 
-  console.log('[worker] Starting main SQS worker');
+  logger.info('worker.starting', { queue: 'scaleway-sqs' });
   queue.start();
 
   const shutdown = async (signal: string) => {
-    console.log(`[worker] Caught ${signal}, stopping worker...`);
+    logger.info('worker.stopping', { signal });
     await queue.stop();
     process.exit(0);
   };
@@ -31,6 +40,8 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('[worker] Fatal startup error', err);
+  logger.error('worker.fatal_startup_error', {
+    error: err instanceof Error ? err.message : String(err),
+  });
   process.exit(1);
 });

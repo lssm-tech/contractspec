@@ -106,7 +106,10 @@ function matchNumberField(code: string, field: string): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function matchStringArrayField(code: string, field: string): string[] | undefined {
+function matchStringArrayField(
+  code: string,
+  field: string
+): string[] | undefined {
   const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*\\[([\\s\\S]*?)\\]`);
   const match = code.match(regex);
   if (!match?.[1]) return undefined;
@@ -114,7 +117,9 @@ function matchStringArrayField(code: string, field: string): string[] | undefine
   const inner = match[1];
   const items = Array.from(inner.matchAll(/['"]([^'"]+)['"]/g))
     .map((m) => m[1])
-    .filter((value): value is string => typeof value === 'string' && value.length > 0);
+    .filter(
+      (value): value is string => typeof value === 'string' && value.length > 0
+    );
 
   return items.length > 0 ? items : undefined;
 }
@@ -131,5 +136,3 @@ function isStability(value: string | null): value is Stability {
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-
-

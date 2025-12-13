@@ -35,24 +35,20 @@ export const registrySearchCommand = new Command('search')
       });
 
       if (options.json) {
-        // eslint-disable-next-line no-console
         console.log(JSON.stringify(matches, null, 2));
         return;
       }
 
-      // eslint-disable-next-line no-console
       console.log(chalk.bold(`\n🔎 Matches (${matches.length})\n`));
       matches
         .slice()
         .sort((a, b) => a.name.localeCompare(b.name))
         .forEach((item) => {
-          // eslint-disable-next-line no-console
           console.log(`${chalk.cyan(item.type)} ${chalk.bold(item.name)}`);
-          // eslint-disable-next-line no-console
+
           console.log(`  ${chalk.gray(item.description)}`);
         });
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(
         chalk.red(`Registry search failed: ${getErrorMessage(error)}`)
       );

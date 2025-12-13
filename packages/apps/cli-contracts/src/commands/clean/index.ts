@@ -25,7 +25,9 @@ export const cleanCommand = new Command('clean')
       if (requiresConfirmation) {
         if (!process.stdout.isTTY) {
           console.error(
-            chalk.red('❌ Refusing to run git clean without --force in non-interactive mode.')
+            chalk.red(
+              '❌ Refusing to run git clean without --force in non-interactive mode.'
+            )
           );
           process.exit(1);
         }
@@ -40,14 +42,18 @@ export const cleanCommand = new Command('clean')
         }
       }
 
-      console.log(chalk.bold('🧹 Using git clean for comprehensive cleanup...'));
+      console.log(
+        chalk.bold('🧹 Using git clean for comprehensive cleanup...')
+      );
       try {
         const output = dryRun ? '--dry-run' : '';
         execSync(`git clean -fdx ${output}`, { stdio: 'inherit' });
         console.log(chalk.green('✅ Git clean completed'));
         return;
       } catch (error) {
-        console.error(chalk.red(`❌ Git clean failed: ${getErrorMessage(error)}`));
+        console.error(
+          chalk.red(`❌ Git clean failed: ${getErrorMessage(error)}`)
+        );
         return;
       }
     }
@@ -61,11 +67,7 @@ export const cleanCommand = new Command('clean')
 
     // Safe-by-default: only known build artifacts / generated folders.
     // Never delete arbitrary TS/TSX under src without strong suffix constraints.
-    const basePatterns = [
-      'generated/**',
-      'dist/**',
-      '.turbo/**',
-    ];
+    const basePatterns = ['generated/**', 'dist/**', '.turbo/**'];
 
     const outputDirPatterns = [
       `${outputDir.replace(/\\/g, '/')}/handlers/**/*.handler.ts`,
@@ -95,13 +97,14 @@ export const cleanCommand = new Command('clean')
       try {
         const files = await glob(pattern, {
           ignore: ['node_modules/**'],
-          dot: true
+          dot: true,
         });
 
         for (const file of files) {
           try {
             const stats = statSync(file);
-            const ageInDays = (Date.now() - stats.mtime.getTime()) / (1000 * 60 * 60 * 24);
+            const ageInDays =
+              (Date.now() - stats.mtime.getTime()) / (1000 * 60 * 60 * 24);
 
             // Check age filter
             if (olderThan && ageInDays < parseInt(olderThan)) {
@@ -109,7 +112,11 @@ export const cleanCommand = new Command('clean')
             }
 
             if (dryRun) {
-              console.log(chalk.gray(`Would remove: ${file} (${(stats.size / 1024).toFixed(1)} KB, ${ageInDays.toFixed(1)} days old)`));
+              console.log(
+                chalk.gray(
+                  `Would remove: ${file} (${(stats.size / 1024).toFixed(1)} KB, ${ageInDays.toFixed(1)} days old)`
+                )
+              );
             } else {
               rmSync(file, { recursive: true, force: true });
               console.log(
@@ -123,10 +130,11 @@ export const cleanCommand = new Command('clean')
 
             totalFiles++;
             totalSize += stats.size;
-
           } catch (error) {
             console.log(
-              chalk.yellow(`⚠️  Could not process ${file}: ${getErrorMessage(error)}`)
+              chalk.yellow(
+                `⚠️  Could not process ${file}: ${getErrorMessage(error)}`
+              )
             );
           }
         }
@@ -141,9 +149,17 @@ export const cleanCommand = new Command('clean')
 
     console.log('');
     if (dryRun) {
-      console.log(chalk.cyan(`📊 Would clean ${totalFiles} files (${(totalSize / 1024 / 1024).toFixed(2)} MB)`));
+      console.log(
+        chalk.cyan(
+          `📊 Would clean ${totalFiles} files (${(totalSize / 1024 / 1024).toFixed(2)} MB)`
+        )
+      );
     } else {
-      console.log(chalk.green(`✅ Cleaned ${totalFiles} files (${(totalSize / 1024 / 1024).toFixed(2)} MB)`));
+      console.log(
+        chalk.green(
+          `✅ Cleaned ${totalFiles} files (${(totalSize / 1024 / 1024).toFixed(2)} MB)`
+        )
+      );
     }
 
     if (totalFiles === 0) {

@@ -46,4 +46,3 @@ export const emitAllStudioOnboardingEvents = (
   studioOnboardingEvents.map((name) =>
     emitStudioOnboardingEvent(name, params, record)
   );
-

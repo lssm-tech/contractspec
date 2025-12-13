@@ -5,7 +5,8 @@ import type {
 } from '@lssm/lib.contracts';
 import { createMcpServer } from '@lssm/lib.contracts';
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts/presentations.v2';
-import { createMcpHandler } from 'mcp-handler';
+import { mcp } from 'elysia-mcp';
+import { Logger } from '@lssm/lib.logger';
 
 interface McpHttpHandlerConfig {
   path: string;
@@ -14,6 +15,7 @@ interface McpHttpHandlerConfig {
   resources: ResourceRegistry;
   prompts: PromptRegistry;
   presentationsV2?: PresentationDescriptorV2[];
+  logger: Logger;
 }
 
 const baseCtx = {
@@ -21,7 +23,39 @@ const baseCtx = {
   decide: async () => ({ effect: 'allow' as const }),
 };
 
-export function createMcpHttpHandler({
+// export function createMcpNextjsHandler({
+//   path,
+//   serverName,
+//   ops,
+//   resources,
+//   prompts,
+//   presentationsV2,
+// }: McpHttpHandlerConfig) {
+//   return createMcpHandler(
+//     (server) => {
+//       createMcpServer(server, ops, resources, prompts, {
+//         toolCtx: () => baseCtx,
+//         promptCtx: () => ({ locale: 'en' }),
+//         resourceCtx: () => ({ locale: 'en' }),
+//         presentationsV2,
+//       });
+//     },
+//     {
+//       serverInfo: {
+//         name: serverName,
+//         version: '1.0.0',
+//       },
+//     },
+//     {
+//       // basePath: path,
+//       disableSse: true,
+//       verboseLogs: true,
+//     }
+//   );
+// }
+
+export function createMcpElysiaHandler({
+  logger,
   path,
   serverName,
   ops,
@@ -29,24 +63,29 @@ export function createMcpHttpHandler({
   prompts,
   presentationsV2,
 }: McpHttpHandlerConfig) {
-  return createMcpHandler(
-    (server) => {
+  logger.info('Setting up MCP handler...');
+  return mcp({
+    basePath: path,
+    logger: console,
+    serverInfo: {
+      name: serverName,
+      version: '1.0.0',
+    },
+    capabilities: {
+      tools: {},
+      resources: {},
+      prompts: {},
+      logging: {},
+    },
+    setupServer: (server) => {
+      logger.info('Setting up MCP server...');
       createMcpServer(server, ops, resources, prompts, {
+        logger,
         toolCtx: () => baseCtx,
         promptCtx: () => ({ locale: 'en' }),
         resourceCtx: () => ({ locale: 'en' }),
         presentationsV2,
       });
     },
-    {
-      serverInfo: {
-        name: serverName,
-        version: '1.0.0',
-      },
-    },
-    {
-      streamableHttpEndpoint: path,
-      disableSse: true,
-    }
-  );
+  });
 }

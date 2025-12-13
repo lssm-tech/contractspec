@@ -18,3 +18,4 @@ import './tech/workflows/overview.docblock';
 import './tech/mcp-endpoints.docblock';
 import './tech/vscode-extension.docblock';
 import './tech/telemetry-ingest.docblock';
+import './tech/contracts/openapi-export.docblock';

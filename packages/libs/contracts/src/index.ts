@@ -6,6 +6,7 @@ export * from './registry';
 export * from './contract-registry';
 export * from './install';
 export * from './jsonschema';
+export * from './openapi';
 export * from './prompt';
 export * from './promptRegistry';
 export * from './spec';

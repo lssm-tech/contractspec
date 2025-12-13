@@ -3,15 +3,16 @@ import {
   defineCommand,
   definePrompt,
   defineResourceTemplate,
+  installOp,
   PromptRegistry,
   ResourceRegistry,
   SpecRegistry,
-  installOp,
 } from '@lssm/lib.contracts';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import z from 'zod';
 import type { DocPresentationRoute } from '@lssm/lib.contracts/docs';
-import { createMcpHttpHandler } from './common';
+import { createMcpElysiaHandler } from './common';
+import { appLogger } from '../../infrastructure/elysia/logger';
 
 const DOC_OWNERS = ['@contractspec'];
 const DOC_TAGS = ['docs', 'mcp'];
@@ -240,7 +241,8 @@ function buildDocOps(routes: DocPresentationRoute[]) {
 export function createDocsMcpHandler(path = '/api/mcp/docs') {
   const routes = defaultDocRegistry.list();
 
-  return createMcpHttpHandler({
+  return createMcpElysiaHandler({
+    logger: appLogger,
     path,
     serverName: 'contractspec-docs-mcp',
     ops: buildDocOps(routes),

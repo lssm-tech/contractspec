@@ -10,5 +10,3 @@ export interface SemanticDiffItem {
   oldValue?: unknown;
   newValue?: unknown;
 }
-
-

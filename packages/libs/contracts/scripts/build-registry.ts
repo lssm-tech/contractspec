@@ -1,33 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-type RegistryFile = { path: string; type: string };
-type RegistryItem = {
-  name: string;
-  type:
-    | 'contractspec:operation'
-    | 'contractspec:event'
-    | 'contractspec:presentation'
-    | 'contractspec:form'
-    | 'contractspec:feature'
-    | 'contractspec:workflow'
-    | 'contractspec:template'
-    | 'contractspec:integration'
-    | 'contractspec:data-view';
-  version: number;
-  title: string;
-  description: string;
-  meta: { stability: 'stable' | 'beta' | 'experimental' | 'deprecated' | 'idea' | 'in_creation'; owners: string[]; tags: string[] };
-  files: RegistryFile[];
-};
-
-type RegistryManifest = {
-  $schema: string;
-  name: string;
-  homepage: string;
-  items: RegistryItem[];
-};
+import { ContractRegistryManifestSchema } from '../src/contract-registry/schemas';
+import type {
+  ContractRegistryItem,
+  ContractRegistryManifest,
+} from '../src/contract-registry/types';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const pkgRoot = path.resolve(scriptDir, '..'); // packages/libs/contracts
@@ -67,7 +45,7 @@ function main() {
     });
   }
 
-  const items: RegistryItem[] = templateIds.map((id) => ({
+  const items: ContractRegistryItem[] = templateIds.map((id) => ({
     name: id,
     type: 'contractspec:template',
     version: 1,
@@ -86,12 +64,13 @@ function main() {
     ],
   }));
 
-  const manifest: RegistryManifest = {
+  const manifest: ContractRegistryManifest = {
     $schema: 'https://lssm.dev/schema/contractspec-registry.json',
     name: 'contractspec',
     homepage: 'https://lssm.dev',
     items,
   };
+  ContractRegistryManifestSchema.parse(manifest);
 
   const outPath = path.join(pkgRoot, 'registry/registry.json');
   writeJson(outPath, manifest);

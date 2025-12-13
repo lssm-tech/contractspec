@@ -8,7 +8,7 @@ import {
 import { getErrorMessage } from '../../utils/errors';
 import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
 
-type ListJsonRow = {
+interface ListJsonRow {
   file: string;
   type: string;
   name?: string;
@@ -18,7 +18,7 @@ type ListJsonRow = {
   tags?: string[];
   version?: number;
   kind?: string;
-};
+}
 
 export const listCommand = new Command('list')
   .description('List all contract specs in the project')
@@ -76,7 +76,9 @@ export const listCommand = new Command('list')
                 ? (meta as Record<string, unknown>)
                 : undefined;
             const name =
-              typeof maybeMeta?.name === 'string' ? maybeMeta.name : baseRow.name;
+              typeof maybeMeta?.name === 'string'
+                ? maybeMeta.name
+                : baseRow.name;
             const description =
               typeof maybeMeta?.description === 'string'
                 ? maybeMeta.description
@@ -106,7 +108,6 @@ export const listCommand = new Command('list')
                   : baseRow.kind,
             });
           } catch (error) {
-            // eslint-disable-next-line no-console
             console.warn(
               chalk.yellow(
                 `Warning: Could not deep-load ${scan.filePath}: ${getErrorMessage(error)}`
@@ -143,17 +144,19 @@ export const listCommand = new Command('list')
         const stable = filteredSpecs
           .slice()
           .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
-        // eslint-disable-next-line no-console
+
         console.log(JSON.stringify(stable, null, 2));
       } else {
         if (filteredSpecs.length === 0) {
-          // eslint-disable-next-line no-console
-          console.log(chalk.yellow('No contract specs found matching criteria.'));
+          console.log(
+            chalk.yellow('No contract specs found matching criteria.')
+          );
           return;
         }
 
-        // eslint-disable-next-line no-console
-        console.log(chalk.bold(`\n📋 Contract Specs (${filteredSpecs.length})\n`));
+        console.log(
+          chalk.bold(`\n📋 Contract Specs (${filteredSpecs.length})\n`)
+        );
 
         const stable = filteredSpecs
           .slice()
@@ -170,32 +173,29 @@ export const listCommand = new Command('list')
             (spec.stability ? stabilityColors[spec.stability] : undefined) ??
             chalk.white;
 
-          // eslint-disable-next-line no-console
           console.log(
             `${stabilityColor((spec.stability ?? 'unknown').toUpperCase())} ${chalk.cyan(
               spec.type
             )} ${chalk.bold(spec.name ?? '(no name)')}`
           );
-          // eslint-disable-next-line no-console
+
           console.log(`  📁 ${chalk.gray(spec.file)}`);
 
           if (spec.description) {
-            // eslint-disable-next-line no-console
             console.log(`  📝 ${chalk.gray(spec.description)}`);
           }
 
           if (spec.owners?.length) {
-            // eslint-disable-next-line no-console
             console.log(`  👥 ${chalk.gray(spec.owners.join(', '))}`);
           }
 
-          // eslint-disable-next-line no-console
           console.log('');
         });
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(chalk.red(`Error listing specs: ${getErrorMessage(error)}`));
+      console.error(
+        chalk.red(`Error listing specs: ${getErrorMessage(error)}`)
+      );
       process.exit(1);
     }
   });

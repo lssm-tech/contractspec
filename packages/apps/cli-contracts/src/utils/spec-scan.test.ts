@@ -4,11 +4,15 @@ import { inferSpecTypeFromFilePath, scanSpecSource } from './spec-scan';
 describe('spec-scan', () => {
   describe('inferSpecTypeFromFilePath', () => {
     it('detects operation specs from .contracts suffix', () => {
-      expect(inferSpecTypeFromFilePath('src/foo.contracts.ts')).toBe('operation');
+      expect(inferSpecTypeFromFilePath('src/foo.contracts.ts')).toBe(
+        'operation'
+      );
     });
 
     it('detects telemetry specs from .telemetry suffix', () => {
-      expect(inferSpecTypeFromFilePath('src/foo.telemetry.ts')).toBe('telemetry');
+      expect(inferSpecTypeFromFilePath('src/foo.telemetry.ts')).toBe(
+        'telemetry'
+      );
     });
   });
 
@@ -45,5 +49,3 @@ export const MySpec = defineCommand({
     });
   });
 });
-
-

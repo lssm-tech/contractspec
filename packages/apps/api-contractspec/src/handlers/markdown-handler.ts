@@ -8,10 +8,8 @@ import {
 
 export const markdownHandler = new Elysia().get(
   '/mdx/*',
-  async ({ params, query }) => {
+  async ({ params }) => {
     try {
-      console.info('params', params);
-
       let route = '/' + params['*'] + '/';
 
       // Handle .md or .mdx extension
@@ -24,7 +22,7 @@ export const markdownHandler = new Elysia().get(
         route = '/';
       }
 
-      console.info('route', route);
+      appLogger.debug('markdown.render.request', { route });
 
       // Get presentation descriptor
       const descriptor = getPresentationForRoute(route);
