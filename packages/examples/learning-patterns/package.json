@@ -1,0 +1,54 @@
+{
+  "name": "@lssm/example.learning-patterns",
+  "version": "0.0.1",
+  "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/learning-patterns.docblock": "./src/docs/learning-patterns.docblock.ts",
+    "./events": "./src/events.ts",
+    "./tracks": "./src/tracks/index.ts",
+    "./tracks/ambient-coach": "./src/tracks/ambient-coach.ts",
+    "./tracks/drills": "./src/tracks/drills.ts",
+    "./tracks/quests": "./src/tracks/quests.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/module.learning-journey": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/learning-patterns.docblock": "./dist/docs/learning-patterns.docblock.js",
+      "./events": "./dist/events.js",
+      "./tracks": "./dist/tracks/index.js",
+      "./tracks/ambient-coach": "./dist/tracks/ambient-coach.js",
+      "./tracks/drills": "./dist/tracks/drills.js",
+      "./tracks/quests": "./dist/tracks/quests.js",
+      "./*": "./*"
+    }
+  }
+}

@@ -6,7 +6,13 @@ import {
   SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import type { EnqueueOptions, Job, JobHandler, JobQueue } from './queue';
+import {
+  DEFAULT_RETRY_POLICY,
+  type EnqueueOptions,
+  type Job,
+  type JobHandler,
+  type JobQueue,
+} from './queue';
 
 interface ScalewaySqsQueueConfig {
   queueUrl: string;
@@ -86,15 +92,21 @@ export class ScalewaySqsJobQueue implements JobQueue {
     return {
       id,
       type: jobType,
+      version: 1,
       payload,
       status: 'pending',
+      priority: options.priority ?? 0,
       attempts: 0,
+      maxRetries: options.maxRetries ?? DEFAULT_RETRY_POLICY.maxRetries,
       createdAt: now,
       updatedAt: now,
     };
   }
 
-  register<TPayload>(jobType: string, handler: JobHandler<TPayload>): void {
+  register<TPayload, TResult = void>(
+    jobType: string,
+    handler: JobHandler<TPayload, TResult>
+  ): void {
     if (this.handlers.has(jobType)) {
       throw new Error(`Handler already registered for job type "${jobType}"`);
     }
@@ -178,9 +190,12 @@ export class ScalewaySqsJobQueue implements JobQueue {
           const job: Job = {
             id: envelope.id,
             type: envelope.type,
+            version: 1,
             payload: envelope.payload,
             status: 'pending',
+            priority: 0,
             attempts,
+            maxRetries: DEFAULT_RETRY_POLICY.maxRetries,
             createdAt: now,
             updatedAt: now,
           };

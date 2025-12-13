@@ -8,8 +8,8 @@
  */
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
-import { PowensOpenBankingProvider } from '@lssm/lib.contracts/integrations/providers/impls/powens-openbanking';
-import type { PowensEnvironment } from '@lssm/lib.contracts/integrations/providers/impls/powens-client';
+import { PowensOpenBankingProvider } from '@lssm/integration.providers-impls/impls/powens-openbanking';
+import type { PowensEnvironment } from '@lssm/integration.providers-impls/impls/powens-client';
 
 export async function powensWebhookHandler(req: NextRequest) {
   const signature = req.headers.get('x-powens-signature');

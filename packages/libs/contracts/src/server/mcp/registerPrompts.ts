@@ -44,17 +44,19 @@ export function registerMcpPrompts(
           link,
         });
 
-        // MCP expects each message's `content` to be an array of content blocks.
-        // We keep a single assistant message and encode all parts as text blocks.
-        const contents: GetPromptResult['messages'][number]['content'] =
-          parts.map((p) =>
+        // MCP SDK types represent message content as a single content block.
+        // We keep a single assistant message and concatenate all parts as text.
+        const text = parts
+          .map((p) =>
             p.type === 'text'
-              ? { type: 'text', text: p.text }
-              : {
-                  type: 'text',
-                  text: `See resource: ${p.title ?? p.uri}\nURI: ${p.uri}`,
-                }
-          );
+              ? p.text
+              : `See resource: ${p.title ?? p.uri}\nURI: ${p.uri}`
+          )
+          .join('\n\n');
+        const contents: GetPromptResult['messages'][number]['content'] = {
+          type: 'text',
+          text,
+        };
 
         return {
           messages: [{ role: 'assistant', content: contents }],

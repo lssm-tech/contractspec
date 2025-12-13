@@ -4,6 +4,9 @@ export * from './entities';
 // Queue implementations
 export * from './queue';
 
+// Job handlers (runtime wiring)
+export * from './handlers';
+
 // Scheduler
 export * from './scheduler';
 

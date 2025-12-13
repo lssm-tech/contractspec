@@ -9,5 +9,6 @@ export * from './workflow-system';
 export * from './marketplace';
 export * from './integration-hub';
 export * from './analytics-dashboard';
+export * from './policy-safe-knowledge-assistant';
 export * from './shared';
 // Learning journey components moved to @lssm/example.learning-journey-registry/ui

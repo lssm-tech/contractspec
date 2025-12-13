@@ -1,4 +1,4 @@
-import { registerAllJobs, ScalewaySqsJobQueue } from '@lssm/lib.contracts/jobs';
+import { registerAllJobs, ScalewaySqsJobQueue } from '@lssm/lib.jobs';
 import { Logger, LogLevel } from '@lssm/lib.logger';
 
 const logger = new Logger({
@@ -18,7 +18,7 @@ async function main() {
     process.exit(1);
   }
 
-  const queue = new ScalewaySqsJobQueue({ queueUrl });
+  const queue = new ScalewaySqsJobQueue({ queueUrl, logger });
 
   registerAllJobs(queue);
 

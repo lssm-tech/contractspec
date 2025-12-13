@@ -88,6 +88,9 @@ export class LocalRuntimeServices {
       case 'learning-journey-quest-challenges':
         // Learning journey examples are event-driven; no data seeding required.
         break;
+      case 'policy-safe-knowledge-assistant':
+        await this.seedPolicySafeKnowledgeAssistant(projectId);
+        break;
       case 'service-business-os':
       case 'team-hub':
       case 'wealth-snapshot':
@@ -337,6 +340,60 @@ export class LocalRuntimeServices {
         ]
       );
     }
+  }
+
+  private async seedPolicySafeKnowledgeAssistant(projectId: string): Promise<void> {
+    // Deterministic seed so the demo works offline and is reproducible.
+    const existing = await this.db.exec(
+      `SELECT projectId FROM psa_user_context WHERE projectId = ? LIMIT 1`,
+      [projectId]
+    );
+    if (existing.length) return;
+
+    const ruleId = 'psa_rule_eu_tax';
+    const rvId = 'psa_rv_eu_tax_v1';
+    const snapshotId = 'psa_snap_eu_2026_01_01';
+
+    await this.db.run(
+      `INSERT INTO psa_user_context (projectId, locale, jurisdiction, allowedScope, kbSnapshotId)
+       VALUES (?, ?, ?, ?, ?)`,
+      [projectId, 'en-GB', 'EU', 'education_only', snapshotId]
+    );
+
+    await this.db.run(
+      `INSERT INTO psa_rule (id, projectId, jurisdiction, topicKey) VALUES (?, ?, ?, ?)`,
+      [ruleId, projectId, 'EU', 'tax_reporting']
+    );
+
+    await this.db.run(
+      `INSERT INTO psa_rule_version (id, ruleId, jurisdiction, topicKey, version, content, status, sourceRefsJson, approvedBy, approvedAt, createdAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        rvId,
+        ruleId,
+        'EU',
+        'tax_reporting',
+        1,
+        'EU: Reporting obligations v1 (seeded)',
+        'approved',
+        JSON.stringify([{ sourceDocumentId: 'src_eu_seed_v1', excerpt: 'seeded excerpt' }]),
+        'seed_expert',
+        new Date('2026-01-01T00:00:00.000Z').toISOString(),
+        new Date('2026-01-01T00:00:00.000Z').toISOString(),
+      ]
+    );
+
+    await this.db.run(
+      `INSERT INTO psa_snapshot (id, jurisdiction, asOfDate, includedRuleVersionIdsJson, publishedAt)
+       VALUES (?, ?, ?, ?, ?)`,
+      [
+        snapshotId,
+        'EU',
+        new Date('2026-01-01T00:00:00.000Z').toISOString(),
+        JSON.stringify([rvId]),
+        new Date('2026-01-01T00:00:00.000Z').toISOString(),
+      ]
+    );
   }
 
   private async seedSaasBoilerplate(projectId: string): Promise<void> {

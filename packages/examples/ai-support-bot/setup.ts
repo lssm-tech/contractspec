@@ -1,7 +1,7 @@
 import { TicketResolver } from '@lssm/lib.support-bot/rag';
 import { TicketClassifier } from '@lssm/lib.support-bot/tickets';
 import { AutoResponder } from '@lssm/lib.support-bot/bot';
-import type { KnowledgeAnswer } from '@lssm/lib.contracts/knowledge/query/service';
+import type { KnowledgeAnswer } from '@lssm/lib.knowledge/query/service';
 import type { SupportTicket } from '@lssm/lib.support-bot/types';
 
 async function main() {

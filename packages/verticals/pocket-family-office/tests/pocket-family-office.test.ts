@@ -20,10 +20,10 @@ import {
   registerEmailThreadsKnowledgeSpace,
   registerFinancialOverviewKnowledgeSpace,
 } from '@lssm/lib.contracts/knowledge/spaces';
-import { DocumentProcessor } from '@lssm/lib.contracts/knowledge/ingestion/document-processor';
-import { EmbeddingService } from '@lssm/lib.contracts/knowledge/ingestion/embedding-service';
-import { VectorIndexer } from '@lssm/lib.contracts/knowledge/ingestion/vector-indexer';
-import { KnowledgeQueryService } from '@lssm/lib.contracts/knowledge/query/service';
+import { DocumentProcessor } from '@lssm/lib.knowledge/ingestion/document-processor';
+import { EmbeddingService } from '@lssm/lib.knowledge/ingestion/embedding-service';
+import { VectorIndexer } from '@lssm/lib.knowledge/ingestion/vector-indexer';
+import { KnowledgeQueryService } from '@lssm/lib.knowledge/query/service';
 import type {
   EmbeddingDocument,
   EmbeddingProvider,

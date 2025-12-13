@@ -587,6 +587,72 @@ const DEFAULT_MIGRATIONS: string[] = [
     updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
   );
 `,
+  // ============ Policy-safe Knowledge Assistant (template) ============
+  `
+  CREATE TABLE IF NOT EXISTS psa_user_context (
+    projectId TEXT PRIMARY KEY,
+    locale TEXT NOT NULL,
+    jurisdiction TEXT NOT NULL,
+    allowedScope TEXT NOT NULL,
+    kbSnapshotId TEXT
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS psa_rule (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    jurisdiction TEXT NOT NULL,
+    topicKey TEXT NOT NULL
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS psa_rule_version (
+    id TEXT PRIMARY KEY,
+    ruleId TEXT NOT NULL,
+    jurisdiction TEXT NOT NULL,
+    topicKey TEXT NOT NULL,
+    version INTEGER NOT NULL,
+    content TEXT NOT NULL,
+    status TEXT NOT NULL,
+    sourceRefsJson TEXT NOT NULL,
+    approvedBy TEXT,
+    approvedAt TEXT,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ruleId) REFERENCES psa_rule(id)
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS psa_snapshot (
+    id TEXT PRIMARY KEY,
+    jurisdiction TEXT NOT NULL,
+    asOfDate TEXT NOT NULL,
+    includedRuleVersionIdsJson TEXT NOT NULL,
+    publishedAt TEXT NOT NULL
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS psa_change_candidate (
+    id TEXT PRIMARY KEY,
+    projectId TEXT NOT NULL,
+    jurisdiction TEXT NOT NULL,
+    detectedAt TEXT NOT NULL,
+    diffSummary TEXT NOT NULL,
+    riskLevel TEXT NOT NULL,
+    proposedRuleVersionIdsJson TEXT NOT NULL
+  );
+`,
+  `
+  CREATE TABLE IF NOT EXISTS psa_review_task (
+    id TEXT PRIMARY KEY,
+    changeCandidateId TEXT NOT NULL,
+    status TEXT NOT NULL,
+    assignedRole TEXT NOT NULL,
+    decision TEXT,
+    decidedAt TEXT,
+    decidedBy TEXT,
+    FOREIGN KEY (changeCandidateId) REFERENCES psa_change_candidate(id)
+  );
+`,
 ];
 
 export class LocalDatabase {
@@ -597,9 +663,18 @@ export class LocalDatabase {
   async init(options: LocalDatabaseInitOptions = {}): Promise<void> {
     if (this.initialized) return;
     this.SQL = await initSqlJs({
-      // locateFile: (file: string) =>
-      //   `${options.modulesPath ?? '/sql-wasm'}/${file}`,
-      locateFile: (file) => `https://sql.js.org/dist/${file}`,
+      locateFile: (file: string) => {
+        if (options.modulesPath) {
+          return `${options.modulesPath.replace(/\/+$/, '')}/${file}`;
+        }
+        // In Node/test environments we must not fetch wasm over the network.
+        // Use the workspace-installed sql.js wasm from node_modules.
+        if (typeof window === 'undefined') {
+          return `${process.cwd()}/node_modules/sql.js/dist/${file}`;
+        }
+        // In browser sandbox, fall back to the public CDN.
+        return `https://sql.js.org/dist/${file}`;
+      },
     });
     this.db = options.seed
       ? new this.SQL.Database(options.seed)

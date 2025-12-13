@@ -10,10 +10,10 @@ import type { VectorStoreProvider } from '@lssm/lib.contracts/integrations/provi
 import {
   DocumentProcessor,
   type RawDocument,
-} from '@lssm/lib.contracts/knowledge/ingestion/document-processor';
-import { EmbeddingService } from '@lssm/lib.contracts/knowledge/ingestion/embedding-service';
-import { VectorIndexer } from '@lssm/lib.contracts/knowledge/ingestion/vector-indexer';
-import { KnowledgeQueryService } from '@lssm/lib.contracts/knowledge/query/service';
+} from '@lssm/lib.knowledge/ingestion/document-processor';
+import { EmbeddingService } from '@lssm/lib.knowledge/ingestion/embedding-service';
+import { VectorIndexer } from '@lssm/lib.knowledge/ingestion/vector-indexer';
+import { KnowledgeQueryService } from '@lssm/lib.knowledge/query/service';
 
 export interface IndexKnowledgeSourceInput {
   organizationId: string;

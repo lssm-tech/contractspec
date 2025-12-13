@@ -1,6 +1,6 @@
-// jobs/define-job.ts
 import type { ZodSchema } from 'zod';
-import type { Job, JobHandler, JobQueue } from './queue';
+import type { Job } from './queue';
+import type { JobQueue } from './queue';
 
 export interface DefinedJob<TPayload> {
   type: string;
@@ -8,19 +8,18 @@ export interface DefinedJob<TPayload> {
   handler: (payload: TPayload, job: Job<TPayload>) => Promise<void>;
 }
 
+/**
+ * Register a `DefinedJob` on a queue with payload validation.
+ *
+ * - Parses and validates payload via the job's Zod schema
+ * - Invokes the defined handler with the validated payload
+ */
 export function registerDefinedJob<TPayload>(
   queue: JobQueue,
-  def: DefinedJob<TPayload>
+  job: DefinedJob<TPayload>
 ): void {
-  const wrapped: JobHandler<unknown> = async (job) => {
-    const payload = def.schema.parse(job.payload);
-    const typedJob: Job<TPayload> = {
-      ...(job as Job<unknown>),
-      payload,
-    } as Job<TPayload>;
-
-    await def.handler(payload, typedJob);
-  };
-
-  queue.register<TPayload>(def.type, wrapped as JobHandler<TPayload>);
+  queue.register<TPayload>(job.type, async (queuedJob) => {
+    const parsed = job.schema.parse(queuedJob.payload);
+    await job.handler(parsed, queuedJob as Job<TPayload>);
+  });
 }

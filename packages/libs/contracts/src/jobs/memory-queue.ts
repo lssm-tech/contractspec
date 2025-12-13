@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import type { EnqueueOptions, Job, JobHandler, JobQueue } from './queue';
+import { DEFAULT_RETRY_POLICY, type EnqueueOptions, type Job, type JobHandler, type JobQueue } from './queue';
 
 export class MemoryJobQueue implements JobQueue {
   private readonly jobs: Job[] = [];
@@ -18,9 +18,12 @@ export class MemoryJobQueue implements JobQueue {
     const job: Job<TPayload> = {
       id: randomUUID(),
       type: jobType,
+      version: 1,
       payload,
       status: 'pending',
+      priority: options.priority ?? 0,
       attempts: 0,
+      maxRetries: options.maxRetries ?? DEFAULT_RETRY_POLICY.maxRetries,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -31,7 +34,10 @@ export class MemoryJobQueue implements JobQueue {
     return job;
   }
 
-  register<TPayload>(jobType: string, handler: JobHandler<TPayload>): void {
+  register<TPayload, TResult = void>(
+    jobType: string,
+    handler: JobHandler<TPayload, TResult>
+  ): void {
     this.handlers.set(jobType, handler as JobHandler);
   }
 

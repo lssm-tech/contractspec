@@ -1,0 +1,62 @@
+{
+  "name": "@lssm/example.versioned-knowledge-base",
+  "version": "0.0.1",
+  "description": "Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./contracts/kb": "./src/contracts/kb.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/versioned-knowledge-base.docblock": "./src/docs/versioned-knowledge-base.docblock.ts",
+    "./entities": "./src/entities/index.ts",
+    "./entities/models": "./src/entities/models.ts",
+    "./events": "./src/events.ts",
+    "./feature": "./src/feature.ts",
+    "./handlers": "./src/handlers/index.ts",
+    "./handlers/memory.handlers": "./src/handlers/memory.handlers.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./contracts/kb": "./dist/contracts/kb.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/versioned-knowledge-base.docblock": "./dist/docs/versioned-knowledge-base.docblock.js",
+      "./entities": "./dist/entities/index.js",
+      "./entities/models": "./dist/entities/models.js",
+      "./events": "./dist/events.js",
+      "./feature": "./dist/feature.js",
+      "./handlers": "./dist/handlers/index.js",
+      "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
+      "./*": "./*"
+    }
+  }
+}

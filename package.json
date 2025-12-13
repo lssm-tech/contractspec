@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/tools/*",
     "packages/libs/*",
+    "packages/integrations/*",
     "packages/modules/*",
     "packages/examples/*",
     "packages/bundles/*",

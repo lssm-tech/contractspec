@@ -1,0 +1,63 @@
+{
+  "name": "@lssm/integration.runtime",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "build": "bun build:bundle && bun build:types",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.logger": "workspace:*",
+    "@google-cloud/secret-manager": "^6.1.1",
+    "google-gax": "^5.0.0"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "^0.17.0",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./health": "./src/health.ts",
+    "./runtime": "./src/runtime.ts",
+    "./secrets": "./src/secrets/index.ts",
+    "./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
+    "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
+    "./secrets/manager": "./src/secrets/manager.ts",
+    "./secrets/provider": "./src/secrets/provider.ts",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./health": "./dist/health.js",
+      "./runtime": "./dist/runtime.js",
+      "./secrets": "./dist/secrets/index.js",
+      "./secrets/env-secret-provider": "./dist/secrets/env-secret-provider.js",
+      "./secrets/gcp-secret-manager": "./dist/secrets/gcp-secret-manager.js",
+      "./secrets/manager": "./dist/secrets/manager.js",
+      "./secrets/provider": "./dist/secrets/provider.js",
+      "./*": "./*"
+    }
+  }
+}
+
+

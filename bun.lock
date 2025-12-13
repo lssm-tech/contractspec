@@ -377,6 +377,23 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/kb-update-pipeline": {
+      "name": "@lssm/example.kb-update-pipeline",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.identity-rbac": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@lssm/module.notifications": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/learning-journey-ambient-coach": {
       "name": "@lssm/example.learning-journey.ambient-coach",
       "version": "1.0.0",
@@ -582,6 +599,34 @@
         "react": "^18.0.0 || ^19.0.0",
       },
     },
+    "packages/examples/learning-patterns": {
+      "name": "@lssm/example.learning-patterns",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/module.learning-journey": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/locale-jurisdiction-gate": {
+      "name": "@lssm/example.locale-jurisdiction-gate",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/marketplace": {
       "name": "@lssm/example.marketplace",
       "version": "1.0.0",
@@ -600,6 +645,30 @@
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/policy-safe-knowledge-assistant": {
+      "name": "@lssm/example.policy-safe-knowledge-assistant",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/example.kb-update-pipeline": "workspace:*",
+        "@lssm/example.learning-patterns": "workspace:*",
+        "@lssm/example.locale-jurisdiction-gate": "workspace:*",
+        "@lssm/example.versioned-knowledge-base": "workspace:*",
+        "@lssm/lib.feature-flags": "workspace:*",
+        "@lssm/lib.files": "workspace:*",
+        "@lssm/lib.identity-rbac": "workspace:*",
+        "@lssm/lib.jobs": "workspace:*",
+        "@lssm/lib.metering": "workspace:*",
+        "@lssm/module.audit-trail": "workspace:*",
+        "@lssm/module.learning-journey": "workspace:*",
+        "@lssm/module.notifications": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
       },
     },
@@ -662,6 +731,21 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/versioned-knowledge-base": {
+      "name": "@lssm/example.versioned-knowledge-base",
+      "version": "0.0.1",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/wealth-snapshot": {
       "name": "@lssm/example.wealth-snapshot",
       "version": "1.0.0",
@@ -697,6 +781,45 @@
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/integrations/providers-impls": {
+      "name": "@lssm/integration.providers-impls",
+      "version": "0.1.0",
+      "dependencies": {
+        "@elevenlabs/elevenlabs-js": "^2.26.0",
+        "@google-cloud/storage": "^7.18.0",
+        "@lssm/integration.runtime": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@mistralai/mistralai": "^1.2.3",
+        "@qdrant/js-client-rest": "^1.16.2",
+        "googleapis": "^167.0.0",
+        "postmark": "^4.0.4",
+        "stripe": "^19.1.0",
+        "twilio": "^5.10.7",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/integrations/runtime": {
+      "name": "@lssm/integration.runtime",
+      "version": "0.1.0",
+      "dependencies": {
+        "@google-cloud/secret-manager": "^6.1.1",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+        "google-gax": "^5.0.0",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
       },
     },
@@ -2544,6 +2667,8 @@
 
     "@lssm/example.integration-hub": ["@lssm/example.integration-hub@workspace:packages/examples/integration-hub"],
 
+    "@lssm/example.kb-update-pipeline": ["@lssm/example.kb-update-pipeline@workspace:packages/examples/kb-update-pipeline"],
+
     "@lssm/example.learning-journey-registry": ["@lssm/example.learning-journey-registry@workspace:packages/examples/learning-journey-registry"],
 
     "@lssm/example.learning-journey-ui-coaching": ["@lssm/example.learning-journey-ui-coaching@workspace:packages/examples/learning-journey-ui-coaching"],
@@ -2566,7 +2691,13 @@
 
     "@lssm/example.learning-journey.studio-onboarding": ["@lssm/example.learning-journey.studio-onboarding@workspace:packages/examples/learning-journey-studio-onboarding"],
 
+    "@lssm/example.learning-patterns": ["@lssm/example.learning-patterns@workspace:packages/examples/learning-patterns"],
+
+    "@lssm/example.locale-jurisdiction-gate": ["@lssm/example.locale-jurisdiction-gate@workspace:packages/examples/locale-jurisdiction-gate"],
+
     "@lssm/example.marketplace": ["@lssm/example.marketplace@workspace:packages/examples/marketplace"],
+
+    "@lssm/example.policy-safe-knowledge-assistant": ["@lssm/example.policy-safe-knowledge-assistant@workspace:packages/examples/policy-safe-knowledge-assistant"],
 
     "@lssm/example.saas-boilerplate": ["@lssm/example.saas-boilerplate@workspace:packages/examples/saas-boilerplate"],
 
@@ -2574,9 +2705,15 @@
 
     "@lssm/example.team-hub": ["@lssm/example.team-hub@workspace:packages/examples/team-hub"],
 
+    "@lssm/example.versioned-knowledge-base": ["@lssm/example.versioned-knowledge-base@workspace:packages/examples/versioned-knowledge-base"],
+
     "@lssm/example.wealth-snapshot": ["@lssm/example.wealth-snapshot@workspace:packages/examples/wealth-snapshot"],
 
     "@lssm/example.workflow-system": ["@lssm/example.workflow-system@workspace:packages/examples/workflow-system"],
+
+    "@lssm/integration.providers-impls": ["@lssm/integration.providers-impls@workspace:packages/integrations/providers-impls"],
+
+    "@lssm/integration.runtime": ["@lssm/integration.runtime@workspace:packages/integrations/runtime"],
 
     "@lssm/lib.accessibility": ["@lssm/lib.accessibility@workspace:packages/libs/accessibility"],
 

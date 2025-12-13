@@ -22,6 +22,7 @@ import {
   createMarketplaceHandlers,
   createSaasHandlers,
   createWorkflowHandlers,
+  createPolicySafeKnowledgeAssistantHandlers,
   type CrmHandlers,
   type IntegrationHandlers,
   LocalRuntimeServices,
@@ -51,6 +52,9 @@ export interface TemplateHandlers {
   marketplace: MarketplaceHandlers;
   integration: IntegrationHandlers;
   analytics: AnalyticsHandlers;
+  policySafeKnowledgeAssistant: ReturnType<
+    typeof createPolicySafeKnowledgeAssistantHandlers
+  >;
 }
 
 export interface TemplateRuntimeContextValue {
@@ -113,6 +117,9 @@ export function TemplateRuntimeProvider({
         marketplace: createMarketplaceHandlers(runtime.db),
         integration: createIntegrationHandlers(runtime.db),
         analytics: createAnalyticsHandlers(runtime.db),
+        policySafeKnowledgeAssistant: createPolicySafeKnowledgeAssistantHandlers(
+          runtime.db
+        ),
       };
 
       setValue({

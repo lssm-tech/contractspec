@@ -6,26 +6,26 @@ const embedFragmentsMock = vi.fn();
 const vectorUpsertMock = vi.fn();
 const queryMock = vi.fn();
 
-vi.mock('@lssm/lib.contracts/knowledge/ingestion/document-processor', () => ({
+vi.mock('@lssm/lib.knowledge/ingestion/document-processor', () => ({
   DocumentProcessor: class {
     process = processMock;
   },
 }));
 
-vi.mock('@lssm/lib.contracts/knowledge/ingestion/embedding-service', () => ({
+vi.mock('@lssm/lib.knowledge/ingestion/embedding-service', () => ({
   EmbeddingService: class {
     embedFragments = embedFragmentsMock;
   },
 }));
 
-vi.mock('@lssm/lib.contracts/knowledge/ingestion/vector-indexer', () => ({
+vi.mock('@lssm/lib.knowledge/ingestion/vector-indexer', () => ({
   VectorIndexer: class {
     constructor() {}
     upsert = vectorUpsertMock;
   },
 }));
 
-vi.mock('@lssm/lib.contracts/knowledge/query/service', () => ({
+vi.mock('@lssm/lib.knowledge/query/service', () => ({
   KnowledgeQueryService: class {
     constructor(
       public readonly embeddings: unknown,
