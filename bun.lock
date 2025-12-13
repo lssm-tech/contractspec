@@ -57,6 +57,7 @@
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.testing": "workspace:*",
+        "@lssm/module.contractspec-examples": "workspace:*",
         "chalk": "^5.6.2",
         "commander": "^14.0.2",
         "ora": "^9.0.0",
@@ -136,6 +137,7 @@
       "dependencies": {
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/module.contractspec-examples": "workspace:*",
         "@lssm/module.contractspec-workspace": "workspace:*",
       },
       "devDependencies": {
@@ -318,6 +320,22 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/ai-support-bot": {
+      "name": "@lssm/example.ai-support-bot",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.knowledge": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.support-bot": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/analytics-dashboard": {
       "name": "@lssm/example.analytics-dashboard",
       "version": "1.0.0",
@@ -334,6 +352,21 @@
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/content-generation": {
+      "name": "@lssm/example.content-generation",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.content-gen": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
       },
     },
@@ -378,6 +411,19 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/integration-stripe": {
+      "name": "@lssm/example.integration-stripe",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/kb-update-pipeline": {
       "name": "@lssm/example.kb-update-pipeline",
       "version": "0.0.1",
@@ -395,8 +441,21 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/knowledge-canon": {
+      "name": "@lssm/example.knowledge-canon",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/learning-journey-ambient-coach": {
-      "name": "@lssm/example.learning-journey.ambient-coach",
+      "name": "@lssm/example.learning-journey-ambient-coach",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
@@ -410,7 +469,7 @@
       },
     },
     "packages/examples/learning-journey-crm-onboarding": {
-      "name": "@lssm/example.learning-journey.crm-onboarding",
+      "name": "@lssm/example.learning-journey-crm-onboarding",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/example.crm-pipeline": "workspace:*",
@@ -426,7 +485,7 @@
       },
     },
     "packages/examples/learning-journey-duo-drills": {
-      "name": "@lssm/example.learning-journey.duo-drills",
+      "name": "@lssm/example.learning-journey-duo-drills",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
@@ -440,7 +499,7 @@
       },
     },
     "packages/examples/learning-journey-platform-tour": {
-      "name": "@lssm/example.learning-journey.platform-tour",
+      "name": "@lssm/example.learning-journey-platform-tour",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
@@ -455,7 +514,7 @@
       },
     },
     "packages/examples/learning-journey-quest-challenges": {
-      "name": "@lssm/example.learning-journey.quest-challenges",
+      "name": "@lssm/example.learning-journey-quest-challenges",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
@@ -472,16 +531,16 @@
       "name": "@lssm/example.learning-journey-registry",
       "version": "1.0.0",
       "dependencies": {
+        "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+        "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
+        "@lssm/example.learning-journey-duo-drills": "workspace:*",
+        "@lssm/example.learning-journey-platform-tour": "workspace:*",
+        "@lssm/example.learning-journey-quest-challenges": "workspace:*",
+        "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-coaching": "workspace:*",
         "@lssm/example.learning-journey-ui-gamified": "workspace:*",
         "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
-        "@lssm/example.learning-journey.ambient-coach": "workspace:*",
-        "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
-        "@lssm/example.learning-journey.duo-drills": "workspace:*",
-        "@lssm/example.learning-journey.platform-tour": "workspace:*",
-        "@lssm/example.learning-journey.quest-challenges": "workspace:*",
-        "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.1.0",
       },
@@ -497,7 +556,7 @@
       },
     },
     "packages/examples/learning-journey-studio-onboarding": {
-      "name": "@lssm/example.learning-journey.studio-onboarding",
+      "name": "@lssm/example.learning-journey-studio-onboarding",
       "version": "1.0.0",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
@@ -515,9 +574,9 @@
       "name": "@lssm/example.learning-journey-ui-coaching",
       "version": "1.0.0",
       "dependencies": {
+        "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+        "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
-        "@lssm/example.learning-journey.ambient-coach": "workspace:*",
-        "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -538,9 +597,9 @@
       "name": "@lssm/example.learning-journey-ui-gamified",
       "version": "1.0.0",
       "dependencies": {
+        "@lssm/example.learning-journey-duo-drills": "workspace:*",
+        "@lssm/example.learning-journey-quest-challenges": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
-        "@lssm/example.learning-journey.duo-drills": "workspace:*",
-        "@lssm/example.learning-journey.quest-challenges": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -561,9 +620,9 @@
       "name": "@lssm/example.learning-journey-ui-onboarding",
       "version": "1.0.0",
       "dependencies": {
+        "@lssm/example.learning-journey-platform-tour": "workspace:*",
+        "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
-        "@lssm/example.learning-journey.platform-tour": "workspace:*",
-        "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -613,6 +672,35 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/lifecycle-cli": {
+      "name": "@lssm/example.lifecycle-cli",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/bundle.lifecycle-managed": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.lifecycle": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/lifecycle-dashboard": {
+      "name": "@lssm/example.lifecycle-dashboard",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/locale-jurisdiction-gate": {
       "name": "@lssm/example.locale-jurisdiction-gate",
       "version": "0.0.1",
@@ -646,6 +734,37 @@
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/openbanking-powens": {
+      "name": "@lssm/example.openbanking-powens",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/integration.providers-impls": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/examples/personalization": {
+      "name": "@lssm/example.personalization",
+      "version": "0.1.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.overlay-engine": "workspace:*",
+        "@lssm/lib.personalization": "workspace:*",
+        "@lssm/lib.workflow-composer": "workspace:*",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.0",
         "typescript": "^5.9.3",
       },
     },
@@ -1689,6 +1808,40 @@
       "name": "@lssm/module.contractspec-examples",
       "version": "0.1.0",
       "dependencies": {
+        "@lssm/example.agent-console": "workspace:*",
+        "@lssm/example.ai-support-bot": "workspace:*",
+        "@lssm/example.analytics-dashboard": "workspace:*",
+        "@lssm/example.content-generation": "workspace:*",
+        "@lssm/example.crm-pipeline": "workspace:*",
+        "@lssm/example.integration-hub": "workspace:*",
+        "@lssm/example.integration-stripe": "workspace:*",
+        "@lssm/example.kb-update-pipeline": "workspace:*",
+        "@lssm/example.knowledge-canon": "workspace:*",
+        "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+        "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
+        "@lssm/example.learning-journey-duo-drills": "workspace:*",
+        "@lssm/example.learning-journey-platform-tour": "workspace:*",
+        "@lssm/example.learning-journey-quest-challenges": "workspace:*",
+        "@lssm/example.learning-journey-registry": "workspace:*",
+        "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
+        "@lssm/example.learning-journey-ui-coaching": "workspace:*",
+        "@lssm/example.learning-journey-ui-gamified": "workspace:*",
+        "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
+        "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/example.learning-patterns": "workspace:*",
+        "@lssm/example.lifecycle-cli": "workspace:*",
+        "@lssm/example.lifecycle-dashboard": "workspace:*",
+        "@lssm/example.locale-jurisdiction-gate": "workspace:*",
+        "@lssm/example.marketplace": "workspace:*",
+        "@lssm/example.openbanking-powens": "workspace:*",
+        "@lssm/example.personalization": "workspace:*",
+        "@lssm/example.policy-safe-knowledge-assistant": "workspace:*",
+        "@lssm/example.saas-boilerplate": "workspace:*",
+        "@lssm/example.service-business-os": "workspace:*",
+        "@lssm/example.team-hub": "workspace:*",
+        "@lssm/example.versioned-knowledge-base": "workspace:*",
+        "@lssm/example.wealth-snapshot": "workspace:*",
+        "@lssm/example.workflow-system": "workspace:*",
         "zod": "^4.1.13",
       },
       "devDependencies": {
@@ -2677,15 +2830,35 @@
 
     "@lssm/example.agent-console": ["@lssm/example.agent-console@workspace:packages/examples/agent-console"],
 
+    "@lssm/example.ai-support-bot": ["@lssm/example.ai-support-bot@workspace:packages/examples/ai-support-bot"],
+
     "@lssm/example.analytics-dashboard": ["@lssm/example.analytics-dashboard@workspace:packages/examples/analytics-dashboard"],
+
+    "@lssm/example.content-generation": ["@lssm/example.content-generation@workspace:packages/examples/content-generation"],
 
     "@lssm/example.crm-pipeline": ["@lssm/example.crm-pipeline@workspace:packages/examples/crm-pipeline"],
 
     "@lssm/example.integration-hub": ["@lssm/example.integration-hub@workspace:packages/examples/integration-hub"],
 
+    "@lssm/example.integration-stripe": ["@lssm/example.integration-stripe@workspace:packages/examples/integration-stripe"],
+
     "@lssm/example.kb-update-pipeline": ["@lssm/example.kb-update-pipeline@workspace:packages/examples/kb-update-pipeline"],
 
+    "@lssm/example.knowledge-canon": ["@lssm/example.knowledge-canon@workspace:packages/examples/knowledge-canon"],
+
+    "@lssm/example.learning-journey-ambient-coach": ["@lssm/example.learning-journey-ambient-coach@workspace:packages/examples/learning-journey-ambient-coach"],
+
+    "@lssm/example.learning-journey-crm-onboarding": ["@lssm/example.learning-journey-crm-onboarding@workspace:packages/examples/learning-journey-crm-onboarding"],
+
+    "@lssm/example.learning-journey-duo-drills": ["@lssm/example.learning-journey-duo-drills@workspace:packages/examples/learning-journey-duo-drills"],
+
+    "@lssm/example.learning-journey-platform-tour": ["@lssm/example.learning-journey-platform-tour@workspace:packages/examples/learning-journey-platform-tour"],
+
+    "@lssm/example.learning-journey-quest-challenges": ["@lssm/example.learning-journey-quest-challenges@workspace:packages/examples/learning-journey-quest-challenges"],
+
     "@lssm/example.learning-journey-registry": ["@lssm/example.learning-journey-registry@workspace:packages/examples/learning-journey-registry"],
+
+    "@lssm/example.learning-journey-studio-onboarding": ["@lssm/example.learning-journey-studio-onboarding@workspace:packages/examples/learning-journey-studio-onboarding"],
 
     "@lssm/example.learning-journey-ui-coaching": ["@lssm/example.learning-journey-ui-coaching@workspace:packages/examples/learning-journey-ui-coaching"],
 
@@ -2695,23 +2868,19 @@
 
     "@lssm/example.learning-journey-ui-shared": ["@lssm/example.learning-journey-ui-shared@workspace:packages/examples/learning-journey-ui-shared"],
 
-    "@lssm/example.learning-journey.ambient-coach": ["@lssm/example.learning-journey.ambient-coach@workspace:packages/examples/learning-journey-ambient-coach"],
-
-    "@lssm/example.learning-journey.crm-onboarding": ["@lssm/example.learning-journey.crm-onboarding@workspace:packages/examples/learning-journey-crm-onboarding"],
-
-    "@lssm/example.learning-journey.duo-drills": ["@lssm/example.learning-journey.duo-drills@workspace:packages/examples/learning-journey-duo-drills"],
-
-    "@lssm/example.learning-journey.platform-tour": ["@lssm/example.learning-journey.platform-tour@workspace:packages/examples/learning-journey-platform-tour"],
-
-    "@lssm/example.learning-journey.quest-challenges": ["@lssm/example.learning-journey.quest-challenges@workspace:packages/examples/learning-journey-quest-challenges"],
-
-    "@lssm/example.learning-journey.studio-onboarding": ["@lssm/example.learning-journey.studio-onboarding@workspace:packages/examples/learning-journey-studio-onboarding"],
-
     "@lssm/example.learning-patterns": ["@lssm/example.learning-patterns@workspace:packages/examples/learning-patterns"],
+
+    "@lssm/example.lifecycle-cli": ["@lssm/example.lifecycle-cli@workspace:packages/examples/lifecycle-cli"],
+
+    "@lssm/example.lifecycle-dashboard": ["@lssm/example.lifecycle-dashboard@workspace:packages/examples/lifecycle-dashboard"],
 
     "@lssm/example.locale-jurisdiction-gate": ["@lssm/example.locale-jurisdiction-gate@workspace:packages/examples/locale-jurisdiction-gate"],
 
     "@lssm/example.marketplace": ["@lssm/example.marketplace@workspace:packages/examples/marketplace"],
+
+    "@lssm/example.openbanking-powens": ["@lssm/example.openbanking-powens@workspace:packages/examples/openbanking-powens"],
+
+    "@lssm/example.personalization": ["@lssm/example.personalization@workspace:packages/examples/personalization"],
 
     "@lssm/example.policy-safe-knowledge-assistant": ["@lssm/example.policy-safe-knowledge-assistant@workspace:packages/examples/policy-safe-knowledge-assistant"],
 
@@ -4137,7 +4306,7 @@
 
     "agent-base": ["agent-base@6.0.2", "", { "dependencies": { "debug": "4" } }, "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="],
 
-    "ai": ["ai@6.0.0-beta.149", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-I3vxRTBK8gsIo6IlUu/cIqqoyVh8dSSZmj882NkFWJY4/Mf+d7oDwDNe6tEBObbq6ByDzd4bzpc7AFMprYsbkA=="],
+    "ai": ["ai@6.0.0-beta.150", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-gBCzE2/m5w1ybx0bnWKf66ppCH+921jGFeGUTQv3+GWaaB1WLeaOa8H4sEmdx29YAZ5n+iqZKh+L5swhNSCIRg=="],
 
     "ajv": ["ajv@6.12.6", "", { "dependencies": { "fast-deep-equal": "^3.1.1", "fast-json-stable-stringify": "^2.0.0", "json-schema-traverse": "^0.4.1", "uri-js": "^4.2.2" } }, "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g=="],
 
@@ -7289,13 +7458,9 @@
 
     "@lssm/bundle.contractspec-studio/lucide-react": ["lucide-react@0.469.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw=="],
 
-    "@lssm/lib.ai-agent/ai": ["ai@6.0.0-beta.150", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-gBCzE2/m5w1ybx0bnWKf66ppCH+921jGFeGUTQv3+GWaaB1WLeaOa8H4sEmdx29YAZ5n+iqZKh+L5swhNSCIRg=="],
-
     "@lssm/lib.design-system/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
 
     "@lssm/lib.design-system/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
-
-    "@lssm/lib.evolution/ai": ["ai@6.0.0-beta.150", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.78", "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.47", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-gBCzE2/m5w1ybx0bnWKf66ppCH+921jGFeGUTQv3+GWaaB1WLeaOa8H4sEmdx29YAZ5n+iqZKh+L5swhNSCIRg=="],
 
     "@lssm/lib.ui-kit-web/@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
 

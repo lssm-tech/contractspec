@@ -21,10 +21,8 @@ const blocks: DocBlock[] = [
     visibility: 'public',
     route: '/docs/examples/content-generation/usage',
     tags: ['content', 'usage'],
-    body: `## Usage\n- Call \\`runContentGenerationExample()\\`.\n- Modify the \\`ContentBrief\\` fields to drive different outputs.\n\n## Guardrails\n- Avoid PII in briefs.\n- Keep output logging structured; no raw \\`console.log\\` in library code.`,
+    body: `## Usage\n- Call \`runContentGenerationExample()\`.\n- Modify the \`ContentBrief\` fields to drive different outputs.\n\n## Guardrails\n- Avoid PII in briefs.\n- Keep output logging structured; no raw \`console.log\` in library code.`,
   },
 ];
 
 registerDocBlocks(blocks);
-
-

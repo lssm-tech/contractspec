@@ -7,6 +7,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./example": "./src/example.ts",
+    "./docs": "./src/docs/index.ts",
     "./views": "./src/views/index.ts",
     "./components": "./src/components/index.ts",
     "./*": "./*"
@@ -24,8 +26,8 @@
   },
   "dependencies": {
     "@lssm/example.learning-journey-ui-shared": "workspace:*",
-    "@lssm/example.learning-journey.ambient-coach": "workspace:*",
-    "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
     "@lssm/module.learning-journey": "workspace:*",
     "@lssm/lib.design-system": "workspace:*",
     "@lssm/lib.ui-kit-web": "workspace:*",
@@ -45,10 +47,11 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
       "./views": "./dist/views/index.js",
       "./components": "./dist/components/index.js",
       "./*": "./*"
     }
   }
 }
-

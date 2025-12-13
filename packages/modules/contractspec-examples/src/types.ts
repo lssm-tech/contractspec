@@ -32,7 +32,7 @@ export interface ExampleSurfacesSupport {
   templates: boolean;
   sandbox: {
     enabled: boolean;
-    modes: ExampleSandboxMode[];
+    modes: readonly ExampleSandboxMode[];
   };
   studio: {
     enabled: boolean;
@@ -60,7 +60,7 @@ export interface ExampleDefinition {
   id: ExampleId;
   title: string;
   summary: string;
-  tags: string[];
+  tags: readonly string[];
   kind: ExampleKind;
   visibility: ExampleVisibility;
   docs?: ExampleDocRefs;

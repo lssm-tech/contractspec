@@ -27,7 +27,7 @@ const questDocBlocks: DocBlock[] = [
 XP: 15 per day, completion bonus 30 if finished within duration. Optional recap via SRS after completion.
 
 ## Usage
-- Exported via \`@lssm/example.learning-journey.quest-challenges/track\`.
+- Exported via \`@lssm/example.learning-journey-quest-challenges/track\`.
 - Step availability uses \`availability.unlockOnDay\` to gate days.
 - Registry progression handles event matching and XP application.`,
   },

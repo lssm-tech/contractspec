@@ -10,6 +10,7 @@ import { listAllSpecs } from './list';
 import { analyzeSpecDependencies } from './deps';
 import { searchDocs } from './mcp';
 import { addFromRegistry, browseRegistry, searchRegistry } from './registry';
+import { browseExamples, initExampleIntoWorkspace } from './examples';
 
 /**
  * Register all ContractSpec commands.
@@ -108,6 +109,25 @@ export function registerCommands(
         command: 'registrySearch',
       });
       await searchRegistry(outputChannel);
+    })
+  );
+
+  // Examples commands
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.examplesBrowse', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'examplesBrowse',
+      });
+      await browseExamples(outputChannel);
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.examplesInit', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'examplesInit',
+      });
+      await initExampleIntoWorkspace(outputChannel);
     })
   );
 }

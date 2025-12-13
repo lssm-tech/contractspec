@@ -7,13 +7,13 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./example": "./src/example.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
     "./agent": "./src/agent.ts",
     "./blueprint": "./src/blueprint.ts",
-    "./tenant": "./src/tenant.ts",
+    "./docs": "./src/docs/index.ts",
+    "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
+    "./example": "./src/example.ts",
     "./source.sample": "./src/source.sample.ts",
+    "./tenant": "./src/tenant.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -40,16 +40,15 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./example": "./dist/example.js",
-      "./docs": "./dist/docs/index.js",
-      "./docs/knowledge-canon.docblock": "./dist/docs/knowledge-canon.docblock.js",
       "./agent": "./dist/agent.js",
       "./blueprint": "./dist/blueprint.js",
-      "./tenant": "./dist/tenant.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/knowledge-canon.docblock": "./dist/docs/knowledge-canon.docblock.js",
+      "./example": "./dist/example.js",
       "./source.sample": "./dist/source.sample.js",
+      "./tenant": "./dist/tenant.js",
       "./*": "./*"
     }
-  }
+  },
+  "module": "./dist/index.js"
 }
-
-

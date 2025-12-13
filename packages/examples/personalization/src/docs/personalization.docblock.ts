@@ -21,10 +21,8 @@ const blocks: DocBlock[] = [
     visibility: 'public',
     route: '/docs/examples/personalization/usage',
     tags: ['personalization', 'usage'],
-    body: `## Usage\n- Call \\`runBehaviorTrackingExample()\\` for insights.\n- Call \\`runOverlayCustomizationExample()\\` to apply overlays.\n- Call \\`composeTenantWorkflowExample()\\` and \\`logTenantWorkflowSteps()\\` to inspect steps.\n\n## Notes\n- Replace in-memory stores with app-layer storage.\n- Keep PII out of logs and markdown outputs.`,
+    body: `## Usage\n- Call \`runBehaviorTrackingExample()\` for insights.\n- Call \`runOverlayCustomizationExample()\` to apply overlays.\n- Call \`composeTenantWorkflowExample()\` and \`logTenantWorkflowSteps()\` to inspect steps.\n\n## Notes\n- Replace in-memory stores with app-layer storage.\n- Keep PII out of logs and markdown outputs.`,
   },
 ];
 
 registerDocBlocks(blocks);
-
-

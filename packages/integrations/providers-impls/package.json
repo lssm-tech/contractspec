@@ -42,7 +42,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./*"
+    "./*": "./src/*"
   },
   "publishConfig": {
     "access": "public",
@@ -52,5 +52,3 @@
     }
   }
 }
-
-

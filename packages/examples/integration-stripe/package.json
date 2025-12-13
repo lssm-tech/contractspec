@@ -7,14 +7,13 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./example": "./src/example.ts",
+    "./blueprint": "./src/blueprint.ts",
+    "./connection.sample": "./src/connection.sample.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/integration-stripe.docblock": "./src/docs/integration-stripe.docblock.ts",
-    "./blueprint": "./src/blueprint.ts",
-    "./workflow": "./src/workflow.ts",
+    "./example": "./src/example.ts",
     "./tenant": "./src/tenant.ts",
-    "./connection.sample": "./src/connection.sample.ts",
-    "./translation.catalog.json": "./translation.catalog.json",
+    "./workflow": "./src/workflow.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -41,17 +40,15 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./example": "./dist/example.js",
+      "./blueprint": "./dist/blueprint.js",
+      "./connection.sample": "./dist/connection.sample.js",
       "./docs": "./dist/docs/index.js",
       "./docs/integration-stripe.docblock": "./dist/docs/integration-stripe.docblock.js",
-      "./blueprint": "./dist/blueprint.js",
-      "./workflow": "./dist/workflow.js",
+      "./example": "./dist/example.js",
       "./tenant": "./dist/tenant.js",
-      "./connection.sample": "./dist/connection.sample.js",
-      "./translation.catalog.json": "./translation.catalog.json",
+      "./workflow": "./dist/workflow.js",
       "./*": "./*"
     }
-  }
+  },
+  "module": "./dist/index.js"
 }
-
-

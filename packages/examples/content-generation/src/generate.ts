@@ -1,23 +1,26 @@
 import {
   BlogGenerator,
-  LandingPageGenerator,
   EmailCampaignGenerator,
+  LandingPageGenerator,
   SocialPostGenerator,
 } from '@lssm/lib.content-gen/generators';
 import { SeoOptimizer } from '@lssm/lib.content-gen/seo';
 import type { ContentBrief } from '@lssm/lib.content-gen';
 import { Logger, LogLevel } from '@lssm/lib.logger';
+import type { LoggerConfig } from '@lssm/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as LoggerConfig['environment']) || 'development',
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
 export async function runContentGenerationExample(): Promise<void> {
   const brief: ContentBrief = {
     title: 'AI-Native Operations Copilot',
-    summary: 'Automates support resolutions, growth playbooks, and DevOps rituals.',
+    summary:
+      'Automates support resolutions, growth playbooks, and DevOps rituals.',
     problems: [
       'Support queues pile up after hours',
       'Growth teams lack fresh experiments',
@@ -49,5 +52,3 @@ export async function runContentGenerationExample(): Promise<void> {
     seo,
   });
 }
-
-

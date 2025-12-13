@@ -38,6 +38,7 @@ import {
   type TemplateId,
 } from './registry';
 import { getTemplateEngine } from './engine';
+import { appLogger } from '../infrastructure/elysia/logger';
 
 export type { TemplateId };
 
@@ -150,7 +151,9 @@ export function TemplateRuntimeProvider({
     );
 
     bootstrap().catch((error) => {
-      console.error('Failed to bootstrap template runtime', error);
+      appLogger.error('Failed to bootstrap template runtime', {
+        error: error instanceof Error ? error.message : String(error),
+      });
     });
 
     return () => {

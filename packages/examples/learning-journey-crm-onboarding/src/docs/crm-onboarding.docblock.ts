@@ -28,7 +28,7 @@ XP: 15/20/20/20/30/30 with 25 bonus within 72h. Badge: \`crm_first_win\`.
 
 ## Wiring
 - Depends on \`@lssm/example.crm-pipeline\` events.
-- Tracks export from \`@lssm/example.learning-journey.crm-onboarding/track\`.
+- Tracks export from \`@lssm/example.learning-journey-crm-onboarding/track\`.
 - Use onboarding API:
   - \`learning.onboarding.listTracks\`
   - \`learning.onboarding.getProgress\`

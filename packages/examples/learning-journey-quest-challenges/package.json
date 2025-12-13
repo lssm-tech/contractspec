@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey.quest-challenges",
+  "name": "@lssm/example.learning-journey-quest-challenges",
   "version": "1.0.0",
   "description": "Time-bound quest/challenge learning journey example.",
   "type": "module",
@@ -7,6 +7,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./example": "./src/example.ts",
     "./track": "./src/track.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/quest-challenges.docblock": "./src/docs/quest-challenges.docblock.ts",
@@ -37,6 +38,7 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./example": "./dist/example.js",
       "./track": "./dist/track.js",
       "./docs": "./dist/docs/index.js",
       "./docs/quest-challenges.docblock": "./dist/docs/quest-challenges.docblock.js",

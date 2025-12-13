@@ -13,7 +13,7 @@ Contextual coaching UI with tip cards and engagement tracking.
 
 ```tsx
 import { CoachingMiniApp } from '@lssm/example.learning-journey-ui-coaching';
-import { moneyAmbientCoachTrack } from '@lssm/example.learning-journey.ambient-coach/track';
+import { moneyAmbientCoachTrack } from '@lssm/example.learning-journey-ambient-coach/track';
 
 function MyApp() {
   return (
@@ -27,4 +27,3 @@ function MyApp() {
 - **TipCard** - Individual coaching tip with action/dismiss options
 - **EngagementMeter** - Donut chart showing actioned/acknowledged/pending
 - **TipFeed** - Timeline feed of tip activity
-

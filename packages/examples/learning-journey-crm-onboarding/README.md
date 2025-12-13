@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey.crm-onboarding
+# @lssm/example.learning-journey-crm-onboarding
 
 Learning Journey example that guides a CRM user to first closed-won deal.
 
@@ -21,12 +21,12 @@ Learning Journey example that guides a CRM user to first closed-won deal.
 ## Usage
 
 - Import track specs:  
-  `import { crmLearningTracks } from '@lssm/example.learning-journey.crm-onboarding/track'`
+  `import { crmLearningTracks } from '@lssm/example.learning-journey-crm-onboarding/track'`
 - Contracts/handlers for demos:  
-  `import { GetCrmOnboardingTrack, RecordCrmOnboardingEvent } from '@lssm/example.learning-journey.crm-onboarding/contracts'`  
-  `import { emitCrmOnboardingEvent } from '@lssm/example.learning-journey.crm-onboarding/handlers/demo.handlers'`
+  `import { GetCrmOnboardingTrack, RecordCrmOnboardingEvent } from '@lssm/example.learning-journey-crm-onboarding/contracts'`  
+  `import { emitCrmOnboardingEvent } from '@lssm/example.learning-journey-crm-onboarding/handlers/demo.handlers'`
 - Presentations (react/markdown/json targets):  
-  `import { crmOnboardingPresentations } from '@lssm/example.learning-journey.crm-onboarding/presentations'`
+  `import { crmOnboardingPresentations } from '@lssm/example.learning-journey-crm-onboarding/presentations'`
 - Register via onboarding API:
   - `learning.onboarding.listTracks`
   - `learning.onboarding.getProgress`

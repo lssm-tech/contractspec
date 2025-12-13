@@ -7,6 +7,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./example": "./src/example.ts",
     "./api": "./src/api.ts",
     "./api-types": "./src/api-types.ts",
     "./docs": "./src/docs/index.ts",
@@ -30,12 +31,12 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/example.learning-journey.ambient-coach": "workspace:*",
-    "@lssm/example.learning-journey.duo-drills": "workspace:*",
-    "@lssm/example.learning-journey.crm-onboarding": "workspace:*",
-    "@lssm/example.learning-journey.platform-tour": "workspace:*",
-    "@lssm/example.learning-journey.quest-challenges": "workspace:*",
-    "@lssm/example.learning-journey.studio-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey-duo-drills": "workspace:*",
+    "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-platform-tour": "workspace:*",
+    "@lssm/example.learning-journey-quest-challenges": "workspace:*",
+    "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
     "@lssm/example.learning-journey-ui-shared": "workspace:*",
     "@lssm/example.learning-journey-ui-gamified": "workspace:*",
     "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
@@ -57,6 +58,7 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./example": "./dist/example.js",
       "./api": "./dist/api.js",
       "./api-types": "./dist/api-types.js",
       "./docs": "./dist/docs/index.js",

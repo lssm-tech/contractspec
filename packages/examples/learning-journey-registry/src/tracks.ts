@@ -4,12 +4,12 @@ import type {
   StepAvailabilitySpec,
   StepCompletionConditionSpec,
 } from '@lssm/module.learning-journey/track-spec';
-import { crmLearningTracks } from '@lssm/example.learning-journey.crm-onboarding/track';
-import { drillTracks } from '@lssm/example.learning-journey.duo-drills/track';
-import { ambientCoachTracks } from '@lssm/example.learning-journey.ambient-coach/track';
-import { questTracks } from '@lssm/example.learning-journey.quest-challenges/track';
-import { platformLearningTracks } from '@lssm/example.learning-journey.platform-tour/track';
-import { studioLearningTracks } from '@lssm/example.learning-journey.studio-onboarding/track';
+import { crmLearningTracks } from '@lssm/example.learning-journey-crm-onboarding/track';
+import { drillTracks } from '@lssm/example.learning-journey-duo-drills/track';
+import { ambientCoachTracks } from '@lssm/example.learning-journey-ambient-coach/track';
+import { questTracks } from '@lssm/example.learning-journey-quest-challenges/track';
+import { platformLearningTracks } from '@lssm/example.learning-journey-platform-tour/track';
+import { studioLearningTracks } from '@lssm/example.learning-journey-studio-onboarding/track';
 
 export interface OnboardingStepDto {
   id: string;

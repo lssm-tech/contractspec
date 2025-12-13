@@ -1,17 +1,21 @@
 import { Elysia } from 'elysia';
-import { createDocsMcpHandler } from '@lssm/bundle.contractspec-studio/application';
+import {
+  createCliMcpHandler,
+  createDocsMcpHandler,
+  createInternalMcpHandler,
+} from '@lssm/bundle.contractspec-studio/application';
 import { appLogger } from '@lssm/bundle.contractspec-studio/infrastructure';
 
-// const cliMcpHandler = createCliMcpHandler('/mcp/cli');
-// const internalMcpHandler = createInternalMcpHandler('/mcp/internal');
-
-export const mcpHandler = new Elysia().use(createDocsMcpHandler('/mcp/docs'));
-// .use(cliMcpHandler)
-// .use(internalMcpHandler);
+export const mcpHandler = new Elysia()
+  .use(createDocsMcpHandler('/mcp/docs'))
+  .use(createCliMcpHandler('/mcp/cli'))
+  .use(createInternalMcpHandler('/mcp/internal'));
 
 // Also mount the legacy /api/mcp/docs path (Cursor MCP clients often use /api/* by default).
 // Keep both mounted to avoid breaking existing integrations.
 mcpHandler.use(createDocsMcpHandler('/api/mcp/docs'));
+mcpHandler.use(createCliMcpHandler('/api/mcp/cli'));
+mcpHandler.use(createInternalMcpHandler('/api/mcp/internal'));
 
 // Lightweight request logging for MCP endpoints (gate verbosity via env).
 mcpHandler.onRequest(({ request }) => {

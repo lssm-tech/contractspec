@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey.quest-challenges
+# @lssm/example.learning-journey-quest-challenges
 
 Time-bound challenge/quest example (7-day money reset) showing day-based unlocks and event-driven completion.
 

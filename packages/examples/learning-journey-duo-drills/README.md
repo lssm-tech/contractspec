@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey.duo-drills
+# @lssm/example.learning-journey-duo-drills
 
 Drill-based learning journey example that demonstrates short SRS-driven drills, XP, and streak hooks. Tracks are defined in `src/track.ts` and can be reused for language, finance, or ContractSpec concept drills.
 
@@ -20,7 +20,7 @@ import {
   recordEvent,
   getProgress,
 } from '@lssm/example.learning-journey-registry/api';
-import { drillTracks } from '@lssm/example.learning-journey.duo-drills/track';
+import { drillTracks } from '@lssm/example.learning-journey-duo-drills/track';
 
 recordEvent({
   name: 'drill.session.completed',

@@ -4,26 +4,5 @@ import { moduleLibrary } from '@lssm/tool.tsdown';
 export default defineConfig(() => ({
   ...moduleLibrary,
   platform: 'neutral',
-  entry: ['src/index.ts', 'src/react.ts'],
+  // entry: ['src/index.ts', 'src/react.ts'],
 }));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

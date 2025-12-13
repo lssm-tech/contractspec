@@ -21,10 +21,8 @@ const blocks: DocBlock[] = [
     visibility: 'public',
     route: '/docs/examples/openbanking-powens/usage',
     tags: ['openbanking', 'usage'],
-    body: `## Usage\n- Wire \\`powensOAuthCallbackHandler(req)\\` at your OAuth redirect route.\n- Wire \\`powensWebhookHandler(req)\\` at your webhook route.\n\n## Notes\n- Replace the fake stores with your app-layer persistence.\n- Enqueue ContractSpec workflows for canonical upserts and telemetry.`,
+    body: `## Usage\n- Wire \`powensOAuthCallbackHandler(req)\` at your OAuth redirect route.\n- Wire \`powensWebhookHandler(req)\` at your webhook route.\n\n## Notes\n- Replace the fake stores with your app-layer persistence.\n- Enqueue ContractSpec workflows for canonical upserts and telemetry.`,
   },
 ];
 
 registerDocBlocks(blocks);
-
-

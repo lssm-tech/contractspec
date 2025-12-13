@@ -90,6 +90,16 @@
         "command": "contractspec.registrySearch",
         "title": "Search Registry",
         "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.examplesBrowse",
+        "title": "Browse Examples",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.examplesInit",
+        "title": "Initialize Example Stub in Workspace",
+        "category": "ContractSpec"
       }
     ],
     "configuration": {
@@ -164,7 +174,8 @@
   "dependencies": {
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/module.contractspec-workspace": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/module.contractspec-examples": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",

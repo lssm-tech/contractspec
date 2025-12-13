@@ -9,9 +9,6 @@
     ".": "./src/index.ts",
     "./example": "./src/example.ts",
     "./docs": "./src/docs/index.ts",
-    "./docs/openbanking-powens.docblock": "./src/docs/openbanking-powens.docblock.ts",
-    "./handlers/oauth-callback": "./src/handlers/oauth-callback.ts",
-    "./handlers/webhook": "./src/handlers/webhook-handler.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -41,12 +38,8 @@
       ".": "./dist/index.js",
       "./example": "./dist/example.js",
       "./docs": "./dist/docs/index.js",
-      "./docs/openbanking-powens.docblock": "./dist/docs/openbanking-powens.docblock.js",
-      "./handlers/oauth-callback": "./dist/handlers/oauth-callback.js",
-      "./handlers/webhook": "./dist/handlers/webhook-handler.js",
       "./*": "./*"
     }
-  }
+  },
+  "module": "./dist/index.js"
 }
-
-

@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey.studio-onboarding",
+  "name": "@lssm/example.learning-journey-studio-onboarding",
   "version": "1.0.0",
   "description": "Learning journey track for first 30 minutes in ContractSpec Studio.",
   "type": "module",
@@ -10,6 +10,7 @@
     "./contracts": "./src/contracts/index.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/studio-onboarding.docblock": "./src/docs/studio-onboarding.docblock.ts",
+    "./example": "./src/example.ts",
     "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
     "./presentations": "./src/presentations/index.ts",
     "./track": "./src/track.ts",
@@ -43,6 +44,7 @@
       "./contracts": "./dist/contracts/index.js",
       "./docs": "./dist/docs/index.js",
       "./docs/studio-onboarding.docblock": "./dist/docs/studio-onboarding.docblock.js",
+      "./example": "./dist/example.js",
       "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
       "./presentations": "./dist/presentations/index.js",
       "./track": "./dist/track.js",

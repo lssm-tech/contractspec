@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey.ambient-coach",
+  "name": "@lssm/example.learning-journey-ambient-coach",
   "version": "1.0.0",
   "description": "Ambient coach learning journey example with contextual tips and follow-up actions.",
   "type": "module",
@@ -7,6 +7,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./example": "./src/example.ts",
     "./track": "./src/track.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/ambient-coach.docblock": "./src/docs/ambient-coach.docblock.ts",
@@ -37,6 +38,7 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./example": "./dist/example.js",
       "./track": "./dist/track.js",
       "./docs": "./dist/docs/index.js",
       "./docs/ambient-coach.docblock": "./dist/docs/ambient-coach.docblock.js",

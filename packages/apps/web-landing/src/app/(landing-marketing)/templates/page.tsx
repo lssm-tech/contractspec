@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { TemplatesPage } from '@lssm/bundle.contractspec-studio/src/presentation/components/templates/TemplatesClientPage';
+import { TemplatesPage } from '@lssm/bundle.contractspec-studio/presentation/components';
 
 export const metadata: Metadata = {
   title: 'Templates – ContractSpec',

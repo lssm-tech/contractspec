@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey.crm-onboarding",
+  "name": "@lssm/example.learning-journey-crm-onboarding",
   "version": "1.0.0",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
@@ -10,6 +10,7 @@
     "./contracts": "./src/contracts/index.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
+    "./example": "./src/example.ts",
     "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
     "./presentations": "./src/presentations/index.ts",
     "./track": "./src/track.ts",
@@ -44,6 +45,7 @@
       "./contracts": "./dist/contracts/index.js",
       "./docs": "./dist/docs/index.js",
       "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
+      "./example": "./dist/example.js",
       "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
       "./presentations": "./dist/presentations/index.js",
       "./track": "./dist/track.js",

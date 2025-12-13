@@ -13,7 +13,7 @@ Duolingo-style gamified learning UI for drills and quests.
 
 ```tsx
 import { GamifiedMiniApp } from '@lssm/example.learning-journey-ui-gamified';
-import { drillsLanguageBasicsTrack } from '@lssm/example.learning-journey.duo-drills/track';
+import { drillsLanguageBasicsTrack } from '@lssm/example.learning-journey-duo-drills/track';
 
 function MyApp() {
   return (
@@ -27,4 +27,3 @@ function MyApp() {
 - **FlashCard** - Tappable card that reveals action on flip
 - **MasteryRing** - Circular progress indicator
 - **DayCalendar** - 7-day grid for quest progress
-

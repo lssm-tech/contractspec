@@ -11,7 +11,7 @@ const blocks: DocBlock[] = [
     visibility: 'public',
     route: '/docs/examples/integration-stripe',
     tags: ['stripe', 'payments', 'integrations', 'example'],
-    body: `## Included\n- App blueprint enabling \\`payments.psp\\` capability.\n- Workflow invoking Stripe operations (prepare → charge → confirm).\n- Tenant app config binding workflow to an IntegrationConnection.\n\n## Notes\n- Secrets live in secret providers; connection config is non-secret.\n- Use \\`ctx.resolvedAppConfig\\` in operation executors to access integrations, branding, and translations.`,
+    body: `## Included\n- App blueprint enabling \`payments.psp\` capability.\n- Workflow invoking Stripe operations (prepare → charge → confirm).\n- Tenant app config binding workflow to an IntegrationConnection.\n\n## Notes\n- Secrets live in secret providers; connection config is non-secret.\n- Use \`ctx.resolvedAppConfig\` in operation executors to access integrations, branding, and translations.`,
   },
   {
     id: 'docs.examples.integration-stripe.usage',
@@ -26,5 +26,3 @@ const blocks: DocBlock[] = [
 ];
 
 registerDocBlocks(blocks);
-
-

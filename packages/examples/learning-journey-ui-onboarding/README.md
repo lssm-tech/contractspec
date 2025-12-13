@@ -13,7 +13,7 @@ Developer onboarding UI with checklists and journey maps.
 
 ```tsx
 import { OnboardingMiniApp } from '@lssm/example.learning-journey-ui-onboarding';
-import { studioGettingStartedTrack } from '@lssm/example.learning-journey.studio-onboarding/track';
+import { studioGettingStartedTrack } from '@lssm/example.learning-journey-studio-onboarding/track';
 
 function MyApp() {
   return (
@@ -30,4 +30,3 @@ function MyApp() {
 - **StepChecklist** - Expandable accordion step with completion action
 - **CodeSnippet** - Inline code display with copy button
 - **JourneyMap** - Horizontal connected node journey visualization
-

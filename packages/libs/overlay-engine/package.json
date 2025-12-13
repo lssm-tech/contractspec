@@ -42,14 +42,28 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./merger": "./src/merger.ts",
     "./react": "./src/react.ts",
+    "./registry": "./src/registry.ts",
+    "./runtime": "./src/runtime.ts",
+    "./signer": "./src/signer.ts",
+    "./spec": "./src/spec.ts",
+    "./types": "./src/types.ts",
+    "./validator": "./src/validator.ts",
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
+      "./merger": "./dist/merger.js",
       "./react": "./dist/react.js",
+      "./registry": "./dist/registry.js",
+      "./runtime": "./dist/runtime.js",
+      "./signer": "./dist/signer.js",
+      "./spec": "./dist/spec.js",
+      "./types": "./dist/types.js",
+      "./validator": "./dist/validator.js",
       "./*": "./*"
     }
   }

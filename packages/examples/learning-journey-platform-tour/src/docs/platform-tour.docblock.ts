@@ -28,7 +28,7 @@ const platformTourDocBlocks: DocBlock[] = [
 XP: 20 per step, 20 bonus XP upon completion.
 
 ## Wiring
-- Tracks export from \`@lssm/example.learning-journey.platform-tour/track\`.
+- Tracks export from \`@lssm/example.learning-journey-platform-tour/track\`.
 - Use onboarding API to surface progress:
   - \`learning.onboarding.listTracks\`
   - \`learning.onboarding.getProgress\`

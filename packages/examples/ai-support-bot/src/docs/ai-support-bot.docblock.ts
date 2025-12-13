@@ -21,10 +21,8 @@ const blocks: DocBlock[] = [
     visibility: 'public',
     route: '/docs/examples/ai-support-bot/usage',
     tags: ['support', 'usage'],
-    body: `## Usage\n- Call \\`runAiSupportBotExample()\\`.\n- Replace the \\`knowledge.query\\` implementation with a real knowledge service.\n\n## Notes\n- Keep outputs structured.\n- Use policy gates before exposing drafted replies to end-users.`,
+    body: `## Usage\n- Call \`runAiSupportBotExample()\`.\n- Replace the \`knowledge.query\` implementation with a real knowledge service.\n\n## Notes\n- Keep outputs structured.\n- Use policy gates before exposing drafted replies to end-users.`,
   },
 ];
 
 registerDocBlocks(blocks);
-
-

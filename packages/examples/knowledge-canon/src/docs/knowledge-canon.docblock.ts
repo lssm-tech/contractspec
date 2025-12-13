@@ -16,15 +16,14 @@ const blocks: DocBlock[] = [
   {
     id: 'docs.examples.knowledge-canon.usage',
     title: 'Knowledge Canon — Usage',
-    summary: 'How to register the space, configure sources, and route requests.',
+    summary:
+      'How to register the space, configure sources, and route requests.',
     kind: 'usage',
     visibility: 'public',
     route: '/docs/examples/knowledge-canon/usage',
     tags: ['knowledge', 'usage'],
-    body: `## Usage\n1) Register the knowledge space spec in your KnowledgeSpaceRegistry.\n2) Persist the source config through knowledge CRUD operations.\n3) Compose ResolvedAppConfig and pass it to your workflow/agent runtime.\n4) Use helpers like \\`selectKnowledgeBindings\\` before dispatching to search/embedding.\n\n## Notes\n- Avoid logging PII.\n- Keep search results auditable and cite sources.`,
+    body: `## Usage\n1) Register the knowledge space spec in your KnowledgeSpaceRegistry.\n2) Persist the source config through knowledge CRUD operations.\n3) Compose ResolvedAppConfig and pass it to your workflow/agent runtime.\n4) Use helpers like \`selectKnowledgeBindings\` before dispatching to search/embedding.\n\n## Notes\n- Avoid logging PII.\n- Keep search results auditable and cite sources.`,
   },
 ];
 
 registerDocBlocks(blocks);
-
-
