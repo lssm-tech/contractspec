@@ -57,7 +57,11 @@
       "cache": true,
       "outputLogs": "new-only",
       "inputs": ["prisma/**", "prisma.config.ts"],
-      "outputs": ["src/generated/**"]
+      "outputs": ["src/generated/**"],
+      "env": [
+        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
+        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
+      ]
     },
     "db:seed": {
       "cache": false,
