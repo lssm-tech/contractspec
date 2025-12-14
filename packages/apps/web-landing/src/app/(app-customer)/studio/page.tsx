@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import StudioExperienceClient from './StudioExperienceClient';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'ContractSpec Studio – Live Preview',
+  title: 'ContractSpec Studio',
   description:
-    'Explore ContractSpec Studio in your browser: projects dashboard, visual canvas, spec editor, and deployment orchestration.',
+    'Workspace-first Studio: manage projects and open modules for canvas, specs, deploy, integrations, and evolution.',
   alternates: {
     canonical: 'https://contractspec.lssm.tech/studio',
   },
 };
 
 export default function StudioPage() {
-  return <StudioExperienceClient />;
+  redirect('/studio/projects');
 }

@@ -23,10 +23,10 @@ CREATE TYPE "lssm_sigil"."MilestoneStatus" AS ENUM ('NOT_STARTED', 'IN_PROGRESS'
 CREATE TYPE "lssm_sigil"."OrganizationType" AS ENUM ('PLATFORM_ADMIN', 'CONTRACT_SPEC_CUSTOMER');
 
 -- CreateEnum
-CREATE TYPE "public"."ReferralStatus" AS ENUM ('PENDING', 'REGISTERED', 'COMPLETED', 'REWARDED');
+CREATE TYPE "ReferralStatus" AS ENUM ('PENDING', 'REGISTERED', 'COMPLETED', 'REWARDED');
 
 -- CreateEnum
-CREATE TYPE "public"."ReferralRewardType" AS ENUM ('FREE_MONTH', 'DISCOUNT_PERCENTAGE', 'DISCOUNT_AMOUNT', 'EXTENDED_TRIAL');
+CREATE TYPE "ReferralRewardType" AS ENUM ('FREE_MONTH', 'DISCOUNT_PERCENTAGE', 'DISCOUNT_AMOUNT', 'EXTENDED_TRIAL');
 
 -- CreateEnum
 CREATE TYPE "lssm_sigil"."ProjectTier" AS ENUM ('STARTER', 'PROFESSIONAL', 'ENTERPRISE');
@@ -432,12 +432,12 @@ CREATE TABLE "lssm_sigil"."oauth_consent" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."referral" (
+CREATE TABLE "referral" (
     "id" TEXT NOT NULL,
     "referrerOrganizationId" TEXT NOT NULL,
     "referredOrganizationId" TEXT,
     "referralCode" TEXT NOT NULL,
-    "status" "public"."ReferralStatus" NOT NULL DEFAULT 'PENDING',
+    "status" "ReferralStatus" NOT NULL DEFAULT 'PENDING',
     "utmSource" TEXT,
     "utmMedium" TEXT,
     "utmCampaign" TEXT,
@@ -450,11 +450,11 @@ CREATE TABLE "public"."referral" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."referral_reward" (
+CREATE TABLE "referral_reward" (
     "id" TEXT NOT NULL,
     "organizationId" TEXT NOT NULL,
     "referralId" TEXT NOT NULL,
-    "rewardType" "public"."ReferralRewardType" NOT NULL,
+    "rewardType" "ReferralRewardType" NOT NULL,
     "description" TEXT NOT NULL,
     "value" DOUBLE PRECISION,
     "months" INTEGER,
@@ -473,6 +473,7 @@ CREATE TABLE "lssm_sigil"."studio_project" (
     "id" TEXT NOT NULL,
     "organizationId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "description" TEXT,
     "tier" "lssm_sigil"."ProjectTier" NOT NULL DEFAULT 'STARTER',
     "deploymentMode" "lssm_sigil"."DeploymentMode" NOT NULL DEFAULT 'SHARED',
@@ -482,8 +483,42 @@ CREATE TABLE "lssm_sigil"."studio_project" (
     "evolutionConfig" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "studio_project_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "lssm_sigil"."studio_project_team" (
+    "id" TEXT NOT NULL,
+    "projectId" TEXT NOT NULL,
+    "teamId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "studio_project_team_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "lssm_sigil"."studio_project_slug_alias" (
+    "id" TEXT NOT NULL,
+    "organizationId" TEXT NOT NULL,
+    "projectId" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "studio_project_slug_alias_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "lssm_sigil"."studio_learning_event" (
+    "id" TEXT NOT NULL,
+    "organizationId" TEXT NOT NULL,
+    "projectId" TEXT,
+    "name" TEXT NOT NULL,
+    "payload" JSONB,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "studio_learning_event_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -707,10 +742,43 @@ CREATE INDEX "policy_binding_targetType_targetId_idx" ON "lssm_sigil"."policy_bi
 CREATE UNIQUE INDEX "oauth_application_clientId_key" ON "lssm_sigil"."oauth_application"("clientId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "referral_referredOrganizationId_key" ON "public"."referral"("referredOrganizationId");
+CREATE UNIQUE INDEX "referral_referredOrganizationId_key" ON "referral"("referredOrganizationId");
 
 -- CreateIndex
 CREATE INDEX "studio_project_organizationId_idx" ON "lssm_sigil"."studio_project"("organizationId");
+
+-- CreateIndex
+CREATE INDEX "studio_project_organizationId_deletedAt_idx" ON "lssm_sigil"."studio_project"("organizationId", "deletedAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "studio_project_organizationId_slug_key" ON "lssm_sigil"."studio_project"("organizationId", "slug");
+
+-- CreateIndex
+CREATE INDEX "studio_project_team_projectId_idx" ON "lssm_sigil"."studio_project_team"("projectId");
+
+-- CreateIndex
+CREATE INDEX "studio_project_team_teamId_idx" ON "lssm_sigil"."studio_project_team"("teamId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "studio_project_team_projectId_teamId_key" ON "lssm_sigil"."studio_project_team"("projectId", "teamId");
+
+-- CreateIndex
+CREATE INDEX "studio_project_slug_alias_projectId_idx" ON "lssm_sigil"."studio_project_slug_alias"("projectId");
+
+-- CreateIndex
+CREATE INDEX "studio_project_slug_alias_organizationId_idx" ON "lssm_sigil"."studio_project_slug_alias"("organizationId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "studio_project_slug_alias_organizationId_slug_key" ON "lssm_sigil"."studio_project_slug_alias"("organizationId", "slug");
+
+-- CreateIndex
+CREATE INDEX "studio_learning_event_organizationId_idx" ON "lssm_sigil"."studio_learning_event"("organizationId");
+
+-- CreateIndex
+CREATE INDEX "studio_learning_event_projectId_idx" ON "lssm_sigil"."studio_learning_event"("projectId");
+
+-- CreateIndex
+CREATE INDEX "studio_learning_event_organizationId_createdAt_idx" ON "lssm_sigil"."studio_learning_event"("organizationId", "createdAt");
 
 -- CreateIndex
 CREATE INDEX "studio_spec_projectId_type_idx" ON "lssm_sigil"."studio_spec"("projectId", "type");
@@ -833,19 +901,31 @@ ALTER TABLE "lssm_sigil"."sso_provider" ADD CONSTRAINT "sso_provider_organizatio
 ALTER TABLE "lssm_sigil"."sso_provider" ADD CONSTRAINT "sso_provider_userId_fkey" FOREIGN KEY ("userId") REFERENCES "lssm_sigil"."user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."referral" ADD CONSTRAINT "referral_referrerOrganizationId_fkey" FOREIGN KEY ("referrerOrganizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "referral" ADD CONSTRAINT "referral_referrerOrganizationId_fkey" FOREIGN KEY ("referrerOrganizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."referral" ADD CONSTRAINT "referral_referredOrganizationId_fkey" FOREIGN KEY ("referredOrganizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "referral" ADD CONSTRAINT "referral_referredOrganizationId_fkey" FOREIGN KEY ("referredOrganizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."referral_reward" ADD CONSTRAINT "referral_reward_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "referral_reward" ADD CONSTRAINT "referral_reward_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."referral_reward" ADD CONSTRAINT "referral_reward_referralId_fkey" FOREIGN KEY ("referralId") REFERENCES "public"."referral"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "referral_reward" ADD CONSTRAINT "referral_reward_referralId_fkey" FOREIGN KEY ("referralId") REFERENCES "referral"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "lssm_sigil"."studio_project" ADD CONSTRAINT "studio_project_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "lssm_sigil"."studio_project_team" ADD CONSTRAINT "studio_project_team_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "lssm_sigil"."studio_project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "lssm_sigil"."studio_project_team" ADD CONSTRAINT "studio_project_team_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "lssm_sigil"."team"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "lssm_sigil"."studio_project_slug_alias" ADD CONSTRAINT "studio_project_slug_alias_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "lssm_sigil"."studio_project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "lssm_sigil"."studio_learning_event" ADD CONSTRAINT "studio_learning_event_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "lssm_sigil"."studio_project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "lssm_sigil"."studio_spec" ADD CONSTRAINT "studio_spec_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "lssm_sigil"."studio_project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

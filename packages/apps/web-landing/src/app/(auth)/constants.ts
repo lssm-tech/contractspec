@@ -1,1 +1,1 @@
-export const ALLOW_SIGNUP = false;
+export const ALLOW_SIGNUP = true;

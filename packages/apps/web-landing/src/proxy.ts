@@ -12,6 +12,7 @@ const PUBLIC_ROUTES = [
   '/login',
   '/signup',
   '/onboarding',
+  '/invite',
 ];
 
 const isRouteMatch = (pathname: string, route: string) => {

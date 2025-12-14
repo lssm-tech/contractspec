@@ -35,8 +35,8 @@ input CreateProjectInput {
   description: String!
   evolutionEnabled: Boolean!
   name: String!
+  teamIds: [String!]
   tier: ProjectTierEnum!
-  workspaceId: String!
 }
 
 input CreateSpecInput {
@@ -46,11 +46,6 @@ input CreateSpecInput {
   projectId: String!
   type: SpecTypeEnum!
   version: String!
-}
-
-input CreateStudioWorkspaceInput {
-  description: String!
-  name: String!
 }
 
 scalar Currency
@@ -88,6 +83,35 @@ enum EnvironmentEnum {
   DEVELOPMENT
   PRODUCTION
   STAGING
+}
+
+type EvolutionSession {
+  appliedChanges: JSON
+  completedAt: Date
+  context: JSON
+  id: ID
+  projectId: String
+  signals: JSON
+  startedAt: Date
+  status: EvolutionStatusEnum
+  suggestions: JSON
+  trigger: EvolutionTriggerEnum
+}
+
+enum EvolutionStatusEnum {
+  ANALYZING
+  APPLYING
+  COMPLETED
+  FAILED
+  SUGGESTIONS_READY
+}
+
+enum EvolutionTriggerEnum {
+  ANOMALY_DETECTED
+  LIFECYCLE_STAGE_CHANGE
+  MANUAL
+  SCHEDULED
+  USAGE_PATTERN
 }
 
 """Unvalidated float scalar"""
@@ -128,6 +152,12 @@ type IntegrationSyncResult {
   status: String
   syncedAt: Date
   usageCount: Int
+}
+
+type InviteResult {
+  emailSent: Boolean
+  invitationId: String
+  inviteUrl: String
 }
 
 scalar JSON
@@ -257,19 +287,27 @@ type Mutation {
   connectIntegration(input: ConnectIntegrationInput!): StudioIntegration
   createStudioProject(input: CreateProjectInput!): StudioProject
   createStudioSpec(input: CreateSpecInput!): StudioSpec
-  createStudioWorkspace(input: CreateStudioWorkspaceInput!): StudioWorkspace
+  createTeam(name: String!): Team
+  deleteStudioProject(id: String!): StudioProject
+  deleteTeam(teamId: String!): Boolean
   deployCanvasVersion(input: DeployCanvasVersionInput!): CanvasVersion
   deployStudioProject(input: DeployProjectInput!): StudioDeployment
   disconnectIntegration(id: String!): Boolean
   indexKnowledgeSource(input: IndexKnowledgeInput!): KnowledgeSourceRecord
+  inviteToOrganization(email: String!, role: String!, teamId: String!): InviteResult
+  recordLearningEvent(input: RecordLearningEventInput!): StudioLearningEvent
+  renameTeam(name: String!, teamId: String!): Team
   runLifecycleAssessment(input: LifecycleAssessmentInput!): LifecycleAssessmentRecord
   saveCanvasDraft(input: SaveCanvasDraftInput!): CanvasVersion
   saveTemplateToStudio(input: SaveTemplateInput!): SaveTemplateResult
+  setProjectTeams(projectId: String!, teamIds: [String!]!): Boolean
   setUserMetadata(json: String!): Boolean
+  startEvolutionSession(input: StartEvolutionSessionInput!): EvolutionSession
   syncIntegration(id: String!): IntegrationSyncResult
   trackLifecycleMilestone(category: String!, milestoneId: String!, status: MilestoneStatusEnum!): LifecycleMilestoneProgress
   undoCanvasVersion(input: UndoCanvasInput!): CanvasVersion
   unlinkProvider(providerId: String!): Boolean
+  updateEvolutionSession(id: String!, input: UpdateEvolutionSessionInput!): EvolutionSession
   updateProfile(input: UpdateProfileInput!): User
   updateStudioProject(id: String!, input: UpdateProjectInput!): StudioProject
   updateStudioSpec(id: String!, input: UpdateSpecInput!): StudioSpec
@@ -289,6 +327,19 @@ type Organization {
   updatedAt: Date
 }
 
+type OrganizationInvitation {
+  acceptedAt: Date
+  createdAt: Date
+  email: String
+  expiresAt: Date
+  id: ID
+  inviterId: String
+  organizationId: String
+  role: String
+  status: String
+  teamId: String
+}
+
 type OrganizationLifecycleProfile {
   assessments: [LifecycleAssessmentRecord!]
   capitalPhase: String
@@ -306,6 +357,14 @@ type OrganizationLifecycleProfile {
   signals: JSON
 }
 
+type OrganizationMember {
+  createdAt: Date
+  id: ID
+  organizationId: String
+  role: String
+  userId: String
+}
+
 enum OrganizationType {
   CONTRACT_SPEC_CUSTOMER
   PLATFORM_ADMIN
@@ -320,22 +379,30 @@ enum ProjectTierEnum {
 }
 
 type Query {
+  canvasVersions(canvasId: String!): [CanvasVersion!]
   connectionStatus: ConnectionStatus
+  evolutionSessions(projectId: String!): [EvolutionSession!]
   knowledgeSources(projectId: String!): [KnowledgeSourceRecord!]
   lifecycleAssessments(limit: Int!): [LifecycleAssessmentRecord!]
   lifecycleProfile: OrganizationLifecycleProfile
   lifecycleRecommendations: LifecycleRecommendation
   me: User
   myActiveOrganization: Organization
+  myLearningEvents(limit: Int!, projectId: String!): [StudioLearningEvent!]
   myOrganizations: [Organization!]
-  myStudioProjects(workspaceId: String!): [StudioProject!]
-  myStudioWorkspaces: [StudioWorkspace!]
+  myStudioProjects: [StudioProject!]
+  myTeams: [Team!]
+  organizationInvitations: [OrganizationInvitation!]
+  organizationMembers: [OrganizationMember!]
   projectSpecs(projectId: String!): [StudioSpec!]
+  projectTeams(projectId: String!): [Team!]
   queryKnowledge(input: QueryKnowledgeInput!): KnowledgeAnswer
   registryTemplate(id: String!): RegistryTemplate
   registryTemplates: [RegistryTemplate!]
-  studioIntegrations: [StudioIntegration!]
+  studioCanvas(projectId: String!): JSON
+  studioIntegrations(projectId: String!): [StudioIntegration!]
   studioProject(id: String!): StudioProject
+  studioProjectBySlug(slug: String!): StudioProjectSlugResolution
   studioSpec(id: String!): StudioSpec
 }
 
@@ -346,6 +413,12 @@ input QueryKnowledgeInput {
   query: String!
   systemPrompt: String!
   topK: Int!
+}
+
+input RecordLearningEventInput {
+  name: String!
+  payload: JSON!
+  projectId: String!
 }
 
 type RegistryTemplate {
@@ -384,6 +457,14 @@ enum SpecTypeEnum {
   WORKFLOW
 }
 
+input StartEvolutionSessionInput {
+  context: JSON!
+  projectId: String!
+  signals: JSON!
+  suggestions: JSON!
+  trigger: EvolutionTriggerEnum!
+}
+
 """Unvalidated string scalar"""
 scalar String_unsecure
 
@@ -412,6 +493,15 @@ type StudioIntegration {
   usageCount: Int
 }
 
+type StudioLearningEvent {
+  createdAt: Date
+  id: ID
+  name: String
+  organizationId: String
+  payload: JSON
+  projectId: String
+}
+
 type StudioProject {
   byokEnabled: Boolean
   createdAt: Date
@@ -421,10 +511,16 @@ type StudioProject {
   evolutionEnabled: Boolean
   id: ID
   name: String
+  slug: String
   specs: [StudioSpec!]
   tier: ProjectTierEnum
   updatedAt: Date
-  workspaceId: String
+}
+
+type StudioProjectSlugResolution {
+  canonicalSlug: String
+  project: StudioProject
+  wasRedirect: Boolean
 }
 
 type StudioSpec {
@@ -438,9 +534,8 @@ type StudioSpec {
   version: String
 }
 
-type StudioWorkspace {
+type Team {
   createdAt: Date
-  description: String
   id: ID
   name: String
   organizationId: String
@@ -455,6 +550,12 @@ scalar URL
 
 input UndoCanvasInput {
   canvasId: String!
+}
+
+input UpdateEvolutionSessionInput {
+  appliedChanges: JSON!
+  completedAt: Date!
+  status: EvolutionStatusEnum!
 }
 
 input UpdateProfileInput {

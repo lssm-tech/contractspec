@@ -12,6 +12,7 @@ export * from './shared/FeatureGateNotice';
 export * from './marketing';
 export * from './templates';
 export * from './shell/WorkspaceProjectShellLayout';
+export * from './shell/StudioAppShellLayout';
 export * from './assistant/FloatingAssistant';
 export * from './learning/LearningCoach';
 export * from './learning/learning-events';

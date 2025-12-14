@@ -2,7 +2,7 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 
 export interface StudioProjectRecord {
   id: string;
-  workspaceId: string;
+  slug: string;
   name: string;
   description?: string | null;
   tier: 'STARTER' | 'PROFESSIONAL' | 'ENTERPRISE';
@@ -28,17 +28,15 @@ export interface StudioProjectsResponse {
   myStudioProjects: StudioProjectRecord[];
 }
 
-export type StudioProjectsFetcher = (variables: {
-  workspaceId?: string;
-}) => Promise<StudioProjectsResponse>;
+export type StudioProjectsFetcher = () => Promise<StudioProjectsResponse>;
 
 const DEFAULT_ENDPOINT = '/api/graphql';
 
 const PROJECTS_QUERY = /* GraphQL */ `
-  query StudioProjects($workspaceId: String) {
-    myStudioProjects(workspaceId: $workspaceId) {
+  query StudioProjects {
+    myStudioProjects {
       id
-      workspaceId
+      slug
       name
       description
       tier
@@ -62,7 +60,7 @@ const PROJECTS_QUERY = /* GraphQL */ `
   }
 `;
 
-const defaultFetcher: StudioProjectsFetcher = async (variables) => {
+const defaultFetcher: StudioProjectsFetcher = async () => {
   const response = await fetch(DEFAULT_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -70,7 +68,6 @@ const defaultFetcher: StudioProjectsFetcher = async (variables) => {
     },
     body: JSON.stringify({
       query: PROJECTS_QUERY,
-      variables,
     }),
   });
 
@@ -89,7 +86,6 @@ const defaultFetcher: StudioProjectsFetcher = async (variables) => {
 };
 
 export interface UseStudioProjectsOptions {
-  workspaceId?: string;
   enabled?: boolean;
   fetcher?: StudioProjectsFetcher;
 }
@@ -99,9 +95,9 @@ export function useStudioProjects(
 ): UseQueryResult<StudioProjectsResponse> {
   const fetcher = options.fetcher ?? defaultFetcher;
   return useQuery({
-    queryKey: ['studioProjects', options.workspaceId],
+    queryKey: ['studioProjects'],
     enabled: options.enabled ?? true,
-    queryFn: () => fetcher({ workspaceId: options.workspaceId }),
+    queryFn: () => fetcher(),
     staleTime: 30_000,
   });
 }

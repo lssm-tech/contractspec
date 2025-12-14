@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
 export interface CreateProjectInput {
-  workspaceId?: string;
   name: string;
   description?: string;
+  teamIds?: string[];
   tier: 'STARTER' | 'PROFESSIONAL' | 'ENTERPRISE';
   deploymentMode?: 'SHARED' | 'DEDICATED';
   byokEnabled?: boolean;
@@ -13,6 +13,7 @@ export interface CreateProjectInput {
 export interface CreateProjectResponse {
   createStudioProject: {
     id: string;
+    slug: string;
     name: string;
     tier: string;
     deploymentMode: string;
@@ -23,6 +24,7 @@ const CREATE_PROJECT_MUTATION = /* GraphQL */ `
   mutation CreateStudioProject($input: CreateProjectInput!) {
     createStudioProject(input: $input) {
       id
+      slug
       name
       tier
       deploymentMode
