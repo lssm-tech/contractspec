@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
-import { authClient } from './index';
+import { authClient } from './client';
 import { initPosthog, posthog } from '../../libs/posthog/client';
 import {
   graphql,
@@ -9,20 +9,16 @@ import {
 } from '@lssm/lib.gql-client-contractspec-studio';
 import { useGraphQL } from '../../libs/gql-client';
 
-// type Session = typeof authClient.$Infer.Session;
-// export type AuthUser = Session['user'];
-// export type AuthSession = Session['session'];
-
-type Session =
+type SessionData =
   ReturnType<typeof authClient.useSession> extends {
     data: infer T;
   }
     ? T
-    : any;
+    : unknown;
 
 interface AuthContextValue {
-  user: Session extends { user?: infer U } ? U | null : any;
-  session: Session extends { session?: infer S } ? S | null : any;
+  user: SessionData extends { user?: infer U } ? U | null : unknown;
+  session: SessionData extends { session?: infer S } ? S | null : unknown;
   isAuthenticated: boolean;
   organization: Pick<Organization, 'id' | 'name' | 'slug' | 'type'> | null;
 }

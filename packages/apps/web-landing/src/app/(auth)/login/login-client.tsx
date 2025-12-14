@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
-import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
 import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
 import {
@@ -17,21 +16,6 @@ import {
   InputGroupInput,
 } from '@lssm/lib.ui-kit-web/ui/input-group';
 import { ALLOW_SIGNUP } from '../constants';
-
-interface EmailPasswordClient {
-  email?: {
-    signIn?: (payload: {
-      email: string;
-      password: string;
-      rememberMe?: boolean;
-    }) => Promise<unknown>;
-  };
-  signIn?: (payload: {
-    identifier: string;
-    password: string;
-    rememberMe?: boolean;
-  }) => Promise<unknown>;
-}
 
 export default function LoginPageClient() {
   const router = useRouter();
@@ -60,6 +44,8 @@ export default function LoginPageClient() {
 
     setLoading(true);
     setError('');
+    const { authClient } =
+      await import('@lssm/bundle.contractspec-studio/presentation/providers/auth/index.web');
     await authClient.signIn.email(
       {
         email: formData.email,

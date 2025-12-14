@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
-import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
 import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
 import {
@@ -59,6 +58,8 @@ export function SignupPageClient() {
     setLoading(true);
     setError('');
 
+    const { authClient } =
+      await import('@lssm/bundle.contractspec-studio/presentation/providers/auth/index.web');
     await authClient.signUp.email(
       {
         email: formData.email,

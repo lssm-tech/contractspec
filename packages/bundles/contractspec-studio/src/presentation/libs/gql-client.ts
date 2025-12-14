@@ -6,7 +6,7 @@ import type {
   ResultOf,
   VariablesOf,
 } from '@graphql-typed-document-node/core';
-import { authClient } from '../../presentation/providers/auth';
+import { authClient } from '../../presentation/providers/auth/client';
 
 export const useGraphQL = <TDocument extends DocumentTypeDecoration<any, any>>(
   document: TDocument,

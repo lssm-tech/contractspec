@@ -12,6 +12,7 @@ import './tech/PHASE_4_PERSONALIZATION_ENGINE.docblock';
 import './tech/PHASE_5_ZERO_TOUCH_OPERATIONS.docblock';
 import './tech/lifecycle-stage-system.docblock';
 import './tech/presentation-runtime.docblock';
+import './tech/auth/better-auth-nextjs.docblock';
 import './tech/schema/README.docblock';
 import './tech/templates/runtime.docblock';
 import './tech/workflows/overview.docblock';

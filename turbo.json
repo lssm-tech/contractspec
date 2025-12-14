@@ -56,7 +56,7 @@
     "db:generate": {
       "cache": true,
       "outputLogs": "new-only",
-      "inputs": ["prisma/**"],
+      "inputs": ["prisma/**", "prisma.config.ts"],
       "outputs": ["src/generated/**"]
     },
     "db:seed": {
