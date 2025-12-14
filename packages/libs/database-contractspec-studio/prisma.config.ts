@@ -8,12 +8,6 @@ export default defineConfig({
     // seed: "bun run prisma/seed.ts",
   },
   datasource: {
-    url:
-      process.env.CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING ??
-      (() => {
-        throw new Error(
-          'Missing env: CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING (required for Prisma migrations/generate)'
-        );
-      })(),
+    url: process.env.CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING!,
   },
 });
