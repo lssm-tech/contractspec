@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
 import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
@@ -18,6 +18,8 @@ import {
 
 export function SignupPageClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') ?? '/studio';
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -67,7 +69,7 @@ export function SignupPageClient() {
       {
         onSuccess: (ctx) => {
           setLoading(false);
-          router.push('/studio');
+          router.push(redirectTo);
         },
         onError: (ctx) => {
           setLoading(false);

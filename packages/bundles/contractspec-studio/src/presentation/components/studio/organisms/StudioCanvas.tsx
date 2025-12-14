@@ -40,6 +40,7 @@ export interface StudioCanvasProps {
   state: CanvasState;
   selectedNodeId?: string;
   onSelectNode?: (nodeId: string) => void;
+  onNodesChange?: (nodes: ComponentNode[]) => void;
   onFocusTree?: () => void;
   height?: number;
   onAddNode?: (node: ComponentNode, parentId?: string) => void;
@@ -57,6 +58,7 @@ export function StudioCanvas({
   state,
   selectedNodeId,
   onSelectNode,
+  onNodesChange,
   onFocusTree,
   height = 560,
   onAddNode,
@@ -83,6 +85,10 @@ export function StudioCanvas({
   React.useEffect(() => {
     setNodes(state.nodes ?? []);
   }, [state.nodes]);
+
+  React.useEffect(() => {
+    onNodesChange?.(nodes);
+  }, [nodes, onNodesChange]);
 
   React.useEffect(() => {
     setInternalSelectedId(selectedNodeId);

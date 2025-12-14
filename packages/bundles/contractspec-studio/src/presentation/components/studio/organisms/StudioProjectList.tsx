@@ -11,7 +11,6 @@ type TierFilter = 'ALL' | StudioProjectSummary['tier'];
 type ModeFilter = 'ALL' | StudioProjectSummary['deploymentMode'];
 
 export interface StudioProjectListProps {
-  workspaceId?: string;
   onDeploy?: (projectId: string) => Promise<void> | void;
   onEdit?: (projectId: string) => void;
   onArchive?: (projectId: string) => void;
@@ -32,7 +31,6 @@ function toSummary(project: StudioProjectRecord): StudioProjectSummary {
 }
 
 export function StudioProjectList({
-  workspaceId,
   onDeploy,
   onEdit,
   onArchive,
@@ -43,7 +41,7 @@ export function StudioProjectList({
   const [deployingId, setDeployingId] = React.useState<string | null>(null);
 
   const { data, isLoading, refetch, isRefetching } = useStudioProjects({
-    workspaceId,
+    enabled: true,
   });
 
   const projects = React.useMemo(() => {

@@ -172,7 +172,7 @@ model Organization {
   /// Enterprise SSO providers configured for this organization
   ssoProviders       SsoProvider[]
   lifecycleProfile   OrganizationLifecycleProfile?
-  studioWorkspaces   StudioWorkspace[]
+  // StudioWorkspaces removed: Studio is Organization → Projects; access refined by Teams/RBAC.
   studioProjects     StudioProject[]
   studioIntegrations StudioIntegration[]
   knowledgeSources   KnowledgeSource[]
@@ -245,6 +245,7 @@ model Team {
 
   members     TeamMember[]
   invitations Invitation[]
+  studioProjectTeams StudioProjectTeam[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

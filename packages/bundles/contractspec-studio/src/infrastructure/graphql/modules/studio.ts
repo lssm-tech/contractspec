@@ -15,10 +15,16 @@ import { DeploymentOrchestrator } from '../../deployment/orchestrator';
 import { requireFeatureFlag } from '../guards/feature-flags';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
 import { toInputJson, toNullableJsonValue } from '../../../utils/prisma-json';
+import {
+  ensureStudioProjectAccess,
+  requireOrgMember,
+  isOrgAdminRole,
+} from '../guards/project-access';
 import type {
   CanvasVersionSnapshot,
   ComponentNode,
 } from '../../../modules/visual-builder';
+import { VisualBuilderModule } from '../../../modules/visual-builder';
 import { CanvasVersionManager } from '../../../modules/visual-builder/versioning';
 
 const debugGraphQL = process.env.CONTRACTSPEC_DEBUG_GRAPHQL_BUILDER === 'true';
@@ -115,7 +121,7 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
     .implement({
       fields: (t) => ({
         id: t.exposeID('id'),
-        workspaceId: t.exposeString('workspaceId'),
+        slug: t.exposeString('slug'),
         name: t.exposeString('name'),
         description: t.exposeString('description', { nullable: true }),
         tier: t.field({
@@ -177,9 +183,9 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
 
   const CreateProjectInput = builder.inputType('CreateProjectInput', {
     fields: (t) => ({
-      workspaceId: t.string(),
       name: t.string({ required: true }),
       description: t.string(),
+      teamIds: t.stringList({ required: false }),
       tier: t.field({ type: ProjectTierEnum, required: true }),
       deploymentMode: t.field({
         type: DeploymentModeEnum,
@@ -285,20 +291,90 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
         return getProjectForOrg(args.id, user.organizationId);
       },
     }),
-    myStudioProjects: t.field({
-      type: [StudioProjectType],
+    studioProjectBySlug: t.field({
+      type: builder
+        .objectRef<{
+          project: StudioProject;
+          canonicalSlug: string;
+          wasRedirect: boolean;
+        }>('StudioProjectSlugResolution')
+        .implement({
+          fields: (t2) => ({
+            project: t2.field({
+              type: StudioProjectType,
+              resolve: (r) => r.project,
+            }),
+            canonicalSlug: t2.exposeString('canonicalSlug'),
+            wasRedirect: t2.exposeBoolean('wasRedirect'),
+          }),
+        }),
       args: {
-        workspaceId: t.arg.string(),
+        slug: t.arg.string({ required: true }),
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
-        if (args.workspaceId) {
-          await ensureWorkspaceAccess(args.workspaceId, user.organizationId);
+        const direct = await studioDb.studioProject.findFirst({
+          where: {
+            organizationId: user.organizationId,
+            slug: args.slug,
+            deletedAt: null,
+          },
+        });
+        if (direct) {
+          await ensureStudioProjectAccess({
+            projectId: direct.id,
+            userId: user.id,
+            organizationId: user.organizationId,
+          });
+          return {
+            project: direct,
+            canonicalSlug: direct.slug,
+            wasRedirect: false,
+          };
         }
+        const alias = await studioDb.studioProjectSlugAlias.findFirst({
+          where: { organizationId: user.organizationId, slug: args.slug },
+          select: { projectId: true },
+        });
+        if (!alias?.projectId) {
+          throw new Error('Project not found');
+        }
+        const project = await getProjectForOrg(
+          alias.projectId,
+          user.organizationId
+        );
+        await ensureStudioProjectAccess({
+          projectId: project.id,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
+        return { project, canonicalSlug: project.slug, wasRedirect: true };
+      },
+    }),
+    myStudioProjects: t.field({
+      type: [StudioProjectType],
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        const member = await requireOrgMember(user.id, user.organizationId);
+        if (isOrgAdminRole(member.role)) {
+          return studioDb.studioProject.findMany({
+            where: { organizationId: user.organizationId, deletedAt: null },
+            orderBy: { createdAt: 'desc' },
+          });
+        }
+        // org-wide projects (no teams) OR shared with one of user's teams
         return studioDb.studioProject.findMany({
           where: {
             organizationId: user.organizationId,
-            workspaceId: args.workspaceId ?? undefined,
+            deletedAt: null,
+            OR: [
+              { teams: { none: {} } },
+              {
+                teams: {
+                  some: { team: { members: { some: { userId: user.id } } } },
+                },
+              },
+            ],
           },
           orderBy: { createdAt: 'desc' },
         });
@@ -315,7 +391,11 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
           where: { id: args.id },
         });
         if (!spec) throw new Error('Spec not found');
-        await ensureProjectAccess(spec.projectId, user.organizationId);
+        await ensureStudioProjectAccess({
+          projectId: spec.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
         return spec;
       },
     }),
@@ -326,11 +406,43 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
-        await ensureProjectAccess(args.projectId, user.organizationId);
+        await ensureStudioProjectAccess({
+          projectId: args.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
         return studioDb.studioSpec.findMany({
           where: { projectId: args.projectId },
           orderBy: { updatedAt: 'desc' },
         });
+      },
+    }),
+    studioCanvas: t.field({
+      type: 'JSON',
+      args: {
+        projectId: t.arg.string({ required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        await ensureStudioProjectAccess({
+          projectId: args.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
+        const builderModule = new VisualBuilderModule();
+        return builderModule.renderCanvas(args.projectId);
+      },
+    }),
+    canvasVersions: t.field({
+      type: [CanvasVersionType],
+      args: {
+        canvasId: t.arg.string({ required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        await ensureCanvasAccess(args.canvasId, user.organizationId);
+        const manager = new CanvasVersionManager();
+        return manager.list(args.canvasId);
       },
     }),
   }));
@@ -343,14 +455,15 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
-        const workspaceId =
-          args.input.workspaceId ??
-          (await getOrCreateDefaultWorkspaceId(user.organizationId));
-        await ensureWorkspaceAccess(workspaceId, user.organizationId);
-        return studioDb.studioProject.create({
+        const member = await requireOrgMember(user.id, user.organizationId);
+        const slug = await allocateProjectSlug(
+          user.organizationId,
+          args.input.name
+        );
+        const project = await studioDb.studioProject.create({
           data: {
-            workspaceId,
             name: args.input.name,
+            slug,
             description: args.input.description ?? undefined,
             tier: args.input.tier,
             deploymentMode: args.input.deploymentMode ?? DeploymentMode.SHARED,
@@ -359,6 +472,35 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
             organizationId: user.organizationId,
           },
         });
+        // Optional initial sharing: only admins can assign teams on create
+        const teamIds = (args.input as { teamIds?: unknown }).teamIds;
+        if (Array.isArray(teamIds) && teamIds.length) {
+          if (!isOrgAdminRole(member.role)) {
+            throw new Error(
+              'Only organization admins can share projects to teams.'
+            );
+          }
+          const teams = await studioDb.team.findMany({
+            where: {
+              id: { in: teamIds as string[] },
+              organizationId: user.organizationId,
+            },
+            select: { id: true },
+          });
+          if (teams.length !== teamIds.length) {
+            throw new Error(
+              'One or more teams were not found in this organization.'
+            );
+          }
+          await studioDb.studioProjectTeam.createMany({
+            data: (teamIds as string[]).map((teamId) => ({
+              projectId: project.id,
+              teamId,
+            })),
+            skipDuplicates: true,
+          });
+        }
+        return project;
       },
     }),
     updateStudioProject: t.field({
@@ -369,17 +511,60 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
-        await ensureProjectAccess(args.id, user.organizationId);
+        await ensureStudioProjectAccess({
+          projectId: args.id,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
+        const existing = await getProjectForOrg(args.id, user.organizationId);
+        const nextSlug =
+          args.input.name && args.input.name !== existing.name
+            ? await allocateProjectSlug(user.organizationId, args.input.name)
+            : undefined;
+        if (nextSlug && existing.slug !== nextSlug) {
+          try {
+            await studioDb.studioProjectSlugAlias.create({
+              data: {
+                organizationId: user.organizationId,
+                projectId: existing.id,
+                slug: existing.slug,
+              },
+            });
+          } catch {
+            // best-effort: alias may already exist or conflict; ignore
+          }
+        }
         return studioDb.studioProject.update({
           where: { id: args.id },
           data: {
             name: args.input.name ?? undefined,
+            slug: nextSlug ?? undefined,
             description: args.input.description ?? undefined,
             tier: args.input.tier ?? undefined,
             deploymentMode: args.input.deploymentMode ?? undefined,
             byokEnabled: args.input.byokEnabled ?? undefined,
             evolutionEnabled: args.input.evolutionEnabled ?? undefined,
           },
+        });
+      },
+    }),
+    deleteStudioProject: t.field({
+      type: StudioProjectType,
+      args: {
+        id: t.arg.string({ required: true }),
+      },
+      resolve: async (_root, args, ctx) => {
+        const user = requireAuthAndGet(ctx);
+        // Deletion is admin-only (soft delete)
+        const member = await requireOrgMember(user.id, user.organizationId);
+        if (!isOrgAdminRole(member.role)) {
+          throw new Error('Only organization admins can delete projects.');
+        }
+        const existing = await getProjectForOrg(args.id, user.organizationId);
+        if (existing.deletedAt) return existing;
+        return studioDb.studioProject.update({
+          where: { id: existing.id },
+          data: { deletedAt: new Date() },
         });
       },
     }),
@@ -390,7 +575,11 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
-        await ensureProjectAccess(args.input.projectId, user.organizationId);
+        await ensureStudioProjectAccess({
+          projectId: args.input.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
         return studioDb.studioSpec.create({
           data: {
             projectId: args.input.projectId,
@@ -418,7 +607,11 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
           where: { id: args.id },
         });
         if (!spec) throw new Error('Spec not found');
-        await ensureProjectAccess(spec.projectId, user.organizationId);
+        await ensureStudioProjectAccess({
+          projectId: spec.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
         return studioDb.studioSpec.update({
           where: { id: args.id },
           data: {
@@ -484,6 +677,11 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const user = requireAuthAndGet(ctx);
+        await ensureStudioProjectAccess({
+          projectId: args.input.projectId,
+          userId: user.id,
+          organizationId: user.organizationId,
+        });
         const project = await getProjectForOrg(
           args.input.projectId,
           user.organizationId
@@ -510,14 +708,15 @@ export function registerStudioSchema(builder: typeof gqlSchemaBuilder) {
           throw new Error('Organization mismatch while saving template.');
         }
 
-        const workspaceId = await getOrCreateDefaultWorkspaceId(
-          user.organizationId
+        const slug = await allocateProjectSlug(
+          user.organizationId,
+          args.input.projectName
         );
 
         const project = await studioDb.studioProject.create({
           data: {
-            workspaceId,
             name: args.input.projectName,
+            slug,
             description:
               args.input.description ??
               `Imported from ${args.input.templateId} template.`,
@@ -563,51 +762,21 @@ function requireAuthAndGet(
   if (!ctx.organization) {
     throw new Error('Organization context is required.');
   }
-  return ctx.user as NonNullable<typeof ctx.user> & { organizationId: string };
+  // NOTE: Better Auth session user does not carry organizationId; it lives on ctx.organization.
+  return {
+    ...(ctx.user as NonNullable<typeof ctx.user>),
+    organizationId: ctx.organization.id,
+  };
 }
 
 async function getProjectForOrg(projectId: string, organizationId: string) {
   const project = await studioDb.studioProject.findFirst({
-    where: { id: projectId, organizationId },
+    where: { id: projectId, organizationId, deletedAt: null },
   });
   if (!project) {
     throw new Error('Project not found');
   }
   return project;
-}
-
-async function ensureProjectAccess(projectId: string, organizationId: string) {
-  await getProjectForOrg(projectId, organizationId);
-}
-
-async function ensureWorkspaceAccess(workspaceId: string, organizationId: string) {
-  const workspace = await studioDb.studioWorkspace.findFirst({
-    where: { id: workspaceId, organizationId },
-    select: { id: true },
-  });
-  if (!workspace) {
-    throw new Error('Workspace not found');
-  }
-}
-
-async function getOrCreateDefaultWorkspaceId(organizationId: string) {
-  const existing = await studioDb.studioWorkspace.findFirst({
-    where: { organizationId },
-    orderBy: { createdAt: 'asc' },
-    select: { id: true },
-  });
-  if (existing?.id) {
-    return existing.id;
-  }
-  const created = await studioDb.studioWorkspace.create({
-    data: {
-      organizationId,
-      name: 'Default workspace',
-      description: 'Auto-created default workspace.',
-    },
-    select: { id: true },
-  });
-  return created.id;
 }
 
 async function ensureCanvasAccess(canvasId: string, organizationId: string) {
@@ -618,7 +787,8 @@ async function ensureCanvasAccess(canvasId: string, organizationId: string) {
   if (!overlay) {
     throw new Error('Canvas not found');
   }
-  await ensureProjectAccess(overlay.projectId, organizationId);
+  // Note: org access is verified through ensureStudioProjectAccess at callsites.
+  await getProjectForOrg(overlay.projectId, organizationId);
   return overlay.projectId;
 }
 
@@ -627,4 +797,29 @@ function toComponentNodes(value: unknown): ComponentNode[] {
     throw new Error('Canvas nodes input must be an array');
   }
   return value as ComponentNode[];
+}
+
+async function allocateProjectSlug(organizationId: string, name: string) {
+  const base = slugify(name);
+  const root = base || 'project';
+  const candidate = root;
+  const exists = await studioDb.studioProject.findFirst({
+    where: { organizationId, slug: candidate },
+    select: { id: true },
+  });
+  if (!exists) return candidate;
+  const count = await studioDb.studioProject.count({
+    where: { organizationId, slug: { startsWith: `${root}-` } },
+  });
+  return `${root}-${count + 1}`;
+}
+
+function slugify(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/['"]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
 }

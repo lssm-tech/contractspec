@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@lssm/lib.design-system';
 import { authClient } from '@lssm/bundle.contractspec-studio/presentation/providers/auth';
@@ -34,6 +35,8 @@ interface EmailPasswordClient {
 
 export default function LoginPageClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') ?? '/studio';
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -66,7 +69,7 @@ export default function LoginPageClient() {
       {
         onSuccess: (ctx) => {
           setLoading(false);
-          router.push('/studio');
+          router.push(redirectTo);
         },
         onError: (ctx) => {
           setLoading(false);

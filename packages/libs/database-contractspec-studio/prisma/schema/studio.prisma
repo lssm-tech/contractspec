@@ -1,29 +1,11 @@
 /// Studio project management models for ContractSpec Studio.
 /// Stored in the `lssm_sigil` schema alongside core tenant data.
 
-model StudioWorkspace {
-  id             String   @id @default(cuid())
-  organizationId String
-  name           String
-  description    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  organization Organization   @relation(fields: [organizationId], references: [id])
-  projects     StudioProject[]
-
-  @@unique([organizationId, name])
-  @@index([organizationId])
-  @@map("studio_workspace")
-  @@schema("lssm_sigil")
-}
-
 model StudioProject {
   id             String         @id @default(cuid())
   organizationId String
-  workspaceId    String
   name           String
+  slug           String
   description    String?
   tier           ProjectTier    @default(STARTER)
   deploymentMode DeploymentMode @default(SHARED)
@@ -38,9 +20,10 @@ model StudioProject {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 
   organization             Organization              @relation(fields: [organizationId], references: [id])
-  workspace                StudioWorkspace           @relation(fields: [workspaceId], references: [id])
+  // Access control for projects is refined via Teams (see StudioProjectTeam).
   specs                    StudioSpec[]
   overlays                 StudioOverlay[]
   deployments              StudioDeployment[]
@@ -53,9 +36,63 @@ model StudioProject {
   conversationParticipants ConversationParticipant[]
   messages                 Message[]
   recipes                  Recipe[]
+  slugAliases              StudioProjectSlugAlias[]
+  learningEvents           StudioLearningEvent[]
+  teams                    StudioProjectTeam[]
 
   @@index([organizationId])
+  @@index([organizationId, deletedAt])
+  @@unique([organizationId, slug])
   @@map("studio_project")
+  @@schema("lssm_sigil")
+}
+
+model StudioProjectTeam {
+  id        String   @id @default(cuid())
+  projectId String
+  teamId    String
+  createdAt DateTime @default(now())
+
+  project StudioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  team    Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, teamId])
+  @@index([projectId])
+  @@index([teamId])
+  @@map("studio_project_team")
+  @@schema("lssm_sigil")
+}
+
+model StudioProjectSlugAlias {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String
+  slug           String
+  createdAt      DateTime @default(now())
+
+  project StudioProject @relation(fields: [projectId], references: [id])
+
+  @@unique([organizationId, slug])
+  @@index([projectId])
+  @@index([organizationId])
+  @@map("studio_project_slug_alias")
+  @@schema("lssm_sigil")
+}
+
+model StudioLearningEvent {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String?
+  name           String
+  payload        Json?
+  createdAt      DateTime @default(now())
+
+  project StudioProject? @relation(fields: [projectId], references: [id])
+
+  @@index([organizationId])
+  @@index([projectId])
+  @@index([organizationId, createdAt])
+  @@map("studio_learning_event")
   @@schema("lssm_sigil")
 }
 

@@ -1,17 +1,10 @@
 import type React from 'react';
-import StudioHeader from '@/components/studio/header';
-import StudioFooter from '@/components/studio/footer';
+import { StudioAppShellLayout } from '@lssm/bundle.contractspec-studio/presentation/components';
 
 export default function StudioLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <StudioHeader />
-      {children}
-      <StudioFooter />
-    </>
-  );
+  return <StudioAppShellLayout>{children}</StudioAppShellLayout>;
 }

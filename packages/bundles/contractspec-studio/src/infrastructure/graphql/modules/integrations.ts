@@ -26,6 +26,7 @@ import type {
 } from '@lssm/lib.contracts';
 import { requireFeatureFlag } from '../guards/feature-flags';
 import { ContractSpecFeatureFlags } from '@lssm/lib.progressive-delivery';
+import { ensureStudioProjectAccess } from '../guards/project-access';
 
 const VECTOR_DIMENSIONS = 12;
 
@@ -343,10 +344,23 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
   builder.queryFields((t) => ({
     studioIntegrations: t.field({
       type: [StudioIntegrationType],
-      resolve: async (_root, _args, ctx) => {
+      args: {
+        projectId: t.arg.string(),
+      },
+      resolve: async (_root, args, ctx) => {
         const organization = requireOrganization(ctx);
+        if (args.projectId) {
+          await ensureStudioProjectAccess({
+            projectId: args.projectId,
+            userId: ctx.user!.id,
+            organizationId: organization.id,
+          });
+        }
         return studioDb.studioIntegration.findMany({
-          where: { organizationId: organization.id },
+          where: {
+            organizationId: organization.id,
+            projectId: args.projectId ?? undefined,
+          },
           orderBy: { createdAt: 'desc' },
         });
       },
@@ -358,6 +372,13 @@ export function registerIntegrationsSchema(builder: typeof gqlSchemaBuilder) {
       },
       resolve: async (_root, args, ctx) => {
         const organization = requireOrganization(ctx);
+        if (args.projectId) {
+          await ensureStudioProjectAccess({
+            projectId: args.projectId,
+            userId: ctx.user!.id,
+            organizationId: organization.id,
+          });
+        }
         return studioDb.knowledgeSource.findMany({
           where: {
             organizationId: organization.id,
