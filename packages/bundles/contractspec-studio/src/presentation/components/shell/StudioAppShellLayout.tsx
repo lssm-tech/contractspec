@@ -4,7 +4,8 @@ import * as React from 'react';
 import { AppHeader, ButtonLink } from '@lssm/lib.design-system';
 import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
-import { authClient, useAuthContext } from '../../providers/auth';
+import { authClient } from '../../providers/auth/client';
+import { useAuthContext } from '../../providers/auth';
 
 export const STUDIO_APP_HEADER_OFFSET_PX = 56;
 
@@ -26,13 +27,29 @@ export function StudioAppShellLayout({
       nav={
         isAuthenticated
           ? [
-              { label: 'Projects', href: '/studio/projects', match: 'startsWith' },
-              { label: 'Learning', href: '/studio/learning', match: 'startsWith' },
+              {
+                label: 'Projects',
+                href: '/studio/projects',
+                match: 'startsWith',
+              },
+              {
+                label: 'Learning',
+                href: '/studio/learning',
+                match: 'startsWith',
+              },
               { label: 'Teams', href: '/studio/teams', match: 'startsWith' },
             ]
           : [
-              { label: 'Features', href: '/studio/features', match: 'startsWith' },
-              { label: 'Pricing', href: '/studio/pricing', match: 'startsWith' },
+              {
+                label: 'Features',
+                href: '/studio/features',
+                match: 'startsWith',
+              },
+              {
+                label: 'Pricing',
+                href: '/studio/pricing',
+                match: 'startsWith',
+              },
               { label: 'Docs', href: '/studio/docs', match: 'startsWith' },
             ]
       }
@@ -43,7 +60,9 @@ export function StudioAppShellLayout({
               email: (user as { email?: string } | null)?.email,
               items: [
                 {
-                  label: organization ? `Org: ${organization.name}` : 'Organization',
+                  label: organization
+                    ? `Org: ${organization.name}`
+                    : 'Organization',
                   href: '/onboarding/org-select',
                 },
                 {
@@ -96,5 +115,3 @@ export function StudioAppShellLayout({
     </VStack>
   );
 }
-
-

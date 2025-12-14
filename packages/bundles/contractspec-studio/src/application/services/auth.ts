@@ -59,7 +59,6 @@ export const auth = betterAuth({
   },
   secret: process.env.BETTER_AUTH_SECRET!,
   plugins: [
-    nextCookies(),
     admin(),
     // passkey(),
     apiKey(),
@@ -174,6 +173,9 @@ export const auth = betterAuth({
         return providers;
       })(),
     }),
+    // Must be last: ensures Set-Cookie headers are applied in Next.js environments.
+    // See Better Auth Next.js integration docs.
+    nextCookies(),
   ],
   databaseHooks: {
     session: {

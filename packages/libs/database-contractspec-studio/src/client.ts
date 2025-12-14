@@ -5,11 +5,16 @@ import { PrismaPg } from '@prisma/adapter-pg';
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const prismaClientSingleton = () => {
-  const connectionString =
-    `${process.env.CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL}`.replaceAll(
-      'sslmode=require',
-      'sslmode=disable'
-    );
+  const rawConnectionString =
+    process.env.CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL;
+  if (!rawConnectionString) {
+    throw new Error('Missing env: CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL');
+  }
+
+  const connectionString = rawConnectionString.replaceAll(
+    'sslmode=require',
+    'sslmode=disable'
+  );
   const adapter = new PrismaPg({
     connectionString,
   });
