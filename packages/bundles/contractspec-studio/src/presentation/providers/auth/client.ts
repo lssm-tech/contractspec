@@ -27,10 +27,10 @@ function createClient(): AuthClient {
       credentials: 'include',
     },
     plugins: [
-      adminClient(),
       apiKeyClient(),
       phoneNumberClient(),
       genericOAuthClient(),
+      adminClient(),
       organizationClient({
         teams: { enabled: true },
         schema: inferOrgAdditionalFields<ContractSpecAuth>(),

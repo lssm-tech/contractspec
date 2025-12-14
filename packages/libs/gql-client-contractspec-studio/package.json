@@ -19,12 +19,12 @@
     "@lssm/lib.schema": "workspace:*"
   },
   "devDependencies": {
-    "@0no-co/graphqlsp": "^1.12.16",
+    "@0no-co/graphqlsp": "^1.15.2",
     "@graphql-codegen/cli": "^6.0.0",
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@parcel/watcher": "^2.5.1",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "main": "./dist/index.js",

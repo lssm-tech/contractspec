@@ -15,7 +15,7 @@
     "@lssm/lib.graphql-federation": "workspace:*",
     "@lssm/bundle.contractspec-studio": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
-    "elysia": "^1.4.18"
+    "elysia": "^1.4.19"
   },
   "devDependencies": {},
   "module": "src/index.ts",
