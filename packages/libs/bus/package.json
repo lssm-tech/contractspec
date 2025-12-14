@@ -16,7 +16,7 @@
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -24,9 +24,9 @@
     "@lssm/lib.contracts": "workspace:*"
   },
   "peerDependencies": {
-    "elysia": "^1.4.18",
+    "elysia": "^1.4.19",
     "express": "^5.2.1",
-    "next": "16.0.7"
+    "next": "16.0.10"
   },
   "type": "module",
   "main": "./dist/index.js",

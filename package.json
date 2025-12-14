@@ -33,37 +33,36 @@
     "validate:content": "turbo run validate:content --filter=\"@lssm/app.web-strit\"",
     "mcp:inspect": "mcp-inspector --transport http --server-url http://localhost:3000/api/mcp",
     "llms:gen": "node tools/generate-presentations-manifest.mjs packages/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-lssm/src/app && node tools/generate-presentations-manifest.mjs packages/artisanos/apps/web-artisan/src/app && node tools/generate-presentations-manifest.mjs packages/strit/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-third/src/app",
-    "llms:check": "node tools/verify-md-coverage.mjs packages/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-lssm/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/artisanos/apps/web-artisan/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/strit/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-third/src/app --min=0.3"
-    ,
+    "llms:check": "node tools/verify-md-coverage.mjs packages/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-lssm/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/artisanos/apps/web-artisan/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/strit/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-third/src/app --min=0.3",
     "validate:examples": "bun packages/apps/cli-contracts/src/cli.ts examples validate --repo-root . && bun test packages/modules/contractspec-examples"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
     "@eslint/css": "^0.14.1",
-    "@eslint/js": "^9.37.0",
+    "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
-    "@types/bun": "^1.3.0",
+    "@types/bun": "^1.3.4",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.37.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-i18next": "^6.1.3",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.4.0",
-    "knip": "^5.71.0",
+    "knip": "^5.73.4",
     "memoirist": "^0.4.0",
-    "next": "16.0.7",
+    "next": "16.0.10",
     "patch-package": "^8.0.1",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "3.7.4",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "typescript-eslint": "^8.48.1"
+    "typescript-eslint": "^8.49.0"
   },
   "dependencies": {
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "turbo": "^2.6.3",
     "semver": "^7.6.3"
   },
@@ -85,12 +84,7 @@
   "overrides": {
     "nativewind": "5.0.0-preview.2",
     "expo": "^54.0.0",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
     "react-native": "0.81.4",
-    "@types/react": "~19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "next": "16.0.7",
     "react-native-css": "3.0.0",
     "lightningcss": "1.30.1"
   }

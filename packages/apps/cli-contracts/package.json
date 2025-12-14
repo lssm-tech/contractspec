@@ -24,7 +24,7 @@
     "@lssm/lib.schema": "workspace:*",
     "@lssm/module.contractspec-examples": "workspace:*",
     "commander": "^14.0.2",
-    "@inquirer/prompts": "^8.0.2",
+    "@inquirer/prompts": "^8.1.0",
     "chalk": "^5.6.2",
     "ora": "^9.0.0",
     "typescript": "^5.9.3"
@@ -33,7 +33,7 @@
     "@lssm/tool.typescript": "workspace:*",
     "@types/node": "^22.10.2",
     "rimraf": "^6.1.2",
-    "eslint": "^9.17.0"
+    "eslint": "^9.39.2"
   },
   "keywords": [
     "cli",

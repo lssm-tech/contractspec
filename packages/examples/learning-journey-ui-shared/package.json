@@ -29,17 +29,17 @@
     "@lssm/module.learning-journey": "workspace:*",
     "@lssm/lib.design-system": "workspace:*",
     "@lssm/lib.ui-kit-web": "workspace:*",
-    "react": "^19.1.0"
+    "react": "^19.2.3"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/react": "^19.1.6",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^19.2.3"
   },
   "module": "./dist/index.js",
   "publishConfig": {
@@ -54,4 +54,3 @@
     }
   }
 }
-

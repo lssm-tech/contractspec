@@ -27,8 +27,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.535.0",
-    "react": "19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "19.2.3",
+    "react-dom": "^19.2.3",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^4.1.13"
@@ -39,8 +39,8 @@
     "@types/node": "^24.9.0",
     "@types/react-dom": "^19.0.14",
     "postcss": "^8.5",
-    "tailwindcss": "4.1.17",
-    "tsdown": "^0.17.0",
+    "tailwindcss": "4.1.18",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "module": "./dist/index.js",

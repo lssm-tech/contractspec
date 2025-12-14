@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@lssm/lib.ui-kit-core": "workspace:*",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "files": [

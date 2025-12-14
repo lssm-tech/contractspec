@@ -16,8 +16,6 @@
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/server-timing": "^1.4.0",
     "@lssm/lib.logger": "workspace:*",
-    "elysia": "^1.4.18"
+    "elysia": "^1.4.19"
   }
 }
-
-

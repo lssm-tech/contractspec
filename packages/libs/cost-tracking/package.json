@@ -27,7 +27,7 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "exports": {

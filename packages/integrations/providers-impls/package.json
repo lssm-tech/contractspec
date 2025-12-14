@@ -24,11 +24,11 @@
   "dependencies": {
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/integration.runtime": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.26.0",
+    "@elevenlabs/elevenlabs-js": "^2.27.0",
     "@google-cloud/storage": "^7.18.0",
     "@mistralai/mistralai": "^1.2.3",
     "@qdrant/js-client-rest": "^1.16.2",
-    "googleapis": "^167.0.0",
+    "googleapis": "^168.0.0",
     "postmark": "^4.0.4",
     "stripe": "^19.1.0",
     "twilio": "^5.10.7",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "exports": {

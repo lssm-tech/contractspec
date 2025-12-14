@@ -20,7 +20,7 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^8.4.5",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-navigation/native": "^7.0.0",
+    "@react-navigation/native": "^7.1.25",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
     "@rn-primitives/aspect-ratio": "^1.2.0",
@@ -70,8 +70,8 @@
     "expo-web-browser": "^14.2.0",
     "lucide-react-native": "^0.511.0",
     "nativewind": "5.0.0-preview.2",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -89,7 +89,7 @@
     "@babel/core": "^7.28.4",
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "exports": {
