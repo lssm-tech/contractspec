@@ -1,24 +1,28 @@
-import { enforceAllowedScope, enforceCitations, validateEnvelope } from '../policy/guard';
+import {
+  enforceAllowedScope,
+  enforceCitations,
+  validateEnvelope,
+} from '../policy/guard';
 
 type AllowedScope = 'education_only' | 'generic_info' | 'escalation_required';
 
-type AssistantAnswerIR = {
+interface AssistantAnswerIR {
   locale: string;
   jurisdiction: string;
   allowedScope: AllowedScope;
-  sections: Array<{ heading: string; body: string }>;
-  citations: Array<{
+  sections: { heading: string; body: string }[];
+  citations: {
     kbSnapshotId: string;
     sourceType: string;
     sourceId: string;
     title?: string;
     excerpt?: string;
-  }>;
+  }[];
   disclaimers?: string[];
   riskFlags?: string[];
   refused?: boolean;
   refusalReason?: string;
-};
+}
 
 export interface DemoAssistantHandlers {
   answer(input: {
@@ -64,7 +68,8 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
     if (!env.ok) {
       return {
         locale: input.envelope.locale ?? 'en-US',
-        jurisdiction: input.envelope.regulatoryContext?.jurisdiction ?? 'UNKNOWN',
+        jurisdiction:
+          input.envelope.regulatoryContext?.jurisdiction ?? 'UNKNOWN',
         allowedScope: input.envelope.allowedScope ?? 'education_only',
         sections: [
           {
@@ -73,7 +78,9 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
           },
         ],
         citations: [],
-        disclaimers: ['This system refuses to answer without a valid envelope.'],
+        disclaimers: [
+          'This system refuses to answer without a valid envelope.',
+        ],
         riskFlags: [env.error.code],
         refused: true,
         refusalReason: env.error.code,
@@ -121,9 +128,7 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
     if (!cited.ok) {
       return {
         ...draft,
-        sections: [
-          { heading: 'Request blocked', body: cited.error.message },
-        ],
+        sections: [{ heading: 'Request blocked', body: cited.error.message }],
         citations: [],
         refused: true,
         refusalReason: cited.error.code,
@@ -135,7 +140,9 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
   }
 
   async function explainConcept(input: {
-    envelope: DemoAssistantHandlers['explainConcept'] extends (a: infer A) => any
+    envelope: DemoAssistantHandlers['explainConcept'] extends (
+      a: infer A
+    ) => any
       ? A extends { envelope: infer E }
         ? E
         : never
@@ -150,5 +157,3 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
 
   return { answer, explainConcept };
 }
-
-

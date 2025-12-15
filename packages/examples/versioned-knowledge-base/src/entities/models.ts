@@ -2,7 +2,8 @@ import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
 
 export const SourceDocumentModel = defineSchemaModel({
   name: 'SourceDocument',
-  description: 'Immutable raw source document metadata referencing a stored file.',
+  description:
+    'Immutable raw source document metadata referencing a stored file.',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -18,14 +19,18 @@ export const SourceRefModel = defineSchemaModel({
   name: 'SourceRef',
   description: 'Reference to a source document used to justify a rule version.',
   fields: {
-    sourceDocumentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    sourceDocumentId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     excerpt: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
 
 export const RuleModel = defineSchemaModel({
   name: 'Rule',
-  description: 'Curated rule (stable identity) with topic + jurisdiction scope.',
+  description:
+    'Curated rule (stable identity) with topic + jurisdiction scope.',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -35,7 +40,8 @@ export const RuleModel = defineSchemaModel({
 
 export const RuleVersionModel = defineSchemaModel({
   name: 'RuleVersion',
-  description: 'A versioned rule content with source references and approval status.',
+  description:
+    'A versioned rule content with source references and approval status.',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     ruleId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -53,7 +59,8 @@ export const RuleVersionModel = defineSchemaModel({
 
 export const KBSnapshotModel = defineSchemaModel({
   name: 'KBSnapshot',
-  description: 'Published KB snapshot (as-of) referencing approved rule versions.',
+  description:
+    'Published KB snapshot (as-of) referencing approved rule versions.',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -66,5 +73,3 @@ export const KBSnapshotModel = defineSchemaModel({
     publishedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
-
-

@@ -51,4 +51,3 @@ export const artisanStripeTenantConfig: TenantAppConfig = {
   },
   notes: 'Stripe connection bound for production payments.',
 };
-

@@ -1,3 +1,1 @@
 import './integration-stripe.docblock';
-
-

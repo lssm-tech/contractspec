@@ -22,5 +22,3 @@ const example = {
 } as const;
 
 export default example;
-
-

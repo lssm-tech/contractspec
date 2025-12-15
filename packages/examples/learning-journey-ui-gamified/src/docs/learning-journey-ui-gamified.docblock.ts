@@ -16,5 +16,3 @@ const blocks: DocBlock[] = [
 ];
 
 registerDocBlocks(blocks);
-
-

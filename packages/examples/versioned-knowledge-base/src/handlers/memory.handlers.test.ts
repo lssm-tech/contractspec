@@ -51,7 +51,11 @@ describe('@lssm/example.versioned-knowledge-base memory handlers', () => {
     const store = createMemoryKbStore();
     const kb = createMemoryKbHandlers(store);
 
-    await kb.createRule({ id: 'rule_eu', jurisdiction: 'EU', topicKey: 'topic' });
+    await kb.createRule({
+      id: 'rule_eu',
+      jurisdiction: 'EU',
+      topicKey: 'topic',
+    });
     const euDraft = await kb.upsertRuleVersion({
       ruleId: 'rule_eu',
       content: 'This is about reporting obligations',
@@ -75,5 +79,3 @@ describe('@lssm/example.versioned-knowledge-base memory handlers', () => {
     expect(ok.items.map((i) => i.ruleVersionId)).toEqual([euDraft.id]);
   });
 });
-
-

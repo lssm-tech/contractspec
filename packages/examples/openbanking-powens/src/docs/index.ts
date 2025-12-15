@@ -1,3 +1,1 @@
 import './openbanking-powens.docblock';
-
-

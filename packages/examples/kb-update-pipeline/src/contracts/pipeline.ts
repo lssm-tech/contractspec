@@ -1,7 +1,11 @@
 import { defineCommand } from '@lssm/lib.contracts';
 import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
 
-import { ChangeCandidateModel, ReviewDecisionEnum, ReviewTaskModel } from '../entities/models';
+import {
+  ChangeCandidateModel,
+  ReviewDecisionEnum,
+  ReviewTaskModel,
+} from '../entities/models';
 
 const RunWatchInput = defineSchemaModel({
   name: 'KbPipelineRunWatchInput',
@@ -15,7 +19,11 @@ const RunWatchOutput = defineSchemaModel({
   name: 'KbPipelineRunWatchOutput',
   description: 'Output containing detected changes.',
   fields: {
-    candidates: { type: ChangeCandidateModel, isArray: true, isOptional: false },
+    candidates: {
+      type: ChangeCandidateModel,
+      isArray: true,
+      isOptional: false,
+    },
   },
 });
 
@@ -23,7 +31,10 @@ const CreateReviewTaskInput = defineSchemaModel({
   name: 'KbPipelineCreateReviewTaskInput',
   description: 'Create a review task for a change candidate.',
   fields: {
-    changeCandidateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changeCandidateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
   },
 });
 
@@ -34,13 +45,17 @@ const SubmitDecisionInput = defineSchemaModel({
     reviewTaskId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     decision: { type: ReviewDecisionEnum, isOptional: false },
     decidedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    decidedByRole: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    decidedByRole: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
   },
 });
 
 const PublishIfReadyInput = defineSchemaModel({
   name: 'KbPipelinePublishIfReadyInput',
-  description: 'Publish snapshot if approvals are satisfied for a jurisdiction.',
+  description:
+    'Publish snapshot if approvals are satisfied for a jurisdiction.',
   fields: {
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
@@ -142,5 +157,3 @@ export const KbPipelinePublishIfReadyContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-

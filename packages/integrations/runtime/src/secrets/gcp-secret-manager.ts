@@ -365,5 +365,3 @@ function deriveErrorCode(error: unknown): SecretProviderError['code'] {
   if (code === 3 || code === 'INVALID_ARGUMENT') return 'INVALID';
   return 'UNKNOWN';
 }
-
-

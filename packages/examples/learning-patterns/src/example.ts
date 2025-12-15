@@ -1,7 +1,8 @@
 const example = {
   id: 'learning-patterns',
   title: 'Learning Patterns',
-  summary: 'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',
+  summary:
+    'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',
   tags: ['learning', 'journey', 'patterns'],
   kind: 'library',
   visibility: 'public',
@@ -21,5 +22,3 @@ const example = {
 } as const;
 
 export default example;
-
-

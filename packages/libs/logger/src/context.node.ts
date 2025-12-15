@@ -98,5 +98,3 @@ export class LogContext {
     return crypto.randomUUID();
   }
 }
-
-

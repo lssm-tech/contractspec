@@ -5,7 +5,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
   productId: 'contractspec-studio',
   name: 'Studio Getting Started',
   description:
-    'First 30 minutes in Studio: instantiate a template, edit the spec, regenerate, and try runtime surfaces.',
+    'First 30 minutes in Studio: create a project, edit the spec, deploy/regenerate, and try key modules.',
   targetUserSegment: 'new_studio_user',
   targetRole: 'developer',
   totalXp: 110,
@@ -15,14 +15,14 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
     {
       id: 'choose_template',
       title: 'Choose a template',
-      description: 'Pick a Phase 1 template and create a sandbox.',
+      description: 'Create your first Studio project (starter template).',
       order: 1,
       completion: {
         eventName: 'studio.template.instantiated',
         sourceModule: '@lssm/bundle.contractspec-studio',
       },
       xpReward: 20,
-      metadata: { surface: 'templates' },
+      metadata: { surface: 'projects' },
     },
     {
       id: 'edit_spec',
@@ -32,8 +32,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 2,
       completion: {
         eventName: 'spec.changed',
-        sourceModule: '@lssm/lib.contracts',
-        payloadFilter: { scope: 'sandbox' },
+        sourceModule: '@lssm/bundle.contractspec-studio',
       },
       xpReward: 20,
       metadata: { surface: 'spec-editor' },
@@ -51,17 +50,17 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       metadata: { surface: 'regenerator' },
     },
     {
-      id: 'play_in_playground',
-      title: 'Use the playground',
-      description:
-        'Start a playground or runtime session against your sandbox.',
+      id: 'open_canvas',
+      title: 'Open the canvas',
+      description: 'Visit the canvas module for your project.',
       order: 4,
       completion: {
-        eventName: 'playground.session.started',
+        eventName: 'module.navigated',
         sourceModule: '@lssm/bundle.contractspec-studio',
+        payloadFilter: { moduleId: 'canvas' },
       },
       xpReward: 20,
-      metadata: { surface: 'playground' },
+      metadata: { surface: 'canvas' },
     },
     {
       id: 'try_evolution_mode',

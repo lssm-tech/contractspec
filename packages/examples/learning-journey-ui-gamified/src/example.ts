@@ -1,7 +1,8 @@
 const example = {
   id: 'learning-journey-ui-gamified',
   title: 'Learning Journey UI — Gamified',
-  summary: 'UI mini-app for gamified learning: flashcards, mastery ring, calendar.',
+  summary:
+    'UI mini-app for gamified learning: flashcards, mastery ring, calendar.',
   tags: ['learning', 'ui', 'gamified'],
   kind: 'ui',
   visibility: 'public',
@@ -21,5 +22,3 @@ const example = {
 } as const;
 
 export default example;
-
-

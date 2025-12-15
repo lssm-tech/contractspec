@@ -129,7 +129,7 @@ async function logUnmappedEvent(_event: PowensWebhookEvent) {
 }
 
 const fakeDatabase = {
-  connections: [] as Array<ExampleIntegrationConnection & { state: string }>,
+  connections: [] as (ExampleIntegrationConnection & { state: string })[],
 };
 
 const fakeSecretStore: Record<string, ExamplePowensSecrets> = {};
@@ -145,5 +145,3 @@ const fakeTelemetryLogger = {
     /* no-op */
   },
 };
-
-

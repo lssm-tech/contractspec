@@ -1,5 +1,8 @@
-type SourceRef = { sourceDocumentId: string; excerpt?: string };
-type SourceDocument = {
+interface SourceRef {
+  sourceDocumentId: string;
+  excerpt?: string;
+}
+interface SourceDocument {
   id: string;
   jurisdiction: string;
   authority: string;
@@ -7,9 +10,13 @@ type SourceDocument = {
   fetchedAt: Date;
   hash: string;
   fileId: string;
-};
-type Rule = { id: string; jurisdiction: string; topicKey: string };
-type RuleVersion = {
+}
+interface Rule {
+  id: string;
+  jurisdiction: string;
+  topicKey: string;
+}
+interface RuleVersion {
   id: string;
   ruleId: string;
   jurisdiction: string;
@@ -21,14 +28,14 @@ type RuleVersion = {
   approvedBy?: string;
   approvedAt?: Date;
   createdAt: Date;
-};
-type KBSnapshot = {
+}
+interface KBSnapshot {
   id: string;
   jurisdiction: string;
   asOfDate: Date;
   includedRuleVersionIds: string[];
   publishedAt: Date;
-};
+}
 
 export interface MemoryKbStore {
   sources: Map<string, SourceDocument>;
@@ -68,7 +75,7 @@ export interface MemoryKbHandlers {
     snapshotId: string;
     jurisdiction: string;
     query: string;
-  }): Promise<{ items: Array<{ ruleVersionId: string; excerpt?: string }> }>;
+  }): Promise<{ items: { ruleVersionId: string; excerpt?: string }[] }>;
 }
 
 function stableId(prefix: string, value: string): string {
@@ -171,7 +178,7 @@ export function createMemoryKbHandlers(store: MemoryKbStore): MemoryKbHandlers {
     snapshotId: string;
     jurisdiction: string;
     query: string;
-  }): Promise<{ items: Array<{ ruleVersionId: string; excerpt?: string }> }> {
+  }): Promise<{ items: { ruleVersionId: string; excerpt?: string }[] }> {
     const snapshot = store.snapshots.get(input.snapshotId);
     if (!snapshot) {
       throw new Error('SNAPSHOT_NOT_FOUND');
@@ -180,7 +187,10 @@ export function createMemoryKbHandlers(store: MemoryKbStore): MemoryKbHandlers {
       throw new Error('JURISDICTION_MISMATCH');
     }
     const q = input.query.toLowerCase();
-    const tokens = q.split(/\s+/).map((t) => t.trim()).filter(Boolean);
+    const tokens = q
+      .split(/\s+/)
+      .map((t) => t.trim())
+      .filter(Boolean);
     const items = snapshot.includedRuleVersionIds
       .map((id) => store.ruleVersions.get(id))
       .filter((rv): rv is RuleVersion => Boolean(rv))
@@ -189,7 +199,10 @@ export function createMemoryKbHandlers(store: MemoryKbStore): MemoryKbHandlers {
         const hay = rv.content.toLowerCase();
         return tokens.every((token) => hay.includes(token));
       })
-      .map((rv) => ({ ruleVersionId: rv.id, excerpt: rv.content.slice(0, 120) }));
+      .map((rv) => ({
+        ruleVersionId: rv.id,
+        excerpt: rv.content.slice(0, 120),
+      }));
     return { items };
   }
 
@@ -202,5 +215,3 @@ export function createMemoryKbHandlers(store: MemoryKbStore): MemoryKbHandlers {
     search,
   };
 }
-
-

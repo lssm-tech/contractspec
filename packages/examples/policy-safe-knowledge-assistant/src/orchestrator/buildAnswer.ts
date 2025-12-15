@@ -6,23 +6,23 @@ import {
 
 type AllowedScope = 'education_only' | 'generic_info' | 'escalation_required';
 
-export type AssistantAnswerIR = {
+export interface AssistantAnswerIR {
   locale: string;
   jurisdiction: string;
   allowedScope: AllowedScope;
-  sections: Array<{ heading: string; body: string }>;
-  citations: Array<{
+  sections: { heading: string; body: string }[];
+  citations: {
     kbSnapshotId: string;
     sourceType: string;
     sourceId: string;
     title?: string;
     excerpt?: string;
-  }>;
+  }[];
   disclaimers?: string[];
   riskFlags?: string[];
   refused?: boolean;
   refusalReason?: string;
-};
+}
 
 export interface BuildAnswerInput {
   envelope: {
@@ -37,7 +37,7 @@ export interface BuildAnswerInput {
     snapshotId: string;
     jurisdiction: string;
     query: string;
-  }) => Promise<{ items: Array<{ ruleVersionId: string; excerpt?: string }> }>;
+  }) => Promise<{ items: { ruleVersionId: string; excerpt?: string }[] }>;
 }
 
 /**
@@ -120,5 +120,3 @@ export async function buildPolicySafeAnswer(
 
   return draft;
 }
-
-

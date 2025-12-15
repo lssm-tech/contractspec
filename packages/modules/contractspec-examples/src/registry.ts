@@ -15,9 +15,8 @@ export function searchExamples(query: string): ExampleDefinition[] {
   const q = query.toLowerCase().trim();
   if (!q) return [...listExamples()];
   return listExamples().filter((ex) => {
-    const hay = `${ex.id} ${ex.title} ${ex.summary} ${ex.tags.join(' ')}`.toLowerCase();
+    const hay =
+      `${ex.id} ${ex.title} ${ex.summary} ${ex.tags.join(' ')}`.toLowerCase();
     return hay.includes(q);
   });
 }
-
-

@@ -1,4 +1,7 @@
-export type AllowedScope = 'education_only' | 'generic_info' | 'escalation_required';
+export type AllowedScope =
+  | 'education_only'
+  | 'generic_info'
+  | 'escalation_required';
 
 export interface GateError {
   code:
@@ -13,5 +16,3 @@ export interface GateError {
 export type GateResult<T> =
   | { ok: true; value: T }
   | { ok: false; error: GateError };
-
-

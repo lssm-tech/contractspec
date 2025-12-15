@@ -11,6 +11,8 @@ import {
   useCreateStudioSpec,
   useProjectSpecs,
   useUpdateStudioSpec,
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
 } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 import { useSelectedProject } from '../SelectedProjectContext';
 
@@ -35,7 +37,8 @@ export default function ProjectSpecsClient() {
 
   const selected = specs.find((s) => s.id === selectedSpecId) ?? null;
   const [draft, setDraft] = React.useState('');
-  const [specType, setSpecType] = React.useState<SpecEditorProps['type']>('WORKFLOW');
+  const [specType, setSpecType] =
+    React.useState<SpecEditorProps['type']>('WORKFLOW');
 
   React.useEffect(() => {
     if (!selected) return;
@@ -45,6 +48,8 @@ export default function ProjectSpecsClient() {
 
   const createSpec = useCreateStudioSpec();
   const updateSpec = useUpdateStudioSpec();
+  const { recordFireAndForget: recordLearningEvent } =
+    useStudioLearningEventRecorder();
 
   const [newSpecName, setNewSpecName] = React.useState('main');
 
@@ -92,6 +97,15 @@ export default function ProjectSpecsClient() {
                 content: draft || '',
               });
               await refetch();
+              recordLearningEvent({
+                projectId: project.id,
+                name: StudioLearningEventNames.SPEC_CHANGED,
+                payload: {
+                  action: 'create',
+                  specName: name,
+                  specType: 'WORKFLOW',
+                },
+              });
             }}
           >
             Create spec
@@ -138,6 +152,15 @@ export default function ProjectSpecsClient() {
                 content: draft,
               });
               await refetch();
+              recordLearningEvent({
+                projectId: project.id,
+                name: StudioLearningEventNames.SPEC_CHANGED,
+                payload: {
+                  action: 'update',
+                  specId: selected.id,
+                  specType,
+                },
+              });
             }}
           />
         ) : (
@@ -149,5 +172,3 @@ export default function ProjectSpecsClient() {
     </div>
   );
 }
-
-

@@ -101,7 +101,7 @@ async function enqueueWorkflow(name: string, input: Record<string, unknown>) {
 }
 
 const fakeDatabase = {
-  connections: [] as Array<ExampleIntegrationConnection & { state: string }>,
+  connections: [] as (ExampleIntegrationConnection & { state: string })[],
 };
 
 const fakeSecretStore: Record<string, ExamplePowensSecrets> = {};
@@ -111,5 +111,3 @@ const fakeWorkflowQueue = {
     /* no-op */
   },
 };
-
-

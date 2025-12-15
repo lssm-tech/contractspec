@@ -1,7 +1,8 @@
 const example = {
   id: 'learning-journey-ui-onboarding',
   title: 'Learning Journey UI — Onboarding',
-  summary: 'UI mini-app for onboarding patterns: checklists, code snippets, journey map.',
+  summary:
+    'UI mini-app for onboarding patterns: checklists, code snippets, journey map.',
   tags: ['learning', 'ui', 'onboarding'],
   kind: 'ui',
   visibility: 'public',
@@ -21,5 +22,3 @@ const example = {
 } as const;
 
 export default example;
-
-

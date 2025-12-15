@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import { Search } from 'lucide-react';
 
 import { Label } from '@lssm/lib.ui-kit-web/ui/label';
@@ -7,7 +8,7 @@ import {
   SidebarInput,
 } from '@lssm/lib.ui-kit-web/ui/sidebar';
 
-export function DocsSearchForm({ ...props }: React.ComponentProps<'form'>) {
+export function DocsSearchForm({ ...props }: ComponentPropsWithoutRef<'form'>) {
   return (
     <form {...props}>
       <SidebarGroup className="py-0">

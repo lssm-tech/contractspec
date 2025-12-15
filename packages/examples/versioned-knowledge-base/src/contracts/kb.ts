@@ -35,7 +35,10 @@ const ApproveRuleVersionInput = defineSchemaModel({
   name: 'KbApproveRuleVersionInput',
   description: 'Approve a rule version (human verification).',
   fields: {
-    ruleVersionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ruleVersionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     approver: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -63,7 +66,10 @@ const SearchKbResultItem = defineSchemaModel({
   name: 'KbSearchResultItem',
   description: 'Search result referencing a specific rule version.',
   fields: {
-    ruleVersionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ruleVersionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     excerpt: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
@@ -153,7 +159,8 @@ export const KbPublishSnapshotContract = defineCommand({
     tags: ['knowledge', 'snapshots', 'publishing'],
     description: 'Publish a KB snapshot for a jurisdiction.',
     goal: 'Create a stable snapshot that assistant answers can cite.',
-    context: 'Publishing happens after approvals; snapshot is referenced by answers.',
+    context:
+      'Publishing happens after approvals; snapshot is referenced by answers.',
   },
   io: {
     input: PublishSnapshotInput,
@@ -187,5 +194,3 @@ export const KbSearchContract = defineQuery({
   },
   policy: { auth: 'user' },
 });
-
-

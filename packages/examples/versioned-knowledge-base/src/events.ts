@@ -5,7 +5,10 @@ const KbSourceIngestedPayload = defineSchemaModel({
   name: 'KbSourceIngestedPayload',
   description: 'Emitted when a source document is ingested.',
   fields: {
-    sourceDocumentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    sourceDocumentId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     hash: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
@@ -22,7 +25,10 @@ const KbRuleVersionCreatedPayload = defineSchemaModel({
   name: 'KbRuleVersionCreatedPayload',
   description: 'Emitted when a rule version draft is created.',
   fields: {
-    ruleVersionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ruleVersionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     ruleId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -40,7 +46,10 @@ const KbRuleVersionApprovedPayload = defineSchemaModel({
   name: 'KbRuleVersionApprovedPayload',
   description: 'Emitted when a rule version is approved.',
   fields: {
-    ruleVersionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ruleVersionId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     approver: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -58,7 +67,10 @@ const KbSnapshotPublishedPayload = defineSchemaModel({
   fields: {
     snapshotId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    includedRuleVersionsCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    includedRuleVersionsCount: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
   },
 });
 
@@ -68,5 +80,3 @@ export const KbSnapshotPublishedEvent = defineEvent({
   description: 'KB snapshot published.',
   payload: KbSnapshotPublishedPayload,
 });
-
-

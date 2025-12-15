@@ -61,11 +61,19 @@ export class Logger {
     this.log(LogLevel.WARN, message, metadata);
   }
 
-  error(message: string, metadata?: Record<string, unknown>, error?: Error): void {
+  error(
+    message: string,
+    metadata?: Record<string, unknown>,
+    error?: Error
+  ): void {
     this.log(LogLevel.ERROR, message, metadata, error);
   }
 
-  fatal(message: string, metadata?: Record<string, unknown>, error?: Error): void {
+  fatal(
+    message: string,
+    metadata?: Record<string, unknown>,
+    error?: Error
+  ): void {
     this.log(LogLevel.FATAL, message, metadata, error);
   }
 
@@ -305,5 +313,3 @@ export class Logger {
     return LogLevel.INFO;
   }
 }
-
-

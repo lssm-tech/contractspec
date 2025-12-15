@@ -29,5 +29,3 @@ export const DEMO_FIXTURES = {
     },
   },
 } as const;
-
-

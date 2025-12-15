@@ -196,5 +196,3 @@ function safeCanHandle(provider: SecretProvider, reference: SecretReference) {
 }
 
 type SecretFetchOptions = Parameters<SecretProvider['getSecret']>[1];
-
-

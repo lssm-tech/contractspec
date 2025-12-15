@@ -46,7 +46,8 @@ const getAvailability = (
   const baseTime = startedAt.getTime();
   let unlockTime = baseTime;
   if (availability.unlockOnDay !== undefined) {
-    unlockTime = baseTime + (availability.unlockOnDay - 1) * 24 * 60 * 60 * 1000;
+    unlockTime =
+      baseTime + (availability.unlockOnDay - 1) * 24 * 60 * 60 * 1000;
   }
   if (availability.unlockAfterHours !== undefined) {
     unlockTime = baseTime + availability.unlockAfterHours * 60 * 60 * 1000;
@@ -54,7 +55,9 @@ const getAvailability = (
   const availableAt = new Date(unlockTime);
   const dueAt =
     availability.dueWithinHours !== undefined
-      ? new Date(availableAt.getTime() + availability.dueWithinHours * 60 * 60 * 1000)
+      ? new Date(
+          availableAt.getTime() + availability.dueWithinHours * 60 * 60 * 1000
+        )
       : undefined;
   return { availableAt, dueAt };
 };
@@ -66,18 +69,21 @@ const matchesCondition = (
 ): { matched: boolean; occurrences?: number; masteryCount?: number } => {
   if ((condition.kind ?? 'event') === 'event') {
     if (condition.eventName !== event.name) return { matched: false };
-    if (!matchesFilter(condition.payloadFilter, event.payload)) return { matched: false };
+    if (!matchesFilter(condition.payloadFilter, event.payload))
+      return { matched: false };
     return { matched: true };
   }
   if (condition.kind === 'count') {
     if (condition.eventName !== event.name) return { matched: false };
-    if (!matchesFilter(condition.payloadFilter, event.payload)) return { matched: false };
+    if (!matchesFilter(condition.payloadFilter, event.payload))
+      return { matched: false };
     const occurrences = step.occurrences + 1;
     return { matched: occurrences >= condition.atLeast, occurrences };
   }
   if (condition.kind === 'srs_mastery') {
     if (condition.eventName !== event.name) return { matched: false };
-    if (!matchesFilter(condition.payloadFilter, event.payload)) return { matched: false };
+    if (!matchesFilter(condition.payloadFilter, event.payload))
+      return { matched: false };
     const masteryKey = condition.masteryField ?? 'mastery';
     const masteryValue = event.payload?.[masteryKey];
     if (typeof masteryValue !== 'number') return { matched: false };
@@ -103,7 +109,10 @@ function initProgress(track: LearningJourneyTrackSpec): StepState[] {
   }));
 }
 
-function applyEvents(track: LearningJourneyTrackSpec, events: LearningEvent[]): StepState[] {
+function applyEvents(
+  track: LearningJourneyTrackSpec,
+  events: LearningEvent[]
+): StepState[] {
   const steps = initProgress(track);
   let startedAt: Date | undefined;
   for (const event of events) {
@@ -114,7 +123,10 @@ function applyEvents(track: LearningJourneyTrackSpec, events: LearningEvent[]): 
       const state = steps[index];
       if (!spec || !state) continue;
       if (state.status === 'COMPLETED') continue;
-      const { availableAt, dueAt } = getAvailability(spec.availability, startedAt);
+      const { availableAt, dueAt } = getAvailability(
+        spec.availability,
+        startedAt
+      );
       state.availableAt = availableAt;
       state.dueAt = dueAt;
       if (availableAt && eventTime < availableAt) continue;
@@ -132,9 +144,18 @@ describe('@lssm/example.learning-patterns tracks', () => {
   it('drills track progresses via session count + mastery', () => {
     const events: LearningEvent[] = [
       { name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED },
-      { name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED, payload: { accuracyBucket: 'high' } },
-      { name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED, payload: { accuracyBucket: 'high' } },
-      { name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED, payload: { accuracyBucket: 'high' } },
+      {
+        name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED,
+        payload: { accuracyBucket: 'high' },
+      },
+      {
+        name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED,
+        payload: { accuracyBucket: 'high' },
+      },
+      {
+        name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED,
+        payload: { accuracyBucket: 'high' },
+      },
       ...Array.from({ length: 5 }).map(() => ({
         name: LEARNING_EVENTS.DRILL_CARD_MASTERED,
         payload: { skillId: 's1', mastery: 0.9 },
@@ -179,8 +200,18 @@ describe('@lssm/example.learning-patterns tracks', () => {
 describe('@lssm/example.learning-patterns XP + streak + SRS determinism', () => {
   it('XP engine produces deterministic results for streak bonus inputs', () => {
     const xp = new XPEngine();
-    const r1 = xp.calculate({ activity: 'lesson_complete', score: 90, attemptNumber: 1, currentStreak: 7 });
-    const r2 = xp.calculate({ activity: 'lesson_complete', score: 90, attemptNumber: 1, currentStreak: 7 });
+    const r1 = xp.calculate({
+      activity: 'lesson_complete',
+      score: 90,
+      attemptNumber: 1,
+      currentStreak: 7,
+    });
+    const r2 = xp.calculate({
+      activity: 'lesson_complete',
+      score: 90,
+      attemptNumber: 1,
+      currentStreak: 7,
+    });
     expect(r1.totalXp).toBe(r2.totalXp);
     expect(r1.totalXp).toBeGreaterThan(0);
   });
@@ -195,8 +226,14 @@ describe('@lssm/example.learning-patterns XP + streak + SRS determinism', () => 
       freezesRemaining: 0,
       freezeUsedAt: null,
     };
-    const day1 = streak.update(initial, new Date('2026-01-01T10:00:00.000Z')).state;
-    const day2 = streak.update(day1, new Date('2026-01-02T10:00:00.000Z')).state;
+    const day1 = streak.update(
+      initial,
+      new Date('2026-01-01T10:00:00.000Z')
+    ).state;
+    const day2 = streak.update(
+      day1,
+      new Date('2026-01-02T10:00:00.000Z')
+    ).state;
     expect(day2.currentStreak).toBe(2);
   });
 
@@ -217,5 +254,3 @@ describe('@lssm/example.learning-patterns XP + streak + SRS determinism', () => 
     expect(result.nextReviewAt.toISOString()).toBe('2026-01-01T00:10:00.000Z');
   });
 });
-
-

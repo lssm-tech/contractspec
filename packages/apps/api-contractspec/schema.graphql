@@ -135,6 +135,47 @@ input IndexKnowledgeInput {
 """Unvalidated integer scalar"""
 scalar Int_unsecure
 
+type IntegrationConnection {
+  config: JSON
+  createdAt: Date
+  environment: String
+  externalAccountId: String
+  healthCheckedAt: Date
+  healthErrorCode: String
+  healthErrorMessage: String
+  healthLatencyMs: Float
+  healthStatus: IntegrationConnectionStatusEnum
+  id: ID!
+  integrationKey: String
+  integrationVersion: Int
+  label: String
+  organizationId: String
+  ownershipMode: IntegrationOwnershipModeEnum
+  secretProvider: String
+  secretRef: String
+  status: IntegrationConnectionStatusEnum
+  updatedAt: Date
+  usageErrorCount: Int
+  usageLastErrorAt: Date
+  usageLastErrorCode: String
+  usageLastSuccessAt: Date
+  usageLastUsedAt: Date
+  usageRequestCount: Int
+  usageSuccessCount: Int
+}
+
+enum IntegrationConnectionStatusEnum {
+  connected
+  disconnected
+  error
+  unknown
+}
+
+enum IntegrationOwnershipModeEnum {
+  byok
+  managed
+}
+
 enum IntegrationProviderEnum {
   AIRTABLE
   ANTHROPIC
@@ -293,8 +334,13 @@ type Mutation {
   deployCanvasVersion(input: DeployCanvasVersionInput!): CanvasVersion
   deployStudioProject(input: DeployProjectInput!): StudioDeployment
   disconnectIntegration(id: String!): Boolean
+  dismissOnboardingTrack(trackKey: String!): OnboardingProgress
   indexKnowledgeSource(input: IndexKnowledgeInput!): KnowledgeSourceRecord
   inviteToOrganization(email: String!, role: String!, teamId: String!): InviteResult
+  platformAdminIntegrationConnectionCreate(input: PlatformIntegrationConnectionCreateInput!): IntegrationConnection
+  platformAdminIntegrationConnectionDelete(connectionId: String!, targetOrganizationId: String!): Boolean
+  platformAdminIntegrationConnectionUpdate(input: PlatformIntegrationConnectionUpdateInput!): IntegrationConnection
+  platformAdminSecretCheck(secretRef: String!): Boolean
   recordLearningEvent(input: RecordLearningEventInput!): StudioLearningEvent
   renameTeam(name: String!, teamId: String!): Team
   runLifecycleAssessment(input: LifecycleAssessmentInput!): LifecycleAssessmentRecord
@@ -313,7 +359,90 @@ type Mutation {
   updateStudioSpec(id: String!, input: UpdateSpecInput!): StudioSpec
 }
 
+type MyOnboardingTracks {
+  progress: [OnboardingProgress!]
+  tracks: [OnboardingTrack!]
+}
+
 scalar NonEmptyString
+
+type OnboardingProgress {
+  completedAt: Date
+  createdAt: Date
+  dismissedAt: Date
+  id: ID
+  isCompleted: Boolean
+  isDismissed: Boolean
+  lastActivityAt: Date
+  learnerId: String
+  metadata: JSON
+  progress: Int
+  startedAt: Date
+  stepCompletions: [OnboardingStepCompletion!]
+  trackId: String
+  trackKey: String
+  updatedAt: Date
+  xpEarned: Int
+}
+
+type OnboardingStep {
+  actionLabel: String
+  actionUrl: String
+  availability: JSON
+  canSkip: Boolean
+  completionCondition: JSON
+  completionEvent: String
+  createdAt: Date
+  description: String
+  helpUrl: String
+  highlightSelector: String
+  id: ID
+  instructions: String
+  isRequired: Boolean
+  metadata: JSON
+  order: Int
+  stepKey: String
+  title: String
+  tooltipPosition: String
+  trackId: String
+  updatedAt: Date
+  xpReward: Int
+}
+
+type OnboardingStepCompletion {
+  completedAt: Date
+  createdAt: Date
+  eventPayload: JSON
+  id: ID
+  progressId: String
+  status: String
+  stepId: String
+  stepKey: String
+  triggeringEvent: String
+  xpEarned: Int
+}
+
+type OnboardingTrack {
+  canSkip: Boolean
+  completionBadgeKey: String
+  completionXpBonus: Int
+  createdAt: Date
+  description: String
+  id: ID
+  isActive: Boolean
+  isRequired: Boolean
+  metadata: JSON
+  name: String
+  productId: String
+  steps: [OnboardingStep!]
+  streakBonusXp: Int
+  streakHoursWindow: Int
+  targetRole: String
+  targetUserSegment: String
+  totalXp: Int
+  trackKey: String
+  updatedAt: Date
+}
 
 type Organization {
   createdAt: Date
@@ -372,6 +501,60 @@ enum OrganizationType {
 
 scalar PhoneNumber
 
+input PlatformIntegrationConnectionCreateInput {
+  config: JSON!
+  environment: String!
+  externalAccountId: String!
+  integrationKey: String!
+  integrationVersion: Int!
+  label: String!
+  ownershipMode: IntegrationOwnershipModeEnum!
+  secretProvider: String!
+  secretRef: String!
+  secretWrite: PlatformSecretWriteInput!
+  status: IntegrationConnectionStatusEnum!
+  targetOrganizationId: String!
+}
+
+input PlatformIntegrationConnectionListInput {
+  category: String!
+  status: IntegrationConnectionStatusEnum!
+  targetOrganizationId: String!
+}
+
+input PlatformIntegrationConnectionUpdateInput {
+  config: JSON!
+  connectionId: String!
+  environment: String!
+  externalAccountId: String!
+  label: String!
+  ownershipMode: IntegrationOwnershipModeEnum!
+  secretProvider: String!
+  secretRef: String!
+  secretWrite: PlatformSecretWriteInput!
+  status: IntegrationConnectionStatusEnum!
+  targetOrganizationId: String!
+}
+
+type PlatformIntegrationSpec {
+  byokSetup: JSON
+  category: String
+  configSchema: JSON
+  description: String
+  displayName: String
+  docsUrl: String
+  key: String
+  secretSchema: JSON
+  supportedModes: [String!]
+  title: String
+  version: Int
+}
+
+input PlatformSecretWriteInput {
+  data: String!
+  encoding: String!
+}
+
 enum ProjectTierEnum {
   ENTERPRISE
   PROFESSIONAL
@@ -389,11 +572,16 @@ type Query {
   me: User
   myActiveOrganization: Organization
   myLearningEvents(limit: Int!, projectId: String!): [StudioLearningEvent!]
+  myOnboardingProgress(trackKey: String!): OnboardingProgress
+  myOnboardingTracks(includeProgress: Boolean!, productId: String!): MyOnboardingTracks
   myOrganizations: [Organization!]
   myStudioProjects: [StudioProject!]
   myTeams: [Team!]
   organizationInvitations: [OrganizationInvitation!]
   organizationMembers: [OrganizationMember!]
+  platformAdminIntegrationConnections(input: PlatformIntegrationConnectionListInput!): [IntegrationConnection!]
+  platformAdminIntegrationSpecs: [PlatformIntegrationSpec!]
+  platformAdminOrganizations(limit: Int!, offset: Int!, search: String!): [Organization!]
   projectSpecs(projectId: String!): [StudioSpec!]
   projectTeams(projectId: String!): [Team!]
   queryKnowledge(input: QueryKnowledgeInput!): KnowledgeAnswer

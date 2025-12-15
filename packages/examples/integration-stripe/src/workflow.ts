@@ -1,5 +1,9 @@
 import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
-import { OwnersEnum, StabilityEnum, TagsEnum } from '@lssm/lib.contracts/ownership';
+import {
+  OwnersEnum,
+  StabilityEnum,
+  TagsEnum,
+} from '@lssm/lib.contracts/ownership';
 
 export const collectPaymentWorkflow: WorkflowSpec = {
   meta: {
@@ -47,10 +51,3 @@ export const collectPaymentWorkflow: WorkflowSpec = {
     ],
   },
 };
-
-
-
-
-
-
-

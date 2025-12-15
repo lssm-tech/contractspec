@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Button, type ButtonProps } from './Button';
 import { Link, type LinkProps } from './Link.web';
 
-export type ButtonLinkProps = ButtonProps &
+export type ButtonLinkProps = Omit<ButtonProps, 'onClick'> &
   Pick<LinkProps, 'href' | 'target' | 'rel' | 'onClick'> & {
     replace?: boolean;
   };

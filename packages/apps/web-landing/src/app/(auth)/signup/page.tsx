@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { SignupPageClient } from './client';
 import { ALLOW_SIGNUP } from '../constants';
 import { redirect } from 'next/navigation';
@@ -7,5 +8,9 @@ export default function SignupPage() {
     redirect('/contact#waitlist');
   }
 
-  return <SignupPageClient />;
+  return (
+    <Suspense fallback={null}>
+      <SignupPageClient />
+    </Suspense>
+  );
 }

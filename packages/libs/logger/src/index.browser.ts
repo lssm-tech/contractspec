@@ -7,5 +7,3 @@ export { LogLevel } from './types';
 export { DevFormatter, ProductionFormatter } from './formatters';
 
 // Note: ElysiaJS exports are intentionally omitted from the browser entrypoint.
-
-

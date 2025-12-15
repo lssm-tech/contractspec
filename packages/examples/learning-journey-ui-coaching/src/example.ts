@@ -1,7 +1,8 @@
 const example = {
   id: 'learning-journey-ui-coaching',
   title: 'Learning Journey UI — Coaching',
-  summary: 'UI mini-app for coaching patterns: tips, engagement meter, progress.',
+  summary:
+    'UI mini-app for coaching patterns: tips, engagement meter, progress.',
   tags: ['learning', 'ui', 'coaching'],
   kind: 'ui',
   visibility: 'public',
@@ -21,5 +22,3 @@ const example = {
 } as const;
 
 export default example;
-
-

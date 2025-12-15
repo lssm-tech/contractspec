@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'bun:test';
 
-import { createMemoryKbHandlers, createMemoryKbStore } from '@lssm/example.versioned-knowledge-base/handlers/memory.handlers';
-import { createPipelineMemoryHandlers, createPipelineMemoryStore } from '@lssm/example.kb-update-pipeline/handlers/memory.handlers';
+import {
+  createMemoryKbHandlers,
+  createMemoryKbStore,
+} from '@lssm/example.versioned-knowledge-base/handlers/memory.handlers';
+import {
+  createPipelineMemoryHandlers,
+  createPipelineMemoryStore,
+} from '@lssm/example.kb-update-pipeline/handlers/memory.handlers';
 
 import { buildPolicySafeAnswer } from './orchestrator/buildAnswer';
 import { DEMO_FIXTURES } from './seed/fixtures';
@@ -23,7 +29,10 @@ describe('@lssm/example.policy-safe-knowledge-assistant integration', () => {
       content: 'EU: Reporting obligations v1',
       sourceRefs: [{ sourceDocumentId: 'src_eu_v1', excerpt: 'v1 excerpt' }],
     });
-    await kb.approveRuleVersion({ ruleVersionId: rv1.id, approver: 'expert_1' });
+    await kb.approveRuleVersion({
+      ruleVersionId: rv1.id,
+      approver: 'expert_1',
+    });
     const snap1 = await kb.publishSnapshot({
       jurisdiction: 'EU',
       asOfDate: new Date('2026-01-01T00:00:00.000Z'),
@@ -54,7 +63,9 @@ describe('@lssm/example.policy-safe-knowledge-assistant integration', () => {
       diffSummary: 'Updated obligations',
       riskLevel: 'high',
     });
-    const review = await pipeline.createReviewTask({ changeCandidateId: 'cand_1' });
+    const review = await pipeline.createReviewTask({
+      changeCandidateId: 'cand_1',
+    });
     await pipeline.submitDecision({
       reviewTaskId: review.id,
       decision: 'approve',
@@ -68,7 +79,10 @@ describe('@lssm/example.policy-safe-knowledge-assistant integration', () => {
       content: 'EU: Reporting obligations v2 (updated)',
       sourceRefs: [{ sourceDocumentId: 'src_eu_v2', excerpt: 'v2 excerpt' }],
     });
-    await kb.approveRuleVersion({ ruleVersionId: rv2.id, approver: 'expert_2' });
+    await kb.approveRuleVersion({
+      ruleVersionId: rv2.id,
+      approver: 'expert_2',
+    });
 
     // Link pipeline proposal to the actual KB rule version id, then mark it approved
     await pipeline.proposeRulePatch({
@@ -92,5 +106,3 @@ describe('@lssm/example.policy-safe-knowledge-assistant integration', () => {
     expect(a2.citations[0]?.kbSnapshotId).toBe(snap2.id);
   });
 });
-
-

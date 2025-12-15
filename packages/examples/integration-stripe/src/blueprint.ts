@@ -1,5 +1,9 @@
 import type { AppBlueprintSpec } from '@lssm/lib.contracts/app-config/spec';
-import { OwnersEnum, StabilityEnum, TagsEnum } from '@lssm/lib.contracts/ownership';
+import {
+  OwnersEnum,
+  StabilityEnum,
+  TagsEnum,
+} from '@lssm/lib.contracts/ownership';
 
 export const artisanStripeBlueprint: AppBlueprintSpec = {
   meta: {
@@ -32,7 +36,10 @@ export const artisanStripeBlueprint: AppBlueprintSpec = {
     appNameKey: 'artisan.payments.appName',
     assets: [
       { type: 'logo', url: 'https://cdn.artisanos.dev/branding/logo.png' },
-      { type: 'favicon', url: 'https://cdn.artisanos.dev/branding/favicon.ico' },
+      {
+        type: 'favicon',
+        url: 'https://cdn.artisanos.dev/branding/favicon.ico',
+      },
     ],
     colorTokens: {
       primary: 'colors.brand.primary',
@@ -50,4 +57,3 @@ export const artisanStripeBlueprint: AppBlueprintSpec = {
   notes:
     'Install this blueprint and pair it with the Stripe integration connection to enable card collection.',
 };
-

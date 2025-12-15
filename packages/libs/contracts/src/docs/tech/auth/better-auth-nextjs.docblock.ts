@@ -20,6 +20,22 @@ This repo uses Better Auth as the primary auth layer (sessions, organizations, t
 - Source: \`packages/bundles/contractspec-studio/src/application/services/auth.ts\`
 - Important: \`nextCookies()\` must be the **last** plugin in the Better Auth plugin list so \`Set-Cookie\` is applied correctly in Next.js environments.
 
+## Better Auth Admin plugin
+
+ContractSpec Studio enables the Better Auth **Admin plugin** to support platform-admin user operations (list users, impersonation, etc.).
+
+- Server: \`admin()\` plugin in \`packages/bundles/contractspec-studio/src/application/services/auth.ts\`
+- Client: \`adminClient()\` in \`packages/bundles/contractspec-studio/src/presentation/providers/auth/client.ts\`
+
+### PLATFORM_ADMIN ⇒ Better Auth admin role
+
+Better Auth Admin endpoints authorize via \`user.role\`. ContractSpec enforces an org-driven rule:
+
+- If the **active organization** has \`type = PLATFORM_ADMIN\`, the signed-in user is ensured to have \`User.role\` containing \`admin\`.
+- This is applied in the session creation hook and re-checked in \`assertsPlatformAdmin()\`.
+
+This keeps admin enablement deterministic and avoids manual role backfills.
+
 ## Client config (React web + Expo)
 
 To avoid duplicate background refresh/polling loops in dev (Fast Refresh/HMR), the Better Auth client is implemented as a singleton cached on \`globalThis\`.

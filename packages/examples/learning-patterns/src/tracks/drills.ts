@@ -13,7 +13,10 @@ export const drillsTrack: LearningJourneyTrackSpec = {
       id: 'complete_first_session',
       title: 'Complete your first session',
       order: 1,
-      completion: { kind: 'event', eventName: LEARNING_EVENTS.DRILL_SESSION_COMPLETED },
+      completion: {
+        kind: 'event',
+        eventName: LEARNING_EVENTS.DRILL_SESSION_COMPLETED,
+      },
       xpReward: 10,
     },
     {
@@ -46,5 +49,3 @@ export const drillsTrack: LearningJourneyTrackSpec = {
 };
 
 export const drillTracks: LearningJourneyTrackSpec[] = [drillsTrack];
-
-

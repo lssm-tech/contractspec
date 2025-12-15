@@ -1,3 +1,1 @@
 import './knowledge-canon.docblock';
-
-

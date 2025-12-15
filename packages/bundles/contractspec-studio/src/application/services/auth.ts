@@ -18,6 +18,42 @@ import type { GenericOAuthConfig } from 'better-auth/plugins/generic-oauth';
 import { OrganizationType } from '@lssm/lib.database-contractspec-studio/enums';
 // import { telnyxSMS } from './sms';
 
+const BETTER_AUTH_ADMIN_ROLE = 'admin';
+
+function parseBetterAuthRoles(role: string | null | undefined): string[] {
+  if (!role) return [];
+  return role
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function formatBetterAuthRoles(roles: string[]): string {
+  const unique = Array.from(
+    new Set(roles.map((role) => role.trim()).filter(Boolean))
+  );
+  return unique.join(',');
+}
+
+async function ensureBetterAuthAdminRole(userId: string): Promise<void> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true },
+  });
+  if (!user) return;
+
+  const roles = parseBetterAuthRoles(user.role);
+  const alreadyAdmin = roles.some(
+    (role) => role.toLowerCase() === BETTER_AUTH_ADMIN_ROLE
+  );
+  if (alreadyAdmin) return;
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { role: formatBetterAuthRoles([...roles, BETTER_AUTH_ADMIN_ROLE]) },
+  });
+}
+
 export const auth = betterAuth({
   telemetry: { enabled: false },
   database: prismaAdapter(prisma, {
@@ -40,8 +76,10 @@ export const auth = betterAuth({
       const from =
         process.env.CONTRACTSPEC_EMAIL_FROM || 'no-reply@contractspec.run';
       if (!apiKey) {
-        console.warn('RESEND_API_KEY is not set; logging reset URL');
-        console.log('Reset password URL:', url);
+        // Security: never log reset URLs (tokens). Just warn once.
+        console.warn(
+          'RESEND_API_KEY is not set; password reset email not sent'
+        );
         return;
       }
       const resend = new Resend(apiKey);
@@ -53,9 +91,7 @@ export const auth = betterAuth({
       });
     },
     resetPasswordTokenExpiresIn: 60 * 60, // 1h
-    async onPasswordReset({ user }) {
-      console.log(`Password reset for user ${user.email}`);
-    },
+    async onPasswordReset() {},
   },
   secret: process.env.BETTER_AUTH_SECRET!,
   plugins: [
@@ -183,10 +219,15 @@ export const auth = betterAuth({
         before: async (session) => {
           const member = await prisma.member.findFirst({
             where: { userId: session.userId },
-            select: { organizationId: true },
+            select: {
+              organizationId: true,
+              organization: { select: { type: true } },
+            },
           });
 
-          console.log('database hook before session', member, session?.userId);
+          if (member?.organization?.type === OrganizationType.PLATFORM_ADMIN) {
+            await ensureBetterAuthAdminRole(session.userId);
+          }
 
           return {
             data: {
@@ -305,5 +346,6 @@ export const assertsPlatformAdmin = async () => {
   if (!org || org.type !== OrganizationType.PLATFORM_ADMIN) {
     throw new Error('Forbidden: requires PLATFORM_ADMIN');
   }
+  await ensureBetterAuthAdminRole(session.user.id);
   return { session, activeOrganizationId, userId: session.user.id };
 };

@@ -1,3 +1,1 @@
 import './lifecycle-cli.docblock';
-
-

@@ -19,12 +19,13 @@ const example = {
   },
   surfaces: {
     templates: true,
-    sandbox: { enabled: true, modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'] },
+    sandbox: {
+      enabled: true,
+      modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
+    },
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
 } as const;
 
 export default example;
-
-

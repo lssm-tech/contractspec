@@ -1,12 +1,12 @@
-type ChangeCandidate = {
+interface ChangeCandidate {
   id: string;
   sourceDocumentId: string;
   detectedAt: Date;
   diffSummary: string;
   riskLevel: 'low' | 'medium' | 'high';
-};
+}
 
-type ReviewTask = {
+interface ReviewTask {
   id: string;
   changeCandidateId: string;
   status: 'open' | 'decided';
@@ -14,20 +14,20 @@ type ReviewTask = {
   decision?: 'approve' | 'reject';
   decidedAt?: Date;
   decidedBy?: string;
-};
+}
 
 export interface PipelineMemoryStore {
   candidates: Map<string, ChangeCandidate>;
   reviewTasks: Map<string, ReviewTask>;
   proposedRuleVersionIdsByCandidate: Map<string, string[]>;
   approvedRuleVersionIds: Set<string>;
-  notifications: Array<{
+  notifications: {
     kind: 'kb.review.requested';
     reviewTaskId: string;
     changeCandidateId: string;
     assignedRole: 'curator' | 'expert';
     createdAt: Date;
-  }>;
+  }[];
 }
 
 export function createPipelineMemoryStore(): PipelineMemoryStore {
@@ -45,20 +45,26 @@ function stableId(prefix: string, value: string): string {
 }
 
 export interface PipelineMemoryHandlers {
-  runWatch(input: { jurisdiction: string }): Promise<{ candidates: ChangeCandidate[] }>;
+  runWatch(input: {
+    jurisdiction: string;
+  }): Promise<{ candidates: ChangeCandidate[] }>;
   createReviewTask(input: { changeCandidateId: string }): Promise<ReviewTask>;
   proposeRulePatch(input: {
     changeCandidateId: string;
     proposedRuleVersionIds: string[];
   }): Promise<{ proposedRuleVersionIds: string[] }>;
-  markRuleVersionApproved(input: { ruleVersionId: string }): Promise<{ ruleVersionId: string }>;
+  markRuleVersionApproved(input: {
+    ruleVersionId: string;
+  }): Promise<{ ruleVersionId: string }>;
   submitDecision(input: {
     reviewTaskId: string;
     decision: 'approve' | 'reject';
     decidedBy: string;
     decidedByRole: 'curator' | 'expert';
   }): Promise<ReviewTask>;
-  publishIfReady(input: { jurisdiction: string }): Promise<{ published: boolean; reason?: string }>;
+  publishIfReady(input: {
+    jurisdiction: string;
+  }): Promise<{ published: boolean; reason?: string }>;
 }
 
 export function createPipelineMemoryHandlers(
@@ -104,10 +110,9 @@ export function createPipelineMemoryHandlers(
     if (!store.candidates.has(input.changeCandidateId)) {
       throw new Error('CHANGE_CANDIDATE_NOT_FOUND');
     }
-    store.proposedRuleVersionIdsByCandidate.set(
-      input.changeCandidateId,
-      [...input.proposedRuleVersionIds]
-    );
+    store.proposedRuleVersionIdsByCandidate.set(input.changeCandidateId, [
+      ...input.proposedRuleVersionIds,
+    ]);
     return { proposedRuleVersionIds: [...input.proposedRuleVersionIds] };
   }
 
@@ -158,8 +163,11 @@ export function createPipelineMemoryHandlers(
     for (const task of store.reviewTasks.values()) {
       if (task.decision !== 'approve') continue;
       const proposed =
-        store.proposedRuleVersionIdsByCandidate.get(task.changeCandidateId) ?? [];
-      const unapproved = proposed.filter((id) => !store.approvedRuleVersionIds.has(id));
+        store.proposedRuleVersionIdsByCandidate.get(task.changeCandidateId) ??
+        [];
+      const unapproved = proposed.filter(
+        (id) => !store.approvedRuleVersionIds.has(id)
+      );
       if (unapproved.length) {
         throw new Error('NOT_READY');
       }
@@ -176,5 +184,3 @@ export function createPipelineMemoryHandlers(
     publishIfReady,
   };
 }
-
-

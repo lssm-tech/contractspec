@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'bun:test';
 
-import { createPipelineMemoryHandlers, createPipelineMemoryStore } from './memory.handlers';
+import {
+  createPipelineMemoryHandlers,
+  createPipelineMemoryStore,
+} from './memory.handlers';
 
 describe('@lssm/example.kb-update-pipeline memory handlers', () => {
   it('high-risk change cannot be approved by curator role', async () => {
@@ -76,5 +79,3 @@ describe('@lssm/example.kb-update-pipeline memory handlers', () => {
     ).rejects.toThrow('NOT_READY');
   });
 });
-
-

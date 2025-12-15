@@ -53,11 +53,11 @@ const ExampleDefinitionSchema = z.object({
   }),
 });
 
-export type ExampleValidationError = {
+export interface ExampleValidationError {
   exampleId?: string;
   message: string;
   path?: string;
-};
+}
 
 export type ValidateExamplesResult =
   | { ok: true; examples: ExampleDefinition[] }
@@ -94,5 +94,3 @@ export function validateExamples(
   if (errors.length) return { ok: false, errors };
   return { ok: true, examples };
 }
-
-

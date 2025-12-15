@@ -1,7 +1,10 @@
 import { defineCommand } from '@lssm/lib.contracts';
 import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
 
-import { AssistantAnswerIRModel, LLMCallEnvelopeModel } from '../entities/models';
+import {
+  AssistantAnswerIRModel,
+  LLMCallEnvelopeModel,
+} from '../entities/models';
 
 const AssistantQuestionInput = defineSchemaModel({
   name: 'AssistantQuestionInput',
@@ -63,7 +66,8 @@ export const AssistantAnswerContract = defineCommand({
         when: 'answer has no citations',
       },
       SCOPE_VIOLATION: {
-        description: 'Answer violates allowed scope and must be refused/escalated',
+        description:
+          'Answer violates allowed scope and must be refused/escalated',
         http: 403,
         gqlCode: 'SCOPE_VIOLATION',
         when: 'output includes forbidden content under the given allowedScope',
@@ -92,5 +96,3 @@ export const AssistantExplainConceptContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-

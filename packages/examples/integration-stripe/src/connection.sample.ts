@@ -19,4 +19,3 @@ export const stripeLiveConnection: IntegrationConnection = {
   secretRef: 'vault://integrations/artisan-co/conn-stripe-live',
   status: 'connected',
 };
-

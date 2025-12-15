@@ -1,7 +1,8 @@
 const example = {
   id: 'learning-journey-platform-tour',
   title: 'Learning Journey — Platform Tour',
-  summary: 'Learning journey track + contracts + presentations for a platform tour.',
+  summary:
+    'Learning journey track + contracts + presentations for a platform tour.',
   tags: ['learning', 'journey', 'platform-tour'],
   kind: 'template',
   visibility: 'public',
@@ -23,5 +24,3 @@ const example = {
 } as const;
 
 export default example;
-
-

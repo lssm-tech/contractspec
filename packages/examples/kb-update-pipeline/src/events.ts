@@ -5,8 +5,14 @@ const KbChangeDetectedPayload = defineSchemaModel({
   name: 'KbChangeDetectedPayload',
   description: 'Emitted when a source change is detected.',
   fields: {
-    changeCandidateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    sourceDocumentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changeCandidateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    sourceDocumentId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     riskLevel: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -22,7 +28,10 @@ const KbChangeSummarizedPayload = defineSchemaModel({
   name: 'KbChangeSummarizedPayload',
   description: 'Emitted when a change summary is produced.',
   fields: {
-    changeCandidateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changeCandidateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     summary: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     riskLevel: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
@@ -39,7 +48,10 @@ const KbPatchProposedPayload = defineSchemaModel({
   name: 'KbPatchProposedPayload',
   description: 'Emitted when draft rule patches are proposed.',
   fields: {
-    changeCandidateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changeCandidateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     proposedRuleVersionIds: {
       type: ScalarTypeEnum.String_unsecure(),
       isArray: true,
@@ -60,7 +72,10 @@ const KbReviewRequestedPayload = defineSchemaModel({
   description: 'Emitted when a review is requested.',
   fields: {
     reviewTaskId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    changeCandidateId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changeCandidateId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     assignedRole: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -88,5 +103,3 @@ export const KbReviewDecidedEvent = defineEvent({
   description: 'KB review decided.',
   payload: KbReviewDecidedPayload,
 });
-
-

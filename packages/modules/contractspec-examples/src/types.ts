@@ -67,5 +67,3 @@ export interface ExampleDefinition {
   entrypoints: ExampleEntrypoints;
   surfaces: ExampleSurfacesSupport;
 }
-
-

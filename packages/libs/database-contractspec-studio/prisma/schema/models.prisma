@@ -61,6 +61,8 @@ model User {
   passkeys        Passkey[]
   /// Enterprise SSO providers linked to this user (optional)
   ssoProviders    SsoProvider[]
+  /// Learning journey profile(s), scoped per organization.
+  learners        Learner[]
 
   @@map("user")
   @@schema("lssm_sigil")
@@ -175,7 +177,10 @@ model Organization {
   // StudioWorkspaces removed: Studio is Organization → Projects; access refined by Teams/RBAC.
   studioProjects     StudioProject[]
   studioIntegrations StudioIntegration[]
+  integrationConnections IntegrationConnection[]
   knowledgeSources   KnowledgeSource[]
+  /// Learning journey learners scoped to this organization.
+  learners           Learner[]
 
   // Referral system
   referralCode String? @unique // Unique referral code for this user

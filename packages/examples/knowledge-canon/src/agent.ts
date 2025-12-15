@@ -9,9 +9,13 @@ export function selectKnowledgeBindings(
 ) {
   return resolved.knowledge.filter(({ binding }) => {
     if (!binding.scope) return true;
-    if (options.workflowId && binding.scope.workflows?.includes(options.workflowId))
+    if (
+      options.workflowId &&
+      binding.scope.workflows?.includes(options.workflowId)
+    )
       return true;
-    if (options.agentId && binding.scope.agents?.includes(options.agentId)) return true;
+    if (options.agentId && binding.scope.agents?.includes(options.agentId))
+      return true;
     return false;
   });
 }
@@ -39,10 +43,3 @@ export async function answerWithKnowledge(
     'TODO: invoke knowledge search service and synthesize response.',
   ].join('\n');
 }
-
-
-
-
-
-
-

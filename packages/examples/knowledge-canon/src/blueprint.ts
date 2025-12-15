@@ -1,5 +1,9 @@
 import type { AppBlueprintSpec } from '@lssm/lib.contracts/app-config/spec';
-import { OwnersEnum, StabilityEnum, TagsEnum } from '@lssm/lib.contracts/ownership';
+import {
+  OwnersEnum,
+  StabilityEnum,
+  TagsEnum,
+} from '@lssm/lib.contracts/ownership';
 
 export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
   meta: {
@@ -20,10 +24,3 @@ export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
   notes:
     'Workflows and assistants running on this blueprint should bind the Product Canon knowledge space.',
 };
-
-
-
-
-
-
-

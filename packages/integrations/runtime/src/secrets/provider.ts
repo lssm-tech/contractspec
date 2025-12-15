@@ -122,7 +122,9 @@ export function parseSecretUri(reference: SecretReference): ParsedSecretUri {
   };
 }
 
-export function normalizeSecretPayload(payload: SecretWritePayload): Uint8Array {
+export function normalizeSecretPayload(
+  payload: SecretWritePayload
+): Uint8Array {
   if (payload.data instanceof Uint8Array) {
     return payload.data;
   }
@@ -137,5 +139,3 @@ export function normalizeSecretPayload(payload: SecretWritePayload): Uint8Array 
 
   return Buffer.from(payload.data, 'utf-8');
 }
-
-

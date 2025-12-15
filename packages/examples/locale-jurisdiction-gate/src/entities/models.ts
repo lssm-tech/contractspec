@@ -1,4 +1,8 @@
-import { ScalarTypeEnum, defineEnum, defineSchemaModel } from '@lssm/lib.schema';
+import {
+  ScalarTypeEnum,
+  defineEnum,
+  defineSchemaModel,
+} from '@lssm/lib.schema';
 
 export const AllowedScopeEnum = defineEnum('AllowedScope', [
   'education_only',
@@ -10,8 +14,14 @@ export const UserProfileModel = defineSchemaModel({
   name: 'UserProfile',
   description: 'User profile inputs used to derive regulatory context.',
   fields: {
-    preferredLocale: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    residencyCountry: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    preferredLocale: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    residencyCountry: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     taxResidenceCountry: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: true,
@@ -46,7 +56,8 @@ export const LLMCallEnvelopeModel = defineSchemaModel({
 
 export const AssistantCitationModel = defineSchemaModel({
   name: 'AssistantCitation',
-  description: 'Citation referencing a KB snapshot + a specific item within it.',
+  description:
+    'Citation referencing a KB snapshot + a specific item within it.',
   fields: {
     kbSnapshotId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -97,5 +108,3 @@ export const AssistantAnswerIRModel = defineSchemaModel({
     refusalReason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-

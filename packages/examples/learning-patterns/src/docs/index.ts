@@ -1,3 +1,1 @@
 import './learning-patterns.docblock';
-
-

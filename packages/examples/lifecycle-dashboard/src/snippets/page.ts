@@ -56,5 +56,3 @@ export default function LifecycleDashboardPage() {
   return null;
 }
 `;
-
-

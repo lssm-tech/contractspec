@@ -38,9 +38,34 @@ import {
   type TemplateId,
 } from './registry';
 import { getTemplateEngine } from './engine';
-import { appLogger } from '../infrastructure/elysia/logger';
 
 export type { TemplateId };
+
+async function logBootstrapFailure(error: unknown) {
+  try {
+    const { Logger, LogLevel } = await import('@lssm/lib.logger/index.browser');
+    const logger = new Logger({
+      level:
+        process.env.NODE_ENV === 'production' ? LogLevel.WARN : LogLevel.DEBUG,
+      environment:
+        process.env.NODE_ENV === 'production'
+          ? 'production'
+          : process.env.NODE_ENV === 'test'
+            ? 'test'
+            : 'development',
+      enableTracing: false,
+      enableTiming: false,
+      enableContext: false,
+      enableColors: process.env.NODE_ENV !== 'production',
+    });
+
+    logger.error('Failed to bootstrap template runtime', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+  } catch {
+    // Best-effort: avoid crashing UI if logging isn't available.
+  }
+}
 
 /**
  * Template-specific handlers created from the runtime database
@@ -118,9 +143,8 @@ export function TemplateRuntimeProvider({
         marketplace: createMarketplaceHandlers(runtime.db),
         integration: createIntegrationHandlers(runtime.db),
         analytics: createAnalyticsHandlers(runtime.db),
-        policySafeKnowledgeAssistant: createPolicySafeKnowledgeAssistantHandlers(
-          runtime.db
-        ),
+        policySafeKnowledgeAssistant:
+          createPolicySafeKnowledgeAssistantHandlers(runtime.db),
       };
 
       setValue({
@@ -150,11 +174,7 @@ export function TemplateRuntimeProvider({
       }
     );
 
-    bootstrap().catch((error) => {
-      appLogger.error('Failed to bootstrap template runtime', {
-        error: error instanceof Error ? error.message : String(error),
-      });
-    });
+    bootstrap().catch(logBootstrapFailure);
 
     return () => {
       cancelled = true;

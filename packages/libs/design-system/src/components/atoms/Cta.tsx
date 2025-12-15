@@ -45,13 +45,23 @@ export const Cta = React.forwardRef<
         try {
           if (capture) capture(ctaName);
           // Optional PostHog fallback if present globally
-          const ph = (globalThis as any).posthog;
-          if (ph && typeof ph.capture === 'function') {
-            ph.capture('cta_click', { cta: ctaName });
+          const ph = (globalThis as unknown as { posthog?: unknown }).posthog;
+          if (
+            ph &&
+            typeof (ph as { capture?: unknown }).capture === 'function'
+          ) {
+            (
+              ph as {
+                capture: (
+                  event: string,
+                  props?: Record<string, unknown>
+                ) => void;
+              }
+            ).capture('cta_click', { cta: ctaName });
           }
         } catch {}
       }
-      onClick?.(e as any);
+      onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>);
     };
 
     const uiSize = size as ButtonProps['size'];
@@ -66,7 +76,9 @@ export const Cta = React.forwardRef<
           variant={uiVariant}
           {...props}
           href={href}
-          ref={ref as any}
+          onClick={
+            handleClick as unknown as React.MouseEventHandler<HTMLAnchorElement>
+          }
         >
           {children}
         </ButtonLink>
@@ -77,8 +89,9 @@ export const Cta = React.forwardRef<
       <Button
         size={uiSize}
         variant={uiVariant}
-        onPress={handleClick as any}
-        ref={ref as any}
+        onClick={
+          handleClick as unknown as React.MouseEventHandler<HTMLButtonElement>
+        }
         {...props}
       >
         {children}

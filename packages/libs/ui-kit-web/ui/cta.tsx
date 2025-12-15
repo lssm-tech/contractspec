@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Button, type ButtonProps } from './button';
 import { cn } from '@lssm/lib.ui-kit-core/utils';
 
-export type CtaProps = ButtonProps & {
+export type CtaProps = Omit<ButtonProps, 'onClick'> & {
   capture?: (cta: string) => void;
   ctaName?: string;
   as?: 'button' | 'a';
   href?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
   children?: React.ReactNode;
 };
 
@@ -36,7 +37,7 @@ export const Cta = React.forwardRef<
           capture(ctaName);
         } catch {}
       }
-      onClick?.(e as any);
+      onClick?.(e);
     };
 
     if (as === 'a') {
@@ -47,8 +48,11 @@ export const Cta = React.forwardRef<
           className={cn('min-h-[44px]', className)}
           {...props}
         >
-          {}
-          <a href={href} onClick={handleClick} ref={ref as any}>
+          <a
+            href={href}
+            onClick={handleClick}
+            ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          >
             {children}
           </a>
         </Button>
@@ -59,8 +63,8 @@ export const Cta = React.forwardRef<
       <Button
         size={size}
         className={cn('min-h-[44px]', className)}
-        onClick={handleClick as any}
-        ref={ref as any}
+        onClick={handleClick as React.MouseEventHandler<HTMLButtonElement>}
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
         {...props}
       >
         {children}

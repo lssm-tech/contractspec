@@ -6,20 +6,20 @@ interface LogContextData {
   trace?: TraceContext;
 }
 
-type ZoneForkSpec = {
+interface ZoneForkSpec {
   name?: string;
   properties?: Record<string, unknown>;
-};
+}
 
-type ZoneLike = {
+interface ZoneLike {
   fork(spec: ZoneForkSpec): ZoneLike;
   run<T>(fn: () => T): T;
   get<T>(key: string): T | undefined;
-};
+}
 
-type ZoneStaticLike = {
+interface ZoneStaticLike {
   current: ZoneLike;
-};
+}
 
 const ZONE = (globalThis as unknown as { Zone?: ZoneStaticLike }).Zone;
 const STORE_KEY = '__lssm_log_context_data__';
@@ -137,5 +137,3 @@ export class LogContext {
     return `log-${LogContext.fallbackCounter}`;
   }
 }
-
-

@@ -30,4 +30,3 @@ export const artisanKnowledgeTenantConfig: TenantAppConfig = {
   integrations: [],
   notes: 'Product Canon knowledge space bound for production assistants.',
 };
-

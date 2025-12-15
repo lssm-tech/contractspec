@@ -3,14 +3,18 @@
  */
 
 import * as vscode from 'vscode';
-import { getExample, listExamples, searchExamples } from '@lssm/module.contractspec-examples';
+import {
+  getExample,
+  listExamples,
+  searchExamples,
+} from '@lssm/module.contractspec-examples';
 
-type ExampleSummary = {
+interface ExampleSummary {
   id: string;
   title: string;
   summary: string;
   tags: readonly string[];
-};
+}
 
 export async function browseExamples(
   outputChannel: vscode.OutputChannel
@@ -56,10 +60,9 @@ export async function browseExamples(
   outputChannel.appendLine(selected.example.summary);
   outputChannel.show(true);
 
-  const full =
-    apiBaseUrl
-      ? await fetchExampleViaInternalMcp(apiBaseUrl, selected.example.id)
-      : getExample(selected.example.id);
+  const full = apiBaseUrl
+    ? await fetchExampleViaInternalMcp(apiBaseUrl, selected.example.id)
+    : getExample(selected.example.id);
 
   const document = await vscode.workspace.openTextDocument({
     content: JSON.stringify(full ?? selected.example, null, 2),
@@ -94,7 +97,12 @@ export async function initExampleIntoWorkspace(
     return;
   }
 
-  const targetDir = vscode.Uri.joinPath(root, '.contractspec', 'examples', example.id);
+  const targetDir = vscode.Uri.joinPath(
+    root,
+    '.contractspec',
+    'examples',
+    example.id
+  );
   await vscode.workspace.fs.createDirectory(targetDir);
 
   const manifestFile = vscode.Uri.joinPath(targetDir, 'example.json');
@@ -122,7 +130,9 @@ export async function initExampleIntoWorkspace(
     )
   );
 
-  outputChannel.appendLine(`✅ Initialized example "${example.id}" into ${targetDir.fsPath}`);
+  outputChannel.appendLine(
+    `✅ Initialized example "${example.id}" into ${targetDir.fsPath}`
+  );
   outputChannel.show(true);
 
   const doc = await vscode.workspace.openTextDocument(readmeFile);
@@ -154,12 +164,12 @@ async function fetchExamplesViaInternalMcp(
   if (result.error) throw new Error(result.error.message ?? 'MCP error');
   const content = result.result?.contents?.[0]?.text;
   if (!content) return [];
-  const parsed = JSON.parse(content) as Array<{
+  const parsed = JSON.parse(content) as {
     id: string;
     title: string;
     summary: string;
     tags: string[];
-  }>;
+  }[];
   return parsed.map((e) => ({ ...e, tags: e.tags }));
 }
 
@@ -186,5 +196,3 @@ async function fetchExampleViaInternalMcp(
   if (!content) return null;
   return JSON.parse(content);
 }
-
-

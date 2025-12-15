@@ -18,3 +18,4 @@ export * from './twilio-sms';
 export * from './gcs-storage';
 export * from './powens';
 export * from './openbanking';
+export * from './registry';

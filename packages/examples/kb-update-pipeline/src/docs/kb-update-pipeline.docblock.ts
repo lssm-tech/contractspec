@@ -17,7 +17,8 @@ const docBlocks: DocBlock[] = [
   {
     id: 'docs.examples.kb-update-pipeline.reference',
     title: 'KB Update Pipeline — Reference',
-    summary: 'Entities, contracts, and events for the KB update pipeline example.',
+    summary:
+      'Entities, contracts, and events for the KB update pipeline example.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/examples/kb-update-pipeline',
@@ -27,5 +28,3 @@ const docBlocks: DocBlock[] = [
 ];
 
 registerDocBlocks(docBlocks);
-
-

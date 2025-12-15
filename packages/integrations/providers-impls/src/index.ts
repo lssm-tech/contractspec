@@ -12,5 +12,3 @@ export * from './calendar';
 export * from './sms';
 export * from './payments';
 export * from './voice';
-
-

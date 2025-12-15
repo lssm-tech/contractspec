@@ -1,19 +1,19 @@
 import type { GateError, GateResult } from './types';
 
-type EnvelopeLike = {
+interface EnvelopeLike {
   locale?: string;
   kbSnapshotId?: string;
   allowedScope?: 'education_only' | 'generic_info' | 'escalation_required';
   regulatoryContext?: { jurisdiction?: string };
-};
+}
 
-type AnswerLike = {
+interface AnswerLike {
   citations?: unknown[];
-  sections?: Array<{ heading: string; body: string }>;
+  sections?: { heading: string; body: string }[];
   refused?: boolean;
   refusalReason?: string;
   allowedScope?: 'education_only' | 'generic_info' | 'escalation_required';
-};
+}
 
 const SUPPORTED_LOCALES = new Set<string>(['en-US', 'en-GB', 'fr-FR']);
 
@@ -31,7 +31,10 @@ export function validateEnvelope(
     };
   }
   if (!envelope.regulatoryContext?.jurisdiction) {
-    return { ok: false, error: err('JURISDICTION_REQUIRED', 'jurisdiction is required') };
+    return {
+      ok: false,
+      error: err('JURISDICTION_REQUIRED', 'jurisdiction is required'),
+    };
   }
   if (!envelope.kbSnapshotId) {
     return {
@@ -53,7 +56,10 @@ export function enforceCitations(answer: AnswerLike): GateResult<AnswerLike> {
   if (!Array.isArray(citations) || citations.length === 0) {
     return {
       ok: false,
-      error: err('CITATIONS_REQUIRED', 'answers must include at least one citation'),
+      error: err(
+        'CITATIONS_REQUIRED',
+        'answers must include at least one citation'
+      ),
     };
   }
   return { ok: true, value: answer };
@@ -80,7 +86,9 @@ export function enforceAllowedScope(
   }
 
   const bodies = (answer.sections ?? []).map((s) => s.body).join('\n');
-  const violations = EDUCATION_ONLY_FORBIDDEN_PATTERNS.some((re) => re.test(bodies));
+  const violations = EDUCATION_ONLY_FORBIDDEN_PATTERNS.some((re) =>
+    re.test(bodies)
+  );
   if (violations) {
     return {
       ok: false,
@@ -92,5 +100,3 @@ export function enforceAllowedScope(
   }
   return { ok: true, value: answer };
 }
-
-

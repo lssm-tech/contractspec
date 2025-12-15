@@ -1,15 +1,15 @@
 import type {
+  LifecycleAction,
   LifecycleAssessment,
   LifecycleMilestone,
   LifecycleRecommendation,
-  LifecycleAction,
 } from '@lssm/lib.lifecycle';
 import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
 import stagePlaybooks, {
   type StagePlaybookData,
 } from '../data/stage-playbooks';
 
-interface StagePlaybook extends StagePlaybookData {}
+type StagePlaybook = StagePlaybookData;
 
 export interface RecommendationOptions {
   limit?: number;

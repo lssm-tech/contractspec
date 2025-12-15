@@ -36,9 +36,10 @@ export async function runBehaviorTrackingExample(): Promise<void> {
   await tracker.flush();
 
   const analyzer = new BehaviorAnalyzer(store);
-  const insights = await analyzer.analyze({ tenantId: 'acme', userId: 'user-123' });
+  const insights = await analyzer.analyze({
+    tenantId: 'acme',
+    userId: 'user-123',
+  });
 
   logger.info('Behavior insights computed', { insights });
 }
-
-

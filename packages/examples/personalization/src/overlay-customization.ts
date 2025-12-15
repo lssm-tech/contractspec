@@ -36,7 +36,11 @@ export async function runOverlayCustomizationExample(): Promise<void> {
   const result = engine.apply({
     target: {
       fields: [
-        { key: 'customerReference', label: 'Customer Reference', visible: true },
+        {
+          key: 'customerReference',
+          label: 'Customer Reference',
+          visible: true,
+        },
         { key: 'internalNotes', label: 'Internal Notes', visible: true },
       ],
     },
@@ -46,5 +50,3 @@ export async function runOverlayCustomizationExample(): Promise<void> {
 
   logger.info('Overlay applied', { fields: result.target.fields });
 }
-
-

@@ -20,7 +20,10 @@ export const questTrack: LearningJourneyTrackSpec = {
       id: 'day1_complete',
       title: 'Complete day 1 step',
       order: 2,
-      completion: { kind: 'event', eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED },
+      completion: {
+        kind: 'event',
+        eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED,
+      },
       availability: { unlockOnDay: 1, dueWithinHours: 48 },
       xpReward: 10,
     },
@@ -28,7 +31,10 @@ export const questTrack: LearningJourneyTrackSpec = {
       id: 'day2_complete',
       title: 'Complete day 2 step',
       order: 3,
-      completion: { kind: 'event', eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED },
+      completion: {
+        kind: 'event',
+        eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED,
+      },
       availability: { unlockOnDay: 2, dueWithinHours: 48 },
       xpReward: 10,
     },
@@ -36,5 +42,3 @@ export const questTrack: LearningJourneyTrackSpec = {
 };
 
 export const questTracks: LearningJourneyTrackSpec[] = [questTrack];
-
-

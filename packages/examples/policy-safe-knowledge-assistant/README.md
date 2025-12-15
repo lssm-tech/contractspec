@@ -10,3 +10,4 @@ All-in-one template example demonstrating a **policy-safe knowledge assistant** 
 
 This package is the **spec-first** source of truth. The sandbox UI/runtime integration lives in `@lssm/bundle.contractspec-studio`.\n+\n+## Seed scenario\n+\n+See `src/seed/fixtures.ts` for deterministic offline fixtures (no web dependencies).\n+\n+## Running tests\n+\n+```bash\n+bun test\n+```\n+
 
+

@@ -39,3 +39,4 @@ Respects VS Code telemetry settings (disabled when user opts out).
 MCP features require `contractspec.api.baseUrl` to be configured. The extension calls:
 - `/api/mcp/docs` for documentation search
 
+

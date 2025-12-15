@@ -58,5 +58,3 @@ export function logTenantWorkflowSteps(workflow: WorkflowSpec): void {
     steps: workflow.definition.steps.map((step) => step.id),
   });
 }
-
-

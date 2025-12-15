@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  schemas  = ["public", "lssm_sigil"]
+  schemas  = ["public", "lssm_sigil", "lssm_learning"]
 }
 
 generator client {

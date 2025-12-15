@@ -5,7 +5,8 @@ const docBlocks: DocBlock[] = [
   {
     id: 'docs.examples.learning-patterns.goal',
     title: 'Learning Patterns — Goal',
-    summary: 'Domain-agnostic drills, ambient coaching, and quests built on Learning Journey.',
+    summary:
+      'Domain-agnostic drills, ambient coaching, and quests built on Learning Journey.',
     kind: 'goal',
     visibility: 'public',
     route: '/docs/examples/learning-patterns/goal',
@@ -16,7 +17,8 @@ const docBlocks: DocBlock[] = [
   {
     id: 'docs.examples.learning-patterns.reference',
     title: 'Learning Patterns — Reference',
-    summary: 'Track specs and event names exported by the learning patterns example.',
+    summary:
+      'Track specs and event names exported by the learning patterns example.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/examples/learning-patterns',
@@ -26,5 +28,3 @@ const docBlocks: DocBlock[] = [
 ];
 
 registerDocBlocks(docBlocks);
-
-

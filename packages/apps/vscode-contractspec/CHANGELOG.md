@@ -53,3 +53,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Works without requiring CLI installation
 - Bundled with esbuild for fast load times
 
+
