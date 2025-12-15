@@ -1,7 +1,7 @@
 /**
- * Mock handlers for Billing contracts
+ * Mock handlers for Billing contracts.
  */
-import { MOCK_SUBSCRIPTION, MOCK_USAGE_SUMMARY } from './mock-data';
+import { MOCK_SUBSCRIPTION, MOCK_USAGE_SUMMARY } from '../shared/mock-data';
 
 // Types inferred from contract schemas
 export interface Subscription {
@@ -71,14 +71,14 @@ export interface CheckFeatureAccessOutput {
 }
 
 /**
- * Mock handler for GetSubscriptionContract
+ * Mock handler for GetSubscriptionContract.
  */
 export async function mockGetSubscriptionHandler(): Promise<Subscription> {
   return MOCK_SUBSCRIPTION;
 }
 
 /**
- * Mock handler for GetUsageSummaryContract
+ * Mock handler for GetUsageSummaryContract.
  */
 export async function mockGetUsageSummaryHandler(input: {
   period?: string;
@@ -90,12 +90,11 @@ export async function mockGetUsageSummaryHandler(input: {
 }
 
 /**
- * Mock handler for RecordUsageContract
+ * Mock handler for RecordUsageContract.
  */
 export async function mockRecordUsageHandler(
   input: RecordUsageInput
 ): Promise<{ recorded: boolean; newTotal: number }> {
-  // Simulate recording usage
   const currentUsage = MOCK_USAGE_SUMMARY.apiCalls.total;
   const newTotal = currentUsage + input.quantity;
 
@@ -106,14 +105,13 @@ export async function mockRecordUsageHandler(
 }
 
 /**
- * Mock handler for CheckFeatureAccessContract
+ * Mock handler for CheckFeatureAccessContract.
  */
 export async function mockCheckFeatureAccessHandler(
   input: CheckFeatureAccessInput
 ): Promise<CheckFeatureAccessOutput> {
   const { feature } = input;
 
-  // Simulate feature access checks
   const featureMap: Record<string, CheckFeatureAccessOutput> = {
     custom_domains: {
       allowed: true,
@@ -137,3 +135,4 @@ export async function mockCheckFeatureAccessHandler(
 
   return featureMap[feature] ?? { allowed: true };
 }
+

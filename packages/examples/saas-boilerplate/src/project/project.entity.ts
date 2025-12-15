@@ -1,7 +1,7 @@
 import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
 
 /**
- * Project status enum.
+ * Project status enum for entities.
  */
 export const ProjectStatusEnum = defineEntityEnum({
   name: 'ProjectStatus',
@@ -86,3 +86,4 @@ export const ProjectMemberEntity = defineEntity({
   },
   indexes: [index.unique(['projectId', 'userId'])],
 });
+

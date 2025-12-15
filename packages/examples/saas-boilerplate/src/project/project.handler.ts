@@ -1,7 +1,7 @@
 /**
- * Mock handlers for Project contracts
+ * Mock handlers for Project contracts.
  */
-import { MOCK_PROJECTS } from './mock-data';
+import { MOCK_PROJECTS } from '../shared/mock-data';
 
 // Types inferred from contract schemas
 export interface Project {
@@ -49,7 +49,7 @@ export interface ListProjectsOutput {
 }
 
 /**
- * Mock handler for ListProjectsContract
+ * Mock handler for ListProjectsContract.
  */
 export async function mockListProjectsHandler(
   input: ListProjectsInput
@@ -72,7 +72,6 @@ export async function mockListProjectsHandler(
     );
   }
 
-  // Sort by updatedAt descending
   filtered.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
 
   const total = filtered.length;
@@ -85,7 +84,7 @@ export async function mockListProjectsHandler(
 }
 
 /**
- * Mock handler for GetProjectContract
+ * Mock handler for GetProjectContract.
  */
 export async function mockGetProjectHandler(input: {
   projectId: string;
@@ -100,13 +99,12 @@ export async function mockGetProjectHandler(input: {
 }
 
 /**
- * Mock handler for CreateProjectContract
+ * Mock handler for CreateProjectContract.
  */
 export async function mockCreateProjectHandler(
   input: CreateProjectInput,
   context: { organizationId: string; userId: string }
 ): Promise<Project> {
-  // Simulate slug collision check
   if (input.slug) {
     const exists = MOCK_PROJECTS.some((p) => p.slug === input.slug);
     if (exists) {
@@ -131,7 +129,7 @@ export async function mockCreateProjectHandler(
 }
 
 /**
- * Mock handler for UpdateProjectContract
+ * Mock handler for UpdateProjectContract.
  */
 export async function mockUpdateProjectHandler(
   input: UpdateProjectInput
@@ -155,7 +153,7 @@ export async function mockUpdateProjectHandler(
 }
 
 /**
- * Mock handler for DeleteProjectContract
+ * Mock handler for DeleteProjectContract.
  */
 export async function mockDeleteProjectHandler(input: {
   projectId: string;
@@ -168,3 +166,4 @@ export async function mockDeleteProjectHandler(input: {
 
   return { success: true };
 }
+

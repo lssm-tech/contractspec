@@ -1,14 +1,5 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-
-/**
- * Settings scope enum.
- */
-export const SettingsScopeEnum = defineEntityEnum({
-  name: 'SettingsScope',
-  values: ['APP', 'ORG', 'USER', 'PROJECT'] as const,
-  schema: 'saas_app',
-  description: 'Scope of a setting.',
-});
+import { defineEntity, field, index } from '@lssm/lib.schema';
+import { SettingsScopeEnum } from './settings.enum';
 
 /**
  * Settings entity - key-value configuration store.
@@ -96,3 +87,4 @@ export const FeatureFlagEntity = defineEntity({
     updatedAt: field.updatedAt(),
   },
 });
+

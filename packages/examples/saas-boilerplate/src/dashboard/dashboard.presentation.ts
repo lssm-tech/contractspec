@@ -1,6 +1,3 @@
-/**
- * SaaS Dashboard Presentation Descriptor
- */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
 
 /**
@@ -49,3 +46,4 @@ export const SettingsPanelPresentation: PresentationDescriptorV2 = {
     flags: ['saas.enabled'],
   },
 };
+

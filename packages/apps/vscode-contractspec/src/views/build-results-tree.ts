@@ -20,9 +20,7 @@ interface TargetResult {
   skipped?: boolean;
 }
 
-export class BuildResultsTreeDataProvider
-  implements vscode.TreeDataProvider<BuildResultTreeItem>
-{
+export class BuildResultsTreeDataProvider implements vscode.TreeDataProvider<BuildResultTreeItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
     BuildResultTreeItem | undefined | null | void
   >();
@@ -222,4 +220,3 @@ export class BuildResultTreeItem extends vscode.TreeItem {
     }
   }
 }
-

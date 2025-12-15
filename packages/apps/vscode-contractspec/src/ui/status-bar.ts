@@ -3,6 +3,23 @@
  */
 
 import * as vscode from 'vscode';
+import {
+  getDetectedPackageManager,
+  isMonorepoWorkspace,
+  getWorkspaceInfoCached,
+  formatWorkspaceInfoForDisplay,
+  type PackageManager,
+} from '../workspace/adapters';
+
+/**
+ * Package manager icons.
+ */
+const PACKAGE_MANAGER_ICONS: Record<PackageManager, string> = {
+  bun: '🐰',
+  pnpm: '🟠',
+  yarn: '🐈',
+  npm: '📦',
+};
 
 /**
  * Create and configure status bar item for watch mode.
@@ -45,6 +62,57 @@ export function createValidationStatusBarItem(
 }
 
 /**
+ * Create status bar item for workspace/package manager info.
+ */
+export function createWorkspaceStatusBarItem(
+  context: vscode.ExtensionContext
+): vscode.StatusBarItem {
+  const statusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    98
+  );
+
+  statusBarItem.command = 'contractspec.workspaceInfo';
+
+  // Initial update
+  updateWorkspaceStatus(statusBarItem);
+
+  statusBarItem.show();
+  context.subscriptions.push(statusBarItem);
+
+  return statusBarItem;
+}
+
+/**
+ * Update workspace status bar item.
+ */
+export function updateWorkspaceStatus(
+  statusBarItem: vscode.StatusBarItem
+): void {
+  try {
+    const packageManager = getDetectedPackageManager();
+    const isMonorepo = isMonorepoWorkspace();
+    const icon = PACKAGE_MANAGER_ICONS[packageManager];
+
+    const workspaceInfo = getWorkspaceInfoCached();
+    const tooltip = formatWorkspaceInfoForDisplay();
+
+    if (isMonorepo) {
+      const currentPkg = workspaceInfo.packageName || 'monorepo';
+      statusBarItem.text = `${icon} ${packageManager} (${currentPkg})`;
+    } else {
+      statusBarItem.text = `${icon} ${packageManager}`;
+    }
+
+    statusBarItem.tooltip = tooltip;
+  } catch {
+    // Fallback if detection fails
+    statusBarItem.text = '$(package) Unknown';
+    statusBarItem.tooltip = 'Unable to detect package manager';
+  }
+}
+
+/**
  * Update validation status.
  */
 export function updateValidationStatus(
@@ -82,4 +150,3 @@ export function updateValidationStatus(
       break;
   }
 }
-

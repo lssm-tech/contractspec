@@ -8,3 +8,4 @@ export * from './watcher';
 export * from './ai';
 export * from './logger';
 export * from './factory';
+export * from './workspace';

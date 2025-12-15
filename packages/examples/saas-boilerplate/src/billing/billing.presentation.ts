@@ -1,6 +1,3 @@
-/**
- * Billing Presentation Descriptors
- */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
 
 /**
@@ -49,3 +46,4 @@ export const UsageDashboardPresentation: PresentationDescriptorV2 = {
     flags: ['saas.billing.enabled'],
   },
 };
+

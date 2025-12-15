@@ -10,11 +10,20 @@ import { registerCommands } from './commands/index';
 import { registerDiagnostics } from './diagnostics/index';
 import { createTelemetryReporter, TelemetryReporter } from './telemetry/index';
 import { createOutputChannel } from './ui/output-channel';
-import { createWatchStatusBarItem } from './ui/status-bar';
+import {
+  createWatchStatusBarItem,
+  createWorkspaceStatusBarItem,
+  updateWorkspaceStatus,
+} from './ui/status-bar';
 import { disposeWatchMode } from './commands/watch';
 import { registerViews } from './views/index';
+import {
+  formatWorkspaceInfoForDisplay,
+  invalidateWorkspaceCache,
+} from './workspace/adapters';
 
 let telemetryReporter: TelemetryReporter | undefined;
+let workspaceStatusBarItem: vscode.StatusBarItem | undefined;
 
 export async function activate(
   context: vscode.ExtensionContext
@@ -33,17 +42,39 @@ export async function activate(
     });
   }
 
-  // Create status bar item
+  // Create status bar items
   const statusBarItem = createWatchStatusBarItem(context);
+  workspaceStatusBarItem = createWorkspaceStatusBarItem(context);
 
   // Register views
   const views = registerViews(context);
 
-  // Register commands
+  // Register commands (including workspace info command)
   registerCommands(context, outputChannel, telemetryReporter, statusBarItem);
+
+  // Register workspace info command
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.workspaceInfo', () => {
+      const info = formatWorkspaceInfoForDisplay();
+      vscode.window.showInformationMessage(
+        'ContractSpec Workspace Info',
+        { modal: true, detail: info }
+      );
+    })
+  );
 
   // Register diagnostics (validation on open/save)
   registerDiagnostics(context, outputChannel);
+
+  // Watch for workspace changes to update status
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeWorkspaceFolders(() => {
+      invalidateWorkspaceCache();
+      if (workspaceStatusBarItem) {
+        updateWorkspaceStatus(workspaceStatusBarItem);
+      }
+    })
+  );
 
   outputChannel.appendLine('ContractSpec extension activated');
 }

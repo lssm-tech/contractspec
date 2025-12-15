@@ -16,3 +16,4 @@ export * from './watch';
 export * from './clean';
 export * from './test';
 export * from './regenerator';
+export * from './workspace-info';

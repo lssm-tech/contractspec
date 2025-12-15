@@ -1,11 +1,21 @@
 /**
  * Specs Explorer TreeView provider.
+ *
+ * Supports both single projects and monorepos with package grouping.
  */
 
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { getWorkspaceAdapters } from '../workspace/adapters';
-import { listSpecs, groupSpecsByType } from '@lssm/bundle.contractspec-workspace';
+import {
+  getWorkspaceAdapters,
+  isMonorepoWorkspace,
+  getWorkspaceInfoCached,
+  getPackageRootForFile,
+} from '../workspace/adapters';
+import {
+  listSpecs,
+  groupSpecsByType,
+} from '@lssm/bundle.contractspec-workspace';
 
 interface SpecInfo {
   name?: string;
@@ -16,18 +26,40 @@ interface SpecInfo {
   description?: string;
 }
 
-export class SpecsTreeDataProvider
-  implements vscode.TreeDataProvider<SpecTreeItem>
-{
+/**
+ * Extended spec info with package context.
+ */
+interface SpecWithPackage extends SpecInfo {
+  /**
+   * Package name (for monorepo grouping).
+   */
+  packageName?: string;
+
+  /**
+   * Package root path (for monorepo grouping).
+   */
+  packageRoot?: string;
+}
+
+export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
     SpecTreeItem | undefined | null | void
   >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
-  private specs: SpecInfo[] = [];
+  private specs: SpecWithPackage[] = [];
+  private _groupByPackage = true;
 
   constructor() {
     this.refresh();
+  }
+
+  /**
+   * Toggle grouping mode (by package vs by type).
+   */
+  toggleGrouping(): void {
+    this._groupByPackage = !this._groupByPackage;
+    this._onDidChangeTreeData.fire();
   }
 
   /**
@@ -36,7 +68,36 @@ export class SpecsTreeDataProvider
   async refresh(): Promise<void> {
     try {
       const adapters = getWorkspaceAdapters();
-      this.specs = await listSpecs(adapters);
+      const rawSpecs = await listSpecs(adapters);
+
+      // Enrich specs with package info in monorepo context
+      if (isMonorepoWorkspace()) {
+        const workspaceInfo = getWorkspaceInfoCached();
+
+        this.specs = rawSpecs.map((spec) => {
+          const packageRoot = getPackageRootForFile(spec.filePath);
+          const relativeToWorkspace = path.relative(
+            workspaceInfo.workspaceRoot,
+            packageRoot
+          );
+
+          // Try to get package name from path
+          const packageName =
+            relativeToWorkspace === ''
+              ? '(root)'
+              : relativeToWorkspace.split(path.sep).slice(-1)[0] ||
+                relativeToWorkspace;
+
+          return {
+            ...spec,
+            packageName,
+            packageRoot,
+          };
+        });
+      } else {
+        this.specs = rawSpecs;
+      }
+
       this._onDidChangeTreeData.fire();
     } catch (error) {
       console.error('Failed to refresh specs:', error);
@@ -56,30 +117,34 @@ export class SpecsTreeDataProvider
    * Get children.
    */
   async getChildren(element?: SpecTreeItem): Promise<SpecTreeItem[]> {
+    const isMonorepo = isMonorepoWorkspace();
+
     if (!element) {
-      // Root level: group by spec type
-      const grouped = groupSpecsByType(this.specs);
-      const items: SpecTreeItem[] = [];
-
-      for (const [specType, typeSpecs] of grouped) {
-        items.push(
-          new SpecTreeItem(
-            this.formatSpecTypeName(specType),
-            vscode.TreeItemCollapsibleState.Expanded,
-            'group',
-            {
-              specType,
-              count: typeSpecs.length,
-            }
-          )
-        );
+      // Root level
+      if (isMonorepo && this._groupByPackage) {
+        // Group by package first
+        return this.getPackageGroups();
+      } else {
+        // Group by spec type (default for single projects)
+        return this.getTypeGroups(this.specs);
       }
-
-      return items;
+    } else if (element.contextValue === 'package') {
+      // Package level: show type groups within this package
+      const packageSpecs = this.specs.filter(
+        (s) => s.packageName === element.data?.packageName
+      );
+      return this.getTypeGroups(packageSpecs);
     } else if (element.contextValue === 'group') {
-      // Group level: show specs of this type
+      // Type group level: show specs
       const specType = element.data?.specType;
-      const typeSpecs = this.specs.filter((s) => s.specType === specType);
+      const packageName = element.data?.packageName;
+
+      let typeSpecs = this.specs.filter((s) => s.specType === specType);
+
+      // If we're in a package context, filter by package too
+      if (packageName) {
+        typeSpecs = typeSpecs.filter((s) => s.packageName === packageName);
+      }
 
       return typeSpecs.map((spec) => {
         const name = spec.name || path.basename(spec.filePath);
@@ -99,16 +164,68 @@ export class SpecsTreeDataProvider
   }
 
   /**
+   * Get package groups for monorepo.
+   */
+  private getPackageGroups(): SpecTreeItem[] {
+    const packages = new Map<string, SpecWithPackage[]>();
+
+    for (const spec of this.specs) {
+      const pkgName = spec.packageName || '(unknown)';
+      if (!packages.has(pkgName)) {
+        packages.set(pkgName, []);
+      }
+      packages.get(pkgName)!.push(spec);
+    }
+
+    return Array.from(packages.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(
+        ([packageName, pkgSpecs]) =>
+          new SpecTreeItem(
+            `📦 ${packageName} (${pkgSpecs.length})`,
+            vscode.TreeItemCollapsibleState.Expanded,
+            'package',
+            { packageName, count: pkgSpecs.length }
+          )
+      );
+  }
+
+  /**
+   * Get type groups for a set of specs.
+   */
+  private getTypeGroups(specs: SpecWithPackage[]): SpecTreeItem[] {
+    const grouped = groupSpecsByType(specs);
+    const items: SpecTreeItem[] = [];
+
+    for (const [specType, typeSpecs] of grouped) {
+      const packageName = typeSpecs[0]?.packageName;
+
+      items.push(
+        new SpecTreeItem(
+          this.formatSpecTypeName(specType, typeSpecs.length),
+          vscode.TreeItemCollapsibleState.Expanded,
+          'group',
+          {
+            specType,
+            packageName,
+            count: typeSpecs.length,
+          }
+        )
+      );
+    }
+
+    return items;
+  }
+
+  /**
    * Format spec type name for display.
    */
-  private formatSpecTypeName(specType: string): string {
+  private formatSpecTypeName(specType: string, count: number): string {
     const formatted = specType
       .replace(/-/g, ' ')
       .split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
-
-    const count = this.specs.filter((s) => s.specType === specType).length;
 
     return `${formatted} (${count})`;
   }
@@ -164,4 +281,3 @@ export class SpecTreeItem extends vscode.TreeItem {
     return new vscode.ThemeIcon(iconMap[specType] || 'file');
   }
 }
-

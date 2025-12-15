@@ -1,8 +1,5 @@
-/**
- * Project List Presentation Descriptor
- */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { ProjectModel } from '../contracts/project';
+import { ProjectModel } from './project.schema';
 
 /**
  * Presentation for displaying a list of projects.
@@ -51,3 +48,4 @@ export const ProjectDetailPresentation: PresentationDescriptorV2 = {
     flags: ['saas.projects.enabled'],
   },
 };
+

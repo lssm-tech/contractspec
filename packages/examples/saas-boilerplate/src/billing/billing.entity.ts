@@ -1,7 +1,7 @@
 import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
 
 /**
- * Subscription status enum.
+ * Subscription status enum for entities.
  */
 export const SubscriptionStatusEnum = defineEntityEnum({
   name: 'SubscriptionStatus',
@@ -151,3 +151,4 @@ export const UsageLimitEntity = defineEntity({
   },
   indexes: [index.unique(['planId', 'feature'])],
 });
+
