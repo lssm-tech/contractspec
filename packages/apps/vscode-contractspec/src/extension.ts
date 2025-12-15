@@ -10,6 +10,9 @@ import { registerCommands } from './commands/index';
 import { registerDiagnostics } from './diagnostics/index';
 import { createTelemetryReporter, TelemetryReporter } from './telemetry/index';
 import { createOutputChannel } from './ui/output-channel';
+import { createWatchStatusBarItem } from './ui/status-bar';
+import { disposeWatchMode } from './commands/watch';
+import { registerViews } from './views/index';
 
 let telemetryReporter: TelemetryReporter | undefined;
 
@@ -30,8 +33,14 @@ export async function activate(
     });
   }
 
+  // Create status bar item
+  const statusBarItem = createWatchStatusBarItem(context);
+
+  // Register views
+  const views = registerViews(context);
+
   // Register commands
-  registerCommands(context, outputChannel, telemetryReporter);
+  registerCommands(context, outputChannel, telemetryReporter, statusBarItem);
 
   // Register diagnostics (validation on open/save)
   registerDiagnostics(context, outputChannel);
@@ -41,4 +50,5 @@ export async function activate(
 
 export function deactivate(): void {
   telemetryReporter?.dispose();
+  disposeWatchMode();
 }

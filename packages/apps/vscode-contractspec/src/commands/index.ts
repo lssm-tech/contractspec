@@ -11,6 +11,12 @@ import { analyzeSpecDependencies } from './deps';
 import { searchDocs } from './mcp';
 import { addFromRegistry, browseRegistry, searchRegistry } from './registry';
 import { browseExamples, initExampleIntoWorkspace } from './examples';
+import { createSpec } from './create';
+import { toggleWatchMode } from './watch';
+import { syncAllSpecs } from './sync';
+import { cleanGeneratedFiles } from './clean';
+import { compareSpecFiles, compareWithGit } from './diff';
+import { exportToOpenApi } from './openapi';
 
 /**
  * Register all ContractSpec commands.
@@ -18,7 +24,8 @@ import { browseExamples, initExampleIntoWorkspace } from './examples';
 export function registerCommands(
   context: vscode.ExtensionContext,
   outputChannel: vscode.OutputChannel,
-  telemetry: TelemetryReporter | undefined
+  telemetry: TelemetryReporter | undefined,
+  statusBarItem?: vscode.StatusBarItem
 ): void {
   // Validate current spec
   context.subscriptions.push(
@@ -128,6 +135,78 @@ export function registerCommands(
         command: 'examplesInit',
       });
       await initExampleIntoWorkspace(outputChannel);
+    })
+  );
+
+  // Create spec
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.create', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'create',
+      });
+      await createSpec(outputChannel);
+    })
+  );
+
+  // Watch mode toggle
+  if (statusBarItem) {
+    context.subscriptions.push(
+      vscode.commands.registerCommand('contractspec.watchToggle', async () => {
+        telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+          command: 'watchToggle',
+        });
+        await toggleWatchMode(outputChannel, statusBarItem);
+      })
+    );
+  }
+
+  // Sync all specs
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.sync', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'sync',
+      });
+      await syncAllSpecs(outputChannel);
+    })
+  );
+
+  // Clean generated files
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.clean', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'clean',
+      });
+      await cleanGeneratedFiles(outputChannel);
+    })
+  );
+
+  // Compare specs
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.diff', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'diff',
+      });
+      await compareSpecFiles(outputChannel);
+    })
+  );
+
+  // Compare with git
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.diffGit', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'diffGit',
+      });
+      await compareWithGit(outputChannel);
+    })
+  );
+
+  // Export to OpenAPI
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.openapi', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'openapi',
+      });
+      await exportToOpenApi(outputChannel);
     })
   );
 }

@@ -49,7 +49,8 @@
       {
         "command": "contractspec.validate",
         "title": "Validate Current Spec",
-        "category": "ContractSpec"
+        "category": "ContractSpec",
+        "icon": "$(check)"
       },
       {
         "command": "contractspec.validateWorkspace",
@@ -59,7 +60,8 @@
       {
         "command": "contractspec.build",
         "title": "Build/Scaffold from Current Spec",
-        "category": "ContractSpec"
+        "category": "ContractSpec",
+        "icon": "$(tools)"
       },
       {
         "command": "contractspec.listSpecs",
@@ -100,6 +102,216 @@
         "command": "contractspec.examplesInit",
         "title": "Initialize Example Stub in Workspace",
         "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.create",
+        "title": "Create New Spec",
+        "category": "ContractSpec",
+        "icon": "$(add)"
+      },
+      {
+        "command": "contractspec.watchToggle",
+        "title": "Toggle Watch Mode",
+        "category": "ContractSpec",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "contractspec.sync",
+        "title": "Sync All Specs",
+        "category": "ContractSpec",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "contractspec.clean",
+        "title": "Clean Generated Files",
+        "category": "ContractSpec",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "contractspec.diff",
+        "title": "Compare Specs",
+        "category": "ContractSpec",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "contractspec.diffGit",
+        "title": "Compare with Git Version",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.openapi",
+        "title": "Export to OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.refreshSpecs",
+        "title": "Refresh Specs",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.refreshDeps",
+        "title": "Refresh Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.clearBuildResults",
+        "title": "Clear Build Results",
+        "category": "ContractSpec",
+        "icon": "$(clear-all)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "contractspec",
+          "title": "ContractSpec",
+          "icon": "assets/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "contractspec": [
+        {
+          "id": "contractspec.specsView",
+          "name": "Specs Explorer"
+        },
+        {
+          "id": "contractspec.depsView",
+          "name": "Dependencies"
+        },
+        {
+          "id": "contractspec.buildResultsView",
+          "name": "Build Results"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "contractspec.refreshSpecs",
+          "when": "view == contractspec.specsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.create",
+          "when": "view == contractspec.specsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshDeps",
+          "when": "view == contractspec.depsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.clearBuildResults",
+          "when": "view == contractspec.buildResultsView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "inline"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "inline"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "group": "contractspec@1"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "group": "contractspec@2"
+        },
+        {
+          "command": "contractspec.diff",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow)\\.ts$/",
+          "group": "contractspec@3"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "group": "contractspec@1"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "group": "contractspec@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "group": "navigation"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "contractspec.gettingStarted",
+        "title": "Getting Started with ContractSpec",
+        "description": "Learn how to use ContractSpec to stabilize your AI-generated code",
+        "steps": [
+          {
+            "id": "welcome",
+            "title": "Welcome to ContractSpec",
+            "description": "The deterministic, spec-first compiler for AI-written software.\n[Learn More](command:contractspec.searchDocs)",
+            "media": {
+              "markdown": "walkthroughs/welcome.md"
+            }
+          },
+          {
+            "id": "createFirst",
+            "title": "Create Your First Spec",
+            "description": "Create a contract specification using the interactive wizard or snippets.\n[Create Spec](command:contractspec.create)",
+            "media": {
+              "markdown": "walkthroughs/create-spec.md"
+            }
+          },
+          {
+            "id": "validate",
+            "title": "Validate Your Specs",
+            "description": "Ensure your specs are well-formed and consistent.\n[Validate Workspace](command:contractspec.validateWorkspace)",
+            "media": {
+              "markdown": "walkthroughs/validate.md"
+            }
+          },
+          {
+            "id": "build",
+            "title": "Build from Specs",
+            "description": "Generate implementation code from your specifications.\n[Build from Spec](command:contractspec.build)",
+            "media": {
+              "markdown": "walkthroughs/build.md"
+            }
+          },
+          {
+            "id": "explore",
+            "title": "Explore Your Specs",
+            "description": "Use the Specs Explorer sidebar to navigate and manage your specifications.\n[Open Specs View](command:contractspec.specsView.focus)",
+            "media": {
+              "markdown": "walkthroughs/build.md"
+            }
+          }
+        ]
       }
     ],
     "configuration": {
