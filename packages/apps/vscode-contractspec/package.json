@@ -1,5 +1,5 @@
 {
-  "name": "contractspec",
+  "name": "@lssm/app.vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
   "version": "0.1.0",
