@@ -13,5 +13,12 @@ export * from './ports/index';
 // Adapters (Node.js implementations)
 export * from './adapters/index';
 
+// Types
+export type { Config, AiProvider, AgentMode } from './types/config';
+
 // Services (use-cases)
 export * from './services/index';
+
+// Templates (re-export for CLI usage)
+export * as templates from './templates';
+export * as ai from './ai';

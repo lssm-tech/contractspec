@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
+import { select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
@@ -22,29 +22,24 @@ export async function createCommand(options: CreateOptions, config: Config) {
   let specType: SpecType | undefined = options.type;
 
   if (!specType) {
-    const { selectedType } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'selectedType',
-        message: 'What type of spec would you like to create?',
-        choices: [
-          { name: 'Operation (Command/Query)', value: 'operation' },
-          { name: 'Event', value: 'event' },
-          { name: 'Presentation', value: 'presentation' },
-          { name: 'Data view', value: 'data-view' },
-          { name: 'Workflow', value: 'workflow' },
-          { name: 'Migration', value: 'migration' },
-          { name: 'Telemetry', value: 'telemetry' },
-          { name: 'Experiment', value: 'experiment' },
-          { name: 'App Blueprint', value: 'app-config' },
-          { name: 'Integration', value: 'integration' },
-          { name: 'Knowledge Space', value: 'knowledge' },
-          { name: 'Form', value: 'form' },
-          { name: 'Feature', value: 'feature' },
-        ],
-      },
-    ]);
-    specType = selectedType as SpecType;
+    specType = (await select({
+      message: 'What type of spec would you like to create?',
+      choices: [
+        { name: 'Operation (Command/Query)', value: 'operation' },
+        { name: 'Event', value: 'event' },
+        { name: 'Presentation', value: 'presentation' },
+        { name: 'Data view', value: 'data-view' },
+        { name: 'Workflow', value: 'workflow' },
+        { name: 'Migration', value: 'migration' },
+        { name: 'Telemetry', value: 'telemetry' },
+        { name: 'Experiment', value: 'experiment' },
+        { name: 'App Blueprint', value: 'app-config' },
+        { name: 'Integration', value: 'integration' },
+        { name: 'Knowledge Space', value: 'knowledge' },
+        { name: 'Form', value: 'form' },
+        { name: 'Feature', value: 'feature' },
+      ],
+    })) as SpecType;
   }
 
   if (options.ai) {
