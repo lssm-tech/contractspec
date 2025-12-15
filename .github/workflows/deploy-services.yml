@@ -11,8 +11,8 @@ on:
 
 permissions:
   contents: read
-  actions: read      # required so it can call workflow-jobs API
-  statuses: write    # required so it can set the commit status
+  actions: read # required so it can call workflow-jobs API
+  statuses: write # required so it can set the commit status
 
 jobs:
   build:
@@ -48,6 +48,7 @@ jobs:
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+          CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL: ${{ secrets.CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL }}
         run: bun run build
 
   deploy-backend:
@@ -74,23 +75,23 @@ jobs:
 
           script: |
             set -euo pipefail
-            
+
             cd /srv/lssm
-            
+
             if [ ! -d .git ]; then
               git clone git@github.com:lssm-tech/contractspec.git .
             fi
-            
+
             git fetch origin main
             git reset --hard origin/main
-            
+
             /home/deploy/.bun/bin/bun install --frozen-lockfile
             /home/deploy/.bun/bin/bun run build:server --concurrency 1
             /home/deploy/.bun/bin/bun run db:deploy || true
-            
+
             sudo systemctl restart lssm-api lssm-worker
             sudo systemctl status lssm-api lssm-worker --no-pager
-      - name: 'Notify Vercel'
-        uses: 'vercel/repository-dispatch/actions/status@v1'
+      - name: "Notify Vercel"
+        uses: "vercel/repository-dispatch/actions/status@v1"
         with:
           name: "Vercel - contractspec: deploy backend (services and db)"
