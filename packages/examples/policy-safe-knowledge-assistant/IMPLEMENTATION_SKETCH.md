@@ -30,3 +30,4 @@ The runnable **sandbox UI/runtime** lives in `@lssm/bundle.contractspec-studio` 
 - **Storage**: in tests, in-memory stores; in sandbox, browser SQLite + IndexedDB.
 
 
+

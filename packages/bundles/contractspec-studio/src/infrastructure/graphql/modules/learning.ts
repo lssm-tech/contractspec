@@ -1,8 +1,12 @@
 import { gqlSchemaBuilder } from '../builder';
 import { requireAuth } from '../types';
-import { prisma as studioDb, type StudioLearningEvent } from '@lssm/lib.database-contractspec-studio';
+import {
+  prisma as studioDb,
+  type StudioLearningEvent,
+} from '@lssm/lib.database-contractspec-studio';
 import { toNullableJsonValue } from '../../../utils/prisma-json';
 import { ensureStudioProjectAccess } from '../guards/project-access';
+import { advanceOnboardingFromLearningEvent } from './onboarding/progress-engine';
 
 export function registerLearningSchema(builder: typeof gqlSchemaBuilder) {
   const StudioLearningEventType = builder
@@ -22,13 +26,16 @@ export function registerLearningSchema(builder: typeof gqlSchemaBuilder) {
       }),
     });
 
-  const RecordLearningEventInput = builder.inputType('RecordLearningEventInput', {
-    fields: (t) => ({
-      projectId: t.string(),
-      name: t.string({ required: true }),
-      payload: t.field({ type: 'JSON' }),
-    }),
-  });
+  const RecordLearningEventInput = builder.inputType(
+    'RecordLearningEventInput',
+    {
+      fields: (t) => ({
+        projectId: t.string(),
+        name: t.string({ required: true }),
+        payload: t.field({ type: 'JSON' }),
+      }),
+    }
+  );
 
   builder.queryFields((t) => ({
     myLearningEvents: t.field({
@@ -73,7 +80,7 @@ export function registerLearningSchema(builder: typeof gqlSchemaBuilder) {
             organizationId: user.organizationId,
           });
         }
-        return studioDb.studioLearningEvent.create({
+        const event = await studioDb.studioLearningEvent.create({
           data: {
             organizationId: user.organizationId,
             projectId: args.input.projectId ?? undefined,
@@ -84,6 +91,23 @@ export function registerLearningSchema(builder: typeof gqlSchemaBuilder) {
                 : toNullableJsonValue(args.input.payload),
           },
         });
+
+        try {
+          await advanceOnboardingFromLearningEvent({
+            userId: user.id,
+            organizationId: user.organizationId,
+            eventName: args.input.name,
+            eventPayload: args.input.payload,
+            occurredAt: event.createdAt,
+          });
+        } catch (error) {
+          // Dev-first: allow Studio to function even if onboarding tables aren't migrated yet.
+          if (process.env.NODE_ENV === 'production') {
+            throw error;
+          }
+        }
+
+        return event;
       },
     }),
   }));

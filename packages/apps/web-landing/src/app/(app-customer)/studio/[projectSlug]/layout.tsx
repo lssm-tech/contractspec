@@ -21,7 +21,8 @@ import { STUDIO_APP_HEADER_OFFSET_PX } from '@lssm/bundle.contractspec-studio/pr
 import {
   useStudioProjectBySlug,
   useStudioProjects,
-  useRecordLearningEvent,
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
 } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 import { SelectedProjectProvider } from './SelectedProjectContext';
 
@@ -74,7 +75,7 @@ export default function StudioProjectLayout({
   const projects = projectsData?.myStudioProjects ?? [];
 
   const activeModuleId = getActiveModule(pathname);
-  const recordLearning = useRecordLearningEvent();
+  const { recordFireAndForget } = useStudioLearningEventRecorder();
 
   if (isLoading) {
     return (
@@ -144,9 +145,9 @@ export default function StudioProjectLayout({
             router.push('/studio/projects');
             return;
           }
-          recordLearning.mutate({
+          recordFireAndForget({
             projectId: project.id,
-            name: 'module.navigated',
+            name: StudioLearningEventNames.MODULE_NAVIGATED,
             payload: { moduleId },
           });
           router.push(`/studio/${project.slug}/${moduleId}`);
@@ -176,5 +177,3 @@ export default function StudioProjectLayout({
     </SelectedProjectProvider>
   );
 }
-
-

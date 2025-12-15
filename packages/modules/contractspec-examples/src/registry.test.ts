@@ -10,7 +10,10 @@ describe('@lssm/module.contractspec-examples registry', () => {
     const result = validateExamples(examples);
     if (!result.ok) {
       const readable = result.errors
-        .map((e) => `${e.exampleId ?? 'unknown'}: ${e.message}${e.path ? ` (${e.path})` : ''}`)
+        .map(
+          (e) =>
+            `${e.exampleId ?? 'unknown'}: ${e.message}${e.path ? ` (${e.path})` : ''}`
+        )
         .join('\n');
       throw new Error(`validateExamples failed:\n${readable}`);
     }
@@ -23,5 +26,3 @@ describe('@lssm/module.contractspec-examples registry', () => {
     expect(unique.size).toBe(ids.length);
   });
 });
-
-

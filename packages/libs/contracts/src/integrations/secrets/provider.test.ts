@@ -1,8 +1,16 @@
 import { Buffer } from 'node:buffer';
 import type { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import { afterEach, describe, expect, it, vi } from 'bun:test';
+import {
+  CreateSecretCommand,
+  DeleteSecretCommand,
+  GetSecretValueCommand,
+  PutSecretValueCommand,
+} from '@aws-sdk/client-secrets-manager';
 
 import { GcpSecretManagerProvider } from './gcp-secret-manager';
+import { AwsSecretsManagerProvider } from './aws-secret-manager';
+import { ScalewaySecretManagerProvider } from './scaleway-secret-manager';
 import { EnvSecretProvider } from './env-secret-provider';
 import {
   normalizeSecretPayload,
@@ -100,6 +108,163 @@ describe('GcpSecretManagerProvider', () => {
         'gcp://projects/demo-project/secrets/bad-secret/versions/latest'
       )
     ).rejects.toThrow(SecretProviderError);
+  });
+});
+
+describe('AwsSecretsManagerProvider', () => {
+  it('can resolve secret using mocked client', async () => {
+    const send = vi.fn(async (command: unknown) => {
+      if (command instanceof GetSecretValueCommand) {
+        return {
+          SecretString: 'aws-secret',
+          VersionId: 'v1',
+        };
+      }
+      throw new Error('Unexpected command');
+    });
+
+    const provider = new AwsSecretsManagerProvider({
+      client: { send },
+    });
+
+    const secret = await provider.getSecret(
+      'aws://secretsmanager/eu-west-1/demo'
+    );
+    expect(Buffer.from(secret.data).toString('utf-8')).toBe('aws-secret');
+    expect(secret.version).toBe('v1');
+    expect(send).toHaveBeenCalledTimes(1);
+  });
+
+  it('creates secret when missing before adding new version', async () => {
+    const send = vi.fn(async (command: unknown) => {
+      if (command instanceof PutSecretValueCommand) {
+        const error = new Error('not found');
+        (error as Error & { name: string }).name = 'ResourceNotFoundException';
+        throw error;
+      }
+      if (command instanceof CreateSecretCommand) {
+        return { VersionId: '2' };
+      }
+      throw new Error('Unexpected command');
+    });
+
+    const provider = new AwsSecretsManagerProvider({
+      client: { send },
+    });
+
+    const result = await provider.setSecret(
+      'aws://secretsmanager/eu-west-1/new',
+      {
+        data: 'new-data',
+      }
+    );
+
+    expect(result.version).toBe('2');
+    expect(result.reference).toContain('aws://secretsmanager/eu-west-1/new');
+    expect(send).toHaveBeenCalledTimes(2);
+  });
+
+  it('schedules deletion with recovery window', async () => {
+    const send = vi.fn(async (command: unknown) => {
+      if (command instanceof DeleteSecretCommand) {
+        return {};
+      }
+      throw new Error('Unexpected command');
+    });
+
+    const provider = new AwsSecretsManagerProvider({
+      client: { send },
+    });
+
+    await provider.deleteSecret('aws://secretsmanager/eu-west-1/demo');
+    expect(send).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: expect.objectContaining({
+          SecretId: 'demo',
+          RecoveryWindowInDays: 7,
+        }),
+      })
+    );
+  });
+});
+
+describe('ScalewaySecretManagerProvider', () => {
+  it('can resolve secret using mocked fetch', async () => {
+    const fetchMock = vi.fn(async () => {
+      return new Response(
+        JSON.stringify({
+          data: Buffer.from('scw-secret', 'utf-8').toString('base64'),
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    });
+
+    const provider = new ScalewaySecretManagerProvider({
+      token: 'token',
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+
+    const secret = await provider.getSecret(
+      'scw://secret-manager/fr-par/12345678-1234-1234-1234-123456789abc?version=latest'
+    );
+    expect(Buffer.from(secret.data).toString('utf-8')).toBe('scw-secret');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('creates secret by name and then creates a version', async () => {
+    const fetchMock = vi.fn(async (url: string, init?: RequestInit) => {
+      const method = init?.method ?? 'GET';
+      if (method === 'POST' && url.endsWith('/secrets')) {
+        return new Response(
+          JSON.stringify({ id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+      if (method === 'POST' && url.includes('/versions')) {
+        return new Response(JSON.stringify({ revision: 3 }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      throw new Error(`Unexpected request: ${method} ${url}`);
+    });
+
+    const provider = new ScalewaySecretManagerProvider({
+      token: 'token',
+      defaultProjectId: 'project',
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+
+    const result = await provider.setSecret(
+      'scw://secret-manager/fr-par/my-secret',
+      {
+        data: 'payload',
+      }
+    );
+
+    expect(result.version).toBe('3');
+    expect(result.reference).toContain(
+      'scw://secret-manager/fr-par/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+    );
+  });
+
+  it('deletes secret using mocked fetch', async () => {
+    const fetchMock = vi.fn(async () => {
+      return new Response(null, { status: 204 });
+    });
+
+    const provider = new ScalewaySecretManagerProvider({
+      token: 'token',
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+
+    await provider.deleteSecret(
+      'scw://secret-manager/fr-par/12345678-1234-1234-1234-123456789abc'
+    );
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -9,11 +9,11 @@ import {
   validateExamples,
 } from '@lssm/module.contractspec-examples';
 
-type WorkspaceExampleFolderCheck = {
+interface WorkspaceExampleFolderCheck {
   exampleDir: string;
   packageName?: string;
   errors: string[];
-};
+}
 
 export const examplesCommand = new Command('examples')
   .description('Browse, inspect, and validate ContractSpec examples')
@@ -27,12 +27,10 @@ export const examplesCommand = new Command('examples')
           ? searchExamples(String(options.query))
           : [...listExamples()];
         if (options.json) {
-          // eslint-disable-next-line no-console
           console.log(JSON.stringify(items, null, 2));
           return;
         }
         for (const ex of items) {
-          // eslint-disable-next-line no-console
           console.log(
             `${chalk.cyan(ex.id)}  ${ex.title}  ${chalk.gray(ex.kind)}`
           );
@@ -47,12 +45,11 @@ export const examplesCommand = new Command('examples')
       .action((id: string) => {
         const ex = getExample(id);
         if (!ex) {
-          // eslint-disable-next-line no-console
           console.error(chalk.red(`❌ Example not found: ${id}`));
           process.exitCode = 1;
           return;
         }
-        // eslint-disable-next-line no-console
+
         console.log(JSON.stringify(ex, null, 2));
       })
   )
@@ -69,7 +66,6 @@ export const examplesCommand = new Command('examples')
       .action(async (id: string, options) => {
         const ex = getExample(id);
         if (!ex) {
-          // eslint-disable-next-line no-console
           console.error(chalk.red(`❌ Example not found: ${id}`));
           process.exitCode = 1;
           return;
@@ -101,7 +97,6 @@ export const examplesCommand = new Command('examples')
           'utf8'
         );
 
-        // eslint-disable-next-line no-console
         console.log(chalk.green(`✅ Initialized ${ex.id} at ${outDir}`));
       })
   )
@@ -118,10 +113,8 @@ export const examplesCommand = new Command('examples')
         const examples = [...listExamples()];
         const validation = validateExamples(examples);
         if (!validation.ok) {
-          // eslint-disable-next-line no-console
           console.error(chalk.red('❌ Example manifest validation failed'));
           for (const err of validation.errors) {
-            // eslint-disable-next-line no-console
             console.error(
               chalk.red(`- ${err.exampleId ?? 'unknown'}: ${err.message}`) +
                 (err.path ? chalk.gray(` (${err.path})`) : '')
@@ -142,17 +135,14 @@ export const examplesCommand = new Command('examples')
         const failures = checks.filter((c) => c.errors.length > 0);
 
         if (failures.length) {
-          // eslint-disable-next-line no-console
           console.error(
             chalk.red(
               `❌ Workspace example package validation failed (${failures.length})`
             )
           );
           for (const f of failures) {
-            // eslint-disable-next-line no-console
             console.error(chalk.red(`\n${f.exampleDir}`));
             for (const e of f.errors) {
-              // eslint-disable-next-line no-console
               console.error(chalk.red(`  - ${e}`));
             }
           }
@@ -160,7 +150,6 @@ export const examplesCommand = new Command('examples')
           return;
         }
 
-        // eslint-disable-next-line no-console
         console.log(
           chalk.green(
             `✅ Examples valid (${examples.length} manifests, ${checks.length} folders)`

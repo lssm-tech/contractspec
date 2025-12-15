@@ -16,3 +16,4 @@ export * from './shell/StudioAppShellLayout';
 export * from './assistant/FloatingAssistant';
 export * from './learning/LearningCoach';
 export * from './learning/learning-events';
+export * from './learning/journey';

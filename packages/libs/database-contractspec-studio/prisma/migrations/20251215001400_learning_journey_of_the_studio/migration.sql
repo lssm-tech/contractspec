@@ -1,0 +1,2 @@
+-- RenameIndex
+ALTER INDEX "lssm_sigil"."integration_connection_organizationId_integrationKey_integratio" RENAME TO "integration_connection_organizationId_integrationKey_integr_idx";

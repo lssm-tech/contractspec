@@ -4,6 +4,8 @@ import * as React from 'react';
 import { Card } from '@lssm/lib.ui-kit-web/ui/card';
 import { Button } from '@lssm/lib.design-system';
 import {
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
   useEvolutionSessions,
   useStartEvolutionSession,
   useUpdateEvolutionSession,
@@ -17,6 +19,8 @@ export default function ProjectEvolutionClient() {
 
   const start = useStartEvolutionSession();
   const update = useUpdateEvolutionSession();
+  const { recordFireAndForget: recordLearningEvent } =
+    useStudioLearningEventRecorder();
 
   return (
     <div className="space-y-4">
@@ -52,7 +56,7 @@ export default function ProjectEvolutionClient() {
             {sessions.map((s) => (
               <div
                 key={s.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-border p-3"
+                className="border-border flex flex-wrap items-center justify-between gap-3 rounded-md border p-3"
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">
@@ -75,6 +79,11 @@ export default function ProjectEvolutionClient() {
                         appliedChanges: { applied: false },
                       });
                       await refetch();
+                      recordLearningEvent({
+                        projectId: project.id,
+                        name: StudioLearningEventNames.EVOLUTION_APPLIED,
+                        payload: { evolutionSessionId: s.id },
+                      });
                     }}
                   >
                     Mark complete
@@ -90,5 +99,4 @@ export default function ProjectEvolutionClient() {
     </div>
   );
 }
-
 

@@ -12,6 +12,8 @@ import {
   useDeleteStudioProject,
   useStudioProjects,
   useMyTeams,
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
 } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 
 export default function StudioProjectsClient() {
@@ -24,6 +26,7 @@ export default function StudioProjectsClient() {
 
   const createProject = useCreateStudioProject();
   const deleteProject = useDeleteStudioProject();
+  const { recordAsync: recordLearningEvent } = useStudioLearningEventRecorder();
 
   const [newName, setNewName] = React.useState('');
   const [newDescription, setNewDescription] = React.useState('');
@@ -99,10 +102,7 @@ export default function StudioProjectsClient() {
                     {teams.map((team) => {
                       const checked = selectedTeamIds.includes(team.id);
                       return (
-                        <div
-                          key={team.id}
-                          className="flex items-center gap-2"
-                        >
+                        <div key={team.id} className="flex items-center gap-2">
                           <Checkbox
                             checked={checked}
                             onCheckedChange={(value) => {
@@ -136,7 +136,9 @@ export default function StudioProjectsClient() {
                   const result = await createProject.mutateAsync({
                     name,
                     description: newDescription.trim() || undefined,
-                    teamIds: selectedTeamIds.length ? selectedTeamIds : undefined,
+                    teamIds: selectedTeamIds.length
+                      ? selectedTeamIds
+                      : undefined,
                     tier: 'STARTER',
                     deploymentMode: 'SHARED',
                     byokEnabled: false,
@@ -147,6 +149,18 @@ export default function StudioProjectsClient() {
                   setSelectedTeamIds([]);
                   await refetch();
                   const slug = result.createStudioProject.slug;
+                  try {
+                    await recordLearningEvent({
+                      projectId: result.createStudioProject.id,
+                      name: StudioLearningEventNames.TEMPLATE_INSTANTIATED,
+                      payload: {
+                        templateId: 'starter',
+                        projectSlug: slug,
+                      },
+                    });
+                  } catch {
+                    // Best-effort: onboarding tracking should never block project creation UX.
+                  }
                   window.location.href = `/studio/${slug}/canvas`;
                 }}
               >
@@ -162,7 +176,7 @@ export default function StudioProjectsClient() {
                   {projects.map((p) => (
                     <div
                       key={p.id}
-                      className="flex items-center justify-between gap-3 rounded-md border border-border p-3"
+                      className="border-border flex items-center justify-between gap-3 rounded-md border p-3"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium">{p.name}</p>
@@ -219,5 +233,3 @@ export default function StudioProjectsClient() {
     </main>
   );
 }
-
-

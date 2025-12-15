@@ -1,6 +1,12 @@
 import { randomUUID } from 'node:crypto';
 
-import { DEFAULT_RETRY_POLICY, type EnqueueOptions, type Job, type JobHandler, type JobQueue } from './queue';
+import {
+  DEFAULT_RETRY_POLICY,
+  type EnqueueOptions,
+  type Job,
+  type JobHandler,
+  type JobQueue,
+} from './queue';
 
 export class MemoryJobQueue implements JobQueue {
   private readonly jobs: Job[] = [];

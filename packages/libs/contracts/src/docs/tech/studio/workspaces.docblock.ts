@@ -56,5 +56,3 @@ Studio and Sandbox both use a shared shell:
 ];
 
 registerDocBlocks(tech_studio_workspaces_DocBlocks);
-
-

@@ -29,6 +29,11 @@ import {
   PricingClient,
   ProductClientPage,
 } from '../components/marketing';
+import {
+  LearningTrackDetail,
+  LearningTrackList,
+  LearningTrackProgressWidget,
+} from '../components/learning/journey';
 
 import {
   AdvancedMCPPage,
@@ -134,6 +139,11 @@ export const componentMap: ComponentMap = {
   ProductPage: ProductClientPage,
   ContactPage: ContactClient,
   ChangelogPage: ChangelogPage,
+
+  // Learning journey
+  LearningTrackList: LearningTrackList,
+  LearningTrackDetail: LearningTrackDetail,
+  LearningTrackProgressWidget: LearningTrackProgressWidget,
 
   // Getting Started
   InstallationPage: InstallationPage,

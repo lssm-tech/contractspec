@@ -1,11 +1,21 @@
 'use client';
 
 import * as React from 'react';
-import { AppHeader, ButtonLink } from '@lssm/lib.design-system';
+import { usePathname } from 'next/navigation';
+import {
+  AppHeader,
+  ButtonLink,
+  type HeaderNavItem,
+} from '@lssm/lib.design-system';
 import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
 import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
 import { authClient } from '../../providers/auth/client';
 import { useAuthContext } from '../../providers/auth';
+import {
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
+} from '../../hooks/studio';
+import { StudioLearningCoachSheet } from '../learning/journey/StudioLearningCoachSheet';
 
 export const STUDIO_APP_HEADER_OFFSET_PX = 56;
 
@@ -15,6 +25,55 @@ export function StudioAppShellLayout({
   children: React.ReactNode;
 }) {
   const { isAuthenticated, user, organization } = useAuthContext();
+  const pathname = usePathname();
+  const { recordFireAndForget } = useStudioLearningEventRecorder();
+
+  React.useEffect(() => {
+    if (!isAuthenticated) return;
+    const moduleId = getStudioRootModuleId(pathname);
+    if (!moduleId) return;
+    recordFireAndForget({
+      name: StudioLearningEventNames.MODULE_NAVIGATED,
+      payload: { moduleId, scope: 'studio_root', pathname },
+    });
+  }, [isAuthenticated, pathname, recordFireAndForget]);
+
+  const nav: HeaderNavItem[] = isAuthenticated
+    ? [
+        {
+          label: 'Projects',
+          href: '/studio/projects',
+          match: 'startsWith' as const,
+        },
+        {
+          label: 'Learning',
+          href: '/studio/learning',
+          match: 'startsWith' as const,
+        },
+        { label: 'Teams', href: '/studio/teams', match: 'startsWith' as const },
+        ...(organization?.type === 'PLATFORM_ADMIN'
+          ? [
+              {
+                label: 'Admin',
+                href: '/studio/admin',
+                match: 'startsWith' as const,
+              },
+            ]
+          : []),
+      ]
+    : [
+        {
+          label: 'Features',
+          href: '/studio/features',
+          match: 'startsWith' as const,
+        },
+        {
+          label: 'Pricing',
+          href: '/studio/pricing',
+          match: 'startsWith' as const,
+        },
+        { label: 'Docs', href: '/studio/docs', match: 'startsWith' as const },
+      ];
 
   const header = (
     <AppHeader
@@ -24,35 +83,7 @@ export function StudioAppShellLayout({
           Studio
         </ButtonLink>
       }
-      nav={
-        isAuthenticated
-          ? [
-              {
-                label: 'Projects',
-                href: '/studio/projects',
-                match: 'startsWith',
-              },
-              {
-                label: 'Learning',
-                href: '/studio/learning',
-                match: 'startsWith',
-              },
-              { label: 'Teams', href: '/studio/teams', match: 'startsWith' },
-            ]
-          : [
-              {
-                label: 'Features',
-                href: '/studio/features',
-                match: 'startsWith',
-              },
-              {
-                label: 'Pricing',
-                href: '/studio/pricing',
-                match: 'startsWith',
-              },
-              { label: 'Docs', href: '/studio/docs', match: 'startsWith' },
-            ]
-      }
+      nav={nav}
       userMenu={
         isAuthenticated
           ? {
@@ -110,8 +141,26 @@ export function StudioAppShellLayout({
     >
       {header}
       <main className="flex-1">{children}</main>
+      {isAuthenticated ? (
+        <StudioLearningCoachSheet organizationId={organization?.id ?? null} />
+      ) : null}
       <Separator />
       {footer}
     </VStack>
   );
+}
+
+function getStudioRootModuleId(pathname: string): string | null {
+  const parts = pathname.split('/').filter(Boolean);
+  if (parts[0] !== 'studio') return null;
+  const next = parts[1];
+  if (!next) return null;
+  if (
+    next === 'projects' ||
+    next === 'learning' ||
+    next === 'teams' ||
+    next === 'admin'
+  )
+    return next;
+  return null;
 }

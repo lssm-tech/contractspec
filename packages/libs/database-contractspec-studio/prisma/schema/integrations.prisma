@@ -22,6 +22,60 @@ model StudioIntegration {
   @@schema("lssm_sigil")
 }
 
+/// ContractSpec integration connection model (tenant-scoped).
+/// This is distinct from StudioIntegration (Studio's internal integration hub).
+model IntegrationConnection {
+  id             String  @id @default(cuid())
+  organizationId String
+
+  /// Reference to IntegrationSpec (e.g. "payments.stripe").
+  integrationKey     String
+  integrationVersion Int
+
+  /// Human-readable label (e.g. "Production Stripe").
+  label       String
+  environment String?
+
+  ownershipMode     IntegrationOwnershipMode
+  externalAccountId String?
+
+  /// Secret reference used by the integrations runtime (never store plaintext).
+  secretProvider String
+  secretRef      String
+
+  /// Provider configuration (validated against IntegrationSpec.configSchema).
+  config Json
+
+  status IntegrationConnectionStatus @default(unknown)
+
+  // Health snapshot (optional)
+  healthStatus       IntegrationConnectionStatus?
+  healthCheckedAt    DateTime?
+  healthLatencyMs    Float?
+  healthErrorCode    String?
+  healthErrorMessage String?
+
+  // Usage snapshot (optional counters; can be updated by telemetry pipelines)
+  usageRequestCount Int      @default(0)
+  usageSuccessCount Int      @default(0)
+  usageErrorCount   Int      @default(0)
+  usageLastUsedAt   DateTime?
+  usageLastSuccessAt DateTime?
+  usageLastErrorAt  DateTime?
+  usageLastErrorCode String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@index([organizationId, integrationKey, integrationVersion])
+  @@index([organizationId, status])
+  @@map("integration_connection")
+  @@schema("lssm_sigil")
+}
+
 model KnowledgeSource {
   id             String              @id @default(cuid())
   organizationId String
@@ -64,6 +118,22 @@ enum KnowledgeSourceType {
   CODE_REPOSITORY
   NOTION_DATABASE
   CUSTOM
+
+  @@schema("lssm_sigil")
+}
+
+enum IntegrationOwnershipMode {
+  managed
+  byok
+
+  @@schema("lssm_sigil")
+}
+
+enum IntegrationConnectionStatus {
+  connected
+  disconnected
+  error
+  unknown
 
   @@schema("lssm_sigil")
 }

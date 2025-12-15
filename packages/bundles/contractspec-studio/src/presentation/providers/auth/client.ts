@@ -12,13 +12,7 @@ import {
 
 type ContractSpecAuth = typeof import('../../../application').auth;
 
-type AuthClient = ReturnType<typeof createAuthClient>;
-
-const globalForAuthClient = globalThis as typeof globalThis & {
-  __lssm_contractspec_authClient?: AuthClient;
-};
-
-function createClient(): AuthClient {
+function createClient() {
   return createAuthClient({
     basePath: '/api/auth',
     baseURL:
@@ -38,6 +32,12 @@ function createClient(): AuthClient {
     ],
   });
 }
+
+type AuthClient = ReturnType<typeof createClient>;
+
+const globalForAuthClient = globalThis as typeof globalThis & {
+  __lssm_contractspec_authClient?: AuthClient;
+};
 
 export const authClient: AuthClient =
   globalForAuthClient.__lssm_contractspec_authClient ?? createClient();

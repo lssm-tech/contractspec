@@ -61,5 +61,3 @@ The following project modules are expected under \`/studio/{projectSlug}\`:
 ];
 
 registerDocBlocks(tech_studio_project_routing_DocBlocks);
-
-

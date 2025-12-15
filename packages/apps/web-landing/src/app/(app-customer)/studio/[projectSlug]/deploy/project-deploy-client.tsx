@@ -6,13 +6,19 @@ import { DeploymentPanel } from '@lssm/bundle.contractspec-studio/presentation/c
 import type { DeploymentHistoryItem } from '@lssm/bundle.contractspec-studio/presentation/components/studio/molecules/DeploymentPanel';
 import { useDeployStudioProject } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio/mutations/useDeployProject';
 import { useSelectedProject } from '../SelectedProjectContext';
-import { useStudioProjectBySlug } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
+import {
+  StudioLearningEventNames,
+  useStudioLearningEventRecorder,
+  useStudioProjectBySlug,
+} from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 import { useParams } from 'next/navigation';
 
 function isEnvironment(
   value: string
 ): value is DeploymentHistoryItem['environment'] {
-  return value === 'DEVELOPMENT' || value === 'STAGING' || value === 'PRODUCTION';
+  return (
+    value === 'DEVELOPMENT' || value === 'STAGING' || value === 'PRODUCTION'
+  );
 }
 
 function isStatus(value: string): value is DeploymentHistoryItem['status'] {
@@ -28,9 +34,13 @@ function isStatus(value: string): value is DeploymentHistoryItem['status'] {
 export default function ProjectDeployClient() {
   const project = useSelectedProject();
   const params = useParams<{ projectSlug: string }>();
-  const { data, isLoading, refetch } = useStudioProjectBySlug(params.projectSlug);
+  const { data, isLoading, refetch } = useStudioProjectBySlug(
+    params.projectSlug
+  );
   const deployments = data?.studioProjectBySlug.project.deployments ?? [];
   const deploy = useDeployStudioProject();
+  const { recordFireAndForget: recordLearningEvent } =
+    useStudioLearningEventRecorder();
 
   if (isLoading) {
     return (
@@ -61,6 +71,11 @@ export default function ProjectDeployClient() {
           environment,
         });
         await refetch();
+        recordLearningEvent({
+          projectId: project.id,
+          name: StudioLearningEventNames.REGENERATION_COMPLETED,
+          payload: { environment, source: 'deploy' },
+        });
       }}
       onRollback={async () => {
         // TODO: add rollback mutation; DB-backed deployments exist but rollback isn't implemented yet.
@@ -68,5 +83,3 @@ export default function ProjectDeployClient() {
     />
   );
 }
-
-

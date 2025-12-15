@@ -13,10 +13,18 @@ describe('Job handlers', () => {
     const indexer = { upsert: vi.fn(async () => {}) };
 
     const adapter = new GmailIngestionAdapter(
-      gmail as unknown as ConstructorParameters<typeof GmailIngestionAdapter>[0],
-      processor as unknown as ConstructorParameters<typeof GmailIngestionAdapter>[1],
-      embeddings as unknown as ConstructorParameters<typeof GmailIngestionAdapter>[2],
-      indexer as unknown as ConstructorParameters<typeof GmailIngestionAdapter>[3]
+      gmail as unknown as ConstructorParameters<
+        typeof GmailIngestionAdapter
+      >[0],
+      processor as unknown as ConstructorParameters<
+        typeof GmailIngestionAdapter
+      >[1],
+      embeddings as unknown as ConstructorParameters<
+        typeof GmailIngestionAdapter
+      >[2],
+      indexer as unknown as ConstructorParameters<
+        typeof GmailIngestionAdapter
+      >[3]
     );
     const spy = vi.spyOn(adapter, 'syncThreads').mockResolvedValue(undefined);
 
@@ -46,18 +54,29 @@ describe('Job handlers', () => {
       })),
       putObject: vi.fn(async () => ({ bucket: 'test', key: 'file.txt' })),
       deleteObject: vi.fn(async () => {}),
-      generateSignedUrl: vi.fn(async () => ({ url: 'http://example', expiresAt: new Date() })),
+      generateSignedUrl: vi.fn(async () => ({
+        url: 'http://example',
+        expiresAt: new Date(),
+      })),
       listObjects: vi.fn(async () => ({ objects: [] })),
     };
     const processor = { process: vi.fn(async () => []) };
     const embeddings = { embedFragments: vi.fn(async () => []) };
     const indexer = { upsert: vi.fn(async () => {}) };
     const adapter = new StorageIngestionAdapter(
-      processor as unknown as ConstructorParameters<typeof StorageIngestionAdapter>[0],
-      embeddings as unknown as ConstructorParameters<typeof StorageIngestionAdapter>[1],
-      indexer as unknown as ConstructorParameters<typeof StorageIngestionAdapter>[2]
+      processor as unknown as ConstructorParameters<
+        typeof StorageIngestionAdapter
+      >[0],
+      embeddings as unknown as ConstructorParameters<
+        typeof StorageIngestionAdapter
+      >[1],
+      indexer as unknown as ConstructorParameters<
+        typeof StorageIngestionAdapter
+      >[2]
     );
-    const ingestSpy = vi.spyOn(adapter, 'ingestObject').mockResolvedValue(undefined);
+    const ingestSpy = vi
+      .spyOn(adapter, 'ingestObject')
+      .mockResolvedValue(undefined);
     const handler = createStorageDocumentHandler(
       storage as unknown as Parameters<typeof createStorageDocumentHandler>[0],
       adapter

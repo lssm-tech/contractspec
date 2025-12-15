@@ -24,6 +24,8 @@ import './tech/studio/workspaces.docblock';
 import './tech/studio/sandbox-unlogged.docblock';
 import './tech/studio/workspace-ops.docblock';
 import './tech/studio/project-routing.docblock';
+import './tech/studio/platform-admin-panel.docblock';
 import './tech/studio/learning-events.docblock';
+import './tech/studio/learning-journeys.docblock';
 import './tech/studio/project-access-teams.docblock';
 import './tech/studio/team-invitations.docblock';

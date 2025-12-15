@@ -39,5 +39,3 @@ Payloads and events must avoid secrets/PII. For Sandbox, the model remains local
 ];
 
 registerDocBlocks(tech_studio_project_access_teams_DocBlocks);
-
-

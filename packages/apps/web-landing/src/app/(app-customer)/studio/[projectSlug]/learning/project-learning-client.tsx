@@ -1,8 +1,9 @@
 'use client';
 
-import * as React from 'react';
+import Link from 'next/link';
 import { Card } from '@lssm/lib.ui-kit-web/ui/card';
 import { Button } from '@lssm/lib.design-system';
+import { LearningTrackProgressWidget } from '@lssm/bundle.contractspec-studio/presentation/components';
 import { useMyLearningEvents } from '@lssm/bundle.contractspec-studio/presentation/hooks/studio';
 import { useSelectedProject } from '../SelectedProjectContext';
 
@@ -20,15 +21,27 @@ export default function ProjectLearningClient() {
         <div>
           <p className="text-sm font-semibold">Learning</p>
           <p className="text-muted-foreground text-sm">
-            Activity events for this project (persisted to DB).
+            Your learning journey progress (org-wide) + this project’s activity.
           </p>
         </div>
-        <Button variant="ghost" onPress={() => void refetch()}>
-          Refresh
-        </Button>
+        <div className="flex gap-2">
+          <Button asChild size="sm" variant="outline">
+            <Link href="/studio/learning">Open learning hub</Link>
+          </Button>
+          <Button size="sm" variant="ghost" onPress={() => void refetch()}>
+            Refresh activity
+          </Button>
+        </div>
       </div>
 
       <Card className="p-4">
+        <LearningTrackProgressWidget />
+      </Card>
+
+      <Card className="p-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-semibold">Recent activity (debug)</p>
+        </div>
         {isLoading ? (
           <p className="text-muted-foreground text-sm">Loading…</p>
         ) : events.length ? (
@@ -36,7 +49,7 @@ export default function ProjectLearningClient() {
             {events.slice(0, 50).map((e) => (
               <div
                 key={e.id}
-                className="flex items-start justify-between gap-3 rounded-md border border-border p-3"
+                className="border-border flex items-start justify-between gap-3 rounded-md border p-3"
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{e.name}</p>
@@ -54,5 +67,4 @@ export default function ProjectLearningClient() {
     </div>
   );
 }
-
 
