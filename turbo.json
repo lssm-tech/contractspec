@@ -27,6 +27,10 @@
         ".next/**",
         "!.next/cache/**",
         "src/generated/**"
+      ],
+      "env": [
+        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
+        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
       ]
     },
     "build:types": {
