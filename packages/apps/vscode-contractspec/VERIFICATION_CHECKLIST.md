@@ -3,6 +3,7 @@
 ## Pre-Build Verification
 
 ### ✅ Phase 1: New Commands
+
 - [x] `src/commands/create.ts` — Create spec wizard
 - [x] `src/commands/watch.ts` — Watch mode toggle
 - [x] `src/commands/sync.ts` — Sync all specs
@@ -14,6 +15,7 @@
 - [x] Command icons added
 
 ### ✅ Phase 2: Sidebar Views
+
 - [x] `src/views/specs-tree.ts` — Specs Explorer provider
 - [x] `src/views/deps-tree.ts` — Dependencies provider
 - [x] `src/views/build-results-tree.ts` — Build Results provider
@@ -25,6 +27,7 @@
 - [x] View item context menus configured
 
 ### ✅ Phase 3: Walkthroughs
+
 - [x] `walkthroughs/welcome.md` — Welcome content
 - [x] `walkthroughs/create-spec.md` — Creation guide
 - [x] `walkthroughs/validate.md` — Validation guide
@@ -33,6 +36,7 @@
 - [x] 5 walkthrough steps defined
 
 ### ✅ Phase 4: Context Menu Integration
+
 - [x] Explorer context menu items
 - [x] Editor context menu items
 - [x] Editor title menu items
@@ -40,6 +44,7 @@
 - [x] Command grouping
 
 ### ✅ Phase 5: Status Bar
+
 - [x] `src/ui/status-bar.ts` — Status bar items
 - [x] Watch status bar item created
 - [x] Status bar integrated in extension.ts
@@ -48,6 +53,7 @@
 ## File Checklist
 
 ### New Files Created
+
 - [x] src/commands/create.ts
 - [x] src/commands/watch.ts
 - [x] src/commands/sync.ts
@@ -67,6 +73,7 @@
 - [x] VERIFICATION_CHECKLIST.md
 
 ### Modified Files
+
 - [x] src/commands/index.ts
 - [x] src/extension.ts
 - [x] package.json
@@ -85,6 +92,7 @@
 ## Package.json Configuration
 
 ### Commands
+
 - [x] 17 commands total defined
 - [x] All commands have title, category
 - [x] Key commands have icons
@@ -92,12 +100,14 @@
 - [x] Clear command for build results
 
 ### Views
+
 - [x] Activity bar container defined
 - [x] 3 views defined (Specs, Dependencies, Build Results)
 - [x] View title menus configured
 - [x] View item context menus configured
 
 ### Context Menus
+
 - [x] Explorer context menu (3 items)
 - [x] Editor context menu (2 items)
 - [x] Editor title menu (2 items)
@@ -105,12 +115,14 @@
 - [x] Command grouping (@1, @2, @3)
 
 ### Walkthroughs
+
 - [x] 1 walkthrough defined
 - [x] 5 steps configured
 - [x] Markdown files referenced
 - [x] Command links in descriptions
 
 ### Configuration
+
 - [x] 5 settings defined
 - [x] registry.baseUrl added
 - [x] Default values set
@@ -118,12 +130,14 @@
 ## Integration Points
 
 ### Bundle Integration
+
 - [x] Uses `@lssm/bundle.contractspec-workspace`
 - [x] Uses shared adapters via `getWorkspaceAdapters()`
 - [x] Uses shared services (listSpecs, validateSpec, buildSpec, etc.)
 - [x] Uses shared types
 
 ### VS Code API Usage
+
 - [x] Commands registered properly
 - [x] TreeDataProvider implemented correctly
 - [x] StatusBarItem usage
@@ -138,6 +152,7 @@
 ### Manual Testing Checklist
 
 #### Commands
+
 - [ ] Create spec wizard works for all types
 - [ ] Watch mode toggles on/off correctly
 - [ ] Sync builds all specs
@@ -147,6 +162,7 @@
 - [ ] OpenAPI export generates valid spec
 
 #### Views
+
 - [ ] Specs Explorer shows all specs grouped by type
 - [ ] Click on spec opens file
 - [ ] Inline actions (validate/build) work
@@ -158,6 +174,7 @@
 - [ ] Clear results works
 
 #### Context Menus
+
 - [ ] Explorer right-click shows ContractSpec menu
 - [ ] Editor right-click shows ContractSpec menu
 - [ ] Editor title bar shows validate/build icons
@@ -165,12 +182,14 @@
 - [ ] Commands execute correctly from menu
 
 #### Status Bar
+
 - [ ] Watch mode status shows correctly
 - [ ] Click toggles watch mode
 - [ ] Icon changes based on state
 - [ ] Background color changes when active
 
 #### Walkthroughs
+
 - [ ] Walkthrough appears in Welcome page
 - [ ] All 5 steps render correctly
 - [ ] Command links work
@@ -180,16 +199,19 @@
 ## Build & Distribution
 
 ### Pre-Build
+
 - [x] No TypeScript errors
 - [x] No linter errors
 - [x] All dependencies resolved
 
 ### Build Commands
+
 - [ ] `bun run build` — Compiles successfully
 - [ ] `bun run dev` — Watch mode works
 - [ ] `bun run package` — Creates .vsix file
 
 ### Post-Build
+
 - [ ] dist/extension.js created
 - [ ] .vsix package created
 - [ ] Extension size reasonable
@@ -209,6 +231,7 @@
 ## Success Criteria
 
 ### Feature Completeness
+
 - [x] All CLI commands integrated (6/6)
 - [x] All sidebar views implemented (3/3)
 - [x] Walkthroughs created (1/1)
@@ -216,6 +239,7 @@
 - [x] Status bar implemented (1/1)
 
 ### Code Quality
+
 - [x] No linter errors
 - [x] TypeScript strict mode compliance
 - [x] Proper error handling
@@ -223,6 +247,7 @@
 - [x] Consistent architecture
 
 ### User Experience
+
 - [x] Intuitive command names
 - [x] Clear visual indicators
 - [x] Helpful notifications
@@ -230,6 +255,7 @@
 - [x] Quick access via context menus
 
 ### Documentation
+
 - [x] Comprehensive README
 - [x] Implementation summary
 - [x] Walkthrough content
@@ -246,6 +272,7 @@
 ## Next Steps
 
 1. **Build the extension:**
+
    ```bash
    cd packages/apps/vscode-contractspec
    bun run build
@@ -257,6 +284,7 @@
    - Verify context menus and walkthroughs
 
 3. **Package for distribution:**
+
    ```bash
    bun run package
    ```
@@ -273,4 +301,3 @@
 - No breaking changes to existing functionality
 - All new features are additive
 - Backward compatible with existing installations
-

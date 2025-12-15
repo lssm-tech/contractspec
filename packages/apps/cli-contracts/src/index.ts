@@ -16,6 +16,7 @@ import { diffCommand } from './commands/diff/index';
 import { registryCommand } from './commands/registry/index';
 import { openapiCommand } from './commands/openapi/index';
 import { examplesCommand } from './commands/examples/index';
+import { workspaceCommand } from './commands/workspace/index';
 
 const program = new Command();
 
@@ -52,6 +53,9 @@ program.addCommand(openapiCommand);
 
 // Examples command
 program.addCommand(examplesCommand);
+
+// Workspace command
+program.addCommand(workspaceCommand);
 
 // Create command
 program

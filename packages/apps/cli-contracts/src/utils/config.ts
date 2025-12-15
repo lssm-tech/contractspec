@@ -2,6 +2,12 @@ import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import * as z from 'zod';
+import {
+  findWorkspaceRoot,
+  findPackageRoot,
+  detectPackageManager,
+  type PackageManager,
+} from '@lssm/bundle.contractspec-workspace';
 
 const ConfigSchema = z.object({
   aiProvider: z
@@ -22,6 +28,10 @@ const ConfigSchema = z.object({
   }),
   defaultOwners: z.array(z.string()).default([]),
   defaultTags: z.array(z.string()).default([]),
+  // Monorepo configuration
+  packages: z.array(z.string()).optional(),
+  excludePackages: z.array(z.string()).optional(),
+  recursive: z.boolean().optional(),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
@@ -41,25 +51,101 @@ const DEFAULT_CONFIG: Config = {
 };
 
 /**
- * Load configuration from .contractsrc.json or use defaults
+ * Configuration with workspace context.
+ */
+export interface ConfigWithWorkspace extends Config {
+  /**
+   * Detected package manager.
+   */
+  packageManager: PackageManager;
+
+  /**
+   * Workspace root (monorepo root or package root).
+   */
+  workspaceRoot: string;
+
+  /**
+   * Current package root.
+   */
+  packageRoot: string;
+
+  /**
+   * Whether this is a monorepo.
+   */
+  isMonorepo: boolean;
+}
+
+/**
+ * Load configuration from .contractsrc.json with monorepo support.
+ *
+ * Searches for config in the following order:
+ * 1. Package root (.contractsrc.json in the nearest package.json directory)
+ * 2. Workspace root (.contractsrc.json in the workspace/monorepo root)
+ *
+ * Package config is merged on top of workspace config.
  */
 export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
-  const configPath = join(cwd, '.contractsrc.json');
+  const packageRoot = findPackageRoot(cwd);
+  const workspaceRoot = findWorkspaceRoot(cwd);
 
-  if (!existsSync(configPath)) {
-    return DEFAULT_CONFIG;
+  // Try to load workspace config first (as base)
+  let config = { ...DEFAULT_CONFIG };
+
+  if (workspaceRoot !== packageRoot) {
+    const workspaceConfigPath = join(workspaceRoot, '.contractsrc.json');
+    if (existsSync(workspaceConfigPath)) {
+      try {
+        const content = await readFile(workspaceConfigPath, 'utf-8');
+        const parsed = JSON.parse(content);
+        const validated = ConfigSchema.safeParse(parsed);
+        if (validated.success) {
+          config = { ...config, ...validated.data };
+        }
+      } catch {
+        // Ignore parse errors for workspace config
+      }
+    }
   }
 
-  try {
-    const content = await readFile(configPath, 'utf-8');
-    const parsed = JSON.parse(content);
-    return ConfigSchema.parse(parsed);
-  } catch (error) {
-    console.warn(
-      `Warning: Could not parse .contractsrc.json, using defaults. Error: ${error}`
-    );
-    return DEFAULT_CONFIG;
+  // Load package config (overrides workspace config)
+  const packageConfigPath = join(packageRoot, '.contractsrc.json');
+  if (existsSync(packageConfigPath)) {
+    try {
+      const content = await readFile(packageConfigPath, 'utf-8');
+      const parsed = JSON.parse(content);
+      const validated = ConfigSchema.safeParse(parsed);
+      if (validated.success) {
+        config = { ...config, ...validated.data };
+      }
+    } catch (error) {
+      console.warn(
+        `Warning: Could not parse .contractsrc.json, using defaults. Error: ${error}`
+      );
+    }
   }
+
+  return config;
+}
+
+/**
+ * Load configuration with workspace context.
+ */
+export async function loadConfigWithWorkspace(
+  cwd: string = process.cwd()
+): Promise<ConfigWithWorkspace> {
+  const config = await loadConfig(cwd);
+  const packageRoot = findPackageRoot(cwd);
+  const workspaceRoot = findWorkspaceRoot(cwd);
+  const packageManager = detectPackageManager(workspaceRoot);
+  const isMonorepo = workspaceRoot !== packageRoot;
+
+  return {
+    ...config,
+    packageManager,
+    workspaceRoot,
+    packageRoot,
+    isMonorepo,
+  };
 }
 
 /**

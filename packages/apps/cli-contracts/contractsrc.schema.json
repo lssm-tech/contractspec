@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Contracts CLI Configuration",
-  "description": "Configuration file for @lssm/tool.contracts-cli",
+  "title": "ContractSpec CLI Configuration",
+  "description": "Configuration file for ContractSpec CLI and tooling. Supports both single projects and monorepos.",
   "type": "object",
   "properties": {
     "aiProvider": {
@@ -13,6 +13,12 @@
     "aiModel": {
       "type": "string",
       "description": "Model name to use with the AI provider"
+    },
+    "agentMode": {
+      "type": "string",
+      "enum": ["simple", "cursor", "claude-code", "openai-codex"],
+      "default": "simple",
+      "description": "Agent mode for AI-assisted operations"
     },
     "customEndpoint": {
       "type": ["string", "null"],
@@ -30,6 +36,7 @@
     },
     "conventions": {
       "type": "object",
+      "description": "Directory conventions for organizing specs",
       "properties": {
         "operations": {
           "type": "string",
@@ -69,7 +76,27 @@
       },
       "default": [],
       "description": "Default tags for new specs"
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Package paths to include when running in monorepo mode. Supports glob patterns (e.g., 'packages/*', 'apps/**'). If not specified, all packages are included."
+    },
+    "excludePackages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Package paths to exclude when running in monorepo mode. Supports glob patterns."
+    },
+    "recursive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to search recursively in all packages for specs"
     }
-  }
+  },
+  "additionalProperties": false
 }
 
