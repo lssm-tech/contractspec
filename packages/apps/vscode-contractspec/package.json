@@ -19,7 +19,7 @@
   },
   "homepage": "https://contractspec.lssm.tech",
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.105.0"
   },
   "categories": [
     "Programming Languages",
@@ -169,7 +169,8 @@
     "lint": "eslint src --fix",
     "lint:check": "eslint src",
     "package": "vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies"
+    "publish": "vsce publish --no-dependencies",
+    "test": "vscode-test"
   },
   "dependencies": {
     "@lssm/bundle.contractspec-workspace": "workspace:*",
@@ -179,6 +180,8 @@
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.2.2",
     "esbuild": "^0.24.2",
     "typescript": "^5.9.3"
