@@ -1,60 +1,42 @@
-// Contact entities
-export { ContactStatusEnum, ContactEntity } from './contact';
+export * from './company.entity';
+export * from './contact.entity';
+export * from './deal.entity';
+export * from './task.entity';
 
-// Company entities
-export { CompanySizeEnum, CompanyEntity } from './company';
-
-// Deal entities
-export {
-  DealStatusEnum,
-  PipelineEntity,
-  StageEntity,
-  DealEntity,
-} from './deal';
-
-// Task entities
-export {
-  TaskTypeEnum,
-  TaskPriorityEnum,
-  TaskStatusEnum,
-  TaskEntity,
-  ActivityEntity,
-} from './task';
-
-// Schema contribution
-import { ContactEntity, ContactStatusEnum } from './contact';
-import { CompanyEntity, CompanySizeEnum } from './company';
-import {
-  PipelineEntity,
-  StageEntity,
-  DealEntity,
-  DealStatusEnum,
-} from './deal';
-import {
-  TaskEntity,
-  ActivityEntity,
-  TaskTypeEnum,
-  TaskPriorityEnum,
-  TaskStatusEnum,
-} from './task';
 import type { ModuleSchemaContribution } from '@lssm/lib.schema';
-
-export const crmPipelineEntities = [
-  ContactEntity,
-  CompanyEntity,
+import { CompanyEntity, CompanySizeEnum } from './company.entity';
+import { ContactEntity, ContactStatusEnum } from './contact.entity';
+import {
+  DealEntity,
   PipelineEntity,
   StageEntity,
-  DealEntity,
+  DealStatusEnum,
+} from './deal.entity';
+import {
   TaskEntity,
   ActivityEntity,
-];
+  TaskTypeEnum,
+  TaskPriorityEnum,
+  TaskStatusEnum,
+} from './task.entity';
 
+/**
+ * CRM Pipeline schema contribution.
+ */
 export const crmPipelineSchemaContribution: ModuleSchemaContribution = {
   moduleId: '@lssm/example.crm-pipeline',
-  entities: crmPipelineEntities,
+  entities: [
+    CompanyEntity,
+    ContactEntity,
+    DealEntity,
+    PipelineEntity,
+    StageEntity,
+    TaskEntity,
+    ActivityEntity,
+  ],
   enums: [
-    ContactStatusEnum,
     CompanySizeEnum,
+    ContactStatusEnum,
     DealStatusEnum,
     TaskTypeEnum,
     TaskPriorityEnum,

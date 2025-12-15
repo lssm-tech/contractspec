@@ -1,12 +1,14 @@
-import inquirer from 'inquirer';
+import { select, input } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { presentationWizard } from './wizards/presentation';
+import { templates } from '@lssm/bundle.contractspec-workspace';
 import { aiGeneratePresentation } from './ai-assist';
-import { generatePresentationSpec } from '../../templates/presentation.template';
 import type { Config } from '../../utils/config';
 import type { PresentationSpecData } from '../../types';
 import type { CreateOptions } from './types';
 import { writeSpecFile } from './write-spec-file';
+
+const { generatePresentationSpec } = templates;
 
 export async function createPresentationSpec(
   options: CreateOptions,
@@ -15,39 +17,30 @@ export async function createPresentationSpec(
   let specData: PresentationSpecData;
 
   if (options.ai) {
-    const { kind, description } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'kind',
-        message: 'Presentation kind:',
-        choices: [
-          { name: 'Web Component (React)', value: 'web_component' },
-          { name: 'Markdown/MDX', value: 'markdown' },
-          { name: 'Data export', value: 'data' },
-        ],
-      },
-      {
-        type: 'input',
-        name: 'description',
-        message: 'Describe this presentation:',
-        validate: (input: string) =>
-          input.trim().length > 0 || 'Description required',
-      },
-    ]);
+    const kind = (await select({
+      message: 'Presentation kind:',
+      choices: [
+        { name: 'Web Component (React)', value: 'web_component' },
+        { name: 'Markdown/MDX', value: 'markdown' },
+        { name: 'Data export', value: 'data' },
+      ],
+    })) as 'web_component' | 'markdown' | 'data';
+
+    const description = await input({
+      message: 'Describe this presentation:',
+      validate: (input: string) =>
+        input.trim().length > 0 || 'Description required',
+    });
 
     const aiData = await aiGeneratePresentation(description, kind, config);
 
-    await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'confirmOrEdit',
-        message: `Generated spec for "${aiData.name}". What would you like to do?`,
-        choices: [
-          { name: 'Use as-is', value: 'confirm' },
-          { name: 'Review and edit', value: 'edit' },
-        ],
-      },
-    ]);
+    await select({
+      message: `Generated spec for "${aiData.name}". What would you like to do?`,
+      choices: [
+        { name: 'Use as-is', value: 'confirm' },
+        { name: 'Review and edit', value: 'edit' },
+      ],
+    });
 
     specData = await presentationWizard(aiData);
   } else {

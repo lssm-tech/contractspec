@@ -1,12 +1,14 @@
-import inquirer from 'inquirer';
+import { select, input } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { eventWizard } from './wizards/event';
+import { templates } from '@lssm/bundle.contractspec-workspace';
 import { aiGenerateEvent } from './ai-assist';
-import { generateEventSpec } from '../../templates/event.template';
 import type { Config } from '../../utils/config';
 import type { EventSpecData } from '../../types';
 import type { CreateOptions } from './types';
 import { writeSpecFile } from './write-spec-file';
+
+const { generateEventSpec } = templates;
 
 export async function createEventSpec(
   options: CreateOptions,
@@ -15,29 +17,21 @@ export async function createEventSpec(
   let specData: EventSpecData;
 
   if (options.ai) {
-    const { description } = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'description',
-        message: 'Describe this event (what happened and when it is emitted):',
-        validate: (input: string) =>
-          input.trim().length > 0 || 'Description required',
-      },
-    ]);
+    const description = await input({
+      message: 'Describe this event (what happened and when it is emitted):',
+      validate: (input: string) =>
+        input.trim().length > 0 || 'Description required',
+    });
 
     const aiData = await aiGenerateEvent(description, config);
 
-    await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'confirmOrEdit',
-        message: `Generated spec for "${aiData.name}". What would you like to do?`,
-        choices: [
-          { name: 'Use as-is', value: 'confirm' },
-          { name: 'Review and edit', value: 'edit' },
-        ],
-      },
-    ]);
+    await select({
+      message: `Generated spec for "${aiData.name}". What would you like to do?`,
+      choices: [
+        { name: 'Use as-is', value: 'confirm' },
+        { name: 'Review and edit', value: 'edit' },
+      ],
+    });
 
     specData = await eventWizard(aiData);
   } else {

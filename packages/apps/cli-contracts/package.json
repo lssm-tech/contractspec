@@ -10,12 +10,13 @@
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "build": "bun build ./src/cli.ts --outfile ./dist/cli.js --target bun --minify && bun run build:types",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target bun --watch",
     "clean": "rimraf dist",
     "lint": "eslint src --fix",
-    "test": "bun run",
-    "test:watch": "vitest"
+    "test": "bun test",
+    "test:watch": "bun test --watch"
   },
   "dependencies": {
     "@lssm/bundle.contractspec-workspace": "workspace:*",

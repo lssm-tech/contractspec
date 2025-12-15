@@ -6,7 +6,7 @@ export * from './contracts';
 export * from './events';
 export * from './handlers';
 export * from './presentations';
-export * from './feature';
+export * from './crm-pipeline.feature';
 export { default as example } from './example';
 import './docs';
 
