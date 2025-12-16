@@ -6,7 +6,6 @@ import type {
   AgentType,
   ImplementationPlan,
   AgentPrompt,
-  VerificationReport,
 } from '@lssm/lib.contracts/llm';
 import type { AnyContractSpec } from '@lssm/lib.contracts';
 
@@ -63,33 +62,5 @@ export interface AgentAdapter {
   
   /** Parse agent output to extract code */
   parseOutput?(output: string): { code?: string; errors?: string[] };
-}
-
-/** Input for verification */
-export interface VerifyInput {
-  /** Spec to verify against */
-  spec: AnyContractSpec;
-  /** Implementation code to verify */
-  implementationCode: string;
-  /** Implementation file path */
-  implementationPath?: string;
-  /** Verification tier */
-  tier?: 'structure' | 'behavior' | 'ai_review';
-}
-
-/** Combined verification result across tiers */
-export interface VerificationResult {
-  /** Tier 1: Structure verification */
-  structure?: VerificationReport;
-  /** Tier 2: Behavior verification */
-  behavior?: VerificationReport;
-  /** Tier 3: AI review */
-  aiReview?: VerificationReport;
-  /** Overall pass/fail */
-  passed: boolean;
-  /** Combined score (average of run tiers) */
-  score: number;
-  /** Summary of issues across all tiers */
-  summary: string;
 }
 
