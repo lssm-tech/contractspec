@@ -277,6 +277,58 @@ contractspec validate src/contracts/signup.contracts.ts \
   --agent-mode claude-code
 ```
 
+### `contractspec ci`
+
+Run all validation checks for CI/CD pipelines with machine-readable output formats.
+
+**Options:**
+- `--pattern <glob>` - Glob pattern for spec discovery
+- `--format <format>` - Output format: text, json, sarif (default: text)
+- `--output <file>` - Write results to file
+- `--fail-on-warnings` - Exit with code 2 on warnings
+- `--skip <checks>` - Skip specific checks (comma-separated)
+- `--checks <checks>` - Only run specific checks (comma-separated)
+- `--check-handlers` - Include handler implementation checks
+- `--check-tests` - Include test coverage checks
+- `--verbose` - Verbose output
+
+**Available Checks:**
+- `structure` - Spec structure validation (meta, io, policy)
+- `integrity` - Contract integrity (orphaned specs, broken refs)
+- `deps` - Dependency analysis (circular deps, missing refs)
+- `doctor` - Installation health (skips AI in CI)
+- `handlers` - Handler implementation existence
+- `tests` - Test file existence
+
+**Exit Codes:**
+- `0` - All checks passed
+- `1` - Errors found
+- `2` - Warnings found (with `--fail-on-warnings`)
+
+**Examples:**
+
+```bash
+# Run all CI checks
+contractspec ci
+
+# Output as JSON for parsing
+contractspec ci --format json
+
+# Output SARIF for GitHub Code Scanning
+contractspec ci --format sarif --output results.sarif
+
+# Skip doctor checks
+contractspec ci --skip doctor
+
+# Run only structure and integrity checks
+contractspec ci --checks structure,integrity
+
+# Fail on warnings
+contractspec ci --fail-on-warnings
+```
+
+For comprehensive CI/CD integration guides (GitHub Actions, GitLab CI, Jenkins, AWS CodeBuild, etc.), see [docs/ci-cd.md](./docs/ci-cd.md).
+
 ## Configuration
 
 Create a `.contractsrc.json` file in your project root:
@@ -560,6 +612,8 @@ For more details, see [AGENT_MODES.md](./AGENT_MODES.md).
 - [x] Cleanup utilities (`contractspec clean`)
 - [x] Dependency analysis (`contractspec deps`)
 - [x] Contract diffing and comparison (`contractspec diff`)
+- [x] CI/CD integration (`contractspec ci`) with SARIF/JSON output
+- [x] GitHub Action for CI/CD
 - [ ] Form spec generation
 - [ ] Feature spec bundling
 - [ ] Handler signature checking in validation
