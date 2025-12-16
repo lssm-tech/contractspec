@@ -43,4 +43,3 @@ export const AppConfigFeature: FeatureModuleSpec = {
     requires: [],
   },
 };
-

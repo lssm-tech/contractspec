@@ -1,13 +1,17 @@
 /**
  * Agent Guide Service
- * 
+ *
  * Generates implementation plans and prompts for AI coding agents.
  * Bridges ContractSpec specifications with agent-specific formats.
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
 import type { FeatureModuleSpec } from '@lssm/lib.contracts/features';
-import type { SpecRegistry, PresentationRegistry, FeatureRegistry } from '@lssm/lib.contracts';
+import type {
+  SpecRegistry,
+  PresentationRegistry,
+  FeatureRegistry,
+} from '@lssm/lib.contracts';
 import type { AgentType, ImplementationPlan } from '@lssm/lib.contracts/llm';
 import {
   generateImplementationPlan,
@@ -17,11 +21,7 @@ import {
   exportSpec,
 } from '@lssm/lib.contracts/llm';
 import { getAgentAdapter, listAgentTypes } from './adapters';
-import type {
-  AgentGuideConfig,
-  GuideOptions,
-  GuideResult,
-} from './types';
+import type { AgentGuideConfig, GuideOptions, GuideResult } from './types';
 
 const DEFAULT_CONFIG: AgentGuideConfig = {
   defaultAgent: 'generic-mcp',
@@ -30,7 +30,7 @@ const DEFAULT_CONFIG: AgentGuideConfig = {
 
 /**
  * Agent Guide Service
- * 
+ *
  * Main service for generating implementation guidance for AI coding agents.
  */
 export class AgentGuideService {
@@ -85,7 +85,9 @@ export class AgentGuideService {
 
     // Create a composite plan for the feature
     const firstOp = feature.operations?.[0];
-    const spec = firstOp ? deps.specs?.getSpec(firstOp.name, firstOp.version) : undefined;
+    const spec = firstOp
+      ? deps.specs?.getSpec(firstOp.name, firstOp.version)
+      : undefined;
 
     // Generate base plan from first spec or create feature-level plan
     let plan: ImplementationPlan;
@@ -109,18 +111,21 @@ export class AgentGuideService {
           version: 1,
         },
         context: {
-          goal: feature.meta.description ?? `Implement feature ${feature.meta.key}`,
+          goal:
+            feature.meta.description ?? `Implement feature ${feature.meta.key}`,
           description: feature.meta.title ?? feature.meta.key,
           background: '',
         },
         specMarkdown: featureToMarkdown(feature, deps),
         fileStructure: [],
-        steps: [{
-          order: 1,
-          title: 'Implement Feature',
-          description: `Implement the ${feature.meta.key} feature`,
-          acceptanceCriteria: [],
-        }],
+        steps: [
+          {
+            order: 1,
+            title: 'Implement Feature',
+            description: `Implement the ${feature.meta.key} feature`,
+            acceptanceCriteria: [],
+          },
+        ],
         constraints: { policy: [], security: [], pii: [] },
         verificationChecklist: [],
       };
@@ -210,4 +215,3 @@ export function createAgentGuideService(
 
 /** Default singleton instance */
 export const agentGuideService = new AgentGuideService();
-

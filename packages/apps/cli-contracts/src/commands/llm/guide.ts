@@ -1,6 +1,6 @@
 /**
  * LLM Guide Command
- * 
+ *
  * Generate implementation guides for AI coding agents.
  */
 
@@ -13,30 +13,41 @@ import { createAgentGuideService } from '@lssm/bundle.contractspec-workspace';
 
 async function loadSpec(specPath: string): Promise<any> {
   const fullPath = resolve(process.cwd(), specPath);
-  
+
   if (!existsSync(fullPath)) {
     throw new Error(`Spec file not found: ${specPath}`);
   }
-  
+
   // Dynamic import the spec
   try {
     const module = await import(fullPath);
     // Find the first exported spec-like object
     for (const [key, value] of Object.entries(module)) {
-      if (value && typeof value === 'object' && 'meta' in value && 'io' in value) {
+      if (
+        value &&
+        typeof value === 'object' &&
+        'meta' in value &&
+        'io' in value
+      ) {
         return value;
       }
     }
     throw new Error('No spec found in module');
   } catch (error) {
-    throw new Error(`Failed to load spec: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
 export const guideLLMCommand = new Command('guide')
   .description('Generate an implementation guide for AI coding agents')
   .argument('<spec-file>', 'Path to the spec file')
-  .option('-a, --agent <type>', 'Agent type: claude-code, cursor-cli, generic-mcp', 'generic-mcp')
+  .option(
+    '-a, --agent <type>',
+    'Agent type: claude-code, cursor-cli, generic-mcp',
+    'generic-mcp'
+  )
   .option('-o, --output <file>', 'Output file (default: stdout)')
   .option('--target-path <path>', 'Target implementation file path')
   .option('--existing-code <path>', 'Path to existing code to consider')
@@ -70,7 +81,9 @@ export const guideLLMCommand = new Command('guide')
           if (options.output) {
             const outputPath = resolve(process.cwd(), options.output);
             writeFileSync(outputPath, rules, 'utf-8');
-            console.log(chalk.green(`✓ Cursor rules written to ${options.output}`));
+            console.log(
+              chalk.green(`✓ Cursor rules written to ${options.output}`)
+            );
           } else {
             console.log(rules);
           }
@@ -89,12 +102,16 @@ export const guideLLMCommand = new Command('guide')
 
       // Output
       if (options.json) {
-        const output = JSON.stringify({
-          plan: result.plan,
-          agent,
-          systemPrompt: result.prompt.systemPrompt,
-          taskPrompt: result.prompt.taskPrompt,
-        }, null, 2);
+        const output = JSON.stringify(
+          {
+            plan: result.plan,
+            agent,
+            systemPrompt: result.prompt.systemPrompt,
+            taskPrompt: result.prompt.taskPrompt,
+          },
+          null,
+          2
+        );
 
         if (options.output) {
           const outputPath = resolve(process.cwd(), options.output);
@@ -112,7 +129,9 @@ export const guideLLMCommand = new Command('guide')
           console.log(chalk.green(`✓ Guide written to ${options.output}`));
           console.log(chalk.gray(`  Agent: ${agent}`));
           console.log(chalk.gray(`  Steps: ${result.plan.steps.length}`));
-          console.log(chalk.gray(`  Files: ${result.plan.fileStructure.length}`));
+          console.log(
+            chalk.gray(`  Files: ${result.plan.fileStructure.length}`)
+          );
         } else {
           // Print system prompt if available
           if (result.prompt.systemPrompt) {
@@ -133,4 +152,3 @@ export const guideLLMCommand = new Command('guide')
       process.exit(1);
     }
   });
-

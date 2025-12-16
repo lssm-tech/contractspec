@@ -1,6 +1,6 @@
 /**
  * LLM Verify Command
- * 
+ *
  * Verify implementations against specs using tiered verification.
  */
 
@@ -13,21 +13,28 @@ import { createVerifyService } from '@lssm/bundle.contractspec-workspace';
 
 async function loadSpec(specPath: string): Promise<any> {
   const fullPath = resolve(process.cwd(), specPath);
-  
+
   if (!existsSync(fullPath)) {
     throw new Error(`Spec file not found: ${specPath}`);
   }
-  
+
   try {
     const module = await import(fullPath);
     for (const [key, value] of Object.entries(module)) {
-      if (value && typeof value === 'object' && 'meta' in value && 'io' in value) {
+      if (
+        value &&
+        typeof value === 'object' &&
+        'meta' in value &&
+        'io' in value
+      ) {
         return value;
       }
     }
     throw new Error('No spec found in module');
   } catch (error) {
-    throw new Error(`Failed to load spec: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
@@ -35,17 +42,27 @@ export const verifyLLMCommand = new Command('verify')
   .description('Verify an implementation against its spec')
   .argument('<spec-file>', 'Path to the spec file')
   .argument('<impl-file>', 'Path to the implementation file')
-  .option('-t, --tier <tier>', 'Verification tier: 1 (structure), 2 (behavior), 3 (ai), all', 'all')
+  .option(
+    '-t, --tier <tier>',
+    'Verification tier: 1 (structure), 2 (behavior), 3 (ai), all',
+    'all'
+  )
   .option('--fail-fast', 'Stop on first tier failure')
   .option('--json', 'Output as JSON')
   .option('--ai-key <key>', 'API key for AI verification (tier 3)')
-  .option('--ai-provider <provider>', 'AI provider: anthropic, openai', 'anthropic')
+  .option(
+    '--ai-provider <provider>',
+    'AI provider: anthropic, openai',
+    'anthropic'
+  )
   .action(async (specFile, implFile, options) => {
     try {
-      console.log(chalk.blue(`\n🔍 Verifying ${implFile} against ${specFile}...\n`));
+      console.log(
+        chalk.blue(`\n🔍 Verifying ${implFile} against ${specFile}...\n`)
+      );
 
       const spec = await loadSpec(specFile);
-      
+
       const implPath = resolve(process.cwd(), implFile);
       if (!existsSync(implPath)) {
         throw new Error(`Implementation file not found: ${implFile}`);
@@ -90,13 +107,19 @@ export const verifyLLMCommand = new Command('verify')
         for (const [tier, report] of result.reports) {
           reports[tier] = report;
         }
-        console.log(JSON.stringify({
-          passed: result.passed,
-          score: result.score,
-          duration: result.duration,
-          reports,
-          allIssues: result.allIssues,
-        }, null, 2));
+        console.log(
+          JSON.stringify(
+            {
+              passed: result.passed,
+              score: result.score,
+              duration: result.duration,
+              reports,
+              allIssues: result.allIssues,
+            },
+            null,
+            2
+          )
+        );
       } else {
         // Print formatted results
         console.log(verifyService.formatAsMarkdown(result));
@@ -104,9 +127,13 @@ export const verifyLLMCommand = new Command('verify')
         // Summary line
         console.log('');
         if (result.passed) {
-          console.log(chalk.green(`✓ Verification passed (score: ${result.score}/100)`));
+          console.log(
+            chalk.green(`✓ Verification passed (score: ${result.score}/100)`)
+          );
         } else {
-          console.log(chalk.red(`✗ Verification failed (score: ${result.score}/100)`));
+          console.log(
+            chalk.red(`✗ Verification failed (score: ${result.score}/100)`)
+          );
         }
         console.log(chalk.gray(`Duration: ${result.duration}ms`));
       }
@@ -121,4 +148,3 @@ export const verifyLLMCommand = new Command('verify')
       process.exit(1);
     }
   });
-

@@ -1,6 +1,6 @@
 /**
  * Agent Adapters
- * 
+ *
  * Exports all agent-specific adapters for formatting implementation
  * plans and prompts.
  */
@@ -41,4 +41,3 @@ export function getAgentAdapter(agent: AgentType): AgentAdapter {
 export function listAgentTypes(): AgentType[] {
   return Object.keys(agentAdapters) as AgentType[];
 }
-

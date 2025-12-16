@@ -51,4 +51,3 @@ export const OpenBankingFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-

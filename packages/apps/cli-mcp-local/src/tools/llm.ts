@@ -1,6 +1,6 @@
 /**
  * LLM integration tools for MCP.
- * 
+ *
  * Provides tools for:
  * - llm.export: Export specs to markdown
  * - llm.guide: Generate implementation guides
@@ -84,7 +84,10 @@ const LLMVerifyInput = defineSchemaModel({
   name: 'LLMVerifyInput',
   fields: {
     specPath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    implementationPath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    implementationPath: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     tier: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
@@ -106,25 +109,35 @@ const LLMVerifyOutput = defineSchemaModel({
   },
 });
 
-async function loadSpecFromPath(specPath: string, adapters: WorkspaceAdapters): Promise<any> {
+async function loadSpecFromPath(
+  specPath: string,
+  adapters: WorkspaceAdapters
+): Promise<any> {
   const path = await import('path');
   const fullPath = path.resolve(process.cwd(), specPath);
-  
+
   const exists = await adapters.fs.exists(fullPath);
   if (!exists) {
     throw new Error(`Spec file not found: ${specPath}`);
   }
-  
+
   try {
     const module = await import(fullPath);
     for (const [_, value] of Object.entries(module)) {
-      if (value && typeof value === 'object' && 'meta' in value && 'io' in value) {
+      if (
+        value &&
+        typeof value === 'object' &&
+        'meta' in value &&
+        'io' in value
+      ) {
         return value;
       }
     }
     throw new Error('No spec found in module');
   } catch (error) {
-    throw new Error(`Failed to load spec: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
@@ -154,7 +167,11 @@ export function registerLLMTools(
   installOp(reg, llmExportCmd, async (args) => {
     const spec = await loadSpecFromPath(args.specPath, adapters);
     const format = (args.format ?? 'full') as LLMExportFormat;
-    const taskType = (args.taskType ?? 'implement') as 'implement' | 'test' | 'refactor' | 'review';
+    const taskType = (args.taskType ?? 'implement') as
+      | 'implement'
+      | 'test'
+      | 'refactor'
+      | 'review';
 
     let markdown: string;
 
@@ -243,15 +260,17 @@ export function registerLLMTools(
 
   installOp(reg, llmVerifyCmd, async (args) => {
     const spec = await loadSpecFromPath(args.specPath, adapters);
-    
+
     const path = await import('path');
     const implPath = path.resolve(process.cwd(), args.implementationPath);
-    
+
     const implExists = await adapters.fs.exists(implPath);
     if (!implExists) {
-      throw new Error(`Implementation file not found: ${args.implementationPath}`);
+      throw new Error(
+        `Implementation file not found: ${args.implementationPath}`
+      );
     }
-    
+
     const implementationCode = await adapters.fs.readFile(implPath, 'utf-8');
 
     // Determine tiers
@@ -275,17 +294,20 @@ export function registerLLMTools(
     }
 
     const verifyService = createVerifyService();
-    const result = await verifyService.verify(spec, implementationCode, { tiers });
+    const result = await verifyService.verify(spec, implementationCode, {
+      tiers,
+    });
 
     return {
       passed: result.passed,
       score: result.score,
       summary: result.summary,
-      errors: result.allIssues.filter(i => i.severity === 'error').length,
-      warnings: result.allIssues.filter(i => i.severity === 'warning').length,
+      errors: result.allIssues.filter((i) => i.severity === 'error').length,
+      warnings: result.allIssues.filter((i) => i.severity === 'warning').length,
       issues: result.allIssues,
-      suggestions: Array.from(result.reports.values()).flatMap(r => r.suggestions),
+      suggestions: Array.from(result.reports.values()).flatMap(
+        (r) => r.suggestions
+      ),
     };
   });
 }
-

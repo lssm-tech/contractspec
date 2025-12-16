@@ -1,6 +1,6 @@
 /**
  * LLM Implement Feature Prompt
- * 
+ *
  * Guides the agent through implementing a spec from ContractSpec.
  */
 
@@ -35,7 +35,8 @@ export function llmImplementPrompt() {
       {
         name: 'agent',
         schema: z.string().optional(),
-        description: 'Target agent: claude-code, cursor-cli, generic-mcp (default)',
+        description:
+          'Target agent: claude-code, cursor-cli, generic-mcp (default)',
       },
       {
         name: 'targetPath',
@@ -111,4 +112,3 @@ This runs:
     },
   });
 }
-

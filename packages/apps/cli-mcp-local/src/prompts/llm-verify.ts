@@ -1,6 +1,6 @@
 /**
  * LLM Verify Implementation Prompt
- * 
+ *
  * Guides the agent through verifying and fixing spec violations.
  */
 
@@ -130,4 +130,3 @@ Target: score >= 80, passed: true
     },
   });
 }
-

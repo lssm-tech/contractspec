@@ -1,9 +1,9 @@
 /**
  * Agent Guide Service
- * 
+ *
  * Provides tools for generating implementation guidance for AI coding agents.
  * Supports multiple agent types: Claude Code, Cursor CLI, and generic MCP agents.
- * 
+ *
  * @module @lssm/bundle.contractspec-workspace/services/agent-guide
  */
 
@@ -35,4 +35,3 @@ export {
   getAgentAdapter,
   listAgentTypes,
 } from './adapters';
-

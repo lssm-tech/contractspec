@@ -1,6 +1,6 @@
 /**
  * DocBlock: LLM Integration
- * 
+ *
  * Documentation for ContractSpec's LLM integration features.
  */
 
@@ -110,7 +110,8 @@ const result = await verifyService.verify(mySpec, implementationCode, {
   {
     id: 'docs.tech.llm.export-formats',
     title: 'LLM Export Formats',
-    summary: 'Detailed explanation of the three export formats for LLM consumption.',
+    summary:
+      'Detailed explanation of the three export formats for LLM consumption.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/llm/export-formats',
@@ -340,4 +341,3 @@ Each issue has:
 ];
 
 registerDocBlocks(tech_llm_integration_DocBlocks);
-

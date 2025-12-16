@@ -1,6 +1,6 @@
 /**
  * LLM Fix Violations Prompt
- * 
+ *
  * Guides the agent through fixing spec violations after verification.
  */
 
@@ -150,4 +150,3 @@ if (spec.policy.auth !== 'anonymous') {
     },
   });
 }
-

@@ -1,6 +1,6 @@
 /**
  * LLM Export Functions
- * 
+ *
  * Provides multi-format markdown export for specs, features, presentations,
  * and other ContractSpec artifacts for LLM consumption.
  */
@@ -166,7 +166,9 @@ export function specToFullMarkdown(
       lines.push('| Code | HTTP | Description | When |');
       lines.push('|------|------|-------------|------|');
       for (const [code, err] of Object.entries(spec.io.errors)) {
-        lines.push(`| \`${code}\` | ${err.http ?? 400} | ${err.description} | ${err.when} |`);
+        lines.push(
+          `| \`${code}\` | ${err.http ?? 400} | ${err.description} | ${err.when} |`
+        );
       }
       lines.push('');
     }
@@ -177,9 +179,13 @@ export function specToFullMarkdown(
     lines.push('## Policy');
     lines.push('');
     lines.push(`- **Auth Required:** ${spec.policy.auth}`);
-    lines.push(`- **Idempotent:** ${spec.policy.idempotent ?? (m.kind === 'query')}`);
+    lines.push(
+      `- **Idempotent:** ${spec.policy.idempotent ?? m.kind === 'query'}`
+    );
     if (spec.policy.rateLimit) {
-      lines.push(`- **Rate Limit:** ${spec.policy.rateLimit.rpm} rpm per ${spec.policy.rateLimit.key}`);
+      lines.push(
+        `- **Rate Limit:** ${spec.policy.rateLimit.rpm} rpm per ${spec.policy.rateLimit.key}`
+      );
     }
     if (spec.policy.flags?.length) {
       lines.push(`- **Feature Flags:** ${spec.policy.flags.join(', ')}`);
@@ -262,7 +268,9 @@ export function specToFullMarkdown(
     lines.push('## Transport Configuration');
     lines.push('');
     if (spec.transport.rest) {
-      lines.push(`- **REST:** ${spec.transport.rest.method ?? 'POST'} ${spec.transport.rest.path ?? 'auto'}`);
+      lines.push(
+        `- **REST:** ${spec.transport.rest.method ?? 'POST'} ${spec.transport.rest.path ?? 'auto'}`
+      );
     }
     if (spec.transport.gql) {
       lines.push(`- **GraphQL:** ${spec.transport.gql.field ?? 'auto'}`);
@@ -306,7 +314,9 @@ export function specToAgentPrompt(
   // Context
   lines.push('## Context');
   lines.push('');
-  lines.push(`You are working on a ContractSpec-driven codebase. This spec defines a ${m.kind} operation.`);
+  lines.push(
+    `You are working on a ContractSpec-driven codebase. This spec defines a ${m.kind} operation.`
+  );
   lines.push('');
   lines.push(`**Goal:** ${m.goal}`);
   lines.push('');
@@ -326,16 +336,29 @@ export function specToAgentPrompt(
   if (taskType === 'implement') {
     lines.push('Implement this specification following these requirements:');
     lines.push('');
-    lines.push('1. **Type Safety**: Use TypeScript with strict typing. No `any` types.');
-    lines.push('2. **Input Validation**: Validate input against the schema before processing.');
-    lines.push('3. **Error Handling**: Implement all error cases defined in the spec.');
+    lines.push(
+      '1. **Type Safety**: Use TypeScript with strict typing. No `any` types.'
+    );
+    lines.push(
+      '2. **Input Validation**: Validate input against the schema before processing.'
+    );
+    lines.push(
+      '3. **Error Handling**: Implement all error cases defined in the spec.'
+    );
     lines.push('4. **Events**: Emit events as specified in sideEffects.emits.');
     lines.push('5. **Policy**: Respect auth, rate limits, and feature flags.');
-    lines.push('6. **Idempotency**: ' + (spec.policy.idempotent ? 'This operation MUST be idempotent.' : 'This operation may have side effects.'));
+    lines.push(
+      '6. **Idempotency**: ' +
+        (spec.policy.idempotent
+          ? 'This operation MUST be idempotent.'
+          : 'This operation may have side effects.')
+    );
     lines.push('');
-    
+
     if (spec.policy.pii?.length) {
-      lines.push('**PII Handling**: The following fields contain PII and must be handled carefully:');
+      lines.push(
+        '**PII Handling**: The following fields contain PII and must be handled carefully:'
+      );
       for (const field of spec.policy.pii) {
         lines.push(`- ${field}`);
       }
@@ -348,7 +371,9 @@ export function specToAgentPrompt(
     lines.push('2. Test all error cases with appropriate assertions.');
     lines.push('3. Test edge cases and boundary conditions.');
     lines.push('4. Verify events are emitted correctly.');
-    lines.push('5. Use descriptive test names following the pattern: "should [behavior] when [condition]"');
+    lines.push(
+      '5. Use descriptive test names following the pattern: "should [behavior] when [condition]"'
+    );
     lines.push('');
   } else if (taskType === 'refactor') {
     lines.push('Refactor this implementation while preserving all behavior:');
@@ -388,7 +413,9 @@ export function specToAgentPrompt(
     lines.push('- Handler function with proper error handling');
     lines.push('- JSDoc comments explaining the implementation');
   } else if (taskType === 'test') {
-    lines.push('Provide a complete test file using the testing framework available (prefer Vitest).');
+    lines.push(
+      'Provide a complete test file using the testing framework available (prefer Vitest).'
+    );
   } else if (taskType === 'review') {
     lines.push('Provide a structured review with:');
     lines.push('- Compliance status (pass/fail for each requirement)');
@@ -520,7 +547,9 @@ export function featureToMarkdown(
       lines.push('## Capabilities Required');
       lines.push('');
       for (const cap of feature.capabilities.requires) {
-        lines.push(`- \`${cap.key}\`${cap.version ? `.v${cap.version}` : ''} (${cap.optional ? 'optional' : 'required'})`);
+        lines.push(
+          `- \`${cap.key}\`${cap.version ? `.v${cap.version}` : ''} (${cap.optional ? 'optional' : 'required'})`
+        );
       }
       lines.push('');
     }
@@ -575,7 +604,9 @@ export function presentationToMarkdown(
     lines.push('## Policy');
     lines.push('');
     if (presentation.policy.flags?.length) {
-      lines.push(`- **Feature Flags:** ${presentation.policy.flags.join(', ')}`);
+      lines.push(
+        `- **Feature Flags:** ${presentation.policy.flags.join(', ')}`
+      );
     }
     if (presentation.policy.pii?.length) {
       lines.push(`- **PII Fields:** ${presentation.policy.pii.join(', ')}`);
@@ -674,7 +705,7 @@ export function exportSpec(
   options: Partial<SpecExportOptions> = {}
 ): SpecExportResult {
   const format = options.format ?? 'full';
-  
+
   let markdown: string;
   switch (format) {
     case 'context':
@@ -720,9 +751,10 @@ export function exportFeature(
     feature,
     markdown,
     format,
-    includedSpecs: feature.operations?.map(o => `${o.name}.v${o.version}`) ?? [],
-    includedEvents: feature.events?.map(e => `${e.name}.v${e.version}`) ?? [],
-    includedPresentations: feature.presentations?.map(p => `${p.name}.v${p.version}`) ?? [],
+    includedSpecs:
+      feature.operations?.map((o) => `${o.name}.v${o.version}`) ?? [],
+    includedEvents: feature.events?.map((e) => `${e.name}.v${e.version}`) ?? [],
+    includedPresentations:
+      feature.presentations?.map((p) => `${p.name}.v${p.version}`) ?? [],
   };
 }
-

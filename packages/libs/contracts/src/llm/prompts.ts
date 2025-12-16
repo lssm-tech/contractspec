@@ -1,6 +1,6 @@
 /**
  * LLM Prompt Templates
- * 
+ *
  * Pre-built prompt templates for different agent types and tasks.
  * These prompts are designed to guide AI coding agents in implementing,
  * testing, and verifying ContractSpec-based code.
@@ -9,7 +9,11 @@
 import type { AnyContractSpec } from '../spec';
 import type { FeatureModuleSpec } from '../features';
 import type { AgentType, AgentPrompt, ImplementationPlan } from './types';
-import { specToFullMarkdown, specToAgentPrompt, featureToMarkdown } from './exporters';
+import {
+  specToFullMarkdown,
+  specToAgentPrompt,
+  featureToMarkdown,
+} from './exporters';
 
 /**
  * System prompts for different agent types.
@@ -280,9 +284,21 @@ export function generateImplementationPlan(
 
   if (m.kind === 'command' || m.kind === 'query') {
     fileStructure.push(
-      { path: `${basePath}/${specPath}/handler.ts`, purpose: 'Main handler implementation', type: 'create' },
-      { path: `${basePath}/${specPath}/types.ts`, purpose: 'Type definitions', type: 'create' },
-      { path: `${basePath}/${specPath}/handler.test.ts`, purpose: 'Handler tests', type: 'create' },
+      {
+        path: `${basePath}/${specPath}/handler.ts`,
+        purpose: 'Main handler implementation',
+        type: 'create',
+      },
+      {
+        path: `${basePath}/${specPath}/types.ts`,
+        purpose: 'Type definitions',
+        type: 'create',
+      },
+      {
+        path: `${basePath}/${specPath}/handler.test.ts`,
+        purpose: 'Handler tests',
+        type: 'create',
+      }
     );
   }
 
@@ -294,7 +310,8 @@ export function generateImplementationPlan(
   steps.push({
     order: order++,
     title: 'Define Types',
-    description: 'Create TypeScript types for input, output, and internal data structures',
+    description:
+      'Create TypeScript types for input, output, and internal data structures',
     acceptanceCriteria: [
       'Input type matches spec schema exactly',
       'Output type matches spec schema exactly',
@@ -319,7 +336,7 @@ export function generateImplementationPlan(
     order: order++,
     title: 'Implement Core Logic',
     description: 'Implement the main business logic of the operation',
-    acceptanceCriteria: spec.acceptance?.scenarios?.map(s => s.name) ?? [
+    acceptanceCriteria: spec.acceptance?.scenarios?.map((s) => s.name) ?? [
       'Operation completes successfully for valid input',
     ],
   });
@@ -342,7 +359,7 @@ export function generateImplementationPlan(
       order: order++,
       title: 'Implement Event Emission',
       description: 'Emit events as specified',
-      acceptanceCriteria: spec.sideEffects.emits.map(e => {
+      acceptanceCriteria: spec.sideEffects.emits.map((e) => {
         if ('ref' in e) {
           return `Emit ${e.ref.name}.v${e.ref.version} when ${e.when}`;
         }
@@ -381,7 +398,9 @@ export function generateImplementationPlan(
     );
   }
   if (spec.policy.flags?.length) {
-    constraints.policy.push(`Feature flags required: ${spec.policy.flags.join(', ')}`);
+    constraints.policy.push(
+      `Feature flags required: ${spec.policy.flags.join(', ')}`
+    );
   }
   if (spec.policy.escalate) {
     constraints.security.push(`Escalation required: ${spec.policy.escalate}`);
@@ -443,24 +462,28 @@ export function formatPlanForAgent(
 ${plan.specMarkdown}
 
 ### File Structure
-${plan.fileStructure.map(f => `- \`${f.path}\` (${f.type}): ${f.purpose}`).join('\n')}
+${plan.fileStructure.map((f) => `- \`${f.path}\` (${f.type}): ${f.purpose}`).join('\n')}
 
 ### Implementation Steps
-${plan.steps.map(s => `
+${plan.steps
+  .map(
+    (s) => `
 #### Step ${s.order}: ${s.title}
 ${s.description}
 
 **Acceptance Criteria:**
-${s.acceptanceCriteria.map(c => `- [ ] ${c}`).join('\n')}
-`).join('\n')}
+${s.acceptanceCriteria.map((c) => `- [ ] ${c}`).join('\n')}
+`
+  )
+  .join('\n')}
 
 ### Constraints
-${plan.constraints.policy.length ? `**Policy:**\n${plan.constraints.policy.map(p => `- ${p}`).join('\n')}\n` : ''}
-${plan.constraints.security.length ? `**Security:**\n${plan.constraints.security.map(s => `- ${s}`).join('\n')}\n` : ''}
-${plan.constraints.pii.length ? `**PII Handling:**\n${plan.constraints.pii.map(p => `- ${p}`).join('\n')}\n` : ''}
+${plan.constraints.policy.length ? `**Policy:**\n${plan.constraints.policy.map((p) => `- ${p}`).join('\n')}\n` : ''}
+${plan.constraints.security.length ? `**Security:**\n${plan.constraints.security.map((s) => `- ${s}`).join('\n')}\n` : ''}
+${plan.constraints.pii.length ? `**PII Handling:**\n${plan.constraints.pii.map((p) => `- ${p}`).join('\n')}\n` : ''}
 
 ### Verification Checklist
-${plan.verificationChecklist.map(c => `- [ ] ${c}`).join('\n')}
+${plan.verificationChecklist.map((c) => `- [ ] ${c}`).join('\n')}
 
 Implement this plan step by step.`;
   } else if (agent === 'cursor-cli') {
@@ -472,17 +495,17 @@ ${plan.context.goal}
 ${plan.specMarkdown}
 
 ## Files to create
-${plan.fileStructure.map(f => `${f.type}: ${f.path}`).join('\n')}
+${plan.fileStructure.map((f) => `${f.type}: ${f.path}`).join('\n')}
 
 ## Steps
-${plan.steps.map(s => `${s.order}. ${s.title}`).join('\n')}`;
+${plan.steps.map((s) => `${s.order}. ${s.title}`).join('\n')}`;
   } else {
     taskPrompt = `Implementation plan for ${plan.target.name}.v${plan.target.version}
 
 ${plan.specMarkdown}
 
 Steps:
-${plan.steps.map(s => `${s.order}. ${s.title}: ${s.description}`).join('\n')}`;
+${plan.steps.map((s) => `${s.order}. ${s.title}: ${s.description}`).join('\n')}`;
   }
 
   return {
@@ -503,7 +526,10 @@ export function generateFixViolationsPrompt(
   const specMarkdown = specToFullMarkdown(spec);
 
   const violationsList = violations
-    .map((v, i) => `${i + 1}. ${v.message}${v.suggestion ? `\n   Suggestion: ${v.suggestion}` : ''}`)
+    .map(
+      (v, i) =>
+        `${i + 1}. ${v.message}${v.suggestion ? `\n   Suggestion: ${v.suggestion}` : ''}`
+    )
     .join('\n');
 
   const taskPrompt = `## Fix Specification Violations
@@ -529,4 +555,3 @@ Provide the corrected implementation.`;
     taskPrompt,
   };
 }
-
