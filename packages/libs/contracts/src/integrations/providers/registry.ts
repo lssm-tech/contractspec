@@ -31,3 +31,4 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
 
   return registry;
 }
+

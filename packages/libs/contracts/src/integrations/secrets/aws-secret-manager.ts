@@ -434,3 +434,4 @@ function toAwsSecretProviderError(params: {
     cause: error,
   });
 }
+

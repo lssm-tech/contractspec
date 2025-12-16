@@ -17,6 +17,7 @@ import { registryCommand } from './commands/registry/index';
 import { openapiCommand } from './commands/openapi/index';
 import { examplesCommand } from './commands/examples/index';
 import { workspaceCommand } from './commands/workspace/index';
+import { integrityCommand } from './commands/integrity/index';
 
 const program = new Command();
 
@@ -56,6 +57,9 @@ program.addCommand(examplesCommand);
 
 // Workspace command
 program.addCommand(workspaceCommand);
+
+// Integrity command
+program.addCommand(integrityCommand);
 
 // Create command
 program

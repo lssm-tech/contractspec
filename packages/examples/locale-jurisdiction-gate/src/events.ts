@@ -57,3 +57,4 @@ export const AssistantAnswerDeliveredEvent = defineEvent({
     'Assistant answer delivered (must include KB snapshot citations).',
   payload: AssistantAnswerDeliveredPayload,
 });
+

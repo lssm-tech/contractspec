@@ -9,3 +9,4 @@ export function registerOnboardingSchema(builder: typeof gqlSchemaBuilder) {
   registerOnboardingMutations(builder, types);
 }
 
+

@@ -93,3 +93,4 @@ Type the prefix in a TypeScript file and press Tab to expand the snippet. Tab th
 ];
 
 registerDocBlocks(tech_vscode_extension_DocBlocks);
+

@@ -133,7 +133,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",

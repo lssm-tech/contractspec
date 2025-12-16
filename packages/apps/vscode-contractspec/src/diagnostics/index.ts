@@ -1,13 +1,25 @@
 /**
  * Diagnostics provider for ContractSpec extension.
  *
- * Provides real-time validation feedback in the editor.
+ * Provides real-time validation feedback in the editor including:
+ * - Spec structure validation
+ * - Integrity analysis (orphaned specs, unresolved refs)
  */
 
 import * as vscode from 'vscode';
-import { validateSpecStructure } from '@lssm/module.contractspec-workspace';
+import {
+  validateSpecStructure,
+  scanSpecSource,
+  isFeatureFile,
+  scanFeatureSource,
+} from '@lssm/module.contractspec-workspace';
+import type { IntegrityAnalysisResult } from '@lssm/bundle.contractspec-workspace';
 
 const DIAGNOSTIC_SOURCE = 'ContractSpec';
+const INTEGRITY_SOURCE = 'ContractSpec Integrity';
+
+// Cache for integrity analysis results
+let integrityResult: IntegrityAnalysisResult | undefined;
 
 /**
  * Register diagnostics (validation on open/save).
@@ -177,14 +189,19 @@ function isSpecFile(filePath: string): boolean {
     '.contracts.ts',
     '.event.ts',
     '.presentation.ts',
+    '.feature.ts',
+    '.capability.ts',
     '.workflow.ts',
     '.data-view.ts',
+    '.form.ts',
     '.migration.ts',
     '.telemetry.ts',
     '.experiment.ts',
     '.app-config.ts',
     '.integration.ts',
     '.knowledge.ts',
+    '.policy.ts',
+    '.test-spec.ts',
   ];
 
   return specExtensions.some((ext) => filePath.endsWith(ext));
@@ -195,4 +212,197 @@ function isSpecFile(filePath: string): boolean {
  */
 function getFileName(filePath: string): string {
   return filePath.split(/[/\\]/).pop() ?? filePath;
+}
+
+/**
+ * Update the cached integrity result.
+ * Called from the integrity tree provider.
+ */
+export function updateIntegrityResult(
+  result: IntegrityAnalysisResult | undefined
+): void {
+  integrityResult = result;
+}
+
+/**
+ * Create integrity diagnostics collection.
+ */
+export function registerIntegrityDiagnostics(
+  context: vscode.ExtensionContext
+): vscode.DiagnosticCollection {
+  const integrityDiagnostics =
+    vscode.languages.createDiagnosticCollection(INTEGRITY_SOURCE);
+  context.subscriptions.push(integrityDiagnostics);
+
+  return integrityDiagnostics;
+}
+
+/**
+ * Update integrity diagnostics based on analysis result.
+ */
+export function updateIntegrityDiagnostics(
+  result: IntegrityAnalysisResult,
+  diagnosticCollection: vscode.DiagnosticCollection
+): void {
+  // Clear all existing diagnostics
+  diagnosticCollection.clear();
+
+  // Group issues by file
+  const issuesByFile = new Map<string, vscode.Diagnostic[]>();
+
+  for (const issue of result.issues) {
+    const filePath = issue.file;
+
+    if (!issuesByFile.has(filePath)) {
+      issuesByFile.set(filePath, []);
+    }
+
+    const severity =
+      issue.severity === 'error'
+        ? vscode.DiagnosticSeverity.Error
+        : vscode.DiagnosticSeverity.Warning;
+
+    // Create diagnostic at first line (we don't have line numbers from static analysis)
+    const range = new vscode.Range(0, 0, 0, 100);
+
+    const diagnostic = new vscode.Diagnostic(range, issue.message, severity);
+    diagnostic.source = INTEGRITY_SOURCE;
+    diagnostic.code = issue.type;
+
+    // Add related information if available
+    if (issue.featureKey) {
+      diagnostic.relatedInformation = [
+        new vscode.DiagnosticRelatedInformation(
+          new vscode.Location(vscode.Uri.file(filePath), range),
+          `Referenced by feature: ${issue.featureKey}`
+        ),
+      ];
+    }
+
+    issuesByFile.get(filePath)!.push(diagnostic);
+  }
+
+  // Set diagnostics for each file
+  for (const [filePath, diagnostics] of issuesByFile) {
+    diagnosticCollection.set(vscode.Uri.file(filePath), diagnostics);
+  }
+}
+
+/**
+ * Add integrity warnings for a single document based on cached analysis.
+ */
+export function addIntegrityDiagnosticsForDocument(
+  document: vscode.TextDocument,
+  diagnostics: vscode.Diagnostic[]
+): void {
+  if (!integrityResult) return;
+
+  const filePath = document.uri.fsPath;
+  const code = document.getText();
+
+  // Check if this is a feature file
+  if (isFeatureFile(filePath)) {
+    const feature = scanFeatureSource(code, filePath);
+
+    // Check for unresolved refs in this feature
+    const checkRefs = (
+      refs: Array<{ name: string; version: number }>,
+      inventory: Map<string, unknown>,
+      refType: string
+    ) => {
+      for (const ref of refs) {
+        const key = `${ref.name}.v${ref.version}`;
+        if (!inventory.has(key)) {
+          const diagnostic = new vscode.Diagnostic(
+            findRefRange(document, ref.name),
+            `${refType} ${ref.name}.v${ref.version} not found`,
+            vscode.DiagnosticSeverity.Error
+          );
+          diagnostic.source = INTEGRITY_SOURCE;
+          diagnostic.code = 'unresolved-ref';
+          diagnostics.push(diagnostic);
+        }
+      }
+    };
+
+    checkRefs(
+      feature.operations,
+      integrityResult.inventory.operations,
+      'Operation'
+    );
+    checkRefs(feature.events, integrityResult.inventory.events, 'Event');
+    checkRefs(
+      feature.presentations,
+      integrityResult.inventory.presentations,
+      'Presentation'
+    );
+    checkRefs(
+      feature.experiments,
+      integrityResult.inventory.experiments,
+      'Experiment'
+    );
+
+    return;
+  }
+
+  // Check if this spec is orphaned
+  if (isSpecFile(filePath)) {
+    const spec = scanSpecSource(code, filePath);
+
+    if (spec.name && spec.version !== undefined) {
+      const isOrphaned = integrityResult.orphanedSpecs.some(
+        (orphan) =>
+          orphan.name === spec.name &&
+          orphan.version === spec.version &&
+          orphan.file === filePath
+      );
+
+      if (isOrphaned) {
+        const diagnostic = new vscode.Diagnostic(
+          findNameRange(document),
+          `This ${spec.specType} is not linked to any feature`,
+          vscode.DiagnosticSeverity.Warning
+        );
+        diagnostic.source = INTEGRITY_SOURCE;
+        diagnostic.code = 'orphaned';
+        diagnostics.push(diagnostic);
+      }
+    }
+  }
+}
+
+/**
+ * Find the range where a ref name appears in the document.
+ */
+function findRefRange(
+  document: vscode.TextDocument,
+  refName: string
+): vscode.Range {
+  const text = document.getText();
+  const index = text.indexOf(`'${refName}'`) ?? text.indexOf(`"${refName}"`);
+
+  if (index !== -1) {
+    const start = document.positionAt(index);
+    const end = document.positionAt(index + refName.length + 2);
+    return new vscode.Range(start, end);
+  }
+
+  return document.lineAt(0).range;
+}
+
+/**
+ * Find the range where the spec name is declared.
+ */
+function findNameRange(document: vscode.TextDocument): vscode.Range {
+  const text = document.getText();
+  const match = text.match(/name:\s*['"]([^'"]+)['"]/);
+
+  if (match) {
+    const index = match.index ?? 0;
+    const start = document.positionAt(index);
+    const end = document.positionAt(index + match[0].length);
+    return new vscode.Range(start, end);
+  }
+
+  return document.lineAt(0).range;
 }

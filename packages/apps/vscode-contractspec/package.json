@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "lssm",
   "license": "MIT",
   "icon": "assets/icon.png",
@@ -39,6 +39,7 @@
     "workspaceContains:**/*.contracts.ts",
     "workspaceContains:**/*.event.ts",
     "workspaceContains:**/*.presentation.ts",
+    "workspaceContains:**/*.feature.ts",
     "workspaceContains:**/*.workflow.ts",
     "workspaceContains:**/*.telemetry.ts",
     "workspaceContains:**/.contractsrc.json"
@@ -167,6 +168,42 @@
         "title": "Show Workspace Info",
         "category": "ContractSpec",
         "icon": "$(info)"
+      },
+      {
+        "command": "contractspec.analyzeIntegrity",
+        "title": "Analyze Contract Integrity",
+        "category": "ContractSpec",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "contractspec.refreshIntegrity",
+        "title": "Refresh Integrity Analysis",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.refreshFeatures",
+        "title": "Refresh Features",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.showFeatureMap",
+        "title": "Show Feature Map Diagram",
+        "category": "ContractSpec",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "contractspec.showOrphans",
+        "title": "Show Orphaned Specs Diagram",
+        "category": "ContractSpec",
+        "icon": "$(warning)"
+      },
+      {
+        "command": "contractspec.showDependencies",
+        "title": "Show Dependencies Diagram",
+        "category": "ContractSpec",
+        "icon": "$(symbol-reference)"
       }
     ],
     "viewsContainers": {
@@ -183,6 +220,14 @@
         {
           "id": "contractspec.specsView",
           "name": "Specs Explorer"
+        },
+        {
+          "id": "contractspec-features",
+          "name": "Features"
+        },
+        {
+          "id": "contractspec-integrity",
+          "name": "Integrity Analysis"
         },
         {
           "id": "contractspec.depsView",
@@ -204,6 +249,26 @@
         {
           "command": "contractspec.create",
           "when": "view == contractspec.specsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshFeatures",
+          "when": "view == contractspec-features",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.showFeatureMap",
+          "when": "view == contractspec-features",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshIntegrity",
+          "when": "view == contractspec-integrity",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.showOrphans",
+          "when": "view == contractspec-integrity",
           "group": "navigation"
         },
         {
@@ -232,7 +297,7 @@
       "explorer/context": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "contractspec@1"
         },
         {
@@ -242,26 +307,36 @@
         },
         {
           "command": "contractspec.diff",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|workflow)\\.ts$/",
           "group": "contractspec@3"
+        },
+        {
+          "command": "contractspec.analyzeIntegrity",
+          "when": "resourceFilename =~ /\\.(feature)\\.ts$/",
+          "group": "contractspec@4"
         }
       ],
       "editor/context": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "contractspec@1"
         },
         {
           "command": "contractspec.build",
           "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
           "group": "contractspec@2"
+        },
+        {
+          "command": "contractspec.analyzeIntegrity",
+          "when": "resourceFilename =~ /\\.(feature)\\.ts$/",
+          "group": "contractspec@3"
         }
       ],
       "editor/title": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "navigation"
         },
         {
@@ -362,14 +437,19 @@
           ".contracts.ts",
           ".event.ts",
           ".presentation.ts",
+          ".feature.ts",
+          ".capability.ts",
           ".workflow.ts",
           ".data-view.ts",
+          ".form.ts",
           ".migration.ts",
           ".telemetry.ts",
           ".experiment.ts",
           ".app-config.ts",
           ".integration.ts",
-          ".knowledge.ts"
+          ".knowledge.ts",
+          ".policy.ts",
+          ".test-spec.ts"
         ]
       }
     ],

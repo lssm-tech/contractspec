@@ -42,3 +42,4 @@ These events are intentionally minimal and must avoid PII/secrets in payloads.
 ];
 
 registerDocBlocks(tech_studio_learning_events_DocBlocks);
+

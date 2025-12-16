@@ -96,3 +96,4 @@ export const AssistantExplainConceptContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
+

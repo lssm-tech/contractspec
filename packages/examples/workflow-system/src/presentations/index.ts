@@ -2,9 +2,9 @@
  * Workflow System Presentation Descriptors
  */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { WorkflowDefinitionModel } from '../contracts/workflow';
-import { WorkflowInstanceModel } from '../contracts/instance';
-import { ApprovalRequestModel } from '../contracts/approval';
+import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
+import { WorkflowInstanceModel } from '../instance/instance.schema';
+import { ApprovalRequestModel } from '../approval/approval.schema';
 
 // ============ Workflow Definition Presentations ============
 

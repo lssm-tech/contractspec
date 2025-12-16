@@ -99,3 +99,4 @@ function extractErrorCode(error: unknown): string | undefined {
   if (candidate.code == null) return undefined;
   return String(candidate.code);
 }
+

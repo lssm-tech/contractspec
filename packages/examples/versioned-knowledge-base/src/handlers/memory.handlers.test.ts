@@ -79,3 +79,4 @@ describe('@lssm/example.versioned-knowledge-base memory handlers', () => {
     expect(ok.items.map((i) => i.ruleVersionId)).toEqual([euDraft.id]);
   });
 });
+

@@ -42,3 +42,4 @@ export const ambientCoachTrack: LearningJourneyTrackSpec = {
 export const ambientCoachTracks: LearningJourneyTrackSpec[] = [
   ambientCoachTrack,
 ];
+

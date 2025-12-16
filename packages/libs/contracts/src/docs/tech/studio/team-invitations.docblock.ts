@@ -63,3 +63,4 @@ Acceptance rules:
 ];
 
 registerDocBlocks(tech_studio_team_invitations_DocBlocks);
+

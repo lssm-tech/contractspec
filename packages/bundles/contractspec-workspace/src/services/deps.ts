@@ -123,3 +123,4 @@ export function getGraphStats(graph: ContractGraph): {
     unused: unused.length,
   };
 }
+

@@ -196,3 +196,4 @@ async function fetchExampleViaInternalMcp(
   if (!content) return null;
   return JSON.parse(content);
 }
+

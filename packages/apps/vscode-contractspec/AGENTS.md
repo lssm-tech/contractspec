@@ -40,3 +40,4 @@ MCP features require `contractspec.api.baseUrl` to be configured. The extension 
 - `/api/mcp/docs` for documentation search
 
 
+

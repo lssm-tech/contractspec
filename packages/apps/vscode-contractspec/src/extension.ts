@@ -7,7 +7,10 @@
 
 import * as vscode from 'vscode';
 import { registerCommands } from './commands/index';
-import { registerDiagnostics } from './diagnostics/index';
+import {
+  registerDiagnostics,
+  registerIntegrityDiagnostics,
+} from './diagnostics/index';
 import { createTelemetryReporter, TelemetryReporter } from './telemetry/index';
 import { createOutputChannel } from './ui/output-channel';
 import {
@@ -17,6 +20,9 @@ import {
 } from './ui/status-bar';
 import { disposeWatchMode } from './commands/watch';
 import { registerViews } from './views/index';
+import { registerIntegrityTree } from './views/integrity-tree';
+import { registerFeatureExplorer } from './views/feature-explorer';
+import { registerIntegrityCommands } from './commands/integrity';
 import {
   formatWorkspaceInfoForDisplay,
   invalidateWorkspaceCache,
@@ -49,8 +55,21 @@ export async function activate(
   // Register views
   const views = registerViews(context);
 
+  // Register integrity views
+  const integrityProvider = registerIntegrityTree(context);
+  const featureProvider = registerFeatureExplorer(context);
+
+  // Register diagnostics (validation on open/save)
+  registerDiagnostics(context, outputChannel);
+
+  // Register integrity diagnostics
+  const integrityDiagnostics = registerIntegrityDiagnostics(context);
+
   // Register commands (including workspace info command)
   registerCommands(context, outputChannel, telemetryReporter, statusBarItem);
+
+  // Register integrity commands
+  registerIntegrityCommands(context, integrityDiagnostics);
 
   // Register workspace info command
   context.subscriptions.push(
@@ -62,9 +81,6 @@ export async function activate(
       );
     })
   );
-
-  // Register diagnostics (validation on open/save)
-  registerDiagnostics(context, outputChannel);
 
   // Watch for workspace changes to update status
   context.subscriptions.push(

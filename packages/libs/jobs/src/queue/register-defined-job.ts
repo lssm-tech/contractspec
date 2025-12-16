@@ -17,3 +17,4 @@ export function registerDefinedJob<TPayload>(
 
   queue.register<TPayload>(def.type, wrapped as JobHandler<TPayload>);
 }
+

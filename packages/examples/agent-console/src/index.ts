@@ -15,20 +15,11 @@
  * ```
  */
 
-// Entity exports
-export * from './entities';
-
-// Contract exports
-export * from './contracts';
-
-// Event exports
-export * from './events';
-
-// Handler exports (for sandbox/demo use)
-export * from './handlers';
-
-// Presentation exports
-export * from './presentations';
+// Domain exports
+export * from './agent';
+export * from './run';
+export * from './tool';
+export * from './shared';
 
 // Feature spec export
 export * from './feature';
