@@ -42,7 +42,7 @@
     "./events": "./src/events.ts",
     "./example": "./src/example.ts",
     "./handlers": "./src/handlers/index.ts",
-    "./presentations": "./src/presentations/index.ts",
+    "./presentations": "./src/presentations.ts",
     "./ritual": "./src/ritual/index.ts",
     "./ritual/ritual.contracts": "./src/ritual/ritual.contracts.ts",
     "./ritual/ritual.schema": "./src/ritual/ritual.schema.ts",
@@ -51,6 +51,7 @@
     "./space/space.schema": "./src/space/space.schema.ts",
     "./task": "./src/task/index.ts",
     "./task/task.contracts": "./src/task/task.contracts.ts",
+    "./task/task.list": "./src/task/task.list.ts",
     "./task/task.schema": "./src/task/task.schema.ts",
     "./team-hub.feature": "./src/team-hub.feature.ts",
     "./*": "./*"
@@ -82,6 +83,7 @@
       "./space/space.schema": "./dist/space/space.schema.js",
       "./task": "./dist/task/index.js",
       "./task/task.contracts": "./dist/task/task.contracts.js",
+      "./task/task.list": "./dist/task/task.list.js",
       "./task/task.schema": "./dist/task/task.schema.js",
       "./team-hub.feature": "./dist/team-hub.feature.js",
       "./*": "./*"

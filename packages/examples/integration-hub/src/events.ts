@@ -1,156 +1,164 @@
 import { defineEvent } from '@lssm/lib.contracts';
-import { z } from 'zod';
+import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
 
 // Integration events
-export const IntegrationCreatedEvent = defineEvent({
-  meta: {
-    name: 'integration.created',
-    version: 1,
-    description: 'Fired when a new integration is created',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['integration', 'lifecycle'],
+const IntegrationCreatedPayload = defineSchemaModel({
+  name: 'IntegrationCreatedPayload',
+  description: 'Payload when an integration is created',
+  fields: {
+    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
-  payload: z.object({
-    integrationId: z.string(),
-    type: z.string(),
-    createdAt: z.string(),
-  }),
+});
+
+export const IntegrationCreatedEvent = defineEvent({
+  name: 'integration.created',
+  version: 1,
+  description: 'Fired when a new integration is created',
+  payload: IntegrationCreatedPayload,
 });
 
 // Connection events
-export const ConnectionCreatedEvent = defineEvent({
-  meta: {
-    name: 'integration.connection.created',
-    version: 1,
-    description: 'Fired when a new connection is established',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['connection', 'lifecycle'],
+const ConnectionCreatedPayload = defineSchemaModel({
+  name: 'ConnectionCreatedPayload',
+  description: 'Payload when a connection is established',
+  fields: {
+    connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
-  payload: z.object({
-    connectionId: z.string(),
-    integrationId: z.string(),
-    status: z.string(),
-    createdAt: z.string(),
-  }),
+});
+
+export const ConnectionCreatedEvent = defineEvent({
+  name: 'integration.connection.created',
+  version: 1,
+  description: 'Fired when a new connection is established',
+  payload: ConnectionCreatedPayload,
+});
+
+const ConnectionStatusChangedPayload = defineSchemaModel({
+  name: 'ConnectionStatusChangedPayload',
+  description: 'Payload when a connection status changes',
+  fields: {
+    connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    changedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+  },
 });
 
 export const ConnectionStatusChangedEvent = defineEvent({
-  meta: {
-    name: 'integration.connection.statusChanged',
-    version: 1,
-    description: 'Fired when a connection status changes',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['connection', 'status'],
-  },
-  payload: z.object({
-    connectionId: z.string(),
-    previousStatus: z.string(),
-    newStatus: z.string(),
-    changedAt: z.string(),
-  }),
+  name: 'integration.connection.statusChanged',
+  version: 1,
+  description: 'Fired when a connection status changes',
+  payload: ConnectionStatusChangedPayload,
 });
 
 // Sync config events
-export const SyncConfigCreatedEvent = defineEvent({
-  meta: {
-    name: 'integration.syncConfig.created',
-    version: 1,
-    description: 'Fired when a sync configuration is created',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'config', 'lifecycle'],
+const SyncConfigCreatedPayload = defineSchemaModel({
+  name: 'SyncConfigCreatedPayload',
+  description: 'Payload when a sync configuration is created',
+  fields: {
+    syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
-  payload: z.object({
-    syncConfigId: z.string(),
-    connectionId: z.string(),
-    createdAt: z.string(),
-  }),
+});
+
+export const SyncConfigCreatedEvent = defineEvent({
+  name: 'integration.syncConfig.created',
+  version: 1,
+  description: 'Fired when a sync configuration is created',
+  payload: SyncConfigCreatedPayload,
 });
 
 // Sync run events
-export const SyncStartedEvent = defineEvent({
-  meta: {
-    name: 'integration.sync.started',
-    version: 1,
-    description: 'Fired when a sync run starts',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'run', 'lifecycle'],
+const SyncStartedPayload = defineSchemaModel({
+  name: 'SyncStartedPayload',
+  description: 'Payload when a sync run starts',
+  fields: {
+    syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
-  payload: z.object({
-    syncRunId: z.string(),
-    syncConfigId: z.string(),
-    startedAt: z.string(),
-  }),
+});
+
+export const SyncStartedEvent = defineEvent({
+  name: 'integration.sync.started',
+  version: 1,
+  description: 'Fired when a sync run starts',
+  payload: SyncStartedPayload,
+});
+
+const SyncCompletedPayload = defineSchemaModel({
+  name: 'SyncCompletedPayload',
+  description: 'Payload when a sync run completes successfully',
+  fields: {
+    syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    recordsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+  },
 });
 
 export const SyncCompletedEvent = defineEvent({
-  meta: {
-    name: 'integration.sync.completed',
-    version: 1,
-    description: 'Fired when a sync run completes successfully',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'run', 'lifecycle'],
+  name: 'integration.sync.completed',
+  version: 1,
+  description: 'Fired when a sync run completes successfully',
+  payload: SyncCompletedPayload,
+});
+
+const SyncFailedPayload = defineSchemaModel({
+  name: 'SyncFailedPayload',
+  description: 'Payload when a sync run fails',
+  fields: {
+    syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    error: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    failedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
-  payload: z.object({
-    syncRunId: z.string(),
-    syncConfigId: z.string(),
-    recordsProcessed: z.number(),
-    completedAt: z.string(),
-  }),
 });
 
 export const SyncFailedEvent = defineEvent({
-  meta: {
-    name: 'integration.sync.failed',
-    version: 1,
-    description: 'Fired when a sync run fails',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'run', 'error'],
+  name: 'integration.sync.failed',
+  version: 1,
+  description: 'Fired when a sync run fails',
+  payload: SyncFailedPayload,
+});
+
+const RecordSyncedPayload = defineSchemaModel({
+  name: 'RecordSyncedPayload',
+  description: 'Payload when a single record is synced',
+  fields: {
+    syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    recordId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    sourceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    targetId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
-  payload: z.object({
-    syncRunId: z.string(),
-    syncConfigId: z.string(),
-    error: z.string(),
-    failedAt: z.string(),
-  }),
 });
 
 export const RecordSyncedEvent = defineEvent({
-  meta: {
-    name: 'integration.record.synced',
-    version: 1,
-    description: 'Fired when a single record is synced',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'record'],
+  name: 'integration.record.synced',
+  version: 1,
+  description: 'Fired when a single record is synced',
+  payload: RecordSyncedPayload,
+});
+
+const FieldMappingAddedPayload = defineSchemaModel({
+  name: 'FieldMappingAddedPayload',
+  description: 'Payload when a field mapping is added to a sync config',
+  fields: {
+    syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    sourceField: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    targetField: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
-  payload: z.object({
-    syncRunId: z.string(),
-    recordId: z.string(),
-    sourceId: z.string(),
-    targetId: z.string(),
-  }),
 });
 
 export const FieldMappingAddedEvent = defineEvent({
-  meta: {
-    name: 'integration.fieldMapping.added',
-    version: 1,
-    description: 'Fired when a field mapping is added to a sync config',
-    domain: 'integration',
-    owners: ['@integration-team'],
-    tags: ['sync', 'config', 'mapping'],
-  },
-  payload: z.object({
-    syncConfigId: z.string(),
-    sourceField: z.string(),
-    targetField: z.string(),
-  }),
+  name: 'integration.fieldMapping.added',
+  version: 1,
+  description: 'Fired when a field mapping is added to a sync config',
+  payload: FieldMappingAddedPayload,
 });
-

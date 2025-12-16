@@ -39,7 +39,7 @@
     "./events": "./src/events.ts",
     "./example": "./src/example.ts",
     "./handlers": "./src/handlers/index.ts",
-    "./presentations": "./src/presentations/index.ts",
+    "./presentations": "./src/presentations.ts",
     "./wealth-snapshot.feature": "./src/wealth-snapshot.feature.ts",
     "./*": "./*"
   },

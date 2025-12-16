@@ -18,8 +18,23 @@ import type { Stability } from '../types/spec-types';
 export function inferSpecTypeFromFilePath(filePath: string): AnalyzedSpecType {
   // Check more specific patterns first
   if (filePath.includes('.contracts.')) return 'operation';
-  if (filePath.includes('.event.')) return 'event';
-  if (filePath.includes('.presentation.')) return 'presentation';
+
+  // Event patterns: .event. OR /events/ OR /events.ts
+  if (
+    filePath.includes('.event.') ||
+    filePath.includes('/events/') ||
+    filePath.endsWith('/events.ts')
+  )
+    return 'event';
+
+  // Presentation patterns: .presentation. OR /presentations/ OR /presentations.ts
+  if (
+    filePath.includes('.presentation.') ||
+    filePath.includes('/presentations/') ||
+    filePath.endsWith('/presentations.ts')
+  )
+    return 'presentation';
+
   if (filePath.includes('.feature.')) return 'feature';
   if (filePath.includes('.capability.')) return 'capability';
   if (filePath.includes('.data-view.')) return 'data-view';
