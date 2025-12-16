@@ -31,3 +31,4 @@ export interface GitCleanOptions {
   directories?: boolean;
   ignored?: boolean;
 }
+

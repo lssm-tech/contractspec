@@ -91,3 +91,4 @@ export interface WorkspaceAdapters {
   ai: import('./ai').AiAdapter;
   logger: LoggerAdapter;
 }
+

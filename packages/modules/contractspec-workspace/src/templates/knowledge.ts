@@ -101,3 +101,4 @@ function stabilityToEnum(stability: Stability): string {
 function escape(value: string): string {
   return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }
+

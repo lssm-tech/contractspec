@@ -94,3 +94,4 @@ function formatStep(step: WorkflowSpecData['steps'][number]): string {
   lines.push(`    }`);
   return lines.join('\n');
 }
+

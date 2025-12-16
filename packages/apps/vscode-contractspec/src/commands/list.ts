@@ -86,3 +86,4 @@ export async function listAllSpecs(
 function getFileName(filePath: string): string {
   return filePath.split(/[/\\]/).pop() ?? filePath;
 }
+

@@ -1,5 +1,6 @@
-// Deal contracts and models
+// Deal contracts and models - re-exports from deal domain
 export {
+  DealStatusEnum,
   DealStatusFilterEnum,
   DealModel,
   CreateDealInputModel,
@@ -16,4 +17,4 @@ export {
   WinDealContract,
   LoseDealContract,
   ListDealsContract,
-} from './deal.contracts';
+} from '../deal';

@@ -54,3 +54,4 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
     },
   };
 }
+

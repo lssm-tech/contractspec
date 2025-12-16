@@ -148,3 +148,4 @@ This allows future migration without changing client code.
 ];
 
 registerDocBlocks(tech_telemetry_ingest_DocBlocks);
+

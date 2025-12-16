@@ -44,3 +44,4 @@ const docBlocks: DocBlock[] = [
 ];
 
 registerDocBlocks(docBlocks);
+

@@ -76,3 +76,4 @@ function renderSteps(steps: MigrationSpecData['up']) {
 function escape(value: string): string {
   return value.replace(/`/g, '\\`').replace(/'/g, "\\'");
 }
+

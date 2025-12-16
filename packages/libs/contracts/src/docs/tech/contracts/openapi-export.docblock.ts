@@ -53,3 +53,4 @@ The registry module must export one of:
 ];
 
 registerDocBlocks(tech_contracts_openapi_export_DocBlocks);
+

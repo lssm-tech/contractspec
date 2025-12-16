@@ -97,3 +97,4 @@ export async function buildCommand(
       console.log(chalk.yellow('⚠️  Unsupported spec type for build command.'));
   }
 }
+

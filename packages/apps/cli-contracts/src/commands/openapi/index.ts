@@ -104,3 +104,4 @@ export const openapiCommand = new Command('openapi')
       process.exit(1);
     }
   });
+

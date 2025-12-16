@@ -39,3 +39,4 @@ export interface DocBlock {
   /** Stability marker to mirror presentation ownership semantics. */
   stability?: Stability;
 }
+

@@ -8,3 +8,4 @@ export default function LearningTrackDetailPage({
   return <TrackDetailClient trackKey={params.trackKey} />;
 }
 
+

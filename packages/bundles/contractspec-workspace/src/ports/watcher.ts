@@ -53,3 +53,4 @@ export interface WatcherAdapter {
    */
   watch(options: WatchOptions): Watcher;
 }
+

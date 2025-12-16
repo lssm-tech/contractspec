@@ -10,3 +10,4 @@ export interface BuildOptions {
 export type GenerationTarget = 'handler' | 'component' | 'form';
 
 export type TestTarget = 'handler' | 'component';
+

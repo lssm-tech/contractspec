@@ -17,3 +17,5 @@ export * from './clean';
 export * from './test';
 export * from './regenerator';
 export * from './workspace-info';
+export * from './integrity';
+export * from './integrity-diagram';

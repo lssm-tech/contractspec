@@ -6,26 +6,62 @@ import type { Stability } from './spec-types';
 
 /**
  * Spec type detected from file analysis.
+ * Covers all contract types from @lssm/lib.contracts.
  */
 export type AnalyzedSpecType =
   | 'operation'
   | 'event'
   | 'presentation'
-  | 'workflow'
+  | 'feature'
+  | 'capability'
   | 'data-view'
+  | 'form'
   | 'migration'
-  | 'telemetry'
+  | 'workflow'
   | 'experiment'
-  | 'app-config'
   | 'integration'
   | 'knowledge'
-  | 'form'
+  | 'telemetry'
+  | 'app-config'
+  | 'policy'
+  | 'test-spec'
   | 'unknown';
+
+/**
+ * Types that can be referenced by features.
+ */
+export type RefType =
+  | 'operation'
+  | 'event'
+  | 'presentation'
+  | 'capability'
+  | 'experiment'
+  | 'policy'
+  | 'test';
 
 /**
  * Operation kind detected from file analysis.
  */
 export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
+
+/**
+ * Reference information (name + version).
+ */
+export interface RefInfo {
+  name: string;
+  version: number;
+}
+
+/**
+ * A reference extracted from source code with location context.
+ */
+export interface ExtractedRef {
+  type: RefType;
+  name: string;
+  version: number;
+  sourceFile: string;
+  sourceLine?: number;
+}
 
 /**
  * Result of scanning a spec source file.
@@ -48,6 +84,40 @@ export interface SpecScanResult {
   hasPayload: boolean;
   hasContent: boolean;
   hasDefinition: boolean;
+
+  // References extracted from spec (e.g., emitted events)
+  emittedEvents?: RefInfo[];
+  policyRefs?: RefInfo[];
+  testRefs?: RefInfo[];
+}
+
+/**
+ * Result of scanning a feature file.
+ */
+export interface FeatureScanResult {
+  filePath: string;
+  key: string;
+  title?: string;
+  description?: string;
+  domain?: string;
+  stability?: Stability;
+  owners?: string[];
+  tags?: string[];
+
+  // Referenced specs
+  operations: RefInfo[];
+  events: RefInfo[];
+  presentations: RefInfo[];
+  experiments: RefInfo[];
+
+  // Capability bindings
+  capabilities: {
+    provides: RefInfo[];
+    requires: RefInfo[];
+  };
+
+  // Op to presentation links
+  opToPresentationLinks: Array<{ op: RefInfo; pres: RefInfo }>;
 }
 
 /**

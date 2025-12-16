@@ -139,3 +139,4 @@ function formatConfigValue(value: string): string {
   }
   return `'${escapeString(trimmed)}'`;
 }
+

@@ -254,3 +254,4 @@ describe('@contractspec/example.learning-patterns XP + streak + SRS determinism'
     expect(result.nextReviewAt.toISOString()).toBe('2026-01-01T00:10:00.000Z');
   });
 });
+
