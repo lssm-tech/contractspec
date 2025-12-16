@@ -6,6 +6,7 @@ src/**
 assets/*.svg
 
 # Development files
+.turbo/**
 .vscode/**
 .github/**
 node_modules/**

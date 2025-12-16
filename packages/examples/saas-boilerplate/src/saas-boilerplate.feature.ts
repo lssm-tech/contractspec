@@ -31,10 +31,10 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
     { name: 'saas.project.list', version: 1 },
 
     // Billing operations
-    { name: 'saas.billing.getSubscription', version: 1 },
-    { name: 'saas.billing.recordUsage', version: 1 },
-    { name: 'saas.billing.getUsageSummary', version: 1 },
-    { name: 'saas.billing.checkFeatureAccess', version: 1 },
+    { name: 'saas.billing.subscription.get', version: 1 },
+    { name: 'saas.billing.usage.record', version: 1 },
+    { name: 'saas.billing.usage.summary', version: 1 },
+    { name: 'saas.billing.feature.check', version: 1 },
   ],
 
   // Events emitted by this feature
@@ -45,9 +45,9 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
     { name: 'project.deleted', version: 1 },
 
     // Billing events
-    { name: 'usage.recorded', version: 1 },
-    { name: 'subscription.updated', version: 1 },
-    { name: 'limit.exceeded', version: 1 },
+    { name: 'billing.usage.recorded', version: 1 },
+    { name: 'billing.subscription.changed', version: 1 },
+    { name: 'billing.limit.reached', version: 1 },
   ],
 
   // Presentations associated with this feature
@@ -71,11 +71,11 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
       pres: { name: 'saas.project.detail', version: 1 },
     },
     {
-      op: { name: 'saas.billing.getSubscription', version: 1 },
+      op: { name: 'saas.billing.subscription.get', version: 1 },
       pres: { name: 'saas.billing.subscription', version: 1 },
     },
     {
-      op: { name: 'saas.billing.getUsageSummary', version: 1 },
+      op: { name: 'saas.billing.usage.summary', version: 1 },
       pres: { name: 'saas.billing.usage', version: 1 },
     },
   ],
