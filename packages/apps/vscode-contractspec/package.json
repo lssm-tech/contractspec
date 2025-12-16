@@ -279,6 +279,18 @@
         "title": "Create Feature from Orphans",
         "category": "ContractSpec",
         "icon": "$(new-file)"
+      },
+      {
+        "command": "contractspec.doctor",
+        "title": "Run Health Check (Doctor)",
+        "category": "ContractSpec",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "contractspec.quickDoctor",
+        "title": "Quick Health Check",
+        "category": "ContractSpec",
+        "icon": "$(pulse)"
       }
     ],
     "viewsContainers": {

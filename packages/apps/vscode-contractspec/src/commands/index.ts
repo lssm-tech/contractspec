@@ -18,6 +18,7 @@ import { cleanGeneratedFiles } from './clean';
 import { compareSpecFiles, compareWithGit } from './diff';
 import { exportToOpenApi } from './openapi';
 import { runSetupWizard, runQuickSetup } from './setup';
+import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
 
 /**
  * Register all ContractSpec commands.
@@ -228,6 +229,26 @@ export function registerCommands(
         command: 'quickSetup',
       });
       await runQuickSetup(outputChannel);
+    })
+  );
+
+  // Doctor (full health check)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.doctor', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'doctor',
+      });
+      await runDoctorCheck(outputChannel);
+    })
+  );
+
+  // Quick doctor check
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.quickDoctor', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'quickDoctor',
+      });
+      await runQuickDoctorCheck(outputChannel);
     })
   );
 }

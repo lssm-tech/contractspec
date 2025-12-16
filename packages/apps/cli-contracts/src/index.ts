@@ -19,6 +19,7 @@ import { examplesCommand } from './commands/examples/index';
 import { workspaceCommand } from './commands/workspace/index';
 import { integrityCommand } from './commands/integrity/index';
 import { initCommand } from './commands/init/index';
+import { doctorCommand } from './commands/doctor/index';
 
 const program = new Command();
 
@@ -64,6 +65,9 @@ program.addCommand(integrityCommand);
 
 // Init command (setup ContractSpec in a project)
 program.addCommand(initCommand);
+
+// Doctor command (diagnose and fix issues)
+program.addCommand(doctorCommand);
 
 // Create command
 program

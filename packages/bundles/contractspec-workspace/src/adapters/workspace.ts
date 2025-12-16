@@ -75,18 +75,19 @@ const MONOREPO_FILES = [
  */
 export function findPackageRoot(startDir: string = process.cwd()): string {
   let current = resolve(startDir);
-  const root = dirname(current);
 
-  while (current !== root) {
+  while (true) {
     if (existsSync(join(current, 'package.json'))) {
       return current;
     }
-    current = dirname(current);
-  }
 
-  // Check root
-  if (existsSync(join(root, 'package.json'))) {
-    return root;
+    // Move up to parent
+    const parent = dirname(current);
+    if (parent === current) {
+      // Reached filesystem root
+      break;
+    }
+    current = parent;
   }
 
   // Fallback to start directory
@@ -103,10 +104,9 @@ export function findPackageRoot(startDir: string = process.cwd()): string {
  */
 export function findWorkspaceRoot(startDir: string = process.cwd()): string {
   let current = resolve(startDir);
-  const root = dirname(current);
   let lastPackageJson: string | null = null;
 
-  while (current !== root) {
+  while (true) {
     // Check for monorepo indicators
     for (const file of MONOREPO_FILES) {
       if (existsSync(join(current, file))) {
@@ -136,7 +136,13 @@ export function findWorkspaceRoot(startDir: string = process.cwd()): string {
       }
     }
 
-    current = dirname(current);
+    // Move up to parent
+    const parent = dirname(current);
+    if (parent === current) {
+      // Reached filesystem root
+      break;
+    }
+    current = parent;
   }
 
   // Return last found package.json location, or start dir
@@ -186,7 +192,10 @@ export function detectPackageManager(
   }
 
   // Check environment
-  if (process.env.BUN_INSTALL || typeof (globalThis as any).Bun !== 'undefined') {
+  if (
+    process.env.BUN_INSTALL ||
+    typeof (globalThis as any).Bun !== 'undefined'
+  ) {
     return 'bun';
   }
 
@@ -233,7 +242,9 @@ export function getWorkspacePackages(
     try {
       const content = readFileSync(pnpmWorkspacePath, 'utf-8');
       // Simple YAML parsing for packages array
-      const match = content.match(/packages:\s*\n((?:\s+-\s+['"]?[^\n]+['"]?\n?)+)/);
+      const match = content.match(
+        /packages:\s*\n((?:\s+-\s+['"]?[^\n]+['"]?\n?)+)/
+      );
       if (match?.[1]) {
         const packages = match[1]
           .split('\n')
@@ -284,7 +295,9 @@ export function getPackageName(packageRoot: string): string | undefined {
 /**
  * Get complete workspace information.
  */
-export function getWorkspaceInfo(startDir: string = process.cwd()): WorkspaceInfo {
+export function getWorkspaceInfo(
+  startDir: string = process.cwd()
+): WorkspaceInfo {
   const packageRoot = findPackageRoot(startDir);
   const workspaceRoot = findWorkspaceRoot(startDir);
   const packageManager = detectPackageManager(workspaceRoot);
@@ -349,11 +362,7 @@ export function getInstallCommand(
   packageManager: PackageManager,
   isDev = false
 ): string {
-  const devFlag = isDev
-    ? packageManager === 'npm'
-      ? '--save-dev'
-      : '-D'
-    : '';
+  const devFlag = isDev ? (packageManager === 'npm' ? '--save-dev' : '-D') : '';
 
   switch (packageManager) {
     case 'bun':
@@ -366,4 +375,3 @@ export function getInstallCommand(
       return `npm install ${devFlag}`.trim();
   }
 }
-

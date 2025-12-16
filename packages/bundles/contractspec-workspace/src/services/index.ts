@@ -20,3 +20,4 @@ export * from './workspace-info';
 export * from './integrity';
 export * from './integrity-diagram';
 export * from './setup/index';
+export * from './doctor/index';
