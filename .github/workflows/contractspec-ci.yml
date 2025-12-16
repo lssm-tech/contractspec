@@ -58,3 +58,4 @@ jobs:
         run: npx contractspec ci --format json --skip doctor | jq -e '.success'
 
 
+
