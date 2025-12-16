@@ -271,7 +271,8 @@ export function registerLLMTools(
       );
     }
 
-    const implementationCode = await adapters.fs.readFile(implPath, 'utf-8');
+    const implementationCode = await adapters.fs.readFile(implPath);
+    // const implementationCode = await adapters.fs.readFile(implPath, 'utf-8');
 
     // Determine tiers
     let tiers: VerificationTier[];

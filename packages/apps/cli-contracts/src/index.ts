@@ -22,6 +22,7 @@ import { initCommand } from './commands/init/index';
 import { doctorCommand } from './commands/doctor/index';
 import { ciCommand } from './commands/ci/index';
 import { llmCommand } from './commands/llm/index';
+import { createImplCommand } from './commands/impl/index';
 
 const program = new Command();
 
@@ -76,6 +77,9 @@ program.addCommand(ciCommand);
 
 // LLM command (LLM integration tools)
 program.addCommand(llmCommand);
+
+// Impl command (implementation management)
+program.addCommand(createImplCommand());
 
 // Create command
 program

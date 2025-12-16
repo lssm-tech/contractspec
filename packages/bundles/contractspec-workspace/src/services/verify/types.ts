@@ -100,3 +100,51 @@ export interface AIReviewResult {
   /** Raw AI response */
   rawResponse?: string;
 }
+
+/** Field match type for semantic analysis */
+export type FieldMatchType = 'exact' | 'compatible' | 'mismatch' | 'missing';
+
+/** Field mapping between spec and implementation */
+export interface FieldMapping {
+  /** Field name from spec */
+  specField: string;
+  /** Field type from spec */
+  specType: string;
+  /** Corresponding field in implementation (if found) */
+  implementationField?: string;
+  /** Field type in implementation */
+  implementationType?: string;
+  /** Match quality */
+  match: FieldMatchType;
+  /** AI confidence in this mapping (0-1) */
+  aiConfidence: number;
+  /** Suggestion if mismatch */
+  suggestion?: string;
+}
+
+/** Intent alignment analysis */
+export interface IntentAlignment {
+  /** Overall alignment score (0-100) */
+  score: number;
+  /** Issues with intent alignment */
+  issues: string[];
+  /** Suggestions for better alignment */
+  suggestions: string[];
+}
+
+/** Full semantic verification result */
+export interface SemanticVerificationResult {
+  /** Field-by-field mappings */
+  fieldMappings: FieldMapping[];
+  /** Intent alignment analysis */
+  intentAlignment: IntentAlignment;
+  /** Additional semantic issues found */
+  semanticIssues: {
+    category: string;
+    severity: 'error' | 'warning' | 'info';
+    message: string;
+    suggestion?: string;
+  }[];
+  /** Raw AI response for debugging */
+  rawResponse?: string;
+}

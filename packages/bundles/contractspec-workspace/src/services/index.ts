@@ -24,3 +24,5 @@ export * from './doctor/index';
 export * from './ci-check/index';
 export * from './agent-guide/index';
 export * from './verify/index';
+export * from './implementation/index';
+export * from './verification-cache/index';

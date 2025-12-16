@@ -15,6 +15,31 @@ import type { TestSpecRef } from './tests/spec';
  */
 export type OpKind = 'command' | 'query';
 
+/**
+ * Type of implementation artifact.
+ */
+export type ImplementationType =
+  | 'handler'
+  | 'component'
+  | 'form'
+  | 'test'
+  | 'service'
+  | 'hook'
+  | 'other';
+
+/**
+ * Reference to an implementation file for a spec.
+ * Used for explicit implementation mapping.
+ */
+export interface ImplementationRef {
+  /** Path to implementation file (relative to workspace root) */
+  path: string;
+  /** Type of implementation artifact */
+  type: ImplementationType;
+  /** Optional human-readable description */
+  description?: string;
+}
+
 // preferred: reference a declared event
 export interface EmitDeclRef {
   ref: EventSpec<AnySchemaModel>;
@@ -167,6 +192,12 @@ export interface ContractSpec<
     /** Request/response examples (used for docs & snapshot tests) */
     examples?: { name: string; input: unknown; output: unknown }[];
   };
+
+  /**
+   * Explicit implementation file mappings.
+   * Used for tracking and verifying that this spec is correctly implemented.
+   */
+  implementations?: ImplementationRef[];
 }
 
 export type AnyContractSpec = ContractSpec<

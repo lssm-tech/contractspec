@@ -20,6 +20,10 @@ export type {
   StructureCheck,
   BehaviorCheck,
   AIReviewResult,
+  FieldMapping,
+  FieldMatchType,
+  IntentAlignment,
+  SemanticVerificationResult,
 } from './types';
 
 // Main service
@@ -32,4 +36,9 @@ export {
 // Individual verifiers (for direct use)
 export { verifyStructure } from './structure-verifier';
 export { verifyBehavior } from './behavior-verifier';
-export { verifyWithAI, createQuickAIReview } from './ai-verifier';
+export {
+  verifyWithAI,
+  createQuickAIReview,
+  verifySemanticFields,
+  verifyWithAIEnhanced,
+} from './ai-verifier';

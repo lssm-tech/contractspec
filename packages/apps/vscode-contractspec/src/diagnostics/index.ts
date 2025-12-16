@@ -12,11 +12,16 @@ import {
   scanSpecSource,
   isFeatureFile,
   scanFeatureSource,
+  type WorkspaceConfig,
 } from '@lssm/module.contractspec-workspace';
-import type { IntegrityAnalysisResult } from '@lssm/bundle.contractspec-workspace';
+import type {
+  IntegrityAnalysisResult,
+  SpecImplementationResult,
+} from '@lssm/bundle.contractspec-workspace';
 
 const DIAGNOSTIC_SOURCE = 'ContractSpec';
 const INTEGRITY_SOURCE = 'ContractSpec Integrity';
+const IMPLEMENTATION_SOURCE = 'ContractSpec Implementation';
 
 // Cache for integrity analysis results
 let integrityResult: IntegrityAnalysisResult | undefined;
@@ -405,4 +410,165 @@ function findNameRange(document: vscode.TextDocument): vscode.Range {
   }
 
   return document.lineAt(0).range;
+}
+
+// ============================================================================
+// Implementation Status Diagnostics
+// ============================================================================
+
+// Cache for implementation results by file path
+const implementationResults = new Map<string, SpecImplementationResult>();
+
+/**
+ * Create implementation diagnostics collection.
+ */
+export function registerImplementationDiagnostics(
+  context: vscode.ExtensionContext
+): vscode.DiagnosticCollection {
+  const implDiagnostics = vscode.languages.createDiagnosticCollection(
+    IMPLEMENTATION_SOURCE
+  );
+  context.subscriptions.push(implDiagnostics);
+
+  return implDiagnostics;
+}
+
+/**
+ * Update cached implementation result for a file.
+ */
+export function updateImplementationResult(
+  filePath: string,
+  result: SpecImplementationResult
+): void {
+  implementationResults.set(filePath, result);
+}
+
+/**
+ * Get cached implementation result for a file.
+ */
+export function getImplementationResult(
+  filePath: string
+): SpecImplementationResult | undefined {
+  return implementationResults.get(filePath);
+}
+
+/**
+ * Clear all cached implementation results.
+ */
+export function clearImplementationResults(): void {
+  implementationResults.clear();
+}
+
+/**
+ * Update implementation diagnostics for a document.
+ */
+export function updateImplementationDiagnostics(
+  document: vscode.TextDocument,
+  result: SpecImplementationResult,
+  diagnosticCollection: vscode.DiagnosticCollection
+): void {
+  const diagnostics: vscode.Diagnostic[] = [];
+
+  // Check implementation status
+  if (result.status === 'missing') {
+    const diagnostic = new vscode.Diagnostic(
+      findNameRange(document),
+      `No implementations found for ${result.specName}`,
+      vscode.DiagnosticSeverity.Warning
+    );
+    diagnostic.source = IMPLEMENTATION_SOURCE;
+    diagnostic.code = 'missing-implementation';
+    diagnostics.push(diagnostic);
+  } else if (result.status === 'partial') {
+    // Find which implementations are missing
+    const missingImpls = result.implementations.filter(
+      (i) => !i.exists && i.type !== 'test'
+    );
+
+    if (missingImpls.length > 0) {
+      const missingPaths = missingImpls.map((i) => i.path).join(', ');
+      const diagnostic = new vscode.Diagnostic(
+        findNameRange(document),
+        `Partial implementation: missing ${missingPaths}`,
+        vscode.DiagnosticSeverity.Information
+      );
+      diagnostic.source = IMPLEMENTATION_SOURCE;
+      diagnostic.code = 'partial-implementation';
+      diagnostics.push(diagnostic);
+    }
+
+    // Check for missing tests
+    const missingTests = result.implementations.filter(
+      (i) => !i.exists && i.type === 'test'
+    );
+
+    if (missingTests.length > 0) {
+      const diagnostic = new vscode.Diagnostic(
+        findNameRange(document),
+        `Missing test file(s): ${missingTests.map((t) => t.path).join(', ')}`,
+        vscode.DiagnosticSeverity.Hint
+      );
+      diagnostic.source = IMPLEMENTATION_SOURCE;
+      diagnostic.code = 'missing-tests';
+      diagnostics.push(diagnostic);
+    }
+  }
+
+  diagnosticCollection.set(document.uri, diagnostics);
+}
+
+/**
+ * Create implementation diagnostics from a result.
+ */
+export function createImplementationDiagnostics(
+  document: vscode.TextDocument,
+  result: SpecImplementationResult
+): vscode.Diagnostic[] {
+  const diagnostics: vscode.Diagnostic[] = [];
+
+  if (result.status === 'missing') {
+    const diagnostic = new vscode.Diagnostic(
+      findNameRange(document),
+      `No implementations found for ${result.specName}`,
+      vscode.DiagnosticSeverity.Warning
+    );
+    diagnostic.source = IMPLEMENTATION_SOURCE;
+    diagnostic.code = 'missing-implementation';
+    diagnostics.push(diagnostic);
+  } else if (result.status === 'partial') {
+    const missingImpls = result.implementations.filter(
+      (i) => !i.exists && i.type !== 'test'
+    );
+
+    if (missingImpls.length > 0) {
+      for (const impl of missingImpls) {
+        const diagnostic = new vscode.Diagnostic(
+          findNameRange(document),
+          `Missing ${impl.type}: ${impl.path}`,
+          vscode.DiagnosticSeverity.Information
+        );
+        diagnostic.source = IMPLEMENTATION_SOURCE;
+        diagnostic.code = 'missing-' + impl.type;
+        diagnostics.push(diagnostic);
+      }
+    }
+  }
+
+  return diagnostics;
+}
+
+/**
+ * Add implementation status to diagnostic collection for all open documents.
+ */
+export async function refreshAllImplementationDiagnostics(
+  diagnosticCollection: vscode.DiagnosticCollection
+): Promise<void> {
+  for (const document of vscode.workspace.textDocuments) {
+    const filePath = document.uri.fsPath;
+    const result = implementationResults.get(filePath);
+
+    if (result) {
+      updateImplementationDiagnostics(document, result, diagnosticCollection);
+    }
+  }
 }

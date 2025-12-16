@@ -15,6 +15,9 @@ import {
 import {
   listSpecs,
   groupSpecsByType,
+  loadWorkspaceConfig,
+  resolveImplementations,
+  type SpecImplementationResult,
 } from '@lssm/bundle.contractspec-workspace';
 
 /**
@@ -50,6 +53,11 @@ interface SpecInfo {
 }
 
 /**
+ * Implementation status for a spec.
+ */
+type ImplementationStatus = 'implemented' | 'partial' | 'missing' | 'unknown';
+
+/**
  * Extended spec info with package context.
  */
 interface SpecWithPackage extends SpecInfo {
@@ -67,6 +75,16 @@ interface SpecWithPackage extends SpecInfo {
    * Namespace extracted from spec name (e.g., 'user' from 'user.createUser').
    */
   namespace?: string;
+
+  /**
+   * Implementation status.
+   */
+  implStatus?: ImplementationStatus;
+
+  /**
+   * Full implementation result (for details).
+   */
+  implResult?: SpecImplementationResult;
 }
 
 export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeItem> {
@@ -77,6 +95,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
 
   private specs: SpecWithPackage[] = [];
   private _groupingMode: SpecsGroupingMode = SpecsGroupingMode.TYPE;
+  private _showImplStatus = true;
 
   constructor() {
     // Load saved grouping mode from configuration
@@ -89,7 +108,29 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       this._groupingMode = savedMode as SpecsGroupingMode;
     }
 
+    // Load implementation status preference
+    this._showImplStatus = config.get<boolean>(
+      'specsExplorer.showImplStatus',
+      true
+    );
+
     this.refresh();
+  }
+
+  /**
+   * Toggle implementation status display.
+   */
+  async toggleImplStatus(): Promise<void> {
+    this._showImplStatus = !this._showImplStatus;
+
+    const config = vscode.workspace.getConfiguration('contractspec');
+    await config.update(
+      'specsExplorer.showImplStatus',
+      this._showImplStatus,
+      vscode.ConfigurationTarget.Workspace
+    );
+
+    await this.refresh();
   }
 
   /**
@@ -158,37 +199,64 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
         ? getWorkspaceInfoCached()
         : null;
 
-      this.specs = rawSpecs.map((spec) => {
-        const enriched: SpecWithPackage = { ...spec };
+      // Load workspace config for implementation resolution
+      let wsConfig;
+      try {
+        wsConfig = await loadWorkspaceConfig(adapters.fs);
+      } catch {
+        // Use default config if not found
+        wsConfig = { pattern: '**/*.contracts.ts', outputDir: './src' };
+      }
 
-        // Extract namespace from spec name (e.g., 'user.createUser' -> 'user')
-        if (spec.name) {
-          const parts = spec.name.split('.');
-          if (parts.length > 1) {
-            enriched.namespace = parts[0];
-          } else {
-            enriched.namespace = '(root)';
+      this.specs = await Promise.all(
+        rawSpecs.map(async (spec) => {
+          const enriched: SpecWithPackage = { ...spec };
+
+          // Extract namespace from spec name (e.g., 'user.createUser' -> 'user')
+          if (spec.name) {
+            const parts = spec.name.split('.');
+            if (parts.length > 1) {
+              enriched.namespace = parts[0];
+            } else {
+              enriched.namespace = '(root)';
+            }
           }
-        }
 
-        // Add package info for monorepos
-        if (workspaceInfo) {
-          const packageRoot = getPackageRootForFile(spec.filePath);
-          const relativeToWorkspace = path.relative(
-            workspaceInfo.workspaceRoot,
-            packageRoot
-          );
+          // Add package info for monorepos
+          if (workspaceInfo) {
+            const packageRoot = getPackageRootForFile(spec.filePath);
+            const relativeToWorkspace = path.relative(
+              workspaceInfo.workspaceRoot,
+              packageRoot
+            );
 
-          enriched.packageName =
-            relativeToWorkspace === ''
-              ? '(root)'
-              : relativeToWorkspace.split(path.sep).slice(-1)[0] ||
-                relativeToWorkspace;
-          enriched.packageRoot = packageRoot;
-        }
+            enriched.packageName =
+              relativeToWorkspace === ''
+                ? '(root)'
+                : relativeToWorkspace.split(path.sep).slice(-1)[0] ||
+                  relativeToWorkspace;
+            enriched.packageRoot = packageRoot;
+          }
 
-        return enriched;
-      });
+          // Resolve implementation status if enabled
+          if (this._showImplStatus && spec.specType === 'operation') {
+            try {
+              const implResult = await resolveImplementations(
+                spec.filePath,
+                adapters,
+                wsConfig,
+                { computeHashes: false }
+              );
+              enriched.implStatus = implResult.status;
+              enriched.implResult = implResult;
+            } catch {
+              enriched.implStatus = 'unknown';
+            }
+          }
+
+          return enriched;
+        })
+      );
 
       this._onDidChangeTreeData.fire();
     } catch (error) {
@@ -296,8 +364,24 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
     const version = spec.version ? ` v${spec.version}` : '';
     const stability = spec.stability ? ` [${spec.stability}]` : '';
 
+    // Add implementation status indicator
+    let implIndicator = '';
+    if (this._showImplStatus && spec.implStatus) {
+      switch (spec.implStatus) {
+        case 'implemented':
+          implIndicator = ' ✓';
+          break;
+        case 'partial':
+          implIndicator = ' ◐';
+          break;
+        case 'missing':
+          implIndicator = ' ✗';
+          break;
+      }
+    }
+
     return new SpecTreeItem(
-      `${name}${version}${stability}`,
+      `${name}${version}${stability}${implIndicator}`,
       vscode.TreeItemCollapsibleState.None,
       'spec',
       spec
@@ -537,7 +621,40 @@ export class SpecTreeItem extends vscode.TreeItem {
     super(label, collapsibleState);
 
     if (contextValue === 'spec' && data && 'filePath' in data) {
-      this.tooltip = data.description || data.filePath;
+      // Build rich tooltip
+      const tooltipLines: string[] = [];
+      if (data.description) {
+        tooltipLines.push(data.description);
+      }
+      tooltipLines.push(data.filePath);
+
+      // Add implementation status to tooltip
+      if (data.implStatus) {
+        tooltipLines.push('');
+        tooltipLines.push(`Implementation: ${data.implStatus}`);
+
+        if (data.implResult) {
+          const existing = data.implResult.implementations.filter(
+            (i) => i.exists
+          );
+          const missing = data.implResult.implementations.filter(
+            (i) => !i.exists
+          );
+
+          if (existing.length > 0) {
+            tooltipLines.push(
+              `  ✓ ${existing.map((i) => path.basename(i.path)).join(', ')}`
+            );
+          }
+          if (missing.length > 0) {
+            tooltipLines.push(
+              `  ✗ Missing: ${missing.map((i) => path.basename(i.path)).join(', ')}`
+            );
+          }
+        }
+      }
+
+      this.tooltip = tooltipLines.join('\n');
       this.description = path.basename(data.filePath);
       this.resourceUri = vscode.Uri.file(data.filePath);
       this.command = {
@@ -546,11 +663,39 @@ export class SpecTreeItem extends vscode.TreeItem {
         arguments: [this.resourceUri],
       };
 
-      // Set icon based on spec type
-      this.iconPath = this.getIconForSpecType(data.specType);
+      // Set icon based on spec type and implementation status
+      this.iconPath = this.getIconForSpec(data);
     } else if (contextValue === 'group' && data && 'groupType' in data) {
       this.iconPath = this.getIconForGroupType(data.groupType);
     }
+  }
+
+  /**
+   * Get icon for a spec, considering implementation status.
+   */
+  private getIconForSpec(spec: SpecWithPackage): vscode.ThemeIcon {
+    // For operations, show implementation status
+    if (spec.specType === 'operation' && spec.implStatus) {
+      switch (spec.implStatus) {
+        case 'implemented':
+          return new vscode.ThemeIcon(
+            'pass',
+            new vscode.ThemeColor('testing.iconPassed')
+          );
+        case 'partial':
+          return new vscode.ThemeIcon(
+            'warning',
+            new vscode.ThemeColor('testing.iconQueued')
+          );
+        case 'missing':
+          return new vscode.ThemeIcon(
+            'error',
+            new vscode.ThemeColor('testing.iconFailed')
+          );
+      }
+    }
+
+    return this.getIconForSpecType(spec.specType);
   }
 
   /**
