@@ -46,7 +46,9 @@ function parseCheckCategories(value: string): CICheckCategory[] {
     if (validCategories.has(trimmed)) {
       categories.push(trimmed);
     } else if (trimmed) {
-      console.warn(chalk.yellow(`Warning: Unknown check category '${trimmed}'`));
+      console.warn(
+        chalk.yellow(`Warning: Unknown check category '${trimmed}'`)
+      );
     }
   }
 
@@ -55,10 +57,7 @@ function parseCheckCategories(value: string): CICheckCategory[] {
 
 export const ciCommand = new Command('ci')
   .description('Run all CI/CD validation checks with machine-readable output')
-  .option(
-    '-p, --pattern <glob>',
-    'Glob pattern for spec discovery'
-  )
+  .option('-p, --pattern <glob>', 'Glob pattern for spec discovery')
   .option(
     '-f, --format <format>',
     'Output format: text, json, sarif (default: text)',
@@ -77,25 +76,10 @@ export const ciCommand = new Command('ci')
     '--skip <checks>',
     'Skip specific checks (comma-separated: structure,integrity,deps,doctor,handlers,tests)'
   )
-  .option(
-    '--checks <checks>',
-    'Only run specific checks (comma-separated)'
-  )
-  .option(
-    '--check-handlers',
-    'Include handler implementation checks',
-    false
-  )
-  .option(
-    '--check-tests',
-    'Include test coverage checks',
-    false
-  )
-  .option(
-    '-v, --verbose',
-    'Verbose output',
-    false
-  )
+  .option('--checks <checks>', 'Only run specific checks (comma-separated)')
+  .option('--check-handlers', 'Include handler implementation checks', false)
+  .option('--check-tests', 'Include test coverage checks', false)
+  .option('-v, --verbose', 'Verbose output', false)
   .action(async (options: CICommandOptions) => {
     const isTextOutput = options.format === 'text' || !options.format;
     const spinner = isTextOutput ? ora('Running CI checks...').start() : null;
@@ -174,8 +158,14 @@ export const ciCommand = new Command('ci')
 /**
  * Format result as colored text output.
  */
-function formatOutput(result: ReturnType<typeof runCIChecks> extends Promise<infer T> ? T : never, verbose: boolean): string {
-  const lines = formatters.formatAsTextLines(result, { verbose, showTiming: true });
+function formatOutput(
+  result: ReturnType<typeof runCIChecks> extends Promise<infer T> ? T : never,
+  verbose: boolean
+): string {
+  const lines = formatters.formatAsTextLines(result, {
+    verbose,
+    showTiming: true,
+  });
 
   return lines
     .map((line) => {
@@ -204,4 +194,3 @@ function formatOutput(result: ReturnType<typeof runCIChecks> extends Promise<inf
     })
     .join('\n');
 }
-

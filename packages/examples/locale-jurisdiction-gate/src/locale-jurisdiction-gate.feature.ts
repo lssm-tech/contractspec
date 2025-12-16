@@ -7,7 +7,7 @@ export const LocaleJurisdictionGateFeature: FeatureModuleSpec = {
     description:
       'Fail-closed gating for assistant calls requiring locale/jurisdiction/snapshot/scope and citations.',
     domain: 'knowledge',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['assistant', 'policy', 'locale', 'jurisdiction', 'knowledge'],
     stability: 'experimental',
   },

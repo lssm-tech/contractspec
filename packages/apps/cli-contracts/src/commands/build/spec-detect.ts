@@ -78,7 +78,7 @@ export function extractOperationKind(
   if (/defineCommand\s*\(/.test(specCode)) return 'command';
   if (/defineQuery\s*\(/.test(specCode)) return 'query';
   // Fall back to explicit kind field
-  const match = specCode.match(/kind\s*:\s*['\"](command|query)['\"]/)
+  const match = specCode.match(/kind\s*:\s*['\"](command|query)['\"]/);
   return match ? (match[1] as 'command' | 'query') : null;
 }
 

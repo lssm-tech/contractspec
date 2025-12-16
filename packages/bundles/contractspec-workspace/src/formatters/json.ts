@@ -58,7 +58,7 @@ export interface JsonFullOutput {
     commitSha?: string;
     branch?: string;
   };
-  categories: Array<{
+  categories: {
     category: string;
     label: string;
     passed: boolean;
@@ -66,8 +66,8 @@ export interface JsonFullOutput {
     warnings: number;
     notes: number;
     durationMs: number;
-  }>;
-  issues: Array<{
+  }[];
+  issues: {
     ruleId: string;
     severity: string;
     message: string;
@@ -78,7 +78,7 @@ export interface JsonFullOutput {
     endLine?: number;
     endColumn?: number;
     context?: Record<string, unknown>;
-  }>;
+  }[];
 }
 
 /**
@@ -157,4 +157,3 @@ export function formatAsJson(
 
   return pretty ? JSON.stringify(output, null, 2) : JSON.stringify(output);
 }
-

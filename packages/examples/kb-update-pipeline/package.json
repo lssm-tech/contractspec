@@ -19,6 +19,7 @@
     "./feature": "./src/feature.ts",
     "./handlers": "./src/handlers/index.ts",
     "./handlers/memory.handlers": "./src/handlers/memory.handlers.ts",
+    "./kb-update-pipeline.feature": "./src/kb-update-pipeline.feature.ts",
     "./*": "./*"
   },
   "scripts": {
@@ -60,6 +61,7 @@
       "./feature": "./dist/feature.js",
       "./handlers": "./dist/handlers/index.js",
       "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
+      "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
       "./*": "./*"
     }
   }

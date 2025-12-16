@@ -12,6 +12,7 @@
     "./docs/crm-onboarding.docblock": "./src/docs/crm-onboarding.docblock.ts",
     "./example": "./src/example.ts",
     "./handlers/demo.handlers": "./src/handlers/demo.handlers.ts",
+    "./learning-journey-crm-onboarding.feature": "./src/learning-journey-crm-onboarding.feature.ts",
     "./presentations": "./src/presentations/index.ts",
     "./track": "./src/track.ts",
     "./*": "./*"
@@ -47,6 +48,7 @@
       "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
       "./example": "./dist/example.js",
       "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
+      "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
       "./presentations": "./dist/presentations/index.js",
       "./track": "./dist/track.js",
       "./*": "./*"

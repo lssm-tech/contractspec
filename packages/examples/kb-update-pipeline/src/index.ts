@@ -7,7 +7,7 @@ export * from './entities';
 export * from './contracts';
 export * from './events';
 export * from './handlers';
-export * from './feature';
+export * from './kb-update-pipeline.feature';
 export { default as example } from './example';
 
 import './docs';

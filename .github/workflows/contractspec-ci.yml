@@ -1,0 +1,59 @@
+name: ContractSpec CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate-contracts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # Required for SARIF upload
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build ContractSpec CLI
+        run: bun run build --filter=@lssm/app.cli-contracts
+
+      - name: Run ContractSpec CI checks
+        id: ci-checks
+        run: |
+          # Generate SARIF for GitHub Code Scanning
+          npx contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
+          
+          # Print human-readable summary
+          npx contractspec ci --format text --skip doctor
+        continue-on-error: true
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: contractspec-results.sarif
+          category: contractspec
+        continue-on-error: true
+
+      - name: Upload results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contractspec-results
+          path: contractspec-results.sarif
+          retention-days: 30
+        continue-on-error: true
+
+      - name: Check CI result
+        run: npx contractspec ci --format json --skip doctor | jq -e '.success'
+

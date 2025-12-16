@@ -65,6 +65,9 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     { name: 'agent.run.completed', version: 1 },
     { name: 'agent.run.failed', version: 1 },
     { name: 'agent.run.cancelled', version: 1 },
+    { name: 'agent.run.toolInvoked', version: 1 },
+    { name: 'agent.run.toolCompleted', version: 1 },
+    { name: 'agent.run.messageGenerated', version: 1 },
   ],
 
   // Presentations associated with this feature

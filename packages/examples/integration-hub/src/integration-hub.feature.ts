@@ -33,6 +33,7 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
     { name: 'integration.sync.completed', version: 1 },
     { name: 'integration.sync.failed', version: 1 },
     { name: 'integration.record.synced', version: 1 },
+    { name: 'integration.fieldMapping.added', version: 1 },
   ],
 
   presentations: [

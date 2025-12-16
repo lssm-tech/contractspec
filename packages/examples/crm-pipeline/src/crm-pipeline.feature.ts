@@ -38,6 +38,12 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
     { name: 'deal.moved', version: 1 },
     { name: 'deal.won', version: 1 },
     { name: 'deal.lost', version: 1 },
+
+    // Contact events
+    { name: 'contact.created', version: 1 },
+
+    // Task events
+    { name: 'task.completed', version: 1 },
   ],
 
   // Presentations associated with this feature

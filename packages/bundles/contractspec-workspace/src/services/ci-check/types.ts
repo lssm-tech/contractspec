@@ -156,4 +156,3 @@ export interface CIFormatOptions {
   /** Repository URI for SARIF output. */
   repositoryUri?: string;
 }
-

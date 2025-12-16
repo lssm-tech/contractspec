@@ -43,6 +43,7 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
     { name: 'project.created', version: 1 },
     { name: 'project.updated', version: 1 },
     { name: 'project.deleted', version: 1 },
+    { name: 'project.archived', version: 1 },
 
     // Billing events
     { name: 'billing.usage.recorded', version: 1 },
