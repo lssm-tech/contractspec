@@ -37,5 +37,3 @@ export const ReviewRespondedEvent = defineEvent({
   description: 'A seller has responded to a review.',
   payload: ReviewRespondedPayload,
 });
-
-

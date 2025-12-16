@@ -1,5 +1,8 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { ProjectStatusSchemaEnum, ProjectStatusFilterEnum } from './project.enum';
+import {
+  ProjectStatusSchemaEnum,
+  ProjectStatusFilterEnum,
+} from './project.enum';
 
 /**
  * A project within an organization.
@@ -142,4 +145,3 @@ export const ListProjectsOutputModel = defineSchemaModel({
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
-

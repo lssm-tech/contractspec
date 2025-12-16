@@ -20,5 +20,3 @@ export const mockDataStore = {
     { id: string; instanceId: string; stepId: string; status: string }
   >(),
 };
-
-

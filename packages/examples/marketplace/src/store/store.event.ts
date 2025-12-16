@@ -39,5 +39,3 @@ export const StoreStatusChangedEvent = defineEvent({
   description: 'A store status has changed.',
   payload: StoreStatusChangedPayload,
 });
-
-

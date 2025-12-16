@@ -48,7 +48,3 @@ export const emitAllPlatformTourEvents = (
   record?: RecordEvent
 ) =>
   platformTourEvents.map((name) => emitPlatformTourEvent(name, params, record));
-
-
-
-

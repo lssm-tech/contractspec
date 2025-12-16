@@ -11,7 +11,10 @@ import {
   type IntegrityAnalysisResult,
   type SpecLocation,
 } from '@lssm/bundle.contractspec-workspace';
-import type { FeatureScanResult, RefInfo } from '@lssm/module.contractspec-workspace';
+import type {
+  FeatureScanResult,
+  RefInfo,
+} from '@lssm/module.contractspec-workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 type FeatureExplorerNode =
@@ -58,9 +61,7 @@ interface CapabilityRefNode {
 /**
  * TreeView provider for feature exploration.
  */
-export class FeatureExplorerProvider
-  implements vscode.TreeDataProvider<FeatureExplorerNode>
-{
+export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureExplorerNode> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
     FeatureExplorerNode | undefined
   >();
@@ -401,4 +402,3 @@ export function registerFeatureExplorer(
 
   return provider;
 }
-

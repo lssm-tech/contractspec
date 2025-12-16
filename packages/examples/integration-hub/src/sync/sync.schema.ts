@@ -1,5 +1,9 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { SyncDirectionEnum, SyncStatusEnum, MappingTypeEnum } from './sync.enum';
+import {
+  SyncDirectionEnum,
+  SyncStatusEnum,
+  MappingTypeEnum,
+} from './sync.enum';
 
 /**
  * A field mapping configuration.
@@ -152,5 +156,3 @@ export const ListSyncRunsOutputModel = defineSchemaModel({
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
-
-

@@ -1,5 +1,9 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { JobModel, ScheduleJobInputModel, CompleteJobInputModel } from './job.schema';
+import {
+  JobModel,
+  ScheduleJobInputModel,
+  CompleteJobInputModel,
+} from './job.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;
 
@@ -44,7 +48,3 @@ export const CompleteJobContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

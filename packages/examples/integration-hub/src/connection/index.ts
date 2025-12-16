@@ -3,7 +3,8 @@
  */
 
 export { ConnectionStatusEnum } from './connection.enum';
-export { ConnectionModel, CreateConnectionInputModel } from './connection.schema';
+export {
+  ConnectionModel,
+  CreateConnectionInputModel,
+} from './connection.schema';
 export { CreateConnectionContract } from './connection.contracts';
-
-

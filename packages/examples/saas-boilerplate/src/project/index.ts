@@ -64,4 +64,3 @@ export {
   type ListProjectsInput,
   type ListProjectsOutput,
 } from './project.handler';
-

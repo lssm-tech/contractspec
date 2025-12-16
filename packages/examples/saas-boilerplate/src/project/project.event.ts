@@ -106,4 +106,3 @@ export const ProjectArchivedEvent = defineEvent({
   description: 'A project has been archived.',
   payload: ProjectArchivedPayload,
 });
-

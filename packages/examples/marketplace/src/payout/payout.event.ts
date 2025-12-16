@@ -42,5 +42,3 @@ export const PayoutPaidEvent = defineEvent({
   description: 'A payout has been sent.',
   payload: PayoutPaidPayload,
 });
-
-

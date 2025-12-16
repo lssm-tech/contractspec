@@ -6,5 +6,3 @@ export function registerMcpLocalPrompts(reg: PromptRegistry): void {
   reg.register(integrityFixPrompt());
   reg.register(specsCreatePrompt());
 }
-
-

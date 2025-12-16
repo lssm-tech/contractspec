@@ -23,5 +23,3 @@ export const ApprovalDecisionEnum = defineEnum('ApprovalDecision', [
   'DELEGATE',
   'ABSTAIN',
 ]);
-
-

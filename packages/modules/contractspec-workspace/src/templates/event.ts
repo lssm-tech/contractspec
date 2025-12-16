@@ -41,7 +41,3 @@ export const ${eventVarName} = defineEvent({
 });
 `;
 }
-
-
-
-

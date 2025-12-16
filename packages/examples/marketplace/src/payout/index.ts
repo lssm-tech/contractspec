@@ -10,4 +10,3 @@ export {
 } from './payout.schema';
 export { ListPayoutsContract } from './payout.contracts';
 export { PayoutCreatedEvent, PayoutPaidEvent } from './payout.event';
-

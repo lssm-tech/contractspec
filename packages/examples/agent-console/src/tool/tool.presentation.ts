@@ -8,7 +8,8 @@ export const ToolListPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.tool.list',
     version: 1,
-    description: 'List view of AI tools with category, status, and version info',
+    description:
+      'List view of AI tools with category, status, and version info',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['tool', 'list', 'dashboard'],
@@ -30,7 +31,8 @@ export const ToolDetailPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.tool.detail',
     version: 1,
-    description: 'Detailed view of an AI tool with configuration and test panel',
+    description:
+      'Detailed view of an AI tool with configuration and test panel',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['tool', 'detail'],
@@ -43,5 +45,3 @@ export const ToolDetailPresentation: PresentationDescriptorV2 = {
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
 };
-
-

@@ -1,5 +1,8 @@
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { SubscriptionStatusSchemaEnum, FeatureAccessReasonEnum } from './billing.enum';
+import {
+  SubscriptionStatusSchemaEnum,
+  FeatureAccessReasonEnum,
+} from './billing.enum';
 
 /**
  * Organization subscription details schema.
@@ -128,4 +131,3 @@ export const CheckFeatureAccessOutputModel = defineSchemaModel({
     upgradeUrl: { type: ScalarTypeEnum.URL(), isOptional: true },
   },
 });
-

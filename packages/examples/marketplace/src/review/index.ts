@@ -11,4 +11,3 @@ export {
 } from './review.schema';
 export { CreateReviewContract, ListReviewsContract } from './review.contracts';
 export { ReviewCreatedEvent, ReviewRespondedEvent } from './review.event';
-

@@ -104,7 +104,3 @@ export async function analyzeSpecDependencies(
     outputChannel.appendLine(`\n❌ Error: ${message}`);
   }
 }
-
-
-
-

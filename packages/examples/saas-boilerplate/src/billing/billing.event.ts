@@ -91,4 +91,3 @@ export const SubscriptionChangedEvent = defineEvent({
   description: 'Subscription status has changed.',
   payload: SubscriptionChangedPayload,
 });
-

@@ -3,7 +3,11 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
 import { generateCursorMcpConfig } from '../config-generators';
 import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
@@ -85,6 +89,3 @@ export async function setupMcpCursor(
     };
   }
 }
-
-
-

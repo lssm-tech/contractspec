@@ -100,7 +100,3 @@ export function enforceAllowedScope(
   }
   return { ok: true, value: answer };
 }
-
-
-
-

@@ -7,4 +7,3 @@ export { SettingsScopeEnum } from './settings.enum';
 
 // Entities
 export { SettingsEntity, FeatureFlagEntity } from './settings.entity';
-

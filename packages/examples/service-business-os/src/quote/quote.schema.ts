@@ -49,7 +49,3 @@ export const AcceptQuoteInputModel = defineSchemaModel({
     notes: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-
-
-

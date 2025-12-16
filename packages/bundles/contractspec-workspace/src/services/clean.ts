@@ -102,7 +102,3 @@ export async function cleanArtifacts(
 
   return { removed, skipped };
 }
-
-
-
-

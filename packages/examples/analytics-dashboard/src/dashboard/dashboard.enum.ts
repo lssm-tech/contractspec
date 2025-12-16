@@ -38,5 +38,3 @@ export const RefreshIntervalEnum = defineEnum('RefreshInterval', [
   'HOUR',
   'DAY',
 ]);
-
-

@@ -31,7 +31,3 @@ export const PostAnnouncementInputModel = defineSchemaModel({
     expiresAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
 });
-
-
-
-

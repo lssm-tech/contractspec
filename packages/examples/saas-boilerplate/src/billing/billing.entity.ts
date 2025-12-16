@@ -151,4 +151,3 @@ export const UsageLimitEntity = defineEntity({
   },
   indexes: [index.unique(['planId', 'feature'])],
 });
-

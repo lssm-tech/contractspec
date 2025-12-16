@@ -44,7 +44,3 @@ export const UpdateTaskStatusInputModel = defineSchemaModel({
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
-
-
-
-

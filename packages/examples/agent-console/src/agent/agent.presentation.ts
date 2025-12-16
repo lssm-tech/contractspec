@@ -8,7 +8,8 @@ export const AgentListPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.agent.list',
     version: 1,
-    description: 'List view of AI agents with status, model provider, and version info',
+    description:
+      'List view of AI agents with status, model provider, and version info',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['agent', 'list', 'dashboard'],
@@ -30,7 +31,8 @@ export const AgentDetailPresentation: PresentationDescriptorV2 = {
   meta: {
     name: 'agent-console.agent.detail',
     version: 1,
-    description: 'Detailed view of an AI agent with configuration, tools, and recent runs',
+    description:
+      'Detailed view of an AI agent with configuration, tools, and recent runs',
     domain: 'agent-console',
     owners: ['agent-console-team'],
     tags: ['agent', 'detail'],
@@ -64,4 +66,3 @@ export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
 };
-

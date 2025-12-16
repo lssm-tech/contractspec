@@ -153,5 +153,3 @@ export const InstanceTimedOutEvent = defineEvent({
   description: 'A workflow instance has timed out.',
   payload: InstanceEventPayload,
 });
-
-

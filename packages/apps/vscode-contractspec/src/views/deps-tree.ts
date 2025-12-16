@@ -19,7 +19,7 @@ export class DependenciesTreeDataProvider implements vscode.TreeDataProvider<Dep
   >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
-  private dependencyGraph: Map<string, DependencyNode> = new Map();
+  private dependencyGraph = new Map<string, DependencyNode>();
   private circularDeps: string[][] = [];
 
   constructor() {

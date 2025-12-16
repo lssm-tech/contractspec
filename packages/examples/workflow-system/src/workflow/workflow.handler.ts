@@ -119,5 +119,3 @@ export async function handlePublishWorkflow(
 
   return workflow;
 }
-
-

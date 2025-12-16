@@ -41,5 +41,3 @@ export const GranularityEnum = defineEnum('Granularity', [
   'week',
   'month',
 ]);
-
-

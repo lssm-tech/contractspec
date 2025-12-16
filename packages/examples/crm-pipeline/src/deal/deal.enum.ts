@@ -19,5 +19,3 @@ export const DealStatusFilterEnum = defineEnum('DealStatusFilter', [
   'LOST',
   'all',
 ]);
-
-

@@ -136,5 +136,3 @@ export const AddStepInputModel = defineSchemaModel({
     slaSeconds: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
   },
 });
-
-

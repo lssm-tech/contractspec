@@ -106,5 +106,3 @@ export const OrderCompletedEvent = defineEvent({
   description: 'An order has been completed.',
   payload: OrderCompletedPayload,
 });
-
-

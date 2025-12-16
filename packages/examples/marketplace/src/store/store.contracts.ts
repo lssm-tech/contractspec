@@ -31,5 +31,3 @@ export const CreateStoreContract = defineCommand({
     audit: ['marketplace.store.created'],
   },
 });
-
-

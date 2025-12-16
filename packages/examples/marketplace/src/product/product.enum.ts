@@ -11,5 +11,3 @@ export const ProductStatusEnum = defineEnum('ProductStatus', [
   'DISCONTINUED',
   'REJECTED',
 ]);
-
-

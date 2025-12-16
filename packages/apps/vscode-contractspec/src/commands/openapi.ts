@@ -1,6 +1,6 @@
 /**
  * OpenAPI export command for ContractSpec extension.
- * 
+ *
  * Exports specs to OpenAPI 3.1 specification.
  */
 
@@ -25,12 +25,15 @@ export async function exportToOpenApi(
 
   try {
     // Ask for output location
-    const defaultPath = path.join(workspaceFolders[0].uri.fsPath, 'openapi.json');
+    const defaultPath = path.join(
+      workspaceFolders[0].uri.fsPath,
+      'openapi.json'
+    );
     const uri = await vscode.window.showSaveDialog({
       defaultUri: vscode.Uri.file(defaultPath),
       filters: {
-        'JSON': ['json'],
-        'YAML': ['yaml', 'yml'],
+        JSON: ['json'],
+        YAML: ['yaml', 'yml'],
       },
       saveLabel: 'Export OpenAPI',
     });
@@ -87,7 +90,10 @@ export async function exportToOpenApi(
 
         // Note: We need to load the registry from the workspace
         // For now, show a message that this requires a registry file
-        const registryPath = await findRegistryFile(adapters, workspaceFolders[0].uri.fsPath);
+        const registryPath = await findRegistryFile(
+          adapters,
+          workspaceFolders[0].uri.fsPath
+        );
 
         if (!registryPath) {
           vscode.window.showWarningMessage(
@@ -130,15 +136,20 @@ export async function exportToOpenApi(
           });
 
           // Write to file
-          const isYaml = outputPath.endsWith('.yaml') || outputPath.endsWith('.yml');
+          const isYaml =
+            outputPath.endsWith('.yaml') || outputPath.endsWith('.yml');
           const content = isYaml
             ? convertToYaml(doc)
             : JSON.stringify(doc, null, 2);
 
           await adapters.fs.writeFile(outputPath, content);
 
-          outputChannel.appendLine(`✅ OpenAPI document written to: ${outputPath}`);
-          vscode.window.showInformationMessage(`OpenAPI exported to ${path.basename(outputPath)}`);
+          outputChannel.appendLine(
+            `✅ OpenAPI document written to: ${outputPath}`
+          );
+          vscode.window.showInformationMessage(
+            `OpenAPI exported to ${path.basename(outputPath)}`
+          );
 
           // Ask to open file
           const open = await vscode.window.showInformationMessage(
@@ -152,7 +163,8 @@ export async function exportToOpenApi(
             await vscode.window.showTextDocument(doc);
           }
         } catch (error) {
-          const message = error instanceof Error ? error.message : String(error);
+          const message =
+            error instanceof Error ? error.message : String(error);
           throw new Error(`Failed to generate OpenAPI: ${message}`);
         }
       }
@@ -223,4 +235,3 @@ function convertToYaml(obj: any, indent = 0): string {
 
   return yaml;
 }
-

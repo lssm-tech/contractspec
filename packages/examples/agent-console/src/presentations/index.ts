@@ -24,4 +24,3 @@ export {
 } from '../tool/tool.presentation';
 // Alias: ToolRegistryPresentation -> ToolListPresentation (for backward compatibility)
 export { ToolListPresentation as ToolRegistryPresentation } from '../tool/tool.presentation';
-

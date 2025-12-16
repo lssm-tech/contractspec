@@ -3,7 +3,12 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { CheckResult, CheckContext, DoctorPromptCallbacks, FixResult } from '../types';
+import type {
+  CheckResult,
+  CheckContext,
+  DoctorPromptCallbacks,
+  FixResult,
+} from '../types';
 
 /**
  * Run AI provider-related health checks.
@@ -162,7 +167,8 @@ async function checkApiKey(
                   message: `Added ${envVar} to .env (restart required)`,
                 };
               } catch (error) {
-                const msg = error instanceof Error ? error.message : String(error);
+                const msg =
+                  error instanceof Error ? error.message : String(error);
                 return { success: false, message: `Failed: ${msg}` };
               }
             },
@@ -178,4 +184,3 @@ async function checkApiKey(
     };
   }
 }
-

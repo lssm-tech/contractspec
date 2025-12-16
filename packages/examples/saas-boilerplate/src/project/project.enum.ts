@@ -20,4 +20,3 @@ export const ProjectStatusFilterEnum = defineEnum('ProjectStatusFilter', [
   'ARCHIVED',
   'all',
 ]);
-

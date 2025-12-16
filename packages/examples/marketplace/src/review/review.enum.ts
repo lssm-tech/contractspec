@@ -9,5 +9,3 @@ export const ReviewStatusEnum = defineEnum('ReviewStatus', [
   'REJECTED',
   'FLAGGED',
 ]);
-
-

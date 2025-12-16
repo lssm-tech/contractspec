@@ -86,4 +86,3 @@ export const ProjectMemberEntity = defineEntity({
   },
   indexes: [index.unique(['projectId', 'userId'])],
 });
-

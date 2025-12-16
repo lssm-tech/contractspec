@@ -80,7 +80,3 @@ export const KbSnapshotPublishedEvent = defineEvent({
   description: 'KB snapshot published.',
   payload: KbSnapshotPublishedPayload,
 });
-
-
-
-

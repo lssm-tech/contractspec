@@ -22,4 +22,3 @@ main().catch((error: unknown) => {
   process.stderr.write(`Fatal error: ${message}\n`);
   process.exit(1);
 });
-

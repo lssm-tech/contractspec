@@ -54,5 +54,3 @@ export const ExecuteQueryContract = defineQuery({
   io: { input: ExecuteQueryInputModel, output: QueryResultModel },
   policy: { auth: 'user' },
 });
-
-

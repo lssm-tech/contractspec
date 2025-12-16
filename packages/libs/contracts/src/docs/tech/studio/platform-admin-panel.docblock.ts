@@ -78,7 +78,3 @@ The platform-admin GraphQL operations are guarded by the active org type and inc
 ];
 
 registerDocBlocks(tech_studio_platform_admin_panel_DocBlocks);
-
-
-
-

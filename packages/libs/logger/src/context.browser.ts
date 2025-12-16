@@ -137,7 +137,3 @@ export class LogContext {
     return `log-${LogContext.fallbackCounter}`;
   }
 }
-
-
-
-

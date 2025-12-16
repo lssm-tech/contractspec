@@ -79,7 +79,3 @@ Learning journey progress lives in the \`lssm_learning\` schema:
 ];
 
 registerDocBlocks(tech_studio_learning_journeys_DocBlocks);
-
-
-
-

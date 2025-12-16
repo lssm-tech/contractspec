@@ -36,5 +36,3 @@ export {
   InstanceFailedEvent,
   InstanceTimedOutEvent,
 } from './instance.event';
-
-

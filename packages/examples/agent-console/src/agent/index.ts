@@ -3,7 +3,11 @@
  */
 
 // Enums
-export { AgentStatusEnum, ModelProviderEnum, ToolChoiceEnum } from './agent.enum';
+export {
+  AgentStatusEnum,
+  ModelProviderEnum,
+  ToolChoiceEnum,
+} from './agent.enum';
 
 // Schema models
 export {
@@ -61,5 +65,3 @@ export {
   type AgentToolRef,
   type AgentWithTools,
 } from './agent.handler';
-
-

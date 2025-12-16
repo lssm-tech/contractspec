@@ -30,5 +30,3 @@ export const ImplementationTypeEnum = defineEnum('ImplementationType', [
   'function',
   'workflow',
 ]);
-
-

@@ -45,7 +45,3 @@ export const LogRitualOccurrenceInputModel = defineSchemaModel({
     summary: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-
-
-

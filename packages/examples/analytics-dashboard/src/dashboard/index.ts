@@ -24,5 +24,3 @@ export {
   ListDashboardsContract,
   GetDashboardContract,
 } from './dashboard.contracts';
-
-

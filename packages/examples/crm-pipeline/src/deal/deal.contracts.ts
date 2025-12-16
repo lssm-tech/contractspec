@@ -172,5 +172,3 @@ export const ListDealsContract = defineQuery({
     auth: 'user',
   },
 });
-
-

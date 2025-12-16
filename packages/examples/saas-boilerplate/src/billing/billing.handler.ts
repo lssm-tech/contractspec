@@ -135,4 +135,3 @@ export async function mockCheckFeatureAccessHandler(
 
   return featureMap[feature] ?? { allowed: true };
 }
-

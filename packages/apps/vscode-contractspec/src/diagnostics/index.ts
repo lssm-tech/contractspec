@@ -306,7 +306,7 @@ export function addIntegrityDiagnosticsForDocument(
 
     // Check for unresolved refs in this feature
     const checkRefs = (
-      refs: Array<{ name: string; version: number }>,
+      refs: { name: string; version: number }[],
       inventory: Map<string, unknown>,
       refType: string
     ) => {

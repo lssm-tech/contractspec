@@ -35,7 +35,3 @@ export const IssueInvoiceInputModel = defineSchemaModel({
     lineItems: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
-
-
-
-

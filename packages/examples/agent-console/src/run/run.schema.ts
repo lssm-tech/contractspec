@@ -29,7 +29,11 @@ export const RunStepModel = defineSchemaModel({
     output: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
     status: { type: RunStatusEnum, isOptional: false },
     errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    tokensUsed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
+    tokensUsed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
@@ -64,7 +68,10 @@ export const RunAgentRefModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    modelProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    modelProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     modelName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -77,7 +84,10 @@ export const RunModel = defineSchemaModel({
   description: 'Agent execution instance',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -86,12 +96,31 @@ export const RunModel = defineSchemaModel({
     status: { type: RunStatusEnum, isOptional: false },
     errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     errorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    promptTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    completionTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
-    totalIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false, defaultValue: 0 },
+    totalTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    promptTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    completionTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
+    totalIterations: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+      defaultValue: 0,
+    },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    estimatedCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    estimatedCostUsd: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     queuedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
@@ -115,7 +144,10 @@ export const RunSummaryModel = defineSchemaModel({
     status: { type: RunStatusEnum, isOptional: false },
     totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-    estimatedCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    estimatedCostUsd: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     queuedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
@@ -135,5 +167,3 @@ export const TimelineDataPointModel = defineSchemaModel({
     avgDurationMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
   },
 });
-
-

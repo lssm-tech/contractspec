@@ -103,5 +103,3 @@ export interface HandlerContext {
   userRoles: string[];
   organizationId: string;
 }
-
-

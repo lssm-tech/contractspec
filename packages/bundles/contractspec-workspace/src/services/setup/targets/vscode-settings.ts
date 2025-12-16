@@ -3,7 +3,11 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
 import { generateVscodeSettings } from '../config-generators';
 import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
@@ -20,9 +24,10 @@ export async function setupVscodeSettings(
 ): Promise<SetupFileResult> {
   // VS Code settings typically stay at workspace root
   // but can be at package root if specifically requested
-  const targetRoot = options.isMonorepo && options.scope === 'package'
-    ? options.packageRoot ?? options.workspaceRoot
-    : options.workspaceRoot;
+  const targetRoot =
+    options.isMonorepo && options.scope === 'package'
+      ? (options.packageRoot ?? options.workspaceRoot)
+      : options.workspaceRoot;
 
   const dirPath = fs.join(targetRoot, '.vscode');
   const filePath = fs.join(dirPath, 'settings.json');
@@ -94,5 +99,3 @@ export async function setupVscodeSettings(
     };
   }
 }
-
-

@@ -64,5 +64,3 @@ export const UpdateOrderStatusContract = defineCommand({
     audit: ['marketplace.order.statusUpdated'],
   },
 });
-
-

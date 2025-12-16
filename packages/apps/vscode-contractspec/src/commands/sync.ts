@@ -1,12 +1,20 @@
 /**
  * Sync command for ContractSpec extension.
- * 
+ *
  * Synchronizes all specs by building discovered specifications.
  */
 
 import * as vscode from 'vscode';
-import { getWorkspaceAdapters, getWorkspaceConfig } from '../workspace/adapters';
-import { syncSpecs, validateSpec, buildSpec, listSpecs } from '@lssm/bundle.contractspec-workspace';
+import {
+  getWorkspaceAdapters,
+  getWorkspaceConfig,
+} from '../workspace/adapters';
+import {
+  syncSpecs,
+  validateSpec,
+  buildSpec,
+  listSpecs,
+} from '@lssm/bundle.contractspec-workspace';
 
 /**
  * Sync all specs in the workspace.
@@ -67,7 +75,7 @@ export async function syncAllSpecs(
 
           progress.report({
             message: `[${i + 1}/${specs.length}] ${fileName}`,
-            increment: (100 / specs.length),
+            increment: 100 / specs.length,
           });
 
           outputChannel.appendLine(`\n📋 ${spec.filePath}`);
@@ -78,7 +86,9 @@ export async function syncAllSpecs(
               const validation = await validateSpec(spec.filePath, adapters);
               if (!validation.valid) {
                 failureCount++;
-                outputChannel.appendLine(`  ❌ Validation failed: ${validation.errors.length} error(s)`);
+                outputChannel.appendLine(
+                  `  ❌ Validation failed: ${validation.errors.length} error(s)`
+                );
                 for (const error of validation.errors) {
                   outputChannel.appendLine(`    • ${error}`);
                 }
@@ -88,18 +98,32 @@ export async function syncAllSpecs(
             }
 
             // Build
-            const buildResult = await buildSpec(spec.filePath, adapters, config, {
-              targets: spec.specType === 'operation' ? ['handler'] : spec.specType === 'presentation' ? ['component'] : [],
-              overwrite: false,
-            });
+            const buildResult = await buildSpec(
+              spec.filePath,
+              adapters,
+              config,
+              {
+                targets:
+                  spec.specType === 'operation'
+                    ? ['handler']
+                    : spec.specType === 'presentation'
+                      ? ['component']
+                      : [],
+                overwrite: false,
+              }
+            );
 
             let hasErrors = false;
             for (const targetResult of buildResult.results) {
               if (targetResult.success) {
-                outputChannel.appendLine(`  ✅ Generated: ${targetResult.outputPath}`);
+                outputChannel.appendLine(
+                  `  ✅ Generated: ${targetResult.outputPath}`
+                );
               } else if (!targetResult.skipped) {
                 hasErrors = true;
-                outputChannel.appendLine(`  ❌ Failed ${targetResult.target}: ${targetResult.error}`);
+                outputChannel.appendLine(
+                  `  ❌ Failed ${targetResult.target}: ${targetResult.error}`
+                );
               }
             }
 
@@ -110,7 +134,8 @@ export async function syncAllSpecs(
             }
           } catch (error) {
             failureCount++;
-            const message = error instanceof Error ? error.message : String(error);
+            const message =
+              error instanceof Error ? error.message : String(error);
             outputChannel.appendLine(`  ❌ Error: ${message}`);
           }
         }
@@ -136,4 +161,3 @@ export async function syncAllSpecs(
     outputChannel.appendLine(`\n❌ Error: ${message}`);
   }
 }
-

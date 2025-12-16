@@ -2,9 +2,18 @@
  * deps.analyze tool, exposed as a ContractSpec command.
  */
 
-import { defineCommand, defineSchemaModel, installOp, type SpecRegistry } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineSchemaModel,
+  installOp,
+  type SpecRegistry,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
-import { analyzeDeps, exportGraphAsDot, getGraphStats } from '@lssm/bundle.contractspec-workspace';
+import {
+  analyzeDeps,
+  exportGraphAsDot,
+  getGraphStats,
+} from '@lssm/bundle.contractspec-workspace';
 import type { WorkspaceAdapters } from '../server';
 
 const DepsAnalyzeInput = defineSchemaModel({
@@ -27,7 +36,10 @@ const DepsAnalyzeOutput = defineSchemaModel({
   },
 });
 
-export function registerDepsTools(reg: SpecRegistry, adapters: WorkspaceAdapters): void {
+export function registerDepsTools(
+  reg: SpecRegistry,
+  adapters: WorkspaceAdapters
+): void {
   const cmd = defineCommand({
     meta: {
       name: 'contractspecLocal.depsAnalyze',
@@ -35,7 +47,8 @@ export function registerDepsTools(reg: SpecRegistry, adapters: WorkspaceAdapters
       stability: 'stable',
       owners: ['@contractspec'],
       tags: ['mcp-local', 'deps'],
-      description: 'Analyze ContractSpec dependencies (graph, cycles, missing deps).',
+      description:
+        'Analyze ContractSpec dependencies (graph, cycles, missing deps).',
       goal: 'Help agents understand contract coupling and missing links.',
       context: 'Local MCP tool (stdio).',
     },
@@ -45,7 +58,10 @@ export function registerDepsTools(reg: SpecRegistry, adapters: WorkspaceAdapters
   });
 
   installOp(reg, cmd, async (args) => {
-    const result = await analyzeDeps({ fs: adapters.fs }, { pattern: args.pattern });
+    const result = await analyzeDeps(
+      { fs: adapters.fs },
+      { pattern: args.pattern }
+    );
     const stats = getGraphStats(result.graph);
     const showCycles = args.showCycles ?? true;
     const format = args.format ?? 'json';
@@ -60,5 +76,3 @@ export function registerDepsTools(reg: SpecRegistry, adapters: WorkspaceAdapters
     };
   });
 }
-
-

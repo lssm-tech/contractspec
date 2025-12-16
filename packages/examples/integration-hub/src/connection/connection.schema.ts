@@ -40,5 +40,3 @@ export const CreateConnectionInputModel = defineSchemaModel({
     credentials: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
-
-

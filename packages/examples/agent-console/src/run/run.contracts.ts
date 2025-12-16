@@ -1,7 +1,14 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { RunStatusEnum, LogLevelEnum, GranularityEnum } from './run.enum';
-import { RunInputModel, RunModel, RunSummaryModel, RunStepModel, RunLogModel, TimelineDataPointModel } from './run.schema';
+import {
+  RunInputModel,
+  RunModel,
+  RunSummaryModel,
+  RunStepModel,
+  RunLogModel,
+  TimelineDataPointModel,
+} from './run.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
@@ -28,7 +35,10 @@ export const ExecuteAgentCommand = defineCommand({
         sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         metadata: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
         stream: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-        maxIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+        maxIterations: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+        },
         timeoutMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
       },
     }),
@@ -37,17 +47,37 @@ export const ExecuteAgentCommand = defineCommand({
       fields: {
         runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
         status: { type: RunStatusEnum, isOptional: false },
-        estimatedWaitMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+        estimatedWaitMs: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+        },
       },
     }),
     errors: {
-      AGENT_NOT_FOUND: { description: 'The specified agent does not exist', http: 404, gqlCode: 'AGENT_NOT_FOUND', when: 'Agent ID is invalid' },
-      AGENT_NOT_ACTIVE: { description: 'The specified agent is not active', http: 400, gqlCode: 'AGENT_NOT_ACTIVE', when: 'Agent is in draft/paused/archived state' },
+      AGENT_NOT_FOUND: {
+        description: 'The specified agent does not exist',
+        http: 404,
+        gqlCode: 'AGENT_NOT_FOUND',
+        when: 'Agent ID is invalid',
+      },
+      AGENT_NOT_ACTIVE: {
+        description: 'The specified agent is not active',
+        http: 400,
+        gqlCode: 'AGENT_NOT_ACTIVE',
+        when: 'Agent is in draft/paused/archived state',
+      },
     },
   },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'run.started', version: 1, when: 'Run is queued', payload: RunSummaryModel }],
+    emits: [
+      {
+        name: 'run.started',
+        version: 1,
+        when: 'Run is queued',
+        payload: RunSummaryModel,
+      },
+    ],
     audit: ['run.started'],
   },
 });
@@ -82,13 +112,30 @@ export const CancelRunCommand = defineCommand({
       },
     }),
     errors: {
-      RUN_NOT_FOUND: { description: 'The specified run does not exist', http: 404, gqlCode: 'RUN_NOT_FOUND', when: 'Run ID is invalid' },
-      RUN_NOT_CANCELLABLE: { description: 'The run cannot be cancelled', http: 400, gqlCode: 'RUN_NOT_CANCELLABLE', when: 'Run is already completed/failed/cancelled' },
+      RUN_NOT_FOUND: {
+        description: 'The specified run does not exist',
+        http: 404,
+        gqlCode: 'RUN_NOT_FOUND',
+        when: 'Run ID is invalid',
+      },
+      RUN_NOT_CANCELLABLE: {
+        description: 'The run cannot be cancelled',
+        http: 400,
+        gqlCode: 'RUN_NOT_CANCELLABLE',
+        when: 'Run is already completed/failed/cancelled',
+      },
     },
   },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'run.cancelled', version: 1, when: 'Run is cancelled', payload: RunSummaryModel }],
+    emits: [
+      {
+        name: 'run.cancelled',
+        version: 1,
+        when: 'Run is cancelled',
+        payload: RunSummaryModel,
+      },
+    ],
     audit: ['run.cancelled'],
   },
 });
@@ -117,7 +164,14 @@ export const GetRunQuery = defineQuery({
       },
     }),
     output: RunModel,
-    errors: { RUN_NOT_FOUND: { description: 'The specified run does not exist', http: 404, gqlCode: 'RUN_NOT_FOUND', when: 'Run ID is invalid' } },
+    errors: {
+      RUN_NOT_FOUND: {
+        description: 'The specified run does not exist',
+        http: 404,
+        gqlCode: 'RUN_NOT_FOUND',
+        when: 'Run ID is invalid',
+      },
+    },
   },
   policy: { auth: 'user' },
 });
@@ -140,15 +194,26 @@ export const ListRunsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'ListRunsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: true,
+        },
         agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         sessionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         status: { type: RunStatusEnum, isOptional: true },
         startDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
         endDate: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -178,8 +243,18 @@ export const GetRunStepsQuery = defineQuery({
     context: 'Run details page - steps tab.',
   },
   io: {
-    input: defineSchemaModel({ name: 'GetRunStepsInput', fields: { runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false } } }),
-    output: defineSchemaModel({ name: 'GetRunStepsOutput', fields: { steps: { type: RunStepModel, isArray: true, isOptional: false } } }),
+    input: defineSchemaModel({
+      name: 'GetRunStepsInput',
+      fields: {
+        runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+      },
+    }),
+    output: defineSchemaModel({
+      name: 'GetRunStepsOutput',
+      fields: {
+        steps: { type: RunStepModel, isArray: true, isOptional: false },
+      },
+    }),
   },
   policy: { auth: 'user' },
 });
@@ -205,8 +280,16 @@ export const GetRunLogsQuery = defineQuery({
         runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
         level: { type: LogLevelEnum, isOptional: true },
         stepId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 100 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 100,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -239,28 +322,49 @@ export const GetRunMetricsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'GetRunMetricsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
         startDate: { type: ScalarTypeEnum.DateTime(), isOptional: false },
         endDate: { type: ScalarTypeEnum.DateTime(), isOptional: false },
-        granularity: { type: GranularityEnum, isOptional: true, defaultValue: 'day' },
+        granularity: {
+          type: GranularityEnum,
+          isOptional: true,
+          defaultValue: 'day',
+        },
       },
     }),
     output: defineSchemaModel({
       name: 'GetRunMetricsOutput',
       fields: {
         totalRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        completedRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+        completedRuns: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: false,
+        },
         failedRuns: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
         totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-        totalCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        averageDurationMs: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        successRate: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
-        timeline: { type: TimelineDataPointModel, isArray: true, isOptional: false },
+        totalCostUsd: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        averageDurationMs: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        successRate: {
+          type: ScalarTypeEnum.Float_unsecure(),
+          isOptional: false,
+        },
+        timeline: {
+          type: TimelineDataPointModel,
+          isArray: true,
+          isOptional: false,
+        },
       },
     }),
   },
   policy: { auth: 'user' },
 });
-
-

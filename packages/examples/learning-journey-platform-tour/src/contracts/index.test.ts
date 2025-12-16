@@ -47,7 +47,3 @@ describe('platform tour contracts', () => {
     );
   });
 });
-
-
-
-

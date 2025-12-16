@@ -9,5 +9,3 @@ export const StoreStatusEnum = defineEnum('StoreStatus', [
   'SUSPENDED',
   'CLOSED',
 ]);
-
-

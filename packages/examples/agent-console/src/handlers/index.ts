@@ -25,4 +25,3 @@ export {
   mockListToolsHandler,
   type ToolSummary,
 } from '../tool/tool.handler';
-

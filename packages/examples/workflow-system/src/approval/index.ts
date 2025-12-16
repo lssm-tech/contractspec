@@ -6,10 +6,7 @@
 export { ApprovalStatusEnum, ApprovalDecisionEnum } from './approval.enum';
 
 // Schema models
-export {
-  ApprovalRequestModel,
-  ApprovalCommentModel,
-} from './approval.schema';
+export { ApprovalRequestModel, ApprovalCommentModel } from './approval.schema';
 
 // Contracts
 export {
@@ -27,5 +24,3 @@ export {
   ApprovalDelegatedEvent,
   ApprovalEscalatedEvent,
 } from './approval.event';
-
-

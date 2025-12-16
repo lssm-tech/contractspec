@@ -54,7 +54,9 @@ function checkMonorepoStatus(ctx: CheckContext): CheckResult {
       name: 'Monorepo Detection',
       status: 'pass',
       message: `Monorepo detected${pkgInfo}`,
-      details: ctx.verbose ? `Workspace root: ${ctx.workspaceRoot}${locationInfo}` : undefined,
+      details: ctx.verbose
+        ? `Workspace root: ${ctx.workspaceRoot}${locationInfo}`
+        : undefined,
     };
   }
 
@@ -86,7 +88,8 @@ async function checkValidWorkspace(
         name: 'Valid Workspace',
         status: 'pass',
         message: 'package.json found',
-        details: ctx.verbose && ctx.isMonorepo ? `Found at: ${root}` : undefined,
+        details:
+          ctx.verbose && ctx.isMonorepo ? `Found at: ${root}` : undefined,
       };
     }
   }
@@ -226,7 +229,11 @@ async function checkContractFiles(
 async function findConfigFile(
   fs: FsAdapter,
   ctx: CheckContext
-): Promise<{ path: string; root: string; level: 'package' | 'workspace' } | null> {
+): Promise<{
+  path: string;
+  root: string;
+  level: 'package' | 'workspace';
+} | null> {
   // In monorepo, check package level first
   if (ctx.isMonorepo && ctx.packageRoot !== ctx.workspaceRoot) {
     const pkgConfigPath = fs.join(ctx.packageRoot, '.contractsrc.json');

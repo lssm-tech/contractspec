@@ -117,7 +117,7 @@ export interface FeatureScanResult {
   };
 
   // Op to presentation links
-  opToPresentationLinks: Array<{ op: RefInfo; pres: RefInfo }>;
+  opToPresentationLinks: { op: RefInfo; pres: RefInfo }[];
 }
 
 /**

@@ -57,7 +57,7 @@ function createVscodePrompts(): SetupPromptCallbacks {
     },
     multiSelect: async <T extends string>(
       message: string,
-      options: Array<{ value: T; label: string; selected?: boolean }>
+      options: { value: T; label: string; selected?: boolean }[]
     ): Promise<T[]> => {
       // Special handling for scope selection (single choice)
       if (message.includes('Configure at which level')) {

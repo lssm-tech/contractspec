@@ -20,4 +20,3 @@ export {
   OrderShippedEvent,
   OrderCompletedEvent,
 } from './order.event';
-

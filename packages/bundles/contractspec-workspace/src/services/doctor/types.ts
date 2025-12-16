@@ -141,4 +141,3 @@ export interface CheckContext {
   /** Whether verbose output is enabled. */
   verbose: boolean;
 }
-

@@ -23,7 +23,3 @@ export const CreateSpaceContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

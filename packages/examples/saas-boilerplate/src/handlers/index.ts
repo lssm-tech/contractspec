@@ -18,6 +18,3 @@ export {
   mockUpdateProjectHandler,
   mockDeleteProjectHandler,
 } from '../project/project.handler';
-
-
-

@@ -46,4 +46,3 @@ export const SettingsPanelPresentation: PresentationDescriptorV2 = {
     flags: ['saas.enabled'],
   },
 };
-

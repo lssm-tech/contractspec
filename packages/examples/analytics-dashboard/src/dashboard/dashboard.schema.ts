@@ -117,5 +117,3 @@ export const GetDashboardInputModel = defineSchemaModel({
     shareToken: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-

@@ -1,5 +1,8 @@
 import { defineCommand } from '@lssm/lib.contracts/spec';
-import { ConnectionModel, CreateConnectionInputModel } from './connection.schema';
+import {
+  ConnectionModel,
+  CreateConnectionInputModel,
+} from './connection.schema';
 
 const OWNERS = ['@example.integration-hub'] as const;
 
@@ -31,5 +34,3 @@ export const CreateConnectionContract = defineCommand({
     audit: ['integration.connection.created'],
   },
 });
-
-

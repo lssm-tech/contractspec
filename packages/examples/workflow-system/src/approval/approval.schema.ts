@@ -56,5 +56,3 @@ export const ApprovalCommentModel = defineSchemaModel({
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
-
-

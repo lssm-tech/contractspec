@@ -152,5 +152,3 @@ export const ListDealsOutputModel = defineSchemaModel({
     totalValue: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
   },
 });
-
-

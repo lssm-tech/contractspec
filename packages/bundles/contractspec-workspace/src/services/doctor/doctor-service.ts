@@ -79,16 +79,14 @@ export async function runDoctor(
 
     logger.info(`Checking ${CHECK_CATEGORY_LABELS[category]}...`);
 
-    const categoryResults = await runCategoryChecks(
-      category,
-      fs,
-      ctx,
-      prompts
-    );
+    const categoryResults = await runCategoryChecks(category, fs, ctx, prompts);
 
     // Apply fixes if enabled
     for (const result of categoryResults) {
-      if (result.fix && (result.status === 'fail' || result.status === 'warn')) {
+      if (
+        result.fix &&
+        (result.status === 'fail' || result.status === 'warn')
+      ) {
         const shouldFix = options.autoFix
           ? true
           : await prompts.confirm(
@@ -208,4 +206,3 @@ export function formatCheckResult(result: CheckResult): string {
 
   return line;
 }
-

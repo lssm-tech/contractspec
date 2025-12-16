@@ -9,10 +9,16 @@ const AgentCreatedPayload = defineSchemaModel({
   description: 'Payload for agent created event',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    modelProvider: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    modelProvider: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     modelName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     toolCount: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     createdById: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -38,10 +44,17 @@ const AgentUpdatedPayload = defineSchemaModel({
   description: 'Payload for agent updated event',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    updatedFields: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: false },
+    updatedFields: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: false,
+    },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -105,5 +118,3 @@ export const AgentToolRemovedEvent = defineEvent({
   description: 'A tool was removed from an agent.',
   payload: AgentToolRemovedPayload,
 });
-
-

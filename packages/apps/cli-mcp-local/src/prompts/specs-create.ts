@@ -32,7 +32,11 @@ export function specsCreatePrompt() {
         required: true,
         description: 'Spec name (e.g. users.createUser)',
       },
-      { name: 'version', schema: z.number().optional(), description: 'Defaults to 1' },
+      {
+        name: 'version',
+        schema: z.number().optional(),
+        description: 'Defaults to 1',
+      },
     ],
     input,
     render: async ({ type, name, version }) => {
@@ -47,5 +51,3 @@ export function specsCreatePrompt() {
     },
   });
 }
-
-

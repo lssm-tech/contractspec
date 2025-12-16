@@ -397,7 +397,3 @@ export function connectionStatusLabel(status: ConnectionStatus): string {
       return 'unknown';
   }
 }
-
-
-
-

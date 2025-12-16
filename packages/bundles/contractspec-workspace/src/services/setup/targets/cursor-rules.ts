@@ -3,7 +3,11 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
 import { generateCursorRules } from '../config-generators';
 
 /**
@@ -70,6 +74,3 @@ export async function setupCursorRules(
     };
   }
 }
-
-
-

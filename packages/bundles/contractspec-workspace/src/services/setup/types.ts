@@ -101,10 +101,8 @@ export interface SetupPromptCallbacks {
   /** Select multiple options. */
   multiSelect: <T extends string>(
     message: string,
-    options: Array<{ value: T; label: string; selected?: boolean }>
+    options: { value: T; label: string; selected?: boolean }[]
   ) => Promise<T[]>;
   /** Input a string value. */
   input: (message: string, defaultValue?: string) => Promise<string>;
 }
-
-

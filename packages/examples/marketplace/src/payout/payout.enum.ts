@@ -10,5 +10,3 @@ export const PayoutStatusEnum = defineEnum('PayoutStatus', [
   'FAILED',
   'CANCELLED',
 ]);
-
-

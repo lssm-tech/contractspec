@@ -117,8 +117,7 @@ export const PublishWorkflowContract = defineCommand({
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'publish'],
-    description:
-      'Publish a workflow definition to make it available for use.',
+    description: 'Publish a workflow definition to make it available for use.',
     goal: 'Activate workflow for production use.',
     context: 'Workflow designer, deployment.',
   },
@@ -223,5 +222,3 @@ export const GetWorkflowContract = defineQuery({
   },
   policy: { auth: 'user' },
 });
-
-

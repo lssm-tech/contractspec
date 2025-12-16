@@ -149,7 +149,3 @@ export function openApiForRegistry(
 
   return doc;
 }
-
-
-
-

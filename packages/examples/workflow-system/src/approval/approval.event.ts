@@ -115,5 +115,3 @@ export const ApprovalEscalatedEvent = defineEvent({
   description: 'An approval has been escalated.',
   payload: ApprovalEscalatedPayload,
 });
-
-

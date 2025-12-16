@@ -45,7 +45,3 @@ export const CompleteJobInputModel = defineSchemaModel({
     notes: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-
-
-

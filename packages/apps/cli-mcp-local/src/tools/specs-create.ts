@@ -2,7 +2,12 @@
  * specs.create tool, exposed as a ContractSpec command.
  */
 
-import { defineCommand, defineSchemaModel, installOp, type SpecRegistry } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineSchemaModel,
+  installOp,
+  type SpecRegistry,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
 import type { WorkspaceAdapters } from '../server';
 import { createSpecFile } from './specs-create/create-spec-file';
@@ -18,8 +23,16 @@ const SpecsCreateInput = defineSchemaModel({
     kind: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     domain: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    owners: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
-    tags: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
+    owners: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
     stability: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     overwrite: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     dryRun: { type: ScalarTypeEnum.Boolean(), isOptional: true },
@@ -35,7 +48,10 @@ const SpecsCreateOutput = defineSchemaModel({
   },
 });
 
-export function registerSpecsCreateTool(reg: SpecRegistry, adapters: WorkspaceAdapters): void {
+export function registerSpecsCreateTool(
+  reg: SpecRegistry,
+  adapters: WorkspaceAdapters
+): void {
   const cmd = defineCommand({
     meta: {
       name: 'contractspecLocal.specsCreate',
@@ -43,7 +59,8 @@ export function registerSpecsCreateTool(reg: SpecRegistry, adapters: WorkspaceAd
       stability: 'stable',
       owners: ['@contractspec'],
       tags: ['mcp-local', 'specs', 'create'],
-      description: 'Scaffold a new spec file (operation/event/presentation/feature).',
+      description:
+        'Scaffold a new spec file (operation/event/presentation/feature).',
       goal: 'Create deterministic spec skeletons that agents can refine.',
       context: 'Local MCP tool (stdio).',
     },
@@ -56,5 +73,3 @@ export function registerSpecsCreateTool(reg: SpecRegistry, adapters: WorkspaceAd
     return await createSpecFile(adapters, args);
   });
 }
-
-

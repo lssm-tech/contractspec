@@ -20,5 +20,3 @@ export const ListPayoutsContract = defineQuery({
   io: { input: ListPayoutsInputModel, output: ListPayoutsOutputModel },
   policy: { auth: 'user' },
 });
-
-

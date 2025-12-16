@@ -2,7 +2,11 @@
  * Sync domain - Sync configuration and execution.
  */
 
-export { SyncDirectionEnum, SyncStatusEnum, MappingTypeEnum } from './sync.enum';
+export {
+  SyncDirectionEnum,
+  SyncStatusEnum,
+  MappingTypeEnum,
+} from './sync.enum';
 export {
   FieldMappingModel,
   SyncConfigModel,
@@ -19,5 +23,3 @@ export {
   TriggerSyncContract,
   ListSyncRunsContract,
 } from './sync.contracts';
-
-

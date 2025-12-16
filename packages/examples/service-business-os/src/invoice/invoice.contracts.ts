@@ -23,7 +23,3 @@ export const IssueInvoiceContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

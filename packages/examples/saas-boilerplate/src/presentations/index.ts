@@ -34,6 +34,3 @@ export const SaasBoilerplatePresentations = {
   SaasDashboardPresentation: undefined,
   SettingsPanelPresentation: undefined,
 };
-
-
-

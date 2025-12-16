@@ -9,11 +9,17 @@ const ToolCreatedPayload = defineSchemaModel({
   description: 'Payload for tool created event',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     slug: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     category: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    implementationType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    implementationType: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     createdById: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -37,10 +43,17 @@ const ToolUpdatedPayload = defineSchemaModel({
   description: 'Payload for tool updated event',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    updatedFields: { type: ScalarTypeEnum.String_unsecure(), isArray: true, isOptional: false },
+    updatedFields: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isArray: true,
+      isOptional: false,
+    },
     updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -63,9 +76,15 @@ const ToolStatusChangedPayload = defineSchemaModel({
   description: 'Payload for tool status changed event',
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     changedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -77,8 +96,7 @@ const ToolStatusChangedPayload = defineSchemaModel({
 export const ToolStatusChangedEvent = defineEvent({
   name: 'agent.tool.statusChanged',
   version: 1,
-  description: 'An AI tool status was changed (activated, deprecated, disabled).',
+  description:
+    'An AI tool status was changed (activated, deprecated, disabled).',
   payload: ToolStatusChangedPayload,
 });
-
-

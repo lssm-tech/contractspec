@@ -9,7 +9,10 @@ const RunStartedPayload = defineSchemaModel({
   description: 'Payload for run started event',
   fields: {
     runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     agentName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -37,17 +40,26 @@ const RunCompletedPayload = defineSchemaModel({
   description: 'Payload for run completed event',
   fields: {
     runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     agentName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     output: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
     totalTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     promptTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    completionTokens: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    completionTokens: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     totalIterations: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
-    estimatedCostUsd: { type: ScalarTypeEnum.Float_unsecure(), isOptional: true },
+    estimatedCostUsd: {
+      type: ScalarTypeEnum.Float_unsecure(),
+      isOptional: true,
+    },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -70,7 +82,10 @@ const RunFailedPayload = defineSchemaModel({
   description: 'Payload for run failed event',
   fields: {
     runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     agentName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -101,7 +116,10 @@ const RunCancelledPayload = defineSchemaModel({
   description: 'Payload for run cancelled event',
   fields: {
     runId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    organizationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     agentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     userId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     cancelledBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -207,5 +225,3 @@ export const MessageGeneratedEvent = defineEvent({
   description: 'An agent generated a message during a run.',
   payload: MessageGeneratedPayload,
 });
-
-

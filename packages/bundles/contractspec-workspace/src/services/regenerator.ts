@@ -34,7 +34,3 @@ export function createRegeneratorService(
     batchDurationMs: options.batchDurationMs,
   });
 }
-
-
-
-

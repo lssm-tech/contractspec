@@ -115,5 +115,3 @@ export const ListSyncRunsContract = defineQuery({
   io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
   policy: { auth: 'user' },
 });
-
-

@@ -12,5 +12,3 @@ export {
 } from './query.schema';
 
 export { CreateQueryContract, ExecuteQueryContract } from './query.contracts';
-
-

@@ -21,4 +21,3 @@ export const FeatureAccessReasonEnum = defineEnum('FeatureAccessReason', [
   'limit_reached',
   'not_in_plan',
 ]);
-

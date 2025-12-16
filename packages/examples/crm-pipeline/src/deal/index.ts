@@ -24,5 +24,3 @@ export {
   LoseDealContract,
   ListDealsContract,
 } from './deal.contracts';
-
-

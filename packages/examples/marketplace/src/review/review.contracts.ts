@@ -54,5 +54,3 @@ export const ListReviewsContract = defineQuery({
   io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
   policy: { auth: 'anonymous' },
 });
-
-

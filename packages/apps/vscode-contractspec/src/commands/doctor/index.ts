@@ -195,4 +195,3 @@ export async function runQuickDoctorCheck(
     vscode.window.showErrorMessage(`Quick check failed: ${message}`);
   }
 }
-

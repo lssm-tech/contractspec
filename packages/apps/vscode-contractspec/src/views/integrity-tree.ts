@@ -54,7 +54,7 @@ interface FeatureNode {
 interface SpecGroupNode {
   type: 'spec-group';
   groupType: 'operations' | 'events' | 'presentations' | 'experiments';
-  specs: Array<{ name: string; version: number }>;
+  specs: { name: string; version: number }[];
   feature: FeatureScanResult;
   result: IntegrityAnalysisResult;
 }
@@ -108,9 +108,7 @@ const ISSUE_TYPE_META: Record<IssueType, { label: string; icon: string }> = {
 /**
  * TreeView provider for contract integrity analysis.
  */
-export class IntegrityTreeProvider
-  implements vscode.TreeDataProvider<IntegrityNode>
-{
+export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityNode> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
     IntegrityNode | undefined
   >();
@@ -344,11 +342,20 @@ export class IntegrityTreeProvider
     const healthy = result.healthy;
     const label = healthy ? 'Healthy' : 'Issues Found';
 
-    const item = new vscode.TreeItem(label, vscode.TreeItemCollapsibleState.None);
+    const item = new vscode.TreeItem(
+      label,
+      vscode.TreeItemCollapsibleState.None
+    );
 
     item.iconPath = healthy
-      ? new vscode.ThemeIcon('check', new vscode.ThemeColor('testing.iconPassed'))
-      : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+      ? new vscode.ThemeIcon(
+          'check',
+          new vscode.ThemeColor('testing.iconPassed')
+        )
+      : new vscode.ThemeIcon(
+          'warning',
+          new vscode.ThemeColor('editorWarning.foreground')
+        );
 
     const coverage = result.coverage;
     const coveragePercent =
@@ -392,7 +399,9 @@ export class IntegrityTreeProvider
 
   private createFeatureItem(element: FeatureNode): vscode.TreeItem {
     const { feature, result } = element;
-    const featureIssues = result.issues.filter((i) => i.featureKey === feature.key);
+    const featureIssues = result.issues.filter(
+      (i) => i.featureKey === feature.key
+    );
     const hasErrors = featureIssues.some((i) => i.severity === 'error');
     const hasWarnings = featureIssues.some((i) => i.severity === 'warning');
 
@@ -403,11 +412,20 @@ export class IntegrityTreeProvider
     );
 
     if (hasErrors) {
-      item.iconPath = new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'));
+      item.iconPath = new vscode.ThemeIcon(
+        'error',
+        new vscode.ThemeColor('errorForeground')
+      );
     } else if (hasWarnings) {
-      item.iconPath = new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+      item.iconPath = new vscode.ThemeIcon(
+        'warning',
+        new vscode.ThemeColor('editorWarning.foreground')
+      );
     } else {
-      item.iconPath = new vscode.ThemeIcon('pass', new vscode.ThemeColor('testing.iconPassed'));
+      item.iconPath = new vscode.ThemeIcon(
+        'pass',
+        new vscode.ThemeColor('testing.iconPassed')
+      );
     }
 
     const counts = [
@@ -579,8 +597,12 @@ export class IntegrityTreeProvider
   }
 
   private createIssuesGroupItem(element: IssuesGroupNode): vscode.TreeItem {
-    const errorCount = element.issues.filter((i) => i.severity === 'error').length;
-    const warningCount = element.issues.filter((i) => i.severity === 'warning').length;
+    const errorCount = element.issues.filter(
+      (i) => i.severity === 'error'
+    ).length;
+    const warningCount = element.issues.filter(
+      (i) => i.severity === 'warning'
+    ).length;
 
     const label =
       errorCount > 0
@@ -594,15 +616,23 @@ export class IntegrityTreeProvider
 
     item.iconPath =
       errorCount > 0
-        ? new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'))
-        : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+        ? new vscode.ThemeIcon(
+            'error',
+            new vscode.ThemeColor('errorForeground')
+          )
+        : new vscode.ThemeIcon(
+            'warning',
+            new vscode.ThemeColor('editorWarning.foreground')
+          );
 
     item.contextValue = 'issues-group';
 
     return item;
   }
 
-  private createIssueTypeGroupItem(element: IssueTypeGroupNode): vscode.TreeItem {
+  private createIssueTypeGroupItem(
+    element: IssueTypeGroupNode
+  ): vscode.TreeItem {
     const meta = ISSUE_TYPE_META[element.issueType];
     const label = `${meta.label} (${element.issues.length})`;
 
@@ -634,8 +664,14 @@ export class IntegrityTreeProvider
 
     item.iconPath =
       issue.severity === 'error'
-        ? new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'))
-        : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+        ? new vscode.ThemeIcon(
+            'error',
+            new vscode.ThemeColor('errorForeground')
+          )
+        : new vscode.ThemeIcon(
+            'warning',
+            new vscode.ThemeColor('editorWarning.foreground')
+          );
 
     // Show relevant context in description
     if (issue.specName) {

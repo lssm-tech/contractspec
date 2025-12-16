@@ -76,5 +76,3 @@ export const StepAddedEvent = defineEvent({
   description: 'A step has been added to a workflow definition.',
   payload: StepAddedPayload,
 });
-
-

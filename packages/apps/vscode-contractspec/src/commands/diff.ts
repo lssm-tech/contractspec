@@ -1,6 +1,6 @@
 /**
  * Diff command for ContractSpec extension.
- * 
+ *
  * Compares two spec files and shows differences.
  */
 
@@ -102,7 +102,9 @@ export async function compareSpecFiles(
       );
 
       outputChannel.appendLine(`\n=== Semantic Comparison ===`);
-      outputChannel.appendLine(`Differences found: ${result.differences.length}\n`);
+      outputChannel.appendLine(
+        `Differences found: ${result.differences.length}\n`
+      );
 
       if (result.differences.length === 0) {
         outputChannel.appendLine('✅ No semantic differences found');
@@ -206,7 +208,9 @@ export async function compareWithGit(
     });
 
     outputChannel.appendLine(`Comparing with: ${ref}\n`);
-    outputChannel.appendLine(`Differences found: ${result.differences.length}\n`);
+    outputChannel.appendLine(
+      `Differences found: ${result.differences.length}\n`
+    );
 
     if (result.differences.length === 0) {
       outputChannel.appendLine('✅ No differences from git version');
@@ -273,4 +277,3 @@ function isSpecFile(filePath: string): boolean {
 
   return specExtensions.some((ext) => filePath.endsWith(ext));
 }
-

@@ -3,7 +3,11 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
 import { generateContractsrcConfig } from '../config-generators';
 import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
@@ -18,9 +22,10 @@ export async function setupCliConfig(
   prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
   // Determine target root based on scope
-  const targetRoot = options.isMonorepo && options.scope === 'package'
-    ? options.packageRoot ?? options.workspaceRoot
-    : options.workspaceRoot;
+  const targetRoot =
+    options.isMonorepo && options.scope === 'package'
+      ? (options.packageRoot ?? options.workspaceRoot)
+      : options.workspaceRoot;
 
   const filePath = fs.join(targetRoot, '.contractsrc.json');
 
@@ -85,5 +90,3 @@ export async function setupCliConfig(
     };
   }
 }
-
-

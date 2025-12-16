@@ -36,5 +36,3 @@ export const CreateStoreInputModel = defineSchemaModel({
     currency: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-

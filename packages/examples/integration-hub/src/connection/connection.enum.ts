@@ -10,5 +10,3 @@ export const ConnectionStatusEnum = defineEnum('ConnectionStatus', [
   'ERROR',
   'EXPIRED',
 ]);
-
-

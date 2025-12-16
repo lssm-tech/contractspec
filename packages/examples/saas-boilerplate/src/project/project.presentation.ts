@@ -48,4 +48,3 @@ export const ProjectDetailPresentation: PresentationDescriptorV2 = {
     flags: ['saas.projects.enabled'],
   },
 };
-

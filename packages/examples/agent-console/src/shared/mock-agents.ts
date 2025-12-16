@@ -79,5 +79,3 @@ export const MOCK_AGENTS = [
     updatedAt: new Date('2024-04-01T12:00:00Z'),
   },
 ];
-
-

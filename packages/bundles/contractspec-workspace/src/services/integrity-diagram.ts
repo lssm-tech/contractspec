@@ -140,9 +140,7 @@ function generateFeatureMapDiagram(
     for (const pres of presentations) {
       if (nodeCount >= maxNodes) break;
       const nodeId = sanitizeId(`P_${pres.name}_v${pres.version}`);
-      const label = showVersions
-        ? `${pres.name}.v${pres.version}`
-        : pres.name;
+      const label = showVersions ? `${pres.name}.v${pres.version}` : pres.name;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -211,7 +209,9 @@ function generateOrphansDiagram(
     for (const feature of result.features) {
       if (nodeCount >= maxNodes) break;
       const nodeId = sanitizeId(`F_${feature.key}`);
-      lines.push(`        ${nodeId}["${escapeLabel(feature.title ?? feature.key)}"]`);
+      lines.push(
+        `        ${nodeId}["${escapeLabel(feature.title ?? feature.key)}"]`
+      );
       nodeCount++;
     }
     lines.push('    end');
@@ -222,10 +222,10 @@ function generateOrphansDiagram(
     lines.push('    subgraph orphaned [Orphaned Specs]');
     for (const spec of result.orphanedSpecs) {
       if (nodeCount >= maxNodes) break;
-      const nodeId = sanitizeId(`orphan_${spec.type}_${spec.name}_v${spec.version}`);
-      const label = showVersions
-        ? `${spec.name}.v${spec.version}`
-        : spec.name;
+      const nodeId = sanitizeId(
+        `orphan_${spec.type}_${spec.name}_v${spec.version}`
+      );
+      const label = showVersions ? `${spec.name}.v${spec.version}` : spec.name;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -233,7 +233,7 @@ function generateOrphansDiagram(
   }
 
   // Add linked specs
-  const allLinked: Array<{ type: string; name: string; version: number }> = [];
+  const allLinked: { type: string; name: string; version: number }[] = [];
 
   for (const key of linkedOps) {
     const [name, version] = parseSpecKey(key);
@@ -261,9 +261,7 @@ function generateOrphansDiagram(
     for (const spec of allLinked) {
       if (nodeCount >= maxNodes) break;
       const nodeId = sanitizeId(`${spec.type}_${spec.name}_v${spec.version}`);
-      const label = showVersions
-        ? `${spec.name}.v${spec.version}`
-        : spec.name;
+      const label = showVersions ? `${spec.name}.v${spec.version}` : spec.name;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -310,7 +308,9 @@ function generateDependenciesDiagram(
     if (nodeCount >= maxNodes) break;
 
     const featureId = sanitizeId(`F_${feature.key}`);
-    lines.push(`    ${featureId}["${escapeLabel(feature.title ?? feature.key)}"]`);
+    lines.push(
+      `    ${featureId}["${escapeLabel(feature.title ?? feature.key)}"]`
+    );
     nodeCount++;
 
     // Add operations
@@ -339,9 +339,7 @@ function generateDependenciesDiagram(
     for (const pres of feature.presentations) {
       if (nodeCount >= maxNodes) break;
       const presId = sanitizeId(`P_${pres.name}_v${pres.version}`);
-      const label = showVersions
-        ? `${pres.name}.v${pres.version}`
-        : pres.name;
+      const label = showVersions ? `${pres.name}.v${pres.version}` : pres.name;
       lines.push(`    ${presId}["${escapeLabel(label)}"]`);
       lines.push(`    ${featureId} --> ${presId}`);
       nodeCount++;
@@ -401,9 +399,9 @@ function getReferencedSpecs(
   features: FeatureScanResult[],
   field: 'operations' | 'events' | 'presentations',
   _inventory: SpecInventory
-): Array<{ name: string; version: number }> {
+): { name: string; version: number }[] {
   const seen = new Set<string>();
-  const result: Array<{ name: string; version: number }> = [];
+  const result: { name: string; version: number }[] = [];
 
   for (const feature of features) {
     for (const ref of feature[field]) {
@@ -445,5 +443,3 @@ function escapeLabel(label: string): string {
     .replace(/\{/g, '(')
     .replace(/\}/g, ')');
 }
-
-

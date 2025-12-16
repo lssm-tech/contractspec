@@ -3,7 +3,11 @@
  */
 
 import * as vscode from 'vscode';
-import { SpecsTreeDataProvider, SpecTreeItem, SpecsGroupingMode } from './specs-tree';
+import {
+  SpecsTreeDataProvider,
+  SpecTreeItem,
+  SpecsGroupingMode,
+} from './specs-tree';
 import { DependenciesTreeDataProvider } from './deps-tree';
 import { BuildResultsTreeDataProvider } from './build-results-tree';
 
@@ -120,7 +124,8 @@ function registerSpecContextActions(
           vscode.env.clipboard.writeText(item.data.name);
           vscode.window.showInformationMessage(`Copied: ${item.data.name}`);
         } else if (item.label) {
-          const name = typeof item.label === 'string' ? item.label : item.label.label;
+          const name =
+            typeof item.label === 'string' ? item.label : item.label.label;
           vscode.env.clipboard.writeText(name);
           vscode.window.showInformationMessage(`Copied: ${name}`);
         }
@@ -135,7 +140,9 @@ function registerSpecContextActions(
       (item: SpecTreeItem) => {
         if (item.data && 'filePath' in item.data) {
           vscode.env.clipboard.writeText(item.data.filePath);
-          vscode.window.showInformationMessage(`Copied path: ${item.data.filePath}`);
+          vscode.window.showInformationMessage(
+            `Copied path: ${item.data.filePath}`
+          );
         }
       }
     )
@@ -215,7 +222,7 @@ function registerSpecContextActions(
 
           // Focus the Features view and show a message
           await vscode.commands.executeCommand('contractspec-features.focus');
-          
+
           vscode.window.showInformationMessage(
             `Showing features that reference ${specName}.v${specVersion}. Check the Features view.`
           );

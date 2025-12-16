@@ -252,7 +252,12 @@ export async function linkToFeatureCommand(
 
       if (createNew === 'Create Feature') {
         await createFeatureFromOrphansCommand([
-          { name: specName, version: specVersion, type: specType, file: specFile ?? '' },
+          {
+            name: specName,
+            version: specVersion,
+            type: specType,
+            file: specFile ?? '',
+          },
         ]);
       }
       return;
@@ -322,7 +327,7 @@ export async function linkToFeatureCommand(
  * Create a new feature from orphaned specs.
  */
 export async function createFeatureFromOrphansCommand(
-  orphans: Array<{ name: string; version: number; type: string; file: string }>
+  orphans: { name: string; version: number; type: string; file: string }[]
 ): Promise<void> {
   try {
     // Get feature key from user
@@ -358,7 +363,8 @@ export async function createFeatureFromOrphansCommand(
 
     // Group orphans by type
     const operations = orphans.filter(
-      (o) => o.type === 'operation' || o.type === 'command' || o.type === 'query'
+      (o) =>
+        o.type === 'operation' || o.type === 'command' || o.type === 'query'
     );
     const events = orphans.filter((o) => o.type === 'event');
     const presentations = orphans.filter((o) => o.type === 'presentation');
@@ -444,13 +450,15 @@ function getArrayNameForSpecType(specType: string): string {
 function generateFeatureFileContent(
   key: string,
   title: string,
-  operations: Array<{ name: string; version: number }>,
-  events: Array<{ name: string; version: number }>,
-  presentations: Array<{ name: string; version: number }>,
-  experiments: Array<{ name: string; version: number }>
+  operations: { name: string; version: number }[],
+  events: { name: string; version: number }[],
+  presentations: { name: string; version: number }[],
+  experiments: { name: string; version: number }[]
 ): string {
-  const formatRefs = (refs: Array<{ name: string; version: number }>) =>
-    refs.map((r) => `    { name: '${r.name}', version: ${r.version} },`).join('\n');
+  const formatRefs = (refs: { name: string; version: number }[]) =>
+    refs
+      .map((r) => `    { name: '${r.name}', version: ${r.version} },`)
+      .join('\n');
 
   return `/**
  * ${title} Feature
@@ -537,7 +545,9 @@ export function registerIntegrityCommands(
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'contractspec.linkToFeature',
-      (item: { spec?: { name: string; version: number; type: string; file?: string } }) => {
+      (item: {
+        spec?: { name: string; version: number; type: string; file?: string };
+      }) => {
         if (item?.spec) {
           return linkToFeatureCommand(
             item.spec.name,

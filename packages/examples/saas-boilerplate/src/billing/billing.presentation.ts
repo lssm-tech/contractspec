@@ -46,4 +46,3 @@ export const UsageDashboardPresentation: PresentationDescriptorV2 = {
     flags: ['saas.billing.enabled'],
   },
 };
-

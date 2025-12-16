@@ -313,7 +313,3 @@ export class Logger {
     return LogLevel.INFO;
   }
 }
-
-
-
-

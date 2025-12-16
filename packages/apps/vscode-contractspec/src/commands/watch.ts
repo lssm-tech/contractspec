@@ -1,6 +1,6 @@
 /**
  * Watch command for ContractSpec extension.
- * 
+ *
  * Provides watch mode to auto-rebuild/validate specs on changes.
  */
 
@@ -67,14 +67,17 @@ async function startWatchMode(
       return;
     }
 
-    watchState.validateOnChange = action.value === 'validate' || action.value === 'both';
-    watchState.buildOnChange = action.value === 'build' || action.value === 'both';
+    watchState.validateOnChange =
+      action.value === 'validate' || action.value === 'both';
+    watchState.buildOnChange =
+      action.value === 'build' || action.value === 'both';
 
     const adapters = getWorkspaceAdapters();
 
     // Create watcher
     watchState.watcher = adapters.watcher.watch({
-      pattern: '**/*.{contracts,event,presentation,workflow,data-view,migration,telemetry,experiment,app-config,integration,knowledge}.ts',
+      pattern:
+        '**/*.{contracts,event,presentation,workflow,data-view,migration,telemetry,experiment,app-config,integration,knowledge}.ts',
       debounceMs: 500,
       ignore: ['node_modules/**', 'dist/**', '.turbo/**', 'generated/**'],
     });
@@ -90,20 +93,23 @@ async function startWatchMode(
             if (result.valid) {
               outputChannel.appendLine('✅ Validation passed');
             } else {
-              outputChannel.appendLine(`❌ Validation failed: ${result.errors.length} error(s)`);
+              outputChannel.appendLine(
+                `❌ Validation failed: ${result.errors.length} error(s)`
+              );
               for (const error of result.errors) {
                 outputChannel.appendLine(`  • ${error}`);
               }
             }
           } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
+            const message =
+              error instanceof Error ? error.message : String(error);
             outputChannel.appendLine(`❌ Validation error: ${message}`);
           }
         }
 
         if (watchState.buildOnChange) {
           try {
-            const config = await adapters.fs.exists('.contractsrc.json')
+            const config = (await adapters.fs.exists('.contractsrc.json'))
               ? JSON.parse(await adapters.fs.readFile('.contractsrc.json'))
               : {};
 
@@ -113,7 +119,8 @@ async function startWatchMode(
             });
             outputChannel.appendLine('✅ Build completed');
           } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
+            const message =
+              error instanceof Error ? error.message : String(error);
             outputChannel.appendLine(`❌ Build error: ${message}`);
           }
         }
@@ -162,7 +169,9 @@ function updateStatusBar(statusBarItem: vscode.StatusBarItem): void {
   if (watchState.enabled) {
     statusBarItem.text = '$(eye) ContractSpec: Watching';
     statusBarItem.tooltip = 'Click to stop watch mode';
-    statusBarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
+    statusBarItem.backgroundColor = new vscode.ThemeColor(
+      'statusBarItem.warningBackground'
+    );
   } else {
     statusBarItem.text = '$(eye-closed) ContractSpec: Not Watching';
     statusBarItem.tooltip = 'Click to start watch mode';
@@ -188,4 +197,3 @@ export function disposeWatchMode(): void {
   }
   watchState.enabled = false;
 }
-

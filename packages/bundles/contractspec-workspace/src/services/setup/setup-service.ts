@@ -49,14 +49,16 @@ export async function runSetup(
   prompts: SetupPromptCallbacks = defaultPrompts
 ): Promise<SetupResult> {
   const results: SetupFileResult[] = [];
-  const targets = options.targets.length > 0 ? options.targets : ALL_SETUP_TARGETS;
+  const targets =
+    options.targets.length > 0 ? options.targets : ALL_SETUP_TARGETS;
 
   // Detect monorepo context if not already provided
   const workspaceRoot = options.workspaceRoot;
   const detectedWorkspaceRoot = findWorkspaceRoot(workspaceRoot);
   const packageRoot = options.packageRoot ?? findPackageRoot(workspaceRoot);
   const monorepo = options.isMonorepo ?? isMonorepo(detectedWorkspaceRoot);
-  const packageName = options.packageName ?? (monorepo ? getPackageName(packageRoot) : undefined);
+  const packageName =
+    options.packageName ?? (monorepo ? getPackageName(packageRoot) : undefined);
 
   // Determine scope
   let scope: SetupScope = options.scope ?? 'workspace';
@@ -67,8 +69,15 @@ export async function runSetup(
     const scopeChoice = await prompts.multiSelect<SetupScope>(
       `Monorepo detected. Configure at which level?`,
       [
-        { value: 'package', label: `Package level (${packageName ?? packageRoot})`, selected: true },
-        { value: 'workspace', label: `Workspace level (${detectedWorkspaceRoot})` },
+        {
+          value: 'package',
+          label: `Package level (${packageName ?? packageRoot})`,
+          selected: true,
+        },
+        {
+          value: 'workspace',
+          label: `Workspace level (${detectedWorkspaceRoot})`,
+        },
       ]
     );
     scope = scopeChoice[0] ?? 'package';
@@ -90,9 +99,10 @@ export async function runSetup(
   // Get project name if interactive
   let projectName = options.projectName;
   if (options.interactive && !projectName) {
-    const defaultName = scope === 'package' && packageName
-      ? packageName
-      : workspaceRoot.split('/').pop() ?? 'my-project';
+    const defaultName =
+      scope === 'package' && packageName
+        ? packageName
+        : (workspaceRoot.split('/').pop() ?? 'my-project');
     projectName = await prompts.input('Project name:', defaultName);
   }
 

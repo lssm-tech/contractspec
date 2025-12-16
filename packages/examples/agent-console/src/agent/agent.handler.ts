@@ -71,16 +71,29 @@ export interface AgentWithTools {
 /**
  * Mock handler for ListAgentsQuery.
  */
-export async function mockListAgentsHandler(input: ListAgentsInput): Promise<ListAgentsOutput> {
-  const { organizationId, status, modelProvider, search, limit = 20, offset = 0 } = input;
+export async function mockListAgentsHandler(
+  input: ListAgentsInput
+): Promise<ListAgentsOutput> {
+  const {
+    organizationId,
+    status,
+    modelProvider,
+    search,
+    limit = 20,
+    offset = 0,
+  } = input;
 
   let filtered = MOCK_AGENTS.filter((a) => a.organizationId === organizationId);
   if (status) filtered = filtered.filter((a) => a.status === status);
-  if (modelProvider) filtered = filtered.filter((a) => a.modelProvider === modelProvider);
+  if (modelProvider)
+    filtered = filtered.filter((a) => a.modelProvider === modelProvider);
   if (search) {
     const q = search.toLowerCase();
     filtered = filtered.filter(
-      (a) => a.name.toLowerCase().includes(q) || a.description?.toLowerCase().includes(q) || a.tags?.some((t) => t.toLowerCase().includes(q))
+      (a) =>
+        a.name.toLowerCase().includes(q) ||
+        a.description?.toLowerCase().includes(q) ||
+        a.tags?.some((t) => t.toLowerCase().includes(q))
     );
   }
 
@@ -103,7 +116,9 @@ export async function mockListAgentsHandler(input: ListAgentsInput): Promise<Lis
 /**
  * Mock handler for GetAgentQuery.
  */
-export async function mockGetAgentHandler(input: GetAgentInput): Promise<AgentWithTools> {
+export async function mockGetAgentHandler(
+  input: GetAgentInput
+): Promise<AgentWithTools> {
   const agent = MOCK_AGENTS.find((a) => a.id === input.agentId);
   if (!agent) throw new Error('AGENT_NOT_FOUND');
 
@@ -132,17 +147,32 @@ export async function mockCreateAgentHandler(input: {
   modelName: string;
   systemPrompt: string;
 }) {
-  const exists = MOCK_AGENTS.some((a) => a.organizationId === input.organizationId && a.slug === input.slug);
+  const exists = MOCK_AGENTS.some(
+    (a) => a.organizationId === input.organizationId && a.slug === input.slug
+  );
   if (exists) throw new Error('SLUG_EXISTS');
-  return { id: `agent-${Date.now()}`, name: input.name, slug: input.slug, status: 'DRAFT' as const };
+  return {
+    id: `agent-${Date.now()}`,
+    name: input.name,
+    slug: input.slug,
+    status: 'DRAFT' as const,
+  };
 }
 
 /**
  * Mock handler for UpdateAgentCommand.
  */
-export async function mockUpdateAgentHandler(input: { agentId: string; name?: string; status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ARCHIVED' }) {
+export async function mockUpdateAgentHandler(input: {
+  agentId: string;
+  name?: string;
+  status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ARCHIVED';
+}) {
   const agent = MOCK_AGENTS.find((a) => a.id === input.agentId);
   if (!agent) throw new Error('AGENT_NOT_FOUND');
-  return { id: agent.id, name: input.name ?? agent.name, status: input.status ?? agent.status, updatedAt: new Date() };
+  return {
+    id: agent.id,
+    name: input.name ?? agent.name,
+    status: input.status ?? agent.status,
+    updatedAt: new Date(),
+  };
 }
-

@@ -13,5 +13,3 @@ export const InstanceStatusEnum = defineEnum('InstanceStatus', [
   'FAILED',
   'TIMEOUT',
 ]);
-
-

@@ -28,7 +28,3 @@ export const CreateSpaceInputModel = defineSchemaModel({
     ownerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
-
-
-
-

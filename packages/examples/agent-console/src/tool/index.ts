@@ -3,22 +3,49 @@
  */
 
 // Enums
-export { ToolCategoryEnum, ToolStatusEnum, ImplementationTypeEnum } from './tool.enum';
+export {
+  ToolCategoryEnum,
+  ToolStatusEnum,
+  ImplementationTypeEnum,
+} from './tool.enum';
 
 // Schema models
-export { ToolModel, ToolSummaryModel, CreateToolInputModel, UpdateToolInputModel } from './tool.schema';
+export {
+  ToolModel,
+  ToolSummaryModel,
+  CreateToolInputModel,
+  UpdateToolInputModel,
+} from './tool.schema';
 
 // Contracts
-export { CreateToolCommand, UpdateToolCommand, GetToolQuery, ListToolsQuery, TestToolCommand } from './tool.contracts';
+export {
+  CreateToolCommand,
+  UpdateToolCommand,
+  GetToolQuery,
+  ListToolsQuery,
+  TestToolCommand,
+} from './tool.contracts';
 
 // Events
-export { ToolCreatedEvent, ToolUpdatedEvent, ToolStatusChangedEvent } from './tool.event';
+export {
+  ToolCreatedEvent,
+  ToolUpdatedEvent,
+  ToolStatusChangedEvent,
+} from './tool.event';
 
 // Entities
-export { ToolCategoryEntityEnum, ToolStatusEntityEnum, ImplementationTypeEntityEnum, ToolEntity } from './tool.entity';
+export {
+  ToolCategoryEntityEnum,
+  ToolStatusEntityEnum,
+  ImplementationTypeEntityEnum,
+  ToolEntity,
+} from './tool.entity';
 
 // Presentations
-export { ToolListPresentation, ToolDetailPresentation } from './tool.presentation';
+export {
+  ToolListPresentation,
+  ToolDetailPresentation,
+} from './tool.presentation';
 
 // Handlers
 export {
@@ -31,5 +58,3 @@ export {
   type ToolSummary,
   type ListToolsOutput,
 } from './tool.handler';
-
-

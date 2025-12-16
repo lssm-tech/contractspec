@@ -31,7 +31,3 @@ export const RecordPaymentInputModel = defineSchemaModel({
     receivedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },
 });
-
-
-
-

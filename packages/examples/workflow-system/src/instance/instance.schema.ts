@@ -96,5 +96,3 @@ export const TransitionResultModel = defineSchemaModel({
     message: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-

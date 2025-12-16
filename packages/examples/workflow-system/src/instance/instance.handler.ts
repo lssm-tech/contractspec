@@ -2,10 +2,7 @@
  * Workflow instance handlers.
  */
 
-import type {
-  StateMachineState,
-  TransitionContext,
-} from '../state-machine';
+import type { StateMachineState, TransitionContext } from '../state-machine';
 import {
   createStateMachineEngine,
   buildStateMachineDefinition,
@@ -173,5 +170,3 @@ export async function handleTransitionWorkflow(
     currentStepKey: result.currentStepKey ?? undefined,
   };
 }
-
-

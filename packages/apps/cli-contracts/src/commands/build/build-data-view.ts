@@ -47,7 +47,3 @@ export async function buildDataView(
 
   console.log(chalk.cyan('\n✨ Build complete!'));
 }
-
-
-
-

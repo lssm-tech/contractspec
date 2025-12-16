@@ -32,7 +32,3 @@ export const CreateClientInputModel = defineSchemaModel({
     metadata: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
 });
-
-
-
-

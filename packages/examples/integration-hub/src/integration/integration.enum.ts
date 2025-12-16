@@ -10,5 +10,3 @@ export const IntegrationStatusEnum = defineEnum('IntegrationStatus', [
   'ERROR',
   'ARCHIVED',
 ]);
-
-

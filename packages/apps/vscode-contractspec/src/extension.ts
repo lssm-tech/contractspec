@@ -75,10 +75,10 @@ export async function activate(
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.workspaceInfo', () => {
       const info = formatWorkspaceInfoForDisplay();
-      vscode.window.showInformationMessage(
-        'ContractSpec Workspace Info',
-        { modal: true, detail: info }
-      );
+      vscode.window.showInformationMessage('ContractSpec Workspace Info', {
+        modal: true,
+        detail: info,
+      });
     })
   );
 

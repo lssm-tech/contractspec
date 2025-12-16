@@ -57,5 +57,3 @@ export const InventoryUpdatedEvent = defineEvent({
   description: 'Product inventory has been updated.',
   payload: InventoryUpdatedPayload,
 });
-
-

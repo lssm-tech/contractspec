@@ -73,5 +73,3 @@ export const ListReviewsOutputModel = defineSchemaModel({
     ratingDistribution: { type: ScalarTypeEnum.JSON(), isOptional: false },
   },
 });
-
-

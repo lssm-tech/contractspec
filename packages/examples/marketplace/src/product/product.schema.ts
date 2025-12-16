@@ -81,5 +81,3 @@ export const ListProductsOutputModel = defineSchemaModel({
     total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
 });
-
-

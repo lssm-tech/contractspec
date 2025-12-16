@@ -72,5 +72,3 @@ export const UpdateOrderStatusInputModel = defineSchemaModel({
     note: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
   },
 });
-
-

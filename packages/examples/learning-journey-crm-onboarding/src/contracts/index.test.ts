@@ -47,7 +47,3 @@ describe('crm onboarding contracts', () => {
     );
   });
 });
-
-
-
-

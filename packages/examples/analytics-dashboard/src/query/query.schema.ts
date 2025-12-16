@@ -69,5 +69,3 @@ export const ExecuteQueryInputModel = defineSchemaModel({
     forceRefresh: { type: ScalarTypeEnum.Boolean(), isOptional: true },
   },
 });
-
-

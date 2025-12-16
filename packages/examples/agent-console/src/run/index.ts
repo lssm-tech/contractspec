@@ -3,7 +3,12 @@
  */
 
 // Enums
-export { RunStatusEnum, RunStepTypeEnum, LogLevelEnum, GranularityEnum } from './run.enum';
+export {
+  RunStatusEnum,
+  RunStepTypeEnum,
+  LogLevelEnum,
+  GranularityEnum,
+} from './run.enum';
 
 // Schema models
 export {
@@ -61,5 +66,3 @@ export {
   type RunSummary,
   type ListRunsOutput,
 } from './run.handler';
-
-

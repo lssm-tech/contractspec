@@ -120,7 +120,3 @@ export const platformTourContracts = {
   RecordPlatformTourEvent,
   track: platformPrimitivesTourTrack,
 };
-
-
-
-

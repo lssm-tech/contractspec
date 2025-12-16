@@ -9,4 +9,3 @@ export const SettingsScopeEnum = defineEntityEnum({
   schema: 'saas_app',
   description: 'Scope of a setting.',
 });
-

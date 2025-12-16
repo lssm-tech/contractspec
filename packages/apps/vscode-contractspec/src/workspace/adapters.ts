@@ -159,4 +159,3 @@ export function formatWorkspaceInfoForDisplay(): string {
 
 // Re-export types
 export type { WorkspaceInfo, PackageManager };
-

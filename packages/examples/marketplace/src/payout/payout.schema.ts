@@ -56,5 +56,3 @@ export const ListPayoutsOutputModel = defineSchemaModel({
     totalPending: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
   },
 });
-
-

@@ -504,5 +504,3 @@ export function filterIssuesBySeverity(
 ): IntegrityIssue[] {
   return issues.filter((i) => i.severity === severity);
 }
-
-

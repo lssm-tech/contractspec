@@ -103,7 +103,3 @@ export const KbReviewDecidedEvent = defineEvent({
   description: 'KB review decided.',
   payload: KbReviewDecidedPayload,
 });
-
-
-
-

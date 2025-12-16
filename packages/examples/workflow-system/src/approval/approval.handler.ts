@@ -140,5 +140,3 @@ export async function handleListMyApprovals(
 
   return { requests, total, pendingCount };
 }
-
-

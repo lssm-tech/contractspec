@@ -65,7 +65,10 @@ export async function getExtendedWorkspaceInfo(
   const baseInfo = getWorkspaceInfo(startDir);
 
   // Check for config files
-  const workspaceConfigPath = fs.join(baseInfo.workspaceRoot, '.contractsrc.json');
+  const workspaceConfigPath = fs.join(
+    baseInfo.workspaceRoot,
+    '.contractsrc.json'
+  );
   const packageConfigPath = fs.join(baseInfo.packageRoot, '.contractsrc.json');
 
   const hasWorkspaceConfig = await fs.exists(workspaceConfigPath);
@@ -248,5 +251,3 @@ export {
   type WorkspaceInfo,
   type PackageManager,
 };
-
-

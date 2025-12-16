@@ -4,9 +4,17 @@
  * Generates implementation files from a spec using bundle services.
  */
 
-import { defineCommand, defineSchemaModel, installOp, type SpecRegistry } from '@lssm/lib.contracts';
+import {
+  defineCommand,
+  defineSchemaModel,
+  installOp,
+  type SpecRegistry,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
-import { buildSpec, loadWorkspaceConfig } from '@lssm/bundle.contractspec-workspace';
+import {
+  buildSpec,
+  loadWorkspaceConfig,
+} from '@lssm/bundle.contractspec-workspace';
 import type { WorkspaceAdapters } from '../server';
 
 const SpecsBuildInput = defineSchemaModel({
@@ -16,7 +24,11 @@ const SpecsBuildInput = defineSchemaModel({
     outputDir: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     overwrite: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     dryRun: { type: ScalarTypeEnum.Boolean(), isOptional: true },
-    targets: { type: ScalarTypeEnum.String_unsecure(), isOptional: true, isArray: true },
+    targets: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
   },
 });
 
@@ -40,7 +52,8 @@ export function registerSpecsBuildTool(
       stability: 'stable',
       owners: ['@contractspec'],
       tags: ['mcp-local', 'specs', 'build'],
-      description: 'Generate implementation artifacts from a spec (handlers/components/tests).',
+      description:
+        'Generate implementation artifacts from a spec (handlers/components/tests).',
       goal: 'Let agents bootstrap implementation scaffolding deterministically.',
       context: 'Local MCP tool (stdio).',
     },
@@ -78,5 +91,3 @@ type BuildTarget = 'handler' | 'component' | 'test';
 function isBuildTarget(value: string): value is BuildTarget {
   return value === 'handler' || value === 'component' || value === 'test';
 }
-
-

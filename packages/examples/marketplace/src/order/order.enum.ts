@@ -15,5 +15,3 @@ export const OrderStatusEnum = defineEnum('OrderStatus', [
   'PARTIALLY_REFUNDED',
   'DISPUTED',
 ]);
-
-

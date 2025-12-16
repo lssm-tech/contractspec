@@ -24,7 +24,3 @@ export const metaDocs: DocBlock[] = [
 - No sourcePath; DocBlocks are canonical.`,
   },
 ];
-
-
-
-

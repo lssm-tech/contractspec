@@ -1,6 +1,6 @@
 /**
  * Clean command for ContractSpec extension.
- * 
+ *
  * Cleans generated files and build artifacts.
  */
 
@@ -32,7 +32,7 @@ export async function cleanGeneratedFiles(
     // Ask for clean options
     const cleanMode = await vscode.window.showQuickPick(
       [
-        { 
+        {
           label: 'Generated directories only',
           description: 'Clean generated/, dist/, .turbo/',
           value: { generatedOnly: true, dryRun: false },
@@ -75,22 +75,20 @@ export async function cleanGeneratedFiles(
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
 
     // Define patterns to clean
-    const basePatterns = [
-      'generated/**',
-      'dist/**',
-      '.turbo/**',
-    ];
+    const basePatterns = ['generated/**', 'dist/**', '.turbo/**'];
 
-    const outputDirPatterns = options.generatedOnly ? [] : [
-      'src/handlers/**/*.handler.ts',
-      'src/handlers/**/*.handler.test.ts',
-      'src/components/**/*.component.tsx',
-      'src/components/**/*.component.test.tsx',
-      'src/forms/**/*.form.tsx',
-      'src/forms/**/*.form.test.tsx',
-      '**/*.runner.ts',
-      '**/*.renderer.tsx',
-    ];
+    const outputDirPatterns = options.generatedOnly
+      ? []
+      : [
+          'src/handlers/**/*.handler.ts',
+          'src/handlers/**/*.handler.test.ts',
+          'src/components/**/*.component.tsx',
+          'src/components/**/*.component.test.tsx',
+          'src/forms/**/*.form.tsx',
+          'src/forms/**/*.form.test.tsx',
+          '**/*.runner.ts',
+          '**/*.renderer.tsx',
+        ];
 
     const patterns = [...basePatterns, ...outputDirPatterns];
 
@@ -128,13 +126,18 @@ export async function cleanGeneratedFiles(
             totalFiles++;
             totalSize += stats.size;
           } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            outputChannel.appendLine(`⚠️  Could not process ${file}: ${message}`);
+            const message =
+              error instanceof Error ? error.message : String(error);
+            outputChannel.appendLine(
+              `⚠️  Could not process ${file}: ${message}`
+            );
           }
         }
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        outputChannel.appendLine(`⚠️  Error with pattern ${pattern}: ${message}`);
+        outputChannel.appendLine(
+          `⚠️  Error with pattern ${pattern}: ${message}`
+        );
       }
     }
 
@@ -176,4 +179,3 @@ function formatBytes(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return `${(bytes / Math.pow(k, i)).toFixed(1)} ${sizes[i]}`;
 }
-

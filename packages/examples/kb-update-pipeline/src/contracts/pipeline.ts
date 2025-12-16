@@ -157,7 +157,3 @@ export const KbPipelinePublishIfReadyContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

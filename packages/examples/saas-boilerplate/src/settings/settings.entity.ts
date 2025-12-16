@@ -87,4 +87,3 @@ export const FeatureFlagEntity = defineEntity({
     updatedAt: field.updatedAt(),
   },
 });
-

@@ -30,5 +30,3 @@ export const MappingTypeEnum = defineEnum('MappingType', [
   'CONSTANT',
   'COMPUTED',
 ]);
-
-

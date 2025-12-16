@@ -1,4 +1,7 @@
-import type { LoggerAdapter, ProgressReporter } from '@lssm/bundle.contractspec-workspace';
+import type {
+  LoggerAdapter,
+  ProgressReporter,
+} from '@lssm/bundle.contractspec-workspace';
 
 export function createNoopWorkspaceLoggerAdapter(): LoggerAdapter {
   const noop = () => {
@@ -22,5 +25,3 @@ export function createNoopWorkspaceLoggerAdapter(): LoggerAdapter {
     createProgress: () => progress,
   };
 }
-
-
