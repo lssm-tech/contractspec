@@ -192,7 +192,8 @@ async function findRegistryFile(
   ];
 
   for (const pattern of patterns) {
-    const files = await adapters.fs.glob(pattern, {
+    const files = await adapters.fs.glob({
+      pattern,
       cwd: workspaceRoot,
       ignore: ['node_modules/**', 'dist/**'],
       absolute: true,

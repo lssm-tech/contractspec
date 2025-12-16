@@ -109,9 +109,14 @@ function validateOperationSpec(
     errors.push('Missing or invalid version field');
   }
 
-  // Check for kind
-  if (!code.match(/kind:\s*['"](?:command|query)['"]/)) {
-    errors.push('Missing or invalid kind field (must be "command" or "query")');
+  // Check for kind (defineCommand/defineQuery set it automatically, or explicit kind field)
+  const hasDefineCommand = /defineCommand\s*\(/.test(code);
+  const hasDefineQuery = /defineQuery\s*\(/.test(code);
+  const hasExplicitKind = /kind:\s*['"](?:command|query)['"]/.test(code);
+  if (!hasDefineCommand && !hasDefineQuery && !hasExplicitKind) {
+    errors.push(
+      'Missing kind: use defineCommand(), defineQuery(), or explicit kind field'
+    );
   }
 
   // Warnings

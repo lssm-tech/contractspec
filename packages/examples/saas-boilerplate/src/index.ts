@@ -8,7 +8,7 @@ export * from './settings';
 export * from './dashboard';
 
 // Export feature and example metadata
-export * from './saas.feature';
+export * from './saas-boilerplate.feature';
 export { default as example } from './example';
 
 // Import docs for registration

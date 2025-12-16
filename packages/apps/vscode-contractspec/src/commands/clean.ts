@@ -101,7 +101,8 @@ export async function cleanGeneratedFiles(
 
     for (const pattern of patterns) {
       try {
-        const files = await adapters.fs.glob(pattern, {
+        const files = await adapters.fs.glob({
+          pattern,
           cwd: workspaceRoot,
           ignore: ['node_modules/**'],
           absolute: true,

@@ -43,7 +43,6 @@
     "./entities": "./src/entities/index.ts",
     "./events": "./src/events.ts",
     "./example": "./src/example.ts",
-    "./feature": "./src/feature.ts",
     "./handlers": "./src/handlers/index.ts",
     "./invoice": "./src/invoice/index.ts",
     "./invoice/invoice.contracts": "./src/invoice/invoice.contracts.ts",
@@ -58,6 +57,7 @@
     "./quote": "./src/quote/index.ts",
     "./quote/quote.contracts": "./src/quote/quote.contracts.ts",
     "./quote/quote.schema": "./src/quote/quote.schema.ts",
+    "./service.feature": "./src/service.feature.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -78,7 +78,6 @@
       "./entities": "./dist/entities/index.js",
       "./events": "./dist/events.js",
       "./example": "./dist/example.js",
-      "./feature": "./dist/feature.js",
       "./handlers": "./dist/handlers/index.js",
       "./invoice": "./dist/invoice/index.js",
       "./invoice/invoice.contracts": "./dist/invoice/invoice.contracts.js",
@@ -93,6 +92,7 @@
       "./quote": "./dist/quote/index.js",
       "./quote/quote.contracts": "./dist/quote/quote.contracts.js",
       "./quote/quote.schema": "./dist/quote/quote.schema.js",
+      "./service.feature": "./dist/service.feature.js",
       "./*": "./*"
     }
   }

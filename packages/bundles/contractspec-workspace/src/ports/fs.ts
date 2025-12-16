@@ -21,6 +21,8 @@ export interface DiscoverOptions {
   ignore?: string[];
   /** Working directory for glob patterns. Defaults to process.cwd(). */
   cwd?: string;
+  /** Return absolute paths instead of relative. Defaults to true. */
+  absolute?: boolean;
 }
 
 /**
