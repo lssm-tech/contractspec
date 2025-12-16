@@ -74,7 +74,11 @@ export function extractMetaValue(
 export function extractOperationKind(
   specCode: string
 ): 'command' | 'query' | null {
-  const match = specCode.match(/kind\\s*:\\s*['\\"](command|query)['\\"]/);
+  // Check for defineCommand/defineQuery usage first (they set kind automatically)
+  if (/defineCommand\s*\(/.test(specCode)) return 'command';
+  if (/defineQuery\s*\(/.test(specCode)) return 'query';
+  // Fall back to explicit kind field
+  const match = specCode.match(/kind\s*:\s*['\"](command|query)['\"]/)
   return match ? (match[1] as 'command' | 'query') : null;
 }
 

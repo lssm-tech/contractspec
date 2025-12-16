@@ -50,9 +50,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const tags = matchStringArrayField(code, 'tags');
 
   const version = matchNumberField(code, 'version');
-  const kindRaw = matchStringField(code, 'kind');
-  const kind: AnalyzedOperationKind =
-    kindRaw === 'command' || kindRaw === 'query' ? kindRaw : 'unknown';
+  const kind = inferOperationKind(code);
 
   const hasMeta = /meta\s*:\s*{/.test(code);
   const hasIo = /\bio\s*:\s*{/.test(code);
@@ -216,4 +214,18 @@ function isStability(value: string | null): value is Stability {
 
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Infer operation kind from source code.
+ * First checks for defineCommand/defineQuery usage (which set kind automatically),
+ * then falls back to explicit kind field.
+ */
+function inferOperationKind(code: string): AnalyzedOperationKind {
+  // Check for defineCommand/defineQuery usage first (they set kind automatically)
+  if (/defineCommand\s*\(/.test(code)) return 'command';
+  if (/defineQuery\s*\(/.test(code)) return 'query';
+  // Fall back to explicit kind field
+  const kindRaw = matchStringField(code, 'kind');
+  return kindRaw === 'command' || kindRaw === 'query' ? kindRaw : 'unknown';
 }

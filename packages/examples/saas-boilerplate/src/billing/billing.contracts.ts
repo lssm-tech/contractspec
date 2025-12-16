@@ -10,7 +10,7 @@ import {
   CheckFeatureAccessOutputModel,
 } from './billing.schema';
 
-const OWNERS = ['example.saas-boilerplate'] as const;
+const OWNERS = ['@example.saas-boilerplate'] as const;
 
 /**
  * Get subscription status.

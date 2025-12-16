@@ -94,12 +94,15 @@ export function createNodeFsAdapter(cwd?: string): FsAdapter {
       const ignore = options.ignore ?? DEFAULT_IGNORES;
       // Use provided cwd or fall back to adapter's baseCwd
       const globCwd = options.cwd ?? baseCwd;
+      // Default to absolute paths for safer file operations
+      const absolute = options.absolute ?? true;
 
       const all: string[] = [];
       for (const pattern of patterns) {
         const matches = await globFn(pattern, {
           cwd: globCwd,
           ignore,
+          absolute,
         });
         all.push(...matches);
       }
