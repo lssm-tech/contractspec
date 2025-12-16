@@ -8,7 +8,7 @@ export * from './settings';
 export * from './dashboard';
 
 // Export feature and example metadata
-export * from './feature';
+export * from './saas.feature';
 export { default as example } from './example';
 
 // Import docs for registration

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://contractspec.dev/schemas/contractsrc.json",
+  "aiProvider": "claude",
+  "aiModel": "claude-sonnet-4-20250514",
+  "agentMode": "claude-code",
+  "outputDir": "./src",
+  "conventions": {
+    "operations": "contracts/operations",
+    "events": "contracts/events",
+    "presentations": "contracts/presentations",
+    "forms": "contracts/forms",
+    "features": "contracts/features"
+  },
+  "defaultOwners": [
+    "@team"
+  ],
+  "defaultTags": []
+}

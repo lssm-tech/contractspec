@@ -5,7 +5,7 @@
  */
 
 // Domain exports
-export * from './dashboard';
+export * from './dashboard.feature';
 export * from './query';
 
 // Query engine exports

@@ -2,7 +2,7 @@ export * from './entities';
 export * from './contracts';
 export * from './events';
 export * from './presentations';
-export * from './feature';
+export * from './wealth-snapshot.feature';
 export * from './handlers';
 export { default as example } from './example';
 import './docs';
