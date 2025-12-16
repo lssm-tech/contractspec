@@ -34,6 +34,7 @@
     "./entities": "./src/entities/index.ts",
     "./evaluation": "./src/evaluation/index.ts",
     "./events": "./src/events.ts",
+    "./feature-flags.feature": "./src/feature-flags.feature.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -51,6 +52,7 @@
       "./entities": "./dist/entities/index.js",
       "./evaluation": "./dist/evaluation/index.js",
       "./events": "./dist/events.js",
+      "./feature-flags.feature": "./dist/feature-flags.feature.js",
       "./*": "./*"
     }
   }

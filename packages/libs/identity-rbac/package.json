@@ -37,6 +37,7 @@
     "./entities/rbac": "./src/entities/rbac.ts",
     "./entities/user": "./src/entities/user.ts",
     "./events": "./src/events.ts",
+    "./identity-rbac.feature": "./src/identity-rbac.feature.ts",
     "./policies": "./src/policies/index.ts",
     "./policies/engine": "./src/policies/engine.ts",
     "./*": "./*"
@@ -59,6 +60,7 @@
       "./entities/rbac": "./dist/entities/rbac.js",
       "./entities/user": "./dist/entities/user.js",
       "./events": "./dist/events.js",
+      "./identity-rbac.feature": "./dist/identity-rbac.feature.js",
       "./policies": "./dist/policies/index.js",
       "./policies/engine": "./dist/policies/engine.js",
       "./*": "./*"

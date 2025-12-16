@@ -48,6 +48,7 @@
     "./entities/onboarding": "./src/entities/onboarding.ts",
     "./entities/quiz": "./src/entities/quiz.ts",
     "./events": "./src/events.ts",
+    "./learning-journey.feature": "./src/learning-journey.feature.ts",
     "./track-spec": "./src/track-spec.ts",
     "./*": "./*"
   },
@@ -80,6 +81,7 @@
       "./entities/onboarding": "./dist/entities/onboarding.js",
       "./entities/quiz": "./dist/entities/quiz.js",
       "./events": "./dist/events.js",
+      "./learning-journey.feature": "./dist/learning-journey.feature.js",
       "./track-spec": "./dist/track-spec.js",
       "./*": "./*"
     }

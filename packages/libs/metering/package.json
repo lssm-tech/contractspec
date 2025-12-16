@@ -34,6 +34,7 @@
     "./docs/metering.docblock": "./src/docs/metering.docblock.ts",
     "./entities": "./src/entities/index.ts",
     "./events": "./src/events.ts",
+    "./metering.feature": "./src/metering.feature.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -51,6 +52,7 @@
       "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
       "./entities": "./dist/entities/index.js",
       "./events": "./dist/events.js",
+      "./metering.feature": "./dist/metering.feature.js",
       "./*": "./*"
     }
   }

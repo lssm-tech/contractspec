@@ -33,6 +33,7 @@
     "./docs/files.docblock": "./src/docs/files.docblock.ts",
     "./entities": "./src/entities/index.ts",
     "./events": "./src/events.ts",
+    "./files.feature": "./src/files.feature.ts",
     "./storage": "./src/storage/index.ts",
     "./*": "./*"
   },
@@ -50,6 +51,7 @@
       "./docs/files.docblock": "./dist/docs/files.docblock.js",
       "./entities": "./dist/entities/index.js",
       "./events": "./dist/events.js",
+      "./files.feature": "./dist/files.feature.js",
       "./storage": "./dist/storage/index.js",
       "./*": "./*"
     }
