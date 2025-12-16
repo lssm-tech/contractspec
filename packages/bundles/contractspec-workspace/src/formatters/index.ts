@@ -5,4 +5,3 @@
 export * from './sarif';
 export * from './json';
 export * from './text';
-

@@ -7,7 +7,11 @@
  * SARIF Specification: https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html
  */
 
-import type { CICheckResult, CIIssue, CIIssueSeverity } from '../services/ci-check/types';
+import type {
+  CICheckResult,
+  CIIssue,
+  CIIssueSeverity,
+} from '../services/ci-check/types';
 
 /**
  * SARIF v2.1.0 output structure.
@@ -98,10 +102,14 @@ export interface SarifFormatOptions {
 /**
  * Map of rule IDs to their metadata.
  */
-const RULE_METADATA: Record<string, { name: string; description: string; helpUri?: string }> = {
+const RULE_METADATA: Record<
+  string,
+  { name: string; description: string; helpUri?: string }
+> = {
   'spec-structure-error': {
     name: 'Spec Structure Error',
-    description: 'Contract specification is missing required structure elements',
+    description:
+      'Contract specification is missing required structure elements',
   },
   'spec-structure-warning': {
     name: 'Spec Structure Warning',
@@ -256,7 +264,9 @@ export function formatAsSarif(
       {
         executionSuccessful: result.success,
         endTimeUtc: result.timestamp,
-        ...(workingDirectory && { workingDirectory: { uri: workingDirectory } }),
+        ...(workingDirectory && {
+          workingDirectory: { uri: workingDirectory },
+        }),
       },
     ],
   };
@@ -275,7 +285,9 @@ export function formatAsSarif(
 /**
  * Map CI severity to SARIF level.
  */
-function mapSeverityToLevel(severity: CIIssueSeverity): 'error' | 'warning' | 'note' {
+function mapSeverityToLevel(
+  severity: CIIssueSeverity
+): 'error' | 'warning' | 'note' {
   switch (severity) {
     case 'error':
       return 'error';
@@ -310,4 +322,3 @@ function createFingerprint(issue: CIIssue): string {
 export function sarifToJson(sarif: SarifOutput): string {
   return JSON.stringify(sarif, null, 2);
 }
-

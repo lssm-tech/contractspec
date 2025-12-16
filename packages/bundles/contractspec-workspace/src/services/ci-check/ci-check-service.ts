@@ -7,7 +7,6 @@
 
 import {
   validateSpecStructure,
-  scanAllSpecsFromSource,
   isFeatureFile,
 } from '@lssm/module.contractspec-workspace';
 import type { FsAdapter } from '../../ports/fs';
@@ -23,9 +22,6 @@ import type {
   CICheckOptions,
   CICheckResult,
   CIIssue,
-  CIIssueSeverity,
-  ALL_CI_CHECK_CATEGORIES,
-  CI_CHECK_CATEGORY_LABELS,
 } from './types';
 
 /**
@@ -58,7 +54,11 @@ export async function runCIChecks(
     const structureIssues = await runStructureChecks(adapters, specFiles);
     issues.push(...structureIssues);
     categorySummaries.push(
-      createCategorySummary('structure', structureIssues, Date.now() - categoryStart)
+      createCategorySummary(
+        'structure',
+        structureIssues,
+        Date.now() - categoryStart
+      )
     );
   }
 
@@ -68,7 +68,11 @@ export async function runCIChecks(
     const integrityIssues = await runIntegrityChecks(adapters, options);
     issues.push(...integrityIssues);
     categorySummaries.push(
-      createCategorySummary('integrity', integrityIssues, Date.now() - categoryStart)
+      createCategorySummary(
+        'integrity',
+        integrityIssues,
+        Date.now() - categoryStart
+      )
     );
   }
 
@@ -98,7 +102,11 @@ export async function runCIChecks(
     const handlerIssues = await runHandlerChecks(adapters, specFiles);
     issues.push(...handlerIssues);
     categorySummaries.push(
-      createCategorySummary('handlers', handlerIssues, Date.now() - categoryStart)
+      createCategorySummary(
+        'handlers',
+        handlerIssues,
+        Date.now() - categoryStart
+      )
     );
   }
 
@@ -348,12 +356,10 @@ async function runHandlerChecks(
     // Only check operation specs
     if (!specFile.includes('.contracts.')) continue;
 
-    const result = await validateImplementationFiles(
-      specFile,
-      { fs },
-      config,
-      { checkHandlers: true, outputDir: config.outputDir }
-    );
+    const result = await validateImplementationFiles(specFile, { fs }, config, {
+      checkHandlers: true,
+      outputDir: config.outputDir,
+    });
 
     for (const error of result.errors) {
       issues.push({
@@ -395,12 +401,10 @@ async function runTestChecks(
     // Only check operation specs
     if (!specFile.includes('.contracts.')) continue;
 
-    const result = await validateImplementationFiles(
-      specFile,
-      { fs },
-      config,
-      { checkTests: true, outputDir: config.outputDir }
-    );
+    const result = await validateImplementationFiles(specFile, { fs }, config, {
+      checkTests: true,
+      outputDir: config.outputDir,
+    });
 
     for (const error of result.errors) {
       issues.push({
@@ -493,4 +497,3 @@ async function getGitInfo(
     return {};
   }
 }
-

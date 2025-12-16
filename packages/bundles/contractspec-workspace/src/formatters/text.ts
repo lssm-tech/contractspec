@@ -5,7 +5,11 @@
  * This formatter is designed to be used by CLI wrappers that add colors.
  */
 
-import type { CICheckResult, CICheckCategorySummary, CIIssue } from '../services/ci-check/types';
+import type {
+  CICheckResult,
+  CICheckCategorySummary,
+  CIIssue,
+} from '../services/ci-check/types';
 
 /**
  * Options for text formatting.
@@ -80,7 +84,11 @@ export function formatAsTextLines(
       const byFile = groupIssuesByFile(result.issues);
       for (const [file, issues] of byFile) {
         lines.push({ text: '', style: 'normal' });
-        lines.push({ text: `  ${file || '(no file)'}`, style: 'bold', indent: 1 });
+        lines.push({
+          text: `  ${file || '(no file)'}`,
+          style: 'bold',
+          indent: 1,
+        });
 
         for (const issue of issues) {
           lines.push(...formatIssueLines(issue, verbose, 2));
@@ -160,7 +168,9 @@ export function formatAsText(
   options: TextFormatOptions = {}
 ): string {
   const lines = formatAsTextLines(result, options);
-  return lines.map((line) => '  '.repeat(line.indent ?? 0) + line.text).join('\n');
+  return lines
+    .map((line) => '  '.repeat(line.indent ?? 0) + line.text)
+    .join('\n');
 }
 
 /**
@@ -193,8 +203,14 @@ function formatIssueLines(
 ): TextLine[] {
   const lines: TextLine[] = [];
 
-  const icon = issue.severity === 'error' ? '✗' : issue.severity === 'warning' ? '⚠' : '○';
-  const style = issue.severity === 'error' ? 'error' : issue.severity === 'warning' ? 'warning' : 'muted';
+  const icon =
+    issue.severity === 'error' ? '✗' : issue.severity === 'warning' ? '⚠' : '○';
+  const style =
+    issue.severity === 'error'
+      ? 'error'
+      : issue.severity === 'warning'
+        ? 'warning'
+        : 'muted';
 
   // Main issue line
   let mainLine = `${icon} ${issue.message}`;
@@ -209,7 +225,11 @@ function formatIssueLines(
   if (verbose && issue.context) {
     const contextStr = JSON.stringify(issue.context);
     if (contextStr !== '{}') {
-      lines.push({ text: `Context: ${contextStr}`, style: 'muted', indent: baseIndent + 1 });
+      lines.push({
+        text: `Context: ${contextStr}`,
+        style: 'muted',
+        indent: baseIndent + 1,
+      });
     }
   }
 
@@ -227,10 +247,12 @@ function groupIssuesByFile(issues: CIIssue[]): Map<string, CIIssue[]> {
     if (!byFile.has(file)) {
       byFile.set(file, []);
     }
-    byFile.get(file)!.push(issue);
+    const fileIssues = byFile.get(file);
+    if (fileIssues) {
+      fileIssues.push(issue);
+    }
   }
 
   // Sort files alphabetically
   return new Map([...byFile.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
-

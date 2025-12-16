@@ -7,7 +7,7 @@ export const KbUpdatePipelineFeature: FeatureModuleSpec = {
     description:
       'Automation proposes KB patches; humans verify; publishing is blocked until approvals are complete.',
     domain: 'knowledge',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'hitl', 'audit', 'notifications'],
     stability: 'experimental',
   },
