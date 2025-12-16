@@ -45,4 +45,3 @@ The action is published as part of the monorepo. Users reference it as:
 ```
 
 The action is versioned with tags on the repository.
-
