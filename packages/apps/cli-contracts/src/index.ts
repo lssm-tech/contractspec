@@ -20,6 +20,7 @@ import { workspaceCommand } from './commands/workspace/index';
 import { integrityCommand } from './commands/integrity/index';
 import { initCommand } from './commands/init/index';
 import { doctorCommand } from './commands/doctor/index';
+import { ciCommand } from './commands/ci/index';
 
 const program = new Command();
 
@@ -68,6 +69,9 @@ program.addCommand(initCommand);
 
 // Doctor command (diagnose and fix issues)
 program.addCommand(doctorCommand);
+
+// CI command (run all checks for CI/CD)
+program.addCommand(ciCommand);
 
 // Create command
 program

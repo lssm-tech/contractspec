@@ -5,17 +5,32 @@ export interface SpecDiscoveryOptions {
 }
 
 const DEFAULT_SPEC_PATTERNS = [
+  // Standard dot-prefixed naming convention
   '**/*.contracts.ts',
   '**/*.event.ts',
   '**/*.presentation.ts',
+  '**/*.feature.ts',
+  '**/*.capability.ts',
   '**/*.workflow.ts',
   '**/*.data-view.ts',
+  '**/*.form.ts',
   '**/*.migration.ts',
   '**/*.telemetry.ts',
   '**/*.experiment.ts',
   '**/*.app-config.ts',
   '**/*.integration.ts',
   '**/*.knowledge.ts',
+  '**/*.policy.ts',
+  '**/*.test-spec.ts',
+  // Directory-based patterns (contracts/ directory)
+  '**/contracts/*.ts',
+  '**/contracts/index.ts',
+  // Standalone file patterns (events.ts, presentations.ts)
+  '**/events.ts',
+  '**/presentations.ts',
+  // Directory index patterns (/events/index.ts, /presentations/index.ts)
+  '**/events/index.ts',
+  '**/presentations/index.ts',
 ];
 
 const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];

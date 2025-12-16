@@ -22,6 +22,7 @@ import { glob as globFn } from 'glob';
 import type { FsAdapter, FileStat, DiscoverOptions } from '../ports/fs';
 
 const DEFAULT_SPEC_PATTERNS = [
+  // Standard dot-prefixed naming convention
   '**/*.contracts.ts',
   '**/*.event.ts',
   '**/*.presentation.ts',
@@ -38,6 +39,15 @@ const DEFAULT_SPEC_PATTERNS = [
   '**/*.knowledge.ts',
   '**/*.policy.ts',
   '**/*.test-spec.ts',
+  // Directory-based patterns (contracts/ directory)
+  '**/contracts/*.ts',
+  '**/contracts/index.ts',
+  // Standalone file patterns (events.ts, presentations.ts)
+  '**/events.ts',
+  '**/presentations.ts',
+  // Directory index patterns (/events/index.ts, /presentations/index.ts)
+  '**/events/index.ts',
+  '**/presentations/index.ts',
 ];
 
 const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];

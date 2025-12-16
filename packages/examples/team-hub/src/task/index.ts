@@ -7,4 +7,10 @@ export {
   CreateTaskInputModel,
   UpdateTaskStatusInputModel,
 } from './task.schema';
-export { CreateTaskContract, UpdateTaskStatusContract } from './task.contracts';
+export {
+  CreateTaskContract,
+  UpdateTaskStatusContract,
+  ListTasksOperation,
+  ListTasksInputModel,
+  ListTasksOutputModel,
+} from './task.contracts';

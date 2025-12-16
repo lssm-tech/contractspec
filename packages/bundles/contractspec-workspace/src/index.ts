@@ -19,6 +19,9 @@ export type { Config, AiProvider, AgentMode } from './types/config';
 // Services (use-cases)
 export * from './services/index';
 
+// Formatters (CI output formats)
+export * as formatters from './formatters/index';
+
 // Templates (re-export for CLI usage)
 export * as templates from './templates';
 export * as ai from './ai';

@@ -7,4 +7,10 @@ export {
   ScheduleJobInputModel,
   CompleteJobInputModel,
 } from './job.schema';
-export { ScheduleJobContract, CompleteJobContract } from './job.contracts';
+export {
+  ScheduleJobContract,
+  CompleteJobContract,
+  ListJobsOperation,
+  ListJobsInputModel,
+  ListJobsOutputModel,
+} from './job.contracts';

@@ -17,7 +17,9 @@ import type { Stability } from '../types/spec-types';
  */
 export function inferSpecTypeFromFilePath(filePath: string): AnalyzedSpecType {
   // Check more specific patterns first
-  if (filePath.includes('.contracts.')) return 'operation';
+  // Operation patterns: .contracts. OR /contracts/ directory
+  if (filePath.includes('.contracts.') || filePath.includes('/contracts/'))
+    return 'operation';
 
   // Event patterns: .event. OR /events/ OR /events.ts
   if (
