@@ -5,10 +5,18 @@
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { createMcpServer, PromptRegistry, ResourceRegistry, SpecRegistry } from '@lssm/lib.contracts';
+import {
+  createMcpServer,
+  PromptRegistry,
+  ResourceRegistry,
+  SpecRegistry,
+} from '@lssm/lib.contracts';
 import { Logger, LogLevel } from '@lssm/lib.logger';
 import { createNodeFsAdapter } from '@lssm/bundle.contractspec-workspace';
-import type { FsAdapter, LoggerAdapter } from '@lssm/bundle.contractspec-workspace';
+import type {
+  FsAdapter,
+  LoggerAdapter,
+} from '@lssm/bundle.contractspec-workspace';
 import type { HandlerCtx } from '@lssm/lib.contracts';
 import { registerMcpLocalTools } from './tools';
 import { registerMcpLocalResources } from './resources';
@@ -79,7 +87,9 @@ export function createServer(config: McpLocalConfig): McpServer {
   const logger = new Logger({
     level: LogLevel.INFO,
     enableColors: false,
-    environment: (process.env['NODE_ENV'] as 'development' | 'production') ?? 'development',
+    environment:
+      (process.env['NODE_ENV'] as 'development' | 'production') ??
+      'development',
   });
 
   const ctxFactories = {
@@ -96,4 +106,3 @@ export function createServer(config: McpLocalConfig): McpServer {
 
   return server;
 }
-

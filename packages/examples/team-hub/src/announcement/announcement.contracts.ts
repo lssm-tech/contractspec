@@ -1,5 +1,8 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { AnnouncementModel, PostAnnouncementInputModel } from './announcement.schema';
+import {
+  AnnouncementModel,
+  PostAnnouncementInputModel,
+} from './announcement.schema';
 
 const OWNERS = ['@examples.team-hub'] as const;
 
@@ -23,7 +26,3 @@ export const PostAnnouncementContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

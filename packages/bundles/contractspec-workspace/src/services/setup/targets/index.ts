@@ -8,6 +8,3 @@ export { setupMcpCursor } from './mcp-cursor';
 export { setupMcpClaude } from './mcp-claude';
 export { setupCursorRules } from './cursor-rules';
 export { setupAgentsMd } from './agents-md';
-
-
-

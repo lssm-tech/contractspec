@@ -9,7 +9,3 @@ export const __buildInternals = {
   stripCode,
   ensureTrailingNewline,
 };
-
-
-
-

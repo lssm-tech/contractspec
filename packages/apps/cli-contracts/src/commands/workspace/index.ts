@@ -84,7 +84,9 @@ export const workspaceCommand = new Command('workspace')
             console.log(`  Run script: ${chalk.dim(info.commands.run)}`);
             console.log(`  Execute: ${chalk.dim(info.commands.exec)}`);
             console.log(`  Install: ${chalk.dim(info.commands.install)}`);
-            console.log(`  Install (dev): ${chalk.dim(info.commands.installDev)}`);
+            console.log(
+              `  Install (dev): ${chalk.dim(info.commands.installDev)}`
+            );
             console.log();
 
             // Config
@@ -102,5 +104,3 @@ export const workspaceCommand = new Command('workspace')
         }
       })
   );
-
-

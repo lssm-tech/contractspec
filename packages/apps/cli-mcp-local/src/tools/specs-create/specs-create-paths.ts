@@ -30,9 +30,7 @@ function resolveSubPath(
   const raw = conventions.operations || 'interactions';
   if (!raw.includes('|')) return raw;
   const [commands, queries] = raw.split('|').map((s) => s.trim());
-  return opKind === 'query'
-    ? queries || commands || raw
-    : commands || raw;
+  return opKind === 'query' ? queries || commands || raw : commands || raw;
 }
 
 function generateFileName(baseName: string, extension: string): string {
@@ -42,5 +40,3 @@ function generateFileName(baseName: string, extension: string): string {
     .toLowerCase();
   return `${kebab}${extension}`;
 }
-
-

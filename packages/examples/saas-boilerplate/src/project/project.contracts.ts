@@ -182,4 +182,3 @@ export const ListProjectsContract = defineQuery({
     auth: 'user',
   },
 });
-

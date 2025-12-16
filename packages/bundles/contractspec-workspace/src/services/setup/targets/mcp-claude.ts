@@ -3,8 +3,15 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
-import { generateClaudeMcpConfig, getClaudeDesktopConfigPath } from '../config-generators';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
+import {
+  generateClaudeMcpConfig,
+  getClaudeDesktopConfigPath,
+} from '../config-generators';
 import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
 /**
@@ -86,6 +93,3 @@ export async function setupMcpClaude(
     };
   }
 }
-
-
-

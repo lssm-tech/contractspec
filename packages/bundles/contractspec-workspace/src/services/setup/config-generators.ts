@@ -93,9 +93,10 @@ export function generateCursorRules(options: SetupOptions): string {
   const isPackageLevel = options.isMonorepo && options.scope === 'package';
 
   // Base contract path depends on scope
-  const basePath = isPackageLevel && options.packageRoot
-    ? `${options.packageRoot.split('/').slice(-2).join('/')}/src/contracts`
-    : 'src/contracts';
+  const basePath =
+    isPackageLevel && options.packageRoot
+      ? `${options.packageRoot.split('/').slice(-2).join('/')}/src/contracts`
+      : 'src/contracts';
 
   const monorepoNote = options.isMonorepo
     ? `\n## Monorepo Structure\n\nThis is a monorepo. Contracts may exist at:\n- Package level: \`packages/*/src/contracts/\`\n- Workspace level: \`src/contracts/\`\n\nCheck the appropriate level based on the feature scope.\n`
@@ -281,5 +282,3 @@ export function getClaudeDesktopConfigPath(): string {
       return `${homeDir}/.config/claude/claude_desktop_config.json`;
   }
 }
-
-

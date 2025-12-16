@@ -3,7 +3,11 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { SetupOptions, SetupFileResult, SetupPromptCallbacks } from '../types';
+import type {
+  SetupOptions,
+  SetupFileResult,
+  SetupPromptCallbacks,
+} from '../types';
 import { generateAgentsMd } from '../config-generators';
 
 /**
@@ -17,9 +21,10 @@ export async function setupAgentsMd(
   prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
   // Determine target root based on scope
-  const targetRoot = options.isMonorepo && options.scope === 'package'
-    ? options.packageRoot ?? options.workspaceRoot
-    : options.workspaceRoot;
+  const targetRoot =
+    options.isMonorepo && options.scope === 'package'
+      ? (options.packageRoot ?? options.workspaceRoot)
+      : options.workspaceRoot;
 
   const filePath = fs.join(targetRoot, 'AGENTS.md');
 
@@ -29,9 +34,7 @@ export async function setupAgentsMd(
 
     if (exists) {
       if (options.interactive) {
-        const proceed = await prompts.confirm(
-          `${filePath} exists. Overwrite?`
-        );
+        const proceed = await prompts.confirm(`${filePath} exists. Overwrite?`);
         if (!proceed) {
           return {
             target: 'agents-md',
@@ -67,5 +70,3 @@ export async function setupAgentsMd(
     };
   }
 }
-
-

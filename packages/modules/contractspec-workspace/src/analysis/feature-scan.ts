@@ -174,8 +174,8 @@ function extractCapabilities(code: string): {
  */
 function extractOpToPresentationLinks(
   code: string
-): Array<{ op: RefInfo; pres: RefInfo }> {
-  const links: Array<{ op: RefInfo; pres: RefInfo }> = [];
+): { op: RefInfo; pres: RefInfo }[] {
+  const links: { op: RefInfo; pres: RefInfo }[] = [];
 
   // Match the opToPresentation array
   const arrayMatch = code.match(/opToPresentation\s*:\s*\[([\s\S]*?)\]/);
@@ -257,4 +257,3 @@ function isStability(value: string | null): value is Stability {
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-

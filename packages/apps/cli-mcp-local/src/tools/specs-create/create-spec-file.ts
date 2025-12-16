@@ -1,6 +1,13 @@
-import { loadWorkspaceConfig, type Stability } from '@lssm/bundle.contractspec-workspace';
+import {
+  loadWorkspaceConfig,
+  type Stability,
+} from '@lssm/bundle.contractspec-workspace';
 import type { WorkspaceAdapters } from '../../server';
-import { extensionFor, normalizeStability, normalizeType } from './specs-create-normalize';
+import {
+  extensionFor,
+  normalizeStability,
+  normalizeType,
+} from './specs-create-normalize';
 import { generateSpecCode } from './specs-create-codegen';
 import { resolveOutputPath } from './specs-create-paths';
 
@@ -68,5 +75,3 @@ export async function createSpecFile(
 
   return { filePath, wrote: false, code };
 }
-
-

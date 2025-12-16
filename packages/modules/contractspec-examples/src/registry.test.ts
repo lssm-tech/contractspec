@@ -26,7 +26,3 @@ describe('@lssm/module.contractspec-examples registry', () => {
     expect(unique.size).toBe(ids.length);
   });
 });
-
-
-
-

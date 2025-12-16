@@ -8,6 +8,3 @@ export * from './types';
 export * from './setup-service';
 export * from './config-generators';
 export * from './file-merger';
-
-
-

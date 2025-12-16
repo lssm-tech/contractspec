@@ -37,7 +37,7 @@ function createCliPrompts(): SetupPromptCallbacks {
     },
     multiSelect: async <T extends string>(
       message: string,
-      options: Array<{ value: T; label: string; selected?: boolean }>
+      options: { value: T; label: string; selected?: boolean }[]
     ): Promise<T[]> => {
       // Special handling for scope selection (single choice)
       if (message.includes('Configure at which level')) {
@@ -79,7 +79,9 @@ function parseTargets(value: string): SetupTarget[] {
     if (validTargets.has(trimmed)) {
       targets.push(trimmed);
     } else {
-      console.warn(chalk.yellow(`Warning: Unknown target '${trimmed}', skipping.`));
+      console.warn(
+        chalk.yellow(`Warning: Unknown target '${trimmed}', skipping.`)
+      );
     }
   }
 
@@ -225,8 +227,12 @@ export const initCommand = new Command('init')
       // Next steps
       console.log(chalk.bold('\n🚀 Next steps:\n'));
       console.log(`  1. Review generated files`);
-      console.log(`  2. Run ${chalk.cyan('contractspec create')} to create your first spec`);
-      console.log(`  3. Run ${chalk.cyan('contractspec validate')} to check specs`);
+      console.log(
+        `  2. Run ${chalk.cyan('contractspec create')} to create your first spec`
+      );
+      console.log(
+        `  3. Run ${chalk.cyan('contractspec validate')} to check specs`
+      );
       console.log();
 
       if (!result.success) {
@@ -241,4 +247,3 @@ export const initCommand = new Command('init')
       process.exit(1);
     }
   });
-

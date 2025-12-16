@@ -1,5 +1,9 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { TaskModel, CreateTaskInputModel, UpdateTaskStatusInputModel } from './task.schema';
+import {
+  TaskModel,
+  CreateTaskInputModel,
+  UpdateTaskStatusInputModel,
+} from './task.schema';
 
 const OWNERS = ['@examples.team-hub'] as const;
 
@@ -44,7 +48,3 @@ export const UpdateTaskStatusContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

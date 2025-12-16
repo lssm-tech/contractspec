@@ -100,7 +100,3 @@ export const KbSnapshotPublishedEvent = defineEvent({
   },
   payload: KbSnapshotPublishedPayload,
 });
-
-
-
-

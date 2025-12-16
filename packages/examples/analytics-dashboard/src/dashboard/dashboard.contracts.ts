@@ -103,5 +103,3 @@ export const GetDashboardContract = defineQuery({
   io: { input: GetDashboardInputModel, output: DashboardModel },
   policy: { auth: 'anonymous' },
 });
-
-

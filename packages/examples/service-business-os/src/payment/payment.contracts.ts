@@ -23,7 +23,3 @@ export const RecordPaymentContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

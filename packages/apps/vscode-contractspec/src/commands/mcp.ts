@@ -173,7 +173,3 @@ async function fetchDocContent(
   const content = result.result?.contents?.[0];
   return content?.text ?? 'No content available';
 }
-
-
-
-

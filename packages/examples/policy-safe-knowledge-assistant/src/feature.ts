@@ -55,7 +55,3 @@ export const PolicySafeKnowledgeAssistantFeature: FeatureModuleSpec = {
     ],
   },
 };
-
-
-
-

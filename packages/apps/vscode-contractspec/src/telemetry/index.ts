@@ -182,7 +182,3 @@ class ContractSpecTelemetryReporter implements TelemetryReporter {
     this.disposed = true;
   }
 }
-
-
-
-

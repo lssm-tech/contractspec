@@ -92,7 +92,3 @@ ${contentBlock}
 };
 `;
 }
-
-
-
-

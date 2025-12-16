@@ -227,10 +227,7 @@ function outputJson(
   }
 
   // Convert Maps to objects for JSON serialization
-  const inventoryObj: Record<
-    string,
-    Array<{ key: string; value: unknown }>
-  > = {};
+  const inventoryObj: Record<string, { key: string; value: unknown }[]> = {};
 
   for (const [type, map] of Object.entries(result.inventory)) {
     inventoryObj[type] = Array.from(

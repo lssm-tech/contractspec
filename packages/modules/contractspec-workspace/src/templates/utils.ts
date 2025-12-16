@@ -43,7 +43,3 @@ export function capitalize(str: string): string {
 export function escapeString(value: string): string {
   return value.replace(/'/g, "\\'");
 }
-
-
-
-

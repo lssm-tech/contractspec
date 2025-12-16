@@ -1,5 +1,9 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { RitualModel, ScheduleRitualInputModel, LogRitualOccurrenceInputModel } from './ritual.schema';
+import {
+  RitualModel,
+  ScheduleRitualInputModel,
+  LogRitualOccurrenceInputModel,
+} from './ritual.schema';
 
 const OWNERS = ['@examples.team-hub'] as const;
 
@@ -44,7 +48,3 @@ export const LogRitualOccurrenceContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

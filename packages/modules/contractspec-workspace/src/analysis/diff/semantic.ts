@@ -143,7 +143,3 @@ function compareStructuralHints(
     label: 'definition section presence',
   });
 }
-
-
-
-

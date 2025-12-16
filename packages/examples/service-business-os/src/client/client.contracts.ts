@@ -23,7 +23,3 @@ export const CreateClientContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-

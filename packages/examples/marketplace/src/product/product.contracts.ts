@@ -54,5 +54,3 @@ export const ListProductsContract = defineQuery({
   io: { input: ListProductsInputModel, output: ListProductsOutputModel },
   policy: { auth: 'anonymous' },
 });
-
-

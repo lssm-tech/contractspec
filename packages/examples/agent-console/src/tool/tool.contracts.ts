@@ -1,7 +1,12 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { ToolCategoryEnum, ToolStatusEnum } from './tool.enum';
-import { ToolModel, ToolSummaryModel, CreateToolInputModel, UpdateToolInputModel } from './tool.schema';
+import {
+  ToolModel,
+  ToolSummaryModel,
+  CreateToolInputModel,
+  UpdateToolInputModel,
+} from './tool.schema';
 
 const OWNERS = ['agent-console-team'] as const;
 
@@ -31,12 +36,24 @@ export const CreateToolCommand = defineCommand({
       },
     }),
     errors: {
-      SLUG_EXISTS: { description: 'A tool with this slug already exists in the organization', http: 409, gqlCode: 'SLUG_EXISTS', when: 'Slug is already taken' },
+      SLUG_EXISTS: {
+        description: 'A tool with this slug already exists in the organization',
+        http: 409,
+        gqlCode: 'SLUG_EXISTS',
+        when: 'Slug is already taken',
+      },
     },
   },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'tool.created', version: 1, when: 'Tool is successfully created', payload: ToolSummaryModel }],
+    emits: [
+      {
+        name: 'tool.created',
+        version: 1,
+        when: 'Tool is successfully created',
+        payload: ToolSummaryModel,
+      },
+    ],
     audit: ['tool.created'],
   },
 });
@@ -67,12 +84,24 @@ export const UpdateToolCommand = defineCommand({
       },
     }),
     errors: {
-      TOOL_NOT_FOUND: { description: 'The specified tool does not exist', http: 404, gqlCode: 'TOOL_NOT_FOUND', when: 'Tool ID is invalid' },
+      TOOL_NOT_FOUND: {
+        description: 'The specified tool does not exist',
+        http: 404,
+        gqlCode: 'TOOL_NOT_FOUND',
+        when: 'Tool ID is invalid',
+      },
     },
   },
   policy: { auth: 'user' },
   sideEffects: {
-    emits: [{ name: 'tool.updated', version: 1, when: 'Tool is updated', payload: ToolSummaryModel }],
+    emits: [
+      {
+        name: 'tool.updated',
+        version: 1,
+        when: 'Tool is updated',
+        payload: ToolSummaryModel,
+      },
+    ],
     audit: ['tool.updated'],
   },
 });
@@ -92,9 +121,21 @@ export const GetToolQuery = defineQuery({
     context: 'Called when viewing tool details or editing.',
   },
   io: {
-    input: defineSchemaModel({ name: 'GetToolInput', fields: { toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false } } }),
+    input: defineSchemaModel({
+      name: 'GetToolInput',
+      fields: {
+        toolId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+      },
+    }),
     output: ToolModel,
-    errors: { TOOL_NOT_FOUND: { description: 'The specified tool does not exist', http: 404, gqlCode: 'TOOL_NOT_FOUND', when: 'Tool ID is invalid' } },
+    errors: {
+      TOOL_NOT_FOUND: {
+        description: 'The specified tool does not exist',
+        http: 404,
+        gqlCode: 'TOOL_NOT_FOUND',
+        when: 'Tool ID is invalid',
+      },
+    },
   },
   policy: { auth: 'user' },
 });
@@ -117,12 +158,23 @@ export const ListToolsQuery = defineQuery({
     input: defineSchemaModel({
       name: 'ListToolsInput',
       fields: {
-        organizationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+        organizationId: {
+          type: ScalarTypeEnum.String_unsecure(),
+          isOptional: false,
+        },
         category: { type: ToolCategoryEnum, isOptional: true },
         status: { type: ToolStatusEnum, isOptional: true },
         search: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-        limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 20 },
-        offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true, defaultValue: 0 },
+        limit: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 20,
+        },
+        offset: {
+          type: ScalarTypeEnum.Int_unsecure(),
+          isOptional: true,
+          defaultValue: 0,
+        },
       },
     }),
     output: defineSchemaModel({
@@ -169,12 +221,20 @@ export const TestToolCommand = defineCommand({
       },
     }),
     errors: {
-      TOOL_NOT_FOUND: { description: 'The specified tool does not exist', http: 404, gqlCode: 'TOOL_NOT_FOUND', when: 'Tool ID is invalid' },
-      TOOL_EXECUTION_ERROR: { description: 'Tool execution failed', http: 500, gqlCode: 'TOOL_EXECUTION_ERROR', when: 'Tool returns an error' },
+      TOOL_NOT_FOUND: {
+        description: 'The specified tool does not exist',
+        http: 404,
+        gqlCode: 'TOOL_NOT_FOUND',
+        when: 'Tool ID is invalid',
+      },
+      TOOL_EXECUTION_ERROR: {
+        description: 'Tool execution failed',
+        http: 500,
+        gqlCode: 'TOOL_EXECUTION_ERROR',
+        when: 'Tool returns an error',
+      },
     },
   },
   policy: { auth: 'user' },
   sideEffects: { audit: ['tool.tested'] },
 });
-
-

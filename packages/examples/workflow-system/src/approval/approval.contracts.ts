@@ -212,5 +212,3 @@ export const GetApprovalContract = defineQuery({
   },
   policy: { auth: 'user' },
 });
-
-

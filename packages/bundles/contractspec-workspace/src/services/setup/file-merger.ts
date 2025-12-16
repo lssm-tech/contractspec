@@ -21,10 +21,7 @@ export function deepMergePreserve<T extends Record<string, unknown>>(
     if (existingValue === undefined) {
       // Key doesn't exist in user config, add it
       (result as Record<string, unknown>)[key] = defaultValue;
-    } else if (
-      isPlainObject(existingValue) &&
-      isPlainObject(defaultValue)
-    ) {
+    } else if (isPlainObject(existingValue) && isPlainObject(defaultValue)) {
       // Both are objects, recurse
       (result as Record<string, unknown>)[key] = deepMergePreserve(
         existingValue as Record<string, unknown>,
@@ -97,6 +94,3 @@ export function safeParseJson<T>(content: string): T | null {
 export function formatJson(obj: unknown): string {
   return JSON.stringify(obj, null, 2) + '\n';
 }
-
-
-

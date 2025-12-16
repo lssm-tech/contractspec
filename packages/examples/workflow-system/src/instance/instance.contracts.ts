@@ -308,5 +308,3 @@ export const GetInstanceContract = defineQuery({
   },
   policy: { auth: 'user' },
 });
-
-

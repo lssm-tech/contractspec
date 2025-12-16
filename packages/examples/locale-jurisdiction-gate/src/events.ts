@@ -72,7 +72,3 @@ export const AssistantAnswerDeliveredEvent = defineEvent({
   },
   payload: AssistantAnswerDeliveredPayload,
 });
-
-
-
-

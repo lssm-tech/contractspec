@@ -113,4 +113,3 @@ export const CheckFeatureAccessContract = defineQuery({
     auth: 'user',
   },
 });
-

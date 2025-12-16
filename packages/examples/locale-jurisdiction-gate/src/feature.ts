@@ -27,7 +27,3 @@ export const LocaleJurisdictionGateFeature: FeatureModuleSpec = {
     requires: [{ key: 'knowledge', version: 1 }],
   },
 };
-
-
-
-

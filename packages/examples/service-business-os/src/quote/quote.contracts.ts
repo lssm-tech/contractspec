@@ -1,5 +1,9 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { QuoteModel, CreateQuoteInputModel, AcceptQuoteInputModel } from './quote.schema';
+import {
+  QuoteModel,
+  CreateQuoteInputModel,
+  AcceptQuoteInputModel,
+} from './quote.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;
 
@@ -44,7 +48,3 @@ export const AcceptQuoteContract = defineCommand({
   },
   policy: { auth: 'user' },
 });
-
-
-
-
