@@ -10,6 +10,7 @@ import type {
   CapabilityRegistry,
 } from './capabilities';
 import type { ExperimentRef } from './experiments/spec';
+import type { ImplementationRef } from './spec';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export interface FeatureModuleMeta extends OwnerShipMeta {
@@ -67,6 +68,12 @@ export interface FeatureModuleSpec {
     /** Required targets that must be supported by the descriptor. */
     targets: PresentationTarget[];
   }[];
+
+  /**
+   * Explicit implementation file mappings for the entire feature module.
+   * Used for tracking and verifying that this feature is correctly implemented.
+   */
+  implementations?: ImplementationRef[];
 }
 
 export interface FeatureRef {

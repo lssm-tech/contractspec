@@ -14,7 +14,13 @@ import {
   generateVerificationPrompt,
   specToFullMarkdown,
 } from '@lssm/lib.contracts/llm';
-import type { VerifyInput, AIReviewResult, VerifyConfig } from './types';
+import type {
+  VerifyInput,
+  AIReviewResult,
+  VerifyConfig,
+  FieldMapping,
+  SemanticVerificationResult,
+} from './types';
 
 /**
  * Parse AI response to structured result.
@@ -301,4 +307,315 @@ export function createQuickAIReview(input: VerifyInput): VerificationReport {
       duration: Date.now() - startTime,
     },
   };
+}
+
+/**
+ * Generate a prompt for semantic field verification.
+ */
+function generateSemanticFieldPrompt(
+  specFields: string,
+  implCode: string
+): string {
+  return `You are analyzing a code implementation against its specification.
+
+## Spec Schema Fields
+${specFields}
+
+## Implementation Code
+\`\`\`typescript
+${implCode}
+\`\`\`
+
+## Task
+Analyze the implementation to verify it correctly implements the spec schema fields.
+
+For each field in the spec:
+1. Find the corresponding field/property in the implementation
+2. Determine if the naming matches (exact, compatible synonym, or mismatch)
+3. Check if the types are compatible
+4. Identify any missing fields
+
+Respond with JSON in this format:
+\`\`\`json
+{
+  "fieldMappings": [
+    {
+      "specField": "nickname",
+      "specType": "string",
+      "implementationField": "username",
+      "implementationType": "string",
+      "match": "compatible",
+      "aiConfidence": 0.85,
+      "suggestion": "Consider renaming 'username' to 'nickname' for exact spec compliance"
+    }
+  ],
+  "intentAlignment": {
+    "score": 85,
+    "issues": ["Field naming differs from spec"],
+    "suggestions": ["Rename fields to match spec exactly for better maintainability"]
+  },
+  "semanticIssues": []
+}
+\`\`\`
+
+Match types:
+- "exact": Field name and type match exactly
+- "compatible": Semantically similar (e.g., "email" vs "emailAddress")
+- "mismatch": Different meaning despite similar naming
+- "missing": Spec field not found in implementation
+`;
+}
+
+/**
+ * Extract field definitions from spec schema.
+ */
+function extractSpecFields(spec: AnyContractSpec): string {
+  const fields: string[] = [];
+
+  /**
+   * Helper to safely extract fields from a schema.
+   */
+  const extractFromSchema = (
+    schema: unknown,
+    direction: 'input' | 'output'
+  ) => {
+    try {
+      // Cast to any to access internal Zod structure
+      const schemaAny = schema as {
+        _def?: { shape?: () => Record<string, unknown> };
+      };
+      const shapeFn = schemaAny?._def?.shape;
+
+      if (shapeFn && typeof shapeFn === 'function') {
+        const shapeObj = shapeFn();
+        for (const [key, value] of Object.entries(shapeObj)) {
+          const valueAny = value as { _def?: { typeName?: string } };
+          const typeName = valueAny?._def?.typeName ?? 'unknown';
+          fields.push(
+            `- ${key}: ${String(typeName).replace('Zod', '').toLowerCase()} (${direction})`
+          );
+        }
+      }
+    } catch {
+      fields.push(`- [unable to extract ${direction} fields]`);
+    }
+  };
+
+  // Try to extract from input schema
+  if (spec.io.input) {
+    extractFromSchema(spec.io.input, 'input');
+  }
+
+  // Try to extract from output schema (skip if it's a resource ref)
+  if (spec.io.output && !('resourceRef' in spec.io.output)) {
+    extractFromSchema(spec.io.output, 'output');
+  }
+
+  if (fields.length === 0) {
+    return '- [no schema fields could be extracted]';
+  }
+
+  return fields.join('\n');
+}
+
+/**
+ * Parse semantic verification response from AI.
+ */
+function parseSemanticResponse(response: string): SemanticVerificationResult {
+  // Try to extract JSON
+  const jsonMatch = response.match(/```json\n?([\s\S]*?)\n?```/);
+  if (jsonMatch?.[1]) {
+    try {
+      const parsed = JSON.parse(jsonMatch[1]);
+      return {
+        fieldMappings: (parsed.fieldMappings ?? []).map(
+          (m: Record<string, unknown>) => ({
+            specField: String(m.specField ?? ''),
+            specType: String(m.specType ?? 'unknown'),
+            implementationField: m.implementationField
+              ? String(m.implementationField)
+              : undefined,
+            implementationType: m.implementationType
+              ? String(m.implementationType)
+              : undefined,
+            match: (m.match ?? 'missing') as FieldMapping['match'],
+            aiConfidence:
+              typeof m.aiConfidence === 'number' ? m.aiConfidence : 0.5,
+            suggestion: m.suggestion ? String(m.suggestion) : undefined,
+          })
+        ),
+        intentAlignment: {
+          score:
+            typeof parsed.intentAlignment?.score === 'number'
+              ? parsed.intentAlignment.score
+              : 50,
+          issues: Array.isArray(parsed.intentAlignment?.issues)
+            ? parsed.intentAlignment.issues
+            : [],
+          suggestions: Array.isArray(parsed.intentAlignment?.suggestions)
+            ? parsed.intentAlignment.suggestions
+            : [],
+        },
+        semanticIssues: (parsed.semanticIssues ?? []).map(
+          (i: Record<string, unknown>) => ({
+            category: String(i.category ?? 'semantic'),
+            severity: (i.severity ?? 'warning') as 'error' | 'warning' | 'info',
+            message: String(i.message ?? ''),
+            suggestion: i.suggestion ? String(i.suggestion) : undefined,
+          })
+        ),
+        rawResponse: response,
+      };
+    } catch {
+      // Fall through to default
+    }
+  }
+
+  // Default result if parsing fails
+  return {
+    fieldMappings: [],
+    intentAlignment: {
+      score: 50,
+      issues: ['Unable to parse AI response for semantic analysis'],
+      suggestions: [],
+    },
+    semanticIssues: [],
+    rawResponse: response,
+  };
+}
+
+/**
+ * Run semantic field-level verification using AI.
+ */
+export async function verifySemanticFields(
+  input: VerifyInput,
+  config: VerifyConfig = {}
+): Promise<SemanticVerificationResult> {
+  const { spec, implementationCode } = input;
+
+  // Extract spec fields
+  const specFields = extractSpecFields(spec);
+
+  // Generate prompt
+  const prompt = generateSemanticFieldPrompt(specFields, implementationCode);
+
+  // Call AI
+  const aiResponse = await callAI(prompt, config);
+
+  // Parse response
+  return parseSemanticResponse(aiResponse);
+}
+
+/**
+ * Run enhanced AI verification with semantic field analysis.
+ */
+export async function verifyWithAIEnhanced(
+  input: VerifyInput,
+  config: VerifyConfig = {}
+): Promise<VerificationReport> {
+  const { spec, implementationCode, implementationPath } = input;
+  const startTime = Date.now();
+
+  // Run standard AI verification
+  const baseReport = await verifyWithAI(input, config);
+
+  // Run semantic field verification if AI is available
+  let semanticResult: SemanticVerificationResult | undefined;
+  if (config.aiApiKey) {
+    try {
+      semanticResult = await verifySemanticFields(input, config);
+    } catch {
+      // Semantic verification failed, continue with base report
+    }
+  }
+
+  // Merge semantic issues into base report
+  if (semanticResult) {
+    const semanticIssues: VerificationIssue[] = [];
+
+    // Add field mapping issues
+    for (const mapping of semanticResult.fieldMappings) {
+      if (mapping.match === 'missing') {
+        semanticIssues.push({
+          severity: 'error',
+          category: 'semantic',
+          message: `Missing field: '${mapping.specField}' (${mapping.specType}) not found in implementation`,
+          suggestion:
+            mapping.suggestion ??
+            `Add field '${mapping.specField}' to implementation`,
+        });
+      } else if (mapping.match === 'mismatch') {
+        semanticIssues.push({
+          severity: 'warning',
+          category: 'semantic',
+          message: `Field mismatch: '${mapping.specField}' has incorrect implementation as '${mapping.implementationField}'`,
+          suggestion: mapping.suggestion,
+        });
+      } else if (mapping.match === 'compatible' && mapping.aiConfidence < 0.8) {
+        semanticIssues.push({
+          severity: 'info',
+          category: 'semantic',
+          message: `Field naming: '${mapping.specField}' implemented as '${mapping.implementationField}' (compatible but not exact)`,
+          suggestion: mapping.suggestion,
+        });
+      }
+    }
+
+    // Add intent alignment issues
+    for (const issue of semanticResult.intentAlignment.issues) {
+      semanticIssues.push({
+        severity: 'warning',
+        category: 'semantic',
+        message: issue,
+      });
+    }
+
+    // Add other semantic issues
+    for (const issue of semanticResult.semanticIssues) {
+      semanticIssues.push({
+        severity: issue.severity,
+        category: 'semantic',
+        message: issue.message,
+        suggestion: issue.suggestion,
+      });
+    }
+
+    // Merge issues
+    baseReport.issues = [...baseReport.issues, ...semanticIssues];
+
+    // Update score based on field coverage
+    const totalFields = semanticResult.fieldMappings.length;
+    const implementedFields = semanticResult.fieldMappings.filter(
+      (m) => m.match === 'exact' || m.match === 'compatible'
+    ).length;
+
+    if (totalFields > 0) {
+      const fieldScore = Math.round((implementedFields / totalFields) * 100);
+      baseReport.score = Math.round((baseReport.score + fieldScore) / 2);
+      baseReport.coverage.fields = {
+        total: totalFields,
+        implemented: implementedFields,
+      };
+    }
+
+    // Update pass status
+    const hasFieldErrors = semanticIssues.some((i) => i.severity === 'error');
+    if (hasFieldErrors) {
+      baseReport.passed = false;
+    }
+
+    // Add semantic suggestions
+    baseReport.suggestions = [
+      ...baseReport.suggestions,
+      ...semanticResult.intentAlignment.suggestions,
+    ];
+  }
+
+  // Update duration
+  baseReport.meta = {
+    ...baseReport.meta,
+    duration: Date.now() - startTime,
+  };
+
+  return baseReport;
 }

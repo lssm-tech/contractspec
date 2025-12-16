@@ -13,7 +13,8 @@ export type CICheckCategory =
   | 'deps'
   | 'doctor'
   | 'handlers'
-  | 'tests';
+  | 'tests'
+  | 'implementation';
 
 /**
  * All available CI check categories.
@@ -25,6 +26,7 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
   'doctor',
   'handlers',
   'tests',
+  'implementation',
 ];
 
 /**
@@ -37,6 +39,7 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
   doctor: 'Installation Health',
   handlers: 'Handler Implementation',
   tests: 'Test Coverage',
+  implementation: 'Implementation Verification',
 };
 
 /**
@@ -134,6 +137,17 @@ export interface CICheckOptions {
   failOnWarnings?: boolean;
   /** Workspace root directory. */
   workspaceRoot?: string;
+  /** Implementation check options. */
+  implementation?: {
+    /** Require all specs to be implemented. */
+    requireImplemented?: boolean;
+    /** Verification tier to run. */
+    verificationTier?: 'structure' | 'behavior' | 'ai';
+    /** Use cache for verification results. */
+    useCache?: boolean;
+    /** Allow partial implementations. */
+    allowPartial?: boolean;
+  };
 }
 
 /**

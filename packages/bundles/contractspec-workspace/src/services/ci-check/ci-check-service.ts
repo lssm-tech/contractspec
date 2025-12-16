@@ -16,6 +16,12 @@ import { analyzeDeps } from '../deps';
 import { runDoctor } from '../doctor/doctor-service';
 import { validateImplementationFiles } from '../validate-implementation';
 import { loadWorkspaceConfig } from '../config';
+import { type SpecImplementationResult } from '../implementation/types';
+import { resolveAllImplementations } from '../implementation/resolver';
+import {
+  createVerificationCacheService,
+  createFileSystemCacheStorage,
+} from '../verification-cache';
 import type {
   CICheckCategory,
   CICheckCategorySummary,
@@ -120,6 +126,24 @@ export async function runCIChecks(
     );
   }
 
+  // Run implementation checks
+  if (checksToRun.includes('implementation')) {
+    const categoryStart = Date.now();
+    const implIssues = await runImplementationChecks(
+      adapters,
+      specFiles,
+      options
+    );
+    issues.push(...implIssues);
+    categorySummaries.push(
+      createCategorySummary(
+        'implementation',
+        implIssues,
+        Date.now() - categoryStart
+      )
+    );
+  }
+
   // Calculate totals
   const totalErrors = issues.filter((i) => i.severity === 'error').length;
   const totalWarnings = issues.filter((i) => i.severity === 'warning').length;
@@ -172,6 +196,9 @@ function getChecksToRun(options: CICheckOptions): CICheckCategory[] {
   }
   if (options.checkTests) {
     allCategories.push('tests');
+  }
+  if (options.implementation) {
+    allCategories.push('implementation');
   }
 
   // If specific checks are requested, use those
@@ -431,6 +458,106 @@ async function runTestChecks(
 }
 
 /**
+ * Run implementation verification checks.
+ */
+async function runImplementationChecks(
+  adapters: { fs: FsAdapter; logger: LoggerAdapter },
+  specFiles: string[],
+  options: CICheckOptions
+): Promise<CIIssue[]> {
+  const { fs } = adapters;
+  const issues: CIIssue[] = [];
+
+  const config = await loadWorkspaceConfig(fs);
+  const implOptions = options.implementation ?? {};
+
+  // Only check operation specs by default
+  const operationSpecs = specFiles.filter((f) => f.includes('.contracts.'));
+
+  // Resolve implementations for all specs
+  const results = await resolveAllImplementations(
+    operationSpecs,
+    { fs },
+    config,
+    {
+      computeHashes: implOptions.useCache ?? true,
+    }
+  );
+
+  for (const result of results) {
+    // Check if implementation is required
+    if (implOptions.requireImplemented && result.status === 'missing') {
+      issues.push({
+        ruleId: 'impl-missing',
+        severity: 'error',
+        message: `Spec ${result.specName} has no implementation`,
+        category: 'implementation',
+        file: result.specPath,
+        context: {
+          specName: result.specName,
+          specVersion: result.specVersion,
+          status: result.status,
+        },
+      });
+    } else if (result.status === 'missing') {
+      issues.push({
+        ruleId: 'impl-missing',
+        severity: 'warning',
+        message: `Spec ${result.specName} has no implementation`,
+        category: 'implementation',
+        file: result.specPath,
+        context: {
+          specName: result.specName,
+          specVersion: result.specVersion,
+          status: result.status,
+        },
+      });
+    }
+
+    // Check for partial implementations
+    if (!implOptions.allowPartial && result.status === 'partial') {
+      const missingImpls = result.implementations
+        .filter((i) => !i.exists && i.type !== 'test')
+        .map((i) => i.path);
+
+      issues.push({
+        ruleId: 'impl-partial',
+        severity: 'warning',
+        message: `Spec ${result.specName} has partial implementation: missing ${missingImpls.join(', ')}`,
+        category: 'implementation',
+        file: result.specPath,
+        context: {
+          specName: result.specName,
+          specVersion: result.specVersion,
+          status: result.status,
+          missingFiles: missingImpls,
+        },
+      });
+    }
+
+    // Report missing tests
+    const missingTests = result.implementations.filter(
+      (i) => !i.exists && i.type === 'test'
+    );
+    if (missingTests.length > 0) {
+      issues.push({
+        ruleId: 'impl-missing-tests',
+        severity: 'note',
+        message: `Spec ${result.specName} missing test files: ${missingTests.map((t) => t.path).join(', ')}`,
+        category: 'implementation',
+        file: result.specPath,
+        context: {
+          specName: result.specName,
+          missingTests: missingTests.map((t) => t.path),
+        },
+      });
+    }
+  }
+
+  return issues;
+}
+
+/**
  * Create a category summary from issues.
  */
 function createCategorySummary(
@@ -445,6 +572,7 @@ function createCategorySummary(
     doctor: 'Installation Health',
     handlers: 'Handler Implementation',
     tests: 'Test Coverage',
+    implementation: 'Implementation Verification',
   };
 
   const errors = issues.filter((i) => i.severity === 'error').length;
