@@ -1,9 +1,6 @@
 import { moduleLibrary } from '@lssm/tool.tsdown';
 
-export default moduleLibrary;
-
-
-
-
-
-
+export default {
+  ...moduleLibrary,
+  minify: false,
+};

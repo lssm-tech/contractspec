@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@lssm/lib.design-system';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@lssm/lib.ui-kit-core';
 import type { LearningJourneyStepSpec } from '@lssm/module.learning-journey/track-spec';
 
 interface StepChecklistProps {

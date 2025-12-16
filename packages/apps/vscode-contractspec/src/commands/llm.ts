@@ -12,26 +12,48 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import {
-  specToContextMarkdown,
-  specToFullMarkdown,
-  specToAgentPrompt,
   type LLMExportFormat,
   type AgentType,
   type VerificationTier,
 } from '@lssm/lib.contracts/llm';
 import {
-  createAgentGuideService,
-  createVerifyService,
-} from '@lssm/bundle.contractspec-workspace';
+  scanAllSpecsFromSource,
+  scanFeatureSource,
+  isFeatureFile,
+} from '@lssm/module.contractspec-workspace';
 
 /**
- * Load a spec from a file path.
- * Handles:
- * - Command/Query specs (have 'meta' and 'io')
- * - Feature specs (have 'meta' and 'operations'/'events'/'presentations')
- * - Multiple specs in contracts files (returns first found)
+ * Parsed spec information from source code.
+ * This is a lightweight representation extracted without execution.
  */
-async function loadSpec(specPath: string): Promise<any> {
+interface ParsedSpec {
+  meta: {
+    name: string;
+    version: number;
+    description?: string;
+    stability?: string;
+    owners?: string[];
+    tags?: string[];
+    goal?: string;
+    context?: string;
+  };
+  specType: string;
+  kind?: 'command' | 'query' | 'unknown';
+  hasIo?: boolean;
+  hasPolicy?: boolean;
+  emittedEvents?: { name: string; version: number }[];
+  // For features
+  operations?: { name: string; version: number }[];
+  events?: { name: string; version: number }[];
+  presentations?: { name: string; version: number }[];
+}
+
+/**
+ * Load spec(s) from a file by parsing the source code.
+ * This approach doesn't require compilation - it reads the TypeScript source
+ * and extracts spec information using regex-based parsing.
+ */
+async function loadSpecFromSource(specPath: string): Promise<ParsedSpec[]> {
   // Convert file:// URI to file path if needed
   let filePath = specPath;
   if (specPath.startsWith('file://')) {
@@ -41,135 +63,578 @@ async function loadSpec(specPath: string): Promise<any> {
   // Normalize path separators
   filePath = path.normalize(filePath);
 
-  // Strategy 1: Try to find compiled output in dist folder
-  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-  if (workspaceRoot) {
-    const relativePath = path.relative(workspaceRoot, filePath);
-    const distPath = path.join(
-      workspaceRoot,
-      'dist',
-      relativePath.replace(/\.ts$/, '.js')
-    );
+  // Read the source file
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
 
-    if (fs.existsSync(distPath)) {
-      try {
-        // Clear cache if exists
-        if (require.cache[distPath]) {
-          delete require.cache[distPath];
-        }
-        const module = require(distPath);
-        const spec = findSpecInModule(module);
-        if (spec) return spec;
-      } catch (error) {
-        // Continue to next strategy
+  const source = fs.readFileSync(filePath, 'utf-8');
+
+  // Check if it's a feature file
+  if (isFeatureFile(filePath)) {
+    const featureResult = scanFeatureSource(source, filePath);
+    if (featureResult.key) {
+      // Extract additional metadata from source
+      const goalMatch = source.match(/goal\s*:\s*['"]([^'"]+)['"]/);
+      const contextMatch = source.match(/context\s*:\s*['"]([^'"]+)['"]/);
+
+      return [
+        {
+          meta: {
+            name: featureResult.key,
+            version: 1,
+            description: featureResult.description,
+            stability: featureResult.stability,
+            owners: featureResult.owners,
+            tags: featureResult.tags,
+            goal: goalMatch?.[1],
+            context: contextMatch?.[1],
+          },
+          specType: 'feature',
+          operations: featureResult.operations,
+          events: featureResult.events,
+          presentations: featureResult.presentations,
+        },
+      ];
+    }
+  }
+
+  // Scan for all specs in the file
+  const scanResults = scanAllSpecsFromSource(source, filePath);
+
+  if (scanResults.length === 0) {
+    throw new Error(`No spec definitions found in ${path.basename(filePath)}`);
+  }
+
+  // Convert scan results to ParsedSpec format
+  return scanResults.map((result) => {
+    // Extract goal and context from the source near this spec
+    const specBlock = extractSpecBlock(source, result.name ?? '');
+    const goalMatch = specBlock?.match(/goal\s*:\s*['"]([^'"]+)['"]/);
+    const contextMatch = specBlock?.match(/context\s*:\s*['"]([^'"]+)['"]/);
+
+    return {
+      meta: {
+        name: result.name ?? 'unknown',
+        version: result.version ?? 1,
+        description: result.description,
+        stability: result.stability,
+        owners: result.owners,
+        tags: result.tags,
+        goal: goalMatch?.[1],
+        context: contextMatch?.[1],
+      },
+      specType: result.specType,
+      kind: result.kind,
+      hasIo: result.hasIo,
+      hasPolicy: result.hasPolicy,
+      emittedEvents: result.emittedEvents,
+    };
+  });
+}
+
+/**
+ * Extract the code block containing a specific spec by name.
+ */
+function extractSpecBlock(source: string, specName: string): string | null {
+  // Find the position of the spec name in the source
+  const namePattern = new RegExp(
+    `name\\s*:\\s*['"]${escapeRegex(specName)}['"]`
+  );
+  const match = source.match(namePattern);
+  if (!match || match.index === undefined) return null;
+
+  // Find the start of the block (look backwards for defineCommand/defineQuery/etc)
+  const beforeMatch = source.slice(0, match.index);
+  const defineMatch = beforeMatch.match(
+    /(?:defineCommand|defineQuery|defineEvent|definePresentation|FeatureModuleSpec)\s*[=(]\s*\{?\s*$/
+  );
+  if (!defineMatch || defineMatch.index === undefined) return null;
+
+  const startIndex = defineMatch.index;
+
+  // Find the matching closing brace
+  let depth = 0;
+  let inString = false;
+  let stringChar = '';
+  let endIndex = -1;
+
+  for (let i = match.index; i < source.length; i++) {
+    const char = source[i];
+    const prevChar = i > 0 ? source[i - 1] : '';
+
+    // Handle string literals
+    if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (inString) continue;
+
+    if (char === '{') {
+      depth++;
+    } else if (char === '}') {
+      depth--;
+      if (depth === 0) {
+        endIndex = i + 1;
+        break;
       }
     }
   }
 
-  // Strategy 2: Try direct require (works if ts-node/tsx is configured)
-  try {
-    // Clear cache if exists
-    if (require.cache[filePath]) {
-      delete require.cache[filePath];
+  if (endIndex === -1) return null;
+  return source.slice(startIndex, endIndex);
+}
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Generate markdown from a parsed spec.
+ */
+function specToMarkdown(spec: ParsedSpec, format: LLMExportFormat): string {
+  const lines: string[] = [];
+
+  // Header
+  lines.push(`# ${spec.meta.name}`);
+  lines.push('');
+
+  if (spec.meta.description) {
+    lines.push(spec.meta.description);
+    lines.push('');
+  }
+
+  // Metadata
+  lines.push('## Metadata');
+  lines.push('');
+  lines.push(
+    `- **Type**: ${spec.specType}${spec.kind ? ` (${spec.kind})` : ''}`
+  );
+  lines.push(`- **Version**: ${spec.meta.version}`);
+  if (spec.meta.stability) {
+    lines.push(`- **Stability**: ${spec.meta.stability}`);
+  }
+  if (spec.meta.owners && spec.meta.owners.length > 0) {
+    lines.push(`- **Owners**: ${spec.meta.owners.join(', ')}`);
+  }
+  if (spec.meta.tags && spec.meta.tags.length > 0) {
+    lines.push(`- **Tags**: ${spec.meta.tags.join(', ')}`);
+  }
+  lines.push('');
+
+  // Goal and Context (for full/prompt format)
+  if (format !== 'context') {
+    if (spec.meta.goal) {
+      lines.push('## Goal');
+      lines.push('');
+      lines.push(spec.meta.goal);
+      lines.push('');
     }
-    const module = require(filePath);
-    const spec = findSpecInModule(module);
-    if (spec) return spec;
-  } catch (error) {
-    // Continue to next strategy
+    if (spec.meta.context) {
+      lines.push('## Context');
+      lines.push('');
+      lines.push(spec.meta.context);
+      lines.push('');
+    }
   }
 
-  // Strategy 3: Try dynamic import
-  try {
-    // Convert to file:// URL for import
-    const fileUrl = `file://${filePath}`;
-    const module = await import(fileUrl);
-    const spec = findSpecInModule(module);
-    if (spec) return spec;
-  } catch (error) {
-    // Continue to next strategy
-  }
-
-  // Strategy 4: Try with .js extension (in case TypeScript compiler is configured)
-  try {
-    const jsPath = filePath.replace(/\.ts$/, '.js');
-    if (fs.existsSync(jsPath)) {
-      if (require.cache[jsPath]) {
-        delete require.cache[jsPath];
+  // For features, show operations/events/presentations
+  if (spec.specType === 'feature') {
+    if (spec.operations && spec.operations.length > 0) {
+      lines.push('## Operations');
+      lines.push('');
+      for (const op of spec.operations) {
+        lines.push(`- \`${op.name}\` (v${op.version})`);
       }
-      const module = require(jsPath);
-      const spec = findSpecInModule(module);
-      if (spec) return spec;
+      lines.push('');
     }
-  } catch (error) {
-    // Continue
+    if (spec.events && spec.events.length > 0) {
+      lines.push('## Events');
+      lines.push('');
+      for (const ev of spec.events) {
+        lines.push(`- \`${ev.name}\` (v${ev.version})`);
+      }
+      lines.push('');
+    }
+    if (spec.presentations && spec.presentations.length > 0) {
+      lines.push('## Presentations');
+      lines.push('');
+      for (const pres of spec.presentations) {
+        lines.push(`- \`${pres.name}\` (v${pres.version})`);
+      }
+      lines.push('');
+    }
   }
 
-  // Provide helpful error message
-  const fileName = path.basename(filePath);
-  const isTypeScript = filePath.endsWith('.ts');
+  // Emitted events (for operations)
+  if (spec.emittedEvents && spec.emittedEvents.length > 0) {
+    lines.push('## Emitted Events');
+    lines.push('');
+    for (const ev of spec.emittedEvents) {
+      lines.push(`- \`${ev.name}\` (v${ev.version})`);
+    }
+    lines.push('');
+  }
 
-  let errorMessage = `Failed to load spec from ${fileName}.`;
+  // For prompt format, add implementation instructions
+  if (format === 'prompt') {
+    lines.push('## Implementation Instructions');
+    lines.push('');
+    if (spec.specType === 'operation') {
+      lines.push(
+        `Implement the \`${spec.meta.name}\` ${spec.kind ?? 'operation'} according to the specification above.`
+      );
+      if (spec.hasIo) {
+        lines.push('');
+        lines.push('Ensure the implementation:');
+        lines.push('- Validates input according to the schema');
+        lines.push('- Returns output matching the expected schema');
+      }
+      if (spec.hasPolicy) {
+        lines.push('- Enforces the specified policies');
+      }
+      if (spec.emittedEvents && spec.emittedEvents.length > 0) {
+        lines.push('- Emits the specified events on success');
+      }
+    } else if (spec.specType === 'feature') {
+      lines.push(
+        `Implement the \`${spec.meta.name}\` feature according to the specification above.`
+      );
+      lines.push('');
+      lines.push('The feature includes:');
+      if (spec.operations && spec.operations.length > 0) {
+        lines.push(`- ${spec.operations.length} operation(s) to implement`);
+      }
+      if (spec.presentations && spec.presentations.length > 0) {
+        lines.push(
+          `- ${spec.presentations.length} presentation(s) to implement`
+        );
+      }
+    }
+    lines.push('');
+  }
 
-  if (isTypeScript) {
-    errorMessage += `\n\nTypeScript files need to be compiled before they can be imported.`;
-    errorMessage += `\n\nTry one of these solutions:`;
-    errorMessage += `\n1. Run 'bun run build' or 'tsc' to compile your TypeScript files`;
-    errorMessage += `\n2. Configure ts-node/tsx in your project to enable TypeScript execution`;
-    errorMessage += `\n3. Use the ContractSpec CLI to build your specs first`;
+  return lines.join('\n');
+}
+
+/**
+ * Shared utility to load specs from source - exported for use by tree view
+ */
+export { loadSpecFromSource, specToMarkdown, type ParsedSpec };
+
+/**
+ * Generate implementation guide from parsed spec.
+ */
+function generateGuideFromParsedSpec(
+  spec: ParsedSpec,
+  agent: AgentType
+): string {
+  const lines: string[] = [];
+
+  // Header
+  lines.push(`# Implementation Guide: ${spec.meta.name}`);
+  lines.push('');
+  lines.push(`**Target Agent**: ${agent}`);
+  lines.push(
+    `**Spec Type**: ${spec.specType}${spec.kind ? ` (${spec.kind})` : ''}`
+  );
+  lines.push('');
+
+  // Description
+  if (spec.meta.description) {
+    lines.push('## Overview');
+    lines.push('');
+    lines.push(spec.meta.description);
+    lines.push('');
+  }
+
+  // Goal and Context
+  if (spec.meta.goal) {
+    lines.push('## Goal');
+    lines.push('');
+    lines.push(spec.meta.goal);
+    lines.push('');
+  }
+
+  if (spec.meta.context) {
+    lines.push('## Context');
+    lines.push('');
+    lines.push(spec.meta.context);
+    lines.push('');
+  }
+
+  // Implementation Steps
+  lines.push('## Implementation Steps');
+  lines.push('');
+
+  if (spec.specType === 'operation') {
+    lines.push(`1. Create the ${spec.kind ?? 'operation'} handler function`);
+    if (spec.hasIo) {
+      lines.push('2. Implement input validation according to the schema');
+      lines.push('3. Implement the core business logic');
+      lines.push('4. Return output matching the expected schema');
+    }
+    if (spec.hasPolicy) {
+      lines.push('5. Enforce authorization and policies');
+    }
+    if (spec.emittedEvents && spec.emittedEvents.length > 0) {
+      lines.push('6. Emit events on success:');
+      for (const ev of spec.emittedEvents) {
+        lines.push(`   - \`${ev.name}\` (v${ev.version})`);
+      }
+    }
+    lines.push('7. Add error handling for expected failure cases');
+    lines.push('8. Write tests covering success and error scenarios');
+  } else if (spec.specType === 'feature') {
+    lines.push('1. Set up the feature module structure');
+    if (spec.operations && spec.operations.length > 0) {
+      lines.push('2. Implement operations:');
+      for (const op of spec.operations) {
+        lines.push(`   - \`${op.name}\` (v${op.version})`);
+      }
+    }
+    if (spec.presentations && spec.presentations.length > 0) {
+      lines.push('3. Implement presentations:');
+      for (const pres of spec.presentations) {
+        lines.push(`   - \`${pres.name}\` (v${pres.version})`);
+      }
+    }
+    lines.push('4. Wire up feature exports');
+    lines.push('5. Add integration tests');
   } else {
-    errorMessage += `\n\nMake sure the file exports a valid ContractSpec definition.`;
+    lines.push('1. Review the spec requirements');
+    lines.push('2. Implement the core logic');
+    lines.push('3. Add tests');
+    lines.push('4. Document the implementation');
   }
 
-  throw new Error(errorMessage);
+  lines.push('');
+
+  // Constraints
+  lines.push('## Constraints');
+  lines.push('');
+  lines.push(`- Stability: ${spec.meta.stability ?? 'experimental'}`);
+  if (spec.meta.owners && spec.meta.owners.length > 0) {
+    lines.push(`- Owners: ${spec.meta.owners.join(', ')}`);
+  }
+  if (spec.meta.tags && spec.meta.tags.length > 0) {
+    lines.push(`- Tags: ${spec.meta.tags.join(', ')}`);
+  }
+  lines.push('');
+
+  // Agent-specific notes
+  if (agent === 'cursor-cli') {
+    lines.push('## Cursor Notes');
+    lines.push('');
+    lines.push('- Use Composer mode for multi-file changes');
+    lines.push('- Reference this guide in your cursor rules');
+    lines.push('- Break implementation into small, focused commits');
+  } else if (agent === 'claude-code') {
+    lines.push('## Claude Code Notes');
+    lines.push('');
+    lines.push('- Use extended thinking for complex logic');
+    lines.push('- Ask for clarification on ambiguous requirements');
+    lines.push('- Provide step-by-step reasoning');
+  }
+
+  return lines.join('\n');
 }
 
 /**
- * Find a spec in a module's exports.
+ * Generate Cursor rules from parsed spec.
  */
-function findSpecInModule(module: any): any | null {
-  // Check all exports
-  for (const [_, value] of Object.entries(module)) {
-    if (value && typeof value === 'object' && 'meta' in value) {
-      // Feature spec: has meta, operations, events, presentations
-      if (
-        'operations' in value ||
-        'events' in value ||
-        'presentations' in value
-      ) {
-        return value;
+function generateCursorRulesFromParsedSpec(spec: ParsedSpec): string {
+  const lines: string[] = [];
+
+  lines.push(`# ${spec.meta.name}`);
+  lines.push('');
+  lines.push(`Description: ${spec.meta.description ?? 'No description'}`);
+  lines.push('');
+  lines.push('## Rules');
+  lines.push('');
+
+  if (spec.specType === 'operation') {
+    lines.push(`- This is a ${spec.kind ?? 'operation'} spec`);
+    if (spec.hasIo) {
+      lines.push('- Validate input and output against schemas');
+    }
+    if (spec.hasPolicy) {
+      lines.push('- Enforce authorization policies');
+    }
+    if (spec.emittedEvents && spec.emittedEvents.length > 0) {
+      lines.push('- Emit events on success');
+    }
+  } else if (spec.specType === 'feature') {
+    lines.push('- This is a feature module');
+    if (spec.operations && spec.operations.length > 0) {
+      lines.push(`- Contains ${spec.operations.length} operation(s)`);
+    }
+    if (spec.presentations && spec.presentations.length > 0) {
+      lines.push(`- Contains ${spec.presentations.length} presentation(s)`);
+    }
+  }
+
+  lines.push('');
+  lines.push('## Implementation');
+  lines.push('');
+  lines.push('Follow ContractSpec patterns and conventions.');
+  if (spec.meta.stability) {
+    lines.push(`Stability: ${spec.meta.stability}`);
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * Verification issue from parsed spec check.
+ */
+interface VerificationIssue {
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  category: string;
+  line?: number;
+}
+
+/**
+ * Verify implementation against parsed spec.
+ * This is a simplified verification that checks for basic patterns.
+ */
+function verifyImplementationAgainstParsedSpec(
+  spec: ParsedSpec,
+  implementationCode: string,
+  tiers: VerificationTier[]
+): VerificationIssue[] {
+  const issues: VerificationIssue[] = [];
+
+  // Structure checks (Tier 1)
+  if (tiers.includes('structure')) {
+    // Check for function/class export
+    const hasExport =
+      /export\s+(async\s+)?function|export\s+class|export\s+const/.test(
+        implementationCode
+      );
+    if (!hasExport) {
+      issues.push({
+        severity: 'warning',
+        message: 'No exports found in implementation',
+        category: 'structure',
+      });
+    }
+
+    // Check for spec name reference
+    if (spec.meta.name && !implementationCode.includes(spec.meta.name)) {
+      issues.push({
+        severity: 'info',
+        message: `Spec name "${spec.meta.name}" not found in implementation`,
+        category: 'structure',
+      });
+    }
+  }
+
+  // Behavior checks (Tier 2)
+  if (tiers.includes('behavior')) {
+    // Check for error handling
+    const hasErrorHandling = /try\s*{|catch\s*\(|throw\s+new/.test(
+      implementationCode
+    );
+    if (!hasErrorHandling) {
+      issues.push({
+        severity: 'warning',
+        message: 'No error handling patterns found',
+        category: 'behavior',
+      });
+    }
+
+    // Check for async patterns if needed
+    if (spec.specType === 'operation') {
+      const hasAsyncPattern = /async\s+|await\s+|Promise/.test(
+        implementationCode
+      );
+      if (!hasAsyncPattern) {
+        issues.push({
+          severity: 'info',
+          message: 'No async patterns found (operations typically use async)',
+          category: 'behavior',
+        });
       }
-      // Command/Query spec: has meta and io
-      if ('io' in value) {
-        return value;
-      }
-      // Other spec types: just check for meta
-      if (
-        value.meta &&
-        typeof value.meta === 'object' &&
-        'name' in value.meta
-      ) {
-        return value;
+    }
+
+    // Check for event emission if spec defines emitted events
+    if (spec.emittedEvents && spec.emittedEvents.length > 0) {
+      const hasEventEmit = /emit|publish|dispatch|fire/i.test(
+        implementationCode
+      );
+      if (!hasEventEmit) {
+        issues.push({
+          severity: 'warning',
+          message: `Spec emits ${spec.emittedEvents.length} event(s) but no event emission found`,
+          category: 'behavior',
+        });
       }
     }
   }
 
-  // Check default export
-  if (
-    module.default &&
-    typeof module.default === 'object' &&
-    'meta' in module.default
-  ) {
-    return module.default;
-  }
-
-  return null;
+  return issues;
 }
 
 /**
- * Shared utility to load specs - exported for use by tree view
+ * Format verification report as markdown.
  */
-export { loadSpec, findSpecInModule };
+function formatVerificationReport(
+  spec: ParsedSpec,
+  issues: VerificationIssue[]
+): string {
+  const lines: string[] = [];
+
+  lines.push(`# Verification Report: ${spec.meta.name}`);
+  lines.push('');
+
+  const errors = issues.filter((i) => i.severity === 'error');
+  const warnings = issues.filter((i) => i.severity === 'warning');
+  const infos = issues.filter((i) => i.severity === 'info');
+
+  lines.push('## Summary');
+  lines.push('');
+  lines.push(`- Errors: ${errors.length}`);
+  lines.push(`- Warnings: ${warnings.length}`);
+  lines.push(`- Info: ${infos.length}`);
+  lines.push('');
+
+  if (errors.length > 0) {
+    lines.push('## Errors');
+    lines.push('');
+    for (const issue of errors) {
+      lines.push(`- ❌ **${issue.category}**: ${issue.message}`);
+    }
+    lines.push('');
+  }
+
+  if (warnings.length > 0) {
+    lines.push('## Warnings');
+    lines.push('');
+    for (const issue of warnings) {
+      lines.push(`- ⚠️ **${issue.category}**: ${issue.message}`);
+    }
+    lines.push('');
+  }
+
+  if (infos.length > 0) {
+    lines.push('## Info');
+    lines.push('');
+    for (const issue of infos) {
+      lines.push(`- ℹ️ **${issue.category}**: ${issue.message}`);
+    }
+    lines.push('');
+  }
+
+  return lines.join('\n');
+}
 
 /**
  * Get the current spec file from the active editor.
@@ -251,31 +716,6 @@ async function exportSpecFile(
     outputChannel.appendLine(`Exporting spec: ${specPath}`);
     outputChannel.show();
 
-    // Check if file needs compilation
-    if (specPath.endsWith('.ts')) {
-      const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-      if (workspaceRoot) {
-        const relativePath = path.relative(workspaceRoot, specPath);
-        const distPath = path.join(
-          workspaceRoot,
-          'dist',
-          relativePath.replace(/\.ts$/, '.js')
-        );
-        if (!fs.existsSync(distPath)) {
-          const build = await vscode.window.showWarningMessage(
-            `TypeScript file needs to be compiled. Would you like to build it?`,
-            'Build',
-            'Continue Anyway'
-          );
-          if (build === 'Build') {
-            await vscode.commands.executeCommand('contractspec.build');
-            // Wait a bit for build to complete
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          }
-        }
-      }
-    }
-
     // Pick format
     const formatPick = await vscode.window.showQuickPick(
       [
@@ -302,34 +742,38 @@ async function exportSpecFile(
 
     if (!formatPick) return;
 
-    const spec = await loadSpec(specPath);
-    let markdown: string;
+    // Load specs from source (no compilation needed)
+    const specs = await loadSpecFromSource(specPath);
 
-    switch (formatPick.value) {
-      case 'context':
-        markdown = specToContextMarkdown(spec);
-        break;
-      case 'prompt':
-        const taskPick = await vscode.window.showQuickPick(
-          [
-            { label: 'Implement', value: 'implement' as const },
-            { label: 'Test', value: 'test' as const },
-            { label: 'Refactor', value: 'refactor' as const },
-            { label: 'Review', value: 'review' as const },
-          ],
+    // If multiple specs, let user pick one or export all
+    let selectedSpecs = specs;
+    if (specs.length > 1) {
+      const specPick = await vscode.window.showQuickPick(
+        [
           {
-            placeHolder: 'Select task type',
-          }
-        );
-        markdown = specToAgentPrompt(spec, {
-          taskType: taskPick?.value ?? 'implement',
-        });
-        break;
-      case 'full':
-      default:
-        markdown = specToFullMarkdown(spec);
-        break;
+            label: '📦 All specs',
+            description: `Export all ${specs.length} specs`,
+            value: 'all',
+          },
+          ...specs.map((s) => ({
+            label: s.meta.name,
+            description: `${s.specType}${s.kind ? ` (${s.kind})` : ''}`,
+            value: s.meta.name,
+          })),
+        ],
+        { placeHolder: 'Select spec to export' }
+      );
+      if (!specPick) return;
+      if (specPick.value !== 'all') {
+        selectedSpecs = specs.filter((s) => s.meta.name === specPick.value);
+      }
     }
+
+    // Generate markdown for each selected spec
+    const markdownParts = selectedSpecs.map((spec) =>
+      specToMarkdown(spec, formatPick.value)
+    );
+    const markdown = markdownParts.join('\n\n---\n\n');
 
     // Show options: copy, save, or open in new doc
     const action = await vscode.window.showQuickPick(
@@ -452,16 +896,17 @@ async function generateGuideForSpec(
 
     if (!agentPick) return;
 
-    const spec = await loadSpec(specPath);
-    const workspaceRoot =
-      vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? process.cwd();
+    // Load specs from source (no compilation needed)
+    const specs = await loadSpecFromSource(specPath);
+    const spec = specs[0]; // Use first spec
 
-    const guideService = createAgentGuideService({
-      defaultAgent: agentPick.value,
-      projectRoot: workspaceRoot,
-    });
+    if (!spec) {
+      vscode.window.showErrorMessage('No spec found in file');
+      return;
+    }
 
-    const result = guideService.generateGuide(spec, { agent: agentPick.value });
+    // Generate a guide based on the parsed spec
+    const guide = generateGuideFromParsedSpec(spec, agentPick.value);
 
     // Show options
     const action = await vscode.window.showQuickPick(
@@ -482,50 +927,41 @@ async function generateGuideForSpec(
     if (!action) return;
 
     if (action.value === 'copy') {
-      const fullPrompt = result.prompt.systemPrompt
-        ? `${result.prompt.systemPrompt}\n\n---\n\n${result.prompt.taskPrompt}`
-        : result.prompt.taskPrompt;
-      await vscode.env.clipboard.writeText(fullPrompt);
-      vscode.window.showInformationMessage(
-        `Guide copied! (${result.plan.steps.length} steps, ${result.plan.fileStructure.length} files)`
-      );
+      await vscode.env.clipboard.writeText(guide);
+      vscode.window.showInformationMessage(`Guide copied to clipboard!`);
     } else if (action.value === 'open') {
-      const fullPrompt = result.prompt.systemPrompt
-        ? `# System Prompt\n\n${result.prompt.systemPrompt}\n\n---\n\n# Task Prompt\n\n${result.prompt.taskPrompt}`
-        : result.prompt.taskPrompt;
       const doc = await vscode.workspace.openTextDocument({
-        content: fullPrompt,
+        content: guide,
         language: 'markdown',
       });
       await vscode.window.showTextDocument(doc);
     } else if (action.value === 'cursor') {
-      const cursorRules = guideService.generateAgentConfig(spec, 'cursor-cli');
-      if (cursorRules) {
-        const rulesDir = path.join(workspaceRoot, '.cursor', 'rules');
-        const safeName = spec.meta.name.replace(/\./g, '-');
-        const rulesPath = path.join(rulesDir, `${safeName}.mdc`);
+      // Generate cursor rules from parsed spec
+      const cursorRules = generateCursorRulesFromParsedSpec(spec);
+      const workspaceRoot =
+        vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? process.cwd();
+      const rulesDir = path.join(workspaceRoot, '.cursor', 'rules');
+      const safeName = spec.meta.name.replace(/\./g, '-');
+      const rulesPath = path.join(rulesDir, `${safeName}.mdc`);
 
-        const savePath = await vscode.window.showSaveDialog({
-          defaultUri: vscode.Uri.file(rulesPath),
-          filters: { 'Cursor Rules': ['mdc'] },
-        });
+      const savePath = await vscode.window.showSaveDialog({
+        defaultUri: vscode.Uri.file(rulesPath),
+        filters: { 'Cursor Rules': ['mdc'] },
+      });
 
-        if (savePath) {
-          const dir = path.dirname(savePath.fsPath);
-          if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-          }
-          fs.writeFileSync(savePath.fsPath, cursorRules);
-          vscode.window.showInformationMessage(
-            `Cursor rules saved to ${path.basename(savePath.fsPath)}`
-          );
+      if (savePath) {
+        const dir = path.dirname(savePath.fsPath);
+        if (!fs.existsSync(dir)) {
+          fs.mkdirSync(dir, { recursive: true });
         }
+        fs.writeFileSync(savePath.fsPath, cursorRules);
+        vscode.window.showInformationMessage(
+          `Cursor rules saved to ${path.basename(savePath.fsPath)}`
+        );
       }
     }
 
-    outputChannel.appendLine(
-      `Guide generated: ${result.plan.steps.length} steps, ${result.plan.fileStructure.length} files`
-    );
+    outputChannel.appendLine(`Guide generated for ${spec.meta.name}`);
   } catch (error) {
     outputChannel.appendLine(
       `Error: ${error instanceof Error ? error.message : String(error)}`
@@ -627,17 +1063,23 @@ async function runVerification(
 
     if (!tierPick) return;
 
-    const spec = await loadSpec(specPath);
+    // Load spec from source (no compilation needed)
+    const specs = await loadSpecFromSource(specPath);
+    const spec = specs[0];
+
+    if (!spec) {
+      vscode.window.showErrorMessage('No spec found in file');
+      return;
+    }
+
     const implementationCode = fs.readFileSync(implPath, 'utf-8');
 
-    const verifyService = createVerifyService();
-    const result = await verifyService.verify(spec, implementationCode, {
-      tiers: tierPick.value,
-      includeSuggestions: true,
-    });
-
-    // Show results
-    const markdown = verifyService.formatAsMarkdown(result);
+    // Perform basic verification based on parsed spec
+    const issues = verifyImplementationAgainstParsedSpec(
+      spec,
+      implementationCode,
+      tierPick.value
+    );
 
     // Create diagnostic collection for issues
     const diagnostics = vscode.languages.createDiagnosticCollection(
@@ -645,7 +1087,7 @@ async function runVerification(
     );
     const implUri = vscode.Uri.file(implPath);
 
-    const diags: vscode.Diagnostic[] = result.allIssues.map((issue) => {
+    const diags: vscode.Diagnostic[] = issues.map((issue) => {
       const severity =
         issue.severity === 'error'
           ? vscode.DiagnosticSeverity.Error
@@ -653,12 +1095,7 @@ async function runVerification(
             ? vscode.DiagnosticSeverity.Warning
             : vscode.DiagnosticSeverity.Information;
 
-      const range = new vscode.Range(
-        issue.location?.line ?? 0,
-        issue.location?.column ?? 0,
-        issue.location?.line ?? 0,
-        1000
-      );
+      const range = new vscode.Range(issue.line ?? 0, 0, issue.line ?? 0, 1000);
 
       const diag = new vscode.Diagnostic(range, issue.message, severity);
       diag.source = 'ContractSpec';
@@ -668,21 +1105,18 @@ async function runVerification(
 
     diagnostics.set(implUri, diags);
 
+    const errorCount = issues.filter((i) => i.severity === 'error').length;
+    const warningCount = issues.filter((i) => i.severity === 'warning').length;
+
     // Show result summary
-    if (result.passed) {
+    if (errorCount === 0 && warningCount === 0) {
       vscode.window.showInformationMessage(
-        `✓ Verification passed! Score: ${result.score}/100`
+        `✓ Verification passed! No issues found.`
       );
     } else {
-      const errorCount = result.allIssues.filter(
-        (i) => i.severity === 'error'
-      ).length;
-      const warningCount = result.allIssues.filter(
-        (i) => i.severity === 'warning'
-      ).length;
-
+      const markdown = formatVerificationReport(spec, issues);
       const viewReport = await vscode.window.showWarningMessage(
-        `✗ Verification failed (${result.score}/100) - ${errorCount} errors, ${warningCount} warnings`,
+        `✗ Verification found ${errorCount} errors, ${warningCount} warnings`,
         'View Report'
       );
 
@@ -695,8 +1129,9 @@ async function runVerification(
       }
     }
 
-    outputChannel.appendLine(result.summary);
-    outputChannel.appendLine(`Duration: ${result.duration}ms`);
+    outputChannel.appendLine(
+      `Verification complete: ${errorCount} errors, ${warningCount} warnings`
+    );
   } catch (error) {
     outputChannel.appendLine(
       `Error: ${error instanceof Error ? error.message : String(error)}`
@@ -721,7 +1156,14 @@ export async function copySpecForLLM(
   }
 
   try {
-    const spec = await loadSpec(specFile);
+    // Load specs from source (no compilation needed)
+    const specs = await loadSpecFromSource(specFile);
+    const spec = specs[0];
+
+    if (!spec) {
+      vscode.window.showErrorMessage('No spec found in file');
+      return;
+    }
 
     // Pick format quickly
     const formatPick = await vscode.window.showQuickPick(
@@ -737,19 +1179,7 @@ export async function copySpecForLLM(
 
     if (!formatPick) return;
 
-    let markdown: string;
-    switch (formatPick.value) {
-      case 'context':
-        markdown = specToContextMarkdown(spec);
-        break;
-      case 'prompt':
-        markdown = specToAgentPrompt(spec, { taskType: 'implement' });
-        break;
-      case 'full':
-      default:
-        markdown = specToFullMarkdown(spec);
-        break;
-    }
+    const markdown = specToMarkdown(spec, formatPick.value);
 
     await vscode.env.clipboard.writeText(markdown);
     vscode.window.showInformationMessage(
