@@ -56,12 +56,12 @@ export const AnalyticsDashboardFeature: FeatureModuleSpec = {
   // Presentations associated with this feature (PresentationRef[])
   presentations: [
     // Dashboard presentations
-    { name: 'analytics.dashboards.list', version: 1 },
+    { name: 'analytics.dashboard.list', version: 1 },
     { name: 'analytics.dashboard.view', version: 1 },
     { name: 'analytics.dashboard.editor', version: 1 },
 
     // Query presentations
-    { name: 'analytics.queries.list', version: 1 },
+    { name: 'analytics.query.list', version: 1 },
     { name: 'analytics.query.builder', version: 1 },
   ],
 
@@ -70,7 +70,7 @@ export const AnalyticsDashboardFeature: FeatureModuleSpec = {
   opToPresentation: [
     {
       op: { name: 'analytics.dashboard.list', version: 1 },
-      pres: { name: 'analytics.dashboards.list', version: 1 },
+      pres: { name: 'analytics.dashboard.list', version: 1 },
     },
     {
       op: { name: 'analytics.dashboard.get', version: 1 },
@@ -90,7 +90,7 @@ export const AnalyticsDashboardFeature: FeatureModuleSpec = {
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      name: 'analytics.dashboards.list',
+      name: 'analytics.dashboard.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
