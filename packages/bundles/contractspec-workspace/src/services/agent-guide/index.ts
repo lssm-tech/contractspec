@@ -14,8 +14,6 @@ export type {
   FormatOptions,
   GuideResult,
   AgentAdapter,
-  VerifyInput,
-  VerificationResult,
 } from './types';
 
 // Service
