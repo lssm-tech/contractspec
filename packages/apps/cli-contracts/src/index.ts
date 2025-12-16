@@ -21,6 +21,7 @@ import { integrityCommand } from './commands/integrity/index';
 import { initCommand } from './commands/init/index';
 import { doctorCommand } from './commands/doctor/index';
 import { ciCommand } from './commands/ci/index';
+import { llmCommand } from './commands/llm/index';
 
 const program = new Command();
 
@@ -72,6 +73,9 @@ program.addCommand(doctorCommand);
 
 // CI command (run all checks for CI/CD)
 program.addCommand(ciCommand);
+
+// LLM command (LLM integration tools)
+program.addCommand(llmCommand);
 
 // Create command
 program
