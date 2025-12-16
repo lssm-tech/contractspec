@@ -23,6 +23,12 @@ import {
   runWorkspaceChecks,
   runAiChecks,
 } from './checks/index';
+import {
+  findPackageRoot,
+  findWorkspaceRoot,
+  isMonorepo,
+  getPackageName,
+} from '../../adapters/workspace';
 
 /**
  * Default prompt callbacks that always decline fixes.
@@ -42,10 +48,26 @@ export async function runDoctor(
 ): Promise<DoctorResult> {
   const { fs, logger } = adapters;
   const categories = options.categories ?? ALL_CHECK_CATEGORIES;
+
+  // Detect monorepo context
+  const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
+  const packageRoot = findPackageRoot(options.workspaceRoot);
+  const monorepo = isMonorepo(workspaceRoot);
+  const packageName = monorepo ? getPackageName(packageRoot) : undefined;
+
   const ctx: CheckContext = {
-    workspaceRoot: options.workspaceRoot,
+    workspaceRoot,
+    packageRoot,
+    isMonorepo: monorepo,
+    packageName,
     verbose: options.verbose ?? false,
   };
+
+  // Log monorepo context if detected
+  if (monorepo) {
+    const pkgInfo = packageName ? ` (package: ${packageName})` : '';
+    logger.info(`Detected monorepo${pkgInfo}`);
+  }
 
   const allResults: CheckResult[] = [];
 

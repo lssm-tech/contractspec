@@ -130,8 +130,14 @@ export interface DoctorPromptCallbacks {
  * Context passed to check functions.
  */
 export interface CheckContext {
-  /** Workspace root path. */
+  /** Workspace root path (monorepo root or single project root). */
   workspaceRoot: string;
+  /** Current package root (may differ from workspaceRoot in monorepos). */
+  packageRoot: string;
+  /** Whether this is a monorepo. */
+  isMonorepo: boolean;
+  /** Current package name (if in a monorepo package). */
+  packageName?: string;
   /** Whether verbose output is enabled. */
   verbose: boolean;
 }

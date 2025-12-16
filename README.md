@@ -26,14 +26,14 @@ In 2025, "vibe coding" and AI agents generate enormous amounts of code. But they
 
 From a single contract spec:
 
-| Surface | Output |
-|---------|--------|
-| **REST API** | Type-safe endpoints with validation |
-| **GraphQL** | Schema and resolvers |
-| **Database** | Prisma migrations and types |
-| **MCP Tools** | AI agent tool definitions |
-| **Client SDK** | Type-safe API clients |
-| **UI Components** | React forms and views |
+| Surface           | Output                              |
+| ----------------- | ----------------------------------- |
+| **REST API**      | Type-safe endpoints with validation |
+| **GraphQL**       | Schema and resolvers                |
+| **Database**      | Prisma migrations and types         |
+| **MCP Tools**     | AI agent tool definitions           |
+| **Client SDK**    | Type-safe API clients               |
+| **UI Components** | React forms and views               |
 
 ## No Lock-in
 
@@ -103,46 +103,49 @@ export const CreateUser = defineCommand({
 
 ### Core
 
-| Package | Description |
-|---------|-------------|
-| [`@lssm/lib.contracts`](packages/libs/contracts/README.md) | Core contract definitions and runtime adapters |
-| [`@lssm/lib.schema`](packages/libs/schema/README.md) | Schema definitions for multi-surface consistency |
+| Package                                                             | Description                                      |
+| ------------------------------------------------------------------- | ------------------------------------------------ |
+| [`@lssm/lib.contracts`](packages/libs/contracts/README.md)          | Core contract definitions and runtime adapters   |
+| [`@lssm/lib.schema`](packages/libs/schema/README.md)                | Schema definitions for multi-surface consistency |
 | [`@lssm/tool.contracts-cli`](packages/apps/cli-contracts/README.md) | CLI for creating, building, and validating specs |
 
 ### AI & Evolution
 
-| Package | Description |
-|---------|-------------|
-| [`@lssm/lib.ai-agent`](packages/libs/ai-agent/README.md) | AI agent orchestration with contract governance |
-| [`@lssm/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration |
+| Package                                                    | Description                                     |
+| ---------------------------------------------------------- | ----------------------------------------------- |
+| [`@lssm/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
+| [`@lssm/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
 
 ### Testing & Quality
 
-| Package | Description |
-|---------|-------------|
-| [`@lssm/lib.testing`](packages/libs/testing/README.md) | Golden tests for safe regeneration verification |
-| [`@lssm/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging |
+| Package                                                            | Description                                     |
+| ------------------------------------------------------------------ | ----------------------------------------------- |
+| [`@lssm/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
+| [`@lssm/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
 
 ### Infrastructure
 
-| Package | Description |
-|---------|-------------|
+| Package                                                                          | Description                     |
+| -------------------------------------------------------------------------------- | ------------------------------- |
 | [`@lssm/lib.progressive-delivery`](packages/libs/progressive-delivery/README.md) | Canary deployments and rollback |
-| [`@lssm/lib.multi-tenancy`](packages/libs/multi-tenancy/README.md) | Tenant isolation utilities |
+| [`@lssm/lib.multi-tenancy`](packages/libs/multi-tenancy/README.md)               | Tenant isolation utilities      |
 
 ## Who It's For
 
 **AI-Native Startups & Technical Founders**
+
 - Using Cursor, Copilot, Claude, or AI agents heavily
 - Messy AI-generated backends, inconsistent APIs
 - Need to stabilize without rewriting
 
 **Small Teams with AI-Generated Chaos**
+
 - Shipped fast with AI, now have tech debt
 - Multiple surfaces out of sync
 - Need incremental stabilization
 
 **AI Dev Agencies**
+
 - Building many projects for clients
 - Need reusable templates and consistent quality
 - Need professional handoff artifacts
@@ -151,15 +154,8 @@ export const CreateUser = defineCommand({
 
 - [CLI Quick Start](packages/apps/cli-contracts/QUICK_START.md)
 - [Agent Modes](packages/apps/cli-contracts/AGENT_MODES.md)
-- [Examples](examples/)
+- [Examples](packages/examples/)
 
 ## License
 
 MIT
-
-
-
-
-
-
-
