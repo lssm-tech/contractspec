@@ -1,0 +1,1 @@
+update public.lab set status = 'BOOKING_AVAILABLE' where id = 1

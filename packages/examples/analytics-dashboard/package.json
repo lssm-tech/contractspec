@@ -42,10 +42,10 @@
     "./example": "./src/example.ts",
     "./feature": "./src/feature.ts",
     "./query": "./src/query/index.ts",
+    "./query-engine": "./src/query-engine/index.ts",
     "./query/query.contracts": "./src/query/query.contracts.ts",
     "./query/query.enum": "./src/query/query.enum.ts",
     "./query/query.schema": "./src/query/query.schema.ts",
-    "./query-engine": "./src/query-engine/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -66,10 +66,10 @@
       "./example": "./dist/example.js",
       "./feature": "./dist/feature.js",
       "./query": "./dist/query/index.js",
+      "./query-engine": "./dist/query-engine/index.js",
       "./query/query.contracts": "./dist/query/query.contracts.js",
       "./query/query.enum": "./dist/query/query.enum.js",
       "./query/query.schema": "./dist/query/query.schema.js",
-      "./query-engine": "./dist/query-engine/index.js",
       "./*": "./*"
     }
   }

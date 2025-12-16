@@ -89,3 +89,4 @@ Host apps use a \`componentMap\` (e.g., \`'sigil.webauth.tabs' → WebAuthTabs\`
   },
 ];
 
+

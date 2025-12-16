@@ -17,3 +17,4 @@ export type GateResult<T> =
   | { ok: true; value: T }
   | { ok: false; error: GateError };
 
+

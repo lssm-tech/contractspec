@@ -33,7 +33,9 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./contracts": "./src/contracts/index.ts",
+    "./announcement": "./src/announcement/index.ts",
+    "./announcement/announcement.contracts": "./src/announcement/announcement.contracts.ts",
+    "./announcement/announcement.schema": "./src/announcement/announcement.schema.ts",
     "./docs": "./src/docs/index.ts",
     "./docs/team-hub.docblock": "./src/docs/team-hub.docblock.ts",
     "./entities": "./src/entities/index.ts",
@@ -42,6 +44,15 @@
     "./feature": "./src/feature.ts",
     "./handlers": "./src/handlers/index.ts",
     "./presentations": "./src/presentations/index.ts",
+    "./ritual": "./src/ritual/index.ts",
+    "./ritual/ritual.contracts": "./src/ritual/ritual.contracts.ts",
+    "./ritual/ritual.schema": "./src/ritual/ritual.schema.ts",
+    "./space": "./src/space/index.ts",
+    "./space/space.contracts": "./src/space/space.contracts.ts",
+    "./space/space.schema": "./src/space/space.schema.ts",
+    "./task": "./src/task/index.ts",
+    "./task/task.contracts": "./src/task/task.contracts.ts",
+    "./task/task.schema": "./src/task/task.schema.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -53,7 +64,9 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./contracts": "./dist/contracts/index.js",
+      "./announcement": "./dist/announcement/index.js",
+      "./announcement/announcement.contracts": "./dist/announcement/announcement.contracts.js",
+      "./announcement/announcement.schema": "./dist/announcement/announcement.schema.js",
       "./docs": "./dist/docs/index.js",
       "./docs/team-hub.docblock": "./dist/docs/team-hub.docblock.js",
       "./entities": "./dist/entities/index.js",
@@ -62,6 +75,15 @@
       "./feature": "./dist/feature.js",
       "./handlers": "./dist/handlers/index.js",
       "./presentations": "./dist/presentations/index.js",
+      "./ritual": "./dist/ritual/index.js",
+      "./ritual/ritual.contracts": "./dist/ritual/ritual.contracts.js",
+      "./ritual/ritual.schema": "./dist/ritual/ritual.schema.js",
+      "./space": "./dist/space/index.js",
+      "./space/space.contracts": "./dist/space/space.contracts.js",
+      "./space/space.schema": "./dist/space/space.schema.js",
+      "./task": "./dist/task/index.js",
+      "./task/task.contracts": "./dist/task/task.contracts.js",
+      "./task/task.schema": "./dist/task/task.schema.js",
       "./*": "./*"
     }
   }

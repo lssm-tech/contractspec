@@ -100,3 +100,4 @@ function extractErrorCode(error: unknown): string | undefined {
   return String(candidate.code);
 }
 
+

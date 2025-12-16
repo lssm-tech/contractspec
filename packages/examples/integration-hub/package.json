@@ -48,10 +48,10 @@
     "./integration/integration.enum": "./src/integration/integration.enum.ts",
     "./integration/integration.schema": "./src/integration/integration.schema.ts",
     "./sync": "./src/sync/index.ts",
+    "./sync-engine": "./src/sync-engine/index.ts",
     "./sync/sync.contracts": "./src/sync/sync.contracts.ts",
     "./sync/sync.enum": "./src/sync/sync.enum.ts",
     "./sync/sync.schema": "./src/sync/sync.schema.ts",
-    "./sync-engine": "./src/sync-engine/index.ts",
     "./*": "./*"
   },
   "module": "./dist/index.js",
@@ -76,10 +76,10 @@
       "./integration/integration.enum": "./dist/integration/integration.enum.js",
       "./integration/integration.schema": "./dist/integration/integration.schema.js",
       "./sync": "./dist/sync/index.js",
+      "./sync-engine": "./dist/sync-engine/index.js",
       "./sync/sync.contracts": "./dist/sync/sync.contracts.js",
       "./sync/sync.enum": "./dist/sync/sync.enum.js",
       "./sync/sync.schema": "./dist/sync/sync.schema.js",
-      "./sync-engine": "./dist/sync-engine/index.js",
       "./*": "./*"
     }
   }

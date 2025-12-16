@@ -1,6 +1,6 @@
 // Deal contracts and models - re-exports from deal domain
+// Note: DealStatusEnum is exported from entities, not here (to avoid conflict)
 export {
-  DealStatusEnum,
   DealStatusFilterEnum,
   DealModel,
   CreateDealInputModel,

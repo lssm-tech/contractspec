@@ -105,6 +105,27 @@
         "tsdown": "^0.17.4",
       },
     },
+    "packages/apps/cli-mcp-local": {
+      "name": "@lssm/app.cli-mcp-local",
+      "version": "0.1.0",
+      "bin": {
+        "contractspec-mcp": "./dist/cli.js",
+      },
+      "dependencies": {
+        "@lssm/bundle.contractspec-workspace": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "@modelcontextprotocol/sdk": "^1.12.3",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/node": "^22.10.2",
+        "eslint": "^9.39.2",
+        "rimraf": "^6.1.2",
+      },
+    },
     "packages/apps/overlay-editor": {
       "name": "@lssm/app.overlay-editor",
       "version": "0.5.0",
@@ -133,7 +154,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "dependencies": {
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -2819,6 +2840,8 @@
     "@lssm/app.cli-database": ["@lssm/app.cli-database@workspace:packages/apps/cli-database"],
 
     "@lssm/app.cli-databases": ["@lssm/app.cli-databases@workspace:packages/apps/cli-databases"],
+
+    "@lssm/app.cli-mcp-local": ["@lssm/app.cli-mcp-local@workspace:packages/apps/cli-mcp-local"],
 
     "@lssm/app.overlay-editor": ["@lssm/app.overlay-editor@workspace:packages/apps/overlay-editor"],
 

@@ -2,7 +2,7 @@
  * Pipeline Presentation Descriptors
  */
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { DealModel } from '../contracts/deal.contracts';
+import { DealModel } from '../deal/deal.schema';
 
 /**
  * Kanban board presentation for the sales pipeline.

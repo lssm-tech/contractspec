@@ -138,3 +138,4 @@ ADD CONSTRAINT "onboarding_step_completion_progressId_fkey" FOREIGN KEY ("progre
 ALTER TABLE "lssm_learning"."onboarding_step_completion"
 ADD CONSTRAINT "onboarding_step_completion_stepId_fkey" FOREIGN KEY ("stepId") REFERENCES "lssm_learning"."onboarding_step"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+

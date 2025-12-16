@@ -42,7 +42,11 @@ export {
 } from './agent.entity';
 
 // Presentations
-export { AgentListPresentation, AgentDetailPresentation } from './agent.presentation';
+export {
+  AgentListPresentation,
+  AgentDetailPresentation,
+  AgentConsoleDashboardPresentation,
+} from './agent.presentation';
 
 // Handlers
 export {

@@ -44,4 +44,24 @@ export const AgentDetailPresentation: PresentationDescriptorV2 = {
   policy: { flags: ['agent-console.enabled'] },
 };
 
+/**
+ * Dashboard presentation for Agent Console - overview of agents, runs, and tools.
+ */
+export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
+  meta: {
+    name: 'agent-console.dashboard',
+    version: 1,
+    description: 'Dashboard overview of AI agents, runs, and tools',
+    domain: 'agent-console',
+    owners: ['agent-console-team'],
+    tags: ['dashboard', 'overview'],
+  },
+  source: {
+    type: 'component',
+    framework: 'react',
+    componentKey: 'AgentConsoleDashboard',
+  },
+  targets: ['react', 'markdown'],
+  policy: { flags: ['agent-console.enabled'] },
+};
 

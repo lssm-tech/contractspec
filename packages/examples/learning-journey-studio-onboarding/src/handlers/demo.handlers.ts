@@ -47,3 +47,4 @@ export const emitAllStudioOnboardingEvents = (
     emitStudioOnboardingEvent(name, params, record)
   );
 
+
