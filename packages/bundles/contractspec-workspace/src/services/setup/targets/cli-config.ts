@@ -9,13 +9,20 @@ import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
 /**
  * Setup .contractsrc.json
+ *
+ * In monorepo with package scope, creates config at package root.
  */
 export async function setupCliConfig(
   fs: FsAdapter,
   options: SetupOptions,
   prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
-  const filePath = fs.join(options.workspaceRoot, '.contractsrc.json');
+  // Determine target root based on scope
+  const targetRoot = options.isMonorepo && options.scope === 'package'
+    ? options.packageRoot ?? options.workspaceRoot
+    : options.workspaceRoot;
+
+  const filePath = fs.join(targetRoot, '.contractsrc.json');
 
   try {
     const exists = await fs.exists(filePath);

@@ -8,13 +8,20 @@ import { generateAgentsMd } from '../config-generators';
 
 /**
  * Setup AGENTS.md
+ *
+ * In monorepo with package scope, creates AGENTS.md at package root.
  */
 export async function setupAgentsMd(
   fs: FsAdapter,
   options: SetupOptions,
   prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
-  const filePath = fs.join(options.workspaceRoot, 'AGENTS.md');
+  // Determine target root based on scope
+  const targetRoot = options.isMonorepo && options.scope === 'package'
+    ? options.packageRoot ?? options.workspaceRoot
+    : options.workspaceRoot;
+
+  const filePath = fs.join(targetRoot, 'AGENTS.md');
 
   try {
     const exists = await fs.exists(filePath);

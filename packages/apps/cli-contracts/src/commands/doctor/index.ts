@@ -2,6 +2,7 @@
  * Doctor command.
  *
  * Diagnoses and fixes ContractSpec installation issues.
+ * Supports monorepos with package-level context.
  */
 
 import { Command } from 'commander';
@@ -16,6 +17,10 @@ import {
   CHECK_CATEGORY_LABELS,
   createNodeFsAdapter,
   createConsoleLoggerAdapter,
+  findWorkspaceRoot,
+  findPackageRoot,
+  isMonorepo,
+  getPackageName,
   type CheckCategory,
   type DoctorPromptCallbacks,
 } from '@lssm/bundle.contractspec-workspace';
@@ -67,9 +72,28 @@ export const doctorCommand = new Command('doctor')
   .option('--skip-ai', 'Skip AI provider checks', false)
   .option('-v, --verbose', 'Verbose output', false)
   .action(async (options) => {
-    const workspaceRoot = process.cwd();
+    const cwd = process.cwd();
+
+    // Detect workspace structure
+    const workspaceRoot = findWorkspaceRoot(cwd);
+    const packageRoot = findPackageRoot(cwd);
+    const monorepo = isMonorepo(workspaceRoot);
+    const packageName = monorepo ? getPackageName(packageRoot) : undefined;
 
     console.log(chalk.bold('\n🩺 ContractSpec Doctor\n'));
+
+    // Display monorepo context
+    if (monorepo) {
+      console.log(chalk.cyan('📦 Monorepo detected'));
+      console.log(chalk.gray(`   Workspace root: ${workspaceRoot}`));
+      if (packageRoot !== workspaceRoot) {
+        console.log(chalk.gray(`   Package root:   ${packageRoot}`));
+        if (packageName) {
+          console.log(chalk.gray(`   Package name:   ${packageName}`));
+        }
+      }
+      console.log();
+    }
 
     // Parse categories
     let categories: CheckCategory[] | undefined;
@@ -206,7 +230,9 @@ export const doctorCommand = new Command('doctor')
       console.log();
 
       if (result.healthy) {
-        console.log(chalk.green.bold('✓ Your ContractSpec installation is healthy!\n'));
+        console.log(
+          chalk.green.bold('✓ Your ContractSpec installation is healthy!\n')
+        );
       } else {
         console.log(
           chalk.red.bold('✗ Issues found. Run with --fix to auto-repair.\n')
@@ -222,4 +248,3 @@ export const doctorCommand = new Command('doctor')
       process.exit(1);
     }
   });
-

@@ -9,13 +9,22 @@ import { deepMergePreserve, safeParseJson, formatJson } from '../file-merger';
 
 /**
  * Setup .vscode/settings.json
+ *
+ * VS Code settings are typically at workspace root, but in monorepo
+ * with package scope, can be at package root.
  */
 export async function setupVscodeSettings(
   fs: FsAdapter,
   options: SetupOptions,
   prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
-  const dirPath = fs.join(options.workspaceRoot, '.vscode');
+  // VS Code settings typically stay at workspace root
+  // but can be at package root if specifically requested
+  const targetRoot = options.isMonorepo && options.scope === 'package'
+    ? options.packageRoot ?? options.workspaceRoot
+    : options.workspaceRoot;
+
+  const dirPath = fs.join(targetRoot, '.vscode');
   const filePath = fs.join(dirPath, 'settings.json');
 
   try {

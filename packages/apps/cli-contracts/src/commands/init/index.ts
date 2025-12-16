@@ -3,23 +3,32 @@
  *
  * Sets up ContractSpec in a project: CLI config, VS Code settings,
  * MCP servers, Cursor rules, and AGENTS.md.
+ *
+ * Supports monorepos with package-level or workspace-level configuration.
  */
 
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import { checkbox, confirm, input } from '@inquirer/prompts';
+import { checkbox, confirm, input, select } from '@inquirer/prompts';
 import {
   runSetup,
   ALL_SETUP_TARGETS,
   SETUP_TARGET_LABELS,
   createNodeFsAdapter,
+  findWorkspaceRoot,
+  findPackageRoot,
+  isMonorepo,
+  getPackageName,
   type SetupTarget,
+  type SetupScope,
   type SetupPromptCallbacks,
 } from '@lssm/bundle.contractspec-workspace';
 
 /**
  * Create CLI prompt callbacks using @inquirer/prompts.
+ *
+ * For scope selection, uses single select since only one scope applies.
  */
 function createCliPrompts(): SetupPromptCallbacks {
   return {
@@ -30,6 +39,19 @@ function createCliPrompts(): SetupPromptCallbacks {
       message: string,
       options: Array<{ value: T; label: string; selected?: boolean }>
     ): Promise<T[]> => {
+      // Special handling for scope selection (single choice)
+      if (message.includes('Configure at which level')) {
+        const result = await select({
+          message,
+          choices: options.map((o) => ({
+            value: o.value,
+            name: o.label,
+          })),
+          default: options.find((o) => o.selected)?.value,
+        });
+        return [result];
+      }
+
       return checkbox({
         message,
         choices: options.map((o) => ({
@@ -74,11 +96,31 @@ export const initCommand = new Command('init')
   )
   .option('--project-name <name>', 'Project name for generated files')
   .option('--owners <owners>', 'Default code owners (comma-separated)')
+  .option('--scope <scope>', 'Configuration scope: workspace or package', '')
   .action(async (options) => {
-    const workspaceRoot = process.cwd();
+    const cwd = process.cwd();
     const interactive = !options.yes;
 
+    // Detect workspace structure
+    const workspaceRoot = findWorkspaceRoot(cwd);
+    const packageRoot = findPackageRoot(cwd);
+    const monorepo = isMonorepo(workspaceRoot);
+    const packageName = monorepo ? getPackageName(packageRoot) : undefined;
+
     console.log(chalk.bold('\n🔧 ContractSpec Setup\n'));
+
+    // Display monorepo context
+    if (monorepo) {
+      console.log(chalk.cyan('📦 Monorepo detected'));
+      console.log(chalk.gray(`   Workspace root: ${workspaceRoot}`));
+      if (packageRoot !== workspaceRoot) {
+        console.log(chalk.gray(`   Package root:   ${packageRoot}`));
+        if (packageName) {
+          console.log(chalk.gray(`   Package name:   ${packageName}`));
+        }
+      }
+      console.log();
+    }
 
     if (!interactive) {
       console.log(chalk.gray('Running in non-interactive mode (--yes)\n'));
@@ -96,6 +138,12 @@ export const initCommand = new Command('init')
       defaultOwners = options.owners.split(',').map((o: string) => o.trim());
     }
 
+    // Parse scope
+    let scope: SetupScope | undefined;
+    if (options.scope === 'workspace' || options.scope === 'package') {
+      scope = options.scope;
+    }
+
     // Show available targets
     if (interactive && targets.length === 0) {
       console.log(chalk.gray('Available configuration targets:\n'));
@@ -108,7 +156,7 @@ export const initCommand = new Command('init')
     const spinner = ora('Setting up ContractSpec...').start();
 
     try {
-      const fs = createNodeFsAdapter(workspaceRoot);
+      const fs = createNodeFsAdapter(cwd);
       const prompts = createCliPrompts();
 
       // Pause spinner during prompts
@@ -120,6 +168,10 @@ export const initCommand = new Command('init')
         fs,
         {
           workspaceRoot,
+          packageRoot: monorepo ? packageRoot : undefined,
+          isMonorepo: monorepo,
+          scope,
+          packageName,
           interactive,
           targets,
           projectName: options.projectName,
