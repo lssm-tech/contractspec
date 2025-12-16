@@ -7,13 +7,20 @@
 
 import * as dashboard from './dashboard';
 import * as query from './query';
+import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 
 // ============ Feature Definition ============
 
-export const AnalyticsDashboardFeature = {
-  name: '@lssm/example.analytics-dashboard',
-  version: '1.0.0',
-  description: 'Analytics dashboards with customizable widgets and queries',
+export const AnalyticsDashboardFeature: FeatureModuleSpec = {
+  meta: {
+    key: 'analytics-dashboard',
+    title: 'Analytics Dashboard',
+    description: 'Analytics dashboards with customizable widgets and queries',
+    domain: 'analytics',
+    owners: ['analytics-team'],
+    tags: ['analytics', 'dashboards', 'widgets', 'queries'],
+    stability: 'experimental',
+  },
 
   // ============ Dependencies ============
   dependencies: [
