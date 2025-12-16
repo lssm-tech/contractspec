@@ -13,8 +13,7 @@ export const MeteringFeature: FeatureModuleSpec = {
   meta: {
     key: 'metering',
     title: 'Usage Metering',
-    description:
-      'Usage metering, metric definitions, and threshold alerting',
+    description: 'Usage metering, metric definitions, and threshold alerting',
     domain: 'platform',
     owners: ['@platform.metering'],
     tags: ['metering', 'usage', 'billing', 'thresholds'],
@@ -74,4 +73,3 @@ export const MeteringFeature: FeatureModuleSpec = {
     requires: [],
   },
 };
-

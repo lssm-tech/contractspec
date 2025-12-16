@@ -40,4 +40,3 @@ export function registerCompletionProviders(
 }
 
 export { SpecNameCompletionProvider, invalidateSpecCache };
-

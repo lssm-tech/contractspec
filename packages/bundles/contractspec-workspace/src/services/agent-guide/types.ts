@@ -53,14 +53,13 @@ export interface GuideResult {
 export interface AgentAdapter {
   /** Agent type this adapter handles */
   agentType: AgentType;
-  
+
   /** Format a plan for this agent */
   formatPlan(plan: ImplementationPlan): AgentPrompt;
-  
+
   /** Generate agent-specific configuration (e.g., cursor rules) */
   generateConfig?(spec: AnyContractSpec): string;
-  
+
   /** Parse agent output to extract code */
   parseOutput?(output: string): { code?: string; errors?: string[] };
 }
-

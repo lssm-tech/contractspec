@@ -57,3 +57,4 @@ jobs:
       - name: Check CI result
         run: npx contractspec ci --format json --skip doctor | jq -e '.success'
 
+

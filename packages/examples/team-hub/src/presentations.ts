@@ -119,4 +119,3 @@ export const AnnouncementFeedPresentation: PresentationDescriptorV2 = {
     flags: ['team.announcements.enabled'],
   },
 };
-

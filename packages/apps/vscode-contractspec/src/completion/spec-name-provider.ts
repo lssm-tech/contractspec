@@ -127,7 +127,10 @@ function detectArrayContext(
     { type: 'presentations' as const, regex: /presentations\s*:\s*\[/g },
   ];
 
-  let lastMatch: { type: 'operations' | 'events' | 'presentations'; index: number } | null = null;
+  let lastMatch: {
+    type: 'operations' | 'events' | 'presentations';
+    index: number;
+  } | null = null;
 
   for (const { type, regex } of patterns) {
     let match;
@@ -253,4 +256,3 @@ export class SpecNameCompletionProvider
     return items;
   }
 }
-

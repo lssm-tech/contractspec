@@ -1,16 +1,25 @@
 /**
  * Verification Service
- * 
+ *
  * Orchestrates tiered verification of implementations against specs.
  * Supports three tiers: structure, behavior, and AI review.
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type { VerificationTier, VerificationReport, VerificationIssue } from '@lssm/lib.contracts/llm';
+import type {
+  VerificationTier,
+  VerificationReport,
+  VerificationIssue,
+} from '@lssm/lib.contracts/llm';
 import { verifyStructure } from './structure-verifier';
 import { verifyBehavior } from './behavior-verifier';
 import { verifyWithAI, createQuickAIReview } from './ai-verifier';
-import type { VerifyConfig, VerifyOptions, VerifyInput, VerifyResult } from './types';
+import type {
+  VerifyConfig,
+  VerifyOptions,
+  VerifyInput,
+  VerifyResult,
+} from './types';
 
 const DEFAULT_CONFIG: VerifyConfig = {
   verbose: false,
@@ -20,7 +29,7 @@ const TIER_ORDER: VerificationTier[] = ['structure', 'behavior', 'ai_review'];
 
 /**
  * Verification Service
- * 
+ *
  * Main service for verifying implementations against specs.
  */
 export class VerifyService {
@@ -84,10 +93,14 @@ export class VerifyService {
 
     // Calculate combined results
     const reportsArray = Array.from(reports.values());
-    const passed = reportsArray.every(r => r.passed);
-    const score = reportsArray.length > 0
-      ? Math.round(reportsArray.reduce((sum, r) => sum + r.score, 0) / reportsArray.length)
-      : 100;
+    const passed = reportsArray.every((r) => r.passed);
+    const score =
+      reportsArray.length > 0
+        ? Math.round(
+            reportsArray.reduce((sum, r) => sum + r.score, 0) /
+              reportsArray.length
+          )
+        : 100;
 
     // Generate summary
     const summary = this.generateSummary(reportsArray, allIssues);
@@ -172,10 +185,13 @@ export class VerifyService {
     const parts: string[] = [];
 
     // Overall status
-    const passed = reports.every(r => r.passed);
-    const avgScore = reports.length > 0
-      ? Math.round(reports.reduce((sum, r) => sum + r.score, 0) / reports.length)
-      : 100;
+    const passed = reports.every((r) => r.passed);
+    const avgScore =
+      reports.length > 0
+        ? Math.round(
+            reports.reduce((sum, r) => sum + r.score, 0) / reports.length
+          )
+        : 100;
 
     parts.push(passed ? '✓ Verification passed' : '✗ Verification failed');
     parts.push(`Score: ${avgScore}/100`);
@@ -189,9 +205,9 @@ export class VerifyService {
     parts.push('');
 
     // Issue summary
-    const errors = allIssues.filter(i => i.severity === 'error');
-    const warnings = allIssues.filter(i => i.severity === 'warning');
-    const infos = allIssues.filter(i => i.severity === 'info');
+    const errors = allIssues.filter((i) => i.severity === 'error');
+    const warnings = allIssues.filter((i) => i.severity === 'warning');
+    const infos = allIssues.filter((i) => i.severity === 'info');
 
     if (errors.length > 0) {
       parts.push(`Errors: ${errors.length}`);
@@ -232,9 +248,12 @@ export class VerifyService {
         lines.push('### Issues');
         lines.push('');
         for (const issue of report.issues) {
-          const icon = issue.severity === 'error' ? '❌'
-            : issue.severity === 'warning' ? '⚠️'
-            : 'ℹ️';
+          const icon =
+            issue.severity === 'error'
+              ? '❌'
+              : issue.severity === 'warning'
+                ? '⚠️'
+                : 'ℹ️';
           lines.push(`${icon} **${issue.category}**: ${issue.message}`);
           if (issue.suggestion) {
             lines.push(`  - Suggestion: ${issue.suggestion}`);
@@ -244,18 +263,23 @@ export class VerifyService {
       }
 
       if (report.coverage.scenarios.total > 0) {
-        lines.push(`**Scenarios:** ${report.coverage.scenarios.covered}/${report.coverage.scenarios.total}`);
+        lines.push(
+          `**Scenarios:** ${report.coverage.scenarios.covered}/${report.coverage.scenarios.total}`
+        );
       }
       if (report.coverage.errors.total > 0) {
-        lines.push(`**Errors handled:** ${report.coverage.errors.handled}/${report.coverage.errors.total}`);
+        lines.push(
+          `**Errors handled:** ${report.coverage.errors.handled}/${report.coverage.errors.total}`
+        );
       }
       lines.push('');
     }
 
     // Suggestions
-    const allSuggestions = Array.from(result.reports.values())
-      .flatMap(r => r.suggestions);
-    
+    const allSuggestions = Array.from(result.reports.values()).flatMap(
+      (r) => r.suggestions
+    );
+
     if (allSuggestions.length > 0) {
       lines.push('## Suggestions');
       lines.push('');
@@ -298,10 +322,11 @@ export class VerifyService {
 /**
  * Create a new VerifyService instance.
  */
-export function createVerifyService(config?: Partial<VerifyConfig>): VerifyService {
+export function createVerifyService(
+  config?: Partial<VerifyConfig>
+): VerifyService {
   return new VerifyService(config);
 }
 
 /** Default singleton instance */
 export const verifyService = new VerifyService();
-

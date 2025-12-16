@@ -60,9 +60,3 @@ export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
     transitions: [{ from: 'refresh-balances', to: 'fetch-balances' }],
   },
 };
-
-
-
-
-
-

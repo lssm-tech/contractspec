@@ -177,8 +177,3 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
 };
 
 export const OPENBANKING_SENSITIVE_FIELDS = OPENBANKING_PII_FIELDS;
-
-
-
-
-

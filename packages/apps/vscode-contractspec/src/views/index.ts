@@ -10,16 +10,25 @@ import {
 } from './specs-tree';
 import { DependenciesTreeDataProvider } from './deps-tree';
 import { BuildResultsTreeDataProvider } from './build-results-tree';
+import {
+  LLMToolsTreeDataProvider,
+  registerLLMToolsTree,
+} from './llm-tools-tree';
 
 export { BuildResultsTreeDataProvider };
+export { LLMToolsTreeDataProvider, registerLLMToolsTree };
 
 /**
  * Register all tree view providers.
  */
-export function registerViews(context: vscode.ExtensionContext): {
+export function registerViews(
+  context: vscode.ExtensionContext,
+  outputChannel: vscode.OutputChannel
+): {
   specsProvider: SpecsTreeDataProvider;
   depsProvider: DependenciesTreeDataProvider;
   buildResultsProvider: BuildResultsTreeDataProvider;
+  llmToolsProvider: LLMToolsTreeDataProvider;
 } {
   // Specs Explorer
   const specsProvider = new SpecsTreeDataProvider();
@@ -88,10 +97,14 @@ export function registerViews(context: vscode.ExtensionContext): {
     })
   );
 
+  // LLM Tools View
+  const llmToolsProvider = registerLLMToolsTree(context, outputChannel);
+
   return {
     specsProvider,
     depsProvider,
     buildResultsProvider,
+    llmToolsProvider,
   };
 }
 

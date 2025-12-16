@@ -65,7 +65,8 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       allowedModes: ['managed', 'byok'],
       requiredCapabilities: [cap('storage.objects', 1)],
       required: true,
-      description: 'Object storage used for raw uploads and normalised documents.',
+      description:
+        'Object storage used for raw uploads and normalised documents.',
     },
     {
       slotId: 'primaryOpenBanking',
@@ -86,7 +87,8 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       allowedModes: ['managed', 'byok'],
       requiredCapabilities: [cap('email.inbound', 1)],
       required: true,
-      description: 'Inbound email/thread sync (Gmail) feeding the knowledge corpus.',
+      description:
+        'Inbound email/thread sync (Gmail) feeding the knowledge corpus.',
     },
     {
       slotId: 'emailOutbound',
@@ -102,7 +104,8 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
       allowedModes: ['managed', 'byok'],
       requiredCapabilities: [cap('calendar.events', 1)],
       required: true,
-      description: 'Creates calendar holds for bill reviews and handoff meetings.',
+      description:
+        'Creates calendar holds for bill reviews and handoff meetings.',
     },
     {
       slotId: 'voicePlayback',
@@ -205,6 +208,3 @@ export function registerPocketFamilyOfficeBlueprint(
 ): AppBlueprintRegistry {
   return registry.register(pocketFamilyOfficeBlueprint);
 }
-
-
-

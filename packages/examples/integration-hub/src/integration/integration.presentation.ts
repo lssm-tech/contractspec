@@ -62,4 +62,3 @@ export const IntegrationHealthPresentation: PresentationDescriptorV2 = {
     flags: ['integration.monitoring.enabled'],
   },
 };
-

@@ -209,6 +209,3 @@ export function getPocketFamilyOfficeConnection(
     (connection) => connection.meta.id === connectionId
   );
 }
-
-
-

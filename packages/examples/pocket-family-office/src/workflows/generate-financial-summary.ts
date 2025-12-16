@@ -53,9 +53,6 @@ export const generateFinancialSummaryWorkflow: WorkflowSpec = {
         },
       },
     ],
-    transitions: [
-      { from: 'summarise', to: 'distribute' },
-    ],
+    transitions: [{ from: 'summarise', to: 'distribute' }],
   },
 };
-

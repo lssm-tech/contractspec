@@ -1,5 +1,9 @@
 import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
-import { SyncConfigModel, SyncRunModel, FieldMappingModel } from './sync.schema';
+import {
+  SyncConfigModel,
+  SyncRunModel,
+  FieldMappingModel,
+} from './sync.schema';
 
 export const SyncConfigListPresentation: PresentationDescriptorV2 = {
   meta: {
@@ -125,4 +129,3 @@ export const SyncActivityPresentation: PresentationDescriptorV2 = {
     flags: ['integration.sync.enabled'],
   },
 };
-

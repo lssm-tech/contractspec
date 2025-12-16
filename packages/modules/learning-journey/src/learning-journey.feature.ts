@@ -17,13 +17,7 @@ export const LearningJourneyFeature: FeatureModuleSpec = {
       'Learning platform with courses, onboarding, flashcards, and gamification',
     domain: 'learning',
     owners: ['@platform.learning-journey'],
-    tags: [
-      'learning',
-      'onboarding',
-      'courses',
-      'flashcards',
-      'gamification',
-    ],
+    tags: ['learning', 'onboarding', 'courses', 'flashcards', 'gamification'],
     stability: 'stable',
   },
 
@@ -92,4 +86,3 @@ export const LearningJourneyFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-

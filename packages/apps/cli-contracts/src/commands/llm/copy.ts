@@ -1,6 +1,6 @@
 /**
  * LLM Copy Command
- * 
+ *
  * Copy spec markdown to clipboard for easy pasting into AI tools.
  */
 
@@ -17,21 +17,28 @@ import {
 
 async function loadSpec(specPath: string): Promise<any> {
   const fullPath = resolve(process.cwd(), specPath);
-  
+
   if (!existsSync(fullPath)) {
     throw new Error(`Spec file not found: ${specPath}`);
   }
-  
+
   try {
     const module = await import(fullPath);
     for (const [key, value] of Object.entries(module)) {
-      if (value && typeof value === 'object' && 'meta' in value && 'io' in value) {
+      if (
+        value &&
+        typeof value === 'object' &&
+        'meta' in value &&
+        'io' in value
+      ) {
         return value;
       }
     }
     throw new Error('No spec found in module');
   } catch (error) {
-    throw new Error(`Failed to load spec: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
@@ -71,8 +78,16 @@ async function copyToClipboard(text: string): Promise<boolean> {
 export const copyLLMCommand = new Command('copy')
   .description('Copy spec markdown to clipboard')
   .argument('<spec-file>', 'Path to the spec file')
-  .option('-f, --format <format>', 'Export format: context, full, prompt', 'full')
-  .option('--task <type>', 'Task type for prompt format: implement, test, refactor, review', 'implement')
+  .option(
+    '-f, --format <format>',
+    'Export format: context, full, prompt',
+    'full'
+  )
+  .option(
+    '--task <type>',
+    'Task type for prompt format: implement, test, refactor, review',
+    'implement'
+  )
   .action(async (specFile, options) => {
     try {
       console.log(chalk.blue(`\n📋 Copying ${specFile} to clipboard...\n`));
@@ -88,7 +103,11 @@ export const copyLLMCommand = new Command('copy')
           break;
         case 'prompt':
           markdown = specToAgentPrompt(spec, {
-            taskType: options.task as 'implement' | 'test' | 'refactor' | 'review',
+            taskType: options.task as
+              | 'implement'
+              | 'test'
+              | 'refactor'
+              | 'review',
           });
           break;
         case 'full':
@@ -102,7 +121,9 @@ export const copyLLMCommand = new Command('copy')
       if (copied) {
         console.log(chalk.green(`✓ Copied to clipboard!`));
         console.log(chalk.gray(`  Format: ${format}`));
-        console.log(chalk.gray(`  Spec: ${spec.meta.name}.v${spec.meta.version}`));
+        console.log(
+          chalk.gray(`  Spec: ${spec.meta.name}.v${spec.meta.version}`)
+        );
         console.log(chalk.gray(`  Words: ${markdown.split(/\s+/).length}`));
       } else {
         console.log(chalk.yellow('⚠ Could not copy to clipboard'));
@@ -122,4 +143,3 @@ export const copyLLMCommand = new Command('copy')
       process.exit(1);
     }
   });
-

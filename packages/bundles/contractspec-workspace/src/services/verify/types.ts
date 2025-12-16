@@ -3,7 +3,11 @@
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type { VerificationTier, VerificationIssue, VerificationReport } from '@lssm/lib.contracts/llm';
+import type {
+  VerificationTier,
+  VerificationIssue,
+  VerificationReport,
+} from '@lssm/lib.contracts/llm';
 
 /** Configuration for the verification service */
 export interface VerifyConfig {
@@ -96,4 +100,3 @@ export interface AIReviewResult {
   /** Raw AI response */
   rawResponse?: string;
 }
-

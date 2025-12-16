@@ -63,9 +63,3 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
     transitions: [{ from: 'sync-transactions', to: 'list-transactions' }],
   },
 };
-
-
-
-
-
-

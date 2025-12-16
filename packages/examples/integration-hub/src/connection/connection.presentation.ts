@@ -42,4 +42,3 @@ export const ConnectionSetupPresentation: PresentationDescriptorV2 = {
     flags: ['integration.enabled'],
   },
 };
-

@@ -60,9 +60,3 @@ export const syncOpenBankingAccountsWorkflow: WorkflowSpec = {
     transitions: [{ from: 'sync-accounts', to: 'fetch-accounts' }],
   },
 };
-
-
-
-
-
-

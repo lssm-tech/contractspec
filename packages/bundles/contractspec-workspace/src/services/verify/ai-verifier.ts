@@ -1,13 +1,19 @@
 /**
  * Tier 3: AI-Powered Verification
- * 
+ *
  * Uses an LLM to semantically analyze the implementation against
  * the specification for deeper compliance checking.
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type { VerificationReport, VerificationIssue } from '@lssm/lib.contracts/llm';
-import { generateVerificationPrompt, specToFullMarkdown } from '@lssm/lib.contracts/llm';
+import type {
+  VerificationReport,
+  VerificationIssue,
+} from '@lssm/lib.contracts/llm';
+import {
+  generateVerificationPrompt,
+  specToFullMarkdown,
+} from '@lssm/lib.contracts/llm';
 import type { VerifyInput, AIReviewResult, VerifyConfig } from './types';
 
 /**
@@ -22,13 +28,18 @@ function parseAIResponse(response: string): AIReviewResult {
       return {
         compliant: parsed.passed ?? false,
         confidence: (parsed.score ?? 0) / 100,
-        findings: (parsed.issues ?? []).map((issue: Record<string, unknown>) => ({
-          category: String(issue.category ?? 'semantic'),
-          severity: String(issue.severity ?? 'warning') as 'error' | 'warning' | 'info',
-          message: String(issue.message ?? ''),
-          location: issue.location ? String(issue.location) : undefined,
-          suggestion: issue.suggestion ? String(issue.suggestion) : undefined,
-        })),
+        findings: (parsed.issues ?? []).map(
+          (issue: Record<string, unknown>) => ({
+            category: String(issue.category ?? 'semantic'),
+            severity: String(issue.severity ?? 'warning') as
+              | 'error'
+              | 'warning'
+              | 'info',
+            message: String(issue.message ?? ''),
+            location: issue.location ? String(issue.location) : undefined,
+            suggestion: issue.suggestion ? String(issue.suggestion) : undefined,
+          })
+        ),
         rawResponse: response,
       };
     } catch {
@@ -38,14 +49,14 @@ function parseAIResponse(response: string): AIReviewResult {
 
   // Fallback: parse text response
   const findings: AIReviewResult['findings'] = [];
-  
+
   // Look for issue patterns
   const lines = response.split('\n');
   let currentSeverity: 'error' | 'warning' | 'info' = 'info';
-  
+
   for (const line of lines) {
     const lineLower = line.toLowerCase();
-    
+
     // Detect severity changes
     if (lineLower.includes('error') || lineLower.includes('critical')) {
       currentSeverity = 'error';
@@ -54,11 +65,11 @@ function parseAIResponse(response: string): AIReviewResult {
     } else if (lineLower.includes('info') || lineLower.includes('note')) {
       currentSeverity = 'info';
     }
-    
+
     // Look for bullet points or numbered items
     const bulletMatch = line.match(/^[-*•]\s*(.+)$/);
     const numberedMatch = line.match(/^\d+\.\s*(.+)$/);
-    
+
     if (bulletMatch || numberedMatch) {
       const content = bulletMatch?.[1] ?? numberedMatch?.[1] ?? '';
       if (content.length > 10) {
@@ -72,7 +83,7 @@ function parseAIResponse(response: string): AIReviewResult {
   }
 
   // Determine overall compliance
-  const hasErrors = findings.some(f => f.severity === 'error');
+  const hasErrors = findings.some((f) => f.severity === 'error');
   const compliant = !hasErrors;
   const confidence = hasErrors ? 0.3 : findings.length === 0 ? 0.9 : 0.7;
 
@@ -88,10 +99,7 @@ function parseAIResponse(response: string): AIReviewResult {
  * Call AI provider for verification.
  * This is a placeholder - actual implementation would use AI SDK.
  */
-async function callAI(
-  prompt: string,
-  config: VerifyConfig
-): Promise<string> {
+async function callAI(prompt: string, config: VerifyConfig): Promise<string> {
   // Check if we have an API key configured
   if (!config.aiApiKey) {
     // Return a placeholder response indicating AI is not configured
@@ -119,32 +127,34 @@ async function callAI(
   // For now, we'll use a dynamic import to avoid hard dependency
   try {
     const provider = config.aiProvider ?? 'anthropic';
-    
+
     if (provider === 'anthropic') {
       // Dynamic import to avoid hard dependency
       const { anthropic } = await import('@ai-sdk/anthropic');
       const { generateText } = await import('ai');
-      
+
       const result = await generateText({
         model: anthropic('claude-3-5-sonnet-20241022'),
         prompt,
-        system: 'You are an expert code reviewer analyzing implementation compliance with specifications. Respond with structured JSON.',
+        system:
+          'You are an expert code reviewer analyzing implementation compliance with specifications. Respond with structured JSON.',
       });
-      
+
       return result.text;
     } else if (provider === 'openai') {
       const { openai } = await import('@ai-sdk/openai');
       const { generateText } = await import('ai');
-      
+
       const result = await generateText({
         model: openai('gpt-4o'),
         prompt,
-        system: 'You are an expert code reviewer analyzing implementation compliance with specifications. Respond with structured JSON.',
+        system:
+          'You are an expert code reviewer analyzing implementation compliance with specifications. Respond with structured JSON.',
       });
-      
+
       return result.text;
     }
-    
+
     throw new Error(`Unknown AI provider: ${provider}`);
   } catch (error) {
     // Return error as structured response
@@ -173,19 +183,23 @@ export async function verifyWithAI(
 
   // Generate the verification prompt
   const prompt = generateVerificationPrompt(spec, implementationCode);
-  
+
   // Call AI
   const aiResponse = await callAI(prompt.taskPrompt, config);
-  
+
   // Parse response
   const result = parseAIResponse(aiResponse);
 
   // Convert to verification issues
-  const issues: VerificationIssue[] = result.findings.map(f => ({
+  const issues: VerificationIssue[] = result.findings.map((f) => ({
     severity: f.severity,
     category: 'semantic' as const,
     message: f.message,
-    location: f.location ? { file: f.location } : implementationPath ? { file: implementationPath } : undefined,
+    location: f.location
+      ? { file: f.location }
+      : implementationPath
+        ? { file: implementationPath }
+        : undefined,
     suggestion: f.suggestion,
   }));
 
@@ -194,8 +208,8 @@ export async function verifyWithAI(
 
   // Generate suggestions from findings
   const suggestions = result.findings
-    .filter(f => f.suggestion)
-    .map(f => f.suggestion!);
+    .filter((f) => f.suggestion)
+    .map((f) => f.suggestion!);
 
   return {
     tier: 'ai_review',
@@ -222,15 +236,13 @@ export async function verifyWithAI(
  * Create a simpler AI review without calling the API.
  * Used as fallback or for quick checks.
  */
-export function createQuickAIReview(
-  input: VerifyInput
-): VerificationReport {
+export function createQuickAIReview(input: VerifyInput): VerificationReport {
   const { spec, implementationCode, implementationPath } = input;
   const startTime = Date.now();
 
   // Simple heuristic checks that approximate AI review
   const issues: VerificationIssue[] = [];
-  
+
   // Check for common anti-patterns
   if (implementationCode.includes('console.log')) {
     issues.push({
@@ -241,7 +253,10 @@ export function createQuickAIReview(
     });
   }
 
-  if (implementationCode.includes('// TODO') || implementationCode.includes('// FIXME')) {
+  if (
+    implementationCode.includes('// TODO') ||
+    implementationCode.includes('// FIXME')
+  ) {
     issues.push({
       severity: 'info',
       category: 'semantic',
@@ -251,7 +266,10 @@ export function createQuickAIReview(
   }
 
   // Check for hardcoded values that should come from spec
-  if (spec.policy.auth !== 'anonymous' && !implementationCode.includes('auth')) {
+  if (
+    spec.policy.auth !== 'anonymous' &&
+    !implementationCode.includes('auth')
+  ) {
     issues.push({
       severity: 'warning',
       category: 'semantic',
@@ -260,15 +278,16 @@ export function createQuickAIReview(
     });
   }
 
-  const score = issues.filter(i => i.severity === 'error').length === 0 ? 80 : 40;
-  const passed = issues.filter(i => i.severity === 'error').length === 0;
+  const score =
+    issues.filter((i) => i.severity === 'error').length === 0 ? 80 : 40;
+  const passed = issues.filter((i) => i.severity === 'error').length === 0;
 
   return {
     tier: 'ai_review',
     passed,
     score,
     issues,
-    suggestions: issues.filter(i => i.suggestion).map(i => i.suggestion!),
+    suggestions: issues.filter((i) => i.suggestion).map((i) => i.suggestion!),
     coverage: {
       scenarios: { total: 0, covered: 0 },
       errors: { total: 0, handled: 0 },
@@ -283,4 +302,3 @@ export function createQuickAIReview(
     },
   };
 }
-

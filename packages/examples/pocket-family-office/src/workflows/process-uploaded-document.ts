@@ -52,10 +52,3 @@ export const processUploadedDocumentWorkflow: WorkflowSpec = {
     ],
   },
 };
-
-
-
-
-
-
-

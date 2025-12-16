@@ -1,15 +1,12 @@
 /**
  * Claude Code Agent Adapter
- * 
+ *
  * Formats implementation plans and prompts for Claude Code (Anthropic's
  * advanced coding agent mode).
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type {
-  ImplementationPlan,
-  AgentPrompt,
-} from '@lssm/lib.contracts/llm';
+import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
 import { AGENT_SYSTEM_PROMPTS } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
@@ -78,12 +75,14 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     }
 
     // Constraints
-    if (plan.constraints.policy.length > 0 || 
-        plan.constraints.security.length > 0 || 
-        plan.constraints.pii.length > 0) {
+    if (
+      plan.constraints.policy.length > 0 ||
+      plan.constraints.security.length > 0 ||
+      plan.constraints.pii.length > 0
+    ) {
       lines.push('## Constraints');
       lines.push('');
-      
+
       if (plan.constraints.policy.length > 0) {
         lines.push('### Policy');
         for (const p of plan.constraints.policy) {
@@ -91,7 +90,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
         }
         lines.push('');
       }
-      
+
       if (plan.constraints.security.length > 0) {
         lines.push('### Security');
         for (const s of plan.constraints.security) {
@@ -99,10 +98,12 @@ export class ClaudeCodeAdapter implements AgentAdapter {
         }
         lines.push('');
       }
-      
+
       if (plan.constraints.pii.length > 0) {
         lines.push('### PII Handling');
-        lines.push('The following fields contain personally identifiable information:');
+        lines.push(
+          'The following fields contain personally identifiable information:'
+        );
         for (const pii of plan.constraints.pii) {
           lines.push(`- \`${pii}\``);
         }
@@ -143,7 +144,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
    */
   generateConfig(spec: AnyContractSpec): string {
     const lines: string[] = [];
-    
+
     lines.push('# ContractSpec Implementation Context');
     lines.push('');
     lines.push('This codebase uses ContractSpec for spec-first development.');
@@ -162,7 +163,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     lines.push('3. Emit events as specified');
     lines.push('4. Respect policy constraints');
     lines.push('');
-    
+
     return lines.join('\n');
   }
 
@@ -174,7 +175,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     const codeBlockMatch = output.match(
       /```(?:typescript|ts|tsx)?\n([\s\S]*?)\n```/
     );
-    
+
     if (codeBlockMatch?.[1]) {
       return { code: codeBlockMatch[1] };
     }
@@ -207,4 +208,3 @@ export class ClaudeCodeAdapter implements AgentAdapter {
 
 /** Singleton instance */
 export const claudeCodeAdapter = new ClaudeCodeAdapter();
-

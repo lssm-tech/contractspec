@@ -13,8 +13,7 @@ export const JobsFeature: FeatureModuleSpec = {
   meta: {
     key: 'jobs',
     title: 'Background Jobs',
-    description:
-      'Background job processing, scheduling, and queue management',
+    description: 'Background job processing, scheduling, and queue management',
     domain: 'platform',
     owners: ['@platform.jobs'],
     tags: ['jobs', 'queue', 'background', 'scheduler'],
@@ -64,4 +63,3 @@ export const JobsFeature: FeatureModuleSpec = {
     requires: [],
   },
 };
-

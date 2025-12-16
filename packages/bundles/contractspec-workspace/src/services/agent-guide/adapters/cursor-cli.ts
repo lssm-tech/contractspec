@@ -1,16 +1,16 @@
 /**
  * Cursor CLI Agent Adapter
- * 
+ *
  * Formats implementation plans and prompts for Cursor's CLI/background mode.
  * Can also generate .mdc cursor rules files.
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type {
-  ImplementationPlan,
-  AgentPrompt,
+import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
+import {
+  AGENT_SYSTEM_PROMPTS,
+  specToFullMarkdown,
 } from '@lssm/lib.contracts/llm';
-import { AGENT_SYSTEM_PROMPTS, specToFullMarkdown } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
 /**
@@ -60,7 +60,7 @@ export class CursorCLIAdapter implements AgentAdapter {
     // Key constraints (compact)
     const constraints = [
       ...plan.constraints.policy,
-      ...plan.constraints.security.map(s => `⚠️ ${s}`),
+      ...plan.constraints.security.map((s) => `⚠️ ${s}`),
     ];
     if (constraints.length > 0) {
       lines.push('## Constraints');
@@ -75,7 +75,9 @@ export class CursorCLIAdapter implements AgentAdapter {
     if (plan.constraints.pii.length > 0) {
       lines.push('## PII Fields');
       lines.push('');
-      lines.push(`Handle carefully: ${plan.constraints.pii.map(p => `\`${p}\``).join(', ')}`);
+      lines.push(
+        `Handle carefully: ${plan.constraints.pii.map((p) => `\`${p}\``).join(', ')}`
+      );
       lines.push('');
     }
 
@@ -105,7 +107,9 @@ export class CursorCLIAdapter implements AgentAdapter {
     // Rule content
     lines.push(`# ${m.name} Implementation Rules`);
     lines.push('');
-    lines.push(`This ${m.kind} operation must follow the ContractSpec specification.`);
+    lines.push(
+      `This ${m.kind} operation must follow the ContractSpec specification.`
+    );
     lines.push('');
 
     lines.push('## Goal');
@@ -117,13 +121,13 @@ export class CursorCLIAdapter implements AgentAdapter {
     lines.push('');
     lines.push('1. Input/output types MUST match the spec schema exactly');
     lines.push('2. All error cases MUST be handled');
-    
+
     if (spec.sideEffects?.emits?.length) {
       lines.push('3. Events MUST be emitted as specified');
     }
-    
+
     lines.push(`4. Auth level: ${spec.policy.auth}`);
-    
+
     if (spec.policy.idempotent !== undefined) {
       lines.push(`5. Idempotency: ${spec.policy.idempotent}`);
     }
@@ -196,7 +200,7 @@ export class CursorCLIAdapter implements AgentAdapter {
     const codeBlockMatch = output.match(
       /```(?:typescript|ts|tsx|javascript|js)?\n([\s\S]*?)\n```/
     );
-    
+
     if (codeBlockMatch?.[1]) {
       return { code: codeBlockMatch[1] };
     }
@@ -208,4 +212,3 @@ export class CursorCLIAdapter implements AgentAdapter {
 
 /** Singleton instance */
 export const cursorCLIAdapter = new CursorCLIAdapter();
-

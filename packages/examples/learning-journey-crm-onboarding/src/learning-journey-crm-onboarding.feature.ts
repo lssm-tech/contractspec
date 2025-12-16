@@ -63,4 +63,3 @@ export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-

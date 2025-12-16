@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publisher": "lssm",
   "license": "MIT",
   "publishConfig": {
@@ -315,6 +315,36 @@
         "title": "Copy Spec for LLM",
         "category": "ContractSpec",
         "icon": "$(clippy)"
+      },
+      {
+        "command": "contractspec.refreshLLMTools",
+        "title": "Refresh LLM Tools",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.llmSelectAgent",
+        "title": "Select LLM Agent",
+        "category": "ContractSpec",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "contractspec.llmExportQuick",
+        "title": "Quick Export to LLM",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.llmGuideQuick",
+        "title": "Quick Implementation Guide",
+        "category": "ContractSpec",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "contractspec.llmCursorRules",
+        "title": "Generate Cursor Rules",
+        "category": "ContractSpec",
+        "icon": "$(gear)"
       }
     ],
     "viewsContainers": {
@@ -347,6 +377,10 @@
         {
           "id": "contractspec.buildResultsView",
           "name": "Build Results"
+        },
+        {
+          "id": "contractspec.llmToolsView",
+          "name": "LLM Tools"
         }
       ]
     },
@@ -401,6 +435,21 @@
           "command": "contractspec.clearBuildResults",
           "when": "view == contractspec.buildResultsView",
           "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshLLMTools",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.llmExport",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.llmVerify",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@3"
         }
       ],
       "view/item/context": [
@@ -445,6 +494,21 @@
           "group": "analysis@2"
         },
         {
+          "command": "contractspec.llmCopy",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "llm@1"
+        },
+        {
+          "command": "contractspec.llmGuide",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "llm@2"
+        },
+        {
+          "command": "contractspec.llmVerify",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "llm@3"
+        },
+        {
           "command": "contractspec.linkToFeature",
           "when": "view == contractspec-integrity && viewItem == orphan-spec",
           "group": "inline@1"
@@ -468,6 +532,21 @@
           "command": "contractspec.copySpecPath",
           "when": "view == contractspec-integrity && viewItem =~ /spec|orphan-spec/",
           "group": "copy@2"
+        },
+        {
+          "command": "contractspec.llmCopy",
+          "when": "view == contractspec-features && viewItem == feature",
+          "group": "llm@1"
+        },
+        {
+          "command": "contractspec.llmGuide",
+          "when": "view == contractspec-features && viewItem == feature",
+          "group": "llm@2"
+        },
+        {
+          "command": "contractspec.llmVerify",
+          "when": "view == contractspec-features && viewItem == feature",
+          "group": "llm@3"
         }
       ],
       "explorer/context": [
@@ -537,6 +616,12 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "contractspec.llmToolsView",
+        "contents": "LLM Tools for ContractSpec.\n\nOpen a spec file (.spec.ts, .contracts.ts, .feature.ts) to access export, guide, and verification features.\n\n[Export to LLM](command:contractspec.llmExport)\n[Generate Guide](command:contractspec.llmGuide)\n[Verify Implementation](command:contractspec.llmVerify)"
+      }
+    ],
     "walkthroughs": [
       {
         "id": "contractspec.gettingStarted",

@@ -99,4 +99,3 @@ export const GoalsListPresentation: PresentationDescriptorV2 = {
     flags: ['wealth.goals.enabled'],
   },
 };
-

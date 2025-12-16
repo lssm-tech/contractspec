@@ -1,15 +1,12 @@
 /**
  * Generic MCP Agent Adapter
- * 
+ *
  * Formats implementation plans and prompts for any MCP-compatible agent.
  * Uses standard MCP resource/prompt/tool patterns.
  */
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type {
-  ImplementationPlan,
-  AgentPrompt,
-} from '@lssm/lib.contracts/llm';
+import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
 import { AGENT_SYSTEM_PROMPTS } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
@@ -28,13 +25,17 @@ export class GenericMCPAdapter implements AgentAdapter {
     const lines: string[] = [];
 
     // Standard header
-    lines.push(`# Implementation Task: ${plan.target.name}.v${plan.target.version}`);
+    lines.push(
+      `# Implementation Task: ${plan.target.name}.v${plan.target.version}`
+    );
     lines.push('');
 
     // Task description
     lines.push('## Task');
     lines.push('');
-    lines.push(`Implement the ${plan.target.type} \`${plan.target.name}\` version ${plan.target.version}.`);
+    lines.push(
+      `Implement the ${plan.target.type} \`${plan.target.name}\` version ${plan.target.version}.`
+    );
     lines.push('');
 
     // Context
@@ -90,7 +91,7 @@ export class GenericMCPAdapter implements AgentAdapter {
     // Constraints
     lines.push('## Constraints');
     lines.push('');
-    
+
     if (plan.constraints.policy.length > 0) {
       lines.push('**Policy:**');
       for (const p of plan.constraints.policy) {
@@ -98,7 +99,7 @@ export class GenericMCPAdapter implements AgentAdapter {
       }
       lines.push('');
     }
-    
+
     if (plan.constraints.security.length > 0) {
       lines.push('**Security:**');
       for (const s of plan.constraints.security) {
@@ -106,7 +107,7 @@ export class GenericMCPAdapter implements AgentAdapter {
       }
       lines.push('');
     }
-    
+
     if (plan.constraints.pii.length > 0) {
       lines.push('**PII Fields (handle with care):**');
       for (const pii of plan.constraints.pii) {
@@ -144,14 +145,18 @@ export class GenericMCPAdapter implements AgentAdapter {
     return {
       uri: `spec://${plan.target.name}/v${plan.target.version}/plan`,
       mimeType: 'application/json',
-      data: JSON.stringify({
-        target: plan.target,
-        context: plan.context,
-        fileStructure: plan.fileStructure,
-        steps: plan.steps,
-        constraints: plan.constraints,
-        verificationChecklist: plan.verificationChecklist,
-      }, null, 2),
+      data: JSON.stringify(
+        {
+          target: plan.target,
+          context: plan.context,
+          fileStructure: plan.fileStructure,
+          steps: plan.steps,
+          constraints: plan.constraints,
+          verificationChecklist: plan.verificationChecklist,
+        },
+        null,
+        2
+      ),
     };
   }
 
@@ -204,7 +209,7 @@ export class GenericMCPAdapter implements AgentAdapter {
     const codeBlockMatch = output.match(
       /```(?:typescript|ts|tsx|javascript|js|python|go|rust)?\n([\s\S]*?)\n```/
     );
-    
+
     if (codeBlockMatch?.[1]) {
       return { code: codeBlockMatch[1] };
     }
@@ -216,7 +221,11 @@ export class GenericMCPAdapter implements AgentAdapter {
         return { code: parsed.code };
       }
       if (typeof parsed.errors === 'object') {
-        return { errors: Array.isArray(parsed.errors) ? parsed.errors : [String(parsed.errors)] };
+        return {
+          errors: Array.isArray(parsed.errors)
+            ? parsed.errors
+            : [String(parsed.errors)],
+        };
       }
     } catch {
       // Not JSON, return as-is
@@ -228,4 +237,3 @@ export class GenericMCPAdapter implements AgentAdapter {
 
 /** Singleton instance */
 export const genericMCPAdapter = new GenericMCPAdapter();
-

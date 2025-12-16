@@ -63,4 +63,3 @@ export const ProductEditorPresentation: PresentationDescriptorV2 = {
     flags: ['marketplace.seller.enabled'],
   },
 };
-

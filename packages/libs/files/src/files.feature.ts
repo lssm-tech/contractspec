@@ -73,4 +73,3 @@ export const FilesFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-

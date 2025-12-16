@@ -13,8 +13,7 @@ export const AuditTrailFeature: FeatureModuleSpec = {
   meta: {
     key: 'audit-trail',
     title: 'Audit Trail',
-    description:
-      'Audit logging, querying, export, and compliance reporting',
+    description: 'Audit logging, querying, export, and compliance reporting',
     domain: 'platform',
     owners: ['@platform.audit-trail'],
     tags: ['audit', 'compliance', 'logging', 'security'],
@@ -44,4 +43,3 @@ export const AuditTrailFeature: FeatureModuleSpec = {
     requires: [],
   },
 };
-

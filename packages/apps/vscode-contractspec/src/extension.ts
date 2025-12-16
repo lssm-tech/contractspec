@@ -54,7 +54,7 @@ export async function activate(
   workspaceStatusBarItem = createWorkspaceStatusBarItem(context);
 
   // Register views
-  const views = registerViews(context);
+  const views = registerViews(context, outputChannel);
 
   // Register integrity views
   const integrityProvider = registerIntegrityTree(context);

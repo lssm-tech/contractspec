@@ -91,4 +91,3 @@ export const IdentityRbacFeature: FeatureModuleSpec = {
     requires: [],
   },
 };
-

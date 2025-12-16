@@ -64,4 +64,3 @@ export const AnalyticsDashboardEvents = {
   WidgetAddedEvent,
   QueryCreatedEvent,
 };
-

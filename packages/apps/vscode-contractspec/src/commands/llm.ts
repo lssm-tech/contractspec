@@ -1,6 +1,6 @@
 /**
  * LLM Integration Commands for ContractSpec VS Code Extension
- * 
+ *
  * Provides commands for:
  * - Export spec to LLM-friendly markdown
  * - Generate implementation guides
@@ -26,20 +26,150 @@ import {
 
 /**
  * Load a spec from a file path.
+ * Handles:
+ * - Command/Query specs (have 'meta' and 'io')
+ * - Feature specs (have 'meta' and 'operations'/'events'/'presentations')
+ * - Multiple specs in contracts files (returns first found)
  */
 async function loadSpec(specPath: string): Promise<any> {
+  // Convert file:// URI to file path if needed
+  let filePath = specPath;
+  if (specPath.startsWith('file://')) {
+    filePath = vscode.Uri.parse(specPath).fsPath;
+  }
+
+  // Normalize path separators
+  filePath = path.normalize(filePath);
+
+  // Strategy 1: Try to find compiled output in dist folder
+  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+  if (workspaceRoot) {
+    const relativePath = path.relative(workspaceRoot, filePath);
+    const distPath = path.join(
+      workspaceRoot,
+      'dist',
+      relativePath.replace(/\.ts$/, '.js')
+    );
+
+    if (fs.existsSync(distPath)) {
+      try {
+        // Clear cache if exists
+        if (require.cache[distPath]) {
+          delete require.cache[distPath];
+        }
+        const module = require(distPath);
+        const spec = findSpecInModule(module);
+        if (spec) return spec;
+      } catch (error) {
+        // Continue to next strategy
+      }
+    }
+  }
+
+  // Strategy 2: Try direct require (works if ts-node/tsx is configured)
   try {
-    const module = await import(specPath);
-    for (const [_, value] of Object.entries(module)) {
-      if (value && typeof value === 'object' && 'meta' in value && 'io' in value) {
+    // Clear cache if exists
+    if (require.cache[filePath]) {
+      delete require.cache[filePath];
+    }
+    const module = require(filePath);
+    const spec = findSpecInModule(module);
+    if (spec) return spec;
+  } catch (error) {
+    // Continue to next strategy
+  }
+
+  // Strategy 3: Try dynamic import
+  try {
+    // Convert to file:// URL for import
+    const fileUrl = `file://${filePath}`;
+    const module = await import(fileUrl);
+    const spec = findSpecInModule(module);
+    if (spec) return spec;
+  } catch (error) {
+    // Continue to next strategy
+  }
+
+  // Strategy 4: Try with .js extension (in case TypeScript compiler is configured)
+  try {
+    const jsPath = filePath.replace(/\.ts$/, '.js');
+    if (fs.existsSync(jsPath)) {
+      if (require.cache[jsPath]) {
+        delete require.cache[jsPath];
+      }
+      const module = require(jsPath);
+      const spec = findSpecInModule(module);
+      if (spec) return spec;
+    }
+  } catch (error) {
+    // Continue
+  }
+
+  // Provide helpful error message
+  const fileName = path.basename(filePath);
+  const isTypeScript = filePath.endsWith('.ts');
+
+  let errorMessage = `Failed to load spec from ${fileName}.`;
+
+  if (isTypeScript) {
+    errorMessage += `\n\nTypeScript files need to be compiled before they can be imported.`;
+    errorMessage += `\n\nTry one of these solutions:`;
+    errorMessage += `\n1. Run 'bun run build' or 'tsc' to compile your TypeScript files`;
+    errorMessage += `\n2. Configure ts-node/tsx in your project to enable TypeScript execution`;
+    errorMessage += `\n3. Use the ContractSpec CLI to build your specs first`;
+  } else {
+    errorMessage += `\n\nMake sure the file exports a valid ContractSpec definition.`;
+  }
+
+  throw new Error(errorMessage);
+}
+
+/**
+ * Find a spec in a module's exports.
+ */
+function findSpecInModule(module: any): any | null {
+  // Check all exports
+  for (const [_, value] of Object.entries(module)) {
+    if (value && typeof value === 'object' && 'meta' in value) {
+      // Feature spec: has meta, operations, events, presentations
+      if (
+        'operations' in value ||
+        'events' in value ||
+        'presentations' in value
+      ) {
+        return value;
+      }
+      // Command/Query spec: has meta and io
+      if ('io' in value) {
+        return value;
+      }
+      // Other spec types: just check for meta
+      if (
+        value.meta &&
+        typeof value.meta === 'object' &&
+        'name' in value.meta
+      ) {
         return value;
       }
     }
-    throw new Error('No spec found in module');
-  } catch (error) {
-    throw new Error(`Failed to load spec: ${error instanceof Error ? error.message : String(error)}`);
   }
+
+  // Check default export
+  if (
+    module.default &&
+    typeof module.default === 'object' &&
+    'meta' in module.default
+  ) {
+    return module.default;
+  }
+
+  return null;
 }
+
+/**
+ * Shared utility to load specs - exported for use by tree view
+ */
+export { loadSpec, findSpecInModule };
 
 /**
  * Get the current spec file from the active editor.
@@ -47,108 +177,189 @@ async function loadSpec(specPath: string): Promise<any> {
 function getCurrentSpecFile(): string | undefined {
   const editor = vscode.window.activeTextEditor;
   if (!editor) return undefined;
-  
+
   const filePath = editor.document.uri.fsPath;
-  if (filePath.includes('.spec.') || filePath.includes('.feature.')) {
-    return filePath;
-  }
-  return undefined;
+
+  // Check for all spec file patterns
+  const specPatterns = [
+    '.contracts.',
+    '.spec.',
+    '.feature.',
+    '.event.',
+    '.presentation.',
+    '.capability.',
+    '.workflow.',
+    '.data-view.',
+    '.form.',
+    '.migration.',
+    '.telemetry.',
+    '.experiment.',
+    '.app-config.',
+    '.integration.',
+    '.knowledge.',
+    '.policy.',
+    '.test-spec.',
+  ];
+
+  return specPatterns.some((pattern) => filePath.includes(pattern))
+    ? filePath
+    : undefined;
 }
 
 /**
  * Export current spec to LLM-friendly markdown.
  */
-export async function exportToLLM(outputChannel: vscode.OutputChannel): Promise<void> {
+export async function exportToLLM(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   const specFile = getCurrentSpecFile();
-  
+
   if (!specFile) {
     // Ask user to select a spec file
-    const files = await vscode.workspace.findFiles('**/*.spec.ts', '**/node_modules/**');
+    const files = await vscode.workspace.findFiles(
+      '**/*.spec.ts',
+      '**/node_modules/**'
+    );
     if (files.length === 0) {
       vscode.window.showWarningMessage('No spec files found in workspace');
       return;
     }
-    
-    const items = files.map(f => ({
+
+    const items = files.map((f) => ({
       label: path.basename(f.fsPath),
       description: vscode.workspace.asRelativePath(f.fsPath),
       uri: f,
     }));
-    
+
     const selected = await vscode.window.showQuickPick(items, {
       placeHolder: 'Select a spec to export',
     });
-    
+
     if (!selected) return;
-    
+
     await exportSpecFile(selected.uri.fsPath, outputChannel);
   } else {
     await exportSpecFile(specFile, outputChannel);
   }
 }
 
-async function exportSpecFile(specPath: string, outputChannel: vscode.OutputChannel): Promise<void> {
+async function exportSpecFile(
+  specPath: string,
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   try {
     outputChannel.appendLine(`Exporting spec: ${specPath}`);
     outputChannel.show();
-    
+
+    // Check if file needs compilation
+    if (specPath.endsWith('.ts')) {
+      const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+      if (workspaceRoot) {
+        const relativePath = path.relative(workspaceRoot, specPath);
+        const distPath = path.join(
+          workspaceRoot,
+          'dist',
+          relativePath.replace(/\.ts$/, '.js')
+        );
+        if (!fs.existsSync(distPath)) {
+          const build = await vscode.window.showWarningMessage(
+            `TypeScript file needs to be compiled. Would you like to build it?`,
+            'Build',
+            'Continue Anyway'
+          );
+          if (build === 'Build') {
+            await vscode.commands.executeCommand('contractspec.build');
+            // Wait a bit for build to complete
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+        }
+      }
+    }
+
     // Pick format
-    const formatPick = await vscode.window.showQuickPick([
-      { label: 'Full', description: 'Complete spec with all details', value: 'full' as LLMExportFormat },
-      { label: 'Context', description: 'Summary for understanding', value: 'context' as LLMExportFormat },
-      { label: 'Prompt', description: 'Actionable implementation prompt', value: 'prompt' as LLMExportFormat },
-    ], {
-      placeHolder: 'Select export format',
-    });
-    
+    const formatPick = await vscode.window.showQuickPick(
+      [
+        {
+          label: 'Full',
+          description: 'Complete spec with all details',
+          value: 'full' as LLMExportFormat,
+        },
+        {
+          label: 'Context',
+          description: 'Summary for understanding',
+          value: 'context' as LLMExportFormat,
+        },
+        {
+          label: 'Prompt',
+          description: 'Actionable implementation prompt',
+          value: 'prompt' as LLMExportFormat,
+        },
+      ],
+      {
+        placeHolder: 'Select export format',
+      }
+    );
+
     if (!formatPick) return;
-    
+
     const spec = await loadSpec(specPath);
     let markdown: string;
-    
+
     switch (formatPick.value) {
       case 'context':
         markdown = specToContextMarkdown(spec);
         break;
       case 'prompt':
-        const taskPick = await vscode.window.showQuickPick([
-          { label: 'Implement', value: 'implement' as const },
-          { label: 'Test', value: 'test' as const },
-          { label: 'Refactor', value: 'refactor' as const },
-          { label: 'Review', value: 'review' as const },
-        ], {
-          placeHolder: 'Select task type',
+        const taskPick = await vscode.window.showQuickPick(
+          [
+            { label: 'Implement', value: 'implement' as const },
+            { label: 'Test', value: 'test' as const },
+            { label: 'Refactor', value: 'refactor' as const },
+            { label: 'Review', value: 'review' as const },
+          ],
+          {
+            placeHolder: 'Select task type',
+          }
+        );
+        markdown = specToAgentPrompt(spec, {
+          taskType: taskPick?.value ?? 'implement',
         });
-        markdown = specToAgentPrompt(spec, { taskType: taskPick?.value ?? 'implement' });
         break;
       case 'full':
       default:
         markdown = specToFullMarkdown(spec);
         break;
     }
-    
+
     // Show options: copy, save, or open in new doc
-    const action = await vscode.window.showQuickPick([
-      { label: '📋 Copy to Clipboard', value: 'copy' },
-      { label: '💾 Save to File', value: 'save' },
-      { label: '📄 Open in New Tab', value: 'open' },
-    ], {
-      placeHolder: 'What would you like to do?',
-    });
-    
+    const action = await vscode.window.showQuickPick(
+      [
+        { label: '📋 Copy to Clipboard', value: 'copy' },
+        { label: '💾 Save to File', value: 'save' },
+        { label: '📄 Open in New Tab', value: 'open' },
+      ],
+      {
+        placeHolder: 'What would you like to do?',
+      }
+    );
+
     if (!action) return;
-    
+
     if (action.value === 'copy') {
       await vscode.env.clipboard.writeText(markdown);
-      vscode.window.showInformationMessage(`Spec copied to clipboard (${markdown.split(/\s+/).length} words)`);
+      vscode.window.showInformationMessage(
+        `Spec copied to clipboard (${markdown.split(/\s+/).length} words)`
+      );
     } else if (action.value === 'save') {
       const savePath = await vscode.window.showSaveDialog({
         defaultUri: vscode.Uri.file(specPath.replace(/\.ts$/, '.md')),
-        filters: { 'Markdown': ['md'] },
+        filters: { Markdown: ['md'] },
       });
       if (savePath) {
         fs.writeFileSync(savePath.fsPath, markdown);
-        vscode.window.showInformationMessage(`Saved to ${path.basename(savePath.fsPath)}`);
+        vscode.window.showInformationMessage(
+          `Saved to ${path.basename(savePath.fsPath)}`
+        );
       }
     } else if (action.value === 'open') {
       const doc = await vscode.workspace.openTextDocument({
@@ -157,84 +368,121 @@ async function exportSpecFile(specPath: string, outputChannel: vscode.OutputChan
       });
       await vscode.window.showTextDocument(doc);
     }
-    
-    outputChannel.appendLine(`Export complete: ${formatPick.label} format, ${markdown.split(/\s+/).length} words`);
+
+    outputChannel.appendLine(
+      `Export complete: ${formatPick.label} format, ${markdown.split(/\s+/).length} words`
+    );
   } catch (error) {
-    outputChannel.appendLine(`Error: ${error instanceof Error ? error.message : String(error)}`);
-    vscode.window.showErrorMessage(`Failed to export spec: ${error instanceof Error ? error.message : String(error)}`);
+    outputChannel.appendLine(
+      `Error: ${error instanceof Error ? error.message : String(error)}`
+    );
+    vscode.window.showErrorMessage(
+      `Failed to export spec: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
 /**
  * Generate implementation guide for an AI agent.
  */
-export async function generateGuide(outputChannel: vscode.OutputChannel): Promise<void> {
+export async function generateGuide(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   const specFile = getCurrentSpecFile();
-  
+
   if (!specFile) {
-    const files = await vscode.workspace.findFiles('**/*.spec.ts', '**/node_modules/**');
+    const files = await vscode.workspace.findFiles(
+      '**/*.spec.ts',
+      '**/node_modules/**'
+    );
     if (files.length === 0) {
       vscode.window.showWarningMessage('No spec files found in workspace');
       return;
     }
-    
-    const items = files.map(f => ({
+
+    const items = files.map((f) => ({
       label: path.basename(f.fsPath),
       description: vscode.workspace.asRelativePath(f.fsPath),
       uri: f,
     }));
-    
+
     const selected = await vscode.window.showQuickPick(items, {
       placeHolder: 'Select a spec to generate guide for',
     });
-    
+
     if (!selected) return;
-    
+
     await generateGuideForSpec(selected.uri.fsPath, outputChannel);
   } else {
     await generateGuideForSpec(specFile, outputChannel);
   }
 }
 
-async function generateGuideForSpec(specPath: string, outputChannel: vscode.OutputChannel): Promise<void> {
+async function generateGuideForSpec(
+  specPath: string,
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   try {
     outputChannel.appendLine(`Generating guide for: ${specPath}`);
     outputChannel.show();
-    
+
     // Pick agent
-    const agentPick = await vscode.window.showQuickPick([
-      { label: 'Claude Code', description: 'Anthropic Claude in extended mode', value: 'claude-code' as AgentType },
-      { label: 'Cursor CLI', description: 'Cursor background/composer mode', value: 'cursor-cli' as AgentType },
-      { label: 'Generic MCP', description: 'Any MCP-compatible agent', value: 'generic-mcp' as AgentType },
-    ], {
-      placeHolder: 'Select target agent',
-    });
-    
+    const agentPick = await vscode.window.showQuickPick(
+      [
+        {
+          label: 'Claude Code',
+          description: 'Anthropic Claude in extended mode',
+          value: 'claude-code' as AgentType,
+        },
+        {
+          label: 'Cursor CLI',
+          description: 'Cursor background/composer mode',
+          value: 'cursor-cli' as AgentType,
+        },
+        {
+          label: 'Generic MCP',
+          description: 'Any MCP-compatible agent',
+          value: 'generic-mcp' as AgentType,
+        },
+      ],
+      {
+        placeHolder: 'Select target agent',
+      }
+    );
+
     if (!agentPick) return;
-    
+
     const spec = await loadSpec(specPath);
-    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? process.cwd();
-    
+    const workspaceRoot =
+      vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? process.cwd();
+
     const guideService = createAgentGuideService({
       defaultAgent: agentPick.value,
       projectRoot: workspaceRoot,
     });
-    
+
     const result = guideService.generateGuide(spec, { agent: agentPick.value });
-    
+
     // Show options
-    const action = await vscode.window.showQuickPick([
-      { label: '📋 Copy to Clipboard', value: 'copy' },
-      { label: '📄 Open in New Tab', value: 'open' },
-      { label: '📝 Generate Cursor Rules', value: 'cursor', enabled: agentPick.value === 'cursor-cli' },
-    ].filter(a => a.enabled !== false), {
-      placeHolder: 'What would you like to do?',
-    });
-    
+    const action = await vscode.window.showQuickPick(
+      [
+        { label: '📋 Copy to Clipboard', value: 'copy' },
+        { label: '📄 Open in New Tab', value: 'open' },
+        {
+          label: '📝 Generate Cursor Rules',
+          value: 'cursor',
+          enabled: agentPick.value === 'cursor-cli',
+        },
+      ].filter((a) => a.enabled !== false),
+      {
+        placeHolder: 'What would you like to do?',
+      }
+    );
+
     if (!action) return;
-    
+
     if (action.value === 'copy') {
-      const fullPrompt = result.prompt.systemPrompt 
+      const fullPrompt = result.prompt.systemPrompt
         ? `${result.prompt.systemPrompt}\n\n---\n\n${result.prompt.taskPrompt}`
         : result.prompt.taskPrompt;
       await vscode.env.clipboard.writeText(fullPrompt);
@@ -242,7 +490,7 @@ async function generateGuideForSpec(specPath: string, outputChannel: vscode.Outp
         `Guide copied! (${result.plan.steps.length} steps, ${result.plan.fileStructure.length} files)`
       );
     } else if (action.value === 'open') {
-      const fullPrompt = result.prompt.systemPrompt 
+      const fullPrompt = result.prompt.systemPrompt
         ? `# System Prompt\n\n${result.prompt.systemPrompt}\n\n---\n\n# Task Prompt\n\n${result.prompt.taskPrompt}`
         : result.prompt.taskPrompt;
       const doc = await vscode.workspace.openTextDocument({
@@ -256,69 +504,85 @@ async function generateGuideForSpec(specPath: string, outputChannel: vscode.Outp
         const rulesDir = path.join(workspaceRoot, '.cursor', 'rules');
         const safeName = spec.meta.name.replace(/\./g, '-');
         const rulesPath = path.join(rulesDir, `${safeName}.mdc`);
-        
+
         const savePath = await vscode.window.showSaveDialog({
           defaultUri: vscode.Uri.file(rulesPath),
           filters: { 'Cursor Rules': ['mdc'] },
         });
-        
+
         if (savePath) {
           const dir = path.dirname(savePath.fsPath);
           if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
           }
           fs.writeFileSync(savePath.fsPath, cursorRules);
-          vscode.window.showInformationMessage(`Cursor rules saved to ${path.basename(savePath.fsPath)}`);
+          vscode.window.showInformationMessage(
+            `Cursor rules saved to ${path.basename(savePath.fsPath)}`
+          );
         }
       }
     }
-    
-    outputChannel.appendLine(`Guide generated: ${result.plan.steps.length} steps, ${result.plan.fileStructure.length} files`);
+
+    outputChannel.appendLine(
+      `Guide generated: ${result.plan.steps.length} steps, ${result.plan.fileStructure.length} files`
+    );
   } catch (error) {
-    outputChannel.appendLine(`Error: ${error instanceof Error ? error.message : String(error)}`);
-    vscode.window.showErrorMessage(`Failed to generate guide: ${error instanceof Error ? error.message : String(error)}`);
+    outputChannel.appendLine(
+      `Error: ${error instanceof Error ? error.message : String(error)}`
+    );
+    vscode.window.showErrorMessage(
+      `Failed to generate guide: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
 /**
  * Verify implementation against spec.
  */
-export async function verifyImplementation(outputChannel: vscode.OutputChannel): Promise<void> {
+export async function verifyImplementation(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   // Get spec file
-  const specFiles = await vscode.workspace.findFiles('**/*.spec.ts', '**/node_modules/**');
+  const specFiles = await vscode.workspace.findFiles(
+    '**/*.spec.ts',
+    '**/node_modules/**'
+  );
   if (specFiles.length === 0) {
     vscode.window.showWarningMessage('No spec files found in workspace');
     return;
   }
-  
-  const specItems = specFiles.map(f => ({
+
+  const specItems = specFiles.map((f) => ({
     label: path.basename(f.fsPath),
     description: vscode.workspace.asRelativePath(f.fsPath),
     uri: f,
   }));
-  
+
   const selectedSpec = await vscode.window.showQuickPick(specItems, {
     placeHolder: 'Select the spec to verify against',
   });
-  
+
   if (!selectedSpec) return;
-  
+
   // Get implementation file
-  const implFiles = await vscode.workspace.findFiles('**/*.ts', '**/node_modules/**');
+  const implFiles = await vscode.workspace.findFiles(
+    '**/*.ts',
+    '**/node_modules/**'
+  );
   const implItems = implFiles
-    .filter(f => !f.fsPath.includes('.spec.') && !f.fsPath.includes('.test.'))
-    .map(f => ({
+    .filter((f) => !f.fsPath.includes('.spec.') && !f.fsPath.includes('.test.'))
+    .map((f) => ({
       label: path.basename(f.fsPath),
       description: vscode.workspace.asRelativePath(f.fsPath),
       uri: f,
     }));
-  
+
   const selectedImpl = await vscode.window.showQuickPick(implItems, {
     placeHolder: 'Select the implementation file to verify',
   });
-  
+
   if (!selectedImpl) return;
-  
+
   await runVerification(
     selectedSpec.uri.fsPath,
     selectedImpl.uri.fsPath,
@@ -332,72 +596,96 @@ async function runVerification(
   outputChannel: vscode.OutputChannel
 ): Promise<void> {
   try {
-    outputChannel.appendLine(`Verifying: ${path.basename(implPath)} against ${path.basename(specPath)}`);
+    outputChannel.appendLine(
+      `Verifying: ${path.basename(implPath)} against ${path.basename(specPath)}`
+    );
     outputChannel.show();
-    
+
     // Pick tier
-    const tierPick = await vscode.window.showQuickPick([
-      { label: 'Tier 1: Structure', description: 'Types, exports, imports', value: ['structure'] as VerificationTier[] },
-      { label: 'Tier 1+2: Structure & Behavior', description: 'Types + scenarios + errors', value: ['structure', 'behavior'] as VerificationTier[] },
-      { label: 'All Tiers', description: 'Structure + Behavior + AI Review', value: ['structure', 'behavior', 'ai_review'] as VerificationTier[] },
-    ], {
-      placeHolder: 'Select verification level',
-    });
-    
+    const tierPick = await vscode.window.showQuickPick(
+      [
+        {
+          label: 'Tier 1: Structure',
+          description: 'Types, exports, imports',
+          value: ['structure'] as VerificationTier[],
+        },
+        {
+          label: 'Tier 1+2: Structure & Behavior',
+          description: 'Types + scenarios + errors',
+          value: ['structure', 'behavior'] as VerificationTier[],
+        },
+        {
+          label: 'All Tiers',
+          description: 'Structure + Behavior + AI Review',
+          value: ['structure', 'behavior', 'ai_review'] as VerificationTier[],
+        },
+      ],
+      {
+        placeHolder: 'Select verification level',
+      }
+    );
+
     if (!tierPick) return;
-    
+
     const spec = await loadSpec(specPath);
     const implementationCode = fs.readFileSync(implPath, 'utf-8');
-    
+
     const verifyService = createVerifyService();
     const result = await verifyService.verify(spec, implementationCode, {
       tiers: tierPick.value,
       includeSuggestions: true,
     });
-    
+
     // Show results
     const markdown = verifyService.formatAsMarkdown(result);
-    
+
     // Create diagnostic collection for issues
-    const diagnostics = vscode.languages.createDiagnosticCollection('contractspec-verify');
+    const diagnostics = vscode.languages.createDiagnosticCollection(
+      'contractspec-verify'
+    );
     const implUri = vscode.Uri.file(implPath);
-    
-    const diags: vscode.Diagnostic[] = result.allIssues.map(issue => {
-      const severity = issue.severity === 'error' 
-        ? vscode.DiagnosticSeverity.Error
-        : issue.severity === 'warning'
-          ? vscode.DiagnosticSeverity.Warning
-          : vscode.DiagnosticSeverity.Information;
-      
+
+    const diags: vscode.Diagnostic[] = result.allIssues.map((issue) => {
+      const severity =
+        issue.severity === 'error'
+          ? vscode.DiagnosticSeverity.Error
+          : issue.severity === 'warning'
+            ? vscode.DiagnosticSeverity.Warning
+            : vscode.DiagnosticSeverity.Information;
+
       const range = new vscode.Range(
         issue.location?.line ?? 0,
         issue.location?.column ?? 0,
         issue.location?.line ?? 0,
         1000
       );
-      
+
       const diag = new vscode.Diagnostic(range, issue.message, severity);
       diag.source = 'ContractSpec';
       diag.code = issue.category;
       return diag;
     });
-    
+
     diagnostics.set(implUri, diags);
-    
+
     // Show result summary
     if (result.passed) {
       vscode.window.showInformationMessage(
         `✓ Verification passed! Score: ${result.score}/100`
       );
     } else {
-      const errorCount = result.allIssues.filter(i => i.severity === 'error').length;
-      const warningCount = result.allIssues.filter(i => i.severity === 'warning').length;
-      
+      const errorCount = result.allIssues.filter(
+        (i) => i.severity === 'error'
+      ).length;
+      const warningCount = result.allIssues.filter(
+        (i) => i.severity === 'warning'
+      ).length;
+
       const viewReport = await vscode.window.showWarningMessage(
         `✗ Verification failed (${result.score}/100) - ${errorCount} errors, ${warningCount} warnings`,
         'View Report'
       );
-      
+
       if (viewReport) {
         const doc = await vscode.workspace.openTextDocument({
           content: markdown,
@@ -406,40 +694,49 @@ async function runVerification(
         await vscode.window.showTextDocument(doc);
       }
     }
-    
+
     outputChannel.appendLine(result.summary);
     outputChannel.appendLine(`Duration: ${result.duration}ms`);
   } catch (error) {
-    outputChannel.appendLine(`Error: ${error instanceof Error ? error.message : String(error)}`);
-    vscode.window.showErrorMessage(`Failed to verify: ${error instanceof Error ? error.message : String(error)}`);
+    outputChannel.appendLine(
+      `Error: ${error instanceof Error ? error.message : String(error)}`
+    );
+    vscode.window.showErrorMessage(
+      `Failed to verify: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
 /**
  * Copy current spec to clipboard for LLM use.
  */
-export async function copySpecForLLM(outputChannel: vscode.OutputChannel): Promise<void> {
+export async function copySpecForLLM(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
   const specFile = getCurrentSpecFile();
-  
+
   if (!specFile) {
     vscode.window.showWarningMessage('Open a spec file first');
     return;
   }
-  
+
   try {
     const spec = await loadSpec(specFile);
-    
+
     // Pick format quickly
-    const formatPick = await vscode.window.showQuickPick([
-      { label: 'Full', value: 'full' as LLMExportFormat },
-      { label: 'Context', value: 'context' as LLMExportFormat },
-      { label: 'Prompt', value: 'prompt' as LLMExportFormat },
-    ], {
-      placeHolder: 'Format',
-    });
-    
+    const formatPick = await vscode.window.showQuickPick(
+      [
+        { label: 'Full', value: 'full' as LLMExportFormat },
+        { label: 'Context', value: 'context' as LLMExportFormat },
+        { label: 'Prompt', value: 'prompt' as LLMExportFormat },
+      ],
+      {
+        placeHolder: 'Format',
+      }
+    );
+
     if (!formatPick) return;
-    
+
     let markdown: string;
     switch (formatPick.value) {
       case 'context':
@@ -453,13 +750,15 @@ export async function copySpecForLLM(outputChannel: vscode.OutputChannel): Promi
         markdown = specToFullMarkdown(spec);
         break;
     }
-    
+
     await vscode.env.clipboard.writeText(markdown);
     vscode.window.showInformationMessage(
       `${spec.meta.name} copied (${formatPick.label}, ${markdown.split(/\s+/).length} words)`
     );
   } catch (error) {
-    vscode.window.showErrorMessage(`Failed: ${error instanceof Error ? error.message : String(error)}`);
+    vscode.window.showErrorMessage(
+      `Failed: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
@@ -469,7 +768,9 @@ export async function copySpecForLLM(outputChannel: vscode.OutputChannel): Promi
 export function registerLLMCommands(
   context: vscode.ExtensionContext,
   outputChannel: vscode.OutputChannel,
-  telemetry?: { sendTelemetryEvent: (name: string, props: Record<string, string>) => void }
+  telemetry?: {
+    sendTelemetryEvent: (name: string, props: Record<string, string>) => void;
+  }
 ): void {
   // Export to LLM
   context.subscriptions.push(
@@ -480,7 +781,7 @@ export function registerLLMCommands(
       await exportToLLM(outputChannel);
     })
   );
-  
+
   // Generate implementation guide
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.llmGuide', async () => {
@@ -490,7 +791,7 @@ export function registerLLMCommands(
       await generateGuide(outputChannel);
     })
   );
-  
+
   // Verify implementation
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.llmVerify', async () => {
@@ -500,7 +801,7 @@ export function registerLLMCommands(
       await verifyImplementation(outputChannel);
     })
   );
-  
+
   // Copy spec to clipboard
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.llmCopy', async () => {
@@ -511,4 +812,3 @@ export function registerLLMCommands(
     })
   );
 }
-

@@ -6,7 +6,10 @@ const IntegrationCreatedPayload = defineSchemaModel({
   name: 'IntegrationCreatedPayload',
   description: 'Payload when an integration is created',
   fields: {
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -25,7 +28,10 @@ const ConnectionCreatedPayload = defineSchemaModel({
   description: 'Payload when a connection is established',
   fields: {
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    integrationId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    integrationId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -43,7 +49,10 @@ const ConnectionStatusChangedPayload = defineSchemaModel({
   description: 'Payload when a connection status changes',
   fields: {
     connectionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    previousStatus: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     newStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     changedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -98,7 +107,10 @@ const SyncCompletedPayload = defineSchemaModel({
   fields: {
     syncRunId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     syncConfigId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    recordsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    recordsProcessed: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
     completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });

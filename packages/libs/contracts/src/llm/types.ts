@@ -122,7 +122,14 @@ export interface VerificationIssue {
   /** Issue severity */
   severity: 'error' | 'warning' | 'info';
   /** Issue category */
-  category: 'type' | 'export' | 'import' | 'scenario' | 'example' | 'error_handling' | 'semantic';
+  category:
+    | 'type'
+    | 'export'
+    | 'import'
+    | 'scenario'
+    | 'example'
+    | 'error_handling'
+    | 'semantic';
   /** Issue message */
   message: string;
   /** Location in code if applicable */
@@ -207,4 +214,3 @@ export type ExportableItem =
   | { type: 'presentation'; item: PresentationDescriptorV2 }
   | { type: 'event'; item: EventSpec<AnySchemaModel> }
   | { type: 'doc'; item: DocBlock };
-

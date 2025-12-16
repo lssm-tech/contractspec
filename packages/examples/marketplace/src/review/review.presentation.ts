@@ -42,4 +42,3 @@ export const ReviewFormPresentation: PresentationDescriptorV2 = {
     flags: ['marketplace.reviews.enabled'],
   },
 };
-

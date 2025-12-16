@@ -6,6 +6,3 @@ export * from './sync-openbanking-accounts';
 export * from './sync-openbanking-transactions';
 export * from './refresh-openbanking-balances';
 export * from './generate-openbanking-overview';
-
-
-

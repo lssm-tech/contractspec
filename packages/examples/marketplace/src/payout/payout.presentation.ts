@@ -42,4 +42,3 @@ export const PayoutDetailPresentation: PresentationDescriptorV2 = {
     flags: ['marketplace.payouts.enabled'],
   },
 };
-

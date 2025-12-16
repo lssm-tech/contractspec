@@ -1,10 +1,10 @@
 /**
  * LLM Integration Module
- * 
+ *
  * Provides tools for exporting ContractSpec artifacts to LLM-friendly formats,
  * generating implementation prompts for AI coding agents, and verifying
  * implementations against specifications.
- * 
+ *
  * @module @lssm/lib.contracts/llm
  */
 
@@ -51,4 +51,3 @@ export {
   formatPlanForAgent,
   generateFixViolationsPrompt,
 } from './prompts';
-

@@ -63,4 +63,3 @@ export const CheckoutPresentation: PresentationDescriptorV2 = {
     flags: ['marketplace.checkout.enabled'],
   },
 };
-

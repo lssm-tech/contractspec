@@ -46,4 +46,3 @@ export const NotificationsFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-

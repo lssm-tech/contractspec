@@ -42,4 +42,3 @@ export const QueryBuilderPresentation: PresentationDescriptorV2 = {
     flags: ['analytics.queries.enabled'],
   },
 };
-

@@ -56,4 +56,3 @@ export const upcomingPaymentsReminderWorkflow: WorkflowSpec = {
     ],
   },
 };
-

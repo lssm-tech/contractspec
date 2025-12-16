@@ -139,4 +139,3 @@ export const PaymentListPresentation: PresentationDescriptorV2 = {
     flags: ['service.payments.enabled'],
   },
 };
-

@@ -67,6 +67,3 @@ export const pocketFamilyOfficeTenantSample: TenantAppConfig = {
   notes:
     'Sample tenant configuration for hackathon demos. Replace connection IDs with tenant-specific bindings when provisioning.',
 };
-
-
-

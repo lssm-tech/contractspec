@@ -63,4 +63,3 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
     requires: [{ key: 'identity', version: 1 }],
   },
 };
-
