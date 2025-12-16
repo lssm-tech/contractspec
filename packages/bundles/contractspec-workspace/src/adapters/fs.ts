@@ -25,14 +25,19 @@ const DEFAULT_SPEC_PATTERNS = [
   '**/*.contracts.ts',
   '**/*.event.ts',
   '**/*.presentation.ts',
+  '**/*.feature.ts',
+  '**/*.capability.ts',
   '**/*.workflow.ts',
   '**/*.data-view.ts',
+  '**/*.form.ts',
   '**/*.migration.ts',
   '**/*.telemetry.ts',
   '**/*.experiment.ts',
   '**/*.app-config.ts',
   '**/*.integration.ts',
   '**/*.knowledge.ts',
+  '**/*.policy.ts',
+  '**/*.test-spec.ts',
 ];
 
 const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];

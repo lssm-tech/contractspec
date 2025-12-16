@@ -17,6 +17,7 @@ import { syncAllSpecs } from './sync';
 import { cleanGeneratedFiles } from './clean';
 import { compareSpecFiles, compareWithGit } from './diff';
 import { exportToOpenApi } from './openapi';
+import { runSetupWizard, runQuickSetup } from './setup';
 
 /**
  * Register all ContractSpec commands.
@@ -207,6 +208,26 @@ export function registerCommands(
         command: 'openapi',
       });
       await exportToOpenApi(outputChannel);
+    })
+  );
+
+  // Setup wizard (interactive)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.setup', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'setup',
+      });
+      await runSetupWizard(outputChannel);
+    })
+  );
+
+  // Quick setup (defaults)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.quickSetup', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'quickSetup',
+      });
+      await runQuickSetup(outputChannel);
     })
   );
 }

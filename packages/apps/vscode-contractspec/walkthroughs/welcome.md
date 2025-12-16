@@ -31,10 +31,11 @@ ContractSpec is the **safety and governance layer for AI-coded systems**:
 
 This walkthrough will guide you through:
 
-1. Creating your first spec
-2. Validating specs for correctness
-3. Building implementation code from specs
-4. Exploring specs visually in the sidebar
+1. **Setting up your project** — Configure CLI, MCP servers, and AI rules
+2. **Creating your first spec** — Use the interactive wizard
+3. **Validating specs** — Ensure correctness and consistency
+4. **Building from specs** — Generate implementation code
+5. **Exploring specs** — Navigate visually in the sidebar
 
 Let's get started! →
 

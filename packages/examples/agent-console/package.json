@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./agent": "./src/agent/index.ts",
+    "./agent.feature": "./src/agent.feature.ts",
     "./agent/agent.contracts": "./src/agent/agent.contracts.ts",
     "./agent/agent.entity": "./src/agent/agent.entity.ts",
     "./agent/agent.enum": "./src/agent/agent.enum.ts",
@@ -18,7 +19,6 @@
     "./docs": "./src/docs/index.ts",
     "./docs/agent-console.docblock": "./src/docs/agent-console.docblock.ts",
     "./example": "./src/example.ts",
-    "./feature": "./src/feature.ts",
     "./handlers": "./src/handlers/index.ts",
     "./presentations": "./src/presentations/index.ts",
     "./run": "./src/run/index.ts",
@@ -73,6 +73,7 @@
     "exports": {
       ".": "./dist/index.js",
       "./agent": "./dist/agent/index.js",
+      "./agent.feature": "./dist/agent.feature.js",
       "./agent/agent.contracts": "./dist/agent/agent.contracts.js",
       "./agent/agent.entity": "./dist/agent/agent.entity.js",
       "./agent/agent.enum": "./dist/agent/agent.enum.js",
@@ -83,7 +84,6 @@
       "./docs": "./dist/docs/index.js",
       "./docs/agent-console.docblock": "./dist/docs/agent-console.docblock.js",
       "./example": "./dist/example.js",
-      "./feature": "./dist/feature.js",
       "./handlers": "./dist/handlers/index.js",
       "./presentations": "./dist/presentations/index.js",
       "./run": "./dist/run/index.js",

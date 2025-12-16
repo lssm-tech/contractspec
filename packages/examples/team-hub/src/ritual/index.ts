@@ -6,3 +6,4 @@ export { RitualModel, ScheduleRitualInputModel, LogRitualOccurrenceInputModel } 
 export { ScheduleRitualContract, LogRitualOccurrenceContract } from './ritual.contracts';
 
 
+

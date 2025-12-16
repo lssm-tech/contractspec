@@ -4,7 +4,7 @@
  * Displays contract integrity analysis results including:
  * - Features and their linked specs
  * - Orphaned specs not linked to features
- * - Issues (unresolved refs, broken links)
+ * - Issues grouped by type (unresolved refs, broken links, etc.)
  */
 
 import * as vscode from 'vscode';
@@ -17,19 +17,26 @@ import {
 import type { FeatureScanResult } from '@lssm/module.contractspec-workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
+/**
+ * Issue type for grouping in the tree view.
+ */
+type IssueType = IntegrityIssue['type'];
+
 type IntegrityNode =
-  | RootNode
+  | SummaryNode
   | FeatureGroupNode
   | FeatureNode
   | SpecGroupNode
   | SpecNode
   | OrphansGroupNode
+  | OrphanSpecNode
   | IssuesGroupNode
+  | IssueTypeGroupNode
   | IssueNode;
 
-interface RootNode {
-  type: 'root';
-  label: string;
+interface SummaryNode {
+  type: 'summary';
+  result: IntegrityAnalysisResult;
 }
 
 interface FeatureGroupNode {
@@ -59,6 +66,7 @@ interface SpecNode {
   specType: string;
   file?: string;
   resolved: boolean;
+  featureKey?: string;
 }
 
 interface OrphansGroupNode {
@@ -66,8 +74,19 @@ interface OrphansGroupNode {
   orphans: SpecLocation[];
 }
 
+interface OrphanSpecNode {
+  type: 'orphan-spec';
+  spec: SpecLocation;
+}
+
 interface IssuesGroupNode {
   type: 'issues-group';
+  issues: IntegrityIssue[];
+}
+
+interface IssueTypeGroupNode {
+  type: 'issue-type-group';
+  issueType: IssueType;
   issues: IntegrityIssue[];
 }
 
@@ -75,6 +94,16 @@ interface IssueNode {
   type: 'issue';
   issue: IntegrityIssue;
 }
+
+/**
+ * Labels and icons for issue types.
+ */
+const ISSUE_TYPE_META: Record<IssueType, { label: string; icon: string }> = {
+  orphaned: { label: 'Orphaned Specs', icon: 'question' },
+  'unresolved-ref': { label: 'Unresolved References', icon: 'warning' },
+  'missing-feature': { label: 'Missing Features', icon: 'error' },
+  'broken-link': { label: 'Broken Links', icon: 'link' },
+};
 
 /**
  * TreeView provider for contract integrity analysis.
@@ -121,6 +150,8 @@ export class IntegrityTreeProvider
 
   getTreeItem(element: IntegrityNode): vscode.TreeItem {
     switch (element.type) {
+      case 'summary':
+        return this.createSummaryItem(element);
       case 'feature-group':
         return this.createFeatureGroupItem(element);
       case 'feature':
@@ -131,8 +162,12 @@ export class IntegrityTreeProvider
         return this.createSpecItem(element);
       case 'orphans-group':
         return this.createOrphansGroupItem(element);
+      case 'orphan-spec':
+        return this.createOrphanSpecItem(element);
       case 'issues-group':
         return this.createIssuesGroupItem(element);
+      case 'issue-type-group':
+        return this.createIssueTypeGroupItem(element);
       case 'issue':
         return this.createIssueItem(element);
       default:
@@ -148,6 +183,12 @@ export class IntegrityTreeProvider
     // Root level
     if (!element) {
       const children: IntegrityNode[] = [];
+
+      // Summary item
+      children.push({
+        type: 'summary',
+        result: this.result,
+      });
 
       // Features group
       if (this.result.features.length > 0) {
@@ -166,7 +207,7 @@ export class IntegrityTreeProvider
         });
       }
 
-      // Issues group
+      // Issues group (only if there are issues)
       if (this.result.issues.length > 0) {
         children.push({
           type: 'issues-group',
@@ -256,6 +297,7 @@ export class IntegrityTreeProvider
           specType: element.groupType.slice(0, -1), // Remove trailing 's'
           file: location?.file,
           resolved: !!location,
+          featureKey: element.feature.key,
         };
       });
     }
@@ -263,17 +305,31 @@ export class IntegrityTreeProvider
     // Orphans group children
     if (element.type === 'orphans-group') {
       return element.orphans.map((orphan) => ({
-        type: 'spec' as const,
-        name: orphan.name,
-        version: orphan.version,
-        specType: orphan.type,
-        file: orphan.file,
-        resolved: true,
+        type: 'orphan-spec' as const,
+        spec: orphan,
       }));
     }
 
-    // Issues group children
+    // Issues group children - group by issue type
     if (element.type === 'issues-group') {
+      const issuesByType = new Map<IssueType, IntegrityIssue[]>();
+
+      for (const issue of element.issues) {
+        if (!issuesByType.has(issue.type)) {
+          issuesByType.set(issue.type, []);
+        }
+        issuesByType.get(issue.type)!.push(issue);
+      }
+
+      return Array.from(issuesByType.entries()).map(([issueType, issues]) => ({
+        type: 'issue-type-group' as const,
+        issueType,
+        issues,
+      }));
+    }
+
+    // Issue type group children
+    if (element.type === 'issue-type-group') {
       return element.issues.map((issue) => ({
         type: 'issue' as const,
         issue,
@@ -283,20 +339,62 @@ export class IntegrityTreeProvider
     return [];
   }
 
+  private createSummaryItem(element: SummaryNode): vscode.TreeItem {
+    const { result } = element;
+    const healthy = result.healthy;
+    const label = healthy ? 'Healthy' : 'Issues Found';
+
+    const item = new vscode.TreeItem(label, vscode.TreeItemCollapsibleState.None);
+
+    item.iconPath = healthy
+      ? new vscode.ThemeIcon('check', new vscode.ThemeColor('testing.iconPassed'))
+      : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+
+    const coverage = result.coverage;
+    const coveragePercent =
+      coverage.total > 0
+        ? Math.round((coverage.linkedToFeature / coverage.total) * 100)
+        : 100;
+
+    item.description = `${coveragePercent}% coverage (${coverage.linkedToFeature}/${coverage.total} specs linked)`;
+
+    item.tooltip = new vscode.MarkdownString(
+      [
+        `### Contract Integrity Summary`,
+        '',
+        `**Status:** ${healthy ? 'Healthy' : 'Issues Found'}`,
+        '',
+        `**Coverage:**`,
+        `- Total specs: ${coverage.total}`,
+        `- Linked to features: ${coverage.linkedToFeature}`,
+        `- Orphaned: ${coverage.orphaned}`,
+        '',
+        `**Breakdown:**`,
+        ...Object.entries(coverage.byType).map(
+          ([type, data]) =>
+            `- ${type}: ${data.covered}/${data.total} (${data.orphaned} orphaned)`
+        ),
+      ].join('\n')
+    );
+
+    return item;
+  }
+
   private createFeatureGroupItem(element: FeatureGroupNode): vscode.TreeItem {
     const item = new vscode.TreeItem(
       `Features (${element.features.length})`,
       vscode.TreeItemCollapsibleState.Expanded
     );
     item.iconPath = new vscode.ThemeIcon('symbol-module');
+    item.contextValue = 'feature-group';
     return item;
   }
 
   private createFeatureItem(element: FeatureNode): vscode.TreeItem {
     const { feature, result } = element;
-    const hasIssues = result.issues.some(
-      (i) => i.featureKey === feature.key && i.severity === 'error'
-    );
+    const featureIssues = result.issues.filter((i) => i.featureKey === feature.key);
+    const hasErrors = featureIssues.some((i) => i.severity === 'error');
+    const hasWarnings = featureIssues.some((i) => i.severity === 'warning');
 
     const label = feature.title ?? feature.key;
     const item = new vscode.TreeItem(
@@ -304,12 +402,13 @@ export class IntegrityTreeProvider
       vscode.TreeItemCollapsibleState.Collapsed
     );
 
-    item.iconPath = hasIssues
-      ? new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'))
-      : new vscode.ThemeIcon(
-          'pass',
-          new vscode.ThemeColor('testing.iconPassed')
-        );
+    if (hasErrors) {
+      item.iconPath = new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'));
+    } else if (hasWarnings) {
+      item.iconPath = new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+    } else {
+      item.iconPath = new vscode.ThemeIcon('pass', new vscode.ThemeColor('testing.iconPassed'));
+    }
 
     const counts = [
       `${feature.operations.length} ops`,
@@ -318,8 +417,14 @@ export class IntegrityTreeProvider
     ].join(', ');
 
     item.description = counts;
+
+    const issuesSummary =
+      featureIssues.length > 0
+        ? `\n\n**Issues (${featureIssues.length}):**\n${featureIssues.map((i) => `- ${i.message}`).join('\n')}`
+        : '';
+
     item.tooltip = new vscode.MarkdownString(
-      `**${feature.key}**\n\n${feature.description ?? ''}\n\n- ${counts}`
+      `**${feature.key}**\n\n${feature.description ?? '_No description_'}\n\n- ${counts}${issuesSummary}`
     );
 
     // Command to open feature file
@@ -330,6 +435,8 @@ export class IntegrityTreeProvider
         arguments: [vscode.Uri.file(feature.filePath)],
       };
     }
+
+    item.contextValue = 'feature';
 
     return item;
   }
@@ -349,6 +456,20 @@ export class IntegrityTreeProvider
       experiments: 'beaker',
     };
 
+    // Count unresolved specs
+    const unresolvedCount = element.specs.filter((spec) => {
+      const specKey = `${spec.name}.v${spec.version}`;
+      const inventory =
+        element.groupType === 'operations'
+          ? element.result.inventory.operations
+          : element.groupType === 'events'
+            ? element.result.inventory.events
+            : element.groupType === 'presentations'
+              ? element.result.inventory.presentations
+              : element.result.inventory.experiments;
+      return !inventory.get(specKey);
+    }).length;
+
     const label = `${labels[element.groupType]} (${element.specs.length})`;
     const item = new vscode.TreeItem(
       label,
@@ -356,6 +477,12 @@ export class IntegrityTreeProvider
     );
 
     item.iconPath = new vscode.ThemeIcon(icons[element.groupType]);
+
+    if (unresolvedCount > 0) {
+      item.description = `${unresolvedCount} unresolved`;
+    }
+
+    item.contextValue = 'spec-group';
 
     return item;
   }
@@ -388,7 +515,11 @@ export class IntegrityTreeProvider
         arguments: [vscode.Uri.file(element.file)],
       };
       item.tooltip = element.file;
+    } else {
+      item.tooltip = 'Spec file not found in workspace';
     }
+
+    item.contextValue = element.resolved ? 'spec' : 'unresolved-spec';
 
     return item;
   }
@@ -402,17 +533,54 @@ export class IntegrityTreeProvider
       'warning',
       new vscode.ThemeColor('editorWarning.foreground')
     );
-    item.tooltip = 'Specs not linked to any feature';
+    item.tooltip = new vscode.MarkdownString(
+      [
+        '### Orphaned Specs',
+        '',
+        'These specs are not linked to any feature.',
+        '',
+        'Consider:',
+        '- Linking them to an existing feature',
+        '- Creating a new feature for them',
+        '- Removing them if no longer needed',
+      ].join('\n')
+    );
+    item.contextValue = 'orphans-group';
+    return item;
+  }
+
+  private createOrphanSpecItem(element: OrphanSpecNode): vscode.TreeItem {
+    const { spec } = element;
+    const label = `${spec.name}.v${spec.version}`;
+    const item = new vscode.TreeItem(
+      label,
+      vscode.TreeItemCollapsibleState.None
+    );
+
+    item.iconPath = new vscode.ThemeIcon(
+      'question',
+      new vscode.ThemeColor('editorWarning.foreground')
+    );
+    item.description = spec.type;
+
+    // Command to open file
+    if (spec.file) {
+      item.command = {
+        command: 'vscode.open',
+        title: 'Open Spec File',
+        arguments: [vscode.Uri.file(spec.file)],
+      };
+      item.tooltip = spec.file;
+    }
+
+    item.contextValue = 'orphan-spec';
+
     return item;
   }
 
   private createIssuesGroupItem(element: IssuesGroupNode): vscode.TreeItem {
-    const errorCount = element.issues.filter(
-      (i) => i.severity === 'error'
-    ).length;
-    const warningCount = element.issues.filter(
-      (i) => i.severity === 'warning'
-    ).length;
+    const errorCount = element.issues.filter((i) => i.severity === 'error').length;
+    const warningCount = element.issues.filter((i) => i.severity === 'warning').length;
 
     const label =
       errorCount > 0
@@ -426,14 +594,32 @@ export class IntegrityTreeProvider
 
     item.iconPath =
       errorCount > 0
-        ? new vscode.ThemeIcon(
-            'error',
-            new vscode.ThemeColor('errorForeground')
-          )
-        : new vscode.ThemeIcon(
-            'warning',
-            new vscode.ThemeColor('editorWarning.foreground')
-          );
+        ? new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'))
+        : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
+
+    item.contextValue = 'issues-group';
+
+    return item;
+  }
+
+  private createIssueTypeGroupItem(element: IssueTypeGroupNode): vscode.TreeItem {
+    const meta = ISSUE_TYPE_META[element.issueType];
+    const label = `${meta.label} (${element.issues.length})`;
+
+    const item = new vscode.TreeItem(
+      label,
+      vscode.TreeItemCollapsibleState.Collapsed
+    );
+
+    const hasErrors = element.issues.some((i) => i.severity === 'error');
+    item.iconPath = new vscode.ThemeIcon(
+      meta.icon,
+      hasErrors
+        ? new vscode.ThemeColor('errorForeground')
+        : new vscode.ThemeColor('editorWarning.foreground')
+    );
+
+    item.contextValue = 'issue-type-group';
 
     return item;
   }
@@ -448,19 +634,33 @@ export class IntegrityTreeProvider
 
     item.iconPath =
       issue.severity === 'error'
-        ? new vscode.ThemeIcon(
-            'error',
-            new vscode.ThemeColor('errorForeground')
-          )
-        : new vscode.ThemeIcon(
-            'warning',
-            new vscode.ThemeColor('editorWarning.foreground')
-          );
+        ? new vscode.ThemeIcon('error', new vscode.ThemeColor('errorForeground'))
+        : new vscode.ThemeIcon('warning', new vscode.ThemeColor('editorWarning.foreground'));
 
-    item.description = issue.type;
-    item.tooltip = new vscode.MarkdownString(
-      `**${issue.type.toUpperCase()}**\n\n${issue.message}\n\n\`${issue.file}\``
-    );
+    // Show relevant context in description
+    if (issue.specName) {
+      item.description = `${issue.specName}`;
+    } else if (issue.featureKey) {
+      item.description = `in ${issue.featureKey}`;
+    }
+
+    const tooltipParts = [
+      `**${issue.type.toUpperCase()}** (${issue.severity})`,
+      '',
+      issue.message,
+    ];
+
+    if (issue.specName) {
+      tooltipParts.push('', `**Spec:** ${issue.specName}`);
+    }
+    if (issue.featureKey) {
+      tooltipParts.push(`**Feature:** ${issue.featureKey}`);
+    }
+    if (issue.file) {
+      tooltipParts.push('', `\`${issue.file}\``);
+    }
+
+    item.tooltip = new vscode.MarkdownString(tooltipParts.join('\n'));
 
     // Command to open file
     if (issue.file) {
@@ -471,6 +671,8 @@ export class IntegrityTreeProvider
       };
     }
 
+    item.contextValue = 'issue';
+
     return item;
   }
 
@@ -479,6 +681,20 @@ export class IntegrityTreeProvider
    */
   getResult(): IntegrityAnalysisResult | undefined {
     return this.result;
+  }
+
+  /**
+   * Get all features from the analysis.
+   */
+  getFeatures(): FeatureScanResult[] {
+    return this.result?.features ?? [];
+  }
+
+  /**
+   * Get orphaned specs from the analysis.
+   */
+  getOrphanedSpecs(): SpecLocation[] {
+    return this.result?.orphanedSpecs ?? [];
   }
 }
 
@@ -506,4 +722,3 @@ export function registerIntegrityTree(
 
   return provider;
 }
-

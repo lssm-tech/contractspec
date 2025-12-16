@@ -226,6 +226,280 @@ export async function showDependenciesCommand(): Promise<void> {
 }
 
 /**
+ * Link orphaned spec to an existing feature.
+ */
+export async function linkToFeatureCommand(
+  specName: string,
+  specVersion: number,
+  specType: string,
+  specFile?: string
+): Promise<void> {
+  try {
+    const adapters = getWorkspaceAdapters();
+
+    // Get all features
+    const result = await analyzeIntegrity(
+      { fs: adapters.fs, logger: adapters.logger },
+      {}
+    );
+
+    if (result.features.length === 0) {
+      const createNew = await vscode.window.showInformationMessage(
+        'No features found. Would you like to create a new feature?',
+        'Create Feature',
+        'Cancel'
+      );
+
+      if (createNew === 'Create Feature') {
+        await createFeatureFromOrphansCommand([
+          { name: specName, version: specVersion, type: specType, file: specFile ?? '' },
+        ]);
+      }
+      return;
+    }
+
+    // Show quick pick to select a feature
+    const featureItems = result.features.map((f) => ({
+      label: f.title ?? f.key,
+      description: f.key,
+      detail: f.description,
+      feature: f,
+    }));
+
+    const selected = await vscode.window.showQuickPick(featureItems, {
+      placeHolder: `Select feature to link ${specName}.v${specVersion}`,
+      matchOnDescription: true,
+      matchOnDetail: true,
+    });
+
+    if (!selected) {
+      return;
+    }
+
+    // Open the feature file and show where to add the spec
+    if (selected.feature.filePath) {
+      const featureUri = vscode.Uri.file(selected.feature.filePath);
+      const document = await vscode.workspace.openTextDocument(featureUri);
+      const editor = await vscode.window.showTextDocument(document);
+
+      // Find the appropriate array to add to based on spec type
+      const arrayName = getArrayNameForSpecType(specType);
+      const text = document.getText();
+
+      // Find the array in the document
+      const arrayPattern = new RegExp(`${arrayName}\\s*:\\s*\\[`, 'g');
+      const match = arrayPattern.exec(text);
+
+      if (match) {
+        const position = document.positionAt(match.index + match[0].length);
+
+        // Create the ref to insert
+        const refText = `\n    { name: '${specName}', version: ${specVersion} },`;
+
+        // Insert the ref
+        await editor.edit((editBuilder) => {
+          editBuilder.insert(position, refText);
+        });
+
+        // Show success message
+        void vscode.window.showInformationMessage(
+          `Added ${specName}.v${specVersion} to ${selected.feature.key}.${arrayName}`
+        );
+      } else {
+        // Couldn't find the array, show manual instruction
+        void vscode.window.showWarningMessage(
+          `Please add { name: '${specName}', version: ${specVersion} } to the ${arrayName} array manually.`
+        );
+      }
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    void vscode.window.showErrorMessage(`ContractSpec: ${message}`);
+  }
+}
+
+/**
+ * Create a new feature from orphaned specs.
+ */
+export async function createFeatureFromOrphansCommand(
+  orphans: Array<{ name: string; version: number; type: string; file: string }>
+): Promise<void> {
+  try {
+    // Get feature key from user
+    const featureKey = await vscode.window.showInputBox({
+      prompt: 'Enter the feature key (e.g., user-management)',
+      placeHolder: 'my-feature',
+      validateInput: (value) => {
+        if (!value) return 'Feature key is required';
+        if (!/^[a-z][a-z0-9-]*$/.test(value)) {
+          return 'Feature key must be lowercase, start with a letter, and contain only letters, numbers, and hyphens';
+        }
+        return undefined;
+      },
+    });
+
+    if (!featureKey) {
+      return;
+    }
+
+    // Get feature title from user
+    const featureTitle = await vscode.window.showInputBox({
+      prompt: 'Enter the feature title',
+      placeHolder: 'My Feature',
+      value: featureKey
+        .split('-')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' '),
+    });
+
+    if (!featureTitle) {
+      return;
+    }
+
+    // Group orphans by type
+    const operations = orphans.filter(
+      (o) => o.type === 'operation' || o.type === 'command' || o.type === 'query'
+    );
+    const events = orphans.filter((o) => o.type === 'event');
+    const presentations = orphans.filter((o) => o.type === 'presentation');
+    const experiments = orphans.filter((o) => o.type === 'experiment');
+
+    // Generate feature file content
+    const featureContent = generateFeatureFileContent(
+      featureKey,
+      featureTitle,
+      operations,
+      events,
+      presentations,
+      experiments
+    );
+
+    // Ask where to save the file
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (!workspaceFolders || workspaceFolders.length === 0) {
+      void vscode.window.showErrorMessage('No workspace folder open');
+      return;
+    }
+
+    const defaultUri = vscode.Uri.joinPath(
+      workspaceFolders[0].uri,
+      'src',
+      `${featureKey}.feature.ts`
+    );
+
+    const saveUri = await vscode.window.showSaveDialog({
+      defaultUri,
+      filters: {
+        'TypeScript Files': ['ts'],
+      },
+      saveLabel: 'Create Feature',
+    });
+
+    if (!saveUri) {
+      return;
+    }
+
+    // Write the file
+    await vscode.workspace.fs.writeFile(
+      saveUri,
+      Buffer.from(featureContent, 'utf-8')
+    );
+
+    // Open the new file
+    const document = await vscode.workspace.openTextDocument(saveUri);
+    await vscode.window.showTextDocument(document);
+
+    void vscode.window.showInformationMessage(
+      `Created feature: ${featureKey} with ${orphans.length} spec(s)`
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    void vscode.window.showErrorMessage(`ContractSpec: ${message}`);
+  }
+}
+
+/**
+ * Get array name in feature spec for a given spec type.
+ */
+function getArrayNameForSpecType(specType: string): string {
+  switch (specType) {
+    case 'operation':
+    case 'command':
+    case 'query':
+      return 'operations';
+    case 'event':
+      return 'events';
+    case 'presentation':
+      return 'presentations';
+    case 'experiment':
+      return 'experiments';
+    default:
+      return 'operations';
+  }
+}
+
+/**
+ * Generate feature file content.
+ */
+function generateFeatureFileContent(
+  key: string,
+  title: string,
+  operations: Array<{ name: string; version: number }>,
+  events: Array<{ name: string; version: number }>,
+  presentations: Array<{ name: string; version: number }>,
+  experiments: Array<{ name: string; version: number }>
+): string {
+  const formatRefs = (refs: Array<{ name: string; version: number }>) =>
+    refs.map((r) => `    { name: '${r.name}', version: ${r.version} },`).join('\n');
+
+  return `/**
+ * ${title} Feature
+ * 
+ * Auto-generated feature from orphaned specs.
+ */
+
+import { defineFeature } from '@lssm/lib.contracts';
+
+export const ${toCamelCase(key)}Feature = defineFeature({
+  key: '${key}',
+  title: '${title}',
+  description: 'TODO: Add description',
+  stability: 'alpha',
+  owners: [],
+  tags: [],
+
+  operations: [
+${formatRefs(operations) || '    // Add operations here'}
+  ],
+
+  events: [
+${formatRefs(events) || '    // Add events here'}
+  ],
+
+  presentations: [
+${formatRefs(presentations) || '    // Add presentations here'}
+  ],
+
+  experiments: [
+${formatRefs(experiments) || '    // Add experiments here'}
+  ],
+
+  capabilities: {
+    provides: [],
+    requires: [],
+  },
+});
+`;
+}
+
+/**
+ * Convert kebab-case to camelCase.
+ */
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+/**
  * Register integrity commands.
  */
 export function registerIntegrityCommands(
@@ -256,6 +530,64 @@ export function registerIntegrityCommands(
     vscode.commands.registerCommand(
       'contractspec.showDependencies',
       showDependenciesCommand
+    )
+  );
+
+  // Orphan spec actions
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'contractspec.linkToFeature',
+      (item: { spec?: { name: string; version: number; type: string; file?: string } }) => {
+        if (item?.spec) {
+          return linkToFeatureCommand(
+            item.spec.name,
+            item.spec.version,
+            item.spec.type,
+            item.spec.file
+          );
+        }
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'contractspec.createFeatureFromOrphans',
+      async () => {
+        // Get orphaned specs from integrity analysis
+        const adapters = getWorkspaceAdapters();
+        const result = await analyzeIntegrity(
+          { fs: adapters.fs, logger: adapters.logger },
+          {}
+        );
+
+        if (result.orphanedSpecs.length === 0) {
+          void vscode.window.showInformationMessage(
+            'No orphaned specs to create feature from.'
+          );
+          return;
+        }
+
+        // Show quick pick to select which orphans to include
+        const items = result.orphanedSpecs.map((spec) => ({
+          label: `${spec.name}.v${spec.version}`,
+          description: spec.type,
+          detail: spec.file,
+          picked: true,
+          spec,
+        }));
+
+        const selected = await vscode.window.showQuickPick(items, {
+          canPickMany: true,
+          placeHolder: 'Select specs to include in the new feature',
+        });
+
+        if (!selected || selected.length === 0) {
+          return;
+        }
+
+        await createFeatureFromOrphansCommand(selected.map((s) => s.spec));
+      }
     )
   );
 }

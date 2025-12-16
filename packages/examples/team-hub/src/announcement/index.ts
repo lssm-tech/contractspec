@@ -6,3 +6,4 @@ export { AnnouncementModel, PostAnnouncementInputModel } from './announcement.sc
 export { PostAnnouncementContract } from './announcement.contracts';
 
 
+

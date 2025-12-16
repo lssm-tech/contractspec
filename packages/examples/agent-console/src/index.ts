@@ -22,6 +22,6 @@ export * from './tool';
 export * from './shared';
 
 // Feature spec export
-export * from './feature';
+export * from './agent.feature';
 export { default as example } from './example';
 import './docs';

@@ -47,3 +47,4 @@ ALTER TABLE "lssm_sigil"."integration_connection"
 ADD CONSTRAINT "integration_connection_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "lssm_sigil"."organization"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 
+

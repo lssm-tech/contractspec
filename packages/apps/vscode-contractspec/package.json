@@ -2,9 +2,12 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "publisher": "lssm",
   "license": "MIT",
+  "publishConfig": {
+    "access": "private"
+  },
   "icon": "assets/icon.png",
   "galleryBanner": {
     "color": "#0f172a",
@@ -204,6 +207,78 @@
         "title": "Show Dependencies Diagram",
         "category": "ContractSpec",
         "icon": "$(symbol-reference)"
+      },
+      {
+        "command": "contractspec.setup",
+        "title": "Setup ContractSpec",
+        "category": "ContractSpec",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "contractspec.quickSetup",
+        "title": "Quick Setup (Defaults)",
+        "category": "ContractSpec",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "contractspec.selectGroupingMode",
+        "title": "Select Grouping Mode",
+        "category": "ContractSpec",
+        "icon": "$(list-filter)"
+      },
+      {
+        "command": "contractspec.cycleGroupingMode",
+        "title": "Cycle Grouping Mode",
+        "category": "ContractSpec",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "contractspec.revealInExplorer",
+        "title": "Reveal in File Explorer",
+        "category": "ContractSpec",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "contractspec.copySpecName",
+        "title": "Copy Spec Name",
+        "category": "ContractSpec",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "contractspec.copySpecPath",
+        "title": "Copy File Path",
+        "category": "ContractSpec",
+        "icon": "$(file-symlink-file)"
+      },
+      {
+        "command": "contractspec.goToSpecDefinition",
+        "title": "Go to Definition",
+        "category": "ContractSpec",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "contractspec.showSpecDeps",
+        "title": "Show Spec Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(symbol-reference)"
+      },
+      {
+        "command": "contractspec.showReferencingFeatures",
+        "title": "Show Referencing Features",
+        "category": "ContractSpec",
+        "icon": "$(references)"
+      },
+      {
+        "command": "contractspec.linkToFeature",
+        "title": "Link to Feature",
+        "category": "ContractSpec",
+        "icon": "$(link)"
+      },
+      {
+        "command": "contractspec.createFeatureFromOrphans",
+        "title": "Create Feature from Orphans",
+        "category": "ContractSpec",
+        "icon": "$(new-file)"
       }
     ],
     "viewsContainers": {
@@ -244,12 +319,17 @@
         {
           "command": "contractspec.refreshSpecs",
           "when": "view == contractspec.specsView",
-          "group": "navigation"
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.selectGroupingMode",
+          "when": "view == contractspec.specsView",
+          "group": "navigation@2"
         },
         {
           "command": "contractspec.create",
           "when": "view == contractspec.specsView",
-          "group": "navigation"
+          "group": "navigation@3"
         },
         {
           "command": "contractspec.refreshFeatures",
@@ -264,12 +344,17 @@
         {
           "command": "contractspec.refreshIntegrity",
           "when": "view == contractspec-integrity",
-          "group": "navigation"
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.createFeatureFromOrphans",
+          "when": "view == contractspec-integrity",
+          "group": "navigation@2"
         },
         {
           "command": "contractspec.showOrphans",
           "when": "view == contractspec-integrity",
-          "group": "navigation"
+          "group": "navigation@3"
         },
         {
           "command": "contractspec.refreshDeps",
@@ -286,12 +371,67 @@
         {
           "command": "contractspec.validate",
           "when": "view == contractspec.specsView && viewItem == spec",
-          "group": "inline"
+          "group": "inline@1"
         },
         {
           "command": "contractspec.build",
           "when": "view == contractspec.specsView && viewItem == spec",
-          "group": "inline"
+          "group": "inline@2"
+        },
+        {
+          "command": "contractspec.goToSpecDefinition",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.revealInExplorer",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.copySpecName",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "copy@1"
+        },
+        {
+          "command": "contractspec.copySpecPath",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "copy@2"
+        },
+        {
+          "command": "contractspec.showSpecDeps",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "analysis@1"
+        },
+        {
+          "command": "contractspec.showReferencingFeatures",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "analysis@2"
+        },
+        {
+          "command": "contractspec.linkToFeature",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "inline@1"
+        },
+        {
+          "command": "contractspec.linkToFeature",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.revealInExplorer",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.copySpecName",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "copy@1"
+        },
+        {
+          "command": "contractspec.copySpecPath",
+          "when": "view == contractspec-integrity && viewItem =~ /spec|orphan-spec/",
+          "group": "copy@2"
         }
       ],
       "explorer/context": [
@@ -361,6 +501,14 @@
             }
           },
           {
+            "id": "setup",
+            "title": "Set Up Your Project",
+            "description": "Configure ContractSpec for your project: CLI, MCP servers, Cursor rules, and more.\n[Run Setup Wizard](command:contractspec.setup)",
+            "media": {
+              "markdown": "walkthroughs/setup.md"
+            }
+          },
+          {
             "id": "createFirst",
             "title": "Create Your First Spec",
             "description": "Create a contract specification using the interactive wizard or snippets.\n[Create Spec](command:contractspec.create)",
@@ -427,6 +575,27 @@
           "type": "string",
           "default": "https://registry.contractspec.lssm.tech",
           "description": "Base URL for ContractSpec registry. Used for browsing and installing specs/templates."
+        },
+        "contractspec.specsExplorer.groupBy": {
+          "type": "string",
+          "default": "type",
+          "enum": [
+            "type",
+            "package",
+            "namespace",
+            "owner",
+            "tag",
+            "stability"
+          ],
+          "enumDescriptions": [
+            "Group specs by type (operation, event, presentation, etc.)",
+            "Group specs by package (for monorepos)",
+            "Group specs by namespace (extracted from spec name)",
+            "Group specs by owner",
+            "Group specs by tag",
+            "Group specs by stability level"
+          ],
+          "description": "How to group specs in the Specs Explorer view."
         }
       }
     },
