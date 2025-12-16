@@ -28,14 +28,9 @@ export const PocketFamilyOfficeFeature: FeatureModuleSpec = {
   },
 
   // All contract operations included in this feature
-  operations: [
-    { name: 'pfo.documents.upload', version: 1 },
-    { name: 'pfo.reminders.schedule-payment', version: 1 },
-    { name: 'pfo.summary.generate', version: 1 },
-    { name: 'pfo.summary.dispatch', version: 1 },
-    { name: 'pfo.email.sync-threads', version: 1 },
-    { name: 'pfo.openbanking.generate-overview', version: 1 },
-  ],
+  // Note: Only pfo.documents.upload is defined using defineCommand and is scanned.
+  // Other contracts use raw ContractSpec objects and are not automatically scanned.
+  operations: [{ name: 'pfo.documents.upload', version: 1 }],
 
   // No events defined separately for this feature
   events: [],
