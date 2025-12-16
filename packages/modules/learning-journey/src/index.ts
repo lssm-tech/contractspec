@@ -13,5 +13,8 @@ export * from './engines';
 // Track spec types
 export * from './track-spec';
 
+// Feature module specification
+export * from './learning-journey.feature';
+
 // Documentation
 import './docs';

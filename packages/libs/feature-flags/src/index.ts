@@ -10,5 +10,8 @@ export * from './events';
 // Evaluation engine
 export * from './evaluation';
 
+// Feature module specification
+export * from './feature-flags.feature';
+
 // Documentation
 import './docs';

@@ -26,6 +26,9 @@ export {
   OpenBankingRefreshBalances,
 };
 
+// Feature module specification
+export * from '../openbanking.feature';
+
 export function registerOpenBankingContracts(
   registry: SpecRegistry
 ): SpecRegistry {

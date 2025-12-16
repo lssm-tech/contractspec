@@ -10,5 +10,8 @@ export * from './events';
 // Storage adapters
 export * from './storage';
 
+// Feature module specification
+export * from './files.feature';
+
 // Documentation
 import './docs';

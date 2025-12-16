@@ -9,3 +9,6 @@ export * from './channels';
 
 // Template system
 export * from './templates';
+
+// Feature module specification
+export * from './notifications.feature';

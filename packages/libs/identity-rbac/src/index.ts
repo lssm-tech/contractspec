@@ -9,3 +9,6 @@ export * from './policies';
 
 // Domain events
 export * from './events';
+
+// Feature module specification
+export * from './identity-rbac.feature';

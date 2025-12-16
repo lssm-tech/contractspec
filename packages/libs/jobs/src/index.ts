@@ -15,3 +15,6 @@ export * from './contracts';
 
 // Domain events
 export * from './events';
+
+// Feature module specification
+export * from './jobs.feature';
