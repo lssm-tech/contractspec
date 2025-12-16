@@ -6,6 +6,7 @@ import {
   findWorkspaceRoot,
   findPackageRoot,
   detectPackageManager,
+  isMonorepo as checkIsMonorepo,
   type PackageManager,
 } from '@lssm/bundle.contractspec-workspace';
 
@@ -137,7 +138,7 @@ export async function loadConfigWithWorkspace(
   const packageRoot = findPackageRoot(cwd);
   const workspaceRoot = findWorkspaceRoot(cwd);
   const packageManager = detectPackageManager(workspaceRoot);
-  const isMonorepo = workspaceRoot !== packageRoot;
+  const isMonorepo = checkIsMonorepo(workspaceRoot);
 
   return {
     ...config,
