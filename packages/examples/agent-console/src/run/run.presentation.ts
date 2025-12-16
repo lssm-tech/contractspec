@@ -11,7 +11,7 @@ export const RunListPresentation: PresentationDescriptorV2 = {
     description:
       'List view of agent runs with status, tokens, and duration info',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['run', 'list', 'dashboard'],
   },
   source: {
@@ -33,7 +33,7 @@ export const RunDetailPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Detailed view of an agent run with steps, logs, and metrics',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['run', 'detail'],
   },
   source: {

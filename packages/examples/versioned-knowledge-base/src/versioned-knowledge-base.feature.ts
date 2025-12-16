@@ -7,7 +7,7 @@ export const VersionedKnowledgeBaseFeature: FeatureModuleSpec = {
     description:
       'Curated KB with immutable sources, rule versions, and published snapshots.',
     domain: 'knowledge',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['knowledge', 'versioning', 'snapshots'],
     stability: 'experimental',
   },

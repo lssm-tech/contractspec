@@ -16,7 +16,7 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
     description:
       'CRM and sales pipeline management with deals, contacts, and companies',
     domain: 'crm',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['crm', 'sales', 'pipeline', 'deals'],
     stability: 'experimental',
   },

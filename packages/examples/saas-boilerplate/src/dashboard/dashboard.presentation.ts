@@ -10,7 +10,7 @@ export const SaasDashboardPresentation: PresentationDescriptorV2 = {
     description:
       'Main SaaS dashboard with project overview, usage stats, and quick actions',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['dashboard', 'overview'],
   },
   source: {
@@ -33,7 +33,7 @@ export const SettingsPanelPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Organization and user settings panel',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['settings', 'config'],
   },
   source: {

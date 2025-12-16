@@ -11,7 +11,7 @@ export const ToolListPresentation: PresentationDescriptorV2 = {
     description:
       'List view of AI tools with category, status, and version info',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['tool', 'list', 'dashboard'],
   },
   source: {
@@ -34,7 +34,7 @@ export const ToolDetailPresentation: PresentationDescriptorV2 = {
     description:
       'Detailed view of an AI tool with configuration and test panel',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['tool', 'detail'],
   },
   source: {

@@ -10,7 +10,7 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
     description:
       'Connect and sync data with external systems through configurable integrations',
     domain: 'integration',
-    owners: ['integration-team'],
+    owners: ['@integration-team'],
     tags: ['integration', 'sync', 'etl', 'connectors'],
     stability: 'experimental',
   },

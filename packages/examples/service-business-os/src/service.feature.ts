@@ -7,7 +7,7 @@ export const ServiceBusinessFeature: FeatureModuleSpec = {
     description:
       'Quotes → jobs → invoices → payments for field services and agencies.',
     domain: 'services',
-    owners: ['service-os'],
+    owners: ['@service-os'],
     tags: ['services', 'quotes', 'jobs', 'invoices', 'payments'],
     stability: 'experimental',
   },

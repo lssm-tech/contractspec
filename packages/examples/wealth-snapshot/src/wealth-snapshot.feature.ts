@@ -7,7 +7,7 @@ export const WealthSnapshotFeature: FeatureModuleSpec = {
     description:
       'Mini-app for accounts, assets, liabilities, goals, and net worth.',
     domain: 'finance',
-    owners: ['wealth-snapshot'],
+    owners: ['@wealth-snapshot'],
     tags: ['finance', 'net-worth', 'goals'],
     stability: 'experimental',
   },

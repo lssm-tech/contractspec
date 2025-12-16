@@ -16,7 +16,7 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
     description:
       'SaaS application foundation with projects, billing, and settings',
     domain: 'saas',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['saas', 'projects', 'billing'],
     stability: 'experimental',
   },

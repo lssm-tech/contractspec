@@ -14,7 +14,7 @@ export const MarketplaceFeature: FeatureModuleSpec = {
     description:
       'Full-featured marketplace with stores, products, orders, payouts, and reviews',
     domain: 'marketplace',
-    owners: ['marketplace-team'],
+    owners: ['@marketplace-team'],
     tags: ['marketplace', 'ecommerce', 'multi-vendor', 'payments'],
     stability: 'experimental',
   },

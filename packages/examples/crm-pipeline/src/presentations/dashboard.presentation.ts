@@ -13,7 +13,7 @@ export const CrmDashboardPresentation: PresentationDescriptorV2 = {
     description:
       'Main CRM dashboard with pipeline overview, deal stats, and activities',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['dashboard', 'overview'],
   },
   source: {
@@ -36,7 +36,7 @@ export const PipelineMetricsPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Pipeline metrics and forecasting view',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['pipeline', 'metrics', 'forecast'],
   },
   source: {

@@ -11,7 +11,7 @@ export const AgentListPresentation: PresentationDescriptorV2 = {
     description:
       'List view of AI agents with status, model provider, and version info',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['agent', 'list', 'dashboard'],
   },
   source: {
@@ -34,7 +34,7 @@ export const AgentDetailPresentation: PresentationDescriptorV2 = {
     description:
       'Detailed view of an AI agent with configuration, tools, and recent runs',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['agent', 'detail'],
   },
   source: {
@@ -55,7 +55,7 @@ export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Dashboard overview of AI agents, runs, and tools',
     domain: 'agent-console',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['dashboard', 'overview'],
   },
   source: {

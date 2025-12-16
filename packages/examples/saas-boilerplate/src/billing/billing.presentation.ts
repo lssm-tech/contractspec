@@ -10,7 +10,7 @@ export const SubscriptionPresentation: PresentationDescriptorV2 = {
     description:
       'Subscription status with plan info, limits, and current usage',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['billing', 'subscription'],
   },
   source: {
@@ -33,7 +33,7 @@ export const UsageDashboardPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Usage metrics and breakdown by resource type',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['billing', 'usage', 'metrics'],
   },
   source: {

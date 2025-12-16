@@ -18,7 +18,7 @@ export const AnalyticsDashboardFeature: FeatureModuleSpec = {
     title: 'Analytics Dashboard',
     description: 'Analytics dashboards with customizable widgets and queries',
     domain: 'analytics',
-    owners: ['@example.analytics-dashboard'],
+    owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboards', 'widgets', 'queries'],
     stability: 'experimental',
   },

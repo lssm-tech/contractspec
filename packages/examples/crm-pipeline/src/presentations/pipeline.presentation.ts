@@ -13,7 +13,7 @@ export const PipelineKanbanPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Kanban board view of deals organized by stage',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['pipeline', 'kanban', 'deals'],
   },
   source: {
@@ -37,7 +37,7 @@ export const DealListPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'List view of deals with value, status, and owner info',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['deal', 'list'],
   },
   source: {
@@ -62,7 +62,7 @@ export const DealDetailPresentation: PresentationDescriptorV2 = {
     description:
       'Detailed view of a deal with activities, contacts, and history',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['deal', 'detail'],
   },
   source: {
@@ -85,7 +85,7 @@ export const DealCardPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Compact deal card for kanban board display',
     domain: 'crm-pipeline',
-    owners: ['crm-team'],
+    owners: ['@crm-team'],
     tags: ['deal', 'card', 'kanban'],
   },
   source: {

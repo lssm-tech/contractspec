@@ -17,7 +17,7 @@ export const WorkflowDesignerPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Visual workflow designer with drag-and-drop steps',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'designer', 'admin'],
   },
   source: {
@@ -41,7 +41,7 @@ export const WorkflowListPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'List of workflow definitions with status and actions',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'list', 'admin'],
   },
   source: {
@@ -65,7 +65,7 @@ export const WorkflowDetailPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Detailed view of a workflow definition with steps',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'detail'],
   },
   source: {
@@ -91,7 +91,7 @@ export const InstanceListPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'List of workflow instances with status and progress',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'instance', 'list'],
   },
   source: {
@@ -115,7 +115,7 @@ export const InstanceDetailPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Detailed view of a workflow instance with step timeline',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'instance', 'detail', 'timeline'],
   },
   source: {
@@ -139,7 +139,7 @@ export const ProgressTrackerPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Visual progress tracker showing current step in workflow',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'progress', 'widget'],
   },
   source: {
@@ -165,7 +165,7 @@ export const ApprovalInboxPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Inbox showing pending approval requests for current user',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'inbox'],
   },
   source: {
@@ -189,7 +189,7 @@ export const ApprovalDetailPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Detailed approval request view with context and actions',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'detail'],
   },
   source: {
@@ -213,7 +213,7 @@ export const ApprovalFormPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Form for submitting approval decisions',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'form'],
   },
   source: {
@@ -238,7 +238,7 @@ export const PendingApprovalsBadgePresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Badge showing count of pending approvals',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'badge', 'widget'],
   },
   source: {
@@ -261,7 +261,7 @@ export const WorkflowMetricsPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Dashboard widget showing workflow metrics and statistics',
     domain: 'workflow-system',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'metrics', 'dashboard'],
   },
   source: {

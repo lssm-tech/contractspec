@@ -11,7 +11,7 @@ export const ProjectListPresentation: PresentationDescriptorV2 = {
     description:
       'List view of projects with status, tags, and last updated info',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['project', 'list', 'dashboard'],
   },
   source: {
@@ -35,7 +35,7 @@ export const ProjectDetailPresentation: PresentationDescriptorV2 = {
     version: 1,
     description: 'Detailed view of a project with settings and activity',
     domain: 'saas-boilerplate',
-    owners: ['saas-team'],
+    owners: ['@saas-team'],
     tags: ['project', 'detail'],
   },
   source: {

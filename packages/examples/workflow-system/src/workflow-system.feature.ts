@@ -16,7 +16,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     description:
       'State machine-based workflow engine with role-based approvals, delegation, and escalation',
     domain: 'workflow',
-    owners: ['workflow-team'],
+    owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'state-machine', 'automation'],
     stability: 'experimental',
   },

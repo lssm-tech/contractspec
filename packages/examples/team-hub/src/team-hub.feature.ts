@@ -7,7 +7,7 @@ export const TeamHubFeature: FeatureModuleSpec = {
     description:
       'Tasks, rituals, and announcements for internal teams with ceremonies.',
     domain: 'collaboration',
-    owners: ['team-hub'],
+    owners: ['@team-hub'],
     tags: ['tasks', 'rituals', 'announcements'],
     stability: 'experimental',
   },

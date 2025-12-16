@@ -1,33 +1,44 @@
 import { defineQuery } from '@lssm/lib.contracts';
-import { z } from 'zod';
+import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { TaskModel } from './task.schema';
+
+const OWNERS = ['@examples.team-hub'] as const;
+
+export const ListTasksInputModel = defineSchemaModel({
+  name: 'ListTasksInput',
+  description: 'Input for listing tasks',
+  fields: {
+    spaceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    status: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    assigneeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+    limit: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    offset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+  },
+});
+
+export const ListTasksOutputModel = defineSchemaModel({
+  name: 'ListTasksOutput',
+  description: 'Output for listing tasks',
+  fields: {
+    tasks: { type: TaskModel, isOptional: false, isList: true },
+    total: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+  },
+});
 
 export const ListTasksOperation = defineQuery({
   meta: {
     name: 'team.task.list',
     version: 1,
+    stability: 'stable',
+    owners: [...OWNERS],
+    tags: ['team-hub', 'task', 'list', 'query'],
     description: 'List all tasks with filtering',
-    domain: 'collaboration',
-    owners: ['@team-hub'],
-    tags: ['task', 'list', 'query'],
+    goal: 'Retrieve list of tasks',
+    context: 'Task management',
   },
   io: {
-    input: z.object({
-      spaceId: z.string().optional(),
-      status: z.string().optional(),
-      assigneeId: z.string().optional(),
-      limit: z.number().optional(),
-      offset: z.number().optional(),
-    }),
-    output: z.object({
-      tasks: z.array(
-        z.object({
-          id: z.string(),
-          title: z.string(),
-          status: z.string(),
-          spaceId: z.string(),
-        })
-      ),
-      total: z.number(),
-    }),
+    input: ListTasksInputModel,
+    output: ListTasksOutputModel,
   },
+  policy: { auth: 'user' },
 });

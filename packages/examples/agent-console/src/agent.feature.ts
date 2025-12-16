@@ -15,7 +15,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     title: 'AI Agent Console',
     description: 'AI agent orchestration with tools, runs, and logs management',
     domain: 'ai-ops',
-    owners: ['agent-console-team'],
+    owners: ['@agent-console-team'],
     tags: ['ai', 'agents', 'orchestration'],
     stability: 'experimental',
   },
