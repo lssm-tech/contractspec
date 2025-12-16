@@ -37,6 +37,7 @@
     "validate:examples": "bun packages/apps/cli-contracts/src/cli.ts examples validate --repo-root . && bun test packages/modules/contractspec-examples"
   },
   "devDependencies": {
+    "@lssm/app.cli-contracts": "workspace:*",
     "@changesets/cli": "^2.29.7",
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
