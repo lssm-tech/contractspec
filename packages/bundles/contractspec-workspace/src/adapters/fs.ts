@@ -92,11 +92,13 @@ export function createNodeFsAdapter(cwd?: string): FsAdapter {
         options.patterns ??
         (options.pattern ? [options.pattern] : DEFAULT_SPEC_PATTERNS);
       const ignore = options.ignore ?? DEFAULT_IGNORES;
+      // Use provided cwd or fall back to adapter's baseCwd
+      const globCwd = options.cwd ?? baseCwd;
 
       const all: string[] = [];
       for (const pattern of patterns) {
         const matches = await globFn(pattern, {
-          cwd: baseCwd,
+          cwd: globCwd,
           ignore,
         });
         all.push(...matches);

@@ -8,13 +8,19 @@ import type { SetupOptions } from './types';
 
 /**
  * Generate .contractsrc.json content.
+ *
+ * Adapts defaults based on monorepo scope.
  */
 export function generateContractsrcConfig(options: SetupOptions): object {
+  // For package-level config in monorepo, use simpler relative paths
+  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+
   return {
     $schema: 'https://contractspec.dev/schemas/contractsrc.json',
     aiProvider: 'claude',
     aiModel: 'claude-sonnet-4-20250514',
     agentMode: 'claude-code',
+    // outputDir is relative to the config file location
     outputDir: './src',
     conventions: {
       operations: 'contracts/operations',
@@ -25,6 +31,10 @@ export function generateContractsrcConfig(options: SetupOptions): object {
     },
     defaultOwners: options.defaultOwners ?? ['@team'],
     defaultTags: [],
+    // Add monorepo hint if at package level
+    ...(isPackageLevel && options.packageName
+      ? { package: options.packageName }
+      : {}),
   };
 }
 
@@ -75,9 +85,21 @@ export function generateClaudeMcpConfig(): object {
 
 /**
  * Generate .cursor/rules/contractspec.mdc content.
+ *
+ * Adapts paths based on monorepo scope.
  */
 export function generateCursorRules(options: SetupOptions): string {
   const projectName = options.projectName ?? 'this project';
+  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+
+  // Base contract path depends on scope
+  const basePath = isPackageLevel && options.packageRoot
+    ? `${options.packageRoot.split('/').slice(-2).join('/')}/src/contracts`
+    : 'src/contracts';
+
+  const monorepoNote = options.isMonorepo
+    ? `\n## Monorepo Structure\n\nThis is a monorepo. Contracts may exist at:\n- Package level: \`packages/*/src/contracts/\`\n- Workspace level: \`src/contracts/\`\n\nCheck the appropriate level based on the feature scope.\n`
+    : '';
 
   return `# ContractSpec Development Rules
 
@@ -88,14 +110,14 @@ This project uses ContractSpec for spec-first development. Follow these guidelin
 - **Always update contracts first** before changing implementation code.
 - Contracts are the source of truth for operations, events, and presentations.
 - Implementation code should be generated or derived from contracts.
-
+${monorepoNote}
 ## Contract Locations
 
 Contracts are located in:
-- \`src/contracts/operations/\` - Command and query specs
-- \`src/contracts/events/\` - Event specs
-- \`src/contracts/presentations/\` - UI presentation specs
-- \`src/contracts/features/\` - Feature module specs
+- \`${basePath}/operations/\` - Command and query specs
+- \`${basePath}/events/\` - Event specs
+- \`${basePath}/presentations/\` - UI presentation specs
+- \`${basePath}/features/\` - Feature module specs
 
 ## When Making Changes
 
@@ -134,9 +156,36 @@ defineCommand({
 
 /**
  * Generate AGENTS.md content.
+ *
+ * Adapts paths and instructions based on monorepo scope.
  */
 export function generateAgentsMd(options: SetupOptions): string {
   const projectName = options.projectName ?? 'This Project';
+  const isPackageLevel = options.isMonorepo && options.scope === 'package';
+
+  // Contract path depends on scope
+  const contractPath = 'src/contracts/';
+
+  const monorepoSection = options.isMonorepo
+    ? `
+## Monorepo Structure
+
+This is a monorepo. Contracts can exist at multiple levels:
+
+| Level | Location | Use Case |
+|-------|----------|----------|
+| Package | \`packages/*/src/contracts/\` | Package-specific contracts |
+| Workspace | \`src/contracts/\` | Shared cross-package contracts |
+
+When adding a contract, consider:
+- Is this specific to one package? → Add at package level
+- Is this shared across packages? → Add at workspace level
+
+### Current Scope
+
+${isPackageLevel ? `You are working at the **package level**: \`${options.packageName ?? options.packageRoot}\`` : 'You are working at the **workspace level**.'}
+`
+    : '';
 
   return `# AI Agent Guide
 
@@ -153,12 +202,12 @@ ContractSpec is a deterministic, spec-first compiler that keeps AI-written softw
 1. **Contracts are the source of truth** - Always check/update contracts before modifying implementation.
 2. **Safe regeneration** - Code can be regenerated from specs without breaking invariants.
 3. **Multi-surface consistency** - API, events, and UI stay in sync via shared contracts.
-
+${monorepoSection}
 ## Working in This Repository
 
 ### Before Making Changes
 
-1. Check for existing contracts in \`src/contracts/\`
+1. Check for existing contracts in \`${contractPath}\`
 2. If a contract exists, update it first
 3. Regenerate implementation with \`contractspec build\`
 4. Validate with \`contractspec validate\`
@@ -174,10 +223,10 @@ ContractSpec is a deterministic, spec-first compiler that keeps AI-written softw
 
 | Type | Location |
 |------|----------|
-| Operations | \`src/contracts/operations/\` |
-| Events | \`src/contracts/events/\` |
-| Presentations | \`src/contracts/presentations/\` |
-| Features | \`src/contracts/features/\` |
+| Operations | \`${contractPath}operations/\` |
+| Events | \`${contractPath}events/\` |
+| Presentations | \`${contractPath}presentations/\` |
+| Features | \`${contractPath}features/\` |
 
 ## MCP Tools Available
 

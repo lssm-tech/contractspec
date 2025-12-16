@@ -19,6 +19,8 @@ export interface DiscoverOptions {
   pattern?: string;
   patterns?: string[];
   ignore?: string[];
+  /** Working directory for glob patterns. Defaults to process.cwd(). */
+  cwd?: string;
 }
 
 /**

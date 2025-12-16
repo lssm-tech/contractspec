@@ -38,11 +38,24 @@ export const SETUP_TARGET_LABELS: Record<SetupTarget, string> = {
 };
 
 /**
+ * Scope of configuration in a monorepo.
+ */
+export type SetupScope = 'workspace' | 'package';
+
+/**
  * Options for the setup service.
  */
 export interface SetupOptions {
-  /** Root directory of the workspace. */
+  /** Root directory of the workspace (monorepo root or single project root). */
   workspaceRoot: string;
+  /** Current package root (may differ from workspaceRoot in monorepos). */
+  packageRoot?: string;
+  /** Whether this is a monorepo. */
+  isMonorepo?: boolean;
+  /** Where to create config: workspace level or package level. */
+  scope?: SetupScope;
+  /** Current package name (if in a monorepo package). */
+  packageName?: string;
   /** If true, skip prompts and use defaults. */
   interactive: boolean;
   /** Specific targets to configure (defaults to all). */
