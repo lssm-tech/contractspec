@@ -366,3 +366,4 @@ function deriveErrorCode(error: unknown): SecretProviderError['code'] {
   return 'UNKNOWN';
 }
 
+

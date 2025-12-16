@@ -125,3 +125,4 @@ ${examples.join('\n\n')}
 Follow this structure and quality level.`;
 }
 
+

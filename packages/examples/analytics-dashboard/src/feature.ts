@@ -5,10 +5,8 @@
  * and reporting across the platform.
  */
 
-import { analyticsDashboardSchemaContribution } from './entities';
-import * as contracts from './contracts';
-import * as events from './events';
-import { AnalyticsDashboardPresentations } from './presentations';
+import * as dashboard from './dashboard';
+import * as query from './query';
 
 // ============ Feature Definition ============
 
@@ -27,35 +25,18 @@ export const AnalyticsDashboardFeature = {
     '@lssm/module.notifications',
   ],
 
-  // ============ Schema Contribution ============
-  schema: analyticsDashboardSchemaContribution,
-
   // ============ Contracts ============
   contracts: {
     // Dashboard management
-    createDashboard: contracts.CreateDashboardContract,
-    addWidget: contracts.AddWidgetContract,
-    getDashboard: contracts.GetDashboardContract,
-    listDashboards: contracts.ListDashboardsContract,
+    createDashboard: dashboard.CreateDashboardContract,
+    addWidget: dashboard.AddWidgetContract,
+    getDashboard: dashboard.GetDashboardContract,
+    listDashboards: dashboard.ListDashboardsContract,
 
     // Query management
-    createQuery: contracts.CreateQueryContract,
-    executeQuery: contracts.ExecuteQueryContract,
+    createQuery: query.CreateQueryContract,
+    executeQuery: query.ExecuteQueryContract,
   },
-
-  // ============ Events ============
-  events: {
-    dashboardCreated: events.DashboardCreatedEvent,
-    dashboardPublished: events.DashboardPublishedEvent,
-    widgetAdded: events.WidgetAddedEvent,
-    queryCreated: events.QueryCreatedEvent,
-    queryExecuted: events.QueryExecutedEvent,
-    dashboardViewed: events.DashboardViewedEvent,
-    reportGenerated: events.ReportGeneratedEvent,
-  },
-
-  // ============ Presentations ============
-  presentations: AnalyticsDashboardPresentations,
 
   // ============ Permissions ============
   permissions: {

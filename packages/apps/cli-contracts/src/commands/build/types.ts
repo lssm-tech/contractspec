@@ -11,3 +11,4 @@ export type GenerationTarget = 'handler' | 'component' | 'form';
 
 export type TestTarget = 'handler' | 'component';
 
+
