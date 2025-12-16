@@ -18,6 +18,7 @@ import { openapiCommand } from './commands/openapi/index';
 import { examplesCommand } from './commands/examples/index';
 import { workspaceCommand } from './commands/workspace/index';
 import { integrityCommand } from './commands/integrity/index';
+import { initCommand } from './commands/init/index';
 
 const program = new Command();
 
@@ -60,6 +61,9 @@ program.addCommand(workspaceCommand);
 
 // Integrity command
 program.addCommand(integrityCommand);
+
+// Init command (setup ContractSpec in a project)
+program.addCommand(initCommand);
 
 // Create command
 program

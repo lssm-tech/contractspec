@@ -7,6 +7,7 @@ import {
   CreateAgentInputModel,
   UpdateAgentInputModel,
 } from './agent.schema';
+import { AgentCreatedEvent } from './agent.event';
 
 const OWNERS = ['@agent-console-team'] as const;
 
@@ -49,10 +50,11 @@ export const CreateAgentCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'agent.created',
-        version: 1,
+        // name: 'agent.created',
+        // version: 1,
+        // payload: AgentSummaryModel,
+        ref: AgentCreatedEvent,
         when: 'Agent is successfully created',
-        payload: AgentSummaryModel,
       },
     ],
     audit: ['agent.created'],
@@ -271,4 +273,3 @@ export const RemoveToolFromAgentCommand = defineCommand({
   policy: { auth: 'user' },
   sideEffects: { audit: ['agent.tool.removed'] },
 });
-
