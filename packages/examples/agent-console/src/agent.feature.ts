@@ -50,19 +50,21 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
   // Events emitted by this feature
   events: [
     // Agent events
-    { name: 'agent.created', version: 1 },
-    { name: 'agent.updated', version: 1 },
-    { name: 'agent.deleted', version: 1 },
+    { name: 'agent.agent.created', version: 1 },
+    { name: 'agent.agent.updated', version: 1 },
+    { name: 'agent.agent.toolAssigned', version: 1 },
+    { name: 'agent.agent.toolRemoved', version: 1 },
 
     // Tool events
-    { name: 'tool.created', version: 1 },
-    { name: 'tool.updated', version: 1 },
+    { name: 'agent.tool.created', version: 1 },
+    { name: 'agent.tool.updated', version: 1 },
+    { name: 'agent.tool.statusChanged', version: 1 },
 
     // Run events
-    { name: 'run.started', version: 1 },
-    { name: 'run.completed', version: 1 },
-    { name: 'run.failed', version: 1 },
-    { name: 'run.cancelled', version: 1 },
+    { name: 'agent.run.started', version: 1 },
+    { name: 'agent.run.completed', version: 1 },
+    { name: 'agent.run.failed', version: 1 },
+    { name: 'agent.run.cancelled', version: 1 },
   ],
 
   // Presentations associated with this feature
@@ -72,8 +74,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     { name: 'agent-console.agent.detail', version: 1 },
     { name: 'agent-console.run.list', version: 1 },
     { name: 'agent-console.run.detail', version: 1 },
-    { name: 'agent-console.run.metrics', version: 1 },
-    { name: 'agent-console.tool.registry', version: 1 },
+    { name: 'agent-console.tool.list', version: 1 },
     { name: 'agent-console.tool.detail', version: 1 },
   ],
 
@@ -96,12 +97,8 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
       pres: { name: 'agent-console.run.detail', version: 1 },
     },
     {
-      op: { name: 'agent.run.getMetrics', version: 1 },
-      pres: { name: 'agent-console.run.metrics', version: 1 },
-    },
-    {
       op: { name: 'agent.tool.list', version: 1 },
-      pres: { name: 'agent-console.tool.registry', version: 1 },
+      pres: { name: 'agent-console.tool.list', version: 1 },
     },
     {
       op: { name: 'agent.tool.get', version: 1 },
@@ -127,7 +124,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'agent-console.tool.registry',
+      name: 'agent-console.tool.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },

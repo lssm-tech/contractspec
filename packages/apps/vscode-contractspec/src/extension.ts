@@ -27,6 +27,7 @@ import {
   formatWorkspaceInfoForDisplay,
   invalidateWorkspaceCache,
 } from './workspace/adapters';
+import { registerCompletionProviders } from './completion/index';
 
 let telemetryReporter: TelemetryReporter | undefined;
 let workspaceStatusBarItem: vscode.StatusBarItem | undefined;
@@ -70,6 +71,9 @@ export async function activate(
 
   // Register integrity commands
   registerIntegrityCommands(context, integrityDiagnostics);
+
+  // Register completion providers for spec names
+  registerCompletionProviders(context);
 
   // Register workspace info command
   context.subscriptions.push(

@@ -229,3 +229,212 @@ function inferOperationKind(code: string): AnalyzedOperationKind {
   const kindRaw = matchStringField(code, 'kind');
   return kindRaw === 'command' || kindRaw === 'query' ? kindRaw : 'unknown';
 }
+
+/**
+ * Infer operation kind from a specific code block.
+ */
+function inferOperationKindFromBlock(block: string): AnalyzedOperationKind {
+  if (/defineCommand\s*\(/.test(block)) return 'command';
+  if (/defineQuery\s*\(/.test(block)) return 'query';
+  const kindRaw = matchStringField(block, 'kind');
+  return kindRaw === 'command' || kindRaw === 'query' ? kindRaw : 'unknown';
+}
+
+/**
+ * Extract name and version from a meta block.
+ */
+function extractMetaFromBlock(
+  block: string
+): { name: string; version: number } | null {
+  const name = matchStringField(block, 'name');
+  const version = matchNumberField(block, 'version');
+  if (name && version !== null) {
+    return { name, version };
+  }
+  return null;
+}
+
+/**
+ * Define function patterns for all spec types.
+ */
+const DEFINE_FUNCTION_PATTERNS = [
+  // Operations
+  { pattern: /defineCommand\s*\(\s*\{/g, type: 'operation' as const },
+  { pattern: /defineQuery\s*\(\s*\{/g, type: 'operation' as const },
+  // Events
+  { pattern: /defineEvent\s*\(\s*\{/g, type: 'event' as const },
+  // Presentations (both v1 and v2 patterns)
+  {
+    pattern: /:\s*PresentationDescriptorV2\s*=\s*\{/g,
+    type: 'presentation' as const,
+  },
+  {
+    pattern: /:\s*PresentationDescriptor\s*=\s*\{/g,
+    type: 'presentation' as const,
+  },
+  { pattern: /definePresentation\s*\(\s*\{/g, type: 'presentation' as const },
+  // Capabilities
+  { pattern: /defineCapability\s*\(\s*\{/g, type: 'capability' as const },
+  // Workflows
+  { pattern: /defineWorkflow\s*\(\s*\{/g, type: 'workflow' as const },
+  // Experiments
+  { pattern: /defineExperiment\s*\(\s*\{/g, type: 'experiment' as const },
+  // Integrations
+  { pattern: /defineIntegration\s*\(\s*\{/g, type: 'integration' as const },
+  // Knowledge
+  { pattern: /defineKnowledge\s*\(\s*\{/g, type: 'knowledge' as const },
+  // Telemetry
+  { pattern: /defineTelemetry\s*\(\s*\{/g, type: 'telemetry' as const },
+  // App config
+  { pattern: /defineAppConfig\s*\(\s*\{/g, type: 'app-config' as const },
+  // Policy
+  { pattern: /definePolicy\s*\(\s*\{/g, type: 'policy' as const },
+  // Test spec
+  { pattern: /defineTestSpec\s*\(\s*\{/g, type: 'test-spec' as const },
+  // Data view
+  { pattern: /defineDataView\s*\(\s*\{/g, type: 'data-view' as const },
+  // Form
+  { pattern: /defineForm\s*\(\s*\{/g, type: 'form' as const },
+  // Migration
+  { pattern: /defineMigration\s*\(\s*\{/g, type: 'migration' as const },
+];
+
+/**
+ * Find matching closing brace for an opening brace.
+ * Returns the index of the closing brace or -1 if not found.
+ */
+function findMatchingBrace(code: string, startIndex: number): number {
+  let depth = 0;
+  let inString = false;
+  let stringChar = '';
+
+  for (let i = startIndex; i < code.length; i++) {
+    const char = code[i];
+    const prevChar = i > 0 ? code[i - 1] : '';
+
+    // Handle string literals
+    if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (inString) continue;
+
+    if (char === '{') {
+      depth++;
+    } else if (char === '}') {
+      depth--;
+      if (depth === 0) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
+/**
+ * Scan spec source code to extract ALL specs from a file.
+ * This function finds multiple spec definitions in a single file.
+ */
+export function scanAllSpecsFromSource(
+  code: string,
+  filePath: string
+): SpecScanResult[] {
+  const results: SpecScanResult[] = [];
+  const baseSpecType = inferSpecTypeFromFilePath(filePath);
+
+  // Track positions we've already processed to avoid duplicates
+  const processedPositions = new Set<number>();
+
+  for (const { pattern, type } of DEFINE_FUNCTION_PATTERNS) {
+    // Reset the regex lastIndex
+    pattern.lastIndex = 0;
+
+    let match;
+    while ((match = pattern.exec(code)) !== null) {
+      const startPos = match.index;
+
+      // Skip if we've already processed this position
+      if (processedPositions.has(startPos)) continue;
+      processedPositions.add(startPos);
+
+      // Find the opening brace position
+      const openBracePos = code.indexOf('{', startPos);
+      if (openBracePos === -1) continue;
+
+      // Find the matching closing brace
+      const closeBracePos = findMatchingBrace(code, openBracePos);
+      if (closeBracePos === -1) continue;
+
+      // Extract the block content
+      const block = code.slice(openBracePos, closeBracePos + 1);
+
+      // Extract meta information
+      const meta = extractMetaFromBlock(block);
+      if (!meta) continue;
+
+      // Extract additional metadata
+      const description = matchStringField(block, 'description');
+      const stabilityRaw = matchStringField(block, 'stability');
+      const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
+      const owners = matchStringArrayField(block, 'owners');
+      const tags = matchStringArrayField(block, 'tags');
+
+      const hasMeta = /meta\s*:\s*{/.test(block);
+      const hasIo = /\bio\s*:\s*{/.test(block);
+      const hasPolicy = /\bpolicy\s*:\s*{/.test(block);
+      const hasPayload = /\bpayload\s*:\s*{/.test(block);
+      const hasContent = /\bcontent\s*:\s*{/.test(block);
+      const hasDefinition = /\bdefinition\s*:\s*{/.test(block);
+
+      // Infer kind for operations
+      const kind =
+        type === 'operation' ? inferOperationKindFromBlock(block) : 'unknown';
+
+      // Extract references from operations
+      const emittedEvents =
+        type === 'operation' ? extractEmittedEvents(block) : undefined;
+      const policyRefs =
+        type === 'operation' ? extractPolicyRefs(block) : undefined;
+      const testRefs = extractTestRefs(block);
+
+      results.push({
+        filePath,
+        specType: type,
+        name: meta.name,
+        version: meta.version,
+        description: description ?? undefined,
+        stability,
+        owners,
+        tags,
+        kind,
+        hasMeta,
+        hasIo,
+        hasPolicy,
+        hasPayload,
+        hasContent,
+        hasDefinition,
+        emittedEvents,
+        policyRefs,
+        testRefs,
+      });
+    }
+  }
+
+  // If no specs found via patterns, fall back to file-type based scanning
+  // This handles cases where the file uses non-standard patterns
+  if (results.length === 0 && baseSpecType !== 'unknown') {
+    const fallback = scanSpecSource(code, filePath);
+    if (fallback.name && fallback.version !== undefined) {
+      results.push(fallback);
+    }
+  }
+
+  return results;
+}
