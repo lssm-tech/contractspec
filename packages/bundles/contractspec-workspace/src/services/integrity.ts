@@ -8,7 +8,7 @@
  */
 
 import {
-  scanSpecSource,
+  scanAllSpecsFromSource,
   scanFeatureSource,
   isFeatureFile,
   type FeatureScanResult,
@@ -224,21 +224,23 @@ export async function analyzeIntegrity(
       const feature = scanFeatureSource(content, file);
       features.push(feature);
     } else {
-      // Scan as spec
-      const spec = scanSpecSource(content, file);
+      // Scan as spec - use the multi-spec scanner to find ALL specs in the file
+      const specs = scanAllSpecsFromSource(content, file);
 
-      if (spec.specType !== 'unknown' && spec.specType !== 'feature') {
-        const map = getInventoryMap(inventory, spec.specType);
+      for (const spec of specs) {
+        if (spec.specType !== 'unknown' && spec.specType !== 'feature') {
+          const map = getInventoryMap(inventory, spec.specType);
 
-        if (map && spec.name && spec.version !== undefined) {
-          const key = specKey(spec.name, spec.version);
-          map.set(key, {
-            name: spec.name,
-            version: spec.version,
-            file: spec.filePath,
-            type: spec.specType,
-            stability: spec.stability,
-          });
+          if (map && spec.name && spec.version !== undefined) {
+            const key = specKey(spec.name, spec.version);
+            map.set(key, {
+              name: spec.name,
+              version: spec.version,
+              file: spec.filePath,
+              type: spec.specType,
+              stability: spec.stability,
+            });
+          }
         }
       }
     }
