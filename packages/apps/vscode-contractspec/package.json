@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "lssm",
   "license": "MIT",
   "publishConfig": {
@@ -291,6 +291,30 @@
         "title": "Quick Health Check",
         "category": "ContractSpec",
         "icon": "$(pulse)"
+      },
+      {
+        "command": "contractspec.llmExport",
+        "title": "Export to LLM",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.llmGuide",
+        "title": "Generate Implementation Guide",
+        "category": "ContractSpec",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "contractspec.llmVerify",
+        "title": "Verify Implementation",
+        "category": "ContractSpec",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "contractspec.llmCopy",
+        "title": "Copy Spec for LLM",
+        "category": "ContractSpec",
+        "icon": "$(clippy)"
       }
     ],
     "viewsContainers": {
@@ -483,6 +507,21 @@
           "command": "contractspec.analyzeIntegrity",
           "when": "resourceFilename =~ /\\.(feature)\\.ts$/",
           "group": "contractspec@3"
+        },
+        {
+          "command": "contractspec.llmExport",
+          "when": "resourceFilename =~ /\\.(contracts|feature)\\.ts$/",
+          "group": "contractspec-llm@1"
+        },
+        {
+          "command": "contractspec.llmGuide",
+          "when": "resourceFilename =~ /\\.(contracts)\\.ts$/",
+          "group": "contractspec-llm@2"
+        },
+        {
+          "command": "contractspec.llmCopy",
+          "when": "resourceFilename =~ /\\.(contracts|feature)\\.ts$/",
+          "group": "contractspec-llm@3"
         }
       ],
       "editor/title": [

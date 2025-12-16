@@ -29,3 +29,4 @@ import './tech/studio/learning-events.docblock';
 import './tech/studio/learning-journeys.docblock';
 import './tech/studio/project-access-teams.docblock';
 import './tech/studio/team-invitations.docblock';
+import './tech/llm/llm-integration.docblock';

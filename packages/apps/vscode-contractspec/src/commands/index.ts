@@ -19,6 +19,7 @@ import { compareSpecFiles, compareWithGit } from './diff';
 import { exportToOpenApi } from './openapi';
 import { runSetupWizard, runQuickSetup } from './setup';
 import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
+import { registerLLMCommands } from './llm';
 
 /**
  * Register all ContractSpec commands.
@@ -251,4 +252,7 @@ export function registerCommands(
       await runQuickDoctorCheck(outputChannel);
     })
   );
+
+  // LLM integration commands
+  registerLLMCommands(context, outputChannel, telemetry);
 }

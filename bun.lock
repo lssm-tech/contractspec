@@ -800,6 +800,20 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/examples/pocket-family-office": {
+      "name": "@lssm/example.pocket-family-office",
+      "version": "1.0.0",
+      "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "typescript": "^5.9.3",
+      },
+    },
     "packages/examples/policy-safe-knowledge-assistant": {
       "name": "@lssm/example.policy-safe-knowledge-assistant",
       "version": "0.0.1",
@@ -2919,6 +2933,8 @@
     "@lssm/example.openbanking-powens": ["@lssm/example.openbanking-powens@workspace:packages/examples/openbanking-powens"],
 
     "@lssm/example.personalization": ["@lssm/example.personalization@workspace:packages/examples/personalization"],
+
+    "@lssm/example.pocket-family-office": ["@lssm/example.pocket-family-office@workspace:packages/examples/pocket-family-office"],
 
     "@lssm/example.policy-safe-knowledge-assistant": ["@lssm/example.policy-safe-knowledge-assistant@workspace:packages/examples/policy-safe-knowledge-assistant"],
 

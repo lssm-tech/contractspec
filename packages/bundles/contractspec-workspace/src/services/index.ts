@@ -22,3 +22,5 @@ export * from './integrity-diagram';
 export * from './setup/index';
 export * from './doctor/index';
 export * from './ci-check/index';
+export * from './agent-guide/index';
+export * from './verify/index';

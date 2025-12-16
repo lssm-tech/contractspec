@@ -12,6 +12,7 @@ import { registerSpecsTools } from './specs';
 import { registerSpecsCreateTool } from './specs-create';
 import { registerSpecsBuildTool } from './specs-build';
 import { registerDepsTools } from './deps';
+import { registerLLMTools } from './llm';
 
 export function registerMcpLocalTools(
   reg: SpecRegistry,
@@ -22,4 +23,5 @@ export function registerMcpLocalTools(
   registerSpecsCreateTool(reg, adapters);
   registerSpecsBuildTool(reg, adapters);
   registerDepsTools(reg, adapters);
+  registerLLMTools(reg, adapters);
 }
