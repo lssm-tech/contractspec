@@ -5,9 +5,6 @@
   "version": "0.0.13",
   "publisher": "lssm",
   "license": "MIT",
-  "publishConfig": {
-    "access": "private"
-  },
   "icon": "assets/icon.png",
   "galleryBanner": {
     "color": "#0f172a",

@@ -26,6 +26,12 @@ jobs:
 
       - name: Build ContractSpec CLI
         run: bun run build --filter=@lssm/app.cli-contracts
+        env:
+          BUN_VERSION: 1.3.4
+          # Increase memory for large builds
+          NODE_OPTIONS: --max-old-space-size=6144
+          TURBO_TELEMETRY_DISABLED: 1
+          DO_NOT_TRACK: 1
 
       - name: Run ContractSpec CI checks
         id: ci-checks
