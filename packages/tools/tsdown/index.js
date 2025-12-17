@@ -27,14 +27,14 @@ const obfuscation = defineConfig({
 export const base = defineConfig({
   exports: {
     all: true,
-    devExports: true,
+    devExports: false,
   },
   clean: true,
   sourcemap: false,
   format: ['esm'],
   target: 'esnext',
 
-  dts: false,
+  dts: true,
   // bundle: false,
   unbundle: true,
   splitting: false,
