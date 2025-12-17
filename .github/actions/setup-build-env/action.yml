@@ -1,0 +1,58 @@
+name: 'Setup Build Environment'
+description: 'Sets up Node.js, Bun, caches dependencies, and installs packages'
+inputs:
+  node-version:
+    description: 'Node.js version to setup'
+    required: false
+    default: '22'
+  bun-version:
+    description: 'Bun version to setup'
+    required: false
+    default: '1.3.4'
+  cache-dependencies:
+    description: 'Whether to cache dependencies'
+    required: false
+    default: 'true'
+  install-dependencies:
+    description: 'Whether to install dependencies'
+    required: false
+    default: 'true'
+  frozen-lockfile:
+    description: 'Use frozen lockfile for installs'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        registry-url: https://registry.npmjs.org
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: Cache dependencies
+      if: inputs.cache-dependencies == 'true'
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+          node_modules
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+
+    - name: Install dependencies
+      if: inputs.install-dependencies == 'true' && inputs.frozen-lockfile == 'true'
+      run: bun install --frozen-lockfile
+      shell: bash
+
+    - name: Install dependencies (unfrozen)
+      if: inputs.install-dependencies == 'true' && inputs.frozen-lockfile == 'false'
+      run: bun install
+      shell: bash

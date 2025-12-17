@@ -1,0 +1,51 @@
+name: 'Security Scan'
+description: 'Runs security audit, linting, type checking, and tests'
+inputs:
+  run-tests:
+    description: 'Whether to run tests'
+    required: false
+    default: 'true'
+  run-codeql:
+    description: 'Whether to run CodeQL analysis'
+    required: false
+    default: 'true'
+  continue-on-test-failure:
+    description: 'Continue on test failures'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Security audit
+      run: bun audit
+      shell: bash
+
+    - name: Run linting
+      run: bun run lint
+      shell: bash
+
+    - name: Run type checking
+      run: bun run tsc
+      shell: bash
+
+    - name: Run tests
+      if: inputs.run-tests == 'true'
+      run: bun test --reporter=verbose
+      shell: bash
+      continue-on-error: ${{ inputs.continue-on-test-failure == 'true' }}
+
+    - name: Run CodeQL Analysis
+      if: inputs.run-codeql == 'true'
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript-typescript
+
+    - name: Autobuild for CodeQL
+      if: inputs.run-codeql == 'true'
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      if: inputs.run-codeql == 'true'
+      uses: github/codeql-action/analyze@v3
+      continue-on-error: true

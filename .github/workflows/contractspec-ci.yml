@@ -2,44 +2,89 @@ name: ContractSpec CI
 
 on:
   push:
+    branches: [main, release]
   pull_request:
+    branches: [main, release]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  BUN_VERSION: 1.3.4
+  NODE_OPTIONS: --max-old-space-size=6144
+  TURBO_TELEMETRY_DISABLED: 1
+  DO_NOT_TRACK: 1
 
 jobs:
   validate-contracts:
+    name: Validate Contracts
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       security-events: write  # Required for SARIF upload
-    
+      pull-requests: write    # Required for PR comments
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up Bun
+      - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
+
+      - name: Cache build outputs
+        uses: actions/cache@v4
+        with:
+          path: |
+            packages/*/dist
+            packages/*/.next
+            packages/*/.turbo
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
 
       - name: Build ContractSpec CLI
-        env:
-          BUN_VERSION: 1.3.4
-          # Increase memory for large builds
-          NODE_OPTIONS: --max-old-space-size=6144
-          TURBO_TELEMETRY_DISABLED: 1
-          DO_NOT_TRACK: 1
         run: bun run build --filter=@lssm/app.cli-contracts
+
+      - name: Run linting
+        run: bun run lint
+
+      - name: Run tests
+        run: bun test --reporter=verbose
+        continue-on-error: true
+
+      - name: Security audit
+        run: bun audit
+        continue-on-error: true
 
       - name: Run ContractSpec CI checks
         id: ci-checks
         run: |
           # Generate SARIF for GitHub Code Scanning
           npx contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
-          
+
           # Print human-readable summary
+          echo "::group::ContractSpec CI Results"
           npx contractspec ci --format text --skip doctor
+          echo "::endgroup::"
         continue-on-error: true
 
       - name: Upload SARIF to GitHub Code Scanning
@@ -50,17 +95,67 @@ jobs:
           category: contractspec
         continue-on-error: true
 
-      - name: Upload results as artifact
+      - name: Generate test coverage report
+        if: always()
+        run: |
+          bun test --coverage --reporter=json > test-results.json || true
+          echo "Test results generated"
+
+      - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: contractspec-results
-          path: contractspec-results.sarif
+          name: test-results
+          path: |
+            test-results.json
+            contractspec-results.sarif
           retention-days: 30
         continue-on-error: true
 
-      - name: Check CI result
-        run: npx contractspec ci --format json --skip doctor | jq -e '.success'
+      - name: Check CI result and fail if needed
+        run: |
+          if npx contractspec ci --format json --skip doctor | jq -e '.success' > /dev/null; then
+            echo "✅ ContractSpec CI checks passed"
+          else
+            echo "❌ ContractSpec CI checks failed"
+            exit 1
+          fi
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('contractspec-results.sarif', 'utf8'));
+
+            let comment = '## ContractSpec CI Results\n\n';
+
+            if (results.runs && results.runs[0] && results.runs[0].results) {
+              const issues = results.runs[0].results;
+              comment += `Found ${issues.length} issues\n\n`;
+
+              issues.slice(0, 10).forEach((issue, index) => {
+                comment += `### Issue ${index + 1}: ${issue.message.text}\n`;
+                comment += `**Rule:** ${issue.ruleId}\n`;
+                if (issue.locations && issue.locations[0]) {
+                  const loc = issue.locations[0].physicalLocation;
+                  comment += `**Location:** ${loc.artifactLocation.uri}:${loc.region.startLine}\n`;
+                }
+                comment += '\n';
+              });
+
+              if (issues.length > 10) {
+                comment += `*... and ${issues.length - 10} more issues*\n`;
+              }
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
 
 
 

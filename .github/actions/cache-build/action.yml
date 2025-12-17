@@ -1,0 +1,38 @@
+name: 'Cache Build Outputs'
+description: 'Caches and restores build outputs'
+inputs:
+  cache-key:
+    description: 'Cache key suffix'
+    required: false
+    default: '${{ github.sha }}'
+  restore-only:
+    description: 'Only restore cache, do not save'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache build outputs
+      if: inputs.restore-only == 'false'
+      uses: actions/cache@v4
+      with:
+        path: |
+          packages/*/dist
+          packages/*/.next
+          packages/*/.turbo
+          packages/apps/vscode-contractspec/out
+        key: ${{ runner.os }}-build-${{ inputs.cache-key }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+
+    - name: Restore build cache
+      if: inputs.restore-only == 'true'
+      uses: actions/cache@v4
+      with:
+        path: |
+          packages/*/dist
+          packages/*/.next
+          packages/*/.turbo
+          packages/apps/vscode-contractspec/out
+        key: ${{ runner.os }}-build-${{ inputs.cache-key }}
