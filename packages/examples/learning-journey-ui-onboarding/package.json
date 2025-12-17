@@ -27,6 +27,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@lssm/lib.ui-kit-core": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/example.learning-journey-ui-shared": "workspace:*",

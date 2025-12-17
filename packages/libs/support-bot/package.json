@@ -24,7 +24,9 @@
   },
   "dependencies": {
     "@lssm/lib.ai-agent": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
+    "@lssm/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",

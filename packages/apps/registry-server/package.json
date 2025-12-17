@@ -15,6 +15,7 @@
     "start": "./server"
   },
   "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/server-timing": "^1.4.0",
     "@lssm/lib.logger": "workspace:*",
