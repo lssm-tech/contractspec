@@ -31,7 +31,7 @@
     "ai": "beta",
     "zod": "^4.1.13",
     "glob": "^13.0.0",
-    "chokidar": "^4.0.1"
+    "chokidar": "^5.0.0"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
