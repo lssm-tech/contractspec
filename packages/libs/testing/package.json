@@ -23,6 +23,7 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {

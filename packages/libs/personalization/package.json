@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@lssm/lib.bus": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",
     "@lssm/lib.overlay-engine": "workspace:*",
     "@opentelemetry/api": "^1.9.0"
