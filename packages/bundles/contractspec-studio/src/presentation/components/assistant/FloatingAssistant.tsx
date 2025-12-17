@@ -1,8 +1,9 @@
+'use client';
+
 import * as React from 'react';
-import { MessageSquare, Terminal, Wand2 } from 'lucide-react';
-import { Button, Input } from '@lssm/lib.design-system';
-import { Card } from '@lssm/lib.ui-kit-web/ui/card';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+import { MessageSquare, X, Maximize2, Minimize2, Send, Loader2, Settings } from 'lucide-react';
+import { Button } from '@lssm/lib.design-system';
+import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
 import {
   Sheet,
   SheetContent,
@@ -10,54 +11,187 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@lssm/lib.ui-kit-web/ui/sheet';
-import { useLifecycleProfile } from '../../hooks/studio/queries/useLifecycleProfile';
-import { useEvolution } from '../templates/shared/hooks/useEvolution';
-import type { TemplateId } from '../../../templates/registry';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@lssm/lib.ui-kit-web/ui/select';
+import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
 import { recordLearningEvent } from '../learning/learning-events';
 
 export interface FloatingAssistantContext {
   mode: 'studio' | 'sandbox';
-  /**
-   * Used for lifecycle data (Studio).
-   * Omit in sandbox to avoid auth-protected queries.
-   */
   lifecycleEnabled?: boolean;
-  /**
-   * Used for evolution insights (local in-browser).
-   * Defaults to a safe template id.
-   */
-  templateId?: TemplateId;
+  templateId?: string;
 }
+
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: Date;
+}
+
+const PROVIDERS = [
+  { id: 'openai', name: 'OpenAI', models: ['gpt-4o', 'gpt-4o-mini'] },
+  { id: 'anthropic', name: 'Anthropic', models: ['claude-sonnet-4-20250514', 'claude-3-5-sonnet-20241022'] },
+  { id: 'mistral', name: 'Mistral', models: ['mistral-large-latest', 'codestral-latest'] },
+  { id: 'gemini', name: 'Gemini', models: ['gemini-2.0-flash', 'gemini-2.5-pro-preview-06-05'] },
+];
 
 export function FloatingAssistant({ context }: { context: FloatingAssistantContext }) {
   const [open, setOpen] = React.useState(false);
-  const templateId = context.templateId ?? 'todos-app';
-  const evolution = useEvolution(templateId);
-  const lifecycle = useLifecycleProfile({
-    enabled: Boolean(context.lifecycleEnabled),
-  });
+  const [expanded, setExpanded] = React.useState(false);
+  const [messages, setMessages] = React.useState<ChatMessage[]>([
+    {
+      id: 'welcome',
+      role: 'assistant',
+      content: `👋 Hi! I'm ContractSpec AI, your vibe coding assistant.\n\nI can help you with:\n- Creating and modifying specs\n- Generating code from specs\n- Explaining ContractSpec concepts\n- Suggesting improvements\n\nWhat would you like to work on?`,
+      timestamp: new Date(),
+    },
+  ]);
+  const [input, setInput] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [provider, setProvider] = React.useState('openai');
+  const [model, setModel] = React.useState('gpt-4o');
+  const [showSettings, setShowSettings] = React.useState(false);
 
-  const lifecycleStage =
-    context.lifecycleEnabled && lifecycle.data?.lifecycleProfile
-      ? `${lifecycle.data.lifecycleProfile.currentStage} (${Math.round(
-          lifecycle.data.lifecycleProfile.confidence * 100
-        )}%)`
-      : context.mode === 'studio'
-        ? 'Sign in to see lifecycle insights'
-        : 'Not available in sandbox';
+  const messagesEndRef = React.useRef<HTMLDivElement>(null);
 
-  const pendingSuggestions = evolution.suggestions.filter(
-    (s) => s.status === 'pending'
+  // Auto-scroll to bottom when new messages arrive
+  React.useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Update model when provider changes
+  React.useEffect(() => {
+    const providerInfo = PROVIDERS.find((p) => p.id === provider);
+    if (providerInfo && !providerInfo.models.includes(model)) {
+      setModel(providerInfo.models[0] ?? '');
+    }
+  }, [provider, model]);
+
+  const selectedProvider = PROVIDERS.find((p) => p.id === provider);
+
+  const sendMessage = React.useCallback(async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: ChatMessage = {
+      id: `msg_${Date.now()}`,
+      role: 'user',
+      content: input.trim(),
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    recordLearningEvent({
+      name: `${context.mode}.assistant.message_sent`,
+      ts: Date.now(),
+    });
+
+    try {
+      // Call the chat API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: messages.concat(userMessage).map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+          provider,
+          model,
+          systemPrompt: `You are ContractSpec AI, an expert coding assistant specialized in ContractSpec development.
+
+Your capabilities:
+- Help users create, modify, and understand ContractSpec specifications
+- Generate code that follows ContractSpec patterns and best practices
+- Explain concepts from the ContractSpec documentation
+- Suggest improvements and identify issues in specs and implementations
+
+Guidelines:
+- Be concise but thorough
+- Provide code examples when helpful
+- Use markdown for formatting
+- When showing code, include syntax highlighting with language tags`,
+          stream: false,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error ?? 'Request failed');
+      }
+
+      const data = await response.json();
+
+      const assistantMessage: ChatMessage = {
+        id: `msg_${Date.now()}`,
+        role: 'assistant',
+        content: data.text ?? 'Sorry, I could not generate a response.',
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch (error) {
+      const errorMessage: ChatMessage = {
+        id: `msg_${Date.now()}`,
+        role: 'assistant',
+        content: `❌ Error: ${error instanceof Error ? error.message : 'Failed to get response'}`,
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [input, isLoading, messages, provider, model, context.mode]);
+
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    },
+    [sendMessage]
   );
 
-  const [chatDraft, setChatDraft] = React.useState('');
-  const copy = React.useCallback(async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      // clipboard may be unavailable (non-secure context); noop
-    }
-  }, []);
+  const formatContent = (content: string) => {
+    // Simple markdown-like formatting
+    return content
+      .split(/```(\w*)\n([\s\S]*?)```/g)
+      .map((part, i) => {
+        if (i % 3 === 1) {
+          // Language tag - skip
+          return null;
+        }
+        if (i % 3 === 2) {
+          // Code block
+          return (
+            <pre
+              key={i}
+              className="bg-muted my-2 overflow-x-auto rounded-md p-3 text-sm"
+            >
+              <code>{part}</code>
+            </pre>
+          );
+        }
+        // Regular text
+        return part.split('\n').map((line, j) => (
+          <React.Fragment key={`${i}-${j}`}>
+            {line}
+            {j < part.split('\n').length - 1 && <br />}
+          </React.Fragment>
+        ));
+      });
+  };
 
   return (
     <div className="fixed right-4 bottom-4 z-50">
@@ -80,132 +214,134 @@ export function FloatingAssistant({ context }: { context: FloatingAssistantConte
             aria-label="Open AI assistant"
           >
             <MessageSquare className="h-4 w-4" />
-            Assistant
+            AI Chat
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[420px] max-w-[90vw]">
-          <SheetHeader>
-            <SheetTitle>AI Assistant</SheetTitle>
+        <SheetContent
+          side="right"
+          className={cn(
+            'flex flex-col p-0 transition-all duration-200',
+            expanded ? 'w-[600px] max-w-[90vw]' : 'w-[420px] max-w-[90vw]'
+          )}
+        >
+          {/* Header */}
+          <SheetHeader className="border-b px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <SheetTitle className="text-base">ContractSpec AI</SheetTitle>
+                <Badge variant="outline" className="text-xs">
+                  {selectedProvider?.name} · {model}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => setShowSettings(!showSettings)}
+                  aria-label="Settings"
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => setExpanded(!expanded)}
+                  aria-label={expanded ? 'Collapse' : 'Expand'}
+                >
+                  {expanded ? (
+                    <Minimize2 className="h-4 w-4" />
+                  ) : (
+                    <Maximize2 className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            {/* Settings panel */}
+            {showSettings && (
+              <div className="mt-3 flex gap-2">
+                <Select value={provider} onValueChange={setProvider}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PROVIDERS.map((p) => (
+                      <SelectItem key={p.id} value={p.id}>
+                        {p.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={model} onValueChange={setModel}>
+                  <SelectTrigger className="flex-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {selectedProvider?.models.map((m) => (
+                      <SelectItem key={m} value={m}>
+                        {m}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </SheetHeader>
 
-          <div className="mt-4 space-y-4">
-            <Card className="p-4">
-              <p className="text-sm font-semibold">Suggestions</p>
-              <p className="text-muted-foreground mt-1 text-sm">
-                Evolution + lifecycle + workspace signals (typed, auditable).
-              </p>
-              <Separator className="my-3" />
-
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-muted-foreground">Lifecycle</span>
-                  <span className="text-right">{lifecycleStage}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-muted-foreground">Evolution</span>
-                  <span className="text-right">
-                    {pendingSuggestions.length} pending / {evolution.anomalies.length}{' '}
-                    anomalies
+          {/* Messages */}
+          <div className="flex-1 space-y-4 overflow-y-auto p-4">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={cn(
+                  'max-w-[90%] rounded-lg px-4 py-3',
+                  message.role === 'user'
+                    ? 'bg-primary text-primary-foreground ml-auto'
+                    : 'bg-muted'
+                )}
+              >
+                <div className="text-sm">{formatContent(message.content)}</div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="bg-muted max-w-[90%] rounded-lg px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="text-muted-foreground text-sm">
+                    Thinking...
                   </span>
                 </div>
               </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
 
-              {pendingSuggestions.length ? (
-                <div className="mt-3 space-y-2">
-                  {pendingSuggestions.slice(0, 2).map((s) => (
-                    <div
-                      key={s.id}
-                      className="rounded-md border border-amber-500/20 bg-amber-500/5 p-3"
-                    >
-                      <p className="text-sm font-medium">
-                        {s.proposal.summary}
-                      </p>
-                      <p className="text-muted-foreground mt-1 text-xs">
-                        {s.proposal.rationale}
-                      </p>
-                      <div className="mt-2 flex gap-2">
-                        <Button
-                          size="sm"
-                          onPress={() => evolution.approveSuggestion(s.id)}
-                        >
-                          Apply
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onPress={() => evolution.rejectSuggestion(s.id)}
-                        >
-                          Dismiss
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </Card>
-
-            <Card className="p-4">
-              <p className="text-sm font-semibold">Quick actions (typed)</p>
-              <p className="text-muted-foreground mt-1 text-sm">
-                These actions don’t mutate your repo. They validate / analyze and
-                produce diffs or commands.
-              </p>
-              <Separator className="my-3" />
-
-              <div className="grid gap-2">
-                <Button
-                  variant="outline"
-                  onPress={() => copy('contractspec validate')}
-                >
-                  <Terminal className="h-4 w-4" />
-                  Copy: contractspec validate
-                </Button>
-                <Button variant="outline" onPress={() => copy('contractspec deps')}>
-                  <Terminal className="h-4 w-4" />
-                  Copy: contractspec deps
-                </Button>
-                <Button
-                  variant="outline"
-                  onPress={() => copy('contractspec diff --baseline main')}
-                >
-                  <Terminal className="h-4 w-4" />
-                  Copy: contractspec diff --baseline main
-                </Button>
-              </div>
-            </Card>
-
-            <Card className="p-4">
-              <p className="text-sm font-semibold">Chat-based editing (v0)</p>
-              <p className="text-muted-foreground mt-1 text-sm">
-                You can describe a change; next iteration will wire this into
-                actions (repo ops + spec updates).
-              </p>
-              <Separator className="my-3" />
-              <Input
-                aria-label="Assistant message"
-                placeholder="Ask: “Add a staging environment deploy checklist…”"
-                value={chatDraft}
-                onChange={(e) => setChatDraft(e.target.value)}
+          {/* Input */}
+          <div className="border-t p-4">
+            <div className="flex gap-2">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me anything about ContractSpec..."
+                className="bg-input placeholder:text-muted-foreground flex-1 resize-none rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+                rows={2}
+                disabled={isLoading}
               />
-              <div className="mt-2 flex gap-2">
-                <Button
-                  onPress={() => {
-                    setChatDraft('');
-                  }}
-                >
-                  <Wand2 className="h-4 w-4" />
-                  Create suggestion
-                </Button>
-                <Button variant="ghost" onPress={() => copy(chatDraft)}>
-                  Copy prompt
-                </Button>
-              </div>
-            </Card>
+              <Button
+                onPress={sendMessage}
+                disabled={!input.trim() || isLoading}
+                className="self-end"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-muted-foreground mt-2 text-xs">
+              Press Enter to send, Shift+Enter for new line
+            </p>
           </div>
         </SheetContent>
       </Sheet>
     </div>
   );
 }
-
-

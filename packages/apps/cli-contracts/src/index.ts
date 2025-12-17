@@ -23,6 +23,7 @@ import { doctorCommand } from './commands/doctor/index';
 import { ciCommand } from './commands/ci/index';
 import { llmCommand } from './commands/llm/index';
 import { createImplCommand } from './commands/impl/index';
+import { chatCommand } from './commands/chat/index';
 
 const program = new Command();
 
@@ -77,6 +78,9 @@ program.addCommand(ciCommand);
 
 // LLM command (LLM integration tools)
 program.addCommand(llmCommand);
+
+// Chat command (AI-powered vibe coding)
+program.addCommand(chatCommand);
 
 // Impl command (implementation management)
 program.addCommand(createImplCommand());
