@@ -47,6 +47,10 @@
         "contractspec": "./dist/cli.js",
       },
       "dependencies": {
+        "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
+        "@ai-sdk/mistral": "beta",
+        "@ai-sdk/openai": "beta",
         "@inquirer/prompts": "^8.1.0",
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.ai-providers": "workspace:*",
@@ -63,6 +67,7 @@
         "typescript": "^5.9.3",
       },
       "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
         "@types/node": "^22.10.2",
         "eslint": "^9.39.2",
@@ -85,6 +90,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "@types/minimist": "^1.2.5",
         "tsdown": "^0.17.4",
       },
@@ -101,6 +107,7 @@
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.17.4",
       },
     },
@@ -120,6 +127,7 @@
         "zod": "^4.1.13",
       },
       "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
         "@types/node": "^22.10.2",
         "eslint": "^9.39.2",
@@ -175,6 +183,10 @@
       "name": "@lssm/bundle.contractspec-workspace",
       "version": "1.41.1",
       "dependencies": {
+        "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
+        "@ai-sdk/mistral": "beta",
+        "@ai-sdk/openai": "beta",
         "@lssm/lib.ai-providers": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.contracts-transformers": "workspace:*",
@@ -237,6 +249,7 @@
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.knowledge": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.support-bot": "workspace:*",
       },
       "devDependencies": {
@@ -272,6 +285,7 @@
         "@lssm/lib.content-gen": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -326,6 +340,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -356,6 +371,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -369,6 +385,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
       },
       "devDependencies": {
@@ -399,6 +416,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
       },
       "devDependencies": {
@@ -428,6 +446,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
       },
       "devDependencies": {
@@ -451,6 +470,8 @@
         "@lssm/example.learning-journey-ui-gamified": "workspace:*",
         "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.2.3",
       },
@@ -487,7 +508,9 @@
         "@lssm/example.learning-journey-ambient-coach": "workspace:*",
         "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.2.3",
@@ -510,7 +533,9 @@
         "@lssm/example.learning-journey-duo-drills": "workspace:*",
         "@lssm/example.learning-journey-quest-challenges": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.2.3",
@@ -533,7 +558,9 @@
         "@lssm/example.learning-journey-platform-tour": "workspace:*",
         "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
         "@lssm/example.learning-journey-ui-shared": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.2.3",
@@ -553,7 +580,9 @@
       "name": "@lssm/example.learning-journey-ui-shared",
       "version": "1.41.1",
       "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "react": "^19.2.3",
@@ -573,6 +602,8 @@
       "name": "@lssm/example.learning-patterns",
       "version": "1.41.1",
       "dependencies": {
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
       },
       "devDependencies": {
@@ -590,6 +621,7 @@
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.lifecycle": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -603,6 +635,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -653,6 +686,7 @@
       "dependencies": {
         "@lssm/integration.providers-impls": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
@@ -669,6 +703,7 @@
         "@lssm/lib.logger": "workspace:*",
         "@lssm/lib.overlay-engine": "workspace:*",
         "@lssm/lib.personalization": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.workflow-composer": "workspace:*",
       },
       "devDependencies": {
@@ -706,6 +741,7 @@
         "@lssm/lib.identity-rbac": "workspace:*",
         "@lssm/lib.jobs": "workspace:*",
         "@lssm/lib.metering": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@lssm/module.audit-trail": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
         "@lssm/module.notifications": "workspace:*",
@@ -892,6 +928,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
         "@ai-sdk/mcp": "beta",
         "@ai-sdk/mistral": "beta",
         "@ai-sdk/openai": "beta",
@@ -983,9 +1020,16 @@
         "@elevenlabs/elevenlabs-js": "^2.27.0",
         "@google-cloud/secret-manager": "^6.1.1",
         "@google-cloud/storage": "^7.18.0",
+        "@lssm/lib.logger": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "@mistralai/mistralai": "^1.2.3",
         "@modelcontextprotocol/sdk": "^1.24.3",
+        "@pothos/core": "^4.9.1",
+        "@pothos/plugin-complexity": "^4.1.2",
+        "@pothos/plugin-dataloader": "^4.4.2",
+        "@pothos/plugin-prisma": "^4.14.0",
+        "@pothos/plugin-relay": "^4.4.3",
+        "@pothos/plugin-tracing": "^1.1.2",
         "@qdrant/js-client-rest": "^1.16.2",
         "googleapis": "^168.0.0",
         "mcp-handler": "^1.0.4",
@@ -1438,6 +1482,7 @@
       "name": "@lssm/lib.ui-kit",
       "version": "1.41.1",
       "dependencies": {
+        "@lssm/lib.ui-kit-core": "workspace:*",
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
         "@react-navigation/native": "^7.1.25",

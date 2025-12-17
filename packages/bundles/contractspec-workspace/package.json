@@ -23,6 +23,10 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "beta",
+    "@ai-sdk/google": "beta",
+    "@ai-sdk/mistral": "beta",
+    "@ai-sdk/openai": "beta",
     "@lssm/module.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.contracts-transformers": "workspace:*",

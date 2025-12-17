@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^22.10.2",
     "rimraf": "^6.1.2",
     "eslint": "^9.39.2"

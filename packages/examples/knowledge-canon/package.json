@@ -30,6 +30,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {

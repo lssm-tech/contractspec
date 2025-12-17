@@ -24,6 +24,10 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "beta",
+    "@ai-sdk/google": "beta",
+    "@ai-sdk/mistral": "beta",
+    "@ai-sdk/openai": "beta",
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/lib.ai-providers": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
@@ -41,6 +45,7 @@
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^22.10.2",
     "rimraf": "^6.1.2",
     "eslint": "^9.39.2"

@@ -29,6 +29,7 @@
   "dependencies": {
     "@lssm/lib.support-bot": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.logger": "workspace:*"
   },

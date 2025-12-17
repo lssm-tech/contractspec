@@ -27,8 +27,9 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.content-gen": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.content-gen": "workspace:*",
     "@lssm/lib.logger": "workspace:*"
   },
   "devDependencies": {

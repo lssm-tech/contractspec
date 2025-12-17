@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@lssm/integration.providers-impls": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {

@@ -27,6 +27,8 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
     "@lssm/example.learning-journey-ui-shared": "workspace:*",
     "@lssm/example.learning-journey-duo-drills": "workspace:*",
     "@lssm/example.learning-journey-quest-challenges": "workspace:*",

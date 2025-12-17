@@ -25,9 +25,10 @@
   "dependencies": {
     "ai": "beta",
     "@ai-sdk/mcp": "beta",
+    "@ai-sdk/anthropic": "beta",
+    "@ai-sdk/google": "beta",
     "@ai-sdk/mistral": "beta",
     "@ai-sdk/openai": "beta",
-    "@ai-sdk/anthropic": "beta",
     "@modelcontextprotocol/sdk": "^1.24.3",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",

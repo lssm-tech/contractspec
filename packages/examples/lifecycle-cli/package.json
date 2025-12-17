@@ -29,6 +29,7 @@
   "dependencies": {
     "@lssm/bundle.lifecycle-managed": "workspace:*",
     "@lssm/lib.lifecycle": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.logger": "workspace:*"
   },

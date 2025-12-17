@@ -32,6 +32,7 @@
     "@lssm/lib.personalization": "workspace:*",
     "@lssm/lib.overlay-engine": "workspace:*",
     "@lssm/lib.workflow-composer": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.logger": "workspace:*"
   },

@@ -17,6 +17,7 @@
     "execa": "^9.6.1"
   },
   "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "^0.17.4"
   },
