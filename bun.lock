@@ -64,6 +64,7 @@
         "chalk": "^5.6.2",
         "commander": "^14.0.2",
         "glob": "^13.0.0",
+        "ollama-ai-provider": "^1.2.0",
         "ora": "^9.0.0",
         "typescript": "^5.9.3",
         "zod": "^4.1.13",
@@ -199,6 +200,7 @@
         "ai": "beta",
         "chokidar": "^4.0.1",
         "glob": "^13.0.0",
+        "ollama-ai-provider": "^1.2.0",
         "zod": "^4.1.13",
       },
       "devDependencies": {
@@ -1391,8 +1393,10 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.knowledge": "workspace:*",
         "@lssm/lib.overlay-engine": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
         "@opentelemetry/api": "^1.9.0",
       },
       "devDependencies": {
@@ -1484,6 +1488,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
