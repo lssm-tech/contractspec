@@ -22,7 +22,7 @@
     "@lssm/lib.ui-kit-core": "workspace:*",
     "@react-native-community/datetimepicker": "^8.4.5",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-navigation/native": "^7.1.25",
+    "@react-navigation/native": "^7.1.26",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
     "@rn-primitives/aspect-ratio": "^1.2.0",
@@ -84,14 +84,14 @@
     "react-native-web": "~0.20.0",
     "react-use": "^17.6.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.17.4",
+    "tsdown": "^0.18.1",
     "typescript": "^5.9.3"
   },
   "exports": {

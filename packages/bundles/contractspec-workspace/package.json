@@ -37,13 +37,13 @@
     "ai": "beta",
     "zod": "^4.1.13",
     "glob": "^13.0.0",
-    "chokidar": "^4.0.1"
+    "chokidar": "^5.0.0"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/node": "^22.10.2",
-    "tsdown": "^0.17.4",
+    "tsdown": "^0.18.1",
     "typescript": "^5.9.3"
   },
   "exports": {

@@ -19,7 +19,7 @@
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.17.4"
+    "tsdown": "^0.18.1"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

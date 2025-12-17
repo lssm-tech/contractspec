@@ -42,7 +42,7 @@
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/react": "^19.1.6",
-    "tsdown": "^0.17.4",
+    "tsdown": "^0.18.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

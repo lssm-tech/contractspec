@@ -70,7 +70,7 @@
     "react-dom": ">=19.2.3",
     "react-hook-form": "^7.68.0",
     "@sentry/nextjs": "^10.30.0",
-    "maplibre-gl": "^5.14.0",
+    "maplibre-gl": "^5.15.0",
     "react-map-gl": "^8.0.4"
   },
   "devDependencies": {
@@ -86,9 +86,9 @@
     "@lssm/tool.tsdown": "workspace:*",
     "@types/geojson": "^7946.0.14",
     "@sentry/nextjs": "^10.30.0",
-    "maplibre-gl": "^5.14.0",
+    "maplibre-gl": "^5.15.0",
     "react-map-gl": "^8.0.4",
-    "tsdown": "^0.17.4"
+    "tsdown": "^0.18.1"
   },
   "exports": {
     ".": "./dist/index.js",

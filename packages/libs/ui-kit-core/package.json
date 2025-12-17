@@ -24,13 +24,13 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.17.4",
+    "tsdown": "^0.18.1",
     "typescript": "^5.9.3"
   },
   "exports": {
