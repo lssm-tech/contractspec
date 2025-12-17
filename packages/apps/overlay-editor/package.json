@@ -2,6 +2,8 @@
   "name": "@lssm/app.overlay-editor",
   "version": "1.41.1",
   "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
     "clean": "rimraf .next dist .turbo",
     "dev": "bun --bun next dev",
     "build": "bun --bun next build",
