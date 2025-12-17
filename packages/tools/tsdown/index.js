@@ -7,22 +7,24 @@ export const withDevExports = {
   },
 };
 
-const obfuscation = defineConfig({
-  minify: {
-    compress: {
-      dropConsole: false,
-      dropDebugger: true,
-      unused: true,
+const obfuscation =
+  {} ||
+  defineConfig({
+    minify: {
+      compress: {
+        dropConsole: false,
+        dropDebugger: true,
+        unused: true,
+      },
+      mangle: {
+        toplevel: true,
+        keepNames: false,
+      },
+      codegen: {
+        removeWhitespace: true,
+      },
     },
-    mangle: {
-      toplevel: true,
-      keepNames: false,
-    },
-    codegen: {
-      removeWhitespace: true,
-    },
-  },
-});
+  });
 
 export const base = defineConfig({
   skipNodeModulesBundle: true,
