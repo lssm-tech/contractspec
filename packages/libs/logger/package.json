@@ -16,7 +16,7 @@
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:canary:pkg": "bun publish:pkg --canary",
+    "publish:pkg:canary": "bun publish:pkg --canary",
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",
