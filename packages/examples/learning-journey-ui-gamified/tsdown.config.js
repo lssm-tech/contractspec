@@ -1,13 +1,17 @@
 import { defineConfig } from 'tsdown';
+import { moduleLibrary, withDevExports } from '@lssm/tool.tsdown';
 
-export default defineConfig({
-  entry: [
-    'src/index.ts',
-    'src/views/index.ts',
-    'src/components/index.ts',
-  ],
-  format: 'esm',
-  target: 'esnext',
-  dts: true,
-});
+export default defineConfig(() => ({
+  ...moduleLibrary,
+  ...withDevExports,
+}));
+
+
+
+
+
+
+
+
+
 

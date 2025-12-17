@@ -1,7 +1,17 @@
 import { defineConfig } from 'tsdown';
 import { moduleLibrary, withDevExports } from '@lssm/tool.tsdown';
 
-export default defineConfig((options) => ({
+export default defineConfig(() => ({
   ...moduleLibrary,
   ...withDevExports,
 }));
+
+
+
+
+
+
+
+
+
+
