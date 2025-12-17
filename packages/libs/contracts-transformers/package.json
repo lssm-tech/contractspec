@@ -1,10 +1,11 @@
 {
   "name": "@lssm/lib.contracts-transformers",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "description": "Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.)",
   "type": "module",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:canary:pkg": "bun publish:pkg --canary",
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",

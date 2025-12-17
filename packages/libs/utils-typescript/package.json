@@ -1,12 +1,13 @@
 {
   "name": "@lssm/lib.utils-typescript",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:canary:pkg": "bun publish:pkg --canary",
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",

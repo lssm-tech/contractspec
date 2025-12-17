@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-databases",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "type": "module",
   "bin": {
     "databases": "dist/cli.js"
@@ -8,6 +8,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:canary:pkg": "bun publish:pkg --canary",
     "build": "tsdown",
     "dev": "bun run build --watch"
   },

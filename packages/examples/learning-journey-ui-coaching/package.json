@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-coaching",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "description": "Contextual coaching UI with tip cards and engagement tracking.",
   "type": "module",
   "main": "./dist/index.js",

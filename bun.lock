@@ -38,11 +38,11 @@
     },
     "packages/apps/action-contractspec": {
       "name": "@lssm/action.contractspec",
-      "version": "1.41.0",
+      "version": "1.41.1",
     },
     "packages/apps/cli-contracts": {
       "name": "@lssm/app.cli-contracts",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -71,7 +71,7 @@
     },
     "packages/apps/cli-database": {
       "name": "@lssm/app.cli-database",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -91,7 +91,7 @@
     },
     "packages/apps/cli-databases": {
       "name": "@lssm/app.cli-databases",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -106,7 +106,7 @@
     },
     "packages/apps/cli-mcp-local": {
       "name": "@lssm/app.cli-mcp-local",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "bin": {
         "contractspec-mcp": "./dist/cli.js",
       },
@@ -128,7 +128,7 @@
     },
     "packages/apps/overlay-editor": {
       "name": "@lssm/app.overlay-editor",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.overlay-engine": "workspace:*",
         "next": "16.0.10",
@@ -144,7 +144,7 @@
     },
     "packages/apps/registry-server": {
       "name": "@lssm/app.registry-server",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@elysiajs/cors": "^1.4.0",
         "@elysiajs/server-timing": "^1.4.0",
@@ -154,7 +154,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -173,7 +173,7 @@
     },
     "packages/bundles/contractspec-workspace": {
       "name": "@lssm/bundle.contractspec-workspace",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.ai-providers": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -196,7 +196,7 @@
     },
     "packages/bundles/lifecycle-managed": {
       "name": "@lssm/bundle.lifecycle-managed",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.analytics": "workspace:*",
@@ -214,7 +214,7 @@
     },
     "packages/examples/agent-console": {
       "name": "@lssm/example.agent-console",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.identity-rbac": "workspace:*",
@@ -232,7 +232,7 @@
     },
     "packages/examples/ai-support-bot": {
       "name": "@lssm/example.ai-support-bot",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.knowledge": "workspace:*",
@@ -248,7 +248,7 @@
     },
     "packages/examples/analytics-dashboard": {
       "name": "@lssm/example.analytics-dashboard",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -267,7 +267,7 @@
     },
     "packages/examples/content-generation": {
       "name": "@lssm/example.content-generation",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.content-gen": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -282,7 +282,7 @@
     },
     "packages/examples/crm-pipeline": {
       "name": "@lssm/example.crm-pipeline",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -302,7 +302,7 @@
     },
     "packages/examples/integration-hub": {
       "name": "@lssm/example.integration-hub",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -323,7 +323,7 @@
     },
     "packages/examples/integration-stripe": {
       "name": "@lssm/example.integration-stripe",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -336,7 +336,7 @@
     },
     "packages/examples/kb-update-pipeline": {
       "name": "@lssm/example.kb-update-pipeline",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.identity-rbac": "workspace:*",
@@ -353,7 +353,7 @@
     },
     "packages/examples/knowledge-canon": {
       "name": "@lssm/example.knowledge-canon",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -366,7 +366,7 @@
     },
     "packages/examples/learning-journey-ambient-coach": {
       "name": "@lssm/example.learning-journey-ambient-coach",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -380,7 +380,7 @@
     },
     "packages/examples/learning-journey-crm-onboarding": {
       "name": "@lssm/example.learning-journey-crm-onboarding",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.crm-pipeline": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -396,7 +396,7 @@
     },
     "packages/examples/learning-journey-duo-drills": {
       "name": "@lssm/example.learning-journey-duo-drills",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -410,7 +410,7 @@
     },
     "packages/examples/learning-journey-platform-tour": {
       "name": "@lssm/example.learning-journey-platform-tour",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -425,7 +425,7 @@
     },
     "packages/examples/learning-journey-quest-challenges": {
       "name": "@lssm/example.learning-journey-quest-challenges",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/module.learning-journey": "workspace:*",
@@ -439,7 +439,7 @@
     },
     "packages/examples/learning-journey-registry": {
       "name": "@lssm/example.learning-journey-registry",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.learning-journey-ambient-coach": "workspace:*",
         "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
@@ -467,7 +467,7 @@
     },
     "packages/examples/learning-journey-studio-onboarding": {
       "name": "@lssm/example.learning-journey-studio-onboarding",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -482,7 +482,7 @@
     },
     "packages/examples/learning-journey-ui-coaching": {
       "name": "@lssm/example.learning-journey-ui-coaching",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.learning-journey-ambient-coach": "workspace:*",
         "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
@@ -505,7 +505,7 @@
     },
     "packages/examples/learning-journey-ui-gamified": {
       "name": "@lssm/example.learning-journey-ui-gamified",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.learning-journey-duo-drills": "workspace:*",
         "@lssm/example.learning-journey-quest-challenges": "workspace:*",
@@ -528,7 +528,7 @@
     },
     "packages/examples/learning-journey-ui-onboarding": {
       "name": "@lssm/example.learning-journey-ui-onboarding",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.learning-journey-platform-tour": "workspace:*",
         "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
@@ -551,7 +551,7 @@
     },
     "packages/examples/learning-journey-ui-shared": {
       "name": "@lssm/example.learning-journey-ui-shared",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit-web": "workspace:*",
@@ -571,7 +571,7 @@
     },
     "packages/examples/learning-patterns": {
       "name": "@lssm/example.learning-patterns",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/module.learning-journey": "workspace:*",
       },
@@ -584,7 +584,7 @@
     },
     "packages/examples/lifecycle-cli": {
       "name": "@lssm/example.lifecycle-cli",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/bundle.lifecycle-managed": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -600,7 +600,7 @@
     },
     "packages/examples/lifecycle-dashboard": {
       "name": "@lssm/example.lifecycle-dashboard",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -613,7 +613,7 @@
     },
     "packages/examples/locale-jurisdiction-gate": {
       "name": "@lssm/example.locale-jurisdiction-gate",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -628,7 +628,7 @@
     },
     "packages/examples/marketplace": {
       "name": "@lssm/example.marketplace",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -649,7 +649,7 @@
     },
     "packages/examples/openbanking-powens": {
       "name": "@lssm/example.openbanking-powens",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/integration.providers-impls": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -663,7 +663,7 @@
     },
     "packages/examples/personalization": {
       "name": "@lssm/example.personalization",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
@@ -680,7 +680,7 @@
     },
     "packages/examples/pocket-family-office": {
       "name": "@lssm/example.pocket-family-office",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -694,7 +694,7 @@
     },
     "packages/examples/policy-safe-knowledge-assistant": {
       "name": "@lssm/example.policy-safe-knowledge-assistant",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.kb-update-pipeline": "workspace:*",
         "@lssm/example.learning-patterns": "workspace:*",
@@ -719,7 +719,7 @@
     },
     "packages/examples/saas-boilerplate": {
       "name": "@lssm/example.saas-boilerplate",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -739,7 +739,7 @@
     },
     "packages/examples/service-business-os": {
       "name": "@lssm/example.service-business-os",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -759,7 +759,7 @@
     },
     "packages/examples/team-hub": {
       "name": "@lssm/example.team-hub",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -778,7 +778,7 @@
     },
     "packages/examples/versioned-knowledge-base": {
       "name": "@lssm/example.versioned-knowledge-base",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -793,7 +793,7 @@
     },
     "packages/examples/wealth-snapshot": {
       "name": "@lssm/example.wealth-snapshot",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -811,7 +811,7 @@
     },
     "packages/examples/workflow-system": {
       "name": "@lssm/example.workflow-system",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -831,7 +831,7 @@
     },
     "packages/integrations/providers-impls": {
       "name": "@lssm/integration.providers-impls",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.27.0",
         "@google-cloud/storage": "^7.18.0",
@@ -854,7 +854,7 @@
     },
     "packages/integrations/runtime": {
       "name": "@lssm/integration.runtime",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@google-cloud/secret-manager": "^6.1.1",
         "@lssm/lib.contracts": "workspace:*",
@@ -870,7 +870,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -889,7 +889,7 @@
     },
     "packages/libs/ai-agent": {
       "name": "@lssm/lib.ai-agent",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@ai-sdk/anthropic": "beta",
         "@ai-sdk/mcp": "beta",
@@ -910,7 +910,7 @@
     },
     "packages/libs/ai-providers": {
       "name": "@lssm/lib.ai-providers",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@ai-sdk/anthropic": "beta",
         "@ai-sdk/google": "beta",
@@ -929,7 +929,7 @@
     },
     "packages/libs/analytics": {
       "name": "@lssm/lib.analytics",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
@@ -943,7 +943,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -963,7 +963,7 @@
     },
     "packages/libs/content-gen": {
       "name": "@lssm/lib.content-gen",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -976,7 +976,7 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@aws-sdk/client-secrets-manager": "^3.950.0",
         "@aws-sdk/client-sqs": "^3.948.0",
@@ -1020,7 +1020,7 @@
     },
     "packages/libs/contracts-transformers": {
       "name": "@lssm/lib.contracts-transformers",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1037,7 +1037,7 @@
     },
     "packages/libs/cost-tracking": {
       "name": "@lssm/lib.cost-tracking",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1047,7 +1047,7 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -1076,7 +1076,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.17.4",
@@ -1090,7 +1090,7 @@
     },
     "packages/libs/evolution": {
       "name": "@lssm/lib.evolution",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1112,7 +1112,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "@lssm/tool.typescript": "workspace:*",
         "tsdown": "^0.17.4",
@@ -1121,7 +1121,7 @@
     },
     "packages/libs/feature-flags": {
       "name": "@lssm/lib.feature-flags",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1135,7 +1135,7 @@
     },
     "packages/libs/files": {
       "name": "@lssm/lib.files",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1149,7 +1149,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -1171,7 +1171,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@apollo/subgraph": "^2.12.2",
         "@pothos/core": "^4.9.1",
@@ -1191,7 +1191,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.schema": "workspace:*",
         "@pothos/core": "^4.9.1",
@@ -1215,7 +1215,7 @@
     },
     "packages/libs/identity-rbac": {
       "name": "@lssm/lib.identity-rbac",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1229,7 +1229,7 @@
     },
     "packages/libs/jobs": {
       "name": "@lssm/lib.jobs",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@aws-sdk/client-sqs": "^3.948.0",
         "@lssm/lib.contracts": "workspace:*",
@@ -1246,7 +1246,7 @@
     },
     "packages/libs/knowledge": {
       "name": "@lssm/lib.knowledge",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1259,7 +1259,7 @@
     },
     "packages/libs/lifecycle": {
       "name": "@lssm/lib.lifecycle",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1269,7 +1269,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "zone.js": "^0.15.0",
       },
@@ -1288,7 +1288,7 @@
     },
     "packages/libs/metering": {
       "name": "@lssm/lib.metering",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1302,7 +1302,7 @@
     },
     "packages/libs/observability": {
       "name": "@lssm/lib.observability",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1315,7 +1315,7 @@
     },
     "packages/libs/overlay-engine": {
       "name": "@lssm/lib.overlay-engine",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "fast-json-stable-stringify": "^2.1.0",
@@ -1335,7 +1335,7 @@
     },
     "packages/libs/personalization": {
       "name": "@lssm/lib.personalization",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.overlay-engine": "workspace:*",
@@ -1353,7 +1353,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "tsdown": "^0.17.4",
         "typescript": "^5.9.3",
@@ -1364,7 +1364,7 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
@@ -1380,7 +1380,7 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.presentation-runtime-core": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -1395,7 +1395,7 @@
     },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "^4.1.13",
@@ -1409,7 +1409,7 @@
     },
     "packages/libs/support-bot": {
       "name": "@lssm/lib.support-bot",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1423,7 +1423,7 @@
     },
     "packages/libs/testing": {
       "name": "@lssm/lib.testing",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1436,7 +1436,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
         "@react-native-community/datetimepicker": "^8.4.5",
@@ -1515,7 +1515,7 @@
     },
     "packages/libs/ui-kit-core": {
       "name": "@lssm/lib.ui-kit-core",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
@@ -1534,7 +1534,7 @@
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ui-kit-core": "workspace:*",
@@ -1607,7 +1607,7 @@
     },
     "packages/libs/ui-link": {
       "name": "@lssm/lib.ui-link",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.ui-kit-core": "workspace:*",
         "react": "19.2.3",
@@ -1622,7 +1622,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1632,7 +1632,7 @@
     },
     "packages/libs/workflow-composer": {
       "name": "@lssm/lib.workflow-composer",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1645,7 +1645,7 @@
     },
     "packages/modules/ai-chat": {
       "name": "@lssm/module.ai-chat",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@ai-sdk/react": "beta",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -1673,7 +1673,7 @@
     },
     "packages/modules/audit-trail": {
       "name": "@lssm/module.audit-trail",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1688,7 +1688,7 @@
     },
     "packages/modules/contractspec-examples": {
       "name": "@lssm/module.contractspec-examples",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/example.agent-console": "workspace:*",
         "@lssm/example.ai-support-bot": "workspace:*",
@@ -1735,7 +1735,7 @@
     },
     "packages/modules/contractspec-workspace": {
       "name": "@lssm/module.contractspec-workspace",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1750,7 +1750,7 @@
     },
     "packages/modules/learning-journey": {
       "name": "@lssm/module.learning-journey",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1764,7 +1764,7 @@
     },
     "packages/modules/lifecycle-advisor": {
       "name": "@lssm/module.lifecycle-advisor",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1777,7 +1777,7 @@
     },
     "packages/modules/lifecycle-core": {
       "name": "@lssm/module.lifecycle-core",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1790,7 +1790,7 @@
     },
     "packages/modules/notifications": {
       "name": "@lssm/module.notifications",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1805,7 +1805,7 @@
     },
     "packages/tools/eslint-plugin-design-system": {
       "name": "@lssm/eslint-plugin-design-system",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "eslint": "^9.39.2",
       },
@@ -1815,14 +1815,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "peerDependencies": {
         "tsdown": "^0.17.4",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
-      "version": "1.41.0",
+      "version": "1.41.1",
       "devDependencies": {
         "typescript": "^5.9.3",
       },

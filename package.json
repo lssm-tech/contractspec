@@ -12,8 +12,10 @@
     "packages/apps/*"
   ],
   "scripts": {
+    "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
     "release:publish": "turbo run publish:pkg --no-cache",
+    "release:publish:canary": "turbo run publish:pkg:canary --no-cache",
     "knip": "knip",
     "clean": "turbo run clean",
     "lint": "turbo run lint --continue",

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-core",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:canary:pkg": "bun publish:pkg --canary",
     "build": "tsdown",
     "dev": "tsup --watch",
     "clean": "rm -rf dist"

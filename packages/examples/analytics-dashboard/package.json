@@ -1,12 +1,13 @@
 {
   "name": "@lssm/example.analytics-dashboard",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:canary:pkg": "bun publish:pkg --canary",
     "build": "bun build:bundle && bun build:types",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",
