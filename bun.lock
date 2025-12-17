@@ -44,9 +44,16 @@
       "name": "@lssm/app.api-contractspec",
       "version": "1.0.50",
       "dependencies": {
+        "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
+        "@ai-sdk/mistral": "beta",
+        "@ai-sdk/openai": "beta",
         "@lssm/bundle.contractspec-studio": "workspace:*",
+        "@lssm/lib.ai-providers": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.cost-tracking": "workspace:*",
         "@lssm/lib.graphql-federation": "workspace:*",
+        "ai": "beta",
         "elysia": "^1.4.19",
       },
     },
@@ -59,10 +66,12 @@
       "dependencies": {
         "@inquirer/prompts": "^8.1.0",
         "@lssm/bundle.contractspec-workspace": "workspace:*",
+        "@lssm/lib.ai-providers": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.contracts-transformers": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "@lssm/lib.testing": "workspace:*",
+        "@lssm/module.ai-chat": "workspace:*",
         "@lssm/module.contractspec-examples": "workspace:*",
         "chalk": "^5.6.2",
         "commander": "^14.0.2",
@@ -300,8 +309,7 @@
       "name": "@lssm/bundle.contractspec-workspace",
       "version": "0.1.0",
       "dependencies": {
-        "@ai-sdk/anthropic": "beta",
-        "@ai-sdk/openai": "beta",
+        "@lssm/lib.ai-providers": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.contracts-transformers": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -310,7 +318,6 @@
         "ai": "beta",
         "chokidar": "^4.0.1",
         "glob": "^13.0.0",
-        "ollama-ai-provider": "^1.2.0",
         "zod": "^4.1.13",
       },
       "devDependencies": {
@@ -1026,6 +1033,25 @@
         "@lssm/lib.knowledge": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.24.3",
         "ai": "beta",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "tsdown": "^0.17.4",
+        "typescript": "^5.9.3",
+      },
+    },
+    "packages/libs/ai-providers": {
+      "name": "@lssm/lib.ai-providers",
+      "version": "0.1.0",
+      "dependencies": {
+        "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
+        "@ai-sdk/mistral": "beta",
+        "@ai-sdk/openai": "beta",
+        "ai": "beta",
+        "ollama-ai-provider": "^1.2.0",
         "zod": "^4.1.13",
       },
       "devDependencies": {
@@ -1862,6 +1888,34 @@
         "typescript": "^5.9.3",
       },
     },
+    "packages/modules/ai-chat": {
+      "name": "@lssm/module.ai-chat",
+      "version": "0.1.0",
+      "dependencies": {
+        "@ai-sdk/react": "beta",
+        "@lssm/lib.ai-agent": "workspace:*",
+        "@lssm/lib.ai-providers": "workspace:*",
+        "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.cost-tracking": "workspace:*",
+        "@lssm/lib.design-system": "workspace:*",
+        "@lssm/lib.metering": "workspace:*",
+        "@lssm/lib.ui-kit-web": "workspace:*",
+        "ai": "beta",
+        "lucide-react": "^0.535.0",
+        "react": "19.2.3",
+        "zod": "^4.1.13",
+      },
+      "devDependencies": {
+        "@lssm/tool.tsdown": "workspace:*",
+        "@lssm/tool.typescript": "workspace:*",
+        "@types/react": "^19.0.14",
+        "tsdown": "^0.17.4",
+        "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "react": ">=18.0.0",
+      },
+    },
     "packages/modules/audit-trail": {
       "name": "@lssm/module.audit-trail",
       "version": "1.0.0",
@@ -2054,6 +2108,8 @@
 
     "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.0-beta.83", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.52", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-i+vP6ZG+/8GGa60UTbtWICiWoyu+xAaEkDjL9onEPYRMCaCdlb/iUyqTXLJC0GC405zb1VI+U3+QywrstSbNow=="],
 
+    "@ai-sdk/google": ["@ai-sdk/google@3.0.0-beta.78", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.52" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-k6a65G6jkTFa9zBhPvz6cIEHHN0uTyj/82PFf/ReWEo8D9D/CTcMoDMwv/yTyYdk8n5SrbH4Y13klw910p+Neg=="],
+
     "@ai-sdk/mcp": ["@ai-sdk/mcp@1.0.0-beta.38", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.52", "pkce-challenge": "^5.0.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-4/dqxdYvRr5gUJlGYTUsn1vXXqQa8Y6LCq7qEt2RY1ybR+A76jseZfQWDrIIy74nOHoJ66Ngczr7gz9FhdgR1A=="],
 
     "@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.0-beta.54", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@ai-sdk/provider-utils": "4.0.0-beta.52" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-chvo7xlfryll4KP4AcpE318WE+8pgB/eK3sKObC2CJzDtTJaaH767Ww9CAY6wAHernesa65QFhil6kSSZjg2TA=="],
@@ -2063,6 +2119,8 @@
     "@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.26", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-UQyOlrpahFL1CZ/QA0ZpFhAkE32fw1XXBx+6gu23YWSCMJCjaf/fiJUPV7xUhp/nXqVO/IC+PIIfLomx55D16A=="],
 
     "@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.52", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.26", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-MkokODthk0eH0ZVegw9kHfDtEXoqI6lWgX8S5xzXihT+oEkMfEv8d+lB+TxY0ySkcpqIshW2UpRVP/lBOc/OSA=="],
+
+    "@ai-sdk/react": ["@ai-sdk/react@3.0.0-beta.160", "", { "dependencies": { "@ai-sdk/provider-utils": "4.0.0-beta.52", "ai": "6.0.0-beta.157", "swr": "^2.2.5", "throttleit": "2.1.0" }, "peerDependencies": { "react": "^18 || ~19.0.1 || ~19.1.2 || ^19.2.1" } }, "sha512-KpOA/FN5JynyC5I3ZVCGauMbQKmifRXMS+gR5/n9OQ8AJTrwWNbQtXXKtXgdQ2rRGdnPrOP/nA4EEmOiMdLYTQ=="],
 
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
 
@@ -2978,6 +3036,8 @@
 
     "@lssm/lib.ai-agent": ["@lssm/lib.ai-agent@workspace:packages/libs/ai-agent"],
 
+    "@lssm/lib.ai-providers": ["@lssm/lib.ai-providers@workspace:packages/libs/ai-providers"],
+
     "@lssm/lib.analytics": ["@lssm/lib.analytics@workspace:packages/libs/analytics"],
 
     "@lssm/lib.bus": ["@lssm/lib.bus@workspace:packages/libs/bus"],
@@ -3065,6 +3125,8 @@
     "@lssm/lib.utils-typescript": ["@lssm/lib.utils-typescript@workspace:packages/libs/utils-typescript"],
 
     "@lssm/lib.workflow-composer": ["@lssm/lib.workflow-composer@workspace:packages/libs/workflow-composer"],
+
+    "@lssm/module.ai-chat": ["@lssm/module.ai-chat@workspace:packages/modules/ai-chat"],
 
     "@lssm/module.audit-trail": ["@lssm/module.audit-trail@workspace:packages/modules/audit-trail"],
 
@@ -6880,6 +6942,8 @@
 
     "swap-case": ["swap-case@2.0.2", "", { "dependencies": { "tslib": "^2.0.3" } }, "sha512-kc6S2YS/2yXbtkSMunBtKdah4VFETZ8Oh6ONSmSd9bRxhqTrtARUCBUiWXH3xVPpvR7tz2CSnkuXVE42EcGnMw=="],
 
+    "swr": ["swr@2.3.8", "", { "dependencies": { "dequal": "^2.0.3", "use-sync-external-store": "^1.6.0" }, "peerDependencies": { "react": "^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-gaCPRVoMq8WGDcWj9p4YWzCMPHzE0WNl6W8ADIx9c3JBEIdMkJGMzW+uzXvxHMltwcYACr9jP+32H8/hgwMR7w=="],
+
     "sync-fetch": ["sync-fetch@0.6.0-2", "", { "dependencies": { "node-fetch": "^3.3.2", "timeout-signal": "^2.0.0", "whatwg-mimetype": "^4.0.0" } }, "sha512-c7AfkZ9udatCuAy9RSfiGPpeOKKUAUK5e1cXadLOGUjasdxqYqAK0jTNkM/FSEyJ3a5Ra27j/tw/PS0qLmaF/A=="],
 
     "synckit": ["synckit@0.11.11", "", { "dependencies": { "@pkgr/core": "^0.2.9" } }, "sha512-MeQTA1r0litLUf0Rp/iisCaL8761lKAZHaimlbGK4j0HysC4PLfqygQj9srcs0m2RdtDYnF8UuYyKpbjHYp7Jw=="],
@@ -6929,6 +6993,8 @@
     "throat": ["throat@5.0.0", "", {}, "sha512-fcwX4mndzpLQKBS1DVYhGAcYaYt7vsHNIvQV+WXMvnow5cgjPphq5CaayLaGsjRdSCKZFNGt7/GYAuXaNOiYCA=="],
 
     "throttle-debounce": ["throttle-debounce@3.0.1", "", {}, "sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg=="],
+
+    "throttleit": ["throttleit@2.1.0", "", {}, "sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw=="],
 
     "through": ["through@2.3.8", "", {}, "sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg=="],
 
@@ -7569,6 +7635,8 @@
     "@lssm/lib.ui-kit-web/@types/node": ["@types/node@24.10.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg=="],
 
     "@lssm/lib.ui-kit-web/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
+
+    "@lssm/module.ai-chat/lucide-react": ["lucide-react@0.535.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2E3+YWGLpjZ8ejIYrdqxVjWMSMiRQHmU6xZYE9xA2SC5j2m0NeB4/acjhRdhxbfniBKoNEukDDQnmShTxwOQ4g=="],
 
     "@lssm/tool.scaleway-infra/@types/node": ["@types/node@24.10.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg=="],
 

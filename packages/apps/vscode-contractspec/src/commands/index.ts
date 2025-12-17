@@ -24,6 +24,7 @@ import {
 import { runSetupWizard, runQuickSetup } from './setup';
 import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
 import { registerLLMCommands } from './llm';
+import { registerChatCommands } from './chat';
 
 /**
  * Register all ContractSpec commands.
@@ -279,4 +280,7 @@ export function registerCommands(
 
   // LLM integration commands
   registerLLMCommands(context, outputChannel, telemetry);
+
+  // Chat command (AI-powered vibe coding)
+  registerChatCommands(context, outputChannel, telemetry);
 }

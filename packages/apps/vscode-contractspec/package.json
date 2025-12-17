@@ -357,6 +357,12 @@
         "title": "Generate Cursor Rules",
         "category": "ContractSpec",
         "icon": "$(gear)"
+      },
+      {
+        "command": "contractspec.chat",
+        "title": "Open AI Chat",
+        "category": "ContractSpec",
+        "icon": "$(comment-discussion)"
       }
     ],
     "viewsContainers": {

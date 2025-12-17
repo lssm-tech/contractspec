@@ -15,6 +15,13 @@
     "@lssm/lib.graphql-federation": "workspace:*",
     "@lssm/bundle.contractspec-studio": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.cost-tracking": "workspace:*",
+    "@lssm/lib.ai-providers": "workspace:*",
+    "@ai-sdk/anthropic": "beta",
+    "@ai-sdk/google": "beta",
+    "@ai-sdk/mistral": "beta",
+    "@ai-sdk/openai": "beta",
+    "ai": "beta",
     "elysia": "^1.4.19"
   },
   "devDependencies": {},

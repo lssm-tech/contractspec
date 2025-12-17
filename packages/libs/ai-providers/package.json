@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/bundle.contractspec-workspace",
+  "name": "@lssm/lib.ai-providers",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,35 +19,41 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
-    "@lssm/module.contractspec-workspace": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.contracts-transformers": "workspace:*",
-    "@lssm/lib.ai-providers": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.testing": "workspace:*",
+    "@ai-sdk/anthropic": "beta",
+    "@ai-sdk/google": "beta",
+    "@ai-sdk/mistral": "beta",
+    "@ai-sdk/openai": "beta",
     "ai": "beta",
-    "zod": "^4.1.13",
-    "glob": "^13.0.0",
-    "chokidar": "^4.0.1"
+    "ollama-ai-provider": "^1.2.0",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "@types/node": "^22.10.2",
     "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "exports": {
     ".": "./src/index.ts",
+    "./factory": "./src/factory.ts",
+    "./legacy": "./src/legacy.ts",
+    "./models": "./src/models.ts",
+    "./types": "./src/types.ts",
+    "./validation": "./src/validation.ts",
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
+      "./factory": "./dist/factory.js",
+      "./legacy": "./dist/legacy.js",
+      "./models": "./dist/models.js",
+      "./types": "./dist/types.js",
+      "./validation": "./dist/validation.js",
       "./*": "./*"
     }
   }
