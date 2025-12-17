@@ -6,11 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/lifecycle-dashboard.docblock": "./src/docs/lifecycle-dashboard.docblock.ts",
-    "./example": "./src/example.ts",
-    "./snippets/page": "./src/snippets/page.ts",
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/lifecycle-dashboard.docblock": "./dist/docs/lifecycle-dashboard.docblock.js",
+    "./example": "./dist/example.js",
+    "./snippets/page": "./dist/snippets/page.js",
     "./*": "./*"
   },
   "scripts": {

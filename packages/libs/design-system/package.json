@@ -50,7 +50,7 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./*": "./*"
   },
   "publishConfig": {

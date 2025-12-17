@@ -37,9 +37,9 @@
   ],
   "module": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts",
-    "./common": "./src/common/index.ts",
-    "./openapi": "./src/openapi/index.ts",
+    ".": "./dist/index.js",
+    "./common": "./dist/common/index.js",
+    "./openapi": "./dist/openapi/index.js",
     "./*": "./*"
   },
   "publishConfig": {

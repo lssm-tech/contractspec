@@ -33,17 +33,17 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./bot": "./src/bot/index.ts",
-    "./bot/auto-responder": "./src/bot/auto-responder.ts",
-    "./bot/feedback-loop": "./src/bot/feedback-loop.ts",
-    "./bot/tools": "./src/bot/tools.ts",
-    "./rag": "./src/rag/index.ts",
-    "./rag/ticket-resolver": "./src/rag/ticket-resolver.ts",
-    "./spec": "./src/spec.ts",
-    "./tickets": "./src/tickets/index.ts",
-    "./tickets/classifier": "./src/tickets/classifier.ts",
-    "./types": "./src/types.ts",
+    ".": "./dist/index.js",
+    "./bot": "./dist/bot/index.js",
+    "./bot/auto-responder": "./dist/bot/auto-responder.js",
+    "./bot/feedback-loop": "./dist/bot/feedback-loop.js",
+    "./bot/tools": "./dist/bot/tools.js",
+    "./rag": "./dist/rag/index.js",
+    "./rag/ticket-resolver": "./dist/rag/ticket-resolver.js",
+    "./spec": "./dist/spec.js",
+    "./tickets": "./dist/tickets/index.js",
+    "./tickets/classifier": "./dist/tickets/classifier.js",
+    "./types": "./dist/types.js",
     "./*": "./*"
   },
   "publishConfig": {

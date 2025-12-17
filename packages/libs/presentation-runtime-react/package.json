@@ -34,10 +34,10 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./useWorkflow": "./src/useWorkflow.ts",
-    "./WorkflowStepper": "./src/WorkflowStepper.tsx",
-    "./WorkflowStepRenderer": "./src/WorkflowStepRenderer.tsx",
+    ".": "./dist/index.js",
+    "./useWorkflow": "./dist/useWorkflow.js",
+    "./WorkflowStepper": "./dist/WorkflowStepper.js",
+    "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
     "./*": "./*"
   },
   "publishConfig": {

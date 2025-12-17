@@ -33,7 +33,7 @@
     "README.md"
   ],
   "exports": {
-    ".": "./ui/link.tsx",
+    ".": "./dist/link.js",
     "./*": "./*"
   },
   "publishConfig": {

@@ -29,7 +29,7 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./*": "./*"
   },
   "publishConfig": {

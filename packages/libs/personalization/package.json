@@ -38,16 +38,16 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./adapter": "./src/adapter.ts",
-    "./analyzer": "./src/analyzer.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/behavior-tracking.docblock": "./src/docs/behavior-tracking.docblock.ts",
-    "./docs/overlay-engine.docblock": "./src/docs/overlay-engine.docblock.ts",
-    "./docs/workflow-composition.docblock": "./src/docs/workflow-composition.docblock.ts",
-    "./store": "./src/store.ts",
-    "./tracker": "./src/tracker.ts",
-    "./types": "./src/types.ts",
+    ".": "./dist/index.js",
+    "./adapter": "./dist/adapter.js",
+    "./analyzer": "./dist/analyzer.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/behavior-tracking.docblock": "./dist/docs/behavior-tracking.docblock.js",
+    "./docs/overlay-engine.docblock": "./dist/docs/overlay-engine.docblock.js",
+    "./docs/workflow-composition.docblock": "./dist/docs/workflow-composition.docblock.js",
+    "./store": "./dist/store.js",
+    "./tracker": "./dist/tracker.js",
+    "./types": "./dist/types.js",
     "./*": "./*"
   },
   "publishConfig": {

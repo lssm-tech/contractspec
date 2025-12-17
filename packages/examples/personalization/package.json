@@ -6,13 +6,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./behavior-tracking": "./src/behavior-tracking.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/personalization.docblock": "./src/docs/personalization.docblock.ts",
-    "./example": "./src/example.ts",
-    "./overlay-customization": "./src/overlay-customization.ts",
-    "./workflow-extension": "./src/workflow-extension.ts",
+    ".": "./dist/index.js",
+    "./behavior-tracking": "./dist/behavior-tracking.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/personalization.docblock": "./dist/docs/personalization.docblock.js",
+    "./example": "./dist/example.js",
+    "./overlay-customization": "./dist/overlay-customization.js",
+    "./workflow-extension": "./dist/workflow-extension.js",
     "./*": "./*"
   },
   "scripts": {

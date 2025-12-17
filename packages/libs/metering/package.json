@@ -28,14 +28,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./aggregation": "./src/aggregation/index.ts",
-    "./contracts": "./src/contracts/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/metering.docblock": "./src/docs/metering.docblock.ts",
-    "./entities": "./src/entities/index.ts",
-    "./events": "./src/events.ts",
-    "./metering.feature": "./src/metering.feature.ts",
+    ".": "./dist/index.js",
+    "./aggregation": "./dist/aggregation/index.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
+    "./entities": "./dist/entities/index.js",
+    "./events": "./dist/events.js",
+    "./metering.feature": "./dist/metering.feature.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",

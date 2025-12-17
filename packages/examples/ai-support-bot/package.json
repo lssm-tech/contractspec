@@ -6,11 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/ai-support-bot.docblock": "./src/docs/ai-support-bot.docblock.ts",
-    "./example": "./src/example.ts",
-    "./setup": "./src/setup.ts",
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/ai-support-bot.docblock": "./dist/docs/ai-support-bot.docblock.js",
+    "./example": "./dist/example.js",
+    "./setup": "./dist/setup.js",
     "./*": "./*"
   },
   "scripts": {

@@ -38,12 +38,12 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./factory": "./src/factory.ts",
-    "./legacy": "./src/legacy.ts",
-    "./models": "./src/models.ts",
-    "./types": "./src/types.ts",
-    "./validation": "./src/validation.ts",
+    ".": "./dist/index.js",
+    "./factory": "./dist/factory.js",
+    "./legacy": "./dist/legacy.js",
+    "./models": "./dist/models.js",
+    "./types": "./dist/types.js",
+    "./validation": "./dist/validation.js",
     "./*": "./*"
   },
   "publishConfig": {

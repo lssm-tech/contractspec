@@ -29,12 +29,12 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./channels": "./src/channels/index.ts",
-    "./contracts": "./src/contracts/index.ts",
-    "./entities": "./src/entities/index.ts",
-    "./notifications.feature": "./src/notifications.feature.ts",
-    "./templates": "./src/templates/index.ts",
+    ".": "./dist/index.js",
+    "./channels": "./dist/channels/index.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./entities": "./dist/entities/index.js",
+    "./notifications.feature": "./dist/notifications.feature.js",
+    "./templates": "./dist/templates/index.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",

@@ -28,14 +28,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./contracts": "./src/contracts/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/files.docblock": "./src/docs/files.docblock.ts",
-    "./entities": "./src/entities/index.ts",
-    "./events": "./src/events.ts",
-    "./files.feature": "./src/files.feature.ts",
-    "./storage": "./src/storage/index.ts",
+    ".": "./dist/index.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/files.docblock": "./dist/docs/files.docblock.js",
+    "./entities": "./dist/entities/index.js",
+    "./events": "./dist/events.js",
+    "./files.feature": "./dist/files.feature.js",
+    "./storage": "./dist/storage/index.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",

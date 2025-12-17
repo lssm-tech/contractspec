@@ -47,13 +47,13 @@
     "react": ">=18.0.0"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./context": "./src/context/index.ts",
-    "./core": "./src/core/index.ts",
-    "./presentation": "./src/presentation/index.ts",
-    "./presentation/components": "./src/presentation/components/index.ts",
-    "./presentation/hooks": "./src/presentation/hooks/index.ts",
-    "./providers": "./src/providers/index.ts",
+    ".": "./dist/index.js",
+    "./context": "./dist/context/index.js",
+    "./core": "./dist/core/index.js",
+    "./presentation": "./dist/presentation/index.js",
+    "./presentation/components": "./dist/presentation/components/index.js",
+    "./presentation/hooks": "./dist/presentation/hooks/index.js",
+    "./providers": "./dist/providers/index.js",
     "./*": "./*"
   },
   "publishConfig": {

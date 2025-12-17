@@ -29,11 +29,11 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./audit-trail.feature": "./src/audit-trail.feature.ts",
-    "./contracts": "./src/contracts/index.ts",
-    "./entities": "./src/entities/index.ts",
-    "./storage": "./src/storage/index.ts",
+    ".": "./dist/index.js",
+    "./audit-trail.feature": "./dist/audit-trail.feature.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./entities": "./dist/entities/index.js",
+    "./storage": "./dist/storage/index.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",

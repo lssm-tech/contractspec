@@ -37,11 +37,11 @@
     "./dist/*.css"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./AccessibilityPanel": "./src/AccessibilityPanel.tsx",
-    "./AccessibilityProvider": "./src/AccessibilityProvider.tsx",
-    "./next-route-announcer": "./src/next-route-announcer.tsx",
-    "./preferences": "./src/preferences.tsx",
+    ".": "./dist/index.js",
+    "./AccessibilityPanel": "./dist/AccessibilityPanel.js",
+    "./AccessibilityProvider": "./dist/AccessibilityProvider.js",
+    "./next-route-announcer": "./dist/next-route-announcer.js",
+    "./preferences": "./dist/preferences.js",
     "./*": "./*"
   },
   "files": [

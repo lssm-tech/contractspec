@@ -6,17 +6,36 @@
       "cache": false
     },
     "publish:pkg": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:bundle", "^publish:pkg"],
       "cache": false,
       "env": ["NPM_CONFIG_TOKEN"]
     },
     "publish:pkg:canary": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:bundle", "^publish:pkg:canary"],
       "cache": false,
       "env": ["NPM_CONFIG_TOKEN"]
     },
     "build": {
       "dependsOn": ["^build"],
+      "outputLogs": "new-only",
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*",
+        "tsdown.config.js",
+        "src/**",
+        "!src/generated/**",
+        "public/**"
+      ],
+      "outputs": [
+        "dist/**",
+        "generated/**",
+        ".next/**",
+        "!.next/cache/**",
+        "src/generated/**"
+      ]
+    },
+    "build:bundle": {
+      "dependsOn": ["^build:bundle"],
       "outputLogs": "new-only",
       "inputs": [
         "$TURBO_DEFAULT$",

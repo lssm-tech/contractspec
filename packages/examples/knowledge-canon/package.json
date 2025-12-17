@@ -6,14 +6,14 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./agent": "./src/agent.ts",
-    "./blueprint": "./src/blueprint.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/knowledge-canon.docblock": "./src/docs/knowledge-canon.docblock.ts",
-    "./example": "./src/example.ts",
-    "./source.sample": "./src/source.sample.ts",
-    "./tenant": "./src/tenant.ts",
+    ".": "./dist/index.js",
+    "./agent": "./dist/agent.js",
+    "./blueprint": "./dist/blueprint.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/knowledge-canon.docblock": "./dist/docs/knowledge-canon.docblock.js",
+    "./example": "./dist/example.js",
+    "./source.sample": "./dist/source.sample.js",
+    "./tenant": "./dist/tenant.js",
     "./*": "./*"
   },
   "scripts": {
