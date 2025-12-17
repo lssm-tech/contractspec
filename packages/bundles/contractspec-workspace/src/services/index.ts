@@ -9,7 +9,7 @@ export * from './deps';
 export * from './list';
 export * from './config';
 export * from './build';
-export * from './openapi';
+export * from './openapi/index';
 export * from './registry';
 export * from './sync';
 export * from './watch';

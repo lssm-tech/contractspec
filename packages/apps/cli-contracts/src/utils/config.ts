@@ -10,6 +10,64 @@ import {
   type PackageManager,
 } from '@lssm/bundle.contractspec-workspace';
 
+/**
+ * OpenAPI source configuration for import/sync/validate operations.
+ */
+const OpenApiSourceSchema = z.object({
+  /** Friendly name for the source */
+  name: z.string(),
+  /** Remote URL to fetch OpenAPI spec from */
+  url: z.string().url().optional(),
+  /** Local file path to OpenAPI spec */
+  file: z.string().optional(),
+  /** Sync mode: import (one-time), sync (update), validate (check only) */
+  syncMode: z.enum(['import', 'sync', 'validate']).default('validate'),
+  /** Only import operations with these tags */
+  tags: z.array(z.string()).optional(),
+  /** Exclude operations with these operationIds */
+  exclude: z.array(z.string()).optional(),
+  /** Prefix for generated spec names */
+  prefix: z.string().optional(),
+  /** Default stability for imported specs */
+  defaultStability: z
+    .enum(['experimental', 'beta', 'stable', 'deprecated'])
+    .optional(),
+  /** Default auth level for imported specs */
+  defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
+});
+
+/**
+ * OpenAPI configuration section.
+ */
+const OpenApiConfigSchema = z.object({
+  /** External OpenAPI sources to import/sync from */
+  sources: z.array(OpenApiSourceSchema).optional(),
+  /** Export configuration */
+  export: z
+    .object({
+      /** Output path for exported OpenAPI document */
+      outputPath: z.string().default('./openapi.json'),
+      /** Output format */
+      format: z.enum(['json', 'yaml']).default('json'),
+      /** API title for export */
+      title: z.string().optional(),
+      /** API version for export */
+      version: z.string().optional(),
+      /** API description for export */
+      description: z.string().optional(),
+      /** Server URLs to include in export */
+      servers: z
+        .array(
+          z.object({
+            url: z.string(),
+            description: z.string().optional(),
+          })
+        )
+        .optional(),
+    })
+    .optional(),
+});
+
 const ConfigSchema = z.object({
   aiProvider: z
     .enum(['claude', 'openai', 'ollama', 'custom'])
@@ -33,7 +91,12 @@ const ConfigSchema = z.object({
   packages: z.array(z.string()).optional(),
   excludePackages: z.array(z.string()).optional(),
   recursive: z.boolean().optional(),
+  // OpenAPI configuration
+  openapi: OpenApiConfigSchema.optional(),
 });
+
+export type OpenApiSource = z.infer<typeof OpenApiSourceSchema>;
+export type OpenApiConfig = z.infer<typeof OpenApiConfigSchema>;
 
 export type Config = z.infer<typeof ConfigSchema>;
 
