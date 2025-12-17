@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Version packages (canary snapshot)
+        run: bun run release:version:canary
+
       - name: Build libraries
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -52,23 +55,10 @@ jobs:
         run: bun run build:not-apps
 
       - name: Publish packages (canary)
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          # The command to update versions, changelogs, and changeset files
-          version: bun run release:version:canary
-          # The command to publish packages
-          publish: bun run release:publish:canary
-          commit: "chore: version packages (canary)"
-          title: "Version Packages (canary)"
+        run: bun run release:publish:canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
-
-
-
-
-
