@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-mcp-local",
-  "version": "0.1.0",
+  "version": "1.41.0",
   "description": "Local MCP server for ContractSpec operations via stdio transport",
   "type": "module",
   "main": "./dist/index.js",

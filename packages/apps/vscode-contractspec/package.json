@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "0.0.13",
+  "version": "1.41.0",
   "publisher": "lssm",
   "license": "MIT",
   "icon": "assets/icon.png",
@@ -787,7 +787,7 @@
     "lint": "eslint src --fix",
     "lint:check": "eslint src",
     "package": "vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies",
+    "publish:off": "vsce publish --no-dependencies",
     "test": "vscode-test"
   },
   "dependencies": {

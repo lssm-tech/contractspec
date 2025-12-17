@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.cost-tracking",
-  "version": "4.0.0",
+  "version": "1.41.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -20,9 +20,6 @@
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
     "test": "bun run"
-  },
-  "peerDependencies": {
-    "@lssm/lib.observability": "workspace:*"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.feature-flags",
-  "version": "1.0.0",
+  "version": "1.41.0",
   "description": "Feature flags and experiments module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

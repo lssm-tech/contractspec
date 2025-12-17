@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.overlay-editor",
-  "version": "0.5.0",
+  "version": "1.41.0",
   "scripts": {
     "clean": "rimraf .next dist .turbo",
     "dev": "bun --bun next dev",
