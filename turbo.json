@@ -7,11 +7,13 @@
     },
     "publish:pkg": {
       "dependsOn": ["build"],
-      "cache": false
+      "cache": false,
+      "env": ["NPM_CONFIG_TOKEN"]
     },
     "publish:pkg:canary": {
       "dependsOn": ["build"],
-      "cache": false
+      "cache": false,
+      "env": ["NPM_CONFIG_TOKEN"]
     },
     "build": {
       "dependsOn": ["^build"],
