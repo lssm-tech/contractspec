@@ -88,7 +88,7 @@
     "@sentry/nextjs": "^10.30.0",
     "maplibre-gl": "^5.14.0",
     "react-map-gl": "^8.0.4",
-    "tsdown": "^0.17.4"
+    "tsdown": "^0.18.0"
   },
   "exports": {
     ".": "./dist/index.js",
