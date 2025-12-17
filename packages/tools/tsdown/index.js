@@ -3,7 +3,7 @@ import { defineConfig } from 'tsdown';
 export const withDevExports = {
   exports: {
     all: true,
-    devExports: true,
+    devExports: false,
   },
 };
 
