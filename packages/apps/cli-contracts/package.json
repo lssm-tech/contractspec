@@ -25,8 +25,10 @@
   "dependencies": {
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts-transformers": "workspace:*",
     "@lssm/lib.testing": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
+    "glob": "^13.0.0",
     "@lssm/module.contractspec-examples": "workspace:*",
     "commander": "^14.0.2",
     "@inquirer/prompts": "^8.1.0",

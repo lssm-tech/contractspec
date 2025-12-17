@@ -1,12 +1,16 @@
 /**
- * OpenAPI export command for ContractSpec extension.
+ * OpenAPI commands for ContractSpec extension.
  *
- * Exports specs to OpenAPI 3.1 specification.
+ * Supports import, export, and validate operations.
  */
 
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { getWorkspaceAdapters } from '../workspace/adapters';
+import {
+  parseOpenApi,
+  importFromOpenApi,
+} from '@lssm/lib.contracts-transformers/openapi';
 
 /**
  * Export specs to OpenAPI document.
@@ -210,7 +214,7 @@ async function findRegistryFile(
 /**
  * Convert JSON to YAML (simple implementation).
  */
-function convertToYaml(obj: any, indent = 0): string {
+function convertToYaml(obj: unknown, indent = 0): string {
   const spaces = '  '.repeat(indent);
   let yaml = '';
 
@@ -235,4 +239,304 @@ function convertToYaml(obj: any, indent = 0): string {
   }
 
   return yaml;
+}
+
+/**
+ * Import specs from an OpenAPI document.
+ */
+export async function importFromOpenApiCommand(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (!workspaceFolders || workspaceFolders.length === 0) {
+    vscode.window.showWarningMessage('No workspace folder open');
+    return;
+  }
+
+  outputChannel.appendLine('\n=== Importing from OpenAPI ===');
+  outputChannel.show(true);
+
+  try {
+    // Ask for input method
+    const inputMethod = await vscode.window.showQuickPick(
+      [
+        { label: 'URL', description: 'Fetch from URL' },
+        { label: 'File', description: 'Select local file' },
+      ],
+      { placeHolder: 'Select OpenAPI source' }
+    );
+
+    if (!inputMethod) {
+      return;
+    }
+
+    let source: string;
+
+    if (inputMethod.label === 'URL') {
+      const url = await vscode.window.showInputBox({
+        prompt: 'OpenAPI URL',
+        placeHolder: 'https://api.example.com/openapi.json',
+        validateInput: (value) => {
+          try {
+            new URL(value);
+            return null;
+          } catch {
+            return 'Invalid URL';
+          }
+        },
+      });
+
+      if (!url) {
+        return;
+      }
+      source = url;
+    } else {
+      const fileUris = await vscode.window.showOpenDialog({
+        canSelectFiles: true,
+        canSelectMany: false,
+        filters: {
+          'OpenAPI': ['json', 'yaml', 'yml'],
+        },
+        openLabel: 'Select OpenAPI File',
+      });
+
+      if (!fileUris || fileUris.length === 0) {
+        return;
+      }
+      source = fileUris[0].fsPath;
+    }
+
+    outputChannel.appendLine(`Source: ${source}`);
+
+    // Ask for output directory
+    const defaultOutputDir = path.join(
+      workspaceFolders[0].uri.fsPath,
+      'src',
+      'specs'
+    );
+    const outputDir = await vscode.window.showInputBox({
+      prompt: 'Output directory for generated specs',
+      value: defaultOutputDir,
+    });
+
+    if (!outputDir) {
+      return;
+    }
+
+    // Ask for prefix
+    const prefix = await vscode.window.showInputBox({
+      prompt: 'Prefix for spec names (optional)',
+      placeHolder: 'api',
+    });
+
+    // Show progress
+    await vscode.window.withProgress(
+      {
+        location: vscode.ProgressLocation.Notification,
+        title: 'Importing from OpenAPI',
+        cancellable: false,
+      },
+      async (progress) => {
+        progress.report({ message: 'Parsing OpenAPI document...' });
+
+        const adapters = getWorkspaceAdapters();
+
+        // Parse the OpenAPI document
+        const parseResult = await parseOpenApi(source, {
+          fetch: globalThis.fetch,
+          readFile: (filePath) => adapters.fs.readFile(filePath),
+        });
+
+        outputChannel.appendLine(
+          `Parsed ${parseResult.operations.length} operations from ${parseResult.info.title}`
+        );
+
+        progress.report({ message: 'Generating specs...' });
+
+        // Import operations
+        const importResult = importFromOpenApi(parseResult, {
+          prefix: prefix || undefined,
+        });
+
+        // Write files
+        let importedCount = 0;
+        for (const spec of importResult.specs) {
+          const filePath = path.join(outputDir, spec.fileName);
+          const dir = path.dirname(filePath);
+
+          await adapters.fs.mkdir(dir);
+          await adapters.fs.writeFile(filePath, spec.code);
+          outputChannel.appendLine(`✅ Created: ${filePath}`);
+          importedCount++;
+        }
+
+        // Show results
+        outputChannel.appendLine(`\n📊 Import summary:`);
+        outputChannel.appendLine(`  Imported: ${importedCount}`);
+        outputChannel.appendLine(`  Skipped: ${importResult.skipped.length}`);
+        outputChannel.appendLine(`  Errors: ${importResult.errors.length}`);
+
+        if (importResult.skipped.length > 0) {
+          outputChannel.appendLine(`\nSkipped operations:`);
+          for (const skipped of importResult.skipped) {
+            outputChannel.appendLine(`  - ${skipped.sourceId}: ${skipped.reason}`);
+          }
+        }
+
+        if (importResult.errors.length > 0) {
+          outputChannel.appendLine(`\nErrors:`);
+          for (const error of importResult.errors) {
+            outputChannel.appendLine(`  - ${error.sourceId}: ${error.error}`);
+          }
+        }
+
+        vscode.window.showInformationMessage(
+          `Imported ${importedCount} specs from OpenAPI`
+        );
+      }
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    vscode.window.showErrorMessage(`OpenAPI import failed: ${message}`);
+    outputChannel.appendLine(`\n❌ Error: ${message}`);
+  }
+}
+
+/**
+ * Validate specs against an OpenAPI source.
+ */
+export async function validateAgainstOpenApiCommand(
+  outputChannel: vscode.OutputChannel
+): Promise<void> {
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (!workspaceFolders || workspaceFolders.length === 0) {
+    vscode.window.showWarningMessage('No workspace folder open');
+    return;
+  }
+
+  outputChannel.appendLine('\n=== Validating against OpenAPI ===');
+  outputChannel.show(true);
+
+  try {
+    // Ask for OpenAPI source
+    const sourceInput = await vscode.window.showInputBox({
+      prompt: 'OpenAPI source (URL or file path)',
+      placeHolder: 'https://api.example.com/openapi.json or ./api.yaml',
+    });
+
+    if (!sourceInput) {
+      return;
+    }
+
+    // Ask for spec directory
+    const defaultSpecDir = path.join(
+      workspaceFolders[0].uri.fsPath,
+      'src',
+      'specs'
+    );
+    const specDir = await vscode.window.showInputBox({
+      prompt: 'Spec directory to validate',
+      value: defaultSpecDir,
+    });
+
+    if (!specDir) {
+      return;
+    }
+
+    outputChannel.appendLine(`OpenAPI source: ${sourceInput}`);
+    outputChannel.appendLine(`Spec directory: ${specDir}`);
+
+    // Show progress
+    await vscode.window.withProgress(
+      {
+        location: vscode.ProgressLocation.Notification,
+        title: 'Validating specs',
+        cancellable: false,
+      },
+      async (progress) => {
+        progress.report({ message: 'Parsing OpenAPI document...' });
+
+        const adapters = getWorkspaceAdapters();
+
+        // Parse the OpenAPI document
+        const parseResult = await parseOpenApi(sourceInput, {
+          fetch: globalThis.fetch,
+          readFile: (filePath) => adapters.fs.readFile(filePath),
+        });
+
+        outputChannel.appendLine(
+          `Parsed ${parseResult.operations.length} operations from ${parseResult.info.title}`
+        );
+
+        // Build operations map
+        const operationsMap = new Map<string, typeof parseResult.operations[0]>();
+        for (const op of parseResult.operations) {
+          operationsMap.set(op.operationId, op);
+        }
+
+        progress.report({ message: 'Validating specs...' });
+
+        // Find spec files
+        const specFiles = await adapters.fs.glob({
+          pattern: '**/*.ts',
+          cwd: specDir,
+          ignore: ['node_modules/**', 'dist/**'],
+          absolute: true,
+        });
+
+        outputChannel.appendLine(`Found ${specFiles.length} spec files`);
+
+        let specsValidated = 0;
+        let specsWithDiffs = 0;
+
+        for (const file of specFiles) {
+          const content = await adapters.fs.readFile(file);
+          const nameMatch = content.match(/name:\s*['"]([^'"]+)['"]/);
+
+          if (!nameMatch?.[1]) {
+            continue;
+          }
+
+          specsValidated++;
+          const specName = nameMatch[1];
+          const matchingOp = operationsMap.get(specName);
+          const diffs: string[] = [];
+
+          if (!matchingOp) {
+            diffs.push('No matching OpenAPI operation');
+          }
+
+          const valid = diffs.length === 0;
+          if (!valid) {
+            specsWithDiffs++;
+            outputChannel.appendLine(`❌ ${specName}`);
+            for (const diff of diffs) {
+              outputChannel.appendLine(`   - ${diff}`);
+            }
+          } else {
+            outputChannel.appendLine(`✅ ${specName}`);
+          }
+        }
+
+        // Show results
+        outputChannel.appendLine(`\n📊 Validation summary:`);
+        outputChannel.appendLine(`  Specs validated: ${specsValidated}`);
+        outputChannel.appendLine(`  Specs with differences: ${specsWithDiffs}`);
+
+        if (specsWithDiffs === 0) {
+          vscode.window.showInformationMessage(
+            `All ${specsValidated} specs are valid!`
+          );
+        } else {
+          vscode.window.showWarningMessage(
+            `${specsWithDiffs} of ${specsValidated} specs have differences`
+          );
+        }
+      }
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    vscode.window.showErrorMessage(`OpenAPI validation failed: ${message}`);
+    outputChannel.appendLine(`\n❌ Error: ${message}`);
+  }
 }

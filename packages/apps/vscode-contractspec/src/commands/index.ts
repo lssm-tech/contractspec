@@ -16,7 +16,11 @@ import { toggleWatchMode } from './watch';
 import { syncAllSpecs } from './sync';
 import { cleanGeneratedFiles } from './clean';
 import { compareSpecFiles, compareWithGit } from './diff';
-import { exportToOpenApi } from './openapi';
+import {
+  exportToOpenApi,
+  importFromOpenApiCommand,
+  validateAgainstOpenApiCommand,
+} from './openapi';
 import { runSetupWizard, runQuickSetup } from './setup';
 import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
 import { registerLLMCommands } from './llm';
@@ -210,6 +214,26 @@ export function registerCommands(
         command: 'openapi',
       });
       await exportToOpenApi(outputChannel);
+    })
+  );
+
+  // Import from OpenAPI
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.openapiImport', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'openapiImport',
+      });
+      await importFromOpenApiCommand(outputChannel);
+    })
+  );
+
+  // Validate against OpenAPI
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.openapiValidate', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'openapiValidate',
+      });
+      await validateAgainstOpenApiCommand(outputChannel);
     })
   );
 

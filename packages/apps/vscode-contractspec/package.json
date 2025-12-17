@@ -149,6 +149,18 @@
         "icon": "$(export)"
       },
       {
+        "command": "contractspec.openapiImport",
+        "title": "Import from OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "contractspec.openapiValidate",
+        "title": "Validate against OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(verified)"
+      },
+      {
         "command": "contractspec.refreshSpecs",
         "title": "Refresh Specs",
         "category": "ContractSpec",
@@ -779,6 +791,7 @@
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/module.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts-transformers": "workspace:*",
     "@lssm/module.contractspec-examples": "workspace:*"
   },
   "devDependencies": {

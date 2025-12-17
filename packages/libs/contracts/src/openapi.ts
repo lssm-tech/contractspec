@@ -1,3 +1,10 @@
+/**
+ * OpenAPI export utilities.
+ *
+ * @deprecated Import from @lssm/lib.contracts-transformers/openapi instead.
+ * This file is kept for backwards compatibility.
+ */
+
 import type { SpecRegistry } from './registry';
 import type { AnyContractSpec, ContractSpec } from './spec';
 import { defaultRestPath, jsonSchemaForSpec } from './jsonschema';

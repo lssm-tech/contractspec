@@ -24,6 +24,7 @@
   "dependencies": {
     "@lssm/module.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts-transformers": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.testing": "workspace:*",
     "ai": "beta",
@@ -53,4 +54,3 @@
     }
   }
 }
-

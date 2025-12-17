@@ -22,6 +22,7 @@
   "dependencies": {
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts-transformers": "workspace:*",
     "@lssm/lib.logger": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.12.3",
