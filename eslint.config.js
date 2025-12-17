@@ -7,7 +7,6 @@ import json from '@eslint/json';
 import { defineConfig } from 'eslint/config';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import designSystemRules from '@lssm/eslint-plugin-design-system';
-const dsRecommended = designSystemRules.configs?.recommended || {};
 // import * as reactHooks from 'eslint-plugin-react-hooks';
 import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -107,36 +106,6 @@ export default defineConfig([
     },
   },
   {
-    files: [
-      'packages/apps/web-landing/src/app/(landing-marketing)/**/*.{ts,tsx,js,jsx}',
-      'packages/apps/web-landing/src/components/**/*.{ts,tsx,js,jsx}',
-      'packages/bundles/contractspec-studio/src/presentation/**/*.{ts,tsx,js,jsx}',
-    ],
-    plugins: {
-      ...(dsRecommended.plugins || { 'design-system': designSystemRules }),
-    },
-    rules: {
-      ...(dsRecommended.rules || {}),
-      'design-system/prefer-design-system': [
-        'error',
-        {
-          intrinsicDisallowList: [
-            'button',
-            'input',
-            'textarea',
-            'select',
-            'option',
-            'form',
-            'label',
-          ],
-          localAllowPatterns: ['^\\./components', '^@/components'],
-        },
-      ],
-      'design-system/no-intrinsic-typography': 'error',
-      'design-system/design-import-boundary': 'error',
-    },
-  },
-  {
     files: ['**/*.json'],
     plugins: { json },
     language: 'json/json',
@@ -174,90 +143,4 @@ export default defineConfig([
   //   },
   // },
   eslintPluginPrettierRecommended,
-  {
-    files: ['packages/artisanos/apps/web-artisan/src/components/**/*.{ts,tsx}'],
-    rules: {
-      // Only allow thin consumers/imports, discourage heavy logic
-      // 'no-restricted-imports': [
-      //   'error',
-      //   {
-      //     patterns: [
-      //       {
-      //         group: ['**/lib/**', '**/hooks/**', '**/services/**'],
-      //         message:
-      //           'Keep heavy logic out of web-artisan/components. Use @lssm/bundle.artisan or DS.',
-      //       },
-      //     ],
-      //   },
-      // ],
-    },
-  },
-  {
-    files: ['packages/hcircle/apps/web-coliving/src/**/*.{ts,tsx,js,jsx}'],
-    rules: {
-      // Enforce i18n for user-visible strings in JSX for web-coliving
-      'i18next/no-literal-string': [
-        'error',
-        {
-          mode: 'jsx-text-only',
-          markupOnly: true,
-          ignoreAttribute: [
-            'className',
-            'data-*',
-            'aria-*',
-            'id',
-            'href',
-            'src',
-            'role',
-            'alt',
-            'title',
-          ],
-          ignore: [
-            // Allow small UI tokens and formatting strings
-            '^[-–—…•→←↑↓→]$',
-            '^[#@]$',
-          ],
-        },
-      ],
-      // Prevent tiny text in main content (heuristic): flag text-xs usage
-      // 'no-restricted-syntax': [
-      //   'warn',
-      //   {
-      //     selector:
-      //       "JSXAttribute[name.name='className'][value.value=/text-xs/][parent.parent.openingElement.name.name=/^(div|main|section)$/]",
-      //     message:
-      //       'Avoid text-xs in main content. Use Section (defaults to text-lg) or bump to text-base/lg. See docs/tech/typography-scale.md.',
-      //   },
-      // ],
-    },
-  },
-  {
-    files: ['packages/strit/apps/web-strit/src/**/*.{ts,tsx,js,jsx}'],
-    rules: {
-      // Enforce i18n for user-visible strings in JSX for web-coliving
-      'i18next/no-literal-string': [
-        'error',
-        {
-          mode: 'jsx-text-only',
-          markupOnly: true,
-          ignoreAttribute: [
-            'className',
-            'data-*',
-            'aria-*',
-            'id',
-            'href',
-            'src',
-            'role',
-            'alt',
-            'title',
-          ],
-          ignore: [
-            // Allow small UI tokens and formatting strings
-            '^[-–—…•→←↑↓→]$',
-            '^[#@]$',
-          ],
-        },
-      ],
-    },
-  },
 ]);
