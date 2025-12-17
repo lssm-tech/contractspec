@@ -25,6 +25,7 @@ const obfuscation = defineConfig({
 });
 
 export const base = defineConfig({
+  skipNodeModulesBundle: true,
   exports: {
     all: true,
     devExports: false,
