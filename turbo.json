@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "concurrency": "3",
+  "concurrency": "4",
   "envMode": "strict",
   "tasks": {
     "clean": {
@@ -10,8 +10,12 @@
       "dependsOn": ["build"],
       "cache": false
     },
+    "publish:pkg:canary": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "build": {
-      "dependsOn": ["^db:generate", "^build", "db:generate"],
+      "dependsOn": ["^build"],
       "outputLogs": "new-only",
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -27,10 +31,6 @@
         ".next/**",
         "!.next/cache/**",
         "src/generated/**"
-      ],
-      "env": [
-        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
-        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
       ]
     },
     "build:types": {
@@ -46,49 +46,8 @@
       ]
     },
     "dev": {
-      "dependsOn": ["^db:generate"],
       "cache": false,
       "persistent": true
-    },
-    "gql:generate": {
-      "cache": false
-    },
-    "gql:dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:generate": {
-      "cache": true,
-      "outputLogs": "new-only",
-      "inputs": ["prisma/**", "prisma.config.ts"],
-      "outputs": ["src/generated/**"],
-      "env": [
-        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
-        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
-      ]
-    },
-    "db:seed": {
-      "cache": false,
-      "persistent": true,
-      "env": [
-        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
-        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
-      ]
-    },
-    "db:migrate": {
-      "cache": false,
-      "persistent": true,
-      "env": [
-        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
-        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
-      ]
-    },
-    "db:deploy": {
-      "cache": false,
-      "env": [
-        "CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL",
-        "CONTRACTSPEC_STUDIO_POSTGRES_NON_POOLING"
-      ]
     },
     "lint": {
       "outputLogs": "new-only",
