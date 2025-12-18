@@ -19,7 +19,9 @@ const studioTemplatesPath = path.resolve(
 function readTemplateIds(): string[] {
   if (!fs.existsSync(studioTemplatesPath)) return [];
   const text = fs.readFileSync(studioTemplatesPath, 'utf8');
-  const block = text.match(/export type TemplateId =([\s\S]*?)export type TemplateCategory/);
+  const block = text.match(
+    /export type TemplateId =([\s\S]*?)export type TemplateCategory/
+  );
   if (!block?.[1]) return [];
   const ids = Array.from(block[1].matchAll(/\|\s*'([^']+)'/g))
     .map((m) => m[1])
@@ -65,9 +67,9 @@ function main() {
   }));
 
   const manifest: ContractRegistryManifest = {
-    $schema: 'https://lssm.dev/schema/contractspec-registry.json',
+    $schema: 'https://lssm.tech/schema/contractspec-registry.json',
     name: 'contractspec',
-    homepage: 'https://lssm.dev',
+    homepage: 'https://lssm.tech',
     items,
   };
   ContractRegistryManifestSchema.parse(manifest);
@@ -75,10 +77,9 @@ function main() {
   const outPath = path.join(pkgRoot, 'registry/registry.json');
   writeJson(outPath, manifest);
 
-  // eslint-disable-next-line no-console
-  console.log(`registry:build wrote ${path.relative(pkgRoot, outPath)} with ${items.length} items`);
+  console.log(
+    `registry:build wrote ${path.relative(pkgRoot, outPath)} with ${items.length} items`
+  );
 }
 
 main();
-
-

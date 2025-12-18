@@ -16,7 +16,7 @@ export function generateContractsrcConfig(options: SetupOptions): object {
   const isPackageLevel = options.isMonorepo && options.scope === 'package';
 
   return {
-    $schema: 'https://api.contractspec.lssm.dev/schemas/contractsrc.json',
+    $schema: 'https://api.contractspec.lssm.tech/schemas/contractsrc.json',
     aiProvider: 'claude',
     aiModel: 'claude-sonnet-4-20250514',
     agentMode: 'claude-code',

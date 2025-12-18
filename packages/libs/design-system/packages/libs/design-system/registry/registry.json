@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "lssm",
-  "homepage": "https://lssm.dev",
+  "homepage": "https://lssm.tech",
   "items": [
     {
       "name": "lssm-atoms",

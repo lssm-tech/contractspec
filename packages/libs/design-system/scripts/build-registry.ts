@@ -1,20 +1,24 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-type RegistryFile = { path: string; type: string; target?: string };
-type RegistryItem = {
+interface RegistryFile {
+  path: string;
+  type: string;
+  target?: string;
+}
+interface RegistryItem {
   name: string;
   type: 'registry:block';
   title: string;
   description: string;
   files: RegistryFile[];
-};
-type RegistryManifest = {
+}
+interface RegistryManifest {
   $schema: string;
   name: string;
   homepage: string;
   items: RegistryItem[];
-};
+}
 
 const pkgRoot = path.resolve(process.cwd(), 'packages/libs/design-system');
 
@@ -49,7 +53,8 @@ function listFiles(dirRel: string, exts: string[] = ['.ts', '.tsx']): string[] {
 function fileType(absPath: string): RegistryFile['type'] {
   const r = rel(absPath);
   if (r.includes('/hooks/')) return 'registry:hook';
-  if (r.includes('/components/')) return r.endsWith('.tsx') ? 'registry:component' : 'registry:lib';
+  if (r.includes('/components/'))
+    return r.endsWith('.tsx') ? 'registry:component' : 'registry:lib';
   return 'registry:lib';
 }
 
@@ -147,7 +152,7 @@ function main() {
   const manifest: RegistryManifest = {
     $schema: 'https://ui.shadcn.com/schema/registry.json',
     name: 'lssm',
-    homepage: 'https://lssm.dev',
+    homepage: 'https://lssm.tech',
     items,
   };
 
@@ -155,10 +160,10 @@ function main() {
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, 'registry.json');
   fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
-  // eslint-disable-next-line no-console
-  console.log(`registry:build wrote ${rel(outPath)} with ${items.length} items`);
+
+  console.log(
+    `registry:build wrote ${rel(outPath)} with ${items.length} items`
+  );
 }
 
 main();
-
-

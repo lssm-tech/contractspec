@@ -1,7 +1,7 @@
 {
-  "$schema": "https://lssm.dev/schema/contractspec-registry.json",
+  "$schema": "https://lssm.tech/schema/contractspec-registry.json",
   "name": "contractspec",
-  "homepage": "https://lssm.dev",
+  "homepage": "https://lssm.tech",
   "items": [
     {
       "name": "agent-console",
