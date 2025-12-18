@@ -46,3 +46,5 @@ export class VectorIndexer {
     await this.provider.upsert(request);
   }
 }
+
+

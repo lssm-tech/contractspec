@@ -42,3 +42,5 @@ describe('LifecycleAssessmentService', () => {
     expect(result.libraries.length).toBeGreaterThan(0);
   });
 });
+
+

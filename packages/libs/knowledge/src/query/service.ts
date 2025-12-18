@@ -104,3 +104,5 @@ function extractText(result: VectorSearchResult): string {
   if (typeof payload.content === 'string') return payload.content;
   return JSON.stringify(payload);
 }
+
+

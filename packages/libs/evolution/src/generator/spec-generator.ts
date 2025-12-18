@@ -210,3 +210,5 @@ function mergeContract(base: AnyContract, patch: SpecPatch): AnyContract {
     },
   } as AnyContract;
 }
+
+

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://contractspec.dev/schemas/contractsrc.json",
+  "$schema": "https://api.contractspec.lssm.dev/schemas/contractsrc.json",
   "aiProvider": "claude",
   "aiModel": "claude-sonnet-4-20250514",
   "agentMode": "claude-code",

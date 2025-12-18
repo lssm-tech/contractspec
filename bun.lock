@@ -6707,6 +6707,10 @@
 
     "@lssm/app.overlay-editor/@types/node": ["@types/node@20.19.27", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-N2clP5pJhB2YnZJ3PIHFk5RkygRX5WO/5f0WC08tp0wd+sv0rsJk3MqWn3CbNmT2J505a5336jaQj4ph1AdMug=="],
 
+    "@lssm/lib.ai-agent/@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.91", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.27", "@ai-sdk/provider-utils": "4.0.0-beta.53" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-D2crIipAC2IarF1KVCsxwHcxKbqaolabU8hBN1LgSD9r5qSsaShkcX3rZLR+rf1Lv/bljy+ar2l8GgzmCULUzA=="],
+
+    "@lssm/lib.ai-agent/@ai-sdk/google": ["@ai-sdk/google@3.0.0-beta.81", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.27", "@ai-sdk/provider-utils": "4.0.0-beta.53" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-c0UoDtxo5dZytAQxteXDEPO3IXiWhoiOzPicRIxpMIRtqycLoUqqmPVgjR2sUiy2sfIp11KgOou6SPaTBdsU9A=="],
+
     "@lssm/lib.design-system/@types/node": ["@types/node@24.10.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg=="],
 
     "@lssm/lib.ui-kit-web/@types/node": ["@types/node@24.10.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg=="],

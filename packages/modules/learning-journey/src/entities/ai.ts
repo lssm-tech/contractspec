@@ -434,3 +434,5 @@ export const aiEntities = [
 ];
 
 export const aiEnums = [LearningStyleEnum, RecommendationTypeEnum];
+
+

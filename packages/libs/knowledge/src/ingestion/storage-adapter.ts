@@ -30,3 +30,5 @@ export class StorageIngestionAdapter {
     await this.indexer.upsert(fragments, embeddings);
   }
 }
+
+

@@ -53,3 +53,5 @@ export interface LifecycleAssessmentInput {
   signals?: LifecycleSignal[];
   questionnaireAnswers?: Record<string, unknown>;
 }
+
+
