@@ -25,3 +25,4 @@ class RefreshFeaturesAction : AnAction() {
         e.presentation.isEnabled = project != null
     }
 }
+

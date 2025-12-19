@@ -8,7 +8,7 @@
 
 ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. This plugin brings that power directly into your JetBrains IDE.
 
-![ContractSpec Plugin](assets/icon.svg)
+![ContractSpec Plugin](assets/icon.png)
 
 ## Features
 
