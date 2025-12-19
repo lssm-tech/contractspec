@@ -563,7 +563,13 @@
       "./workflow/state": "./dist/workflow/state.js",
       "./workflow/validation": "./dist/workflow/validation.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/contracts"
+  }
 }

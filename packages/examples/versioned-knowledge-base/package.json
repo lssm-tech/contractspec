@@ -61,7 +61,13 @@
       "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
       "./versioned-knowledge-base.feature": "./dist/versioned-knowledge-base.feature.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/versioned-knowledge-base"
+  }
 }

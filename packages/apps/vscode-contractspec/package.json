@@ -12,7 +12,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lssm/contractspec"
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/vscode-contractspec"
   },
   "bugs": {
     "url": "https://github.com/lssm/contractspec/issues"
@@ -804,5 +805,9 @@
     "@vscode/vsce": "^3.2.2",
     "esbuild": "^0.27.2",
     "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }

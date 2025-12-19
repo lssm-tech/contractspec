@@ -65,7 +65,13 @@
       "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
       "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/kb-update-pipeline"
+  }
 }

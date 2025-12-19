@@ -1,7 +1,7 @@
 {
   "name": "@lssm/example.knowledge-canon",
   "version": "1.41.1",
-  "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
+  "description": "Knowledge example \u2013 Product Canon space (blueprint + tenant config + source sample + runtime helper).",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -51,8 +51,14 @@
       "./source.sample": "./dist/source.sample.js",
       "./tenant": "./dist/tenant.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
   "module": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/knowledge-canon"
+  }
 }

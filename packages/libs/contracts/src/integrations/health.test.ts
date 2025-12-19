@@ -56,7 +56,9 @@ const baseContext = {
       reference: 'mock://secret',
       version: '2',
     })),
-    deleteSecret: vi.fn(async () => {}),
+    deleteSecret: vi.fn(async () => {
+      /* noop */
+    }),
   },
   secretReference: 'mock://secret',
   trace: {
@@ -74,7 +76,9 @@ describe('IntegrationHealthService', () => {
       now: () => new Date('2024-01-01T00:00:00Z'),
     });
 
-    const result = await service.check(baseContext, async () => {});
+    const result = await service.check(baseContext, async () => {
+      /* noop */
+    });
 
     expect(result.status).toBe('connected');
     expect(result.checkedAt).toEqual(new Date('2024-01-01T00:00:00Z'));

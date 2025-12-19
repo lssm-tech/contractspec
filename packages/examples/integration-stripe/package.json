@@ -1,7 +1,7 @@
 {
   "name": "@lssm/example.integration-stripe",
   "version": "1.41.1",
-  "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
+  "description": "Integration example \u2013 Stripe Payments (blueprint + workflow + tenant config).",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -51,8 +51,14 @@
       "./tenant": "./dist/tenant.js",
       "./workflow": "./dist/workflow.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
   "module": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/integration-stripe"
+  }
 }

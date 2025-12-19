@@ -22,10 +22,14 @@ export async function hydrateResourceIfNeeded(
   if (!resources || !opts.template) return result;
   const varName = opts.varName ?? 'id';
 
-  const hydrateOne = async (item: any) => {
-    if (item && typeof item[varName] !== 'undefined') {
-      const key = String(item[varName]);
-      const uri = opts.template!.replace('{id}', key);
+  const hydrateOne = async (item: unknown) => {
+    if (
+      item &&
+      typeof item === 'object' &&
+      varName in (item as Record<string, unknown>)
+    ) {
+      const key = String((item as Record<string, unknown>)[varName]);
+      const uri = (opts.template ?? '').replace('{id}', key);
       const match = resources.match(uri);
       if (match) {
         const resolved = await match.tmpl.resolve(
@@ -46,5 +50,5 @@ export async function hydrateResourceIfNeeded(
     const hydrated = await Promise.all(result.map((x) => hydrateOne(x)));
     return hydrated;
   }
-  return await hydrateOne(result as any);
+  return await hydrateOne(result);
 }

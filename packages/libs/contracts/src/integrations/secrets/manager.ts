@@ -181,7 +181,10 @@ export class SecretProviderManager implements SecretProvider {
       message: messageParts.join(' '),
       provider: this.id,
       reference,
-      code: errors.length > 0 ? errors[errors.length - 1]!.code : 'UNKNOWN',
+      code:
+        errors.length > 0
+          ? (errors[errors.length - 1]?.code ?? 'UNKNOWN')
+          : 'UNKNOWN',
       cause: errors,
     });
   }

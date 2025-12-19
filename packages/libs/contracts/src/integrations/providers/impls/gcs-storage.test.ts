@@ -80,12 +80,18 @@ function createMockStorage() {
   };
 
   const file = {
-    save: vi.fn(async () => {}),
-    makePublic: vi.fn(async () => {}),
+    save: vi.fn(async () => {
+      /* noop */
+    }),
+    makePublic: vi.fn(async () => {
+      /* noop */
+    }),
     getMetadata: vi.fn(async () => [metadata]),
     exists: vi.fn(async () => [true]),
     download: vi.fn(async () => [Buffer.from([1, 2, 3])]),
-    delete: vi.fn(async () => {}),
+    delete: vi.fn(async () => {
+      /* noop */
+    }),
     getSignedUrl: vi.fn(async () => ['https://example.com/signed']),
     metadata,
   };
@@ -97,5 +103,6 @@ function createMockStorage() {
 
   return {
     bucket: vi.fn(() => bucket),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as unknown as any;
 }

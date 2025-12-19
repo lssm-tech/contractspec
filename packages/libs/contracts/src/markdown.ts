@@ -9,7 +9,7 @@ import type { FeatureRegistry } from './features';
  */
 export function specsToMarkdown(
   reg: SpecRegistry,
-  extras?: { presentations?: PresentationRegistry; features?: FeatureRegistry }
+  _extras?: { presentations?: PresentationRegistry; features?: FeatureRegistry }
 ): string {
   const lines: string[] = [];
 
@@ -113,12 +113,15 @@ export function docsToMarkdown(
     for (const p of extras.presentations.list()) {
       parts.push(`## ${p.meta.name}.v${p.meta.version}`);
       parts.push('');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       parts.push(`- Kind: ${(p.content as any).kind}`);
       if ('framework' in p.content)
         parts.push(`- Framework: ${p.content.framework}`);
       if ('componentKey' in p.content)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         parts.push(`- Component Key: ${(p.content as any).componentKey}`);
       if ('mimeType' in p.content)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         parts.push(`- MIME Type: ${(p.content as any).mimeType}`);
       parts.push('');
     }

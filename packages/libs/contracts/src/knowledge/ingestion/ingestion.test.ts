@@ -123,7 +123,9 @@ function createEmbeddingProvider() {
 
 function createVectorStoreProvider() {
   return {
-    upsert: vi.fn(async () => {}),
+    upsert: vi.fn(async () => {
+      /* noop */
+    }),
     search: vi.fn(),
     delete: vi.fn(),
   } as unknown as VectorStoreProvider;

@@ -116,16 +116,19 @@ export class EnvSecretProvider implements SecretProvider {
 
   private deriveEnvKey(path: string): string | undefined {
     if (!path) return undefined;
-    return path
-      .split(/[\/:\-\.]/)
-      .filter(Boolean)
-      .map((segment) =>
-        segment
-          .replace(/[^a-zA-Z0-9]/g, '_')
-          .replace(/_{2,}/g, '_')
-          .toUpperCase()
-      )
-      .join('_');
+    return (
+      path
+        // eslint-disable-next-line no-useless-escape
+        .split(/[\/:\-\.]/)
+        .filter(Boolean)
+        .map((segment) =>
+          segment
+            .replace(/[^a-zA-Z0-9]/g, '_')
+            .replace(/_{2,}/g, '_')
+            .toUpperCase()
+        )
+        .join('_')
+    );
   }
 
   private forbiddenError(

@@ -1,7 +1,7 @@
 import type { DataViewSpec } from '../data-views';
 
 export interface DataViewQueryParams {
-  filters?: Record<string, any>;
+  filters?: Record<string, unknown>;
   sort?: { field: string; direction: 'asc' | 'desc' };
   pagination?: { page: number; pageSize: number };
   search?: string;
@@ -9,7 +9,7 @@ export interface DataViewQueryParams {
 
 export interface DataViewQuery {
   operationName: string;
-  input: Record<string, any>;
+  input: Record<string, unknown>;
   meta: {
     pagination: { page: number; pageSize: number; skip: number; take: number };
     sorting?: { field: string; direction: 'asc' | 'desc' };
@@ -26,7 +26,7 @@ export class DataViewQueryGenerator {
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
-    const input: Record<string, any> = {
+    const input: Record<string, unknown> = {
       skip,
       take,
       ...params.filters,
@@ -68,7 +68,7 @@ export class DataViewQueryGenerator {
     // Validate sort field
     if (params.sort) {
       const field = this.spec.view.fields.find(
-        (f) => f.key === params.sort!.field
+        (f) => f.key === params.sort?.field
       );
       if (!field) {
         errors.push(`Unknown sort field: ${params.sort.field}`);

@@ -57,7 +57,13 @@
       "./next-route-announcer": "./dist/next-route-announcer.js",
       "./preferences": "./dist/preferences.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/accessibility"
+  }
 }

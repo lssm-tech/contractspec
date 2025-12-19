@@ -132,11 +132,11 @@ class MockSecretProvider implements SecretProvider {
     };
   }
 
-  async setSecret(): Promise<any> {
+  async setSecret(): Promise<never> {
     throw new Error('not implemented');
   }
 
-  async rotateSecret(): Promise<any> {
+  async rotateSecret(): Promise<never> {
     throw new Error('not implemented');
   }
 
@@ -240,7 +240,9 @@ describe('IntegrationCallGuard', () => {
 
   it('retries when executor throws retryable error', async () => {
     const telemetry = new RecordingTelemetry();
-    const sleep = vi.fn(async () => {});
+    const sleep = vi.fn(async () => {
+      /* noop */
+    });
     let attempt = 0;
     const guard = new IntegrationCallGuard(new MockSecretProvider(), {
       telemetry,
@@ -257,7 +259,9 @@ describe('IntegrationCallGuard', () => {
       attempt += 1;
       if (attempt < 2) {
         const error = new Error('timeout');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).retryable = true;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error as any).code = 'ETIMEDOUT';
         throw error;
       }
@@ -298,6 +302,7 @@ describe('IntegrationCallGuard', () => {
 
     const executor = vi.fn(async () => {
       const error = new Error('bad request');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (error as any).code = 'ECLIENT';
       return Promise.reject(error);
     });

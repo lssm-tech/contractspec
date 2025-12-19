@@ -211,7 +211,7 @@ function parseAddress(
   if (addresses.length === 0) {
     return null;
   }
-  return addresses[0]!;
+  return addresses[0] ?? null;
 }
 
 function inferFallbackAddress(

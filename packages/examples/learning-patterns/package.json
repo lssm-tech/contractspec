@@ -55,7 +55,13 @@
       "./tracks/drills": "./dist/tracks/drills.js",
       "./tracks/quests": "./dist/tracks/quests.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/learning-patterns"
+  }
 }

@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/lssm/contractspec.git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/apps/action-contractspec"
   },
   "keywords": [
@@ -16,5 +16,9 @@
     "contracts"
   ],
   "author": "LSSM",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }

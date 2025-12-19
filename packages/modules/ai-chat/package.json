@@ -67,7 +67,13 @@
       "./presentation/hooks": "./dist/presentation/hooks/index.js",
       "./providers": "./dist/providers/index.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/modules/ai-chat"
+  }
 }

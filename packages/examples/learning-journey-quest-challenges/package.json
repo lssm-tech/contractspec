@@ -46,7 +46,14 @@
       "./docs": "./dist/docs/index.js",
       "./docs/quest-challenges.docblock": "./dist/docs/quest-challenges.docblock.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/learning-journey-quest-challenges"
+  }
 }

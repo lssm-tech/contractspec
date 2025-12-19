@@ -55,7 +55,13 @@
       "./events": "./dist/events.js",
       "./metering.feature": "./dist/metering.feature.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/metering"
+  }
 }

@@ -21,5 +21,14 @@
     "@lssm/lib.logger": "workspace:*",
     "elysia": "^1.4.19"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/registry-server"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }

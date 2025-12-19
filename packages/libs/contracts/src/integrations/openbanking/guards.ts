@@ -52,5 +52,8 @@ export function assertPrimaryOpenBankingReady(
   if (!result.ok) {
     throw new Error(result.error ?? 'Open banking integration not available.');
   }
-  return result.integration!;
+  if (!result.integration) {
+    throw new Error(result.error ?? 'Open banking integration not available.');
+  }
+  return result.integration;
 }

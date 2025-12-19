@@ -114,6 +114,7 @@ function toBuffer(data: Uint8Array | ArrayBuffer): Buffer {
   return Buffer.from(data);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function toMetadata(metadata: any): StorageObjectMetadata {
   return {
     bucket: metadata.bucket ?? '',

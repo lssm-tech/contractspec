@@ -109,7 +109,14 @@
       "./tool/tool.presentation": "./dist/tool/tool.presentation.js",
       "./tool/tool.schema": "./dist/tool/tool.schema.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/agent-console"
+  }
 }

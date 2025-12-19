@@ -5,7 +5,7 @@ export interface DataViewRuntimeConfig {
   // eventBus?: EventBus; // To be integrated with actual bus implementation
 }
 
-export interface DataViewResult<T = any> {
+export interface DataViewResult<T = unknown> {
   data: T[];
   total: number;
   loading: boolean;
@@ -13,7 +13,7 @@ export interface DataViewResult<T = any> {
 }
 
 export class DataViewRuntime {
-  private cache = new Map<string, { data: any[]; timestamp: number }>();
+  private cache = new Map<string, { data: unknown[]; timestamp: number }>();
   private subscriptions = new Map<string, Set<() => void>>();
 
   constructor(private config: DataViewRuntimeConfig) {}
@@ -28,7 +28,11 @@ export class DataViewRuntime {
 
   // Simulating query execution for now as we don't have a full backend context here
   // In a real app, this would call the backend API via an adapter
-  async executeQuery(specName: string, params: any): Promise<DataViewResult> {
+
+  async executeQuery(
+    specName: string,
+    _params: unknown
+  ): Promise<DataViewResult> {
     const spec = this.getSpec(specName);
     if (!spec) {
       throw new Error(`DataView spec not found: ${specName}`);
@@ -53,7 +57,7 @@ export class DataViewRuntime {
     if (!this.subscriptions.has(specName)) {
       this.subscriptions.set(specName, new Set());
     }
-    this.subscriptions.get(specName)!.add(callback);
+    this.subscriptions.get(specName)?.add(callback);
     return () => {
       this.subscriptions.get(specName)?.delete(callback);
     };

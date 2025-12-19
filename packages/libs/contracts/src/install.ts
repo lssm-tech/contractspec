@@ -96,6 +96,7 @@ export function makeEmit<S extends AnyContractSpec>(_spec: S, ctx: HandlerCtx) {
     /** Compat : objet (bénéficie du typing si votre spec a un tuple `as const`) */
     object: async (evt: AllowedEventUnion<S>) => {
       // expect-error — OK si le union est précis, sinon fallback accepte string/number/unknown
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await ctx.__emitGuard__?.(evt.name, evt.version, (evt as any).payload);
     },
   };

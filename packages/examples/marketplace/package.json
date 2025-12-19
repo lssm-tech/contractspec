@@ -128,7 +128,13 @@
       "./store/store.presentation": "./dist/store/store.presentation.js",
       "./store/store.schema": "./dist/store/store.schema.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/marketplace"
+  }
 }

@@ -7,7 +7,9 @@ import { GcpPubSubQueue } from './gcp-pubsub';
 describe('Job queues', () => {
   it('processes jobs in memory queue', async () => {
     const queue = new MemoryJobQueue(10);
-    const handler = vi.fn(async () => {});
+    const handler = vi.fn(async () => {
+      /* noop */
+    });
     queue.register('test', handler);
     queue.start();
 

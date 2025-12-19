@@ -101,7 +101,13 @@
       "./tools/tool-adapter": "./dist/tools/tool-adapter.js",
       "./types": "./dist/types.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/ai-agent"
+  }
 }

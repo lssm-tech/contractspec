@@ -23,7 +23,7 @@ import {
   type PowensConnectionStatusResponse,
 } from './powens-client';
 
-export interface PowensOpenBankingProviderOptions extends PowensClientOptions {}
+export type PowensOpenBankingProviderOptions = PowensClientOptions;
 
 interface ProviderContext {
   tenantId: string;
@@ -115,7 +115,8 @@ export class PowensOpenBankingProvider implements OpenBankingProvider {
       return balances
         .filter((balance) =>
           params.balanceTypes?.length
-            ? params.balanceTypes.includes(balance.type as any)
+            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              params.balanceTypes.includes(balance.type as any)
             : true
         )
         .map((balance) => this.mapBalance(balance, context));

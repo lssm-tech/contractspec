@@ -57,7 +57,13 @@
       "./secrets/manager": "./dist/secrets/manager.js",
       "./secrets/provider": "./dist/secrets/provider.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/integrations/runtime"
+  }
 }

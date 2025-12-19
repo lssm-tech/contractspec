@@ -1,6 +1,5 @@
 {
   "name": "lssm",
-  "private": true,
   "type": "module",
   "workspaces": [
     "packages/tools/*",
@@ -80,7 +79,7 @@
       "main"
     ]
   },
-  "author": "Théo Boutron <tboutron@lssm.co>",
+  "author": "Th\u00e9o Boutron <tboutron@lssm.co>",
   "packageManager": "bun@1.3.4",
   "prisma": {
     "schema": "packages/libs/database/prisma/schema.prisma"
@@ -91,5 +90,13 @@
     "react-native": "0.81.4",
     "react-native-css": "3.0.0",
     "lightningcss": "1.30.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }

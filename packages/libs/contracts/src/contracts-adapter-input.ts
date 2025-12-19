@@ -63,7 +63,8 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
           (enumObj as { getName?: () => string }).getName?.() ??
           enumObj.getPothos().name;
         if (!enumTypeCache.has(name)) {
-          builder.enumType(name as any, {
+          builder.enumType(name as string, {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             values: enumObj.getEnumValues() as any,
           });
           enumTypeCache.add(name);

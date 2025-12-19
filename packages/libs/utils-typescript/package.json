@@ -92,11 +92,17 @@
       "./lib/StringKeysOnly": "./dist/lib/StringKeysOnly.js",
       "./*": "./*"
     },
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "dist",
     "README.md"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/utils-typescript"
+  }
 }

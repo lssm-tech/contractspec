@@ -63,6 +63,7 @@ function createMockClient() {
       })),
     },
     generate: vi.fn(async () => stream),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as unknown as any;
 }
 

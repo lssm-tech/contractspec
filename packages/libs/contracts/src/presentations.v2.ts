@@ -291,7 +291,8 @@ export function createDefaultTransformEngine() {
         .filter(Boolean);
       let cur = root;
       for (let i = 0; i < segs.length - 1; i++) {
-        const k = segs[i]!;
+        const k = segs[i];
+        if (!k) continue;
         if (
           cur &&
           typeof cur === 'object' &&

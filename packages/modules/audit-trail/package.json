@@ -50,7 +50,13 @@
       "./entities": "./dist/entities/index.js",
       "./storage": "./dist/storage/index.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/modules/audit-trail"
+  }
 }

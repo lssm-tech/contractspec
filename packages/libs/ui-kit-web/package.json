@@ -325,7 +325,13 @@
       "./ui/utils": "./dist/ui/utils.js",
       "./ui/visually-hidden": "./dist/ui/visually-hidden.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/ui-kit-web"
+  }
 }

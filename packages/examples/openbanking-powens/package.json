@@ -48,8 +48,14 @@
       "./handlers/oauth-callback": "./dist/handlers/oauth-callback.js",
       "./handlers/webhook-handler": "./dist/handlers/webhook-handler.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
   "module": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/openbanking-powens"
+  }
 }

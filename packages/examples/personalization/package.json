@@ -53,8 +53,14 @@
       "./overlay-customization": "./dist/overlay-customization.js",
       "./workflow-extension": "./dist/workflow-extension.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
   "module": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/personalization"
+  }
 }

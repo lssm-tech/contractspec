@@ -128,6 +128,7 @@ export class ExperimentEvaluator {
         return variant;
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return variants[variants.length - 1]!;
   }
 

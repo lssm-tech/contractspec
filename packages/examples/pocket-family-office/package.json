@@ -73,7 +73,13 @@
       "./workflows/sync-openbanking-transactions": "./dist/workflows/sync-openbanking-transactions.js",
       "./workflows/upcoming-payments-reminder": "./dist/workflows/upcoming-payments-reminder.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/pocket-family-office"
+  }
 }

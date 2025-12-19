@@ -1,5 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
-import { defineCommand, defineQuery, type ContractSpec } from '../spec';
+import { defineCommand, defineQuery, type AnyContractSpec } from '../spec';
 import type { SpecRegistry } from '../registry';
 
 const IntegrationConnectionRecord = new SchemaModel({
@@ -289,7 +289,7 @@ export const TestIntegrationConnection = defineCommand({
   },
 });
 
-export const integrationContracts: Record<string, ContractSpec<any, any>> = {
+export const integrationContracts: Record<string, AnyContractSpec> = {
   CreateIntegrationConnection,
   UpdateIntegrationConnection,
   DeleteIntegrationConnection,

@@ -2,10 +2,7 @@ import { describe, expect, it, vi } from 'bun:test';
 
 import type { EmbeddingProvider } from '../../integrations/providers/embedding';
 import type { VectorStoreProvider } from '../../integrations/providers/vector-store';
-import type {
-  LLMProvider,
-  LLMResponse,
-} from '../../integrations/providers/llm';
+import type { LLMProvider } from '../../integrations/providers/llm';
 import { KnowledgeQueryService } from './service';
 
 describe('KnowledgeQueryService', () => {

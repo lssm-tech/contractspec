@@ -150,6 +150,7 @@ export function specToFullMarkdown(
     lines.push('');
     lines.push('```json');
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const schema = jsonSchemaForSpec(spec as any) as any;
       lines.push(JSON.stringify(schema.output ?? {}, null, 2));
     } catch {
@@ -521,8 +522,10 @@ export function featureToMarkdown(
         if (p) {
           lines.push(`#### ${pres.name}.v${pres.version}`);
           lines.push('');
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           lines.push(`- **Kind:** ${(p.content as any).kind ?? 'unknown'}`);
           if ('componentKey' in p.content) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             lines.push(`- **Component:** ${(p.content as any).componentKey}`);
           }
           lines.push('');

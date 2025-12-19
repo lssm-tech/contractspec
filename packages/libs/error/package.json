@@ -48,7 +48,13 @@
       "./codes": "./dist/codes.js",
       "./http": "./dist/http.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/error"
+  }
 }

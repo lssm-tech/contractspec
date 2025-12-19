@@ -66,5 +66,6 @@ function createMockTwilioClient() {
     messages: Object.assign(messagesFn, {
       create: vi.fn(async () => messageInstance),
     }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as unknown as any;
 }

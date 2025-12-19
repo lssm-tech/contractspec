@@ -95,7 +95,13 @@
       "./quote/quote.schema": "./dist/quote/quote.schema.js",
       "./service.feature": "./dist/service.feature.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/service-business-os"
+  }
 }

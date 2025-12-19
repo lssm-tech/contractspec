@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 
@@ -30,7 +31,7 @@ export interface WhenClause {
 export interface Predicate {
   when?: WhenClause;
   all?: Predicate[];
-  any?: Predicate[];
+  anyOf?: Predicate[];
   not?: Predicate;
 }
 
@@ -239,10 +240,14 @@ function getAtPath(values: unknown, path: string): unknown {
     .replace(/\[(\d+)\]/g, '.$1')
     .split('.')
     .filter(Boolean);
-  let cur: any = values as any;
+  let cur: unknown = values;
   for (const s of segs) {
     if (cur == null) return undefined;
-    cur = cur[s as keyof typeof cur];
+    if (cur && typeof cur === 'object' && s in cur) {
+      cur = (cur as Record<string, unknown>)[s];
+    } else {
+      return undefined;
+    }
   }
   return cur;
 }
@@ -252,8 +257,8 @@ export function evalPredicate(values: unknown, pred?: Predicate): boolean {
   if (pred.not) return !evalPredicate(values, pred.not);
   if (pred.all && pred.all.length)
     return pred.all.every((p) => evalPredicate(values, p));
-  if (pred.any && pred.any.length)
-    return pred.any.some((p) => evalPredicate(values, p));
+  if (pred.anyOf && pred.anyOf.length)
+    return pred.anyOf.some((p) => evalPredicate(values, p));
   if (pred.when) {
     const { path, op = 'truthy', value } = pred.when;
     const v = getAtPath(values, path);
@@ -282,22 +287,22 @@ export function evalPredicate(values: unknown, pred?: Predicate): boolean {
       case 'lengthGt':
         return (
           (Array.isArray(v) || typeof v === 'string') &&
-          (v as any).length > Number(value ?? 0)
+          v.length > Number(value ?? 0)
         );
       case 'lengthGte':
         return (
           (Array.isArray(v) || typeof v === 'string') &&
-          (v as any).length >= Number(value ?? 0)
+          v.length >= Number(value ?? 0)
         );
       case 'lengthLt':
         return (
           (Array.isArray(v) || typeof v === 'string') &&
-          (v as any).length < Number(value ?? 0)
+          v.length < Number(value ?? 0)
         );
       case 'lengthLte':
         return (
           (Array.isArray(v) || typeof v === 'string') &&
-          (v as any).length <= Number(value ?? 0)
+          v.length <= Number(value ?? 0)
         );
       case 'truthy':
       default:
@@ -322,7 +327,7 @@ export function buildZodWithRelations(
   handlers?: Record<string, ConstraintHandler>
 ) {
   const base = spec.model.getZod();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   return (base as any).superRefine(
     (values: Record<string, unknown>, ctx: any) => {
       const visit = (field: FieldSpec, parentPath?: string) => {
@@ -456,7 +461,7 @@ export interface TypedWhenClause<P extends string> {
 export interface TypedPredicate<P extends string> {
   when?: TypedWhenClause<P>;
   all?: TypedPredicate<P>[];
-  any?: TypedPredicate<P>[];
+  anyOf?: TypedPredicate<P>[];
   not?: TypedPredicate<P>;
 }
 export type TypedOptionsSource<P extends string> =
@@ -478,10 +483,10 @@ export type EnhanceFields<
     requiredWhen?: TypedPredicate<P>;
   } & (F[K] extends { kind: 'select' }
       ? { options: TypedOptionsSource<P> | readonly FormOption[] }
-      : {}) &
+      : unknown) &
     (F[K] extends { kind: 'radio' }
       ? { options: TypedOptionsSource<P> | readonly FormOption[] }
-      : {}) & {
+      : unknown) & {
       computeFrom?: {
         computeKey: string;
         deps: P[];

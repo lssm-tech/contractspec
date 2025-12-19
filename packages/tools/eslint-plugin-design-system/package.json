@@ -20,13 +20,14 @@
     "eslint": "^9.39.2"
   },
   "license": "MIT",
-  "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps"
+  "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/tools/eslint-plugin-design-system"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }
-
-
-
-
-
-
-
-

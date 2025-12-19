@@ -78,7 +78,13 @@
       "./query/query.presentation": "./dist/query/query.presentation.js",
       "./query/query.schema": "./dist/query/query.schema.js",
       "./*": "./*"
-    }
+    },
+    "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/analytics-dashboard"
+  }
 }

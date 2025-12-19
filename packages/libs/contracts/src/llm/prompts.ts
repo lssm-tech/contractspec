@@ -7,13 +7,8 @@
  */
 
 import type { AnyContractSpec } from '../spec';
-import type { FeatureModuleSpec } from '../features';
 import type { AgentType, AgentPrompt, ImplementationPlan } from './types';
-import {
-  specToFullMarkdown,
-  specToAgentPrompt,
-  featureToMarkdown,
-} from './exporters';
+import { specToFullMarkdown, specToAgentPrompt } from './exporters';
 
 /**
  * System prompts for different agent types.

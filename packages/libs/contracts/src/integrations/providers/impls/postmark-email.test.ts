@@ -31,5 +31,6 @@ function createMockPostmarkClient() {
       SubmittedAt: new Date().toISOString(),
       To: 'Recipient <to@example.com>',
     })),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as unknown as any;
 }

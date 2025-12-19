@@ -124,7 +124,7 @@ export class IntegrationCallGuard {
   async executeWithGuards<T>(
     slotId: string,
     operation: string,
-    input: unknown,
+    _input: unknown,
     resolvedConfig: ResolvedAppConfig,
     executor: (
       connection: IntegrationConnection,

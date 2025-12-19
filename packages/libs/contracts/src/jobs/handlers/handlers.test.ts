@@ -10,7 +10,11 @@ describe('Job handlers', () => {
     const gmail = { listThreads: vi.fn(async () => []) };
     const processor = { process: vi.fn(async () => []) };
     const embeddings = { embedFragments: vi.fn(async () => []) };
-    const indexer = { upsert: vi.fn(async () => {}) };
+    const indexer = {
+      upsert: vi.fn(async () => {
+        /* noop */
+      }),
+    };
 
     const adapter = new GmailIngestionAdapter(
       gmail as unknown as ConstructorParameters<
@@ -53,7 +57,9 @@ describe('Job handlers', () => {
         data: new Uint8Array(),
       })),
       putObject: vi.fn(async () => ({ bucket: 'test', key: 'file.txt' })),
-      deleteObject: vi.fn(async () => {}),
+      deleteObject: vi.fn(async () => {
+        /* noop */
+      }),
       generateSignedUrl: vi.fn(async () => ({
         url: 'http://example',
         expiresAt: new Date(),
@@ -62,7 +68,11 @@ describe('Job handlers', () => {
     };
     const processor = { process: vi.fn(async () => []) };
     const embeddings = { embedFragments: vi.fn(async () => []) };
-    const indexer = { upsert: vi.fn(async () => {}) };
+    const indexer = {
+      upsert: vi.fn(async () => {
+        /* noop */
+      }),
+    };
     const adapter = new StorageIngestionAdapter(
       processor as unknown as ConstructorParameters<
         typeof StorageIngestionAdapter
