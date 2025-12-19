@@ -43,7 +43,6 @@ export function MapBase(props: MapBaseProps) {
 
   React.useEffect(() => {
     onMapRef?.(mapRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapRef.current]);
 
   return (
@@ -63,6 +62,7 @@ export function MapBase(props: MapBaseProps) {
       )}
       <Map
         ref={mapRef}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         mapLib={import('maplibre-gl') as unknown as any}
         initialViewState={initialViewState}
         style={{ width: '100%', height: '100%' }}

@@ -13,7 +13,6 @@ import type {
 import type {
   CacheKeyString,
   CacheLookupResult,
-  CacheMissReason,
   CacheStats,
   CacheStorageAdapter,
   VerificationCacheConfig,

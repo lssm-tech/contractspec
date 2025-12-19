@@ -282,6 +282,7 @@ export function verifyStructure(input: VerifyInput): VerificationReport {
   // Generate suggestions
   const suggestions = checks
     .filter((c) => !c.passed && c.suggestion)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .map((c) => c.suggestion!);
 
   // Calculate coverage

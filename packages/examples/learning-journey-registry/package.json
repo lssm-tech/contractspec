@@ -76,5 +76,6 @@
       "./ui/LearningMiniApp": "./dist/ui/LearningMiniApp.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

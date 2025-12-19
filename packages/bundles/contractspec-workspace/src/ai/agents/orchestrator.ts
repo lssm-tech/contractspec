@@ -93,7 +93,7 @@ export class AgentOrchestrator {
       return task.type === 'validate'
         ? await this.defaultAgent.validate(task)
         : await this.defaultAgent.generate(task);
-    } catch (error) {
+    } catch (_error) {
       spinner.fail(chalk.red('Agent execution failed'));
 
       // Fallback on error

@@ -105,5 +105,6 @@
       "./voice": "./dist/voice.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

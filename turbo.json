@@ -1,7 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "envMode": "strict",
-  "concurrency": "1",
   "tasks": {
     "clean": {
       "cache": false

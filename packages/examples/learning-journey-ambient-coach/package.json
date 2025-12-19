@@ -47,5 +47,6 @@
       "./docs/ambient-coach.docblock": "./dist/docs/ambient-coach.docblock.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

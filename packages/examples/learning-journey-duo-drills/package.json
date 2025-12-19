@@ -47,5 +47,6 @@
       "./docs/duo-drills.docblock": "./dist/docs/duo-drills.docblock.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -82,7 +82,7 @@ class BaseProvider implements Provider {
   }
 
   private createModel(): LanguageModel {
-    const { apiKey, baseUrl, proxyUrl, organizationId } = this.config;
+    const { baseUrl, proxyUrl } = this.config;
 
     switch (this.name) {
       case 'ollama': {
@@ -112,9 +112,7 @@ class BaseProvider implements Provider {
             process.env.OPENAI_BASE_URL = proxyUrl;
           }
 
-          const model = openai(this.model, {
-            apiKey,
-          });
+          const model = openai(this.model);
 
           // Restore original environment variable
           if (originalBaseUrl !== undefined) {

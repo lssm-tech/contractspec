@@ -66,5 +66,6 @@
       "./policies/engine": "./dist/policies/engine.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

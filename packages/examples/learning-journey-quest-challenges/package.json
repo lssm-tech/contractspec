@@ -47,5 +47,6 @@
       "./docs/quest-challenges.docblock": "./dist/docs/quest-challenges.docblock.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

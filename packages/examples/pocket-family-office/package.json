@@ -74,5 +74,6 @@
       "./workflows/upcoming-payments-reminder": "./dist/workflows/upcoming-payments-reminder.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

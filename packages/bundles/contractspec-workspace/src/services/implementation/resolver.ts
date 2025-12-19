@@ -20,12 +20,8 @@ import type {
   ImplementationStatus,
   ResolvedImplementation,
   SpecImplementationResult,
-  SpecReferenceMatch,
 } from './types';
-import {
-  discoverImplementationsForSpec,
-  inferImplementationType,
-} from './discovery';
+import { discoverImplementationsForSpec } from './discovery';
 
 /**
  * Options for resolving implementations.
@@ -134,7 +130,7 @@ function determineStatus(
   }
 
   const existingImpls = implementations.filter((i) => i.exists);
-  const nonTestImpls = implementations.filter((i) => i.type !== 'test');
+  const _nonTestImpls = implementations.filter((i) => i.type !== 'test');
   const existingNonTestImpls = existingImpls.filter((i) => i.type !== 'test');
 
   // If no non-test implementations exist, it's missing
@@ -293,11 +289,13 @@ function parseExplicitImplementations(code: string): ImplementationRef[] {
 
   let match: RegExpExecArray | null;
   while ((match = objRegex.exec(implBlock)) !== null) {
-    implementations.push({
-      path: match[1]!,
-      type: match[2] as ImplementationType,
-      description: match[3],
-    });
+    if (match[1] && match[2]) {
+      implementations.push({
+        path: match[1],
+        type: match[2] as ImplementationType,
+        description: match[3],
+      });
+    }
   }
 
   return implementations;

@@ -1,9 +1,4 @@
-import {
-  defineEntity,
-  defineEntityEnum,
-  field,
-  index,
-} from '@lssm/lib.schema/entity';
+import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
 
 /**
  * Agent status for lifecycle management.

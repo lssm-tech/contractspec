@@ -49,5 +49,6 @@
       "./utils": "./dist/utils.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -12,7 +12,6 @@ import {
   scanFeatureSource,
   isFeatureFile,
   type FeatureScanResult,
-  type SpecScanResult,
   type RefInfo,
   type AnalyzedSpecType,
 } from '@lssm/module.contractspec-workspace';

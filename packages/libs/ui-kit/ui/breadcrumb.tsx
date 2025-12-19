@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as Slot from '@rn-primitives/slot';
 import { ChevronRight, MoreHorizontal } from 'lucide-react';
-import { Text, View, type ViewProps } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { cn } from '@lssm/lib.ui-kit-core/utils';
 

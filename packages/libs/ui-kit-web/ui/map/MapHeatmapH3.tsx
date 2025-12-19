@@ -21,7 +21,7 @@ export interface H3HeatmapProps {
 
 function buildChoroplethPaint(
   stops: [number, string][],
-  maxCount: number | undefined
+  _maxCount: number | undefined
 ) {
   const scaleStops = (stops || []).map(([c, col]) => [c, col]);
   return {
@@ -47,12 +47,14 @@ export function MapHeatmapH3(props: H3HeatmapProps) {
     maxCount,
   } = props;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fillLayer: any = {
     id: `${id}-fill`,
     type: 'fill',
     paint: buildChoroplethPaint(colorStops, maxCount),
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lineLayer: any = {
     id: `${id}-outline`,
     type: 'line',
@@ -64,6 +66,7 @@ export function MapHeatmapH3(props: H3HeatmapProps) {
   };
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Source id={id} type="geojson" data={data as any}>
       <Layer {...fillLayer} />
       <Layer {...lineLayer} />

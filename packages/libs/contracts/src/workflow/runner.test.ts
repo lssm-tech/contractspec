@@ -59,7 +59,7 @@ function workflowSpec(overrides?: {
 
 function createRunner(
   spec: WorkflowSpec,
-  events: { event: string; payload: any }[],
+  events: { event: string; payload: unknown }[],
   options?: Pick<
     WorkflowRunnerConfig,
     'appConfigProvider' | 'enforceCapabilities'
@@ -185,7 +185,7 @@ function makeResolvedConfig(
 
 describe('WorkflowRunner', () => {
   it('executes automation and human steps until completion', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec();
     const { runner, store, opExecutor } = createRunner(spec, events);
 
@@ -223,7 +223,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('provides resolved app config context to the operation executor', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec();
     const resolvedAppConfig = makeResolvedConfig();
 
@@ -234,7 +234,7 @@ describe('WorkflowRunner', () => {
     const workflowId = await runner.start(spec.meta.name);
     await runner.executeStep(workflowId);
 
-    const context = opExecutor.mock.calls[0]?.[2] as any;
+    const context = opExecutor.mock.calls[0]?.[2] as Record<string, unknown>;
     expect(context?.resolvedAppConfig).toBe(resolvedAppConfig);
     expect(context?.integrations).toEqual(resolvedAppConfig.integrations);
     expect(context?.knowledge).toEqual(resolvedAppConfig.knowledge);
@@ -243,7 +243,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('invokes capability enforcement hook before executing operation', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec();
     const enforceCapabilities = vi.fn();
 
@@ -260,7 +260,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('fails to start when a required integration slot is not bound', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -285,7 +285,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('fails to start when required capabilities are missing', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -313,7 +313,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('allows workflow start when pre-flight requirements are satisfied', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec({
       steps: [
         {
@@ -352,7 +352,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('rejects step execution when guard evaluates to false', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const guardedSpec = workflowSpec({
       steps: [
         {
@@ -391,7 +391,7 @@ describe('WorkflowRunner', () => {
   });
 
   it('cancels a workflow', async () => {
-    const events: { event: string; payload: any }[] = [];
+    const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec();
     const { runner } = createRunner(spec, events);
 

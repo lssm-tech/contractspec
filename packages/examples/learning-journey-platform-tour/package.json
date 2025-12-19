@@ -54,5 +54,6 @@
       "./track": "./dist/track.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

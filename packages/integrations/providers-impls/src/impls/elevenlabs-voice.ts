@@ -60,16 +60,18 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
     const response = await this.client.voices.getAll();
     return (response.voices ?? []).map((voice) => ({
       id: voice.voiceId ?? '',
-      name: voice.name ?? voice.voiceId ?? '',
+      name: voice.name ?? '',
       description: voice.description ?? undefined,
       language: voice.labels?.language ?? undefined,
-      gender: normalizeGender(voice.labels?.gender),
-      previewUrl: voice.previewUrl ?? undefined,
       metadata: {
         category: voice.category ?? '',
-        ...voice.labels,
+        previewUrl: voice.previewUrl ?? undefined,
+        ...(() => {
+          const { language, ...rest } = voice.labels ?? {};
+          return rest;
+        })(),
       },
-    }));
+    })) as any[];
   }
 
   async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {
@@ -116,21 +118,6 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
       url: undefined,
     };
   }
-}
-
-function normalizeGender(
-  value: string | undefined
-): 'male' | 'female' | 'neutral' | undefined {
-  if (!value) return undefined;
-  const normalized = value.toLowerCase();
-  if (
-    normalized === 'male' ||
-    normalized === 'female' ||
-    normalized === 'neutral'
-  ) {
-    return normalized;
-  }
-  return undefined;
 }
 
 async function readWebStream(

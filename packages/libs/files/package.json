@@ -56,5 +56,6 @@
       "./storage": "./dist/storage/index.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

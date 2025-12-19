@@ -7,11 +7,7 @@ import {
   createStateMachineEngine,
   buildStateMachineDefinition,
 } from '../state-machine';
-import type {
-  WorkflowInstanceRecord,
-  WorkflowStepRecord,
-  HandlerContext,
-} from '../shared/types';
+import type { WorkflowInstanceRecord, HandlerContext } from '../shared/types';
 import { mockDataStore } from '../shared/mock-data';
 import { createApprovalRequests } from '../approval/approval.handler';
 

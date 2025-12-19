@@ -11,6 +11,7 @@ import {
   readFileSync,
   writeFileSync,
   statSync,
+  renameSync,
 } from 'fs';
 import { dirname, join } from 'path';
 import type {
@@ -99,7 +100,6 @@ export class FileSystemCacheStorage implements CacheStorageAdapter {
       writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
 
       // Rename is atomic on most filesystems
-      const { renameSync } = require('fs');
       renameSync(tempPath, this.filePath);
 
       this.isDirty = false;

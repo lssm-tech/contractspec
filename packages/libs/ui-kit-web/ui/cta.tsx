@@ -35,7 +35,9 @@ export const Cta = React.forwardRef<
       if (ctaName && capture) {
         try {
           capture(ctaName);
-        } catch {}
+        } catch {
+          // ignore
+        }
       }
       onClick?.(e);
     };

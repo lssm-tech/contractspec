@@ -57,5 +57,6 @@
       "./validation": "./dist/validation.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

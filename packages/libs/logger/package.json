@@ -84,5 +84,6 @@
       "./types": "./dist/types.mjs",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

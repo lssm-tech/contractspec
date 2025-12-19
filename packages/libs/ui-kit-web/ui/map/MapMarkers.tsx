@@ -23,6 +23,12 @@ export function MapMarkers({ points }: { points: MapPoint[] }) {
             tabIndex={p.onClick ? 0 : -1}
             aria-label={p.ariaLabel || 'marker'}
             onClick={p.onClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                p.onClick?.();
+              }
+            }}
             style={{
               width: p.size ?? 14,
               height: p.size ?? 14,

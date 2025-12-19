@@ -56,5 +56,6 @@
       "./tracks/quests": "./dist/tracks/quests.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

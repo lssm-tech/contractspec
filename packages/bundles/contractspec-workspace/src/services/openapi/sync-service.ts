@@ -5,8 +5,6 @@
 import {
   parseOpenApi,
   importFromOpenApi,
-  diffSpecs,
-  formatDiffChanges,
 } from '@lssm/lib.contracts-transformers/openapi';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';

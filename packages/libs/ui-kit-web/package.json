@@ -326,5 +326,6 @@
       "./ui/visually-hidden": "./dist/ui/visually-hidden.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

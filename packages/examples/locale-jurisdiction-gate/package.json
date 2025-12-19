@@ -68,5 +68,6 @@
       "./policy/types": "./dist/policy/types.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -15,7 +15,7 @@ export class OpenAICodexAgent implements AgentProvider {
     this.apiKey = process.env.OPENAI_API_KEY;
   }
 
-  canHandle(task: AgentTask): boolean {
+  canHandle(_task: AgentTask): boolean {
     return !!this.apiKey;
   }
 

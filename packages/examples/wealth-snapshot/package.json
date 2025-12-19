@@ -64,5 +64,6 @@
       "./wealth-snapshot.feature": "./dist/wealth-snapshot.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -7,11 +7,7 @@
  * - Dependency graphs
  */
 
-import type {
-  IntegrityAnalysisResult,
-  SpecLocation,
-  SpecInventory,
-} from './integrity';
+import type { IntegrityAnalysisResult, SpecInventory } from './integrity';
 import type { FeatureScanResult } from '@lssm/module.contractspec-workspace';
 
 /**
@@ -79,7 +75,7 @@ function generateFeatureMapDiagram(
   // Filter features if specified
   let features = result.features;
   if (options.featureKeys && options.featureKeys.length > 0) {
-    features = features.filter((f) => options.featureKeys!.includes(f.key));
+    features = features.filter((f) => options.featureKeys?.includes(f.key));
   }
 
   // Track node count

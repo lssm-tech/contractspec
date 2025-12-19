@@ -24,6 +24,7 @@ export function MapGeoJsonOverlay(props: GeoJsonOverlayProps) {
     lineOpacity = 0.8,
   } = props;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fillLayer: any = {
     id: `${id}-fill`,
     type: 'fill',
@@ -33,6 +34,7 @@ export function MapGeoJsonOverlay(props: GeoJsonOverlayProps) {
     },
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const outlineLayer: any = {
     id: `${id}-outline`,
     type: 'line',
@@ -44,6 +46,7 @@ export function MapGeoJsonOverlay(props: GeoJsonOverlayProps) {
   };
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Source id={id} type="geojson" data={data as any}>
       <Layer {...fillLayer} />
       <Layer {...outlineLayer} />

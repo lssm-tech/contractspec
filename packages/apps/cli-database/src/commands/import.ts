@@ -16,6 +16,7 @@ function stripDatasourceAndGenerators(schema: string): string {
     .trim();
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function runImport(argv: any) {
   const target = (argv.target as string) || process.cwd();
   const modulesArg = (argv.modules as string) || '';
@@ -43,7 +44,7 @@ export async function runImport(argv: any) {
         if (Array.isArray(match) && typeof match[1] === 'string') {
           const arr: string = match[1] || '';
           const mods: string[] = [];
-          const re = /['\"]([^'\"]+)['\"]/g;
+          const re = /['"]([^'"]+)['"]/g;
           let m: RegExpExecArray | null;
           while ((m = re.exec(arr))) {
             const val = m[1] ?? '';

@@ -57,7 +57,7 @@ export type SectionProps = React.HTMLAttributes<HTMLElement> &
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ as = 'section', className, width, px, py, tone, text, ...props }, ref) => {
-    const Comp: any = as;
+    const Comp = as as React.ElementType;
     return (
       <Comp
         ref={ref}

@@ -76,7 +76,8 @@ describe('PowensOpenBankingProvider', () => {
 
     expect(result.accounts).toHaveLength(1);
     expect(result.accounts[0]).toBeDefined();
-    const account = result.accounts[0]!;
+    const account = result.accounts[0];
+    if (!account) throw new Error('Account should be defined');
     expect(account.displayName).toBe('Family Checking');
     expect(account.currency).toBe('EUR');
     expect(account.connectionId).toBe('conn-powens-primary');
@@ -135,7 +136,8 @@ describe('PowensOpenBankingProvider', () => {
 
     expect(balances).toHaveLength(2);
     expect(balances[0]).toBeDefined();
-    const firstBalance = balances[0]!;
+    const firstBalance = balances[0];
+    if (!firstBalance) throw new Error('First balance should be defined');
     expect(firstBalance.type).toBe('current');
     expect(firstBalance.amount).toBe(1200.5);
     expect(firstBalance.lastUpdatedAt).toBe('2025-01-20T08:30:00Z');
@@ -155,7 +157,7 @@ describe('PowensOpenBankingProvider', () => {
         tenantId: 'tenant.family-office',
         connectionId: 'conn-powens-primary',
         // userId omitted intentionally
-      } as any)
+      } as Record<string, unknown>)
     ).rejects.toThrowError(/requires the upstream userId/i);
   });
 });

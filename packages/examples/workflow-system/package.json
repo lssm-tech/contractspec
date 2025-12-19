@@ -112,5 +112,6 @@
       "./workflow/workflow.schema": "./dist/workflow/workflow.schema.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

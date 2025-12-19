@@ -57,6 +57,7 @@ export function DateRangePicker({
               ? { from: value.start, to: value.end }
               : undefined
           }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onSelect={(range: any) => {
             const start = range?.from ?? null;
             const end = range?.to ?? null;

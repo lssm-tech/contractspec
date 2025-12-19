@@ -96,5 +96,6 @@
       "./service.feature": "./dist/service.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

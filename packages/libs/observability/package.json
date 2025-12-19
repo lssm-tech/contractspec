@@ -62,5 +62,6 @@
       "./tracing/middleware": "./dist/tracing/middleware.mjs",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

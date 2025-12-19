@@ -8,11 +8,7 @@
 import type { WorkspaceConfig } from '@lssm/module.contractspec-workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
-import {
-  buildSpec,
-  type BuildSpecOptions,
-  type BuildSpecResult,
-} from './build';
+import { buildSpec, type BuildSpecOptions } from './build';
 import { validateSpec, type ValidateSpecResult } from './validate';
 
 export interface SyncSpecsOptions {

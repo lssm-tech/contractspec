@@ -87,5 +87,6 @@
       "./team-hub.feature": "./dist/team-hub.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

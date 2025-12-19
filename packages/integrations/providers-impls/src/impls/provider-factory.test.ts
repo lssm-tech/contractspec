@@ -121,8 +121,8 @@ function buildContext({
       key,
       version: 1,
       category: key.startsWith('openbanking.')
-        ? ('open-banking' as any)
-        : (key.split('.')[0] as any),
+        ? ('open-banking' as string)
+        : (key.split('.')[0] as string),
       displayName: key,
       title: key,
       description: `${key} provider`,
@@ -168,7 +168,7 @@ function buildContext({
       reference: 'mock://secret',
       version: '2',
     }),
-    deleteSecret: async () => {},
+    deleteSecret: async () => undefined,
   };
 
   return {

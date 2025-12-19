@@ -154,7 +154,7 @@ async function checkCursorMcpServer(
  */
 async function checkClaudeMcpConfig(
   fs: FsAdapter,
-  ctx: CheckContext
+  _ctx: CheckContext
 ): Promise<CheckResult> {
   const configPath = getClaudeDesktopConfigPath();
 

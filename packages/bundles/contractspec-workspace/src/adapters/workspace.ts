@@ -194,6 +194,7 @@ export function detectPackageManager(
   // Check environment
   if (
     process.env.BUN_INSTALL ||
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     typeof (globalThis as any).Bun !== 'undefined'
   ) {
     return 'bun';

@@ -48,7 +48,7 @@ export function TimePicker({
     [is24Hour]
   );
 
-  const handleChange = (_event: any, selectedDate?: Date | undefined) => {
+  const handleChange = (_event: unknown, selectedDate?: Date | undefined) => {
     if (Platform.OS !== 'ios') setShow(false);
     if (selectedDate) {
       onChange(selectedDate);
@@ -77,6 +77,7 @@ export function TimePicker({
           mode="time"
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           onChange={handleChange}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...(pickerProps as any)}
         />
       )}

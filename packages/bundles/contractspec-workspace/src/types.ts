@@ -49,6 +49,7 @@ export interface PresentationSpecData extends BaseSpecData {
   presentationKind: PresentationKind;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface FormSpecData extends BaseSpecData {
   // Form-specific data
 }
@@ -326,7 +327,7 @@ export interface IntegrationConfigFieldData {
   description?: string;
 }
 
-export interface IntegrationSecretFieldData extends IntegrationConfigFieldData {}
+export type IntegrationSecretFieldData = IntegrationConfigFieldData;
 
 export interface IntegrationSpecData extends BaseSpecData {
   title: string;

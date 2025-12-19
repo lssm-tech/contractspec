@@ -62,5 +62,6 @@
       "./versioned-knowledge-base.feature": "./dist/versioned-knowledge-base.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

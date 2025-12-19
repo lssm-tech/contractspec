@@ -14,10 +14,8 @@ import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { DocBlock } from '../docs/types';
 import type { SpecRegistry } from '../registry';
 import type { PresentationRegistry } from '../presentations';
-import type { FeatureRegistry } from '../features';
 import { jsonSchemaForSpec } from '../jsonschema';
 import type {
-  LLMExportFormat,
   SpecExportOptions,
   FeatureExportOptions,
   SpecExportResult,
@@ -138,7 +136,8 @@ export function specToFullMarkdown(
       lines.push('');
       lines.push('```json');
       try {
-        const schema = jsonSchemaForSpec(spec as any);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const schema = jsonSchemaForSpec(spec as any) as any;
         lines.push(JSON.stringify(schema.input ?? {}, null, 2));
       } catch {
         lines.push('// Schema generation not available');
@@ -151,7 +150,7 @@ export function specToFullMarkdown(
     lines.push('');
     lines.push('```json');
     try {
-      const schema = jsonSchemaForSpec(spec as any);
+      const schema = jsonSchemaForSpec(spec as any) as any;
       lines.push(JSON.stringify(schema.output ?? {}, null, 2));
     } catch {
       lines.push('// Schema generation not available');

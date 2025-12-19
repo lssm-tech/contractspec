@@ -85,9 +85,12 @@ function encodeMessage(message: EmailOutboundMessage): string {
       `Content-Type: multipart/alternative; boundary="${boundaryAlt}"`
     );
     body += `\r\n--${boundaryAlt}\r\n`;
-    body += buildTextPart('text/plain; charset="utf-8"', message.textBody!);
+    body += buildTextPart(
+      'text/plain; charset="utf-8"',
+      message.textBody || ''
+    );
     body += `\r\n--${boundaryAlt}\r\n`;
-    body += buildTextPart('text/html; charset="utf-8"', message.htmlBody!);
+    body += buildTextPart('text/html; charset="utf-8"', message.htmlBody || '');
     body += `\r\n--${boundaryAlt}--`;
   } else if (hasHtml) {
     headers.push('Content-Type: text/html; charset="utf-8"');
@@ -116,11 +119,17 @@ function buildAlternativePart(
   content += '\r\n';
   if (hasText) {
     content += `--${boundary}\r\n`;
-    content += buildTextPart('text/plain; charset="utf-8"', message.textBody!);
+    content += buildTextPart(
+      'text/plain; charset="utf-8"',
+      message.textBody || ''
+    );
   }
   if (hasHtml) {
     content += `\r\n--${boundary}\r\n`;
-    content += buildTextPart('text/html; charset="utf-8"', message.htmlBody!);
+    content += buildTextPart(
+      'text/html; charset="utf-8"',
+      message.htmlBody || ''
+    );
   }
   content += `\r\n--${boundary}--`;
   return content;

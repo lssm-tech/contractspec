@@ -58,5 +58,6 @@
       "./preferences": "./dist/preferences.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

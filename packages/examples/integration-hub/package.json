@@ -91,5 +91,6 @@
       "./sync/sync.schema": "./dist/sync/sync.schema.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -56,5 +56,6 @@
       "./metering.feature": "./dist/metering.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -50,7 +50,7 @@ type VStackProps = React.HTMLAttributes<HTMLDivElement> &
 
 const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
   ({ className, gap, align, justify, as = 'div', ...props }, ref) => {
-    const Comp: any = as;
+    const Comp = as as React.ElementType;
     return (
       <Comp
         ref={ref}
@@ -109,7 +109,7 @@ type HStackProps = React.HTMLAttributes<HTMLDivElement> &
 
 const HStack = React.forwardRef<HTMLDivElement, HStackProps>(
   ({ className, gap, align, justify, wrap, as = 'div', ...props }, ref) => {
-    const Comp: any = as;
+    const Comp = as as React.ElementType;
     return (
       <Comp
         ref={ref}
@@ -168,7 +168,7 @@ type BoxProps = React.HTMLAttributes<HTMLDivElement> &
 
 const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   ({ className, gap, align, justify, wrap, as = 'div', ...props }, ref) => {
-    const Comp: any = as;
+    const Comp = as as React.ElementType;
     return (
       <Comp
         ref={ref}

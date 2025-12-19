@@ -1,4 +1,3 @@
-import { Readable } from 'node:stream';
 import { describe, expect, it, vi } from 'bun:test';
 
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
@@ -39,14 +38,14 @@ describe('ElevenLabsVoiceProvider', () => {
       text: 'Hello world',
     });
 
-    expect(client.generate).toHaveBeenCalled();
+    expect(client.textToSpeech.convert).toHaveBeenCalled();
     expect(result.audio).toBeInstanceOf(Uint8Array);
     expect(result.audio.length).toBeGreaterThan(0);
   });
 });
 
 function createMockClient() {
-  const stream = buildReadable(Buffer.from('audio-bytes'));
+  const stream = buildWebReadableStream(Buffer.from('audio-bytes'));
   return {
     voices: {
       getAll: vi.fn(async () => ({
@@ -62,13 +61,18 @@ function createMockClient() {
         ],
       })),
     },
+    textToSpeech: {
+      convert: vi.fn(async () => stream),
+    },
     generate: vi.fn(async () => stream),
-  } as unknown as any;
+  } as Record<string, unknown>;
 }
 
-function buildReadable(buffer: Buffer) {
-  const readable = new Readable();
-  readable.push(buffer);
-  readable.push(null);
-  return readable;
+function buildWebReadableStream(buffer: Buffer): ReadableStream<Uint8Array> {
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(new Uint8Array(buffer));
+      controller.close();
+    },
+  });
 }

@@ -139,7 +139,9 @@ export class MistralLLMProvider implements LLMProvider {
     };
   }
 
-  async countTokens(messages: LLMMessage[]): Promise<{ promptTokens: number }> {
+  async countTokens(
+    _messages: LLMMessage[]
+  ): Promise<{ promptTokens: number }> {
     throw new Error('Mistral API does not currently support token counting');
   }
 

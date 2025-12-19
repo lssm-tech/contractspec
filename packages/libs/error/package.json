@@ -49,5 +49,6 @@
       "./http": "./dist/http.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

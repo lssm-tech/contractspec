@@ -53,5 +53,6 @@
       "./templates": "./dist/templates/index.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

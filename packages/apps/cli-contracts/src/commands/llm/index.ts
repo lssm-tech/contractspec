@@ -9,7 +9,6 @@
  */
 
 import { Command } from 'commander';
-import chalk from 'chalk';
 import { exportLLMCommand } from './export';
 import { guideLLMCommand } from './guide';
 import { verifyLLMCommand } from './verify';

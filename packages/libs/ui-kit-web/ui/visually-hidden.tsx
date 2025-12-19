@@ -19,7 +19,7 @@ const srOnlyStyle: React.CSSProperties = {
 
 const VisuallyHidden = React.forwardRef<HTMLElement, VisuallyHiddenProps>(
   ({ as = 'span', style, children, ...props }, ref) => {
-    const Comp: any = as;
+    const Comp = as as React.ElementType;
     return (
       <Comp ref={ref} style={{ ...srOnlyStyle, ...style }} {...props}>
         {children}

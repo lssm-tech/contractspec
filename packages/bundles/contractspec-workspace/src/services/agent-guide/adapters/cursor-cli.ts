@@ -7,10 +7,7 @@
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
 import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
-import {
-  AGENT_SYSTEM_PROMPTS,
-  specToFullMarkdown,
-} from '@lssm/lib.contracts/llm';
+import { AGENT_SYSTEM_PROMPTS } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
 /**

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Platform, Pressable, View } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { HStack, VStack } from './stack';
 import { Text } from './text';
@@ -46,13 +46,13 @@ export function DateRangePicker({
     [minDate, maxDate]
   );
 
-  const handleStart = (_: any, d?: Date) => {
+  const handleStart = (_: unknown, d?: Date) => {
     if (Platform.OS !== 'ios') setShowStart(false);
     if (!d) return;
     const end = value.end && d > value.end ? d : value.end;
     onChange({ start: d, end });
   };
-  const handleEnd = (_: any, d?: Date) => {
+  const handleEnd = (_: unknown, d?: Date) => {
     if (Platform.OS !== 'ios') setShowEnd(false);
     if (!d) return;
     const start = value.start && d < value.start ? d : value.start;
@@ -106,6 +106,7 @@ export function DateRangePicker({
           mode="date"
           display={Platform.OS === 'ios' ? 'inline' : 'default'}
           onChange={handleStart}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...(pickerCommon as any)}
         />
       )}

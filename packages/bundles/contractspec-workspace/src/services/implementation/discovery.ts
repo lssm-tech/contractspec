@@ -109,13 +109,17 @@ export function extractSpecReferences(
   let match: RegExpExecArray | null;
   const handlerPattern = new RegExp(SPEC_REFERENCE_PATTERNS.contractHandler);
   while ((match = handlerPattern.exec(code)) !== null) {
-    addMatch(match[1]!, 'handler', getLineNumber(match.index));
+    if (match[1]) {
+      addMatch(match[1], 'handler', getLineNumber(match.index));
+    }
   }
 
   // Check typeof pattern
   const typeofPattern = new RegExp(SPEC_REFERENCE_PATTERNS.typeofSpec);
   while ((match = typeofPattern.exec(code)) !== null) {
-    addMatch(match[1]!, 'typeof', getLineNumber(match.index));
+    if (match[1]) {
+      addMatch(match[1], 'typeof', getLineNumber(match.index));
+    }
   }
 
   // Check named imports
@@ -136,13 +140,17 @@ export function extractSpecReferences(
   // Check default imports
   const defaultPattern = new RegExp(SPEC_REFERENCE_PATTERNS.defaultImport);
   while ((match = defaultPattern.exec(code)) !== null) {
-    addMatch(match[1]!, 'import', getLineNumber(match.index));
+    if (match[1]) {
+      addMatch(match[1], 'import', getLineNumber(match.index));
+    }
   }
 
   // Check spec assignments
   const assignPattern = new RegExp(SPEC_REFERENCE_PATTERNS.specAssignment);
   while ((match = assignPattern.exec(code)) !== null) {
-    addMatch(match[1]!, 'unknown', getLineNumber(match.index));
+    if (match[1]) {
+      addMatch(match[1], 'unknown', getLineNumber(match.index));
+    }
   }
 
   return matches;

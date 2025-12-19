@@ -50,5 +50,6 @@
       "./openapi": "./dist/openapi/index.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

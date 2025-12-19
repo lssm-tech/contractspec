@@ -1,6 +1,6 @@
 import { execa } from 'execa';
 
-export async function runMigrate(cmd: string, argv: any) {
+export async function runMigrate(cmd: string, _argv: unknown) {
   if (cmd === 'migrate:dev') {
     await execa('prisma', ['migrate', 'dev'], { stdio: 'inherit' });
     return;

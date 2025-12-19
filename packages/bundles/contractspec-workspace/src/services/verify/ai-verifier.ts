@@ -10,10 +10,7 @@ import type {
   VerificationReport,
   VerificationIssue,
 } from '@lssm/lib.contracts/llm';
-import {
-  generateVerificationPrompt,
-  specToFullMarkdown,
-} from '@lssm/lib.contracts/llm';
+import { generateVerificationPrompt } from '@lssm/lib.contracts/llm';
 import type {
   VerifyInput,
   AIReviewResult,
@@ -215,6 +212,7 @@ export async function verifyWithAI(
   // Generate suggestions from findings
   const suggestions = result.findings
     .filter((f) => f.suggestion)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .map((f) => f.suggestion!);
 
   return {
@@ -293,6 +291,7 @@ export function createQuickAIReview(input: VerifyInput): VerificationReport {
     passed,
     score,
     issues,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     suggestions: issues.filter((i) => i.suggestion).map((i) => i.suggestion!),
     coverage: {
       scenarios: { total: 0, covered: 0 },
@@ -513,7 +512,11 @@ export async function verifyWithAIEnhanced(
   input: VerifyInput,
   config: VerifyConfig = {}
 ): Promise<VerificationReport> {
-  const { spec, implementationCode, implementationPath } = input;
+  const {
+    spec: _spec,
+    implementationCode: _implementationCode,
+    implementationPath: _implementationPath,
+  } = input;
   const startTime = Date.now();
 
   // Run standard AI verification

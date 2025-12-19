@@ -36,7 +36,9 @@ export class QdrantVectorProvider implements VectorStoreProvider {
 
   async upsert(request: VectorUpsertRequest): Promise<void> {
     if (request.documents.length === 0) return;
-    const vectorSize = request.documents[0]!.vector.length;
+    const firstDocument = request.documents[0];
+    if (!firstDocument) return;
+    const vectorSize = firstDocument.vector.length;
 
     if (this.createCollectionIfMissing) {
       await this.ensureCollection(request.collection, vectorSize);
@@ -64,7 +66,7 @@ export class QdrantVectorProvider implements VectorStoreProvider {
     const results = await this.client.search(query.collection, {
       vector: query.vector,
       limit: query.topK,
-      filter: query.filter as any,
+      filter: query.filter as Record<string, unknown>,
       score_threshold: query.scoreThreshold,
       with_payload: true,
       with_vector: false,
@@ -84,7 +86,7 @@ export class QdrantVectorProvider implements VectorStoreProvider {
   async delete(request: VectorDeleteRequest): Promise<void> {
     await this.client.delete(request.collection, {
       wait: true,
-      points: request.ids,
+      points: { ids: request.ids } as any,
     });
   }
 
@@ -94,7 +96,7 @@ export class QdrantVectorProvider implements VectorStoreProvider {
   ): Promise<void> {
     try {
       await this.client.getCollection(collectionName);
-    } catch (error) {
+    } catch (_error) {
       await this.client.createCollection(collectionName, {
         vectors: {
           size: vectorSize,

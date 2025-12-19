@@ -129,7 +129,7 @@ export class IntegrationProviderFactory {
           ),
           clientOptions:
             secrets.type === 'service_account'
-              ? { credentials: secrets as any }
+              ? { credentials: secrets as Record<string, unknown> }
               : undefined,
         });
       default:
@@ -257,7 +257,8 @@ export class IntegrationProviderFactory {
   ): Promise<Record<string, unknown>> {
     const cacheKey = context.connection.meta.id;
     if (SECRET_CACHE.has(cacheKey)) {
-      return SECRET_CACHE.get(cacheKey)!;
+      const cached = SECRET_CACHE.get(cacheKey);
+      return cached ?? {};
     }
     const secret = await context.secretProvider.getSecret(
       context.secretReference

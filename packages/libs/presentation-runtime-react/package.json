@@ -49,5 +49,6 @@
       "./WorkflowStepRenderer": "./dist/WorkflowStepRenderer.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

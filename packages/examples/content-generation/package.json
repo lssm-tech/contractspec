@@ -49,5 +49,6 @@
       "./*": "./*"
     }
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.js",
+  "license": "MIT"
 }

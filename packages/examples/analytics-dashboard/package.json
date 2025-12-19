@@ -79,5 +79,6 @@
       "./query/query.schema": "./dist/query/query.schema.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

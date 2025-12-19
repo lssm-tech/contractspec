@@ -11,6 +11,7 @@
     "packages/bundles/*",
     "packages/apps/*"
   ],
+  "license": "MIT",
   "scripts": {
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",

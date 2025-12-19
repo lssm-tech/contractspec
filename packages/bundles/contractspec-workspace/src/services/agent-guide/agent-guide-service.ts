@@ -7,18 +7,13 @@
 
 import type { AnyContractSpec } from '@lssm/lib.contracts';
 import type { FeatureModuleSpec } from '@lssm/lib.contracts/features';
-import type {
-  SpecRegistry,
-  PresentationRegistry,
-  FeatureRegistry,
-} from '@lssm/lib.contracts';
+import type { SpecRegistry, PresentationRegistry } from '@lssm/lib.contracts';
 import type { AgentType, ImplementationPlan } from '@lssm/lib.contracts/llm';
 import {
   generateImplementationPlan,
   specToFullMarkdown,
   specToAgentPrompt,
   featureToMarkdown,
-  exportSpec,
 } from '@lssm/lib.contracts/llm';
 import { getAgentAdapter, listAgentTypes } from './adapters';
 import type { AgentGuideConfig, GuideOptions, GuideResult } from './types';
@@ -175,7 +170,7 @@ export class AgentGuideService {
    */
   exportForAgent(
     spec: AnyContractSpec,
-    agent: AgentType,
+    _agent: AgentType,
     taskType: 'implement' | 'test' | 'refactor' | 'review' = 'implement',
     existingCode?: string
   ): string {

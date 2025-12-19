@@ -66,5 +66,6 @@
       "./components": "./dist/components/index.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

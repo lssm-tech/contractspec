@@ -31,5 +31,5 @@ function createMockPostmarkClient() {
       SubmittedAt: new Date().toISOString(),
       To: 'Recipient <to@example.com>',
     })),
-  } as unknown as any;
+  } as Record<string, unknown>;
 }

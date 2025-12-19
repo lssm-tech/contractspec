@@ -114,15 +114,16 @@ function toBuffer(data: Uint8Array | ArrayBuffer): Buffer {
   return Buffer.from(data);
 }
 
-function toMetadata(metadata: any): StorageObjectMetadata {
+function toMetadata(metadata: unknown): StorageObjectMetadata {
+  const meta = metadata as Record<string, unknown>;
   return {
-    bucket: metadata.bucket ?? '',
-    key: metadata.name ?? '',
-    sizeBytes: metadata.size ? Number(metadata.size) : undefined,
-    contentType: metadata.contentType ?? undefined,
-    etag: metadata.etag ?? undefined,
-    checksum: metadata.md5Hash ?? undefined,
-    lastModified: metadata.updated ? new Date(metadata.updated) : undefined,
-    metadata: metadata.metadata,
+    bucket: String(meta.bucket ?? ''),
+    key: String(meta.name ?? ''),
+    sizeBytes: meta.size ? Number(meta.size) : undefined,
+    contentType: meta.contentType ? String(meta.contentType) : undefined,
+    etag: meta.etag ? String(meta.etag) : undefined,
+    checksum: meta.md5Hash ? String(meta.md5Hash) : undefined,
+    lastModified: meta.updated ? new Date(String(meta.updated)) : undefined,
+    metadata: meta.metadata as Record<string, string> | undefined,
   };
 }

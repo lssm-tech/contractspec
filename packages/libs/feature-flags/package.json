@@ -56,5 +56,6 @@
       "./feature-flags.feature": "./dist/feature-flags.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

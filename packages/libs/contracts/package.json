@@ -564,5 +564,6 @@
       "./workflow/validation": "./dist/workflow/validation.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

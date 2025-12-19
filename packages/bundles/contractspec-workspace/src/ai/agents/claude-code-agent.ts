@@ -15,7 +15,7 @@ export class ClaudeCodeAgent implements AgentProvider {
     this.apiKey = process.env.ANTHROPIC_API_KEY;
   }
 
-  canHandle(task: AgentTask): boolean {
+  canHandle(_task: AgentTask): boolean {
     return !!this.apiKey;
   }
 

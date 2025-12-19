@@ -71,5 +71,6 @@
       "./types": "./dist/types.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

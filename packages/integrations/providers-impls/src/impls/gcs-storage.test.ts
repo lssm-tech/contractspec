@@ -80,12 +80,12 @@ function createMockStorage() {
   };
 
   const file = {
-    save: vi.fn(async () => {}),
-    makePublic: vi.fn(async () => {}),
+    save: vi.fn(async () => undefined),
+    makePublic: vi.fn(async () => undefined),
     getMetadata: vi.fn(async () => [metadata]),
     exists: vi.fn(async () => [true]),
     download: vi.fn(async () => [Buffer.from([1, 2, 3])]),
-    delete: vi.fn(async () => {}),
+    delete: vi.fn(async () => undefined),
     getSignedUrl: vi.fn(async () => ['https://example.com/signed']),
     metadata,
   };
@@ -97,5 +97,5 @@ function createMockStorage() {
 
   return {
     bucket: vi.fn(() => bucket),
-  } as unknown as any;
+  } as Record<string, unknown>;
 }

@@ -5,7 +5,6 @@ This directory contains scripts for publishing packages to npm.
 ## Files
 
 - **`publish-packages.js`** - Main publishing script that automatically discovers and publishes packages
-- **`CICD_PUBLISHING_GUIDE.md`** - Complete guide for setting up CI/CD pipelines
 - **`changeset-publish.mjs`** - Integration with changesets for automated versioning
 
 ## Quick Start

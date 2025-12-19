@@ -132,7 +132,7 @@ export function NavCategorizedWithPreview({
   modules,
   activeCategory,
   setActiveCategory,
-  activeKey,
+  activeKey: _activeKey,
   setActiveKey,
   preview,
 }: {

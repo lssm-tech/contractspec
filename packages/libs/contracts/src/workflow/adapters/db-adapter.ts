@@ -1,12 +1,34 @@
 import type { StateStore, WorkflowState, WorkflowStateFilters } from '../state';
 
 // Generic interface for Prisma Client to avoid hard dependency on generated client
+interface WorkflowStateRecord {
+  id: string;
+  name: string;
+  version: string;
+  status: string;
+  currentStep: string;
+  data: unknown;
+  history: unknown[];
+  retryCounts: Record<string, number>;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface PrismaClientLike {
   workflowState: {
-    create: (args: { data: any }) => Promise<any>;
-    findUnique: (args: { where: { id: string } }) => Promise<any>;
-    update: (args: { where: { id: string }; data: any }) => Promise<any>;
-    findMany: (args: { where?: any }) => Promise<any[]>;
+    create: (args: {
+      data: Record<string, unknown>;
+    }) => Promise<WorkflowStateRecord>;
+    findUnique: (args: {
+      where: { id: string };
+    }) => Promise<WorkflowStateRecord | null>;
+    update: (args: {
+      where: { id: string };
+      data: Record<string, unknown>;
+    }) => Promise<WorkflowStateRecord>;
+    findMany: (args: {
+      where?: Record<string, unknown>;
+    }) => Promise<WorkflowStateRecord[]>;
   };
 }
 
@@ -40,11 +62,11 @@ export class PrismaStateStore implements StateStore {
     return {
       workflowId: record.id,
       workflowName: record.name,
-      workflowVersion: record.version,
+      workflowVersion: parseInt(record.version, 10),
       currentStep: record.currentStep,
       data: record.data as Record<string, unknown>,
-      history: record.history as any[],
-      retryCounts: record.retryCounts as Record<string, number>,
+      history: record.history as any,
+      retryCounts: record.retryCounts,
       status: record.status as any,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
@@ -77,11 +99,11 @@ export class PrismaStateStore implements StateStore {
     return {
       workflowId: updated.id,
       workflowName: updated.name,
-      workflowVersion: updated.version,
+      workflowVersion: parseInt(updated.version, 10),
       currentStep: updated.currentStep,
       data: updated.data as Record<string, unknown>,
-      history: updated.history as any[],
-      retryCounts: updated.retryCounts as Record<string, number>,
+      history: updated.history as any,
+      retryCounts: updated.retryCounts,
       status: updated.status as any,
       createdAt: updated.createdAt,
       updatedAt: updated.updatedAt,
@@ -89,7 +111,7 @@ export class PrismaStateStore implements StateStore {
   }
 
   async list(filters?: WorkflowStateFilters): Promise<WorkflowState[]> {
-    const where: any = {};
+    const where: Record<string, unknown> = {};
     if (filters?.status) {
       where.status = filters.status;
     }
@@ -101,11 +123,11 @@ export class PrismaStateStore implements StateStore {
     return records.map((record) => ({
       workflowId: record.id,
       workflowName: record.name,
-      workflowVersion: record.version,
+      workflowVersion: parseInt(record.version, 10),
       currentStep: record.currentStep,
       data: record.data as Record<string, unknown>,
-      history: record.history as any[],
-      retryCounts: record.retryCounts as Record<string, number>,
+      history: record.history as any,
+      retryCounts: record.retryCounts,
       status: record.status as any,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,

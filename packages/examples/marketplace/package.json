@@ -129,5 +129,6 @@
       "./store/store.schema": "./dist/store/store.schema.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -172,8 +172,10 @@ function serializeSuggestion(suggestion: SpecSuggestion) {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function deserializeSuggestion(payload: unknown): SpecSuggestion | undefined {
   if (!payload || typeof payload !== 'object') return undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const raw = payload as Record<string, any>;
   return {
     ...raw,

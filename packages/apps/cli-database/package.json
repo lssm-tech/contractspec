@@ -46,8 +46,8 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./cli": "./src/cli.ts",
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
     "./*": "./*"
   },
   "publishConfig": {
@@ -57,5 +57,6 @@
       "./cli": "./dist/cli.mjs",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

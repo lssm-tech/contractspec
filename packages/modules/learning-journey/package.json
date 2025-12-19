@@ -86,5 +86,6 @@
       "./track-spec": "./dist/track-spec.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

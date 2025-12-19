@@ -110,5 +110,6 @@
       "./tool/tool.schema": "./dist/tool/tool.schema.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

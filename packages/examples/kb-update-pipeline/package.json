@@ -66,5 +66,6 @@
       "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

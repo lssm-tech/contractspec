@@ -68,5 +68,6 @@
       "./providers": "./dist/providers/index.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -67,5 +67,6 @@
       "./validator": "./dist/validator.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -4,7 +4,6 @@
 
 import {
   parseOpenApi,
-  diffSpecVsOperation,
   type ParsedOperation,
 } from '@lssm/lib.contracts-transformers/openapi';
 import type { FsAdapter } from '../../ports/fs';
@@ -25,8 +24,8 @@ export async function validateAgainstOpenApiService(
   const {
     specPath,
     openApiSource,
-    ignoreDescriptions,
-    ignoreTags,
+    ignoreDescriptions: _ignoreDescriptions,
+    ignoreTags: _ignoreTags,
     ignoreTransport,
   } = options;
 

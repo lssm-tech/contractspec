@@ -51,7 +51,7 @@ export function DatePicker({
     [minDate, maxDate]
   );
 
-  const handleChange = (_event: any, selectedDate?: Date | undefined) => {
+  const handleChange = (_event: unknown, selectedDate?: Date | undefined) => {
     if (Platform.OS !== 'ios') setShow(false);
     if (selectedDate) {
       onChange(selectedDate);
@@ -80,6 +80,7 @@ export function DatePicker({
           mode="date"
           display={Platform.OS === 'ios' ? 'inline' : 'default'}
           onChange={handleChange}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...(pickerProps as any)}
         />
       )}

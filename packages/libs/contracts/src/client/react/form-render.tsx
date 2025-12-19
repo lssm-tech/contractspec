@@ -8,6 +8,10 @@ import type {
   FormSpec,
   OptionsSource,
   FormValuesFor,
+  TextFieldSpec,
+  TextareaFieldSpec,
+  SelectFieldSpec,
+  RadioFieldSpec,
 } from '../../forms';
 import { buildZodWithRelations, evalPredicate } from '../../forms';
 import type { AnySchemaModel } from '@lssm/lib.schema';
@@ -46,7 +50,7 @@ export interface DriverSlots {
       id?: string;
       name?: string;
       value?: unknown;
-      onChange?: (v: any) => void;
+      onChange?: (v: unknown) => void;
       disabled?: boolean;
       'aria-invalid'?: boolean;
       options: FormOption[];
@@ -66,7 +70,7 @@ export interface DriverSlots {
       id?: string;
       name?: string;
       value?: unknown;
-      onValueChange?: (v: any) => void;
+      onValueChange?: (v: unknown) => void;
       disabled?: boolean;
       options: FormOption[];
     } & Record<string, unknown>
@@ -93,11 +97,14 @@ export interface DriverSlots {
 
 export type ResolverMap<TValues> = Record<
   string,
-  (values: TValues, args?: any) => Promise<FormOption[]> | FormOption[]
+  (values: TValues, args?: unknown) => Promise<FormOption[]> | FormOption[]
 >;
-export type ComputationMap<TValues> = Record<string, (values: TValues) => any>;
+export type ComputationMap<TValues> = Record<
+  string,
+  (values: TValues) => unknown
+>;
 
-export interface CreateRendererOptions<TValues = any> {
+export interface CreateRendererOptions<TValues = Record<string, unknown>> {
   driver: DriverSlots;
   formOptions?: Record<string, unknown>;
   onSubmitOverride?: (
@@ -110,7 +117,7 @@ export interface CreateRendererOptions<TValues = any> {
   unmountStrategy?: 'keep' | 'clear';
 }
 
-export interface RenderOptions<TValues = any> {
+export interface RenderOptions<TValues = Record<string, unknown>> {
   defaultValues?: Partial<TValues>;
   overrides?: Partial<CreateRendererOptions<TValues>>;
 }
@@ -129,10 +136,10 @@ function getAtPath(values: unknown, path: string): unknown {
     .replace(/\[(\d+)\]/g, '.$1')
     .split('.')
     .filter(Boolean);
-  let cur: any = values;
+  let cur: unknown = values;
   for (const s of segs) {
     if (cur == null) return undefined;
-    cur = cur[s as keyof typeof cur];
+    cur = (cur as Record<string, unknown>)[s];
   }
   return cur;
 }
@@ -165,14 +172,17 @@ function useResolvedOptions<TValues>(
       if (source.kind === 'static') return setOpts([...(source.options ?? [])]);
       const fn = resolvers?.[source.resolverKey];
       if (!fn) return setOpts([]);
-      const res = await fn(values as any, source.args);
+      const res = await fn(values, source.args);
       if (mounted) setOpts([...(res ?? [])]);
     };
     run();
     return () => {
       mounted = false;
     };
-  }, [depKey, source && (source as any).resolverKey]);
+  }, [
+    depKey,
+    source && source.kind === 'resolver' ? source.resolverKey : undefined,
+  ]);
   return opts;
 }
 
@@ -209,7 +219,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
     const baseZod = useMemo(() => buildZodWithRelations(spec), [spec]);
     const form = useForm<FormValuesFor<M>>({
       ...merged.formOptions,
-      resolver: zodResolver(baseZod as any),
+      resolver: zodResolver(baseZod),
       defaultValues: options?.defaultValues as any,
     });
 
@@ -237,7 +247,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
         'data-invalid': invalid,
         hidden: !visible,
         disabled: !enabled,
-      } as any;
+      };
       const labelNode = f.labelI18n ? (
         <DriverLabel htmlFor={id}>{f.labelI18n}</DriverLabel>
       ) : null;
@@ -275,6 +285,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
             const ariaInvalid = fieldState.invalid || undefined;
 
             if (f.kind === 'text') {
+              const textField = f as TextFieldSpec;
               const Input = driver.Input;
               return (
                 <DriverField {...commonWrapProps}>
@@ -283,29 +294,21 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                     id={id}
                     aria-invalid={ariaInvalid}
                     placeholder={f.placeholderI18n}
-                    autoComplete={(f as any).autoComplete as any}
-                    inputMode={(f as any).inputMode as any}
-                    maxLength={(f as any).maxLength as any}
-                    minLength={(f as any).minLength as any}
+                    autoComplete={textField.autoComplete}
+                    inputMode={textField.inputMode}
+                    maxLength={textField.maxLength}
+                    minLength={textField.minLength}
                     disabled={!enabled}
                     {...field}
-                    {...(f.uiProps as any)}
-                    // Pass keyboard/autocomplete hints down for adapters that support them
-                    {...({
-                      keyboard: (f as any).keyboard,
-                      autoComplete:
-                        (f as any).keyboard?.autoComplete ??
-                        (f as any).autoComplete,
-                    } as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
             if (f.kind === 'textarea') {
+              const textareaField = f as TextareaFieldSpec;
               const Textarea = driver.Textarea;
               return (
                 <DriverField {...commonWrapProps}>
@@ -314,46 +317,41 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                     id={id}
                     aria-invalid={ariaInvalid}
                     placeholder={f.placeholderI18n}
-                    rows={(f as any).rows as any}
-                    maxLength={(f as any).maxLength as any}
+                    rows={textareaField.rows}
+                    maxLength={textareaField.maxLength}
                     disabled={!enabled}
                     {...field}
-                    {...(f.uiProps as any)}
-                    {...({
-                      keyboard: (f as any).keyboard,
-                      autoComplete:
-                        (f as any).keyboard?.autoComplete ??
-                        (f as any).autoComplete,
-                    } as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
             if (f.kind === 'select') {
+              const selectField = f as SelectFieldSpec;
               const Select = driver.Select;
-              const src = toOptionsArray((f as any).options);
-              const opts = useResolvedOptions(values, src, merged.resolvers);
+              const src = toOptionsArray(selectField.options as any);
+              const opts = useResolvedOptions(
+                values,
+                src as any,
+                merged.resolvers
+              );
               return (
                 <DriverField {...commonWrapProps}>
                   {labelNode}
                   <Select
                     id={id}
-                    name={name}
+                    name={name as any}
                     aria-invalid={ariaInvalid}
                     disabled={!enabled}
                     value={field.value}
-                    onChange={(v: any) => field.onChange(v)}
+                    onChange={(v: unknown) => field.onChange(v)}
                     options={opts}
-                    {...(f.uiProps as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
@@ -364,39 +362,40 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <Checkbox
                     id={id}
-                    name={name}
+                    name={name as any}
                     disabled={!enabled}
                     checked={!!field.value}
                     onCheckedChange={(v: boolean) => field.onChange(v)}
-                    {...(f.uiProps as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
             if (f.kind === 'radio') {
+              const radioField = f as RadioFieldSpec;
               const RadioGroup = driver.RadioGroup;
-              const src = toOptionsArray((f as any).options);
-              const opts = useResolvedOptions(values, src, merged.resolvers);
+              const src = toOptionsArray(radioField.options as any);
+              const opts = useResolvedOptions(
+                values,
+                src as any,
+                merged.resolvers
+              );
               return (
                 <DriverField {...commonWrapProps}>
                   {labelNode}
                   <RadioGroup
                     id={id}
-                    name={name}
+                    name={name as any}
                     disabled={!enabled}
                     value={field.value}
-                    onValueChange={(v: any) => field.onChange(v)}
+                    onValueChange={(v: unknown) => field.onChange(v)}
                     options={opts}
-                    {...(f.uiProps as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
@@ -407,16 +406,14 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <Switch
                     id={id}
-                    name={name}
+                    name={name as any}
                     disabled={!enabled}
                     checked={!!field.value}
                     onCheckedChange={(v: boolean) => field.onChange(v)}
-                    {...(f.uiProps as any)}
+                    {...(f.uiProps as Record<string, unknown>)}
                   />
                   {descNode}
-                  {fieldState.invalid ? (
-                    <DriverError errors={err as any} />
-                  ) : null}
+                  {fieldState.invalid ? <DriverError errors={err} /> : null}
                 </DriverField>
               );
             }
@@ -429,7 +426,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
     const renderArray = (f: ArrayFieldSpec, parent?: string) => {
       const name = fieldPath(parent, f.name);
       const { fields, append, remove } = useFieldArray({
-        control: form.control as any,
+        control: form.control,
         name: name as any,
       });
       const canAdd = f.max == null || fields.length < f.max;
@@ -460,7 +457,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
               type="button"
               variant="outline"
               size="sm"
-              onClick={() => append({})}
+              onClick={() => append({} as any)}
             >
               Add
             </Button>

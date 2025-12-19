@@ -302,5 +302,6 @@
       "./ui/utils": "./dist/ui/utils.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

@@ -100,5 +100,6 @@
       "./shared/mock-data": "./dist/shared/mock-data.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

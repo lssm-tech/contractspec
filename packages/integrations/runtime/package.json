@@ -58,5 +58,6 @@
       "./secrets/provider": "./dist/secrets/provider.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }

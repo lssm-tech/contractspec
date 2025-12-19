@@ -16,12 +16,8 @@ import { analyzeDeps } from '../deps';
 import { runDoctor } from '../doctor/doctor-service';
 import { validateImplementationFiles } from '../validate-implementation';
 import { loadWorkspaceConfig } from '../config';
-import { type SpecImplementationResult } from '../implementation/types';
 import { resolveAllImplementations } from '../implementation/resolver';
-import {
-  createVerificationCacheService,
-  createFileSystemCacheStorage,
-} from '../verification-cache';
+
 import type {
   CICheckCategory,
   CICheckCategorySummary,

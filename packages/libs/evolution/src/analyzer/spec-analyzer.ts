@@ -69,6 +69,7 @@ export class SpecAnalyzer {
       const valid = samplesForOp.length >= this.minSampleSize;
       if (!valid) {
         this.logger?.debug('SpecAnalyzer.analyzeSpecUsage.skipOperation', {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           operation: this.operationKey(samplesForOp[0]!),
           sampleSize: samplesForOp.length,
           minSampleSize: this.minSampleSize,
@@ -310,6 +311,7 @@ export class SpecAnalyzer {
     const windowEnd = new Date(Math.max(...timestamps));
 
     return {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       operation: samples[0]!.operation,
       totalCalls,
       successRate,
@@ -383,8 +385,10 @@ export class SpecAnalyzer {
 
 function percentile(values: number[], p: number): number {
   if (!values.length) return 0;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   if (values.length === 1) return values[0]!;
   const idx = Math.min(values.length - 1, Math.floor(p * values.length));
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return values[idx]!;
 }
 

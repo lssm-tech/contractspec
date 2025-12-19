@@ -55,6 +55,7 @@ Resolution:
 ${resolution.answer}
 Citations: ${resolution.citations.map((c) => c.label).join(', ')}`;
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const response = await this.llm!.chat(
       [
         {

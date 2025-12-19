@@ -66,5 +66,5 @@ function createMockTwilioClient() {
     messages: Object.assign(messagesFn, {
       create: vi.fn(async () => messageInstance),
     }),
-  } as unknown as any;
+  } as Record<string, unknown>;
 }

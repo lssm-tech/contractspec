@@ -92,5 +92,6 @@
       "./presentations/pipeline.presentation": "./dist/presentations/pipeline.presentation.js",
       "./*": "./*"
     }
-  }
+  },
+  "license": "MIT"
 }
