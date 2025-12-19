@@ -1,7 +1,5 @@
 'use client';
 
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-
 interface EngagementMeterProps {
   acknowledged: number;
   actioned: number;

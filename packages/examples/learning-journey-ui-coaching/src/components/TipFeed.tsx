@@ -39,7 +39,7 @@ export function TipFeed({ items }: TipFeedProps) {
 
       {/* Feed items */}
       <div className="space-y-4">
-        {items.map((item, index) => {
+        {items.map((item) => {
           const tipId = (item.step.metadata?.tipId as string) ?? 'default';
           const icon = TIP_ICONS[tipId] ?? TIP_ICONS.default;
 

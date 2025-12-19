@@ -8,11 +8,6 @@ import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import * as path from 'path';
 
-interface CleanOptions {
-  generatedOnly: boolean;
-  dryRun: boolean;
-}
-
 /**
  * Clean generated files and artifacts.
  */
