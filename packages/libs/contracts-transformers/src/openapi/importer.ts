@@ -63,13 +63,13 @@ function inferAuthLevel(
  */
 function buildInputSchema(operation: ParsedOperation): {
   schema: OpenApiSchema | null;
-  fields: Array<{ name: string; schema: OpenApiSchema; required: boolean }>;
+  fields: { name: string; schema: OpenApiSchema; required: boolean }[];
 } {
-  const fields: Array<{
+  const fields: {
     name: string;
     schema: OpenApiSchema;
     required: boolean;
-  }> = [];
+  }[] = [];
 
   // Add path parameters
   for (const param of operation.pathParams) {
@@ -195,9 +195,16 @@ function generateSpecCode(
   const lines: string[] = [];
 
   // Imports
-  lines.push("import { defineCommand, defineQuery } from '@lssm/lib.contracts';");
+  lines.push(
+    "import { defineCommand, defineQuery } from '@lssm/lib.contracts';"
+  );
   if (inputModel || outputModel) {
-    lines.push(generateImports([...(inputModel?.fields ?? []), ...(outputModel?.fields ?? [])]));
+    lines.push(
+      generateImports([
+        ...(inputModel?.fields ?? []),
+        ...(outputModel?.fields ?? []),
+      ])
+    );
   }
   lines.push('');
 
@@ -226,7 +233,9 @@ function generateSpecCode(
     lines.push(` * ${operation.description}`);
   }
   lines.push(` *`);
-  lines.push(` * @source OpenAPI: ${operation.method.toUpperCase()} ${operation.path}`);
+  lines.push(
+    ` * @source OpenAPI: ${operation.method.toUpperCase()} ${operation.path}`
+  );
   lines.push(` */`);
   lines.push(`export const ${safeName}Spec = ${defineFunc}({`);
 
@@ -235,11 +244,19 @@ function generateSpecCode(
   lines.push(`    name: '${specName}',`);
   lines.push('    version: 1,');
   lines.push(`    stability: '${options.defaultStability ?? 'stable'}',`);
-  lines.push(`    owners: [${(options.defaultOwners ?? []).map((o) => `'${o}'`).join(', ')}],`);
+  lines.push(
+    `    owners: [${(options.defaultOwners ?? []).map((o) => `'${o}'`).join(', ')}],`
+  );
   lines.push(`    tags: [${operation.tags.map((t) => `'${t}'`).join(', ')}],`);
-  lines.push(`    description: ${JSON.stringify(operation.summary ?? operation.operationId)},`);
-  lines.push(`    goal: ${JSON.stringify(operation.description ?? 'Imported from OpenAPI')},`);
-  lines.push(`    context: 'Imported from OpenAPI: ${operation.method.toUpperCase()} ${operation.path}',`);
+  lines.push(
+    `    description: ${JSON.stringify(operation.summary ?? operation.operationId)},`
+  );
+  lines.push(
+    `    goal: ${JSON.stringify(operation.description ?? 'Imported from OpenAPI')},`
+  );
+  lines.push(
+    `    context: 'Imported from OpenAPI: ${operation.method.toUpperCase()} ${operation.path}',`
+  );
   lines.push('  },');
 
   // IO
@@ -252,7 +269,7 @@ function generateSpecCode(
   if (outputModel) {
     lines.push(`    output: ${outputModel.name},`);
   } else {
-    lines.push("    output: null, // TODO: Define output schema");
+    lines.push('    output: null, // TODO: Define output schema');
   }
   lines.push('  },');
 
@@ -329,10 +346,7 @@ export function importFromOpenApi(
       // Build input schema
       const { schema: inputSchema } = buildInputSchema(operation);
       const inputModel = inputSchema
-        ? generateSchemaModelCode(
-            inputSchema,
-            `${operation.operationId}Input`
-          )
+        ? generateSchemaModelCode(inputSchema, `${operation.operationId}Input`)
         : null;
 
       // Get output schema
@@ -345,14 +359,20 @@ export function importFromOpenApi(
         : null;
 
       // Generate spec code
-      const code = generateSpecCode(operation, options, inputModel, outputModel);
+      const code = generateSpecCode(
+        operation,
+        options,
+        inputModel,
+        outputModel
+      );
       const specName = toSpecName(operation.operationId, options.prefix);
       const fileName = toFileName(specName);
 
       // Build transport hints
       const transportHints: OpenApiTransportHints = {
         rest: {
-          method: operation.method.toUpperCase() as OpenApiTransportHints['rest']['method'],
+          method:
+            operation.method.toUpperCase() as OpenApiTransportHints['rest']['method'],
           path: operation.path,
           params: {
             path: operation.pathParams.map((p) => p.name),
@@ -419,4 +439,3 @@ export function importOperation(
 
   return generateSpecCode(operation, options, inputModel, outputModel);
 }
-

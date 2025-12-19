@@ -230,12 +230,15 @@ export function registerCommands(
 
   // Validate against OpenAPI
   context.subscriptions.push(
-    vscode.commands.registerCommand('contractspec.openapiValidate', async () => {
-      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
-        command: 'openapiValidate',
-      });
-      await validateAgainstOpenApiCommand(outputChannel);
-    })
+    vscode.commands.registerCommand(
+      'contractspec.openapiValidate',
+      async () => {
+        telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+          command: 'openapiValidate',
+        });
+        await validateAgainstOpenApiCommand(outputChannel);
+      }
+    )
   );
 
   // Setup wizard (interactive)

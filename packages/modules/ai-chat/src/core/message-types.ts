@@ -171,4 +171,3 @@ export interface StreamMessageResult {
   messageId: string;
   stream: AsyncIterable<ChatStreamChunk>;
 }
-

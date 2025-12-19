@@ -6,11 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./example": "./src/example.ts",
-    "./track": "./src/track.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/duo-drills.docblock": "./src/docs/duo-drills.docblock.ts",
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/duo-drills.docblock": "./dist/docs/duo-drills.docblock.js",
+    "./example": "./dist/example.js",
+    "./track": "./dist/track.js",
     "./*": "./*"
   },
   "scripts": {

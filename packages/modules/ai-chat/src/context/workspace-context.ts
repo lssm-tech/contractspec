@@ -127,7 +127,9 @@ export class WorkspaceContext {
     const commands = this.specs.filter((s) => s.type === 'command').length;
     const queries = this.specs.filter((s) => s.type === 'query').length;
     const events = this.specs.filter((s) => s.type === 'event').length;
-    const presentations = this.specs.filter((s) => s.type === 'presentation').length;
+    const presentations = this.specs.filter(
+      (s) => s.type === 'presentation'
+    ).length;
 
     const tsFiles = this.files.filter((f) => f.extension === '.ts').length;
     const specFiles = this.files.filter((f) => f.isSpec).length;
@@ -220,4 +222,3 @@ export async function createWorkspaceContext(
   await context.initialize();
   return context;
 }
-

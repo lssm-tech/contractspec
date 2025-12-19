@@ -122,4 +122,3 @@ export interface LegacyConfig {
   aiModel?: string;
   customEndpoint?: string;
 }
-

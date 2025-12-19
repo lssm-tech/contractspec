@@ -295,7 +295,7 @@ export async function importFromOpenApiCommand(
         canSelectFiles: true,
         canSelectMany: false,
         filters: {
-          'OpenAPI': ['json', 'yaml', 'yml'],
+          OpenAPI: ['json', 'yaml', 'yml'],
         },
         openLabel: 'Select OpenAPI File',
       });
@@ -379,7 +379,9 @@ export async function importFromOpenApiCommand(
         if (importResult.skipped.length > 0) {
           outputChannel.appendLine(`\nSkipped operations:`);
           for (const skipped of importResult.skipped) {
-            outputChannel.appendLine(`  - ${skipped.sourceId}: ${skipped.reason}`);
+            outputChannel.appendLine(
+              `  - ${skipped.sourceId}: ${skipped.reason}`
+            );
           }
         }
 
@@ -469,7 +471,10 @@ export async function validateAgainstOpenApiCommand(
         );
 
         // Build operations map
-        const operationsMap = new Map<string, typeof parseResult.operations[0]>();
+        const operationsMap = new Map<
+          string,
+          (typeof parseResult.operations)[0]
+        >();
         for (const op of parseResult.operations) {
           operationsMap.set(op.operationId, op);
         }

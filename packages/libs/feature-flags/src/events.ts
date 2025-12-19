@@ -287,5 +287,3 @@ export const FeatureFlagEvents = {
   FlagEvaluatedEvent,
   VariantAssignedEvent,
 };
-
-

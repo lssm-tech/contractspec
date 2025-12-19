@@ -168,7 +168,9 @@ function generateOperationId(method: HttpMethod, path: string): string {
     .map((part) => {
       // Remove path parameters
       if (part.startsWith('{') && part.endsWith('}')) {
-        return 'By' + part.slice(1, -1).charAt(0).toUpperCase() + part.slice(2, -1);
+        return (
+          'By' + part.slice(1, -1).charAt(0).toUpperCase() + part.slice(2, -1)
+        );
       }
       return part.charAt(0).toUpperCase() + part.slice(1);
     });
@@ -239,13 +241,12 @@ function parseOperation(
   }
 
   // Check for x-contractspec extension
-  const contractSpecMeta = (
-    operation as Record<string, unknown>
-  )?.['x-contractspec'] as ParsedOperation['contractSpecMeta'];
+  const contractSpecMeta = (operation as Record<string, unknown>)?.[
+    'x-contractspec'
+  ] as ParsedOperation['contractSpecMeta'];
 
   return {
-    operationId:
-      operation.operationId ?? generateOperationId(method, path),
+    operationId: operation.operationId ?? generateOperationId(method, path),
     method,
     path,
     summary: operation.summary,
@@ -350,7 +351,11 @@ export async function parseOpenApi(
     readFile?: (path: string) => Promise<string>;
   } = {}
 ): Promise<ParseResult> {
-  const { fetch: fetchFn = globalThis.fetch, readFile, timeout = 30000 } = options;
+  const {
+    fetch: fetchFn = globalThis.fetch,
+    readFile,
+    timeout = 30000,
+  } = options;
 
   let content: string;
   let format: 'json' | 'yaml';
@@ -398,4 +403,3 @@ export async function parseOpenApi(
   const doc = parseOpenApiString(content, format);
   return parseOpenApiDocument(doc, options);
 }
-

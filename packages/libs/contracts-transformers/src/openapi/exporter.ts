@@ -3,7 +3,11 @@
  * Moved from @lssm/lib.contracts/openapi.ts with enhancements.
  */
 
-import type { SpecRegistry, AnyContractSpec, ContractSpec } from '@lssm/lib.contracts';
+import type {
+  SpecRegistry,
+  AnyContractSpec,
+  ContractSpec,
+} from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import { z } from 'zod';
 import type {
@@ -73,7 +77,9 @@ function schemaModelToJsonSchema(
 /**
  * Extract JSON Schema for a spec's input and output.
  */
-function jsonSchemaForSpec(spec: ContractSpec<AnySchemaModel, AnySchemaModel>): {
+function jsonSchemaForSpec(
+  spec: ContractSpec<AnySchemaModel, AnySchemaModel>
+): {
   input: OpenApiSchemaObject | null;
   output: OpenApiSchemaObject | null;
   meta: {
@@ -254,5 +260,8 @@ function jsonToYaml(obj: unknown, indent = 0): string {
 }
 
 // Re-export types for convenience
-export type { OpenApiExportOptions, OpenApiServer, ContractSpecOpenApiDocument };
-
+export type {
+  OpenApiExportOptions,
+  OpenApiServer,
+  ContractSpecOpenApiDocument,
+};

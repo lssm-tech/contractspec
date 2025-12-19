@@ -17,5 +17,7 @@ export * from './models';
 export * from './validation';
 
 // Legacy compatibility
-export { getAIProvider, validateProvider as validateLegacyProvider } from './legacy';
-
+export {
+  getAIProvider,
+  validateProvider as validateLegacyProvider,
+} from './legacy';

@@ -15,8 +15,8 @@
     "dev": "bun run build:bundle --watch",
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
-    "lint:fix": "eslint ui --fix",
-    "lint:check": "eslint ui"
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
@@ -34,8 +34,8 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./utils": "./src/utils.ts",
+    ".": "./dist/index.js",
+    "./utils": "./dist/utils.js",
     "./*": "./*"
   },
   "files": [

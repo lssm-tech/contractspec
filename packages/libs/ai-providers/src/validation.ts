@@ -88,11 +88,10 @@ export async function listOllamaModels(
     if (!response.ok) return [];
 
     const data = (await response.json()) as {
-      models?: Array<{ name: string }>;
+      models?: { name: string }[];
     };
     return (data.models ?? []).map((m) => m.name);
   } catch {
     return [];
   }
 }
-

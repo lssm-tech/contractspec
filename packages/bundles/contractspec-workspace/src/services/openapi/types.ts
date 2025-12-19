@@ -61,21 +61,21 @@ export interface OpenApiImportServiceResult {
   /** Number of errors */
   errors: number;
   /** List of imported spec files */
-  files: Array<{
+  files: {
     path: string;
     operationId: string;
     specName: string;
-  }>;
+  }[];
   /** List of skipped operations */
-  skippedOperations: Array<{
+  skippedOperations: {
     operationId: string;
     reason: string;
-  }>;
+  }[];
   /** List of errors */
-  errorMessages: Array<{
+  errorMessages: {
     operationId: string;
     error: string;
-  }>;
+  }[];
 }
 
 /**
@@ -107,12 +107,12 @@ export interface OpenApiSyncServiceResult {
   /** Number of conflicts */
   conflicts: number;
   /** Details of changes */
-  changes: Array<{
+  changes: {
     operationId: string;
     action: 'added' | 'updated' | 'unchanged' | 'conflict';
     path?: string;
     changeCount?: number;
-  }>;
+  }[];
 }
 
 /**
@@ -142,16 +142,16 @@ export interface OpenApiValidateServiceResult {
   /** Number of specs with differences */
   specsWithDiffs: number;
   /** Validation details */
-  results: Array<{
+  results: {
     specPath: string;
     operationId?: string;
     valid: boolean;
-    diffs: Array<{
+    diffs: {
       path: string;
       type: string;
       description: string;
-    }>;
-  }>;
+    }[];
+  }[];
 }
 
 /**
@@ -171,10 +171,10 @@ export interface OpenApiExportServiceOptions {
   /** OpenAPI description */
   description?: string;
   /** Server URLs to include */
-  servers?: Array<{
+  servers?: {
     url: string;
     description?: string;
-  }>;
+  }[];
 }
 
 /**
@@ -188,4 +188,3 @@ export interface OpenApiExportServiceResult {
   /** Number of operations exported */
   operationCount: number;
 }
-

@@ -4,14 +4,7 @@ import * as React from 'react';
 import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
 import { Textarea } from '@lssm/lib.design-system';
 import { Button } from '@lssm/lib.design-system';
-import {
-  Send,
-  Paperclip,
-  X,
-  Loader2,
-  FileText,
-  Code,
-} from 'lucide-react';
+import { Send, Paperclip, X, Loader2, FileText, Code } from 'lucide-react';
 import type { ChatAttachment } from '../../core/message-types';
 
 export interface ChatInputProps {
@@ -88,9 +81,16 @@ export function ChatInput({
 
         const content = await file.text();
         const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
-        const isCode = ['ts', 'tsx', 'js', 'jsx', 'py', 'go', 'rs', 'java'].includes(
-          extension
-        );
+        const isCode = [
+          'ts',
+          'tsx',
+          'js',
+          'jsx',
+          'py',
+          'go',
+          'rs',
+          'java',
+        ].includes(extension);
 
         newAttachments.push({
           id: `att_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
@@ -182,7 +182,7 @@ export function ChatInput({
             placeholder={placeholder}
             disabled={disabled}
             className={cn(
-              'min-h-[44px] max-h-[200px] resize-none pr-12',
+              'max-h-[200px] min-h-[44px] resize-none pr-12',
               'focus-visible:ring-1'
             )}
             rows={1}
@@ -212,4 +212,3 @@ export function ChatInput({
     </div>
   );
 }
-

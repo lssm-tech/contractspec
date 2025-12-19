@@ -19,7 +19,7 @@ export async function runSchemaGenerate(argv: SchemaGenerateArgs) {
   console.log('📝 Generating Prisma schema from entity specs...\n');
 
   const configPath = argv.config ?? './schema.config.ts';
-  const config = await loadSchemaConfig(configPath);
+  const config: SchemaConfig | null = await loadSchemaConfig(configPath);
 
   if (!config) {
     console.error(`❌ Could not load schema config from ${configPath}`);

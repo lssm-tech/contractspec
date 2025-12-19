@@ -23,9 +23,9 @@ export interface ChatMessageProps {
  */
 function extractCodeBlocks(
   content: string
-): Array<{ language: string; code: string; raw: string }> {
+): { language: string; code: string; raw: string }[] {
   const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
-  const blocks: Array<{ language: string; code: string; raw: string }> = [];
+  const blocks: { language: string; code: string; raw: string }[] = [];
   let match;
 
   while ((match = codeBlockRegex.exec(content)) !== null) {
@@ -131,10 +131,7 @@ export function ChatMessage({
       )}
 
       <div
-        className={cn(
-          'flex max-w-[80%] flex-col gap-1',
-          isUser && 'items-end'
-        )}
+        className={cn('flex max-w-[80%] flex-col gap-1', isUser && 'items-end')}
       >
         <div
           className={cn(
@@ -220,4 +217,3 @@ export function ChatMessage({
     </div>
   );
 }
-

@@ -250,7 +250,8 @@ export class ContextBuilder {
 /**
  * Create a context builder
  */
-export function createContextBuilder(context: WorkspaceContext): ContextBuilder {
+export function createContextBuilder(
+  context: WorkspaceContext
+): ContextBuilder {
   return new ContextBuilder(context);
 }
-

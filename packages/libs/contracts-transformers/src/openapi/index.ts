@@ -42,10 +42,7 @@ export {
 } from './exporter';
 
 // Importer
-export {
-  importFromOpenApi,
-  importOperation,
-} from './importer';
+export { importFromOpenApi, importOperation } from './importer';
 
 // Schema converter
 export {
@@ -68,4 +65,3 @@ export {
   formatDiffChanges,
   type DiffOptions,
 } from './differ';
-

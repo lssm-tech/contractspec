@@ -88,7 +88,9 @@ export const syncCommand = new Command('sync')
         const sourceLocation = source.url ?? source.file;
         if (!sourceLocation) {
           console.log(
-            chalk.yellow(`  ⚠️ Source ${source.name} has no url or file configured`)
+            chalk.yellow(
+              `  ⚠️ Source ${source.name} has no url or file configured`
+            )
           );
           continue;
         }
@@ -103,9 +105,7 @@ export const syncCommand = new Command('sync')
         });
 
         console.log(
-          chalk.gray(
-            `  Parsed ${parseResult.operations.length} operations`
-          )
+          chalk.gray(`  Parsed ${parseResult.operations.length} operations`)
         );
 
         // Import operations
@@ -162,9 +162,9 @@ export const syncCommand = new Command('sync')
                   chalk.yellow(`  ? Conflict: ${imported.source.sourceId}`)
                 );
                 console.log(
-                    chalk.gray(
-                      '    Use --force openapi or --force contractspec to resolve'
-                    )
+                  chalk.gray(
+                    '    Use --force openapi or --force contractspec to resolve'
+                  )
                 );
                 totalConflicts++;
               } else {
@@ -205,4 +205,3 @@ export const syncCommand = new Command('sync')
       process.exit(1);
     }
   });
-

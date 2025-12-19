@@ -78,4 +78,3 @@ export function getProviderColor(provider: ProviderName): string {
       return 'text-neutral-400';
   }
 }
-

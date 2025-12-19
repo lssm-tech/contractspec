@@ -19,6 +19,7 @@ export const OwnersEnum = {
   PlatformMarketplace: 'platform.marketplace',
   PlatformContent: 'platform.content',
   PlatformFeatureFlags: 'platform.featureflags',
+  PlatformFinance: 'platform.finance',
 } as const;
 export type Owner =
   | (typeof OwnersEnum)[keyof typeof OwnersEnum]
@@ -38,11 +39,9 @@ export const TagsEnum = {
   Guide: 'guide',
   Docs: 'docs',
   I18n: 'i18n',
-  AtomicPages: 'atomic:pages',
   Incident: 'incident',
+  Automation: 'automation',
   Hygiene: 'hygiene',
-  WeeklyPulse: 'weekly_pulse',
-  WebAuth: 'webauth',
 } as const;
 export type Tag = (typeof TagsEnum)[keyof typeof TagsEnum] | (string & {});
 // Back-compat alias

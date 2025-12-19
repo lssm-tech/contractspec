@@ -8,12 +8,12 @@ import { mistral } from '@ai-sdk/mistral';
 import { openai } from '@ai-sdk/openai';
 import { ollama } from 'ollama-ai-provider';
 import type {
-  Provider,
-  ProviderConfig,
-  ProviderName,
-  ProviderMode,
-  ProviderAvailability,
   ModelInfo,
+  Provider,
+  ProviderAvailability,
+  ProviderConfig,
+  ProviderMode,
+  ProviderName,
 } from './types';
 import { DEFAULT_MODELS, getModelsForProvider } from './models';
 
@@ -35,17 +35,50 @@ class BaseProvider implements Provider {
     this.config = config;
   }
 
-  private determineMode(config: ProviderConfig): ProviderMode {
-    if (config.provider === 'ollama') return 'local';
-    if (config.apiKey) return 'byok';
-    return 'managed';
-  }
-
   getModel(): LanguageModel {
     if (!this.cachedModel) {
       this.cachedModel = this.createModel();
     }
     return this.cachedModel;
+  }
+
+  async listModels(): Promise<ModelInfo[]> {
+    if (this.name === 'ollama') {
+      return this.listOllamaModels();
+    }
+    return getModelsForProvider(this.name);
+  }
+
+  async validate(): Promise<{ valid: boolean; error?: string }> {
+    if (this.name === 'ollama') {
+      return this.validateOllama();
+    }
+
+    if (this.mode === 'byok' && !this.config.apiKey) {
+      return {
+        valid: false,
+        error: `API key required for ${this.name}`,
+      };
+    }
+
+    if (
+      this.mode === 'managed' &&
+      !this.config.proxyUrl &&
+      !this.config.organizationId
+    ) {
+      return {
+        valid: false,
+        error: 'Managed mode requires proxyUrl or organizationId',
+      };
+    }
+
+    return { valid: true };
+  }
+
+  private determineMode(config: ProviderConfig): ProviderMode {
+    if (config.provider === 'ollama') return 'local';
+    if (config.apiKey) return 'byok';
+    return 'managed';
   }
 
   private createModel(): LanguageModel {
@@ -79,7 +112,9 @@ class BaseProvider implements Provider {
             process.env.OPENAI_BASE_URL = proxyUrl;
           }
 
-          const model = openai(this.model);
+          const model = openai(this.model, {
+            apiKey,
+          });
 
           // Restore original environment variable
           if (originalBaseUrl !== undefined) {
@@ -160,13 +195,6 @@ class BaseProvider implements Provider {
     }
   }
 
-  async listModels(): Promise<ModelInfo[]> {
-    if (this.name === 'ollama') {
-      return this.listOllamaModels();
-    }
-    return getModelsForProvider(this.name);
-  }
-
   private async listOllamaModels(): Promise<ModelInfo[]> {
     try {
       const baseUrl = this.config.baseUrl ?? 'http://localhost:11434';
@@ -176,7 +204,7 @@ class BaseProvider implements Provider {
       }
 
       const data = (await response.json()) as {
-        models?: Array<{ name: string; size?: number }>;
+        models?: { name: string; size?: number }[];
       };
       const models = data.models ?? [];
 
@@ -197,32 +225,6 @@ class BaseProvider implements Provider {
     }
   }
 
-  async validate(): Promise<{ valid: boolean; error?: string }> {
-    if (this.name === 'ollama') {
-      return this.validateOllama();
-    }
-
-    if (this.mode === 'byok' && !this.config.apiKey) {
-      return {
-        valid: false,
-        error: `API key required for ${this.name}`,
-      };
-    }
-
-    if (
-      this.mode === 'managed' &&
-      !this.config.proxyUrl &&
-      !this.config.organizationId
-    ) {
-      return {
-        valid: false,
-        error: 'Managed mode requires proxyUrl or organizationId',
-      };
-    }
-
-    return { valid: true };
-  }
-
   private async validateOllama(): Promise<{ valid: boolean; error?: string }> {
     try {
       const baseUrl = this.config.baseUrl ?? 'http://localhost:11434';
@@ -235,7 +237,7 @@ class BaseProvider implements Provider {
       }
 
       const data = (await response.json()) as {
-        models?: Array<{ name: string }>;
+        models?: { name: string }[];
       };
       const models = data.models ?? [];
       const hasModel = models.some((m) => m.name === this.model);

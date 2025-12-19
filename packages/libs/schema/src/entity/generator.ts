@@ -1,11 +1,11 @@
 import type {
-  EntitySpec,
-  EntityField,
-  EntityScalarField,
-  EntityEnumField,
-  EntityRelationField,
-  EntityIndex,
   EntityEnumDef,
+  EntityEnumField,
+  EntityField,
+  EntityIndex,
+  EntityRelationField,
+  EntityScalarField,
+  EntitySpec,
   ModuleSchemaContribution,
 } from './types';
 
@@ -418,10 +418,10 @@ export function composeModuleSchemas(
   });
 
   // Add collected enums to first entity or create a holder
-  if (allEntities.length > 0 && allEnums.size > 0) {
-    allEntities[0]! = {
-      ...allEntities[0]!,
-      enums: [...(allEntities[0]!.enums ?? []), ...allEnums.values()],
+  if (allEntities[0] && allEnums.size > 0) {
+    allEntities[0] = {
+      ...allEntities[0],
+      enums: [...(allEntities[0].enums ?? []), ...allEnums.values()],
     };
   }
 

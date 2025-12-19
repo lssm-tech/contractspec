@@ -35,14 +35,14 @@
     "typescript": "^5.9.3"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./health": "./src/health.ts",
-    "./runtime": "./src/runtime.ts",
-    "./secrets": "./src/secrets/index.ts",
-    "./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
-    "./secrets/gcp-secret-manager": "./src/secrets/gcp-secret-manager.ts",
-    "./secrets/manager": "./src/secrets/manager.ts",
-    "./secrets/provider": "./src/secrets/provider.ts",
+    ".": "./dist/index.js",
+    "./health": "./dist/health.js",
+    "./runtime": "./dist/runtime.js",
+    "./secrets": "./dist/secrets/index.js",
+    "./secrets/env-secret-provider": "./dist/secrets/env-secret-provider.js",
+    "./secrets/gcp-secret-manager": "./dist/secrets/gcp-secret-manager.js",
+    "./secrets/manager": "./dist/secrets/manager.js",
+    "./secrets/provider": "./dist/secrets/provider.js",
     "./*": "./*"
   },
   "publishConfig": {

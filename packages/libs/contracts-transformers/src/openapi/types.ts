@@ -164,7 +164,7 @@ export interface ParsedOperation {
   /** Whether the operation is deprecated */
   deprecated: boolean;
   /** Security requirements */
-  security?: Array<Record<string, string[]>>;
+  security?: Record<string, string[]>[];
   /** ContractSpec extension data if present */
   contractSpecMeta?: {
     name: string;
@@ -259,4 +259,3 @@ export interface ContractSpecOpenApiDocument {
     schemas: Record<string, Record<string, unknown>>;
   };
 }
-

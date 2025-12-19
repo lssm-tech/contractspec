@@ -370,5 +370,3 @@ export const LearningJourneyEvents = {
   DailyGoalCompletedEvent,
   CertificateIssuedEvent,
 };
-
-

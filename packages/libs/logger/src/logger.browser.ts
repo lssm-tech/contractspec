@@ -195,7 +195,7 @@ export class Logger {
       timer?.stop();
 
       const logLevel = options?.logLevel || LogLevel.DEBUG;
-      this.log(LogLevel.DEBUG, `Profile: ${operationName} completed`, {
+      this.log(logLevel, `Profile: ${operationName} completed`, {
         operation: operationName,
         duration: `${duration.toFixed(2)}ms`,
         result: options?.logResult ? result : '[result hidden]',

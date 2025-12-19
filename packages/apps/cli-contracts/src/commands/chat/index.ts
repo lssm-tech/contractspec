@@ -7,8 +7,16 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import { createProviderFromEnv, createProvider, getAvailableProviders, type ProviderName } from '@lssm/lib.ai-providers';
-import { ChatService, InMemoryConversationStore } from '@lssm/module.ai-chat/core';
+import {
+  createProviderFromEnv,
+  createProvider,
+  getAvailableProviders,
+  type ProviderName,
+} from '@lssm/lib.ai-providers';
+import {
+  ChatService,
+  InMemoryConversationStore,
+} from '@lssm/module.ai-chat/core';
 import type { Config } from '../../utils/config';
 import { input, select, confirm } from '@inquirer/prompts';
 
@@ -34,14 +42,21 @@ Current working directory context is available. Use it to understand the project
 /**
  * Chat command implementation
  */
-async function runChat(options: {
-  provider?: ProviderName;
-  model?: string;
-  apiKey?: string;
-  context?: boolean;
-}, config: Config): Promise<void> {
+async function runChat(
+  options: {
+    provider?: ProviderName;
+    model?: string;
+    apiKey?: string;
+    context?: boolean;
+  },
+  config: Config
+): Promise<void> {
   console.log(chalk.cyan('\n🤖 ContractSpec AI Chat'));
-  console.log(chalk.dim('Type your message and press Enter. Type "exit" or "quit" to leave.\n'));
+  console.log(
+    chalk.dim(
+      'Type your message and press Enter. Type "exit" or "quit" to leave.\n'
+    )
+  );
 
   // Determine provider
   let providerName = options.provider ?? config.aiProvider ?? 'openai';
@@ -94,7 +109,9 @@ async function runChat(options: {
       systemPrompt: CLI_SYSTEM_PROMPT + contextInfo,
       onUsage: (usage) => {
         console.log(
-          chalk.dim(`\n[Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out]`)
+          chalk.dim(
+            `\n[Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out]`
+          )
         );
       },
     });
@@ -111,7 +128,11 @@ async function runChat(options: {
       });
 
       const trimmedInput = userInput.trim().toLowerCase();
-      if (trimmedInput === 'exit' || trimmedInput === 'quit' || trimmedInput === 'q') {
+      if (
+        trimmedInput === 'exit' ||
+        trimmedInput === 'quit' ||
+        trimmedInput === 'q'
+      ) {
         console.log(chalk.cyan('\nGoodbye! 👋\n'));
         break;
       }
@@ -159,7 +180,9 @@ async function runChat(options: {
         console.log(chalk.dim('─'.repeat(60)));
       } catch (error) {
         console.log(
-          chalk.red(`\nError: ${error instanceof Error ? error.message : String(error)}`)
+          chalk.red(
+            `\nError: ${error instanceof Error ? error.message : String(error)}`
+          )
         );
         console.log(chalk.dim('─'.repeat(60)));
       }
@@ -216,7 +239,10 @@ async function selectProvider(): Promise<{
 export const chatCommand = new Command()
   .name('chat')
   .description('Interactive AI chat for vibe coding')
-  .option('-p, --provider <provider>', 'AI provider (openai, anthropic, mistral, gemini, ollama)')
+  .option(
+    '-p, --provider <provider>',
+    'AI provider (openai, anthropic, mistral, gemini, ollama)'
+  )
   .option('-m, --model <model>', 'AI model to use')
   .option('-k, --api-key <key>', 'API key (or use environment variables)')
   .option('--no-context', 'Disable workspace context')
@@ -245,4 +271,3 @@ export const chatCommand = new Command()
       process.exit(1);
     }
   });
-

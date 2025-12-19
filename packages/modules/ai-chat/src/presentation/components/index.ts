@@ -7,4 +7,3 @@ export { ChatInput } from './ChatInput';
 export { ModelPicker } from './ModelPicker';
 export { ContextIndicator } from './ContextIndicator';
 export { CodePreview } from './CodePreview';
-

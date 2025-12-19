@@ -82,7 +82,7 @@ export class FileOperations {
   constructor(
     private readonly fs: FileSystem,
     private readonly workspacePath: string,
-    private readonly allowWrites: boolean = false
+    private readonly allowWrites = false
   ) {}
 
   /**
@@ -159,7 +159,10 @@ export class FileOperations {
               error: 'Content is required for write operations',
             };
           } else {
-            const writeResult = await this.write(operation.path, operation.content);
+            const writeResult = await this.write(
+              operation.path,
+              operation.content
+            );
             result = {
               operation,
               success: writeResult.success,
@@ -220,7 +223,7 @@ export class FileOperations {
  */
 export function createNodeFileOperations(
   workspacePath: string,
-  allowWrites: boolean = false
+  allowWrites = false
 ): FileOperations {
   // Dynamic import to avoid issues in browser environments
   const fs: FileSystem = {
@@ -263,7 +266,10 @@ export function createNodeFileOperations(
           const subFiles = await this.listFiles(fullPath, options);
           files.push(...subFiles);
         } else if (entry.isFile()) {
-          if (!options?.pattern || entry.name.match(new RegExp(options.pattern))) {
+          if (
+            !options?.pattern ||
+            entry.name.match(new RegExp(options.pattern))
+          ) {
             files.push(fullPath);
           }
         }
@@ -275,4 +281,3 @@ export function createNodeFileOperations(
 
   return new FileOperations(fs, workspacePath, allowWrites);
 }
-

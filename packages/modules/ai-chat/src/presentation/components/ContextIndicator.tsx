@@ -101,7 +101,9 @@ export function ContextIndicator({
                 <span>Events:</span>
                 <span className="text-right">{summary.specs.events}</span>
                 <span>Presentations:</span>
-                <span className="text-right">{summary.specs.presentations}</span>
+                <span className="text-right">
+                  {summary.specs.presentations}
+                </span>
               </div>
             </div>
 
@@ -116,4 +118,3 @@ export function ContextIndicator({
     </TooltipProvider>
   );
 }
-

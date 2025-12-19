@@ -95,7 +95,11 @@ export async function validateProvider(
     };
   }
 
-  if (provider === 'gemini' && !process.env.GOOGLE_API_KEY && !process.env.GEMINI_API_KEY) {
+  if (
+    provider === 'gemini' &&
+    !process.env.GOOGLE_API_KEY &&
+    !process.env.GEMINI_API_KEY
+  ) {
     return {
       success: false,
       error: 'GOOGLE_API_KEY or GEMINI_API_KEY environment variable not set',
@@ -111,4 +115,3 @@ export async function validateProvider(
  * @deprecated Use getModelsForProvider() instead
  */
 export { getModels as getRecommendedModels };
-

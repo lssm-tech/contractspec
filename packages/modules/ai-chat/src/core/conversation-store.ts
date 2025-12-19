@@ -38,7 +38,10 @@ export interface ConversationStore {
    */
   appendMessage(
     conversationId: string,
-    message: Omit<ChatMessage, 'id' | 'conversationId' | 'createdAt' | 'updatedAt'>
+    message: Omit<
+      ChatMessage,
+      'id' | 'conversationId' | 'createdAt' | 'updatedAt'
+    >
   ): Promise<ChatMessage>;
 
   /**
@@ -121,7 +124,10 @@ export class InMemoryConversationStore implements ConversationStore {
 
   async appendMessage(
     conversationId: string,
-    message: Omit<ChatMessage, 'id' | 'conversationId' | 'createdAt' | 'updatedAt'>
+    message: Omit<
+      ChatMessage,
+      'id' | 'conversationId' | 'createdAt' | 'updatedAt'
+    >
   ): Promise<ChatMessage> {
     const conversation = this.conversations.get(conversationId);
     if (!conversation) {
@@ -230,4 +236,3 @@ export class InMemoryConversationStore implements ConversationStore {
 export function createInMemoryConversationStore(): ConversationStore {
   return new InMemoryConversationStore();
 }
-

@@ -31,12 +31,12 @@ export interface ModelPickerProps {
   /** Called when selection changes */
   onChange: (value: ModelSelection) => void;
   /** Available providers (with availability info) */
-  availableProviders?: Array<{
+  availableProviders?: {
     provider: ProviderName;
     available: boolean;
     mode: ProviderMode;
     reason?: string;
-  }>;
+  }[];
   /** Additional class name */
   className?: string;
   /** Compact mode (smaller) */
@@ -59,7 +59,10 @@ const PROVIDER_NAMES: Record<ProviderName, string> = {
   gemini: 'Google Gemini',
 };
 
-const MODE_BADGES: Record<ProviderMode, { label: string; variant: 'default' | 'secondary' | 'outline' }> = {
+const MODE_BADGES: Record<
+  ProviderMode,
+  { label: string; variant: 'default' | 'secondary' | 'outline' }
+> = {
   local: { label: 'Local', variant: 'secondary' },
   byok: { label: 'BYOK', variant: 'outline' },
   managed: { label: 'Managed', variant: 'default' },
@@ -211,7 +214,9 @@ export function ModelPicker({
       {/* Model info */}
       {selectedModel && (
         <div className="text-muted-foreground flex flex-wrap gap-2 text-xs">
-          <span>Context: {Math.round(selectedModel.contextWindow / 1000)}K tokens</span>
+          <span>
+            Context: {Math.round(selectedModel.contextWindow / 1000)}K tokens
+          </span>
           {selectedModel.capabilities.vision && <span>• Vision</span>}
           {selectedModel.capabilities.tools && <span>• Tools</span>}
           {selectedModel.capabilities.reasoning && <span>• Reasoning</span>}

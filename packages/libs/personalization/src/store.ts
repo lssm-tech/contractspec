@@ -105,5 +105,3 @@ function filterEvents(
     return true;
   });
 }
-
-

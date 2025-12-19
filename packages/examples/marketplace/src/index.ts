@@ -10,5 +10,3 @@ export * from './product';
 export * from './order';
 export * from './payout';
 export * from './review';
-
-

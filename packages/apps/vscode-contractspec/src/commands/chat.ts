@@ -43,7 +43,11 @@ const PROVIDERS: Record<string, ProviderConfig> = {
   mistral: {
     name: 'Mistral',
     apiKeyEnvVar: 'MISTRAL_API_KEY',
-    models: ['mistral-large-latest', 'codestral-latest', 'mistral-small-latest'],
+    models: [
+      'mistral-large-latest',
+      'codestral-latest',
+      'mistral-small-latest',
+    ],
     defaultModel: 'mistral-large-latest',
   },
   gemini: {
@@ -57,11 +61,11 @@ const PROVIDERS: Record<string, ProviderConfig> = {
 /**
  * Get available providers based on API keys
  */
-function getAvailableProviders(): Array<{
+function getAvailableProviders(): {
   id: string;
   config: ProviderConfig;
   available: boolean;
-}> {
+}[] {
   return Object.entries(PROVIDERS).map(([id, config]) => ({
     id,
     config,
@@ -254,7 +258,9 @@ Guidelines:
     const packageJsonPath = path.join(workspaceRoot, 'package.json');
     if (fs.existsSync(packageJsonPath)) {
       try {
-        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+        const packageJson = JSON.parse(
+          fs.readFileSync(packageJsonPath, 'utf-8')
+        );
         prompt += `\nProject: ${packageJson.name ?? 'unknown'}`;
         if (packageJson.description) {
           prompt += `\nDescription: ${packageJson.description}`;
@@ -361,19 +367,19 @@ async function callLLMAPI(
   switch (providerId) {
     case 'openai':
     case 'mistral': {
-      const choices = data.choices as Array<{
+      const choices = data.choices as {
         message?: { content?: string };
-      }>;
+      }[];
       return choices?.[0]?.message?.content ?? '';
     }
     case 'anthropic': {
-      const content = data.content as Array<{ text?: string }>;
+      const content = data.content as { text?: string }[];
       return content?.[0]?.text ?? '';
     }
     case 'gemini': {
-      const candidates = data.candidates as Array<{
-        content?: { parts?: Array<{ text?: string }> };
-      }>;
+      const candidates = data.candidates as {
+        content?: { parts?: { text?: string }[] };
+      }[];
       return candidates?.[0]?.content?.parts?.[0]?.text ?? '';
     }
     default:
@@ -402,7 +408,7 @@ async function insertCodeAtCursor(code: string): Promise<void> {
 function getChatPanelHtml(
   webview: vscode.Webview,
   extensionUri: vscode.Uri,
-  providers: Array<{ id: string; config: ProviderConfig; available: boolean }>,
+  providers: { id: string; config: ProviderConfig; available: boolean }[],
   contextInfo: string
 ): string {
   const availableProviders = providers.filter((p) => p.available);
@@ -658,9 +664,7 @@ function getChatPanelHtml(
     const modelSelect = document.getElementById('model');
 
     const providers = ${JSON.stringify(
-      Object.fromEntries(
-        availableProviders.map((p) => [p.id, p.config])
-      )
+      Object.fromEntries(availableProviders.map((p) => [p.id, p.config]))
     )};
 
     // Update models when provider changes
@@ -800,4 +804,3 @@ export function registerChatCommands(
     })
   );
 }
-

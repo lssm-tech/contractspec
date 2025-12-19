@@ -17,6 +17,9 @@ export * from './providers';
 export * from './context';
 
 // Re-export presentation components (but not message types to avoid conflicts)
-export { ChatContainer, ChatMessage as ChatMessageComponent, ChatInput } from './presentation/components';
+export {
+  ChatContainer,
+  ChatMessage as ChatMessageComponent,
+  ChatInput,
+} from './presentation/components';
 export { useChat, useProviders } from './presentation/hooks';
-

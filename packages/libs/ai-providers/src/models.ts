@@ -24,28 +24,48 @@ export const MODELS: ModelInfo[] = [
     name: 'Llama 3.2',
     provider: 'ollama',
     contextWindow: 128000,
-    capabilities: { vision: false, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
   },
   {
     id: 'codellama',
     name: 'Code Llama',
     provider: 'ollama',
     contextWindow: 16000,
-    capabilities: { vision: false, tools: false, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: false,
+      reasoning: false,
+      streaming: true,
+    },
   },
   {
     id: 'deepseek-coder',
     name: 'DeepSeek Coder',
     provider: 'ollama',
     contextWindow: 16000,
-    capabilities: { vision: false, tools: false, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: false,
+      reasoning: false,
+      streaming: true,
+    },
   },
   {
     id: 'mistral',
     name: 'Mistral 7B',
     provider: 'ollama',
     contextWindow: 32000,
-    capabilities: { vision: false, tools: false, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: false,
+      reasoning: false,
+      streaming: true,
+    },
   },
 
   // OpenAI
@@ -54,7 +74,12 @@ export const MODELS: ModelInfo[] = [
     name: 'GPT-4o',
     provider: 'openai',
     contextWindow: 128000,
-    capabilities: { vision: true, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 2.5, output: 10 },
   },
   {
@@ -62,7 +87,12 @@ export const MODELS: ModelInfo[] = [
     name: 'GPT-4o Mini',
     provider: 'openai',
     contextWindow: 128000,
-    capabilities: { vision: true, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 0.15, output: 0.6 },
   },
   {
@@ -70,7 +100,12 @@ export const MODELS: ModelInfo[] = [
     name: 'o1',
     provider: 'openai',
     contextWindow: 200000,
-    capabilities: { vision: true, tools: true, reasoning: true, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
     costPerMillion: { input: 15, output: 60 },
   },
   {
@@ -78,7 +113,12 @@ export const MODELS: ModelInfo[] = [
     name: 'o1 Mini',
     provider: 'openai',
     contextWindow: 128000,
-    capabilities: { vision: false, tools: true, reasoning: true, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
     costPerMillion: { input: 3, output: 12 },
   },
 
@@ -88,7 +128,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Claude Sonnet 4',
     provider: 'anthropic',
     contextWindow: 200000,
-    capabilities: { vision: true, tools: true, reasoning: true, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
     costPerMillion: { input: 3, output: 15 },
   },
   {
@@ -96,7 +141,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Claude 3.5 Sonnet',
     provider: 'anthropic',
     contextWindow: 200000,
-    capabilities: { vision: true, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 3, output: 15 },
   },
   {
@@ -104,7 +154,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Claude 3.5 Haiku',
     provider: 'anthropic',
     contextWindow: 200000,
-    capabilities: { vision: true, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 0.8, output: 4 },
   },
 
@@ -114,7 +169,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Mistral Large',
     provider: 'mistral',
     contextWindow: 128000,
-    capabilities: { vision: false, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 2, output: 6 },
   },
   {
@@ -122,7 +182,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Codestral',
     provider: 'mistral',
     contextWindow: 32000,
-    capabilities: { vision: false, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 0.2, output: 0.6 },
   },
   {
@@ -130,7 +195,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Mistral Small',
     provider: 'mistral',
     contextWindow: 32000,
-    capabilities: { vision: false, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: false,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 0.2, output: 0.6 },
   },
 
@@ -140,7 +210,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Gemini 2.0 Flash',
     provider: 'gemini',
     contextWindow: 1000000,
-    capabilities: { vision: true, tools: true, reasoning: false, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: false,
+      streaming: true,
+    },
     costPerMillion: { input: 0.075, output: 0.3 },
   },
   {
@@ -148,7 +223,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Gemini 2.5 Pro',
     provider: 'gemini',
     contextWindow: 1000000,
-    capabilities: { vision: true, tools: true, reasoning: true, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
     costPerMillion: { input: 1.25, output: 10 },
   },
   {
@@ -156,7 +236,12 @@ export const MODELS: ModelInfo[] = [
     name: 'Gemini 2.5 Flash',
     provider: 'gemini',
     contextWindow: 1000000,
-    capabilities: { vision: true, tools: true, reasoning: true, streaming: true },
+    capabilities: {
+      vision: true,
+      tools: true,
+      reasoning: true,
+      streaming: true,
+    },
     costPerMillion: { input: 0.15, output: 0.6 },
   },
 ];
@@ -183,9 +268,15 @@ export function getRecommendedModels(
 ): string[] {
   // Handle legacy provider names
   const normalizedProvider =
-    provider === 'claude' ? 'anthropic' : provider === 'custom' ? 'openai' : provider;
+    provider === 'claude'
+      ? 'anthropic'
+      : provider === 'custom'
+        ? 'openai'
+        : provider;
 
-  return getModelsForProvider(normalizedProvider as ProviderName).map((m) => m.id);
+  return getModelsForProvider(normalizedProvider as ProviderName).map(
+    (m) => m.id
+  );
 }
 
 /**
@@ -194,4 +285,3 @@ export function getRecommendedModels(
 export function getDefaultModel(provider: ProviderName): string {
   return DEFAULT_MODELS[provider];
 }
-

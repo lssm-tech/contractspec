@@ -56,7 +56,10 @@ export interface UseChatReturn {
   /** Current error */
   error: Error | null;
   /** Send a message */
-  sendMessage: (content: string, attachments?: ChatAttachment[]) => Promise<void>;
+  sendMessage: (
+    content: string,
+    attachments?: ChatAttachment[]
+  ) => Promise<void>;
   /** Clear conversation and start fresh */
   clearConversation: () => void;
   /** Set conversation ID to resume */
@@ -87,9 +90,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   } = options;
 
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
-  const [conversation, setConversation] = React.useState<ChatConversation | null>(
-    null
-  );
+  const [conversation, setConversation] =
+    React.useState<ChatConversation | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
   const [conversationId, setConversationId] = React.useState<string | null>(
@@ -120,7 +122,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     if (!conversationId || !chatServiceRef.current) return;
 
     const loadConversation = async () => {
-      const conv = await chatServiceRef.current!.getConversation(conversationId);
+      const conv =
+        await chatServiceRef.current!.getConversation(conversationId);
       if (conv) {
         setConversation(conv);
         setMessages(conv.messages);
@@ -189,9 +192,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
               fullContent += chunk.content;
               setMessages((prev) =>
                 prev.map((m) =>
-                  m.id === result.messageId
-                    ? { ...m, content: fullContent }
-                    : m
+                  m.id === result.messageId ? { ...m, content: fullContent } : m
                 )
               );
             } else if (chunk.type === 'done') {
@@ -208,7 +209,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
                 )
               );
               onResponse?.(
-                messages.find((m) => m.id === result.messageId) ?? assistantMessage
+                messages.find((m) => m.id === result.messageId) ??
+                  assistantMessage
               );
             } else if (chunk.type === 'error') {
               setMessages((prev) =>

@@ -13,4 +13,3 @@ export type {
   OpenApiExportOptions as LegacyOpenApiExportOptions,
   OpenApiExportResult as LegacyOpenApiExportResult,
 } from './export-service';
-

@@ -6,11 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./example": "./src/example.ts",
-    "./track": "./src/track.ts",
-    "./docs": "./src/docs/index.ts",
-    "./docs/quest-challenges.docblock": "./src/docs/quest-challenges.docblock.ts",
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/quest-challenges.docblock": "./dist/docs/quest-challenges.docblock.js",
+    "./example": "./dist/example.js",
+    "./track": "./dist/track.js",
     "./*": "./*"
   },
   "scripts": {

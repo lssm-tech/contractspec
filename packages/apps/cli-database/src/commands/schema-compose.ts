@@ -19,7 +19,7 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   console.log('🔗 Composing module schemas...\n');
 
   const configPath = argv.config ?? './schema.config.ts';
-  const config = await loadSchemaConfig(configPath);
+  const config: SchemaConfig | null = await loadSchemaConfig(configPath);
 
   if (!config) {
     console.error(`❌ Could not load schema config from ${configPath}`);

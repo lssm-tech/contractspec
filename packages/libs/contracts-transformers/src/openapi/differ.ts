@@ -164,10 +164,11 @@ export function diffSpecVsOperation(
 
   // Compare transport
   if (!options.ignoreTransport) {
-    const specMethod = spec.transport?.rest?.method ?? 
+    const specMethod =
+      spec.transport?.rest?.method ??
       (spec.meta.kind === 'query' ? 'GET' : 'POST');
     const opMethod = operation.method.toUpperCase();
-    
+
     if (specMethod !== opMethod) {
       changes.push({
         path: 'transport.rest.method',
@@ -224,7 +225,9 @@ export function diffSpecs(
       ...options,
       ignorePaths: [
         ...(options.ignorePaths ?? []),
-        ...(options.ignoreDescriptions ? ['meta.description', 'meta.goal', 'meta.context'] : []),
+        ...(options.ignoreDescriptions
+          ? ['meta.description', 'meta.goal', 'meta.context']
+          : []),
         ...(options.ignoreTags ? ['meta.tags'] : []),
       ],
     }
@@ -268,20 +271,18 @@ export function createSpecDiff(
 
   if (existing) {
     // Compare existing vs incoming
-    changes = diffSpecs(
-      existing,
-      incoming.spec,
-      options
-    );
+    changes = diffSpecs(existing, incoming.spec, options);
     isEquivalent = changes.length === 0;
   } else {
     // New spec - mark as added
-    changes = [{
-      path: '',
-      type: 'added',
-      newValue: incoming.spec,
-      description: 'New spec imported from OpenAPI',
-    }];
+    changes = [
+      {
+        path: '',
+        type: 'added',
+        newValue: incoming.spec,
+        description: 'New spec imported from OpenAPI',
+      },
+    ];
   }
 
   return {
@@ -308,11 +309,11 @@ export function diffAll(
 
   for (const imported of importedSpecs) {
     const operationId = imported.source.sourceId;
-    
+
     // Try to find matching existing spec
     // Match by operationId in x-contractspec extension or by name
     let existing: AnyContractSpec | undefined;
-    
+
     for (const [key, spec] of existingSpecs) {
       // Check x-contractspec match or name match
       const specName = spec.meta.name;
@@ -333,12 +334,14 @@ export function diffAll(
         operationId: key,
         existing: spec,
         incoming: undefined as unknown as ImportedSpec,
-        changes: [{
-          path: '',
-          type: 'removed',
-          oldValue: spec,
-          description: 'Spec no longer exists in OpenAPI source',
-        }],
+        changes: [
+          {
+            path: '',
+            type: 'removed',
+            oldValue: spec,
+            description: 'Spec no longer exists in OpenAPI source',
+          },
+        ],
         isEquivalent: false,
       });
     }
@@ -367,7 +370,7 @@ export function formatDiffChanges(changes: DiffChange[]): string {
     }[change.type];
 
     lines.push(`${prefix} ${change.path}: ${change.description}`);
-    
+
     if (change.type === 'modified' || change.type === 'type_changed') {
       lines.push(`    old: ${JSON.stringify(change.oldValue)}`);
       lines.push(`    new: ${JSON.stringify(change.newValue)}`);
@@ -380,4 +383,3 @@ export function formatDiffChanges(changes: DiffChange[]): string {
 
   return lines.join('\n');
 }
-

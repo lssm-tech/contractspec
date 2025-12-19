@@ -29,7 +29,8 @@ export function ChatContainer({
 
     // Check if user has scrolled up
     const isAtBottom =
-      container.scrollHeight - container.scrollTop <= container.clientHeight + 100;
+      container.scrollHeight - container.scrollTop <=
+      container.clientHeight + 100;
 
     if (isAtBottom) {
       container.scrollTop = container.scrollHeight;
@@ -37,12 +38,16 @@ export function ChatContainer({
   }, [children]);
 
   // Track scroll position for scroll-to-bottom button
-  const handleScroll = React.useCallback((event: React.UIEvent<HTMLDivElement>) => {
-    const container = event.currentTarget;
-    const isAtBottom =
-      container.scrollHeight - container.scrollTop <= container.clientHeight + 100;
-    setShowScrollDown(!isAtBottom);
-  }, []);
+  const handleScroll = React.useCallback(
+    (event: React.UIEvent<HTMLDivElement>) => {
+      const container = event.currentTarget;
+      const isAtBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 100;
+      setShowScrollDown(!isAtBottom);
+    },
+    []
+  );
 
   const scrollToBottom = React.useCallback(() => {
     const container = scrollRef.current;
@@ -56,11 +61,7 @@ export function ChatContainer({
 
   return (
     <div className={cn('relative flex flex-1 flex-col', className)}>
-      <ScrollArea
-        ref={scrollRef}
-        className="flex-1"
-        onScroll={handleScroll}
-      >
+      <ScrollArea ref={scrollRef} className="flex-1" onScroll={handleScroll}>
         <div className="flex flex-col gap-4 p-4">{children}</div>
       </ScrollArea>
 
@@ -95,4 +96,3 @@ export function ChatContainer({
     </div>
   );
 }
-

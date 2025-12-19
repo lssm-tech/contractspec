@@ -52,7 +52,10 @@ const OpenApiValidateInput = defineSchemaModel({
   name: 'OpenApiValidateInput',
   fields: {
     specPath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    openApiSource: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    openApiSource: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     ignoreDescriptions: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     ignoreTags: { type: ScalarTypeEnum.Boolean(), isOptional: true },
     ignoreTransport: { type: ScalarTypeEnum.Boolean(), isOptional: true },
@@ -131,7 +134,7 @@ export function registerOpenApiTools(
       exclude: args.exclude as string[] | undefined,
     });
 
-    const files: Array<{ path: string; operationId: string }> = [];
+    const files: { path: string; operationId: string }[] = [];
 
     // Write files if not dry run
     if (!dryRun) {
@@ -202,11 +205,11 @@ export function registerOpenApiTools(
 
     let specsValidated = 0;
     let specsWithDiffs = 0;
-    const results: Array<{
+    const results: {
       file: string;
       valid: boolean;
       diffs: string[];
-    }> = [];
+    }[] = [];
 
     for (const file of specFiles) {
       const content = await adapters.fs.readFile(file);
@@ -305,4 +308,3 @@ export function registerOpenApiTools(
     };
   });
 }
-

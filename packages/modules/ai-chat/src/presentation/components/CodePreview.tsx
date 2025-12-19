@@ -99,7 +99,7 @@ export function CodePreview({
       <div
         className={cn(
           'flex items-center justify-between px-3 py-1.5',
-          'border-b bg-muted/80'
+          'bg-muted/80 border-b'
         )}
       >
         <div className="flex items-center gap-2 text-sm">
@@ -153,15 +153,12 @@ export function CodePreview({
       </div>
 
       {/* Code content */}
-      <div
-        className="overflow-auto"
-        style={{ maxHeight }}
-      >
+      <div className="overflow-auto" style={{ maxHeight }}>
         <pre className="p-3">
           <code className="text-sm">
             {lines.map((line, i) => (
               <div key={i} className="flex">
-                <span className="text-muted-foreground mr-4 select-none text-right w-8">
+                <span className="text-muted-foreground mr-4 w-8 text-right select-none">
                   {i + 1}
                 </span>
                 <span className="flex-1">{line || ' '}</span>
@@ -173,4 +170,3 @@ export function CodePreview({
     </div>
   );
 }
-

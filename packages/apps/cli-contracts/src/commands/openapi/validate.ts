@@ -84,12 +84,12 @@ export const validateCommand = new Command('validate')
 
       let specsValidated = 0;
       let specsWithDiffs = 0;
-      const results: Array<{
+      const results: {
         file: string;
         operationId?: string;
         valid: boolean;
         diffs: string[];
-      }> = [];
+      }[] = [];
 
       for (const file of specFiles) {
         try {

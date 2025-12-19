@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import type { CSSProperties, ReactNode } from 'react';
+import * as React from 'react';
 import Map, {
   type MapRef,
   NavigationControl,
@@ -24,7 +24,6 @@ export interface MapBaseProps {
   style?: CSSProperties;
   showControls?: boolean;
   showCssLink?: boolean;
-  onMoveEnd?: (bbox: BBox) => void;
   onMapRef?: (ref: MapRef | null) => void;
   children?: ReactNode;
 }
@@ -36,7 +35,6 @@ export function MapBase(props: MapBaseProps) {
     style,
     showControls = true,
     showCssLink = true,
-    onMoveEnd,
     onMapRef,
     children,
   } = props;
@@ -47,17 +45,6 @@ export function MapBase(props: MapBaseProps) {
     onMapRef?.(mapRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapRef.current]);
-
-  // const handleMoveEnd = React.useCallback(() => {
-  //   if (!onMoveEnd) return;
-  //   const b = mapRef.current?.getBounds();
-  //   if (!b) return;
-  //   // maplibre-gl bounds → [[minLng,minLat],[maxLng,maxLat]]
-  //   const arr = (b as any).toArray?.() as [number, number][] | undefined;
-  //   if (!arr || arr.length < 2) return;
-  //   const [sw, ne] = arr;
-  //   onMoveEnd({ minLng: sw[0], minLat: sw[1], maxLng: ne[0], maxLat: ne[1] });
-  // }, [onMoveEnd]);
 
   return (
     <div

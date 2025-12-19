@@ -1,17 +1,7 @@
-tsdown.config.jsimport { defineConfig } from 'tsdown';
+import { defineConfig } from 'tsdown';
 import { moduleLibrary, withDevExports } from '@lssm/tool.tsdown';
 
 export default defineConfig(() => ({
   ...moduleLibrary,
   ...withDevExports,
 }));
-
-
-
-
-
-
-
-
-
-

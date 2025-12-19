@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import { cva } from 'class-variance-authority';
 
 import { cn } from '@lssm/lib.ui-kit-core/utils';
 

@@ -64,15 +64,15 @@ export interface ImportResult {
   /** Successfully imported specs */
   specs: ImportedSpec[];
   /** Specs that were skipped (e.g., unsupported features) */
-  skipped: Array<{
+  skipped: {
     sourceId: string;
     reason: string;
-  }>;
+  }[];
   /** Errors encountered during import */
-  errors: Array<{
+  errors: {
     sourceId: string;
     error: string;
-  }>;
+  }[];
   /** Summary statistics */
   summary: {
     total: number;
@@ -133,10 +133,10 @@ export interface SyncResult {
   /** Specs that were added (new imports) */
   added: ImportedSpec[];
   /** Specs that were updated */
-  updated: Array<{
+  updated: {
     spec: ImportedSpec;
     changes: DiffChange[];
-  }>;
+  }[];
   /** Specs that were kept unchanged */
   unchanged: string[];
   /** Specs that had conflicts requiring resolution */
@@ -163,4 +163,3 @@ export interface ValidationResult {
   /** Validation warnings */
   warnings: string[];
 }
-
