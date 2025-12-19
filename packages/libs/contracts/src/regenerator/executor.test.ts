@@ -156,10 +156,10 @@ describe('ProposalExecutor', () => {
     const result = await executor.execute(context, proposal);
 
     expect(result.actions[0]).toBeDefined();
-    const firstAction = result.actions[0]!;
-    expect(firstAction.status).toBe('failed');
+    const firstAction = result.actions[0];
+    expect(firstAction?.status).toBe('failed');
     expect(result.status).toBe('failed');
-    expect(firstAction.error?.message).toBe('boom');
+    expect(firstAction?.error?.message).toBe('boom');
   });
 
   it('observes dry run mode and skips execution', async () => {

@@ -8,13 +8,7 @@ export function makeNextPagesHandler(
   ctxFactory: (req: NextApiRequest) => HandlerCtx,
   options?: RestOptions
 ) {
-  const fetchHandler = createFetchHandler(
-    reg,
-    (_req: Request) => {
-      throw new Error('Use per-request wrapper'); // we wrap below
-    },
-    options
-  );
+  // Placeholder removed: fetchHandler was unused
 
   return async function handler(req: NextApiRequest, res: NextApiResponse) {
     const url = `${req.headers['x-forwarded-proto'] ?? 'http'}://${req.headers.host}${req.url}`;

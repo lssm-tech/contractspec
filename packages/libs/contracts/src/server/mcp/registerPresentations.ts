@@ -5,7 +5,6 @@ import {
   createDefaultTransformEngine,
   registerBasicValidation,
   registerDefaultReactRenderer,
-  type PresentationDescriptorV2,
 } from '../../presentations.v2';
 
 function isEngineRenderOutput(

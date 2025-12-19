@@ -18,15 +18,6 @@ export function expressRouter(
   options?: RestOptions
 ): Router {
   const router = express.Router();
-  const fetchHandler = createFetchHandler(
-    reg,
-    (_r) => {
-      // Convert Fetch Request headers -> Express req is provided below
-      // We pass the Express req directly via closure
-      throw new Error('ctxFactory must be called from route'); // placeholder
-    },
-    options
-  );
 
   // For each spec, create a concrete route so Express can match quickly
   for (const spec of reg.listSpecs()) {

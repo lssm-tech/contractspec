@@ -211,7 +211,6 @@ export function schemaToMarkdownDetail(
  * Generate markdown summary statistics for numeric fields in array data.
  */
 export function schemaToMarkdownSummary(
-  schema: AnySchemaModel,
   items: unknown[],
   options: { numericFields?: string[]; countByField?: string } = {}
 ): string {

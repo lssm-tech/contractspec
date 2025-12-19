@@ -29,7 +29,7 @@ function evaluateSingle(expr: string, ctx: ExpressionContext): boolean {
   if (trimmed.startsWith('!')) return !evaluateSingle(trimmed.slice(1), ctx);
 
   const comparisonMatch = trimmed.match(
-    /^(data|input|output)\.([A-Za-z0-9_.\[\]]+)\s*(===|==|!==|!=|>=|<=|>|<)\s*(.+)$/
+    /^(data|input|output)\.([A-Za-z0-9_.[\]]+)\s*(===|==|!==|!=|>=|<=|>|<)\s*(.+)$/
   );
   if (comparisonMatch) {
     const [, root, path, operator, rawRight] = comparisonMatch as [
@@ -45,7 +45,7 @@ function evaluateSingle(expr: string, ctx: ExpressionContext): boolean {
   }
 
   const truthyMatch = trimmed.match(
-    /^(data|input|output)\.([A-Za-z0-9_.\[\]]+)$/
+    /^(data|input|output)\.([A-Za-z0-9_.[\]]+)$/
   );
   if (truthyMatch) {
     const [, root, path] = truthyMatch as [string, string, string];
@@ -117,7 +117,7 @@ function resolvePath(source: unknown, path: string): unknown {
     .split('.')
     .filter(Boolean);
 
-  let current: any = source;
+  let current: unknown = source;
   for (const segment of segments) {
     if (current == null) return undefined;
     current = current[segment as keyof typeof current];
@@ -132,7 +132,8 @@ function splitByOperator(expr: string, operator: '&&' | '||'): string[] {
   let inDoubleQuote = false;
 
   for (let i = 0; i < expr.length; i++) {
-    const char = expr[i]!;
+    const char = expr[i];
+    if (!char) continue;
     const next = expr.slice(i, i + operator.length);
 
     if (char === "'" && !inDoubleQuote) {

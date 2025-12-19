@@ -7,7 +7,7 @@ import type {
   RegeneratorSignal,
   SpecChangeProposal,
 } from './types';
-import type { SignalAdapters, TelemetrySignalProvider } from './adapters';
+import type { TelemetrySignalProvider } from './adapters';
 import { resolveAppConfig } from '../app-config/runtime';
 import type { AppBlueprintSpec, TenantAppConfig } from '../app-config/spec';
 

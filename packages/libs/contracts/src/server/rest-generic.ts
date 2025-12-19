@@ -18,7 +18,7 @@ export interface RestOptions {
   /** JSON spacing in responses (dev only ideally) */
   prettyJson?: number | false;
   /** Map thrown errors to {status, body} */
-  onError?: (err: unknown) => { status: number; body: any };
+  onError?: (err: unknown) => { status: number; body: unknown };
 }
 
 /** Minimal WHATWG Response polyfill util for Node < 18 (if needed) */
@@ -91,11 +91,13 @@ export function createFetchHandler(
   const routeTable = new Map<string, Route>(); // KEY: METHOD + " " + PATH
   for (const r of routes) routeTable.set(`${r.method} ${r.path}`, r);
 
-  const allowHeader = Array.from(new Set(routes.map((r) => r.method))).join(
-    ', '
-  );
+  // Unused: allowHeader
 
-  const makeJson = (status: number, data: any, extraHeaders?: HeadersInit) => {
+  const makeJson = (
+    status: number,
+    data: unknown,
+    extraHeaders?: HeadersInit
+  ) => {
     const body = opts.prettyJson
       ? JSON.stringify(data, null, opts.prettyJson)
       : JSON.stringify(data);
@@ -133,14 +135,14 @@ export function createFetchHandler(
     }
 
     try {
-      let input: any = {};
+      let input: unknown = {};
       if (route.method === 'GET') {
         // Support either flattened query (?a=1&b=x) or ?input=<json>
         if (url.searchParams.has('input')) {
-          const raw = url.searchParams.get('input')!;
+          const raw = url.searchParams.get('input');
           input = raw ? JSON.parse(raw) : {};
         } else {
-          const obj: Record<string, any> = {};
+          const obj: Record<string, unknown> = {};
           for (const [k, v] of url.searchParams.entries()) obj[k] = v;
           input = obj;
         }
@@ -168,7 +170,7 @@ export function createFetchHandler(
           corsHeaders(opts.cors === true ? {} : opts.cors)
         );
       return makeJson(200, result, headers);
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (opts.onError) {
         const mapped = opts.onError(err);
         const headers: HeadersInit = {};

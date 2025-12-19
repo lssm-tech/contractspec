@@ -100,8 +100,8 @@ interface BlockNoteNode {
   type?: string;
   content?: BlockNoteNode[];
   text?: string;
-  marks?: { type?: string; attrs?: Record<string, any> }[];
-  attrs?: Record<string, any>;
+  marks?: { type?: string; attrs?: Record<string, unknown> }[];
+  attrs?: Record<string, unknown>;
 }
 
 function renderTextNode(node: BlockNoteNode): string {
@@ -161,7 +161,9 @@ function renderNode(node: BlockNoteNode): string {
       return text.trim().length ? text : '';
     }
     case 'heading': {
-      const level = Math.min(Math.max(node.attrs?.level ?? 1, 1), 6);
+      const levelAttr = node.attrs?.level;
+      const levelVal = typeof levelAttr === 'number' ? levelAttr : 1;
+      const level = Math.min(Math.max(levelVal, 1), 6);
       return `${'#'.repeat(level)} ${renderInline(node.content)}`.trim();
     }
     case 'bullet_list':
@@ -198,8 +200,8 @@ function blockNoteToMarkdown(docJson: unknown): string {
   if (typeof docJson === 'string') return docJson;
 
   // If HTML string, convert via Turndown
-  if (docJson && typeof docJson === 'object' && 'html' in (docJson as any)) {
-    const html = String((docJson as any).html);
+  if (docJson && typeof docJson === 'object' && 'html' in docJson) {
+    const html = String((docJson as { html: unknown }).html);
     return turndown.turndown(html);
   }
 
@@ -221,6 +223,7 @@ function blockNoteToMarkdown(docJson: unknown): string {
 export class TransformEngine {
   private renderers = new Map<
     PresentationTarget,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     PresentationRenderer<any>[]
   >();
   private validators: PresentationValidator[] = [];
@@ -277,10 +280,10 @@ export class TransformEngine {
 export function createDefaultTransformEngine() {
   const engine = new TransformEngine();
 
-  const applyPii = (desc: PresentationDescriptorV2, obj: any) => {
+  const applyPii = (desc: PresentationDescriptorV2, obj: unknown) => {
     const clone = JSON.parse(JSON.stringify(obj));
     const paths = desc.policy?.pii ?? [];
-    const setAtPath = (root: any, path: string) => {
+    const setAtPath = (root: unknown, path: string) => {
       const segs = path
         .replace(/^\//, '')
         .replace(/\[(\d+)\]/g, '.$1')
@@ -289,12 +292,22 @@ export function createDefaultTransformEngine() {
       let cur = root;
       for (let i = 0; i < segs.length - 1; i++) {
         const k = segs[i]!;
-        if (cur && typeof cur === 'object' && k in cur) cur = cur[k];
-        else return;
+        if (
+          cur &&
+          typeof cur === 'object' &&
+          k in (cur as Record<string, unknown>)
+        ) {
+          cur = (cur as Record<string, unknown>)[k];
+        } else return;
       }
       const last = segs[segs.length - 1];
-      if (cur && typeof cur === 'object' && last && last in cur)
-        cur[last] = '[REDACTED]';
+      if (
+        cur &&
+        typeof cur === 'object' &&
+        last &&
+        last in (cur as Record<string, unknown>)
+      )
+        (cur as Record<string, unknown>)[last] = '[REDACTED]';
     };
     for (const p of paths) setAtPath(clone, p);
     return clone;
@@ -474,6 +487,7 @@ export function registerBasicValidation(engine: TransformEngine) {
 /**
  * Component map type for React rendering.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ComponentMap = Record<string, React.ComponentType<any>>;
 
 /**
@@ -505,7 +519,7 @@ export function registerReactToMarkdownRenderer(
 
   engine.prependRegister<{ mimeType: 'text/markdown'; body: string }>({
     target: 'markdown',
-    async render(desc, ctx) {
+    async render(desc, _ctx) {
       // Only handle React component presentations
       if (desc.source.type !== 'component') {
         throw new Error(

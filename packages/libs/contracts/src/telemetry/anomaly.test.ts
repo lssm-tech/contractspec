@@ -44,6 +44,7 @@ const makeDispatch = (value: number): TelemetryDispatch => {
     context: {},
     tags: [],
     spec,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     definition: spec.events[0]!,
   };
 };

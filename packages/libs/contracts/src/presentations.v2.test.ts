@@ -44,6 +44,7 @@ describe('TransformEngine', () => {
     const engine = registerBasicValidation(
       registerDefaultReactRenderer(createDefaultTransformEngine())
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bad = mk({ meta: { name: 'a', version: 1, description: '' } as any });
     await expect(engine.render('application/json', bad)).rejects.toThrow();
   });

@@ -17,7 +17,7 @@ export function makeNextMcpServerFromRegistry(
   const handler = createMcpHandler(
     (server) => {
       for (const spec of reg.listSpecs()) {
-        const { input, output, meta } = jsonSchemaForSpec(
+        const { input, meta } = jsonSchemaForSpec(
           spec as unknown as ContractSpec<AnySchemaModel, AnySchemaModel>
         );
 
@@ -26,6 +26,7 @@ export function makeNextMcpServerFromRegistry(
             spec.transport?.mcp?.toolName ??
             defaultMcpTool(spec.meta.name, spec.meta.version);
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (server as any).registerResource(
             resourceName,
             new ResourceTemplate('users://{userId}/profile', {
@@ -57,9 +58,9 @@ export function makeNextMcpServerFromRegistry(
             {
               // name: toolName,
               description: spec.meta.description,
-              inputSchema: input as any,
+              inputSchema: input as never,
             },
-            (async (args: any, _req: any) => {
+            (async (args: unknown, _req: unknown) => {
               const result = await reg.execute(
                 spec.meta.name,
                 spec.meta.version,

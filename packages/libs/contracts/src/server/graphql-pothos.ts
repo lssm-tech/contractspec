@@ -3,7 +3,7 @@ import type {
   QueryFieldThunk,
   SchemaTypes,
 } from '@pothos/core';
-import type { HandlerCtx } from '../types';
+import type { HandlerCtx, EventPublisher } from '../types';
 import { defaultGqlField } from '../jsonschema';
 import type { SpecRegistry } from '../registry';
 import '@pothos/plugin-prisma';
@@ -61,17 +61,20 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 
   // Register all output types as GraphQL object types
   for (const [typeName, model] of outputTypeCache.entries()) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     builder.objectType(typeName as any, {
-      fields: (t) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      fields: (t: any) => {
         const entries = Object.entries(model.config.fields) as [
           string,
           {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             type: any;
             isOptional: boolean;
             isArray?: boolean;
           },
         ][];
-        const acc: Record<string, any> = {};
+        const acc: Record<string, unknown> = {};
         for (const [key, field] of entries) {
           const fieldType = field.type;
           let gqlType = 'JSON';
@@ -94,7 +97,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
           acc[key] = t.field({
             type: typeRef,
             nullable: field.isOptional,
-            resolve: (parent: any) => parent[key],
+            resolve: (parent: Record<string, unknown>) => parent[key],
           });
         }
         return acc as never;
@@ -137,7 +140,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
     const fieldName =
       spec.transport?.gql?.field ??
       defaultGqlField(spec.meta.name, spec.meta.version);
-    const returnsName = spec.transport?.gql?.returns;
+    // Unused: returnsName
     const byIdField =
       (spec.transport as unknown as { gql?: { byIdField?: string } })?.gql
         ?.byIdField ?? 'id';
@@ -152,7 +155,16 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
     )?.gql?.returns;
     const parsed = parseReturns(returnsDecl ?? graphQLTypeName);
 
-    const resolveFieldFn = async (_root: any, args: any, ctx: any) => {
+    const resolveFieldFn = async (
+      _root: unknown,
+      args: { input?: unknown },
+      ctx: {
+        user?: { id: string };
+        logger?: { getTraceId?: () => string };
+        session?: { activeOrganizationId?: string };
+        eventPublisher: EventPublisher;
+      }
+    ) => {
       if (spec.policy.auth !== 'anonymous' && !ctx.user)
         throw new Error('Unauthorized');
       const handlerCtx: HandlerCtx = {
@@ -203,8 +215,10 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
     ) => {
       const inputType = buildInputFieldArgs(spec.io.input);
       return t.field({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type: (parsed.isList ? [parsed.inner] : parsed.inner) as any,
         complexity: () => 10,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolve: resolveFieldFn as any,
         args: inputType
           ? {

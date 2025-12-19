@@ -7,12 +7,16 @@ import type { HandlerCtx } from '../types';
 export function elysiaPlugin(
   app: Elysia,
   reg: SpecRegistry,
-  ctxFactory: (c: { request: Request; store: any }) => HandlerCtx,
+  ctxFactory: (c: { request: Request; store: unknown }) => HandlerCtx,
   options?: RestOptions
 ) {
   const handler = createFetchHandler(
     reg,
-    (req) => ctxFactory({ request: req, store: (app as any).store }),
+    (req) =>
+      ctxFactory({
+        request: req,
+        store: (app as unknown as { store: unknown }).store,
+      }),
     options
   );
 
@@ -24,13 +28,14 @@ export function elysiaPlugin(
       (options?.basePath ?? '') +
       (spec.transport?.rest?.path ??
         `/${spec.meta.name.replace(/\./g, '/')}/v${spec.meta.version}`);
-    app[method.toLowerCase() as 'get' | 'post'](path, ({ request }: any) =>
-      handler(request)
+    app[method.toLowerCase() as 'get' | 'post'](
+      path,
+      ({ request }: { request: Request }) => handler(request)
     );
   }
 
   if (options?.cors) {
-    app.options('*', ({ request }: any) => handler(request));
+    app.options('*', ({ request }: { request: Request }) => handler(request));
   }
 
   return app;

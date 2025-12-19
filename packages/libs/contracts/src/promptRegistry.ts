@@ -2,7 +2,7 @@ import type { PromptSpec } from './prompt';
 import * as z from 'zod';
 
 export class PromptRegistry {
-  private prompts = new Map<string, PromptSpec<any>>(); // key = name.vX
+  private prompts = new Map<string, PromptSpec<z.ZodType>>(); // key = name.vX
 
   /** Register a prompt. Throws on duplicate name+version. */
   register<I extends z.ZodType>(p: PromptSpec<I>): this {
@@ -21,7 +21,7 @@ export class PromptRegistry {
   get(name: string, version?: number) {
     if (version != null) return this.prompts.get(`${name}.v${version}`);
     // latest by highest version
-    let candidate: PromptSpec<any> | undefined;
+    let candidate: PromptSpec<z.ZodType> | undefined;
     let max = -Infinity;
     for (const [k, p] of this.prompts.entries()) {
       if (!k.startsWith(`${name}.v`)) continue;

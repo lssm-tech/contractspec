@@ -187,7 +187,7 @@ describe('WorkflowRunner', () => {
   it('executes automation and human steps until completion', async () => {
     const events: { event: string; payload: unknown }[] = [];
     const spec = workflowSpec();
-    const { runner, store, opExecutor } = createRunner(spec, events);
+    const { runner, opExecutor } = createRunner(spec, events);
 
     const workflowId = await runner.start(spec.meta.name);
     expect(events[0]).toMatchObject({ event: 'workflow.started' });

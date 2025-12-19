@@ -1,4 +1,4 @@
-import type { Locale, MessageKey, TranslationEntry } from './catalog';
+import type { Locale, TranslationEntry } from './catalog';
 
 export interface TenantTranslationOverride {
   tenantId: string;

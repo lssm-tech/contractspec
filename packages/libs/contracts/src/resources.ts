@@ -35,6 +35,7 @@ export function defineResourceTemplate<I extends z.ZodType>(
 }
 
 export class ResourceRegistry {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private templates: ResourceTemplateSpec<any>[] = [];
 
   register<I extends z.ZodType>(tmpl: ResourceTemplateSpec<I>): this {
@@ -48,10 +49,12 @@ export class ResourceRegistry {
 
   /** Try to match a concrete URI to a template by naive pattern substitution */
   // MVP: simple matcher; replace {param} with (.+) and capture
-  match(
-    uri: string
-  ):
-    | { tmpl: ResourceTemplateSpec<any>; params: Record<string, string> }
+  match(uri: string):
+    | {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        tmpl: ResourceTemplateSpec<any>;
+        params: Record<string, string>;
+      }
     | undefined {
     for (const tmpl of this.templates) {
       const re = new RegExp(
@@ -63,7 +66,12 @@ export class ResourceRegistry {
         (x) => x[1]
       );
       const params: Record<string, string> = {};
-      names.forEach((n, i) => (params[n!] = decodeURIComponent(m[i + 1]!)));
+      names.forEach((n, i) => {
+        const val = m[i + 1];
+        if (n && val) {
+          params[n] = decodeURIComponent(val);
+        }
+      });
       return { tmpl, params };
     }
     return undefined;
@@ -97,6 +105,6 @@ export function resourceRef<Many extends boolean>(
 }
 
 export function isResourceRef(x: unknown): x is ResourceRefDescriptor<boolean> {
-  const o = x as any;
+  const o = x as Record<string, unknown>;
   return !!o && o.kind === 'resource_ref' && typeof o.uriTemplate === 'string';
 }

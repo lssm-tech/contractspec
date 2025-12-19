@@ -231,7 +231,8 @@ function validateReachability(
   visited.add(entryStepId);
 
   while (queue.length) {
-    const current = queue.shift()!;
+    const current = queue.shift();
+    if (!current) continue;
     const neighbours = adjacency.get(current);
     if (!neighbours) continue;
     for (const next of neighbours) {

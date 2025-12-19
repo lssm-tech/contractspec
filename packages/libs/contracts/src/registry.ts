@@ -14,7 +14,7 @@ import {
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
 import { eventKey } from './events';
-import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { HandlerFor } from './install';
 export { registerDocBlocks, defaultDocRegistry, docId } from './docs/registry';
 
@@ -28,7 +28,7 @@ type AnySpec = ContractSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
-type AnyHandler = (args: any, ctx: HandlerCtx) => Promise<unknown>;
+type AnyHandler = (args: unknown, ctx: HandlerCtx) => Promise<unknown>;
 
 /**
  * In-memory registry for ContractSpecs and their bound handlers.
@@ -172,9 +172,11 @@ export class SpecRegistry {
     // 2) Policy enforcement
     if (ctx.decide) {
       const [service, command] = spec.meta.name.split('.');
+      if (!service || !command)
+        throw new Error(`Invalid spec name: ${spec.meta.name}`);
       const decision = await ctx.decide({
-        service: service!,
-        command: command!,
+        service,
+        command,
         version: spec.meta.version,
         actor: ctx.actor ?? 'anonymous',
         channel: ctx.channel,
