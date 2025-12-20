@@ -299,7 +299,9 @@ export const initCommand = new Command('init')
                 if (spec.code.includes('defineEvent(')) {
                   targetDir = eventsDir;
                 } else if (
-                  spec.code.includes('defineSchemaModel(') &&
+                  (spec.code.includes('defineSchemaModel(') ||
+                    spec.code.includes('new EnumType(') ||
+                    spec.code.includes('ScalarTypeEnum.')) &&
                   !spec.code.includes('defineCommand(') &&
                   !spec.code.includes('defineQuery(')
                 ) {

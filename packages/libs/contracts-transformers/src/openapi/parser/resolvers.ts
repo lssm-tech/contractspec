@@ -51,6 +51,7 @@ export function resolveSchema(
 /**
  * Recursively dereference a schema.
  * Replaces all $ref with their resolved values.
+ * Preserves `_originalRef` to track where the schema came from.
  */
 export function dereferenceSchema(
   doc: OpenApiDocument,
@@ -74,7 +75,18 @@ export function dereferenceSchema(
     if (!resolved) return schema;
 
     // Recursively dereference the resolved schema
-    return dereferenceSchema(doc, resolved, newSeen);
+    const dereferenced = dereferenceSchema(doc, resolved, newSeen);
+    if (!dereferenced) return schema;
+
+    // IMPORTANT: Preserve the original $ref so we can generate correct imports
+    // Extract the type name from the $ref (e.g., '#/components/schemas/PaginationMeta' -> 'PaginationMeta')
+    const refParts = schema.$ref.split('/');
+    const typeName = refParts[refParts.length - 1];
+    return {
+      ...dereferenced,
+      _originalRef: schema.$ref,
+      _originalTypeName: typeName,
+    } as unknown as OpenApiSchema;
   }
 
   // Deep clone to avoid mutating original doc (if we were modifying in place, but here we return new objects mostly)

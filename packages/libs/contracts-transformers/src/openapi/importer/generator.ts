@@ -35,7 +35,8 @@ export function generateSpecCode(
     lines.push(
       generateImports(
         [...(inputModel?.fields ?? []), ...(outputModel?.fields ?? [])],
-        contractspecConfig
+        contractspecConfig,
+        false // operations import from ../models, not same directory
       )
     );
   }

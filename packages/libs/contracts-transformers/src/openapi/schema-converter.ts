@@ -54,14 +54,6 @@ export interface GeneratedModel {
 }
 
 /**
- * Options for generating import statements.
- */
-export interface ImportGeneratorOptions {
-  /** Base directory for model imports (e.g., '../models'). Defaults to relative './' */
-  modelsDir?: string;
-}
-
-/**
  * Map JSON Schema types to ContractSpec ScalarTypeEnum values.
  */
 const JSON_SCHEMA_TO_SCALAR: Record<string, string> = {
@@ -112,6 +104,17 @@ export function jsonSchemaToType(
   const type = schemaObj['type'] as string | undefined;
   const format = schemaObj['format'] as string | undefined;
   const nullable = schemaObj['nullable'] as boolean | undefined;
+
+  // Check if this schema was dereferenced from a $ref - use the original type name
+  const originalTypeName = schemaObj['_originalTypeName'] as string | undefined;
+  if (originalTypeName) {
+    return {
+      type: toPascalCase(originalTypeName),
+      optional: nullable ?? false,
+      array: false,
+      primitive: false,
+    };
+  }
 
   // Handle arrays
   if (type === 'array') {
@@ -268,8 +271,96 @@ export function generateSchemaModelCode(
     | undefined;
   const required = (schemaObj['required'] as string[]) ?? [];
 
+  // Handle enum types (generate an EnumType export instead of a model)
+  const enumValues = schemaObj['enum'] as unknown[] | undefined;
+  if (enumValues && enumValues.length > 0) {
+    const safeModelName = toPascalCase(toValidIdentifier(modelName));
+    const enumCode = [
+      `${spaces}/**`,
+      `${spaces} * Enum type: ${safeModelName}`,
+      description ? `${spaces} * ${description}` : null,
+      `${spaces} */`,
+      `${spaces}export const ${safeModelName} = new EnumType('${safeModelName}', [${enumValues.map((v) => `'${String(v)}'`).join(', ')}]);`,
+    ]
+      .filter((line) => line !== null)
+      .join('\n');
+
+    return {
+      name: safeModelName,
+      description,
+      fields: [],
+      code: enumCode,
+    };
+  }
+
+  // Handle primitive types (string, number, boolean) - generate type alias
+  const schemaType = schemaObj['type'] as string | undefined;
+  if (schemaType && !properties && !enumValues) {
+    const safeModelName = toPascalCase(toValidIdentifier(modelName));
+    const format = schemaObj['format'] as string | undefined;
+    const scalarKey = format ? `${schemaType}:${format}` : schemaType;
+    const scalarType =
+      JSON_SCHEMA_TO_SCALAR[scalarKey] ?? JSON_SCHEMA_TO_SCALAR[schemaType];
+
+    if (scalarType) {
+      const aliasCode = [
+        `${spaces}/**`,
+        `${spaces} * Type alias: ${safeModelName}`,
+        description ? `${spaces} * ${description}` : null,
+        `${spaces} * Underlying type: ${scalarType}`,
+        `${spaces} */`,
+        `${spaces}export const ${safeModelName} = defineSchemaModel({`,
+        `${spaces}  name: '${safeModelName}',`,
+        description
+          ? `${spaces}  description: ${JSON.stringify(description)},`
+          : null,
+        `${spaces}  fields: {`,
+        `${spaces}    value: {`,
+        `${spaces}      type: ${scalarType}(),`,
+        `${spaces}    },`,
+        `${spaces}  },`,
+        `${spaces}});`,
+      ]
+        .filter((line) => line !== null)
+        .join('\n');
+
+      return {
+        name: safeModelName,
+        description,
+        fields: [],
+        code: aliasCode,
+      };
+    }
+  }
+
+  // Handle additionalProperties (dictionary/map types)
+  const additionalProperties = schemaObj['additionalProperties'];
+  if (additionalProperties && !properties) {
+    const safeModelName = toPascalCase(toValidIdentifier(modelName));
+
+    // For dictionary types, we use JSONObject which is Record<string, unknown>
+    // This is the correct representation in the schema library
+    const dictCode = [
+      `${spaces}/**`,
+      `${spaces} * Dictionary/Record type: ${safeModelName}`,
+      description ? `${spaces} * ${description}` : null,
+      `${spaces} * Use as: Record<string, unknown> - access via record[key]`,
+      `${spaces} */`,
+      `${spaces}export const ${safeModelName} = ScalarTypeEnum.JSONObject();`,
+    ]
+      .filter((line) => line !== null)
+      .join('\n');
+
+    return {
+      name: safeModelName,
+      description,
+      fields: [],
+      code: dictCode,
+    };
+  }
+
   if (!properties) {
-    // No properties - generate an empty model or type alias
+    // No properties and not an enum, primitive, or dictionary - generate an empty model
     return {
       name: toPascalCase(modelName),
       description,
@@ -324,8 +415,10 @@ function generateFieldCode(field: SchemaField, indent: number): string {
   // Type
   if (field.enumValues) {
     // Enum type
+    // Generate a name based on the field name
+    const enumName = toPascalCase(field.name) + 'Enum';
     lines.push(
-      `${spaces}  type: new EnumType([${field.enumValues.map((v) => `'${v}'`).join(', ')}]),`
+      `${spaces}  type: new EnumType('${enumName}', [${field.enumValues.map((v) => `'${v}'`).join(', ')}]),`
     );
   } else if (field.scalarType) {
     // Scalar type
@@ -338,9 +431,7 @@ function generateFieldCode(field: SchemaField, indent: number): string {
   }
 
   // Optional
-  if (field.type.optional) {
-    lines.push(`${spaces}  isOptional: true,`);
-  }
+  lines.push(`${spaces}  isOptional: ${field.type.optional},`);
 
   // Array
   if (field.type.array) {
@@ -355,14 +446,17 @@ function generateFieldCode(field: SchemaField, indent: number): string {
 /**
  * Generate import statements for a SchemaModel.
  * @param fields - The fields to generate imports for
- * @param options - Optional configuration for import generation
+ * @param options - Configuration for import generation
+ * @param sameDirectory - If true, imports use './' (for model-to-model). If false, uses '../models/' (for operations/events)
  */
 export function generateImports(
   fields: SchemaField[],
-  options: ContractsrcConfig
+  options: ContractsrcConfig,
+  sameDirectory = true
 ): string {
   const imports = new Set<string>();
-  const modelsDir = `../${options.conventions.models}`;
+  // Determine import path based on whether we're in the same directory
+  const modelsDir = sameDirectory ? '.' : `../${options.conventions.models}`;
 
   imports.add(
     "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';"
