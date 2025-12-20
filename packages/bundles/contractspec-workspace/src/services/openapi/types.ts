@@ -2,29 +2,7 @@
  * Types for OpenAPI services.
  */
 
-/**
- * OpenAPI source configuration (from config file).
- */
-export interface OpenApiSourceConfig {
-  /** Friendly name for the source */
-  name: string;
-  /** Remote URL to fetch OpenAPI spec from */
-  url?: string;
-  /** Local file path to OpenAPI spec */
-  file?: string;
-  /** Sync mode */
-  syncMode: 'import' | 'sync' | 'validate';
-  /** Only import operations with these tags */
-  tags?: string[];
-  /** Exclude operations with these operationIds */
-  exclude?: string[];
-  /** Prefix for generated spec names */
-  prefix?: string;
-  /** Default stability for imported specs */
-  defaultStability?: 'experimental' | 'beta' | 'stable' | 'deprecated';
-  /** Default auth level for imported specs */
-  defaultAuth?: 'anonymous' | 'user' | 'admin';
-}
+import type { OpenApiSourceConfig } from '@lssm/lib.contracts';
 
 /**
  * Options for OpenAPI import.

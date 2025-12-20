@@ -3,27 +3,24 @@
  */
 
 import {
-  parseOpenApi,
   importFromOpenApi,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
 import type {
   OpenApiSyncServiceOptions,
   OpenApiSyncServiceResult,
-  OpenApiSourceConfig,
 } from './types';
-import { join, dirname } from 'path';
+import { dirname, join } from 'path';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 /**
  * Sync ContractSpec specs with OpenAPI sources.
  */
 export async function syncWithOpenApiService(
   options: OpenApiSyncServiceOptions,
-  config: {
-    sources?: OpenApiSourceConfig[];
-    outputDir: string;
-  },
+  config: ContractsrcConfig,
   adapters: { fs: FsAdapter; logger: LoggerAdapter }
 ): Promise<OpenApiSyncServiceResult> {
   const { fs, logger } = adapters;
@@ -34,10 +31,10 @@ export async function syncWithOpenApiService(
     force,
     dryRun,
   } = options;
-  const { sources: configSources, outputDir } = config;
+  const { outputDir } = config;
 
   // Determine which sources to sync
-  let sourcesToSync = optSources ?? configSources ?? [];
+  let sourcesToSync = optSources ?? config.openapi?.sources ?? [];
 
   if (sourceName) {
     sourcesToSync = sourcesToSync.filter((s) => s.name === sourceName);
@@ -88,7 +85,7 @@ export async function syncWithOpenApiService(
     );
 
     // Import operations to get the new specs
-    const importResult = importFromOpenApi(parseResult, {
+    const importResult = importFromOpenApi(parseResult, config, {
       prefix: source.prefix,
       tags: source.tags,
       exclude: source.exclude,

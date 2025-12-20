@@ -1,5 +1,4 @@
 import type {
-  OpenApiImportOptions,
   OpenApiSource,
   OpenApiTransportHints,
   ParsedOperation,
@@ -12,7 +11,10 @@ import { buildInputSchema, getOutputSchema } from './schemas';
 import { generateSpecCode } from './generator';
 import { generateModelCode } from './models';
 import { generateEventCode } from './events';
-import type { ContractsrcConfig } from '@lssm/lib.contracts';
+import type {
+  ContractsrcConfig,
+  OpenApiSourceConfig,
+} from '@lssm/lib.contracts';
 
 export * from './analyzer';
 export * from './schemas';
@@ -25,8 +27,8 @@ export * from './events';
  */
 export const importFromOpenApi = (
   parseResult: ParseResult,
-  importOptions: OpenApiImportOptions,
-  contractspecOptions: ContractsrcConfig
+  contractspecOptions: ContractsrcConfig,
+  importOptions: OpenApiSourceConfig
 ): ImportResult => {
   const { tags, exclude = [], include } = importOptions;
   const specs: ImportedSpec[] = [];
@@ -94,6 +96,7 @@ export const importFromOpenApi = (
       // Generate spec code
       const code = generateSpecCode(
         operation,
+        contractspecOptions,
         importOptions,
         inputModel,
         outputModel
@@ -173,8 +176,8 @@ export const importFromOpenApi = (
   // Import events
   for (const event of parseResult.events) {
     try {
-      const code = generateEventCode(event, options);
-      const fileName = toFileName(toSpecName(event.name, options.prefix));
+      const code = generateEventCode(event, contractspecOptions);
+      const fileName = toFileName(toSpecName(event.name, importOptions.prefix));
 
       specs.push({
         spec: {} as any,
@@ -221,7 +224,8 @@ export const importFromOpenApi = (
  */
 export function importOperation(
   operation: ParsedOperation,
-  options: OpenApiImportOptions = {}
+  options: OpenApiSourceConfig,
+  contractspecOptions: ContractsrcConfig
 ): string {
   const { schema: inputSchema } = buildInputSchema(operation);
   const inputModel = inputSchema
@@ -233,5 +237,11 @@ export function importOperation(
     ? generateSchemaModelCode(outputSchema, `${operation.operationId}Output`)
     : null;
 
-  return generateSpecCode(operation, options, inputModel, outputModel);
+  return generateSpecCode(
+    operation,
+    contractspecOptions,
+    options,
+    inputModel,
+    outputModel
+  );
 }

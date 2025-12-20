@@ -6,17 +6,20 @@ import {
 } from '../../common/utils';
 import { type GeneratedModel, generateImports } from '../schema-converter';
 import { inferAuthLevel, inferOpKind } from './analyzer';
-import type { ContractsrcConfig, OpenApiSource } from '@lssm/lib.contracts';
+import type {
+  ContractsrcConfig,
+  OpenApiSourceConfig,
+} from '@lssm/lib.contracts';
 
 /**
  * Generate ContractSpec TypeScript code for an operation.
  */
 export function generateSpecCode(
   operation: ParsedOperation,
-  options: OpenApiSource,
+  contractspecConfig: ContractsrcConfig,
+  options: OpenApiSourceConfig,
   inputModel: GeneratedModel | null,
-  outputModel: GeneratedModel | null,
-  contractspecConfig?: ContractsrcConfig
+  outputModel: GeneratedModel | null
 ): string {
   const specName = toSpecName(operation.operationId, options.prefix);
   const kind = inferOpKind(operation.method);

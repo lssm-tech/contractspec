@@ -6,7 +6,7 @@ import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 import type { SpecSource, TransportHints } from '../common/types';
 import type {
   FolderConventions,
-  OpenApiSource as OpenApiSourceConfig,
+  OpenApiSourceConfig,
 } from '@lssm/lib.contracts';
 
 // Re-export config types for convenience

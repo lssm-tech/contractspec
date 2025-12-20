@@ -2,12 +2,14 @@
  * Configuration module exports.
  */
 export {
-  OpenApiSourceSchema,
+  OpenApiSourceConfigSchema,
+  OpenApiExportConfigSchema,
   OpenApiConfigSchema,
   FolderConventionsSchema,
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
-  type OpenApiSource,
+  type OpenApiSourceConfig,
+  type OpenApiExportConfig,
   type OpenApiConfig,
   type FolderConventions,
   type ContractsrcConfig,

@@ -3,8 +3,8 @@
  */
 
 import {
-  parseOpenApi,
   importFromOpenApi,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -12,12 +12,14 @@ import type {
   OpenApiImportServiceOptions,
   OpenApiImportServiceResult,
 } from './types';
-import { join, dirname } from 'path';
+import { dirname, join } from 'path';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 /**
  * Import ContractSpec specs from an OpenAPI document.
  */
 export async function importFromOpenApiService(
+  contractspecOptions: ContractsrcConfig,
   options: OpenApiImportServiceOptions,
   adapters: { fs: FsAdapter; logger: LoggerAdapter }
 ): Promise<OpenApiImportServiceResult> {
@@ -53,7 +55,7 @@ export async function importFromOpenApiService(
   );
 
   // Import operations
-  const importResult = importFromOpenApi(parseResult, {
+  const importResult = importFromOpenApi(parseResult, contractspecOptions, {
     prefix,
     tags,
     exclude,

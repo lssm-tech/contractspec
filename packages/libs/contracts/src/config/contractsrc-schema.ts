@@ -14,7 +14,7 @@ export const OpenApiSourceConfigSchema = z.object({
   /** Friendly name for the source */
   name: z.string(),
   /** Remote URL to fetch OpenAPI spec from */
-  url: z.string().url().optional(),
+  url: z.url().optional(),
   /** Local file path to OpenAPI spec */
   file: z.string().optional(),
   /** Sync mode: import (one-time), sync (update), validate (check only) */
