@@ -361,6 +361,18 @@
         "title": "Open AI Chat",
         "category": "ContractSpec",
         "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "contractspec.quickstart",
+        "title": "Quickstart - Install Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "contractspec.quickInstall",
+        "title": "Quick Install (Minimal)",
+        "category": "ContractSpec",
+        "icon": "$(package)"
       }
     ],
     "viewsContainers": {
@@ -804,7 +816,7 @@
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.2.2",
     "esbuild": "^0.27.2",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

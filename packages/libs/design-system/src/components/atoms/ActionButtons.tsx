@@ -11,7 +11,7 @@ import {
 import { Box } from '@lssm/lib.ui-kit-web/ui/stack';
 import { Text } from '@lssm/lib.ui-kit-web/ui/text';
 
-const actionBtn = cva('', {
+const _actionBtn = cva('', {
   variants: {
     tone: {
       neutral: 'default',
@@ -30,13 +30,13 @@ const actionBtn = cva('', {
 });
 
 type ActionBtnProps = Omit<ButtonProps, 'size' | 'variant'> &
-  VariantProps<typeof actionBtn> & {
+  VariantProps<typeof _actionBtn> & {
     label?: React.ReactNode;
     iconLeft?: React.ReactNode;
   };
 
 function toVariant(
-  tone: NonNullable<VariantProps<typeof actionBtn>['tone']>
+  tone: NonNullable<VariantProps<typeof _actionBtn>['tone']>
 ): ButtonProps['variant'] {
   switch (tone) {
     case 'danger':
@@ -51,7 +51,7 @@ function toVariant(
 }
 
 function toSize(
-  size: NonNullable<VariantProps<typeof actionBtn>['size']>
+  size: NonNullable<VariantProps<typeof _actionBtn>['size']>
 ): ButtonProps['size'] {
   switch (size) {
     case 'sm':

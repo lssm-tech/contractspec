@@ -13,7 +13,7 @@ import {
 import { Card, CardHeader, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
 import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
 import { Button } from '@lssm/lib.ui-kit-web/ui/button';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn as _cn } from '@lssm/lib.ui-kit-web/ui/utils';
 
 export interface ApprovalQueueProps {
   title?: string;

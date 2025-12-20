@@ -26,3 +26,4 @@ export * from './agent-guide/index';
 export * from './verify/index';
 export * from './implementation/index';
 export * from './verification-cache/index';
+export * from './quickstart/index';

@@ -30,6 +30,9 @@ export async function runDepsChecks(
   // Check if node_modules exists
   results.push(await checkNodeModules(fs, ctx));
 
+  // Check if @lssm/lib.contracts is installed
+  results.push(await checkContractsLibrary(fs, ctx));
+
   return results;
 }
 
@@ -200,4 +203,75 @@ async function checkNodeModules(
       },
     },
   };
+}
+
+/**
+ * Check if @lssm/lib.contracts is installed.
+ */
+async function checkContractsLibrary(
+  fs: FsAdapter,
+  ctx: CheckContext
+): Promise<CheckResult> {
+  const packageJsonPath = fs.join(ctx.workspaceRoot, 'package.json');
+
+  try {
+    const content = await fs.readFile(packageJsonPath);
+    const packageJson = JSON.parse(content) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+
+    const allDeps = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    };
+
+    if ('@lssm/lib.contracts' in allDeps) {
+      return {
+        category: 'deps',
+        name: 'ContractSpec Library',
+        status: 'pass',
+        message: `@lssm/lib.contracts installed (${allDeps['@lssm/lib.contracts']})`,
+      };
+    }
+
+    return {
+      category: 'deps',
+      name: 'ContractSpec Library',
+      status: 'fail',
+      message: '@lssm/lib.contracts not installed',
+      details: 'Run "contractspec quickstart" to install required packages',
+      fix: {
+        description: 'Install @lssm/lib.contracts and dependencies',
+        apply: async () => {
+          try {
+            // Try bun first, then npm
+            try {
+              await execAsync('bun add @lssm/lib.contracts zod', {
+                cwd: ctx.workspaceRoot,
+                timeout: 120000,
+              });
+              return { success: true, message: 'Installed with bun' };
+            } catch {
+              await execAsync('npm install @lssm/lib.contracts zod', {
+                cwd: ctx.workspaceRoot,
+                timeout: 120000,
+              });
+              return { success: true, message: 'Installed with npm' };
+            }
+          } catch (error) {
+            const msg = error instanceof Error ? error.message : String(error);
+            return { success: false, message: `Failed: ${msg}` };
+          }
+        },
+      },
+    };
+  } catch {
+    return {
+      category: 'deps',
+      name: 'ContractSpec Library',
+      status: 'skip',
+      message: 'Could not read package.json',
+    };
+  }
 }

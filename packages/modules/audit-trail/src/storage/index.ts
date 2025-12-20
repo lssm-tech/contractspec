@@ -78,11 +78,13 @@ export class InMemoryAuditStorage implements AuditStorageAdapter {
     }
 
     if (options.from) {
-      results = results.filter((r) => new Date(r.occurredAt) >= options.from!);
+      const fromDate = options.from;
+      results = results.filter((r) => new Date(r.occurredAt) >= fromDate);
     }
 
     if (options.to) {
-      results = results.filter((r) => new Date(r.occurredAt) <= options.to!);
+      const toDate = options.to;
+      results = results.filter((r) => new Date(r.occurredAt) <= toDate);
     }
 
     // Sort

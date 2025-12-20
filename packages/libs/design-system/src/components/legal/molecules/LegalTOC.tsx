@@ -48,7 +48,7 @@ export function LegalTOC({
           <a
             key={it.href}
             href={it.href}
-            onClick={(e) => {
+            onClick={(_e) => {
               onNavigate?.(it.href);
               // allow default anchor behaviour too
             }}

@@ -1,4 +1,4 @@
-import type { StepResult, LanguageModelUsage, ToolSet } from 'ai';
+import type { StepResult, ToolSet } from 'ai';
 
 /**
  * Metric sample compatible with @lssm/lib.evolution OperationMetricSample.
@@ -32,6 +32,7 @@ export interface TelemetryCollector {
 function parseAgentId(agentId: string): { name: string; version: number } {
   const match = agentId.match(/^(.+)\.v(\d+)$/);
   if (match) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return { name: match[1]!, version: parseInt(match[2]!, 10) };
   }
   return { name: agentId, version: 1 };
@@ -134,5 +135,7 @@ export function createInMemoryTelemetryCollector(): InMemoryTelemetryCollector {
  * No-op telemetry collector that discards all metrics.
  */
 export const noopTelemetryCollector: TelemetryCollector = {
-  collect: async () => {},
+  collect: async () => {
+    /* noop */
+  },
 };

@@ -13,7 +13,7 @@ const containerVariants = cva('space-y-4 md:space-y-6');
 
 export * from './types';
 
-export function ListPageTemplate<T = any>({
+export function ListPageTemplate<T = unknown>({
   children,
   title,
   description,

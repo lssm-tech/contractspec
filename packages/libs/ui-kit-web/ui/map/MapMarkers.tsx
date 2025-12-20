@@ -18,7 +18,7 @@ export function MapMarkers({ points }: { points: MapPoint[] }) {
     <>
       {points.map((p) => (
         <Marker key={p.id} longitude={p.lng} latitude={p.lat} anchor="bottom">
-          <div
+          <button
             role={p.onClick ? 'button' : undefined}
             tabIndex={p.onClick ? 0 : -1}
             aria-label={p.ariaLabel || 'marker'}

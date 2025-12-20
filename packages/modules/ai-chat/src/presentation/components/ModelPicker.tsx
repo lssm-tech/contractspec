@@ -11,12 +11,13 @@ import {
   SelectValue,
 } from '@lssm/lib.ui-kit-web/ui/select';
 import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
-import { Bot, Cpu, Cloud, Sparkles } from 'lucide-react';
+import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import { Bot, Cloud, Cpu, Sparkles } from 'lucide-react';
 import {
-  type ProviderName,
-  type ProviderMode,
-  type ModelInfo,
   getModelsForProvider,
+  type ModelInfo,
+  type ProviderMode,
+  type ProviderName,
 } from '@lssm/lib.ai-providers';
 
 export interface ModelSelection {
@@ -158,8 +159,10 @@ export function ModelPicker({
     <div className={cn('flex flex-col gap-3', className)}>
       {/* Provider selection */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium">Provider</label>
-        <div className="flex flex-wrap gap-2">
+        <Label htmlFor="provider-selection" className="text-sm font-medium">
+          Provider
+        </Label>
+        <div className="flex flex-wrap gap-2" id="provider-selection">
           {providers.map((p) => (
             <Button
               key={p.provider}
@@ -181,8 +184,14 @@ export function ModelPicker({
 
       {/* Model selection */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium">Model</label>
-        <Select value={value.model} onValueChange={handleModelChange}>
+        <Label htmlFor="model-picker" className="text-sm font-medium">
+          Model
+        </Label>
+        <Select
+          name="model-picker"
+          value={value.model}
+          onValueChange={handleModelChange}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select a model" />
           </SelectTrigger>

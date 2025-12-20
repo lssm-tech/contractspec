@@ -16,6 +16,7 @@ export function useColorScheme(): ColorScheme {
     const listener = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
       setScheme(colorScheme === 'dark' ? 'dark' : 'light');
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sub = (Appearance as any).addChangeListener?.(listener);
     return () => sub?.remove?.();
   }, []);

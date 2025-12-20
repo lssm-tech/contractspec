@@ -58,7 +58,8 @@ export function makeNextMcpServerFromRegistry(
             {
               // name: toolName,
               description: spec.meta.description,
-              inputSchema: input as never,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              inputSchema: input as any,
             },
             (async (args: unknown, _req: unknown) => {
               const result = await reg.execute(

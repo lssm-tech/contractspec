@@ -20,8 +20,8 @@
     "@lssm/tool.typescript": "workspace:*",
     "@types/express": "^5.0.3",
     "@types/turndown": "^5.0.6",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "dependencies": {
     "@pothos/core": "^4.9.1",
@@ -46,7 +46,7 @@
     "stripe": "^19.1.0",
     "turndown": "^7.2.2",
     "twilio": "^5.10.7",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "peerDependencies": {
     "@pothos/core": "^4.9.1",

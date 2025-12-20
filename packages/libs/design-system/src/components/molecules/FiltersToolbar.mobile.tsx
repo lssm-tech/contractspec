@@ -12,8 +12,8 @@ export function FiltersToolbar({
   onSearchChange,
   onSearchSubmit,
   debounceMs = 250,
-  activeChips = [],
-  onClearAll,
+  activeChips: _activeChips = [],
+  onClearAll: _onClearAll,
 }: FiltersToolbarProps) {
   const [q, setQ] = React.useState<string>(searchValue ?? '');
 

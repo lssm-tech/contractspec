@@ -62,13 +62,13 @@
     "@lssm/lib.identity-rbac": "workspace:*",
     "@lssm/module.audit-trail": "workspace:*",
     "@lssm/lib.jobs": "workspace:*",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "module": "./dist/index.js",
   "publishConfig": {

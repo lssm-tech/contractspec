@@ -27,14 +27,14 @@
     "@lssm/lib.logger": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.12.3",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^22.10.2",
-    "rimraf": "^6.1.2",
-    "eslint": "^9.39.2"
+    "rimraf": "catalog:build",
+    "eslint": "catalog:build"
   },
   "keywords": [
     "mcp",

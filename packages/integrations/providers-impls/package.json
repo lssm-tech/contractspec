@@ -33,13 +33,13 @@
     "postmark": "^4.0.4",
     "stripe": "^19.1.0",
     "twilio": "^5.10.7",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

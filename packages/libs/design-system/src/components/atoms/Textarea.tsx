@@ -67,13 +67,18 @@ export function Textarea({
 
   return (
     <WebTextarea
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(rest as any)}
       className={className}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value={value as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       defaultValue={defaultValue as any}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onFocus={onFocus as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onBlur={onBlur as any}
       placeholder={placeholder}
       disabled={disabled}

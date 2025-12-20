@@ -17,7 +17,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from '@lssm/lib.ui-kit-web/ui/pagination';
 
 export interface DataViewRendererProps {
@@ -35,8 +34,8 @@ export interface DataViewRendererProps {
   // Filters & Search
   search?: string;
   onSearchChange?: (value: string) => void;
-  filters?: Record<string, any>;
-  onFilterChange?: (filters: Record<string, any>) => void;
+  filters?: Record<string, unknown>;
+  onFilterChange?: (filters: Record<string, unknown>) => void;
 
   // Pagination
   pagination?: {
@@ -165,9 +164,10 @@ export function DataViewRenderer({
                   key,
                   label: `${key}: ${value}`,
                   onRemove: () => {
-                    const newFilters = { ...filters };
-                    delete newFilters[key];
-                    onFilterChange?.(newFilters);
+                    if (filters) {
+                      const { [key]: _, ...rest } = filters;
+                      onFilterChange?.(rest);
+                    }
                   },
                 }))
               : []

@@ -68,15 +68,23 @@ export function jsonSchemaToZod(
   // Handle anyOf
   if (s.anyOf && s.anyOf.length > 0) {
     const schemas = s.anyOf.map((sub) => jsonSchemaToZod(sub));
-    if (schemas.length === 1) return schemas[0]!;
-    return z.union([schemas[0]!, schemas[1]!, ...schemas.slice(2)]);
+    if (schemas.length === 1) return schemas[0] ?? z.unknown();
+    return z.union([
+      schemas[0] ?? z.unknown(),
+      schemas[1] ?? z.unknown(),
+      ...schemas.slice(2),
+    ]);
   }
 
   // Handle oneOf (same as anyOf for Zod purposes)
   if (s.oneOf && s.oneOf.length > 0) {
     const schemas = s.oneOf.map((sub) => jsonSchemaToZod(sub));
-    if (schemas.length === 1) return schemas[0]!;
-    return z.union([schemas[0]!, schemas[1]!, ...schemas.slice(2)]);
+    if (schemas.length === 1) return schemas[0] ?? z.unknown();
+    return z.union([
+      schemas[0] ?? z.unknown(),
+      schemas[1] ?? z.unknown(),
+      ...schemas.slice(2),
+    ]);
   }
 
   // Handle allOf (intersection)

@@ -21,17 +21,17 @@
   "dependencies": {
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

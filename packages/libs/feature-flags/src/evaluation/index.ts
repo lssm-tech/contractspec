@@ -177,9 +177,10 @@ export function evaluateRuleCondition(
 
     case 'PERCENTAGE':
       // Percentage-based targeting uses consistent hashing
-      const bucket = hashToBucket(getSubjectId(context), rule.attribute);
-      const percentage = typeof rule.value === 'number' ? rule.value : 0;
-      return bucket < percentage;
+      return (
+        hashToBucket(getSubjectId(context), rule.attribute) <
+        (typeof rule.value === 'number' ? rule.value : 0)
+      );
 
     default:
       return false;

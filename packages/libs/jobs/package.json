@@ -23,13 +23,13 @@
     "@lssm/lib.logger": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",
     "@aws-sdk/client-sqs": "^3.948.0",
-    "zod": "^4.1.13",
+    "zod": "catalog:",
     "cron-parser": "^5.4.0"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

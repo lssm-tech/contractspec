@@ -1,4 +1,3 @@
-import { parseSecretUri, SecretProviderError } from './provider';
 import type {
   SecretProvider,
   SecretReference,
@@ -6,6 +5,7 @@ import type {
   SecretValue,
   SecretWritePayload,
 } from './provider';
+import { parseSecretUri, SecretProviderError } from './provider';
 
 interface EnvSecretProviderOptions {
   /**
@@ -117,7 +117,7 @@ export class EnvSecretProvider implements SecretProvider {
   private deriveEnvKey(path: string): string | undefined {
     if (!path) return undefined;
     return path
-      .split(/[\/:\-\.]/)
+      .split(/[/:\-.]/)
       .filter(Boolean)
       .map((segment) =>
         segment

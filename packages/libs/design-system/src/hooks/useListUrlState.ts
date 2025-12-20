@@ -66,7 +66,10 @@ export function useListUrlState<
       if (typeof window === 'undefined') return;
       const url = new URL(window.location.href);
       const qs = url.searchParams;
-      const merged: ListUrlState<TFilters> = { ...state, ...next } as any;
+      const merged: ListUrlState<TFilters> = {
+        ...state,
+        ...next,
+      } as ListUrlState<TFilters>;
 
       const setOrDel = (key: string, value: string | null | undefined) => {
         if (value == null || value === '' || value === 'null') qs.delete(key);
@@ -98,7 +101,7 @@ export function useListUrlState<
       value: TFilters[keyof TFilters] | undefined | null
     ) => {
       write({
-        filters: { ...(state.filters as any), [key]: value } as TFilters,
+        filters: { ...state.filters, [key]: value } as TFilters,
       });
     },
     [state.filters, write]

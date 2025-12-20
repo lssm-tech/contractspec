@@ -21,6 +21,7 @@ export function ButtonLink({
     if (blocked) return;
     try {
       // Prefer expo-router Link via dynamic require if available
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const ExpoRouter = require('expo-router');
       if (ExpoRouter?.Link) {
         // If Link is available, we can't render it here without asChild; fallback to router.navigate
@@ -30,7 +31,9 @@ export function ButtonLink({
         else Linking.openURL(href);
         return;
       }
-    } catch {}
+    } catch {
+      /* ignore */
+    }
     Linking.openURL(href);
   }, [blocked, href, replace]);
 

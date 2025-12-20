@@ -155,7 +155,8 @@ function extractCapabilities(code: string): {
     while ((match = refPatternKeyOnly.exec(requiresMatch[1])) !== null) {
       if (match && match[1]) {
         // Check if we already added this with a version
-        const alreadyExists = requires.some((r) => r.name === match![1]!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const alreadyExists = requires.some((r) => r.name === match![1]);
         if (!alreadyExists) {
           requires.push({
             name: match[1],

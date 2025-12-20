@@ -2,15 +2,15 @@
 
 import * as React from 'react';
 import type {
-  ChatMessage,
-  ChatConversation,
   ChatAttachment,
+  ChatConversation,
+  ChatMessage,
 } from '../../core/message-types';
 import { ChatService } from '../../core/chat-service';
 import {
-  type ProviderName,
-  type ProviderMode,
   createProvider,
+  type ProviderMode,
+  type ProviderName,
 } from '@lssm/lib.ai-providers';
 
 /**
@@ -122,8 +122,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     if (!conversationId || !chatServiceRef.current) return;
 
     const loadConversation = async () => {
-      const conv =
-        await chatServiceRef.current!.getConversation(conversationId);
+      if (!chatServiceRef.current) return;
+
+      const conv = await chatServiceRef.current.getConversation(conversationId);
       if (conv) {
         setConversation(conv);
         setMessages(conv.messages);

@@ -1,7 +1,7 @@
 {
   "name": "@lssm/example.knowledge-canon",
   "version": "1.41.1",
-  "description": "Knowledge example \u2013 Product Canon space (blueprint + tenant config + source sample + runtime helper).",
+  "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -36,8 +36,8 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",

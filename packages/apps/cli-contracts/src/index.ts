@@ -24,6 +24,7 @@ import { ciCommand } from './commands/ci/index';
 import { llmCommand } from './commands/llm/index';
 import { createImplCommand } from './commands/impl/index';
 import { chatCommand } from './commands/chat/index';
+import { quickstartCommand } from './commands/quickstart/index';
 
 const program = new Command();
 
@@ -81,6 +82,9 @@ program.addCommand(llmCommand);
 
 // Chat command (AI-powered vibe coding)
 program.addCommand(chatCommand);
+
+// Quickstart command (install dependencies)
+program.addCommand(quickstartCommand);
 
 // Impl command (implementation management)
 program.addCommand(createImplCommand());

@@ -24,12 +24,12 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
-    "ai": "beta",
-    "@ai-sdk/anthropic": "beta",
-    "@ai-sdk/google": "beta",
-    "@ai-sdk/mistral": "beta",
-    "@ai-sdk/openai": "beta",
-    "ollama-ai-provider": "^1.2.0",
+    "ai": "catalog:ai",
+    "@ai-sdk/anthropic": "catalog:ai",
+    "@ai-sdk/google": "catalog:ai",
+    "@ai-sdk/mistral": "catalog:ai",
+    "@ai-sdk/openai": "catalog:ai",
+    "ollama-ai-provider": "catalog:ai",
     "@lssm/bundle.contractspec-workspace": "workspace:*",
     "@lssm/lib.ai-providers": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
@@ -38,20 +38,20 @@
     "@lssm/lib.schema": "workspace:*",
     "@lssm/module.ai-chat": "workspace:*",
     "@lssm/module.contractspec-examples": "workspace:*",
-    "glob": "^13.0.0",
+    "glob": "catalog:build",
     "commander": "^14.0.2",
     "@inquirer/prompts": "^8.1.0",
     "chalk": "^5.6.2",
     "ora": "^9.0.0",
-    "typescript": "^5.9.3",
-    "zod": "^4.1.13"
+    "typescript": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/node": "^22.10.2",
-    "rimraf": "^6.1.2",
-    "eslint": "^9.39.2"
+    "rimraf": "catalog:build",
+    "eslint": "catalog:build"
   },
   "keywords": [
     "cli",

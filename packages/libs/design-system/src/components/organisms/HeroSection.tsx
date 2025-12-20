@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Hero } from '@lssm/lib.ui-kit-web/ui/marketing/Hero';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 const sectionVariants = cva(
   'relative overflow-hidden bg-linear-to-b from-background to-muted/20',

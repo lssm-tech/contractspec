@@ -3,7 +3,7 @@ import { Button, type ButtonProps } from './Button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ButtonLink } from './ButtonLink';
 
-const ctaVariants = cva('', {
+const _ctaVariants = cva('', {
   variants: {
     size: { sm: 'sm', md: 'md', lg: 'lg', touch: 'touch' },
     emphasis: { default: 'default', subtle: 'secondary', strong: 'default' },
@@ -12,7 +12,7 @@ const ctaVariants = cva('', {
 });
 
 export type CtaProps = ButtonProps &
-  VariantProps<typeof ctaVariants> & {
+  VariantProps<typeof _ctaVariants> & {
     capture?: (cta: string) => void;
     ctaName?: string;
     as?: 'button' | 'a';
@@ -36,7 +36,7 @@ export const Cta = React.forwardRef<
       children,
       ...props
     },
-    ref
+    _ref
   ) => {
     const handleClick: React.MouseEventHandler<
       HTMLButtonElement | HTMLAnchorElement
@@ -59,7 +59,9 @@ export const Cta = React.forwardRef<
               }
             ).capture('cta_click', { cta: ctaName });
           }
-        } catch {}
+        } catch {
+          /* noop */
+        }
       }
       onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>);
     };

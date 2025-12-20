@@ -41,17 +41,26 @@ export function Textarea({
 
   return (
     <NativeTextarea
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(rest as any)}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       className={className as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value={value as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       defaultValue={defaultValue as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChangeText={onChange as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onSubmitEditing={onSubmit as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onFocus={onFocus as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onBlur={onBlur as any}
       placeholder={placeholder}
       editable={!disabled}
       maxLength={maxLength}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(nativeKeyboard as any)}
     />
   );

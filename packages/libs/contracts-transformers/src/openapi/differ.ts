@@ -11,7 +11,7 @@ import type {
   DiffChangeType,
   ImportedSpec,
 } from '../common/types';
-import { deepEqual, getByPath } from '../common/utils';
+import { deepEqual } from '../common/utils';
 
 /**
  * Options for diffing specs.

@@ -20,7 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@lssm/lib.ui-kit-web/ui/select';
-import { useA11YPreferences } from './preferences';
+import {
+  type ReduceMotion,
+  type TextSize,
+  useA11YPreferences,
+} from './preferences';
 import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
 
 export function AccessibilityPanel({ className }: { className?: string }) {
@@ -55,7 +59,9 @@ export function AccessibilityPanel({ className }: { className?: string }) {
               <Label>Text size</Label>
               <Select
                 value={preferences.textSize}
-                onValueChange={(v) => setPreferences({ textSize: v as any })}
+                onValueChange={(v) =>
+                  setPreferences({ textSize: v as TextSize })
+                }
               >
                 <SelectTrigger aria-label="Text size">
                   <SelectValue />
@@ -118,7 +124,7 @@ export function AccessibilityPanel({ className }: { className?: string }) {
               <Select
                 value={preferences.reduceMotion}
                 onValueChange={(v) =>
-                  setPreferences({ reduceMotion: v as any })
+                  setPreferences({ reduceMotion: v as ReduceMotion })
                 }
               >
                 <SelectTrigger aria-label="Motion preferences">

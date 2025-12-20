@@ -48,6 +48,7 @@ export function Button({
 
   return (
     <NativeButton disabled={isDisabled} {...props}>
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {content as any}
     </NativeButton>
   );

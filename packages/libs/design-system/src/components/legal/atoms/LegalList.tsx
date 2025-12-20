@@ -33,7 +33,7 @@ export function LegalList({
   children,
   ...props
 }: LegalListProps) {
-  const Comp: any = type === 'ordered' ? 'ol' : 'ul';
+  const Comp = (type === 'ordered' ? 'ol' : 'ul') as React.ElementType;
   return (
     <Comp className={cn(listVariants({ type, spacing }), className)} {...props}>
       {children}

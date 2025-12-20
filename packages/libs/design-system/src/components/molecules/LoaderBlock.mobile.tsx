@@ -24,9 +24,7 @@ export function LoaderBlock({
       <View className="flex-row items-center gap-3">
         <LoaderCircular size={size} label={label} />
         {description ? (
-          <Text className="text-muted-foreground text-base">
-            {description as any}
-          </Text>
+          <Text className="text-muted-foreground text-base">{description}</Text>
         ) : null}
       </View>
     </View>

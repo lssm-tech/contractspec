@@ -8,13 +8,14 @@ export function useReducedMotion() {
 
   React.useEffect(() => {
     let mounted = true;
-    AccessibilityInfo?.isReduceMotionEnabled().then((v: any) => {
+    AccessibilityInfo?.isReduceMotionEnabled().then((v: boolean) => {
       if (mounted) setReduced(Boolean(v));
     });
-    const handler = (v: any) => {
+    const handler = (v: boolean) => {
       if (mounted) setReduced(Boolean(v));
     };
     // RN >= 0.71
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sub = (AccessibilityInfo as any)?.addEventListener?.(
       'reduceMotionChanged',
       handler
@@ -24,6 +25,7 @@ export function useReducedMotion() {
       // RN >= 0.71
       sub?.remove?.();
       // RN < 0.71
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (AccessibilityInfo as any)?.removeEventListener?.(
         'reduceMotionChanged',
         handler

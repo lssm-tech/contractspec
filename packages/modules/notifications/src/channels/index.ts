@@ -58,7 +58,7 @@ export class InAppChannel implements NotificationChannel {
   readonly channelId = 'IN_APP';
 
   async send(
-    notification: ChannelNotification
+    _notification: ChannelNotification
   ): Promise<ChannelDeliveryResult> {
     // In-app notifications are stored directly in the database
     // The actual delivery is handled by the notification service

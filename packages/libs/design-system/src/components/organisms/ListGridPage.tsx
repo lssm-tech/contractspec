@@ -60,7 +60,7 @@ export function ListGridPage<T>({
         ? (columns?.tablet ?? 2)
         : (columns?.mobile ?? 1);
   const gridClass = `grid ${gridGapVariants({ size })}`;
-  const colsClass = `grid-cols-${cols}`;
+  // const colsClass = `grid-cols-${cols}`;
   // Tailwind can't generate dynamic classes reliably; provide common presets
   const presetColsClass =
     cols === 1

@@ -25,6 +25,7 @@ import { runSetupWizard, runQuickSetup } from './setup';
 import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
 import { registerLLMCommands } from './llm';
 import { registerChatCommands } from './chat';
+import { runQuickstartWizard, runQuickInstall } from './quickstart';
 
 /**
  * Register all ContractSpec commands.
@@ -286,4 +287,24 @@ export function registerCommands(
 
   // Chat command (AI-powered vibe coding)
   registerChatCommands(context, outputChannel, telemetry);
+
+  // Quickstart (install dependencies wizard)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.quickstart', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'quickstart',
+      });
+      await runQuickstartWizard(outputChannel);
+    })
+  );
+
+  // Quick install (minimal dependencies, no prompts)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.quickInstall', async () => {
+      telemetry?.sendTelemetryEvent('contractspec.vscode.command_run', {
+        command: 'quickInstall',
+      });
+      await runQuickInstall(outputChannel);
+    })
+  );
 }

@@ -8,7 +8,6 @@ import type { ConversationStore } from './conversation-store';
 import { InMemoryConversationStore } from './conversation-store';
 import type {
   ChatConversation,
-  ChatMessage,
   ChatStreamChunk,
   SendMessageOptions,
   SendMessageResult,
@@ -97,7 +96,7 @@ export class ChatService {
     }
 
     // Add user message
-    const userMessage = await this.store.appendMessage(conversation.id, {
+    await this.store.appendMessage(conversation.id, {
       role: 'user',
       content: options.content,
       status: 'completed',
@@ -195,7 +194,10 @@ export class ChatService {
     const model = this.provider.getModel();
 
     // Create async generator for streaming
-    const self = this;
+    const self = {
+      systemPrompt: this.systemPrompt,
+      store: this.store,
+    };
     async function* streamGenerator(): AsyncIterable<ChatStreamChunk> {
       let fullContent = '';
 

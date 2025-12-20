@@ -52,8 +52,10 @@ export function StatusChip({
   );
   if (!hoverContent) return content;
   try {
+    /* eslint-disable @typescript-eslint/no-require-imports */
     const { HoverPreview } =
       require('./HoverPreview') as typeof import('./HoverPreview');
+    /* eslint-enable @typescript-eslint/no-require-imports */
     return <HoverPreview trigger={content} content={hoverContent} />;
   } catch {
     return content;

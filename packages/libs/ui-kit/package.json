@@ -72,8 +72,8 @@
     "expo-web-browser": "^14.2.0",
     "lucide-react-native": "^0.511.0",
     "nativewind": "5.0.0-preview.2",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -84,15 +84,15 @@
     "react-native-web": "~0.20.0",
     "react-use": "^17.6.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

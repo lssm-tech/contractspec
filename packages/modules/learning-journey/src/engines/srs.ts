@@ -120,6 +120,36 @@ export class SRSEngine {
   }
 
   /**
+   * Get initial SRS state for a new card.
+   */
+  getInitialState(): SRSState {
+    return {
+      interval: 0,
+      easeFactor: 2.5,
+      repetitions: 0,
+      learningStep: 0,
+      isGraduated: false,
+      isRelearning: false,
+      lapses: 0,
+    };
+  }
+
+  /**
+   * Check if a card is due for review.
+   */
+  isDue(nextReviewAt: Date, now: Date = new Date()): boolean {
+    return nextReviewAt <= now;
+  }
+
+  /**
+   * Calculate overdue days (negative if not yet due).
+   */
+  getOverdueDays(nextReviewAt: Date, now: Date = new Date()): number {
+    const diff = now.getTime() - nextReviewAt.getTime();
+    return Math.floor(diff / (1000 * 60 * 60 * 24));
+  }
+
+  /**
    * Handle learning phase (new cards).
    */
   private handleLearningCard(
@@ -275,12 +305,14 @@ export class SRSEngine {
           newEaseFactor - 0.2
         );
         newInterval = state.interval; // Keep old interval for reference
-        const relearnStep = this.config.relearningSteps[0] ?? 10;
         return {
           interval: newInterval,
           easeFactor: newEaseFactor,
           repetitions,
-          nextReviewAt: this.addMinutes(now, relearnStep),
+          nextReviewAt: this.addMinutes(
+            now,
+            this.config.relearningSteps[0] ?? 10
+          ),
           learningStep,
           isGraduated: true,
           isRelearning: true,
@@ -332,36 +364,6 @@ export class SRSEngine {
       isRelearning,
       lapses,
     };
-  }
-
-  /**
-   * Get initial SRS state for a new card.
-   */
-  getInitialState(): SRSState {
-    return {
-      interval: 0,
-      easeFactor: 2.5,
-      repetitions: 0,
-      learningStep: 0,
-      isGraduated: false,
-      isRelearning: false,
-      lapses: 0,
-    };
-  }
-
-  /**
-   * Check if a card is due for review.
-   */
-  isDue(nextReviewAt: Date, now: Date = new Date()): boolean {
-    return nextReviewAt <= now;
-  }
-
-  /**
-   * Calculate overdue days (negative if not yet due).
-   */
-  getOverdueDays(nextReviewAt: Date, now: Date = new Date()): number {
-    const diff = now.getTime() - nextReviewAt.getTime();
-    return Math.floor(diff / (1000 * 60 * 60 * 24));
   }
 
   // ============ Helpers ============

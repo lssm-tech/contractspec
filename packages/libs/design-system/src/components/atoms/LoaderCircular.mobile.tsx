@@ -33,7 +33,7 @@ export function LoaderCircular({
     >
       <ActivityIndicator size={toNativeSize(size)} />
       {label ? (
-        <Text className="text-muted-foreground text-base">{label as any}</Text>
+        <Text className="text-muted-foreground text-base">{label}</Text>
       ) : null}
     </View>
   );

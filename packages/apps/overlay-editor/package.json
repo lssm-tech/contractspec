@@ -14,15 +14,15 @@
   },
   "dependencies": {
     "@lssm/lib.overlay-engine": "workspace:*",
-    "next": "16.1.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@types/node": "^20.17.10",
     "@types/react": "~19.2.7",
     "@types/react-dom": "^19.1.10",
-    "typescript": "^5.6.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",
@@ -35,3 +35,4 @@
     "directory": "packages/apps/overlay-editor"
   }
 }
+

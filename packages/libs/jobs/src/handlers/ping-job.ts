@@ -11,5 +11,7 @@ export type PingPayload = z.infer<typeof PingPayloadSchema>;
 export const pingJob: DefinedJob<PingPayload> = {
   type: PING_JOB_TYPE,
   schema: PingPayloadSchema,
-  handler: async (_payload: PingPayload, _job: Job<PingPayload>) => {},
+  handler: async (_payload: PingPayload, _job: Job<PingPayload>) => {
+    /* noop - ping job has no operation */
+  },
 };

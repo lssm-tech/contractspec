@@ -36,7 +36,7 @@
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@types/minimist": "^1.2.5",
-    "tsdown": "^0.18.1"
+    "tsdown": "catalog:build"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

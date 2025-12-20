@@ -69,7 +69,9 @@ export function MarketingHeaderMobile({
               { code: 'fr', label: 'FR' },
               { code: 'en', label: 'EN' },
             ]}
-            onChange={() => {}}
+            onChange={() => {
+              /* noop */
+            }}
           />
         </div>
       </div>

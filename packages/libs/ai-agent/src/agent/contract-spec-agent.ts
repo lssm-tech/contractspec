@@ -39,6 +39,7 @@ const ContractSpecCallOptionsSchema = z.object({
  * Type for tool with execute function (compatible with AI SDK Tool)
  * Using `any` for broad compatibility with AI SDK tool types
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExecutableTool = Tool<any, any>;
 
 /**

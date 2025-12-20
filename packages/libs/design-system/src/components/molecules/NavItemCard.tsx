@@ -24,7 +24,6 @@ export function NavItemCard({ item, className }: NavItemCardProps) {
       <div className="flex items-center gap-3">
         {item.imageSrc ? (
           // keep generic img to avoid coupling to Next.js Image
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={item.imageSrc}
             alt={item.imageAlt || ''}

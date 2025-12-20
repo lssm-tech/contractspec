@@ -21,12 +21,12 @@
     "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.bus": "workspace:*",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

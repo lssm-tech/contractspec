@@ -81,9 +81,11 @@ export function FlatListScreen<T>({
       <FlatList<T>
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item: any, index) =>
-          item?.id?.toString?.() || item?.key?.toString?.() || String(index)
-        }
+        keyExtractor={(item, index) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const i = item as any;
+          return i?.id?.toString() || i?.key?.toString() || String(index);
+        }}
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         ListHeaderComponent={ListHeaderComponent}

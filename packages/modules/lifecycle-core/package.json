@@ -29,8 +29,8 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -51,3 +51,4 @@
     "directory": "packages/modules/lifecycle-core"
   }
 }
+

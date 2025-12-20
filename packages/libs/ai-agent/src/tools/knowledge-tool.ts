@@ -17,6 +17,7 @@ import type { AgentKnowledgeRef } from '../spec/spec';
 export function createKnowledgeQueryTool(
   retriever: KnowledgeRetriever,
   knowledgeRefs: AgentKnowledgeRef[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Tool<any, any> | null {
   // Only include optional (non-required) knowledge spaces
   const optionalSpaces = knowledgeRefs

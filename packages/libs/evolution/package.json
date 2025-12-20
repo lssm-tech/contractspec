@@ -23,8 +23,8 @@
     "test": "bun test"
   },
   "dependencies": {
-    "ai": "beta",
-    "zod": "^4.1.13",
+    "ai": "catalog:ai",
+    "zod": "catalog:",
     "@lssm/lib.ai-agent": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.lifecycle": "workspace:*",
@@ -37,8 +37,8 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

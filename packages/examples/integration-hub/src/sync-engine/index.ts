@@ -166,7 +166,7 @@ export class BasicSyncEngine implements ISyncEngine {
     this.transformer = transformer ?? new BasicFieldTransformer();
   }
 
-  async sync(context: SyncContext): Promise<SyncResult> {
+  async sync(_context: SyncContext): Promise<SyncResult> {
     const result: SyncResult = {
       success: true,
       recordsProcessed: 0,
@@ -197,6 +197,7 @@ export class BasicSyncEngine implements ISyncEngine {
 
     for (const mapping of mappings) {
       let value: unknown;
+      let sourceValue: unknown;
 
       switch (mapping.mappingType) {
         case 'DIRECT':
@@ -204,7 +205,7 @@ export class BasicSyncEngine implements ISyncEngine {
           break;
 
         case 'TRANSFORM':
-          const sourceValue = this.getNestedValue(
+          sourceValue = this.getNestedValue(
             sourceRecord.data,
             mapping.sourceField
           );

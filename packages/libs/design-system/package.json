@@ -28,22 +28,22 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.535.0",
-    "react": "19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.1.13",
-    "next": "16.1.0"
+    "zod": "catalog:",
+    "next": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.typescript": "workspace:*",
     "@lssm/tool.tsdown": "workspace:*",
     "@types/node": "^24.9.0",
     "@types/react-dom": "^19.0.14",
-    "postcss": "^8.5",
-    "tailwindcss": "4.1.18",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "postcss": "catalog:build",
+    "tailwindcss": "catalog:build",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "module": "./dist/index.js",
   "files": [

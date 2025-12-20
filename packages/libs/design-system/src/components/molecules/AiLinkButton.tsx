@@ -34,23 +34,35 @@ function buildProviderUrl(provider: Provider, href: string) {
 export function AiLinkButton({ href, className }: AiLinkButtonProps) {
   const copyLink = React.useCallback(() => {
     try {
-      navigator.clipboard?.writeText(href).catch(() => {});
-    } catch {}
+      navigator.clipboard?.writeText(href).catch(() => {
+        /* ignore */
+      });
+    } catch (_e) {
+      /* ignore */
+    }
   }, [href]);
 
   const openChatGPT = React.useCallback(() => {
     const url = buildProviderUrl('chatgpt', href);
     try {
-      navigator.clipboard?.writeText(href).catch(() => {});
-    } catch {}
+      navigator.clipboard?.writeText(href).catch(() => {
+        /* ignore */
+      });
+    } catch (_e) {
+      /* ignore */
+    }
     window.open(url, '_blank', 'noopener,noreferrer');
   }, [href]);
 
   const openClaude = React.useCallback(() => {
     const url = buildProviderUrl('claude', href);
     try {
-      navigator.clipboard?.writeText(href).catch(() => {});
-    } catch {}
+      navigator.clipboard?.writeText(href).catch(() => {
+        /* ignore */
+      });
+    } catch (_e) {
+      /* ignore */
+    }
     window.open(url, '_blank', 'noopener,noreferrer');
   }, [href]);
 

@@ -1,5 +1,5 @@
 import { Output } from 'ai';
-import { z, type ZodType } from 'zod';
+import { type ZodType } from 'zod';
 import { jsonSchemaToZod } from './json-schema-to-zod';
 
 /**

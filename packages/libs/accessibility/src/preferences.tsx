@@ -192,6 +192,7 @@ export function A11YPreferencesProvider({
             next
           ) as (keyof AccessibilityPreferences)[]) {
             if (next[key] !== prev[key]) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               changed[key] = next[key] as any;
             }
           }
@@ -205,7 +206,9 @@ export function A11YPreferencesProvider({
             })
           );
         }
-      } catch {}
+      } catch {
+        /* noop */
+      }
       return next;
     });
   }, []);

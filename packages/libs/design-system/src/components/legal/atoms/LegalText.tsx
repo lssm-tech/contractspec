@@ -39,7 +39,7 @@ export function LegalText({
   className,
   ...props
 }: LegalTextProps) {
-  const Comp: any = as;
+  const Comp = as as React.ElementType;
   return (
     <Comp
       className={cn(textVariants({ tone, size, spacing }), className)}

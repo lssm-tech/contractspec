@@ -8,8 +8,8 @@ import { EmptyDataList } from '../../../organisms/EmptyDataList.mobile';
 
 export * from './types';
 
-export function ListPageTemplate<T = any>({
-  children,
+export function ListPageTemplate<T = unknown>({
+  children: _children,
   title,
   description,
   breadcrumb,

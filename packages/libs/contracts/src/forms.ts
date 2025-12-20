@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 

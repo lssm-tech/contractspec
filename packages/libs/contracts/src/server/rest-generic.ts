@@ -188,15 +188,18 @@ export function createFetchHandler(
           corsHeaders(opts.cors === true ? {} : opts.cors)
         );
       // Basic zod hint
-      if (err?.issues)
+      if ((err as { issues?: unknown })?.issues)
         return makeJson(
           400,
-          { error: 'ValidationError', issues: err.issues },
+          {
+            error: 'ValidationError',
+            issues: (err as { issues: unknown }).issues,
+          },
           headers
         );
       if (
-        typeof err?.message === 'string' &&
-        err.message.startsWith('PolicyDenied')
+        typeof (err as { message?: unknown })?.message === 'string' &&
+        (err as { message: string }).message.startsWith('PolicyDenied')
       ) {
         return makeJson(403, { error: 'PolicyDenied' }, headers);
       }

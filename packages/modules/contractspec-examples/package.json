@@ -57,13 +57,13 @@
     "@lssm/example.team-hub": "workspace:*",
     "@lssm/example.wealth-snapshot": "workspace:*",
     "@lssm/example.workflow-system": "workspace:*",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",

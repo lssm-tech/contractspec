@@ -1,7 +1,7 @@
 {
   "name": "@lssm/example.integration-stripe",
   "version": "1.41.1",
-  "description": "Integration example \u2013 Stripe Payments (blueprint + workflow + tenant config).",
+  "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -36,8 +36,8 @@
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",

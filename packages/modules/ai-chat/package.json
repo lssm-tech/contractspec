@@ -30,18 +30,18 @@
     "@lssm/lib.cost-tracking": "workspace:*",
     "@lssm/lib.design-system": "workspace:*",
     "@lssm/lib.ui-kit-web": "workspace:*",
-    "@ai-sdk/react": "beta",
-    "ai": "beta",
+    "@ai-sdk/react": "catalog:ai",
+    "ai": "catalog:ai",
     "lucide-react": "^0.535.0",
-    "react": "19.2.3",
-    "zod": "^4.1.13"
+    "react": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/react": "^19.0.14",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
     "react": ">=18.0.0"

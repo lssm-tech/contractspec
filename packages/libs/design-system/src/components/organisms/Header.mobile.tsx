@@ -5,13 +5,13 @@ import { VStack } from '@lssm/lib.ui-kit/ui/stack';
 
 export interface HeaderProps {
   logo: React.ReactNode;
-  nav: any[];
-  userMenu?: any;
-  cta?: any;
+  nav: unknown[];
+  userMenu?: unknown;
+  cta?: unknown;
   className?: string;
   density?: 'compact' | 'comfortable';
   mobileSidebar?: {
-    sections: any[];
+    sections: unknown[];
     top?: React.ReactNode;
     bottom?: React.ReactNode;
   };

@@ -65,8 +65,8 @@ export type ZodSchemaModel<Field extends AnySchemaModel> = z.infer<
 >;
 
 type InferZodFromType<T> =
-  T extends SchemaModel<any>
-    ? z.ZodObject<any>
+  T extends SchemaModel<SchemaModelFieldsAnyConfig>
+    ? z.ZodObject<z.ZodRawShape>
     : T extends AnyFieldType
       ? ReturnType<T['getZod']>
       : T extends AnyEnumType

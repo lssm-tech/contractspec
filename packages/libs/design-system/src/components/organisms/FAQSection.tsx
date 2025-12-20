@@ -58,10 +58,11 @@ export function FAQSection({
               <Accordion
                 type={accordionType}
                 collapsible={collapsible}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 defaultValue={defaultValue as any}
                 className={accordionClassName}
               >
-                {items!.map((faq, index) => (
+                {items?.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`}>
                     <AccordionTrigger className="px-6">
                       <span className="text-foreground text-lg font-medium">

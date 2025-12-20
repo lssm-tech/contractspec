@@ -27,17 +27,20 @@ export function ErrorState({
   className,
 }: ErrorStateProps) {
   const onSupport = React.useCallback(() => {
-    if (supportHref) Linking.openURL(supportHref).catch(() => {});
+    if (supportHref)
+      Linking.openURL(supportHref).catch(() => {
+        /* noop */
+      });
     else onContactSupport?.();
   }, [supportHref, onContactSupport]);
 
   return (
     <View className={['items-center p-6', className].filter(Boolean).join(' ')}>
       {icon}
-      <Text className="text-lg font-medium">{title as any}</Text>
+      <Text className="text-lg font-medium">{title}</Text>
       {description ? (
         <Text className="text-muted-foreground mt-1 text-base">
-          {description as any}
+          {description}
         </Text>
       ) : null}
       <View className="mt-3 flex-row items-center gap-2">

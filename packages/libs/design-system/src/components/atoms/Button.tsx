@@ -5,14 +5,9 @@ import {
 } from '@lssm/lib.ui-kit-web/ui/button';
 import { Loader2 } from 'lucide-react';
 // type-only import to avoid bundling RN on web
-import type { PressableProps as RNPressableProps } from 'react-native';
+import type { PressableProps as _RNPressableProps } from 'react-native';
 
 type SpinnerPlacement = 'start' | 'end';
-
-type PressableBridgeProps = Omit<
-  RNPressableProps,
-  'onPress' | 'onPressIn' | 'onPressOut' | 'onLongPress'
->;
 
 export type ButtonProps = Omit<
   WebButtonProps,
@@ -69,6 +64,7 @@ export function Button({
 
   return (
     <WebButton
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(rest as any)}
       className={className}
       disabled={isDisabled}
@@ -82,6 +78,7 @@ export function Button({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd || onPressOut}
       onTouchCancel={onTouchCancel || onPressOut}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type={(rest as any)?.type ?? 'button'}
     >
       {content}

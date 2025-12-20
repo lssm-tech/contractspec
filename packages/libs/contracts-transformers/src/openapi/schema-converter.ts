@@ -4,7 +4,7 @@
  */
 
 import type { OpenApiSchema } from './types';
-import { toPascalCase, toCamelCase, toValidIdentifier } from '../common/utils';
+import { toCamelCase, toPascalCase, toValidIdentifier } from '../common/utils';
 
 /**
  * TypeScript type representation for code generation.
@@ -145,7 +145,7 @@ export function jsonSchemaToType(
 
   // Handle primitives
   const scalarKey = format ? `${type}:${format}` : type;
-  if (type === 'string') {
+  if (scalarKey === 'string') {
     return {
       type: 'string',
       optional: nullable ?? false,
@@ -153,7 +153,7 @@ export function jsonSchemaToType(
       primitive: true,
     };
   }
-  if (type === 'integer' || type === 'number') {
+  if (scalarKey === 'integer' || type === 'number') {
     return {
       type: 'number',
       optional: nullable ?? false,
@@ -161,7 +161,7 @@ export function jsonSchemaToType(
       primitive: true,
     };
   }
-  if (type === 'boolean') {
+  if (scalarKey === 'boolean') {
     return {
       type: 'boolean',
       optional: nullable ?? false,
@@ -242,7 +242,6 @@ export function generateSchemaModelCode(
 ): GeneratedModel {
   const spaces = '  '.repeat(indent);
   const fields: SchemaField[] = [];
-  let description: string | undefined;
 
   if (isReference(schema)) {
     // Reference type - just use the referenced type
@@ -254,7 +253,7 @@ export function generateSchemaModelCode(
   }
 
   const schemaObj = schema as Record<string, unknown>;
-  description = schemaObj['description'] as string | undefined;
+  const description = schemaObj['description'] as string | undefined;
   const properties = schemaObj['properties'] as
     | Record<string, OpenApiSchema>
     | undefined;

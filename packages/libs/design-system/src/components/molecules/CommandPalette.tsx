@@ -37,7 +37,9 @@ export function CommandPalette({
   const [internalOpen, setInternalOpen] = React.useState(false);
   const isControlled = typeof open === 'boolean';
   const visible = isControlled ? open : internalOpen;
-  const setVisible = isControlled ? onOpenChange! : setInternalOpen;
+  const setVisible = (
+    isControlled && onOpenChange ? onOpenChange : setInternalOpen
+  ) as (open: boolean) => void;
 
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {

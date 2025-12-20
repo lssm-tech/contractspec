@@ -1,4 +1,3 @@
-import { SecretProviderError } from './provider';
 import type {
   SecretProvider,
   SecretReference,
@@ -6,6 +5,7 @@ import type {
   SecretValue,
   SecretWritePayload,
 } from './provider';
+import { SecretProviderError } from './provider';
 
 interface ProviderRegistration {
   readonly provider: SecretProvider;
@@ -181,6 +181,7 @@ export class SecretProviderManager implements SecretProvider {
       message: messageParts.join(' '),
       provider: this.id,
       reference,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       code: errors.length > 0 ? errors[errors.length - 1]!.code : 'UNKNOWN',
       cause: errors,
     });

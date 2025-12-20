@@ -15,17 +15,17 @@ export function EmptyDataList({
   emptyListTitle,
   emptyListDescription,
   createButton,
-  secondaryButton,
+  secondaryButton: _secondaryButton,
   media,
   mediaVariant = 'icon',
-  learnMoreHref,
-  learnMoreLabel,
-  learnMoreEndIcon,
-  onLearnMore,
-  handleLearnMore,
+  learnMoreHref: _learnMoreHref,
+  learnMoreLabel: _learnMoreLabel,
+  learnMoreEndIcon: _unreducedLearnMoreEndIcon,
+  onLearnMore: _onLearnMore,
+  handleLearnMore: _handleLearnMore,
   className,
 }: EmptyDataListProps) {
-  const learnMore = onLearnMore ?? handleLearnMore;
+  // const learnMore = onLearnMore ?? handleLearnMore;
 
   return (
     <Empty className={className}>

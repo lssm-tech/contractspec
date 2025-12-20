@@ -47,14 +47,14 @@
     "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
     "@lssm/example.learning-journey-ui-coaching": "workspace:*",
     "@lssm/module.learning-journey": "workspace:*",
-    "react": "^19.2.3"
+    "react": "catalog:"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/react": "^19.1.6",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
     "react": "^19.2.3"

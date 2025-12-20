@@ -73,7 +73,7 @@ export class SpecRegistry {
       throw new Error(`Cannot bind; spec not found: ${key}`);
     if (this.handlers.has(key))
       throw new Error(`Handler already bound for ${key}`);
-    this.handlers.set(key, handler);
+    this.handlers.set(key, handler as unknown as AnyHandler);
     return this;
   }
 

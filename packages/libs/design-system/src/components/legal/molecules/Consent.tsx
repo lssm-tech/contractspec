@@ -22,7 +22,7 @@ export function ConsentItem({
       <Checkbox
         id={id}
         checked={checked}
-        onCheckedChange={(v: any) => onChange(Boolean(v))}
+        onCheckedChange={(v: boolean | 'indeterminate') => onChange(Boolean(v))}
       />
       <div>
         <label htmlFor={id} className="text-base font-medium">

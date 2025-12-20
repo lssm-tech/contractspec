@@ -13,18 +13,21 @@ import * as z from 'zod';
 // import { useForm, type UseFormReturn } from 'react-hook-form';
 
 export interface ZodFormProps<
-  TSchema extends z.ZodType<any, FieldValues>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TSchema extends z.ZodType<any, any, any>,
   TFieldValues extends FieldValues = z.input<TSchema>,
   TOutput = z.output<TSchema>,
 > {
   schema: TSchema;
   defaultValues?: Partial<TFieldValues> | Promise<Partial<TFieldValues>>;
   onSubmit: (data: TOutput) => Promise<void> | void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: (f: UseFormReturn<TFieldValues, any, TOutput>) => React.ReactNode;
 }
 
 export function ZodForm<
-  TSchema extends z.ZodType<any, FieldValues>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TSchema extends z.ZodType<any, any, any>,
   TFieldValues extends FieldValues = z.input<TSchema>,
   TOutput = z.output<TSchema>,
 >({
@@ -33,8 +36,11 @@ export function ZodForm<
   onSubmit,
   children,
 }: ZodFormProps<TSchema, TFieldValues, TOutput>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm<TFieldValues, any, TOutput>({
-    resolver: zodResolver<TFieldValues, any, TOutput>(schema as any),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(schema as any),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValues: defaultValues as any,
   });
   return (

@@ -2,7 +2,7 @@
   "name": "@lssm/tool.typescript",
   "version": "1.41.1",
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "catalog:"
   },
   "type": "module",
   "publishConfig": {

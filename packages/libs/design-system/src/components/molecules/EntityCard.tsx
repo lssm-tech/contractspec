@@ -83,8 +83,10 @@ export function EntityCard({
   const maybePreview = (() => {
     if (!preview) return cardContent;
     try {
+      /* eslint-disable @typescript-eslint/no-require-imports */
       const { HoverPreview } =
         require('./HoverPreview') as typeof import('./HoverPreview');
+      /* eslint-enable @typescript-eslint/no-require-imports */
       return <HoverPreview trigger={cardContent} content={preview} />;
     } catch {
       return cardContent;

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import NextLink from 'next/link';
+import type { UrlObject } from 'url';
 
 export type LinkProps = {
-  href: any; // keep loose to avoid type coupling with Next.js types
+  href?: string | UrlObject;
   children?: React.ReactNode;
   className?: string;
   prefetch?: boolean;
@@ -12,11 +13,11 @@ export type LinkProps = {
   target?: string;
   rel?: string;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-} & Record<string, any>;
+} & Record<string, unknown>;
 
 export function Link({ href, children, ...props }: LinkProps) {
   return (
-    <NextLink href={href} {...props}>
+    <NextLink href={href || '#'} {...props}>
       {children}
     </NextLink>
   );

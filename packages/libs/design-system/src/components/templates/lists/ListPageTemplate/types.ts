@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { EmptyDataListProps } from '../../../organisms/EmptyDataList.types';
 
-export interface ListPageTemplateProps<T = any> {
+export interface ListPageTemplateProps<T = unknown> {
   children?: React.ReactNode;
   title: React.ReactNode;
   description?: React.ReactNode;

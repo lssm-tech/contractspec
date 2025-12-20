@@ -42,7 +42,7 @@ export function LegalHeading({
   className,
   ...props
 }: LegalHeadingProps) {
-  const Comp = (as ?? level ?? 'h2') as any;
+  const Comp = (as ?? level ?? 'h2') as 'h1' | 'h2' | 'h3' | 'h4';
   return (
     <Comp
       className={cn(headingVariants({ level, tone, spacing }), className)}

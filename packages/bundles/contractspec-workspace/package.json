@@ -23,28 +23,28 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "beta",
-    "@ai-sdk/google": "beta",
-    "@ai-sdk/mistral": "beta",
-    "@ai-sdk/openai": "beta",
-    "ollama-ai-provider": "^1.2.0",
+    "@ai-sdk/anthropic": "catalog:ai",
+    "@ai-sdk/google": "catalog:ai",
+    "@ai-sdk/mistral": "catalog:ai",
+    "@ai-sdk/openai": "catalog:ai",
+    "ollama-ai-provider": "catalog:ai",
     "@lssm/module.contractspec-workspace": "workspace:*",
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.contracts-transformers": "workspace:*",
     "@lssm/lib.ai-providers": "workspace:*",
     "@lssm/lib.schema": "workspace:*",
     "@lssm/lib.testing": "workspace:*",
-    "ai": "beta",
-    "zod": "^4.1.13",
-    "glob": "^13.0.0",
+    "ai": "catalog:ai",
+    "zod": "catalog:",
+    "glob": "catalog:build",
     "chokidar": "^5.0.0"
   },
   "devDependencies": {
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "@types/node": "^22.10.2",
-    "tsdown": "^0.18.1",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./dist/index.js",
