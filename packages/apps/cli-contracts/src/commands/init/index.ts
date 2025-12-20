@@ -12,30 +12,30 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { checkbox, confirm, input, select } from '@inquirer/prompts';
 import {
-  runSetup,
   ALL_SETUP_TARGETS,
-  SETUP_TARGET_LABELS,
   createNodeFsAdapter,
-  findWorkspaceRoot,
   findPackageRoot,
-  isMonorepo,
+  findWorkspaceRoot,
   getPackageName,
-  type SetupTarget,
-  type SetupScope,
+  isMonorepo,
+  runSetup,
+  SETUP_TARGET_LABELS,
   type SetupPromptCallbacks,
+  type SetupScope,
+  type SetupTarget,
 } from '@lssm/bundle.contractspec-workspace';
 import {
-  parseOpenApi,
   importFromOpenApi,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import {
-  upsertOpenApiSource,
   getOutputDirForSpecType,
+  upsertOpenApiSource,
 } from '../../utils/config-writer';
-import { loadConfig, type OpenApiSource } from '../../utils/config';
+import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 
 /**
  * Create CLI prompt callbacks using @inquirer/prompts.
@@ -259,7 +259,9 @@ export const initCommand = new Command('init')
           });
 
           if (openApiSource.trim()) {
-            console.log(chalk.blue(`\n📥 Importing from OpenAPI: ${openApiSource}`));
+            console.log(
+              chalk.blue(`\n📥 Importing from OpenAPI: ${openApiSource}`)
+            );
 
             try {
               const userConfig = await loadConfig();
@@ -277,10 +279,17 @@ export const initCommand = new Command('init')
                 )
               );
 
-              const importResult = importFromOpenApi(parseResult, {});
+              const importResult = importFromOpenApi(
+                parseResult,
+                userConfig,
+                {}
+              );
 
               // Use conventions for output directories
-              const operationsDir = getOutputDirForSpecType('operation', userConfig);
+              const operationsDir = getOutputDirForSpecType(
+                'operation',
+                userConfig
+              );
               const eventsDir = getOutputDirForSpecType('event', userConfig);
               const modelsDir = getOutputDirForSpecType('model', userConfig);
 
@@ -289,7 +298,11 @@ export const initCommand = new Command('init')
                 let targetDir: string;
                 if (spec.code.includes('defineEvent(')) {
                   targetDir = eventsDir;
-                } else if (spec.code.includes('defineSchemaModel(') && !spec.code.includes('defineCommand(') && !spec.code.includes('defineQuery(')) {
+                } else if (
+                  spec.code.includes('defineSchemaModel(') &&
+                  !spec.code.includes('defineCommand(') &&
+                  !spec.code.includes('defineQuery(')
+                ) {
                   targetDir = modelsDir;
                 } else {
                   targetDir = operationsDir;
@@ -307,24 +320,35 @@ export const initCommand = new Command('init')
 
               // Save OpenAPI source to config
               const sourceName = parseResult.info.title ?? 'openapi';
-              const openApiSourceConfig: OpenApiSource = {
+              const openApiSourceConfig: OpenApiSourceConfig = {
                 name: sourceName,
                 syncMode: 'sync',
               };
 
-              if (openApiSource.startsWith('http://') || openApiSource.startsWith('https://')) {
+              if (
+                openApiSource.startsWith('http://') ||
+                openApiSource.startsWith('https://')
+              ) {
                 openApiSourceConfig.url = openApiSource;
               } else {
                 openApiSourceConfig.file = openApiSource;
               }
 
               await upsertOpenApiSource(openApiSourceConfig);
-              console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
-              console.log(chalk.blue(`\n📊 Imported ${importedCount} specs from OpenAPI`));
+              console.log(
+                chalk.green(
+                  `\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`
+                )
+              );
+              console.log(
+                chalk.blue(`\n📊 Imported ${importedCount} specs from OpenAPI`)
+              );
             } catch (importError) {
               console.error(
                 chalk.red('OpenAPI import failed:'),
-                importError instanceof Error ? importError.message : String(importError)
+                importError instanceof Error
+                  ? importError.message
+                  : String(importError)
               );
             }
           }

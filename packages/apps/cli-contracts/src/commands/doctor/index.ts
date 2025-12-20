@@ -10,19 +10,22 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { confirm, input, password } from '@inquirer/prompts';
 import {
-  runDoctor,
   ALL_CHECK_CATEGORIES,
   CHECK_CATEGORY_LABELS,
-  createNodeFsAdapter,
-  createConsoleLoggerAdapter,
-  findWorkspaceRoot,
-  findPackageRoot,
-  isMonorepo,
-  getPackageName,
   type CheckCategory,
+  createConsoleLoggerAdapter,
+  createNodeFsAdapter,
+  findPackageRoot,
+  findWorkspaceRoot,
+  getPackageName,
+  isMonorepo,
+  runDoctor,
 } from '@lssm/bundle.contractspec-workspace';
-import { getOpenApiSources, upsertOpenApiSource } from '../../utils/config-writer';
-import type { OpenApiSource } from '../../utils/config';
+import {
+  getOpenApiSources,
+  upsertOpenApiSource,
+} from '../../utils/config-writer';
+import type { OpenApiSourceConfig } from '../../utils/config';
 
 /**
  * Parse comma-separated categories.
@@ -242,27 +245,46 @@ export const doctorCommand = new Command('doctor')
             });
 
             if (sourceUrl.trim()) {
-              const newSource: OpenApiSource = {
+              const newSource: OpenApiSourceConfig = {
                 name: sourceName,
                 syncMode: 'sync',
               };
 
-              if (sourceUrl.startsWith('http://') || sourceUrl.startsWith('https://')) {
+              if (
+                sourceUrl.startsWith('http://') ||
+                sourceUrl.startsWith('https://')
+              ) {
                 newSource.url = sourceUrl;
               } else {
                 newSource.file = sourceUrl;
               }
 
               await upsertOpenApiSource(newSource);
-              console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
-              console.log(chalk.gray(`   Run ${chalk.cyan('contractspec openapi sync')} to import specs`));
+              console.log(
+                chalk.green(
+                  `\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`
+                )
+              );
+              console.log(
+                chalk.gray(
+                  `   Run ${chalk.cyan('contractspec openapi sync')} to import specs`
+                )
+              );
             }
           }
         } else {
-          console.log(chalk.gray('   Run ${chalk.cyan("contractspec init")} to configure OpenAPI sources'));
+          console.log(
+            chalk.gray(
+              '   Run ${chalk.cyan("contractspec init")} to configure OpenAPI sources'
+            )
+          );
         }
       } else {
-        console.log(chalk.green(`\n✓ ${openApiSources.length} OpenAPI source(s) configured`));
+        console.log(
+          chalk.green(
+            `\n✓ ${openApiSources.length} OpenAPI source(s) configured`
+          )
+        );
         for (const source of openApiSources) {
           const location = source.url ?? source.file ?? 'unknown';
           console.log(chalk.gray(`   • ${source.name}: ${location}`));

@@ -1,9 +1,5 @@
 import { parse as parseYaml } from 'yaml';
-import type {
-  OpenApiDocument,
-  HttpMethod,
-  OpenApiVersion,
-} from '../types';
+import type { OpenApiDocument, HttpMethod, OpenApiVersion } from '../types';
 
 export const HTTP_METHODS: HttpMethod[] = [
   'get',

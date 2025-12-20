@@ -46,7 +46,10 @@ export function parseParameters(
       in: resolved.in as ParsedParameter['in'],
       required: resolved.required ?? resolved.in === 'path',
       description: resolved.description,
-      schema: dereferenceSchema(doc, resolved.schema as OpenApiSchema) as OpenApiSchema,
+      schema: dereferenceSchema(
+        doc,
+        resolved.schema as OpenApiSchema
+      ) as OpenApiSchema,
       deprecated: resolved.deprecated ?? false,
     };
 

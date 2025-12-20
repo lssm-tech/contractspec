@@ -1,19 +1,19 @@
 import type {
   OpenApiDocument,
-  OpenApiParseOptions,
-  ParseResult,
-  ParsedOperation,
-  OpenApiServer,
-  OpenApiSchema,
   OpenApiParameter,
+  OpenApiParseOptions,
+  OpenApiSchema,
+  OpenApiServer,
   ParsedEvent,
+  ParsedOperation,
+  ParseResult,
 } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 import {
+  detectFormat,
   detectVersion,
   HTTP_METHODS,
   parseOpenApiString,
-  detectFormat,
 } from './utils';
 import { parseOperation } from './operation';
 
@@ -83,22 +83,25 @@ export function parseOpenApiDocument(
   if ('webhooks' in doc && doc.webhooks) {
     for (const [name, pathItem] of Object.entries(doc.webhooks)) {
       if (typeof pathItem !== 'object' || !pathItem) continue;
-       // Webhooks usually have a POST method defining the payload
-       const operation = (pathItem as Record<string, unknown>)['post'] as 
-        | OpenAPIV3.OperationObject 
-        | OpenAPIV3_1.OperationObject 
+      // Webhooks usually have a POST method defining the payload
+      const operation = (pathItem as Record<string, unknown>)['post'] as
+        | OpenAPIV3.OperationObject
+        | OpenAPIV3_1.OperationObject
         | undefined;
-      
+
       if (operation && operation.requestBody) {
-         // Extract payload schema
-         const content = (operation.requestBody as any).content?.['application/json'];
-         if (content?.schema) {
-            events.push({
-              name,
-              description: operation.summary || operation.description,
-              payload: content.schema
-            });
-         }
+        if ('$ref' in operation.requestBody) {
+          throw new Error(`'$ref' isn't supported`);
+        }
+        // Extract payload schema
+        const content = operation.requestBody.content?.['application/json'];
+        if (content?.schema) {
+          events.push({
+            name,
+            description: operation.summary || operation.description,
+            payload: content.schema,
+          });
+        }
       }
     }
   }

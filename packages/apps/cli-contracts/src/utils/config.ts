@@ -14,11 +14,11 @@ import {
   DEFAULT_CONTRACTSRC,
   type FolderConventions,
   type OpenApiConfig,
-  type OpenApiSource,
+  type OpenApiSourceConfig,
 } from '@lssm/lib.contracts';
 
 // Re-export types for convenience
-export type { OpenApiSource, OpenApiConfig, FolderConventions };
+export type { OpenApiSourceConfig, OpenApiConfig, FolderConventions };
 export type Config = ContractsrcConfig;
 
 /**

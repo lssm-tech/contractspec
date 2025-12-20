@@ -160,7 +160,7 @@ export const importFromOpenApi = (
           openApiVersion: parseResult.version,
           importedAt: new Date(),
         } as OpenApiSource,
-        transportHints: {} as any,
+        transportHints: {},
       });
     } catch (error) {
       errors.push({

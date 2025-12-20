@@ -1,12 +1,12 @@
 import type {
-  OpenApiDocument,
-  ParsedOperation,
   HttpMethod,
+  OpenApiDocument,
   OpenApiParameter,
   OpenApiSchema,
+  ParsedOperation,
 } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
-import { isReference, resolveRef, resolveSchema, dereferenceSchema } from './resolvers';
+import { dereferenceSchema, isReference, resolveRef } from './resolvers';
 import { parseParameters } from './parameters';
 import { generateOperationId } from './utils';
 

@@ -1,7 +1,4 @@
-import type {
-  OpenApiDocument,
-  OpenApiSchema,
-} from '../types';
+import type { OpenApiDocument, OpenApiSchema } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 
 /**
@@ -16,7 +13,10 @@ export function isReference(
 /**
  * Resolve a $ref reference in the document.
  */
-export function resolveRef<T>(doc: OpenApiDocument, ref: string): T | undefined {
+export function resolveRef<T>(
+  doc: OpenApiDocument,
+  ref: string
+): T | undefined {
   // Only support local refs for now
   if (!ref.startsWith('#/')) {
     return undefined;
@@ -65,7 +65,7 @@ export function dereferenceSchema(
     if (seen.has(schema.$ref)) {
       return schema; // Keep reference for cycles
     }
-    
+
     // Create new seen set for this branch
     const newSeen = new Set(seen);
     newSeen.add(schema.$ref);
@@ -93,7 +93,11 @@ export function dereferenceSchema(
 
   // Handle nested schema in items (array)
   if (schemaObj.items) {
-    schemaObj.items = dereferenceSchema(doc, schemaObj.items as OpenApiSchema, seen);
+    schemaObj.items = dereferenceSchema(
+      doc,
+      schemaObj.items as OpenApiSchema,
+      seen
+    );
   }
 
   // Handle allOf, anyOf, oneOf

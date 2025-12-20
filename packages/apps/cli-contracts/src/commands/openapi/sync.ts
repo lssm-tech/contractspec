@@ -1,14 +1,14 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { resolve, dirname } from 'node:path';
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import {
-  parseOpenApi,
   importFromOpenApi,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import { getErrorMessage } from '../../utils/errors';
-import { loadConfig, type OpenApiSource } from '../../utils/config';
+import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 
 interface SyncOptions {
   source?: string;
@@ -61,7 +61,7 @@ export const syncCommand = new Command('sync')
       }
 
       // Filter sources if specific source requested
-      let sourcesToSync: OpenApiSource[] = sources;
+      let sourcesToSync: OpenApiSourceConfig[] = sources;
       if (options.source) {
         sourcesToSync = sources.filter((s) => s.name === options.source);
         if (sourcesToSync.length === 0) {
@@ -109,7 +109,7 @@ export const syncCommand = new Command('sync')
         );
 
         // Import operations
-        const importResult = importFromOpenApi(parseResult, {
+        const importResult = importFromOpenApi(parseResult, config, {
           prefix: source.prefix,
           tags: source.tags,
           exclude: source.exclude,

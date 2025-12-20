@@ -100,7 +100,9 @@ export function buildInputSchema(operation: ParsedOperation): {
 /**
  * Get the output schema from the operation responses.
  */
-export function getOutputSchema(operation: ParsedOperation): OpenApiSchema | null {
+export function getOutputSchema(
+  operation: ParsedOperation
+): OpenApiSchema | null {
   // Prefer 200, then 201, then 2xx responses
   const successCodes = ['200', '201', '202', '204'];
 

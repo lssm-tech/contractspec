@@ -1,17 +1,17 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { resolve, dirname, basename } from 'node:path';
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { basename, dirname, resolve } from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import {
-  parseOpenApi,
   importFromOpenApi,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import { getErrorMessage } from '../../utils/errors';
-import { loadConfig, type OpenApiSource } from '../../utils/config';
+import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 import {
-  upsertOpenApiSource,
   getOutputDirForSpecType,
+  upsertOpenApiSource,
 } from '../../utils/config-writer';
 
 interface ImportOptions {
@@ -48,7 +48,11 @@ export const importCommand = new Command('import')
   .option('--dry-run', 'Show what would be imported without writing files')
   .option('--save-config', 'Save OpenAPI source to .contractsrc.json')
   .option('--name <name>', 'Friendly name for the OpenAPI source')
-  .option('--sync-mode <mode>', 'Sync mode: import, sync, or validate', 'import')
+  .option(
+    '--sync-mode <mode>',
+    'Sync mode: import, sync, or validate',
+    'import'
+  )
   .action(async (source: string, options: ImportOptions) => {
     try {
       const config = await loadConfig();
@@ -83,7 +87,7 @@ export const importCommand = new Command('import')
       );
 
       // Import operations
-      const importResult = importFromOpenApi(parseResult, {
+      const importResult = importFromOpenApi(parseResult, config, {
         prefix: options.prefix,
         tags: options.tags,
         exclude: options.exclude,
@@ -105,7 +109,11 @@ export const importCommand = new Command('import')
           // Infer spec type from source or code content
           if (spec.code.includes('defineEvent(')) {
             targetDir = eventsDir;
-          } else if (spec.code.includes('defineSchemaModel(') && !spec.code.includes('defineCommand(') && !spec.code.includes('defineQuery(')) {
+          } else if (
+            spec.code.includes('defineSchemaModel(') &&
+            !spec.code.includes('defineCommand(') &&
+            !spec.code.includes('defineQuery(')
+          ) {
             targetDir = modelsDir;
           } else {
             targetDir = operationsDir;
@@ -165,15 +173,26 @@ export const importCommand = new Command('import')
 
       // Save config if requested
       if (options.saveConfig && !options.dryRun) {
-        const sourceName = options.name ?? parseResult.info.title ?? basename(source, '.json');
-        const openApiSource: OpenApiSource = {
+        const sourceName =
+          options.name ?? parseResult.info.title ?? basename(source, '.json');
+        const openApiSource: OpenApiSourceConfig = {
           name: sourceName,
-          syncMode: (options.syncMode as 'import' | 'sync' | 'validate') ?? 'import',
+          syncMode:
+            (options.syncMode as 'import' | 'sync' | 'validate') ?? 'import',
           prefix: options.prefix,
           tags: options.tags,
           exclude: options.exclude,
-          defaultStability: options.stability as 'experimental' | 'beta' | 'stable' | 'deprecated' | undefined,
-          defaultAuth: options.auth as 'anonymous' | 'user' | 'admin' | undefined,
+          defaultStability: options.stability as
+            | 'experimental'
+            | 'beta'
+            | 'stable'
+            | 'deprecated'
+            | undefined,
+          defaultAuth: options.auth as
+            | 'anonymous'
+            | 'user'
+            | 'admin'
+            | undefined,
         };
 
         // Set URL or file based on source
@@ -184,7 +203,11 @@ export const importCommand = new Command('import')
         }
 
         await upsertOpenApiSource(openApiSource);
-        console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
+        console.log(
+          chalk.green(
+            `\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`
+          )
+        );
       }
     } catch (error) {
       console.error(

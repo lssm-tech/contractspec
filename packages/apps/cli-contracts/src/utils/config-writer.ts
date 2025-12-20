@@ -1,7 +1,8 @@
 import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import type { Config, OpenApiSource, OpenApiConfig } from './config';
+import type { Config } from './config';
+import type { OpenApiSourceConfig } from '@lssm/lib.contracts';
 import { findPackageRoot } from '@lssm/bundle.contractspec-workspace';
 
 /**
@@ -49,7 +50,7 @@ export async function writeConfigFile(
  * Otherwise, the source is added.
  */
 export async function upsertOpenApiSource(
-  source: OpenApiSource,
+  source: OpenApiSourceConfig,
   cwd: string = process.cwd()
 ): Promise<void> {
   const config = await readConfigFile(cwd);
@@ -66,7 +67,7 @@ export async function upsertOpenApiSource(
 
   // Find existing source by name
   const existingIndex = config.openapi.sources.findIndex(
-    (s: OpenApiSource) => s.name === source.name
+    (s: OpenApiSourceConfig) => s.name === source.name
   );
 
   if (existingIndex >= 0) {
@@ -85,7 +86,7 @@ export async function upsertOpenApiSource(
  */
 export async function getOpenApiSources(
   cwd: string = process.cwd()
-): Promise<OpenApiSource[]> {
+): Promise<OpenApiSourceConfig[]> {
   const config = await readConfigFile(cwd);
   return config.openapi?.sources ?? [];
 }
@@ -103,8 +104,10 @@ export function getOutputDirForSpecType(
   switch (specType) {
     case 'operation':
       // For operations, use the first part of the convention (before |)
-      const opPath = conventions.operations.split('|')[0] ?? 'operations';
-      return join(baseDir, opPath);
+      return join(
+        baseDir,
+        conventions.operations.split('|')[0] ?? 'operations'
+      );
     case 'event':
       return join(baseDir, conventions.events);
     case 'presentation':
