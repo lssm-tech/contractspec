@@ -10,10 +10,14 @@ import { toSpecName, toFileName } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
 import { buildInputSchema, getOutputSchema } from './schemas';
 import { generateSpecCode } from './generator';
+import { generateModelCode } from './models';
+import { generateEventCode } from './events';
 
 export * from './analyzer';
 export * from './schemas';
 export * from './generator';
+export * from './models';
+export * from './events';
 
 /**
  * Import operations from a parsed OpenAPI document.
@@ -131,12 +135,66 @@ export const importFromOpenApi = (
     }
   }
 
+  // Import standalone models
+  for (const [name, schema] of Object.entries(parseResult.schemas)) {
+     try {
+        const code = generateModelCode(name, schema, options);
+        const fileName = toFileName(toSpecName(name, options.prefix));
+        
+        specs.push({
+            spec: {} as any, 
+            code,
+            fileName,
+            source: {
+                type: 'openapi',
+                sourceId: name,
+                operationId: name,
+                openApiVersion: parseResult.version,
+                importedAt: new Date()
+            } as OpenApiSource,
+            transportHints: {} as any
+        });
+     } catch (error) {
+         errors.push({
+             sourceId: name,
+             error: error instanceof Error ? 'Model conversion failed: ' + error.message : String(error)
+         });
+     }
+  }
+
+  // Import events
+  for (const event of parseResult.events) {
+      try {
+          const code = generateEventCode(event);
+          const fileName = toFileName(toSpecName(event.name, options.prefix));
+
+          specs.push({
+              spec: {} as any,
+              code,
+              fileName,
+              source: {
+                  type: 'openapi',
+                  sourceId: event.name,
+                  operationId: event.name,
+                  openApiVersion: parseResult.version,
+                  importedAt: new Date()
+              } as OpenApiSource,
+              transportHints: {} as any
+          });
+      } catch (error) {
+          errors.push({
+              sourceId: event.name,
+              error: error instanceof Error ? 'Event conversion failed: ' + error.message : String(error)
+          });
+      }
+  }
+
   return {
     specs,
     skipped,
     errors,
     summary: {
-      total: parseResult.operations.length,
+      total: parseResult.operations.length + Object.keys(parseResult.schemas).length + parseResult.events.length,
       imported: specs.length,
       skipped: skipped.length,
       errors: errors.length,

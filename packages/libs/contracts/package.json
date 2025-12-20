@@ -92,6 +92,8 @@
     "./client/react/drivers/shadcn": "./dist/client/react/drivers/shadcn.js",
     "./client/react/feature-render": "./dist/client/react/feature-render.js",
     "./client/react/form-render": "./dist/client/react/form-render.js",
+    "./config": "./dist/config/index.js",
+    "./config/contractsrc-schema": "./dist/config/contractsrc-schema.js",
     "./contract-registry": "./dist/contract-registry/index.js",
     "./contract-registry/schemas": "./dist/contract-registry/schemas.js",
     "./contract-registry/types": "./dist/contract-registry/types.js",

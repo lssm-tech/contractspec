@@ -24,6 +24,18 @@ import {
   type SetupScope,
   type SetupPromptCallbacks,
 } from '@lssm/bundle.contractspec-workspace';
+import {
+  parseOpenApi,
+  importFromOpenApi,
+} from '@lssm/lib.contracts-transformers/openapi';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import {
+  upsertOpenApiSource,
+  getOutputDirForSpecType,
+} from '../../utils/config-writer';
+import { loadConfig, type OpenApiSource } from '../../utils/config';
 
 /**
  * Create CLI prompt callbacks using @inquirer/prompts.
@@ -234,6 +246,90 @@ export const initCommand = new Command('init')
         `  3. Run ${chalk.cyan('contractspec validate')} to check specs`
       );
       console.log();
+
+      // Offer OpenAPI import if interactive
+      if (interactive) {
+        const wantsOpenApi = await confirm({
+          message: 'Do you have an OpenAPI spec you want to import?',
+        });
+
+        if (wantsOpenApi) {
+          const openApiSource = await input({
+            message: 'Enter OpenAPI spec URL or file path:',
+          });
+
+          if (openApiSource.trim()) {
+            console.log(chalk.blue(`\n📥 Importing from OpenAPI: ${openApiSource}`));
+
+            try {
+              const userConfig = await loadConfig();
+              const parseResult = await parseOpenApi(openApiSource, {
+                fetch: globalThis.fetch,
+                readFile: async (path) => {
+                  const content = await readFile(path, 'utf-8');
+                  return content;
+                },
+              });
+
+              console.log(
+                chalk.gray(
+                  `Parsed ${parseResult.operations.length} operations from ${parseResult.info.title} v${parseResult.info.version}`
+                )
+              );
+
+              const importResult = importFromOpenApi(parseResult, {});
+
+              // Use conventions for output directories
+              const operationsDir = getOutputDirForSpecType('operation', userConfig);
+              const eventsDir = getOutputDirForSpecType('event', userConfig);
+              const modelsDir = getOutputDirForSpecType('model', userConfig);
+
+              let importedCount = 0;
+              for (const spec of importResult.specs) {
+                let targetDir: string;
+                if (spec.code.includes('defineEvent(')) {
+                  targetDir = eventsDir;
+                } else if (spec.code.includes('defineSchemaModel(') && !spec.code.includes('defineCommand(') && !spec.code.includes('defineQuery(')) {
+                  targetDir = modelsDir;
+                } else {
+                  targetDir = operationsDir;
+                }
+
+                const filePath = resolve(targetDir, spec.fileName);
+                const dir = dirname(filePath);
+                if (!existsSync(dir)) {
+                  await mkdir(dir, { recursive: true });
+                }
+                await writeFile(filePath, spec.code, 'utf-8');
+                console.log(chalk.green(`✅ Created: ${filePath}`));
+                importedCount++;
+              }
+
+              // Save OpenAPI source to config
+              const sourceName = parseResult.info.title ?? 'openapi';
+              const openApiSourceConfig: OpenApiSource = {
+                name: sourceName,
+                syncMode: 'sync',
+              };
+
+              if (openApiSource.startsWith('http://') || openApiSource.startsWith('https://')) {
+                openApiSourceConfig.url = openApiSource;
+              } else {
+                openApiSourceConfig.file = openApiSource;
+              }
+
+              await upsertOpenApiSource(openApiSourceConfig);
+              console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
+              console.log(chalk.blue(`\n📊 Imported ${importedCount} specs from OpenAPI`));
+            } catch (importError) {
+              console.error(
+                chalk.red('OpenAPI import failed:'),
+                importError instanceof Error ? importError.message : String(importError)
+              );
+            }
+          }
+        }
+      }
 
       if (!result.success) {
         process.exit(1);

@@ -213,6 +213,20 @@ export interface ParseResult {
   servers: OpenApiServer[];
   /** Parse warnings */
   warnings: string[];
+  /** Parsed events (webhooks) */
+  events: ParsedEvent[];
+}
+
+/**
+ * Parsed event (webhook).
+ */
+export interface ParsedEvent {
+  /** Event name */
+  name: string;
+  /** Event description */
+  description?: string;
+  /** Event payload schema */
+  payload: OpenApiSchema;
 }
 
 /**

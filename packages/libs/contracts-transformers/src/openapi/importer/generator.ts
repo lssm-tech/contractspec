@@ -7,6 +7,7 @@ import {
 import {
   generateImports,
   type GeneratedModel,
+  type ImportGeneratorOptions,
 } from '../schema-converter';
 import { inferOpKind, inferAuthLevel } from './analyzer';
 
@@ -17,7 +18,8 @@ export function generateSpecCode(
   operation: ParsedOperation,
   options: OpenApiImportOptions,
   inputModel: GeneratedModel | null,
-  outputModel: GeneratedModel | null
+  outputModel: GeneratedModel | null,
+  importOptions?: ImportGeneratorOptions
 ): string {
   const specName = toSpecName(operation.operationId, options.prefix);
   const kind = inferOpKind(operation.method);
@@ -31,10 +33,13 @@ export function generateSpecCode(
   );
   if (inputModel || outputModel) {
     lines.push(
-      generateImports([
-        ...(inputModel?.fields ?? []),
-        ...(outputModel?.fields ?? []),
-      ])
+      generateImports(
+        [
+          ...(inputModel?.fields ?? []),
+          ...(outputModel?.fields ?? []),
+        ],
+        importOptions
+      )
     );
   }
   lines.push('');

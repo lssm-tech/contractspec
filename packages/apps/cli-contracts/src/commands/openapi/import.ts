@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { resolve, dirname } from 'node:path';
+import { resolve, dirname, basename } from 'node:path';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import {
@@ -8,7 +8,11 @@ import {
   importFromOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import { getErrorMessage } from '../../utils/errors';
-import { loadConfig } from '../../utils/config';
+import { loadConfig, type OpenApiSource } from '../../utils/config';
+import {
+  upsertOpenApiSource,
+  getOutputDirForSpecType,
+} from '../../utils/config-writer';
 
 interface ImportOptions {
   outputDir?: string;
@@ -19,6 +23,9 @@ interface ImportOptions {
   owners?: string[];
   auth?: string;
   dryRun?: boolean;
+  saveConfig?: boolean;
+  name?: string;
+  syncMode?: string;
 }
 
 /**
@@ -39,10 +46,18 @@ export const importCommand = new Command('import')
   .option('--owners <owners...>', 'Default owners for imported specs')
   .option('--auth <auth>', 'Default auth level for imported specs', 'user')
   .option('--dry-run', 'Show what would be imported without writing files')
+  .option('--save-config', 'Save OpenAPI source to .contractsrc.json')
+  .option('--name <name>', 'Friendly name for the OpenAPI source')
+  .option('--sync-mode <mode>', 'Sync mode: import, sync, or validate', 'import')
   .action(async (source: string, options: ImportOptions) => {
     try {
       const config = await loadConfig();
-      const outputDir = options.outputDir ?? config.outputDir ?? './src/specs';
+      // Use conventions for output directories
+      const operationsDir = getOutputDirForSpecType('operation', config);
+      const eventsDir = getOutputDirForSpecType('event', config);
+      const modelsDir = getOutputDirForSpecType('model', config);
+      // Allow override via --output-dir (puts everything in one place)
+      const useConventions = !options.outputDir;
 
       console.log(chalk.blue(`📥 Importing from OpenAPI: ${source}`));
 
@@ -84,7 +99,22 @@ export const importCommand = new Command('import')
       // Write imported specs
       let importedCount = 0;
       for (const spec of importResult.specs) {
-        const filePath = resolve(outputDir, spec.fileName);
+        // Determine output directory based on spec type and conventions
+        let targetDir: string;
+        if (useConventions) {
+          // Infer spec type from source or code content
+          if (spec.code.includes('defineEvent(')) {
+            targetDir = eventsDir;
+          } else if (spec.code.includes('defineSchemaModel(') && !spec.code.includes('defineCommand(') && !spec.code.includes('defineQuery(')) {
+            targetDir = modelsDir;
+          } else {
+            targetDir = operationsDir;
+          }
+        } else {
+          targetDir = options.outputDir!;
+        }
+
+        const filePath = resolve(targetDir, spec.fileName);
 
         if (options.dryRun) {
           console.log(chalk.gray(`[DRY RUN] Would create: ${filePath}`));
@@ -131,6 +161,30 @@ export const importCommand = new Command('import')
 
       if (options.dryRun) {
         console.log(chalk.yellow('\n⚠️ Dry run - no files were written'));
+      }
+
+      // Save config if requested
+      if (options.saveConfig && !options.dryRun) {
+        const sourceName = options.name ?? parseResult.info.title ?? basename(source, '.json');
+        const openApiSource: OpenApiSource = {
+          name: sourceName,
+          syncMode: (options.syncMode as 'import' | 'sync' | 'validate') ?? 'import',
+          prefix: options.prefix,
+          tags: options.tags,
+          exclude: options.exclude,
+          defaultStability: options.stability as 'experimental' | 'beta' | 'stable' | 'deprecated' | undefined,
+          defaultAuth: options.auth as 'anonymous' | 'user' | 'admin' | undefined,
+        };
+
+        // Set URL or file based on source
+        if (source.startsWith('http://') || source.startsWith('https://')) {
+          openApiSource.url = source;
+        } else {
+          openApiSource.file = source;
+        }
+
+        await upsertOpenApiSource(openApiSource);
+        console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
       }
     } catch (error) {
       console.error(

@@ -6,7 +6,7 @@ import type {
   OpenApiSchema,
 } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
-import { isReference, resolveRef, resolveSchema } from './resolvers';
+import { isReference, resolveRef, resolveSchema, dereferenceSchema } from './resolvers';
 import { parseParameters } from './parameters';
 import { generateOperationId } from './utils';
 
@@ -42,7 +42,7 @@ export function parseOperation(
         requestBody = {
           required: body.required ?? false,
           schema:
-            resolveSchema(doc, content.schema as OpenApiSchema) ??
+            dereferenceSchema(doc, content.schema as OpenApiSchema) ??
             ({} as OpenApiSchema),
           contentType,
         };
@@ -67,7 +67,7 @@ export function parseOperation(
       responses[status] = {
         description: resolved.description,
         schema: content?.schema
-          ? resolveSchema(doc, content.schema as OpenApiSchema)
+          ? dereferenceSchema(doc, content.schema as OpenApiSchema)
           : undefined,
         contentType,
       };

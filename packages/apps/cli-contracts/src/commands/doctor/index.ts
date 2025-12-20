@@ -21,6 +21,8 @@ import {
   getPackageName,
   type CheckCategory,
 } from '@lssm/bundle.contractspec-workspace';
+import { getOpenApiSources, upsertOpenApiSource } from '../../utils/config-writer';
+import type { OpenApiSource } from '../../utils/config';
 
 /**
  * Parse comma-separated categories.
@@ -217,6 +219,57 @@ export const doctorCommand = new Command('doctor')
         console.log(
           chalk.red.bold('✗ Issues found. Run with --fix to auto-repair.\n')
         );
+      }
+
+      // Check OpenAPI sources configuration
+      const openApiSources = await getOpenApiSources();
+      if (openApiSources.length === 0) {
+        console.log(chalk.yellow('\n⚠️ No OpenAPI sources configured.'));
+
+        if (!options.fix) {
+          const wantsConfigure = await confirm({
+            message: 'Would you like to configure an OpenAPI source now?',
+          });
+
+          if (wantsConfigure) {
+            const sourceName = await input({
+              message: 'Enter a friendly name for this source:',
+              default: 'api',
+            });
+
+            const sourceUrl = await input({
+              message: 'Enter OpenAPI spec URL or file path:',
+            });
+
+            if (sourceUrl.trim()) {
+              const newSource: OpenApiSource = {
+                name: sourceName,
+                syncMode: 'sync',
+              };
+
+              if (sourceUrl.startsWith('http://') || sourceUrl.startsWith('https://')) {
+                newSource.url = sourceUrl;
+              } else {
+                newSource.file = sourceUrl;
+              }
+
+              await upsertOpenApiSource(newSource);
+              console.log(chalk.green(`\n✅ Saved OpenAPI source '${sourceName}' to .contractsrc.json`));
+              console.log(chalk.gray(`   Run ${chalk.cyan('contractspec openapi sync')} to import specs`));
+            }
+          }
+        } else {
+          console.log(chalk.gray('   Run ${chalk.cyan("contractspec init")} to configure OpenAPI sources'));
+        }
+      } else {
+        console.log(chalk.green(`\n✓ ${openApiSources.length} OpenAPI source(s) configured`));
+        for (const source of openApiSources) {
+          const location = source.url ?? source.file ?? 'unknown';
+          console.log(chalk.gray(`   • ${source.name}: ${location}`));
+        }
+      }
+
+      if (!result.healthy) {
         process.exit(1);
       }
     } catch (error) {

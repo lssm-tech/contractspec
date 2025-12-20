@@ -53,17 +53,25 @@ export interface GeneratedModel {
 }
 
 /**
+ * Options for generating import statements.
+ */
+export interface ImportGeneratorOptions {
+  /** Base directory for model imports (e.g., '../models'). Defaults to relative './' */
+  modelsDir?: string;
+}
+
+/**
  * Map JSON Schema types to ContractSpec ScalarTypeEnum values.
  */
 const JSON_SCHEMA_TO_SCALAR: Record<string, string> = {
-  string: 'ScalarTypeEnum.STRING',
-  integer: 'ScalarTypeEnum.INT',
-  number: 'ScalarTypeEnum.FLOAT',
-  boolean: 'ScalarTypeEnum.BOOLEAN',
+  string: 'ScalarTypeEnum.String_unsecure',
+  integer: 'ScalarTypeEnum.Int_unsecure',
+  number: 'ScalarTypeEnum.Float_unsecure',
+  boolean: 'ScalarTypeEnum.Boolean',
   // Special formats
-  'string:date': 'ScalarTypeEnum.DATE',
-  'string:date-time': 'ScalarTypeEnum.DATE_TIME',
-  'string:email': 'ScalarTypeEnum.EMAIL',
+  'string:date': 'ScalarTypeEnum.Date',
+  'string:date-time': 'ScalarTypeEnum.DateTime',
+  'string:email': 'ScalarTypeEnum.EmailAddress',
   'string:uri': 'ScalarTypeEnum.URL',
   'string:uuid': 'ScalarTypeEnum.ID',
 };
@@ -320,7 +328,7 @@ function generateFieldCode(field: SchemaField, indent: number): string {
     );
   } else if (field.scalarType) {
     // Scalar type
-    lines.push(`${spaces}  type: ${field.scalarType},`);
+    lines.push(`${spaces}  type: ${field.scalarType}(),`);
   } else {
     // Nested model or reference
     lines.push(
@@ -345,9 +353,15 @@ function generateFieldCode(field: SchemaField, indent: number): string {
 
 /**
  * Generate import statements for a SchemaModel.
+ * @param fields - The fields to generate imports for
+ * @param options - Optional configuration for import generation
  */
-export function generateImports(fields: SchemaField[]): string {
+export function generateImports(
+  fields: SchemaField[],
+  options?: ImportGeneratorOptions
+): string {
   const imports = new Set<string>();
+  const modelsDir = options?.modelsDir ?? '.';
 
   imports.add(
     "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';"
@@ -355,9 +369,21 @@ export function generateImports(fields: SchemaField[]): string {
 
   // Check if we need any custom type imports
   for (const field of fields) {
-    if (!field.type.primitive && !field.enumValues && !field.scalarType) {
-      // This is a reference to another model - would need import
-      // imports.add(`import { ${field.type.type} } from './${toKebabCase(field.type.type)}';`);
+    // If it's a reference (represented as a custom type not being scalar or enum)
+    // In our simplified generator, referencing models often means just using the type name.
+    // If we assume all models are generated in the same directory or available via barrel export,
+    // we might not need explicit imports if we are in the same module, 
+    // BUT ContractSpec usually requires importing dependencies.
+    // For now, let's assume we import from specific files.
+    
+    // We look for fields where nestedModel is NOT present (implied ref) and scalarType is undefined
+    // And primitive is false.
+    if (!field.type.primitive && !field.enumValues && !field.scalarType && !field.nestedModel) {
+        // This is likely a reference to another schema model
+        const modelName = field.type.type;
+        // Convert PascalCase model name to kebab-case file name
+        const kebabName = modelName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        imports.add(`import { ${modelName} } from '${modelsDir}/${kebabName}';`);
     }
   }
 

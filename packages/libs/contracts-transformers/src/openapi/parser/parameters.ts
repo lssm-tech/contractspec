@@ -5,7 +5,7 @@ import type {
   OpenApiSchema,
 } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
-import { isReference, resolveRef } from './resolvers';
+import { isReference, resolveRef, dereferenceSchema } from './resolvers';
 
 /**
  * Parse parameters from an operation.
@@ -46,7 +46,7 @@ export function parseParameters(
       in: resolved.in as ParsedParameter['in'],
       required: resolved.required ?? resolved.in === 'path',
       description: resolved.description,
-      schema: resolved.schema as OpenApiSchema,
+      schema: dereferenceSchema(doc, resolved.schema as OpenApiSchema) as OpenApiSchema,
       deprecated: resolved.deprecated ?? false,
     };
 

@@ -1,7 +1,6 @@
 import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import * as z from 'zod';
 import {
   findWorkspaceRoot,
   findPackageRoot,
@@ -9,110 +8,18 @@ import {
   isMonorepo as checkIsMonorepo,
   type PackageManager,
 } from '@lssm/bundle.contractspec-workspace';
+import {
+  ContractsrcSchema,
+  DEFAULT_CONTRACTSRC,
+  type OpenApiSource,
+  type OpenApiConfig,
+  type Conventions,
+  type Contractsrc,
+} from '@lssm/lib.contracts';
 
-/**
- * OpenAPI source configuration for import/sync/validate operations.
- */
-const OpenApiSourceSchema = z.object({
-  /** Friendly name for the source */
-  name: z.string(),
-  /** Remote URL to fetch OpenAPI spec from */
-  url: z.string().url().optional(),
-  /** Local file path to OpenAPI spec */
-  file: z.string().optional(),
-  /** Sync mode: import (one-time), sync (update), validate (check only) */
-  syncMode: z.enum(['import', 'sync', 'validate']).default('validate'),
-  /** Only import operations with these tags */
-  tags: z.array(z.string()).optional(),
-  /** Exclude operations with these operationIds */
-  exclude: z.array(z.string()).optional(),
-  /** Prefix for generated spec names */
-  prefix: z.string().optional(),
-  /** Default stability for imported specs */
-  defaultStability: z
-    .enum(['experimental', 'beta', 'stable', 'deprecated'])
-    .optional(),
-  /** Default auth level for imported specs */
-  defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
-});
-
-/**
- * OpenAPI configuration section.
- */
-const OpenApiConfigSchema = z.object({
-  /** External OpenAPI sources to import/sync from */
-  sources: z.array(OpenApiSourceSchema).optional(),
-  /** Export configuration */
-  export: z
-    .object({
-      /** Output path for exported OpenAPI document */
-      outputPath: z.string().default('./openapi.json'),
-      /** Output format */
-      format: z.enum(['json', 'yaml']).default('json'),
-      /** API title for export */
-      title: z.string().optional(),
-      /** API version for export */
-      version: z.string().optional(),
-      /** API description for export */
-      description: z.string().optional(),
-      /** Server URLs to include in export */
-      servers: z
-        .array(
-          z.object({
-            url: z.string(),
-            description: z.string().optional(),
-          })
-        )
-        .optional(),
-    })
-    .optional(),
-});
-
-const ConfigSchema = z.object({
-  aiProvider: z
-    .enum(['claude', 'openai', 'ollama', 'custom'])
-    .default('claude'),
-  aiModel: z.string().optional(),
-  agentMode: z
-    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
-    .default('simple'),
-  customEndpoint: z.string().url().nullable().optional(),
-  customApiKey: z.string().nullable().optional(),
-  outputDir: z.string().default('./src'),
-  conventions: z.object({
-    operations: z.string().default('interactions/commands|queries'),
-    events: z.string().default('events'),
-    presentations: z.string().default('presentations'),
-    forms: z.string().default('forms'),
-  }),
-  defaultOwners: z.array(z.string()).default([]),
-  defaultTags: z.array(z.string()).default([]),
-  // Monorepo configuration
-  packages: z.array(z.string()).optional(),
-  excludePackages: z.array(z.string()).optional(),
-  recursive: z.boolean().optional(),
-  // OpenAPI configuration
-  openapi: OpenApiConfigSchema.optional(),
-});
-
-export type OpenApiSource = z.infer<typeof OpenApiSourceSchema>;
-export type OpenApiConfig = z.infer<typeof OpenApiConfigSchema>;
-
-export type Config = z.infer<typeof ConfigSchema>;
-
-const DEFAULT_CONFIG: Config = {
-  aiProvider: 'claude',
-  agentMode: 'simple',
-  outputDir: './src',
-  conventions: {
-    operations: 'interactions/commands|queries',
-    events: 'events',
-    presentations: 'presentations',
-    forms: 'forms',
-  },
-  defaultOwners: [],
-  defaultTags: [],
-};
+// Re-export types for convenience
+export type { OpenApiSource, OpenApiConfig, Conventions };
+export type Config = Contractsrc;
 
 /**
  * Configuration with workspace context.
@@ -153,7 +60,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
   const workspaceRoot = findWorkspaceRoot(cwd);
 
   // Try to load workspace config first (as base)
-  let config = { ...DEFAULT_CONFIG };
+  let config = { ...DEFAULT_CONTRACTSRC };
 
   if (workspaceRoot !== packageRoot) {
     const workspaceConfigPath = join(workspaceRoot, '.contractsrc.json');
@@ -161,7 +68,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
       try {
         const content = await readFile(workspaceConfigPath, 'utf-8');
         const parsed = JSON.parse(content);
-        const validated = ConfigSchema.safeParse(parsed);
+        const validated = ContractsrcSchema.safeParse(parsed);
         if (validated.success) {
           config = { ...config, ...validated.data };
         }
@@ -177,7 +84,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
     try {
       const content = await readFile(packageConfigPath, 'utf-8');
       const parsed = JSON.parse(content);
-      const validated = ConfigSchema.safeParse(parsed);
+      const validated = ContractsrcSchema.safeParse(parsed);
       if (validated.success) {
         config = { ...config, ...validated.data };
       }

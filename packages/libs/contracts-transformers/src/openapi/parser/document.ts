@@ -6,6 +6,7 @@ import type {
   OpenApiServer,
   OpenApiSchema,
   OpenApiParameter,
+  ParsedEvent,
 } from '../types';
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 import {
@@ -70,11 +71,37 @@ export function parseOpenApiDocument(
   }
 
   // Parse servers
+  // Parse servers
   const servers: OpenApiServer[] = (doc.servers ?? []).map((s) => ({
     url: s.url,
     description: s.description,
     variables: s.variables as OpenApiServer['variables'],
   }));
+
+  // Parse webhooks (as events)
+  const events: ParsedEvent[] = [];
+  if ('webhooks' in doc && doc.webhooks) {
+    for (const [name, pathItem] of Object.entries(doc.webhooks)) {
+      if (typeof pathItem !== 'object' || !pathItem) continue;
+       // Webhooks usually have a POST method defining the payload
+       const operation = (pathItem as Record<string, unknown>)['post'] as 
+        | OpenAPIV3.OperationObject 
+        | OpenAPIV3_1.OperationObject 
+        | undefined;
+      
+      if (operation && operation.requestBody) {
+         // Extract payload schema
+         const content = (operation.requestBody as any).content?.['application/json'];
+         if (content?.schema) {
+            events.push({
+              name,
+              description: operation.summary || operation.description,
+              payload: content.schema
+            });
+         }
+      }
+    }
+  }
 
   return {
     document: doc,
@@ -88,6 +115,7 @@ export function parseOpenApiDocument(
     schemas,
     servers,
     warnings,
+    events,
   };
 }
 
