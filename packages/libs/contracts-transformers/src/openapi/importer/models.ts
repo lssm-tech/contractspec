@@ -1,10 +1,7 @@
 import type { OpenApiSchema } from '../types';
-import {
-  generateSchemaModelCode,
-  generateImports,
-  type ImportGeneratorOptions,
-} from '../schema-converter';
+import { generateImports, generateSchemaModelCode } from '../schema-converter';
 import { toPascalCase, toValidIdentifier } from '../../common/utils';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 /**
  * Generate code for a standalone model.
@@ -12,7 +9,7 @@ import { toPascalCase, toValidIdentifier } from '../../common/utils';
 export function generateModelCode(
   name: string,
   schema: OpenApiSchema,
-  options: ImportGeneratorOptions
+  options: ContractsrcConfig
 ): string {
   const modelName = toPascalCase(toValidIdentifier(name));
   const model = generateSchemaModelCode(schema, modelName);

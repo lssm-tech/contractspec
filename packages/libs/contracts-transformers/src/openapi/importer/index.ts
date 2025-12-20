@@ -1,17 +1,18 @@
 import type {
   OpenApiImportOptions,
-  ParseResult,
-  OpenApiTransportHints,
   OpenApiSource,
+  OpenApiTransportHints,
   ParsedOperation,
+  ParseResult,
 } from '../types';
-import type { ImportResult, ImportedSpec } from '../../common/types';
-import { toSpecName, toFileName } from '../../common/utils';
+import type { ImportedSpec, ImportResult } from '../../common/types';
+import { toFileName, toSpecName } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
 import { buildInputSchema, getOutputSchema } from './schemas';
 import { generateSpecCode } from './generator';
 import { generateModelCode } from './models';
 import { generateEventCode } from './events';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 export * from './analyzer';
 export * from './schemas';
@@ -24,9 +25,10 @@ export * from './events';
  */
 export const importFromOpenApi = (
   parseResult: ParseResult,
-  options: OpenApiImportOptions = {}
+  importOptions: OpenApiImportOptions,
+  contractspecOptions: ContractsrcConfig
 ): ImportResult => {
-  const { tags, exclude = [], include } = options;
+  const { tags, exclude = [], include } = importOptions;
   const specs: ImportedSpec[] = [];
   const skipped: ImportResult['skipped'] = [];
   const errors: ImportResult['errors'] = [];
@@ -62,7 +64,10 @@ export const importFromOpenApi = (
     }
 
     // Skip deprecated operations by default
-    if (operation.deprecated && options.defaultStability !== 'deprecated') {
+    if (
+      operation.deprecated &&
+      importOptions.defaultStability !== 'deprecated'
+    ) {
       skipped.push({
         sourceId: operation.operationId,
         reason: 'Deprecated operation',
@@ -89,11 +94,11 @@ export const importFromOpenApi = (
       // Generate spec code
       const code = generateSpecCode(
         operation,
-        options,
+        importOptions,
         inputModel,
         outputModel
       );
-      const specName = toSpecName(operation.operationId, options.prefix);
+      const specName = toSpecName(operation.operationId, importOptions.prefix);
       const fileName = toFileName(specName);
 
       // Build transport hints
@@ -137,56 +142,62 @@ export const importFromOpenApi = (
 
   // Import standalone models
   for (const [name, schema] of Object.entries(parseResult.schemas)) {
-     try {
-        const code = generateModelCode(name, schema, options);
-        const fileName = toFileName(toSpecName(name, options.prefix));
-        
-        specs.push({
-            spec: {} as any, 
-            code,
-            fileName,
-            source: {
-                type: 'openapi',
-                sourceId: name,
-                operationId: name,
-                openApiVersion: parseResult.version,
-                importedAt: new Date()
-            } as OpenApiSource,
-            transportHints: {} as any
-        });
-     } catch (error) {
-         errors.push({
-             sourceId: name,
-             error: error instanceof Error ? 'Model conversion failed: ' + error.message : String(error)
-         });
-     }
+    try {
+      const code = generateModelCode(name, schema, contractspecOptions);
+      const fileName = toFileName(toSpecName(name, importOptions.prefix));
+
+      specs.push({
+        spec: {} as any,
+        code,
+        fileName,
+        source: {
+          type: 'openapi',
+          sourceId: name,
+          operationId: name,
+          openApiVersion: parseResult.version,
+          importedAt: new Date(),
+        } as OpenApiSource,
+        transportHints: {} as any,
+      });
+    } catch (error) {
+      errors.push({
+        sourceId: name,
+        error:
+          error instanceof Error
+            ? 'Model conversion failed: ' + error.message
+            : String(error),
+      });
+    }
   }
 
   // Import events
   for (const event of parseResult.events) {
-      try {
-          const code = generateEventCode(event);
-          const fileName = toFileName(toSpecName(event.name, options.prefix));
+    try {
+      const code = generateEventCode(event, options);
+      const fileName = toFileName(toSpecName(event.name, options.prefix));
 
-          specs.push({
-              spec: {} as any,
-              code,
-              fileName,
-              source: {
-                  type: 'openapi',
-                  sourceId: event.name,
-                  operationId: event.name,
-                  openApiVersion: parseResult.version,
-                  importedAt: new Date()
-              } as OpenApiSource,
-              transportHints: {} as any
-          });
-      } catch (error) {
-          errors.push({
-              sourceId: event.name,
-              error: error instanceof Error ? 'Event conversion failed: ' + error.message : String(error)
-          });
-      }
+      specs.push({
+        spec: {} as any,
+        code,
+        fileName,
+        source: {
+          type: 'openapi',
+          sourceId: event.name,
+          operationId: event.name,
+          openApiVersion: parseResult.version,
+          importedAt: new Date(),
+        } as OpenApiSource,
+        transportHints: {} as any,
+      });
+    } catch (error) {
+      errors.push({
+        sourceId: event.name,
+        error:
+          error instanceof Error
+            ? 'Event conversion failed: ' + error.message
+            : String(error),
+      });
+    }
   }
 
   return {
@@ -194,7 +205,10 @@ export const importFromOpenApi = (
     skipped,
     errors,
     summary: {
-      total: parseResult.operations.length + Object.keys(parseResult.schemas).length + parseResult.events.length,
+      total:
+        parseResult.operations.length +
+        Object.keys(parseResult.schemas).length +
+        parseResult.events.length,
       imported: specs.length,
       skipped: skipped.length,
       errors: errors.length,

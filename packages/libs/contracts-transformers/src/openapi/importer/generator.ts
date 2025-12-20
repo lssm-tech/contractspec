@@ -1,25 +1,22 @@
-import type { OpenApiImportOptions, ParsedOperation } from '../types';
+import type { ParsedOperation } from '../types';
 import {
-  toSpecName,
   toPascalCase,
+  toSpecName,
   toValidIdentifier,
 } from '../../common/utils';
-import {
-  generateImports,
-  type GeneratedModel,
-  type ImportGeneratorOptions,
-} from '../schema-converter';
-import { inferOpKind, inferAuthLevel } from './analyzer';
+import { type GeneratedModel, generateImports } from '../schema-converter';
+import { inferAuthLevel, inferOpKind } from './analyzer';
+import type { ContractsrcConfig, OpenApiSource } from '@lssm/lib.contracts';
 
 /**
  * Generate ContractSpec TypeScript code for an operation.
  */
 export function generateSpecCode(
   operation: ParsedOperation,
-  options: OpenApiImportOptions,
+  options: OpenApiSource,
   inputModel: GeneratedModel | null,
   outputModel: GeneratedModel | null,
-  importOptions?: ImportGeneratorOptions
+  contractspecConfig?: ContractsrcConfig
 ): string {
   const specName = toSpecName(operation.operationId, options.prefix);
   const kind = inferOpKind(operation.method);
@@ -34,11 +31,8 @@ export function generateSpecCode(
   if (inputModel || outputModel) {
     lines.push(
       generateImports(
-        [
-          ...(inputModel?.fields ?? []),
-          ...(outputModel?.fields ?? []),
-        ],
-        importOptions
+        [...(inputModel?.fields ?? []), ...(outputModel?.fields ?? [])],
+        contractspecConfig
       )
     );
   }

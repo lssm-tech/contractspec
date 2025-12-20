@@ -5,6 +5,7 @@
 
 import type { OpenApiSchema } from './types';
 import { toCamelCase, toPascalCase, toValidIdentifier } from '../common/utils';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 /**
  * TypeScript type representation for code generation.
@@ -358,10 +359,10 @@ function generateFieldCode(field: SchemaField, indent: number): string {
  */
 export function generateImports(
   fields: SchemaField[],
-  options?: ImportGeneratorOptions
+  options: ContractsrcConfig
 ): string {
   const imports = new Set<string>();
-  const modelsDir = options?.modelsDir ?? '.';
+  const modelsDir = `${options.outputDir}/${options.conventions.models}`;
 
   imports.add(
     "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';"
@@ -372,18 +373,25 @@ export function generateImports(
     // If it's a reference (represented as a custom type not being scalar or enum)
     // In our simplified generator, referencing models often means just using the type name.
     // If we assume all models are generated in the same directory or available via barrel export,
-    // we might not need explicit imports if we are in the same module, 
+    // we might not need explicit imports if we are in the same module,
     // BUT ContractSpec usually requires importing dependencies.
     // For now, let's assume we import from specific files.
-    
+
     // We look for fields where nestedModel is NOT present (implied ref) and scalarType is undefined
     // And primitive is false.
-    if (!field.type.primitive && !field.enumValues && !field.scalarType && !field.nestedModel) {
-        // This is likely a reference to another schema model
-        const modelName = field.type.type;
-        // Convert PascalCase model name to kebab-case file name
-        const kebabName = modelName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-        imports.add(`import { ${modelName} } from '${modelsDir}/${kebabName}';`);
+    if (
+      !field.type.primitive &&
+      !field.enumValues &&
+      !field.scalarType &&
+      !field.nestedModel
+    ) {
+      // This is likely a reference to another schema model
+      const modelName = field.type.type;
+      // Convert PascalCase model name to kebab-case file name
+      const kebabName = modelName
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .toLowerCase();
+      imports.add(`import { ${modelName} } from '${modelsDir}/${kebabName}';`);
     }
   }
 

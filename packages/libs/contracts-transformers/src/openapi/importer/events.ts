@@ -1,17 +1,14 @@
 import type { ParsedEvent } from '../types';
-import {
-  generateImports,
-  generateSchemaModelCode,
-  type ImportGeneratorOptions,
-} from '../schema-converter';
+import { generateImports, generateSchemaModelCode } from '../schema-converter';
 import { toPascalCase, toValidIdentifier } from '../../common/utils';
+import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
 /**
  * Generate code for an event.
  */
 export function generateEventCode(
   event: ParsedEvent,
-  options: ImportGeneratorOptions
+  options: ContractsrcConfig
 ): string {
   const eventName = toValidIdentifier(event.name);
   const modelName = toPascalCase(eventName) + 'Payload';
@@ -38,7 +35,9 @@ export function generateEventCode(
     const kebabName = payloadModel.name
       .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
       .toLowerCase();
-    imports.add(`import { ${payloadModel.name} } from '${modelsDir}/${kebabName}';`);
+    imports.add(
+      `import { ${payloadModel.name} } from '${modelsDir}/${kebabName}';`
+    );
   }
 
   const allImports = Array.from(imports).join('\n');

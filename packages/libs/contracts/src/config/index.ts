@@ -4,11 +4,11 @@
 export {
   OpenApiSourceSchema,
   OpenApiConfigSchema,
-  ConventionsSchema,
+  FolderConventionsSchema,
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
   type OpenApiSource,
   type OpenApiConfig,
-  type Conventions,
-  type Contractsrc,
+  type FolderConventions,
+  type ContractsrcConfig,
 } from './contractsrc-schema';

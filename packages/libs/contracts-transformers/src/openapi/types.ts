@@ -3,7 +3,20 @@
  */
 
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
-import type { TransportHints, SpecSource } from '../common/types';
+import type { SpecSource, TransportHints } from '../common/types';
+import type {
+  FolderConventions,
+  OpenApiSource as OpenApiSourceConfig,
+} from '@lssm/lib.contracts';
+
+// Re-export config types for convenience
+export type { OpenApiSourceConfig, FolderConventions };
+
+/**
+ * OpenAPI import options (alias for OpenApiSource from config).
+ * @deprecated Use OpenApiSource from @lssm/lib.contracts instead
+ */
+export type OpenApiImportOptions = Partial<OpenApiSourceConfig>;
 
 /**
  * Supported OpenAPI versions.
@@ -88,26 +101,6 @@ export interface OpenApiExportOptions {
   servers?: OpenApiServer[];
   /** Additional OpenAPI extensions */
   extensions?: Record<string, unknown>;
-}
-
-/**
- * Options for importing from OpenAPI.
- */
-export interface OpenApiImportOptions {
-  /** Prefix for generated spec names */
-  prefix?: string;
-  /** Only import operations with these tags */
-  tags?: string[];
-  /** Exclude operations with these operationIds */
-  exclude?: string[];
-  /** Include operations with these operationIds (overrides exclude) */
-  include?: string[];
-  /** Default stability for imported specs */
-  defaultStability?: 'experimental' | 'beta' | 'stable' | 'deprecated';
-  /** Default owners for imported specs */
-  defaultOwners?: string[];
-  /** Default auth level for imported specs */
-  defaultAuth?: 'anonymous' | 'user' | 'admin';
 }
 
 /**

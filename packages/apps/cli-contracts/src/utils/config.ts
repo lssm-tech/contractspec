@@ -2,24 +2,24 @@ import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import {
-  findWorkspaceRoot,
-  findPackageRoot,
   detectPackageManager,
+  findPackageRoot,
+  findWorkspaceRoot,
   isMonorepo as checkIsMonorepo,
   type PackageManager,
 } from '@lssm/bundle.contractspec-workspace';
 import {
+  type ContractsrcConfig,
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
-  type OpenApiSource,
+  type FolderConventions,
   type OpenApiConfig,
-  type Conventions,
-  type Contractsrc,
+  type OpenApiSource,
 } from '@lssm/lib.contracts';
 
 // Re-export types for convenience
-export type { OpenApiSource, OpenApiConfig, Conventions };
-export type Config = Contractsrc;
+export type { OpenApiSource, OpenApiConfig, FolderConventions };
+export type Config = ContractsrcConfig;
 
 /**
  * Configuration with workspace context.

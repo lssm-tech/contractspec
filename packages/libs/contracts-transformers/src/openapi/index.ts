@@ -11,7 +11,6 @@ export type {
   OpenApiParameter,
   OpenApiServer,
   OpenApiExportOptions,
-  OpenApiImportOptions,
   OpenApiParseOptions,
   OpenApiVersion,
   HttpMethod,
