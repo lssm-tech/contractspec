@@ -403,4 +403,3 @@ export const pocketFamilyOfficeContracts = {
   'pfo.openbanking.generate-overview': generateOpenBankingOverviewContract,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } satisfies Record<string, ContractSpec<any, any>>;
-
