@@ -27,23 +27,6 @@ Keep changes aligned with `.cursor/rules/contractspec-mission.mdc`: prefer spec-
   - `packages/libs/*`: core libraries (contracts, schema, docs, etc.)
   - `packages/bundles/*`: composed “product” bundles used by apps
 
-## MCP endpoints and handlers
-
-ContractSpec exposes dedicated MCP servers to keep agents scoped and efficient:
-
-- **Docs MCP**: `/api/mcp/docs` (also mounted at `/mcp/docs`)
-- **CLI MCP**: `/api/mcp/cli` (also mounted at `/mcp/cli`)
-- **Internal MCP**: `/api/mcp/internal` (also mounted at `/mcp/internal`)
-
-Implementation notes:
-
-- HTTP routing for these endpoints lives in `packages/apps/api-contractspec/src/handlers/mcp-handler.ts`.
-- The handlers are created from `@lssm/bundle.contractspec-studio/application` (`createDocsMcpHandler`, `createCliMcpHandler`, `createInternalMcpHandler`).
-- If you add/change an MCP surface, update:
-  - `packages/apps/api-contractspec/src/handlers/mcp-handler.ts` (routes)
-  - `packages/apps/api-contractspec/src/server.ts` (startup logs / mounted endpoints)
-  - `packages/libs/contracts/src/docs/tech/mcp-endpoints.docblock.ts` (docs reference)
-
 ## Nested `AGENTS.md` (important)
 
 `AGENTS.md` files are **scoped to the directory tree they live in**. When working in a subdirectory, check for a closer (nested) `AGENTS.md` and follow it in preference to this file.
