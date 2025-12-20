@@ -28,7 +28,9 @@ export interface DriverSlots {
   FieldLabel: React.ComponentType<
     React.PropsWithChildren<{ htmlFor?: string }>
   >;
-  FieldDescription: React.ComponentType<React.PropsWithChildren<{}>>;
+  FieldDescription: React.ComponentType<
+    React.PropsWithChildren<Record<string, never>>
+  >;
   FieldError: React.ComponentType<{ errors: { message?: string }[] }>;
   FieldGroup?: React.ComponentType<
     React.PropsWithChildren<{ className?: string }>
@@ -220,6 +222,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
     const form = useForm<FormValuesFor<M>>({
       ...merged.formOptions,
       resolver: zodResolver(baseZod),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       defaultValues: options?.defaultValues as any,
     });
 
@@ -237,6 +240,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
       const name = fieldPath(parent, f.name, arrayIndex);
       const visible = evalPredicate(values, f.visibleWhen);
       const enabled = evalPredicate(values, f.enabledWhen);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const invalid = Boolean(form.getFieldState(name as any)?.invalid);
 
       if (!visible) return null;
@@ -278,6 +282,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
       return (
         <Controller
           key={name}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           name={name as any}
           control={form.control}
           render={({ field, fieldState }) => {
@@ -331,9 +336,11 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
             if (f.kind === 'select') {
               const selectField = f as SelectFieldSpec;
               const Select = driver.Select;
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const src = toOptionsArray(selectField.options as any);
               const opts = useResolvedOptions(
                 values,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 src as any,
                 merged.resolvers
               );
@@ -342,6 +349,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <Select
                     id={id}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     name={name as any}
                     aria-invalid={ariaInvalid}
                     disabled={!enabled}
@@ -362,6 +370,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <Checkbox
                     id={id}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     name={name as any}
                     disabled={!enabled}
                     checked={!!field.value}
@@ -376,9 +385,11 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
             if (f.kind === 'radio') {
               const radioField = f as RadioFieldSpec;
               const RadioGroup = driver.RadioGroup;
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const src = toOptionsArray(radioField.options as any);
               const opts = useResolvedOptions(
                 values,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 src as any,
                 merged.resolvers
               );
@@ -387,6 +398,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <RadioGroup
                     id={id}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     name={name as any}
                     disabled={!enabled}
                     value={field.value}
@@ -406,6 +418,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
                   {labelNode}
                   <Switch
                     id={id}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     name={name as any}
                     disabled={!enabled}
                     checked={!!field.value}
@@ -427,6 +440,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
       const name = fieldPath(parent, f.name);
       const { fields, append, remove } = useFieldArray({
         control: form.control,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         name: name as any,
       });
       const canAdd = f.max == null || fields.length < f.max;
@@ -457,6 +471,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
               type="button"
               variant="outline"
               size="sm"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onClick={() => append({} as any)}
             >
               Add

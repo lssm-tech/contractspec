@@ -26,7 +26,10 @@ export class BlogGenerator {
   private async generateWithLlm(
     brief: ContentBrief
   ): Promise<GeneratedContent> {
-    const response = await this.llm!.chat(
+    if (!this.llm) {
+      return this.generateDeterministic(brief);
+    }
+    const response = await this.llm.chat(
       [
         {
           role: 'system',

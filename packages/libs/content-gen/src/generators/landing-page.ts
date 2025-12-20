@@ -31,7 +31,10 @@ export class LandingPageGenerator {
   }
 
   private async generateWithLlm(brief: ContentBrief): Promise<LandingPageCopy> {
-    const response = await this.llm!.chat(
+    if (!this.llm) {
+      return this.generateFallback(brief);
+    }
+    const response = await this.llm.chat(
       [
         {
           role: 'system',

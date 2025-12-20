@@ -40,7 +40,7 @@ export async function renderFeaturePresentation(
       const merged = {
         ...(rd.props ?? {}),
         ...(options?.reactProps ?? {}),
-      } as any;
+      } as Record<string, unknown>;
       return React.createElement(C, merged);
     }
     if (rd.kind === 'blocknotejs') {

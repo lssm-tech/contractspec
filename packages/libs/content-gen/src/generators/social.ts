@@ -19,7 +19,8 @@ export class SocialPostGenerator {
   }
 
   private async generateWithLlm(brief: ContentBrief): Promise<SocialPost[]> {
-    const response = await this.llm!.chat(
+    if (!this.llm) return [];
+    const response = await this.llm.chat(
       [
         {
           role: 'system',

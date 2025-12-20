@@ -277,6 +277,7 @@ export const ResolveMessageQuery = defineQuery({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const appConfigContracts: Record<string, ContractSpec<any, any>> = {
   UpdateTenantBrandingCommand,
   VerifyCustomDomainCommand,

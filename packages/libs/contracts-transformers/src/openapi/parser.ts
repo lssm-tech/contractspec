@@ -209,7 +209,7 @@ function parseOperation(
       if (content?.schema) {
         requestBody = {
           required: body.required ?? false,
-          schema: resolveSchema(doc, content.schema as OpenApiSchema)!,
+          schema: resolveSchema(doc, content.schema as OpenApiSchema) ?? ({} as any),
           contentType,
         };
       }

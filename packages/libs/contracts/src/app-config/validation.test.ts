@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 
 import type { ResolvedAppConfig } from './runtime';
-import type { AppBlueprintSpec, TenantAppConfig } from './spec';
+import type {
+  AppBlueprintSpec,
+  TenantAppConfig,
+  AppIntegrationSlot,
+} from './spec';
 import {
   validateBlueprint,
   validateResolvedConfig,
@@ -43,7 +47,9 @@ const baseBlueprint: AppBlueprintSpec = {
 
 describe('validateBlueprint', () => {
   it('reports duplicate integration slots', () => {
-    const originalSlot = { ...(baseBlueprint.integrationSlots ?? [])[0]! };
+    const originalSlot = {
+      ...((baseBlueprint.integrationSlots ?? [])[0] as AppIntegrationSlot),
+    };
     const duplicateSlot = { ...originalSlot };
     const duplicated: AppBlueprintSpec = {
       ...baseBlueprint,

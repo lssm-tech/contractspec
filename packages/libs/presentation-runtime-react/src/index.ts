@@ -53,12 +53,14 @@ export function usePresentationController<
   const url = useUrlState({ defaults, replace });
   const form = useForm<TFilters>({
     defaultValues: formOpts.defaultValues,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: formOpts.resolver as any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url.state.filters]);
 
   const submitFilters = form.handleSubmit((values) => {
@@ -107,11 +109,12 @@ export function usePresentationController<
     () =>
       toChips
         ? toChips(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (url.state.filters as TFilters) || ({} as any),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             url.setFilter as any
           )
         : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [url.state.filters, toChips]
   );
 
@@ -181,11 +184,12 @@ export function useListCoordinator<
   const form = useForm<TFilters>({
     defaultValues: formOpts.defaultValues,
     resolver: formOpts.resolver,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url.state.filters]);
 
   const submitFilters = form.handleSubmit((values) => {
@@ -205,11 +209,12 @@ export function useListCoordinator<
     () =>
       toChips
         ? toChips(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (url.state.filters as TFilters) || ({} as any),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             url.setFilter as any
           )
         : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [url.state.filters, toChips]
   );
 

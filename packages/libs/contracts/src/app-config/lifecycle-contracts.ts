@@ -324,6 +324,7 @@ export const GetTenantConfigVersionQuery = defineQuery({
   policy: LifecycleReadPolicy,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const lifecycleContracts: Record<string, ContractSpec<any, any>> = {
   CreateTenantConfigDraftCommand,
   PromoteTenantConfigToPreviewCommand,

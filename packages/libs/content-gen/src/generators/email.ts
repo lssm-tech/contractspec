@@ -27,7 +27,8 @@ export class EmailCampaignGenerator {
   private async generateWithLlm(
     input: EmailCampaignBrief
   ): Promise<EmailDraft | null> {
-    const response = await this.llm!.chat(
+    if (!this.llm) return null;
+    const response = await this.llm.chat(
       [
         {
           role: 'system',

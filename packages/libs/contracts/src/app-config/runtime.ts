@@ -35,7 +35,7 @@ import type {
   BrandingDefaults,
   ResolvedBranding,
   TenantBrandingAsset,
-  TenantBrandingConfig,
+  // TenantBrandingConfig,
 } from './branding';
 import type { Locale, TranslationEntry } from '../translations/catalog';
 import type {
@@ -389,6 +389,7 @@ function mergeMappings(
   for (const override of overrides) {
     if (!override) continue;
     if (!override.pointer) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete merged[override.slot];
     } else {
       merged[override.slot] = override.pointer;

@@ -344,45 +344,45 @@ export class S3StorageAdapter implements StorageAdapter {
     this.config = options;
   }
 
-  async upload(options: UploadOptions): Promise<StorageFile> {
+  async upload(_options: UploadOptions): Promise<StorageFile> {
     // Placeholder - actual implementation would use S3 SDK
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the upload method.'
     );
   }
 
-  async download(filePath: string): Promise<Buffer> {
+  async download(_filePath: string): Promise<Buffer> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the download method.'
     );
   }
 
-  async delete(filePath: string): Promise<void> {
+  async delete(_filePath: string): Promise<void> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the delete method.'
     );
   }
 
-  async exists(filePath: string): Promise<boolean> {
+  async exists(_filePath: string): Promise<boolean> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the exists method.'
     );
   }
 
-  async getMetadata(filePath: string): Promise<StorageFile | null> {
+  async getMetadata(_filePath: string): Promise<StorageFile | null> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the getMetadata method.'
     );
   }
 
-  async list(options?: ListOptions): Promise<ListResult> {
+  async list(_options?: ListOptions): Promise<ListResult> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the list method.'
     );
   }
 
   async createPresignedUpload(
-    options: PresignedUploadOptions
+    _options: PresignedUploadOptions
   ): Promise<PresignedUrl> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedUpload method.'
@@ -390,7 +390,7 @@ export class S3StorageAdapter implements StorageAdapter {
   }
 
   async createPresignedDownload(
-    options: PresignedDownloadOptions
+    _options: PresignedDownloadOptions
   ): Promise<PresignedUrl> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the createPresignedDownload method.'
@@ -406,8 +406,8 @@ export class S3StorageAdapter implements StorageAdapter {
   }
 
   async copy(
-    sourcePath: string,
-    destinationPath: string
+    _sourcePath: string,
+    _destinationPath: string
   ): Promise<StorageFile> {
     throw new Error(
       'S3 adapter requires @aws-sdk/client-s3. Install it and implement the copy method.'

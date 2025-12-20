@@ -584,10 +584,10 @@ describe('composeAppConfig', () => {
 
     expect(composition.resolved.tenantId).toBe('tenant');
     expect(composition.capabilities).toHaveLength(1);
-    expect(composition.dataViews.dashboard!.meta.name).toBe(
+    expect(composition.dataViews.dashboard?.meta.name).toBe(
       'core.dashboard.alt'
     );
-    expect(composition.workflows.onboarding!.meta.name).toBe(
+    expect(composition.workflows.onboarding?.meta.name).toBe(
       'core.onboarding.alt'
     );
     expect(composition.policies).toHaveLength(2);

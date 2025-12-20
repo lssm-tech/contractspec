@@ -123,11 +123,12 @@ export function getPeriodStart(date: Date, periodType: PeriodType): Date {
       d.setHours(0, 0, 0, 0);
       return d;
 
-    case 'WEEKLY':
+    case 'WEEKLY': {
       d.setHours(0, 0, 0, 0);
       const day = d.getDay();
       d.setDate(d.getDate() - day);
       return d;
+    }
 
     case 'MONTHLY':
       d.setHours(0, 0, 0, 0);
@@ -263,9 +264,9 @@ export class UsageAggregator {
       } catch (error) {
         const [metricKey, subjectType, subjectId] = groupKey.split('::');
         result.errors.push({
-          metricKey: metricKey!,
-          subjectType: subjectType!,
-          subjectId: subjectId!,
+          metricKey: metricKey ?? 'unknown',
+          subjectType: subjectType ?? 'unknown',
+          subjectId: subjectId ?? 'unknown',
           error: error instanceof Error ? error.message : String(error),
         });
       }
@@ -315,7 +316,8 @@ export class UsageAggregator {
       return;
     }
 
-    const firstRecord = records[0]!;
+    const firstRecord = records[0];
+    if (!firstRecord) return;
     const periodStart = getPeriodStart(firstRecord.timestamp, periodType);
     const periodEnd = getPeriodEnd(firstRecord.timestamp, periodType);
 
