@@ -1,5 +1,11 @@
 # @lssm/lib.lifecycle
 
+## 0.0.0-canary-20251220192648
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
 ## 0.4.0
 
 ### Minor Changes

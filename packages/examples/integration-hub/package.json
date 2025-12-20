@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.integration-hub",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251220192648",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

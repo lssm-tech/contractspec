@@ -38,11 +38,11 @@
     },
     "packages/apps/action-contractspec": {
       "name": "@lssm/action.contractspec",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
     },
     "packages/apps/cli-contracts": {
       "name": "@lssm/app.cli-contracts",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "bin": {
         "contractspec": "./dist/cli.js",
       },
@@ -79,7 +79,7 @@
     },
     "packages/apps/cli-database": {
       "name": "@lssm/app.cli-database",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -100,7 +100,7 @@
     },
     "packages/apps/cli-databases": {
       "name": "@lssm/app.cli-databases",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -116,7 +116,7 @@
     },
     "packages/apps/overlay-editor": {
       "name": "@lssm/app.overlay-editor",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.overlay-engine": "workspace:*",
         "next": "catalog:",
@@ -132,7 +132,7 @@
     },
     "packages/apps/registry-server": {
       "name": "@lssm/app.registry-server",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@elysiajs/cors": "^1.4.0",
         "@elysiajs/server-timing": "^1.4.0",
@@ -143,7 +143,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/bundle.contractspec-workspace": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -162,7 +162,7 @@
     },
     "packages/bundles/contractspec-workspace": {
       "name": "@lssm/bundle.contractspec-workspace",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/google": "catalog:ai",
@@ -190,7 +190,7 @@
     },
     "packages/bundles/lifecycle-managed": {
       "name": "@lssm/bundle.lifecycle-managed",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.analytics": "workspace:*",
@@ -208,7 +208,7 @@
     },
     "packages/examples/agent-console": {
       "name": "@lssm/example.agent-console",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.identity-rbac": "workspace:*",
@@ -226,7 +226,7 @@
     },
     "packages/examples/ai-support-bot": {
       "name": "@lssm/example.ai-support-bot",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.knowledge": "workspace:*",
@@ -243,7 +243,7 @@
     },
     "packages/examples/analytics-dashboard": {
       "name": "@lssm/example.analytics-dashboard",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -262,7 +262,7 @@
     },
     "packages/examples/content-generation": {
       "name": "@lssm/example.content-generation",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.content-gen": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -278,7 +278,7 @@
     },
     "packages/examples/crm-pipeline": {
       "name": "@lssm/example.crm-pipeline",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -298,7 +298,7 @@
     },
     "packages/examples/integration-hub": {
       "name": "@lssm/example.integration-hub",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -319,7 +319,7 @@
     },
     "packages/examples/integration-stripe": {
       "name": "@lssm/example.integration-stripe",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -333,7 +333,7 @@
     },
     "packages/examples/kb-update-pipeline": {
       "name": "@lssm/example.kb-update-pipeline",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.identity-rbac": "workspace:*",
@@ -350,7 +350,7 @@
     },
     "packages/examples/knowledge-canon": {
       "name": "@lssm/example.knowledge-canon",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -364,7 +364,7 @@
     },
     "packages/examples/learning-journey-ambient-coach": {
       "name": "@lssm/example.learning-journey-ambient-coach",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -379,7 +379,7 @@
     },
     "packages/examples/learning-journey-crm-onboarding": {
       "name": "@lssm/example.learning-journey-crm-onboarding",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.crm-pipeline": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -395,7 +395,7 @@
     },
     "packages/examples/learning-journey-duo-drills": {
       "name": "@lssm/example.learning-journey-duo-drills",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -410,7 +410,7 @@
     },
     "packages/examples/learning-journey-platform-tour": {
       "name": "@lssm/example.learning-journey-platform-tour",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -425,7 +425,7 @@
     },
     "packages/examples/learning-journey-quest-challenges": {
       "name": "@lssm/example.learning-journey-quest-challenges",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -440,7 +440,7 @@
     },
     "packages/examples/learning-journey-registry": {
       "name": "@lssm/example.learning-journey-registry",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.learning-journey-ambient-coach": "workspace:*",
         "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
@@ -470,7 +470,7 @@
     },
     "packages/examples/learning-journey-studio-onboarding": {
       "name": "@lssm/example.learning-journey-studio-onboarding",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -485,7 +485,7 @@
     },
     "packages/examples/learning-journey-ui-coaching": {
       "name": "@lssm/example.learning-journey-ui-coaching",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.learning-journey-ambient-coach": "workspace:*",
         "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
@@ -510,7 +510,7 @@
     },
     "packages/examples/learning-journey-ui-gamified": {
       "name": "@lssm/example.learning-journey-ui-gamified",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.learning-journey-duo-drills": "workspace:*",
         "@lssm/example.learning-journey-quest-challenges": "workspace:*",
@@ -535,7 +535,7 @@
     },
     "packages/examples/learning-journey-ui-onboarding": {
       "name": "@lssm/example.learning-journey-ui-onboarding",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.learning-journey-platform-tour": "workspace:*",
         "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
@@ -561,7 +561,7 @@
     },
     "packages/examples/learning-journey-ui-shared": {
       "name": "@lssm/example.learning-journey-ui-shared",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
@@ -583,7 +583,7 @@
     },
     "packages/examples/learning-patterns": {
       "name": "@lssm/example.learning-patterns",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -598,7 +598,7 @@
     },
     "packages/examples/lifecycle-cli": {
       "name": "@lssm/example.lifecycle-cli",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/bundle.lifecycle-managed": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -615,7 +615,7 @@
     },
     "packages/examples/lifecycle-dashboard": {
       "name": "@lssm/example.lifecycle-dashboard",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -629,7 +629,7 @@
     },
     "packages/examples/locale-jurisdiction-gate": {
       "name": "@lssm/example.locale-jurisdiction-gate",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -644,7 +644,7 @@
     },
     "packages/examples/marketplace": {
       "name": "@lssm/example.marketplace",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -665,7 +665,7 @@
     },
     "packages/examples/openbanking-powens": {
       "name": "@lssm/example.openbanking-powens",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/integration.providers-impls": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -680,7 +680,7 @@
     },
     "packages/examples/personalization": {
       "name": "@lssm/example.personalization",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.logger": "workspace:*",
@@ -698,7 +698,7 @@
     },
     "packages/examples/pocket-family-office": {
       "name": "@lssm/example.pocket-family-office",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.knowledge": "workspace:*",
@@ -713,7 +713,7 @@
     },
     "packages/examples/policy-safe-knowledge-assistant": {
       "name": "@lssm/example.policy-safe-knowledge-assistant",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.kb-update-pipeline": "workspace:*",
         "@lssm/example.learning-patterns": "workspace:*",
@@ -739,7 +739,7 @@
     },
     "packages/examples/saas-boilerplate": {
       "name": "@lssm/example.saas-boilerplate",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -759,7 +759,7 @@
     },
     "packages/examples/service-business-os": {
       "name": "@lssm/example.service-business-os",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -779,7 +779,7 @@
     },
     "packages/examples/team-hub": {
       "name": "@lssm/example.team-hub",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -798,7 +798,7 @@
     },
     "packages/examples/versioned-knowledge-base": {
       "name": "@lssm/example.versioned-knowledge-base",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -813,7 +813,7 @@
     },
     "packages/examples/wealth-snapshot": {
       "name": "@lssm/example.wealth-snapshot",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -831,7 +831,7 @@
     },
     "packages/examples/workflow-system": {
       "name": "@lssm/example.workflow-system",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -851,7 +851,7 @@
     },
     "packages/integrations/providers-impls": {
       "name": "@lssm/integration.providers-impls",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.27.0",
         "@google-cloud/storage": "^7.18.0",
@@ -874,7 +874,7 @@
     },
     "packages/integrations/runtime": {
       "name": "@lssm/integration.runtime",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@google-cloud/secret-manager": "^6.1.1",
         "@lssm/lib.contracts": "workspace:*",
@@ -890,7 +890,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@lssm/lib.accessibility",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.design-system": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -909,7 +909,7 @@
     },
     "packages/libs/ai-agent": {
       "name": "@lssm/lib.ai-agent",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/google": "catalog:ai",
@@ -931,7 +931,7 @@
     },
     "packages/libs/ai-providers": {
       "name": "@lssm/lib.ai-providers",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/google": "catalog:ai",
@@ -950,7 +950,7 @@
     },
     "packages/libs/analytics": {
       "name": "@lssm/lib.analytics",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
@@ -964,7 +964,7 @@
     },
     "packages/libs/bus": {
       "name": "@lssm/lib.bus",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -984,7 +984,7 @@
     },
     "packages/libs/content-gen": {
       "name": "@lssm/lib.content-gen",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -997,7 +997,7 @@
     },
     "packages/libs/contracts": {
       "name": "@lssm/lib.contracts",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@aws-sdk/client-secrets-manager": "^3.950.0",
         "@aws-sdk/client-sqs": "^3.948.0",
@@ -1048,7 +1048,7 @@
     },
     "packages/libs/contracts-transformers": {
       "name": "@lssm/lib.contracts-transformers",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1065,7 +1065,7 @@
     },
     "packages/libs/cost-tracking": {
       "name": "@lssm/lib.cost-tracking",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1075,7 +1075,7 @@
     },
     "packages/libs/design-system": {
       "name": "@lssm/lib.design-system",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -1105,7 +1105,7 @@
     },
     "packages/libs/error": {
       "name": "@lssm/lib.error",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1120,7 +1120,7 @@
     },
     "packages/libs/evolution": {
       "name": "@lssm/lib.evolution",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1142,7 +1142,7 @@
     },
     "packages/libs/exporter": {
       "name": "@lssm/lib.exporter",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1152,7 +1152,7 @@
     },
     "packages/libs/feature-flags": {
       "name": "@lssm/lib.feature-flags",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1166,7 +1166,7 @@
     },
     "packages/libs/files": {
       "name": "@lssm/lib.files",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1180,7 +1180,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@lssm/lib.graphql-core",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -1202,7 +1202,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@lssm/lib.graphql-federation",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@apollo/subgraph": "^2.12.2",
         "@pothos/core": "^4.9.1",
@@ -1222,7 +1222,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@lssm/lib.graphql-prisma",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.schema": "workspace:*",
         "@pothos/core": "^4.9.1",
@@ -1246,7 +1246,7 @@
     },
     "packages/libs/identity-rbac": {
       "name": "@lssm/lib.identity-rbac",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1260,7 +1260,7 @@
     },
     "packages/libs/jobs": {
       "name": "@lssm/lib.jobs",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@aws-sdk/client-sqs": "^3.948.0",
         "@lssm/lib.contracts": "workspace:*",
@@ -1278,7 +1278,7 @@
     },
     "packages/libs/knowledge": {
       "name": "@lssm/lib.knowledge",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1291,7 +1291,7 @@
     },
     "packages/libs/lifecycle": {
       "name": "@lssm/lib.lifecycle",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1301,7 +1301,7 @@
     },
     "packages/libs/logger": {
       "name": "@lssm/lib.logger",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "zone.js": "^0.16.0",
       },
@@ -1320,7 +1320,7 @@
     },
     "packages/libs/metering": {
       "name": "@lssm/lib.metering",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1334,7 +1334,7 @@
     },
     "packages/libs/observability": {
       "name": "@lssm/lib.observability",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1349,7 +1349,7 @@
     },
     "packages/libs/overlay-engine": {
       "name": "@lssm/lib.overlay-engine",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "fast-json-stable-stringify": "^2.1.0",
@@ -1369,7 +1369,7 @@
     },
     "packages/libs/personalization": {
       "name": "@lssm/lib.personalization",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1390,7 +1390,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@lssm/lib.presentation-runtime-core",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1403,7 +1403,7 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@lssm/lib.presentation-runtime-react",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.design-system": "workspace:*",
@@ -1419,7 +1419,7 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@lssm/lib.presentation-runtime-react-native",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.presentation-runtime-core": "workspace:*",
         "@lssm/lib.ui-kit": "workspace:*",
@@ -1434,7 +1434,7 @@
     },
     "packages/libs/schema": {
       "name": "@lssm/lib.schema",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "catalog:",
@@ -1448,7 +1448,7 @@
     },
     "packages/libs/support-bot": {
       "name": "@lssm/lib.support-bot",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.ai-agent": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1464,7 +1464,7 @@
     },
     "packages/libs/testing": {
       "name": "@lssm/lib.testing",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1478,7 +1478,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@lssm/lib.ui-kit",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.ui-kit-core": "workspace:*",
         "@react-native-async-storage/async-storage": "^2.1.2",
@@ -1558,7 +1558,7 @@
     },
     "packages/libs/ui-kit-core": {
       "name": "@lssm/lib.ui-kit-core",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
@@ -1577,7 +1577,7 @@
     },
     "packages/libs/ui-kit-web": {
       "name": "@lssm/lib.ui-kit-web",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@hookform/resolvers": "5.2.2",
         "@lssm/lib.ui-kit-core": "workspace:*",
@@ -1650,7 +1650,7 @@
     },
     "packages/libs/ui-link": {
       "name": "@lssm/lib.ui-link",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.ui-kit-core": "workspace:*",
         "react": "catalog:",
@@ -1665,7 +1665,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@lssm/lib.utils-typescript",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "@lssm/tool.tsdown": "workspace:*",
         "@lssm/tool.typescript": "workspace:*",
@@ -1675,7 +1675,7 @@
     },
     "packages/libs/workflow-composer": {
       "name": "@lssm/lib.workflow-composer",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
       },
@@ -1688,7 +1688,7 @@
     },
     "packages/modules/ai-chat": {
       "name": "@lssm/module.ai-chat",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@ai-sdk/react": "catalog:ai",
         "@lssm/lib.ai-agent": "workspace:*",
@@ -1716,7 +1716,7 @@
     },
     "packages/modules/audit-trail": {
       "name": "@lssm/module.audit-trail",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1731,7 +1731,7 @@
     },
     "packages/modules/contractspec-examples": {
       "name": "@lssm/module.contractspec-examples",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/example.agent-console": "workspace:*",
         "@lssm/example.ai-support-bot": "workspace:*",
@@ -1778,7 +1778,7 @@
     },
     "packages/modules/contractspec-workspace": {
       "name": "@lssm/module.contractspec-workspace",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1793,7 +1793,7 @@
     },
     "packages/modules/learning-journey": {
       "name": "@lssm/module.learning-journey",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
@@ -1807,7 +1807,7 @@
     },
     "packages/modules/lifecycle-advisor": {
       "name": "@lssm/module.lifecycle-advisor",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1820,7 +1820,7 @@
     },
     "packages/modules/lifecycle-core": {
       "name": "@lssm/module.lifecycle-core",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.lifecycle": "workspace:*",
       },
@@ -1833,7 +1833,7 @@
     },
     "packages/modules/notifications": {
       "name": "@lssm/module.notifications",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "dependencies": {
         "@lssm/lib.bus": "workspace:*",
         "@lssm/lib.contracts": "workspace:*",
@@ -1848,7 +1848,7 @@
     },
     "packages/tools/eslint-plugin-design-system": {
       "name": "@lssm/eslint-plugin-design-system",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "eslint": "catalog:build",
       },
@@ -1858,14 +1858,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@lssm/tool.tsdown",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "peerDependencies": {
         "tsdown": "^0.18.1",
       },
     },
     "packages/tools/typescript": {
       "name": "@lssm/tool.typescript",
-      "version": "1.41.1",
+      "version": "0.0.0-canary-20251220192648",
       "devDependencies": {
         "typescript": "catalog:",
       },
@@ -1917,23 +1917,23 @@
 
     "@adobe/css-tools": ["@adobe/css-tools@4.4.4", "", {}, "sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg=="],
 
-    "@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.92", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-hNxvPyuCugsxA9toQj+SZGhyfOWs00xNruWPBIB2JYFXWP2fNGOaEq3ZJnapAC49h9o29EcIpuUNtIj2VwMA/A=="],
+    "@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.95", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-aNZc4/O+JEnm2umzUtxjZOkPAzhIvQsVas5u8/eYD/oB8SZ53iFp4iNDAjU/bjYJW1WfScyl3dG4dtj4G8Kt6g=="],
 
-    "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.0-beta.86", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-dUbNY4gRMZyJajqEBJo0jXmY81Eugupce8XsmTY28agU4VnDO5CQH2HrowhrHZMJFcljkTUyfC5MzbCximmj2g=="],
+    "@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.0-beta.90", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-rTdiIz++xBafrkCacQL1BEuLuUniPB85nEGMyVv5KoZF+kzIGl8GrYWpV4wGXGwe2kU0UE0TxxgDSZwvDjUBFg=="],
 
-    "@ai-sdk/google": ["@ai-sdk/google@3.0.0-beta.82", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-aUpg5lr3vGmr2QDdNoqQRG4ILlsiZdl3K5ntm9vgp3YMt0jtKwLXS8mM+nKQ52DSnDTNa1QzjX1BYvB4XxO6Gw=="],
+    "@ai-sdk/google": ["@ai-sdk/google@3.0.0-beta.87", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ot5Mn+pM7n85v4BTmls+GCinVf2R4+eWoyKAFgAWBNxLh70a0WeFscdPGp5RAnsqBul57S7R6u+Q3/k6VEBy/g=="],
 
     "@ai-sdk/mcp": ["@ai-sdk/mcp@1.0.0-beta.44", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57", "pkce-challenge": "^5.0.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-5vszdJ5mragWNlIDsOA4dKrP4Hug8JcdpSqrR2MHcmoABe5X4BHl7xg7vuHGKDhXjXEOGrJ/APTZGrHoNs2OXQ=="],
 
-    "@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.0-beta.56", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-n0Z6E2v6plXOmAp1oKM4beixuUSmb7QaFTb2WdzWGFjicen2hUl1Mop7Dz7NIF0FSAEEhA3jF0e58PhJZZhYgQ=="],
+    "@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.0-beta.59", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-kP85qramlGNz9/8WdpqcYa7V1aG8sSBDXnz5XjrAFQ8qIzi9e8yxrdtmR+7XUzWoVkkmxXeAcPBXGGCVPs5cKQ=="],
 
-    "@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.106", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-bgfQPQhr9fw4yssnxkSzcrwUDRu5gC6PGwQnONtgk/Hv3ovvh7I+pqduV7ZEvSLQcqmHkAzjB4wWMuY+8MPYHQ=="],
+    "@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.109", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ekKV8FVLqZC1adOtbCibdUo7PcwvjCawJ9d3IxVCS/vSt8jJpN2iBBS7BCHEM5K1hdX3SF9I9Ifyt9pwZpZoYQ=="],
 
-    "@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.28", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-5crmciF/oXr1xJExIi81LFqyebWoUnyQoILqT9yiOp1jNhjl2OYTOd8rm2zx7UBi0OZ05TI/rNqieXnJSwhheQ=="],
+    "@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
 
-    "@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.54", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.28", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-OdEveKK/iELSvwfFSNqWAZdQvpa/GPwMnyD8DVY4or02uYc64wdHuD2ZAX/wZPQS45PIRPFTHYCAmu0c8g/ReA=="],
+    "@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
 
-    "@ai-sdk/react": ["@ai-sdk/react@3.0.0-beta.163", "", { "dependencies": { "@ai-sdk/provider-utils": "4.0.0-beta.54", "ai": "6.0.0-beta.160", "swr": "^2.2.5", "throttleit": "2.1.0" }, "peerDependencies": { "react": "^18 || ~19.0.1 || ~19.1.2 || ^19.2.1" } }, "sha512-0+8QtCB6gdqERXzYmHDnMAnnkFPATeHqd/iU3932Zzmp69flxlcVUmBHsZLzXJJLoZ17MklXxf6hhBquj1KYWw=="],
+    "@ai-sdk/react": ["@ai-sdk/react@3.0.0-beta.167", "", { "dependencies": { "@ai-sdk/provider-utils": "4.0.0-beta.57", "ai": "6.0.0-beta.164", "swr": "^2.2.5", "throttleit": "2.1.0" }, "peerDependencies": { "react": "^18 || ~19.0.1 || ~19.1.2 || ^19.2.1" } }, "sha512-xxkTy1pxIfmUYDCU0wu8GF7qweAY4+ZiDMHJ6AQTLONJFY2kgYnhMZ76hBasUVOsRuznRT+bFNWwokhl49asBA=="],
 
     "@apm-js-collab/code-transformer": ["@apm-js-collab/code-transformer@0.8.2", "", {}, "sha512-YRjJjNq5KFSjDUoqu5pFUWrrsvGOxl6c3bu+uMFc9HNNptZ2rNU/TI2nLw4jnhQNtka972Ee2m3uqbvDQtPeCA=="],
 
@@ -3869,7 +3869,7 @@
 
     "agent-base": ["agent-base@6.0.2", "", { "dependencies": { "debug": "4" } }, "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="],
 
-    "ai": ["ai@6.0.0-beta.160", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.86", "@ai-sdk/provider": "3.0.0-beta.28", "@ai-sdk/provider-utils": "4.0.0-beta.54", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-4B/7GPf0+9fv4MoCr4f83EwUuOu7eeY/61bnh09EJfbuqF3LVcVPsxJMvmIUNx7kWUa1YuQ7qzaQ28p9hOeDZw=="],
+    "ai": ["ai@6.0.0-beta.164", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.90", "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-F51pOC0agtwEU9iVGCyuI/iUno+HHnPHOYrsRCPSBkkHCSpTZWUtyjg4ZFWgGOM+WvPaOpicXPGQAvERUSkkSA=="],
 
     "ajv": ["ajv@6.12.6", "", { "dependencies": { "fast-deep-equal": "^3.1.1", "fast-json-stable-stringify": "^2.0.0", "json-schema-traverse": "^0.4.1", "uri-js": "^4.2.2" } }, "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g=="],
 
@@ -5091,7 +5091,7 @@
 
     "kleur": ["kleur@3.0.3", "", {}, "sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w=="],
 
-    "knip": ["knip@5.75.2", "", { "dependencies": { "@nodelib/fs.walk": "^1.2.3", "fast-glob": "^3.3.3", "formatly": "^0.3.0", "jiti": "^2.6.0", "js-yaml": "^4.1.1", "minimist": "^1.2.8", "oxc-resolver": "^11.15.0", "picocolors": "^1.1.1", "picomatch": "^4.0.1", "smol-toml": "^1.5.2", "strip-json-comments": "5.0.3", "zod": "^4.1.11" }, "peerDependencies": { "@types/node": ">=18", "typescript": ">=5.0.4 <7" }, "bin": { "knip": "bin/knip.js", "knip-bun": "bin/knip-bun.js" } }, "sha512-ZSO9gGKG/RztUYawrMbPTqO9VG3qvTW/ddINJqYM+N+9F/0bX6HEBolo8+HKaBuTIgyM4dn2rZ8M+JLObRdzog=="],
+    "knip": ["knip@5.76.0", "", { "dependencies": { "@nodelib/fs.walk": "^1.2.3", "fast-glob": "^3.3.3", "formatly": "^0.3.0", "jiti": "^2.6.0", "js-yaml": "^4.1.1", "minimist": "^1.2.8", "oxc-resolver": "^11.15.0", "picocolors": "^1.1.1", "picomatch": "^4.0.1", "smol-toml": "^1.5.2", "strip-json-comments": "5.0.3", "zod": "^4.1.11" }, "peerDependencies": { "@types/node": ">=18", "typescript": ">=5.0.4 <7" }, "bin": { "knip": "bin/knip.js", "knip-bun": "bin/knip-bun.js" } }, "sha512-Qw3rbm8oFzsegHQOP1m2VgVFB/mPiY9ws0axt/OPawqaf7glft561AC1woSFO0/UrzG3KUSwckQ2CcYBwpZ9iw=="],
 
     "lan-network": ["lan-network@0.1.7", "", { "bin": { "lan-network": "dist/lan-network-cli.js" } }, "sha512-mnIlAEMu4OyEvUNdzco9xpuB9YVcPkQec+QsgycBCtPZvEqWPCDPfbAE4OJMdBBWpZWtpCn1xw9jJYlwjWI5zQ=="],
 
@@ -6485,10 +6485,6 @@
 
     "zwitch": ["zwitch@2.0.4", "", {}, "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="],
 
-    "@ai-sdk/mcp/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@ai-sdk/mcp/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
-
     "@apollo/federation-internals/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
     "@apollo/federation-internals/uuid": ["uuid@9.0.1", "", { "bin": { "uuid": "dist/bin/uuid" } }, "sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA=="],
@@ -6710,16 +6706,6 @@
     "@jest/types/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
     "@lssm/app.overlay-editor/@types/node": ["@types/node@20.19.27", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-N2clP5pJhB2YnZJ3PIHFk5RkygRX5WO/5f0WC08tp0wd+sv0rsJk3MqWn3CbNmT2J505a5336jaQj4ph1AdMug=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/anthropic": ["@ai-sdk/anthropic@3.0.0-beta.95", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-aNZc4/O+JEnm2umzUtxjZOkPAzhIvQsVas5u8/eYD/oB8SZ53iFp4iNDAjU/bjYJW1WfScyl3dG4dtj4G8Kt6g=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/google": ["@ai-sdk/google@3.0.0-beta.87", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ot5Mn+pM7n85v4BTmls+GCinVf2R4+eWoyKAFgAWBNxLh70a0WeFscdPGp5RAnsqBul57S7R6u+Q3/k6VEBy/g=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.0-beta.59", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-kP85qramlGNz9/8WdpqcYa7V1aG8sSBDXnz5XjrAFQ8qIzi9e8yxrdtmR+7XUzWoVkkmxXeAcPBXGGCVPs5cKQ=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/openai": ["@ai-sdk/openai@3.0.0-beta.109", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ekKV8FVLqZC1adOtbCibdUo7PcwvjCawJ9d3IxVCS/vSt8jJpN2iBBS7BCHEM5K1hdX3SF9I9Ifyt9pwZpZoYQ=="],
-
-    "@lssm/lib.ai-agent/ai": ["ai@6.0.0-beta.164", "", { "dependencies": { "@ai-sdk/gateway": "2.0.0-beta.90", "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-F51pOC0agtwEU9iVGCyuI/iUno+HHnPHOYrsRCPSBkkHCSpTZWUtyjg4ZFWgGOM+WvPaOpicXPGQAvERUSkkSA=="],
 
     "@lssm/lib.design-system/@types/node": ["@types/node@24.10.4", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg=="],
 
@@ -7658,28 +7644,6 @@
     "@jest/types/chalk/ansi-styles": ["ansi-styles@4.3.0", "", { "dependencies": { "color-convert": "^2.0.1" } }, "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="],
 
     "@jest/types/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/anthropic/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/anthropic/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/google/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/google/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/mistral/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/mistral/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/openai/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@lssm/lib.ai-agent/@ai-sdk/openai/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
-
-    "@lssm/lib.ai-agent/ai/@ai-sdk/gateway": ["@ai-sdk/gateway@2.0.0-beta.90", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@ai-sdk/provider-utils": "4.0.0-beta.57", "@vercel/oidc": "3.0.5" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-rTdiIz++xBafrkCacQL1BEuLuUniPB85nEGMyVv5KoZF+kzIGl8GrYWpV4wGXGwe2kU0UE0TxxgDSZwvDjUBFg=="],
-
-    "@lssm/lib.ai-agent/ai/@ai-sdk/provider": ["@ai-sdk/provider@3.0.0-beta.30", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-fUBfOukKIV4YeMK99gN5NxpxpD5aHdBWlEmI7Ddjh/RI71tGpwBldhaVStwcCY9BV9mLT7nraLkObjR4w++FkQ=="],
-
-    "@lssm/lib.ai-agent/ai/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@4.0.0-beta.57", "", { "dependencies": { "@ai-sdk/provider": "3.0.0-beta.30", "@standard-schema/spec": "^1.1.0", "eventsource-parser": "^3.0.6" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-uMOWvyVh7pQe0TI+RV2wn++t8WYdwzONhdp6GUkEAilqCaKa/D4fNBhd4MCpmfn4an7bMkEz+G0HpfmTLmCgPg=="],
 
     "@lssm/lib.design-system/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
 

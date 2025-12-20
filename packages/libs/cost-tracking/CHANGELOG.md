@@ -1,5 +1,11 @@
 # @lssm/lib.cost-tracking
 
+## 0.0.0-canary-20251220192648
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
 ## 4.0.0
 
 ### Minor Changes

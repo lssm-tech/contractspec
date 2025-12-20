@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-coaching",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251220192648",
   "description": "Contextual coaching UI with tip cards and engagement tracking.",
   "type": "module",
   "main": "./dist/index.js",

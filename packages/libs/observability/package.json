@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.observability",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251220192648",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {

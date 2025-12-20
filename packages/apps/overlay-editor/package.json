@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.overlay-editor",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251220192648",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
@@ -35,4 +35,3 @@
     "directory": "packages/apps/overlay-editor"
   }
 }
-

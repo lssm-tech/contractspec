@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.0.0-canary-20251220192648
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
+### Patch Changes
+
+- Updated dependencies [66a5dfd]
+  - @lssm/bundle.contractspec-workspace@0.0.0-canary-20251220192648
+  - @lssm/lib.contracts@0.0.0-canary-20251220192648
+  - @lssm/lib.contracts-transformers@0.0.0-canary-20251220192648
+  - @lssm/module.contractspec-examples@0.0.0-canary-20251220192648
+  - @lssm/module.contractspec-workspace@0.0.0-canary-20251220192648
+
 All notable changes to the ContractSpec VS Code extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -52,12 +67,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Uses `@lssm/module.contractspec-workspace` for analysis and templates
 - Works without requiring CLI installation
 - Bundled with esbuild for fast load times
-
-
-
-
-
-
-
-
-
