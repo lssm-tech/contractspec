@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "**/*"
-      - "package.json"
-      - "bun.lockb"
-      - "!.changeset/**"
-      - "!CHANGELOG.md"
 
 permissions:
   contents: write
