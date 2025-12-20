@@ -38,10 +38,10 @@ jobs:
         id: ci-checks
         run: |
           # Generate SARIF for GitHub Code Scanning
-          npx contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
+          bunx contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
           
           # Print human-readable summary
-          npx contractspec ci --format text --skip doctor
+          bunx contractspec ci --format text --skip doctor
         continue-on-error: true
 
       - name: Upload SARIF to GitHub Code Scanning
@@ -62,7 +62,7 @@ jobs:
         continue-on-error: true
 
       - name: Check CI result
-        run: npx contractspec ci --format json --skip doctor | jq -e '.success'
+        run: bunx contractspec ci --format json --skip doctor | jq -e '.success'
 
 
 
