@@ -31,7 +31,7 @@ export function generateEventCode(
 
   // If payloadModel is a reference (empty fields and different name), import it
   if (payloadModel.name !== modelName) {
-    const modelsDir = `${options.outputDir}/${options.conventions.models}`;
+    const modelsDir = `../${options.conventions.models}`;
     const kebabName = payloadModel.name
       .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
       .toLowerCase();

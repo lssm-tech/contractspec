@@ -362,7 +362,7 @@ export function generateImports(
   options: ContractsrcConfig
 ): string {
   const imports = new Set<string>();
-  const modelsDir = `${options.outputDir}/${options.conventions.models}`;
+  const modelsDir = `../${options.conventions.models}`;
 
   imports.add(
     "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';"
