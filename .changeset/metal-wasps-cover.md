@@ -3,7 +3,6 @@
 '@lssm/app.cli-contracts': minor
 '@lssm/app.cli-database': minor
 '@lssm/app.cli-databases': minor
-'@lssm/app.cli-mcp-local': minor
 '@lssm/app.overlay-editor': minor
 '@lssm/app.registry-server': minor
 'vscode-contractspec': minor
