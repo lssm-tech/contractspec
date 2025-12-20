@@ -6,12 +6,12 @@ import type {
   FieldSpec,
   FormOption,
   FormSpec,
-  OptionsSource,
   FormValuesFor,
-  TextFieldSpec,
-  TextareaFieldSpec,
-  SelectFieldSpec,
+  OptionsSource,
   RadioFieldSpec,
+  SelectFieldSpec,
+  TextareaFieldSpec,
+  TextFieldSpec,
 } from '../../forms';
 import { buildZodWithRelations, evalPredicate } from '../../forms';
 import type { AnySchemaModel } from '@lssm/lib.schema';
@@ -29,7 +29,8 @@ export interface DriverSlots {
     React.PropsWithChildren<{ htmlFor?: string }>
   >;
   FieldDescription: React.ComponentType<
-    React.PropsWithChildren<Record<string, never>>
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    React.PropsWithChildren<{}>
   >;
   FieldError: React.ComponentType<{ errors: { message?: string }[] }>;
   FieldGroup?: React.ComponentType<
