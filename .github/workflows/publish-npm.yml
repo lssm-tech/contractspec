@@ -22,7 +22,7 @@ jobs:
       issues: read
       packages: write
     env:
-      BUN_VERSION: 1.3.4
+      BUN_VERSION: 1.3.5
       # Increase memory for large builds
       NODE_OPTIONS: --max-old-space-size=6144
       TURBO_TELEMETRY_DISABLED: 1

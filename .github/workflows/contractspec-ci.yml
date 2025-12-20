@@ -27,7 +27,7 @@ jobs:
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-          BUN_VERSION: 1.3.4
+          BUN_VERSION: 1.3.5
           # Increase memory for large builds
           NODE_OPTIONS: --max-old-space-size=6144
           TURBO_TELEMETRY_DISABLED: 1
@@ -38,10 +38,10 @@ jobs:
         id: ci-checks
         run: |
           # Generate SARIF for GitHub Code Scanning
-          ./node_modules/bin/contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
+          ./node_modules/.bin/contractspec ci --format sarif --output contractspec-results.sarif --skip doctor
           
           # Print human-readable summary
-          ./node_modules/bin/contractspec ci --format text --skip doctor
+          ./node_modules/.bin/contractspec ci --format text --skip doctor
         continue-on-error: true
 
       - name: Upload SARIF to GitHub Code Scanning
@@ -62,7 +62,7 @@ jobs:
         continue-on-error: true
 
       - name: Check CI result
-        run: ./node_modules/bin/contractspec ci --format json --skip doctor | jq -e '.success'
+        run: ./node_modules/.bin/contractspec ci --format json --skip doctor | jq -e '.success'
 
 
 
