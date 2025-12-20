@@ -65,7 +65,7 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
       language: voice.labels?.language ?? undefined,
       metadata: {
         category: voice.category ?? '',
-        previewUrl: voice.previewUrl ?? undefined,
+        ...(voice.previewUrl ? { previewUrl: voice.previewUrl } : {}),
         ...(() => {
           const { language, ...rest } = voice.labels ?? {};
           return rest;

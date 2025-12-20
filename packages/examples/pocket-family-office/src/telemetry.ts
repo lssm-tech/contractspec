@@ -40,7 +40,7 @@ const commonProperties = {
     required: true,
     description: 'Integration connection ID used for the sync.',
   },
-};
+} as const;
 
 function piiSafeString(description: string) {
   return {

@@ -76,7 +76,7 @@ export function registerIntegrityTools(
     },
     io: { input: IntegrityAnalyzeInput, output: IntegrityAnalyzeOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'integrity.analyze' } },
+    transport: { mcp: { toolName: 'integrity-analyze' } },
   });
 
   installOp(reg, integrityAnalyzeSpec, async (args) => {
@@ -108,7 +108,7 @@ export function registerIntegrityTools(
     },
     io: { input: IntegrityDiagramInput, output: IntegrityDiagramOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'integrity.diagram' } },
+    transport: { mcp: { toolName: 'integrity-diagram' } },
   });
 
   installOp(reg, integrityDiagramSpec, async (args) => {

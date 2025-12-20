@@ -29,7 +29,7 @@ export function defaultRestPath(name: string, version: number) {
 
 /** Helper to derive default MCP tool name */
 export function defaultMcpTool(name: string, version: number) {
-  return `${name}.v${version}`;
+  return `${name}-v${version}`;
 }
 
 /** Helper to derive default GraphQL field name */

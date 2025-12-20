@@ -112,7 +112,8 @@ const LLMVerifyOutput = defineSchemaModel({
 const loadSpecFromPath = async (
   specPath: string,
   adapters: WorkspaceAdapters
-) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> => {
   const path = await import('path');
   const fullPath = path.resolve(process.cwd(), specPath);
 
@@ -161,7 +162,7 @@ export function registerLLMTools(
     },
     io: { input: LLMExportInput, output: LLMExportOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'llm.export' } },
+    transport: { mcp: { toolName: 'llm-export' } },
   });
 
   installOp(reg, llmExportCmd, async (args) => {
@@ -213,7 +214,7 @@ export function registerLLMTools(
     },
     io: { input: LLMGuideInput, output: LLMGuideOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'llm.guide' } },
+    transport: { mcp: { toolName: 'llm-guide' } },
   });
 
   installOp(reg, llmGuideCmd, async (args) => {
@@ -255,7 +256,7 @@ export function registerLLMTools(
     },
     io: { input: LLMVerifyInput, output: LLMVerifyOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'llm.verify' } },
+    transport: { mcp: { toolName: 'llm-verify' } },
   });
 
   installOp(reg, llmVerifyCmd, async (args) => {

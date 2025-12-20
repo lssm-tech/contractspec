@@ -59,7 +59,7 @@ export function registerSpecsBuildTool(
     },
     io: { input: SpecsBuildInput, output: SpecsBuildOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'specs.build' } },
+    transport: { mcp: { toolName: 'specs-build' } },
   });
 
   installOp(reg, cmd, async (args) => {

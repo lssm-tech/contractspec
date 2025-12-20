@@ -113,7 +113,7 @@ export function registerOpenApiTools(
     },
     io: { input: OpenApiImportInput, output: OpenApiImportOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'openapi.import' } },
+    transport: { mcp: { toolName: 'openapi-import' } },
   });
 
   installOp(reg, importCmd, async (args) => {
@@ -178,7 +178,7 @@ export function registerOpenApiTools(
     },
     io: { input: OpenApiValidateInput, output: OpenApiValidateOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'openapi.validate' } },
+    transport: { mcp: { toolName: 'openapi-validate' } },
   });
 
   installOp(reg, validateCmd, async (args) => {
@@ -255,7 +255,7 @@ export function registerOpenApiTools(
     },
     io: { input: OpenApiDiffInput, output: OpenApiDiffOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'openapi.diff' } },
+    transport: { mcp: { toolName: 'openapi-diff' } },
   });
 
   installOp(reg, diffCmd, async (args) => {

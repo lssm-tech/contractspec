@@ -11,6 +11,7 @@ export const pocketFamilyOfficeTenantSample: TenantAppConfig = {
     version: 1,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    status: 'published',
   },
   featureFlags: [
     {

@@ -17,6 +17,7 @@ export const OwnersEnum = {
   ProductArtisanos: 'product.artisanos',
   PlatformSigil: 'platform.sigil',
   PlatformMarketplace: 'platform.marketplace',
+  PlatformMessaging: 'platform.messaging',
   PlatformContent: 'platform.content',
   PlatformFeatureFlags: 'platform.featureflags',
   PlatformFinance: 'platform.finance',

@@ -6,7 +6,7 @@ export class PromptRegistry {
 
   /** Register a prompt. Throws on duplicate name+version. */
   register<I extends z.ZodType>(p: PromptSpec<I>): this {
-    const key = `${p.meta.name}.v${p.meta.version}`;
+    const key = `${p.meta.name}-v${p.meta.version}`;
     if (this.prompts.has(key)) throw new Error(`Duplicate prompt ${key}`);
     this.prompts.set(key, p);
     return this;
@@ -19,7 +19,7 @@ export class PromptRegistry {
 
   /** Get prompt by name; when version omitted, returns highest version. */
   get(name: string, version?: number) {
-    if (version != null) return this.prompts.get(`${name}.v${version}`);
+    if (version != null) return this.prompts.get(`${name}-v${version}`);
     // latest by highest version
     let candidate: PromptSpec<z.ZodType> | undefined;
     let max = -Infinity;

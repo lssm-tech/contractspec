@@ -1,4 +1,9 @@
-import * as z from 'zod';
+import {
+  defineSchemaModel,
+  ScalarTypeEnum,
+  defineEnum,
+  type ZodSchemaModel,
+} from '@lssm/lib.schema';
 import type { ContractSpec } from '@lssm/lib.contracts/spec';
 import {
   OwnersEnum,
@@ -7,323 +12,385 @@ import {
 } from '@lssm/lib.contracts/ownership';
 import { OPENBANKING_TELEMETRY_EVENTS } from '@lssm/lib.contracts/integrations';
 
-const UploadDocumentInput = z.object({
-  bucket: z.string().min(1),
-  objectKey: z.string().min(1),
-  mimeType: z.string().min(1),
-  bytes: z.number().int().nonnegative(),
-  tags: z.array(z.string()).default([]),
-  uploadedAt: z.coerce.date(),
-  source: z.enum(['upload', 'email', 'sync']).default('upload'),
+// --- Enums ---
+const SourceEnum = defineEnum('Source', ['upload', 'email', 'sync']);
+const ChannelEnum = defineEnum('Channel', ['email', 'sms', 'both']);
+const PeriodEnum = defineEnum('Period', ['7d', '30d', '90d']);
+const ObPeriodEnum = defineEnum('ObPeriod', ['week', 'month', 'quarter']);
+
+// --- Models ---
+
+const UploadDocumentInputModel = defineSchemaModel({
+  name: 'UploadDocumentInput',
+  fields: {
+    bucket: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+    objectKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+    mimeType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+    bytes: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    tags: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
+    uploadedAt: { type: ScalarTypeEnum.Date(), isOptional: false },
+    source: { type: SourceEnum, isOptional: false },
+  },
 });
 
-const UploadDocumentOutput = z.object({
-  documentId: z.string(),
-  ingestionJobId: z.string(),
+const UploadDocumentOutputModel = defineSchemaModel({
+  name: 'UploadDocumentOutput',
+  fields: {
+    documentId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    ingestionJobId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+  },
 });
 
-export type UploadDocumentInput = z.infer<typeof UploadDocumentInput>;
-export type UploadDocumentOutput = z.infer<typeof UploadDocumentOutput>;
+export type UploadDocumentInput = ZodSchemaModel<
+  typeof UploadDocumentInputModel
+>;
+export type UploadDocumentOutput = ZodSchemaModel<
+  typeof UploadDocumentOutputModel
+>;
 
 export const uploadDocumentContract: ContractSpec<
-  UploadDocumentInput,
-  UploadDocumentOutput
+  typeof UploadDocumentInputModel,
+  typeof UploadDocumentOutputModel
 > = {
   meta: {
     name: 'pfo.documents.upload',
     version: 1,
     kind: 'command',
-    title: 'Upload Financial Document',
     description:
       'Stores an object in tenant storage and schedules ingestion into the knowledge base.',
-    domain: 'finance',
+    goal: 'Allow users to ingest financial documents for processing.',
+    context:
+      'Part of the finance domain. Documents are uploaded to object storage and then processed by the ingestion pipeline.',
     owners: [OwnersEnum.PlatformFinance],
     tags: ['documents', 'ingestion', TagsEnum.Guide],
     stability: StabilityEnum.Experimental,
   },
   io: {
-    input: UploadDocumentInput,
-    output: UploadDocumentOutput,
+    input: UploadDocumentInputModel,
+    output: UploadDocumentOutputModel,
   },
   policy: {
-    auth: {
-      scopes: ['documents:ingest'],
-    },
+    auth: 'user',
     rateLimit: {
-      points: 30,
-      windowSeconds: 60,
+      rpm: 30, // 30 points per 60s approx, simplified to rpm
+      key: 'user',
     },
   },
-  telemetry: {
-    events: [
-      {
-        name: 'pfo.documents.uploaded',
-        description: 'Document queued for ingestion',
-      },
-    ],
-  },
+  // Telemetry events removed as new spec does not support 'events' list in telemetry block
 };
 
-const PaymentReminderInput = z.object({
-  billId: z.string(),
-  recipientEmail: z.string().email(),
-  recipientPhone: z.string().optional(),
-  dueDate: z.coerce.date(),
-  amountCents: z.number().int().nonnegative(),
-  currency: z.string().length(3),
-  channel: z.enum(['email', 'sms', 'both']).default('email'),
-  memo: z.string().max(280).optional(),
+const PaymentReminderInputModel = defineSchemaModel({
+  name: 'PaymentReminderInput',
+  fields: {
+    billId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    recipientEmail: { type: ScalarTypeEnum.EmailAddress(), isOptional: false },
+    recipientPhone: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    dueDate: { type: ScalarTypeEnum.Date(), isOptional: false },
+    amountCents: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    currency: { type: ScalarTypeEnum.Currency(), isOptional: false },
+    channel: { type: ChannelEnum, isOptional: false },
+    memo: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+  },
 });
 
-const PaymentReminderOutput = z.object({
-  reminderId: z.string(),
-  scheduledAt: z.coerce.date(),
+const PaymentReminderOutputModel = defineSchemaModel({
+  name: 'PaymentReminderOutput',
+  fields: {
+    reminderId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    scheduledAt: { type: ScalarTypeEnum.Date(), isOptional: false },
+  },
 });
 
-export type PaymentReminderInput = z.infer<typeof PaymentReminderInput>;
-export type PaymentReminderOutput = z.infer<typeof PaymentReminderOutput>;
+export type PaymentReminderInput = ZodSchemaModel<
+  typeof PaymentReminderInputModel
+>;
+export type PaymentReminderOutput = ZodSchemaModel<
+  typeof PaymentReminderOutputModel
+>;
 
 export const schedulePaymentReminderContract: ContractSpec<
-  PaymentReminderInput,
-  PaymentReminderOutput
+  typeof PaymentReminderInputModel,
+  typeof PaymentReminderOutputModel
 > = {
   meta: {
     name: 'pfo.reminders.schedule-payment',
     version: 1,
     kind: 'command',
-    title: 'Schedule Payment Reminder',
     description:
       'Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold.',
-    domain: 'finance',
+    goal: 'Ensure bills are paid on time by notifying users.',
+    context:
+      'Finance automation. Reminders are sent via configured channels (email, SMS).',
     owners: [OwnersEnum.PlatformFinance],
     tags: ['payments', 'reminders', TagsEnum.Automation],
     stability: StabilityEnum.Beta,
   },
   io: {
-    input: PaymentReminderInput,
-    output: PaymentReminderOutput,
+    input: PaymentReminderInputModel,
+    output: PaymentReminderOutputModel,
   },
   policy: {
-    auth: {
-      scopes: ['reminders:write'],
-    },
-  },
-  telemetry: {
-    events: [
-      {
-        name: 'pfo.reminders.scheduled',
-        description: 'Reminder scheduled for delivery',
-      },
-    ],
+    auth: 'user',
   },
 };
 
-const FinancialSummaryInput = z.object({
-  period: z.enum(['7d', '30d', '90d']).default('30d'),
-  includeVoiceSummary: z.boolean().default(false),
+const FinancialSummaryInputModel = defineSchemaModel({
+  name: 'FinancialSummaryInput',
+  fields: {
+    period: { type: PeriodEnum, isOptional: false },
+    includeVoiceSummary: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+  },
 });
 
-const FinancialSummaryOutput = z.object({
-  summaryId: z.string(),
-  generatedAt: z.coerce.date(),
-  markdown: z.string(),
-  highlights: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  cashflowDelta: z.number(),
+const SummaryHighlightModel = defineSchemaModel({
+  name: 'SummaryHighlight',
+  fields: {
+    label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    value: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+  },
 });
 
-export type FinancialSummaryInput = z.infer<typeof FinancialSummaryInput>;
-export type FinancialSummaryOutput = z.infer<typeof FinancialSummaryOutput>;
+const FinancialSummaryOutputModel = defineSchemaModel({
+  name: 'FinancialSummaryOutput',
+  fields: {
+    summaryId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    generatedAt: { type: ScalarTypeEnum.Date(), isOptional: false },
+    markdown: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    highlights: {
+      type: SummaryHighlightModel,
+      isOptional: false,
+      isArray: true,
+    },
+    cashflowDelta: { type: ScalarTypeEnum.Float_unsecure(), isOptional: false },
+  },
+});
+
+export type FinancialSummaryInput = ZodSchemaModel<
+  typeof FinancialSummaryInputModel
+>;
+export type FinancialSummaryOutput = ZodSchemaModel<
+  typeof FinancialSummaryOutputModel
+>;
 
 export const generateFinancialSummaryContract: ContractSpec<
-  FinancialSummaryInput,
-  FinancialSummaryOutput
+  typeof FinancialSummaryInputModel,
+  typeof FinancialSummaryOutputModel
 > = {
   meta: {
     name: 'pfo.summary.generate',
     version: 1,
     kind: 'query',
-    title: 'Generate Financial Summary',
     description:
       'Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics.',
-    domain: 'finance',
+    goal: 'Provide a quick overview of financial status and recent activity.',
+    context:
+      'Uses RAG over ingested knowledge. Summaries can be dispatched or viewed in app.',
     owners: [OwnersEnum.PlatformFinance],
     tags: ['summary', 'ai', TagsEnum.Automation],
     stability: StabilityEnum.Beta,
   },
   io: {
-    input: FinancialSummaryInput,
-    output: FinancialSummaryOutput,
+    input: FinancialSummaryInputModel,
+    output: FinancialSummaryOutputModel,
   },
-  telemetry: {
-    events: [
-      {
-        name: 'pfo.summary.generated',
-        description: 'Financial summary generated for a tenant',
-      },
-    ],
+  policy: {
+    auth: 'user',
   },
 };
 
-const SyncEmailThreadsInput = z.object({
-  labelIds: z.array(z.string()).default(['INBOX']),
-  maxThreads: z.number().int().positive().max(500).default(50),
-  syncSinceMinutes: z
-    .number()
-    .int()
-    .positive()
-    .default(60 * 24),
+const SyncEmailThreadsInputModel = defineSchemaModel({
+  name: 'SyncEmailThreadsInput',
+  fields: {
+    labelIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+      isArray: true,
+    },
+    maxThreads: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    syncSinceMinutes: {
+      type: ScalarTypeEnum.Int_unsecure(),
+      isOptional: false,
+    },
+  },
 });
 
-const SyncEmailThreadsOutput = z.object({
-  syncedThreads: z.number().int().nonnegative(),
-  lastMessageAt: z.coerce.date().optional(),
+const SyncEmailThreadsOutputModel = defineSchemaModel({
+  name: 'SyncEmailThreadsOutput',
+  fields: {
+    syncedThreads: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    lastMessageAt: { type: ScalarTypeEnum.Date(), isOptional: true },
+  },
 });
 
-export type SyncEmailThreadsInput = z.infer<typeof SyncEmailThreadsInput>;
-export type SyncEmailThreadsOutput = z.infer<typeof SyncEmailThreadsOutput>;
+export type SyncEmailThreadsInput = ZodSchemaModel<
+  typeof SyncEmailThreadsInputModel
+>;
+export type SyncEmailThreadsOutput = ZodSchemaModel<
+  typeof SyncEmailThreadsOutputModel
+>;
 
 export const syncEmailThreadsContract: ContractSpec<
-  SyncEmailThreadsInput,
-  SyncEmailThreadsOutput
+  typeof SyncEmailThreadsInputModel,
+  typeof SyncEmailThreadsOutputModel
 > = {
   meta: {
     name: 'pfo.email.sync-threads',
     version: 1,
     kind: 'command',
-    title: 'Sync Gmail Threads',
     description:
       'Triggers ingestion of Gmail threads into the operational knowledge space.',
-    domain: 'communications',
+    goal: 'Keep knowledge base up to date with email communications.',
+    context:
+      'Syncs from Gmail integration. Only includes threads matching configured labels.',
     owners: [OwnersEnum.PlatformMessaging],
     tags: ['gmail', 'knowledge', TagsEnum.Automation],
     stability: StabilityEnum.Beta,
   },
   io: {
-    input: SyncEmailThreadsInput,
-    output: SyncEmailThreadsOutput,
+    input: SyncEmailThreadsInputModel,
+    output: SyncEmailThreadsOutputModel,
   },
-  telemetry: {
-    events: [
-      {
-        name: 'pfo.email.synced',
-        description: 'Gmail threads synced into knowledge base',
-      },
-    ],
+  policy: {
+    auth: 'user',
   },
 };
 
-const SummaryDispatchInput = z.object({
-  summaryId: z.string(),
-  recipientEmail: z.string().email(),
-  recipientName: z.string().optional(),
-  includeVoice: z.boolean().default(false),
-  voiceRecipient: z.string().optional(),
+const SummaryDispatchInputModel = defineSchemaModel({
+  name: 'SummaryDispatchInput',
+  fields: {
+    summaryId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    recipientEmail: { type: ScalarTypeEnum.EmailAddress(), isOptional: false },
+    recipientName: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+    includeVoice: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+    voiceRecipient: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
+  },
 });
 
-const SummaryDispatchOutput = z.object({
-  dispatchId: z.string(),
-  emailSent: z.boolean(),
-  voiceUrl: z.string().optional(),
+const SummaryDispatchOutputModel = defineSchemaModel({
+  name: 'SummaryDispatchOutput',
+  fields: {
+    dispatchId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    emailSent: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+    voiceUrl: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+  },
 });
 
-export type SummaryDispatchInput = z.infer<typeof SummaryDispatchInput>;
-export type SummaryDispatchOutput = z.infer<typeof SummaryDispatchOutput>;
+export type SummaryDispatchInput = ZodSchemaModel<
+  typeof SummaryDispatchInputModel
+>;
+export type SummaryDispatchOutput = ZodSchemaModel<
+  typeof SummaryDispatchOutputModel
+>;
 
 export const dispatchFinancialSummaryContract: ContractSpec<
-  SummaryDispatchInput,
-  SummaryDispatchOutput
+  typeof SummaryDispatchInputModel,
+  typeof SummaryDispatchOutputModel
 > = {
   meta: {
     name: 'pfo.summary.dispatch',
     version: 1,
     kind: 'command',
-    title: 'Dispatch Financial Summary',
     description:
       'Delivers the generated summary via email and optionally synthesises a voice note.',
-    domain: 'finance',
+    goal: 'Deliver financial insights to users proactively.',
+    context:
+      'Dispatches summaries generated by pfo.summary.generate via email or voice.',
     owners: [OwnersEnum.PlatformMessaging],
     tags: ['summary', 'communications', TagsEnum.Automation],
     stability: StabilityEnum.Experimental,
   },
   io: {
-    input: SummaryDispatchInput,
-    output: SummaryDispatchOutput,
+    input: SummaryDispatchInputModel,
+    output: SummaryDispatchOutputModel,
   },
   policy: {
-    auth: {
-      scopes: ['summary:dispatch'],
-    },
-  },
-  telemetry: {
-    events: [
-      {
-        name: 'pfo.summary.dispatched',
-        description: 'Financial summary delivered to designated recipients',
-      },
-    ],
+    auth: 'user',
   },
 };
 
-const OpenBankingOverviewInput = z.object({
-  tenantId: z.string().min(1),
-  accountIds: z.array(z.string().min(1)).optional(),
-  period: z.enum(['week', 'month', 'quarter']).default('month'),
-  asOf: z.coerce.date().optional(),
-  includeCategories: z.boolean().default(true),
-  includeCashflowTrend: z.boolean().default(true),
+const OpenBankingOverviewInputModel = defineSchemaModel({
+  name: 'OpenBankingOverviewInput',
+  fields: {
+    tenantId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+    accountIds: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+      isArray: true,
+    },
+    period: { type: ObPeriodEnum, isOptional: false },
+    asOf: { type: ScalarTypeEnum.Date(), isOptional: true },
+    includeCategories: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+    includeCashflowTrend: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+  },
 });
 
-const OpenBankingOverviewOutput = z.object({
-  knowledgeEntryId: z.string(),
-  periodStart: z.coerce.date(),
-  periodEnd: z.coerce.date(),
-  generatedAt: z.coerce.date(),
-  summaryPath: z.string().optional(),
+const OpenBankingOverviewOutputModel = defineSchemaModel({
+  name: 'OpenBankingOverviewOutput',
+  fields: {
+    knowledgeEntryId: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
+    periodStart: { type: ScalarTypeEnum.Date(), isOptional: false },
+    periodEnd: { type: ScalarTypeEnum.Date(), isOptional: false },
+    generatedAt: { type: ScalarTypeEnum.Date(), isOptional: false },
+    summaryPath: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+  },
 });
 
-export type OpenBankingOverviewInput = z.infer<typeof OpenBankingOverviewInput>;
-export type OpenBankingOverviewOutput = z.infer<
-  typeof OpenBankingOverviewOutput
+export type OpenBankingOverviewInput = ZodSchemaModel<
+  typeof OpenBankingOverviewInputModel
+>;
+export type OpenBankingOverviewOutput = ZodSchemaModel<
+  typeof OpenBankingOverviewOutputModel
 >;
 
 export const generateOpenBankingOverviewContract: ContractSpec<
-  OpenBankingOverviewInput,
-  OpenBankingOverviewOutput
+  typeof OpenBankingOverviewInputModel,
+  typeof OpenBankingOverviewOutputModel
 > = {
   meta: {
     name: 'pfo.openbanking.generate-overview',
     version: 1,
     kind: 'command',
-    title: 'Generate Open Banking Overview',
     description:
       'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
-    domain: 'finance',
+    goal: 'Create a periodic financial snapshot.',
+    context: 'Aggregates data from open banking integration into a document.',
     owners: [OwnersEnum.PlatformFinance],
     tags: ['open-banking', 'summary', TagsEnum.Automation],
     stability: StabilityEnum.Experimental,
   },
   io: {
-    input: OpenBankingOverviewInput,
-    output: OpenBankingOverviewOutput,
+    input: OpenBankingOverviewInputModel,
+    output: OpenBankingOverviewOutputModel,
   },
   policy: {
-    auth: {
-      scopes: ['openbanking:derive'],
-    },
+    auth: 'user',
   },
   telemetry: {
-    events: [
-      {
+    success: {
+      event: {
         name: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
-        description:
-          'Derived financial overview generated from Powens banking data.',
+        version: 1,
       },
-    ],
+    },
   },
 };
 
@@ -336,3 +403,4 @@ export const pocketFamilyOfficeContracts = {
   'pfo.openbanking.generate-overview': generateOpenBankingOverviewContract,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } satisfies Record<string, ContractSpec<any, any>>;
+

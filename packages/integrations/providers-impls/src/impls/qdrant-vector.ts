@@ -86,7 +86,7 @@ export class QdrantVectorProvider implements VectorStoreProvider {
   async delete(request: VectorDeleteRequest): Promise<void> {
     await this.client.delete(request.collection, {
       wait: true,
-      points: { ids: request.ids },
+      points: request.ids,
     });
   }
 

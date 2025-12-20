@@ -1,5 +1,5 @@
 /**
- * deps.analyze tool, exposed as a ContractSpec command.
+ * deps-analyze tool, exposed as a ContractSpec command.
  */
 
 import {
@@ -54,7 +54,7 @@ export function registerDepsTools(
     },
     io: { input: DepsAnalyzeInput, output: DepsAnalyzeOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'deps.analyze' } },
+    transport: { mcp: { toolName: 'deps-analyze' } },
   });
 
   installOp(reg, cmd, async (args) => {

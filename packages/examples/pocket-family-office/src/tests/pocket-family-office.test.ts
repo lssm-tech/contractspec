@@ -1,29 +1,31 @@
 import { describe, expect, it } from 'bun:test';
 import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
 import {
-  registerMistralIntegration,
-  registerQdrantIntegration,
-  registerStripeIntegration,
-  registerPostmarkIntegration,
+  registerElevenLabsIntegration,
   registerGcsStorageIntegration,
   registerGmailIntegration,
   registerGoogleCalendarIntegration,
-  registerElevenLabsIntegration,
-  registerTwilioSmsIntegration,
+  registerMistralIntegration,
+  registerPostmarkIntegration,
   registerPowensIntegration,
+  registerQdrantIntegration,
+  registerStripeIntegration,
+  registerTwilioSmsIntegration,
 } from '@lssm/lib.contracts/integrations/providers';
 import { composeAppConfig } from '@lssm/lib.contracts/app-config/runtime';
 import { validateTenantConfig } from '@lssm/lib.contracts/app-config/validation';
-import { KnowledgeSpaceRegistry } from '@lssm/lib.contracts/knowledge/spec';
 import {
-  registerFinancialDocsKnowledgeSpace,
+  KnowledgeSpaceRegistry,
   registerEmailThreadsKnowledgeSpace,
+  registerFinancialDocsKnowledgeSpace,
   registerFinancialOverviewKnowledgeSpace,
-} from '@lssm/lib.contracts/knowledge/spaces';
-import { DocumentProcessor } from '@lssm/lib.knowledge/ingestion/document-processor';
-import { EmbeddingService } from '@lssm/lib.knowledge/ingestion/embedding-service';
-import { VectorIndexer } from '@lssm/lib.knowledge/ingestion/vector-indexer';
-import { KnowledgeQueryService } from '@lssm/lib.knowledge/query/service';
+} from '@lssm/lib.contracts/knowledge';
+import {
+  DocumentProcessor,
+  EmbeddingService,
+  KnowledgeQueryService,
+  VectorIndexer,
+} from '@lssm/lib.knowledge';
 import type {
   EmbeddingDocument,
   EmbeddingProvider,
@@ -200,7 +202,7 @@ describe('Pocket Family Office configuration', () => {
     const answer = await queryService.query('What invoices are due next week?');
 
     expect(answer.answer).toContain('Invoice #2025-01');
-    expect(answer.references[0].text).toContain('Solar Co-op');
+    expect(answer.references?.[0]?.text).toContain('Solar Co-op');
     expect(answer.usage?.totalTokens).toBeGreaterThan(0);
   });
 });
@@ -296,10 +298,11 @@ class InMemoryVectorStore implements VectorStoreProvider {
 class FakeLLMProvider implements LLMProvider {
   async chat(messages: LLMMessage[]): Promise<LLMResponse> {
     const last = messages[messages.length - 1];
-    const context = last.content
-      .map((part) => ('text' in part ? part.text : ''))
-      .join('\n');
-    const responseText = `Summary:\n${context
+    const context =
+      last?.content
+        .map((part) => ('text' in part ? part.text : ''))
+        .join('\n') || '';
+    const responseText = `Summary:\n${(context || '')
       .split('\n')
       .filter((line) => line.includes('Invoice'))
       .join('\n')}`;
@@ -345,9 +348,12 @@ function cosineSimilarity(a: number[], b: number[]): number {
   let normA = 0;
   let normB = 0;
   for (let i = 0; i < min; i += 1) {
-    dot += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    dot += a[i]! * b[i]!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    normA += a[i]! * a[i]!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    normB += b[i]! * b[i]!;
   }
   const denominator = Math.sqrt(normA) * Math.sqrt(normB);
   return denominator === 0 ? 0 : dot / denominator;

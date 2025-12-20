@@ -724,6 +724,7 @@
       "version": "1.41.1",
       "dependencies": {
         "@lssm/lib.contracts": "workspace:*",
+        "@lssm/lib.knowledge": "workspace:*",
         "@lssm/lib.schema": "workspace:*",
         "zod": "catalog:",
       },

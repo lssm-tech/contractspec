@@ -72,7 +72,7 @@ export function registerSpecsTools(
     },
     io: { input: SpecsValidateInput, output: SpecsValidateOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'specs.validate' } },
+    transport: { mcp: { toolName: 'specs-validate' } },
   });
 
   installOp(reg, validateSpecCmd, async (args) => {
@@ -97,7 +97,7 @@ export function registerSpecsTools(
     },
     io: { input: SpecsListInput, output: SpecsListOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'specs.list' } },
+    transport: { mcp: { toolName: 'specs-list' } },
   });
 
   installOp(reg, listSpecsCmd, async (args) => {

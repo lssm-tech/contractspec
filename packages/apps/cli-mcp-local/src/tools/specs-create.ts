@@ -66,7 +66,7 @@ export function registerSpecsCreateTool(
     },
     io: { input: SpecsCreateInput, output: SpecsCreateOutput },
     policy: { auth: 'anonymous' },
-    transport: { mcp: { toolName: 'specs.create' } },
+    transport: { mcp: { toolName: 'specs-create' } },
   });
 
   installOp(reg, cmd, async (args) => {
