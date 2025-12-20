@@ -28,7 +28,7 @@ export * from './events';
 export const importFromOpenApi = (
   parseResult: ParseResult,
   contractspecOptions: ContractsrcConfig,
-  importOptions: OpenApiSourceConfig
+  importOptions: Partial<OpenApiSourceConfig> = {}
 ): ImportResult => {
   const { tags, exclude = [], include } = importOptions;
   const specs: ImportedSpec[] = [];
@@ -224,7 +224,7 @@ export const importFromOpenApi = (
  */
 export function importOperation(
   operation: ParsedOperation,
-  options: OpenApiSourceConfig,
+  options: Partial<OpenApiSourceConfig> = {},
   contractspecOptions: ContractsrcConfig
 ): string {
   const { schema: inputSchema } = buildInputSchema(operation);

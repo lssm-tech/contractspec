@@ -17,7 +17,7 @@ import type {
 export function generateSpecCode(
   operation: ParsedOperation,
   contractspecConfig: ContractsrcConfig,
-  options: OpenApiSourceConfig,
+  options: Partial<OpenApiSourceConfig> = {},
   inputModel: GeneratedModel | null,
   outputModel: GeneratedModel | null
 ): string {
