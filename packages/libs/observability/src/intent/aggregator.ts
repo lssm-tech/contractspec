@@ -94,6 +94,9 @@ export class IntentAggregator {
     }
 
     return [...groups.values()].map((group) => {
+      const first = group[0];
+      if (!first) throw new Error('Empty group in aggregation');
+
       const durations = group.map((s) => s.durationMs).sort((a, b) => a - b);
       const errors = group.filter((s) => !s.success);
       const totalCalls = group.length;
@@ -104,7 +107,7 @@ export class IntentAggregator {
       }, {});
       const timestamps = group.map((s) => s.timestamp.getTime());
       return {
-        operation: group[0]!.operation,
+        operation: first.operation,
         totalCalls,
         successRate: (totalCalls - errors.length) / totalCalls,
         errorRate: errors.length / totalCalls,
@@ -130,7 +133,7 @@ export class IntentAggregator {
     }
 
     const sequences: Record<string, OperationSequence> = {};
-    for (const [traceId, events] of byTrace.entries()) {
+    for (const events of byTrace.values()) {
       const ordered = events.sort(
         (a, b) => a.timestamp.getTime() - b.timestamp.getTime()
       );
@@ -155,7 +158,7 @@ export class IntentAggregator {
 
 function percentile(values: number[], ratio: number) {
   if (!values.length) return 0;
-  if (values.length === 1) return values[0]!;
+  if (values.length === 1) return values[0] ?? 0;
   const index = Math.min(values.length - 1, Math.floor(ratio * values.length));
-  return values[index]!;
+  return values[index] ?? 0;
 }

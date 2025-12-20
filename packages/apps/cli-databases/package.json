@@ -10,7 +10,8 @@
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
     "build": "tsdown",
-    "dev": "bun run build --watch"
+    "dev": "bun run build --watch",
+    "lint": "eslint src --fix"
   },
   "dependencies": {
     "minimist": "^1.2.8",

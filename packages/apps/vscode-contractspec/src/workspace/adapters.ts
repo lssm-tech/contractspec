@@ -7,14 +7,13 @@
 import * as vscode from 'vscode';
 import {
   createNodeAdapters,
-  loadWorkspaceConfig,
-  getWorkspaceInfo,
-  findWorkspaceRoot,
   findPackageRoot,
-  detectPackageManager,
+  findWorkspaceRoot,
+  getWorkspaceInfo,
+  loadWorkspaceConfig,
+  type PackageManager,
   type WorkspaceAdapters,
   type WorkspaceInfo,
-  type PackageManager,
 } from '@lssm/bundle.contractspec-workspace';
 
 /**
@@ -158,4 +157,4 @@ export function formatWorkspaceInfoForDisplay(): string {
 }
 
 // Re-export types
-export type { WorkspaceInfo, PackageManager };
+export type { WorkspaceInfo, PackageManager, WorkspaceAdapters };

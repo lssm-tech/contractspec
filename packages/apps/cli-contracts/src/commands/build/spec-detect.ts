@@ -63,7 +63,7 @@ export function extractMetaValue(
   specCode: string,
   field: string
 ): string | null {
-  const regex = new RegExp(`${field}\\s*:\\s*['\\"]([^'\\"]+)['\\"]`);
+  const regex = new RegExp(`${field}\\s*:\\s*['"]([^'"]+)['"]`);
   const match = specCode.match(regex);
   if (match && typeof match[1] === 'string' && match[1].length > 0) {
     return match[1];
@@ -78,7 +78,7 @@ export function extractOperationKind(
   if (/defineCommand\s*\(/.test(specCode)) return 'command';
   if (/defineQuery\s*\(/.test(specCode)) return 'query';
   // Fall back to explicit kind field
-  const match = specCode.match(/kind\s*:\s*['\"](command|query)['\"]/);
+  const match = specCode.match(/kind\s*:\s*['"](command|query)['"]/);
   return match ? (match[1] as 'command' | 'query') : null;
 }
 
@@ -103,7 +103,7 @@ export function extractDataViewExportName(specCode: string): string | null {
 
 export function extractDataViewKind(specCode: string): string | null {
   const match = specCode.match(
-    /view\\s*:\\s*{[\\s\\S]*?kind:\\s*['\\"]([^'\\"]+)['\\"]/
+    /view\\s*:\\s*{[\\s\\S]*?kind:\\s*['"]([^'"]+)['"]/
   );
   return match ? (match[1] ?? null) : null;
 }

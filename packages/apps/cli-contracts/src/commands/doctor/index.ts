@@ -11,8 +11,6 @@ import ora from 'ora';
 import { confirm, input, password } from '@inquirer/prompts';
 import {
   runDoctor,
-  formatDoctorSummary,
-  formatCheckResult,
   ALL_CHECK_CATEGORIES,
   CHECK_CATEGORY_LABELS,
   createNodeFsAdapter,
@@ -22,7 +20,6 @@ import {
   isMonorepo,
   getPackageName,
   type CheckCategory,
-  type DoctorPromptCallbacks,
 } from '@lssm/bundle.contractspec-workspace';
 
 /**
@@ -42,23 +39,6 @@ function parseCategories(value: string): CheckCategory[] {
   }
 
   return categories;
-}
-
-/**
- * Create CLI prompt callbacks.
- */
-function createCliPrompts(): DoctorPromptCallbacks {
-  return {
-    confirm: async (message: string) => {
-      return confirm({ message });
-    },
-    input: async (message: string, options?: { password?: boolean }) => {
-      if (options?.password) {
-        return password({ message, mask: '*' });
-      }
-      return input({ message });
-    },
-  };
 }
 
 export const doctorCommand = new Command('doctor')

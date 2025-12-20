@@ -3,15 +3,12 @@
  * Leverages Windsurf AI capabilities and Cursor IDE integration for code generation and validation
  */
 
-import { exec, spawn } from 'child_process';
+import { spawn } from 'child_process';
 import { mkdir, readFile, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { homedir, tmpdir } from 'os';
 import { existsSync } from 'fs';
-import { promisify } from 'util';
 import type { AgentProvider, AgentResult, AgentTask } from './types';
-
-const execAsync = promisify(exec);
 
 export class CursorAgent implements AgentProvider {
   name = 'cursor' as const;
@@ -24,7 +21,7 @@ export class CursorAgent implements AgentProvider {
     this.detectEnvironment();
   }
 
-  canHandle(task: AgentTask): boolean {
+  canHandle(_task: AgentTask): boolean {
     return this.isCursorAvailable();
   }
 
@@ -149,7 +146,7 @@ export class CursorAgent implements AgentProvider {
         if (result.success) {
           return result;
         }
-      } catch (error) {
+      } catch (_error) {
         // Try next method
         continue;
       }
@@ -301,22 +298,26 @@ export class CursorAgent implements AgentProvider {
     return new Promise((resolve, reject) => {
       // Launch Cursor with the workspace
       const args = ['--wait', '--new-window', workDir];
+      const cursorPath = this.cursorPath;
+      if (!cursorPath) {
+        return reject(new Error('Cursor executable not found'));
+      }
 
-      const cursor = spawn(this.cursorPath!, args, {
+      const cursor = spawn(cursorPath, args, {
         cwd: workDir,
         stdio: 'pipe',
         detached: false,
       });
 
-      let stdout = '';
-      let stderr = '';
+      const _stdout = '';
+      const _stderr = '';
 
-      cursor.stdout?.on('data', (data) => {
-        stdout += data.toString();
+      cursor.stdout?.on('data', () => {
+        // stdout += data.toString();
       });
 
-      cursor.stderr?.on('data', (data) => {
-        stderr += data.toString();
+      cursor.stderr?.on('data', () => {
+        // stderr += data.toString();
       });
 
       cursor.on('error', (error) => {
@@ -337,7 +338,7 @@ export class CursorAgent implements AgentProvider {
                 exitCode: code,
               },
             });
-          } catch (error) {
+          } catch (_error) {
             reject(new Error('Failed to read generated output'));
           }
         } else {
@@ -434,7 +435,7 @@ Workspace path: ${workDir}
    */
   private async prepareFilesForAPI(
     task: AgentTask,
-    workDir: string
+    _workDir: string
   ): Promise<{ path: string; content: string }[]> {
     const files = [{ path: 'spec.ts', content: task.specCode }];
 

@@ -8,7 +8,6 @@
 import * as vscode from 'vscode';
 import {
   scanAllSpecsFromSource,
-  type SpecScanResult,
   type AnalyzedSpecType,
 } from '@lssm/module.contractspec-workspace';
 

@@ -11,6 +11,7 @@ import { readFileSync, existsSync } from 'fs';
 import type { VerificationTier } from '@lssm/lib.contracts/llm';
 import { createVerifyService } from '@lssm/bundle.contractspec-workspace';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function loadSpec(specPath: string): Promise<any> {
   const fullPath = resolve(process.cwd(), specPath);
 
@@ -20,7 +21,7 @@ async function loadSpec(specPath: string): Promise<any> {
 
   try {
     const module = await import(fullPath);
-    for (const [key, value] of Object.entries(module)) {
+    for (const [, value] of Object.entries(module)) {
       if (
         value &&
         typeof value === 'object' &&
@@ -103,6 +104,7 @@ export const verifyLLMCommand = new Command('verify')
 
       if (options.json) {
         // Convert Map to plain object for JSON
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const reports: Record<string, any> = {};
         for (const [tier, report] of result.reports) {
           reports[tier] = report;

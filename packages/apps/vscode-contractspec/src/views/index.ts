@@ -3,11 +3,7 @@
  */
 
 import * as vscode from 'vscode';
-import {
-  SpecsTreeDataProvider,
-  SpecTreeItem,
-  SpecsGroupingMode,
-} from './specs-tree';
+import { SpecsTreeDataProvider, SpecTreeItem } from './specs-tree';
 import { DependenciesTreeDataProvider } from './deps-tree';
 import { BuildResultsTreeDataProvider } from './build-results-tree';
 import {
@@ -60,7 +56,7 @@ export function registerViews(
   );
 
   // Register spec context menu actions
-  registerSpecContextActions(context, specsProvider);
+  registerSpecContextActions(context);
 
   // Dependencies View
   const depsProvider = new DependenciesTreeDataProvider();
@@ -111,10 +107,7 @@ export function registerViews(
 /**
  * Register context menu actions for spec items.
  */
-function registerSpecContextActions(
-  context: vscode.ExtensionContext,
-  specsProvider: SpecsTreeDataProvider
-): void {
+function registerSpecContextActions(context: vscode.ExtensionContext): void {
   // Reveal in File Explorer
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -137,10 +130,8 @@ function registerSpecContextActions(
           vscode.env.clipboard.writeText(item.data.name);
           vscode.window.showInformationMessage(`Copied: ${item.data.name}`);
         } else if (item.label) {
-          const name =
-            typeof item.label === 'string' ? item.label : item.label.label;
-          vscode.env.clipboard.writeText(name);
-          vscode.window.showInformationMessage(`Copied: ${name}`);
+          vscode.env.clipboard.writeText(item.label);
+          vscode.window.showInformationMessage(`Copied: ${item.label}`);
         }
       }
     )

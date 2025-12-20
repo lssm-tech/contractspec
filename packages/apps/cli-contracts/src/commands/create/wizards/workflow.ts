@@ -215,8 +215,8 @@ function buildSequentialTransitions(
   const transitions: WorkflowTransitionData[] = [];
   for (let i = 0; i < steps.length - 1; i++) {
     transitions.push({
-      from: steps[i]!.id,
-      to: steps[i + 1]!.id,
+      from: (steps[i] as WorkflowStepData).id,
+      to: (steps[i + 1] as WorkflowStepData).id,
     });
   }
   return transitions;

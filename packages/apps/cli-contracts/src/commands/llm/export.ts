@@ -6,10 +6,9 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { resolve, basename } from 'path';
+import { resolve } from 'path';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import {
-  exportSpec,
   specToContextMarkdown,
   specToFullMarkdown,
   specToAgentPrompt,
@@ -18,6 +17,7 @@ import {
 
 async function loadSpec(
   specPath: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<{ spec: any; code: string }> {
   const fullPath = resolve(process.cwd(), specPath);
 
@@ -31,7 +31,7 @@ async function loadSpec(
   try {
     const module = await import(fullPath);
     // Find the first exported spec-like object
-    for (const [key, value] of Object.entries(module)) {
+    for (const [, value] of Object.entries(module)) {
       if (
         value &&
         typeof value === 'object' &&
@@ -70,7 +70,7 @@ export const exportLLMCommand = new Command('export')
     try {
       console.log(chalk.blue(`\n📄 Exporting ${specFile}...\n`));
 
-      const { spec, code } = await loadSpec(specFile);
+      const { spec } = await loadSpec(specFile);
       const format = options.format as LLMExportFormat;
 
       let markdown: string;

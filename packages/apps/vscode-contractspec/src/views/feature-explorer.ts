@@ -122,7 +122,7 @@ export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureE
       return this.result.features.map((feature) => ({
         type: 'feature' as const,
         feature,
-        result: this.result!,
+        result: this.result as IntegrityAnalysisResult,
       }));
     }
 

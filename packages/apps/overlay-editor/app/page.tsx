@@ -5,33 +5,11 @@ export default function Page() {
     <main>
       <header>
         <h1>Overlay Editor</h1>
-        <p>Create tenant overlays, preview JSON, and sign payloads in one place.</p>
+        <p>
+          Create tenant overlays, preview JSON, and sign payloads in one place.
+        </p>
       </header>
       <OverlayEditorClient />
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

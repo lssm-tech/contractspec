@@ -15,6 +15,7 @@ import {
   type LLMExportFormat,
 } from '@lssm/lib.contracts/llm';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function loadSpec(specPath: string): Promise<any> {
   const fullPath = resolve(process.cwd(), specPath);
 
@@ -24,7 +25,7 @@ async function loadSpec(specPath: string): Promise<any> {
 
   try {
     const module = await import(fullPath);
-    for (const [key, value] of Object.entries(module)) {
+    for (const [, value] of Object.entries(module)) {
       if (
         value &&
         typeof value === 'object' &&

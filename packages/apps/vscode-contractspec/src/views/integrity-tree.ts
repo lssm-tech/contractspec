@@ -316,7 +316,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
         if (!issuesByType.has(issue.type)) {
           issuesByType.set(issue.type, []);
         }
-        issuesByType.get(issue.type)!.push(issue);
+        issuesByType.get(issue.type)?.push(issue);
       }
 
       return Array.from(issuesByType.entries()).map(([issueType, issues]) => ({

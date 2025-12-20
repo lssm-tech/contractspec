@@ -22,7 +22,7 @@ interface TargetResult {
 
 export class BuildResultsTreeDataProvider implements vscode.TreeDataProvider<BuildResultTreeItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
-    BuildResultTreeItem | undefined | null | void
+    BuildResultTreeItem | undefined | null
   >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
@@ -54,7 +54,7 @@ export class BuildResultsTreeDataProvider implements vscode.TreeDataProvider<Bui
       this.buildResults = this.buildResults.slice(0, 20);
     }
 
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   /**
@@ -62,7 +62,7 @@ export class BuildResultsTreeDataProvider implements vscode.TreeDataProvider<Bui
    */
   clear(): void {
     this.buildResults = [];
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   /**
@@ -170,7 +170,7 @@ export class BuildResultTreeItem extends vscode.TreeItem {
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly contextValue: string,
-    public readonly data?: any,
+    public readonly data?: BuildResult | TargetResult,
     public readonly description?: string
   ) {
     super(label, collapsibleState);

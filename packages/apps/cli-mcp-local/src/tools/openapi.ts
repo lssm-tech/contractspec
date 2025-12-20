@@ -10,9 +10,8 @@ import {
 } from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
 import {
-  parseOpenApi,
   importFromOpenApi,
-  openApiForRegistry,
+  parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
 import type { WorkspaceAdapters } from '../server';
 

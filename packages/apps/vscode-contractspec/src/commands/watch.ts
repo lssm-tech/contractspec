@@ -9,6 +9,7 @@ import { getWorkspaceAdapters } from '../workspace/adapters';
 import { buildSpec, validateSpec } from '@lssm/bundle.contractspec-workspace';
 
 interface WatchState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   watcher: any | null;
   enabled: boolean;
   validateOnChange: boolean;
@@ -83,6 +84,7 @@ async function startWatchMode(
     });
 
     // Set up event handler
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     watchState.watcher.on(async (event: any) => {
       if (event.type === 'change') {
         outputChannel.appendLine(`\n📝 Changed: ${event.path}`);

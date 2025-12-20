@@ -18,6 +18,7 @@ import {
   loadWorkspaceConfig,
   resolveImplementations,
   type SpecImplementationResult,
+  type SpecScanResult,
 } from '@lssm/bundle.contractspec-workspace';
 
 /**
@@ -41,17 +42,6 @@ const GROUPING_MODE_LABELS: Record<SpecsGroupingMode, string> = {
   [SpecsGroupingMode.STABILITY]: 'Group by Stability',
 };
 
-interface SpecInfo {
-  name?: string;
-  filePath: string;
-  specType: string;
-  version?: number;
-  stability?: string;
-  description?: string;
-  owners?: string[];
-  tags?: string[];
-}
-
 /**
  * Implementation status for a spec.
  */
@@ -60,7 +50,7 @@ type ImplementationStatus = 'implemented' | 'partial' | 'missing' | 'unknown';
 /**
  * Extended spec info with package context.
  */
-interface SpecWithPackage extends SpecInfo {
+interface SpecWithPackage extends SpecScanResult {
   /**
    * Package name (for monorepo grouping).
    */
@@ -89,7 +79,7 @@ interface SpecWithPackage extends SpecInfo {
 
 export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
-    SpecTreeItem | undefined | null | void
+    SpecTreeItem | undefined | null
   >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
@@ -154,7 +144,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       vscode.ConfigurationTarget.Workspace
     );
 
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   /**
@@ -177,9 +167,10 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       mode,
     }));
 
-    const selected = await vscode.window.showQuickPick(items, {
+    const selected = (await vscode.window.showQuickPick(items, {
       placeHolder: 'Select grouping mode',
-    });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    })) as any;
 
     if (selected) {
       await this.setGroupingMode(selected.mode);
@@ -205,7 +196,8 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
         wsConfig = await loadWorkspaceConfig(adapters.fs);
       } catch {
         // Use default config if not found
-        wsConfig = { pattern: '**/*.contracts.ts', outputDir: './src' };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        wsConfig = { pattern: '**/*.contracts.ts', outputDir: './src' } as any;
       }
 
       this.specs = await Promise.all(
@@ -258,11 +250,11 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
         })
       );
 
-      this._onDidChangeTreeData.fire();
+      this._onDidChangeTreeData.fire(undefined);
     } catch (error) {
       console.error('Failed to refresh specs:', error);
       this.specs = [];
-      this._onDidChangeTreeData.fire();
+      this._onDidChangeTreeData.fire(undefined);
     }
   }
 
@@ -284,7 +276,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
 
     if (element.contextValue === 'group') {
       // Return specs within this group
-      return this.getSpecsInGroup(element.data);
+      return this.getSpecsInGroup(element.data as GroupData);
     }
 
     return [];
@@ -420,7 +412,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       if (!packages.has(pkgName)) {
         packages.set(pkgName, []);
       }
-      packages.get(pkgName)!.push(spec);
+      packages.get(pkgName)?.push(spec);
     }
 
     return Array.from(packages.entries())
@@ -447,7 +439,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       if (!namespaces.has(ns)) {
         namespaces.set(ns, []);
       }
-      namespaces.get(ns)!.push(spec);
+      namespaces.get(ns)?.push(spec);
     }
 
     return Array.from(namespaces.entries())
@@ -475,14 +467,14 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
           if (!owners.has(owner)) {
             owners.set(owner, []);
           }
-          owners.get(owner)!.push(spec);
+          owners.get(owner)?.push(spec);
         }
       } else {
         const noOwner = '(no owner)';
         if (!owners.has(noOwner)) {
           owners.set(noOwner, []);
         }
-        owners.get(noOwner)!.push(spec);
+        owners.get(noOwner)?.push(spec);
       }
     }
 
@@ -511,14 +503,14 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
           if (!tags.has(tag)) {
             tags.set(tag, []);
           }
-          tags.get(tag)!.push(spec);
+          tags.get(tag)?.push(spec);
         }
       } else {
         const noTag = '(no tags)';
         if (!tags.has(noTag)) {
           tags.set(noTag, []);
         }
-        tags.get(noTag)!.push(spec);
+        tags.get(noTag)?.push(spec);
       }
     }
 
@@ -554,7 +546,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       if (!stabilities.has(stability)) {
         stabilities.set(stability, []);
       }
-      stabilities.get(stability)!.push(spec);
+      stabilities.get(stability)?.push(spec);
     }
 
     return Array.from(stabilities.entries())

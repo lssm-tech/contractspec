@@ -10,7 +10,6 @@ import {
   getWorkspaceConfig,
 } from '../workspace/adapters';
 import {
-  syncSpecs,
   validateSpec,
   buildSpec,
   listSpecs,

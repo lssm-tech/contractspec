@@ -18,7 +18,7 @@ import {
   InMemoryConversationStore,
 } from '@lssm/module.ai-chat/core';
 import type { Config } from '../../utils/config';
-import { input, select, confirm } from '@inquirer/prompts';
+import { input, select } from '@inquirer/prompts';
 
 /**
  * Default system prompt for ContractSpec CLI chat
@@ -165,12 +165,12 @@ async function runChat(
         });
 
         conversationId = result.conversationId;
-        let fullResponse = '';
+        // let fullResponse = '';
 
         for await (const chunk of result.stream) {
           if (chunk.type === 'text' && chunk.content) {
             process.stdout.write(chunk.content);
-            fullResponse += chunk.content;
+            // fullResponse += chunk.content;
           } else if (chunk.type === 'error' && chunk.error) {
             console.log(chalk.red(`\nError: ${chunk.error.message}`));
           }

@@ -4,22 +4,25 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import { analyzeDeps } from '@lssm/bundle.contractspec-workspace';
+import {
+  analyzeDeps,
+  type ContractNode,
+} from '@lssm/bundle.contractspec-workspace';
 
-interface DependencyNode {
-  name: string;
-  filePath: string;
-  dependencies: string[];
-  isCircular?: boolean;
-}
+// ... (skipping class parts for now, focusing on TreeItem constructor usage)
+
+// We need to update usages in the file too.
+
+// Let's do a multi_replace for this file if possible, or just replace chunks.
+// I will replace the Interface first.
 
 export class DependenciesTreeDataProvider implements vscode.TreeDataProvider<DependencyTreeItem> {
   private _onDidChangeTreeData = new vscode.EventEmitter<
-    DependencyTreeItem | undefined | null | void
+    DependencyTreeItem | undefined | null
   >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
-  private dependencyGraph = new Map<string, DependencyNode>();
+  private dependencyGraph = new Map<string, ContractNode>();
   private circularDeps: string[][] = [];
 
   constructor() {
@@ -38,12 +41,12 @@ export class DependenciesTreeDataProvider implements vscode.TreeDataProvider<Dep
 
       this.dependencyGraph = result.graph;
       this.circularDeps = result.cycles || [];
-      this._onDidChangeTreeData.fire();
+      this._onDidChangeTreeData.fire(undefined);
     } catch (error) {
       console.error('Failed to refresh dependencies:', error);
       this.dependencyGraph = new Map();
       this.circularDeps = [];
-      this._onDidChangeTreeData.fire();
+      this._onDidChangeTreeData.fire(undefined);
     }
   }
 
@@ -105,8 +108,8 @@ export class DependenciesTreeDataProvider implements vscode.TreeDataProvider<Dep
       });
     } else if (element.contextValue === 'spec' && element.data) {
       // Show dependencies of this spec
-      const node = element.data as DependencyNode;
-      return node.dependencies.map((depName) => {
+      const node = element.data as ContractNode;
+      return node.dependencies.map((depName: string) => {
         const depNode = this.dependencyGraph.get(depName);
         const collapsible =
           depNode && depNode.dependencies.length > 0
@@ -134,20 +137,25 @@ export class DependencyTreeItem extends vscode.TreeItem {
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly contextValue: string,
-    public readonly data?: any,
+    public readonly data?: ContractNode | { cycle: string[] },
     public readonly isCircular?: boolean
   ) {
     super(label, collapsibleState);
 
     if (contextValue === 'spec' || contextValue === 'dependency') {
-      if (data && data.filePath) {
-        this.tooltip = data.filePath;
-        this.resourceUri = vscode.Uri.file(data.filePath);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const nodeData = data as any;
+      const path = nodeData?.path || nodeData?.filePath || nodeData?.file || '';
+      if (path) {
+        this.tooltip = path;
+        this.resourceUri = vscode.Uri.file(path);
         this.command = {
           command: 'vscode.open',
           title: 'Open Spec',
           arguments: [this.resourceUri],
         };
+      } else {
+        this.tooltip = label; // Fallback
       }
 
       if (isCircular) {
@@ -155,7 +163,12 @@ export class DependencyTreeItem extends vscode.TreeItem {
           'error',
           new vscode.ThemeColor('errorForeground')
         );
-      } else if (data && data.dependencies && data.dependencies.length > 0) {
+      } else if (
+        data &&
+        'dependencies' in data &&
+        data.dependencies &&
+        data.dependencies.length > 0
+      ) {
         this.iconPath = new vscode.ThemeIcon('symbol-interface');
       } else {
         this.iconPath = new vscode.ThemeIcon('symbol-file');

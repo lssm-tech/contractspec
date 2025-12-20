@@ -151,7 +151,7 @@ function outputSarif(
             ],
           },
         },
-        results: allIssues.map((issue, idx) => ({
+        results: allIssues.map((issue) => ({
           ruleId: 'impl-verify',
           level:
             issue.severity === 'error'

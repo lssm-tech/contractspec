@@ -99,11 +99,9 @@ export const diffCommand = new Command('diff')
       }
 
       // text diff
-      let aContent: string;
+      const aContent = await adapters.fs.readFile(aPath);
       let bContent: string;
       let actualBPath: string;
-
-      aContent = await adapters.fs.readFile(aPath);
 
       if (baseline) {
         bContent = await adapters.git.showFile(baseline, aPath);

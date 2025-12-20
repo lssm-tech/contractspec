@@ -57,6 +57,7 @@ export interface DemoAssistantHandlers {
  */
 export function createDemoAssistantHandlers(): DemoAssistantHandlers {
   async function answer(input: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     envelope: DemoAssistantHandlers['answer'] extends (a: infer A) => any
       ? A extends { envelope: infer E }
         ? E
@@ -89,8 +90,8 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
 
     const draft: AssistantAnswerIR = {
       locale: env.value.locale,
-      jurisdiction: env.value.regulatoryContext!.jurisdiction!,
-      allowedScope: env.value.allowedScope!,
+      jurisdiction: env.value.regulatoryContext?.jurisdiction ?? 'UNKNOWN',
+      allowedScope: env.value.allowedScope ?? 'education_only',
       sections: [
         {
           heading: 'Answer (demo)',
@@ -99,7 +100,7 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
       ],
       citations: [
         {
-          kbSnapshotId: env.value.kbSnapshotId!,
+          kbSnapshotId: env.value.kbSnapshotId ?? 'unknown',
           sourceType: 'ruleVersion',
           sourceId: 'rv_demo',
           title: 'Demo rule version',
@@ -142,7 +143,7 @@ export function createDemoAssistantHandlers(): DemoAssistantHandlers {
   async function explainConcept(input: {
     envelope: DemoAssistantHandlers['explainConcept'] extends (
       a: infer A
-    ) => any
+    ) => any // eslint-disable-line @typescript-eslint/no-explicit-any
       ? A extends { envelope: infer E }
         ? E
         : never

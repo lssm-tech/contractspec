@@ -13,7 +13,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onClear,
   disabled = false,
   className = '',
-  autoFocus = false,
 }) => {
   const handleClear = () => {
     onChange('');
@@ -32,7 +31,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         onChange={(e) => onChange(e.nativeEvent.text)}
         placeholder={placeholder}
         editable={!disabled}
-        autoFocus={autoFocus}
         className="pr-10 pl-10"
       />
 

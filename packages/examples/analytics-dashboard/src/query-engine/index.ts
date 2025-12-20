@@ -182,13 +182,22 @@ export class BasicQueryEngine implements IQueryEngine {
     let result: QueryResult;
     switch (definition.type) {
       case 'AGGREGATION':
-        result = await this.executeAggregation(definition.aggregation!, params);
+        if (!definition.aggregation) {
+          throw new Error('Aggregation definition is missing');
+        }
+        result = await this.executeAggregation(definition.aggregation, params);
         break;
       case 'METRIC':
-        result = await this.executeMetric(definition.metricIds!, params);
+        if (!definition.metricIds) {
+          throw new Error('Metric IDs are missing');
+        }
+        result = await this.executeMetric(definition.metricIds, params);
         break;
       case 'SQL':
-        result = await this.executeSql(definition.sql!, params);
+        if (!definition.sql) {
+          throw new Error('SQL query is missing');
+        }
+        result = await this.executeSql(definition.sql, params);
         break;
       default:
         result = {

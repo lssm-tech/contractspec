@@ -20,11 +20,13 @@ export function applyOverlayModifications<T extends OverlayRenderable>(
     return target;
   }
 
-  const states = target.fields.map<FieldState<any>>((field) => ({
-    key: field.key,
-    field: { ...field },
-    hidden: field.visible === false,
-  }));
+  const states = target.fields.map<FieldState<OverlayRenderableField>>(
+    (field) => ({
+      key: field.key,
+      field: { ...field },
+      hidden: field.visible === false,
+    })
+  );
 
   const fieldMap = new Map(states.map((state) => [state.key, state]));
   let orderSequence = target.fields.map((field) => field.key);
@@ -125,7 +127,7 @@ export function applyOverlayModifications<T extends OverlayRenderable>(
 
 function normalizeOrderList(
   fields: string[],
-  fieldMap: Map<string, FieldState<any>>
+  fieldMap: Map<string, FieldState<OverlayRenderableField>>
 ): { filtered: string[]; missing: string[] } {
   const filtered: string[] = [];
   const missing: string[] = [];

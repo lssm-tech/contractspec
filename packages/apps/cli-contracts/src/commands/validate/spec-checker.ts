@@ -232,7 +232,7 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
 function validatePresentationSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  _warnings: string[]
 ) {
   if (!code.match(/:\s*PresentationSpec\s*=/)) {
     errors.push('Missing PresentationSpec type annotation');

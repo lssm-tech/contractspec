@@ -18,12 +18,18 @@ async function main() {
   switch (cmd) {
     case 'import':
       for (const db of profile.databases) {
-        await execa('database', ['import', '--modules', db.modules.join(','), '--target', db.cwd], { stdio: 'inherit' });
+        await execa(
+          'database',
+          ['import', '--modules', db.modules.join(','), '--target', db.cwd],
+          { stdio: 'inherit' }
+        );
       }
       break;
     case 'check':
       for (const db of profile.databases) {
-        await execa('database', ['check', '--target', db.cwd], { stdio: 'inherit' });
+        await execa('database', ['check', '--target', db.cwd], {
+          stdio: 'inherit',
+        });
       }
       break;
     case 'generate':
@@ -42,7 +48,9 @@ async function main() {
       await runForEachDb(['db', 'seed']);
       break;
     default:
-      console.error('Usage: databases <import|check|generate|migrate:dev|migrate:deploy|migrate:status|seed> --profile <name>');
+      console.error(
+        'Usage: databases <import|check|generate|migrate:dev|migrate:deploy|migrate:status|seed> --profile <name>'
+      );
       process.exit(1);
   }
 }
@@ -51,5 +59,3 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-
-

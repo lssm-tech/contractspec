@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { tool, type Tool } from 'ai';
 import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';

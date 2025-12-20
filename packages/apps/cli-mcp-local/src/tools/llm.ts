@@ -15,11 +15,11 @@ import {
 } from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
 import {
+  type AgentType,
+  type LLMExportFormat,
+  specToAgentPrompt,
   specToContextMarkdown,
   specToFullMarkdown,
-  specToAgentPrompt,
-  type LLMExportFormat,
-  type AgentType,
   type VerificationTier,
 } from '@lssm/lib.contracts/llm';
 import {
@@ -109,10 +109,10 @@ const LLMVerifyOutput = defineSchemaModel({
   },
 });
 
-async function loadSpecFromPath(
+const loadSpecFromPath = async (
   specPath: string,
   adapters: WorkspaceAdapters
-): Promise<any> {
+) => {
   const path = await import('path');
   const fullPath = path.resolve(process.cwd(), specPath);
 
@@ -139,7 +139,7 @@ async function loadSpecFromPath(
       `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
     );
   }
-}
+};
 
 export function registerLLMTools(
   reg: SpecRegistry,

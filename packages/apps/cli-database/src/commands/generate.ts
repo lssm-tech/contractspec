@@ -1,5 +1,6 @@
 import { execa } from 'execa';
 
-export async function runGenerate(argv: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function runGenerate(_argv: any) {
   await execa('prisma', ['generate'], { stdio: 'inherit' });
 }

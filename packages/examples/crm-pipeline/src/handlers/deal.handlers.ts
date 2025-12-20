@@ -156,7 +156,10 @@ export async function mockMoveDealHandler(input: MoveDealInput): Promise<Deal> {
   if (dealIndex === -1) {
     throw new Error('NOT_FOUND');
   }
-  const deal = MOCK_DEALS[dealIndex]!;
+  const deal = MOCK_DEALS[dealIndex];
+  if (!deal) {
+    throw new Error('NOT_FOUND');
+  }
 
   const stage = MOCK_STAGES.find((s) => s.id === input.stageId);
   if (!stage) {
@@ -182,7 +185,7 @@ export async function mockWinDealHandler(input: WinDealInput): Promise<Deal> {
   if (dealIndex === -1) {
     throw new Error('NOT_FOUND');
   }
-  const deal = MOCK_DEALS[dealIndex]!;
+  const deal = MOCK_DEALS[dealIndex];
   if (!deal) {
     throw new Error('NOT_FOUND');
   }
@@ -206,7 +209,10 @@ export async function mockLoseDealHandler(input: LoseDealInput): Promise<Deal> {
   if (dealIndex === -1) {
     throw new Error('NOT_FOUND');
   }
-  const deal = MOCK_DEALS[dealIndex]!;
+  const deal = MOCK_DEALS[dealIndex];
+  if (!deal) {
+    throw new Error('NOT_FOUND');
+  }
 
   const updatedDeal: Deal = {
     ...deal,

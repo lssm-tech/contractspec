@@ -7,6 +7,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { getWorkspaceAdapters } from '../workspace/adapters';
+import type { WorkspaceAdapters } from '../workspace/adapters';
 import {
   parseOpenApi,
   importFromOpenApi,
@@ -184,7 +185,7 @@ export async function exportToOpenApi(
  * Find registry file in workspace.
  */
 async function findRegistryFile(
-  adapters: any,
+  adapters: WorkspaceAdapters,
   workspaceRoot: string
 ): Promise<string | null> {
   // Look for common registry file patterns

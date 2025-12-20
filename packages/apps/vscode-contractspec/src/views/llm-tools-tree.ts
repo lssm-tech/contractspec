@@ -225,7 +225,7 @@ export class LLMToolsTreeDataProvider implements vscode.TreeDataProvider<LLMTool
     const items: LLMToolTreeItem[] = [];
 
     switch (element.data.id) {
-      case 'current-spec':
+      case 'current-spec': {
         if (this.currentSpec) {
           const specName = path.basename(this.currentSpec, '.ts');
           const item = new LLMToolTreeItem(
@@ -251,8 +251,9 @@ export class LLMToolsTreeDataProvider implements vscode.TreeDataProvider<LLMTool
           items.push(item);
         }
         break;
+      }
 
-      case 'actions':
+      case 'actions': {
         // Export actions
         const exportFull = new LLMToolTreeItem(
           'Export Full Markdown',
@@ -349,8 +350,9 @@ export class LLMToolsTreeDataProvider implements vscode.TreeDataProvider<LLMTool
           items.push(cursorRules);
         }
         break;
+      }
 
-      case 'agents':
+      case 'agents': {
         const agents: {
           id: 'claude-code' | 'cursor-cli' | 'generic-mcp';
           label: string;
@@ -394,6 +396,7 @@ export class LLMToolsTreeDataProvider implements vscode.TreeDataProvider<LLMTool
           items.push(item);
         }
         break;
+      }
 
       case 'recent':
         for (const specPath of this.recentSpecs) {
@@ -435,7 +438,7 @@ export class LLMToolsTreeDataProvider implements vscode.TreeDataProvider<LLMTool
  */
 export function registerLLMToolsTree(
   context: vscode.ExtensionContext,
-  outputChannel: vscode.OutputChannel
+  _outputChannel: vscode.OutputChannel
 ): LLMToolsTreeDataProvider {
   const provider = new LLMToolsTreeDataProvider();
 
@@ -467,7 +470,7 @@ export function registerLLMToolsTree(
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'contractspec.llmExportQuick',
-      async (format: 'context' | 'full' | 'prompt') => {
+      async (_format: 'context' | 'full' | 'prompt') => {
         // Delegate to the main export command - it will handle the format selection
         await vscode.commands.executeCommand('contractspec.llmExport');
       }

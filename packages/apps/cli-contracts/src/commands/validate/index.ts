@@ -17,7 +17,6 @@ import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
 import type { BlueprintTranslationCatalog } from '@lssm/lib.contracts/translations/catalog';
 import {
   validateSpecStructure,
-  type WorkspaceConfig,
   createNodeAdapters,
   loadWorkspaceConfig,
   validateImplementationFiles,

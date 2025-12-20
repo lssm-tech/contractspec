@@ -32,10 +32,12 @@ export class RootCauseAnalyzer {
     let culprit: DeploymentEvent | undefined;
 
     if (candidates.length > 0) {
-      culprit = candidates[0]!;
-      notes.push(
-        `Closest deployment ${culprit.id} (${culprit.operation}) at ${culprit.deployedAt.toISOString()}`
-      );
+      culprit = candidates[0];
+      if (culprit) {
+        notes.push(
+          `Closest deployment ${culprit.id} (${culprit.operation}) at ${culprit.deployedAt.toISOString()}`
+        );
+      }
     } else {
       notes.push('No deployments found within lookback window.');
     }

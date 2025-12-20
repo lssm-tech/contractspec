@@ -327,14 +327,12 @@ export const generateOpenBankingOverviewContract: ContractSpec<
   },
 };
 
-export const pocketFamilyOfficeContracts: Record<
-  string,
-  ContractSpec<any, any>
-> = {
+export const pocketFamilyOfficeContracts = {
   'pfo.documents.upload': uploadDocumentContract,
   'pfo.reminders.schedule-payment': schedulePaymentReminderContract,
   'pfo.summary.generate': generateFinancialSummaryContract,
   'pfo.summary.dispatch': dispatchFinancialSummaryContract,
   'pfo.email.sync-threads': syncEmailThreadsContract,
   'pfo.openbanking.generate-overview': generateOpenBankingOverviewContract,
-};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} satisfies Record<string, ContractSpec<any, any>>;

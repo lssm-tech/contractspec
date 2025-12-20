@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import {
   listSpecs,
   createNodeAdapters,
-  type SpecScanResult,
 } from '@lssm/bundle.contractspec-workspace';
 import { getErrorMessage } from '../../utils/errors';
 import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';

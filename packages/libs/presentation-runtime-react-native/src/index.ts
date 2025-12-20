@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import type { DefaultValues, Resolver, UseFormReturn } from 'react-hook-form';
 import { useForm } from '@lssm/lib.ui-kit/ui/form';
@@ -58,7 +59,6 @@ export function usePresentationController<
 
   React.useEffect(() => {
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url.state.filters]);
 
   const submitFilters = form.handleSubmit((values) => {
@@ -111,7 +111,6 @@ export function usePresentationController<
             url.setFilter as any
           )
         : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [url.state.filters, toChips]
   );
 
@@ -185,7 +184,6 @@ export function useListCoordinator<
 
   React.useEffect(() => {
     form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url.state.filters]);
 
   const submitFilters = form.handleSubmit((values) => {
@@ -209,7 +207,6 @@ export function useListCoordinator<
             url.setFilter as any
           )
         : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [url.state.filters, toChips]
   );
 

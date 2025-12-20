@@ -14,9 +14,7 @@ import {
   createNodeAdapters,
   type CICheckCategory,
   type CICheckOptions,
-  type CIOutputFormat,
   ALL_CI_CHECK_CATEGORIES,
-  CI_CHECK_CATEGORY_LABELS,
   formatters,
 } from '@lssm/bundle.contractspec-workspace';
 
@@ -115,7 +113,7 @@ export const ciCommand = new Command('ci')
         case 'json':
           output = formatters.formatAsJson(result, { pretty: true });
           break;
-        case 'sarif':
+        case 'sarif': {
           const sarif = formatters.formatAsSarif(result, {
             toolName: 'ContractSpec',
             toolVersion: '1.0.0',
@@ -123,6 +121,7 @@ export const ciCommand = new Command('ci')
           });
           output = formatters.sarifToJson(sarif);
           break;
+        }
         case 'text':
         default:
           output = formatOutput(result, options.verbose ?? false);

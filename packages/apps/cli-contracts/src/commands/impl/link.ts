@@ -37,8 +37,8 @@ function parseImplementationsFromSource(source: string): {
     let entryMatch;
     while ((entryMatch = entryRegex.exec(block)) !== null) {
       implementations.push({
-        path: entryMatch[1]!,
-        type: entryMatch[2]!,
+        path: entryMatch[1] ?? '',
+        type: entryMatch[2] ?? '',
         description: entryMatch[3],
       });
     }

@@ -1,5 +1,5 @@
-import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 import type { ElevenLabs } from '@elevenlabs/elevenlabs-js';
+import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 
 import type {
   Voice,
@@ -71,7 +71,7 @@ export class ElevenLabsVoiceProvider implements VoiceProvider {
           return rest;
         })(),
       },
-    })) as any[];
+    }));
   }
 
   async synthesize(input: VoiceSynthesisInput): Promise<VoiceSynthesisResult> {

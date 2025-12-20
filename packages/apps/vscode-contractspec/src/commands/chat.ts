@@ -144,14 +144,16 @@ export async function openChatPanel(
     async (message) => {
       switch (message.type) {
         case 'send': {
-          await handleChatMessage(
-            chatPanel!,
-            message.content,
-            message.provider,
-            message.model,
-            workspaceRoot,
-            outputChannel
-          );
+          if (chatPanel) {
+            await handleChatMessage(
+              chatPanel,
+              message.content,
+              message.provider,
+              message.model,
+              workspaceRoot,
+              outputChannel
+            );
+          }
           break;
         }
         case 'insert': {
@@ -406,8 +408,8 @@ async function insertCodeAtCursor(code: string): Promise<void> {
  * Get the HTML for the chat panel
  */
 function getChatPanelHtml(
-  webview: vscode.Webview,
-  extensionUri: vscode.Uri,
+  _webview: vscode.Webview,
+  _extensionUri: vscode.Uri,
   providers: { id: string; config: ProviderConfig; available: boolean }[],
   contextInfo: string
 ): string {

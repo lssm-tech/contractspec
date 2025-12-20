@@ -20,7 +20,7 @@ export class SimpleAgent implements AgentProvider {
 
   constructor(private config: Config) {}
 
-  canHandle(task: AgentTask): boolean {
+  canHandle(_task: AgentTask): boolean {
     // Simple agent can handle all tasks as a fallback
     return true;
   }

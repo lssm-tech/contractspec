@@ -72,8 +72,7 @@
       "persistent": true
     },
     "lint": {
-      "outputLogs": "new-only",
-      "dependsOn": ["^lint"]
+      "outputLogs": "new-only"
     }
   }
 }

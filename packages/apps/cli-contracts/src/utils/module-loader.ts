@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import vm from 'node:vm';
 import ts from 'typescript';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function loadTypeScriptModule(filePath: string): Promise<any> {
   const source = await readFile(filePath, 'utf-8');
   const transpiled = ts.transpileModule(source, {

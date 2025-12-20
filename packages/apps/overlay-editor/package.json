@@ -8,7 +8,7 @@
     "dev": "bun --bun next dev",
     "build": "bun --bun next build",
     "start": "bun --bun next start",
-    "lint": "bun lint:fix",
+    "lint": "eslint app components lib --fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src"
   },

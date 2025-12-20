@@ -155,7 +155,7 @@ function validateModification(
     default: {
       const exhaustive: never = modification;
       throw new Error(
-        `Unsupported overlay modification ${(exhaustive as any)?.type ?? 'unknown'}`
+        `Unsupported overlay modification ${(exhaustive as { type: string })?.type ?? 'unknown'}`
       );
     }
   }

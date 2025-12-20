@@ -47,6 +47,7 @@ export async function createSpec(
     outputChannel.appendLine(`Spec type: ${specType}`);
 
     // Step 2: Gather inputs based on spec type
+
     const inputs = await gatherInputs(specType);
     if (!inputs) {
       return;
@@ -168,6 +169,7 @@ async function selectSpecType(): Promise<SpecType | undefined> {
 /**
  * Gather inputs based on spec type.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function gatherInputs(specType: SpecType): Promise<any> {
   switch (specType) {
     case 'operation':
@@ -253,6 +255,7 @@ async function gatherOperationInputs(): Promise<OperationInputs | undefined> {
 /**
  * Gather inputs for event spec.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function gatherEventInputs(): Promise<any> {
   const domain = await vscode.window.showInputBox({
     prompt: 'Domain (e.g., user, order)',
@@ -288,6 +291,7 @@ async function gatherEventInputs(): Promise<any> {
 /**
  * Gather inputs for presentation spec.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function gatherPresentationInputs(): Promise<any> {
   const componentName = await vscode.window.showInputBox({
     prompt: 'Component name (PascalCase)',
@@ -321,6 +325,7 @@ async function gatherPresentationInputs(): Promise<any> {
 /**
  * Gather generic inputs for other spec types.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function gatherGenericInputs(specType: SpecType): Promise<any> {
   const name = await vscode.window.showInputBox({
     prompt: 'Spec name',
@@ -347,6 +352,7 @@ async function gatherGenericInputs(specType: SpecType): Promise<any> {
  */
 async function selectOutputLocation(
   specType: SpecType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inputs: any
 ): Promise<string | undefined> {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -378,7 +384,8 @@ async function selectOutputLocation(
   if (useDefault.value) {
     // Ensure directory exists
     const adapters = getWorkspaceAdapters();
-    await adapters.fs.ensureDir(defaultDir);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (adapters.fs as any).ensureDir(defaultDir);
     return defaultPath;
   }
 
@@ -428,6 +435,7 @@ function getSpecExtension(specType: SpecType): string {
 /**
  * Generate spec content based on type and inputs.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function generateSpecContent(specType: SpecType, inputs: any): string {
   switch (specType) {
     case 'operation':
@@ -503,8 +511,9 @@ export const ${pascalName}Spec = ${defineFunc}({
 /**
  * Generate event spec content.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function generateEventSpec(inputs: any): string {
-  const { name, description, domain } = inputs;
+  const { name, description } = inputs;
   const pascalName = toPascalCase(name.replace('.', '_'));
 
   return `import { defineEvent } from '@lssm/lib.contracts';
@@ -532,6 +541,7 @@ export const ${pascalName}Event = defineEvent({
 /**
  * Generate presentation spec content.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function generatePresentationSpec(inputs: any): string {
   const { name, description } = inputs;
 
@@ -559,6 +569,7 @@ export const ${name}Presentation: PresentationSpec = {
 /**
  * Generate generic spec content.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function generateGenericSpec(specType: SpecType, inputs: any): string {
   return `// ${specType} spec: ${inputs.name}
 // ${inputs.description}

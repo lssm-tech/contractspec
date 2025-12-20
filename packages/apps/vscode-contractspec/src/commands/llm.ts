@@ -1146,7 +1146,7 @@ async function runVerification(
  * Copy current spec to clipboard for LLM use.
  */
 export async function copySpecForLLM(
-  outputChannel: vscode.OutputChannel
+  _outputChannel: vscode.OutputChannel
 ): Promise<void> {
   const specFile = getCurrentSpecFile();
 

@@ -65,7 +65,7 @@ export async function buildPolicySafeAnswer(
 
   const results = await input.kbSearch({
     snapshotId: env.value.kbSnapshotId,
-    jurisdiction: env.value.regulatoryContext!.jurisdiction!,
+    jurisdiction: env.value.regulatoryContext?.jurisdiction ?? 'UNKNOWN',
     query: input.question,
   });
 
@@ -79,7 +79,7 @@ export async function buildPolicySafeAnswer(
 
   const draft: AssistantAnswerIR = {
     locale: env.value.locale,
-    jurisdiction: env.value.regulatoryContext!.jurisdiction!,
+    jurisdiction: env.value.regulatoryContext?.jurisdiction ?? 'UNKNOWN',
     allowedScope: env.value.allowedScope,
     sections: [
       {

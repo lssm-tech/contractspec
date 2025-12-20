@@ -7,6 +7,7 @@ function sha256(content: string) {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function runCheck(argv: any) {
   const target = (argv.target as string) || process.cwd();
   const lockPath = path.join(

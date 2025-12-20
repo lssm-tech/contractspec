@@ -12,7 +12,6 @@ import {
   scanSpecSource,
   isFeatureFile,
   scanFeatureSource,
-  type WorkspaceConfig,
 } from '@lssm/module.contractspec-workspace';
 import type {
   IntegrityAnalysisResult,
@@ -250,7 +249,7 @@ export function updateIntegrityDiagnostics(
   diagnosticCollection: vscode.DiagnosticCollection
 ): void {
   // Clear all existing diagnostics
-  diagnosticCollection.clear();
+  diagnosticCollection?.clear();
 
   // Group issues by file
   const issuesByFile = new Map<string, vscode.Diagnostic[]>();
@@ -284,7 +283,7 @@ export function updateIntegrityDiagnostics(
       ];
     }
 
-    issuesByFile.get(filePath)!.push(diagnostic);
+    issuesByFile.get(filePath)?.push(diagnostic);
   }
 
   // Set diagnostics for each file
