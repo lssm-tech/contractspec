@@ -269,17 +269,29 @@ export function createSpecDiff(
   let changes: DiffChange[] = [];
   let isEquivalent = false;
 
-  if (existing) {
+  if (existing && incoming.spec) {
     // Compare existing vs incoming
     changes = diffSpecs(existing, incoming.spec, options);
     isEquivalent = changes.length === 0;
+  } else if (existing && !incoming.spec) {
+    // Incoming has code but no runtime spec - can't compare directly
+    changes = [
+      {
+        path: '',
+        type: 'modified',
+        oldValue: existing,
+        newValue: incoming.code,
+        description:
+          'Spec code imported from OpenAPI (runtime comparison not available)',
+      },
+    ];
   } else {
     // New spec - mark as added
     changes = [
       {
         path: '',
         type: 'added',
-        newValue: incoming.spec,
+        newValue: incoming.spec ?? incoming.code,
         description: 'New spec imported from OpenAPI',
       },
     ];

@@ -119,7 +119,12 @@ export const importCommand = new Command('import')
             targetDir = operationsDir;
           }
         } else {
-          targetDir = options.outputDir!;
+          if (!options.outputDir) {
+            throw new Error(
+              '`outputDir` is required when not using conventions'
+            );
+          }
+          targetDir = options.outputDir;
         }
 
         const filePath = resolve(targetDir, spec.fileName);

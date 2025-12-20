@@ -129,7 +129,6 @@ export const importFromOpenApi = (
       };
 
       specs.push({
-        spec: {} as ImportedSpec['spec'], // Placeholder - actual spec would be built at runtime
         code,
         fileName,
         source,
@@ -150,7 +149,6 @@ export const importFromOpenApi = (
       const fileName = toFileName(toSpecName(name, importOptions.prefix));
 
       specs.push({
-        spec: {} as any,
         code,
         fileName,
         source: {
@@ -180,7 +178,6 @@ export const importFromOpenApi = (
       const fileName = toFileName(toSpecName(event.name, importOptions.prefix));
 
       specs.push({
-        spec: {} as any,
         code,
         fileName,
         source: {
@@ -190,7 +187,7 @@ export const importFromOpenApi = (
           openApiVersion: parseResult.version,
           importedAt: new Date(),
         } as OpenApiSource,
-        transportHints: {} as any,
+        transportHints: {},
       });
     } catch (error) {
       errors.push({

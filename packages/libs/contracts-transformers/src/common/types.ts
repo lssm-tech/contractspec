@@ -45,8 +45,12 @@ export interface TransportHints {
  * Result of importing a single spec from an external format.
  */
 export interface ImportedSpec {
-  /** The generated ContractSpec */
-  spec: AnyContractSpec;
+  /**
+   * The generated ContractSpec.
+   * Optional because during code generation the actual spec object is not
+   * available until the generated code is executed at runtime.
+   */
+  spec?: AnyContractSpec;
   /** Generated TypeScript code for the spec */
   code: string;
   /** Suggested file name for the spec */
