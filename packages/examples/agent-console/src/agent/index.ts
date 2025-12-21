@@ -27,7 +27,7 @@ export {
   ListAgentsQuery,
   AssignToolToAgentCommand,
   RemoveToolFromAgentCommand,
-} from './agent.contracts';
+} from './agent.operation';
 
 // Events
 export {

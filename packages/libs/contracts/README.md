@@ -19,14 +19,14 @@ bun add @lssm/lib.contracts @lssm/lib.schema
 ## Key Concepts
 
 - **Spec-First, TypeScript-First**: Define operations in pure TypeScript (no YAML).
-- **Runtime Adapters**: The `SpecRegistry` is passed to adapters (e.g., `makeNextAppHandler`) to serve APIs dynamically. There is no intermediate "compile" step to generate code; the spec _is_ the code.
+- **Runtime Adapters**: The `OperationSpecRegistry` is passed to adapters (e.g., `makeNextAppHandler`) to serve APIs dynamically. There is no intermediate "compile" step to generate code; the spec _is_ the code.
 - **Capabilities**: `defineCommand` (writes) and `defineQuery` (reads) with Zod-backed I/O.
 - **Events**: `defineEvent` for type-safe side effects.
 - **Presentations**: (V2) Describe how data is rendered (Web Components, Markdown, Data) for automated UI generation.
 
 ## Exports
 
-- **Core**: `SpecRegistry`, `defineCommand`, `defineQuery`, `defineEvent`.
+- **Core**: `OperationSpecRegistry`, `defineCommand`, `defineQuery`, `defineEvent`.
 - **Adapters**:
   - `server/rest-next-app`: Next.js App Router adapter.
   - `server/provider-mcp`: Model Context Protocol (MCP) adapter for AI agents.
@@ -78,9 +78,9 @@ export const CreateUser = defineCommand({
 ### 2. Register and Implement
 
 ```ts
-import { SpecRegistry, installOp } from '@lssm/lib.contracts';
+import { OperationSpecRegistry, installOp } from '@lssm/lib.contracts';
 
-const reg = new SpecRegistry();
+const reg = new OperationSpecRegistry();
 
 installOp(reg, CreateUser, async (ctx, input) => {
   // Implementation logic here

@@ -3,11 +3,11 @@
  */
 
 import type {
+  AgentPrompt,
   AgentType,
   ImplementationPlan,
-  AgentPrompt,
 } from '@lssm/lib.contracts/llm';
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 
 /** Configuration for the agent guide service */
 export interface AgentGuideConfig {
@@ -58,7 +58,7 @@ export interface AgentAdapter {
   formatPlan(plan: ImplementationPlan): AgentPrompt;
 
   /** Generate agent-specific configuration (e.g., cursor rules) */
-  generateConfig?(spec: AnyContractSpec): string;
+  generateConfig?(spec: AnyOperationSpec): string;
 
   /** Parse agent output to extract code */
   parseOutput?(output: string): { code?: string; errors?: string[] };

@@ -3,27 +3,27 @@
  */
 
 import {
-  readFile,
-  writeFile,
+  access,
   mkdir,
+  readFile,
   rm,
   stat as fsStat,
-  access,
+  writeFile,
 } from 'node:fs/promises';
 import {
-  resolve,
-  dirname,
   basename,
+  dirname,
+  isAbsolute,
   join,
   relative,
-  isAbsolute,
+  resolve,
 } from 'node:path';
 import { glob as globFn } from 'glob';
-import type { FsAdapter, FileStat, DiscoverOptions } from '../ports/fs';
+import type { DiscoverOptions, FileStat, FsAdapter } from '../ports/fs';
 
 const DEFAULT_SPEC_PATTERNS = [
   // Standard dot-prefixed naming convention
-  '**/*.contracts.ts',
+  '**/*.operation.ts',
   '**/*.event.ts',
   '**/*.presentation.ts',
   '**/*.feature.ts',

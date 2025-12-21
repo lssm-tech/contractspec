@@ -1,8 +1,8 @@
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import type { ContractSpec } from '../spec';
-import { defineCommand, defineQuery } from '../spec';
+import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import type { OperationSpec } from '../operation';
+import { defineCommand, defineQuery } from '../operation';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import {
   ConfigDraftCreatedEvent,
   ConfigPromotedToPreviewEvent,
@@ -325,7 +325,7 @@ export const GetTenantConfigVersionQuery = defineQuery({
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const lifecycleContracts: Record<string, ContractSpec<any, any>> = {
+export const lifecycleContracts: Record<string, OperationSpec<any, any>> = {
   CreateTenantConfigDraftCommand,
   PromoteTenantConfigToPreviewCommand,
   PublishTenantConfigCommand,
@@ -334,7 +334,9 @@ export const lifecycleContracts: Record<string, ContractSpec<any, any>> = {
   GetTenantConfigVersionQuery,
 };
 
-export function registerAppConfigLifecycleContracts(registry: SpecRegistry) {
+export function registerAppConfigLifecycleContracts(
+  registry: OperationSpecRegistry
+) {
   return registry
     .register(CreateTenantConfigDraftCommand)
     .register(PromoteTenantConfigToPreviewCommand)

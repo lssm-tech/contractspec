@@ -1,12 +1,12 @@
 /**
  * Convert zod I/O to JSON Schema so adapters can generate OpenAPI/MCP.
  */
-import type { ContractSpec } from './spec';
+import type { OperationSpec } from './operation';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import z from 'zod';
 
 export function jsonSchemaForSpec(
-  spec: ContractSpec<AnySchemaModel, AnySchemaModel>
+  spec: OperationSpec<AnySchemaModel, AnySchemaModel>
 ) {
   return {
     input: spec.io.input ? z.toJSONSchema(spec.io.input.getZod()) : null,

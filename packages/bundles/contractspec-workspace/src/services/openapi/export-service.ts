@@ -1,12 +1,12 @@
 /**
- * OpenAPI export service - generates OpenAPI documents from SpecRegistry.
+ * OpenAPI export service - generates OpenAPI documents from OperationSpecRegistry.
  */
 
 import {
-  SpecRegistry,
+  type OpenApiDocument,
   openApiForRegistry,
   type OpenApiServer,
-  type OpenApiDocument,
+  OperationSpecRegistry,
 } from '@lssm/lib.contracts';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -16,7 +16,7 @@ import type { LoggerAdapter } from '../../ports/logger';
  */
 export interface OpenApiExportOptions {
   /**
-   * Path to module exporting SpecRegistry.
+   * Path to module exporting OperationSpecRegistry.
    */
   registryPath: string;
 
@@ -56,16 +56,16 @@ export interface OpenApiExportResult {
 }
 
 /**
- * Module that exports a SpecRegistry.
+ * Module that exports a OperationSpecRegistry.
  */
 interface LoadedRegistryModule {
   default?: unknown;
-  createRegistry?: () => Promise<SpecRegistry> | SpecRegistry;
-  registry?: SpecRegistry;
+  createRegistry?: () => Promise<OperationSpecRegistry> | OperationSpecRegistry;
+  registry?: OperationSpecRegistry;
 }
 
 /**
- * Export OpenAPI document from a SpecRegistry.
+ * Export OpenAPI document from a OperationSpecRegistry.
  */
 export async function exportOpenApi(
   options: OpenApiExportOptions,
@@ -111,12 +111,12 @@ export async function exportOpenApi(
 }
 
 /**
- * Load a SpecRegistry from a module.
+ * Load a OperationSpecRegistry from a module.
  */
 async function loadRegistry(
   modulePath: string,
   fs: FsAdapter
-): Promise<SpecRegistry> {
+): Promise<OperationSpecRegistry> {
   // Resolve absolute path
   const absPath = fs.resolve(modulePath);
 
@@ -124,12 +124,12 @@ async function loadRegistry(
   const exports = (await import(absPath)) as LoadedRegistryModule;
 
   // Check if exports is already a registry
-  if (exports instanceof SpecRegistry) {
+  if (exports instanceof OperationSpecRegistry) {
     return exports;
   }
 
   // Check if registry property exists
-  if (exports.registry instanceof SpecRegistry) {
+  if (exports.registry instanceof OperationSpecRegistry) {
     return exports.registry;
   }
 
@@ -138,17 +138,19 @@ async function loadRegistry(
     typeof exports.createRegistry === 'function'
       ? exports.createRegistry
       : typeof exports.default === 'function'
-        ? (exports.default as () => Promise<SpecRegistry> | SpecRegistry)
+        ? (exports.default as () =>
+            | Promise<OperationSpecRegistry>
+            | OperationSpecRegistry)
         : undefined;
 
   if (factory) {
     const result = await factory();
-    if (result instanceof SpecRegistry) {
+    if (result instanceof OperationSpecRegistry) {
       return result;
     }
   }
 
   throw new Error(
-    `Registry module ${modulePath} must export a SpecRegistry instance or a factory function returning one.`
+    `Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
   );
 }

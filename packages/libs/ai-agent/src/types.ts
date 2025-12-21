@@ -65,6 +65,15 @@ export type AgentEventName =
   | 'agent.completed'
   | 'agent.failed';
 
+export type AgentFinishReason =
+  | 'stop'
+  | 'tool-calls'
+  | 'length'
+  | 'content-filter'
+  | 'error'
+  | 'other'
+  | 'unknown';
+
 export interface AgentEventPayload {
   sessionId: string;
   agentId: string;
@@ -148,14 +157,7 @@ export interface AgentGenerateResult<TOutput = string> {
   /** All tool results */
   toolResults: ToolResultInfo[];
   /** Reason generation finished */
-  finishReason:
-    | 'stop'
-    | 'tool-calls'
-    | 'length'
-    | 'content-filter'
-    | 'error'
-    | 'other'
-    | 'unknown';
+  finishReason: AgentFinishReason;
   /** Token usage statistics */
   usage?: LanguageModelUsage;
   /** Updated session state */

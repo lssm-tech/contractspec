@@ -7,11 +7,11 @@
  * - Imports are correct
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
-import { isEmitDeclRef } from '@lssm/lib.contracts/spec';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import { isEmitDeclRef } from '@lssm/lib.contracts/operation';
 import type {
-  VerificationReport,
   VerificationIssue,
+  VerificationReport,
 } from '@lssm/lib.contracts/llm';
 import type { StructureCheck, VerifyInput } from './types';
 
@@ -55,7 +55,7 @@ function checkContractsImport(code: string): StructureCheck {
  */
 function checkSchemaImport(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): StructureCheck {
   // Only required if spec uses schema types
   const needsSchema = spec.io.input !== null || spec.io.output !== null;
@@ -111,7 +111,7 @@ function checkNoAnyType(code: string): StructureCheck {
  */
 function checkErrorHandling(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): StructureCheck {
   const errors = spec.io.errors;
   if (!errors || Object.keys(errors).length === 0) {
@@ -144,7 +144,7 @@ function checkErrorHandling(
  */
 function checkEventEmission(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): StructureCheck {
   const events = spec.sideEffects?.emits;
   if (!events || events.length === 0) {
@@ -186,7 +186,7 @@ function checkEventEmission(
  */
 function checkInputValidation(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): StructureCheck {
   if (!spec.io.input) {
     return { name: 'input_validation', passed: true };
@@ -216,7 +216,7 @@ function checkInputValidation(
  */
 function checkAsyncPatterns(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): StructureCheck {
   // Check if handler is async
   const isAsync =

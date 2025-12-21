@@ -1,19 +1,21 @@
 import { describe, expect, it } from 'bun:test';
 
-import { SpecRegistry } from '../registry';
+import { OperationSpecRegistry } from '../registry';
 import {
   CreateTenantConfigDraftCommand,
   GetTenantConfigVersionQuery,
   ListTenantConfigVersionsQuery,
   PromoteTenantConfigToPreviewCommand,
   PublishTenantConfigCommand,
-  RollbackTenantConfigCommand,
   registerAppConfigLifecycleContracts,
+  RollbackTenantConfigCommand,
 } from './lifecycle-contracts';
 
 describe('app-config lifecycle contracts', () => {
   it('registers lifecycle management contracts', () => {
-    const registry = registerAppConfigLifecycleContracts(new SpecRegistry());
+    const registry = registerAppConfigLifecycleContracts(
+      new OperationSpecRegistry()
+    );
 
     expect(registry.getSpec('appConfig.lifecycle.createDraft', 1)).toBe(
       CreateTenantConfigDraftCommand

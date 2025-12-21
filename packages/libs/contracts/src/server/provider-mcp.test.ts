@@ -2,15 +2,15 @@ import { describe, expect, it } from 'bun:test';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 import { Logger } from '@lssm/lib.logger';
-import { ResourceRegistry, defineResourceTemplate } from '../resources';
-import { SpecRegistry } from '../registry';
+import { defineResourceTemplate, ResourceRegistry } from '../resources';
+import { OperationSpecRegistry } from '../registry';
 import { PromptRegistry } from '../promptRegistry';
 import { createMcpServer } from './provider-mcp';
 
 describe('createMcpServer (MCP resources)', () => {
   it('does not collide when multiple templates share the same scheme (docs://*)', () => {
     const server = new McpServer({ name: 'test-mcp', version: '1.0.0' });
-    const ops = new SpecRegistry();
+    const ops = new OperationSpecRegistry();
     const prompts = new PromptRegistry();
     const resources = new ResourceRegistry();
 

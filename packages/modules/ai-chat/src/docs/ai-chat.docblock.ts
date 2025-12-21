@@ -35,7 +35,7 @@ The module is organized into several layers:
 - **Core**: Chat service, conversation management, message types
 - **Providers**: LLM provider abstraction (Ollama, OpenAI, Anthropic, Mistral, Gemini)
 - **Context**: Workspace context for code-aware chat
-- **Contracts**: ContractSpec operation definitions
+- **Contracts**: OperationSpec operation definitions
 - **Presentation**: React components and hooks
 
 ## Usage

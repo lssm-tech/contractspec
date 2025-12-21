@@ -1,6 +1,6 @@
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { AnySchemaModel } from '@lssm/lib.schema';
-import type { ContractSpec } from '../spec';
+import type { OperationSpec } from '../operation';
 import type { HandlerCtx } from '../types';
 import { createMcpHandler } from 'mcp-handler';
 import type {
@@ -11,14 +11,14 @@ import { ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { defaultMcpTool, jsonSchemaForSpec } from '../jsonschema';
 
 export function makeNextMcpServerFromRegistry(
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   ctxFactory: () => HandlerCtx
 ) {
   const handler = createMcpHandler(
     (server) => {
       for (const spec of reg.listSpecs()) {
         const { input, meta } = jsonSchemaForSpec(
-          spec as unknown as ContractSpec<AnySchemaModel, AnySchemaModel>
+          spec as unknown as OperationSpec<AnySchemaModel, AnySchemaModel>
         );
 
         if (meta.kind === 'query') {

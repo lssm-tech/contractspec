@@ -136,7 +136,7 @@ export interface OpenApiValidateServiceResult {
  * Options for OpenAPI export.
  */
 export interface OpenApiExportServiceOptions {
-  /** Path to module exporting SpecRegistry */
+  /** Path to module exporting OperationSpecRegistry */
   registryPath: string;
   /** Output file path */
   outputPath?: string;

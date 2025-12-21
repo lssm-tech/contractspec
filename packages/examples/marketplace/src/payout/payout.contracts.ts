@@ -1,4 +1,4 @@
-import { defineQuery } from '@lssm/lib.contracts/spec';
+import { defineQuery } from '@lssm/lib.contracts/operation';
 import { ListPayoutsInputModel, ListPayoutsOutputModel } from './payout.schema';
 
 const OWNERS = ['@example.marketplace'] as const;

@@ -6,8 +6,8 @@
  */
 
 import {
-  validateSpecStructure,
   isFeatureFile,
+  validateSpecStructure,
 } from '@lssm/module.contractspec-workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -377,7 +377,7 @@ async function runHandlerChecks(
 
   for (const specFile of specFiles) {
     // Only check operation specs
-    if (!specFile.includes('.contracts.')) continue;
+    if (!specFile.includes('.operation.')) continue;
 
     const result = await validateImplementationFiles(specFile, { fs }, config, {
       checkHandlers: true,
@@ -422,7 +422,7 @@ async function runTestChecks(
 
   for (const specFile of specFiles) {
     // Only check operation specs
-    if (!specFile.includes('.contracts.')) continue;
+    if (!specFile.includes('.operation.')) continue;
 
     const result = await validateImplementationFiles(specFile, { fs }, config, {
       checkTests: true,
@@ -468,7 +468,7 @@ async function runImplementationChecks(
   const implOptions = options.implementation ?? {};
 
   // Only check operation specs by default
-  const operationSpecs = specFiles.filter((f) => f.includes('.contracts.'));
+  const operationSpecs = specFiles.filter((f) => f.includes('.operation.'));
 
   // Resolve implementations for all specs
   const results = await resolveAllImplementations(

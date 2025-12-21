@@ -5,8 +5,8 @@
  * This file is kept for backwards compatibility.
  */
 
-import type { SpecRegistry } from './registry';
-import type { AnyContractSpec, ContractSpec } from './spec';
+import type { OperationSpecRegistry } from './registry';
+import type { AnyOperationSpec, OperationSpec } from './operation';
 import { defaultRestPath, jsonSchemaForSpec } from './jsonschema';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 
@@ -55,7 +55,7 @@ function toHttpMethod(kind: 'command' | 'query', override?: 'GET' | 'POST') {
   return method.toLowerCase();
 }
 
-function toRestPath(spec: AnyContractSpec): string {
+function toRestPath(spec: AnyOperationSpec): string {
   const path =
     spec.transport?.rest?.path ??
     defaultRestPath(spec.meta.name, spec.meta.version);
@@ -63,13 +63,13 @@ function toRestPath(spec: AnyContractSpec): string {
 }
 
 export function openApiForRegistry(
-  registry: SpecRegistry,
+  registry: OperationSpecRegistry,
   options: OpenApiExportOptions = {}
 ): OpenApiDocument {
   const specs = registry
     .listSpecs()
     .filter(
-      (s): s is AnyContractSpec =>
+      (s): s is AnyOperationSpec =>
         s.meta.kind === 'command' || s.meta.kind === 'query'
     )
     .slice()
@@ -92,7 +92,7 @@ export function openApiForRegistry(
 
   for (const spec of specs) {
     const schema = jsonSchemaForSpec(
-      spec as unknown as ContractSpec<AnySchemaModel, AnySchemaModel>
+      spec as unknown as OperationSpec<AnySchemaModel, AnySchemaModel>
     );
     const method = toHttpMethod(spec.meta.kind, spec.transport?.rest?.method);
     const path = toRestPath(spec);

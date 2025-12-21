@@ -8,8 +8,6 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/assistant": "./dist/contracts/assistant.js",
     "./docs": "./dist/docs/index.js",
     "./docs/locale-jurisdiction-gate.docblock": "./dist/docs/locale-jurisdiction-gate.docblock.js",
     "./entities": "./dist/entities/index.js",
@@ -19,6 +17,8 @@
     "./handlers": "./dist/handlers/index.js",
     "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
     "./locale-jurisdiction-gate.feature": "./dist/locale-jurisdiction-gate.feature.js",
+    "./operations": "./dist/operations/index.js",
+    "./operations/assistant": "./dist/operations/assistant.js",
     "./policy": "./dist/policy/index.js",
     "./policy/guard": "./dist/policy/guard.js",
     "./policy/types": "./dist/policy/types.js",

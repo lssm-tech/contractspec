@@ -4,10 +4,10 @@
  */
 
 import type {
-  AnalyzedSpecType,
   AnalyzedOperationKind,
-  SpecScanResult,
+  AnalyzedSpecType,
   RefInfo,
+  SpecScanResult,
 } from '../types/analysis-types';
 import type { Stability } from '../types/spec-types';
 
@@ -18,7 +18,12 @@ import type { Stability } from '../types/spec-types';
 export function inferSpecTypeFromFilePath(filePath: string): AnalyzedSpecType {
   // Check more specific patterns first
   // Operation patterns: .contracts. OR /contracts/ directory
-  if (filePath.includes('.contracts.') || filePath.includes('/contracts/'))
+  if (
+    filePath.includes('.operations.') ||
+    filePath.includes('/operations/') ||
+    filePath.includes('.operation.') ||
+    filePath.includes('/operation/')
+  )
     return 'operation';
 
   // Event patterns: .event. OR /events/ OR /events.ts

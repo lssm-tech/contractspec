@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'bun:test';
-import { SpecRegistry } from '../registry';
+import { OperationSpecRegistry } from '../registry';
 import {
   CreateKnowledgeSource,
   DeleteKnowledgeSource,
   ListKnowledgeSources,
+  registerKnowledgeContracts,
   TriggerKnowledgeSourceSync,
   UpdateKnowledgeSource,
-  registerKnowledgeContracts,
 } from './contracts';
 
 describe('knowledge contracts', () => {
   it('registers knowledge source management contracts', () => {
-    const registry = registerKnowledgeContracts(new SpecRegistry());
+    const registry = registerKnowledgeContracts(new OperationSpecRegistry());
 
     expect(registry.getSpec('knowledge.source.create', 1)).toBe(
       CreateKnowledgeSource

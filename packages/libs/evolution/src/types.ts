@@ -1,5 +1,5 @@
 import type {
-  ContractSpec,
+  OperationSpec,
   OpKind,
   ResourceRefDescriptor,
 } from '@lssm/lib.contracts';
@@ -88,7 +88,7 @@ export interface SpecSuggestionProposal {
   rationale: string;
   changeType: 'new-spec' | 'revision' | 'policy-update' | 'schema-update';
   kind?: OpKind;
-  spec?: ContractSpec<
+  spec?: OperationSpec<
     AnySchemaModel,
     AnySchemaModel | ResourceRefDescriptor<boolean>
   >;

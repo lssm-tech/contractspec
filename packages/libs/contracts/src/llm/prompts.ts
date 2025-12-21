@@ -6,9 +6,9 @@
  * testing, and verifying ContractSpec-based code.
  */
 
-import type { AnyContractSpec } from '../spec';
-import type { AgentType, AgentPrompt, ImplementationPlan } from './types';
-import { specToFullMarkdown, specToAgentPrompt } from './exporters';
+import type { AnyOperationSpec } from '../operation';
+import type { AgentPrompt, AgentType, ImplementationPlan } from './types';
+import { specToAgentPrompt, specToFullMarkdown } from './exporters';
 
 /**
  * System prompts for different agent types.
@@ -66,7 +66,7 @@ Follow the spec exactly and handle all defined cases.`,
  * Generate an implementation prompt for a specific agent type.
  */
 export function generateImplementationPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   agent: AgentType,
   options?: {
     existingCode?: string;
@@ -126,7 +126,7 @@ Requirements:
  * Generate a test generation prompt.
  */
 export function generateTestPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   agent: AgentType,
   options?: {
     implementationCode?: string;
@@ -168,7 +168,7 @@ Provide a complete test file.`;
  * Generate a code review prompt.
  */
 export function generateReviewPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   agent: AgentType,
   implementationCode: string
 ): AgentPrompt {
@@ -214,7 +214,7 @@ Be thorough and precise. Focus on spec compliance first, then code quality.`;
  * Generate a verification prompt for AI-powered semantic review.
  */
 export function generateVerificationPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   implementationCode: string
 ): AgentPrompt {
   const specMarkdown = specToFullMarkdown(spec);
@@ -264,7 +264,7 @@ Analyze and respond with JSON:
  * Generate a feature implementation plan.
  */
 export function generateImplementationPlan(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   options?: {
     projectRoot?: string;
     existingFiles?: string[];
@@ -514,7 +514,7 @@ ${plan.steps.map((s) => `${s.order}. ${s.title}: ${s.description}`).join('\n')}`
  * Generate a fix violations prompt after verification.
  */
 export function generateFixViolationsPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   implementationCode: string,
   violations: { message: string; suggestion?: string }[]
 ): AgentPrompt {

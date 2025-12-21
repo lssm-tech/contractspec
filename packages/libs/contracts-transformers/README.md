@@ -18,9 +18,9 @@ bun add @lssm/lib.contracts-transformers
 
 ```typescript
 import { openApiForRegistry } from '@lssm/lib.contracts-transformers/openapi';
-import { SpecRegistry } from '@lssm/lib.contracts';
+import { OperationSpecRegistry } from '@lssm/lib.contracts';
 
-const registry = new SpecRegistry();
+const registry = new OperationSpecRegistry();
 // ... register your specs ...
 
 const openApiDoc = openApiForRegistry(registry, {

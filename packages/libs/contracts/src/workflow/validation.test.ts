@@ -6,9 +6,9 @@ import {
   validateWorkflowSpec,
   type WorkflowValidationIssue,
 } from './validation';
-import { StabilityEnum, OwnersEnum, TagsEnum } from '../ownership';
-import { SpecRegistry } from '../registry';
-import type { ContractSpec } from '../spec';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+import { OperationSpecRegistry } from '../registry';
+import type { OperationSpec } from '../operation';
 import { FormRegistry, type FormSpec } from '../forms';
 
 const DummyModel = new SchemaModel({
@@ -21,7 +21,7 @@ const DummyModel = new SchemaModel({
 function createOperation(
   name: string,
   version: number
-): ContractSpec<typeof DummyModel, typeof DummyModel> {
+): OperationSpec<typeof DummyModel, typeof DummyModel> {
   return {
     meta: {
       name,
@@ -135,7 +135,7 @@ describe('WorkflowRegistry', () => {
 describe('validateWorkflowSpec', () => {
   it('returns no errors for a valid workflow', () => {
     const spec = sampleWorkflowSpec();
-    const operations = new SpecRegistry();
+    const operations = new OperationSpecRegistry();
     operations.register(createOperation('sigil.start', 1));
     operations.register(createOperation('sigil.finish', 1));
     const forms = new FormRegistry();
@@ -179,7 +179,7 @@ describe('validateWorkflowSpec', () => {
 
   it('flags missing operation references when registry provided', () => {
     const spec = sampleWorkflowSpec();
-    const operations = new SpecRegistry();
+    const operations = new OperationSpecRegistry();
     operations.register(createOperation('sigil.start', 1));
     const issues = validateWorkflowSpec(spec, { operations });
     expect(

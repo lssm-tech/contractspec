@@ -1,10 +1,10 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { ToolCategoryEnum, ToolStatusEnum } from './tool.enum';
 import {
+  CreateToolInputModel,
   ToolModel,
   ToolSummaryModel,
-  CreateToolInputModel,
   UpdateToolInputModel,
 } from './tool.schema';
 

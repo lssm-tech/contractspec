@@ -1,4 +1,4 @@
-import type { ContractSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
+import type { OperationSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 
 export interface TrafficSnapshot {
@@ -35,7 +35,7 @@ export interface GoldenTestCase {
   metadata?: Record<string, unknown>;
 }
 
-export type RuntimeContract = ContractSpec<
+export type RuntimeContract = OperationSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;

@@ -4,14 +4,14 @@ import { registerDocBlocks } from '../../registry';
 export const tech_contracts_openapi_export_DocBlocks: DocBlock[] = [
   {
     id: 'docs.tech.contracts.openapi-export',
-    title: 'OpenAPI export (OpenAPI 3.1) from SpecRegistry',
+    title: 'OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry',
     summary:
-      'Generate a deterministic OpenAPI document from a SpecRegistry using jsonSchemaForSpec + REST transport metadata.',
+      'Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/contracts/openapi-export',
     tags: ['contracts', 'openapi', 'rest'],
-    body: `## OpenAPI export (OpenAPI 3.1) from SpecRegistry
+    body: `## OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry
 
 ### Purpose
 
@@ -40,9 +40,9 @@ contractspec openapi --registry ./src/registry.ts --out ./openapi.json
 
 The registry module must export one of:
 
-- \`registry: SpecRegistry\`
-- \`default(): SpecRegistry | Promise<SpecRegistry>\`
-- \`createRegistry(): SpecRegistry | Promise<SpecRegistry>\`
+- \`registry: OperationSpecRegistry\`
+- \`default(): OperationSpecRegistry | Promise<OperationSpecRegistry>\`
+- \`createRegistry(): OperationSpecRegistry | Promise<OperationSpecRegistry>\`
 
 ### Notes / limitations (current)
 

@@ -30,7 +30,7 @@ export {
   GetRunStepsQuery,
   GetRunLogsQuery,
   GetRunMetricsQuery,
-} from './run.contracts';
+} from './run.operation';
 
 // Events
 export {

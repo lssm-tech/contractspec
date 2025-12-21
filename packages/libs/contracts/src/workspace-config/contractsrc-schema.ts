@@ -73,7 +73,7 @@ export const OpenApiConfigSchema = z.object({
  */
 export const FolderConventionsSchema = z.object({
   models: z.string().default('models'),
-  operations: z.string().default('interactions/commands|queries'),
+  operations: z.string().default('operations/commands|queries'),
   events: z.string().default('events'),
   presentations: z.string().default('presentations'),
   forms: z.string().default('forms'),
@@ -90,7 +90,7 @@ export const ContractsrcSchema = z.object({
   agentMode: z
     .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
     .default('simple'),
-  customEndpoint: z.string().url().nullable().optional(),
+  customEndpoint: z.url().nullable().optional(),
   customApiKey: z.string().nullable().optional(),
   outputDir: z.string().default('./src'),
   conventions: FolderConventionsSchema,

@@ -75,7 +75,7 @@ export interface TelemetryTrigger {
  * @template Output - The Zod-backed schema model for the output payload, or a resource reference.
  * @template Events - Tuple of events that this operation may emit.
  */
-export interface ContractSpec<
+export interface OperationSpec<
   Input extends AnySchemaModel,
   Output extends AnySchemaModel | ResourceRefDescriptor<boolean>,
   Events extends readonly EmitDecl[] | undefined =
@@ -200,7 +200,7 @@ export interface ContractSpec<
   implementations?: ImplementationRef[];
 }
 
-export type AnyContractSpec = ContractSpec<
+export type AnyOperationSpec = OperationSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
@@ -214,17 +214,17 @@ export const defineCommand = <
   O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
   E extends readonly EmitDecl[] | undefined = undefined,
 >(
-  spec: Omit<ContractSpec<I, O, E>, 'meta' | 'policy'> & {
-    meta: Omit<ContractSpec<I, O, E>['meta'], 'kind'>;
-    policy: Omit<ContractSpec<I, O, E>['policy'], 'idempotent'>;
+  spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
+    meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
+    policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
   }
-): ContractSpec<I, O, E> => ({
+): OperationSpec<I, O, E> => ({
   ...spec,
   meta: { ...spec.meta, kind: 'command' as const },
   policy: {
     ...spec.policy,
     idempotent:
-      (spec.policy as never as ContractSpec<never, never, never>)?.['policy']
+      (spec.policy as never as OperationSpec<never, never, never>)?.['policy']
         ?.idempotent ?? false,
   },
 });
@@ -238,11 +238,11 @@ export const defineQuery = <
   O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
   E extends readonly EmitDecl[] | undefined = undefined,
 >(
-  spec: Omit<ContractSpec<I, O, E>, 'meta' | 'policy'> & {
-    meta: Omit<ContractSpec<I, O, E>['meta'], 'kind'>;
-    policy: Omit<ContractSpec<I, O, E>['policy'], 'idempotent'>;
+  spec: Omit<OperationSpec<I, O, E>, 'meta' | 'policy'> & {
+    meta: Omit<OperationSpec<I, O, E>['meta'], 'kind'>;
+    policy: Omit<OperationSpec<I, O, E>['policy'], 'idempotent'>;
   }
-): ContractSpec<I, O, E> => ({
+): OperationSpec<I, O, E> => ({
   ...spec,
   meta: { ...spec.meta, kind: 'query' as const },
   policy: { ...spec.policy, idempotent: true },

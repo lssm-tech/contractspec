@@ -5,21 +5,21 @@
  * and other ContractSpec artifacts for LLM consumption.
  */
 
-import type { AnyContractSpec } from '../spec';
-import { isEmitDeclRef } from '../spec';
+import type { AnyOperationSpec } from '../operation';
+import { isEmitDeclRef } from '../operation';
 import type { FeatureModuleSpec } from '../features';
 import type { PresentationDescriptorV2 } from '../presentations.v2';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { DocBlock } from '../docs/types';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { PresentationRegistry } from '../presentations';
 import { jsonSchemaForSpec } from '../jsonschema';
 import type {
-  SpecExportOptions,
   FeatureExportOptions,
-  SpecExportResult,
   FeatureExportResult,
+  SpecExportOptions,
+  SpecExportResult,
 } from './types';
 
 const DEFAULT_SPEC_OPTIONS: SpecExportOptions = {
@@ -43,7 +43,7 @@ const DEFAULT_FEATURE_OPTIONS: FeatureExportOptions = {
  * Includes: goal, context, description, acceptance scenarios.
  * Best for: Understanding what the spec does, providing context to LLMs.
  */
-export function specToContextMarkdown(spec: AnyContractSpec): string {
+export function specToContextMarkdown(spec: AnyOperationSpec): string {
   const m = spec.meta;
   const lines: string[] = [];
 
@@ -91,7 +91,7 @@ export function specToContextMarkdown(spec: AnyContractSpec): string {
  * Best for: Complete documentation, implementation reference.
  */
 export function specToFullMarkdown(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   options: Partial<SpecExportOptions> = {}
 ): string {
   const opts = { ...DEFAULT_SPEC_OPTIONS, ...options };
@@ -290,7 +290,7 @@ export function specToFullMarkdown(
  * Best for: Directly feeding to coding agents for implementation.
  */
 export function specToAgentPrompt(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   options?: {
     taskType?: 'implement' | 'test' | 'refactor' | 'review';
     existingCode?: string;
@@ -434,7 +434,7 @@ export function specToAgentPrompt(
 export function featureToMarkdown(
   feature: FeatureModuleSpec,
   deps?: {
-    specs?: SpecRegistry;
+    specs?: OperationSpecRegistry;
     presentations?: PresentationRegistry;
   },
   options: Partial<FeatureExportOptions> = {}
@@ -703,7 +703,7 @@ export function docBlockToMarkdown(doc: DocBlock): string {
  * Convenience function that wraps the format-specific functions.
  */
 export function exportSpec(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   options: Partial<SpecExportOptions> = {}
 ): SpecExportResult {
   const format = options.format ?? 'full';
@@ -741,7 +741,7 @@ export function exportSpec(
 export function exportFeature(
   feature: FeatureModuleSpec,
   deps?: {
-    specs?: SpecRegistry;
+    specs?: OperationSpecRegistry;
     presentations?: PresentationRegistry;
   },
   options: Partial<FeatureExportOptions> = {}

@@ -5,19 +5,19 @@
  * Supports three tiers: structure, behavior, and AI review.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 import type {
-  VerificationTier,
-  VerificationReport,
   VerificationIssue,
+  VerificationReport,
+  VerificationTier,
 } from '@lssm/lib.contracts/llm';
 import { verifyStructure } from './structure-verifier';
 import { verifyBehavior } from './behavior-verifier';
-import { verifyWithAI, createQuickAIReview } from './ai-verifier';
+import { createQuickAIReview, verifyWithAI } from './ai-verifier';
 import type {
   VerifyConfig,
-  VerifyOptions,
   VerifyInput,
+  VerifyOptions,
   VerifyResult,
 } from './types';
 
@@ -43,7 +43,7 @@ export class VerifyService {
    * Run verification on an implementation.
    */
   async verify(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     implementationCode: string,
     options: VerifyOptions = {}
   ): Promise<VerifyResult> {
@@ -119,7 +119,7 @@ export class VerifyService {
    * Run only structure verification (Tier 1).
    */
   verifyStructure(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     implementationCode: string,
     implementationPath?: string
   ): VerificationReport {
@@ -134,7 +134,7 @@ export class VerifyService {
    * Run only behavior verification (Tier 2).
    */
   verifyBehavior(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     implementationCode: string,
     implementationPath?: string
   ): VerificationReport {
@@ -149,7 +149,7 @@ export class VerifyService {
    * Run only AI verification (Tier 3).
    */
   async verifyAI(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     implementationCode: string,
     implementationPath?: string
   ): Promise<VerificationReport> {
@@ -169,57 +169,10 @@ export class VerifyService {
    * Quick verification (structure only, fast).
    */
   quickVerify(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     implementationCode: string
   ): VerificationReport {
     return verifyStructure({ spec, implementationCode });
-  }
-
-  /**
-   * Generate a human-readable summary of verification results.
-   */
-  private generateSummary(
-    reports: VerificationReport[],
-    allIssues: VerificationIssue[]
-  ): string {
-    const parts: string[] = [];
-
-    // Overall status
-    const passed = reports.every((r) => r.passed);
-    const avgScore =
-      reports.length > 0
-        ? Math.round(
-            reports.reduce((sum, r) => sum + r.score, 0) / reports.length
-          )
-        : 100;
-
-    parts.push(passed ? '✓ Verification passed' : '✗ Verification failed');
-    parts.push(`Score: ${avgScore}/100`);
-    parts.push('');
-
-    // Per-tier summary
-    for (const report of reports) {
-      const icon = report.passed ? '✓' : '✗';
-      parts.push(`${icon} ${report.tier}: ${report.score}/100`);
-    }
-    parts.push('');
-
-    // Issue summary
-    const errors = allIssues.filter((i) => i.severity === 'error');
-    const warnings = allIssues.filter((i) => i.severity === 'warning');
-    const infos = allIssues.filter((i) => i.severity === 'info');
-
-    if (errors.length > 0) {
-      parts.push(`Errors: ${errors.length}`);
-    }
-    if (warnings.length > 0) {
-      parts.push(`Warnings: ${warnings.length}`);
-    }
-    if (infos.length > 0) {
-      parts.push(`Info: ${infos.length}`);
-    }
-
-    return parts.join('\n');
   }
 
   /**
@@ -296,6 +249,60 @@ export class VerifyService {
   }
 
   /**
+   * Update configuration.
+   */
+  configure(config: Partial<VerifyConfig>): void {
+    this.config = { ...this.config, ...config };
+  }
+
+  /**
+   * Generate a human-readable summary of verification results.
+   */
+  private generateSummary(
+    reports: VerificationReport[],
+    allIssues: VerificationIssue[]
+  ): string {
+    const parts: string[] = [];
+
+    // Overall status
+    const passed = reports.every((r) => r.passed);
+    const avgScore =
+      reports.length > 0
+        ? Math.round(
+            reports.reduce((sum, r) => sum + r.score, 0) / reports.length
+          )
+        : 100;
+
+    parts.push(passed ? '✓ Verification passed' : '✗ Verification failed');
+    parts.push(`Score: ${avgScore}/100`);
+    parts.push('');
+
+    // Per-tier summary
+    for (const report of reports) {
+      const icon = report.passed ? '✓' : '✗';
+      parts.push(`${icon} ${report.tier}: ${report.score}/100`);
+    }
+    parts.push('');
+
+    // Issue summary
+    const errors = allIssues.filter((i) => i.severity === 'error');
+    const warnings = allIssues.filter((i) => i.severity === 'warning');
+    const infos = allIssues.filter((i) => i.severity === 'info');
+
+    if (errors.length > 0) {
+      parts.push(`Errors: ${errors.length}`);
+    }
+    if (warnings.length > 0) {
+      parts.push(`Warnings: ${warnings.length}`);
+    }
+    if (infos.length > 0) {
+      parts.push(`Info: ${infos.length}`);
+    }
+
+    return parts.join('\n');
+  }
+
+  /**
    * Format tier name for display.
    */
   private formatTierName(tier: VerificationTier): string {
@@ -309,13 +316,6 @@ export class VerifyService {
       default:
         return tier;
     }
-  }
-
-  /**
-   * Update configuration.
-   */
-  configure(config: Partial<VerifyConfig>): void {
-    this.config = { ...this.config, ...config };
   }
 }
 

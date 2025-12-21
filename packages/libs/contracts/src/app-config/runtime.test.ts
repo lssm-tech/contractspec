@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
-import { resolveAppConfig, composeAppConfig } from './runtime';
+import { composeAppConfig, resolveAppConfig } from './runtime';
 import { type AppBlueprintSpec, type TenantAppConfig } from './spec';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
-import { FeatureRegistry, type FeatureModuleSpec } from '../features';
+import { type FeatureModuleSpec, FeatureRegistry } from '../features';
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
 import { WorkflowRegistry, type WorkflowSpec } from '../workflow/spec';
 import { PolicyRegistry, type PolicySpec } from '../policy/spec';
@@ -10,8 +10,8 @@ import { ThemeRegistry, type ThemeSpec } from '../themes';
 import { TelemetryRegistry, type TelemetrySpec } from '../telemetry/spec';
 import { ExperimentRegistry, type ExperimentSpec } from '../experiments/spec';
 import {
-  IntegrationSpecRegistry,
   type IntegrationSpec,
+  IntegrationSpecRegistry,
 } from '../integrations/spec';
 import type { IntegrationConnection } from '../integrations/connection';
 import {
@@ -19,7 +19,7 @@ import {
   type KnowledgeSpaceSpec,
 } from '../knowledge/spec';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
-import { StabilityEnum, type Owner, type Tag } from '../ownership';
+import { type Owner, StabilityEnum, type Tag } from '../ownership';
 
 const ownership = {
   title: 'Sample',

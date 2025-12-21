@@ -1,14 +1,14 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import {
-  ProjectModel,
   CreateProjectInputModel,
-  UpdateProjectInputModel,
-  GetProjectInputModel,
   DeleteProjectInputModel,
   DeleteProjectOutputModel,
-  ProjectDeletedPayloadModel,
+  GetProjectInputModel,
   ListProjectsInputModel,
   ListProjectsOutputModel,
+  ProjectDeletedPayloadModel,
+  ProjectModel,
+  UpdateProjectInputModel,
 } from './project.schema';
 
 const OWNERS = ['example.saas-boilerplate'] as const;

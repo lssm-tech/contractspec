@@ -3,9 +3,9 @@ import chalk from 'chalk';
 import { resolve } from 'node:path';
 import { writeFile } from 'node:fs/promises';
 import {
-  SpecRegistry,
   openApiForRegistry,
   type OpenApiServer,
+  OperationSpecRegistry,
 } from '@lssm/lib.contracts';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import { getErrorMessage } from '../../utils/errors';
@@ -24,19 +24,21 @@ interface ExportOptions {
 
 interface LoadedRegistryModule {
   default?: unknown;
-  createRegistry?: () => Promise<SpecRegistry> | SpecRegistry;
-  registry?: SpecRegistry;
+  createRegistry?: () => Promise<OperationSpecRegistry> | OperationSpecRegistry;
+  registry?: OperationSpecRegistry;
 }
 
-async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
+async function loadRegistry(
+  modulePath: string
+): Promise<OperationSpecRegistry> {
   const exports = (await loadTypeScriptModule(
     modulePath
   )) as LoadedRegistryModule;
 
-  if (exports instanceof SpecRegistry) {
+  if (exports instanceof OperationSpecRegistry) {
     return exports;
   }
-  if (exports.registry instanceof SpecRegistry) {
+  if (exports.registry instanceof OperationSpecRegistry) {
     return exports.registry;
   }
 
@@ -44,18 +46,20 @@ async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
     typeof exports.createRegistry === 'function'
       ? exports.createRegistry
       : typeof exports.default === 'function'
-        ? (exports.default as () => Promise<SpecRegistry> | SpecRegistry)
+        ? (exports.default as () =>
+            | Promise<OperationSpecRegistry>
+            | OperationSpecRegistry)
         : undefined;
 
   if (factory) {
     const result = await factory();
-    if (result instanceof SpecRegistry) {
+    if (result instanceof OperationSpecRegistry) {
       return result;
     }
   }
 
   throw new Error(
-    `Registry module ${modulePath} must export a SpecRegistry instance or a factory function returning one.`
+    `Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
   );
 }
 
@@ -66,7 +70,7 @@ export const exportCommand = new Command('export')
   .description('Export specs to an OpenAPI 3.1 document')
   .option(
     '--registry <path>',
-    'Path to a module exporting a SpecRegistry (or factory)'
+    'Path to a module exporting a OperationSpecRegistry (or factory)'
   )
   .option('--out <path>', 'Write output to a file')
   .option('--format <format>', 'Output format: json or yaml', 'json')

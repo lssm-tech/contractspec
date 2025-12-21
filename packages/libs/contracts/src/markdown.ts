@@ -1,5 +1,5 @@
-import type { SpecRegistry } from './registry';
-import { isEmitDeclRef } from './spec';
+import type { OperationSpecRegistry } from './registry';
+import { isEmitDeclRef } from './operation';
 import type { PresentationRegistry } from './presentations';
 import type { FeatureRegistry } from './features';
 
@@ -8,7 +8,7 @@ import type { FeatureRegistry } from './features';
  * Useful for dev portals and repo docs generation.
  */
 export function specsToMarkdown(
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   _extras?: { presentations?: PresentationRegistry; features?: FeatureRegistry }
 ): string {
   const lines: string[] = [];
@@ -101,7 +101,7 @@ export function specsToMarkdown(
 
 /** Render presentations and features as additional sections. */
 export function docsToMarkdown(
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   extras: { presentations?: PresentationRegistry; features?: FeatureRegistry }
 ): string {
   const parts: string[] = [];

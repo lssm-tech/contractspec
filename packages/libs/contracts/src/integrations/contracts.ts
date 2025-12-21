@@ -1,6 +1,10 @@
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
-import { defineCommand, defineQuery, type AnyContractSpec } from '../spec';
-import type { SpecRegistry } from '../registry';
+import {
+  type AnyOperationSpec,
+  defineCommand,
+  defineQuery,
+} from '../operation';
+import type { OperationSpecRegistry } from '../registry';
 
 const IntegrationConnectionRecord = new SchemaModel({
   name: 'IntegrationConnectionRecord',
@@ -289,7 +293,7 @@ export const TestIntegrationConnection = defineCommand({
   },
 });
 
-export const integrationContracts: Record<string, AnyContractSpec> = {
+export const integrationContracts: Record<string, AnyOperationSpec> = {
   CreateIntegrationConnection,
   UpdateIntegrationConnection,
   DeleteIntegrationConnection,
@@ -297,7 +301,7 @@ export const integrationContracts: Record<string, AnyContractSpec> = {
   TestIntegrationConnection,
 };
 
-export function registerIntegrationContracts(registry: SpecRegistry) {
+export function registerIntegrationContracts(registry: OperationSpecRegistry) {
   return registry
     .register(CreateIntegrationConnection)
     .register(UpdateIntegrationConnection)

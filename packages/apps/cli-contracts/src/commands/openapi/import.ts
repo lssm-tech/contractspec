@@ -102,7 +102,7 @@ export const importCommand = new Command('import')
 
       // Write imported specs
       let importedCount = 0;
-      for (const spec of importResult.specs) {
+      for (const spec of importResult.operationSpecs) {
         // Determine output directory based on spec type and conventions
         let targetDir: string;
         if (useConventions) {

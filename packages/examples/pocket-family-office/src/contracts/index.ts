@@ -1,10 +1,10 @@
 import {
+  defineEnum,
   defineSchemaModel,
   ScalarTypeEnum,
-  defineEnum,
   type ZodSchemaModel,
 } from '@lssm/lib.schema';
-import type { ContractSpec } from '@lssm/lib.contracts/spec';
+import type { OperationSpec } from '@lssm/lib.contracts/operation';
 import {
   OwnersEnum,
   StabilityEnum,
@@ -55,7 +55,7 @@ export type UploadDocumentOutput = ZodSchemaModel<
   typeof UploadDocumentOutputModel
 >;
 
-export const uploadDocumentContract: ContractSpec<
+export const uploadDocumentContract: OperationSpec<
   typeof UploadDocumentInputModel,
   typeof UploadDocumentOutputModel
 > = {
@@ -118,7 +118,7 @@ export type PaymentReminderOutput = ZodSchemaModel<
   typeof PaymentReminderOutputModel
 >;
 
-export const schedulePaymentReminderContract: ContractSpec<
+export const schedulePaymentReminderContract: OperationSpec<
   typeof PaymentReminderInputModel,
   typeof PaymentReminderOutputModel
 > = {
@@ -182,7 +182,7 @@ export type FinancialSummaryOutput = ZodSchemaModel<
   typeof FinancialSummaryOutputModel
 >;
 
-export const generateFinancialSummaryContract: ContractSpec<
+export const generateFinancialSummaryContract: OperationSpec<
   typeof FinancialSummaryInputModel,
   typeof FinancialSummaryOutputModel
 > = {
@@ -239,7 +239,7 @@ export type SyncEmailThreadsOutput = ZodSchemaModel<
   typeof SyncEmailThreadsOutputModel
 >;
 
-export const syncEmailThreadsContract: ContractSpec<
+export const syncEmailThreadsContract: OperationSpec<
   typeof SyncEmailThreadsInputModel,
   typeof SyncEmailThreadsOutputModel
 > = {
@@ -298,7 +298,7 @@ export type SummaryDispatchOutput = ZodSchemaModel<
   typeof SummaryDispatchOutputModel
 >;
 
-export const dispatchFinancialSummaryContract: ContractSpec<
+export const dispatchFinancialSummaryContract: OperationSpec<
   typeof SummaryDispatchInputModel,
   typeof SummaryDispatchOutputModel
 > = {
@@ -361,7 +361,7 @@ export type OpenBankingOverviewOutput = ZodSchemaModel<
   typeof OpenBankingOverviewOutputModel
 >;
 
-export const generateOpenBankingOverviewContract: ContractSpec<
+export const generateOpenBankingOverviewContract: OperationSpec<
   typeof OpenBankingOverviewInputModel,
   typeof OpenBankingOverviewOutputModel
 > = {
@@ -402,4 +402,4 @@ export const pocketFamilyOfficeContracts = {
   'pfo.email.sync-threads': syncEmailThreadsContract,
   'pfo.openbanking.generate-overview': generateOpenBankingOverviewContract,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} satisfies Record<string, ContractSpec<any, any>>;
+} satisfies Record<string, OperationSpec<any, any>>;

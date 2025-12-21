@@ -11,7 +11,7 @@ export function parseImportedSpecNames(
   // import x from './foo.contracts'
   // import { y } from '../bar.event.ts'
   const importRegex =
-    /import\s+.*?\s+from\s+['"]([^'"]+\.(?:contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)(?:\.[jt]s)?)['"]/g;
+    /import\s+.*?\s+from\s+['"]([^'"]+\.(?:contracts|contract|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)(?:\.[jt]s)?)['"]/g;
 
   let match: RegExpExecArray | null;
   while ((match = importRegex.exec(sourceCode)) !== null) {
@@ -25,7 +25,7 @@ export function parseImportedSpecNames(
     const name = base
       .replace(/\.(ts|js)$/, '')
       .replace(
-        /\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+        /\.(contracts|contract|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
         ''
       );
 

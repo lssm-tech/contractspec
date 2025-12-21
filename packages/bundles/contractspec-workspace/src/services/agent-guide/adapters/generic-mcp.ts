@@ -5,8 +5,8 @@
  * Uses standard MCP resource/prompt/tool patterns.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import type { AgentPrompt, ImplementationPlan } from '@lssm/lib.contracts/llm';
 import { AGENT_SYSTEM_PROMPTS } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
@@ -180,7 +180,7 @@ export class GenericMCPAdapter implements AgentAdapter {
   /**
    * Generate configuration (generic markdown for any agent).
    */
-  generateConfig(spec: AnyContractSpec): string {
+  generateConfig(spec: AnyOperationSpec): string {
     const m = spec.meta;
     const lines: string[] = [];
 

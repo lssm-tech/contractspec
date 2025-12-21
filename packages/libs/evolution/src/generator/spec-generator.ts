@@ -1,4 +1,4 @@
-import type { ContractSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
+import type { OperationSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import { Logger } from '@lssm/lib.observability';
 import { randomUUID } from 'node:crypto';
@@ -11,7 +11,7 @@ import {
   type SuggestionStatus,
 } from '../types';
 
-type AnyContract = ContractSpec<
+type AnyContract = OperationSpec<
   AnySchemaModel,
   AnySchemaModel | ResourceRefDescriptor<boolean>
 >;
@@ -37,7 +37,7 @@ export interface GenerateSpecOptions {
 }
 
 export type SpecPatch = Partial<
-  ContractSpec<AnySchemaModel, AnySchemaModel | ResourceRefDescriptor<boolean>>
+  OperationSpec<AnySchemaModel, AnySchemaModel | ResourceRefDescriptor<boolean>>
 > & { meta?: Partial<AnyContract['meta']> };
 
 export class SpecGenerator {

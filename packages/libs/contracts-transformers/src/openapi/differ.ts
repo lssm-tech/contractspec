@@ -3,13 +3,13 @@
  * Used for sync operations to detect changes.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 import type { ParsedOperation } from './types';
 import type {
-  SpecDiff,
   DiffChange,
   DiffChangeType,
-  ImportedSpec,
+  ImportedOperationSpec,
+  SpecDiff,
 } from '../common/types';
 import { deepEqual } from '../common/utils';
 
@@ -131,7 +131,7 @@ function diffObjects(
  * Diff a ContractSpec against an OpenAPI operation.
  */
 export function diffSpecVsOperation(
-  spec: AnyContractSpec,
+  spec: AnyOperationSpec,
   operation: ParsedOperation,
   options: DiffOptions = {}
 ): DiffChange[] {
@@ -210,8 +210,8 @@ export function diffSpecVsOperation(
  * Diff two ContractSpecs.
  */
 export function diffSpecs(
-  oldSpec: AnyContractSpec,
-  newSpec: AnyContractSpec,
+  oldSpec: AnyOperationSpec,
+  newSpec: AnyOperationSpec,
   options: DiffOptions = {}
 ): DiffChange[] {
   const changes: DiffChange[] = [];
@@ -262,18 +262,18 @@ export function diffSpecs(
  */
 export function createSpecDiff(
   operationId: string,
-  existing: AnyContractSpec | undefined,
-  incoming: ImportedSpec,
+  existing: AnyOperationSpec | undefined,
+  incoming: ImportedOperationSpec,
   options: DiffOptions = {}
 ): SpecDiff {
   let changes: DiffChange[] = [];
   let isEquivalent = false;
 
-  if (existing && incoming.spec) {
+  if (existing && incoming.operationSpec) {
     // Compare existing vs incoming
-    changes = diffSpecs(existing, incoming.spec, options);
+    changes = diffSpecs(existing, incoming.operationSpec, options);
     isEquivalent = changes.length === 0;
-  } else if (existing && !incoming.spec) {
+  } else if (existing && !incoming.operationSpec) {
     // Incoming has code but no runtime spec - can't compare directly
     changes = [
       {
@@ -291,7 +291,7 @@ export function createSpecDiff(
       {
         path: '',
         type: 'added',
-        newValue: incoming.spec ?? incoming.code,
+        newValue: incoming.operationSpec ?? incoming.code,
         description: 'New spec imported from OpenAPI',
       },
     ];
@@ -310,8 +310,8 @@ export function createSpecDiff(
  * Batch diff multiple specs against OpenAPI operations.
  */
 export function diffAll(
-  existingSpecs: Map<string, AnyContractSpec>,
-  importedSpecs: ImportedSpec[],
+  existingSpecs: Map<string, AnyOperationSpec>,
+  importedSpecs: ImportedOperationSpec[],
   options: DiffOptions = {}
 ): SpecDiff[] {
   const diffs: SpecDiff[] = [];
@@ -324,7 +324,7 @@ export function diffAll(
 
     // Try to find matching existing spec
     // Match by operationId in x-contractspec extension or by name
-    let existing: AnyContractSpec | undefined;
+    let existing: AnyOperationSpec | undefined;
 
     for (const [key, spec] of existingSpecs) {
       // Check x-contractspec match or name match
@@ -345,7 +345,7 @@ export function diffAll(
       diffs.push({
         operationId: key,
         existing: spec,
-        incoming: undefined as unknown as ImportedSpec,
+        incoming: undefined as unknown as ImportedOperationSpec,
         changes: [
           {
             path: '',

@@ -208,11 +208,11 @@ program
 
 const testProgram = program
   .command('test')
-  .description('Run TestSpec scenarios against a SpecRegistry')
+  .description('Run TestSpec scenarios against a OperationSpecRegistry')
   .argument('<spec-file>', 'Path to TestSpec file')
   .option(
     '-r, --registry <path>',
-    'Path to module exporting a SpecRegistry or factory'
+    'Path to module exporting a OperationSpecRegistry or factory'
   )
   .option('--json', 'Output JSON results')
   .action(async (specFile, options) => {

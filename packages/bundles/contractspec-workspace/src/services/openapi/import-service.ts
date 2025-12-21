@@ -73,7 +73,7 @@ export async function importFromOpenApiService(
   const errorMessages: OpenApiImportServiceResult['errorMessages'] = [];
 
   // Write imported specs
-  for (const spec of importResult.specs) {
+  for (const spec of importResult.operationSpecs) {
     const filePath = join(outputDir, spec.fileName);
 
     if (dryRun) {

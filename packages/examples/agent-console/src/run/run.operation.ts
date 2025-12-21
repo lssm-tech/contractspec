@@ -1,12 +1,12 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { RunStatusEnum, LogLevelEnum, GranularityEnum } from './run.enum';
+import { GranularityEnum, LogLevelEnum, RunStatusEnum } from './run.enum';
 import {
   RunInputModel,
-  RunModel,
-  RunSummaryModel,
-  RunStepModel,
   RunLogModel,
+  RunModel,
+  RunStepModel,
+  RunSummaryModel,
   TimelineDataPointModel,
 } from './run.schema';
 

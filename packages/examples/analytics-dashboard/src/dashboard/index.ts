@@ -23,4 +23,4 @@ export {
   AddWidgetContract,
   ListDashboardsContract,
   GetDashboardContract,
-} from './dashboard.contracts';
+} from './dashboard.operation';

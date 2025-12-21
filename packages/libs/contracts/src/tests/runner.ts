@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'node:assert';
-import { SpecRegistry } from '../index';
+import { OperationSpecRegistry } from '../index';
 import type { HandlerCtx } from '../types';
 import type {
   Action,
@@ -33,7 +33,7 @@ export interface TestRunResult {
 }
 
 export interface TestRunnerConfig {
-  registry: SpecRegistry;
+  registry: OperationSpecRegistry;
   createContext?: () => HandlerCtx | Promise<HandlerCtx>;
   beforeEach?: (scenario: TestScenario) => void | Promise<void>;
   afterEach?: (

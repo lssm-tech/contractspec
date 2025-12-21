@@ -294,7 +294,7 @@ export const initCommand = new Command('init')
               const modelsDir = getOutputDirForSpecType('model', userConfig);
 
               let importedCount = 0;
-              for (const spec of importResult.specs) {
+              for (const spec of importResult.operationSpecs) {
                 let targetDir: string;
                 if (spec.code.includes('defineEvent(')) {
                   targetDir = eventsDir;

@@ -1,4 +1,4 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { ApprovalStatusEnum, ApprovalDecisionEnum } from './approval.enum';
 import { ApprovalRequestModel, ApprovalCommentModel } from './approval.schema';

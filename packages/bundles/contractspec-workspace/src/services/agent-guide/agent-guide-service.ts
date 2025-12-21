@@ -5,15 +5,18 @@
  * Bridges ContractSpec specifications with agent-specific formats.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type {
+  AnyOperationSpec,
+  PresentationRegistry,
+  OperationSpecRegistry,
+} from '@lssm/lib.contracts';
 import type { FeatureModuleSpec } from '@lssm/lib.contracts/features';
-import type { SpecRegistry, PresentationRegistry } from '@lssm/lib.contracts';
 import type { AgentType, ImplementationPlan } from '@lssm/lib.contracts/llm';
 import {
-  generateImplementationPlan,
-  specToFullMarkdown,
-  specToAgentPrompt,
   featureToMarkdown,
+  generateImplementationPlan,
+  specToAgentPrompt,
+  specToFullMarkdown,
 } from '@lssm/lib.contracts/llm';
 import { getAgentAdapter, listAgentTypes } from './adapters';
 import type { AgentGuideConfig, GuideOptions, GuideResult } from './types';
@@ -39,7 +42,7 @@ export class AgentGuideService {
    * Generate an implementation guide for a spec.
    */
   generateGuide(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     options: GuideOptions = {}
   ): GuideResult {
     const agent = options.agent ?? this.config.defaultAgent;
@@ -70,7 +73,7 @@ export class AgentGuideService {
   generateFeatureGuide(
     feature: FeatureModuleSpec,
     deps: {
-      specs?: SpecRegistry;
+      specs?: OperationSpecRegistry;
       presentations?: PresentationRegistry;
     },
     options: GuideOptions = {}
@@ -158,7 +161,7 @@ export class AgentGuideService {
    * Generate agent-specific configuration (e.g., cursor rules).
    */
   generateAgentConfig(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     agent?: AgentType
   ): string | undefined {
     const adapter = getAgentAdapter(agent ?? this.config.defaultAgent);
@@ -169,7 +172,7 @@ export class AgentGuideService {
    * Export a spec in a specific format for an agent.
    */
   exportForAgent(
-    spec: AnyContractSpec,
+    spec: AnyOperationSpec,
     _agent: AgentType,
     taskType: 'implement' | 'test' | 'refactor' | 'review' = 'implement',
     existingCode?: string

@@ -1,5 +1,5 @@
 import type { FormRegistry } from '../forms';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type {
   Step,
   Transition,
@@ -16,7 +16,7 @@ export interface WorkflowValidationIssue {
 }
 
 export interface ValidateWorkflowSpecOptions {
-  operations?: SpecRegistry;
+  operations?: OperationSpecRegistry;
   forms?: FormRegistry;
 }
 

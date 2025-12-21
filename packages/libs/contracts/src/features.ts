@@ -1,16 +1,16 @@
 import type {
-  PresentationTarget,
   PresentationDescriptorV2,
+  PresentationTarget,
 } from './presentations.v2';
 import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
 import type {
   CapabilityRef,
-  CapabilityRequirement,
   CapabilityRegistry,
+  CapabilityRequirement,
 } from './capabilities';
 import type { ExperimentRef } from './experiments/spec';
-import type { ImplementationRef } from './spec';
+import type { ImplementationRef } from './operation';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export interface FeatureModuleMeta extends OwnerShipMeta {
@@ -21,9 +21,9 @@ export interface FeatureModuleMeta extends OwnerShipMeta {
 }
 
 export interface OpRef {
-  /** Operation name (ContractSpec.meta.name). */
+  /** Operation name (OperationSpec.meta.name). */
   name: string;
-  /** Operation version (ContractSpec.meta.version). */
+  /** Operation version (OperationSpec.meta.version). */
   version: number;
 }
 
@@ -112,7 +112,7 @@ export function installFeature(
   feature: FeatureModuleSpec,
   deps: {
     features: FeatureRegistry;
-    ops?: import('./registry').SpecRegistry;
+    ops?: import('./registry').OperationSpecRegistry;
     presentations?: import('./presentations').PresentationRegistry;
     descriptorsV2?: PresentationDescriptorV2[];
     capabilities?: CapabilityRegistry;

@@ -7,4 +7,4 @@ export {
   ConnectionModel,
   CreateConnectionInputModel,
 } from './connection.schema';
-export { CreateConnectionContract } from './connection.contracts';
+export { CreateConnectionContract } from './connection.operation';

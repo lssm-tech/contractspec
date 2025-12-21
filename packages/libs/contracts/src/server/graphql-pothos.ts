@@ -3,9 +3,9 @@ import type {
   QueryFieldThunk,
   SchemaTypes,
 } from '@pothos/core';
-import type { HandlerCtx, EventPublisher } from '../types';
+import type { EventPublisher, HandlerCtx } from '../types';
 import { defaultGqlField } from '../jsonschema';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import '@pothos/plugin-prisma';
 import '@pothos/plugin-complexity';
 import '@pothos/plugin-relay';
@@ -14,32 +14,32 @@ import '@pothos/plugin-tracing';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor, ResourceRegistry } from '../resources';
 import { createInputTypeBuilder } from '../contracts-adapter-input';
-import type { AnyContractSpec } from '../spec';
+import type { AnyOperationSpec } from '../operation';
 import {
   hydrateResourceIfNeeded,
   parseReturns,
 } from '../contracts-adapter-hydration';
 
 /**
- * Registers all ContractSpecs from a SpecRegistry onto a Pothos SchemaBuilder.
+ * Registers all ContractSpecs from a OperationSpecRegistry onto a Pothos SchemaBuilder.
  *
  * This adapter:
  * 1. Discovers output types from specs and registers them as Pothos object types.
- * 2. Maps `ContractSpec` inputs to Pothos input types.
+ * 2. Maps `ContractSpec` (OperationSpec) inputs to Pothos input types.
  * 3. Mounts `query` specs as `Query` fields and `command` specs as `Mutation` fields.
  * 4. Wraps the resolver to:
  *    - Enforce auth policies (basic check).
  *    - Build a `HandlerCtx`.
- *    - Execute via `SpecRegistry`.
+ *    - Execute via `OperationSpecRegistry`.
  *    - Hydrate resource references if applicable.
  *
  * @param builder - The Pothos SchemaBuilder instance.
- * @param reg - The SpecRegistry containing operations.
+ * @param reg - The OperationSpecRegistry containing operations.
  * @param resources - (Optional) ResourceRegistry for hydrating resource references.
  */
 export function registerContractsOnBuilder<T extends SchemaTypes>(
   builder: PothosSchemaTypes.SchemaBuilder<T>,
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   resources?: ResourceRegistry
 ) {
   const { buildInputFieldArgs } = createInputTypeBuilder(builder);
@@ -106,7 +106,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
   }
 
   // For outputs, prefer an explicit GraphQL type name; otherwise use SchemaModel name or resource ref
-  function resolveGraphQLTypeName(contractSpec: AnyContractSpec): string {
+  function resolveGraphQLTypeName(contractSpec: AnyOperationSpec): string {
     const returnsName = contractSpec.transport?.gql?.returns;
     if (returnsName) return returnsName;
 

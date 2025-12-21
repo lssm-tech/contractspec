@@ -3,15 +3,15 @@
  */
 
 import {
-  createContractGraph,
   addContractNode,
   buildReverseEdges,
-  detectCycles,
-  findMissingDependencies,
-  toDot,
-  parseImportedSpecNames,
   type ContractGraph,
   type ContractNode,
+  createContractGraph,
+  detectCycles,
+  findMissingDependencies,
+  parseImportedSpecNames,
+  toDot,
 } from '@lssm/module.contractspec-workspace';
 import type { FsAdapter } from '../ports/fs';
 
@@ -59,7 +59,7 @@ export async function analyzeDeps(
           .basename(file)
           .replace(/\.[jt]s$/, '')
           .replace(
-            /\.(contracts|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
+            /\.(contracts|contract|operation|operations|event|presentation|workflow|data-view|migration|telemetry|experiment|app-config|integration|knowledge)$/,
             ''
           );
 

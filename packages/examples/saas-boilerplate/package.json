@@ -71,7 +71,7 @@
     "exports": {
       ".": "./dist/index.js",
       "./billing": "./dist/billing/index.js",
-      "./billing/billing.contracts": "./dist/billing/billing.contracts.js",
+      "./billing/billing.contracts": "./dist/billing/billing.operations.js",
       "./billing/billing.entity": "./dist/billing/billing.entity.js",
       "./billing/billing.enum": "./dist/billing/billing.enum.js",
       "./billing/billing.event": "./dist/billing/billing.event.js",
@@ -86,7 +86,7 @@
       "./handlers": "./dist/handlers/index.js",
       "./presentations": "./dist/presentations/index.js",
       "./project": "./dist/project/index.js",
-      "./project/project.contracts": "./dist/project/project.contracts.js",
+      "./project/project.contracts": "./dist/project/project.operations.js",
       "./project/project.entity": "./dist/project/project.entity.js",
       "./project/project.enum": "./dist/project/project.enum.js",
       "./project/project.event": "./dist/project/project.event.js",

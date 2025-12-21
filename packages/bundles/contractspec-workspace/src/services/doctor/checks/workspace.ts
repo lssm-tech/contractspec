@@ -5,7 +5,7 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import type { CheckResult, CheckContext, FixResult } from '../types';
+import type { CheckContext, CheckResult, FixResult } from '../types';
 
 /**
  * Common contract directory paths to check.
@@ -176,7 +176,7 @@ async function checkContractFiles(
 ): Promise<CheckResult> {
   try {
     const patterns = [
-      '**/*.contracts.ts',
+      '**/*.operation.ts',
       '**/*.event.ts',
       '**/*.presentation.ts',
       '**/*.feature.ts',

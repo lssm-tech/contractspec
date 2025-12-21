@@ -2,7 +2,7 @@
  * Common types for contract transformations.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 
 /**
  * Source information for imported specs.
@@ -44,13 +44,13 @@ export interface TransportHints {
 /**
  * Result of importing a single spec from an external format.
  */
-export interface ImportedSpec {
+export interface ImportedOperationSpec {
   /**
    * The generated ContractSpec.
    * Optional because during code generation the actual spec object is not
    * available until the generated code is executed at runtime.
    */
-  spec?: AnyContractSpec;
+  operationSpec?: AnyOperationSpec;
   /** Generated TypeScript code for the spec */
   code: string;
   /** Suggested file name for the spec */
@@ -66,7 +66,7 @@ export interface ImportedSpec {
  */
 export interface ImportResult {
   /** Successfully imported specs */
-  specs: ImportedSpec[];
+  operationSpecs: ImportedOperationSpec[];
   /** Specs that were skipped (e.g., unsupported features) */
   skipped: {
     sourceId: string;
@@ -119,9 +119,9 @@ export interface SpecDiff {
   /** Identifier for the operation */
   operationId: string;
   /** Existing ContractSpec (if any) */
-  existing?: AnyContractSpec;
+  existing?: AnyOperationSpec;
   /** Incoming imported spec */
-  incoming: ImportedSpec;
+  incoming: ImportedOperationSpec;
   /** List of detected changes */
   changes: DiffChange[];
   /** Whether specs are semantically equivalent */
@@ -135,10 +135,10 @@ export interface SpecDiff {
  */
 export interface SyncResult {
   /** Specs that were added (new imports) */
-  added: ImportedSpec[];
+  added: ImportedOperationSpec[];
   /** Specs that were updated */
   updated: {
-    spec: ImportedSpec;
+    spec: ImportedOperationSpec;
     changes: DiffChange[];
   }[];
   /** Specs that were kept unchanged */

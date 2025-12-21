@@ -24,7 +24,7 @@ export {
   GetToolQuery,
   ListToolsQuery,
   TestToolCommand,
-} from './tool.contracts';
+} from './tool.operation';
 
 // Events
 export {

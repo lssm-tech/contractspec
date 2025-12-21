@@ -1,4 +1,4 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import {
   QueryModel,
   QueryResultModel,

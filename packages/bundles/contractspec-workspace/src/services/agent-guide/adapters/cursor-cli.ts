@@ -5,8 +5,8 @@
  * Can also generate .mdc cursor rules files.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
-import type { ImplementationPlan, AgentPrompt } from '@lssm/lib.contracts/llm';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import type { AgentPrompt, ImplementationPlan } from '@lssm/lib.contracts/llm';
 import { AGENT_SYSTEM_PROMPTS } from '@lssm/lib.contracts/llm';
 import type { AgentAdapter } from '../types';
 
@@ -89,7 +89,7 @@ export class CursorCLIAdapter implements AgentAdapter {
    * Generate Cursor rules (.mdc format) for a spec.
    * Can be saved to .cursor/rules/ to provide persistent context.
    */
-  generateConfig(spec: AnyContractSpec): string {
+  generateConfig(spec: AnyOperationSpec): string {
     const m = spec.meta;
     const lines: string[] = [];
 
@@ -184,7 +184,7 @@ export class CursorCLIAdapter implements AgentAdapter {
   /**
    * Generate a cursor rules file path for a spec.
    */
-  getCursorRulesPath(spec: AnyContractSpec): string {
+  getCursorRulesPath(spec: AnyOperationSpec): string {
     const safeName = spec.meta.name.replace(/\./g, '-');
     return `.cursor/rules/${safeName}.mdc`;
   }

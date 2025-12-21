@@ -1,12 +1,12 @@
 import type { Elysia } from 'elysia';
 import { createFetchHandler, type RestOptions } from './rest-generic';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { HandlerCtx } from '../types';
 
 /** Mount routes on an Elysia instance */
 export function elysiaPlugin(
   app: Elysia,
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   ctxFactory: (c: { request: Request; store: unknown }) => HandlerCtx,
   options?: RestOptions
 ) {

@@ -118,7 +118,7 @@ export const syncCommand = new Command('sync')
         });
 
         // Process each imported spec
-        for (const imported of importResult.specs) {
+        for (const imported of importResult.operationSpecs) {
           const filePath = resolve(outputDir, imported.fileName);
           const exists = existsSync(filePath);
 

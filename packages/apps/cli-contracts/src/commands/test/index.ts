@@ -4,7 +4,7 @@ import ora from 'ora';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import type { Config } from '../../utils/config';
 import { TestRunner, type TestSpec } from '@lssm/lib.contracts/tests';
-import { SpecRegistry } from '@lssm/lib.contracts';
+import { OperationSpecRegistry } from '@lssm/lib.contracts';
 
 interface TestCommandOptions {
   registry?: string;
@@ -13,8 +13,8 @@ interface TestCommandOptions {
 
 interface LoadedRegistryModule {
   default?: unknown;
-  createRegistry?: () => Promise<SpecRegistry> | SpecRegistry;
-  registry?: SpecRegistry;
+  createRegistry?: () => Promise<OperationSpecRegistry> | OperationSpecRegistry;
+  registry?: OperationSpecRegistry;
 }
 
 export async function testCommand(
@@ -34,7 +34,7 @@ export async function testCommand(
 
   const registry = options.registry
     ? await loadRegistry(path.resolve(options.registry))
-    : new SpecRegistry();
+    : new OperationSpecRegistry();
 
   if (!options.registry) {
     console.warn(
@@ -123,15 +123,17 @@ function isTestSpec(value: unknown): value is TestSpec {
   );
 }
 
-async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
+async function loadRegistry(
+  modulePath: string
+): Promise<OperationSpecRegistry> {
   const exports = (await loadTypeScriptModule(
     modulePath
   )) as LoadedRegistryModule;
 
-  if (exports instanceof SpecRegistry) {
+  if (exports instanceof OperationSpecRegistry) {
     return exports;
   }
-  if (exports.registry instanceof SpecRegistry) {
+  if (exports.registry instanceof OperationSpecRegistry) {
     return exports.registry;
   }
 
@@ -139,18 +141,20 @@ async function loadRegistry(modulePath: string): Promise<SpecRegistry> {
     typeof exports.createRegistry === 'function'
       ? exports.createRegistry
       : typeof exports.default === 'function'
-        ? (exports.default as () => Promise<SpecRegistry> | SpecRegistry)
+        ? (exports.default as () =>
+            | Promise<OperationSpecRegistry>
+            | OperationSpecRegistry)
         : undefined;
 
   if (factory) {
     const result = await factory();
-    if (result instanceof SpecRegistry) {
+    if (result instanceof OperationSpecRegistry) {
       return result;
     }
   }
 
   throw new Error(
-    `Registry module ${modulePath} must export a SpecRegistry instance or a factory function returning one.`
+    `Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
   );
 }
 

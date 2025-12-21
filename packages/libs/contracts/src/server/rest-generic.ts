@@ -1,5 +1,5 @@
 import { defaultRestPath } from '../jsonschema';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { HandlerCtx } from '../types';
 
 export interface RestOptions {
@@ -52,12 +52,12 @@ function joinPath(a: string | undefined, b: string) {
 
 /**
  * Build a single Fetch-style handler: (req) => Response
- * - Discovers routes from SpecRegistry
+ * - Discovers routes from OperationSpecRegistry
  * - Validates with zod via registry.execute()
  * - Handles CORS (optional)
  */
 export function createFetchHandler(
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   ctxFactory: (req: Request) => HandlerCtx,
   options?: RestOptions
 ) {

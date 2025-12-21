@@ -3,7 +3,7 @@
  * Defines export formats, agent types, and verification structures.
  */
 
-import type { AnyContractSpec } from '../spec';
+import type { AnyOperationSpec } from '../operation';
 import type { FeatureModuleSpec } from '../features';
 import type { PresentationDescriptorV2 } from '../presentations.v2';
 import type { EventSpec } from '../events';
@@ -48,7 +48,7 @@ export interface FeatureExportOptions extends SpecExportOptions {
 /** Result of spec export */
 export interface SpecExportResult {
   /** The spec that was exported */
-  spec: AnyContractSpec;
+  spec: AnyOperationSpec;
   /** Generated markdown content */
   markdown: string;
   /** Export format used */
@@ -209,7 +209,7 @@ export interface BatchExportOptions extends SpecExportOptions {
 
 /** Exportable item types */
 export type ExportableItem =
-  | { type: 'spec'; item: AnyContractSpec }
+  | { type: 'spec'; item: AnyOperationSpec }
   | { type: 'feature'; item: FeatureModuleSpec }
   | { type: 'presentation'; item: PresentationDescriptorV2 }
   | { type: 'event'; item: EventSpec<AnySchemaModel> }

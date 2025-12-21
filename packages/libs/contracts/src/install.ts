@@ -1,18 +1,23 @@
 import * as z from 'zod';
-import type { AnyContractSpec, ContractSpec, EmitDecl } from './spec';
+import type { AnyOperationSpec, EmitDecl, OperationSpec } from './operation';
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
-import { SpecRegistry } from './registry';
+import { OperationSpecRegistry } from './registry';
 import type { EventSpec } from './events';
 import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
 
-/** Infer input/output types from a ContractSpec */
-export type SpecInput<Spec extends AnyContractSpec> = Spec['io']['input'];
-export type ZodSpecInput<Spec extends AnyContractSpec> = ZodSchemaModel<
-  SpecInput<Spec> extends null ? AnySchemaModel : NonNullable<SpecInput<Spec>>
->;
+/** Infer input/output types from a OperationSpec */
+export type OperationSpecInput<Spec extends AnyOperationSpec> =
+  Spec['io']['input'];
+export type ZodOperationSpecInput<Spec extends AnyOperationSpec> =
+  ZodSchemaModel<
+    OperationSpecInput<Spec> extends null
+      ? AnySchemaModel
+      : NonNullable<OperationSpecInput<Spec>>
+  >;
 
-export type SpecOutput<Spec extends AnyContractSpec> = Spec['io']['output'];
+export type OperationSpecOutput<Spec extends AnyOperationSpec> =
+  Spec['io']['output'];
 
 type ResourceItem<O extends ResourceRefDescriptor<boolean>> = Record<
   O['varName'] extends string ? O['varName'] : 'id',
@@ -26,20 +31,20 @@ type ResourceRefOut<O> =
       : ResourceItem<O>
     : never;
 
-export type RuntimeSpecOutput<Spec extends AnyContractSpec> =
-  SpecOutput<Spec> extends AnySchemaModel
-    ? ZodSchemaModel<SpecOutput<Spec>>
-    : ResourceRefOut<SpecOutput<Spec>>;
+export type RuntimeSpecOutput<Spec extends AnyOperationSpec> =
+  OperationSpecOutput<Spec> extends AnySchemaModel
+    ? ZodSchemaModel<OperationSpecOutput<Spec>>
+    : ResourceRefOut<OperationSpecOutput<Spec>>;
 
 /** Handler signature derived from the Spec */
-export type HandlerFor<Spec extends AnyContractSpec> = (
-  args: ZodSpecInput<Spec>,
+export type HandlerForOperationSpec<Spec extends AnyOperationSpec> = (
+  args: ZodOperationSpecInput<Spec>,
   ctx: HandlerCtx
 ) => Promise<RuntimeSpecOutput<Spec>>;
 
 /** Typed event param from Spec.sideEffects.emits */
 export type EventParam<
-  S extends ContractSpec<
+  S extends OperationSpec<
     AnySchemaModel,
     AnySchemaModel | ResourceRefDescriptor<boolean>
   >,
@@ -55,7 +60,7 @@ export type EventParam<
 
 /** Build a type union of allowed events for a spec */
 type AllowedEventUnion<
-  S extends ContractSpec<
+  S extends OperationSpec<
     AnySchemaModel,
     AnySchemaModel | ResourceRefDescriptor<boolean>
   >,
@@ -80,7 +85,10 @@ type AllowedEventUnion<
   : never;
 
 /** Typed emit for a given spec (validates at runtime through ctx.__emitGuard__). */
-export function makeEmit<S extends AnyContractSpec>(_spec: S, ctx: HandlerCtx) {
+export function makeEmit<S extends AnyOperationSpec>(
+  _spec: S,
+  ctx: HandlerCtx
+) {
   return {
     /** Le plus sûr : typé via EventSpec (pas besoin de tuple dans le spec) */
     ref: async <T extends AnySchemaModel>(
@@ -106,11 +114,11 @@ export function makeEmit<S extends AnyContractSpec>(_spec: S, ctx: HandlerCtx) {
  * Register the Spec and bind the handler in one call, with full type inference.
  * Returns the registry for chaining.
  */
-export function installOp<S extends AnyContractSpec>(
-  reg: SpecRegistry,
+export function installOp<S extends AnyOperationSpec>(
+  reg: OperationSpecRegistry,
   spec: S,
-  handler: HandlerFor<S>
-): SpecRegistry {
+  handler: HandlerForOperationSpec<S>
+): OperationSpecRegistry {
   return reg.register(spec).bind(spec, handler);
 }
 
@@ -119,13 +127,13 @@ export function installOp<S extends AnyContractSpec>(
  *   const install = op(BeginSignupSpec, handler);
  *   install(reg);
  */
-export function op<S extends AnyContractSpec>(
+export function op<S extends AnyOperationSpec>(
   spec: S,
-  handler: HandlerFor<AnyContractSpec>
+  handler: HandlerForOperationSpec<AnyOperationSpec>
 ) {
   return {
     spec,
     handler,
-    install: (reg: SpecRegistry) => installOp(reg, spec, handler),
+    install: (reg: OperationSpecRegistry) => installOp(reg, spec, handler),
   };
 }

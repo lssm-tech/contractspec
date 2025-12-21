@@ -37,7 +37,7 @@
     "ai"
   ],
   "activationEvents": [
-    "workspaceContains:**/*.contracts.ts",
+    "workspaceContains:**/*.operations.ts",
     "workspaceContains:**/*.event.ts",
     "workspaceContains:**/*.presentation.ts",
     "workspaceContains:**/*.feature.ts",
@@ -580,17 +580,17 @@
       "explorer/context": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "contractspec@1"
         },
         {
           "command": "contractspec.build",
-          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
           "group": "contractspec@2"
         },
         {
           "command": "contractspec.diff",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|workflow)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|workflow)\\.ts$/",
           "group": "contractspec@3"
         },
         {
@@ -602,12 +602,12 @@
       "editor/context": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "contractspec@1"
         },
         {
           "command": "contractspec.build",
-          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
           "group": "contractspec@2"
         },
         {
@@ -617,29 +617,29 @@
         },
         {
           "command": "contractspec.llmExport",
-          "when": "resourceFilename =~ /\\.(contracts|feature)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
           "group": "contractspec-llm@1"
         },
         {
           "command": "contractspec.llmGuide",
-          "when": "resourceFilename =~ /\\.(contracts)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations)\\.ts$/",
           "group": "contractspec-llm@2"
         },
         {
           "command": "contractspec.llmCopy",
-          "when": "resourceFilename =~ /\\.(contracts|feature)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
           "group": "contractspec-llm@3"
         }
       ],
       "editor/title": [
         {
           "command": "contractspec.validate",
-          "when": "resourceFilename =~ /\\.(contracts|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
           "group": "navigation"
         },
         {
           "command": "contractspec.build",
-          "when": "resourceFilename =~ /\\.(contracts|presentation)\\.ts$/",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
           "group": "navigation"
         }
       ]
@@ -647,7 +647,7 @@
     "viewsWelcome": [
       {
         "view": "contractspec.llmToolsView",
-        "contents": "LLM Tools for ContractSpec.\n\nOpen a spec file (.spec.ts, .contracts.ts, .feature.ts) to access export, guide, and verification features.\n\n[Export to LLM](command:contractspec.llmExport)\n[Generate Guide](command:contractspec.llmGuide)\n[Verify Implementation](command:contractspec.llmVerify)"
+        "contents": "LLM Tools for ContractSpec.\n\nOpen a spec file (.spec.ts, .operations.ts, .feature.ts) to access export, guide, and verification features.\n\n[Export to LLM](command:contractspec.llmExport)\n[Generate Guide](command:contractspec.llmGuide)\n[Verify Implementation](command:contractspec.llmVerify)"
       }
     ],
     "walkthroughs": [
@@ -767,7 +767,7 @@
       {
         "id": "typescript",
         "extensions": [
-          ".contracts.ts",
+          ".operation.ts",
           ".event.ts",
           ".presentation.ts",
           ".feature.ts",

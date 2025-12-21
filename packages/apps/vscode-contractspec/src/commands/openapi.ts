@@ -102,9 +102,9 @@ export async function exportToOpenApi(
 
         if (!registryPath) {
           vscode.window.showWarningMessage(
-            'No SpecRegistry found. Please create a registry file that exports a SpecRegistry instance.'
+            'No OperationSpecRegistry found. Please create a registry file that exports a OperationSpecRegistry instance.'
           );
-          outputChannel.appendLine('❌ No SpecRegistry found');
+          outputChannel.appendLine('❌ No OperationSpecRegistry found');
           return;
         }
 
@@ -122,7 +122,7 @@ export async function exportToOpenApi(
 
           if (!registry) {
             vscode.window.showErrorMessage(
-              'Registry file must export a SpecRegistry instance or createRegistry function'
+              'Registry file must export a OperationSpecRegistry instance or createRegistry function'
             );
             outputChannel.appendLine('❌ Invalid registry export');
             return;
@@ -361,7 +361,7 @@ export async function importFromOpenApiCommand(
 
         // Write files
         let importedCount = 0;
-        for (const spec of importResult.specs) {
+        for (const spec of importResult.operationSpecs) {
           const filePath = path.join(outputDir, spec.fileName);
           const dir = path.dirname(filePath);
 

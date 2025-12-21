@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'bun:test';
-import { SpecRegistry } from '../registry';
+import { OperationSpecRegistry } from '../registry';
 import {
   CreateIntegrationConnection,
   DeleteIntegrationConnection,
   ListIntegrationConnections,
+  registerIntegrationContracts,
   TestIntegrationConnection,
   UpdateIntegrationConnection,
-  registerIntegrationContracts,
 } from './contracts';
 
 describe('integration contracts', () => {
   it('registers integration connection management contracts', () => {
-    const registry = registerIntegrationContracts(new SpecRegistry());
+    const registry = registerIntegrationContracts(new OperationSpecRegistry());
 
     expect(registry.getSpec('integrations.connection.create', 1)).toBe(
       CreateIntegrationConnection

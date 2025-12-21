@@ -61,7 +61,7 @@ const config = await loadWorkspaceConfig(adapters.fs);
 
 // Build deterministic artifacts from a spec (templates-first)
 const result = await buildSpec(
-  './my-spec.contracts.ts',
+  './my-spec.operation.ts',
   { fs: adapters.fs, logger: adapters.logger },
   config
 );

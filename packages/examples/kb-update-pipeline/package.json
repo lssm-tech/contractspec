@@ -8,8 +8,6 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/pipeline": "./dist/contracts/pipeline.js",
     "./docs": "./dist/docs/index.js",
     "./docs/kb-update-pipeline.docblock": "./dist/docs/kb-update-pipeline.docblock.js",
     "./entities": "./dist/entities/index.js",
@@ -20,6 +18,8 @@
     "./handlers": "./dist/handlers/index.js",
     "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
     "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
+    "./operations": "./dist/operations/index.js",
+    "./operations/pipeline": "./dist/operations/pipeline.js",
     "./*": "./*"
   },
   "scripts": {

@@ -1,8 +1,8 @@
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
-import { defineCommand, defineQuery } from '../spec';
+import type { OperationSpec } from '../operation';
+import { defineCommand, defineQuery } from '../operation';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
-import type { ContractSpec } from '../spec';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 
 const BrandingAssetInput = new SchemaModel({
   name: 'BrandingAssetInput',
@@ -278,7 +278,7 @@ export const ResolveMessageQuery = defineQuery({
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const appConfigContracts: Record<string, ContractSpec<any, any>> = {
+export const appConfigContracts: Record<string, OperationSpec<any, any>> = {
   UpdateTenantBrandingCommand,
   VerifyCustomDomainCommand,
   UpdateBlueprintTranslationCatalogCommand,
@@ -287,7 +287,7 @@ export const appConfigContracts: Record<string, ContractSpec<any, any>> = {
   ResolveMessageQuery,
 };
 
-export function registerAppConfigContracts(registry: SpecRegistry) {
+export function registerAppConfigContracts(registry: OperationSpecRegistry) {
   return registry
     .register(UpdateTenantBrandingCommand)
     .register(VerifyCustomDomainCommand)

@@ -26,7 +26,7 @@ description: Governs package responsibilities, component hierarchy, and dependen
 
 ```
 libs/
-├── contracts/              # Core ContractSpec definitions (defineCommand, defineQuery, SpecRegistry)
+├── contracts/              # Core ContractSpec definitions (defineCommand, defineQuery, OperationSpecRegistry)
 ├── ai-agent/               # AI agent orchestration and LLM providers
 ├── evolution/              # Auto-evolution engine
 ├── schema/                 # Zod-based schema definitions

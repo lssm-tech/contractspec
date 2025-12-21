@@ -1,9 +1,9 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/spec';
+import { defineCommand, defineQuery } from '@lssm/lib.contracts/operation';
 import {
-  ReviewModel,
   CreateReviewInputModel,
   ListReviewsInputModel,
   ListReviewsOutputModel,
+  ReviewModel,
 } from './review.schema';
 
 const OWNERS = ['@example.marketplace'] as const;

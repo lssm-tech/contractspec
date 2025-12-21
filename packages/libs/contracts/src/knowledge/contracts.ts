@@ -1,6 +1,10 @@
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
-import { defineCommand, defineQuery, type AnyContractSpec } from '../spec';
-import type { SpecRegistry } from '../registry';
+import {
+  type AnyOperationSpec,
+  defineCommand,
+  defineQuery,
+} from '../operation';
+import type { OperationSpecRegistry } from '../registry';
 
 const KnowledgeSyncSchedule = new SchemaModel({
   name: 'KnowledgeSyncSchedule',
@@ -214,7 +218,7 @@ export const TriggerKnowledgeSourceSync = defineCommand({
   },
 });
 
-export const knowledgeContracts: Record<string, AnyContractSpec> = {
+export const knowledgeContracts: Record<string, AnyOperationSpec> = {
   CreateKnowledgeSource,
   UpdateKnowledgeSource,
   DeleteKnowledgeSource,
@@ -222,7 +226,7 @@ export const knowledgeContracts: Record<string, AnyContractSpec> = {
   TriggerKnowledgeSourceSync,
 };
 
-export function registerKnowledgeContracts(registry: SpecRegistry) {
+export function registerKnowledgeContracts(registry: OperationSpecRegistry) {
   return registry
     .register(CreateKnowledgeSource)
     .register(UpdateKnowledgeSource)

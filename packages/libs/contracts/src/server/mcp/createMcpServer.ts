@@ -1,5 +1,5 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type { SpecRegistry } from '../../registry';
+import type { OperationSpecRegistry } from '../../registry';
 import type { ResourceRegistry } from '../../resources';
 import type { PromptRegistry } from '../../promptRegistry';
 import type { McpCtxFactories } from './mcpTypes';
@@ -11,10 +11,10 @@ import { registerMcpPresentations } from './registerPresentations';
 /**
  * Creates a unified Model Context Protocol (MCP) server exposing operations, resources, prompts,
  * and (optionally) presentations.\n+ *
- * ContractSpec exposes:\n+ * - Tools: `command` operations from `SpecRegistry`.\n+ * - Resources: templates from `ResourceRegistry`.\n+ * - Prompts: templates from `PromptRegistry`.\n+ * - Presentations: V1 registry and/or V2 descriptors as read-only resources.\n+ */
+ * ContractSpec exposes:\n+ * - Tools: `command` operations from `OperationSpecRegistry`.\n+ * - Resources: templates from `ResourceRegistry`.\n+ * - Prompts: templates from `PromptRegistry`.\n+ * - Presentations: V1 registry and/or V2 descriptors as read-only resources.\n+ */
 export function createMcpServer(
   server: McpServer,
-  ops: SpecRegistry,
+  ops: OperationSpecRegistry,
   resources: ResourceRegistry,
   prompts: PromptRegistry,
   ctxFactories: McpCtxFactories

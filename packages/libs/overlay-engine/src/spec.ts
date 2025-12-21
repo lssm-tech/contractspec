@@ -1,4 +1,4 @@
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 
 export type OverlayScopeKey =
   | 'tenantId'
@@ -20,7 +20,7 @@ export interface OverlayTargetRef {
   workflow?: string;
   dataView?: string;
   presentation?: string;
-  operation?: AnyContractSpec['meta']['name'];
+  operation?: AnyOperationSpec['meta']['name'];
 }
 
 export interface OverlayAppliesTo

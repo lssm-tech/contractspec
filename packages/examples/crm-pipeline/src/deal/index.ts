@@ -23,4 +23,4 @@ export {
   WinDealContract,
   LoseDealContract,
   ListDealsContract,
-} from './deal.contracts';
+} from './deal.operation';

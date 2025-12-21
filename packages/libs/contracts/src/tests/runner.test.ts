@@ -2,10 +2,10 @@ import { describe, expect, it } from 'bun:test';
 import { TestRunner } from './runner';
 import type { TestSpec } from './spec';
 import {
-  SpecRegistry,
   defineCommand,
   defineEvent,
   type HandlerCtx,
+  OperationSpecRegistry,
 } from '@lssm/lib.contracts';
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
 import { StabilityEnum } from '../ownership';
@@ -69,7 +69,7 @@ const AddNumbersSpec = defineCommand({
   },
 });
 
-const registry = new SpecRegistry();
+const registry = new OperationSpecRegistry();
 registry.register(AddNumbersSpec);
 registry.bind(
   AddNumbersSpec,

@@ -1,19 +1,19 @@
-import type { SpecRegistry } from '../../../registry';
+import type { OperationSpecRegistry } from '../../../registry';
 import {
-  registerOpenBankingAccountContracts,
   OpenBankingGetAccount,
   OpenBankingListAccounts,
   OpenBankingSyncAccounts,
+  registerOpenBankingAccountContracts,
 } from './accounts';
 import {
-  registerOpenBankingTransactionContracts,
   OpenBankingListTransactions,
   OpenBankingSyncTransactions,
+  registerOpenBankingTransactionContracts,
 } from './transactions';
 import {
-  registerOpenBankingBalanceContracts,
   OpenBankingGetBalances,
   OpenBankingRefreshBalances,
+  registerOpenBankingBalanceContracts,
 } from './balances';
 
 export {
@@ -30,8 +30,8 @@ export {
 export * from '../openbanking.feature';
 
 export function registerOpenBankingContracts(
-  registry: SpecRegistry
-): SpecRegistry {
+  registry: OperationSpecRegistry
+): OperationSpecRegistry {
   return registerOpenBankingBalanceContracts(
     registerOpenBankingTransactionContracts(
       registerOpenBankingAccountContracts(registry)

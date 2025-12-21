@@ -94,7 +94,7 @@ export async function syncWithOpenApiService(
     });
 
     // Process each imported spec
-    for (const imported of importResult.specs) {
+    for (const imported of importResult.operationSpecs) {
       const filePath = join(outputDir, imported.fileName);
       const exists = await fs.exists(filePath);
 

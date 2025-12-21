@@ -166,7 +166,7 @@ const DEFAULT_EXCLUDE_PATTERNS = [
   '**/dist/**',
   '**/.git/**',
   '**/*.d.ts',
-  '**/*.contracts.ts', // Skip spec files themselves
+  '**/*.operation.ts', // Skip spec files themselves
   '**/*.spec.ts', // Skip test spec files
   '**/*.feature.ts', // Skip feature files
   '**/*.event.ts', // Skip event spec files

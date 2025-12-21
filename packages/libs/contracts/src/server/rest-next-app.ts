@@ -1,5 +1,5 @@
 import { createFetchHandler, type RestOptions } from './rest-generic';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { HandlerCtx } from '../types';
 
 /**
@@ -10,10 +10,10 @@ import type { HandlerCtx } from '../types';
  * - Path parsing to determine the operation name and version.
  * - Body parsing (JSON).
  * - Context creation via `ctxFactory`.
- * - Execution via `SpecRegistry`.
+ * - Execution via `OperationSpecRegistry`.
  * - Response formatting (JSON success/error).
  *
- * @param reg - The SpecRegistry containing the operations.
+ * @param reg - The OperationSpecRegistry containing the operations.
  * @param ctxFactory - A factory function to build the `HandlerCtx` (e.g., auth, tenant) from the request.
  * @param options - Optional configuration for the REST handler.
  * @returns A function `(req: Request) => Promise<Response>`.
@@ -29,7 +29,7 @@ import type { HandlerCtx } from '../types';
  * ```
  */
 export function makeNextAppHandler(
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   ctxFactory: (req: Request) => HandlerCtx,
   options?: RestOptions
 ) {

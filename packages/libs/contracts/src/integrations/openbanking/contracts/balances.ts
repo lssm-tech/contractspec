@@ -1,10 +1,10 @@
 import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
 import {
+  type AnyOperationSpec,
   defineCommand,
   defineQuery,
-  type AnyContractSpec,
-} from '../../../spec';
-import type { SpecRegistry } from '../../../registry';
+} from '../../../operation';
+import type { OperationSpecRegistry } from '../../../registry';
 import { AccountBalanceRecord } from '../models';
 import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
 
@@ -152,14 +152,14 @@ export const OpenBankingRefreshBalances = defineCommand({
   },
 });
 
-export const openBankingBalanceContracts: Record<string, AnyContractSpec> = {
+export const openBankingBalanceContracts: Record<string, AnyOperationSpec> = {
   OpenBankingGetBalances,
   OpenBankingRefreshBalances,
 };
 
 export function registerOpenBankingBalanceContracts(
-  registry: SpecRegistry
-): SpecRegistry {
+  registry: OperationSpecRegistry
+): OperationSpecRegistry {
   return registry
     .register(OpenBankingGetBalances)
     .register(OpenBankingRefreshBalances);

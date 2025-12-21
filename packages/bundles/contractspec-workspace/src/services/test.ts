@@ -1,12 +1,12 @@
 /**
  * Test service.
  *
- * Pure runner wrapper that executes TestSpec scenarios against a SpecRegistry.
+ * Pure runner wrapper that executes TestSpec scenarios against a OperationSpecRegistry.
  * Loading/compiling spec modules (TS/ESM) is intentionally left to the caller.
  */
 
 import { TestRunner, type TestSpec } from '@lssm/lib.contracts/tests';
-import type { SpecRegistry } from '@lssm/lib.contracts';
+import type { OperationSpecRegistry } from '@lssm/lib.contracts';
 
 export type TestRunResult = Awaited<ReturnType<TestRunner['run']>>;
 
@@ -18,7 +18,7 @@ export interface RunTestsResult {
 
 export async function runTests(
   specs: TestSpec[],
-  registry: SpecRegistry
+  registry: OperationSpecRegistry
 ): Promise<RunTestsResult> {
   const runner = new TestRunner({ registry });
 

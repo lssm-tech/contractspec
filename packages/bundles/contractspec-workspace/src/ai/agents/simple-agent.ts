@@ -109,7 +109,7 @@ Provide a detailed validation report:
       case 'generate':
         // Infer what to generate from spec
         if (
-          task.specCode.includes('.contracts.') ||
+          task.specCode.includes('.operation.') ||
           task.specCode.includes('kind:')
         ) {
           return buildHandlerPrompt(task.specCode);

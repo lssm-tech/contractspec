@@ -1,4 +1,4 @@
-import { defineCommand } from '@lssm/lib.contracts/spec';
+import { defineCommand } from '@lssm/lib.contracts/operation';
 import {
   OrderModel,
   CreateOrderInputModel,

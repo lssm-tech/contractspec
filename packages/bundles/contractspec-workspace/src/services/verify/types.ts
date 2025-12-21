@@ -2,11 +2,11 @@
  * Types for the Verification Service.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 import type {
-  VerificationTier,
   VerificationIssue,
   VerificationReport,
+  VerificationTier,
 } from '@lssm/lib.contracts/llm';
 
 /** Configuration for the verification service */
@@ -32,7 +32,7 @@ export interface VerifyOptions {
 /** Input for verification */
 export interface VerifyInput {
   /** Spec to verify against */
-  spec: AnyContractSpec;
+  spec: AnyOperationSpec;
   /** Implementation code to verify */
   implementationCode: string;
   /** Implementation file path (for error reporting) */

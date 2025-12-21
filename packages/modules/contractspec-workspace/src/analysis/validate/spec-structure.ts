@@ -24,7 +24,7 @@ export function validateSpecStructure(
   }
 
   // Validate operation specs
-  if (fileName.includes('.contracts.')) {
+  if (fileName.includes('.contracts.') || fileName.includes('.contract.')) {
     validateOperationSpec(code, errors, warnings);
   }
 

@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'bun:test';
 
-import { SpecRegistry } from '../registry';
+import { OperationSpecRegistry } from '../registry';
 import {
   GetResolvedBrandingQuery,
+  registerAppConfigContracts,
   ResolveMessageQuery,
   UpdateBlueprintTranslationCatalogCommand,
   UpdateTenantBrandingCommand,
   UpdateTenantTranslationOverridesCommand,
   VerifyCustomDomainCommand,
-  registerAppConfigContracts,
 } from './contracts';
 
 describe('app-config contracts', () => {
   it('registers branding and translation management contracts', () => {
-    const registry = registerAppConfigContracts(new SpecRegistry());
+    const registry = registerAppConfigContracts(new OperationSpecRegistry());
 
     expect(registry.getSpec('appConfig.updateTenantBranding', 1)).toBe(
       UpdateTenantBrandingCommand

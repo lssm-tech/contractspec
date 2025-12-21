@@ -1,5 +1,5 @@
 /**
- * SpecRegistry:
+ * OperationSpecRegistry:
  * - Registers ContractSpecs (unique by name+version)
  * - Binds runtime handlers to specs
  * - Provides lookup, iteration, and a safe execute() with validation/policy/enforcement
@@ -7,15 +7,17 @@
  * Includes a minimal OpRegistry shim for backward-compat (deprecated).
  */
 import {
-  type ContractSpec,
-  type TelemetryTrigger,
+  type AnyOperationSpec,
   isEmitDeclRef,
-} from './spec';
+  type OperationSpec,
+  type TelemetryTrigger,
+} from './operation';
 import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
 import { eventKey } from './events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
-import type { HandlerFor } from './install';
+import type { HandlerForOperationSpec } from './install';
+
 export { registerDocBlocks, defaultDocRegistry, docId } from './docs/registry';
 
 export type OperationKey = `${string}.v${number}`;
@@ -24,22 +26,18 @@ export function opKey(name: string, version: number): OperationKey {
   return `${name}.v${version}`;
 }
 
-type AnySpec = ContractSpec<
-  AnySchemaModel,
-  AnySchemaModel | ResourceRefDescriptor<boolean>
->;
-type AnyHandler = (args: unknown, ctx: HandlerCtx) => Promise<unknown>;
+type AnyOperationHandler = (args: unknown, ctx: HandlerCtx) => Promise<unknown>;
 
 /**
  * In-memory registry for ContractSpecs and their bound handlers.
  * Provides validation, policy enforcement, and guarded event emission at execute time.
  */
-export class SpecRegistry {
-  private specs = new Map<OperationKey, AnySpec>();
-  private handlers = new Map<OperationKey, AnyHandler>();
+export class OperationSpecRegistry {
+  private specs = new Map<OperationKey, AnyOperationSpec>();
+  private handlers = new Map<OperationKey, AnyOperationHandler>();
 
   /**
-   * Registers a ContractSpec definition.
+   * Registers a OperationSpec definition.
    *
    * @param spec - The contract specification to register.
    * @returns The registry instance for chaining.
@@ -48,10 +46,10 @@ export class SpecRegistry {
   register<
     I extends AnySchemaModel,
     O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  >(spec: ContractSpec<I, O>): this {
+  >(spec: OperationSpec<I, O>): this {
     const key = opKey(spec.meta.name, spec.meta.version);
     if (this.specs.has(key)) throw new Error(`Duplicate spec ${key}`);
-    this.specs.set(key, spec as AnySpec);
+    this.specs.set(key, spec as AnyOperationSpec);
     return this;
   }
 
@@ -66,14 +64,17 @@ export class SpecRegistry {
   bind<
     I extends AnySchemaModel,
     O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  >(spec: ContractSpec<I, O>, handler: HandlerFor<ContractSpec<I, O>>): this {
+  >(
+    spec: OperationSpec<I, O>,
+    handler: HandlerForOperationSpec<OperationSpec<I, O>>
+  ): this {
     const key: OperationKey = opKey(spec.meta.name, spec.meta.version);
 
     if (!this.specs.has(key))
       throw new Error(`Cannot bind; spec not found: ${key}`);
     if (this.handlers.has(key))
       throw new Error(`Handler already bound for ${key}`);
-    this.handlers.set(key, handler as unknown as AnyHandler);
+    this.handlers.set(key, handler as unknown as AnyOperationHandler);
     return this;
   }
 
@@ -84,10 +85,10 @@ export class SpecRegistry {
    * @param name - Operation name.
    * @param version - (Optional) Specific version.
    */
-  getSpec(name: string, version?: number): AnySpec | undefined {
+  getSpec(name: string, version?: number): AnyOperationSpec | undefined {
     if (version != null) return this.specs.get(opKey(name, version));
     // find highest version by scanning keys of the same name
-    let found: AnySpec | undefined;
+    let found: AnyOperationSpec | undefined;
     let maxV = -Infinity;
     for (const [k, s] of this.specs.entries()) {
       if (!k.startsWith(`${name}.v`)) continue;
@@ -102,20 +103,20 @@ export class SpecRegistry {
   /**
    * Retrieves the bound handler for a spec.
    */
-  getHandler(name: string, version?: number): AnyHandler | undefined {
+  getHandler(name: string, version?: number): AnyOperationHandler | undefined {
     const spec = this.getSpec(name, version);
     if (!spec) return undefined;
     return this.handlers.get(opKey(spec.meta.name, spec.meta.version));
   }
 
   /** Iterate all registered specs. */
-  listSpecs(): AnySpec[] {
+  listSpecs(): AnyOperationSpec[] {
     return [...this.specs.values()];
   }
 
   /** Iterate all bound operations (spec+handler). */
-  listBound(): { spec: AnySpec; handler: AnyHandler }[] {
-    const out: { spec: AnySpec; handler: AnyHandler }[] = [];
+  listBound(): { spec: AnyOperationSpec; handler: AnyOperationHandler }[] {
+    const out: { spec: AnyOperationSpec; handler: AnyOperationHandler }[] = [];
     for (const [k, spec] of this.specs.entries()) {
       const h = this.handlers.get(k);
       if (h) out.push({ spec, handler: h });

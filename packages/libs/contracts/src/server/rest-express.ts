@@ -4,7 +4,7 @@ import type {
   Router,
 } from 'express';
 import { createFetchHandler, type RestOptions } from './rest-generic';
-import type { SpecRegistry } from '../registry';
+import type { OperationSpecRegistry } from '../registry';
 import type { HandlerCtx } from '../types';
 
 /**
@@ -13,7 +13,7 @@ import type { HandlerCtx } from '../types';
  */
 export function expressRouter(
   express: { Router: () => Router },
-  reg: SpecRegistry,
+  reg: OperationSpecRegistry,
   ctxFactory: (req: ExpressReq) => HandlerCtx,
   options?: RestOptions
 ): Router {

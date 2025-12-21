@@ -5,18 +5,18 @@
  * the specification for deeper compliance checking.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
 import type {
-  VerificationReport,
   VerificationIssue,
+  VerificationReport,
 } from '@lssm/lib.contracts/llm';
 import { generateVerificationPrompt } from '@lssm/lib.contracts/llm';
 import type {
-  VerifyInput,
   AIReviewResult,
-  VerifyConfig,
   FieldMapping,
   SemanticVerificationResult,
+  VerifyConfig,
+  VerifyInput,
 } from './types';
 
 /**
@@ -368,7 +368,7 @@ Match types:
 /**
  * Extract field definitions from spec schema.
  */
-function extractSpecFields(spec: AnyContractSpec): string {
+function extractSpecFields(spec: AnyOperationSpec): string {
   const fields: string[] = [];
 
   /**

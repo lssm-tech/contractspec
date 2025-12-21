@@ -1,5 +1,5 @@
 export type * from '../types';
-export type * from '../spec';
+export type * from '../operation';
 export type * from '../events';
 export type * from '../capabilities';
 export type * from '../features';

@@ -4,16 +4,16 @@
  */
 
 import type {
-  SpecRegistry,
-  AnyContractSpec,
-  ContractSpec,
+  AnyOperationSpec,
+  OperationSpec,
+  OperationSpecRegistry,
 } from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import { z } from 'zod';
 import type {
+  ContractSpecOpenApiDocument,
   OpenApiExportOptions,
   OpenApiServer,
-  ContractSpecOpenApiDocument,
 } from './types';
 
 type OpenApiSchemaObject = Record<string, unknown>;
@@ -57,7 +57,7 @@ export function defaultRestPath(name: string, version: number): string {
 /**
  * Get REST path from spec, using transport override or default.
  */
-function toRestPath(spec: AnyContractSpec): string {
+function toRestPath(spec: AnyOperationSpec): string {
   const path =
     spec.transport?.rest?.path ??
     defaultRestPath(spec.meta.name, spec.meta.version);
@@ -78,7 +78,7 @@ function schemaModelToJsonSchema(
  * Extract JSON Schema for a spec's input and output.
  */
 function jsonSchemaForSpec(
-  spec: ContractSpec<AnySchemaModel, AnySchemaModel>
+  spec: OperationSpec<AnySchemaModel, AnySchemaModel>
 ): {
   input: OpenApiSchemaObject | null;
   output: OpenApiSchemaObject | null;
@@ -106,20 +106,20 @@ function jsonSchemaForSpec(
 }
 
 /**
- * Export a SpecRegistry to an OpenAPI 3.1 document.
+ * Export a OperationSpecRegistry to an OpenAPI 3.1 document.
  *
- * @param registry - The SpecRegistry containing specs to export
+ * @param registry - The OperationSpecRegistry containing specs to export
  * @param options - Export options (title, version, description, servers)
  * @returns OpenAPI 3.1 document
  */
 export function openApiForRegistry(
-  registry: SpecRegistry,
+  registry: OperationSpecRegistry,
   options: OpenApiExportOptions = {}
 ): ContractSpecOpenApiDocument {
   const specs = registry
     .listSpecs()
     .filter(
-      (s): s is AnyContractSpec =>
+      (s): s is AnyOperationSpec =>
         s.meta.kind === 'command' || s.meta.kind === 'query'
     )
     .slice()
@@ -142,7 +142,7 @@ export function openApiForRegistry(
 
   for (const spec of specs) {
     const schema = jsonSchemaForSpec(
-      spec as unknown as ContractSpec<AnySchemaModel, AnySchemaModel>
+      spec as unknown as OperationSpec<AnySchemaModel, AnySchemaModel>
     );
     const method = toHttpMethod(spec.meta.kind, spec.transport?.rest?.method);
     const path = toRestPath(spec);
@@ -208,10 +208,10 @@ export function openApiForRegistry(
 }
 
 /**
- * Export a SpecRegistry to OpenAPI JSON string.
+ * Export a OperationSpecRegistry to OpenAPI JSON string.
  */
 export function openApiToJson(
-  registry: SpecRegistry,
+  registry: OperationSpecRegistry,
   options: OpenApiExportOptions = {}
 ): string {
   const doc = openApiForRegistry(registry, options);
@@ -219,10 +219,10 @@ export function openApiToJson(
 }
 
 /**
- * Export a SpecRegistry to OpenAPI YAML string.
+ * Export a OperationSpecRegistry to OpenAPI YAML string.
  */
 export function openApiToYaml(
-  registry: SpecRegistry,
+  registry: OperationSpecRegistry,
   options: OpenApiExportOptions = {}
 ): string {
   const doc = openApiForRegistry(registry, options);

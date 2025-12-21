@@ -5,7 +5,7 @@
  * allowedScope must be explicit, and answers must cite a KB snapshot.
  */
 export * from './entities';
-export * from './contracts';
+export * from './operations';
 export * from './events';
 export * from './policy';
 export * from './handlers';

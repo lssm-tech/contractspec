@@ -4,7 +4,7 @@ import type {
   ParsedOperation,
   ParseResult,
 } from '../types';
-import type { ImportedSpec, ImportResult } from '../../common/types';
+import type { ImportedOperationSpec, ImportResult } from '../../common/types';
 import { toFileName, toSpecName } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
 import { buildInputSchema, getOutputSchema } from './schemas';
@@ -31,7 +31,7 @@ export const importFromOpenApi = (
   importOptions: Partial<OpenApiSourceConfig> = {}
 ): ImportResult => {
   const { tags, exclude = [], include } = importOptions;
-  const specs: ImportedSpec[] = [];
+  const specs: ImportedOperationSpec[] = [];
   const skipped: ImportResult['skipped'] = [];
   const errors: ImportResult['errors'] = [];
 
@@ -206,7 +206,7 @@ export const importFromOpenApi = (
   }
 
   return {
-    specs,
+    operationSpecs: specs,
     skipped,
     errors,
     summary: {

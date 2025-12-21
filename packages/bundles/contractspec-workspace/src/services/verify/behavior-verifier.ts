@@ -5,11 +5,11 @@
  * examples, and error cases defined in the spec.
  */
 
-import type { AnyContractSpec } from '@lssm/lib.contracts';
-import { isEmitDeclRef } from '@lssm/lib.contracts/spec';
+import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import { isEmitDeclRef } from '@lssm/lib.contracts/operation';
 import type {
-  VerificationReport,
   VerificationIssue,
+  VerificationReport,
 } from '@lssm/lib.contracts/llm';
 import type { BehaviorCheck, VerifyInput } from './types';
 
@@ -171,7 +171,7 @@ function checkErrorCaseCoverage(
  */
 function checkEventConditions(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): BehaviorCheck[] {
   const events = spec.sideEffects?.emits ?? [];
   const checks: BehaviorCheck[] = [];
@@ -216,7 +216,7 @@ function checkEventConditions(
  */
 function checkIdempotency(
   code: string,
-  spec: AnyContractSpec
+  spec: AnyOperationSpec
 ): BehaviorCheck | null {
   if (spec.policy.idempotent === undefined) {
     return null;
