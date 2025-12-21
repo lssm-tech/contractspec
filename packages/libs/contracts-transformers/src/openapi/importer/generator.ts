@@ -113,9 +113,12 @@ export function generateSpecCode(
   lines.push('  },');
 
   // Transport hints
+  // ContractSpec only supports GET and POST - map other methods appropriately
+  const httpMethod = operation.method.toUpperCase();
+  const restMethod = httpMethod === 'GET' ? 'GET' : 'POST'; // GET stays GET, everything else becomes POST
   lines.push('  transport: {');
   lines.push('    rest: {');
-  lines.push(`      method: '${operation.method.toUpperCase()}',`);
+  lines.push(`      method: '${restMethod}',`);
   lines.push(`      path: '${operation.path}',`);
   lines.push('    },');
   lines.push('  },');

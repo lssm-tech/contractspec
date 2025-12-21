@@ -21,6 +21,8 @@ export interface TypescriptType {
   primitive: boolean;
   /** Description for documentation */
   description?: string;
+  /** Whether this type is a reference to another schema (needs import) vs inline */
+  isReference?: boolean;
 }
 
 /**
@@ -97,6 +99,7 @@ export function jsonSchemaToType(
       optional: false,
       array: false,
       primitive: false,
+      isReference: true,
     };
   }
 
@@ -113,6 +116,7 @@ export function jsonSchemaToType(
       optional: nullable ?? false,
       array: false,
       primitive: false,
+      isReference: true,
     };
   }
 
@@ -204,6 +208,15 @@ export function getScalarType(schema: OpenApiSchema): string | undefined {
   const format = schemaObj['format'] as string | undefined;
 
   if (!type) return undefined;
+
+  // For arrays, get the scalar type of the items
+  if (type === 'array') {
+    const items = schemaObj['items'] as OpenApiSchema | undefined;
+    if (items) {
+      return getScalarType(items);
+    }
+    return undefined;
+  }
 
   const key = format ? `${type}:${format}` : type;
   return JSON_SCHEMA_TO_SCALAR[key] ?? JSON_SCHEMA_TO_SCALAR[type];
@@ -317,6 +330,7 @@ export function generateSchemaModelCode(
         `${spaces}  fields: {`,
         `${spaces}    value: {`,
         `${spaces}      type: ${scalarType}(),`,
+        `${spaces}      isOptional: false,`,
         `${spaces}    },`,
         `${spaces}  },`,
         `${spaces}});`,
@@ -423,10 +437,21 @@ function generateFieldCode(field: SchemaField, indent: number): string {
   } else if (field.scalarType) {
     // Scalar type
     lines.push(`${spaces}  type: ${field.scalarType}(),`);
+  } else if (field.type.primitive) {
+    // Primitive type without a specific scalar mapping - use generic fallback
+    const fallbackScalar = field.type.type === 'number' 
+      ? 'ScalarTypeEnum.Float_unsecure'
+      : field.type.type === 'boolean'
+        ? 'ScalarTypeEnum.Boolean_unsecure'
+        : 'ScalarTypeEnum.String_unsecure';
+    lines.push(`${spaces}  type: ${fallbackScalar}(),`);
+  } else if (field.type.isReference) {
+    // Reference to another schema model
+    lines.push(`${spaces}  type: ${field.type.type},`);
   } else {
-    // Nested model or reference
+    // Inline nested object - TODO: Generate nested model
     lines.push(
-      `${spaces}  type: ${field.type.type}, // TODO: Define or import this type`
+      `${spaces}  type: ScalarTypeEnum.JSONObject(), // TODO: Define nested model for ${field.type.type}`
     );
   }
 
@@ -471,15 +496,16 @@ export function generateImports(
     // BUT ContractSpec usually requires importing dependencies.
     // For now, let's assume we import from specific files.
 
-    // We look for fields where nestedModel is NOT present (implied ref) and scalarType is undefined
-    // And primitive is false.
+    // Only import fields that are actual references to other schemas (not inline types)
+    // Check isReference flag which is set when type came from $ref or _originalTypeName
     if (
+      field.type.isReference &&
       !field.type.primitive &&
       !field.enumValues &&
       !field.scalarType &&
       !field.nestedModel
     ) {
-      // This is likely a reference to another schema model
+      // This is a reference to another schema model
       const modelName = field.type.type;
       // Convert PascalCase model name to kebab-case file name
       const kebabName = modelName

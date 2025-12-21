@@ -111,7 +111,7 @@ export const importCommand = new Command('import')
             targetDir = eventsDir;
           } else if (
             (spec.code.includes('defineSchemaModel(') ||
-              spec.code.includes('new EnumType([') ||
+              spec.code.includes('new EnumType(') ||
               spec.code.includes('ScalarTypeEnum.')) &&
             !spec.code.includes('defineCommand(') &&
             !spec.code.includes('defineQuery(')

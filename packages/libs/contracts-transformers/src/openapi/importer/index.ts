@@ -86,12 +86,17 @@ export const importFromOpenApi = (
 
       // Get output schema
       const outputSchema = getOutputSchema(operation);
-      const outputModel = outputSchema
+      let outputModel = outputSchema
         ? generateSchemaModelCode(
             outputSchema,
             `${operation.operationId}Output`
           )
         : null;
+
+      // Filter out empty/comment-only output models
+      if (outputModel && !outputModel.code.includes('defineSchemaModel')) {
+        outputModel = null;
+      }
 
       // Generate spec code
       const code = generateSpecCode(
