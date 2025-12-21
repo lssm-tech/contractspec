@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.learning-journey",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

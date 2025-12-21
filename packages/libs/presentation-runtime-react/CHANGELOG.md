@@ -1,5 +1,19 @@
 # @lssm/lib.presentation-runtime-react
 
+## 0.0.0-canary-20251221112833
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
+### Patch Changes
+
+- Updated dependencies [66a5dfd]
+  - @lssm/lib.contracts@0.0.0-canary-20251221112833
+  - @lssm/lib.design-system@0.0.0-canary-20251221112833
+  - @lssm/lib.presentation-runtime-core@0.0.0-canary-20251221112833
+  - @lssm/lib.ui-kit-web@0.0.0-canary-20251221112833
+
 ## 13.0.0
 
 ### Minor Changes

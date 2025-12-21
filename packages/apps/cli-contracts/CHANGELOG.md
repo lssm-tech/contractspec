@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.0.0-canary-20251221112833
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
+### Patch Changes
+
+- Updated dependencies [66a5dfd]
+  - @lssm/bundle.contractspec-workspace@0.0.0-canary-20251221112833
+  - @lssm/lib.ai-providers@0.0.0-canary-20251221112833
+  - @lssm/lib.contracts@0.0.0-canary-20251221112833
+  - @lssm/lib.contracts-transformers@0.0.0-canary-20251221112833
+  - @lssm/lib.schema@0.0.0-canary-20251221112833
+  - @lssm/lib.testing@0.0.0-canary-20251221112833
+  - @lssm/module.ai-chat@0.0.0-canary-20251221112833
+  - @lssm/module.contractspec-examples@0.0.0-canary-20251221112833
+
 ## 0.12.0
 
 ### Minor Changes

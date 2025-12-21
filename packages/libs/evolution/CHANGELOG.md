@@ -1,5 +1,20 @@
 # @lssm/lib.evolution
 
+## 0.0.0-canary-20251221112833
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
+### Patch Changes
+
+- Updated dependencies [66a5dfd]
+  - @lssm/lib.ai-agent@0.0.0-canary-20251221112833
+  - @lssm/lib.contracts@0.0.0-canary-20251221112833
+  - @lssm/lib.lifecycle@0.0.0-canary-20251221112833
+  - @lssm/lib.observability@0.0.0-canary-20251221112833
+  - @lssm/lib.schema@0.0.0-canary-20251221112833
+
 ## 1.1.0
 
 ### Minor Changes

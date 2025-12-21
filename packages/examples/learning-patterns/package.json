@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-patterns",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "main": "./dist/index.js",

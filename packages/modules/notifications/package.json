@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.notifications",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Notification center module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

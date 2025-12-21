@@ -1,5 +1,16 @@
 # @lssm/lib.overlay-engine
 
+## 0.0.0-canary-20251221112833
+
+### Minor Changes
+
+- 66a5dfd: initial release
+
+### Patch Changes
+
+- Updated dependencies [66a5dfd]
+  - @lssm/lib.contracts@0.0.0-canary-20251221112833
+
 ## 0.4.0
 
 ### Minor Changes
@@ -71,11 +82,3 @@
 ## 0.0.1
 
 - Initial release with OverlaySpec definitions, signing helpers, registry, validator, merge/runtime utilities, and React hooks.
-
-
-
-
-
-
-
-

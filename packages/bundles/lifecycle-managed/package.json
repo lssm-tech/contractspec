@@ -1,6 +1,6 @@
 {
   "name": "@lssm/bundle.lifecycle-managed",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -55,4 +55,3 @@
     "directory": "packages/bundles/lifecycle-managed"
   }
 }
-

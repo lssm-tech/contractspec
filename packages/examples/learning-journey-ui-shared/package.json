@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-shared",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
   "main": "./dist/index.js",

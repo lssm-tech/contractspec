@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.contracts-transformers",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.)",
   "type": "module",
   "scripts": {

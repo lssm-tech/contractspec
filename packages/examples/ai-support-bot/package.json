@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.ai-support-bot",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "AI support bot example: classify and resolve a support ticket using @lssm/lib.support-bot.",
   "type": "module",
   "main": "./dist/index.js",

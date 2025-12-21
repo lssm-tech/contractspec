@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {

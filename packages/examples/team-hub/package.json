@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.team-hub",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Team Hub example with spaces, tasks, rituals, and announcements",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

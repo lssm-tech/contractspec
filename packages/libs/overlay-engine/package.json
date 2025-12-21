@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.overlay-engine",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
   "type": "module",
   "main": "./dist/index.js",

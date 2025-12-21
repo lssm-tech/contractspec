@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-contracts",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "type": "module",
   "main": "./dist/index.js",

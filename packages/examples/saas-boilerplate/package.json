@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.saas-boilerplate",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.audit-trail",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Audit trail module for tracking and querying system events",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

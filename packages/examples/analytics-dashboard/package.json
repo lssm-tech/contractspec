@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.analytics-dashboard",
-  "version": "1.41.1",
+  "version": "0.0.0-canary-20251221112833",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
