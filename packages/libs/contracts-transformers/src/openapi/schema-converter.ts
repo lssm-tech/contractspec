@@ -374,12 +374,25 @@ export function generateSchemaModelCode(
   }
 
   if (!properties) {
-    // No properties and not an enum, primitive, or dictionary - generate an empty model
+    // No properties - generate an empty model (for empty object response types)
+    const safeModelName = toPascalCase(toValidIdentifier(modelName));
+    const emptyModelCode = [
+      `${spaces}export const ${safeModelName} = defineSchemaModel({`,
+      `${spaces}  name: '${safeModelName}',`,
+      description
+        ? `${spaces}  description: ${JSON.stringify(description)},`
+        : null,
+      `${spaces}  fields: {},`,
+      `${spaces}});`,
+    ]
+      .filter((line) => line !== null)
+      .join('\n');
+
     return {
-      name: toPascalCase(modelName),
+      name: safeModelName,
       description,
       fields: [],
-      code: `${spaces}// Empty schema for ${modelName}`,
+      code: emptyModelCode,
     };
   }
 

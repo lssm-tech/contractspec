@@ -6,12 +6,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "contractspec": "./dist/cli.js"
+    "contractspec": "./dist/cli.bun.js",
+    "contractspec-node": "./dist/cli.js"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:node && bun run build:types",
+    "build": "bun run build:all && bun run build:types",
     "build:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --minify",
     "build:node": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --minify",
     "build:all": "bun run build:bun && bun run build:node && bun run build:types",
