@@ -5,7 +5,7 @@
 
 import type { AnyOperationSpec } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
-import type { PresentationSpec } from '../presentations/presentations.v2';
+import type { PresentationSpec } from '../presentations/presentations';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { DocBlock } from '../docs/types';

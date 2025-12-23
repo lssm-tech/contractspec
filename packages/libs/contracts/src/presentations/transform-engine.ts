@@ -2,7 +2,7 @@ import type { BlockConfig } from '@blocknote/core';
 import { schemaToMarkdown } from '../schema-to-markdown';
 import React from 'react';
 import TurndownService from 'turndown';
-import type { PresentationSpec, PresentationTarget } from './presentations.v2';
+import type { PresentationSpec, PresentationTarget } from './presentations';
 
 export interface RenderContext {
   /** Optional locale hint (i18n). */

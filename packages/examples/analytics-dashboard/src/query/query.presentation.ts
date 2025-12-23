@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { QueryModel } from './query.schema';
 
-export const QueriesListPresentation: PresentationDescriptorV2 = {
+export const QueriesListPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.query.list',
     version: 1,
@@ -22,7 +22,7 @@ export const QueriesListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const QueryBuilderPresentation: PresentationDescriptorV2 = {
+export const QueryBuilderPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.query.builder',
     version: 1,

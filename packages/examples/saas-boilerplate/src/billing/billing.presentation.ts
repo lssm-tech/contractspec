@@ -1,9 +1,9 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
 /**
  * Presentation for subscription overview.
  */
-export const SubscriptionPresentation: PresentationDescriptorV2 = {
+export const SubscriptionPresentation: PresentationSpec = {
   meta: {
     name: 'saas.billing.subscription',
     version: 1,
@@ -27,7 +27,7 @@ export const SubscriptionPresentation: PresentationDescriptorV2 = {
 /**
  * Presentation for usage dashboard.
  */
-export const UsageDashboardPresentation: PresentationDescriptorV2 = {
+export const UsageDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'saas.billing.usage',
     version: 1,

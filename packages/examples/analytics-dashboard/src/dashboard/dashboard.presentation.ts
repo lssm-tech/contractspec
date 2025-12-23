@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { DashboardModel } from './dashboard.schema';
 
-export const DashboardsListPresentation: PresentationDescriptorV2 = {
+export const DashboardsListPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.list',
     version: 1,
@@ -22,7 +22,7 @@ export const DashboardsListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const DashboardViewPresentation: PresentationDescriptorV2 = {
+export const DashboardViewPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.view',
     version: 1,
@@ -43,7 +43,7 @@ export const DashboardViewPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const DashboardEditorPresentation: PresentationDescriptorV2 = {
+export const DashboardEditorPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.editor',
     version: 1,

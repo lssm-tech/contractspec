@@ -6,7 +6,7 @@ export const techContractsDocs: DocBlock[] = [
     id: 'docs.tech.contracts.presentations-v2',
     title: 'Presentations V2 — Unified Descriptor & Transform Engine',
     summary:
-      'How PresentationDescriptorV2 and TransformEngine keep docs/renderers consistent.',
+      'How PresentationSpec and TransformEngine keep docs/renderers consistent.',
     visibility: 'public',
     route: '/docs/tech/contracts/presentations-v2',
     kind: 'reference',
@@ -15,7 +15,7 @@ export const techContractsDocs: DocBlock[] = [
 
 ### Purpose
 
-Unify presentations into one descriptor (\`PresentationDescriptorV2\`) that declares a single source (React component key or BlockNote doc) and a list of output targets (react, markdown, application/json, application/xml). A pluggable \`TransformEngine\` renders any target and applies PII redaction.
+Unify presentations into one descriptor (\`PresentationSpec\`) that declares a single source (React component key or BlockNote doc) and a list of output targets (react, markdown, application/json, application/xml). A pluggable \`TransformEngine\` renders any target and applies PII redaction.
 
 ### Types
 
@@ -35,8 +35,8 @@ type PresentationSource =
     }
   | { type: 'blocknotejs'; docJson: unknown; blockConfig?: unknown };
 
-interface PresentationDescriptorV2 {
-  meta: PresentationV2Meta; // includes partial OwnerShipMeta + description
+interface PresentationSpec {
+  meta: PresentationMeta; // includes partial OwnerShipMeta + description
   policy?: { flags?: string[]; pii?: string[] };
   source: PresentationSource;
   targets: PresentationTarget[];
@@ -57,7 +57,7 @@ type Owner = string; // curated list available in code (e.g., '@sigil-team', 'te
 type Tag = string; // curated list available in code (e.g., 'auth', 'spots')
 
 // For V2 presentations, meta is a Partial<OwnerShipMeta> plus description, name, version
-interface PresentationV2Meta extends Partial<OwnerShipMeta> {
+interface PresentationMeta extends Partial<OwnerShipMeta> {
   name: string;
   version: number;
   description?: string;

@@ -1,10 +1,10 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { AgentSummaryModel } from './agent.schema';
 
 /**
  * Presentation for displaying a list of AI agents.
  */
-export const AgentListPresentation: PresentationDescriptorV2 = {
+export const AgentListPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.agent.list',
     version: 1,
@@ -27,7 +27,7 @@ export const AgentListPresentation: PresentationDescriptorV2 = {
 /**
  * Presentation for agent detail view.
  */
-export const AgentDetailPresentation: PresentationDescriptorV2 = {
+export const AgentDetailPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.agent.detail',
     version: 1,
@@ -49,7 +49,7 @@ export const AgentDetailPresentation: PresentationDescriptorV2 = {
 /**
  * Dashboard presentation for Agent Console - overview of agents, runs, and tools.
  */
-export const AgentConsoleDashboardPresentation: PresentationDescriptorV2 = {
+export const AgentConsoleDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.dashboard',
     version: 1,

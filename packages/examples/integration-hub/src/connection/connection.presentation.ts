@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ConnectionModel } from './connection.schema';
 
-export const ConnectionListPresentation: PresentationDescriptorV2 = {
+export const ConnectionListPresentation: PresentationSpec = {
   meta: {
     name: 'integration.connection.list',
     version: 1,
@@ -22,7 +22,7 @@ export const ConnectionListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const ConnectionSetupPresentation: PresentationDescriptorV2 = {
+export const ConnectionSetupPresentation: PresentationSpec = {
   meta: {
     name: 'integration.connection.setup',
     version: 1,

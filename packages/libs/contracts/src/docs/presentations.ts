@@ -1,7 +1,7 @@
 import type {
   PresentationSpec,
   PresentationTarget,
-} from '../presentations/presentations.v2';
+} from '../presentations/presentations';
 import type { DocBlock } from './types';
 import type { Stability } from '../ownership';
 

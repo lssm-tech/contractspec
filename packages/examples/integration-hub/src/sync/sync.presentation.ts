@@ -1,11 +1,11 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import {
   SyncConfigModel,
   SyncRunModel,
   FieldMappingModel,
 } from './sync.schema';
 
-export const SyncConfigListPresentation: PresentationDescriptorV2 = {
+export const SyncConfigListPresentation: PresentationSpec = {
   meta: {
     name: 'integration.syncConfig.list',
     version: 1,
@@ -26,7 +26,7 @@ export const SyncConfigListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SyncConfigEditorPresentation: PresentationDescriptorV2 = {
+export const SyncConfigEditorPresentation: PresentationSpec = {
   meta: {
     name: 'integration.syncConfig.editor',
     version: 1,
@@ -47,7 +47,7 @@ export const SyncConfigEditorPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const FieldMappingEditorPresentation: PresentationDescriptorV2 = {
+export const FieldMappingEditorPresentation: PresentationSpec = {
   meta: {
     name: 'integration.fieldMapping.editor',
     version: 1,
@@ -68,7 +68,7 @@ export const FieldMappingEditorPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SyncRunListPresentation: PresentationDescriptorV2 = {
+export const SyncRunListPresentation: PresentationSpec = {
   meta: {
     name: 'integration.syncRun.list',
     version: 1,
@@ -89,7 +89,7 @@ export const SyncRunListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SyncRunDetailPresentation: PresentationDescriptorV2 = {
+export const SyncRunDetailPresentation: PresentationSpec = {
   meta: {
     name: 'integration.syncRun.detail',
     version: 1,
@@ -110,7 +110,7 @@ export const SyncRunDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SyncActivityPresentation: PresentationDescriptorV2 = {
+export const SyncActivityPresentation: PresentationSpec = {
   meta: {
     name: 'integration.sync.activity',
     version: 1,

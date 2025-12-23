@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ReviewModel } from './review.schema';
 
-export const ReviewListPresentation: PresentationDescriptorV2 = {
+export const ReviewListPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.review.list',
     version: 1,
@@ -22,7 +22,7 @@ export const ReviewListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const ReviewFormPresentation: PresentationDescriptorV2 = {
+export const ReviewFormPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.review.form',
     version: 1,

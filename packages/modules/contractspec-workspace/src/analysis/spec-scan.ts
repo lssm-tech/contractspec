@@ -291,7 +291,7 @@ const DEFINE_FUNCTION_PATTERNS = [
     type: 'presentation' as const,
   },
   {
-    pattern: /:\s*PresentationDescriptorV2\s*=\s*\{/g,
+    pattern: /:\s*PresentationSpec\s*=\s*\{/g,
     type: 'presentation' as const,
   },
   {

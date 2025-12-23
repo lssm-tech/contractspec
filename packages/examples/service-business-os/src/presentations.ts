@@ -1,6 +1,6 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
-export const ServiceDashboardPresentation: PresentationDescriptorV2 = {
+export const ServiceDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.dashboard',
     version: 1,
@@ -20,7 +20,7 @@ export const ServiceDashboardPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const ClientListPresentation: PresentationDescriptorV2 = {
+export const ClientListPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.client.list',
     version: 1,
@@ -40,7 +40,7 @@ export const ClientListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const QuoteListPresentation: PresentationDescriptorV2 = {
+export const QuoteListPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.quote.list',
     version: 1,
@@ -60,7 +60,7 @@ export const QuoteListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const QuoteDetailPresentation: PresentationDescriptorV2 = {
+export const QuoteDetailPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.quote.detail',
     version: 1,
@@ -80,7 +80,7 @@ export const QuoteDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const JobBoardPresentation: PresentationDescriptorV2 = {
+export const JobBoardPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.job.board',
     version: 1,
@@ -100,7 +100,7 @@ export const JobBoardPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const InvoiceListPresentation: PresentationDescriptorV2 = {
+export const InvoiceListPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.invoice.list',
     version: 1,
@@ -120,7 +120,7 @@ export const InvoiceListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const PaymentListPresentation: PresentationDescriptorV2 = {
+export const PaymentListPresentation: PresentationSpec = {
   meta: {
     name: 'service-business-os.payment.list',
     version: 1,

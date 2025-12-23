@@ -1,6 +1,6 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
-export const TeamDashboardPresentation: PresentationDescriptorV2 = {
+export const TeamDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.dashboard',
     version: 1,
@@ -20,7 +20,7 @@ export const TeamDashboardPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SpaceListPresentation: PresentationDescriptorV2 = {
+export const SpaceListPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.space.list',
     version: 1,
@@ -40,7 +40,7 @@ export const SpaceListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const TaskBoardPresentation: PresentationDescriptorV2 = {
+export const TaskBoardPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.task.board',
     version: 1,
@@ -60,7 +60,7 @@ export const TaskBoardPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const TaskDetailPresentation: PresentationDescriptorV2 = {
+export const TaskDetailPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.task.detail',
     version: 1,
@@ -80,7 +80,7 @@ export const TaskDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const RitualCalendarPresentation: PresentationDescriptorV2 = {
+export const RitualCalendarPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.ritual.calendar',
     version: 1,
@@ -100,7 +100,7 @@ export const RitualCalendarPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const AnnouncementFeedPresentation: PresentationDescriptorV2 = {
+export const AnnouncementFeedPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.announcement.feed',
     version: 1,

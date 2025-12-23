@@ -1,16 +1,13 @@
-import type {
-  PresentationDescriptorV2,
-  PresentationV2Meta,
-} from '@lssm/lib.contracts';
+import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
 import { StudioOnboardingTrackModel } from '../contracts';
 
-const baseMeta: Pick<PresentationV2Meta, 'domain' | 'owners' | 'tags'> = {
+const baseMeta: Pick<PresentationMeta, 'domain' | 'owners' | 'tags'> = {
   domain: 'learning-journey',
   owners: ['examples.learning-journey.studio-onboarding'] as string[],
   tags: ['learning', 'onboarding', 'studio'] as string[],
 };
 
-export const StudioOnboardingTrackPresentation: PresentationDescriptorV2 = {
+export const StudioOnboardingTrackPresentation: PresentationSpec = {
   meta: {
     name: 'learning.journey.studio.track',
     version: 1,
@@ -26,7 +23,7 @@ export const StudioOnboardingTrackPresentation: PresentationDescriptorV2 = {
   targets: ['react', 'markdown', 'application/json'],
 };
 
-export const StudioOnboardingWidgetPresentation: PresentationDescriptorV2 = {
+export const StudioOnboardingWidgetPresentation: PresentationSpec = {
   meta: {
     name: 'learning.journey.studio.widget',
     version: 1,

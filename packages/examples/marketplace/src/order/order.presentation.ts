@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { OrderModel } from './order.schema';
 
-export const OrderListPresentation: PresentationDescriptorV2 = {
+export const OrderListPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.order.list',
     version: 1,
@@ -22,7 +22,7 @@ export const OrderListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const OrderDetailPresentation: PresentationDescriptorV2 = {
+export const OrderDetailPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.order.detail',
     version: 1,
@@ -43,7 +43,7 @@ export const OrderDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const CheckoutPresentation: PresentationDescriptorV2 = {
+export const CheckoutPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.checkout',
     version: 1,

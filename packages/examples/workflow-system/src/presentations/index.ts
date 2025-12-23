@@ -1,7 +1,7 @@
 /**
  * Workflow System Presentation Descriptors
  */
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
 import { WorkflowInstanceModel } from '../instance/instance.schema';
 import { ApprovalRequestModel } from '../approval/approval.schema';
@@ -11,7 +11,7 @@ import { ApprovalRequestModel } from '../approval/approval.schema';
 /**
  * Workflow designer canvas for building workflows.
  */
-export const WorkflowDesignerPresentation: PresentationDescriptorV2 = {
+export const WorkflowDesignerPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.designer',
     version: 1,
@@ -35,7 +35,7 @@ export const WorkflowDesignerPresentation: PresentationDescriptorV2 = {
 /**
  * List of workflow definitions.
  */
-export const WorkflowListPresentation: PresentationDescriptorV2 = {
+export const WorkflowListPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.definition.list',
     version: 1,
@@ -59,7 +59,7 @@ export const WorkflowListPresentation: PresentationDescriptorV2 = {
 /**
  * Workflow definition detail view.
  */
-export const WorkflowDetailPresentation: PresentationDescriptorV2 = {
+export const WorkflowDetailPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.definition.detail',
     version: 1,
@@ -85,7 +85,7 @@ export const WorkflowDetailPresentation: PresentationDescriptorV2 = {
 /**
  * List of running workflow instances.
  */
-export const InstanceListPresentation: PresentationDescriptorV2 = {
+export const InstanceListPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.instance.list',
     version: 1,
@@ -109,7 +109,7 @@ export const InstanceListPresentation: PresentationDescriptorV2 = {
 /**
  * Workflow instance detail view with timeline.
  */
-export const InstanceDetailPresentation: PresentationDescriptorV2 = {
+export const InstanceDetailPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.instance.detail',
     version: 1,
@@ -133,7 +133,7 @@ export const InstanceDetailPresentation: PresentationDescriptorV2 = {
 /**
  * Workflow progress tracker widget.
  */
-export const ProgressTrackerPresentation: PresentationDescriptorV2 = {
+export const ProgressTrackerPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.instance.progress',
     version: 1,
@@ -159,7 +159,7 @@ export const ProgressTrackerPresentation: PresentationDescriptorV2 = {
 /**
  * Approval inbox - list of pending approvals.
  */
-export const ApprovalInboxPresentation: PresentationDescriptorV2 = {
+export const ApprovalInboxPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.approval.inbox',
     version: 1,
@@ -183,7 +183,7 @@ export const ApprovalInboxPresentation: PresentationDescriptorV2 = {
 /**
  * Approval request detail view.
  */
-export const ApprovalDetailPresentation: PresentationDescriptorV2 = {
+export const ApprovalDetailPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.approval.detail',
     version: 1,
@@ -207,7 +207,7 @@ export const ApprovalDetailPresentation: PresentationDescriptorV2 = {
 /**
  * Approval decision form.
  */
-export const ApprovalFormPresentation: PresentationDescriptorV2 = {
+export const ApprovalFormPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.approval.form',
     version: 1,
@@ -232,7 +232,7 @@ export const ApprovalFormPresentation: PresentationDescriptorV2 = {
 /**
  * Pending approvals count badge.
  */
-export const PendingApprovalsBadgePresentation: PresentationDescriptorV2 = {
+export const PendingApprovalsBadgePresentation: PresentationSpec = {
   meta: {
     name: 'workflow.approval.badge',
     version: 1,
@@ -255,7 +255,7 @@ export const PendingApprovalsBadgePresentation: PresentationDescriptorV2 = {
 /**
  * Workflow metrics dashboard widget.
  */
-export const WorkflowMetricsPresentation: PresentationDescriptorV2 = {
+export const WorkflowMetricsPresentation: PresentationSpec = {
   meta: {
     name: 'workflow.metrics',
     version: 1,

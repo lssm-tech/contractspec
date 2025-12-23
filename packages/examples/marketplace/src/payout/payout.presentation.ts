@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { PayoutModel } from './payout.schema';
 
-export const PayoutListPresentation: PresentationDescriptorV2 = {
+export const PayoutListPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.payout.list',
     version: 1,
@@ -22,7 +22,7 @@ export const PayoutListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const PayoutDetailPresentation: PresentationDescriptorV2 = {
+export const PayoutDetailPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.payout.detail',
     version: 1,

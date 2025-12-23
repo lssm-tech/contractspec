@@ -1,12 +1,12 @@
 /**
  * CRM Dashboard Presentation Descriptor
  */
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
 /**
  * Main CRM dashboard presentation.
  */
-export const CrmDashboardPresentation: PresentationDescriptorV2 = {
+export const CrmDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'crm.dashboard',
     version: 1,
@@ -30,7 +30,7 @@ export const CrmDashboardPresentation: PresentationDescriptorV2 = {
 /**
  * Pipeline metrics presentation.
  */
-export const PipelineMetricsPresentation: PresentationDescriptorV2 = {
+export const PipelineMetricsPresentation: PresentationSpec = {
   meta: {
     name: 'crm.pipeline.metrics',
     version: 1,

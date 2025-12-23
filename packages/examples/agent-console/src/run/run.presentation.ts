@@ -1,10 +1,10 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { RunSummaryModel } from './run.schema';
 
 /**
  * Presentation for displaying a list of agent runs.
  */
-export const RunListPresentation: PresentationDescriptorV2 = {
+export const RunListPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.run.list',
     version: 1,
@@ -27,7 +27,7 @@ export const RunListPresentation: PresentationDescriptorV2 = {
 /**
  * Presentation for run detail view.
  */
-export const RunDetailPresentation: PresentationDescriptorV2 = {
+export const RunDetailPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.run.detail',
     version: 1,

@@ -1,10 +1,10 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ProjectModel } from './project.schema';
 
 /**
  * Presentation for displaying a list of projects.
  */
-export const ProjectListPresentation: PresentationDescriptorV2 = {
+export const ProjectListPresentation: PresentationSpec = {
   meta: {
     name: 'saas.project.list',
     version: 1,
@@ -29,7 +29,7 @@ export const ProjectListPresentation: PresentationDescriptorV2 = {
 /**
  * Presentation for project detail view.
  */
-export const ProjectDetailPresentation: PresentationDescriptorV2 = {
+export const ProjectDetailPresentation: PresentationSpec = {
   meta: {
     name: 'saas.project.detail',
     version: 1,

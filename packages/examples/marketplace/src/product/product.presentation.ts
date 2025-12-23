@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ProductModel } from './product.schema';
 
-export const ProductCatalogPresentation: PresentationDescriptorV2 = {
+export const ProductCatalogPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.product.catalog',
     version: 1,
@@ -22,7 +22,7 @@ export const ProductCatalogPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const ProductDetailPresentation: PresentationDescriptorV2 = {
+export const ProductDetailPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.product.detail',
     version: 1,
@@ -43,7 +43,7 @@ export const ProductDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const ProductEditorPresentation: PresentationDescriptorV2 = {
+export const ProductEditorPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.product.editor',
     version: 1,

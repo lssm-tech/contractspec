@@ -1,6 +1,6 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
-export const WealthDashboardPresentation: PresentationDescriptorV2 = {
+export const WealthDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'wealth-snapshot.dashboard',
     version: 1,
@@ -20,7 +20,7 @@ export const WealthDashboardPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const AccountsListPresentation: PresentationDescriptorV2 = {
+export const AccountsListPresentation: PresentationSpec = {
   meta: {
     name: 'wealth-snapshot.accounts.list',
     version: 1,
@@ -40,7 +40,7 @@ export const AccountsListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const AssetsListPresentation: PresentationDescriptorV2 = {
+export const AssetsListPresentation: PresentationSpec = {
   meta: {
     name: 'wealth-snapshot.assets.list',
     version: 1,
@@ -60,7 +60,7 @@ export const AssetsListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const LiabilitiesListPresentation: PresentationDescriptorV2 = {
+export const LiabilitiesListPresentation: PresentationSpec = {
   meta: {
     name: 'wealth-snapshot.liabilities.list',
     version: 1,
@@ -80,7 +80,7 @@ export const LiabilitiesListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const GoalsListPresentation: PresentationDescriptorV2 = {
+export const GoalsListPresentation: PresentationSpec = {
   meta: {
     name: 'wealth-snapshot.goals.list',
     version: 1,

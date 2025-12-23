@@ -3,7 +3,7 @@ import { filterBy, getUniqueTags, groupBy } from './registry-utils';
 import type {
   PresentationSpec,
   PresentationTarget,
-} from './presentations/presentations.v2';
+} from './presentations/presentations';
 import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
 import type {

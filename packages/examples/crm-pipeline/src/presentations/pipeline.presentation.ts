@@ -1,13 +1,13 @@
 /**
  * Pipeline Presentation Descriptors
  */
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { DealModel } from '../deal/deal.schema';
 
 /**
  * Kanban board presentation for the sales pipeline.
  */
-export const PipelineKanbanPresentation: PresentationDescriptorV2 = {
+export const PipelineKanbanPresentation: PresentationSpec = {
   meta: {
     name: 'crm.pipeline.kanban',
     version: 1,
@@ -31,7 +31,7 @@ export const PipelineKanbanPresentation: PresentationDescriptorV2 = {
 /**
  * List view of deals with filtering.
  */
-export const DealListPresentation: PresentationDescriptorV2 = {
+export const DealListPresentation: PresentationSpec = {
   meta: {
     name: 'crm.deal.list',
     version: 1,
@@ -55,7 +55,7 @@ export const DealListPresentation: PresentationDescriptorV2 = {
 /**
  * Deal detail presentation.
  */
-export const DealDetailPresentation: PresentationDescriptorV2 = {
+export const DealDetailPresentation: PresentationSpec = {
   meta: {
     name: 'crm.deal.detail',
     version: 1,
@@ -79,7 +79,7 @@ export const DealDetailPresentation: PresentationDescriptorV2 = {
 /**
  * Deal card for kanban board.
  */
-export const DealCardPresentation: PresentationDescriptorV2 = {
+export const DealCardPresentation: PresentationSpec = {
   meta: {
     name: 'crm.deal.card',
     version: 1,

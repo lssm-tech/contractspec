@@ -1,9 +1,9 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 
 /**
  * Main dashboard presentation for the SaaS application.
  */
-export const SaasDashboardPresentation: PresentationDescriptorV2 = {
+export const SaasDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'saas.dashboard',
     version: 1,
@@ -27,7 +27,7 @@ export const SaasDashboardPresentation: PresentationDescriptorV2 = {
 /**
  * Settings panel presentation.
  */
-export const SettingsPanelPresentation: PresentationDescriptorV2 = {
+export const SettingsPanelPresentation: PresentationSpec = {
   meta: {
     name: 'saas.settings',
     version: 1,

@@ -1,10 +1,10 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ToolSummaryModel } from './tool.schema';
 
 /**
  * Presentation for displaying a list of tools.
  */
-export const ToolListPresentation: PresentationDescriptorV2 = {
+export const ToolListPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.tool.list',
     version: 1,
@@ -27,7 +27,7 @@ export const ToolListPresentation: PresentationDescriptorV2 = {
 /**
  * Presentation for tool detail view.
  */
-export const ToolDetailPresentation: PresentationDescriptorV2 = {
+export const ToolDetailPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.tool.detail',
     version: 1,

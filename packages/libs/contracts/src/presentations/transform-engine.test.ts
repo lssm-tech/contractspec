@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { type PresentationSpec } from './presentations.v2';
+import { type PresentationSpec } from './presentations';
 import {
   createDefaultTransformEngine,
   registerBasicValidation,

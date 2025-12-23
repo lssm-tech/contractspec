@@ -1,4 +1,4 @@
-import type { PresentationSpec } from '../presentations/presentations.v2';
+import type { PresentationSpec } from '../presentations/presentations';
 import type { DocBlock } from './types';
 import {
   docBlocksToPresentationRoutes,

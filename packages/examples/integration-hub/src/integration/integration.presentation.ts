@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { IntegrationModel } from './integration.schema';
 
-export const IntegrationListPresentation: PresentationDescriptorV2 = {
+export const IntegrationListPresentation: PresentationSpec = {
   meta: {
     name: 'integration.list',
     version: 1,
@@ -22,7 +22,7 @@ export const IntegrationListPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const IntegrationDetailPresentation: PresentationDescriptorV2 = {
+export const IntegrationDetailPresentation: PresentationSpec = {
   meta: {
     name: 'integration.detail',
     version: 1,
@@ -43,7 +43,7 @@ export const IntegrationDetailPresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const IntegrationHealthPresentation: PresentationDescriptorV2 = {
+export const IntegrationHealthPresentation: PresentationSpec = {
   meta: {
     name: 'integration.health',
     version: 1,

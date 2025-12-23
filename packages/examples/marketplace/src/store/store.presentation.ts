@@ -1,7 +1,7 @@
-import type { PresentationDescriptorV2 } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@lssm/lib.contracts';
 import { StoreModel } from './store.schema';
 
-export const StoreProfilePresentation: PresentationDescriptorV2 = {
+export const StoreProfilePresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.store.profile',
     version: 1,
@@ -22,7 +22,7 @@ export const StoreProfilePresentation: PresentationDescriptorV2 = {
   },
 };
 
-export const SellerDashboardPresentation: PresentationDescriptorV2 = {
+export const SellerDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.seller.dashboard',
     version: 1,
