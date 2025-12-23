@@ -18,8 +18,11 @@ export function validateSpecStructure(
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Check for required exports
-  const hasExport = /export\s+(const|let)\s+\w+/.test(code);
+  // Check for required exports (including re-exports)
+  const hasExport =
+    /export\s+(const|let)\s+\w+/.test(code) ||
+    /export\s*\*\s*from/.test(code) ||
+    /export\s*\{/.test(code);
   if (!hasExport) {
     errors.push('No exported spec found');
   }
@@ -64,7 +67,7 @@ export function validateSpecStructure(
   }
 
   // Common validations
-  validateCommonFields(code, errors, warnings);
+  validateCommonFields(code, fileName, errors, warnings);
 
   return {
     valid: errors.length === 0,
@@ -326,13 +329,21 @@ function validateMigrationSpec(
  */
 function validateCommonFields(
   code: string,
+  fileName: string,
   errors: string[],
   warnings: string[]
 ) {
-  // Check for SchemaModel import
+  // Skip import checks for internal library files that define the types
+  const isInternalLib =
+    fileName.includes('/libs/contracts/') ||
+    fileName.includes('/libs/contracts-transformers/') ||
+    fileName.includes('/libs/schema/');
+
+  // Check for SchemaModel import (skip for internal schema lib)
   if (
     code.includes('SchemaModel') &&
-    !code.includes("from '@lssm/lib.schema'")
+    !code.includes("from '@lssm/lib.schema'") &&
+    !isInternalLib
   ) {
     errors.push('Missing import for SchemaModel from @lssm/lib.schema');
   }
@@ -354,7 +365,7 @@ function validateCommonFields(
     code.includes('defineQuery(') ||
     code.includes('defineEvent(');
 
-  if (usesSpecTypes && !code.includes("from '@lssm/lib.contracts'")) {
+  if (usesSpecTypes && !code.includes("from '@lssm/lib.contracts'") && !isInternalLib) {
     errors.push('Missing import from @lssm/lib.contracts');
   }
 
