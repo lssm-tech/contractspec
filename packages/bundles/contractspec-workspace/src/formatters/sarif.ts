@@ -240,9 +240,9 @@ export function formatAsSarif(
     return sarifResult;
   });
 
-  // Build version control provenance
+  // Build version control provenance (only if repositoryUri is provided, as it's required by SARIF schema)
   const versionControlProvenance: SarifVersionControl[] = [];
-  if (repositoryUri || result.commitSha || result.branch) {
+  if (repositoryUri) {
     versionControlProvenance.push({
       repositoryUri,
       revisionId: result.commitSha,

@@ -53,6 +53,17 @@ function parseCheckCategories(value: string): CICheckCategory[] {
   return categories;
 }
 
+/**
+ * Get repository URI from GitHub Actions environment variables.
+ */
+function getRepositoryUri(): string | undefined {
+  const githubServer = process.env['GITHUB_SERVER_URL'];
+  const githubRepo = process.env['GITHUB_REPOSITORY'];
+  return githubServer && githubRepo
+    ? `${githubServer}/${githubRepo}`
+    : undefined;
+}
+
 export const ciCommand = new Command('ci')
   .description('Run all CI/CD validation checks with machine-readable output')
   .option('-p, --pattern <glob>', 'Glob pattern for spec discovery')
@@ -118,6 +129,7 @@ export const ciCommand = new Command('ci')
             toolName: 'ContractSpec',
             toolVersion: '1.0.0',
             workingDirectory: process.cwd(),
+            repositoryUri: getRepositoryUri(),
           });
           output = formatters.sarifToJson(sarif);
           break;
@@ -182,6 +194,7 @@ export const ciCommand = new Command('ci')
             toolName: 'ContractSpec',
             toolVersion: '1.0.0',
             workingDirectory: process.cwd(),
+            repositoryUri: getRepositoryUri(),
           });
           const output = formatters.sarifToJson(sarif);
           if (options.output) {
