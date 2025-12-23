@@ -1,40 +1,66 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-node_modules
+# Monorepo workspace directories (root package only publishes README.md and LICENSE)
+packages/
+scripts/
+patches/
+tools/
+
+# Configuration files
+*.config.js
+*.config.mjs
+*.config.ts
+tsconfig*.json
+turbo.json
+eslint.config*.js
+tailwind.config.js
+.prettierrc*
+.npmrc
+.gitignore
+.editorconfig
+AGENTS.md
+
+# Dependencies
+node_modules/
 .pnp
 .pnp.js
-.yarn
-patches
+.yarn/
+bun.lock
 
-# testing
-coverage
-
-# next.js
+# Build outputs
+.turbo/
 .next/
 .swc/
 out/
-build
+build/
+dist/
+coverage/
 
-# expo
-.expo
+# IDE and editor
+.vscode/
+.idea/
+.cursor/
+*.sublime-*
 
-# misc
-.DS_Store
+# Environment and secrets
+.env
+.env.*
 *.pem
-dist
 
-# debug
+# Expo / React Native
+.expo/
+
+# Misc
+.DS_Store
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
+# CI/CD
+.github/
+.vercel/
+.changeset/
 
-# turbo
-.turbo
-.vercel
+# Git
+.git/

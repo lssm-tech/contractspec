@@ -1,5 +1,7 @@
 {
   "name": "lssm",
+  "version": "1.41.1",
+  "description": "LSSM - The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
   "type": "module",
   "workspaces": {
     "packages": [
@@ -48,6 +50,9 @@
   },
   "license": "MIT",
   "scripts": {
+    "build:bundle": "echo 'Root package - no build required'",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun run publish:pkg --tag canary",
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
     "release:publish": "turbo run publish:pkg",
@@ -134,6 +139,27 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git"
   },
+  "homepage": "https://contractspec.dev",
+  "bugs": {
+    "url": "https://github.com/lssm-tech/contractspec/issues"
+  },
+  "keywords": [
+    "contractspec",
+    "lssm",
+    "contracts",
+    "specification",
+    "type-safe",
+    "ai-native",
+    "typescript",
+    "code-generation",
+    "api",
+    "graphql",
+    "rest"
+  ],
+  "files": [
+    "README.md",
+    "LICENSE"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

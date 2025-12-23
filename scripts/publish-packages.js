@@ -40,12 +40,35 @@ const findPackageJsonFiles = (dir, files = []) => {
  * A package is publishable if:
  * 1. It has a package.json file
  * 2. It does NOT have "private": true in package.json
+ * 3. It has publish:pkg script (for root package)
  */
 const discoverPublishablePackages = () => {
+  const packages = [];
+
+  // Check if root package.json should be published
+  const rootManifestPath = path.join(repoRoot, 'package.json');
+  try {
+    const rootManifest = JSON.parse(fs.readFileSync(rootManifestPath, 'utf8'));
+    if (
+      rootManifest.name &&
+      rootManifest.version &&
+      rootManifest.private !== true &&
+      rootManifest.scripts?.['publish:pkg']
+    ) {
+      packages.push({
+        name: rootManifest.name,
+        dir: '.',
+        version: rootManifest.version,
+      });
+      console.log(`[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`);
+    }
+  } catch (error) {
+    console.warn(`[discover] Error reading root package.json:`, error.message);
+  }
+
+  // Discover packages in the packages/ directory
   const packagesRoot = path.join(repoRoot, 'packages');
   const packageJsonFiles = findPackageJsonFiles(packagesRoot);
-
-  const packages = [];
 
   for (const fullPath of packageJsonFiles) {
     const pkgDir = path.relative(repoRoot, path.dirname(fullPath));

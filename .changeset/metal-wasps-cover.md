@@ -1,6 +1,7 @@
 ---
 '@lssm/action.contractspec': minor
 '@lssm/app.cli-contractspec': minor
+'lssm': minor
 'contractspec': minor
 'spec-driven-development': minor
 '@lssm/app.cli-database': minor
