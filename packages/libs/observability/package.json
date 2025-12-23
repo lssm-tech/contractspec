@@ -1,0 +1,73 @@
+{
+  "name": "@lssm/lib.observability",
+  "version": "1.41.1",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
+  },
+  "dependencies": {
+    "@lssm/lib.lifecycle": "workspace:*"
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": "*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
+    "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
+    "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
+    "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
+    "./intent/aggregator": "./dist/intent/aggregator.mjs",
+    "./intent/detector": "./dist/intent/detector.mjs",
+    "./logging": "./dist/logging/index.mjs",
+    "./metrics": "./dist/metrics/index.mjs",
+    "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
+    "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
+    "./tracing": "./dist/tracing/index.mjs",
+    "./tracing/middleware": "./dist/tracing/middleware.mjs",
+    "./*": "./*"
+  },
+  "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./anomaly/alert-manager": "./dist/anomaly/alert-manager.mjs",
+      "./anomaly/anomaly-detector": "./dist/anomaly/anomaly-detector.mjs",
+      "./anomaly/baseline-calculator": "./dist/anomaly/baseline-calculator.mjs",
+      "./anomaly/root-cause-analyzer": "./dist/anomaly/root-cause-analyzer.mjs",
+      "./intent/aggregator": "./dist/intent/aggregator.mjs",
+      "./intent/detector": "./dist/intent/detector.mjs",
+      "./logging": "./dist/logging/index.mjs",
+      "./metrics": "./dist/metrics/index.mjs",
+      "./pipeline/evolution-pipeline": "./dist/pipeline/evolution-pipeline.mjs",
+      "./pipeline/lifecycle-pipeline": "./dist/pipeline/lifecycle-pipeline.mjs",
+      "./tracing": "./dist/tracing/index.mjs",
+      "./tracing/middleware": "./dist/tracing/middleware.mjs",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/observability"
+  }
+}

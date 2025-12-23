@@ -1,0 +1,95 @@
+{
+  "name": "@lssm/lib.logger",
+  "version": "1.41.1",
+  "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
+  "keywords": [
+    "logging",
+    "bun",
+    "elysia",
+    "tracing",
+    "performance"
+  ],
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "elysia": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "elysia": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "zone.js": "^0.16.0"
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./context": "./dist/context.mjs",
+    "./context.browser": "./dist/context.browser.mjs",
+    "./context.node": "./dist/context.node.mjs",
+    "./elysia-plugin": "./dist/elysia-plugin.mjs",
+    "./formatters": "./dist/formatters.mjs",
+    "./index.browser": "./dist/index.browser.mjs",
+    "./logger": "./dist/logger.mjs",
+    "./logger.browser": "./dist/logger.browser.mjs",
+    "./logger.node": "./dist/logger.node.mjs",
+    "./timer": "./dist/timer.mjs",
+    "./tracer": "./dist/tracer.mjs",
+    "./tracer.browser": "./dist/tracer.browser.mjs",
+    "./tracer.node": "./dist/tracer.node.mjs",
+    "./types": "./dist/types.mjs",
+    "./*": "./*"
+  },
+  "module": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./context": "./dist/context.mjs",
+      "./context.browser": "./dist/context.browser.mjs",
+      "./context.node": "./dist/context.node.mjs",
+      "./elysia-plugin": "./dist/elysia-plugin.mjs",
+      "./formatters": "./dist/formatters.mjs",
+      "./index.browser": "./dist/index.browser.mjs",
+      "./logger": "./dist/logger.mjs",
+      "./logger.browser": "./dist/logger.browser.mjs",
+      "./logger.node": "./dist/logger.node.mjs",
+      "./timer": "./dist/timer.mjs",
+      "./tracer": "./dist/tracer.mjs",
+      "./tracer.browser": "./dist/tracer.browser.mjs",
+      "./tracer.node": "./dist/tracer.node.mjs",
+      "./types": "./dist/types.mjs",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/logger"
+  }
+}

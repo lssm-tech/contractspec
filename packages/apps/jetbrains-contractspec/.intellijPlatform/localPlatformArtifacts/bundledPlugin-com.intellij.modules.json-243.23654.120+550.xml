@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="com.intellij.modules.json" revision="243.23654.120+550"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="/Users/tboutron/.gradle/caches/9.2.1/transforms/84a18f70c6c459a99e70ea269110dbbf/transformed/WebStorm-2024.3.2-aarch64/plugins/json" type="directory" conf="default"/>
+  </publications>
+  <dependencies/>
+</ivy-module>

@@ -1,0 +1,86 @@
+{
+  "name": "@lssm/module.contractspec-examples",
+  "version": "1.41.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun run"
+  },
+  "dependencies": {
+    "@lssm/example.agent-console": "workspace:*",
+    "@lssm/example.ai-support-bot": "workspace:*",
+    "@lssm/example.analytics-dashboard": "workspace:*",
+    "@lssm/example.content-generation": "workspace:*",
+    "@lssm/example.crm-pipeline": "workspace:*",
+    "@lssm/example.integration-hub": "workspace:*",
+    "@lssm/example.integration-stripe": "workspace:*",
+    "@lssm/example.kb-update-pipeline": "workspace:*",
+    "@lssm/example.knowledge-canon": "workspace:*",
+    "@lssm/example.learning-patterns": "workspace:*",
+    "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-duo-drills": "workspace:*",
+    "@lssm/example.learning-journey-platform-tour": "workspace:*",
+    "@lssm/example.learning-journey-quest-challenges": "workspace:*",
+    "@lssm/example.learning-journey-registry": "workspace:*",
+    "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-ui-coaching": "workspace:*",
+    "@lssm/example.learning-journey-ui-gamified": "workspace:*",
+    "@lssm/example.learning-journey-ui-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-ui-shared": "workspace:*",
+    "@lssm/example.lifecycle-cli": "workspace:*",
+    "@lssm/example.lifecycle-dashboard": "workspace:*",
+    "@lssm/example.locale-jurisdiction-gate": "workspace:*",
+    "@lssm/example.marketplace": "workspace:*",
+    "@lssm/example.openbanking-powens": "workspace:*",
+    "@lssm/example.personalization": "workspace:*",
+    "@lssm/example.policy-safe-knowledge-assistant": "workspace:*",
+    "@lssm/example.saas-boilerplate": "workspace:*",
+    "@lssm/example.service-business-os": "workspace:*",
+    "@lssm/example.versioned-knowledge-base": "workspace:*",
+    "@lssm/example.team-hub": "workspace:*",
+    "@lssm/example.wealth-snapshot": "workspace:*",
+    "@lssm/example.workflow-system": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/modules/contractspec-examples"
+  }
+}

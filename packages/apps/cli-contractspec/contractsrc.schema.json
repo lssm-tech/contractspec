@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContractSpec CLI Configuration",
+  "description": "Configuration file for ContractSpec CLI and tooling. Supports both single projects and monorepos.",
+  "type": "object",
+  "properties": {
+    "aiProvider": {
+      "type": "string",
+      "enum": ["claude", "openai", "ollama", "custom"],
+      "default": "claude",
+      "description": "AI provider for spec generation and code assistance"
+    },
+    "aiModel": {
+      "type": "string",
+      "description": "Model name to use with the AI provider"
+    },
+    "agentMode": {
+      "type": "string",
+      "enum": ["simple", "cursor", "claude-code", "openai-codex"],
+      "default": "simple",
+      "description": "Agent mode for AI-assisted operations"
+    },
+    "customEndpoint": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Custom endpoint URL for AI provider (OpenAI-compatible)"
+    },
+    "customApiKey": {
+      "type": ["string", "null"],
+      "description": "API key for custom endpoint"
+    },
+    "outputDir": {
+      "type": "string",
+      "default": "./src",
+      "description": "Default output directory for generated files"
+    },
+    "conventions": {
+      "type": "object",
+      "description": "Directory conventions for organizing specs",
+      "properties": {
+        "operations": {
+          "type": "string",
+          "default": "interactions/commands|queries",
+          "description": "Directory pattern for operation specs"
+        },
+        "events": {
+          "type": "string",
+          "default": "events",
+          "description": "Directory for event specs"
+        },
+        "presentations": {
+          "type": "string",
+          "default": "presentations",
+          "description": "Directory for presentation specs"
+        },
+        "forms": {
+          "type": "string",
+          "default": "forms",
+          "description": "Directory for form specs"
+        }
+      }
+    },
+    "defaultOwners": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^@"
+      },
+      "default": [],
+      "description": "Default owners for new specs"
+    },
+    "defaultTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Default tags for new specs"
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Package paths to include when running in monorepo mode. Supports glob patterns (e.g., 'packages/*', 'apps/**'). If not specified, all packages are included."
+    },
+    "excludePackages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Package paths to exclude when running in monorepo mode. Supports glob patterns."
+    },
+    "recursive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to search recursively in all packages for specs"
+    },
+    "openapi": {
+      "type": "object",
+      "description": "OpenAPI import/export configuration",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "description": "External OpenAPI sources to import/sync from",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Friendly name for the source"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Remote URL to fetch OpenAPI spec from"
+              },
+              "file": {
+                "type": "string",
+                "description": "Local file path to OpenAPI spec"
+              },
+              "syncMode": {
+                "type": "string",
+                "enum": ["import", "sync", "validate"],
+                "default": "validate",
+                "description": "Sync mode: import (one-time), sync (update), validate (check only)"
+              },
+              "tags": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Only import operations with these tags"
+              },
+              "exclude": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Exclude operations with these operationIds"
+              },
+              "prefix": {
+                "type": "string",
+                "description": "Prefix for generated spec names"
+              },
+              "defaultStability": {
+                "type": "string",
+                "enum": ["experimental", "beta", "stable", "deprecated"],
+                "description": "Default stability for imported specs"
+              },
+              "defaultAuth": {
+                "type": "string",
+                "enum": ["anonymous", "user", "admin"],
+                "description": "Default auth level for imported specs"
+              }
+            }
+          }
+        },
+        "export": {
+          "type": "object",
+          "description": "Export configuration for generating OpenAPI document",
+          "properties": {
+            "outputPath": {
+              "type": "string",
+              "default": "./openapi.json",
+              "description": "Output path for exported OpenAPI document"
+            },
+            "format": {
+              "type": "string",
+              "enum": ["json", "yaml"],
+              "default": "json",
+              "description": "Output format"
+            },
+            "title": {
+              "type": "string",
+              "description": "API title for export"
+            },
+            "version": {
+              "type": "string",
+              "description": "API version for export"
+            },
+            "description": {
+              "type": "string",
+              "description": "API description for export"
+            },
+            "servers": {
+              "type": "array",
+              "description": "Server URLs to include in export",
+              "items": {
+                "type": "object",
+                "required": ["url"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "Server URL"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Server description"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

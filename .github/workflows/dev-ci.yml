@@ -1,0 +1,123 @@
+name: ContractSpec Dev CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.5'
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run lint
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.5'
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build packages
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run build
+
+  validate-contracts:
+    needs: [lint, build]
+    name: Validate Contracts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+      checks: write
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for impact detection
+
+      - name: Run ContractSpec CI
+        id: contractspec
+        uses: ./packages/apps/action-contractspec
+        with:
+          mode: validate
+          skip: doctor
+          upload-sarif: true
+          bun-version: '1.3.5'
+
+      - name: Check validation result
+        if: always()
+        run: |
+          echo "Success: ${{ steps.contractspec.outputs.success }}"
+          echo "Errors: ${{ steps.contractspec.outputs.errors }}"
+          echo "Warnings: ${{ steps.contractspec.outputs.warnings }}"
+
+  impact-detection:
+    name: Contract Impact Detection
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect Contract Impact
+        id: impact
+        uses: ./packages/apps/action-contractspec
+        with:
+          mode: impact
+          pr-comment: 'true'
+          fail-on-breaking: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          bun-version: '1.3.5'
+
+      - name: Report Impact Status
+        if: always()
+        run: |
+          echo "Impact Status: ${{ steps.impact.outputs.impact-status }}"
+          echo "Breaking Changes: ${{ steps.impact.outputs.breaking-count }}"
+          echo "Non-breaking Changes: ${{ steps.impact.outputs.non-breaking-count }}"

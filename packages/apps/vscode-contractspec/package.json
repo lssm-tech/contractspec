@@ -1,0 +1,828 @@
+{
+  "name": "vscode-contractspec",
+  "displayName": "ContractSpec",
+  "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
+  "version": "1.41.1",
+  "publisher": "lssm",
+  "license": "MIT",
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#0f172a",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/vscode-contractspec"
+  },
+  "bugs": {
+    "url": "https://github.com/lssm/contractspec/issues"
+  },
+  "homepage": "https://contractspec.lssm.tech",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "contractspec",
+    "spec-first",
+    "contracts",
+    "typescript",
+    "code-generation",
+    "ai"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:**/*.contract.ts",
+    "workspaceContains:**/*.contracts.ts",
+    "workspaceContains:**/*.operations.ts",
+    "workspaceContains:**/*.operation.ts",
+    "workspaceContains:**/*.event.ts",
+    "workspaceContains:**/*.presentation.ts",
+    "workspaceContains:**/*.feature.ts",
+    "workspaceContains:**/*.workflow.ts",
+    "workspaceContains:**/*.telemetry.ts",
+    "workspaceContains:**/.contractsrc.json"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "contractspec.validate",
+        "title": "Validate Current Spec",
+        "category": "ContractSpec",
+        "icon": "$(check)"
+      },
+      {
+        "command": "contractspec.validateWorkspace",
+        "title": "Validate All Specs in Workspace",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.build",
+        "title": "Build/Scaffold from Current Spec",
+        "category": "ContractSpec",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "contractspec.listSpecs",
+        "title": "List All Specs",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.analyzeDeps",
+        "title": "Analyze Spec Dependencies",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.searchDocs",
+        "title": "Search ContractSpec Docs (MCP)",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registryBrowse",
+        "title": "Browse Registry",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registryAdd",
+        "title": "Add from Registry",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.registrySearch",
+        "title": "Search Registry",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.examplesBrowse",
+        "title": "Browse Examples",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.examplesInit",
+        "title": "Initialize Example Stub in Workspace",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.create",
+        "title": "Create New Spec",
+        "category": "ContractSpec",
+        "icon": "$(add)"
+      },
+      {
+        "command": "contractspec.watchToggle",
+        "title": "Toggle Watch Mode",
+        "category": "ContractSpec",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "contractspec.sync",
+        "title": "Sync All Specs",
+        "category": "ContractSpec",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "contractspec.clean",
+        "title": "Clean Generated Files",
+        "category": "ContractSpec",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "contractspec.diff",
+        "title": "Compare Specs",
+        "category": "ContractSpec",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "contractspec.diffGit",
+        "title": "Compare with Git Version",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.openapi",
+        "title": "Export to OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.openapiImport",
+        "title": "Import from OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "contractspec.openapiValidate",
+        "title": "Validate against OpenAPI",
+        "category": "ContractSpec",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "contractspec.refreshSpecs",
+        "title": "Refresh Specs",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.refreshDeps",
+        "title": "Refresh Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.clearBuildResults",
+        "title": "Clear Build Results",
+        "category": "ContractSpec",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "contractspec.workspaceInfo",
+        "title": "Show Workspace Info",
+        "category": "ContractSpec",
+        "icon": "$(info)"
+      },
+      {
+        "command": "contractspec.analyzeIntegrity",
+        "title": "Analyze Contract Integrity",
+        "category": "ContractSpec",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "contractspec.refreshIntegrity",
+        "title": "Refresh Integrity Analysis",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.refreshFeatures",
+        "title": "Refresh Features",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.showFeatureMap",
+        "title": "Show Feature Map Diagram",
+        "category": "ContractSpec",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "contractspec.showOrphans",
+        "title": "Show Orphaned Specs Diagram",
+        "category": "ContractSpec",
+        "icon": "$(warning)"
+      },
+      {
+        "command": "contractspec.showDependencies",
+        "title": "Show Dependencies Diagram",
+        "category": "ContractSpec",
+        "icon": "$(symbol-reference)"
+      },
+      {
+        "command": "contractspec.setup",
+        "title": "Setup ContractSpec",
+        "category": "ContractSpec",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "contractspec.quickSetup",
+        "title": "Quick Setup (Defaults)",
+        "category": "ContractSpec",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "contractspec.selectGroupingMode",
+        "title": "Select Grouping Mode",
+        "category": "ContractSpec",
+        "icon": "$(list-filter)"
+      },
+      {
+        "command": "contractspec.cycleGroupingMode",
+        "title": "Cycle Grouping Mode",
+        "category": "ContractSpec",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "contractspec.revealInExplorer",
+        "title": "Reveal in File Explorer",
+        "category": "ContractSpec",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "contractspec.copySpecName",
+        "title": "Copy Spec Name",
+        "category": "ContractSpec",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "contractspec.copySpecPath",
+        "title": "Copy File Path",
+        "category": "ContractSpec",
+        "icon": "$(file-symlink-file)"
+      },
+      {
+        "command": "contractspec.goToSpecDefinition",
+        "title": "Go to Definition",
+        "category": "ContractSpec",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "contractspec.showSpecDeps",
+        "title": "Show Spec Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(symbol-reference)"
+      },
+      {
+        "command": "contractspec.showReferencingFeatures",
+        "title": "Show Referencing Features",
+        "category": "ContractSpec",
+        "icon": "$(references)"
+      },
+      {
+        "command": "contractspec.linkToFeature",
+        "title": "Link to Feature",
+        "category": "ContractSpec",
+        "icon": "$(link)"
+      },
+      {
+        "command": "contractspec.createFeatureFromOrphans",
+        "title": "Create Feature from Orphans",
+        "category": "ContractSpec",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "contractspec.doctor",
+        "title": "Run Health Check (Doctor)",
+        "category": "ContractSpec",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "contractspec.quickDoctor",
+        "title": "Quick Health Check",
+        "category": "ContractSpec",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "contractspec.llmExport",
+        "title": "Export to LLM",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.llmGuide",
+        "title": "Generate Implementation Guide",
+        "category": "ContractSpec",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "contractspec.llmVerify",
+        "title": "Verify Implementation",
+        "category": "ContractSpec",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "contractspec.llmCopy",
+        "title": "Copy Spec for LLM",
+        "category": "ContractSpec",
+        "icon": "$(clippy)"
+      },
+      {
+        "command": "contractspec.refreshLLMTools",
+        "title": "Refresh LLM Tools",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.llmSelectAgent",
+        "title": "Select LLM Agent",
+        "category": "ContractSpec",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "contractspec.llmExportQuick",
+        "title": "Quick Export to LLM",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
+        "command": "contractspec.llmGuideQuick",
+        "title": "Quick Implementation Guide",
+        "category": "ContractSpec",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "contractspec.llmCursorRules",
+        "title": "Generate Cursor Rules",
+        "category": "ContractSpec",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "contractspec.chat",
+        "title": "Open AI Chat",
+        "category": "ContractSpec",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "contractspec.quickstart",
+        "title": "Quickstart - Install Dependencies",
+        "category": "ContractSpec",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "contractspec.quickInstall",
+        "title": "Quick Install (Minimal)",
+        "category": "ContractSpec",
+        "icon": "$(package)"
+      },
+      {
+        "command": "contractspec.detectImpact",
+        "title": "Detect Contract Impact",
+        "category": "ContractSpec",
+        "icon": "$(search-fuzzy)"
+      },
+      {
+        "command": "contractspec.compareWithBaseline",
+        "title": "Compare with Baseline (Breaking Changes)",
+        "category": "ContractSpec",
+        "icon": "$(git-compare)"
+      },
+      {
+        "command": "contractspec.workspaceSwitch",
+        "title": "Switch Workspace (Meta-Repo)",
+        "category": "ContractSpec",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "contractspec.workspaceList",
+        "title": "List Workspaces (Meta-Repo)",
+        "category": "ContractSpec",
+        "icon": "$(list-tree)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "contractspec",
+          "title": "ContractSpec",
+          "icon": "assets/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "contractspec": [
+        {
+          "id": "contractspec.specsView",
+          "name": "Specs Explorer"
+        },
+        {
+          "id": "contractspec-features",
+          "name": "Features"
+        },
+        {
+          "id": "contractspec-integrity",
+          "name": "Integrity Analysis"
+        },
+        {
+          "id": "contractspec.depsView",
+          "name": "Dependencies"
+        },
+        {
+          "id": "contractspec.buildResultsView",
+          "name": "Build Results"
+        },
+        {
+          "id": "contractspec.llmToolsView",
+          "name": "LLM Tools"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "contractspec.refreshSpecs",
+          "when": "view == contractspec.specsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.selectGroupingMode",
+          "when": "view == contractspec.specsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.create",
+          "when": "view == contractspec.specsView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "contractspec.refreshFeatures",
+          "when": "view == contractspec-features",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.showFeatureMap",
+          "when": "view == contractspec-features",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshIntegrity",
+          "when": "view == contractspec-integrity",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.createFeatureFromOrphans",
+          "when": "view == contractspec-integrity",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.showOrphans",
+          "when": "view == contractspec-integrity",
+          "group": "navigation@3"
+        },
+        {
+          "command": "contractspec.refreshDeps",
+          "when": "view == contractspec.depsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.clearBuildResults",
+          "when": "view == contractspec.buildResultsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.refreshLLMTools",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.llmExport",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.llmVerify",
+          "when": "view == contractspec.llmToolsView",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "inline@1"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "view == contractspec.specsView && viewItem == spec",
+          "group": "inline@2"
+        },
+        {
+          "command": "contractspec.goToSpecDefinition",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|dependency)$/",
+          "group": "navigation@1"
+        },
+        {
+          "command": "contractspec.revealInExplorer",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|dependency|feature)$/",
+          "group": "navigation@2"
+        },
+        {
+          "command": "contractspec.copySpecName",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|dependency|feature)$/",
+          "group": "copy@1"
+        },
+        {
+          "command": "contractspec.copySpecPath",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|dependency|feature)$/",
+          "group": "copy@2"
+        },
+        {
+          "command": "contractspec.showSpecDeps",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|dependency)$/",
+          "group": "analysis@1"
+        },
+        {
+          "command": "contractspec.showReferencingFeatures",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref)$/",
+          "group": "analysis@2"
+        },
+        {
+          "command": "contractspec.llmCopy",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|feature)$/",
+          "group": "llm@1"
+        },
+        {
+          "command": "contractspec.llmGuide",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|feature)$/",
+          "group": "llm@2"
+        },
+        {
+          "command": "contractspec.llmVerify",
+          "when": "viewItem =~ /^(spec|orphan-spec|spec-ref|feature)$/",
+          "group": "llm@3"
+        },
+        {
+          "command": "contractspec.linkToFeature",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "inline@1"
+        },
+        {
+          "command": "contractspec.linkToFeature",
+          "when": "view == contractspec-integrity && viewItem == orphan-spec",
+          "group": "navigation@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "group": "contractspec@1"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
+          "group": "contractspec@2"
+        },
+        {
+          "command": "contractspec.diff",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|workflow)\\.ts$/",
+          "group": "contractspec@3"
+        },
+        {
+          "command": "contractspec.analyzeIntegrity",
+          "when": "resourceFilename =~ /\\.(feature)\\.ts$/",
+          "group": "contractspec@4"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "group": "contractspec@1"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
+          "group": "contractspec@2"
+        },
+        {
+          "command": "contractspec.analyzeIntegrity",
+          "when": "resourceFilename =~ /\\.(feature)\\.ts$/",
+          "group": "contractspec@3"
+        },
+        {
+          "command": "contractspec.llmExport",
+          "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
+          "group": "contractspec-llm@1"
+        },
+        {
+          "command": "contractspec.llmGuide",
+          "when": "resourceFilename =~ /\\.(operations)\\.ts$/",
+          "group": "contractspec-llm@2"
+        },
+        {
+          "command": "contractspec.llmCopy",
+          "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
+          "group": "contractspec-llm@3"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "contractspec.validate",
+          "when": "resourceFilename =~ /\\.(operations|event|presentation|feature|capability|workflow|data-view|form|migration|telemetry|experiment|app-config|integration|knowledge|policy|test-spec)\\.ts$/",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.build",
+          "when": "resourceFilename =~ /\\.(operations|presentation)\\.ts$/",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "contractspec.llmToolsView",
+        "contents": "LLM Tools for ContractSpec.\n\nOpen a spec file (.spec.ts, .operations.ts, .feature.ts) to access export, guide, and verification features.\n\n[Export to LLM](command:contractspec.llmExport)\n[Generate Guide](command:contractspec.llmGuide)\n[Verify Implementation](command:contractspec.llmVerify)"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "contractspec.gettingStarted",
+        "title": "Getting Started with ContractSpec",
+        "description": "Learn how to use ContractSpec to stabilize your AI-generated code",
+        "steps": [
+          {
+            "id": "welcome",
+            "title": "Welcome to ContractSpec",
+            "description": "The deterministic, spec-first compiler for AI-written software.\n[Learn More](command:contractspec.searchDocs)",
+            "media": {
+              "markdown": "walkthroughs/welcome.md"
+            }
+          },
+          {
+            "id": "setup",
+            "title": "Set Up Your Project",
+            "description": "Configure ContractSpec for your project: CLI, MCP servers, Cursor rules, and more.\n[Run Setup Wizard](command:contractspec.setup)",
+            "media": {
+              "markdown": "walkthroughs/setup.md"
+            }
+          },
+          {
+            "id": "createFirst",
+            "title": "Create Your First Spec",
+            "description": "Create a contract specification using the interactive wizard or snippets.\n[Create Spec](command:contractspec.create)",
+            "media": {
+              "markdown": "walkthroughs/create-spec.md"
+            }
+          },
+          {
+            "id": "validate",
+            "title": "Validate Your Specs",
+            "description": "Ensure your specs are well-formed and consistent.\n[Validate Workspace](command:contractspec.validateWorkspace)",
+            "media": {
+              "markdown": "walkthroughs/validate.md"
+            }
+          },
+          {
+            "id": "build",
+            "title": "Build from Specs",
+            "description": "Generate implementation code from your specifications.\n[Build from Spec](command:contractspec.build)",
+            "media": {
+              "markdown": "walkthroughs/build.md"
+            }
+          },
+          {
+            "id": "explore",
+            "title": "Explore Your Specs",
+            "description": "Use the Specs Explorer sidebar to navigate and manage your specifications.\n[Open Specs View](command:contractspec.specsView.focus)",
+            "media": {
+              "markdown": "walkthroughs/build.md"
+            }
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "ContractSpec",
+      "properties": {
+        "contractspec.api.baseUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Base URL for ContractSpec API (enables MCP + remote telemetry). Leave empty for local-only mode."
+        },
+        "contractspec.telemetry.posthogHost": {
+          "type": "string",
+          "default": "https://eu.posthog.com",
+          "description": "PostHog host URL for direct telemetry (used when API baseUrl is not configured)."
+        },
+        "contractspec.telemetry.posthogProjectKey": {
+          "type": "string",
+          "default": "",
+          "description": "PostHog project key for direct telemetry. Required for telemetry when API baseUrl is not configured."
+        },
+        "contractspec.validation.onSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run validation automatically when saving spec files."
+        },
+        "contractspec.validation.onOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run validation automatically when opening spec files."
+        },
+        "contractspec.registry.baseUrl": {
+          "type": "string",
+          "default": "https://registry.contractspec.lssm.tech",
+          "description": "Base URL for ContractSpec registry. Used for browsing and installing specs/templates."
+        },
+        "contractspec.specsExplorer.groupBy": {
+          "type": "string",
+          "default": "type",
+          "enum": [
+            "type",
+            "package",
+            "namespace",
+            "owner",
+            "tag",
+            "stability"
+          ],
+          "enumDescriptions": [
+            "Group specs by type (operation, event, presentation, etc.)",
+            "Group specs by package (for monorepos)",
+            "Group specs by namespace (extracted from spec name)",
+            "Group specs by owner",
+            "Group specs by tag",
+            "Group specs by stability level"
+          ],
+          "description": "How to group specs in the Specs Explorer view."
+        },
+        "contractspec.impact.defaultBaseline": {
+          "type": "string",
+          "default": "origin/main",
+          "description": "Default Git ref to compare against for impact detection"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "typescript",
+        "extensions": [
+          ".operation.ts",
+          ".event.ts",
+          ".presentation.ts",
+          ".feature.ts",
+          ".capability.ts",
+          ".workflow.ts",
+          ".data-view.ts",
+          ".form.ts",
+          ".migration.ts",
+          ".telemetry.ts",
+          ".experiment.ts",
+          ".app-config.ts",
+          ".integration.ts",
+          ".knowledge.ts",
+          ".policy.ts",
+          ".test-spec.ts"
+        ]
+      }
+    ],
+    "snippets": [
+      {
+        "language": "typescript",
+        "path": "./snippets/contractspec.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "bun run build",
+    "build": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+    "dev": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch",
+    "lint": "eslint src --fix",
+    "lint:check": "eslint src",
+    "package": "vsce package --no-dependencies",
+    "publish:off": "vsce publish --no-dependencies",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "@lssm/bundle.contractspec-workspace": "workspace:*",
+    "@lssm/module.contractspec-workspace": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.contracts-transformers": "workspace:*",
+    "@lssm/module.contractspec-examples": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.27.2",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

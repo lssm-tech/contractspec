@@ -1,0 +1,141 @@
+{
+  "name": "lssm",
+  "type": "module",
+  "workspaces": {
+    "packages": [
+      "packages/tools/*",
+      "packages/libs/*",
+      "packages/integrations/*",
+      "packages/modules/*",
+      "packages/examples/*",
+      "packages/bundles/*",
+      "packages/apps/*"
+    ],
+    "catalog": {
+      "react": "19.2.3",
+      "react-dom": "19.2.3",
+      "next": "16.1.0",
+      "zod": "^4.1.13",
+      "typescript": "^5.9.3"
+    },
+    "catalogs": {
+      "build": {
+        "tsdown": "^0.18.1",
+        "turbo": "^2.6.3",
+        "@changesets/cli": "^2.29.7",
+        "postcss": "^8.5",
+        "tailwindcss": "4.1.18",
+        "eslint": "^9.39.2",
+        "rimraf": "^6.1.2",
+        "glob": "^13.0.0"
+      },
+      "testing": {
+        "jest": "^30.2.0",
+        "@types/jest": "^30.0.0",
+        "storybook": "^9.1.7"
+      },
+      "ai": {
+        "ai": "beta",
+        "@ai-sdk/mcp": "beta",
+        "@ai-sdk/anthropic": "beta",
+        "@ai-sdk/google": "beta",
+        "@ai-sdk/mistral": "beta",
+        "@ai-sdk/openai": "beta",
+        "@ai-sdk/react": "beta",
+        "ollama-ai-provider": "^1.2.0"
+      }
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
+    "release:version": "changeset version --verbose && bun update",
+    "release:publish": "turbo run publish:pkg",
+    "release:publish:canary": "turbo run publish:pkg:canary",
+    "knip": "knip",
+    "clean": "turbo run clean",
+    "lint": "turbo run lint",
+    "lint:check": "turbo run lint:check",
+    "lint:fix": "turbo run lint:fix",
+    "dev": "turbo run dev --filter=\"!@lssm/app.*\"",
+    "dev:web": "turbo run dev --filter=\"@lssm/app.web-*\"",
+    "dev:api": "turbo run dev --filter=\"@lssm/app.api-*\"",
+    "dev:not-apps": "turbo watch build --filter=\"!@lssm/app.*\"",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=\"@lssm/app.web-*\"",
+    "build:api": "turbo run build --filter=\"@lssm/app.api-*\"",
+    "build:worker": "turbo run build --filter=\"@lssm/app.worker-*\"",
+    "build:server": "turbo run build --filter=\"@lssm/app.api-*\" --filter=\"@lssm/app.worker-*\"",
+    "build:types": "turbo run build:types",
+    "build:not-apps": "turbo run build --filter=\"!@lssm/app.*\"",
+    "db:generate": "turbo run db:generate",
+    "db:deploy": "turbo run db:deploy",
+    "validate:content": "turbo run validate:content --filter=\"@lssm/app.web-strit\"",
+    "mcp:inspect": "mcp-inspector --transport http --server-url http://localhost:3000/api/mcp",
+    "llms:gen": "node tools/generate-presentations-manifest.mjs packages/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-lssm/src/app && node tools/generate-presentations-manifest.mjs packages/artisanos/apps/web-artisan/src/app && node tools/generate-presentations-manifest.mjs packages/strit/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-third/src/app",
+    "llms:check": "node tools/verify-md-coverage.mjs packages/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-lssm/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/artisanos/apps/web-artisan/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/strit/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-third/src/app --min=0.3",
+    "validate:examples": "bun packages/apps/cli-contractspec/src/cli.ts examples validate --repo-root . && bun test packages/modules/contractspec-examples"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:build",
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.2",
+    "@eslint/json": "^0.14.0",
+    "@lssm/app.cli-contractspec": "workspace:*",
+    "@types/bun": "^1.3.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "catalog:build",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-i18next": "^6.1.3",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "knip": "^5.75.1",
+    "memoirist": "^0.4.0",
+    "next": "catalog:",
+    "patch-package": "^8.0.1",
+    "postinstall-postinstall": "^2.1.0",
+    "prettier": "3.7.4",
+    "prettier-plugin-prisma": "^5.0.0",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "turbo-ignore": "^2.7.1",
+    "typescript-eslint": "^8.49.0"
+  },
+  "dependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "turbo": "catalog:build",
+    "semver": "^7.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "author": "Théo Boutron <tboutron@lssm.co>",
+  "packageManager": "bun@1.3.5",
+  "prisma": {
+    "schema": "packages/libs/database/prisma/schema.prisma"
+  },
+  "overrides": {
+    "nativewind": "5.0.0-preview.2",
+    "expo": "^54.0.0",
+    "react-native": "0.81.4",
+    "react-native-css": "3.0.0",
+    "lightningcss": "1.30.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

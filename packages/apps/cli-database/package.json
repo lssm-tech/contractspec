@@ -1,0 +1,68 @@
+{
+  "name": "@lssm/app.cli-database",
+  "version": "1.41.1",
+  "type": "module",
+  "bin": {
+    "database": "dist/cli.js"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "tsdown",
+    "dev": "bun run build --watch",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "prisma:import": "database import",
+    "prisma:check": "database check",
+    "dbs:generate": "database generate",
+    "dbs:migrate": "database migrate:dev",
+    "dbs:deploy": "database migrate:deploy",
+    "dbs:status": "database migrate:status",
+    "dbs:seed": "database seed",
+    "schema:generate": "database schema:generate",
+    "schema:compose": "database schema:compose"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "prisma": "^7.2.0",
+    "minimist": "^1.2.8",
+    "execa": "^9.6.1"
+  },
+  "devDependencies": {
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@types/minimist": "^1.2.5",
+    "tsdown": "catalog:build"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./cli": "./dist/cli.mjs",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/cli-database"
+  }
+}

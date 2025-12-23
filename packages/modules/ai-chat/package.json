@@ -1,0 +1,79 @@
+{
+  "name": "@lssm/module.ai-chat",
+  "version": "1.41.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.ai-providers": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.metering": "workspace:*",
+    "@lssm/lib.cost-tracking": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
+    "@ai-sdk/react": "catalog:ai",
+    "ai": "catalog:ai",
+    "lucide-react": "^0.535.0",
+    "react": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@types/react": "^19.0.14",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./context": "./dist/context/index.js",
+    "./core": "./dist/core/index.js",
+    "./presentation": "./dist/presentation/index.js",
+    "./presentation/components": "./dist/presentation/components/index.js",
+    "./presentation/hooks": "./dist/presentation/hooks/index.js",
+    "./providers": "./dist/providers/index.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./context": "./dist/context/index.js",
+      "./core": "./dist/core/index.js",
+      "./presentation": "./dist/presentation/index.js",
+      "./presentation/components": "./dist/presentation/components/index.js",
+      "./presentation/hooks": "./dist/presentation/hooks/index.js",
+      "./providers": "./dist/providers/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/modules/ai-chat"
+  }
+}

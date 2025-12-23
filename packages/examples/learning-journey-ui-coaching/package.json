@@ -1,0 +1,78 @@
+{
+  "name": "@lssm/example.learning-journey-ui-coaching",
+  "version": "1.41.1",
+  "description": "Contextual coaching UI with tip cards and engagement tracking.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./CoachingMiniApp": "./dist/CoachingMiniApp.js",
+    "./components": "./dist/components/index.js",
+    "./components/EngagementMeter": "./dist/components/EngagementMeter.js",
+    "./components/TipCard": "./dist/components/TipCard.js",
+    "./components/TipFeed": "./dist/components/TipFeed.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/learning-journey-ui-coaching.docblock": "./dist/docs/learning-journey-ui-coaching.docblock.js",
+    "./example": "./dist/example.js",
+    "./views": "./dist/views/index.js",
+    "./views/Overview": "./dist/views/Overview.js",
+    "./views/Progress": "./dist/views/Progress.js",
+    "./views/Steps": "./dist/views/Steps.js",
+    "./views/Timeline": "./dist/views/Timeline.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/example.learning-journey-ui-shared": "workspace:*",
+    "@lssm/example.learning-journey-ambient-coach": "workspace:*",
+    "@lssm/example.learning-journey-crm-onboarding": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@types/react": "^19.1.6",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
+      "./views": "./dist/views/index.js",
+      "./components": "./dist/components/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/learning-journey-ui-coaching"
+  }
+}

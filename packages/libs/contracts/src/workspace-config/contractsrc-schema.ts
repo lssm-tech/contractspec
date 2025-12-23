@@ -1,0 +1,260 @@
+/**
+ * ContractSpec configuration schema definitions.
+ *
+ * These schemas define the structure of .contractsrc.json files
+ * and are shared across CLI tools and libraries.
+ */
+
+import * as z from 'zod';
+
+/**
+ * OpenAPI source configuration for import/sync/validate operations.
+ */
+export const OpenApiSourceConfigSchema = z.object({
+  /** Friendly name for the source */
+  name: z.string(),
+  /** Remote URL to fetch OpenAPI spec from */
+  url: z.url().optional(),
+  /** Local file path to OpenAPI spec */
+  file: z.string().optional(),
+  /** Sync mode: import (one-time), sync (update), validate (check only) */
+  syncMode: z.enum(['import', 'sync', 'validate']).default('validate'),
+  /** Only import operations with these tags */
+  tags: z.array(z.string()).optional(),
+  /** Exclude operations with these operationIds */
+  exclude: z.array(z.string()).optional(),
+  /** Include operations with these operationIds (overrides exclude) */
+  include: z.array(z.string()).optional(),
+  /** Prefix for generated spec names */
+  prefix: z.string().optional(),
+  /** Default stability for imported specs */
+  defaultStability: z
+    .enum(['experimental', 'beta', 'stable', 'deprecated'])
+    .optional(),
+  /** Default auth level for imported specs */
+  defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
+  /** Default owners for imported specs */
+  defaultOwners: z.array(z.string()).optional(),
+});
+export const OpenApiExportConfigSchema = z.object({
+  /** Output path for exported OpenAPI document */
+  outputPath: z.string().default('./openapi.json'),
+  /** Output format */
+  format: z.enum(['json', 'yaml']).default('json'),
+  /** API title for export */
+  title: z.string().optional(),
+  /** API version for export */
+  version: z.string().optional(),
+  /** API description for export */
+  description: z.string().optional(),
+  /** Server URLs to include in export */
+  servers: z
+    .array(
+      z.object({
+        url: z.string(),
+        description: z.string().optional(),
+      })
+    )
+    .optional(),
+});
+
+/**
+ * OpenAPI configuration section.
+ */
+export const OpenApiConfigSchema = z.object({
+  /** External OpenAPI sources to import/sync from */
+  sources: z.array(OpenApiSourceConfigSchema).optional(),
+  /** Export configuration */
+  export: OpenApiExportConfigSchema.optional(),
+});
+
+/**
+ * Grouping strategy for organizing specs.
+ */
+export const GroupingStrategySchema = z.enum([
+  'by-tag',
+  'by-owner',
+  'by-domain',
+  'by-url-path-single',
+  'by-url-path-multi',
+  'by-feature',
+  'none',
+]);
+
+/**
+ * Grouping rule configuration.
+ */
+export const GroupingRuleSchema = z.object({
+  /** Grouping strategy to apply */
+  strategy: GroupingStrategySchema,
+  /** For url-path strategies, the level depth (default: 1) */
+  urlPathLevel: z.number().optional(),
+  /** Custom key extraction pattern (regex or glob) */
+  pattern: z.string().optional(),
+});
+
+/**
+ * Output directory conventions for generated specs.
+ */
+export const FolderConventionsSchema = z.object({
+  models: z.string().default('models'),
+  operations: z.string().default('operations/commands|queries'),
+  events: z.string().default('events'),
+  presentations: z.string().default('presentations'),
+  forms: z.string().default('forms'),
+  /** Enable feature/module folder grouping (default: true) */
+  groupByFeature: z.boolean().default(true),
+  /** Grouping rule for operations */
+  operationsGrouping: GroupingRuleSchema.optional(),
+  /** Grouping rule for models */
+  modelsGrouping: GroupingRuleSchema.optional(),
+  /** Grouping rule for events */
+  eventsGrouping: GroupingRuleSchema.optional(),
+});
+
+/**
+ * PR comment configuration for CI/CD.
+ */
+export const PrCommentConfigSchema = z.object({
+  /** Enable PR comments */
+  enabled: z.boolean().default(true),
+  /** Comment template: 'minimal' | 'detailed' */
+  template: z.enum(['minimal', 'detailed']).default('detailed'),
+  /** Update existing comment instead of creating new */
+  updateExisting: z.boolean().default(true),
+});
+
+/**
+ * GitHub check run configuration for CI/CD.
+ */
+export const CheckRunConfigSchema = z.object({
+  /** Enable GitHub check run creation */
+  enabled: z.boolean().default(true),
+  /** Check run name */
+  name: z.string().default('ContractSpec Impact'),
+  /** Fail check on breaking changes */
+  failOnBreaking: z.boolean().default(true),
+  /** Fail check on any contract changes */
+  failOnChanges: z.boolean().default(false),
+});
+
+/**
+ * Impact detection configuration for CI/CD.
+ */
+export const ImpactConfigSchema = z.object({
+  /** Baseline for comparison: 'default-branch' | 'base-ref' | 'tag:v*' */
+  baseline: z.string().default('default-branch'),
+  /** Paths to include in impact detection (glob patterns) */
+  include: z.array(z.string()).optional(),
+  /** Paths to exclude from impact detection (glob patterns) */
+  exclude: z.array(z.string()).optional(),
+});
+
+/**
+ * CI/CD configuration section.
+ */
+export const CiConfigSchema = z.object({
+  /** Default checks to run */
+  checks: z.array(z.string()).default(['structure', 'integrity', 'deps']),
+  /** Checks to skip */
+  skipChecks: z.array(z.string()).optional(),
+  /** Fail CI on warnings */
+  failOnWarnings: z.boolean().default(false),
+  /** Upload SARIF to GitHub Code Scanning */
+  uploadSarif: z.boolean().default(true),
+  /** PR comment configuration */
+  prComment: PrCommentConfigSchema.optional(),
+  /** GitHub check run configuration */
+  checkRun: CheckRunConfigSchema.optional(),
+  /** Impact detection configuration */
+  impact: ImpactConfigSchema.optional(),
+});
+
+/**
+ * External workspace reference for cross-workspace dependencies in meta-repos.
+ */
+export const ExternalWorkspaceSchema = z.object({
+  /** Alias for referencing this workspace (e.g., 'core', 'internal') */
+  alias: z.string(),
+  /** Submodule name or relative path from meta-repo root */
+  submodule: z.string(),
+  /** Package patterns to include from this workspace */
+  packages: z.array(z.string()).optional(),
+  /** Whether to auto-resolve internal dependencies */
+  autoResolve: z.boolean().default(true),
+});
+
+/**
+ * Meta-repo configuration section.
+ */
+export const MetaRepoConfigSchema = z.object({
+  /** Active submodule scope (defaults to auto-detected) */
+  activeScope: z.string().optional(),
+  /** External workspace references for cross-workspace dependencies */
+  externalWorkspaces: z.array(ExternalWorkspaceSchema).optional(),
+  /** Whether to search for specs across all submodules */
+  crossWorkspaceSearch: z.boolean().default(false),
+});
+
+/**
+ * Full ContractSpec configuration schema (.contractsrc.json).
+ */
+export const ContractsrcSchema = z.object({
+  aiProvider: z
+    .enum(['claude', 'openai', 'ollama', 'custom'])
+    .default('claude'),
+  aiModel: z.string().optional(),
+  agentMode: z
+    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
+    .default('simple'),
+  customEndpoint: z.url().nullable().optional(),
+  customApiKey: z.string().nullable().optional(),
+  outputDir: z.string().default('./src'),
+  conventions: FolderConventionsSchema,
+  defaultOwners: z.array(z.string()).default([]),
+  defaultTags: z.array(z.string()).default([]),
+  // Monorepo configuration
+  packages: z.array(z.string()).optional(),
+  excludePackages: z.array(z.string()).optional(),
+  recursive: z.boolean().optional(),
+  // OpenAPI configuration
+  openapi: OpenApiConfigSchema.optional(),
+  // CI/CD configuration
+  ci: CiConfigSchema.optional(),
+  // Meta-repo configuration
+  metaRepo: MetaRepoConfigSchema.optional(),
+});
+
+// Type exports
+export type OpenApiSourceConfig = z.infer<typeof OpenApiSourceConfigSchema>;
+export type OpenApiExportConfig = z.infer<typeof OpenApiExportConfigSchema>;
+export type OpenApiConfig = z.infer<typeof OpenApiConfigSchema>;
+export type FolderConventions = z.infer<typeof FolderConventionsSchema>;
+export type ContractsrcConfig = z.infer<typeof ContractsrcSchema>;
+export type GroupingStrategy = z.infer<typeof GroupingStrategySchema>;
+export type GroupingRule = z.infer<typeof GroupingRuleSchema>;
+export type PrCommentConfig = z.infer<typeof PrCommentConfigSchema>;
+export type CheckRunConfig = z.infer<typeof CheckRunConfigSchema>;
+export type ImpactConfig = z.infer<typeof ImpactConfigSchema>;
+export type CiConfig = z.infer<typeof CiConfigSchema>;
+export type ExternalWorkspace = z.infer<typeof ExternalWorkspaceSchema>;
+export type MetaRepoConfig = z.infer<typeof MetaRepoConfigSchema>;
+
+/**
+ * Default configuration values.
+ */
+export const DEFAULT_CONTRACTSRC: ContractsrcConfig = {
+  aiProvider: 'claude',
+  agentMode: 'simple',
+  outputDir: './src',
+  conventions: {
+    models: 'models',
+    operations: 'interactions/commands|queries',
+    events: 'events',
+    presentations: 'presentations',
+    forms: 'forms',
+    groupByFeature: true,
+  },
+  defaultOwners: [],
+  defaultTags: [],
+};

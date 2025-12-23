@@ -1,0 +1,67 @@
+{
+  "name": "@lssm/example.learning-journey-crm-onboarding",
+  "version": "1.41.1",
+  "description": "Learning journey track that onboards users to the CRM pipeline example.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
+    "./example": "./dist/example.js",
+    "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
+    "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
+    "./presentations": "./dist/presentations/index.js",
+    "./track": "./dist/track.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/example.crm-pipeline": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
+      "./example": "./dist/example.js",
+      "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
+      "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
+      "./presentations": "./dist/presentations/index.js",
+      "./track": "./dist/track.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/learning-journey-crm-onboarding"
+  }
+}

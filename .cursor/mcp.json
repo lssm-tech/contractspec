@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "contractspec-local": {
+      "command": "bunx",
+      "args": [
+        "contractspec-mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "name": "artisan.payments.catalog",
+    "version": 1
+  },
+  "defaultLocale": "en",
+  "supportedLocales": ["en", "fr"],
+  "entries": [
+    {
+      "key": "artisan.payments.appName",
+      "locale": "en",
+      "value": "Artisan Payments Portal"
+    },
+    {
+      "key": "artisan.payments.appName",
+      "locale": "fr",
+      "value": "Portail de paiement Artisan"
+    }
+  ]
+}
+

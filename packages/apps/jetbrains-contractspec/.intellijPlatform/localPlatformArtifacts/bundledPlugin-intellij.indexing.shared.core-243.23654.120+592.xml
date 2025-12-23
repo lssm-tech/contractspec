@@ -1,0 +1,13 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="intellij.indexing.shared.core" revision="243.23654.120+592"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="/Users/tboutron/.gradle/caches/9.2.1/transforms/84a18f70c6c459a99e70ea269110dbbf/transformed/WebStorm-2024.3.2-aarch64/plugins/indexing-shared" type="directory" conf="default"/>
+  </publications>
+  <dependencies>
+    <dependency org="bundledPlugin" name="com.jetbrains.performancePlugin" rev="243.23654.120+870"/>
+    <dependency org="bundledPlugin" name="com.intellij.configurationScript" rev="243.23654.120+871"/>
+  </dependencies>
+</ivy-module>

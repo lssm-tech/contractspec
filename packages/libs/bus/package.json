@@ -1,0 +1,70 @@
+{
+  "name": "@lssm/lib.bus",
+  "version": "1.41.1",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@types/express": "^5.0.3",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
+  },
+  "peerDependencies": {
+    "elysia": "^1.4.19",
+    "express": "^5.2.1",
+    "next": "16.1.0"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./auditableBus": "./dist/auditableBus.js",
+    "./eventBus": "./dist/eventBus.js",
+    "./filtering": "./dist/filtering.js",
+    "./inMemoryBus": "./dist/inMemoryBus.js",
+    "./metadata": "./dist/metadata.js",
+    "./subscriber": "./dist/subscriber.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./auditableBus": "./dist/auditableBus.js",
+      "./eventBus": "./dist/eventBus.js",
+      "./filtering": "./dist/filtering.js",
+      "./inMemoryBus": "./dist/inMemoryBus.js",
+      "./metadata": "./dist/metadata.js",
+      "./subscriber": "./dist/subscriber.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/bus"
+  }
+}

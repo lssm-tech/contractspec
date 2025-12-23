@@ -1,0 +1,28 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="JavaScript" revision="2024.3.2+149"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="/Users/tboutron/.gradle/caches/9.2.1/transforms/bdaae850ce6fa1ed8d47f257e9073225/transformed/WebStorm-2024.3.2/plugins/javascript-plugin" type="directory" conf="default"/>
+  </publications>
+  <dependencies>
+    <dependency org="bundledPlugin" name="com.intellij.modules.json" rev="243.23654.120+848"/>
+    <dependency org="bundledPlugin" name="com.intellij.completion.ml.ranking" rev="243.23654.120+19"/>
+    <dependency org="bundledPlugin" name="com.intellij.plugins.watcher" rev="243.23654.120+296"/>
+    <dependency org="bundledPlugin" name="com.jetbrains.performancePlugin" rev="243.23654.120+584"/>
+    <dependency org="bundledPlugin" name="org.intellij.intelliLang" rev="243.23654.120+449"/>
+    <dependency org="bundledPlugin" name="com.intellij.copyright" rev="243.23654.120+655"/>
+    <dependency org="bundledPlugin" name="org.jetbrains.plugins.terminal" rev="243.23654.120+588"/>
+    <dependency org="bundledPlugin" name="tanvd.grazi" rev="243.23654.120+712"/>
+    <dependency org="bundledPlugin" name="org.intellij.plugins.markdown" rev="243.23654.120+945"/>
+    <dependency org="bundledPlugin" name="training" rev="243.23654.120+952"/>
+    <dependency org="bundledPlugin" name="Git4Idea" rev="243.23654.120+261"/>
+    <dependency org="bundledPlugin" name="com.intellij.css" rev="243.23654.120+922"/>
+    <dependency org="bundledPlugin" name="com.intellij.diagram" rev="243.23654.120+628"/>
+    <dependency org="bundledPlugin" name="intellij.indexing.shared.core" rev="243.23654.120+606"/>
+    <dependency org="bundledPlugin" name="com.jetbrains.sh" rev="243.23654.120+227"/>
+    <dependency org="bundledPlugin" name="JavaScriptDebugger" rev="243.23654.120+41"/>
+    <dependency org="bundledModule" name="intellij.indexing.shared.generator" rev="243.23654.120+258"/>
+  </dependencies>
+</ivy-module>

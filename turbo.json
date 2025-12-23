@@ -1,0 +1,78 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "envMode": "strict",
+  "tasks": {
+    "clean": {
+      "cache": false
+    },
+    "publish:pkg": {
+      "dependsOn": ["build:bundle", "^publish:pkg"],
+      "cache": false,
+      "env": ["NPM_CONFIG_TOKEN"]
+    },
+    "publish:pkg:canary": {
+      "dependsOn": ["build:bundle", "^publish:pkg:canary"],
+      "cache": false,
+      "env": ["NPM_CONFIG_TOKEN"]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "outputLogs": "new-only",
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*",
+        "tsdown.config.js",
+        "src/**",
+        "!src/generated/**",
+        "public/**"
+      ],
+      "outputs": [
+        "dist/**",
+        "generated/**",
+        ".next/**",
+        "!.next/cache/**",
+        "src/generated/**"
+      ]
+    },
+    "build:bundle": {
+      "cache": true,
+      "dependsOn": ["^build:bundle"],
+      "outputLogs": "new-only",
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*",
+        "tsdown.config.js",
+        "src/**",
+        "!src/generated/**",
+        "public/**"
+      ],
+      "outputs": [
+        "dist/**",
+        "generated/**",
+        ".next/**",
+        "!.next/cache/**",
+        "src/generated/**"
+      ]
+    },
+    "build:types": {
+      "cache": true,
+      "outputLogs": "new-only",
+      "dependsOn": ["^build:types"],
+      "inputs": [
+        "public/**",
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsdown.config.js"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputLogs": "new-only"
+    }
+  }
+}

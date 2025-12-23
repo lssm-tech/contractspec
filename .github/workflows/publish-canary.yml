@@ -1,0 +1,173 @@
+name: Publish Canary Libraries
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # Required for OIDC
+
+jobs:
+  publish-canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      BUN_VERSION: 1.3.5
+      NODE_OPTIONS: --max-old-space-size=6144
+      TURBO_TELEMETRY_DISABLED: 1
+      DO_NOT_TRACK: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Version packages (canary snapshot)
+        run: bun run release:version:canary
+
+      - name: Build libraries
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run build
+
+      - name: Publish packages (canary)
+        run: bun run release:publish:canary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # VS Code Extension Publishing
+      - name: Check if VS Code extension should be published
+        id: vscode-skipcheck
+        shell: bash
+        run: |
+          set +e
+          bunx turbo-ignore vscode-contractspec --task=build
+          code=$?
+          set -e
+          
+          if [[ $code -eq 0 ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set VS Code extension pre-release version
+        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        working-directory: packages/apps/vscode-contractspec
+        run: |
+          # VS Code Marketplace doesn't support semver prerelease tags like "0.0.0-canary-..."
+          # We need major.minor.patch format. Use odd minor for pre-release per VS Code guidelines.
+          # Strategy: major.(minor+1).PATCH where PATCH is timestamp-based
+          CURRENT_VERSION=$(jq -r .version package.json)
+          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+          
+          # Ensure minor is odd for pre-release (add 1 if even)
+          if [ $((MINOR % 2)) -eq 0 ]; then
+            MINOR=$((MINOR + 1))
+          fi
+          
+          # Use compact timestamp as patch: MMDDHHMM (8 digits, fits in patch number)
+          PATCH=$(date -u +"%m%d%H%M")
+          
+          PRERELEASE_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "📝 Setting VS Code extension version: $CURRENT_VERSION → $PRERELEASE_VERSION"
+          
+          # Update package.json with the pre-release version
+          jq --arg v "$PRERELEASE_VERSION" '.version = $v' package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+      - name: Package VS Code extension
+        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        id: vscode-package
+        working-directory: packages/apps/vscode-contractspec
+        run: |
+          bun run package --pre-release
+          VSIX_NAME=$(ls *.vsix | head -1)
+          echo "vsix-name=$VSIX_NAME" >> $GITHUB_OUTPUT
+          echo "📦 Packaged: $VSIX_NAME"
+
+      - name: Install vsce
+        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        run: bun add -g @vscode/vsce
+
+      - name: Publish VS Code extension to Marketplace
+        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        working-directory: packages/apps/vscode-contractspec
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          VSIX_FILE=$(ls *.vsix | head -1)
+          echo "🚀 Publishing $VSIX_FILE to VS Code Marketplace (canary)..."
+          vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT" --pre-release
+
+      - name: Publish VS Code extension to Open VSX Registry
+        if: steps.vscode-skipcheck.outputs.skip != 'true' && env.OVSX_PAT != ''
+        working-directory: packages/apps/vscode-contractspec
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          bun add -g ovsx
+          VSIX_FILE=$(ls *.vsix | head -1)
+          echo "🚀 Publishing $VSIX_FILE to Open VSX Registry (canary)..."
+          ovsx publish "$VSIX_FILE" --pat "$OVSX_PAT" --pre-release
+        continue-on-error: true
+
+      # GitHub Action Publishing (canary)
+      - name: Get GitHub Action version
+        id: action-version
+        run: |
+          VERSION=$(jq -r .version packages/apps/action-contractspec/package.json)
+          COMMIT_SHA="${{ github.sha }}"
+          SHORT_SHA="${COMMIT_SHA:0:7}"
+          echo "version=${VERSION}-canary.${SHORT_SHA}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Action Canary Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: action-v${{ steps.action-version.outputs.version }}
+          name: ContractSpec Action v${{ steps.action-version.outputs.version }} (Canary)
+          body: |
+            ## ContractSpec GitHub Action v${{ steps.action-version.outputs.version }} (Canary)
+
+            ⚠️ **This is a canary release for testing. Use stable versions for production.**
+
+            ### Usage
+
+            ```yaml
+            - uses: lssm-tech/contractspec@action-v${{ steps.action-version.outputs.version }}
+              with:
+                mode: impact
+            ```
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update canary version tag for action
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git tag -fa action-canary -m "Update action-canary to ${{ steps.action-version.outputs.version }}"
+          git push origin action-canary --force

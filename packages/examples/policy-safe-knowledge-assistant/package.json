@@ -1,0 +1,76 @@
+{
+  "name": "@lssm/example.policy-safe-knowledge-assistant",
+  "version": "1.41.1",
+  "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/policy-safe-knowledge-assistant.docblock": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
+    "./example": "./dist/example.js",
+    "./feature": "./dist/feature.js",
+    "./orchestrator/buildAnswer": "./dist/orchestrator/buildAnswer.js",
+    "./seed": "./dist/seed/index.js",
+    "./seed/fixtures": "./dist/seed/fixtures.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@lssm/example.locale-jurisdiction-gate": "workspace:*",
+    "@lssm/example.versioned-knowledge-base": "workspace:*",
+    "@lssm/example.kb-update-pipeline": "workspace:*",
+    "@lssm/example.learning-patterns": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/lib.feature-flags": "workspace:*",
+    "@lssm/lib.files": "workspace:*",
+    "@lssm/lib.metering": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/module.notifications": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*"
+  },
+  "devDependencies": {
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/policy-safe-knowledge-assistant.docblock": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
+      "./example": "./dist/example.js",
+      "./feature": "./dist/feature.js",
+      "./orchestrator/buildAnswer": "./dist/orchestrator/buildAnswer.js",
+      "./seed": "./dist/seed/index.js",
+      "./seed/fixtures": "./dist/seed/fixtures.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/policy-safe-knowledge-assistant"
+  }
+}
