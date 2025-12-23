@@ -50,9 +50,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build:bundle": "echo 'Root package - no build required'",
-    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
-    "publish:pkg:canary": "bun run publish:pkg --tag canary",
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
     "release:publish": "turbo run publish:pkg",
