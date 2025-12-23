@@ -1,0 +1,24 @@
+{
+  "$schema": "https://api.contractspec.lssm.tech/schemas/contractsrc.json",
+  "aiProvider": "claude",
+  "aiModel": "claude-sonnet-4-20250514",
+  "agentMode": "claude-code",
+  "outputDir": "./src",
+  "conventions": {
+    "operations": "interactions/commands|queries",
+    "events": "events",
+    "presentations": "presentations",
+    "forms": "forms",
+    "models": "models",
+    "groupByFeature": true
+  },
+  "defaultOwners": ["@lssm-core"],
+  "defaultTags": [],
+  "packages": ["packages/libs/*", "packages/apps/*", "packages/examples/*"],
+  "excludePackages": ["packages/apps/cli-*"],
+  "ci": {
+    "checks": ["structure", "integrity", "deps"],
+    "uploadSarif": true,
+    "failOnWarnings": false
+  }
+}
