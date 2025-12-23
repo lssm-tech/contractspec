@@ -561,9 +561,7 @@ export function featureToMarkdown(
 /**
  * Export a presentation descriptor to markdown.
  */
-export function presentationToMarkdown(
-  presentation: PresentationSpec
-): string {
+export function presentationToMarkdown(presentation: PresentationSpec): string {
   const m = presentation.meta;
   const lines: string[] = [];
 

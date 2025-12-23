@@ -1,6 +1,6 @@
 import type { OperationSpecRegistry } from './operations/registry';
 import { isEmitDeclRef } from './operations/';
-import type { PresentationRegistry, PresentationSpec } from './presentations';
+import type { PresentationRegistry } from './presentations';
 import type { FeatureRegistry } from './features';
 
 /**

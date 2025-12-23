@@ -6,9 +6,7 @@ import {
   registerDefaultReactRenderer,
 } from './transform-engine';
 
-const mk = (
-  over: Partial<PresentationSpec> = {}
-): PresentationSpec => ({
+const mk = (over: Partial<PresentationSpec> = {}): PresentationSpec => ({
   meta: { name: 'x.test', version: 1, description: 'desc' },
   source: { type: 'blocknotejs', docJson: { type: 'doc' } },
   targets: ['markdown', 'application/json', 'application/xml'],

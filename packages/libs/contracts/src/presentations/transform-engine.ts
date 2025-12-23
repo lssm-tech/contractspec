@@ -2,10 +2,7 @@ import type { BlockConfig } from '@blocknote/core';
 import { schemaToMarkdown } from '../schema-to-markdown';
 import React from 'react';
 import TurndownService from 'turndown';
-import type {
-  PresentationSpec,
-  PresentationTarget,
-} from './presentations.v2';
+import type { PresentationSpec, PresentationTarget } from './presentations.v2';
 
 export interface RenderContext {
   /** Optional locale hint (i18n). */
@@ -22,10 +19,7 @@ export interface RenderContext {
 
 export interface PresentationRenderer<TOut> {
   target: PresentationTarget;
-  render: (
-    desc: PresentationSpec,
-    ctx?: RenderContext
-  ) => Promise<TOut>;
+  render: (desc: PresentationSpec, ctx?: RenderContext) => Promise<TOut>;
 }
 
 export interface PresentationValidator {

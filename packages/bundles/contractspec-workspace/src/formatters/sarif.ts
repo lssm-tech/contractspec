@@ -207,42 +207,42 @@ export function formatAsSarif(
   // Convert issues to SARIF results (only issues with file locations)
   // GitHub Code Scanning requires every result to have at least one location
   const results: SarifResult[] = issuesWithFiles.map((issue) => {
-      const sarifResult: SarifResult = {
-        ruleId: issue.ruleId,
-        ruleIndex: ruleIndexMap.get(issue.ruleId) ?? 0,
-        level: mapSeverityToLevel(issue.severity),
-        message: { text: issue.message },
-      };
+    const sarifResult: SarifResult = {
+      ruleId: issue.ruleId,
+      ruleIndex: ruleIndexMap.get(issue.ruleId) ?? 0,
+      level: mapSeverityToLevel(issue.severity),
+      message: { text: issue.message },
+    };
 
-      // issue.file is guaranteed to be defined due to the filter above
-      const location: SarifLocation = {
-        physicalLocation: {
-          artifactLocation: {
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            uri: normalizeUri(issue.file!),
-            uriBaseId: '%SRCROOT%',
-          },
+    // issue.file is guaranteed to be defined due to the filter above
+    const location: SarifLocation = {
+      physicalLocation: {
+        artifactLocation: {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          uri: normalizeUri(issue.file!),
+          uriBaseId: '%SRCROOT%',
         },
+      },
+    };
+
+    if (issue.line !== undefined) {
+      location.physicalLocation.region = {
+        startLine: issue.line,
+        startColumn: issue.column ?? 1,
+        endLine: issue.endLine ?? issue.line,
+        endColumn: issue.endColumn,
       };
+    }
 
-      if (issue.line !== undefined) {
-        location.physicalLocation.region = {
-          startLine: issue.line,
-          startColumn: issue.column ?? 1,
-          endLine: issue.endLine ?? issue.line,
-          endColumn: issue.endColumn,
-        };
-      }
+    sarifResult.locations = [location];
 
-      sarifResult.locations = [location];
+    // Add fingerprint for deduplication
+    sarifResult.partialFingerprints = {
+      primaryLocationLineHash: createFingerprint(issue),
+    };
 
-      // Add fingerprint for deduplication
-      sarifResult.partialFingerprints = {
-        primaryLocationLineHash: createFingerprint(issue),
-      };
-
-      return sarifResult;
-    });
+    return sarifResult;
+  });
 
   // Build version control provenance (only if repositoryUri is provided, as it's required by SARIF schema)
   const versionControlProvenance: SarifVersionControl[] = [];

@@ -32,9 +32,7 @@ export function registerMcpPresentations(
       const baseKey = `presentation.${p.meta.name.replace(/\./g, '_')}.v${p.meta.version}`;
       const baseUri = `presentation://${p.meta.name}/v${p.meta.version}`;
 
-      ctx.logger.info(
-        `Registering presentation ${baseUri} for ${baseKey}`
-      );
+      ctx.logger.info(`Registering presentation ${baseUri} for ${baseKey}`);
 
       server.registerResource(
         baseKey,

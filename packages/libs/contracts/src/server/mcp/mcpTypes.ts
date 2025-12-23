@@ -1,6 +1,9 @@
 import type { Logger } from '@lssm/lib.logger';
 import type { HandlerCtx } from '../../types';
-import type { PresentationRegistry, PresentationSpec } from '../../presentations';
+import type {
+  PresentationRegistry,
+  PresentationSpec,
+} from '../../presentations';
 
 export interface McpCtxFactories {
   logger: Logger;
