@@ -33,7 +33,15 @@ const DEFAULT_SPEC_PATTERNS = [
   '**/presentations/index.ts',
 ];
 
-const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];
+const DEFAULT_IGNORES = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/.turbo/**',
+  '**/.next/**',
+  '**/build/**',
+  '**/coverage/**',
+  '**/*.d.ts',
+];
 
 export async function discoverSpecFiles(
   options: SpecDiscoveryOptions = {}

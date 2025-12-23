@@ -50,7 +50,15 @@ const DEFAULT_SPEC_PATTERNS = [
   '**/presentations/index.ts',
 ];
 
-const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];
+const DEFAULT_IGNORES = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/.turbo/**',
+  '**/.next/**',
+  '**/build/**',
+  '**/coverage/**',
+  '**/*.d.ts',
+];
 
 /**
  * Create a Node.js filesystem adapter.

@@ -115,6 +115,14 @@
       "default": true,
       "description": "Whether to search recursively in all packages for specs"
     },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["**/node_modules/**", "**/dist/**", "**/.turbo/**", "**/.next/**", "**/build/**", "**/coverage/**", "**/*.d.ts"],
+      "description": "Glob patterns to exclude from spec discovery. Defaults include common build outputs."
+    },
     "openapi": {
       "type": "object",
       "description": "OpenAPI import/export configuration",

@@ -11,7 +11,15 @@ import type {
   WatchEvent,
 } from '../ports/watcher';
 
-const DEFAULT_IGNORES = ['node_modules/**', 'dist/**', '.turbo/**'];
+const DEFAULT_IGNORES = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/.turbo/**',
+  '**/.next/**',
+  '**/build/**',
+  '**/coverage/**',
+  '**/*.d.ts',
+];
 
 /**
  * Create a Node.js file watcher adapter using chokidar.
