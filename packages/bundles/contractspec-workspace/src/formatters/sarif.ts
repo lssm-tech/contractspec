@@ -172,11 +172,14 @@ export function formatAsSarif(
     workingDirectory,
   } = options;
 
-  // Collect unique rules from issues
+  // Collect unique rules from issues (only from issues with files)
   const ruleMap = new Map<string, SarifRule>();
   const ruleIndexMap = new Map<string, number>();
 
-  for (const issue of result.issues) {
+  // Only collect rules from issues that have files (these are the ones that will be in results)
+  const issuesWithFiles = result.issues.filter((issue) => issue.file);
+
+  for (const issue of issuesWithFiles) {
     if (!ruleMap.has(issue.ruleId)) {
       const metadata = RULE_METADATA[issue.ruleId] ?? {
         name: issue.ruleId,
@@ -201,20 +204,21 @@ export function formatAsSarif(
     }
   }
 
-  // Convert issues to SARIF results
-  const results: SarifResult[] = result.issues.map((issue) => {
-    const sarifResult: SarifResult = {
-      ruleId: issue.ruleId,
-      ruleIndex: ruleIndexMap.get(issue.ruleId) ?? 0,
-      level: mapSeverityToLevel(issue.severity),
-      message: { text: issue.message },
-    };
+  // Convert issues to SARIF results (only issues with file locations)
+  // GitHub Code Scanning requires every result to have at least one location
+  const results: SarifResult[] = issuesWithFiles.map((issue) => {
+      const sarifResult: SarifResult = {
+        ruleId: issue.ruleId,
+        ruleIndex: ruleIndexMap.get(issue.ruleId) ?? 0,
+        level: mapSeverityToLevel(issue.severity),
+        message: { text: issue.message },
+      };
 
-    if (issue.file) {
+      // issue.file is guaranteed to be defined due to the filter above
       const location: SarifLocation = {
         physicalLocation: {
           artifactLocation: {
-            uri: normalizeUri(issue.file),
+            uri: normalizeUri(issue.file!),
             uriBaseId: '%SRCROOT%',
           },
         },
@@ -230,15 +234,14 @@ export function formatAsSarif(
       }
 
       sarifResult.locations = [location];
-    }
 
-    // Add fingerprint for deduplication
-    sarifResult.partialFingerprints = {
-      primaryLocationLineHash: createFingerprint(issue),
-    };
+      // Add fingerprint for deduplication
+      sarifResult.partialFingerprints = {
+        primaryLocationLineHash: createFingerprint(issue),
+      };
 
-    return sarifResult;
-  });
+      return sarifResult;
+    });
 
   // Build version control provenance (only if repositoryUri is provided, as it's required by SARIF schema)
   const versionControlProvenance: SarifVersionControl[] = [];
