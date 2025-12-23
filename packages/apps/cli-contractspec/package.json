@@ -7,18 +7,18 @@
   "types": "./dist/index.d.ts",
   "exports": {
     "./run": {
-      "bun": "./dist/cli.bun.js",
-      "node": "./dist/cli.node.js",
-      "default": "./dist/cli.node.js"
+      "bun": "./dist/bun/cli.js",
+      "node": "./dist/node/cli.js",
+      "default": "./dist/node/cli.js"
     }
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:bun && bun run build:types",
-    "build:bun": "bun build --outdir ./dist --target bun --minify --sourcemap ./src/cli.ts",
-    "build:node": "bun build ./src/cli.ts --outfile ./dist/cli.node.js --target bun --minify --sourcemap",
-    "build:all": "bun run build:bun && bun run build:node && bun run build:types",
+    "build": "bun run build:all ",
+    "build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts",
+    "build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
+    "build:all": "bun run build:bun && bun run build:node",
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
     "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
     "dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
