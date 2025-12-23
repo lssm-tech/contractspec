@@ -227,7 +227,7 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
 }
 
 /**
- * Validate presentation spec
+ * Validate presentation spec (V2 format)
  */
 function validatePresentationSpec(
   code: string,
@@ -242,12 +242,16 @@ function validatePresentationSpec(
     errors.push('Missing meta section');
   }
 
-  if (!code.includes('content:')) {
-    errors.push('Missing content section');
+  if (!code.includes('source:')) {
+    errors.push('Missing source section');
   }
 
-  if (!code.match(/kind:\s*['"](?:web_component|markdown|data)['"]/)) {
-    errors.push('Missing or invalid kind field');
+  if (!code.match(/type:\s*['"](?:component|blocknotejs)['"]/)) {
+    errors.push('Missing or invalid source.type field');
+  }
+
+  if (!code.includes('targets:')) {
+    errors.push('Missing targets section');
   }
 }
 
@@ -333,8 +337,24 @@ function validateCommonFields(
     errors.push('Missing import for SchemaModel from @lssm/lib.schema');
   }
 
-  // Check for contracts import
-  if (!code.includes("from '@lssm/lib.contracts'")) {
+  // Check for contracts import only if spec types are used
+  // Skip for files that define the types themselves (inside lib.contracts)
+  const usesSpecTypes =
+    code.includes(': OperationSpec') ||
+    code.includes(': PresentationSpec') ||
+    code.includes(': EventSpec') ||
+    code.includes(': FeatureSpec') ||
+    code.includes(': WorkflowSpec') ||
+    code.includes(': DataViewSpec') ||
+    code.includes(': MigrationSpec') ||
+    code.includes(': TelemetrySpec') ||
+    code.includes(': ExperimentSpec') ||
+    code.includes(': AppBlueprintSpec') ||
+    code.includes('defineCommand(') ||
+    code.includes('defineQuery(') ||
+    code.includes('defineEvent(');
+
+  if (usesSpecTypes && !code.includes("from '@lssm/lib.contracts'")) {
     errors.push('Missing import from @lssm/lib.contracts');
   }
 

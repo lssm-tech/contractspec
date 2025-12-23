@@ -1,5 +1,6 @@
 # Exclude sources and internal tooling from the npm tarball
-__tests__/
+!dist
+!src
 *.test.ts
 *.test.tsx
 *.test.js
