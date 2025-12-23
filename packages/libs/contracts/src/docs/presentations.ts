@@ -1,6 +1,5 @@
-import type { PresentationSpec } from '../presentations';
 import type {
-  PresentationDescriptorV2,
+  PresentationSpec,
   PresentationTarget,
 } from '../presentations/presentations.v2';
 import type { DocBlock } from './types';
@@ -24,7 +23,7 @@ export interface DocPresentationOptions {
 
 export interface DocPresentationRoute {
   route: string;
-  descriptor: PresentationDescriptorV2;
+  descriptor: PresentationSpec;
   block: DocBlock;
 }
 
@@ -56,10 +55,10 @@ function buildName(block: DocBlock, namespace?: string): string {
   return namespace ? `${namespace}.${block.id}` : block.id;
 }
 
-export function docBlockToPresentationV2(
+export function docBlockToPresentationSpec(
   block: DocBlock,
   options?: DocPresentationOptions
-): PresentationDescriptorV2 {
+): PresentationSpec {
   const targets = options?.defaultTargets ?? DEFAULT_TARGETS;
   const version = block.version ?? options?.defaultVersion ?? 1;
   const stability = block.stability ?? options?.defaultStability ?? 'stable';
@@ -86,28 +85,8 @@ export function docBlockToPresentationV2(
   };
 }
 
-export function docBlockToPresentationSpec(
-  block: DocBlock,
-  options?: DocPresentationOptions
-): PresentationSpec {
-  const version = block.version ?? options?.defaultVersion ?? 1;
-  const stability = block.stability ?? options?.defaultStability ?? 'stable';
-
-  return {
-    meta: {
-      name: buildName(block, options?.namespace),
-      version,
-      stability,
-      tags: block.tags,
-      owners: block.owners,
-      description: block.summary ?? block.title,
-    },
-    content: {
-      kind: 'markdown',
-      content: block.body,
-    },
-  };
-}
+/** @deprecated Use docBlockToPresentationSpec instead */
+export const docBlockToPresentationV2 = docBlockToPresentationSpec;
 
 export function docBlocksToPresentationRoutes(
   blocks: DocBlock[],
@@ -116,7 +95,7 @@ export function docBlocksToPresentationRoutes(
   return blocks.map((block) => ({
     block,
     route: deriveRoute(block, options?.routePrefix),
-    descriptor: docBlockToPresentationV2(block, options),
+    descriptor: docBlockToPresentationSpec(block, options),
   }));
 }
 
@@ -129,6 +108,6 @@ export function docBlocksToPresentationSpecs(
 
 export function mapDocRoutes(
   routes: DocPresentationRoute[]
-): [string, PresentationDescriptorV2][] {
+): [string, PresentationSpec][] {
   return routes.map(({ route, descriptor }) => [route, descriptor]);
 }

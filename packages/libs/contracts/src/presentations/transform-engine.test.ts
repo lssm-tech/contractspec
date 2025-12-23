@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { type PresentationDescriptorV2 } from './presentations.v2';
+import { type PresentationSpec } from './presentations.v2';
 import {
   createDefaultTransformEngine,
   registerBasicValidation,
@@ -7,8 +7,8 @@ import {
 } from './transform-engine';
 
 const mk = (
-  over: Partial<PresentationDescriptorV2> = {}
-): PresentationDescriptorV2 => ({
+  over: Partial<PresentationSpec> = {}
+): PresentationSpec => ({
   meta: { name: 'x.test', version: 1, description: 'desc' },
   source: { type: 'blocknotejs', docJson: { type: 'doc' } },
   targets: ['markdown', 'application/json', 'application/xml'],

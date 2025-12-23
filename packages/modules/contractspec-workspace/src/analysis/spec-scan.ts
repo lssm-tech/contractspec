@@ -287,6 +287,10 @@ const DEFINE_FUNCTION_PATTERNS = [
   { pattern: /defineEvent\s*\(\s*\{/g, type: 'event' as const },
   // Presentations (both v1 and v2 patterns)
   {
+    pattern: /:\s*PresentationSpec\s*=\s*\{/g,
+    type: 'presentation' as const,
+  },
+  {
     pattern: /:\s*PresentationDescriptorV2\s*=\s*\{/g,
     type: 'presentation' as const,
   },

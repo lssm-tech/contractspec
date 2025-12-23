@@ -2,7 +2,7 @@
  * Presentations exporter - exports PresentationSpec to OpenAPI extensions.
  */
 import type {
-  PresentationDescriptorV2,
+  PresentationSpec,
   PresentationRegistry,
 } from '@lssm/lib.contracts';
 import type { GeneratedRegistryCode } from '../types';
@@ -15,14 +15,15 @@ export interface ExportedPresentation {
   version: number;
   description?: string;
   stability?: string;
-  kind: 'web_component' | 'markdown' | 'data';
+  sourceType: 'component' | 'blocknotejs';
+  targets: string[];
   tags?: string[];
 }
 
 /**
- * Export presentations (V1) to OpenAPI extension format.
+ * Export presentations to OpenAPI extension format.
  */
-export function exportPresentationsV1(
+export function exportPresentations(
   registry: PresentationRegistry
 ): ExportedPresentation[] {
   return registry.list().map((pres) => ({
@@ -30,51 +31,27 @@ export function exportPresentationsV1(
     version: pres.meta.version,
     description: pres.meta.description,
     stability: pres.meta.stability,
-    kind: pres.content.kind,
+    sourceType: pres.source.type,
+    targets: pres.targets,
     tags: pres.meta.tags,
   }));
 }
 
 /**
- * Exported V2 presentation structure for OpenAPI extensions.
+ * Export presentations from an array.
  */
-export interface ExportedPresentationV2 {
-  name: string;
-  version: number;
-  description?: string;
-  targets: string[];
-  sourceType: string;
-}
-
-/**
- * Export presentations (V2) to OpenAPI extension format.
- */
-export function exportPresentationsV2(
-  descriptors: PresentationDescriptorV2[]
-): ExportedPresentationV2[] {
+export function exportPresentationsFromArray(
+  descriptors: PresentationSpec[]
+): ExportedPresentation[] {
   return descriptors.map((desc) => ({
     name: desc.meta.name,
     version: desc.meta.version,
     description: desc.meta.description,
-    targets: desc.targets,
+    stability: desc.meta.stability,
     sourceType: desc.source.type,
+    targets: desc.targets,
+    tags: desc.meta.tags,
   }));
-}
-
-/**
- * Combined presentations export.
- */
-export function exportPresentations(
-  registry: PresentationRegistry,
-  v2Descriptors?: PresentationDescriptorV2[]
-): {
-  v1: ExportedPresentation[];
-  v2: ExportedPresentationV2[];
-} {
-  return {
-    v1: exportPresentationsV1(registry),
-    v2: v2Descriptors ? exportPresentationsV2(v2Descriptors) : [],
-  };
 }
 
 /**

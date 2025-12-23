@@ -1,7 +1,7 @@
 import { filterBy, getUniqueTags, groupBy } from './registry-utils';
 
 import type {
-  PresentationDescriptorV2,
+  PresentationSpec,
   PresentationTarget,
 } from './presentations/presentations.v2';
 import type { OwnerShipMeta } from './ownership';
@@ -145,7 +145,7 @@ export function installFeature(
     features: FeatureRegistry;
     ops?: import('./operations/registry').OperationSpecRegistry;
     presentations?: import('./presentations').PresentationRegistry;
-    descriptorsV2?: PresentationDescriptorV2[];
+    descriptorsV2?: PresentationSpec[];
     capabilities?: CapabilityRegistry;
   }
 ) {
@@ -237,7 +237,7 @@ export function installFeature(
 /** Ensure declared target requirements exist on the provided descriptors. */
 export function validateFeatureTargetsV2(
   feature: FeatureModuleSpec,
-  descriptors: PresentationDescriptorV2[]
+  descriptors: PresentationSpec[]
 ) {
   if (
     !feature.presentationsTargets ||

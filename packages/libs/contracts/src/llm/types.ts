@@ -5,7 +5,7 @@
 
 import type { AnyOperationSpec } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
-import type { PresentationDescriptorV2 } from '../presentations/presentations.v2';
+import type { PresentationSpec } from '../presentations/presentations.v2';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { DocBlock } from '../docs/types';
@@ -211,6 +211,6 @@ export interface BatchExportOptions extends SpecExportOptions {
 export type ExportableItem =
   | { type: 'spec'; item: AnyOperationSpec }
   | { type: 'feature'; item: FeatureModuleSpec }
-  | { type: 'presentation'; item: PresentationDescriptorV2 }
+  | { type: 'presentation'; item: PresentationSpec }
   | { type: 'event'; item: EventSpec<AnySchemaModel> }
   | { type: 'doc'; item: DocBlock };

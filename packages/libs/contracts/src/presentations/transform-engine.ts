@@ -3,7 +3,7 @@ import { schemaToMarkdown } from '../schema-to-markdown';
 import React from 'react';
 import TurndownService from 'turndown';
 import type {
-  PresentationDescriptorV2,
+  PresentationSpec,
   PresentationTarget,
 } from './presentations.v2';
 
@@ -23,14 +23,14 @@ export interface RenderContext {
 export interface PresentationRenderer<TOut> {
   target: PresentationTarget;
   render: (
-    desc: PresentationDescriptorV2,
+    desc: PresentationSpec,
     ctx?: RenderContext
   ) => Promise<TOut>;
 }
 
 export interface PresentationValidator {
   validate: (
-    desc: PresentationDescriptorV2,
+    desc: PresentationSpec,
     target: PresentationTarget,
     ctx?: RenderContext
   ) => Promise<void> | void;
@@ -199,7 +199,7 @@ export class TransformEngine {
 
   async render<TOut = unknown>(
     target: PresentationTarget,
-    desc: PresentationDescriptorV2,
+    desc: PresentationSpec,
     ctx?: RenderContext
   ): Promise<TOut> {
     if (!desc.targets.includes(target))
@@ -226,7 +226,7 @@ export class TransformEngine {
 export function createDefaultTransformEngine() {
   const engine = new TransformEngine();
 
-  const applyPii = (desc: PresentationDescriptorV2, obj: unknown) => {
+  const applyPii = (desc: PresentationSpec, obj: unknown) => {
     const clone = JSON.parse(JSON.stringify(obj));
     const paths = desc.policy?.pii ?? [];
     const setAtPath = (root: unknown, path: string) => {

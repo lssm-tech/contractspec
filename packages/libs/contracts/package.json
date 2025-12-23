@@ -260,7 +260,6 @@
     "./policy/spec": "./dist/policy/spec.js",
     "./presentations": "./dist/presentations/index.js",
     "./presentations/docs/presentations-conventions.docblock": "./dist/presentations/docs/presentations-conventions.docblock.js",
-    "./presentations/presentations": "./dist/presentations/presentations.js",
     "./presentations/presentations.v2": "./dist/presentations/presentations.v2.js",
     "./presentations/transform-engine": "./dist/presentations/transform-engine.js",
     "./prompt": "./dist/prompt.js",

@@ -1,7 +1,6 @@
 import type { Logger } from '@lssm/lib.logger';
 import type { HandlerCtx } from '../../types';
-import type { PresentationRegistry } from '../../presentations';
-import type { PresentationDescriptorV2 } from '../../presentations/presentations.v2';
+import type { PresentationRegistry, PresentationSpec } from '../../presentations';
 
 export interface McpCtxFactories {
   logger: Logger;
@@ -23,8 +22,8 @@ export interface McpCtxFactories {
     locale?: string;
   };
 
-  /** Optional registry for V1 presentations */
+  /** Optional registry for presentations */
   presentations?: PresentationRegistry;
-  /** Optional list of V2 presentation descriptors */
-  presentationsV2?: PresentationDescriptorV2[];
+  /** Optional list of presentation specs */
+  presentationsV2?: PresentationSpec[];
 }

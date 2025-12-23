@@ -8,7 +8,7 @@
 import type { AnyOperationSpec } from '../operations/';
 import { isEmitDeclRef } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
-import type { PresentationDescriptorV2 } from '../presentations/';
+import type { PresentationSpec } from '../presentations/';
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { DocBlock } from '../docs/types';
@@ -522,11 +522,9 @@ export function featureToMarkdown(
         if (p) {
           lines.push(`#### ${pres.name}.v${pres.version}`);
           lines.push('');
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          lines.push(`- **Kind:** ${(p.content as any).kind ?? 'unknown'}`);
-          if ('componentKey' in p.content) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            lines.push(`- **Component:** ${(p.content as any).componentKey}`);
+          lines.push(`- **Type:** ${p.source.type}`);
+          if (p.source.type === 'component') {
+            lines.push(`- **Component:** ${p.source.componentKey}`);
           }
           lines.push('');
         }
@@ -564,7 +562,7 @@ export function featureToMarkdown(
  * Export a presentation descriptor to markdown.
  */
 export function presentationToMarkdown(
-  presentation: PresentationDescriptorV2
+  presentation: PresentationSpec
 ): string {
   const m = presentation.meta;
   const lines: string[] = [];

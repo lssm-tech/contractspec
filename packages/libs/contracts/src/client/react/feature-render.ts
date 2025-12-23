@@ -2,7 +2,7 @@ import React from 'react';
 import {
   type ComponentMap,
   createDefaultTransformEngine,
-  type PresentationDescriptorV2,
+  type PresentationSpec,
   type PresentationTarget,
   type ReactRenderDescriptor,
   registerBasicValidation,
@@ -21,7 +21,7 @@ export function createEngineWithDefaults(): TransformEngine {
 export async function renderFeaturePresentation(
   engine: TransformEngine,
   target: PresentationTarget,
-  desc: PresentationDescriptorV2,
+  desc: PresentationSpec,
   options?: {
     componentMap?: ComponentMap;
     reactProps?: Record<string, unknown>;

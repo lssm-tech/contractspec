@@ -10,7 +10,7 @@ import type {
   DataViewRegistry,
   WorkflowRegistry,
   EventSpec,
-  PresentationDescriptorV2,
+  PresentationSpec,
 } from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type {
@@ -50,7 +50,7 @@ export interface ContractSpecRegistries {
   events?: EventSpec<AnySchemaModel>[];
   features?: FeatureRegistry;
   presentations?: PresentationRegistry;
-  presentationsV2?: PresentationDescriptorV2[];
+  presentationsArray?: PresentationSpec[];
   forms?: FormRegistry;
   dataViews?: DataViewRegistry;
   workflows?: WorkflowRegistry;
@@ -133,11 +133,9 @@ export function exportContractSpec(
   }
 
   if (includePresentations && registries.presentations) {
-    const presExport = exportPresentations(
-      registries.presentations,
-      registries.presentationsV2
+    doc['x-contractspec-presentations'] = exportPresentations(
+      registries.presentations
     );
-    doc['x-contractspec-presentations'] = [...presExport.v1, ...presExport.v2];
   }
 
   if (includeForms && registries.forms) {

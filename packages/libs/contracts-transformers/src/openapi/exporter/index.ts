@@ -33,11 +33,9 @@ export {
 // Presentations
 export {
   exportPresentations,
-  exportPresentationsV1,
-  exportPresentationsV2,
+  exportPresentationsFromArray,
   generatePresentationsRegistry,
   type ExportedPresentation,
-  type ExportedPresentationV2,
 } from './presentations';
 
 // Forms

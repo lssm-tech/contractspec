@@ -1,5 +1,4 @@
-import type { PresentationDescriptorV2 } from '../presentations/presentations.v2';
-import type { PresentationSpec } from '../presentations';
+import type { PresentationSpec } from '../presentations/presentations.v2';
 import type { DocBlock } from './types';
 import {
   docBlocksToPresentationRoutes,
@@ -33,7 +32,7 @@ export class DocRegistry {
     return this.routes.get(id);
   }
 
-  toRouteTuples(): [string, PresentationDescriptorV2][] {
+  toRouteTuples(): [string, PresentationSpec][] {
     return this.list().map(({ route, descriptor }) => [route, descriptor]);
   }
 
