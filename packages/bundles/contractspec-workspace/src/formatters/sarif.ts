@@ -218,6 +218,7 @@ export function formatAsSarif(
       const location: SarifLocation = {
         physicalLocation: {
           artifactLocation: {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             uri: normalizeUri(issue.file!),
             uriBaseId: '%SRCROOT%',
           },
