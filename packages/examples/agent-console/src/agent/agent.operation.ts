@@ -16,7 +16,7 @@ const OWNERS = ['@agent-console-team'] as const;
  */
 export const CreateAgentCommand = defineCommand({
   meta: {
-    name: 'agent.agent.create',
+    name: 'agent-console.agent.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -57,7 +57,7 @@ export const CreateAgentCommand = defineCommand({
         when: 'Agent is successfully created',
       },
     ],
-    audit: ['agent.created'],
+    audit: ['agent-console.agent.created'],
   },
 });
 
@@ -66,7 +66,7 @@ export const CreateAgentCommand = defineCommand({
  */
 export const UpdateAgentCommand = defineCommand({
   meta: {
-    name: 'agent.agent.update',
+    name: 'agent-console.agent.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -114,7 +114,7 @@ export const UpdateAgentCommand = defineCommand({
  */
 export const GetAgentQuery = defineQuery({
   meta: {
-    name: 'agent.agent.get',
+    name: 'agent-console.agent.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -149,7 +149,7 @@ export const GetAgentQuery = defineQuery({
  */
 export const ListAgentsQuery = defineQuery({
   meta: {
-    name: 'agent.agent.list',
+    name: 'agent-console.agent.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -198,7 +198,7 @@ export const ListAgentsQuery = defineQuery({
  */
 export const AssignToolToAgentCommand = defineCommand({
   meta: {
-    name: 'agent.agent.assignTool',
+    name: 'agent-console.agent.assignTool',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -246,7 +246,7 @@ export const AssignToolToAgentCommand = defineCommand({
  */
 export const RemoveToolFromAgentCommand = defineCommand({
   meta: {
-    name: 'agent.agent.removeTool',
+    name: 'agent-console.agent.removeTool',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

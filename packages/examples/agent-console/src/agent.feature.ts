@@ -23,12 +23,12 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // Agent operations
-    { name: 'agent.agent.create', version: 1 },
-    { name: 'agent.agent.update', version: 1 },
-    { name: 'agent.agent.get', version: 1 },
-    { name: 'agent.agent.list', version: 1 },
-    { name: 'agent.agent.assignTool', version: 1 },
-    { name: 'agent.agent.removeTool', version: 1 },
+    { name: 'agent-console.agent.create', version: 1 },
+    { name: 'agent-console.agent.update', version: 1 },
+    { name: 'agent-console.agent.get', version: 1 },
+    { name: 'agent-console.agent.list', version: 1 },
+    { name: 'agent-console.agent.assignTool', version: 1 },
+    { name: 'agent-console.agent.removeTool', version: 1 },
 
     // Tool operations
     { name: 'agent.tool.create', version: 1 },
@@ -50,10 +50,10 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
   // Events emitted by this feature
   events: [
     // Agent events
-    { name: 'agent.agent.created', version: 1 },
-    { name: 'agent.agent.updated', version: 1 },
-    { name: 'agent.agent.toolAssigned', version: 1 },
-    { name: 'agent.agent.toolRemoved', version: 1 },
+    { name: 'agent-console.agent.created', version: 1 },
+    { name: 'agent-console.agent.updated', version: 1 },
+    { name: 'agent-console.agent.toolAssigned', version: 1 },
+    { name: 'agent-console.agent.toolRemoved', version: 1 },
 
     // Tool events
     { name: 'agent.tool.created', version: 1 },
@@ -84,11 +84,11 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { name: 'agent.agent.list', version: 1 },
+      op: { name: 'agent-console.agent.list', version: 1 },
       pres: { name: 'agent-console.agent.list', version: 1 },
     },
     {
-      op: { name: 'agent.agent.get', version: 1 },
+      op: { name: 'agent-console.agent.get', version: 1 },
       pres: { name: 'agent-console.agent.detail', version: 1 },
     },
     {

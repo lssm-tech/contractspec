@@ -30,7 +30,7 @@ const AgentCreatedPayload = defineSchemaModel({
  * AgentCreatedEvent - A new agent was created.
  */
 export const AgentCreatedEvent = defineEvent({
-  name: 'agent.agent.created',
+  name: 'agent-console.agent.created',
   version: 1,
   description: 'A new AI agent was configured.',
   payload: AgentCreatedPayload,
@@ -63,7 +63,7 @@ const AgentUpdatedPayload = defineSchemaModel({
  * AgentUpdatedEvent - An agent was updated.
  */
 export const AgentUpdatedEvent = defineEvent({
-  name: 'agent.agent.updated',
+  name: 'agent-console.agent.updated',
   version: 1,
   description: 'An AI agent configuration was updated.',
   payload: AgentUpdatedPayload,
@@ -88,7 +88,7 @@ const AgentToolAssignedPayload = defineSchemaModel({
  * AgentToolAssignedEvent - A tool was assigned to an agent.
  */
 export const AgentToolAssignedEvent = defineEvent({
-  name: 'agent.agent.toolAssigned',
+  name: 'agent-console.agent.toolAssigned',
   version: 1,
   description: 'A tool was assigned to an agent.',
   payload: AgentToolAssignedPayload,
@@ -113,7 +113,7 @@ const AgentToolRemovedPayload = defineSchemaModel({
  * AgentToolRemovedEvent - A tool was removed from an agent.
  */
 export const AgentToolRemovedEvent = defineEvent({
-  name: 'agent.agent.toolRemoved',
+  name: 'agent-console.agent.toolRemoved',
   version: 1,
   description: 'A tool was removed from an agent.',
   payload: AgentToolRemovedPayload,
