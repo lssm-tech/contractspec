@@ -1,5 +1,5 @@
 import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
-import { defineEvent } from '@lssm/lib.contracts';
+import { defineEvent, StabilityEnum } from '@lssm/lib.contracts';
 
 // ============ Event Payloads ============
 
@@ -105,9 +105,14 @@ const ScheduledJobTriggeredPayload = defineSchemaModel({
  * Emitted when a job is enqueued.
  */
 export const JobEnqueuedEvent = defineEvent({
-  name: 'job.enqueued',
-  version: 1,
-  description: 'A job has been added to the queue.',
+  meta: {
+    key: 'job.enqueued',
+    version: 1,
+    description: 'A job has been added to the queue.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle'],
+  },
   payload: JobEnqueuedPayload,
 });
 
@@ -115,9 +120,14 @@ export const JobEnqueuedEvent = defineEvent({
  * Emitted when a job starts processing.
  */
 export const JobStartedEvent = defineEvent({
-  name: 'job.started',
-  version: 1,
-  description: 'A job has started processing.',
+  meta: {
+    key: 'job.started',
+    version: 1,
+    description: 'A job has started processing.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle'],
+  },
   payload: JobStartedPayload,
 });
 
@@ -125,9 +135,14 @@ export const JobStartedEvent = defineEvent({
  * Emitted when a job completes successfully.
  */
 export const JobCompletedEvent = defineEvent({
-  name: 'job.completed',
-  version: 1,
-  description: 'A job has completed successfully.',
+  meta: {
+    key: 'job.completed',
+    version: 1,
+    description: 'A job has completed successfully.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle'],
+  },
   payload: JobCompletedPayload,
 });
 
@@ -135,9 +150,14 @@ export const JobCompletedEvent = defineEvent({
  * Emitted when a job fails (single attempt).
  */
 export const JobFailedEvent = defineEvent({
-  name: 'job.failed',
-  version: 1,
-  description: 'A job attempt has failed.',
+  meta: {
+    key: 'job.failed',
+    version: 1,
+    description: 'A job attempt has failed.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle', 'error'],
+  },
   payload: JobFailedPayload,
 });
 
@@ -145,9 +165,14 @@ export const JobFailedEvent = defineEvent({
  * Emitted when a job is being retried.
  */
 export const JobRetryingEvent = defineEvent({
-  name: 'job.retrying',
-  version: 1,
-  description: 'A job is being scheduled for retry.',
+  meta: {
+    key: 'job.retrying',
+    version: 1,
+    description: 'A job is being scheduled for retry.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle', 'retry'],
+  },
   payload: JobRetryingPayload,
 });
 
@@ -155,10 +180,15 @@ export const JobRetryingEvent = defineEvent({
  * Emitted when a job is moved to dead letter queue.
  */
 export const JobDeadLetteredEvent = defineEvent({
-  name: 'job.dead_lettered',
-  version: 1,
-  description:
-    'A job has exhausted all retries and moved to dead letter queue.',
+  meta: {
+    key: 'job.dead_lettered',
+    version: 1,
+    description:
+      'A job has exhausted all retries and moved to dead letter queue.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle', 'error'],
+  },
   payload: JobDeadLetteredPayload,
 });
 
@@ -166,9 +196,14 @@ export const JobDeadLetteredEvent = defineEvent({
  * Emitted when a job is cancelled.
  */
 export const JobCancelledEvent = defineEvent({
-  name: 'job.cancelled',
-  version: 1,
-  description: 'A job has been cancelled.',
+  meta: {
+    key: 'job.cancelled',
+    version: 1,
+    description: 'A job has been cancelled.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'lifecycle'],
+  },
   payload: JobCancelledPayload,
 });
 
@@ -176,9 +211,14 @@ export const JobCancelledEvent = defineEvent({
  * Emitted when a scheduled job is triggered.
  */
 export const ScheduledJobTriggeredEvent = defineEvent({
-  name: 'scheduler.job_triggered',
-  version: 1,
-  description: 'A scheduled job has been triggered.',
+  meta: {
+    key: 'scheduler.job_triggered',
+    version: 1,
+    description: 'A scheduled job has been triggered.',
+    stability: StabilityEnum.Stable,
+    owners: ['lssm.libs.jobs'],
+    tags: ['job-queue', 'scheduler'],
+  },
   payload: ScheduledJobTriggeredPayload,
 });
 

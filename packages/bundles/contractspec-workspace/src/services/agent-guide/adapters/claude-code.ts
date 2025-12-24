@@ -25,7 +25,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     const lines: string[] = [];
 
     // Header
-    lines.push(`# Implement: ${plan.target.name}.v${plan.target.version}`);
+    lines.push(`# Implement: ${plan.target.key}.v${plan.target.version}`);
     lines.push('');
 
     // Context section

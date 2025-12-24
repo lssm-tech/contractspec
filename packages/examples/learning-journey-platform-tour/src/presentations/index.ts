@@ -1,21 +1,26 @@
-import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
+import type {
+  PresentationSpecMeta,
+  PresentationSpec,
+} from '@lssm/lib.contracts';
 import { StabilityEnum } from '@lssm/lib.contracts';
 import { PlatformTourTrackModel } from '../operations';
 
 const baseMeta: Pick<
-  PresentationMeta,
-  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+  PresentationSpecMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability' | 'goal' | 'context'
 > = {
   domain: 'learning-journey',
   title: 'Platform Tour',
   owners: ['examples.learning-journey.platform-tour'],
   tags: ['learning', 'platform', 'tour'],
   stability: StabilityEnum.Experimental,
+  goal: 'Visualize platform tour progress',
+  context: 'Used in platform tour dashboard and widgets',
 };
 
 export const PlatformTourTrackPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.platform.track',
+    key: 'learning.journey.platform.track',
     version: 1,
     description: 'Platform primitives tour track detail',
     ...baseMeta,
@@ -31,7 +36,7 @@ export const PlatformTourTrackPresentation: PresentationSpec = {
 
 export const PlatformTourWidgetPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.platform.widget',
+    key: 'learning.journey.platform.widget',
     version: 1,
     description: 'Compact widget for platform tour progress',
     ...baseMeta,

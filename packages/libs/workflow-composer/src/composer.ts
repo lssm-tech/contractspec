@@ -28,7 +28,7 @@ export class WorkflowComposer {
 }
 
 function matches(params: ComposeParams, extension: WorkflowExtension) {
-  if (extension.workflow !== params.base.meta.name) return false;
+  if (extension.workflow !== params.base.meta.key) return false;
   if (
     extension.baseVersion &&
     extension.baseVersion !== params.base.meta.version

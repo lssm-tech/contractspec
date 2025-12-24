@@ -2,7 +2,7 @@ import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { TelemetryEventDef } from '../telemetry/spec';
 
-export type ExperimentMeta = OwnerShipMeta
+export type ExperimentMeta = OwnerShipMeta;
 
 export interface ExperimentRef {
   key: string;

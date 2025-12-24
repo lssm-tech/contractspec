@@ -38,22 +38,28 @@ const InventoryUpdatedPayload = defineSchemaModel({
 });
 
 export const ProductCreatedEvent = defineEvent({
-  name: 'marketplace.product.created',
-  version: 1,
-  description: 'A new product has been created.',
+  meta: {
+    key: 'marketplace.product.created',
+    version: 1,
+    description: 'A new product has been created.',
+  },
   payload: ProductCreatedPayload,
 });
 
 export const ProductPublishedEvent = defineEvent({
-  name: 'marketplace.product.published',
-  version: 1,
-  description: 'A product has been published.',
+  meta: {
+    key: 'marketplace.product.published',
+    version: 1,
+    description: 'A product has been published.',
+  },
   payload: ProductPublishedPayload,
 });
 
 export const InventoryUpdatedEvent = defineEvent({
-  name: 'marketplace.inventory.updated',
-  version: 1,
-  description: 'Product inventory has been updated.',
+  meta: {
+    key: 'marketplace.inventory.updated',
+    version: 1,
+    description: 'Product inventory has been updated.',
+  },
   payload: InventoryUpdatedPayload,
 });

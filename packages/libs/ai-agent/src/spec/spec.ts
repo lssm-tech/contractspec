@@ -5,10 +5,7 @@ import type { PolicyRef } from '@lssm/lib.contracts/policy/spec';
 /**
  * Metadata for an agent specification.
  */
-export interface AgentMeta extends OwnerShipMeta {
-  name: string;
-  version: number;
-}
+export type AgentMeta = OwnerShipMeta;
 
 /**
  * Configuration for a tool that an agent can use.
@@ -127,8 +124,8 @@ export interface AgentSpec {
  * @throws Error if the specification is invalid
  */
 export function defineAgent(spec: AgentSpec): AgentSpec {
-  if (!spec.meta?.name) {
-    throw new Error('Agent name is required');
+  if (!spec.meta?.key) {
+    throw new Error('Agent key is required');
   }
   if (!Number.isFinite(spec.meta.version)) {
     throw new Error(`Agent ${spec.meta.key} is missing a numeric version`);
@@ -158,5 +155,5 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
  * Generate a unique key for an agent spec.
  */
 export function agentKey(meta: AgentMeta): string {
-  return `${meta.name}.v${meta.version}`;
+  return `${meta.key}.v${meta.version}`;
 }

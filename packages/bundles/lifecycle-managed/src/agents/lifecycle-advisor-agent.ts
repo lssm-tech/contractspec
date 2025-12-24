@@ -2,7 +2,7 @@ import { defineAgent } from '@lssm/lib.ai-agent';
 
 export const LifecycleAdvisorAgent = defineAgent({
   meta: {
-    name: 'lifecycle.advisor',
+    key: 'lifecycle.advisor',
     version: 1,
     title: 'Lifecycle Advisor Agent',
     description:

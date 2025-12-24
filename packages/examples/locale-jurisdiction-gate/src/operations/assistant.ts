@@ -26,7 +26,7 @@ const AssistantConceptInput = defineSchemaModel({
 
 export const AssistantAnswerContract = defineCommand({
   meta: {
-    name: 'assistant.answer',
+    key: 'assistant.answer',
     version: 1,
     stability: 'experimental',
     owners: ['examples'],
@@ -79,7 +79,7 @@ export const AssistantAnswerContract = defineCommand({
 
 export const AssistantExplainConceptContract = defineCommand({
   meta: {
-    name: 'assistant.explainConcept',
+    key: 'assistant.explainConcept',
     version: 1,
     stability: 'experimental',
     owners: ['examples'],

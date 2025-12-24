@@ -16,6 +16,7 @@ export const NotificationsFeature: FeatureModuleSpec = {
     description:
       'Multi-channel notification delivery with preference management',
     domain: 'platform',
+    version: 1,
     owners: ['@platform.notifications'],
     tags: ['notifications', 'email', 'push', 'in-app'],
     stability: 'stable',
@@ -23,13 +24,13 @@ export const NotificationsFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { name: 'notifications.send', version: 1 },
-    { name: 'notifications.markRead', version: 1 },
-    { name: 'notifications.markAllRead', version: 1 },
-    { name: 'notifications.delete', version: 1 },
-    { name: 'notifications.list', version: 1 },
-    { name: 'notifications.preferences.update', version: 1 },
-    { name: 'notifications.preferences.get', version: 1 },
+    { key: 'notifications.send', version: 1 },
+    { key: 'notifications.markRead', version: 1 },
+    { key: 'notifications.markAllRead', version: 1 },
+    { key: 'notifications.delete', version: 1 },
+    { key: 'notifications.list', version: 1 },
+    { key: 'notifications.preferences.update', version: 1 },
+    { key: 'notifications.preferences.get', version: 1 },
   ],
 
   // No events for this feature - it consumes events to send notifications

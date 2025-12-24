@@ -116,21 +116,21 @@ export class DomainEventBus {
     metadata?: AuditableEventEnvelope['metadata']
   ): Promise<void> {
     // Ensure event name starts with domain
-    const eventName = spec.name.startsWith(this.domain + '.')
-      ? spec.name
-      : `${this.domain}.${spec.name}`;
+    const eventName = spec.meta.key.startsWith(this.domain + '.')
+      ? spec.meta.key
+      : `${this.domain}.${spec.meta.key}`;
 
     const envelope: AuditableEventEnvelope<T> = {
       id: crypto.randomUUID(),
       occurredAt: new Date().toISOString(),
       name: eventName,
-      version: spec.version,
+      version: spec.meta.version,
       payload,
       metadata,
     };
 
     const bytes = new TextEncoder().encode(JSON.stringify(envelope));
-    await this.bus.publish(`${eventName}.v${spec.version}`, bytes);
+    await this.bus.publish(`${eventName}.v${spec.meta.version}`, bytes);
   }
 
   /**

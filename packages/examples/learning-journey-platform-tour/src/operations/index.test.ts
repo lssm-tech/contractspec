@@ -16,7 +16,7 @@ describe('platform tour contracts', () => {
   it('exposes track metadata', () => {
     expect(platformTourContracts.track.id).toBe('platform_primitives_tour');
     expect(platformTourContracts.track.steps.length).toBeGreaterThan(0);
-    expect(GetPlatformTourTrack.meta.name).toBe(
+    expect(GetPlatformTourTrack.meta.key).toBe(
       'learningJourney.platformTour.getTrack'
     );
   });
@@ -42,7 +42,7 @@ describe('platform tour contracts', () => {
   });
 
   it('exposes record event contract', () => {
-    expect(RecordPlatformTourEvent.meta.name).toBe(
+    expect(RecordPlatformTourEvent.meta.key).toBe(
       'learningJourney.platformTour.recordEvent'
     );
   });

@@ -3,6 +3,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const KbUpdatePipelineFeature: FeatureModuleSpec = {
   meta: {
     key: 'kb-update-pipeline',
+    version: 1,
     title: 'KB Update Pipeline (HITL)',
     description:
       'Automation proposes KB patches; humans verify; publishing is blocked until approvals are complete.',
@@ -12,17 +13,17 @@ export const KbUpdatePipelineFeature: FeatureModuleSpec = {
     stability: 'experimental',
   },
   operations: [
-    { name: 'kbPipeline.runWatch', version: 1 },
-    { name: 'kbPipeline.createReviewTask', version: 1 },
-    { name: 'kbPipeline.submitDecision', version: 1 },
-    { name: 'kbPipeline.publishIfReady', version: 1 },
+    { key: 'kbPipeline.runWatch', version: 1 },
+    { key: 'kbPipeline.createReviewTask', version: 1 },
+    { key: 'kbPipeline.submitDecision', version: 1 },
+    { key: 'kbPipeline.publishIfReady', version: 1 },
   ],
   events: [
-    { name: 'kb.change.detected', version: 1 },
-    { name: 'kb.change.summarized', version: 1 },
-    { name: 'kb.patch.proposed', version: 1 },
-    { name: 'kb.review.requested', version: 1 },
-    { name: 'kb.review.decided', version: 1 },
+    { key: 'kb.change.detected', version: 1 },
+    { key: 'kb.change.summarized', version: 1 },
+    { key: 'kb.patch.proposed', version: 1 },
+    { key: 'kb.review.requested', version: 1 },
+    { key: 'kb.review.decided', version: 1 },
   ],
   presentations: [],
   opToPresentation: [],

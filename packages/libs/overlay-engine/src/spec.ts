@@ -20,7 +20,7 @@ export interface OverlayTargetRef {
   workflow?: string;
   dataView?: string;
   presentation?: string;
-  operation?: AnyOperationSpec['meta']['name'];
+  operation?: AnyOperationSpec['meta']['key'];
 }
 
 export interface OverlayAppliesTo

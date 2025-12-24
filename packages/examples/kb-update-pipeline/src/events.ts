@@ -1,4 +1,8 @@
-import { defineEvent, defineSchemaModel } from '@lssm/lib.contracts';
+import {
+  defineEvent,
+  defineSchemaModel,
+  StabilityEnum,
+} from '@lssm/lib.contracts';
 import { ScalarTypeEnum } from '@lssm/lib.schema';
 
 const KbChangeDetectedPayload = defineSchemaModel({
@@ -18,9 +22,14 @@ const KbChangeDetectedPayload = defineSchemaModel({
 });
 
 export const KbChangeDetectedEvent = defineEvent({
-  name: 'kb.change.detected',
-  version: 1,
-  description: 'KB source change detected.',
+  meta: {
+    key: 'kb.change.detected',
+    version: 1,
+    description: 'KB source change detected.',
+    stability: StabilityEnum.Experimental,
+    owners: [],
+    tags: [],
+  },
   payload: KbChangeDetectedPayload,
 });
 
@@ -38,9 +47,14 @@ const KbChangeSummarizedPayload = defineSchemaModel({
 });
 
 export const KbChangeSummarizedEvent = defineEvent({
-  name: 'kb.change.summarized',
-  version: 1,
-  description: 'KB change summarized.',
+  meta: {
+    key: 'kb.change.summarized',
+    version: 1,
+    description: 'KB change summarized.',
+    stability: StabilityEnum.Experimental,
+    owners: [],
+    tags: [],
+  },
   payload: KbChangeSummarizedPayload,
 });
 
@@ -61,9 +75,14 @@ const KbPatchProposedPayload = defineSchemaModel({
 });
 
 export const KbPatchProposedEvent = defineEvent({
-  name: 'kb.patch.proposed',
-  version: 1,
-  description: 'KB rule patch proposed (draft versions created).',
+  meta: {
+    key: 'kb.patch.proposed',
+    version: 1,
+    description: 'KB rule patch proposed (draft versions created).',
+    stability: StabilityEnum.Experimental,
+    owners: [],
+    tags: [],
+  },
   payload: KbPatchProposedPayload,
 });
 
@@ -81,9 +100,14 @@ const KbReviewRequestedPayload = defineSchemaModel({
 });
 
 export const KbReviewRequestedEvent = defineEvent({
-  name: 'kb.review.requested',
-  version: 1,
-  description: 'KB review requested.',
+  meta: {
+    key: 'kb.review.requested',
+    version: 1,
+    description: 'KB review requested.',
+    stability: StabilityEnum.Experimental,
+    owners: [],
+    tags: [],
+  },
   payload: KbReviewRequestedPayload,
 });
 
@@ -98,8 +122,13 @@ const KbReviewDecidedPayload = defineSchemaModel({
 });
 
 export const KbReviewDecidedEvent = defineEvent({
-  name: 'kb.review.decided',
-  version: 1,
-  description: 'KB review decided.',
+  meta: {
+    key: 'kb.review.decided',
+    version: 1,
+    description: 'KB review decided.',
+    stability: StabilityEnum.Experimental,
+    owners: [],
+    tags: [],
+  },
   payload: KbReviewDecidedPayload,
 });

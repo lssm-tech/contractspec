@@ -12,7 +12,7 @@ const TRANSACTION_CAPABILITY = {
 
 export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
   meta: {
-    name: 'pfo.workflow.sync-openbanking-transactions',
+    key: 'pfo.workflow.sync-openbanking-transactions',
     version: 1,
     title: 'Synchronise Open Banking Transactions',
     description:
@@ -32,7 +32,7 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
         description:
           'Call the Powens provider to pull incremental transactions for active accounts.',
         action: {
-          operation: { name: 'openbanking.transactions.sync', version: 1 },
+          operation: { key: 'openbanking.transactions.sync', version: 1 },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [TRANSACTION_CAPABILITY],
@@ -49,7 +49,7 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
         description:
           'Retrieve the canonical transaction list for reporting and downstream analytics.',
         action: {
-          operation: { name: 'openbanking.transactions.list', version: 1 },
+          operation: { key: 'openbanking.transactions.list', version: 1 },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [TRANSACTION_CAPABILITY],

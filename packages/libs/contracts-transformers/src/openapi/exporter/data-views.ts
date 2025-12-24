@@ -15,8 +15,8 @@ export interface ExportedDataView {
   entity: string;
   kind: 'list' | 'detail' | 'table' | 'grid';
   source: {
-    primary: { name: string; version: number };
-    item?: { name: string; version: number };
+    primary: { key: string; version: number };
+    item?: { key: string; version: number };
   };
   fields: unknown[];
 }
@@ -28,7 +28,7 @@ export function exportDataViews(
   registry: DataViewRegistry
 ): ExportedDataView[] {
   return registry.list().map((dv) => ({
-    name: dv.meta.name,
+    name: dv.meta.key,
     version: dv.meta.version,
     description: dv.meta.description,
     stability: dv.meta.stability,
@@ -50,9 +50,9 @@ export function generateDataViewsRegistry(
   const registrations: string[] = [];
 
   for (const dv of dataViews) {
-    const dvVarName = dv.meta.name.replace(/\./g, '_') + `_v${dv.meta.version}`;
+    const dvVarName = dv.meta.key.replace(/\./g, '_') + `_v${dv.meta.version}`;
     imports.add(
-      `import { ${dvVarName} } from './${dv.meta.name.split('.')[0]}';`
+      `import { ${dvVarName} } from './${dv.meta.key.split('.')[0]}';`
     );
     registrations.push(`  .register(${dvVarName})`);
   }

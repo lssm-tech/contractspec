@@ -5,8 +5,7 @@
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor } from '../resources';
-import type { Owner, OwnerShipMeta, Stability, Tag } from '../ownership';
-import type { DocId } from '../docs/registry';
+import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { TestSpecRef } from '../tests/spec';
 
@@ -42,7 +41,7 @@ export interface ImplementationRef {
 
 // preferred: reference a declared event
 export interface EmitDeclRef {
-  ref: EventSpec<AnySchemaModel>;
+  ref: EventSpec<AnySchemaModel>['meta'];
   when: string;
 }
 // inline (fallback)

@@ -56,29 +56,37 @@ const DealLostPayload = defineSchemaModel({
 });
 
 export const DealCreatedEvent = defineEvent({
-  name: 'deal.created',
-  version: 1,
-  description: 'A new deal has been created.',
+  meta: {
+    key: 'deal.created',
+    version: 1,
+    description: 'A new deal has been created.',
+  },
   payload: DealCreatedPayload,
 });
 
 export const DealMovedEvent = defineEvent({
-  name: 'deal.moved',
-  version: 1,
-  description: 'A deal has been moved to a different stage.',
+  meta: {
+    key: 'deal.moved',
+    version: 1,
+    description: 'A deal has been moved to a different stage.',
+  },
   payload: DealMovedPayload,
 });
 
 export const DealWonEvent = defineEvent({
-  name: 'deal.won',
-  version: 1,
-  description: 'A deal has been won.',
+  meta: {
+    key: 'deal.won',
+    version: 1,
+    description: 'A deal has been won.',
+  },
   payload: DealWonPayload,
 });
 
 export const DealLostEvent = defineEvent({
-  name: 'deal.lost',
-  version: 1,
-  description: 'A deal has been lost.',
+  meta: {
+    key: 'deal.lost',
+    version: 1,
+    description: 'A deal has been lost.',
+  },
   payload: DealLostPayload,
 });

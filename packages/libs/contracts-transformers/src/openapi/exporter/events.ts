@@ -26,9 +26,9 @@ export function exportEvents(
   events: EventSpec<AnySchemaModel>[]
 ): ExportedEvent[] {
   return events.map((event) => ({
-    name: event.name,
-    version: event.version,
-    description: event.description,
+    name: event.meta.key,
+    version: event.meta.version,
+    description: event.meta.description,
     payload: event.payload
       ? (z.toJSONSchema(event.payload.getZod()) as OpenApiSchemaObject)
       : null,
@@ -45,9 +45,10 @@ export function generateEventsExports(
   const eventExports: string[] = [];
 
   for (const event of events) {
-    const eventVarName = event.name.replace(/\./g, '_') + `_v${event.version}`;
+    const eventVarName =
+      event.meta.key.replace(/\./g, '_') + `_v${event.meta.version}`;
     eventExports.push(
-      `export { ${eventVarName} } from './${event.name.split('.')[0]}';`
+      `export { ${eventVarName} } from './${event.meta.key.split('.')[0]}';`
     );
   }
 

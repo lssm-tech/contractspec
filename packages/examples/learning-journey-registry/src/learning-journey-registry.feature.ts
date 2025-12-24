@@ -29,9 +29,9 @@ export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { name: 'learning.journey.track_list', version: 1 },
-    { name: 'learning.journey.track_detail', version: 1 },
-    { name: 'learning.journey.progress_widget', version: 1 },
+    { key: 'learning.journey.track_list', version: 1 },
+    { key: 'learning.journey.track_detail', version: 1 },
+    { key: 'learning.journey.progress_widget', version: 1 },
   ],
 
   // No op to presentation links for registry
@@ -40,17 +40,17 @@ export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      name: 'learning.journey.track_list',
+      key: 'learning.journey.track_list',
       version: 1,
       targets: ['react', 'markdown'],
     },
     {
-      name: 'learning.journey.track_detail',
+      key: 'learning.journey.track_detail',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'learning.journey.progress_widget',
+      key: 'learning.journey.progress_widget',
       version: 1,
       targets: ['react'],
     },

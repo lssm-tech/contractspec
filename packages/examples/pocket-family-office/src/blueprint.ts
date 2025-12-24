@@ -11,7 +11,7 @@ const cap = (key: string, version: number): CapabilityRef => ({ key, version });
 
 export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
   meta: {
-    name: 'pocket-family-office.app',
+    key: 'pocket-family-office.app',
     version: 1,
     appId: 'pocket-family-office',
     title: 'Pocket Family Office',
@@ -135,44 +135,44 @@ export const pocketFamilyOfficeBlueprint: AppBlueprintSpec = {
   ],
   workflows: {
     processUploadedDocument: {
-      name: 'pfo.workflow.process-uploaded-document',
+      key: 'pfo.workflow.process-uploaded-document',
       version: 1,
     },
     upcomingPaymentsReminder: {
-      name: 'pfo.workflow.upcoming-payments-reminder',
+      key: 'pfo.workflow.upcoming-payments-reminder',
       version: 1,
     },
     generateFinancialSummary: {
-      name: 'pfo.workflow.generate-financial-summary',
+      key: 'pfo.workflow.generate-financial-summary',
       version: 1,
     },
     ingestEmailThreads: {
-      name: 'pfo.workflow.ingest-email-threads',
+      key: 'pfo.workflow.ingest-email-threads',
       version: 1,
     },
     syncOpenBankingAccounts: {
-      name: 'pfo.workflow.sync-openbanking-accounts',
+      key: 'pfo.workflow.sync-openbanking-accounts',
       version: 1,
     },
     syncOpenBankingTransactions: {
-      name: 'pfo.workflow.sync-openbanking-transactions',
+      key: 'pfo.workflow.sync-openbanking-transactions',
       version: 1,
     },
     refreshOpenBankingBalances: {
-      name: 'pfo.workflow.refresh-openbanking-balances',
+      key: 'pfo.workflow.refresh-openbanking-balances',
       version: 1,
     },
     generateOpenBankingOverview: {
-      name: 'pfo.workflow.generate-openbanking-overview',
+      key: 'pfo.workflow.generate-openbanking-overview',
       version: 1,
     },
   },
   policies: [
-    { name: 'pfo.policy.tenancy', version: 1 },
-    { name: 'knowledge.access.financial-docs', version: 1 },
+    { key: 'pfo.policy.tenancy', version: 1 },
+    { key: 'knowledge.access.financial-docs', version: 1 },
   ],
   telemetry: {
-    spec: { name: 'pfo.telemetry', version: 1 },
+    spec: { key: 'pfo.telemetry', version: 1 },
   },
   featureFlags: [
     {

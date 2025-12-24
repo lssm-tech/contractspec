@@ -162,9 +162,9 @@ function checkEventEmission(
 
   const eventNames = events.map((e) => {
     if (isEmitDeclRef(e)) {
-      return e.ref.name;
+      return e.ref.key;
     }
-    return e.name;
+    return e.key;
   });
 
   const mentionedEvents = eventNames.filter((name) => code.includes(name));

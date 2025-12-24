@@ -267,7 +267,16 @@ export class OperationSpecRegistry {
     if (spec.sideEffects?.emits) {
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          allowedEvents.set(`${e.ref.meta.key}.v${e.ref.meta.version}`, e.ref.payload);
+          const eventSpec = ctx.eventSpecResolver?.get(
+            e.ref.key,
+            e.ref.version
+          );
+          if (eventSpec) {
+            allowedEvents.set(
+              `${e.ref.key}.v${e.ref.version}`,
+              eventSpec.payload
+            );
+          }
         } else {
           allowedEvents.set(`${e.key}.v${e.version}`, e.payload);
         }

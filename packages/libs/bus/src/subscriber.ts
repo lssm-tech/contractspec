@@ -11,10 +11,10 @@ export async function subscribeEvent<T extends AnySchemaModel>(
     ctx: { traceId?: string; deliveryId?: string }
   ) => Promise<void>
 ) {
-  const topic = `${spec.name}.v${spec.version}`;
+  const topic = `${spec.meta.key}.v${spec.meta.version}`;
   return bus.subscribe(topic, async (u8) => {
     const env = decodeEvent<T>(u8);
-    if (env.name !== spec.name || env.version !== spec.version) return;
+    if (env.name !== spec.meta.key || env.version !== spec.meta.version) return;
     await handler(env.payload, { traceId: env.traceId, deliveryId: env.id });
   });
 }

@@ -7,7 +7,7 @@ import {
 
 export const generateFinancialSummaryWorkflow: WorkflowSpec = {
   meta: {
-    name: 'pfo.workflow.generate-financial-summary',
+    key: 'pfo.workflow.generate-financial-summary',
     version: 1,
     title: 'Generate Financial Summary',
     description:
@@ -27,7 +27,7 @@ export const generateFinancialSummaryWorkflow: WorkflowSpec = {
         description:
           'Run retrieval augmented generation over the knowledge base to produce a household summary.',
         action: {
-          operation: { name: 'pfo.summary.generate', version: 1 },
+          operation: { key: 'pfo.summary.generate', version: 1 },
         },
         requiredIntegrations: ['primaryLLM', 'primaryVectorDb'],
         retry: {
@@ -43,7 +43,7 @@ export const generateFinancialSummaryWorkflow: WorkflowSpec = {
         description:
           'Send the generated summary via email and optionally synthesise a voice note.',
         action: {
-          operation: { name: 'pfo.summary.dispatch', version: 1 },
+          operation: { key: 'pfo.summary.dispatch', version: 1 },
         },
         requiredIntegrations: ['emailOutbound'],
         retry: {

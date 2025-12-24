@@ -1,23 +1,28 @@
-import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
+import type {
+  PresentationSpecMeta,
+  PresentationSpec,
+} from '@lssm/lib.contracts';
 import { StabilityEnum } from '@lssm/lib.contracts';
 import { StudioOnboardingTrackModel } from '../operations';
 
 const baseMeta: Pick<
-  PresentationMeta,
-  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+  PresentationSpecMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability' | 'version'
 > = {
   domain: 'learning-journey',
   title: 'Studio Onboarding',
   owners: ['examples.learning-journey.studio-onboarding'] as string[],
   tags: ['learning', 'onboarding', 'studio'] as string[],
   stability: StabilityEnum.Experimental,
+  version: 1,
 };
 
 export const StudioOnboardingTrackPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.studio.track',
-    version: 1,
+    key: 'learning.journey.studio.track',
     description: 'Studio onboarding track detail',
+    goal: 'Visualize the onboarding track for the user.',
+    context: 'Displayed in the Studio dashboard.',
     ...baseMeta,
   },
   source: {
@@ -31,9 +36,10 @@ export const StudioOnboardingTrackPresentation: PresentationSpec = {
 
 export const StudioOnboardingWidgetPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.studio.widget',
-    version: 1,
+    key: 'learning.journey.studio.widget',
     description: 'Compact widget for Studio onboarding progress',
+    goal: 'Show quick progress summary.',
+    context: 'Displayed in the Studio sidebar or header.',
     ...baseMeta,
   },
   source: {

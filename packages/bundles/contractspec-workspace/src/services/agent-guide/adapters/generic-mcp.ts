@@ -26,7 +26,7 @@ export class GenericMCPAdapter implements AgentAdapter {
 
     // Standard header
     lines.push(
-      `# Implementation Task: ${plan.target.name}.v${plan.target.version}`
+      `# Implementation Task: ${plan.target.key}.v${plan.target.version}`
     );
     lines.push('');
 
@@ -34,7 +34,7 @@ export class GenericMCPAdapter implements AgentAdapter {
     lines.push('## Task');
     lines.push('');
     lines.push(
-      `Implement the ${plan.target.type} \`${plan.target.name}\` version ${plan.target.version}.`
+      `Implement the ${plan.target.type} \`${plan.target.key}\` version ${plan.target.version}.`
     );
     lines.push('');
 
@@ -143,7 +143,7 @@ export class GenericMCPAdapter implements AgentAdapter {
     data: string;
   } {
     return {
-      uri: `spec://${plan.target.name}/v${plan.target.version}/plan`,
+      uri: `spec://${plan.target.key}/v${plan.target.version}/plan`,
       mimeType: 'application/json',
       data: JSON.stringify(
         {
@@ -184,7 +184,7 @@ export class GenericMCPAdapter implements AgentAdapter {
     const m = spec.meta;
     const lines: string[] = [];
 
-    lines.push(`# ${m.name} v${m.version}`);
+    lines.push(`# ${m.key} v${m.version}`);
     lines.push('');
     lines.push(`**Type:** ${m.kind}`);
     lines.push(`**Stability:** ${m.stability}`);

@@ -99,7 +99,7 @@ export class FileSystemSuggestionWriter implements SpecSuggestionWriter {
     this.filenameTemplate =
       options.filenameTemplate ??
       ((suggestion) =>
-        `${suggestion.target?.name ?? suggestion.intent.id}.v${suggestion.target?.version ?? 'next'}.suggestion.json`);
+        `${suggestion.target?.key ?? suggestion.intent.id}.v${suggestion.target?.version ?? 'next'}.suggestion.json`);
   }
 
   async write(suggestion: SpecSuggestion): Promise<string> {
@@ -147,7 +147,7 @@ export class InMemorySpecSuggestionRepository implements SpecSuggestionRepositor
     if (!filters) return values;
     return values.filter((item) => {
       if (filters.status && item.status !== filters.status) return false;
-      if (filters.operationName && item.target?.name !== filters.operationName)
+      if (filters.operationKey && item.target?.key !== filters.operationKey)
         return false;
       return true;
     });

@@ -7,7 +7,7 @@ import {
 
 export const ingestEmailThreadsWorkflow: WorkflowSpec = {
   meta: {
-    name: 'pfo.workflow.ingest-email-threads',
+    key: 'pfo.workflow.ingest-email-threads',
     version: 1,
     title: 'Ingest Email Threads',
     description:
@@ -27,7 +27,7 @@ export const ingestEmailThreadsWorkflow: WorkflowSpec = {
         description:
           'Fetches Gmail threads and transforms them into knowledge fragments before vector indexing.',
         action: {
-          operation: { name: 'pfo.email.sync-threads', version: 1 },
+          operation: { key: 'pfo.email.sync-threads', version: 1 },
         },
         requiredIntegrations: ['emailInbound', 'primaryVectorDb'],
         retry: {

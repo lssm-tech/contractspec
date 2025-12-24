@@ -1,23 +1,26 @@
+import { StabilityEnum } from '@lssm/lib.contracts';
 import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
 import { WorkflowComposer } from '@lssm/lib.workflow-composer';
 import { Logger, LogLevel } from '@lssm/lib.logger';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as 'production' | 'development' | 'test') ||
+    'development',
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
 const BaseWorkflow: WorkflowSpec = {
   meta: {
-    name: 'billing.invoiceApproval',
+    key: 'billing.invoiceApproval',
     version: 1,
     title: 'Invoice Approval',
     owners: [],
     tags: [],
     description: '',
     domain: 'billing',
-    stability: 'stable',
+    stability: StabilityEnum.Stable,
   },
   definition: {
     steps: [
@@ -54,7 +57,7 @@ export function composeTenantWorkflowExample(): WorkflowSpec {
 
 export function logTenantWorkflowSteps(workflow: WorkflowSpec): void {
   logger.info('Tenant workflow composed', {
-    workflow: workflow.meta.name,
+    workflow: workflow.meta.key,
     steps: workflow.definition.steps.map((step) => step.id),
   });
 }

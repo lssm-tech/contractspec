@@ -23,8 +23,8 @@ export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { name: 'learningJourney.crmOnboarding.recordEvent', version: 1 },
-    { name: 'learningJourney.crmOnboarding.getTrack', version: 1 },
+    { key: 'learningJourney.crmOnboarding.recordEvent', version: 1 },
+    { key: 'learningJourney.crmOnboarding.getTrack', version: 1 },
   ],
 
   // Events emitted by this feature
@@ -32,27 +32,27 @@ export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { name: 'learning.journey.crm.track', version: 1 },
-    { name: 'learning.journey.crm.widget', version: 1 },
+    { key: 'learning.journey.crm.track', version: 1 },
+    { key: 'learning.journey.crm.widget', version: 1 },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { name: 'learningJourney.crmOnboarding.getTrack', version: 1 },
-      pres: { name: 'learning.journey.crm.track', version: 1 },
+      op: { key: 'learningJourney.crmOnboarding.getTrack', version: 1 },
+      pres: { key: 'learning.journey.crm.track', version: 1 },
     },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      name: 'learning.journey.crm.track',
+      key: 'learning.journey.crm.track',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'learning.journey.crm.widget',
+      key: 'learning.journey.crm.widget',
       version: 1,
       targets: ['react'],
     },

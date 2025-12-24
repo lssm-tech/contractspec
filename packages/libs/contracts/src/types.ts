@@ -20,6 +20,7 @@ import type { ResolvedBranding } from './app-config/branding';
 import type { Locale, MessageKey } from './translations/catalog';
 import type { SecretProvider } from './integrations/secrets/provider';
 import type { SpecVariantResolver } from './experiments/spec-resolver';
+import type { EventRegistry } from './events';
 
 export interface FieldLevelDecision {
   field: string;
@@ -117,4 +118,5 @@ export interface HandlerCtx {
   };
   /** Optional spec variant resolver for experiments */
   specVariantResolver?: SpecVariantResolver;
+  eventSpecResolver?: EventRegistry;
 }

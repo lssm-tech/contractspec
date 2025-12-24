@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const PocketFamilyOfficeFeature: FeatureModuleSpec = {
   meta: {
     key: 'pocket-family-office',
+    version: 1,
     title: 'Pocket Family Office',
     description:
       'Personal finance automation with document ingestion, open banking, and AI summaries',

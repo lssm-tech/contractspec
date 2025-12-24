@@ -27,15 +27,19 @@ const StoreStatusChangedPayload = defineSchemaModel({
 });
 
 export const StoreCreatedEvent = defineEvent({
-  name: 'marketplace.store.created',
-  version: 1,
-  description: 'A new seller store has been created.',
+  meta: {
+    key: 'marketplace.store.created',
+    version: 1,
+    description: 'A new seller store has been created.',
+  },
   payload: StoreCreatedPayload,
 });
 
 export const StoreStatusChangedEvent = defineEvent({
-  name: 'marketplace.store.statusChanged',
-  version: 1,
-  description: 'A store status has changed.',
+  meta: {
+    key: 'marketplace.store.statusChanged',
+    version: 1,
+    description: 'A store status has changed.',
+  },
   payload: StoreStatusChangedPayload,
 });

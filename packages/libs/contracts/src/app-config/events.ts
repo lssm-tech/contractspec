@@ -41,7 +41,7 @@ export const ConfigDraftCreatedEvent = defineEvent({
 
 export const ConfigPromotedToPreviewEvent = defineEvent({
   meta: {
-      ...lifecycleOwnership,
+    ...lifecycleOwnership,
     key: 'app_config.promoted_to_preview',
     version: 1,
     description: 'A tenant config draft was promoted to preview.',
@@ -64,7 +64,7 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
 
 export const ConfigPublishedEvent = defineEvent({
   meta: {
-      ...lifecycleOwnership,
+    ...lifecycleOwnership,
     key: 'app_config.published',
     version: 1,
     description: 'A tenant config version was published to production.',

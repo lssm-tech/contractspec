@@ -73,36 +73,46 @@ const OrderCompletedPayload = defineSchemaModel({
 });
 
 export const OrderCreatedEvent = defineEvent({
-  name: 'marketplace.order.created',
-  version: 1,
-  description: 'A new order has been created.',
+  meta: {
+    name: 'marketplace.order.created',
+    version: 1,
+    description: 'A new order has been created.',
+  },
   payload: OrderCreatedPayload,
 });
 
 export const OrderPaidEvent = defineEvent({
-  name: 'marketplace.order.paid',
-  version: 1,
-  description: 'An order has been paid.',
+  meta: {
+    key: 'marketplace.order.paid',
+    version: 1,
+    description: 'An order has been paid.',
+  },
   payload: OrderPaidPayload,
 });
 
 export const OrderStatusUpdatedEvent = defineEvent({
-  name: 'marketplace.order.statusUpdated',
-  version: 1,
-  description: 'An order status has been updated.',
+  meta: {
+    key: 'marketplace.order.statusUpdated',
+    version: 1,
+    description: 'An order status has been updated.',
+  },
   payload: OrderStatusUpdatedPayload,
 });
 
 export const OrderShippedEvent = defineEvent({
-  name: 'marketplace.order.shipped',
-  version: 1,
-  description: 'An order has been shipped.',
+  meta: {
+    key: 'marketplace.order.shipped',
+    version: 1,
+    description: 'An order has been shipped.',
+  },
   payload: OrderShippedPayload,
 });
 
 export const OrderCompletedEvent = defineEvent({
-  name: 'marketplace.order.completed',
-  version: 1,
-  description: 'An order has been completed.',
+  meta: {
+    key: 'marketplace.order.completed',
+    version: 1,
+    description: 'An order has been completed.',
+  },
   payload: OrderCompletedPayload,
 });

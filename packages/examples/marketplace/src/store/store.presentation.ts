@@ -4,7 +4,7 @@ import { StoreModel } from './store.schema';
 
 export const StoreProfilePresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.store.profile',
+    key: 'marketplace.store.profile',
     version: 1,
     title: 'Store Profile',
     description: 'Public store profile page',
@@ -27,7 +27,7 @@ export const StoreProfilePresentation: PresentationSpec = {
 
 export const SellerDashboardPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.seller.dashboard',
+    key: 'marketplace.seller.dashboard',
     version: 1,
     title: 'Seller Dashboard',
     description: 'Seller dashboard with sales and analytics',

@@ -155,7 +155,7 @@ export const ListUserPermissionsOutputModel = new SchemaModel({
  */
 export const CreateRoleContract = defineCommand({
   meta: {
-    name: 'identity.rbac.role.create',
+    key: 'identity.rbac.role.create',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -189,7 +189,7 @@ export const CreateRoleContract = defineCommand({
  */
 export const UpdateRoleContract = defineCommand({
   meta: {
-    name: 'identity.rbac.role.update',
+    key: 'identity.rbac.role.update',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -215,7 +215,7 @@ export const UpdateRoleContract = defineCommand({
  */
 export const DeleteRoleContract = defineCommand({
   meta: {
-    name: 'identity.rbac.role.delete',
+    key: 'identity.rbac.role.delete',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -249,7 +249,7 @@ export const DeleteRoleContract = defineCommand({
  */
 export const ListRolesContract = defineQuery({
   meta: {
-    name: 'identity.rbac.role.list',
+    key: 'identity.rbac.role.list',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -272,7 +272,7 @@ export const ListRolesContract = defineQuery({
  */
 export const AssignRoleContract = defineCommand({
   meta: {
-    name: 'identity.rbac.assign',
+    key: 'identity.rbac.assign',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -305,7 +305,7 @@ export const AssignRoleContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'role.assigned',
+        key: 'role.assigned',
         version: 1,
         when: 'Role is assigned',
         payload: PolicyBindingModel,
@@ -320,7 +320,7 @@ export const AssignRoleContract = defineCommand({
  */
 export const RevokeRoleContract = defineCommand({
   meta: {
-    name: 'identity.rbac.revoke',
+    key: 'identity.rbac.revoke',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -347,7 +347,7 @@ export const RevokeRoleContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'role.revoked',
+        key: 'role.revoked',
         version: 1,
         when: 'Role is revoked',
         payload: BindingIdPayloadModel,
@@ -362,7 +362,7 @@ export const RevokeRoleContract = defineCommand({
  */
 export const CheckPermissionContract = defineQuery({
   meta: {
-    name: 'identity.rbac.check',
+    key: 'identity.rbac.check',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],
@@ -385,7 +385,7 @@ export const CheckPermissionContract = defineQuery({
  */
 export const ListUserPermissionsContract = defineQuery({
   meta: {
-    name: 'identity.rbac.permissions',
+    key: 'identity.rbac.permissions',
     version: 1,
     stability: 'stable',
     owners: ['platform.identity-rbac'],

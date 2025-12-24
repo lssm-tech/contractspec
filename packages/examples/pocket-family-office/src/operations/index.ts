@@ -60,7 +60,7 @@ export const uploadDocumentContract: OperationSpec<
   typeof UploadDocumentOutputModel
 > = {
   meta: {
-    name: 'pfo.documents.upload',
+    key: 'pfo.documents.upload',
     version: 1,
     kind: 'command',
     description:
@@ -123,7 +123,7 @@ export const schedulePaymentReminderContract: OperationSpec<
   typeof PaymentReminderOutputModel
 > = {
   meta: {
-    name: 'pfo.reminders.schedule-payment',
+    key: 'pfo.reminders.schedule-payment',
     version: 1,
     kind: 'command',
     description:
@@ -187,7 +187,7 @@ export const generateFinancialSummaryContract: OperationSpec<
   typeof FinancialSummaryOutputModel
 > = {
   meta: {
-    name: 'pfo.summary.generate',
+    key: 'pfo.summary.generate',
     version: 1,
     kind: 'query',
     description:
@@ -244,7 +244,7 @@ export const syncEmailThreadsContract: OperationSpec<
   typeof SyncEmailThreadsOutputModel
 > = {
   meta: {
-    name: 'pfo.email.sync-threads',
+    key: 'pfo.email.sync-threads',
     version: 1,
     kind: 'command',
     description:
@@ -303,7 +303,7 @@ export const dispatchFinancialSummaryContract: OperationSpec<
   typeof SummaryDispatchOutputModel
 > = {
   meta: {
-    name: 'pfo.summary.dispatch',
+    key: 'pfo.summary.dispatch',
     version: 1,
     kind: 'command',
     description:
@@ -366,7 +366,7 @@ export const generateOpenBankingOverviewContract: OperationSpec<
   typeof OpenBankingOverviewOutputModel
 > = {
   meta: {
-    name: 'pfo.openbanking.generate-overview',
+    key: 'pfo.openbanking.generate-overview',
     version: 1,
     kind: 'command',
     description:
@@ -387,7 +387,7 @@ export const generateOpenBankingOverviewContract: OperationSpec<
   telemetry: {
     success: {
       event: {
-        name: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
+        key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
         version: 1,
       },
     },

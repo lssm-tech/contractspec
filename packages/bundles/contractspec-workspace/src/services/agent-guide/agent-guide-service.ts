@@ -84,7 +84,7 @@ export class AgentGuideService {
     // Create a composite plan for the feature
     const firstOp = feature.operations?.[0];
     const spec = firstOp
-      ? deps.specs?.getSpec(firstOp.name, firstOp.version)
+      ? deps.specs?.getSpec(firstOp.key, firstOp.version)
       : undefined;
 
     // Generate base plan from first spec or create feature-level plan
@@ -96,7 +96,7 @@ export class AgentGuideService {
       // Override target to indicate it's a feature
       plan.target = {
         type: 'feature',
-        name: feature.meta.key,
+        key: feature.meta.key,
         version: 1,
       };
       plan.context.goal = feature.meta.description ?? plan.context.goal;
@@ -105,7 +105,7 @@ export class AgentGuideService {
       plan = {
         target: {
           type: 'feature',
-          name: feature.meta.key,
+          key: feature.meta.key,
           version: 1,
         },
         context: {
@@ -141,9 +141,9 @@ export class AgentGuideService {
     if (feature.operations?.length) {
       plan.steps = feature.operations.map((op, idx) => ({
         order: idx + 1,
-        title: `Implement ${op.name}`,
-        description: `Implement operation ${op.name}.v${op.version}`,
-        acceptanceCriteria: [`Operation ${op.name} works as specified`],
+        title: `Implement ${op.key}`,
+        description: `Implement operation ${op.key}.v${op.version}`,
+        acceptanceCriteria: [`Operation ${op.key} works as specified`],
       }));
     }
 

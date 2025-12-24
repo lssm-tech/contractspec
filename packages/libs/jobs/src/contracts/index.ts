@@ -163,7 +163,7 @@ const JobCancelledPayload = defineSchemaModel({
  */
 export const EnqueueJobContract = defineCommand({
   meta: {
-    name: 'jobs.enqueue',
+    key: 'jobs.enqueue',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -182,7 +182,7 @@ export const EnqueueJobContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'job.enqueued',
+        key: 'job.enqueued',
         version: 1,
         when: 'Job is enqueued',
         payload: JobEnqueuedPayload,
@@ -196,7 +196,7 @@ export const EnqueueJobContract = defineCommand({
  */
 export const GetJobContract = defineQuery({
   meta: {
-    name: 'jobs.get',
+    key: 'jobs.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -219,7 +219,7 @@ export const GetJobContract = defineQuery({
  */
 export const CancelJobContract = defineCommand({
   meta: {
-    name: 'jobs.cancel',
+    key: 'jobs.cancel',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -252,7 +252,7 @@ export const CancelJobContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'job.cancelled',
+        key: 'job.cancelled',
         version: 1,
         when: 'Job is cancelled',
         payload: JobCancelledPayload,
@@ -266,7 +266,7 @@ export const CancelJobContract = defineCommand({
  */
 export const GetQueueStatsContract = defineQuery({
   meta: {
-    name: 'jobs.stats',
+    key: 'jobs.stats',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -289,7 +289,7 @@ export const GetQueueStatsContract = defineQuery({
  */
 export const CreateScheduledJobContract = defineCommand({
   meta: {
-    name: 'jobs.schedule.create',
+    key: 'jobs.schedule.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -312,7 +312,7 @@ export const CreateScheduledJobContract = defineCommand({
  */
 export const ListScheduledJobsContract = defineQuery({
   meta: {
-    name: 'jobs.schedule.list',
+    key: 'jobs.schedule.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -335,7 +335,7 @@ export const ListScheduledJobsContract = defineQuery({
  */
 export const ToggleScheduledJobContract = defineCommand({
   meta: {
-    name: 'jobs.schedule.toggle',
+    key: 'jobs.schedule.toggle',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

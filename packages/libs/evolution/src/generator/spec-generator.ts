@@ -20,7 +20,7 @@ export interface SpecGeneratorOptions {
   config?: EvolutionConfig;
   logger?: Logger;
   clock?: () => Date;
-  getSpec?: (name: string, version?: number) => AnyContract | undefined;
+  getSpec?: (key: string, version?: number) => AnyContract | undefined;
 }
 
 export interface GenerateSpecOptions {
@@ -60,7 +60,7 @@ export class SpecGenerator {
     const now = this.clock();
     const summary =
       options.summary ??
-      `${this.intentToVerb(intent.type)} ${intent.operation?.name ?? 'operation'}`;
+      `${this.intentToVerb(intent.type)} ${intent.operation?.key ?? 'operation'}`;
     const rationale =
       options.rationale ??
       [
@@ -105,10 +105,10 @@ export class SpecGenerator {
     if (!this.getSpec) {
       throw new Error('SpecGenerator requires getSpec() to generate variants');
     }
-    const base = this.getSpec(operation.name, operation.version);
+    const base = this.getSpec(operation.key, operation.version);
     if (!base) {
       throw new Error(
-        `Cannot generate variant; spec ${operation.name}.v${operation.version} not found`
+        `Cannot generate variant; spec ${operation.key}.v${operation.version} not found`
       );
     }
     const merged = mergeContract(base, patch);
@@ -133,8 +133,8 @@ export class SpecGenerator {
         'Suggestion cannot be auto-approved when approval is required'
       );
     }
-    if (suggestion.proposal.spec && !suggestion.proposal.spec.meta?.name) {
-      reasons.push('Proposal spec must include meta.name');
+    if (suggestion.proposal.spec && !suggestion.proposal.spec.meta?.key) {
+      reasons.push('Proposal spec must include meta.key');
     }
     if (!suggestion.proposal.summary) {
       reasons.push('Proposal summary is required');

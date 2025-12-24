@@ -10,6 +10,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const MarketplaceFeature: FeatureModuleSpec = {
   meta: {
     key: 'marketplace',
+    version: 1,
     title: 'Multi-Vendor Marketplace',
     description:
       'Full-featured marketplace with stores, products, orders, payouts, and reviews',
@@ -21,133 +22,133 @@ export const MarketplaceFeature: FeatureModuleSpec = {
 
   operations: [
     // Store operations
-    { name: 'marketplace.store.create', version: 1 },
+    { key: 'marketplace.store.create', version: 1 },
 
     // Product operations
-    { name: 'marketplace.product.create', version: 1 },
-    { name: 'marketplace.product.list', version: 1 },
+    { key: 'marketplace.product.create', version: 1 },
+    { key: 'marketplace.product.list', version: 1 },
 
     // Order operations
-    { name: 'marketplace.order.create', version: 1 },
-    { name: 'marketplace.order.updateStatus', version: 1 },
+    { key: 'marketplace.order.create', version: 1 },
+    { key: 'marketplace.order.updateStatus', version: 1 },
 
     // Payout operations
-    { name: 'marketplace.payout.list', version: 1 },
+    { key: 'marketplace.payout.list', version: 1 },
 
     // Review operations
-    { name: 'marketplace.review.create', version: 1 },
-    { name: 'marketplace.review.list', version: 1 },
+    { key: 'marketplace.review.create', version: 1 },
+    { key: 'marketplace.review.list', version: 1 },
   ],
 
   events: [
     // Store events
-    { name: 'marketplace.store.created', version: 1 },
-    { name: 'marketplace.store.statusChanged', version: 1 },
+    { key: 'marketplace.store.created', version: 1 },
+    { key: 'marketplace.store.statusChanged', version: 1 },
 
     // Product events
-    { name: 'marketplace.product.created', version: 1 },
-    { name: 'marketplace.product.published', version: 1 },
-    { name: 'marketplace.inventory.updated', version: 1 },
+    { key: 'marketplace.product.created', version: 1 },
+    { key: 'marketplace.product.published', version: 1 },
+    { key: 'marketplace.inventory.updated', version: 1 },
 
     // Order events
-    { name: 'marketplace.order.created', version: 1 },
-    { name: 'marketplace.order.paid', version: 1 },
-    { name: 'marketplace.order.statusUpdated', version: 1 },
-    { name: 'marketplace.order.shipped', version: 1 },
-    { name: 'marketplace.order.completed', version: 1 },
+    { key: 'marketplace.order.created', version: 1 },
+    { key: 'marketplace.order.paid', version: 1 },
+    { key: 'marketplace.order.statusUpdated', version: 1 },
+    { key: 'marketplace.order.shipped', version: 1 },
+    { key: 'marketplace.order.completed', version: 1 },
 
     // Payout events
-    { name: 'marketplace.payout.created', version: 1 },
-    { name: 'marketplace.payout.paid', version: 1 },
+    { key: 'marketplace.payout.created', version: 1 },
+    { key: 'marketplace.payout.paid', version: 1 },
 
     // Review events
-    { name: 'marketplace.review.created', version: 1 },
-    { name: 'marketplace.review.responded', version: 1 },
+    { key: 'marketplace.review.created', version: 1 },
+    { key: 'marketplace.review.responded', version: 1 },
   ],
 
   presentations: [
     // Store
-    { name: 'marketplace.store.profile', version: 1 },
-    { name: 'marketplace.seller.dashboard', version: 1 },
+    { key: 'marketplace.store.profile', version: 1 },
+    { key: 'marketplace.seller.dashboard', version: 1 },
 
     // Product
-    { name: 'marketplace.product.catalog', version: 1 },
-    { name: 'marketplace.product.detail', version: 1 },
-    { name: 'marketplace.product.editor', version: 1 },
+    { key: 'marketplace.product.catalog', version: 1 },
+    { key: 'marketplace.product.detail', version: 1 },
+    { key: 'marketplace.product.editor', version: 1 },
 
     // Order
-    { name: 'marketplace.order.list', version: 1 },
-    { name: 'marketplace.order.detail', version: 1 },
-    { name: 'marketplace.checkout', version: 1 },
+    { key: 'marketplace.order.list', version: 1 },
+    { key: 'marketplace.order.detail', version: 1 },
+    { key: 'marketplace.checkout', version: 1 },
 
     // Payout
-    { name: 'marketplace.payout.list', version: 1 },
-    { name: 'marketplace.payout.detail', version: 1 },
+    { key: 'marketplace.payout.list', version: 1 },
+    { key: 'marketplace.payout.detail', version: 1 },
 
     // Review
-    { name: 'marketplace.review.list', version: 1 },
-    { name: 'marketplace.review.form', version: 1 },
+    { key: 'marketplace.review.list', version: 1 },
+    { key: 'marketplace.review.form', version: 1 },
   ],
 
   opToPresentation: [
     {
-      op: { name: 'marketplace.product.list', version: 1 },
-      pres: { name: 'marketplace.product.catalog', version: 1 },
+      op: { key: 'marketplace.product.list', version: 1 },
+      pres: { key: 'marketplace.product.catalog', version: 1 },
     },
     {
-      op: { name: 'marketplace.order.create', version: 1 },
-      pres: { name: 'marketplace.checkout', version: 1 },
+      op: { key: 'marketplace.order.create', version: 1 },
+      pres: { key: 'marketplace.checkout', version: 1 },
     },
     {
-      op: { name: 'marketplace.payout.list', version: 1 },
-      pres: { name: 'marketplace.payout.list', version: 1 },
+      op: { key: 'marketplace.payout.list', version: 1 },
+      pres: { key: 'marketplace.payout.list', version: 1 },
     },
     {
-      op: { name: 'marketplace.review.list', version: 1 },
-      pres: { name: 'marketplace.review.list', version: 1 },
+      op: { key: 'marketplace.review.list', version: 1 },
+      pres: { key: 'marketplace.review.list', version: 1 },
     },
     {
-      op: { name: 'marketplace.review.create', version: 1 },
-      pres: { name: 'marketplace.review.form', version: 1 },
+      op: { key: 'marketplace.review.create', version: 1 },
+      pres: { key: 'marketplace.review.form', version: 1 },
     },
   ],
 
   presentationsTargets: [
     {
-      name: 'marketplace.store.profile',
+      key: 'marketplace.store.profile',
       version: 1,
       targets: ['react', 'markdown'],
     },
-    { name: 'marketplace.seller.dashboard', version: 1, targets: ['react'] },
+    { key: 'marketplace.seller.dashboard', version: 1, targets: ['react'] },
     {
-      name: 'marketplace.product.catalog',
-      version: 1,
-      targets: ['react', 'markdown'],
-    },
-    {
-      name: 'marketplace.product.detail',
-      version: 1,
-      targets: ['react', 'markdown'],
-    },
-    { name: 'marketplace.product.editor', version: 1, targets: ['react'] },
-    {
-      name: 'marketplace.order.list',
+      key: 'marketplace.product.catalog',
       version: 1,
       targets: ['react', 'markdown'],
     },
     {
-      name: 'marketplace.order.detail',
+      key: 'marketplace.product.detail',
       version: 1,
       targets: ['react', 'markdown'],
     },
-    { name: 'marketplace.checkout', version: 1, targets: ['react'] },
+    { key: 'marketplace.product.editor', version: 1, targets: ['react'] },
     {
-      name: 'marketplace.payout.list',
+      key: 'marketplace.order.list',
       version: 1,
       targets: ['react', 'markdown'],
     },
     {
-      name: 'marketplace.review.list',
+      key: 'marketplace.order.detail',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    { key: 'marketplace.checkout', version: 1, targets: ['react'] },
+    {
+      key: 'marketplace.payout.list',
+      version: 1,
+      targets: ['react', 'markdown'],
+    },
+    {
+      key: 'marketplace.review.list',
       version: 1,
       targets: ['react', 'markdown'],
     },

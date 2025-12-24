@@ -9,7 +9,7 @@ import { StabilityEnum } from '@lssm/lib.contracts';
  */
 export const CrmDashboardPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.dashboard',
+    key: 'crm.dashboard',
     version: 1,
     title: 'CRM Dashboard',
     description:
@@ -35,7 +35,7 @@ export const CrmDashboardPresentation: PresentationSpec = {
  */
 export const PipelineMetricsPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.pipeline.metrics',
+    key: 'crm.pipeline.metrics',
     version: 1,
     title: 'Pipeline Metrics',
     description: 'Pipeline metrics and forecasting view',

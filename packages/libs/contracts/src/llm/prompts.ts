@@ -359,7 +359,7 @@ export function generateImplementationPlan(
       description: 'Emit events as specified',
       acceptanceCriteria: spec.sideEffects.emits.map((e) => {
         if ('ref' in e) {
-          return `Emit ${e.ref.meta.key}.v${e.ref.meta.version} when ${e.when}`;
+          return `Emit ${e.ref.key}.v${e.ref.version} when ${e.when}`;
         }
         return `Emit ${e.key}.v${e.version} when ${e.when}`;
       }),

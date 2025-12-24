@@ -13,7 +13,7 @@ const OPEN_BANKING_CAPABILITIES = [
 
 export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
   meta: {
-    name: 'pfo.workflow.generate-openbanking-overview',
+    key: 'pfo.workflow.generate-openbanking-overview',
     version: 1,
     title: 'Generate Open Banking Overview',
     description:
@@ -33,7 +33,7 @@ export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
         description:
           'Aggregate balances, cashflow, and category breakdowns into a knowledge entry.',
         action: {
-          operation: { name: 'pfo.openbanking.generate-overview', version: 1 },
+          operation: { key: 'pfo.openbanking.generate-overview', version: 1 },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: OPEN_BANKING_CAPABILITIES,

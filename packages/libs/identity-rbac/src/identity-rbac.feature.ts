@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const IdentityRbacFeature: FeatureModuleSpec = {
   meta: {
     key: 'identity-rbac',
+    version: 1,
     title: 'Identity & RBAC',
     description:
       'User identity, organization management, and role-based access control',
@@ -24,57 +25,57 @@ export const IdentityRbacFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // User operations
-    { name: 'identity.user.create', version: 1 },
-    { name: 'identity.user.update', version: 1 },
-    { name: 'identity.user.delete', version: 1 },
-    { name: 'identity.user.me', version: 1 },
-    { name: 'identity.user.list', version: 1 },
+    { key: 'identity.user.create', version: 1 },
+    { key: 'identity.user.update', version: 1 },
+    { key: 'identity.user.delete', version: 1 },
+    { key: 'identity.user.me', version: 1 },
+    { key: 'identity.user.list', version: 1 },
 
     // Organization operations
-    { name: 'identity.org.create', version: 1 },
-    { name: 'identity.org.update', version: 1 },
-    { name: 'identity.org.get', version: 1 },
-    { name: 'identity.org.list', version: 1 },
-    { name: 'identity.org.invite', version: 1 },
-    { name: 'identity.org.invite.accept', version: 1 },
-    { name: 'identity.org.member.remove', version: 1 },
-    { name: 'identity.org.members.list', version: 1 },
+    { key: 'identity.org.create', version: 1 },
+    { key: 'identity.org.update', version: 1 },
+    { key: 'identity.org.get', version: 1 },
+    { key: 'identity.org.list', version: 1 },
+    { key: 'identity.org.invite', version: 1 },
+    { key: 'identity.org.invite.accept', version: 1 },
+    { key: 'identity.org.member.remove', version: 1 },
+    { key: 'identity.org.members.list', version: 1 },
 
     // RBAC operations
-    { name: 'identity.rbac.role.create', version: 1 },
-    { name: 'identity.rbac.role.update', version: 1 },
-    { name: 'identity.rbac.role.delete', version: 1 },
-    { name: 'identity.rbac.role.list', version: 1 },
-    { name: 'identity.rbac.assign', version: 1 },
-    { name: 'identity.rbac.revoke', version: 1 },
-    { name: 'identity.rbac.check', version: 1 },
-    { name: 'identity.rbac.permissions', version: 1 },
+    { key: 'identity.rbac.role.create', version: 1 },
+    { key: 'identity.rbac.role.update', version: 1 },
+    { key: 'identity.rbac.role.delete', version: 1 },
+    { key: 'identity.rbac.role.list', version: 1 },
+    { key: 'identity.rbac.assign', version: 1 },
+    { key: 'identity.rbac.revoke', version: 1 },
+    { key: 'identity.rbac.check', version: 1 },
+    { key: 'identity.rbac.permissions', version: 1 },
   ],
 
   // Events emitted by this feature
   events: [
     // User events
-    { name: 'user.created', version: 1 },
-    { name: 'user.updated', version: 1 },
-    { name: 'user.deleted', version: 1 },
-    { name: 'user.email_verified', version: 1 },
+    { key: 'user.created', version: 1 },
+    { key: 'user.updated', version: 1 },
+    { key: 'user.deleted', version: 1 },
+    { key: 'user.email_verified', version: 1 },
 
     // Organization events
-    { name: 'org.created', version: 1 },
-    { name: 'org.updated', version: 1 },
-    { name: 'org.deleted', version: 1 },
-    { name: 'org.member.added', version: 1 },
-    { name: 'org.member.removed', version: 1 },
-    { name: 'org.member.role_changed', version: 1 },
+    { key: 'org.created', version: 1 },
+    { key: 'org.updated', version: 1 },
+    { key: 'org.deleted', version: 1 },
+    { key: 'org.member.added', version: 1 },
+    { key: 'org.member.removed', version: 1 },
+    { key: 'org.member.role_changed', version: 1 },
 
     // Invitation events
-    { name: 'org.invite.sent', version: 1 },
-    { name: 'org.invite.accepted', version: 1 },
-    { name: 'org.invite.declined', version: 1 },
+    { key: 'org.invite.sent', version: 1 },
+    { key: 'org.invite.accepted', version: 1 },
+    { key: 'org.invite.declined', version: 1 },
 
     // Role events
-    { name: 'role.assigned', version: 1 },
-    { name: 'role.revoked', version: 1 },
+    { key: 'role.assigned', version: 1 },
+    { key: 'role.revoked', version: 1 },
   ],
 
   // No presentations for this library feature

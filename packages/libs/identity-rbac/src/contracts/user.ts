@@ -99,7 +99,7 @@ export const ListUsersOutputModel = new SchemaModel({
  */
 export const CreateUserContract = defineCommand({
   meta: {
-    name: 'identity.user.create',
+    key: 'identity.user.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -126,7 +126,7 @@ export const CreateUserContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'user.created',
+        key: 'user.created',
         version: 1,
         when: 'User is successfully created',
         payload: UserProfileModel,
@@ -141,7 +141,7 @@ export const CreateUserContract = defineCommand({
  */
 export const GetCurrentUserContract = defineQuery({
   meta: {
-    name: 'identity.user.me',
+    key: 'identity.user.me',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -164,7 +164,7 @@ export const GetCurrentUserContract = defineQuery({
  */
 export const UpdateUserContract = defineCommand({
   meta: {
-    name: 'identity.user.update',
+    key: 'identity.user.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -183,7 +183,7 @@ export const UpdateUserContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'user.updated',
+        key: 'user.updated',
         version: 1,
         when: 'User profile is updated',
         payload: UserProfileModel,
@@ -198,7 +198,7 @@ export const UpdateUserContract = defineCommand({
  */
 export const DeleteUserContract = defineCommand({
   meta: {
-    name: 'identity.user.delete',
+    key: 'identity.user.delete',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -219,7 +219,7 @@ export const DeleteUserContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'user.deleted',
+        key: 'user.deleted',
         version: 1,
         when: 'User account is deleted',
         payload: UserDeletedPayloadModel,
@@ -234,7 +234,7 @@ export const DeleteUserContract = defineCommand({
  */
 export const ListUsersContract = defineQuery({
   meta: {
-    name: 'identity.user.list',
+    key: 'identity.user.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

@@ -18,7 +18,7 @@ import { LEARNING_JOURNEY_OWNERS } from './shared';
  */
 export const EnrollInCourseContract = defineCommand({
   meta: {
-    name: 'learning.enroll',
+    key: 'learning.enroll',
     version: 1,
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -55,7 +55,7 @@ export const EnrollInCourseContract = defineCommand({
  */
 export const CompleteLessonContract = defineCommand({
   meta: {
-    name: 'learning.completeLesson',
+    key: 'learning.completeLesson',
     version: 1,
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -92,7 +92,7 @@ export const CompleteLessonContract = defineCommand({
  */
 export const SubmitCardReviewContract = defineCommand({
   meta: {
-    name: 'learning.submitCardReview',
+    key: 'learning.submitCardReview',
     version: 1,
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -129,7 +129,7 @@ export const SubmitCardReviewContract = defineCommand({
  */
 export const GetDueCardsContract = defineQuery({
   meta: {
-    name: 'learning.getDueCards',
+    key: 'learning.getDueCards',
     version: 1,
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -152,7 +152,7 @@ export const GetDueCardsContract = defineQuery({
  */
 export const GetLearnerDashboardContract = defineQuery({
   meta: {
-    name: 'learning.getDashboard',
+    key: 'learning.getDashboard',
     version: 1,
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],

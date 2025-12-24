@@ -47,7 +47,7 @@ export function operationsToMarkdown(
       lines.push(`## Emits Events`);
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          lines.push(`- \`${e.ref.meta.key}.v${e.ref.meta.version}\` — ${e.when}`);
+          lines.push(`- \`${e.ref.key}.v${e.ref.version}\` — ${e.when}`);
         } else {
           lines.push(`- \`${e.key}.v${e.version}\` — ${e.when}`);
         }

@@ -206,7 +206,7 @@ export function operationSpecToFullMarkdown(
       lines.push('');
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          lines.push(`- \`${e.ref.meta.key}.v${e.ref.meta.version}\` — ${e.when}`);
+          lines.push(`- \`${e.ref.key}.v${e.ref.version}\` — ${e.when}`);
         } else {
           lines.push(`- \`${e.key}.v${e.version}\` — ${e.when}`);
         }
@@ -628,7 +628,8 @@ export function eventToMarkdown(event: EventSpec<AnySchemaModel>): string {
   lines.push('');
   lines.push(`- **Name:** ${event.meta.key}`);
   lines.push(`- **Version:** ${event.meta.version}`);
-  if (event.meta.description) lines.push(`- **Description:** ${event.meta.description}`);
+  if (event.meta.description)
+    lines.push(`- **Description:** ${event.meta.description}`);
   lines.push('');
 
   lines.push('## Payload Schema');

@@ -25,7 +25,7 @@ export class CursorCLIAdapter implements AgentAdapter {
     const lines: string[] = [];
 
     // Compact header
-    lines.push(`# ${plan.target.name}.v${plan.target.version}`);
+    lines.push(`# ${plan.target.key}.v${plan.target.version}`);
     lines.push('');
     lines.push(`> ${plan.context.goal}`);
     lines.push('');
@@ -95,14 +95,14 @@ export class CursorCLIAdapter implements AgentAdapter {
 
     // MDC frontmatter
     lines.push('---');
-    lines.push(`description: Implementation rules for ${m.name}.v${m.version}`);
-    lines.push(`globs: ["**/${m.name.replace(/\./g, '/')}/**"]`);
+    lines.push(`description: Implementation rules for ${m.key}.v${m.version}`);
+    lines.push(`globs: ["**/${m.key.replace(/\./g, '/')}/**"]`);
     lines.push('alwaysApply: false');
     lines.push('---');
     lines.push('');
 
     // Rule content
-    lines.push(`# ${m.name} Implementation Rules`);
+    lines.push(`# ${m.key} Implementation Rules`);
     lines.push('');
     lines.push(
       `This ${m.kind} operation must follow the ContractSpec specification.`
@@ -146,9 +146,9 @@ export class CursorCLIAdapter implements AgentAdapter {
       lines.push('');
       for (const e of spec.sideEffects.emits) {
         if ('ref' in e) {
-          lines.push(`- \`${e.ref.name}.v${e.ref.version}\`: ${e.when}`);
+          lines.push(`- \`${e.ref.key}.v${e.ref.version}\`: ${e.when}`);
         } else {
-          lines.push(`- \`${e.name}.v${e.version}\`: ${e.when}`);
+          lines.push(`- \`${e.key}.v${e.version}\`: ${e.when}`);
         }
       }
       lines.push('');
@@ -170,7 +170,7 @@ export class CursorCLIAdapter implements AgentAdapter {
       lines.push('## Acceptance Scenarios');
       lines.push('');
       for (const s of spec.acceptance.scenarios) {
-        lines.push(`### ${s.name}`);
+        lines.push(`### ${s.key}`);
         lines.push(`- Given: ${s.given.join('; ')}`);
         lines.push(`- When: ${s.when.join('; ')}`);
         lines.push(`- Then: ${s.then.join('; ')}`);

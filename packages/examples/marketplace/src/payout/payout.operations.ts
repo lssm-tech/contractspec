@@ -8,7 +8,7 @@ const OWNERS = ['@example.marketplace'] as const;
  */
 export const ListPayoutsContract = defineQuery({
   meta: {
-    name: 'marketplace.payout.list',
+    key: 'marketplace.payout.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

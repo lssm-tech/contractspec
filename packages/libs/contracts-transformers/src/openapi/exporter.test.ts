@@ -44,7 +44,8 @@ const TestOutput = new SchemaModel({
 // Test specs
 const testCommand = defineCommand({
   meta: {
-    name: 'test.create',
+    key: 'test.create',
+    title: 'Create Test',
     version: 1,
     description: 'Test create command',
     tags: ['test'],
@@ -64,7 +65,8 @@ const testCommand = defineCommand({
 
 const testQuery = defineQuery({
   meta: {
-    name: 'test.get',
+    key: 'test.get',
+    title: 'Get Test',
     version: 1,
     description: 'Test get query',
     tags: ['test'],
@@ -150,6 +152,7 @@ describe('OpenAPI Exporter', () => {
       const featuresRegistry = new FeatureRegistry().register({
         meta: {
           key: 'test-feature',
+          version: 1,
           title: 'Test Feature',
           description: 'Test feature',
           domain: 'test',
@@ -157,7 +160,7 @@ describe('OpenAPI Exporter', () => {
           tags: ['test'],
           stability: StabilityEnum.Stable,
         },
-        operations: [{ name: 'test.create', version: 1 }],
+        operations: [{ key: 'test.create', version: 1 }],
       });
 
       const result = exportContractSpec(
@@ -185,6 +188,7 @@ describe('OpenAPI Exporter', () => {
       const featuresRegistry = new FeatureRegistry().register({
         meta: {
           key: 'test-feature',
+          version: 1,
           title: 'Test Feature',
           description: 'Test feature',
           domain: 'test',

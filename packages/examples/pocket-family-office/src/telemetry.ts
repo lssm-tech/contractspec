@@ -52,7 +52,7 @@ function piiSafeString(description: string) {
 
 export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
   meta: {
-    name: 'pfo.telemetry',
+    key: 'pfo.telemetry',
     version: 1,
     title: 'Pocket Family Office Telemetry',
     description:
@@ -68,7 +68,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
   },
   events: [
     {
-      name: OPENBANKING_TELEMETRY_EVENTS.accountsSynced,
+      key: OPENBANKING_TELEMETRY_EVENTS.accountsSynced,
       version: 1,
       semantics: {
         what: 'Open banking account synchronisation completed.',
@@ -92,7 +92,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
       },
     },
     {
-      name: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced,
+      key: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced,
       version: 1,
       semantics: {
         what: 'Open banking transaction synchronisation completed.',
@@ -125,7 +125,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
       },
     },
     {
-      name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed,
+      key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed,
       version: 1,
       semantics: {
         what: 'Open banking balances refreshed.',
@@ -146,7 +146,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
       },
     },
     {
-      name: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
+      key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
       version: 1,
       semantics: {
         what: 'Derived financial overview generated.',

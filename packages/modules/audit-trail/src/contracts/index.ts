@@ -132,7 +132,7 @@ export const AuditStatsOutputModel = defineSchemaModel({
  */
 export const QueryAuditLogsContract = defineQuery({
   meta: {
-    name: 'audit.logs.query',
+    key: 'audit.logs.query',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -155,7 +155,7 @@ export const QueryAuditLogsContract = defineQuery({
  */
 export const GetAuditLogContract = defineQuery({
   meta: {
-    name: 'audit.logs.get',
+    key: 'audit.logs.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -183,7 +183,7 @@ export const GetAuditLogContract = defineQuery({
  */
 export const GetAuditTraceContract = defineQuery({
   meta: {
-    name: 'audit.trace.get',
+    key: 'audit.trace.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -216,7 +216,7 @@ export const GetAuditTraceContract = defineQuery({
  */
 export const ExportAuditLogsContract = defineCommand({
   meta: {
-    name: 'audit.logs.export',
+    key: 'audit.logs.export',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -239,7 +239,7 @@ export const ExportAuditLogsContract = defineCommand({
  */
 export const GetAuditStatsContract = defineQuery({
   meta: {
-    name: 'audit.stats',
+    key: 'audit.stats',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

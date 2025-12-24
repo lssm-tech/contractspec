@@ -4,7 +4,7 @@ import { OrderModel } from './order.schema';
 
 export const OrderListPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.order.list',
+    key: 'marketplace.order.list',
     version: 1,
     title: 'Order List',
     description: 'List of orders with status and tracking',
@@ -27,7 +27,7 @@ export const OrderListPresentation: PresentationSpec = {
 
 export const OrderDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.order.detail',
+    key: 'marketplace.order.detail',
     version: 1,
     title: 'Order Details',
     description: 'Order detail with items and shipping info',
@@ -50,7 +50,7 @@ export const OrderDetailPresentation: PresentationSpec = {
 
 export const CheckoutPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.checkout',
+    key: 'marketplace.checkout',
     version: 1,
     title: 'Checkout',
     description: 'Checkout flow with cart and payment',

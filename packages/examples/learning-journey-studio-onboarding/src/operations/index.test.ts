@@ -16,7 +16,7 @@ describe('studio onboarding contracts', () => {
   it('exposes track metadata', () => {
     expect(studioOnboardingContracts.track.id).toBe('studio_getting_started');
     expect(studioOnboardingContracts.track.steps.length).toBeGreaterThan(0);
-    expect(GetStudioOnboardingTrack.meta.name).toBe(
+    expect(GetStudioOnboardingTrack.meta.key).toBe(
       'learningJourney.studioOnboarding.getTrack'
     );
   });
@@ -42,7 +42,7 @@ describe('studio onboarding contracts', () => {
   });
 
   it('exposes record event contract', () => {
-    expect(RecordStudioOnboardingEvent.meta.name).toBe(
+    expect(RecordStudioOnboardingEvent.meta.key).toBe(
       'learningJourney.studioOnboarding.recordEvent'
     );
   });

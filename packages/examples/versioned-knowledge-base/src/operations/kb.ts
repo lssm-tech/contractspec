@@ -84,7 +84,8 @@ const SearchKbOutput = defineSchemaModel({
 
 export const KbIngestSourceContract = defineCommand({
   meta: {
-    name: 'kb.ingestSource',
+    key: 'kb.ingestSource',
+    title: 'Ingest Source',
     version: 1,
     stability: 'experimental',
     owners: ['@examples'],
@@ -102,7 +103,8 @@ export const KbIngestSourceContract = defineCommand({
 
 export const KbUpsertRuleVersionContract = defineCommand({
   meta: {
-    name: 'kb.upsertRuleVersion',
+    key: 'kb.upsertRuleVersion',
+    title: 'Upsert Rule Version',
     version: 1,
     stability: 'experimental',
     owners: ['@examples'],
@@ -134,7 +136,8 @@ export const KbUpsertRuleVersionContract = defineCommand({
 
 export const KbApproveRuleVersionContract = defineCommand({
   meta: {
-    name: 'kb.approveRuleVersion',
+    key: 'kb.approveRuleVersion',
+    title: 'Approve Rule Version',
     version: 1,
     stability: 'experimental',
     owners: ['@examples'],
@@ -152,7 +155,8 @@ export const KbApproveRuleVersionContract = defineCommand({
 
 export const KbPublishSnapshotContract = defineCommand({
   meta: {
-    name: 'kb.publishSnapshot',
+    key: 'kb.publishSnapshot',
+    title: 'Publish Snapshot',
     version: 1,
     stability: 'experimental',
     owners: ['@examples'],
@@ -179,7 +183,8 @@ export const KbPublishSnapshotContract = defineCommand({
 
 export const KbSearchContract = defineQuery({
   meta: {
-    name: 'kb.search',
+    key: 'kb.search',
+    title: 'Search KB',
     version: 1,
     stability: 'experimental',
     owners: ['@examples'],

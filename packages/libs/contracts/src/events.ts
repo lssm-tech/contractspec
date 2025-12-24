@@ -1,7 +1,7 @@
 import { type AnySchemaModel } from '@lssm/lib.schema';
-import type { OwnerShipMeta, Stability } from './ownership';
+import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
-
+import { filterBy, getUniqueTags, groupBy } from './registry-utils';
 
 export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
   /** Doc block(s) for this operation. */
@@ -19,6 +19,9 @@ export interface EventSpec<T extends AnySchemaModel> {
   /** Event payload schema from @lssm/lib.schema. */
   payload: T;
 }
+
+export type AnyEventSpec<T extends AnySchemaModel = AnySchemaModel> =
+  EventSpec<T>;
 
 /** Identity function to keep type inference when declaring events. */
 export function defineEvent<T extends AnySchemaModel>(
@@ -46,3 +49,70 @@ export type EventKey = `${string}.v${number}`;
 /** Build a stable string key for an event name/version pair. */
 export const eventKey = (name: string, version: number): EventKey =>
   `${name}.v${version}`;
+
+function keyOf(p: AnyEventSpec) {
+  return `${p.meta.key}.v${p.meta.version}`;
+}
+
+/** In-memory registry for EventSpec. */
+export class EventRegistry {
+  private items = new Map<string, AnyEventSpec>();
+
+  constructor(items?: AnyEventSpec[]) {
+    if (items) {
+      items.forEach((p) => this.register(p));
+    }
+  }
+
+  register(p: AnyEventSpec): this {
+    const key = keyOf(p);
+    if (this.items.has(key)) throw new Error(`Duplicate presentation ${key}`);
+    this.items.set(key, p);
+    return this;
+  }
+
+  list(): AnyEventSpec[] {
+    return [...this.items.values()];
+  }
+
+  get(name: string, version?: number): AnyEventSpec | undefined {
+    if (version != null) return this.items.get(`${name}.v${version}`);
+    let candidate: AnyEventSpec | undefined;
+    let max = -Infinity;
+    for (const [k, p] of this.items.entries()) {
+      if (!k.startsWith(`${name}.v`)) continue;
+      if (p.meta.version > max) {
+        max = p.meta.version;
+        candidate = p;
+      }
+    }
+    return candidate;
+  }
+
+  /** Filter presentations by criteria. */
+  filter(criteria: import('./registry-utils').RegistryFilter): AnyEventSpec[] {
+    return filterBy(this.list(), criteria);
+  }
+
+  /** List presentations with specific tag. */
+  listByTag(tag: string): AnyEventSpec[] {
+    return this.list().filter((p) => p.meta.tags?.includes(tag));
+  }
+
+  /** List presentations by owner. */
+  listByOwner(owner: string): AnyEventSpec[] {
+    return this.list().filter((p) => p.meta.owners?.includes(owner));
+  }
+
+  /** Group presentations by key function. */
+  groupBy(
+    keyFn: import('./registry-utils').GroupKeyFn<AnyEventSpec>
+  ): Map<string, AnyEventSpec[]> {
+    return groupBy(this.list(), keyFn);
+  }
+
+  /** Get unique tags from all presentations. */
+  getUniqueTags(): string[] {
+    return getUniqueTags(this.list());
+  }
+}

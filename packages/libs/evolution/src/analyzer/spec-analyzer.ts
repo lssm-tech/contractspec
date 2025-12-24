@@ -286,7 +286,7 @@ export class SpecAnalyzer {
   ) {
     const coordinate =
       'operation' in op ? (op.operation as OperationCoordinate) : op;
-    return `${coordinate.name}.v${coordinate.version}${
+    return `${coordinate.key}.v${coordinate.version}${
       coordinate.tenantId ? `@${coordinate.tenantId}` : ''
     }`;
   }

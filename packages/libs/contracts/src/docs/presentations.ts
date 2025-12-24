@@ -74,7 +74,7 @@ export function docBlockToPresentationSpec(
       domain: block.domain || '',
       stability,
       goal: `Documentation of: ${block.summary}`,
-      context: `Auto-generated`
+      context: `Auto-generated`,
     },
     policy:
       block.visibility && block.visibility !== 'public'

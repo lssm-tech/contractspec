@@ -1,4 +1,4 @@
-import type { DocId } from "./docs";
+import type { DocId } from './docs';
 
 // Canonical ownership/stability/tags enums and shared meta
 

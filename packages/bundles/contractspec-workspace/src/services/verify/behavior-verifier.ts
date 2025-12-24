@@ -18,7 +18,7 @@ import type { BehaviorCheck, VerifyInput } from './types';
  */
 function checkScenarioCoverage(
   code: string,
-  scenario: { name: string; given: string[]; when: string[]; then: string[] }
+  scenario: { key: string; given: string[]; when: string[]; then: string[] }
 ): BehaviorCheck {
   // Extract keywords from scenario
   const keywords = [
@@ -39,17 +39,17 @@ function checkScenarioCoverage(
     keywords.length > 0 ? foundKeywords.length / keywords.length : 0;
 
   // Also check for test patterns mentioning the scenario
-  const scenarioNameLower = scenario.name.toLowerCase().replace(/\s+/g, '');
+  const scenarioNameLower = scenario.key.toLowerCase().replace(/\s+/g, '');
   const hasTestForScenario =
     codeLower.includes(scenarioNameLower) ||
-    codeLower.includes(`test('${scenario.name.toLowerCase()}'`) ||
-    codeLower.includes(`it('${scenario.name.toLowerCase()}'`) ||
-    codeLower.includes(`describe('${scenario.name.toLowerCase()}'`);
+    codeLower.includes(`test('${scenario.key.toLowerCase()}'`) ||
+    codeLower.includes(`it('${scenario.key.toLowerCase()}'`) ||
+    codeLower.includes(`describe('${scenario.key.toLowerCase()}'`);
 
   const passed = coverage >= 0.3 || hasTestForScenario;
 
   return {
-    name: scenario.name,
+    name: scenario.key,
     type: 'scenario',
     passed,
     expected: `Given: ${scenario.given.join('; ')}; When: ${scenario.when.join('; ')}; Then: ${scenario.then.join('; ')}`,
@@ -64,7 +64,7 @@ function checkScenarioCoverage(
  */
 function checkExampleCoverage(
   code: string,
-  example: { name: string; input: unknown; output: unknown }
+  example: { key: string; input: unknown; output: unknown }
 ): BehaviorCheck {
   // Extract key values from example
   const inputStr = JSON.stringify(example.input);
@@ -93,7 +93,7 @@ function checkExampleCoverage(
   const passed = avgCoverage >= 0.2;
 
   return {
-    name: example.name,
+    name: example.key,
     type: 'example',
     passed,
     expected: `Input: ${inputStr.slice(0, 100)}...; Output: ${outputStr.slice(0, 100)}...`,
@@ -177,7 +177,7 @@ function checkEventConditions(
   const checks: BehaviorCheck[] = [];
 
   for (const event of events) {
-    const eventName = isEmitDeclRef(event) ? event.ref.name : event.name;
+    const eventName = isEmitDeclRef(event) ? event.ref.key : event.key;
     const when = event.when;
 
     // Check if event name appears near the condition keywords

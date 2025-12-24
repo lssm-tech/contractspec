@@ -16,8 +16,10 @@ const TaskCompletedPayload = defineSchemaModel({
 });
 
 export const TaskCompletedEvent = defineEvent({
-  name: 'task.completed',
-  version: 1,
-  description: 'A task has been completed.',
+  meta: {
+    key: 'task.completed',
+    version: 1,
+    description: 'A task has been completed.',
+  },
   payload: TaskCompletedPayload,
 });

@@ -9,7 +9,7 @@ const BALANCE_CAPABILITY = { key: 'openbanking.balances.read', version: 1 };
 
 export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
   meta: {
-    name: 'pfo.workflow.refresh-openbanking-balances',
+    key: 'pfo.workflow.refresh-openbanking-balances',
     version: 1,
     title: 'Refresh Open Banking Balances',
     description:
@@ -29,7 +29,7 @@ export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
         description:
           'Trigger the Powens provider to obtain current and available balances.',
         action: {
-          operation: { name: 'openbanking.balances.refresh', version: 1 },
+          operation: { key: 'openbanking.balances.refresh', version: 1 },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [BALANCE_CAPABILITY],
@@ -46,7 +46,7 @@ export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
         description:
           'Load the canonical balance snapshots for downstream workflows and dashboards.',
         action: {
-          operation: { name: 'openbanking.balances.get', version: 1 },
+          operation: { key: 'openbanking.balances.get', version: 1 },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [BALANCE_CAPABILITY],

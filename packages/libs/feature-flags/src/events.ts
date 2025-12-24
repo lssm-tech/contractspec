@@ -165,9 +165,14 @@ const VariantAssignedPayload = defineSchemaModel({
  * Emitted when a feature flag is created.
  */
 export const FlagCreatedEvent = defineEvent({
-  name: 'flag.created',
-  version: 1,
-  description: 'A feature flag has been created.',
+  meta: {
+    key: 'flag.created',
+    version: 1,
+    description: 'A feature flag has been created.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'create'],
+  },
   payload: FlagCreatedPayload,
 });
 
@@ -175,9 +180,14 @@ export const FlagCreatedEvent = defineEvent({
  * Emitted when a feature flag is updated.
  */
 export const FlagUpdatedEvent = defineEvent({
-  name: 'flag.updated',
-  version: 1,
-  description: 'A feature flag has been updated.',
+  meta: {
+    key: 'flag.updated',
+    version: 1,
+    description: 'A feature flag has been updated.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'update'],
+  },
   payload: FlagUpdatedPayload,
 });
 
@@ -185,9 +195,14 @@ export const FlagUpdatedEvent = defineEvent({
  * Emitted when a feature flag is deleted.
  */
 export const FlagDeletedEvent = defineEvent({
-  name: 'flag.deleted',
-  version: 1,
-  description: 'A feature flag has been deleted.',
+  meta: {
+    key: 'flag.deleted',
+    version: 1,
+    description: 'A feature flag has been deleted.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'delete'],
+  },
   payload: FlagDeletedPayload,
 });
 
@@ -195,9 +210,14 @@ export const FlagDeletedEvent = defineEvent({
  * Emitted when a feature flag status is toggled.
  */
 export const FlagToggledEvent = defineEvent({
-  name: 'flag.toggled',
-  version: 1,
-  description: 'A feature flag status has been toggled.',
+  meta: {
+    key: 'flag.toggled',
+    version: 1,
+    description: 'A feature flag status has been toggled.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'toggle'],
+  },
   payload: FlagToggledPayload,
 });
 
@@ -205,9 +225,14 @@ export const FlagToggledEvent = defineEvent({
  * Emitted when a targeting rule is created.
  */
 export const RuleCreatedEvent = defineEvent({
-  name: 'flag.rule_created',
-  version: 1,
-  description: 'A targeting rule has been created.',
+  meta: {
+    key: 'flag.rule_created',
+    version: 1,
+    description: 'A targeting rule has been created.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'rule', 'create'],
+  },
   payload: RuleCreatedPayload,
 });
 
@@ -215,9 +240,14 @@ export const RuleCreatedEvent = defineEvent({
  * Emitted when a targeting rule is deleted.
  */
 export const RuleDeletedEvent = defineEvent({
-  name: 'flag.rule_deleted',
-  version: 1,
-  description: 'A targeting rule has been deleted.',
+  meta: {
+    key: 'flag.rule_deleted',
+    version: 1,
+    description: 'A targeting rule has been deleted.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'rule', 'delete'],
+  },
   payload: RuleDeletedPayload,
 });
 
@@ -225,9 +255,14 @@ export const RuleDeletedEvent = defineEvent({
  * Emitted when an experiment is created.
  */
 export const ExperimentCreatedEvent = defineEvent({
-  name: 'experiment.created',
-  version: 1,
-  description: 'An experiment has been created.',
+  meta: {
+    key: 'experiment.created',
+    version: 1,
+    description: 'An experiment has been created.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'experiment', 'create'],
+  },
   payload: ExperimentCreatedPayload,
 });
 
@@ -235,9 +270,14 @@ export const ExperimentCreatedEvent = defineEvent({
  * Emitted when an experiment starts.
  */
 export const ExperimentStartedEvent = defineEvent({
-  name: 'experiment.started',
-  version: 1,
-  description: 'An experiment has started.',
+  meta: {
+    key: 'experiment.started',
+    version: 1,
+    description: 'An experiment has started.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'experiment', 'start'],
+  },
   payload: ExperimentStartedPayload,
 });
 
@@ -245,9 +285,14 @@ export const ExperimentStartedEvent = defineEvent({
  * Emitted when an experiment stops.
  */
 export const ExperimentStoppedEvent = defineEvent({
-  name: 'experiment.stopped',
-  version: 1,
-  description: 'An experiment has stopped.',
+  meta: {
+    key: 'experiment.stopped',
+    version: 1,
+    description: 'An experiment has stopped.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'experiment', 'stop'],
+  },
   payload: ExperimentStoppedPayload,
 });
 
@@ -255,9 +300,14 @@ export const ExperimentStoppedEvent = defineEvent({
  * Emitted when a flag is evaluated (for analytics).
  */
 export const FlagEvaluatedEvent = defineEvent({
-  name: 'flag.evaluated',
-  version: 1,
-  description: 'A feature flag has been evaluated.',
+  meta: {
+    key: 'flag.evaluated',
+    version: 1,
+    description: 'A feature flag has been evaluated.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'evaluate'],
+  },
   payload: FlagEvaluatedPayload,
 });
 
@@ -265,9 +315,14 @@ export const FlagEvaluatedEvent = defineEvent({
  * Emitted when a subject is assigned to an experiment variant.
  */
 export const VariantAssignedEvent = defineEvent({
-  name: 'experiment.variant_assigned',
-  version: 1,
-  description: 'A subject has been assigned to an experiment variant.',
+  meta: {
+    key: 'experiment.variant_assigned',
+    version: 1,
+    description: 'A subject has been assigned to an experiment variant.',
+    stability: 'stable',
+    owners: ['@platform.feature-flags'],
+    tags: ['feature-flags', 'experiment', 'variant'],
+  },
   payload: VariantAssignedPayload,
 });
 

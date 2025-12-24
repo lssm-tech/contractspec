@@ -10,7 +10,7 @@ import { DealModel } from '../deal/deal.schema';
  */
 export const PipelineKanbanPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.pipeline.kanban',
+    key: 'crm.pipeline.kanban',
     version: 1,
     title: 'Pipeline Kanban',
     description: 'Kanban board view of deals organized by stage',
@@ -36,7 +36,7 @@ export const PipelineKanbanPresentation: PresentationSpec = {
  */
 export const DealListPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.deal.list',
+    key: 'crm.deal.list',
     version: 1,
     title: 'Deal List',
     description: 'List view of deals with value, status, and owner info',
@@ -62,7 +62,7 @@ export const DealListPresentation: PresentationSpec = {
  */
 export const DealDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.deal.detail',
+    key: 'crm.deal.detail',
     version: 1,
     title: 'Deal Details',
     description:
@@ -88,7 +88,7 @@ export const DealDetailPresentation: PresentationSpec = {
  */
 export const DealCardPresentation: PresentationSpec = {
   meta: {
-    name: 'crm.deal.card',
+    key: 'crm.deal.card',
     version: 1,
     title: 'Deal Card',
     description: 'Compact deal card for kanban board display',

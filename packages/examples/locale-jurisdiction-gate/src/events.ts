@@ -14,9 +14,14 @@ const AssistantAnswerRequestedPayload = defineSchemaModel({
 });
 
 export const AssistantAnswerRequestedEvent = defineEvent({
-  name: 'assistant.answer.requested',
-  version: 1,
-  description: 'Assistant answer requested (policy gate will run).',
+  meta: {
+    key: 'assistant.answer.requested',
+    version: 1,
+    description: 'Assistant answer requested (policy gate will run).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['assistant', 'policy'],
+  },
   payload: AssistantAnswerRequestedPayload,
 });
 
@@ -31,9 +36,14 @@ const AssistantAnswerBlockedPayload = defineSchemaModel({
 });
 
 export const AssistantAnswerBlockedEvent = defineEvent({
-  name: 'assistant.answer.blocked',
-  version: 1,
-  description: 'Assistant answer blocked (fail-closed).',
+  meta: {
+    key: 'assistant.answer.blocked',
+    version: 1,
+    description: 'Assistant answer blocked (fail-closed).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['assistant', 'policy', 'blocked'],
+  },
   payload: AssistantAnswerBlockedPayload,
 });
 
@@ -51,9 +61,14 @@ const AssistantAnswerDeliveredPayload = defineSchemaModel({
 });
 
 export const AssistantAnswerDeliveredEvent = defineEvent({
-  name: 'assistant.answer.delivered',
-  version: 1,
-  description:
-    'Assistant answer delivered (must include KB snapshot citations).',
+  meta: {
+    key: 'assistant.answer.delivered',
+    version: 1,
+    description:
+      'Assistant answer delivered (must include KB snapshot citations).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['assistant', 'policy', 'delivered'],
+  },
   payload: AssistantAnswerDeliveredPayload,
 });

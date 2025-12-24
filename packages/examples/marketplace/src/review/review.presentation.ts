@@ -4,7 +4,7 @@ import { ReviewModel } from './review.schema';
 
 export const ReviewListPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.review.list',
+    key: 'marketplace.review.list',
     version: 1,
     title: 'Review List',
     description: 'List of product reviews',
@@ -27,7 +27,7 @@ export const ReviewListPresentation: PresentationSpec = {
 
 export const ReviewFormPresentation: PresentationSpec = {
   meta: {
-    name: 'marketplace.review.form',
+    key: 'marketplace.review.form',
     version: 1,
     title: 'Review Form',
     description: 'Form for submitting product reviews',

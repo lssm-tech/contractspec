@@ -34,7 +34,9 @@ export async function answerWithKnowledge(
     return 'No knowledge space available for this request.';
   }
 
-  const summaries = bindings.map(({ space }) => `• ${space.meta.title || space.meta.description}`);
+  const summaries = bindings.map(
+    ({ space }) => `• ${space.meta.title || space.meta.description}`
+  );
   return [
     `Q: ${question}`,
     'Routed to knowledge spaces:',

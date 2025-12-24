@@ -201,9 +201,14 @@ const RoleRevokedPayload = new SchemaModel({
  * Emitted when a new user is created.
  */
 export const UserCreatedEvent = defineEvent({
-  name: 'user.created',
-  version: 1,
-  description: 'A new user has been created.',
+  meta: {
+    key: 'user.created',
+    version: 1,
+    description: 'A new user has been created.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['user', 'created', 'identity'],
+  },
   payload: UserCreatedPayload,
 });
 
@@ -211,9 +216,14 @@ export const UserCreatedEvent = defineEvent({
  * Emitted when a user profile is updated.
  */
 export const UserUpdatedEvent = defineEvent({
-  name: 'user.updated',
-  version: 1,
-  description: 'A user profile has been updated.',
+  meta: {
+    key: 'user.updated',
+    version: 1,
+    description: 'A user profile has been updated.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['user', 'updated', 'identity'],
+  },
   payload: UserUpdatedPayload,
 });
 
@@ -221,9 +231,14 @@ export const UserUpdatedEvent = defineEvent({
  * Emitted when a user is deleted.
  */
 export const UserDeletedEvent = defineEvent({
-  name: 'user.deleted',
-  version: 1,
-  description: 'A user account has been deleted.',
+  meta: {
+    key: 'user.deleted',
+    version: 1,
+    description: 'A user account has been deleted.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['user', 'deleted', 'identity'],
+  },
   pii: ['email'],
   payload: UserDeletedPayload,
 });
@@ -232,9 +247,14 @@ export const UserDeletedEvent = defineEvent({
  * Emitted when a user's email is verified.
  */
 export const UserEmailVerifiedEvent = defineEvent({
-  name: 'user.email_verified',
-  version: 1,
-  description: 'A user has verified their email address.',
+  meta: {
+    key: 'user.email_verified',
+    version: 1,
+    description: 'A user has verified their email address.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['user', 'verified', 'identity'],
+  },
   payload: UserEmailVerifiedPayload,
 });
 
@@ -244,9 +264,14 @@ export const UserEmailVerifiedEvent = defineEvent({
  * Emitted when a new organization is created.
  */
 export const OrgCreatedEvent = defineEvent({
-  name: 'org.created',
-  version: 1,
-  description: 'A new organization has been created.',
+  meta: {
+    key: 'org.created',
+    version: 1,
+    description: 'A new organization has been created.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'created', 'identity'],
+  },
   payload: OrgCreatedPayload,
 });
 
@@ -254,9 +279,14 @@ export const OrgCreatedEvent = defineEvent({
  * Emitted when an organization is updated.
  */
 export const OrgUpdatedEvent = defineEvent({
-  name: 'org.updated',
-  version: 1,
-  description: 'An organization has been updated.',
+  meta: {
+    key: 'org.updated',
+    version: 1,
+    description: 'An organization has been updated.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'updated', 'identity'],
+  },
   payload: OrgUpdatedPayload,
 });
 
@@ -264,9 +294,14 @@ export const OrgUpdatedEvent = defineEvent({
  * Emitted when an organization is deleted.
  */
 export const OrgDeletedEvent = defineEvent({
-  name: 'org.deleted',
-  version: 1,
-  description: 'An organization has been deleted.',
+  meta: {
+    key: 'org.deleted',
+    version: 1,
+    description: 'An organization has been deleted.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'deleted', 'identity'],
+  },
   payload: OrgDeletedPayload,
 });
 
@@ -276,9 +311,14 @@ export const OrgDeletedEvent = defineEvent({
  * Emitted when a member joins an organization.
  */
 export const OrgMemberAddedEvent = defineEvent({
-  name: 'org.member.added',
-  version: 1,
-  description: 'A user has joined an organization.',
+  meta: {
+    key: 'org.member.added',
+    version: 1,
+    description: 'A user has joined an organization.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'member', 'added', 'identity'],
+  },
   payload: OrgMemberAddedPayload,
 });
 
@@ -286,9 +326,14 @@ export const OrgMemberAddedEvent = defineEvent({
  * Emitted when a member leaves or is removed from an organization.
  */
 export const OrgMemberRemovedEvent = defineEvent({
-  name: 'org.member.removed',
-  version: 1,
-  description: 'A user has left or been removed from an organization.',
+  meta: {
+    key: 'org.member.removed',
+    version: 1,
+    description: 'A user has left or been removed from an organization.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'member', 'removed', 'identity'],
+  },
   payload: OrgMemberRemovedPayload,
 });
 
@@ -296,9 +341,14 @@ export const OrgMemberRemovedEvent = defineEvent({
  * Emitted when a member's role is changed.
  */
 export const OrgMemberRoleChangedEvent = defineEvent({
-  name: 'org.member.role_changed',
-  version: 1,
-  description: "A member's role in an organization has changed.",
+  meta: {
+    key: 'org.member.role_changed',
+    version: 1,
+    description: "A member's role in an organization has changed.",
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'member', 'role', 'changed', 'identity'],
+  },
   payload: OrgMemberRoleChangedPayload,
 });
 
@@ -308,9 +358,14 @@ export const OrgMemberRoleChangedEvent = defineEvent({
  * Emitted when an invitation is sent.
  */
 export const OrgInviteSentEvent = defineEvent({
-  name: 'org.invite.sent',
-  version: 1,
-  description: 'An invitation to join an organization has been sent.',
+  meta: {
+    key: 'org.invite.sent',
+    version: 1,
+    description: 'An invitation to join an organization has been sent.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'invite', 'sent', 'identity'],
+  },
   pii: ['email'],
   payload: OrgInviteSentPayload,
 });
@@ -319,9 +374,14 @@ export const OrgInviteSentEvent = defineEvent({
  * Emitted when an invitation is accepted.
  */
 export const OrgInviteAcceptedEvent = defineEvent({
-  name: 'org.invite.accepted',
-  version: 1,
-  description: 'An invitation has been accepted.',
+  meta: {
+    key: 'org.invite.accepted',
+    version: 1,
+    description: 'An invitation has been accepted.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'invite', 'accepted', 'identity'],
+  },
   payload: OrgInviteAcceptedPayload,
 });
 
@@ -329,9 +389,14 @@ export const OrgInviteAcceptedEvent = defineEvent({
  * Emitted when an invitation is declined.
  */
 export const OrgInviteDeclinedEvent = defineEvent({
-  name: 'org.invite.declined',
-  version: 1,
-  description: 'An invitation has been declined.',
+  meta: {
+    key: 'org.invite.declined',
+    version: 1,
+    description: 'An invitation has been declined.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['org', 'invite', 'declined', 'identity'],
+  },
   payload: OrgInviteDeclinedPayload,
 });
 
@@ -341,9 +406,14 @@ export const OrgInviteDeclinedEvent = defineEvent({
  * Emitted when a role is assigned to a user or organization.
  */
 export const RoleAssignedEvent = defineEvent({
-  name: 'role.assigned',
-  version: 1,
-  description: 'A role has been assigned.',
+  meta: {
+    key: 'role.assigned',
+    version: 1,
+    description: 'A role has been assigned.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['role', 'assigned', 'identity'],
+  },
   payload: RoleAssignedPayload,
 });
 
@@ -351,9 +421,14 @@ export const RoleAssignedEvent = defineEvent({
  * Emitted when a role is revoked from a user or organization.
  */
 export const RoleRevokedEvent = defineEvent({
-  name: 'role.revoked',
-  version: 1,
-  description: 'A role has been revoked.',
+  meta: {
+    key: 'role.revoked',
+    version: 1,
+    description: 'A role has been revoked.',
+    stability: 'stable',
+    owners: ['@platform.identity-rbac'],
+    tags: ['role', 'revoked', 'identity'],
+  },
   payload: RoleRevokedPayload,
 });
 

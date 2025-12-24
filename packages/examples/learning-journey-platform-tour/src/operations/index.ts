@@ -76,7 +76,7 @@ const SuccessModel = defineSchemaModel({
 
 export const GetPlatformTourTrack = defineQuery({
   meta: {
-    name: 'learningJourney.platformTour.getTrack',
+    key: 'learningJourney.platformTour.getTrack',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],
@@ -98,7 +98,7 @@ export const GetPlatformTourTrack = defineQuery({
 
 export const RecordPlatformTourEvent = defineCommand({
   meta: {
-    name: 'learningJourney.platformTour.recordEvent',
+    key: 'learningJourney.platformTour.recordEvent',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],

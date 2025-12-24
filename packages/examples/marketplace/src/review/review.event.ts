@@ -25,15 +25,19 @@ const ReviewRespondedPayload = defineSchemaModel({
 });
 
 export const ReviewCreatedEvent = defineEvent({
-  name: 'marketplace.review.created',
-  version: 1,
-  description: 'A review has been created.',
+  meta: {
+    key: 'marketplace.review.created',
+    version: 1,
+    description: 'A review has been created.',
+  },
   payload: ReviewCreatedPayload,
 });
 
 export const ReviewRespondedEvent = defineEvent({
-  name: 'marketplace.review.responded',
-  version: 1,
-  description: 'A seller has responded to a review.',
+  meta: {
+    key: 'marketplace.review.responded',
+    version: 1,
+    description: 'A seller has responded to a review.',
+  },
   payload: ReviewRespondedPayload,
 });

@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
   meta: {
     key: 'learning-journey-platform-tour',
+    version: 1,
     title: 'Learning Journey: Platform Tour',
     description:
       'Platform primitives tour journey for exploring ContractSpec core features',
@@ -23,8 +24,8 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { name: 'learningJourney.platformTour.recordEvent', version: 1 },
-    { name: 'learningJourney.platformTour.getTrack', version: 1 },
+    { key: 'learningJourney.platformTour.recordEvent', version: 1 },
+    { key: 'learningJourney.platformTour.getTrack', version: 1 },
   ],
 
   // Events emitted by this feature
@@ -32,27 +33,27 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { name: 'learning.journey.platform.track', version: 1 },
-    { name: 'learning.journey.platform.widget', version: 1 },
+    { key: 'learning.journey.platform.track', version: 1 },
+    { key: 'learning.journey.platform.widget', version: 1 },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { name: 'learningJourney.platformTour.getTrack', version: 1 },
-      pres: { name: 'learning.journey.platform.track', version: 1 },
+      op: { key: 'learningJourney.platformTour.getTrack', version: 1 },
+      pres: { key: 'learning.journey.platform.track', version: 1 },
     },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      name: 'learning.journey.platform.track',
+      key: 'learning.journey.platform.track',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'learning.journey.platform.widget',
+      key: 'learning.journey.platform.widget',
       version: 1,
       targets: ['react'],
     },

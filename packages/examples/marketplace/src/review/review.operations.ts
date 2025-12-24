@@ -13,7 +13,7 @@ const OWNERS = ['@example.marketplace'] as const;
  */
 export const CreateReviewContract = defineCommand({
   meta: {
-    name: 'marketplace.review.create',
+    key: 'marketplace.review.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

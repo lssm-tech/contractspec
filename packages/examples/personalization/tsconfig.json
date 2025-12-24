@@ -3,8 +3,14 @@
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@lssm/lib.personalization/*": ["../../libs/personalization/src/*"],
+      "@lssm/lib.contracts/*": ["../../libs/contracts/src/*"],
+      "@lssm/lib.contracts": ["../../libs/contracts/src/index.ts"],
+      "@lssm/lib.overlay-engine/*": ["../../libs/overlay-engine/src/*"],
+      "@lssm/lib.overlay-engine": ["../../libs/overlay-engine/src/index.ts"]
+    }
   }
 }
 

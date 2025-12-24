@@ -3,10 +3,18 @@
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@lssm/lib.ai-agent": ["../../libs/ai-agent/src/index.ts"],
+      "@lssm/lib.ai-agent/*": ["../../libs/ai-agent/src/*"],
+      "@lssm/lib.contracts": ["../../libs/contracts/src/index.ts"],
+      "@lssm/lib.contracts/*": ["../../libs/contracts/src/*"],
+      "@lssm/lib.schema": ["../../libs/schema/src/index.ts"],
+      "@lssm/lib.schema/*": ["../../libs/schema/src/*"]
+    }
   }
 }
+
 
 
 

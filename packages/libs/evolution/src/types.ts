@@ -10,7 +10,7 @@ export type AnomalySeverity = 'low' | 'medium' | 'high';
 export type SuggestionStatus = 'pending' | 'approved' | 'rejected';
 
 export interface OperationCoordinate {
-  name: string;
+  key: string;
   version: number;
   tenantId?: string;
 }
@@ -126,7 +126,7 @@ export interface EvolutionConfig {
 
 export interface SpecSuggestionFilters {
   status?: SuggestionStatus;
-  operationName?: string;
+  operationKey?: string;
 }
 
 export interface SpecSuggestionRepository {

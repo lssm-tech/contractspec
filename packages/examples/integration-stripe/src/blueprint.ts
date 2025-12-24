@@ -7,7 +7,7 @@ import {
 
 export const artisanStripeBlueprint: AppBlueprintSpec = {
   meta: {
-    name: 'artisan.payments.stripe',
+    key: 'artisan.payments.stripe',
     version: 1,
     appId: 'artisan',
     title: 'ArtisanOS Stripe Payments',
@@ -47,13 +47,13 @@ export const artisanStripeBlueprint: AppBlueprintSpec = {
     },
   },
   translationCatalog: {
-    name: 'artisan.payments.catalog',
+    key: 'artisan.payments.catalog',
     version: 1,
   },
   workflows: {
-    collectPayment: { name: 'artisan.payments.collectPayment', version: 1 },
+    collectPayment: { key: 'artisan.payments.collectPayment', version: 1 },
   },
-  policies: [{ name: 'artisan.payments.default', version: 1 }],
+  policies: [{ key: 'artisan.payments.default', version: 1 }],
   notes:
     'Install this blueprint and pair it with the Stripe integration connection to enable card collection.',
 };

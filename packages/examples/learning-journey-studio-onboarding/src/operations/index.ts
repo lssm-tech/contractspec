@@ -76,7 +76,7 @@ const SuccessModel = defineSchemaModel({
 
 export const GetStudioOnboardingTrack = defineQuery({
   meta: {
-    name: 'learningJourney.studioOnboarding.getTrack',
+    key: 'learningJourney.studioOnboarding.getTrack',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],
@@ -98,7 +98,7 @@ export const GetStudioOnboardingTrack = defineQuery({
 
 export const RecordStudioOnboardingEvent = defineCommand({
   meta: {
-    name: 'learningJourney.studioOnboarding.recordEvent',
+    key: 'learningJourney.studioOnboarding.recordEvent',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],

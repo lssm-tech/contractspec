@@ -1,16 +1,19 @@
+import { StabilityEnum } from '@lssm/lib.contracts';
 import type { PresentationSpec } from '@lssm/lib.contracts';
 import { ChangeCandidateModel, ReviewTaskModel } from './entities/models';
 
 export const KbDashboardPresentation: PresentationSpec = {
   meta: {
-    name: 'kb.dashboard',
+    key: 'kb.dashboard',
     version: 1,
     title: 'KB Update Dashboard',
     description: 'Overview of KB change candidates and review tasks.',
     domain: 'knowledge',
     owners: ['@examples'],
     tags: ['dashboard', 'knowledge'],
-    stability: 'experimental',
+    stability: StabilityEnum.Experimental,
+    goal: 'Visualize status',
+    context: 'Dashboard',
   },
   source: {
     type: 'component',
@@ -23,14 +26,16 @@ export const KbDashboardPresentation: PresentationSpec = {
 
 export const KbReviewListPresentation: PresentationSpec = {
   meta: {
-    name: 'kb.review.list',
+    key: 'kb.review.list',
     version: 1,
     title: 'Review Tasks',
     description: 'List of pending review tasks for the current user.',
     domain: 'knowledge',
     owners: ['@examples'],
     tags: ['list', 'review'],
-    stability: 'experimental',
+    stability: StabilityEnum.Experimental,
+    goal: 'List tasks',
+    context: 'Inbox',
   },
   source: {
     type: 'component',
@@ -43,14 +48,16 @@ export const KbReviewListPresentation: PresentationSpec = {
 
 export const KbReviewFormPresentation: PresentationSpec = {
   meta: {
-    name: 'kb.review.form',
+    key: 'kb.review.form',
     version: 1,
     title: 'Review Change',
     description: 'Form to approve or reject a KB change candidate.',
     domain: 'knowledge',
     owners: ['@examples'],
     tags: ['form', 'review'],
-    stability: 'experimental',
+    stability: StabilityEnum.Experimental,
+    goal: 'Review',
+    context: 'Detail',
   },
   source: {
     type: 'component',

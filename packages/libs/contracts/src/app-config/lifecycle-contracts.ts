@@ -93,7 +93,7 @@ export const CreateTenantConfigDraftCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        ref: ConfigDraftCreatedEvent,
+        ref: ConfigDraftCreatedEvent.meta,
         when: 'after successful draft creation',
       },
     ],
@@ -143,7 +143,7 @@ export const PromoteTenantConfigToPreviewCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        ref: ConfigPromotedToPreviewEvent,
+        ref: ConfigPromotedToPreviewEvent.meta,
         when: 'after promotion to preview',
       },
     ],
@@ -195,7 +195,7 @@ export const PublishTenantConfigCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        ref: ConfigPublishedEvent,
+        ref: ConfigPublishedEvent.meta,
         when: 'after publish succeeds',
       },
     ],
@@ -243,7 +243,7 @@ export const RollbackTenantConfigCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        ref: ConfigRolledBackEvent,
+        ref: ConfigRolledBackEvent.meta,
         when: 'after rollback completes',
       },
     ],

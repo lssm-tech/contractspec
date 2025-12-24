@@ -24,61 +24,61 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // Deal operations
-    { name: 'crm.deal.create', version: 1 },
-    { name: 'crm.deal.move', version: 1 },
-    { name: 'crm.deal.win', version: 1 },
-    { name: 'crm.deal.lose', version: 1 },
-    { name: 'crm.deal.list', version: 1 },
+    { key: 'crm.deal.create', version: 1 },
+    { key: 'crm.deal.move', version: 1 },
+    { key: 'crm.deal.win', version: 1 },
+    { key: 'crm.deal.lose', version: 1 },
+    { key: 'crm.deal.list', version: 1 },
   ],
 
   // Events emitted by this feature
   events: [
     // Deal events
-    { name: 'deal.created', version: 1 },
-    { name: 'deal.moved', version: 1 },
-    { name: 'deal.won', version: 1 },
-    { name: 'deal.lost', version: 1 },
+    { key: 'deal.created', version: 1 },
+    { key: 'deal.moved', version: 1 },
+    { key: 'deal.won', version: 1 },
+    { key: 'deal.lost', version: 1 },
 
     // Contact events
-    { name: 'contact.created', version: 1 },
+    { key: 'contact.created', version: 1 },
 
     // Task events
-    { name: 'task.completed', version: 1 },
+    { key: 'task.completed', version: 1 },
   ],
 
   // Presentations associated with this feature
   presentations: [
-    { name: 'crm.dashboard', version: 1 },
-    { name: 'crm.pipeline.kanban', version: 1 },
-    { name: 'crm.deal.list', version: 1 },
-    { name: 'crm.deal.detail', version: 1 },
-    { name: 'crm.deal.card', version: 1 },
-    { name: 'crm.pipeline.metrics', version: 1 },
+    { key: 'crm.dashboard', version: 1 },
+    { key: 'crm.pipeline.kanban', version: 1 },
+    { key: 'crm.deal.list', version: 1 },
+    { key: 'crm.deal.detail', version: 1 },
+    { key: 'crm.deal.card', version: 1 },
+    { key: 'crm.pipeline.metrics', version: 1 },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { name: 'crm.deal.list', version: 1 },
-      pres: { name: 'crm.pipeline.kanban', version: 1 },
+      op: { key: 'crm.deal.list', version: 1 },
+      pres: { key: 'crm.pipeline.kanban', version: 1 },
     },
     {
-      op: { name: 'crm.deal.move', version: 1 },
-      pres: { name: 'crm.pipeline.kanban', version: 1 },
+      op: { key: 'crm.deal.move', version: 1 },
+      pres: { key: 'crm.pipeline.kanban', version: 1 },
     },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
-    { name: 'crm.dashboard', version: 1, targets: ['react', 'markdown'] },
-    { name: 'crm.pipeline.kanban', version: 1, targets: ['react', 'markdown'] },
+    { key: 'crm.dashboard', version: 1, targets: ['react', 'markdown'] },
+    { key: 'crm.pipeline.kanban', version: 1, targets: ['react', 'markdown'] },
     {
-      name: 'crm.deal.list',
+      key: 'crm.deal.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'crm.pipeline.metrics',
+      key: 'crm.pipeline.metrics',
       version: 1,
       targets: ['react', 'markdown'],
     },

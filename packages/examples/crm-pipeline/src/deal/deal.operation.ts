@@ -19,7 +19,7 @@ const OWNERS = ['@example.crm-pipeline'] as const;
  */
 export const CreateDealContract = defineCommand({
   meta: {
-    name: 'crm.deal.create',
+    key: 'crm.deal.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -38,7 +38,7 @@ export const CreateDealContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'deal.created',
+        key: 'deal.created',
         version: 1,
         when: 'Deal is created',
         payload: DealModel,
@@ -53,7 +53,7 @@ export const CreateDealContract = defineCommand({
  */
 export const MoveDealContract = defineCommand({
   meta: {
-    name: 'crm.deal.move',
+    key: 'crm.deal.move',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -72,7 +72,7 @@ export const MoveDealContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'deal.moved',
+        key: 'deal.moved',
         version: 1,
         when: 'Deal stage changed',
         payload: DealMovedPayloadModel,
@@ -87,7 +87,7 @@ export const MoveDealContract = defineCommand({
  */
 export const WinDealContract = defineCommand({
   meta: {
-    name: 'crm.deal.win',
+    key: 'crm.deal.win',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -106,7 +106,7 @@ export const WinDealContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'deal.won',
+        key: 'deal.won',
         version: 1,
         when: 'Deal is won',
         payload: DealWonPayloadModel,
@@ -121,7 +121,7 @@ export const WinDealContract = defineCommand({
  */
 export const LoseDealContract = defineCommand({
   meta: {
-    name: 'crm.deal.lose',
+    key: 'crm.deal.lose',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -140,7 +140,7 @@ export const LoseDealContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'deal.lost',
+        key: 'deal.lost',
         version: 1,
         when: 'Deal is lost',
         payload: DealLostPayloadModel,
@@ -155,7 +155,7 @@ export const LoseDealContract = defineCommand({
  */
 export const ListDealsContract = defineQuery({
   meta: {
-    name: 'crm.deal.list',
+    key: 'crm.deal.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

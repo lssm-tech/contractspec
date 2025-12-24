@@ -171,8 +171,8 @@ export function makeAuditablePublisher<T extends AnySchemaModel>(
     const envelope: AuditableEventEnvelope<T> = {
       id: crypto.randomUUID(),
       occurredAt: new Date().toISOString(),
-      name: spec.name,
-      version: spec.version,
+      name: spec.meta.key,
+      version: spec.meta.version,
       payload,
       traceId: options?.traceId,
       metadata: {
@@ -180,7 +180,10 @@ export function makeAuditablePublisher<T extends AnySchemaModel>(
         ...options?.metadata,
       },
     };
-    await bus.publish(eventKey(spec.name, spec.version), encodeEvent(envelope));
+    await bus.publish(
+      eventKey(spec.meta.key, spec.meta.version),
+      encodeEvent(envelope)
+    );
   };
 }
 

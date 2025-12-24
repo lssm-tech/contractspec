@@ -19,8 +19,10 @@ const ContactCreatedPayload = defineSchemaModel({
 });
 
 export const ContactCreatedEvent = defineEvent({
-  name: 'contact.created',
-  version: 1,
-  description: 'A new contact has been created.',
+  meta: {
+    key: 'contact.created',
+    version: 1,
+    description: 'A new contact has been created.',
+  },
   payload: ContactCreatedPayload,
 });

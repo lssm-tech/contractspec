@@ -133,9 +133,14 @@ const ThresholdApproachingPayload = defineSchemaModel({
  * Emitted when a metric is defined.
  */
 export const MetricDefinedEvent = defineEvent({
-  name: 'metric.defined',
-  version: 1,
-  description: 'A metric has been defined.',
+  meta: {
+    key: 'metric.defined',
+    version: 1,
+    description: 'A metric has been defined.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'metric'],
+  },
   payload: MetricDefinedPayload,
 });
 
@@ -143,9 +148,14 @@ export const MetricDefinedEvent = defineEvent({
  * Emitted when a metric is updated.
  */
 export const MetricUpdatedEvent = defineEvent({
-  name: 'metric.updated',
-  version: 1,
-  description: 'A metric has been updated.',
+  meta: {
+    key: 'metric.updated',
+    version: 1,
+    description: 'A metric has been updated.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'metric'],
+  },
   payload: MetricUpdatedPayload,
 });
 
@@ -153,9 +163,14 @@ export const MetricUpdatedEvent = defineEvent({
  * Emitted when usage is recorded.
  */
 export const UsageRecordedEvent = defineEvent({
-  name: 'usage.recorded',
-  version: 1,
-  description: 'Usage has been recorded.',
+  meta: {
+    key: 'usage.recorded',
+    version: 1,
+    description: 'Usage has been recorded.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'usage'],
+  },
   payload: UsageRecordedPayload,
 });
 
@@ -163,9 +178,14 @@ export const UsageRecordedEvent = defineEvent({
  * Emitted when a batch of usage is recorded.
  */
 export const UsageBatchRecordedEvent = defineEvent({
-  name: 'usage.batch_recorded',
-  version: 1,
-  description: 'A batch of usage has been recorded.',
+  meta: {
+    key: 'usage.batch_recorded',
+    version: 1,
+    description: 'A batch of usage has been recorded.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'usage'],
+  },
   payload: UsageBatchRecordedPayload,
 });
 
@@ -173,9 +193,14 @@ export const UsageBatchRecordedEvent = defineEvent({
  * Emitted when usage is aggregated.
  */
 export const UsageAggregatedEvent = defineEvent({
-  name: 'usage.aggregated',
-  version: 1,
-  description: 'Usage has been aggregated into a summary.',
+  meta: {
+    key: 'usage.aggregated',
+    version: 1,
+    description: 'Usage has been aggregated into a summary.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'usage'],
+  },
   payload: UsageAggregatedPayload,
 });
 
@@ -183,9 +208,14 @@ export const UsageAggregatedEvent = defineEvent({
  * Emitted when a threshold is created.
  */
 export const ThresholdCreatedEvent = defineEvent({
-  name: 'threshold.created',
-  version: 1,
-  description: 'A usage threshold has been created.',
+  meta: {
+    key: 'threshold.created',
+    version: 1,
+    description: 'A usage threshold has been created.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'threshold'],
+  },
   payload: ThresholdCreatedPayload,
 });
 
@@ -193,9 +223,14 @@ export const ThresholdCreatedEvent = defineEvent({
  * Emitted when a threshold is exceeded.
  */
 export const ThresholdExceededEvent = defineEvent({
-  name: 'threshold.exceeded',
-  version: 1,
-  description: 'Usage has exceeded a threshold.',
+  meta: {
+    key: 'threshold.exceeded',
+    version: 1,
+    description: 'Usage has exceeded a threshold.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'threshold'],
+  },
   payload: ThresholdExceededPayload,
 });
 
@@ -203,9 +238,14 @@ export const ThresholdExceededEvent = defineEvent({
  * Emitted when usage is approaching a threshold.
  */
 export const ThresholdApproachingEvent = defineEvent({
-  name: 'threshold.approaching',
-  version: 1,
-  description: 'Usage is approaching a threshold.',
+  meta: {
+    key: 'threshold.approaching',
+    version: 1,
+    description: 'Usage is approaching a threshold.',
+    stability: 'stable',
+    owners: ['@platform.metering'],
+    tags: ['metering', 'threshold'],
+  },
   payload: ThresholdApproachingPayload,
 });
 

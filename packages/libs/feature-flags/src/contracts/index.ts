@@ -261,7 +261,7 @@ const SuccessOutput = defineSchemaModel({
  */
 export const CreateFlagContract = defineCommand({
   meta: {
-    name: 'flag.create',
+    key: 'flag.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -292,7 +292,7 @@ export const CreateFlagContract = defineCommand({
  */
 export const UpdateFlagContract = defineCommand({
   meta: {
-    name: 'flag.update',
+    key: 'flag.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -323,7 +323,7 @@ export const UpdateFlagContract = defineCommand({
  */
 export const DeleteFlagContract = defineCommand({
   meta: {
-    name: 'flag.delete',
+    key: 'flag.delete',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -360,7 +360,7 @@ export const DeleteFlagContract = defineCommand({
  */
 export const ToggleFlagContract = defineCommand({
   meta: {
-    name: 'flag.toggle',
+    key: 'flag.toggle',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -397,7 +397,7 @@ export const ToggleFlagContract = defineCommand({
  */
 export const GetFlagContract = defineQuery({
   meta: {
-    name: 'flag.get',
+    key: 'flag.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -428,7 +428,7 @@ export const GetFlagContract = defineQuery({
  */
 export const ListFlagsContract = defineQuery({
   meta: {
-    name: 'flag.list',
+    key: 'flag.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -451,7 +451,7 @@ export const ListFlagsContract = defineQuery({
  */
 export const EvaluateFlagContract = defineQuery({
   meta: {
-    name: 'flag.evaluate',
+    key: 'flag.evaluate',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -482,7 +482,7 @@ export const EvaluateFlagContract = defineQuery({
  */
 export const CreateRuleContract = defineCommand({
   meta: {
-    name: 'flag.rule.create',
+    key: 'flag.rule.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -519,7 +519,7 @@ export const CreateRuleContract = defineCommand({
  */
 export const DeleteRuleContract = defineCommand({
   meta: {
-    name: 'flag.rule.delete',
+    key: 'flag.rule.delete',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -550,7 +550,7 @@ export const DeleteRuleContract = defineCommand({
  */
 export const CreateExperimentContract = defineCommand({
   meta: {
-    name: 'experiment.create',
+    key: 'experiment.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -593,7 +593,7 @@ export const CreateExperimentContract = defineCommand({
  */
 export const StartExperimentContract = defineCommand({
   meta: {
-    name: 'experiment.start',
+    key: 'experiment.start',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -630,7 +630,7 @@ export const StartExperimentContract = defineCommand({
  */
 export const StopExperimentContract = defineCommand({
   meta: {
-    name: 'experiment.stop',
+    key: 'experiment.stop',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -667,7 +667,7 @@ export const StopExperimentContract = defineCommand({
  */
 export const GetExperimentContract = defineQuery({
   meta: {
-    name: 'experiment.get',
+    key: 'experiment.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

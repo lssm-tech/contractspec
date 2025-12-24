@@ -30,15 +30,19 @@ const PayoutPaidPayload = defineSchemaModel({
 });
 
 export const PayoutCreatedEvent = defineEvent({
-  name: 'marketplace.payout.created',
-  version: 1,
-  description: 'A payout has been created.',
+  meta: {
+    key: 'marketplace.payout.created',
+    version: 1,
+    description: 'A payout has been created.',
+  },
   payload: PayoutCreatedPayload,
 });
 
 export const PayoutPaidEvent = defineEvent({
-  name: 'marketplace.payout.paid',
-  version: 1,
-  description: 'A payout has been sent.',
+  meta: {
+    key: 'marketplace.payout.paid',
+    version: 1,
+    description: 'A payout has been sent.',
+  },
   payload: PayoutPaidPayload,
 });

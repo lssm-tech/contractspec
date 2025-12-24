@@ -184,7 +184,7 @@ Please provide an improved version with more specific recommendations.`;
 
     if (intent.operation) {
       parts.push(
-        `Operation: ${intent.operation.name} v${intent.operation.version}`
+        `Operation: ${intent.operation.key} v${intent.operation.version}`
       );
     }
 

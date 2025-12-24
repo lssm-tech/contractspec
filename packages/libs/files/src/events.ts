@@ -124,9 +124,14 @@ const UploadSessionCompletedPayload = defineSchemaModel({
  * Emitted when a file is uploaded.
  */
 export const FileUploadedEvent = defineEvent({
-  name: 'file.uploaded',
-  version: 1,
-  description: 'A file has been uploaded.',
+  meta: {
+    key: 'file.uploaded',
+    version: 1,
+    description: 'A file has been uploaded.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'upload'],
+  },
   payload: FileUploadedPayload,
 });
 
@@ -134,9 +139,14 @@ export const FileUploadedEvent = defineEvent({
  * Emitted when a file is updated.
  */
 export const FileUpdatedEvent = defineEvent({
-  name: 'file.updated',
-  version: 1,
-  description: 'A file has been updated.',
+  meta: {
+    key: 'file.updated',
+    version: 1,
+    description: 'A file has been updated.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'update'],
+  },
   payload: FileUpdatedPayload,
 });
 
@@ -144,9 +154,14 @@ export const FileUpdatedEvent = defineEvent({
  * Emitted when a file is deleted.
  */
 export const FileDeletedEvent = defineEvent({
-  name: 'file.deleted',
-  version: 1,
-  description: 'A file has been deleted.',
+  meta: {
+    key: 'file.deleted',
+    version: 1,
+    description: 'A file has been deleted.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'delete'],
+  },
   payload: FileDeletedPayload,
 });
 
@@ -154,9 +169,14 @@ export const FileDeletedEvent = defineEvent({
  * Emitted when a file version is created.
  */
 export const FileVersionCreatedEvent = defineEvent({
-  name: 'file.version_created',
-  version: 1,
-  description: 'A new file version has been created.',
+  meta: {
+    key: 'file.version_created',
+    version: 1,
+    description: 'A new file version has been created.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'version', 'create'],
+  },
   payload: FileVersionCreatedPayload,
 });
 
@@ -164,9 +184,14 @@ export const FileVersionCreatedEvent = defineEvent({
  * Emitted when a file is attached to an entity.
  */
 export const AttachmentAttachedEvent = defineEvent({
-  name: 'attachment.attached',
-  version: 1,
-  description: 'A file has been attached to an entity.',
+  meta: {
+    key: 'attachment.attached',
+    version: 1,
+    description: 'A file has been attached to an entity.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'attachment', 'attach'],
+  },
   payload: AttachmentAttachedPayload,
 });
 
@@ -174,9 +199,14 @@ export const AttachmentAttachedEvent = defineEvent({
  * Emitted when a file is detached from an entity.
  */
 export const AttachmentDetachedEvent = defineEvent({
-  name: 'attachment.detached',
-  version: 1,
-  description: 'A file has been detached from an entity.',
+  meta: {
+    key: 'attachment.detached',
+    version: 1,
+    description: 'A file has been detached from an entity.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'attachment', 'detach'],
+  },
   payload: AttachmentDetachedPayload,
 });
 
@@ -184,9 +214,14 @@ export const AttachmentDetachedEvent = defineEvent({
  * Emitted when an upload session starts.
  */
 export const UploadSessionStartedEvent = defineEvent({
-  name: 'upload.session_started',
-  version: 1,
-  description: 'An upload session has started.',
+  meta: {
+    key: 'upload.session_started',
+    version: 1,
+    description: 'An upload session has started.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'upload', 'session', 'start'],
+  },
   payload: UploadSessionStartedPayload,
 });
 
@@ -194,9 +229,14 @@ export const UploadSessionStartedEvent = defineEvent({
  * Emitted when an upload session completes.
  */
 export const UploadSessionCompletedEvent = defineEvent({
-  name: 'upload.session_completed',
-  version: 1,
-  description: 'An upload session has completed.',
+  meta: {
+    key: 'upload.session_completed',
+    version: 1,
+    description: 'An upload session has completed.',
+    stability: 'stable',
+    owners: ['@platform.files'],
+    tags: ['files', 'upload', 'session', 'complete'],
+  },
   payload: UploadSessionCompletedPayload,
 });
 

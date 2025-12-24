@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const AgentConsoleFeature: FeatureModuleSpec = {
   meta: {
     key: 'agent-console',
+    version: 1,
     title: 'AI Agent Console',
     description: 'AI agent orchestration with tools, runs, and logs management',
     domain: 'ai-ops',
@@ -23,111 +24,111 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // Agent operations
-    { name: 'agent-console.agent.create', version: 1 },
-    { name: 'agent-console.agent.update', version: 1 },
-    { name: 'agent-console.agent.get', version: 1 },
-    { name: 'agent-console.agent.list', version: 1 },
-    { name: 'agent-console.agent.assignTool', version: 1 },
-    { name: 'agent-console.agent.removeTool', version: 1 },
+    { key: 'agent-console.agent.create', version: 1 },
+    { key: 'agent-console.agent.update', version: 1 },
+    { key: 'agent-console.agent.get', version: 1 },
+    { key: 'agent-console.agent.list', version: 1 },
+    { key: 'agent-console.agent.assignTool', version: 1 },
+    { key: 'agent-console.agent.removeTool', version: 1 },
 
     // Tool operations
-    { name: 'agent.tool.create', version: 1 },
-    { name: 'agent.tool.update', version: 1 },
-    { name: 'agent.tool.get', version: 1 },
-    { name: 'agent.tool.list', version: 1 },
-    { name: 'agent.tool.test', version: 1 },
+    { key: 'agent.tool.create', version: 1 },
+    { key: 'agent.tool.update', version: 1 },
+    { key: 'agent.tool.get', version: 1 },
+    { key: 'agent.tool.list', version: 1 },
+    { key: 'agent.tool.test', version: 1 },
 
     // Run operations
-    { name: 'agent.run.execute', version: 1 },
-    { name: 'agent.run.cancel', version: 1 },
-    { name: 'agent.run.get', version: 1 },
-    { name: 'agent.run.list', version: 1 },
-    { name: 'agent.run.getSteps', version: 1 },
-    { name: 'agent.run.getLogs', version: 1 },
-    { name: 'agent.run.getMetrics', version: 1 },
+    { key: 'agent.run.execute', version: 1 },
+    { key: 'agent.run.cancel', version: 1 },
+    { key: 'agent.run.get', version: 1 },
+    { key: 'agent.run.list', version: 1 },
+    { key: 'agent.run.getSteps', version: 1 },
+    { key: 'agent.run.getLogs', version: 1 },
+    { key: 'agent.run.getMetrics', version: 1 },
   ],
 
   // Events emitted by this feature
   events: [
     // Agent events
-    { name: 'agent-console.agent.created', version: 1 },
-    { name: 'agent-console.agent.updated', version: 1 },
-    { name: 'agent-console.agent.toolAssigned', version: 1 },
-    { name: 'agent-console.agent.toolRemoved', version: 1 },
+    { key: 'agent-console.agent.created', version: 1 },
+    { key: 'agent-console.agent.updated', version: 1 },
+    { key: 'agent-console.agent.toolAssigned', version: 1 },
+    { key: 'agent-console.agent.toolRemoved', version: 1 },
 
     // Tool events
-    { name: 'agent.tool.created', version: 1 },
-    { name: 'agent.tool.updated', version: 1 },
-    { name: 'agent.tool.statusChanged', version: 1 },
+    { key: 'agent.tool.created', version: 1 },
+    { key: 'agent.tool.updated', version: 1 },
+    { key: 'agent.tool.statusChanged', version: 1 },
 
     // Run events
-    { name: 'agent.run.started', version: 1 },
-    { name: 'agent.run.completed', version: 1 },
-    { name: 'agent.run.failed', version: 1 },
-    { name: 'agent.run.cancelled', version: 1 },
-    { name: 'agent.run.toolInvoked', version: 1 },
-    { name: 'agent.run.toolCompleted', version: 1 },
-    { name: 'agent.run.messageGenerated', version: 1 },
+    { key: 'agent.run.started', version: 1 },
+    { key: 'agent.run.completed', version: 1 },
+    { key: 'agent.run.failed', version: 1 },
+    { key: 'agent.run.cancelled', version: 1 },
+    { key: 'agent.run.toolInvoked', version: 1 },
+    { key: 'agent.run.toolCompleted', version: 1 },
+    { key: 'agent.run.messageGenerated', version: 1 },
   ],
 
   // Presentations associated with this feature
   presentations: [
-    { name: 'agent-console.dashboard', version: 1 },
-    { name: 'agent-console.agent.list', version: 1 },
-    { name: 'agent-console.agent.detail', version: 1 },
-    { name: 'agent-console.run.list', version: 1 },
-    { name: 'agent-console.run.detail', version: 1 },
-    { name: 'agent-console.tool.list', version: 1 },
-    { name: 'agent-console.tool.detail', version: 1 },
+    { key: 'agent-console.dashboard', version: 1 },
+    { key: 'agent-console.agent.list', version: 1 },
+    { key: 'agent-console.agent.detail', version: 1 },
+    { key: 'agent-console.run.list', version: 1 },
+    { key: 'agent-console.run.detail', version: 1 },
+    { key: 'agent-console.tool.list', version: 1 },
+    { key: 'agent-console.tool.detail', version: 1 },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { name: 'agent-console.agent.list', version: 1 },
-      pres: { name: 'agent-console.agent.list', version: 1 },
+      op: { key: 'agent-console.agent.list', version: 1 },
+      pres: { key: 'agent-console.agent.list', version: 1 },
     },
     {
-      op: { name: 'agent-console.agent.get', version: 1 },
-      pres: { name: 'agent-console.agent.detail', version: 1 },
+      op: { key: 'agent-console.agent.get', version: 1 },
+      pres: { key: 'agent-console.agent.detail', version: 1 },
     },
     {
-      op: { name: 'agent.run.list', version: 1 },
-      pres: { name: 'agent-console.run.list', version: 1 },
+      op: { key: 'agent.run.list', version: 1 },
+      pres: { key: 'agent-console.run.list', version: 1 },
     },
     {
-      op: { name: 'agent.run.get', version: 1 },
-      pres: { name: 'agent-console.run.detail', version: 1 },
+      op: { key: 'agent.run.get', version: 1 },
+      pres: { key: 'agent-console.run.detail', version: 1 },
     },
     {
-      op: { name: 'agent.tool.list', version: 1 },
-      pres: { name: 'agent-console.tool.list', version: 1 },
+      op: { key: 'agent.tool.list', version: 1 },
+      pres: { key: 'agent-console.tool.list', version: 1 },
     },
     {
-      op: { name: 'agent.tool.get', version: 1 },
-      pres: { name: 'agent-console.tool.detail', version: 1 },
+      op: { key: 'agent.tool.get', version: 1 },
+      pres: { key: 'agent-console.tool.detail', version: 1 },
     },
   ],
 
   // Target requirements for multi-surface rendering
   presentationsTargets: [
     {
-      name: 'agent-console.dashboard',
+      key: 'agent-console.dashboard',
       version: 1,
       targets: ['react', 'markdown'],
     },
     {
-      name: 'agent-console.agent.list',
+      key: 'agent-console.agent.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'agent-console.run.list',
+      key: 'agent-console.run.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },
     {
-      name: 'agent-console.tool.list',
+      key: 'agent-console.tool.list',
       version: 1,
       targets: ['react', 'markdown', 'application/json'],
     },

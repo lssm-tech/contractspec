@@ -171,3 +171,4 @@ jobs:
           git config user.email github-actions[bot]@users.noreply.github.com
           git tag -fa action-canary -m "Update action-canary to ${{ steps.action-version.outputs.version }}"
           git push origin action-canary --force
+

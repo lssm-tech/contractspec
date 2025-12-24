@@ -125,7 +125,8 @@ export class PolicyRegistry {
 
   register(spec: PolicySpec): this {
     const versionedKey = policyKey(spec.meta.key, spec.meta.version || 1);
-    if (this.items.has(versionedKey)) throw new Error(`Duplicate policy ${versionedKey}`);
+    if (this.items.has(versionedKey))
+      throw new Error(`Duplicate policy ${versionedKey}`);
     this.items.set(versionedKey, spec);
     return this;
   }
@@ -138,7 +139,7 @@ export class PolicyRegistry {
     if (version != null) {
       return this.items.get(policyKey(key, version));
     }
-    
+
     let candidate: PolicySpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {

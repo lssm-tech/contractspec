@@ -15,9 +15,14 @@ const KbSourceIngestedPayload = defineSchemaModel({
 });
 
 export const KbSourceIngestedEvent = defineEvent({
-  name: 'kb.source.ingested',
-  version: 1,
-  description: 'Source document ingested (immutable).',
+  meta: {
+    key: 'kb.source.ingested',
+    version: 1,
+    description: 'Source document ingested (immutable).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['knowledge'],
+  },
   payload: KbSourceIngestedPayload,
 });
 
@@ -36,9 +41,14 @@ const KbRuleVersionCreatedPayload = defineSchemaModel({
 });
 
 export const KbRuleVersionCreatedEvent = defineEvent({
-  name: 'kb.ruleVersion.created',
-  version: 1,
-  description: 'Rule version created (draft).',
+  meta: {
+    key: 'kb.ruleVersion.created',
+    version: 1,
+    description: 'Rule version created (draft).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['knowledge'],
+  },
   payload: KbRuleVersionCreatedPayload,
 });
 
@@ -55,9 +65,14 @@ const KbRuleVersionApprovedPayload = defineSchemaModel({
 });
 
 export const KbRuleVersionApprovedEvent = defineEvent({
-  name: 'kb.ruleVersion.approved',
-  version: 1,
-  description: 'Rule version approved (human verified).',
+  meta: {
+    key: 'kb.ruleVersion.approved',
+    version: 1,
+    description: 'Rule version approved (human verified).',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['knowledge'],
+  },
   payload: KbRuleVersionApprovedPayload,
 });
 
@@ -75,8 +90,13 @@ const KbSnapshotPublishedPayload = defineSchemaModel({
 });
 
 export const KbSnapshotPublishedEvent = defineEvent({
-  name: 'kb.snapshot.published',
-  version: 1,
-  description: 'KB snapshot published.',
+  meta: {
+    key: 'kb.snapshot.published',
+    version: 1,
+    description: 'KB snapshot published.',
+    stability: 'experimental',
+    owners: ['@examples'],
+    tags: ['knowledge'],
+  },
   payload: KbSnapshotPublishedPayload,
 });

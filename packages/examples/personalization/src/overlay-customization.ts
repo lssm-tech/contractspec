@@ -5,7 +5,9 @@ import { Logger, LogLevel } from '@lssm/lib.logger';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-  environment: process.env.NODE_ENV || 'development',
+  environment:
+    (process.env.NODE_ENV as 'production' | 'development' | 'test') ||
+    'development',
   enableColors: process.env.NODE_ENV !== 'production',
 });
 
