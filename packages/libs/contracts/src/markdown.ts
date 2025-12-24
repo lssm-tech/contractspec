@@ -15,7 +15,7 @@ export function operationsToMarkdown(
 
   for (const spec of registry.listSpecs()) {
     const m = spec.meta;
-    lines.push(`# ${m.name}.v${m.version}`);
+    lines.push(`# ${m.key}.v${m.version}`);
     lines.push('');
     lines.push(
       `**Kind:** ${m.kind} | **Stability:** ${m.stability} | **Owners:** ${m.owners.join(', ')}`
@@ -47,9 +47,9 @@ export function operationsToMarkdown(
       lines.push(`## Emits Events`);
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          lines.push(`- \`${e.ref.name}.v${e.ref.version}\` — ${e.when}`);
+          lines.push(`- \`${e.ref.meta.key}.v${e.ref.meta.version}\` — ${e.when}`);
         } else {
-          lines.push(`- \`${e.name}.v${e.version}\` — ${e.when}`);
+          lines.push(`- \`${e.key}.v${e.version}\` — ${e.when}`);
         }
       }
       lines.push('');
@@ -68,7 +68,7 @@ export function operationsToMarkdown(
     if (spec.acceptance?.scenarios?.length) {
       lines.push(`## Acceptance Scenarios`);
       for (const s of spec.acceptance.scenarios) {
-        lines.push(`### ${s.name}`);
+        lines.push(`### ${s.key}`);
         lines.push(`- **Given:** ${s.given.join('; ')}`);
         lines.push(`- **When:** ${s.when.join('; ')}`);
         lines.push(`- **Then:** ${s.then.join('; ')}`);
@@ -79,7 +79,7 @@ export function operationsToMarkdown(
     if (spec.acceptance?.examples?.length) {
       lines.push(`## Examples`);
       for (const ex of spec.acceptance.examples) {
-        lines.push(`- **${ex.name}**`);
+        lines.push(`- **${ex.key}**`);
         lines.push('  - Input:');
         lines.push('    ```json');
         lines.push(JSON.stringify(ex.input, null, 2));
@@ -111,7 +111,7 @@ export function docsToMarkdown(
     parts.push('# Presentations');
     parts.push('');
     for (const p of extras.presentations.list()) {
-      parts.push(`## ${p.meta.name}.v${p.meta.version}`);
+      parts.push(`## ${p.meta.key}.v${p.meta.version}`);
       parts.push('');
       parts.push(`- Type: ${p.source.type}`);
       if (p.source.type === 'component') {
@@ -133,16 +133,16 @@ export function docsToMarkdown(
       parts.push('');
       if (f.operations?.length) {
         parts.push('- Operations:');
-        for (const o of f.operations) parts.push(`  - ${o.name}.v${o.version}`);
+        for (const o of f.operations) parts.push(`  - ${o.key}.v${o.version}`);
       }
       if (f.events?.length) {
         parts.push('- Events:');
-        for (const e of f.events) parts.push(`  - ${e.name}.v${e.version}`);
+        for (const e of f.events) parts.push(`  - ${e.key}.v${e.version}`);
       }
       if (f.presentations?.length) {
         parts.push('- Presentations:');
         for (const pres of f.presentations)
-          parts.push(`  - ${pres.name}.v${pres.version}`);
+          parts.push(`  - ${pres.key}.v${pres.version}`);
       }
       parts.push('');
     }

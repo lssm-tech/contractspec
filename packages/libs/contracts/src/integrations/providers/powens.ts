@@ -7,7 +7,6 @@ export const powensIntegrationSpec: IntegrationSpec = {
     key: 'openbanking.powens',
     version: 1,
     category: 'open-banking',
-    displayName: 'Powens Open Banking',
     title: 'Powens Open Banking (Read)',
     description:
       'Read-only Open Banking integration powered by Powens, exposing accounts, transactions, and balances.',

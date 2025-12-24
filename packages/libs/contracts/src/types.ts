@@ -70,7 +70,7 @@ export type TranslationResolver = (
 
 /** Outbox/bus event publisher (after validation & guarding) */
 export type EventPublisher = (envelope: {
-  name: string;
+  key: string;
   version: number;
   payload: unknown;
   traceId?: string;
@@ -98,7 +98,7 @@ export interface HandlerCtx {
 
   /** Internal pipe: filled by executor to enforce declared events */
   __emitGuard__?: (
-    name: string,
+    key: string,
     version: number,
     payload: unknown
   ) => Promise<void>;

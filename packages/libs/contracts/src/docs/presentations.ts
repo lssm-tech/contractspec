@@ -7,7 +7,7 @@ import type { Stability } from '../ownership';
 
 export interface DocPresentationOptions {
   /**
-   * Namespace for presentation meta.name (e.g., web-landing.docs.ops).
+   * Namespace for presentation meta.key (e.g., web-landing.docs.ops).
    * Defaults to the DocBlock id.
    */
   namespace?: string;
@@ -65,7 +65,7 @@ export function docBlockToPresentationSpec(
 
   return {
     meta: {
-      name: buildName(block, options?.namespace),
+      key: buildName(block, options?.namespace),
       title: block.title,
       version,
       description: block.summary ?? block.title,
@@ -73,6 +73,8 @@ export function docBlockToPresentationSpec(
       owners: block.owners || [],
       domain: block.domain || '',
       stability,
+      goal: `Documentation of: ${block.summary}`,
+      context: `Auto-generated`
     },
     policy:
       block.visibility && block.visibility !== 'public'

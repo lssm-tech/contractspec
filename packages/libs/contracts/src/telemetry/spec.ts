@@ -102,8 +102,8 @@ export class TelemetryRegistry {
     }
     this.items.set(key, spec);
     for (const event of spec.events) {
-      this.eventsByKey.set(`${event.name}.v${event.version}`, event);
-      this.specByEventKey.set(`${event.name}.v${event.version}`, spec);
+      this.eventsByKey.set(`${event.key}.v${event.version}`, event);
+      this.specByEventKey.set(`${event.key}.v${event.version}`, spec);
     }
     return this;
   }

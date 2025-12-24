@@ -9,7 +9,6 @@ const makeSpec = (
     key: 'product-canon',
     version: 1,
     category: 'canonical',
-    displayName: 'Product Canon',
     title: 'Product Canon',
     description: 'Authoritative product knowledge base.',
     domain: 'product',

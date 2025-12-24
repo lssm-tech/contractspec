@@ -15,7 +15,7 @@ import type { Locale, TranslationEntry } from '../translations/catalog';
 import type { ConfigStatus } from './lifecycle';
 
 export interface SpecPointer {
-  name: string;
+  key: string;
   version?: number;
 }
 
@@ -30,7 +30,7 @@ export interface AppRouteConfig {
 }
 
 export interface TranslationCatalogPointer {
-  name: string;
+  key: string;
   version: number;
 }
 
@@ -99,8 +99,8 @@ export interface AppBlueprintSpec {
   notes?: string;
 }
 
-const blueprintKey = (meta: Pick<AppBlueprintMeta, 'name' | 'version'>) =>
-  `${meta.name}.v${meta.version}`;
+const blueprintKey = (meta: Pick<AppBlueprintMeta, 'key' | 'version'>) =>
+  `${meta.key}.v${meta.version}`;
 
 export class AppBlueprintRegistry {
   private readonly items = new Map<string, AppBlueprintSpec>();
@@ -118,14 +118,14 @@ export class AppBlueprintRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): AppBlueprintSpec | undefined {
+  get(key: string, version?: number): AppBlueprintSpec | undefined {
     if (version != null) {
-      return this.items.get(blueprintKey({ name, version }));
+      return this.items.get(blueprintKey({ key, version }));
     }
     let latest: AppBlueprintSpec | undefined;
     let maxVersion = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.key !== name) continue;
+      if (spec.meta.key !== key) continue;
       if (spec.meta.version > maxVersion) {
         maxVersion = spec.meta.version;
         latest = spec;

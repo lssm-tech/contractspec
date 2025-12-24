@@ -170,8 +170,8 @@ function makeExperiment(key = 'core.experiment'): ExperimentSpec {
     },
     controlVariant: 'control',
     variants: [
-      { id: 'control', name: 'Control' },
-      { id: 'variant', name: 'Variant' },
+      { id: 'control', key: 'Control' },
+      { id: 'variant', key: 'Variant' },
     ],
     allocation: { type: 'random', salt: 'core' },
   };
@@ -187,7 +187,7 @@ function makeIntegrationSpec(
       key,
       version,
       category: 'payments',
-      displayName: 'Core Integration',
+      title: 'Core Integration',
     },
     supportedModes: ['managed', 'byok'],
     capabilities: {
@@ -257,7 +257,7 @@ function makeKnowledgeSpace(
       key,
       version,
       category: 'canonical',
-      displayName: 'Product Canon',
+      title: 'Product Canon',
     },
     retention: { ttlDays: null },
     access: {
@@ -317,7 +317,7 @@ const blueprint: AppBlueprintSpec = {
     },
   ],
   branding: {
-    appNameKey: 'core.app.name',
+    appNameKey: 'core.app.key',
     assets: [
       { type: 'logo', url: 'https://cdn.lssm.dev/core/logo.png' },
       { type: 'favicon', url: 'https://cdn.lssm.dev/core/favicon.ico' },
@@ -430,8 +430,8 @@ const tenantConfig: TenantAppConfig = {
   },
   translationOverrides: {
     entries: [
-      { key: 'core.app.name', locale: 'en', value: 'Tenant Control Center' },
-      { key: 'core.app.name', locale: 'fr', value: 'Centre de contrôle' },
+      { key: 'core.app.key', locale: 'en', value: 'Tenant Control Center' },
+      { key: 'core.app.key', locale: 'fr', value: 'Centre de contrôle' },
     ],
   },
   branding: {
@@ -461,10 +461,10 @@ describe('resolveAppConfig', () => {
     expect(resolved.theme?.primary.key).toBe('core.theme.alt');
     expect(resolved.telemetry?.spec?.key).toBe('core.telemetry.alt');
     expect(resolved.experiments.active).toEqual([
-      { name: 'core.experiment.alt', version: 1 },
+      { key: 'core.experiment.alt', version: 1 },
     ]);
     expect(resolved.experiments.paused).toEqual([
-      { name: 'core.experiment', version: 1 },
+      { key: 'core.experiment', version: 1 },
     ]);
     expect(resolved.featureFlags[0]?.enabled).toBe(true);
     expect(resolved.routes[0]?.label).toBe('Tenant Dashboard');
@@ -486,7 +486,7 @@ describe('resolveAppConfig', () => {
       expect.arrayContaining(['en', 'fr'])
     );
     expect(resolved.translation.blueprintCatalog).toEqual({
-      name: 'core.app.catalog',
+      key: 'core.app.catalog',
       version: 1,
     });
     expect(resolved.translation.tenantOverrides).toHaveLength(2);
@@ -533,7 +533,7 @@ describe('composeAppConfig', () => {
     const policies = new PolicyRegistry().register(makePolicy()).register({
       meta: {
         ...ownership,
-        name: 'core.policy.tenant',
+        key: 'core.policy.tenant',
         version: 1,
         scope: 'feature',
       },
@@ -585,15 +585,15 @@ describe('composeAppConfig', () => {
 
     expect(composition.resolved.tenantId).toBe('tenant');
     expect(composition.capabilities).toHaveLength(1);
-    expect(composition.dataViews.dashboard?.meta.name).toBe(
+    expect(composition.dataViews.dashboard?.meta.key).toBe(
       'core.dashboard.alt'
     );
-    expect(composition.workflows.onboarding?.meta.name).toBe(
+    expect(composition.workflows.onboarding?.meta.key).toBe(
       'core.onboarding.alt'
     );
     expect(composition.policies).toHaveLength(2);
-    expect(composition.theme?.meta.name).toBe('core.theme.alt');
-    expect(composition.telemetry?.meta.name).toBe('core.telemetry.alt');
+    expect(composition.theme?.meta.key).toBe('core.theme.alt');
+    expect(composition.telemetry?.meta.key).toBe('core.telemetry.alt');
     expect(composition.experiments.active).toHaveLength(1);
     expect(composition.integrations).toHaveLength(1);
     expect(composition.integrations[0]?.slot.slotId).toBe('primary-payments');

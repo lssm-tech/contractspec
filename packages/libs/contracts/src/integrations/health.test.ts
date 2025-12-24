@@ -11,8 +11,8 @@ const baseContext = {
       key: 'integration.example',
       version: 1,
       category: 'custom',
-      displayName: 'Example Integration',
       title: 'Example Integration',
+
       description: 'Mock integration used for health checks',
       domain: 'testing',
       owners: ['platform.integrations'],

@@ -272,7 +272,7 @@ const ListVersionsOutput = new SchemaModel({
 
 export const ListTenantConfigVersionsQuery = defineQuery({
   meta: {
-    name: 'appConfig.lifecycle.listVersions',
+    key: 'appConfig.lifecycle.listVersions',
     version: 1,
     description: 'Lists all versions of a tenant configuration.',
     owners: [OwnersEnum.PlatformSigil],
@@ -307,7 +307,7 @@ const GetVersionOutput = new SchemaModel({
 
 export const GetTenantConfigVersionQuery = defineQuery({
   meta: {
-    name: 'appConfig.lifecycle.getVersion',
+    key: 'appConfig.lifecycle.getVersion',
     version: 1,
     description: 'Fetches a single tenant config version by id.',
     owners: [OwnersEnum.PlatformSigil],

@@ -20,7 +20,7 @@ export function registerMcpPrompts(
 ) {
   for (const prompt of prompts.list()) {
     server.registerPrompt(
-      prompt.meta.name,
+      prompt.meta.key,
       {
         title: prompt.meta.title,
         description: prompt.meta.description,

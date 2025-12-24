@@ -4,7 +4,7 @@ import { StabilityEnum } from '../ownership';
 
 const sampleSpec = (version: number): TestSpec => ({
   meta: {
-    name: 'sigil.operation.add_user.tests',
+    key: 'sigil.operation.add_user.tests',
     version,
     title: 'Add user scenarios',
     description: 'End-to-end scenarios for add user operation',
@@ -12,12 +12,12 @@ const sampleSpec = (version: number): TestSpec => ({
     tags: ['contracts', 'qa'],
     stability: StabilityEnum.Experimental,
   },
-  target: { type: 'operation', operation: { name: 'sigil.addUser' } },
+  target: { type: 'operation', operation: { key: 'sigil.addUser' } },
   scenarios: [
     {
-      name: 'creates a new user',
+      key: 'creates a new user',
       when: {
-        operation: { name: 'sigil.addUser' },
+        operation: { key: 'sigil.addUser' },
         input: { email: 'a@b.com' },
       },
       then: [{ type: 'expectOutput', match: { success: true } }],

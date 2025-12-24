@@ -15,12 +15,12 @@ import {
 
 // Test fixtures
 const createItem = (
-  name: string,
+  key: string,
   tags: string[] = [],
   owners: string[] = [],
   stability: 'experimental' | 'beta' | 'stable' | 'deprecated' = 'stable'
 ): FilterableItem => ({
-  meta: { name, tags, owners, stability },
+  meta: { key, tags, owners, stability },
 });
 
 const testItems: FilterableItem[] = [
@@ -41,8 +41,8 @@ describe('Registry Utils', () => {
     it('should filter by single tag', () => {
       const result = filterBy(testItems, { tags: ['auth'] });
       expect(result).toHaveLength(2);
-      expect(result.map((i) => i.meta.name)).toContain('auth.login');
-      expect(result.map((i) => i.meta.name)).toContain('auth.logout');
+      expect(result.map((i) => i.meta.key)).toContain('auth.login');
+      expect(result.map((i) => i.meta.key)).toContain('auth.logout');
     });
 
     it('should filter by multiple tags (OR)', () => {
@@ -66,7 +66,7 @@ describe('Registry Utils', () => {
     });
 
     it('should filter by name pattern with wildcard', () => {
-      const result = filterBy(testItems, { namePattern: 'users.*' });
+      const result = filterBy(testItems, { keyPattern: 'users.*' });
       expect(result).toHaveLength(2);
     });
 
@@ -76,8 +76,8 @@ describe('Registry Utils', () => {
         stability: ['stable'],
       });
       expect(result).toHaveLength(2);
-      expect(result.map((i) => i.meta.name)).toContain('auth.login');
-      expect(result.map((i) => i.meta.name)).toContain('users.list');
+      expect(result.map((i) => i.meta.key)).toContain('auth.login');
+      expect(result.map((i) => i.meta.key)).toContain('users.list');
     });
 
     it('should return all items with empty criteria', () => {

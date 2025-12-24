@@ -8,7 +8,7 @@ import {
 
 const mk = (over: Partial<PresentationSpec> = {}): PresentationSpec => ({
   meta: {
-    name: 'x.test',
+    key: 'x.test',
     version: 1,
     description: 'desc',
     domain: 'domain',
@@ -16,6 +16,8 @@ const mk = (over: Partial<PresentationSpec> = {}): PresentationSpec => ({
     owners: ['platform.content'],
     tags: [],
     title: 'Test Presentation',
+    goal: 'Test Goal',
+    context: 'Test Context',
   },
   source: { type: 'blocknotejs', docJson: { type: 'doc' } },
   targets: ['markdown', 'application/json', 'application/xml'],
@@ -27,7 +29,7 @@ describe('TransformEngine', () => {
     const engine = registerBasicValidation(
       registerDefaultReactRenderer(createDefaultTransformEngine())
     );
-    const d = mk({ policy: { pii: ['meta.name'] } });
+    const d = mk({ policy: { pii: ['meta.key'] } });
     const md = await engine.render<{ mimeType: 'text/markdown'; body: string }>(
       'markdown',
       d
@@ -52,7 +54,7 @@ describe('TransformEngine', () => {
       registerDefaultReactRenderer(createDefaultTransformEngine())
     );
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const bad = mk({ meta: { name: 'a', version: 1, description: '' } as any });
+    const bad = mk({ meta: { key: 'a', version: 1, description: '' } as any });
     await expect(engine.render('application/json', bad)).rejects.toThrow();
   });
 });

@@ -17,7 +17,7 @@ import { KnowledgeSpaceRegistry } from '../knowledge/spec';
 
 const baseBlueprint: AppBlueprintSpec = {
   meta: {
-    name: 'example.app',
+    key: 'example.app',
     version: 1,
     appId: 'example',
     title: 'Example App',
@@ -40,7 +40,7 @@ const baseBlueprint: AppBlueprintSpec = {
     appNameKey: 'app.title',
   },
   translationCatalog: {
-    name: 'example.catalog',
+    key: 'example.catalog',
     version: 1,
   },
 };
@@ -76,7 +76,7 @@ describe('validateTenantConfig', () => {
         id: 'cfg-1',
         tenantId: 'tenant-a',
         appId: 'example',
-        blueprintName: baseBlueprint.meta.name,
+        blueprintName: baseBlueprint.meta.key,
         blueprintVersion: baseBlueprint.meta.version,
         version: 3,
         status: 'draft',
@@ -123,8 +123,8 @@ describe('validateTenantConfig', () => {
         key: 'support.faq',
         version: 1,
         category: 'external',
-        displayName: 'Support FAQ',
         title: 'Support FAQ',
+
         description: 'External support knowledge base.',
         domain: 'knowledge',
         owners: ['product.artisanos'],
@@ -144,7 +144,7 @@ describe('validateTenantConfig', () => {
       existingConfigs: [tenant],
       translationCatalogs: {
         blueprint: {
-          meta: { name: 'example.catalog', version: 1 },
+          meta: { key: 'example.catalog', version: 1 },
           defaultLocale: 'en',
           supportedLocales: ['en'],
           entries: [
@@ -212,7 +212,7 @@ describe('validateResolvedConfig', () => {
     const resolved: ResolvedAppConfig = {
       appId: 'example',
       tenantId: 'tenant-a',
-      blueprintName: baseBlueprint.meta.name,
+      blueprintName: baseBlueprint.meta.key,
       blueprintVersion: baseBlueprint.meta.version,
       configVersion: 4,
       capabilities: { enabled: [], disabled: [] },

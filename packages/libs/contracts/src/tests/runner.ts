@@ -49,7 +49,7 @@ interface OperationResult {
 }
 
 interface RecordedEvent {
-  name: string;
+  key: string;
   version: number;
   payload: unknown;
 }
@@ -144,7 +144,7 @@ export class TestRunner {
       ...baseCtx,
       eventPublisher: async (event) => {
         recordedEvents.push({
-          name: event.name,
+          key: event.key,
           version: event.version,
           payload: event.payload,
         });
@@ -154,7 +154,7 @@ export class TestRunner {
 
     try {
       const output = await this.config.registry.execute(
-        action.operation.name,
+        action.operation.key,
         action.operation.version,
         action.input ?? null,
         ctx
@@ -243,7 +243,7 @@ export class TestRunner {
     for (const expected of assertion.events) {
       const matches = events.filter(
         (event) =>
-          event.name === expected.name && event.version === expected.version
+          event.key === expected.key && event.version === expected.version
       );
       const count = matches.length;
       if (
@@ -251,7 +251,7 @@ export class TestRunner {
         (typeof expected.max === 'number' && count > expected.max)
       ) {
         failures.push(
-          `Event ${expected.name}.v${expected.version} occurred ${count} times (expected ${expected.min ?? 0} - ${expected.max ?? '∞'})`
+          `Event ${expected.key}.v${expected.version} occurred ${count} times (expected ${expected.min ?? 0} - ${expected.max ?? '∞'})`
         );
       } else if (
         typeof expected.min === 'undefined' &&
@@ -259,7 +259,7 @@ export class TestRunner {
         count === 0
       ) {
         failures.push(
-          `Event ${expected.name}.v${expected.version} did not occur`
+          `Event ${expected.key}.v${expected.version} did not occur`
         );
       }
     }

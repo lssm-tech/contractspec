@@ -6,7 +6,6 @@ export const supportFaqKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.support-faq',
     version: 1,
     category: 'operational',
-    displayName: 'Support FAQ',
     title: 'Support & Success FAQ',
     description: 'Operational knowledge base for customer support and success.',
     domain: 'support',
@@ -19,7 +18,7 @@ export const supportFaqKnowledgeSpace: KnowledgeSpaceSpec = {
     archiveAfterDays: 180,
   },
   access: {
-    policy: { name: 'knowledge.access.support', version: 1 },
+    policy: { key: 'knowledge.access.support', version: 1 },
     trustLevel: 'medium',
     automationWritable: true,
   },

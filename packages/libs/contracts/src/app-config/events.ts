@@ -3,7 +3,6 @@ import { defineEvent } from '../events';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 
 const lifecycleOwnership = {
-  version: 1,
   title: 'Tenant App Config Lifecycle',
   description:
     'Events emitted when tenant app configurations move through lifecycle stages.',
@@ -14,10 +13,12 @@ const lifecycleOwnership = {
 };
 
 export const ConfigDraftCreatedEvent = defineEvent({
-  name: 'app_config.draft_created',
-  version: 1,
-  description: 'A new tenant config draft was created.',
-  ownership: lifecycleOwnership,
+  meta: {
+    ...lifecycleOwnership,
+    key: 'app_config.draft_created',
+    version: 1,
+    description: 'A new tenant config draft was created.',
+  },
   payload: new SchemaModel({
     name: 'ConfigDraftCreatedPayload',
     fields: {
@@ -39,10 +40,12 @@ export const ConfigDraftCreatedEvent = defineEvent({
 });
 
 export const ConfigPromotedToPreviewEvent = defineEvent({
-  name: 'app_config.promoted_to_preview',
-  version: 1,
-  description: 'A tenant config draft was promoted to preview.',
-  ownership: lifecycleOwnership,
+  meta: {
+      ...lifecycleOwnership,
+    key: 'app_config.promoted_to_preview',
+    version: 1,
+    description: 'A tenant config draft was promoted to preview.',
+  },
   payload: new SchemaModel({
     name: 'ConfigPromotedToPreviewPayload',
     fields: {
@@ -60,10 +63,12 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
 });
 
 export const ConfigPublishedEvent = defineEvent({
-  name: 'app_config.published',
-  version: 1,
-  description: 'A tenant config version was published to production.',
-  ownership: lifecycleOwnership,
+  meta: {
+      ...lifecycleOwnership,
+    key: 'app_config.published',
+    version: 1,
+    description: 'A tenant config version was published to production.',
+  },
   payload: new SchemaModel({
     name: 'ConfigPublishedPayload',
     fields: {
@@ -92,10 +97,12 @@ export const ConfigPublishedEvent = defineEvent({
 });
 
 export const ConfigRolledBackEvent = defineEvent({
-  name: 'app_config.rolled_back',
-  version: 1,
-  description: 'A tenant config was rolled back to a previous version.',
-  ownership: lifecycleOwnership,
+  meta: {
+    ...lifecycleOwnership,
+    key: 'app_config.rolled_back',
+    version: 1,
+    description: 'A tenant config was rolled back to a previous version.',
+  },
   payload: new SchemaModel({
     name: 'ConfigRolledBackPayload',
     fields: {

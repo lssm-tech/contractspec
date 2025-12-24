@@ -83,7 +83,7 @@ export interface ImplementationPlan {
   /** Feature/spec being implemented */
   target: {
     type: 'spec' | 'feature' | 'presentation';
-    name: string;
+    key: string;
     version: number;
   };
   /** Context section */

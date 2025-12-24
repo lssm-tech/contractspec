@@ -77,7 +77,7 @@ const OpenBankingSyncTransactionsOutput = new SchemaModel({
 
 export const OpenBankingListTransactions = defineQuery({
   meta: {
-    name: 'openbanking.transactions.list',
+    key: 'openbanking.transactions.list',
     version: 1,
     description:
       'List bank transactions that have been normalised into the canonical ledger.',
@@ -99,7 +99,7 @@ export const OpenBankingListTransactions = defineQuery({
 
 export const OpenBankingSyncTransactions = defineCommand({
   meta: {
-    name: 'openbanking.transactions.sync',
+    key: 'openbanking.transactions.sync',
     version: 1,
     description:
       'Synchronise transactions for a bank account by calling the configured open banking provider.',
@@ -119,7 +119,7 @@ export const OpenBankingSyncTransactions = defineCommand({
   },
   telemetry: {
     success: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced },
       properties: ({ input, output }) => {
         const payload = input as {
           tenantId?: string;
@@ -142,7 +142,7 @@ export const OpenBankingSyncTransactions = defineCommand({
       },
     },
     failure: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.transactionsSyncFailed },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.transactionsSyncFailed },
       properties: ({ input, error }) => {
         const payload = input as {
           tenantId?: string;

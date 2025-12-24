@@ -42,8 +42,8 @@ function buildResolvedConfig(
       key: specKey ?? 'openbanking.powens',
       version: 1,
       category: 'open-banking',
-      displayName: 'Powens Open Banking',
-      title: 'Powens',
+      title: 'Powens Open Banking',
+
       description: 'Powens integration spec',
       domain: 'finance',
       owners: ['platform.finance'],

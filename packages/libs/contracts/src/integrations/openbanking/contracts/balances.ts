@@ -73,7 +73,7 @@ const OpenBankingRefreshBalancesOutput = new SchemaModel({
 
 export const OpenBankingGetBalances = defineQuery({
   meta: {
-    name: 'openbanking.balances.get',
+    key: 'openbanking.balances.get',
     version: 1,
     description: 'Retrieve the latest cached balances for a bank account.',
     goal: 'Expose current and available balances required by dashboards and analytics.',
@@ -94,7 +94,7 @@ export const OpenBankingGetBalances = defineQuery({
 
 export const OpenBankingRefreshBalances = defineCommand({
   meta: {
-    name: 'openbanking.balances.refresh',
+    key: 'openbanking.balances.refresh',
     version: 1,
     description:
       'Refresh balances for a bank account via the configured open banking provider.',
@@ -114,7 +114,7 @@ export const OpenBankingRefreshBalances = defineCommand({
   },
   telemetry: {
     success: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed },
       properties: ({ input, output }) => {
         const payload = input as {
           tenantId?: string;
@@ -135,7 +135,7 @@ export const OpenBankingRefreshBalances = defineCommand({
       },
     },
     failure: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshFailed },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshFailed },
       properties: ({ input, error }) => {
         const payload = input as {
           tenantId?: string;

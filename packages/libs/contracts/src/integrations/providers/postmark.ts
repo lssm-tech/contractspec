@@ -6,7 +6,6 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
     key: 'email.postmark',
     version: 1,
     category: 'email',
-    displayName: 'Postmark',
     title: 'Postmark Transactional Email',
     description: 'Postmark integration for transactional email delivery.',
     domain: 'communications',

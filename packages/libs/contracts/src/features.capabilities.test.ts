@@ -31,7 +31,7 @@ const capabilitySpec: CapabilitySpec = {
   provides: [
     {
       surface: 'operation',
-      name: 'payments.charge.create',
+      key: 'payments.charge.create',
       version: 1,
     },
   ],

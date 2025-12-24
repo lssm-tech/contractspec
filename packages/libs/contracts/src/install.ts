@@ -70,16 +70,16 @@ type AllowedEventUnion<
         ref: EventSpec<infer P>;
       }
         ? {
-            name: S['sideEffects']['emits'][K]['ref']['name'];
-            version: S['sideEffects']['emits'][K]['ref']['version'];
+            key: S['sideEffects']['emits'][K]['ref']['meta']['key'];
+            version: S['sideEffects']['emits'][K]['ref']['meta']['version'];
             payload: z.infer<ReturnType<P['getZod']>>;
           }
         : S['sideEffects']['emits'][K] extends {
-              name: infer N extends string;
+              key: infer N extends string;
               version: infer V extends number;
               payload: infer Q extends AnySchemaModel;
             }
-          ? { name: N; version: V; payload: z.infer<ReturnType<Q['getZod']>> }
+          ? { key: N; version: V; payload: z.infer<ReturnType<Q['getZod']>> }
           : never;
     }[number]
   : never;
@@ -95,7 +95,7 @@ export function makeEmit<S extends AnyOperationSpec>(
       ev: EventSpec<T>,
       payload: ZodSchemaModel<T>
     ) => {
-      await ctx.__emitGuard__?.(ev.name, ev.version, payload);
+      await ctx.__emitGuard__?.(ev.meta.key, ev.meta.version, payload);
     },
     /** Nom/version explicites (runtime-checked par la guard) */
     named: async (name: string, version: number, payload: unknown) => {
@@ -105,7 +105,7 @@ export function makeEmit<S extends AnyOperationSpec>(
     object: async (evt: AllowedEventUnion<S>) => {
       // expect-error — OK si le union est précis, sinon fallback accepte string/number/unknown
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await ctx.__emitGuard__?.(evt.name, evt.version, (evt as any).payload);
+      await ctx.__emitGuard__?.(evt.key, evt.version, (evt as any).payload);
     },
   };
 }

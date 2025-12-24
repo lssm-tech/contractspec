@@ -6,7 +6,6 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
     key: 'vectordb.qdrant',
     version: 1,
     category: 'vector-db',
-    displayName: 'Qdrant',
     title: 'Qdrant Vector Database',
     description: 'Qdrant integration for vector search and embeddings storage.',
     domain: 'ai',

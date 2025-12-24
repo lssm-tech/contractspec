@@ -72,7 +72,7 @@ interface SpecJsonSchema {
   input: OpenApiSchemaObject | null;
   output: OpenApiSchemaObject | null;
   meta: {
-    name: string;
+    key: string;
     version: number;
     kind: 'command' | 'query';
     description: string;
@@ -91,7 +91,7 @@ export function jsonSchemaForSpec(
     input: schemaModelToJsonSchema(spec.io.input),
     output: schemaModelToJsonSchema(spec.io.output as AnySchemaModel | null),
     meta: {
-      name: spec.meta.key,
+      key: spec.meta.key,
       version: spec.meta.version,
       kind: spec.meta.kind,
       description: spec.meta.description,
@@ -123,7 +123,7 @@ export function exportOperations(
     )
     .slice()
     .sort((a, b) => {
-      const byName = a.meta.name.localeCompare(b.meta.name);
+      const byName = a.meta.key.localeCompare(b.meta.key);
       return byName !== 0 ? byName : a.meta.version - b.meta.version;
     });
 

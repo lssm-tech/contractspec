@@ -74,7 +74,7 @@ export function openApiForRegistry(
     )
     .slice()
     .sort((a, b) => {
-      const byName = a.meta.name.localeCompare(b.meta.name);
+      const byName = a.meta.key.localeCompare(b.meta.key);
       return byName !== 0 ? byName : a.meta.version - b.meta.version;
     });
 

@@ -27,7 +27,7 @@ const makeSpec = (
   },
   events: [
     {
-      name: `${key}.event_a`,
+      key: `${key}.event_a`,
       version: 1,
       semantics: { what: 'Something happened' },
       properties: {

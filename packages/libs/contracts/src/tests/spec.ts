@@ -1,12 +1,12 @@
 import type { Owner, Stability, Tag } from '../ownership';
 
 export interface OperationTargetRef {
-  name: string;
+  key: string;
   version?: number;
 }
 
 export interface WorkflowTargetRef {
-  name: string;
+  key: string;
   version?: number;
 }
 
@@ -36,7 +36,7 @@ export interface ExpectErrorAssertion {
 }
 
 export interface ExpectedEvent {
-  name: string;
+  key: string;
   version: number;
   min?: number;
   max?: number;
@@ -53,7 +53,7 @@ export type Assertion =
   | ExpectEventsAssertion;
 
 export interface TestScenario {
-  name: string;
+  key: string;
   description?: string;
   given?: Fixture[];
   when: Action;
@@ -69,7 +69,7 @@ export interface CoverageRequirement {
 }
 
 export interface TestSpecMeta {
-  name: string;
+  key: string;
   version: number;
   title: string;
   description?: string;
@@ -87,11 +87,11 @@ export interface TestSpec {
 }
 
 export interface TestSpecRef {
-  name: string;
+  key: string;
   version?: number;
 }
 
-const testKey = (meta: TestSpecMeta) => `${meta.name}.v${meta.version}`;
+const testKey = (meta: TestSpecMeta) => `${meta.key}.v${meta.version}`;
 
 export class TestRegistry {
   private readonly items = new Map<string, TestSpec>();

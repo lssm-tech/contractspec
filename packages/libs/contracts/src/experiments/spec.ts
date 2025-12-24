@@ -5,7 +5,7 @@ import type { TelemetryEventDef } from '../telemetry/spec';
 export type ExperimentMeta = OwnerShipMeta
 
 export interface ExperimentRef {
-  name: string;
+  key: string;
   version?: number;
 }
 
@@ -28,7 +28,7 @@ export interface ExperimentOverride {
 
 export interface ExperimentVariant {
   id: string;
-  name: string;
+  key: string;
   description?: string;
   /** Relative weight for random allocation (defaults to 1). */
   weight?: number;
@@ -69,8 +69,8 @@ export type AllocationStrategy =
 export type MetricAggregation = 'count' | 'avg' | 'p75' | 'p90' | 'p95' | 'p99';
 
 export interface SuccessMetric {
-  name: string;
-  telemetryEvent: { name: TelemetryEventDef['name']; version: number };
+  key: string;
+  telemetryEvent: { key: TelemetryEventDef['key']; version: number };
   aggregation: MetricAggregation;
   target?: number;
 }
@@ -85,7 +85,7 @@ export interface ExperimentSpec {
   tags?: string[];
 }
 
-const experimentKey = (meta: ExperimentMeta) => `${meta.name}.v${meta.version}`;
+const experimentKey = (meta: ExperimentMeta) => `${meta.key}.v${meta.version}`;
 
 export class ExperimentRegistry {
   private readonly items = new Map<string, ExperimentSpec>();

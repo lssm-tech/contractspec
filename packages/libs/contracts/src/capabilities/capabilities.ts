@@ -12,7 +12,7 @@ export type CapabilitySurface =
 
 export interface CapabilitySurfaceRef {
   surface: CapabilitySurface;
-  name: string;
+  key: string;
   version: number;
   description?: string;
 }
@@ -24,7 +24,7 @@ export interface CapabilityMeta extends OwnerShipMeta {
   version: number;
   kind: CapabilityKind;
   /** Optional doc block id for governance and navigation. */
-  docId?: DocId;
+  docId?: DocId[];
 }
 
 export interface CapabilityRequirement {

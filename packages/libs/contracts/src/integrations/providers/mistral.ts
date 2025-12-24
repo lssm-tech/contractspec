@@ -6,7 +6,6 @@ export const mistralIntegrationSpec: IntegrationSpec = {
     key: 'ai-llm.mistral',
     version: 1,
     category: 'ai-llm',
-    displayName: 'Mistral AI',
     title: 'Mistral Large Language Model',
     description:
       'Mistral integration providing chat completions and embedding generation.',

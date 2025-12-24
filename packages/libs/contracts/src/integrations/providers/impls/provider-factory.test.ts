@@ -120,8 +120,8 @@ function buildContext({
       category: (key.startsWith('openbanking.')
         ? 'open-banking'
         : key.split('.')[0]) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-      displayName: key,
       title: key,
+
       description: `${key} provider`,
       domain: 'test',
       owners: ['test.owner'],

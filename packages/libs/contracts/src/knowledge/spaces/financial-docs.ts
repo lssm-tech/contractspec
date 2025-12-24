@@ -6,7 +6,6 @@ export const financialDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.financial-docs',
     version: 1,
     category: 'canonical',
-    displayName: 'Financial Documents',
     title: 'Household Financial Documents',
     description:
       'Invoices, bills, and contracts powering Pocket Family Office financial automation.',
@@ -19,7 +18,7 @@ export const financialDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { name: 'knowledge.access.financial-docs', version: 1 },
+    policy: { key: 'knowledge.access.financial-docs', version: 1 },
     trustLevel: 'high',
     automationWritable: true,
   },

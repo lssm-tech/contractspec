@@ -22,7 +22,7 @@ function makeSpec(key: string, version: number): CapabilitySpec {
     provides: [
       {
         surface: 'operation',
-        name: 'payments.charge.create',
+        key: 'payments.charge.create',
         version: 1,
       },
     ],

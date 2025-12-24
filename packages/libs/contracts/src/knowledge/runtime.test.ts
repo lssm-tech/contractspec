@@ -19,7 +19,6 @@ const baseSpace: KnowledgeSpaceSpec = {
     key: 'product-canon',
     version: 1,
     category: 'canonical',
-    displayName: 'Product Canon',
   },
   retention: { ttlDays: null },
   access: {
@@ -67,7 +66,7 @@ function makeAppConfig(
     translation: {
       defaultLocale: 'en',
       supportedLocales: ['en'],
-      blueprintCatalog: { name: 'demo.catalog', version: 1 },
+      blueprintCatalog: { key: 'demo.catalog', version: 1 },
       tenantOverrides: [],
     },
     branding: {

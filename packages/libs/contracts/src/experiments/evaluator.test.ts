@@ -6,7 +6,7 @@ import { StabilityEnum } from '../ownership';
 const registry = new ExperimentRegistry();
 registry.register({
   meta: {
-    name: 'sigil.experiment.random',
+    key: 'sigil.experiment.random',
     version: 1,
     title: 'Random allocation',
     description: 'Simple random experiment',
@@ -17,15 +17,15 @@ registry.register({
   },
   controlVariant: 'control',
   variants: [
-    { id: 'control', name: 'Control', weight: 1 },
-    { id: 'variant', name: 'Variant', weight: 1 },
+    { id: 'control', key: 'Control', weight: 1 },
+    { id: 'variant', key: 'Variant', weight: 1 },
   ],
   allocation: { type: 'random', salt: 'sigil' },
 });
 
 registry.register({
   meta: {
-    name: 'sigil.experiment.sticky',
+    key: 'sigil.experiment.sticky',
     version: 1,
     title: 'Sticky allocation',
     description: 'Sticky assignment by userId',
@@ -36,15 +36,15 @@ registry.register({
   },
   controlVariant: 'control',
   variants: [
-    { id: 'control', name: 'Control', weight: 1 },
-    { id: 'variant', name: 'Variant', weight: 1 },
+    { id: 'control', key: 'Control', weight: 1 },
+    { id: 'variant', key: 'Variant', weight: 1 },
   ],
   allocation: { type: 'sticky', attribute: 'userId', salt: 'sigil' },
 });
 
 registry.register({
   meta: {
-    name: 'sigil.experiment.targeted',
+    key: 'sigil.experiment.targeted',
     version: 1,
     title: 'Targeted allocation',
     description: 'Assign variant when rule matches',
@@ -55,8 +55,8 @@ registry.register({
   },
   controlVariant: 'control',
   variants: [
-    { id: 'control', name: 'Control' },
-    { id: 'vip', name: 'VIP' },
+    { id: 'control', key: 'Control' },
+    { id: 'vip', key: 'VIP' },
   ],
   allocation: {
     type: 'targeted',

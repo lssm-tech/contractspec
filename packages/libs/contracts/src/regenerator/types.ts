@@ -83,7 +83,7 @@ export interface ProposalTarget {
     | 'theme'
     | 'unknown';
   reference: {
-    name: string;
+    key: string;
     version?: number;
   };
   tenantScoped?: boolean;

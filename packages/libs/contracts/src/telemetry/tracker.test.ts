@@ -6,7 +6,7 @@ import { StabilityEnum } from '../ownership';
 
 const telemetrySpec: TelemetrySpec = {
   meta: {
-    name: 'sigil.telemetry',
+    key: 'sigil.telemetry',
     version: 1,
     title: 'Sigil telemetry',
     description: 'Telemetry events for sigil',
@@ -22,7 +22,7 @@ const telemetrySpec: TelemetrySpec = {
   },
   events: [
     {
-      name: 'sigil.telemetry.workflow_step',
+      key: 'sigil.telemetry.workflow_step',
       version: 1,
       semantics: { what: 'Workflow step executed' },
       properties: {

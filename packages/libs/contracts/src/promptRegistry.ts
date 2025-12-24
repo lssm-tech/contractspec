@@ -6,7 +6,7 @@ export class PromptRegistry {
 
   /** Register a prompt. Throws on duplicate name+version. */
   register<I extends z.ZodType>(p: PromptSpec<I>): this {
-    const key = `${p.meta.name}-v${p.meta.version}`;
+    const key = `${p.meta.key}-v${p.meta.version}`;
     if (this.prompts.has(key)) throw new Error(`Duplicate prompt ${key}`);
     this.prompts.set(key, p);
     return this;

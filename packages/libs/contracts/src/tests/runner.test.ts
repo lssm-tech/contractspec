@@ -35,15 +35,20 @@ const SumCalculatedPayload = new SchemaModel({
 });
 
 const SumCalculatedEvent = defineEvent({
-  name: 'math.sum_calculated',
-  version: 1,
-  description: 'Sum calculated',
+  meta: {
+    key: 'math.sum_calculated',
+    version: 1,
+    description: 'Sum calculated',
+    stability: StabilityEnum.Experimental,
+    owners: ['@team.math'],
+    tags: ['math'],
+  },
   payload: SumCalculatedPayload,
 });
 
 const AddNumbersSpec = defineCommand({
   meta: {
-    name: 'math.add',
+    key: 'math.add',
     version: 1,
     description: 'Adds two numbers',
     goal: 'Verify math operations',
@@ -86,29 +91,29 @@ registry.bind(
 
 const testSpec: TestSpec = {
   meta: {
-    name: 'math.add.tests',
+    key: 'math.add.tests',
     version: 1,
     title: 'Math add scenarios',
     owners: ['@team.math'],
     tags: ['math', 'contracts'],
     stability: StabilityEnum.Experimental,
   },
-  target: { type: 'operation', operation: { name: 'math.add' } },
+  target: { type: 'operation', operation: { key: 'math.add' } },
   scenarios: [
     {
-      name: 'succeeds with valid numbers',
-      when: { operation: { name: 'math.add' }, input: { a: 2, b: 3 } },
+      key: 'succeeds with valid numbers',
+      when: { operation: { key: 'math.add' }, input: { a: 2, b: 3 } },
       then: [
         { type: 'expectOutput', match: { sum: 5 } },
         {
           type: 'expectEvents',
-          events: [{ name: 'math.sum_calculated', version: 1, min: 1 }],
+          events: [{ key: 'math.sum_calculated', version: 1, min: 1 }],
         },
       ],
     },
     {
-      name: 'fails output assertion',
-      when: { operation: { name: 'math.add' }, input: { a: 2, b: 2 } },
+      key: 'fails output assertion',
+      when: { operation: { key: 'math.add' }, input: { a: 2, b: 2 } },
       then: [{ type: 'expectOutput', match: { sum: 5 } }],
     },
   ],

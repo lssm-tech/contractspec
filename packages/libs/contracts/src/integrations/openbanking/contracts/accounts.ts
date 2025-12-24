@@ -90,7 +90,7 @@ const OpenBankingSyncAccountsOutput = new SchemaModel({
 
 export const OpenBankingListAccounts = defineQuery({
   meta: {
-    name: 'openbanking.accounts.list',
+    key: 'openbanking.accounts.list',
     version: 1,
     description:
       'List bank accounts available to a tenant/user via Powens Open Banking.',
@@ -112,7 +112,7 @@ export const OpenBankingListAccounts = defineQuery({
 
 export const OpenBankingGetAccount = defineQuery({
   meta: {
-    name: 'openbanking.accounts.get',
+    key: 'openbanking.accounts.get',
     version: 1,
     description:
       'Retrieve the canonical bank account record for the given account identifier.',
@@ -134,7 +134,7 @@ export const OpenBankingGetAccount = defineQuery({
 
 export const OpenBankingSyncAccounts = defineCommand({
   meta: {
-    name: 'openbanking.accounts.sync',
+    key: 'openbanking.accounts.sync',
     version: 1,
     description:
       'Initiate a synchronisation run to refresh bank account metadata from Powens.',
@@ -154,7 +154,7 @@ export const OpenBankingSyncAccounts = defineCommand({
   },
   telemetry: {
     success: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.accountsSynced },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.accountsSynced },
       properties: ({ input, output }) => {
         const payload = input as {
           tenantId?: string;
@@ -173,7 +173,7 @@ export const OpenBankingSyncAccounts = defineCommand({
       },
     },
     failure: {
-      event: { name: OPENBANKING_TELEMETRY_EVENTS.accountsSyncFailed },
+      event: { key: OPENBANKING_TELEMETRY_EVENTS.accountsSyncFailed },
       properties: ({ input, error }) => {
         const payload = input as {
           tenantId?: string;

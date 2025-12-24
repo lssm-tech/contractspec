@@ -61,7 +61,7 @@ describe('ThemeRegistry', () => {
     const registry = new ThemeRegistry();
     registry.register(pastelTheme);
     const stored = registry.get('design.pastel', 1);
-    expect(stored?.meta.name).toBe('design.pastel');
+    expect(stored?.meta.key).toBe('design.pastel');
     expect(stored?.tokens.colors?.background?.value).toBe('#fdf2f8');
   });
 
@@ -78,6 +78,6 @@ describe('ThemeRegistry', () => {
 
   it('creates stable theme references', () => {
     const ref = makeThemeRef(pastelTheme);
-    expect(ref).toEqual({ name: 'design.pastel', version: 1 });
+    expect(ref).toEqual({ key: 'design.pastel', version: 1 });
   });
 });

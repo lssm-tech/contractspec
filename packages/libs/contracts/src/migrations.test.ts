@@ -14,7 +14,7 @@ const baseMeta = {
 const migration: MigrationSpec = {
   meta: {
     ...baseMeta,
-    name: 'core.db.2025_01_add_users',
+    key: 'core.db.2025_01_add_users',
     version: 1,
   },
   plan: {
@@ -46,7 +46,7 @@ describe('MigrationRegistry', () => {
     const registry = new MigrationRegistry();
     registry.register(migration);
     const stored = registry.get('core.db.2025_01_add_users', 1);
-    expect(stored?.meta.name).toBe('core.db.2025_01_add_users');
+    expect(stored?.meta.key).toBe('core.db.2025_01_add_users');
     expect(stored?.plan.up).toHaveLength(2);
   });
 
@@ -66,10 +66,10 @@ describe('MigrationRegistry', () => {
     registry.register(migration);
     registry.register({
       ...migration,
-      meta: { ...migration.meta, name: 'core.db.2025_02_add_roles' },
+      meta: { ...migration.meta, key: 'core.db.2025_02_add_roles' },
     });
     const list = registry.list();
-    expect(list.map((m) => m.meta.name)).toEqual([
+    expect(list.map((m) => m.meta.key)).toEqual([
       'core.db.2025_01_add_users',
       'core.db.2025_02_add_roles',
     ]);

@@ -96,7 +96,7 @@ export class TelemetryTracker {
     if (!definition) return false;
 
     const spec = this.registry.getSpecForEvent(
-      definition.name,
+      definition.key,
       definition.version
     );
     if (!spec) return false;
@@ -112,7 +112,7 @@ export class TelemetryTracker {
     const redactedProperties = this.redactProperties(definition, properties);
     const dispatch: TelemetryDispatch = {
       id: randomUUID(),
-      name: definition.name,
+      name: definition.key,
       version: definition.version,
       occurredAt: this.clock().toISOString(),
       properties: redactedProperties,

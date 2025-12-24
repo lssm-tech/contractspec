@@ -6,7 +6,6 @@ export const gmailIntegrationSpec: IntegrationSpec = {
     key: 'email.gmail',
     version: 1,
     category: 'email',
-    displayName: 'Gmail API',
     title: 'Google Gmail API',
     description:
       'Gmail integration supporting inbound thread ingestion and outbound transactional email.',

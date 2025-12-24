@@ -15,7 +15,7 @@ const baseMeta = {
 const policy: PolicySpec = {
   meta: {
     ...baseMeta,
-    name: 'core.default',
+    key: 'core.default',
     version: 1,
     scope: 'global',
   },
@@ -103,7 +103,7 @@ describe('PolicyEngine', () => {
       action: 'read',
       subject: { roles: ['admin'] },
       resource: { type: 'resident' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('allow');
     expect(decision.pii?.fields).toContain('contact.email');
@@ -114,7 +114,7 @@ describe('PolicyEngine', () => {
       action: 'read',
       subject: { roles: ['user', 'suspended'] },
       resource: { type: 'resident' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('deny');
     expect(decision.reason).toBe('Suspended users cannot read residents');
@@ -125,7 +125,7 @@ describe('PolicyEngine', () => {
       action: 'read',
       subject: { roles: ['agent'] },
       resource: { type: 'resident', fields: ['contact.email'] },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('deny');
     expect(decision.fieldDecisions).toEqual([
@@ -142,7 +142,7 @@ describe('PolicyEngine', () => {
       action: 'export',
       subject: { roles: ['admin'] },
       resource: { type: 'resident' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('deny');
     expect(decision.reason).toBe('consent_required');
@@ -154,7 +154,7 @@ describe('PolicyEngine', () => {
       action: 'export',
       subject: { roles: ['admin'] },
       resource: { type: 'resident' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
       consents: ['resident_export'],
     });
     expect(decision.effect).toBe('allow');
@@ -180,7 +180,7 @@ describe('PolicyEngine', () => {
         ],
       },
       resource: { type: 'resident', id: 'resident-123' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('allow');
     expect(decision.reason).toBe('Managers can update assigned residents');
@@ -191,7 +191,7 @@ describe('PolicyEngine', () => {
       action: 'write',
       subject: { roles: ['manager'] },
       resource: { type: 'resident', id: 'resident-123' },
-      policies: [{ name: 'core.default', version: 1 }],
+      policies: [{ key: 'core.default', version: 1 }],
     });
     expect(decision.effect).toBe('deny');
   });

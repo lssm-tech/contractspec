@@ -6,7 +6,6 @@ export const uploadedDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.uploaded-docs',
     version: 1,
     category: 'external',
-    displayName: 'Uploaded Documents',
     title: 'Uploaded Knowledge Assets',
     description:
       'Documents uploaded by households, including invoices, contracts, and reference files.',
@@ -19,7 +18,7 @@ export const uploadedDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { name: 'knowledge.access.uploaded-docs', version: 1 },
+    policy: { key: 'knowledge.access.uploaded-docs', version: 1 },
     trustLevel: 'medium',
     automationWritable: true,
   },

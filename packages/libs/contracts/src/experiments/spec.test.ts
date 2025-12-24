@@ -4,7 +4,7 @@ import { StabilityEnum } from '../ownership';
 
 const sampleExperiment = (version: number): ExperimentSpec => ({
   meta: {
-    name: 'sigil.onboarding.split_form',
+    key: 'sigil.onboarding.split_form',
     version,
     title: 'Split onboarding form',
     description: 'Test simplified onboarding form',
@@ -15,8 +15,8 @@ const sampleExperiment = (version: number): ExperimentSpec => ({
   },
   controlVariant: 'control',
   variants: [
-    { id: 'control', name: 'Control' },
-    { id: 'variant_a', name: 'Variant A', weight: 2 },
+    { id: 'control', key: 'Control' },
+    { id: 'variant_a', key: 'Variant A', weight: 2 },
   ],
   allocation: { type: 'random', salt: 'sigil' },
 });

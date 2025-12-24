@@ -42,12 +42,12 @@ export interface ImplementationRef {
 
 // preferred: reference a declared event
 export interface EmitDeclRef {
-  ref: EventSpec<AnySchemaModel>['meta'];
+  ref: EventSpec<AnySchemaModel>;
   when: string;
 }
 // inline (fallback)
 export interface EmitDeclInline {
-  name: string;
+  key: string;
   version: number;
   when: string;
   payload: AnySchemaModel;
@@ -60,7 +60,7 @@ export type EmitDecl = EmitDeclRef | EmitDeclInline;
 export const isEmitDeclRef = (e: EmitDecl): e is EmitDeclRef => 'ref' in e;
 
 export interface TelemetryTrigger {
-  event: { name: string; version?: number };
+  event: { key: string; version?: number };
   properties?: (args: {
     input: unknown;
     output?: unknown;
@@ -171,13 +171,13 @@ export interface OperationSpec<
   acceptance?: {
     /** Gherkin-lite scenarios for docs & auto tests */
     scenarios?: {
-      name: string;
+      key: string;
       given: string[];
       when: string[];
       then: string[];
     }[];
     /** Request/response examples (used for docs & snapshot tests) */
-    examples?: { name: string; input: unknown; output: unknown }[];
+    examples?: { key: string; input: unknown; output: unknown }[];
   };
 
   /**

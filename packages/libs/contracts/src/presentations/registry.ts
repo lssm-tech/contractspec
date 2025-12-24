@@ -2,7 +2,7 @@ import { filterBy, getUniqueTags, groupBy } from '../registry-utils';
 import type { PresentationSpec } from './presentations';
 
 function keyOf(p: PresentationSpec) {
-  return `${p.meta.name}.v${p.meta.version}`;
+  return `${p.meta.key}.v${p.meta.version}`;
 }
 
 /** In-memory registry for PresentationSpec. */

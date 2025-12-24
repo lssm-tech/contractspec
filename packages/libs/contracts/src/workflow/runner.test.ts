@@ -34,7 +34,7 @@ function workflowSpec(overrides?: {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
         },
         {
           id: 'review',
@@ -46,7 +46,7 @@ function workflowSpec(overrides?: {
           id: 'finish',
           type: 'automation',
           label: 'Finish',
-          action: { operation: { name: 'sigil.finish', version: 1 } },
+          action: { operation: { key: 'sigil.finish', version: 1 } },
         },
       ],
       transitions: overrides?.transitions ?? [
@@ -70,9 +70,9 @@ function createRunner(
   const store = new InMemoryStateStore();
 
   const opExecutor = vi.fn(
-    async (op: { name: string }, _input?: unknown, _ctx?: unknown) => {
-      if (op.name === 'sigil.start') return { approved: true };
-      if (op.name === 'sigil.finish') return { done: true };
+    async (op: { key: string }, _input?: unknown, _ctx?: unknown) => {
+      if (op.key === 'sigil.start') return { approved: true };
+      if (op.key === 'sigil.finish') return { done: true };
       return {};
     }
   );
@@ -169,7 +169,7 @@ function makeResolvedConfig(
     translation: {
       defaultLocale: 'en',
       supportedLocales: ['en'],
-      blueprintCatalog: { name: 'demo.catalog', version: 1 },
+      blueprintCatalog: { key: 'demo.catalog', version: 1 },
       tenantOverrides: [],
     },
     branding: {
@@ -200,7 +200,7 @@ describe('WorkflowRunner', () => {
     expect(state.currentStep).toBe('review');
     expect(state.data.approved).toBe(true);
     expect(opExecutor).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'sigil.start' }),
+      expect.objectContaining({ key: 'sigil.start' }),
       undefined,
       expect.objectContaining({
         step: expect.objectContaining({ id: 'start' }),
@@ -251,7 +251,7 @@ describe('WorkflowRunner', () => {
     await runner.executeStep(workflowId);
 
     expect(enforceCapabilities).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'sigil.start' }),
+      expect.objectContaining({ key: 'sigil.start' }),
       expect.objectContaining({
         step: expect.objectContaining({ id: 'start' }),
       })
@@ -266,7 +266,7 @@ describe('WorkflowRunner', () => {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
           requiredIntegrations: ['payments.primary'],
         },
       ],
@@ -291,7 +291,7 @@ describe('WorkflowRunner', () => {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
           requiredCapabilities: [{ key: 'core.sample', version: 1 }],
         },
       ],
@@ -319,7 +319,7 @@ describe('WorkflowRunner', () => {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
           requiredIntegrations: ['payments.primary'],
           requiredCapabilities: [{ key: 'core.sample', version: 1 }],
         },
@@ -327,7 +327,7 @@ describe('WorkflowRunner', () => {
           id: 'finish',
           type: 'automation',
           label: 'Finish',
-          action: { operation: { name: 'sigil.finish', version: 1 } },
+          action: { operation: { key: 'sigil.finish', version: 1 } },
         },
       ],
       transitions: [{ from: 'start', to: 'finish' }],
@@ -358,7 +358,7 @@ describe('WorkflowRunner', () => {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
         },
         {
           id: 'review',

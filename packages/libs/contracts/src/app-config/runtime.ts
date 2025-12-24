@@ -226,7 +226,7 @@ export function resolveAppConfig(
     appId: blueprint.meta.appId,
     tenantId: tenant.meta.tenantId,
     environment: tenant.meta.environment,
-    blueprintName: blueprint.meta.name,
+    blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
     configVersion: tenant.meta.version,
     capabilities,
@@ -949,7 +949,7 @@ function resolvePointerRecord<TSpec>(
   }
   const resolved: Record<string, TSpec> = {};
   for (const [slot, pointer] of Object.entries(record)) {
-    const spec = registry.get(pointer.name, pointer.version);
+    const spec = registry.get(pointer.key, pointer.version);
     if (!spec) {
       missing.push({
         type,
@@ -980,7 +980,7 @@ function resolvePolicies(
   }
   const resolved: PolicySpec[] = [];
   for (const policy of policies) {
-    const spec = registry.get(policy.name, policy.version);
+    const spec = registry.get(policy.key, policy.version);
     if (!spec) {
       missing.push({
         type: 'policy',
@@ -1008,30 +1008,30 @@ function resolveThemeBinding(
   if (!registry) {
     themeMissing.push({
       type: 'theme',
-      identifier: `${binding.primary.name}.v${binding.primary.version}`,
+      identifier: `${binding.primary.key}.v${binding.primary.version}`,
     });
     for (const fallback of binding.fallbacks ?? []) {
       themeMissing.push({
         type: 'theme',
-        identifier: `${fallback.name}.v${fallback.version}`,
+        identifier: `${fallback.key}.v${fallback.version}`,
       });
     }
     return { theme: undefined, fallbacks: [], themeMissing };
   }
-  const theme = registry.get(binding.primary.name, binding.primary.version);
+  const theme = registry.get(binding.primary.key, binding.primary.version);
   if (!theme) {
     themeMissing.push({
       type: 'theme',
-      identifier: `${binding.primary.name}.v${binding.primary.version}`,
+      identifier: `${binding.primary.key}.v${binding.primary.version}`,
     });
   }
   const fallbacks: ThemeSpec[] = [];
   for (const fallback of binding.fallbacks ?? []) {
-    const spec = registry.get(fallback.name, fallback.version);
+    const spec = registry.get(fallback.key, fallback.version);
     if (!spec) {
       themeMissing.push({
         type: 'theme',
-        identifier: `${fallback.name}.v${fallback.version}`,
+        identifier: `${fallback.key}.v${fallback.version}`,
       });
       continue;
     }
@@ -1055,7 +1055,7 @@ function resolveTelemetryBinding(
     });
     return { telemetry: undefined, telemetryMissing };
   }
-  const telemetry = registry.get(binding.spec.name, binding.spec.version);
+  const telemetry = registry.get(binding.spec.key, binding.spec.version);
   if (!telemetry) {
     telemetryMissing.push({
       type: 'telemetry',
@@ -1083,7 +1083,7 @@ function resolveExperimentsSpecs(
     }
     const resolved: ExperimentSpec[] = [];
     for (const ref of refs) {
-      const spec = registry.get(ref.name, ref.version);
+      const spec = registry.get(ref.key, ref.version);
       if (!spec) {
         missing.push({
           type: 'experiment',
@@ -1111,15 +1111,15 @@ function featureKey(ref: FeatureRef) {
 }
 
 function specPointerKey(pointer: SpecPointer) {
-  return `${pointer.name}${pointer.version ? `.v${pointer.version}` : ''}`;
+  return `${pointer.key}${pointer.version ? `.v${pointer.version}` : ''}`;
 }
 
 function policyKey(ref: PolicyRef) {
-  return `${ref.name}${ref.version ? `.v${ref.version}` : ''}`;
+  return `${ref.key}${ref.version ? `.v${ref.version}` : ''}`;
 }
 
 function experimentKey(ref: ExperimentRef) {
-  return `${ref.name}${ref.version ? `.v${ref.version}` : ''}`;
+  return `${ref.key}${ref.version ? `.v${ref.version}` : ''}`;
 }
 
 function dedupeRefs<T>(refs: T[], keyFn: (value: T) => string): T[] {

@@ -198,7 +198,7 @@ export class TransformEngine {
   ): Promise<TOut> {
     if (!desc.targets.includes(target))
       throw new Error(
-        `Target ${target} not declared for ${desc.meta.name}.v${desc.meta.version}`
+        `Target ${target} not declared for ${desc.meta.key}.v${desc.meta.version}`
       );
     for (const v of this.validators) await v.validate(desc, target, ctx);
     const arr = this.renderers.get(target) ?? [];
@@ -290,15 +290,15 @@ export function createDefaultTransformEngine() {
         // Only use schema-driven rendering for simple structures
         if (isArray || isSimpleObject) {
           const body = schemaToMarkdown(desc.source.props, data, {
-            title: desc.meta.description ?? desc.meta.name,
-            description: `${desc.meta.name} v${desc.meta.version}`,
+            title: desc.meta.description ?? desc.meta.key,
+            description: `${desc.meta.key} v${desc.meta.version}`,
           });
           return { mimeType: 'text/markdown', body };
         }
 
         // Complex data structure - throw to let custom renderers handle
         throw new Error(
-          `Complex data structure for ${desc.meta.name} - expecting custom renderer`
+          `Complex data structure for ${desc.meta.key} - expecting custom renderer`
         );
       }
 
@@ -314,14 +314,14 @@ export function createDefaultTransformEngine() {
       // data fetching and formatting logic)
       if (desc.source.type === 'component' && data !== undefined) {
         throw new Error(
-          `No schema (source.props) available for ${desc.meta.name} - expecting custom renderer`
+          `No schema (source.props) available for ${desc.meta.key} - expecting custom renderer`
         );
       }
 
       // Metadata-only fallback: only use when no data is expected
       // (e.g., for documentation/introspection purposes)
       if (desc.source.type === 'component') {
-        const header = `# ${desc.meta.name} v${desc.meta.version}`;
+        const header = `# ${desc.meta.key} v${desc.meta.version}`;
         const about = desc.meta.description
           ? `\n\n${desc.meta.description}`
           : '';
@@ -361,7 +361,7 @@ export function createDefaultTransformEngine() {
     target: 'application/xml',
     async render(desc) {
       const json = applyPii(desc, { meta: desc.meta, source: desc.source });
-      const body = `<presentation name="${desc.meta.name}" version="${desc.meta.version}"><json>${encodeURIComponent(
+      const body = `<presentation name="${desc.meta.key}" version="${desc.meta.version}"><json>${encodeURIComponent(
         JSON.stringify(json)
       )}</json></presentation>`;
       return { mimeType: 'application/xml', body };
@@ -418,7 +418,7 @@ export function registerBasicValidation(engine: TransformEngine) {
     validate(desc) {
       if (!desc.meta.description || desc.meta.description.length < 3)
         throw new Error(
-          `Presentation ${desc.meta.name}.v${desc.meta.version} missing meta.description`
+          `Presentation ${desc.meta.key}.v${desc.meta.version} missing meta.description`
         );
     },
   });

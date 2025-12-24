@@ -17,7 +17,7 @@ import { resolveAppConfig } from '../app-config/runtime';
 
 const blueprint: AppBlueprintSpec = {
   meta: {
-    name: 'demo.app',
+    key: 'demo.app',
     version: 1,
     appId: 'demo',
     title: 'Demo',
@@ -37,7 +37,7 @@ const tenant: TenantAppConfig = {
     id: 'tenant-demo',
     tenantId: 'tenant-demo',
     appId: 'demo',
-    blueprintName: blueprint.meta.name,
+    blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
     version: 1,
     status: 'draft',
@@ -59,7 +59,7 @@ const proposal: SpecChangeProposal = {
   rationale: ['Repeated failures'],
   target: {
     specType: 'workflow',
-    reference: { name: 'demo.workflow', version: 1 },
+    reference: { key: 'demo.workflow', version: 1 },
     tenantScoped: true,
   },
   actions: [

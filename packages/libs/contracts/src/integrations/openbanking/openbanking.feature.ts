@@ -25,17 +25,17 @@ export const OpenBankingFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // Account operations
-    { name: 'openbanking.accounts.sync', version: 1 },
-    { name: 'openbanking.accounts.list', version: 1 },
-    { name: 'openbanking.accounts.get', version: 1 },
+    { key: 'openbanking.accounts.sync', version: 1 },
+    { key: 'openbanking.accounts.list', version: 1 },
+    { key: 'openbanking.accounts.get', version: 1 },
 
     // Balance operations
-    { name: 'openbanking.balances.refresh', version: 1 },
-    { name: 'openbanking.balances.get', version: 1 },
+    { key: 'openbanking.balances.refresh', version: 1 },
+    { key: 'openbanking.balances.get', version: 1 },
 
     // Transaction operations
-    { name: 'openbanking.transactions.sync', version: 1 },
-    { name: 'openbanking.transactions.list', version: 1 },
+    { key: 'openbanking.transactions.sync', version: 1 },
+    { key: 'openbanking.transactions.list', version: 1 },
   ],
 
   // No events for this integration feature

@@ -98,19 +98,19 @@ describe('PowensClient', () => {
   });
 });
 
-function getHeader(init: RequestInit | undefined, name: string) {
+function getHeader(init: RequestInit | undefined, key: string) {
   if (!init?.headers) return undefined;
-  const target = name.toLowerCase();
+  const target = key.toLowerCase();
   const headers = init.headers;
   if (headers instanceof Headers) {
-    return headers.get(name) ?? headers.get(target);
+    return headers.get(key) ?? headers.get(target);
   }
   if (Array.isArray(headers)) {
     const entry = headers.find(
-      ([key]) => key.toLowerCase() === target || key === name
+      ([key]) => key.toLowerCase() === target || key === key
     );
     return entry?.[1];
   }
   const record = headers as Record<string, string | undefined>;
-  return record[name] ?? record[target];
+  return record[key] ?? record[target];
 }

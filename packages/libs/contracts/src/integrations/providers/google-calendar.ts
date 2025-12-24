@@ -6,7 +6,6 @@ export const googleCalendarIntegrationSpec: IntegrationSpec = {
     key: 'calendar.google',
     version: 1,
     category: 'calendar',
-    displayName: 'Google Calendar',
     title: 'Google Calendar API',
     description:
       'Google Calendar integration for event creation, updates, and scheduling automations.',

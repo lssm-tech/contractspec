@@ -7,7 +7,6 @@ export const stripeIntegrationSpec: IntegrationSpec = {
     key: 'payments.stripe',
     version: 1,
     category: 'payments',
-    displayName: 'Stripe',
     title: 'Stripe Payments',
     description:
       'Stripe integration for payment processing, charges, and payouts.',

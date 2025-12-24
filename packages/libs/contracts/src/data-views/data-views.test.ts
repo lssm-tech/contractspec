@@ -14,13 +14,13 @@ const baseMeta = {
 const spec: DataViewSpec = {
   meta: {
     ...baseMeta,
-    name: 'residents.admin.list',
+    key: 'residents.admin.list',
     version: 1,
     entity: 'resident',
   },
   source: {
-    primary: { name: 'residents.list', version: 1 },
-    refreshEvents: [{ name: 'resident.created', version: 1 }],
+    primary: { key: 'residents.list', version: 1 },
+    refreshEvents: [{ key: 'resident.created', version: 1 }],
   },
   view: {
     kind: 'table',

@@ -6,7 +6,6 @@ export const financialOverviewKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.financial-overview',
     version: 1,
     category: 'operational',
-    displayName: 'Financial Overview Summaries',
     title: 'Derived Financial Summaries',
     description:
       'Aggregated cashflow summaries, category breakdowns, and balance trends derived from open banking data.',
@@ -19,7 +18,7 @@ export const financialOverviewKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: 180,
   },
   access: {
-    policy: { name: 'knowledge.access.financial-overview', version: 1 },
+    policy: { key: 'knowledge.access.financial-overview', version: 1 },
     trustLevel: 'medium',
     automationWritable: true,
   },

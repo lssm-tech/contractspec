@@ -700,7 +700,7 @@ const tenantTranslationRule: TenantRule = {
     const blueprintCatalog = pointer
       ? catalogs.blueprint.find(
           (catalog) =>
-            catalog.meta.name === pointer.name &&
+            catalog.meta.key === pointer.key &&
             catalog.meta.version === pointer.version
         )
       : undefined;
@@ -711,7 +711,7 @@ const tenantTranslationRule: TenantRule = {
           code: 'MISSING_BLUEPRINT_CATALOG',
           severity: 'error',
           path: 'translationCatalog',
-          message: `Blueprint translation catalog "${pointer.name}@${pointer.version}" is not loaded in context.`,
+          message: `Blueprint translation catalog "${pointer.key}@${pointer.version}" is not loaded in context.`,
         })
       );
     }
@@ -760,7 +760,7 @@ const tenantTranslationRule: TenantRule = {
                 code: 'UNSUPPORTED_LOCALE',
                 severity: 'error',
                 path: 'locales.enabledLocales',
-                message: `Locale "${locale}" is not supported by blueprint catalog "${blueprintCatalog.meta.name}".`,
+                message: `Locale "${locale}" is not supported by blueprint catalog "${blueprintCatalog.meta.key}".`,
               })
             );
           }

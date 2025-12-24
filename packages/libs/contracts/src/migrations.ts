@@ -38,7 +38,7 @@ export type MigrationStep =
 
 export interface MigrationMeta extends OwnerShipMeta {
   /** Fully qualified migration name (e.g., "sigil.db.2025_01_add_users"). */
-  name: string;
+  key: string;
   /** Increment when the migration changes. */
   version: number;
 }
@@ -69,8 +69,8 @@ export class MigrationRegistry {
   list(): MigrationSpec[] {
     return [...this.items.values()].sort((a, b) =>
       compareKey(
-        migrationKey(a.meta.name, a.meta.version),
-        migrationKey(b.meta.name, b.meta.version)
+        migrationKey(a.meta.key, a.meta.version),
+        migrationKey(b.meta.key, b.meta.version)
       )
     );
   }

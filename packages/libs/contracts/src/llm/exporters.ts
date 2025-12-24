@@ -68,7 +68,7 @@ export function operationSpecToContextMarkdown(spec: AnyOperationSpec): string {
     lines.push('## Acceptance Criteria');
     lines.push('');
     for (const s of spec.acceptance.scenarios) {
-      lines.push(`### ${s.name}`);
+      lines.push(`### ${s.key}`);
       lines.push('');
       lines.push('**Given:**');
       for (const g of s.given) lines.push(`- ${g}`);
@@ -206,9 +206,9 @@ export function operationSpecToFullMarkdown(
       lines.push('');
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          lines.push(`- \`${e.ref.key}.v${e.ref.version}\` — ${e.when}`);
+          lines.push(`- \`${e.ref.meta.key}.v${e.ref.meta.version}\` — ${e.when}`);
         } else {
-          lines.push(`- \`${e.name}.v${e.version}\` — ${e.when}`);
+          lines.push(`- \`${e.key}.v${e.version}\` — ${e.when}`);
         }
       }
       lines.push('');
@@ -229,7 +229,7 @@ export function operationSpecToFullMarkdown(
     lines.push('## Acceptance Scenarios');
     lines.push('');
     for (const s of spec.acceptance.scenarios) {
-      lines.push(`### ${s.name}`);
+      lines.push(`### ${s.key}`);
       lines.push('');
       lines.push('**Given:**');
       for (const g of s.given) lines.push(`- ${g}`);
@@ -248,7 +248,7 @@ export function operationSpecToFullMarkdown(
     lines.push('## Examples');
     lines.push('');
     for (const ex of spec.acceptance.examples) {
-      lines.push(`### ${ex.name}`);
+      lines.push(`### ${ex.key}`);
       lines.push('');
       lines.push('**Input:**');
       lines.push('```json');
@@ -308,7 +308,7 @@ export function operationSpecToAgentPrompt(
     review: 'Review',
   }[taskType];
 
-  lines.push(`# Task: ${taskVerb} ${m.name}.v${m.version}`);
+  lines.push(`# Task: ${taskVerb} ${m.key}.v${m.version}`);
   lines.push('');
 
   // Context
@@ -469,9 +469,9 @@ export function featureToMarkdown(
     lines.push('| Name | Version | Type |');
     lines.push('|------|---------|------|');
     for (const op of feature.operations) {
-      const spec = deps?.specs?.getSpec(op.name, op.version);
+      const spec = deps?.specs?.getSpec(op.key, op.version);
       const kind = spec?.meta.kind ?? 'unknown';
-      lines.push(`| ${op.name} | v${op.version} | ${kind} |`);
+      lines.push(`| ${op.key} | v${op.version} | ${kind} |`);
     }
     lines.push('');
 
@@ -480,7 +480,7 @@ export function featureToMarkdown(
       lines.push('### Operation Details');
       lines.push('');
       for (const op of feature.operations) {
-        const spec = deps.specs.getSpec(op.name, op.version);
+        const spec = deps.specs.getSpec(op.key, op.version);
         if (spec) {
           lines.push(`---`);
           lines.push('');
@@ -497,7 +497,7 @@ export function featureToMarkdown(
     lines.push('| Name | Version |');
     lines.push('|------|---------|');
     for (const evt of feature.events) {
-      lines.push(`| ${evt.name} | v${evt.version} |`);
+      lines.push(`| ${evt.key} | v${evt.version} |`);
     }
     lines.push('');
   }
@@ -509,7 +509,7 @@ export function featureToMarkdown(
     lines.push('| Name | Version |');
     lines.push('|------|---------|');
     for (const pres of feature.presentations) {
-      lines.push(`| ${pres.name} | v${pres.version} |`);
+      lines.push(`| ${pres.key} | v${pres.version} |`);
     }
     lines.push('');
 
@@ -518,9 +518,9 @@ export function featureToMarkdown(
       lines.push('### Presentation Details');
       lines.push('');
       for (const pres of feature.presentations) {
-        const p = deps.presentations.get(pres.name, pres.version);
+        const p = deps.presentations.get(pres.key, pres.version);
         if (p) {
-          lines.push(`#### ${pres.name}.v${pres.version}`);
+          lines.push(`#### ${pres.key}.v${pres.version}`);
           lines.push('');
           lines.push(`- **Type:** ${p.source.type}`);
           if (p.source.type === 'component') {
@@ -565,7 +565,7 @@ export function presentationToMarkdown(presentation: PresentationSpec): string {
   const m = presentation.meta;
   const lines: string[] = [];
 
-  lines.push(`# Presentation: ${m.name}.v${m.version}`);
+  lines.push(`# Presentation: ${m.key}.v${m.version}`);
   lines.push('');
 
   if (m.description) {
@@ -575,7 +575,7 @@ export function presentationToMarkdown(presentation: PresentationSpec): string {
 
   lines.push('## Metadata');
   lines.push('');
-  lines.push(`- **Name:** ${m.name}`);
+  lines.push(`- **Name:** ${m.key}`);
   lines.push(`- **Version:** ${m.version}`);
   if (m.stability) lines.push(`- **Stability:** ${m.stability}`);
   if (m.owners?.length) lines.push(`- **Owners:** ${m.owners.join(', ')}`);
@@ -621,14 +621,14 @@ export function presentationToMarkdown(presentation: PresentationSpec): string {
 export function eventToMarkdown(event: EventSpec<AnySchemaModel>): string {
   const lines: string[] = [];
 
-  lines.push(`# Event: ${event.name}.v${event.version}`);
+  lines.push(`# Event: ${event.meta.key}.v${event.meta.version}`);
   lines.push('');
 
   lines.push('## Metadata');
   lines.push('');
-  lines.push(`- **Name:** ${event.name}`);
-  lines.push(`- **Version:** ${event.version}`);
-  if (event.description) lines.push(`- **Description:** ${event.description}`);
+  lines.push(`- **Name:** ${event.meta.key}`);
+  lines.push(`- **Version:** ${event.meta.version}`);
+  if (event.meta.description) lines.push(`- **Description:** ${event.meta.description}`);
   lines.push('');
 
   lines.push('## Payload Schema');
@@ -750,9 +750,9 @@ export function exportFeature(
     markdown,
     format,
     includedSpecs:
-      feature.operations?.map((o) => `${o.name}.v${o.version}`) ?? [],
-    includedEvents: feature.events?.map((e) => `${e.name}.v${e.version}`) ?? [],
+      feature.operations?.map((o) => `${o.key}.v${o.version}`) ?? [],
+    includedEvents: feature.events?.map((e) => `${e.key}.v${e.version}`) ?? [],
     includedPresentations:
-      feature.presentations?.map((p) => `${p.name}.v${p.version}`) ?? [],
+      feature.presentations?.map((p) => `${p.key}.v${p.version}`) ?? [],
   };
 }

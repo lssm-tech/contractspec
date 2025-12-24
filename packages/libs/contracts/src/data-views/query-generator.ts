@@ -43,7 +43,7 @@ export class DataViewQueryGenerator {
     }
 
     return {
-      operationName: primary.name,
+      operationName: primary.key,
       input,
       meta: {
         pagination: { page, pageSize, skip, take },

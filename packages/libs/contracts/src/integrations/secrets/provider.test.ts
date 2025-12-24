@@ -71,7 +71,7 @@ describe('GcpSecretManagerProvider', () => {
     expect(Buffer.from(result.data).toString('utf-8')).toBe('mock-secret');
     expect(client.accessSecretVersion).toHaveBeenCalledWith(
       {
-        name: 'projects/demo-project/secrets/some-secret/versions/latest',
+        key: 'projects/demo-project/secrets/some-secret/versions/latest',
       },
       {}
     );
@@ -139,7 +139,7 @@ describe('AwsSecretsManagerProvider', () => {
     const send = vi.fn(async (command: unknown) => {
       if (command instanceof PutSecretValueCommand) {
         const error = new Error('not found');
-        (error as Error & { name: string }).name = 'ResourceNotFoundException';
+        (error as Error & { key: string }).key = 'ResourceNotFoundException';
         throw error;
       }
       if (command instanceof CreateSecretCommand) {
@@ -413,9 +413,9 @@ function createMockClient(options: MockClientOptions = {}) {
           (error as Error & { code: number }).code = 5;
           throw error;
         })
-      : vi.fn(async ({ name }: { name: string }) => [
+      : vi.fn(async ({ key }: { key: string }) => [
           {
-            name,
+            name: key,
             payload: {
               data: Buffer.from('mock-secret'),
               dataCrc32c: BigInt(123),
@@ -424,7 +424,7 @@ function createMockClient(options: MockClientOptions = {}) {
         ]),
     addSecretVersion: vi.fn(async () => [
       {
-        name: 'projects/demo-project/secrets/new-secret/versions/2',
+        key: 'projects/demo-project/secrets/new-secret/versions/2',
       },
     ]),
     getSecret: secretExists

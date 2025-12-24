@@ -61,7 +61,7 @@ export class PolicyEngine {
       if (match.rule.effect === 'deny') {
         return {
           effect: 'deny',
-          reason: match.rule.reason ?? policy.meta.name,
+          reason: match.rule.reason ?? policy.meta.key,
           requiredConsents: match.missingConsents.length
             ? match.missingConsents
             : undefined,
@@ -78,7 +78,7 @@ export class PolicyEngine {
           };
         }
         if (!allowReason) {
-          allowReason = match.rule.reason ?? policy.meta.name;
+          allowReason = match.rule.reason ?? policy.meta.key;
         }
         if (!appliedRateLimit && match.rateLimit) {
           appliedRateLimit = match.rateLimit;
@@ -108,10 +108,10 @@ export class PolicyEngine {
   private resolvePolicies(refs: PolicyRef[]): PolicySpec[] {
     const specs: PolicySpec[] = [];
     for (const ref of refs) {
-      const spec = this.registry.get(ref.name, ref.version);
+      const spec = this.registry.get(ref.key, ref.version);
       if (!spec)
         throw new Error(
-          `PolicyEngine: policy not found ${ref.name}.v${ref.version}`
+          `PolicyEngine: policy not found ${ref.key}.v${ref.version}`
         );
       specs.push(spec);
     }
@@ -161,13 +161,13 @@ export class PolicyEngine {
           out.set(rule.field, {
             field: rule.field,
             effect: 'deny',
-            reason: rule.reason ?? policy.meta.name,
+            reason: rule.reason ?? policy.meta.key,
           });
         } else if (!existing) {
           out.set(rule.field, {
             field: rule.field,
             effect: 'allow',
-            reason: rule.reason ?? policy.meta.name,
+            reason: rule.reason ?? policy.meta.key,
           });
         }
       }
@@ -317,7 +317,7 @@ function resolveConsentDefinitions(
         id,
         scope: 'unspecified',
         purpose: 'unspecified',
-        description: `Consent "${id}" required by ${policy.meta.name}`,
+        description: `Consent "${id}" required by ${policy.meta.key}`,
         required: true,
       }
     );
@@ -339,7 +339,7 @@ function resolveRateLimit(
     throw new Error(
       `PolicyEngine: rate limit "${String(
         rule.rateLimit
-      )}" not declared in ${policy.meta.name}`
+      )}" not declared in ${policy.meta.key}`
     );
   }
 

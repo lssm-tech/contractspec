@@ -216,7 +216,7 @@ export class OperationSpecRegistry {
     const spec =
       (await ctx.specVariantResolver?.resolve(
         {
-          name: basespec.meta.key,
+          name: baseSpec.meta.key,
           version: baseSpec.meta.version,
           kind: baseSpec.meta.kind,
         },
@@ -226,7 +226,7 @@ export class OperationSpecRegistry {
     let key = opKey(spec.meta.key, spec.meta.version);
     let handler = this.handlers.get(key);
     if (!handler) {
-      const fallbackKey = opKey(basespec.meta.key, baseSpec.meta.version);
+      const fallbackKey = opKey(baseSpec.meta.key, baseSpec.meta.version);
       handler = this.handlers.get(fallbackKey);
       key = fallbackKey;
     }
@@ -267,9 +267,9 @@ export class OperationSpecRegistry {
     if (spec.sideEffects?.emits) {
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          allowedEvents.set(`${e.ref.name}.v${e.ref.version}`, e.ref.payload);
+          allowedEvents.set(`${e.ref.meta.key}.v${e.ref.meta.version}`, e.ref.payload);
         } else {
-          allowedEvents.set(`${e.name}.v${e.version}`, e.payload);
+          allowedEvents.set(`${e.key}.v${e.version}`, e.payload);
         }
       }
     }
@@ -288,7 +288,7 @@ export class OperationSpecRegistry {
       const parsed = schema.getZod().parse(payload);
       // Delegate to service publisher if present
       await ctx.eventPublisher?.({
-        name: eventName,
+        key: eventName,
         version: eventVersion,
         payload: parsed,
         traceId: ctx.traceId,
@@ -318,7 +318,7 @@ export class OperationSpecRegistry {
       try {
         const props = trigger.properties?.(details) ?? {};
         await telemetryContext.track(
-          trigger.event.name,
+          trigger.event.key,
           trigger.event.version ?? 1,
           props,
           {

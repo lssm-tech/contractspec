@@ -9,7 +9,6 @@ const makeSpec = (
     key: 'stripe',
     version: 1,
     category: 'payments',
-    displayName: 'Stripe',
     title: 'Stripe Payments',
     description: 'Stripe PSP integration.',
     domain: 'payments',

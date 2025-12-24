@@ -6,7 +6,6 @@ export const twilioSmsIntegrationSpec: IntegrationSpec = {
     key: 'sms.twilio',
     version: 1,
     category: 'sms',
-    displayName: 'Twilio SMS',
     title: 'Twilio Messaging',
     description:
       'Twilio SMS integration for transactional and notification messaging.',

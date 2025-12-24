@@ -29,8 +29,8 @@ export function registerMcpPresentations(
   // Register presentations from PresentationRegistry
   if (__presentations) {
     for (const p of __presentations.list()) {
-      const baseKey = `presentation.${p.meta.name.replace(/\./g, '_')}.v${p.meta.version}`;
-      const baseUri = `presentation://${p.meta.name}/v${p.meta.version}`;
+      const baseKey = `presentation.${p.meta.key.replace(/\./g, '_')}.v${p.meta.version}`;
+      const baseUri = `presentation://${p.meta.key}/v${p.meta.version}`;
 
       ctx.logger.info(`Registering presentation ${baseUri} for ${baseKey}`);
 
@@ -38,7 +38,7 @@ export function registerMcpPresentations(
         baseKey,
         baseUri,
         {
-          title: `${p.meta.name} v${p.meta.version}`,
+          title: `${p.meta.key} v${p.meta.version}`,
           description: p.meta.description ?? 'Presentation',
           mimeType: 'application/json',
         },
@@ -77,7 +77,7 @@ export function registerMcpPresentations(
           key,
           uri,
           {
-            title: `${p.meta.name} v${p.meta.version} (${v.ext})`,
+            title: `${p.meta.key} v${p.meta.version} (${v.ext})`,
             description: `${p.meta.description ?? 'Presentation'} (${v.ext})`,
           },
           async () => {
@@ -102,8 +102,8 @@ export function registerMcpPresentations(
   /* ---------- V2 presentations list (presentationsV2 array) ---------- */
   if (__presentationsV2 && __presentationsV2.length) {
     for (const d of __presentationsV2) {
-      const baseKey = `presentation.${d.meta.name.replace(/\./g, '_')}.v${d.meta.version}`;
-      const baseUri = `presentation://${d.meta.name}/v${d.meta.version}`;
+      const baseKey = `presentation.${d.meta.key.replace(/\./g, '_')}.v${d.meta.version}`;
+      const baseUri = `presentation://${d.meta.key}/v${d.meta.version}`;
 
       ctx.logger.info(
         `Registering presentation descriptor ${baseUri} for ${baseKey}`
@@ -113,7 +113,7 @@ export function registerMcpPresentations(
         baseKey,
         baseUri,
         {
-          title: `${d.meta.name} v${d.meta.version}`,
+          title: `${d.meta.key} v${d.meta.version}`,
           description: d.meta.description ?? 'Presentation',
           mimeType: 'application/json',
         },
@@ -152,7 +152,7 @@ export function registerMcpPresentations(
           key,
           uri,
           {
-            title: `${d.meta.name} v${d.meta.version} (${v.ext})`,
+            title: `${d.meta.key} v${d.meta.version} (${v.ext})`,
             description: `${d.meta.description ?? 'Presentation'} (${v.ext})`,
           },
           async () => {

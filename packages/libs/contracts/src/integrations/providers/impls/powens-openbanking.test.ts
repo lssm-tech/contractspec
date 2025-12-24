@@ -39,10 +39,10 @@ describe('PowensOpenBankingProvider', () => {
               userUuid: 'user-123',
               institution: {
                 id: 'inst-42',
-                name: 'Powens Test Bank',
+                key: 'Powens Test Bank',
                 logoUrl: 'https://powens.test/logo.png',
               },
-              name: 'Family Checking',
+              key: 'Family Checking',
               iban: 'FR7612345678901234567890185',
               bic: 'POWEFRPP',
               currency: 'EUR',

@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '../features';
 export const AppConfigFeature: FeatureModuleSpec = {
   meta: {
     key: 'app-config',
+    version: 1,
     title: 'App Configuration',
     description:
       'Tenant app configuration lifecycle management with draft, preview, and publish stages',

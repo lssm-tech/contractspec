@@ -56,7 +56,7 @@ export class ExperimentEvaluator {
     );
     if (!control)
       throw new Error(
-        `Experiment ${experiment.meta.name} missing control variant ${experiment.controlVariant}`
+        `Experiment ${experiment.meta.key} missing control variant ${experiment.controlVariant}`
       );
 
     switch (experiment.allocation.type) {

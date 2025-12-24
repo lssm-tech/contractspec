@@ -278,7 +278,7 @@ export function generateImplementationPlan(
   // Suggest file structure based on spec type
   const fileStructure: ImplementationPlan['fileStructure'] = [];
   const basePath = options?.projectRoot ?? 'src';
-  const specPath = m.name.replace(/\./g, '/');
+  const specPath = m.key.replace(/\./g, '/');
 
   if (m.kind === 'command' || m.kind === 'query') {
     fileStructure.push(
@@ -334,7 +334,7 @@ export function generateImplementationPlan(
     order: order++,
     title: 'Implement Core Logic',
     description: 'Implement the main business logic of the operation',
-    acceptanceCriteria: spec.acceptance?.scenarios?.map((s) => s.name) ?? [
+    acceptanceCriteria: spec.acceptance?.scenarios?.map((s) => s.key) ?? [
       'Operation completes successfully for valid input',
     ],
   });
@@ -359,9 +359,9 @@ export function generateImplementationPlan(
       description: 'Emit events as specified',
       acceptanceCriteria: spec.sideEffects.emits.map((e) => {
         if ('ref' in e) {
-          return `Emit ${e.ref.name}.v${e.ref.version} when ${e.when}`;
+          return `Emit ${e.ref.meta.key}.v${e.ref.meta.version} when ${e.when}`;
         }
-        return `Emit ${e.name}.v${e.version} when ${e.when}`;
+        return `Emit ${e.key}.v${e.version} when ${e.when}`;
       }),
     });
   }
@@ -423,7 +423,7 @@ export function generateImplementationPlan(
   return {
     target: {
       type: 'spec',
-      name: m.name,
+      key: m.key,
       version: m.version,
     },
     context: {
@@ -449,7 +449,7 @@ export function formatPlanForAgent(
   let taskPrompt: string;
 
   if (agent === 'claude-code') {
-    taskPrompt = `## Implementation Plan: ${plan.target.name}.v${plan.target.version}
+    taskPrompt = `## Implementation Plan: ${plan.target.key}.v${plan.target.version}
 
 ### Context
 **Goal:** ${plan.context.goal}
@@ -485,7 +485,7 @@ ${plan.verificationChecklist.map((c) => `- [ ] ${c}`).join('\n')}
 
 Implement this plan step by step.`;
   } else if (agent === 'cursor-cli') {
-    taskPrompt = `# ${plan.target.name}.v${plan.target.version}
+    taskPrompt = `# ${plan.target.key}.v${plan.target.version}
 
 ${plan.context.goal}
 
@@ -498,7 +498,7 @@ ${plan.fileStructure.map((f) => `${f.type}: ${f.path}`).join('\n')}
 ## Steps
 ${plan.steps.map((s) => `${s.order}. ${s.title}`).join('\n')}`;
   } else {
-    taskPrompt = `Implementation plan for ${plan.target.name}.v${plan.target.version}
+    taskPrompt = `Implementation plan for ${plan.target.key}.v${plan.target.version}
 
 ${plan.specMarkdown}
 

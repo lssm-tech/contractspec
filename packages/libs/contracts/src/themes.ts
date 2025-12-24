@@ -82,5 +82,5 @@ export class ThemeRegistry {
 }
 
 export function makeThemeRef(spec: ThemeSpec): ThemeRef {
-  return { name: spec.meta.key, version: spec.meta.version };
+  return { key: spec.meta.key, version: spec.meta.version };
 }

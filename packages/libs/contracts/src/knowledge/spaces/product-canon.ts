@@ -6,7 +6,6 @@ export const productCanonKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.product-canon',
     version: 1,
     category: 'canonical',
-    displayName: 'Product Canon',
     title: 'Product Canon Knowledge Space',
     description:
       'Authoritative product knowledge covering strategy, roadmap, and delivery canon.',
@@ -19,7 +18,7 @@ export const productCanonKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { name: 'knowledge.access.product-canon', version: 1 },
+    policy: { key: 'knowledge.access.product-canon', version: 1 },
     trustLevel: 'high',
     automationWritable: false,
   },

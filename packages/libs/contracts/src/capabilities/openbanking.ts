@@ -20,21 +20,21 @@ export const openBankingAccountsReadCapability: CapabilitySpec = {
   provides: [
     {
       surface: 'operation',
-      name: 'openbanking.accounts.list',
+      key: 'openbanking.accounts.list',
       version: 1,
       description:
         'List bank accounts linked to a Powens open banking connection.',
     },
     {
       surface: 'operation',
-      name: 'openbanking.accounts.get',
+      key: 'openbanking.accounts.get',
       version: 1,
       description:
         'Retrieve the canonical bank account record for a specific account.',
     },
     {
       surface: 'operation',
-      name: 'openbanking.accounts.sync',
+      key: 'openbanking.accounts.sync',
       version: 1,
       description:
         'Trigger a refresh of bank account metadata from the open banking provider.',
@@ -58,14 +58,14 @@ export const openBankingTransactionsReadCapability: CapabilitySpec = {
   provides: [
     {
       surface: 'operation',
-      name: 'openbanking.transactions.list',
+      key: 'openbanking.transactions.list',
       version: 1,
       description:
         'List transactions for a given bank account with optional date filtering.',
     },
     {
       surface: 'operation',
-      name: 'openbanking.transactions.sync',
+      key: 'openbanking.transactions.sync',
       version: 1,
       description:
         'Synchronise transactions from the open banking provider into the canonical ledger.',
@@ -89,14 +89,14 @@ export const openBankingBalancesReadCapability: CapabilitySpec = {
   provides: [
     {
       surface: 'operation',
-      name: 'openbanking.balances.get',
+      key: 'openbanking.balances.get',
       version: 1,
       description:
         'Retrieve the latest known balances for a specified bank account.',
     },
     {
       surface: 'operation',
-      name: 'openbanking.balances.refresh',
+      key: 'openbanking.balances.refresh',
       version: 1,
       description: 'Force a balance refresh from the open banking provider.',
     },

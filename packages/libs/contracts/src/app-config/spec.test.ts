@@ -14,7 +14,7 @@ const baseMeta = {
 const makeBlueprint = (version: number): AppBlueprintSpec => ({
   meta: {
     ...baseMeta,
-    name: 'tenant-a.app',
+    key: 'tenant-a.app',
     version,
     appId: 'app',
   },
