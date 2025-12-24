@@ -7,12 +7,12 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
     "./docs": "./dist/docs/index.js",
     "./docs/platform-tour.docblock": "./dist/docs/platform-tour.docblock.js",
     "./example": "./dist/example.js",
     "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
     "./learning-journey-platform-tour.feature": "./dist/learning-journey-platform-tour.feature.js",
+    "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
     "./track": "./dist/track.js",
     "./*": "./*"

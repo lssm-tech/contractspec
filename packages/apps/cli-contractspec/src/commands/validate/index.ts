@@ -69,7 +69,7 @@ export async function validateCommand(
 
   // Read spec file
   const specCode = await readFile(specFile, 'utf-8');
-  const fileName = basename(specFile);
+  // const fileName = basename(specFile);
   const resolvedSpecFile = resolve(process.cwd(), specFile);
   const skipSpecStructure =
     options.blueprint &&
@@ -104,7 +104,7 @@ export async function validateCommand(
   // 1. Spec structure validation
   if (!skipSpecStructure) {
     console.log(chalk.cyan('📋 Checking spec structure...'));
-    const structureResult = validateSpecStructure(specCode, fileName);
+    const structureResult = validateSpecStructure(specCode, resolvedSpecFile);
 
     if (structureResult.valid) {
       console.log(chalk.green('  ✅ Spec structure is valid'));

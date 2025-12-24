@@ -1,4 +1,5 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 import { AgentSummaryModel } from './agent.schema';
 
 /**
@@ -8,11 +9,13 @@ export const AgentListPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.agent.list',
     version: 1,
+    title: 'Agent List',
     description:
       'List view of AI agents with status, model provider, and version info',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['agent', 'list', 'dashboard'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -31,11 +34,13 @@ export const AgentDetailPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.agent.detail',
     version: 1,
+    title: 'Agent Details',
     description:
       'Detailed view of an AI agent with configuration, tools, and recent runs',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['agent', 'detail'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -53,10 +58,12 @@ export const AgentConsoleDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'agent-console.dashboard',
     version: 1,
+    title: 'Agent Console Dashboard',
     description: 'Dashboard overview of AI agents, runs, and tools',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['dashboard', 'overview'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',

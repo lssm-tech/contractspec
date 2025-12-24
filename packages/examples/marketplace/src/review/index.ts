@@ -9,5 +9,5 @@ export {
   ListReviewsInputModel,
   ListReviewsOutputModel,
 } from './review.schema';
-export { CreateReviewContract, ListReviewsContract } from './review.contracts';
+export { CreateReviewContract, ListReviewsContract } from './review.operations';
 export { ReviewCreatedEvent, ReviewRespondedEvent } from './review.event';

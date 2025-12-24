@@ -66,11 +66,12 @@ export function docBlockToPresentationSpec(
   return {
     meta: {
       name: buildName(block, options?.namespace),
+      title: block.title,
       version,
       description: block.summary ?? block.title,
-      tags: block.tags,
-      owners: block.owners,
-      domain: block.domain,
+      tags: block.tags || [],
+      owners: block.owners || [],
+      domain: block.domain || '',
       stability,
     },
     policy:

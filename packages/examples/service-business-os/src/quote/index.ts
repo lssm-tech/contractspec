@@ -7,4 +7,4 @@ export {
   CreateQuoteInputModel,
   AcceptQuoteInputModel,
 } from './quote.schema';
-export { CreateQuoteContract, AcceptQuoteContract } from './quote.contracts';
+export { CreateQuoteContract, AcceptQuoteContract } from './quote.operations';

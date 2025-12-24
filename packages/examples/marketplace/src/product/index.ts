@@ -12,7 +12,7 @@ export {
 export {
   CreateProductContract,
   ListProductsContract,
-} from './product.contracts';
+} from './product.operations';
 export {
   ProductCreatedEvent,
   ProductPublishedEvent,

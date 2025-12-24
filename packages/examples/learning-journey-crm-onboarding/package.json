@@ -7,12 +7,12 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
     "./docs": "./dist/docs/index.js",
     "./docs/crm-onboarding.docblock": "./dist/docs/crm-onboarding.docblock.js",
     "./example": "./dist/example.js",
     "./handlers/demo.handlers": "./dist/handlers/demo.handlers.js",
     "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
+    "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
     "./track": "./dist/track.js",
     "./*": "./*"

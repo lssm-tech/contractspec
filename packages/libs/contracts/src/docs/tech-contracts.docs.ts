@@ -56,7 +56,7 @@ type Stability = 'experimental' | 'beta' | 'stable' | 'deprecated';
 type Owner = string; // curated list available in code (e.g., '@sigil-team', 'team-strit')
 type Tag = string; // curated list available in code (e.g., 'auth', 'spots')
 
-// For V2 presentations, meta is a Partial<OwnerShipMeta> plus description, name, version
+// For presentations, meta is a Partial<OwnerShipMeta> plus description, name, version
 interface PresentationMeta extends Partial<OwnerShipMeta> {
   name: string;
   version: number;

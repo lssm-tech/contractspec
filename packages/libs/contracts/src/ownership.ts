@@ -12,9 +12,7 @@ export type Stability = (typeof StabilityEnum)[keyof typeof StabilityEnum];
 
 // Provide curated owner identifiers (business/product oriented), allow extension by string
 export const OwnersEnum = {
-  ProductColiving: 'product.coliving',
-  ProductStrit: 'product.strit',
-  ProductArtisanos: 'product.artisanos',
+  PlatformCore: 'platform.core',
   PlatformSigil: 'platform.sigil',
   PlatformMarketplace: 'platform.marketplace',
   PlatformMessaging: 'platform.messaging',
@@ -56,4 +54,26 @@ export interface OwnerShipMeta {
   owners: Owner[];
   tags: Tag[];
   stability: Stability;
+
+  // /** Breaking changes => bump version */
+  // version: number;
+  // /** Fully-qualified op key (e.g., "sigil.beginSignup") */
+  // key: string;
+  // /** Human-friendly title (e.g., "Signup begin") */
+  // title: string;
+  // /** Short human-friendly summary */
+  // description: string;
+  // /** Business goal: why this exists */
+  // goal: string;
+  // /** Background, constraints, scope edges (feeds docs & LLM context) */
+  // context: string;
+  // domain: string;
+  // /** Optional doc block id for this operation. */
+  // docId?: DocId;
+  // /** Lifecycle marker for comms & tooling */
+  // stability: Stability;
+  // /** Owners for CODEOWNERS / on-call / approvals */
+  // owners: Owner[];
+  // /** Search tags, grouping, docs navigation */
+  // tags: Tag[];
 }

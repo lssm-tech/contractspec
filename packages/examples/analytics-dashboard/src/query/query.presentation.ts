@@ -1,14 +1,17 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 import { QueryModel } from './query.schema';
 
 export const QueriesListPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.query.list',
     version: 1,
+    title: 'Queries List',
     description: 'List of saved queries',
     domain: 'analytics',
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'queries', 'list'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -26,10 +29,12 @@ export const QueryBuilderPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.query.builder',
     version: 1,
+    title: 'Query Builder',
     description: 'Visual query builder interface',
     domain: 'analytics',
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'query', 'builder'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',

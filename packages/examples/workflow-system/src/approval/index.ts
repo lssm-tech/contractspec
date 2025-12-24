@@ -15,7 +15,7 @@ export {
   AddApprovalCommentContract,
   ListMyApprovalsContract,
   GetApprovalContract,
-} from './approval.contracts';
+} from './approval.operations';
 
 // Events
 export {

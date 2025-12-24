@@ -22,7 +22,7 @@ export {
   CancelWorkflowContract,
   ListInstancesContract,
   GetInstanceContract,
-} from './instance.contracts';
+} from './instance.operations';
 
 // Events
 export {

@@ -1,4 +1,5 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 
 /**
  * Main dashboard presentation for the SaaS application.
@@ -7,11 +8,13 @@ export const SaasDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'saas.dashboard',
     version: 1,
+    title: 'SaaS Dashboard',
     description:
       'Main SaaS dashboard with project overview, usage stats, and quick actions',
     domain: 'saas-boilerplate',
     owners: ['@saas-team'],
     tags: ['dashboard', 'overview'],
+    stability: StabilityEnum.Beta,
   },
   source: {
     type: 'component',
@@ -31,10 +34,12 @@ export const SettingsPanelPresentation: PresentationSpec = {
   meta: {
     name: 'saas.settings',
     version: 1,
+    title: 'Settings Panel',
     description: 'Organization and user settings panel',
     domain: 'saas-boilerplate',
     owners: ['@saas-team'],
     tags: ['settings', 'config'],
+    stability: StabilityEnum.Beta,
   },
   source: {
     type: 'component',

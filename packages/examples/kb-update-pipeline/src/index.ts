@@ -10,4 +10,6 @@ export * from './handlers';
 export * from './kb-update-pipeline.feature';
 export { default as example } from './example';
 
+export * from './presentations';
+
 import './docs';

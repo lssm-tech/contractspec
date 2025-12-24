@@ -10,13 +10,14 @@ export type PresentationTarget =
   | 'application/json'
   | 'application/xml';
 
-export interface PresentationMeta extends Partial<OwnerShipMeta> {
+// export interface PresentationMeta extends Partial<OwnerShipMeta> {
+export interface PresentationMeta extends OwnerShipMeta {
   /** Fully-qualified presentation name (e.g., "sigil.auth.webauth_tabs_v2"). */
   name: string;
   /** Version of this descriptor. Increment on breaking changes. */
   version: number;
   /** Human-readable description for docs/a11y. Required by validators. */
-  description?: string;
+  description: string;
   /** Optional doc block id for this presentation. */
   docId?: DocId;
 }
@@ -57,3 +58,7 @@ export interface PresentationSpec {
   source: PresentationSource;
   targets: PresentationTarget[]; // which outputs are supported by transforms
 }
+
+export const definePresentation = (spec: PresentationSpec) => {
+  return spec;
+};

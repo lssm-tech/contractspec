@@ -13,7 +13,7 @@ export const collectPaymentWorkflow: WorkflowSpec = {
     description:
       'Charge a customer using the tenant Stripe connection and record settlement details.',
     domain: 'payments',
-    owners: [OwnersEnum.ProductArtisanos],
+    owners: [OwnersEnum.PlatformCore],
     tags: [TagsEnum.Marketplace, 'stripe'],
     stability: StabilityEnum.Experimental,
   },

@@ -2,7 +2,7 @@
 // Demonstrates ContractSpec principles for a CRM application
 
 export * from './entities';
-export * from './contracts';
+export * from './operations';
 export * from './events';
 export * from './handlers';
 export * from './presentations';

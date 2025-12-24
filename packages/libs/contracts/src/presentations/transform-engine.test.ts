@@ -7,7 +7,16 @@ import {
 } from './transform-engine';
 
 const mk = (over: Partial<PresentationSpec> = {}): PresentationSpec => ({
-  meta: { name: 'x.test', version: 1, description: 'desc' },
+  meta: {
+    name: 'x.test',
+    version: 1,
+    description: 'desc',
+    domain: 'domain',
+    stability: 'stable',
+    owners: ['platform.content'],
+    tags: [],
+    title: 'Test Presentation',
+  },
   source: { type: 'blocknotejs', docJson: { type: 'doc' } },
   targets: ['markdown', 'application/json', 'application/xml'],
   ...over,

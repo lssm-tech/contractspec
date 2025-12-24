@@ -222,9 +222,7 @@ async function runStructureChecks(
 
   for (const file of specFiles) {
     const content = await fs.readFile(file);
-    const fileName = fs.basename(file);
-
-    const result = validateSpecStructure(content, fileName);
+    const result = validateSpecStructure(content, file);
 
     for (const error of result.errors) {
       issues.push({

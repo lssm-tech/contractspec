@@ -1,10 +1,16 @@
 import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
-import { PlatformTourTrackModel } from '../contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
+import { PlatformTourTrackModel } from '../operations';
 
-const baseMeta: Pick<PresentationMeta, 'domain' | 'owners' | 'tags'> = {
+const baseMeta: Pick<
+  PresentationMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+> = {
   domain: 'learning-journey',
+  title: 'Platform Tour',
   owners: ['examples.learning-journey.platform-tour'],
   tags: ['learning', 'platform', 'tour'],
+  stability: StabilityEnum.Experimental,
 };
 
 export const PlatformTourTrackPresentation: PresentationSpec = {

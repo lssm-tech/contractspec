@@ -22,4 +22,4 @@ export {
   AddFieldMappingContract,
   TriggerSyncContract,
   ListSyncRunsContract,
-} from './sync.contracts';
+} from './sync.operations';

@@ -1,9 +1,15 @@
 import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 
-const baseMeta: Pick<PresentationMeta, 'domain' | 'owners' | 'tags'> = {
+const baseMeta: Pick<
+  PresentationMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+> = {
   domain: 'learning-journey',
+  title: 'Learning Journey',
   owners: ['learning-team'] as string[],
   tags: ['learning', 'journey', 'onboarding'] as string[],
+  stability: StabilityEnum.Experimental,
 };
 
 export const LearningTrackListPresentation: PresentationSpec = {

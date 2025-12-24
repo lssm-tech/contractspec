@@ -2,8 +2,6 @@ import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { defineCommand, defineQuery } from '@lssm/lib.contracts';
 import { SuccessResultModel } from './user';
 
-const OWNERS = ['platform.identity-rbac'] as const;
-
 // ============ SchemaModels ============
 
 export const RoleModel = new SchemaModel({
@@ -160,7 +158,7 @@ export const CreateRoleContract = defineCommand({
     name: 'identity.rbac.role.create',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'role', 'create'],
     description: 'Create a new role with permissions.',
     goal: 'Allow admins to define custom roles.',
@@ -194,7 +192,7 @@ export const UpdateRoleContract = defineCommand({
     name: 'identity.rbac.role.update',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'role', 'update'],
     description: 'Update an existing role.',
     goal: 'Allow admins to modify role permissions.',
@@ -220,7 +218,7 @@ export const DeleteRoleContract = defineCommand({
     name: 'identity.rbac.role.delete',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'role', 'delete'],
     description: 'Delete an existing role.',
     goal: 'Allow admins to remove unused roles.',
@@ -254,7 +252,7 @@ export const ListRolesContract = defineQuery({
     name: 'identity.rbac.role.list',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'role', 'list'],
     description: 'List all available roles.',
     goal: 'Show available roles for assignment.',
@@ -277,7 +275,7 @@ export const AssignRoleContract = defineCommand({
     name: 'identity.rbac.assign',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'assign'],
     description: 'Assign a role to a user or organization.',
     goal: 'Grant permissions via role assignment.',
@@ -325,7 +323,7 @@ export const RevokeRoleContract = defineCommand({
     name: 'identity.rbac.revoke',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'revoke'],
     description: 'Revoke a role from a user or organization.',
     goal: 'Remove permissions via role revocation.',
@@ -367,7 +365,7 @@ export const CheckPermissionContract = defineQuery({
     name: 'identity.rbac.check',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'check', 'permission'],
     description: 'Check if a user has a specific permission.',
     goal: 'Authorization check before sensitive operations.',
@@ -390,7 +388,7 @@ export const ListUserPermissionsContract = defineQuery({
     name: 'identity.rbac.permissions',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['platform.identity-rbac'],
     tags: ['identity', 'rbac', 'permissions', 'user'],
     description: 'List all permissions for a user in a context.',
     goal: 'Show what a user can do in an org.',

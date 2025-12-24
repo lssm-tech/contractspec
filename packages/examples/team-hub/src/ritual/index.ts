@@ -10,4 +10,4 @@ export {
 export {
   ScheduleRitualContract,
   LogRitualOccurrenceContract,
-} from './ritual.contracts';
+} from './ritual.operations';

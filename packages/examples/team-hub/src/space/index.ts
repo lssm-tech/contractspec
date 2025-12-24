@@ -3,4 +3,4 @@
  */
 
 export { SpaceModel, CreateSpaceInputModel } from './space.schema';
-export { CreateSpaceContract } from './space.contracts';
+export { CreateSpaceContract } from './space.operations';

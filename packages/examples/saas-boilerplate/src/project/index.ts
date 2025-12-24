@@ -28,7 +28,7 @@ export {
   UpdateProjectContract,
   DeleteProjectContract,
   ListProjectsContract,
-} from './project.contracts';
+} from './project.operations';
 
 // Events
 export {

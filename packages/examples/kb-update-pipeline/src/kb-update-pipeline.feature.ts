@@ -7,7 +7,7 @@ export const KbUpdatePipelineFeature: FeatureModuleSpec = {
     description:
       'Automation proposes KB patches; humans verify; publishing is blocked until approvals are complete.',
     domain: 'knowledge',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'hitl', 'audit', 'notifications'],
     stability: 'experimental',
   },
@@ -24,9 +24,30 @@ export const KbUpdatePipelineFeature: FeatureModuleSpec = {
     { name: 'kb.review.requested', version: 1 },
     { name: 'kb.review.decided', version: 1 },
   ],
-  presentations: [],
-  opToPresentation: [],
-  presentationsTargets: [],
+  presentations: [
+    { name: 'kb.dashboard', version: 1 },
+    { name: 'kb.review.list', version: 1 },
+    { name: 'kb.review.form', version: 1 },
+  ],
+  opToPresentation: [
+    {
+      op: { name: 'kbPipeline.runWatch', version: 1 },
+      pres: { name: 'kb.dashboard', version: 1 },
+    },
+    {
+      op: { name: 'kbPipeline.createReviewTask', version: 1 },
+      pres: { name: 'kb.review.list', version: 1 },
+    },
+    {
+      op: { name: 'kbPipeline.submitDecision', version: 1 },
+      pres: { name: 'kb.review.form', version: 1 },
+    },
+  ],
+  presentationsTargets: [
+    { name: 'kb.dashboard', version: 1, targets: ['react', 'markdown'] },
+    { name: 'kb.review.list', version: 1, targets: ['react', 'markdown'] },
+    { name: 'kb.review.form', version: 1, targets: ['react'] },
+  ],
   capabilities: {
     requires: [
       { key: 'identity', version: 1 },

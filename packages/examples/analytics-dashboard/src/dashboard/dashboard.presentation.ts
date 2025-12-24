@@ -1,14 +1,17 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 import { DashboardModel } from './dashboard.schema';
 
 export const DashboardsListPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.list',
     version: 1,
+    title: 'Dashboards List',
     description: 'List of analytics dashboards',
     domain: 'analytics',
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboards', 'list'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -26,10 +29,12 @@ export const DashboardViewPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.view',
     version: 1,
+    title: 'Dashboard View',
     description: 'View a single dashboard with widgets',
     domain: 'analytics',
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboard', 'view'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -47,10 +52,12 @@ export const DashboardEditorPresentation: PresentationSpec = {
   meta: {
     name: 'analytics.dashboard.editor',
     version: 1,
+    title: 'Dashboard Editor',
     description: 'Edit dashboard configuration and widgets',
     domain: 'analytics',
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboard', 'editor'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',

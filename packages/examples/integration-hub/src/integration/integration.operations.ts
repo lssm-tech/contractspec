@@ -4,8 +4,6 @@ import {
   IntegrationModel,
 } from './integration.schema';
 
-const OWNERS = ['@example.integration-hub'] as const;
-
 /**
  * Create a new integration.
  */
@@ -14,7 +12,7 @@ export const CreateIntegrationContract = defineCommand({
     name: 'integration.create',
     version: 1,
     stability: 'stable',
-    owners: [...OWNERS],
+    owners: ['@example.integration-hub'],
     tags: ['integration', 'create'],
     description: 'Create a new integration.',
     goal: 'Allow users to set up integrations with external systems.',

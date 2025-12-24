@@ -1,13 +1,16 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 
 export const TeamDashboardPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.dashboard',
     version: 1,
+    title: 'Team Dashboard',
     description: 'Team hub dashboard with activity overview',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'dashboard'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -24,10 +27,12 @@ export const SpaceListPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.space.list',
     version: 1,
+    title: 'Space List',
     description: 'List of team spaces',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'spaces', 'list'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -44,10 +49,12 @@ export const TaskBoardPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.task.board',
     version: 1,
+    title: 'Task Board',
     description: 'Task board with kanban view',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'tasks', 'board', 'kanban'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -64,10 +71,12 @@ export const TaskDetailPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.task.detail',
     version: 1,
+    title: 'Task Details',
     description: 'Task detail with comments and history',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'task', 'detail'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -84,10 +93,12 @@ export const RitualCalendarPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.ritual.calendar',
     version: 1,
+    title: 'Ritual Calendar',
     description: 'Calendar view of team rituals',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'rituals', 'calendar'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -104,10 +115,12 @@ export const AnnouncementFeedPresentation: PresentationSpec = {
   meta: {
     name: 'team-hub.announcement.feed',
     version: 1,
+    title: 'Announcement Feed',
     description: 'Feed of team announcements',
     domain: 'collaboration',
     owners: ['@team-hub'],
     tags: ['team', 'announcements', 'feed'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',

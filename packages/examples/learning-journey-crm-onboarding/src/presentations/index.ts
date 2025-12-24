@@ -1,10 +1,16 @@
 import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
-import { CrmOnboardingTrackModel } from '../contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
+import { CrmOnboardingTrackModel } from '../operations';
 
-const baseMeta: Pick<PresentationMeta, 'domain' | 'owners' | 'tags'> = {
+const baseMeta: Pick<
+  PresentationMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+> = {
   domain: 'learning-journey',
+  title: 'CRM Onboarding',
   owners: ['examples.learning-journey.crm-onboarding'],
   tags: ['learning', 'crm', 'onboarding'],
+  stability: StabilityEnum.Experimental,
 };
 
 export const CrmOnboardingTrackPresentation: PresentationSpec = {

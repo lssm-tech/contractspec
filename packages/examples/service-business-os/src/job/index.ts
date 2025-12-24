@@ -13,4 +13,4 @@ export {
   ListJobsOperation,
   ListJobsInputModel,
   ListJobsOutputModel,
-} from './job.contracts';
+} from './job.operations';

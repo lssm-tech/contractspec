@@ -14,7 +14,7 @@
   },
   "defaultOwners": ["@lssm-core"],
   "defaultTags": [],
-  "packages": ["packages/libs/*", "packages/apps/*", "packages/examples/*"],
+  "packages": ["packages/modules/*", "packages/libs/*", "packages/apps/*", "packages/examples/*"],
   "excludePackages": ["packages/apps/cli-*"],
   "ci": {
     "checks": ["structure", "integrity", "deps"],

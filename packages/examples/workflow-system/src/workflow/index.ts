@@ -27,7 +27,7 @@ export {
   PublishWorkflowContract,
   ListWorkflowsContract,
   GetWorkflowContract,
-} from './workflow.contracts';
+} from './workflow.operations';
 
 // Events
 export {

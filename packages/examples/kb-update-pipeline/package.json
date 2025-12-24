@@ -20,6 +20,7 @@
     "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
     "./operations": "./dist/operations/index.js",
     "./operations/pipeline": "./dist/operations/pipeline.js",
+    "./presentations": "./dist/presentations.js",
     "./*": "./*"
   },
   "scripts": {

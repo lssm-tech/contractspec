@@ -27,7 +27,7 @@ export {
   RecordUsageContract,
   GetUsageSummaryContract,
   CheckFeatureAccessContract,
-} from './billing.contracts';
+} from './billing.operations';
 
 // Events
 export {

@@ -30,7 +30,7 @@ export const PocketFamilyOfficeFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   // Note: Only pfo.documents.upload is defined using defineCommand and is scanned.
   // Other contracts use raw OperationSpec objects and are not automatically scanned.
-  operations: [{ name: 'pfo.documents.upload', version: 1 }],
+  operations: [],
 
   // No events defined separately for this feature
   events: [],

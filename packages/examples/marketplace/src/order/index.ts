@@ -12,7 +12,7 @@ export {
 export {
   CreateOrderContract,
   UpdateOrderStatusContract,
-} from './order.contracts';
+} from './order.operations';
 export {
   OrderCreatedEvent,
   OrderPaidEvent,

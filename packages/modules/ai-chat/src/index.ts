@@ -7,14 +7,19 @@
 // Feature definition
 export { AiChatFeature } from './ai-chat.feature';
 
-// Core exports
-export * from './core';
+/// Core exports
+// export * from './core'; // Commented out to avoid ChatMessage duplicate export
+// Instead, import only what is needed from core if necessary, or let other modules import it directly
 
-// Provider exports
+export * from './presentation';
 export * from './providers';
-
-// Context exports
 export * from './context';
+
+// Specs
+export * from './schema';
+export * from './ai-chat.operations';
+export * from './events'; // Assuming events exists or was added in step 1013 logic
+export * from './ai-chat.feature';
 
 // Re-export presentation components (but not message types to avoid conflicts)
 export {

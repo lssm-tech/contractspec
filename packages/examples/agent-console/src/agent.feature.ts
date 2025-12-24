@@ -140,5 +140,6 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
       { key: 'audit-trail', version: 1 },
       { key: 'jobs', version: 1 },
     ],
+    provides: [{ key: 'agent', version: 1 }],
   },
 };

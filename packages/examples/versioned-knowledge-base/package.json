@@ -8,8 +8,6 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
-    "./contracts/kb": "./dist/contracts/kb.js",
     "./docs": "./dist/docs/index.js",
     "./docs/versioned-knowledge-base.docblock": "./dist/docs/versioned-knowledge-base.docblock.js",
     "./entities": "./dist/entities/index.js",
@@ -18,6 +16,8 @@
     "./example": "./dist/example.js",
     "./handlers": "./dist/handlers/index.js",
     "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
+    "./operations": "./dist/operations/index.js",
+    "./operations/kb": "./dist/operations/kb.js",
     "./versioned-knowledge-base.feature": "./dist/versioned-knowledge-base.feature.js",
     "./*": "./*"
   },

@@ -33,13 +33,13 @@
   },
   "exports": {
     ".": "./dist/index.js",
-    "./contracts": "./dist/contracts/index.js",
     "./docs": "./dist/docs/index.js",
     "./docs/wealth-snapshot.docblock": "./dist/docs/wealth-snapshot.docblock.js",
     "./entities": "./dist/entities/index.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
     "./handlers": "./dist/handlers/index.js",
+    "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
     "./wealth-snapshot.feature": "./dist/wealth-snapshot.feature.js",
     "./*": "./*"

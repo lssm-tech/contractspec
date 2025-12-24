@@ -13,4 +13,4 @@ export {
   ListTasksOperation,
   ListTasksInputModel,
   ListTasksOutputModel,
-} from './task.contracts';
+} from './task.operations';

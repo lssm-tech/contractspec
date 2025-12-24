@@ -6,4 +6,4 @@ export {
   AnnouncementModel,
   PostAnnouncementInputModel,
 } from './announcement.schema';
-export { PostAnnouncementContract } from './announcement.contracts';
+export { PostAnnouncementContract } from './announcement.operations';

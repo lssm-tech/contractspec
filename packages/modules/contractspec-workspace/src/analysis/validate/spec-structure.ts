@@ -8,20 +8,56 @@ import type { ValidationResult } from '../../types/analysis-types';
 export type { ValidationResult };
 
 /**
+ * Rule severity level for lint rules.
+ */
+export type RuleSeverity = 'off' | 'warn' | 'error';
+
+/**
+ * Spec kind for rule overrides mapping.
+ */
+export type SpecKind =
+  | 'operation'
+  | 'event'
+  | 'presentation'
+  | 'feature'
+  | 'workflow'
+  | 'data-view'
+  | 'migration'
+  | 'telemetry'
+  | 'experiment'
+  | 'app-config';
+
+/**
+ * Interface for resolving rule severity.
+ */
+export interface RulesConfig {
+  /**
+   * Get the severity for a rule, considering spec kind overrides.
+   * Returns 'warn' by default if not configured.
+   */
+  getRule(ruleName: string, specKind: SpecKind): RuleSeverity;
+}
+
+/**
+ * Default rules config that returns 'warn' for all rules.
+ */
+const DEFAULT_RULES_CONFIG: RulesConfig = {
+  getRule: () => 'warn',
+};
+
+/**
  * Validate spec structure based on source code and filename.
  */
 export function validateSpecStructure(
   code: string,
-  fileName: string
+  fileName: string,
+  rulesConfig: RulesConfig = DEFAULT_RULES_CONFIG
 ): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Check for required exports (including re-exports)
-  const hasExport =
-    /export\s+(const|let)\s+\w+/.test(code) ||
-    /export\s*\*\s*from/.test(code) ||
-    /export\s*\{/.test(code);
+  // Check for required exports (any export is sufficient for validity check)
+  const hasExport = /export\s/.test(code);
   if (!hasExport) {
     errors.push('No exported spec found');
   }
@@ -33,12 +69,12 @@ export function validateSpecStructure(
     fileName.includes('.operations.') ||
     fileName.includes('.operation.')
   ) {
-    validateOperationSpec(code, errors, warnings);
+    validateOperationSpec(code, errors, warnings, rulesConfig);
   }
 
   // Validate event specs
   if (fileName.includes('.event.')) {
-    validateEventSpec(code, errors, warnings);
+    validateEventSpec(code, errors, warnings, rulesConfig);
   }
 
   // Validate presentation specs
@@ -47,31 +83,31 @@ export function validateSpecStructure(
   }
 
   if (fileName.includes('.workflow.')) {
-    validateWorkflowSpec(code, errors, warnings);
+    validateWorkflowSpec(code, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.data-view.')) {
-    validateDataViewSpec(code, errors, warnings);
+    validateDataViewSpec(code, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.migration.')) {
-    validateMigrationSpec(code, errors, warnings);
+    validateMigrationSpec(code, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.telemetry.')) {
-    validateTelemetrySpec(code, errors, warnings);
+    validateTelemetrySpec(code, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.experiment.')) {
-    validateExperimentSpec(code, errors, warnings);
+    validateExperimentSpec(code, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.app-config.')) {
-    validateAppConfigSpec(code, errors, warnings);
+    validateAppConfigSpec(code, errors, warnings, rulesConfig);
   }
 
   // Common validations
-  validateCommonFields(code, fileName, errors, warnings);
+  validateCommonFields(code, fileName, errors, warnings, rulesConfig);
 
   return {
     valid: errors.length === 0,
@@ -81,12 +117,33 @@ export function validateSpecStructure(
 }
 
 /**
+ * Helper to emit a message based on rule severity.
+ */
+function emitRule(
+  ruleName: string,
+  specKind: SpecKind,
+  message: string,
+  errors: string[],
+  warnings: string[],
+  rulesConfig: RulesConfig
+): void {
+  const severity = rulesConfig.getRule(ruleName, specKind);
+  if (severity === 'off') return;
+  if (severity === 'error') {
+    errors.push(message);
+  } else {
+    warnings.push(message);
+  }
+}
+
+/**
  * Validate operation spec
  */
 function validateOperationSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   // Check for defineCommand or defineQuery
   const hasDefine = /define(Command|Query)/.test(code);
@@ -127,24 +184,46 @@ function validateOperationSpec(
     );
   }
 
-  // Warnings
+  // Configurable warnings
   if (!code.includes('acceptance:')) {
-    warnings.push('No acceptance scenarios defined');
+    emitRule(
+      'require-acceptance',
+      'operation',
+      'No acceptance scenarios defined',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 
   if (!code.includes('examples:')) {
-    warnings.push('No examples provided');
+    emitRule(
+      'require-examples',
+      'operation',
+      'No examples provided',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 
   if (code.includes('TODO')) {
-    warnings.push('Contains TODO items that need completion');
+    emitRule(
+      'no-todo',
+      'operation',
+      'Contains TODO items that need completion',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 function validateTelemetrySpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*TelemetrySpec\s*=/)) {
     errors.push('Missing TelemetrySpec type annotation');
@@ -159,14 +238,22 @@ function validateTelemetrySpec(
   }
 
   if (!code.match(/privacy:\s*'(public|internal|pii|sensitive)'/)) {
-    warnings.push('No explicit privacy classification found');
+    emitRule(
+      'telemetry-privacy',
+      'telemetry',
+      'No explicit privacy classification found',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 function validateExperimentSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*ExperimentSpec\s*=/)) {
     errors.push('Missing ExperimentSpec type annotation');
@@ -178,14 +265,22 @@ function validateExperimentSpec(
     errors.push('ExperimentSpec must declare variants');
   }
   if (!code.match(/allocation:\s*{/)) {
-    warnings.push('ExperimentSpec missing allocation configuration');
+    emitRule(
+      'experiment-allocation',
+      'experiment',
+      'ExperimentSpec missing allocation configuration',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 function validateAppConfigSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*AppBlueprintSpec\s*=/)) {
     errors.push('Missing AppBlueprintSpec type annotation');
@@ -194,17 +289,36 @@ function validateAppConfigSpec(
     errors.push('AppBlueprintSpec must define meta');
   }
   if (!code.includes('appId')) {
-    warnings.push('AppBlueprint meta missing appId assignment');
+    emitRule(
+      'app-config-appid',
+      'app-config',
+      'AppBlueprint meta missing appId assignment',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
   if (!code.includes('capabilities')) {
-    warnings.push('App blueprint spec does not declare capabilities');
+    emitRule(
+      'app-config-capabilities',
+      'app-config',
+      'App blueprint spec does not declare capabilities',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 /**
  * Validate event spec
  */
-function validateEventSpec(code: string, errors: string[], warnings: string[]) {
+function validateEventSpec(
+  code: string,
+  errors: string[],
+  warnings: string[],
+  rulesConfig: RulesConfig
+) {
   if (!code.includes('defineEvent')) {
     errors.push('Missing defineEvent call');
   }
@@ -226,8 +340,13 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
   if (nameMatch?.[1]) {
     const eventName = nameMatch[1].split('.').pop() ?? '';
     if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
-      warnings.push(
-        'Event name should use past tense (e.g., "created", "updated")'
+      emitRule(
+        'event-past-tense',
+        'event',
+        'Event name should use past tense (e.g., "created", "updated")',
+        errors,
+        warnings,
+        rulesConfig
       );
     }
   }
@@ -265,7 +384,8 @@ function validatePresentationSpec(
 function validateWorkflowSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*WorkflowSpec\s*=/)) {
     errors.push('Missing WorkflowSpec type annotation');
@@ -280,8 +400,13 @@ function validateWorkflowSpec(
   }
 
   if (!code.includes('transitions:')) {
-    warnings.push(
-      'No transitions declared; workflow will complete after first step.'
+    emitRule(
+      'workflow-transitions',
+      'workflow',
+      'No transitions declared; workflow will complete after first step.',
+      errors,
+      warnings,
+      rulesConfig
     );
   }
 
@@ -294,14 +419,22 @@ function validateWorkflowSpec(
   }
 
   if (code.includes('TODO')) {
-    warnings.push('Contains TODO items that need completion');
+    emitRule(
+      'no-todo',
+      'workflow',
+      'Contains TODO items that need completion',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 function validateMigrationSpec(
   code: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*MigrationSpec\s*=/)) {
     errors.push('Missing MigrationSpec type annotation');
@@ -324,7 +457,14 @@ function validateMigrationSpec(
   }
 
   if (code.includes('TODO')) {
-    warnings.push('Contains TODO items that need completion');
+    emitRule(
+      'no-todo',
+      'migration',
+      'Contains TODO items that need completion',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
@@ -335,7 +475,8 @@ function validateCommonFields(
   code: string,
   fileName: string,
   errors: string[],
-  warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   // Skip import checks for internal library files that define the types
   const isInternalLib =
@@ -346,7 +487,7 @@ function validateCommonFields(
   // Check for SchemaModel import (skip for internal schema lib)
   if (
     code.includes('SchemaModel') &&
-    !code.includes("from '@lssm/lib.schema'") &&
+    !/from\s+['"]@lssm\/lib\.schema(\/[^'"]+)?['"]/.test(code) &&
     !isInternalLib
   ) {
     errors.push('Missing import for SchemaModel from @lssm/lib.schema');
@@ -369,7 +510,11 @@ function validateCommonFields(
     code.includes('defineQuery(') ||
     code.includes('defineEvent(');
 
-  if (usesSpecTypes && !code.includes("from '@lssm/lib.contracts'") && !isInternalLib) {
+  if (
+    usesSpecTypes &&
+    !/from\s+['"]@lssm\/lib\.contracts(\/[^'"]+)?['"]/.test(code) &&
+    !isInternalLib
+  ) {
     errors.push('Missing import from @lssm/lib.contracts');
   }
 
@@ -377,23 +522,46 @@ function validateCommonFields(
   const ownersMatch = code.match(/owners:\s*\[(.*?)\]/s);
   if (ownersMatch?.[1]) {
     const ownersContent = ownersMatch[1];
-    if (!ownersContent.includes('@')) {
-      warnings.push('Owners should start with @ (e.g., "@team")');
+    // Allow @ mentions, OwnersEnum usage, or other constants (CAPS/PascalCase)
+    if (
+      !ownersContent.includes('@') &&
+      !ownersContent.includes('Enum') &&
+      !ownersContent.match(/[A-Z][a-zA-Z0-9_]+/)
+    ) {
+      emitRule(
+        'require-owners-format',
+        'operation',
+        'Owners should start with @ or use an Enum/Constant',
+        errors,
+        warnings,
+        rulesConfig
+      );
     }
   }
 
   // Check for stability
+  // Allow standard string literals, Enum usage (e.g. StabilityEnum.Beta), or Constants
   if (
-    !code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)
+    !code.match(
+      /stability:\s*(?:['"](?:experimental|beta|stable|deprecated)['"]|[A-Z][a-zA-Z0-9_]+(?:\.[a-zA-Z0-9_]+)?)/
+    )
   ) {
-    warnings.push('Missing or invalid stability field');
+    emitRule(
+      'require-stability',
+      'operation',
+      'Missing or invalid stability field',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }
 
 function validateDataViewSpec(
   code: string,
   errors: string[],
-  _warnings: string[]
+  warnings: string[],
+  rulesConfig: RulesConfig
 ) {
   if (!code.match(/:\s*DataViewSpec\s*=/)) {
     errors.push('Missing DataViewSpec type annotation');
@@ -411,7 +579,13 @@ function validateDataViewSpec(
     errors.push('Missing or invalid view.kind (list/table/detail/grid)');
   }
   if (!code.match(/fields:\s*\[/)) {
-    // Note: _warnings unused in this case, but kept for consistency with other validators
-    errors.push('No fields defined for data view');
+    emitRule(
+      'data-view-fields',
+      'data-view',
+      'No fields defined for data view',
+      errors,
+      warnings,
+      rulesConfig
+    );
   }
 }

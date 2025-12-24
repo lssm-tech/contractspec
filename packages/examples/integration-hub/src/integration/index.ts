@@ -7,4 +7,4 @@ export {
   IntegrationModel,
   CreateIntegrationInputModel,
 } from './integration.schema';
-export { CreateIntegrationContract } from './integration.contracts';
+export { CreateIntegrationContract } from './integration.operations';

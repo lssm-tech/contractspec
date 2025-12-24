@@ -196,6 +196,71 @@ export const MetaRepoConfigSchema = z.object({
   crossWorkspaceSearch: z.boolean().default(false),
 });
 
+// ============================================================================
+// Lint Rules Configuration (ESLint-style)
+// ============================================================================
+
+/**
+ * Rule severity levels (inspired by ESLint).
+ */
+export const RuleSeveritySchema = z.enum(['off', 'warn', 'error']);
+
+/**
+ * Contract kinds for per-kind rule overrides.
+ */
+export const SpecKindSchema = z.enum([
+  'operation',
+  'event',
+  'presentation',
+  'feature',
+  'workflow',
+  'data-view',
+  'migration',
+  'telemetry',
+  'experiment',
+  'app-config',
+]);
+
+/**
+ * Available lint rules with their severity.
+ */
+export const LintRulesSchema = z.object({
+  /** Require acceptance scenarios for operations */
+  'require-acceptance': RuleSeveritySchema.optional(),
+  /** Require examples for operations */
+  'require-examples': RuleSeveritySchema.optional(),
+  /** Require stability field */
+  'require-stability': RuleSeveritySchema.optional(),
+  /** Require owners to follow proper format (@team or Enum) */
+  'require-owners-format': RuleSeveritySchema.optional(),
+  /** Require event names to use past tense */
+  'event-past-tense': RuleSeveritySchema.optional(),
+  /** Warn on TODO comments */
+  'no-todo': RuleSeveritySchema.optional(),
+  /** Require workflow transitions */
+  'workflow-transitions': RuleSeveritySchema.optional(),
+  /** Require privacy classification for telemetry */
+  'telemetry-privacy': RuleSeveritySchema.optional(),
+  /** Require allocation config for experiments */
+  'experiment-allocation': RuleSeveritySchema.optional(),
+  /** Require appId for app blueprints */
+  'app-config-appid': RuleSeveritySchema.optional(),
+  /** Require capabilities for app blueprints */
+  'app-config-capabilities': RuleSeveritySchema.optional(),
+  /** Require fields for data views */
+  'data-view-fields': RuleSeveritySchema.optional(),
+});
+
+/**
+ * Full rules configuration with global defaults and per-kind overrides.
+ */
+export const RulesConfigSchema = z.object({
+  /** Global default rule severities */
+  defaults: LintRulesSchema.optional(),
+  /** Per-kind rule severity overrides */
+  overrides: z.record(SpecKindSchema, LintRulesSchema).optional(),
+});
+
 /**
  * Full ContractSpec configuration schema (.contractsrc.json).
  */
@@ -223,6 +288,8 @@ export const ContractsrcSchema = z.object({
   ci: CiConfigSchema.optional(),
   // Meta-repo configuration
   metaRepo: MetaRepoConfigSchema.optional(),
+  // Lint rules configuration
+  rules: RulesConfigSchema.optional(),
 });
 
 // Type exports
@@ -239,6 +306,10 @@ export type ImpactConfig = z.infer<typeof ImpactConfigSchema>;
 export type CiConfig = z.infer<typeof CiConfigSchema>;
 export type ExternalWorkspace = z.infer<typeof ExternalWorkspaceSchema>;
 export type MetaRepoConfig = z.infer<typeof MetaRepoConfigSchema>;
+export type RuleSeverity = z.infer<typeof RuleSeveritySchema>;
+export type SpecKind = z.infer<typeof SpecKindSchema>;
+export type LintRules = z.infer<typeof LintRulesSchema>;
+export type RulesConfig = z.infer<typeof RulesConfigSchema>;
 
 /**
  * Default configuration values.

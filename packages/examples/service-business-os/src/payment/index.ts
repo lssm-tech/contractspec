@@ -3,4 +3,4 @@
  */
 
 export { PaymentModel, RecordPaymentInputModel } from './payment.schema';
-export { RecordPaymentContract } from './payment.contracts';
+export { RecordPaymentContract } from './payment.operations';

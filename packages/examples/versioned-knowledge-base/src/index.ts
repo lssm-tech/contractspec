@@ -4,7 +4,7 @@
  * Curated KB with immutable sources, reviewable rule versions, and published snapshots.
  */
 export * from './entities';
-export * from './contracts';
+export * from './operations';
 export * from './events';
 export * from './handlers';
 export * from './versioned-knowledge-base.feature';

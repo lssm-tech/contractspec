@@ -1,5 +1,5 @@
 export * from './entities';
-export * from './contracts';
+export * from './operations';
 export * from './events';
 export * from './presentations';
 export * from './wealth-snapshot.feature';

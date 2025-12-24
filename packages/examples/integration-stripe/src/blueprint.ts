@@ -14,7 +14,7 @@ export const artisanStripeBlueprint: AppBlueprintSpec = {
     description:
       'Blueprint enabling card payments for ArtisanOS merchants via the Stripe integration.',
     domain: 'payments',
-    owners: [OwnersEnum.ProductArtisanos],
+    owners: [OwnersEnum.PlatformCore],
     tags: [TagsEnum.Marketplace, 'stripe', 'payments'],
     stability: StabilityEnum.Experimental,
   },

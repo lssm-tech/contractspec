@@ -1,14 +1,17 @@
 import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@lssm/lib.contracts';
 import { ReviewModel } from './review.schema';
 
 export const ReviewListPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.review.list',
     version: 1,
+    title: 'Review List',
     description: 'List of product reviews',
     domain: 'marketplace',
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'review', 'list'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',
@@ -26,10 +29,12 @@ export const ReviewFormPresentation: PresentationSpec = {
   meta: {
     name: 'marketplace.review.form',
     version: 1,
+    title: 'Review Form',
     description: 'Form for submitting product reviews',
     domain: 'marketplace',
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'review', 'form'],
+    stability: StabilityEnum.Experimental,
   },
   source: {
     type: 'component',

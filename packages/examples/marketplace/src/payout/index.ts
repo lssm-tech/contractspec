@@ -8,5 +8,5 @@ export {
   ListPayoutsInputModel,
   ListPayoutsOutputModel,
 } from './payout.schema';
-export { ListPayoutsContract } from './payout.contracts';
+export { ListPayoutsContract } from './payout.operations';
 export { PayoutCreatedEvent, PayoutPaidEvent } from './payout.event';

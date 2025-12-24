@@ -9,3 +9,6 @@ export * from './space';
 export * from './task';
 export * from './ritual';
 export * from './announcement';
+
+export * from './presentations';
+export * from './team-hub.feature';
