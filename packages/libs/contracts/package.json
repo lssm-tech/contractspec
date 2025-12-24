@@ -71,7 +71,10 @@
     "README.md"
   ],
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./app-config": "./dist/app-config/index.js",
     "./app-config/app-config.feature": "./dist/app-config/app-config.feature.js",
     "./app-config/branding": "./dist/app-config/branding.js",

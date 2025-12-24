@@ -27,7 +27,7 @@ export function exportPresentations(
   registry: PresentationRegistry
 ): ExportedPresentation[] {
   return registry.list().map((pres) => ({
-    name: pres.meta.name,
+    name: pres.meta.key,
     version: pres.meta.version,
     description: pres.meta.description,
     stability: pres.meta.stability,
@@ -44,7 +44,7 @@ export function exportPresentationsFromArray(
   descriptors: PresentationSpec[]
 ): ExportedPresentation[] {
   return descriptors.map((desc) => ({
-    name: desc.meta.name,
+    name: desc.meta.key,
     version: desc.meta.version,
     description: desc.meta.description,
     stability: desc.meta.stability,
@@ -66,9 +66,9 @@ export function generatePresentationsRegistry(
 
   for (const pres of presentations) {
     const presVarName =
-      pres.meta.name.replace(/\./g, '_') + `_v${pres.meta.version}`;
+      pres.meta.key.replace(/\./g, '_') + `_v${pres.meta.version}`;
     imports.add(
-      `import { ${presVarName} } from './${pres.meta.name.split('.')[0]}';`
+      `import { ${presVarName} } from './${pres.meta.key.split('.')[0]}';`
     );
     registrations.push(`  .register(${presVarName})`);
   }

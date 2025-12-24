@@ -32,7 +32,7 @@ export function exportWorkflows(
   registry: WorkflowRegistry
 ): ExportedWorkflow[] {
   return registry.list().map((wf) => ({
-    name: wf.meta.name,
+    name: wf.meta.key,
     version: wf.meta.version,
     description: wf.meta.description,
     stability: wf.meta.stability,
@@ -61,9 +61,9 @@ export function generateWorkflowsRegistry(
   const registrations: string[] = [];
 
   for (const wf of workflows) {
-    const wfVarName = wf.meta.name.replace(/\./g, '_') + `_v${wf.meta.version}`;
+    const wfVarName = wf.meta.key.replace(/\./g, '_') + `_v${wf.meta.version}`;
     imports.add(
-      `import { ${wfVarName} } from './${wf.meta.name.split('.')[0]}';`
+      `import { ${wfVarName} } from './${wf.meta.key.split('.')[0]}';`
     );
     registrations.push(`  .register(${wfVarName})`);
   }
