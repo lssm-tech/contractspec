@@ -12,6 +12,8 @@ export const ProductCatalogPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'product', 'catalog'],
     stability: StabilityEnum.Experimental,
+    goal: 'Enable users to browse and search for products.',
+    context: 'The primary shopping interface.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const ProductDetailPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'product', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide comprehensive information about a specific product.',
+    context: 'Product showcase including images, descriptions, and ratings.',
   },
   source: {
     type: 'component',
@@ -58,6 +62,8 @@ export const ProductEditorPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'product', 'editor'],
     stability: StabilityEnum.Experimental,
+    goal: 'Allow sellers to create and modify product listings.',
+    context: 'Management tool for store owners.',
   },
   source: {
     type: 'component',

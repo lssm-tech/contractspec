@@ -42,6 +42,9 @@ export const ProductCreatedEvent = defineEvent({
     key: 'marketplace.product.created',
     version: 1,
     description: 'A new product has been created.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'product'],
   },
   payload: ProductCreatedPayload,
 });
@@ -51,6 +54,9 @@ export const ProductPublishedEvent = defineEvent({
     key: 'marketplace.product.published',
     version: 1,
     description: 'A product has been published.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'product'],
   },
   payload: ProductPublishedPayload,
 });
@@ -60,6 +66,9 @@ export const InventoryUpdatedEvent = defineEvent({
     key: 'marketplace.inventory.updated',
     version: 1,
     description: 'Product inventory has been updated.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'product', 'inventory'],
   },
   payload: InventoryUpdatedPayload,
 });

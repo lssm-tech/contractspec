@@ -12,6 +12,8 @@ export const StoreProfilePresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'store', 'profile'],
     stability: StabilityEnum.Experimental,
+    goal: 'Showcase a seller store with its products and reputation.',
+    context: 'The public landing page for a marketplace seller.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const SellerDashboardPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'seller', 'dashboard'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide sellers with an overview of their business performance.',
+    context: 'The primary workspace for store owners.',
   },
   source: {
     type: 'component',

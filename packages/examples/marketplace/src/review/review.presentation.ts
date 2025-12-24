@@ -12,6 +12,8 @@ export const ReviewListPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'review', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show users reviews and ratings for a product.',
+    context: 'Displayed on the product detail page.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const ReviewFormPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'review', 'form'],
     stability: StabilityEnum.Experimental,
+    goal: 'Enable users to submit their feedback and rating for a purchase.',
+    context: 'Used in the user order history or product page.',
   },
   source: {
     type: 'component',

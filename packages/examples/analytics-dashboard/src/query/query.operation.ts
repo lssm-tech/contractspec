@@ -13,7 +13,7 @@ const OWNERS = ['@example.analytics-dashboard'] as const;
  */
 export const CreateQueryContract = defineCommand({
   meta: {
-    name: 'analytics.query.create',
+    key: 'analytics.query.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -27,7 +27,7 @@ export const CreateQueryContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'analytics.query.created',
+        key: 'analytics.query.created',
         version: 1,
         when: 'Query created',
         payload: QueryModel,
@@ -42,7 +42,7 @@ export const CreateQueryContract = defineCommand({
  */
 export const ExecuteQueryContract = defineQuery({
   meta: {
-    name: 'analytics.query.execute',
+    key: 'analytics.query.execute',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

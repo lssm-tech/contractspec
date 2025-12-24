@@ -4,7 +4,7 @@ import { DashboardModel } from './dashboard.schema';
 
 export const DashboardsListPresentation: PresentationSpec = {
   meta: {
-    name: 'analytics.dashboard.list',
+    key: 'analytics.dashboard.list',
     version: 1,
     title: 'Dashboards List',
     description: 'List of analytics dashboards',
@@ -27,7 +27,7 @@ export const DashboardsListPresentation: PresentationSpec = {
 
 export const DashboardViewPresentation: PresentationSpec = {
   meta: {
-    name: 'analytics.dashboard.view',
+    key: 'analytics.dashboard.view',
     version: 1,
     title: 'Dashboard View',
     description: 'View a single dashboard with widgets',
@@ -50,7 +50,7 @@ export const DashboardViewPresentation: PresentationSpec = {
 
 export const DashboardEditorPresentation: PresentationSpec = {
   meta: {
-    name: 'analytics.dashboard.editor',
+    key: 'analytics.dashboard.editor',
     version: 1,
     title: 'Dashboard Editor',
     description: 'Edit dashboard configuration and widgets',

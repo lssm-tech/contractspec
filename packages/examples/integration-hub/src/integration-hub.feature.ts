@@ -6,6 +6,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const IntegrationHubFeature: FeatureModuleSpec = {
   meta: {
     key: 'integration-hub',
+    version: 1,
     title: 'Integration Hub',
     description:
       'Connect and sync data with external systems through configurable integrations',

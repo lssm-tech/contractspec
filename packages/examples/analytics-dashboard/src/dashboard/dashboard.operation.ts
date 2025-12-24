@@ -16,7 +16,7 @@ const OWNERS = ['@example.analytics-dashboard'] as const;
  */
 export const CreateDashboardContract = defineCommand({
   meta: {
-    name: 'analytics.dashboard.create',
+    key: 'analytics.dashboard.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -30,7 +30,7 @@ export const CreateDashboardContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'analytics.dashboard.created',
+        key: 'analytics.dashboard.created',
         version: 1,
         when: 'Dashboard created',
         payload: DashboardModel,
@@ -45,7 +45,7 @@ export const CreateDashboardContract = defineCommand({
  */
 export const AddWidgetContract = defineCommand({
   meta: {
-    name: 'analytics.widget.add',
+    key: 'analytics.widget.add',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -59,7 +59,7 @@ export const AddWidgetContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'analytics.widget.added',
+        key: 'analytics.widget.added',
         version: 1,
         when: 'Widget added',
         payload: WidgetModel,
@@ -73,7 +73,7 @@ export const AddWidgetContract = defineCommand({
  */
 export const ListDashboardsContract = defineQuery({
   meta: {
-    name: 'analytics.dashboard.list',
+    key: 'analytics.dashboard.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -91,7 +91,7 @@ export const ListDashboardsContract = defineQuery({
  */
 export const GetDashboardContract = defineQuery({
   meta: {
-    name: 'analytics.dashboard.get',
+    key: 'analytics.dashboard.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

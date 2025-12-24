@@ -3,6 +3,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const PolicySafeKnowledgeAssistantFeature: FeatureModuleSpec = {
   meta: {
     key: 'policy-safe-knowledge-assistant',
+    version: 1,
     title: 'Policy-safe Knowledge Assistant',
     description:
       'All-in-one example composing locale/jurisdiction gate + versioned KB + HITL pipeline + learning hub.',

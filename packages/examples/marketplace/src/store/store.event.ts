@@ -31,6 +31,9 @@ export const StoreCreatedEvent = defineEvent({
     key: 'marketplace.store.created',
     version: 1,
     description: 'A new seller store has been created.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'store'],
   },
   payload: StoreCreatedPayload,
 });
@@ -40,6 +43,9 @@ export const StoreStatusChangedEvent = defineEvent({
     key: 'marketplace.store.statusChanged',
     version: 1,
     description: 'A store status has changed.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'store'],
   },
   payload: StoreStatusChangedPayload,
 });

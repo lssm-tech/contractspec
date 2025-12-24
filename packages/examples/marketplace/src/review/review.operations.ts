@@ -27,7 +27,7 @@ export const CreateReviewContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'marketplace.review.created',
+        key: 'marketplace.review.created',
         version: 1,
         when: 'Review is created',
         payload: ReviewModel,
@@ -42,7 +42,7 @@ export const CreateReviewContract = defineCommand({
  */
 export const ListReviewsContract = defineQuery({
   meta: {
-    name: 'marketplace.review.list',
+    key: 'marketplace.review.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

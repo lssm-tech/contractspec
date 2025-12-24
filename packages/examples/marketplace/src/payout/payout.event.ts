@@ -34,6 +34,9 @@ export const PayoutCreatedEvent = defineEvent({
     key: 'marketplace.payout.created',
     version: 1,
     description: 'A payout has been created.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'payout'],
   },
   payload: PayoutCreatedPayload,
 });
@@ -43,6 +46,9 @@ export const PayoutPaidEvent = defineEvent({
     key: 'marketplace.payout.paid',
     version: 1,
     description: 'A payout has been sent.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'payout'],
   },
   payload: PayoutPaidPayload,
 });

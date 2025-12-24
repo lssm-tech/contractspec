@@ -12,6 +12,8 @@ export const PayoutListPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'payout', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show sellers their historical and pending payouts.',
+    context: 'Financial dashboard for sellers.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const PayoutDetailPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'payout', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show the breakdown of a specific payout including fees and orders.',
+    context: 'Accessed from the payout list.',
   },
   source: {
     type: 'component',

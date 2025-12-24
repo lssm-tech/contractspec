@@ -16,6 +16,8 @@ export const SyncConfigListPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'sync', 'config', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show users their current sync configurations.',
+    context: 'Management view for data synchronization.',
   },
   source: {
     type: 'component',
@@ -39,6 +41,8 @@ export const SyncConfigEditorPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'sync', 'config', 'editor'],
     stability: StabilityEnum.Experimental,
+    goal: 'Allow users to configure schedule, filters, and settings for a sync.',
+    context: 'Configuration interface for sync jobs.',
   },
   source: {
     type: 'component',
@@ -62,6 +66,8 @@ export const FieldMappingEditorPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'field-mapping', 'editor'],
     stability: StabilityEnum.Experimental,
+    goal: 'Allow users to map source fields to target fields visually.',
+    context: 'Schema mapping tool for data consistency.',
   },
   source: {
     type: 'component',
@@ -85,6 +91,8 @@ export const SyncRunListPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'sync', 'runs', 'history'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide a historical log of all sync attempts and their results.',
+    context: 'Audit and troubleshooting view for sync jobs.',
   },
   source: {
     type: 'component',
@@ -108,6 +116,8 @@ export const SyncRunDetailPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'sync', 'run', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show granular details and logs for a specific sync run.',
+    context: 'Detailed troubleshooting view.',
   },
   source: {
     type: 'component',
@@ -131,6 +141,8 @@ export const SyncActivityPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'sync', 'activity', 'realtime'],
     stability: StabilityEnum.Experimental,
+    goal: 'Monitor live data flow and sync performance.',
+    context: 'Real-time operations monitor.',
   },
   source: {
     type: 'component',

@@ -12,6 +12,8 @@ export const IntegrationListPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show users available integrations they can connect to.',
+    context: 'The marketplace of integrations within the hub.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const IntegrationDetailPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show capabilities and documentation for a specific integration.',
+    context: 'Integration showcase and support page.',
   },
   source: {
     type: 'component',
@@ -58,6 +62,8 @@ export const IntegrationHealthPresentation: PresentationSpec = {
     owners: ['@integration-team'],
     tags: ['integration', 'health', 'monitoring'],
     stability: StabilityEnum.Experimental,
+    goal: 'Monitor connectivity and error rates for active integrations.',
+    context: 'Operations dashboard for integration hub health.',
   },
   source: {
     type: 'component',

@@ -29,6 +29,9 @@ export const ReviewCreatedEvent = defineEvent({
     key: 'marketplace.review.created',
     version: 1,
     description: 'A review has been created.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'review'],
   },
   payload: ReviewCreatedPayload,
 });
@@ -38,6 +41,9 @@ export const ReviewRespondedEvent = defineEvent({
     key: 'marketplace.review.responded',
     version: 1,
     description: 'A seller has responded to a review.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'review'],
   },
   payload: ReviewRespondedPayload,
 });

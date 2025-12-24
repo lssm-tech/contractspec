@@ -74,9 +74,12 @@ const OrderCompletedPayload = defineSchemaModel({
 
 export const OrderCreatedEvent = defineEvent({
   meta: {
-    name: 'marketplace.order.created',
+    key: 'marketplace.order.created',
     version: 1,
     description: 'A new order has been created.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'order'],
   },
   payload: OrderCreatedPayload,
 });
@@ -86,6 +89,9 @@ export const OrderPaidEvent = defineEvent({
     key: 'marketplace.order.paid',
     version: 1,
     description: 'An order has been paid.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'order'],
   },
   payload: OrderPaidPayload,
 });
@@ -95,6 +101,9 @@ export const OrderStatusUpdatedEvent = defineEvent({
     key: 'marketplace.order.statusUpdated',
     version: 1,
     description: 'An order status has been updated.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'order'],
   },
   payload: OrderStatusUpdatedPayload,
 });
@@ -104,6 +113,9 @@ export const OrderShippedEvent = defineEvent({
     key: 'marketplace.order.shipped',
     version: 1,
     description: 'An order has been shipped.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'order'],
   },
   payload: OrderShippedPayload,
 });
@@ -113,6 +125,9 @@ export const OrderCompletedEvent = defineEvent({
     key: 'marketplace.order.completed',
     version: 1,
     description: 'An order has been completed.',
+    stability: 'experimental',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'order'],
   },
   payload: OrderCompletedPayload,
 });

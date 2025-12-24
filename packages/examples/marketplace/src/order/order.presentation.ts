@@ -12,6 +12,8 @@ export const OrderListPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'order', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide a comprehensive view of all orders for the user.',
+    context: 'Used in the buyer and seller dashboards to track order progress.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const OrderDetailPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'order', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Display all details of a single order.',
+    context: 'Accessed from the order list to see specific items, shipping, and payment details.',
   },
   source: {
     type: 'component',
@@ -58,6 +62,8 @@ export const CheckoutPresentation: PresentationSpec = {
     owners: ['@marketplace-team'],
     tags: ['marketplace', 'checkout', 'cart'],
     stability: StabilityEnum.Experimental,
+    goal: 'Guide the user through the payment and order confirmation process.',
+    context: 'The final stage of the purchasing journey.',
   },
   source: {
     type: 'component',
