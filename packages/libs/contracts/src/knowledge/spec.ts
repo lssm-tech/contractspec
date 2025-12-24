@@ -8,11 +8,7 @@ export type KnowledgeCategory =
   | 'ephemeral'; // Temporary - agent scratchpads, session context, drafts
 
 export interface KnowledgeSpaceMeta extends OwnerShipMeta {
-  /** Stable space identifier (e.g., "product-canon", "support-faq"). */
-  key: string;
-  version: number;
   category: KnowledgeCategory;
-  displayName: string;
 }
 
 export interface KnowledgeRetentionPolicy {

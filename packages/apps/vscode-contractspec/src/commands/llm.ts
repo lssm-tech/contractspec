@@ -12,14 +12,14 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import {
-  type LLMExportFormat,
   type AgentType,
+  type LLMExportFormat,
   type VerificationTier,
 } from '@lssm/lib.contracts/llm';
 import {
+  isFeatureFile,
   scanAllSpecsFromSource,
   scanFeatureSource,
-  isFeatureFile,
 } from '@lssm/module.contractspec-workspace';
 import { listSpecs } from '@lssm/bundle.contractspec-workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
@@ -295,7 +295,7 @@ function specToMarkdown(
   const headerPrefix = '#'.repeat(headerLevel);
 
   // Header
-  lines.push(`${indent}${headerPrefix} ${spec.meta.name}`);
+  lines.push(`${indent}${headerPrefix} ${spec.meta.key}`);
   lines.push('');
 
   // Description (always included if present)
@@ -418,7 +418,7 @@ function specToMarkdown(
     lines.push('');
     if (spec.specType === 'operation') {
       lines.push(
-        `${indent}Implement the \`${spec.meta.name}\` ${spec.kind ?? 'operation'} ensuring:`
+        `${indent}Implement the \`${spec.meta.key}\` ${spec.kind ?? 'operation'} ensuring:`
       );
       if (spec.hasIo) {
         lines.push(`${indent}- Input validation per schema`);
@@ -432,7 +432,7 @@ function specToMarkdown(
       }
     } else if (spec.specType === 'feature') {
       lines.push(
-        `${indent}Implement the \`${spec.meta.name}\` feature including:`
+        `${indent}Implement the \`${spec.meta.key}\` feature including:`
       );
       if (spec.operations?.length) {
         lines.push(`${indent}- ${spec.operations.length} operation(s)`);
@@ -770,7 +770,7 @@ function generateGuideFromParsedSpec(
   const lines: string[] = [];
 
   // Header
-  lines.push(`# Implementation Guide: ${spec.meta.name}`);
+  lines.push(`# Implementation Guide: ${spec.meta.key}`);
   lines.push('');
   lines.push(`**Target Agent**: ${agent}`);
   lines.push(
@@ -884,7 +884,7 @@ function generateGuideFromParsedSpec(
 function generateCursorRulesFromParsedSpec(spec: ParsedSpec): string {
   const lines: string[] = [];
 
-  lines.push(`# ${spec.meta.name}`);
+  lines.push(`# ${spec.meta.key}`);
   lines.push('');
   lines.push(`Description: ${spec.meta.description ?? 'No description'}`);
   lines.push('');
@@ -960,10 +960,10 @@ function verifyImplementationAgainstParsedSpec(
     }
 
     // Check for spec name reference
-    if (spec.meta.name && !implementationCode.includes(spec.meta.name)) {
+    if (spec.meta.key && !implementationCode.includes(spec.meta.key)) {
       issues.push({
         severity: 'info',
-        message: `Spec name "${spec.meta.name}" not found in implementation`,
+        message: `Spec name "${spec.meta.key}" not found in implementation`,
         category: 'structure',
       });
     }
@@ -1024,7 +1024,7 @@ function formatVerificationReport(
 ): string {
   const lines: string[] = [];
 
-  lines.push(`# Verification Report: ${spec.meta.name}`);
+  lines.push(`# Verification Report: ${spec.meta.key}`);
   lines.push('');
 
   const errors = issues.filter((i) => i.severity === 'error');
@@ -1380,7 +1380,7 @@ async function generateGuideForSpec(
       const workspaceRoot =
         vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? process.cwd();
       const rulesDir = path.join(workspaceRoot, '.cursor', 'rules');
-      const safeName = spec.meta.name.replace(/\./g, '-');
+      const safeName = spec.meta.key.replace(/\./g, '-');
       const rulesPath = path.join(rulesDir, `${safeName}.mdc`);
 
       const savePath = await vscode.window.showSaveDialog({
@@ -1400,7 +1400,7 @@ async function generateGuideForSpec(
       }
     }
 
-    outputChannel.appendLine(`Guide generated for ${spec.meta.name}`);
+    outputChannel.appendLine(`Guide generated for ${spec.meta.key}`);
   } catch (error) {
     outputChannel.appendLine(
       `Error: ${error instanceof Error ? error.message : String(error)}`
@@ -1631,7 +1631,7 @@ export async function copySpecForLLM(
 
     await vscode.env.clipboard.writeText(markdown);
     vscode.window.showInformationMessage(
-      `${spec.meta.name} copied (${formatPick.label}, ${markdown.split(/\s+/).length} words)`
+      `${spec.meta.key} copied (${formatPick.label}, ${markdown.split(/\s+/).length} words)`
     );
   } catch (error) {
     vscode.window.showErrorMessage(

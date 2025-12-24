@@ -123,7 +123,7 @@ export const copyLLMCommand = new Command('copy')
         console.log(chalk.green(`✓ Copied to clipboard!`));
         console.log(chalk.gray(`  Format: ${format}`));
         console.log(
-          chalk.gray(`  Spec: ${spec.meta.name}.v${spec.meta.version}`)
+          chalk.gray(`  Spec: ${spec.meta.key}.v${spec.meta.version}`)
         );
         console.log(chalk.gray(`  Words: ${markdown.split(/\s+/).length}`));
       } else {

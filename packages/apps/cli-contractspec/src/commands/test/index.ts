@@ -50,28 +50,28 @@ export async function testCommand(
 
   const results = [];
   for (const spec of specs) {
-    const spinner = ora(`Running ${spec.meta.name}...`).start();
+    const spinner = ora(`Running ${spec.meta.key}...`).start();
     try {
       const result = await runner.run(spec);
       results.push(result);
       if (result.failed > 0) {
         spinner.fail(
           chalk.red(
-            `${spec.meta.name} failed (${result.failed}/${result.scenarios.length} scenarios)`
+            `${spec.meta.key} failed (${result.failed}/${result.scenarios.length} scenarios)`
           )
         );
         logScenarioResults(result);
       } else {
         spinner.succeed(
           chalk.green(
-            `${spec.meta.name} passed (${result.passed}/${result.scenarios.length} scenarios)`
+            `${spec.meta.key} passed (${result.passed}/${result.scenarios.length} scenarios)`
           )
         );
       }
     } catch (error) {
       spinner.fail(
         chalk.red(
-          `${spec.meta.name} failed with error: ${
+          `${spec.meta.key} failed with error: ${
             error instanceof Error ? error.message : String(error)
           }`
         )

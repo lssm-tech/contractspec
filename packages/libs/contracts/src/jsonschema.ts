@@ -12,7 +12,7 @@ export function jsonSchemaForSpec(
     input: spec.io.input ? z.toJSONSchema(spec.io.input.getZod()) : null,
     output: spec.io.output ? z.toJSONSchema(spec.io.output.getZod()) : null,
     meta: {
-      name: spec.meta.name,
+      name: spec.meta.key,
       version: spec.meta.version,
       kind: spec.meta.kind,
       description: spec.meta.description,

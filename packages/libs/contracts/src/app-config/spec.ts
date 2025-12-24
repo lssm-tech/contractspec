@@ -68,10 +68,6 @@ export interface AppThemeBinding {
 }
 
 export interface AppBlueprintMeta extends OwnerShipMeta {
-  /** Fully qualified blueprint name (e.g. "artisan.app"). */
-  name: string;
-  /** Versioned definition of the blueprint. Increment on breaking changes. */
-  version: number;
   /** Logical application id (e.g. "artisan"). */
   appId: string;
 }
@@ -129,7 +125,7 @@ export class AppBlueprintRegistry {
     let latest: AppBlueprintSpec | undefined;
     let maxVersion = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > maxVersion) {
         maxVersion = spec.meta.version;
         latest = spec;

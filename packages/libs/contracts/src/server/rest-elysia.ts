@@ -27,7 +27,7 @@ export function elysiaPlugin(
     const path =
       (options?.basePath ?? '') +
       (spec.transport?.rest?.path ??
-        `/${spec.meta.name.replace(/\./g, '/')}/v${spec.meta.version}`);
+        `/${spec.meta.key.replace(/\./g, '/')}/v${spec.meta.version}`);
     app[method.toLowerCase() as 'get' | 'post'](
       path,
       ({ request }: { request: Request }) => handler(request)

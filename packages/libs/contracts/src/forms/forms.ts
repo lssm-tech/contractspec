@@ -186,7 +186,7 @@ export interface ConstraintDecl {
 export type FormValuesFor<M extends AnySchemaModel> = ZodSchemaModel<M>;
 
 export interface FormSpec<M extends AnySchemaModel = AnySchemaModel> {
-  meta: OwnerShipMeta & { key: string; version: number };
+  meta: OwnerShipMeta;
   /** Canonical form data shape */
   model: M;
   /** Flat list or tree using groups/arrays */

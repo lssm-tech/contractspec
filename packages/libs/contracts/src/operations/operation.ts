@@ -5,7 +5,7 @@
 import type { EventSpec } from '../events';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor } from '../resources';
-import type { Owner, Stability, Tag } from '../ownership';
+import type { Owner, OwnerShipMeta, Stability, Tag } from '../ownership';
 import type { DocId } from '../docs/registry';
 import type { PolicyRef } from '../policy/spec';
 import type { TestSpecRef } from '../tests/spec';
@@ -42,7 +42,7 @@ export interface ImplementationRef {
 
 // preferred: reference a declared event
 export interface EmitDeclRef {
-  ref: EventSpec<AnySchemaModel>;
+  ref: EventSpec<AnySchemaModel>['meta'];
   when: string;
 }
 // inline (fallback)
@@ -68,6 +68,14 @@ export interface TelemetryTrigger {
   }) => Record<string, unknown>;
 }
 
+export interface OperationSpecMeta extends OwnerShipMeta {
+  kind: OpKind;
+  /** Business goal: why this exists */
+  goal: string;
+  /** Background, constraints, scope edges (feeds docs & LLM context) */
+  context: string;
+}
+
 /**
  * The core specification interface for any operation (Command or Query).
  *
@@ -82,28 +90,7 @@ export interface OperationSpec<
     | readonly EmitDecl[]
     | undefined,
 > {
-  meta: {
-    /** Fully-qualified op name (e.g., "sigil.beginSignup") */
-    name: string;
-    /** Breaking changes => bump version */
-    version: number;
-    /** "command" changes state; "query" is read-only/idempotent */
-    kind: OpKind;
-    /** Lifecycle marker for comms & tooling */
-    stability: Stability;
-    /** Owners for CODEOWNERS / on-call / approvals */
-    owners: Owner[];
-    /** Search tags, grouping, docs navigation */
-    tags: Tag[];
-    /** Short human-friendly summary */
-    description: string;
-    /** Business goal: why this exists */
-    goal: string;
-    /** Background, constraints, scope edges (feeds docs & LLM context) */
-    context: string;
-    /** Optional doc block id for this operation. */
-    docId?: DocId;
-  };
+  meta: OperationSpecMeta;
 
   io: {
     /** Zod schema for input payload */

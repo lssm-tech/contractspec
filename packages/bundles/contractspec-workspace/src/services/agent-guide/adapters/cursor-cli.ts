@@ -185,7 +185,7 @@ export class CursorCLIAdapter implements AgentAdapter {
    * Generate a cursor rules file path for a spec.
    */
   getCursorRulesPath(spec: AnyOperationSpec): string {
-    const safeName = spec.meta.name.replace(/\./g, '-');
+    const safeName = spec.meta.key.replace(/\./g, '-');
     return `.cursor/rules/${safeName}.mdc`;
   }
 

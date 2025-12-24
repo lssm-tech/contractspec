@@ -303,7 +303,7 @@ export function verifyStructure(input: VerifyInput): VerificationReport {
       fields: { total: checks.length, implemented: passedCount },
     },
     meta: {
-      specName: spec.meta.name,
+      specName: spec.meta.key,
       specVersion: spec.meta.version,
       implementationPath: implementationPath ?? 'unknown',
       verifiedAt: new Date().toISOString(),

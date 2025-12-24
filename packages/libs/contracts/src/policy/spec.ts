@@ -46,10 +46,6 @@ export interface PolicyOPAConfig {
 }
 
 export interface PolicyMeta extends OwnerShipMeta {
-  /** Fully-qualified policy name (e.g., "sigil.core.default"). */
-  name: string;
-  /** Version of the policy; bump on breaking changes. */
-  version: number;
   /** Optional scope hint used for discovery. */
   scope?: 'global' | 'feature' | 'operation';
 }
@@ -118,19 +114,19 @@ export interface PolicySpec {
 }
 
 export interface PolicyRef {
-  name: string;
+  key: string;
   version: number;
 }
 
-const policyKey = (name: string, version: number) => `${name}.v${version}`;
+const policyKey = (key: string, version: number) => `${key}.v${version}`;
 
 export class PolicyRegistry {
   private readonly items = new Map<string, PolicySpec>();
 
   register(spec: PolicySpec): this {
-    const key = policyKey(spec.meta.name, spec.meta.version);
-    if (this.items.has(key)) throw new Error(`Duplicate policy ${key}`);
-    this.items.set(key, spec);
+    const versionedKey = policyKey(spec.meta.key, spec.meta.version || 1);
+    if (this.items.has(versionedKey)) throw new Error(`Duplicate policy ${versionedKey}`);
+    this.items.set(versionedKey, spec);
     return this;
   }
 
@@ -138,14 +134,17 @@ export class PolicyRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): PolicySpec | undefined {
-    if (version != null) return this.items.get(policyKey(name, version));
+  get(key: string, version?: number): PolicySpec | undefined {
+    if (version != null) {
+      return this.items.get(policyKey(key, version));
+    }
+    
     let candidate: PolicySpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
-      if (spec.meta.version > max) {
-        max = spec.meta.version;
+      if (spec.meta.key !== key) continue;
+      if ((spec.meta.version || 1) > max) {
+        max = spec.meta.version || 1;
         candidate = spec;
       }
     }
@@ -154,5 +153,5 @@ export class PolicyRegistry {
 }
 
 export function makePolicyKey(ref: PolicyRef) {
-  return policyKey(ref.name, ref.version);
+  return policyKey(ref.key, ref.version);
 }

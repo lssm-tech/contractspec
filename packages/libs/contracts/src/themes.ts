@@ -34,8 +34,6 @@ export interface ThemeOverride {
 }
 
 export interface ThemeMeta extends OwnerShipMeta {
-  name: string;
-  version: number;
   extends?: ThemeRef;
   scopes?: ThemeScope[];
 }
@@ -48,11 +46,11 @@ export interface ThemeSpec {
 }
 
 export interface ThemeRef {
-  name: string;
+  key: string;
   version: number;
 }
 
-const themeKey = (ref: ThemeRef | ThemeMeta) => `${ref.name}.v${ref.version}`;
+const themeKey = (ref: ThemeRef | ThemeMeta) => `${ref.key}.v${ref.version}`;
 
 export class ThemeRegistry {
   private readonly items = new Map<string, ThemeSpec>();
@@ -68,12 +66,12 @@ export class ThemeRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): ThemeSpec | undefined {
-    if (version != null) return this.items.get(themeKey({ name, version }));
+  get(key: string, version?: number): ThemeSpec | undefined {
+    if (version != null) return this.items.get(themeKey({ key, version }));
     let candidate: ThemeSpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== key) continue;
       if (spec.meta.version > max) {
         max = spec.meta.version;
         candidate = spec;
@@ -84,5 +82,5 @@ export class ThemeRegistry {
 }
 
 export function makeThemeRef(spec: ThemeSpec): ThemeRef {
-  return { name: spec.meta.name, version: spec.meta.version };
+  return { name: spec.meta.key, version: spec.meta.version };
 }

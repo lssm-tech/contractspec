@@ -14,7 +14,7 @@ export function registerMcpTools(
 
     const toolName =
       spec.transport?.mcp?.toolName ??
-      defaultMcpTool(spec.meta.name, spec.meta.version);
+      defaultMcpTool(spec.meta.key, spec.meta.version);
 
     server.registerTool(
       toolName,
@@ -24,7 +24,7 @@ export function registerMcpTools(
       },
       async (args: unknown): Promise<CallToolResult> => {
         const result = await ops.execute(
-          spec.meta.name,
+          spec.meta.key,
           spec.meta.version,
           args ?? {},
           ctx.toolCtx()

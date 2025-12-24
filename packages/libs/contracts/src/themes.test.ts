@@ -14,7 +14,7 @@ const baseMeta = {
 const pastelTheme: ThemeSpec = {
   meta: {
     ...baseMeta,
-    name: 'design.pastel',
+    key: 'design.pastel',
     version: 1,
     scopes: ['tenant'],
   },

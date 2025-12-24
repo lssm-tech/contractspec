@@ -24,7 +24,7 @@ export function makeNextMcpServerFromRegistry(
         if (meta.kind === 'query') {
           const resourceName =
             spec.transport?.mcp?.toolName ??
-            defaultMcpTool(spec.meta.name, spec.meta.version);
+            defaultMcpTool(spec.meta.key, spec.meta.version);
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (server as any).registerResource(
@@ -39,7 +39,7 @@ export function makeNextMcpServerFromRegistry(
             },
             (async (uri: URL, args, _req) => {
               const result = await reg.execute(
-                spec.meta.name,
+                spec.meta.key,
                 spec.meta.version,
                 args ?? {},
                 ctxFactory()
@@ -51,7 +51,7 @@ export function makeNextMcpServerFromRegistry(
         } else if (meta.kind === 'command') {
           const toolName =
             spec.transport?.mcp?.toolName ??
-            defaultMcpTool(spec.meta.name, spec.meta.version);
+            defaultMcpTool(spec.meta.key, spec.meta.version);
 
           server.registerTool(
             toolName,
@@ -63,7 +63,7 @@ export function makeNextMcpServerFromRegistry(
             },
             (async (args: unknown, _req: unknown) => {
               const result = await reg.execute(
-                spec.meta.name,
+                spec.meta.key,
                 spec.meta.version,
                 args ?? {},
                 ctxFactory()

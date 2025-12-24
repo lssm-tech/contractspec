@@ -3,14 +3,7 @@ import type { EventKey } from '../events';
 
 export type TelemetryPrivacyLevel = 'public' | 'internal' | 'pii' | 'sensitive';
 
-export interface TelemetryMeta extends OwnerShipMeta {
-  /** Fully-qualified telemetry spec name (e.g., "sigil.core"). */
-  name: string;
-  /** Incremented when telemetry definitions change in a breaking way. */
-  version: number;
-  /** Optional domain or bounded-context hint (e.g., "onboarding"). */
-  domain: string;
-}
+export type TelemetryMeta = OwnerShipMeta;
 
 export interface TelemetryPropertyDef {
   type: 'string' | 'number' | 'boolean' | 'timestamp' | 'json';
@@ -50,8 +43,8 @@ export interface TelemetryRetentionConfig {
 }
 
 export interface TelemetryEventDef {
-  /** Name of the event (should match EventSpec.name for cross-reference). */
-  name: string;
+  /** Name of the event (should match EventSpec.key for cross-reference). */
+  key: string;
   /** Version of the underlying event. */
   version: number;
   /** High-level semantics for docs/analyzers. */
@@ -95,7 +88,7 @@ export interface TelemetrySpec {
   config?: TelemetryConfig;
 }
 
-const telemetryKey = (meta: TelemetryMeta) => `${meta.name}.v${meta.version}`;
+const telemetryKey = (meta: TelemetryMeta) => `${meta.key}.v${meta.version}`;
 
 export class TelemetryRegistry {
   private readonly items = new Map<string, TelemetrySpec>();
@@ -119,14 +112,14 @@ export class TelemetryRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): TelemetrySpec | undefined {
+  get(key: string, version?: number): TelemetrySpec | undefined {
     if (version != null) {
-      return this.items.get(`${name}.v${version}`);
+      return this.items.get(`${key}.v${version}`);
     }
     let latest: TelemetrySpec | undefined;
     let maxVersion = -Infinity;
     for (const item of this.items.values()) {
-      if (item.meta.name !== name) continue;
+      if (item.meta.key !== key) continue;
       if (item.meta.version > maxVersion) {
         maxVersion = item.meta.version;
         latest = item;

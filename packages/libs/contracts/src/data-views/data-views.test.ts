@@ -50,7 +50,7 @@ describe('DataViewRegistry', () => {
   it('registers and retrieves data view specs', () => {
     const registry = new DataViewRegistry();
     registry.register(spec);
-    const stored = registry.get(spec.meta.name, spec.meta.version);
+    const stored = registry.get(spec.meta.key, spec.meta.version);
     expect(stored?.meta.entity).toBe('resident');
     expect(stored?.view.kind).toBe('table');
   });
@@ -62,7 +62,7 @@ describe('DataViewRegistry', () => {
       ...spec,
       meta: { ...spec.meta, version: 2 },
     });
-    const latest = registry.get(spec.meta.name);
+    const latest = registry.get(spec.meta.key);
     expect(latest?.meta.version).toBe(2);
   });
 

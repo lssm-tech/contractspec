@@ -92,12 +92,7 @@ export interface WorkflowDefinition {
   compensation?: CompensationStrategy;
 }
 
-export interface WorkflowMeta extends OwnerShipMeta {
-  /** Fully-qualified workflow name (e.g., `sigil.onboarding.basic`). */
-  name: string;
-  /** Version of the workflow. Increment on breaking changes. */
-  version: number;
-}
+export type WorkflowMeta = OwnerShipMeta;
 
 export interface WorkflowSpec {
   meta: WorkflowMeta;
@@ -107,7 +102,7 @@ export interface WorkflowSpec {
 }
 
 function workflowKey(meta: WorkflowMeta) {
-  return `${meta.name}.v${meta.version}`;
+  return `${meta.key}.v${meta.version}`;
 }
 
 export class WorkflowRegistry {
@@ -129,7 +124,7 @@ export class WorkflowRegistry {
     let candidate: WorkflowSpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > max) {
         max = spec.meta.version;
         candidate = spec;

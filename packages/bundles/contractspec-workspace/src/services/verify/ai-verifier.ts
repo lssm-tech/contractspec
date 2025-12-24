@@ -227,7 +227,7 @@ export async function verifyWithAI(
       fields: { total: 1, implemented: passed ? 1 : 0 },
     },
     meta: {
-      specName: spec.meta.name,
+      specName: spec.meta.key,
       specVersion: spec.meta.version,
       implementationPath: implementationPath ?? 'unknown',
       verifiedAt: new Date().toISOString(),
@@ -299,7 +299,7 @@ export function createQuickAIReview(input: VerifyInput): VerificationReport {
       fields: { total: 1, implemented: passed ? 1 : 0 },
     },
     meta: {
-      specName: spec.meta.name,
+      specName: spec.meta.key,
       specVersion: spec.meta.version,
       implementationPath: implementationPath ?? 'unknown',
       verifiedAt: new Date().toISOString(),

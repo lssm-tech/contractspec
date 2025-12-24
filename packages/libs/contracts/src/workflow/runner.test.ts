@@ -18,7 +18,7 @@ function workflowSpec(overrides?: {
 }): WorkflowSpec {
   return {
     meta: {
-      name: 'sigil.workflow.runner',
+      key: 'sigil.workflow.runner',
       version: 1,
       title: 'Runner Workflow',
       description: 'Workflow used in runner tests',
@@ -135,7 +135,6 @@ function makeResolvedIntegration(
         key: 'payments.stripe',
         version: 1,
         category: 'payments',
-        displayName: 'Stripe',
       },
       supportedModes: ['managed'],
       capabilities: {
@@ -189,7 +188,7 @@ describe('WorkflowRunner', () => {
     const spec = workflowSpec();
     const { runner, opExecutor } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.name);
+    const workflowId = await runner.start(spec.meta.key);
     expect(events[0]).toMatchObject({ event: 'workflow.started' });
 
     let state = await runner.getState(workflowId);
@@ -231,7 +230,7 @@ describe('WorkflowRunner', () => {
       appConfigProvider: async () => resolvedAppConfig,
     });
 
-    const workflowId = await runner.start(spec.meta.name);
+    const workflowId = await runner.start(spec.meta.key);
     await runner.executeStep(workflowId);
 
     const context = opExecutor.mock.calls[0]?.[2] as Record<string, unknown>;
@@ -248,7 +247,7 @@ describe('WorkflowRunner', () => {
     const enforceCapabilities = vi.fn();
 
     const { runner } = createRunner(spec, events, { enforceCapabilities });
-    const workflowId = await runner.start(spec.meta.name);
+    const workflowId = await runner.start(spec.meta.key);
     await runner.executeStep(workflowId);
 
     expect(enforceCapabilities).toHaveBeenCalledWith(
@@ -279,7 +278,7 @@ describe('WorkflowRunner', () => {
       appConfigProvider: async () => resolvedConfig,
     });
 
-    await expect(runner.start(spec.meta.name)).rejects.toBeInstanceOf(
+    await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
       WorkflowPreFlightError
     );
   });
@@ -307,7 +306,7 @@ describe('WorkflowRunner', () => {
       appConfigProvider: async () => resolvedConfig,
     });
 
-    await expect(runner.start(spec.meta.name)).rejects.toBeInstanceOf(
+    await expect(runner.start(spec.meta.key)).rejects.toBeInstanceOf(
       WorkflowPreFlightError
     );
   });
@@ -346,7 +345,7 @@ describe('WorkflowRunner', () => {
       appConfigProvider: async () => resolvedConfig,
     });
 
-    const workflowId = await runner.start(spec.meta.name);
+    const workflowId = await runner.start(spec.meta.key);
     expect(workflowId).toBeTruthy();
     expect(events[0]).toMatchObject({ event: 'workflow.started' });
   });
@@ -373,7 +372,7 @@ describe('WorkflowRunner', () => {
     });
 
     const { runner, store } = createRunner(guardedSpec, events);
-    const workflowId = await runner.start(guardedSpec.meta.name);
+    const workflowId = await runner.start(guardedSpec.meta.key);
     await runner.executeStep(workflowId); // start -> review, approved === true
 
     // Force guard to fail by removing approval flag.
@@ -395,7 +394,7 @@ describe('WorkflowRunner', () => {
     const spec = workflowSpec();
     const { runner } = createRunner(spec, events);
 
-    const workflowId = await runner.start(spec.meta.name);
+    const workflowId = await runner.start(spec.meta.key);
     await runner.cancel(workflowId);
     const state = await runner.getState(workflowId);
     expect(state.status).toBe('cancelled');

@@ -6,7 +6,6 @@ export const emailThreadsKnowledgeSpace: KnowledgeSpaceSpec = {
     key: 'knowledge.email-threads',
     version: 1,
     category: 'operational',
-    displayName: 'Email Threads',
     title: 'Operational Email Threads',
     description:
       'Indexed copies of operational email threads used for support, onboarding, and workflows.',
@@ -19,7 +18,7 @@ export const emailThreadsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: 365,
   },
   access: {
-    policy: { name: 'knowledge.access.email-threads', version: 1 },
+    policy: { key: 'knowledge.access.email-threads', version: 1 },
     trustLevel: 'medium',
     automationWritable: true,
   },

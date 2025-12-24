@@ -20,12 +20,7 @@ export type IntegrationCategory =
 export type IntegrationOwnershipMode = 'managed' | 'byok';
 
 export interface IntegrationMeta extends OwnerShipMeta {
-  /** Stable provider slug (e.g., "stripe", "openai"). */
-  key: string;
-  /** Provider version (increment on breaking API changes). */
-  version: number;
   category: IntegrationCategory;
-  displayName: string;
 }
 
 export interface IntegrationCapabilityMapping {

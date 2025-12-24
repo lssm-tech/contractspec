@@ -116,7 +116,7 @@ export class TestRegistry {
     let latest: TestSpec | undefined;
     let maxVersion = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > maxVersion) {
         maxVersion = spec.meta.version;
         latest = spec;

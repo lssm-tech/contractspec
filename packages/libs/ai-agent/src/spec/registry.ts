@@ -49,7 +49,7 @@ export class AgentRegistry {
   listNames(): string[] {
     const names = new Set<string>();
     for (const spec of this.specs.values()) {
-      names.add(spec.meta.name);
+      names.add(spec.meta.key);
     }
     return [...names];
   }
@@ -70,7 +70,7 @@ export class AgentRegistry {
     let latest: AgentSpec | undefined;
     let maxVersion = -Infinity;
     for (const spec of this.specs.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > maxVersion) {
         latest = spec;
         maxVersion = spec.meta.version;
@@ -116,7 +116,7 @@ export class AgentRegistry {
   getVersions(name: string): AgentSpec[] {
     const versions: AgentSpec[] = [];
     for (const spec of this.specs.values()) {
-      if (spec.meta.name === name) {
+      if (spec.meta.key === name) {
         versions.push(spec);
       }
     }

@@ -1,7 +1,6 @@
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from '../ownership';
 import type { BlockConfig } from '@blocknote/core';
-import type { DocId } from '../docs/registry';
 
 /** Supported render targets for the transform engine and descriptors. */
 export type PresentationTarget =
@@ -10,16 +9,11 @@ export type PresentationTarget =
   | 'application/json'
   | 'application/xml';
 
-// export interface PresentationMeta extends Partial<OwnerShipMeta> {
-export interface PresentationMeta extends OwnerShipMeta {
-  /** Fully-qualified presentation name (e.g., "sigil.auth.webauth_tabs_v2"). */
-  name: string;
-  /** Version of this descriptor. Increment on breaking changes. */
-  version: number;
-  /** Human-readable description for docs/a11y. Required by validators. */
-  description: string;
-  /** Optional doc block id for this presentation. */
-  docId?: DocId;
+export interface PresentationSpecMeta extends OwnerShipMeta {
+  /** Business goal: why this exists */
+  goal: string;
+  /** Background, constraints, scope edges (feeds docs & LLM context) */
+  context: string;
 }
 
 /** React component presentation source. */
@@ -53,7 +47,7 @@ export type PresentationSource =
  * Renderers and validators are provided via TransformEngine.
  */
 export interface PresentationSpec {
-  meta: PresentationMeta;
+  meta: PresentationSpecMeta;
   policy?: { flags?: string[]; pii?: string[] };
   source: PresentationSource;
   targets: PresentationTarget[]; // which outputs are supported by transforms

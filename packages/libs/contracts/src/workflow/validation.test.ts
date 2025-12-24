@@ -19,18 +19,19 @@ const DummyModel = new SchemaModel({
 });
 
 function createOperation(
-  name: string,
+  key: string,
   version: number
 ): OperationSpec<typeof DummyModel, typeof DummyModel> {
   return {
     meta: {
-      name,
+      key,
       version,
       kind: 'command',
       stability: StabilityEnum.Experimental,
       owners: [OwnersEnum.PlatformSigil],
       tags: [TagsEnum.Auth],
       description: 'Dummy operation for tests',
+      title: 'Some title',
       goal: 'Test',
       context: 'Testing',
     },
@@ -65,7 +66,7 @@ function createForm(key: string, version: number): FormSpec<typeof DummyModel> {
 function sampleWorkflowSpec(): WorkflowSpec {
   return {
     meta: {
-      name: 'sigil.workflow.sample',
+      key: 'sigil.workflow.sample',
       version: 1,
       title: 'Sample Workflow',
       description: 'Workflow used in tests',
@@ -81,7 +82,7 @@ function sampleWorkflowSpec(): WorkflowSpec {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { name: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: 1 } },
         },
         {
           id: 'review',
@@ -93,7 +94,7 @@ function sampleWorkflowSpec(): WorkflowSpec {
           id: 'finish',
           type: 'automation',
           label: 'Finish',
-          action: { operation: { name: 'sigil.finish', version: 1 } },
+          action: { operation: { key: 'sigil.finish', version: 1 } },
         },
       ],
       transitions: [
@@ -109,7 +110,7 @@ function errors(issues: WorkflowValidationIssue[]) {
 }
 
 describe('WorkflowRegistry', () => {
-  it('registers workflows and retrieves the latest version by name', () => {
+  it('registers workflows and retrieves the latest version by key', () => {
     const registry = new WorkflowRegistry();
     const specV1 = sampleWorkflowSpec();
     registry.register(specV1);
@@ -120,8 +121,8 @@ describe('WorkflowRegistry', () => {
     };
     registry.register(specV2);
 
-    expect(registry.get(specV1.meta.name)).toEqual(specV2);
-    expect(registry.get(specV1.meta.name, 1)).toEqual(specV1);
+    expect(registry.get(specV1.meta.key)).toEqual(specV2);
+    expect(registry.get(specV1.meta.key, 1)).toEqual(specV1);
   });
 
   it('rejects duplicate workflow versions', () => {

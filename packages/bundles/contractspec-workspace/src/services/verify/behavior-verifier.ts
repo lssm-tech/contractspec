@@ -339,7 +339,7 @@ export function verifyBehavior(input: VerifyInput): VerificationReport {
       },
     },
     meta: {
-      specName: spec.meta.name,
+      specName: spec.meta.key,
       specVersion: spec.meta.version,
       implementationPath: implementationPath ?? 'unknown',
       verifiedAt: new Date().toISOString(),

@@ -6,7 +6,6 @@ export const elevenLabsIntegrationSpec: IntegrationSpec = {
     key: 'ai-voice.elevenlabs',
     version: 1,
     category: 'ai-voice',
-    displayName: 'ElevenLabs Voice',
     title: 'ElevenLabs Text-to-Speech',
     description:
       'ElevenLabs integration for neural voice synthesis and voice catalog access.',

@@ -131,13 +131,13 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
     throw new Error('Agent name is required');
   }
   if (!Number.isFinite(spec.meta.version)) {
-    throw new Error(`Agent ${spec.meta.name} is missing a numeric version`);
+    throw new Error(`Agent ${spec.meta.key} is missing a numeric version`);
   }
   if (!spec.instructions?.trim()) {
-    throw new Error(`Agent ${spec.meta.name} requires instructions`);
+    throw new Error(`Agent ${spec.meta.key} requires instructions`);
   }
   if (!spec.tools?.length) {
-    throw new Error(`Agent ${spec.meta.name} must expose at least one tool`);
+    throw new Error(`Agent ${spec.meta.key} must expose at least one tool`);
   }
 
   // Validate tool names are unique
@@ -145,7 +145,7 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
   for (const tool of spec.tools) {
     if (toolNames.has(tool.name)) {
       throw new Error(
-        `Agent ${spec.meta.name} has duplicate tool name: ${tool.name}`
+        `Agent ${spec.meta.key} has duplicate tool name: ${tool.name}`
       );
     }
     toolNames.add(tool.name);

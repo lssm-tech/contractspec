@@ -139,7 +139,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
   for (const spec of reg.listSpecs()) {
     const fieldName =
       spec.transport?.gql?.field ??
-      defaultGqlField(spec.meta.name, spec.meta.version);
+      defaultGqlField(spec.meta.key, spec.meta.version);
     // Unused: returnsName
     const byIdField =
       (spec.transport as unknown as { gql?: { byIdField?: string } })?.gql
@@ -177,7 +177,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
       };
       const parsedInput = spec.io.input?.getZod().parse(args.input ?? {});
       const result: unknown = await reg.execute(
-        spec.meta.name,
+        spec.meta.key,
         spec.meta.version,
         parsedInput,
         handlerCtx

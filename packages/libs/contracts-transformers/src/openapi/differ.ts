@@ -328,7 +328,7 @@ export function diffAll(
 
     for (const [key, spec] of existingSpecs) {
       // Check x-contractspec match or name match
-      const specName = spec.meta.name;
+      const specName = spec.meta.key;
       if (key === operationId || specName.includes(operationId)) {
         existing = spec;
         matchedExisting.add(key);

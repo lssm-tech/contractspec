@@ -18,8 +18,8 @@ export interface RegistryFilter {
   stability?: Stability[];
   /** Filter by domain (first segment of name) */
   domain?: string;
-  /** Filter by name pattern (glob or regex) */
-  namePattern?: string;
+  /** Filter by key pattern (glob or regex) */
+  keyPattern?: string;
 }
 
 /**
@@ -27,7 +27,6 @@ export interface RegistryFilter {
  */
 export interface FilterableItem {
   meta: {
-    name?: string;
     key?: string;
     tags?: string[];
     owners?: string[];
@@ -75,7 +74,7 @@ export const GroupingStrategies = {
    * Group by domain (first segment of name).
    */
   byDomain: <T extends FilterableItem>(item: T): string => {
-    const name = item.meta.name ?? item.meta.key ?? '';
+    const name = item.meta.key ?? item.meta.key ?? '';
     return name.split('.')[0] ?? 'default';
   },
 
@@ -136,9 +135,9 @@ export function filterBy<T extends FilterableItem>(
     }
 
     // Filter by name pattern
-    if (filter.namePattern) {
-      const name = item.meta.name ?? item.meta.key ?? '';
-      const pattern = filter.namePattern
+    if (filter.keyPattern) {
+      const name = item.meta.key ?? item.meta.key ?? '';
+      const pattern = filter.keyPattern
         .replace(/\*/g, '.*')
         .replace(/\?/g, '.');
       const regex = new RegExp(`^${pattern}$`, 'i');

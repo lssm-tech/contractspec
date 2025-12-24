@@ -54,7 +54,7 @@ export function defaultRestPath(name: string, version: number): string {
 export function toRestPath(spec: AnyOperationSpec): string {
   const path =
     spec.transport?.rest?.path ??
-    defaultRestPath(spec.meta.name, spec.meta.version);
+    defaultRestPath(spec.meta.key, spec.meta.version);
   return path.startsWith('/') ? path : `/${path}`;
 }
 
@@ -91,7 +91,7 @@ export function jsonSchemaForSpec(
     input: schemaModelToJsonSchema(spec.io.input),
     output: schemaModelToJsonSchema(spec.io.output as AnySchemaModel | null),
     meta: {
-      name: spec.meta.name,
+      name: spec.meta.key,
       version: spec.meta.version,
       kind: spec.meta.kind,
       description: spec.meta.description,
@@ -137,16 +137,16 @@ export function exportOperations(
     const method = toHttpMethod(spec.meta.kind, spec.transport?.rest?.method);
     const path = toRestPath(spec);
 
-    const operationId = toOperationId(spec.meta.name, spec.meta.version);
+    const operationId = toOperationId(spec.meta.key, spec.meta.version);
 
     const pathItem = (paths[path] ??= {});
     const op: Record<string, unknown> = {
       operationId,
-      summary: spec.meta.description ?? spec.meta.name,
+      summary: spec.meta.description ?? spec.meta.key,
       description: spec.meta.description,
       tags: spec.meta.tags ?? [],
       'x-contractspec': {
-        name: spec.meta.name,
+        name: spec.meta.key,
         version: spec.meta.version,
         kind: spec.meta.kind,
       },
@@ -154,11 +154,7 @@ export function exportOperations(
     };
 
     if (schema.input) {
-      const inputName = toSchemaName(
-        'Input',
-        spec.meta.name,
-        spec.meta.version
-      );
+      const inputName = toSchemaName('Input', spec.meta.key, spec.meta.version);
       schemas[inputName] = schema.input;
       op['requestBody'] = {
         required: true,
@@ -174,7 +170,7 @@ export function exportOperations(
     if (schema.output) {
       const outputName = toSchemaName(
         'Output',
-        spec.meta.name,
+        spec.meta.key,
         spec.meta.version
       );
       schemas[outputName] = schema.output;
@@ -210,9 +206,9 @@ export function generateOperationsRegistry(
 
   for (const spec of specs) {
     const specVarName =
-      spec.meta.name.replace(/\./g, '_') + `_v${spec.meta.version}`;
+      spec.meta.key.replace(/\./g, '_') + `_v${spec.meta.version}`;
     imports.add(
-      `import { ${specVarName} } from './${spec.meta.name.split('.')[0]}';`
+      `import { ${specVarName} } from './${spec.meta.key.split('.')[0]}';`
     );
     registrations.push(`  .register(${specVarName})`);
   }

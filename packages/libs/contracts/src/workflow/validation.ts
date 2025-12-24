@@ -82,7 +82,7 @@ export function assertWorkflowSpecValid(
   const errors = issues.filter((issue) => issue.level === 'error');
   if (errors.length) {
     throw new WorkflowValidationError(
-      `Workflow ${spec.meta.name}.v${spec.meta.version} is invalid`,
+      `Workflow ${spec.meta.key}.v${spec.meta.version} is invalid`,
       issues
     );
   }
@@ -197,13 +197,13 @@ function validateStepActions(
     if (!action) continue;
     if (action.operation && options.operations) {
       const op = options.operations.getSpec(
-        action.operation.name,
+        action.operation.key,
         action.operation.version
       );
       if (!op) {
         issues.push({
           level: 'error',
-          message: `Step "${step.id}" references unknown operation ${action.operation.name}.v${action.operation.version}.`,
+          message: `Step "${step.id}" references unknown operation ${action.operation.key}.v${action.operation.version}.`,
         });
       }
     }

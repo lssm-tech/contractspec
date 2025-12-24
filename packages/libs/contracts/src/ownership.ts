@@ -1,3 +1,5 @@
+import type { DocId } from "./docs";
+
 // Canonical ownership/stability/tags enums and shared meta
 
 export const StabilityEnum = {
@@ -47,33 +49,22 @@ export type Tag = (typeof TagsEnum)[keyof typeof TagsEnum] | (string & {});
 export const Tags = TagsEnum;
 
 export interface OwnerShipMeta {
-  version?: number;
-  title: string;
+  /** Breaking changes => bump version */
+  version: number;
+  /** Fully-qualified spec key (e.g., "sigil.beginSignup") */
+  key: string;
+  /** Human-friendly spec title (e.g., "Signup begin") */
+  title?: string;
+  /** Short human-friendly summary */
   description: string;
-  domain: string;
-  owners: Owner[];
-  tags: Tag[];
+  domain?: string;
+  /** Lifecycle marker for comms & tooling */
   stability: Stability;
-
-  // /** Breaking changes => bump version */
-  // version: number;
-  // /** Fully-qualified op key (e.g., "sigil.beginSignup") */
-  // key: string;
-  // /** Human-friendly title (e.g., "Signup begin") */
-  // title: string;
-  // /** Short human-friendly summary */
-  // description: string;
-  // /** Business goal: why this exists */
-  // goal: string;
-  // /** Background, constraints, scope edges (feeds docs & LLM context) */
-  // context: string;
-  // domain: string;
-  // /** Optional doc block id for this operation. */
-  // docId?: DocId;
-  // /** Lifecycle marker for comms & tooling */
-  // stability: Stability;
-  // /** Owners for CODEOWNERS / on-call / approvals */
-  // owners: Owner[];
-  // /** Search tags, grouping, docs navigation */
-  // tags: Tag[];
+  /** Owners for CODEOWNERS / on-call / approvals */
+  owners: Owner[];
+  /** Search tags, grouping, docs navigation */
+  tags: Tag[];
+  /** Doc block(s) for this operation. */
+  // docId: [DocId, ...DocId[]];
+  docId?: DocId[];
 }

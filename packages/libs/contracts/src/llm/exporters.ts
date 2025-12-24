@@ -47,7 +47,7 @@ export function operationSpecToContextMarkdown(spec: AnyOperationSpec): string {
   const m = spec.meta;
   const lines: string[] = [];
 
-  lines.push(`# ${m.name} (v${m.version})`);
+  lines.push(`# ${m.key} (v${m.version})`);
   lines.push('');
   lines.push(`> ${m.description}`);
   lines.push('');
@@ -99,7 +99,7 @@ export function operationSpecToFullMarkdown(
   const lines: string[] = [];
 
   // Header
-  lines.push(`# ${m.name}.v${m.version}`);
+  lines.push(`# ${m.key}.v${m.version}`);
   lines.push('');
   lines.push(`> ${m.description}`);
   lines.push('');
@@ -206,7 +206,7 @@ export function operationSpecToFullMarkdown(
       lines.push('');
       for (const e of spec.sideEffects.emits) {
         if (isEmitDeclRef(e)) {
-          lines.push(`- \`${e.ref.name}.v${e.ref.version}\` — ${e.when}`);
+          lines.push(`- \`${e.ref.key}.v${e.ref.version}\` — ${e.when}`);
         } else {
           lines.push(`- \`${e.name}.v${e.version}\` — ${e.when}`);
         }
@@ -723,7 +723,7 @@ export function exportSpec(
     markdown,
     format,
     meta: {
-      specName: spec.meta.name,
+      specName: spec.meta.key,
       specVersion: spec.meta.version,
       exportedAt: new Date().toISOString(),
       wordCount: markdown.split(/\s+/).length,

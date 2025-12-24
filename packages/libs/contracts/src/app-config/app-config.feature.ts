@@ -26,10 +26,10 @@ export const AppConfigFeature: FeatureModuleSpec = {
 
   // Events emitted by this feature
   events: [
-    { name: 'app_config.draft_created', version: 1 },
-    { name: 'app_config.promoted_to_preview', version: 1 },
-    { name: 'app_config.published', version: 1 },
-    { name: 'app_config.rolled_back', version: 1 },
+    { key: 'app_config.draft_created', version: 1 },
+    { key: 'app_config.promoted_to_preview', version: 1 },
+    { key: 'app_config.published', version: 1 },
+    { key: 'app_config.rolled_back', version: 1 },
   ],
 
   // No presentations for this library feature

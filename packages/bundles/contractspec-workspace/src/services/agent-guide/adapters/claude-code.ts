@@ -151,7 +151,7 @@ export class ClaudeCodeAdapter implements AgentAdapter {
     lines.push('');
     lines.push('## Spec Details');
     lines.push('');
-    lines.push(`- **Name:** ${spec.meta.name}`);
+    lines.push(`- **Name:** ${spec.meta.key}`);
     lines.push(`- **Version:** ${spec.meta.version}`);
     lines.push(`- **Kind:** ${spec.meta.kind}`);
     lines.push(`- **Stability:** ${spec.meta.stability}`);

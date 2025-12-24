@@ -6,7 +6,6 @@ export const gcsStorageIntegrationSpec: IntegrationSpec = {
     key: 'storage.gcs',
     version: 1,
     category: 'storage',
-    displayName: 'Google Cloud Storage',
     title: 'Google Cloud Storage Buckets',
     description:
       'Google Cloud Storage integration for object storage and retrieval.',

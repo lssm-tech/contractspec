@@ -52,7 +52,7 @@ export class OperationSpecRegistry {
     I extends AnySchemaModel,
     O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
   >(spec: OperationSpec<I, O>): this {
-    const key = opKey(spec.meta.name, spec.meta.version);
+    const key = opKey(spec.meta.key, spec.meta.version);
     if (this.specs.has(key)) throw new Error(`Duplicate spec ${key}`);
     this.specs.set(key, spec as AnyOperationSpec);
     return this;
@@ -73,7 +73,7 @@ export class OperationSpecRegistry {
     spec: OperationSpec<I, O>,
     handler: HandlerForOperationSpec<OperationSpec<I, O>>
   ): this {
-    const key: OperationKey = opKey(spec.meta.name, spec.meta.version);
+    const key: OperationKey = opKey(spec.meta.key, spec.meta.version);
 
     if (!this.specs.has(key))
       throw new Error(`Cannot bind; spec not found: ${key}`);
@@ -111,7 +111,7 @@ export class OperationSpecRegistry {
   getHandler(name: string, version?: number): AnyOperationHandler | undefined {
     const spec = this.getSpec(name, version);
     if (!spec) return undefined;
-    return this.handlers.get(opKey(spec.meta.name, spec.meta.version));
+    return this.handlers.get(opKey(spec.meta.key, spec.meta.version));
   }
 
   /** Iterate all registered specs. */
@@ -216,17 +216,17 @@ export class OperationSpecRegistry {
     const spec =
       (await ctx.specVariantResolver?.resolve(
         {
-          name: baseSpec.meta.name,
+          name: basespec.meta.key,
           version: baseSpec.meta.version,
           kind: baseSpec.meta.kind,
         },
         ctx
       )) ?? baseSpec;
 
-    let key = opKey(spec.meta.name, spec.meta.version);
+    let key = opKey(spec.meta.key, spec.meta.version);
     let handler = this.handlers.get(key);
     if (!handler) {
-      const fallbackKey = opKey(baseSpec.meta.name, baseSpec.meta.version);
+      const fallbackKey = opKey(basespec.meta.key, baseSpec.meta.version);
       handler = this.handlers.get(fallbackKey);
       key = fallbackKey;
     }
@@ -237,9 +237,9 @@ export class OperationSpecRegistry {
 
     // 2) Policy enforcement
     if (ctx.decide) {
-      const [service, command] = spec.meta.name.split('.');
+      const [service, command] = spec.meta.key.split('.');
       if (!service || !command)
-        throw new Error(`Invalid spec name: ${spec.meta.name}`);
+        throw new Error(`Invalid spec name: ${spec.meta.key}`);
       const decision = await ctx.decide({
         service,
         command,
@@ -252,9 +252,7 @@ export class OperationSpecRegistry {
         flags: [], // adapter may fill flags from request
       });
       if (decision.effect === 'deny') {
-        throw new Error(
-          `PolicyDenied: ${spec.meta.name}.v${spec.meta.version}`
-        );
+        throw new Error(`PolicyDenied: ${spec.meta.key}.v${spec.meta.version}`);
       }
       if (decision.rateLimit && ctx.rateLimit) {
         const key = decision.rateLimit.key ?? 'default';
@@ -285,7 +283,7 @@ export class OperationSpecRegistry {
       const schema = allowedEvents.get(key2);
       if (!schema)
         throw new Error(
-          `UndeclaredEvent: ${key2} not allowed by ${opKey(spec.meta.name, spec.meta.version)}`
+          `UndeclaredEvent: ${key2} not allowed by ${opKey(spec.meta.key, spec.meta.version)}`
         );
       const parsed = schema.getZod().parse(payload);
       // Delegate to service publisher if present

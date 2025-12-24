@@ -12,6 +12,7 @@ import {
 import { StabilityEnum, type Owner, type Tag } from './ownership';
 
 const baseMeta = {
+  version: 1,
   title: 'Stripe Payments Capability' as const,
   description: 'Expose Stripe payment operations.' as const,
   domain: 'payments' as const,
@@ -42,6 +43,7 @@ function featureWithCapabilities(
   return {
     meta: {
       key: 'payments_stripe_feature',
+      version: 1,
       title: 'Stripe Payments',
       description: 'Enable Stripe charge operations.',
       domain: 'payments',

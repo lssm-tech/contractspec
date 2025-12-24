@@ -82,9 +82,9 @@ export function createFetchHandler(
     path: joinPath(
       opts.basePath,
       spec.transport?.rest?.path ??
-        defaultRestPath(spec.meta.name, spec.meta.version)
+        defaultRestPath(spec.meta.key, spec.meta.version)
     ),
-    name: spec.meta.name,
+    name: spec.meta.key,
     version: spec.meta.version,
   }));
 

@@ -7,14 +7,14 @@ import {
 import { StabilityEnum } from '../ownership';
 
 const makeSpec = (
-  name: string,
+  key: string,
   version: number,
   privacy: TelemetryPrivacyLevel
 ): TelemetrySpec => ({
   meta: {
-    name,
+    key,
     version,
-    title: `${name} telemetry`,
+    title: `${key} telemetry`,
     description: 'Sample telemetry spec',
     domain: 'test',
     owners: ['@team.telemetry'],
@@ -27,7 +27,7 @@ const makeSpec = (
   },
   events: [
     {
-      name: `${name}.event_a`,
+      name: `${key}.event_a`,
       version: 1,
       semantics: { what: 'Something happened' },
       properties: {

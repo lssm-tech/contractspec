@@ -58,7 +58,7 @@ function toHttpMethod(kind: 'command' | 'query', override?: 'GET' | 'POST') {
 function toRestPath(spec: AnyOperationSpec): string {
   const path =
     spec.transport?.rest?.path ??
-    defaultRestPath(spec.meta.name, spec.meta.version);
+    defaultRestPath(spec.meta.key, spec.meta.version);
   return path.startsWith('/') ? path : `/${path}`;
 }
 
@@ -97,16 +97,16 @@ export function openApiForRegistry(
     const method = toHttpMethod(spec.meta.kind, spec.transport?.rest?.method);
     const path = toRestPath(spec);
 
-    const operationId = toOperationId(spec.meta.name, spec.meta.version);
+    const operationId = toOperationId(spec.meta.key, spec.meta.version);
 
     const pathItem = (doc.paths[path] ??= {});
     const op: Record<string, unknown> = {
       operationId,
-      summary: spec.meta.description ?? spec.meta.name,
+      summary: spec.meta.description ?? spec.meta.key,
       description: spec.meta.description,
       tags: spec.meta.tags ?? [],
       'x-contractspec': {
-        name: spec.meta.name,
+        name: spec.meta.key,
         version: spec.meta.version,
         kind: spec.meta.kind,
       },
@@ -114,11 +114,7 @@ export function openApiForRegistry(
     };
 
     if (schema.input) {
-      const inputName = toSchemaName(
-        'Input',
-        spec.meta.name,
-        spec.meta.version
-      );
+      const inputName = toSchemaName('Input', spec.meta.key, spec.meta.version);
       doc.components.schemas[inputName] = schema.input as OpenApiSchemaObject;
       op['requestBody'] = {
         required: true,
@@ -134,7 +130,7 @@ export function openApiForRegistry(
     if (schema.output) {
       const outputName = toSchemaName(
         'Output',
-        spec.meta.name,
+        spec.meta.key,
         spec.meta.version
       );
       doc.components.schemas[outputName] = schema.output as OpenApiSchemaObject;

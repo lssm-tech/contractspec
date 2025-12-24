@@ -5,7 +5,7 @@ import type {
   WorkflowRegistry,
   WorkflowSpec,
 } from './spec';
-import type { StateStore, WorkflowState, StepExecution } from './state';
+import type { StateStore, StepExecution, WorkflowState } from './state';
 import { evaluateExpression } from './expression';
 import type { OpRef } from '../features';
 import type { CapabilityRef } from '../capabilities';
@@ -106,7 +106,7 @@ export class WorkflowRunner {
 
     const state: WorkflowState = {
       workflowId,
-      workflowName: spec.meta.name,
+      workflowName: spec.meta.key,
       workflowVersion: spec.meta.version,
       currentStep: entryStepId,
       data: { ...(initialData ?? {}) },
@@ -132,7 +132,7 @@ export class WorkflowRunner {
     await this.config.stateStore.create(state);
     this.emit('workflow.started', {
       workflowId,
-      workflowName: spec.meta.name,
+      workflowName: spec.meta.key,
       workflowVersion: spec.meta.version,
       currentStep: entryStepId,
     });
@@ -323,7 +323,7 @@ export class WorkflowRunner {
           this.emit('workflow.compensation_step_completed', {
             workflowId,
             stepId: execution.stepId,
-            compensationOp: compStep.operation.name,
+            compensationOp: compStep.operation.key,
           });
         } catch (error) {
           const errorMessage =
@@ -331,7 +331,7 @@ export class WorkflowRunner {
           this.emit('workflow.compensation_step_failed', {
             workflowId,
             stepId: execution.stepId,
-            compensationOp: compStep.operation.name,
+            compensationOp: compStep.operation.key,
             error: errorMessage,
           });
           // We continue with other compensations even if one fails (best effort)
@@ -548,7 +548,7 @@ function resolveEntryStepId(spec: WorkflowSpec): string {
     spec.definition.entryStepId ?? spec.definition.steps[0]?.id ?? null;
   if (!entry)
     throw new Error(
-      `Workflow ${spec.meta.name}.v${spec.meta.version} has no entry step.`
+      `Workflow ${spec.meta.key}.v${spec.meta.version} has no entry step.`
     );
   return entry;
 }
@@ -557,7 +557,7 @@ function getCurrentStep(spec: WorkflowSpec, stepId: string): Step {
   const step = spec.definition.steps.find((s) => s.id === stepId);
   if (!step)
     throw new Error(
-      `Step "${stepId}" not found in workflow ${spec.meta.name}.v${spec.meta.version}.`
+      `Step "${stepId}" not found in workflow ${spec.meta.key}.v${spec.meta.version}.`
     );
   return step;
 }

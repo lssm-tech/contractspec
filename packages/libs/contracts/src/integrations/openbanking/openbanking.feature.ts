@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '../../features';
 export const OpenBankingFeature: FeatureModuleSpec = {
   meta: {
     key: 'openbanking',
+    version: 1,
     title: 'Open Banking Integration',
     description:
       'Open banking account sync, balance refresh, and transaction synchronization',

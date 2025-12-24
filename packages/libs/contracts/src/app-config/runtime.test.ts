@@ -22,6 +22,7 @@ import type { KnowledgeSourceConfig } from '../knowledge/source';
 import { type Owner, StabilityEnum, type Tag } from '../ownership';
 
 const ownership = {
+  version: 1,
   title: 'Sample',
   description: 'Sample description',
   domain: 'core',
@@ -51,22 +52,22 @@ function makeFeature(key = 'core-shell'): FeatureModuleSpec {
   };
 }
 
-function makeDataView(name = 'core.dashboard.view'): DataViewSpec {
+function makeDataView(key = 'core.dashboard.view'): DataViewSpec {
   return {
     meta: {
       ...ownership,
-      name,
+      key,
       version: 1,
       entity: 'dashboard',
     },
     source: {
-      primary: { name: 'core.list', version: 1 },
+      primary: { key: 'core.list', version: 1 },
     },
     view: {
       kind: 'table',
       fields: [
         {
-          key: 'name',
+          key: 'key',
           label: 'Name',
           dataPath: 'name',
         },
@@ -75,11 +76,11 @@ function makeDataView(name = 'core.dashboard.view'): DataViewSpec {
   };
 }
 
-function makeWorkflow(name = 'core.onboarding'): WorkflowSpec {
+function makeWorkflow(key = 'core.onboarding'): WorkflowSpec {
   return {
     meta: {
       ...ownership,
-      name,
+      key,
       version: 1,
     },
     definition: {
@@ -99,7 +100,7 @@ function makePolicy(): PolicySpec {
   return {
     meta: {
       ...ownership,
-      name: 'core.policy',
+      key: 'core.policy',
       version: 1,
       scope: 'global',
     },
@@ -113,11 +114,11 @@ function makePolicy(): PolicySpec {
   };
 }
 
-function makeTheme(name = 'core.theme'): ThemeSpec {
+function makeTheme(key = 'core.theme'): ThemeSpec {
   return {
     meta: {
       ...ownership,
-      name,
+      key,
       version: 1,
     },
     tokens: {
@@ -137,17 +138,17 @@ function makeTheme(name = 'core.theme'): ThemeSpec {
   };
 }
 
-function makeTelemetry(name = 'core.telemetry'): TelemetrySpec {
+function makeTelemetry(key = 'core.telemetry'): TelemetrySpec {
   return {
     meta: {
       ...ownership,
-      name,
+      key,
       version: 1,
       domain: 'core',
     },
     events: [
       {
-        name: 'core.event',
+        key: 'core.event',
         version: 1,
         semantics: {
           what: 'Sample event emitted for tests',
@@ -159,11 +160,11 @@ function makeTelemetry(name = 'core.telemetry'): TelemetrySpec {
   };
 }
 
-function makeExperiment(name = 'core.experiment'): ExperimentSpec {
+function makeExperiment(key = 'core.experiment'): ExperimentSpec {
   return {
     meta: {
       ...ownership,
-      name,
+      key,
       version: 1,
       domain: 'core',
     },
@@ -260,7 +261,7 @@ function makeKnowledgeSpace(
     },
     retention: { ttlDays: null },
     access: {
-      policy: { name: 'core.policy', version: 1 },
+      policy: { key: 'core.policy', version: 1 },
       trustLevel: 'high',
       automationWritable: false,
     },
@@ -295,7 +296,7 @@ function makeKnowledgeSource(
 const blueprint: AppBlueprintSpec = {
   meta: {
     ...ownership,
-    name: 'core.app',
+    key: 'core.app',
     version: 1,
     appId: 'core-app',
   },
@@ -327,24 +328,24 @@ const blueprint: AppBlueprintSpec = {
     },
   },
   translationCatalog: {
-    name: 'core.app.catalog',
+    key: 'core.app.catalog',
     version: 1,
   },
   dataViews: {
-    dashboard: { name: 'core.dashboard.view', version: 1 },
+    dashboard: { key: 'core.dashboard.view', version: 1 },
   },
   workflows: {
-    onboarding: { name: 'core.onboarding', version: 1 },
+    onboarding: { key: 'core.onboarding', version: 1 },
   },
-  policies: [{ name: 'core.policy', version: 1 }],
+  policies: [{ key: 'core.policy', version: 1 }],
   theme: {
-    primary: { name: 'core.theme', version: 1 },
+    primary: { key: 'core.theme', version: 1 },
   },
   telemetry: {
-    spec: { name: 'core.telemetry', version: 1 },
+    spec: { key: 'core.telemetry', version: 1 },
   },
   experiments: {
-    active: [{ name: 'core.experiment', version: 1 }],
+    active: [{ key: 'core.experiment', version: 1 }],
   },
   featureFlags: [{ key: 'beta', enabled: false }],
   routes: [
@@ -362,7 +363,7 @@ const tenantConfig: TenantAppConfig = {
     id: 'tenant-config-1',
     tenantId: 'tenant',
     appId: 'core-app',
-    blueprintName: blueprint.meta.name,
+    blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
     environment: 'production',
     version: 2,
@@ -377,26 +378,26 @@ const tenantConfig: TenantAppConfig = {
   dataViewOverrides: [
     {
       slot: 'dashboard',
-      pointer: { name: 'core.dashboard.alt', version: 1 },
+      pointer: { key: 'core.dashboard.alt', version: 1 },
     },
   ],
   workflowOverrides: [
     {
       slot: 'onboarding',
-      pointer: { name: 'core.onboarding.alt', version: 1 },
+      pointer: { key: 'core.onboarding.alt', version: 1 },
     },
   ],
-  additionalPolicies: [{ name: 'core.policy.tenant', version: 1 }],
+  additionalPolicies: [{ key: 'core.policy.tenant', version: 1 }],
   themeOverride: {
-    primary: { name: 'core.theme.alt', version: 1 },
+    primary: { key: 'core.theme.alt', version: 1 },
   },
   telemetryOverride: {
-    spec: { name: 'core.telemetry.alt', version: 1 },
+    spec: { key: 'core.telemetry.alt', version: 1 },
     disabledEvents: ['core.event'],
   },
   experiments: {
-    paused: [{ name: 'core.experiment', version: 1 }],
-    active: [{ name: 'core.experiment.alt', version: 1 }],
+    paused: [{ key: 'core.experiment', version: 1 }],
+    active: [{ key: 'core.experiment.alt', version: 1 }],
   },
   featureFlags: [{ key: 'beta', enabled: true, description: 'Tenant opt-in' }],
   routeOverrides: [
@@ -455,10 +456,10 @@ describe('resolveAppConfig', () => {
     expect(resolved.capabilities.enabled).toHaveLength(1);
     expect(resolved.capabilities.disabled).toHaveLength(1);
     expect(resolved.capabilities.enabled[0]?.key).toBe('core.tenant-extension');
-    expect(resolved.dataViews.dashboard?.name).toBe('core.dashboard.alt');
-    expect(resolved.workflows.onboarding?.name).toBe('core.onboarding.alt');
-    expect(resolved.theme?.primary.name).toBe('core.theme.alt');
-    expect(resolved.telemetry?.spec?.name).toBe('core.telemetry.alt');
+    expect(resolved.dataViews.dashboard?.key).toBe('core.dashboard.alt');
+    expect(resolved.workflows.onboarding?.key).toBe('core.onboarding.alt');
+    expect(resolved.theme?.primary.key).toBe('core.theme.alt');
+    expect(resolved.telemetry?.spec?.key).toBe('core.telemetry.alt');
     expect(resolved.experiments.active).toEqual([
       { name: 'core.experiment.alt', version: 1 },
     ]);

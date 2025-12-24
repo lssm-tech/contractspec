@@ -1,26 +1,23 @@
 import { type AnySchemaModel } from '@lssm/lib.schema';
-import type { OwnerShipMeta } from './ownership';
+import type { OwnerShipMeta, Stability } from './ownership';
 import type { DocId } from './docs/registry';
+
+
+export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
+  /** Doc block(s) for this operation. */
+  docId?: DocId[];
+}
 
 /**
  * Typed event specification. Declare once, validate payloads at publish time,
  * and guard emissions via the contracts runtime.
  */
 export interface EventSpec<T extends AnySchemaModel> {
-  /** Fully-qualified event name, e.g. "sigil.magic_link.created". */
-  name: string;
-  /** Event payload version. Bump on any breaking payload change. */
-  version: number;
-  /** Short human-friendly summary. */
-  description?: string;
+  meta: EventSpecMeta;
   /** JSON-like paths to redact from logs/exports. */
   pii?: string[];
   /** Event payload schema from @lssm/lib.schema. */
   payload: T;
-  /** Optional ownership metadata for governance and docs. */
-  ownership?: OwnerShipMeta;
-  /** Optional doc block id for this event. */
-  docId?: DocId;
 }
 
 /** Identity function to keep type inference when declaring events. */

@@ -132,7 +132,7 @@ export class AgentFactory {
     version?: number
   ): Promise<ContractSpecAgent> {
     const spec = this.config.registry.require(name, version);
-    const cacheKey = `${spec.meta.name}.v${spec.meta.version}`;
+    const cacheKey = `${spec.meta.key}.v${spec.meta.version}`;
 
     let agent = this.cache.get(cacheKey);
     if (!agent) {

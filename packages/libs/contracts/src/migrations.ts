@@ -60,7 +60,7 @@ export class MigrationRegistry {
   private readonly items = new Map<string, MigrationSpec>();
 
   register(spec: MigrationSpec): this {
-    const key = migrationKey(spec.meta.name, spec.meta.version);
+    const key = migrationKey(spec.meta.key, spec.meta.version);
     if (this.items.has(key)) throw new Error(`Duplicate migration ${key}`);
     this.items.set(key, spec);
     return this;
@@ -80,7 +80,7 @@ export class MigrationRegistry {
     let candidate: MigrationSpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > max) {
         max = spec.meta.version;
         candidate = spec;

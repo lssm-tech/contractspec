@@ -16,10 +16,10 @@ import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/con
 import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
 import type { BlueprintTranslationCatalog } from '@lssm/lib.contracts/translations/catalog';
 import {
-  validateSpecStructure,
   createNodeAdapters,
   loadWorkspaceConfig,
   validateImplementationFiles,
+  validateSpecStructure,
 } from '@lssm/bundle.contractspec-workspace';
 import { AgentOrchestrator } from '../../ai/agents/index';
 import { validateProvider } from '../../ai/providers';
@@ -222,7 +222,7 @@ async function validateBlueprint(blueprintPath: string): Promise<{
   const spec = extractBlueprintSpec(mod);
   console.log(
     chalk.cyan(
-      `\n🧭 Validating blueprint ${spec.meta.name}.v${spec.meta.version}`
+      `\n🧭 Validating blueprint ${spec.meta.key}.v${spec.meta.version}`
     )
   );
   const report = validateBlueprintSpec(spec);

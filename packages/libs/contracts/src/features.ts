@@ -5,7 +5,6 @@ import type {
   PresentationTarget,
 } from './presentations/presentations';
 import type { OwnerShipMeta } from './ownership';
-import type { DocId } from './docs/registry';
 import type {
   CapabilityRef,
   CapabilityRegistry,
@@ -15,30 +14,25 @@ import type { ExperimentRef } from './experiments/spec';
 import type { ImplementationRef } from './operations/';
 
 /** Minimal metadata to identify and categorize a feature module. */
-export interface FeatureModuleMeta extends OwnerShipMeta {
-  /** Stable slug key used to identify this feature (e.g., "weekly_pulse"). */
-  key: string;
-  /** Optional doc block id for this feature. */
-  docId?: DocId;
-}
+export type FeatureModuleMeta = OwnerShipMeta;
 
 export interface OpRef {
-  /** Operation name (OperationSpec.meta.name). */
-  name: string;
+  /** Operation key (Operationspec.meta.key). */
+  key: string;
   /** Operation version (OperationSpec.meta.version). */
   version: number;
 }
 
 export interface EventRef {
-  /** Event name. */
-  name: string;
+  /** Event key. */
+  key: string;
   /** Event version. */
   version: number;
 }
 
 export interface PresentationRef {
-  /** Presentation name. */
-  name: string;
+  /** Presentation key. */
+  key: string;
   /** Presentation version. */
   version: number;
 }
@@ -63,8 +57,8 @@ export interface FeatureModuleSpec {
   opToPresentation?: { op: OpRef; pres: PresentationRef }[];
   /** Optional: declare per-presentation target requirements (V2 descriptors) */
   presentationsTargets?: {
-    /** Presentation name. */
-    name: string;
+    /** Presentation key. */
+    key: string;
     /** Presentation version. */
     version: number;
     /** Required targets that must be supported by the descriptor. */
@@ -152,20 +146,20 @@ export function installFeature(
   // Validate referenced ops exist if registry provided
   if (deps.ops && feature.operations) {
     for (const o of feature.operations) {
-      const s = deps.ops.getSpec(o.name, o.version);
+      const s = deps.ops.getSpec(o.key, o.version);
       if (!s)
         throw new Error(
-          `installFeature: operation not found ${o.name}.v${o.version}`
+          `installFeature: operation not found ${o.key}.v${o.version}`
         );
     }
   }
   // Validate referenced presentations exist if registry provided
   if (deps.presentations && feature.presentations) {
     for (const p of feature.presentations) {
-      const pres = deps.presentations.get(p.name, p.version);
+      const pres = deps.presentations.get(p.key, p.version);
       if (!pres)
         throw new Error(
-          `installFeature: presentation not found ${p.name}.v${p.version}`
+          `installFeature: presentation not found ${p.key}.v${p.version}`
         );
     }
   }
@@ -173,16 +167,16 @@ export function installFeature(
   if (feature.presentationsTargets && deps.descriptorsV2) {
     for (const req of feature.presentationsTargets) {
       const d = deps.descriptorsV2.find(
-        (x) => x.meta.name === req.name && x.meta.version === req.version
+        (x) => x.meta.key === req.key && x.meta.version === req.version
       );
       if (!d)
         throw new Error(
-          `installFeature: V2 descriptor not found ${req.name}.v${req.version}`
+          `installFeature: V2 descriptor not found ${req.key}.v${req.version}`
         );
       for (const t of req.targets) {
         if (!d.targets.includes(t))
           throw new Error(
-            `installFeature: descriptor ${req.name}.v${req.version} missing target ${t}`
+            `installFeature: descriptor ${req.key}.v${req.version} missing target ${t}`
           );
       }
     }
@@ -191,17 +185,17 @@ export function installFeature(
   if (feature.opToPresentation && feature.opToPresentation.length > 0) {
     for (const link of feature.opToPresentation) {
       if (deps.ops) {
-        const s = deps.ops.getSpec(link.op.name, link.op.version);
+        const s = deps.ops.getSpec(link.op.key, link.op.version);
         if (!s)
           throw new Error(
-            `installFeature: linked op not found ${link.op.name}.v${link.op.version}`
+            `installFeature: linked op not found ${link.op.key}.v${link.op.version}`
           );
       }
       if (deps.presentations) {
-        const pres = deps.presentations.get(link.pres.name, link.pres.version);
+        const pres = deps.presentations.get(link.pres.key, link.pres.version);
         if (!pres)
           throw new Error(
-            `installFeature: linked presentation not found ${link.pres.name}.v${link.pres.version}`
+            `installFeature: linked presentation not found ${link.pres.key}.v${link.pres.version}`
           );
       }
     }
@@ -246,14 +240,14 @@ export function validateFeatureTargetsV2(
     return true;
   for (const req of feature.presentationsTargets) {
     const d = descriptors.find(
-      (x) => x.meta.name === req.name && x.meta.version === req.version
+      (x) => x.meta.key === req.key && x.meta.version === req.version
     );
     if (!d)
-      throw new Error(`V2 descriptor not found ${req.name}.v${req.version}`);
+      throw new Error(`V2 descriptor not found ${req.key}.v${req.version}`);
     for (const t of req.targets)
       if (!d.targets.includes(t))
         throw new Error(
-          `Descriptor ${req.name}.v${req.version} missing target ${t}`
+          `Descriptor ${req.key}.v${req.version} missing target ${t}`
         );
   }
   return true;

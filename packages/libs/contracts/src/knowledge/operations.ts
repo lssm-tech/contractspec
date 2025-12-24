@@ -110,7 +110,8 @@ const TriggerKnowledgeSyncOutput = new SchemaModel({
 
 export const CreateKnowledgeSource = defineCommand({
   meta: {
-    name: 'knowledge.source.create',
+    key: 'knowledge.source.create',
+    title: 'Create Knowledge Source',
     version: 1,
     description: 'Create a knowledge source binding for a tenant.',
     goal: 'Onboard a new knowledge ingestion source such as Notion or uploads.',
@@ -126,13 +127,14 @@ export const CreateKnowledgeSource = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ name: 'platform.knowledge.manage', version: 1 }],
+    policies: [{ key: 'platform.knowledge.manage', version: 1 }],
   },
 });
 
 export const UpdateKnowledgeSource = defineCommand({
   meta: {
-    name: 'knowledge.source.update',
+    key: 'knowledge.source.update',
+    title: 'Update Knowledge Source',
     version: 1,
     description: 'Update metadata or configuration for a knowledge source.',
     goal: 'Allow rotation of credentials, sync schedules, and labels.',
@@ -148,13 +150,14 @@ export const UpdateKnowledgeSource = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ name: 'platform.knowledge.manage', version: 1 }],
+    policies: [{ key: 'platform.knowledge.manage', version: 1 }],
   },
 });
 
 export const DeleteKnowledgeSource = defineCommand({
   meta: {
-    name: 'knowledge.source.delete',
+    key: 'knowledge.source.delete',
+    title: 'Delete Knowledge Source',
     version: 1,
     description: 'Delete a knowledge source binding for a tenant.',
     goal: 'Remove obsolete or compromised knowledge ingestion paths.',
@@ -170,13 +173,14 @@ export const DeleteKnowledgeSource = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ name: 'platform.knowledge.manage', version: 1 }],
+    policies: [{ key: 'platform.knowledge.manage', version: 1 }],
   },
 });
 
 export const ListKnowledgeSources = defineQuery({
   meta: {
-    name: 'knowledge.source.list',
+    key: 'knowledge.source.list',
+    title: 'List Knowledge Sources',
     version: 1,
     description: 'List knowledge sources configured for a tenant.',
     goal: 'Provide visibility into knowledge ingest configuration and schedules.',
@@ -192,13 +196,14 @@ export const ListKnowledgeSources = defineQuery({
   },
   policy: {
     auth: 'admin',
-    policies: [{ name: 'platform.knowledge.read', version: 1 }],
+    policies: [{ key: 'platform.knowledge.read', version: 1 }],
   },
 });
 
 export const TriggerKnowledgeSourceSync = defineCommand({
   meta: {
-    name: 'knowledge.source.triggerSync',
+    key: 'knowledge.source.triggerSync',
+    title: 'Trigger Knowledge Source Sync',
     version: 1,
     description: 'Trigger an immediate sync for a knowledge source.',
     goal: 'Support manual or automated sync retries for knowledge ingestion.',
@@ -214,7 +219,7 @@ export const TriggerKnowledgeSourceSync = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ name: 'platform.knowledge.manage', version: 1 }],
+    policies: [{ key: 'platform.knowledge.manage', version: 1 }],
   },
 });
 

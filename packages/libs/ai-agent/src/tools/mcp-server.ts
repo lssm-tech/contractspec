@@ -28,15 +28,15 @@ export function agentToMcpServer(
   spec: AgentSpec
 ): McpServer {
   const server = new McpServer({
-    name: spec.meta.name,
+    name: spec.meta.key,
     version: `${spec.meta.version}`,
   });
 
   // Expose agent as a conversational tool using registerTool
   server.registerTool(
-    spec.meta.name,
+    spec.meta.key,
     {
-      description: spec.description ?? `Interact with ${spec.meta.name} agent`,
+      description: spec.description ?? `Interact with ${spec.meta.key} agent`,
       inputSchema: z.object({
         message: z
           .string()
@@ -73,7 +73,7 @@ export function agentToMcpServer(
       : z.object({});
 
     server.registerTool(
-      `${spec.meta.name}.${toolConfig.name}`,
+      `${spec.meta.key}.${toolConfig.name}`,
       {
         description:
           toolConfig.description ?? `Execute ${toolConfig.name} tool`,

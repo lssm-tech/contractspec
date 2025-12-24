@@ -12,12 +12,12 @@ import {
 
 const LifecyclePolicy = {
   auth: 'admin' as const,
-  policies: [{ name: 'platform.app-config.manage', version: 1 }],
+  policies: [{ key: 'platform.app-config.manage', version: 1 }],
 };
 
 const LifecycleReadPolicy = {
   auth: 'admin' as const,
-  policies: [{ name: 'platform.app-config.read', version: 1 }],
+  policies: [{ key: 'platform.app-config.read', version: 1 }],
 };
 
 const ConfigVersionRecord = new SchemaModel({
@@ -75,7 +75,7 @@ const CreateDraftOutput = new SchemaModel({
 
 export const CreateTenantConfigDraftCommand = defineCommand({
   meta: {
-    name: 'appConfig.lifecycle.createDraft',
+    key: 'appConfig.lifecycle.createDraft',
     version: 1,
     description: 'Creates a new draft tenant config version.',
     owners: [OwnersEnum.PlatformSigil],
@@ -125,7 +125,7 @@ const PromotePreviewOutput = new SchemaModel({
 
 export const PromoteTenantConfigToPreviewCommand = defineCommand({
   meta: {
-    name: 'appConfig.lifecycle.promoteToPreview',
+    key: 'appConfig.lifecycle.promoteToPreview',
     version: 1,
     description: 'Promotes a draft tenant config to preview/testing state.',
     owners: [OwnersEnum.PlatformSigil],
@@ -177,7 +177,7 @@ const PublishConfigOutput = new SchemaModel({
 
 export const PublishTenantConfigCommand = defineCommand({
   meta: {
-    name: 'appConfig.lifecycle.publish',
+    key: 'appConfig.lifecycle.publish',
     version: 1,
     description: 'Publishes a preview tenant config to production.',
     owners: [OwnersEnum.PlatformSigil],
@@ -225,7 +225,7 @@ const RollbackConfigOutput = new SchemaModel({
 
 export const RollbackTenantConfigCommand = defineCommand({
   meta: {
-    name: 'appConfig.lifecycle.rollback',
+    key: 'appConfig.lifecycle.rollback',
     version: 1,
     description: 'Rolls back to a previously published tenant config version.',
     owners: [OwnersEnum.PlatformSigil],

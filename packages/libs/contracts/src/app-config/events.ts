@@ -3,6 +3,7 @@ import { defineEvent } from '../events';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 
 const lifecycleOwnership = {
+  version: 1,
   title: 'Tenant App Config Lifecycle',
   description:
     'Events emitted when tenant app configurations move through lifecycle stages.',

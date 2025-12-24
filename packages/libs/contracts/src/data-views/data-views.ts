@@ -7,10 +7,6 @@ import type { ExperimentRef } from '../experiments/spec';
 export type DataViewKind = 'list' | 'detail' | 'table' | 'grid';
 
 export interface DataViewMeta extends OwnerShipMeta {
-  /** Fully-qualified data view name (e.g., "sigil.spaces.admin_list"). */
-  name: string;
-  /** Version of this data view. Increment on breaking changes. */
-  version: number;
   /** Canonical entity slug (e.g., "space", "resident"). */
   entity: string;
 }
@@ -145,7 +141,7 @@ export interface DataViewSpec {
 }
 
 function keyOf(spec: DataViewSpec) {
-  return `${spec.meta.name}.v${spec.meta.version}`;
+  return `${spec.meta.key}.v${spec.meta.version}`;
 }
 
 export class DataViewRegistry {
@@ -167,7 +163,7 @@ export class DataViewRegistry {
     let candidate: DataViewSpec | undefined;
     let max = -Infinity;
     for (const spec of this.items.values()) {
-      if (spec.meta.name !== name) continue;
+      if (spec.meta.key !== name) continue;
       if (spec.meta.version > max) {
         max = spec.meta.version;
         candidate = spec;
