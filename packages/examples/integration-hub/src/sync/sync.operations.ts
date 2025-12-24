@@ -17,7 +17,7 @@ const OWNERS = ['@example.integration-hub'] as const;
  */
 export const CreateSyncConfigContract = defineCommand({
   meta: {
-    name: 'integration.syncConfig.create',
+    key: 'integration.syncConfig.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -31,7 +31,7 @@ export const CreateSyncConfigContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'integration.syncConfig.created',
+        key: 'integration.syncConfig.created',
         version: 1,
         when: 'Sync config created',
         payload: SyncConfigModel,
@@ -46,7 +46,7 @@ export const CreateSyncConfigContract = defineCommand({
  */
 export const AddFieldMappingContract = defineCommand({
   meta: {
-    name: 'integration.fieldMapping.add',
+    key: 'integration.fieldMapping.add',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -60,7 +60,7 @@ export const AddFieldMappingContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'integration.fieldMapping.added',
+        key: 'integration.fieldMapping.added',
         version: 1,
         when: 'Mapping added',
         payload: FieldMappingModel,
@@ -74,7 +74,7 @@ export const AddFieldMappingContract = defineCommand({
  */
 export const TriggerSyncContract = defineCommand({
   meta: {
-    name: 'integration.sync.trigger',
+    key: 'integration.sync.trigger',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -88,7 +88,7 @@ export const TriggerSyncContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'integration.sync.started',
+        key: 'integration.sync.started',
         version: 1,
         when: 'Sync starts',
         payload: SyncRunModel,
@@ -103,7 +103,7 @@ export const TriggerSyncContract = defineCommand({
  */
 export const ListSyncRunsContract = defineQuery({
   meta: {
-    name: 'integration.syncRun.list',
+    key: 'integration.syncRun.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

@@ -11,7 +11,7 @@ const OWNERS = ['@example.integration-hub'] as const;
  */
 export const CreateConnectionContract = defineCommand({
   meta: {
-    name: 'integration.connection.create',
+    key: 'integration.connection.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -25,7 +25,7 @@ export const CreateConnectionContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'integration.connection.created',
+        key: 'integration.connection.created',
         version: 1,
         when: 'Connection created',
         payload: ConnectionModel,

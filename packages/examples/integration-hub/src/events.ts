@@ -16,9 +16,12 @@ const IntegrationCreatedPayload = defineSchemaModel({
 });
 
 export const IntegrationCreatedEvent = defineEvent({
-  name: 'integration.created',
+  meta: {
+
+  key: 'integration.created',
   version: 1,
   description: 'Fired when a new integration is created',
+  },
   payload: IntegrationCreatedPayload,
 });
 
@@ -38,9 +41,12 @@ const ConnectionCreatedPayload = defineSchemaModel({
 });
 
 export const ConnectionCreatedEvent = defineEvent({
-  name: 'integration.connection.created',
+  meta: {
+
+  key: 'integration.connection.created',
   version: 1,
   description: 'Fired when a new connection is established',
+  },
   payload: ConnectionCreatedPayload,
 });
 
@@ -59,9 +65,12 @@ const ConnectionStatusChangedPayload = defineSchemaModel({
 });
 
 export const ConnectionStatusChangedEvent = defineEvent({
-  name: 'integration.connection.statusChanged',
+  meta: {
+
+  key: 'integration.connection.statusChanged',
   version: 1,
   description: 'Fired when a connection status changes',
+  },
   payload: ConnectionStatusChangedPayload,
 });
 
@@ -77,9 +86,12 @@ const SyncConfigCreatedPayload = defineSchemaModel({
 });
 
 export const SyncConfigCreatedEvent = defineEvent({
-  name: 'integration.syncConfig.created',
+  meta: {
+
+  key: 'integration.syncConfig.created',
   version: 1,
   description: 'Fired when a sync configuration is created',
+  },
   payload: SyncConfigCreatedPayload,
 });
 
@@ -95,9 +107,12 @@ const SyncStartedPayload = defineSchemaModel({
 });
 
 export const SyncStartedEvent = defineEvent({
-  name: 'integration.sync.started',
+  meta: {
+
+  key: 'integration.sync.started',
   version: 1,
   description: 'Fired when a sync run starts',
+  },
   payload: SyncStartedPayload,
 });
 
@@ -116,9 +131,12 @@ const SyncCompletedPayload = defineSchemaModel({
 });
 
 export const SyncCompletedEvent = defineEvent({
-  name: 'integration.sync.completed',
+  meta: {
+
+  key: 'integration.sync.completed',
   version: 1,
   description: 'Fired when a sync run completes successfully',
+  },
   payload: SyncCompletedPayload,
 });
 
@@ -134,9 +152,12 @@ const SyncFailedPayload = defineSchemaModel({
 });
 
 export const SyncFailedEvent = defineEvent({
-  name: 'integration.sync.failed',
+  meta: {
+
+  key: 'integration.sync.failed',
   version: 1,
   description: 'Fired when a sync run fails',
+  },
   payload: SyncFailedPayload,
 });
 
@@ -152,9 +173,12 @@ const RecordSyncedPayload = defineSchemaModel({
 });
 
 export const RecordSyncedEvent = defineEvent({
-  name: 'integration.record.synced',
+  meta: {
+
+  key: 'integration.record.synced',
   version: 1,
   description: 'Fired when a single record is synced',
+  },
   payload: RecordSyncedPayload,
 });
 
@@ -169,8 +193,11 @@ const FieldMappingAddedPayload = defineSchemaModel({
 });
 
 export const FieldMappingAddedEvent = defineEvent({
+  meta: {
+
   name: 'integration.fieldMapping.added',
   version: 1,
   description: 'Fired when a field mapping is added to a sync config',
+  },
   payload: FieldMappingAddedPayload,
 });

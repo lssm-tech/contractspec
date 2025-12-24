@@ -8,7 +8,7 @@ import {
 
 export const SyncConfigListPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.syncConfig.list',
+    key: 'integration.syncConfig.list',
     version: 1,
     title: 'Sync Config List',
     description: 'List of sync configurations',
@@ -31,7 +31,7 @@ export const SyncConfigListPresentation: PresentationSpec = {
 
 export const SyncConfigEditorPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.syncConfig.editor',
+    key: 'integration.syncConfig.editor',
     version: 1,
     title: 'Sync Config Editor',
     description: 'Editor for sync configuration settings',
@@ -54,7 +54,7 @@ export const SyncConfigEditorPresentation: PresentationSpec = {
 
 export const FieldMappingEditorPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.fieldMapping.editor',
+    key: 'integration.fieldMapping.editor',
     version: 1,
     title: 'Field Mapping Editor',
     description: 'Visual field mapping editor',
@@ -77,7 +77,7 @@ export const FieldMappingEditorPresentation: PresentationSpec = {
 
 export const SyncRunListPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.syncRun.list',
+    key: 'integration.syncRun.list',
     version: 1,
     title: 'Sync Run History',
     description: 'History of sync runs',
@@ -100,7 +100,7 @@ export const SyncRunListPresentation: PresentationSpec = {
 
 export const SyncRunDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.syncRun.detail',
+    key: 'integration.syncRun.detail',
     version: 1,
     title: 'Sync Run Details',
     description: 'Detailed view of a sync run with logs',
@@ -123,7 +123,7 @@ export const SyncRunDetailPresentation: PresentationSpec = {
 
 export const SyncActivityPresentation: PresentationSpec = {
   meta: {
-    name: 'integration.sync.activity',
+    key: 'integration.sync.activity',
     version: 1,
     title: 'Sync Activity Monitor',
     description: 'Real-time sync activity monitor',

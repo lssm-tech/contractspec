@@ -9,7 +9,7 @@ import {
  */
 export const CreateIntegrationContract = defineCommand({
   meta: {
-    name: 'integration.create',
+    key: 'integration.create',
     version: 1,
     stability: 'stable',
     owners: ['@example.integration-hub'],
@@ -23,7 +23,7 @@ export const CreateIntegrationContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'integration.created',
+        key: 'integration.created',
         version: 1,
         when: 'Integration created',
         payload: IntegrationModel,
