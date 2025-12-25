@@ -26,6 +26,23 @@ export const CreateQuoteContract = defineCommand({
     output: QuoteModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-quote-happy-path',
+        given: ['Client exists'],
+        when: ['User creates quote'],
+        then: ['Quote is created'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-proposal',
+        input: { clientId: 'client-123', items: [{ description: 'Project A', price: 5000 }] },
+        output: { id: 'quote-123', status: 'draft', total: 5000 },
+      },
+    ],
+  },
 });
 
 /**
@@ -47,4 +64,21 @@ export const AcceptQuoteContract = defineCommand({
     output: QuoteModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'accept-quote-happy-path',
+        given: ['Quote is open'],
+        when: ['Client accepts quote'],
+        then: ['Quote status becomes ACCEPTED'],
+      },
+    ],
+    examples: [
+      {
+        key: 'client-accepts',
+        input: { quoteId: 'quote-123', signature: 'John Doe' },
+        output: { id: 'quote-123', status: 'accepted' },
+      },
+    ],
+  },
 });

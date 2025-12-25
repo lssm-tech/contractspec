@@ -33,6 +33,23 @@ export const GetSubscriptionContract = defineQuery({
   policy: {
     auth: 'user',
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-subscription-happy-path',
+        given: ['Organization has active subscription'],
+        when: ['User requests subscription status'],
+        then: ['Subscription details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-basic',
+        input: null,
+        output: { plan: 'pro', status: 'active', currentPeriodEnd: '2025-02-01T00:00:00Z' },
+      },
+    ],
+  },
 });
 
 /**
@@ -66,6 +83,23 @@ export const RecordUsageContract = defineCommand({
       },
     ],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'record-usage-happy-path',
+        given: ['Organization exists'],
+        when: ['System records feature usage'],
+        then: ['Usage is recorded'],
+      },
+    ],
+    examples: [
+      {
+        key: 'record-api-call',
+        input: { feature: 'api_calls', quantity: 1, idempotencyKey: 'abc-123' },
+        output: { recorded: true, currentUsage: 100 },
+      },
+    ],
+  },
 });
 
 /**
@@ -89,6 +123,23 @@ export const GetUsageSummaryContract = defineQuery({
   policy: {
     auth: 'user',
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-usage-happy-path',
+        given: ['Organization has usage history'],
+        when: ['User requests usage summary'],
+        then: ['Usage metrics are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-current-usage',
+        input: { period: 'current' },
+        output: { features: [{ name: 'api_calls', used: 100, limit: 1000 }] },
+      },
+    ],
+  },
 });
 
 /**
@@ -111,5 +162,22 @@ export const CheckFeatureAccessContract = defineQuery({
   },
   policy: {
     auth: 'user',
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'check-access-granted',
+        given: ['Organization is on Pro plan'],
+        when: ['User checks access to Pro feature'],
+        then: ['Access is granted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'check-advanced-reports',
+        input: { feature: 'advanced_reports' },
+        output: { hasAccess: true, reason: 'Included in Pro plan' },
+      },
+    ],
   },
 });

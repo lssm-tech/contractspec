@@ -41,6 +41,23 @@ export const CreateWorkflowContract = defineCommand({
     ],
     audit: ['workflow.definition.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-workflow-happy-path',
+        given: ['User is admin'],
+        when: ['User creates new workflow definition'],
+        then: ['Definition is created', 'WorkflowDefinitionCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-onboarding',
+        input: { key: 'onboarding-v1', name: 'Employee Onboarding', version: '1.0.0' },
+        output: { id: 'def-123', status: 'draft' },
+      },
+    ],
+  },
 });
 
 /**
@@ -73,6 +90,23 @@ export const UpdateWorkflowContract = defineCommand({
     ],
     audit: ['workflow.definition.updated'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'update-workflow-happy-path',
+        given: ['Workflow definition exists'],
+        when: ['User updates definition'],
+        then: ['Definition is updated', 'WorkflowDefinitionUpdated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'update-name',
+        input: { workflowId: 'def-123', name: 'New Employee Onboarding' },
+        output: { id: 'def-123', name: 'New Employee Onboarding' },
+      },
+    ],
+  },
 });
 
 /**
@@ -104,6 +138,23 @@ export const AddStepContract = defineCommand({
       },
     ],
     audit: ['workflow.step.added'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'add-step-happy-path',
+        given: ['Workflow definition exists'],
+        when: ['User adds a step'],
+        then: ['Step is added', 'StepAdded event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'add-approval-step',
+        input: { workflowId: 'def-123', stepKey: 'approve-contract', type: 'approval' },
+        output: { id: 'step-456', key: 'approve-contract' },
+      },
+    ],
   },
 });
 
@@ -144,6 +195,23 @@ export const PublishWorkflowContract = defineCommand({
       },
     ],
     audit: ['workflow.definition.published'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'publish-workflow-happy-path',
+        given: ['Workflow definition is valid'],
+        when: ['User publishes workflow'],
+        then: ['Workflow becomes active', 'WorkflowPublished event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'publish-onboarding',
+        input: { workflowId: 'def-123' },
+        output: { id: 'def-123', status: 'published' },
+      },
+    ],
   },
 });
 
@@ -192,6 +260,23 @@ export const ListWorkflowsContract = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-workflows-happy-path',
+        given: ['Workflow definitions exist'],
+        when: ['User lists workflows'],
+        then: ['List of workflows is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-all',
+        input: { limit: 10 },
+        output: { workflows: [], total: 5 },
+      },
+    ],
+  },
 });
 
 /**
@@ -221,4 +306,21 @@ export const GetWorkflowContract = defineQuery({
     output: WorkflowDefinitionModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-workflow-happy-path',
+        given: ['Workflow definition exists'],
+        when: ['User requests workflow details'],
+        then: ['Workflow details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-details',
+        input: { workflowId: 'def-123' },
+        output: { id: 'def-123', name: 'Employee Onboarding' },
+      },
+    ],
+  },
 });

@@ -25,4 +25,21 @@ export const PostAnnouncementContract = defineCommand({
     output: AnnouncementModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'post-announcement-happy-path',
+        given: ['User is authenticated'],
+        when: ['User posts an announcement'],
+        then: ['Announcement is posted and distributed'],
+      },
+    ],
+    examples: [
+      {
+        key: 'post-general',
+        input: { spaceId: 'space-123', title: 'New Policy', content: 'Please read...' },
+        output: { id: 'ann-456', status: 'posted' },
+      },
+    ],
+  },
 });
