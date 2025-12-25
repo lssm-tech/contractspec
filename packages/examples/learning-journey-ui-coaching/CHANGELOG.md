@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-coaching
 
+## 1.42.3
+
+### Patch Changes
+
+- 3f5d015: fix(tooling): cicd
+- Updated dependencies [3f5d015]
+  - @lssm/example.learning-journey-ambient-coach@1.42.3
+  - @lssm/example.learning-journey-crm-onboarding@1.42.3
+  - @lssm/example.learning-journey-ui-shared@1.42.3
+  - @lssm/lib.contracts@1.42.3
+  - @lssm/lib.design-system@1.42.3
+  - @lssm/lib.schema@1.42.3
+  - @lssm/lib.ui-kit-web@1.42.3
+  - @lssm/module.learning-journey@1.42.3
+
 ## 1.42.2
 
 ### Patch Changes

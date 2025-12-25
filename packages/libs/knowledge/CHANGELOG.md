@@ -1,5 +1,13 @@
 # @lssm/lib.knowledge
 
+## 1.42.3
+
+### Patch Changes
+
+- 3f5d015: fix(tooling): cicd
+- Updated dependencies [3f5d015]
+  - @lssm/lib.contracts@1.42.3
+
 ## 1.42.2
 
 ### Patch Changes

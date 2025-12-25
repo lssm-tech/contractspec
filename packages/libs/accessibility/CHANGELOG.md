@@ -1,5 +1,15 @@
 # @lssm/lib.accessibility
 
+## 1.42.3
+
+### Patch Changes
+
+- 3f5d015: fix(tooling): cicd
+- Updated dependencies [3f5d015]
+  - @lssm/lib.design-system@1.42.3
+  - @lssm/lib.ui-kit@1.42.3
+  - @lssm/lib.ui-kit-web@1.42.3
+
 ## 1.42.2
 
 ### Patch Changes
