@@ -54,6 +54,7 @@ export const importCommand = new Command('import')
     'import'
   )
   .action(async (source: string, options: ImportOptions) => {
+    console.log('DEBUG: Starting import action');
     try {
       const config = await loadConfig();
       // Use conventions for output directories
@@ -102,13 +103,21 @@ export const importCommand = new Command('import')
 
       // Write imported specs
       let importedCount = 0;
+      const specsByDir = new Map<
+        string,
+        { file: string; name: string; type: 'operation' | 'event' | 'model' }[]
+      >();
+
       for (const spec of importResult.operationSpecs) {
         // Determine output directory based on spec type and conventions
         let targetDir: string;
+        let type: 'operation' | 'event' | 'model' = 'operation';
+
         if (useConventions) {
           // Infer spec type from source or code content
           if (spec.code.includes('defineEvent(')) {
             targetDir = eventsDir;
+            type = 'event';
           } else if (
             (spec.code.includes('defineSchemaModel(') ||
               spec.code.includes('new EnumType(') ||
@@ -117,8 +126,10 @@ export const importCommand = new Command('import')
             !spec.code.includes('defineQuery(')
           ) {
             targetDir = modelsDir;
+            type = 'model';
           } else {
             targetDir = operationsDir;
+            type = 'operation';
           }
         } else {
           if (!options.outputDir) {
@@ -126,7 +137,19 @@ export const importCommand = new Command('import')
               '`outputDir` is required when not using conventions'
             );
           }
-          targetDir = options.outputDir;
+          targetDir = options.outputDir!;
+          // Infer type even if outputDir is fixed
+          if (spec.code.includes('defineEvent(')) {
+            type = 'event';
+          } else if (
+            (spec.code.includes('defineSchemaModel(') ||
+              spec.code.includes('new EnumType(') ||
+              spec.code.includes('ScalarTypeEnum.')) &&
+            !spec.code.includes('defineCommand(') &&
+            !spec.code.includes('defineQuery(')
+          ) {
+            type = 'model';
+          }
         }
 
         const filePath = resolve(targetDir, spec.fileName);
@@ -144,7 +167,83 @@ export const importCommand = new Command('import')
           await writeFile(filePath, spec.code, 'utf-8');
           console.log(chalk.green(`✅ Created: ${filePath}`));
         }
+
+        // Track for registry generation
+        const dir = dirname(filePath); // handle potential subdirectories in fileName or targetDir
+        const existing = specsByDir.get(dir) || [];
+        
+        let match: RegExpMatchArray | null = null;
+        if (type === 'operation') {
+           match = spec.code.match(/export const (\w+)\s*=\s*define(?:Command|Query)/);
+        } else if (type === 'event') {
+           match = spec.code.match(/export const (\w+)\s*=\s*defineEvent/);
+        }
+        
+        // Fallback to any export if specific one not found (or for models)
+        if (!match) {
+           match = spec.code.match(/export const (\w+)\s*=/);
+        }
+
+        if (match) {
+          existing.push({
+            file: basename(filePath),
+            name: match[1],
+            type,
+          });
+          specsByDir.set(dir, existing);
+        }
+
         importedCount++;
+      }
+
+      // Generate registries
+      if (!options.dryRun && importedCount > 0) {
+        for (const [dir, specs] of specsByDir.entries()) {
+          if (specs.length === 0) continue;
+
+          // Check dominant type in this directory
+          const types = specs.map((s) => s.type);
+          const isOperations = types.every((t) => t === 'operation');
+          const isEvents = types.every((t) => t === 'event');
+          const isModels = types.every((t) => t === 'model');
+
+          let registryCode = `/**\n * Auto-generated registry file.\n */\n`;
+          // Imports
+          specs.forEach((s) => {
+            const importPath = `./${basename(s.file, '.ts')}`;
+            registryCode += `import { ${s.name} } from '${importPath}';\n`;
+          });
+          registryCode += '\n';
+
+          if (isOperations) {
+            registryCode += `import { OperationSpecRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `export const registry = new OperationSpecRegistry();\n`;
+            specs.forEach((s) => {
+              registryCode += `registry.register(${s.name});\n`;
+            });
+          } else if (isEvents) {
+            registryCode += `import { EventRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `export const registry = new EventRegistry();\n`;
+            specs.forEach((s) => {
+              registryCode += `registry.register(${s.name});\n`;
+            });
+          } else {
+             // For models or mixed, generate re-exports (index style)
+            registryCode = `/**\n * Auto-generated exports.\n */\n`;
+            specs.forEach((s) => {
+              const importPath = `./${basename(s.file, '.ts')}`;
+              registryCode += `export * from '${importPath}';\n`;
+            });
+          }
+
+          const registryPath = resolve(dir, 'registry.ts');
+          // For models (or undefined mix), we usually prefer index.ts
+          // Also if it's explicitly models, use index.ts
+          const finalPath = isModels ? resolve(dir, 'index.ts') : registryPath;
+
+          await writeFile(finalPath, registryCode, 'utf-8');
+          console.log(chalk.green(`✅ Created/Updated registry: ${finalPath}`));
+        }
       }
 
       // Report skipped operations
