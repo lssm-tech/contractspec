@@ -1,5 +1,15 @@
 # @lssm/lib.accessibility
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/lib.design-system@1.42.1
+  - @lssm/lib.ui-kit-web@1.42.1
+  - @lssm/lib.ui-kit@1.42.1
+
 ## 1.42.0
 
 ### Minor Changes

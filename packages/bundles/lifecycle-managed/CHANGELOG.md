@@ -1,5 +1,18 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/module.lifecycle-advisor@1.42.1
+  - @lssm/module.lifecycle-core@1.42.1
+  - @lssm/lib.observability@1.42.1
+  - @lssm/lib.analytics@1.42.1
+  - @lssm/lib.lifecycle@1.42.1
+  - @lssm/lib.ai-agent@1.42.1
+
 ## 1.42.0
 
 ### Minor Changes

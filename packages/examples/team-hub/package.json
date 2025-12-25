@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.team-hub",
-  "version": "1.42.0",
+  "version": "1.42.1",
   "description": "Team Hub example with spaces, tasks, rituals, and announcements",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

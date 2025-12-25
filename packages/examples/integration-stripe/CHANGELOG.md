@@ -1,5 +1,14 @@
 # @lssm/example.integration-stripe
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/lib.contracts@1.42.1
+  - @lssm/lib.schema@1.42.1
+
 ## 1.42.0
 
 ### Minor Changes
