@@ -200,7 +200,6 @@ function findSpecInfo(
 ): SpecSnapshot | undefined {
   if (!key) return headSpecs[0] ?? baseSpecs[0];
   return (
-    headSpecs.find((s) => s.key === key) ??
-    baseSpecs.find((s) => s.key === key)
+    headSpecs.find((s) => s.key === key) ?? baseSpecs.find((s) => s.key === key)
   );
 }

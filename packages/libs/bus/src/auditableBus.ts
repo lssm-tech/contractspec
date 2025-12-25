@@ -66,10 +66,7 @@ export interface AuditableEventBusOptions {
   /** Default metadata to include with all events */
   defaultMetadata?: EventMetadata;
   /** Filter function to decide which events to audit */
-  shouldAudit?: (
-    eventKey: string,
-    envelope: AuditableEventEnvelope
-  ) => boolean;
+  shouldAudit?: (eventKey: string, envelope: AuditableEventEnvelope) => boolean;
   /** Transform function for audit records */
   transformAuditRecord?: (record: AuditRecord) => AuditRecord;
 }

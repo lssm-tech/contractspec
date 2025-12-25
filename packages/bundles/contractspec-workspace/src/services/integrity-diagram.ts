@@ -116,9 +116,7 @@ function generateFeatureMapDiagram(
     for (const event of events) {
       if (nodeCount >= maxNodes) break;
       const nodeId = sanitizeId(`E_${event.key}_v${event.version}`);
-      const label = showVersions
-        ? `${event.key}.v${event.version}`
-        : event.key;
+      const label = showVersions ? `${event.key}.v${event.version}` : event.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -234,7 +232,11 @@ function generateOrphansDiagram(
   for (const opKey of linkedOps) {
     const [parsedKey, parsedVersion] = parseSpecKey(opKey);
     if (parsedKey && parsedVersion) {
-      allLinked.push({ type: 'operation', key: parsedKey, version: parsedVersion });
+      allLinked.push({
+        type: 'operation',
+        key: parsedKey,
+        version: parsedVersion,
+      });
     }
   }
 
@@ -248,7 +250,11 @@ function generateOrphansDiagram(
   for (const presKey of linkedPres) {
     const [parsedKey, parsedVersion] = parseSpecKey(presKey);
     if (parsedKey && parsedVersion) {
-      allLinked.push({ type: 'presentation', key: parsedKey, version: parsedVersion });
+      allLinked.push({
+        type: 'presentation',
+        key: parsedKey,
+        version: parsedVersion,
+      });
     }
   }
 
@@ -323,9 +329,7 @@ function generateDependenciesDiagram(
     for (const event of feature.events) {
       if (nodeCount >= maxNodes) break;
       const eventId = sanitizeId(`E_${event.key}_v${event.version}`);
-      const label = showVersions
-        ? `${event.key}.v${event.version}`
-        : event.key;
+      const label = showVersions ? `${event.key}.v${event.version}` : event.key;
       lines.push(`    ${eventId}["${escapeLabel(label)}"]`);
       lines.push(`    ${featureId} -.-> ${eventId}`);
       nodeCount++;

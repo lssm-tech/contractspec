@@ -222,14 +222,17 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
   for (const match of keyMatches) {
     const keyValue = match[1];
     if (!keyValue) continue;
-    
+
     // Get the last segment of the key (e.g., 'created' from 'agent.created')
     const segments = keyValue.split('.');
     const lastSegment = segments[segments.length - 1] ?? '';
-    
+
     // Allow common past tense patterns (including some irregular past tense)
-    const isPastTense = /(?:ed|created|updated|deleted|completed|assigned|removed|triggered|synced|failed|processed|started|stopped|cancelled|finished|submitted|approved|rejected|confirmed|expired|activated|deactivated|verified|revoked|initialized|published|moved|sent|won|lost|run|begun|done|gone|seen|taken|made|paid|held|read|bought|sold|found|left|met|heard|known|thrown|shown|drawn|grown|flown|written|driven|chosen|spoken|broken|forgotten|hidden|bitten|eaten|given|risen|struck|shaken)$/i.test(lastSegment);
-    
+    const isPastTense =
+      /(?:ed|created|updated|deleted|completed|assigned|removed|triggered|synced|failed|processed|started|stopped|cancelled|finished|submitted|approved|rejected|confirmed|expired|activated|deactivated|verified|revoked|initialized|published|moved|sent|won|lost|run|begun|done|gone|seen|taken|made|paid|held|read|bought|sold|found|left|met|heard|known|thrown|shown|drawn|grown|flown|written|driven|chosen|spoken|broken|forgotten|hidden|bitten|eaten|given|risen|struck|shaken)$/i.test(
+        lastSegment
+      );
+
     if (!isPastTense) {
       warnings.push(
         'Event name should use past tense (e.g., "created", "updated")'
@@ -391,8 +394,9 @@ function validateCommonFields(
 
   // Skip pure re-export files (only contain export statements)
   const isPureReExport =
-    /^[\s\n]*(export\s*\*\s*from|export\s*\{\s*[^}]*\s*\}\s*from)/m.test(code) &&
-    !code.includes('= {');
+    /^[\s\n]*(export\s*\*\s*from|export\s*\{\s*[^}]*\s*\}\s*from)/m.test(
+      code
+    ) && !code.includes('= {');
   if (isPureReExport) {
     return;
   }
@@ -400,17 +404,20 @@ function validateCommonFields(
   // Skip internal library files that define the types, registries, and helpers
   // These are in /libs/contracts/src/ or /libs/identity-rbac/src/contracts/
   // and contain interface/class/function definitions rather than spec instances
-  const isInternalLibFile = 
-    isInternalLib && (
-      // Files that define interfaces/types
-      /export\s+interface\s+(EventSpec|OperationSpec|PresentationSpec|FeatureSpec|FeatureModuleSpec)/.test(code) ||
-      // Files that define registries  
+  const isInternalLibFile =
+    isInternalLib &&
+    // Files that define interfaces/types
+    (/export\s+interface\s+(EventSpec|OperationSpec|PresentationSpec|FeatureSpec|FeatureModuleSpec)/.test(
+      code
+    ) ||
+      // Files that define registries
       /export\s+class\s+\w*Registry/.test(code) ||
       // Files that define helper functions (arrow functions)
       /export\s+const\s+define(Command|Query|Event)\s*=\s*</.test(code) ||
       // Files that export from other modules (index files in contracts)
-      /export\s+\*\s+from\s+['"]\.\/(operations|events|presentations|features)['"]/.test(code)
-    );
+      /export\s+\*\s+from\s+['"]\.\/(operations|events|presentations|features)['"]/.test(
+        code
+      ));
   if (isInternalLibFile) {
     return;
   }
@@ -425,7 +432,8 @@ function validateCommonFields(
   }
 
   // Check for stability - look for both string literal and enum usage
-  const hasStabilityString = /stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/.test(code);
+  const hasStabilityString =
+    /stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/.test(code);
   const hasStabilityEnum = /stability:\s*StabilityEnum\./.test(code);
   if (!hasStabilityString && !hasStabilityEnum) {
     warnings.push('Missing or invalid stability field');

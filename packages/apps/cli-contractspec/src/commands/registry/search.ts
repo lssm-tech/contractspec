@@ -19,9 +19,7 @@ export const registrySearchCommand = new Command('search')
   .action(async (query: string, options: RegistrySearchOptions) => {
     try {
       const client = new RegistryClient({
-        registryUrl: resolveRegistryUrl(
-          options.registryUrl
-        ),
+        registryUrl: resolveRegistryUrl(options.registryUrl),
       });
       const manifest = await client.getJson<ContractRegistryManifest>(
         '/r/contractspec.json'
@@ -48,7 +46,9 @@ export const registrySearchCommand = new Command('search')
       console.log(chalk.bold(`\n🔎 Matches (${matches.length})\n`));
       matches
         .slice()
-        .sort((a: { key: string }, b: { key: string }) => a.key.localeCompare(b.key))
+        .sort((a: { key: string }, b: { key: string }) =>
+          a.key.localeCompare(b.key)
+        )
         .forEach((item: { type: string; key: string; description: string }) => {
           console.log(`${chalk.cyan(item.type)} ${chalk.bold(item.key)}`);
 
