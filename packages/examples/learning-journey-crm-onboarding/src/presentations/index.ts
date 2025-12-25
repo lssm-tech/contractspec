@@ -8,7 +8,7 @@ const baseMeta: Pick<
 > = {
   domain: 'learning-journey',
   title: 'CRM Onboarding',
-  owners: ['examples.learning-journey.crm-onboarding'],
+  owners: ['@examples.learning-journey.crm-onboarding'],
   tags: ['learning', 'crm', 'onboarding'],
   stability: StabilityEnum.Experimental,
   goal: 'Guide CRM users through onboarding',

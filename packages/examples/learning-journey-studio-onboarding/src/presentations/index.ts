@@ -11,7 +11,7 @@ const baseMeta: Pick<
 > = {
   domain: 'learning-journey',
   title: 'Studio Onboarding',
-  owners: ['examples.learning-journey.studio-onboarding'] as string[],
+  owners: ['@examples.learning-journey.studio-onboarding'] as string[],
   tags: ['learning', 'onboarding', 'studio'] as string[],
   stability: StabilityEnum.Experimental,
 };

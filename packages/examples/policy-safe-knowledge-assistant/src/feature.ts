@@ -8,7 +8,7 @@ export const PolicySafeKnowledgeAssistantFeature: FeatureModuleSpec = {
     description:
       'All-in-one example composing locale/jurisdiction gate + versioned KB + HITL pipeline + learning hub.',
     domain: 'knowledge',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
     stability: 'experimental',
   },

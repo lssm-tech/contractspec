@@ -29,7 +29,7 @@ export const AssistantAnswerContract = defineCommand({
     key: 'assistant.answer',
     version: 1,
     stability: 'experimental',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['assistant', 'policy', 'locale', 'jurisdiction', 'knowledge'],
     description:
       'Answer a user question using a KB snapshot with strict locale/jurisdiction gating.',
@@ -82,7 +82,7 @@ export const AssistantExplainConceptContract = defineCommand({
     key: 'assistant.explainConcept',
     version: 1,
     stability: 'experimental',
-    owners: ['examples'],
+    owners: ['@examples'],
     tags: ['assistant', 'policy', 'knowledge', 'concepts'],
     description:
       'Explain a concept using a KB snapshot with strict locale/jurisdiction gating.',

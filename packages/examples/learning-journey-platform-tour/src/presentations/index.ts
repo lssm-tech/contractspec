@@ -11,7 +11,7 @@ const baseMeta: Pick<
 > = {
   domain: 'learning-journey',
   title: 'Platform Tour',
-  owners: ['examples.learning-journey.platform-tour'],
+  owners: ['@examples.learning-journey.platform-tour'],
   tags: ['learning', 'platform', 'tour'],
   stability: StabilityEnum.Experimental,
   goal: 'Visualize platform tour progress',

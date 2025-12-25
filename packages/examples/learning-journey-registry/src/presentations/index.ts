@@ -7,7 +7,7 @@ const baseMeta: Pick<
 > = {
   domain: 'learning-journey',
   title: 'Learning Journey',
-  owners: ['learning-team'] as string[],
+  owners: ['@learning-team'] as string[],
   tags: ['learning', 'journey', 'onboarding'] as string[],
   stability: StabilityEnum.Experimental,
   goal: 'Progress through learning tracks',

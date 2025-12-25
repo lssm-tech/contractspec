@@ -23,7 +23,7 @@
   "peerDependencies": {
     "elysia": "^1.4.19",
     "express": "^5.2.1",
-    "next": "16.1.0"
+    "next": "16.1.1"
   },
   "type": "module",
   "main": "./dist/index.js",

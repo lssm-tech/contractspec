@@ -22,7 +22,7 @@
     "@lssm/lib.contracts": "workspace:*",
     "@lssm/lib.logger": "workspace:*",
     "@lssm/lib.knowledge": "workspace:*",
-    "@aws-sdk/client-sqs": "^3.948.0",
+    "@aws-sdk/client-sqs": "^3.958.0",
     "zod": "catalog:",
     "cron-parser": "^5.4.0"
   },

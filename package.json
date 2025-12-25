@@ -16,14 +16,14 @@
     "catalog": {
       "react": "19.2.3",
       "react-dom": "19.2.3",
-      "next": "16.1.0",
+      "next": "16.1.1",
       "zod": "^4.1.13",
       "typescript": "^5.9.3"
     },
     "catalogs": {
       "build": {
-        "tsdown": "^0.18.1",
-        "turbo": "^2.6.3",
+        "tsdown": "^0.18.3",
+        "turbo": "^2.7.2",
         "@changesets/cli": "^2.29.7",
         "postcss": "^8.5",
         "tailwindcss": "4.1.18",
@@ -37,13 +37,13 @@
         "storybook": "^9.1.7"
       },
       "ai": {
-        "ai": "beta",
-        "@ai-sdk/mcp": "beta",
-        "@ai-sdk/anthropic": "beta",
-        "@ai-sdk/google": "beta",
-        "@ai-sdk/mistral": "beta",
-        "@ai-sdk/openai": "beta",
-        "@ai-sdk/react": "beta",
+        "ai": "6.0.3",
+        "@ai-sdk/mcp": "1.0.1",
+        "@ai-sdk/anthropic": "3.0.1",
+        "@ai-sdk/google": "3.0.1",
+        "@ai-sdk/mistral": "3.0.1",
+        "@ai-sdk/openai": "3.0.1",
+        "@ai-sdk/react": "3.0.3",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -93,7 +93,7 @@
     "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.4.0",
-    "knip": "^5.75.1",
+    "knip": "^5.77.1",
     "memoirist": "^0.4.0",
     "next": "catalog:",
     "patch-package": "^8.0.1",
@@ -101,7 +101,7 @@
     "prettier": "3.7.4",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo-ignore": "^2.7.1",
+    "turbo-ignore": "^2.7.2",
     "typescript-eslint": "^8.49.0"
   },
   "dependencies": {
