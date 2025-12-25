@@ -5,13 +5,20 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  BUN_VERSION: 1.3.5
+  TURBO_TELEMETRY_DISABLED: 1
+  DO_NOT_TRACK: 1
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      # Increase memory for large builds
+      NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

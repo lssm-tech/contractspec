@@ -1,4 +1,5 @@
 ---
+'@lssm/lib.contracts-transformers': patch
 '@lssm/app.cli-contractspec': patch
 '@lssm/action.contractspec': patch
 '@lssm/app.cli-database': patch
@@ -53,7 +54,6 @@
 '@lssm/lib.bus': patch
 '@lssm/lib.content-gen': patch
 '@lssm/lib.contracts': patch
-'@lssm/lib.contracts-transformers': patch
 '@lssm/lib.cost-tracking': patch
 '@lssm/lib.design-system': patch
 '@lssm/lib.error': patch
@@ -98,4 +98,4 @@
 '@lssm/tool.typescript': patch
 ---
 
-fix
+fix(tooling): cicd

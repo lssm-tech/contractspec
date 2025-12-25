@@ -1,9 +1,5 @@
 import type { ParsedOperation } from '../types';
-import {
-  toPascalCase,
-  toSpecName,
-  toValidIdentifier,
-} from '../../common/utils';
+import { toPascalCase, toSpecKey, toValidIdentifier } from '../../common/utils';
 import { type GeneratedModel, generateImports } from '../schema-converter';
 import { inferAuthLevel, inferOpKind } from './analyzer';
 import type {
@@ -21,7 +17,7 @@ export function generateSpecCode(
   inputModel: GeneratedModel | null,
   outputModel: GeneratedModel | null
 ): string {
-  const specName = toSpecName(operation.operationId, options.prefix);
+  const specKey = toSpecKey(operation.operationId, options.prefix);
   const kind = inferOpKind(operation.method);
   const auth = inferAuthLevel(operation, options.defaultAuth ?? 'user');
 
@@ -75,7 +71,7 @@ export function generateSpecCode(
 
   // Meta
   lines.push('  meta: {');
-  lines.push(`    name: '${specName}',`);
+  lines.push(`    key: '${specKey}',`);
   lines.push('    version: 1,');
   lines.push(`    stability: '${options.defaultStability ?? 'stable'}',`);
   lines.push(

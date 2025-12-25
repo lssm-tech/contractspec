@@ -250,6 +250,7 @@
     "./llm/types": "./dist/llm/types.js",
     "./markdown": "./dist/markdown.js",
     "./migrations": "./dist/migrations.js",
+    "./model-registry": "./dist/model-registry.js",
     "./onboarding-base": "./dist/onboarding-base.js",
     "./openapi": "./dist/openapi.js",
     "./operations": "./dist/operations/index.js",
