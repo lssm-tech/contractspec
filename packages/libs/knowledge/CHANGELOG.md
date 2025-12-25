@@ -1,5 +1,16 @@
 # @lssm/lib.knowledge
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
+### Patch Changes
+
+- Updated dependencies [8eefd9c]
+  - @lssm/lib.contracts@1.42.0
+
 ## 1.1.0
 
 ### Minor Changes

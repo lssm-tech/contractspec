@@ -1,5 +1,16 @@
 # @lssm/lib.observability
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
+### Patch Changes
+
+- Updated dependencies [8eefd9c]
+  - @lssm/lib.lifecycle@1.42.0
+
 ## 0.5.0
 
 ### Minor Changes
@@ -83,17 +94,3 @@
 - Metrics collection (counters, histograms)
 - Structured logging with trace correlation
 - HTTP tracing middleware
-
-
-
-
-
-
-
-
-
-
-
-
-
-

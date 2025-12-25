@@ -1,5 +1,20 @@
 # @lssm/lib.evolution
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
+### Patch Changes
+
+- Updated dependencies [8eefd9c]
+  - @lssm/lib.ai-agent@1.42.0
+  - @lssm/lib.contracts@1.42.0
+  - @lssm/lib.lifecycle@1.42.0
+  - @lssm/lib.observability@1.42.0
+  - @lssm/lib.schema@1.42.0
+
 ## 1.1.0
 
 ### Minor Changes
