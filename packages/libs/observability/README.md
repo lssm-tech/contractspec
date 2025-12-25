@@ -1,5 +1,8 @@
 # @lssm/lib.observability
 
+Website: https://contractspec.lssm.tech/
+
+
 OpenTelemetry integration for tracing, metrics, and structured logging.
 
 ## Features
@@ -47,6 +50,7 @@ app.use(createTracingMiddleware());
 ## Documentation
 
 Full docs: https://contractspec.lssm.tech/docs/libraries/observability
+
 
 
 

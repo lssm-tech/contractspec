@@ -45,8 +45,16 @@ export const CreateConnectionContract = defineCommand({
     examples: [
       {
         key: 'connect-crm',
-        input: { name: 'Salesforce Prod', integrationId: 'salesforce', credentials: { clientId: 'xxx' } },
-        output: { id: 'conn-123', status: 'connected', connectedAt: '2025-01-01T12:00:00Z' },
+        input: {
+          name: 'Salesforce Prod',
+          integrationId: 'salesforce',
+          credentials: { clientId: 'xxx' },
+        },
+        output: {
+          id: 'conn-123',
+          status: 'connected',
+          connectedAt: '2025-01-01T12:00:00Z',
+        },
       },
     ],
   },

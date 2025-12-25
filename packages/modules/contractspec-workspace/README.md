@@ -1,5 +1,8 @@
 # @lssm/module.contractspec-workspace
 
+Website: https://contractspec.lssm.tech/
+
+
 Pure, deterministic domain logic and static analysis utilities for ContractSpec workspace operations.
 
 ## Purpose

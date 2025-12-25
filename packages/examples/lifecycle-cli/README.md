@@ -1,5 +1,8 @@
 ## Lifecycle CLI Demo
 
+Website: https://contractspec.lssm.tech/
+
+
 Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP server required). It stitches together mock analytics + questionnaire adapters, runs an assessment, and prints the resulting recommendation/libraries.
 
 ### Run

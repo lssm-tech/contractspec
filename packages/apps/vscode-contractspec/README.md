@@ -1,5 +1,8 @@
 # ContractSpec VS Code Extension
 
+Website: https://contractspec.lssm.tech/
+
+
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/lssm.vscode-contractspec?label=VS%20Code%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec)
 [![Installs](https://img.shields.io/visual-studio-marketplace/i/lssm.vscode-contractspec?label=Installs&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)

@@ -1,5 +1,4 @@
 import {
-  PolicyRegistry,
   type PolicyRef,
   type PolicySpec,
   type PolicyRule,
@@ -9,6 +8,7 @@ import {
   type RateLimitDefinition,
   type RelationshipMatcher,
 } from './spec';
+import { PolicyRegistry } from './registry';
 import type { PolicyDecision, FieldLevelDecision } from '../types';
 
 export interface SubjectRelationship {

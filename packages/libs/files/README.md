@@ -1,5 +1,8 @@
 # @lssm/lib.files
 
+Website: https://contractspec.lssm.tech/
+
+
 Files, documents, and attachments module for ContractSpec applications.
 
 ## Overview
@@ -176,6 +179,7 @@ export const schemaComposition = {
   ],
 };
 ```
+
 
 
 

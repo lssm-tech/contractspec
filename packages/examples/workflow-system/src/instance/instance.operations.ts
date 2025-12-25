@@ -46,6 +46,26 @@ export const StartWorkflowContract = defineCommand({
     ],
     audit: ['workflow.instance.started'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'start-workflow-happy-path',
+        given: ['Workflow definition exists'],
+        when: ['User starts workflow'],
+        then: ['Instance is created and started'],
+      },
+    ],
+    examples: [
+      {
+        key: 'start-onboarding',
+        input: {
+          workflowKey: 'onboarding-v1',
+          context: { employeeId: 'emp-123' },
+        },
+        output: { id: 'inst-456', status: 'running' },
+      },
+    ],
+  },
 });
 
 /**
@@ -90,6 +110,27 @@ export const TransitionWorkflowContract = defineCommand({
     ],
     audit: ['workflow.instance.transitioned'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'transition-workflow-happy-path',
+        given: ['Workflow instance is waiting at step'],
+        when: ['User provides input'],
+        then: ['Instance moves to next step'],
+      },
+    ],
+    examples: [
+      {
+        key: 'complete-task',
+        input: {
+          instanceId: 'inst-456',
+          action: 'complete',
+          data: { approved: true },
+        },
+        output: { success: true, nextStep: 'notify-hr' },
+      },
+    ],
+  },
 });
 
 /**
@@ -131,6 +172,23 @@ export const PauseWorkflowContract = defineCommand({
     ],
     audit: ['workflow.instance.paused'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'pause-workflow-happy-path',
+        given: ['Workflow is running'],
+        when: ['Admin pauses workflow'],
+        then: ['Instance status becomes PAUSED'],
+      },
+    ],
+    examples: [
+      {
+        key: 'pause-maintenance',
+        input: { instanceId: 'inst-456', reason: 'System maintenance' },
+        output: { id: 'inst-456', status: 'paused' },
+      },
+    ],
+  },
 });
 
 /**
@@ -171,6 +229,23 @@ export const ResumeWorkflowContract = defineCommand({
       },
     ],
     audit: ['workflow.instance.resumed'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'resume-workflow-happy-path',
+        given: ['Workflow is paused'],
+        when: ['Admin resumes workflow'],
+        then: ['Instance status becomes RUNNING'],
+      },
+    ],
+    examples: [
+      {
+        key: 'resume-normal',
+        input: { instanceId: 'inst-456', reason: 'Issue resolved' },
+        output: { id: 'inst-456', status: 'running' },
+      },
+    ],
   },
 });
 
@@ -215,6 +290,23 @@ export const CancelWorkflowContract = defineCommand({
       },
     ],
     audit: ['workflow.instance.cancelled'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'cancel-workflow-happy-path',
+        given: ['Workflow is running'],
+        when: ['User cancels workflow'],
+        then: ['Instance status becomes CANCELLED'],
+      },
+    ],
+    examples: [
+      {
+        key: 'cancel-mistake',
+        input: { instanceId: 'inst-456', reason: 'Created by mistake' },
+        output: { id: 'inst-456', status: 'cancelled' },
+      },
+    ],
   },
 });
 
@@ -278,6 +370,23 @@ export const ListInstancesContract = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-instances-happy-path',
+        given: ['Workflow instances exist'],
+        when: ['User lists instances'],
+        then: ['List of instances is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-running',
+        input: { status: 'running', limit: 10 },
+        output: { instances: [], total: 5 },
+      },
+    ],
+  },
 });
 
 /**
@@ -307,4 +416,21 @@ export const GetInstanceContract = defineQuery({
     output: WorkflowInstanceModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-instance-happy-path',
+        given: ['Instance exists'],
+        when: ['User requests instance details'],
+        then: ['Instance details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-details',
+        input: { instanceId: 'inst-456' },
+        output: { id: 'inst-456', workflowKey: 'onboarding-v1' },
+      },
+    ],
+  },
 });

@@ -1,5 +1,11 @@
 # @lssm/lib.cost-tracking
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
 ## 4.0.0
 
 ### Minor Changes

@@ -22,4 +22,21 @@ export const CreateSpaceContract = defineCommand({
     output: SpaceModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-space-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates a new space'],
+        then: ['Space is created'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-engineering',
+        input: { name: 'Engineering', description: 'Engineering team space' },
+        output: { id: 'space-123', name: 'Engineering' },
+      },
+    ],
+  },
 });

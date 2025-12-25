@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-onboarding",
-  "version": "1.41.1",
+  "version": "1.42.0",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
   "main": "./dist/index.js",

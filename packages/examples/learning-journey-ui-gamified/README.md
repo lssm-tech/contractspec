@@ -1,5 +1,8 @@
 # @lssm/example.learning-journey-ui-gamified
 
+Website: https://contractspec.lssm.tech/
+
+
 Duolingo-style gamified learning UI for drills and quests.
 
 ## Features

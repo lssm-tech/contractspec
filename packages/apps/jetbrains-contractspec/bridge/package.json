@@ -1,6 +1,6 @@
 {
   "name": "@lssm/jetbrains-contractspec-bridge",
-  "version": "0.0.1",
+  "version": "1.42.0",
   "description": "Node.js bridge server for ContractSpec JetBrains Plugin",
   "main": "dist/server.js",
   "scripts": {

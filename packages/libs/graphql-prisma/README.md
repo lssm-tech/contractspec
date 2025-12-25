@@ -1,5 +1,8 @@
 # @lssm/lib.graphql-prisma
 
+Website: https://contractspec.lssm.tech/
+
+
 Prisma integration for Pothos GraphQL schemas.
 
 ## Purpose
@@ -32,6 +35,7 @@ builder.prismaObject('User', {
   }),
 });
 ```
+
 
 
 

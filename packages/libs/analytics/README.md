@@ -1,5 +1,8 @@
 # @lssm/lib.analytics
 
+Website: https://contractspec.lssm.tech/
+
+
 Zero-dependency analytics toolkit used by Phase 2 AI-Native Ops. It ingests telemetry events and outputs:
 
 - Funnel conversion reports with drop-off detection.

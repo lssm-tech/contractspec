@@ -77,8 +77,18 @@ export const CreateToolCommand = defineCommand({
     examples: [
       {
         key: 'create-api-tool',
-        input: { name: 'Weather API', slug: 'weather-api', category: 'api', description: 'Fetches weather data' },
-        output: { id: 'tool-123', name: 'Weather API', slug: 'weather-api', status: 'draft' },
+        input: {
+          name: 'Weather API',
+          slug: 'weather-api',
+          category: 'api',
+          description: 'Fetches weather data',
+        },
+        output: {
+          id: 'tool-123',
+          name: 'Weather API',
+          slug: 'weather-api',
+          status: 'draft',
+        },
       },
     ],
   },
@@ -146,7 +156,12 @@ export const UpdateToolCommand = defineCommand({
       {
         key: 'update-description',
         input: { toolId: 'tool-123', description: 'Updated weather API tool' },
-        output: { id: 'tool-123', name: 'Weather API', status: 'draft', updatedAt: '2025-01-01T00:00:00Z' },
+        output: {
+          id: 'tool-123',
+          name: 'Weather API',
+          status: 'draft',
+          updatedAt: '2025-01-01T00:00:00Z',
+        },
       },
     ],
   },
@@ -197,7 +212,12 @@ export const GetToolQuery = defineQuery({
       {
         key: 'get-basic',
         input: { toolId: 'tool-123' },
-        output: { id: 'tool-123', name: 'Weather API', status: 'active', category: 'api' },
+        output: {
+          id: 'tool-123',
+          name: 'Weather API',
+          status: 'active',
+          category: 'api',
+        },
       },
     ],
   },

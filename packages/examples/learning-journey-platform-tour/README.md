@@ -1,5 +1,8 @@
 # @lssm/example.learning-journey-platform-tour
 
+Website: https://contractspec.lssm.tech/
+
+
 Learning Journey example that tours platform primitives.
 
 ## Track

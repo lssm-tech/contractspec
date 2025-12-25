@@ -51,7 +51,11 @@ export const CreateSyncConfigContract = defineCommand({
     examples: [
       {
         key: 'create-contact-sync',
-        input: { name: 'Contacts Sync', sourceConnectionId: 'conn-1', targetConnectionId: 'conn-2' },
+        input: {
+          name: 'Contacts Sync',
+          sourceConnectionId: 'conn-1',
+          targetConnectionId: 'conn-2',
+        },
         output: { id: 'sync-123', status: 'active' },
       },
     ],
@@ -96,7 +100,11 @@ export const AddFieldMappingContract = defineCommand({
     examples: [
       {
         key: 'map-email',
-        input: { syncConfigId: 'sync-123', sourceField: 'email', targetField: 'user_email' },
+        input: {
+          syncConfigId: 'sync-123',
+          sourceField: 'email',
+          targetField: 'user_email',
+        },
         output: { id: 'map-456', type: 'string' },
       },
     ],

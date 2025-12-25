@@ -1,5 +1,8 @@
 # @lssm/lib.error
 
+Website: https://contractspec.lssm.tech/
+
+
 Standardized error handling primitives for LSSM applications.
 
 ## Purpose
@@ -44,6 +47,7 @@ try {
   }
 }
 ```
+
 
 
 

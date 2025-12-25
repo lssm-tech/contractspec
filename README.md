@@ -1,5 +1,7 @@
 # ContractSpec
 
+Website: [https://contractspec.lssm.tec](https://contractspec.lssm.tech)
+
 **Stabilize your AI-generated code**
 
 The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. You keep your app. You own the code. We're the compiler, not the prison.
@@ -152,6 +154,7 @@ export const CreateUser = defineCommand({
 
 ## Learn More
 
+- [Website](https://contractspec.lssm.tech)
 - [CLI Quick Start](packages/apps/cli-contractspec/QUICK_START.md)
 - [Agent Modes](packages/apps/cli-contractspec/AGENT_MODES.md)
 - [Examples](packages/examples/)
@@ -159,6 +162,7 @@ export const CreateUser = defineCommand({
 ## License
 
 MIT
+
 
 
 

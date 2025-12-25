@@ -1,5 +1,18 @@
 # @lssm/lib.accessibility
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
+### Patch Changes
+
+- Updated dependencies [8eefd9c]
+  - @lssm/lib.design-system@1.42.0
+  - @lssm/lib.ui-kit@1.42.0
+  - @lssm/lib.ui-kit-web@1.42.0
+
 ## 1.12.0
 
 ### Minor Changes

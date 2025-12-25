@@ -1,5 +1,8 @@
 # AI Support Bot Example
 
+Website: https://contractspec.lssm.tech/
+
+
 Minimal wiring that shows how `@lssm/lib.ai-agent` works together with `@lssm/lib.support-bot`.
 
 ## What it demonstrates
