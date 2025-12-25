@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.knowledge-canon",
-  "version": "1.42.1",
+  "version": "1.42.2",
   "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
   "type": "module",
   "main": "./dist/index.js",

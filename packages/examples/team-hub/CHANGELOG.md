@@ -1,5 +1,19 @@
 # @lssm/example.team-hub
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/lib.bus@1.42.2
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.identity-rbac@1.42.2
+  - @lssm/lib.jobs@1.42.2
+  - @lssm/lib.schema@1.42.2
+  - @lssm/module.audit-trail@1.42.2
+  - @lssm/module.notifications@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.service-business-os",
-  "version": "1.42.1",
+  "version": "1.42.2",
   "description": "Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

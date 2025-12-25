@@ -1,5 +1,11 @@
 # @lssm/action.contractspec
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+
 ## 1.42.1
 
 ### Patch Changes

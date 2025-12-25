@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/bundle.contractspec-workspace@1.42.2
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.contracts-transformers@1.42.2
+  - @lssm/module.contractspec-examples@1.42.2
+  - @lssm/module.contractspec-workspace@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes
