@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.personalization",
-  "version": "1.42.1",
+  "version": "1.42.2",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "main": "./dist/index.js",

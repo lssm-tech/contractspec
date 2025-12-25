@@ -1,5 +1,25 @@
 # @lssm/example.learning-journey-registry
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/example.learning-journey-ambient-coach@1.42.2
+  - @lssm/example.learning-journey-crm-onboarding@1.42.2
+  - @lssm/example.learning-journey-duo-drills@1.42.2
+  - @lssm/example.learning-journey-platform-tour@1.42.2
+  - @lssm/example.learning-journey-quest-challenges@1.42.2
+  - @lssm/example.learning-journey-studio-onboarding@1.42.2
+  - @lssm/example.learning-journey-ui-coaching@1.42.2
+  - @lssm/example.learning-journey-ui-gamified@1.42.2
+  - @lssm/example.learning-journey-ui-onboarding@1.42.2
+  - @lssm/example.learning-journey-ui-shared@1.42.2
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.schema@1.42.2
+  - @lssm/module.learning-journey@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes
