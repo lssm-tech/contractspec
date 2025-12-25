@@ -1,4 +1,7 @@
-ContractSpec
+# ContractSpec
+
+Website: https://contractspec.lssm.tech/
+
 
 **Stabilize your AI-generated code** — Define contracts once, generate consistent code across API, DB, UI, and events. Safe regeneration. No lock-in.
 

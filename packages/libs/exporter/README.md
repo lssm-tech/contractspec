@@ -1,5 +1,8 @@
 # @lssm/lib.exporter
 
+Website: https://contractspec.lssm.tech/
+
+
 Platform-agnostic utilities for exporting data to CSV and XML formats.
 
 ## Purpose
@@ -35,6 +38,7 @@ const csv = toCSV(data);
 // Generate XML string
 const xml = toXML(data, { rootName: 'Users', itemName: 'User' });
 ```
+
 
 
 

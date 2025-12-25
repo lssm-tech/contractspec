@@ -1,5 +1,8 @@
 # @lssm/lib.contracts
 
+Website: https://contractspec.lssm.tech/
+
+
 **The core of ContractSpec** — Define contracts once, generate consistent code across all surfaces.
 
 Unified specifications for Operations (commands/queries), Events, and Presentations. Contracts serve as the canonical source of truth that AI agents and code generators read to understand system constraints.

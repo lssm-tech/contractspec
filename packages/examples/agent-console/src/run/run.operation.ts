@@ -499,8 +499,22 @@ export const GetRunMetricsQuery = defineQuery({
     examples: [
       {
         key: 'get-daily-metrics',
-        input: { organizationId: 'org-123', startDate: '2025-01-01', endDate: '2025-01-31', granularity: 'day' },
-        output: { totalRuns: 100, completedRuns: 90, failedRuns: 10, totalTokens: 50000, totalCostUsd: 5.0, averageDurationMs: 2500, successRate: 0.9, timeline: [] },
+        input: {
+          organizationId: 'org-123',
+          startDate: '2025-01-01',
+          endDate: '2025-01-31',
+          granularity: 'day',
+        },
+        output: {
+          totalRuns: 100,
+          completedRuns: 90,
+          failedRuns: 10,
+          totalTokens: 50000,
+          totalCostUsd: 5.0,
+          averageDurationMs: 2500,
+          successRate: 0.9,
+          timeline: [],
+        },
       },
     ],
   },

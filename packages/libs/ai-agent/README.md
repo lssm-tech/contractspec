@@ -1,5 +1,8 @@
 # @lssm/lib.ai-agent
 
+Website: https://contractspec.lssm.tech/
+
+
 **AI governance for ContractSpec** — Constrain what AI agents can change, enforce contracts they must respect.
 
 Stateful AI agent orchestration with type-safe specs, tool execution, knowledge bindings, and per-tenant guardrails. Agents read contracts as their source of truth, enabling triage, growth experiments, and DevOps automation with contract-enforced safety.

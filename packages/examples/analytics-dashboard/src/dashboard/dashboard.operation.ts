@@ -53,7 +53,10 @@ export const CreateDashboardContract = defineCommand({
     examples: [
       {
         key: 'create-basic',
-        input: { name: 'Revenue Dashboard', description: 'Monthly revenue metrics' },
+        input: {
+          name: 'Revenue Dashboard',
+          description: 'Monthly revenue metrics',
+        },
         output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
       },
     ],
@@ -101,7 +104,12 @@ export const AddWidgetContract = defineCommand({
     examples: [
       {
         key: 'add-chart-widget',
-        input: { dashboardId: 'dash-123', type: 'chart', queryId: 'query-456', config: { chartType: 'bar' } },
+        input: {
+          dashboardId: 'dash-123',
+          type: 'chart',
+          queryId: 'query-456',
+          config: { chartType: 'bar' },
+        },
         output: { id: 'widget-789', type: 'chart', dashboardId: 'dash-123' },
       },
     ],

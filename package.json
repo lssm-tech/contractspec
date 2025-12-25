@@ -136,7 +136,7 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git"
   },
-  "homepage": "https://contractspec.dev",
+  "homepage": "https://contractspec.lssm.tech",
   "bugs": {
     "url": "https://github.com/lssm-tech/contractspec/issues"
   },

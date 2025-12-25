@@ -1,5 +1,8 @@
 # @lssm/app.cli-database
 
+Website: https://contractspec.lssm.tech/
+
+
 Prisma wrapper and CLI tools for managing database schemas, migrations, and seeding within the LSSM monorepo.
 
 ## Purpose

@@ -1,7 +1,7 @@
 import { type AnySchemaModel } from '@lssm/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
-import { filterBy, getUniqueTags, groupBy } from './registry-utils';
+import { SpecContractRegistry } from './registry';
 
 export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
   /** Doc block(s) for this operation. */
@@ -50,69 +50,9 @@ export type EventKey = `${string}.v${number}`;
 export const eventKey = (key: string, version: number): EventKey =>
   `${key}.v${version}`;
 
-function keyOf(p: AnyEventSpec) {
-  return `${p.meta.key}.v${p.meta.version}`;
-}
-
 /** In-memory registry for EventSpec. */
-export class EventRegistry {
-  private items = new Map<string, AnyEventSpec>();
-
-  constructor(items?: AnyEventSpec[]) {
-    if (items) {
-      items.forEach((p) => this.register(p));
-    }
-  }
-
-  register(p: AnyEventSpec): this {
-    const key = keyOf(p);
-    if (this.items.has(key)) throw new Error(`Duplicate presentation ${key}`);
-    this.items.set(key, p);
-    return this;
-  }
-
-  list(): AnyEventSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): AnyEventSpec | undefined {
-    if (version != null) return this.items.get(`${key}.v${version}`);
-    let candidate: AnyEventSpec | undefined;
-    let max = -Infinity;
-    for (const [k, p] of this.items.entries()) {
-      if (!k.startsWith(`${key}.v`)) continue;
-      if (p.meta.version > max) {
-        max = p.meta.version;
-        candidate = p;
-      }
-    }
-    return candidate;
-  }
-
-  /** Filter presentations by criteria. */
-  filter(criteria: import('./registry-utils').RegistryFilter): AnyEventSpec[] {
-    return filterBy(this.list(), criteria);
-  }
-
-  /** List presentations with specific tag. */
-  listByTag(tag: string): AnyEventSpec[] {
-    return this.list().filter((p) => p.meta.tags?.includes(tag));
-  }
-
-  /** List presentations by owner. */
-  listByOwner(owner: string): AnyEventSpec[] {
-    return this.list().filter((p) => p.meta.owners?.includes(owner));
-  }
-
-  /** Group presentations by key function. */
-  groupBy(
-    keyFn: import('./registry-utils').GroupKeyFn<AnyEventSpec>
-  ): Map<string, AnyEventSpec[]> {
-    return groupBy(this.list(), keyFn);
-  }
-
-  /** Get unique tags from all presentations. */
-  getUniqueTags(): string[] {
-    return getUniqueTags(this.list());
+export class EventRegistry extends SpecContractRegistry<'event', AnyEventSpec> {
+  public constructor(items?: AnyEventSpec[]) {
+    super('event', items);
   }
 }

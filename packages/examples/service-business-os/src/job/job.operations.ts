@@ -46,6 +46,23 @@ export const ListJobsOperation = defineQuery({
     output: ListJobsOutputModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-jobs-happy-path',
+        given: ['Jobs exist'],
+        when: ['User lists jobs'],
+        then: ['List of jobs is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-active',
+        input: { status: 'scheduled', limit: 10 },
+        output: { jobs: [], total: 5 },
+      },
+    ],
+  },
 });
 
 // ============ Job Commands ============
@@ -69,6 +86,27 @@ export const ScheduleJobContract = defineCommand({
     output: JobModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'schedule-job-happy-path',
+        given: ['Client exists'],
+        when: ['User schedules job'],
+        then: ['Job is created with status SCHEDULED'],
+      },
+    ],
+    examples: [
+      {
+        key: 'schedule-repair',
+        input: {
+          clientId: 'client-123',
+          date: '2025-01-20T10:00:00Z',
+          type: 'repair',
+        },
+        output: { id: 'job-456', status: 'scheduled' },
+      },
+    ],
+  },
 });
 
 /**
@@ -90,4 +128,21 @@ export const CompleteJobContract = defineCommand({
     output: JobModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'complete-job-happy-path',
+        given: ['Job is scheduled'],
+        when: ['User completes job'],
+        then: ['Job status becomes COMPLETED'],
+      },
+    ],
+    examples: [
+      {
+        key: 'mark-complete',
+        input: { jobId: 'job-456', notes: 'Done successfully' },
+        output: { id: 'job-456', status: 'completed' },
+      },
+    ],
+  },
 });

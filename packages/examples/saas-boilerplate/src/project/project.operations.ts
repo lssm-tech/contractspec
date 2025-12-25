@@ -59,6 +59,23 @@ export const CreateProjectContract = defineCommand({
     ],
     audit: ['project.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-project-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates project'],
+        then: ['Project is created', 'ProjectCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-basic',
+        input: { name: 'Website Redesign', slug: 'website-redesign' },
+        output: { id: 'proj-123', name: 'Website Redesign', isArchived: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -89,6 +106,23 @@ export const GetProjectContract = defineQuery({
   },
   policy: {
     auth: 'user',
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-project-happy-path',
+        given: ['Project exists'],
+        when: ['User requests project'],
+        then: ['Project details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-existing',
+        input: { projectId: 'proj-123' },
+        output: { id: 'proj-123', name: 'Website Redesign' },
+      },
+    ],
   },
 });
 
@@ -124,6 +158,23 @@ export const UpdateProjectContract = defineCommand({
     ],
     audit: ['project.updated'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'update-project-happy-path',
+        given: ['Project exists'],
+        when: ['User updates description'],
+        then: ['Project is updated', 'ProjectUpdated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'update-desc',
+        input: { projectId: 'proj-123', description: 'New description' },
+        output: { id: 'proj-123', description: 'New description' },
+      },
+    ],
+  },
 });
 
 /**
@@ -158,6 +209,23 @@ export const DeleteProjectContract = defineCommand({
     ],
     audit: ['project.deleted'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'delete-project-happy-path',
+        given: ['Project exists'],
+        when: ['User deletes project'],
+        then: ['Project is deleted', 'ProjectDeleted event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'delete-existing',
+        input: { projectId: 'proj-123' },
+        output: { success: true },
+      },
+    ],
+  },
 });
 
 /**
@@ -180,5 +248,22 @@ export const ListProjectsContract = defineQuery({
   },
   policy: {
     auth: 'user',
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-projects-happy-path',
+        given: ['Projects exist'],
+        when: ['User lists projects'],
+        then: ['List of projects is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-all',
+        input: { limit: 10 },
+        output: { items: [], total: 5 },
+      },
+    ],
   },
 });

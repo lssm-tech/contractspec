@@ -1,5 +1,8 @@
 # @lssm/lib.support-bot
 
+Website: https://contractspec.lssm.tech/
+
+
 Production-ready building blocks for AI-first support desks powered by ContractSpec. The library wires knowledge-grounded responses, ticket classification, auto-resolutions, and performance telemetry into `@lssm/lib.ai-agent`.
 
 ## Highlights

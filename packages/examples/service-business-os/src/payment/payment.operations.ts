@@ -22,4 +22,21 @@ export const RecordPaymentContract = defineCommand({
     output: PaymentModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'record-payment-happy-path',
+        given: ['Invoice exists'],
+        when: ['User records payment'],
+        then: ['Payment is recorded'],
+      },
+    ],
+    examples: [
+      {
+        key: 'record-check',
+        input: { invoiceId: 'inv-456', amount: 100, method: 'check' },
+        output: { id: 'pay-123', status: 'completed' },
+      },
+    ],
+  },
 });

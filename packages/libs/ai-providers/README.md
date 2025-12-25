@@ -1,5 +1,8 @@
 # @lssm/lib.ai-providers
 
+Website: https://contractspec.lssm.tech/
+
+
 **Unified AI provider abstraction** for ContractSpec applications.
 
 ## Overview

@@ -10,7 +10,8 @@ import type {
 } from '../features';
 import type { DataViewRegistry, DataViewSpec } from '../data-views';
 import type { WorkflowRegistry, WorkflowSpec } from '../workflow/spec';
-import type { PolicyRef, PolicyRegistry, PolicySpec } from '../policy/spec';
+import type { PolicyRef, PolicySpec } from '../policy/spec';
+import type { PolicyRegistry } from '../policy/registry';
 import type { ThemeRegistry, ThemeSpec } from '../themes';
 import type { TelemetryRegistry, TelemetrySpec } from '../telemetry/spec';
 import type {

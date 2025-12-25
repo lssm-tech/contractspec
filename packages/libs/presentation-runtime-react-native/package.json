@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-react-native",
-  "version": "2.0.0",
+  "version": "1.42.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

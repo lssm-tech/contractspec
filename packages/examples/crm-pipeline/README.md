@@ -1,5 +1,8 @@
 # CRM Pipeline
 
+Website: https://contractspec.lssm.tech/
+
+
 A complete CRM (Customer Relationship Management) application demonstrating ContractSpec principles.
 
 ## What's Included

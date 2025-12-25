@@ -46,6 +46,27 @@ export const SubmitDecisionContract = defineCommand({
     ],
     audit: ['workflow.approval.decided'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'approve-request-happy-path',
+        given: ['Approval request is pending', 'User is assignee'],
+        when: ['User approves request'],
+        then: ['Request is approved', 'ApprovalDecided event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'approve-basic',
+        input: {
+          requestId: 'req-123',
+          decision: 'approve',
+          comment: 'Looks good',
+        },
+        output: { id: 'req-123', status: 'approved' },
+      },
+    ],
+  },
 });
 
 /**
@@ -91,6 +112,27 @@ export const DelegateApprovalContract = defineCommand({
     ],
     audit: ['workflow.approval.delegated'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'delegate-approval-happy-path',
+        given: ['Approval request is pending', 'User is assignee'],
+        when: ['User delegates to another user'],
+        then: ['Assignee is updated', 'ApprovalDelegated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'delegate-to-manager',
+        input: {
+          requestId: 'req-123',
+          delegateTo: 'user-456',
+          reason: 'Out of office',
+        },
+        output: { id: 'req-123', assigneeId: 'user-456' },
+      },
+    ],
+  },
 });
 
 /**
@@ -129,6 +171,27 @@ export const AddApprovalCommentContract = defineCommand({
         version: 1,
         when: 'Comment is added',
         payload: ApprovalCommentModel,
+      },
+    ],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'add-comment-happy-path',
+        given: ['Approval request exists'],
+        when: ['User adds a comment'],
+        then: ['Comment is added', 'CommentAdded event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'add-question',
+        input: {
+          requestId: 'req-123',
+          content: 'Can you clarify budget?',
+          isInternal: false,
+        },
+        output: { id: 'com-789', content: 'Can you clarify budget?' },
       },
     ],
   },
@@ -182,6 +245,23 @@ export const ListMyApprovalsContract = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-approvals-happy-path',
+        given: ['User has assigned approvals'],
+        when: ['User lists approvals'],
+        then: ['List of requests is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-pending',
+        input: { status: 'pending', limit: 10 },
+        output: { requests: [], total: 2, pendingCount: 2 },
+      },
+    ],
+  },
 });
 
 /**
@@ -211,4 +291,21 @@ export const GetApprovalContract = defineQuery({
     output: ApprovalRequestModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-approval-happy-path',
+        given: ['Approval request exists'],
+        when: ['User requests approval details'],
+        then: ['Approval details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-basic',
+        input: { requestId: 'req-123' },
+        output: { id: 'req-123', status: 'pending' },
+      },
+    ],
+  },
 });

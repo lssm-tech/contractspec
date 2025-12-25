@@ -1,5 +1,8 @@
 # @lssm/lib.logger
 
+Website: https://contractspec.lssm.tech/
+
+
 High-performance logging library optimized for Bun, with native ElysiaJS integration.
 
 ## Purpose

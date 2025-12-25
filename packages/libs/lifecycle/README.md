@@ -1,5 +1,8 @@
 # @lssm/lib.lifecycle
 
+Website: https://contractspec.lssm.tech/
+
+
 Canonical lifecycle vocabulary for ContractSpec. This package exposes stage enums, axis types, signal contracts, milestone/action shapes, and formatting helpers used by the lifecycle modules, bundles, and Studio apps.
 
 ## Install
@@ -43,6 +46,7 @@ console.log(summary.title); // "Stage 2 · MVP & Early Traction"
 - Formatting helpers (`formatStageSummary`, `summarizeAxes`, `rankStageCandidates`)
 
 This library intentionally ships no IO logic so it can run in browsers, Node runtimes, and design tools.*** End Patch
+
 
 
 

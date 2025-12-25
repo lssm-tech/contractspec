@@ -47,8 +47,17 @@ export const CreateProductContract = defineCommand({
     examples: [
       {
         key: 'create-t-shirt',
-        input: { title: 'Classic T-Shirt', price: 25, stock: 100, storeId: 'store-123' },
-        output: { id: 'prod-456', title: 'Classic T-Shirt', status: 'published' },
+        input: {
+          title: 'Classic T-Shirt',
+          price: 25,
+          stock: 100,
+          storeId: 'store-123',
+        },
+        output: {
+          id: 'prod-456',
+          title: 'Classic T-Shirt',
+          status: 'published',
+        },
       },
     ],
   },

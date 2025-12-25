@@ -1,5 +1,8 @@
 # ContractSpec JetBrains Plugin
 
+Website: https://contractspec.lssm.tech/
+
+
 [![JetBrains Plugin Repository](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID?label=JetBrains%20Plugin&logo=jetbrains)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID?label=Downloads&logo=jetbrains)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)

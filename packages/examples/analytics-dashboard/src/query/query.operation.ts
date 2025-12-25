@@ -50,7 +50,10 @@ export const CreateQueryContract = defineCommand({
     examples: [
       {
         key: 'create-sql-query',
-        input: { name: 'Monthly Revenue', sql: 'SELECT SUM(amount) FROM orders WHERE date >= :startDate' },
+        input: {
+          name: 'Monthly Revenue',
+          sql: 'SELECT SUM(amount) FROM orders WHERE date >= :startDate',
+        },
         output: { id: 'query-123', name: 'Monthly Revenue', type: 'sql' },
       },
     ],

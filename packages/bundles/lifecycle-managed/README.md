@@ -1,5 +1,8 @@
 # @lssm/bundle.lifecycle-managed
 
+Website: https://contractspec.lssm.tech/
+
+
 Lifecycle assessment + guidance managed service for ContractSpec Studio. This bundle wires the lifecycle modules, analytics bridges, and AI advisor agent into a deployable service surface (REST, events, Studio integrations).
 
 ## Modules
@@ -29,6 +32,7 @@ app.get('/lifecycle/playbooks/:stage', handlers.getPlaybook);
 ```
 
 The bundle stays framework-agnostic: you can mount the handlers on Elysia, Express, Next.js routes, or background jobs.*** End Patch
+
 
 
 

@@ -1,5 +1,8 @@
 # @lssm/example.learning-journey-ui-coaching
 
+Website: https://contractspec.lssm.tech/
+
+
 Contextual coaching UI with tip cards and engagement tracking.
 
 ## Features

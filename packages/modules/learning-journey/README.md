@@ -1,5 +1,8 @@
 # @lssm/module.learning-journey
 
+Website: https://contractspec.lssm.tech/
+
+
 Comprehensive learning journey engine for ContractSpec applications.
 
 ## Overview
@@ -179,6 +182,7 @@ export const schemaComposition = {
   ],
 };
 ```
+
 
 
 

@@ -1,5 +1,8 @@
 # @lssm/example.integration-hub
 
+Website: https://contractspec.lssm.tech/
+
+
 A comprehensive integration hub example demonstrating ContractSpec principles for data synchronization.
 
 ## Features
@@ -135,6 +138,7 @@ const run = await executeContract(TriggerSyncContract, {
 - `@lssm/lib.files` - Import/export file handling
 - `@lssm/lib.jobs` - Background sync jobs
 - `@lssm/module.audit-trail` - Action auditing
+
 
 
 

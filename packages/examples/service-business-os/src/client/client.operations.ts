@@ -22,4 +22,25 @@ export const CreateClientContract = defineCommand({
     output: ClientModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-client-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates a new client'],
+        then: ['Client is created'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-basic',
+        input: {
+          name: 'Acme Corp',
+          email: 'contact@acme.com',
+          phone: '555-0123',
+        },
+        output: { id: 'client-123', name: 'Acme Corp' },
+      },
+    ],
+  },
 });

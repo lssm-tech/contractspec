@@ -46,7 +46,10 @@ export const CreateOrderContract = defineCommand({
     examples: [
       {
         key: 'create-basic-order',
-        input: { storeId: 'store-123', items: [{ productId: 'prod-456', quantity: 1, unitPrice: 100 }] },
+        input: {
+          storeId: 'store-123',
+          items: [{ productId: 'prod-456', quantity: 1, unitPrice: 100 }],
+        },
         output: { id: 'order-789', status: 'pending', total: 100 },
       },
     ],
@@ -92,7 +95,11 @@ export const UpdateOrderStatusContract = defineCommand({
     examples: [
       {
         key: 'mark-shipped',
-        input: { orderId: 'order-789', status: 'shipped', trackingNumber: 'TRACK123' },
+        input: {
+          orderId: 'order-789',
+          status: 'shipped',
+          trackingNumber: 'TRACK123',
+        },
         output: { id: 'order-789', status: 'shipped' },
       },
     ],
