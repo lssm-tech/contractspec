@@ -1,5 +1,11 @@
 # @lssm/tool.typescript
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+
 ## 1.42.0
 
 ### Minor Changes

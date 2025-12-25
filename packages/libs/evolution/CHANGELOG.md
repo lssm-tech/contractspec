@@ -1,5 +1,17 @@
 # @lssm/lib.evolution
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/lib.observability@1.42.1
+  - @lssm/lib.contracts@1.42.1
+  - @lssm/lib.lifecycle@1.42.1
+  - @lssm/lib.ai-agent@1.42.1
+  - @lssm/lib.schema@1.42.1
+
 ## 1.42.0
 
 ### Minor Changes
