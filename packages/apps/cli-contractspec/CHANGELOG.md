@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/bundle.contractspec-workspace@1.42.2
+  - @lssm/lib.ai-providers@1.42.2
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.contracts-transformers@1.42.2
+  - @lssm/lib.schema@1.42.2
+  - @lssm/lib.testing@1.42.2
+  - @lssm/module.ai-chat@1.42.2
+  - @lssm/module.contractspec-examples@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes
