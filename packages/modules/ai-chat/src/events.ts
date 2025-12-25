@@ -3,30 +3,50 @@ import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { ChatMessageModel, ChatConversationModel } from './schema';
 
 export const MessageSentEvent = defineEvent({
-  name: 'ai-chat.message.sent',
-  version: 1,
-  description: 'Message sent by user',
+  meta: {
+    key: 'ai-chat.message.sent',
+    version: 1,
+    description: 'Message sent by user',
+    stability: 'stable',
+    owners: ['@ai-chat'],
+    tags: ['ai-chat', 'message', 'sent'],
+  },
   payload: ChatMessageModel,
 });
 
 export const MessageReceivedEvent = defineEvent({
-  name: 'ai-chat.message.received',
-  version: 1,
-  description: 'Message received from AI',
+  meta: {
+    key: 'ai-chat.message.received',
+    version: 1,
+    description: 'Message received from AI',
+    stability: 'stable',
+    owners: ['@ai-chat'],
+    tags: ['ai-chat', 'message', 'received'],
+  },
   payload: ChatMessageModel,
 });
 
 export const ConversationCreatedEvent = defineEvent({
-  name: 'ai-chat.conversation.created',
-  version: 1,
-  description: 'New conversation created',
+  meta: {
+    key: 'ai-chat.conversation.created',
+    version: 1,
+    description: 'New conversation created',
+    stability: 'stable',
+    owners: ['@ai-chat'],
+    tags: ['ai-chat', 'conversation', 'created'],
+  },
   payload: ChatConversationModel,
 });
 
 export const ConversationDeletedEvent = defineEvent({
-  name: 'ai-chat.conversation.deleted',
-  version: 1,
-  description: 'Conversation deleted',
+  meta: {
+    key: 'ai-chat.conversation.deleted',
+    version: 1,
+    description: 'Conversation deleted',
+    stability: 'stable',
+    owners: ['@ai-chat'],
+    tags: ['ai-chat', 'conversation', 'deleted'],
+  },
   payload: defineSchemaModel({
     name: 'ConversationDeletedPayload',
     fields: {
@@ -36,9 +56,14 @@ export const ConversationDeletedEvent = defineEvent({
 });
 
 export const ChatErrorEvent = defineEvent({
-  name: 'ai-chat.error',
-  version: 1,
-  description: 'Chat error occurred',
+  meta: {
+    key: 'ai-chat.error',
+    version: 1,
+    description: 'Chat error occurred',
+    stability: 'stable',
+    owners: ['@ai-chat'],
+    tags: ['ai-chat', 'error'],
+  },
   payload: defineSchemaModel({
     name: 'ChatErrorPayload',
     fields: {

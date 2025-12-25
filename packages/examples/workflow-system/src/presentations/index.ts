@@ -14,7 +14,7 @@ import { ApprovalRequestModel } from '../approval/approval.schema';
  */
 export const WorkflowDesignerPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.designer',
+    key: 'workflow.designer',
     version: 1,
     title: 'Workflow Designer',
     description: 'Visual workflow designer with drag-and-drop steps',
@@ -22,6 +22,8 @@ export const WorkflowDesignerPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'designer', 'admin'],
     stability: StabilityEnum.Experimental,
+    goal: 'Building and modifying workflow definitions',
+    context: 'Workflow administration and setup',
   },
   source: {
     type: 'component',
@@ -40,7 +42,7 @@ export const WorkflowDesignerPresentation: PresentationSpec = {
  */
 export const WorkflowListPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.definition.list',
+    key: 'workflow.definition.list',
     version: 1,
     title: 'Workflow List',
     description: 'List of workflow definitions with status and actions',
@@ -48,6 +50,8 @@ export const WorkflowListPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'list', 'admin'],
     stability: StabilityEnum.Experimental,
+    goal: 'Overview of all defined workflows',
+    context: 'Workflow management dashboard',
   },
   source: {
     type: 'component',
@@ -66,7 +70,7 @@ export const WorkflowListPresentation: PresentationSpec = {
  */
 export const WorkflowDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.definition.detail',
+    key: 'workflow.definition.detail',
     version: 1,
     title: 'Workflow Details',
     description: 'Detailed view of a workflow definition with steps',
@@ -74,6 +78,8 @@ export const WorkflowDetailPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Viewing technical details of a workflow definition',
+    context: 'Workflow inspection and debugging',
   },
   source: {
     type: 'component',
@@ -94,7 +100,7 @@ export const WorkflowDetailPresentation: PresentationSpec = {
  */
 export const InstanceListPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.instance.list',
+    key: 'workflow.instance.list',
     version: 1,
     title: 'Instance List',
     description: 'List of workflow instances with status and progress',
@@ -102,6 +108,8 @@ export const InstanceListPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'instance', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Monitoring active and past workflow executions',
+    context: 'Operations monitoring',
   },
   source: {
     type: 'component',
@@ -120,7 +128,7 @@ export const InstanceListPresentation: PresentationSpec = {
  */
 export const InstanceDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.instance.detail',
+    key: 'workflow.instance.detail',
     version: 1,
     title: 'Instance Details',
     description: 'Detailed view of a workflow instance with step timeline',
@@ -128,6 +136,8 @@ export const InstanceDetailPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'instance', 'detail', 'timeline'],
     stability: StabilityEnum.Experimental,
+    goal: 'Detailed inspection of a specific workflow instance',
+    context: 'Case management and troubleshooting',
   },
   source: {
     type: 'component',
@@ -146,7 +156,7 @@ export const InstanceDetailPresentation: PresentationSpec = {
  */
 export const ProgressTrackerPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.instance.progress',
+    key: 'workflow.instance.progress',
     version: 1,
     title: 'Progress Tracker',
     description: 'Visual progress tracker showing current step in workflow',
@@ -154,6 +164,8 @@ export const ProgressTrackerPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'progress', 'widget'],
     stability: StabilityEnum.Experimental,
+    goal: 'Quick view of current progress for a workflow',
+    context: 'Embedded progress indicator in entity views',
   },
   source: {
     type: 'component',
@@ -174,7 +186,7 @@ export const ProgressTrackerPresentation: PresentationSpec = {
  */
 export const ApprovalInboxPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.approval.inbox',
+    key: 'workflow.approval.inbox',
     version: 1,
     title: 'Approval Inbox',
     description: 'Inbox showing pending approval requests for current user',
@@ -182,6 +194,8 @@ export const ApprovalInboxPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'inbox'],
     stability: StabilityEnum.Experimental,
+    goal: 'Managing personal workload of approval requests',
+    context: 'Personal task management',
   },
   source: {
     type: 'component',
@@ -200,7 +214,7 @@ export const ApprovalInboxPresentation: PresentationSpec = {
  */
 export const ApprovalDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.approval.detail',
+    key: 'workflow.approval.detail',
     version: 1,
     title: 'Approval Details',
     description: 'Detailed approval request view with context and actions',
@@ -208,6 +222,8 @@ export const ApprovalDetailPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Decision support for an approval request',
+    context: 'Specific approval action',
   },
   source: {
     type: 'component',
@@ -226,7 +242,7 @@ export const ApprovalDetailPresentation: PresentationSpec = {
  */
 export const ApprovalFormPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.approval.form',
+    key: 'workflow.approval.form',
     version: 1,
     title: 'Approval Form',
     description: 'Form for submitting approval decisions',
@@ -234,6 +250,8 @@ export const ApprovalFormPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'form'],
     stability: StabilityEnum.Experimental,
+    goal: 'Submitting a decision on an approval request',
+    context: 'Approval decision dialog',
   },
   source: {
     type: 'component',
@@ -253,7 +271,7 @@ export const ApprovalFormPresentation: PresentationSpec = {
  */
 export const PendingApprovalsBadgePresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.approval.badge',
+    key: 'workflow.approval.badge',
     version: 1,
     title: 'Pending Approvals Badge',
     description: 'Badge showing count of pending approvals',
@@ -261,6 +279,8 @@ export const PendingApprovalsBadgePresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'approval', 'badge', 'widget'],
     stability: StabilityEnum.Experimental,
+    goal: 'Visual notification of pending approvals',
+    context: 'Global navigation or sidebar',
   },
   source: {
     type: 'component',
@@ -278,7 +298,7 @@ export const PendingApprovalsBadgePresentation: PresentationSpec = {
  */
 export const WorkflowMetricsPresentation: PresentationSpec = {
   meta: {
-    name: 'workflow.metrics',
+    key: 'workflow.metrics',
     version: 1,
     title: 'Workflow Metrics',
     description: 'Dashboard widget showing workflow metrics and statistics',
@@ -286,6 +306,8 @@ export const WorkflowMetricsPresentation: PresentationSpec = {
     owners: ['@workflow-team'],
     tags: ['workflow', 'metrics', 'dashboard'],
     stability: StabilityEnum.Experimental,
+    goal: 'Monitoring throughput and bottlenecks',
+    context: 'System performance dashboard',
   },
   source: {
     type: 'component',

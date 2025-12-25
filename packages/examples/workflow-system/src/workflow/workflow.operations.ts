@@ -2,11 +2,11 @@ import { defineCommand, defineQuery } from '@lssm/lib.contracts/operations';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { WorkflowStatusEnum } from './workflow.enum';
 import {
-  WorkflowDefinitionModel,
-  WorkflowStepModel,
+  AddStepInputModel,
   CreateWorkflowInputModel,
   UpdateWorkflowInputModel,
-  AddStepInputModel,
+  WorkflowDefinitionModel,
+  WorkflowStepModel,
 } from './workflow.schema';
 
 const OWNERS = ['@example.workflow-system'] as const;
@@ -16,7 +16,7 @@ const OWNERS = ['@example.workflow-system'] as const;
  */
 export const CreateWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.definition.create',
+    key: 'workflow.definition.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -33,7 +33,7 @@ export const CreateWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.definition.created',
+        key: 'workflow.definition.created',
         version: 1,
         when: 'Workflow is created',
         payload: WorkflowDefinitionModel,
@@ -48,7 +48,7 @@ export const CreateWorkflowContract = defineCommand({
  */
 export const UpdateWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.definition.update',
+    key: 'workflow.definition.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -65,7 +65,7 @@ export const UpdateWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.definition.updated',
+        key: 'workflow.definition.updated',
         version: 1,
         when: 'Workflow is updated',
         payload: WorkflowDefinitionModel,
@@ -80,7 +80,7 @@ export const UpdateWorkflowContract = defineCommand({
  */
 export const AddStepContract = defineCommand({
   meta: {
-    name: 'workflow.step.add',
+    key: 'workflow.step.add',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -97,7 +97,7 @@ export const AddStepContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.step.added',
+        key: 'workflow.step.added',
         version: 1,
         when: 'Step is added',
         payload: WorkflowStepModel,
@@ -112,7 +112,7 @@ export const AddStepContract = defineCommand({
  */
 export const PublishWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.definition.publish',
+    key: 'workflow.definition.publish',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -137,7 +137,7 @@ export const PublishWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.definition.published',
+        key: 'workflow.definition.published',
         version: 1,
         when: 'Workflow is published',
         payload: WorkflowDefinitionModel,
@@ -152,7 +152,7 @@ export const PublishWorkflowContract = defineCommand({
  */
 export const ListWorkflowsContract = defineQuery({
   meta: {
-    name: 'workflow.definition.list',
+    key: 'workflow.definition.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -199,7 +199,7 @@ export const ListWorkflowsContract = defineQuery({
  */
 export const GetWorkflowContract = defineQuery({
   meta: {
-    name: 'workflow.definition.get',
+    key: 'workflow.definition.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

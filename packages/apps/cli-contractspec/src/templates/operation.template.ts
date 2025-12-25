@@ -47,7 +47,7 @@ export const ${outputSchemaName} = new SchemaModel({
 
 export const ${specVarName} = define${capitalize(kind)}({
   meta: {
-    name: '${name}',
+    key: '${name}',
     version: ${version},
     stability: '${stability}',
     owners: [${owners.map((o) => `'${o}'`).join(', ')}],

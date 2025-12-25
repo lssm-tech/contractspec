@@ -5,22 +5,16 @@ import {
   ExecutorProposalSink,
   ProposalExecutor,
   RegeneratorService,
-} from '@lssm/lib.contracts/regenerator';
-import type {
-  ProposalExecutorDeps,
-  ExecutorSinkOptions,
-} from '@lssm/lib.contracts/regenerator';
-import type {
-  AppBlueprintSpec,
-  TenantAppConfig,
-} from '@lssm/lib.contracts/app-config';
-import type {
-  ProposalSink,
-  RegenerationContext,
-  RegenerationRule,
-} from '@lssm/lib.contracts/regenerator/types';
-import type { SignalAdapters } from '@lssm/lib.contracts/regenerator/adapters';
-import { resolveAppConfig } from '@lssm/lib.contracts/app-config';
+  type ProposalExecutorDeps,
+  type ExecutorSinkOptions,
+  type AppBlueprintSpec,
+  type TenantAppConfig,
+  type ProposalSink,
+  type RegenerationContext,
+  type RegenerationRule,
+  type SignalAdapters,
+  resolveAppConfig,
+} from '@lssm/lib.contracts';
 
 interface RegeneratorCliOptions {
   once?: boolean;
@@ -126,7 +120,7 @@ async function loadContexts(
       {
         id:
           tenantConfig.meta.id ??
-          `${tenantConfig.meta.tenantId}-${blueprint.meta.name}`,
+          `${tenantConfig.meta.tenantId}-${blueprint.meta.key}`,
         blueprint,
         tenantConfig,
         resolved: resolveAppConfig(blueprint, tenantConfig),

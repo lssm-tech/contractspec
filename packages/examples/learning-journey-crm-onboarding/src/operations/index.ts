@@ -1,4 +1,4 @@
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
+import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { defineCommand, defineQuery } from '@lssm/lib.contracts';
 
 import { crmFirstWinTrack } from '../track';
@@ -76,7 +76,7 @@ const SuccessModel = defineSchemaModel({
 
 export const GetCrmOnboardingTrack = defineQuery({
   meta: {
-    name: 'learningJourney.crmOnboarding.getTrack',
+    key: 'learningJourney.crmOnboarding.getTrack',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],
@@ -98,7 +98,7 @@ export const GetCrmOnboardingTrack = defineQuery({
 
 export const RecordCrmOnboardingEvent = defineCommand({
   meta: {
-    name: 'learningJourney.crmOnboarding.recordEvent',
+    key: 'learningJourney.crmOnboarding.recordEvent',
     version: 1,
     stability: 'experimental',
     owners: [...OWNERS],

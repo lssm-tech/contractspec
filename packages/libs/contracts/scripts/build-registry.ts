@@ -48,7 +48,7 @@ function main() {
   }
 
   const items: ContractRegistryItem[] = templateIds.map((id) => ({
-    name: id,
+    key: id,
     type: 'contractspec:template',
     version: 1,
     title: id,

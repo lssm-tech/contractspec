@@ -8,7 +8,7 @@ const OWNERS = ['@examples.service-business-os'] as const;
  */
 export const IssueInvoiceContract = defineCommand({
   meta: {
-    name: 'service.invoice.issue',
+    key: 'service.invoice.issue',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

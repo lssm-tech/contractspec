@@ -92,6 +92,12 @@ function defaultFileExtForType(specType: string): string {
   }
 }
 
+interface RegistryAddOptions {
+  registryUrl?: string;
+  outDir?: string;
+  kind?: 'command' | 'query';
+}
+
 export const registryAddCommand = new Command('add')
   .description('Add a registry item to the current project')
   .argument('<type>', 'Item type (operation, event, template, ...)')
@@ -102,7 +108,7 @@ export const registryAddCommand = new Command('add')
     '--kind <kind>',
     'For operations only: command | query (default: command)'
   )
-  .action(async (type: string, name: string, options) => {
+  .action(async (type: string, name: string, options: RegistryAddOptions) => {
     try {
       const config = await loadConfig();
       const registryUrl = resolveRegistryUrl(
@@ -140,12 +146,12 @@ export const registryAddCommand = new Command('add')
 
       if (filesWithContent[0]) {
         const ext = defaultFileExtForType(type);
-        const fileName = generateFileName(item.name, ext);
+        const fileName = generateFileName(item.key, ext);
         const target = join(absoluteOutDir, fileName);
         await writeFileSafe(target, filesWithContent[0].content);
 
         console.log(
-          chalk.green(`✅ Installed ${type}/${item.name} → ${target}`)
+          chalk.green(`✅ Installed ${type}/${item.key} → ${target}`)
         );
         return;
       }
@@ -154,7 +160,7 @@ export const registryAddCommand = new Command('add')
         process.cwd(),
         '.contractspec/registry',
         type,
-        item.name.replace(/\./g, '-')
+        item.key.replace(/\./g, '-')
       );
       await ensureDir(multiRoot);
 
@@ -166,7 +172,7 @@ export const registryAddCommand = new Command('add')
 
       console.log(
         chalk.green(
-          `✅ Installed ${type}/${item.name} (${filesWithContent.length} files) → ${multiRoot}`
+          `✅ Installed ${type}/${item.key} (${filesWithContent.length} files) → ${multiRoot}`
         )
       );
 

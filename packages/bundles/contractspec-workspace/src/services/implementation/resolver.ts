@@ -66,10 +66,10 @@ function computeHash(content: string): string {
  */
 function getConventionPaths(
   specType: string,
-  specName: string,
+  specKey: string,
   outputDir: string
 ): { path: string; type: ImplementationType }[] {
-  const kebab = toKebabCase(specName);
+  const kebab = toKebabCase(specKey);
   const paths: { path: string; type: ImplementationType }[] = [];
 
   if (specType === 'operation') {
@@ -169,7 +169,7 @@ export async function resolveImplementations(
   const specHash = opts.computeHashes ? computeHash(specContent) : undefined;
   const scan = scanSpecSource(specContent, specFile);
 
-  const specName = scan.name ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
+  const specKey = scan.key ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
   const specVersion = scan.version ?? 1;
   const specType = scan.specType ?? 'operation';
 
@@ -220,14 +220,14 @@ export async function resolveImplementations(
   // 2. Add auto-discovered implementations
   if (opts.includeDiscovered) {
     const discovered = await discoverImplementationsForSpec(
-      specName,
+      specKey,
       adapters,
       opts
     );
 
-    // Also search for spec name variants
-    const specNameVariants = getSpecNameVariants(specName);
-    for (const variant of specNameVariants) {
+    // Also search for spec key variants
+    const specKeyVariants = getSpecKeyVariants(specKey);
+    for (const variant of specKeyVariants) {
       const variantDiscovered = await discoverImplementationsForSpec(
         variant,
         adapters,
@@ -247,7 +247,7 @@ export async function resolveImplementations(
   // 3. Add convention-based implementations
   if (opts.includeConvention) {
     const outputDir = opts.outputDir ?? config.outputDir ?? './src';
-    const conventionPaths = getConventionPaths(specType, specName, outputDir);
+    const conventionPaths = getConventionPaths(specType, specKey, outputDir);
 
     for (const { path, type } of conventionPaths) {
       await addImpl(path, type, 'convention');
@@ -258,7 +258,7 @@ export async function resolveImplementations(
   const status = determineStatus(implementations);
 
   return {
-    specName,
+    specKey,
     specVersion,
     specPath: specFile,
     specType,
@@ -302,26 +302,26 @@ function parseExplicitImplementations(code: string): ImplementationRef[] {
 }
 
 /**
- * Get common variants of a spec name for discovery.
+ * Get common variants of a spec key for discovery.
  */
-function getSpecNameVariants(specName: string): string[] {
+function getSpecKeyVariants(specKey: string): string[] {
   const variants: string[] = [];
 
   // Remove common suffixes
-  const base = specName
+  const base = specKey
     .replace(/Spec$/, '')
     .replace(/Contract$/, '')
     .replace(/Command$/, '')
     .replace(/Query$/, '');
 
-  if (base !== specName) {
+  if (base !== specKey) {
     variants.push(base);
     variants.push(`${base}Spec`);
     variants.push(`${base}Contract`);
   }
 
   // Add PascalCase variant
-  const parts = specName.split('.');
+  const parts = specKey.split('.');
   if (parts.length > 1) {
     const pascalName = parts
       .map((p) => p.charAt(0).toUpperCase() + p.slice(1))

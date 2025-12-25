@@ -6,7 +6,7 @@ import { StabilityEnum } from '@lssm/lib.contracts';
  */
 export const SaasDashboardPresentation: PresentationSpec = {
   meta: {
-    name: 'saas.dashboard',
+    key: 'saas.dashboard',
     version: 1,
     title: 'SaaS Dashboard',
     description:
@@ -15,6 +15,8 @@ export const SaasDashboardPresentation: PresentationSpec = {
     owners: ['@saas-team'],
     tags: ['dashboard', 'overview'],
     stability: StabilityEnum.Beta,
+    goal: 'Overview of SaaS activity and metrics',
+    context: 'Main dashboard',
   },
   source: {
     type: 'component',
@@ -32,7 +34,7 @@ export const SaasDashboardPresentation: PresentationSpec = {
  */
 export const SettingsPanelPresentation: PresentationSpec = {
   meta: {
-    name: 'saas.settings',
+    key: 'saas.settings',
     version: 1,
     title: 'Settings Panel',
     description: 'Organization and user settings panel',
@@ -40,6 +42,8 @@ export const SettingsPanelPresentation: PresentationSpec = {
     owners: ['@saas-team'],
     tags: ['settings', 'config'],
     stability: StabilityEnum.Beta,
+    goal: 'Configure organization and user settings',
+    context: 'Settings section',
   },
   source: {
     type: 'component',

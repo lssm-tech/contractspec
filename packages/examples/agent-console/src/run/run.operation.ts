@@ -10,14 +10,14 @@ import {
   TimelineDataPointModel,
 } from './run.schema';
 
-const OWNERS = ['agent-console-team'] as const;
+const OWNERS = ['@agent-console-team'] as const;
 
 /**
  * ExecuteAgentCommand - Starts a new agent run.
  */
 export const ExecuteAgentCommand = defineCommand({
   meta: {
-    name: 'agent.run.execute',
+    key: 'agent.run.execute',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -72,8 +72,11 @@ export const ExecuteAgentCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'run.started',
+        key: 'run.started',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['run', 'started'],
         when: 'Run is queued',
         payload: RunSummaryModel,
       },
@@ -87,7 +90,7 @@ export const ExecuteAgentCommand = defineCommand({
  */
 export const CancelRunCommand = defineCommand({
   meta: {
-    name: 'agent.run.cancel',
+    key: 'agent.run.cancel',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -130,8 +133,11 @@ export const CancelRunCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'run.cancelled',
+        key: 'run.cancelled',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['run', 'cancelled'],
         when: 'Run is cancelled',
         payload: RunSummaryModel,
       },
@@ -145,7 +151,7 @@ export const CancelRunCommand = defineCommand({
  */
 export const GetRunQuery = defineQuery({
   meta: {
-    name: 'agent.run.get',
+    key: 'agent.run.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -181,7 +187,7 @@ export const GetRunQuery = defineQuery({
  */
 export const ListRunsQuery = defineQuery({
   meta: {
-    name: 'agent.run.list',
+    key: 'agent.run.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -233,7 +239,7 @@ export const ListRunsQuery = defineQuery({
  */
 export const GetRunStepsQuery = defineQuery({
   meta: {
-    name: 'agent.run.getSteps',
+    key: 'agent.run.getSteps',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -264,7 +270,7 @@ export const GetRunStepsQuery = defineQuery({
  */
 export const GetRunLogsQuery = defineQuery({
   meta: {
-    name: 'agent.run.getLogs',
+    key: 'agent.run.getLogs',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -309,7 +315,7 @@ export const GetRunLogsQuery = defineQuery({
  */
 export const GetRunMetricsQuery = defineQuery({
   meta: {
-    name: 'agent.run.getMetrics',
+    key: 'agent.run.getMetrics',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

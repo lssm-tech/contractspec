@@ -16,7 +16,7 @@ export function generateMigrationSpec(data: MigrationSpecData): string {
 
 export const ${migrationVar}: MigrationSpec = {
   meta: {
-    name: '${escapeString(data.name)}',
+    key: '${escapeString(data.name)}',
     version: ${data.version},
     title: '${escape(data.title)}',
     description: '${escape(data.description ?? '')}',

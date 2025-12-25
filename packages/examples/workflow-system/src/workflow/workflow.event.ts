@@ -41,9 +41,14 @@ const StepAddedPayload = defineSchemaModel({
  * WorkflowCreatedEvent - A new workflow definition has been created.
  */
 export const WorkflowCreatedEvent = defineEvent({
-  name: 'workflow.definition.created',
-  version: 1,
-  description: 'A new workflow definition has been created.',
+  meta: {
+    key: 'workflow.definition.created',
+    version: 1,
+    description: 'A new workflow definition has been created.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'definition', 'created'],
+  },
   payload: WorkflowDefinitionPayload,
 });
 
@@ -51,9 +56,14 @@ export const WorkflowCreatedEvent = defineEvent({
  * WorkflowUpdatedEvent - A workflow definition has been updated.
  */
 export const WorkflowUpdatedEvent = defineEvent({
-  name: 'workflow.definition.updated',
-  version: 1,
-  description: 'A workflow definition has been updated.',
+  meta: {
+    key: 'workflow.definition.updated',
+    version: 1,
+    description: 'A workflow definition has been updated.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'definition', 'updated'],
+  },
   payload: WorkflowDefinitionPayload,
 });
 
@@ -61,9 +71,14 @@ export const WorkflowUpdatedEvent = defineEvent({
  * WorkflowPublishedEvent - A workflow definition has been published.
  */
 export const WorkflowPublishedEvent = defineEvent({
-  name: 'workflow.definition.published',
-  version: 1,
-  description: 'A workflow definition has been published and is now active.',
+  meta: {
+    key: 'workflow.definition.published',
+    version: 1,
+    description: 'A workflow definition has been published and is now active.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'definition', 'published'],
+  },
   payload: WorkflowDefinitionPayload,
 });
 
@@ -71,8 +86,13 @@ export const WorkflowPublishedEvent = defineEvent({
  * StepAddedEvent - A step has been added to a workflow definition.
  */
 export const StepAddedEvent = defineEvent({
-  name: 'workflow.step.added',
-  version: 1,
-  description: 'A step has been added to a workflow definition.',
+  meta: {
+    key: 'workflow.step.added',
+    version: 1,
+    description: 'A step has been added to a workflow definition.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'step', 'added'],
+  },
   payload: StepAddedPayload,
 });

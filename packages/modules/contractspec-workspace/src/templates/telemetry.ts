@@ -100,7 +100,7 @@ ${anomalyRules}
 
 export const ${specVar}: TelemetrySpec = {
   meta: {
-    name: '${escapeString(data.name)}',
+    key: '${escapeString(data.name)}',
     version: ${data.version},
     title: '${escapeString(data.name)} telemetry',
     description: '${escapeString(

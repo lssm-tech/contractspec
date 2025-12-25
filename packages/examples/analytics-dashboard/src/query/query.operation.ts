@@ -29,6 +29,9 @@ export const CreateQueryContract = defineCommand({
       {
         key: 'analytics.query.created',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['analytics', 'query', 'created'],
         when: 'Query created',
         payload: QueryModel,
       },

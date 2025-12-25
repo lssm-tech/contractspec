@@ -48,7 +48,7 @@ export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
  * Reference information (name + version).
  */
 export interface RefInfo {
-  name: string;
+  key: string;
   version: number;
 }
 
@@ -57,7 +57,7 @@ export interface RefInfo {
  */
 export interface ExtractedRef {
   type: RefType;
-  name: string;
+  key: string;
   version: number;
   sourceFile: string;
   sourceLine?: number;
@@ -69,7 +69,7 @@ export interface ExtractedRef {
 export interface SpecScanResult {
   filePath: string;
   specType: AnalyzedSpecType;
-  name?: string;
+  key?: string;
   version?: number;
   kind?: AnalyzedOperationKind;
   stability?: Stability;
@@ -147,7 +147,7 @@ export interface SemanticDiffOptions {
  * A node in the contract dependency graph.
  */
 export interface ContractNode {
-  name: string;
+  key: string;
   file: string;
   dependencies: string[];
   dependents: string[];

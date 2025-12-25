@@ -1,8 +1,8 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import {
-  TaskModel,
   CreateTaskInputModel,
+  TaskModel,
   UpdateTaskStatusInputModel,
 } from './task.schema';
 
@@ -33,7 +33,7 @@ export const ListTasksOutputModel = defineSchemaModel({
 
 export const ListTasksOperation = defineQuery({
   meta: {
-    name: 'team.task.list',
+    key: 'team.task.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -56,7 +56,7 @@ export const ListTasksOperation = defineQuery({
  */
 export const CreateTaskContract = defineCommand({
   meta: {
-    name: 'team.task.create',
+    key: 'team.task.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -77,7 +77,7 @@ export const CreateTaskContract = defineCommand({
  */
 export const UpdateTaskStatusContract = defineCommand({
   meta: {
-    name: 'team.task.updateStatus',
+    key: 'team.task.updateStatus',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

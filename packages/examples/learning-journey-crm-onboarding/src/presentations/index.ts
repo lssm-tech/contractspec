@@ -1,21 +1,23 @@
-import type { PresentationMeta, PresentationSpec } from '@lssm/lib.contracts';
+import type { PresentationSpecMeta, PresentationSpec } from '@lssm/lib.contracts';
 import { StabilityEnum } from '@lssm/lib.contracts';
 import { CrmOnboardingTrackModel } from '../operations';
 
 const baseMeta: Pick<
-  PresentationMeta,
-  'domain' | 'owners' | 'tags' | 'title' | 'stability'
+  PresentationSpecMeta,
+  'domain' | 'owners' | 'tags' | 'title' | 'stability' | 'goal' | 'context'
 > = {
   domain: 'learning-journey',
   title: 'CRM Onboarding',
   owners: ['examples.learning-journey.crm-onboarding'],
   tags: ['learning', 'crm', 'onboarding'],
   stability: StabilityEnum.Experimental,
+  goal: 'Guide CRM users through onboarding',
+  context: 'CRM onboarding journey',
 };
 
 export const CrmOnboardingTrackPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.crm.track',
+    key: 'learning.journey.crm.track',
     version: 1,
     description: 'CRM first win track detail',
     ...baseMeta,
@@ -31,7 +33,7 @@ export const CrmOnboardingTrackPresentation: PresentationSpec = {
 
 export const CrmOnboardingWidgetPresentation: PresentationSpec = {
   meta: {
-    name: 'learning.journey.crm.widget',
+    key: 'learning.journey.crm.widget',
     version: 1,
     description: 'Compact widget for CRM onboarding progress',
     ...baseMeta,

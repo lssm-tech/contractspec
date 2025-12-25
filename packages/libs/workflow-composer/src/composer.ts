@@ -1,4 +1,4 @@
-import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
+import type { WorkflowSpec } from '@lssm/lib.contracts';
 import { applyWorkflowExtension } from './injector';
 import type { ComposeParams, WorkflowExtension } from './types';
 

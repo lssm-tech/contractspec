@@ -55,44 +55,74 @@ const PaymentEventPayload = defineSchemaModel({
 });
 
 export const QuoteSentEvent = defineEvent({
-  name: 'service.quote.sent',
-  version: 1,
-  description: 'A quote was sent to the client.',
+  meta: {
+    key: 'service.quote.sent',
+    version: 1,
+    description: 'A quote was sent to the client.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'quote', 'sent'],
+  },
   payload: QuoteEventPayload,
 });
 
 export const QuoteAcceptedEvent = defineEvent({
-  name: 'service.quote.accepted',
-  version: 1,
-  description: 'A quote was accepted.',
+  meta: {
+    key: 'service.quote.accepted',
+    version: 1,
+    description: 'A quote was accepted.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'quote', 'accepted'],
+  },
   payload: QuoteEventPayload,
 });
 
 export const JobScheduledEvent = defineEvent({
-  name: 'service.job.scheduled',
-  version: 1,
-  description: 'A job was scheduled.',
+  meta: {
+    key: 'service.job.scheduled',
+    version: 1,
+    description: 'A job was scheduled.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'job', 'scheduled'],
+  },
   payload: JobEventPayload,
 });
 
 export const JobCompletedEvent = defineEvent({
-  name: 'service.job.completed',
-  version: 1,
-  description: 'A job was completed.',
+  meta: {
+    key: 'service.job.completed',
+    version: 1,
+    description: 'A job was completed.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'job', 'completed'],
+  },
   payload: JobEventPayload,
 });
 
 export const InvoiceIssuedEvent = defineEvent({
-  name: 'service.invoice.issued',
-  version: 1,
-  description: 'An invoice was issued.',
+  meta: {
+    key: 'service.invoice.issued',
+    version: 1,
+    description: 'An invoice was issued.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'invoice', 'issued'],
+  },
   payload: InvoiceEventPayload,
 });
 
 export const PaymentReceivedEvent = defineEvent({
-  name: 'service.payment.received',
-  version: 1,
-  description: 'A payment was recorded.',
+  meta: {
+    key: 'service.payment.received',
+    version: 1,
+    description: 'A payment was recorded.',
+    stability: 'stable',
+    owners: ['@service-os'],
+    tags: ['service', 'payment', 'received'],
+  },
   payload: PaymentEventPayload,
 });
 

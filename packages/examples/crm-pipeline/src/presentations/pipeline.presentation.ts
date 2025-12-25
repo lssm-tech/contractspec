@@ -18,6 +18,8 @@ export const PipelineKanbanPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['pipeline', 'kanban', 'deals'],
     stability: StabilityEnum.Experimental,
+    goal: 'Visualize the sales pipeline status and deal distribution across stages.',
+    context: 'Used in the sales dashboard and management reports.',
   },
   source: {
     type: 'component',
@@ -44,6 +46,8 @@ export const DealListPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['deal', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Search, filter, and review deal lists.',
+    context: 'Standard view for deal management and bulk actions.',
   },
   source: {
     type: 'component',
@@ -71,6 +75,8 @@ export const DealDetailPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['deal', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Deep dive into deal details and historical activities.',
+    context: 'The main workspace for managing a single deal execution.',
   },
   source: {
     type: 'component',
@@ -96,6 +102,8 @@ export const DealCardPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['deal', 'card', 'kanban'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide a quick overview of deal status in the pipeline view.',
+    context: 'Condensed representation used within the Pipeline Kanban board.',
   },
   source: {
     type: 'component',

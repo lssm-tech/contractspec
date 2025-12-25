@@ -1,4 +1,4 @@
-import type { GetObjectResult } from '@lssm/lib.contracts/integrations/providers';
+import type { GetObjectResult } from '@lssm/lib.contracts';
 import type { DocumentProcessor } from './document-processor';
 import type { EmbeddingService } from './embedding-service';
 import type { VectorIndexer } from './vector-indexer';

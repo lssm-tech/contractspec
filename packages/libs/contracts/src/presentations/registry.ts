@@ -26,12 +26,12 @@ export class PresentationRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): PresentationSpec | undefined {
-    if (version != null) return this.items.get(`${name}.v${version}`);
+  get(key: string, version?: number): PresentationSpec | undefined {
+    if (version != null) return this.items.get(`${key}.v${version}`);
     let candidate: PresentationSpec | undefined;
     let max = -Infinity;
     for (const [k, p] of this.items.entries()) {
-      if (!k.startsWith(`${name}.v`)) continue;
+      if (!k.startsWith(`${key}.v`)) continue;
       if (p.meta.version > max) {
         max = p.meta.version;
         candidate = p;

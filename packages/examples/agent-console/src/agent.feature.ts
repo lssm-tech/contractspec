@@ -18,7 +18,7 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     domain: 'ai-ops',
     owners: ['@agent-console-team'],
     tags: ['ai', 'agents', 'orchestration'],
-    stability: 'experimental',
+    stability: 'stable',
   },
 
   // All contract operations included in this feature

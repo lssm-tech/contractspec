@@ -47,20 +47,20 @@ export interface HttpBindingSnapshot {
 /** Operation snapshot */
 export interface OperationSnapshot {
   type: 'operation';
-  name: string;
+  key: string;
   version: number;
   kind: 'command' | 'query';
   stability: string;
   http?: HttpBindingSnapshot;
   io: IoSnapshot;
   authLevel?: string;
-  emittedEvents?: { name: string; version: number }[];
+  emittedEvents?: { key: string; version: number }[];
 }
 
 /** Event payload snapshot */
 export interface EventSnapshot {
   type: 'event';
-  name: string;
+  key: string;
   version: number;
   stability: string;
   payload: Record<string, FieldSnapshot>;

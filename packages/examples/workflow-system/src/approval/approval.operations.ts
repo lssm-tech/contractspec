@@ -1,7 +1,7 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts/operations';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { ApprovalStatusEnum, ApprovalDecisionEnum } from './approval.enum';
-import { ApprovalRequestModel, ApprovalCommentModel } from './approval.schema';
+import { ApprovalDecisionEnum, ApprovalStatusEnum } from './approval.enum';
+import { ApprovalCommentModel, ApprovalRequestModel } from './approval.schema';
 
 const OWNERS = ['@example.workflow-system'] as const;
 
@@ -10,7 +10,7 @@ const OWNERS = ['@example.workflow-system'] as const;
  */
 export const SubmitDecisionContract = defineCommand({
   meta: {
-    name: 'workflow.approval.decide',
+    key: 'workflow.approval.decide',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -38,7 +38,7 @@ export const SubmitDecisionContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.approval.decided',
+        key: 'workflow.approval.decided',
         version: 1,
         when: 'Decision is made',
         payload: ApprovalRequestModel,
@@ -53,7 +53,7 @@ export const SubmitDecisionContract = defineCommand({
  */
 export const DelegateApprovalContract = defineCommand({
   meta: {
-    name: 'workflow.approval.delegate',
+    key: 'workflow.approval.delegate',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -83,7 +83,7 @@ export const DelegateApprovalContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.approval.delegated',
+        key: 'workflow.approval.delegated',
         version: 1,
         when: 'Approval is delegated',
         payload: ApprovalRequestModel,
@@ -98,7 +98,7 @@ export const DelegateApprovalContract = defineCommand({
  */
 export const AddApprovalCommentContract = defineCommand({
   meta: {
-    name: 'workflow.approval.comment.add',
+    key: 'workflow.approval.comment.add',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -125,7 +125,7 @@ export const AddApprovalCommentContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.approval.comment.added',
+        key: 'workflow.approval.comment.added',
         version: 1,
         when: 'Comment is added',
         payload: ApprovalCommentModel,
@@ -139,7 +139,7 @@ export const AddApprovalCommentContract = defineCommand({
  */
 export const ListMyApprovalsContract = defineQuery({
   meta: {
-    name: 'workflow.approval.list.mine',
+    key: 'workflow.approval.list.mine',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -189,7 +189,7 @@ export const ListMyApprovalsContract = defineQuery({
  */
 export const GetApprovalContract = defineQuery({
   meta: {
-    name: 'workflow.approval.get',
+    key: 'workflow.approval.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

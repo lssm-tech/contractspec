@@ -22,7 +22,7 @@ const SPEC_REFERENCE_PATTERNS = {
   contractHandler: /ContractHandler\s*<\s*typeof\s+(\w+)\s*>/g,
   // typeof SpecName (generic usage)
   typeofSpec: /typeof\s+(\w+(?:Spec|Contract|Command|Query))\b/g,
-  // spec: SpecName or spec = SpecName
+  // spec: SpecKey or spec = SpecKey
   specAssignment:
     /(?:spec|contract)\s*[:=]\s*(\w+(?:Spec|Contract|Command|Query))\b/gi,
 };
@@ -82,17 +82,17 @@ export function extractSpecReferences(
 
   // Helper to add unique matches
   const addMatch = (
-    specName: string,
+    specKey: string,
     referenceType: SpecReferenceMatch['referenceType'],
     lineNumber?: number
   ) => {
-    const key = `${specName}:${referenceType}`;
+    const key = `${specKey}:${referenceType}`;
     if (seenSpecs.has(key)) return;
     seenSpecs.add(key);
 
     matches.push({
       filePath,
-      specName,
+      specKey,
       referenceType,
       lineNumber,
       inferredType: inferImplementationType(filePath),
@@ -177,7 +177,7 @@ const DEFAULT_EXCLUDE_PATTERNS = [
  * Discover implementations that reference a specific spec.
  */
 export async function discoverImplementationsForSpec(
-  specName: string,
+  specKey: string,
   adapters: { fs: FsAdapter },
   options: DiscoveryOptions = {}
 ): Promise<SpecReferenceMatch[]> {
@@ -198,7 +198,7 @@ export async function discoverImplementationsForSpec(
 
         // Filter to only references for the target spec
         const matchingRefs = references.filter(
-          (ref) => ref.specName === specName
+          (ref) => ref.specKey === specKey
         );
         allMatches.push(...matchingRefs);
       } catch {
@@ -212,7 +212,7 @@ export async function discoverImplementationsForSpec(
 
 /**
  * Discover all spec references in the workspace.
- * Returns a map of spec name to implementation references.
+ * Returns a map of spec key to implementation references.
  */
 export async function discoverAllImplementations(
   adapters: { fs: FsAdapter },
@@ -233,11 +233,11 @@ export async function discoverAllImplementations(
         const content = await fs.readFile(filePath);
         const references = extractSpecReferences(content, filePath);
 
-        // Group by spec name
+        // Group by spec key
         for (const ref of references) {
-          const existing = specToImplementations.get(ref.specName) ?? [];
+          const existing = specToImplementations.get(ref.specKey) ?? [];
           existing.push(ref);
-          specToImplementations.set(ref.specName, existing);
+          specToImplementations.set(ref.specKey, existing);
         }
       } catch {
         // Skip files that can't be read

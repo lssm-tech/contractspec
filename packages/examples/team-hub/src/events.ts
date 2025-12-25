@@ -54,44 +54,74 @@ const AnnouncementPayload = defineSchemaModel({
 });
 
 export const SpaceCreatedEvent = defineEvent({
-  name: 'team.space.created',
-  version: 1,
-  description: 'A space was created.',
+  meta: {
+    key: 'team.space.created',
+    version: 1,
+    description: 'A space was created.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'space', 'created'],
+  },
   payload: SpaceEventPayload,
 });
 
 export const TaskCreatedEvent = defineEvent({
-  name: 'team.task.created',
-  version: 1,
-  description: 'A task was created.',
+  meta: {
+    key: 'team.task.created',
+    version: 1,
+    description: 'A task was created.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'task', 'created'],
+  },
   payload: TaskEventPayload,
 });
 
 export const TaskStatusChangedEvent = defineEvent({
-  name: 'team.task.status_changed',
-  version: 1,
-  description: 'A task status changed.',
+  meta: {
+    key: 'team.task.status_changed',
+    version: 1,
+    description: 'A task status changed.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'task', 'status_changed'],
+  },
   payload: TaskEventPayload,
 });
 
 export const RitualScheduledEvent = defineEvent({
-  name: 'team.ritual.scheduled',
-  version: 1,
-  description: 'A ritual was scheduled.',
+  meta: {
+    key: 'team.ritual.scheduled',
+    version: 1,
+    description: 'A ritual was scheduled.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'ritual', 'scheduled'],
+  },
   payload: RitualEventPayload,
 });
 
 export const RitualOccurredEvent = defineEvent({
-  name: 'team.ritual.occurred',
-  version: 1,
-  description: 'A ritual occurrence was logged.',
+  meta: {
+    key: 'team.ritual.occurred',
+    version: 1,
+    description: 'A ritual occurrence was logged.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'ritual', 'occurred'],
+  },
   payload: RitualEventPayload,
 });
 
 export const AnnouncementPostedEvent = defineEvent({
-  name: 'team.announcement.posted',
-  version: 1,
-  description: 'An announcement was posted.',
+  meta: {
+    key: 'team.announcement.posted',
+    version: 1,
+    description: 'An announcement was posted.',
+    stability: 'stable',
+    owners: ['@team-hub'],
+    tags: ['team', 'announcement', 'posted'],
+  },
   payload: AnnouncementPayload,
 });
 

@@ -27,8 +27,8 @@ import type { HandlerForOperationSpec } from '../install';
 
 export type OperationKey = `${string}.v${number}`;
 
-export function opKey(name: string, version: number): OperationKey {
-  return `${name}.v${version}`;
+export function opKey(key: string, version: number): OperationKey {
+  return `${key}.v${version}`;
 }
 
 type AnyOperationHandler = (args: unknown, ctx: HandlerCtx) => Promise<unknown>;
@@ -90,13 +90,13 @@ export class OperationSpecRegistry {
    * @param name - Operation name.
    * @param version - (Optional) Specific version.
    */
-  getSpec(name: string, version?: number): AnyOperationSpec | undefined {
-    if (version != null) return this.specs.get(opKey(name, version));
+  getSpec(key: string, version?: number): AnyOperationSpec | undefined {
+    if (version != null) return this.specs.get(opKey(key, version));
     // find highest version by scanning keys of the same name
     let found: AnyOperationSpec | undefined;
     let maxV = -Infinity;
     for (const [k, s] of this.specs.entries()) {
-      if (!k.startsWith(`${name}.v`)) continue;
+      if (!k.startsWith(`${key}.v`)) continue;
       if (s.meta.version > maxV) {
         maxV = s.meta.version;
         found = s;
@@ -108,8 +108,8 @@ export class OperationSpecRegistry {
   /**
    * Retrieves the bound handler for a spec.
    */
-  getHandler(name: string, version?: number): AnyOperationHandler | undefined {
-    const spec = this.getSpec(name, version);
+  getHandler(key: string, version?: number): AnyOperationHandler | undefined {
+    const spec = this.getSpec(key, version);
     if (!spec) return undefined;
     return this.handlers.get(opKey(spec.meta.key, spec.meta.version));
   }
@@ -197,21 +197,21 @@ export class OperationSpecRegistry {
    * 4. Validates output against Zod schema (if applicable).
    * 5. Tracks telemetry (success/failure).
    *
-   * @param name - Operation name.
+   * @param key - Operation key.
    * @param version - Operation version (optional, defaults to latest).
    * @param rawInput - The raw input payload (e.g. from JSON body).
    * @param ctx - The runtime context (actor, tenant, etc.).
    */
   async execute(
-    name: string,
+    key: string,
     version: number | undefined,
     rawInput: unknown,
     ctx: HandlerCtx
   ): Promise<unknown> {
-    const baseSpec = this.getSpec(name, version);
+    const baseSpec = this.getSpec(key, version);
     if (!baseSpec)
       throw new Error(
-        `Spec not found for ${name}${version ? `.v${version}` : ''}`
+        `Spec not found for ${key}${version ? `.v${version}` : ''}`
       );
     const spec =
       (await ctx.specVariantResolver?.resolve(
@@ -223,14 +223,14 @@ export class OperationSpecRegistry {
         ctx
       )) ?? baseSpec;
 
-    let key = opKey(spec.meta.key, spec.meta.version);
-    let handler = this.handlers.get(key);
+    let handlerKey = opKey(spec.meta.key, spec.meta.version);
+    let handler = this.handlers.get(handlerKey);
     if (!handler) {
       const fallbackKey = opKey(baseSpec.meta.key, baseSpec.meta.version);
       handler = this.handlers.get(fallbackKey);
-      key = fallbackKey;
+      handlerKey = fallbackKey;
     }
-    if (!handler) throw new Error(`No handler bound for ${key}`);
+    if (!handler) throw new Error(`No handler bound for ${handlerKey}`);
 
     // 1) Validate input
     const parsedInput = spec.io.input?.getZod().parse(rawInput);

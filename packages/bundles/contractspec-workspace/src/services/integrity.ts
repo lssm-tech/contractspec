@@ -47,7 +47,7 @@ export interface IntegrityAnalysisOptions {
  * Location of a spec in the codebase.
  */
 export interface SpecLocation {
-  name: string;
+  key: string;
   version: number;
   file: string;
   type: AnalyzedSpecType;
@@ -83,7 +83,7 @@ export interface IntegrityIssue {
   type: 'orphaned' | 'unresolved-ref' | 'missing-feature' | 'broken-link';
   message: string;
   file: string;
-  specName?: string;
+  specKey?: string;
   specType?: AnalyzedSpecType;
   ref?: RefInfo;
   featureKey?: string;
@@ -141,8 +141,8 @@ export interface IntegrityAnalysisResult {
 /**
  * Build a spec key from name and version.
  */
-function specKey(name: string, version: number): string {
-  return `${name}.v${version}`;
+function specKey(key: string, version: number): string {
+  return `${key}.v${version}`;
 }
 
 /**
@@ -230,10 +230,10 @@ export async function analyzeIntegrity(
         if (spec.specType !== 'unknown' && spec.specType !== 'feature') {
           const map = getInventoryMap(inventory, spec.specType);
 
-          if (map && spec.name && spec.version !== undefined) {
-            const key = specKey(spec.name, spec.version);
+          if (map && spec.key && spec.version !== undefined) {
+            const key = specKey(spec.key, spec.version);
             map.set(key, {
-              name: spec.name,
+              key: spec.key,
               version: spec.version,
               file: spec.filePath,
               type: spec.specType,
@@ -256,14 +256,14 @@ export async function analyzeIntegrity(
   for (const feature of relevantFeatures) {
     // Check operation refs
     for (const ref of feature.operations) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       referencedSpecs.add(`operation:${key}`);
 
       if (!inventory.operations.has(key)) {
         issues.push({
           severity: 'error',
           type: 'unresolved-ref',
-          message: `Operation ${ref.name}.v${ref.version} not found`,
+          message: `Operation ${ref.key}.v${ref.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'operation',
@@ -274,14 +274,14 @@ export async function analyzeIntegrity(
 
     // Check event refs
     for (const ref of feature.events) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       referencedSpecs.add(`event:${key}`);
 
       if (!inventory.events.has(key)) {
         issues.push({
           severity: 'error',
           type: 'unresolved-ref',
-          message: `Event ${ref.name}.v${ref.version} not found`,
+          message: `Event ${ref.key}.v${ref.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'event',
@@ -292,14 +292,14 @@ export async function analyzeIntegrity(
 
     // Check presentation refs
     for (const ref of feature.presentations) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       referencedSpecs.add(`presentation:${key}`);
 
       if (!inventory.presentations.has(key)) {
         issues.push({
           severity: 'error',
           type: 'unresolved-ref',
-          message: `Presentation ${ref.name}.v${ref.version} not found`,
+          message: `Presentation ${ref.key}.v${ref.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'presentation',
@@ -310,14 +310,14 @@ export async function analyzeIntegrity(
 
     // Check experiment refs
     for (const ref of feature.experiments) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       referencedSpecs.add(`experiment:${key}`);
 
       if (!inventory.experiments.has(key)) {
         issues.push({
           severity: 'error',
           type: 'unresolved-ref',
-          message: `Experiment ${ref.name}.v${ref.version} not found`,
+          message: `Experiment ${ref.key}.v${ref.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'experiment',
@@ -328,14 +328,14 @@ export async function analyzeIntegrity(
 
     // Check capability refs (provides and requires)
     for (const ref of feature.capabilities.provides) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       referencedSpecs.add(`capability:${key}`);
 
       if (!inventory.capabilities.has(key)) {
         issues.push({
           severity: 'warning',
           type: 'unresolved-ref',
-          message: `Provided capability ${ref.name}.v${ref.version} not found`,
+          message: `Provided capability ${ref.key}.v${ref.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'capability',
@@ -345,7 +345,7 @@ export async function analyzeIntegrity(
     }
 
     for (const ref of feature.capabilities.requires) {
-      const key = specKey(ref.name, ref.version);
+      const key = specKey(ref.key, ref.version);
       // Required capabilities are expected to be provided by other features
       // We just track the reference
       referencedSpecs.add(`capability:${key}`);
@@ -353,14 +353,14 @@ export async function analyzeIntegrity(
 
     // Check op to presentation links
     for (const link of feature.opToPresentationLinks) {
-      const opKey = specKey(link.op.name, link.op.version);
-      const presKey = specKey(link.pres.name, link.pres.version);
+      const opKey = specKey(link.op.key, link.op.version);
+      const presKey = specKey(link.pres.key, link.pres.version);
 
       if (!inventory.operations.has(opKey)) {
         issues.push({
           severity: 'error',
           type: 'broken-link',
-          message: `Linked operation ${link.op.name}.v${link.op.version} not found`,
+          message: `Linked operation ${link.op.key}.v${link.op.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'operation',
@@ -372,7 +372,7 @@ export async function analyzeIntegrity(
         issues.push({
           severity: 'error',
           type: 'broken-link',
-          message: `Linked presentation ${link.pres.name}.v${link.pres.version} not found`,
+          message: `Linked presentation ${link.pres.key}.v${link.pres.version} not found`,
           file: feature.filePath,
           featureKey: feature.key,
           specType: 'presentation',
@@ -401,9 +401,9 @@ export async function analyzeIntegrity(
         issues.push({
           severity: 'warning',
           type: 'orphaned',
-          message: `${type} ${location.name}.v${location.version} is not linked to any feature`,
+          message: `${type} ${location.key}.v${location.version} is not linked to any feature`,
           file: location.file,
-          specName: location.name,
+          specKey: location.key,
           specType: location.type,
         });
       }

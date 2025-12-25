@@ -64,7 +64,7 @@ export function inferSpecTypeFromFilePath(filePath: string): AnalyzedSpecType {
 export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const specType = inferSpecTypeFromFilePath(filePath);
 
-  const name = matchStringField(code, 'name');
+  const key = matchStringField(code, 'key');
   const description = matchStringField(code, 'description');
   const stabilityRaw = matchStringField(code, 'stability');
   const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
@@ -91,7 +91,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   return {
     filePath,
     specType,
-    name: name ?? undefined,
+    key: key ?? undefined,
     description: description ?? undefined,
     stability,
     owners,
@@ -117,13 +117,13 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
 export function extractEmittedEvents(code: string): RefInfo[] | undefined {
   const events: RefInfo[] = [];
 
-  // Match inline emit declarations: { name: 'x', version: N, ... }
-  const inlinePattern = /\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  // Match inline emit declarations: { key: 'x', version: N, ... }
+  const inlinePattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
   let match;
   while ((match = inlinePattern.exec(code)) !== null) {
     if (match[1] && match[2]) {
       events.push({
-        name: match[1],
+        key: match[1],
         version: Number(match[2]),
       });
     }
@@ -135,7 +135,7 @@ export function extractEmittedEvents(code: string): RefInfo[] | undefined {
   while ((match = refPattern.exec(code)) !== null) {
     // Store a placeholder - actual resolution needs runtime
     if (match[1] && !match[1].startsWith('when')) {
-      // We can't extract name/version from a variable ref statically
+      // We can't extract key/version from a variable ref statically
       // This is noted for completeness but won't be fully resolvable
     }
   }
@@ -150,7 +150,7 @@ export function extractPolicyRefs(code: string): RefInfo[] | undefined {
   const policies: RefInfo[] = [];
 
   // Match policy ref pattern in policies array
-  const policyPattern = /\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  const policyPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
 
   // Only look within policy section
   const policySectionMatch = code.match(/policies\s*:\s*\[([\s\S]*?)\]/);
@@ -159,7 +159,7 @@ export function extractPolicyRefs(code: string): RefInfo[] | undefined {
     while ((match = policyPattern.exec(policySectionMatch[1])) !== null) {
       if (match[1] && match[2]) {
         policies.push({
-          name: match[1],
+          key: match[1],
           version: Number(match[2]),
         });
       }
@@ -178,12 +178,12 @@ export function extractTestRefs(code: string): RefInfo[] | undefined {
   // Look for tests array
   const testsSectionMatch = code.match(/tests\s*:\s*\[([\s\S]*?)\]/);
   if (testsSectionMatch?.[1]) {
-    const refPattern = /\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+    const refPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
     let match;
     while ((match = refPattern.exec(testsSectionMatch[1])) !== null) {
       if (match[1] && match[2]) {
         tests.push({
-          name: match[1],
+          key: match[1],
           version: Number(match[2]),
         });
       }
@@ -263,15 +263,15 @@ function inferOperationKindFromBlock(block: string): AnalyzedOperationKind {
 }
 
 /**
- * Extract name and version from a meta block.
+ * Extract key and version from a meta block.
  */
 function extractMetaFromBlock(
   block: string
-): { name: string; version: number } | null {
-  const name = matchStringField(block, 'name');
+): { key: string; version: number } | null {
+  const key = matchStringField(block, 'key');
   const version = matchNumberField(block, 'version');
-  if (name && version !== null) {
-    return { name, version };
+  if (key && version !== null) {
+    return { key, version };
   }
   return null;
 }
@@ -433,7 +433,7 @@ export function scanAllSpecsFromSource(
       results.push({
         filePath,
         specType: type,
-        name: meta.name,
+        key: meta.key,
         version: meta.version,
         description: description ?? undefined,
         stability,
@@ -457,7 +457,7 @@ export function scanAllSpecsFromSource(
   // This handles cases where the file uses non-standard patterns
   if (results.length === 0 && baseSpecType !== 'unknown') {
     const fallback = scanSpecSource(code, filePath);
-    if (fallback.name && fallback.version !== undefined) {
+    if (fallback.key && fallback.version !== undefined) {
       results.push(fallback);
     }
   }

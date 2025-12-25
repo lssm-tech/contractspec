@@ -50,7 +50,7 @@ ${data.successMetrics
 
 export const ${specVar}: ExperimentSpec = {
   meta: {
-    name: '${escapeString(data.name)}',
+    key: '${escapeString(data.name)}',
     version: ${data.version},
     title: '${escapeString(data.name)} experiment',
     description: '${escapeString(

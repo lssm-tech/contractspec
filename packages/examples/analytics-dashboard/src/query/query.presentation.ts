@@ -12,6 +12,8 @@ export const QueriesListPresentation: PresentationSpec = {
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'queries', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Browse and manage saved data queries.',
+    context: 'The library of reusable data definitions.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const QueryBuilderPresentation: PresentationSpec = {
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'query', 'builder'],
     stability: StabilityEnum.Experimental,
+    goal: 'Visually construct data queries and transformations.',
+    context: 'Developer tool for data analysis.',
   },
   source: {
     type: 'component',

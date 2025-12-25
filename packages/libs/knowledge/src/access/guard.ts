@@ -1,8 +1,8 @@
 import type {
   ResolvedAppConfig,
   ResolvedKnowledge,
-} from '@lssm/lib.contracts/app-config';
-import type { KnowledgeCategory } from '@lssm/lib.contracts/knowledge';
+  KnowledgeCategory,
+} from '@lssm/lib.contracts';
 import type { KnowledgeAccessContext, KnowledgeAccessResult } from '../types';
 
 export interface KnowledgeAccessGuardOptions {

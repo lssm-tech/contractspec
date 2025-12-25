@@ -1,8 +1,8 @@
 import { defineCommand } from '@lssm/lib.contracts';
 import {
+  LogRitualOccurrenceInputModel,
   RitualModel,
   ScheduleRitualInputModel,
-  LogRitualOccurrenceInputModel,
 } from './ritual.schema';
 
 const OWNERS = ['@examples.team-hub'] as const;
@@ -12,7 +12,7 @@ const OWNERS = ['@examples.team-hub'] as const;
  */
 export const ScheduleRitualContract = defineCommand({
   meta: {
-    name: 'team.ritual.schedule',
+    key: 'team.ritual.schedule',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -33,7 +33,7 @@ export const ScheduleRitualContract = defineCommand({
  */
 export const LogRitualOccurrenceContract = defineCommand({
   meta: {
-    name: 'team.ritual.logOccurrence',
+    key: 'team.ritual.logOccurrence',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

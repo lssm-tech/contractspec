@@ -4,8 +4,8 @@
  */
 
 import type {
-  SpecScanResult,
   FeatureScanResult,
+  SpecScanResult,
 } from '../types/analysis-types';
 import type { Stability } from '../types/spec-types';
 
@@ -50,9 +50,9 @@ export const SpecGroupingStrategies = {
 
   /** Group by domain (first segment of name). */
   byDomain: (item: SpecScanResult): string => {
-    const name = item.name ?? '';
-    if (name.includes('.')) {
-      return name.split('.')[0] ?? 'default';
+    const key = item.key ?? '';
+    if (key.includes('.')) {
+      return key.split('.')[0] ?? 'default';
     }
     return 'default';
   },
@@ -111,12 +111,12 @@ export function filterSpecs(
 
     // Filter by name pattern
     if (filter.namePattern) {
-      const name = spec.name ?? '';
+      const key = spec.key ?? '';
       const pattern = filter.namePattern
         .replace(/\*/g, '.*')
         .replace(/\?/g, '.');
       const regex = new RegExp(`^${pattern}$`, 'i');
-      if (!regex.test(name)) return false;
+      if (!regex.test(key)) return false;
     }
 
     return true;

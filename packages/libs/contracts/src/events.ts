@@ -38,7 +38,7 @@ export interface EventEnvelope<T> {
   /** Optional trace identifier for correlating across services. */
   traceId?: string;
   /** Event name as published (should match spec.name). */
-  name: string;
+  key: string;
   /** Event version as published (should match spec.version). */
   version: number;
   /** Validated payload. */
@@ -47,8 +47,8 @@ export interface EventEnvelope<T> {
 
 export type EventKey = `${string}.v${number}`;
 /** Build a stable string key for an event name/version pair. */
-export const eventKey = (name: string, version: number): EventKey =>
-  `${name}.v${version}`;
+export const eventKey = (key: string, version: number): EventKey =>
+  `${key}.v${version}`;
 
 function keyOf(p: AnyEventSpec) {
   return `${p.meta.key}.v${p.meta.version}`;
@@ -75,12 +75,12 @@ export class EventRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): AnyEventSpec | undefined {
-    if (version != null) return this.items.get(`${name}.v${version}`);
+  get(key: string, version?: number): AnyEventSpec | undefined {
+    if (version != null) return this.items.get(`${key}.v${version}`);
     let candidate: AnyEventSpec | undefined;
     let max = -Infinity;
     for (const [k, p] of this.items.entries()) {
-      if (!k.startsWith(`${name}.v`)) continue;
+      if (!k.startsWith(`${key}.v`)) continue;
       if (p.meta.version > max) {
         max = p.meta.version;
         candidate = p;

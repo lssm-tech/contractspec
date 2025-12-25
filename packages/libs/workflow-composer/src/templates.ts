@@ -2,7 +2,7 @@ import type {
   Step,
   StepAction,
   StepType,
-} from '@lssm/lib.contracts/workflow/spec';
+} from '@lssm/lib.contracts';
 
 export interface StepTemplateOptions {
   id: string;

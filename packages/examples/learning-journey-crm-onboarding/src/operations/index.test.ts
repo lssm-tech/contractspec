@@ -16,7 +16,7 @@ describe('crm onboarding contracts', () => {
   it('exposes track metadata', () => {
     expect(crmOnboardingContracts.track.id).toBe('crm_first_win');
     expect(crmOnboardingContracts.track.steps.length).toBeGreaterThan(0);
-    expect(GetCrmOnboardingTrack.meta.name).toBe(
+    expect(GetCrmOnboardingTrack.meta.key).toBe(
       'learningJourney.crmOnboarding.getTrack'
     );
   });
@@ -42,7 +42,7 @@ describe('crm onboarding contracts', () => {
   });
 
   it('exposes record event contract', () => {
-    expect(RecordCrmOnboardingEvent.meta.name).toBe(
+    expect(RecordCrmOnboardingEvent.meta.key).toBe(
       'learningJourney.crmOnboarding.recordEvent'
     );
   });

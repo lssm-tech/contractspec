@@ -19,6 +19,7 @@ export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
     owners: ['@examples.learning-journey.crm-onboarding'],
     tags: ['learning', 'crm', 'onboarding', 'journey'],
     stability: 'experimental',
+    version: 1,
   },
 
   // All contract operations included in this feature

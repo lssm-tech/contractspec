@@ -144,8 +144,8 @@ function computeSnapshotDiffs(
 ): ReturnType<typeof computeIoDiff> {
   const diffs: ReturnType<typeof computeIoDiff> = [];
 
-  const baseMap = new Map(baseSpecs.map((s) => [`${s.name}@${s.version}`, s]));
-  const headMap = new Map(headSpecs.map((s) => [`${s.name}@${s.version}`, s]));
+  const baseMap = new Map(baseSpecs.map((s) => [`${s.key}@${s.version}`, s]));
+  const headMap = new Map(headSpecs.map((s) => [`${s.key}@${s.version}`, s]));
 
   // Compare specs that exist in both
   for (const [key, headSpec] of headMap) {

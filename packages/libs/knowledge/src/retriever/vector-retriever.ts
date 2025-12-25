@@ -1,7 +1,7 @@
 import type {
   EmbeddingProvider,
   VectorStoreProvider,
-} from '@lssm/lib.contracts/integrations/providers';
+} from '@lssm/lib.contracts';
 import type { RetrievalResult, RetrievalOptions } from '../types';
 import type { KnowledgeRetriever, RetrieverConfig } from './interface';
 

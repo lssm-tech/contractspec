@@ -10,7 +10,7 @@ import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
 interface ListJsonRow {
   file: string;
   type: string;
-  name?: string;
+  key?: string;
   description?: string;
   stability?: string;
   owners?: string[];
@@ -55,7 +55,7 @@ export const listCommand = new Command('list')
         const baseRow: ListJsonRow = {
           file: scan.filePath,
           type: scan.specType,
-          name: scan.name,
+          key: scan.key,
           description: scan.description,
           stability: scan.stability,
           owners: scan.owners,
@@ -79,9 +79,9 @@ export const listCommand = new Command('list')
                 ? (meta as Record<string, unknown>)
                 : undefined;
             const name =
-              typeof maybeMeta?.name === 'string'
-                ? maybeMeta.name
-                : baseRow.name;
+              typeof maybeMeta?.key === 'string'
+                ? maybeMeta.key
+                : baseRow.key;
             const description =
               typeof maybeMeta?.description === 'string'
                 ? maybeMeta.description
@@ -99,7 +99,7 @@ export const listCommand = new Command('list')
 
             rows.push({
               ...baseRow,
-              name,
+              key: name,
               description,
               stability,
               owners,
@@ -146,7 +146,7 @@ export const listCommand = new Command('list')
       if (options.json) {
         const stable = filteredSpecs
           .slice()
-          .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
+          .sort((a, b) => (a.key ?? a.file).localeCompare(b.key ?? b.file));
 
         // If grouping, output grouped JSON
         if (options.groupBy) {
@@ -172,7 +172,7 @@ export const listCommand = new Command('list')
 
         const stable = filteredSpecs
           .slice()
-          .sort((a, b) => (a.name ?? a.file).localeCompare(b.name ?? b.file));
+          .sort((a, b) => (a.key ?? a.file).localeCompare(b.key ?? b.file));
 
         // If grouping, output grouped format
         if (options.groupBy) {
@@ -230,7 +230,7 @@ function groupSpecsForOutput(
         key = spec.stability ?? 'stable';
         break;
       case 'domain':
-        key = spec.name?.split('.')[0] ?? 'default';
+        key = spec.key?.split('.')[0] ?? 'default';
         break;
       default:
         key = 'all';
@@ -267,7 +267,7 @@ function printSpecRow(spec: ListJsonRow): void {
   console.log(
     `${stabilityColor((spec.stability ?? 'unknown').toUpperCase())} ${chalk.cyan(
       spec.type
-    )} ${chalk.bold(spec.name ?? '(no name)')}`
+    )} ${chalk.bold(spec.key ?? '(no key)')}`
   );
 
   console.log(`  📁 ${chalk.gray(spec.file)}`);

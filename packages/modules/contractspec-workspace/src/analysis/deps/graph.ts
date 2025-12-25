@@ -15,11 +15,11 @@ export function buildReverseEdges(graph: ContractGraph): void {
     node.dependents = [];
   }
 
-  for (const [name, node] of graph) {
+  for (const [key, node] of graph) {
     for (const dep of node.dependencies) {
       const depNode = graph.get(dep);
       if (depNode) {
-        depNode.dependents.push(name);
+        depNode.dependents.push(key);
       }
     }
   }
@@ -37,29 +37,29 @@ export function detectCycles(graph: ContractGraph): string[][] {
   const stack = new Set<string>();
   const cycles: string[][] = [];
 
-  function dfs(name: string, path: string[]) {
-    if (stack.has(name)) {
-      const start = path.indexOf(name);
-      if (start >= 0) cycles.push([...path.slice(start), name]);
+  function dfs(key: string, path: string[]) {
+    if (stack.has(key)) {
+      const start = path.indexOf(key);
+      if (start >= 0) cycles.push([...path.slice(start), key]);
       return;
     }
-    if (visited.has(name)) return;
+    if (visited.has(key)) return;
 
-    visited.add(name);
-    stack.add(name);
+    visited.add(key);
+    stack.add(key);
 
-    const node = graph.get(name);
+    const node = graph.get(key);
     if (node) {
       for (const dep of node.dependencies) {
-        dfs(dep, [...path, name]);
+        dfs(dep, [...path, key]);
       }
     }
 
-    stack.delete(name);
+    stack.delete(key);
   }
 
-  for (const name of graph.keys()) {
-    if (!visited.has(name)) dfs(name, []);
+  for (const key of graph.keys()) {
+    if (!visited.has(key)) dfs(key, []);
   }
 
   return cycles;
@@ -73,10 +73,10 @@ export function findMissingDependencies(
 ): { contract: string; missing: string[] }[] {
   const missing: { contract: string; missing: string[] }[] = [];
 
-  for (const [name, node] of graph) {
+  for (const [key, node] of graph) {
     const absent = node.dependencies.filter((dep) => !graph.has(dep));
     if (absent.length > 0) {
-      missing.push({ contract: name, missing: absent });
+      missing.push({ contract: key, missing: absent });
     }
   }
 
@@ -92,12 +92,12 @@ export function toDot(graph: ContractGraph): string {
   lines.push('  rankdir=LR;');
   lines.push('  node [shape=box];');
 
-  for (const [name, node] of graph) {
+  for (const [key, node] of graph) {
     for (const dep of node.dependencies) {
-      lines.push(`  "${name}" -> "${dep}";`);
+      lines.push(`  "${key}" -> "${dep}";`);
     }
     if (node.dependencies.length === 0) {
-      lines.push(`  "${name}";`);
+      lines.push(`  "${key}";`);
     }
   }
 
@@ -117,12 +117,12 @@ export function createContractGraph(): ContractGraph {
  */
 export function addContractNode(
   graph: ContractGraph,
-  name: string,
+  key: string,
   file: string,
   dependencies: string[]
 ): void {
-  graph.set(name, {
-    name,
+  graph.set(key, {
+    key,
     file,
     dependencies,
     dependents: [],

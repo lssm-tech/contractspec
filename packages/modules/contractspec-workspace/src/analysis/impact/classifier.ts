@@ -34,16 +34,16 @@ export function classifyImpact(
   const deltas: ImpactDelta[] = [];
 
   // Create lookup maps
-  const baseMap = new Map(baseSpecs.map((s) => [`${s.name}@${s.version}`, s]));
-  const headMap = new Map(headSpecs.map((s) => [`${s.name}@${s.version}`, s]));
+  const baseMap = new Map(baseSpecs.map((s) => [`${s.key}@${s.version}`, s]));
+  const headMap = new Map(headSpecs.map((s) => [`${s.key}@${s.version}`, s]));
 
   // Detect added specs
   const addedSpecs: ImpactResult['addedSpecs'] = [];
   for (const spec of headSpecs) {
-    const key = `${spec.name}@${spec.version}`;
-    if (!baseMap.has(key)) {
+    const lookupKey = `${spec.key}@${spec.version}`;
+    if (!baseMap.has(lookupKey)) {
       addedSpecs.push({
-        name: spec.name,
+        key: spec.key,
         version: spec.version,
         type: spec.type,
       });
@@ -53,23 +53,23 @@ export function classifyImpact(
   // Detect removed specs
   const removedSpecs: ImpactResult['removedSpecs'] = [];
   for (const spec of baseSpecs) {
-    const key = `${spec.name}@${spec.version}`;
-    if (!headMap.has(key)) {
+    const lookupKey = `${spec.key}@${spec.version}`;
+    if (!headMap.has(lookupKey)) {
       removedSpecs.push({
-        name: spec.name,
+        key: spec.key,
         version: spec.version,
         type: spec.type,
       });
 
       // Removed spec is always breaking
       deltas.push({
-        specName: spec.name,
+        specKey: spec.key,
         specVersion: spec.version,
         specType: spec.type,
-        path: `spec.${spec.name}`,
+        path: `spec.${spec.key}`,
         severity: 'breaking',
         rule: 'endpoint-removed',
-        description: `${spec.type === 'operation' ? 'Operation' : 'Event'} '${spec.name}' was removed`,
+        description: `${spec.type === 'operation' ? 'Operation' : 'Event'} '${spec.key}' was removed`,
       });
     }
   }
@@ -81,12 +81,12 @@ export function classifyImpact(
       rules
     );
 
-    // Extract spec name from path (heuristic)
-    const specName = extractSpecName(diff.path, baseSpecs, headSpecs);
-    const specInfo = findSpecInfo(specName, baseSpecs, headSpecs);
+    // Extract spec key from path (heuristic)
+    const specKey = extractSpecKey(diff.path, baseSpecs, headSpecs);
+    const specInfo = findSpecInfo(specKey, baseSpecs, headSpecs);
 
     deltas.push({
-      specName: specInfo?.name ?? 'unknown',
+      specKey: specInfo?.key ?? 'unknown',
       specVersion: specInfo?.version ?? 0,
       specType: specInfo?.type ?? 'operation',
       path: diff.path,
@@ -101,13 +101,13 @@ export function classifyImpact(
   // Add added specs as non-breaking changes
   for (const spec of addedSpecs) {
     deltas.push({
-      specName: spec.name,
+      specKey: spec.key,
       specVersion: spec.version,
       specType: spec.type,
-      path: `spec.${spec.name}`,
+      path: `spec.${spec.key}`,
       severity: 'non_breaking',
       rule: 'endpoint-added',
-      description: `${spec.type === 'operation' ? 'Operation' : 'Event'} '${spec.name}' was added`,
+      description: `${spec.type === 'operation' ? 'Operation' : 'Event'} '${spec.key}' was added`,
     });
   }
 
@@ -179,9 +179,9 @@ function mapDiffTypeToSeverity(type: string): ImpactDelta['severity'] {
 }
 
 /**
- * Extract spec name from a diff path (heuristic).
+ * Extract spec key from a diff path (heuristic).
  */
-function extractSpecName(
+function extractSpecKey(
   _path: string,
   _baseSpecs: SpecSnapshot[],
   _headSpecs: SpecSnapshot[]
@@ -191,16 +191,16 @@ function extractSpecName(
 }
 
 /**
- * Find spec info from name.
+ * Find spec info from key.
  */
 function findSpecInfo(
-  name: string | undefined,
+  key: string | undefined,
   baseSpecs: SpecSnapshot[],
   headSpecs: SpecSnapshot[]
 ): SpecSnapshot | undefined {
-  if (!name) return headSpecs[0] ?? baseSpecs[0];
+  if (!key) return headSpecs[0] ?? baseSpecs[0];
   return (
-    headSpecs.find((s) => s.name === name) ??
-    baseSpecs.find((s) => s.name === name)
+    headSpecs.find((s) => s.key === key) ??
+    baseSpecs.find((s) => s.key === key)
   );
 }

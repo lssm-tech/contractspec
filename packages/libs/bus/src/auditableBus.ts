@@ -21,7 +21,7 @@ export interface AuditableEventEnvelope<T = unknown> extends EventEnvelope<T> {
  */
 export interface AuditRecord {
   id: string;
-  eventName: string;
+  eventKey: string;
   eventVersion: number;
   payload: unknown;
   metadata?: EventMetadata;
@@ -44,7 +44,7 @@ export interface AuditStorage {
  * Options for querying audit records.
  */
 export interface AuditQueryOptions {
-  eventName?: string;
+  eventKey?: string;
   actorId?: string;
   targetId?: string;
   orgId?: string;
@@ -67,7 +67,7 @@ export interface AuditableEventBusOptions {
   defaultMetadata?: EventMetadata;
   /** Filter function to decide which events to audit */
   shouldAudit?: (
-    eventName: string,
+    eventKey: string,
     envelope: AuditableEventEnvelope
   ) => boolean;
   /** Transform function for audit records */
@@ -82,7 +82,7 @@ export class AuditableEventBus implements EventBus {
   private readonly storage?: AuditStorage;
   private readonly defaultMetadata: EventMetadata;
   private readonly shouldAudit: (
-    eventName: string,
+    eventKey: string,
     envelope: AuditableEventEnvelope
   ) => boolean;
   private readonly transformAuditRecord?: (record: AuditRecord) => AuditRecord;
@@ -107,10 +107,10 @@ export class AuditableEventBus implements EventBus {
       try {
         const envelope = decodeEvent<unknown>(bytes) as AuditableEventEnvelope;
 
-        if (this.shouldAudit(envelope.name, envelope)) {
+        if (this.shouldAudit(envelope.key, envelope)) {
           let record: AuditRecord = {
             id: crypto.randomUUID(),
-            eventName: envelope.name,
+            eventKey: envelope.key,
             eventVersion: envelope.version,
             payload: envelope.payload,
             metadata: {
@@ -171,7 +171,7 @@ export function makeAuditablePublisher<T extends AnySchemaModel>(
     const envelope: AuditableEventEnvelope<T> = {
       id: crypto.randomUUID(),
       occurredAt: new Date().toISOString(),
-      name: spec.meta.key,
+      key: spec.meta.key,
       version: spec.meta.version,
       payload,
       traceId: options?.traceId,
@@ -200,8 +200,8 @@ export class InMemoryAuditStorage implements AuditStorage {
   async query(options: AuditQueryOptions): Promise<AuditRecord[]> {
     let results = [...this.records];
 
-    if (options.eventName) {
-      results = results.filter((r) => r.eventName === options.eventName);
+    if (options.eventKey) {
+      results = results.filter((r) => r.eventKey === options.eventKey);
     }
 
     if (options.actorId) {

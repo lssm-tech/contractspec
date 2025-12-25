@@ -19,6 +19,7 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
     owners: ['@crm-team'],
     tags: ['crm', 'sales', 'pipeline', 'deals'],
     stability: 'experimental',
+    version: 1,
   },
 
   // All contract operations included in this feature

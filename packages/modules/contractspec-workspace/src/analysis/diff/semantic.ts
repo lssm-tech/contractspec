@@ -30,9 +30,9 @@ export function computeSemanticDiff(
     label: 'Spec type',
   });
 
-  compareScalar(diffs, 'name', a.name, b.name, {
+  compareScalar(diffs, 'key', a.key, b.key, {
     breaking: true,
-    label: 'Name',
+    label: 'Key',
   });
   compareScalar(diffs, 'version', a.version, b.version, {
     breaking: true,

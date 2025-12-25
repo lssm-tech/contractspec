@@ -155,7 +155,7 @@ function formatTextOutput(
           : delta.severity === 'non_breaking'
             ? '🟡'
             : '🔵';
-      lines.push(`  ${icon} ${delta.specName}: ${delta.description}`);
+      lines.push(`  ${icon} ${delta.specKey}: ${delta.description}`);
     }
     if (result.deltas.length > 20) {
       lines.push(`  ... and ${result.deltas.length - 20} more`);

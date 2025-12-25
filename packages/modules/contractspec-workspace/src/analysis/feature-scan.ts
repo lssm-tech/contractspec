@@ -81,13 +81,13 @@ function extractRefsFromArray(code: string, fieldName: string): RefInfo[] {
 
   if (!arrayMatch?.[1]) return refs;
 
-  // Extract each { name: 'x', version: N } entry
-  const refPattern = /\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  // Extract each { key: 'x', version: N } entry
+  const refPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
   let match;
   while ((match = refPattern.exec(arrayMatch[1])) !== null) {
     if (match[1] && match[2]) {
       refs.push({
-        name: match[1],
+        key: match[1],
         version: Number(match[2]),
       });
     }
@@ -124,7 +124,7 @@ function extractCapabilities(code: string): {
     while ((match = refPattern.exec(providesMatch[1])) !== null) {
       if (match[1] && match[2]) {
         provides.push({
-          name: match[1],
+          key: match[1],
           version: Number(match[2]),
         });
       }
@@ -145,7 +145,7 @@ function extractCapabilities(code: string): {
     while ((match = refPatternWithVersion.exec(requiresMatch[1])) !== null) {
       if (match[1] && match[2]) {
         requires.push({
-          name: match[1],
+          key: match[1],
           version: Number(match[2]),
         });
       }
@@ -156,10 +156,10 @@ function extractCapabilities(code: string): {
       if (match && match[1]) {
         // Check if we already added this with a version
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const alreadyExists = requires.some((r) => r.name === match![1]);
+        const alreadyExists = requires.some((r) => r.key === match![1]);
         if (!alreadyExists) {
           requires.push({
-            name: match[1],
+            key: match[1],
             version: 1, // Default version
           });
         }
@@ -183,16 +183,16 @@ function extractOpToPresentationLinks(
   if (!arrayMatch?.[1]) return links;
 
   // Match each link entry
-  // Pattern: { op: { name: 'x', version: N }, pres: { name: 'y', version: M } }
+  // Pattern: { op: { key: 'x', version: N }, pres: { key: 'y', version: M } }
   const linkPattern =
-    /\{\s*op:\s*\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}\s*,\s*pres:\s*\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}/g;
+    /\{\s*op:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}\s*,\s*pres:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}/g;
 
   let match;
   while ((match = linkPattern.exec(arrayMatch[1])) !== null) {
     if (match[1] && match[2] && match[3] && match[4]) {
       links.push({
-        op: { name: match[1], version: Number(match[2]) },
-        pres: { name: match[3], version: Number(match[4]) },
+        op: { key: match[1], version: Number(match[2]) },
+        pres: { key: match[3], version: Number(match[4]) },
       });
     }
   }

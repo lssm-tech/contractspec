@@ -3,7 +3,7 @@ import { StabilityEnum } from '@lssm/lib.contracts';
 
 export const TeamDashboardPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.dashboard',
+    key: 'team-hub.dashboard',
     version: 1,
     title: 'Team Dashboard',
     description: 'Team hub dashboard with activity overview',
@@ -11,6 +11,8 @@ export const TeamDashboardPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'dashboard'],
     stability: StabilityEnum.Experimental,
+    goal: 'High-level overview of team activity',
+    context: 'Team home page',
   },
   source: {
     type: 'component',
@@ -25,7 +27,7 @@ export const TeamDashboardPresentation: PresentationSpec = {
 
 export const SpaceListPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.space.list',
+    key: 'team-hub.space.list',
     version: 1,
     title: 'Space List',
     description: 'List of team spaces',
@@ -33,6 +35,8 @@ export const SpaceListPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'spaces', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Browse and manage team spaces',
+    context: 'Team navigation',
   },
   source: {
     type: 'component',
@@ -47,7 +51,7 @@ export const SpaceListPresentation: PresentationSpec = {
 
 export const TaskBoardPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.task.board',
+    key: 'team-hub.task.board',
     version: 1,
     title: 'Task Board',
     description: 'Task board with kanban view',
@@ -55,6 +59,8 @@ export const TaskBoardPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'tasks', 'board', 'kanban'],
     stability: StabilityEnum.Experimental,
+    goal: 'Visual task management',
+    context: 'Team task workflows',
   },
   source: {
     type: 'component',
@@ -69,7 +75,7 @@ export const TaskBoardPresentation: PresentationSpec = {
 
 export const TaskDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.task.detail',
+    key: 'team-hub.task.detail',
     version: 1,
     title: 'Task Details',
     description: 'Task detail with comments and history',
@@ -77,6 +83,8 @@ export const TaskDetailPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'task', 'detail'],
     stability: StabilityEnum.Experimental,
+    goal: 'Detailed task view with collaboration',
+    context: 'Task inspection and updates',
   },
   source: {
     type: 'component',
@@ -91,7 +99,7 @@ export const TaskDetailPresentation: PresentationSpec = {
 
 export const RitualCalendarPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.ritual.calendar',
+    key: 'team-hub.ritual.calendar',
     version: 1,
     title: 'Ritual Calendar',
     description: 'Calendar view of team rituals',
@@ -99,6 +107,8 @@ export const RitualCalendarPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'rituals', 'calendar'],
     stability: StabilityEnum.Experimental,
+    goal: 'Plan and view recurring team rituals',
+    context: 'Team scheduling',
   },
   source: {
     type: 'component',
@@ -113,7 +123,7 @@ export const RitualCalendarPresentation: PresentationSpec = {
 
 export const AnnouncementFeedPresentation: PresentationSpec = {
   meta: {
-    name: 'team-hub.announcement.feed',
+    key: 'team-hub.announcement.feed',
     version: 1,
     title: 'Announcement Feed',
     description: 'Feed of team announcements',
@@ -121,6 +131,8 @@ export const AnnouncementFeedPresentation: PresentationSpec = {
     owners: ['@team-hub'],
     tags: ['team', 'announcements', 'feed'],
     stability: StabilityEnum.Experimental,
+    goal: 'Communicate updates to the team',
+    context: 'Team communication',
   },
   source: {
     type: 'component',

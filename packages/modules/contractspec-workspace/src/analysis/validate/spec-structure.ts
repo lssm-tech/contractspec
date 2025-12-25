@@ -165,8 +165,8 @@ function validateOperationSpec(
   }
 
   // Check for name
-  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
-    errors.push('Missing or invalid name field');
+  if (!code.match(/key:\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid key field');
   }
 
   // Check for version
@@ -323,8 +323,8 @@ function validateEventSpec(
     errors.push('Missing defineEvent call');
   }
 
-  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
-    errors.push('Missing or invalid name field');
+  if (!code.match(/key:\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid key field');
   }
 
   if (!code.match(/version:\s*\d+/)) {

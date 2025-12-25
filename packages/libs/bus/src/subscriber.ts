@@ -14,7 +14,7 @@ export async function subscribeEvent<T extends AnySchemaModel>(
   const topic = `${spec.meta.key}.v${spec.meta.version}`;
   return bus.subscribe(topic, async (u8) => {
     const env = decodeEvent<T>(u8);
-    if (env.name !== spec.meta.key || env.version !== spec.meta.version) return;
+    if (env.key !== spec.meta.key || env.version !== spec.meta.version) return;
     await handler(env.payload, { traceId: env.traceId, deliveryId: env.id });
   });
 }

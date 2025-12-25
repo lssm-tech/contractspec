@@ -80,9 +80,14 @@ const ApprovalEscalatedPayload = defineSchemaModel({
  * ApprovalRequestedEvent - An approval has been requested.
  */
 export const ApprovalRequestedEvent = defineEvent({
-  name: 'workflow.approval.requested',
-  version: 1,
-  description: 'An approval has been requested.',
+  meta: {
+    key: 'workflow.approval.requested',
+    version: 1,
+    description: 'An approval has been requested.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'approval', 'requested'],
+  },
   payload: ApprovalRequestedPayload,
 });
 
@@ -90,9 +95,14 @@ export const ApprovalRequestedEvent = defineEvent({
  * ApprovalDecidedEvent - An approval decision has been made.
  */
 export const ApprovalDecidedEvent = defineEvent({
-  name: 'workflow.approval.decided',
-  version: 1,
-  description: 'An approval decision has been made.',
+  meta: {
+    key: 'workflow.approval.decided',
+    version: 1,
+    description: 'An approval decision has been made.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'approval', 'decided'],
+  },
   payload: ApprovalDecidedPayload,
 });
 
@@ -100,9 +110,14 @@ export const ApprovalDecidedEvent = defineEvent({
  * ApprovalDelegatedEvent - An approval has been delegated.
  */
 export const ApprovalDelegatedEvent = defineEvent({
-  name: 'workflow.approval.delegated',
-  version: 1,
-  description: 'An approval has been delegated.',
+  meta: {
+    key: 'workflow.approval.delegated',
+    version: 1,
+    description: 'An approval has been delegated.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'approval', 'delegated'],
+  },
   payload: ApprovalDelegatedPayload,
 });
 
@@ -110,8 +125,13 @@ export const ApprovalDelegatedEvent = defineEvent({
  * ApprovalEscalatedEvent - An approval has been escalated.
  */
 export const ApprovalEscalatedEvent = defineEvent({
-  name: 'workflow.approval.escalated',
-  version: 1,
-  description: 'An approval has been escalated.',
+  meta: {
+    key: 'workflow.approval.escalated',
+    version: 1,
+    description: 'An approval has been escalated.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'approval', 'escalated'],
+  },
   payload: ApprovalEscalatedPayload,
 });

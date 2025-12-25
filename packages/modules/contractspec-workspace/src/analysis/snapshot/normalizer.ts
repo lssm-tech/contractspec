@@ -57,14 +57,14 @@ export function computeHash(value: unknown): string {
 }
 
 /**
- * Sort specs by name and version for deterministic ordering.
+ * Sort specs by key and version for deterministic ordering.
  */
-export function sortSpecs<T extends { name: string; version: number }>(
+export function sortSpecs<T extends { key: string; version: number }>(
   specs: T[]
 ): T[] {
   return [...specs].sort((a, b) => {
-    const nameCompare = a.name.localeCompare(b.name);
-    if (nameCompare !== 0) return nameCompare;
+    const keyCompare = a.key.localeCompare(b.key);
+    if (keyCompare !== 0) return keyCompare;
     return a.version - b.version;
   });
 }

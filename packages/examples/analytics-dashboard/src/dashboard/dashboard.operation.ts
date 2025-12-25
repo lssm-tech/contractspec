@@ -32,6 +32,9 @@ export const CreateDashboardContract = defineCommand({
       {
         key: 'analytics.dashboard.created',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['analytics', 'dashboard', 'created'],
         when: 'Dashboard created',
         payload: DashboardModel,
       },
@@ -61,6 +64,9 @@ export const AddWidgetContract = defineCommand({
       {
         key: 'analytics.widget.added',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['analytics', 'widget', 'added'],
         when: 'Widget added',
         payload: WidgetModel,
       },

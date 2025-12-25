@@ -14,7 +14,7 @@ type OutputFormat = 'text' | 'json' | 'dot';
 export const depsCommand = new Command('deps')
   .description('Analyze contract dependencies and relationships')
   .option('--pattern <pattern>', 'File pattern to search (glob)')
-  .option('--entry <name>', 'Focus on a specific contract name')
+  .option('--entry <key>', 'Focus on a specific contract key')
   .option('--format <format>', 'text|json|dot', 'text')
   .option('--circular', 'Find circular dependencies')
   .option('--missing', 'Find missing dependencies')
@@ -84,7 +84,7 @@ export const depsCommand = new Command('deps')
             {
               total: result.total,
               contracts: Array.from(result.graph.values()).map((n) => ({
-                name: n.name,
+                key: n.key,
                 file: n.file,
                 dependencies: n.dependencies,
                 dependents: n.dependents,
@@ -98,16 +98,16 @@ export const depsCommand = new Command('deps')
       }
 
       // text mode
-      const entryName: string | undefined = options.entry as string | undefined;
-      if (entryName) {
-        const node = getContractNode(result.graph, entryName);
+      const entryKey: string | undefined = options.entry as string | undefined;
+      if (entryKey) {
+        const node = getContractNode(result.graph, entryKey);
         if (!node) {
-          console.error(chalk.red(`Contract '${entryName}' not found.`));
+          console.error(chalk.red(`Contract '${entryKey}' not found.`));
           process.exitCode = 1;
           return;
         }
 
-        console.log(chalk.bold(`\n📋 Contract: ${node.name}`));
+        console.log(chalk.bold(`\n📋 Contract: ${node.key}`));
 
         console.log(chalk.gray(`File: ${node.file}`));
 
@@ -166,7 +166,7 @@ export const depsCommand = new Command('deps')
       if (unused.length > 0) {
         console.log(chalk.yellow('\n⚠️  Potentially unused contracts:'));
         unused.forEach((c) =>
-          console.log(`  ${chalk.gray(c.name)} (${c.file})`)
+          console.log(`  ${chalk.gray(c.key)} (${c.file})`)
         );
       }
     } catch (error) {

@@ -2,7 +2,7 @@ import type {
   EmbeddingDocument,
   EmbeddingProvider,
   EmbeddingResult,
-} from '@lssm/lib.contracts/integrations/providers';
+} from '@lssm/lib.contracts';
 import type { DocumentFragment } from './document-processor';
 
 export class EmbeddingService {

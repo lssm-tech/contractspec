@@ -12,7 +12,7 @@ describe('classifyImpact', () => {
     const baseSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.create',
+        key: 'user.create',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -35,7 +35,7 @@ describe('classifyImpact', () => {
     const headSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.create',
+        key: 'user.create',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -56,7 +56,7 @@ describe('classifyImpact', () => {
     const baseSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.create',
+        key: 'user.create',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -66,7 +66,7 @@ describe('classifyImpact', () => {
     const headSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.create',
+        key: 'user.create',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -86,7 +86,7 @@ describe('classifyImpact', () => {
     const baseSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.get',
+        key: 'user.get',
         version: 1,
         kind: 'query',
         stability: 'stable',
@@ -96,7 +96,7 @@ describe('classifyImpact', () => {
     const headSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.get',
+        key: 'user.get',
         version: 1,
         kind: 'query',
         stability: 'stable',
@@ -107,7 +107,7 @@ describe('classifyImpact', () => {
       {
         type: 'breaking',
         path: 'io.output.email',
-        oldValue: { name: 'email', type: 'string' },
+        oldValue: { key: 'email', type: 'string' },
         newValue: undefined,
         description: "Field 'email' was removed",
       },
@@ -123,7 +123,7 @@ describe('classifyImpact', () => {
     const baseSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.update',
+        key: 'user.update',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -153,7 +153,7 @@ describe('classifyImpact', () => {
     const headSpecs: OperationSnapshot[] = [
       {
         type: 'operation',
-        name: 'user.create',
+        key: 'user.create',
         version: 1,
         kind: 'command',
         stability: 'stable',
@@ -161,7 +161,7 @@ describe('classifyImpact', () => {
       },
       {
         type: 'operation',
-        name: 'user.delete',
+        key: 'user.delete',
         version: 1,
         kind: 'command',
         stability: 'stable',

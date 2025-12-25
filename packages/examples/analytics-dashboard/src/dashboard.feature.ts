@@ -15,6 +15,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const AnalyticsDashboardFeature: FeatureModuleSpec = {
   meta: {
     key: 'analytics-dashboard',
+    version: 1,
     title: 'Analytics Dashboard',
     description: 'Analytics dashboards with customizable widgets and queries',
     domain: 'analytics',

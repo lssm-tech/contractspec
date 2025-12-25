@@ -1,7 +1,7 @@
 export * from './events';
 export * from './client';
 export * from './server';
-export * from './capabilities/';
+export * from './capabilities';
 export * from './types';
 export * from './contract-registry';
 export * from './install';
@@ -9,16 +9,14 @@ export * from './jsonschema';
 export * from './openapi';
 export * from './prompt';
 export * from './promptRegistry';
-export * from './operations/';
+export * from './operations';
 export * from './resources';
-export * from './presentations/';
+export * from './presentations';
 export * from './features';
 export * from './ownership';
-export * from './forms/';
+export * from './forms';
 export * from './onboarding-base';
-export * from './capabilities';
-export * from './capabilities/openbanking';
-export * from './data-views/';
+export * from './data-views';
 export * from './policy/spec';
 export * from './policy/engine';
 export * from './policy/opa-adapter';
@@ -44,6 +42,7 @@ export * from './schema-to-markdown';
 export * from './docs';
 export * from './llm';
 export * from './registry-utils';
+export * from './app-config/validation';
 
 // Re-export defineSchemaModel for convenience
 export { defineSchemaModel } from '@lssm/lib.schema';

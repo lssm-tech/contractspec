@@ -34,7 +34,7 @@ export const ContractRegistryFileSchema = z.object({
 });
 
 export const ContractRegistryItemSchema = z.object({
-  name: z.string().min(1),
+  key: z.string().min(1),
   type: ContractRegistryItemTypeSchema,
   version: z.number().int().nonnegative(),
   title: z.string().min(1),

@@ -12,8 +12,8 @@ export type ImpactStatus = 'no-impact' | 'non-breaking' | 'breaking';
 
 /** A single classified change delta */
 export interface ImpactDelta {
-  /** Name of the affected spec */
-  specName: string;
+  /** Key of the affected spec */
+  specKey: string;
   /** Version of the affected spec */
   specVersion: number;
   /** Type of the spec (operation, event) */
@@ -54,10 +54,10 @@ export interface ImpactResult {
   /** All classified deltas */
   deltas: ImpactDelta[];
   /** Specs that were added */
-  addedSpecs: { name: string; version: number; type: 'operation' | 'event' }[];
+  addedSpecs: { key: string; version: number; type: 'operation' | 'event' }[];
   /** Specs that were removed */
   removedSpecs: {
-    name: string;
+    key: string;
     version: number;
     type: 'operation' | 'event';
   }[];

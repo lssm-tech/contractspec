@@ -69,7 +69,7 @@ import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 
 export const ${varName}: PresentationSpec = {
   meta: {
-    name: '${name}',
+    key: '${name}',
     version: ${version},
     stability: '${stability}',
     owners: [${owners.map((o) => `'${o}'`).join(', ')}],

@@ -101,8 +101,8 @@ function generateFeatureMapDiagram(
     lines.push('    subgraph ops [Operations]');
     for (const op of ops) {
       if (nodeCount >= maxNodes) break;
-      const nodeId = sanitizeId(`O_${op.name}_v${op.version}`);
-      const label = showVersions ? `${op.name}.v${op.version}` : op.name;
+      const nodeId = sanitizeId(`O_${op.key}_v${op.version}`);
+      const label = showVersions ? `${op.key}.v${op.version}` : op.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -115,10 +115,10 @@ function generateFeatureMapDiagram(
     lines.push('    subgraph events [Events]');
     for (const event of events) {
       if (nodeCount >= maxNodes) break;
-      const nodeId = sanitizeId(`E_${event.name}_v${event.version}`);
+      const nodeId = sanitizeId(`E_${event.key}_v${event.version}`);
       const label = showVersions
-        ? `${event.name}.v${event.version}`
-        : event.name;
+        ? `${event.key}.v${event.version}`
+        : event.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -135,8 +135,8 @@ function generateFeatureMapDiagram(
     lines.push('    subgraph presentations [Presentations]');
     for (const pres of presentations) {
       if (nodeCount >= maxNodes) break;
-      const nodeId = sanitizeId(`P_${pres.name}_v${pres.version}`);
-      const label = showVersions ? `${pres.name}.v${pres.version}` : pres.name;
+      const nodeId = sanitizeId(`P_${pres.key}_v${pres.version}`);
+      const label = showVersions ? `${pres.key}.v${pres.version}` : pres.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -148,17 +148,17 @@ function generateFeatureMapDiagram(
     const featureId = sanitizeId(`F_${feature.key}`);
 
     for (const op of feature.operations) {
-      const opId = sanitizeId(`O_${op.name}_v${op.version}`);
+      const opId = sanitizeId(`O_${op.key}_v${op.version}`);
       lines.push(`    ${featureId} --> ${opId}`);
     }
 
     for (const event of feature.events) {
-      const eventId = sanitizeId(`E_${event.name}_v${event.version}`);
+      const eventId = sanitizeId(`E_${event.key}_v${event.version}`);
       lines.push(`    ${featureId} -.-> ${eventId}`);
     }
 
     for (const pres of feature.presentations) {
-      const presId = sanitizeId(`P_${pres.name}_v${pres.version}`);
+      const presId = sanitizeId(`P_${pres.key}_v${pres.version}`);
       lines.push(`    ${featureId} --> ${presId}`);
     }
   }
@@ -187,13 +187,13 @@ function generateOrphansDiagram(
 
   for (const feature of result.features) {
     for (const op of feature.operations) {
-      linkedOps.add(`${op.name}.v${op.version}`);
+      linkedOps.add(`${op.key}.v${op.version}`);
     }
     for (const event of feature.events) {
-      linkedEvents.add(`${event.name}.v${event.version}`);
+      linkedEvents.add(`${event.key}.v${event.version}`);
     }
     for (const pres of feature.presentations) {
-      linkedPres.add(`${pres.name}.v${pres.version}`);
+      linkedPres.add(`${pres.key}.v${pres.version}`);
     }
   }
 
@@ -219,9 +219,9 @@ function generateOrphansDiagram(
     for (const spec of result.orphanedSpecs) {
       if (nodeCount >= maxNodes) break;
       const nodeId = sanitizeId(
-        `orphan_${spec.type}_${spec.name}_v${spec.version}`
+        `orphan_${spec.type}_${spec.key}_v${spec.version}`
       );
-      const label = showVersions ? `${spec.name}.v${spec.version}` : spec.name;
+      const label = showVersions ? `${spec.key}.v${spec.version}` : spec.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -229,26 +229,26 @@ function generateOrphansDiagram(
   }
 
   // Add linked specs
-  const allLinked: { type: string; name: string; version: number }[] = [];
+  const allLinked: { type: string; key: string; version: number }[] = [];
 
-  for (const key of linkedOps) {
-    const [name, version] = parseSpecKey(key);
-    if (name && version) {
-      allLinked.push({ type: 'operation', name, version });
+  for (const opKey of linkedOps) {
+    const [parsedKey, parsedVersion] = parseSpecKey(opKey);
+    if (parsedKey && parsedVersion) {
+      allLinked.push({ type: 'operation', key: parsedKey, version: parsedVersion });
     }
   }
 
-  for (const key of linkedEvents) {
-    const [name, version] = parseSpecKey(key);
-    if (name && version) {
-      allLinked.push({ type: 'event', name, version });
+  for (const eventKey of linkedEvents) {
+    const [parsedKey, parsedVersion] = parseSpecKey(eventKey);
+    if (parsedKey && parsedVersion) {
+      allLinked.push({ type: 'event', key: parsedKey, version: parsedVersion });
     }
   }
 
-  for (const key of linkedPres) {
-    const [name, version] = parseSpecKey(key);
-    if (name && version) {
-      allLinked.push({ type: 'presentation', name, version });
+  for (const presKey of linkedPres) {
+    const [parsedKey, parsedVersion] = parseSpecKey(presKey);
+    if (parsedKey && parsedVersion) {
+      allLinked.push({ type: 'presentation', key: parsedKey, version: parsedVersion });
     }
   }
 
@@ -256,8 +256,8 @@ function generateOrphansDiagram(
     lines.push('    subgraph linked [Linked Specs]');
     for (const spec of allLinked) {
       if (nodeCount >= maxNodes) break;
-      const nodeId = sanitizeId(`${spec.type}_${spec.name}_v${spec.version}`);
-      const label = showVersions ? `${spec.name}.v${spec.version}` : spec.name;
+      const nodeId = sanitizeId(`${spec.type}_${spec.key}_v${spec.version}`);
+      const label = showVersions ? `${spec.key}.v${spec.version}` : spec.key;
       lines.push(`        ${nodeId}["${escapeLabel(label)}"]`);
       nodeCount++;
     }
@@ -269,17 +269,17 @@ function generateOrphansDiagram(
     const featureId = sanitizeId(`F_${feature.key}`);
 
     for (const op of feature.operations) {
-      const opId = sanitizeId(`operation_${op.name}_v${op.version}`);
+      const opId = sanitizeId(`operation_${op.key}_v${op.version}`);
       lines.push(`    ${featureId} --> ${opId}`);
     }
 
     for (const event of feature.events) {
-      const eventId = sanitizeId(`event_${event.name}_v${event.version}`);
+      const eventId = sanitizeId(`event_${event.key}_v${event.version}`);
       lines.push(`    ${featureId} -.-> ${eventId}`);
     }
 
     for (const pres of feature.presentations) {
-      const presId = sanitizeId(`presentation_${pres.name}_v${pres.version}`);
+      const presId = sanitizeId(`presentation_${pres.key}_v${pres.version}`);
       lines.push(`    ${featureId} --> ${presId}`);
     }
   }
@@ -312,8 +312,8 @@ function generateDependenciesDiagram(
     // Add operations
     for (const op of feature.operations) {
       if (nodeCount >= maxNodes) break;
-      const opId = sanitizeId(`O_${op.name}_v${op.version}`);
-      const label = showVersions ? `${op.name}.v${op.version}` : op.name;
+      const opId = sanitizeId(`O_${op.key}_v${op.version}`);
+      const label = showVersions ? `${op.key}.v${op.version}` : op.key;
       lines.push(`    ${opId}["${escapeLabel(label)}"]`);
       lines.push(`    ${featureId} --> ${opId}`);
       nodeCount++;
@@ -322,10 +322,10 @@ function generateDependenciesDiagram(
     // Add events (linked from feature)
     for (const event of feature.events) {
       if (nodeCount >= maxNodes) break;
-      const eventId = sanitizeId(`E_${event.name}_v${event.version}`);
+      const eventId = sanitizeId(`E_${event.key}_v${event.version}`);
       const label = showVersions
-        ? `${event.name}.v${event.version}`
-        : event.name;
+        ? `${event.key}.v${event.version}`
+        : event.key;
       lines.push(`    ${eventId}["${escapeLabel(label)}"]`);
       lines.push(`    ${featureId} -.-> ${eventId}`);
       nodeCount++;
@@ -334,8 +334,8 @@ function generateDependenciesDiagram(
     // Add presentations
     for (const pres of feature.presentations) {
       if (nodeCount >= maxNodes) break;
-      const presId = sanitizeId(`P_${pres.name}_v${pres.version}`);
-      const label = showVersions ? `${pres.name}.v${pres.version}` : pres.name;
+      const presId = sanitizeId(`P_${pres.key}_v${pres.version}`);
+      const label = showVersions ? `${pres.key}.v${pres.version}` : pres.key;
       lines.push(`    ${presId}["${escapeLabel(label)}"]`);
       lines.push(`    ${featureId} --> ${presId}`);
       nodeCount++;
@@ -343,8 +343,8 @@ function generateDependenciesDiagram(
 
     // Add op to presentation links
     for (const link of feature.opToPresentationLinks) {
-      const opId = sanitizeId(`O_${link.op.name}_v${link.op.version}`);
-      const presId = sanitizeId(`P_${link.pres.name}_v${link.pres.version}`);
+      const opId = sanitizeId(`O_${link.op.key}_v${link.op.version}`);
+      const presId = sanitizeId(`P_${link.pres.key}_v${link.pres.version}`);
       lines.push(`    ${opId} --> ${presId}`);
     }
   }
@@ -374,9 +374,9 @@ function generateFullDiagram(
 
   for (const spec of result.orphanedSpecs.slice(0, 20)) {
     const nodeId = sanitizeId(
-      `orphan_${spec.type}_${spec.name}_v${spec.version}`
+      `orphan_${spec.type}_${spec.key}_v${spec.version}`
     );
-    const label = `${spec.name}.v${spec.version}`;
+    const label = `${spec.key}.v${spec.version}`;
     lines.push(`        ${nodeId}["${escapeLabel(label)}"]:::orphan`);
   }
 
@@ -395,13 +395,13 @@ function getReferencedSpecs(
   features: FeatureScanResult[],
   field: 'operations' | 'events' | 'presentations',
   _inventory: SpecInventory
-): { name: string; version: number }[] {
+): { key: string; version: number }[] {
   const seen = new Set<string>();
-  const result: { name: string; version: number }[] = [];
+  const result: { key: string; version: number }[] = [];
 
   for (const feature of features) {
     for (const ref of feature[field]) {
-      const key = `${ref.name}.v${ref.version}`;
+      const key = `${ref.key}.v${ref.version}`;
       if (!seen.has(key)) {
         seen.add(key);
         result.push(ref);

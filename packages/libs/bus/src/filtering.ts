@@ -35,14 +35,14 @@ export function matchesFilter(
   if (filter.eventName) {
     const pattern = filter.eventName.replace(/\*/g, '.*');
     const regex = new RegExp(`^${pattern}$`);
-    if (!regex.test(envelope.name)) {
+    if (!regex.test(envelope.key)) {
       return false;
     }
   }
 
   // Check domain prefix
   if (filter.domain) {
-    if (!envelope.name.startsWith(filter.domain + '.')) {
+    if (!envelope.key.startsWith(filter.domain + '.')) {
       return false;
     }
   }
@@ -123,7 +123,7 @@ export class DomainEventBus {
     const envelope: AuditableEventEnvelope<T> = {
       id: crypto.randomUUID(),
       occurredAt: new Date().toISOString(),
-      name: eventName,
+      key: eventName,
       version: spec.meta.version,
       payload,
       metadata,

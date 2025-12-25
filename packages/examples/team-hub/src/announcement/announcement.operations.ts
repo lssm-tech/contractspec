@@ -11,7 +11,7 @@ const OWNERS = ['@examples.team-hub'] as const;
  */
 export const PostAnnouncementContract = defineCommand({
   meta: {
-    name: 'team.announcement.post',
+    key: 'team.announcement.post',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

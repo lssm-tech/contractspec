@@ -7,11 +7,13 @@ import { ToolSummaryModel } from './tool.schema';
  */
 export const ToolListPresentation: PresentationSpec = {
   meta: {
-    name: 'agent-console.tool.list',
+    key: 'agent-console.tool.list',
     version: 1,
     title: 'Tool List',
     description:
       'List view of AI tools with category, status, and version info',
+    goal: 'Provide an overview of all available tools for agents.',
+    context: 'Tool management dashboard.',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['tool', 'list', 'dashboard'],
@@ -32,11 +34,13 @@ export const ToolListPresentation: PresentationSpec = {
  */
 export const ToolDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'agent-console.tool.detail',
+    key: 'agent-console.tool.detail',
     version: 1,
     title: 'Tool Details',
     description:
       'Detailed view of an AI tool with configuration and test panel',
+    goal: 'Allow users to inspect and test a specific tool.',
+    context: 'Detailed view of a tool.',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['tool', 'detail'],

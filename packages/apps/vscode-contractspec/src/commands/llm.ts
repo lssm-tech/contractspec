@@ -31,7 +31,7 @@ import { extractFilePath as extractFilePathFromItem } from './context-actions';
  */
 interface ParsedSpec {
   meta: {
-    name: string;
+    key: string;
     version: number;
     description?: string;
     stability?: string;

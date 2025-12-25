@@ -20,6 +20,9 @@ export const TaskCompletedEvent = defineEvent({
     key: 'task.completed',
     version: 1,
     description: 'A task has been completed.',
+    stability: 'stable',
+    owners: ['crm-team'],
+    tags: ['task', 'lifecycle'],
   },
   payload: TaskCompletedPayload,
 });

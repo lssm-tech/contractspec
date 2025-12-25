@@ -9,7 +9,7 @@ import { SchemaModel } from '@lssm/lib.schema';
 
 export const TestSpec = defineCommand({
   meta: {
-    name: 'test.operation',
+    key: 'test.operation',
     version: 1,
     kind: 'command',
     stability: 'beta',
@@ -41,7 +41,7 @@ export const TestSpec = defineCommand({
     const invalidSpec = `
 export const TestSpec = defineCommand({
   meta: {
-    name: 'test.operation',
+    key: 'test.operation',
   },
 });
     `;

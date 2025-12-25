@@ -36,7 +36,7 @@ export function makePublisher<T extends AnySchemaModel>(
     const envelope: EventEnvelope<T> = {
       id: crypto.randomUUID(),
       occurredAt: new Date().toISOString(),
-      name: spec.meta.key,
+      key: spec.meta.key,
       version: spec.meta.version,
       payload,
       traceId,

@@ -479,7 +479,7 @@ const ${pascalName}Output = defineSchemaModel({
 
 export const ${pascalName}Spec = ${defineFunc}({
   meta: {
-    name: '${name}',
+    key: '${name}',
     version: 1,
     stability: 'experimental',
     owners: ['@team'],
@@ -549,7 +549,7 @@ function generatePresentationSpec(inputs: any): string {
 
 export const ${name}Presentation: PresentationSpec = {
   meta: {
-    name: '${name.toLowerCase()}',
+    key: '${name.toLowerCase()}',
     version: 1,
     description: '${description || `Display ${name}`}',
     owners: ['@team'],

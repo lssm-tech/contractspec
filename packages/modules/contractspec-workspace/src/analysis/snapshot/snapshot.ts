@@ -44,7 +44,7 @@ export function generateSnapshot(
 
     if (
       scanned.specType === 'operation' &&
-      scanned.name &&
+      scanned.key &&
       scanned.version !== undefined
     ) {
       const opSnapshot = createOperationSnapshot(scanned, content);
@@ -53,7 +53,7 @@ export function generateSnapshot(
       }
     } else if (
       scanned.specType === 'event' &&
-      scanned.name &&
+      scanned.key &&
       scanned.version !== undefined
     ) {
       const eventSnapshot = createEventSnapshot(scanned, content);
@@ -81,7 +81,7 @@ function createOperationSnapshot(
   scanned: ReturnType<typeof scanSpecSource>,
   content: string
 ): OperationSnapshot | null {
-  if (!scanned.name || scanned.version === undefined) {
+  if (!scanned.key || scanned.version === undefined) {
     return null;
   }
 
@@ -90,7 +90,7 @@ function createOperationSnapshot(
 
   return {
     type: 'operation',
-    name: scanned.name,
+    key: scanned.key,
     version: scanned.version,
     kind:
       scanned.kind === 'command' || scanned.kind === 'query'
@@ -111,7 +111,7 @@ function createEventSnapshot(
   scanned: ReturnType<typeof scanSpecSource>,
   content: string
 ): EventSnapshot | null {
-  if (!scanned.name || scanned.version === undefined) {
+  if (!scanned.key || scanned.version === undefined) {
     return null;
   }
 
@@ -119,7 +119,7 @@ function createEventSnapshot(
 
   return {
     type: 'event',
-    name: scanned.name,
+    key: scanned.key,
     version: scanned.version,
     stability: scanned.stability ?? 'experimental',
     payload,

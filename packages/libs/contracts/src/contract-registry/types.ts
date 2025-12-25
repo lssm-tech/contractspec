@@ -33,7 +33,7 @@ export interface ContractRegistryFile {
 }
 
 export interface ContractRegistryItem {
-  name: string;
+  key: string;
   type: ContractRegistryItemType;
   version: number;
   title: string;

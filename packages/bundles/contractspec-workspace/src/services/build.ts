@@ -160,12 +160,12 @@ async function buildTarget(
           ? specInfo.kind
           : 'command';
 
-      code = generateHandlerTemplate(specInfo.name ?? 'unknown', kind);
+      code = generateHandlerTemplate(specInfo.key ?? 'unknown', kind);
       outputPath = resolveOutputPath(
         specPath,
         outputDir,
         'handlers',
-        specInfo.name ?? 'unknown',
+        specInfo.key ?? 'unknown',
         '.handler.ts',
         adapters.fs
       );
@@ -184,14 +184,14 @@ async function buildTarget(
       }
 
       code = generateComponentTemplate(
-        specInfo.name ?? 'unknown',
+        specInfo.key ?? 'unknown',
         specInfo.description ?? ''
       );
       outputPath = resolveOutputPath(
         specPath,
         outputDir,
         'components',
-        specInfo.name ?? 'unknown',
+        specInfo.key ?? 'unknown',
         '.tsx',
         adapters.fs
       );
@@ -200,12 +200,12 @@ async function buildTarget(
 
     case 'test': {
       const testType = specType === 'operation' ? 'handler' : 'component';
-      code = generateTestTemplate(specInfo.name ?? 'unknown', testType);
+      code = generateTestTemplate(specInfo.key ?? 'unknown', testType);
       outputPath = resolveOutputPath(
         specPath,
         outputDir,
         '__tests__',
-        specInfo.name ?? 'unknown',
+        specInfo.key ?? 'unknown',
         '.test.ts',
         adapters.fs
       );

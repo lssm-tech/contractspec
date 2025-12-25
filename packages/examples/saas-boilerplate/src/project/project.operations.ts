@@ -18,7 +18,7 @@ const OWNERS = ['example.saas-boilerplate'] as const;
  */
 export const CreateProjectContract = defineCommand({
   meta: {
-    name: 'saas.project.create',
+    key: 'saas.project.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -51,7 +51,7 @@ export const CreateProjectContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'project.created',
+        key: 'project.created',
         version: 1,
         when: 'Project is created',
         payload: ProjectModel,
@@ -66,7 +66,7 @@ export const CreateProjectContract = defineCommand({
  */
 export const GetProjectContract = defineQuery({
   meta: {
-    name: 'saas.project.get',
+    key: 'saas.project.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -97,7 +97,7 @@ export const GetProjectContract = defineQuery({
  */
 export const UpdateProjectContract = defineCommand({
   meta: {
-    name: 'saas.project.update',
+    key: 'saas.project.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -116,7 +116,7 @@ export const UpdateProjectContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'project.updated',
+        key: 'project.updated',
         version: 1,
         when: 'Project is updated',
         payload: ProjectModel,
@@ -131,7 +131,7 @@ export const UpdateProjectContract = defineCommand({
  */
 export const DeleteProjectContract = defineCommand({
   meta: {
-    name: 'saas.project.delete',
+    key: 'saas.project.delete',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -150,7 +150,7 @@ export const DeleteProjectContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'project.deleted',
+        key: 'project.deleted',
         version: 1,
         when: 'Project is deleted',
         payload: ProjectDeletedPayloadModel,
@@ -165,7 +165,7 @@ export const DeleteProjectContract = defineCommand({
  */
 export const ListProjectsContract = defineQuery({
   meta: {
-    name: 'saas.project.list',
+    key: 'saas.project.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

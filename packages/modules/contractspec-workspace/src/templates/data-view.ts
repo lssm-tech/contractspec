@@ -32,7 +32,7 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
 
 export const ${viewVarName}: DataViewSpec = {
   meta: {
-    name: '${escapeString(data.name)}',
+    key: '${escapeString(data.name)}',
     version: ${data.version},
     entity: '${escapeString(data.entity)}',
     title: '${escape(data.title)}',

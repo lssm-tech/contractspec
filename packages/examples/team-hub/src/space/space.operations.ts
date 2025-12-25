@@ -1,5 +1,5 @@
 import { defineCommand } from '@lssm/lib.contracts';
-import { SpaceModel, CreateSpaceInputModel } from './space.schema';
+import { CreateSpaceInputModel, SpaceModel } from './space.schema';
 
 const OWNERS = ['@examples.team-hub'] as const;
 
@@ -8,7 +8,7 @@ const OWNERS = ['@examples.team-hub'] as const;
  */
 export const CreateSpaceContract = defineCommand({
   meta: {
-    name: 'team.space.create',
+    key: 'team.space.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

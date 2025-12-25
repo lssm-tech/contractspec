@@ -8,14 +8,14 @@ import {
   UpdateToolInputModel,
 } from './tool.schema';
 
-const OWNERS = ['agent-console-team'] as const;
+const OWNERS = ['@agent-console-team'] as const;
 
 /**
  * CreateToolCommand - Creates a new tool definition.
  */
 export const CreateToolCommand = defineCommand({
   meta: {
-    name: 'agent.tool.create',
+    key: 'agent.tool.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -48,8 +48,11 @@ export const CreateToolCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'tool.created',
+        key: 'tool.created',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['tool', 'created'],
         when: 'Tool is successfully created',
         payload: ToolSummaryModel,
       },
@@ -63,7 +66,7 @@ export const CreateToolCommand = defineCommand({
  */
 export const UpdateToolCommand = defineCommand({
   meta: {
-    name: 'agent.tool.update',
+    key: 'agent.tool.update',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -96,8 +99,11 @@ export const UpdateToolCommand = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'tool.updated',
+        key: 'tool.updated',
         version: 1,
+        stability: 'stable',
+        owners: [...OWNERS],
+        tags: ['tool', 'updated'],
         when: 'Tool is updated',
         payload: ToolSummaryModel,
       },
@@ -111,7 +117,7 @@ export const UpdateToolCommand = defineCommand({
  */
 export const GetToolQuery = defineQuery({
   meta: {
-    name: 'agent.tool.get',
+    key: 'agent.tool.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -145,7 +151,7 @@ export const GetToolQuery = defineQuery({
  */
 export const ListToolsQuery = defineQuery({
   meta: {
-    name: 'agent.tool.list',
+    key: 'agent.tool.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -194,7 +200,7 @@ export const ListToolsQuery = defineQuery({
  */
 export const TestToolCommand = defineCommand({
   meta: {
-    name: 'agent.tool.test',
+    key: 'agent.tool.test',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

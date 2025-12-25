@@ -9,7 +9,7 @@ import {
 
 export const SendMessageContract = defineCommand({
   meta: {
-    name: 'ai-chat.send',
+    key: 'ai-chat.send',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -31,7 +31,7 @@ const StreamMessageOutputModel = defineSchemaModel({
 
 export const StreamMessageContract = defineCommand({
   meta: {
-    name: 'ai-chat.stream',
+    key: 'ai-chat.stream',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -46,7 +46,7 @@ export const StreamMessageContract = defineCommand({
 
 export const ListConversationsContract = defineQuery({
   meta: {
-    name: 'ai-chat.conversations.list',
+    key: 'ai-chat.conversations.list',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -64,7 +64,7 @@ export const ListConversationsContract = defineQuery({
 
 export const GetConversationContract = defineQuery({
   meta: {
-    name: 'ai-chat.conversations.get',
+    key: 'ai-chat.conversations.get',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -87,7 +87,7 @@ export const GetConversationContract = defineQuery({
 
 export const DeleteConversationContract = defineCommand({
   meta: {
-    name: 'ai-chat.conversations.delete',
+    key: 'ai-chat.conversations.delete',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -110,7 +110,7 @@ export const DeleteConversationContract = defineCommand({
 
 export const ListProvidersContract = defineQuery({
   meta: {
-    name: 'ai-chat.providers.list',
+    key: 'ai-chat.providers.list',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',
@@ -137,7 +137,7 @@ export const ListProvidersContract = defineQuery({
 
 export const ScanContextContract = defineCommand({
   meta: {
-    name: 'ai-chat.context.scan',
+    key: 'ai-chat.context.scan',
     version: 1,
     owners: ['@ai-team'],
     stability: 'experimental',

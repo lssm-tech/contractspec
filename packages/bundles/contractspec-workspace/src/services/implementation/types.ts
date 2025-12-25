@@ -36,8 +36,8 @@ export interface ResolvedImplementation {
  * Full resolution result for a spec's implementations.
  */
 export interface SpecImplementationResult {
-  /** Spec name */
-  specName: string;
+  /** Spec key */
+  specKey: string;
   /** Spec version */
   specVersion: number;
   /** Path to the spec file */
@@ -72,8 +72,8 @@ export interface DiscoveryOptions {
 export interface SpecReferenceMatch {
   /** Path to the file containing the reference */
   filePath: string;
-  /** Name of the spec being referenced */
-  specName: string;
+  /** Key of the spec being referenced */
+  specKey: string;
   /** Type of reference (import, typeof, handler) */
   referenceType: 'import' | 'typeof' | 'handler' | 'unknown';
   /** Line number where reference was found */

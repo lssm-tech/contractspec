@@ -2,10 +2,10 @@ import { defineCommand, defineQuery } from '@lssm/lib.contracts/operations';
 import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 import { InstanceStatusEnum } from './instance.enum';
 import {
-  WorkflowInstanceModel,
   StartWorkflowInputModel,
   TransitionInputModel,
   TransitionResultModel,
+  WorkflowInstanceModel,
 } from './instance.schema';
 
 const OWNERS = ['@example.workflow-system'] as const;
@@ -15,7 +15,7 @@ const OWNERS = ['@example.workflow-system'] as const;
  */
 export const StartWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.instance.start',
+    key: 'workflow.instance.start',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -32,13 +32,13 @@ export const StartWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.instance.started',
+        key: 'workflow.instance.started',
         version: 1,
         when: 'Workflow starts',
         payload: WorkflowInstanceModel,
       },
       {
-        name: 'workflow.step.entered',
+        key: 'workflow.step.entered',
         version: 1,
         when: 'First step entered',
         payload: WorkflowInstanceModel,
@@ -53,7 +53,7 @@ export const StartWorkflowContract = defineCommand({
  */
 export const TransitionWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.instance.transition',
+    key: 'workflow.instance.transition',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -70,19 +70,19 @@ export const TransitionWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.step.exited',
+        key: 'workflow.step.exited',
         version: 1,
         when: 'Step is exited',
         payload: WorkflowInstanceModel,
       },
       {
-        name: 'workflow.step.entered',
+        key: 'workflow.step.entered',
         version: 1,
         when: 'New step is entered',
         payload: WorkflowInstanceModel,
       },
       {
-        name: 'workflow.instance.completed',
+        key: 'workflow.instance.completed',
         version: 1,
         when: 'Workflow reaches end',
         payload: WorkflowInstanceModel,
@@ -97,7 +97,7 @@ export const TransitionWorkflowContract = defineCommand({
  */
 export const PauseWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.instance.pause',
+    key: 'workflow.instance.pause',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -123,7 +123,7 @@ export const PauseWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.instance.paused',
+        key: 'workflow.instance.paused',
         version: 1,
         when: 'Workflow is paused',
         payload: WorkflowInstanceModel,
@@ -138,7 +138,7 @@ export const PauseWorkflowContract = defineCommand({
  */
 export const ResumeWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.instance.resume',
+    key: 'workflow.instance.resume',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -164,7 +164,7 @@ export const ResumeWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.instance.resumed',
+        key: 'workflow.instance.resumed',
         version: 1,
         when: 'Workflow is resumed',
         payload: WorkflowInstanceModel,
@@ -179,7 +179,7 @@ export const ResumeWorkflowContract = defineCommand({
  */
 export const CancelWorkflowContract = defineCommand({
   meta: {
-    name: 'workflow.instance.cancel',
+    key: 'workflow.instance.cancel',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -208,7 +208,7 @@ export const CancelWorkflowContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'workflow.instance.cancelled',
+        key: 'workflow.instance.cancelled',
         version: 1,
         when: 'Workflow is cancelled',
         payload: WorkflowInstanceModel,
@@ -223,7 +223,7 @@ export const CancelWorkflowContract = defineCommand({
  */
 export const ListInstancesContract = defineQuery({
   meta: {
-    name: 'workflow.instance.list',
+    key: 'workflow.instance.list',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -285,7 +285,7 @@ export const ListInstancesContract = defineQuery({
  */
 export const GetInstanceContract = defineQuery({
   meta: {
-    name: 'workflow.instance.get',
+    key: 'workflow.instance.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

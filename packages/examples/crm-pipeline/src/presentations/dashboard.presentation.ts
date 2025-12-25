@@ -18,6 +18,8 @@ export const CrmDashboardPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['dashboard', 'overview'],
     stability: StabilityEnum.Experimental,
+    goal: 'Provide a high-level overview of CRM performance and active deals.',
+    context: 'The landing page for CRM users.',
   },
   source: {
     type: 'component',
@@ -43,6 +45,8 @@ export const PipelineMetricsPresentation: PresentationSpec = {
     owners: ['@crm-team'],
     tags: ['pipeline', 'metrics', 'forecast'],
     stability: StabilityEnum.Experimental,
+    goal: 'Track pipeline health and sales forecasts.',
+    context: 'Data-intensive widget for sales managers.',
   },
   source: {
     type: 'component',

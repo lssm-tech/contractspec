@@ -23,7 +23,7 @@ export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
 
 export const ${exportName}: AppBlueprintSpec = {
   meta: {
-    name: '${escapeString(data.name)}',
+    key: '${escapeString(data.name)}',
     version: ${data.version},
     title: '${escapeString(data.title)}',
     description: '${escapeString(data.description)}',

@@ -23,6 +23,9 @@ export const ContactCreatedEvent = defineEvent({
     key: 'contact.created',
     version: 1,
     description: 'A new contact has been created.',
+    stability: 'stable',
+    owners: ['@crm-team'],
+    tags: ['contact', 'created'],
   },
   payload: ContactCreatedPayload,
 });

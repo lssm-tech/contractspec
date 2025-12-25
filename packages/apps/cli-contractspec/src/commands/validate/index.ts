@@ -7,14 +7,12 @@ import { select } from '@inquirer/prompts';
 import {
   validateBlueprint as validateBlueprintSpec,
   validateConfig as validateTenantConfigSpecs,
-} from '@lssm/lib.contracts/app-config/validation';
-import type {
-  AppBlueprintSpec,
-  TenantAppConfig,
-} from '@lssm/lib.contracts/app-config/spec';
+  type AppBlueprintSpec,
+  type TenantAppConfig,
+  type BlueprintTranslationCatalog,
+} from '@lssm/lib.contracts';
 import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/connection';
-import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
-import type { BlueprintTranslationCatalog } from '@lssm/lib.contracts/translations/catalog';
+import { IntegrationSpecRegistry } from '@lssm/lib.contracts';
 import {
   createNodeAdapters,
   loadWorkspaceConfig,
@@ -255,7 +253,7 @@ async function validateTenantConfig(
 
   console.log(
     chalk.cyan(
-      `\n🏗️  Validating tenant config "${tenant.meta?.id ?? 'tenant'}" against blueprint ${blueprint.meta.name}.v${blueprint.meta.version}`
+      `\n🏗️  Validating tenant config "${tenant.meta?.id ?? 'tenant'}" against blueprint ${blueprint.meta.key}.v${blueprint.meta.version}`
     )
   );
 
@@ -378,7 +376,7 @@ function isBlueprintSpec(value: unknown): value is AppBlueprintSpec {
     typeof value === 'object' &&
     value !== null &&
     'meta' in value &&
-    typeof (value as AppBlueprintSpec).meta?.name === 'string' &&
+    typeof (value as AppBlueprintSpec).meta?.key === 'string' &&
     typeof (value as AppBlueprintSpec).meta?.version === 'number'
   );
 }
@@ -504,7 +502,7 @@ function isBlueprintTranslationCatalog(
     typeof value === 'object' &&
     value !== null &&
     'meta' in value &&
-    typeof (value as BlueprintTranslationCatalog).meta?.name === 'string' &&
+    typeof (value as BlueprintTranslationCatalog).meta?.key === 'string' &&
     typeof (value as BlueprintTranslationCatalog).meta?.version === 'number' &&
     Array.isArray((value as BlueprintTranslationCatalog).entries)
   );

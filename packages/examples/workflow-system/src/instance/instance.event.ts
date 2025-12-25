@@ -68,9 +68,14 @@ const InstanceCompletedPayload = defineSchemaModel({
  * InstanceStartedEvent - A new workflow instance has been started.
  */
 export const InstanceStartedEvent = defineEvent({
-  name: 'workflow.instance.started',
-  version: 1,
-  description: 'A new workflow instance has been started.',
+  meta: {
+    key: 'workflow.instance.started',
+    version: 1,
+    description: 'A new workflow instance has been started.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'started'],
+  },
   payload: InstanceEventPayload,
 });
 
@@ -78,9 +83,14 @@ export const InstanceStartedEvent = defineEvent({
  * StepEnteredEvent - A workflow instance has entered a new step.
  */
 export const StepEnteredEvent = defineEvent({
-  name: 'workflow.step.entered',
-  version: 1,
-  description: 'A workflow instance has entered a new step.',
+  meta: {
+    key: 'workflow.step.entered',
+    version: 1,
+    description: 'A workflow instance has entered a new step.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'step', 'entered'],
+  },
   payload: StepTransitionPayload,
 });
 
@@ -88,9 +98,14 @@ export const StepEnteredEvent = defineEvent({
  * StepExitedEvent - A workflow instance has exited a step.
  */
 export const StepExitedEvent = defineEvent({
-  name: 'workflow.step.exited',
-  version: 1,
-  description: 'A workflow instance has exited a step.',
+  meta: {
+    key: 'workflow.step.exited',
+    version: 1,
+    description: 'A workflow instance has exited a step.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'step', 'exited'],
+  },
   payload: StepTransitionPayload,
 });
 
@@ -98,9 +113,14 @@ export const StepExitedEvent = defineEvent({
  * InstanceCompletedEvent - A workflow instance has completed.
  */
 export const InstanceCompletedEvent = defineEvent({
-  name: 'workflow.instance.completed',
-  version: 1,
-  description: 'A workflow instance has completed.',
+  meta: {
+    key: 'workflow.instance.completed',
+    version: 1,
+    description: 'A workflow instance has completed.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'completed'],
+  },
   payload: InstanceCompletedPayload,
 });
 
@@ -108,9 +128,14 @@ export const InstanceCompletedEvent = defineEvent({
  * InstanceCancelledEvent - A workflow instance has been cancelled.
  */
 export const InstanceCancelledEvent = defineEvent({
-  name: 'workflow.instance.cancelled',
-  version: 1,
-  description: 'A workflow instance has been cancelled.',
+  meta: {
+    key: 'workflow.instance.cancelled',
+    version: 1,
+    description: 'A workflow instance has been cancelled.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'cancelled'],
+  },
   payload: InstanceEventPayload,
 });
 
@@ -118,9 +143,14 @@ export const InstanceCancelledEvent = defineEvent({
  * InstancePausedEvent - A workflow instance has been paused.
  */
 export const InstancePausedEvent = defineEvent({
-  name: 'workflow.instance.paused',
-  version: 1,
-  description: 'A workflow instance has been paused.',
+  meta: {
+    key: 'workflow.instance.paused',
+    version: 1,
+    description: 'A workflow instance has been paused.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'paused'],
+  },
   payload: InstanceEventPayload,
 });
 
@@ -128,9 +158,14 @@ export const InstancePausedEvent = defineEvent({
  * InstanceResumedEvent - A workflow instance has been resumed.
  */
 export const InstanceResumedEvent = defineEvent({
-  name: 'workflow.instance.resumed',
-  version: 1,
-  description: 'A workflow instance has been resumed.',
+  meta: {
+    key: 'workflow.instance.resumed',
+    version: 1,
+    description: 'A workflow instance has been resumed.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'resumed'],
+  },
   payload: InstanceEventPayload,
 });
 
@@ -138,9 +173,14 @@ export const InstanceResumedEvent = defineEvent({
  * InstanceFailedEvent - A workflow instance has failed.
  */
 export const InstanceFailedEvent = defineEvent({
-  name: 'workflow.instance.failed',
-  version: 1,
-  description: 'A workflow instance has failed.',
+  meta: {
+    key: 'workflow.instance.failed',
+    version: 1,
+    description: 'A workflow instance has failed.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'failed'],
+  },
   payload: InstanceEventPayload,
 });
 
@@ -148,8 +188,13 @@ export const InstanceFailedEvent = defineEvent({
  * InstanceTimedOutEvent - A workflow instance has timed out.
  */
 export const InstanceTimedOutEvent = defineEvent({
-  name: 'workflow.instance.timeout',
-  version: 1,
-  description: 'A workflow instance has timed out.',
+  meta: {
+    key: 'workflow.instance.timeout',
+    version: 1,
+    description: 'A workflow instance has timed out.',
+    stability: 'stable',
+    owners: ['@workflow-team'],
+    tags: ['workflow', 'instance', 'timeout'],
+  },
   payload: InstanceEventPayload,
 });

@@ -21,7 +21,7 @@ describe('spec-scan', () => {
       const code = `
 export const MySpec = defineCommand({
   meta: {
-    name: 'billing.createInvoice',
+    key: 'billing.createInvoice',
     version: 2,
     kind: 'command',
     stability: 'beta',

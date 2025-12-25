@@ -270,7 +270,7 @@ async function runIntegrityChecks(
       category: 'integrity',
       file: issue.file,
       context: {
-        specName: issue.specName,
+        specKey: issue.specKey,
         specType: issue.specType,
         featureKey: issue.featureKey,
         ref: issue.ref,
@@ -484,11 +484,11 @@ async function runImplementationChecks(
       issues.push({
         ruleId: 'impl-missing',
         severity: 'error',
-        message: `Spec ${result.specName} has no implementation`,
+        message: `Spec ${result.specKey} has no implementation`,
         category: 'implementation',
         file: result.specPath,
         context: {
-          specName: result.specName,
+          specKey: result.specKey,
           specVersion: result.specVersion,
           status: result.status,
         },
@@ -497,11 +497,11 @@ async function runImplementationChecks(
       issues.push({
         ruleId: 'impl-missing',
         severity: 'warning',
-        message: `Spec ${result.specName} has no implementation`,
+        message: `Spec ${result.specKey} has no implementation`,
         category: 'implementation',
         file: result.specPath,
         context: {
-          specName: result.specName,
+          specKey: result.specKey,
           specVersion: result.specVersion,
           status: result.status,
         },
@@ -517,11 +517,11 @@ async function runImplementationChecks(
       issues.push({
         ruleId: 'impl-partial',
         severity: 'warning',
-        message: `Spec ${result.specName} has partial implementation: missing ${missingImpls.join(', ')}`,
+        message: `Spec ${result.specKey} has partial implementation: missing ${missingImpls.join(', ')}`,
         category: 'implementation',
         file: result.specPath,
         context: {
-          specName: result.specName,
+          specKey: result.specKey,
           specVersion: result.specVersion,
           status: result.status,
           missingFiles: missingImpls,
@@ -537,11 +537,11 @@ async function runImplementationChecks(
       issues.push({
         ruleId: 'impl-missing-tests',
         severity: 'note',
-        message: `Spec ${result.specName} missing test files: ${missingTests.map((t) => t.path).join(', ')}`,
+        message: `Spec ${result.specKey} missing test files: ${missingTests.map((t) => t.path).join(', ')}`,
         category: 'implementation',
         file: result.specPath,
         context: {
-          specName: result.specName,
+          specKey: result.specKey,
           missingTests: missingTests.map((t) => t.path),
         },
       });

@@ -1,13 +1,13 @@
 import { defineCommand, defineQuery } from '@lssm/lib.contracts';
 import {
-  SubscriptionModel,
-  RecordUsageInputModel,
-  RecordUsageOutputModel,
-  UsageRecordedPayloadModel,
-  GetUsageSummaryInputModel,
-  GetUsageSummaryOutputModel,
   CheckFeatureAccessInputModel,
   CheckFeatureAccessOutputModel,
+  GetUsageSummaryInputModel,
+  GetUsageSummaryOutputModel,
+  RecordUsageInputModel,
+  RecordUsageOutputModel,
+  SubscriptionModel,
+  UsageRecordedPayloadModel,
 } from './billing.schema';
 
 const OWNERS = ['@example.saas-boilerplate'] as const;
@@ -17,7 +17,7 @@ const OWNERS = ['@example.saas-boilerplate'] as const;
  */
 export const GetSubscriptionContract = defineQuery({
   meta: {
-    name: 'saas.billing.subscription.get',
+    key: 'saas.billing.subscription.get',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -40,7 +40,7 @@ export const GetSubscriptionContract = defineQuery({
  */
 export const RecordUsageContract = defineCommand({
   meta: {
-    name: 'saas.billing.usage.record',
+    key: 'saas.billing.usage.record',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -59,7 +59,7 @@ export const RecordUsageContract = defineCommand({
   sideEffects: {
     emits: [
       {
-        name: 'billing.usage.recorded',
+        key: 'billing.usage.recorded',
         version: 1,
         when: 'Usage is recorded',
         payload: UsageRecordedPayloadModel,
@@ -73,7 +73,7 @@ export const RecordUsageContract = defineCommand({
  */
 export const GetUsageSummaryContract = defineQuery({
   meta: {
-    name: 'saas.billing.usage.summary',
+    key: 'saas.billing.usage.summary',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -96,7 +96,7 @@ export const GetUsageSummaryContract = defineQuery({
  */
 export const CheckFeatureAccessContract = defineQuery({
   meta: {
-    name: 'saas.billing.feature.check',
+    key: 'saas.billing.feature.check',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

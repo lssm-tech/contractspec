@@ -12,6 +12,8 @@ export const DashboardsListPresentation: PresentationSpec = {
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboards', 'list'],
     stability: StabilityEnum.Experimental,
+    goal: 'Show users available analytics dashboards.',
+    context: 'The main dashboard management view.',
   },
   source: {
     type: 'component',
@@ -35,6 +37,8 @@ export const DashboardViewPresentation: PresentationSpec = {
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboard', 'view'],
     stability: StabilityEnum.Experimental,
+    goal: 'Render a dashboard with its visualizations and data.',
+    context: 'The interactive viewing interface.',
   },
   source: {
     type: 'component',
@@ -58,6 +62,8 @@ export const DashboardEditorPresentation: PresentationSpec = {
     owners: ['@analytics-dashboard'],
     tags: ['analytics', 'dashboard', 'editor'],
     stability: StabilityEnum.Experimental,
+    goal: 'Configure dashboard layout and widget settings.',
+    context: 'Management tool for analysts.',
   },
   source: {
     type: 'component',

@@ -1,4 +1,4 @@
-import type { KnowledgeCategory } from '@lssm/lib.contracts/knowledge';
+import type { KnowledgeCategory } from '@lssm/lib.contracts';
 
 /**
  * Result from a knowledge retrieval operation.

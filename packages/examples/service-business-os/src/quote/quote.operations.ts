@@ -1,8 +1,8 @@
 import { defineCommand } from '@lssm/lib.contracts';
 import {
-  QuoteModel,
-  CreateQuoteInputModel,
   AcceptQuoteInputModel,
+  CreateQuoteInputModel,
+  QuoteModel,
 } from './quote.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;
@@ -12,7 +12,7 @@ const OWNERS = ['@examples.service-business-os'] as const;
  */
 export const CreateQuoteContract = defineCommand({
   meta: {
-    name: 'service.quote.create',
+    key: 'service.quote.create',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],
@@ -33,7 +33,7 @@ export const CreateQuoteContract = defineCommand({
  */
 export const AcceptQuoteContract = defineCommand({
   meta: {
-    name: 'service.quote.accept',
+    key: 'service.quote.accept',
     version: 1,
     stability: 'stable',
     owners: [...OWNERS],

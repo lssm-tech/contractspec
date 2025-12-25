@@ -28,7 +28,7 @@ ${transition.condition ? `      condition: '${escapeString(transition.condition)
  */
 export const ${specVarName}: WorkflowSpec = {
   meta: {
-    name: '${data.name}',
+    key: '${data.name}',
     version: ${data.version},
     title: '${escapeString(data.title)}',
     description: '${escapeString(data.description)}',

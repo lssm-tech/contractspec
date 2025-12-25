@@ -69,7 +69,7 @@ export async function validateImplementationFiles(
 
   const code = await fs.readFile(specFile);
   const scan = scanSpecSource(code, specFile);
-  const specName = scan.name ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
+  const specName = scan.key ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
   const outRoot = options.outputDir ?? config.outputDir ?? './src';
   const kebab = toKebabCase(specName);
 

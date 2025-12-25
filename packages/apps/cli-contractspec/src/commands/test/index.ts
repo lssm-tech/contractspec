@@ -87,7 +87,7 @@ export async function testCommand(
           passed: result.passed,
           failed: result.failed,
           scenarios: result.scenarios.map((scenario) => ({
-            name: scenario.scenario.name,
+            key: scenario.scenario.key,
             status: scenario.status,
             error: scenario.error?.message,
             assertions: scenario.assertionResults.map((assertion) => ({
@@ -119,7 +119,7 @@ function isTestSpec(value: unknown): value is TestSpec {
     typeof value === 'object' &&
     value !== null &&
     Array.isArray((value as TestSpec).scenarios) &&
-    !!(value as TestSpec).meta?.name
+    !!(value as TestSpec).meta?.key
   );
 }
 
@@ -161,7 +161,7 @@ async function loadRegistry(
 function logScenarioResults(result: Awaited<ReturnType<TestRunner['run']>>) {
   for (const scenario of result.scenarios) {
     if (scenario.status === 'passed') continue;
-    console.error(chalk.red(`  ✖ ${scenario.scenario.name}`));
+    console.error(chalk.red(`  ✖ ${scenario.scenario.key}`));
     if (scenario.error) {
       console.error(chalk.red(`    ${scenario.error.message}`));
       continue;

@@ -7,11 +7,13 @@ import { RunSummaryModel } from './run.schema';
  */
 export const RunListPresentation: PresentationSpec = {
   meta: {
-    name: 'agent-console.run.list',
+    key: 'agent-console.run.list',
     version: 1,
     title: 'Run List',
     description:
       'List view of agent runs with status, tokens, and duration info',
+    goal: 'Provide an overview of agent execution history and performance.',
+    context: 'Run history dashboard.',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['run', 'list', 'dashboard'],
@@ -32,10 +34,12 @@ export const RunListPresentation: PresentationSpec = {
  */
 export const RunDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'agent-console.run.detail',
+    key: 'agent-console.run.detail',
     version: 1,
     title: 'Run Details',
     description: 'Detailed view of an agent run with steps, logs, and metrics',
+    goal: 'Allow users to inspect and debug a specific agent run.',
+    context: 'Detailed view of an agent run.',
     domain: 'agent-console',
     owners: ['@agent-console-team'],
     tags: ['run', 'detail'],

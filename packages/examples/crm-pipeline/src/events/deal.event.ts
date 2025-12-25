@@ -60,6 +60,9 @@ export const DealCreatedEvent = defineEvent({
     key: 'deal.created',
     version: 1,
     description: 'A new deal has been created.',
+    stability: 'stable',
+    owners: ['@crm-team'],
+    tags: ['deal', 'created'],
   },
   payload: DealCreatedPayload,
 });
@@ -69,6 +72,9 @@ export const DealMovedEvent = defineEvent({
     key: 'deal.moved',
     version: 1,
     description: 'A deal has been moved to a different stage.',
+    stability: 'stable',
+    owners: ['@crm-team'],
+    tags: ['deal', 'moved'],
   },
   payload: DealMovedPayload,
 });
@@ -78,6 +84,9 @@ export const DealWonEvent = defineEvent({
     key: 'deal.won',
     version: 1,
     description: 'A deal has been won.',
+    stability: 'stable',
+    owners: ['@crm-team'],
+    tags: ['deal', 'won'],
   },
   payload: DealWonPayload,
 });
@@ -87,6 +96,9 @@ export const DealLostEvent = defineEvent({
     key: 'deal.lost',
     version: 1,
     description: 'A deal has been lost.',
+    stability: 'stable',
+    owners: ['@crm-team'],
+    tags: ['deal', 'lost'],
   },
   payload: DealLostPayload,
 });

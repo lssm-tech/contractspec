@@ -76,7 +76,7 @@ export function formatPrComment(
       lines.push('#### 🔴 Breaking Changes');
       lines.push('');
       for (const delta of breaking) {
-        lines.push(`- **${delta.specName}**: ${delta.description}`);
+        lines.push(`- **${delta.specKey}**: ${delta.description}`);
       }
       lines.push('');
     }
@@ -85,7 +85,7 @@ export function formatPrComment(
       lines.push('#### 🟡 Non-breaking Changes');
       lines.push('');
       for (const delta of nonBreaking) {
-        lines.push(`- **${delta.specName}**: ${delta.description}`);
+        lines.push(`- **${delta.specKey}**: ${delta.description}`);
       }
       lines.push('');
     }
@@ -96,7 +96,7 @@ export function formatPrComment(
     lines.push('### Added Specs');
     lines.push('');
     for (const spec of result.addedSpecs) {
-      lines.push(`- \`${spec.name}\` v${spec.version} (${spec.type})`);
+      lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
     }
     lines.push('');
   }
@@ -105,7 +105,7 @@ export function formatPrComment(
     lines.push('### Removed Specs');
     lines.push('');
     for (const spec of result.removedSpecs) {
-      lines.push(`- \`${spec.name}\` v${spec.version} (${spec.type})`);
+      lines.push(`- \`${spec.key}\` v${spec.version} (${spec.type})`);
     }
     lines.push('');
   }
@@ -136,9 +136,9 @@ export function formatMinimalComment(result: ImpactResult): string {
 export function formatCheckRun(
   result: ImpactResult,
   headSha: string,
-  options: { name?: string; failOnBreaking?: boolean } = {}
+  options: { key?: string; failOnBreaking?: boolean } = {}
 ): CheckRunPayload {
-  const name = options.name ?? 'ContractSpec Impact';
+  const name = options.key ?? 'ContractSpec Impact';
   const failOnBreaking = options.failOnBreaking ?? true;
 
   let conclusion: 'success' | 'failure' | 'neutral';

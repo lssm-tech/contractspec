@@ -4,17 +4,23 @@ import type { ContractRegistryManifest } from '@lssm/lib.contracts';
 import { getErrorMessage } from '../../utils/errors';
 import { RegistryClient, resolveRegistryUrl } from './client';
 
+interface RegistrySearchOptions {
+  registryUrl?: string;
+  type?: string;
+  json?: boolean;
+}
+
 export const registrySearchCommand = new Command('search')
   .description('Search the ContractSpec registry by keyword')
   .argument('<query>', 'Search string (matches name/title/description)')
   .option('--registry-url <url>', 'Registry server base URL')
   .option('--type <type>', 'Filter by type (operation, event, template, ...)')
   .option('--json', 'Output JSON')
-  .action(async (query: string, options) => {
+  .action(async (query: string, options: RegistrySearchOptions) => {
     try {
       const client = new RegistryClient({
         registryUrl: resolveRegistryUrl(
-          options.registryUrl as string | undefined
+          options.registryUrl
         ),
       });
       const manifest = await client.getJson<ContractRegistryManifest>(
@@ -22,7 +28,7 @@ export const registrySearchCommand = new Command('search')
       );
 
       const q = query.toLowerCase();
-      const typeFilter = (options.type as string | undefined)?.trim();
+      const typeFilter = options.type?.trim();
 
       const matches = manifest.items.filter((i) => {
         if (
@@ -30,7 +36,7 @@ export const registrySearchCommand = new Command('search')
           i.type !== (`contractspec:${typeFilter}` as typeof i.type)
         )
           return false;
-        const hay = `${i.name} ${i.title} ${i.description}`.toLowerCase();
+        const hay = `${i.key} ${i.title} ${i.description}`.toLowerCase();
         return hay.includes(q);
       });
 
@@ -42,9 +48,9 @@ export const registrySearchCommand = new Command('search')
       console.log(chalk.bold(`\n🔎 Matches (${matches.length})\n`));
       matches
         .slice()
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach((item) => {
-          console.log(`${chalk.cyan(item.type)} ${chalk.bold(item.name)}`);
+        .sort((a: { key: string }, b: { key: string }) => a.key.localeCompare(b.key))
+        .forEach((item: { type: string; key: string; description: string }) => {
+          console.log(`${chalk.cyan(item.type)} ${chalk.bold(item.key)}`);
 
           console.log(`  ${chalk.gray(item.description)}`);
         });

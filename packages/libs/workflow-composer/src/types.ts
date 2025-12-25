@@ -1,4 +1,4 @@
-import type { Step, WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
+import type { Step, WorkflowSpec } from '@lssm/lib.contracts';
 
 export interface WorkflowExtensionScope {
   tenantId?: string;

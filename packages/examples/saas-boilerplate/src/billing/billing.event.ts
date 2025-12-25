@@ -66,9 +66,14 @@ const SubscriptionChangedPayload = defineSchemaModel({
  * Event: Feature usage has been recorded.
  */
 export const UsageRecordedEvent = defineEvent({
-  name: 'billing.usage.recorded',
-  version: 1,
-  description: 'Feature usage has been recorded.',
+  meta: {
+    key: 'billing.usage.recorded',
+    version: 1,
+    description: 'Feature usage has been recorded.',
+    stability: 'stable',
+    owners: ['@saas-team'],
+    tags: ['billing', 'usage', 'recorded'],
+  },
   payload: UsageRecordedPayload,
 });
 
@@ -76,9 +81,14 @@ export const UsageRecordedEvent = defineEvent({
  * Event: Usage limit has been reached for a feature.
  */
 export const UsageLimitReachedEvent = defineEvent({
-  name: 'billing.limit.reached',
-  version: 1,
-  description: 'Usage limit has been reached for a feature.',
+  meta: {
+    key: 'billing.limit.reached',
+    version: 1,
+    description: 'Usage limit has been reached for a feature.',
+    stability: 'stable',
+    owners: ['@saas-team'],
+    tags: ['billing', 'limit', 'reached'],
+  },
   payload: UsageLimitReachedPayload,
 });
 
@@ -86,8 +96,13 @@ export const UsageLimitReachedEvent = defineEvent({
  * Event: Subscription status has changed.
  */
 export const SubscriptionChangedEvent = defineEvent({
-  name: 'billing.subscription.changed',
-  version: 1,
-  description: 'Subscription status has changed.',
+  meta: {
+    key: 'billing.subscription.changed',
+    version: 1,
+    description: 'Subscription status has changed.',
+    stability: 'stable',
+    owners: ['@saas-team'],
+    tags: ['billing', 'subscription', 'changed'],
+  },
   payload: SubscriptionChangedPayload,
 });

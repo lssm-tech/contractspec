@@ -7,7 +7,7 @@ import { ProjectModel } from './project.schema';
  */
 export const ProjectListPresentation: PresentationSpec = {
   meta: {
-    name: 'saas.project.list',
+    key: 'saas.project.list',
     version: 1,
     title: 'Project List',
     description:
@@ -16,6 +16,8 @@ export const ProjectListPresentation: PresentationSpec = {
     owners: ['@saas-team'],
     tags: ['project', 'list', 'dashboard'],
     stability: StabilityEnum.Beta,
+    goal: 'Browse and manage projects',
+    context: 'Project list page',
   },
   source: {
     type: 'component',
@@ -34,7 +36,7 @@ export const ProjectListPresentation: PresentationSpec = {
  */
 export const ProjectDetailPresentation: PresentationSpec = {
   meta: {
-    name: 'saas.project.detail',
+    key: 'saas.project.detail',
     version: 1,
     title: 'Project Details',
     description: 'Detailed view of a project with settings and activity',
@@ -42,6 +44,8 @@ export const ProjectDetailPresentation: PresentationSpec = {
     owners: ['@saas-team'],
     tags: ['project', 'detail'],
     stability: StabilityEnum.Beta,
+    goal: 'View and edit project details',
+    context: 'Project detail page',
   },
   source: {
     type: 'component',

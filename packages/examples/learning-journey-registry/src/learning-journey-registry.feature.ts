@@ -12,6 +12,7 @@ import type { FeatureModuleSpec } from '@lssm/lib.contracts';
 export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
   meta: {
     key: 'learning-journey-registry',
+    version: 1,
     title: 'Learning Journey Registry',
     description:
       'Shared registry and presentations for learning journey tracks',

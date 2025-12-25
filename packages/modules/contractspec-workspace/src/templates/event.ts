@@ -30,12 +30,14 @@ export const ${payloadSchemaName} = new SchemaModel({
 });
 
 export const ${eventVarName} = defineEvent({
-  name: '${name}',
-  version: ${version},
-  description: '${description}',
-  stability: '${stability}',
-  owners: [${owners.map((o) => `'${o}'`).join(', ')}],
-  tags: [${tags.map((t) => `'${t}'`).join(', ')}],
+  meta: {
+    name: '${name}',
+    version: ${version},
+    description: '${description}',
+    stability: '${stability}',
+    owners: [${owners.map((o) => `'${o}'`).join(', ')}],
+    tags: [${tags.map((t) => `'${t}'`).join(', ')}],
+  },
   ${piiFields.length > 0 ? `pii: [${piiFields.map((f) => `'${f}'`).join(', ')}],` : '// pii: [],'}
   payload: ${payloadSchemaName},
 });

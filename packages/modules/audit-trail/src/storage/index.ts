@@ -47,10 +47,10 @@ export class InMemoryAuditStorage implements AuditStorageAdapter {
     let results = [...this.records];
 
     // Apply filters
-    if (options.eventName) {
-      const pattern = options.eventName.replace(/\*/g, '.*');
+    if (options.eventKey) {
+      const pattern = options.eventKey.replace(/\*/g, '.*');
       const regex = new RegExp(`^${pattern}$`);
-      results = results.filter((r) => regex.test(r.eventName));
+      results = results.filter((r) => regex.test(r.eventKey));
     }
 
     if (options.actorId) {
