@@ -117,7 +117,7 @@ export const CreateKnowledgeSource = defineCommand({
     goal: 'Onboard a new knowledge ingestion source such as Notion or uploads.',
     context:
       'Used by Ops and App Studio to configure knowledge ingestion per tenant and space.',
-    owners: ['platform.knowledge'],
+    owners: ['@platform.knowledge'],
     tags: ['knowledge', 'sources'],
     stability: 'experimental',
   },
@@ -140,7 +140,7 @@ export const UpdateKnowledgeSource = defineCommand({
     goal: 'Allow rotation of credentials, sync schedules, and labels.',
     context:
       'Supports editing how a tenant ingests knowledge (e.g., toggling sync cadence).',
-    owners: ['platform.knowledge'],
+    owners: ['@platform.knowledge'],
     tags: ['knowledge', 'sources'],
     stability: 'experimental',
   },
@@ -163,7 +163,7 @@ export const DeleteKnowledgeSource = defineCommand({
     goal: 'Remove obsolete or compromised knowledge ingestion paths.',
     context:
       'Ensures ephemeral or external sources can be removed cleanly without leaving residual bindings.',
-    owners: ['platform.knowledge'],
+    owners: ['@platform.knowledge'],
     tags: ['knowledge', 'sources'],
     stability: 'experimental',
   },
@@ -186,7 +186,7 @@ export const ListKnowledgeSources = defineQuery({
     goal: 'Provide visibility into knowledge ingest configuration and schedules.',
     context:
       'Used by App Studio and Ops flows to surface knowledge sources and their health.',
-    owners: ['platform.knowledge'],
+    owners: ['@platform.knowledge'],
     tags: ['knowledge', 'sources'],
     stability: 'experimental',
   },
@@ -209,7 +209,7 @@ export const TriggerKnowledgeSourceSync = defineCommand({
     goal: 'Support manual or automated sync retries for knowledge ingestion.',
     context:
       'Invoked by Ops tooling or monitors when knowledge content must be refreshed or reprocessed.',
-    owners: ['platform.knowledge'],
+    owners: ['@platform.knowledge'],
     tags: ['knowledge', 'sources'],
     stability: 'experimental',
   },

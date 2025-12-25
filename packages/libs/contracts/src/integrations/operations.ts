@@ -190,7 +190,7 @@ export const CreateIntegrationConnection = defineCommand({
     goal: 'Provision a tenant-scoped connection to an external provider.',
     context:
       'Used by Ops or the App Studio to configure external integrations such as Stripe or Qdrant.',
-    owners: ['platform.integrations'],
+    owners: ['@platform.integrations'],
     tags: ['integration', 'connections'],
     stability: 'experimental',
   },
@@ -214,7 +214,7 @@ export const UpdateIntegrationConnection = defineCommand({
     goal: 'Allow secure rotation of credentials and metadata adjustments.',
     context:
       'Supports rotating API keys, toggling status, or updating labels for tenant integrations.',
-    owners: ['platform.integrations'],
+    owners: ['@platform.integrations'],
     tags: ['integration', 'connections'],
     stability: 'experimental',
   },
@@ -237,7 +237,7 @@ export const DeleteIntegrationConnection = defineCommand({
     goal: 'Safely remove credentials and disable connector usage.',
     context:
       'Ensures connections are de-provisioned when no longer needed or breached.',
-    owners: ['platform.integrations'],
+    owners: ['@platform.integrations'],
     tags: ['integration', 'connections'],
     stability: 'experimental',
   },
@@ -260,7 +260,7 @@ export const ListIntegrationConnections = defineQuery({
     goal: 'Provide visibility into configured integrations and their status.',
     context:
       'Used by the App Studio and Ops flows to show bindings and health.',
-    owners: ['platform.integrations'],
+    owners: ['@platform.integrations'],
     tags: ['integration', 'connections'],
     stability: 'experimental',
   },
@@ -284,7 +284,7 @@ export const TestIntegrationConnection = defineCommand({
     goal: 'Validate credentials and connectivity for external providers.',
     context:
       'Triggered manually or by background monitors to confirm provider availability.',
-    owners: ['platform.integrations'],
+    owners: ['@platform.integrations'],
     tags: ['integration', 'connections'],
     stability: 'experimental',
   },

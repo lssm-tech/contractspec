@@ -217,14 +217,24 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
     errors.push('Missing payload field');
   }
 
-  // Check for past tense naming convention
-  const nameMatch = code.match(/name:\s*['"]([^'"]+)['"]/);
-  if (nameMatch && nameMatch[1]) {
-    const eventName = nameMatch[1].split('.').pop() || '';
-    if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
+  // Check for past tense naming convention on event keys
+  const keyMatches = code.matchAll(/key:\s*['"]([^'"]+)['"]/g);
+  for (const match of keyMatches) {
+    const keyValue = match[1];
+    if (!keyValue) continue;
+    
+    // Get the last segment of the key (e.g., 'created' from 'agent.created')
+    const segments = keyValue.split('.');
+    const lastSegment = segments[segments.length - 1] ?? '';
+    
+    // Allow common past tense patterns
+    const isPastTense = /(?:ed|created|updated|deleted|completed|assigned|removed|triggered|synced|failed|processed|started|stopped|cancelled|finished|submitted|approved|rejected|confirmed|expired|activated|deactivated|verified|revoked|initialized)$/i.test(lastSegment);
+    
+    if (!isPastTense) {
       warnings.push(
         'Event name should use past tense (e.g., "created", "updated")'
       );
+      break; // Only warn once per file
     }
   }
 }
@@ -361,6 +371,7 @@ function validateCommonFields(
     code.includes(': TelemetrySpec') ||
     code.includes(': ExperimentSpec') ||
     code.includes(': AppBlueprintSpec') ||
+    code.includes(': FeatureModuleSpec') ||
     code.includes('defineCommand(') ||
     code.includes('defineQuery(') ||
     code.includes('defineEvent(');
@@ -373,19 +384,39 @@ function validateCommonFields(
     errors.push('Missing import from @lssm/lib.contracts');
   }
 
+  // Only validate owners and stability for files that actually define specs
+  if (!usesSpecTypes) {
+    return;
+  }
+
+  // Skip pure re-export files (only contain export statements)
+  const isPureReExport =
+    /^[\s\n]*(export\s*\*\s*from|export\s*\{[^}]*\}\s*from)/m.test(code) &&
+    !code.includes('= {');
+  if (isPureReExport) {
+    return;
+  }
+
+  // Skip function definition files (contain function signatures, not spec calls)
+  const isTypeDefinitionFile =
+    /export\s+(const|function)\s+define(Command|Query|Event)\s*[=<]/.test(code);
+  if (isTypeDefinitionFile) {
+    return;
+  }
+
   // Check owners format
   const ownersMatch = code.match(/owners:\s*\[(.*?)\]/s);
   if (ownersMatch) {
     const ownersContent = ownersMatch[1];
     if (ownersContent && !ownersContent.includes('@')) {
-      warnings.push('Owners should start with @ (e.g., "@team")');
+      warnings.push('Owners should start with @ or use an Enum/Constant');
     }
   }
 
-  // Check for stability
-  if (
-    !code.match(/stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/)
-  ) {
+  // Check for stability - look for both string literal and enum usage
+  const hasStabilityString = /stability:\s*['"](?:experimental|beta|stable|deprecated)['"]/.test(code);
+  const hasStabilityEnum = /stability:\s*StabilityEnum\./.test(code);
+  if (!hasStabilityString && !hasStabilityEnum) {
     warnings.push('Missing or invalid stability field');
   }
 }

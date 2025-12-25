@@ -79,7 +79,7 @@ export const OpenBankingGetBalances = defineQuery({
     goal: 'Expose current and available balances required by dashboards and analytics.',
     context:
       'Used by Pocket Family Office UI surfaces and automation steps that require balance totals prior to generating summaries.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'balances'],
     stability: 'experimental',
   },
@@ -101,7 +101,7 @@ export const OpenBankingRefreshBalances = defineCommand({
     goal: 'Ensure canonical balance records reflect the latest values from Powens.',
     context:
       'Triggered by scheduled workflows before generating summaries or forecasting cashflow.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'balances'],
     stability: 'experimental',
   },

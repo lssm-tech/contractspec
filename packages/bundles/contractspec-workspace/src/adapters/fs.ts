@@ -62,6 +62,12 @@ const DEFAULT_IGNORES = [
   '**/build/**',
   '**/coverage/**',
   '**/*.d.ts',
+  // Code generators and transformers (not actual specs)
+  '**/importer/**',
+  '**/exporter/**',
+  // Documentation blocks (treated separately)
+  '**/docs/**/*.docblock.ts',
+  '**/docs/presentations.ts',
 ];
 
 /**

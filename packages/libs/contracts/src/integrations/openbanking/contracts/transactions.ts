@@ -84,7 +84,7 @@ export const OpenBankingListTransactions = defineQuery({
     goal: 'Allow downstream analytics and UI surfaces to page through canonical bank transactions.',
     context:
       'Used by Pocket Family Office dashboards, reconciliation workflows, and analytics data views.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'transactions'],
     stability: 'experimental',
   },
@@ -106,7 +106,7 @@ export const OpenBankingSyncTransactions = defineCommand({
     goal: 'Ensure the canonical transaction ledger stays aligned with the external provider.',
     context:
       'Triggered by scheduled workflows or on-demand actions when activity is expected on an account.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'transactions'],
     stability: 'experimental',
   },

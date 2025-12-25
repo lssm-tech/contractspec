@@ -97,7 +97,7 @@ export const OpenBankingListAccounts = defineQuery({
     goal: 'Provide downstream workflows with the set of accounts accessible via the configured open banking connection.',
     context:
       'Used by Pocket Family Office dashboards and sync workflows to enumerate bank accounts prior to syncing balances or transactions.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'accounts'],
     stability: 'experimental',
   },
@@ -119,7 +119,7 @@ export const OpenBankingGetAccount = defineQuery({
     goal: 'Allow user-facing experiences and automations to display up-to-date account metadata.',
     context:
       'Invoked by UI surfaces and workflow automation steps that require detailed metadata for a specific bank account.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'accounts'],
     stability: 'experimental',
   },
@@ -141,7 +141,7 @@ export const OpenBankingSyncAccounts = defineCommand({
     goal: 'Keep canonical bank account records aligned with the external open banking provider.',
     context:
       'Triggered by scheduled workflows or manual operator actions to reconcile account metadata prior to transaction/balance syncs.',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['open-banking', 'powens', 'accounts'],
     stability: 'experimental',
   },
