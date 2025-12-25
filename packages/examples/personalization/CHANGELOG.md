@@ -1,5 +1,18 @@
 # @lssm/example.personalization
 
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/lib.workflow-composer@1.42.1
+  - @lssm/lib.personalization@1.42.1
+  - @lssm/lib.overlay-engine@1.42.1
+  - @lssm/lib.contracts@1.42.1
+  - @lssm/lib.logger@1.42.1
+  - @lssm/lib.schema@1.42.1
+
 ## 1.42.0
 
 ### Minor Changes
