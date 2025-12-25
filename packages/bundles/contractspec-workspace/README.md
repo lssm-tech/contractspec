@@ -1,5 +1,8 @@
 # @lssm/bundle.contractspec-workspace
 
+Website: https://contractspec.lssm.tech/
+
+
 Reusable use-cases and services for ContractSpec workspace operations.
 
 ## Purpose

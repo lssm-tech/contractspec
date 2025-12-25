@@ -65,7 +65,10 @@ export const CreateAgentCommand = defineCommand({
         key: 'create-agent-happy-path',
         given: ['User is authenticated', 'Organization exists'],
         when: ['User submits valid agent configuration'],
-        then: ['New agent is created with DRAFT status', 'AgentCreated event is emitted'],
+        then: [
+          'New agent is created with DRAFT status',
+          'AgentCreated event is emitted',
+        ],
       },
       {
         key: 'create-agent-slug-conflict',
@@ -77,8 +80,18 @@ export const CreateAgentCommand = defineCommand({
     examples: [
       {
         key: 'basic-create',
-        input: { name: 'Support Assistant', slug: 'support-assistant', modelProvider: 'openai', modelId: 'gpt-4' },
-        output: { id: 'agent-123', name: 'Support Assistant', slug: 'support-assistant', status: 'draft' },
+        input: {
+          name: 'Support Assistant',
+          slug: 'support-assistant',
+          modelProvider: 'openai',
+          modelId: 'gpt-4',
+        },
+        output: {
+          id: 'agent-123',
+          name: 'Support Assistant',
+          slug: 'support-assistant',
+          status: 'draft',
+        },
       },
     ],
   },
@@ -151,8 +164,17 @@ export const UpdateAgentCommand = defineCommand({
     examples: [
       {
         key: 'update-name',
-        input: { agentId: 'agent-123', name: 'Updated Assistant', systemPrompt: 'You are a helpful assistant.' },
-        output: { id: 'agent-123', name: 'Updated Assistant', status: 'draft', updatedAt: '2025-01-01T00:00:00Z' },
+        input: {
+          agentId: 'agent-123',
+          name: 'Updated Assistant',
+          systemPrompt: 'You are a helpful assistant.',
+        },
+        output: {
+          id: 'agent-123',
+          name: 'Updated Assistant',
+          status: 'draft',
+          updatedAt: '2025-01-01T00:00:00Z',
+        },
       },
     ],
   },
@@ -210,7 +232,12 @@ export const GetAgentQuery = defineQuery({
       {
         key: 'get-basic',
         input: { agentId: 'agent-123', includeTools: false },
-        output: { id: 'agent-123', name: 'Support Assistant', status: 'active', tools: [] },
+        output: {
+          id: 'agent-123',
+          name: 'Support Assistant',
+          status: 'active',
+          tools: [],
+        },
       },
     ],
   },
@@ -353,7 +380,11 @@ export const AssignToolToAgentCommand = defineCommand({
       {
         key: 'assign-basic',
         input: { agentId: 'agent-123', toolId: 'tool-456' },
-        output: { agentToolId: 'at-789', agentId: 'agent-123', toolId: 'tool-456' },
+        output: {
+          agentToolId: 'at-789',
+          agentId: 'agent-123',
+          toolId: 'tool-456',
+        },
       },
     ],
   },

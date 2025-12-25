@@ -58,7 +58,10 @@ export const StartWorkflowContract = defineCommand({
     examples: [
       {
         key: 'start-onboarding',
-        input: { workflowKey: 'onboarding-v1', context: { employeeId: 'emp-123' } },
+        input: {
+          workflowKey: 'onboarding-v1',
+          context: { employeeId: 'emp-123' },
+        },
         output: { id: 'inst-456', status: 'running' },
       },
     ],
@@ -119,7 +122,11 @@ export const TransitionWorkflowContract = defineCommand({
     examples: [
       {
         key: 'complete-task',
-        input: { instanceId: 'inst-456', action: 'complete', data: { approved: true } },
+        input: {
+          instanceId: 'inst-456',
+          action: 'complete',
+          data: { approved: true },
+        },
         output: { success: true, nextStep: 'notify-hr' },
       },
     ],

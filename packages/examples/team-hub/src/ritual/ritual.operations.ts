@@ -38,7 +38,12 @@ export const ScheduleRitualContract = defineCommand({
     examples: [
       {
         key: 'schedule-standup',
-        input: { spaceId: 'space-123', name: 'Daily Standup', interval: 'daily', time: '10:00' },
+        input: {
+          spaceId: 'space-123',
+          name: 'Daily Standup',
+          interval: 'daily',
+          time: '10:00',
+        },
         output: { id: 'rit-123', status: 'active' },
       },
     ],
@@ -76,7 +81,11 @@ export const LogRitualOccurrenceContract = defineCommand({
     examples: [
       {
         key: 'log-standup',
-        input: { ritualId: 'rit-123', date: '2025-01-20', attendees: ['user-1', 'user-2'] },
+        input: {
+          ritualId: 'rit-123',
+          date: '2025-01-20',
+          attendees: ['user-1', 'user-2'],
+        },
         output: { id: 'rit-123', lastOccurrence: '2025-01-20' },
       },
     ],

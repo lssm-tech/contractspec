@@ -1,5 +1,8 @@
 # @lssm/lib.graphql-federation
 
+Website: https://contractspec.lssm.tech/
+
+
 GraphQL Federation utilities for Pothos.
 
 ## Purpose
@@ -30,6 +33,7 @@ builder.asEntity(User, {
   resolveReference: (ref) => getUser(ref.id),
 });
 ```
+
 
 
 

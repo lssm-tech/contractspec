@@ -58,7 +58,11 @@ export const SubmitDecisionContract = defineCommand({
     examples: [
       {
         key: 'approve-basic',
-        input: { requestId: 'req-123', decision: 'approve', comment: 'Looks good' },
+        input: {
+          requestId: 'req-123',
+          decision: 'approve',
+          comment: 'Looks good',
+        },
         output: { id: 'req-123', status: 'approved' },
       },
     ],
@@ -120,7 +124,11 @@ export const DelegateApprovalContract = defineCommand({
     examples: [
       {
         key: 'delegate-to-manager',
-        input: { requestId: 'req-123', delegateTo: 'user-456', reason: 'Out of office' },
+        input: {
+          requestId: 'req-123',
+          delegateTo: 'user-456',
+          reason: 'Out of office',
+        },
         output: { id: 'req-123', assigneeId: 'user-456' },
       },
     ],
@@ -178,7 +186,11 @@ export const AddApprovalCommentContract = defineCommand({
     examples: [
       {
         key: 'add-question',
-        input: { requestId: 'req-123', content: 'Can you clarify budget?', isInternal: false },
+        input: {
+          requestId: 'req-123',
+          content: 'Can you clarify budget?',
+          isInternal: false,
+        },
         output: { id: 'com-789', content: 'Can you clarify budget?' },
       },
     ],

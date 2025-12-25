@@ -34,7 +34,11 @@ export const IssueInvoiceContract = defineCommand({
     examples: [
       {
         key: 'issue-standard',
-        input: { jobId: 'job-123', dueDate: '2025-02-01', items: [{ description: 'Service', amount: 100 }] },
+        input: {
+          jobId: 'job-123',
+          dueDate: '2025-02-01',
+          items: [{ description: 'Service', amount: 100 }],
+        },
         output: { id: 'inv-456', status: 'issued', total: 100 },
       },
     ],

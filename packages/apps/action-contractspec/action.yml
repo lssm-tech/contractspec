@@ -164,7 +164,7 @@ runs:
         mkdir -p .contractspec-ci
 
         # Run checks and capture JSON output
-        echo "Running: contractspec ci --format json $ARGS"
+        echo "Running: contractspec ci --format - json $ARGS"
         set +e
         npx contractspec ci --format json $ARGS > .contractspec-ci/results.json 2>&1
         EXIT_CODE=$?

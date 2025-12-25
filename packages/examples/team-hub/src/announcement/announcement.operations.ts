@@ -37,7 +37,11 @@ export const PostAnnouncementContract = defineCommand({
     examples: [
       {
         key: 'post-general',
-        input: { spaceId: 'space-123', title: 'New Policy', content: 'Please read...' },
+        input: {
+          spaceId: 'space-123',
+          title: 'New Policy',
+          content: 'Please read...',
+        },
         output: { id: 'ann-456', status: 'posted' },
       },
     ],

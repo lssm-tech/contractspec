@@ -98,7 +98,11 @@ export const ScheduleJobContract = defineCommand({
     examples: [
       {
         key: 'schedule-repair',
-        input: { clientId: 'client-123', date: '2025-01-20T10:00:00Z', type: 'repair' },
+        input: {
+          clientId: 'client-123',
+          date: '2025-01-20T10:00:00Z',
+          type: 'repair',
+        },
         output: { id: 'job-456', status: 'scheduled' },
       },
     ],

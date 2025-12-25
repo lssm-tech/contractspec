@@ -1,5 +1,8 @@
 # Pocket Family Office Vertical
 
+Website: https://contractspec.lssm.tech/
+
+
 This vertical demonstrates how a spec-first application orchestrates
 financial document automation, payment reminders, and AI summarisation
 using ContractSpec. It is designed for multi-tenant deployments where

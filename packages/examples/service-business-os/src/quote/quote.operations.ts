@@ -38,7 +38,10 @@ export const CreateQuoteContract = defineCommand({
     examples: [
       {
         key: 'create-proposal',
-        input: { clientId: 'client-123', items: [{ description: 'Project A', price: 5000 }] },
+        input: {
+          clientId: 'client-123',
+          items: [{ description: 'Project A', price: 5000 }],
+        },
         output: { id: 'quote-123', status: 'draft', total: 5000 },
       },
     ],

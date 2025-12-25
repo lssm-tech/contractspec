@@ -1,5 +1,8 @@
 # @lssm/lib.testing
 
+Website: https://contractspec.lssm.tech/
+
+
 **Safe regeneration verification** — Capture production traffic and generate golden tests automatically.
 
 Golden-test utilities that record real requests/responses and generate runnable test suites. Prove that regenerated code behaves identically to the original.

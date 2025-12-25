@@ -34,7 +34,11 @@ export const CreateClientContract = defineCommand({
     examples: [
       {
         key: 'create-basic',
-        input: { name: 'Acme Corp', email: 'contact@acme.com', phone: '555-0123' },
+        input: {
+          name: 'Acme Corp',
+          email: 'contact@acme.com',
+          phone: '555-0123',
+        },
         output: { id: 'client-123', name: 'Acme Corp' },
       },
     ],

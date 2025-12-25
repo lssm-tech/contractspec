@@ -46,7 +46,11 @@ export const GetSubscriptionContract = defineQuery({
       {
         key: 'get-basic',
         input: null,
-        output: { plan: 'pro', status: 'active', currentPeriodEnd: '2025-02-01T00:00:00Z' },
+        output: {
+          plan: 'pro',
+          status: 'active',
+          currentPeriodEnd: '2025-02-01T00:00:00Z',
+        },
       },
     ],
   },

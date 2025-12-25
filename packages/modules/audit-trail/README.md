@@ -1,5 +1,8 @@
 # @lssm/module.audit-trail
 
+Website: https://contractspec.lssm.tech/
+
+
 Audit trail module for tracking and querying system events in ContractSpec applications.
 
 ## Purpose

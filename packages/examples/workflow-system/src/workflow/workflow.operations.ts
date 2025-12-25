@@ -47,13 +47,20 @@ export const CreateWorkflowContract = defineCommand({
         key: 'create-workflow-happy-path',
         given: ['User is admin'],
         when: ['User creates new workflow definition'],
-        then: ['Definition is created', 'WorkflowDefinitionCreated event is emitted'],
+        then: [
+          'Definition is created',
+          'WorkflowDefinitionCreated event is emitted',
+        ],
       },
     ],
     examples: [
       {
         key: 'create-onboarding',
-        input: { key: 'onboarding-v1', name: 'Employee Onboarding', version: '1.0.0' },
+        input: {
+          key: 'onboarding-v1',
+          name: 'Employee Onboarding',
+          version: '1.0.0',
+        },
         output: { id: 'def-123', status: 'draft' },
       },
     ],
@@ -96,7 +103,10 @@ export const UpdateWorkflowContract = defineCommand({
         key: 'update-workflow-happy-path',
         given: ['Workflow definition exists'],
         when: ['User updates definition'],
-        then: ['Definition is updated', 'WorkflowDefinitionUpdated event is emitted'],
+        then: [
+          'Definition is updated',
+          'WorkflowDefinitionUpdated event is emitted',
+        ],
       },
     ],
     examples: [
@@ -151,7 +161,11 @@ export const AddStepContract = defineCommand({
     examples: [
       {
         key: 'add-approval-step',
-        input: { workflowId: 'def-123', stepKey: 'approve-contract', type: 'approval' },
+        input: {
+          workflowId: 'def-123',
+          stepKey: 'approve-contract',
+          type: 'approval',
+        },
         output: { id: 'step-456', key: 'approve-contract' },
       },
     ],

@@ -1,5 +1,8 @@
 # @lssm/example.learning-journey-quest-challenges
 
+Website: https://contractspec.lssm.tech/
+
+
 Time-bound challenge/quest example (7-day money reset) showing day-based unlocks and event-driven completion.
 
 ## What it shows

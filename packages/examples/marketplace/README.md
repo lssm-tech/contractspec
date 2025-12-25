@@ -1,5 +1,8 @@
 # @lssm/example.marketplace
 
+Website: https://contractspec.lssm.tech/
+
+
 A comprehensive multi-vendor marketplace example demonstrating ContractSpec principles.
 
 ## Features
@@ -120,6 +123,7 @@ const order = await executeContract(CreateOrderContract, {
 - `@lssm/lib.metering` - Usage tracking and analytics
 - `@lssm/module.audit-trail` - Action auditing
 - `@lssm/module.notifications` - Order and payout notifications
+
 
 
 

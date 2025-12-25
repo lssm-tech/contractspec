@@ -1,5 +1,8 @@
 # `@lssm/example.versioned-knowledge-base`
 
+Website: https://contractspec.lssm.tech/
+
+
 Spec-first example demonstrating a **curated, versioned knowledge base**:
 
 - Raw **source documents** are immutable and referenced by hash.

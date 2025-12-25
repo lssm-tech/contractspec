@@ -1,5 +1,8 @@
 # @lssm/lib.bus
 
+Website: https://contractspec.lssm.tech/
+
+
 A lightweight, type-safe event bus for in-memory and distributed event handling.
 
 ## Purpose
@@ -45,6 +48,7 @@ await bus.publish('user.created', { userId: '123', email: 'test@example.com' });
 // 4. Cleanup
 unsubscribe();
 ```
+
 
 
 

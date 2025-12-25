@@ -1,5 +1,8 @@
 # @lssm/lib.overlay-engine
 
+Website: https://contractspec.lssm.tech/
+
+
 Runtime utilities for executing **OverlaySpecs** inside ContractSpec applications. The library tracks signed overlays, validates their safety guarantees, merges multi-scope overlays, and exposes React helpers to render personalized layouts without bespoke code.
 
 ## Features
@@ -49,6 +52,7 @@ const result = engine.apply({
 ```
 
 See `docs/tech/personalization/overlay-engine.md` for additional details.
+
 
 
 

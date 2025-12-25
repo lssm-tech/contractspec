@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { OPAPolicyAdapter, buildOPAInput, type OPAClient } from './opa-adapter';
-import { PolicyRegistry } from './spec';
+import { PolicyRegistry } from './registry';
 import type { PolicySpec } from './spec';
 import type { DecisionContext } from './engine';
 import type { PolicyDecision } from '../types';
