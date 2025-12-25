@@ -59,6 +59,29 @@ export const CreateToolCommand = defineCommand({
     ],
     audit: ['tool.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-tool-happy-path',
+        given: ['User is authenticated', 'Organization exists'],
+        when: ['User submits valid tool configuration'],
+        then: ['New tool is created', 'ToolCreated event is emitted'],
+      },
+      {
+        key: 'create-tool-slug-conflict',
+        given: ['Tool with same slug exists'],
+        when: ['User submits tool with duplicate slug'],
+        then: ['SLUG_EXISTS error is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-api-tool',
+        input: { name: 'Weather API', slug: 'weather-api', category: 'api', description: 'Fetches weather data' },
+        output: { id: 'tool-123', name: 'Weather API', slug: 'weather-api', status: 'draft' },
+      },
+    ],
+  },
 });
 
 /**
@@ -110,6 +133,23 @@ export const UpdateToolCommand = defineCommand({
     ],
     audit: ['tool.updated'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'update-tool-happy-path',
+        given: ['Tool exists', 'User owns the tool'],
+        when: ['User submits updated configuration'],
+        then: ['Tool is updated', 'ToolUpdated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'update-description',
+        input: { toolId: 'tool-123', description: 'Updated weather API tool' },
+        output: { id: 'tool-123', name: 'Weather API', status: 'draft', updatedAt: '2025-01-01T00:00:00Z' },
+      },
+    ],
+  },
 });
 
 /**
@@ -144,6 +184,23 @@ export const GetToolQuery = defineQuery({
     },
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-tool-happy-path',
+        given: ['Tool exists'],
+        when: ['User requests tool by ID'],
+        then: ['Tool details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-basic',
+        input: { toolId: 'tool-123' },
+        output: { id: 'tool-123', name: 'Weather API', status: 'active', category: 'api' },
+      },
+    ],
+  },
 });
 
 /**
@@ -193,6 +250,23 @@ export const ListToolsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-tools-happy-path',
+        given: ['Organization has tools'],
+        when: ['User lists tools'],
+        then: ['Paginated list of tools is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-by-category',
+        input: { organizationId: 'org-123', category: 'api', limit: 10 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -243,4 +317,27 @@ export const TestToolCommand = defineCommand({
   },
   policy: { auth: 'user' },
   sideEffects: { audit: ['tool.tested'] },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'test-tool-success',
+        given: ['Tool exists', 'Tool is configured correctly'],
+        when: ['User runs test with valid input'],
+        then: ['Tool executes successfully', 'Output is returned'],
+      },
+      {
+        key: 'test-tool-failure',
+        given: ['Tool exists', 'Tool has configuration error'],
+        when: ['User runs test'],
+        then: ['TOOL_EXECUTION_ERROR is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'test-weather-api',
+        input: { toolId: 'tool-123', testInput: { city: 'Paris' } },
+        output: { success: true, output: { temperature: 22 }, durationMs: 150 },
+      },
+    ],
+  },
 });

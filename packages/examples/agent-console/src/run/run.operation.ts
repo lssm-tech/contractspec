@@ -83,6 +83,29 @@ export const ExecuteAgentCommand = defineCommand({
     ],
     audit: ['run.started'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'execute-agent-happy-path',
+        given: ['Agent exists', 'Agent is active'],
+        when: ['User submits execution request'],
+        then: ['Run is created', 'RunStarted event is emitted'],
+      },
+      {
+        key: 'execute-agent-not-active',
+        given: ['Agent exists but is not active'],
+        when: ['User attempts to execute'],
+        then: ['AGENT_NOT_ACTIVE error is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'basic-execute',
+        input: { agentId: 'agent-123', input: { message: 'Hello' } },
+        output: { runId: 'run-456', status: 'pending', estimatedWaitMs: 5000 },
+      },
+    ],
+  },
 });
 
 /**
@@ -144,6 +167,29 @@ export const CancelRunCommand = defineCommand({
     ],
     audit: ['run.cancelled'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'cancel-run-happy-path',
+        given: ['Run exists', 'Run is in progress'],
+        when: ['User cancels run'],
+        then: ['Run is cancelled', 'RunCancelled event is emitted'],
+      },
+      {
+        key: 'cancel-run-already-completed',
+        given: ['Run exists but is already completed'],
+        when: ['User attempts to cancel'],
+        then: ['RUN_NOT_CANCELLABLE error is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'cancel-basic',
+        input: { runId: 'run-456', reason: 'User requested' },
+        output: { success: true, status: 'cancelled' },
+      },
+    ],
+  },
 });
 
 /**
@@ -180,6 +226,23 @@ export const GetRunQuery = defineQuery({
     },
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-run-happy-path',
+        given: ['Run exists'],
+        when: ['User requests run by ID'],
+        then: ['Run details are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-with-steps',
+        input: { runId: 'run-456', includeSteps: true, includeLogs: false },
+        output: { id: 'run-456', status: 'completed', steps: [] },
+      },
+    ],
+  },
 });
 
 /**
@@ -232,6 +295,23 @@ export const ListRunsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-runs-happy-path',
+        given: ['Organization has runs'],
+        when: ['User lists runs'],
+        then: ['Paginated list of runs is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-by-agent',
+        input: { agentId: 'agent-123', limit: 20, offset: 0 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -263,6 +343,23 @@ export const GetRunStepsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-run-steps-happy-path',
+        given: ['Run exists with steps'],
+        when: ['User requests steps'],
+        then: ['Steps list is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-steps-basic',
+        input: { runId: 'run-456' },
+        output: { steps: [] },
+      },
+    ],
+  },
 });
 
 /**
@@ -308,6 +405,23 @@ export const GetRunLogsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-run-logs-happy-path',
+        given: ['Run exists with logs'],
+        when: ['User requests logs'],
+        then: ['Paginated logs list is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-logs-filtered',
+        input: { runId: 'run-456', level: 'error', limit: 50 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -373,4 +487,21 @@ export const GetRunMetricsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-run-metrics-happy-path',
+        given: ['Organization has run history'],
+        when: ['User requests metrics for date range'],
+        then: ['Aggregated metrics are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-daily-metrics',
+        input: { organizationId: 'org-123', startDate: '2025-01-01', endDate: '2025-01-31', granularity: 'day' },
+        output: { totalRuns: 100, completedRuns: 90, failedRuns: 10, totalTokens: 50000, totalCostUsd: 5.0, averageDurationMs: 2500, successRate: 0.9, timeline: [] },
+      },
+    ],
+  },
 });
