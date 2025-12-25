@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.learning-journey",
-  "version": "1.42.2",
+  "version": "1.42.3",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

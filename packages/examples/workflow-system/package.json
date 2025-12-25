@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.workflow-system",
-  "version": "1.42.2",
+  "version": "1.42.3",
   "description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

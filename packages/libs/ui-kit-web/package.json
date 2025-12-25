@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ui-kit-web",
-  "version": "1.42.2",
+  "version": "1.42.3",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

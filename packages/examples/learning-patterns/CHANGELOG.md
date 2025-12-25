@@ -4,6 +4,16 @@
 
 ### Patch Changes
 
+- 3f5d015: fix(tooling): cicd
+- Updated dependencies [3f5d015]
+  - @lssm/lib.contracts@1.42.3
+  - @lssm/lib.schema@1.42.3
+  - @lssm/module.learning-journey@1.42.3
+
+## 1.42.2
+
+### Patch Changes
+
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
   - @lssm/lib.contracts@1.42.2

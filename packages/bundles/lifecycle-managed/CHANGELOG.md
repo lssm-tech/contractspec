@@ -1,5 +1,18 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.42.3
+
+### Patch Changes
+
+- 3f5d015: fix(tooling): cicd
+- Updated dependencies [3f5d015]
+  - @lssm/lib.ai-agent@1.42.3
+  - @lssm/lib.analytics@1.42.3
+  - @lssm/lib.lifecycle@1.42.3
+  - @lssm/lib.observability@1.42.3
+  - @lssm/module.lifecycle-advisor@1.42.3
+  - @lssm/module.lifecycle-core@1.42.3
+
 ## 1.42.2
 
 ### Patch Changes
