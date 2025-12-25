@@ -1,5 +1,14 @@
 # @lssm/integration.runtime
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.logger@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes

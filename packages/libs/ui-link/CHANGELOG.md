@@ -1,5 +1,13 @@
 # @lssm/lib.ui-link
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/lib.ui-kit-core@1.42.2
+
 ## 1.42.1
 
 ### Patch Changes

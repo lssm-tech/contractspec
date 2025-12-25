@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ambient-coach",
-  "version": "1.42.1",
+  "version": "1.42.2",
   "description": "Ambient coach learning journey example with contextual tips and follow-up actions.",
   "type": "module",
   "main": "./dist/index.js",
