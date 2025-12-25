@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.locale-jurisdiction-gate",
-  "version": "1.41.1",
+  "version": "1.42.2",
   "description": "Example: enforce locale + jurisdiction + kbSnapshotId + allowed scope for assistant calls (fail-closed).",
   "type": "module",
   "main": "./dist/index.js",

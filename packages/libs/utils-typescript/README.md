@@ -1,5 +1,8 @@
 # @lssm/lib.utils-typescript
 
+Website: https://contractspec.lssm.tech/
+
+
 A collection of essential TypeScript utility types and helper functions.
 
 ## Purpose
@@ -41,6 +44,7 @@ const update: DeepPartial<User> = {
   profile: { name: 'Alice' }, // Valid
 };
 ```
+
 
 
 

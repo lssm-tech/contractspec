@@ -38,7 +38,8 @@ export const OrderDetailPresentation: PresentationSpec = {
     tags: ['marketplace', 'order', 'detail'],
     stability: StabilityEnum.Experimental,
     goal: 'Display all details of a single order.',
-    context: 'Accessed from the order list to see specific items, shipping, and payment details.',
+    context:
+      'Accessed from the order list to see specific items, shipping, and payment details.',
   },
   source: {
     type: 'component',

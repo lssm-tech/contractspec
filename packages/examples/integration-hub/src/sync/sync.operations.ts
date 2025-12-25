@@ -39,6 +39,27 @@ export const CreateSyncConfigContract = defineCommand({
     ],
     audit: ['integration.syncConfig.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-sync-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates sync config'],
+        then: ['Sync config is created', 'SyncConfigCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-contact-sync',
+        input: {
+          name: 'Contacts Sync',
+          sourceConnectionId: 'conn-1',
+          targetConnectionId: 'conn-2',
+        },
+        output: { id: 'sync-123', status: 'active' },
+      },
+    ],
+  },
 });
 
 /**
@@ -64,6 +85,27 @@ export const AddFieldMappingContract = defineCommand({
         version: 1,
         when: 'Mapping added',
         payload: FieldMappingModel,
+      },
+    ],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'add-mapping-happy-path',
+        given: ['Sync config exists'],
+        when: ['User adds field mapping'],
+        then: ['Mapping is added', 'FieldMappingAdded event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'map-email',
+        input: {
+          syncConfigId: 'sync-123',
+          sourceField: 'email',
+          targetField: 'user_email',
+        },
+        output: { id: 'map-456', type: 'string' },
       },
     ],
   },
@@ -96,6 +138,23 @@ export const TriggerSyncContract = defineCommand({
     ],
     audit: ['integration.sync.triggered'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'trigger-sync-happy-path',
+        given: ['Sync config exists'],
+        when: ['User triggers sync'],
+        then: ['Sync run starts', 'SyncStarted event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'manual-trigger',
+        input: { syncConfigId: 'sync-123' },
+        output: { id: 'run-789', status: 'pending' },
+      },
+    ],
+  },
 });
 
 /**
@@ -114,4 +173,21 @@ export const ListSyncRunsContract = defineQuery({
   },
   io: { input: ListSyncRunsInputModel, output: ListSyncRunsOutputModel },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-runs-happy-path',
+        given: ['User has access to syncs'],
+        when: ['User lists sync runs'],
+        then: ['List of runs is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-recent',
+        input: { limit: 10 },
+        output: { items: [], total: 50 },
+      },
+    ],
+  },
 });

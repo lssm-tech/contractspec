@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.utils-typescript",
-  "version": "1.41.1",
+  "version": "1.42.2",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",

@@ -22,4 +22,25 @@ export const IssueInvoiceContract = defineCommand({
     output: InvoiceModel,
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'issue-invoice-happy-path',
+        given: ['Job is complete'],
+        when: ['User issues invoice'],
+        then: ['Invoice is created and sent'],
+      },
+    ],
+    examples: [
+      {
+        key: 'issue-standard',
+        input: {
+          jobId: 'job-123',
+          dueDate: '2025-02-01',
+          items: [{ description: 'Service', amount: 100 }],
+        },
+        output: { id: 'inv-456', status: 'issued', total: 100 },
+      },
+    ],
+  },
 });

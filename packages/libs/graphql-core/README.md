@@ -1,5 +1,8 @@
 # @lssm/lib.graphql-core
 
+Website: https://contractspec.lssm.tech/
+
+
 Core GraphQL utilities and Pothos builder setup.
 
 ## Purpose
@@ -38,6 +41,7 @@ builder.queryType({
 
 export const schema = builder.toSchema();
 ```
+
 
 
 

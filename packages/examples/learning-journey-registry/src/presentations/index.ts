@@ -1,4 +1,7 @@
-import type { PresentationSpecMeta, PresentationSpec } from '@lssm/lib.contracts';
+import type {
+  PresentationSpecMeta,
+  PresentationSpec,
+} from '@lssm/lib.contracts';
 import { StabilityEnum } from '@lssm/lib.contracts';
 
 const baseMeta: Pick<

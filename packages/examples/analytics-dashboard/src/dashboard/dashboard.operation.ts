@@ -41,6 +41,26 @@ export const CreateDashboardContract = defineCommand({
     ],
     audit: ['analytics.dashboard.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-dashboard-happy-path',
+        given: ['User is authenticated'],
+        when: ['User submits valid dashboard configuration'],
+        then: ['Dashboard is created', 'DashboardCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-basic',
+        input: {
+          name: 'Revenue Dashboard',
+          description: 'Monthly revenue metrics',
+        },
+        output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
+      },
+    ],
+  },
 });
 
 /**
@@ -72,6 +92,28 @@ export const AddWidgetContract = defineCommand({
       },
     ],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'add-widget-happy-path',
+        given: ['Dashboard exists'],
+        when: ['User adds widget to dashboard'],
+        then: ['Widget is created', 'WidgetAdded event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'add-chart-widget',
+        input: {
+          dashboardId: 'dash-123',
+          type: 'chart',
+          queryId: 'query-456',
+          config: { chartType: 'bar' },
+        },
+        output: { id: 'widget-789', type: 'chart', dashboardId: 'dash-123' },
+      },
+    ],
+  },
 });
 
 /**
@@ -90,6 +132,23 @@ export const ListDashboardsContract = defineQuery({
   },
   io: { input: ListDashboardsInputModel, output: ListDashboardsOutputModel },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-dashboards-happy-path',
+        given: ['User has dashboards'],
+        when: ['User lists dashboards'],
+        then: ['Paginated list of dashboards is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-basic',
+        input: { limit: 10, offset: 0 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -108,4 +167,21 @@ export const GetDashboardContract = defineQuery({
   },
   io: { input: GetDashboardInputModel, output: DashboardModel },
   policy: { auth: 'anonymous' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-dashboard-happy-path',
+        given: ['Dashboard exists'],
+        when: ['User requests dashboard by ID'],
+        then: ['Dashboard with widgets is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-basic',
+        input: { dashboardId: 'dash-123' },
+        output: { id: 'dash-123', name: 'Revenue Dashboard', widgets: [] },
+      },
+    ],
+  },
 });

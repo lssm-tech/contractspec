@@ -48,9 +48,11 @@ ${allImports}
 ${payloadModel.code}
 
 export const ${eventName} = defineEvent({
-  name: '${event.name}',
-  version: 1,
-  description: ${JSON.stringify(event.description ?? '')},
+  meta: {
+    key: '${event.name}',
+    version: 1,
+    description: ${JSON.stringify(event.description ?? '')},
+  },
   payload: ${payloadModel.name},
 });
 `.trim();

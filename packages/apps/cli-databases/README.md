@@ -1,5 +1,8 @@
 # @lssm/app.cli-databases
 
+Website: https://contractspec.lssm.tech/
+
+
 Orchestration CLI for managing database profiles and connection strategies.
 
 ## Purpose

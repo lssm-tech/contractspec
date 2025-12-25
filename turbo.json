@@ -1,6 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "envMode": "strict",
+  "globalEnv": [
+    "VSCE_PAT",
+    "OVSX_PAT"
+  ],
   "tasks": {
     "clean": {
       "cache": false

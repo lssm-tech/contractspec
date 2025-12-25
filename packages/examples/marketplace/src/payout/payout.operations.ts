@@ -19,4 +19,21 @@ export const ListPayoutsContract = defineQuery({
   },
   io: { input: ListPayoutsInputModel, output: ListPayoutsOutputModel },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-payouts-happy-path',
+        given: ['Store has payout history'],
+        when: ['Seller lists payouts'],
+        then: ['List of payouts is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-recent',
+        input: { limit: 10, offset: 0 },
+        output: { items: [], total: 5, hasMore: false },
+      },
+    ],
+  },
 });

@@ -1,5 +1,8 @@
 # `@lssm/example.policy-safe-knowledge-assistant`
 
+Website: https://contractspec.lssm.tech/
+
+
 All-in-one template example demonstrating a **policy-safe knowledge assistant** end-to-end:
 
 - Locale + jurisdiction gating (fail-closed)

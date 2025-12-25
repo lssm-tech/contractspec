@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { PolicyEngine } from './engine';
-import { PolicyRegistry, type PolicySpec } from './spec';
+import { type PolicySpec } from './spec';
+import { PolicyRegistry } from './registry';
 import { StabilityEnum, type Tag, type Owner } from '../ownership';
 
 const baseMeta = {

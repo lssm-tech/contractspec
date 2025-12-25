@@ -1,5 +1,44 @@
 # Changelog
 
+## 1.42.2
+
+### Patch Changes
+
+- 1f9ac4c: fix
+- Updated dependencies [1f9ac4c]
+  - @lssm/bundle.contractspec-workspace@1.42.2
+  - @lssm/lib.contracts@1.42.2
+  - @lssm/lib.contracts-transformers@1.42.2
+  - @lssm/module.contractspec-examples@1.42.2
+  - @lssm/module.contractspec-workspace@1.42.2
+
+## 1.42.1
+
+### Patch Changes
+
+- f043995: Fix release
+- Updated dependencies [f043995]
+  - @lssm/bundle.contractspec-workspace@1.42.1
+  - @lssm/module.contractspec-workspace@1.42.1
+  - @lssm/module.contractspec-examples@1.42.1
+  - @lssm/lib.contracts-transformers@1.42.1
+  - @lssm/lib.contracts@1.42.1
+
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
+### Patch Changes
+
+- Updated dependencies [8eefd9c]
+  - @lssm/bundle.contractspec-workspace@1.42.0
+  - @lssm/lib.contracts@1.42.0
+  - @lssm/lib.contracts-transformers@1.42.0
+  - @lssm/module.contractspec-examples@1.42.0
+  - @lssm/module.contractspec-workspace@1.42.0
+
 All notable changes to the ContractSpec VS Code extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -52,12 +91,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Uses `@lssm/module.contractspec-workspace` for analysis and templates
 - Works without requiring CLI installation
 - Bundled with esbuild for fast load times
-
-
-
-
-
-
-
-
-

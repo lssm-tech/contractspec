@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.kb-update-pipeline",
-  "version": "1.41.1",
+  "version": "1.42.2",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
   "main": "./dist/index.js",

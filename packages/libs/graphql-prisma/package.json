@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-prisma",
-  "version": "1.41.1",
+  "version": "1.42.2",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

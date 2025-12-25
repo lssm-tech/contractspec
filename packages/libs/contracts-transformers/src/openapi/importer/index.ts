@@ -5,7 +5,7 @@ import type {
   ParseResult,
 } from '../types';
 import type { ImportedOperationSpec, ImportResult } from '../../common/types';
-import { toFileName, toSpecName } from '../../common/utils';
+import { toFileName, toSpecKey } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
 import { buildInputSchema, getOutputSchema } from './schemas';
 import { generateSpecCode } from './generator';
@@ -112,7 +112,7 @@ export const importFromOpenApi = (
         inputModel,
         outputModel
       );
-      const specName = toSpecName(operation.operationId, importOptions.prefix);
+      const specName = toSpecKey(operation.operationId, importOptions.prefix);
       const fileName = toFileName(specName);
 
       // Build transport hints
@@ -164,7 +164,7 @@ export const importFromOpenApi = (
   for (const [name, schema] of Object.entries(parseResult.schemas)) {
     try {
       const code = generateModelCode(name, schema, contractspecOptions);
-      const fileName = toFileName(toSpecName(name, importOptions.prefix));
+      const fileName = toFileName(toSpecKey(name, importOptions.prefix));
       const groupFolder = resolveModelGroupFolder(
         name,
         contractspecOptions.conventions
@@ -198,7 +198,7 @@ export const importFromOpenApi = (
   for (const event of parseResult.events) {
     try {
       const code = generateEventCode(event, contractspecOptions);
-      const fileName = toFileName(toSpecName(event.name, importOptions.prefix));
+      const fileName = toFileName(toSpecKey(event.name, importOptions.prefix));
       const groupFolder = resolveEventGroupFolder(
         event.name,
         contractspecOptions.conventions

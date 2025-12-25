@@ -1,8 +1,4 @@
-import type {
-  Step,
-  StepAction,
-  StepType,
-} from '@lssm/lib.contracts';
+import type { Step, StepAction, StepType } from '@lssm/lib.contracts';
 
 export interface StepTemplateOptions {
   id: string;

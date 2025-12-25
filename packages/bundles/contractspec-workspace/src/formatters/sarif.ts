@@ -167,7 +167,7 @@ export function formatAsSarif(
   const {
     toolName = 'ContractSpec',
     toolVersion = '1.0.0',
-    toolUri = 'https://contractspec.dev',
+    toolUri = 'https://contractspec.lssm.tech',
     repositoryUri,
     workingDirectory,
   } = options;

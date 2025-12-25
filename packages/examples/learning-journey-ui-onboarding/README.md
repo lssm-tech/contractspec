@@ -1,5 +1,8 @@
 # @lssm/example.learning-journey-ui-onboarding
 
+Website: https://contractspec.lssm.tech/
+
+
 Developer onboarding UI with checklists and journey maps.
 
 ## Features

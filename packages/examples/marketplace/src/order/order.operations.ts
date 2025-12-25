@@ -34,6 +34,26 @@ export const CreateOrderContract = defineCommand({
     ],
     audit: ['marketplace.order.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-order-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates order with valid items'],
+        then: ['Order is created', 'OrderCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-basic-order',
+        input: {
+          storeId: 'store-123',
+          items: [{ productId: 'prod-456', quantity: 1, unitPrice: 100 }],
+        },
+        output: { id: 'order-789', status: 'pending', total: 100 },
+      },
+    ],
+  },
 });
 
 /**
@@ -62,5 +82,26 @@ export const UpdateOrderStatusContract = defineCommand({
       },
     ],
     audit: ['marketplace.order.statusUpdated'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'update-status-happy-path',
+        given: ['Order exists'],
+        when: ['Seller updates order status'],
+        then: ['Status is updated', 'OrderStatusUpdated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'mark-shipped',
+        input: {
+          orderId: 'order-789',
+          status: 'shipped',
+          trackingNumber: 'TRACK123',
+        },
+        output: { id: 'order-789', status: 'shipped' },
+      },
+    ],
   },
 });

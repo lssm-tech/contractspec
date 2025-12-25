@@ -1,6 +1,6 @@
 {
   "name": "@lssm/action.contractspec",
-  "version": "1.41.1",
+  "version": "1.42.2",
   "description": "GitHub Action for running ContractSpec CI checks",
   "repository": {
     "type": "git",

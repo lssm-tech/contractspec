@@ -18,9 +18,7 @@ export const registryListCommand = new Command('list')
   .action(async (options: RegistryListOptions) => {
     try {
       const client = new RegistryClient({
-        registryUrl: resolveRegistryUrl(
-          options.registryUrl
-        ),
+        registryUrl: resolveRegistryUrl(options.registryUrl),
       });
       const manifest = await client.getJson<ContractRegistryManifest>(
         '/r/contractspec.json'
@@ -40,16 +38,25 @@ export const registryListCommand = new Command('list')
       console.log(chalk.bold(`\n📦 Registry Items (${items.length})\n`));
       items
         .slice()
-        .sort((a: { key: string }, b: { key: string }) => a.key.localeCompare(b.key))
-        .forEach((item: { type: string; key: string; version: number; description: string }) => {
-          console.log(
-            `${chalk.cyan(item.type)} ${chalk.bold(item.key)} ${chalk.gray(
-              `v${item.version}`
-            )}`
-          );
+        .sort((a: { key: string }, b: { key: string }) =>
+          a.key.localeCompare(b.key)
+        )
+        .forEach(
+          (item: {
+            type: string;
+            key: string;
+            version: number;
+            description: string;
+          }) => {
+            console.log(
+              `${chalk.cyan(item.type)} ${chalk.bold(item.key)} ${chalk.gray(
+                `v${item.version}`
+              )}`
+            );
 
-          console.log(`  ${chalk.gray(item.description)}`);
-        });
+            console.log(`  ${chalk.gray(item.description)}`);
+          }
+        );
     } catch (error) {
       console.error(
         chalk.red(`Registry list failed: ${getErrorMessage(error)}`)

@@ -1,5 +1,8 @@
 # @lssm/example.analytics-dashboard
 
+Website: https://contractspec.lssm.tech/
+
+
 > Analytics Dashboard Example - Comprehensive data visualization and reporting solution
 
 ## Overview
@@ -260,6 +263,7 @@ const result = await queryEngine.execute(
 | `query:create` | Create queries | analyst, admin |
 | `query:execute` | Execute queries | viewer, analyst, admin |
 | `report:schedule` | Schedule reports | analyst, admin |
+
 
 
 

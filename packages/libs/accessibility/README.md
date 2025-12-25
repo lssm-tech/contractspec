@@ -1,5 +1,8 @@
 # @lssm/lib.accessibility
 
+Website: https://contractspec.lssm.tech/
+
+
 Stable exports of accessibility primitives for LSSM web apps, ensuring WCAG compliance and inclusive design.
 
 ## Purpose

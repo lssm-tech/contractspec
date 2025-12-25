@@ -1,5 +1,8 @@
 # @lssm/lib.content-gen
 
+Website: https://contractspec.lssm.tech/
+
+
 Composable generators that turn ContractSpec briefs, specs, and telemetry into publish-ready marketing artifacts: blogs, landing pages, SEO metadata, email drips, and social posts.
 
 ## Modules

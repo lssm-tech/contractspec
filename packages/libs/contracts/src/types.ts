@@ -22,21 +22,22 @@ import type { SecretProvider } from './integrations/secrets/provider';
 import type { SpecVariantResolver } from './experiments/spec-resolver';
 import type { EventRegistry } from './events';
 
-export type SpecType = 'app-config'
-    | 'capability'
-    | 'data-view'
-    | 'experiment'
-    | 'form'
-    | 'integration'
-    | 'knowledge'
-    | 'operation'
-    | 'policy'
-    | 'presentation'
-    | 'telemetry'
-    | 'workflow'
-    | 'event'
-    | 'feature'
-    | 'migration';
+export type ContractSpecType =
+  | 'app-config'
+  | 'capability'
+  | 'data-view'
+  | 'experiment'
+  | 'form'
+  | 'integration'
+  | 'knowledge'
+  | 'operation'
+  | 'policy'
+  | 'presentation'
+  | 'telemetry'
+  | 'workflow'
+  | 'event'
+  | 'feature'
+  | 'migration';
 
 export interface FieldLevelDecision {
   field: string;

@@ -103,7 +103,7 @@ jobs:
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
-          bun run package --pre-release
+          bunx vsce package --no-dependencies --pre-release
           VSIX_NAME=$(ls *.vsix | head -1)
           echo "vsix-name=$VSIX_NAME" >> $GITHUB_OUTPUT
           echo "📦 Packaged: $VSIX_NAME"
@@ -171,4 +171,5 @@ jobs:
           git config user.email github-actions[bot]@users.noreply.github.com
           git tag -fa action-canary -m "Update action-canary to ${{ steps.action-version.outputs.version }}"
           git push origin action-canary --force
+
 

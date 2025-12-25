@@ -35,6 +35,32 @@ export const CreateProductContract = defineCommand({
     ],
     audit: ['marketplace.product.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-product-happy-path',
+        given: ['User is a seller'],
+        when: ['User creates a product listing'],
+        then: ['Product is created', 'ProductCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-t-shirt',
+        input: {
+          title: 'Classic T-Shirt',
+          price: 25,
+          stock: 100,
+          storeId: 'store-123',
+        },
+        output: {
+          id: 'prod-456',
+          title: 'Classic T-Shirt',
+          status: 'published',
+        },
+      },
+    ],
+  },
 });
 
 /**
@@ -53,4 +79,21 @@ export const ListProductsContract = defineQuery({
   },
   io: { input: ListProductsInputModel, output: ListProductsOutputModel },
   policy: { auth: 'anonymous' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-products-happy-path',
+        given: ['Products exist'],
+        when: ['User searches for products'],
+        then: ['List of products is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'search-t-shirts',
+        input: { search: 't-shirt', limit: 20 },
+        output: { items: [], total: 50, hasMore: true },
+      },
+    ],
+  },
 });

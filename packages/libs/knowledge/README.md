@@ -1,5 +1,8 @@
 # @lssm/lib.knowledge
 
+Website: https://contractspec.lssm.tech/
+
+
 Knowledge retrieval and management library for ContractSpec. Provides the runtime implementation for knowledge spaces, including:
 
 - **Retriever Interface**: Unified interface for knowledge retrieval (vector, static, hybrid)
@@ -59,6 +62,7 @@ This package bridges `@lssm/lib.contracts` (specs/types) with `@lssm/lib.ai-agen
 ## License
 
 MIT
+
 
 
 

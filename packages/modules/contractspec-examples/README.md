@@ -1,5 +1,8 @@
 # @lssm/module.contractspec-examples
 
+Website: https://contractspec.lssm.tech/
+
+
 Pure, deterministic types and registries for ContractSpec Examples.
 
 ## Purpose

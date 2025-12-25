@@ -53,11 +53,11 @@ export function toValidIdentifier(str: string): string {
 }
 
 /**
- * Generate a ContractSpec name from an operation identifier.
+ * Generate a ContractSpec key from an operation identifier.
  */
-export function toSpecName(operationId: string, prefix?: string): string {
-  const name = toCamelCase(operationId);
-  return prefix ? `${prefix}.${name}` : name;
+export function toSpecKey(operationId: string, prefix?: string): string {
+  const key = toCamelCase(operationId);
+  return prefix ? `${prefix}.${key}` : key;
 }
 
 /**

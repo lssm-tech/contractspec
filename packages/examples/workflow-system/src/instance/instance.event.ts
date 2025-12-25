@@ -189,7 +189,7 @@ export const InstanceFailedEvent = defineEvent({
  */
 export const InstanceTimedOutEvent = defineEvent({
   meta: {
-    key: 'workflow.instance.timeout',
+    key: 'workflow.instance.timedOut',
     version: 1,
     description: 'A workflow instance has timed out.',
     stability: 'stable',
