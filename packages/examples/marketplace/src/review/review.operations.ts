@@ -35,6 +35,23 @@ export const CreateReviewContract = defineCommand({
     ],
     audit: ['marketplace.review.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-review-happy-path',
+        given: ['User purchased product'],
+        when: ['User leaves a review'],
+        then: ['Review is created', 'ReviewCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-5-star',
+        input: { productId: 'prod-456', rating: 5, comment: 'Great product!' },
+        output: { id: 'rev-789', status: 'published' },
+      },
+    ],
+  },
 });
 
 /**
@@ -53,4 +70,21 @@ export const ListReviewsContract = defineQuery({
   },
   io: { input: ListReviewsInputModel, output: ListReviewsOutputModel },
   policy: { auth: 'anonymous' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-reviews-happy-path',
+        given: ['Product has reviews'],
+        when: ['User views reviews'],
+        then: ['List of reviews is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-product-reviews',
+        input: { productId: 'prod-456', limit: 10 },
+        output: { items: [], total: 10, hasMore: false },
+      },
+    ],
+  },
 });

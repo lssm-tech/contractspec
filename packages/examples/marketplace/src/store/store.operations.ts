@@ -30,4 +30,21 @@ export const CreateStoreContract = defineCommand({
     ],
     audit: ['marketplace.store.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-store-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates a new store'],
+        then: ['Store is created', 'StoreCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-fashion-store',
+        input: { name: 'Fashion Boutique', category: 'clothing' },
+        output: { id: 'store-123', status: 'active' },
+      },
+    ],
+  },
 });
