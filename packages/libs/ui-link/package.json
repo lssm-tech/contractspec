@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ui-link",
-  "version": "1.41.1",
+  "version": "1.42.0",
   "type": "module",
   "main": "./dist/link.js",
   "module": "./dist/link.js",
