@@ -1,5 +1,11 @@
 # @lssm/tool.tsdown
 
+## 1.42.0
+
+### Minor Changes
+
+- 8eefd9c: initial release
+
 ## 0.13.0
 
 ### Minor Changes
