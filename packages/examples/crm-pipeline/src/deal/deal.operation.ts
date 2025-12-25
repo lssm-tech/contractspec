@@ -46,6 +46,23 @@ export const CreateDealContract = defineCommand({
     ],
     audit: ['deal.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-deal-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates a deal with valid data'],
+        then: ['Deal is created', 'DealCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'create-basic-deal',
+        input: { title: 'Big Corp Q3 License', stageId: 'stage-lead', value: 50000, companyId: 'comp-123' },
+        output: { id: 'deal-789', title: 'Big Corp Q3 License', status: 'open' },
+      },
+    ],
+  },
 });
 
 /**
@@ -79,6 +96,23 @@ export const MoveDealContract = defineCommand({
       },
     ],
     audit: ['deal.moved'],
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'move-deal-happy-path',
+        given: ['Deal exists in stage A'],
+        when: ['User moves deal to stage B'],
+        then: ['Deal stage is updated', 'DealMoved event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'move-to-negotiation',
+        input: { dealId: 'deal-789', targetStageId: 'stage-negotiation' },
+        output: { id: 'deal-789', stageId: 'stage-negotiation', movedAt: '2025-01-15T10:00:00Z' },
+      },
+    ],
   },
 });
 
@@ -114,6 +148,23 @@ export const WinDealContract = defineCommand({
     ],
     audit: ['deal.won'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'win-deal-happy-path',
+        given: ['Deal is open'],
+        when: ['User marks deal as won'],
+        then: ['Deal status becomes WON', 'DealWon event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'mark-won',
+        input: { dealId: 'deal-789', actualValue: 52000, note: 'Signed contract attached' },
+        output: { id: 'deal-789', status: 'won', closedAt: '2025-01-20T14:30:00Z' },
+      },
+    ],
+  },
 });
 
 /**
@@ -148,6 +199,23 @@ export const LoseDealContract = defineCommand({
     ],
     audit: ['deal.lost'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'lose-deal-happy-path',
+        given: ['Deal is open'],
+        when: ['User marks deal as lost'],
+        then: ['Deal status becomes LOST', 'DealLost event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'mark-lost',
+        input: { dealId: 'deal-789', reason: 'competitor', note: 'Went with cheaper option' },
+        output: { id: 'deal-789', status: 'lost', closedAt: '2025-01-21T09:00:00Z' },
+      },
+    ],
+  },
 });
 
 /**
@@ -170,5 +238,22 @@ export const ListDealsContract = defineQuery({
   },
   policy: {
     auth: 'user',
+  },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-deals-happy-path',
+        given: ['User has access to deals'],
+        when: ['User lists deals'],
+        then: ['List of deals is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-filter-stage',
+        input: { stageId: 'stage-lead', limit: 20 },
+        output: { items: [], total: 5, hasMore: false },
+      },
+    ],
   },
 });

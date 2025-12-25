@@ -79,9 +79,7 @@ export const listCommand = new Command('list')
                 ? (meta as Record<string, unknown>)
                 : undefined;
             const name =
-              typeof maybeMeta?.key === 'string'
-                ? maybeMeta.key
-                : baseRow.key;
+              typeof maybeMeta?.key === 'string' ? maybeMeta.key : baseRow.key;
             const description =
               typeof maybeMeta?.description === 'string'
                 ? maybeMeta.description

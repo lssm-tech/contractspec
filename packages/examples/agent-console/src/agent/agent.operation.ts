@@ -59,6 +59,29 @@ export const CreateAgentCommand = defineCommand({
     ],
     audit: ['agent-console.agent.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-agent-happy-path',
+        given: ['User is authenticated', 'Organization exists'],
+        when: ['User submits valid agent configuration'],
+        then: ['New agent is created with DRAFT status', 'AgentCreated event is emitted'],
+      },
+      {
+        key: 'create-agent-slug-conflict',
+        given: ['User is authenticated', 'Agent with same slug exists'],
+        when: ['User submits agent with duplicate slug'],
+        then: ['SLUG_EXISTS error is returned with 409 status'],
+      },
+    ],
+    examples: [
+      {
+        key: 'basic-create',
+        input: { name: 'Support Assistant', slug: 'support-assistant', modelProvider: 'openai', modelId: 'gpt-4' },
+        output: { id: 'agent-123', name: 'Support Assistant', slug: 'support-assistant', status: 'draft' },
+      },
+    ],
+  },
 });
 
 /**
@@ -110,6 +133,29 @@ export const UpdateAgentCommand = defineCommand({
     ],
     audit: ['agent.updated'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'update-agent-happy-path',
+        given: ['Agent exists', 'User owns the agent'],
+        when: ['User submits updated configuration'],
+        then: ['Agent is updated', 'AgentUpdated event is emitted'],
+      },
+      {
+        key: 'update-agent-not-found',
+        given: ['Agent does not exist'],
+        when: ['User attempts to update'],
+        then: ['AGENT_NOT_FOUND error is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'update-name',
+        input: { agentId: 'agent-123', name: 'Updated Assistant', systemPrompt: 'You are a helpful assistant.' },
+        output: { id: 'agent-123', name: 'Updated Assistant', status: 'draft', updatedAt: '2025-01-01T00:00:00Z' },
+      },
+    ],
+  },
 });
 
 /**
@@ -145,6 +191,29 @@ export const GetAgentQuery = defineQuery({
     },
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'get-agent-happy-path',
+        given: ['Agent exists'],
+        when: ['User requests agent by ID'],
+        then: ['Agent details are returned'],
+      },
+      {
+        key: 'get-agent-with-tools',
+        given: ['Agent exists with assigned tools'],
+        when: ['User requests agent with includeTools=true'],
+        then: ['Agent details with tools list are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'get-basic',
+        input: { agentId: 'agent-123', includeTools: false },
+        output: { id: 'agent-123', name: 'Support Assistant', status: 'active', tools: [] },
+      },
+    ],
+  },
 });
 
 /**
@@ -194,6 +263,29 @@ export const ListAgentsQuery = defineQuery({
     }),
   },
   policy: { auth: 'user' },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'list-agents-happy-path',
+        given: ['Organization has agents'],
+        when: ['User lists agents'],
+        then: ['Paginated list of agents is returned'],
+      },
+      {
+        key: 'list-agents-filter-by-status',
+        given: ['Organization has agents with mixed statuses'],
+        when: ['User filters by status=active'],
+        then: ['Only active agents are returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'list-basic',
+        input: { organizationId: 'org-123', limit: 10, offset: 0 },
+        output: { items: [], total: 0, hasMore: false },
+      },
+    ],
+  },
 });
 
 /**
@@ -242,6 +334,29 @@ export const AssignToolToAgentCommand = defineCommand({
   },
   policy: { auth: 'user' },
   sideEffects: { audit: ['agent.tool.assigned'] },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'assign-tool-happy-path',
+        given: ['Agent exists', 'Tool exists and is not assigned'],
+        when: ['User assigns tool to agent'],
+        then: ['Tool is assigned', 'Assignment ID is returned'],
+      },
+      {
+        key: 'assign-tool-already-assigned',
+        given: ['Tool is already assigned to agent'],
+        when: ['User attempts to assign again'],
+        then: ['TOOL_ALREADY_ASSIGNED error is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'assign-basic',
+        input: { agentId: 'agent-123', toolId: 'tool-456' },
+        output: { agentToolId: 'at-789', agentId: 'agent-123', toolId: 'tool-456' },
+      },
+    ],
+  },
 });
 
 /**
@@ -275,4 +390,21 @@ export const RemoveToolFromAgentCommand = defineCommand({
   },
   policy: { auth: 'user' },
   sideEffects: { audit: ['agent.tool.removed'] },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'remove-tool-happy-path',
+        given: ['Agent exists', 'Tool is assigned to agent'],
+        when: ['User removes tool from agent'],
+        then: ['Tool is unassigned', 'Success is returned'],
+      },
+    ],
+    examples: [
+      {
+        key: 'remove-basic',
+        input: { agentId: 'agent-123', toolId: 'tool-456' },
+        output: { success: true },
+      },
+    ],
+  },
 });

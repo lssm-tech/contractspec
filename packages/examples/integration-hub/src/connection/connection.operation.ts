@@ -33,4 +33,21 @@ export const CreateConnectionContract = defineCommand({
     ],
     audit: ['integration.connection.created'],
   },
+  acceptance: {
+    scenarios: [
+      {
+        key: 'create-connection-happy-path',
+        given: ['User is authenticated'],
+        when: ['User creates connection with valid credentials'],
+        then: ['Connection is created', 'ConnectionCreated event is emitted'],
+      },
+    ],
+    examples: [
+      {
+        key: 'connect-crm',
+        input: { name: 'Salesforce Prod', integrationId: 'salesforce', credentials: { clientId: 'xxx' } },
+        output: { id: 'conn-123', status: 'connected', connectedAt: '2025-01-01T12:00:00Z' },
+      },
+    ],
+  },
 });

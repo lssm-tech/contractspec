@@ -66,7 +66,7 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
     { key: 'workflow.instance.paused', version: 1 },
     { key: 'workflow.instance.resumed', version: 1 },
     { key: 'workflow.instance.failed', version: 1 },
-    { key: 'workflow.instance.timeout', version: 1 },
+    { key: 'workflow.instance.timedOut', version: 1 },
 
     // Approval events
     { key: 'workflow.approval.requested', version: 1 },
