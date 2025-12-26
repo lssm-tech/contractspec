@@ -1,5 +1,16 @@
 # @lssm/example.content-generation
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/lib.content-gen@1.42.8
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.logger@1.42.8
+  - @lssm/lib.schema@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes

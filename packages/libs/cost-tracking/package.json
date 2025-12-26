@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.cost-tracking",
-  "version": "1.42.7",
+  "version": "1.42.8",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

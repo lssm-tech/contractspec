@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.content-generation",
-  "version": "1.42.7",
+  "version": "1.42.8",
   "description": "Content generation example using @lssm/lib.content-gen.",
   "type": "module",
   "main": "./dist/index.js",

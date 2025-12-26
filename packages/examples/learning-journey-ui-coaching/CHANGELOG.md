@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-coaching
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/example.learning-journey-crm-onboarding@1.42.8
+  - @lssm/example.learning-journey-ambient-coach@1.42.8
+  - @lssm/example.learning-journey-ui-shared@1.42.8
+  - @lssm/module.learning-journey@1.42.8
+  - @lssm/lib.design-system@1.42.8
+  - @lssm/lib.ui-kit-web@1.42.8
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.schema@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes

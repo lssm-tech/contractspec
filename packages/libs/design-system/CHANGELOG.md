@@ -1,5 +1,16 @@
 # @lssm/lib.design-system
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/lib.ui-kit-web@1.42.8
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.ai-agent@1.42.8
+  - @lssm/lib.ui-kit@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes
