@@ -1,5 +1,14 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/lib.presentation-runtime-core@1.42.4
+  - @lssm/lib.ui-kit@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

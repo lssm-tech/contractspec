@@ -1,5 +1,26 @@
 # @lssm/example.policy-safe-knowledge-assistant
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/example.locale-jurisdiction-gate@1.42.4
+  - @lssm/example.versioned-knowledge-base@1.42.4
+  - @lssm/example.kb-update-pipeline@1.42.4
+  - @lssm/example.learning-patterns@1.42.3
+  - @lssm/module.learning-journey@1.42.4
+  - @lssm/module.notifications@1.42.4
+  - @lssm/module.audit-trail@1.42.4
+  - @lssm/lib.feature-flags@1.42.4
+  - @lssm/lib.identity-rbac@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.metering@1.42.4
+  - @lssm/lib.schema@1.42.4
+  - @lssm/lib.files@1.42.4
+  - @lssm/lib.jobs@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

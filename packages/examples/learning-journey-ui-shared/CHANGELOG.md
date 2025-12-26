@@ -1,5 +1,17 @@
 # @lssm/example.learning-journey-ui-shared
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/module.learning-journey@1.42.4
+  - @lssm/lib.design-system@1.42.4
+  - @lssm/lib.ui-kit-web@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.schema@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

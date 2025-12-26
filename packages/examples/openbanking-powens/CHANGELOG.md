@@ -1,5 +1,15 @@
 # @lssm/example.openbanking-powens
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/integration.providers-impls@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.schema@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

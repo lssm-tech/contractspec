@@ -1,5 +1,18 @@
 # @lssm/bundle.contractspec-workspace
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/module.contractspec-workspace@1.42.4
+  - @lssm/lib.contracts-transformers@1.42.4
+  - @lssm/lib.ai-providers@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.testing@1.42.4
+  - @lssm/lib.schema@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

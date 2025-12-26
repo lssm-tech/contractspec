@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-gamified",
-  "version": "1.42.3",
+  "version": "1.42.4",
   "description": "Duolingo-style gamified learning UI for drills and quests.",
   "type": "module",
   "main": "./dist/index.js",
