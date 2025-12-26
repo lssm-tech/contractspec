@@ -57,23 +57,23 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # VS Code Extension Publishing
-      - name: Check if VS Code extension should be published
-        id: vscode-skipcheck
-        shell: bash
-        run: |
-          set +e
-          bunx turbo-ignore vscode-contractspec --task=build
-          code=$?
-          set -e
+      # - name: Check if VS Code extension should be published
+      #   id: vscode-skipcheck
+      #   shell: bash
+      #   run: |
+      #     set +e
+      #     bunx turbo-ignore vscode-contractspec --task=build
+      #     code=$?
+      #     set -e
           
-          if [[ $code -eq 0 ]]; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
+      #     if [[ $code -eq 0 ]]; then
+      #       echo "skip=true" >> "$GITHUB_OUTPUT"
+      #     else
+      #       echo "skip=false" >> "$GITHUB_OUTPUT"
+      #     fi
 
       - name: Set VS Code extension pre-release version
-        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        # if: steps.vscode-skipcheck.outputs.skip != 'true'
         working-directory: packages/apps/vscode-contractspec
         run: |
           # VS Code Marketplace doesn't support semver prerelease tags like "0.0.0-canary-..."
@@ -99,7 +99,7 @@ jobs:
           mv package.json.tmp package.json
 
       - name: Package VS Code extension
-        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        # if: steps.vscode-skipcheck.outputs.skip != 'true'
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
@@ -113,7 +113,7 @@ jobs:
         run: bun add -g @vscode/vsce
 
       - name: Publish VS Code extension to Marketplace
-        if: steps.vscode-skipcheck.outputs.skip != 'true'
+        # if: steps.vscode-skipcheck.outputs.skip != 'true'
         working-directory: packages/apps/vscode-contractspec
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -123,7 +123,7 @@ jobs:
           vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT" --pre-release
 
       - name: Publish VS Code extension to Open VSX Registry
-        if: steps.vscode-skipcheck.outputs.skip != 'true' && env.OVSX_PAT != ''
+        # if: steps.vscode-skipcheck.outputs.skip != 'true' && env.OVSX_PAT != ''
         working-directory: packages/apps/vscode-contractspec
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
