@@ -1,5 +1,18 @@
 # @lssm/bundle.contractspec-workspace
 
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+- Updated dependencies [e9b575d]
+  - @lssm/module.contractspec-workspace@1.42.7
+  - @lssm/lib.contracts-transformers@1.42.7
+  - @lssm/lib.ai-providers@1.42.7
+  - @lssm/lib.contracts@1.42.7
+  - @lssm/lib.testing@1.42.7
+  - @lssm/lib.schema@1.42.7
+
 ## 1.42.6
 
 ### Patch Changes

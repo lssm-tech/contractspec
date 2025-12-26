@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.wealth-snapshot",
-  "version": "1.42.6",
+  "version": "1.42.7",
   "description": "Wealth Snapshot mini-app for accounts, assets, liabilities, and goals",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

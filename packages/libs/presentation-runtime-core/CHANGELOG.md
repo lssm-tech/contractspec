@@ -1,5 +1,11 @@
 # @lssm/lib.presentation-runtime-core
 
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+
 ## 1.42.6
 
 ### Patch Changes
