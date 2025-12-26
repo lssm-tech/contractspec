@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.analytics",
-  "version": "1.42.3",
+  "version": "1.42.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

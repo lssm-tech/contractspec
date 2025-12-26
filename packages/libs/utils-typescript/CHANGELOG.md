@@ -1,5 +1,11 @@
 # @lssm/lib.utils-typescript
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+
 ## 1.42.3
 
 ### Patch Changes

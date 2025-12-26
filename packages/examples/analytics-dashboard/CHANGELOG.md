@@ -1,5 +1,19 @@
 # @lssm/example.analytics-dashboard
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/module.audit-trail@1.42.4
+  - @lssm/lib.identity-rbac@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.metering@1.42.4
+  - @lssm/lib.schema@1.42.4
+  - @lssm/lib.jobs@1.42.4
+  - @lssm/lib.bus@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

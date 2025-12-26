@@ -1,5 +1,17 @@
 # @lssm/example.lifecycle-cli
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/bundle.lifecycle-managed@1.42.4
+  - @lssm/lib.contracts@1.42.4
+  - @lssm/lib.lifecycle@1.42.4
+  - @lssm/lib.logger@1.42.4
+  - @lssm/lib.schema@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes

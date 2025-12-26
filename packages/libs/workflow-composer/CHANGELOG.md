@@ -1,5 +1,13 @@
 # @lssm/lib.workflow-composer
 
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+- Updated dependencies [ac28b99]
+  - @lssm/lib.contracts@1.42.4
+
 ## 1.42.3
 
 ### Patch Changes
