@@ -61,8 +61,6 @@ jobs:
           version: bun run release:version
           # The command to publish packages
           publish: bun run release:publish
-          commit: "chore: version packages"
-          title: "Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
