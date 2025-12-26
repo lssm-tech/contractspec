@@ -1,5 +1,11 @@
 # @lssm/lib.exporter
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+
 ## 1.42.8
 
 ### Patch Changes

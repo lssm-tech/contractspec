@@ -1,6 +1,6 @@
 # @lssm/lib.schema
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **Multi-surface consistency starts here** — Define schemas once, export to Zod, GraphQL, and JSON Schema.

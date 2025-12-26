@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "1.42.8",
+  "version": "1.42.9",
   "publisher": "lssm",
   "license": "MIT",
   "icon": "assets/icon.png",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/lssm/contractspec/issues"
   },
-  "homepage": "https://contractspec.lssm.tech",
+  "homepage": "https://contractspec.io",
   "engines": {
     "vscode": "^1.104.0"
   },
@@ -735,7 +735,7 @@
         },
         "contractspec.registry.baseUrl": {
           "type": "string",
-          "default": "https://registry.contractspec.lssm.tech",
+          "default": "https://registry.contractspec.io",
           "description": "Base URL for ContractSpec registry. Used for browsing and installing specs/templates."
         },
         "contractspec.specsExplorer.groupBy": {

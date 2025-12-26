@@ -1,6 +1,6 @@
 # @lssm/app.cli-contractspec
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **Stabilize your AI-generated code** — Define contracts once, generate consistent code across API, DB, UI, and events. Safe regeneration. No lock-in.

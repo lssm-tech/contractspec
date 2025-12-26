@@ -1,5 +1,19 @@
 # @lssm/module.ai-chat
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/lib.cost-tracking@1.42.9
+  - @lssm/lib.design-system@1.42.9
+  - @lssm/lib.ai-providers@1.42.9
+  - @lssm/lib.ui-kit-web@1.42.9
+  - @lssm/lib.contracts@1.42.9
+  - @lssm/lib.ai-agent@1.42.9
+  - @lssm/lib.metering@1.42.9
+
 ## 1.42.8
 
 ### Patch Changes

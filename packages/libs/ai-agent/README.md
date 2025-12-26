@@ -1,6 +1,6 @@
 # @lssm/lib.ai-agent
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **AI governance for ContractSpec** — Constrain what AI agents can change, enforce contracts they must respect.

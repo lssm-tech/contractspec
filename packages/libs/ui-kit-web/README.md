@@ -1,6 +1,6 @@
 # @lssm/lib.ui-kit-web
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Web-specific UI components and primitives for Next.js/React applications, built on top of Radix UI and Tailwind CSS.

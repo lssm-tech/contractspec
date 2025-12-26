@@ -1,6 +1,6 @@
 # @lssm/lib.graphql-prisma
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Prisma integration for Pothos GraphQL schemas.

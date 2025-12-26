@@ -1,6 +1,6 @@
 # @lssm/lib.graphql-federation
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 GraphQL Federation utilities for Pothos.

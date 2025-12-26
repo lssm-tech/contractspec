@@ -1,6 +1,6 @@
 # @lssm/module.learning-journey
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Comprehensive learning journey engine for ContractSpec applications.

@@ -26,7 +26,7 @@ class ContractSpecSettings : PersistentStateComponent<ContractSpecSettings.State
         var posthogProjectKey: String = "",
         var validationOnSave: Boolean = true,
         var validationOnOpen: Boolean = true,
-        var registryBaseUrl: String = "https://registry.contractspec.lssm.tech",
+        var registryBaseUrl: String = "https://registry.contractspec.io",
         var specsGroupingMode: String = "type",
         var telemetryEnabled: Boolean = true
     )

@@ -1,6 +1,6 @@
 # @lssm/lib.cost-tracking
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Cost attribution, budgeting, and optimization helpers for ContractSpec operations.

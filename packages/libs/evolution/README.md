@@ -1,6 +1,6 @@
 # @lssm/lib.evolution
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **Safe regeneration for ContractSpec** — Evolve specs automatically while preserving invariants.

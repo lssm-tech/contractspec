@@ -1,6 +1,6 @@
 # Content Generation Example
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Shows how to take a ContractSpec content brief and produce marketing assets with `@lssm/lib.content-gen`.

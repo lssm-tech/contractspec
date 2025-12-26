@@ -1,6 +1,6 @@
 # @lssm/lib.contracts-transformers
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Contract format transformations: bidirectional import/export between ContractSpec and external API specification formats.

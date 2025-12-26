@@ -1,6 +1,6 @@
 # @lssm/lib.contracts
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **The core of ContractSpec** — Define contracts once, generate consistent code across all surfaces.

@@ -1,6 +1,6 @@
 ### Integration Example – Stripe Payments
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 This example shows how to wire the `IntegrationSpec`/`TenantAppConfig` layers together to enable Stripe-backed payments for ArtisanOS.

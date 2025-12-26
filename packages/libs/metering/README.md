@@ -1,6 +1,6 @@
 # @lssm/lib.metering
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Usage metering and billing core module for ContractSpec applications.

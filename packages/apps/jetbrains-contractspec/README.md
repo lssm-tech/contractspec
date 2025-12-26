@@ -1,6 +1,6 @@
 # ContractSpec JetBrains Plugin
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 [![JetBrains Plugin Repository](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID?label=JetBrains%20Plugin&logo=jetbrains)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
@@ -175,7 +175,7 @@ Access settings via `Settings → Tools → ContractSpec`:
 | `PostHog Project Key`                      | PostHog project key for direct telemetry                       | `""`                                        |
 | `Validate on Save`                         | Run validation automatically when saving spec files           | `true`                                      |
 | `Validate on Open`                         | Run validation automatically when opening spec files          | `true`                                      |
-| `Registry Base URL`                        | Registry URL for browsing specs                                | `"https://registry.contractspec.lssm.tech"` |
+| `Registry Base URL`                        | Registry URL for browsing specs                                | `"https://registry.contractspec.io"` |
 | `Specs Grouping Mode`                      | How to group specs in the explorer                             | `"type"`                                    |
 
 ## Getting Started

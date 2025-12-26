@@ -1,6 +1,6 @@
 # @lssm/lib.identity-rbac
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Identity, Organizations, and Role-Based Access Control (RBAC) module for ContractSpec applications.

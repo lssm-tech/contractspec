@@ -1,6 +1,6 @@
 # @lssm/bundle.lifecycle-managed
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Lifecycle assessment + guidance managed service for ContractSpec Studio. This bundle wires the lifecycle modules, analytics bridges, and AI advisor agent into a deployable service surface (REST, events, Studio integrations).

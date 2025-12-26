@@ -1,6 +1,6 @@
 # @lssm/example.workflow-system
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A comprehensive workflow and approval system example demonstrating ContractSpec principles.

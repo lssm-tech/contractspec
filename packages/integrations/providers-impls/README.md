@@ -1,6 +1,6 @@
 # @lssm/integration.providers-impls
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 SDK-backed implementations of ContractSpec integration provider interfaces.
