@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+- Updated dependencies [1299719]
+  - @lssm/bundle.contractspec-workspace@1.42.5
+  - @lssm/module.contractspec-examples@1.42.5
+  - @lssm/lib.contracts-transformers@1.42.5
+  - @lssm/lib.ai-providers@1.42.5
+  - @lssm/module.ai-chat@1.42.5
+  - @lssm/lib.contracts@1.42.5
+  - @lssm/lib.testing@1.42.5
+  - @lssm/lib.schema@1.42.5
+
 ## 1.42.4
 
 ### Patch Changes
