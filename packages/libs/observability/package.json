@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.observability",
-  "version": "1.42.8",
+  "version": "1.42.9",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {

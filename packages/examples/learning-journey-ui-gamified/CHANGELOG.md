@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-gamified
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/example.learning-journey-quest-challenges@1.42.9
+  - @lssm/example.learning-journey-duo-drills@1.42.9
+  - @lssm/example.learning-journey-ui-shared@1.42.9
+  - @lssm/module.learning-journey@1.42.9
+  - @lssm/lib.design-system@1.42.9
+  - @lssm/lib.ui-kit-web@1.42.9
+  - @lssm/lib.contracts@1.42.9
+  - @lssm/lib.schema@1.42.9
+
 ## 1.42.8
 
 ### Patch Changes

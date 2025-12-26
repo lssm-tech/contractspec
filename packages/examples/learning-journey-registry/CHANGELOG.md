@@ -1,5 +1,25 @@
 # @lssm/example.learning-journey-registry
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/example.learning-journey-studio-onboarding@1.42.9
+  - @lssm/example.learning-journey-quest-challenges@1.42.9
+  - @lssm/example.learning-journey-crm-onboarding@1.42.9
+  - @lssm/example.learning-journey-ambient-coach@1.42.9
+  - @lssm/example.learning-journey-platform-tour@1.42.8
+  - @lssm/example.learning-journey-ui-onboarding@1.42.9
+  - @lssm/example.learning-journey-ui-coaching@1.42.9
+  - @lssm/example.learning-journey-ui-gamified@1.42.9
+  - @lssm/example.learning-journey-duo-drills@1.42.9
+  - @lssm/example.learning-journey-ui-shared@1.42.9
+  - @lssm/module.learning-journey@1.42.9
+  - @lssm/lib.contracts@1.42.9
+  - @lssm/lib.schema@1.42.9
+
 ## 1.42.8
 
 ### Patch Changes

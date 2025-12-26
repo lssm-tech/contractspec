@@ -1,5 +1,13 @@
 # @lssm/app.cli-database
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/lib.schema@1.42.9
+
 ## 1.42.8
 
 ### Patch Changes

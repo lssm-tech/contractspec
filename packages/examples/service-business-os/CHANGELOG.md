@@ -1,5 +1,20 @@
 # @lssm/example.service-business-os
 
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/module.notifications@1.42.9
+  - @lssm/module.audit-trail@1.42.9
+  - @lssm/lib.identity-rbac@1.42.9
+  - @lssm/lib.contracts@1.42.9
+  - @lssm/lib.schema@1.42.9
+  - @lssm/lib.files@1.42.9
+  - @lssm/lib.jobs@1.42.9
+  - @lssm/lib.bus@1.42.9
+
 ## 1.42.8
 
 ### Patch Changes
