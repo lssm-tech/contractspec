@@ -1,5 +1,20 @@
 # @lssm/example.service-business-os
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/module.notifications@1.42.6
+  - @lssm/module.audit-trail@1.42.6
+  - @lssm/lib.identity-rbac@1.42.6
+  - @lssm/lib.contracts@1.42.6
+  - @lssm/lib.schema@1.42.6
+  - @lssm/lib.files@1.42.6
+  - @lssm/lib.jobs@1.42.6
+  - @lssm/lib.bus@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

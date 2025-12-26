@@ -1,5 +1,15 @@
 # @lssm/lib.accessibility
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/lib.design-system@1.42.6
+  - @lssm/lib.ui-kit-web@1.42.6
+  - @lssm/lib.ui-kit@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

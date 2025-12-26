@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/app.cli-contractspec@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

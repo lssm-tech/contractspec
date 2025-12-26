@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.ai-chat",
-  "version": "1.42.5",
+  "version": "1.42.6",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
