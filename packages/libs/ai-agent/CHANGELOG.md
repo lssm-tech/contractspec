@@ -1,5 +1,14 @@
 # @lssm/lib.ai-agent
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.knowledge@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes

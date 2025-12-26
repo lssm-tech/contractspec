@@ -1,5 +1,26 @@
 # @lssm/example.policy-safe-knowledge-assistant
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/example.locale-jurisdiction-gate@1.42.8
+  - @lssm/example.versioned-knowledge-base@1.42.8
+  - @lssm/example.kb-update-pipeline@1.42.8
+  - @lssm/example.learning-patterns@1.42.7
+  - @lssm/module.learning-journey@1.42.8
+  - @lssm/module.notifications@1.42.8
+  - @lssm/module.audit-trail@1.42.8
+  - @lssm/lib.feature-flags@1.42.8
+  - @lssm/lib.identity-rbac@1.42.8
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.metering@1.42.8
+  - @lssm/lib.schema@1.42.8
+  - @lssm/lib.files@1.42.8
+  - @lssm/lib.jobs@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes

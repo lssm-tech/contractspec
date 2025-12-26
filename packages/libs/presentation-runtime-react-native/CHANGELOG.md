@@ -1,5 +1,14 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/lib.presentation-runtime-core@1.42.8
+  - @lssm/lib.ui-kit@1.42.8
+
 ## 1.42.7
 
 ### Patch Changes

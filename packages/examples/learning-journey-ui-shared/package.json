@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-shared",
-  "version": "1.42.7",
+  "version": "1.42.8",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
   "main": "./dist/index.js",
