@@ -1,5 +1,19 @@
 # @lssm/example.team-hub
 
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+- Updated dependencies [1299719]
+  - @lssm/module.notifications@1.42.5
+  - @lssm/module.audit-trail@1.42.5
+  - @lssm/lib.identity-rbac@1.42.5
+  - @lssm/lib.contracts@1.42.5
+  - @lssm/lib.schema@1.42.5
+  - @lssm/lib.jobs@1.42.5
+  - @lssm/lib.bus@1.42.5
+
 ## 1.42.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @lssm/lib.presentation-runtime-react
 
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+- Updated dependencies [1299719]
+  - @lssm/lib.presentation-runtime-core@1.42.5
+  - @lssm/lib.design-system@1.42.5
+  - @lssm/lib.ui-kit-web@1.42.5
+  - @lssm/lib.contracts@1.42.5
+
 ## 1.42.4
 
 ### Patch Changes

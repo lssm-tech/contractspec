@@ -1,5 +1,14 @@
 # @lssm/integration.runtime
 
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+- Updated dependencies [1299719]
+  - @lssm/lib.contracts@1.42.5
+  - @lssm/lib.logger@1.42.5
+
 ## 1.42.4
 
 ### Patch Changes

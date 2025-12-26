@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-coaching
 
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+- Updated dependencies [1299719]
+  - @lssm/example.learning-journey-crm-onboarding@1.42.5
+  - @lssm/example.learning-journey-ambient-coach@1.42.5
+  - @lssm/example.learning-journey-ui-shared@1.42.5
+  - @lssm/module.learning-journey@1.42.5
+  - @lssm/lib.design-system@1.42.5
+  - @lssm/lib.ui-kit-web@1.42.5
+  - @lssm/lib.contracts@1.42.5
+  - @lssm/lib.schema@1.42.5
+
 ## 1.42.4
 
 ### Patch Changes
