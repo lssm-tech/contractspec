@@ -1,6 +1,6 @@
 {
   "name": "lssm",
-  "version": "1.41.1",
+  "version": "1.42.6",
   "description": "LSSM - The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
   "type": "module",
   "workspaces": {
