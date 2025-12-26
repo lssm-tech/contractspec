@@ -1,5 +1,11 @@
 # @lssm/lib.ui-kit-core
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+
 ## 1.42.5
 
 ### Patch Changes

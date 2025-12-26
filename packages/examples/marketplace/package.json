@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.marketplace",
-  "version": "1.42.5",
+  "version": "1.42.6",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

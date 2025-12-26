@@ -1,5 +1,14 @@
 # @lssm/lib.contracts
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/lib.logger@1.42.6
+  - @lssm/lib.schema@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/module.lifecycle-advisor@1.42.6
+  - @lssm/module.lifecycle-core@1.42.6
+  - @lssm/lib.observability@1.42.6
+  - @lssm/lib.analytics@1.42.6
+  - @lssm/lib.lifecycle@1.42.6
+  - @lssm/lib.ai-agent@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

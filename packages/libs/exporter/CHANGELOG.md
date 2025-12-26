@@ -1,5 +1,11 @@
 # @lssm/lib.exporter
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+
 ## 1.42.5
 
 ### Patch Changes

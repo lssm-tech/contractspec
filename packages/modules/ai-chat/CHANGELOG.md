@@ -1,5 +1,19 @@
 # @lssm/module.ai-chat
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/lib.cost-tracking@1.42.6
+  - @lssm/lib.design-system@1.42.6
+  - @lssm/lib.ai-providers@1.42.6
+  - @lssm/lib.ui-kit-web@1.42.6
+  - @lssm/lib.contracts@1.42.6
+  - @lssm/lib.ai-agent@1.42.6
+  - @lssm/lib.metering@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @lssm/module.lifecycle-core
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+- Updated dependencies [1500242]
+  - @lssm/lib.lifecycle@1.42.6
+
 ## 1.42.5
 
 ### Patch Changes
