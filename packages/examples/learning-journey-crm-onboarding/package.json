@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-crm-onboarding",
-  "version": "1.42.6",
+  "version": "1.42.7",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
   "main": "./dist/index.js",

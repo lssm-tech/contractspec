@@ -1,5 +1,17 @@
 # @lssm/example.agent-console
 
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+- Updated dependencies [e9b575d]
+  - @lssm/module.audit-trail@1.42.7
+  - @lssm/lib.identity-rbac@1.42.7
+  - @lssm/lib.contracts@1.42.7
+  - @lssm/lib.schema@1.42.7
+  - @lssm/lib.jobs@1.42.7
+
 ## 1.42.6
 
 ### Patch Changes
