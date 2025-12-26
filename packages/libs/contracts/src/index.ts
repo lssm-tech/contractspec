@@ -15,6 +15,7 @@ export * from './presentations';
 export * from './features';
 export * from './ownership';
 export * from './forms';
+export * from './model-registry';
 export * from './onboarding-base';
 export * from './data-views';
 export * from './policy';

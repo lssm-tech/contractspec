@@ -137,7 +137,7 @@ export const importCommand = new Command('import')
               '`outputDir` is required when not using conventions'
             );
           }
-          targetDir = options.outputDir!;
+          targetDir = options.outputDir;
           // Infer type even if outputDir is fixed
           if (spec.code.includes('defineEvent(')) {
             type = 'event';
@@ -171,23 +171,26 @@ export const importCommand = new Command('import')
         // Track for registry generation
         const dir = dirname(filePath); // handle potential subdirectories in fileName or targetDir
         const existing = specsByDir.get(dir) || [];
-        
+
         let match: RegExpMatchArray | null = null;
         if (type === 'operation') {
-           match = spec.code.match(/export const (\w+)\s*=\s*define(?:Command|Query)/);
+          match = spec.code.match(
+            /export const (\w+)\s*=\s*define(?:Command|Query)/
+          );
         } else if (type === 'event') {
-           match = spec.code.match(/export const (\w+)\s*=\s*defineEvent/);
+          match = spec.code.match(/export const (\w+)\s*=\s*defineEvent/);
         }
-        
+
         // Fallback to any export if specific one not found (or for models)
         if (!match) {
-           match = spec.code.match(/export const (\w+)\s*=/);
+          match = spec.code.match(/export const (\w+)\s*=/);
         }
 
         if (match) {
           existing.push({
             file: basename(filePath),
-            name: match[1],
+            // eslint-disable-next-line
+            name: match[1]!,
             type,
           });
           specsByDir.set(dir, existing);
@@ -217,32 +220,55 @@ export const importCommand = new Command('import')
 
           if (isOperations) {
             registryCode += `import { OperationSpecRegistry } from '@lssm/lib.contracts';\n\n`;
-            registryCode += `export const registry = new OperationSpecRegistry();\n`;
+            registryCode += `export const operationRegistry = new OperationSpecRegistry();\n`;
             specs.forEach((s) => {
-              registryCode += `registry.register(${s.name});\n`;
+              registryCode += `operationRegistry.register(${s.name});\n`;
             });
+            const registryPath = resolve(dir, 'registry.ts');
+            await writeFile(registryPath, registryCode, 'utf-8');
+            console.log(
+              chalk.green(`✅ Created/Updated registry: ${registryPath}`)
+            );
           } else if (isEvents) {
             registryCode += `import { EventRegistry } from '@lssm/lib.contracts';\n\n`;
-            registryCode += `export const registry = new EventRegistry();\n`;
+            registryCode += `export const eventRegistry = new EventRegistry();\n`;
             specs.forEach((s) => {
-              registryCode += `registry.register(${s.name});\n`;
+              registryCode += `eventRegistry.register(${s.name});\n`;
             });
+            const registryPath = resolve(dir, 'registry.ts');
+            await writeFile(registryPath, registryCode, 'utf-8');
+            console.log(
+              chalk.green(`✅ Created/Updated registry: ${registryPath}`)
+            );
+          } else if (isModels) {
+            registryCode += `import { ModelRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `export const modelRegistry = new ModelRegistry();\n`;
+            specs.forEach((s) => {
+              registryCode += `modelRegistry.register(${s.name});\n`;
+            });
+            const registryPath = resolve(dir, 'registry.ts');
+            await writeFile(registryPath, registryCode, 'utf-8');
+            console.log(
+              chalk.green(`✅ Created/Updated registry: ${registryPath}`)
+            );
           } else {
-             // For models or mixed, generate re-exports (index style)
-            registryCode = `/**\n * Auto-generated exports.\n */\n`;
-            specs.forEach((s) => {
-              const importPath = `./${basename(s.file, '.ts')}`;
-              registryCode += `export * from '${importPath}';\n`;
-            });
+            chalk.yellow(`unsupported types: ${types}`);
           }
 
-          const registryPath = resolve(dir, 'registry.ts');
-          // For models (or undefined mix), we usually prefer index.ts
-          // Also if it's explicitly models, use index.ts
-          const finalPath = isModels ? resolve(dir, 'index.ts') : registryPath;
+          // Generate index.ts (barrel file) always
+          let indexCode = `/**\n * Auto-generated barrel file.\n */\n\n`;
+          specs.forEach((s) => {
+            const importPath = `./${basename(s.file, '.ts')}`;
+            indexCode += `export * from '${importPath}';\n`;
+          });
 
-          await writeFile(finalPath, registryCode, 'utf-8');
-          console.log(chalk.green(`✅ Created/Updated registry: ${finalPath}`));
+          if (isOperations || isEvents) {
+            indexCode += `export * from './registry';\n`;
+          }
+
+          const indexPath = resolve(dir, 'index.ts');
+          await writeFile(indexPath, indexCode, 'utf-8');
+          console.log(chalk.green(`✅ Created/Updated index: ${indexPath}`));
         }
       }
 

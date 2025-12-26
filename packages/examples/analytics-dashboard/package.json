@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.analytics-dashboard",
-  "version": "1.42.2",
+  "version": "1.42.6",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

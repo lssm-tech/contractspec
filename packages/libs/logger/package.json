@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.logger",
-  "version": "1.42.2",
+  "version": "1.42.6",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "logging",

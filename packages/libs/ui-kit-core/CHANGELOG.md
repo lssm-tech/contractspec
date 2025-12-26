@@ -1,5 +1,29 @@
 # @lssm/lib.ui-kit-core
 
+## 1.42.6
+
+### Patch Changes
+
+- 1500242: fix tooling
+
+## 1.42.5
+
+### Patch Changes
+
+- 1299719: fix vscode
+
+## 1.42.4
+
+### Patch Changes
+
+- ac28b99: fix: generate from openapi
+
+## 1.42.3
+
+### Patch Changes
+
+- 3f5d015: fix(tooling): cicd
+
 ## 1.42.2
 
 ### Patch Changes

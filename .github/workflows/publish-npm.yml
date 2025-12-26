@@ -61,33 +61,14 @@ jobs:
           version: bun run release:version
           # The command to publish packages
           publish: bun run release:publish
-          commit: "chore: version packages"
-          title: "Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # VS Code Extension Publishing (only when packages were published)
-      - name: Check if VS Code extension should be published
-        id: vscode-skipcheck
-        if: steps.changesets.outputs.published == 'true'
-        shell: bash
-        run: |
-          set +e
-          bunx turbo-ignore @lssm/vscode-contractspec --task=build
-          code=$?
-          set -e
-          
-          if [[ $code -eq 0 ]]; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Package VS Code extension
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
@@ -97,18 +78,18 @@ jobs:
           echo "📦 Packaged: $VSIX_NAME"
 
       - name: Get VS Code extension version
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         id: vscode-version
         run: |
           VERSION=$(jq -r .version packages/apps/vscode-contractspec/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Install vsce
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         run: bun add -g @vscode/vsce
 
       - name: Publish VS Code extension to Marketplace
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         working-directory: packages/apps/vscode-contractspec
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -118,7 +99,7 @@ jobs:
           vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT"
 
       - name: Publish VS Code extension to Open VSX Registry
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true' && env.OVSX_PAT != ''
+        if: steps.changesets.outputs.published == 'true' && env.OVSX_PAT != ''
         working-directory: packages/apps/vscode-contractspec
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
@@ -130,7 +111,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload VSIX artifact
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: vscode-extension
@@ -138,7 +119,7 @@ jobs:
           retention-days: 90
 
       - name: Create VS Code Extension GitHub Release
-        if: steps.changesets.outputs.published == 'true' && steps.vscode-skipcheck.outputs.skip != 'true'
+        if: steps.changesets.outputs.published == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: vscode-v${{ steps.vscode-version.outputs.version }}

@@ -1,6 +1,6 @@
 {
   "name": "contractspec",
-  "version": "1.42.2",
+  "version": "1.42.6",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "bin": {
     "contractspec": "./bin/contractspec.mjs"
