@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.policy-safe-knowledge-assistant",
-  "version": "1.42.6",
+  "version": "1.42.7",
   "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
   "type": "module",
   "main": "./dist/index.js",

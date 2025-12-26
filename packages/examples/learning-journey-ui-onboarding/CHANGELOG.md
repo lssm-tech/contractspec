@@ -1,5 +1,21 @@
 # @lssm/example.learning-journey-ui-onboarding
 
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+- Updated dependencies [e9b575d]
+  - @lssm/example.learning-journey-studio-onboarding@1.42.7
+  - @lssm/example.learning-journey-platform-tour@1.42.6
+  - @lssm/example.learning-journey-ui-shared@1.42.7
+  - @lssm/module.learning-journey@1.42.7
+  - @lssm/lib.design-system@1.42.7
+  - @lssm/lib.ui-kit-core@1.42.7
+  - @lssm/lib.ui-kit-web@1.42.7
+  - @lssm/lib.contracts@1.42.7
+  - @lssm/lib.schema@1.42.7
+
 ## 1.42.6
 
 ### Patch Changes
