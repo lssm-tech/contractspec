@@ -1,7 +1,7 @@
 import type { AnySchemaModel } from '@lssm/lib.schema';
 
 /** In-memory registry for PresentationSpec. */
-export abstract class ModelRegistry {
+export class ModelRegistry {
   private items = new Map<string, AnySchemaModel>();
 
   protected constructor(items?: AnySchemaModel[]) {
