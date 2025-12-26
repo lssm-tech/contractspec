@@ -1,6 +1,6 @@
 # SaaS Boilerplate
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A complete SaaS starter application demonstrating ContractSpec principles.

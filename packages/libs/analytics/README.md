@@ -1,6 +1,6 @@
 # @lssm/lib.analytics
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Zero-dependency analytics toolkit used by Phase 2 AI-Native Ops. It ingests telemetry events and outputs:

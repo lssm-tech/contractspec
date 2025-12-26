@@ -1,6 +1,6 @@
 # @lssm/lib.ui-kit
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Universal UI components for React Native and Web, built on top of `nativewind` and `@rn-primitives`.

@@ -1,6 +1,6 @@
 # @lssm/module.notifications
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Notification center module for ContractSpec applications.

@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-ambient-coach
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Ambient coach learning journey example that surfaces contextual tips based on user behavior and marks completion when acknowledged or acted upon.

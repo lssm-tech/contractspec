@@ -1,6 +1,6 @@
 # @lssm/lib.workflow-composer
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Compose base WorkflowSpecs with tenant-, role-, or device-specific extensions. The composer lets teams inject steps, hide portions of a workflow, and attach tenant-scoped metadata without duplicating base definitions.

@@ -1,6 +1,6 @@
 # @lssm/integration.runtime
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Runtime layer for ContractSpec integrations (secret providers, call guards, health checks).

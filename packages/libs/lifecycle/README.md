@@ -1,6 +1,6 @@
 # @lssm/lib.lifecycle
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Canonical lifecycle vocabulary for ContractSpec. This package exposes stage enums, axis types, signal contracts, milestone/action shapes, and formatting helpers used by the lifecycle modules, bundles, and Studio apps.

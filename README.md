@@ -1,6 +1,6 @@
 # ContractSpec
 
-Website: [https://contractspec.lssm.tec](https://contractspec.lssm.tech)
+Website: [https://contractspec.io](https://contractspec.io)
 
 **Stabilize your AI-generated code**
 
@@ -154,7 +154,7 @@ export const CreateUser = defineCommand({
 
 ## Learn More
 
-- [Website](https://contractspec.lssm.tech)
+- [Website](https://contractspec.io)
 - [CLI Quick Start](packages/apps/cli-contractspec/QUICK_START.md)
 - [Agent Modes](packages/apps/cli-contractspec/AGENT_MODES.md)
 - [Examples](packages/examples/)

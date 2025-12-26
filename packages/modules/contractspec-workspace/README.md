@@ -1,6 +1,6 @@
 # @lssm/module.contractspec-workspace
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Pure, deterministic domain logic and static analysis utilities for ContractSpec workspace operations.

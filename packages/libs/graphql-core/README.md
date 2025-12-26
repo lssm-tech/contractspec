@@ -1,6 +1,6 @@
 # @lssm/lib.graphql-core
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Core GraphQL utilities and Pothos builder setup.

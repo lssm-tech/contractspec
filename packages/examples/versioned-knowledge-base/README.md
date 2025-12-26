@@ -1,6 +1,6 @@
 # `@lssm/example.versioned-knowledge-base`
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Spec-first example demonstrating a **curated, versioned knowledge base**:

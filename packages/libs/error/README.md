@@ -1,6 +1,6 @@
 # @lssm/lib.error
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Standardized error handling primitives for LSSM applications.

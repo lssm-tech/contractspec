@@ -1,6 +1,6 @@
 # @lssm/lib.bus
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A lightweight, type-safe event bus for in-memory and distributed event handling.

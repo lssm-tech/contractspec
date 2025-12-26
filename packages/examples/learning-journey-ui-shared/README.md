@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-ui-shared
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Shared UI components and hooks for learning journey mini-apps.

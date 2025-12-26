@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-registry
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Aggregated registry for learning journey example tracks.

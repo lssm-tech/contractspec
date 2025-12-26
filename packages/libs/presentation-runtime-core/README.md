@@ -1,6 +1,6 @@
 # @lssm/lib.presentation-runtime-core
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Core logic for ContractSpec presentation runtimes.

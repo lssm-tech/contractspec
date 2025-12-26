@@ -1,6 +1,6 @@
 # Pocket Family Office Vertical
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 This vertical demonstrates how a spec-first application orchestrates

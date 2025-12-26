@@ -1,6 +1,6 @@
 # ContractSpec VS Code Extension
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/lssm.vscode-contractspec?label=VS%20Code%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec)
@@ -117,7 +117,7 @@ The extension adds a ContractSpec activity bar with three views:
 | `contractspec.telemetry.posthogProjectKey` | PostHog project key for direct telemetry                       | `""`                                        |
 | `contractspec.validation.onSave`           | Run validation on save                                         | `true`                                      |
 | `contractspec.validation.onOpen`           | Run validation on open                                         | `true`                                      |
-| `contractspec.registry.baseUrl`            | Registry URL for browsing specs                                | `"https://registry.contractspec.lssm.tech"` |
+| `contractspec.registry.baseUrl`            | Registry URL for browsing specs                                | `"https://registry.contractspec.io"` |
 
 ## Getting Started
 

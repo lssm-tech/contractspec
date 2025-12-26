@@ -1,6 +1,6 @@
 # @lssm/example.wealth-snapshot
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Wealth Snapshot mini-app for accounts, assets, liabilities, and goals.

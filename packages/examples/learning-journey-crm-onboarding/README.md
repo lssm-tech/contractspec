@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-crm-onboarding
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Learning Journey example that guides a CRM user to first closed-won deal.

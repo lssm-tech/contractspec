@@ -1,6 +1,6 @@
 # `@lssm/example.locale-jurisdiction-gate`
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Spec-first example showing how to **fail-closed** on every assistant call unless:

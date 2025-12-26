@@ -1,6 +1,6 @@
 # @lssm/module.ai-chat
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **ContractSpec Vibe Coding Chat** — AI-powered conversational coding assistant for ContractSpec.

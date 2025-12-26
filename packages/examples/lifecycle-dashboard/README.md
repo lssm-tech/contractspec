@@ -1,6 +1,6 @@
 ## Lifecycle Dashboard Example (Next.js)
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 This example shows a minimal App Router page that calls the lifecycle managed bundle via `/api/lifecycle/*` routes and renders a mobile-friendly status card.

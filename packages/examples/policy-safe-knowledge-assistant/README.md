@@ -1,6 +1,6 @@
 # `@lssm/example.policy-safe-knowledge-assistant`
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 All-in-one template example demonstrating a **policy-safe knowledge assistant** end-to-end:
