@@ -42,7 +42,7 @@ describe('Schema Generators', () => {
     );
     expect(result.code).toContain('z.object');
     expect(result.code).toContain('z.string().uuid()');
-    expect(result.code).toContain('new ZodSchemaType(UserSchema)');
+    expect(result.code).toContain('new ZodSchemaType(UserSchema, { name:');
     expect(result.name).toBe('User');
     expect(result.imports?.some((i) => i.includes('zod'))).toBe(true);
   });

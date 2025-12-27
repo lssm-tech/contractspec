@@ -61,6 +61,8 @@ jobs:
           version: bun run release:version
           # The command to publish packages
           publish: bun run release:publish
+          commit: "chore: update versions"
+          title: "chore: update versions"
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
