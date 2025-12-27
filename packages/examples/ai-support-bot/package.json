@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.ai-support-bot",
-  "version": "1.43.0",
+  "version": "1.43.1",
   "description": "AI support bot example: classify and resolve a support ticket using @lssm/lib.support-bot.",
   "type": "module",
   "main": "./dist/index.js",

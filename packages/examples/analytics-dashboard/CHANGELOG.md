@@ -1,5 +1,17 @@
 # @lssm/example.analytics-dashboard
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/lib.bus@1.43.1
+  - @lssm/lib.identity-rbac@1.43.1
+  - @lssm/lib.jobs@1.43.1
+  - @lssm/lib.metering@1.43.1
+  - @lssm/module.audit-trail@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

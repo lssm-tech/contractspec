@@ -1,5 +1,14 @@
 # @lssm/example.learning-journey-crm-onboarding
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/example.crm-pipeline@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

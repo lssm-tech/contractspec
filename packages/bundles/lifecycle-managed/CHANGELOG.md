@@ -1,5 +1,11 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.43.1
+
+### Patch Changes
+
+- @lssm/lib.ai-agent@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

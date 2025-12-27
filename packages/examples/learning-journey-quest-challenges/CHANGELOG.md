@@ -1,5 +1,13 @@
 # @lssm/example.learning-journey-quest-challenges
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

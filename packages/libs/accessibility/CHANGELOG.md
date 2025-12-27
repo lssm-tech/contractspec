@@ -1,5 +1,11 @@
 # @lssm/lib.accessibility
 
+## 1.43.1
+
+### Patch Changes
+
+- @lssm/lib.design-system@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

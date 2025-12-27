@@ -1,5 +1,11 @@
 # @lssm/lib.contracts
 
+## 1.43.1
+
+### Patch Changes
+
+- f28fdad: fix
+
 ## 1.43.0
 
 ### Minor Changes

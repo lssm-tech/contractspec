@@ -1,5 +1,11 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 1.43.1
+
+### Patch Changes
+
+- f28fdad: fix
+
 ## 2.0.0
 
 ### Minor Changes

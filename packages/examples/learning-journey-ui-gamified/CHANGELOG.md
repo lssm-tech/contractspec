@@ -1,5 +1,17 @@
 # @lssm/example.learning-journey-ui-gamified
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/example.learning-journey-duo-drills@1.43.1
+  - @lssm/example.learning-journey-quest-challenges@1.43.1
+  - @lssm/example.learning-journey-ui-shared@1.43.1
+  - @lssm/lib.design-system@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

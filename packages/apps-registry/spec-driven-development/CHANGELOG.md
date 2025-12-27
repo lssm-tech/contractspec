@@ -1,5 +1,12 @@
 # spec-driven-development
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/app.cli-contractspec@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/bundle.contractspec-workspace@1.43.1
+  - @lssm/lib.contracts-transformers@1.43.1
+  - @lssm/module.contractspec-workspace@1.43.1
+  - @lssm/module.contractspec-examples@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

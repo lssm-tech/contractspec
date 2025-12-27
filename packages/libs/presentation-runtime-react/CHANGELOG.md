@@ -1,5 +1,14 @@
 # @lssm/lib.presentation-runtime-react
 
+## 1.43.1
+
+### Patch Changes
+
+- f28fdad: fix
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/lib.design-system@1.43.1
+
 ## 2.0.0
 
 ### Minor Changes

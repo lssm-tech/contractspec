@@ -1,5 +1,13 @@
 # @lssm/example.pocket-family-office
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/lib.knowledge@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

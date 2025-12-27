@@ -1,5 +1,24 @@
 # @lssm/example.policy-safe-knowledge-assistant
 
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/example.kb-update-pipeline@1.43.1
+  - @lssm/example.learning-patterns@1.43.1
+  - @lssm/example.locale-jurisdiction-gate@1.43.1
+  - @lssm/example.versioned-knowledge-base@1.43.1
+  - @lssm/lib.feature-flags@1.43.1
+  - @lssm/lib.files@1.43.1
+  - @lssm/lib.identity-rbac@1.43.1
+  - @lssm/lib.jobs@1.43.1
+  - @lssm/lib.metering@1.43.1
+  - @lssm/module.audit-trail@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+  - @lssm/module.notifications@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes
