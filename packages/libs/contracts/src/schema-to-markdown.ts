@@ -6,6 +6,7 @@
  * based on schema field introspection.
  */
 import type { AnySchemaModel, SchemaFieldConfig } from '@lssm/lib.schema';
+import { isSchemaModel } from '@lssm/lib.schema';
 
 /**
  * Options for schema-to-markdown generation
@@ -265,6 +266,11 @@ function getFieldMeta(
   includeFields?: string[],
   excludeFields: string[] = []
 ): FieldMeta[] {
+  // Only SchemaModel has config.fields
+  if (!isSchemaModel(schema)) {
+    return [];
+  }
+  
   const schemaFields = schema.config.fields;
   const fieldNames = Object.keys(schemaFields);
 

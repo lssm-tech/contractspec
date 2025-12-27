@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-shared",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
   "main": "./dist/index.js",
@@ -70,5 +70,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-ui-shared"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-prisma",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -54,5 +54,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/graphql-prisma"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

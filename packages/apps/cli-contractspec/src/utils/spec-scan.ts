@@ -55,6 +55,8 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const specType = inferSpecTypeFromFilePath(filePath);
 
   const name = matchStringField(code, 'name');
+  const key = matchStringField(code, 'key');
+  const resolvedName = name ?? key;
   const description = matchStringField(code, 'description');
   const stabilityRaw = matchStringField(code, 'stability');
   const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
@@ -74,7 +76,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   return {
     filePath,
     specType,
-    name: name ?? undefined,
+    name: resolvedName ?? undefined,
     description: description ?? undefined,
     stability,
     owners,

@@ -2,13 +2,22 @@ import type {
   AnyEnumType,
   AnyFieldType,
   AnySchemaModel,
+  SchemaModelFieldsAnyConfig,
 } from '@lssm/lib.schema';
+import { isSchemaModel } from '@lssm/lib.schema';
+import type { SchemaModel } from '@lssm/lib.schema';
 import type { SchemaTypes } from '@pothos/core';
 
-function isSchemaModel(x: unknown): x is AnySchemaModel {
+/**
+ * Check if a value has getPothosInput method (SchemaModel specific).
+ * Used for input type generation.
+ */
+function hasGetPothosInput(x: unknown): x is { getPothosInput: () => string } {
   return (
-    typeof (x as AnySchemaModel | undefined)?.getPothosInput === 'function' &&
-    typeof (x as AnySchemaModel | undefined)?.getZod === 'function'
+    typeof x === 'object' &&
+    x !== null &&
+    'getPothosInput' in x &&
+    typeof (x as { getPothosInput?: unknown }).getPothosInput === 'function'
   );
 }
 
@@ -43,20 +52,19 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
   const inputTypeCache = new Map<string, unknown>();
   const enumTypeCache = new Set<string>();
 
-  function registerEnumsForModel(model: AnySchemaModel) {
+  function registerEnumsForModel(model: SchemaModel<SchemaModelFieldsAnyConfig>) {
     const entries = Object.entries(model.config.fields) as [
       string,
       {
-        type:
-          | AnySchemaModel['config']['fields'][string]['type']
-          | AnySchemaModel;
+        type: unknown;
         isOptional: boolean;
         isArray?: boolean;
       },
     ][];
     for (const [, field] of entries) {
-      if (isSchemaModel(field.type as unknown)) {
-        registerEnumsForModel(field.type as unknown as AnySchemaModel);
+      const fieldType = field.type as AnySchemaModel | null | undefined;
+      if (isSchemaModel(fieldType)) {
+        registerEnumsForModel(fieldType);
       } else if (isEnumType((field as { type: unknown }).type)) {
         const enumObj = field.type as unknown as AnyEnumType;
         const name =
@@ -73,7 +81,7 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
     }
   }
 
-  function ensureInputTypeForModel(model: AnySchemaModel) {
+  function ensureInputTypeForModel(model: SchemaModel<SchemaModelFieldsAnyConfig>) {
     const typeName = String(model.config?.name ?? 'Input');
     const cached = inputTypeCache.get(typeName) as unknown;
     if (cached) return cached;
@@ -84,19 +92,16 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
         const entries = Object.entries(model.config.fields) as [
           string,
           {
-            type:
-              | AnySchemaModel['config']['fields'][string]['type']
-              | AnySchemaModel;
+            type: unknown;
             isOptional: boolean;
             isArray?: boolean;
           },
         ][];
         const acc: Record<string, unknown> = {};
         for (const [key, field] of entries) {
-          if (isSchemaModel(field.type as unknown)) {
-            const nested = ensureInputTypeForModel(
-              field.type as unknown as AnySchemaModel
-            );
+          const fieldType = field.type as AnySchemaModel | null | undefined;
+          if (isSchemaModel(fieldType)) {
+            const nested = ensureInputTypeForModel(fieldType);
             const typeRef = field.isArray
               ? ([nested] as never)
               : (nested as never);
@@ -134,6 +139,11 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
 
   function buildInputFieldArgs(model: AnySchemaModel | null) {
     if (!model) return null;
+    // Only SchemaModel has config.fields
+    if (!isSchemaModel(model)) {
+      // For non-SchemaModel types, we can't build input fields
+      return null;
+    }
     if (
       !model.config?.fields ||
       Object.keys(model.config.fields).length === 0

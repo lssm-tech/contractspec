@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.metering",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Usage metering and billing core module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -63,5 +63,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/metering"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

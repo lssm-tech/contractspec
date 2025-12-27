@@ -73,7 +73,7 @@ describe('GoogleCloudStorageProvider', () => {
 function createMockStorage() {
   const metadata = {
     bucket: 'test-bucket',
-    key: 'folder/object.txt',
+    name: 'folder/object.txt',
     size: '3',
     contentType: 'text/plain',
     updated: new Date().toISOString(),

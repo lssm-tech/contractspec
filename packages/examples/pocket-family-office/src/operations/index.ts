@@ -15,8 +15,8 @@ import { OPENBANKING_TELEMETRY_EVENTS } from '@lssm/lib.contracts/integrations';
 // --- Enums ---
 const SourceEnum = defineEnum('Source', ['upload', 'email', 'sync']);
 const ChannelEnum = defineEnum('Channel', ['email', 'sms', 'both']);
-const PeriodEnum = defineEnum('Period', ['7d', '30d', '90d']);
-const ObPeriodEnum = defineEnum('ObPeriod', ['week', 'month', 'quarter']);
+const PeriodEnum = defineEnum('Period', ['P7d', 'P30d', 'P90d']);
+const ObPeriodEnum = defineEnum('ObPeriod', ['Pweek', 'Pmonth', 'Pquarter']);
 
 // --- Models ---
 

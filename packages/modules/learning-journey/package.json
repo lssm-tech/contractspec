@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.learning-journey",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -93,5 +93,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/modules/learning-journey"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

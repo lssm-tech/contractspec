@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-gamified",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Duolingo-style gamified learning UI for drills and quests.",
   "type": "module",
   "main": "./dist/index.js",
@@ -74,5 +74,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-ui-gamified"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

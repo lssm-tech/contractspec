@@ -1,5 +1,24 @@
 # @lssm/example.marketplace
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/module.notifications@1.43.0
+  - @lssm/module.audit-trail@1.43.0
+  - @lssm/lib.identity-rbac@1.43.0
+  - @lssm/lib.contracts@1.43.0
+  - @lssm/lib.metering@1.43.0
+  - @lssm/lib.schema@1.43.0
+  - @lssm/lib.files@1.43.0
+  - @lssm/lib.jobs@1.43.0
+  - @lssm/lib.bus@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes

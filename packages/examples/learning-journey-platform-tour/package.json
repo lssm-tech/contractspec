@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-platform-tour",
-  "version": "1.42.9",
+  "version": "1.43.0",
   "description": "Learning journey track covering ContractSpec platform primitives.",
   "type": "module",
   "main": "./dist/index.js",
@@ -62,5 +62,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-platform-tour"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

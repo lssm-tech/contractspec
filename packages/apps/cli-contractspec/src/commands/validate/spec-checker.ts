@@ -205,8 +205,8 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
     errors.push('Missing defineEvent call');
   }
 
-  if (!code.match(/key:\s*['"][^'"]+['"]/)) {
-    errors.push('Missing or invalid key field');
+  if (!code.match(/(?:key|name):\s*['"][^'"]+['"]/)) {
+    errors.push('Missing or invalid name/key field');
   }
 
   if (!code.match(/version:\s*\d+/)) {
@@ -217,8 +217,8 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
     errors.push('Missing payload field');
   }
 
-  // Check for past tense naming convention on event keys
-  const keyMatches = code.matchAll(/key:\s*['"]([^'"]+)['"]/g);
+  // Check for past tense naming convention on event keys/names
+  const keyMatches = code.matchAll(/(?:key|name):\s*['"]([^'"]+)['"]/g);
   for (const match of keyMatches) {
     const keyValue = match[1];
     if (!keyValue) continue;

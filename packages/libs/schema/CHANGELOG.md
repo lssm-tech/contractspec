@@ -1,5 +1,11 @@
 # @lssm/lib.schema
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
 ## 1.42.10
 
 ### Patch Changes

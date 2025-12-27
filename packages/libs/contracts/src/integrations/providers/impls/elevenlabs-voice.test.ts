@@ -19,9 +19,11 @@ describe('ElevenLabsVoiceProvider', () => {
         name: 'Sample Voice',
         description: 'Friendly voice',
         language: 'en',
+        gender: undefined,
+        previewUrl: 'https://example.com/preview.mp3',
         metadata: {
           category: 'professional',
-          previewUrl: 'https://example.com/preview.mp3',
+          language: 'en',
         },
       },
     ]);
@@ -39,7 +41,7 @@ describe('ElevenLabsVoiceProvider', () => {
       text: 'Hello world',
     });
 
-    expect(client.generate).toHaveBeenCalled();
+    expect(client.textToSpeech.convert).toHaveBeenCalled();
     expect(result.audio).toBeInstanceOf(Uint8Array);
     expect(result.audio.length).toBeGreaterThan(0);
   });
@@ -47,29 +49,33 @@ describe('ElevenLabsVoiceProvider', () => {
 
 function createMockClient() {
   const stream = buildReadable(Buffer.from('audio-bytes'));
-  return {
+  const mockClient = {
     voices: {
       getAll: vi.fn(async () => ({
         voices: [
           {
-            voice_id: 'voice-1',
+            voiceId: 'voice-1',
             name: 'Sample Voice',
             description: 'Friendly voice',
             labels: { language: 'en' },
             category: 'professional',
-            preview_url: 'https://example.com/preview.mp3',
+            previewUrl: 'https://example.com/preview.mp3',
           },
         ],
       })),
     },
-    generate: vi.fn(async () => stream),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as unknown as any;
+    textToSpeech: {
+      convert: vi.fn(async () => stream),
+    },
+  };
+  return mockClient as unknown as any;
 }
 
 function buildReadable(buffer: Buffer) {
-  const readable = new Readable();
-  readable.push(buffer);
-  readable.push(null);
-  return readable;
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(buffer);
+      controller.close();
+    },
+  });
 }

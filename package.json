@@ -11,7 +11,8 @@
       "packages/modules/*",
       "packages/examples/*",
       "packages/bundles/*",
-      "packages/apps/*"
+      "packages/apps/*",
+      "packages/apps-registry/*"
     ],
     "catalog": {
       "react": "19.2.3",

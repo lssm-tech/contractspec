@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.lifecycle",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -46,5 +46,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/lifecycle"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

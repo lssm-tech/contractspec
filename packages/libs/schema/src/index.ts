@@ -3,3 +3,7 @@ export * from './ScalarTypeEnum';
 export * from './SchemaModel';
 export * from './EnumType';
 export * from './entity';
+export * from './SchemaModelType';
+export * from './ZodSchemaType';
+export * from './JsonSchemaType';
+export * from './GraphQLSchemaType';

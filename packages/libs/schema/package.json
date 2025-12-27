@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.schema",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
@@ -39,8 +39,12 @@
     "./entity/types": "./dist/entity/types.js",
     "./EnumType": "./dist/EnumType.js",
     "./FieldType": "./dist/FieldType.js",
+    "./GraphQLSchemaType": "./dist/GraphQLSchemaType.js",
+    "./JsonSchemaType": "./dist/JsonSchemaType.js",
     "./ScalarTypeEnum": "./dist/ScalarTypeEnum.js",
     "./SchemaModel": "./dist/SchemaModel.js",
+    "./SchemaModelType": "./dist/SchemaModelType.js",
+    "./ZodSchemaType": "./dist/ZodSchemaType.js",
     "./*": "./*"
   },
   "publishConfig": {
@@ -55,5 +59,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/schema"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

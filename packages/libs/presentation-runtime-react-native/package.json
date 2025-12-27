@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-react-native",
-  "version": "1.42.10",
+  "version": "2.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -50,5 +50,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/presentation-runtime-react-native"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

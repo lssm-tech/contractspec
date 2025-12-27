@@ -1,5 +1,5 @@
 import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '../../registry';
+import { registerDocBlocks } from '../docs/registry';
 
 export const tech_workflows_overview_DocBlocks: DocBlock[] = [
   {

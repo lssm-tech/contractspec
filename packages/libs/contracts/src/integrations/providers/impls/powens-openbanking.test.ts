@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'bun:test';
 import { PowensOpenBankingProvider } from './powens-openbanking';
-import type { OpenBankingListAccountsResult } from '../openbanking';
+import type { OpenBankingAccountSummary, OpenBankingListAccountsResult } from '../openbanking';
+import type { PowensAccount } from './powens-client';
 
 function createResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -39,10 +40,10 @@ describe('PowensOpenBankingProvider', () => {
               userUuid: 'user-123',
               institution: {
                 id: 'inst-42',
-                key: 'Powens Test Bank',
+                name: 'Powens Test Bank',
                 logoUrl: 'https://powens.test/logo.png',
               },
-              key: 'Family Checking',
+              name: 'Family Checking',
               iban: 'FR7612345678901234567890185',
               bic: 'POWEFRPP',
               currency: 'EUR',
@@ -55,7 +56,7 @@ describe('PowensOpenBankingProvider', () => {
                 ownership: 'individual',
                 last_sync_at: '2025-01-15T10:00:00Z',
               },
-            },
+            } satisfies PowensAccount,
           ],
           pagination: { hasMore: false },
         })

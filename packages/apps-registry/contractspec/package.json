@@ -1,6 +1,6 @@
 {
   "name": "contractspec",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "bin": {
     "contractspec": "./bin/contractspec.mjs"
@@ -25,6 +25,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
+  "homepage": "https://contractspec.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",

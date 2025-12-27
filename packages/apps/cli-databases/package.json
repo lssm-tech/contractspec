@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.cli-databases",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "bin": {
     "databases": "dist/cli.js"
@@ -48,5 +48,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/apps/cli-databases"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

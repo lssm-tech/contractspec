@@ -1,6 +1,6 @@
 {
   "name": "@lssm/integration.providers-impls",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -36,6 +36,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@lssm/tool.tsdown": "workspace:*",
     "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
@@ -112,5 +113,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/integrations/providers-impls"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

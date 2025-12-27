@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.team-hub",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Team Hub example with spaces, tasks, rituals, and announcements",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -94,5 +94,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/team-hub"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

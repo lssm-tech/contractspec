@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.crm-pipeline",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
   "type": "module",
   "main": "./dist/index.js",
@@ -100,5 +100,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/crm-pipeline"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.registry-server",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "module": "src/index.ts",
   "scripts": {
@@ -30,5 +30,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

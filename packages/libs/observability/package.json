@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.observability",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
@@ -69,5 +69,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/observability"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

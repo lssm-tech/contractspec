@@ -13,21 +13,32 @@ export function generateEventCode(
   const eventName = toValidIdentifier(event.name);
   const modelName = toPascalCase(eventName) + 'Payload';
 
+  const schemaFormat = options.schemaFormat || 'contractspec';
   // Generate payload model inline or referenced?
   // Let's generate the payload schema definition first
-  const payloadModel = generateSchemaModelCode(event.payload, modelName);
+  const payloadModel = generateSchemaModelCode(
+    event.payload,
+    modelName,
+    0,
+    schemaFormat,
+    options
+  );
 
   const imports = new Set<string>();
   imports.add(
     "import { defineEvent, type EventSpec } from '@lssm/lib.contracts';"
   );
 
-  const modelImports = generateImports(payloadModel.fields, options);
-  // Merge imports - this is a bit hacky string manipulation but works for now
-  modelImports
-    .split('\n')
-    .filter(Boolean)
-    .forEach((i) => imports.add(i));
+  if (payloadModel.imports && payloadModel.imports.length > 0) {
+    payloadModel.imports.forEach((i) => imports.add(i));
+  } else if (payloadModel.fields && payloadModel.fields.length > 0) {
+    const modelImports = generateImports(payloadModel.fields, options);
+    // Merge imports - this is a bit hacky string manipulation but works for now
+    modelImports
+      .split('\n')
+      .filter(Boolean)
+      .forEach((i) => imports.add(i));
+  }
 
   // If payloadModel is a reference (empty fields and different name), import it
   if (payloadModel.name !== modelName) {

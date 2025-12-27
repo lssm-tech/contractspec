@@ -1,6 +1,6 @@
 {
   "name": "@lssm/bundle.contractspec-workspace",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -63,5 +63,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/bundles/contractspec-workspace"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

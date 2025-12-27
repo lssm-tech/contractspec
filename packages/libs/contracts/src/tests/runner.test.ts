@@ -67,7 +67,9 @@ const AddNumbersSpec = defineCommand({
   sideEffects: {
     emits: [
       {
-        ref: SumCalculatedEvent.meta,
+        key: SumCalculatedEvent.meta.key,
+        version: SumCalculatedEvent.meta.version,
+        payload: SumCalculatedEvent.payload,
         when: 'after calculation',
       },
     ],

@@ -16,7 +16,7 @@ describe('learning journey registry api', () => {
       { name: 'studio.template.instantiated' },
       { name: 'spec.changed', payload: { scope: 'sandbox' } },
       { name: 'regeneration.completed' },
-      { name: 'playground.session.started' },
+      { name: 'module.navigated', payload: { moduleId: 'canvas' } },
       { name: 'studio.evolution.applied' },
     ];
 

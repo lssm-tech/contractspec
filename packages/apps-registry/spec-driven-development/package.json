@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-development",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "bin": {
     "sdd": "./bin/contractspec.mjs"
@@ -29,5 +29,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/apps/contractspec"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

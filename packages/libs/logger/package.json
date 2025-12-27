@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.logger",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "logging",
@@ -91,5 +91,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/logger"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

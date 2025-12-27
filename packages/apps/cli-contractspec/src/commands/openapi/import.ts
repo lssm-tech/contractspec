@@ -7,6 +7,7 @@ import {
   importFromOpenApi,
   parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
+import type { SchemaFormat } from '@lssm/lib.contracts';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 import {
@@ -26,6 +27,7 @@ interface ImportOptions {
   saveConfig?: boolean;
   name?: string;
   syncMode?: string;
+  schemaFormat?: SchemaFormat;
 }
 
 /**
@@ -52,6 +54,11 @@ export const importCommand = new Command('import')
     '--sync-mode <mode>',
     'Sync mode: import, sync, or validate',
     'import'
+  )
+  .option(
+    '--schema-format <format>',
+    'Output schema format: contractspec (default), zod, json-schema, graphql',
+    'contractspec'
   )
   .action(async (source: string, options: ImportOptions) => {
     console.log('DEBUG: Starting import action');
@@ -99,6 +106,7 @@ export const importCommand = new Command('import')
           | 'deprecated',
         defaultOwners: options.owners,
         defaultAuth: options.auth as 'anonymous' | 'user' | 'admin',
+        schemaFormat: options.schemaFormat,
       });
 
       // Write imported specs
@@ -119,9 +127,17 @@ export const importCommand = new Command('import')
             targetDir = eventsDir;
             type = 'event';
           } else if (
+            // ContractSpec format
             (spec.code.includes('defineSchemaModel(') ||
               spec.code.includes('new EnumType(') ||
-              spec.code.includes('ScalarTypeEnum.')) &&
+              spec.code.includes('ScalarTypeEnum.') ||
+              // Zod format
+              spec.code.includes('new ZodSchemaType(') ||
+              spec.code.includes('z.enum(') ||
+              // JSON Schema format
+              spec.code.includes('new JsonSchemaType(') ||
+              // GraphQL format
+              spec.code.includes('new GraphQLSchemaType(')) &&
             !spec.code.includes('defineCommand(') &&
             !spec.code.includes('defineQuery(')
           ) {
@@ -142,9 +158,17 @@ export const importCommand = new Command('import')
           if (spec.code.includes('defineEvent(')) {
             type = 'event';
           } else if (
+            // ContractSpec format
             (spec.code.includes('defineSchemaModel(') ||
               spec.code.includes('new EnumType(') ||
-              spec.code.includes('ScalarTypeEnum.')) &&
+              spec.code.includes('ScalarTypeEnum.') ||
+              // Zod format
+              spec.code.includes('new ZodSchemaType(') ||
+              spec.code.includes('z.enum(') ||
+              // JSON Schema format
+              spec.code.includes('new JsonSchemaType(') ||
+              // GraphQL format
+              spec.code.includes('new GraphQLSchemaType(')) &&
             !spec.code.includes('defineCommand(') &&
             !spec.code.includes('defineQuery(')
           ) {
@@ -311,6 +335,7 @@ export const importCommand = new Command('import')
           name: sourceName,
           syncMode:
             (options.syncMode as 'import' | 'sync' | 'validate') ?? 'import',
+          schemaFormat: options.schemaFormat ?? 'contractspec',
           prefix: options.prefix,
           tags: options.tags,
           exclude: options.exclude,

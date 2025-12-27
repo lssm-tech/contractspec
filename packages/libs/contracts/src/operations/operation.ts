@@ -92,8 +92,18 @@ export interface OperationSpec<
   meta: OperationSpecMeta;
 
   io: {
-    /** Zod schema for input payload */
+    /** Zod schema for input body payload */
     input: Input | null;
+
+    /** Zod schema for URL path parameters */
+    params?: AnySchemaModel;
+
+    /** Zod schema for query string parameters */
+    query?: AnySchemaModel;
+
+    /** Zod schema for HTTP headers */
+    headers?: AnySchemaModel;
+
     /** Zod schema for output payload */
     output: Output;
     /** Named, typed errors this op may throw (optional) */

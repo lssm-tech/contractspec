@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.service-business-os",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -103,5 +103,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/service-business-os"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

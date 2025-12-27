@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-ui-coaching",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Contextual coaching UI with tip cards and engagement tracking.",
   "type": "module",
   "main": "./dist/index.js",
@@ -74,5 +74,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-ui-coaching"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

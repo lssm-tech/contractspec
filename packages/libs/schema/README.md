@@ -33,7 +33,15 @@ import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 - `SchemaModel` composes fields into named object models with helpers:
   - `getZod()` → typed `z.ZodObject` preserving each field's schema and optionality
   - `getPothosInput()` → builder name for input object
+  - `getPothosInput()` → builder name for input object
   - `getJsonSchema()` → resolved JSON Schema
+
+### Multi-Format Wrappers
+
+Use existing schema definitions from other libraries:
+- `ZodSchemaType`: Wraps a raw Zod schema (`z.infer` becomes the TS type).
+- `JsonSchemaType`: Wraps a JSON Schema object.
+- `GraphQLSchemaType`: Wraps a GraphQL SDL string.
 
 ### Enums
 

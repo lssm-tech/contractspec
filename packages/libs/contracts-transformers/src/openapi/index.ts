@@ -54,7 +54,6 @@ export { importFromOpenApi, importOperation } from './importer';
 // Schema converter
 export {
   jsonSchemaToType,
-  jsonSchemaToField,
   generateSchemaModelCode,
   generateImports,
   getScalarType,

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.ai-support-bot",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "AI support bot example: classify and resolve a support ticket using @lssm/lib.support-bot.",
   "type": "module",
   "main": "./dist/index.js",
@@ -57,5 +57,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/ai-support-bot"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

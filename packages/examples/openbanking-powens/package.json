@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.openbanking-powens",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
   "main": "./dist/index.js",
@@ -57,5 +57,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/openbanking-powens"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

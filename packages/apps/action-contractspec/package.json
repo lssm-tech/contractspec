@@ -1,6 +1,6 @@
 {
   "name": "@lssm/action.contractspec",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "GitHub Action for running ContractSpec CI checks",
   "repository": {
     "type": "git",
@@ -19,5 +19,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

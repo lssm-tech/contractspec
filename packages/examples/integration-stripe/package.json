@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.integration-stripe",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
   "type": "module",
   "main": "./dist/index.js",
@@ -60,5 +60,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/integration-stripe"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

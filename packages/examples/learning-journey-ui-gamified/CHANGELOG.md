@@ -1,5 +1,23 @@
 # @lssm/example.learning-journey-ui-gamified
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/example.learning-journey-quest-challenges@1.43.0
+  - @lssm/example.learning-journey-duo-drills@1.43.0
+  - @lssm/example.learning-journey-ui-shared@1.43.0
+  - @lssm/module.learning-journey@1.43.0
+  - @lssm/lib.design-system@1.43.0
+  - @lssm/lib.ui-kit-web@1.43.0
+  - @lssm/lib.contracts@1.43.0
+  - @lssm/lib.schema@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes

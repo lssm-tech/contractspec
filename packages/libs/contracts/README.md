@@ -30,6 +30,7 @@ bun add @lssm/lib.contracts @lssm/lib.schema
 ## Exports
 
 - **Core**: `OperationSpecRegistry`, `defineCommand`, `defineQuery`, `defineEvent`.
+- **Config**: `SchemaFormat` ('contractspec' | 'zod' | 'json-schema' | 'graphql').
 - **Adapters**:
   - `server/rest-next-app`: Next.js App Router adapter.
   - `server/provider-mcp`: Model Context Protocol (MCP) adapter for AI agents.

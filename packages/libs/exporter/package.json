@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {
@@ -45,5 +45,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/exporter"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

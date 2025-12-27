@@ -12,6 +12,7 @@ import '@pothos/plugin-relay';
 import '@pothos/plugin-dataloader';
 import '@pothos/plugin-tracing';
 import type { AnySchemaModel } from '@lssm/lib.schema';
+import { isSchemaModel } from '@lssm/lib.schema';
 import type { ResourceRefDescriptor, ResourceRegistry } from '../resources';
 import { createInputTypeBuilder } from './contracts-adapter-input';
 import type { AnyOperationSpec } from '../operations/';
@@ -52,8 +53,9 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
       | ResourceRefDescriptor<boolean>;
     if (out && 'getZod' in out && typeof out.getZod === 'function') {
       const model = out as AnySchemaModel;
-      const typeName = model.config?.name ?? 'UnknownOutput';
-      if (!outputTypeCache.has(typeName)) {
+      // Only SchemaModel has config, other SchemaTypes don't
+      const typeName = isSchemaModel(model) ? model.config?.name : 'UnknownOutput';
+      if (typeName && !outputTypeCache.has(typeName)) {
         outputTypeCache.set(typeName, model);
       }
     }
@@ -61,6 +63,9 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 
   // Register all output types as GraphQL object types
   for (const [typeName, model] of outputTypeCache.entries()) {
+    // Only SchemaModel has config.fields, skip other types
+    if (!isSchemaModel(model)) continue;
+    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     builder.objectType(typeName as any, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,9 +130,11 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
     // Check if it's a SchemaModel with a name
     if (out && 'getZod' in out && typeof out.getZod === 'function') {
       const model = out as AnySchemaModel;
-      const typeName = model.config?.name;
-      if (typeName && outputTypeCache.has(typeName)) {
-        return typeName;
+      if (isSchemaModel(model)) {
+        const typeName = model.config?.name;
+        if (typeName && outputTypeCache.has(typeName)) {
+          return typeName;
+        }
       }
     }
 

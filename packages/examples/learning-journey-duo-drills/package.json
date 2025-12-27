@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-duo-drills",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Drill-based learning journey example with SRS, XP, and streak hooks.",
   "type": "module",
   "main": "./dist/index.js",
@@ -55,5 +55,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-duo-drills"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.wealth-snapshot",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Wealth Snapshot mini-app for accounts, assets, liabilities, and goals",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -71,5 +71,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/wealth-snapshot"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

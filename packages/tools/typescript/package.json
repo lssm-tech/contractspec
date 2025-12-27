@@ -1,6 +1,6 @@
 {
   "name": "@lssm/tool.typescript",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary"
@@ -18,5 +18,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/tools/typescript"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

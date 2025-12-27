@@ -1,6 +1,6 @@
 {
   "name": "@lssm/bundle.lifecycle-managed",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -53,5 +53,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/bundles/lifecycle-managed"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

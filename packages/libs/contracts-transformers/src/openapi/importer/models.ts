@@ -12,9 +12,22 @@ export function generateModelCode(
   options: ContractsrcConfig
 ): string {
   const modelName = toPascalCase(toValidIdentifier(name));
-  const model = generateSchemaModelCode(schema, modelName);
+  const schemaFormat = options.schemaFormat || 'contractspec';
 
-  const imports = generateImports(model.fields, options);
+  const model = generateSchemaModelCode(
+    schema,
+    modelName,
+    0,
+    schemaFormat,
+    options
+  );
+
+  let imports = '';
+  if (model.imports && model.imports.length > 0) {
+    imports = model.imports.join('\n');
+  } else if (model.fields.length > 0) {
+    imports = generateImports(model.fields, options);
+  }
 
   return `
 ${imports}

@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.integration-hub",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -98,5 +98,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/integration-hub"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

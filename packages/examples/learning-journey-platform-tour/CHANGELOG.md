@@ -1,5 +1,18 @@
 # @lssm/example.learning-journey-platform-tour
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/module.learning-journey@1.43.0
+  - @lssm/lib.contracts@1.43.0
+  - @lssm/lib.schema@1.43.0
+
 ## 1.42.9
 
 ### Patch Changes

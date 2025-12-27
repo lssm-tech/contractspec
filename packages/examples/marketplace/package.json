@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.marketplace",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -136,5 +136,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/marketplace"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

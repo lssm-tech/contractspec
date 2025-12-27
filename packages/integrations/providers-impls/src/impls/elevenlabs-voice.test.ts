@@ -51,12 +51,12 @@ function createMockClient() {
       getAll: vi.fn(async () => ({
         voices: [
           {
-            voice_id: 'voice-1',
+            voiceId: 'voice-1',
             name: 'Sample Voice',
             description: 'Friendly voice',
             labels: { language: 'en' },
             category: 'professional',
-            preview_url: 'https://example.com/preview.mp3',
+            previewUrl: 'https://example.com/preview.mp3',
           },
         ],
       })),

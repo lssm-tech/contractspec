@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.utils-typescript",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
@@ -104,5 +104,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/utils-typescript"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

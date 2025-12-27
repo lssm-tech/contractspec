@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-crm-onboarding",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
   "main": "./dist/index.js",
@@ -63,5 +63,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-crm-onboarding"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }
