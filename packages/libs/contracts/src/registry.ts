@@ -33,6 +33,10 @@ export abstract class SpecContractRegistry<
     return this;
   }
 
+  count(): number {
+    return this.items.size;
+  }
+
   list(): SpecContract[] {
     return [...this.items.values()];
   }
