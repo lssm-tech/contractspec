@@ -29,5 +29,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/apps/contractspec"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

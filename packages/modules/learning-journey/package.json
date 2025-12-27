@@ -93,5 +93,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/modules/learning-journey"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

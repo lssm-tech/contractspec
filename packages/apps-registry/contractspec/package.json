@@ -25,6 +25,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
+  "homepage": "https://contractspec.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",

@@ -1,56 +1,139 @@
 import type { ParsedOperation, OpenApiSchema } from '../types';
 
 /**
- * Build a merged input schema from all parameter sources.
+ * Build separate input schemas for each parameter source.
  */
-export function buildInputSchema(operation: ParsedOperation): {
-  schema: OpenApiSchema | null;
-  fields: { name: string; schema: OpenApiSchema; required: boolean }[];
+export function buildInputSchemas(operation: ParsedOperation): {
+  body?: OpenApiSchema;
+  query?: OpenApiSchema;
+  params?: OpenApiSchema;
+  headers?: OpenApiSchema;
 } {
-  const fields: {
-    name: string;
-    schema: OpenApiSchema;
-    required: boolean;
-  }[] = [];
+  const result: {
+    body?: OpenApiSchema;
+    query?: OpenApiSchema;
+    params?: OpenApiSchema;
+    headers?: OpenApiSchema;
+  } = {};
 
-  // Add path parameters
-  for (const param of operation.pathParams) {
-    fields.push({
-      name: param.name,
-      schema: param.schema,
-      required: true, // Path params are always required
-    });
+  // Path parameters -> params
+  if (operation.pathParams.length > 0) {
+    result.params = {
+      type: 'object',
+      properties: operation.pathParams.reduce(
+        (acc, p) => {
+          acc[p.name] = p.schema;
+          return acc;
+        },
+        {} as Record<string, OpenApiSchema>
+      ),
+      required: operation.pathParams.map((p) => p.name),
+    } as unknown as OpenApiSchema;
   }
 
-  // Add query parameters
-  for (const param of operation.queryParams) {
-    fields.push({
-      name: param.name,
-      schema: param.schema,
-      required: param.required,
-    });
+  // Query parameters -> query
+  if (operation.queryParams.length > 0) {
+    result.query = {
+      type: 'object',
+      properties: operation.queryParams.reduce(
+        (acc, p) => {
+          acc[p.name] = p.schema;
+          return acc;
+        },
+        {} as Record<string, OpenApiSchema>
+      ),
+      required: operation.queryParams.filter((p) => p.required).map((p) => p.name),
+    } as unknown as OpenApiSchema;
   }
 
-  // Add header parameters (excluding common headers)
+  // Header parameters -> headers
   const excludedHeaders = [
     'authorization',
     'content-type',
     'accept',
     'user-agent',
   ];
-  for (const param of operation.headerParams) {
-    if (!excludedHeaders.includes(param.name.toLowerCase())) {
+  const actualHeaders = operation.headerParams.filter(
+    (p) => !excludedHeaders.includes(p.name.toLowerCase())
+  );
+  if (actualHeaders.length > 0) {
+    result.headers = {
+      type: 'object',
+      properties: actualHeaders.reduce(
+        (acc, p) => {
+          acc[p.name] = p.schema;
+          return acc;
+        },
+        {} as Record<string, OpenApiSchema>
+      ),
+      required: actualHeaders.filter((p) => p.required).map((p) => p.name),
+    } as unknown as OpenApiSchema;
+  }
+
+  // Request body -> body
+  if (operation.requestBody?.schema) {
+    result.body = operation.requestBody.schema;
+  }
+
+  return result;
+}
+
+/**
+ * Build a merged input schema from all parameter sources (legacy/merged view).
+ */
+export function buildInputSchema(operation: ParsedOperation): {
+  schema: OpenApiSchema | null;
+  fields: { name: string; schema: OpenApiSchema; required: boolean }[];
+} {
+  const schemas = buildInputSchemas(operation);
+  const fields: {
+    name: string;
+    schema: OpenApiSchema;
+    required: boolean;
+  }[] = [];
+
+  // Path params
+  if (schemas.params) {
+    const props = (schemas.params as any).properties;
+    const req = (schemas.params as any).required || [];
+    for (const [name, schema] of Object.entries(props)) {
       fields.push({
-        name: param.name,
-        schema: param.schema,
-        required: param.required,
+        name,
+        schema: schema as OpenApiSchema,
+        required: req.includes(name),
       });
     }
   }
 
-  // Add request body fields
-  if (operation.requestBody?.schema) {
-    const bodySchema = operation.requestBody.schema;
+  // Query params
+  if (schemas.query) {
+    const props = (schemas.query as any).properties;
+    const req = (schemas.query as any).required || [];
+    for (const [name, schema] of Object.entries(props)) {
+      fields.push({
+        name,
+        schema: schema as OpenApiSchema,
+        required: req.includes(name),
+      });
+    }
+  }
+
+  // Header params
+  if (schemas.headers) {
+    const props = (schemas.headers as any).properties;
+    const req = (schemas.headers as any).required || [];
+    for (const [name, schema] of Object.entries(props)) {
+      fields.push({
+        name,
+        schema: schema as OpenApiSchema,
+        required: req.includes(name),
+      });
+    }
+  }
+
+  // Body
+  if (schemas.body) {
+    const bodySchema = schemas.body;
     if (!('$ref' in bodySchema)) {
       const schemaObj = bodySchema as Record<string, unknown>;
       const properties = schemaObj['properties'] as
@@ -66,13 +149,15 @@ export function buildInputSchema(operation: ParsedOperation): {
             required: required.includes(propName),
           });
         }
+      } else {
+         // Generic body
+         fields.push({ name: 'body', schema: bodySchema, required: true });
       }
     } else {
-      // Reference to a schema - add as a single field
       fields.push({
         name: 'body',
         schema: bodySchema,
-        required: operation.requestBody.required,
+        required: operation.requestBody?.required ?? false,
       });
     }
   }
@@ -81,7 +166,6 @@ export function buildInputSchema(operation: ParsedOperation): {
     return { schema: null, fields: [] };
   }
 
-  // Build a merged schema
   const mergedSchema: OpenApiSchema = {
     type: 'object',
     properties: fields.reduce(

@@ -1,9 +1,14 @@
 import { type AnyFieldType } from './FieldType';
 import { type AnyEnumType } from './EnumType';
+import { type SchemaModelType } from './SchemaModelType';
 import * as z from 'zod';
 import type { Maybe } from 'graphql/jsutils/Maybe';
 
-type FieldLike = AnyFieldType | AnyEnumType | AnySchemaModel;
+/**
+ * All types that can be used as field types in a SchemaModel.
+ * Supports FieldType, EnumType, nested SchemaModel, or any SchemaType implementation.
+ */
+type FieldLike = AnyFieldType | AnyEnumType | AnySchemaModel | SchemaModelType;
 
 /** Field configuration for a SchemaModel property. */
 export interface SchemaFieldConfig<Type extends FieldLike = FieldLike> {
@@ -27,7 +32,9 @@ export interface SchemaModelConfig<Fields extends SchemaModelFieldsAnyConfig> {
  * Named object model built from FieldType/EnumType/SchemaModel fields.
  * Provides zod and GraphQL input helpers, and supports arrays/optional fields.
  */
-export class SchemaModel<Fields extends SchemaModelFieldsAnyConfig> {
+export class SchemaModel<
+  Fields extends SchemaModelFieldsAnyConfig,
+> implements SchemaModelType {
   constructor(public readonly config: SchemaModelConfig<Fields>) {}
 
   /**
@@ -58,7 +65,45 @@ export class SchemaModel<Fields extends SchemaModelFieldsAnyConfig> {
   }
 }
 
-export type AnySchemaModel = SchemaModel<SchemaModelFieldsAnyConfig>;
+/**
+ * Union of all types that can serve as a schema model.
+ * This is the main type expected by OperationSpec, EventSpec, FormSpec, etc.
+ *
+ * Supports:
+ * - SchemaModel instances (native ContractSpec types)
+ * - Any SchemaType implementation (ZodSchemaType, JsonSchemaType, etc.)
+ */
+export type AnySchemaModel =
+  | SchemaModel<SchemaModelFieldsAnyConfig>
+  | SchemaModelType;
+
+/**
+ * Type guard to check if a value is a SchemaModel (not just any SchemaType).
+ * Use this when you need to access SchemaModel-specific properties like `config`.
+ *
+ * @param model - The model to check
+ * @returns True if the model is a SchemaModel instance
+ *
+ * @example
+ * ```typescript
+ * if (isSchemaModel(model)) {
+ *   // TypeScript knows model.config is available
+ *   console.log(model.config.name);
+ * }
+ * ```
+ */
+export function isSchemaModel(
+  model: AnySchemaModel | null | undefined
+): model is SchemaModel<SchemaModelFieldsAnyConfig> {
+  return (
+    model !== null &&
+    model !== undefined &&
+    'config' in model &&
+    typeof (model as SchemaModel<SchemaModelFieldsAnyConfig>).config ===
+      'object' &&
+    'name' in (model as SchemaModel<SchemaModelFieldsAnyConfig>).config
+  );
+}
 
 export type ZodSchemaModel<Field extends AnySchemaModel> = z.infer<
   ReturnType<Field['getZod']>
@@ -71,7 +116,9 @@ type InferZodFromType<T> =
       ? ReturnType<T['getZod']>
       : T extends AnyEnumType
         ? ReturnType<T['getZod']>
-        : never;
+        : T extends SchemaModelType
+          ? ReturnType<T['getZod']>
+          : z.ZodUnknown;
 
 type MaybeArray<Z extends z.ZodType, A> = A extends true ? z.ZodArray<Z> : Z;
 type MaybeOptional<Z extends z.ZodType, O> = O extends true

@@ -84,7 +84,7 @@ describe('QdrantVectorProvider', () => {
 
     expect(client.delete).toHaveBeenCalledWith('tenant_vectors', {
       wait: true,
-      points: { ids: ['1', '2'] },
+      points: ['1', '2'],
     });
   });
 });

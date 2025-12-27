@@ -67,5 +67,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/design-system"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

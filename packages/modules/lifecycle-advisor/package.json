@@ -49,5 +49,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/modules/lifecycle-advisor"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

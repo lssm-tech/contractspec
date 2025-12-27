@@ -1,4 +1,8 @@
-import type { OperationSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
+import type {
+  AnyOperationSpec,
+  OperationSpec,
+  ResourceRefDescriptor,
+} from '@lssm/lib.contracts';
 import type { AnySchemaModel } from '@lssm/lib.schema';
 import { Logger } from '@lssm/lib.observability';
 import { randomUUID } from 'node:crypto';
@@ -11,16 +15,11 @@ import {
   type SuggestionStatus,
 } from '../types';
 
-type AnyContract = OperationSpec<
-  AnySchemaModel,
-  AnySchemaModel | ResourceRefDescriptor<boolean>
->;
-
 export interface SpecGeneratorOptions {
   config?: EvolutionConfig;
   logger?: Logger;
   clock?: () => Date;
-  getSpec?: (key: string, version?: number) => AnyContract | undefined;
+  getSpec?: (key: string, version?: number) => AnyOperationSpec | undefined;
 }
 
 export interface GenerateSpecOptions {
@@ -28,7 +27,7 @@ export interface GenerateSpecOptions {
   rationale?: string;
   changeType?: SpecSuggestionProposal['changeType'];
   kind?: SpecSuggestionProposal['kind'];
-  spec?: AnyContract;
+  spec?: AnyOperationSpec;
   diff?: string;
   metadata?: Record<string, unknown>;
   status?: SuggestionStatus;
@@ -38,7 +37,7 @@ export interface GenerateSpecOptions {
 
 export type SpecPatch = Partial<
   OperationSpec<AnySchemaModel, AnySchemaModel | ResourceRefDescriptor<boolean>>
-> & { meta?: Partial<AnyContract['meta']> };
+> & { meta?: Partial<AnyOperationSpec['meta']> };
 
 export class SpecGenerator {
   private readonly config: EvolutionConfig;
@@ -187,7 +186,10 @@ export class SpecGenerator {
   }
 }
 
-function mergeContract(base: AnyContract, patch: SpecPatch): AnyContract {
+function mergeContract(
+  base: AnyOperationSpec,
+  patch: SpecPatch
+): AnyOperationSpec {
   return {
     ...base,
     ...patch,
@@ -208,5 +210,5 @@ function mergeContract(base: AnyContract, patch: SpecPatch): AnyContract {
       ...base.sideEffects,
       ...patch.sideEffects,
     },
-  } as AnyContract;
+  } as AnyOperationSpec;
 }

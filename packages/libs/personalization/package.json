@@ -75,5 +75,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/personalization"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

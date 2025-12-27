@@ -112,6 +112,7 @@
     "./docs/tech/contracts/graphql-typed-outputs.docblock": "./dist/docs/tech/contracts/graphql-typed-outputs.docblock.js",
     "./docs/tech/contracts/migrations.docblock": "./dist/docs/tech/contracts/migrations.docblock.js",
     "./docs/tech/contracts/openapi-export.docblock": "./dist/docs/tech/contracts/openapi-export.docblock.js",
+    "./docs/tech/contracts/openapi-import.docblock": "./dist/docs/tech/contracts/openapi-import.docblock.js",
     "./docs/tech/contracts/ops-to-presentation-linking.docblock": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
     "./docs/tech/contracts/overlays.docblock": "./dist/docs/tech/contracts/overlays.docblock.js",
     "./docs/tech/contracts/README.docblock": "./dist/docs/tech/contracts/README.docblock.js",
@@ -135,7 +136,6 @@
     "./docs/tech/telemetry-ingest.docblock": "./dist/docs/tech/telemetry-ingest.docblock.js",
     "./docs/tech/templates/runtime.docblock": "./dist/docs/tech/templates/runtime.docblock.js",
     "./docs/tech/vscode-extension.docblock": "./dist/docs/tech/vscode-extension.docblock.js",
-    "./docs/tech/workflows/overview.docblock": "./dist/docs/tech/workflows/overview.docblock.js",
     "./docs/types": "./dist/docs/types.js",
     "./events": "./dist/events.js",
     "./experiments/docs/experiments.docblock": "./dist/experiments/docs/experiments.docblock.js",
@@ -317,6 +317,7 @@
     "./workflow/adapters/file-adapter": "./dist/workflow/adapters/file-adapter.js",
     "./workflow/adapters/memory-store": "./dist/workflow/adapters/memory-store.js",
     "./workflow/expression": "./dist/workflow/expression.js",
+    "./workflow/overview.docblock": "./dist/workflow/overview.docblock.js",
     "./workflow/runner": "./dist/workflow/runner.js",
     "./workflow/sla-monitor": "./dist/workflow/sla-monitor.js",
     "./workflow/spec": "./dist/workflow/spec.js",
@@ -324,6 +325,7 @@
     "./workflow/validation": "./dist/workflow/validation.js",
     "./workspace-config": "./dist/workspace-config/index.js",
     "./workspace-config/contractsrc-schema": "./dist/workspace-config/contractsrc-schema.js",
+    "./workspace-config/workspace-config.docblock": "./dist/workspace-config/workspace-config.docblock.js",
     "./*": "./*"
   },
   "publishConfig": {
@@ -584,5 +586,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/contracts"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

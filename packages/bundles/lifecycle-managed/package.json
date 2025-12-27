@@ -53,5 +53,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/bundles/lifecycle-managed"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

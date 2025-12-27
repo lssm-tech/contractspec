@@ -84,5 +84,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-registry"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

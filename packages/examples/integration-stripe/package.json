@@ -60,5 +60,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/integration-stripe"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, type FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type {
   ArrayFieldSpec,
@@ -220,7 +220,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
   }): React.ReactElement {
     const { spec, options, merged } = props;
     const baseZod = useMemo(() => buildZodWithRelations(spec), [spec]);
-    const form = useForm<FormValuesFor<M>>({
+    const form = useForm<FormValuesFor<M> & FieldValues>({
       ...merged.formOptions,
       resolver: zodResolver(baseZod),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

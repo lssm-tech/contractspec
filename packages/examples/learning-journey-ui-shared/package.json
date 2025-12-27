@@ -70,5 +70,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-ui-shared"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

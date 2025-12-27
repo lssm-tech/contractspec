@@ -194,6 +194,33 @@ contractspec diff spec1.ts spec2.ts --breaking
 contractspec diff spec1.ts spec2.ts --semantic
 ```
 
+### `contractspec openapi`
+
+Import/Export OpenAPI specifications.
+
+#### `contractspec openapi import`
+
+Import an OpenAPI specification and generate ContractSpec models or other schema formats.
+
+**Options:**
+- `--file <path>` - Path to OpenAPI file (json/yaml) or URL
+- `--output <dir>` - Output directory
+- `--schema-format <format>` - Output schema format: `contractspec` (default), `zod`, `json-schema`, `graphql`
+- `--prefix <prefix>` - Prefix for generated models
+
+**Examples:**
+
+```bash
+# Import as ContractSpec (default)
+contractspec openapi import --file api.json --output ./models
+
+# Import as Zod schemas
+contractspec openapi import --file api.json --output ./zod --schema-format zod
+
+# Import as GraphQL types
+contractspec openapi import --file api.json --output ./gql --schema-format graphql
+```
+
 ### `contractspec create`
 
 Interactive wizard to create contract specifications.

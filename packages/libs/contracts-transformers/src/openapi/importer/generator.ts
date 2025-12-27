@@ -15,7 +15,10 @@ export function generateSpecCode(
   contractspecConfig: ContractsrcConfig,
   options: Partial<OpenApiSourceConfig> = {},
   inputModel: GeneratedModel | null,
-  outputModel: GeneratedModel | null
+  outputModel: GeneratedModel | null,
+  queryModel: GeneratedModel | null = null,
+  paramsModel: GeneratedModel | null = null,
+  headersModel: GeneratedModel | null = null
 ): string {
   const specKey = toSpecKey(operation.operationId, options.prefix);
   const kind = inferOpKind(operation.method);
@@ -27,29 +30,68 @@ export function generateSpecCode(
   lines.push(
     "import { defineCommand, defineQuery } from '@lssm/lib.contracts';"
   );
-  if (inputModel || outputModel) {
-    lines.push(
-      generateImports(
-        [...(inputModel?.fields ?? []), ...(outputModel?.fields ?? [])],
-        contractspecConfig,
-        false // operations import from ../models, not same directory
-      )
+  if (
+    inputModel ||
+    outputModel ||
+    queryModel ||
+    paramsModel ||
+    headersModel
+  ) {
+    const collectedImports = new Set<string>();
+    const models = [
+      inputModel,
+      outputModel,
+      queryModel,
+      paramsModel,
+      headersModel,
+    ].filter((m): m is GeneratedModel => !!m);
+
+    // Add explicit imports from generators (e.g. Zod, JsonSchema)
+    models.forEach((m) => {
+      if (m.imports && m.imports.length > 0) {
+        m.imports.forEach((i) => collectedImports.add(i));
+      }
+    });
+
+    // Add legacy fields-based imports (ContractSpec format)
+    const legacyModels = models.filter(
+      (m) => !m.imports || m.imports.length === 0
     );
+    const legacyFields = legacyModels.flatMap((m) => m.fields);
+
+    if (legacyFields.length > 0) {
+      const legacyImportStr = generateImports(
+        legacyFields,
+        contractspecConfig,
+        false
+      );
+      legacyImportStr
+        .split('\n')
+        .filter(Boolean)
+        .forEach((i) => collectedImports.add(i));
+    }
+
+    if (collectedImports.size > 0) {
+      lines.push(Array.from(collectedImports).sort().join('\n'));
+    }
   }
   lines.push('');
 
-  // Generate input model if present
-  if (inputModel && inputModel.code) {
-    lines.push('// Input schema');
-    lines.push(inputModel.code);
-    lines.push('');
-  }
+  // Generate schemas
+  const schemaSections = [
+    { label: 'Input schema', model: inputModel },
+    { label: 'Query schema', model: queryModel },
+    { label: 'Path schema', model: paramsModel },
+    { label: 'Header schema', model: headersModel },
+    { label: 'Output schema', model: outputModel },
+  ];
 
-  // Generate output model if present
-  if (outputModel && outputModel.code) {
-    lines.push('// Output schema');
-    lines.push(outputModel.code);
-    lines.push('');
+  for (const section of schemaSections) {
+    if (section.model && section.model.code) {
+      lines.push(`// ${section.label}`);
+      lines.push(section.model.code);
+      lines.push('');
+    }
   }
 
   // Generate spec
@@ -91,11 +133,11 @@ export function generateSpecCode(
 
   // IO
   lines.push('  io: {');
-  if (inputModel) {
-    lines.push(`    input: ${inputModel.name},`);
-  } else {
-    lines.push('    input: null,');
-  }
+  lines.push(`    input: ${inputModel?.name ?? 'null'},`);
+  if (queryModel) lines.push(`    query: ${queryModel.name},`);
+  if (paramsModel) lines.push(`    params: ${paramsModel.name},`);
+  if (headersModel) lines.push(`    headers: ${headersModel.name},`);
+
   if (outputModel) {
     lines.push(`    output: ${outputModel.name},`);
   } else {
@@ -109,9 +151,8 @@ export function generateSpecCode(
   lines.push('  },');
 
   // Transport hints
-  // ContractSpec only supports GET and POST - map other methods appropriately
   const httpMethod = operation.method.toUpperCase();
-  const restMethod = httpMethod === 'GET' ? 'GET' : 'POST'; // GET stays GET, everything else becomes POST
+  const restMethod = httpMethod === 'GET' ? 'GET' : 'POST';
   lines.push('  transport: {');
   lines.push('    rest: {');
   lines.push(`      method: '${restMethod}',`);

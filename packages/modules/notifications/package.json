@@ -60,5 +60,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/modules/notifications"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

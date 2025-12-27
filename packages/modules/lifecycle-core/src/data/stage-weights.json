@@ -2,9 +2,9 @@
   "Exploration": {
     "base": 0.35,
     "metrics": {
-      "activeUsers": { "weight": -0.3, "direction": "lte", "threshold": 5 },
-      "customerCount": { "weight": -0.2, "direction": "lte", "threshold": 3 },
-      "teamSize": { "weight": -0.1, "direction": "lte", "threshold": 3 }
+      "activeUsers": { "weight": 0.3, "direction": "lte", "threshold": 5 },
+      "customerCount": { "weight": 0.2, "direction": "lte", "threshold": 3 },
+      "teamSize": { "weight": 0.1, "direction": "lte", "threshold": 3 }
     },
     "signalKinds": {
       "qualitative": 0.4,

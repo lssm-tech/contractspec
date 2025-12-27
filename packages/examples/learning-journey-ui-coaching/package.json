@@ -74,5 +74,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-ui-coaching"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

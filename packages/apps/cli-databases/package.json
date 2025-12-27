@@ -48,5 +48,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/apps/cli-databases"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

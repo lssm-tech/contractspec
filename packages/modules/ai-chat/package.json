@@ -75,5 +75,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/modules/ai-chat"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

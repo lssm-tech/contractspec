@@ -50,4 +50,21 @@ export const pocketFamilyOfficeKnowledgeSources: KnowledgeSourceConfig[] = [
       success: true,
     },
   },
+
+  {
+    meta: {
+      id: 'source-financial-overview',
+      tenantId: 'tenant.family-office',
+      spaceKey: 'knowledge.financial-overview',
+      spaceVersion: 1,
+      label: 'Financial Overview',
+      sourceType: 'api',
+      createdAt: now,
+      updatedAt: now,
+    },
+    config: {},
+    syncSchedule: {
+      enabled: false,
+    },
+  },
 ];

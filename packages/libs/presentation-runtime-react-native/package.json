@@ -50,5 +50,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/presentation-runtime-react-native"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

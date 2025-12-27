@@ -72,5 +72,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/policy-safe-knowledge-assistant"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

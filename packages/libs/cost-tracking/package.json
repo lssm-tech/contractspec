@@ -45,5 +45,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/cost-tracking"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

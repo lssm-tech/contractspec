@@ -54,5 +54,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/lifecycle-dashboard"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

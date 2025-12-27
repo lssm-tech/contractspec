@@ -98,5 +98,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/integration-hub"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

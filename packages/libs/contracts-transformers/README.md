@@ -49,6 +49,7 @@ const importResult = importFromOpenApi(openApiDoc, {
   prefix: 'myApi',
   tags: ['users', 'orders'], // Optional: filter by tags
   exclude: ['deprecated_endpoint'], // Optional: exclude by operationId
+  schemaFormat: 'contractspec', // Optional: 'contractspec' | 'zod' | 'json-schema' | 'graphql'
 });
 
 // importResult contains generated spec code as strings

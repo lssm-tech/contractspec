@@ -74,5 +74,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/kb-update-pipeline"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

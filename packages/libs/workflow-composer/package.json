@@ -49,5 +49,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/workflow-composer"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

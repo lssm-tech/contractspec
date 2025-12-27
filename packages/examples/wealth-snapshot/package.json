@@ -71,5 +71,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/wealth-snapshot"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

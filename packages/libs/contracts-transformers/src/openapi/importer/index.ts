@@ -7,7 +7,11 @@ import type {
 import type { ImportedOperationSpec, ImportResult } from '../../common/types';
 import { toFileName, toSpecKey } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
-import { buildInputSchema, getOutputSchema } from './schemas';
+import {
+  buildInputSchema,
+  buildInputSchemas,
+  getOutputSchema,
+} from './schemas';
 import { generateSpecCode } from './generator';
 import { generateModelCode } from './models';
 import { generateEventCode } from './events';
@@ -84,10 +88,52 @@ export const importFromOpenApi = (
     }
 
     try {
-      // Build input schema
-      const { schema: inputSchema } = buildInputSchema(operation);
-      const inputModel = inputSchema
-        ? generateSchemaModelCode(inputSchema, `${operation.operationId}Input`)
+      // Build input schemas
+      const inputSchemas = buildInputSchemas(operation);
+      const schemaFormat =
+        importOptions.schemaFormat ||
+        contractspecOptions.schemaFormat ||
+        'contractspec';
+
+      // Generate models for each input source
+      const inputModel = inputSchemas.body
+        ? generateSchemaModelCode(
+            inputSchemas.body,
+            `${operation.operationId}Input`,
+            0,
+            schemaFormat,
+            contractspecOptions
+          )
+        : null;
+
+      const queryModel = inputSchemas.query
+        ? generateSchemaModelCode(
+            inputSchemas.query,
+            `${operation.operationId}Query`,
+            0,
+            schemaFormat,
+            contractspecOptions
+          )
+        : null;
+
+      const paramsModel = inputSchemas.params
+        ? generateSchemaModelCode(
+            inputSchemas.params,
+            `${operation.operationId}Params`,
+            0,
+            schemaFormat,
+            contractspecOptions
+          )
+        : null;
+
+      const headersModel = inputSchemas.headers
+        ? generateSchemaModelCode(
+            inputSchemas.headers,
+            `${operation.operationId}Headers`,
+            0,
+            schemaFormat,
+            contractspecOptions
+          )
         : null;
 
       // Get output schema
@@ -95,12 +141,19 @@ export const importFromOpenApi = (
       let outputModel = outputSchema
         ? generateSchemaModelCode(
             outputSchema,
-            `${operation.operationId}Output`
+            `${operation.operationId}Output`,
+            0,
+            schemaFormat,
+            contractspecOptions
           )
         : null;
 
-      // Filter out empty/comment-only output models
-      if (outputModel && !outputModel.code.includes('defineSchemaModel')) {
+      // Filter out empty/comment-only output models ONLY for ContractSpec format
+      if (
+        outputModel &&
+        schemaFormat === 'contractspec' &&
+        !outputModel.code.includes('defineSchemaModel')
+      ) {
         outputModel = null;
       }
 
@@ -110,7 +163,10 @@ export const importFromOpenApi = (
         contractspecOptions,
         importOptions,
         inputModel,
-        outputModel
+        outputModel,
+        queryModel,
+        paramsModel,
+        headersModel
       );
       const specName = toSpecKey(operation.operationId, importOptions.prefix);
       const fileName = toFileName(specName);
@@ -163,7 +219,10 @@ export const importFromOpenApi = (
   // Import standalone models
   for (const [name, schema] of Object.entries(parseResult.schemas)) {
     try {
-      const code = generateModelCode(name, schema, contractspecOptions);
+      const code = generateModelCode(name, schema, {
+        ...contractspecOptions,
+        schemaFormat: importOptions.schemaFormat || contractspecOptions.schemaFormat,
+      });
       const fileName = toFileName(toSpecKey(name, importOptions.prefix));
       const groupFolder = resolveModelGroupFolder(
         name,
@@ -197,7 +256,10 @@ export const importFromOpenApi = (
   // Import events
   for (const event of parseResult.events) {
     try {
-      const code = generateEventCode(event, contractspecOptions);
+      const code = generateEventCode(event, {
+        ...contractspecOptions,
+        schemaFormat: importOptions.schemaFormat || contractspecOptions.schemaFormat,
+      });
       const fileName = toFileName(toSpecKey(event.name, importOptions.prefix));
       const groupFolder = resolveEventGroupFolder(
         event.name,
@@ -252,14 +314,61 @@ export function importOperation(
   options: Partial<OpenApiSourceConfig> = {},
   contractspecOptions: ContractsrcConfig
 ): string {
-  const { schema: inputSchema } = buildInputSchema(operation);
-  const inputModel = inputSchema
-    ? generateSchemaModelCode(inputSchema, `${operation.operationId}Input`)
+  // Build input schemas
+  const inputSchemas = buildInputSchemas(operation);
+  const schemaFormat =
+    options.schemaFormat || contractspecOptions.schemaFormat || 'contractspec';
+
+  // Generate models for each input source
+  const inputModel = inputSchemas.body
+    ? generateSchemaModelCode(
+        inputSchemas.body,
+        `${operation.operationId}Input`,
+        0,
+        schemaFormat,
+        contractspecOptions
+      )
+    : null;
+
+  const queryModel = inputSchemas.query
+    ? generateSchemaModelCode(
+        inputSchemas.query,
+        `${operation.operationId}Query`,
+        0,
+        schemaFormat,
+        contractspecOptions
+      )
+    : null;
+
+  const paramsModel = inputSchemas.params
+    ? generateSchemaModelCode(
+        inputSchemas.params,
+        `${operation.operationId}Params`,
+        0,
+        schemaFormat,
+        contractspecOptions
+      )
+    : null;
+
+  const headersModel = inputSchemas.headers
+    ? generateSchemaModelCode(
+        inputSchemas.headers,
+        `${operation.operationId}Headers`,
+        0,
+        schemaFormat,
+        contractspecOptions
+      )
     : null;
 
   const outputSchema = getOutputSchema(operation);
   const outputModel = outputSchema
-    ? generateSchemaModelCode(outputSchema, `${operation.operationId}Output`)
+    ? generateSchemaModelCode(
+        outputSchema,
+        `${operation.operationId}Output`,
+        0,
+        schemaFormat,
+        contractspecOptions
+      )
     : null;
 
   return generateSpecCode(
@@ -267,6 +376,9 @@ export function importOperation(
     contractspecOptions,
     options,
     inputModel,
-    outputModel
+    outputModel,
+    queryModel,
+    paramsModel,
+    headersModel
   );
 }

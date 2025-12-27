@@ -8,6 +8,17 @@
 import * as z from 'zod';
 
 /**
+ * Schema output format for code generation.
+ * Controls how imported/generated schemas are written.
+ */
+export const SchemaFormatSchema = z.enum([
+  'contractspec', // Default: SchemaModel + FieldType
+  'zod', // Raw Zod schemas
+  'json-schema', // JSON Schema definitions
+  'graphql', // GraphQL scalar types
+]);
+
+/**
  * OpenAPI source configuration for import/sync/validate operations.
  */
 export const OpenApiSourceConfigSchema = z.object({
@@ -35,6 +46,8 @@ export const OpenApiSourceConfigSchema = z.object({
   defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
   /** Default owners for imported specs */
   defaultOwners: z.array(z.string()).optional(),
+  /** Output schema format for generated models */
+  schemaFormat: SchemaFormatSchema.default('contractspec'),
 });
 export const OpenApiExportConfigSchema = z.object({
   /** Output path for exported OpenAPI document */
@@ -290,6 +303,8 @@ export const ContractsrcSchema = z.object({
   metaRepo: MetaRepoConfigSchema.optional(),
   // Lint rules configuration
   rules: RulesConfigSchema.optional(),
+  // Schema format for code generation
+  schemaFormat: SchemaFormatSchema.default('contractspec'),
 });
 
 // Type exports
@@ -310,6 +325,7 @@ export type RuleSeverity = z.infer<typeof RuleSeveritySchema>;
 export type SpecKind = z.infer<typeof SpecKindSchema>;
 export type LintRules = z.infer<typeof LintRulesSchema>;
 export type RulesConfig = z.infer<typeof RulesConfigSchema>;
+export type SchemaFormat = z.infer<typeof SchemaFormatSchema>;
 
 /**
  * Default configuration values.
@@ -328,4 +344,5 @@ export const DEFAULT_CONTRACTSRC: ContractsrcConfig = {
   },
   defaultOwners: [],
   defaultTags: [],
+  schemaFormat: 'contractspec',
 };

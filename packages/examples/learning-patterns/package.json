@@ -63,5 +63,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-patterns"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

@@ -30,5 +30,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

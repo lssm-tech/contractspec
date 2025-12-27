@@ -333,5 +333,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/ui-kit-web"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

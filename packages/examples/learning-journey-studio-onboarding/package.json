@@ -62,5 +62,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/learning-journey-studio-onboarding"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

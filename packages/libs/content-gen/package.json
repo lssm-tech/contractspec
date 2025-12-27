@@ -64,5 +64,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/content-gen"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }

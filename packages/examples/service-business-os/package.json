@@ -103,5 +103,6 @@
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/examples/service-business-os"
-  }
+  },
+  "homepage": "https://contractspec.io"
 }
