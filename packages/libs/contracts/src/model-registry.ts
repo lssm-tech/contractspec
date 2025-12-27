@@ -4,7 +4,7 @@ import type { AnySchemaModel } from '@lssm/lib.schema';
 export class ModelRegistry {
   private items = new Map<string, AnySchemaModel>();
 
-  protected constructor(items?: AnySchemaModel[]) {
+  public constructor(items?: AnySchemaModel[]) {
     if (items) {
       items.forEach((p) => this.register(p));
     }

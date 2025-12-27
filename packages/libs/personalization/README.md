@@ -1,6 +1,6 @@
 # @lssm/lib.personalization
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Composable behavior tracking and personalization primitives for ContractSpec applications. The library provides trackers that capture feature usage, analyzers that transform raw events into adaptation hints, and adapters that feed personalized overlays or workflow tweaks.

@@ -1,6 +1,6 @@
 # @lssm/example.team-hub
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Team Hub reference example with spaces/projects, tasks, rituals, and announcements for internal teams.

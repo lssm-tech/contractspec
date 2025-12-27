@@ -1,6 +1,6 @@
 # @lssm/example.service-business-os
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Service Business OS reference example (clients → quotes → jobs → invoices → payments).

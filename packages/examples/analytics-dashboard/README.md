@@ -1,6 +1,6 @@
 # @lssm/example.analytics-dashboard
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 > Analytics Dashboard Example - Comprehensive data visualization and reporting solution

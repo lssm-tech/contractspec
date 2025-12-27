@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-studio-onboarding
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Learning Journey example focused on the first 30 minutes inside ContractSpec Studio.

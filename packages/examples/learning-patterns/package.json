@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-patterns",
-  "version": "1.42.5",
+  "version": "1.42.9",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "main": "./dist/index.js",

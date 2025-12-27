@@ -1,6 +1,6 @@
 # @lssm/example.marketplace
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A comprehensive multi-vendor marketplace example demonstrating ContractSpec principles.

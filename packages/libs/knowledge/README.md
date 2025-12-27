@@ -1,6 +1,6 @@
 # @lssm/lib.knowledge
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Knowledge retrieval and management library for ContractSpec. Provides the runtime implementation for knowledge spaces, including:

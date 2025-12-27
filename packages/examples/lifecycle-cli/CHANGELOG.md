@@ -1,5 +1,53 @@
 # @lssm/example.lifecycle-cli
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+- Updated dependencies [1e6a0f1]
+  - @lssm/bundle.lifecycle-managed@1.42.10
+  - @lssm/lib.contracts@1.42.10
+  - @lssm/lib.lifecycle@1.42.10
+  - @lssm/lib.logger@1.42.10
+  - @lssm/lib.schema@1.42.10
+
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/bundle.lifecycle-managed@1.42.9
+  - @lssm/lib.contracts@1.42.9
+  - @lssm/lib.lifecycle@1.42.9
+  - @lssm/lib.logger@1.42.9
+  - @lssm/lib.schema@1.42.9
+
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/bundle.lifecycle-managed@1.42.8
+  - @lssm/lib.contracts@1.42.8
+  - @lssm/lib.lifecycle@1.42.8
+  - @lssm/lib.logger@1.42.8
+  - @lssm/lib.schema@1.42.8
+
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+- Updated dependencies [e9b575d]
+  - @lssm/bundle.lifecycle-managed@1.42.7
+  - @lssm/lib.contracts@1.42.7
+  - @lssm/lib.lifecycle@1.42.7
+  - @lssm/lib.logger@1.42.7
+  - @lssm/lib.schema@1.42.7
+
 ## 1.42.6
 
 ### Patch Changes

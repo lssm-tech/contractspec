@@ -1,6 +1,6 @@
 # @lssm/lib.presentation-runtime-react-native
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 React Native bindings for ContractSpec presentations.

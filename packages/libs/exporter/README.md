@@ -1,6 +1,6 @@
 # @lssm/lib.exporter
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Platform-agnostic utilities for exporting data to CSV and XML formats.

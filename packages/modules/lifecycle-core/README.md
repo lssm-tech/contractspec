@@ -1,6 +1,6 @@
 # @lssm/module.lifecycle-core
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Signal collection + scoring module for ContractSpec lifecycle assessments. It wraps analytics/questionnaire adapters, applies weighting logic, and produces normalized `LifecycleAssessment` objects.

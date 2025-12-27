@@ -1,6 +1,6 @@
 # @lssm/lib.feature-flags
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Feature flags and experiments module for ContractSpec applications.

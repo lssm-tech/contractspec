@@ -1,6 +1,6 @@
 # @lssm/module.lifecycle-advisor
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Guidance layer for the ContractSpec lifecycle engine. Converts assessments into recommended actions, library adoption plans, and ceremony payloads.

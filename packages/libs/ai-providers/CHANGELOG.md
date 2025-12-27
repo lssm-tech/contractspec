@@ -1,5 +1,29 @@
 # @lssm/lib.ai-providers
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+
 ## 1.42.6
 
 ### Patch Changes

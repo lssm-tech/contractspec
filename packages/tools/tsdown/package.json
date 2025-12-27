@@ -1,6 +1,6 @@
 {
   "name": "@lssm/tool.tsdown",
-  "version": "1.42.6",
+  "version": "1.42.10",
   "type": "module",
   "description": "Shared tsdown config presets for LSSM monorepo",
   "scripts": {

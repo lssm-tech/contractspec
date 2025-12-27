@@ -1,6 +1,6 @@
 # @lssm/example.integration-hub
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A comprehensive integration hub example demonstrating ContractSpec principles for data synchronization.

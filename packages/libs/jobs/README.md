@@ -1,6 +1,6 @@
 # @lssm/lib.jobs
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Background jobs and scheduler module for ContractSpec applications.

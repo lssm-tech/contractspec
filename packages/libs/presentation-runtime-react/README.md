@@ -1,6 +1,6 @@
 # @lssm/lib.presentation-runtime-react
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 React bindings for ContractSpec presentations (Workflows, DataViews).

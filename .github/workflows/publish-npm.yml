@@ -68,7 +68,7 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Package VS Code extension
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         id: vscode-package
         working-directory: packages/apps/vscode-contractspec
         run: |
@@ -78,18 +78,18 @@ jobs:
           echo "📦 Packaged: $VSIX_NAME"
 
       - name: Get VS Code extension version
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         id: vscode-version
         run: |
           VERSION=$(jq -r .version packages/apps/vscode-contractspec/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Install vsce
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         run: bun add -g @vscode/vsce
 
       - name: Publish VS Code extension to Marketplace
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         working-directory: packages/apps/vscode-contractspec
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -99,7 +99,7 @@ jobs:
           vsce publish --packagePath "$VSIX_FILE" --pat "$VSCE_PAT"
 
       - name: Publish VS Code extension to Open VSX Registry
-        if: steps.changesets.outputs.published == 'true' && env.OVSX_PAT != ''
+        if: steps.changesets.outputs.hasChangesets == 'false' && env.OVSX_PAT != ''
         working-directory: packages/apps/vscode-contractspec
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
@@ -111,7 +111,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload VSIX artifact
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: vscode-extension
@@ -119,7 +119,7 @@ jobs:
           retention-days: 90
 
       - name: Create VS Code Extension GitHub Release
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: vscode-v${{ steps.vscode-version.outputs.version }}
@@ -143,7 +143,7 @@ jobs:
 
       # GitHub Action Publishing
       - name: Get GitHub Action version
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         id: action-version
         run: |
           VERSION=$(jq -r .version packages/apps/action-contractspec/package.json)
@@ -152,7 +152,7 @@ jobs:
           echo "major=$MAJOR" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Action Release
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: action-v${{ steps.action-version.outputs.version }}
@@ -177,7 +177,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update major version tag for action
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com

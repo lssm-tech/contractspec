@@ -29,7 +29,6 @@ export function createMcpServer(
   registerMcpPresentations(server, {
     logger: ctxFactories.logger,
     presentations: ctxFactories.presentations,
-    presentationsV2: ctxFactories.presentationsV2,
   });
   registerMcpPrompts(server, prompts, { promptCtx: ctxFactories.promptCtx });
 

@@ -1,6 +1,6 @@
 # `@lssm/example.kb-update-pipeline`
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 Spec-first example for a **knowledge base update pipeline** where:
 

@@ -1,6 +1,6 @@
 # @lssm/lib.design-system
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 High-level design system components, patterns, and layouts for LSSM applications. Built on top of `@lssm/lib.ui-kit`.

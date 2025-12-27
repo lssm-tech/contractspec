@@ -1,6 +1,6 @@
 # ContractSpec CI GitHub Action
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Run ContractSpec validation checks in your CI/CD pipeline with automatic SARIF upload to GitHub Code Scanning.

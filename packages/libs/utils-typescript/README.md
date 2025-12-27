@@ -1,6 +1,6 @@
 # @lssm/lib.utils-typescript
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A collection of essential TypeScript utility types and helper functions.

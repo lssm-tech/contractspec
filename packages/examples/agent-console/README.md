@@ -1,6 +1,6 @@
 # Agent Console Example
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 A ContractSpec example demonstrating AI agent orchestration with tools, runs, and execution logs.

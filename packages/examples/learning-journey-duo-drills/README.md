@@ -1,6 +1,6 @@
 # @lssm/example.learning-journey-duo-drills
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 Drill-based learning journey example that demonstrates short SRS-driven drills, XP, and streak hooks. Tracks are defined in `src/track.ts` and can be reused for language, finance, or ContractSpec concept drills.

@@ -1,6 +1,6 @@
 ### Knowledge Example – Product Canon Space
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 This example demonstrates how to bind the Product Canon `KnowledgeSpaceSpec` to a tenant and surface it to agents/workflows.

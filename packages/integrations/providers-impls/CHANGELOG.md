@@ -1,5 +1,41 @@
 # @lssm/integration.providers-impls
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+- Updated dependencies [1e6a0f1]
+  - @lssm/integration.runtime@1.42.10
+  - @lssm/lib.contracts@1.42.10
+
+## 1.42.9
+
+### Patch Changes
+
+- 9281db7: fix ModelRegistry
+- Updated dependencies [9281db7]
+  - @lssm/integration.runtime@1.42.9
+  - @lssm/lib.contracts@1.42.9
+
+## 1.42.8
+
+### Patch Changes
+
+- e07b5ac: fix
+- Updated dependencies [e07b5ac]
+  - @lssm/integration.runtime@1.42.8
+  - @lssm/lib.contracts@1.42.8
+
+## 1.42.7
+
+### Patch Changes
+
+- e9b575d: fix release
+- Updated dependencies [e9b575d]
+  - @lssm/integration.runtime@1.42.7
+  - @lssm/lib.contracts@1.42.7
+
 ## 1.42.6
 
 ### Patch Changes

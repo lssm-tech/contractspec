@@ -1,6 +1,6 @@
 # @lssm/lib.testing
 
-Website: https://contractspec.lssm.tech/
+Website: https://contractspec.io/
 
 
 **Safe regeneration verification** — Capture production traffic and generate golden tests automatically.
