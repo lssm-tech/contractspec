@@ -1,5 +1,16 @@
 # @lssm/lib.ui-kit
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/lib.ui-kit-core@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes

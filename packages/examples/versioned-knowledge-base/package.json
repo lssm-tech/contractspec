@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.versioned-knowledge-base",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.",
   "type": "module",
   "main": "./dist/index.js",

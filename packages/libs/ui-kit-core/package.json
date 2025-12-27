@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ui-kit-core",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

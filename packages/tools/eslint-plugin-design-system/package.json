@@ -1,6 +1,6 @@
 {
   "name": "@lssm/eslint-plugin-design-system",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "private": false,
   "type": "module",
   "main": "src/index.js",

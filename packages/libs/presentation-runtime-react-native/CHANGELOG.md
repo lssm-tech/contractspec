@@ -1,5 +1,17 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 2.0.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/lib.presentation-runtime-core@1.43.0
+  - @lssm/lib.ui-kit@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes

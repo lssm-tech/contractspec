@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.lifecycle-dashboard",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,5 +1,21 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/module.lifecycle-advisor@1.43.0
+  - @lssm/module.lifecycle-core@1.43.0
+  - @lssm/lib.observability@1.43.0
+  - @lssm/lib.analytics@1.43.0
+  - @lssm/lib.lifecycle@1.43.0
+  - @lssm/lib.ai-agent@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes

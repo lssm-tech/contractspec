@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.learning-journey-quest-challenges",
-  "version": "1.42.10",
+  "version": "1.43.0",
   "description": "Time-bound quest/challenge learning journey example.",
   "type": "module",
   "main": "./dist/index.js",

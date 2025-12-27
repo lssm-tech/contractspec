@@ -1,5 +1,22 @@
 # @lssm/module.ai-chat
 
+## 1.43.0
+
+### Minor Changes
+
+- 042d072: feat: schema declaration using json schema, including zod
+
+### Patch Changes
+
+- Updated dependencies [042d072]
+  - @lssm/lib.cost-tracking@1.43.0
+  - @lssm/lib.design-system@1.43.0
+  - @lssm/lib.ai-providers@1.43.0
+  - @lssm/lib.ui-kit-web@1.43.0
+  - @lssm/lib.contracts@1.43.0
+  - @lssm/lib.ai-agent@1.43.0
+  - @lssm/lib.metering@1.43.0
+
 ## 1.42.10
 
 ### Patch Changes
