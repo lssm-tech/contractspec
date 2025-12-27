@@ -50,7 +50,7 @@ ContractSpec is a **compiler**, not a platform:
 
 ```bash
 # Install the CLI
-pnpm add -D @lssm/app.cli-contractspec
+bun add -D @lssm/app.cli-contractspec
 
 # Create a contract spec
 contractspec create --type operation

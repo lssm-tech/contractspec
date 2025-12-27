@@ -6,8 +6,8 @@ Get started with contracts-cli in 5 minutes.
 
 ```bash
 cd packages/lssm/tools/contracts-cli
-pnpm install
-pnpm build
+bun install
+bun build
 ```
 
 ## First Spec
@@ -15,7 +15,7 @@ pnpm build
 ### 1. Create a spec interactively
 
 ```bash
-pnpm exec contractspec create
+contractspec create
 ```
 
 Follow the prompts:
@@ -32,7 +32,7 @@ This creates: `src/interactions/commands/user-signup.contracts.ts`
 
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
-pnpm exec contractspec create --ai
+bun exec contractspec create --ai
 ```
 
 Describe what you want:
