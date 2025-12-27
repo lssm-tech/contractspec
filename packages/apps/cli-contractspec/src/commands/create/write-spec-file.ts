@@ -5,6 +5,7 @@ import {
   resolveOutputPath,
   writeFileSafe,
 } from '../../utils/fs';
+import { formatFiles } from '@lssm/module.contractspec-workspace';
 import type { Config } from '../../utils/config';
 import type { SpecType } from '../../types';
 import type { CreateOptions } from './types';
@@ -30,6 +31,14 @@ export async function writeSpecFile(args: {
   const spinner = ora(args.spinnerText).start();
   await writeFileSafe(filePath, args.code);
   spinner.succeed(chalk.green(`Spec created: ${filePath}`));
+
+  // Format the file if not skipped
+  if (!args.options.noFormat) {
+    await formatFiles(filePath, args.config.formatter, {
+      type: args.options.formatter,
+      silent: false,
+    });
+  }
 
   return filePath;
 }

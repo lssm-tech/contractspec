@@ -210,6 +210,37 @@ export const MetaRepoConfigSchema = z.object({
 });
 
 // ============================================================================
+// Formatter Configuration
+// ============================================================================
+
+/**
+ * Supported formatter tools.
+ */
+export const FormatterTypeSchema = z.enum([
+  'prettier', // Prettier formatter
+  'eslint', // ESLint with --fix
+  'biome', // Biome formatter
+  'dprint', // dprint formatter
+  'custom', // Custom command
+]);
+
+/**
+ * Formatter configuration for code generation.
+ */
+export const FormatterConfigSchema = z.object({
+  /** Enable/disable formatting (default: true if formatter detected) */
+  enabled: z.boolean().default(true),
+  /** Formatter to use (auto-detected if not specified) */
+  type: FormatterTypeSchema.optional(),
+  /** Custom command for 'custom' type (e.g., "npx prettier --write") */
+  command: z.string().optional(),
+  /** Extra arguments to pass to formatter */
+  args: z.array(z.string()).optional(),
+  /** Timeout in milliseconds (default: 30000) */
+  timeout: z.number().default(30000),
+});
+
+// ============================================================================
 // Lint Rules Configuration (ESLint-style)
 // ============================================================================
 
@@ -305,6 +336,8 @@ export const ContractsrcSchema = z.object({
   rules: RulesConfigSchema.optional(),
   // Schema format for code generation
   schemaFormat: SchemaFormatSchema.default('contractspec'),
+  // Formatter configuration
+  formatter: FormatterConfigSchema.optional(),
 });
 
 // Type exports
@@ -326,6 +359,8 @@ export type SpecKind = z.infer<typeof SpecKindSchema>;
 export type LintRules = z.infer<typeof LintRulesSchema>;
 export type RulesConfig = z.infer<typeof RulesConfigSchema>;
 export type SchemaFormat = z.infer<typeof SchemaFormatSchema>;
+export type FormatterType = z.infer<typeof FormatterTypeSchema>;
+export type FormatterConfig = z.infer<typeof FormatterConfigSchema>;
 
 /**
  * Default configuration values.

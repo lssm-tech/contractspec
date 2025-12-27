@@ -1,3 +1,4 @@
+import type { FormatterType } from '@lssm/lib.contracts';
 import type { SpecType } from '../../types';
 
 export interface CreateOptions {
@@ -6,4 +7,8 @@ export interface CreateOptions {
   provider?: string;
   model?: string;
   outputDir?: string;
+  /** Skip formatting generated files */
+  noFormat?: boolean;
+  /** Override formatter type */
+  formatter?: FormatterType;
 }

@@ -8,6 +8,8 @@ export {
   FolderConventionsSchema,
   ContractsrcSchema,
   SchemaFormatSchema,
+  FormatterTypeSchema,
+  FormatterConfigSchema,
   DEFAULT_CONTRACTSRC,
   type OpenApiSourceConfig,
   type OpenApiExportConfig,
@@ -15,4 +17,6 @@ export {
   type FolderConventions,
   type ContractsrcConfig,
   type SchemaFormat,
+  type FormatterType,
+  type FormatterConfig,
 } from './contractsrc-schema';
