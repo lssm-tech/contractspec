@@ -24,7 +24,7 @@ describe('ContractRegistryItemTypeSchema', () => {
       'contractspec:experiment',
       'contractspec:app-config',
       'contractspec:knowledge',
-    ];
+    ] as const;
 
     for (const type of validTypes) {
       expect(ContractRegistryItemTypeSchema.parse(type)).toBe(type);
@@ -105,11 +105,11 @@ describe('ContractRegistryItemSchema', () => {
   });
 
   it('should accept all stability values', () => {
-    const stabilities = ['idea', 'in_creation', 'experimental', 'beta', 'stable', 'deprecated'];
+    const stabilities = ['idea', 'in_creation', 'experimental', 'beta', 'stable', 'deprecated'] as const;
     
     for (const stability of stabilities) {
       const item = createValidItem({
-        meta: { stability: stability as any, owners: [], tags: [] },
+        meta: { stability, owners: [], tags: [] },
       });
       const result = ContractRegistryItemSchema.parse(item);
       expect(result.meta.stability).toBe(stability);

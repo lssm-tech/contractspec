@@ -246,7 +246,7 @@ describe('FeatureRegistry', () => {
         },
       }));
 
-      const stable = registry.filter({ stability: 'stable' });
+      const stable = registry.filter({ stability: ['stable'] });
       expect(stable).toHaveLength(1);
       expect(stable[0]!.meta.key).toBe('stable.feature');
     });

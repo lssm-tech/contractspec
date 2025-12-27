@@ -143,13 +143,13 @@ describe('installFeature', () => {
       });
 
       expect(() =>
-        installFeature(feature, { features, descriptorsV2: [] })
+        installFeature(feature, { features, descriptors: [] })
       ).toThrow(/V2 descriptor not found/);
     });
 
     it('should validate V2 descriptor has required targets', () => {
       const features = new FeatureRegistry();
-      const descriptorsV2 = [
+      const descriptors = [
         {
           meta: {
             key: 'user.profile',
@@ -163,8 +163,8 @@ describe('installFeature', () => {
             goal: 'Profile view',
             context: 'Context',
           },
-          targets: ['markdown'] as const,
-          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' },
+          targets: ['markdown'] as ('react' | 'markdown' | 'application/json' | 'application/xml')[],
+          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' as const },
         },
       ];
 
@@ -175,13 +175,13 @@ describe('installFeature', () => {
       });
 
       expect(() =>
-        installFeature(feature, { features, descriptorsV2 })
+        installFeature(feature, { features, descriptors })
       ).toThrow(/missing target react/);
     });
 
     it('should pass when descriptor has all required targets', () => {
       const features = new FeatureRegistry();
-      const descriptorsV2 = [
+      const descriptors = [
         {
           meta: {
             key: 'user.profile',
@@ -195,8 +195,8 @@ describe('installFeature', () => {
             goal: 'Profile view',
             context: 'Context',
           },
-          targets: ['react', 'markdown'] as const,
-          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' },
+          targets: ['react', 'markdown'] as ('react' | 'markdown' | 'application/json' | 'application/xml')[],
+          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' as const },
         },
       ];
 
@@ -207,7 +207,7 @@ describe('installFeature', () => {
       });
 
       expect(() =>
-        installFeature(feature, { features, descriptorsV2 })
+        installFeature(feature, { features, descriptors })
       ).not.toThrow();
     });
   });

@@ -97,10 +97,10 @@ describe('docBlockToPresentationSpec', () => {
   it('should use custom targets from options', () => {
     const block = createDocBlock();
     const spec = docBlockToPresentationSpec(block, {
-      defaultTargets: ['markdown', 'pdf'],
+      defaultTargets: ['markdown', 'application/json'],
     });
 
-    expect(spec.targets).toEqual(['markdown', 'pdf']);
+    expect(spec.targets).toEqual(['markdown', 'application/json']);
   });
 
   it('should include tags and owners from block', () => {
@@ -148,7 +148,7 @@ describe('docBlocksToPresentationRoutes', () => {
     const blocks = createDocBlocks();
     const routes = docBlocksToPresentationRoutes(blocks);
 
-    expect(routes[0]!.block).toBe(blocks[0]);
+    expect(routes[0]!.block).toBe(blocks[0]!);
   });
 
   it('should derive route from id when route not provided', () => {

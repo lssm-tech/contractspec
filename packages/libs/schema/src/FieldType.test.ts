@@ -11,7 +11,7 @@ describe('FieldType', () => {
         description: 'A test string field',
         zod: z.string(),
         parseValue: (v) => String(v),
-        serialize: (v) => v,
+        serialize: (v) => v as string,
         jsonSchema: { type: 'string' },
       });
 
@@ -26,7 +26,7 @@ describe('FieldType', () => {
         name: 'Email',
         zod: z.string().email(),
         parseValue: (v) => z.string().email().parse(v),
-        serialize: (v) => v,
+        serialize: (v) => v as string,
         jsonSchema: { type: 'string', format: 'email' },
       });
 
@@ -40,7 +40,7 @@ describe('FieldType', () => {
         name: 'Integer',
         zod: z.number().int(),
         parseValue: (v) => Number(v),
-        serialize: (v) => v,
+        serialize: (v) => v as number,
         jsonSchema: { type: 'integer' },
       });
 
@@ -56,7 +56,7 @@ describe('FieldType', () => {
         name: 'TestBool',
         zod: z.boolean(),
         parseValue: (v) => Boolean(v),
-        serialize: (v) => v,
+        serialize: (v) => v as boolean,
         jsonSchema: { type: 'boolean' },
       });
 
@@ -72,7 +72,7 @@ describe('FieldType', () => {
         name: 'URL',
         zod: z.string().url(),
         parseValue: (v) => z.string().url().parse(v),
-        serialize: (v) => v,
+        serialize: (v) => v as string,
         jsonSchema: { type: 'string', format: 'uri' },
       });
 
@@ -85,7 +85,7 @@ describe('FieldType', () => {
         name: 'Dynamic',
         zod: z.string(),
         parseValue: (v) => String(v),
-        serialize: (v) => v,
+        serialize: (v) => v as string,
         jsonSchema: () => ({ type: 'string', minLength: 1 }),
       });
 
@@ -97,7 +97,7 @@ describe('FieldType', () => {
         name: 'Nested',
         zod: z.object({}),
         parseValue: (v) => v as Record<string, unknown>,
-        serialize: (v) => v,
+        serialize: (v) => v as Record<string, unknown>,
         jsonSchema: {
           type: 'object',
           properties: () => ({
@@ -118,7 +118,7 @@ describe('FieldType', () => {
         name: 'Date',
         zod: z.date(),
         parseValue: (v) => new Date(String(v)),
-        serialize: (v) => v.toISOString(),
+        serialize: (v) => (v as Date).toISOString(),
         jsonSchema: { type: 'string', format: 'date-time' },
       });
 
@@ -131,7 +131,7 @@ describe('FieldType', () => {
         name: 'LiteralString',
         zod: z.string(),
         parseValue: (v) => String(v),
-        serialize: (v) => v,
+        serialize: (v) => v as string,
         parseLiteral: (ast) => {
           if (ast.kind !== Kind.STRING) throw new TypeError('Expected string');
           return ast.value;

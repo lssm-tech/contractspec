@@ -1,4 +1,4 @@
-import { deepStrictEqual } from 'node:assert';
+import { deepStrictEqual } from 'assert';
 import { OperationSpecRegistry } from '../index';
 import type { HandlerCtx } from '../types';
 import type {

@@ -65,28 +65,28 @@ describe('validateFeatureTargetsV2', () => {
   it('should throw when descriptor missing required target', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 1, targets: ['vue'] },
+        { key: 'test.presentation', version: 1, targets: ['application/xml'] },
       ],
     });
 
     const descriptors = [createDescriptor({ targets: ['react', 'markdown'] })];
 
     expect(() => validateFeatureTargetsV2(feature, descriptors)).toThrow(
-      /Descriptor test.presentation.v1 missing target vue/
+      /Descriptor test.presentation.v1 missing target application\/xml/
     );
   });
 
   it('should throw when any required target is missing', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 1, targets: ['react', 'vue'] },
+        { key: 'test.presentation', version: 1, targets: ['react', 'application/xml'] },
       ],
     });
 
     const descriptors = [createDescriptor({ targets: ['react', 'markdown'] })];
 
     expect(() => validateFeatureTargetsV2(feature, descriptors)).toThrow(
-      /missing target vue/
+      /missing target application\/xml/
     );
   });
 
@@ -97,7 +97,7 @@ describe('validateFeatureTargetsV2', () => {
       ],
     });
 
-    const descriptors = [createDescriptor({ targets: ['react', 'markdown', 'pdf'] })];
+    const descriptors = [createDescriptor({ targets: ['react', 'markdown', 'application/json'] })];
 
     expect(validateFeatureTargetsV2(feature, descriptors)).toBe(true);
   });

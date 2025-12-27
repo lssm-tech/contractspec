@@ -1,4 +1,4 @@
-import type { Owner, Stability, Tag } from '../ownership';
+import type { Owner, OwnerShipMeta, Stability, Tag } from '../ownership';
 
 export interface OperationTargetRef {
   key: string;
@@ -68,15 +68,7 @@ export interface CoverageRequirement {
   mutations?: number;
 }
 
-export interface TestSpecMeta {
-  key: string;
-  version: number;
-  title: string;
-  description?: string;
-  owners: Owner[];
-  tags: Tag[];
-  stability: Stability;
-}
+export type TestSpecMeta = OwnerShipMeta
 
 export interface TestSpec {
   meta: TestSpecMeta;
@@ -91,7 +83,7 @@ export interface TestSpecRef {
   version?: number;
 }
 
-const testKey = (meta: TestSpecMeta) => `${meta.key}.v${meta.version}`;
+const testKey = (meta: OwnerShipMeta) => `${meta.key}.v${meta.version}`;
 
 export class TestRegistry {
   private readonly items = new Map<string, TestSpec>();

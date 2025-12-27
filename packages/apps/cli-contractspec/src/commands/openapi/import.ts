@@ -14,7 +14,7 @@ import {
   getOutputDirForSpecType,
   upsertOpenApiSource,
 } from '../../utils/config-writer';
-import { formatFiles } from '../../utils/formatter';
+import { formatFiles } from '@lssm/bundle.contractspec-workspace';
 
 interface ImportOptions {
   outputDir?: string;

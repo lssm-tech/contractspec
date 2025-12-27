@@ -154,8 +154,10 @@ describe('isSchemaModel', () => {
   });
 
   it('should return false for non-SchemaModel objects', () => {
-    expect(isSchemaModel({})).toBe(false);
-    expect(isSchemaModel({ getZod: () => z.object({}) })).toBe(false);
+    // Test with objects that look like SchemaModel but aren't
+    const fakeModel = { getZod: () => z.object({}) };
+    expect(isSchemaModel({} as unknown as null)).toBe(false);
+    expect(isSchemaModel(fakeModel as unknown as null)).toBe(false);
   });
 });
 

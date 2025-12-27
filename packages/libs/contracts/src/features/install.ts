@@ -8,7 +8,7 @@ export interface InstallFeatureDeps {
   features: FeatureRegistry;
   ops?: import('../operations/registry').OperationSpecRegistry;
   presentations?: import('../presentations').PresentationRegistry;
-  descriptorsV2?: PresentationSpec[];
+  descriptors?: PresentationSpec[];
   capabilities?: CapabilityRegistry;
 }
 
@@ -38,9 +38,9 @@ export function installFeature(
     }
   }
   // Validate V2 target requirements if provided
-  if (feature.presentationsTargets && deps.descriptorsV2) {
+  if (feature.presentationsTargets && deps.descriptors) {
     for (const req of feature.presentationsTargets) {
-      const d = deps.descriptorsV2.find(
+      const d = deps.descriptors.find(
         (x) => x.meta.key === req.key && x.meta.version === req.version
       );
       if (!d)
