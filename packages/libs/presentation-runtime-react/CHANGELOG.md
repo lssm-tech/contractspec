@@ -1,5 +1,16 @@
 # @lssm/lib.presentation-runtime-react
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+- Updated dependencies [1e6a0f1]
+  - @lssm/lib.presentation-runtime-core@1.42.10
+  - @lssm/lib.design-system@1.42.10
+  - @lssm/lib.ui-kit-web@1.42.10
+  - @lssm/lib.contracts@1.42.10
+
 ## 1.42.9
 
 ### Patch Changes

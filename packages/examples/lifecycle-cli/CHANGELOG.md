@@ -1,5 +1,17 @@
 # @lssm/example.lifecycle-cli
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+- Updated dependencies [1e6a0f1]
+  - @lssm/bundle.lifecycle-managed@1.42.10
+  - @lssm/lib.contracts@1.42.10
+  - @lssm/lib.lifecycle@1.42.10
+  - @lssm/lib.logger@1.42.10
+  - @lssm/lib.schema@1.42.10
+
 ## 1.42.9
 
 ### Patch Changes

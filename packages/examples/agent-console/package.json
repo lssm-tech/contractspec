@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.agent-console",
-  "version": "1.42.9",
+  "version": "1.42.10",
   "description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
   "type": "module",
   "main": "./dist/index.js",

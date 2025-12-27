@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.jobs",
-  "version": "1.42.9",
+  "version": "1.42.10",
   "description": "Background jobs and scheduler module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

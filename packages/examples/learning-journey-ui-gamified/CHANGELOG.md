@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-gamified
 
+## 1.42.10
+
+### Patch Changes
+
+- 1e6a0f1: fix: mcp server
+- Updated dependencies [1e6a0f1]
+  - @lssm/example.learning-journey-quest-challenges@1.42.10
+  - @lssm/example.learning-journey-duo-drills@1.42.10
+  - @lssm/example.learning-journey-ui-shared@1.42.10
+  - @lssm/module.learning-journey@1.42.10
+  - @lssm/lib.design-system@1.42.10
+  - @lssm/lib.ui-kit-web@1.42.10
+  - @lssm/lib.contracts@1.42.10
+  - @lssm/lib.schema@1.42.10
+
 ## 1.42.9
 
 ### Patch Changes
