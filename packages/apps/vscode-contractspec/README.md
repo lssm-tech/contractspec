@@ -3,8 +3,8 @@
 Website: https://contractspec.io/
 
 
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/contractspec.vscode-contractspec?label=VS%20Code%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=contractspec.vscode-contractspec)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/contractspec.vscode-contractspec?label=Installs&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=contractspec.vscode-contractspec)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/lssm.vscode-contractspec?label=VS%20Code%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/lssm.vscode-contractspec?label=Installs&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=lssm.vscode-contractspec)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Spec-first development for AI-written software.** Validate, scaffold, and explore your contract specifications directly in VS Code.
