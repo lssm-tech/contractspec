@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "publisher": "lssm",
   "license": "MIT",
   "icon": "assets/icon.png",
@@ -16,7 +16,7 @@
     "directory": "packages/apps/vscode-contractspec"
   },
   "bugs": {
-    "url": "https://github.com/lssm/contractspec/issues"
+    "url": "https://github.com/lssm-tech/contractspec/issues"
   },
   "homepage": "https://contractspec.io",
   "engines": {
@@ -38,6 +38,7 @@
   ],
   "activationEvents": [
     "onStartupFinished",
+    "workspaceContains:**/.contractsrc.json",
     "workspaceContains:**/*.contract.ts",
     "workspaceContains:**/*.contracts.ts",
     "workspaceContains:**/*.operations.ts",
@@ -45,9 +46,9 @@
     "workspaceContains:**/*.event.ts",
     "workspaceContains:**/*.presentation.ts",
     "workspaceContains:**/*.feature.ts",
+    "workspaceContains:**/*.policy.ts",
     "workspaceContains:**/*.workflow.ts",
-    "workspaceContains:**/*.telemetry.ts",
-    "workspaceContains:**/.contractsrc.json"
+    "workspaceContains:**/*.telemetry.ts"
   ],
   "main": "./dist/extension.js",
   "contributes": {

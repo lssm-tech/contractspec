@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-studio-onboarding
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/module.learning-journey@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.schema@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

@@ -1,6 +1,14 @@
 {
   "name": "@contractspec/lib.lifecycle",
-  "version": "1.44.0",
+  "version": "1.44.1",
+  "description": "Contract lifecycle management primitives",
+  "keywords": [
+    "contractspec",
+    "lifecycle",
+    "governance",
+    "stages",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

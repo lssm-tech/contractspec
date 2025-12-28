@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.ui-kit-core@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

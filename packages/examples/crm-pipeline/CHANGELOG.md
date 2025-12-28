@@ -1,5 +1,19 @@
 # @contractspec/example.crm-pipeline
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/module.notifications@1.44.1
+  - @contractspec/module.audit-trail@1.44.1
+  - @contractspec/lib.identity-rbac@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.schema@1.44.1
+  - @contractspec/lib.jobs@1.44.1
+  - @contractspec/lib.bus@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

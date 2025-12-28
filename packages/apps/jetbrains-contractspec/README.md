@@ -236,7 +236,7 @@ No file paths, source code, or personally identifiable information is collected.
 
 ```bash
 # Clone the repository
-git clone https://github.com/lssm/contractspec.git
+git clone https://github.com/lssm-tech/contractspec.git
 cd packages/apps/jetbrains-contractspec
 
 # Install dependencies

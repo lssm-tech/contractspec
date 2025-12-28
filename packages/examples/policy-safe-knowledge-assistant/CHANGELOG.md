@@ -1,5 +1,26 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/example.locale-jurisdiction-gate@1.44.1
+  - @contractspec/example.versioned-knowledge-base@1.44.1
+  - @contractspec/example.kb-update-pipeline@1.44.1
+  - @contractspec/example.learning-patterns@1.44.1
+  - @contractspec/module.learning-journey@1.44.1
+  - @contractspec/module.notifications@1.44.1
+  - @contractspec/module.audit-trail@1.44.1
+  - @contractspec/lib.feature-flags@1.44.1
+  - @contractspec/lib.identity-rbac@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.metering@1.44.1
+  - @contractspec/lib.schema@1.44.1
+  - @contractspec/lib.files@1.44.1
+  - @contractspec/lib.jobs@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "contractspec",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
   "type": "module",
   "workspaces": {
@@ -72,12 +72,7 @@
     "build:types": "turbo run build:types",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
     "db:generate": "turbo run db:generate",
-    "db:deploy": "turbo run db:deploy",
-    "validate:content": "turbo run validate:content --filter=\"@contractspec/app.web-strit\"",
-    "mcp:inspect": "mcp-inspector --transport http --server-url http://localhost:3000/api/mcp",
-    "llms:gen": "node tools/generate-presentations-manifest.mjs packages/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-lssm/src/app && node tools/generate-presentations-manifest.mjs packages/artisanos/apps/web-artisan/src/app && node tools/generate-presentations-manifest.mjs packages/strit/apps/web-strit/src/app && node tools/generate-presentations-manifest.mjs packages/lssm/apps/web-third/src/app",
-    "llms:check": "node tools/verify-md-coverage.mjs packages/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-lssm/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/artisanos/apps/web-artisan/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/strit/apps/web-strit/src/app --min=0.3 && node tools/verify-md-coverage.mjs packages/lssm/apps/web-third/src/app --min=0.3",
-    "validate:examples": "bun packages/apps/cli-contractspec/src/cli.ts examples validate --repo-root . && bun test packages/modules/contractspec-examples"
+    "db:deploy": "turbo run db:deploy"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

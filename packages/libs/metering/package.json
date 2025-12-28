@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.metering",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Usage metering and billing core module for ContractSpec applications",
+  "keywords": [
+    "contractspec",
+    "metering",
+    "billing",
+    "usage",
+    "saas",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

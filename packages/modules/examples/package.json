@@ -1,6 +1,14 @@
 {
   "name": "@contractspec/module.examples",
-  "version": "1.44.0",
+  "version": "1.44.1",
+  "description": "Example contract specifications collection",
+  "keywords": [
+    "contractspec",
+    "examples",
+    "starter",
+    "templates",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

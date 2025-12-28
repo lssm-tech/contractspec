@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.files",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Files, documents and attachments module for ContractSpec applications",
+  "keywords": [
+    "contractspec",
+    "files",
+    "documents",
+    "storage",
+    "attachments",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

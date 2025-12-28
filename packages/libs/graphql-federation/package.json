@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.graphql-federation",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Pothos federation helpers and subgraph schema export utilities",
+  "keywords": [
+    "contractspec",
+    "graphql",
+    "federation",
+    "apollo",
+    "subgraph",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [

@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.graphql-prisma",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Pothos + Prisma builder factory with injectable client/DMMF",
+  "keywords": [
+    "contractspec",
+    "graphql",
+    "prisma",
+    "pothos",
+    "orm",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [

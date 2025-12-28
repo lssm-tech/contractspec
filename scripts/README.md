@@ -54,7 +54,7 @@ The script automatically discovers all publishable packages by:
 - `@contractspec/apps.web-*` - Next.js web applications
 - `@contractspec/app.overlay-editor` - Internal development tools
 - `@contractspec/lib.runtime-local` - Browser-only runtime
-- `@contractspec/lib.contracts-contractspec-studio` - Internal contracts
+- `@contractspec/lib.contracts-studio` - Internal contracts
 - `@contractspec/tool.*` - Development tooling
 
 ### Current Publishable Packages (42 total)
@@ -78,7 +78,7 @@ As of the last scan, these packages will be published:
 - @contractspec/lib.content-gen
 - @contractspec/lib.contracts
 - @contractspec/lib.cost-tracking
-- @contractspec/lib.database-contractspec-studio
+- @contractspec/lib.database-studio
 - @contractspec/lib.design-system
 - @contractspec/lib.error
 - @contractspec/lib.evolution

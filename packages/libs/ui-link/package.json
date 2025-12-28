@@ -1,6 +1,15 @@
 {
   "name": "@contractspec/lib.ui-link",
-  "version": "1.44.0",
+  "version": "1.44.1",
+  "description": "Deep linking utilities for navigation",
+  "keywords": [
+    "contractspec",
+    "linking",
+    "navigation",
+    "deep-link",
+    "ui",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/link.js",
   "module": "./dist/link.js",

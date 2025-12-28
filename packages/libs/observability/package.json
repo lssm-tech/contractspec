@@ -1,6 +1,15 @@
 {
   "name": "@contractspec/lib.observability",
-  "version": "1.44.0",
+  "version": "1.44.1",
+  "description": "OpenTelemetry-based observability primitives",
+  "keywords": [
+    "contractspec",
+    "observability",
+    "opentelemetry",
+    "tracing",
+    "metrics",
+    "typescript"
+  ],
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {

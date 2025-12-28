@@ -1,7 +1,14 @@
 {
   "name": "@contractspec/lib.workflow-composer",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
+  "keywords": [
+    "contractspec",
+    "workflow",
+    "composer",
+    "multi-tenant",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

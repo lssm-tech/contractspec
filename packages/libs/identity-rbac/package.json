@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.identity-rbac",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Identity, Organizations, and RBAC module for ContractSpec applications",
+  "keywords": [
+    "contractspec",
+    "identity",
+    "rbac",
+    "authorization",
+    "organizations",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

@@ -1,6 +1,15 @@
 {
   "name": "@contractspec/lib.cost-tracking",
-  "version": "1.44.0",
+  "version": "1.44.1",
+  "description": "API cost tracking and budgeting",
+  "keywords": [
+    "contractspec",
+    "cost",
+    "budgeting",
+    "api",
+    "metering",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

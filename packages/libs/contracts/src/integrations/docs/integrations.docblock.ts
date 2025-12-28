@@ -83,7 +83,7 @@ The manager attempts providers in priority order (environment first, then cloud 
 
 ## Studio persistence (ContractSpec Studio)
 
-ContractSpec Studio persists tenant \`IntegrationConnection\` records in Postgres (Prisma model \`IntegrationConnection\` in \`@contractspec/lib.database-contractspec-studio\`) and exposes a platform-admin management surface (see the Studio platform admin panel).
+ContractSpec Studio persists tenant \`IntegrationConnection\` records in Postgres (Prisma model \`IntegrationConnection\` in \`@contractspec/lib.database-studio\`) and exposes a platform-admin management surface (see the Studio platform admin panel).
 `,
   },
 ];

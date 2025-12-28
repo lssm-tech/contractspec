@@ -1,7 +1,15 @@
 {
   "name": "@contractspec/lib.graphql-core",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
+  "keywords": [
+    "contractspec",
+    "graphql",
+    "pothos",
+    "scalars",
+    "tracing",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
