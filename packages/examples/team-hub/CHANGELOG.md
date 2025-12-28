@@ -1,5 +1,19 @@
 # @lssm/example.team-hub
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/module.notifications@1.43.2
+  - @lssm/module.audit-trail@1.43.2
+  - @lssm/lib.identity-rbac@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.jobs@1.43.2
+  - @lssm/lib.bus@1.43.2
+  - @lssm/lib.schema@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes

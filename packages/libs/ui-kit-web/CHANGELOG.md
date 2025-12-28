@@ -1,5 +1,13 @@
 # @lssm/lib.ui-kit-web
 
+## 1.43.1
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/lib.ui-kit-core@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

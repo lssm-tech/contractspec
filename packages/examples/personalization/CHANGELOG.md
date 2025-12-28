@@ -1,5 +1,18 @@
 # @lssm/example.personalization
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/lib.workflow-composer@1.43.2
+  - @lssm/lib.personalization@1.43.2
+  - @lssm/lib.overlay-engine@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.logger@1.43.1
+  - @lssm/lib.schema@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @lssm/example.learning-journey-ui-coaching
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/example.learning-journey-crm-onboarding@1.43.2
+  - @lssm/example.learning-journey-ambient-coach@1.43.2
+  - @lssm/example.learning-journey-ui-shared@1.43.2
+  - @lssm/module.learning-journey@1.43.2
+  - @lssm/lib.design-system@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.schema@1.43.1
+  - @lssm/lib.ui-kit-web@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes

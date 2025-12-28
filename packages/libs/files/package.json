@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.files",
-  "version": "1.43.1",
+  "version": "1.43.2",
   "description": "Files, documents and attachments module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

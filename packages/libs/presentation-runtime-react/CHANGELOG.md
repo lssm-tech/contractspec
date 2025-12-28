@@ -1,5 +1,16 @@
 # @lssm/lib.presentation-runtime-react
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/lib.design-system@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.presentation-runtime-core@1.43.1
+  - @lssm/lib.ui-kit-web@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes
