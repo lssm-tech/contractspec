@@ -22,6 +22,7 @@ import {
   runDepsChecks,
   runWorkspaceChecks,
   runAiChecks,
+  runLayerChecks,
 } from './checks/index';
 import {
   findPackageRoot,
@@ -151,6 +152,8 @@ async function runCategoryChecks(
       return runWorkspaceChecks(fs, ctx);
     case 'ai':
       return runAiChecks(fs, ctx, prompts);
+    case 'layers':
+      return runLayerChecks(fs, ctx);
     default:
       return [];
   }

@@ -14,7 +14,8 @@ export type CICheckCategory =
   | 'doctor'
   | 'handlers'
   | 'tests'
-  | 'implementation';
+  | 'implementation'
+  | 'layers';
 
 /**
  * All available CI check categories.
@@ -27,6 +28,7 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
   'handlers',
   'tests',
   'implementation',
+  'layers',
 ];
 
 /**
@@ -40,6 +42,7 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
   handlers: 'Handler Implementation',
   tests: 'Test Coverage',
   implementation: 'Implementation Verification',
+  layers: 'Contract Layers Validation',
 };
 
 /**

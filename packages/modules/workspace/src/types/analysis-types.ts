@@ -121,6 +121,51 @@ export interface FeatureScanResult {
 }
 
 /**
+ * Result of scanning an example file.
+ */
+export interface ExampleScanResult {
+  filePath: string;
+  key: string;
+  version?: number;
+  title?: string;
+  description?: string;
+  summary?: string;
+  kind?: string;
+  visibility?: string;
+  stability?: Stability;
+  owners?: string[];
+  tags?: string[];
+  domain?: string;
+
+  // Documentation references
+  docs?: {
+    rootDocId?: string;
+    goalDocId?: string;
+    usageDocId?: string;
+  };
+
+  // Surface support
+  surfaces: {
+    templates: boolean;
+    sandbox: { enabled: boolean; modes: string[] };
+    studio: { enabled: boolean; installable: boolean };
+    mcp: { enabled: boolean };
+  };
+
+  // Entrypoints
+  entrypoints: {
+    packageName: string;
+    feature?: string;
+    blueprint?: string;
+    contracts?: string;
+    presentations?: string;
+    handlers?: string;
+    ui?: string;
+    docs?: string;
+  };
+}
+
+/**
  * Semantic diff item types.
  */
 export type SemanticDiffType = 'breaking' | 'changed' | 'added' | 'removed';

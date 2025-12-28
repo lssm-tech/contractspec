@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import { createNodeAdapters, listSpecs } from '@contractspec/bundle.workspace';
 import { getErrorMessage } from '../../utils/errors';
 import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
+import { layersCommand } from './layers';
 
 interface ListJsonRow {
   file: string;
@@ -18,6 +19,7 @@ interface ListJsonRow {
 
 export const listCommand = new Command('list')
   .description('List all contract specs in the project')
+  .addCommand(layersCommand)
   .option('--pattern <pattern>', 'File pattern to search (glob)')
   .option(
     '--deep',

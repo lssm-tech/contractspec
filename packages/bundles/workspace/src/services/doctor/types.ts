@@ -13,7 +13,8 @@ export type CheckCategory =
   | 'mcp'
   | 'deps'
   | 'workspace'
-  | 'ai';
+  | 'ai'
+  | 'layers';
 
 /**
  * All available check categories.
@@ -25,6 +26,7 @@ export const ALL_CHECK_CATEGORIES: CheckCategory[] = [
   'deps',
   'workspace',
   'ai',
+  'layers',
 ];
 
 /**
@@ -37,6 +39,7 @@ export const CHECK_CATEGORY_LABELS: Record<CheckCategory, string> = {
   deps: 'Dependencies',
   workspace: 'Workspace Structure',
   ai: 'AI Provider',
+  layers: 'Contract Layers',
 };
 
 /**

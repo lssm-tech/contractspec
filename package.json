@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "contractspec",
   "version": "1.44.1",
   "description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",

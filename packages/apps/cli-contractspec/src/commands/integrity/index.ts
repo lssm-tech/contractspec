@@ -14,6 +14,7 @@ import {
   analyzeIntegrity,
   createNodeAdapters,
   generateMermaidDiagram,
+  discoverLayers,
   type IntegrityAnalysisResult,
 } from '@contractspec/bundle.workspace';
 
@@ -103,7 +104,7 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
       break;
     case 'text':
     default:
-      outputText(result, options);
+      await outputText(result, options);
       break;
   }
 
@@ -116,10 +117,20 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
 /**
  * Output results as text.
  */
-function outputText(
+async function outputText(
   result: IntegrityAnalysisResult,
   options: IntegrityOptions
-): void {
+): Promise<void> {
+  const adapters = createNodeAdapters({ silent: true });
+
+  // Layer stats
+  const layers = await discoverLayers(adapters, {});
+  console.log(chalk.cyan('Contract Layers:'));
+  console.log(
+    `  Features: ${layers.stats.features}  Examples: ${layers.stats.examples}  ` +
+      `App Configs: ${layers.stats.appConfigs}  Workspace Configs: ${layers.stats.workspaceConfigs}`
+  );
+  console.log();
   // Features summary
   console.log(chalk.cyan(`Features: ${result.features.length}`));
 
