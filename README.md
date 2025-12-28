@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://www.contractspec.io/icon.png" alt="Rulesync Logo" width="600" height="600">
-</p>
-
 # ContractSpec
 
 [![npm version](https://img.shields.io/npm/v/contractspec)](https://www.npmjs.com/package/contractspec)
@@ -14,6 +10,10 @@ Website: [https://contractspec.io](https://contractspec.io)
 **Stabilize your AI-generated code**
 
 The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. You keep your app. You own the code. We're the compiler, not the prison.
+
+<p align="center">
+  <img src="https://www.contractspec.io/icon.png" alt="Rulesync Logo" width="600" height="600">
+</p>
 
 ## The Problem
 
