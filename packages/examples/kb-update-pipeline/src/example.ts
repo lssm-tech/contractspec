@@ -1,11 +1,18 @@
-const example = {
-  id: 'kb-update-pipeline',
-  title: 'KB Update Pipeline',
-  summary:
-    'Automation proposes KB updates; humans verify; everything audited and notified.',
-  tags: ['knowledge', 'pipeline', 'hitl', 'audit'],
-  kind: 'knowledge',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'kb-update-pipeline',
+    version: 1,
+    title: 'KB Update Pipeline',
+    description:
+      'Automation proposes KB updates; humans verify; everything audited and notified.',
+    kind: 'knowledge',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['knowledge', 'pipeline', 'hitl', 'audit'],
+  },
   docs: {
     rootDocId: 'docs.examples.kb-update-pipeline',
   },
@@ -22,6 +29,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

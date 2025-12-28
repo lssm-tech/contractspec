@@ -1,11 +1,18 @@
-const example = {
-  id: 'personalization',
-  title: 'Personalization Patterns',
-  summary:
-    'Small examples for behavior tracking, overlay-based UI customization, and tenant workflow extension.',
-  tags: ['personalization', 'overlays', 'behavior', 'workflows'],
-  kind: 'library',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'personalization',
+    version: 1,
+    title: 'Personalization Patterns',
+    description:
+      'Small examples for behavior tracking, overlay-based UI customization, and tenant workflow extension.',
+    kind: 'library',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['personalization', 'overlays', 'behavior', 'workflows'],
+  },
   docs: {
     rootDocId: 'docs.examples.personalization',
     usageDocId: 'docs.examples.personalization.usage',
@@ -20,6 +27,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

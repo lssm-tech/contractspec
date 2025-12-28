@@ -206,7 +206,7 @@ export interface ExampleSpec {
    * Features included in this example.
    * Can be inline FeatureModuleSpec objects or FeatureRef references.
    */
-  features?: Array<FeatureModuleSpec | FeatureRef>;
+  features?: (FeatureModuleSpec | FeatureRef)[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

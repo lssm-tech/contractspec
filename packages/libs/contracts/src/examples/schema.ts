@@ -149,9 +149,9 @@ export const ExampleSpecSchema = z.object({
   surfaces: ExampleSurfacesSchema,
   entrypoints: ExampleEntrypointsSchema,
   // Blueprint can be an inline spec or a pointer - loosely validated
-  blueprint: z.union([z.record(z.unknown()), SpecPointerSchema]).optional(),
+  blueprint: z.union([z.record(z.string(), z.unknown()), SpecPointerSchema]).optional(),
   // Features can be inline specs or refs - loosely validated as array
-  features: z.array(z.union([z.record(z.unknown()), FeatureRefSchema])).optional(),
+  features: z.array(z.union([z.record(z.string(), z.unknown()), FeatureRefSchema])).optional(),
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -164,8 +164,8 @@ export function parseExampleSpec(data: unknown): ExampleSpec {
 }
 
 /** Safely parse an ExampleSpec, returning result object */
-export function safeParseExampleSpec(data: unknown): z.SafeParseReturnType<unknown, ExampleSpec> {
-  return ExampleSpecSchema.safeParse(data) as z.SafeParseReturnType<unknown, ExampleSpec>;
+export function safeParseExampleSpec(data: unknown) {
+  return ExampleSpecSchema.safeParse(data);
 }
 
 /** Parse and validate ExampleMeta */

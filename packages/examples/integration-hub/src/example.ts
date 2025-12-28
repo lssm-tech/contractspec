@@ -1,11 +1,18 @@
-const example = {
-  id: 'integration-hub',
-  title: 'Integration Hub',
-  summary:
-    'Provider-agnostic integration center with connectors, connections, field mappings, and sync logs.',
-  tags: ['integrations', 'sync', 'etl', 'connectors'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'integration-hub',
+    version: 1,
+    title: 'Integration Hub',
+    description:
+      'Provider-agnostic integration center with connectors, connections, field mappings, and sync logs.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['integrations', 'sync', 'etl', 'connectors'],
+  },
   docs: {
     rootDocId: 'docs.examples.integration-hub',
     goalDocId: 'docs.examples.integration-hub.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

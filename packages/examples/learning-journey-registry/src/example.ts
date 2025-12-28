@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-registry',
-  title: 'Learning Journey Registry',
-  summary:
-    'Registry of learning journey tracks + presentations + UI mini-app bindings.',
-  tags: ['learning', 'journey', 'registry'],
-  kind: 'library',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-registry',
+    version: 1,
+    title: 'Learning Journey Registry',
+    description:
+      'Registry of learning journey tracks + presentations + UI mini-app bindings.',
+    kind: 'library',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'journey', 'registry'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-journey-registry',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-crm-onboarding',
-  title: 'Learning Journey — CRM First Win',
-  summary:
-    'Onboarding track for CRM Pipeline driving users from empty CRM to first closed-won deal.',
-  tags: ['learning', 'crm', 'onboarding'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-crm-onboarding',
+    version: 1,
+    title: 'Learning Journey — CRM First Win',
+    description:
+      'Onboarding track for CRM Pipeline driving users from empty CRM to first closed-won deal.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'crm', 'onboarding'],
+  },
   docs: {
     rootDocId: 'docs.learning-journey.crm-onboarding',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

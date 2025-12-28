@@ -1,11 +1,18 @@
-const example = {
-  id: 'lifecycle-cli',
-  title: 'Lifecycle CLI',
-  summary:
-    'Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP server required).',
-  tags: ['lifecycle', 'cli', 'demo'],
-  kind: 'script',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'lifecycle-cli',
+    version: 1,
+    title: 'Lifecycle CLI',
+    description:
+      'Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP server required).',
+    kind: 'script',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['lifecycle', 'cli', 'demo'],
+  },
   docs: {
     rootDocId: 'docs.examples.lifecycle-cli',
     usageDocId: 'docs.examples.lifecycle-cli.usage',
@@ -20,6 +27,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

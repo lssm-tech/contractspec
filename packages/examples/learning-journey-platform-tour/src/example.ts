@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-platform-tour',
-  title: 'Learning Journey — Platform Tour',
-  summary:
-    'Learning journey track + contracts + presentations for a platform tour.',
-  tags: ['learning', 'journey', 'platform-tour'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-platform-tour',
+    version: 1,
+    title: 'Learning Journey — Platform Tour',
+    description:
+      'Learning journey track + contracts + presentations for a platform tour.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'journey', 'platform-tour'],
+  },
   docs: {
     rootDocId: 'docs.examples.platform-tour',
     goalDocId: 'docs.examples.platform-tour.goal',
@@ -21,6 +28,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

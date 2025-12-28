@@ -33,7 +33,6 @@ export const TestSpec = defineCommand({
       validOperationSpec,
       'test.operation.ts'
     );
-    console.info('result', result);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });

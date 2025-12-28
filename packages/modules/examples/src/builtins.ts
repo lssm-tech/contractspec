@@ -1,4 +1,4 @@
-import type { ExampleDefinition } from './types';
+import type { ExampleSpec } from '@contractspec/lib.contracts';
 
 // Import manifests ONLY via the side-effect-free `/example` entrypoints.
 import AgentConsole from '@contractspec/example.agent-console/example';
@@ -36,7 +36,7 @@ import VersionedKnowledgeBase from '@contractspec/example.versioned-knowledge-ba
 import WealthSnapshot from '@contractspec/example.wealth-snapshot/example';
 import WorkflowSystem from '@contractspec/example.workflow-system/example';
 
-export const EXAMPLE_REGISTRY: readonly ExampleDefinition[] = [
+export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [
   AgentConsole,
   AiSupportBot,
   AnalyticsDashboard,

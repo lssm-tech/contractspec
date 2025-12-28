@@ -1,11 +1,18 @@
-const example = {
-  id: 'policy-safe-knowledge-assistant',
-  title: 'Policy-safe Knowledge Assistant',
-  summary:
-    'All-in-one template: locale/jurisdiction gating + versioned KB snapshots + HITL update pipeline + learning hub.',
-  tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'policy-safe-knowledge-assistant',
+    version: 1,
+    title: 'Policy-safe Knowledge Assistant',
+    description:
+      'All-in-one template: locale/jurisdiction gating + versioned KB snapshots + HITL update pipeline + learning hub.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
+  },
   docs: {
     goalDocId: 'docs.examples.policy-safe-knowledge-assistant.goal',
     usageDocId: 'docs.examples.policy-safe-knowledge-assistant.usage',
@@ -24,6 +31,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

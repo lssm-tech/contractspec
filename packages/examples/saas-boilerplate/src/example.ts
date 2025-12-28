@@ -1,11 +1,18 @@
-const example = {
-  id: 'saas-boilerplate',
-  title: 'SaaS Boilerplate',
-  summary:
-    'Multi-tenant SaaS foundation with orgs, projects, settings, billing usage, and RBAC.',
-  tags: ['saas', 'multi-tenant', 'billing', 'rbac'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'saas-boilerplate',
+    version: 1,
+    title: 'SaaS Boilerplate',
+    description:
+      'Multi-tenant SaaS foundation with orgs, projects, settings, billing usage, and RBAC.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['saas', 'multi-tenant', 'billing', 'rbac'],
+  },
   docs: {
     rootDocId: 'docs.examples.saas-boilerplate',
   },
@@ -26,6 +33,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

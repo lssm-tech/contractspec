@@ -1,11 +1,18 @@
-const example = {
-  id: 'team-hub',
-  title: 'Team Hub',
-  summary:
-    'Internal collaboration hub with spaces, tasks, rituals, and announcements.',
-  tags: ['tasks', 'rituals', 'announcements', 'collaboration'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'team-hub',
+    version: 1,
+    title: 'Team Hub',
+    description:
+      'Internal collaboration hub with spaces, tasks, rituals, and announcements.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['tasks', 'rituals', 'announcements', 'collaboration'],
+  },
   docs: {
     rootDocId: 'docs.examples.team-hub',
     goalDocId: 'docs.examples.team-hub.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

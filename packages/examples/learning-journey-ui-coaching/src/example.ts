@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-ui-coaching',
-  title: 'Learning Journey UI — Coaching',
-  summary:
-    'UI mini-app for coaching patterns: tips, engagement meter, progress.',
-  tags: ['learning', 'ui', 'coaching'],
-  kind: 'ui',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-ui-coaching',
+    version: 1,
+    title: 'Learning Journey UI — Coaching',
+    description:
+      'UI mini-app for coaching patterns: tips, engagement meter, progress.',
+    kind: 'ui',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'ui', 'coaching'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-journey-ui-coaching',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

@@ -1,11 +1,18 @@
-const example = {
-  id: 'workflow-system',
-  title: 'Workflow / Approval System',
-  summary:
-    'State-machine driven approvals with RBAC, audit trail, notifications, and jobs.',
-  tags: ['workflow', 'approval', 'state-machine', 'rbac'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'workflow-system',
+    version: 1,
+    title: 'Workflow / Approval System',
+    description:
+      'State-machine driven approvals with RBAC, audit trail, notifications, and jobs.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['workflow', 'approval', 'state-machine', 'rbac'],
+  },
   docs: {
     rootDocId: 'docs.examples.workflow-system',
     goalDocId: 'docs.examples.workflow-system.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

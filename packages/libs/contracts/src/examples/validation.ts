@@ -63,7 +63,8 @@ export function validateExample(example: unknown): ValidateExampleResult {
     return { valid: false, errors, warnings };
   }
 
-  const spec = parsed.data;
+  // Cast to ExampleSpec - schema validates structure, branded types handled at runtime
+  const spec = parsed.data as ExampleSpec;
 
   // Additional semantic validations
   validateSemantics(spec, errors, warnings);

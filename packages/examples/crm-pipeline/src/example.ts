@@ -1,10 +1,17 @@
-const example = {
-  id: 'crm-pipeline',
-  title: 'CRM Pipeline',
-  summary: 'Sales CRM with contacts, companies, deals, pipelines, and tasks.',
-  tags: ['crm', 'sales', 'pipeline', 'deals'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'crm-pipeline',
+    version: 1,
+    title: 'CRM Pipeline',
+    description: 'Sales CRM with contacts, companies, deals, pipelines, and tasks.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['crm', 'sales', 'pipeline', 'deals'],
+  },
   docs: {
     rootDocId: 'docs.examples.crm-pipeline',
   },
@@ -25,6 +32,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

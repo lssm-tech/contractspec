@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-duo-drills',
-  title: 'Learning Journey — Duo Drills',
-  summary:
-    'Short drill/SRS example with XP and streak hooks for language, finance, or ContractSpec concept drills.',
-  tags: ['learning', 'drills', 'srs', 'xp'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-duo-drills',
+    version: 1,
+    title: 'Learning Journey — Duo Drills',
+    description:
+      'Short drill/SRS example with XP and streak hooks for language, finance, or ContractSpec concept drills.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'drills', 'srs', 'xp'],
+  },
   docs: {
     rootDocId: 'docs.learning-journey.duo-drills',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

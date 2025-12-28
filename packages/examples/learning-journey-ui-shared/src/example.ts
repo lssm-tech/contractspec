@@ -1,10 +1,17 @@
-const example = {
-  id: 'learning-journey-ui-shared',
-  title: 'Learning Journey UI — Shared',
-  summary: 'Shared UI components and hooks for learning journey mini-apps.',
-  tags: ['learning', 'ui', 'shared'],
-  kind: 'ui',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-ui-shared',
+    version: 1,
+    title: 'Learning Journey UI — Shared',
+    description: 'Shared UI components and hooks for learning journey mini-apps.',
+    kind: 'ui',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'ui', 'shared'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-journey-ui-shared',
   },
@@ -18,6 +25,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

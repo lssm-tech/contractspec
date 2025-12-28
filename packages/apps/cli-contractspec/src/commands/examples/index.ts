@@ -6,8 +6,8 @@ import {
   getExample,
   listExamples,
   searchExamples,
-  validateExamples,
 } from '@contractspec/module.examples';
+import { validateExamples } from '@contractspec/lib.contracts';
 
 interface WorkspaceExampleFolderCheck {
   exampleDir: string;
@@ -32,7 +32,7 @@ export const examplesCommand = new Command('examples')
         }
         for (const ex of items) {
           console.log(
-            `${chalk.cyan(ex.id)}  ${ex.title}  ${chalk.gray(ex.kind)}`
+            `${chalk.cyan(ex.meta.key)}  ${ex.meta.title}  ${chalk.gray(ex.meta.kind)}`
           );
         }
       })
@@ -40,17 +40,17 @@ export const examplesCommand = new Command('examples')
   .addCommand(
     new Command('show')
       .description('Show a single example manifest')
-      .argument('<id>', 'Example id')
+      .argument('<key>', 'Example key')
       .option('--json', 'Output JSON', true)
-      .action((id: string) => {
-        const ex = getExample(id);
-        if (!ex) {
-          console.error(chalk.red(`❌ Example not found: ${id}`));
+      .action((key: string) => {
+        const example = getExample(key);
+        if (!example) {
+          console.error(chalk.red(`❌ Example not found: ${key}`));
           process.exitCode = 1;
           return;
         }
 
-        console.log(JSON.stringify(ex, null, 2));
+        console.log(JSON.stringify(example, null, 2));
       })
   )
   .addCommand(
@@ -58,15 +58,15 @@ export const examplesCommand = new Command('examples')
       .description(
         'Write a small workspace stub for an example (manifest + README)'
       )
-      .argument('<id>', 'Example id')
+      .argument('<key>', 'Example key')
       .option(
         '-o, --out-dir <dir>',
-        'Output directory (default: ./.contractspec/examples/<id>)'
+        'Output directory (default: ./.contractspec/examples/<key>)'
       )
-      .action(async (id: string, options) => {
-        const ex = getExample(id);
-        if (!ex) {
-          console.error(chalk.red(`❌ Example not found: ${id}`));
+      .action(async (key: string, options) => {
+        const example = getExample(key);
+        if (!example) {
+          console.error(chalk.red(`❌ Example not found: ${key}`));
           process.exitCode = 1;
           return;
         }
@@ -74,30 +74,30 @@ export const examplesCommand = new Command('examples')
         const base = process.cwd();
         const outDir = options.outDir
           ? path.resolve(base, String(options.outDir))
-          : path.resolve(base, '.contractspec', 'examples', ex.id);
+          : path.resolve(base, '.contractspec', 'examples', example.meta.key);
 
         await fs.mkdir(outDir, { recursive: true });
         await fs.writeFile(
           path.join(outDir, 'example.json'),
-          JSON.stringify(ex, null, 2),
+          JSON.stringify(example, null, 2),
           'utf8'
         );
         await fs.writeFile(
           path.join(outDir, 'README.md'),
           [
-            `# ${ex.title}`,
+            `# ${example.meta.title}`,
             '',
-            ex.summary,
+            example.meta.summary,
             '',
-            `- id: \`${ex.id}\``,
-            `- package: \`${ex.entrypoints.packageName}\``,
+            `- id: \`${example.meta.key}\``,
+            `- package: \`${example.entrypoints.packageName}\``,
             '',
             'This folder is a lightweight workspace stub that references an example manifest.',
           ].join('\n'),
           'utf8'
         );
 
-        console.log(chalk.green(`✅ Initialized ${ex.id} at ${outDir}`));
+        console.log(chalk.green(`✅ Initialized ${example.meta.key} at ${outDir}`));
       })
   )
   .addCommand(
@@ -116,7 +116,7 @@ export const examplesCommand = new Command('examples')
           console.error(chalk.red('❌ Example manifest validation failed'));
           for (const err of validation.errors) {
             console.error(
-              chalk.red(`- ${err.exampleId ?? 'unknown'}: ${err.message}`) +
+              chalk.red(`- ${err.exampleKey ?? 'unknown'}: ${err.message}`) +
                 (err.path ? chalk.gray(` (${err.path})`) : '')
             );
           }
@@ -181,7 +181,7 @@ async function validateWorkspaceExamplesFolder(
 
   const byPackageName = new Map<string, string>();
   for (const ex of examples)
-    byPackageName.set(ex.entrypoints.packageName, ex.id);
+    byPackageName.set(ex.entrypoints.packageName, ex.meta.key);
 
   const results: WorkspaceExampleFolderCheck[] = [];
   for (const name of entries) {
@@ -238,7 +238,7 @@ async function validateWorkspaceExamplesFolder(
         exampleDir: dir,
         packageName: ex.entrypoints.packageName,
         errors: [
-          `registry example "${ex.id}" points to missing workspace package ${ex.entrypoints.packageName}`,
+          `registry example "${ex.meta.key}" points to missing workspace package ${ex.entrypoints.packageName}`,
         ],
       });
     }

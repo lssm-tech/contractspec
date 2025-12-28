@@ -1,11 +1,18 @@
-const example = {
-  id: 'versioned-knowledge-base',
-  title: 'Versioned Knowledge Base',
-  summary:
-    'Curated KB with immutable sources, reviewable rule versions, and published snapshots.',
-  tags: ['knowledge', 'versioning', 'snapshots'],
-  kind: 'knowledge',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'versioned-knowledge-base',
+    version: 1,
+    title: 'Versioned Knowledge Base',
+    description:
+      'Curated KB with immutable sources, reviewable rule versions, and published snapshots.',
+    kind: 'knowledge',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['knowledge', 'versioning', 'snapshots'],
+  },
   docs: {
     rootDocId: 'docs.examples.versioned-knowledge-base',
   },
@@ -22,6 +29,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

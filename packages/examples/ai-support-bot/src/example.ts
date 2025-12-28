@@ -1,11 +1,18 @@
-const example = {
-  id: 'ai-support-bot',
-  title: 'AI Support Bot',
-  summary:
-    'Classify and resolve a support ticket (with a drafted response) using the support-bot and knowledge libraries.',
-  tags: ['support', 'ai', 'tickets', 'knowledge'],
-  kind: 'script',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'ai-support-bot',
+    version: 1,
+    title: 'AI Support Bot',
+    description:
+      'Classify and resolve a support ticket (with a drafted response) using the support-bot and knowledge libraries.',
+    kind: 'script',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['support', 'ai', 'tickets', 'knowledge'],
+  },
   docs: {
     rootDocId: 'docs.examples.ai-support-bot',
     usageDocId: 'docs.examples.ai-support-bot.usage',
@@ -20,6 +27,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

@@ -1,11 +1,18 @@
-const example = {
-  id: 'locale-jurisdiction-gate',
-  title: 'Locale / Jurisdiction Gate',
-  summary:
-    'Fail-closed gating for assistant calls: locale + jurisdiction + kbSnapshotId + allowedScope must be explicit, answers must cite a snapshot.',
-  tags: ['policy', 'locale', 'jurisdiction', 'assistant', 'gating'],
-  kind: 'knowledge',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'locale-jurisdiction-gate',
+    version: 1,
+    title: 'Locale / Jurisdiction Gate',
+    description:
+      'Fail-closed gating for assistant calls: locale + jurisdiction + kbSnapshotId + allowedScope must be explicit, answers must cite a snapshot.',
+    kind: 'knowledge',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['policy', 'locale', 'jurisdiction', 'assistant', 'gating'],
+  },
   docs: {
     rootDocId: 'docs.examples.locale-jurisdiction-gate',
   },
@@ -22,6 +29,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

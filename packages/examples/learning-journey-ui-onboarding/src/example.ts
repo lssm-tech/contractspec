@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-ui-onboarding',
-  title: 'Learning Journey UI — Onboarding',
-  summary:
-    'UI mini-app for onboarding patterns: checklists, code snippets, journey map.',
-  tags: ['learning', 'ui', 'onboarding'],
-  kind: 'ui',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-ui-onboarding',
+    version: 1,
+    title: 'Learning Journey UI — Onboarding',
+    description:
+      'UI mini-app for onboarding patterns: checklists, code snippets, journey map.',
+    kind: 'ui',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'ui', 'onboarding'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-journey-ui-onboarding',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;
