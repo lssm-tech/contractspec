@@ -5,7 +5,8 @@ const example: ExampleSpec = {
     key: 'learning-journey-ui-shared',
     version: 1,
     title: 'Learning Journey UI — Shared',
-    description: 'Shared UI components and hooks for learning journey mini-apps.',
+    description:
+      'Shared UI components and hooks for learning journey mini-apps.',
     kind: 'ui',
     visibility: 'public',
     stability: 'experimental',

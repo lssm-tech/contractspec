@@ -11,3 +11,4 @@ export * from './deps/index';
 export * from './validate/index';
 export * from './snapshot/index';
 export * from './impact/index';
+export * from './spec-parser';

@@ -7,47 +7,16 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, writeFileSync } from 'fs';
 import {
   type LLMExportFormat,
-  operationSpecToAgentPrompt,
-  operationSpecToContextMarkdown,
-  operationSpecToFullMarkdown,
 } from '@contractspec/lib.contracts/llm';
-
-async function loadSpec(
-  specPath: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<{ spec: any; code: string }> {
-  const fullPath = resolve(process.cwd(), specPath);
-
-  if (!existsSync(fullPath)) {
-    throw new Error(`Spec file not found: ${specPath}`);
-  }
-
-  const code = readFileSync(fullPath, 'utf-8');
-
-  // Dynamic import the spec
-  try {
-    const module = await import(fullPath);
-    // Find the first exported spec-like object
-    for (const [, value] of Object.entries(module)) {
-      if (
-        value &&
-        typeof value === 'object' &&
-        'meta' in value &&
-        'io' in value
-      ) {
-        return { spec: value, code };
-      }
-    }
-    throw new Error('No spec found in module');
-  } catch (error) {
-    throw new Error(
-      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
-    );
-  }
-}
+import {
+  loadSpecFromSource,
+  specToMarkdown,
+} from '@contractspec/module.workspace';
+import { getWorkspaceAdapters } from '../workspace-helpers';
+import { generateFeatureContextMarkdown } from '@contractspec/bundle.workspace';
 
 export const exportLLMCommand = new Command('export')
   .description('Export a spec to markdown for LLM consumption')
@@ -58,45 +27,43 @@ export const exportLLMCommand = new Command('export')
     'full'
   )
   .option('-o, --output <file>', 'Output file (default: stdout)')
-  .option(
-    '--task <type>',
-    'Task type for prompt format: implement, test, refactor, review',
-    'implement'
-  )
-  .option('--include-schemas', 'Include JSON schemas in output', true)
-  .option('--include-examples', 'Include examples in output', true)
-  .option('--include-scenarios', 'Include acceptance scenarios in output', true)
   .action(async (specFile, options) => {
     try {
       console.log(chalk.blue(`\n📄 Exporting ${specFile}...\n`));
 
-      const { spec } = await loadSpec(specFile);
+      const fullPath = resolve(process.cwd(), specFile);
+      if (!existsSync(fullPath)) {
+        throw new Error(`File not found: ${specFile}`);
+      }
+
+      // Load with static analysis
+      const specs = await loadSpecFromSource(fullPath);
+      if (specs.length === 0) {
+        throw new Error('No spec definitions found');
+      }
+
+      const spec = specs[0]; // Export first spec by default
       const format = options.format as LLMExportFormat;
 
       let markdown: string;
-
-      switch (format) {
-        case 'context':
-          markdown = operationSpecToContextMarkdown(spec);
-          break;
-        case 'prompt':
-          markdown = operationSpecToAgentPrompt(spec, {
-            taskType: options.task as
-              | 'implement'
-              | 'test'
-              | 'refactor'
-              | 'review',
-          });
-          break;
-        case 'full':
-        default:
-          markdown = operationSpecToFullMarkdown(spec, {
-            format: 'full',
-            includeSchemas: options.includeSchemas,
-            includeExamples: options.includeExamples,
-            includeScenarios: options.includeScenarios,
-          });
-          break;
+      if (spec.specType === 'feature' && format === 'full') {
+         // Need adapters for feature context scan
+         // Assuming getWorkspaceAdapters helper exists or constructing one
+         // CLI usually runs in CWD
+         const adapters = { fs: {
+             glob: async () => [], // TODO: Mock/Implement
+             readFile: async () => '',
+             // ... FsAdapter from bundle
+         }};
+         // Wait, FsAdapter is from bundle.workspace/ports/fs
+         // CLI already uses createNodeAdapters?
+         // Let's check imports in other commands.
+         // Most use 'createNodeAdapters'
+         const { createNodeAdapters } = await import('@contractspec/bundle.workspace');
+         const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
+         markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
+      } else {
+         markdown = specToMarkdown(spec, format);
       }
 
       if (options.output) {

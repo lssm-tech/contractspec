@@ -17,5 +17,8 @@ export * from './templates/index';
 // AI Prompts
 export * from './ai/index';
 
-// Formatter
+// Formatter (code formatting)
 export * from './formatter';
+
+// Formatters (spec to markdown)
+export * from './formatters/index';

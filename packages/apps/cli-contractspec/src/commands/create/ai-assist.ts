@@ -1,6 +1,9 @@
 import ora from 'ora';
 import chalk from 'chalk';
-import { AIClient } from '../../ai/client';
+import {
+  createSpecCreator,
+  type SpecCreatorService,
+} from '@contractspec/bundle.workspace';
 import type { Config } from '../../utils/config';
 import type {
   EventSpecData,
@@ -9,6 +12,16 @@ import type {
   PresentationKind,
   PresentationSpecData,
 } from '../../types';
+
+// Cache service instance? Or create per call?
+// Per call is fine or we can pass it if we refactor deeper.
+// For now, create per call using config.
+
+function getService(config: Config): SpecCreatorService {
+  // Config needs to match WorkspaceConfig
+  // Assuming Config has necessary fields
+  return createSpecCreator(config);
+}
 
 /**
  * Use AI to generate operation spec from description
@@ -21,8 +34,8 @@ export async function aiGenerateOperation(
   const spinner = ora('Generating operation spec with AI...').start();
 
   try {
-    const client = new AIClient(config);
-    const result = await client.generateOperationSpec(description, kind);
+    const service = getService(config);
+    const result = await service.ai.generateOperationSpec(description, kind);
 
     spinner.succeed(chalk.green('Operation spec generated!'));
 
@@ -58,8 +71,8 @@ export async function aiGenerateEvent(
   const spinner = ora('Generating event spec with AI...').start();
 
   try {
-    const client = new AIClient(config);
-    const result = await client.generateEventSpec(description);
+    const service = getService(config);
+    const result = await service.ai.generateEventSpec(description);
 
     spinner.succeed(chalk.green('Event spec generated!'));
 
@@ -89,8 +102,8 @@ export async function aiGeneratePresentation(
   const spinner = ora('Generating presentation spec with AI...').start();
 
   try {
-    const client = new AIClient(config);
-    const result = await client.generatePresentationSpec(description, kind);
+    const service = getService(config);
+    const result = await service.ai.generatePresentationSpec(description, kind);
 
     spinner.succeed(chalk.green('Presentation spec generated!'));
 

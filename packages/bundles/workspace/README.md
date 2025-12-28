@@ -29,7 +29,11 @@ bundle.contractspec-workspace
 │   ├── watch.ts       # Watch specs and trigger validate/build
 │   ├── clean.ts       # Safe-by-default cleanup of generated artifacts
 │   ├── test.ts        # Run TestSpec scenarios (pure runner wrapper)
-│   └── regenerator.ts # Regenerator service wrapper (no module loading)
+│   ├── regenerator.ts # Regenerator service wrapper (no module loading)
+│   ├── integrity.ts   # Analyze spec/feature integrity and coverage
+│   ├── layer-discovery.ts # Discover features, examples, app-configs
+│   ├── doctor/        # Health checks and auto-fixes
+│   └── ci-check/      # CI/CD validation checks
 ├── adapters/          # Runtime adapters (Node defaults)
 │   ├── fs.ts          # Filesystem operations
 │   ├── git.ts         # Git operations

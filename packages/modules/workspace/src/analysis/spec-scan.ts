@@ -66,6 +66,8 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
 
   const key = matchStringField(code, 'key');
   const description = matchStringField(code, 'description');
+  const goal = matchStringField(code, 'goal');
+  const context = matchStringField(code, 'context');
   const stabilityRaw = matchStringField(code, 'stability');
   const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
   const owners = matchStringArrayField(code, 'owners');
@@ -93,6 +95,8 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     specType,
     key: key ?? undefined,
     description: description ?? undefined,
+    goal: goal ?? undefined,
+    context: context ?? undefined,
     stability,
     owners,
     tags,
@@ -107,6 +111,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     emittedEvents,
     policyRefs,
     testRefs,
+    sourceBlock: code,
   };
 }
 
@@ -407,6 +412,8 @@ export function scanAllSpecsFromSource(
 
       // Extract additional metadata
       const description = matchStringField(block, 'description');
+      const goal = matchStringField(block, 'goal');
+      const context = matchStringField(block, 'context');
       const stabilityRaw = matchStringField(block, 'stability');
       const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
       const owners = matchStringArrayField(block, 'owners');
@@ -436,6 +443,8 @@ export function scanAllSpecsFromSource(
         key: meta.key,
         version: meta.version,
         description: description ?? undefined,
+        goal: goal ?? undefined,
+        context: context ?? undefined,
         stability,
         owners,
         tags,
@@ -449,6 +458,7 @@ export function scanAllSpecsFromSource(
         emittedEvents,
         policyRefs,
         testRefs,
+        sourceBlock: block,
       });
     }
   }
@@ -458,7 +468,7 @@ export function scanAllSpecsFromSource(
   if (results.length === 0 && baseSpecType !== 'unknown') {
     const fallback = scanSpecSource(code, filePath);
     if (fallback.key && fallback.version !== undefined) {
-      results.push(fallback);
+      results.push({ ...fallback, sourceBlock: code });
     }
   }
 

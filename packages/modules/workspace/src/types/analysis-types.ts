@@ -74,6 +74,8 @@ export interface SpecScanResult {
   kind?: AnalyzedOperationKind;
   stability?: Stability;
   description?: string;
+  goal?: string;
+  context?: string;
   owners?: string[];
   tags?: string[];
 
@@ -89,6 +91,9 @@ export interface SpecScanResult {
   emittedEvents?: RefInfo[];
   policyRefs?: RefInfo[];
   testRefs?: RefInfo[];
+
+  // Extracted source code
+  sourceBlock?: string;
 }
 
 /**
@@ -99,6 +104,8 @@ export interface FeatureScanResult {
   key: string;
   title?: string;
   description?: string;
+  goal?: string;
+  context?: string;
   domain?: string;
   stability?: Stability;
   owners?: string[];
@@ -118,6 +125,9 @@ export interface FeatureScanResult {
 
   // Op to presentation links
   opToPresentationLinks: { op: RefInfo; pres: RefInfo }[];
+
+  // Extracted source code
+  sourceBlock?: string;
 }
 
 /**

@@ -24,6 +24,8 @@ export function scanFeatureSource(
   const key = matchStringField(code, 'key') ?? extractKeyFromFilePath(filePath);
   const title = matchStringField(code, 'title') ?? undefined;
   const description = matchStringField(code, 'description') ?? undefined;
+  const goal = matchStringField(code, 'goal') ?? undefined;
+  const context = matchStringField(code, 'context') ?? undefined;
   const domain = matchStringField(code, 'domain') ?? undefined;
   const stabilityRaw = matchStringField(code, 'stability');
   const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
@@ -53,6 +55,8 @@ export function scanFeatureSource(
     key,
     title,
     description,
+    goal,
+    context,
     domain,
     stability,
     owners,
@@ -63,6 +67,7 @@ export function scanFeatureSource(
     experiments,
     capabilities,
     opToPresentationLinks,
+    sourceBlock: code,
   };
 }
 

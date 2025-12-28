@@ -21,8 +21,7 @@ export function scanExampleSource(
   code: string,
   filePath: string
 ): ExampleScanResult {
-  const key =
-    matchStringField(code, 'key') ?? extractKeyFromFilePath(filePath);
+  const key = matchStringField(code, 'key') ?? extractKeyFromFilePath(filePath);
   const versionRaw = matchNumberField(code, 'version');
   const version = versionRaw ?? undefined;
   const title = matchStringField(code, 'title') ?? undefined;
@@ -126,9 +125,7 @@ function extractSurfaces(code: string): ExampleScanResult['surfaces'] {
   }
 
   // Check mcp
-  const mcpMatch = surfacesContent.match(
-    /mcp\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/
-  );
+  const mcpMatch = surfacesContent.match(/mcp\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/);
   if (mcpMatch?.[1]) {
     surfaces.mcp.enabled = /enabled\s*:\s*true/.test(mcpMatch[1]);
   }
@@ -153,16 +150,12 @@ function extractEntrypoints(code: string): ExampleScanResult['entrypoints'] {
 
   entrypoints.packageName =
     matchStringFieldIn(content, 'packageName') ?? 'unknown';
-  entrypoints.feature =
-    matchStringFieldIn(content, 'feature') ?? undefined;
-  entrypoints.blueprint =
-    matchStringFieldIn(content, 'blueprint') ?? undefined;
-  entrypoints.contracts =
-    matchStringFieldIn(content, 'contracts') ?? undefined;
+  entrypoints.feature = matchStringFieldIn(content, 'feature') ?? undefined;
+  entrypoints.blueprint = matchStringFieldIn(content, 'blueprint') ?? undefined;
+  entrypoints.contracts = matchStringFieldIn(content, 'contracts') ?? undefined;
   entrypoints.presentations =
     matchStringFieldIn(content, 'presentations') ?? undefined;
-  entrypoints.handlers =
-    matchStringFieldIn(content, 'handlers') ?? undefined;
+  entrypoints.handlers = matchStringFieldIn(content, 'handlers') ?? undefined;
   entrypoints.ui = matchStringFieldIn(content, 'ui') ?? undefined;
   entrypoints.docs = matchStringFieldIn(content, 'docs') ?? undefined;
 
@@ -182,7 +175,9 @@ function extractKeyFromFilePath(filePath: string): string {
   }
   // Fallback to filename
   const fileName = parts.pop() ?? filePath;
-  return fileName.replace(/\.example\.[jt]s$/, '').replace(/[^a-zA-Z0-9-]/g, '-');
+  return fileName
+    .replace(/\.example\.[jt]s$/, '')
+    .replace(/[^a-zA-Z0-9-]/g, '-');
 }
 
 /**

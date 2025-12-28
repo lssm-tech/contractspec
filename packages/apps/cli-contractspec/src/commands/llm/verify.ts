@@ -9,35 +9,11 @@ import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import type { VerificationTier } from '@contractspec/lib.contracts/llm';
-import { createVerifyService } from '@contractspec/bundle.workspace';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function loadSpec(specPath: string): Promise<any> {
-  const fullPath = resolve(process.cwd(), specPath);
-
-  if (!existsSync(fullPath)) {
-    throw new Error(`Spec file not found: ${specPath}`);
-  }
-
-  try {
-    const module = await import(fullPath);
-    for (const [, value] of Object.entries(module)) {
-      if (
-        value &&
-        typeof value === 'object' &&
-        'meta' in value &&
-        'io' in value
-      ) {
-        return value;
-      }
-    }
-    throw new Error('No spec found in module');
-  } catch (error) {
-    throw new Error(
-      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
-    );
-  }
-}
+import { loadSpecFromSource } from '@contractspec/module.workspace';
+import {
+  verifyImplementationAgainstParsedSpec,
+  formatVerificationReport,
+} from '@contractspec/bundle.workspace';
 
 export const verifyLLMCommand = new Command('verify')
   .description('Verify an implementation against its spec')
@@ -48,21 +24,25 @@ export const verifyLLMCommand = new Command('verify')
     'Verification tier: 1 (structure), 2 (behavior), 3 (ai), all',
     'all'
   )
-  .option('--fail-fast', 'Stop on first tier failure')
+  .option('--fail-fast', 'Stop on first tier failure (not implemented for static check yet)')
   .option('--json', 'Output as JSON')
-  .option('--ai-key <key>', 'API key for AI verification (tier 3)')
-  .option(
-    '--ai-provider <provider>',
-    'AI provider: anthropic, openai',
-    'anthropic'
-  )
   .action(async (specFile, implFile, options) => {
     try {
       console.log(
         chalk.blue(`\n🔍 Verifying ${implFile} against ${specFile}...\n`)
       );
 
-      const spec = await loadSpec(specFile);
+      const fullPath = resolve(process.cwd(), specFile);
+      if (!existsSync(fullPath)) {
+        throw new Error(`Spec file not found: ${specFile}`);
+      }
+
+      // Load with static analysis
+      const specs = await loadSpecFromSource(fullPath);
+      if (specs.length === 0) {
+        throw new Error('No spec definitions found');
+      }
+      const spec = specs[0];
 
       const implPath = resolve(process.cwd(), implFile);
       if (!existsSync(implPath)) {
@@ -71,6 +51,7 @@ export const verifyLLMCommand = new Command('verify')
       const implementationCode = readFileSync(implPath, 'utf-8');
 
       // Determine tiers to run
+      // Note: 'ai_review' is not supported in static mode yet
       let tiers: VerificationTier[];
       switch (options.tier) {
         case '1':
@@ -80,43 +61,29 @@ export const verifyLLMCommand = new Command('verify')
           tiers = ['structure', 'behavior'];
           break;
         case '3':
-          tiers = ['structure', 'behavior', 'ai_review'];
-          break;
         case 'all':
         default:
           tiers = ['structure', 'behavior'];
-          if (options.aiKey) {
-            tiers.push('ai_review');
+          if (options.tier === '3' || options.tier === 'all') {
+             console.log(chalk.yellow('Note: AI verification (Tier 3) is currently disabled in CLI static mode. Running tiers 1 & 2.'));
           }
           break;
       }
 
-      const verifyService = createVerifyService({
-        aiApiKey: options.aiKey,
-        aiProvider: options.aiProvider,
-      });
+      const issues = verifyImplementationAgainstParsedSpec(spec, implementationCode, tiers);
 
-      const result = await verifyService.verify(spec, implementationCode, {
-        tiers,
-        failFast: options.failFast,
-        includeSuggestions: true,
-      });
+      // Determine pass/fail
+      const errorCount = issues.filter(i => i.severity === 'error').length;
+      const warningCount = issues.filter(i => i.severity === 'warning').length;
+      const passed = errorCount === 0;
 
       if (options.json) {
-        // Convert Map to plain object for JSON
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const reports: Record<string, any> = {};
-        for (const [tier, report] of result.reports) {
-          reports[tier] = report;
-        }
         console.log(
           JSON.stringify(
             {
-              passed: result.passed,
-              score: result.score,
-              duration: result.duration,
-              reports,
-              allIssues: result.allIssues,
+              passed,
+              issues,
+              summary: { errors: errorCount, warnings: warningCount }
             },
             null,
             2
@@ -124,24 +91,23 @@ export const verifyLLMCommand = new Command('verify')
         );
       } else {
         // Print formatted results
-        console.log(verifyService.formatAsMarkdown(result));
+        console.log(formatVerificationReport(spec, issues));
 
         // Summary line
         console.log('');
-        if (result.passed) {
+        if (passed) {
           console.log(
-            chalk.green(`✓ Verification passed (score: ${result.score}/100)`)
+            chalk.green(`✓ Verification passed`)
           );
         } else {
           console.log(
-            chalk.red(`✗ Verification failed (score: ${result.score}/100)`)
+            chalk.red(`✗ Verification failed`)
           );
         }
-        console.log(chalk.gray(`Duration: ${result.duration}ms`));
       }
 
       // Exit with appropriate code
-      process.exit(result.passed ? 0 : 1);
+      process.exit(passed ? 0 : 1);
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),

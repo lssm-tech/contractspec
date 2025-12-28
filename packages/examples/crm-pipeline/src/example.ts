@@ -5,7 +5,8 @@ const example: ExampleSpec = {
     key: 'crm-pipeline',
     version: 1,
     title: 'CRM Pipeline',
-    description: 'Sales CRM with contacts, companies, deals, pipelines, and tasks.',
+    description:
+      'Sales CRM with contacts, companies, deals, pipelines, and tasks.',
     kind: 'template',
     visibility: 'public',
     stability: 'experimental',

@@ -38,7 +38,7 @@ description: Governs file size limits, splitting strategies, and code reusabilit
 ### ✅ Good: Domain-Driven Structure
 
 ```
-bundles/contractspec-studio/src/
+bundles/studio/src/
 ├── application/
 │   ├── services/              # Core application services
 │   │   ├── auth.ts
@@ -99,7 +99,7 @@ bundles/contractspec-studio/src/
 ### ❌ Forbidden: Technical Grouping
 
 ```
-bundles/contractspec-studio/src/
+bundles/studio/src/
 ├── services/               # Too generic, mixed domains
 │   ├── studio.service.ts
 │   ├── lifecycle.service.ts
@@ -337,4 +337,3 @@ export const CardContent = ({ children }) => (
 - See `package-architecture.md` for where code should live (libs vs bundles vs apps)
 - See `backend.mdc` for hexagonal architecture within bundles
 - See `frontend.mdc` for atomic design and component patterns
-

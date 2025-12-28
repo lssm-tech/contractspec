@@ -6,12 +6,13 @@
 
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { getWorkspaceAdapters } from '../workspace/adapters';
 import type { WorkspaceAdapters } from '../workspace/adapters';
+import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
-  parseOpenApi,
-  importFromOpenApi,
-} from '@contractspec/lib.contracts-transformers/openapi';
+  importFromOpenApiService,
+  loadWorkspaceConfig,
+} from '@contractspec/bundle.workspace';
+import { parseOpenApi } from '@contractspec/lib.contracts-transformers/openapi';
 
 /**
  * Export specs to OpenAPI document.
@@ -246,6 +247,9 @@ function convertToYaml(obj: unknown, indent = 0): string {
 /**
  * Import specs from an OpenAPI document.
  */
+/**
+ * Import specs from an OpenAPI document.
+ */
 export async function importFromOpenApiCommand(
   outputChannel: vscode.OutputChannel
 ): Promise<void> {
@@ -339,63 +343,48 @@ export async function importFromOpenApiCommand(
         cancellable: false,
       },
       async (progress) => {
-        progress.report({ message: 'Parsing OpenAPI document...' });
+        progress.report({ message: 'Processing...' });
 
         const adapters = getWorkspaceAdapters();
+        const rootPath = workspaceFolders[0].uri.fsPath;
+        const config = await loadWorkspaceConfig(adapters.fs, rootPath);
 
-        // Parse the OpenAPI document
-        const parseResult = await parseOpenApi(source, {
-          fetch: globalThis.fetch,
-          readFile: (filePath) => adapters.fs.readFile(filePath),
-        });
-
-        outputChannel.appendLine(
-          `Parsed ${parseResult.operations.length} operations from ${parseResult.info.title}`
+        const result = await importFromOpenApiService(
+          config,
+          {
+            source,
+            outputDir,
+            prefix: prefix || undefined,
+          },
+          adapters
         );
-
-        progress.report({ message: 'Generating specs...' });
-
-        // Import operations
-        const importResult = importFromOpenApi(parseResult, {
-          prefix: prefix || undefined,
-        });
-
-        // Write files
-        let importedCount = 0;
-        for (const spec of importResult.operationSpecs) {
-          const filePath = path.join(outputDir, spec.fileName);
-          const dir = path.dirname(filePath);
-
-          await adapters.fs.mkdir(dir);
-          await adapters.fs.writeFile(filePath, spec.code);
-          outputChannel.appendLine(`✅ Created: ${filePath}`);
-          importedCount++;
-        }
 
         // Show results
         outputChannel.appendLine(`\n📊 Import summary:`);
-        outputChannel.appendLine(`  Imported: ${importedCount}`);
-        outputChannel.appendLine(`  Skipped: ${importResult.skipped.length}`);
-        outputChannel.appendLine(`  Errors: ${importResult.errors.length}`);
+        outputChannel.appendLine(`  Imported: ${result.imported}`);
+        outputChannel.appendLine(`  Skipped: ${result.skipped}`);
+        outputChannel.appendLine(`  Errors: ${result.errors}`);
 
-        if (importResult.skipped.length > 0) {
+        if (result.skippedOperations.length > 0) {
           outputChannel.appendLine(`\nSkipped operations:`);
-          for (const skipped of importResult.skipped) {
+          for (const skipped of result.skippedOperations) {
             outputChannel.appendLine(
-              `  - ${skipped.sourceId}: ${skipped.reason}`
+              `  - ${skipped.operationId}: ${skipped.reason}`
             );
           }
         }
 
-        if (importResult.errors.length > 0) {
+        if (result.errorMessages.length > 0) {
           outputChannel.appendLine(`\nErrors:`);
-          for (const error of importResult.errors) {
-            outputChannel.appendLine(`  - ${error.sourceId}: ${error.error}`);
+          for (const error of result.errorMessages) {
+            outputChannel.appendLine(
+              `  - ${error.operationId}: ${error.error}`
+            );
           }
         }
 
         vscode.window.showInformationMessage(
-          `Imported ${importedCount} specs from OpenAPI`
+          `Imported ${result.imported} specs from OpenAPI`
         );
       }
     );
