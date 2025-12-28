@@ -1,4 +1,4 @@
-# @lssm/lib.exporter
+# @contractspec/lib.exporter
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a lightweight, dependency-free way to generate CSV and XML files on b
 ## Installation
 
 ```bash
-npm install @lssm/lib.exporter
+npm install @contractspec/lib.exporter
 # or
-bun add @lssm/lib.exporter
+bun add @contractspec/lib.exporter
 ```
 
 ## Key Concepts
@@ -25,7 +25,7 @@ bun add @lssm/lib.exporter
 ## Usage
 
 ```ts
-import { toCSV, toXML } from '@lssm/lib.exporter';
+import { toCSV, toXML } from '@contractspec/lib.exporter';
 
 const data = [
   { id: 1, name: 'Alice' },

@@ -1,4 +1,4 @@
-import type { LearningJourneyTrackSpec } from '@lssm/module.learning-journey/track-spec';
+import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 import { LEARNING_EVENTS } from '../events';
 
 export const drillsTrack: LearningJourneyTrackSpec = {

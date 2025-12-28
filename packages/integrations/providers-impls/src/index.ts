@@ -1,6 +1,6 @@
 export * from './impls';
 
-// Provider interface shims (re-exported from @lssm/lib.contracts) so the impls
+// Provider interface shims (re-exported from @contractspec/lib.contracts) so the impls
 // can keep their existing relative imports (e.g. ../openbanking).
 export * from './openbanking';
 export * from './llm';

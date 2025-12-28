@@ -1,5 +1,5 @@
-import { defineCommand } from '@lssm/lib.contracts';
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
+import { defineCommand } from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 
 import {
   AssistantAnswerIRModel,

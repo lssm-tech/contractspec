@@ -1,5 +1,5 @@
 import type { LanguageModel, Tool } from 'ai';
-import type { KnowledgeRetriever } from '@lssm/lib.knowledge/retriever';
+import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
 import type { AgentRegistry } from '../spec/registry';
 import type { ToolHandler } from '../types';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cva } from 'class-variance-authority';
 
 const sectionVariants = cva('', {

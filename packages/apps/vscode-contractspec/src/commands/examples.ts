@@ -7,7 +7,7 @@ import {
   getExample,
   listExamples,
   searchExamples,
-} from '@lssm/module.contractspec-examples';
+} from '@contractspec/module.examples';
 
 interface ExampleSummary {
   id: string;

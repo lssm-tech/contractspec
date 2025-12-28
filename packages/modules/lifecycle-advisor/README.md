@@ -1,4 +1,4 @@
-# @lssm/module.lifecycle-advisor
+# @contractspec/module.lifecycle-advisor
 
 Website: https://contractspec.io/
 
@@ -18,7 +18,7 @@ import {
   LifecycleRecommendationEngine,
   ContractSpecLibraryRecommender,
   LifecycleCeremonyDesigner,
-} from '@lssm/module.lifecycle-advisor';
+} from '@contractspec/module.lifecycle-advisor';
 
 const recommendationEngine = new LifecycleRecommendationEngine();
 const libraryRecommender = new ContractSpecLibraryRecommender();

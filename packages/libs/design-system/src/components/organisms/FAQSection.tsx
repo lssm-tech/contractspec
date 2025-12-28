@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@lssm/lib.ui-kit-web/ui/accordion';
+} from '@contractspec/lib.ui-kit-web/ui/accordion';
 
 export interface FAQItem {
   question: React.ReactNode;

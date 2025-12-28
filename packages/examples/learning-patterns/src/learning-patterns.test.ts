@@ -4,10 +4,10 @@ import type {
   LearningJourneyTrackSpec,
   StepAvailabilitySpec,
   StepCompletionConditionSpec,
-} from '@lssm/module.learning-journey/track-spec';
-import { SRSEngine } from '@lssm/module.learning-journey/engines/srs';
-import { StreakEngine } from '@lssm/module.learning-journey/engines/streak';
-import { XPEngine } from '@lssm/module.learning-journey/engines/xp';
+} from '@contractspec/module.learning-journey/track-spec';
+import { SRSEngine } from '@contractspec/module.learning-journey/engines/srs';
+import { StreakEngine } from '@contractspec/module.learning-journey/engines/streak';
+import { XPEngine } from '@contractspec/module.learning-journey/engines/xp';
 
 import { ambientCoachTrack } from './tracks/ambient-coach';
 import { drillsTrack } from './tracks/drills';
@@ -140,7 +140,7 @@ function applyEvents(
   return steps;
 }
 
-describe('@lssm/example.learning-patterns tracks', () => {
+describe('@contractspec/example.learning-patterns tracks', () => {
   it('drills track progresses via session count + mastery', () => {
     const events: LearningEvent[] = [
       { name: LEARNING_EVENTS.DRILL_SESSION_COMPLETED },
@@ -197,7 +197,7 @@ describe('@lssm/example.learning-patterns tracks', () => {
   });
 });
 
-describe('@lssm/example.learning-patterns XP + streak + SRS determinism', () => {
+describe('@contractspec/example.learning-patterns XP + streak + SRS determinism', () => {
   it('XP engine produces deterministic results for streak bonus inputs', () => {
     const xp = new XPEngine();
     const r1 = xp.calculate({

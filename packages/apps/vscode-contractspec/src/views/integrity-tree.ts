@@ -13,8 +13,8 @@ import {
   type IntegrityAnalysisResult,
   type IntegrityIssue,
   type SpecLocation,
-} from '@lssm/bundle.contractspec-workspace';
-import type { FeatureScanResult } from '@lssm/module.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
+import type { FeatureScanResult } from '@contractspec/module.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**
@@ -335,6 +335,27 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
     }
 
     return [];
+  }
+
+  /**
+   * Get the current analysis result.
+   */
+  getResult(): IntegrityAnalysisResult | undefined {
+    return this.result;
+  }
+
+  /**
+   * Get all features from the analysis.
+   */
+  getFeatures(): FeatureScanResult[] {
+    return this.result?.features ?? [];
+  }
+
+  /**
+   * Get orphaned specs from the analysis.
+   */
+  getOrphanedSpecs(): SpecLocation[] {
+    return this.result?.orphanedSpecs ?? [];
   }
 
   private createSummaryItem(element: SummaryNode): vscode.TreeItem {
@@ -710,27 +731,6 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
     item.contextValue = 'issue';
 
     return item;
-  }
-
-  /**
-   * Get the current analysis result.
-   */
-  getResult(): IntegrityAnalysisResult | undefined {
-    return this.result;
-  }
-
-  /**
-   * Get all features from the analysis.
-   */
-  getFeatures(): FeatureScanResult[] {
-    return this.result?.features ?? [];
-  }
-
-  /**
-   * Get orphaned specs from the analysis.
-   */
-  getOrphanedSpecs(): SpecLocation[] {
-    return this.result?.orphanedSpecs ?? [];
   }
 }
 

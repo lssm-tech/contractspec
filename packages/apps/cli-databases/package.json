@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/app.cli-databases",
+  "name": "@contractspec/app.cli-databases",
   "version": "1.43.2",
   "type": "module",
   "bin": {
@@ -18,8 +18,8 @@
     "execa": "^9.6.1"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build"
   },
   "main": "./dist/index.mjs",

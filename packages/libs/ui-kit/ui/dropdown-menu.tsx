@@ -13,7 +13,7 @@ import { Check } from './icons/Check';
 import { ChevronDown } from './icons/ChevronDown';
 import { ChevronRight } from './icons/ChevronRight';
 import { ChevronUp } from './icons/ChevronUp';
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { TextClassContext } from './text';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;

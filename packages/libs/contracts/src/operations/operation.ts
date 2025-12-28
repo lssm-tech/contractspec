@@ -3,7 +3,7 @@
  * It carries narrative context for humans/agents AND machine-typed input/output/policy.
  */
 import type { EventSpec } from '../events';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { ResourceRefDescriptor } from '../resources';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';

@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/module.notifications",
+  "name": "@contractspec/module.notifications",
   "version": "1.43.3",
   "description": "Notification center module for ContractSpec applications",
   "main": "./dist/index.js",
@@ -18,14 +18,14 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.bus": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.bus": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

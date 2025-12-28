@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const featureFlagsDocBlocks: DocBlock[] = [
   {
@@ -24,7 +24,7 @@ const featureFlagsDocBlocks: DocBlock[] = [
  - Add \`featureFlagsSchemaContribution\` to your module composition.
 
 2) Register contracts/events
- - Import exports from \`@lssm/lib.feature-flags\` into your spec registry.
+ - Import exports from \`@contractspec/lib.feature-flags\` into your spec registry.
 
 3) Evaluate at runtime
  - Instantiate \`FlagEvaluator\` with a repository implementation and optional logger.
@@ -39,7 +39,7 @@ ${'```'}ts
 import {
   FlagEvaluator,
   InMemoryFlagRepository,
-} from '@lssm/lib.feature-flags';
+} from '@contractspec/lib.feature-flags';
 
 const repo = new InMemoryFlagRepository();
 repo.addFlag({

@@ -1,12 +1,13 @@
 'use strict';
 
 function withPresentationNextAliases(config, opts = {}) {
-  const uiWeb = opts.uiKitWeb ?? '@lssm/lib.ui-kit-web';
-  const uiNative = opts.uiKitNative ?? '@lssm/lib.ui-kit';
+  const uiWeb = opts.uiKitWeb ?? '@contractspec/lib.ui-kit-web';
+  const uiNative = opts.uiKitNative ?? '@contractspec/lib.ui-kit';
   const presReact =
-    opts.presentationReact ?? '@lssm/lib.presentation-runtime-react';
+    opts.presentationReact ?? '@contractspec/lib.presentation-runtime-react';
   const presNative =
-    opts.presentationNative ?? '@lssm/lib.presentation-runtime-react-native';
+    opts.presentationNative ??
+    '@contractspec/lib.presentation-runtime-react-native';
 
   config.resolve = config.resolve || {};
   config.resolve.alias = {

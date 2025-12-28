@@ -1,4 +1,4 @@
-# @lssm/example.marketplace
+# @contractspec/example.marketplace
 
 ## 1.43.3
 
@@ -6,15 +6,15 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/module.notifications@1.43.3
-  - @lssm/module.audit-trail@1.43.3
-  - @lssm/lib.identity-rbac@1.43.3
-  - @lssm/lib.contracts@1.43.3
-  - @lssm/lib.metering@1.43.3
-  - @lssm/lib.schema@1.43.2
-  - @lssm/lib.files@1.43.3
-  - @lssm/lib.jobs@1.43.3
-  - @lssm/lib.bus@1.43.3
+  - @contractspec/module.notifications@1.43.3
+  - @contractspec/module.audit-trail@1.43.3
+  - @contractspec/lib.identity-rbac@1.43.3
+  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.metering@1.43.3
+  - @contractspec/lib.schema@1.43.2
+  - @contractspec/lib.files@1.43.3
+  - @contractspec/lib.jobs@1.43.3
+  - @contractspec/lib.bus@1.43.3
 
 ## 1.43.2
 
@@ -22,29 +22,29 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/module.notifications@1.43.2
-  - @lssm/module.audit-trail@1.43.2
-  - @lssm/lib.identity-rbac@1.43.2
-  - @lssm/lib.contracts@1.43.2
-  - @lssm/lib.metering@1.43.2
-  - @lssm/lib.files@1.43.2
-  - @lssm/lib.jobs@1.43.2
-  - @lssm/lib.bus@1.43.2
-  - @lssm/lib.schema@1.43.1
+  - @contractspec/module.notifications@1.43.2
+  - @contractspec/module.audit-trail@1.43.2
+  - @contractspec/lib.identity-rbac@1.43.2
+  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.metering@1.43.2
+  - @contractspec/lib.files@1.43.2
+  - @contractspec/lib.jobs@1.43.2
+  - @contractspec/lib.bus@1.43.2
+  - @contractspec/lib.schema@1.43.1
 
 ## 1.43.1
 
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @lssm/lib.contracts@1.43.1
-  - @lssm/lib.bus@1.43.1
-  - @lssm/lib.files@1.43.1
-  - @lssm/lib.identity-rbac@1.43.1
-  - @lssm/lib.jobs@1.43.1
-  - @lssm/lib.metering@1.43.1
-  - @lssm/module.audit-trail@1.43.1
-  - @lssm/module.notifications@1.43.1
+  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.bus@1.43.1
+  - @contractspec/lib.files@1.43.1
+  - @contractspec/lib.identity-rbac@1.43.1
+  - @contractspec/lib.jobs@1.43.1
+  - @contractspec/lib.metering@1.43.1
+  - @contractspec/module.audit-trail@1.43.1
+  - @contractspec/module.notifications@1.43.1
 
 ## 1.43.0
 
@@ -55,15 +55,15 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/module.notifications@1.43.0
-  - @lssm/module.audit-trail@1.43.0
-  - @lssm/lib.identity-rbac@1.43.0
-  - @lssm/lib.contracts@1.43.0
-  - @lssm/lib.metering@1.43.0
-  - @lssm/lib.schema@1.43.0
-  - @lssm/lib.files@1.43.0
-  - @lssm/lib.jobs@1.43.0
-  - @lssm/lib.bus@1.43.0
+  - @contractspec/module.notifications@1.43.0
+  - @contractspec/module.audit-trail@1.43.0
+  - @contractspec/lib.identity-rbac@1.43.0
+  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.metering@1.43.0
+  - @contractspec/lib.schema@1.43.0
+  - @contractspec/lib.files@1.43.0
+  - @contractspec/lib.jobs@1.43.0
+  - @contractspec/lib.bus@1.43.0
 
 ## 1.42.10
 
@@ -71,15 +71,15 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/module.notifications@1.42.10
-  - @lssm/module.audit-trail@1.42.10
-  - @lssm/lib.identity-rbac@1.42.10
-  - @lssm/lib.contracts@1.42.10
-  - @lssm/lib.metering@1.42.10
-  - @lssm/lib.schema@1.42.10
-  - @lssm/lib.files@1.42.10
-  - @lssm/lib.jobs@1.42.10
-  - @lssm/lib.bus@1.42.10
+  - @contractspec/module.notifications@1.42.10
+  - @contractspec/module.audit-trail@1.42.10
+  - @contractspec/lib.identity-rbac@1.42.10
+  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.metering@1.42.10
+  - @contractspec/lib.schema@1.42.10
+  - @contractspec/lib.files@1.42.10
+  - @contractspec/lib.jobs@1.42.10
+  - @contractspec/lib.bus@1.42.10
 
 ## 1.42.9
 
@@ -87,15 +87,15 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/module.notifications@1.42.9
-  - @lssm/module.audit-trail@1.42.9
-  - @lssm/lib.identity-rbac@1.42.9
-  - @lssm/lib.contracts@1.42.9
-  - @lssm/lib.metering@1.42.9
-  - @lssm/lib.schema@1.42.9
-  - @lssm/lib.files@1.42.9
-  - @lssm/lib.jobs@1.42.9
-  - @lssm/lib.bus@1.42.9
+  - @contractspec/module.notifications@1.42.9
+  - @contractspec/module.audit-trail@1.42.9
+  - @contractspec/lib.identity-rbac@1.42.9
+  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.metering@1.42.9
+  - @contractspec/lib.schema@1.42.9
+  - @contractspec/lib.files@1.42.9
+  - @contractspec/lib.jobs@1.42.9
+  - @contractspec/lib.bus@1.42.9
 
 ## 1.42.8
 
@@ -103,15 +103,15 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/module.notifications@1.42.8
-  - @lssm/module.audit-trail@1.42.8
-  - @lssm/lib.identity-rbac@1.42.8
-  - @lssm/lib.contracts@1.42.8
-  - @lssm/lib.metering@1.42.8
-  - @lssm/lib.schema@1.42.8
-  - @lssm/lib.files@1.42.8
-  - @lssm/lib.jobs@1.42.8
-  - @lssm/lib.bus@1.42.8
+  - @contractspec/module.notifications@1.42.8
+  - @contractspec/module.audit-trail@1.42.8
+  - @contractspec/lib.identity-rbac@1.42.8
+  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.metering@1.42.8
+  - @contractspec/lib.schema@1.42.8
+  - @contractspec/lib.files@1.42.8
+  - @contractspec/lib.jobs@1.42.8
+  - @contractspec/lib.bus@1.42.8
 
 ## 1.42.7
 
@@ -119,15 +119,15 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/module.notifications@1.42.7
-  - @lssm/module.audit-trail@1.42.7
-  - @lssm/lib.identity-rbac@1.42.7
-  - @lssm/lib.contracts@1.42.7
-  - @lssm/lib.metering@1.42.7
-  - @lssm/lib.schema@1.42.7
-  - @lssm/lib.files@1.42.7
-  - @lssm/lib.jobs@1.42.7
-  - @lssm/lib.bus@1.42.7
+  - @contractspec/module.notifications@1.42.7
+  - @contractspec/module.audit-trail@1.42.7
+  - @contractspec/lib.identity-rbac@1.42.7
+  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.metering@1.42.7
+  - @contractspec/lib.schema@1.42.7
+  - @contractspec/lib.files@1.42.7
+  - @contractspec/lib.jobs@1.42.7
+  - @contractspec/lib.bus@1.42.7
 
 ## 1.42.6
 
@@ -135,15 +135,15 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/module.notifications@1.42.6
-  - @lssm/module.audit-trail@1.42.6
-  - @lssm/lib.identity-rbac@1.42.6
-  - @lssm/lib.contracts@1.42.6
-  - @lssm/lib.metering@1.42.6
-  - @lssm/lib.schema@1.42.6
-  - @lssm/lib.files@1.42.6
-  - @lssm/lib.jobs@1.42.6
-  - @lssm/lib.bus@1.42.6
+  - @contractspec/module.notifications@1.42.6
+  - @contractspec/module.audit-trail@1.42.6
+  - @contractspec/lib.identity-rbac@1.42.6
+  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.metering@1.42.6
+  - @contractspec/lib.schema@1.42.6
+  - @contractspec/lib.files@1.42.6
+  - @contractspec/lib.jobs@1.42.6
+  - @contractspec/lib.bus@1.42.6
 
 ## 1.42.5
 
@@ -151,15 +151,15 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/module.notifications@1.42.5
-  - @lssm/module.audit-trail@1.42.5
-  - @lssm/lib.identity-rbac@1.42.5
-  - @lssm/lib.contracts@1.42.5
-  - @lssm/lib.metering@1.42.5
-  - @lssm/lib.schema@1.42.5
-  - @lssm/lib.files@1.42.5
-  - @lssm/lib.jobs@1.42.5
-  - @lssm/lib.bus@1.42.5
+  - @contractspec/module.notifications@1.42.5
+  - @contractspec/module.audit-trail@1.42.5
+  - @contractspec/lib.identity-rbac@1.42.5
+  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.metering@1.42.5
+  - @contractspec/lib.schema@1.42.5
+  - @contractspec/lib.files@1.42.5
+  - @contractspec/lib.jobs@1.42.5
+  - @contractspec/lib.bus@1.42.5
 
 ## 1.42.4
 
@@ -167,15 +167,15 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/module.notifications@1.42.4
-  - @lssm/module.audit-trail@1.42.4
-  - @lssm/lib.identity-rbac@1.42.4
-  - @lssm/lib.contracts@1.42.4
-  - @lssm/lib.metering@1.42.4
-  - @lssm/lib.schema@1.42.4
-  - @lssm/lib.files@1.42.4
-  - @lssm/lib.jobs@1.42.4
-  - @lssm/lib.bus@1.42.4
+  - @contractspec/module.notifications@1.42.4
+  - @contractspec/module.audit-trail@1.42.4
+  - @contractspec/lib.identity-rbac@1.42.4
+  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.metering@1.42.4
+  - @contractspec/lib.schema@1.42.4
+  - @contractspec/lib.files@1.42.4
+  - @contractspec/lib.jobs@1.42.4
+  - @contractspec/lib.bus@1.42.4
 
 ## 1.42.3
 
@@ -183,15 +183,15 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/lib.bus@1.42.3
-  - @lssm/lib.contracts@1.42.3
-  - @lssm/lib.files@1.42.3
-  - @lssm/lib.identity-rbac@1.42.3
-  - @lssm/lib.jobs@1.42.3
-  - @lssm/lib.metering@1.42.3
-  - @lssm/lib.schema@1.42.3
-  - @lssm/module.audit-trail@1.42.3
-  - @lssm/module.notifications@1.42.3
+  - @contractspec/lib.bus@1.42.3
+  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.files@1.42.3
+  - @contractspec/lib.identity-rbac@1.42.3
+  - @contractspec/lib.jobs@1.42.3
+  - @contractspec/lib.metering@1.42.3
+  - @contractspec/lib.schema@1.42.3
+  - @contractspec/module.audit-trail@1.42.3
+  - @contractspec/module.notifications@1.42.3
 
 ## 1.42.2
 
@@ -199,15 +199,15 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/lib.bus@1.42.2
-  - @lssm/lib.contracts@1.42.2
-  - @lssm/lib.files@1.42.2
-  - @lssm/lib.identity-rbac@1.42.2
-  - @lssm/lib.jobs@1.42.2
-  - @lssm/lib.metering@1.42.2
-  - @lssm/lib.schema@1.42.2
-  - @lssm/module.audit-trail@1.42.2
-  - @lssm/module.notifications@1.42.2
+  - @contractspec/lib.bus@1.42.2
+  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.files@1.42.2
+  - @contractspec/lib.identity-rbac@1.42.2
+  - @contractspec/lib.jobs@1.42.2
+  - @contractspec/lib.metering@1.42.2
+  - @contractspec/lib.schema@1.42.2
+  - @contractspec/module.audit-trail@1.42.2
+  - @contractspec/module.notifications@1.42.2
 
 ## 1.42.1
 
@@ -215,15 +215,15 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/module.notifications@1.42.1
-  - @lssm/module.audit-trail@1.42.1
-  - @lssm/lib.identity-rbac@1.42.1
-  - @lssm/lib.contracts@1.42.1
-  - @lssm/lib.metering@1.42.1
-  - @lssm/lib.schema@1.42.1
-  - @lssm/lib.files@1.42.1
-  - @lssm/lib.jobs@1.42.1
-  - @lssm/lib.bus@1.42.1
+  - @contractspec/module.notifications@1.42.1
+  - @contractspec/module.audit-trail@1.42.1
+  - @contractspec/lib.identity-rbac@1.42.1
+  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.metering@1.42.1
+  - @contractspec/lib.schema@1.42.1
+  - @contractspec/lib.files@1.42.1
+  - @contractspec/lib.jobs@1.42.1
+  - @contractspec/lib.bus@1.42.1
 
 ## 1.42.0
 
@@ -234,12 +234,12 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/lib.bus@1.42.0
-  - @lssm/lib.contracts@1.42.0
-  - @lssm/lib.files@1.42.0
-  - @lssm/lib.identity-rbac@1.42.0
-  - @lssm/lib.jobs@1.42.0
-  - @lssm/lib.metering@1.42.0
-  - @lssm/lib.schema@1.42.0
-  - @lssm/module.audit-trail@1.42.0
-  - @lssm/module.notifications@1.42.0
+  - @contractspec/lib.bus@1.42.0
+  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.files@1.42.0
+  - @contractspec/lib.identity-rbac@1.42.0
+  - @contractspec/lib.jobs@1.42.0
+  - @contractspec/lib.metering@1.42.0
+  - @contractspec/lib.schema@1.42.0
+  - @contractspec/module.audit-trail@1.42.0
+  - @contractspec/module.notifications@1.42.0

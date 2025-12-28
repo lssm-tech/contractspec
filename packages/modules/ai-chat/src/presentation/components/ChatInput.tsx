@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Textarea } from '@lssm/lib.design-system';
-import { Button } from '@lssm/lib.design-system';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Textarea } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 import { Send, Paperclip, X, Loader2, FileText, Code } from 'lucide-react';
 import type { ChatAttachment } from '../../core/message-types';
 

@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@lssm/lib.ui-kit-web/ui/dialog';
+} from '@contractspec/lib.ui-kit-web/ui/dialog';
 
 interface OverviewCardProps {
   title: string;

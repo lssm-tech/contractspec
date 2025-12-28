@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { generateSchemaModelCode } from './schema-converter';
 import type { OpenApiSchema } from './types';
-import type { ContractsrcConfig } from '@lssm/lib.contracts';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts';
 
 const mockConfig = {
   conventions: { models: 'models' },
@@ -72,7 +72,7 @@ describe('Schema Generators', () => {
     expect(result.code).toContain("new GraphQLSchemaType(UserTypeDef, 'User')");
     expect(result.name).toBe('User');
     expect(result.imports).toContain(
-      "import { GraphQLSchemaType } from '@lssm/lib.schema';"
+      "import { GraphQLSchemaType } from '@contractspec/lib.schema';"
     );
   });
 });

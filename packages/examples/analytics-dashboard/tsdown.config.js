@@ -1,4 +1,4 @@
-import { moduleLibrary } from '@lssm/tool.tsdown';
+import { moduleLibrary } from '@contractspec/tool.tsdown';
 
 export default {
   ...moduleLibrary,

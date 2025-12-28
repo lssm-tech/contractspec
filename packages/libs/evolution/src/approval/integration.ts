@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ApprovalWorkflow } from '@lssm/lib.ai-agent/approval';
-import type { AgentSessionState } from '@lssm/lib.ai-agent/types';
+import { ApprovalWorkflow } from '@contractspec/lib.ai-agent/approval';
+import type { AgentSessionState } from '@contractspec/lib.ai-agent/types';
 import {
   type SpecSuggestion,
   type SpecSuggestionFilters,

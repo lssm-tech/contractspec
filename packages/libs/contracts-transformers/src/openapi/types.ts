@@ -7,14 +7,14 @@ import type { SpecSource, TransportHints } from '../common/types';
 import type {
   FolderConventions,
   OpenApiSourceConfig,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 // Re-export config types for convenience
 export type { OpenApiSourceConfig, FolderConventions };
 
 /**
  * OpenAPI import options (alias for OpenApiSource from config).
- * @deprecated Use OpenApiSource from @lssm/lib.contracts instead
+ * @deprecated Use OpenApiSource from @contractspec/lib.contracts instead
  */
 export type OpenApiImportOptions = Partial<OpenApiSourceConfig>;
 

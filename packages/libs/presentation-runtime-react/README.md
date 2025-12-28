@@ -1,4 +1,4 @@
-# @lssm/lib.presentation-runtime-react
+# @contractspec/lib.presentation-runtime-react
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To render ContractSpec-defined UIs in standard React web applications.
 ## Installation
 
 ```bash
-npm install @lssm/lib.presentation-runtime-react
+npm install @contractspec/lib.presentation-runtime-react
 # or
-bun add @lssm/lib.presentation-runtime-react
+bun add @contractspec/lib.presentation-runtime-react
 ```
 
 ## Key Concepts
@@ -29,7 +29,7 @@ bun add @lssm/lib.presentation-runtime-react
 import {
   useWorkflow,
   WorkflowStepRenderer,
-} from '@lssm/lib.presentation-runtime-react';
+} from '@contractspec/lib.presentation-runtime-react';
 import { MyWorkflowSpec } from './specs';
 
 export function WorkflowPage() {

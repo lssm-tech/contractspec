@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_sandbox_unlogged_DocBlocks: DocBlock[] = [

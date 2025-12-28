@@ -3,8 +3,11 @@ import type {
   LifecycleAssessmentInput,
   LifecycleMilestone,
   LifecycleMetricSnapshot,
-} from '@lssm/lib.lifecycle';
-import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
+import {
+  LIFECYCLE_STAGE_META,
+  LifecycleStage,
+} from '@contractspec/lib.lifecycle';
 import { StageSignalCollector } from '../collectors/signal-collector';
 import { StageScorer } from '../scoring/stage-scorer';
 import { LifecycleMilestonePlanner } from '../planning/milestone-planner';

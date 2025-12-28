@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@lssm/lib.ui-kit-web/ui/dialog';
+} from '@contractspec/lib.ui-kit-web/ui/dialog';
 
 export interface FormDialogProps {
   open: boolean;

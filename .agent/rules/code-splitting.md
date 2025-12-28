@@ -272,7 +272,7 @@ export const formatSpecVersion = (version: number) => {
 };
 
 // Both services import and use it
-import { formatSpecVersion } from '@lssm/lib.utils-typescript';
+import { formatSpecVersion } from '@contractspec/lib.utils-typescript';
 ```
 
 **Design for composition**:

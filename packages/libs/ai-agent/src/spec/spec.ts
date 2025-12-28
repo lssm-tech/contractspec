@@ -1,6 +1,6 @@
-import type { OwnerShipMeta } from '@lssm/lib.contracts/ownership';
-import type { KnowledgeCategory } from '@lssm/lib.contracts/knowledge/spec';
-import type { PolicyRef } from '@lssm/lib.contracts/policy/spec';
+import type { OwnerShipMeta } from '@contractspec/lib.contracts/ownership';
+import type { KnowledgeCategory } from '@contractspec/lib.contracts/knowledge/spec';
+import type { PolicyRef } from '@contractspec/lib.contracts/policy/spec';
 
 /**
  * Metadata for an agent specification.

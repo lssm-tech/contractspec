@@ -1,7 +1,7 @@
 /**
  * AI Chat providers
  *
- * Re-exports from @lssm/lib.ai-providers with chat-specific utilities.
+ * Re-exports from @contractspec/lib.ai-providers with chat-specific utilities.
  */
 
 // Re-export core types and functions from shared library
@@ -34,7 +34,7 @@ export {
   getEnvVarName,
   isOllamaRunning,
   listOllamaModels,
-} from '@lssm/lib.ai-providers';
+} from '@contractspec/lib.ai-providers';
 
 // Chat-specific utilities
 export { supportsLocalMode, isStudioAvailable } from './chat-utilities';

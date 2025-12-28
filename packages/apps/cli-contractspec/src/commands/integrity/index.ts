@@ -11,11 +11,11 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import {
-  createNodeAdapters,
   analyzeIntegrity,
+  createNodeAdapters,
   generateMermaidDiagram,
   type IntegrityAnalysisResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 type OutputFormat = 'text' | 'json' | 'mermaid';
 type DiagramType = 'feature-map' | 'orphans' | 'dependencies' | 'full';

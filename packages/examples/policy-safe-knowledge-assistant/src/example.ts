@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.policy-safe-knowledge-assistant.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.policy-safe-knowledge-assistant',
+    packageName: '@contractspec/example.policy-safe-knowledge-assistant',
     feature: './feature',
     docs: './docs',
   },

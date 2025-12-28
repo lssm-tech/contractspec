@@ -1,4 +1,4 @@
-# @lssm/lib.logger
+# @contractspec/lib.logger
 
 ## 1.43.2
 

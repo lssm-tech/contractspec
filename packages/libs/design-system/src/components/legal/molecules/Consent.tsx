@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Checkbox } from '@lssm/lib.ui-kit-web/ui/checkbox';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { Checkbox } from '@contractspec/lib.ui-kit-web/ui/checkbox';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export function ConsentItem({
   id,

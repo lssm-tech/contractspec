@@ -5,7 +5,7 @@ import {
   type Tracer,
 } from '@opentelemetry/api';
 
-const DEFAULT_TRACER_NAME = '@lssm/lib.observability';
+const DEFAULT_TRACER_NAME = '@contractspec/lib.observability';
 
 export function getTracer(name: string = DEFAULT_TRACER_NAME): Tracer {
   return trace.getTracer(name);

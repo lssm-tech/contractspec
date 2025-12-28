@@ -1,1 +1,1 @@
-export * from '@lssm/lib.contracts/integrations/providers/vector-store';
+export * from '@contractspec/lib.contracts/integrations/providers/vector-store';

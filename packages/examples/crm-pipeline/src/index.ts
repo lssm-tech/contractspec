@@ -11,9 +11,9 @@ export { default as example } from './example';
 import './docs';
 
 // Schema composition configuration
-import { identityRbacSchemaContribution } from '@lssm/lib.identity-rbac';
-import { auditTrailSchemaContribution } from '@lssm/module.audit-trail';
-import { notificationsSchemaContribution } from '@lssm/module.notifications';
+import { identityRbacSchemaContribution } from '@contractspec/lib.identity-rbac';
+import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail';
+import { notificationsSchemaContribution } from '@contractspec/module.notifications';
 import { crmPipelineSchemaContribution } from './entities';
 
 /**

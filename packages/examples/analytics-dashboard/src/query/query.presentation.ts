@@ -1,5 +1,5 @@
-import type { PresentationSpec } from '@lssm/lib.contracts';
-import { StabilityEnum } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts';
+import { StabilityEnum } from '@contractspec/lib.contracts';
 import { QueryModel } from './query.schema';
 
 export const QueriesListPresentation: PresentationSpec = {

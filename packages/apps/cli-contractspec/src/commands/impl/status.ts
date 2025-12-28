@@ -8,14 +8,14 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import {
-  createNodeFsAdapter,
   createConsoleLoggerAdapter,
-  loadWorkspaceConfig,
-  resolveImplementations,
-  resolveAllImplementations,
+  createNodeFsAdapter,
   getImplementationSummary,
+  loadWorkspaceConfig,
+  resolveAllImplementations,
+  resolveImplementations,
   type SpecImplementationResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import type { ImplStatusOptions } from './types';
 
 /**

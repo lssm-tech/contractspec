@@ -1,4 +1,4 @@
-# @lssm/lib.analytics
+# @contractspec/lib.analytics
 
 Website: https://contractspec.io/
 

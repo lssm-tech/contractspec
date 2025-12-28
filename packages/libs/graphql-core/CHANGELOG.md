@@ -1,4 +1,4 @@
-# @lssm/lib.graphql-core
+# @contractspec/lib.graphql-core
 
 ## 1.43.2
 

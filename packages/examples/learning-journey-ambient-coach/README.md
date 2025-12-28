@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ambient-coach
+# @contractspec/example.learning-journey-ambient-coach
 
 Website: https://contractspec.io/
 

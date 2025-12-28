@@ -1,13 +1,13 @@
 'use client';
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from '@lssm/lib.ui-kit-web/ui/sheet';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+} from '@contractspec/lib.ui-kit-web/ui/sheet';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
 import { Menu } from 'lucide-react';
 import { cva } from 'class-variance-authority';
 import type {

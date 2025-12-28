@@ -1,10 +1,10 @@
 'use client';
 
 import { useMemo } from 'react';
-import { GamifiedMiniApp } from '@lssm/example.learning-journey-ui-gamified';
-import { OnboardingMiniApp } from '@lssm/example.learning-journey-ui-onboarding';
-import { CoachingMiniApp } from '@lssm/example.learning-journey-ui-coaching';
-import type { LearningView } from '@lssm/example.learning-journey-ui-shared';
+import { GamifiedMiniApp } from '@contractspec/example.learning-journey-ui-gamified';
+import { OnboardingMiniApp } from '@contractspec/example.learning-journey-ui-onboarding';
+import { CoachingMiniApp } from '@contractspec/example.learning-journey-ui-coaching';
+import type { LearningView } from '@contractspec/example.learning-journey-ui-shared';
 import { learningJourneyTracks } from '../tracks';
 
 /** Template IDs that map to learning journey tracks */

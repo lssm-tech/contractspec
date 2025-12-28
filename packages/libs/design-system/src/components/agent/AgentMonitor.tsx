@@ -1,9 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import { Card, CardContent, CardHeader } from '@lssm/lib.ui-kit-web/ui/card';
-import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface AgentSessionSnapshot {
   sessionId: string;

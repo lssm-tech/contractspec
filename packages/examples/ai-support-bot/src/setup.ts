@@ -1,10 +1,10 @@
-import { TicketResolver } from '@lssm/lib.support-bot/rag';
-import { TicketClassifier } from '@lssm/lib.support-bot/tickets';
-import { AutoResponder } from '@lssm/lib.support-bot/bot';
-import type { KnowledgeAnswer } from '@lssm/lib.knowledge/query/service';
-import type { SupportTicket } from '@lssm/lib.support-bot/types';
-import { Logger, LogLevel } from '@lssm/lib.logger';
-import type { LoggerConfig } from '@lssm/lib.logger/types';
+import { TicketResolver } from '@contractspec/lib.support-bot/rag';
+import { TicketClassifier } from '@contractspec/lib.support-bot/tickets';
+import { AutoResponder } from '@contractspec/lib.support-bot/bot';
+import type { KnowledgeAnswer } from '@contractspec/lib.knowledge/query/service';
+import type { SupportTicket } from '@contractspec/lib.support-bot/types';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
+import type { LoggerConfig } from '@contractspec/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

@@ -3,8 +3,8 @@ import {
   type EventKey,
   eventKey,
   type EventSpec,
-} from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { EventBus } from './eventBus';
 import { encodeEvent, decodeEvent } from './eventBus';
 import type { EventMetadata } from './metadata';

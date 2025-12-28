@@ -1,7 +1,7 @@
 import type {
   OverlayModification,
   OverlaySpec,
-} from '@lssm/lib.overlay-engine';
+} from '@contractspec/lib.overlay-engine';
 import type { BehaviorInsights } from './types';
 
 export interface OverlaySuggestionOptions {

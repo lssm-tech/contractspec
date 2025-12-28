@@ -1,8 +1,8 @@
 /**
  * Pipeline Presentation Descriptors
  */
-import type { PresentationSpec } from '@lssm/lib.contracts';
-import { StabilityEnum } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts';
+import { StabilityEnum } from '@contractspec/lib.contracts';
 import { DealModel } from '../deal/deal.schema';
 
 /**

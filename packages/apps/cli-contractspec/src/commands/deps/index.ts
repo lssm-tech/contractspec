@@ -2,11 +2,11 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import {
   analyzeDeps,
-  getContractNode,
-  exportGraphAsDot,
-  getGraphStats,
   createNodeAdapters,
-} from '@lssm/bundle.contractspec-workspace';
+  exportGraphAsDot,
+  getContractNode,
+  getGraphStats,
+} from '@contractspec/bundle.workspace';
 import { getErrorMessage } from '../../utils/errors';
 
 type OutputFormat = 'text' | 'json' | 'dot';

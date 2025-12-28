@@ -1,4 +1,4 @@
-import type { LearningJourneyTrackSpec } from '@lssm/module.learning-journey/track-spec';
+import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
 export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
   id: 'studio_getting_started',
@@ -19,7 +19,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 1,
       completion: {
         eventName: 'studio.template.instantiated',
-        sourceModule: '@lssm/bundle.contractspec-studio',
+        sourceModule: '@contractspec/bundle.studio',
       },
       xpReward: 20,
       metadata: { surface: 'projects' },
@@ -32,7 +32,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 2,
       completion: {
         eventName: 'spec.changed',
-        sourceModule: '@lssm/bundle.contractspec-studio',
+        sourceModule: '@contractspec/bundle.studio',
       },
       xpReward: 20,
       metadata: { surface: 'spec-editor' },
@@ -44,7 +44,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 3,
       completion: {
         eventName: 'regeneration.completed',
-        sourceModule: '@lssm/lib.contracts/regenerator',
+        sourceModule: '@contractspec/lib.contracts/regenerator',
       },
       xpReward: 20,
       metadata: { surface: 'regenerator' },
@@ -56,7 +56,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 4,
       completion: {
         eventName: 'module.navigated',
-        sourceModule: '@lssm/bundle.contractspec-studio',
+        sourceModule: '@contractspec/bundle.studio',
         payloadFilter: { moduleId: 'canvas' },
       },
       xpReward: 20,
@@ -69,7 +69,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
       order: 5,
       completion: {
         eventName: 'studio.evolution.applied',
-        sourceModule: '@lssm/lib.evolution',
+        sourceModule: '@contractspec/lib.evolution',
       },
       xpReward: 30,
       metadata: { surface: 'evolution' },

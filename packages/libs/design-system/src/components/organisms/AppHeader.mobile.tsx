@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { View, Text, Pressable } from 'react-native';
-import { cn } from '@lssm/lib.ui-kit/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit/ui/utils';
 import { SheetMenu } from '../native/SheetMenu.mobile';
 import { BottomTabs, type BottomTabItem } from '../native/BottomTabs.mobile';
 

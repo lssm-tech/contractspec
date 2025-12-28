@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Input } from '../../atoms/Input';
 import { Textarea } from '../../atoms/Textarea';
-import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 
 export function ContactFields({
   value,

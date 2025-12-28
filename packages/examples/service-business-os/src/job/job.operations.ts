@@ -1,5 +1,5 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import {
   JobModel,
   ScheduleJobInputModel,

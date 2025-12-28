@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Skeleton } from '@lssm/lib.ui-kit-web/ui/skeleton';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { Skeleton } from '@contractspec/lib.ui-kit-web/ui/skeleton';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { SkeletonBlockProps } from './types';
 
 export function SkeletonBlock({

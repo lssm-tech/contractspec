@@ -1,6 +1,6 @@
 import * as z from 'zod';
-import type { DefinedJob } from '@lssm/lib.contracts/jobs/define-job';
-import type { Job } from '@lssm/lib.contracts/jobs/queue';
+import type { DefinedJob } from '@contractspec/lib.contracts/jobs/define-job';
+import type { Job } from '@contractspec/lib.contracts/jobs/queue';
 
 export const PING_JOB_TYPE = 'core.ping' as const;
 

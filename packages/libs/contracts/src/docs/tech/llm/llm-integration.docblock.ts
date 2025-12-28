@@ -4,7 +4,7 @@
  * Documentation for ContractSpec's LLM integration features.
  */
 
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_llm_integration_DocBlocks: DocBlock[] = [
@@ -89,8 +89,8 @@ llm.verify { specPath: "path/to/my.spec.ts", implementationPath: "path/to/impl.t
 ### Programmatic Usage
 
 \`\`\`typescript
-import { operationSpecToFullMarkdown, operationSpecToAgentPrompt } from '@lssm/lib.contracts/llm';
-import { createAgentGuideService, createVerifyService } from '@lssm/bundle.contractspec-workspace';
+import { operationSpecToFullMarkdown, operationSpecToAgentPrompt } from '@contractspec/lib.contracts/llm';
+import { createAgentGuideService, createVerifyService } from '@contractspec/bundle.workspace';
 
 // Export
 const markdown = operationSpecToFullMarkdown(mySpec);
@@ -271,8 +271,8 @@ Checks TypeScript structure against spec requirements:
 | Check | What it validates |
 |-------|------------------|
 | Handler export | Function is properly exported |
-| Contracts import | Imports from @lssm/lib.contracts |
-| Schema import | Imports from @lssm/lib.schema |
+| Contracts import | Imports from @contractspec/lib.contracts |
+| Schema import | Imports from @contractspec/lib.schema |
 | No \`any\` type | TypeScript strict compliance |
 | Error handling | Error codes are referenced |
 | Event emission | Event patterns exist |

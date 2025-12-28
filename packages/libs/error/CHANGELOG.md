@@ -1,4 +1,4 @@
-# @lssm/lib.error
+# @contractspec/lib.error
 
 ## 1.43.2
 

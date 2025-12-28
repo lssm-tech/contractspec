@@ -7,10 +7,10 @@ This is the ContractSpec JetBrains IDE plugin. It provides spec validation, scaf
 ## Architecture
 
 The plugin uses:
-- `@lssm/module.contractspec-workspace` for pure analysis + templates
-- `@lssm/bundle.contractspec-workspace` for workspace services + adapters
+- `@contractspec/module.workspace` for pure analysis + templates
+- `@contractspec/bundle.workspace` for workspace services + adapters
 
-This allows the plugin to work without requiring `@lssm/app.cli-contractspec` to be installed.
+This allows the plugin to work without requiring `@contractspec/app.cli-contractspec` to be installed.
 
 ## Build & Run
 
@@ -35,7 +35,7 @@ The plugin communicates with TypeScript services via a Node.js subprocess:
 
 1. Plugin starts Node.js process running `bridge/src/server.ts`
 2. JSON-RPC communication over stdio
-3. Bridge wraps `@lssm/bundle.contractspec-workspace` services
+3. Bridge wraps `@contractspec/bundle.workspace` services
 4. Plugin handles UI, bridge handles business logic
 
 ## Telemetry

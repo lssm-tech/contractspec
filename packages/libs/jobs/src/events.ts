@@ -1,5 +1,5 @@
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
-import { defineEvent, StabilityEnum } from '@lssm/lib.contracts';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts';
 
 // ============ Event Payloads ============
 

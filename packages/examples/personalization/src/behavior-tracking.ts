@@ -1,7 +1,7 @@
-import { createBehaviorTracker } from '@lssm/lib.personalization/tracker';
-import { InMemoryBehaviorStore } from '@lssm/lib.personalization/store';
-import { BehaviorAnalyzer } from '@lssm/lib.personalization/analyzer';
-import { Logger, LogLevel } from '@lssm/lib.logger';
+import { createBehaviorTracker } from '@contractspec/lib.personalization/tracker';
+import { InMemoryBehaviorStore } from '@contractspec/lib.personalization/store';
+import { BehaviorAnalyzer } from '@contractspec/lib.personalization/analyzer';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

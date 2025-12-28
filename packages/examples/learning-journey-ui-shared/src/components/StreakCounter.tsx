@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { StreakCounterProps } from '../types';
 
 const sizeStyles = {

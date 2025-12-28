@@ -1,4 +1,4 @@
-import { type AnySchemaModel } from '@lssm/lib.schema';
+import { type AnySchemaModel } from '@contractspec/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
 import { SpecContractRegistry } from './registry';
@@ -16,7 +16,7 @@ export interface EventSpec<T extends AnySchemaModel> {
   meta: EventSpecMeta;
   /** JSON-like paths to redact from logs/exports. */
   pii?: string[];
-  /** Event payload schema from @lssm/lib.schema. */
+  /** Event payload schema from @contractspec/lib.schema. */
   payload: T;
 }
 

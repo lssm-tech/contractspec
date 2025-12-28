@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-duo-drills
+# @contractspec/example.learning-journey-duo-drills
 
 Website: https://contractspec.io/
 
@@ -22,8 +22,8 @@ Drill-based learning journey example that demonstrates short SRS-driven drills, 
 import {
   recordEvent,
   getProgress,
-} from '@lssm/example.learning-journey-registry/api';
-import { drillTracks } from '@lssm/example.learning-journey-duo-drills/track';
+} from '@contractspec/example.learning-journey-registry/api';
+import { drillTracks } from '@contractspec/example.learning-journey-duo-drills/track';
 
 recordEvent({
   name: 'drill.session.completed',

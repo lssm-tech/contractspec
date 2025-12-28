@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { View, type ViewProps } from 'react-native';
 
 function Empty({ className, ...props }: ViewProps) {

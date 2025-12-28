@@ -1,5 +1,8 @@
-import type { OperationSpec, ResourceRefDescriptor } from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type {
+  OperationSpec,
+  ResourceRefDescriptor,
+} from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 export interface TrafficSnapshot {
   id: string;

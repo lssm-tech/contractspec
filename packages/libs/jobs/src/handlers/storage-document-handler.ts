@@ -1,6 +1,6 @@
-import type { ObjectStorageProvider } from '@lssm/lib.contracts/integrations/providers/storage';
-import type { StorageIngestionAdapter } from '@lssm/lib.knowledge/ingestion/storage-adapter';
-import type { JobHandler } from '@lssm/lib.contracts/jobs/queue';
+import type { ObjectStorageProvider } from '@contractspec/lib.contracts/integrations/providers/storage';
+import type { StorageIngestionAdapter } from '@contractspec/lib.knowledge/ingestion/storage-adapter';
+import type { JobHandler } from '@contractspec/lib.contracts/jobs/queue';
 
 export interface StorageDocumentJobPayload {
   bucket: string;

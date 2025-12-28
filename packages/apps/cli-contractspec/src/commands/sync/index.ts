@@ -1,15 +1,15 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createNodeAdapters } from '@lssm/bundle.contractspec-workspace';
+import type { ValidateSpecResult } from '@contractspec/bundle.workspace';
 import {
+  createNodeAdapters,
   loadWorkspaceConfig,
   syncSpecs,
   validateSpec,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import { loadConfig, mergeConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
 import { buildCommand } from '../build';
-import type { ValidateSpecResult } from '@lssm/bundle.contractspec-workspace';
 
 export const syncCommand = new Command('sync')
   .description('Sync contracts by building all discovered specs')

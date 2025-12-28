@@ -20,7 +20,7 @@ import {
   getPackageName,
   isMonorepo,
   runDoctor,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import {
   getOpenApiSources,
   upsertOpenApiSource,

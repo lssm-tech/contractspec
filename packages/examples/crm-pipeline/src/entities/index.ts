@@ -3,7 +3,7 @@ export * from './contact.entity';
 export * from './deal.entity';
 export * from './task.entity';
 
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 import { CompanyEntity, CompanySizeEnum } from './company.entity';
 import { ContactEntity, ContactStatusEnum } from './contact.entity';
 import {
@@ -24,7 +24,7 @@ import {
  * CRM Pipeline schema contribution.
  */
 export const crmPipelineSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.crm-pipeline',
+  moduleId: '@contractspec/example.crm-pipeline',
   entities: [
     CompanyEntity,
     ContactEntity,

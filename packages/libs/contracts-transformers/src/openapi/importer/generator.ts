@@ -5,7 +5,7 @@ import { inferAuthLevel, inferOpKind } from './analyzer';
 import type {
   ContractsrcConfig,
   OpenApiSourceConfig,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 /**
  * Generate ContractSpec TypeScript code for an operation.
@@ -28,7 +28,7 @@ export function generateSpecCode(
 
   // Imports
   lines.push(
-    "import { defineCommand, defineQuery } from '@lssm/lib.contracts';"
+    "import { defineCommand, defineQuery } from '@contractspec/lib.contracts';"
   );
   if (inputModel || outputModel || queryModel || paramsModel || headersModel) {
     const collectedImports = new Set<string>();

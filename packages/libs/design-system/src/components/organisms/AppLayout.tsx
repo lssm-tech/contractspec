@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,7 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@lssm/lib.ui-kit-web/ui/breadcrumb';
+} from '@contractspec/lib.ui-kit-web/ui/breadcrumb';
 import { AppSidebar } from './AppSidebar';
 
 export interface AppLayoutProps {

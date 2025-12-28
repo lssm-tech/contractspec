@@ -2,9 +2,9 @@ import type {
   OperationSpec,
   OpKind,
   ResourceRefDescriptor,
-} from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
-import type { LifecycleStage } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
+import type { LifecycleStage } from '@contractspec/lib.lifecycle';
 
 export type AnomalySeverity = 'low' | 'medium' | 'high';
 export type SuggestionStatus = 'pending' | 'approved' | 'rejected';

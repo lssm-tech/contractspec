@@ -1,5 +1,5 @@
-import { defineEvent } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { ChatMessageModel, ChatConversationModel } from './schema';
 
 export const MessageSentEvent = defineEvent({

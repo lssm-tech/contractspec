@@ -4,7 +4,7 @@ import type { RetrievalResult, RetrievalOptions } from '../types';
  * Unified interface for knowledge retrieval.
  *
  * Implementations can use vector stores, static content, or hybrid approaches.
- * This interface is consumed by @lssm/lib.ai-agent for both static injection
+ * This interface is consumed by @contractspec/lib.ai-agent for both static injection
  * and dynamic RAG tool queries.
  */
 export interface KnowledgeRetriever {

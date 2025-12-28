@@ -1,9 +1,9 @@
 // Prevent forbidden cross-surface imports (e.g., native ui-kit in web code).
 const DEFAULT_FORBIDDEN = [
   {
-    path: '@lssm/lib.ui-kit',
+    path: '@contractspec/lib.ui-kit',
     message:
-      'Do not import native ui-kit in web code. Use @lssm/lib.design-system or @lssm/lib.ui-kit-web.',
+      'Do not import native ui-kit in web code. Use @contractspec/lib.design-system or @contractspec/lib.ui-kit-web.',
   },
 ];
 

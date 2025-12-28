@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 
 import { createDemoAssistantHandlers } from './demo.handlers';
 
-describe('@lssm/example.locale-jurisdiction-gate demo handlers', () => {
+describe('@contractspec/example.locale-jurisdiction-gate demo handlers', () => {
   it('blocks when locale is missing', async () => {
     const handlers = createDemoAssistantHandlers();
     const result = await handlers.answer({

@@ -1,4 +1,4 @@
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { OwnerShipMeta } from '../ownership';
 import type { BlockConfig } from '@blocknote/core';
 

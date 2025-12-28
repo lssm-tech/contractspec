@@ -3,7 +3,7 @@
  *
  * Defines the feature module for AI-powered vibe coding chat.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * AI Chat feature module that bundles conversational AI assistance

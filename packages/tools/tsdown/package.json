@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/tool.tsdown",
+  "name": "@contractspec/tool.tsdown",
   "version": "1.43.2",
   "type": "module",
   "description": "Shared tsdown config presets for LSSM monorepo",

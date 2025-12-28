@@ -9,23 +9,23 @@ import {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from '@lssm/lib.ui-kit-web/ui/dialog';
-import { Button } from '@lssm/lib.design-system';
-import { Switch } from '@lssm/lib.ui-kit-web/ui/switch';
-import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+} from '@contractspec/lib.ui-kit-web/ui/dialog';
+import { Button } from '@contractspec/lib.design-system';
+import { Switch } from '@contractspec/lib.ui-kit-web/ui/switch';
+import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@lssm/lib.ui-kit-web/ui/select';
+} from '@contractspec/lib.ui-kit-web/ui/select';
 import {
   type ReduceMotion,
   type TextSize,
   useA11YPreferences,
 } from './preferences';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export function AccessibilityPanel({ className }: { className?: string }) {
   const { preferences, setPreferences } = useA11YPreferences();

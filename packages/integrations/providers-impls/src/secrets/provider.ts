@@ -7,9 +7,9 @@ export type {
   SecretFetchOptions,
   SecretPayloadEncoding,
   ParsedSecretUri,
-} from '@lssm/integration.runtime/secrets/provider';
+} from '@contractspec/integration.runtime/secrets/provider';
 export {
   SecretProviderError,
   parseSecretUri,
   normalizeSecretPayload,
-} from '@lssm/integration.runtime/secrets/provider';
+} from '@contractspec/integration.runtime/secrets/provider';

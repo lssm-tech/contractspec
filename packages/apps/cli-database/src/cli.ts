@@ -68,7 +68,7 @@ Schema Generation (spec-first):
 
 Examples:
   database schema:generate --config ./schema.config.ts
-  database schema:compose --modules "@lssm/lib.identity-rbac,@lssm/module.audit-trail"
+  database schema:compose --modules "@contractspec/lib.identity-rbac,@contractspec/module.audit-trail"
   database generate
   database migrate:dev --name add_users_table
 `);

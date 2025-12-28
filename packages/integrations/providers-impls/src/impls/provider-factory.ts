@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer';
 
-import type { IntegrationContext } from '@lssm/integration.runtime/runtime';
-import type { SecretValue } from '@lssm/integration.runtime/secrets/provider';
+import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
+import type { SecretValue } from '@contractspec/integration.runtime/secrets/provider';
 import { MistralLLMProvider } from './mistral-llm';
 import { MistralEmbeddingProvider } from './mistral-embedding';
 import { QdrantVectorProvider } from './qdrant-vector';

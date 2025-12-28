@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import {
   compareSpecs,
   createNodeAdapters,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import { getErrorMessage } from '../../utils/errors';
 import { diffText } from './text';
 

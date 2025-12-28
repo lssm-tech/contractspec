@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
+} from '@contractspec/lib.ui-kit-web/ui/dropdown-menu';
 // } from './DropdownMenu';
 
 type Provider = 'chatgpt' | 'claude';

@@ -2,7 +2,7 @@ import type {
   AuditRecord,
   AuditQueryOptions,
   AuditStorage,
-} from '@lssm/lib.bus';
+} from '@contractspec/lib.bus';
 
 /**
  * Extended query options for audit storage.

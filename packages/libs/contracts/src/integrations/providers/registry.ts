@@ -13,7 +13,7 @@ import { registerPowensIntegration } from './powens';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
- * `@lssm/lib.contracts`.
+ * `@contractspec/lib.contracts`.
  */
 export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry {
   const registry = new IntegrationSpecRegistry();

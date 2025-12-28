@@ -14,7 +14,7 @@ import {
   type RegenerationRule,
   type SignalAdapters,
   resolveAppConfig,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 interface RegeneratorCliOptions {
   once?: boolean;

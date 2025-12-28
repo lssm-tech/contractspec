@@ -10,7 +10,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '@lssm/lib.ui-kit-web/ui/command';
+} from '@contractspec/lib.ui-kit-web/ui/command';
 
 export interface CommandPaletteProps {
   open?: boolean;

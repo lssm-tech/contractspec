@@ -13,7 +13,7 @@ export interface SchemaGenerateArgs {
  *
  * Usage:
  *   database schema:generate --config ./schema.config.ts --output ./prisma/schema
- *   database schema:generate --module @lssm/lib.identity-rbac
+ *   database schema:generate --module @contractspec/lib.identity-rbac
  */
 export async function runSchemaGenerate(argv: SchemaGenerateArgs) {
   console.log('📝 Generating Prisma schema from entity specs...\n');
@@ -43,7 +43,7 @@ export async function runSchemaGenerate(argv: SchemaGenerateArgs) {
   console.log('');
 
   // Dynamically import the generator
-  const { composeModuleSchemas } = await import('@lssm/lib.schema');
+  const { composeModuleSchemas } = await import('@contractspec/lib.schema');
 
   // Generate the combined schema
   const prismaSchema = composeModuleSchemas(modules, {

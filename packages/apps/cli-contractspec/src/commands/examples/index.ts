@@ -7,7 +7,7 @@ import {
   listExamples,
   searchExamples,
   validateExamples,
-} from '@lssm/module.contractspec-examples';
+} from '@contractspec/module.examples';
 
 interface WorkspaceExampleFolderCheck {
   exampleDir: string;
@@ -195,9 +195,9 @@ async function validateWorkspaceExamplesFolder(
     }>(pkgJsonPath);
     const packageName = pkg?.name;
     if (!packageName) errors.push('package.json missing "name"');
-    if (packageName && !packageName.startsWith('@lssm/example.')) {
+    if (packageName && !packageName.startsWith('@contractspec/example.')) {
       errors.push(
-        `package name must start with "@lssm/example." (got ${packageName})`
+        `package name must start with "@contractspec/example." (got ${packageName})`
       );
     }
 
@@ -231,7 +231,8 @@ async function validateWorkspaceExamplesFolder(
     results.map((r) => r.packageName).filter(Boolean) as string[]
   );
   for (const ex of examples) {
-    if (!ex.entrypoints.packageName.startsWith('@lssm/example.')) continue;
+    if (!ex.entrypoints.packageName.startsWith('@contractspec/example.'))
+      continue;
     if (!folderPackageNames.has(ex.entrypoints.packageName)) {
       results.push({
         exampleDir: dir,

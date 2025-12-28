@@ -2,9 +2,9 @@ import type {
   AnyOperationSpec,
   OperationSpec,
   ResourceRefDescriptor,
-} from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
-import { Logger } from '@lssm/lib.observability';
+} from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
+import { Logger } from '@contractspec/lib.observability';
 import { randomUUID } from 'node:crypto';
 import {
   type EvolutionConfig,

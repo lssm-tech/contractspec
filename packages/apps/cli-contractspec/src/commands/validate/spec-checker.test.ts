@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 import { validateSpecStructure } from './spec-checker';
 
 describe('validateSpecStructure', () => {
   it('should validate valid operation spec', () => {
     const validOperationSpec = `
-import { defineCommand } from '@lssm/lib.contracts';
-import { SchemaModel } from '@lssm/lib.schema';
+import { defineCommand } from '@contractspec/lib.contracts';
+import { SchemaModel } from '@contractspec/lib.schema';
 
 export const TestSpec = defineCommand({
   meta: {
@@ -31,8 +31,9 @@ export const TestSpec = defineCommand({
 
     const result = validateSpecStructure(
       validOperationSpec,
-      'test.contracts.ts'
+      'test.operation.ts'
     );
+    console.info('result', result);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -55,8 +56,8 @@ export const TestSpec = defineCommand({
 
   it('should validate event spec', () => {
     const validEventSpec = `
-import { defineEvent } from '@lssm/lib.contracts';
-import { SchemaModel } from '@lssm/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts';
+import { SchemaModel } from '@contractspec/lib.schema';
 
 export const TestEvent = defineEvent({
   name: 'test.event_created',
@@ -72,7 +73,7 @@ export const TestEvent = defineEvent({
 
   it('should warn about event naming conventions', () => {
     const badEventName = `
-import { defineEvent } from '@lssm/lib.contracts';
+import { defineEvent } from '@contractspec/lib.contracts';
 
 export const TestEvent = defineEvent({
   name: 'test.create_user',

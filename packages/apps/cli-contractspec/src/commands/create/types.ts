@@ -1,4 +1,4 @@
-import type { FormatterType } from '@lssm/lib.contracts';
+import type { FormatterType } from '@contractspec/lib.contracts';
 import type { SpecType } from '../../types';
 
 export interface CreateOptions {

@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.openbanking-powens.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.openbanking-powens',
+    packageName: '@contractspec/example.openbanking-powens',
     docs: './docs',
   },
   surfaces: {

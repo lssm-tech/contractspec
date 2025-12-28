@@ -1,4 +1,4 @@
-# @lssm/lib.accessibility
+# @contractspec/lib.accessibility
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a standardized set of accessibility components and hooks that handle 
 ## Installation
 
 ```bash
-npm install @lssm/lib.accessibility
+npm install @contractspec/lib.accessibility
 # or
-bun add @lssm/lib.accessibility
+bun add @contractspec/lib.accessibility
 ```
 
 ## Key Concepts
@@ -44,7 +44,7 @@ import {
   SRLiveRegionProvider,
   RouteAnnouncer,
   SkipLink,
-} from '@lssm/lib.accessibility';
+} from '@contractspec/lib.accessibility';
 
 export default function RootLayout({ children }) {
   return (
@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
 ### Announcing Dynamic Changes
 
 ```tsx
-import { useSRLiveRegion } from '@lssm/lib.accessibility';
+import { useSRLiveRegion } from '@contractspec/lib.accessibility';
 
 export function TodoList() {
   const { announce } = useSRLiveRegion();

@@ -2,8 +2,8 @@ import {
   defineCommand,
   defineQuery,
   defineSchemaModel,
-} from '@lssm/lib.contracts';
-import { ScalarTypeEnum, defineEnum } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, defineEnum } from '@contractspec/lib.schema';
 
 const OWNERS = ['platform.notifications'] as const;
 

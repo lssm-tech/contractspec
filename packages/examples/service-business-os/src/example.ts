@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.service-business-os',
   },
   entrypoints: {
-    packageName: '@lssm/example.service-business-os',
+    packageName: '@contractspec/example.service-business-os',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

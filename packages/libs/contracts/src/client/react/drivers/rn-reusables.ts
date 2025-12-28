@@ -1,5 +1,5 @@
 /**
- * React Native driver for FormSpec using @lssm/lib.ui-kit components.
+ * React Native driver for FormSpec using @contractspec/lib.ui-kit components.
  * Maps contract form slots to mobile UI-kit primitives.
  */
 import type { DriverSlots } from '../form-render';
@@ -10,8 +10,8 @@ import type { DriverSlots } from '../form-render';
  *
  * Example usage:
  * ```tsx
- * import { rnReusablesDriver } from '@lssm/lib.contracts/client/react/drivers/rn-reusables';
- * import { Input, Textarea, Button } from '@lssm/lib.ui-kit/ui';
+ * import { rnReusablesDriver } from '@contractspec/lib.contracts/client/react/drivers/rn-reusables';
+ * import { Input, Textarea, Button } from '@contractspec/lib.ui-kit/ui';
  *
  * const driver = rnReusablesDriver({
  *   Input, Textarea, Button, // ... other components

@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 const entityCardVariants = cva('transition-all hover:shadow-2xs', {
   variants: {

@@ -1,5 +1,9 @@
-import type { DefinedJob } from '@lssm/lib.contracts/jobs/define-job';
-import type { Job, JobHandler, JobQueue } from '@lssm/lib.contracts/jobs/queue';
+import type { DefinedJob } from '@contractspec/lib.contracts/jobs/define-job';
+import type {
+  Job,
+  JobHandler,
+  JobQueue,
+} from '@contractspec/lib.contracts/jobs/queue';
 
 export function registerDefinedJob<TPayload>(
   queue: JobQueue,

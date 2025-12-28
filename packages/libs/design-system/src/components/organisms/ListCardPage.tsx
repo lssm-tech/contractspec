@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import { useResponsive } from '../../platform/useResponsive';
 
 const containerVariants = cva('', {

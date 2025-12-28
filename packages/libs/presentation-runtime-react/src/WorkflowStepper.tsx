@@ -1,6 +1,9 @@
 import * as React from 'react';
-import type { WorkflowSpec, WorkflowState } from '@lssm/lib.contracts/workflow';
-import { Stepper } from '@lssm/lib.design-system';
+import type {
+  WorkflowSpec,
+  WorkflowState,
+} from '@contractspec/lib.contracts/workflow';
+import { Stepper } from '@contractspec/lib.design-system';
 
 export interface WorkflowStepperProps {
   spec: WorkflowSpec;

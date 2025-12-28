@@ -1,4 +1,4 @@
-# @lssm/lib.content-gen
+# @contractspec/lib.content-gen
 
 Website: https://contractspec.io/
 
@@ -23,8 +23,8 @@ import {
   LandingPageGenerator,
   EmailCampaignGenerator,
   SocialPostGenerator,
-} from '@lssm/lib.content-gen/generators';
-import { SeoOptimizer } from '@lssm/lib.content-gen/seo';
+} from '@contractspec/lib.content-gen/generators';
+import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
 
 const brief = {
   title: 'Policy-safe Workflow Automation',

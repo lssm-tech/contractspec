@@ -1,4 +1,4 @@
-# @lssm/action.contractspec
+# @contractspec/action.contractspec
 
 ## 1.43.2
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 
 export type InputProps = React.ComponentPropsWithoutRef<'input'>;
 

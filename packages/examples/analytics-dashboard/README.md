@@ -1,4 +1,4 @@
-# @lssm/example.analytics-dashboard
+# @contractspec/example.analytics-dashboard
 
 Website: https://contractspec.io/
 
@@ -197,7 +197,7 @@ import {
   CreateDashboardContract,
   AddWidgetContract,
   createQueryEngine,
-} from '@lssm/example.analytics-dashboard';
+} from '@contractspec/example.analytics-dashboard';
 
 // Create a dashboard
 const dashboard = await execute(CreateDashboardContract, {
@@ -234,12 +234,12 @@ const result = await queryEngine.execute(
 
 ## Dependencies
 
-- `@lssm/lib.schema` - Entity definitions
-- `@lssm/lib.contracts` - Contract definitions
-- `@lssm/lib.identity-rbac` - Access control
-- `@lssm/lib.metering` - Usage metrics integration
-- `@lssm/module.audit-trail` - Change tracking
-- `@lssm/module.notifications` - Report delivery
+- `@contractspec/lib.schema` - Entity definitions
+- `@contractspec/lib.contracts` - Contract definitions
+- `@contractspec/lib.identity-rbac` - Access control
+- `@contractspec/lib.metering` - Usage metrics integration
+- `@contractspec/module.audit-trail` - Change tracking
+- `@contractspec/module.notifications` - Report delivery
 
 ## Feature Flags
 

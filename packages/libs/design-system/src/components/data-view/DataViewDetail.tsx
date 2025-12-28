@@ -5,7 +5,7 @@ import type {
   DataViewSpec,
   DataViewDetailConfig,
   DataViewField,
-} from '@lssm/lib.contracts/data-views';
+} from '@contractspec/lib.contracts/data-views';
 import { cn } from '../../lib/utils';
 import { getAtPath, formatValue } from './utils';
 

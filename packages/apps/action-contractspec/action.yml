@@ -118,7 +118,7 @@ runs:
         # Check if this is the ContractSpec monorepo itself
         if [ -f "packages/apps/cli-contractspec/package.json" ]; then
           echo "Building ContractSpec CLI from source..."
-          bun run build --filter=@lssm/app.cli-contractspec
+          bun run build --filter=@contractspec/app.cli-contractspec
         fi
 
     - name: Run ContractSpec CI checks

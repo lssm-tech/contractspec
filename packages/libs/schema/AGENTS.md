@@ -1,4 +1,4 @@
-# AI Agent Guide — `@lssm/lib.schema`
+# AI Agent Guide — `@contractspec/lib.schema`
 
 Scope: `packages/libs/schema/*`
 

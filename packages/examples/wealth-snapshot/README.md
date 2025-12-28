@@ -1,4 +1,4 @@
-# @lssm/example.wealth-snapshot
+# @contractspec/example.wealth-snapshot
 
 Website: https://contractspec.io/
 

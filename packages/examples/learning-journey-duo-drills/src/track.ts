@@ -1,4 +1,4 @@
-import type { LearningJourneyTrackSpec } from '@lssm/module.learning-journey/track-spec';
+import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
 export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
   id: 'drills_language_basics',

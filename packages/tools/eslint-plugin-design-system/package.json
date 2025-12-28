@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/eslint-plugin-design-system",
+  "name": "@contractspec/eslint-plugin-design-system",
   "version": "1.43.2",
   "private": false,
   "type": "module",

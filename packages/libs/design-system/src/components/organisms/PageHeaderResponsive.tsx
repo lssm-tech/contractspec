@@ -4,7 +4,7 @@ import * as React from 'react';
 import {
   PageHeader as WebPageHeader,
   type PageHeaderProps,
-} from '@lssm/lib.ui-kit-web/ui/page-header';
+} from '@contractspec/lib.ui-kit-web/ui/page-header';
 import { useResponsive } from '../../platform/useResponsive';
 
 export type PageHeaderResponsiveProps = PageHeaderProps;

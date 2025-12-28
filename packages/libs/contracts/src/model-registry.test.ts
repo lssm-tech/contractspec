@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
 import { ModelRegistry } from './model-registry';
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import * as z from 'zod';
-import { ZodSchemaType } from '@lssm/lib.schema';
+import { ZodSchemaType } from '@contractspec/lib.schema';
 
 describe('ModelRegistry', () => {
   describe('constructor', () => {

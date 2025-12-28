@@ -1,4 +1,4 @@
-# @lssm/app.cli-contractspec
+# @contractspec/app.cli-contractspec
 
 Website: https://contractspec.io/
 
@@ -10,7 +10,7 @@ CLI tool for creating, building, and validating contract specifications.
 ## Installation
 
 ```bash
-bun add -D @lssm/app.cli-contractspec
+bun add -D @contractspec/app.cli-contractspec
 ```
 
 ## Quick Start
@@ -588,9 +588,9 @@ contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 
 ### Import errors in generated code
 
-Make sure `@lssm/lib.contracts` and `@lssm/lib.schema` are installed:
+Make sure `@contractspec/lib.contracts` and `@contractspec/lib.schema` are installed:
 ```bash
-bunadd @lssm/lib.contracts @lssm/lib.schema
+bunadd @contractspec/lib.contracts @contractspec/lib.schema
 ```
 
 ## Contributing

@@ -4,7 +4,10 @@
  */
 
 import { createSchemaGenerator } from './schema-generators';
-import type { SchemaFormat, ContractsrcConfig } from '@lssm/lib.contracts';
+import type {
+  SchemaFormat,
+  ContractsrcConfig,
+} from '@contractspec/lib.contracts';
 import type { OpenApiSchema } from './types';
 import { toPascalCase } from '../common/utils';
 
@@ -264,7 +267,7 @@ export function generateImports(
   const modelsDir = sameDirectory ? '.' : `../${options.conventions.models}`;
 
   imports.add(
-    "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';"
+    "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@contractspec/lib.schema';"
   );
 
   for (const field of fields) {

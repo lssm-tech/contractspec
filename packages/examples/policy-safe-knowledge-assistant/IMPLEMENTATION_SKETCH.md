@@ -2,12 +2,12 @@
 
 This example package is **spec-first** and demonstrates how to compose:
 
-- `@lssm/example.locale-jurisdiction-gate`
-- `@lssm/example.versioned-knowledge-base`
-- `@lssm/example.kb-update-pipeline`
-- `@lssm/example.learning-patterns`
+- `@contractspec/example.locale-jurisdiction-gate`
+- `@contractspec/example.versioned-knowledge-base`
+- `@contractspec/example.kb-update-pipeline`
+- `@contractspec/example.learning-patterns`
 
-The runnable **sandbox UI/runtime** lives in `@lssm/bundle.contractspec-studio` (wired later).
+The runnable **sandbox UI/runtime** lives in `@contractspec/bundle.studio` (wired later).
 
 ### Package boundaries
 

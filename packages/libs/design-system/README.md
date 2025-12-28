@@ -1,14 +1,14 @@
-# @lssm/lib.design-system
+# @contractspec/lib.design-system
 
-[![npm version](https://img.shields.io/npm/v/@lssm/lib.design-system)](https://www.npmjs.com/package/@lssm/lib.design-system)
-[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.design-system)](https://www.npmjs.com/package/@lssm/lib.design-system)
+[![npm version](https://img.shields.io/npm/v/@contractspec/lib.design-system)](https://www.npmjs.com/package/@contractspec/lib.design-system)
+[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.design-system)](https://www.npmjs.com/package/@contractspec/lib.design-system)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
 
 Website: https://contractspec.io/
 
 
-High-level design system components, patterns, and layouts for LSSM applications. Built on top of `@lssm/lib.ui-kit`.
+High-level design system components, patterns, and layouts for LSSM applications. Built on top of `@contractspec/lib.ui-kit`.
 
 ## Purpose
 
@@ -24,9 +24,9 @@ To standardize the look and feel of LSSM applications by providing:
 ## Installation
 
 ```bash
-npm install @lssm/lib.design-system
+npm install @contractspec/lib.design-system
 # or
-bun add @lssm/lib.design-system
+bun add @contractspec/lib.design-system
 ```
 
 ## Key Concepts
@@ -68,8 +68,8 @@ bun add @lssm/lib.design-system
 ### App Layout
 
 ```tsx
-import { AppLayout } from '@lssm/lib.design-system/components/organisms/AppLayout';
-import { AppSidebar } from '@lssm/lib.design-system/components/organisms/AppSidebar';
+import { AppLayout } from '@contractspec/lib.design-system/components/organisms/AppLayout';
+import { AppSidebar } from '@contractspec/lib.design-system/components/organisms/AppSidebar';
 
 export default function Layout({ children }) {
   return <AppLayout sidebar={<AppSidebar />}>{children}</AppLayout>;
@@ -79,7 +79,7 @@ export default function Layout({ children }) {
 ### Zod Form
 
 ```tsx
-import { ZodForm } from '@lssm/lib.design-system/components/forms/ZodForm';
+import { ZodForm } from '@contractspec/lib.design-system/components/forms/ZodForm';
 import * as z from "zod";
 
 const schema = z.object({

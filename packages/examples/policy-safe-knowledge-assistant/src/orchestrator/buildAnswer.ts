@@ -2,7 +2,7 @@ import {
   enforceAllowedScope,
   enforceCitations,
   validateEnvelope,
-} from '@lssm/example.locale-jurisdiction-gate/policy/guard';
+} from '@contractspec/example.locale-jurisdiction-gate/policy/guard';
 
 type AllowedScope = 'education_only' | 'generic_info' | 'escalation_required';
 

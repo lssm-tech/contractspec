@@ -2,8 +2,8 @@ import {
   defineEvent,
   defineSchemaModel,
   StabilityEnum,
-} from '@lssm/lib.contracts';
-import { ScalarTypeEnum } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import { ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const KbChangeDetectedPayload = defineSchemaModel({
   name: 'KbChangeDetectedPayload',

@@ -7,17 +7,17 @@
 
 import * as vscode from 'vscode';
 import {
-  runSetup,
   ALL_SETUP_TARGETS,
-  SETUP_TARGET_LABELS,
-  findWorkspaceRoot,
   findPackageRoot,
-  isMonorepo,
+  findWorkspaceRoot,
   getPackageName,
-  type SetupTarget,
-  type SetupScope,
+  isMonorepo,
+  runSetup,
+  SETUP_TARGET_LABELS,
   type SetupPromptCallbacks,
-} from '@lssm/bundle.contractspec-workspace';
+  type SetupScope,
+  type SetupTarget,
+} from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**

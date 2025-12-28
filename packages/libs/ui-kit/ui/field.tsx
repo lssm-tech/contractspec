@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Label } from './label';
 import { Separator } from './separator';
 import { Box, VStack, type BoxProps } from './stack';

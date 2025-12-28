@@ -1,4 +1,4 @@
-# @lssm/lib.graphql-core
+# @contractspec/lib.graphql-core
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a pre-configured Pothos `SchemaBuilder` with common plugins (Complexi
 ## Installation
 
 ```bash
-npm install @lssm/lib.graphql-core
+npm install @contractspec/lib.graphql-core
 # or
-bun add @lssm/lib.graphql-core
+bun add @contractspec/lib.graphql-core
 ```
 
 ## Key Concepts
@@ -31,7 +31,7 @@ bun add @lssm/lib.graphql-core
 ## Usage
 
 ```ts
-import { builder } from '@lssm/lib.graphql-core';
+import { builder } from '@contractspec/lib.graphql-core';
 
 builder.queryType({
   fields: (t) => ({

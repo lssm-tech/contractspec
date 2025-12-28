@@ -5,9 +5,9 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
+} from '@contractspec/lib.ui-kit-web/ui/card';
 import { TipFeed } from '../components/TipFeed';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Timeline({ track, progress }: LearningViewProps) {
   // Create feed items sorted by completion status (completed first for "recent activity")

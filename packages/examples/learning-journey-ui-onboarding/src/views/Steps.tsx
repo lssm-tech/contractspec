@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Progress } from '@lssm/lib.ui-kit-web/ui/progress';
+import { Progress } from '@contractspec/lib.ui-kit-web/ui/progress';
 import { StepChecklist } from '../components/StepChecklist';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
   const [expandedStepId, setExpandedStepId] = useState<string | null>(() => {

@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Feature flag status enum.
@@ -383,7 +388,7 @@ export const featureFlagEntities = [
  * Module schema contribution for feature flags.
  */
 export const featureFlagsSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/lib.feature-flags',
+  moduleId: '@contractspec/lib.feature-flags',
   entities: featureFlagEntities,
   enums: [FlagStatusEnum, RuleOperatorEnum, ExperimentStatusEnum],
 };

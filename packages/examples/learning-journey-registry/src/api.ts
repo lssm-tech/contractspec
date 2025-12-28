@@ -3,7 +3,7 @@ import type {
   LearningJourneyTrackSpec,
   StepAvailabilitySpec,
   StepCompletionConditionSpec,
-} from '@lssm/module.learning-journey/track-spec';
+} from '@contractspec/module.learning-journey/track-spec';
 import type { LearningEvent, StepProgress, TrackProgress } from './api-types';
 import {
   getLearnerTracks,

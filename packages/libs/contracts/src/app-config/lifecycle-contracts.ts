@@ -1,4 +1,4 @@
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import type { OperationSpec } from '../operations';
 import { defineCommand, defineQuery } from '../operations';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';

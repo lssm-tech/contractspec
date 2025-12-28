@@ -6,15 +6,15 @@ import { existsSync } from 'node:fs';
 import {
   importFromOpenApi,
   parseOpenApi,
-} from '@lssm/lib.contracts-transformers/openapi';
-import type { SchemaFormat, FormatterType } from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts-transformers/openapi';
+import type { FormatterType, SchemaFormat } from '@contractspec/lib.contracts';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 import {
   getOutputDirForSpecType,
   upsertOpenApiSource,
 } from '../../utils/config-writer';
-import { formatFiles } from '@lssm/bundle.contractspec-workspace';
+import { formatFiles } from '@contractspec/bundle.workspace';
 
 interface ImportOptions {
   outputDir?: string;
@@ -280,7 +280,7 @@ export const importCommand = new Command('import')
           registryCode += '\n';
 
           if (isOperations) {
-            registryCode += `import { OperationSpecRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `import { OperationSpecRegistry } from '@contractspec/lib.contracts';\n\n`;
             registryCode += `export const operationRegistry = new OperationSpecRegistry();\n`;
             specs.forEach((s) => {
               registryCode += `operationRegistry.register(${s.name});\n`;
@@ -291,7 +291,7 @@ export const importCommand = new Command('import')
               chalk.green(`✅ Created/Updated registry: ${registryPath}`)
             );
           } else if (isEvents) {
-            registryCode += `import { EventRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `import { EventRegistry } from '@contractspec/lib.contracts';\n\n`;
             registryCode += `export const eventRegistry = new EventRegistry();\n`;
             specs.forEach((s) => {
               registryCode += `eventRegistry.register(${s.name});\n`;
@@ -302,7 +302,7 @@ export const importCommand = new Command('import')
               chalk.green(`✅ Created/Updated registry: ${registryPath}`)
             );
           } else if (isModels) {
-            registryCode += `import { ModelRegistry } from '@lssm/lib.contracts';\n\n`;
+            registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts';\n\n`;
             registryCode += `export const modelRegistry = new ModelRegistry();\n`;
             specs.forEach((s) => {
               registryCode += `modelRegistry.register(${s.name});\n`;

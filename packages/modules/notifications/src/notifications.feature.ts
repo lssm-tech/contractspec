@@ -3,7 +3,7 @@
  *
  * Defines the feature module for notification management.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Notifications feature module that bundles notification sending,

@@ -1,7 +1,7 @@
-# @lssm/lib.schema
+# @contractspec/lib.schema
 
-[![npm version](https://img.shields.io/npm/v/@lssm/lib.schema)](https://www.npmjs.com/package/@lssm/lib.schema)
-[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.schema)](https://www.npmjs.com/package/@lssm/lib.schema)
+[![npm version](https://img.shields.io/npm/v/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)
+[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
 
@@ -21,15 +21,15 @@ A schema dictionary to describe operation I/O once and generate consistent types
 ## Installation
 
 ```bash
-npm install @lssm/lib.schema
+npm install @contractspec/lib.schema
 # or
-bun add @lssm/lib.schema
+bun add @contractspec/lib.schema
 ```
 
 The package ships only pre-built `dist/` artifacts and type declarations. Import helpers directly, e.g.:
 
 ```ts
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 ```
 
 ## Primitives
@@ -59,7 +59,7 @@ Use existing schema definitions from other libraries:
 Example
 
 ```ts
-import { defineEnum, SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineEnum, SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const Weekday = defineEnum('Weekday', [
   'MO',
@@ -117,7 +117,7 @@ Define fields with `FieldType` and group them into a `SchemaModel`. Adapters (RE
 ## Example: Nested models + arrays
 
 ```ts
-import { ScalarTypeEnum, SchemaModel, defineEnum } from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel, defineEnum } from '@contractspec/lib.schema';
 
 const Weekday = defineEnum('Weekday', [
   'MO',

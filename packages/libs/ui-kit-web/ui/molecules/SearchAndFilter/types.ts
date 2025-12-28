@@ -1,4 +1,4 @@
-import type { FilterOption } from '@lssm/lib.ui-kit-web/ui/atoms/FilterSelect';
+import type { FilterOption } from '@contractspec/lib.ui-kit-web/ui/atoms/FilterSelect';
 
 export interface SearchAndFilterProps {
   // Search

@@ -87,7 +87,7 @@ const discoverPublishablePackages = () => {
       // Skip tool packages (they are dev dependencies for the monorepo)
       if (
         pkgDir.startsWith('packages/tools/') ||
-        manifest.name?.startsWith('@lssm/tool.')
+        manifest.name?.startsWith('@contractspec/tool.')
       ) {
         console.log(
           `[discover] Skipping tool package: ${manifest.name || pkgDir}`

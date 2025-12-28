@@ -1,4 +1,4 @@
-# AI Agent Guide — `@lssm/app.cli-contractspec`
+# AI Agent Guide — `@contractspec/app.cli-contractspec`
 
 Scope: `packages/apps/cli-contractspec/*`
 
@@ -6,7 +6,7 @@ This is the ContractSpec CLI (`contractspec`).
 
 ## Architecture
 
-The CLI is a **thin wrapper** around business logic in `@lssm/bundle.contractspec-workspace`. The separation is:
+The CLI is a **thin wrapper** around business logic in `@contractspec/bundle.workspace`. The separation is:
 
 ### CLI Layer (this package)
 
@@ -17,16 +17,16 @@ The CLI is a **thin wrapper** around business logic in `@lssm/bundle.contractspe
 
 ### Business Logic (bundle)
 
-- **Services** (`@lssm/bundle.contractspec-workspace/services/`) - Core use-cases
+- **Services** (`@contractspec/bundle.workspace/services/`) - Core use-cases
   - `create.ts` - Spec creation logic
   - `build.ts` - Code generation from specs
   - `openapi.ts` - OpenAPI export
   - `registry.ts` - Registry client
   - `examples.ts` - Examples management
   - `validate.ts`, `diff.ts`, `deps.ts`, etc.
-- **Templates** (`@lssm/bundle.contractspec-workspace/templates/`) - Spec templates
-- **AI** (`@lssm/bundle.contractspec-workspace/ai/`) - AI agents and prompts
-- **Adapters** (`@lssm/bundle.contractspec-workspace/adapters/`) - Infrastructure
+- **Templates** (`@contractspec/bundle.workspace/templates/`) - Spec templates
+- **AI** (`@contractspec/bundle.workspace/ai/`) - AI agents and prompts
+- **Adapters** (`@contractspec/bundle.workspace/adapters/`) - Infrastructure
 
 ## Build System
 
@@ -73,7 +73,7 @@ The CLI uses `@inquirer/prompts` (not legacy `inquirer`):
 
 ## Adding a New Command
 
-1. **Create service in bundle** (`@lssm/bundle.contractspec-workspace/services/`)
+1. **Create service in bundle** (`@contractspec/bundle.workspace/services/`)
 2. **Create CLI wrapper** (`src/commands/new-command.ts`)
 3. **Add to index.ts** (`src/index.ts`)
 4. **Add prompts if needed** (`src/commands/new-command/prompts.ts`)
@@ -83,8 +83,8 @@ Example CLI wrapper:
 
 ```typescript
 import { Command } from 'commander';
-import { myService } from '@lssm/bundle.contractspec-workspace';
-import { createFsAdapter } from '@lssm/bundle.contractspec-workspace/adapters';
+import { myService } from '@contractspec/bundle.workspace';
+import { createFsAdapter } from '@contractspec/bundle.workspace/adapters';
 
 export const myCommand = new Command('my-command')
   .description('Do something')

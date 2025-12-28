@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Input as WebInput,
   type InputProps as WebInputProps,
-} from '@lssm/lib.ui-kit-web/ui/input';
+} from '@contractspec/lib.ui-kit-web/ui/input';
 import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
 
 interface BaseFieldProps {

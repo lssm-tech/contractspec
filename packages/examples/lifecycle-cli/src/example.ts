@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.lifecycle-cli.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.lifecycle-cli',
+    packageName: '@contractspec/example.lifecycle-cli',
     docs: './docs',
   },
   surfaces: {

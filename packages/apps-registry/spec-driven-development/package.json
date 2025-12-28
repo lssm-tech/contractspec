@@ -7,7 +7,7 @@
     "spec-driven-development": "./bin/contractspec.mjs"
   },
   "dependencies": {
-    "@lssm/app.cli-contractspec": "workspace:*"
+    "@contractspec/app.cli-contractspec": "workspace:*"
   },
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -21,7 +21,7 @@
     "typescript"
   ],
   "publishConfig": {
-    "name": "contractspec",
+    "name": "spec-driven-development",
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
@@ -29,7 +29,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/apps/contractspec"
+    "directory": "packages/apps-registry/spec-driven-development"
   },
   "homepage": "https://contractspec.io"
 }

@@ -7,9 +7,9 @@
 
 import * as vscode from 'vscode';
 import {
-  scanAllSpecsFromSource,
   type AnalyzedSpecType,
-} from '@lssm/module.contractspec-workspace';
+  scanAllSpecsFromSource,
+} from '@contractspec/module.workspace';
 
 /**
  * Cached spec data with file modification time.

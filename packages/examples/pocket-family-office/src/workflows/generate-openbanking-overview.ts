@@ -1,9 +1,9 @@
-import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
+import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@lssm/lib.contracts/ownership';
+} from '@contractspec/lib.contracts/ownership';
 
 const OPEN_BANKING_CAPABILITIES = [
   { key: 'openbanking.accounts.read', version: 1 },

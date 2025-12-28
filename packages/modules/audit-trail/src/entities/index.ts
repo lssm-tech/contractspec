@@ -1,5 +1,5 @@
-import { defineEntity, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import { defineEntity, field, index } from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * AuditLog entity - main audit log entry.
@@ -136,6 +136,6 @@ export const auditTrailEntities = [AuditLogEntity, AuditLogArchiveEntity];
  * Module schema contribution for audit trail.
  */
 export const auditTrailSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/module.audit-trail',
+  moduleId: '@contractspec/module.audit-trail',
   entities: auditTrailEntities,
 };

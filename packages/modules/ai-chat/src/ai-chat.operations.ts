@@ -1,5 +1,5 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts';
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 import {
   ChatConversationModel,
   ListConversationsOutputModel,

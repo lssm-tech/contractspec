@@ -6,7 +6,7 @@ import {
   type UpDownCounter,
 } from '@opentelemetry/api';
 
-const DEFAULT_METER_NAME = '@lssm/lib.observability';
+const DEFAULT_METER_NAME = '@contractspec/lib.observability';
 
 export function getMeter(name: string = DEFAULT_METER_NAME): Meter {
   return metrics.getMeter(name);

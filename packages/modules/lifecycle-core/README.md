@@ -1,4 +1,4 @@
-# @lssm/module.lifecycle-core
+# @contractspec/module.lifecycle-core
 
 Website: https://contractspec.io/
 
@@ -20,7 +20,7 @@ import {
   StageSignalCollector,
   StageScorer,
   LifecycleMilestonePlanner,
-} from '@lssm/module.lifecycle-core';
+} from '@contractspec/module.lifecycle-core';
 
 const collector = new StageSignalCollector({
   analyticsAdapter,

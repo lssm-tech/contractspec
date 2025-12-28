@@ -10,7 +10,7 @@ import { isEmitDeclRef } from '../operations/';
 import type { FeatureModuleSpec } from '../features';
 import type { PresentationSpec } from '../presentations/';
 import type { EventSpec } from '../events';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { DocBlock } from '../docs/types';
 import type { OperationSpecRegistry } from '../operations/registry';
 import type { PresentationRegistry } from '../presentations';

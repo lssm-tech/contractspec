@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.lifecycle-dashboard',
   },
   entrypoints: {
-    packageName: '@lssm/example.lifecycle-dashboard',
+    packageName: '@contractspec/example.lifecycle-dashboard',
     docs: './docs',
   },
   surfaces: {

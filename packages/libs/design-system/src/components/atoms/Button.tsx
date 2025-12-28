@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Button as WebButton,
   type ButtonProps as WebButtonProps,
-} from '@lssm/lib.ui-kit-web/ui/button';
+} from '@contractspec/lib.ui-kit-web/ui/button';
 import { Loader2 } from 'lucide-react';
 // type-only import to avoid bundling RN on web
 import type { PressableProps as _RNPressableProps } from 'react-native';

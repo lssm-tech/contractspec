@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 const chipVariants = cva(
   'inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-base font-medium',

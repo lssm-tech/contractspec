@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const duoDrillsDocBlocks: DocBlock[] = [
   {
@@ -24,7 +24,7 @@ const duoDrillsDocBlocks: DocBlock[] = [
 XP: 20 + 30 + 40. Streak: daily session completion can be used to drive streak rewards.
 
 ## Wiring
-- Tracks export from \`@lssm/example.learning-journey-duo-drills/track\`.
+- Tracks export from \`@contractspec/example.learning-journey-duo-drills/track\`.
 - Use registry helper \`recordEvent\` to advance steps from drill/session events.
 - SRS mastery events should include payload: \`{ skillId, mastery }\`.`,
   },

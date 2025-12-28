@@ -1,5 +1,5 @@
-import type { LifecycleRecommendation } from '@lssm/lib.lifecycle';
-import { LifecycleStage } from '@lssm/lib.lifecycle';
+import type { LifecycleRecommendation } from '@contractspec/lib.lifecycle';
+import { LifecycleStage } from '@contractspec/lib.lifecycle';
 import stagePlaybooks from '../data/stage-playbooks';
 
 type CeremonyConfig = NonNullable<LifecycleRecommendation['ceremony']>;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Button } from './button';
 import { Calendar } from './calendar';
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 
 export interface DateRange {
   start: Date | null;

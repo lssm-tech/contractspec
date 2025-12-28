@@ -6,11 +6,11 @@ import {
   NavigationMenuLink as NavLink,
   NavigationMenuList as NavList,
   NavigationMenuTrigger as NavTrigger,
-} from '@lssm/lib.ui-kit-web/ui/navigation-menu';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+} from '@contractspec/lib.ui-kit-web/ui/navigation-menu';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { HeaderNavItem } from '../../types/navigation';
-import { HStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Text } from '@lssm/lib.ui-kit-web/ui/text';
+import { HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 
 export function NavMain({
   items,

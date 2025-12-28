@@ -5,10 +5,10 @@
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
+  listSpecs,
   validateSpec,
   validateSpecs,
-  listSpecs,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 /**
  * Validate the currently active spec file.

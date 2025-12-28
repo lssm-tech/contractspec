@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_export_DocBlocks: DocBlock[] = [
@@ -28,7 +28,7 @@ The export is **spec-first**:
 ### Library API
 
 - Function: \`openApiForRegistry(registry, options?)\`
-- Location: \`@lssm/lib.contracts/openapi\`
+- Location: \`@contractspec/lib.contracts/openapi\`
 
 ### CLI
 

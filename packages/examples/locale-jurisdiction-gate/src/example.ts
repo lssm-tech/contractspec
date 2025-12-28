@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.locale-jurisdiction-gate',
   },
   entrypoints: {
-    packageName: '@lssm/example.locale-jurisdiction-gate',
+    packageName: '@contractspec/example.locale-jurisdiction-gate',
     feature: './feature',
     contracts: './contracts',
     handlers: './handlers',

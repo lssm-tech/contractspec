@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.workflow-system.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.workflow-system',
+    packageName: '@contractspec/example.workflow-system',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

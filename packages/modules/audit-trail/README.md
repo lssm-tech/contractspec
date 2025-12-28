@@ -1,4 +1,4 @@
-# @lssm/module.audit-trail
+# @contractspec/module.audit-trail
 
 Website: https://contractspec.io/
 
@@ -20,7 +20,7 @@ Provides a complete audit logging solution that captures, stores, and queries au
 ## Installation
 
 ```bash
-bun add @lssm/module.audit-trail
+bun add @contractspec/module.audit-trail
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ bun add @lssm/module.audit-trail
 ### Entity Specs (for schema generation)
 
 ```typescript
-import { auditTrailSchemaContribution } from '@lssm/module.audit-trail/entities';
+import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail/entities';
 
 // Use in schema composition
 const config = {
@@ -39,7 +39,7 @@ const config = {
 ### Set Up Audit Capture
 
 ```typescript
-import { createAuditCapture, PrismaAuditStorage } from '@lssm/module.audit-trail';
+import { createAuditCapture, PrismaAuditStorage } from '@contractspec/module.audit-trail';
 import { prisma } from './db';
 
 // Create storage adapter
@@ -62,7 +62,7 @@ auditCapture.start();
 ### Query Audit Logs
 
 ```typescript
-import { AuditLogService } from '@lssm/module.audit-trail';
+import { AuditLogService } from '@contractspec/module.audit-trail';
 
 const service = new AuditLogService(storage);
 

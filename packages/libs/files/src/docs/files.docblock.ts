@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const filesDocBlocks: DocBlock[] = [
   {
@@ -24,7 +24,7 @@ const filesDocBlocks: DocBlock[] = [
 - Include \`filesSchemaContribution\` in your schema composition.
 
 2) Register contracts/events
-- Import contracts and events from \`@lssm/lib.files\` in your spec registry.
+- Import contracts and events from \`@contractspec/lib.files\` in your spec registry.
 
 3) Wire storage
 - Provide a \`StorageAdapter\` implementation (local/in-memory or S3 via custom impl).
@@ -40,7 +40,7 @@ import {
   UploadFileContract,
   AttachFileContract,
   InMemoryStorageAdapter,
-} from '@lssm/lib.files';
+} from '@contractspec/lib.files';
 
 // storage
 const storage = new InMemoryStorageAdapter();

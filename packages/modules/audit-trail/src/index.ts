@@ -15,4 +15,4 @@ export type {
   AuditRecord,
   AuditStorage,
   AuditQueryOptions,
-} from '@lssm/lib.bus';
+} from '@contractspec/lib.bus';

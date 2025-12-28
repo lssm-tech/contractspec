@@ -1,4 +1,4 @@
-import type { LearningJourneyTrackSpec } from '@lssm/module.learning-journey/track-spec';
+import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
 export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
   id: 'platform_primitives_tour',
@@ -18,7 +18,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 1,
       completion: {
         eventName: 'org.member.added',
-        sourceModule: '@lssm/lib.identity-rbac',
+        sourceModule: '@contractspec/lib.identity-rbac',
       },
       xpReward: 20,
       metadata: { surface: 'identity' },
@@ -30,7 +30,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 2,
       completion: {
         eventName: 'audit_log.created',
-        sourceModule: '@lssm/module.audit-trail',
+        sourceModule: '@contractspec/module.audit-trail',
       },
       xpReward: 20,
       metadata: { surface: 'bus+audit' },
@@ -42,7 +42,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 3,
       completion: {
         eventName: 'notification.sent',
-        sourceModule: '@lssm/module.notifications',
+        sourceModule: '@contractspec/module.notifications',
       },
       xpReward: 20,
       metadata: { surface: 'notifications' },
@@ -54,7 +54,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 4,
       completion: {
         eventName: 'job.completed',
-        sourceModule: '@lssm/lib.jobs',
+        sourceModule: '@contractspec/lib.jobs',
       },
       xpReward: 20,
       metadata: { surface: 'jobs' },
@@ -66,7 +66,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 5,
       completion: {
         eventName: 'flag.toggled',
-        sourceModule: '@lssm/lib.feature-flags',
+        sourceModule: '@contractspec/lib.feature-flags',
       },
       xpReward: 20,
       metadata: { surface: 'feature-flags' },
@@ -78,7 +78,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 6,
       completion: {
         eventName: 'attachment.attached',
-        sourceModule: '@lssm/lib.files',
+        sourceModule: '@contractspec/lib.files',
       },
       xpReward: 20,
       metadata: { surface: 'files' },
@@ -90,7 +90,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
       order: 7,
       completion: {
         eventName: 'usage.recorded',
-        sourceModule: '@lssm/lib.metering',
+        sourceModule: '@contractspec/lib.metering',
       },
       xpReward: 20,
       metadata: { surface: 'metering' },

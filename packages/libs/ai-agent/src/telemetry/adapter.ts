@@ -1,7 +1,7 @@
 import type { StepResult, ToolSet } from 'ai';
 
 /**
- * Metric sample compatible with @lssm/lib.evolution OperationMetricSample.
+ * Metric sample compatible with @contractspec/lib.evolution OperationMetricSample.
  */
 export interface OperationMetricSample {
   operation: { name: string; version: number };
@@ -15,7 +15,7 @@ export interface OperationMetricSample {
  * Interface for collecting telemetry metrics.
  *
  * Implementations can send metrics to:
- * - @lssm/lib.evolution for self-improvement
+ * - @contractspec/lib.evolution for self-improvement
  * - PostHog for analytics
  * - Custom monitoring systems
  */

@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_studio_learning_journeys_DocBlocks: DocBlock[] = [
@@ -41,7 +41,7 @@ Learning journey progress lives in the \`lssm_learning\` schema:
 
 ## Track definition source (spec-first)
 
-- Canonical track specs live in \`@lssm/example.learning-journey-registry\`.
+- Canonical track specs live in \`@contractspec/example.learning-journey-registry\`.
 - The Studio API seeds/updates the DB definitions via an idempotent “ensure tracks” routine.
 - The DB is kept aligned with track specs (stale steps are removed) to prevent drift and unblock completion.
 

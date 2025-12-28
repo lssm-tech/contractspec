@@ -5,8 +5,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@lssm/lib.ui-kit-web/ui/carousel';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+} from '@contractspec/lib.ui-kit-web/ui/carousel';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 
 export interface Testimonial {
   quote: React.ReactNode;

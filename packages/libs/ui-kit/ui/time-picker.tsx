@@ -5,7 +5,7 @@ import type {
   IOSNativeProps,
 } from '@react-native-community/datetimepicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Text } from './text';
 
 export interface TimePickerProps {

@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const workflowSystemDocBlocks: DocBlock[] = [
   {
@@ -24,7 +24,7 @@ const workflowSystemDocBlocks: DocBlock[] = [
 ## Events & Jobs
 
 - Emits \`workflow.instance.started\`, \`workflow.step.completed\`, \`workflow.step.rejected\`, \`workflow.instance.finished\`.
-- Reminder jobs can be scheduled via @lssm/lib.jobs for pending approvals.
+- Reminder jobs can be scheduled via @contractspec/lib.jobs for pending approvals.
 
 ## UI / Presentations
 

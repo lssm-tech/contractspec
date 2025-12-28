@@ -1,4 +1,4 @@
-# @lssm/tool.tsdown
+# @contractspec/tool.tsdown
 
 ## 1.43.2
 

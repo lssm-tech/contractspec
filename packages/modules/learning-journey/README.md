@@ -1,4 +1,4 @@
-# @lssm/module.learning-journey
+# @contractspec/module.learning-journey
 
 Website: https://contractspec.io/
 
@@ -88,7 +88,7 @@ This module provides a complete learning platform engine that supports multiple 
 ### Spaced Repetition Engine (SRS)
 
 ```typescript
-import { SRSEngine } from '@lssm/module.learning-journey/engines/srs';
+import { SRSEngine } from '@contractspec/module.learning-journey/engines/srs';
 
 const engine = new SRSEngine();
 const nextReview = engine.calculateNextReview({
@@ -102,7 +102,7 @@ const nextReview = engine.calculateNextReview({
 ### XP Engine
 
 ```typescript
-import { XPEngine } from '@lssm/module.learning-journey/engines/xp';
+import { XPEngine } from '@contractspec/module.learning-journey/engines/xp';
 
 const engine = new XPEngine();
 const xp = engine.calculate({
@@ -115,7 +115,7 @@ const xp = engine.calculate({
 ### Streak Engine
 
 ```typescript
-import { StreakEngine } from '@lssm/module.learning-journey/engines/streak';
+import { StreakEngine } from '@contractspec/module.learning-journey/engines/streak';
 
 const engine = new StreakEngine();
 const streak = engine.update({
@@ -131,7 +131,7 @@ import {
   CourseEntity,
   LearnerEntity,
   SRSEngine,
-} from '@lssm/module.learning-journey';
+} from '@contractspec/module.learning-journey';
 
 // Enroll learner in course
 await enrollmentService.enroll({
@@ -164,16 +164,16 @@ await flashcardService.submitReview({
 
 This module integrates with:
 
-- `@lssm/lib.identity-rbac` - Learner identity
-- `@lssm/lib.files` - Media attachments
-- `@lssm/lib.jobs` - Scheduled reminders, streak checks
-- `@lssm/lib.ai-agent` - AI-powered features
-- `@lssm/module.notifications` - Learning reminders
+- `@contractspec/lib.identity-rbac` - Learner identity
+- `@contractspec/lib.files` - Media attachments
+- `@contractspec/lib.jobs` - Scheduled reminders, streak checks
+- `@contractspec/lib.ai-agent` - AI-powered features
+- `@contractspec/module.notifications` - Learning reminders
 
 ## Schema Contribution
 
 ```typescript
-import { learningJourneySchemaContribution } from '@lssm/module.learning-journey';
+import { learningJourneySchemaContribution } from '@contractspec/module.learning-journey';
 
 export const schemaComposition = {
   modules: [

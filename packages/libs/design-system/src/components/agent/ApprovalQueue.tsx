@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import type { ApprovalRequest } from '@lssm/lib.ai-agent/approval';
+import type { ApprovalRequest } from '@contractspec/lib.ai-agent/approval';
 import {
   Table,
   TableHead,
@@ -9,11 +9,15 @@ import {
   TableHeader,
   TableBody,
   TableCell,
-} from '@lssm/lib.ui-kit-web/ui/table';
-import { Card, CardHeader, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
-import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
-import { cn as _cn } from '@lssm/lib.ui-kit-web/ui/utils';
+} from '@contractspec/lib.ui-kit-web/ui/table';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
+import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
+import { cn as _cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface ApprovalQueueProps {
   title?: string;

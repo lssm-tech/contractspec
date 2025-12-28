@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { FilterOption } from '@lssm/lib.ui-kit-web/ui/atoms/FilterSelect';
+import type { FilterOption } from '@contractspec/lib.ui-kit-web/ui/atoms/FilterSelect';
 import type { UseListStateReturn } from '../../useListState';
 
 export interface ListPageFilter {

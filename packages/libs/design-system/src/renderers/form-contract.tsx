@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { createFormRenderer } from '@lssm/lib.contracts/client/react/form-render';
-import { shadcnDriver } from '@lssm/lib.contracts/client/react/drivers/shadcn';
+import { createFormRenderer } from '@contractspec/lib.contracts/client/react/form-render';
+import { shadcnDriver } from '@contractspec/lib.contracts/client/react/drivers/shadcn';
 
 // Minimal shadcn driver mapping: host must wire its components here.
 // Replace these placeholders with actual shadcn/ui imports in your app.
@@ -11,16 +11,16 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from '@lssm/lib.ui-kit-web/ui/field';
+} from '@contractspec/lib.ui-kit-web/ui/field';
 import { Button } from '../components/atoms/Button';
 import { Input } from '../components/atoms/Input';
 import { Textarea } from '../components/atoms/Textarea';
-import { Switch as SwitchUiKit } from '@lssm/lib.ui-kit-web/ui/switch';
+import { Switch as SwitchUiKit } from '@contractspec/lib.ui-kit-web/ui/switch';
 import {
   RadioGroup as RadioGroupUiKit,
   RadioGroupItem,
-} from '@lssm/lib.ui-kit-web/ui/radio-group';
-import { Checkbox as CheckboxUiKit } from '@lssm/lib.ui-kit-web/ui/checkbox';
+} from '@contractspec/lib.ui-kit-web/ui/radio-group';
+import { Checkbox as CheckboxUiKit } from '@contractspec/lib.ui-kit-web/ui/checkbox';
 import {
   Select as SelectUiKit,
   SelectContent,
@@ -28,8 +28,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@lssm/lib.ui-kit-web/ui/select';
-import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+} from '@contractspec/lib.ui-kit-web/ui/select';
+import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 
 // Select/Checkbox/Radio/Switch are app-specific; provide thin wrappers.
 interface FormOption {

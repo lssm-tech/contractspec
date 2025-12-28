@@ -10,14 +10,14 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { confirm, select } from '@inquirer/prompts';
 import {
-  runQuickstart,
-  formatQuickstartPreview,
-  isContractSpecInstalled,
   createNodeFsAdapter,
   findWorkspaceRoot,
+  formatQuickstartPreview,
+  isContractSpecInstalled,
   type QuickstartMode,
   type QuickstartPromptCallbacks,
-} from '@lssm/bundle.contractspec-workspace';
+  runQuickstart,
+} from '@contractspec/bundle.workspace';
 
 /**
  * Create CLI prompt callbacks using @inquirer/prompts.

@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../docs/registry';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
@@ -34,7 +34,7 @@ export interface ContractsrcConfig {
 }
 \`\`\`
 
-Defined in \`@lssm/lib.contracts/workspace-config\`.
+Defined in \`@contractspec/lib.contracts/workspace-config\`.
 `,
   },
 ];

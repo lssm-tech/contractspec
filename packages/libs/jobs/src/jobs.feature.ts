@@ -3,7 +3,7 @@
  *
  * Defines the feature module for background job processing and scheduling.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Jobs feature module that bundles job queue management,

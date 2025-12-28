@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Input } from '../../index';
-import { VStack, HStack } from '@lssm/lib.ui-kit/ui/stack';
+import { VStack, HStack } from '@contractspec/lib.ui-kit/ui/stack';
 import type { FiltersToolbarProps } from './FiltersToolbar';
 
 export function FiltersToolbar({

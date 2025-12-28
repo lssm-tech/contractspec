@@ -9,7 +9,7 @@ const example = {
     rootDocId: 'docs.examples.crm-pipeline',
   },
   entrypoints: {
-    packageName: '@lssm/example.crm-pipeline',
+    packageName: '@contractspec/example.crm-pipeline',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

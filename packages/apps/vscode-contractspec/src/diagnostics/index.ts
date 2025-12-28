@@ -8,15 +8,15 @@
 
 import * as vscode from 'vscode';
 import {
-  validateSpecStructure,
-  scanSpecSource,
   isFeatureFile,
   scanFeatureSource,
-} from '@lssm/module.contractspec-workspace';
+  scanSpecSource,
+  validateSpecStructure,
+} from '@contractspec/module.workspace';
 import type {
   IntegrityAnalysisResult,
   SpecImplementationResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 const DIAGNOSTIC_SOURCE = 'ContractSpec';
 const INTEGRITY_SOURCE = 'ContractSpec Integrity';

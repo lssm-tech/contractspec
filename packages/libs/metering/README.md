@@ -1,4 +1,4 @@
-# @lssm/lib.metering
+# @contractspec/lib.metering
 
 Website: https://contractspec.io/
 
@@ -113,7 +113,7 @@ import {
   MetricDefinitionEntity,
   RecordUsageContract,
   UsageAggregator 
-} from '@lssm/lib.metering';
+} from '@contractspec/lib.metering';
 
 // Define a metric
 await meteringService.defineMetric({
@@ -147,7 +147,7 @@ const summary = await meteringService.getUsageSummary({
 The module includes an aggregation engine that periodically rolls up usage records:
 
 ```typescript
-import { UsageAggregator } from '@lssm/lib.metering/aggregation';
+import { UsageAggregator } from '@contractspec/lib.metering/aggregation';
 
 const aggregator = new UsageAggregator({
   storage: usageStorage,
@@ -164,14 +164,14 @@ await aggregator.aggregate({
 
 This module integrates with:
 
-- `@lssm/lib.jobs` - Scheduled aggregation jobs
-- `@lssm/module.notifications` - Threshold alerts
-- `@lssm/lib.identity-rbac` - Subject resolution
+- `@contractspec/lib.jobs` - Scheduled aggregation jobs
+- `@contractspec/module.notifications` - Threshold alerts
+- `@contractspec/lib.identity-rbac` - Subject resolution
 
 ## Schema Contribution
 
 ```typescript
-import { meteringSchemaContribution } from '@lssm/lib.metering';
+import { meteringSchemaContribution } from '@contractspec/lib.metering';
 
 export const schemaComposition = {
   modules: [

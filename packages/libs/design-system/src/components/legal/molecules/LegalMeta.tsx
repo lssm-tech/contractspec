@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export function LegalMeta({
   lastUpdated,

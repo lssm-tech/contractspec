@@ -28,7 +28,7 @@ export function validateSpecStructure(
   }
 
   // Validate operation specs
-  if (fileName.includes('.contracts.')) {
+  if (fileName.includes('.operation.') || fileName.includes('.contracts.')) {
     validateOperationSpec(code, errors, warnings);
   }
 
@@ -355,10 +355,10 @@ function validateCommonFields(
   // Check for SchemaModel import (skip for internal schema lib)
   if (
     code.includes('SchemaModel') &&
-    !/from\s+['"]@lssm\/lib\.schema(\/[^'"]+)?['"]/.test(code) &&
+    !/from\s+['"]@(?:lssm|contractspec)\/lib\.schema(\/[^'"]+)?['"]/.test(code) &&
     !isInternalLib
   ) {
-    errors.push('Missing import for SchemaModel from @lssm/lib.schema');
+    errors.push('Missing import for SchemaModel from @contractspec/lib.schema');
   }
 
   // Check for contracts import only if spec types are used
@@ -381,10 +381,10 @@ function validateCommonFields(
 
   if (
     usesSpecTypes &&
-    !/from\s+['"]@lssm\/lib\.contracts(\/[^'"]+)?['"]/.test(code) &&
+    !/from\s+['"]@(?:lssm|contractspec)\/lib\.contracts(\/[^'"]+)?['"]/.test(code) &&
     !isInternalLib
   ) {
-    errors.push('Missing import from @lssm/lib.contracts');
+    errors.push('Missing import from @contractspec/lib.contracts');
   }
 
   // Only validate owners and stability for files that actually define specs

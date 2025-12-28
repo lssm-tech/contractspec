@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const questDocBlocks: DocBlock[] = [
   {
@@ -27,7 +27,7 @@ const questDocBlocks: DocBlock[] = [
 XP: 15 per day, completion bonus 30 if finished within duration. Optional recap via SRS after completion.
 
 ## Usage
-- Exported via \`@lssm/example.learning-journey-quest-challenges/track\`.
+- Exported via \`@contractspec/example.learning-journey-quest-challenges/track\`.
 - Step availability uses \`availability.unlockOnDay\` to gate days.
 - Registry progression handles event matching and XP application.`,
   },

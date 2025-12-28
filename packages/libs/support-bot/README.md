@@ -1,9 +1,9 @@
-# @lssm/lib.support-bot
+# @contractspec/lib.support-bot
 
 Website: https://contractspec.io/
 
 
-Production-ready building blocks for AI-first support desks powered by ContractSpec. The library wires knowledge-grounded responses, ticket classification, auto-resolutions, and performance telemetry into `@lssm/lib.ai-agent`.
+Production-ready building blocks for AI-first support desks powered by ContractSpec. The library wires knowledge-grounded responses, ticket classification, auto-resolutions, and performance telemetry into `@contractspec/lib.ai-agent`.
 
 ## Highlights
 
@@ -16,8 +16,8 @@ Production-ready building blocks for AI-first support desks powered by ContractS
 ## Quickstart
 
 ```ts
-import { defineSupportBot, TicketResolver, TicketClassifier, createSupportTools } from '@lssm/lib.support-bot';
-import { AgentRegistry, AgentRunner, ToolExecutor } from '@lssm/lib.ai-agent';
+import { defineSupportBot, TicketResolver, TicketClassifier, createSupportTools } from '@contractspec/lib.support-bot';
+import { AgentRegistry, AgentRunner, ToolExecutor } from '@contractspec/lib.ai-agent';
 
 const SupportBot = defineSupportBot({
   base: {

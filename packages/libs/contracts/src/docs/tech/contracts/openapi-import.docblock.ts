@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_contracts_openapi_import_DocBlocks: DocBlock[] = [
@@ -43,7 +43,7 @@ contractspec openapi import --file api.json --output ./src/zod --schema-format z
 ### Library API
 
 - Function: \`importFromOpenApi(doc, options)\`
-- Location: \`@lssm/lib.contracts-transformers/openapi\`
+- Location: \`@contractspec/lib.contracts-transformers/openapi\`
 - Options:
   - \`schemaFormat\`: 'contractspec' | 'zod' | 'json-schema' | 'graphql'
   - \`prefix\`: Prefix for model names

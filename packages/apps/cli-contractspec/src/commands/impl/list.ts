@@ -14,7 +14,7 @@ import {
   type ResolvedImplementation,
   resolveImplementations,
   type SpecImplementationResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import type { ImplListOptions } from './types';
 
 /**

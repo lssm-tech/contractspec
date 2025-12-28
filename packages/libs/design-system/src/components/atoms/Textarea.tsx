@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Textarea as WebTextarea,
   type TextareaProps as WebTextareaProps,
-} from '@lssm/lib.ui-kit-web/ui/textarea';
+} from '@contractspec/lib.ui-kit-web/ui/textarea';
 import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
 
 interface BaseFieldProps {

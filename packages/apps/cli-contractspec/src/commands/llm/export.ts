@@ -13,7 +13,7 @@ import {
   operationSpecToAgentPrompt,
   operationSpecToContextMarkdown,
   operationSpecToFullMarkdown,
-} from '@lssm/lib.contracts/llm';
+} from '@contractspec/lib.contracts/llm';
 
 async function loadSpec(
   specPath: string

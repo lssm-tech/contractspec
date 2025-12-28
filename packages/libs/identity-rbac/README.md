@@ -1,4 +1,4 @@
-# @lssm/lib.identity-rbac
+# @contractspec/lib.identity-rbac
 
 Website: https://contractspec.io/
 
@@ -21,7 +21,7 @@ Provides a reusable identity and authorization foundation for multi-tenant, mult
 ## Installation
 
 ```bash
-bun add @lssm/lib.identity-rbac
+bun add @contractspec/lib.identity-rbac
 ```
 
 ## Usage
@@ -29,11 +29,11 @@ bun add @lssm/lib.identity-rbac
 ### Entity Specs (for schema generation)
 
 ```typescript
-import { UserEntity, OrganizationEntity, MemberEntity } from '@lssm/lib.identity-rbac/entities';
+import { UserEntity, OrganizationEntity, MemberEntity } from '@contractspec/lib.identity-rbac/entities';
 
 // Use in schema composition
 const contribution = {
-  moduleId: '@lssm/lib.identity-rbac',
+  moduleId: '@contractspec/lib.identity-rbac',
   entities: [UserEntity, OrganizationEntity, MemberEntity, ...],
 };
 ```
@@ -45,13 +45,13 @@ import {
   CreateUserContract,
   InviteToOrgContract,
   AssignRoleContract 
-} from '@lssm/lib.identity-rbac/contracts';
+} from '@contractspec/lib.identity-rbac/contracts';
 ```
 
 ### Policies (for authorization)
 
 ```typescript
-import { RBACPolicyEngine, Permission } from '@lssm/lib.identity-rbac/policies';
+import { RBACPolicyEngine, Permission } from '@contractspec/lib.identity-rbac/policies';
 
 const engine = new RBACPolicyEngine();
 const canManage = await engine.checkPermission({
@@ -64,7 +64,7 @@ const canManage = await engine.checkPermission({
 ### Events
 
 ```typescript
-import { UserCreatedEvent, OrgMemberAddedEvent } from '@lssm/lib.identity-rbac/events';
+import { UserCreatedEvent, OrgMemberAddedEvent } from '@contractspec/lib.identity-rbac/events';
 
 bus.subscribe(UserCreatedEvent, async (event) => {
   // Handle user creation

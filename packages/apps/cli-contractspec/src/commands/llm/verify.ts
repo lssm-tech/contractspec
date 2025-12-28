@@ -7,9 +7,9 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { readFileSync, existsSync } from 'fs';
-import type { VerificationTier } from '@lssm/lib.contracts/llm';
-import { createVerifyService } from '@lssm/bundle.contractspec-workspace';
+import { existsSync, readFileSync } from 'fs';
+import type { VerificationTier } from '@contractspec/lib.contracts/llm';
+import { createVerifyService } from '@contractspec/bundle.workspace';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function loadSpec(specPath: string): Promise<any> {

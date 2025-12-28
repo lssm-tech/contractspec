@@ -7,7 +7,7 @@ import { glob } from 'glob';
 import {
   parseOpenApi,
   type ParsedOperation,
-} from '@lssm/lib.contracts-transformers/openapi';
+} from '@contractspec/lib.contracts-transformers/openapi';
 import { getErrorMessage } from '../../utils/errors';
 
 interface ValidateOptions {

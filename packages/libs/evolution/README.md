@@ -1,4 +1,4 @@
-# @lssm/lib.evolution
+# @contractspec/lib.evolution
 
 Website: https://contractspec.io/
 
@@ -14,7 +14,7 @@ Auto-evolution utilities that analyze telemetry, suggest spec improvements, and 
 - Route suggestions through the AI approval workflow
 - Persist approved specs back into the codebase
 
-> Phase 3 anchor library – pairs with `@lssm/lib.observability` and `@lssm/lib.growth`.
+> Phase 3 anchor library – pairs with `@contractspec/lib.observability` and `@contractspec/lib.growth`.
 
 ## Usage
 
@@ -23,7 +23,7 @@ import {
   SpecAnalyzer,
   SpecGenerator,
   SpecSuggestionOrchestrator,
-} from '@lssm/lib.evolution';
+} from '@contractspec/lib.evolution';
 
 const analyzer = new SpecAnalyzer();
 const stats = analyzer.analyzeSpecUsage(samples);
@@ -35,7 +35,7 @@ const suggestion = generator.generateFromIntent(anomalies[0]);
 await orchestrator.submit(suggestion, { agent: 'auto-evolve' });
 ```
 
-See `app/docs/libraries/evolution` in `@lssm/app.web-contractspec-landing` for full docs.
+See `app/docs/libraries/evolution` in `@contractspec/app.web-contractspec-landing` for full docs.
 
 
 

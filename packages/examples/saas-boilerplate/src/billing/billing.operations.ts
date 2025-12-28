@@ -1,4 +1,4 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
 import {
   CheckFeatureAccessInputModel,
   CheckFeatureAccessOutputModel,

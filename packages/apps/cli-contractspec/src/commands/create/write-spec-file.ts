@@ -5,7 +5,7 @@ import {
   resolveOutputPath,
   writeFileSafe,
 } from '../../utils/fs';
-import { formatFiles } from '@lssm/module.contractspec-workspace';
+import { formatFiles } from '@contractspec/module.workspace';
 import type { Config } from '../../utils/config';
 import type { SpecType } from '../../types';
 import type { CreateOptions } from './types';

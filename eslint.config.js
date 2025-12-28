@@ -6,7 +6,7 @@ import json from '@eslint/json';
 // import css from '@eslint/css';
 import { defineConfig } from 'eslint/config';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import designSystemRules from '@lssm/eslint-plugin-design-system';
+import designSystemRules from '@contractspec/eslint-plugin-design-system';
 // import * as reactHooks from 'eslint-plugin-react-hooks';
 import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -82,12 +82,12 @@ export default defineConfig([
         {
           paths: [
             {
-              name: '@lssm/lib.ui-kit',
+              name: '@contractspec/lib.ui-kit',
               message:
-                'Do not import native ui-kit in web code. Use @lssm/lib.ui-kit-web or @lssm/lib.design-system.',
+                'Do not import native ui-kit in web code. Use @contractspec/lib.ui-kit-web or @contractspec/lib.design-system.',
             },
             {
-              name: '@lssm/lib.ui-kit-web',
+              name: '@contractspec/lib.ui-kit-web',
               message:
                 'Do not import web ui-kit in native code directly. DS and Metro aliasing will map web → native.',
             },

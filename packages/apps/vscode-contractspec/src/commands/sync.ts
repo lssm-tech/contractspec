@@ -10,10 +10,10 @@ import {
   getWorkspaceConfig,
 } from '../workspace/adapters';
 import {
-  validateSpec,
   buildSpec,
   listSpecs,
-} from '@lssm/bundle.contractspec-workspace';
+  validateSpec,
+} from '@contractspec/bundle.workspace';
 
 /**
  * Sync all specs in the workspace.

@@ -22,7 +22,7 @@ import {
 import type { ResourceRefDescriptor } from '../resources';
 import type { HandlerCtx } from '../types';
 import { eventKey } from '../events';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { HandlerForOperationSpec } from '../install';
 
 export type OperationKey = `${string}.v${number}`;

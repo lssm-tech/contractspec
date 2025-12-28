@@ -1,4 +1,4 @@
-# @lssm/lib.ai-providers
+# @contractspec/lib.ai-providers
 
 ## 1.43.2
 

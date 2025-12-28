@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.integration-stripe.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.integration-stripe',
+    packageName: '@contractspec/example.integration-stripe',
     docs: './docs',
   },
   surfaces: {

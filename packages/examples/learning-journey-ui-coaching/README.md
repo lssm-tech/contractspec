@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ui-coaching
+# @contractspec/example.learning-journey-ui-coaching
 
 Website: https://contractspec.io/
 
@@ -15,8 +15,8 @@ Contextual coaching UI with tip cards and engagement tracking.
 ## Usage
 
 ```tsx
-import { CoachingMiniApp } from '@lssm/example.learning-journey-ui-coaching';
-import { moneyAmbientCoachTrack } from '@lssm/example.learning-journey-ambient-coach/track';
+import { CoachingMiniApp } from '@contractspec/example.learning-journey-ui-coaching';
+import { moneyAmbientCoachTrack } from '@contractspec/example.learning-journey-ambient-coach/track';
 
 function MyApp() {
   return (

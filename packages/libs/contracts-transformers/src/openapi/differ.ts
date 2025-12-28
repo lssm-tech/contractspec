@@ -3,7 +3,7 @@
  * Used for sync operations to detect changes.
  */
 
-import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts';
 import type { ParsedOperation } from './types';
 import type {
   DiffChange,

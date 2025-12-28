@@ -1,4 +1,4 @@
-# @lssm/lib.overlay-engine
+# @contractspec/lib.overlay-engine
 
 Website: https://contractspec.io/
 
@@ -21,7 +21,7 @@ import {
   OverlayRegistry,
   defineOverlay,
   signOverlay,
-} from '@lssm/lib.overlay-engine';
+} from '@contractspec/lib.overlay-engine';
 
 const registry = new OverlayRegistry();
 const engine = new OverlayEngine({ registry });

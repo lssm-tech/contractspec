@@ -13,7 +13,7 @@ import {
   useFormState,
 } from 'react-hook-form';
 
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Label } from './label';
 
 export { zodResolver } from '@hookform/resolvers/zod';

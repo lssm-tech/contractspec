@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'bun:test';
 import { LifecycleAssessmentService } from '../services/assessment-service';
-import { ProductPhase, CompanyPhase, CapitalPhase } from '@lssm/lib.lifecycle';
+import {
+  ProductPhase,
+  CompanyPhase,
+  CapitalPhase,
+} from '@contractspec/lib.lifecycle';
 
 describe('LifecycleAssessmentService', () => {
   it('runs end-to-end assessment with recommendations and libraries', async () => {

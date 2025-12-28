@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.learning-journey-ui-coaching',
   },
   entrypoints: {
-    packageName: '@lssm/example.learning-journey-ui-coaching',
+    packageName: '@contractspec/example.learning-journey-ui-coaching',
     docs: './docs',
   },
   surfaces: {

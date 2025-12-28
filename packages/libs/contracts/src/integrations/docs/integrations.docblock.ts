@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../docs/registry';
 
 export const tech_contracts_integrations_DocBlocks: DocBlock[] = [
@@ -50,7 +50,7 @@ Each provider ships with:
 
 To list all shipped specs at runtime, use:
 
-- \`createDefaultIntegrationSpecRegistry()\` from \`@lssm/lib.contracts/integrations/providers/registry\`
+- \`createDefaultIntegrationSpecRegistry()\` from \`@contractspec/lib.contracts/integrations/providers/registry\`
 
 ## Secret Management
 
@@ -83,7 +83,7 @@ The manager attempts providers in priority order (environment first, then cloud 
 
 ## Studio persistence (ContractSpec Studio)
 
-ContractSpec Studio persists tenant \`IntegrationConnection\` records in Postgres (Prisma model \`IntegrationConnection\` in \`@lssm/lib.database-contractspec-studio\`) and exposes a platform-admin management surface (see the Studio platform admin panel).
+ContractSpec Studio persists tenant \`IntegrationConnection\` records in Postgres (Prisma model \`IntegrationConnection\` in \`@contractspec/lib.database-contractspec-studio\`) and exposes a platform-admin management surface (see the Studio platform admin panel).
 `,
   },
 ];

@@ -1,11 +1,11 @@
 {
-  "extends": "@lssm/tool.typescript/react-library.json",
+  "extends": "@contractspec/tool.typescript/react-library.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@lssm/lib.ai-agent/*": ["../ai-agent/src/*"]
+      "@contractspec/lib.ai-agent/*": ["../ai-agent/src/*"]
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.ai-providers",
+  "name": "@contractspec/lib.ai-providers",
   "version": "1.43.2",
   "type": "module",
   "main": "./dist/index.js",
@@ -32,8 +32,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

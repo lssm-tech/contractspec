@@ -1,24 +1,24 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Button } from '@lssm/lib.design-system';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Button } from '@contractspec/lib.design-system';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@lssm/lib.ui-kit-web/ui/select';
-import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
-import { Label } from '@lssm/lib.ui-kit-web/ui/label';
+} from '@contractspec/lib.ui-kit-web/ui/select';
+import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
+import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 import { Bot, Cloud, Cpu, Sparkles } from 'lucide-react';
 import {
   getModelsForProvider,
   type ModelInfo,
   type ProviderMode,
   type ProviderName,
-} from '@lssm/lib.ai-providers';
+} from '@contractspec/lib.ai-providers';
 
 export interface ModelSelection {
   provider: ProviderName;

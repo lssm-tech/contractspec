@@ -12,7 +12,7 @@ const example = {
     usageDocId: 'docs.examples.platform-tour.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.learning-journey-platform-tour',
+    packageName: '@contractspec/example.learning-journey-platform-tour',
     docs: './docs',
   },
   surfaces: {

@@ -19,7 +19,7 @@ import {
 import type {
   ContractsrcConfig,
   OpenApiSourceConfig,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 export * from './analyzer';
 export * from './schemas';

@@ -1,4 +1,4 @@
-# @lssm/example.integration-hub
+# @contractspec/example.integration-hub
 
 Website: https://contractspec.io/
 
@@ -60,7 +60,7 @@ The sync engine handles:
 4. **Deduplication**: Tracks synced records
 
 ```typescript
-import { createSyncEngine, BasicFieldTransformer } from '@lssm/example.integration-hub/sync-engine';
+import { createSyncEngine, BasicFieldTransformer } from '@contractspec/example.integration-hub/sync-engine';
 
 const engine = createSyncEngine();
 
@@ -106,7 +106,7 @@ import {
   CreateSyncConfigContract,
   TriggerSyncContract,
   integrationHubSchemaContribution 
-} from '@lssm/example.integration-hub';
+} from '@contractspec/example.integration-hub';
 
 // Create integration
 const integration = await executeContract(CreateIntegrationContract, {
@@ -133,11 +133,11 @@ const run = await executeContract(TriggerSyncContract, {
 
 ## Dependencies
 
-- `@lssm/lib.identity-rbac` - User identity and roles
-- `@lssm/lib.feature-flags` - Feature flag control
-- `@lssm/lib.files` - Import/export file handling
-- `@lssm/lib.jobs` - Background sync jobs
-- `@lssm/module.audit-trail` - Action auditing
+- `@contractspec/lib.identity-rbac` - User identity and roles
+- `@contractspec/lib.feature-flags` - Feature flag control
+- `@contractspec/lib.files` - Import/export file handling
+- `@contractspec/lib.jobs` - Background sync jobs
+- `@contractspec/module.audit-trail` - Action auditing
 
 
 

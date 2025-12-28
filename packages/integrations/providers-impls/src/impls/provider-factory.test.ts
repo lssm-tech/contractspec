@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test';
 
-import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/connection';
-import type { IntegrationSpec } from '@lssm/lib.contracts/integrations/spec';
-import type { IntegrationContext } from '@lssm/integration.runtime/runtime';
+import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
+import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
+import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
 import type {
   SecretProvider,
   SecretValue,
-} from '@lssm/integration.runtime/secrets/provider';
+} from '@contractspec/integration.runtime/secrets/provider';
 import { IntegrationProviderFactory } from './provider-factory';
 import { StripePaymentsProvider } from './stripe-payments';
 import { PostmarkEmailProvider } from './postmark-email';

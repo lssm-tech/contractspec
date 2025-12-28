@@ -1,7 +1,7 @@
 import type * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 
 function Empty({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   return (

@@ -6,7 +6,10 @@
  * @module schema-generators
  */
 
-import type { ContractsrcConfig, SchemaFormat } from '@lssm/lib.contracts';
+import type {
+  ContractsrcConfig,
+  SchemaFormat,
+} from '@contractspec/lib.contracts';
 import type { OpenApiSchema } from '../types';
 import {
   type GeneratedModel,
@@ -189,7 +192,7 @@ export class ContractSpecSchemaGenerator implements SchemaGenerator {
 
   getBaseImports(): string[] {
     return [
-      "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@lssm/lib.schema';",
+      "import { defineSchemaModel, ScalarTypeEnum, EnumType } from '@contractspec/lib.schema';",
     ];
   }
 
@@ -624,7 +627,7 @@ export class ZodSchemaGenerator implements SchemaGenerator {
   getBaseImports(): string[] {
     return [
       "import * as z from 'zod';",
-      "import { ZodSchemaType } from '@lssm/lib.schema';",
+      "import { ZodSchemaType } from '@contractspec/lib.schema';",
     ];
   }
 
@@ -756,7 +759,7 @@ export class JsonSchemaGenerator implements SchemaGenerator {
   }
 
   getBaseImports(): string[] {
-    return ["import { JsonSchemaType } from '@lssm/lib.schema';"];
+    return ["import { JsonSchemaType } from '@contractspec/lib.schema';"];
   }
 }
 
@@ -844,7 +847,7 @@ export class GraphQLSchemaGenerator implements SchemaGenerator {
   }
 
   getBaseImports(): string[] {
-    return ["import { GraphQLSchemaType } from '@lssm/lib.schema';"];
+    return ["import { GraphQLSchemaType } from '@contractspec/lib.schema';"];
   }
 
   private mapTypeToGraphQL(type?: string, format?: string): string {

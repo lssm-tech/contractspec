@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 const schema = 'lssm_wealth_snapshot';
 
@@ -174,7 +179,7 @@ export const wealthSnapshotEntities = [
 ];
 
 export const wealthSnapshotSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.wealth-snapshot',
+  moduleId: '@contractspec/example.wealth-snapshot',
   // schema,
   entities: wealthSnapshotEntities,
   enums: [

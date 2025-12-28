@@ -5,8 +5,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export type MarketingCardTone = 'default' | 'muted' | 'elevated';
 

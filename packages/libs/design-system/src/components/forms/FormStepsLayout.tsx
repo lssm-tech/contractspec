@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '../atoms/Button';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface StepDef {
   key: string;

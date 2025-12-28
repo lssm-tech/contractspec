@@ -1,11 +1,11 @@
-import type { AppBlueprintSpec } from '@lssm/lib.contracts/app-config/spec';
-import type { CapabilityRef } from '@lssm/lib.contracts/capabilities';
+import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config/spec';
+import type { CapabilityRef } from '@contractspec/lib.contracts/capabilities';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@lssm/lib.contracts/ownership';
-import type { AppBlueprintRegistry } from '@lssm/lib.contracts/app-config/spec';
+} from '@contractspec/lib.contracts/ownership';
+import type { AppBlueprintRegistry } from '@contractspec/lib.contracts/app-config/spec';
 
 const cap = (key: string, version: number): CapabilityRef => ({ key, version });
 

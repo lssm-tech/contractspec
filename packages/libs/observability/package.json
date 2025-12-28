@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.observability",
+  "name": "@contractspec/lib.observability",
   "version": "1.43.2",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
@@ -17,14 +17,14 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.lifecycle": "workspace:*"
+    "@contractspec/lib.lifecycle": "workspace:*"
   },
   "peerDependencies": {
     "@opentelemetry/api": "*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

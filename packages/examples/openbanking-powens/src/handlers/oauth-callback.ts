@@ -4,8 +4,8 @@
  * This example stays framework-neutral: it operates on the standard `Request`
  * type so it can be used in Next.js, Elysia, or any fetch-compatible runtime.
  */
-import { PowensOpenBankingProvider } from '@lssm/integration.providers-impls/impls/powens-openbanking';
-import type { PowensEnvironment } from '@lssm/integration.providers-impls/impls/powens-client';
+import { PowensOpenBankingProvider } from '@contractspec/integration.providers-impls/impls/powens-openbanking';
+import type { PowensEnvironment } from '@contractspec/integration.providers-impls/impls/powens-client';
 
 export async function powensOAuthCallbackHandler(req: Request) {
   const url = new URL(req.url);

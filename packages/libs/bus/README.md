@@ -1,4 +1,4 @@
-# @lssm/lib.bus
+# @contractspec/lib.bus
 
 Website: https://contractspec.io/
 
@@ -12,15 +12,15 @@ To decouple components and services by allowing them to communicate via typed ev
 ## Installation
 
 ```bash
-npm install @lssm/lib.bus
+npm install @contractspec/lib.bus
 # or
-bun add @lssm/lib.bus
+bun add @contractspec/lib.bus
 ```
 
 ## Key Concepts
 
 - **EventBus Interface**: A standard contract for `publish` and `subscribe`.
-- **Type Safety**: leveraging `@lssm/lib.contracts` event definitions for payload validation.
+- **Type Safety**: leveraging `@contractspec/lib.contracts` event definitions for payload validation.
 - **Decoupling**: Producers and consumers don't need to know about each other.
 
 ## Exports
@@ -32,7 +32,7 @@ bun add @lssm/lib.bus
 ## Usage
 
 ```tsx
-import { InMemoryEventBus } from '@lssm/lib.bus';
+import { InMemoryEventBus } from '@contractspec/lib.bus';
 
 // 1. Create the bus
 const bus = new InMemoryEventBus();

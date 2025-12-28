@@ -2,7 +2,7 @@ const example = {
   id: 'content-generation',
   title: 'Content Generation',
   summary:
-    'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @lssm/lib.content-gen.',
+    'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @contractspec/lib.content-gen.',
   tags: ['content', 'marketing', 'generation', 'ai'],
   kind: 'script',
   visibility: 'public',
@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.content-generation.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.content-generation',
+    packageName: '@contractspec/example.content-generation',
     docs: './docs',
   },
   surfaces: {

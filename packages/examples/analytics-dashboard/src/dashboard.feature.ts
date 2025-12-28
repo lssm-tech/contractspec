@@ -8,7 +8,7 @@
  * and presentations into an installable feature following FeatureModuleSpec.
  */
 
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 // ============ Feature Definition ============
 

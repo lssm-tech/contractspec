@@ -5,7 +5,7 @@ import type {
   LLMProvider,
   LLMMessage,
   LLMResponse,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 export interface KnowledgeQueryConfig {
   collection: string;

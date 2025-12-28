@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.ui-kit-core",
+  "name": "@contractspec/lib.ui-kit-core",
   "version": "1.43.2",
   "type": "module",
   "main": "./dist/index.js",
@@ -28,8 +28,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

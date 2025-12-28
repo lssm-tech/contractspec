@@ -1,4 +1,4 @@
-# @lssm/app.cli-databases
+# @contractspec/app.cli-databases
 
 ## 1.43.2
 

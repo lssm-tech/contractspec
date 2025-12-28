@@ -1,4 +1,4 @@
-# @lssm/lib.personalization
+# @contractspec/lib.personalization
 
 Website: https://contractspec.io/
 

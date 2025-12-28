@@ -1,4 +1,7 @@
-import type { LifecycleMilestone, LifecycleStage } from '@lssm/lib.lifecycle';
+import type {
+  LifecycleMilestone,
+  LifecycleStage,
+} from '@contractspec/lib.lifecycle';
 import catalog from '../data/milestones-catalog.json' assert { type: 'json' };
 
 export class LifecycleMilestonePlanner {

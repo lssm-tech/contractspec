@@ -3,7 +3,7 @@
  *
  * Defines the feature module for platform primitives tour journey.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey Platform Tour feature module that bundles

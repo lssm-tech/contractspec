@@ -6,7 +6,7 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/app.cli-contractspec@1.43.3
+  - @contractspec/app.cli-contractspec@1.43.3
 
 ## 1.43.2
 
@@ -14,7 +14,7 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/app.cli-contractspec@1.43.2
+  - @contractspec/app.cli-contractspec@1.43.2
 
 ## 1.43.1
 
@@ -22,7 +22,7 @@
 
 - f28fdad: fix
 - Updated dependencies [f28fdad]
-  - @lssm/app.cli-contractspec@1.43.1
+  - @contractspec/app.cli-contractspec@1.43.1
 
 ## 1.43.0
 
@@ -33,7 +33,7 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/app.cli-contractspec@1.43.0
+  - @contractspec/app.cli-contractspec@1.43.0
 
 ## 1.42.10
 
@@ -41,7 +41,7 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/app.cli-contractspec@1.42.10
+  - @contractspec/app.cli-contractspec@1.42.10
 
 ## 1.42.9
 
@@ -49,7 +49,7 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/app.cli-contractspec@1.42.9
+  - @contractspec/app.cli-contractspec@1.42.9
 
 ## 1.42.8
 
@@ -57,7 +57,7 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/app.cli-contractspec@1.42.8
+  - @contractspec/app.cli-contractspec@1.42.8
 
 ## 1.42.7
 
@@ -65,7 +65,7 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/app.cli-contractspec@1.42.7
+  - @contractspec/app.cli-contractspec@1.42.7
 
 ## 1.42.6
 
@@ -73,7 +73,7 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/app.cli-contractspec@1.42.6
+  - @contractspec/app.cli-contractspec@1.42.6
 
 ## 1.42.5
 
@@ -81,7 +81,7 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/app.cli-contractspec@1.42.5
+  - @contractspec/app.cli-contractspec@1.42.5
 
 ## 1.42.4
 
@@ -89,7 +89,7 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/app.cli-contractspec@1.42.4
+  - @contractspec/app.cli-contractspec@1.42.4
 
 ## 1.42.3
 
@@ -97,7 +97,7 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/app.cli-contractspec@1.42.3
+  - @contractspec/app.cli-contractspec@1.42.3
 
 ## 1.42.2
 
@@ -105,7 +105,7 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/app.cli-contractspec@1.42.2
+  - @contractspec/app.cli-contractspec@1.42.2
 
 ## 1.42.1
 
@@ -113,7 +113,7 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/app.cli-contractspec@1.42.1
+  - @contractspec/app.cli-contractspec@1.42.1
 
 ## 1.42.0
 
@@ -124,4 +124,4 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/app.cli-contractspec@1.42.0
+  - @contractspec/app.cli-contractspec@1.42.0

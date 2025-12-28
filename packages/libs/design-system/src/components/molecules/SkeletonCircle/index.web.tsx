@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Skeleton } from '@lssm/lib.ui-kit-web/ui/skeleton';
+import { Skeleton } from '@contractspec/lib.ui-kit-web/ui/skeleton';
 import type { SkeletonCircleProps } from './types';
 
 export function SkeletonCircle({

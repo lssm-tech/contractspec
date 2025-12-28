@@ -12,7 +12,7 @@ export function generateDataViewRendererTemplate({
   return `'use client';
 
 import * as React from 'react';
-import { DataViewRenderer } from '@lssm/lib.design-system';
+import { DataViewRenderer } from '@contractspec/lib.design-system';
 import { ${exportName} } from '${specImportPath}';
 
 export interface ${rendererName}Props {

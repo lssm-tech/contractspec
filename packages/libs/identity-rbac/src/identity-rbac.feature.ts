@@ -3,7 +3,7 @@
  *
  * Defines the feature module for identity management and role-based access control.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Identity RBAC feature module that bundles user, organization,

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { Button } from '../atoms/Button';
 import {
   Sheet,
@@ -11,13 +11,13 @@ import {
   SheetHeader,
   SheetFooter,
   SheetDescription,
-} from '@lssm/lib.ui-kit-web/ui/sheet';
+} from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { Menu } from 'lucide-react';
 import type { MarketingHeaderProps } from './MarketingHeader';
 import { MobileNavMenu } from '../molecules/MobileNavMenu';
 import { CommandSearchTrigger } from '../molecules/CommandSearchTrigger';
 import { LangSwitchDropdown } from '../molecules/LangSwitchDropdown';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 
 export function MarketingHeaderMobile({
   logo,

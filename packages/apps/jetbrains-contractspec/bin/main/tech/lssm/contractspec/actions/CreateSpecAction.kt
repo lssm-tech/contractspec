@@ -80,8 +80,8 @@ class CreateSpecAction : AnAction() {
 
     private fun generateCommandSpec(data: SpecCreationData): String {
         return """
-import { defineCommand } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineCommand } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const ${data.name}Input = defineSchemaModel({
   name: '${data.name}Input',
@@ -131,8 +131,8 @@ export const ${data.name}Spec = defineCommand({
 
     private fun generateEventSpec(data: SpecCreationData): String {
         return """
-import { defineEvent } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const ${data.name}Payload = defineSchemaModel({
   name: '${data.name}Payload',
@@ -154,7 +154,7 @@ export const ${data.name}Event = defineEvent({
 
     private fun generatePresentationSpec(data: SpecCreationData): String {
         return """
-import type { PresentationSpec } from '@lssm/lib.contracts/presentations';
+import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
 
 export const ${data.name}Presentation: PresentationSpec = {
   meta: {
@@ -174,7 +174,7 @@ export const ${data.name}Presentation: PresentationSpec = {
 
     private fun generateFeatureSpec(data: SpecCreationData): String {
         return """
-import type { FeatureSpec } from '@lssm/lib.contracts';
+import type { FeatureSpec } from '@contractspec/lib.contracts';
 
 export const ${data.name}Feature: FeatureSpec = {
   name: '${data.domain}.${data.name}',

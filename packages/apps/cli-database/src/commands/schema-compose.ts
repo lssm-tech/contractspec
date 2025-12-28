@@ -13,7 +13,7 @@ export interface SchemaComposeArgs {
  *
  * Usage:
  *   database schema:compose --config ./schema.config.ts
- *   database schema:compose --modules "@lssm/lib.identity-rbac,@lssm/module.audit-trail"
+ *   database schema:compose --modules "@contractspec/lib.identity-rbac,@contractspec/module.audit-trail"
  */
 export async function runSchemaCompose(argv: SchemaComposeArgs) {
   console.log('🔗 Composing module schemas...\n');
@@ -62,7 +62,7 @@ export async function runSchemaCompose(argv: SchemaComposeArgs) {
   }
 
   // Dynamically import the generator
-  const { composeModuleSchemas } = await import('@lssm/lib.schema');
+  const { composeModuleSchemas } = await import('@contractspec/lib.schema');
 
   // Generate the combined schema
   const prismaSchema = composeModuleSchemas(modules, {

@@ -1,7 +1,7 @@
-# @lssm/lib.ai-agent
+# @contractspec/lib.ai-agent
 
-[![npm version](https://img.shields.io/npm/v/@lssm/lib.ai-agent)](https://www.npmjs.com/package/@lssm/lib.ai-agent)
-[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.ai-agent)](https://www.npmjs.com/package/@lssm/lib.ai-agent)
+[![npm version](https://img.shields.io/npm/v/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)
+[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
 
@@ -23,9 +23,9 @@ Stateful AI agent orchestration with type-safe specs, tool execution, knowledge 
 ## Quickstart
 
 ```ts
-import { AgentRegistry, AgentRunner, defineAgent } from '@lssm/lib.ai-agent';
-import { ToolExecutor } from '@lssm/lib.ai-agent/tools';
-import { InMemoryAgentMemory } from '@lssm/lib.ai-agent/memory';
+import { AgentRegistry, AgentRunner, defineAgent } from '@contractspec/lib.ai-agent';
+import { ToolExecutor } from '@contractspec/lib.ai-agent/tools';
+import { InMemoryAgentMemory } from '@contractspec/lib.ai-agent/memory';
 
 const SupportAgent = defineAgent({
   meta: { name: 'support.bot', version: 1, owners: ['team-support'], domain: 'operations' },

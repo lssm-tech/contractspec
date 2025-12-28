@@ -76,8 +76,8 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) for full u
 ## Example Contract
 
 ```typescript
-import { defineCommand } from '@lssm/lib.contracts';
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineCommand } from '@contractspec/lib.contracts';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const UserInput = new SchemaModel({
   name: 'UserInput',
@@ -116,30 +116,30 @@ export const CreateUser = defineCommand({
 
 | Package                                                             | Description                                      |
 | ------------------------------------------------------------------- | ------------------------------------------------ |
-| [`@lssm/lib.contracts`](packages/libs/contracts/README.md)          | Core contract definitions and runtime adapters   |
-| [`@lssm/lib.schema`](packages/libs/schema/README.md)                | Schema definitions for multi-surface consistency |
-| [`@lssm/app.cli-contractspec`](packages/apps/cli-contractspec/README.md) | CLI for creating, building, and validating specs |
+| [`@contractspec/lib.contracts`](packages/libs/contracts/README.md)          | Core contract definitions and runtime adapters   |
+| [`@contractspec/lib.schema`](packages/libs/schema/README.md)                | Schema definitions for multi-surface consistency |
+| [`@contractspec/app.cli-contractspec`](packages/apps/cli-contractspec/README.md) | CLI for creating, building, and validating specs |
 
 ### AI & Evolution
 
 | Package                                                    | Description                                     |
 | ---------------------------------------------------------- | ----------------------------------------------- |
-| [`@lssm/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
-| [`@lssm/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
+| [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
+| [`@contractspec/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
 
 ### Testing & Quality
 
 | Package                                                            | Description                                     |
 | ------------------------------------------------------------------ | ----------------------------------------------- |
-| [`@lssm/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
-| [`@lssm/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
+| [`@contractspec/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
+| [`@contractspec/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
 
 ### Infrastructure
 
 | Package                                                                          | Description                     |
 | -------------------------------------------------------------------------------- | ------------------------------- |
-| [`@lssm/lib.progressive-delivery`](packages/libs/progressive-delivery/README.md) | Canary deployments and rollback |
-| [`@lssm/lib.multi-tenancy`](packages/libs/multi-tenancy/README.md)               | Tenant isolation utilities      |
+| [`@contractspec/lib.progressive-delivery`](packages/libs/progressive-delivery/README.md) | Canary deployments and rollback |
+| [`@contractspec/lib.multi-tenancy`](packages/libs/multi-tenancy/README.md)               | Tenant isolation utilities      |
 
 ## Who It's For
 

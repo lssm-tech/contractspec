@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 const schema = 'lssm_team_hub';
 
@@ -214,7 +219,7 @@ export const teamHubEntities = [
 ];
 
 export const teamHubSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.team-hub',
+  moduleId: '@contractspec/example.team-hub',
   // schema,
   entities: teamHubEntities,
   enums: [

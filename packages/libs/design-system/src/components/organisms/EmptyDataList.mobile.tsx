@@ -6,9 +6,9 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from '@lssm/lib.ui-kit/ui/empty';
-import { HStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Text } from '@lssm/lib.ui-kit-web/ui/text';
+} from '@contractspec/lib.ui-kit/ui/empty';
+import { HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import type { EmptyDataListProps } from './EmptyDataList.types';
 
 export function EmptyDataList({

@@ -1,4 +1,4 @@
-import type { Logger } from '@lssm/lib.logger';
+import type { Logger } from '@contractspec/lib.logger';
 import type { HandlerCtx } from '../../types';
 import type { PresentationRegistry } from '../../presentations';
 

@@ -1,4 +1,4 @@
-# @lssm/lib.presentation-runtime-core
+# @contractspec/lib.presentation-runtime-core
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide the shared, framework-agnostic state management and logic for executi
 ## Installation
 
 ```bash
-npm install @lssm/lib.presentation-runtime-core
+npm install @contractspec/lib.presentation-runtime-core
 # or
-bun add @lssm/lib.presentation-runtime-core
+bun add @contractspec/lib.presentation-runtime-core
 ```
 
 ## Key Concepts
@@ -30,7 +30,7 @@ bun add @lssm/lib.presentation-runtime-core
 
 ## Usage
 
-Typically used internally by `@lssm/lib.presentation-runtime-react` or `@lssm/lib.presentation-runtime-react-native`.
+Typically used internally by `@contractspec/lib.presentation-runtime-react` or `@contractspec/lib.presentation-runtime-react-native`.
 
 
 

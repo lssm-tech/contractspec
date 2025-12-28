@@ -8,8 +8,8 @@ import {
   ToggleRight as ToggleRightIcon,
   Trash2 as DeleteIcon,
 } from 'lucide-react';
-import { Box } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Text } from '@lssm/lib.ui-kit-web/ui/text';
+import { Box } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 
 const _actionBtn = cva('', {
   variants: {

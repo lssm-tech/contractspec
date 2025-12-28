@@ -1,4 +1,4 @@
-# @lssm/lib.knowledge
+# @contractspec/lib.knowledge
 
 Website: https://contractspec.io/
 
@@ -13,7 +13,7 @@ Knowledge retrieval and management library for ContractSpec. Provides the runtim
 ## Installation
 
 ```bash
-bun add @lssm/lib.knowledge
+bun add @contractspec/lib.knowledge
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ bun add @lssm/lib.knowledge
 ### Basic Retriever
 
 ```typescript
-import { createVectorRetriever } from '@lssm/lib.knowledge/retriever';
+import { createVectorRetriever } from '@contractspec/lib.knowledge/retriever';
 
 const retriever = createVectorRetriever({
   embeddings: embeddingProvider,
@@ -37,7 +37,7 @@ const results = await retriever.retrieve('How do I reset my password?', {
 ### Static Knowledge
 
 ```typescript
-import { createStaticRetriever } from '@lssm/lib.knowledge/retriever';
+import { createStaticRetriever } from '@contractspec/lib.knowledge/retriever';
 
 const retriever = createStaticRetriever({
   'product-canon': 'Product specifications and documentation...',
@@ -49,14 +49,14 @@ const content = await retriever.getStatic('product-canon');
 
 ## Architecture
 
-This package bridges `@lssm/lib.contracts` (specs/types) with `@lssm/lib.ai-agent` (AI SDK integration):
+This package bridges `@contractspec/lib.contracts` (specs/types) with `@contractspec/lib.ai-agent` (AI SDK integration):
 
 ```
-@lssm/lib.contracts (specs/types)
+@contractspec/lib.contracts (specs/types)
          ↓
-@lssm/lib.knowledge (runtime)
+@contractspec/lib.knowledge (runtime)
          ↓
-@lssm/lib.ai-agent (AI SDK)
+@contractspec/lib.ai-agent (AI SDK)
 ```
 
 ## License

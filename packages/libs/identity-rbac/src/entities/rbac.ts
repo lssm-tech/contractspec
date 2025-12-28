@@ -1,4 +1,4 @@
-import { defineEntity, field, index } from '@lssm/lib.schema';
+import { defineEntity, field, index } from '@contractspec/lib.schema';
 
 /**
  * Role entity - named set of permissions.

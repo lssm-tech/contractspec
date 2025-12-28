@@ -1,5 +1,5 @@
 {
-  "extends": "@lssm/tool.typescript/react-library.json",
+  "extends": "@contractspec/tool.typescript/react-library.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",

@@ -3,8 +3,8 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import type { Config } from '../../utils/config';
-import { TestRunner, type TestSpec } from '@lssm/lib.contracts/tests';
-import { OperationSpecRegistry } from '@lssm/lib.contracts';
+import { TestRunner, type TestSpec } from '@contractspec/lib.contracts/tests';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts';
 
 interface TestCommandOptions {
   registry?: string;

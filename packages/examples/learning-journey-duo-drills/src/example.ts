@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.learning-journey.duo-drills',
   },
   entrypoints: {
-    packageName: '@lssm/example.learning-journey-duo-drills',
+    packageName: '@contractspec/example.learning-journey-duo-drills',
     docs: './docs',
   },
   surfaces: {

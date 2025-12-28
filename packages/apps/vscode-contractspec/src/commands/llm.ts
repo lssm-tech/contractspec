@@ -15,13 +15,13 @@ import {
   type AgentType,
   type LLMExportFormat,
   type VerificationTier,
-} from '@lssm/lib.contracts/llm';
+} from '@contractspec/lib.contracts/llm';
 import {
   isFeatureFile,
   scanAllSpecsFromSource,
   scanFeatureSource,
-} from '@lssm/module.contractspec-workspace';
-import { listSpecs } from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/module.workspace';
+import { listSpecs } from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import { extractFilePath as extractFilePathFromItem } from './context-actions';
 

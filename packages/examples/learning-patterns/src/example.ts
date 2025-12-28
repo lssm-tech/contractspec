@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.learning-patterns',
   },
   entrypoints: {
-    packageName: '@lssm/example.learning-patterns',
+    packageName: '@contractspec/example.learning-patterns',
     docs: './docs',
   },
   surfaces: {

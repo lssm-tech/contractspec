@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.wealth-snapshot.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.wealth-snapshot',
+    packageName: '@contractspec/example.wealth-snapshot',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

@@ -3,7 +3,7 @@
  *
  * Defines the feature module for CRM first-win onboarding journey.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey CRM Onboarding feature module that bundles

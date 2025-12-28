@@ -3,24 +3,28 @@ import type {
   LifecycleAssessmentInput,
   LifecycleRecommendation,
   LifecycleStage,
-} from '@lssm/lib.lifecycle';
-import { ProductPhase, CompanyPhase, CapitalPhase } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
+import {
+  ProductPhase,
+  CompanyPhase,
+  CapitalPhase,
+} from '@contractspec/lib.lifecycle';
 import {
   LifecycleOrchestrator,
   StageSignalCollector,
   StageScorer,
   LifecycleMilestonePlanner,
   type StageSignalCollectorOptions,
-} from '@lssm/module.lifecycle-core';
+} from '@contractspec/module.lifecycle-core';
 import {
   LifecycleRecommendationEngine,
   ContractSpecLibraryRecommender,
   LifecycleCeremonyDesigner,
-} from '@lssm/module.lifecycle-advisor';
+} from '@contractspec/module.lifecycle-advisor';
 import {
   LifecycleKpiPipeline,
   type LifecyclePipelineEvent,
-} from '@lssm/lib.observability';
+} from '@contractspec/lib.observability';
 import { LifecycleEventBridge } from '../events/lifecycle-events';
 
 export interface LifecycleAssessmentRequest extends LifecycleAssessmentInput {

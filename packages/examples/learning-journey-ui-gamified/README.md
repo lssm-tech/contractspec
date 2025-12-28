@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ui-gamified
+# @contractspec/example.learning-journey-ui-gamified
 
 Website: https://contractspec.io/
 
@@ -15,8 +15,8 @@ Duolingo-style gamified learning UI for drills and quests.
 ## Usage
 
 ```tsx
-import { GamifiedMiniApp } from '@lssm/example.learning-journey-ui-gamified';
-import { drillsLanguageBasicsTrack } from '@lssm/example.learning-journey-duo-drills/track';
+import { GamifiedMiniApp } from '@contractspec/example.learning-journey-ui-gamified';
+import { drillsLanguageBasicsTrack } from '@contractspec/example.learning-journey-duo-drills/track';
 
 function MyApp() {
   return (

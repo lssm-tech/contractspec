@@ -1,6 +1,6 @@
 import type { HandlerCtx } from '../types';
 import type { OperationSpec, OpKind } from '../operations/';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { ResourceRefDescriptor } from '../resources';
 
 export type RuntimeContract = OperationSpec<

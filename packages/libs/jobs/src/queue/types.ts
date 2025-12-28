@@ -1,1 +1,1 @@
-export * from '@lssm/lib.contracts/jobs/queue';
+export * from '@contractspec/lib.contracts/jobs/queue';

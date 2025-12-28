@@ -11,7 +11,7 @@ import '@pothos/plugin-prisma';
 import '@pothos/plugin-relay';
 import '@pothos/plugin-complexity';
 import { GeoJSONResolver } from 'graphql-scalars';
-import { ScalarTypeEnum } from '@lssm/lib.schema';
+import { ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export interface PrismaBuilderOptions {
   complexity?: {

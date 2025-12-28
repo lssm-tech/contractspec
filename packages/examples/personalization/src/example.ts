@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.personalization.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.personalization',
+    packageName: '@contractspec/example.personalization',
     docs: './docs',
   },
   surfaces: {

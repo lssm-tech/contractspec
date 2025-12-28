@@ -1,4 +1,4 @@
-# @lssm/app.cli-database
+# @contractspec/app.cli-database
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To abstract and standardize Prisma usage across multiple services and verticals.
 ## Installation
 
 ```bash
-npm install @lssm/app.cli-database
+npm install @contractspec/app.cli-database
 # or
-bun add @lssm/app.cli-database
+bun add @contractspec/app.cli-database
 ```
 
 ## Key Concepts
@@ -48,7 +48,7 @@ bun database seed
 ### In Code
 
 ```ts
-import { PrismaClient } from '@lssm/app.cli-database';
+import { PrismaClient } from '@contractspec/app.cli-database';
 
 const prisma = new PrismaClient();
 const users = await prisma.user.findMany();

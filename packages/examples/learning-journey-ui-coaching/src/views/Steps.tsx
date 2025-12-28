@@ -1,7 +1,7 @@
 'use client';
 
 import { TipCard } from '../components/TipCard';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
   const completedSteps = progress.completedStepIds.length;

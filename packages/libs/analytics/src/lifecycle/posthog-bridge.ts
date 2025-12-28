@@ -1,4 +1,4 @@
-import type { LifecycleAssessment } from '@lssm/lib.lifecycle';
+import type { LifecycleAssessment } from '@contractspec/lib.lifecycle';
 import { lifecycleEventNames } from './metric-collectors';
 
 export interface PostHogLikeClient {

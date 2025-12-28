@@ -1,4 +1,7 @@
-import type { EmailInboundProvider, EmailThread } from '@lssm/lib.contracts';
+import type {
+  EmailInboundProvider,
+  EmailThread,
+} from '@contractspec/lib.contracts';
 import type { DocumentProcessor, RawDocument } from './document-processor';
 import type { EmbeddingService } from './embedding-service';
 import type { VectorIndexer } from './vector-indexer';

@@ -2,8 +2,11 @@ import type {
   LifecycleMetricSnapshot,
   LifecycleScore,
   LifecycleSignal,
-} from '@lssm/lib.lifecycle';
-import { LIFECYCLE_STAGE_META, LifecycleStage } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
+import {
+  LIFECYCLE_STAGE_META,
+  LifecycleStage,
+} from '@contractspec/lib.lifecycle';
 import stageWeights from '../data/stage-weights.json' assert { type: 'json' };
 
 type NumericMetricKey = Extract<

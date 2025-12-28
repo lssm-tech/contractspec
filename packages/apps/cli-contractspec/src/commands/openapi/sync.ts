@@ -6,7 +6,7 @@ import { existsSync } from 'node:fs';
 import {
   importFromOpenApi,
   parseOpenApi,
-} from '@lssm/lib.contracts-transformers/openapi';
+} from '@contractspec/lib.contracts-transformers/openapi';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 

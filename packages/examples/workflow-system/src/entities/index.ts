@@ -43,7 +43,7 @@ import {
   ApprovalRequestEntity,
   ApprovalCommentEntity,
 } from './approval';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 export const workflowSystemEntities = [
   WorkflowDefinitionEntity,
@@ -55,7 +55,7 @@ export const workflowSystemEntities = [
 ];
 
 export const workflowSystemSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.workflow-system',
+  moduleId: '@contractspec/example.workflow-system',
   entities: workflowSystemEntities,
   enums: [
     WorkflowStatusEnum,

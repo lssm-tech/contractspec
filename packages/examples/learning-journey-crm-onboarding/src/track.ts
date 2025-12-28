@@ -1,4 +1,4 @@
-import type { LearningJourneyTrackSpec } from '@lssm/module.learning-journey/track-spec';
+import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
 export const crmFirstWinTrack: LearningJourneyTrackSpec = {
   id: 'crm_first_win',
@@ -19,7 +19,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 1,
       completion: {
         eventName: 'pipeline.created',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
       },
       xpReward: 15,
       metadata: { surface: 'pipeline' },
@@ -31,7 +31,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 2,
       completion: {
         eventName: 'contact.created',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
       },
       xpReward: 20,
       metadata: { surface: 'contacts' },
@@ -43,7 +43,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 3,
       completion: {
         eventName: 'deal.created',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
       },
       xpReward: 20,
       metadata: { surface: 'deals' },
@@ -55,7 +55,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 4,
       completion: {
         eventName: 'deal.moved',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
       },
       xpReward: 20,
       metadata: { surface: 'deals' },
@@ -67,7 +67,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 5,
       completion: {
         eventName: 'deal.won',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
       },
       xpReward: 30,
       metadata: { surface: 'deals' },
@@ -80,7 +80,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
       order: 6,
       completion: {
         eventName: 'task.completed',
-        sourceModule: '@lssm/example.crm-pipeline',
+        sourceModule: '@contractspec/example.crm-pipeline',
         payloadFilter: { type: 'follow_up' },
       },
       xpReward: 30,

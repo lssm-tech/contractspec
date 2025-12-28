@@ -3,7 +3,7 @@
  *
  * Defines the feature module for workflow and approval capabilities.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Workflow System feature module that bundles workflow definition,

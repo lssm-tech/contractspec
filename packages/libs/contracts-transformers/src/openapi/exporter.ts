@@ -11,8 +11,8 @@ import type {
   WorkflowRegistry,
   EventSpec,
   PresentationSpec,
-} from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type {
   ContractSpecOpenApiDocument,
   OpenApiExportOptions,

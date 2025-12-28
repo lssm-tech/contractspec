@@ -1,21 +1,21 @@
 // Custom ESLint rule to enforce design-system-first imports and discourage
 // intrinsic layout/form elements in app/bundle code.
 const DEFAULT_REPLACEMENTS = {
-  '@lssm/lib.ui-kit-web/ui/button': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/input': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/textarea': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/cta': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/link': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/empty-state': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/loader': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/label': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/select': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/checkbox': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/radio-group': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/form': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/card': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/stack': '@lssm/lib.design-system',
-  '@lssm/lib.ui-kit-web/ui/typography': '@lssm/lib.ui-kit-web/ui/typography', // allow typography to pass through
+  '@contractspec/lib.ui-kit-web/ui/button': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/input': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/textarea': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/cta': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/link': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/empty-state': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/loader': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/label': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/select': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/checkbox': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/radio-group': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/form': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/card': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/stack': '@contractspec/lib.design-system',
+  '@contractspec/lib.ui-kit-web/ui/typography': '@contractspec/lib.ui-kit-web/ui/typography', // allow typography to pass through
 };
 
 const DEFAULT_INTRINSIC = new Set([

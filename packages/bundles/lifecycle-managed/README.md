@@ -1,4 +1,4 @@
-# @lssm/bundle.lifecycle-managed
+# @contractspec/bundle.lifecycle-managed
 
 Website: https://contractspec.io/
 
@@ -15,7 +15,7 @@ Lifecycle assessment + guidance managed service for ContractSpec Studio. This bu
 ## Usage
 
 ```ts
-import { LifecycleAssessmentService, createLifecycleHandlers } from '@lssm/bundle.lifecycle-managed';
+import { LifecycleAssessmentService, createLifecycleHandlers } from '@contractspec/bundle.lifecycle-managed';
 
 const service = new LifecycleAssessmentService({
   tenantId: 'tenant_123',

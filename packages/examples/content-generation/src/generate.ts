@@ -3,11 +3,11 @@ import {
   EmailCampaignGenerator,
   LandingPageGenerator,
   SocialPostGenerator,
-} from '@lssm/lib.content-gen/generators';
-import { SeoOptimizer } from '@lssm/lib.content-gen/seo';
-import type { ContentBrief } from '@lssm/lib.content-gen';
-import { Logger, LogLevel } from '@lssm/lib.logger';
-import type { LoggerConfig } from '@lssm/lib.logger/types';
+} from '@contractspec/lib.content-gen/generators';
+import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
+import type { ContentBrief } from '@contractspec/lib.content-gen';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
+import type { LoggerConfig } from '@contractspec/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

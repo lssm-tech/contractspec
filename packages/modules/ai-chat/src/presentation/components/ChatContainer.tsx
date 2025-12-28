@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { ScrollArea } from '@lssm/lib.ui-kit-web/ui/scroll-area';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { ScrollArea } from '@contractspec/lib.ui-kit-web/ui/scroll-area';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface ChatContainerProps {
   children: React.ReactNode;

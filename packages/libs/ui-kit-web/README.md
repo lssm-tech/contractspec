@@ -1,4 +1,4 @@
-# @lssm/lib.ui-kit-web
+# @contractspec/lib.ui-kit-web
 
 Website: https://contractspec.io/
 
@@ -7,14 +7,14 @@ Web-specific UI components and primitives for Next.js/React applications, built 
 
 ## Purpose
 
-To provide a comprehensive set of accessible, high-performance UI components specifically optimized for the modern web. While `@lssm/lib.ui-kit` focuses on universal (native + web) compatibility, this library leverages web-only capabilities like portals, heavy data tables, and mapping libraries.
+To provide a comprehensive set of accessible, high-performance UI components specifically optimized for the modern web. While `@contractspec/lib.ui-kit` focuses on universal (native + web) compatibility, this library leverages web-only capabilities like portals, heavy data tables, and mapping libraries.
 
 ## Installation
 
 ```bash
-npm install @lssm/lib.ui-kit-web
+npm install @contractspec/lib.ui-kit-web
 # or
-bun add @lssm/lib.ui-kit-web
+bun add @contractspec/lib.ui-kit-web
 ```
 
 ## Key Concepts
@@ -49,13 +49,13 @@ bun add @lssm/lib.ui-kit-web
 ## Usage
 
 ```tsx
-import { Button } from '@lssm/lib.ui-kit-web/ui/button';
+import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from '@lssm/lib.ui-kit-web/ui/dialog';
-import { Input } from '@lssm/lib.ui-kit-web/ui/input';
+} from '@contractspec/lib.ui-kit-web/ui/dialog';
+import { Input } from '@contractspec/lib.ui-kit-web/ui/input';
 
 export function LoginModal() {
   return (

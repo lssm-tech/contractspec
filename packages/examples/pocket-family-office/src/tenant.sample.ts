@@ -1,4 +1,4 @@
-import type { TenantAppConfig } from '@lssm/lib.contracts/app-config/spec';
+import type { TenantAppConfig } from '@contractspec/lib.contracts/app-config/spec';
 
 export const pocketFamilyOfficeTenantSample: TenantAppConfig = {
   meta: {

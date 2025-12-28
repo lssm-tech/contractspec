@@ -5,20 +5,20 @@ import { basename, dirname, join, resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { select } from '@inquirer/prompts';
 import {
+  type AppBlueprintSpec,
+  type BlueprintTranslationCatalog,
+  IntegrationSpecRegistry,
+  type TenantAppConfig,
   validateBlueprint as validateBlueprintSpec,
   validateConfig as validateTenantConfigSpecs,
-  type AppBlueprintSpec,
-  type TenantAppConfig,
-  type BlueprintTranslationCatalog,
-} from '@lssm/lib.contracts';
-import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/connection';
-import { IntegrationSpecRegistry } from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
+import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
 import {
   createNodeAdapters,
   loadWorkspaceConfig,
   validateImplementationFiles,
   validateSpecStructure,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import { AgentOrchestrator } from '../../ai/agents/index';
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';

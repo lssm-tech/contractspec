@@ -32,7 +32,7 @@ export default defineConfig([
             {
               group: ['**/lib/**', '**/hooks/**', '**/services/**'],
               message:
-                'Keep heavy logic out of web-artisan/components. Use @lssm/bundle.artisan or DS.',
+                'Keep heavy logic out of web-artisan/components. Use @contractspec/bundle.artisan or DS.',
             },
           ],
         },

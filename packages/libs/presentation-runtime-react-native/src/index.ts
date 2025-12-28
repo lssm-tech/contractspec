@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import type { DefaultValues, Resolver, UseFormReturn } from 'react-hook-form';
-import { useForm } from '@lssm/lib.ui-kit/ui/form';
+import { useForm } from '@contractspec/lib.ui-kit/ui/form';
 import type {
   ListFetcher,
   ListState,
-} from '@lssm/lib.presentation-runtime-core';
+} from '@contractspec/lib.presentation-runtime-core';
 
 export interface UsePresentationControllerOpts<
   TFilters extends Record<string, unknown>,

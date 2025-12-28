@@ -1,4 +1,7 @@
-import type { LifecycleAxes, LifecycleSignal } from '@lssm/lib.lifecycle';
+import type {
+  LifecycleAxes,
+  LifecycleSignal,
+} from '@contractspec/lib.lifecycle';
 
 export interface QuestionnaireAdapterResult {
   axes?: Partial<LifecycleAxes>;

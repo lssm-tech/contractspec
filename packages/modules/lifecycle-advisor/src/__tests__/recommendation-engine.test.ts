@@ -6,7 +6,7 @@ import {
   ProductPhase,
   CompanyPhase,
   CapitalPhase,
-} from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
 
 const mockAssessment = {
   stage: LifecycleStage.GrowthScaleUp,

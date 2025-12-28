@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.agent-console.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.agent-console',
+    packageName: '@contractspec/example.agent-console',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

@@ -3,7 +3,7 @@
  *
  * DocBlock for the AI Chat module.
  */
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 registerDocBlocks([
   {
@@ -43,7 +43,7 @@ The module is organized into several layers:
 ### Basic Chat
 
 \`\`\`typescript
-import { ChatService, createProvider } from '@lssm/module.ai-chat';
+import { ChatService, createProvider } from '@contractspec/module.ai-chat';
 
 const provider = createProvider({
   provider: 'openai',
@@ -60,7 +60,7 @@ const result = await chatService.send({
 ### React Integration
 
 \`\`\`tsx
-import { useChat, ChatContainer, ChatMessage, ChatInput } from '@lssm/module.ai-chat';
+import { useChat, ChatContainer, ChatMessage, ChatInput } from '@contractspec/module.ai-chat';
 
 function Chat() {
   const { messages, sendMessage, isLoading } = useChat({
@@ -119,7 +119,7 @@ Use ContractSpec-managed keys via the API proxy. Usage is metered and tracked fo
 ## Configuration
 
 \`\`\`typescript
-import { createProvider } from '@lssm/module.ai-chat';
+import { createProvider } from '@contractspec/module.ai-chat';
 
 // Ollama (local)
 const ollamaProvider = createProvider({

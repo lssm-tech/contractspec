@@ -2,10 +2,10 @@ import * as React from 'react';
 import {
   Button as NativeButton,
   type ButtonProps as NativeButtonProps,
-} from '@lssm/lib.ui-kit/ui/button';
+} from '@contractspec/lib.ui-kit/ui/button';
 import { ActivityIndicator, type PressableProps } from 'react-native';
-import { HStack } from '@lssm/lib.ui-kit/ui/stack';
-import { Text } from '@lssm/lib.ui-kit/ui/text';
+import { HStack } from '@contractspec/lib.ui-kit/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit/ui/text';
 
 type SpinnerPlacement = 'start' | 'end';
 

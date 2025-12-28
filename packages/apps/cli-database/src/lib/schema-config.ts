@@ -1,4 +1,4 @@
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Configuration for schema generation and composition.

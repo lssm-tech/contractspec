@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const ambientCoachDocBlocks: DocBlock[] = [
   {
@@ -23,7 +23,7 @@ const ambientCoachDocBlocks: DocBlock[] = [
   - \`coach.tip.follow_up_action_taken\`
 
 ## Usage
-- Tracks export from \`@lssm/example.learning-journey-ambient-coach/track\`.
+- Tracks export from \`@contractspec/example.learning-journey-ambient-coach/track\`.
 - Registry progression is event-driven; payload filters can scope tips per category.
 - XP/engagement can be awarded on completion of each tip step.`,
   },

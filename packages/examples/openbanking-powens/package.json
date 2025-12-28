@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.openbanking-powens",
+  "name": "@contractspec/example.openbanking-powens",
   "version": "1.43.3",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
@@ -28,13 +28,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/integration.providers-impls": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@contractspec/integration.providers-impls": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -3,7 +3,7 @@
  * These operations are reusable for any app that needs multi-step onboarding with draft persistence.
  */
 import { defineCommand, defineQuery } from './operations/';
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { OwnersEnum, StabilityEnum } from './ownership';
 
 /** Save/update onboarding draft (auto-save during flow) */

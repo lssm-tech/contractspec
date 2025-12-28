@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   PricingTable,
   type PricingTier,
-} from '@lssm/lib.ui-kit-web/ui/marketing/PricingTable';
+} from '@contractspec/lib.ui-kit-web/ui/marketing/PricingTable';
 
 export function PricingSection({
   tiers,

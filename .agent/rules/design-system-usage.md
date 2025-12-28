@@ -10,9 +10,9 @@ alwaysApply: false
 
 Priority order:
 
-1. Use `@lssm/lib.design-system` components (atoms/molecules/organisms, layouts).
+1. Use `@contractspec/lib.design-system` components (atoms/molecules/organisms, layouts).
 2. If the required block/section is missing, add it inside `packages/libs/design-system` and export it there.
-3. Only when DS truly lacks a primitive, use `@lssm/lib.ui-kit-web` equivalents. Do not mix ui-kit and DS in the same component unless bridging to add the DS primitive.
+3. Only when DS truly lacks a primitive, use `@contractspec/lib.ui-kit-web` equivalents. Do not mix ui-kit and DS in the same component unless bridging to add the DS primitive.
 
 Layout & structure:
 
@@ -22,7 +22,7 @@ Layout & structure:
 
 Typography:
 
-- Use DS text/heading primitives or typography tokens from `@lssm/lib.ui-kit-web/ui/typography`.
+- Use DS text/heading primitives or typography tokens from `@contractspec/lib.ui-kit-web/ui/typography`.
 - Avoid raw `<p>/<h1>-<h6>/<span>` unless authoring a new DS atom.
 
 Forms & controls:
@@ -43,7 +43,7 @@ Accessibility & UX:
 Dependency flow:
 
 - Apps → bundles → libs; never import bundles from apps or libs.
-- Do not import `@lssm/lib.ui-kit` (native) in web code.
+- Do not import `@contractspec/lib.ui-kit` (native) in web code.
 
 When adding new DS primitives:
 

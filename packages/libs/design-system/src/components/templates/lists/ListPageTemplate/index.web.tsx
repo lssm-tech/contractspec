@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { cva } from 'class-variance-authority';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { PageHeaderResponsive } from '../../../organisms/PageHeaderResponsive';
 import { FiltersToolbar } from '../../../molecules/FiltersToolbar';
 import { AiLinkButton } from '../../../molecules/AiLinkButton';
 import type { ListPageTemplateProps } from './types';
-import { Skeleton } from '@lssm/lib.ui-kit-web/ui/skeleton';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+import { Skeleton } from '@contractspec/lib.ui-kit-web/ui/skeleton';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import { EmptyDataList } from '../../../organisms/EmptyDataList';
 
 const containerVariants = cva('space-y-4 md:space-y-6');

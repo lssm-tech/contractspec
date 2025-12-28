@@ -1,4 +1,4 @@
-import { LifecycleStage } from '@lssm/lib.lifecycle';
+import { LifecycleStage } from '@contractspec/lib.lifecycle';
 import libraryStageMap, {
   type LibraryStageEntry,
 } from '../data/library-stage-map';

@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.analytics-dashboard.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.analytics-dashboard',
+    packageName: '@contractspec/example.analytics-dashboard',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

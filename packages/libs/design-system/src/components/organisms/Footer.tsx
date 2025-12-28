@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { cva } from 'class-variance-authority';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 
 export interface FooterProps {
   left?: React.ReactNode;

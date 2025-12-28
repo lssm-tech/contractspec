@@ -1,4 +1,4 @@
-# @lssm/lib.testing
+# @contractspec/lib.testing
 
 Website: https://contractspec.io/
 
@@ -17,7 +17,7 @@ Golden-test utilities that record real requests/responses and generate runnable 
 import {
   TrafficRecorder,
   InMemoryTrafficStore,
-} from '@lssm/lib.testing/recorder';
+} from '@contractspec/lib.testing/recorder';
 
 const recorder = new TrafficRecorder({
   store: new InMemoryTrafficStore(),
@@ -33,7 +33,7 @@ await recorder.record({
 });
 ```
 
-See `GoldenTestGenerator` for generating suites and CLI in `@lssm/app.contracts-cli`.
+See `GoldenTestGenerator` for generating suites and CLI in `@contractspec/app.contracts-cli`.
 
 
 

@@ -1,6 +1,9 @@
 import { EventEmitter } from 'node:events';
-import type { LifecycleAssessment, LifecycleStage } from '@lssm/lib.lifecycle';
-import { getStageLabel } from '@lssm/lib.lifecycle';
+import type {
+  LifecycleAssessment,
+  LifecycleStage,
+} from '@contractspec/lib.lifecycle';
+import { getStageLabel } from '@contractspec/lib.lifecycle';
 import {
   createCounter,
   createHistogram,
@@ -40,7 +43,7 @@ export class LifecycleKpiPipeline {
   private readonly currentStageByTenant = new Map<string, LifecycleStage>();
 
   constructor(options: LifecycleKpiPipelineOptions = {}) {
-    const meterName = options.meterName ?? '@lssm/lib.lifecycle-kpi';
+    const meterName = options.meterName ?? '@contractspec/lib.lifecycle-kpi';
     this.assessmentCounter = createCounter(
       'lifecycle_assessments_total',
       'Total lifecycle assessments',

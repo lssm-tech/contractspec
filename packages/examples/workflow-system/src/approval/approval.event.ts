@@ -1,5 +1,5 @@
-import { defineEvent, defineSchemaModel } from '@lssm/lib.contracts';
-import { ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineEvent, defineSchemaModel } from '@contractspec/lib.contracts';
+import { ScalarTypeEnum } from '@contractspec/lib.schema';
 
 /**
  * Payload when approval is requested.

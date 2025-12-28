@@ -1,14 +1,14 @@
 /**
  * OpenAPI export utilities.
  *
- * @deprecated Import from @lssm/lib.contracts-transformers/openapi instead.
+ * @deprecated Import from @contractspec/lib.contracts-transformers/openapi instead.
  * This file is kept for backwards compatibility.
  */
 
 import type { OperationSpecRegistry } from './operations/registry';
 import type { AnyOperationSpec, OperationSpec } from './operations/';
 import { defaultRestPath, jsonSchemaForSpec } from './jsonschema';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 export interface OpenApiServer {
   url: string;

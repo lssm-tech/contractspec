@@ -21,7 +21,7 @@ import type { HandlerCtx } from '../types';
  * @example
  * ```ts
  * // app/api/[...route]/route.ts
- * import { makeNextAppHandler } from '@lssm/lib.contracts/server/rest-next-app';
+ * import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
  * import { registry } from '@/lib/registry';
  *
  * const handler = makeNextAppHandler(registry, (req) => ({ actor: 'anonymous' }));

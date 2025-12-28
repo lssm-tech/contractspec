@@ -6,8 +6,8 @@ import {
   defineEvent,
   type HandlerCtx,
   OperationSpecRegistry,
-} from '@lssm/lib.contracts';
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { StabilityEnum } from '../ownership';
 
 const NumberType = ScalarTypeEnum.Float_unsecure();

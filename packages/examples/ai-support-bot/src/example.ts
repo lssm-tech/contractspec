@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.ai-support-bot.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.ai-support-bot',
+    packageName: '@contractspec/example.ai-support-bot',
     docs: './docs',
   },
   surfaces: {

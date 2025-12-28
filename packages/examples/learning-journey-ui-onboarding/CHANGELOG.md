@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ui-onboarding
+# @contractspec/example.learning-journey-ui-onboarding
 
 ## 1.43.3
 
@@ -6,15 +6,15 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/example.learning-journey-studio-onboarding@1.43.2
-  - @lssm/example.learning-journey-platform-tour@1.43.2
-  - @lssm/example.learning-journey-ui-shared@1.43.3
-  - @lssm/module.learning-journey@1.43.3
-  - @lssm/lib.design-system@1.43.3
-  - @lssm/lib.ui-kit-core@1.43.2
-  - @lssm/lib.ui-kit-web@1.43.2
-  - @lssm/lib.contracts@1.43.3
-  - @lssm/lib.schema@1.43.2
+  - @contractspec/example.learning-journey-studio-onboarding@1.43.2
+  - @contractspec/example.learning-journey-platform-tour@1.43.2
+  - @contractspec/example.learning-journey-ui-shared@1.43.3
+  - @contractspec/module.learning-journey@1.43.3
+  - @contractspec/lib.design-system@1.43.3
+  - @contractspec/lib.ui-kit-core@1.43.2
+  - @contractspec/lib.ui-kit-web@1.43.2
+  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.schema@1.43.2
 
 ## 1.43.2
 
@@ -22,27 +22,27 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/example.learning-journey-studio-onboarding@1.43.2
-  - @lssm/example.learning-journey-platform-tour@1.43.2
-  - @lssm/example.learning-journey-ui-shared@1.43.2
-  - @lssm/module.learning-journey@1.43.2
-  - @lssm/lib.design-system@1.43.2
-  - @lssm/lib.contracts@1.43.2
-  - @lssm/lib.schema@1.43.1
-  - @lssm/lib.ui-kit-core@1.43.1
-  - @lssm/lib.ui-kit-web@1.43.1
+  - @contractspec/example.learning-journey-studio-onboarding@1.43.2
+  - @contractspec/example.learning-journey-platform-tour@1.43.2
+  - @contractspec/example.learning-journey-ui-shared@1.43.2
+  - @contractspec/module.learning-journey@1.43.2
+  - @contractspec/lib.design-system@1.43.2
+  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.schema@1.43.1
+  - @contractspec/lib.ui-kit-core@1.43.1
+  - @contractspec/lib.ui-kit-web@1.43.1
 
 ## 1.43.1
 
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @lssm/lib.contracts@1.43.1
-  - @lssm/example.learning-journey-platform-tour@1.43.1
-  - @lssm/example.learning-journey-studio-onboarding@1.43.1
-  - @lssm/example.learning-journey-ui-shared@1.43.1
-  - @lssm/lib.design-system@1.43.1
-  - @lssm/module.learning-journey@1.43.1
+  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/example.learning-journey-platform-tour@1.43.1
+  - @contractspec/example.learning-journey-studio-onboarding@1.43.1
+  - @contractspec/example.learning-journey-ui-shared@1.43.1
+  - @contractspec/lib.design-system@1.43.1
+  - @contractspec/module.learning-journey@1.43.1
 
 ## 1.43.0
 
@@ -53,15 +53,15 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/example.learning-journey-studio-onboarding@1.43.0
-  - @lssm/example.learning-journey-platform-tour@1.43.0
-  - @lssm/example.learning-journey-ui-shared@1.43.0
-  - @lssm/module.learning-journey@1.43.0
-  - @lssm/lib.design-system@1.43.0
-  - @lssm/lib.ui-kit-core@1.43.0
-  - @lssm/lib.ui-kit-web@1.43.0
-  - @lssm/lib.contracts@1.43.0
-  - @lssm/lib.schema@1.43.0
+  - @contractspec/example.learning-journey-studio-onboarding@1.43.0
+  - @contractspec/example.learning-journey-platform-tour@1.43.0
+  - @contractspec/example.learning-journey-ui-shared@1.43.0
+  - @contractspec/module.learning-journey@1.43.0
+  - @contractspec/lib.design-system@1.43.0
+  - @contractspec/lib.ui-kit-core@1.43.0
+  - @contractspec/lib.ui-kit-web@1.43.0
+  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.schema@1.43.0
 
 ## 1.42.10
 
@@ -69,15 +69,15 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.10
-  - @lssm/example.learning-journey-platform-tour@1.42.9
-  - @lssm/example.learning-journey-ui-shared@1.42.10
-  - @lssm/module.learning-journey@1.42.10
-  - @lssm/lib.design-system@1.42.10
-  - @lssm/lib.ui-kit-core@1.42.10
-  - @lssm/lib.ui-kit-web@1.42.10
-  - @lssm/lib.contracts@1.42.10
-  - @lssm/lib.schema@1.42.10
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.10
+  - @contractspec/example.learning-journey-platform-tour@1.42.9
+  - @contractspec/example.learning-journey-ui-shared@1.42.10
+  - @contractspec/module.learning-journey@1.42.10
+  - @contractspec/lib.design-system@1.42.10
+  - @contractspec/lib.ui-kit-core@1.42.10
+  - @contractspec/lib.ui-kit-web@1.42.10
+  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.schema@1.42.10
 
 ## 1.42.9
 
@@ -85,15 +85,15 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.9
-  - @lssm/example.learning-journey-platform-tour@1.42.8
-  - @lssm/example.learning-journey-ui-shared@1.42.9
-  - @lssm/module.learning-journey@1.42.9
-  - @lssm/lib.design-system@1.42.9
-  - @lssm/lib.ui-kit-core@1.42.9
-  - @lssm/lib.ui-kit-web@1.42.9
-  - @lssm/lib.contracts@1.42.9
-  - @lssm/lib.schema@1.42.9
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.9
+  - @contractspec/example.learning-journey-platform-tour@1.42.8
+  - @contractspec/example.learning-journey-ui-shared@1.42.9
+  - @contractspec/module.learning-journey@1.42.9
+  - @contractspec/lib.design-system@1.42.9
+  - @contractspec/lib.ui-kit-core@1.42.9
+  - @contractspec/lib.ui-kit-web@1.42.9
+  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.schema@1.42.9
 
 ## 1.42.8
 
@@ -101,15 +101,15 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.8
-  - @lssm/example.learning-journey-platform-tour@1.42.7
-  - @lssm/example.learning-journey-ui-shared@1.42.8
-  - @lssm/module.learning-journey@1.42.8
-  - @lssm/lib.design-system@1.42.8
-  - @lssm/lib.ui-kit-core@1.42.8
-  - @lssm/lib.ui-kit-web@1.42.8
-  - @lssm/lib.contracts@1.42.8
-  - @lssm/lib.schema@1.42.8
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.8
+  - @contractspec/example.learning-journey-platform-tour@1.42.7
+  - @contractspec/example.learning-journey-ui-shared@1.42.8
+  - @contractspec/module.learning-journey@1.42.8
+  - @contractspec/lib.design-system@1.42.8
+  - @contractspec/lib.ui-kit-core@1.42.8
+  - @contractspec/lib.ui-kit-web@1.42.8
+  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.schema@1.42.8
 
 ## 1.42.7
 
@@ -117,15 +117,15 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.7
-  - @lssm/example.learning-journey-platform-tour@1.42.6
-  - @lssm/example.learning-journey-ui-shared@1.42.7
-  - @lssm/module.learning-journey@1.42.7
-  - @lssm/lib.design-system@1.42.7
-  - @lssm/lib.ui-kit-core@1.42.7
-  - @lssm/lib.ui-kit-web@1.42.7
-  - @lssm/lib.contracts@1.42.7
-  - @lssm/lib.schema@1.42.7
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.7
+  - @contractspec/example.learning-journey-platform-tour@1.42.6
+  - @contractspec/example.learning-journey-ui-shared@1.42.7
+  - @contractspec/module.learning-journey@1.42.7
+  - @contractspec/lib.design-system@1.42.7
+  - @contractspec/lib.ui-kit-core@1.42.7
+  - @contractspec/lib.ui-kit-web@1.42.7
+  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.schema@1.42.7
 
 ## 1.42.6
 
@@ -133,15 +133,15 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.6
-  - @lssm/example.learning-journey-platform-tour@1.42.5
-  - @lssm/example.learning-journey-ui-shared@1.42.6
-  - @lssm/module.learning-journey@1.42.6
-  - @lssm/lib.design-system@1.42.6
-  - @lssm/lib.ui-kit-core@1.42.6
-  - @lssm/lib.ui-kit-web@1.42.6
-  - @lssm/lib.contracts@1.42.6
-  - @lssm/lib.schema@1.42.6
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.6
+  - @contractspec/example.learning-journey-platform-tour@1.42.5
+  - @contractspec/example.learning-journey-ui-shared@1.42.6
+  - @contractspec/module.learning-journey@1.42.6
+  - @contractspec/lib.design-system@1.42.6
+  - @contractspec/lib.ui-kit-core@1.42.6
+  - @contractspec/lib.ui-kit-web@1.42.6
+  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.schema@1.42.6
 
 ## 1.42.5
 
@@ -149,15 +149,15 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.5
-  - @lssm/example.learning-journey-platform-tour@1.42.4
-  - @lssm/example.learning-journey-ui-shared@1.42.5
-  - @lssm/module.learning-journey@1.42.5
-  - @lssm/lib.design-system@1.42.5
-  - @lssm/lib.ui-kit-core@1.42.5
-  - @lssm/lib.ui-kit-web@1.42.5
-  - @lssm/lib.contracts@1.42.5
-  - @lssm/lib.schema@1.42.5
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.5
+  - @contractspec/example.learning-journey-platform-tour@1.42.4
+  - @contractspec/example.learning-journey-ui-shared@1.42.5
+  - @contractspec/module.learning-journey@1.42.5
+  - @contractspec/lib.design-system@1.42.5
+  - @contractspec/lib.ui-kit-core@1.42.5
+  - @contractspec/lib.ui-kit-web@1.42.5
+  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.schema@1.42.5
 
 ## 1.42.4
 
@@ -165,15 +165,15 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.4
-  - @lssm/example.learning-journey-platform-tour@1.42.3
-  - @lssm/example.learning-journey-ui-shared@1.42.4
-  - @lssm/module.learning-journey@1.42.4
-  - @lssm/lib.design-system@1.42.4
-  - @lssm/lib.ui-kit-core@1.42.4
-  - @lssm/lib.ui-kit-web@1.42.4
-  - @lssm/lib.contracts@1.42.4
-  - @lssm/lib.schema@1.42.4
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.4
+  - @contractspec/example.learning-journey-platform-tour@1.42.3
+  - @contractspec/example.learning-journey-ui-shared@1.42.4
+  - @contractspec/module.learning-journey@1.42.4
+  - @contractspec/lib.design-system@1.42.4
+  - @contractspec/lib.ui-kit-core@1.42.4
+  - @contractspec/lib.ui-kit-web@1.42.4
+  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.schema@1.42.4
 
 ## 1.42.3
 
@@ -181,15 +181,15 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/example.learning-journey-platform-tour@1.42.2
-  - @lssm/example.learning-journey-studio-onboarding@1.42.3
-  - @lssm/example.learning-journey-ui-shared@1.42.3
-  - @lssm/lib.contracts@1.42.3
-  - @lssm/lib.design-system@1.42.3
-  - @lssm/lib.schema@1.42.3
-  - @lssm/lib.ui-kit-core@1.42.3
-  - @lssm/lib.ui-kit-web@1.42.3
-  - @lssm/module.learning-journey@1.42.3
+  - @contractspec/example.learning-journey-platform-tour@1.42.2
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.3
+  - @contractspec/example.learning-journey-ui-shared@1.42.3
+  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.design-system@1.42.3
+  - @contractspec/lib.schema@1.42.3
+  - @contractspec/lib.ui-kit-core@1.42.3
+  - @contractspec/lib.ui-kit-web@1.42.3
+  - @contractspec/module.learning-journey@1.42.3
 
 ## 1.42.2
 
@@ -197,15 +197,15 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/example.learning-journey-platform-tour@1.42.2
-  - @lssm/example.learning-journey-studio-onboarding@1.42.2
-  - @lssm/example.learning-journey-ui-shared@1.42.2
-  - @lssm/lib.contracts@1.42.2
-  - @lssm/lib.design-system@1.42.2
-  - @lssm/lib.schema@1.42.2
-  - @lssm/lib.ui-kit-core@1.42.2
-  - @lssm/lib.ui-kit-web@1.42.2
-  - @lssm/module.learning-journey@1.42.2
+  - @contractspec/example.learning-journey-platform-tour@1.42.2
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.2
+  - @contractspec/example.learning-journey-ui-shared@1.42.2
+  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.design-system@1.42.2
+  - @contractspec/lib.schema@1.42.2
+  - @contractspec/lib.ui-kit-core@1.42.2
+  - @contractspec/lib.ui-kit-web@1.42.2
+  - @contractspec/module.learning-journey@1.42.2
 
 ## 1.42.1
 
@@ -213,15 +213,15 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/example.learning-journey-studio-onboarding@1.42.1
-  - @lssm/example.learning-journey-platform-tour@1.42.1
-  - @lssm/example.learning-journey-ui-shared@1.42.1
-  - @lssm/module.learning-journey@1.42.1
-  - @lssm/lib.design-system@1.42.1
-  - @lssm/lib.ui-kit-core@1.42.1
-  - @lssm/lib.ui-kit-web@1.42.1
-  - @lssm/lib.contracts@1.42.1
-  - @lssm/lib.schema@1.42.1
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.1
+  - @contractspec/example.learning-journey-platform-tour@1.42.1
+  - @contractspec/example.learning-journey-ui-shared@1.42.1
+  - @contractspec/module.learning-journey@1.42.1
+  - @contractspec/lib.design-system@1.42.1
+  - @contractspec/lib.ui-kit-core@1.42.1
+  - @contractspec/lib.ui-kit-web@1.42.1
+  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.schema@1.42.1
 
 ## 1.42.0
 
@@ -232,12 +232,12 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/example.learning-journey-platform-tour@1.42.0
-  - @lssm/example.learning-journey-studio-onboarding@1.42.0
-  - @lssm/example.learning-journey-ui-shared@1.42.0
-  - @lssm/lib.contracts@1.42.0
-  - @lssm/lib.design-system@1.42.0
-  - @lssm/lib.schema@1.42.0
-  - @lssm/lib.ui-kit-core@1.42.0
-  - @lssm/lib.ui-kit-web@1.42.0
-  - @lssm/module.learning-journey@1.42.0
+  - @contractspec/example.learning-journey-platform-tour@1.42.0
+  - @contractspec/example.learning-journey-studio-onboarding@1.42.0
+  - @contractspec/example.learning-journey-ui-shared@1.42.0
+  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.design-system@1.42.0
+  - @contractspec/lib.schema@1.42.0
+  - @contractspec/lib.ui-kit-core@1.42.0
+  - @contractspec/lib.ui-kit-web@1.42.0
+  - @contractspec/module.learning-journey@1.42.0

@@ -1,4 +1,4 @@
-# @lssm/lib.feature-flags
+# @contractspec/lib.feature-flags
 
 Website: https://contractspec.io/
 
@@ -118,7 +118,7 @@ import {
   FeatureFlagEntity, 
   EvaluateFlagContract,
   FlagEvaluator 
-} from '@lssm/lib.feature-flags';
+} from '@contractspec/lib.feature-flags';
 
 // Create an evaluator
 const evaluator = new FlagEvaluator(flagRepository);
@@ -139,14 +139,14 @@ if (result.enabled) {
 
 This module integrates with:
 
-- `@lssm/lib.identity-rbac` - User/org context for targeting
-- `@lssm/lib.analytics` - Evaluation tracking
-- `@lssm/module.audit-trail` - Configuration changes
+- `@contractspec/lib.identity-rbac` - User/org context for targeting
+- `@contractspec/lib.analytics` - Evaluation tracking
+- `@contractspec/module.audit-trail` - Configuration changes
 
 ## Schema Contribution
 
 ```typescript
-import { featureFlagsSchemaContribution } from '@lssm/lib.feature-flags';
+import { featureFlagsSchemaContribution } from '@contractspec/lib.feature-flags';
 
 export const schemaComposition = {
   modules: [

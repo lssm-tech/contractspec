@@ -11,7 +11,7 @@ const example = {
     usageDocId: 'docs.examples.knowledge-canon.usage',
   },
   entrypoints: {
-    packageName: '@lssm/example.knowledge-canon',
+    packageName: '@contractspec/example.knowledge-canon',
     docs: './docs',
   },
   surfaces: {

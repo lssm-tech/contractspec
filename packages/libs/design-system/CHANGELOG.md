@@ -1,4 +1,4 @@
-# @lssm/lib.design-system
+# @contractspec/lib.design-system
 
 ## 1.43.3
 
@@ -6,10 +6,10 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/lib.ui-kit-web@1.43.2
-  - @lssm/lib.contracts@1.43.3
-  - @lssm/lib.ai-agent@1.43.3
-  - @lssm/lib.ui-kit@1.43.2
+  - @contractspec/lib.ui-kit-web@1.43.2
+  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.ai-agent@1.43.3
+  - @contractspec/lib.ui-kit@1.43.2
 
 ## 1.43.2
 
@@ -17,18 +17,18 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/lib.contracts@1.43.2
-  - @lssm/lib.ai-agent@1.43.2
-  - @lssm/lib.ui-kit@1.43.1
-  - @lssm/lib.ui-kit-web@1.43.1
+  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.ai-agent@1.43.2
+  - @contractspec/lib.ui-kit@1.43.1
+  - @contractspec/lib.ui-kit-web@1.43.1
 
 ## 1.43.1
 
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @lssm/lib.contracts@1.43.1
-  - @lssm/lib.ai-agent@1.43.1
+  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.ai-agent@1.43.1
 
 ## 1.43.0
 
@@ -39,10 +39,10 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/lib.ui-kit-web@1.43.0
-  - @lssm/lib.contracts@1.43.0
-  - @lssm/lib.ai-agent@1.43.0
-  - @lssm/lib.ui-kit@1.43.0
+  - @contractspec/lib.ui-kit-web@1.43.0
+  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.ai-agent@1.43.0
+  - @contractspec/lib.ui-kit@1.43.0
 
 ## 1.42.10
 
@@ -50,10 +50,10 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/lib.ui-kit-web@1.42.10
-  - @lssm/lib.contracts@1.42.10
-  - @lssm/lib.ai-agent@1.42.10
-  - @lssm/lib.ui-kit@1.42.10
+  - @contractspec/lib.ui-kit-web@1.42.10
+  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.ai-agent@1.42.10
+  - @contractspec/lib.ui-kit@1.42.10
 
 ## 1.42.9
 
@@ -61,10 +61,10 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/lib.ui-kit-web@1.42.9
-  - @lssm/lib.contracts@1.42.9
-  - @lssm/lib.ai-agent@1.42.9
-  - @lssm/lib.ui-kit@1.42.9
+  - @contractspec/lib.ui-kit-web@1.42.9
+  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.ai-agent@1.42.9
+  - @contractspec/lib.ui-kit@1.42.9
 
 ## 1.42.8
 
@@ -72,10 +72,10 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/lib.ui-kit-web@1.42.8
-  - @lssm/lib.contracts@1.42.8
-  - @lssm/lib.ai-agent@1.42.8
-  - @lssm/lib.ui-kit@1.42.8
+  - @contractspec/lib.ui-kit-web@1.42.8
+  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.ai-agent@1.42.8
+  - @contractspec/lib.ui-kit@1.42.8
 
 ## 1.42.7
 
@@ -83,10 +83,10 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/lib.ui-kit-web@1.42.7
-  - @lssm/lib.contracts@1.42.7
-  - @lssm/lib.ai-agent@1.42.7
-  - @lssm/lib.ui-kit@1.42.7
+  - @contractspec/lib.ui-kit-web@1.42.7
+  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.ai-agent@1.42.7
+  - @contractspec/lib.ui-kit@1.42.7
 
 ## 1.42.6
 
@@ -94,10 +94,10 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/lib.ui-kit-web@1.42.6
-  - @lssm/lib.contracts@1.42.6
-  - @lssm/lib.ai-agent@1.42.6
-  - @lssm/lib.ui-kit@1.42.6
+  - @contractspec/lib.ui-kit-web@1.42.6
+  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.ai-agent@1.42.6
+  - @contractspec/lib.ui-kit@1.42.6
 
 ## 1.42.5
 
@@ -105,10 +105,10 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/lib.ui-kit-web@1.42.5
-  - @lssm/lib.contracts@1.42.5
-  - @lssm/lib.ai-agent@1.42.5
-  - @lssm/lib.ui-kit@1.42.5
+  - @contractspec/lib.ui-kit-web@1.42.5
+  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.ai-agent@1.42.5
+  - @contractspec/lib.ui-kit@1.42.5
 
 ## 1.42.4
 
@@ -116,10 +116,10 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/lib.ui-kit-web@1.42.4
-  - @lssm/lib.contracts@1.42.4
-  - @lssm/lib.ai-agent@1.42.4
-  - @lssm/lib.ui-kit@1.42.4
+  - @contractspec/lib.ui-kit-web@1.42.4
+  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.ai-agent@1.42.4
+  - @contractspec/lib.ui-kit@1.42.4
 
 ## 1.42.3
 
@@ -127,10 +127,10 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/lib.ai-agent@1.42.3
-  - @lssm/lib.contracts@1.42.3
-  - @lssm/lib.ui-kit@1.42.3
-  - @lssm/lib.ui-kit-web@1.42.3
+  - @contractspec/lib.ai-agent@1.42.3
+  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.ui-kit@1.42.3
+  - @contractspec/lib.ui-kit-web@1.42.3
 
 ## 1.42.2
 
@@ -138,10 +138,10 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/lib.ai-agent@1.42.2
-  - @lssm/lib.contracts@1.42.2
-  - @lssm/lib.ui-kit@1.42.2
-  - @lssm/lib.ui-kit-web@1.42.2
+  - @contractspec/lib.ai-agent@1.42.2
+  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.ui-kit@1.42.2
+  - @contractspec/lib.ui-kit-web@1.42.2
 
 ## 1.42.1
 
@@ -149,10 +149,10 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/lib.ui-kit-web@1.42.1
-  - @lssm/lib.contracts@1.42.1
-  - @lssm/lib.ai-agent@1.42.1
-  - @lssm/lib.ui-kit@1.42.1
+  - @contractspec/lib.ui-kit-web@1.42.1
+  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.ai-agent@1.42.1
+  - @contractspec/lib.ui-kit@1.42.1
 
 ## 1.42.0
 
@@ -163,10 +163,10 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/lib.ai-agent@1.42.0
-  - @lssm/lib.contracts@1.42.0
-  - @lssm/lib.ui-kit@1.42.0
-  - @lssm/lib.ui-kit-web@1.42.0
+  - @contractspec/lib.ai-agent@1.42.0
+  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.ui-kit@1.42.0
+  - @contractspec/lib.ui-kit-web@1.42.0
 
 ## 1.12.0
 
@@ -177,10 +177,10 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ai-agent@1.1.0
-  - @lssm/lib.contracts@1.12.0
-  - @lssm/lib.ui-kit@1.12.0
-  - @lssm/lib.ui-kit-web@1.12.0
+  - @contractspec/lib.ai-agent@1.1.0
+  - @contractspec/lib.contracts@1.12.0
+  - @contractspec/lib.ui-kit@1.12.0
+  - @contractspec/lib.ui-kit-web@1.12.0
 
 ## 1.11.1
 
@@ -188,10 +188,10 @@
 
 - Fix dependencies
 - Updated dependencies
-  - @lssm/lib.ai-agent@0.4.1
-  - @lssm/lib.contracts@1.11.1
-  - @lssm/lib.ui-kit@1.11.1
-  - @lssm/lib.ui-kit-web@1.11.1
+  - @contractspec/lib.ai-agent@0.4.1
+  - @contractspec/lib.contracts@1.11.1
+  - @contractspec/lib.ui-kit@1.11.1
+  - @contractspec/lib.ui-kit-web@1.11.1
 
 ## 1.11.0
 
@@ -202,10 +202,10 @@
 ### Patch Changes
 
 - Updated dependencies [b7621d3]
-  - @lssm/lib.ai-agent@0.4.0
-  - @lssm/lib.contracts@1.11.0
-  - @lssm/lib.ui-kit@1.11.0
-  - @lssm/lib.ui-kit-web@1.11.0
+  - @contractspec/lib.ai-agent@0.4.0
+  - @contractspec/lib.contracts@1.11.0
+  - @contractspec/lib.ui-kit@1.11.0
+  - @contractspec/lib.ui-kit-web@1.11.0
 
 ## 1.10.0
 
@@ -216,10 +216,10 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ai-agent@0.3.0
-  - @lssm/lib.contracts@1.10.0
-  - @lssm/lib.ui-kit@1.10.0
-  - @lssm/lib.ui-kit-web@1.10.0
+  - @contractspec/lib.ai-agent@0.3.0
+  - @contractspec/lib.contracts@1.10.0
+  - @contractspec/lib.ui-kit@1.10.0
+  - @contractspec/lib.ui-kit-web@1.10.0
 
 ## 1.9.2
 
@@ -227,10 +227,10 @@
 
 - fix dependencies
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.9.2
-  - @lssm/lib.ai-agent@0.2.2
-  - @lssm/lib.contracts@1.9.2
-  - @lssm/lib.ui-kit@1.9.2
+  - @contractspec/lib.ui-kit-web@1.9.2
+  - @contractspec/lib.ai-agent@0.2.2
+  - @contractspec/lib.contracts@1.9.2
+  - @contractspec/lib.ui-kit@1.9.2
 
 ## 1.9.1
 
@@ -238,10 +238,10 @@
 
 - fix
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.9.1
-  - @lssm/lib.contracts@1.9.1
-  - @lssm/lib.ai-agent@0.2.1
-  - @lssm/lib.ui-kit@1.9.1
+  - @contractspec/lib.ui-kit-web@1.9.1
+  - @contractspec/lib.contracts@1.9.1
+  - @contractspec/lib.ai-agent@0.2.1
+  - @contractspec/lib.ui-kit@1.9.1
 
 ## 1.9.0
 
@@ -252,10 +252,10 @@
 ### Patch Changes
 
 - Updated dependencies [b1d0876]
-  - @lssm/lib.ui-kit-web@1.9.0
-  - @lssm/lib.contracts@1.9.0
-  - @lssm/lib.ai-agent@0.2.0
-  - @lssm/lib.ui-kit@1.9.0
+  - @contractspec/lib.ui-kit-web@1.9.0
+  - @contractspec/lib.contracts@1.9.0
+  - @contractspec/lib.ai-agent@0.2.0
+  - @contractspec/lib.ui-kit@1.9.0
 
 ## 1.8.0
 
@@ -266,9 +266,9 @@
 ### Patch Changes
 
 - Updated dependencies [f1f4ddd]
-  - @lssm/lib.ui-kit-web@1.8.0
-  - @lssm/lib.contracts@1.8.0
-  - @lssm/lib.ui-kit@1.8.0
+  - @contractspec/lib.ui-kit-web@1.8.0
+  - @contractspec/lib.contracts@1.8.0
+  - @contractspec/lib.ui-kit@1.8.0
 
 ## 1.7.4
 
@@ -276,9 +276,9 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.7.4
-  - @lssm/lib.contracts@1.7.4
-  - @lssm/lib.ui-kit@1.7.4
+  - @contractspec/lib.ui-kit-web@1.7.4
+  - @contractspec/lib.contracts@1.7.4
+  - @contractspec/lib.ui-kit@1.7.4
 
 ## 1.7.3
 
@@ -286,9 +286,9 @@
 
 - add right-sidebar
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.3
-  - @lssm/lib.ui-kit@1.7.3
-  - @lssm/lib.ui-kit-web@1.7.3
+  - @contractspec/lib.contracts@1.7.3
+  - @contractspec/lib.ui-kit@1.7.3
+  - @contractspec/lib.ui-kit-web@1.7.3
 
 ## 1.7.2
 
@@ -296,9 +296,9 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.7.2
-  - @lssm/lib.contracts@1.7.2
-  - @lssm/lib.ui-kit@1.7.2
+  - @contractspec/lib.ui-kit-web@1.7.2
+  - @contractspec/lib.contracts@1.7.2
+  - @contractspec/lib.ui-kit@1.7.2
 
 ## 1.7.1
 
@@ -306,9 +306,9 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.7.1
-  - @lssm/lib.contracts@1.7.1
-  - @lssm/lib.ui-kit@1.7.1
+  - @contractspec/lib.ui-kit-web@1.7.1
+  - @contractspec/lib.contracts@1.7.1
+  - @contractspec/lib.ui-kit@1.7.1
 
 ## 1.7.0
 
@@ -319,9 +319,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.7.0
-  - @lssm/lib.contracts@1.7.0
-  - @lssm/lib.ui-kit@1.7.0
+  - @contractspec/lib.ui-kit-web@1.7.0
+  - @contractspec/lib.contracts@1.7.0
+  - @contractspec/lib.ui-kit@1.7.0
 
 ## 1.6.0
 
@@ -332,9 +332,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.6.0
-  - @lssm/lib.contracts@1.6.0
-  - @lssm/lib.ui-kit@1.6.0
+  - @contractspec/lib.ui-kit-web@1.6.0
+  - @contractspec/lib.contracts@1.6.0
+  - @contractspec/lib.ui-kit@1.6.0
 
 ## 1.5.0
 
@@ -345,9 +345,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.5.0
-  - @lssm/lib.contracts@1.5.0
-  - @lssm/lib.ui-kit@1.5.0
+  - @contractspec/lib.ui-kit-web@1.5.0
+  - @contractspec/lib.contracts@1.5.0
+  - @contractspec/lib.ui-kit@1.5.0
 
 ## 1.4.0
 
@@ -358,9 +358,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.4.0
-  - @lssm/lib.contracts@1.4.0
-  - @lssm/lib.ui-kit@1.4.0
+  - @contractspec/lib.ui-kit-web@1.4.0
+  - @contractspec/lib.contracts@1.4.0
+  - @contractspec/lib.ui-kit@1.4.0
 
 ## 1.3.0
 
@@ -371,9 +371,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.3.0
-  - @lssm/lib.contracts@1.3.0
-  - @lssm/lib.ui-kit@1.3.0
+  - @contractspec/lib.ui-kit-web@1.3.0
+  - @contractspec/lib.contracts@1.3.0
+  - @contractspec/lib.ui-kit@1.3.0
 
 ## 1.2.0
 
@@ -384,9 +384,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.ui-kit-web@1.2.0
-  - @lssm/lib.contracts@1.2.0
-  - @lssm/lib.ui-kit@1.2.0
+  - @contractspec/lib.ui-kit-web@1.2.0
+  - @contractspec/lib.contracts@1.2.0
+  - @contractspec/lib.ui-kit@1.2.0
 
 ## 1.1.0
 
@@ -399,9 +399,9 @@
 
 - Updated dependencies
 - Updated dependencies [748b3a2]
-  - @lssm/lib.contracts@1.1.0
-  - @lssm/lib.ui-kit@1.1.0
-  - @lssm/lib.ui-kit-web@1.1.0
+  - @contractspec/lib.contracts@1.1.0
+  - @contractspec/lib.ui-kit@1.1.0
+  - @contractspec/lib.ui-kit-web@1.1.0
 
 ## 1.1.0
 
@@ -412,6 +412,6 @@
 ### Patch Changes
 
 - Updated dependencies [eeba130]
-  - @lssm/lib.contracts@1.1.0
-  - @lssm/lib.ui-kit@1.1.0
-  - @lssm/lib.ui-kit-web@1.1.0
+  - @contractspec/lib.contracts@1.1.0
+  - @contractspec/lib.ui-kit@1.1.0
+  - @contractspec/lib.ui-kit-web@1.1.0

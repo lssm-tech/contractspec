@@ -1,4 +1,4 @@
-# @lssm/eslint-plugin-design-system
+# @contractspec/eslint-plugin-design-system
 
 ## 1.43.2
 

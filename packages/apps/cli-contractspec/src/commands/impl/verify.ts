@@ -8,18 +8,18 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import type {
-  VerificationTier,
   VerificationReport,
-} from '@lssm/lib.contracts/llm';
+  VerificationTier,
+} from '@contractspec/lib.contracts/llm';
 import {
-  createNodeFsAdapter,
   createConsoleLoggerAdapter,
+  createFileSystemCacheStorage,
+  createNodeFsAdapter,
+  createVerificationCacheService,
+  createVerifyService,
   loadWorkspaceConfig,
   resolveImplementations,
-  createVerifyService,
-  createVerificationCacheService,
-  createFileSystemCacheStorage,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import type { ImplVerifyOptions } from './types';
 
 /**

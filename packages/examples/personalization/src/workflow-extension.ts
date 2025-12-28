@@ -1,7 +1,7 @@
-import { StabilityEnum } from '@lssm/lib.contracts';
-import type { WorkflowSpec } from '@lssm/lib.contracts/workflow/spec';
-import { WorkflowComposer } from '@lssm/lib.workflow-composer';
-import { Logger, LogLevel } from '@lssm/lib.logger';
+import { StabilityEnum } from '@contractspec/lib.contracts';
+import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { WorkflowComposer } from '@contractspec/lib.workflow-composer';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

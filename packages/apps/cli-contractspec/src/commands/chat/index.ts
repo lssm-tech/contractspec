@@ -12,11 +12,11 @@ import {
   createProvider,
   getAvailableProviders,
   type ProviderName,
-} from '@lssm/lib.ai-providers';
+} from '@contractspec/lib.ai-providers';
 import {
   ChatService,
   InMemoryConversationStore,
-} from '@lssm/module.ai-chat/core';
+} from '@contractspec/module.ai-chat/core';
 import type { Config } from '../../utils/config';
 import { input, select } from '@inquirer/prompts';
 

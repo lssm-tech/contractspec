@@ -1,4 +1,4 @@
-import { defineCommand } from '@lssm/lib.contracts';
+import { defineCommand } from '@contractspec/lib.contracts';
 import { InvoiceModel, IssueInvoiceInputModel } from './invoice.schema';
 
 const OWNERS = ['@examples.service-business-os'] as const;

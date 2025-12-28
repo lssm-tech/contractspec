@@ -4,10 +4,7 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import {
-  listSpecs,
-  groupSpecsByType,
-} from '@lssm/bundle.contractspec-workspace';
+import { groupSpecsByType, listSpecs } from '@contractspec/bundle.workspace';
 
 /**
  * List all spec files in the workspace.

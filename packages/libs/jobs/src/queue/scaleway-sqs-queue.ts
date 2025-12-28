@@ -5,7 +5,7 @@ import {
   SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import type { Logger } from '@lssm/lib.logger';
+import type { Logger } from '@contractspec/lib.logger';
 import { DEFAULT_RETRY_POLICY } from './types';
 import type { EnqueueOptions, Job, JobHandler, JobQueue } from './types';
 

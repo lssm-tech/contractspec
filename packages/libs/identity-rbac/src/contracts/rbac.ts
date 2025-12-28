@@ -1,5 +1,5 @@
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { defineCommand, defineQuery } from '@lssm/lib.contracts';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
 import { SuccessResultModel } from './user';
 
 // ============ SchemaModels ============

@@ -1,7 +1,7 @@
-# @lssm/lib.contracts
+# @contractspec/lib.contracts
 
-[![npm version](https://img.shields.io/npm/v/@lssm/lib.contracts)](https://www.npmjs.com/package/@lssm/lib.contracts)
-[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.contracts)](https://www.npmjs.com/package/@lssm/lib.contracts)
+[![npm version](https://img.shields.io/npm/v/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)
+[![npm downloads](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
 
@@ -19,9 +19,9 @@ To provide a single, typed source of truth for backend operations (`ContractSpec
 ## Installation
 
 ```bash
-npm install @lssm/lib.contracts @lssm/lib.schema
+npm install @contractspec/lib.contracts @contractspec/lib.schema
 # or
-bun add @lssm/lib.contracts @lssm/lib.schema
+bun add @contractspec/lib.contracts @contractspec/lib.schema
 ```
 
 ## Key Concepts
@@ -47,9 +47,9 @@ bun add @lssm/lib.contracts @lssm/lib.schema
 ### 1. Define a Spec
 
 ```ts
-import { defineCommand, defineQuery } from '@lssm/lib.contracts';
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
 import * as z from "zod";
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const UserInput = new SchemaModel({
   name: 'UserInput',
@@ -87,7 +87,7 @@ export const CreateUser = defineCommand({
 ### 2. Register and Implement
 
 ```ts
-import { OperationSpecRegistry, installOp } from '@lssm/lib.contracts';
+import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
 
 const reg = new OperationSpecRegistry();
 
@@ -101,7 +101,7 @@ installOp(reg, CreateUser, async (ctx, input) => {
 
 ```ts
 // app/api/[...route]/route.ts
-import { makeNextAppHandler } from '@lssm/lib.contracts/server/rest-next-app';
+import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
 
 const handler = makeNextAppHandler(reg, (req) => ({ actor: 'anonymous' }));
 

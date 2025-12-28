@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.logger",
+  "name": "@contractspec/lib.logger",
   "version": "1.43.2",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
@@ -23,8 +23,8 @@
     "dev": "bun build:bundle --watch"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

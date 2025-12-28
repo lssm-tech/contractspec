@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useResponsive } from '../../platform/useResponsive';
 

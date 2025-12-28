@@ -3,7 +3,7 @@
  *
  * Defines the feature module for usage metering and threshold management.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Metering feature module that bundles metric definitions,

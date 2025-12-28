@@ -1,4 +1,4 @@
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 // Course entities
 export * from './course';
@@ -58,7 +58,7 @@ export const learningJourneyEnums = [
  * Module schema contribution for learning journey.
  */
 export const learningJourneySchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/module.learning-journey',
+  moduleId: '@contractspec/module.learning-journey',
   entities: learningJourneyEntities,
   enums: learningJourneyEnums,
 };

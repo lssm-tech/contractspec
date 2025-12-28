@@ -1,4 +1,4 @@
-# @lssm/lib.observability
+# @contractspec/lib.observability
 
 Website: https://contractspec.io/
 
@@ -14,7 +14,7 @@ OpenTelemetry integration for tracing, metrics, and structured logging.
 ## Installation
 
 ```bash
-npm install @lssm/lib.observability @opentelemetry/api
+npm install @contractspec/lib.observability @opentelemetry/api
 ```
 
 ## Quick Start
@@ -22,7 +22,7 @@ npm install @lssm/lib.observability @opentelemetry/api
 ### Tracing
 
 ```typescript
-import { traceAsync } from '@lssm/lib.observability/tracing';
+import { traceAsync } from '@contractspec/lib.observability/tracing';
 
 await traceAsync('process_order', async (span) => {
   span.setAttribute('order_id', order.id);
@@ -33,7 +33,7 @@ await traceAsync('process_order', async (span) => {
 ### Metrics
 
 ```typescript
-import { createCounter } from '@lssm/lib.observability/metrics';
+import { createCounter } from '@contractspec/lib.observability/metrics';
 
 const ordersCounter = createCounter('orders_total');
 ordersCounter.add(1, { status: 'success' });
@@ -42,7 +42,7 @@ ordersCounter.add(1, { status: 'success' });
 ### Middleware
 
 ```typescript
-import { createTracingMiddleware } from '@lssm/lib.observability/tracing/middleware';
+import { createTracingMiddleware } from '@contractspec/lib.observability/tracing/middleware';
 
 app.use(createTracingMiddleware());
 ```

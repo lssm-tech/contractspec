@@ -8,8 +8,8 @@ import {
   FeatureRegistry,
   OperationSpecRegistry,
   StabilityEnum,
-} from '@lssm/lib.contracts';
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+} from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import {
   contractSpecToJson,
   exportContractSpec,

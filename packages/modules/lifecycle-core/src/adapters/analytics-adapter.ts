@@ -2,7 +2,7 @@ import type {
   LifecycleAxes,
   LifecycleMetricSnapshot,
   LifecycleSignal,
-} from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
 
 export interface AnalyticsAdapterResult {
   metrics?: LifecycleMetricSnapshot;

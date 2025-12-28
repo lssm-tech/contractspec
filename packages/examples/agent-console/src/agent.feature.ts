@@ -3,7 +3,7 @@
  *
  * Defines the feature module for agent orchestration capabilities.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Agent Console feature module that bundles all agent, tool, and run

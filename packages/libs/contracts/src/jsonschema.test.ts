@@ -6,7 +6,7 @@ import {
   defaultGqlField,
 } from './jsonschema';
 import { defineCommand, defineQuery } from './operations';
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 describe('jsonSchemaForSpec', () => {
   it('should generate JSON schema for command spec', () => {

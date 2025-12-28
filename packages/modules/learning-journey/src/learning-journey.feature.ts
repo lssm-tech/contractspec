@@ -3,7 +3,7 @@
  *
  * Defines the feature module for learning, onboarding, and gamification.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey feature module that bundles course enrollment,

@@ -15,11 +15,11 @@
 
 import { Command } from 'commander';
 import {
-  impact,
+  createConsoleLoggerAdapter,
   createNodeFsAdapter,
   createNodeGitAdapter,
-  createConsoleLoggerAdapter,
-} from '@lssm/bundle.contractspec-workspace';
+  impact,
+} from '@contractspec/bundle.workspace';
 
 export type ImpactOutputFormat = 'text' | 'json' | 'markdown' | 'check-run';
 

@@ -1,4 +1,4 @@
-import type { WorkflowSpec } from '@lssm/lib.contracts';
+import type { WorkflowSpec } from '@contractspec/lib.contracts';
 import type { WorkflowExtension, StepInjection } from './types';
 import { validateExtension } from './validator';
 

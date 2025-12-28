@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Pressable, View, Text } from 'react-native';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface BottomTabItem {
   key: string;

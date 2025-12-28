@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.kb-update-pipeline',
   },
   entrypoints: {
-    packageName: '@lssm/example.kb-update-pipeline',
+    packageName: '@contractspec/example.kb-update-pipeline',
     feature: './feature',
     contracts: './contracts',
     handlers: './handlers',

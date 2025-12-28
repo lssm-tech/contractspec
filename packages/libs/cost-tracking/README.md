@@ -1,4 +1,4 @@
-# @lssm/lib.cost-tracking
+# @contractspec/lib.cost-tracking
 
 Website: https://contractspec.io/
 
@@ -11,12 +11,12 @@ Cost attribution, budgeting, and optimization helpers for ContractSpec operation
 - Attribute costs per operation, tenant, and feature flag
 - Detect budget overruns with configurable alerts
 - Generate optimization suggestions (N+1, caching, batching)
-- Integrates with telemetry produced via `@lssm/lib.observability`
+- Integrates with telemetry produced via `@contractspec/lib.observability`
 
 ## Example
 
 ```ts
-import { CostTracker, defaultCostModel } from '@lssm/lib.cost-tracking';
+import { CostTracker, defaultCostModel } from '@contractspec/lib.cost-tracking';
 
 const tracker = new CostTracker({ costModel: defaultCostModel });
 

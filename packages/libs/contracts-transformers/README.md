@@ -1,4 +1,4 @@
-# @lssm/lib.contracts-transformers
+# @contractspec/lib.contracts-transformers
 
 Website: https://contractspec.io/
 
@@ -12,7 +12,7 @@ Contract format transformations: bidirectional import/export between ContractSpe
 ## Installation
 
 ```bash
-bun add @lssm/lib.contracts-transformers
+bun add @contractspec/lib.contracts-transformers
 ```
 
 ## Usage
@@ -20,8 +20,8 @@ bun add @lssm/lib.contracts-transformers
 ### Export ContractSpec to OpenAPI
 
 ```typescript
-import { openApiForRegistry } from '@lssm/lib.contracts-transformers/openapi';
-import { OperationSpecRegistry } from '@lssm/lib.contracts';
+import { openApiForRegistry } from '@contractspec/lib.contracts-transformers/openapi';
+import { OperationSpecRegistry } from '@contractspec/lib.contracts';
 
 const registry = new OperationSpecRegistry();
 // ... register your specs ...
@@ -37,7 +37,7 @@ const openApiDoc = openApiForRegistry(registry, {
 ### Import from OpenAPI
 
 ```typescript
-import { parseOpenApi, importFromOpenApi } from '@lssm/lib.contracts-transformers/openapi';
+import { parseOpenApi, importFromOpenApi } from '@contractspec/lib.contracts-transformers/openapi';
 
 // Parse OpenAPI from file or URL
 const openApiDoc = await parseOpenApi('./api.yaml');
@@ -61,7 +61,7 @@ for (const spec of importResult.specs) {
 ### Diff ContractSpec vs OpenAPI
 
 ```typescript
-import { diffSpecs } from '@lssm/lib.contracts-transformers/openapi';
+import { diffSpecs } from '@contractspec/lib.contracts-transformers/openapi';
 
 const diffs = diffSpecs(existingSpecs, importedSpecs);
 

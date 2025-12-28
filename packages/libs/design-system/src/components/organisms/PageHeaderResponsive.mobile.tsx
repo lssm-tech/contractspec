@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { HStack, VStack } from '@lssm/lib.ui-kit/ui/stack';
-import { Text } from '@lssm/lib.ui-kit/ui/text';
+import { HStack, VStack } from '@contractspec/lib.ui-kit/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { useResponsive } from '../../platform/useResponsive.mobile';
 
 interface Props {

@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.ui-kit-web",
+  "name": "@contractspec/lib.ui-kit-web",
   "version": "1.43.2",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@lssm/lib.ui-kit-core": "workspace:*",
+    "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "5.2.2",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -82,8 +82,8 @@
     "typescript": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "@types/geojson": "^7946.0.14",
     "@sentry/nextjs": "^10.30.0",
     "maplibre-gl": "^5.15.0",

@@ -3,8 +3,12 @@ import type {
   LifecycleAxes,
   LifecycleMetricSnapshot,
   LifecycleSignal,
-} from '@lssm/lib.lifecycle';
-import { CapitalPhase, CompanyPhase, ProductPhase } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
+import {
+  CapitalPhase,
+  CompanyPhase,
+  ProductPhase,
+} from '@contractspec/lib.lifecycle';
 import type { AnalyticsAdapter } from '../adapters/analytics-adapter';
 import type { QuestionnaireAdapter } from '../adapters/questionnaire-adapter';
 import type { IntentAdapter } from '../adapters/intent-adapter';

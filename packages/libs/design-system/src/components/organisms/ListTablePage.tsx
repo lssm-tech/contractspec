@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
   Table,
   TableHeader,
@@ -9,7 +9,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from '@lssm/lib.ui-kit-web/ui/table';
+} from '@contractspec/lib.ui-kit-web/ui/table';
 import { useResponsive } from '../../platform/useResponsive';
 import { cva, type VariantProps } from 'class-variance-authority';
 

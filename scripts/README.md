@@ -44,72 +44,72 @@ The script automatically discovers all publishable packages by:
 
 #### ✅ Published to npm (Public Packages)
 
-- `@lssm/lib.*` - All library packages (42 packages total)
-- `@lssm/app.cli-*` - CLI applications
-- `@lssm/bundle.*` - Bundle packages
-- `@lssm/module.*` - Module packages
+- `@contractspec/lib.*` - All library packages (42 packages total)
+- `@contractspec/app.cli-*` - CLI applications
+- `@contractspec/bundle.*` - Bundle packages
+- `@contractspec/module.*` - Module packages
 
 #### ❌ Not Published (Private Packages)
 
-- `@lssm/apps.web-*` - Next.js web applications
-- `@lssm/app.overlay-editor` - Internal development tools
-- `@lssm/lib.runtime-local` - Browser-only runtime
-- `@lssm/lib.contracts-contractspec-studio` - Internal contracts
-- `@lssm/tool.*` - Development tooling
+- `@contractspec/apps.web-*` - Next.js web applications
+- `@contractspec/app.overlay-editor` - Internal development tools
+- `@contractspec/lib.runtime-local` - Browser-only runtime
+- `@contractspec/lib.contracts-contractspec-studio` - Internal contracts
+- `@contractspec/tool.*` - Development tooling
 
 ### Current Publishable Packages (42 total)
 
 As of the last scan, these packages will be published:
 
 **Apps (3)**
-- @lssm/app.cli-contractspec
-- @lssm/app.cli-database
-- @lssm/app.cli-databases
+- @contractspec/app.cli-contractspec
+- @contractspec/app.cli-database
+- @contractspec/app.cli-databases
 
 **Bundles (2)**
-- @lssm/bundle.contractspec-studio
-- @lssm/bundle.lifecycle-managed
+- @contractspec/bundle.studio
+- @contractspec/bundle.lifecycle-managed
 
 **Libraries (35)**
-- @lssm/lib.accessibility
-- @lssm/lib.ai-agent
-- @lssm/lib.analytics
-- @lssm/lib.bus
-- @lssm/lib.content-gen
-- @lssm/lib.contracts
-- @lssm/lib.cost-tracking
-- @lssm/lib.database-contractspec-studio
-- @lssm/lib.design-system
-- @lssm/lib.error
-- @lssm/lib.evolution
-- @lssm/lib.exporter
-- @lssm/lib.graphql-core
-- @lssm/lib.graphql-federation
-- @lssm/lib.graphql-prisma
-- @lssm/lib.growth
-- @lssm/lib.lifecycle
-- @lssm/lib.logger
-- @lssm/lib.multi-tenancy
-- @lssm/lib.observability
-- @lssm/lib.overlay-engine
-- @lssm/lib.personalization
-- @lssm/lib.presentation-runtime-core
-- @lssm/lib.presentation-runtime-react
-- @lssm/lib.presentation-runtime-react-native
-- @lssm/lib.progressive-delivery
-- @lssm/lib.resilience
-- @lssm/lib.schema
-- @lssm/lib.slo
-- @lssm/lib.support-bot
-- @lssm/lib.testing
-- @lssm/lib.ui-kit
-- @lssm/lib.ui-kit-web
-- @lssm/lib.utils-typescript
-- @lssm/lib.workflow-composer
+- @contractspec/lib.accessibility
+- @contractspec/lib.ai-agent
+- @contractspec/lib.analytics
+- @contractspec/lib.bus
+- @contractspec/lib.content-gen
+- @contractspec/lib.contracts
+- @contractspec/lib.cost-tracking
+- @contractspec/lib.database-contractspec-studio
+- @contractspec/lib.design-system
+- @contractspec/lib.error
+- @contractspec/lib.evolution
+- @contractspec/lib.exporter
+- @contractspec/lib.graphql-core
+- @contractspec/lib.graphql-federation
+- @contractspec/lib.graphql-prisma
+- @contractspec/lib.growth
+- @contractspec/lib.lifecycle
+- @contractspec/lib.logger
+- @contractspec/lib.multi-tenancy
+- @contractspec/lib.observability
+- @contractspec/lib.overlay-engine
+- @contractspec/lib.personalization
+- @contractspec/lib.presentation-runtime-core
+- @contractspec/lib.presentation-runtime-react
+- @contractspec/lib.presentation-runtime-react-native
+- @contractspec/lib.progressive-delivery
+- @contractspec/lib.resilience
+- @contractspec/lib.schema
+- @contractspec/lib.slo
+- @contractspec/lib.support-bot
+- @contractspec/lib.testing
+- @contractspec/lib.ui-kit
+- @contractspec/lib.ui-kit-web
+- @contractspec/lib.utils-typescript
+- @contractspec/lib.workflow-composer
 
 **Modules (2)**
-- @lssm/module.lifecycle-advisor
-- @lssm/module.lifecycle-core
+- @contractspec/module.lifecycle-advisor
+- @contractspec/module.lifecycle-core
 
 ## Marking a Package as Private
 
@@ -117,7 +117,7 @@ To prevent a package from being published, add `"private": true` to its `package
 
 ```json
 {
-  "name": "@lssm/your-package",
+  "name": "@contractspec/your-package",
   "version": "1.0.0",
   "private": true,
   "description": "Internal package not published to npm"

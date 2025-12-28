@@ -13,7 +13,7 @@ import {
   operationSpecToAgentPrompt,
   operationSpecToContextMarkdown,
   operationSpecToFullMarkdown,
-} from '@lssm/lib.contracts/llm';
+} from '@contractspec/lib.contracts/llm';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function loadSpec(specPath: string): Promise<any> {

@@ -2,7 +2,7 @@ import {
   ScalarTypeEnum,
   defineEnum,
   defineSchemaModel,
-} from '@lssm/lib.schema';
+} from '@contractspec/lib.schema';
 
 export const ChangeRiskLevelEnum = defineEnum('ChangeRiskLevel', [
   'low',

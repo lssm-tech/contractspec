@@ -5,8 +5,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@lssm/lib.ui-kit-web/ui/carousel';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+} from '@contractspec/lib.ui-kit-web/ui/carousel';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import { Button } from '../atoms/Button';
 import { ButtonLink } from '../atoms/ButtonLink';
 

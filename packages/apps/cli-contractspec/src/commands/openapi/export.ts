@@ -6,7 +6,7 @@ import {
   openApiForRegistry,
   type OpenApiServer,
   OperationSpecRegistry,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig } from '../../utils/config';

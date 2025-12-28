@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../../registry';
 
 export const tech_auth_better_auth_nextjs_DocBlocks: DocBlock[] = [
@@ -45,8 +45,8 @@ To avoid duplicate background refresh/polling loops in dev (Fast Refresh/HMR), t
 
 Import guidance:
 
-- If you only need the context/hook, prefer importing from \`@lssm/bundle.contractspec-studio/presentation/providers/auth\`.
-- If you explicitly need the Better Auth client instance (e.g. admin impersonation, direct API calls), import from \`@lssm/bundle.contractspec-studio/presentation/providers/auth/client\`.
+- If you only need the context/hook, prefer importing from \`@contractspec/bundle.studio/presentation/providers/auth\`.
+- If you explicitly need the Better Auth client instance (e.g. admin impersonation, direct API calls), import from \`@contractspec/bundle.studio/presentation/providers/auth/client\`.
 
 ## Public routes (login / signup)
 
@@ -54,7 +54,7 @@ Public auth pages should avoid eager \`authClient\` initialization.
 
 Pattern used:
 
-- In the submit handler, dynamically import \`@lssm/bundle.contractspec-studio/presentation/providers/auth/index.web\` and call \`authClient.signIn.*\` / \`authClient.signUp.*\`.
+- In the submit handler, dynamically import \`@contractspec/bundle.studio/presentation/providers/auth/index.web\` and call \`authClient.signIn.*\` / \`authClient.signUp.*\`.
 
 This prevents session refresh behavior from starting just because a public page rendered.
 

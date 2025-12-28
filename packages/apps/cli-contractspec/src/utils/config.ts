@@ -8,7 +8,7 @@ import {
   type MetaRepoInfo,
   type PackageManager,
   type RepositoryType,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import {
   type ContractsrcConfig,
   ContractsrcSchema,
@@ -16,7 +16,7 @@ import {
   type FolderConventions,
   type OpenApiConfig,
   type OpenApiSourceConfig,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 
 // Re-export types for convenience
 export type { OpenApiSourceConfig, OpenApiConfig, FolderConventions };

@@ -1,4 +1,4 @@
-# @lssm/lib.presentation-runtime-core
+# @contractspec/lib.presentation-runtime-core
 
 ## 1.43.2
 

@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Button } from '@lssm/lib.design-system';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Button } from '@contractspec/lib.design-system';
 import { Copy, Check, Play, Download } from 'lucide-react';
 
 export interface CodePreviewProps {

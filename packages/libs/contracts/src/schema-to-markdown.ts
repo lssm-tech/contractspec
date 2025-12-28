@@ -5,8 +5,11 @@
  * Provides automatic table, list, and detail view generation
  * based on schema field introspection.
  */
-import type { AnySchemaModel, SchemaFieldConfig } from '@lssm/lib.schema';
-import { isSchemaModel } from '@lssm/lib.schema';
+import type {
+  AnySchemaModel,
+  SchemaFieldConfig,
+} from '@contractspec/lib.schema';
+import { isSchemaModel } from '@contractspec/lib.schema';
 
 /**
  * Options for schema-to-markdown generation

@@ -1,5 +1,5 @@
 /**
- * @lssm/module.ai-chat
+ * @contractspec/module.ai-chat
  *
  * ContractSpec Vibe Coding Chat - AI-powered conversational coding assistant.
  */

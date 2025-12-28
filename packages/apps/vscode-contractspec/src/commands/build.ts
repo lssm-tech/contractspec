@@ -1,7 +1,7 @@
 /**
  * Build/scaffold command for ContractSpec extension.
  *
- * Uses the build service from @lssm/bundle.contractspec-workspace to generate
+ * Uses the build service from @contractspec/bundle.workspace to generate
  * handler/component skeletons from spec files.
  */
 
@@ -10,11 +10,8 @@ import {
   getWorkspaceAdapters,
   getWorkspaceConfig,
 } from '../workspace/adapters';
-import {
-  buildSpec,
-  type BuildTarget,
-} from '@lssm/bundle.contractspec-workspace';
-import { inferSpecTypeFromFilePath } from '@lssm/module.contractspec-workspace';
+import { buildSpec, type BuildTarget } from '@contractspec/bundle.workspace';
+import { inferSpecTypeFromFilePath } from '@contractspec/module.workspace';
 
 /**
  * Build/scaffold from the currently active spec file.

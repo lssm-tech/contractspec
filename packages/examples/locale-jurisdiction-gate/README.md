@@ -1,4 +1,4 @@
-# `@lssm/example.locale-jurisdiction-gate`
+# `@contractspec/example.locale-jurisdiction-gate`
 
 Website: https://contractspec.io/
 

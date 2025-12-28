@@ -1,9 +1,9 @@
-import type { AppBlueprintSpec } from '@lssm/lib.contracts/app-config/spec';
+import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config/spec';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@lssm/lib.contracts/ownership';
+} from '@contractspec/lib.contracts/ownership';
 
 export const artisanStripeBlueprint: AppBlueprintSpec = {
   meta: {

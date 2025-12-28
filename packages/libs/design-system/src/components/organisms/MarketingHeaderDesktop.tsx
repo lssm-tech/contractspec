@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import {
   NavigationMenu as Nav,
   NavigationMenuContent as NavContent,
@@ -9,8 +9,8 @@ import {
   NavigationMenuLink as NavLink,
   NavigationMenuList as NavList,
   NavigationMenuTrigger as NavTrigger,
-} from '@lssm/lib.ui-kit-web/ui/navigation-menu';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+} from '@contractspec/lib.ui-kit-web/ui/navigation-menu';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
 import type { MarketingHeaderProps } from './MarketingHeader';
 import { cva } from 'class-variance-authority';
 import { NavUser } from '../molecules/NavUser';

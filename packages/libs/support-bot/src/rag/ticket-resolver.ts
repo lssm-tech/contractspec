@@ -1,4 +1,4 @@
-import type { KnowledgeAnswer } from '@lssm/lib.knowledge/query/service';
+import type { KnowledgeAnswer } from '@contractspec/lib.knowledge/query/service';
 import type { SupportResolution, SupportTicket } from '../types';
 
 export interface KnowledgeRetriever {

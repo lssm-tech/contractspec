@@ -5,7 +5,7 @@ import {
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
-} from '@lssm/lib.ui-kit-web/ui/empty';
+} from '@contractspec/lib.ui-kit-web/ui/empty';
 import { Input } from '../atoms/Input';
 
 export interface EmptySearchResultProps {

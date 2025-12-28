@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { WorkflowRegistry, type WorkflowSpec } from './spec';
 import {
   assertWorkflowSpecValid,

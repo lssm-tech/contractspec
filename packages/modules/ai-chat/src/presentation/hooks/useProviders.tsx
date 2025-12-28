@@ -7,7 +7,7 @@ import {
   type ModelInfo,
   getAvailableProviders,
   getModelsForProvider,
-} from '@lssm/lib.ai-providers';
+} from '@contractspec/lib.ai-providers';
 
 /**
  * Provider availability info

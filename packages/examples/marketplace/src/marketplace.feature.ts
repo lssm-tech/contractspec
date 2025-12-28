@@ -1,7 +1,7 @@
 /**
  * Marketplace Feature Module Specification
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Marketplace feature module that bundles multi-vendor marketplace

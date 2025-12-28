@@ -1,4 +1,4 @@
-# @lssm/lib.workflow-composer
+# @contractspec/lib.workflow-composer
 
 Website: https://contractspec.io/
 

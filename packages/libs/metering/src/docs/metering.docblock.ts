@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const meteringDocBlocks: DocBlock[] = [
   {
@@ -24,7 +24,7 @@ const meteringDocBlocks: DocBlock[] = [
 - Add \`meteringSchemaContribution\` to your schema composition.
 
 2) Register contracts/events
-- Import from \`@lssm/lib.metering\` into your spec registry.
+- Import from \`@contractspec/lib.metering\` into your spec registry.
 
 3) Ingest usage
 - Use \`recordUsage\` contract (see contracts export) from application services whenever a billable/important action happens (e.g., agent run, API call).
@@ -36,8 +36,8 @@ const meteringDocBlocks: DocBlock[] = [
 ## Example
 
 ${'```'}ts
-import { meteringSchemaContribution } from '@lssm/lib.metering';
-import { aggregateUsage } from '@lssm/lib.metering/aggregation';
+import { meteringSchemaContribution } from '@contractspec/lib.metering';
+import { aggregateUsage } from '@contractspec/lib.metering/aggregation';
 
 // schema composition
 const schema = {

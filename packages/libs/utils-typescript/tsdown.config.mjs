@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsdown';
-import { moduleLibrary, nodeLib } from '@lssm/tool.tsdown';
+import { moduleLibrary, nodeLib } from '@contractspec/tool.tsdown';
 
 export default defineConfig(() => ({
   ...moduleLibrary,

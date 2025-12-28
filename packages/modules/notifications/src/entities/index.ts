@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Notification status enum.
@@ -283,7 +288,7 @@ export const notificationEntities = [
  * Module schema contribution for notifications.
  */
 export const notificationsSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/module.notifications',
+  moduleId: '@contractspec/module.notifications',
   entities: notificationEntities,
   enums: [
     NotificationStatusEnum,

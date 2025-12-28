@@ -1,4 +1,4 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
 import { registerDocBlocks } from '../registry';
 
 export const tech_vscode_extension_DocBlocks: DocBlock[] = [
@@ -48,8 +48,8 @@ The ContractSpec VS Code extension provides spec-first development tooling direc
 ## Architecture
 
 The extension uses:
-- \`@lssm/module.contractspec-workspace\` for pure analysis + templates
-- \`@lssm/bundle.contractspec-workspace\` for workspace services + adapters
+- \`@contractspec/module.workspace\` for pure analysis + templates
+- \`@contractspec/bundle.workspace\` for workspace services + adapters
 
 This allows the extension to work without requiring the CLI to be installed.
 

@@ -47,7 +47,7 @@ import {
   ApiKeyEntity,
   PasskeyEntity,
 } from './rbac';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * All identity-rbac entities for schema composition.
@@ -73,7 +73,7 @@ export const identityRbacEntities = [
  * Module schema contribution for identity-rbac.
  */
 export const identityRbacSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/lib.identity-rbac',
+  moduleId: '@contractspec/lib.identity-rbac',
   entities: identityRbacEntities,
   enums: [OrganizationTypeEnum],
 };

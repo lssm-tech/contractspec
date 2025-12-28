@@ -1,4 +1,4 @@
-import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts';
 
 export type OverlayScopeKey =
   | 'tenantId'

@@ -5,7 +5,7 @@ import {
   createPipelineMemoryStore,
 } from './memory.handlers';
 
-describe('@lssm/example.kb-update-pipeline memory handlers', () => {
+describe('@contractspec/example.kb-update-pipeline memory handlers', () => {
   it('high-risk change cannot be approved by curator role', async () => {
     const store = createPipelineMemoryStore();
     const pipeline = createPipelineMemoryHandlers(store);

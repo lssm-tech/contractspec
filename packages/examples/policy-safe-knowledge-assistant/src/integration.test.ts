@@ -3,16 +3,16 @@ import { describe, expect, it } from 'bun:test';
 import {
   createMemoryKbHandlers,
   createMemoryKbStore,
-} from '@lssm/example.versioned-knowledge-base/handlers/memory.handlers';
+} from '@contractspec/example.versioned-knowledge-base/handlers/memory.handlers';
 import {
   createPipelineMemoryHandlers,
   createPipelineMemoryStore,
-} from '@lssm/example.kb-update-pipeline/handlers/memory.handlers';
+} from '@contractspec/example.kb-update-pipeline/handlers/memory.handlers';
 
 import { buildPolicySafeAnswer } from './orchestrator/buildAnswer';
 import { DEMO_FIXTURES } from './seed/fixtures';
 
-describe('@lssm/example.policy-safe-knowledge-assistant integration', () => {
+describe('@contractspec/example.policy-safe-knowledge-assistant integration', () => {
   it('answers cite latest snapshot; after pipeline change + publish, answers cite new snapshot', async () => {
     const kbStore = createMemoryKbStore();
     const kb = createMemoryKbHandlers(kbStore);

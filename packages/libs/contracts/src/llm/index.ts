@@ -5,7 +5,7 @@
  * generating implementation prompts for AI coding agents, and verifying
  * implementations against specifications.
  *
- * @module @lssm/lib.contracts/llm
+ * @module @contractspec/lib.contracts/llm
  */
 
 // Types

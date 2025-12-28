@@ -44,4 +44,4 @@ export * from './registry-utils';
 export * from './app-config/validation';
 
 // Re-export defineSchemaModel for convenience
-export { defineSchemaModel } from '@lssm/lib.schema';
+export { defineSchemaModel } from '@contractspec/lib.schema';

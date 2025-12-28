@@ -1,4 +1,4 @@
-# @lssm/module.notifications
+# @contractspec/module.notifications
 
 Website: https://contractspec.io/
 
@@ -20,7 +20,7 @@ Provides a unified notification system supporting multiple delivery channels (em
 ## Installation
 
 ```bash
-bun add @lssm/module.notifications
+bun add @contractspec/module.notifications
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ bun add @lssm/module.notifications
 ### Entity Specs (for schema generation)
 
 ```typescript
-import { notificationsSchemaContribution } from '@lssm/module.notifications/entities';
+import { notificationsSchemaContribution } from '@contractspec/module.notifications/entities';
 
 // Use in schema composition
 const config = {
@@ -39,7 +39,7 @@ const config = {
 ### Send Notifications
 
 ```typescript
-import { NotificationService } from '@lssm/module.notifications';
+import { NotificationService } from '@contractspec/module.notifications';
 
 const service = new NotificationService({
   channels: {
@@ -65,7 +65,7 @@ await service.send({
 ### Configure Templates
 
 ```typescript
-import { defineTemplate } from '@lssm/module.notifications/templates';
+import { defineTemplate } from '@contractspec/module.notifications/templates';
 
 const welcomeTemplate = defineTemplate({
   id: 'welcome',

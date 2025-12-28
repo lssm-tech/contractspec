@@ -1,14 +1,14 @@
 {
-  "extends": "@lssm/tool.typescript/react-library.json",
+  "extends": "@contractspec/tool.typescript/react-library.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@lssm/lib.contracts": ["../contracts/src/index.ts"],
-      "@lssm/lib.contracts/*": ["../contracts/src/*"],
-      "@lssm/lib.schema": ["../schema/src/index.ts"],
-      "@lssm/lib.schema/*": ["../schema/src/*"]
+      "@contractspec/lib.contracts": ["../contracts/src/index.ts"],
+      "@contractspec/lib.contracts/*": ["../contracts/src/*"],
+      "@contractspec/lib.schema": ["../schema/src/index.ts"],
+      "@contractspec/lib.schema/*": ["../schema/src/*"]
     }
   }
 }

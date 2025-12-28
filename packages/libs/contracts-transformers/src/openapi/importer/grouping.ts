@@ -2,7 +2,7 @@
  * Grouping utilities for OpenAPI import/export.
  * Determines output folder structure based on configuration.
  */
-import type { FolderConventions } from '@lssm/lib.contracts';
+import type { FolderConventions } from '@contractspec/lib.contracts';
 import type { ParsedOperation } from '../types';
 
 /**

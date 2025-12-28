@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Textarea as NativeTextarea } from '@lssm/lib.ui-kit/ui/textarea';
+import { Textarea as NativeTextarea } from '@contractspec/lib.ui-kit/ui/textarea';
 import { mapKeyboardToNative, type KeyboardOptions } from '../../lib/keyboard';
 
 interface BaseFieldProps {

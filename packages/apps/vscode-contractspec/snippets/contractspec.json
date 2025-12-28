@@ -2,8 +2,8 @@
   "ContractSpec Command": {
     "prefix": ["contractspec-command", "defineCommand"],
     "body": [
-      "import { defineCommand } from '@lssm/lib.contracts';",
-      "import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';",
+      "import { defineCommand } from '@contractspec/lib.contracts';",
+      "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:CommandName}Input = defineSchemaModel({",
       "  name: '${1:CommandName}Input',",
@@ -54,8 +54,8 @@
   "ContractSpec Query": {
     "prefix": ["contractspec-query", "defineQuery"],
     "body": [
-      "import { defineQuery } from '@lssm/lib.contracts';",
-      "import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';",
+      "import { defineQuery } from '@contractspec/lib.contracts';",
+      "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:QueryName}Input = defineSchemaModel({",
       "  name: '${1:QueryName}Input',",
@@ -103,8 +103,8 @@
   "ContractSpec Event": {
     "prefix": ["contractspec-event", "defineEvent"],
     "body": [
-      "import { defineEvent } from '@lssm/lib.contracts';",
-      "import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';",
+      "import { defineEvent } from '@contractspec/lib.contracts';",
+      "import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';",
       "",
       "const ${1:EventName}Payload = defineSchemaModel({",
       "  name: '${1:EventName}Payload',",
@@ -127,8 +127,8 @@
   "ContractSpec DocBlock": {
     "prefix": ["contractspec-docblock", "docblock"],
     "body": [
-      "import type { DocBlock } from '@lssm/lib.contracts/docs';",
-      "import { registerDocBlocks } from '@lssm/lib.contracts/docs';",
+      "import type { DocBlock } from '@contractspec/lib.contracts/docs';",
+      "import { registerDocBlocks } from '@contractspec/lib.contracts/docs';",
       "",
       "export const ${1:docblock_name}_DocBlocks: DocBlock[] = [",
       "  {",
@@ -154,8 +154,8 @@
   "ContractSpec TelemetrySpec": {
     "prefix": ["contractspec-telemetry", "telemetrySpec"],
     "body": [
-      "import type { TelemetrySpec } from '@lssm/lib.contracts/telemetry';",
-      "import { StabilityEnum } from '@lssm/lib.contracts';",
+      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry';",
+      "import { StabilityEnum } from '@contractspec/lib.contracts';",
       "",
       "export const ${1:name}Telemetry: TelemetrySpec = {",
       "  meta: {",
@@ -194,7 +194,7 @@
   "ContractSpec Presentation": {
     "prefix": ["contractspec-presentation", "presentationSpec"],
     "body": [
-      "import type { PresentationSpec } from '@lssm/lib.contracts/presentations';",
+      "import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';",
       "",
       "export const ${1:PresentationName}Presentation: PresentationSpec = {",
       "  meta: {",

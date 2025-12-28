@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.lifecycle-cli",
+  "name": "@contractspec/example.lifecycle-cli",
   "version": "1.43.3",
   "description": "Lifecycle CLI demo (example): run lifecycle assessment without an HTTP server.",
   "type": "module",
@@ -27,15 +27,15 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/bundle.lifecycle-managed": "workspace:*",
-    "@lssm/lib.lifecycle": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.logger": "workspace:*"
+    "@contractspec/bundle.lifecycle-managed": "workspace:*",
+    "@contractspec/lib.lifecycle": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

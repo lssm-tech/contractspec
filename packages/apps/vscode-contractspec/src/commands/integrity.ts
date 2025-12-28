@@ -7,11 +7,11 @@ import {
   analyzeIntegrity,
   generateMermaidDiagram,
   type IntegrityAnalysisResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
-  updateIntegrityResult,
   updateIntegrityDiagnostics,
+  updateIntegrityResult,
 } from '../diagnostics/index';
 import { getOutputChannel } from '../ui/output-channel';
 
@@ -466,7 +466,7 @@ function generateFeatureFileContent(
  * Auto-generated feature from orphaned specs.
  */
 
-import { defineFeature } from '@lssm/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 export const ${toCamelCase(key)}Feature = defineFeature({
   key: '${key}',

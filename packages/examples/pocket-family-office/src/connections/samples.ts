@@ -1,4 +1,4 @@
-import type { IntegrationConnection } from '@lssm/lib.contracts/integrations/connection';
+import type { IntegrationConnection } from '@contractspec/lib.contracts/integrations/connection';
 
 const now = new Date();
 

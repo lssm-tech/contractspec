@@ -1,7 +1,7 @@
 'use client';
 
 import { FlashCard } from '../components/FlashCard';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
   const currentStepIndex = track.steps.findIndex(

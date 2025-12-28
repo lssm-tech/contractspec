@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 import type { ViewTabsProps, LearningView } from '../types';
 
 const VIEW_LABELS: Record<LearningView, { label: string; icon: string }> = {

@@ -6,7 +6,7 @@ import * as vscode from 'vscode';
 import type {
   CheckResult,
   DoctorPromptCallbacks,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 /**
  * Create VS Code prompt callbacks.

@@ -14,8 +14,8 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-} from '@lssm/lib.ui-kit-web/ui/sidebar';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+} from '@contractspec/lib.ui-kit-web/ui/sidebar';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { cva } from 'class-variance-authority';
 import type { NavSection } from '../../types/navigation';
 
@@ -91,4 +91,4 @@ export function AppSidebar({
   );
 }
 
-// export { SidebarTrigger } from '@lssm/lib.ui-kit-web/ui/sidebar';
+// export { SidebarTrigger } from '@contractspec/lib.ui-kit-web/ui/sidebar';

@@ -12,10 +12,10 @@ export type ListFetcher<TVars, TItem> = (
 
 // ---- Framework config helpers (Next / Metro) ----
 export interface NextAliasOptions {
-  uiKitWeb?: string; // default '@lssm/lib.ui-kit-web'
-  uiKitNative?: string; // default '@lssm/lib.ui-kit'
-  presentationReact?: string; // default '@lssm/lib.presentation-runtime-react'
-  presentationNative?: string; // default '@lssm/lib.presentation-runtime-react-native'
+  uiKitWeb?: string; // default '@contractspec/lib.ui-kit-web'
+  uiKitNative?: string; // default '@contractspec/lib.ui-kit'
+  presentationReact?: string; // default '@contractspec/lib.presentation-runtime-react'
+  presentationNative?: string; // default '@contractspec/lib.presentation-runtime-react-native'
 }
 
 export function withPresentationNextAliases(
@@ -23,12 +23,13 @@ export function withPresentationNextAliases(
   config: any,
   opts: NextAliasOptions = {}
 ) {
-  const uiWeb = opts.uiKitWeb ?? '@lssm/lib.ui-kit-web';
-  const uiNative = opts.uiKitNative ?? '@lssm/lib.ui-kit';
+  const uiWeb = opts.uiKitWeb ?? '@contractspec/lib.ui-kit-web';
+  const uiNative = opts.uiKitNative ?? '@contractspec/lib.ui-kit';
   const presReact =
-    opts.presentationReact ?? '@lssm/lib.presentation-runtime-react';
+    opts.presentationReact ?? '@contractspec/lib.presentation-runtime-react';
   const presNative =
-    opts.presentationNative ?? '@lssm/lib.presentation-runtime-react-native';
+    opts.presentationNative ??
+    '@contractspec/lib.presentation-runtime-react-native';
 
   config.resolve ??= {};
   config.resolve.alias = {
@@ -55,12 +56,13 @@ export function withPresentationMetroAliases(
   config: any,
   opts: MetroAliasOptions = {}
 ) {
-  const uiWeb = opts.uiKitWeb ?? '@lssm/lib.ui-kit-web';
-  const uiNative = opts.uiKitNative ?? '@lssm/lib.ui-kit';
+  const uiWeb = opts.uiKitWeb ?? '@contractspec/lib.ui-kit-web';
+  const uiNative = opts.uiKitNative ?? '@contractspec/lib.ui-kit';
   const presReact =
-    opts.presentationReact ?? '@lssm/lib.presentation-runtime-react';
+    opts.presentationReact ?? '@contractspec/lib.presentation-runtime-react';
   const presNative =
-    opts.presentationNative ?? '@lssm/lib.presentation-runtime-react-native';
+    opts.presentationNative ??
+    '@contractspec/lib.presentation-runtime-react-native';
 
   // Prefer package exports resolution
   config.resolver ??= {};

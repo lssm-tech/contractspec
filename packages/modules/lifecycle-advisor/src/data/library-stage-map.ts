@@ -1,4 +1,4 @@
-import type { LifecycleStage } from '@lssm/lib.lifecycle';
+import type { LifecycleStage } from '@contractspec/lib.lifecycle';
 import type { LibraryRecommendation } from '../recommendations/library-recommender';
 
 export interface LibraryStageEntry {
@@ -11,12 +11,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 0 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.content-gen',
+        id: '@contractspec/lib.content-gen',
         type: 'library',
         description: 'Summarize interviews and synthesize IC insights.',
       },
       {
-        id: '@lssm/lib.presentation-runtime',
+        id: '@contractspec/lib.presentation-runtime',
         type: 'library',
         description: 'Craft low-fi storyboards without custom code.',
       },
@@ -26,12 +26,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 1 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.progressive-delivery',
+        id: '@contractspec/lib.progressive-delivery',
         type: 'library',
         description: 'Gate prototype features behind lightweight flags.',
       },
       {
-        id: '@lssm/module.lifecycle-core',
+        id: '@contractspec/module.lifecycle-core',
         type: 'module',
         description: 'Capture questionnaire signals for early scoring.',
       },
@@ -41,12 +41,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 2 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.analytics',
+        id: '@contractspec/lib.analytics',
         type: 'library',
         description: 'Instrument activation paths + cohorts.',
       },
       {
-        id: '@lssm/lib.observability',
+        id: '@contractspec/lib.observability',
         type: 'library',
         description: 'Collect minimum viable traces and metrics.',
       },
@@ -56,12 +56,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 3 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.evolution',
+        id: '@contractspec/lib.evolution',
         type: 'library',
         description: 'Auto-detect contract gaps and spec improvements.',
       },
       {
-        id: '@lssm/module.lifecycle-advisor',
+        id: '@contractspec/module.lifecycle-advisor',
         type: 'module',
         description: 'Generate retention-focused guidance at scale.',
       },
@@ -71,12 +71,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 4 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.growth',
+        id: '@contractspec/lib.growth',
         type: 'library',
         description: 'Experiment orchestration with guardrails.',
       },
       {
-        id: '@lssm/lib.resilience',
+        id: '@contractspec/lib.resilience',
         type: 'library',
         description: 'Stabilize infra and SLOs as teams split.',
       },
@@ -86,12 +86,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 5 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.workflow-composer',
+        id: '@contractspec/lib.workflow-composer',
         type: 'library',
         description: 'Automate partner workflows and integrations.',
       },
       {
-        id: '@lssm/bundle.contractspec-studio',
+        id: '@contractspec/bundle.studio',
         type: 'bundle',
         description: 'Expose managed partner onboarding via Studio.',
       },
@@ -101,12 +101,12 @@ const libraryStageMap: LibraryStageEntry[] = [
     stage: 6 as LifecycleStage,
     items: [
       {
-        id: '@lssm/lib.cost-tracking',
+        id: '@contractspec/lib.cost-tracking',
         type: 'library',
         description: 'Model margin scenarios and reinvestment bets.',
       },
       {
-        id: '@lssm/lib.workflow-composer',
+        id: '@contractspec/lib.workflow-composer',
         type: 'library',
         description: 'Standardize renewal rituals and automation.',
       },

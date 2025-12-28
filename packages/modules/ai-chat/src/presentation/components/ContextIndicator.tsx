@@ -1,14 +1,14 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Badge } from '@lssm/lib.ui-kit-web/ui/badge';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@lssm/lib.ui-kit-web/ui/tooltip';
+} from '@contractspec/lib.ui-kit-web/ui/tooltip';
 import { FolderOpen, FileCode, Zap, Info } from 'lucide-react';
 import type { WorkspaceSummary } from '../../context/workspace-context';
 

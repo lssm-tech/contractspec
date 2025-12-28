@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { writeFile } from 'node:fs/promises';
 import chalk from 'chalk';
-import { GoldenTestGenerator } from '@lssm/lib.testing';
+import { GoldenTestGenerator } from '@contractspec/lib.testing';
 
 export interface GenerateGoldenOptions {
   operation: string;
@@ -76,7 +76,7 @@ export async function generateGoldenTestsCommand(
 // async function fetchSnapshotsFromProduction(
 //   options: GenerateGoldenOptions
 // ): Promise<TrafficSnapshot[]> {
-//   const { createPrismaClientFromEnv } = await import('@lssm/app.cli-database');
+//   const { createPrismaClientFromEnv } = await import('@contractspec/app.cli-database');
 //   const prisma = createPrismaClientFromEnv('DATABASE_URL');
 //   try {
 //     const since = options.days

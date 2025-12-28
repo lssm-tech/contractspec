@@ -1,4 +1,4 @@
-import type { AgentSpec } from '@lssm/lib.ai-agent';
+import type { AgentSpec } from '@contractspec/lib.ai-agent';
 
 export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
 export type TicketCategory =

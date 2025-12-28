@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-registry
+# @contractspec/example.learning-journey-registry
 
 Website: https://contractspec.io/
 
@@ -15,7 +15,7 @@ Aggregated registry for learning journey example tracks.
 ## Usage
 
 ```ts
-import { onboardingTrackCatalog } from '@lssm/example.learning-journey-registry';
+import { onboardingTrackCatalog } from '@contractspec/example.learning-journey-registry';
 // Feed into API/service that implements learning.onboarding.listTracks
 ```
 

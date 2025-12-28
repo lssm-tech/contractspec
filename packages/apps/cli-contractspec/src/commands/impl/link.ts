@@ -8,7 +8,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import { readFileSync, writeFileSync } from 'fs';
-import type { ImplementationType } from '@lssm/lib.contracts';
+import type { ImplementationType } from '@contractspec/lib.contracts';
 import type { ImplLinkOptions } from './types';
 
 /**

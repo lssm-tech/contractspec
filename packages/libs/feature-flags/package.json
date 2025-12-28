@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.feature-flags",
+  "name": "@contractspec/lib.feature-flags",
   "version": "1.43.3",
   "description": "Feature flags and experiments module for ContractSpec applications",
   "main": "./dist/index.js",
@@ -18,13 +18,13 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

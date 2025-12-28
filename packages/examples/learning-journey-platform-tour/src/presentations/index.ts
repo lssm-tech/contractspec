@@ -1,8 +1,8 @@
 import type {
   PresentationSpecMeta,
   PresentationSpec,
-} from '@lssm/lib.contracts';
-import { StabilityEnum } from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
+import { StabilityEnum } from '@contractspec/lib.contracts';
 import { PlatformTourTrackModel } from '../operations';
 
 const baseMeta: Pick<

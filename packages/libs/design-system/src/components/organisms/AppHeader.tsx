@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
 import { Header, type HeaderProps } from './Header';
 
 export interface AppHeaderProps extends HeaderProps {

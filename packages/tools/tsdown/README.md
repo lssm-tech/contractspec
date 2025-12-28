@@ -1,4 +1,4 @@
-@lssm/tool.tsdown
+@contractspec/tool.tsdown
 
 Shared tsup config presets for the monorepo.
 
@@ -10,7 +10,7 @@ Usage in a package:
 ```js
 // tsup.config.js
 import { defineConfig } from 'tsup';
-import { reactLibrary } from '@lssm/tool.tsdown';
+import { reactLibrary } from '@contractspec/tool.tsdown';
 
 export default defineConfig((options) => ({
   ...reactLibrary,
@@ -22,7 +22,7 @@ For Node libraries:
 
 ```js
 import { defineConfig } from 'tsup';
-import { nodeLib } from '@lssm/tool.tsdown';
+import { nodeLib } from '@contractspec/tool.tsdown';
 
 export default defineConfig(() => ({
   ...nodeLib,

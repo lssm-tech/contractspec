@@ -1,15 +1,15 @@
 'use client';
 
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
-import { Progress } from '@lssm/lib.ui-kit-web/ui/progress';
-import { XpBar } from '@lssm/example.learning-journey-ui-shared';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { Progress } from '@contractspec/lib.ui-kit-web/ui/progress';
+import { XpBar } from '@contractspec/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 interface OnboardingOverviewProps extends LearningViewProps {
   onStart?: () => void;

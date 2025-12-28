@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Aggregation type enum.
@@ -451,7 +456,7 @@ export const meteringEntities = [
  * Module schema contribution for metering.
  */
 export const meteringSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/lib.metering',
+  moduleId: '@contractspec/lib.metering',
   entities: meteringEntities,
   enums: [
     AggregationTypeEnum,

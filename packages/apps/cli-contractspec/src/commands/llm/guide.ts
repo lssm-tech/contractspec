@@ -7,9 +7,9 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import type { AgentType } from '@lssm/lib.contracts/llm';
-import { createAgentGuideService } from '@lssm/bundle.contractspec-workspace';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import type { AgentType } from '@contractspec/lib.contracts/llm';
+import { createAgentGuideService } from '@contractspec/bundle.workspace';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function loadSpec(specPath: string): Promise<any> {

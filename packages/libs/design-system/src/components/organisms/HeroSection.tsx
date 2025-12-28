@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Hero } from '@lssm/lib.ui-kit-web/ui/marketing/Hero';
+import { Hero } from '@contractspec/lib.ui-kit-web/ui/marketing/Hero';
 import { cva } from 'class-variance-authority';
 
 const sectionVariants = cva(

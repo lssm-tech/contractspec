@@ -4,7 +4,7 @@ import type { ResourceRefDescriptor } from './resources';
 import type { HandlerCtx } from './types';
 import { OperationSpecRegistry } from './operations/registry';
 import type { EventSpec } from './events';
-import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
 
 /** Infer input/output types from a OperationSpec */
 export type OperationSpecInput<Spec extends AnyOperationSpec> =

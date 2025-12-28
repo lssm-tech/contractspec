@@ -6,14 +6,14 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/bundle.contractspec-workspace@1.43.3
-  - @lssm/module.contractspec-examples@1.43.3
-  - @lssm/lib.contracts-transformers@1.43.3
-  - @lssm/lib.ai-providers@1.43.2
-  - @lssm/module.ai-chat@1.43.3
-  - @lssm/lib.contracts@1.43.3
-  - @lssm/lib.testing@1.43.3
-  - @lssm/lib.schema@1.43.2
+  - @contractspec/bundle.workspace@1.43.3
+  - @contractspec/module.examples@1.43.3
+  - @contractspec/lib.contracts-transformers@1.43.3
+  - @contractspec/lib.ai-providers@1.43.2
+  - @contractspec/module.ai-chat@1.43.3
+  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.testing@1.43.3
+  - @contractspec/lib.schema@1.43.2
 
 ## 1.43.2
 
@@ -21,14 +21,14 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/bundle.contractspec-workspace@1.43.2
-  - @lssm/module.contractspec-examples@1.43.2
-  - @lssm/lib.contracts-transformers@1.43.2
-  - @lssm/module.ai-chat@1.43.2
-  - @lssm/lib.contracts@1.43.2
-  - @lssm/lib.testing@1.43.2
-  - @lssm/lib.ai-providers@1.43.1
-  - @lssm/lib.schema@1.43.1
+  - @contractspec/bundle.workspace@1.43.2
+  - @contractspec/module.examples@1.43.2
+  - @contractspec/lib.contracts-transformers@1.43.2
+  - @contractspec/module.ai-chat@1.43.2
+  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.testing@1.43.2
+  - @contractspec/lib.ai-providers@1.43.1
+  - @contractspec/lib.schema@1.43.1
 
 ## 1.43.1
 
@@ -36,12 +36,12 @@
 
 - f28fdad: fix
 - Updated dependencies [f28fdad]
-  - @lssm/lib.contracts@1.43.1
-  - @lssm/bundle.contractspec-workspace@1.43.1
-  - @lssm/lib.contracts-transformers@1.43.1
-  - @lssm/lib.testing@1.43.1
-  - @lssm/module.ai-chat@1.43.1
-  - @lssm/module.contractspec-examples@1.43.1
+  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/bundle.workspace@1.43.1
+  - @contractspec/lib.contracts-transformers@1.43.1
+  - @contractspec/lib.testing@1.43.1
+  - @contractspec/module.ai-chat@1.43.1
+  - @contractspec/module.examples@1.43.1
 
 ## 1.43.0
 
@@ -52,14 +52,14 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/bundle.contractspec-workspace@1.43.0
-  - @lssm/module.contractspec-examples@1.43.0
-  - @lssm/lib.contracts-transformers@1.43.0
-  - @lssm/lib.ai-providers@1.43.0
-  - @lssm/module.ai-chat@1.43.0
-  - @lssm/lib.contracts@1.43.0
-  - @lssm/lib.testing@1.43.0
-  - @lssm/lib.schema@1.43.0
+  - @contractspec/bundle.workspace@1.43.0
+  - @contractspec/module.examples@1.43.0
+  - @contractspec/lib.contracts-transformers@1.43.0
+  - @contractspec/lib.ai-providers@1.43.0
+  - @contractspec/module.ai-chat@1.43.0
+  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.testing@1.43.0
+  - @contractspec/lib.schema@1.43.0
 
 ## 1.42.10
 
@@ -67,14 +67,14 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/bundle.contractspec-workspace@1.42.10
-  - @lssm/module.contractspec-examples@1.42.10
-  - @lssm/lib.contracts-transformers@1.42.10
-  - @lssm/lib.ai-providers@1.42.10
-  - @lssm/module.ai-chat@1.42.10
-  - @lssm/lib.contracts@1.42.10
-  - @lssm/lib.testing@1.42.10
-  - @lssm/lib.schema@1.42.10
+  - @contractspec/bundle.workspace@1.42.10
+  - @contractspec/module.examples@1.42.10
+  - @contractspec/lib.contracts-transformers@1.42.10
+  - @contractspec/lib.ai-providers@1.42.10
+  - @contractspec/module.ai-chat@1.42.10
+  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.testing@1.42.10
+  - @contractspec/lib.schema@1.42.10
 
 ## 1.42.9
 
@@ -82,14 +82,14 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/bundle.contractspec-workspace@1.42.9
-  - @lssm/module.contractspec-examples@1.42.9
-  - @lssm/lib.contracts-transformers@1.42.9
-  - @lssm/lib.ai-providers@1.42.9
-  - @lssm/module.ai-chat@1.42.9
-  - @lssm/lib.contracts@1.42.9
-  - @lssm/lib.testing@1.42.9
-  - @lssm/lib.schema@1.42.9
+  - @contractspec/bundle.workspace@1.42.9
+  - @contractspec/module.examples@1.42.9
+  - @contractspec/lib.contracts-transformers@1.42.9
+  - @contractspec/lib.ai-providers@1.42.9
+  - @contractspec/module.ai-chat@1.42.9
+  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.testing@1.42.9
+  - @contractspec/lib.schema@1.42.9
 
 ## 1.42.8
 
@@ -97,14 +97,14 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/bundle.contractspec-workspace@1.42.8
-  - @lssm/module.contractspec-examples@1.42.8
-  - @lssm/lib.contracts-transformers@1.42.8
-  - @lssm/lib.ai-providers@1.42.8
-  - @lssm/module.ai-chat@1.42.8
-  - @lssm/lib.contracts@1.42.8
-  - @lssm/lib.testing@1.42.8
-  - @lssm/lib.schema@1.42.8
+  - @contractspec/bundle.workspace@1.42.8
+  - @contractspec/module.examples@1.42.8
+  - @contractspec/lib.contracts-transformers@1.42.8
+  - @contractspec/lib.ai-providers@1.42.8
+  - @contractspec/module.ai-chat@1.42.8
+  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.testing@1.42.8
+  - @contractspec/lib.schema@1.42.8
 
 ## 1.42.7
 
@@ -112,14 +112,14 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/bundle.contractspec-workspace@1.42.7
-  - @lssm/module.contractspec-examples@1.42.7
-  - @lssm/lib.contracts-transformers@1.42.7
-  - @lssm/lib.ai-providers@1.42.7
-  - @lssm/module.ai-chat@1.42.7
-  - @lssm/lib.contracts@1.42.7
-  - @lssm/lib.testing@1.42.7
-  - @lssm/lib.schema@1.42.7
+  - @contractspec/bundle.workspace@1.42.7
+  - @contractspec/module.examples@1.42.7
+  - @contractspec/lib.contracts-transformers@1.42.7
+  - @contractspec/lib.ai-providers@1.42.7
+  - @contractspec/module.ai-chat@1.42.7
+  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.testing@1.42.7
+  - @contractspec/lib.schema@1.42.7
 
 ## 1.42.6
 
@@ -127,14 +127,14 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/bundle.contractspec-workspace@1.42.6
-  - @lssm/module.contractspec-examples@1.42.6
-  - @lssm/lib.contracts-transformers@1.42.6
-  - @lssm/lib.ai-providers@1.42.6
-  - @lssm/module.ai-chat@1.42.6
-  - @lssm/lib.contracts@1.42.6
-  - @lssm/lib.testing@1.42.6
-  - @lssm/lib.schema@1.42.6
+  - @contractspec/bundle.workspace@1.42.6
+  - @contractspec/module.examples@1.42.6
+  - @contractspec/lib.contracts-transformers@1.42.6
+  - @contractspec/lib.ai-providers@1.42.6
+  - @contractspec/module.ai-chat@1.42.6
+  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.testing@1.42.6
+  - @contractspec/lib.schema@1.42.6
 
 ## 1.42.5
 
@@ -142,14 +142,14 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/bundle.contractspec-workspace@1.42.5
-  - @lssm/module.contractspec-examples@1.42.5
-  - @lssm/lib.contracts-transformers@1.42.5
-  - @lssm/lib.ai-providers@1.42.5
-  - @lssm/module.ai-chat@1.42.5
-  - @lssm/lib.contracts@1.42.5
-  - @lssm/lib.testing@1.42.5
-  - @lssm/lib.schema@1.42.5
+  - @contractspec/bundle.workspace@1.42.5
+  - @contractspec/module.examples@1.42.5
+  - @contractspec/lib.contracts-transformers@1.42.5
+  - @contractspec/lib.ai-providers@1.42.5
+  - @contractspec/module.ai-chat@1.42.5
+  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.testing@1.42.5
+  - @contractspec/lib.schema@1.42.5
 
 ## 1.42.4
 
@@ -157,14 +157,14 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/bundle.contractspec-workspace@1.42.4
-  - @lssm/module.contractspec-examples@1.42.4
-  - @lssm/lib.contracts-transformers@1.42.4
-  - @lssm/lib.ai-providers@1.42.4
-  - @lssm/module.ai-chat@1.42.4
-  - @lssm/lib.contracts@1.42.4
-  - @lssm/lib.testing@1.42.4
-  - @lssm/lib.schema@1.42.4
+  - @contractspec/bundle.workspace@1.42.4
+  - @contractspec/module.examples@1.42.4
+  - @contractspec/lib.contracts-transformers@1.42.4
+  - @contractspec/lib.ai-providers@1.42.4
+  - @contractspec/module.ai-chat@1.42.4
+  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.testing@1.42.4
+  - @contractspec/lib.schema@1.42.4
 
 ## 1.42.3
 
@@ -172,14 +172,14 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/lib.contracts-transformers@1.42.3
-  - @lssm/bundle.contractspec-workspace@1.42.3
-  - @lssm/lib.ai-providers@1.42.3
-  - @lssm/lib.contracts@1.42.3
-  - @lssm/lib.schema@1.42.3
-  - @lssm/lib.testing@1.42.3
-  - @lssm/module.ai-chat@1.42.3
-  - @lssm/module.contractspec-examples@1.42.3
+  - @contractspec/lib.contracts-transformers@1.42.3
+  - @contractspec/bundle.workspace@1.42.3
+  - @contractspec/lib.ai-providers@1.42.3
+  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.schema@1.42.3
+  - @contractspec/lib.testing@1.42.3
+  - @contractspec/module.ai-chat@1.42.3
+  - @contractspec/module.examples@1.42.3
 
 ## 1.42.2
 
@@ -187,14 +187,14 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/bundle.contractspec-workspace@1.42.2
-  - @lssm/lib.ai-providers@1.42.2
-  - @lssm/lib.contracts@1.42.2
-  - @lssm/lib.contracts-transformers@1.42.2
-  - @lssm/lib.schema@1.42.2
-  - @lssm/lib.testing@1.42.2
-  - @lssm/module.ai-chat@1.42.2
-  - @lssm/module.contractspec-examples@1.42.2
+  - @contractspec/bundle.workspace@1.42.2
+  - @contractspec/lib.ai-providers@1.42.2
+  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.contracts-transformers@1.42.2
+  - @contractspec/lib.schema@1.42.2
+  - @contractspec/lib.testing@1.42.2
+  - @contractspec/module.ai-chat@1.42.2
+  - @contractspec/module.examples@1.42.2
 
 ## 1.42.1
 
@@ -202,14 +202,14 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/bundle.contractspec-workspace@1.42.1
-  - @lssm/module.contractspec-examples@1.42.1
-  - @lssm/lib.contracts-transformers@1.42.1
-  - @lssm/lib.ai-providers@1.42.1
-  - @lssm/module.ai-chat@1.42.1
-  - @lssm/lib.contracts@1.42.1
-  - @lssm/lib.testing@1.42.1
-  - @lssm/lib.schema@1.42.1
+  - @contractspec/bundle.workspace@1.42.1
+  - @contractspec/module.examples@1.42.1
+  - @contractspec/lib.contracts-transformers@1.42.1
+  - @contractspec/lib.ai-providers@1.42.1
+  - @contractspec/module.ai-chat@1.42.1
+  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.testing@1.42.1
+  - @contractspec/lib.schema@1.42.1
 
 ## 1.42.0
 
@@ -220,14 +220,14 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/bundle.contractspec-workspace@1.42.0
-  - @lssm/lib.ai-providers@1.42.0
-  - @lssm/lib.contracts@1.42.0
-  - @lssm/lib.contracts-transformers@1.42.0
-  - @lssm/lib.schema@1.42.0
-  - @lssm/lib.testing@1.42.0
-  - @lssm/module.ai-chat@1.42.0
-  - @lssm/module.contractspec-examples@1.42.0
+  - @contractspec/bundle.workspace@1.42.0
+  - @contractspec/lib.ai-providers@1.42.0
+  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.contracts-transformers@1.42.0
+  - @contractspec/lib.schema@1.42.0
+  - @contractspec/lib.testing@1.42.0
+  - @contractspec/module.ai-chat@1.42.0
+  - @contractspec/module.examples@1.42.0
 
 ## 0.12.0
 
@@ -238,10 +238,10 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/app.cli-database@1.12.0
-  - @lssm/lib.contracts@1.12.0
-  - @lssm/lib.schema@1.12.0
-  - @lssm/lib.testing@0.5.0
+  - @contractspec/app.cli-database@1.12.0
+  - @contractspec/lib.contracts@1.12.0
+  - @contractspec/lib.schema@1.12.0
+  - @contractspec/lib.testing@0.5.0
 
 ## 0.11.1
 
@@ -249,10 +249,10 @@
 
 - Fix dependencies
 - Updated dependencies
-  - @lssm/app.cli-database@1.11.1
-  - @lssm/lib.contracts@1.11.1
-  - @lssm/lib.schema@1.11.1
-  - @lssm/lib.testing@0.4.1
+  - @contractspec/app.cli-database@1.11.1
+  - @contractspec/lib.contracts@1.11.1
+  - @contractspec/lib.schema@1.11.1
+  - @contractspec/lib.testing@0.4.1
 
 ## 0.11.0
 
@@ -263,10 +263,10 @@
 ### Patch Changes
 
 - Updated dependencies [b7621d3]
-  - @lssm/app.cli-database@1.11.0
-  - @lssm/lib.contracts@1.11.0
-  - @lssm/lib.schema@1.11.0
-  - @lssm/lib.testing@0.4.0
+  - @contractspec/app.cli-database@1.11.0
+  - @contractspec/lib.contracts@1.11.0
+  - @contractspec/lib.schema@1.11.0
+  - @contractspec/lib.testing@0.4.0
 
 ## 0.10.0
 
@@ -277,10 +277,10 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/app.cli-database@1.10.0
-  - @lssm/lib.contracts@1.10.0
-  - @lssm/lib.schema@1.10.0
-  - @lssm/lib.testing@0.3.0
+  - @contractspec/app.cli-database@1.10.0
+  - @contractspec/lib.contracts@1.10.0
+  - @contractspec/lib.schema@1.10.0
+  - @contractspec/lib.testing@0.3.0
 
 ## 0.9.2
 
@@ -288,10 +288,10 @@
 
 - fix dependencies
 - Updated dependencies
-  - @lssm/lib.testing@0.2.2
-  - @lssm/app.cli-database@1.9.2
-  - @lssm/lib.contracts@1.9.2
-  - @lssm/lib.schema@1.9.2
+  - @contractspec/lib.testing@0.2.2
+  - @contractspec/app.cli-database@1.9.2
+  - @contractspec/lib.contracts@1.9.2
+  - @contractspec/lib.schema@1.9.2
 
 ## 0.9.1
 
@@ -299,10 +299,10 @@
 
 - fix
 - Updated dependencies
-  - @lssm/app.cli-database@1.9.1
-  - @lssm/lib.contracts@1.9.1
-  - @lssm/lib.testing@0.2.1
-  - @lssm/lib.schema@1.9.1
+  - @contractspec/app.cli-database@1.9.1
+  - @contractspec/lib.contracts@1.9.1
+  - @contractspec/lib.testing@0.2.1
+  - @contractspec/lib.schema@1.9.1
 
 ## 0.9.0
 
@@ -313,10 +313,10 @@
 ### Patch Changes
 
 - Updated dependencies [b1d0876]
-  - @lssm/app.cli-database@1.9.0
-  - @lssm/lib.contracts@1.9.0
-  - @lssm/lib.testing@0.2.0
-  - @lssm/lib.schema@1.9.0
+  - @contractspec/app.cli-database@1.9.0
+  - @contractspec/lib.contracts@1.9.0
+  - @contractspec/lib.testing@0.2.0
+  - @contractspec/lib.schema@1.9.0
 
 ## 0.8.0
 
@@ -327,8 +327,8 @@
 ### Patch Changes
 
 - Updated dependencies [f1f4ddd]
-  - @lssm/lib.contracts@1.8.0
-  - @lssm/lib.schema@1.8.0
+  - @contractspec/lib.contracts@1.8.0
+  - @contractspec/lib.schema@1.8.0
 
 ## 0.7.4
 
@@ -336,8 +336,8 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.4
-  - @lssm/lib.schema@1.7.4
+  - @contractspec/lib.contracts@1.7.4
+  - @contractspec/lib.schema@1.7.4
 
 ## 0.7.3
 
@@ -345,8 +345,8 @@
 
 - add right-sidebar
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.3
-  - @lssm/lib.schema@1.7.3
+  - @contractspec/lib.contracts@1.7.3
+  - @contractspec/lib.schema@1.7.3
 
 ## 0.7.2
 
@@ -354,8 +354,8 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.2
-  - @lssm/lib.schema@1.7.2
+  - @contractspec/lib.contracts@1.7.2
+  - @contractspec/lib.schema@1.7.2
 
 ## 0.7.1
 
@@ -363,8 +363,8 @@
 
 - fix typing
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.1
-  - @lssm/lib.schema@1.7.1
+  - @contractspec/lib.contracts@1.7.1
+  - @contractspec/lib.schema@1.7.1
 
 ## 0.7.0
 
@@ -375,8 +375,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.7.0
-  - @lssm/lib.schema@1.7.0
+  - @contractspec/lib.contracts@1.7.0
+  - @contractspec/lib.schema@1.7.0
 
 ## 0.6.0
 
@@ -387,8 +387,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.6.0
-  - @lssm/lib.schema@1.6.0
+  - @contractspec/lib.contracts@1.6.0
+  - @contractspec/lib.schema@1.6.0
 
 ## 0.5.0
 
@@ -399,8 +399,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.5.0
-  - @lssm/lib.schema@1.5.0
+  - @contractspec/lib.contracts@1.5.0
+  - @contractspec/lib.schema@1.5.0
 
 ## 0.4.0
 
@@ -411,8 +411,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.4.0
-  - @lssm/lib.schema@1.4.0
+  - @contractspec/lib.contracts@1.4.0
+  - @contractspec/lib.schema@1.4.0
 
 ## 0.3.0
 
@@ -423,8 +423,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.3.0
-  - @lssm/lib.schema@1.3.0
+  - @contractspec/lib.contracts@1.3.0
+  - @contractspec/lib.schema@1.3.0
 
 ## 0.2.0
 
@@ -435,8 +435,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.contracts@1.2.0
-  - @lssm/lib.schema@1.2.0
+  - @contractspec/lib.contracts@1.2.0
+  - @contractspec/lib.schema@1.2.0
 
 ## 0.1.0
 
@@ -449,8 +449,8 @@
 
 - Updated dependencies
 - Updated dependencies [748b3a2]
-  - @lssm/lib.contracts@1.1.0
-  - @lssm/lib.schema@1.1.0
+  - @contractspec/lib.contracts@1.1.0
+  - @contractspec/lib.schema@1.1.0
 
 All notable changes to this project will be documented in this file.
 

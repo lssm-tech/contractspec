@@ -3,7 +3,7 @@
  *
  * Defines the feature module for the SaaS application foundation.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * SaaS Boilerplate feature module that bundles project management,

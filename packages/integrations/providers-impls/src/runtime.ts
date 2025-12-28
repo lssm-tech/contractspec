@@ -1,1 +1,1 @@
-export type { IntegrationContext } from '@lssm/integration.runtime/runtime';
+export type { IntegrationContext } from '@contractspec/integration.runtime/runtime';

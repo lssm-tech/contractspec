@@ -3,8 +3,8 @@
 import React from 'react';
 import { FlatList, type FlatListProps, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { VStack } from '@lssm/lib.ui-kit/ui/stack';
-import { Text } from '@lssm/lib.ui-kit/ui/text';
+import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
+import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export interface FlatListScreenProps<T>

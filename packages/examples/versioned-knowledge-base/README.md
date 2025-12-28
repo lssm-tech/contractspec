@@ -1,4 +1,4 @@
-# `@lssm/example.versioned-knowledge-base`
+# `@contractspec/example.versioned-knowledge-base`
 
 Website: https://contractspec.io/
 

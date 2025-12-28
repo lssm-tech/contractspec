@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { useResponsive } from '../../platform/useResponsive';
-import { ListPage } from '@lssm/lib.ui-kit-web/ui/organisms/ListPage';
-import type { ListPageProps } from '@lssm/lib.ui-kit-web/ui/organisms/ListPage/types';
+import { ListPage } from '@contractspec/lib.ui-kit-web/ui/organisms/ListPage';
+import type { ListPageProps } from '@contractspec/lib.ui-kit-web/ui/organisms/ListPage/types';
 
 export function ListPageResponsive<T>(props: ListPageProps<T>) {
   const { screen } = useResponsive();

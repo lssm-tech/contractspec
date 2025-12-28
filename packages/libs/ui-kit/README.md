@@ -1,4 +1,4 @@
-# @lssm/lib.ui-kit
+# @contractspec/lib.ui-kit
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a set of high-quality, accessible, and unstyled components that work 
 ## Installation
 
 ```bash
-npm install @lssm/lib.ui-kit
+npm install @contractspec/lib.ui-kit
 # or
-bun add @lssm/lib.ui-kit
+bun add @contractspec/lib.ui-kit
 ```
 
 ## Key Concepts
@@ -52,14 +52,14 @@ The library exports components via subpaths to allow for tree-shaking and cleane
 ## Usage
 
 ```tsx
-import { Button } from '@lssm/lib.ui-kit/ui/button';
-import { Text } from '@lssm/lib.ui-kit/ui/text';
+import { Button } from '@contractspec/lib.ui-kit/ui/button';
+import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-} from '@lssm/lib.ui-kit/ui/card';
+} from '@contractspec/lib.ui-kit/ui/card';
 
 export function MyComponent() {
   return (

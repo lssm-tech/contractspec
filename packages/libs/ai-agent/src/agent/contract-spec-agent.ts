@@ -7,7 +7,7 @@ import {
   type ToolSet,
 } from 'ai';
 import * as z from 'zod';
-import type { KnowledgeRetriever } from '@lssm/lib.knowledge/retriever';
+import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentSpec } from '../spec/spec';
 import { agentKey } from '../spec/spec';
 import type {

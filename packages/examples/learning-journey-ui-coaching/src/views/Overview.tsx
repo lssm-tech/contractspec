@@ -1,15 +1,18 @@
 'use client';
 
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
-import { XpBar, StreakCounter } from '@lssm/example.learning-journey-ui-shared';
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import {
+  XpBar,
+  StreakCounter,
+} from '@contractspec/example.learning-journey-ui-shared';
 import { TipCard } from '../components/TipCard';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 interface CoachingOverviewProps extends LearningViewProps {
   onStart?: () => void;

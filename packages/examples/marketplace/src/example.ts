@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.marketplace.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.marketplace',
+    packageName: '@contractspec/example.marketplace',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

@@ -3,12 +3,12 @@ import { performance } from 'node:perf_hooks';
 import type {
   ResolvedAppConfig,
   ResolvedIntegration,
-} from '@lssm/lib.contracts/app-config/runtime';
+} from '@contractspec/lib.contracts/app-config/runtime';
 import type {
   ConnectionStatus,
   IntegrationConnection,
-} from '@lssm/lib.contracts/integrations/connection';
-import type { IntegrationSpec } from '@lssm/lib.contracts/integrations/spec';
+} from '@contractspec/lib.contracts/integrations/connection';
+import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
 import type { SecretProvider, SecretValue } from './secrets/provider';
 
 export interface IntegrationTraceMetadata {

@@ -1,4 +1,4 @@
-# @lssm/lib.exporter
+# @contractspec/lib.exporter
 
 ## 1.43.2
 

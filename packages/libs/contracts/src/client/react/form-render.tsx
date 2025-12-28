@@ -19,7 +19,7 @@ import type {
   TextFieldSpec,
 } from '../../forms';
 import { buildZodWithRelations, evalPredicate } from '../../forms';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 // Minimal, library-agnostic driver slots. Hosts can provide any UI lib via this interface.
 export interface DriverSlots {

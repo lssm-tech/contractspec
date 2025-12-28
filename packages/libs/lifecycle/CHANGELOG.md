@@ -1,4 +1,4 @@
-# @lssm/lib.lifecycle
+# @contractspec/lib.lifecycle
 
 ## 1.43.2
 

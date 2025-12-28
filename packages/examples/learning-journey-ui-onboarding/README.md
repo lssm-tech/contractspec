@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ui-onboarding
+# @contractspec/example.learning-journey-ui-onboarding
 
 Website: https://contractspec.io/
 
@@ -15,8 +15,8 @@ Developer onboarding UI with checklists and journey maps.
 ## Usage
 
 ```tsx
-import { OnboardingMiniApp } from '@lssm/example.learning-journey-ui-onboarding';
-import { studioGettingStartedTrack } from '@lssm/example.learning-journey-studio-onboarding/track';
+import { OnboardingMiniApp } from '@contractspec/example.learning-journey-ui-onboarding';
+import { studioGettingStartedTrack } from '@contractspec/example.learning-journey-studio-onboarding/track';
 
 function MyApp() {
   return (

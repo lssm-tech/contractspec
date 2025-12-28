@@ -1,4 +1,7 @@
-import { defineCommand, defineQuery } from '@lssm/lib.contracts/operations';
+import {
+  defineCommand,
+  defineQuery,
+} from '@contractspec/lib.contracts/operations';
 import {
   CreateProjectInputModel,
   DeleteProjectInputModel,

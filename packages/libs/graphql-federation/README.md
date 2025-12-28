@@ -1,4 +1,4 @@
-# @lssm/lib.graphql-federation
+# @contractspec/lib.graphql-federation
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To enable Apollo Federation support for Pothos schemas. This package configures 
 ## Installation
 
 ```bash
-npm install @lssm/lib.graphql-federation
+npm install @contractspec/lib.graphql-federation
 # or
-bun add @lssm/lib.graphql-federation
+bun add @contractspec/lib.graphql-federation
 ```
 
 ## Key Concepts
@@ -25,8 +25,8 @@ bun add @lssm/lib.graphql-federation
 ## Usage
 
 ```ts
-import { builder } from '@lssm/lib.graphql-core';
-import '@lssm/lib.graphql-federation'; // Side-effect import to register plugin if needed, or use factory
+import { builder } from '@contractspec/lib.graphql-core';
+import '@contractspec/lib.graphql-federation'; // Side-effect import to register plugin if needed, or use factory
 
 builder.asEntity(User, {
   key: builder.selection<{ id: string }>('id'),

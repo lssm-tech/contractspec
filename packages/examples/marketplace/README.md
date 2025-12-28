@@ -1,4 +1,4 @@
-# @lssm/example.marketplace
+# @contractspec/example.marketplace
 
 Website: https://contractspec.io/
 
@@ -12,8 +12,8 @@ A comprehensive multi-vendor marketplace example demonstrating ContractSpec prin
 - **Order Management**: Full order lifecycle with status tracking
 - **Payment Processing**: Commission calculation and seller payouts
 - **Reviews & Ratings**: Customer feedback with seller responses
-- **File Attachments**: Product images and media using @lssm/lib.files
-- **Usage Metering**: Platform analytics using @lssm/lib.metering
+- **File Attachments**: Product images and media using @contractspec/lib.files
+- **Usage Metering**: Platform analytics using @contractspec/lib.metering
 
 ## Entities
 
@@ -95,7 +95,7 @@ import {
   CreateOrderContract,
   ListProductsContract,
   marketplaceSchemaContribution 
-} from '@lssm/example.marketplace';
+} from '@contractspec/example.marketplace';
 
 // List products
 const products = await executeQuery(ListProductsContract, {
@@ -118,11 +118,11 @@ const order = await executeContract(CreateOrderContract, {
 
 ## Dependencies
 
-- `@lssm/lib.identity-rbac` - User identity and roles
-- `@lssm/lib.files` - Product images and media
-- `@lssm/lib.metering` - Usage tracking and analytics
-- `@lssm/module.audit-trail` - Action auditing
-- `@lssm/module.notifications` - Order and payout notifications
+- `@contractspec/lib.identity-rbac` - User identity and roles
+- `@contractspec/lib.files` - Product images and media
+- `@contractspec/lib.metering` - Usage tracking and analytics
+- `@contractspec/module.audit-trail` - Action auditing
+- `@contractspec/module.notifications` - Order and payout notifications
 
 
 

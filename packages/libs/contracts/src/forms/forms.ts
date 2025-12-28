@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { AnySchemaModel, ZodSchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
 import type { OwnerShipMeta } from '../ownership';
 
 // ---- Core types

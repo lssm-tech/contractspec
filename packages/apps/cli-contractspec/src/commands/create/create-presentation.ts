@@ -1,7 +1,7 @@
-import { select, input } from '@inquirer/prompts';
+import { input, select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { presentationWizard } from './wizards/presentation';
-import { templates } from '@lssm/bundle.contractspec-workspace';
+import { templates } from '@contractspec/bundle.workspace';
 import { aiGeneratePresentation } from './ai-assist';
 import type { Config } from '../../utils/config';
 import type { PresentationSpecData } from '../../types';

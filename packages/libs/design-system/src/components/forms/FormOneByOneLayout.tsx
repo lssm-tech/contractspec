@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button } from '../atoms/Button';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 
 export interface OneByOneFieldDef {
   key: string;

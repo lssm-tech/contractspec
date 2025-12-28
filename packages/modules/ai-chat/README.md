@@ -1,4 +1,4 @@
-# @lssm/module.ai-chat
+# @contractspec/module.ai-chat
 
 Website: https://contractspec.io/
 
@@ -20,8 +20,8 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 
 ## Related Packages
 
-- `@lssm/lib.ai-providers` — Shared provider abstraction (types, factory, validation)
-- `@lssm/lib.ai-agent` — Agent orchestration and tool execution
+- `@contractspec/lib.ai-providers` — Shared provider abstraction (types, factory, validation)
+- `@contractspec/lib.ai-agent` — Agent orchestration and tool execution
 
 ## Providers
 
@@ -38,8 +38,8 @@ This module provides a reusable AI chat system that can be integrated into CLI, 
 ### Basic Chat
 
 ```typescript
-import { createProvider } from '@lssm/lib.ai-providers';
-import { ChatService } from '@lssm/module.ai-chat';
+import { createProvider } from '@contractspec/lib.ai-providers';
+import { ChatService } from '@contractspec/module.ai-chat';
 
 const provider = createProvider({
   provider: 'openai',
@@ -57,8 +57,8 @@ const response = await chatService.send({
 ### With Workspace Context
 
 ```typescript
-import { createProvider } from '@lssm/lib.ai-providers';
-import { ChatService, WorkspaceContext } from '@lssm/module.ai-chat';
+import { createProvider } from '@contractspec/lib.ai-providers';
+import { ChatService, WorkspaceContext } from '@contractspec/module.ai-chat';
 
 const context = await WorkspaceContext.fromPath('/path/to/project');
 const provider = createProvider({ provider: 'anthropic', proxyUrl: '/api/chat' });
@@ -74,8 +74,8 @@ const response = await chatService.send({
 ### React Components
 
 ```tsx
-import { ChatContainer, ChatMessage, ChatInput } from '@lssm/module.ai-chat/presentation/components';
-import { useChat } from '@lssm/module.ai-chat/presentation/hooks';
+import { ChatContainer, ChatMessage, ChatInput } from '@contractspec/module.ai-chat/presentation/components';
+import { useChat } from '@contractspec/module.ai-chat/presentation/hooks';
 
 function VibeCodingChat() {
   const { messages, sendMessage, isLoading } = useChat({
@@ -106,7 +106,7 @@ function VibeCodingChat() {
         │                │                     │
         ▼                ▼                     ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  @lssm/module.ai-chat                       │
+│                  @contractspec/module.ai-chat                       │
 │  ┌────────────┐  ┌──────────────┐  ┌───────────────────┐   │
 │  │ ChatService│  │   Providers  │  │ Workspace Context │   │
 │  │            │  │ (re-exports) │  │                   │   │
@@ -120,7 +120,7 @@ function VibeCodingChat() {
         ┌─────────────────┴─────────────────┐
         ▼                                   ▼
 ┌───────────────────┐            ┌──────────────────────────┐
-│ @lssm/lib.        │            │  @lssm/lib.ai-agent      │
+│ @contractspec/lib.        │            │  @contractspec/lib.ai-agent      │
 │ ai-providers      │            │                          │
 │ ┌───────────────┐ │            │  Agent orchestration,    │
 │ │ Provider      │ │            │  tool execution,         │
@@ -147,7 +147,7 @@ function VibeCodingChat() {
 
 ## Metrics
 
-The module tracks the following metrics via `@lssm/lib.metering`:
+The module tracks the following metrics via `@contractspec/lib.metering`:
 
 | Metric | Description |
 |--------|-------------|

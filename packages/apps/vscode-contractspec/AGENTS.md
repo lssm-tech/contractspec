@@ -7,10 +7,10 @@ This is the ContractSpec VS Code extension. It provides spec validation, scaffol
 ## Architecture
 
 The extension uses:
-- `@lssm/module.contractspec-workspace` for pure analysis + templates
-- `@lssm/bundle.contractspec-workspace` for workspace services + adapters
+- `@contractspec/module.workspace` for pure analysis + templates
+- `@contractspec/bundle.workspace` for workspace services + adapters
 
-This allows the extension to work without requiring `@lssm/app.cli-contractspec` to be installed.
+This allows the extension to work without requiring `@contractspec/app.cli-contractspec` to be installed.
 
 ## Build & Run
 

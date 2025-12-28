@@ -1,7 +1,7 @@
 /**
  * Chat-specific provider utilities
  */
-import type { ProviderName } from '@lssm/lib.ai-providers';
+import type { ProviderName } from '@contractspec/lib.ai-providers';
 
 /**
  * Check if a provider supports local mode

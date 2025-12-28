@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Card, CardContent } from '@lssm/lib.ui-kit-web/ui/card';
+import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import {
   ViewTabs,
   useLearningProgress,
   type LearningView,
   type LearningMiniAppProps,
-} from '@lssm/example.learning-journey-ui-shared';
+} from '@contractspec/example.learning-journey-ui-shared';
 import { Overview } from './views/Overview';
 import { Steps } from './views/Steps';
 import { Progress } from './views/Progress';

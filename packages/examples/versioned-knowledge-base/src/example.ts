@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.versioned-knowledge-base',
   },
   entrypoints: {
-    packageName: '@lssm/example.versioned-knowledge-base',
+    packageName: '@contractspec/example.versioned-knowledge-base',
     feature: './feature',
     contracts: './contracts',
     handlers: './handlers',

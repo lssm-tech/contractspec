@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import path from 'node:path';
-import { createNodeAdapters } from '@lssm/bundle.contractspec-workspace';
+import { createNodeAdapters } from '@contractspec/bundle.workspace';
 import { buildCommand } from '../build';
 import { validateCommand } from '../validate';
 import { loadConfig, mergeConfig } from '../../utils/config';

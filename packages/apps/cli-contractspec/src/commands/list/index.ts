@@ -1,9 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import {
-  createNodeAdapters,
-  listSpecs,
-} from '@lssm/bundle.contractspec-workspace';
+import { createNodeAdapters, listSpecs } from '@contractspec/bundle.workspace';
 import { getErrorMessage } from '../../utils/errors';
 import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
 

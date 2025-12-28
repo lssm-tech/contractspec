@@ -1,4 +1,4 @@
-# @lssm/lib.personalization
+# @contractspec/lib.personalization
 
 ## 1.43.3
 
@@ -6,11 +6,11 @@
 
 - 24d9759: improve documentation
 - Updated dependencies [24d9759]
-  - @lssm/lib.overlay-engine@1.43.3
-  - @lssm/lib.contracts@1.43.3
-  - @lssm/lib.knowledge@1.43.3
-  - @lssm/lib.schema@1.43.2
-  - @lssm/lib.bus@1.43.3
+  - @contractspec/lib.overlay-engine@1.43.3
+  - @contractspec/lib.contracts@1.43.3
+  - @contractspec/lib.knowledge@1.43.3
+  - @contractspec/lib.schema@1.43.2
+  - @contractspec/lib.bus@1.43.3
 
 ## 1.43.2
 
@@ -18,21 +18,21 @@
 
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
-  - @lssm/lib.overlay-engine@1.43.2
-  - @lssm/lib.contracts@1.43.2
-  - @lssm/lib.knowledge@1.43.2
-  - @lssm/lib.bus@1.43.2
-  - @lssm/lib.schema@1.43.1
+  - @contractspec/lib.overlay-engine@1.43.2
+  - @contractspec/lib.contracts@1.43.2
+  - @contractspec/lib.knowledge@1.43.2
+  - @contractspec/lib.bus@1.43.2
+  - @contractspec/lib.schema@1.43.1
 
 ## 1.43.1
 
 ### Patch Changes
 
 - Updated dependencies [f28fdad]
-  - @lssm/lib.contracts@1.43.1
-  - @lssm/lib.bus@1.43.1
-  - @lssm/lib.knowledge@1.43.1
-  - @lssm/lib.overlay-engine@1.43.1
+  - @contractspec/lib.contracts@1.43.1
+  - @contractspec/lib.bus@1.43.1
+  - @contractspec/lib.knowledge@1.43.1
+  - @contractspec/lib.overlay-engine@1.43.1
 
 ## 1.43.0
 
@@ -43,11 +43,11 @@
 ### Patch Changes
 
 - Updated dependencies [042d072]
-  - @lssm/lib.overlay-engine@1.43.0
-  - @lssm/lib.contracts@1.43.0
-  - @lssm/lib.knowledge@1.43.0
-  - @lssm/lib.schema@1.43.0
-  - @lssm/lib.bus@1.43.0
+  - @contractspec/lib.overlay-engine@1.43.0
+  - @contractspec/lib.contracts@1.43.0
+  - @contractspec/lib.knowledge@1.43.0
+  - @contractspec/lib.schema@1.43.0
+  - @contractspec/lib.bus@1.43.0
 
 ## 1.42.10
 
@@ -55,11 +55,11 @@
 
 - 1e6a0f1: fix: mcp server
 - Updated dependencies [1e6a0f1]
-  - @lssm/lib.overlay-engine@1.42.10
-  - @lssm/lib.contracts@1.42.10
-  - @lssm/lib.knowledge@1.42.10
-  - @lssm/lib.schema@1.42.10
-  - @lssm/lib.bus@1.42.10
+  - @contractspec/lib.overlay-engine@1.42.10
+  - @contractspec/lib.contracts@1.42.10
+  - @contractspec/lib.knowledge@1.42.10
+  - @contractspec/lib.schema@1.42.10
+  - @contractspec/lib.bus@1.42.10
 
 ## 1.42.9
 
@@ -67,11 +67,11 @@
 
 - 9281db7: fix ModelRegistry
 - Updated dependencies [9281db7]
-  - @lssm/lib.overlay-engine@1.42.9
-  - @lssm/lib.contracts@1.42.9
-  - @lssm/lib.knowledge@1.42.9
-  - @lssm/lib.schema@1.42.9
-  - @lssm/lib.bus@1.42.9
+  - @contractspec/lib.overlay-engine@1.42.9
+  - @contractspec/lib.contracts@1.42.9
+  - @contractspec/lib.knowledge@1.42.9
+  - @contractspec/lib.schema@1.42.9
+  - @contractspec/lib.bus@1.42.9
 
 ## 1.42.8
 
@@ -79,11 +79,11 @@
 
 - e07b5ac: fix
 - Updated dependencies [e07b5ac]
-  - @lssm/lib.overlay-engine@1.42.8
-  - @lssm/lib.contracts@1.42.8
-  - @lssm/lib.knowledge@1.42.8
-  - @lssm/lib.schema@1.42.8
-  - @lssm/lib.bus@1.42.8
+  - @contractspec/lib.overlay-engine@1.42.8
+  - @contractspec/lib.contracts@1.42.8
+  - @contractspec/lib.knowledge@1.42.8
+  - @contractspec/lib.schema@1.42.8
+  - @contractspec/lib.bus@1.42.8
 
 ## 1.42.7
 
@@ -91,11 +91,11 @@
 
 - e9b575d: fix release
 - Updated dependencies [e9b575d]
-  - @lssm/lib.overlay-engine@1.42.7
-  - @lssm/lib.contracts@1.42.7
-  - @lssm/lib.knowledge@1.42.7
-  - @lssm/lib.schema@1.42.7
-  - @lssm/lib.bus@1.42.7
+  - @contractspec/lib.overlay-engine@1.42.7
+  - @contractspec/lib.contracts@1.42.7
+  - @contractspec/lib.knowledge@1.42.7
+  - @contractspec/lib.schema@1.42.7
+  - @contractspec/lib.bus@1.42.7
 
 ## 1.42.6
 
@@ -103,11 +103,11 @@
 
 - 1500242: fix tooling
 - Updated dependencies [1500242]
-  - @lssm/lib.overlay-engine@1.42.6
-  - @lssm/lib.contracts@1.42.6
-  - @lssm/lib.knowledge@1.42.6
-  - @lssm/lib.schema@1.42.6
-  - @lssm/lib.bus@1.42.6
+  - @contractspec/lib.overlay-engine@1.42.6
+  - @contractspec/lib.contracts@1.42.6
+  - @contractspec/lib.knowledge@1.42.6
+  - @contractspec/lib.schema@1.42.6
+  - @contractspec/lib.bus@1.42.6
 
 ## 1.42.5
 
@@ -115,11 +115,11 @@
 
 - 1299719: fix vscode
 - Updated dependencies [1299719]
-  - @lssm/lib.overlay-engine@1.42.5
-  - @lssm/lib.contracts@1.42.5
-  - @lssm/lib.knowledge@1.42.5
-  - @lssm/lib.schema@1.42.5
-  - @lssm/lib.bus@1.42.5
+  - @contractspec/lib.overlay-engine@1.42.5
+  - @contractspec/lib.contracts@1.42.5
+  - @contractspec/lib.knowledge@1.42.5
+  - @contractspec/lib.schema@1.42.5
+  - @contractspec/lib.bus@1.42.5
 
 ## 1.42.4
 
@@ -127,11 +127,11 @@
 
 - ac28b99: fix: generate from openapi
 - Updated dependencies [ac28b99]
-  - @lssm/lib.overlay-engine@1.42.4
-  - @lssm/lib.contracts@1.42.4
-  - @lssm/lib.knowledge@1.42.4
-  - @lssm/lib.schema@1.42.4
-  - @lssm/lib.bus@1.42.4
+  - @contractspec/lib.overlay-engine@1.42.4
+  - @contractspec/lib.contracts@1.42.4
+  - @contractspec/lib.knowledge@1.42.4
+  - @contractspec/lib.schema@1.42.4
+  - @contractspec/lib.bus@1.42.4
 
 ## 1.42.3
 
@@ -139,11 +139,11 @@
 
 - 3f5d015: fix(tooling): cicd
 - Updated dependencies [3f5d015]
-  - @lssm/lib.bus@1.42.3
-  - @lssm/lib.contracts@1.42.3
-  - @lssm/lib.knowledge@1.42.3
-  - @lssm/lib.overlay-engine@1.42.3
-  - @lssm/lib.schema@1.42.3
+  - @contractspec/lib.bus@1.42.3
+  - @contractspec/lib.contracts@1.42.3
+  - @contractspec/lib.knowledge@1.42.3
+  - @contractspec/lib.overlay-engine@1.42.3
+  - @contractspec/lib.schema@1.42.3
 
 ## 1.42.2
 
@@ -151,11 +151,11 @@
 
 - 1f9ac4c: fix
 - Updated dependencies [1f9ac4c]
-  - @lssm/lib.bus@1.42.2
-  - @lssm/lib.contracts@1.42.2
-  - @lssm/lib.knowledge@1.42.2
-  - @lssm/lib.overlay-engine@1.42.2
-  - @lssm/lib.schema@1.42.2
+  - @contractspec/lib.bus@1.42.2
+  - @contractspec/lib.contracts@1.42.2
+  - @contractspec/lib.knowledge@1.42.2
+  - @contractspec/lib.overlay-engine@1.42.2
+  - @contractspec/lib.schema@1.42.2
 
 ## 1.42.1
 
@@ -163,11 +163,11 @@
 
 - f043995: Fix release
 - Updated dependencies [f043995]
-  - @lssm/lib.overlay-engine@1.42.1
-  - @lssm/lib.contracts@1.42.1
-  - @lssm/lib.knowledge@1.42.1
-  - @lssm/lib.schema@1.42.1
-  - @lssm/lib.bus@1.42.1
+  - @contractspec/lib.overlay-engine@1.42.1
+  - @contractspec/lib.contracts@1.42.1
+  - @contractspec/lib.knowledge@1.42.1
+  - @contractspec/lib.schema@1.42.1
+  - @contractspec/lib.bus@1.42.1
 
 ## 1.42.0
 
@@ -178,11 +178,11 @@
 ### Patch Changes
 
 - Updated dependencies [8eefd9c]
-  - @lssm/lib.bus@1.42.0
-  - @lssm/lib.contracts@1.42.0
-  - @lssm/lib.knowledge@1.42.0
-  - @lssm/lib.overlay-engine@1.42.0
-  - @lssm/lib.schema@1.42.0
+  - @contractspec/lib.bus@1.42.0
+  - @contractspec/lib.contracts@1.42.0
+  - @contractspec/lib.knowledge@1.42.0
+  - @contractspec/lib.overlay-engine@1.42.0
+  - @contractspec/lib.schema@1.42.0
 
 ## 0.4.0
 
@@ -193,8 +193,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.bus@1.12.0
-  - @lssm/lib.overlay-engine@0.4.0
+  - @contractspec/lib.bus@1.12.0
+  - @contractspec/lib.overlay-engine@0.4.0
 
 ## 0.3.1
 
@@ -202,8 +202,8 @@
 
 - Fix dependencies
 - Updated dependencies
-  - @lssm/lib.bus@1.11.1
-  - @lssm/lib.overlay-engine@0.3.1
+  - @contractspec/lib.bus@1.11.1
+  - @contractspec/lib.overlay-engine@0.3.1
 
 ## 0.3.0
 
@@ -214,8 +214,8 @@
 ### Patch Changes
 
 - Updated dependencies [b7621d3]
-  - @lssm/lib.bus@1.11.0
-  - @lssm/lib.overlay-engine@0.3.0
+  - @contractspec/lib.bus@1.11.0
+  - @contractspec/lib.overlay-engine@0.3.0
 
 ## 0.2.0
 
@@ -226,8 +226,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.bus@1.10.0
-  - @lssm/lib.overlay-engine@0.2.0
+  - @contractspec/lib.bus@1.10.0
+  - @contractspec/lib.overlay-engine@0.2.0
 
 ## 0.1.2
 
@@ -235,8 +235,8 @@
 
 - fix dependencies
 - Updated dependencies
-  - @lssm/lib.bus@1.9.2
-  - @lssm/lib.overlay-engine@0.1.2
+  - @contractspec/lib.bus@1.9.2
+  - @contractspec/lib.overlay-engine@0.1.2
 
 ## 0.1.1
 
@@ -244,8 +244,8 @@
 
 - fix
 - Updated dependencies
-  - @lssm/lib.overlay-engine@0.1.1
-  - @lssm/lib.bus@1.9.1
+  - @contractspec/lib.overlay-engine@0.1.1
+  - @contractspec/lib.bus@1.9.1
 
 ## 0.1.0
 
@@ -256,8 +256,8 @@
 ### Patch Changes
 
 - Updated dependencies [b1d0876]
-  - @lssm/lib.overlay-engine@0.1.0
-  - @lssm/lib.bus@1.9.0
+  - @contractspec/lib.overlay-engine@0.1.0
+  - @contractspec/lib.bus@1.9.0
 
 ## 0.0.1
 

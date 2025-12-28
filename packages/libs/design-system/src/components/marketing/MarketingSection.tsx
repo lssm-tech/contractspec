@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Muted } from '@lssm/lib.ui-kit-web/ui/typography';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
 
 const sectionVariants = cva('w-full', {
   variants: {

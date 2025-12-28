@@ -5,7 +5,7 @@
  */
 
 import * as vscode from 'vscode';
-import { impact } from '@lssm/bundle.contractspec-workspace';
+import { impact } from '@contractspec/bundle.workspace';
 import type { TelemetryReporter } from '../telemetry/index';
 
 /**
@@ -128,7 +128,7 @@ async function runImpactDetection(
           createNodeFsAdapter,
           createNodeGitAdapter,
           createConsoleLoggerAdapter,
-        } = await import('@lssm/bundle.contractspec-workspace');
+        } = await import('@contractspec/bundle.workspace');
 
         const fs = createNodeFsAdapter();
         const git = createNodeGitAdapter();

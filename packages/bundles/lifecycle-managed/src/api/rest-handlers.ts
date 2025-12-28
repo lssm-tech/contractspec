@@ -1,4 +1,4 @@
-import type { LifecycleStage } from '@lssm/lib.lifecycle';
+import type { LifecycleStage } from '@contractspec/lib.lifecycle';
 import type {
   LifecycleAssessmentRequest,
   LifecycleAssessmentResponse,

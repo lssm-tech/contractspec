@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-ui-shared
+# @contractspec/example.learning-journey-ui-shared
 
 Website: https://contractspec.io/
 
@@ -25,7 +25,7 @@ import {
   BadgeDisplay,
   ViewTabs,
   useLearningProgress,
-} from '@lssm/example.learning-journey-ui-shared';
+} from '@contractspec/example.learning-journey-ui-shared';
 
 function MyLearningApp({ track }) {
   const { progress, stats, completeStep } = useLearningProgress(track);

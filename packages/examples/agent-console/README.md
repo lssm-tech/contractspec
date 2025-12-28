@@ -32,7 +32,7 @@ import {
   RunEntity,
   CreateToolCommand,
   ExecuteAgentCommand 
-} from '@lssm/example.agent-console';
+} from '@contractspec/example.agent-console';
 
 // Define a tool
 const searchTool = {
@@ -81,6 +81,6 @@ const run = await executeAgent({
 
 This example builds on the following cross-cutting modules:
 
-- `@lssm/lib.identity-rbac` - User and organization management
-- `@lssm/lib.jobs` - Async job processing for long-running agents
-- `@lssm/module.audit-trail` - Audit logging for compliance
+- `@contractspec/lib.identity-rbac` - User and organization management
+- `@contractspec/lib.jobs` - Async job processing for long-running agents
+- `@contractspec/module.audit-trail` - Audit logging for compliance

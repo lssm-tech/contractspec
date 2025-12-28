@@ -5,10 +5,13 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
-import { XpBar, BadgeDisplay } from '@lssm/example.learning-journey-ui-shared';
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import {
+  XpBar,
+  BadgeDisplay,
+} from '@contractspec/example.learning-journey-ui-shared';
 import { MasteryRing } from '../components/MasteryRing';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Progress({ track, progress }: LearningViewProps) {
   const totalXp =

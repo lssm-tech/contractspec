@@ -3,7 +3,7 @@
 Website: https://contractspec.io/
 
 
-Minimal wiring that shows how `@lssm/lib.ai-agent` works together with `@lssm/lib.support-bot`.
+Minimal wiring that shows how `@contractspec/lib.ai-agent` works together with `@contractspec/lib.support-bot`.
 
 ## What it demonstrates
 

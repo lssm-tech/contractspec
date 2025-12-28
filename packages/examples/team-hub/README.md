@@ -1,4 +1,4 @@
-# @lssm/example.team-hub
+# @contractspec/example.team-hub
 
 Website: https://contractspec.io/
 

@@ -6,12 +6,12 @@
 
 import * as vscode from 'vscode';
 import {
-  runQuickstart,
   formatQuickstartPreview,
   isContractSpecInstalled,
   type QuickstartMode,
   type QuickstartPromptCallbacks,
-} from '@lssm/bundle.contractspec-workspace';
+  runQuickstart,
+} from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**

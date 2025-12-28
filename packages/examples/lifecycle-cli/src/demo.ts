@@ -1,10 +1,14 @@
 import {
   createLifecycleHandlers,
   LifecycleAssessmentService,
-} from '@lssm/bundle.lifecycle-managed';
-import { CapitalPhase, CompanyPhase, ProductPhase } from '@lssm/lib.lifecycle';
-import { Logger, LogLevel } from '@lssm/lib.logger';
-import type { LoggerConfig } from '@lssm/lib.logger/types';
+} from '@contractspec/bundle.lifecycle-managed';
+import {
+  CapitalPhase,
+  CompanyPhase,
+  ProductPhase,
+} from '@contractspec/lib.lifecycle';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
+import type { LoggerConfig } from '@contractspec/lib.logger/types';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import type { LearningJourneyStepSpec } from '@lssm/module.learning-journey/track-spec';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import type { LearningJourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
 
 interface JourneyMapProps {
   steps: LearningJourneyStepSpec[];

@@ -3,7 +3,7 @@
  *
  * Defines the feature module for file management capabilities.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Files feature module that bundles file upload, versioning,

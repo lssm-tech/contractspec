@@ -3,10 +3,10 @@ import chalk from 'chalk';
 import { loadConfigWithWorkspace } from '../../utils/config';
 import { detectRuntime, getRuntimeVersion } from '../../utils/runtime';
 import {
-  getRunCommand,
   getExecCommand,
   getInstallCommand,
-} from '@lssm/bundle.contractspec-workspace';
+  getRunCommand,
+} from '@contractspec/bundle.workspace';
 
 /**
  * Workspace info command.

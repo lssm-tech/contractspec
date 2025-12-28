@@ -1,4 +1,4 @@
-# `@lssm/example.kb-update-pipeline`
+# `@contractspec/example.kb-update-pipeline`
 
 Website: https://contractspec.io/
 

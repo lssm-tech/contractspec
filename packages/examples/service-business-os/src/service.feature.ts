@@ -1,4 +1,4 @@
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 export const ServiceBusinessFeature: FeatureModuleSpec = {
   meta: {

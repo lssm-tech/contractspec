@@ -83,7 +83,7 @@ import {
   ReviewVoteEntity,
   ReviewReportEntity,
 } from './review';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 export const marketplaceEntities = [
   // Store
@@ -115,7 +115,7 @@ export const marketplaceEntities = [
 ];
 
 export const marketplaceSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.marketplace',
+  moduleId: '@contractspec/example.marketplace',
   entities: marketplaceEntities,
   enums: [
     StoreStatusEnum,

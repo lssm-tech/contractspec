@@ -6,11 +6,7 @@
  */
 
 import { Connection } from 'vscode-languageserver/node';
-import {
-  InitializeParams,
-  InitializeResult,
-  TextDocumentChangeEvent,
-} from 'vscode-languageserver-protocol';
+import { InitializeParams, InitializeResult, TextDocumentChangeEvent, } from 'vscode-languageserver-protocol';
 
 import {
   addFromRegistry,
@@ -43,7 +39,7 @@ import {
   watchSpecs,
   type WorkspaceAdapters,
   type WorkspaceConfig,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 export class BridgeServer {
   private connection: Connection;

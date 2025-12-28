@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { Button } from '../atoms/Button';
 import { ButtonLink } from '../atoms/ButtonLink';
 import {
@@ -11,14 +11,14 @@ import {
   NavigationMenuLink as NavLink,
   NavigationMenuList as NavList,
   NavigationMenuTrigger as NavTrigger,
-} from '@lssm/lib.ui-kit-web/ui/navigation-menu';
-import { Separator } from '@lssm/lib.ui-kit-web/ui/separator';
+} from '@contractspec/lib.ui-kit-web/ui/navigation-menu';
+import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from '@lssm/lib.ui-kit-web/ui/sheet';
+} from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { Menu } from 'lucide-react';
 import { MobileNavMenu } from '../molecules/MobileNavMenu';
 import { CommandSearchTrigger } from '../molecules/CommandSearchTrigger';
@@ -31,10 +31,10 @@ import type {
 import { NavUser } from '../molecules/NavUser';
 import { cva } from 'class-variance-authority';
 import { NavItemCard } from '../molecules/NavItemCard';
-import { Box, HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { Box, HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { CommandPalette } from '../molecules/CommandPalette';
 import type { LangSwitchProps } from '../molecules/LangSwitch';
-import { Text } from '@lssm/lib.ui-kit-web/ui/text';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 
 export interface MarketingHeaderProps {
   logo: React.ReactNode;

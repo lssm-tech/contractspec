@@ -5,8 +5,8 @@
  * in sync. Unknown events are ignored (or can be recorded by the app layer).
  */
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { PowensOpenBankingProvider } from '@lssm/integration.providers-impls/impls/powens-openbanking';
-import type { PowensEnvironment } from '@lssm/integration.providers-impls/impls/powens-client';
+import { PowensOpenBankingProvider } from '@contractspec/integration.providers-impls/impls/powens-openbanking';
+import type { PowensEnvironment } from '@contractspec/integration.providers-impls/impls/powens-client';
 
 export async function powensWebhookHandler(req: Request) {
   const signature = req.headers.get('x-powens-signature');

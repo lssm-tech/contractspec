@@ -10,11 +10,11 @@ import {
   analyzeIntegrity,
   type IntegrityAnalysisResult,
   type SpecLocation,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import type {
   FeatureScanResult,
   RefInfo,
-} from '@lssm/module.contractspec-workspace';
+} from '@contractspec/module.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 type FeatureExplorerNode =

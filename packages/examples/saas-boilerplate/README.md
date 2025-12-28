@@ -36,10 +36,10 @@ saas-boilerplate/
 
 | Module | Purpose |
 |--------|---------|
-| @lssm/lib.identity-rbac | User, Org, Member, Role entities |
-| @lssm/module.audit-trail | Activity logging |
-| @lssm/module.notifications | User notifications |
-| @lssm/lib.jobs | Background tasks |
+| @contractspec/lib.identity-rbac | User, Org, Member, Role entities |
+| @contractspec/module.audit-trail | Activity logging |
+| @contractspec/module.notifications | User notifications |
+| @contractspec/lib.jobs | Background tasks |
 
 ## Entities
 
@@ -152,5 +152,5 @@ npx degit lssm/contractspec/packages/examples/saas-boilerplate my-saas-app
 1. **Add Custom Entities**: Extend with your domain models
 2. **Modify Billing**: Adapt to your pricing model
 3. **Extend Settings**: Add app-specific configuration
-4. **Add Workflows**: Integrate with @lssm/lib.jobs for background tasks
+4. **Add Workflows**: Integrate with @contractspec/lib.jobs for background tasks
 

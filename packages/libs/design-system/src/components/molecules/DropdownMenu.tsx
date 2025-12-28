@@ -16,4 +16,4 @@
 //   DropdownMenuSub,
 //   DropdownMenuSubTrigger,
 //   DropdownMenuSubContent,
-// } from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
+// } from '@contractspec/lib.ui-kit-web/ui/dropdown-menu';

@@ -1,5 +1,5 @@
-import type { LifecyclePipelineEvent } from '@lssm/lib.observability';
-import { lifecycleEventNames } from '@lssm/lib.analytics';
+import type { LifecyclePipelineEvent } from '@contractspec/lib.observability';
+import { lifecycleEventNames } from '@contractspec/lib.analytics';
 
 export interface ManagedLifecycleEvent {
   name: string;

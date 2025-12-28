@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { A11YPreferencesProvider } from './preferences';
-import { SRLiveRegionProvider } from '@lssm/lib.ui-kit-web/ui/live-region';
+import { SRLiveRegionProvider } from '@contractspec/lib.ui-kit-web/ui/live-region';
 import { NextRouteAnnouncer } from './next-route-announcer';
-import { SkipLink } from '@lssm/lib.ui-kit-web/ui/skip-link';
+import { SkipLink } from '@contractspec/lib.ui-kit-web/ui/skip-link';
 
 export function AccessibilityProvider({
   children,

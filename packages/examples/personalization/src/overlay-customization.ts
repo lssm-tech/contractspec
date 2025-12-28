@@ -1,7 +1,10 @@
-import { defineOverlay } from '@lssm/lib.overlay-engine/spec';
-import { signOverlay } from '@lssm/lib.overlay-engine/signer';
-import { OverlayEngine, OverlayRegistry } from '@lssm/lib.overlay-engine';
-import { Logger, LogLevel } from '@lssm/lib.logger';
+import { defineOverlay } from '@contractspec/lib.overlay-engine/spec';
+import { signOverlay } from '@contractspec/lib.overlay-engine/signer';
+import {
+  OverlayEngine,
+  OverlayRegistry,
+} from '@contractspec/lib.overlay-engine';
+import { Logger, LogLevel } from '@contractspec/lib.logger';
 
 const logger = new Logger({
   level: process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,

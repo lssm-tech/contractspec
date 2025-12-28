@@ -1,4 +1,4 @@
-# @lssm/lib.cost-tracking
+# @contractspec/lib.cost-tracking
 
 ## 1.43.2
 
@@ -93,7 +93,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.observability@0.5.0
+  - @contractspec/lib.observability@0.5.0
 
 ## 3.0.1
 
@@ -101,7 +101,7 @@
 
 - Fix dependencies
 - Updated dependencies
-  - @lssm/lib.observability@0.4.1
+  - @contractspec/lib.observability@0.4.1
 
 ## 3.0.0
 
@@ -112,7 +112,7 @@
 ### Patch Changes
 
 - Updated dependencies [b7621d3]
-  - @lssm/lib.observability@0.4.0
+  - @contractspec/lib.observability@0.4.0
 
 ## 2.0.0
 
@@ -123,7 +123,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @lssm/lib.observability@0.3.0
+  - @contractspec/lib.observability@0.3.0
 
 ## 1.0.2
 
@@ -131,7 +131,7 @@
 
 - fix dependencies
 - Updated dependencies
-  - @lssm/lib.observability@0.2.2
+  - @contractspec/lib.observability@0.2.2
 
 ## 1.0.1
 
@@ -139,7 +139,7 @@
 
 - fix
 - Updated dependencies
-  - @lssm/lib.observability@0.2.1
+  - @contractspec/lib.observability@0.2.1
 
 ## 1.0.0
 
@@ -150,4 +150,4 @@
 ### Patch Changes
 
 - Updated dependencies [b1d0876]
-  - @lssm/lib.observability@0.2.0
+  - @contractspec/lib.observability@0.2.0

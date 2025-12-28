@@ -2,7 +2,7 @@
  * Common types for contract transformations.
  */
 
-import type { AnyOperationSpec } from '@lssm/lib.contracts';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts';
 
 /**
  * Source information for imported specs.

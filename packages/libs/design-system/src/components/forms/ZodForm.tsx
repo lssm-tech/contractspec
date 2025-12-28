@@ -6,7 +6,7 @@ import {
   useForm,
   type UseFormReturn,
   zodResolver,
-} from '@lssm/lib.ui-kit-web/ui/form';
+} from '@contractspec/lib.ui-kit-web/ui/form';
 import type { FieldValues } from 'react-hook-form';
 import * as z from 'zod';
 

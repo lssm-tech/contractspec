@@ -1,1 +1,1 @@
-export * from '@lssm/lib.contracts/integrations/providers/storage';
+export * from '@contractspec/lib.contracts/integrations/providers/storage';

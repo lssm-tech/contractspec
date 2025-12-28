@@ -1,4 +1,4 @@
-# @lssm/lib.ui-kit-core
+# @contractspec/lib.ui-kit-core
 
 ## 1.43.2
 

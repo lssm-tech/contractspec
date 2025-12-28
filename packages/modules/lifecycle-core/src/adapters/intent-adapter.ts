@@ -1,4 +1,4 @@
-import type { LifecycleSignal } from '@lssm/lib.lifecycle';
+import type { LifecycleSignal } from '@contractspec/lib.lifecycle';
 
 export interface IntentAdapterResult {
   signals?: LifecycleSignal[];

@@ -1,4 +1,4 @@
-# @lssm/app.cli-databases
+# @contractspec/app.cli-databases
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To manage multi-database configurations (profiles) and orchestrate operations ac
 ## Installation
 
 ```bash
-npm install @lssm/app.cli-databases
+npm install @contractspec/app.cli-databases
 # or
-bun add @lssm/app.cli-databases
+bun add @contractspec/app.cli-databases
 ```
 
 ## Key Concepts

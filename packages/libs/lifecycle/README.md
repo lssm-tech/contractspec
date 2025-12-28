@@ -1,4 +1,4 @@
-# @lssm/lib.lifecycle
+# @contractspec/lib.lifecycle
 
 Website: https://contractspec.io/
 
@@ -8,7 +8,7 @@ Canonical lifecycle vocabulary for ContractSpec. This package exposes stage enum
 ## Install
 
 ```bash
-npm install @lssm/lib.lifecycle
+npm install @contractspec/lib.lifecycle
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ import {
   LIFECYCLE_STAGE_META,
   LifecycleAssessment,
   formatStageSummary,
-} from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
 
 const assessment: LifecycleAssessment = {
   stage: LifecycleStage.MvpEarlyTraction,

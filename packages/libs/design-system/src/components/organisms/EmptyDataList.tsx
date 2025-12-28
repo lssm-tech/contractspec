@@ -6,7 +6,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from '@lssm/lib.ui-kit-web/ui/empty';
+} from '@contractspec/lib.ui-kit-web/ui/empty';
 import { Button } from '../atoms/Button';
 import type { EmptyDataListProps } from './EmptyDataList.types';
 

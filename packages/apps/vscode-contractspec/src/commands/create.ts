@@ -458,8 +458,8 @@ function generateOperationSpec(inputs: OperationInputs): string {
   const method = kind === 'command' ? 'POST' : 'GET';
   const defineFunc = kind === 'command' ? 'defineCommand' : 'defineQuery';
 
-  return `import { ${defineFunc} } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+  return `import { ${defineFunc} } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const ${pascalName}Input = defineSchemaModel({
   name: '${pascalName}Input',
@@ -516,8 +516,8 @@ function generateEventSpec(inputs: any): string {
   const { name, description } = inputs;
   const pascalName = toPascalCase(name.replace('.', '_'));
 
-  return `import { defineEvent } from '@lssm/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+  return `import { defineEvent } from '@contractspec/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const ${pascalName}Payload = defineSchemaModel({
   name: '${pascalName}Payload',
@@ -545,7 +545,7 @@ export const ${pascalName}Event = defineEvent({
 function generatePresentationSpec(inputs: any): string {
   const { name, description } = inputs;
 
-  return `import type { PresentationSpec } from '@lssm/lib.contracts/presentations';
+  return `import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
 
 export const ${name}Presentation: PresentationSpec = {
   meta: {

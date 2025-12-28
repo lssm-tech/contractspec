@@ -42,7 +42,7 @@ interface PresentationSpec {
   targets: PresentationTarget[];
 }
 
-// Shared ownership schema (source of truth in @lssm/lib.contracts/src/ownership.ts)
+// Shared ownership schema (source of truth in @contractspec/lib.contracts/src/ownership.ts)
 interface OwnerShipMeta {
   title: string;
   description: string;

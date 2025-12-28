@@ -1,4 +1,4 @@
-import { ScalarTypeEnum, SchemaModel } from '@lssm/lib.schema';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 
 export const BankAccountRecord = new SchemaModel({
   name: 'BankAccountRecord',

@@ -1,4 +1,4 @@
-# @lssm/lib.graphql-federation
+# @contractspec/lib.graphql-federation
 
 ## 1.43.2
 

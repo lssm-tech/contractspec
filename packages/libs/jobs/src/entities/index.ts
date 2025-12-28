@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Job status enum.
@@ -215,7 +220,7 @@ export const jobEntities = [JobEntity, ScheduledJobEntity, JobExecutionEntity];
  * Module schema contribution for jobs.
  */
 export const jobsSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/lib.jobs',
+  moduleId: '@contractspec/lib.jobs',
   entities: jobEntities,
   enums: [JobStatusEnum],
 };

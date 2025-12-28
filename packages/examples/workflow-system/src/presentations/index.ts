@@ -1,8 +1,8 @@
 /**
  * Workflow System Presentation Descriptors
  */
-import type { PresentationSpec } from '@lssm/lib.contracts';
-import { StabilityEnum } from '@lssm/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts';
+import { StabilityEnum } from '@contractspec/lib.contracts';
 import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
 import { WorkflowInstanceModel } from '../instance/instance.schema';
 import { ApprovalRequestModel } from '../approval/approval.schema';

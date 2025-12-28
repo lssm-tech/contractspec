@@ -1,16 +1,16 @@
 {
-  "extends": "@lssm/tool.typescript/react-library.json",
+  "extends": "@contractspec/tool.typescript/react-library.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@lssm/lib.ai-agent": ["../../libs/ai-agent/src/index.ts"],
-      "@lssm/lib.ai-agent/*": ["../../libs/ai-agent/src/*"],
-      "@lssm/lib.contracts": ["../../libs/contracts/src/index.ts"],
-      "@lssm/lib.contracts/*": ["../../libs/contracts/src/*"],
-      "@lssm/lib.schema": ["../../libs/schema/src/index.ts"],
-      "@lssm/lib.schema/*": ["../../libs/schema/src/*"]
+      "@contractspec/lib.ai-agent": ["../../libs/ai-agent/src/index.ts"],
+      "@contractspec/lib.ai-agent/*": ["../../libs/ai-agent/src/*"],
+      "@contractspec/lib.contracts": ["../../libs/contracts/src/index.ts"],
+      "@contractspec/lib.contracts/*": ["../../libs/contracts/src/*"],
+      "@contractspec/lib.schema": ["../../libs/schema/src/index.ts"],
+      "@contractspec/lib.schema/*": ["../../libs/schema/src/*"]
     }
   }
 }

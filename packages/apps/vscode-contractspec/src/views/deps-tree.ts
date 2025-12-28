@@ -4,10 +4,7 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import {
-  analyzeDeps,
-  type ContractNode,
-} from '@lssm/bundle.contractspec-workspace';
+import { analyzeDeps, type ContractNode } from '@contractspec/bundle.workspace';
 
 // ... (skipping class parts for now, focusing on TreeItem constructor usage)
 

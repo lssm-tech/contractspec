@@ -3,7 +3,7 @@
  *
  * Defines the feature module for feature flag and experiment management.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Feature Flags feature module that bundles flag management,

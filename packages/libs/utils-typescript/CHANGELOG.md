@@ -1,4 +1,4 @@
-# @lssm/lib.utils-typescript
+# @contractspec/lib.utils-typescript
 
 ## 1.43.2
 

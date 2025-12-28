@@ -5,8 +5,8 @@ import {
   type MarketingSectionTone,
   type MarketingSectionPadding,
 } from './MarketingSection';
-import { HStack, VStack } from '@lssm/lib.ui-kit-web/ui/stack';
-import { Muted, Small } from '@lssm/lib.ui-kit-web/ui/typography';
+import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 
 interface ComparisonColumn {
   title: string;

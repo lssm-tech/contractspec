@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts';
-import { registerDocBlocks } from '@lssm/lib.contracts';
+import type { DocBlock } from '@contractspec/lib.contracts';
+import { registerDocBlocks } from '@contractspec/lib.contracts';
 
 const studioOnboardingDocBlocks: DocBlock[] = [
   {
@@ -26,7 +26,7 @@ const studioOnboardingDocBlocks: DocBlock[] = [
 XP: 20/20/20/20/30 with bonus 25 XP if completed within 48h (streak rule). Badge: \`studio_first_30m\`.
 
 ## Wiring
-- Tracks export from \`@lssm/example.learning-journey-studio-onboarding/track\`.
+- Tracks export from \`@contractspec/example.learning-journey-studio-onboarding/track\`.
 - Use onboarding API:
   - \`learning.onboarding.listTracks\` to surface catalog
   - \`learning.onboarding.getProgress\` to render progress

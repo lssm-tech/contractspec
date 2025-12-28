@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/module.lifecycle-core",
+  "name": "@contractspec/module.lifecycle-core",
   "version": "1.43.2",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,11 +24,11 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.lifecycle": "workspace:*"
+    "@contractspec/lib.lifecycle": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

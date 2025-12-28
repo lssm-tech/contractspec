@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input as NativeInput } from '@lssm/lib.ui-kit/ui/input';
+import { Input as NativeInput } from '@contractspec/lib.ui-kit/ui/input';
 import { mapKeyboardToNative, type KeyboardOptions } from '../../lib/keyboard';
 
 interface BaseFieldProps {

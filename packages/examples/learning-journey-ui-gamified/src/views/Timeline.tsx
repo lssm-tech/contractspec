@@ -5,9 +5,9 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@lssm/lib.ui-kit-web/ui/card';
+} from '@contractspec/lib.ui-kit-web/ui/card';
 import { DayCalendar } from '../components/DayCalendar';
-import type { LearningViewProps } from '@lssm/example.learning-journey-ui-shared';
+import type { LearningViewProps } from '@contractspec/example.learning-journey-ui-shared';
 
 export function Timeline({ track, progress }: LearningViewProps) {
   // Check if this is a quest with day unlocks

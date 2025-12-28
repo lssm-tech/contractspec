@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { VStack } from '@lssm/lib.ui-kit/ui/stack';
+import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
 
 export interface HeaderProps {
   logo: React.ReactNode;

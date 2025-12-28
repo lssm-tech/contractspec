@@ -1,5 +1,5 @@
-import { defineEvent } from '@lssm/lib.contracts';
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 
 // Integration events
 const IntegrationCreatedPayload = defineSchemaModel({

@@ -11,7 +11,7 @@
  *   RunEntity,
  *   CreateToolCommand,
  *   ExecuteAgentCommand
- * } from '@lssm/example.agent-console';
+ * } from '@contractspec/example.agent-console';
  * ```
  */
 

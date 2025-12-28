@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { IntegrationSpecRegistry } from '@lssm/lib.contracts/integrations/spec';
+import { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
 import {
   registerElevenLabsIntegration,
   registerGcsStorageIntegration,
@@ -11,39 +11,39 @@ import {
   registerQdrantIntegration,
   registerStripeIntegration,
   registerTwilioSmsIntegration,
-} from '@lssm/lib.contracts/integrations/providers';
-import { composeAppConfig } from '@lssm/lib.contracts/app-config/runtime';
-import { validateTenantConfig } from '@lssm/lib.contracts/app-config/validation';
+} from '@contractspec/lib.contracts/integrations/providers';
+import { composeAppConfig } from '@contractspec/lib.contracts/app-config/runtime';
+import { validateTenantConfig } from '@contractspec/lib.contracts/app-config/validation';
 import {
   KnowledgeSpaceRegistry,
   registerEmailThreadsKnowledgeSpace,
   registerFinancialDocsKnowledgeSpace,
   registerFinancialOverviewKnowledgeSpace,
-} from '@lssm/lib.contracts/knowledge';
+} from '@contractspec/lib.contracts/knowledge';
 import {
   DocumentProcessor,
   EmbeddingService,
   KnowledgeQueryService,
   VectorIndexer,
-} from '@lssm/lib.knowledge';
+} from '@contractspec/lib.knowledge';
 import type {
   EmbeddingDocument,
   EmbeddingProvider,
   EmbeddingResult,
-} from '@lssm/lib.contracts/integrations/providers/embedding';
+} from '@contractspec/lib.contracts/integrations/providers/embedding';
 import type {
   VectorDeleteRequest,
   VectorSearchQuery,
   VectorSearchResult,
   VectorStoreProvider,
   VectorUpsertRequest,
-} from '@lssm/lib.contracts/integrations/providers/vector-store';
+} from '@contractspec/lib.contracts/integrations/providers/vector-store';
 import type {
   LLMMessage,
   LLMProvider,
   LLMResponse,
   LLMStreamChunk,
-} from '@lssm/lib.contracts/integrations/providers/llm';
+} from '@contractspec/lib.contracts/integrations/providers/llm';
 
 import {
   pocketFamilyOfficeBlueprint,

@@ -1,4 +1,4 @@
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { QueryTypeEnum } from './query.enum';
 
 /**

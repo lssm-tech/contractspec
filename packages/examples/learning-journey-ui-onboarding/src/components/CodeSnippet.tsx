@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 
 interface CodeSnippetProps {
   code: string;

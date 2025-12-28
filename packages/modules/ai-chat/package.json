@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/module.ai-chat",
+  "name": "@contractspec/module.ai-chat",
   "version": "1.43.3",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,13 +23,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.ai-agent": "workspace:*",
-    "@lssm/lib.ai-providers": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.metering": "workspace:*",
-    "@lssm/lib.cost-tracking": "workspace:*",
-    "@lssm/lib.design-system": "workspace:*",
-    "@lssm/lib.ui-kit-web": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.metering": "workspace:*",
+    "@contractspec/lib.cost-tracking": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*",
     "@ai-sdk/react": "catalog:ai",
     "ai": "catalog:ai",
     "lucide-react": "^0.562.0",
@@ -37,8 +37,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "@types/react": "^19.0.14",
     "tsdown": "catalog:build",
     "typescript": "catalog:"

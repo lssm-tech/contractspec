@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const platformTourDocBlocks: DocBlock[] = [
   {
@@ -28,7 +28,7 @@ const platformTourDocBlocks: DocBlock[] = [
 XP: 20 per step, 20 bonus XP upon completion.
 
 ## Wiring
-- Tracks export from \`@lssm/example.learning-journey-platform-tour/track\`.
+- Tracks export from \`@contractspec/example.learning-journey-platform-tour/track\`.
 - Use onboarding API to surface progress:
   - \`learning.onboarding.listTracks\`
   - \`learning.onboarding.getProgress\`

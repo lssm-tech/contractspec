@@ -1,4 +1,4 @@
-import { defineCommand } from '@lssm/lib.contracts/operations';
+import { defineCommand } from '@contractspec/lib.contracts/operations';
 import { StoreModel, CreateStoreInputModel } from './store.schema';
 
 const OWNERS = ['@example.marketplace'] as const;

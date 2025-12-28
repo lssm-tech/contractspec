@@ -1,7 +1,7 @@
 import type { OpenApiSchema } from '../types';
 import { generateImports, generateSchemaModelCode } from '../schema-converter';
 import { toPascalCase, toValidIdentifier } from '../../common/utils';
-import type { ContractsrcConfig } from '@lssm/lib.contracts';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Generate code for a standalone model.

@@ -6,7 +6,7 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import { compareSpecs, listSpecs } from '@lssm/bundle.contractspec-workspace';
+import { compareSpecs, listSpecs } from '@contractspec/bundle.workspace';
 
 /**
  * Compare specs and show diff.

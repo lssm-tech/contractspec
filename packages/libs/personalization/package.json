@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.personalization",
+  "name": "@contractspec/lib.personalization",
   "version": "1.43.3",
   "description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
   "type": "module",
@@ -24,19 +24,19 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.bus": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.knowledge": "workspace:*",
-    "@lssm/lib.overlay-engine": "workspace:*",
+    "@contractspec/lib.bus": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.knowledge": "workspace:*",
+    "@contractspec/lib.overlay-engine": "workspace:*",
     "@opentelemetry/api": "^1.9.0"
   },
   "peerDependencies": {
     "@opentelemetry/api": "^1.9.0"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

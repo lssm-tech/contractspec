@@ -1,4 +1,4 @@
-import { defineEntityEnum } from '@lssm/lib.schema';
+import { defineEntityEnum } from '@contractspec/lib.schema';
 
 /**
  * Settings scope enum.

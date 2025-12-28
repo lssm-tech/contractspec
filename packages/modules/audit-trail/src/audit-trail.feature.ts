@@ -3,7 +3,7 @@
  *
  * Defines the feature module for audit logging and compliance.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Audit Trail feature module that bundles audit log querying,

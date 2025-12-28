@@ -1,5 +1,5 @@
 /**
- * @lssm/lib.ai-providers
+ * @contractspec/lib.ai-providers
  *
  * Unified AI provider abstraction for ContractSpec applications.
  */

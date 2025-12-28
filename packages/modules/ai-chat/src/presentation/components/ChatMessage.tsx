@@ -1,11 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
-import { Avatar, AvatarFallback } from '@lssm/lib.ui-kit-web/ui/avatar';
-import { Skeleton } from '@lssm/lib.ui-kit-web/ui/skeleton';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { Avatar, AvatarFallback } from '@contractspec/lib.ui-kit-web/ui/avatar';
+import { Skeleton } from '@contractspec/lib.ui-kit-web/ui/skeleton';
 import { Bot, User, AlertCircle, Copy, Check } from 'lucide-react';
-import { Button } from '@lssm/lib.design-system';
+import { Button } from '@contractspec/lib.design-system';
 import type { ChatMessage as ChatMessageType } from '../../core/message-types';
 import { CodePreview } from './CodePreview';
 

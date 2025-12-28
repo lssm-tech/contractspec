@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-quest-challenges
+# @contractspec/example.learning-journey-quest-challenges
 
 Website: https://contractspec.io/
 

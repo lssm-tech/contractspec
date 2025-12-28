@@ -23,11 +23,11 @@ import {
   type SetupPromptCallbacks,
   type SetupScope,
   type SetupTarget,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 import {
   importFromOpenApi,
   parseOpenApi,
-} from '@lssm/lib.contracts-transformers/openapi';
+} from '@contractspec/lib.contracts-transformers/openapi';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';

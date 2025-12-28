@@ -7,19 +7,19 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import {
-  getWorkspaceAdapters,
-  isMonorepoWorkspace,
-  getWorkspaceInfoCached,
   getPackageRootForFile,
+  getWorkspaceAdapters,
+  getWorkspaceInfoCached,
+  isMonorepoWorkspace,
 } from '../workspace/adapters';
 import {
-  listSpecs,
   groupSpecsByType,
+  listSpecs,
   loadWorkspaceConfig,
   resolveImplementations,
   type SpecImplementationResult,
   type SpecScanResult,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 /**
  * Grouping mode for the specs tree view.
@@ -84,7 +84,6 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
   private specs: SpecWithPackage[] = [];
-  private _groupingMode: SpecsGroupingMode = SpecsGroupingMode.TYPE;
   private _showImplStatus = true;
 
   constructor() {
@@ -107,6 +106,15 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
     this.refresh();
   }
 
+  private _groupingMode: SpecsGroupingMode = SpecsGroupingMode.TYPE;
+
+  /**
+   * Get current grouping mode.
+   */
+  get groupingMode(): SpecsGroupingMode {
+    return this._groupingMode;
+  }
+
   /**
    * Toggle implementation status display.
    */
@@ -121,13 +129,6 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
     );
 
     await this.refresh();
-  }
-
-  /**
-   * Get current grouping mode.
-   */
-  get groupingMode(): SpecsGroupingMode {
-    return this._groupingMode;
   }
 
   /**
@@ -280,6 +281,13 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
     }
 
     return [];
+  }
+
+  /**
+   * Get all specs (for external use).
+   */
+  getSpecs(): SpecWithPackage[] {
+    return this.specs;
   }
 
   /**
@@ -581,13 +589,6 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
       .join(' ');
 
     return `${formatted} (${count})`;
-  }
-
-  /**
-   * Get all specs (for external use).
-   */
-  getSpecs(): SpecWithPackage[] {
-    return this.specs;
   }
 }
 

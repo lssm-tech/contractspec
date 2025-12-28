@@ -1,7 +1,7 @@
 'use client';
 
-import { Progress } from '@lssm/lib.ui-kit-web/ui/progress';
-import { cn } from '@lssm/lib.ui-kit-web/ui/utils';
+import { Progress } from '@contractspec/lib.ui-kit-web/ui/progress';
+import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import type { XpBarProps } from '../types';
 
 const sizeStyles = {

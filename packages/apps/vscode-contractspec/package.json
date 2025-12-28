@@ -807,11 +807,11 @@
     "test": "vscode-test"
   },
   "dependencies": {
-    "@lssm/bundle.contractspec-workspace": "workspace:*",
-    "@lssm/module.contractspec-workspace": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.contracts-transformers": "workspace:*",
-    "@lssm/module.contractspec-examples": "workspace:*"
+    "@contractspec/bundle.workspace": "workspace:*",
+    "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/module.examples": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",

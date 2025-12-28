@@ -10,13 +10,13 @@ import { writeFile } from 'fs/promises';
 import chalk from 'chalk';
 import ora from 'ora';
 import {
-  runCIChecks,
-  createNodeAdapters,
+  ALL_CI_CHECK_CATEGORIES,
   type CICheckCategory,
   type CICheckOptions,
-  ALL_CI_CHECK_CATEGORIES,
+  createNodeAdapters,
   formatters,
-} from '@lssm/bundle.contractspec-workspace';
+  runCIChecks,
+} from '@contractspec/bundle.workspace';
 
 type OutputFormat = 'text' | 'json' | 'sarif';
 

@@ -273,7 +273,7 @@ export const formatSpecVersion = (version: number) => {
 };
 
 // Both services import and use it
-import { formatSpecVersion } from '@lssm/lib.utils-typescript';
+import { formatSpecVersion } from '@contractspec/lib.utils-typescript';
 ```
 
 **Design for composition**:
@@ -487,15 +487,15 @@ verticals/
 **Component Priority** (use the highest available):
 
 1. **ContractSpec-specific components** (`packages/bundles/contractspec-studio/src/presentation/`)
-2. **Design system components** (`@lssm/lib.design-system`)
-3. **UI kit components** (`@lssm/lib.ui-kit-web`)
+2. **Design system components** (`@contractspec/lib.design-system`)
+3. **UI kit components** (`@contractspec/lib.ui-kit-web`)
 
 ### ✅ Good: Composed from Design System
 
 ```tsx
 // In bundles/contractspec-studio/src/presentation/organisms/ProjectForm.tsx
-import { Button } from '@lssm/lib.design-system';
-import { Input } from '@lssm/lib.ui-kit-web';
+import { Button } from '@contractspec/lib.design-system';
+import { Input } from '@contractspec/lib.ui-kit-web';
 import { FormContainer } from '../molecules/FormContainer';
 
 export const ProjectForm = ({ onSubmit, isLoading }) => (
@@ -525,7 +525,7 @@ export const ProjectForm = ({ onSubmit }) => (
 Raw HTML is **only allowed** when creating new design system atoms within:
 
 - `packages/libs/design-system/src/atoms/`
-- Or when contributing to `@lssm/lib.ui-kit` or `@lssm/lib.ui-kit-web`
+- Or when contributing to `@contractspec/lib.ui-kit` or `@contractspec/lib.ui-kit-web`
 
 These new atoms must:
 
@@ -593,8 +593,8 @@ apps/web-landing
 
 **UI component?** → Check hierarchy
 ✅ Does a ContractSpec-specific component already exist?
-✅ Does `@lssm/lib.design-system` provide this?
-✅ Does `@lssm/lib.ui-kit-web` provide this?
+✅ Does `@contractspec/lib.design-system` provide this?
+✅ Does `@contractspec/lib.ui-kit-web` provide this?
 ✅ Is this component under 150 lines? If not, can it be split?
 ✅ Is this component reusable across multiple features?
 ❌ Am I about to use a raw `<div>` or `<button>`? → STOP, use or create a design system component.

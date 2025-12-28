@@ -1,4 +1,4 @@
-# @lssm/lib.schema
+# @contractspec/lib.schema
 
 ## 1.43.2
 

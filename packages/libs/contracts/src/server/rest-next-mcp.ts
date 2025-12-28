@@ -1,5 +1,5 @@
 import type { OperationSpecRegistry } from '../operations/registry';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { OperationSpec } from '../operations';
 import type { HandlerCtx } from '../types';
 import { createMcpHandler } from 'mcp-handler';

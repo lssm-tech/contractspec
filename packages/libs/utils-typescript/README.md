@@ -1,4 +1,4 @@
-# @lssm/lib.utils-typescript
+# @contractspec/lib.utils-typescript
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a shared library of generic TypeScript types (e.g., `DeepPartial`, `M
 ## Installation
 
 ```bash
-npm install @lssm/lib.utils-typescript
+npm install @contractspec/lib.utils-typescript
 # or
-bun add @lssm/lib.utils-typescript
+bun add @contractspec/lib.utils-typescript
 ```
 
 ## Key Concepts
@@ -32,7 +32,7 @@ bun add @lssm/lib.utils-typescript
 ## Usage
 
 ```ts
-import type { DeepPartial } from '@lssm/lib.utils-typescript';
+import type { DeepPartial } from '@contractspec/lib.utils-typescript';
 
 type User = {
   profile: {

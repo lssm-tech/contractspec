@@ -1,5 +1,5 @@
 {
-  "extends": "@lssm/tool.typescript/base.json",
+  "extends": "@contractspec/tool.typescript/base.json",
   "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {

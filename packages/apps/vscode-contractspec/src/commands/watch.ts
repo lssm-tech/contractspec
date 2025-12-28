@@ -6,7 +6,7 @@
 
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
-import { buildSpec, validateSpec } from '@lssm/bundle.contractspec-workspace';
+import { buildSpec, validateSpec } from '@contractspec/bundle.workspace';
 
 interface WatchState {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

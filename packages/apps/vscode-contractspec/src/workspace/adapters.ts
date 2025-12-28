@@ -17,7 +17,7 @@ import {
   type SubmoduleInfo,
   type WorkspaceAdapters,
   type WorkspaceInfo,
-} from '@lssm/bundle.contractspec-workspace';
+} from '@contractspec/bundle.workspace';
 
 /**
  * Cached workspace info to avoid repeated filesystem checks.

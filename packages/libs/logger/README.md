@@ -1,4 +1,4 @@
-# @lssm/lib.logger
+# @contractspec/lib.logger
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide structured, performant logging with support for request tracing, timi
 ## Installation
 
 ```bash
-npm install @lssm/lib.logger
+npm install @contractspec/lib.logger
 # or
-bun add @lssm/lib.logger
+bun add @contractspec/lib.logger
 ```
 
 ## Key Concepts
@@ -35,7 +35,7 @@ bun add @lssm/lib.logger
 ### Basic Logging
 
 ```ts
-import { logger } from '@lssm/lib.logger';
+import { logger } from '@contractspec/lib.logger';
 
 logger.info('Server started', { port: 3000 });
 logger.error('Database connection failed', { error: err });
@@ -45,7 +45,7 @@ logger.error('Database connection failed', { error: err });
 
 ```ts
 import { Elysia } from 'elysia';
-import { elysiaLogger } from '@lssm/lib.logger/elysia-plugin';
+import { elysiaLogger } from '@contractspec/lib.logger/elysia-plugin';
 
 new Elysia()
   .use(elysiaLogger())

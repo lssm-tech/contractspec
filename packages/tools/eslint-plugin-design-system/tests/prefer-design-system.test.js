@@ -19,7 +19,7 @@ ruleTester.run('prefer-design-system', preferRule, {
   valid: [
     {
       code: `
-        import { Button } from '@lssm/lib.design-system';
+        import { Button } from '@contractspec/lib.design-system';
         const View = () => <Button />;
       `,
     },
@@ -32,11 +32,11 @@ ruleTester.run('prefer-design-system', preferRule, {
   invalid: [
     {
       code: `
-        import { Button } from '@lssm/lib.ui-kit-web/ui/button';
+        import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
         const View = () => <Button />;
       `,
       output: `
-        import { Button } from '@lssm/lib.design-system';
+        import { Button } from '@contractspec/lib.design-system';
         const View = () => <Button />;
       `,
       errors: [{ messageId: 'preferDSImport' }],
@@ -98,16 +98,16 @@ ruleTester.run('no-intrinsic-typography', typographyRule, {
 ruleTester.run('design-import-boundary', boundaryRule, {
   valid: [
     {
-      code: `import { Button } from '@lssm/lib.design-system';`,
+      code: `import { Button } from '@contractspec/lib.design-system';`,
     },
     {
-      code: `import { Button } from '@lssm/lib.ui-kit-web/ui/button';`,
-      options: [{ forbidden: [{ path: '@lssm/lib.ui-kit' }] }],
+      code: `import { Button } from '@contractspec/lib.ui-kit-web/ui/button';`,
+      options: [{ forbidden: [{ path: '@contractspec/lib.ui-kit' }] }],
     },
   ],
   invalid: [
     {
-      code: `import { Foo } from '@lssm/lib.ui-kit';`,
+      code: `import { Foo } from '@contractspec/lib.ui-kit';`,
       errors: [{ messageId: 'forbiddenImport' }],
     },
   ],

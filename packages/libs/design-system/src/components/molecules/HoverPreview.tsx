@@ -5,7 +5,7 @@ import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
-} from '@lssm/lib.ui-kit-web/ui/hover-card';
+} from '@contractspec/lib.ui-kit-web/ui/hover-card';
 
 export interface HoverPreviewProps {
   trigger: React.ReactNode; // usually a link or chip

@@ -1,1 +1,1 @@
-export * from '@lssm/lib.contracts/integrations/providers/openbanking';
+export * from '@contractspec/lib.contracts/integrations/providers/openbanking';

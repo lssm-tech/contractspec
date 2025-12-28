@@ -11,7 +11,7 @@ import {
   createProvider,
   type ProviderMode,
   type ProviderName,
-} from '@lssm/lib.ai-providers';
+} from '@contractspec/lib.ai-providers';
 
 /**
  * Options for useChat hook

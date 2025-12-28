@@ -2,7 +2,7 @@
  * Main chat orchestration service
  */
 import { generateText, streamText } from 'ai';
-import type { Provider as ChatProvider } from '@lssm/lib.ai-providers';
+import type { Provider as ChatProvider } from '@contractspec/lib.ai-providers';
 import type { WorkspaceContext } from '../context/workspace-context';
 import type { ConversationStore } from './conversation-store';
 import { InMemoryConversationStore } from './conversation-store';

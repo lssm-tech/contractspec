@@ -1,4 +1,4 @@
-# @lssm/example.workflow-system
+# @contractspec/example.workflow-system
 
 Website: https://contractspec.io/
 
@@ -98,7 +98,7 @@ import {
   StartWorkflowContract,
   TransitionWorkflowContract,
   workflowSystemSchemaContribution 
-} from '@lssm/example.workflow-system';
+} from '@contractspec/example.workflow-system';
 
 // Start a workflow
 const instance = await executeContract(StartWorkflowContract, {
@@ -118,7 +118,7 @@ const result = await executeContract(TransitionWorkflowContract, {
 
 ## Dependencies
 
-- `@lssm/lib.identity-rbac` - User identity and roles
-- `@lssm/lib.feature-flags` - Feature flag evaluation
-- `@lssm/module.audit-trail` - Action auditing
-- `@lssm/module.notifications` - Approval notifications
+- `@contractspec/lib.identity-rbac` - User identity and roles
+- `@contractspec/lib.feature-flags` - Feature flag evaluation
+- `@contractspec/module.audit-trail` - Action auditing
+- `@contractspec/module.notifications` - Approval notifications

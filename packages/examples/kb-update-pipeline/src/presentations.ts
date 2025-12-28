@@ -1,5 +1,5 @@
-import { StabilityEnum } from '@lssm/lib.contracts';
-import type { PresentationSpec } from '@lssm/lib.contracts';
+import { StabilityEnum } from '@contractspec/lib.contracts';
+import type { PresentationSpec } from '@contractspec/lib.contracts';
 import { ChangeCandidateModel, ReviewTaskModel } from './entities/models';
 
 export const KbDashboardPresentation: PresentationSpec = {

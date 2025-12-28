@@ -1,4 +1,9 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
 
 /**
  * Agent status for lifecycle management.

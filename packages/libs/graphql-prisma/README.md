@@ -1,4 +1,4 @@
-# @lssm/lib.graphql-prisma
+# @contractspec/lib.graphql-prisma
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To seamlessly integrate Prisma models into the Pothos GraphQL builder, allowing 
 ## Installation
 
 ```bash
-npm install @lssm/lib.graphql-prisma
+npm install @contractspec/lib.graphql-prisma
 # or
-bun add @lssm/lib.graphql-prisma
+bun add @contractspec/lib.graphql-prisma
 ```
 
 ## Key Concepts
@@ -25,8 +25,8 @@ bun add @lssm/lib.graphql-prisma
 ## Usage
 
 ```ts
-import { builder } from '@lssm/lib.graphql-prisma';
-import { prisma } from '@lssm/app.cli-database';
+import { builder } from '@contractspec/lib.graphql-prisma';
+import { prisma } from '@contractspec/app.cli-database';
 
 builder.prismaObject('User', {
   fields: (t) => ({

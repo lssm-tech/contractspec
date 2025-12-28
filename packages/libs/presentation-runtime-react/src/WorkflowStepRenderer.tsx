@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { EmptyState, LoaderBlock } from '@lssm/lib.design-system';
+import { EmptyState, LoaderBlock } from '@contractspec/lib.design-system';
 import type {
   FormRef,
   Step,
   WorkflowSpec,
   WorkflowState,
   StepExecution,
-} from '@lssm/lib.contracts/workflow';
+} from '@contractspec/lib.contracts/workflow';
 
 export interface WorkflowStepRendererProps {
   spec: WorkflowSpec;

@@ -1,4 +1,4 @@
-# AI Agent Guide — `@lssm/lib.contracts`
+# AI Agent Guide — `@contractspec/lib.contracts`
 
 Scope: `packages/libs/contracts/*`
 
@@ -22,7 +22,7 @@ If you add/move a public module (including DocBlocks), update **both** maps.
 ## Spec authoring conventions
 
 - Use `defineCommand` for writes and `defineQuery` for reads.
-- Use `@lssm/lib.schema` (`SchemaModel`, `ScalarTypeEnum`) for I/O to keep multi-surface consistency.
+- Use `@contractspec/lib.schema` (`SchemaModel`, `ScalarTypeEnum`) for I/O to keep multi-surface consistency.
 - Include strong `meta`: `name`, `version`, `owners`, `tags`, `goal`, `context`, `stability`.
 
 ## DocBlocks & Docs MCP

@@ -1,4 +1,4 @@
-# @lssm/lib.error
+# @contractspec/lib.error
 
 Website: https://contractspec.io/
 
@@ -12,9 +12,9 @@ To provide a consistent error model across the monorepo, enabling predictable er
 ## Installation
 
 ```bash
-npm install @lssm/lib.error
+npm install @contractspec/lib.error
 # or
-bun add @lssm/lib.error
+bun add @contractspec/lib.error
 ```
 
 ## Key Concepts
@@ -32,7 +32,7 @@ bun add @lssm/lib.error
 ## Usage
 
 ```ts
-import { AppError, ErrorCode } from '@lssm/lib.error';
+import { AppError, ErrorCode } from '@contractspec/lib.error';
 
 // Throwing a known error
 throw new AppError(ErrorCode.NOT_FOUND, 'User not found', { userId: 123 });

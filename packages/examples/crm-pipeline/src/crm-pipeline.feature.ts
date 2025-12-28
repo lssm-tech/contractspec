@@ -3,7 +3,7 @@
  *
  * Defines the feature module for CRM and sales pipeline capabilities.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * CRM Pipeline feature module that bundles deal management,

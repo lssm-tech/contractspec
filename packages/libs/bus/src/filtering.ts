@@ -1,5 +1,5 @@
-import type { EventKey, EventSpec } from '@lssm/lib.contracts';
-import type { AnySchemaModel } from '@lssm/lib.schema';
+import type { EventKey, EventSpec } from '@contractspec/lib.contracts';
+import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { EventBus } from './eventBus';
 import { decodeEvent } from './eventBus';
 import type { AuditableEventEnvelope } from './auditableBus';

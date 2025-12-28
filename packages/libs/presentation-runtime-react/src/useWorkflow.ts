@@ -2,7 +2,7 @@ import * as React from 'react';
 import type {
   WorkflowRunner,
   WorkflowState,
-} from '@lssm/lib.contracts/workflow';
+} from '@contractspec/lib.contracts/workflow';
 
 export interface UseWorkflowOptions {
   workflowId: string;

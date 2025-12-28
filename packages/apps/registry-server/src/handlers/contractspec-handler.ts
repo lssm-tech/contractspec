@@ -1,12 +1,12 @@
 import path from 'node:path';
-import type { Logger } from '@lssm/lib.logger';
+import type { Logger } from '@contractspec/lib.logger';
 import {
   ContractRegistryItemTypeSchema,
   ContractRegistryManifestSchema,
   type ContractRegistryItem,
   type ContractRegistryItemType,
   type ContractRegistryManifest,
-} from '@lssm/lib.contracts';
+} from '@contractspec/lib.contracts';
 import { readJsonFile, readTextFile } from '../utils/fs';
 import { fromRepoRoot } from '../utils/paths';
 

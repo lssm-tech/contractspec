@@ -11,7 +11,7 @@ import type { WorkspaceAdapters } from '../workspace/adapters';
 import {
   parseOpenApi,
   importFromOpenApi,
-} from '@lssm/lib.contracts-transformers/openapi';
+} from '@contractspec/lib.contracts-transformers/openapi';
 
 /**
  * Export specs to OpenAPI document.
@@ -129,7 +129,8 @@ export async function exportToOpenApi(
           }
 
           // Generate OpenAPI document using the lib
-          const { openApiForRegistry } = await import('@lssm/lib.contracts');
+          const { openApiForRegistry } =
+            await import('@contractspec/lib.contracts');
 
           const servers = serverUrl ? [{ url: serverUrl }] : undefined;
 

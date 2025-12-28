@@ -15,11 +15,11 @@ export { default as example } from './example';
 import './docs';
 
 // Schema composition configuration
-import { identityRbacSchemaContribution } from '@lssm/lib.identity-rbac';
-import { jobsSchemaContribution } from '@lssm/lib.jobs';
-import { auditTrailSchemaContribution } from '@lssm/module.audit-trail';
-import { notificationsSchemaContribution } from '@lssm/module.notifications';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import { identityRbacSchemaContribution } from '@contractspec/lib.identity-rbac';
+import { jobsSchemaContribution } from '@contractspec/lib.jobs';
+import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail';
+import { notificationsSchemaContribution } from '@contractspec/module.notifications';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 import {
   ProjectEntity,
   ProjectMemberEntity,
@@ -41,7 +41,7 @@ import {
  * SaaS boilerplate schema contribution.
  */
 export const saasBoilerplateSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/example.saas-boilerplate',
+  moduleId: '@contractspec/example.saas-boilerplate',
   entities: [
     ProjectEntity,
     ProjectMemberEntity,

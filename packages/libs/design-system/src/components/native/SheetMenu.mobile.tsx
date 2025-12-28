@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@lssm/lib.ui-kit-web/ui/dialog';
+} from '@contractspec/lib.ui-kit-web/ui/dialog';
 
 export function SheetMenu({
   open,

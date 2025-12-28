@@ -6,7 +6,7 @@ import {
   type EventSpec,
   type EventEnvelope,
 } from './events';
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 describe('defineEvent', () => {
   it('should return the event spec unchanged', () => {

@@ -8,7 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@lssm/lib.ui-kit-web/ui/breadcrumb';
+} from '@contractspec/lib.ui-kit-web/ui/breadcrumb';
 
 export interface BreadcrumbItemDef {
   href?: string;

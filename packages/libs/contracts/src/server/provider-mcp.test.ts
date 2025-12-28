@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
-import { Logger } from '@lssm/lib.logger';
+import { Logger } from '@contractspec/lib.logger';
 import { defineResourceTemplate, ResourceRegistry } from '../resources';
 import { OperationSpecRegistry } from '../operations/registry';
 import { PromptRegistry } from '../promptRegistry';

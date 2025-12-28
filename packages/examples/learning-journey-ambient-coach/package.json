@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey-ambient-coach",
+  "name": "@contractspec/example.learning-journey-ambient-coach",
   "version": "1.43.3",
   "description": "Ambient coach learning journey example with contextual tips and follow-up actions.",
   "type": "module",
@@ -27,13 +27,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/module.learning-journey": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@contractspec/module.learning-journey": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

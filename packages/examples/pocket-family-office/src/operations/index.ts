@@ -3,14 +3,14 @@ import {
   defineSchemaModel,
   ScalarTypeEnum,
   type ZodSchemaModel,
-} from '@lssm/lib.schema';
-import type { OperationSpec } from '@lssm/lib.contracts/operations';
+} from '@contractspec/lib.schema';
+import type { OperationSpec } from '@contractspec/lib.contracts/operations';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@lssm/lib.contracts/ownership';
-import { OPENBANKING_TELEMETRY_EVENTS } from '@lssm/lib.contracts/integrations';
+} from '@contractspec/lib.contracts/ownership';
+import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts/integrations';
 
 // --- Enums ---
 const SourceEnum = defineEnum('Source', ['upload', 'email', 'sync']);

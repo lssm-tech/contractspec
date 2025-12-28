@@ -1,5 +1,5 @@
-import type { DocBlock } from '@lssm/lib.contracts/docs';
-import { registerDocBlocks } from '@lssm/lib.contracts/docs';
+import type { DocBlock } from '@contractspec/lib.contracts/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts/docs';
 
 const learningJourneyDocBlocks: DocBlock[] = [
   {
@@ -30,7 +30,7 @@ const learningJourneyDocBlocks: DocBlock[] = [
 - Include \`learningJourneySchemaContribution\` (entities export) in composition.
 
 2) Register contracts/events
-- Import from \`@lssm/module.learning-journey\` into your spec registry.
+- Import from \`@contractspec/module.learning-journey\` into your spec registry.
 
 3) Bind to product actions
 - Tie \`Step\` completion conditions to domain events (e.g., deal.created, agent.run.completed, drill.session.completed).
@@ -42,8 +42,8 @@ const learningJourneyDocBlocks: DocBlock[] = [
 ## Example
 
 ${'```'}ts
-import { learningJourneyEntities } from '@lssm/module.learning-journey';
-import { StreakEngine } from '@lssm/module.learning-journey/engines';
+import { learningJourneyEntities } from '@contractspec/module.learning-journey';
+import { StreakEngine } from '@contractspec/module.learning-journey/engines';
 
 const streak = new StreakEngine({ graceDays: 1 });
 const updated = streak.compute({ lastActiveAt: new Date(), today: new Date() });
@@ -88,7 +88,7 @@ ${'```'},
     tags: ['learning', 'usage'],
     body: `## Setup
 1) Include \`learningJourneyEntities\` in schema composition.
-2) Register contracts/events from \`@lssm/module.learning-journey\`.
+2) Register contracts/events from \`@contractspec/module.learning-journey\`.
 3) Bind steps to real product events (e.g., deal.created, run.completed).
 
 ## Extend & regenerate

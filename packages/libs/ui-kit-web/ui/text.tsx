@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
-import { cn } from '@lssm/lib.ui-kit-core/utils';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 
 export type TextProps = React.ComponentPropsWithoutRef<'p'> & {
   asChild?: boolean;

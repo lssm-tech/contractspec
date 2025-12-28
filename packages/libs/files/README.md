@@ -1,4 +1,4 @@
-# @lssm/lib.files
+# @contractspec/lib.files
 
 Website: https://contractspec.io/
 
@@ -104,7 +104,7 @@ Polymorphic link between files and entities.
 For development and testing. Stores files on the local filesystem.
 
 ```typescript
-import { LocalStorageAdapter } from '@lssm/lib.files/storage';
+import { LocalStorageAdapter } from '@contractspec/lib.files/storage';
 
 const storage = new LocalStorageAdapter({
   basePath: './uploads',
@@ -117,7 +117,7 @@ const storage = new LocalStorageAdapter({
 For production use with AWS S3 or compatible services.
 
 ```typescript
-import { S3StorageAdapter } from '@lssm/lib.files/storage';
+import { S3StorageAdapter } from '@contractspec/lib.files/storage';
 
 const storage = new S3StorageAdapter({
   bucket: 'my-bucket',
@@ -134,7 +134,7 @@ import {
   FileEntity, 
   UploadFileContract,
   LocalStorageAdapter 
-} from '@lssm/lib.files';
+} from '@contractspec/lib.files';
 
 // Upload a file
 const file = await fileService.upload({
@@ -164,13 +164,13 @@ const attachments = await attachmentService.list({
 
 This module integrates with:
 
-- `@lssm/lib.identity-rbac` - Access control
-- `@lssm/module.audit-trail` - File operations audit
+- `@contractspec/lib.identity-rbac` - Access control
+- `@contractspec/module.audit-trail` - File operations audit
 
 ## Schema Contribution
 
 ```typescript
-import { filesSchemaContribution } from '@lssm/lib.files';
+import { filesSchemaContribution } from '@contractspec/lib.files';
 
 export const schemaComposition = {
   modules: [

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 import { StageScorer } from '../scoring/stage-scorer';
-import { LifecycleStage } from '@lssm/lib.lifecycle';
+import { LifecycleStage } from '@contractspec/lib.lifecycle';
 
 describe('StageScorer', () => {
   it('prioritizes MVP/Early Traction when activation metrics are healthy', () => {

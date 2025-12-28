@@ -1,5 +1,10 @@
-import { defineEntity, defineEntityEnum, field, index } from '@lssm/lib.schema';
-import type { ModuleSchemaContribution } from '@lssm/lib.schema';
+import {
+  defineEntity,
+  defineEntityEnum,
+  field,
+  index,
+} from '@contractspec/lib.schema';
+import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 
 /**
  * Storage provider enum.
@@ -306,7 +311,7 @@ export const fileEntities = [
  * Module schema contribution for files.
  */
 export const filesSchemaContribution: ModuleSchemaContribution = {
-  moduleId: '@lssm/lib.files',
+  moduleId: '@contractspec/lib.files',
   entities: fileEntities,
   enums: [StorageProviderEnum, FileStatusEnum],
 };

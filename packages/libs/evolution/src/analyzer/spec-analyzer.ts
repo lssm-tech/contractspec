@@ -1,6 +1,6 @@
-import { Logger } from '@lssm/lib.observability';
+import { Logger } from '@contractspec/lib.observability';
 import { randomUUID } from 'node:crypto';
-import { LifecycleStage } from '@lssm/lib.lifecycle';
+import { LifecycleStage } from '@contractspec/lib.lifecycle';
 import {
   type IntentPattern,
   type OperationCoordinate,

@@ -10,7 +10,7 @@ const example = {
     rootDocId: 'docs.examples.saas-boilerplate',
   },
   entrypoints: {
-    packageName: '@lssm/example.saas-boilerplate',
+    packageName: '@contractspec/example.saas-boilerplate',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

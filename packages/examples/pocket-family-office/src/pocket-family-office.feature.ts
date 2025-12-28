@@ -3,7 +3,7 @@
  *
  * Defines the feature module for personal finance automation.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Pocket Family Office feature module that bundles financial document

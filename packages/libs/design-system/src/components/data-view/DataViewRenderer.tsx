@@ -5,7 +5,7 @@ import type {
   DataViewGridConfig,
   DataViewListConfig,
   DataViewSpec,
-} from '@lssm/lib.contracts/data-views';
+} from '@contractspec/lib.contracts/data-views';
 import { DataViewList } from './DataViewList';
 import { DataViewTable } from './DataViewTable';
 import { DataViewDetail } from './DataViewDetail';
@@ -17,7 +17,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@lssm/lib.ui-kit-web/ui/pagination';
+} from '@contractspec/lib.ui-kit-web/ui/pagination';
 
 export interface DataViewRendererProps {
   spec: DataViewSpec;

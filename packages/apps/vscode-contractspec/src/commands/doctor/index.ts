@@ -6,12 +6,12 @@
 
 import * as vscode from 'vscode';
 import {
-  runDoctor,
   ALL_CHECK_CATEGORIES,
   CHECK_CATEGORY_LABELS,
-} from '@lssm/bundle.contractspec-workspace';
+  runDoctor,
+} from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../../workspace/adapters';
-import { createVscodePrompts, logResults, applyFixes } from './helpers';
+import { applyFixes, createVscodePrompts, logResults } from './helpers';
 
 /**
  * Run the doctor with full health checks.

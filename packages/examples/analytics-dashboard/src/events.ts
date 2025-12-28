@@ -1,5 +1,5 @@
-import { defineSchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
-import { defineEvent } from '@lssm/lib.contracts';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { defineEvent } from '@contractspec/lib.contracts';
 
 const DashboardEventPayload = defineSchemaModel({
   name: 'DashboardEventPayload',

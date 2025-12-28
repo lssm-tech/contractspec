@@ -3,7 +3,7 @@
  *
  * Defines the feature module for Studio onboarding journey.
  */
-import type { FeatureModuleSpec } from '@lssm/lib.contracts';
+import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey Studio Onboarding feature module that bundles

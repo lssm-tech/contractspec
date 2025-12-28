@@ -1,4 +1,4 @@
-# @lssm/lib.jobs
+# @contractspec/lib.jobs
 
 Website: https://contractspec.io/
 
@@ -21,7 +21,7 @@ Provides a generic system for asynchronous and scheduled work. Supports multiple
 ## Installation
 
 ```bash
-bun add @lssm/lib.jobs
+bun add @contractspec/lib.jobs
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ bun add @lssm/lib.jobs
 ### Define a Job Type
 
 ```typescript
-import { defineJobType } from '@lssm/lib.jobs';
+import { defineJobType } from '@contractspec/lib.jobs';
 import * as z from "zod";
 
 const SendEmailJob = defineJobType({
@@ -51,7 +51,7 @@ const SendEmailJob = defineJobType({
 ### Create a Queue
 
 ```typescript
-import { MemoryJobQueue, RedisJobQueue } from '@lssm/lib.jobs/queue';
+import { MemoryJobQueue, RedisJobQueue } from '@contractspec/lib.jobs/queue';
 
 // In-memory for development
 const queue = new MemoryJobQueue();
@@ -85,7 +85,7 @@ queue.start();
 ### Schedule Recurring Jobs
 
 ```typescript
-import { JobScheduler } from '@lssm/lib.jobs/scheduler';
+import { JobScheduler } from '@contractspec/lib.jobs/scheduler';
 
 const scheduler = new JobScheduler(queue);
 
@@ -105,7 +105,7 @@ scheduler.start();
 ## Entity Specs (for schema generation)
 
 ```typescript
-import { jobsSchemaContribution } from '@lssm/lib.jobs/entities';
+import { jobsSchemaContribution } from '@contractspec/lib.jobs/entities';
 
 // Use in schema composition
 const config = {

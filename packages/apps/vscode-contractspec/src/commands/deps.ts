@@ -6,9 +6,9 @@ import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
   analyzeDeps,
-  getGraphStats,
   exportGraphAsDot,
-} from '@lssm/bundle.contractspec-workspace';
+  getGraphStats,
+} from '@contractspec/bundle.workspace';
 
 /**
  * Analyze spec dependencies in the workspace.

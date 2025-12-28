@@ -1,4 +1,4 @@
-import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import { defineEvent } from '../events';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 

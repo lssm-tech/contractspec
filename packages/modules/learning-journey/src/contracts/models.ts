@@ -1,4 +1,4 @@
-import { ScalarTypeEnum, defineSchemaModel } from '@lssm/lib.schema';
+import { ScalarTypeEnum, defineSchemaModel } from '@contractspec/lib.schema';
 
 export const CourseModel = defineSchemaModel({
   name: 'Course',

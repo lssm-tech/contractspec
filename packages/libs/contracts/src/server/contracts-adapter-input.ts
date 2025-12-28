@@ -3,9 +3,9 @@ import type {
   AnyFieldType,
   AnySchemaModel,
   SchemaModelFieldsAnyConfig,
-} from '@lssm/lib.schema';
-import { isSchemaModel } from '@lssm/lib.schema';
-import type { SchemaModel } from '@lssm/lib.schema';
+} from '@contractspec/lib.schema';
+import { isSchemaModel } from '@contractspec/lib.schema';
+import type { SchemaModel } from '@contractspec/lib.schema';
 import type { SchemaTypes } from '@pothos/core';
 
 /**

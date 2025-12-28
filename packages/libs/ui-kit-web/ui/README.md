@@ -41,8 +41,8 @@ This package exposes a11y-first utilities and components built on Radix + shadcn
 Example:
 
 ```tsx
-import { Section } from '@lssm/lib.ui-kit-web/ui/section';
-import { VStack, HStack } from '@lssm/lib.ui-kit-web/ui/stack';
+import { Section } from '@contractspec/lib.ui-kit-web/ui/section';
+import { VStack, HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 
 <Section tone="tint">
   <VStack gap="lg">
@@ -64,7 +64,7 @@ import { VStack, HStack } from '@lssm/lib.ui-kit-web/ui/stack';
 - Props: all `Button` props plus `{ ctaName?: string, capture?: (name: string) => void }`
 
 ```tsx
-import { Cta } from '@lssm/lib.ui-kit-web/ui/cta';
+import { Cta } from '@contractspec/lib.ui-kit-web/ui/cta';
 
 <Cta
   ctaName="hero_primary"

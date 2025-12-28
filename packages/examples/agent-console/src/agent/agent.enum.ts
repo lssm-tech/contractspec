@@ -1,4 +1,4 @@
-import { defineEnum } from '@lssm/lib.schema';
+import { defineEnum } from '@contractspec/lib.schema';
 
 /**
  * Agent status enum.

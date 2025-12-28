@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 
 import { createMemoryKbHandlers, createMemoryKbStore } from './memory.handlers';
 
-describe('@lssm/example.versioned-knowledge-base memory handlers', () => {
+describe('@contractspec/example.versioned-knowledge-base memory handlers', () => {
   it('requires sourceRefs for rule versions (traceability)', async () => {
     const store = createMemoryKbStore();
     const kb = createMemoryKbHandlers(store);

@@ -1,8 +1,8 @@
 import type {
   LifecycleAction,
   LifecycleRecommendation,
-} from '@lssm/lib.lifecycle';
-import { LifecycleStage } from '@lssm/lib.lifecycle';
+} from '@contractspec/lib.lifecycle';
+import { LifecycleStage } from '@contractspec/lib.lifecycle';
 
 export interface StagePlaybookData {
   stage: LifecycleStage;
@@ -26,7 +26,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'medium',
         effortLevel: 'm',
         category: 'product',
-        recommendedLibraries: ['@lssm/lib.content-gen'],
+        recommendedLibraries: ['@contractspec/lib.content-gen'],
       },
       {
         id: 'stage0-problem-story',
@@ -60,7 +60,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'medium',
         effortLevel: 'm',
         category: 'product',
-        recommendedLibraries: ['@lssm/lib.progressive-delivery'],
+        recommendedLibraries: ['@contractspec/lib.progressive-delivery'],
       },
       {
         id: 'stage1-referrals',
@@ -93,8 +93,8 @@ const stagePlaybooks: StagePlaybookData[] = [
         effortLevel: 'm',
         category: 'operations',
         recommendedLibraries: [
-          '@lssm/lib.analytics',
-          '@lssm/lib.observability',
+          '@contractspec/lib.analytics',
+          '@contractspec/lib.observability',
         ],
       },
       {
@@ -128,7 +128,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'high',
         effortLevel: 'm',
         category: 'product',
-        recommendedLibraries: ['@lssm/lib.evolution'],
+        recommendedLibraries: ['@contractspec/lib.evolution'],
       },
       {
         id: 'stage3-incident-review',
@@ -161,7 +161,10 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'high',
         effortLevel: 'l',
         category: 'growth',
-        recommendedLibraries: ['@lssm/lib.growth', '@lssm/lib.resilience'],
+        recommendedLibraries: [
+          '@contractspec/lib.growth',
+          '@contractspec/lib.resilience',
+        ],
       },
       {
         id: 'stage4-hiring-map',
@@ -194,7 +197,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'high',
         effortLevel: 'm',
         category: 'product',
-        recommendedLibraries: ['@lssm/lib.workflow-composer'],
+        recommendedLibraries: ['@contractspec/lib.workflow-composer'],
       },
       {
         id: 'stage5-experiment-portfolio',
@@ -226,7 +229,7 @@ const stagePlaybooks: StagePlaybookData[] = [
         estimatedImpact: 'high',
         effortLevel: 'm',
         category: 'operations',
-        recommendedLibraries: ['@lssm/lib.cost-tracking'],
+        recommendedLibraries: ['@contractspec/lib.cost-tracking'],
       },
       {
         id: 'stage6-renewal-bet',

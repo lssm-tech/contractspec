@@ -1,4 +1,4 @@
-import type { KnowledgeRetriever } from '@lssm/lib.knowledge/retriever';
+import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { AgentKnowledgeRef } from '../spec/spec';
 
 /**

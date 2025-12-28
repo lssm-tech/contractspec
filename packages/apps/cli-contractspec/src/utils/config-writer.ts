@@ -2,8 +2,8 @@ import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import type { Config } from './config';
-import type { OpenApiSourceConfig } from '@lssm/lib.contracts';
-import { findPackageRoot } from '@lssm/bundle.contractspec-workspace';
+import type { OpenApiSourceConfig } from '@contractspec/lib.contracts';
+import { findPackageRoot } from '@contractspec/bundle.workspace';
 
 /**
  * Path to the config file.

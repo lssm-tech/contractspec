@@ -1,4 +1,4 @@
-# @lssm/example.learning-journey-studio-onboarding
+# @contractspec/example.learning-journey-studio-onboarding
 
 Website: https://contractspec.io/
 
@@ -23,12 +23,12 @@ Learning Journey example focused on the first 30 minutes inside ContractSpec Stu
 ## Usage
 
 - Import track specs:  
-  `import { studioLearningTracks } from '@lssm/example.learning-journey-studio-onboarding/track'`
+  `import { studioLearningTracks } from '@contractspec/example.learning-journey-studio-onboarding/track'`
 - Contracts/handlers for demos:  
-  `import { GetStudioOnboardingTrack, RecordStudioOnboardingEvent } from '@lssm/example.learning-journey-studio-onboarding/contracts'`  
-  `import { emitStudioOnboardingEvent } from '@lssm/example.learning-journey-studio-onboarding/handlers/demo.handlers'`
+  `import { GetStudioOnboardingTrack, RecordStudioOnboardingEvent } from '@contractspec/example.learning-journey-studio-onboarding/contracts'`  
+  `import { emitStudioOnboardingEvent } from '@contractspec/example.learning-journey-studio-onboarding/handlers/demo.handlers'`
 - Presentations (react/markdown/json targets):  
-  `import { studioOnboardingPresentations } from '@lssm/example.learning-journey-studio-onboarding/presentations'`
+  `import { studioOnboardingPresentations } from '@contractspec/example.learning-journey-studio-onboarding/presentations'`
 - Register with Learning Journey surfaces via onboarding API:
   - `learning.onboarding.listTracks` to surface catalog
   - `learning.onboarding.getProgress` to show status

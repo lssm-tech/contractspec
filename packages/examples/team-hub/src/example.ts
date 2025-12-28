@@ -13,7 +13,7 @@ const example = {
     constraintsDocId: 'docs.examples.team-hub.constraints',
   },
   entrypoints: {
-    packageName: '@lssm/example.team-hub',
+    packageName: '@contractspec/example.team-hub',
     feature: './feature',
     contracts: './contracts',
     presentations: './presentations',

@@ -3,7 +3,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@lssm/lib.ui-kit-web/ui/avatar';
+} from '@contractspec/lib.ui-kit-web/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from '@lssm/lib.ui-kit-web/ui/dropdown-menu';
+} from '@contractspec/lib.ui-kit-web/ui/dropdown-menu';
 import { Button } from '../atoms/Button';
 import type { UserMenuItem } from '../../types/navigation';
 

@@ -156,7 +156,7 @@ export interface EntitySpec<
  * Module schema contribution for composition.
  */
 export interface ModuleSchemaContribution {
-  /** Module identifier (e.g., '@lssm/lib.identity-rbac') */
+  /** Module identifier (e.g., '@contractspec/lib.identity-rbac') */
   moduleId: string;
   /** Entity specs provided by this module */
   entities: EntitySpec[];
