@@ -11,7 +11,7 @@ const WorkflowDefinitionPayload = defineSchemaModel({
     workflowId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     organizationId: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: false,

@@ -22,7 +22,7 @@ describe('App Config Lifecycle Events', () => {
         appId: 'app-456',
         version: '1.0.0',
         blueprintName: 'ecommerce',
-        blueprintVersion: 2,
+        blueprintVersion: '2',
         createdBy: 'user@example.com',
       };
 
@@ -37,7 +37,7 @@ describe('App Config Lifecycle Events', () => {
         appId: 'app-456',
         version: '1.0.0',
         blueprintName: 'ecommerce',
-        blueprintVersion: 2,
+        blueprintVersion: '2',
         createdBy: 'user@example.com',
         clonedFrom: 1,
       };

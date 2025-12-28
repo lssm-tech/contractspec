@@ -43,9 +43,7 @@ describe('KnowledgeSpaceRegistry', () => {
     const spec = makeSpec();
 
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(
-      /Duplicate contract/
-    );
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 
   it.each<KnowledgeCategory>([

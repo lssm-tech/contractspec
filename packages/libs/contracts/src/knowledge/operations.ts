@@ -21,7 +21,7 @@ const KnowledgeSourceRecord = new SchemaModel({
     id: { type: ScalarTypeEnum.ID(), isOptional: false },
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     spaceKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    spaceVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    spaceVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     syncSchedule: { type: KnowledgeSyncSchedule, isOptional: true },
@@ -41,7 +41,7 @@ const CreateKnowledgeSourceInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     spaceKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-    spaceVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    spaceVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
     config: { type: ScalarTypeEnum.JSONObject(), isOptional: false },

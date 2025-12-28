@@ -11,7 +11,7 @@ export const JobModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     payload: { type: ScalarTypeEnum.JSON(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false }, // JobStatus enum value
     priority: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },

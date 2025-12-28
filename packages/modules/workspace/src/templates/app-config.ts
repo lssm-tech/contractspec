@@ -197,7 +197,7 @@ function formatCapabilityRef(key: string): string {
 
 function formatExperimentRef(exp: { name: string; version?: string }): string {
   const version =
-    typeof exp.version === 'number' ? `, version: ${exp.version}` : '';
+    typeof exp.version === 'string' ? `, version: ${exp.version}` : '';
   return `{ name: '${escapeString(exp.name)}'${version} }`;
 }
 

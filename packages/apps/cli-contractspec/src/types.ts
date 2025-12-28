@@ -23,7 +23,7 @@ export type StepType = 'human' | 'automation' | 'decision';
 
 export interface BaseSpecData {
   name: string;
-  version: number;
+  version: string;
   description: string;
   owners: string[];
   tags: string[];

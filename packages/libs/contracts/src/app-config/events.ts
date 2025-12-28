@@ -24,13 +24,13 @@ export const ConfigDraftCreatedEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       blueprintName: {
         type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       blueprintVersion: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -51,7 +51,7 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       promotedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       warnings: {
         type: ScalarTypeEnum.String_unsecure(),
@@ -74,7 +74,7 @@ export const ConfigPublishedEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       previousVersion: {
         type: ScalarTypeEnum.Int_unsecure(),
         isOptional: true,
@@ -108,7 +108,7 @@ export const ConfigRolledBackEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      newVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       rolledBackFrom: {
         type: ScalarTypeEnum.Int_unsecure(),
         isOptional: false,

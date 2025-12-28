@@ -53,6 +53,8 @@ describe('TestRegistry', () => {
 
   it('creates stable keys', () => {
     const spec = sampleSpec('1.0.0');
-    expect(makeTestKey(spec.meta)).toBe('sigil.operation.add_user.tests.v1.0.0');
+    expect(makeTestKey(spec.meta)).toBe(
+      'sigil.operation.add_user.tests.v1.0.0'
+    );
   });
 });

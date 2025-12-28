@@ -37,7 +37,7 @@ export const FileVersionModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     size: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     storagePath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     checksum: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },

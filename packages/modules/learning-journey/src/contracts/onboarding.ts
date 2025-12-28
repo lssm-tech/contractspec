@@ -9,7 +9,7 @@ const OnboardingStepConditionModel = defineSchemaModel({
   description: 'Structured completion condition for onboarding steps.',
   fields: {
     eventName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    eventVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    eventVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     sourceModule: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     payloadFilter: { type: ScalarTypeEnum.JSON(), isOptional: true },
   },
@@ -162,7 +162,7 @@ const RecordOnboardingEventInput = defineSchemaModel({
     learnerId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     trackId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     eventName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    eventVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    eventVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     eventPayload: { type: ScalarTypeEnum.JSON(), isOptional: true },
     occurredAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
   },

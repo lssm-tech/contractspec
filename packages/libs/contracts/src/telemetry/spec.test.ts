@@ -71,8 +71,6 @@ describe('TelemetryRegistry', () => {
     const registry = new TelemetryRegistry();
     const spec = makeSpec('sigil.core', '1.0.0', 'internal');
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(
-      /Duplicate contract/
-    );
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 });

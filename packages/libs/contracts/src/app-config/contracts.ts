@@ -74,7 +74,10 @@ const UpdateBlueprintTranslationInput = new SchemaModel({
       isOptional: false,
     },
     catalogName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    catalogVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    catalogVersion: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     defaultLocale: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: false,

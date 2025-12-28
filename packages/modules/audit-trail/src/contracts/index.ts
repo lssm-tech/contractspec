@@ -15,7 +15,7 @@ export const AuditLogModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     eventName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    eventVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    eventVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     payload: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
     actorId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     actorType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },

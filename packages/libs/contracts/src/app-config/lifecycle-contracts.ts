@@ -38,7 +38,7 @@ const ConfigTransitionRecord = new SchemaModel({
       isOptional: false,
     },
     toStatus: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     timestamp: { type: ScalarTypeEnum.DateTime(), isOptional: false },
     actor: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -59,7 +59,7 @@ const CreateDraftInput = new SchemaModel({
       isOptional: false,
     },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    fromVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    fromVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -67,7 +67,7 @@ const CreateDraftInput = new SchemaModel({
 const CreateDraftOutput = new SchemaModel({
   name: 'CreateTenantConfigDraftOutput',
   fields: {
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
@@ -105,7 +105,7 @@ const PromotePreviewInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     promotedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
@@ -113,7 +113,7 @@ const PromotePreviewInput = new SchemaModel({
 const PromotePreviewOutput = new SchemaModel({
   name: 'PromoteTenantConfigPreviewOutput',
   fields: {
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     warnings: {
       type: ScalarTypeEnum.String_unsecure(),
@@ -155,7 +155,7 @@ const PublishConfigInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     publishedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     changeSummary: {
@@ -168,9 +168,12 @@ const PublishConfigInput = new SchemaModel({
 const PublishConfigOutput = new SchemaModel({
   name: 'PublishTenantConfigOutput',
   fields: {
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    previousVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
+    previousVersion: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: true,
+    },
     publishedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
   },
 });
@@ -207,7 +210,7 @@ const RollbackConfigInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    toVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    toVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     environment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     rolledBackBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -217,7 +220,7 @@ const RollbackConfigInput = new SchemaModel({
 const RollbackConfigOutput = new SchemaModel({
   name: 'RollbackTenantConfigOutput',
   fields: {
-    newVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     rolledBackFrom: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
   },
@@ -294,7 +297,7 @@ const GetVersionInput = new SchemaModel({
   fields: {
     tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
     appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
   },
 });
 

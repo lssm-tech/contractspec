@@ -58,9 +58,7 @@ describe('IntegrationSpecRegistry', () => {
     const spec = makeSpec();
 
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(
-      /Duplicate contract/
-    );
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 
   it.each<IntegrationCategory>(['payments', 'email', 'calendar', 'ai-llm'])(

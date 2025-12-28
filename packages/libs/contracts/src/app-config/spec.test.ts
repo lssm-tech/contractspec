@@ -40,8 +40,6 @@ describe('AppBlueprintRegistry', () => {
     const registry = new AppBlueprintRegistry();
     const spec = makeBlueprint('1.0.0');
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(
-      /Duplicate contract/
-    );
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 });

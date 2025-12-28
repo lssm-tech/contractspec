@@ -55,7 +55,7 @@ const FileVersionCreatedPayload = defineSchemaModel({
   fields: {
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     versionId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     size: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     comment: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
