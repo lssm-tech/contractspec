@@ -355,9 +355,7 @@ function validateCommonFields(
   // Check for SchemaModel import (skip for internal schema lib)
   if (
     code.includes('SchemaModel') &&
-    !/from\s+['"]@(?:lssm|contractspec)\/lib\.schema(\/[^'"]+)?['"]/.test(
-      code
-    ) &&
+    !/from\s+['"]@contractspec\/lib\.schema(\/[^'"]+)?['"]/.test(code) &&
     !isInternalLib
   ) {
     errors.push('Missing import for SchemaModel from @contractspec/lib.schema');
@@ -383,9 +381,7 @@ function validateCommonFields(
 
   if (
     usesSpecTypes &&
-    !/from\s+['"]@(?:lssm|contractspec)\/lib\.contracts(\/[^'"]+)?['"]/.test(
-      code
-    ) &&
+    !/from\s+['"]@contractspec\/lib\.contracts(\/[^'"]+)?['"]/.test(code) &&
     !isInternalLib
   ) {
     errors.push('Missing import from @contractspec/lib.contracts');
