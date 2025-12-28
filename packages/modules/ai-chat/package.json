@@ -32,7 +32,7 @@
     "@lssm/lib.ui-kit-web": "workspace:*",
     "@ai-sdk/react": "catalog:ai",
     "ai": "catalog:ai",
-    "lucide-react": "^0.535.0",
+    "lucide-react": "^0.562.0",
     "react": "catalog:",
     "zod": "catalog:"
   },

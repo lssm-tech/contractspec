@@ -27,7 +27,7 @@
     "@lssm/lib.ui-kit-web": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.535.0",
+    "lucide-react": "^0.562.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwind-merge": "^3.3.1",

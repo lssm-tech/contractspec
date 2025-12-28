@@ -70,7 +70,7 @@
     "expo-system-ui": "~5.0.7",
     "expo-updates": "~0.28.15",
     "expo-web-browser": "^14.2.0",
-    "lucide-react-native": "^0.511.0",
+    "lucide-react-native": "^0.562.0",
     "nativewind": "5.0.0-preview.2",
     "react": "catalog:",
     "react-dom": "catalog:",
