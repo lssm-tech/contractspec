@@ -1,8 +1,14 @@
 {
   "name": "@contractspec/integration.runtime",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Runtime integration with secret management",
-  "keywords": ["contractspec", "integration", "runtime", "secrets", "typescript"],
+  "keywords": [
+    "contractspec",
+    "integration",
+    "runtime",
+    "secrets",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

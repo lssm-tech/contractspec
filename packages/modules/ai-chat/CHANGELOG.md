@@ -1,5 +1,19 @@
 # @contractspec/module.ai-chat
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.cost-tracking@1.44.1
+  - @contractspec/lib.design-system@1.44.1
+  - @contractspec/lib.ai-providers@1.44.1
+  - @contractspec/lib.ui-kit-web@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.ai-agent@1.44.1
+  - @contractspec/lib.metering@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

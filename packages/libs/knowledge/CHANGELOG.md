@@ -1,5 +1,13 @@
 # @contractspec/lib.knowledge
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.contracts@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

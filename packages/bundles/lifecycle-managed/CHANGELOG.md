@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/module.lifecycle-advisor@1.44.1
+  - @contractspec/module.lifecycle-core@1.44.1
+  - @contractspec/lib.observability@1.44.1
+  - @contractspec/lib.analytics@1.44.1
+  - @contractspec/lib.lifecycle@1.44.1
+  - @contractspec/lib.ai-agent@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

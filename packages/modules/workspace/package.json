@@ -1,8 +1,14 @@
 {
   "name": "@contractspec/module.workspace",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Workspace discovery and management module",
-  "keywords": ["contractspec", "workspace", "discovery", "configuration", "typescript"],
+  "keywords": [
+    "contractspec",
+    "workspace",
+    "discovery",
+    "configuration",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

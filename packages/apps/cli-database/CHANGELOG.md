@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.schema@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @contractspec/action.contractspec
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+
 ## 1.44.0
 
 ### Minor Changes

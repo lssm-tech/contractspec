@@ -1,8 +1,15 @@
 {
   "name": "@contractspec/lib.content-gen",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "AI-powered content generation for blog, email, and social",
-  "keywords": ["contractspec", "content", "ai", "generation", "seo", "typescript"],
+  "keywords": [
+    "contractspec",
+    "content",
+    "ai",
+    "generation",
+    "seo",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

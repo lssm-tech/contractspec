@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.contracts-transformers@1.44.1
+  - @contractspec/bundle.workspace@1.44.1
+  - @contractspec/lib.ai-providers@1.44.1
+  - @contractspec/module.examples@1.44.1
+  - @contractspec/module.ai-chat@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.testing@1.44.1
+  - @contractspec/lib.schema@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

@@ -1,8 +1,15 @@
 {
   "name": "@contractspec/lib.jobs",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Background jobs and scheduler module for ContractSpec applications",
-  "keywords": ["contractspec", "jobs", "queue", "scheduler", "background", "typescript"],
+  "keywords": [
+    "contractspec",
+    "jobs",
+    "queue",
+    "scheduler",
+    "background",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

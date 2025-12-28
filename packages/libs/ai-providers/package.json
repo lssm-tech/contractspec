@@ -1,8 +1,16 @@
 {
   "name": "@contractspec/lib.ai-providers",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Unified AI provider abstraction layer",
-  "keywords": ["contractspec", "ai", "llm", "providers", "openai", "anthropic", "typescript"],
+  "keywords": [
+    "contractspec",
+    "ai",
+    "llm",
+    "providers",
+    "openai",
+    "anthropic",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

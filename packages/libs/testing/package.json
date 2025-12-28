@@ -1,8 +1,13 @@
 {
   "name": "@contractspec/lib.testing",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Contract-aware testing utilities and runners",
-  "keywords": ["contractspec", "testing", "test-framework", "typescript"],
+  "keywords": [
+    "contractspec",
+    "testing",
+    "test-framework",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

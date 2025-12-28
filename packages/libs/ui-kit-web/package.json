@@ -1,8 +1,15 @@
 {
   "name": "@contractspec/lib.ui-kit-web",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "Web UI components with Radix primitives",
-  "keywords": ["contractspec", "ui", "web", "radix", "components", "typescript"],
+  "keywords": [
+    "contractspec",
+    "ui",
+    "web",
+    "radix",
+    "components",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

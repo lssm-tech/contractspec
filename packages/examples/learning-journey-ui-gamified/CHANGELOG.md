@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/example.learning-journey-quest-challenges@1.44.1
+  - @contractspec/example.learning-journey-duo-drills@1.44.1
+  - @contractspec/example.learning-journey-ui-shared@1.44.1
+  - @contractspec/module.learning-journey@1.44.1
+  - @contractspec/lib.design-system@1.44.1
+  - @contractspec/lib.ui-kit-web@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+  - @contractspec/lib.schema@1.44.1
+
 ## 1.44.0
 
 ### Minor Changes

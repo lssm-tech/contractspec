@@ -1,8 +1,15 @@
 {
   "name": "@contractspec/module.lifecycle-advisor",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "AI-powered lifecycle recommendations and guidance",
-  "keywords": ["contractspec", "lifecycle", "ai", "advisor", "recommendations", "typescript"],
+  "keywords": [
+    "contractspec",
+    "lifecycle",
+    "ai",
+    "advisor",
+    "recommendations",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

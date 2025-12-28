@@ -1,8 +1,14 @@
 {
   "name": "@contractspec/lib.utils-typescript",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "TypeScript utility types and helpers",
-  "keywords": ["contractspec", "typescript", "utilities", "types", "helpers"],
+  "keywords": [
+    "contractspec",
+    "typescript",
+    "utilities",
+    "types",
+    "helpers"
+  ],
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",

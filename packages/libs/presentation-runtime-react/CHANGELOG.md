@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 1.44.1
+
+### Patch Changes
+
+- 3c594fb: fix
+- Updated dependencies [3c594fb]
+  - @contractspec/lib.presentation-runtime-core@1.44.1
+  - @contractspec/lib.design-system@1.44.1
+  - @contractspec/lib.ui-kit-web@1.44.1
+  - @contractspec/lib.contracts@1.44.1
+
 ## 2.0.0
 
 ### Minor Changes

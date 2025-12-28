@@ -1,8 +1,16 @@
 {
   "name": "@contractspec/lib.ai-agent",
-  "version": "1.44.0",
+  "version": "1.44.1",
   "description": "AI agent orchestration with MCP and tool support",
-  "keywords": ["contractspec", "ai", "agents", "llm", "mcp", "tools", "typescript"],
+  "keywords": [
+    "contractspec",
+    "ai",
+    "agents",
+    "llm",
+    "mcp",
+    "tools",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
