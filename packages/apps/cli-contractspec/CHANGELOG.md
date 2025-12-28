@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/bundle.contractspec-workspace@1.43.2
+  - @lssm/module.contractspec-examples@1.43.2
+  - @lssm/lib.contracts-transformers@1.43.2
+  - @lssm/module.ai-chat@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.testing@1.43.2
+  - @lssm/lib.ai-providers@1.43.1
+  - @lssm/lib.schema@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes

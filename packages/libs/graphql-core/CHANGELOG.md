@@ -1,5 +1,11 @@
 # @lssm/lib.graphql-core
 
+## 1.43.1
+
+### Patch Changes
+
+- e147271: fix: improve stability
+
 ## 1.43.0
 
 ### Minor Changes

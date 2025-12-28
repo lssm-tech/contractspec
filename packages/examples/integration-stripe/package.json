@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.integration-stripe",
-  "version": "1.43.1",
+  "version": "1.43.2",
   "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
   "type": "module",
   "main": "./dist/index.js",

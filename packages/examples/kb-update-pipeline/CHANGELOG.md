@@ -1,5 +1,16 @@
 # @lssm/example.kb-update-pipeline
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/module.notifications@1.43.2
+  - @lssm/lib.identity-rbac@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.schema@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes

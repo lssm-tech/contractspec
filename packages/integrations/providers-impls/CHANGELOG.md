@@ -1,5 +1,14 @@
 # @lssm/integration.providers-impls
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/integration.runtime@1.43.2
+  - @lssm/lib.contracts@1.43.2
+
 ## 1.43.1
 
 ### Patch Changes

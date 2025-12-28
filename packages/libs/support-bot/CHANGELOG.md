@@ -1,5 +1,16 @@
 # @lssm/lib.support-bot
 
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.knowledge@1.43.2
+  - @lssm/lib.ai-agent@1.43.2
+  - @lssm/lib.schema@1.43.1
+
 ## 1.43.1
 
 ### Patch Changes
