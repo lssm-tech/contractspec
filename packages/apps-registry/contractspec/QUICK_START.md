@@ -43,7 +43,7 @@ Review and accept the AI-generated spec!
 ### 3. Generate handler
 
 ```bash
-pnpm exec contractspec build src/interactions/commands/user-signup.contracts.ts
+bun exec contractspec build src/interactions/commands/user-signup.contracts.ts
 ```
 
 This generates:
@@ -53,7 +53,7 @@ This generates:
 ### 4. Validate
 
 ```bash
-pnpm exec contractspec validate src/interactions/commands/user-signup.contracts.ts
+bun exec contractspec validate src/interactions/commands/user-signup.contracts.ts
 # You'll be prompted to validate the spec only or the implementation as well.
 ```
 
@@ -75,7 +75,7 @@ ollama pull codellama
 ### Generate with Ollama
 
 ```bash
-pnpm exec contractspec create --ai --provider ollama --model codellama
+bun exec contractspec create --ai --provider ollama --model codellama
 ```
 
 No API keys needed! Everything runs locally.
@@ -100,18 +100,18 @@ Now commands use these defaults:
 
 ```bash
 # Uses Claude from config
-pnpm exec contractspec create --ai
+bun exec contractspec create --ai
 
 # Override with Ollama
-pnpm exec contractspec create --ai --provider ollama
+bun exec contractspec create --ai --provider ollama
 ```
 
 ## Next Steps
 
 1. **Complete the TODO items** in generated files
 2. **Implement handler logic** with real business rules
-3. **Run tests**: `pnpm test`
-4. **Validate**: `pnpm exec contractspec validate src/**/*.contracts.ts`
+3. **Run tests**: `bun test`
+4. **Validate**: `bun exec contractspec validate src/**/*.contracts.ts`
 5. **Register in registry** and mount REST/GraphQL adapters
 
 ## Common Workflows
@@ -119,27 +119,27 @@ pnpm exec contractspec create --ai --provider ollama
 ### Create Event
 
 ```bash
-pnpm exec contractspec create --type event
+bun exec contractspec create --type event
 ```
 
 ### Build Presentation Component
 
 ```bash
-pnpm exec contractspec create --type presentation
-pnpm exec contractspec build src/presentations/user-profile.presentation.ts
+bun exec contractspec create --type presentation
+bun exec contractspec build src/presentations/user-profile.presentation.ts
 ```
 
 ### Multi-Spec Workflow
 
 ```bash
 # Create operation spec
-pnpm exec contractspec create --type operation --ai
+bun exec contractspec create --type operation --ai
 
 # Create related event spec
-pnpm exec contractspec create --type event --ai
+bun exec contractspec create --type event --ai
 
 # Generate all implementations
-pnpm exec contractspec build src/contracts/**/*.ts
+bun exec contractspec build src/contracts/**/*.ts
 ```
 
 ## Tips
@@ -155,19 +155,19 @@ pnpm exec contractspec build src/contracts/**/*.ts
 **No AI provider?**
 ```bash
 # Use interactive wizard instead
-pnpm exec contractspec create
+bun exec contractspec create
 ```
 
 **Can't find contractspec?**
 ```bash
-# Use pnpm exec
-pnpm exec contractspec --help
+# Use bun exec
+bun exec contractspec --help
 ```
 
 **Import errors?**
 ```bash
 # Install dependencies
-pnpm add @lssm/lib.contracts @lssm/lib.schema
+bun add @lssm/lib.contracts @lssm/lib.schema
 ```
 
 Happy contract authoring! 🎉

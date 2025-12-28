@@ -1,5 +1,10 @@
 # ContractSpec
 
+[![npm version](https://img.shields.io/npm/v/contractspec)](https://www.npmjs.com/package/contractspec)
+[![npm downloads](https://img.shields.io/npm/dt/contractspec)](https://www.npmjs.com/package/contractspec)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+
+
 Website: https://contractspec.io/
 
 
@@ -563,7 +568,7 @@ contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 
 Make sure `@lssm/lib.contracts` and `@lssm/lib.schema` are installed:
 ```bash
-pnpm add @lssm/lib.contracts @lssm/lib.schema
+bun add @lssm/lib.contracts @lssm/lib.schema
 ```
 
 ## Contributing
@@ -573,7 +578,7 @@ Contributions welcome! Please:
 1. Follow existing code style
 2. Add tests for new features
 3. Update documentation
-4. Ensure all tests pass: `pnpm test`
+4. Ensure all tests pass: `bun test`
 
 ## Agent Modes Deep Dive
 

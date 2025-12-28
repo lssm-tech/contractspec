@@ -1,5 +1,10 @@
 # @lssm/lib.ai-agent
 
+[![npm version](https://img.shields.io/npm/v/@lssm/lib.ai-agent)](https://www.npmjs.com/package/@lssm/lib.ai-agent)
+[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.ai-agent)](https://www.npmjs.com/package/@lssm/lib.ai-agent)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+
+
 Website: https://contractspec.io/
 
 
