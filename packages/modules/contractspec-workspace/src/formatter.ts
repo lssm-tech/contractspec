@@ -247,14 +247,11 @@ export async function formatFiles(
       formatterUsed: formatterType,
     };
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : String(error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
 
     // Log warning but don't fail the operation
     if (!options?.silent && logger) {
-      logger.warn(
-        `⚠️ Formatting failed (continuing anyway): ${errorMessage}`
-      );
+      logger.warn(`⚠️ Formatting failed (continuing anyway): ${errorMessage}`);
     }
 
     return {

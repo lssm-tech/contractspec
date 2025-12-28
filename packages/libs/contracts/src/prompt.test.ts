@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 import * as z from 'zod';
-import { definePrompt, type PromptSpec, type PromptArg, type PromptContentPart } from './prompt';
+import {
+  definePrompt,
+  type PromptSpec,
+  type PromptArg,
+  type PromptContentPart,
+} from './prompt';
 
 describe('definePrompt', () => {
   it('should return the prompt spec unchanged', () => {
@@ -142,7 +147,7 @@ describe('render function', () => {
       {
         userId: 'user_123',
         locale: 'en-US',
-        link: (template, vars) => 
+        link: (template, vars) =>
           Object.entries(vars).reduce(
             (acc, [k, v]) => acc.replace(`{${k}}`, String(v)),
             template

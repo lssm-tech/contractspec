@@ -1,9 +1,5 @@
-import type {
-  AnySchemaModel,
-  SchemaModelFieldsAnyConfig,
-} from '@lssm/lib.schema';
+import type { AnySchemaModel } from '@lssm/lib.schema';
 import { isSchemaModel } from '@lssm/lib.schema';
-import type { SchemaModel } from '@lssm/lib.schema';
 
 /**
  * Get a name for any schema model type.

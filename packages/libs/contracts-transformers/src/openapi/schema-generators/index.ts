@@ -6,17 +6,16 @@
  * @module schema-generators
  */
 
-import type { SchemaFormat, ContractsrcConfig } from '@lssm/lib.contracts';
+import type { ContractsrcConfig, SchemaFormat } from '@lssm/lib.contracts';
 import type { OpenApiSchema } from '../types';
 import {
+  type GeneratedModel,
+  generateImports,
   getScalarType,
   jsonSchemaToType,
-  generateImports,
   type SchemaField,
-  type GeneratedModel,
 } from '../schema-converter';
 import {
-  toCamelCase,
   toKebabCase,
   toPascalCase,
   toValidIdentifier,
@@ -144,11 +143,7 @@ export class ContractSpecSchemaGenerator implements SchemaGenerator {
     this.config = config;
   }
 
-  generateModel(
-    schema: OpenApiSchema,
-    name: string,
-    options?: { description?: string }
-  ): GeneratedCode {
+  generateModel(schema: OpenApiSchema, name: string): GeneratedCode {
     const model = this.generateContractSpecSchema(schema, name);
 
     // Calculate imports for dependencies
@@ -492,7 +487,7 @@ export class ZodSchemaGenerator implements SchemaGenerator {
     const properties = schemaObj['properties'] as
       | Record<string, OpenApiSchema>
       | undefined;
-    const required = (schemaObj['required'] as string[]) ?? [];
+    const _required = (schemaObj['required'] as string[]) ?? [];
     const description = options?.description ?? schemaObj['description'];
 
     const lines: string[] = [];
@@ -542,7 +537,7 @@ export class ZodSchemaGenerator implements SchemaGenerator {
 
   generateField(
     schema: OpenApiSchema,
-    fieldName: string,
+    _fieldName: string,
     required: boolean
   ): GeneratedFieldCode {
     const schemaObj = schema as Record<string, unknown>;
@@ -626,6 +621,13 @@ export class ZodSchemaGenerator implements SchemaGenerator {
     };
   }
 
+  getBaseImports(): string[] {
+    return [
+      "import * as z from 'zod';",
+      "import { ZodSchemaType } from '@lssm/lib.schema';",
+    ];
+  }
+
   private generateZodObject(schemaObj: Record<string, unknown>): string {
     const required = (schemaObj['required'] as string[]) ?? [];
     const properties = schemaObj['properties'] as Record<string, OpenApiSchema>;
@@ -644,13 +646,6 @@ export class ZodSchemaGenerator implements SchemaGenerator {
 
     lines.push('})');
     return lines.join('\n');
-  }
-
-  getBaseImports(): string[] {
-    return [
-      "import * as z from 'zod';",
-      "import { ZodSchemaType } from '@lssm/lib.schema';",
-    ];
   }
 
   private mapTypeToZod(type?: string, format?: string): string {
@@ -745,7 +740,7 @@ export class JsonSchemaGenerator implements SchemaGenerator {
 
   generateField(
     schema: OpenApiSchema,
-    fieldName: string,
+    _fieldName: string,
     required: boolean
   ): GeneratedFieldCode {
     const schemaObj = schema as Record<string, unknown>;
@@ -830,7 +825,7 @@ export class GraphQLSchemaGenerator implements SchemaGenerator {
 
   generateField(
     schema: OpenApiSchema,
-    fieldName: string,
+    _fieldName: string,
     required: boolean
   ): GeneratedFieldCode {
     const schemaObj = schema as Record<string, unknown>;

@@ -58,7 +58,9 @@ describe('FeatureModuleMeta', () => {
 });
 
 describe('FeatureModuleSpec', () => {
-  const createFeature = (overrides?: Partial<FeatureModuleSpec>): FeatureModuleSpec => ({
+  const createFeature = (
+    overrides?: Partial<FeatureModuleSpec>
+  ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
       version: 1,
@@ -85,6 +87,7 @@ describe('FeatureModuleSpec', () => {
     });
 
     expect(feature.operations).toHaveLength(2);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.operations![0]!.key).toBe('user.create');
   });
 
@@ -133,7 +136,9 @@ describe('FeatureModuleSpec', () => {
     });
 
     expect(feature.opToPresentation).toHaveLength(1);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.opToPresentation![0]!.op.key).toBe('user.create');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.opToPresentation![0]!.pres.key).toBe('user.create.form');
   });
 
@@ -149,6 +154,7 @@ describe('FeatureModuleSpec', () => {
     });
 
     expect(feature.presentationsTargets).toHaveLength(1);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.presentationsTargets![0]!.targets).toContain('react');
   });
 
@@ -164,6 +170,7 @@ describe('FeatureModuleSpec', () => {
     });
 
     expect(feature.implementations).toHaveLength(1);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(feature.implementations![0]!.type).toBe('service');
   });
 });

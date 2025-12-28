@@ -12,7 +12,7 @@ import type { SchemaTypes } from '@pothos/core';
  * Check if a value has getPothosInput method (SchemaModel specific).
  * Used for input type generation.
  */
-function hasGetPothosInput(x: unknown): x is { getPothosInput: () => string } {
+function _hasGetPothosInput(x: unknown): x is { getPothosInput: () => string } {
   return (
     typeof x === 'object' &&
     x !== null &&
@@ -52,7 +52,9 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
   const inputTypeCache = new Map<string, unknown>();
   const enumTypeCache = new Set<string>();
 
-  function registerEnumsForModel(model: SchemaModel<SchemaModelFieldsAnyConfig>) {
+  function registerEnumsForModel(
+    model: SchemaModel<SchemaModelFieldsAnyConfig>
+  ) {
     const entries = Object.entries(model.config.fields) as [
       string,
       {
@@ -81,7 +83,9 @@ export function createInputTypeBuilder<T extends SchemaTypes>(
     }
   }
 
-  function ensureInputTypeForModel(model: SchemaModel<SchemaModelFieldsAnyConfig>) {
+  function ensureInputTypeForModel(
+    model: SchemaModel<SchemaModelFieldsAnyConfig>
+  ) {
     const typeName = String(model.config?.name ?? 'Input');
     const cached = inputTypeCache.get(typeName) as unknown;
     if (cached) return cached;

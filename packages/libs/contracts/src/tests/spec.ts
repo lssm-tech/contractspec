@@ -1,4 +1,4 @@
-import type { Owner, OwnerShipMeta, Stability, Tag } from '../ownership';
+import type { OwnerShipMeta } from '../ownership';
 
 export interface OperationTargetRef {
   key: string;
@@ -68,7 +68,7 @@ export interface CoverageRequirement {
   mutations?: number;
 }
 
-export type TestSpecMeta = OwnerShipMeta
+export type TestSpecMeta = OwnerShipMeta;
 
 export interface TestSpec {
   meta: TestSpecMeta;

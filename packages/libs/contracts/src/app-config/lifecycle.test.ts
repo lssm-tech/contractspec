@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import type {
   ConfigStatus,
-  TenantAppConfigVersion,
   ConfigTransition,
   ConfigVersionHistory,
 } from './lifecycle';

@@ -17,7 +17,6 @@ export function generateModelCode(
   const model = generateSchemaModelCode(
     schema,
     modelName,
-    0,
     schemaFormat,
     options
   );

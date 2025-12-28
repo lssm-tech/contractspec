@@ -19,7 +19,6 @@ export function generateEventCode(
   const payloadModel = generateSchemaModelCode(
     event.payload,
     modelName,
-    0,
     schemaFormat,
     options
   );

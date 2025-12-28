@@ -14,7 +14,10 @@ describe('GraphQLSchemaType', () => {
     });
 
     it('should set _isSchemaType marker', () => {
-      const gqlType = new GraphQLSchemaType('type Query { hello: String }', 'Query');
+      const gqlType = new GraphQLSchemaType(
+        'type Query { hello: String }',
+        'Query'
+      );
       expect(gqlType._isSchemaType).toBe(true);
     });
   });
@@ -27,13 +30,13 @@ describe('GraphQLSchemaType', () => {
       );
 
       const zodSchema = gqlType.getZod();
-      
+
       // Should accept any value since SDL is not parsed at runtime
       expect(zodSchema.parse({ id: '123', price: 99.99 })).toEqual({
         id: '123',
         price: 99.99,
       });
-      
+
       expect(zodSchema.parse('any string')).toBe('any string');
       expect(zodSchema.parse(123)).toBe(123);
       expect(zodSchema.parse(null)).toBeNull();
@@ -49,7 +52,7 @@ describe('GraphQLSchemaType', () => {
 
       // Verify it has getZod method
       expect(typeof gqlType.getZod).toBe('function');
-      
+
       // Verify the schema works
       const schema = gqlType.getZod();
       expect(schema.parse({ test: 'value' })).toBeDefined();
@@ -66,7 +69,7 @@ describe('GraphQLSchemaType', () => {
           createdAt: DateTime!
         }
       `;
-      
+
       const gqlType = new GraphQLSchemaType(complexTypeDef, 'Order');
       expect(gqlType.typeDef).toBe(complexTypeDef);
     });

@@ -5,7 +5,9 @@ import type { PresentationSpec } from '../presentations/presentations';
 import { StabilityEnum } from '../ownership';
 
 describe('validateFeatureTargetsV2', () => {
-  const createFeature = (overrides?: Partial<FeatureModuleSpec>): FeatureModuleSpec => ({
+  const createFeature = (
+    overrides?: Partial<FeatureModuleSpec>
+  ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
       version: 1,
@@ -18,7 +20,9 @@ describe('validateFeatureTargetsV2', () => {
     ...overrides,
   });
 
-  const createDescriptor = (overrides?: Partial<PresentationSpec>): PresentationSpec => ({
+  const createDescriptor = (
+    overrides?: Partial<PresentationSpec>
+  ): PresentationSpec => ({
     meta: {
       key: 'test.presentation',
       version: 1,
@@ -79,7 +83,11 @@ describe('validateFeatureTargetsV2', () => {
   it('should throw when any required target is missing', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 1, targets: ['react', 'application/xml'] },
+        {
+          key: 'test.presentation',
+          version: 1,
+          targets: ['react', 'application/xml'],
+        },
       ],
     });
 
@@ -93,11 +101,17 @@ describe('validateFeatureTargetsV2', () => {
   it('should return true when all targets are present', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 1, targets: ['react', 'markdown'] },
+        {
+          key: 'test.presentation',
+          version: 1,
+          targets: ['react', 'markdown'],
+        },
       ],
     });
 
-    const descriptors = [createDescriptor({ targets: ['react', 'markdown', 'application/json'] })];
+    const descriptors = [
+      createDescriptor({ targets: ['react', 'markdown', 'application/json'] }),
+    ];
 
     expect(validateFeatureTargetsV2(feature, descriptors)).toBe(true);
   });

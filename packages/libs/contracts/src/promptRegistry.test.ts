@@ -26,13 +26,23 @@ describe('PromptRegistry', () => {
     it('should return this for chaining', () => {
       const registry = new PromptRegistry();
       const prompt1 = definePrompt({
-        meta: { key: 'prompt.one', version: 1, title: 'One', description: 'First' },
+        meta: {
+          key: 'prompt.one',
+          version: 1,
+          title: 'One',
+          description: 'First',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
       });
       const prompt2 = definePrompt({
-        meta: { key: 'prompt.two', version: 1, title: 'Two', description: 'Second' },
+        meta: {
+          key: 'prompt.two',
+          version: 1,
+          title: 'Two',
+          description: 'Second',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
@@ -45,13 +55,23 @@ describe('PromptRegistry', () => {
     it('should throw on duplicate key+version', () => {
       const registry = new PromptRegistry();
       const prompt1 = definePrompt({
-        meta: { key: 'duplicate.prompt', version: 1, title: 'Original', description: 'First' },
+        meta: {
+          key: 'duplicate.prompt',
+          version: 1,
+          title: 'Original',
+          description: 'First',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
       });
       const prompt2 = definePrompt({
-        meta: { key: 'duplicate.prompt', version: 1, title: 'Duplicate', description: 'Second' },
+        meta: {
+          key: 'duplicate.prompt',
+          version: 1,
+          title: 'Duplicate',
+          description: 'Second',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
@@ -64,13 +84,23 @@ describe('PromptRegistry', () => {
     it('should allow same key with different versions', () => {
       const registry = new PromptRegistry();
       const v1 = definePrompt({
-        meta: { key: 'versioned.prompt', version: 1, title: 'V1', description: 'First' },
+        meta: {
+          key: 'versioned.prompt',
+          version: 1,
+          title: 'V1',
+          description: 'First',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
       });
       const v2 = definePrompt({
-        meta: { key: 'versioned.prompt', version: 2, title: 'V2', description: 'Second' },
+        meta: {
+          key: 'versioned.prompt',
+          version: 2,
+          title: 'V2',
+          description: 'Second',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],
@@ -104,7 +134,7 @@ describe('PromptRegistry', () => {
         }),
       ];
 
-      prompts.forEach(p => registry.register(p));
+      prompts.forEach((p) => registry.register(p));
       expect(registry.list()).toHaveLength(2);
     });
   });
@@ -113,7 +143,12 @@ describe('PromptRegistry', () => {
     it('should get prompt by name and version', () => {
       const registry = new PromptRegistry();
       const prompt = definePrompt({
-        meta: { key: 'target.prompt', version: 1, title: 'Target', description: 'Target prompt' },
+        meta: {
+          key: 'target.prompt',
+          version: 1,
+          title: 'Target',
+          description: 'Target prompt',
+        },
         args: [],
         input: z.object({}),
         render: async () => [],

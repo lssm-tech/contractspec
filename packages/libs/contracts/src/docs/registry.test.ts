@@ -1,15 +1,12 @@
-import { describe, expect, it, beforeEach } from 'bun:test';
-import {
-  DocRegistry,
-  registerDocBlocks,
-  listRegisteredDocBlocks,
-  docId,
-  defaultDocRegistry,
-} from './registry';
+import { describe, expect, it } from 'bun:test';
+import { DocRegistry, registerDocBlocks, docId } from './registry';
 import type { DocBlock } from './types';
 
 describe('DocRegistry', () => {
-  const createDocBlock = (id: string, overrides?: Partial<DocBlock>): DocBlock => ({
+  const createDocBlock = (
+    id: string,
+    overrides?: Partial<DocBlock>
+  ): DocBlock => ({
     id,
     title: `Title for ${id}`,
     body: `# ${id}\n\nBody content for ${id}`,
@@ -43,7 +40,7 @@ describe('DocRegistry', () => {
     it('should register a doc block', () => {
       const registry = new DocRegistry();
       const block = createDocBlock('docs.new');
-      
+
       registry.register(block);
       expect(registry.list()).toHaveLength(1);
     });
@@ -52,7 +49,7 @@ describe('DocRegistry', () => {
       const registry = new DocRegistry();
       const block1 = createDocBlock('docs.one');
       const block2 = createDocBlock('docs.two');
-      
+
       registry.register(block1).register(block2);
       expect(registry.list()).toHaveLength(2);
     });
@@ -63,13 +60,14 @@ describe('DocRegistry', () => {
         title: 'Feature Documentation',
         route: '/docs/feature',
       });
-      
+
       registry.register(block);
       const routes = registry.list();
-      
-      expect(routes[0]!.route).toBe('/docs/feature');
-      expect(routes[0]!.block).toBe(block);
-      expect(routes[0]!.descriptor.meta.title).toBe('Feature Documentation');
+
+      const route = routes[0];
+      expect(route?.route).toBe('/docs/feature');
+      expect(route?.block).toBe(block);
+      expect(route?.descriptor.meta.title).toBe('Feature Documentation');
     });
   });
 
@@ -77,10 +75,10 @@ describe('DocRegistry', () => {
     it('should get route by id', () => {
       const registry = new DocRegistry();
       const block = createDocBlock('docs.target');
-      
+
       registry.register(block);
       const result = registry.get('docs.target');
-      
+
       expect(result).toBeDefined();
       expect(result?.block.id).toBe('docs.target');
     });
@@ -99,8 +97,8 @@ describe('DocRegistry', () => {
         createDocBlock('docs.two'),
         createDocBlock('docs.three'),
       ];
-      
-      blocks.forEach(b => registry.register(b));
+
+      blocks.forEach((b) => registry.register(b));
       expect(registry.list()).toHaveLength(3);
     });
   });
@@ -109,13 +107,14 @@ describe('DocRegistry', () => {
     it('should return route/descriptor tuples', () => {
       const registry = new DocRegistry();
       const block = createDocBlock('docs.api', { route: '/docs/api' });
-      
+
       registry.register(block);
       const tuples = registry.toRouteTuples();
-      
+
       expect(tuples).toHaveLength(1);
-      expect(tuples[0]![0]).toBe('/docs/api');
-      expect(tuples[0]![1].meta.title).toBe('Title for docs.api');
+      const tuple = tuples[0];
+      expect(tuple?.[0]).toBe('/docs/api');
+      expect(tuple?.[1].meta.title).toBe('Title for docs.api');
     });
   });
 
@@ -123,22 +122,22 @@ describe('DocRegistry', () => {
     it('should return presentation specs', () => {
       const registry = new DocRegistry();
       const block = createDocBlock('docs.presentation');
-      
+
       registry.register(block);
       const specs = registry.toPresentationSpecs();
-      
+
       expect(specs).toHaveLength(1);
-      expect(specs[0]!.meta.key).toBe('docs.presentation');
+      expect(specs[0]?.meta.key).toBe('docs.presentation');
     });
 
     it('should apply options when converting', () => {
       const registry = new DocRegistry();
       const block = createDocBlock('docs.custom');
-      
+
       registry.register(block);
       const specs = registry.toPresentationSpecs({ namespace: 'web' });
-      
-      expect(specs[0]!.meta.key).toBe('web.docs.custom');
+
+      expect(specs[0]?.meta.key).toBe('web.docs.custom');
     });
   });
 });

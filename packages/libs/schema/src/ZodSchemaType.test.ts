@@ -39,9 +39,11 @@ describe('ZodSchemaType', () => {
     });
 
     it('should validate data correctly', () => {
-      const wrapper = new ZodSchemaType(z.object({
-        count: z.number().min(0),
-      }));
+      const wrapper = new ZodSchemaType(
+        z.object({
+          count: z.number().min(0),
+        })
+      );
 
       const zodSchema = wrapper.getZod();
       expect(zodSchema.parse({ count: 10 })).toEqual({ count: 10 });
@@ -51,33 +53,40 @@ describe('ZodSchemaType', () => {
 
   describe('getJsonSchema', () => {
     it('should convert Zod schema to JSON Schema', () => {
-      const wrapper = new ZodSchemaType(z.object({
-        name: z.string(),
-        active: z.boolean(),
-      }));
+      const wrapper = new ZodSchemaType(
+        z.object({
+          name: z.string(),
+          active: z.boolean(),
+        })
+      );
 
       const jsonSchema = wrapper.getJsonSchema() as Record<string, unknown>;
-      
+
       expect(jsonSchema).toBeDefined();
       expect(jsonSchema.type).toBe('object');
     });
 
     it('should handle primitive types', () => {
       const stringWrapper = new ZodSchemaType(z.string());
-      const jsonSchema = stringWrapper.getJsonSchema() as Record<string, unknown>;
-      
+      const jsonSchema = stringWrapper.getJsonSchema() as Record<
+        string,
+        unknown
+      >;
+
       expect(jsonSchema.type).toBe('string');
     });
   });
 
   describe('getPothos', () => {
     it('should return JSON type for complex schemas', () => {
-      const wrapper = new ZodSchemaType(
-        z.object({ data: z.unknown() }),
-        { name: 'ComplexType' }
-      );
+      const wrapper = new ZodSchemaType(z.object({ data: z.unknown() }), {
+        name: 'ComplexType',
+      });
 
-      expect(wrapper.getPothos()).toEqual({ type: 'JSON', name: 'ComplexType' });
+      expect(wrapper.getPothos()).toEqual({
+        type: 'JSON',
+        name: 'ComplexType',
+      });
     });
 
     it('should return JSON type without name', () => {
@@ -142,7 +151,7 @@ describe('fromZod helper', () => {
 
     const zodSchema = AddressSchema.getZod();
     const validAddress = { street: '123 Main', city: 'NYC', country: 'USA' };
-    
+
     expect(zodSchema.parse(validAddress)).toEqual(validAddress);
   });
 

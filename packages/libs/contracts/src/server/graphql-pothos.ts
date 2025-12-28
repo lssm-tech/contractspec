@@ -54,7 +54,9 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
     if (out && 'getZod' in out && typeof out.getZod === 'function') {
       const model = out as AnySchemaModel;
       // Only SchemaModel has config, other SchemaTypes don't
-      const typeName = isSchemaModel(model) ? model.config?.name : 'UnknownOutput';
+      const typeName = isSchemaModel(model)
+        ? model.config?.name
+        : 'UnknownOutput';
       if (typeName && !outputTypeCache.has(typeName)) {
         outputTypeCache.set(typeName, model);
       }
@@ -65,7 +67,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
   for (const [typeName, model] of outputTypeCache.entries()) {
     // Only SchemaModel has config.fields, skip other types
     if (!isSchemaModel(model)) continue;
-    
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     builder.objectType(typeName as any, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

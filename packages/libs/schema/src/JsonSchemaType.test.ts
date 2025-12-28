@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import * as z from 'zod';
-import { JsonSchemaType, fromJsonSchema } from './JsonSchemaType';
+import { fromJsonSchema, JsonSchemaType } from './JsonSchemaType';
 
 describe('JsonSchemaType', () => {
   describe('constructor', () => {
@@ -62,7 +61,9 @@ describe('JsonSchemaType', () => {
         });
 
         const zodSchema = jsonSchema.getZod();
-        expect(zodSchema.parse({ key1: 'value1', key2: 'value2' })).toBeDefined();
+        expect(
+          zodSchema.parse({ key1: 'value1', key2: 'value2' })
+        ).toBeDefined();
       });
     });
 
@@ -78,10 +79,10 @@ describe('JsonSchemaType', () => {
         });
 
         const zodSchema = jsonSchema.getZod();
-        
+
         // Required field must be present
         expect(zodSchema.parse({ name: 'John' })).toEqual({ name: 'John' });
-        
+
         // Optional field can be included
         expect(zodSchema.parse({ name: 'John', age: 30 })).toEqual({
           name: 'John',
@@ -153,7 +154,9 @@ describe('JsonSchemaType', () => {
         });
 
         const zodSchema = jsonSchema.getZod();
-        expect(zodSchema.parse({ tags: ['a', 'b'] })).toEqual({ tags: ['a', 'b'] });
+        expect(zodSchema.parse({ tags: ['a', 'b'] })).toEqual({
+          tags: ['a', 'b'],
+        });
       });
 
       it('should convert nested object type', () => {
@@ -199,14 +202,16 @@ describe('JsonSchemaType', () => {
         });
 
         const zodSchema = jsonSchema.getZod();
-        expect(zodSchema.parse({ data: 'anything' })).toEqual({ data: 'anything' });
+        expect(zodSchema.parse({ data: 'anything' })).toEqual({
+          data: 'anything',
+        });
       });
     });
 
     it('should return passthrough object for empty schema', () => {
       const jsonSchema = new JsonSchemaType({});
       const zodSchema = jsonSchema.getZod();
-      
+
       expect(zodSchema.parse({ any: 'value' })).toEqual({ any: 'value' });
     });
   });
@@ -219,7 +224,7 @@ describe('JsonSchemaType', () => {
           id: { type: 'string' },
         },
       };
-      
+
       const jsonSchemaType = new JsonSchemaType(originalSchema);
       expect(jsonSchemaType.getJsonSchema()).toEqual(originalSchema);
     });
@@ -232,7 +237,10 @@ describe('JsonSchemaType', () => {
         { name: 'CustomData' }
       );
 
-      expect(jsonSchema.getPothos()).toEqual({ type: 'JSON', name: 'CustomData' });
+      expect(jsonSchema.getPothos()).toEqual({
+        type: 'JSON',
+        name: 'CustomData',
+      });
     });
 
     it('should return JSON type without name', () => {

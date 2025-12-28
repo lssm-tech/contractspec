@@ -72,7 +72,9 @@ describe('ScalarTypeEnum', () => {
     describe('JSON', () => {
       it('should accept any value', () => {
         const field = ScalarTypeEnum.JSON();
-        expect(field.getZod().parse({ key: 'value' })).toEqual({ key: 'value' });
+        expect(field.getZod().parse({ key: 'value' })).toEqual({
+          key: 'value',
+        });
         expect(field.getZod().parse([1, 2, 3])).toEqual([1, 2, 3]);
         expect(field.getZod().parse('string')).toBe('string');
       });
@@ -81,7 +83,9 @@ describe('ScalarTypeEnum', () => {
     describe('JSONObject', () => {
       it('should validate objects', () => {
         const field = ScalarTypeEnum.JSONObject();
-        expect(field.getZod().parse({ key: 'value' })).toEqual({ key: 'value' });
+        expect(field.getZod().parse({ key: 'value' })).toEqual({
+          key: 'value',
+        });
       });
 
       it('should have correct JSON schema', () => {
@@ -99,7 +103,10 @@ describe('ScalarTypeEnum', () => {
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.Date();
-        expect(field.getJsonSchema()).toEqual({ type: 'string', format: 'date' });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'string',
+          format: 'date',
+        });
       });
     });
 
@@ -112,7 +119,10 @@ describe('ScalarTypeEnum', () => {
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.DateTime();
-        expect(field.getJsonSchema()).toEqual({ type: 'string', format: 'date-time' });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'string',
+          format: 'date-time',
+        });
       });
     });
 
@@ -128,26 +138,36 @@ describe('ScalarTypeEnum', () => {
     describe('EmailAddress', () => {
       it('should validate email format', () => {
         const field = ScalarTypeEnum.EmailAddress();
-        expect(field.getZod().parse('test@example.com')).toBe('test@example.com');
+        expect(field.getZod().parse('test@example.com')).toBe(
+          'test@example.com'
+        );
         expect(() => field.getZod().parse('not-an-email')).toThrow();
       });
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.EmailAddress();
-        expect(field.getJsonSchema()).toEqual({ type: 'string', format: 'email' });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'string',
+          format: 'email',
+        });
       });
     });
 
     describe('URL', () => {
       it('should validate URL format', () => {
         const field = ScalarTypeEnum.URL();
-        expect(field.getZod().parse('https://example.com')).toBe('https://example.com');
+        expect(field.getZod().parse('https://example.com')).toBe(
+          'https://example.com'
+        );
         expect(() => field.getZod().parse('not-a-url')).toThrow();
       });
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.URL();
-        expect(field.getJsonSchema()).toEqual({ type: 'string', format: 'uri' });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'string',
+          format: 'uri',
+        });
       });
     });
 
@@ -186,7 +206,9 @@ describe('ScalarTypeEnum', () => {
       it('should validate timezone format', () => {
         const field = ScalarTypeEnum.TimeZone();
         expect(field.getZod().parse('UTC')).toBe('UTC');
-        expect(field.getZod().parse('America/New_York')).toBe('America/New_York');
+        expect(field.getZod().parse('America/New_York')).toBe(
+          'America/New_York'
+        );
       });
     });
 
@@ -202,7 +224,11 @@ describe('ScalarTypeEnum', () => {
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.Latitude();
-        expect(field.getJsonSchema()).toEqual({ type: 'number', minimum: -90, maximum: 90 });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'number',
+          minimum: -90,
+          maximum: 90,
+        });
       });
     });
 
@@ -218,7 +244,11 @@ describe('ScalarTypeEnum', () => {
 
       it('should have correct JSON schema', () => {
         const field = ScalarTypeEnum.Longitude();
-        expect(field.getJsonSchema()).toEqual({ type: 'number', minimum: -180, maximum: 180 });
+        expect(field.getJsonSchema()).toEqual({
+          type: 'number',
+          minimum: -180,
+          maximum: 180,
+        });
       });
     });
 

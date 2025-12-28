@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test';
 import {
-  generatePrismaSchema,
   composeModuleSchemas,
   generateEntityFragment,
   generateEnumFragment,
+  generatePrismaSchema,
 } from './generator';
 import { defineEntity, defineEntityEnum, field, index } from './defineEntity';
-import type { EntitySpec, EntityEnumDef, ModuleSchemaContribution } from './types';
+import type { ModuleSchemaContribution } from './types';
 
 describe('generatePrismaSchema', () => {
   it('should generate basic Prisma schema', () => {
@@ -108,10 +108,7 @@ describe('generatePrismaSchema', () => {
         email: field.string(),
         name: field.string(),
       },
-      indexes: [
-        index.unique(['email']),
-        index.on(['name']),
-      ],
+      indexes: [index.unique(['email']), index.on(['name'])],
     });
 
     const schema = generatePrismaSchema([Entity]);
@@ -179,7 +176,9 @@ describe('generatePrismaSchema', () => {
     const schema = generatePrismaSchema([UserEntity, PostEntity]);
 
     expect(schema).toContain('posts Post[]');
-    expect(schema).toContain('author User @relation(fields: [userId], references: [id])');
+    expect(schema).toContain(
+      'author User @relation(fields: [userId], references: [id])'
+    );
   });
 
   it('should include Pothos generator by default', () => {
@@ -282,7 +281,9 @@ describe('composeModuleSchemas', () => {
     const module1: ModuleSchemaContribution = {
       moduleId: '@app/core',
       entities: [defineEntity({ name: 'Entity1', fields: { id: field.id() } })],
-      enums: [defineEntityEnum({ name: 'Status', values: ['ACTIVE', 'INACTIVE'] })],
+      enums: [
+        defineEntityEnum({ name: 'Status', values: ['ACTIVE', 'INACTIVE'] }),
+      ],
     };
 
     const module2: ModuleSchemaContribution = {

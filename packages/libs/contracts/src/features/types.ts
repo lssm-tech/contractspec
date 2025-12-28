@@ -1,8 +1,5 @@
 import type { OwnerShipMeta } from '../ownership';
-import type {
-  CapabilityRef,
-  CapabilityRequirement,
-} from '../capabilities';
+import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
 import type { ExperimentRef } from '../experiments/spec';
 import type { ImplementationRef } from '../operations/';
 import type { PresentationTarget } from '../presentations/presentations';
@@ -28,6 +25,22 @@ export interface PresentationRef {
   /** Presentation key. */
   key: string;
   /** Presentation version. */
+  version: number;
+}
+
+/**
+ * Reference to a data view spec.
+ */
+export interface DataViewRef {
+  key: string;
+  version: number;
+}
+
+/**
+ * Reference to a form spec.
+ */
+export interface FormRef {
+  key: string;
   version: number;
 }
 
@@ -64,6 +77,12 @@ export interface FeatureModuleSpec {
    * Used for tracking and verifying that this feature is correctly implemented.
    */
   implementations?: ImplementationRef[];
+
+  /** Data views associated with this feature. */
+  dataViews?: DataViewRef[];
+
+  /** Forms associated with this feature. */
+  forms?: FormRef[];
 }
 
 export interface FeatureRef {

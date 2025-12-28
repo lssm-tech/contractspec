@@ -44,7 +44,7 @@ describe('SchemaModel', () => {
 
       const zodSchema = UserModel.getZod();
       const validUser = { id: 'abc123', email: 'test@example.com' };
-      
+
       expect(zodSchema.parse(validUser)).toEqual(validUser);
     });
 
@@ -52,33 +52,49 @@ describe('SchemaModel', () => {
       const Model = new SchemaModel({
         name: 'OptionalFields',
         fields: {
-          required: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-          optional: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+          required: {
+            type: ScalarTypeEnum.String_unsecure(),
+            isOptional: false,
+          },
+          optional: {
+            type: ScalarTypeEnum.String_unsecure(),
+            isOptional: true,
+          },
         },
       });
 
       const zodSchema = Model.getZod();
-      
+
       // Should pass without optional field
-      expect(zodSchema.parse({ required: 'value' })).toEqual({ required: 'value' });
-      
-      // Should pass with optional field
-      expect(zodSchema.parse({ required: 'value', optional: 'extra' })).toEqual({
+      expect(zodSchema.parse({ required: 'value' })).toEqual({
         required: 'value',
-        optional: 'extra',
       });
+
+      // Should pass with optional field
+      expect(zodSchema.parse({ required: 'value', optional: 'extra' })).toEqual(
+        {
+          required: 'value',
+          optional: 'extra',
+        }
+      );
     });
 
     it('should handle array fields', () => {
       const Model = new SchemaModel({
         name: 'ArrayFields',
         fields: {
-          tags: { type: ScalarTypeEnum.String_unsecure(), isOptional: false, isArray: true },
+          tags: {
+            type: ScalarTypeEnum.String_unsecure(),
+            isOptional: false,
+            isArray: true,
+          },
         },
       });
 
       const zodSchema = Model.getZod();
-      expect(zodSchema.parse({ tags: ['a', 'b', 'c'] })).toEqual({ tags: ['a', 'b', 'c'] });
+      expect(zodSchema.parse({ tags: ['a', 'b', 'c'] })).toEqual({
+        tags: ['a', 'b', 'c'],
+      });
     });
 
     it('should handle enum fields', () => {
@@ -91,7 +107,9 @@ describe('SchemaModel', () => {
       });
 
       const zodSchema = Model.getZod();
-      expect(zodSchema.parse({ status: 'ACTIVE' })).toEqual({ status: 'ACTIVE' });
+      expect(zodSchema.parse({ status: 'ACTIVE' })).toEqual({
+        status: 'ACTIVE',
+      });
       expect(() => zodSchema.parse({ status: 'INVALID' })).toThrow();
     });
 
@@ -117,7 +135,7 @@ describe('SchemaModel', () => {
         name: 'John',
         address: { street: '123 Main St', city: 'NYC' },
       };
-      
+
       expect(zodSchema.parse(validPerson)).toEqual(validPerson);
     });
   });
@@ -186,6 +204,8 @@ describe('defineSchemaModel helper', () => {
     const directModel = new SchemaModel(config);
 
     expect(helperModel.config.name).toBe(directModel.config.name);
-    expect(Object.keys(helperModel.config.fields)).toEqual(Object.keys(directModel.config.fields));
+    expect(Object.keys(helperModel.config.fields)).toEqual(
+      Object.keys(directModel.config.fields)
+    );
   });
 });

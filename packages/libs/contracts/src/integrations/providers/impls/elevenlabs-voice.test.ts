@@ -1,4 +1,3 @@
-import { Readable } from 'node:stream';
 import { describe, expect, it, vi } from 'bun:test';
 
 import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
@@ -68,7 +67,8 @@ function createMockClient() {
       convert: vi.fn(async () => stream),
     },
   };
-  return mockClient as unknown as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return mockClient as any;
 }
 
 function buildReadable(buffer: Buffer) {

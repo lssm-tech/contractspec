@@ -30,13 +30,7 @@ export function generateSpecCode(
   lines.push(
     "import { defineCommand, defineQuery } from '@lssm/lib.contracts';"
   );
-  if (
-    inputModel ||
-    outputModel ||
-    queryModel ||
-    paramsModel ||
-    headersModel
-  ) {
+  if (inputModel || outputModel || queryModel || paramsModel || headersModel) {
     const collectedImports = new Set<string>();
     const models = [
       inputModel,

@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'bun:test';
-import { jsonSchemaForSpec, defaultRestPath, defaultMcpTool, defaultGqlField } from './jsonschema';
+import {
+  jsonSchemaForSpec,
+  defaultRestPath,
+  defaultMcpTool,
+  defaultGqlField,
+} from './jsonschema';
 import { defineCommand, defineQuery } from './operations';
 import { SchemaModel, ScalarTypeEnum } from '@lssm/lib.schema';
 
@@ -120,7 +125,9 @@ describe('defaultRestPath', () => {
   });
 
   it('should handle nested namespaces', () => {
-    expect(defaultRestPath('api.v1.users.list', 1)).toBe('/api/v1/users/list/v1');
+    expect(defaultRestPath('api.v1.users.list', 1)).toBe(
+      '/api/v1/users/list/v1'
+    );
   });
 });
 

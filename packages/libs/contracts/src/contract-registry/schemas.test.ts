@@ -62,17 +62,21 @@ describe('ContractRegistryFileSchema', () => {
   });
 
   it('should reject empty path', () => {
-    expect(() => ContractRegistryFileSchema.parse({
-      path: '',
-      type: 'spec',
-    })).toThrow();
+    expect(() =>
+      ContractRegistryFileSchema.parse({
+        path: '',
+        type: 'spec',
+      })
+    ).toThrow();
   });
 
   it('should reject empty type', () => {
-    expect(() => ContractRegistryFileSchema.parse({
-      path: 'file.ts',
-      type: '',
-    })).toThrow();
+    expect(() =>
+      ContractRegistryFileSchema.parse({
+        path: 'file.ts',
+        type: '',
+      })
+    ).toThrow();
   });
 });
 
@@ -88,9 +92,7 @@ describe('ContractRegistryItemSchema', () => {
       owners: ['platform.core'],
       tags: ['users', 'auth'],
     },
-    files: [
-      { path: 'src/operations/user-create.ts', type: 'spec' },
-    ],
+    files: [{ path: 'src/operations/user-create.ts', type: 'spec' }],
     ...overrides,
   });
 
@@ -105,8 +107,15 @@ describe('ContractRegistryItemSchema', () => {
   });
 
   it('should accept all stability values', () => {
-    const stabilities = ['idea', 'in_creation', 'experimental', 'beta', 'stable', 'deprecated'] as const;
-    
+    const stabilities = [
+      'idea',
+      'in_creation',
+      'experimental',
+      'beta',
+      'stable',
+      'deprecated',
+    ] as const;
+
     for (const stability of stabilities) {
       const item = createValidItem({
         meta: { stability, owners: [], tags: [] },
@@ -163,7 +172,7 @@ describe('ContractRegistryItemSchema', () => {
 
   it('should default empty arrays for owners and tags', () => {
     const item = createValidItem({
-      meta: { stability: 'stable' } as any,
+      meta: { stability: 'stable' } as unknown as ContractRegistryItem['meta'],
     });
     const result = ContractRegistryItemSchema.parse(item);
 
@@ -173,7 +182,9 @@ describe('ContractRegistryItemSchema', () => {
 });
 
 describe('ContractRegistryManifestSchema', () => {
-  const createValidManifest = (overrides?: Partial<ContractRegistryManifest>) => ({
+  const createValidManifest = (
+    overrides?: Partial<ContractRegistryManifest>
+  ) => ({
     name: 'my-registry',
     items: [
       {
@@ -203,7 +214,9 @@ describe('ContractRegistryManifestSchema', () => {
     });
     const result = ContractRegistryManifestSchema.parse(manifest);
 
-    expect(result.$schema).toBe('https://contractspec.io/schemas/registry.json');
+    expect(result.$schema).toBe(
+      'https://contractspec.io/schemas/registry.json'
+    );
   });
 
   it('should accept optional homepage', () => {
@@ -231,14 +244,14 @@ describe('ContractRegistryManifestSchema', () => {
     const manifest = createValidManifest({
       items: [
         {
-          key: '',  // Invalid: empty key
+          key: '', // Invalid: empty key
           type: 'contractspec:operation',
           version: 1,
           title: 'Bad',
           description: 'Bad item',
           meta: { stability: 'stable', owners: [], tags: [] },
           files: [{ path: 'test.ts', type: 'spec' }],
-        } as any,
+        } as unknown as ContractRegistryItem,
       ],
     });
     expect(() => ContractRegistryManifestSchema.parse(manifest)).toThrow();

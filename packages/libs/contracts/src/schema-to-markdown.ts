@@ -270,7 +270,7 @@ function getFieldMeta(
   if (!isSchemaModel(schema)) {
     return [];
   }
-  
+
   const schemaFields = schema.config.fields;
   const fieldNames = Object.keys(schemaFields);
 

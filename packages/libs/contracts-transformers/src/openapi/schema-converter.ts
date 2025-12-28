@@ -6,7 +6,7 @@
 import { createSchemaGenerator } from './schema-generators';
 import type { SchemaFormat, ContractsrcConfig } from '@lssm/lib.contracts';
 import type { OpenApiSchema } from './types';
-import { toCamelCase, toPascalCase, toValidIdentifier } from '../common/utils';
+import { toPascalCase } from '../common/utils';
 
 /**
  * Map JSON Schema types to ContractSpec ScalarTypeEnum values.
@@ -235,7 +235,6 @@ export function getScalarType(schema: OpenApiSchema): string | undefined {
 export function generateSchemaModelCode(
   schema: OpenApiSchema,
   modelName: string,
-  indent = 0,
   schemaFormat: SchemaFormat = 'contractspec',
   config?: ContractsrcConfig
 ): GeneratedModel {

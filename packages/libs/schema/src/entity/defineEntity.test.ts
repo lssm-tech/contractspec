@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-import * as z from 'zod';
 import { defineEntity, defineEntityEnum, field, index } from './defineEntity';
 
 describe('defineEntity', () => {
@@ -42,6 +41,7 @@ describe('defineEntity', () => {
     });
 
     expect(Entity.indexes).toHaveLength(1);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(Entity.indexes![0]!.unique).toBe(true);
   });
 });

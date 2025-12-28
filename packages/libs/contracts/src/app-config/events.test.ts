@@ -16,7 +16,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should have valid payload schema', () => {
       const zodSchema = ConfigDraftCreatedEvent.payload.getZod();
-      
+
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -31,7 +31,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should support optional clonedFrom field', () => {
       const zodSchema = ConfigDraftCreatedEvent.payload.getZod();
-      
+
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -48,13 +48,15 @@ describe('App Config Lifecycle Events', () => {
 
   describe('ConfigPromotedToPreviewEvent', () => {
     it('should have correct metadata', () => {
-      expect(ConfigPromotedToPreviewEvent.meta.key).toBe('app_config.promoted_to_preview');
+      expect(ConfigPromotedToPreviewEvent.meta.key).toBe(
+        'app_config.promoted_to_preview'
+      );
       expect(ConfigPromotedToPreviewEvent.meta.version).toBe(1);
     });
 
     it('should have valid payload schema', () => {
       const zodSchema = ConfigPromotedToPreviewEvent.payload.getZod();
-      
+
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -67,7 +69,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should support optional warnings array', () => {
       const zodSchema = ConfigPromotedToPreviewEvent.payload.getZod();
-      
+
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -88,7 +90,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should have valid payload schema', () => {
       const zodSchema = ConfigPublishedEvent.payload.getZod();
-      
+
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -101,7 +103,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should support optional fields', () => {
       const zodSchema = ConfigPublishedEvent.payload.getZod();
-      
+
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -124,7 +126,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should have valid payload schema', () => {
       const zodSchema = ConfigRolledBackEvent.payload.getZod();
-      
+
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
@@ -140,7 +142,7 @@ describe('App Config Lifecycle Events', () => {
 
     it('should require all rollback fields', () => {
       const zodSchema = ConfigRolledBackEvent.payload.getZod();
-      
+
       const incompletePayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',

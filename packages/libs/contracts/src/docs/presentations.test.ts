@@ -39,7 +39,9 @@ describe('docBlockToPresentationSpec', () => {
 
   it('should apply namespace option', () => {
     const block = createDocBlock({ id: 'feature.docs' });
-    const spec = docBlockToPresentationSpec(block, { namespace: 'web-landing' });
+    const spec = docBlockToPresentationSpec(block, {
+      namespace: 'web-landing',
+    });
 
     expect(spec.meta.key).toBe('web-landing.feature.docs');
   });
@@ -67,7 +69,9 @@ describe('docBlockToPresentationSpec', () => {
 
   it('should use defaultStability option when block has no stability', () => {
     const block = createDocBlock({ stability: undefined });
-    const spec = docBlockToPresentationSpec(block, { defaultStability: 'experimental' });
+    const spec = docBlockToPresentationSpec(block, {
+      defaultStability: 'experimental',
+    });
 
     expect(spec.meta.stability).toBe('experimental');
   });
@@ -140,7 +144,9 @@ describe('docBlocksToPresentationRoutes', () => {
     const routes = docBlocksToPresentationRoutes(blocks);
 
     expect(routes).toHaveLength(2);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(routes[0]!.route).toBe('/docs/one');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(routes[1]!.route).toBe('/docs/two');
   });
 
@@ -148,34 +154,41 @@ describe('docBlocksToPresentationRoutes', () => {
     const blocks = createDocBlocks();
     const routes = docBlocksToPresentationRoutes(blocks);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(routes[0]!.block).toBe(blocks[0]!);
   });
 
   it('should derive route from id when route not provided', () => {
-    const blocks: DocBlock[] = [{
-      id: 'docs.api.users',
-      title: 'Users API',
-      body: 'Content',
-      kind: 'reference',
-      visibility: 'public',
-    }];
+    const blocks: DocBlock[] = [
+      {
+        id: 'docs.api.users',
+        title: 'Users API',
+        body: 'Content',
+        kind: 'reference',
+        visibility: 'public',
+      },
+    ];
     const routes = docBlocksToPresentationRoutes(blocks);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(routes[0]!.route).toBe('/docs/api/users');
   });
 
   it('should use custom route prefix', () => {
-    const blocks: DocBlock[] = [{
-      id: 'docs.feature',
-      title: 'Feature',
-      body: 'Content',
-      kind: 'goal',
-      visibility: 'public',
-    }];
+    const blocks: DocBlock[] = [
+      {
+        id: 'docs.feature',
+        title: 'Feature',
+        body: 'Content',
+        kind: 'goal',
+        visibility: 'public',
+      },
+    ];
     const routes = docBlocksToPresentationRoutes(blocks, {
       routePrefix: '/documentation',
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(routes[0]!.route).toBe('/documentation/feature');
   });
 });
@@ -189,26 +202,32 @@ describe('docBlocksToPresentationSpecs', () => {
     const specs = docBlocksToPresentationSpecs(blocks);
 
     expect(specs).toHaveLength(2);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(specs[0]!.meta.key).toBe('a');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(specs[1]!.meta.key).toBe('b');
   });
 });
 
 describe('mapDocRoutes', () => {
   it('should map routes to tuples', () => {
-    const blocks: DocBlock[] = [{
-      id: 'docs.map',
-      title: 'Map Test',
-      body: 'Content',
-      kind: 'goal',
-      visibility: 'public',
-      route: '/docs/map',
-    }];
+    const blocks: DocBlock[] = [
+      {
+        id: 'docs.map',
+        title: 'Map Test',
+        body: 'Content',
+        kind: 'goal',
+        visibility: 'public',
+        route: '/docs/map',
+      },
+    ];
     const routes = docBlocksToPresentationRoutes(blocks);
     const tuples = mapDocRoutes(routes);
 
     expect(tuples).toHaveLength(1);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(tuples[0]![0]).toBe('/docs/map');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(tuples[0]![1].meta.key).toBe('docs.map');
   });
 });

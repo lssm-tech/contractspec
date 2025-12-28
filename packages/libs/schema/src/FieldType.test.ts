@@ -77,7 +77,10 @@ describe('FieldType', () => {
       });
 
       expect(urlField.getJson()).toEqual({ type: 'string', format: 'uri' });
-      expect(urlField.getJsonSchema()).toEqual({ type: 'string', format: 'uri' });
+      expect(urlField.getJsonSchema()).toEqual({
+        type: 'string',
+        format: 'uri',
+      });
     });
 
     it('should evaluate factory function for JSON schema', () => {
@@ -139,7 +142,9 @@ describe('FieldType', () => {
         jsonSchema: { type: 'string' },
       });
 
-      expect(stringField.parseLiteral({ kind: Kind.STRING, value: 'hello' }, {})).toBe('hello');
+      expect(
+        stringField.parseLiteral({ kind: Kind.STRING, value: 'hello' }, {})
+      ).toBe('hello');
     });
   });
 });

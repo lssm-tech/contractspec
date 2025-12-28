@@ -2,14 +2,13 @@ import { describe, expect, it } from 'bun:test';
 import { installFeature } from './install';
 import { FeatureRegistry } from './registry';
 import type { FeatureModuleSpec } from './types';
-import {
-  CapabilityRegistry,
-  type CapabilitySpec,
-} from '../capabilities';
+import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { StabilityEnum } from '../ownership';
 
 describe('installFeature', () => {
-  const createFeature = (overrides?: Partial<FeatureModuleSpec>): FeatureModuleSpec => ({
+  const createFeature = (
+    overrides?: Partial<FeatureModuleSpec>
+  ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
       version: 1,
@@ -84,7 +83,9 @@ describe('installFeature', () => {
         },
       });
 
-      expect(() => installFeature(feature, { features, capabilities })).not.toThrow();
+      expect(() =>
+        installFeature(feature, { features, capabilities })
+      ).not.toThrow();
       expect(features.get('test.feature')).toBeDefined();
     });
 
@@ -100,7 +101,9 @@ describe('installFeature', () => {
         },
       });
 
-      expect(() => installFeature(feature, { features, capabilities })).not.toThrow();
+      expect(() =>
+        installFeature(feature, { features, capabilities })
+      ).not.toThrow();
     });
 
     it('should throw when capability is provided but not registered', () => {
@@ -163,8 +166,17 @@ describe('installFeature', () => {
             goal: 'Profile view',
             context: 'Context',
           },
-          targets: ['markdown'] as ('react' | 'markdown' | 'application/json' | 'application/xml')[],
-          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' as const },
+          targets: ['markdown'] as (
+            | 'react'
+            | 'markdown'
+            | 'application/json'
+            | 'application/xml'
+          )[],
+          source: {
+            type: 'component' as const,
+            componentKey: 'UserProfile',
+            framework: 'react' as const,
+          },
         },
       ];
 
@@ -174,9 +186,9 @@ describe('installFeature', () => {
         ],
       });
 
-      expect(() =>
-        installFeature(feature, { features, descriptors })
-      ).toThrow(/missing target react/);
+      expect(() => installFeature(feature, { features, descriptors })).toThrow(
+        /missing target react/
+      );
     });
 
     it('should pass when descriptor has all required targets', () => {
@@ -195,8 +207,17 @@ describe('installFeature', () => {
             goal: 'Profile view',
             context: 'Context',
           },
-          targets: ['react', 'markdown'] as ('react' | 'markdown' | 'application/json' | 'application/xml')[],
-          source: { type: 'component' as const, componentKey: 'UserProfile', framework: 'react' as const },
+          targets: ['react', 'markdown'] as (
+            | 'react'
+            | 'markdown'
+            | 'application/json'
+            | 'application/xml'
+          )[],
+          source: {
+            type: 'component' as const,
+            componentKey: 'UserProfile',
+            framework: 'react' as const,
+          },
         },
       ];
 

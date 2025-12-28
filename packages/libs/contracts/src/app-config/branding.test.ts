@@ -18,8 +18,13 @@ describe('BrandingAssetRef interface', () => {
   });
 
   it('should define all asset types', () => {
-    const types: BrandingAssetRef['type'][] = ['logo', 'logo-dark', 'favicon', 'og-image'];
-    
+    const types: BrandingAssetRef['type'][] = [
+      'logo',
+      'logo-dark',
+      'favicon',
+      'og-image',
+    ];
+
     for (const type of types) {
       const asset: BrandingAssetRef = { type };
       expect(asset.type).toBe(type);

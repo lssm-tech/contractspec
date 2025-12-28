@@ -222,13 +222,21 @@ export const importCommand = new Command('import')
             );
           }
           // For JSON Schema format models
-          if (!match && type === 'model' && spec.code.includes('new JsonSchemaType(')) {
+          if (
+            !match &&
+            type === 'model' &&
+            spec.code.includes('new JsonSchemaType(')
+          ) {
             match = spec.code.match(
               /export const (\w+)\s*=\s*new JsonSchemaType\(/
             );
           }
           // For GraphQL format models
-          if (!match && type === 'model' && spec.code.includes('new GraphQLSchemaType(')) {
+          if (
+            !match &&
+            type === 'model' &&
+            spec.code.includes('new GraphQLSchemaType(')
+          ) {
             match = spec.code.match(
               /export const (\w+)\s*=\s*new GraphQLSchemaType\(/
             );
