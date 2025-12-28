@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.ai-agent",
-  "version": "1.43.3",
+  "name": "@lssm/lib.ai-agent",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -30,13 +30,13 @@
     "@ai-sdk/mistral": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
     "@modelcontextprotocol/sdk": "^1.24.3",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.knowledge": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -1,5 +1,25 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/example.learning-journey-studio-onboarding@1.43.3
+  - @lssm/example.learning-journey-quest-challenges@1.43.4
+  - @lssm/example.learning-journey-crm-onboarding@1.43.4
+  - @lssm/example.learning-journey-ambient-coach@1.43.4
+  - @lssm/example.learning-journey-platform-tour@1.43.3
+  - @lssm/example.learning-journey-ui-onboarding@1.43.4
+  - @lssm/example.learning-journey-ui-coaching@1.43.4
+  - @lssm/example.learning-journey-ui-gamified@1.43.4
+  - @lssm/example.learning-journey-duo-drills@1.43.4
+  - @lssm/example.learning-journey-ui-shared@1.43.4
+  - @lssm/module.learning-journey@1.43.4
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes

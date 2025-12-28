@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.knowledge",
-  "version": "1.43.3",
+  "name": "@lssm/lib.knowledge",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -23,11 +23,11 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

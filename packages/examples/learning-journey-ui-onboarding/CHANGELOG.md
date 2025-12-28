@@ -1,5 +1,21 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/example.learning-journey-studio-onboarding@1.43.3
+  - @lssm/example.learning-journey-platform-tour@1.43.3
+  - @lssm/example.learning-journey-ui-shared@1.43.4
+  - @lssm/module.learning-journey@1.43.4
+  - @lssm/lib.design-system@1.43.4
+  - @lssm/lib.ui-kit-core@1.43.3
+  - @lssm/lib.ui-kit-web@1.43.3
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes

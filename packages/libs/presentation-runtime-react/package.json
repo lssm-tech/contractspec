@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.presentation-runtime-react",
-  "version": "1.43.3",
+  "name": "@lssm/lib.presentation-runtime-react",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,13 +21,13 @@
     "react": "^19.2.3",
     "react-hook-form": "^7.68.0",
     "zod": "^4.1.13",
-    "@contractspec/lib.presentation-runtime-core": "workspace:*"
+    "@lssm/lib.presentation-runtime-core": "workspace:*"
   },
   "dependencies": {
-    "@contractspec/lib.presentation-runtime-core": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.ui-kit-web": "workspace:*"
+    "@lssm/lib.presentation-runtime-core": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*"
   },
   "files": [
     "dist",

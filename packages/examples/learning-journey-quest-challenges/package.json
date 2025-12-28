@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.learning-journey-quest-challenges",
-  "version": "1.43.3",
+  "name": "@lssm/example.learning-journey-quest-challenges",
+  "version": "1.43.4",
   "description": "Time-bound quest/challenge learning journey example.",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,13 +27,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/module.learning-journey": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.agent-console",
-  "version": "1.43.3",
+  "name": "@lssm/example.agent-console",
+  "version": "1.43.4",
   "description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
   "type": "module",
   "main": "./dist/index.js",
@@ -57,16 +57,16 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

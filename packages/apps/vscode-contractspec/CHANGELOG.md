@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/bundle.contractspec-workspace@1.43.4
+  - @lssm/module.contractspec-workspace@1.43.4
+  - @lssm/module.contractspec-examples@1.43.4
+  - @lssm/lib.contracts-transformers@1.43.4
+  - @lssm/lib.contracts@1.43.4
+
 ## 1.43.3
 
 ### Patch Changes

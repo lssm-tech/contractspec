@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.crm-pipeline",
-  "version": "1.43.3",
+  "name": "@lssm/example.crm-pipeline",
+  "version": "1.43.4",
   "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
   "type": "module",
   "main": "./dist/index.js",
@@ -47,18 +47,18 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.bus": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/module.notifications": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

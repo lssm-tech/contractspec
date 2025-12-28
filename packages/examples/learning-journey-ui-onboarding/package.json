@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.learning-journey-ui-onboarding",
-  "version": "1.43.3",
+  "name": "@lssm/example.learning-journey-ui-onboarding",
+  "version": "1.43.4",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
   "main": "./dist/index.js",
@@ -36,20 +36,20 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/example.learning-journey-ui-shared": "workspace:*",
-    "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",
-    "@contractspec/example.learning-journey-platform-tour": "workspace:*",
-    "@contractspec/module.learning-journey": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.ui-kit-web": "workspace:*",
+    "@lssm/lib.ui-kit-core": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/example.learning-journey-ui-shared": "workspace:*",
+    "@lssm/example.learning-journey-studio-onboarding": "workspace:*",
+    "@lssm/example.learning-journey-platform-tour": "workspace:*",
+    "@lssm/module.learning-journey": "workspace:*",
+    "@lssm/lib.design-system": "workspace:*",
+    "@lssm/lib.ui-kit-web": "workspace:*",
     "react": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "@types/react": "^19.1.6",
     "tsdown": "catalog:build",
     "typescript": "catalog:"

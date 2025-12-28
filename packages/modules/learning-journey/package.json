@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/module.learning-journey",
-  "version": "1.43.3",
+  "name": "@lssm/module.learning-journey",
+  "version": "1.43.4",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,13 +18,13 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

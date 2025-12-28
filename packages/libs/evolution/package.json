@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.evolution",
-  "version": "1.43.3",
+  "name": "@lssm/lib.evolution",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -25,18 +25,18 @@
   "dependencies": {
     "ai": "catalog:ai",
     "zod": "catalog:",
-    "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.lifecycle": "workspace:*",
-    "@contractspec/lib.observability": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*"
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.lifecycle": "workspace:*",
+    "@lssm/lib.observability": "workspace:*",
+    "@lssm/lib.schema": "workspace:*"
   },
   "peerDependencies": {
     "@prisma/client": "7.2.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

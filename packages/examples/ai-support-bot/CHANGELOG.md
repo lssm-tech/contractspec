@@ -1,5 +1,17 @@
 # @contractspec/example.ai-support-bot
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.support-bot@1.43.4
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.knowledge@1.43.4
+  - @lssm/lib.logger@1.43.3
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes

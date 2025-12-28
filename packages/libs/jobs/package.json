@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.jobs",
-  "version": "1.43.3",
+  "name": "@lssm/lib.jobs",
+  "version": "1.43.4",
   "description": "Background jobs and scheduler module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,17 +18,17 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.logger": "workspace:*",
-    "@contractspec/lib.knowledge": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.logger": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
     "@aws-sdk/client-sqs": "^3.958.0",
     "zod": "catalog:",
     "cron-parser": "^5.4.0"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

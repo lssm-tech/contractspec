@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/app.cli-databases",
-  "version": "1.43.2",
+  "name": "@lssm/app.cli-databases",
+  "version": "1.43.3",
   "type": "module",
   "bin": {
     "databases": "dist/cli.js"
@@ -18,8 +18,8 @@
     "execa": "^9.6.1"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build"
   },
   "main": "./dist/index.mjs",

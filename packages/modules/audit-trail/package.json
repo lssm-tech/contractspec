@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/module.audit-trail",
-  "version": "1.43.3",
+  "name": "@lssm/module.audit-trail",
+  "version": "1.43.4",
   "description": "Audit trail module for tracking and querying system events",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,14 +18,14 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.bus": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

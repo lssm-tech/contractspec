@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/bundle.lifecycle-managed",
-  "version": "1.43.3",
+  "name": "@lssm/bundle.lifecycle-managed",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -23,16 +23,16 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.ai-agent": "workspace:*",
-    "@contractspec/lib.analytics": "workspace:*",
-    "@contractspec/lib.lifecycle": "workspace:*",
-    "@contractspec/lib.observability": "workspace:*",
-    "@contractspec/module.lifecycle-advisor": "workspace:*",
-    "@contractspec/module.lifecycle-core": "workspace:*"
+    "@lssm/lib.ai-agent": "workspace:*",
+    "@lssm/lib.analytics": "workspace:*",
+    "@lssm/lib.lifecycle": "workspace:*",
+    "@lssm/lib.observability": "workspace:*",
+    "@lssm/module.lifecycle-advisor": "workspace:*",
+    "@lssm/module.lifecycle-core": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

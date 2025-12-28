@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/eslint-plugin-design-system",
-  "version": "1.43.2",
+  "name": "@lssm/eslint-plugin-design-system",
+  "version": "1.43.3",
   "private": false,
   "type": "module",
   "main": "src/index.js",

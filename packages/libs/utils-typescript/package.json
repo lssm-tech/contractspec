@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.utils-typescript",
-  "version": "1.43.2",
+  "name": "@lssm/lib.utils-typescript",
+  "version": "1.43.3",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
@@ -14,8 +14,8 @@
     "dev": "bun build:bundle --watch"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

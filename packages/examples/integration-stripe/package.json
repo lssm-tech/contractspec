@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.integration-stripe",
-  "version": "1.43.3",
+  "name": "@lssm/example.integration-stripe",
+  "version": "1.43.4",
   "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
   "type": "module",
   "main": "./dist/index.js",
@@ -30,12 +30,12 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

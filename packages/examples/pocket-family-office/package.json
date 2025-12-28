@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.pocket-family-office",
-  "version": "1.43.3",
+  "name": "@lssm/example.pocket-family-office",
+  "version": "1.43.4",
   "description": "Pocket Family Office example - personal finance automation with open banking",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,14 +18,14 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
+    "@lssm/lib.knowledge": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

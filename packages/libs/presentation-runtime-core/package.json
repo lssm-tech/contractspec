@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.presentation-runtime-core",
-  "version": "1.43.2",
+  "name": "@lssm/lib.presentation-runtime-core",
+  "version": "1.43.3",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,8 +22,8 @@
     "typescript": "^5.9.0"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

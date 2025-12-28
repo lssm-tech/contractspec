@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.locale-jurisdiction-gate",
-  "version": "1.43.3",
+  "name": "@lssm/example.locale-jurisdiction-gate",
+  "version": "1.43.4",
   "description": "Example: enforce locale + jurisdiction + kbSnapshotId + allowed scope for assistant calls (fail-closed).",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,13 +38,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/example.service-business-os",
-  "version": "1.43.3",
+  "name": "@lssm/example.service-business-os",
+  "version": "1.43.4",
   "description": "Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,19 +18,19 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.files": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
+    "@lssm/lib.schema": "workspace:*",
+    "@lssm/lib.contracts": "workspace:*",
+    "@lssm/lib.bus": "workspace:*",
+    "@lssm/lib.identity-rbac": "workspace:*",
+    "@lssm/lib.files": "workspace:*",
+    "@lssm/lib.jobs": "workspace:*",
+    "@lssm/module.audit-trail": "workspace:*",
+    "@lssm/module.notifications": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@contractspec/tool.typescript": "workspace:*",
-    "@contractspec/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

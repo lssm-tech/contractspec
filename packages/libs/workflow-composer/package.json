@@ -1,6 +1,6 @@
 {
-  "name": "@contractspec/lib.workflow-composer",
-  "version": "1.43.3",
+  "name": "@lssm/lib.workflow-composer",
+  "version": "1.43.4",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,11 +24,11 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@lssm/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec/tool.typescript": "workspace:*",
+    "@lssm/tool.tsdown": "workspace:*",
+    "@lssm/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
