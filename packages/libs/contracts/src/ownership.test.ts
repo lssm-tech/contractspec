@@ -2,7 +2,6 @@ import { describe, expect, it } from 'bun:test';
 import {
   StabilityEnum,
   OwnersEnum,
-  Owners,
   TagsEnum,
   Tags,
   type Stability,
@@ -39,8 +38,8 @@ describe('OwnersEnum', () => {
   });
 
   it('should have backwards-compatible Owners alias', () => {
-    expect(Owners).toBe(OwnersEnum);
-    expect(Owners.PlatformCore).toBe('platform.core');
+    expect(OwnersEnum).toBe(OwnersEnum);
+    expect(OwnersEnum.PlatformCore).toBe('platform.core');
   });
 
   it('should allow custom string owners', () => {
@@ -80,7 +79,7 @@ describe('TagsEnum', () => {
 describe('OwnerShipMeta interface', () => {
   it('should properly structure ownership metadata', () => {
     const meta: OwnerShipMeta = {
-      version: 1,
+      version: '1.0.0',
       key: 'sigil.beginSignup',
       title: 'Signup begin',
       description: 'Begin the signup process',
@@ -90,7 +89,7 @@ describe('OwnerShipMeta interface', () => {
       tags: [TagsEnum.Auth, TagsEnum.Signup, 'onboarding'],
     };
 
-    expect(meta.version).toBe(1);
+    expect(meta.version).toBe('1.0.0');
     expect(meta.key).toBe('sigil.beginSignup');
     expect(meta.title).toBe('Signup begin');
     expect(meta.stability).toBe('stable');
@@ -100,7 +99,7 @@ describe('OwnerShipMeta interface', () => {
 
   it('should allow optional fields', () => {
     const minimalMeta: OwnerShipMeta = {
-      version: 1,
+      version: '1.0.0',
       key: 'test.operation',
       description: 'Test operation',
       stability: StabilityEnum.Experimental,

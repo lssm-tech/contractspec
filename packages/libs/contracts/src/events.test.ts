@@ -20,7 +20,7 @@ describe('defineEvent', () => {
     const spec: EventSpec<typeof inputSchema> = {
       meta: {
         key: 'test.event',
-        version: 1,
+        version: '1.0.0',
         description: 'A test event',
         stability: 'stable',
         owners: ['platform.core'],
@@ -46,7 +46,7 @@ describe('defineEvent', () => {
     const spec = defineEvent({
       meta: {
         key: 'user.created',
-        version: 1,
+        version: '1.0.0',
         description: 'User was created',
         stability: 'stable',
         owners: ['platform.core'],
@@ -62,9 +62,11 @@ describe('defineEvent', () => {
 
 describe('eventKey', () => {
   it('should generate correct event key format', () => {
-    expect(eventKey('user.created', 1)).toBe('user.created.v1');
-    expect(eventKey('order.completed', 2)).toBe('order.completed.v2');
-    expect(eventKey('payment.processed', 10)).toBe('payment.processed.v10');
+    expect(eventKey('user.created', '1.0.0')).toBe('user.created.v1.0.0');
+    expect(eventKey('order.completed', '2.0.0')).toBe('order.completed.v2.0.0');
+    expect(eventKey('payment.processed', '10.0.0')).toBe(
+      'payment.processed.v10.0.0'
+    );
   });
 });
 
@@ -85,7 +87,7 @@ describe('EventRegistry', () => {
     const event1 = defineEvent({
       meta: {
         key: 'event.one',
-        version: 1,
+        version: '1.0.0',
         description: 'First event',
         stability: 'stable',
         owners: ['platform.core'],
@@ -110,7 +112,7 @@ describe('EventRegistry', () => {
     const event = defineEvent({
       meta: {
         key: 'test.registered',
-        version: 1,
+        version: '1.0.0',
         description: 'A registered event',
         stability: 'beta',
         owners: ['platform.core'],
@@ -135,7 +137,7 @@ describe('EventEnvelope type', () => {
       id: 'evt_123',
       occurredAt: '2024-01-01T00:00:00Z',
       key: 'user.action',
-      version: 1,
+      version: '1.0.0',
       payload: {
         userId: 'user_123',
         action: 'login',
@@ -144,7 +146,7 @@ describe('EventEnvelope type', () => {
 
     expect(envelope.id).toBe('evt_123');
     expect(envelope.key).toBe('user.action');
-    expect(envelope.version).toBe(1);
+    expect(envelope.version).toBe('1.0.0');
     expect(envelope.payload.userId).toBe('user_123');
   });
 
@@ -154,7 +156,7 @@ describe('EventEnvelope type', () => {
       occurredAt: '2024-01-01T00:00:00Z',
       traceId: 'trace_abc',
       key: 'test.event',
-      version: 1,
+      version: '1.0.0',
       payload: { message: 'hello' },
     };
 

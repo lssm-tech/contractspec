@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const qdrantIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'vectordb.qdrant',
-    version: 1,
+    version: '1.0.0',
     category: 'vector-db',
     title: 'Qdrant Vector Database',
     description: 'Qdrant integration for vector search and embeddings storage.',
@@ -16,8 +16,8 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
   supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [
-      { key: 'vector-db.search', version: 1 },
-      { key: 'vector-db.storage', version: 1 },
+      { key: 'vector-db.search', version: '1.0.0' },
+      { key: 'vector-db.storage', version: '1.0.0' },
     ],
     requires: [
       {

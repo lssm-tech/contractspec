@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-crm-onboarding',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey — CRM First Win',
     description:
       'Onboarding track for CRM Pipeline driving users from empty CRM to first closed-won deal.',

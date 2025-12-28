@@ -3,7 +3,8 @@
  * Extracted from cli-contractspec/src/ai/prompts/spec-creation.ts
  */
 
-import type { OpKind, PresentationKind } from '../types/spec-types';
+import type { OpKind } from '@contractspec/lib.contracts';
+import type { PresentationKind } from '../types/spec-types';
 
 /**
  * Build prompt for creating operation spec from description.

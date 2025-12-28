@@ -8,7 +8,7 @@ describe('DataViewSpec', () => {
   ): DataViewSpec => ({
     meta: {
       key: 'residents.list',
-      version: 1,
+      version: '1.0.0',
       title: 'Residents List',
       description: 'List all residents',
       stability: 'stable',
@@ -17,7 +17,7 @@ describe('DataViewSpec', () => {
       entity: 'resident',
     },
     source: {
-      primary: { key: 'residents.list.query', version: 1 },
+      primary: { key: 'residents.list.query', version: '1.0.0' },
     },
     view: {
       kind: 'table',
@@ -41,8 +41,8 @@ describe('DataViewSpec', () => {
   it('should support optional states', () => {
     const spec = createDataViewSpec({
       states: {
-        empty: { key: 'empty.residents', version: 1 },
-        error: { key: 'error.residents', version: 1 },
+        empty: { key: 'empty.residents', version: '1.0.0' },
+        error: { key: 'error.residents', version: '1.0.0' },
       },
     });
 
@@ -64,7 +64,7 @@ describe('DataViewSpec', () => {
 
   it('should support optional experiments', () => {
     const spec = createDataViewSpec({
-      experiments: [{ key: 'new-layout', version: 1 }],
+      experiments: [{ key: 'new-layout', version: '1.0.0' }],
     });
 
     expect(spec.experiments).toHaveLength(1);
@@ -76,12 +76,12 @@ describe('DataViewSpec', () => {
 describe('DataViewRef', () => {
   it('should define a reference to a data view', () => {
     const ref: DataViewRef = {
-      key: 'residents.list',
-      version: 1,
+      key: 'data_view.users',
+      version: '1.0.0',
     };
 
-    expect(ref.key).toBe('residents.list');
-    expect(ref.version).toBe(1);
+    expect(ref.key).toBe('data_view.users');
+    expect(ref.version).toBe('1.0.0');
   });
 });
 
@@ -90,7 +90,7 @@ describe('defineDataView', () => {
     const spec: DataViewSpec = {
       meta: {
         key: 'test.view',
-        version: 1,
+        version: '1.0.0',
         title: 'Test',
         description: 'Test view',
         stability: 'stable',
@@ -98,7 +98,7 @@ describe('defineDataView', () => {
         tags: [],
         entity: 'test',
       },
-      source: { primary: { key: 'test.query', version: 1 } },
+      source: { primary: { key: 'test.query', version: '1.0.0' } },
       view: { kind: 'list', fields: [] },
     };
 
@@ -112,7 +112,7 @@ describe('defineDataView', () => {
     const spec = defineDataView({
       meta: {
         key: 'typed.view',
-        version: 2,
+        version: '2.0.0',
         title: 'Typed View',
         description: 'A typed view',
         stability: 'beta',
@@ -121,9 +121,9 @@ describe('defineDataView', () => {
         entity: 'entity',
       },
       source: {
-        primary: { key: 'typed.query', version: 1 },
+        primary: { key: 'typed.query', version: '1.0.0' },
         mutations: {
-          create: { key: 'typed.create', version: 1 },
+          create: { key: 'typed.create', version: '1.0.0' },
         },
       },
       view: {
@@ -133,7 +133,7 @@ describe('defineDataView', () => {
       },
     });
 
-    expect(spec.meta.version).toBe(2);
+    expect(spec.meta.version).toBe('2.0.0');
     expect(spec.view.kind).toBe('grid');
     if (spec.view.kind === 'grid') {
       expect(spec.view.columns).toBe(3);

@@ -102,7 +102,7 @@ export const ExampleEntrypointsSchema = z.object({
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ExampleMetaSchema = z.object({
-  version: z.number().int().positive(),
+  version: z.string(),
   key: z.string().min(1),
   title: z.string().optional(),
   description: z.string().min(1),
@@ -117,12 +117,12 @@ export const ExampleMetaSchema = z.object({
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SpecPointer Schema (for blueprint references)
+// SpecPointerSchema (for blueprint references)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SpecPointerSchema = z.object({
   key: z.string().min(1),
-  version: z.number().int().positive().optional(),
+  version: z.string().optional(),
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -149,9 +149,13 @@ export const ExampleSpecSchema = z.object({
   surfaces: ExampleSurfacesSchema,
   entrypoints: ExampleEntrypointsSchema,
   // Blueprint can be an inline spec or a pointer - loosely validated
-  blueprint: z.union([z.record(z.string(), z.unknown()), SpecPointerSchema]).optional(),
+  blueprint: z
+    .union([z.record(z.string(), z.unknown()), SpecPointerSchema])
+    .optional(),
   // Features can be inline specs or refs - loosely validated as array
-  features: z.array(z.union([z.record(z.string(), z.unknown()), FeatureRefSchema])).optional(),
+  features: z
+    .array(z.union([z.record(z.string(), z.unknown()), FeatureRefSchema]))
+    .optional(),
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

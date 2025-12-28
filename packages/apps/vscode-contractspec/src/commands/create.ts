@@ -446,16 +446,16 @@ function getSpecExtension(specType: SpecType): string {
 /**
  * Generate spec content based on type and inputs.
  */
-
 function generateSpecContent(
   specType: SpecType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inputs: any,
   specCreator: SpecCreatorService
 ): string {
   switch (specType) {
     case 'operation':
       return specCreator.templates.generateOperationSpec({
-        version: 1,
+        version: '1.0.0',
         goal: '',
         context: '',
         stability: 'experimental',
@@ -469,7 +469,7 @@ function generateSpecContent(
     case 'event':
       return specCreator.templates.generateEventSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         stability: 'experimental',
         owners: [],
         tags: inputs.domain ? [inputs.domain] : [],
@@ -478,24 +478,16 @@ function generateSpecContent(
     case 'presentation':
       return specCreator.templates.generatePresentationSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         stability: 'experimental',
         owners: [],
         tags: [],
         presentationKind: 'web_component', // Default
       });
-    // Add other cases here, mapping to templates
-    // For now we only refactored main ones, others can use generic or we can map them too if templates exist
-    // Assuming generic template exists or we fallback to string literal if template missing?
-    // Let's assume generic fallback for now if template not found or keep string literal logic for unverified templates.
-    // ... Actually, better to use the template service if available.
-    // Given I don't see all templates in detail, I'll stick to the ones I know are safe (Op, Event, Pres).
-    // For others, I should implement them properly using templates if possible.
-    // Checking file list earlier: workflow, migration, telemetry, experiment, app-config, integration, knowledge ALL have templates.
     case 'data-view':
       return specCreator.templates.generateDataViewSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         stability: 'experimental',
         owners: [],
         tags: [],
@@ -503,7 +495,7 @@ function generateSpecContent(
     case 'workflow':
       return specCreator.templates.generateWorkflowSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         stability: 'experimental',
         owners: [],
         tags: [],
@@ -511,62 +503,76 @@ function generateSpecContent(
     case 'migration':
       return specCreator.templates.generateMigrationSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
         steps: [],
       });
     case 'telemetry':
       return specCreator.templates.generateTelemetrySpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
         events: [],
       });
     case 'experiment':
       return specCreator.templates.generateExperimentSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
         variants: [],
+        hypothesis: '',
       });
     case 'app-config':
-      return specCreator.templates.generateAppConfigSpec({
+      return specCreator.templates.generateAppBlueprintSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
-        config: {},
+        appId: inputs.name, // app-config template requires appId
+        capabilitiesEnabled: [],
+        capabilitiesDisabled: [],
+        featureIncludes: [],
+        featureExcludes: [],
+        dataViews: [],
+        workflows: [],
+        policyRefs: [],
+        themeFallbacks: [],
+        activeExperiments: [],
+        pausedExperiments: [],
+        featureFlags: [],
+        routes: [],
+        stability: 'experimental',
+        domain: 'app',
       });
     case 'integration':
       return specCreator.templates.generateIntegrationSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
         provider: 'custom',
       });
     case 'knowledge':
-      return specCreator.templates.generateKnowledgeSpec({
+      return specCreator.templates.generateKnowledgeSpaceSpec({
         ...inputs,
-        version: 1,
+        version: '1.0.0',
         owners: [],
-        format: 'markdown',
+        category: 'documentation',
+        displayName: inputs.name,
+        title: inputs.name,
+        domain: 'knowledge',
+        tags: [],
+        stability: 'experimental',
+        trustLevel: 'green',
+        automationWritable: false,
+        links: [],
+        retention: { ttlDays: null, archiveAfterDays: null },
       });
     default:
-      return `// ${specType} spec: ${inputs.name}
-// ${inputs.description}
-
-// TODO: Implement ${specType} spec
-export const ${toPascalCase(inputs.name)}Spec = {
-  // Add spec definition here
-};
-`;
+      // Fallback to a basic template if specific one not found, or error
+      // Ideally we should have templates for everything exposed in selectSpecType
+      return ``;
   }
 }
 
 /**
  * Convert string to PascalCase.
  */
-function toPascalCase(str: string): string {
-  return str
-    .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
-    .replace(/^[a-z]/, (chr) => chr.toUpperCase());
-}

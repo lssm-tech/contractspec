@@ -1,8 +1,9 @@
+import { compareVersions } from 'compare-versions';
 import { filterBy, getUniqueTags, groupBy } from '../registry-utils';
 import type { ExampleSpec, ExampleKind, ExampleVisibility } from './types';
 
-function keyOf(spec: ExampleSpec): string {
-  return spec.meta.key;
+function exampleKey(meta: ExampleSpec['meta']) {
+  return `${meta.key}.v${meta.version}`;
 }
 
 /**
@@ -25,7 +26,7 @@ export class ExampleRegistry {
 
   /** Register an example. Throws when the key already exists. */
   register(spec: ExampleSpec): this {
-    const key = keyOf(spec);
+    const key = exampleKey(spec.meta);
     if (this.items.has(key)) {
       throw new Error(`Duplicate example: ${key}`);
     }
@@ -39,13 +40,25 @@ export class ExampleRegistry {
   }
 
   /** Get an example by its key. */
-  get(key: string): ExampleSpec | undefined {
-    return this.items.get(key);
+  get(key: string, version?: string): ExampleSpec | undefined {
+    if (version != null) return this.items.get(`${key}.v${version}`);
+    // find highest version
+    let candidate: ExampleSpec | undefined;
+    for (const [_k, v] of this.items.entries()) {
+      if (v.meta.key !== key) continue; // Basic prefix check
+      if (
+        !candidate ||
+        compareVersions(v.meta.version, candidate.meta.version) > 0
+      ) {
+        candidate = v;
+      }
+    }
+    return candidate;
   }
 
   /** Check if an example with the given key exists. */
-  has(key: string): boolean {
-    return this.items.has(key);
+  has(key: string, version?: string): boolean {
+    return !!this.get(key, version);
   }
 
   /** Get the number of registered examples. */
@@ -59,9 +72,7 @@ export class ExampleRegistry {
   }
 
   /** Filter examples by criteria. */
-  filter(
-    criteria: import('../registry-utils').RegistryFilter
-  ): ExampleSpec[] {
+  filter(criteria: import('../registry-utils').RegistryFilter): ExampleSpec[] {
     return filterBy(this.list(), criteria);
   }
 

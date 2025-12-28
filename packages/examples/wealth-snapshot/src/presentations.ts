@@ -4,7 +4,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const WealthDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'wealth-snapshot.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'Wealth Dashboard',
     description: 'Wealth snapshot dashboard with net worth overview',
     domain: 'finance',
@@ -28,7 +28,7 @@ export const WealthDashboardPresentation: PresentationSpec = {
 export const AccountsListPresentation: PresentationSpec = {
   meta: {
     key: 'wealth-snapshot.accounts.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Accounts List',
     description: 'List of financial accounts',
     domain: 'finance',
@@ -52,7 +52,7 @@ export const AccountsListPresentation: PresentationSpec = {
 export const AssetsListPresentation: PresentationSpec = {
   meta: {
     key: 'wealth-snapshot.assets.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Assets List',
     description: 'List of assets with valuations',
     domain: 'finance',
@@ -76,7 +76,7 @@ export const AssetsListPresentation: PresentationSpec = {
 export const LiabilitiesListPresentation: PresentationSpec = {
   meta: {
     key: 'wealth-snapshot.liabilities.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Liabilities List',
     description: 'List of liabilities and debts',
     domain: 'finance',
@@ -100,7 +100,7 @@ export const LiabilitiesListPresentation: PresentationSpec = {
 export const GoalsListPresentation: PresentationSpec = {
   meta: {
     key: 'wealth-snapshot.goals.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Goals List',
     description: 'List of financial goals with progress',
     domain: 'finance',

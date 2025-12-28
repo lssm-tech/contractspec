@@ -8,7 +8,7 @@ import {
 export const collectPaymentWorkflow: WorkflowSpec = {
   meta: {
     key: 'artisan.payments.collectPayment',
-    version: 1,
+    version: '1.0.0',
     title: 'Collect Card Payment',
     description:
       'Charge a customer using the tenant Stripe connection and record settlement details.',
@@ -25,7 +25,7 @@ export const collectPaymentWorkflow: WorkflowSpec = {
         type: 'automation',
         label: 'Prepare charge parameters',
         action: {
-          operation: { key: 'payments.prepareCharge', version: 1 },
+          operation: { key: 'payments.prepareCharge', version: '1.0.0' },
         },
       },
       {
@@ -33,7 +33,7 @@ export const collectPaymentWorkflow: WorkflowSpec = {
         type: 'automation',
         label: 'Charge card via Stripe',
         action: {
-          operation: { key: 'payments.stripe.chargeCard', version: 1 },
+          operation: { key: 'payments.stripe.chargeCard', version: '1.0.0' },
         },
       },
       {
@@ -41,7 +41,7 @@ export const collectPaymentWorkflow: WorkflowSpec = {
         type: 'automation',
         label: 'Confirm settlement',
         action: {
-          operation: { key: 'payments.recordSettlement', version: 1 },
+          operation: { key: 'payments.recordSettlement', version: '1.0.0' },
         },
       },
     ],

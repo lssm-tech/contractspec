@@ -77,7 +77,7 @@ const SuccessModel = defineSchemaModel({
 export const GetCrmOnboardingTrack = defineQuery({
   meta: {
     key: 'learningJourney.crmOnboarding.getTrack',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: [...OWNERS],
     tags: ['learning', 'crm', 'onboarding'],
@@ -99,7 +99,7 @@ export const GetCrmOnboardingTrack = defineQuery({
 export const RecordCrmOnboardingEvent = defineCommand({
   meta: {
     key: 'learningJourney.crmOnboarding.recordEvent',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: [...OWNERS],
     tags: ['learning', 'crm', 'onboarding'],

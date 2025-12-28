@@ -43,7 +43,7 @@ const StepAddedPayload = defineSchemaModel({
 export const WorkflowCreatedEvent = defineEvent({
   meta: {
     key: 'workflow.definition.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new workflow definition has been created.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -58,7 +58,7 @@ export const WorkflowCreatedEvent = defineEvent({
 export const WorkflowUpdatedEvent = defineEvent({
   meta: {
     key: 'workflow.definition.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A workflow definition has been updated.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -73,7 +73,7 @@ export const WorkflowUpdatedEvent = defineEvent({
 export const WorkflowPublishedEvent = defineEvent({
   meta: {
     key: 'workflow.definition.published',
-    version: 1,
+    version: '1.0.0',
     description: 'A workflow definition has been published and is now active.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -88,7 +88,7 @@ export const WorkflowPublishedEvent = defineEvent({
 export const StepAddedEvent = defineEvent({
   meta: {
     key: 'workflow.step.added',
-    version: 1,
+    version: '1.0.0',
     description: 'A step has been added to a workflow definition.',
     stability: 'stable',
     owners: ['@workflow-team'],

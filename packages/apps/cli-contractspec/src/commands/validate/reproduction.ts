@@ -77,7 +77,7 @@ const eventCode = `
 export const AgentToolAssignedEvent = defineEvent({
   meta: {
     key: 'agent-console.agent.toolAssigned',
-    version: 1,
+    version: '1.0.0',
     description: 'A tool was assigned to an agent.',
     stability: 'stable',
     owners: [...OWNERS],

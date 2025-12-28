@@ -161,7 +161,7 @@ export interface ExampleMeta extends OwnerShipMeta {
  * const example: ExampleSpec = {
  *   meta: {
  *     key: 'saas-boilerplate',
- *     version: 1,
+ *     version: '1.0.0',
  *     title: 'SaaS Boilerplate',
  *     description: 'Multi-tenant SaaS foundation.',
  *     kind: 'template',

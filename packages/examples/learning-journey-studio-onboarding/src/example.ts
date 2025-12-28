@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-studio-onboarding',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey — Studio Getting Started',
     description:
       'Onboarding track guiding a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',

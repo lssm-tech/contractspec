@@ -21,7 +21,7 @@ export type PromptContentPart =
 /** Prompt metadata for discoverability and governance. */
 export interface PromptMeta {
   key: string; // e.g. "sigil.signup-help"
-  version: number; // bump on breaking change
+  version: string; // bump on breaking change
   title: string;
   description: string;
   tags?: string[];

@@ -17,7 +17,7 @@ export type JobStatus =
 export interface Job<TPayload = unknown> {
   id: string;
   type: string;
-  version: number;
+  version: string;
   payload: TPayload;
   status: JobStatus;
   priority: number;
@@ -166,7 +166,7 @@ export function calculateBackoff(
  */
 export interface JobTypeDef<TPayload = unknown> {
   type: string;
-  version: number;
+  version: string;
   payload: z.ZodType<TPayload>;
   options?: Partial<RetryPolicy & { timeoutMs: number }>;
   description?: string;

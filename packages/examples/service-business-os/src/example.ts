@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'service-business-os',
-    version: 1,
+    version: '1.0.0',
     title: 'Service Business OS',
     description:
       'Service business operating system: jobs, clients, scheduling, invoicing, and ops dashboards.',

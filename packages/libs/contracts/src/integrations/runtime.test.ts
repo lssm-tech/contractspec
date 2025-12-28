@@ -22,7 +22,7 @@ const baseSpec: IntegrationSpec = {
     title: 'Stripe',
     description: 'Stripe integration',
     category: 'payments',
-    version: 1,
+    version: '1.0.0',
     key: 'integration.stripe',
     stability: 'stable',
     owners: [],
@@ -87,8 +87,8 @@ function makeResolvedConfig(
     appId: 'demo-app',
     tenantId: 'tenant-1',
     blueprintName: 'demo.blueprint',
-    blueprintVersion: 1,
-    configVersion: 1,
+    blueprintVersion: '1.0.0',
+    configVersion: '1.0.0',
     environment: 'production',
     capabilities: { enabled: [], disabled: [] },
     features: { include: [], exclude: [] },
@@ -103,7 +103,7 @@ function makeResolvedConfig(
     translation: {
       defaultLocale: 'en',
       supportedLocales: ['en'],
-      blueprintCatalog: { key: 'demo.catalog', version: 1 },
+      blueprintCatalog: { key: 'demo.catalog', version: '1.0.0' },
       tenantOverrides: [],
     },
     branding: {

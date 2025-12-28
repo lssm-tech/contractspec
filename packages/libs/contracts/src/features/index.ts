@@ -8,6 +8,8 @@ export type {
   FeatureRef,
 } from './types';
 
+import type { FeatureModuleSpec } from './types';
+
 // Registry
 export { FeatureRegistry } from './registry';
 
@@ -16,3 +18,9 @@ export { installFeature, type InstallFeatureDeps } from './install';
 
 // Validation
 export { validateFeatureTargetsV2 } from './validation';
+
+/**
+ * Helper to define a Feature.
+ */
+export const defineFeature = (spec: FeatureModuleSpec): FeatureModuleSpec =>
+  spec;

@@ -3,7 +3,6 @@
  */
 
 export * from './validate';
-export * from './validate-implementation';
 export * from './diff';
 export * from './deps';
 export * from './list';
@@ -32,3 +31,4 @@ export * from './verification-cache/index';
 export * from './quickstart/index';
 export * from './docs/index';
 export * as impact from './impact/index';
+export * from './formatter';

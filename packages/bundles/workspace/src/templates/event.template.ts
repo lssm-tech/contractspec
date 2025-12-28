@@ -25,7 +25,9 @@ export const ${payloadSchemaName} = new SchemaModel({
 
 export const ${eventVarName} = defineEvent({
   name: '${name}',
-  version: ${version},
+  name: '${name}',
+  version: '${version}',
+  description: '${description}',
   description: '${description}',
   stability: '${stability}',
   owners: [${owners.map((o) => `'${o}'`).join(', ')}],

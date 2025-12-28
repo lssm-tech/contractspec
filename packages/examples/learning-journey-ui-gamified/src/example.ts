@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-ui-gamified',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey UI — Gamified',
     description:
       'UI mini-app for gamified learning: flashcards, mastery ring, calendar.',

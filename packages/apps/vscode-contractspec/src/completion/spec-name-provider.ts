@@ -16,7 +16,7 @@ import {
  */
 interface CachedSpec {
   name: string;
-  version: number;
+  version: string;
   type: AnalyzedSpecType;
   file: string;
   relativePath: string;

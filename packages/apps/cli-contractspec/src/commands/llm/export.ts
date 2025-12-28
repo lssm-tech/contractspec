@@ -8,14 +8,12 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync, writeFileSync } from 'fs';
-import {
-  type LLMExportFormat,
-} from '@contractspec/lib.contracts/llm';
+import { type LLMExportFormat } from '@contractspec/lib.contracts/llm';
 import {
   loadSpecFromSource,
   specToMarkdown,
 } from '@contractspec/module.workspace';
-import { getWorkspaceAdapters } from '../workspace-helpers';
+
 import { generateFeatureContextMarkdown } from '@contractspec/bundle.workspace';
 
 export const exportLLMCommand = new Command('export')
@@ -42,28 +40,21 @@ export const exportLLMCommand = new Command('export')
         throw new Error('No spec definitions found');
       }
 
-      const spec = specs[0]; // Export first spec by default
+      const spec = specs[0];
+      if (!spec) {
+        throw new Error('No spec definitions found');
+      }
       const format = options.format as LLMExportFormat;
 
       let markdown: string;
       if (spec.specType === 'feature' && format === 'full') {
-         // Need adapters for feature context scan
-         // Assuming getWorkspaceAdapters helper exists or constructing one
-         // CLI usually runs in CWD
-         const adapters = { fs: {
-             glob: async () => [], // TODO: Mock/Implement
-             readFile: async () => '',
-             // ... FsAdapter from bundle
-         }};
-         // Wait, FsAdapter is from bundle.workspace/ports/fs
-         // CLI already uses createNodeAdapters?
-         // Let's check imports in other commands.
-         // Most use 'createNodeAdapters'
-         const { createNodeAdapters } = await import('@contractspec/bundle.workspace');
-         const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
-         markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
+        // Use createNodeAdapters to get full filesystem access
+        const { createNodeAdapters } =
+          await import('@contractspec/bundle.workspace');
+        const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
+        markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
       } else {
-         markdown = specToMarkdown(spec, format);
+        markdown = specToMarkdown(spec, format);
       }
 
       if (options.output) {

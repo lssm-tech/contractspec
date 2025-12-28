@@ -23,5 +23,3 @@ export function ActionForm({
     </form>
   );
 }
-
-export default ActionForm;

@@ -167,7 +167,7 @@ const VariantAssignedPayload = defineSchemaModel({
 export const FlagCreatedEvent = defineEvent({
   meta: {
     key: 'flag.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A feature flag has been created.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -182,7 +182,7 @@ export const FlagCreatedEvent = defineEvent({
 export const FlagUpdatedEvent = defineEvent({
   meta: {
     key: 'flag.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A feature flag has been updated.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -197,7 +197,7 @@ export const FlagUpdatedEvent = defineEvent({
 export const FlagDeletedEvent = defineEvent({
   meta: {
     key: 'flag.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A feature flag has been deleted.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -212,7 +212,7 @@ export const FlagDeletedEvent = defineEvent({
 export const FlagToggledEvent = defineEvent({
   meta: {
     key: 'flag.toggled',
-    version: 1,
+    version: '1.0.0',
     description: 'A feature flag status has been toggled.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -227,7 +227,7 @@ export const FlagToggledEvent = defineEvent({
 export const RuleCreatedEvent = defineEvent({
   meta: {
     key: 'flag.rule_created',
-    version: 1,
+    version: '1.0.0',
     description: 'A targeting rule has been created.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -242,7 +242,7 @@ export const RuleCreatedEvent = defineEvent({
 export const RuleDeletedEvent = defineEvent({
   meta: {
     key: 'flag.rule_deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A targeting rule has been deleted.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -257,7 +257,7 @@ export const RuleDeletedEvent = defineEvent({
 export const ExperimentCreatedEvent = defineEvent({
   meta: {
     key: 'experiment.created',
-    version: 1,
+    version: '1.0.0',
     description: 'An experiment has been created.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -272,7 +272,7 @@ export const ExperimentCreatedEvent = defineEvent({
 export const ExperimentStartedEvent = defineEvent({
   meta: {
     key: 'experiment.started',
-    version: 1,
+    version: '1.0.0',
     description: 'An experiment has started.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -287,7 +287,7 @@ export const ExperimentStartedEvent = defineEvent({
 export const ExperimentStoppedEvent = defineEvent({
   meta: {
     key: 'experiment.stopped',
-    version: 1,
+    version: '1.0.0',
     description: 'An experiment has stopped.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -302,7 +302,7 @@ export const ExperimentStoppedEvent = defineEvent({
 export const FlagEvaluatedEvent = defineEvent({
   meta: {
     key: 'flag.evaluated',
-    version: 1,
+    version: '1.0.0',
     description: 'A feature flag has been evaluated.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],
@@ -317,7 +317,7 @@ export const FlagEvaluatedEvent = defineEvent({
 export const VariantAssignedEvent = defineEvent({
   meta: {
     key: 'experiment.variant_assigned',
-    version: 1,
+    version: '1.0.0',
     description: 'A subject has been assigned to an experiment variant.',
     stability: 'stable',
     owners: ['@platform.feature-flags'],

@@ -1,7 +1,7 @@
 /**
  * Forms exporter - exports FormSpec to OpenAPI extensions.
  */
-import type { FormRegistry } from '@contractspec/lib.contracts';
+import type { FormRegistry, Stability } from '@contractspec/lib.contracts';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { z } from 'zod';
 import type { GeneratedRegistryCode } from '../types';
@@ -13,9 +13,9 @@ type OpenApiSchemaObject = Record<string, unknown>;
  */
 export interface ExportedForm {
   key: string;
-  version: number;
-  description?: string;
-  stability?: string;
+  version: string;
+  description: string;
+  stability: Stability;
   owners?: string[];
   fields: unknown[];
   model: OpenApiSchemaObject | null;

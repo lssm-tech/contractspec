@@ -53,7 +53,7 @@ function piiSafeString(description: string) {
 export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
   meta: {
     key: 'pfo.telemetry',
-    version: 1,
+    version: '1.0.0',
     title: 'Pocket Family Office Telemetry',
     description:
       'Operational telemetry for Pocket Family Office workflows, including Powens open banking syncs.',
@@ -69,7 +69,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
   events: [
     {
       key: OPENBANKING_TELEMETRY_EVENTS.accountsSynced,
-      version: 1,
+      version: '1.0.0',
       semantics: {
         what: 'Open banking account synchronisation completed.',
         why: 'Refresh canonical account metadata for reporting and workflows.',
@@ -93,7 +93,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
     },
     {
       key: OPENBANKING_TELEMETRY_EVENTS.transactionsSynced,
-      version: 1,
+      version: '1.0.0',
       semantics: {
         what: 'Open banking transaction synchronisation completed.',
         why: 'Keep canonical transaction ledger in sync for analytics.',
@@ -126,7 +126,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
     },
     {
       key: OPENBANKING_TELEMETRY_EVENTS.balancesRefreshed,
-      version: 1,
+      version: '1.0.0',
       semantics: {
         what: 'Open banking balances refreshed.',
         why: 'Provide accurate cash position for dashboards and alerts.',
@@ -147,7 +147,7 @@ export const pocketFamilyOfficeTelemetry: TelemetrySpec = {
     },
     {
       key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
-      version: 1,
+      version: '1.0.0',
       semantics: {
         what: 'Derived financial overview generated.',
         why: 'Persist cashflow and category summaries into knowledge space.',

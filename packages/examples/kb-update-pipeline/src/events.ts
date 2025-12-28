@@ -24,7 +24,7 @@ const KbChangeDetectedPayload = defineSchemaModel({
 export const KbChangeDetectedEvent = defineEvent({
   meta: {
     key: 'kb.change.detected',
-    version: 1,
+    version: '1.0.0',
     description: 'KB source change detected.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -49,7 +49,7 @@ const KbChangeSummarizedPayload = defineSchemaModel({
 export const KbChangeSummarizedEvent = defineEvent({
   meta: {
     key: 'kb.change.summarized',
-    version: 1,
+    version: '1.0.0',
     description: 'KB change summarized.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -77,7 +77,7 @@ const KbPatchProposedPayload = defineSchemaModel({
 export const KbPatchProposedEvent = defineEvent({
   meta: {
     key: 'kb.patch.proposed',
-    version: 1,
+    version: '1.0.0',
     description: 'KB rule patch proposed (draft versions created).',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -102,7 +102,7 @@ const KbReviewRequestedPayload = defineSchemaModel({
 export const KbReviewRequestedEvent = defineEvent({
   meta: {
     key: 'kb.review.requested',
-    version: 1,
+    version: '1.0.0',
     description: 'KB review requested.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -124,7 +124,7 @@ const KbReviewDecidedPayload = defineSchemaModel({
 export const KbReviewDecidedEvent = defineEvent({
   meta: {
     key: 'kb.review.decided',
-    version: 1,
+    version: '1.0.0',
     description: 'KB review decided.',
     stability: StabilityEnum.Experimental,
     owners: [],

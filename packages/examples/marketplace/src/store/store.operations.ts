@@ -9,7 +9,7 @@ const OWNERS = ['@example.marketplace'] as const;
 export const CreateStoreContract = defineCommand({
   meta: {
     key: 'marketplace.store.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'store', 'create'],
@@ -23,7 +23,7 @@ export const CreateStoreContract = defineCommand({
     emits: [
       {
         key: 'marketplace.store.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Store is created',
         payload: StoreModel,
       },

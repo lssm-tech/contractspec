@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'personalization',
-    version: 1,
+    version: '1.0.0',
     title: 'Personalization Patterns',
     description:
       'Small examples for behavior tracking, overlay-based UI customization, and tenant workflow extension.',

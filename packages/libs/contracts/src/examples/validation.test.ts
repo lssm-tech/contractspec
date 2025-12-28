@@ -10,7 +10,7 @@ function createValidExample(key: string): ExampleSpec {
   return {
     meta: {
       key,
-      version: 1,
+      version: '1.0.0',
       description: 'Test example',
       stability: 'experimental',
       owners: ['@team'],
@@ -60,9 +60,9 @@ describe('validateExample', () => {
     const example = createValidExample('test');
     example.entrypoints.packageName = 'unscoped-package';
     const result = validateExample(example);
-    expect(result.warnings.some((w) => w.path === 'entrypoints.packageName')).toBe(
-      true
-    );
+    expect(
+      result.warnings.some((w) => w.path === 'entrypoints.packageName')
+    ).toBe(true);
   });
 
   it('should error when studio.installable is true but studio.enabled is false', () => {
@@ -71,7 +71,9 @@ describe('validateExample', () => {
     const result = validateExample(example);
     expect(result.valid).toBe(false);
     expect(
-      result.errors.some((e) => e.code === 'STUDIO_INSTALLABLE_REQUIRES_ENABLED')
+      result.errors.some(
+        (e) => e.code === 'STUDIO_INSTALLABLE_REQUIRES_ENABLED'
+      )
     ).toBe(true);
   });
 
@@ -88,9 +90,9 @@ describe('validateExample', () => {
     const example = createValidExample('test');
     example.features = [{ key: 'some-feature' }];
     const result = validateExample(example);
-    expect(
-      result.warnings.some((w) => w.path === 'entrypoints.feature')
-    ).toBe(true);
+    expect(result.warnings.some((w) => w.path === 'entrypoints.feature')).toBe(
+      true
+    );
   });
 
   it('should warn for public example in idea stability', () => {

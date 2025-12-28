@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'agent-console',
-    version: 1,
+    version: '1.0.0',
     title: 'Agent Console',
     description:
       'AI agent ops console: tools, agents, runs, logs, and metrics (spec-first, regenerable).',

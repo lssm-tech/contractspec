@@ -92,7 +92,7 @@ export class ScalewaySqsJobQueue implements JobQueue {
     return {
       id,
       type: jobType,
-      version: 1,
+      version: '1.0.0',
       payload,
       status: 'pending',
       priority: options.priority ?? 0,
@@ -190,7 +190,7 @@ export class ScalewaySqsJobQueue implements JobQueue {
           const job: Job = {
             id: envelope.id,
             type: envelope.type,
-            version: 1,
+            version: '1.0.0',
             payload: envelope.payload,
             status: 'pending',
             priority: 0,

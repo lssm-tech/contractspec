@@ -9,7 +9,7 @@ const baseContext = {
   spec: {
     meta: {
       key: 'integration.example',
-      version: 1,
+      version: '1.0.0',
       category: 'custom',
       title: 'Example Integration',
 
@@ -29,7 +29,7 @@ const baseContext = {
       id: 'conn-1',
       tenantId: 'tenant',
       integrationKey: 'integration.example',
-      integrationVersion: 1,
+      integrationVersion: '1.0.0',
       label: 'Example',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -63,8 +63,8 @@ const baseContext = {
   secretReference: 'mock://secret',
   trace: {
     blueprintName: 'core.app',
-    blueprintVersion: 1,
-    configVersion: 1,
+    blueprintVersion: '1.0.0',
+    configVersion: '1.0.0',
   },
 } satisfies IntegrationContext;
 

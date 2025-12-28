@@ -52,5 +52,3 @@ export function OverviewCard({
     </Dialog>
   );
 }
-
-export default OverviewCard;

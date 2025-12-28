@@ -1,12 +1,13 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
+import { SpecContractRegistry } from '../registry';
 import type { TelemetryEventDef } from '../telemetry/spec';
 
 export type ExperimentMeta = OwnerShipMeta;
 
 export interface ExperimentRef {
   key: string;
-  version?: number;
+  version?: string;
 }
 
 export type ExperimentOverrideType =
@@ -21,7 +22,7 @@ export interface ExperimentOverride {
   /** Target spec meta name (e.g., DataViewspec.meta.key). */
   target: string;
   /** Target version. Optional; evaluator may choose latest when omitted. */
-  version?: number;
+  version?: string;
   /** Optional configuration applied when this variant is active. */
   config?: Record<string, unknown>;
 }
@@ -70,7 +71,7 @@ export type MetricAggregation = 'count' | 'avg' | 'p75' | 'p90' | 'p95' | 'p99';
 
 export interface SuccessMetric {
   key: string;
-  telemetryEvent: { key: TelemetryEventDef['key']; version: number };
+  telemetryEvent: { key: TelemetryEventDef['key']; version: string };
   aggregation: MetricAggregation;
   target?: number;
 }
@@ -87,36 +88,12 @@ export interface ExperimentSpec {
 
 const experimentKey = (meta: ExperimentMeta) => `${meta.key}.v${meta.version}`;
 
-export class ExperimentRegistry {
-  private readonly items = new Map<string, ExperimentSpec>();
-
-  register(spec: ExperimentSpec): this {
-    const key = experimentKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate experiment ${key}`);
-    }
-    this.items.set(key, spec);
-    return this;
-  }
-
-  list(): ExperimentSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(name: string, version?: number): ExperimentSpec | undefined {
-    if (version != null) {
-      return this.items.get(`${name}.v${version}`);
-    }
-    let latest: ExperimentSpec | undefined;
-    let maxVersion = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== name) continue;
-      if (spec.meta.version > maxVersion) {
-        maxVersion = spec.meta.version;
-        latest = spec;
-      }
-    }
-    return latest;
+export class ExperimentRegistry extends SpecContractRegistry<
+  'experiment',
+  ExperimentSpec
+> {
+  public constructor(items?: ExperimentSpec[]) {
+    super('experiment', items);
   }
 }
 

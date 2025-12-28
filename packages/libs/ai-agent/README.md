@@ -28,7 +28,7 @@ import { ToolExecutor } from '@contractspec/lib.ai-agent/tools';
 import { InMemoryAgentMemory } from '@contractspec/lib.ai-agent/memory';
 
 const SupportAgent = defineAgent({
-  meta: { name: 'support.bot', version: 1, owners: ['team-support'], domain: 'operations' },
+  meta: { name: 'support.bot', version: '1.0.0', owners: ['team-support'], domain: 'operations' },
   instructions: 'Resolve support tickets. Escalate whenever confidence < 0.75.',
   tools: [{ name: 'search_knowledge', description: 'Query support corpus', schema: { type: 'object', properties: { question: { type: 'string' } }, required: ['question'] } }],
   policy: { confidence: { min: 0.75 }, escalation: { auto: true } },

@@ -8,7 +8,7 @@ import { ProjectModel } from './project.schema';
 export const ProjectListPresentation: PresentationSpec = {
   meta: {
     key: 'saas.project.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Project List',
     description:
       'List view of projects with status, tags, and last updated info',
@@ -37,7 +37,7 @@ export const ProjectListPresentation: PresentationSpec = {
 export const ProjectDetailPresentation: PresentationSpec = {
   meta: {
     key: 'saas.project.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Project Details',
     description: 'Detailed view of a project with settings and activity',
     domain: 'saas-boilerplate',

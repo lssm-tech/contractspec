@@ -115,5 +115,5 @@ export interface PolicySpec {
 
 export interface PolicyRef {
   key: string;
-  version: number;
+  version: string;
 }

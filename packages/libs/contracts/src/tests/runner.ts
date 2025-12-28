@@ -50,7 +50,7 @@ interface OperationResult {
 
 interface RecordedEvent {
   key: string;
-  version: number;
+  version: string;
   payload: unknown;
 }
 

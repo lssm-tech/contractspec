@@ -25,7 +25,7 @@ export interface DocBlock {
   /** Visibility gate. Defaults to public. */
   visibility?: DocVisibility;
   /** Optional version to allow evolutions without breaking links. Defaults to 1. */
-  version?: number;
+  version?: string;
   /** Tags to aid discovery and filtering. */
   tags?: string[];
   /** Owning teams or individuals. */

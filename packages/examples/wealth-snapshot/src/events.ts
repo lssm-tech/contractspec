@@ -44,7 +44,7 @@ const GoalEventPayload = defineSchemaModel({
 export const AssetAddedEvent = defineEvent({
   meta: {
     key: 'wealth.asset.added',
-    version: 1,
+    version: '1.0.0',
     description: 'An asset was added or updated.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -56,7 +56,7 @@ export const AssetAddedEvent = defineEvent({
 export const LiabilityAddedEvent = defineEvent({
   meta: {
     key: 'wealth.liability.added',
-    version: 1,
+    version: '1.0.0',
     description: 'A liability was added or updated.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -68,7 +68,7 @@ export const LiabilityAddedEvent = defineEvent({
 export const GoalUpdatedEvent = defineEvent({
   meta: {
     key: 'wealth.goal.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A goal was updated.',
     stability: StabilityEnum.Experimental,
     owners: [],
@@ -80,7 +80,7 @@ export const GoalUpdatedEvent = defineEvent({
 export const NetWorthSnapshotCreatedEvent = defineEvent({
   meta: {
     key: 'wealth.networth.snapshot_created',
-    version: 1,
+    version: '1.0.0',
     description: 'A net worth snapshot was generated.',
     stability: StabilityEnum.Experimental,
     owners: [],

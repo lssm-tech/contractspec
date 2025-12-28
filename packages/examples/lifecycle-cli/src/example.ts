@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'lifecycle-cli',
-    version: 1,
+    version: '1.0.0',
     title: 'Lifecycle CLI',
     description:
       'Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP server required).',

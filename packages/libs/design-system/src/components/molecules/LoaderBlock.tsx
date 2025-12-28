@@ -26,5 +26,3 @@ export function LoaderBlock({
     </div>
   );
 }
-
-export default LoaderBlock;

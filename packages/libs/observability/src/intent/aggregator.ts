@@ -1,5 +1,5 @@
 export interface TelemetrySample {
-  operation: { name: string; version: number };
+  operation: { name: string; version: string };
   durationMs: number;
   success: boolean;
   timestamp: Date;
@@ -11,7 +11,7 @@ export interface TelemetrySample {
 }
 
 export interface AggregatedOperationMetrics {
-  operation: { name: string; version: number };
+  operation: { name: string; version: string };
   totalCalls: number;
   successRate: number;
   errorRate: number;

@@ -40,7 +40,7 @@ const InventoryUpdatedPayload = defineSchemaModel({
 export const ProductCreatedEvent = defineEvent({
   meta: {
     key: 'marketplace.product.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new product has been created.',
     stability: 'experimental',
     owners: ['@marketplace-team'],
@@ -52,7 +52,7 @@ export const ProductCreatedEvent = defineEvent({
 export const ProductPublishedEvent = defineEvent({
   meta: {
     key: 'marketplace.product.published',
-    version: 1,
+    version: '1.0.0',
     description: 'A product has been published.',
     stability: 'experimental',
     owners: ['@marketplace-team'],
@@ -64,7 +64,7 @@ export const ProductPublishedEvent = defineEvent({
 export const InventoryUpdatedEvent = defineEvent({
   meta: {
     key: 'marketplace.inventory.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'Product inventory has been updated.',
     stability: 'experimental',
     owners: ['@marketplace-team'],

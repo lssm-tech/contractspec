@@ -13,7 +13,7 @@ import { discoverLayers } from '../../layer-discovery';
  */
 export async function runLayerChecks(
   fs: FsAdapter,
-  ctx: CheckContext
+  _ctx: CheckContext
 ): Promise<CheckResult[]> {
   const results: CheckResult[] = [];
 
@@ -22,17 +22,28 @@ export async function runLayerChecks(
     {
       fs,
       logger: {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         info: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         warn: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         error: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         debug: () => {},
         createProgress: () => ({
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           start: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           update: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           succeed: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           fail: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           warn: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           stop: () => {},
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           finish: () => {},
         }),
       },
@@ -141,7 +152,10 @@ function checkFeatureOwners(
  * Check if examples have valid entrypoints.
  */
 function checkExampleEntrypoints(
-  examples: Map<string, { entrypoints: { packageName: string }; filePath: string }>
+  examples: Map<
+    string,
+    { entrypoints: { packageName: string }; filePath: string }
+  >
 ): CheckResult {
   const missingPackage: string[] = [];
 

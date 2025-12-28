@@ -31,7 +31,7 @@ describe('DataViewMeta', () => {
   it('should extend OwnerShipMeta with entity field', () => {
     const meta: DataViewMeta = {
       key: 'residents.list',
-      version: 1,
+      version: '1.0.0',
       title: 'Residents List',
       description: 'List of residents',
       stability: 'stable',
@@ -42,14 +42,14 @@ describe('DataViewMeta', () => {
 
     expect(meta.entity).toBe('resident');
     expect(meta.key).toBe('residents.list');
-    expect(meta.version).toBe(1);
+    expect(meta.version).toBe('1.0.0');
   });
 });
 
 describe('DataViewSource', () => {
   it('should define primary query operation', () => {
     const source: DataViewSource = {
-      primary: { key: 'residents.list', version: 1 },
+      primary: { key: 'residents.list', version: '1.0.0' },
     };
 
     expect(source.primary.key).toBe('residents.list');
@@ -57,14 +57,14 @@ describe('DataViewSource', () => {
 
   it('should support item operation and mutations', () => {
     const source: DataViewSource = {
-      primary: { key: 'residents.list', version: 1 },
-      item: { key: 'residents.get', version: 1 },
+      primary: { key: 'residents.list', version: '1.0.0' },
+      item: { key: 'residents.get', version: '1.0.0' },
       mutations: {
-        create: { key: 'residents.create', version: 1 },
-        update: { key: 'residents.update', version: 1 },
-        delete: { key: 'residents.delete', version: 1 },
+        create: { key: 'residents.create', version: '1.0.0' },
+        update: { key: 'residents.update', version: '1.0.0' },
+        delete: { key: 'residents.delete', version: '1.0.0' },
       },
-      refreshEvents: [{ key: 'resident.created', version: 1 }],
+      refreshEvents: [{ key: 'resident.created', version: '1.0.0' }],
     };
 
     expect(source.item?.key).toBe('residents.get');
@@ -113,7 +113,7 @@ describe('DataViewField', () => {
       key: 'avatar',
       label: 'Avatar',
       dataPath: 'profile.avatar',
-      presentation: { key: 'avatar.component', version: 1 },
+      presentation: { key: 'avatar.component', version: '1.0.0' },
     };
 
     expect(field.presentation?.key).toBe('avatar.component');
@@ -150,7 +150,7 @@ describe('DataViewAction', () => {
       key: 'delete',
       label: 'Delete',
       kind: 'operation',
-      operation: { key: 'residents.delete', version: 1 },
+      operation: { key: 'residents.delete', version: '1.0.0' },
       requiresFlag: 'delete-enabled',
     };
 
@@ -234,9 +234,9 @@ describe('DataViewConfig', () => {
 describe('DataViewStates', () => {
   it('should define state presentations', () => {
     const states: DataViewStates = {
-      empty: { key: 'empty.state', version: 1 },
-      error: { key: 'error.state', version: 1 },
-      loading: { key: 'loading.state', version: 1 },
+      empty: { key: 'empty.state', version: '1.0.0' },
+      error: { key: 'error.state', version: '1.0.0' },
+      loading: { key: 'loading.state', version: '1.0.0' },
     };
 
     expect(states.empty?.key).toBe('empty.state');

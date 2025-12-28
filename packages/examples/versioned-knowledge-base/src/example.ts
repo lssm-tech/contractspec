@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'versioned-knowledge-base',
-    version: 1,
+    version: '1.0.0',
     title: 'Versioned Knowledge Base',
     description:
       'Curated KB with immutable sources, reviewable rule versions, and published snapshots.',

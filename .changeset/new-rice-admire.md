@@ -98,6 +98,7 @@
 '@contractspec/lib.bus': patch
 ---
 
+feat: improve app config and examples contracts
 feat: Contract layers support (features, examples, app-configs)
 
 ### New CLI Commands

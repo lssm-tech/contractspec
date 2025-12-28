@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'lifecycle-dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'Lifecycle Dashboard (snippet)',
     description:
       'A minimal dashboard page pattern: call lifecycle-managed endpoints and render a mobile-friendly status card.',

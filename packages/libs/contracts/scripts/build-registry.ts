@@ -50,7 +50,7 @@ function main() {
   const items: ContractRegistryItem[] = templateIds.map((id) => ({
     key: id,
     type: 'contractspec:template',
-    version: 1,
+    version: '1.0.0',
     title: id,
     description: 'Template metadata published from ContractSpec Studio.',
     meta: {

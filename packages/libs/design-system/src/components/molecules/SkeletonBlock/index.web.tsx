@@ -19,5 +19,3 @@ export function SkeletonBlock({
           : 'rounded-md';
   return <Skeleton className={cn(w, h, radius, className)} />;
 }
-
-export default SkeletonBlock;

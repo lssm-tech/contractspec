@@ -4,7 +4,7 @@ import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
 export const productCanonKnowledgeSpace: KnowledgeSpaceSpec = {
   meta: {
     key: 'knowledge.product-canon',
-    version: 1,
+    version: '1.0.0',
     category: 'canonical',
     title: 'Product Canon Knowledge Space',
     description:
@@ -18,7 +18,7 @@ export const productCanonKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { key: 'knowledge.access.product-canon', version: 1 },
+    policy: { key: 'knowledge.access.product-canon', version: '1.0.0' },
     trustLevel: 'high',
     automationWritable: false,
   },

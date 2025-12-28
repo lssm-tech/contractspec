@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'ai-support-bot',
-    version: 1,
+    version: '1.0.0',
     title: 'AI Support Bot',
     description:
       'Classify and resolve a support ticket (with a drafted response) using the support-bot and knowledge libraries.',

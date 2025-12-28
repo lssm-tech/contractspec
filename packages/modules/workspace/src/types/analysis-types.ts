@@ -49,7 +49,7 @@ export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
  */
 export interface RefInfo {
   key: string;
-  version: number;
+  version: string;
 }
 
 /**
@@ -58,7 +58,7 @@ export interface RefInfo {
 export interface ExtractedRef {
   type: RefType;
   key: string;
-  version: number;
+  version: string;
   sourceFile: string;
   sourceLine?: number;
 }
@@ -70,7 +70,7 @@ export interface SpecScanResult {
   filePath: string;
   specType: AnalyzedSpecType;
   key?: string;
-  version?: number;
+  version?: string;
   kind?: AnalyzedOperationKind;
   stability?: Stability;
   description?: string;
@@ -136,7 +136,7 @@ export interface FeatureScanResult {
 export interface ExampleScanResult {
   filePath: string;
   key: string;
-  version?: number;
+  version?: string;
   title?: string;
   description?: string;
   summary?: string;

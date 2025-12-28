@@ -469,7 +469,7 @@ export function featureToMarkdown(
     lines.push('| Name | Version | Type |');
     lines.push('|------|---------|------|');
     for (const op of feature.operations) {
-      const spec = deps?.specs?.getSpec(op.key, op.version);
+      const spec = deps?.specs?.get(op.key, op.version);
       const kind = spec?.meta.kind ?? 'unknown';
       lines.push(`| ${op.key} | v${op.version} | ${kind} |`);
     }
@@ -480,7 +480,7 @@ export function featureToMarkdown(
       lines.push('### Operation Details');
       lines.push('');
       for (const op of feature.operations) {
-        const spec = deps.specs.getSpec(op.key, op.version);
+        const spec = deps.specs.get(op.key, op.version);
         if (spec) {
           lines.push(`---`);
           lines.push('');

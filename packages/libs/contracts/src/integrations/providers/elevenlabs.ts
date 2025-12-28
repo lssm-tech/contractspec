@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const elevenLabsIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'ai-voice.elevenlabs',
-    version: 1,
+    version: '1.0.0',
     category: 'ai-voice',
     title: 'ElevenLabs Text-to-Speech',
     description:
@@ -16,7 +16,7 @@ export const elevenLabsIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'ai.voice.synthesis', version: 1 }],
+    provides: [{ key: 'ai.voice.synthesis', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

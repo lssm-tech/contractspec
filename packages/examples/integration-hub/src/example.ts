@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'integration-hub',
-    version: 1,
+    version: '1.0.0',
     title: 'Integration Hub',
     description:
       'Provider-agnostic integration center with connectors, connections, field mappings, and sync logs.',

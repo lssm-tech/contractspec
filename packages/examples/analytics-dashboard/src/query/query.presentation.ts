@@ -5,7 +5,7 @@ import { QueryModel } from './query.schema';
 export const QueriesListPresentation: PresentationSpec = {
   meta: {
     key: 'analytics.query.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Queries List',
     description: 'List of saved queries',
     domain: 'analytics',
@@ -30,7 +30,7 @@ export const QueriesListPresentation: PresentationSpec = {
 export const QueryBuilderPresentation: PresentationSpec = {
   meta: {
     key: 'analytics.query.builder',
-    version: 1,
+    version: '1.0.0',
     title: 'Query Builder',
     description: 'Visual query builder interface',
     domain: 'analytics',

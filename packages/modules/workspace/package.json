@@ -33,6 +33,7 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
+    "compare-versions": "^6.1.1",
     "zod": "catalog:"
   },
   "devDependencies": {

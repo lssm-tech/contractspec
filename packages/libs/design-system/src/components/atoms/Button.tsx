@@ -85,5 +85,3 @@ export function Button({
     </WebButton>
   );
 }
-
-export default Button;

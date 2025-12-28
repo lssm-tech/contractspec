@@ -10,8 +10,8 @@ import {
   validateBlueprint,
   validateTenantConfig,
   validateImplementationWithAgent,
-  type AppBlueprintSpec,
 } from '@contractspec/bundle.workspace';
+import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config';
 import type { Config } from '../../utils/config';
 
 interface ValidateOptions {
@@ -47,7 +47,7 @@ export async function validateCommand(
   // 0. Blueprint & Tenant Validation (Independent of spec file if arguments provided)
   // Logic from original: Blueprint validation happens if options.blueprint is set.
   // Tenant validation happens if options.tenantConfig AND blueprintResult exists.
-  
+
   let blueprintSpec: AppBlueprintSpec | undefined;
   let blueprintValid = true;
   let tenantValid = true;
@@ -55,38 +55,42 @@ export async function validateCommand(
   if (options.blueprint) {
     const result = await validateBlueprint(options.blueprint, adapters);
     if (result.spec) {
-        blueprintSpec = result.spec;
-        console.log(chalk.cyan(`\nCompass Validating blueprint ${result.spec.meta.key}.v${result.spec.meta.version}`));
+      blueprintSpec = result.spec;
+      console.log(
+        chalk.cyan(
+          `\nCompass Validating blueprint ${result.spec.meta.key}.v${result.spec.meta.version}`
+        )
+      );
     }
-    
+
     if (result.valid) {
-        console.log(chalk.green('  ✅ Blueprint validation passed'));
+      console.log(chalk.green('  ✅ Blueprint validation passed'));
     } else {
-        console.log(chalk.red('  ❌ Blueprint validation failed'));
-        // Errors printed by original implementation were quite detailed.
-        // My service returns strings.
-        result.errors.forEach(e => console.log(chalk.red(`   • ${e}`)));
-        blueprintValid = false;
+      console.log(chalk.red('  ❌ Blueprint validation failed'));
+      // Errors printed by original implementation were quite detailed.
+      // My service returns strings.
+      result.errors.forEach((e) => console.log(chalk.red(`   • ${e}`)));
+      blueprintValid = false;
     }
   }
 
   if (options.tenantConfig && blueprintSpec) {
-     const result = await validateTenantConfig(
-         blueprintSpec, 
-         options.tenantConfig, 
-         options, 
-         adapters
-     );
-     
-     console.log(chalk.cyan(`\n🏗️  Validating tenant config against blueprint`));
-     
-     if (result.valid) {
-         console.log(chalk.green('  ✅ Tenant config validation passed'));
-     } else {
-         console.log(chalk.red('  ❌ Tenant config validation failed'));
-         result.errors.forEach(e => console.log(chalk.red(`   • ${e}`)));
-         tenantValid = false;
-     }
+    const result = await validateTenantConfig(
+      blueprintSpec,
+      options.tenantConfig,
+      options,
+      adapters
+    );
+
+    console.log(chalk.cyan(`\n🏗️  Validating tenant config against blueprint`));
+
+    if (result.valid) {
+      console.log(chalk.green('  ✅ Tenant config validation passed'));
+    } else {
+      console.log(chalk.red('  ❌ Tenant config validation failed'));
+      result.errors.forEach((e) => console.log(chalk.red(`   • ${e}`)));
+      tenantValid = false;
+    }
   }
 
   // Validate spec file exists
@@ -100,86 +104,105 @@ export async function validateCommand(
   let validateImplementation = Boolean(options.checkImplementation);
 
   if (shouldPrompt && process.stdout.isTTY) {
-      const choice = await select({
-        message: 'Validate only the spec or also the implementation?',
-        default: 'spec',
-        choices: [
-          { name: 'Spec file only', value: 'spec' },
-          { name: 'Spec + implementation (AI-assisted)', value: 'both' },
-        ],
-      });
-      validateImplementation = choice === 'both';
+    const choice = await select({
+      message: 'Validate only the spec or also the implementation?',
+      default: 'spec',
+      choices: [
+        { name: 'Spec file only', value: 'spec' },
+        { name: 'Spec + implementation (AI-assisted)', value: 'both' },
+      ],
+    });
+    validateImplementation = choice === 'both';
   } else if (shouldPrompt) {
-      validateImplementation = false;
+    validateImplementation = false;
   }
 
   let hasErrors = !blueprintValid || !tenantValid;
 
   console.log(chalk.gray(`Validating: ${specFile}\n`));
-  
+
   // 1. Spec validation (Structure)
   console.log(chalk.cyan('📋 Checking spec structure...'));
-  
+
   const skipSpecStructure =
     options.blueprint &&
-    resolve(process.cwd(), options.blueprint) === resolve(process.cwd(), specFile);
+    resolve(process.cwd(), options.blueprint) ===
+      resolve(process.cwd(), specFile);
 
   const specResult = await validateSpec(specFile, adapters, {
-      skipStructure: !!skipSpecStructure
+    skipStructure: !!skipSpecStructure,
   });
-  
+
   if (!specResult.valid) {
-      console.log(chalk.red('  ❌ Spec structure has errors:'));
-      specResult.errors.forEach((error) => console.log(chalk.red(`     • ${error}`)));
-      hasErrors = true;
+    console.log(chalk.red('  ❌ Spec structure has errors:'));
+    specResult.errors.forEach((error) =>
+      console.log(chalk.red(`     • ${error}`))
+    );
+    hasErrors = true;
   } else if (!skipSpecStructure) {
-      console.log(chalk.green('  ✅ Spec structure is valid'));
+    console.log(chalk.green('  ✅ Spec structure is valid'));
   } else {
-      console.log(chalk.yellow('⚠️  Skipping spec-structure checks (blueprint file).'));
+    console.log(
+      chalk.yellow('⚠️  Skipping spec-structure checks (blueprint file).')
+    );
   }
 
   if (specResult.warnings.length > 0) {
-      console.log(chalk.yellow('\n  ⚠️  Warnings:'));
-      specResult.warnings.forEach((warning) => console.log(chalk.yellow(`     • ${warning}`)));
+    console.log(chalk.yellow('\n  ⚠️  Warnings:'));
+    specResult.warnings.forEach((warning) =>
+      console.log(chalk.yellow(`     • ${warning}`))
+    );
   }
 
   // 2. Implementation validation (if requested)
   // specResult.code should be available now from our previous optimization!
   if (validateImplementation && specResult.code) {
     console.log(chalk.cyan('\n🤖 Validating implementation with AI...'));
-    
+
     // Config casting might be needed if types mismatch, but we assume structural compatibility
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const bundleConfig = config as any; 
-    
+    const bundleConfig = config as any;
+
     const implResult = await validateImplementationWithAgent(
-        specFile,
-        specResult.code,
-        bundleConfig,
-        options,
-        adapters
+      specFile,
+      specResult.code,
+      bundleConfig,
+      options,
+      adapters
     );
 
     if (implResult.success) {
-        console.log(chalk.green('  ✅ Implementation matches specification'));
-        if (implResult.suggestions.length) {
-             console.log(chalk.cyan('\n  💡 Suggestions:'));
-             implResult.suggestions.forEach(s => console.log(chalk.gray(`     • ${s}`)));
-        }
+      console.log(chalk.green('  ✅ Implementation matches specification'));
+      if (implResult.suggestions.length) {
+        console.log(chalk.cyan('\n  💡 Suggestions:'));
+        implResult.suggestions.forEach((s) =>
+          console.log(chalk.gray(`     • ${s}`))
+        );
+      }
     } else {
-        hasErrors = true;
-        console.log(chalk.red('  ❌ Implementation has issues:'));
-        implResult.errors.forEach(e => console.log(chalk.red(`     • ${e}`)));
-        
-        if (implResult.warnings.length) console.log(chalk.yellow('\n  Warnings:'));
-        implResult.warnings.forEach(w => console.log(chalk.yellow(`     • ${w}`)));
-        
-        if (implResult.report) {
-             console.log(chalk.gray('\n  Detailed Report:'));
-             console.log(chalk.gray('  ' + '-'.repeat(60)));
-             console.log(chalk.gray(implResult.report.split('\n').map(l => `  ${l}`).join('\n')));
-             console.log(chalk.gray('  ' + '-'.repeat(60)));
-        }
+      hasErrors = true;
+      console.log(chalk.red('  ❌ Implementation has issues:'));
+      implResult.errors.forEach((e) => console.log(chalk.red(`     • ${e}`)));
+
+      if (implResult.warnings.length)
+        console.log(chalk.yellow('\n  Warnings:'));
+      implResult.warnings.forEach((w) =>
+        console.log(chalk.yellow(`     • ${w}`))
+      );
+
+      if (implResult.report) {
+        console.log(chalk.gray('\n  Detailed Report:'));
+        console.log(chalk.gray('  ' + '-'.repeat(60)));
+        console.log(
+          chalk.gray(
+            implResult.report
+              .split('\n')
+              .map((l) => `  ${l}`)
+              .join('\n')
+          )
+        );
+        console.log(chalk.gray('  ' + '-'.repeat(60)));
+      }
     }
   }
 
@@ -196,11 +219,11 @@ export async function validateCommand(
 
     if (!result.valid) {
       hasErrors = true;
-      result.errors.forEach(err => console.log(chalk.red(`  ❌ ${err}`)));
+      result.errors.forEach((err) => console.log(chalk.red(`  ❌ ${err}`)));
     } else {
       console.log(chalk.green('  ✅ Handler check passed'));
     }
-    result.warnings.forEach(w => console.log(chalk.yellow(`  ⚠️  ${w}`)));
+    result.warnings.forEach((w) => console.log(chalk.yellow(`  ⚠️  ${w}`)));
   }
 
   // 4. Test validation (if requested)
@@ -216,11 +239,11 @@ export async function validateCommand(
 
     if (!result.valid) {
       hasErrors = true;
-      result.errors.forEach(err => console.log(chalk.red(`  ❌ ${err}`)));
+      result.errors.forEach((err) => console.log(chalk.red(`  ❌ ${err}`)));
     } else {
       console.log(chalk.green('  ✅ Test check passed'));
     }
-    result.warnings.forEach(w => console.log(chalk.yellow(`  ⚠️  ${w}`)));
+    result.warnings.forEach((w) => console.log(chalk.yellow(`  ⚠️  ${w}`)));
   }
 
   // Summary

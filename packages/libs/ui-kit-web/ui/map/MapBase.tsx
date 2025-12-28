@@ -81,5 +81,3 @@ export function MapBase(props: MapBaseProps) {
     </div>
   );
 }
-
-export default MapBase;

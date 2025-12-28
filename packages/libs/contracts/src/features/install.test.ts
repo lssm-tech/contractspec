@@ -11,7 +11,7 @@ describe('installFeature', () => {
   ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
-      version: 1,
+      version: '1.0.0',
       title: 'Test Feature',
       description: 'A test feature',
       stability: StabilityEnum.Stable,
@@ -45,7 +45,7 @@ describe('installFeature', () => {
     const capabilitySpec: CapabilitySpec = {
       meta: {
         key: 'payments.stripe',
-        version: 1,
+        version: '1.0.0',
         title: 'Stripe Payments',
         description: 'Stripe payment processing',
         stability: StabilityEnum.Stable,
@@ -54,7 +54,11 @@ describe('installFeature', () => {
         kind: 'integration',
       },
       provides: [
-        { surface: 'operation', key: 'payments.charge.create', version: 1 },
+        {
+          surface: 'operation',
+          key: 'payments.charge.create',
+          version: '1.0.0',
+        },
       ],
     };
 
@@ -63,7 +67,7 @@ describe('installFeature', () => {
       const capabilities = new CapabilityRegistry();
       const feature = createFeature({
         capabilities: {
-          requires: [{ key: 'payments.stripe', version: 1 }],
+          requires: [{ key: 'payments.stripe', version: '1.0.0' }],
         },
       });
 
@@ -79,7 +83,7 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         capabilities: {
-          requires: [{ key: 'payments.stripe', version: 1 }],
+          requires: [{ key: 'payments.stripe', version: '1.0.0' }],
         },
       });
 
@@ -96,8 +100,8 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         capabilities: {
-          provides: [{ key: 'payments.stripe', version: 1 }],
-          requires: [{ key: 'payments.stripe', version: 1 }],
+          provides: [{ key: 'payments.stripe', version: '1.0.0' }],
+          requires: [{ key: 'payments.stripe', version: '1.0.0' }],
         },
       });
 
@@ -112,7 +116,7 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         capabilities: {
-          provides: [{ key: 'unregistered.cap', version: 1 }],
+          provides: [{ key: 'unregistered.cap', version: '1.0.0' }],
         },
       });
 
@@ -126,7 +130,7 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         capabilities: {
-          requires: [{ key: 'some.cap', version: 1 }],
+          requires: [{ key: 'some.cap', version: '1.0.0' }],
         },
       });
 
@@ -141,7 +145,7 @@ describe('installFeature', () => {
       const features = new FeatureRegistry();
       const feature = createFeature({
         presentationsTargets: [
-          { key: 'missing.presentation', version: 1, targets: ['react'] },
+          { key: 'missing.presentation', version: '1.0.0', targets: ['react'] },
         ],
       });
 
@@ -156,7 +160,7 @@ describe('installFeature', () => {
         {
           meta: {
             key: 'user.profile',
-            version: 1,
+            version: '1.0.0',
             title: 'Profile',
             description: 'User profile',
             stability: 'stable' as const,
@@ -182,7 +186,7 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         presentationsTargets: [
-          { key: 'user.profile', version: 1, targets: ['react'] },
+          { key: 'user.profile', version: '1.0.0', targets: ['react'] },
         ],
       });
 
@@ -197,7 +201,7 @@ describe('installFeature', () => {
         {
           meta: {
             key: 'user.profile',
-            version: 1,
+            version: '1.0.0',
             title: 'Profile',
             description: 'Profile',
             stability: 'stable' as const,
@@ -223,7 +227,7 @@ describe('installFeature', () => {
 
       const feature = createFeature({
         presentationsTargets: [
-          { key: 'user.profile', version: 1, targets: ['react'] },
+          { key: 'user.profile', version: '1.0.0', targets: ['react'] },
         ],
       });
 

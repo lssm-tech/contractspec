@@ -67,7 +67,7 @@ const UserSignupOutput = defineSchemaModel({
 export const UserSignupSpec = defineCommand({
   meta: {
     name: 'user.signup',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@team'],
     tags: ['user', 'authentication'],

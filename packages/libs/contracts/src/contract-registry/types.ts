@@ -35,7 +35,7 @@ export interface ContractRegistryFile {
 export interface ContractRegistryItem {
   key: string;
   type: ContractRegistryItemType;
-  version: number;
+  version: string;
   title: string;
   description: string;
   meta: {

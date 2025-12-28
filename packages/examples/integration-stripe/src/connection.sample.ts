@@ -5,7 +5,7 @@ export const stripeLiveConnection: IntegrationConnection = {
     id: 'conn-stripe-live',
     tenantId: 'artisan-co',
     integrationKey: 'payments.stripe',
-    integrationVersion: 1,
+    integrationVersion: '1',
     label: 'Stripe Production',
     environment: 'production',
     createdAt: '2026-01-01T00:00:00.000Z',

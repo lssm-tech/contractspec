@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'locale-jurisdiction-gate',
-    version: 1,
+    version: '1.0.0',
     title: 'Locale / Jurisdiction Gate',
     description:
       'Fail-closed gating for assistant calls: locale + jurisdiction + kbSnapshotId + allowedScope must be explicit, answers must cite a snapshot.',

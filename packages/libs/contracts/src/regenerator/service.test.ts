@@ -14,7 +14,7 @@ import type { AppBlueprintSpec, TenantAppConfig } from '../app-config/spec';
 const blueprint: AppBlueprintSpec = {
   meta: {
     key: 'demo.app',
-    version: 1,
+    version: '1.0.0',
     appId: 'demo',
     title: 'Demo App',
     description: 'Demo blueprint',
@@ -24,10 +24,10 @@ const blueprint: AppBlueprintSpec = {
     stability: 'experimental',
   },
   capabilities: {
-    enabled: [{ key: 'demo.capability', version: 1 }],
+    enabled: [{ key: 'demo.capability', version: '1.0.0' }],
   },
   dataViews: {
-    dashboard: { key: 'demo.dashboard', version: 1 },
+    dashboard: { key: 'demo.dashboard', version: '1.0.0' },
   },
 };
 
@@ -38,7 +38,7 @@ const tenantConfig: TenantAppConfig = {
     appId: 'demo',
     blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
-    version: 1,
+    version: '1.0.0',
     status: 'draft',
   },
 };
@@ -96,7 +96,7 @@ class MockRule implements RegenerationRule {
         rationale: ['Repeated failures detected'],
         target: {
           specType: 'workflow',
-          reference: { key: 'demo.workflow', version: 1 },
+          reference: { key: 'demo.workflow', version: '1.0.0' },
           tenantScoped: true,
         },
         actions: [

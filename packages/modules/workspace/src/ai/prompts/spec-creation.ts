@@ -1,5 +1,5 @@
-export type OpKind = 'command' | 'query';
-export type PresentationKind = 'web_component' | 'markdown' | 'data';
+import type { OpKind } from '@contractspec/lib.contracts';
+import type { PresentationKind } from '../../types/spec-types';
 
 /**
  * Build prompt for creating operation spec from description

@@ -11,9 +11,11 @@ import {
   createNodeAdapters,
   discoverLayers,
   type LayerDiscoveryResult,
-  type FeatureScanResult,
-  type ExampleScanResult,
 } from '@contractspec/bundle.workspace';
+import type {
+  FeatureScanResult,
+  ExampleScanResult,
+} from '@contractspec/module.workspace';
 import { getErrorMessage } from '../../utils/errors';
 
 type LayerType = 'features' | 'examples' | 'app-configs' | 'workspace-configs';
@@ -62,7 +64,10 @@ export const layersCommand = new Command('layers')
 /**
  * Output layers as formatted text.
  */
-function outputText(result: LayerDiscoveryResult, options: LayersOptions): void {
+function outputText(
+  result: LayerDiscoveryResult,
+  options: LayersOptions
+): void {
   const { inventory, stats } = result;
 
   // Show summary
@@ -162,7 +167,10 @@ function outputText(result: LayerDiscoveryResult, options: LayersOptions): void 
 /**
  * Output layers as JSON.
  */
-function outputJson(result: LayerDiscoveryResult, options: LayersOptions): void {
+function outputJson(
+  result: LayerDiscoveryResult,
+  options: LayersOptions
+): void {
   const output: Record<string, unknown> = {
     stats: result.stats,
   };
@@ -192,7 +200,9 @@ function outputJson(result: LayerDiscoveryResult, options: LayersOptions): void 
       examples = examples.filter((e) => e.visibility === options.visibility);
     }
     if (options.tag) {
-      examples = examples.filter((e) => e.tags?.includes(options.tag as string));
+      examples = examples.filter((e) =>
+        e.tags?.includes(options.tag as string)
+      );
     }
 
     output.examples = examples.map((e) => ({
@@ -220,13 +230,13 @@ function outputJson(result: LayerDiscoveryResult, options: LayersOptions): void 
   }
 
   if (!options.type || options.type === 'workspace-configs') {
-    output.workspaceConfigs = [...result.inventory.workspaceConfigs.values()].map(
-      (c) => ({
-        file: c.file,
-        valid: c.valid,
-        errors: c.errors,
-      })
-    );
+    output.workspaceConfigs = [
+      ...result.inventory.workspaceConfigs.values(),
+    ].map((c) => ({
+      file: c.file,
+      valid: c.valid,
+      errors: c.errors,
+    }));
   }
 
   console.log(JSON.stringify(output, null, 2));
@@ -312,9 +322,7 @@ function printExample(example: ExampleScanResult): void {
 /**
  * Get chalk color for stability level.
  */
-function getStabilityColor(
-  stability?: string
-): (text: string) => string {
+function getStabilityColor(stability?: string): (text: string) => string {
   switch (stability) {
     case 'experimental':
       return chalk.red;

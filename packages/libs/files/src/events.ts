@@ -126,7 +126,7 @@ const UploadSessionCompletedPayload = defineSchemaModel({
 export const FileUploadedEvent = defineEvent({
   meta: {
     key: 'file.uploaded',
-    version: 1,
+    version: '1.0.0',
     description: 'A file has been uploaded.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -141,7 +141,7 @@ export const FileUploadedEvent = defineEvent({
 export const FileUpdatedEvent = defineEvent({
   meta: {
     key: 'file.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A file has been updated.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -156,7 +156,7 @@ export const FileUpdatedEvent = defineEvent({
 export const FileDeletedEvent = defineEvent({
   meta: {
     key: 'file.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A file has been deleted.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -171,7 +171,7 @@ export const FileDeletedEvent = defineEvent({
 export const FileVersionCreatedEvent = defineEvent({
   meta: {
     key: 'file.version_created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new file version has been created.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -186,7 +186,7 @@ export const FileVersionCreatedEvent = defineEvent({
 export const AttachmentAttachedEvent = defineEvent({
   meta: {
     key: 'attachment.attached',
-    version: 1,
+    version: '1.0.0',
     description: 'A file has been attached to an entity.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -201,7 +201,7 @@ export const AttachmentAttachedEvent = defineEvent({
 export const AttachmentDetachedEvent = defineEvent({
   meta: {
     key: 'attachment.detached',
-    version: 1,
+    version: '1.0.0',
     description: 'A file has been detached from an entity.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -216,7 +216,7 @@ export const AttachmentDetachedEvent = defineEvent({
 export const UploadSessionStartedEvent = defineEvent({
   meta: {
     key: 'upload.session_started',
-    version: 1,
+    version: '1.0.0',
     description: 'An upload session has started.',
     stability: 'stable',
     owners: ['@platform.files'],
@@ -231,7 +231,7 @@ export const UploadSessionStartedEvent = defineEvent({
 export const UploadSessionCompletedEvent = defineEvent({
   meta: {
     key: 'upload.session_completed',
-    version: 1,
+    version: '1.0.0',
     description: 'An upload session has completed.',
     stability: 'stable',
     owners: ['@platform.files'],

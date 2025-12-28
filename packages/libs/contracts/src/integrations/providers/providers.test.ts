@@ -10,11 +10,11 @@ import { qdrantIntegrationSpec, registerQdrantIntegration } from './qdrant';
 describe('integration provider specs', () => {
   it('registers Stripe integration', () => {
     const registry = registerStripeIntegration(new IntegrationSpecRegistry());
-    const registered = registry.get('payments.stripe', 1);
+    const registered = registry.get('payments.stripe', '1.0.0');
     expect(registered).toBe(stripeIntegrationSpec);
     expect(registered?.supportedModes).toEqual(['managed', 'byok']);
     expect(registered?.capabilities.provides).toEqual([
-      { key: 'payments.psp', version: 1 },
+      { key: 'payments.psp', version: '1.0.0' },
     ]);
     expect(registered?.secretSchema.schema).toMatchObject({
       required: ['apiKey', 'webhookSecret'],
@@ -23,7 +23,7 @@ describe('integration provider specs', () => {
 
   it('registers Postmark integration', () => {
     const registry = registerPostmarkIntegration(new IntegrationSpecRegistry());
-    const registered = registry.get('email.postmark', 1);
+    const registered = registry.get('email.postmark', '1.0.0');
     expect(registered).toBe(postmarkIntegrationSpec);
     expect(registered?.supportedModes).toEqual(['managed', 'byok']);
     expect(registered?.secretSchema.schema).toMatchObject({
@@ -33,12 +33,12 @@ describe('integration provider specs', () => {
 
   it('registers Qdrant integration', () => {
     const registry = registerQdrantIntegration(new IntegrationSpecRegistry());
-    const registered = registry.get('vectordb.qdrant', 1);
+    const registered = registry.get('vectordb.qdrant', '1.0.0');
     expect(registered).toBe(qdrantIntegrationSpec);
     expect(registered?.supportedModes).toEqual(['managed', 'byok']);
     expect(registered?.capabilities.provides).toEqual([
-      { key: 'vector-db.search', version: 1 },
-      { key: 'vector-db.storage', version: 1 },
+      { key: 'vector-db.search', version: '1.0.0' },
+      { key: 'vector-db.storage', version: '1.0.0' },
     ]);
   });
 });

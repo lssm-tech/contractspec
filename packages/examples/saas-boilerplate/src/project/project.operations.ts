@@ -22,7 +22,7 @@ const OWNERS = ['example.saas-boilerplate'] as const;
 export const CreateProjectContract = defineCommand({
   meta: {
     key: 'saas.project.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'project', 'create'],
@@ -55,7 +55,7 @@ export const CreateProjectContract = defineCommand({
     emits: [
       {
         key: 'project.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Project is created',
         payload: ProjectModel,
       },
@@ -87,7 +87,7 @@ export const CreateProjectContract = defineCommand({
 export const GetProjectContract = defineQuery({
   meta: {
     key: 'saas.project.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'project', 'get'],
@@ -135,7 +135,7 @@ export const GetProjectContract = defineQuery({
 export const UpdateProjectContract = defineCommand({
   meta: {
     key: 'saas.project.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'project', 'update'],
@@ -154,7 +154,7 @@ export const UpdateProjectContract = defineCommand({
     emits: [
       {
         key: 'project.updated',
-        version: 1,
+        version: '1.0.0',
         when: 'Project is updated',
         payload: ProjectModel,
       },
@@ -186,7 +186,7 @@ export const UpdateProjectContract = defineCommand({
 export const DeleteProjectContract = defineCommand({
   meta: {
     key: 'saas.project.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'project', 'delete'],
@@ -205,7 +205,7 @@ export const DeleteProjectContract = defineCommand({
     emits: [
       {
         key: 'project.deleted',
-        version: 1,
+        version: '1.0.0',
         when: 'Project is deleted',
         payload: ProjectDeletedPayloadModel,
       },
@@ -237,7 +237,7 @@ export const DeleteProjectContract = defineCommand({
 export const ListProjectsContract = defineQuery({
   meta: {
     key: 'saas.project.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'project', 'list'],

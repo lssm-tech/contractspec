@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
-import { 
+import {
   validateBlueprint as validateBlueprintSpec,
-  type AppBlueprintSpec 
+  type AppBlueprintSpec,
 } from '@contractspec/lib.contracts';
 import type { FsAdapter } from '../../ports/fs';
 
@@ -26,7 +26,7 @@ export async function validateBlueprint(
   const { fs } = adapters;
   const resolvedPath = resolve(process.cwd(), blueprintPath);
 
-  if (!await fs.exists(resolvedPath)) {
+  if (!(await fs.exists(resolvedPath))) {
     return {
       valid: false,
       errors: [`Blueprint file not found: ${resolvedPath}`],
@@ -37,12 +37,12 @@ export async function validateBlueprint(
     const mod = await loadModule(resolvedPath);
     const spec = extractBlueprintSpec(mod);
     const report = validateBlueprintSpec(spec);
-    
+
     return {
       spec,
       report,
       valid: report.valid,
-      errors: report.errors.map(e => `[${e.code}] ${e.path}: ${e.message}`),
+      errors: report.errors.map((e) => `[${e.code}] ${e.path}: ${e.message}`),
     };
   } catch (error) {
     return {
@@ -52,7 +52,9 @@ export async function validateBlueprint(
   }
 }
 
-async function loadModule(modulePath: string): Promise<Record<string, unknown>> {
+async function loadModule(
+  modulePath: string
+): Promise<Record<string, unknown>> {
   try {
     const url = pathToFileURL(modulePath).href;
     // Using native import which works with Bun and Node (if configured)

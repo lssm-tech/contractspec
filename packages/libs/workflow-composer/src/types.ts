@@ -18,7 +18,7 @@ export interface StepInjection {
 
 export interface WorkflowExtension extends WorkflowExtensionScope {
   workflow: string;
-  baseVersion?: number;
+  baseVersion?: string;
   priority?: number;
   customSteps?: StepInjection[];
   hiddenSteps?: string[];

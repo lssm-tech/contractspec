@@ -34,7 +34,7 @@ export const ListTasksOutputModel = defineSchemaModel({
 export const ListTasksOperation = defineQuery({
   meta: {
     key: 'team.task.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'task', 'list', 'query'],
@@ -74,7 +74,7 @@ export const ListTasksOperation = defineQuery({
 export const CreateTaskContract = defineCommand({
   meta: {
     key: 'team.task.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'task', 'create'],
@@ -112,7 +112,7 @@ export const CreateTaskContract = defineCommand({
 export const UpdateTaskStatusContract = defineCommand({
   meta: {
     key: 'team.task.updateStatus',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'task', 'status'],

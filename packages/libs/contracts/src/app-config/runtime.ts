@@ -78,8 +78,8 @@ export interface ResolvedAppConfig {
   tenantId: string;
   environment?: string;
   blueprintName: string;
-  blueprintVersion: number;
-  configVersion: number;
+  blueprintVersion: string;
+  configVersion: string;
   capabilities: {
     enabled: CapabilityRef[];
     disabled: CapabilityRef[];
@@ -932,7 +932,7 @@ function resolveFeatureRefs(
 function resolvePointerRecord<TSpec>(
   record: Record<string, SpecPointer>,
   registry:
-    | { get(name: string, version?: number): TSpec | undefined }
+    | { get(name: string, version?: string): TSpec | undefined }
     | undefined,
   type: 'dataView' | 'workflow',
   missing: MissingReference[]

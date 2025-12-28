@@ -7,13 +7,6 @@
  * Includes a minimal OpRegistry shim for backward-compat (deprecated).
  */
 import {
-  filterBy,
-  getUniqueOwners,
-  getUniqueTags,
-  groupBy,
-  GroupingStrategies,
-} from '../registry-utils';
-import {
   type AnyOperationSpec,
   isEmitDeclRef,
   type OperationSpec,
@@ -24,10 +17,11 @@ import type { HandlerCtx } from '../types';
 import { eventKey } from '../events';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { HandlerForOperationSpec } from '../install';
+import { SpecContractRegistry } from '../registry';
 
-export type OperationKey = `${string}.v${number}`;
+export type OperationKey = `${string}.v${string}`;
 
-export function opKey(key: string, version: number): OperationKey {
+export function opKey(key: string, version: string): OperationKey {
   return `${key}.v${version}`;
 }
 
@@ -37,25 +31,14 @@ type AnyOperationHandler = (args: unknown, ctx: HandlerCtx) => Promise<unknown>;
  * In-memory registry for ContractSpecs and their bound handlers.
  * Provides validation, policy enforcement, and guarded event emission at execute time.
  */
-export class OperationSpecRegistry {
-  private specs = new Map<OperationKey, AnyOperationSpec>();
+export class OperationSpecRegistry extends SpecContractRegistry<
+  'operation',
+  AnyOperationSpec
+> {
   private handlers = new Map<OperationKey, AnyOperationHandler>();
 
-  /**
-   * Registers a OperationSpec definition.
-   *
-   * @param spec - The contract specification to register.
-   * @returns The registry instance for chaining.
-   * @throws If a spec with the same name and version is already registered.
-   */
-  register<
-    I extends AnySchemaModel,
-    O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
-  >(spec: OperationSpec<I, O>): this {
-    const key = opKey(spec.meta.key, spec.meta.version);
-    if (this.specs.has(key)) throw new Error(`Duplicate spec ${key}`);
-    this.specs.set(key, spec as AnyOperationSpec);
-    return this;
+  public constructor(items?: AnyOperationSpec[]) {
+    super('operation', items);
   }
 
   /**
@@ -75,7 +58,7 @@ export class OperationSpecRegistry {
   ): this {
     const key: OperationKey = opKey(spec.meta.key, spec.meta.version);
 
-    if (!this.specs.has(key))
+    if (!this.items.has(key))
       throw new Error(`Cannot bind; spec not found: ${key}`);
     if (this.handlers.has(key))
       throw new Error(`Handler already bound for ${key}`);
@@ -84,109 +67,22 @@ export class OperationSpecRegistry {
   }
 
   /**
-   * Retrieves a registered spec by name and version.
-   * If version is omitted, returns the highest version found.
-   *
-   * @param name - Operation name.
-   * @param version - (Optional) Specific version.
-   */
-  getSpec(key: string, version?: number): AnyOperationSpec | undefined {
-    if (version != null) return this.specs.get(opKey(key, version));
-    // find highest version by scanning keys of the same name
-    let found: AnyOperationSpec | undefined;
-    let maxV = -Infinity;
-    for (const [k, s] of this.specs.entries()) {
-      if (!k.startsWith(`${key}.v`)) continue;
-      if (s.meta.version > maxV) {
-        maxV = s.meta.version;
-        found = s;
-      }
-    }
-    return found;
-  }
-
-  /**
    * Retrieves the bound handler for a spec.
    */
-  getHandler(key: string, version?: number): AnyOperationHandler | undefined {
-    const spec = this.getSpec(key, version);
+  getHandler(key: string, version?: string): AnyOperationHandler | undefined {
+    const spec = this.get(key, version);
     if (!spec) return undefined;
     return this.handlers.get(opKey(spec.meta.key, spec.meta.version));
-  }
-
-  /** Iterate all registered specs. */
-  listSpecs(): AnyOperationSpec[] {
-    return [...this.specs.values()];
   }
 
   /** Iterate all bound operations (spec+handler). */
   listBound(): { spec: AnyOperationSpec; handler: AnyOperationHandler }[] {
     const out: { spec: AnyOperationSpec; handler: AnyOperationHandler }[] = [];
-    for (const [k, spec] of this.specs.entries()) {
-      const h = this.handlers.get(k);
+    for (const [k, spec] of this.items.entries()) {
+      const h = this.handlers.get(k as OperationKey);
       if (h) out.push({ spec, handler: h });
     }
     return out;
-  }
-
-  /**
-   * Filter specs by criteria.
-   */
-  filter(
-    criteria: import('../registry-utils').RegistryFilter
-  ): AnyOperationSpec[] {
-    return filterBy(this.listSpecs(), criteria);
-  }
-
-  /**
-   * List specs with specific tag.
-   */
-  listByTag(tag: string): AnyOperationSpec[] {
-    return this.listSpecs().filter((s) => s.meta.tags?.includes(tag));
-  }
-
-  /**
-   * List specs by owner.
-   */
-  listByOwner(owner: string): AnyOperationSpec[] {
-    return this.listSpecs().filter((s) => s.meta.owners?.includes(owner));
-  }
-
-  /**
-   * Group specs by key function.
-   */
-  groupBy(
-    keyFn: import('../registry-utils').GroupKeyFn<AnyOperationSpec>
-  ): Map<string, AnyOperationSpec[]> {
-    return groupBy(this.listSpecs(), keyFn);
-  }
-
-  /**
-   * Group by domain (first segment of name).
-   */
-  groupByDomain(): Map<string, AnyOperationSpec[]> {
-    return this.groupBy(GroupingStrategies.byDomain);
-  }
-
-  /**
-   * Group by tag.
-   */
-  groupByTag(): Map<string, AnyOperationSpec[]> {
-    return this.groupBy(GroupingStrategies.byTag);
-  }
-
-  /**
-   * Get unique tags from all specs.
-   */
-  getUniqueTags(): string[] {
-    return getUniqueTags(this.listSpecs());
-  }
-
-  /**
-   * Get unique owners from all specs.
-   */
-  getUniqueOwners(): string[] {
-    return getUniqueOwners(this.listSpecs());
   }
 
   /**
@@ -204,11 +100,11 @@ export class OperationSpecRegistry {
    */
   async execute(
     key: string,
-    version: number | undefined,
+    version: string | undefined,
     rawInput: unknown,
     ctx: HandlerCtx
   ): Promise<unknown> {
-    const baseSpec = this.getSpec(key, version);
+    const baseSpec = this.get(key, version);
     if (!baseSpec)
       throw new Error(
         `Spec not found for ${key}${version ? `.v${version}` : ''}`
@@ -285,7 +181,7 @@ export class OperationSpecRegistry {
 
     const emitGuard = async (
       eventName: string,
-      eventVersion: number,
+      eventVersion: string,
       payload: unknown
     ) => {
       const key2 = eventKey(eventName, eventVersion);
@@ -328,7 +224,7 @@ export class OperationSpecRegistry {
         const props = trigger.properties?.(details) ?? {};
         await telemetryContext.track(
           trigger.event.key,
-          trigger.event.version ?? 1,
+          trigger.event.version ?? '1.0.0',
           props,
           {
             tenantId: ctx.organizationId ?? undefined,

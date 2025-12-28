@@ -7,7 +7,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const SaasDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'saas.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'SaaS Dashboard',
     description:
       'Main SaaS dashboard with project overview, usage stats, and quick actions',
@@ -35,7 +35,7 @@ export const SaasDashboardPresentation: PresentationSpec = {
 export const SettingsPanelPresentation: PresentationSpec = {
   meta: {
     key: 'saas.settings',
-    version: 1,
+    version: '1.0.0',
     title: 'Settings Panel',
     description: 'Organization and user settings panel',
     domain: 'saas-boilerplate',

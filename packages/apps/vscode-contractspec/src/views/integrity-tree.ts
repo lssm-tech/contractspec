@@ -54,7 +54,7 @@ interface FeatureNode {
 interface SpecGroupNode {
   type: 'spec-group';
   groupType: 'operations' | 'events' | 'presentations' | 'experiments';
-  specs: { name: string; version: number }[];
+  specs: { name: string; version: string }[];
   feature: FeatureScanResult;
   result: IntegrityAnalysisResult;
 }
@@ -62,7 +62,7 @@ interface SpecGroupNode {
 interface SpecNode {
   type: 'spec';
   name: string;
-  version: number;
+  version: string;
   specType: string;
   file?: string;
   resolved: boolean;

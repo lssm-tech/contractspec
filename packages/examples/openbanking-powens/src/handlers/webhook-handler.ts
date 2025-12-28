@@ -4,7 +4,7 @@
  * Verifies signature, then enqueues the canonical workflows to keep the ledger
  * in sync. Unknown events are ignored (or can be recorded by the app layer).
  */
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, timingSafeEqual } from 'crypto';
 import { PowensOpenBankingProvider } from '@contractspec/integration.providers-impls/impls/powens-openbanking';
 import type { PowensEnvironment } from '@contractspec/integration.providers-impls/impls/powens-client';
 

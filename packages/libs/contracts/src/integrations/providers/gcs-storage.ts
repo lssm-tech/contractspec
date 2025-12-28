@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const gcsStorageIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'storage.gcs',
-    version: 1,
+    version: '1.0.0',
     category: 'storage',
     title: 'Google Cloud Storage Buckets',
     description:
@@ -16,7 +16,7 @@ export const gcsStorageIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'storage.objects', version: 1 }],
+    provides: [{ key: 'storage.objects', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

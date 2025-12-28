@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-ui-shared',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey UI — Shared',
     description:
       'Shared UI components and hooks for learning journey mini-apps.',

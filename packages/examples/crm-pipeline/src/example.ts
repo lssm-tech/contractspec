@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'crm-pipeline',
-    version: 1,
+    version: '1.0.0',
     title: 'CRM Pipeline',
     description:
       'Sales CRM with contacts, companies, deals, pipelines, and tasks.',

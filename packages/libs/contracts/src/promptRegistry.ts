@@ -1,5 +1,6 @@
 import type { PromptSpec } from './prompt';
 import * as z from 'zod';
+import { compareVersions } from 'compare-versions';
 
 export class PromptRegistry {
   private prompts = new Map<string, PromptSpec<z.ZodType>>(); // key = name.vX
@@ -18,15 +19,16 @@ export class PromptRegistry {
   }
 
   /** Get prompt by name; when version omitted, returns highest version. */
-  get(name: string, version?: number) {
+  get(name: string, version?: string) {
     if (version != null) return this.prompts.get(`${name}-v${version}`);
     // latest by highest version
     let candidate: PromptSpec<z.ZodType> | undefined;
-    let max = -Infinity;
     for (const [k, p] of this.prompts.entries()) {
       if (!k.startsWith(`${name}.v`)) continue;
-      if (p.meta.version > max) {
-        max = p.meta.version;
+      if (
+        !candidate ||
+        compareVersions(p.meta.version, candidate.meta.version) > 0
+      ) {
         candidate = p;
       }
     }

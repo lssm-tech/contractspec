@@ -1,15 +1,15 @@
-import { filterBy, getUniqueTags, groupBy } from '../registry-utils';
 import type { CapabilityRef } from '../capabilities';
 import type { OwnerShipMeta } from '../ownership';
 import type { OpRef } from '../features';
 import type { ExperimentRef } from '../experiments/spec';
+import { SpecContractRegistry } from '../registry';
 
 /**
  * Reference to a form spec declared in {@link FormRegistry}.
  */
 export interface FormRef {
   key: string;
-  version: number;
+  version: string;
 }
 
 export type StepType = 'human' | 'automation' | 'decision';
@@ -101,62 +101,11 @@ export interface WorkflowSpec {
   experiments?: ExperimentRef[];
 }
 
-function workflowKey(meta: WorkflowMeta) {
-  return `${meta.key}.v${meta.version}`;
-}
-
-export class WorkflowRegistry {
-  private readonly items = new Map<string, WorkflowSpec>();
-
-  register(spec: WorkflowSpec): this {
-    const key = workflowKey(spec.meta);
-    if (this.items.has(key)) throw new Error(`Duplicate workflow ${key}`);
-    this.items.set(key, spec);
-    return this;
-  }
-
-  list(): WorkflowSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(name: string, version?: number): WorkflowSpec | undefined {
-    if (version != null) return this.items.get(`${name}.v${version}`);
-    let candidate: WorkflowSpec | undefined;
-    let max = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== name) continue;
-      if (spec.meta.version > max) {
-        max = spec.meta.version;
-        candidate = spec;
-      }
-    }
-    return candidate;
-  }
-
-  /** Filter workflows by criteria. */
-  filter(criteria: import('../registry-utils').RegistryFilter): WorkflowSpec[] {
-    return filterBy(this.list(), criteria);
-  }
-
-  /** List workflows with specific tag. */
-  listByTag(tag: string): WorkflowSpec[] {
-    return this.list().filter((w) => w.meta.tags?.includes(tag));
-  }
-
-  /** List workflows by owner. */
-  listByOwner(owner: string): WorkflowSpec[] {
-    return this.list().filter((w) => w.meta.owners?.includes(owner));
-  }
-
-  /** Group workflows by key function. */
-  groupBy(
-    keyFn: import('../registry-utils').GroupKeyFn<WorkflowSpec>
-  ): Map<string, WorkflowSpec[]> {
-    return groupBy(this.list(), keyFn);
-  }
-
-  /** Get unique tags from all workflows. */
-  getUniqueTags(): string[] {
-    return getUniqueTags(this.list());
+export class WorkflowRegistry extends SpecContractRegistry<
+  'workflow',
+  WorkflowSpec
+> {
+  constructor(items?: WorkflowSpec[]) {
+    super('workflow', items);
   }
 }

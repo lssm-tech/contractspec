@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'openbanking-powens',
-    version: 1,
+    version: '1.0.0',
     title: 'Open Banking — Powens',
     description:
       'OAuth callback + webhook handler patterns for Powens open banking integration (provider + workflow orchestration).',

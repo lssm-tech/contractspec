@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 export const AiChatFeature: FeatureModuleSpec = {
   meta: {
     key: 'ai-chat',
-    version: 1,
+    version: '1.0.0',
     title: 'AI Vibe Coding Chat',
     description:
       'AI-powered conversational coding assistant with full workspace context',
@@ -24,22 +24,22 @@ export const AiChatFeature: FeatureModuleSpec = {
 
   // Contract operations for chat functionality
   operations: [
-    { key: 'ai-chat.send', version: 1 },
-    { key: 'ai-chat.stream', version: 1 },
-    { key: 'ai-chat.conversations.list', version: 1 },
-    { key: 'ai-chat.conversations.get', version: 1 },
-    { key: 'ai-chat.conversations.delete', version: 1 },
-    { key: 'ai-chat.providers.list', version: 1 },
-    { key: 'ai-chat.context.scan', version: 1 },
+    { key: 'ai-chat.send', version: '1.0.0' },
+    { key: 'ai-chat.stream', version: '1.0.0' },
+    { key: 'ai-chat.conversations.list', version: '1.0.0' },
+    { key: 'ai-chat.conversations.get', version: '1.0.0' },
+    { key: 'ai-chat.conversations.delete', version: '1.0.0' },
+    { key: 'ai-chat.providers.list', version: '1.0.0' },
+    { key: 'ai-chat.context.scan', version: '1.0.0' },
   ],
 
   // Events emitted by the chat system
   events: [
-    { key: 'ai-chat.message.sent', version: 1 },
-    { key: 'ai-chat.message.received', version: 1 },
-    { key: 'ai-chat.conversation.created', version: 1 },
-    { key: 'ai-chat.conversation.deleted', version: 1 },
-    { key: 'ai-chat.error', version: 1 },
+    { key: 'ai-chat.message.sent', version: '1.0.0' },
+    { key: 'ai-chat.message.received', version: '1.0.0' },
+    { key: 'ai-chat.conversation.created', version: '1.0.0' },
+    { key: 'ai-chat.conversation.deleted', version: '1.0.0' },
+    { key: 'ai-chat.error', version: '1.0.0' },
   ],
 
   // No presentations for core module
@@ -49,10 +49,10 @@ export const AiChatFeature: FeatureModuleSpec = {
 
   // Capability definitions
   capabilities: {
-    provides: [{ key: 'ai-chat', version: 1 }],
+    provides: [{ key: 'ai-chat', version: '1.0.0' }],
     requires: [
-      { key: 'identity', version: 1 },
-      { key: 'metering', version: 1 },
+      { key: 'identity', version: '1.0.0' },
+      { key: 'metering', version: '1.0.0' },
     ],
   },
 };

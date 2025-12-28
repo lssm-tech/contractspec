@@ -32,7 +32,7 @@ const PayoutPaidPayload = defineSchemaModel({
 export const PayoutCreatedEvent = defineEvent({
   meta: {
     key: 'marketplace.payout.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A payout has been created.',
     stability: 'experimental',
     owners: ['@marketplace-team'],
@@ -44,7 +44,7 @@ export const PayoutCreatedEvent = defineEvent({
 export const PayoutPaidEvent = defineEvent({
   meta: {
     key: 'marketplace.payout.paid',
-    version: 1,
+    version: '1.0.0',
     description: 'A payout has been sent.',
     stability: 'experimental',
     owners: ['@marketplace-team'],

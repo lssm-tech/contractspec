@@ -8,7 +8,7 @@ import { ToolSummaryModel } from './tool.schema';
 export const ToolListPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.tool.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Tool List',
     description:
       'List view of AI tools with category, status, and version info',
@@ -35,7 +35,7 @@ export const ToolListPresentation: PresentationSpec = {
 export const ToolDetailPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.tool.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Tool Details',
     description:
       'Detailed view of an AI tool with configuration and test panel',

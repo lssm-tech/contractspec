@@ -2,10 +2,12 @@ import { describe, it, expect, beforeEach } from 'bun:test';
 import { ExampleRegistry } from './registry';
 import type { ExampleSpec, ExampleMeta } from './types';
 
-function createTestExample(overrides: Partial<ExampleMeta> & { key: string }): ExampleSpec {
+function createTestExample(
+  overrides: Partial<ExampleMeta> & { key: string }
+): ExampleSpec {
   return {
     meta: {
-      version: overrides.version ?? 1,
+      version: overrides.version ?? '1.0.0',
       key: overrides.key,
       description: overrides.description ?? 'Test example',
       stability: overrides.stability ?? 'experimental',
@@ -36,7 +38,7 @@ function createTestExampleWithSurfaces(
 ): ExampleSpec {
   return {
     meta: {
-      version: 1,
+      version: '1.0.0',
       key,
       description: 'Test example',
       stability: 'experimental',
@@ -64,13 +66,17 @@ describe('ExampleRegistry', () => {
       const example = createTestExample({ key: 'test-1' });
       registry.register(example);
       expect(registry.size).toBe(1);
+      const found = registry.get(example.meta.key);
+      expect(found?.meta.version).toBe('1.0.0');
     });
 
     it('should throw on duplicate key', () => {
       const example1 = createTestExample({ key: 'test-1' });
       const example2 = createTestExample({ key: 'test-1' });
       registry.register(example1);
-      expect(() => registry.register(example2)).toThrow('Duplicate example: test-1');
+      expect(() => registry.register(example2)).toThrow(
+        'Duplicate example: test-1'
+      );
     });
 
     it('should allow chaining', () => {
@@ -144,8 +150,12 @@ describe('ExampleRegistry', () => {
 
   describe('listByVisibility', () => {
     it('should filter by visibility', () => {
-      registry.register(createTestExample({ key: 'test-1', visibility: 'public' }));
-      registry.register(createTestExample({ key: 'test-2', visibility: 'internal' }));
+      registry.register(
+        createTestExample({ key: 'test-1', visibility: 'public' })
+      );
+      registry.register(
+        createTestExample({ key: 'test-2', visibility: 'internal' })
+      );
 
       const publicExamples = registry.listByVisibility('public');
       expect(publicExamples).toHaveLength(1);
@@ -155,8 +165,12 @@ describe('ExampleRegistry', () => {
 
   describe('listByTag', () => {
     it('should filter by tag', () => {
-      registry.register(createTestExample({ key: 'test-1', tags: ['billing', 'saas'] }));
-      registry.register(createTestExample({ key: 'test-2', tags: ['integration'] }));
+      registry.register(
+        createTestExample({ key: 'test-1', tags: ['billing', 'saas'] })
+      );
+      registry.register(
+        createTestExample({ key: 'test-2', tags: ['integration'] })
+      );
 
       const billingExamples = registry.listByTag('billing');
       expect(billingExamples).toHaveLength(1);
@@ -166,8 +180,12 @@ describe('ExampleRegistry', () => {
 
   describe('listByOwner', () => {
     it('should filter by owner', () => {
-      registry.register(createTestExample({ key: 'test-1', owners: ['@team-a'] }));
-      registry.register(createTestExample({ key: 'test-2', owners: ['@team-b'] }));
+      registry.register(
+        createTestExample({ key: 'test-1', owners: ['@team-a'] })
+      );
+      registry.register(
+        createTestExample({ key: 'test-2', owners: ['@team-b'] })
+      );
 
       const teamAExamples = registry.listByOwner('@team-a');
       expect(teamAExamples).toHaveLength(1);
@@ -176,7 +194,9 @@ describe('ExampleRegistry', () => {
 
   describe('listByDomain', () => {
     it('should filter by domain', () => {
-      registry.register(createTestExample({ key: 'test-1', domain: 'finance' }));
+      registry.register(
+        createTestExample({ key: 'test-1', domain: 'finance' })
+      );
       registry.register(createTestExample({ key: 'test-2', domain: 'saas' }));
 
       const financeExamples = registry.listByDomain('finance');
@@ -249,8 +269,14 @@ describe('ExampleRegistry', () => {
 
   describe('getUniqueTags', () => {
     it('should return unique tags from all examples', () => {
-      registry.register(createTestExample({ key: 'test-1', tags: ['billing', 'saas'] }));
-      registry.register(createTestExample({ key: 'test-2', tags: ['saas', 'multi-tenant'] }));
+      const example = createTestExample({
+        key: 'test-1',
+        tags: ['billing', 'saas'],
+      });
+      registry.register(example);
+      registry.register(
+        createTestExample({ key: 'test-2', tags: ['saas', 'multi-tenant'] })
+      );
 
       const tags = registry.getUniqueTags();
       expect(tags).toContain('billing');
@@ -283,14 +309,18 @@ describe('ExampleRegistry', () => {
     });
 
     it('should search by title', () => {
-      registry.register(createTestExample({ key: 'test-1', title: 'SaaS Boilerplate' }));
+      registry.register(
+        createTestExample({ key: 'test-1', title: 'SaaS Boilerplate' })
+      );
 
       const results = registry.search('boilerplate');
       expect(results).toHaveLength(1);
     });
 
     it('should search by tags', () => {
-      registry.register(createTestExample({ key: 'test-1', tags: ['billing', 'payments'] }));
+      registry.register(
+        createTestExample({ key: 'test-1', tags: ['billing', 'payments'] })
+      );
 
       const results = registry.search('payments');
       expect(results).toHaveLength(1);

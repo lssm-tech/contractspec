@@ -5,7 +5,7 @@ import { IntegrationModel } from './integration.schema';
 export const IntegrationListPresentation: PresentationSpec = {
   meta: {
     key: 'integration.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Integration List',
     description: 'List of available integrations',
     domain: 'integration',
@@ -30,7 +30,7 @@ export const IntegrationListPresentation: PresentationSpec = {
 export const IntegrationDetailPresentation: PresentationSpec = {
   meta: {
     key: 'integration.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Integration Details',
     description: 'Detailed view of an integration',
     domain: 'integration',
@@ -55,7 +55,7 @@ export const IntegrationDetailPresentation: PresentationSpec = {
 export const IntegrationHealthPresentation: PresentationSpec = {
   meta: {
     key: 'integration.health',
-    version: 1,
+    version: '1.0.0',
     title: 'Integration Health',
     description: 'Integration health monitoring dashboard',
     domain: 'integration',

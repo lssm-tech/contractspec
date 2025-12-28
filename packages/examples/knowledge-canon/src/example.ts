@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'knowledge-canon',
-    version: 1,
+    version: '1.0.0',
     title: 'Knowledge Canon (Product Canon space)',
     description:
       'Bind a canonical knowledge space to a tenant and route assistant/workflow requests to the right sources (blueprint + app config pattern).',

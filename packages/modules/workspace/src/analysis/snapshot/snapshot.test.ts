@@ -78,15 +78,15 @@ describe('normalizer', () => {
   describe('sortSpecs', () => {
     it('should sort specs by key then version', () => {
       const specs = [
-        { key: 'b', version: 1 },
-        { key: 'a', version: 2 },
-        { key: 'a', version: 1 },
+        { key: 'a', version: '1.0.1' },
+        { key: 'b', version: '2.0.0' },
+        { key: 'c', version: '1.0.0' },
       ];
       const sorted = sortSpecs(specs);
       expect(sorted).toEqual([
-        { key: 'a', version: 1 },
-        { key: 'a', version: 2 },
-        { key: 'b', version: 1 },
+        { key: 'c', version: '1.0.0' },
+        { key: 'a', version: '1.0.1' },
+        { key: 'b', version: '2.0.0' },
       ]);
     });
   });
@@ -99,7 +99,7 @@ describe('generateSnapshot', () => {
         path: 'test.operation.ts',
         content: `
 export const Spec = defineCommand({
-  meta: { key: 'test.create', version: 1, kind: 'command', stability: 'stable' },
+  meta: { key: 'test.create', version: '1.0.0', kind: 'command', stability: 'stable' },
   io: {
     input: z.object({ name: z.string() }),
     output: z.object({ id: z.string() }),
@@ -112,7 +112,7 @@ export const Spec = defineCommand({
 
     const snapshot = generateSnapshot(specs);
 
-    expect(snapshot.version).toBe(1);
+    expect(snapshot.version).toBe('1.0.0');
     expect(snapshot.specs).toHaveLength(1);
     expect(snapshot.specs[0]?.type).toBe('operation');
     expect(snapshot.specs[0]?.key).toBe('test.create');
@@ -125,7 +125,7 @@ export const Spec = defineCommand({
         path: 'test.operation.ts',
         content: `
 export const Spec = defineCommand({
-  meta: { key: 'test.create', version: 1, kind: 'command', stability: 'stable' },
+  meta: { key: 'test.create', version: '1.0.0', kind: 'command', stability: 'stable' },
   io: {},
   policy: {},
 });
@@ -147,7 +147,7 @@ export const Spec = defineCommand({
         path: 'test.operation.ts',
         content: `
 export const Spec = defineCommand({
-  meta: { key: 'test.create', version: 1, kind: 'command', stability: 'stable' },
+  meta: { key: 'test.create', version: '1.0.0', kind: 'command', stability: 'stable' },
   io: {},
   policy: {},
 });
@@ -157,7 +157,7 @@ export const Spec = defineCommand({
         path: 'test.event.ts',
         content: `
 export const Spec = defineEvent({
-  meta: { key: 'test.created', version: 1, stability: 'stable' },
+  meta: { key: 'test.created', version: '1.0.0', stability: 'stable' },
   payload: z.object({ id: z.string() }),
 });
 `,

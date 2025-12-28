@@ -2,7 +2,7 @@
  * Unit tests for spec-markdown formatter.
  */
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import {
   specToMarkdown,
   combineSpecMarkdowns,
@@ -13,7 +13,7 @@ import type { ParsedSpec } from '../types/llm-types';
 const mockOperationSpec: ParsedSpec = {
   meta: {
     key: 'billing.createInvoice',
-    version: 1,
+    version: '1.0.0',
     description: 'Create a new invoice for a customer',
     stability: 'stable',
     owners: ['billing-team'],
@@ -25,14 +25,14 @@ const mockOperationSpec: ParsedSpec = {
   kind: 'command',
   hasIo: true,
   hasPolicy: true,
-  emittedEvents: [{ name: 'billing.invoiceCreated', version: 1 }],
+  emittedEvents: [{ name: 'billing.invoiceCreated', version: '1.0.0' }],
   filePath: 'src/billing/create-invoice.ts',
 };
 
 const mockFeatureSpec: ParsedSpec = {
   meta: {
     key: 'billing',
-    version: 1,
+    version: '1.0.0',
     description: 'Complete billing module for order processing',
     stability: 'stable',
     owners: ['billing-team'],
@@ -40,21 +40,21 @@ const mockFeatureSpec: ParsedSpec = {
   },
   specType: 'feature',
   operations: [
-    { name: 'billing.createInvoice', version: 1 },
-    { name: 'billing.getInvoice', version: 1 },
-    { name: 'billing.listInvoices', version: 1 },
+    { name: 'billing.createInvoice', version: '1.0.0' },
+    { name: 'billing.getInvoice', version: '1.0.0' },
+    { name: 'billing.listInvoices', version: '1.0.0' },
   ],
   events: [
-    { name: 'billing.invoiceCreated', version: 1 },
-    { name: 'billing.invoicePaid', version: 1 },
+    { name: 'billing.invoiceCreated', version: '1.0.0' },
+    { name: 'billing.invoicePaid', version: '1.0.0' },
   ],
-  presentations: [{ name: 'billing.invoiceList', version: 1 }],
+  presentations: [{ name: 'billing.invoiceList', version: '1.0.0' }],
 };
 
 const mockQuerySpec: ParsedSpec = {
   meta: {
     key: 'billing.getInvoice',
-    version: 1,
+    version: '1.0.0',
     description: 'Retrieve an invoice by ID',
   },
   specType: 'operation',
@@ -153,7 +153,7 @@ describe('specToMarkdown', () => {
       const specWithSource: ParsedSpec = {
         ...mockOperationSpec,
         sourceBlock: `defineCommand({
-  meta: { key: 'billing.createInvoice', version: 1 },
+  meta: { key: 'billing.createInvoice', version: '1.0.0' },
   io: { input: CreateInvoiceInput, output: Invoice }
 })`,
       };

@@ -1,5 +1,9 @@
 import { resolve } from 'path';
-import { TestRunner, type TestSpec, type TestRunResult } from '@contractspec/lib.contracts/tests';
+import {
+  TestRunner,
+  type TestSpec,
+  type TestRunResult,
+} from '@contractspec/lib.contracts/tests';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts';
 import { loadTypeScriptModule } from '../../utils/module-loader';
 import type { WorkspaceAdapters } from '../../ports/logger';
@@ -9,8 +13,34 @@ export interface TestServiceOptions {
 }
 
 export interface TestServiceResult {
-    results: TestRunResult[];
-    passed: boolean;
+  results: TestRunResult[];
+  passed: boolean;
+}
+
+export interface RunTestsResult {
+  results: TestRunResult[];
+  passed: number;
+  failed: number;
+}
+
+export async function runTests(
+  specs: TestSpec[],
+  registry: OperationSpecRegistry
+): Promise<RunTestsResult> {
+  const runner = new TestRunner({ registry });
+
+  const results: TestRunResult[] = [];
+  let passed = 0;
+  let failed = 0;
+
+  for (const spec of specs) {
+    const result = await runner.run(spec);
+    results.push(result);
+    passed += result.passed;
+    failed += result.failed;
+  }
+
+  return { results, passed, failed };
 }
 
 interface LoadedRegistryModule {
@@ -29,10 +59,12 @@ export async function runTestSpecs(
   // Load registry
   let registry: OperationSpecRegistry;
   if (options.registry) {
-      registry = await loadRegistry(resolve(options.registry));
+    registry = await loadRegistry(resolve(options.registry));
   } else {
-      registry = new OperationSpecRegistry();
-      logger.warn('No registry module provided. Scenarios that execute operations without handlers will fail.');
+    registry = new OperationSpecRegistry();
+    logger.warn(
+      'No registry module provided. Scenarios that execute operations without handlers will fail.'
+    );
   }
 
   const runner = new TestRunner({ registry });
@@ -40,33 +72,38 @@ export async function runTestSpecs(
   let allPassed = true;
 
   for (const specFile of specFiles) {
-      try {
-          const resolvedPath = resolve(specFile);
-          const exports = await loadTypeScriptModule(resolvedPath);
-          const specs = extractTestSpecs(exports);
+    try {
+      const resolvedPath = resolve(specFile);
+      const exports = await loadTypeScriptModule(resolvedPath);
+      const specs = extractTestSpecs(exports);
 
-          if (specs.length === 0) {
-              logger.warn(`No TestSpec exports found in ${specFile}`);
-              continue;
-          }
-
-          for (const spec of specs) {
-               logger.info(`Running ${spec.meta.key}...`);
-               const result = await runner.run(spec);
-               results.push(result);
-               
-               if (result.failed > 0) {
-                   allPassed = false;
-                   logger.error(`${spec.meta.key} failed (${result.failed}/${result.scenarios.length})`);
-               } else {
-                   logger.info(`${spec.meta.key} passed (${result.passed}/${result.scenarios.length})`);
-               }
-          }
-
-      } catch (error) {
-          logger.error(`Failed to load/run spec ${specFile}: ${error instanceof Error ? error.message : String(error)}`);
-          allPassed = false;
+      if (specs.length === 0) {
+        logger.warn(`No TestSpec exports found in ${specFile}`);
+        continue;
       }
+
+      for (const spec of specs) {
+        logger.info(`Running ${spec.meta.key}...`);
+        const result = await runner.run(spec);
+        results.push(result);
+
+        if (result.failed > 0) {
+          allPassed = false;
+          logger.error(
+            `${spec.meta.key} failed (${result.failed}/${result.scenarios.length})`
+          );
+        } else {
+          logger.info(
+            `${spec.meta.key} passed (${result.passed}/${result.scenarios.length})`
+          );
+        }
+      }
+    } catch (error) {
+      logger.error(
+        `Failed to load/run spec ${specFile}: ${error instanceof Error ? error.message : String(error)}`
+      );
+      allPassed = false;
+    }
   }
 
   return { results, passed: allPassed };
@@ -91,8 +128,12 @@ function isTestSpec(value: unknown): value is TestSpec {
   );
 }
 
-async function loadRegistry(modulePath: string): Promise<OperationSpecRegistry> {
-  const exports = (await loadTypeScriptModule(modulePath)) as LoadedRegistryModule;
+async function loadRegistry(
+  modulePath: string
+): Promise<OperationSpecRegistry> {
+  const exports = (await loadTypeScriptModule(
+    modulePath
+  )) as LoadedRegistryModule;
 
   if (exports instanceof OperationSpecRegistry) {
     return exports;
@@ -105,7 +146,9 @@ async function loadRegistry(modulePath: string): Promise<OperationSpecRegistry> 
     typeof exports.createRegistry === 'function'
       ? exports.createRegistry
       : typeof exports.default === 'function'
-        ? (exports.default as () => Promise<OperationSpecRegistry> | OperationSpecRegistry)
+        ? (exports.default as () =>
+            | Promise<OperationSpecRegistry>
+            | OperationSpecRegistry)
         : undefined;
 
   if (factory) {

@@ -4,7 +4,7 @@ import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
 export const financialDocsKnowledgeSpace: KnowledgeSpaceSpec = {
   meta: {
     key: 'knowledge.financial-docs',
-    version: 1,
+    version: '1.0.0',
     category: 'canonical',
     title: 'Household Financial Documents',
     description:
@@ -18,7 +18,7 @@ export const financialDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { key: 'knowledge.access.financial-docs', version: 1 },
+    policy: { key: 'knowledge.access.financial-docs', version: '1.0.0' },
     trustLevel: 'high',
     automationWritable: true,
   },

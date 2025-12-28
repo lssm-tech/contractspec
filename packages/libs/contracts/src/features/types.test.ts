@@ -11,25 +11,25 @@ import { StabilityEnum } from '../ownership';
 
 describe('OpRef', () => {
   it('should define operation reference', () => {
-    const ref: OpRef = { key: 'user.create', version: 1 };
+    const ref: OpRef = { key: 'user.create', version: '1.0.0' };
     expect(ref.key).toBe('user.create');
-    expect(ref.version).toBe(1);
+    expect(ref.version).toBe('1.0.0');
   });
 });
 
 describe('EventRef', () => {
   it('should define event reference', () => {
-    const ref: EventRef = { key: 'user.created', version: 1 };
+    const ref: EventRef = { key: 'user.created', version: '1.0.0' };
     expect(ref.key).toBe('user.created');
-    expect(ref.version).toBe(1);
+    expect(ref.version).toBe('1.0.0');
   });
 });
 
 describe('PresentationRef', () => {
   it('should define presentation reference', () => {
-    const ref: PresentationRef = { key: 'user.profile', version: 1 };
+    const ref: PresentationRef = { key: 'user.profile', version: '1.0.0' };
     expect(ref.key).toBe('user.profile');
-    expect(ref.version).toBe(1);
+    expect(ref.version).toBe('1.0.0');
   });
 });
 
@@ -44,7 +44,7 @@ describe('FeatureModuleMeta', () => {
   it('should extend OwnerShipMeta', () => {
     const meta: FeatureModuleMeta = {
       key: 'payments.stripe',
-      version: 1,
+      version: '1.0.0',
       title: 'Stripe Payments',
       description: 'Enable Stripe payment processing',
       stability: StabilityEnum.Stable,
@@ -63,7 +63,7 @@ describe('FeatureModuleSpec', () => {
   ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
-      version: 1,
+      version: '1.0.0',
       title: 'Test Feature',
       description: 'A test feature',
       stability: StabilityEnum.Experimental,
@@ -81,8 +81,8 @@ describe('FeatureModuleSpec', () => {
   it('should support operations', () => {
     const feature = createFeature({
       operations: [
-        { key: 'user.create', version: 1 },
-        { key: 'user.update', version: 1 },
+        { key: 'user.create', version: '1.0.0' },
+        { key: 'user.update', version: '1.0.0' },
       ],
     });
 
@@ -94,8 +94,8 @@ describe('FeatureModuleSpec', () => {
   it('should support events', () => {
     const feature = createFeature({
       events: [
-        { key: 'user.created', version: 1 },
-        { key: 'user.updated', version: 1 },
+        { key: 'user.created', version: '1.0.0' },
+        { key: 'user.updated', version: '1.0.0' },
       ],
     });
 
@@ -105,8 +105,8 @@ describe('FeatureModuleSpec', () => {
   it('should support presentations', () => {
     const feature = createFeature({
       presentations: [
-        { key: 'user.profile', version: 1 },
-        { key: 'user.settings', version: 1 },
+        { key: 'user.profile', version: '1.0.0' },
+        { key: 'user.settings', version: '1.0.0' },
       ],
     });
 
@@ -116,8 +116,8 @@ describe('FeatureModuleSpec', () => {
   it('should support capabilities', () => {
     const feature = createFeature({
       capabilities: {
-        provides: [{ key: 'payments.stripe', version: 1 }],
-        requires: [{ key: 'auth.session', version: 1, optional: false }],
+        provides: [{ key: 'payments.stripe', version: '1.0.0' }],
+        requires: [{ key: 'auth.session', version: '1.0.0', optional: false }],
       },
     });
 
@@ -129,8 +129,8 @@ describe('FeatureModuleSpec', () => {
     const feature = createFeature({
       opToPresentation: [
         {
-          op: { key: 'user.create', version: 1 },
-          pres: { key: 'user.create.form', version: 1 },
+          op: { key: 'user.create', version: '1.0.0' },
+          pres: { key: 'user.create.form', version: '1.0.0' },
         },
       ],
     });
@@ -147,7 +147,7 @@ describe('FeatureModuleSpec', () => {
       presentationsTargets: [
         {
           key: 'user.profile',
-          version: 1,
+          version: '1.0.0',
           targets: ['react', 'markdown'],
         },
       ],

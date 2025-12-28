@@ -4,7 +4,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const ServiceDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'Service Dashboard',
     description: 'Service business dashboard with overview metrics',
     domain: 'services',
@@ -28,7 +28,7 @@ export const ServiceDashboardPresentation: PresentationSpec = {
 export const ClientListPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.client.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Client List',
     description: 'List of service clients',
     domain: 'services',
@@ -52,7 +52,7 @@ export const ClientListPresentation: PresentationSpec = {
 export const QuoteListPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.quote.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Quote List',
     description: 'List of quotes with status',
     domain: 'services',
@@ -76,7 +76,7 @@ export const QuoteListPresentation: PresentationSpec = {
 export const QuoteDetailPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.quote.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Quote Details',
     description: 'Quote detail with line items',
     domain: 'services',
@@ -100,7 +100,7 @@ export const QuoteDetailPresentation: PresentationSpec = {
 export const JobBoardPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.job.board',
-    version: 1,
+    version: '1.0.0',
     title: 'Job Board',
     description: 'Job board with kanban view',
     domain: 'services',
@@ -124,7 +124,7 @@ export const JobBoardPresentation: PresentationSpec = {
 export const InvoiceListPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.invoice.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Invoice List',
     description: 'List of invoices with payment status',
     domain: 'services',
@@ -148,7 +148,7 @@ export const InvoiceListPresentation: PresentationSpec = {
 export const PaymentListPresentation: PresentationSpec = {
   meta: {
     key: 'service-business-os.payment.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Payment List',
     description: 'List of payments received',
     domain: 'services',

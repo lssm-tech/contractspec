@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const gmailIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'email.gmail',
-    version: 1,
+    version: '1.0.0',
     category: 'email',
     title: 'Google Gmail API',
     description:
@@ -17,8 +17,8 @@ export const gmailIntegrationSpec: IntegrationSpec = {
   supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [
-      { key: 'email.inbound', version: 1 },
-      { key: 'email.outbound', version: 1 },
+      { key: 'email.inbound', version: '1.0.0' },
+      { key: 'email.outbound', version: '1.0.0' },
     ],
   },
   configSchema: {

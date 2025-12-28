@@ -26,7 +26,7 @@ import type { LoggerAdapter } from '../ports/logger';
  */
 export interface LayerLocation {
   key: string;
-  version?: number;
+  version?: string;
   file: string;
   type: 'feature' | 'example' | 'app-config' | 'workspace-config';
 }

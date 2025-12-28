@@ -9,7 +9,7 @@ import type {
 
 export interface ExperimentContext {
   experiment: string;
-  version?: number;
+  version?: string;
   userId?: string | null;
   organizationId?: string | null;
   sessionId?: string | null;

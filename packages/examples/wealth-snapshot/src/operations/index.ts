@@ -142,7 +142,7 @@ const NetWorthQueryInput = defineSchemaModel({
 export const CreateAccountContract = defineCommand({
   meta: {
     key: 'wealth.account.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'account', 'create'],
@@ -157,7 +157,7 @@ export const CreateAccountContract = defineCommand({
 export const AddAssetContract = defineCommand({
   meta: {
     key: 'wealth.asset.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'asset', 'add'],
@@ -172,7 +172,7 @@ export const AddAssetContract = defineCommand({
 export const AddLiabilityContract = defineCommand({
   meta: {
     key: 'wealth.liability.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'liability', 'add'],
@@ -187,7 +187,7 @@ export const AddLiabilityContract = defineCommand({
 export const CreateGoalContract = defineCommand({
   meta: {
     key: 'wealth.goal.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'goal', 'create'],
@@ -202,7 +202,7 @@ export const CreateGoalContract = defineCommand({
 export const UpdateGoalContract = defineCommand({
   meta: {
     key: 'wealth.goal.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'goal', 'update'],
@@ -218,7 +218,7 @@ export const UpdateGoalContract = defineCommand({
 export const GetNetWorthContract = defineQuery({
   meta: {
     key: 'wealth.networth.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['wealth', 'networth'],

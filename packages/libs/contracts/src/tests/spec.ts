@@ -1,13 +1,14 @@
+import { compareVersions } from 'compare-versions';
 import type { OwnerShipMeta } from '../ownership';
 
 export interface OperationTargetRef {
   key: string;
-  version?: number;
+  version?: string;
 }
 
 export interface WorkflowTargetRef {
   key: string;
-  version?: number;
+  version?: string;
 }
 
 export type TestTarget =
@@ -37,7 +38,7 @@ export interface ExpectErrorAssertion {
 
 export interface ExpectedEvent {
   key: string;
-  version: number;
+  version: string;
   min?: number;
   max?: number;
 }
@@ -80,7 +81,7 @@ export interface TestSpec {
 
 export interface TestSpecRef {
   key: string;
-  version?: number;
+  version?: string;
 }
 
 const testKey = (meta: OwnerShipMeta) => `${meta.key}.v${meta.version}`;
@@ -101,16 +102,17 @@ export class TestRegistry {
     return [...this.items.values()];
   }
 
-  get(name: string, version?: number): TestSpec | undefined {
+  get(name: string, version?: string): TestSpec | undefined {
     if (version != null) {
       return this.items.get(`${name}.v${version}`);
     }
     let latest: TestSpec | undefined;
-    let maxVersion = -Infinity;
     for (const spec of this.items.values()) {
       if (spec.meta.key !== name) continue;
-      if (spec.meta.version > maxVersion) {
-        maxVersion = spec.meta.version;
+      if (
+        !latest ||
+        compareVersions(spec.meta.version, latest.meta.version) > 0
+      ) {
         latest = spec;
       }
     }

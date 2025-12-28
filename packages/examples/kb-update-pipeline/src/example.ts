@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'kb-update-pipeline',
-    version: 1,
+    version: '1.0.0',
     title: 'KB Update Pipeline',
     description:
       'Automation proposes KB updates; humans verify; everything audited and notified.',

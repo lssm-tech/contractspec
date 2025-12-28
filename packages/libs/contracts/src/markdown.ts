@@ -13,7 +13,7 @@ export function operationsToMarkdown(
 ): string {
   const lines: string[] = [];
 
-  for (const spec of registry.listSpecs()) {
+  for (const spec of registry.list()) {
     const m = spec.meta;
     lines.push(`# ${m.key}.v${m.version}`);
     lines.push('');

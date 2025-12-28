@@ -8,7 +8,7 @@ const makeDispatch = (value: number): TelemetryDispatch => {
   const spec: TelemetrySpec = {
     meta: {
       key: 'sigil.telemetry',
-      version: 1,
+      version: '1.0.0',
       title: 'Sample telemetry',
       description: 'Sample telemetry',
       domain: 'sigil',
@@ -19,7 +19,7 @@ const makeDispatch = (value: number): TelemetryDispatch => {
     events: [
       {
         key: 'sigil.telemetry.workflow_step',
-        version: 1,
+        version: '1.0.0',
         semantics: { what: 'Workflow step executed' },
         properties: {
           durationMs: { type: 'number' },
@@ -37,7 +37,7 @@ const makeDispatch = (value: number): TelemetryDispatch => {
   return {
     id: 'event-id',
     name: 'sigil.telemetry.workflow_step',
-    version: 1,
+    version: '1.0.0',
     occurredAt: new Date().toISOString(),
     properties: { durationMs: value },
     privacy: 'internal',

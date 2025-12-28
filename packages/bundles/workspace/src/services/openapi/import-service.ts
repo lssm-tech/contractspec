@@ -23,29 +23,32 @@ function getOutputDir(
   options: OpenApiImportServiceOptions,
   config: ContractsrcConfig
 ): string {
-    // If outputDir is explicitly set in options, use it for all types
-    if (options.outputDir) {
-        return options.outputDir;
-    }
+  // If outputDir is explicitly set in options, use it for all types
+  if (options.outputDir) {
+    return options.outputDir;
+  }
 
-    // Default base
-    const baseDir = config.outputDir ?? 'src';
-    const conventions = config.conventions ?? {
-        operations: 'operations',
-        events: 'events',
-    };
+  // Default base
+  const baseDir = config.outputDir ?? 'src';
+  const conventions = config.conventions ?? {
+    operations: 'operations',
+    events: 'events',
+  };
 
-    switch (type) {
-        case 'operation':
-            // Conventions usually format like "operations/**" or "operations"
-            return join(baseDir, conventions.operations.split('|')[0] ?? 'operations');
-        case 'event':
-             return join(baseDir, conventions.events ?? 'events');
-        case 'model':
-             return join(baseDir, 'models'); // Standardize on 'models' for now
-        default:
-             return baseDir;
-    }
+  switch (type) {
+    case 'operation':
+      // Conventions usually format like "operations/**" or "operations"
+      return join(
+        baseDir,
+        conventions.operations.split('|')[0] ?? 'operations'
+      );
+    case 'event':
+      return join(baseDir, conventions.events ?? 'events');
+    case 'model':
+      return join(baseDir, 'models'); // Standardize on 'models' for now
+    default:
+      return baseDir;
+  }
 }
 
 /**
@@ -59,7 +62,7 @@ export async function importFromOpenApiService(
   const { fs, logger } = adapters;
   const {
     source,
-    outputDir,
+
     prefix,
     tags,
     exclude,
@@ -118,40 +121,46 @@ export async function importFromOpenApiService(
     let type: 'operation' | 'event' | 'model' = 'operation';
     let match: RegExpMatchArray | null = null;
     if (spec.code.includes('defineEvent(')) {
-        type = 'event';
-        match = spec.code.match(/export const (\w+)\s*=\s*defineEvent/);
+      type = 'event';
+      match = spec.code.match(/export const (\w+)\s*=\s*defineEvent/);
     } else if (
-        (spec.code.includes('defineSchemaModel(') ||
+      (spec.code.includes('defineSchemaModel(') ||
         spec.code.includes('new EnumType(') ||
         spec.code.includes('ScalarTypeEnum.') ||
         spec.code.includes('new ZodSchemaType(') ||
         spec.code.includes('z.enum(') ||
         spec.code.includes('new JsonSchemaType(') ||
         spec.code.includes('new GraphQLSchemaType(')) &&
-        !spec.code.includes('defineCommand(') &&
-        !spec.code.includes('defineQuery(')
+      !spec.code.includes('defineCommand(') &&
+      !spec.code.includes('defineQuery(')
     ) {
-        type = 'model';
+      type = 'model';
     } else {
-        type = 'operation';
-        match = spec.code.match(/export const (\w+)\s*=\s*define(?:Command|Query)/);
+      type = 'operation';
+      match = spec.code.match(
+        /export const (\w+)\s*=\s*define(?:Command|Query)/
+      );
     }
-    
+
     // Resolve output directory based on type
     const targetDir = getOutputDir(type, options, contractspecOptions);
     const filePath = join(targetDir, spec.fileName);
 
     if (!match && type === 'model') {
-       if (spec.code.includes('new ZodSchemaType(')) {
-         match = spec.code.match(/export const (\w+)\s*=\s*new ZodSchemaType\(/);
-       } else if (spec.code.includes('new JsonSchemaType(')) {
-         match = spec.code.match(/export const (\w+)\s*=\s*new JsonSchemaType\(/);
-       } else if (spec.code.includes('new GraphQLSchemaType(')) {
-         match = spec.code.match(/export const (\w+)\s*=\s*new GraphQLSchemaType\(/);
-       }
-       if (!match) {
-         match = spec.code.match(/export const (\w+)\s*=/);
-       }
+      if (spec.code.includes('new ZodSchemaType(')) {
+        match = spec.code.match(/export const (\w+)\s*=\s*new ZodSchemaType\(/);
+      } else if (spec.code.includes('new JsonSchemaType(')) {
+        match = spec.code.match(
+          /export const (\w+)\s*=\s*new JsonSchemaType\(/
+        );
+      } else if (spec.code.includes('new GraphQLSchemaType(')) {
+        match = spec.code.match(
+          /export const (\w+)\s*=\s*new GraphQLSchemaType\(/
+        );
+      }
+      if (!match) {
+        match = spec.code.match(/export const (\w+)\s*=/);
+      }
     }
 
     if (dryRun) {
@@ -160,8 +169,8 @@ export async function importFromOpenApiService(
       // Ensure directory exists
       const dir = dirname(filePath);
       const exists = await fs.exists(dir);
-      if(!exists) {
-          await fs.mkdir(dir);
+      if (!exists) {
+        await fs.mkdir(dir);
       }
 
       // Write spec file
@@ -176,81 +185,82 @@ export async function importFromOpenApiService(
     });
 
     if (match) {
-        const dir = dirname(filePath);
-        const existing = specsByDir.get(dir) || [];
-        existing.push({
-            file: basename(filePath),
-            name: match[1]!,
-            type,
-        });
-        specsByDir.set(dir, existing);
+      const dir = dirname(filePath);
+      const existing = specsByDir.get(dir) || [];
+      existing.push({
+        file: basename(filePath),
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        name: match[1]!,
+        type,
+      });
+      specsByDir.set(dir, existing);
     }
   }
 
   // Generate registries
   if (!dryRun && files.length > 0) {
-      for (const [dir, specs] of specsByDir.entries()) {
-          if (specs.length === 0) continue;
+    for (const [dir, specs] of specsByDir.entries()) {
+      if (specs.length === 0) continue;
 
-          // Detect dominant type
-          const types = specs.map((s) => s.type);
-          const isOperations = types.every((t) => t === 'operation');
-          const isEvents = types.every((t) => t === 'event');
-          const isModels = types.every((t) => t === 'model');
+      // Detect dominant type
+      const types = specs.map((s) => s.type);
+      const isOperations = types.every((t) => t === 'operation');
+      const isEvents = types.every((t) => t === 'event');
+      const isModels = types.every((t) => t === 'model');
 
-          // Generate Registry File
-          let registryCode = `/**\n * Auto-generated registry file.\n */\n`;
-          specs.forEach((s) => {
-             const importPath = `./${basename(s.file, '.ts')}`;
-             registryCode += `import { ${s.name} } from '${importPath}';\n`;
-          });
-          registryCode += '\n';
+      // Generate Registry File
+      let registryCode = `/**\n * Auto-generated registry file.\n */\n`;
+      specs.forEach((s) => {
+        const importPath = `./${basename(s.file, '.ts')}`;
+        registryCode += `import { ${s.name} } from '${importPath}';\n`;
+      });
+      registryCode += '\n';
 
-          let hasRegistry = false;
-          if (isOperations) {
-             registryCode += `import { OperationSpecRegistry } from '@contractspec/lib.contracts';\n\n`;
-             registryCode += `export const operationRegistry = new OperationSpecRegistry();\n`;
-             specs.forEach((s) => {
-                 registryCode += `operationRegistry.register(${s.name});\n`;
-             });
-             hasRegistry = true;
-          } else if (isEvents) {
-             registryCode += `import { EventRegistry } from '@contractspec/lib.contracts';\n\n`;
-             registryCode += `export const eventRegistry = new EventRegistry();\n`;
-             specs.forEach((s) => {
-                 registryCode += `eventRegistry.register(${s.name});\n`;
-             });
-             hasRegistry = true;
-          } else if (isModels) {
-             registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts';\n\n`;
-             registryCode += `export const modelRegistry = new ModelRegistry();\n`;
-             specs.forEach((s) => {
-                 registryCode += `modelRegistry.register(${s.name});\n`;
-             });
-             hasRegistry = true;
-          }
-
-          if (hasRegistry) {
-              const registryPath = join(dir, 'registry.ts');
-              await fs.writeFile(registryPath, registryCode);
-              logger.info(`Created/Updated registry: ${registryPath}`);
-          }
-
-          // Generate Index File
-          let indexCode = `/**\n * Auto-generated barrel file.\n */\n\n`;
-          specs.forEach((s) => {
-             const importPath = `./${basename(s.file, '.ts')}`;
-             indexCode += `export * from '${importPath}';\n`;
-          });
-
-          if (hasRegistry) {
-              indexCode += `export * from './registry';\n`;
-          }
-
-          const indexPath = join(dir, 'index.ts');
-          await fs.writeFile(indexPath, indexCode);
-          logger.info(`Created/Updated index: ${indexPath}`);
+      let hasRegistry = false;
+      if (isOperations) {
+        registryCode += `import { OperationSpecRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `export const operationRegistry = new OperationSpecRegistry();\n`;
+        specs.forEach((s) => {
+          registryCode += `operationRegistry.register(${s.name});\n`;
+        });
+        hasRegistry = true;
+      } else if (isEvents) {
+        registryCode += `import { EventRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `export const eventRegistry = new EventRegistry();\n`;
+        specs.forEach((s) => {
+          registryCode += `eventRegistry.register(${s.name});\n`;
+        });
+        hasRegistry = true;
+      } else if (isModels) {
+        registryCode += `import { ModelRegistry } from '@contractspec/lib.contracts';\n\n`;
+        registryCode += `export const modelRegistry = new ModelRegistry();\n`;
+        specs.forEach((s) => {
+          registryCode += `modelRegistry.register(${s.name});\n`;
+        });
+        hasRegistry = true;
       }
+
+      if (hasRegistry) {
+        const registryPath = join(dir, 'registry.ts');
+        await fs.writeFile(registryPath, registryCode);
+        logger.info(`Created/Updated registry: ${registryPath}`);
+      }
+
+      // Generate Index File
+      let indexCode = `/**\n * Auto-generated barrel file.\n */\n\n`;
+      specs.forEach((s) => {
+        const importPath = `./${basename(s.file, '.ts')}`;
+        indexCode += `export * from '${importPath}';\n`;
+      });
+
+      if (hasRegistry) {
+        indexCode += `export * from './registry';\n`;
+      }
+
+      const indexPath = join(dir, 'index.ts');
+      await fs.writeFile(indexPath, indexCode);
+      logger.info(`Created/Updated index: ${indexPath}`);
+    }
   }
 
   // Record skipped operations

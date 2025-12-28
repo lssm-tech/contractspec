@@ -3,7 +3,7 @@ import { defineAgent } from '@contractspec/lib.ai-agent';
 export const LifecycleAdvisorAgent = defineAgent({
   meta: {
     key: 'lifecycle.advisor',
-    version: 1,
+    version: '1.0.0',
     title: 'Lifecycle Advisor Agent',
     description:
       'Guides artisans through lifecycle detection, focus areas, and ceremonies.',

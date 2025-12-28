@@ -7,7 +7,7 @@ const makeSpec = (
 ): KnowledgeSpaceSpec => ({
   meta: {
     key: 'product-canon',
-    version: 1,
+    version: '1.0.0',
     category: 'canonical',
     title: 'Product Canon',
     description: 'Authoritative product knowledge base.',
@@ -33,7 +33,7 @@ describe('KnowledgeSpaceRegistry', () => {
 
     registry.register(spec);
 
-    expect(registry.get('product-canon', 1)).toEqual(spec);
+    expect(registry.get('product-canon', '1.0.0')).toEqual(spec);
     expect(registry.get('product-canon')).toEqual(spec);
     expect(registry.list()).toEqual([spec]);
   });
@@ -44,7 +44,7 @@ describe('KnowledgeSpaceRegistry', () => {
 
     registry.register(spec);
     expect(() => registry.register(spec)).toThrowError(
-      /Duplicate KnowledgeSpaceSpec/
+      /Duplicate contract/
     );
   });
 

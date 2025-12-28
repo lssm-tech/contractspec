@@ -24,7 +24,7 @@ export class MemoryJobQueue implements JobQueue {
     const job: Job<TPayload> = {
       id: randomUUID(),
       type: jobType,
-      version: 1,
+      version: '1.0.0',
       payload,
       status: 'pending',
       priority: options.priority ?? 0,

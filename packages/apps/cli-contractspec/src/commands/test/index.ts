@@ -1,7 +1,8 @@
-import path from 'node:path';
-import chalk from 'chalk';
 import type { Config } from '../../utils/config';
-import { runTestSpecs, createNodeAdapters } from '@contractspec/bundle.workspace';
+import {
+  runTestSpecs,
+  createNodeAdapters,
+} from '@contractspec/bundle.workspace';
 
 interface TestCommandOptions {
   registry?: string;
@@ -14,32 +15,32 @@ export async function testCommand(
   _config: Config
 ) {
   const adapters = createNodeAdapters({
-      cwd: process.cwd()
+    cwd: process.cwd(),
   });
 
   const result = await runTestSpecs(
-      [specFile], // Service supports multiple, CLI arg is single glob? Or file? Commander says: argument('<specFile>').
-                  // CLI 'test' command usually takes a file or glob.
-                  // If it's a glob, resolving it to files is better done by CLI or Service?
-                  // `testCommand` argument `specFile` is a string.
-                  // Service expects `specFiles: string[]`.
-                  // I will pass `[specFile]`.
-                  // Wait, does service handle globs? 
-                  // My service impl: `const resolvedPath = resolve(specFile);`
-                  // It expects a FILE path.
-                  // If user passes glob, CLI should resolve it?
-                  // `testCommand` implementation in Step 618: `path.resolve(specFile)`.
-                  // It seems it handled single file?
-                  // `const specExports = await loadTypeScriptModule(resolvedSpecPath);`
-                  // Yes, single file.
-      {
-          registry: options.registry
-      },
-      adapters
+    [specFile], // Service supports multiple, CLI arg is single glob? Or file? Commander says: argument('<specFile>').
+    // CLI 'test' command usually takes a file or glob.
+    // If it's a glob, resolving it to files is better done by CLI or Service?
+    // `testCommand` argument `specFile` is a string.
+    // Service expects `specFiles: string[]`.
+    // I will pass `[specFile]`.
+    // Wait, does service handle globs?
+    // My service impl: `const resolvedPath = resolve(specFile);`
+    // It expects a FILE path.
+    // If user passes glob, CLI should resolve it?
+    // `testCommand` implementation in Step 618: `path.resolve(specFile)`.
+    // It seems it handled single file?
+    // `const specExports = await loadTypeScriptModule(resolvedSpecPath);`
+    // Yes, single file.
+    {
+      registry: options.registry,
+    },
+    adapters
   );
 
   if (!result.passed) {
-      process.exit(1);
+    process.exit(1);
   }
 
   if (options.json) {
@@ -66,4 +67,3 @@ export async function testCommand(
     );
   }
 }
-

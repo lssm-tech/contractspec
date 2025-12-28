@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
   meta: {
     key: 'learning-journey-platform-tour',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey: Platform Tour',
     description:
       'Platform primitives tour journey for exploring ContractSpec core features',
@@ -24,8 +24,8 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { key: 'learningJourney.platformTour.recordEvent', version: 1 },
-    { key: 'learningJourney.platformTour.getTrack', version: 1 },
+    { key: 'learningJourney.platformTour.recordEvent', version: '1.0.0' },
+    { key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
   ],
 
   // Events emitted by this feature
@@ -33,15 +33,15 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { key: 'learning.journey.platform.track', version: 1 },
-    { key: 'learning.journey.platform.widget', version: 1 },
+    { key: 'learning.journey.platform.track', version: '1.0.0' },
+    { key: 'learning.journey.platform.widget', version: '1.0.0' },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { key: 'learningJourney.platformTour.getTrack', version: 1 },
-      pres: { key: 'learning.journey.platform.track', version: 1 },
+      op: { key: 'learningJourney.platformTour.getTrack', version: '1.0.0' },
+      pres: { key: 'learning.journey.platform.track', version: '1.0.0' },
     },
   ],
 
@@ -49,18 +49,18 @@ export const LearningJourneyPlatformTourFeature: FeatureModuleSpec = {
   presentationsTargets: [
     {
       key: 'learning.journey.platform.track',
-      version: 1,
+      version: '1.0.0',
       targets: ['react', 'markdown', 'application/json'],
     },
     {
       key: 'learning.journey.platform.widget',
-      version: 1,
+      version: '1.0.0',
       targets: ['react'],
     },
   ],
 
   // Capability requirements
   capabilities: {
-    requires: [{ key: 'identity', version: 1 }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

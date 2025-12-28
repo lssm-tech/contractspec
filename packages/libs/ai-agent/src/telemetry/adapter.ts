@@ -4,7 +4,7 @@ import type { StepResult, ToolSet } from 'ai';
  * Metric sample compatible with @contractspec/lib.evolution OperationMetricSample.
  */
 export interface OperationMetricSample {
-  operation: { name: string; version: number };
+  operation: { name: string; version: string };
   durationMs: number;
   success: boolean;
   timestamp: Date;
@@ -29,13 +29,13 @@ export interface TelemetryCollector {
 /**
  * Parse agent ID into name and version.
  */
-function parseAgentId(agentId: string): { name: string; version: number } {
-  const match = agentId.match(/^(.+)\.v(\d+)$/);
+function parseAgentId(agentId: string): { name: string; version: string } {
+  const match = agentId.match(/^(.+)\.v(\s+)$/);
   if (match) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return { name: match[1]!, version: parseInt(match[2]!, 10) };
+    return { name: match[1]!, version: match[2]! };
   }
-  return { name: agentId, version: 1 };
+  return { name: agentId, version: '1.0.0' };
 }
 
 /**

@@ -13,10 +13,11 @@ import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { BrandingDefaults, TenantBrandingConfig } from './branding';
 import type { Locale, TranslationEntry } from '../translations/catalog';
 import type { ConfigStatus } from './lifecycle';
+import { SpecContractRegistry } from '../registry';
 
 export interface SpecPointer {
   key: string;
-  version?: number;
+  version?: string;
 }
 
 export interface AppRouteConfig {
@@ -31,7 +32,7 @@ export interface AppRouteConfig {
 
 export interface TranslationCatalogPointer {
   key: string;
-  version: number;
+  version: string;
 }
 
 export interface AppIntegrationSlot {
@@ -102,36 +103,12 @@ export interface AppBlueprintSpec {
 const blueprintKey = (meta: Pick<AppBlueprintMeta, 'key' | 'version'>) =>
   `${meta.key}.v${meta.version}`;
 
-export class AppBlueprintRegistry {
-  private readonly items = new Map<string, AppBlueprintSpec>();
-
-  register(spec: AppBlueprintSpec): this {
-    const key = blueprintKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate AppBlueprint ${key}`);
-    }
-    this.items.set(key, spec);
-    return this;
-  }
-
-  list(): AppBlueprintSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): AppBlueprintSpec | undefined {
-    if (version != null) {
-      return this.items.get(blueprintKey({ key, version }));
-    }
-    let latest: AppBlueprintSpec | undefined;
-    let maxVersion = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== key) continue;
-      if (spec.meta.version > maxVersion) {
-        maxVersion = spec.meta.version;
-        latest = spec;
-      }
-    }
-    return latest;
+export class AppBlueprintRegistry extends SpecContractRegistry<
+  'app-config',
+  AppBlueprintSpec
+> {
+  public constructor(items?: AppBlueprintSpec[]) {
+    super('app-config', items);
   }
 }
 
@@ -144,16 +121,16 @@ export interface TenantAppConfigMeta {
   tenantId: string;
   appId: string;
   blueprintName: string;
-  blueprintVersion: number;
+  blueprintVersion: string;
   environment?: string;
   /** Monotonic version for auditing changes to the tenant config. */
-  version: number;
+  version: string;
   status: ConfigStatus;
   createdBy?: string;
   publishedBy?: string;
   publishedAt?: string | Date;
-  rolledBackFrom?: number;
-  rolledBackTo?: number;
+  rolledBackFrom?: string;
+  rolledBackTo?: string;
   changeSummary?: string;
   createdAt?: string | Date;
   updatedAt?: string | Date;

@@ -9,14 +9,14 @@ import type { GeneratedRegistryCode } from '../types';
  */
 export interface ExportedDataView {
   name: string;
-  version: number;
+  version: string;
   description?: string;
   stability?: string;
   entity: string;
   kind: 'list' | 'detail' | 'table' | 'grid';
   source: {
-    primary: { key: string; version: number };
-    item?: { key: string; version: number };
+    primary: { key: string; version: string };
+    item?: { key: string; version: string };
   };
   fields: unknown[];
 }

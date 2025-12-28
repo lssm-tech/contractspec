@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'team-hub',
-    version: 1,
+    version: '1.0.0',
     title: 'Team Hub',
     description:
       'Internal collaboration hub with spaces, tasks, rituals, and announcements.',

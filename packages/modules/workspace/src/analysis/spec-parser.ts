@@ -44,7 +44,7 @@ export async function loadSpecFromSource(
 function mapFeatureResultToParsedSpec(result: FeatureScanResult): ParsedSpec {
   const meta: ParsedSpecMeta = {
     key: result.key,
-    version: 1, // Default for features if not specified
+    version: '1.0.0', // Default for features if not specified
     description: result.description,
     stability: result.stability,
     owners: result.owners,
@@ -70,7 +70,7 @@ function mapFeatureResultToParsedSpec(result: FeatureScanResult): ParsedSpec {
 function mapSpecResultToParsedSpec(result: SpecScanResult): ParsedSpec {
   const meta: ParsedSpecMeta = {
     key: result.key ?? 'unknown',
-    version: result.version ?? 1,
+    version: result.version ?? '1.0.0',
     description: result.description,
     stability: result.stability,
     owners: result.owners,

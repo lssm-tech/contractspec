@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'policy-safe-knowledge-assistant',
-    version: 1,
+    version: '1.0.0',
     title: 'Policy-safe Knowledge Assistant',
     description:
       'All-in-one template: locale/jurisdiction gating + versioned KB snapshots + HITL update pipeline + learning hub.',

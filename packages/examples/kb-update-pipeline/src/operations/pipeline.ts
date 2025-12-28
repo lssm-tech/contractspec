@@ -73,7 +73,7 @@ const PublishIfReadyOutput = defineSchemaModel({
 export const KbPipelineRunWatchContract = defineCommand({
   meta: {
     key: 'kbPipeline.runWatch',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'jobs'],
@@ -88,7 +88,7 @@ export const KbPipelineRunWatchContract = defineCommand({
 export const KbPipelineCreateReviewTaskContract = defineCommand({
   meta: {
     key: 'kbPipeline.createReviewTask',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'hitl'],
@@ -103,7 +103,7 @@ export const KbPipelineCreateReviewTaskContract = defineCommand({
 export const KbPipelineSubmitDecisionContract = defineCommand({
   meta: {
     key: 'kbPipeline.submitDecision',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'hitl', 'rbac'],
@@ -135,7 +135,7 @@ export const KbPipelineSubmitDecisionContract = defineCommand({
 export const KbPipelinePublishIfReadyContract = defineCommand({
   meta: {
     key: 'kbPipeline.publishIfReady',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'pipeline', 'publishing'],

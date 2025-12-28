@@ -23,7 +23,7 @@ import type { KnowledgeSourceConfig } from '../knowledge/source';
 import { type Owner, StabilityEnum, type Tag } from '../ownership';
 
 const ownership = {
-  version: 1,
+  version: '1.0.0',
   title: 'Sample',
   description: 'Sample description',
   domain: 'core',
@@ -32,7 +32,10 @@ const ownership = {
   stability: StabilityEnum.Experimental,
 } as const;
 
-function makeCapability(key = 'core.sample', version = 1): CapabilitySpec {
+function makeCapability(
+  key = 'core.sample',
+  version = '1.0.0'
+): CapabilitySpec {
   return {
     meta: {
       ...ownership,
@@ -58,11 +61,11 @@ function makeDataView(key = 'core.dashboard.view'): DataViewSpec {
     meta: {
       ...ownership,
       key,
-      version: 1,
+      version: '1.0.0',
       entity: 'dashboard',
     },
     source: {
-      primary: { key: 'core.list', version: 1 },
+      primary: { key: 'core.list', version: '1.0.0' },
     },
     view: {
       kind: 'table',
@@ -82,7 +85,7 @@ function makeWorkflow(key = 'core.onboarding'): WorkflowSpec {
     meta: {
       ...ownership,
       key,
-      version: 1,
+      version: '1.0.0',
     },
     definition: {
       steps: [
@@ -102,7 +105,7 @@ function makePolicy(): PolicySpec {
     meta: {
       ...ownership,
       key: 'core.policy',
-      version: 1,
+      version: '1.0.0',
       scope: 'global',
     },
     rules: [
@@ -120,7 +123,7 @@ function makeTheme(key = 'core.theme'): ThemeSpec {
     meta: {
       ...ownership,
       key,
-      version: 1,
+      version: '1.0.0',
     },
     tokens: {
       colors: {
@@ -144,13 +147,13 @@ function makeTelemetry(key = 'core.telemetry'): TelemetrySpec {
     meta: {
       ...ownership,
       key,
-      version: 1,
+      version: '1.0.0',
       domain: 'core',
     },
     events: [
       {
         key: 'core.event',
-        version: 1,
+        version: '1.0.0',
         semantics: {
           what: 'Sample event emitted for tests',
         },
@@ -166,7 +169,7 @@ function makeExperiment(key = 'core.experiment'): ExperimentSpec {
     meta: {
       ...ownership,
       key,
-      version: 1,
+      version: '1.0.0',
       domain: 'core',
     },
     controlVariant: 'control',
@@ -180,7 +183,7 @@ function makeExperiment(key = 'core.experiment'): ExperimentSpec {
 
 function makeIntegrationSpec(
   key = 'core.integration',
-  version = 1
+  version = '1.0.0'
 ): IntegrationSpec {
   return {
     meta: {
@@ -192,7 +195,7 @@ function makeIntegrationSpec(
     },
     supportedModes: ['managed', 'byok'],
     capabilities: {
-      provides: [{ key: 'core.tenant-extension', version: 1 }],
+      provides: [{ key: 'core.tenant-extension', version: '1.0.0' }],
     },
     configSchema: {
       schema: {
@@ -220,7 +223,7 @@ function makeIntegrationConnection(
   id = 'conn-primary',
   tenantId = 'tenant',
   integrationKey = 'core.integration',
-  integrationVersion = 1
+  integrationVersion = '1.0.0'
 ): IntegrationConnection {
   const timestamp = new Date().toISOString();
   return {
@@ -250,7 +253,7 @@ function makeIntegrationConnection(
 
 function makeKnowledgeSpace(
   key = 'product-canon',
-  version = 1
+  version = '1.0.0'
 ): KnowledgeSpaceSpec {
   return {
     meta: {
@@ -262,7 +265,7 @@ function makeKnowledgeSpace(
     },
     retention: { ttlDays: null },
     access: {
-      policy: { key: 'core.policy', version: 1 },
+      policy: { key: 'core.policy', version: '1.0.0' },
       trustLevel: 'high',
       automationWritable: false,
     },
@@ -276,7 +279,7 @@ function makeKnowledgeSource(
   id = 'source-primary',
   tenantId = 'tenant',
   spaceKey = 'product-canon',
-  spaceVersion = 1
+  spaceVersion = '1.0.0'
 ): KnowledgeSourceConfig {
   const timestamp = new Date().toISOString();
   return {
@@ -298,11 +301,11 @@ const blueprint: AppBlueprintSpec = {
   meta: {
     ...ownership,
     key: 'core.app',
-    version: 1,
+    version: '1.0.0',
     appId: 'core-app',
   },
   capabilities: {
-    enabled: [{ key: 'core.sample', version: 1 }],
+    enabled: [{ key: 'core.sample', version: '1.0.0' }],
   },
   features: {
     include: [{ key: 'core-shell' }],
@@ -312,7 +315,9 @@ const blueprint: AppBlueprintSpec = {
       slotId: 'primary-payments',
       requiredCategory: 'payments',
       allowedModes: ['managed', 'byok'],
-      requiredCapabilities: [{ key: 'core.tenant-extension', version: 1 }],
+      requiredCapabilities: [
+        { key: 'core.tenant-extension', version: '1.0.0' },
+      ],
       required: true,
       description: 'Primary payments processor slot',
     },
@@ -330,23 +335,23 @@ const blueprint: AppBlueprintSpec = {
   },
   translationCatalog: {
     key: 'core.app.catalog',
-    version: 1,
+    version: '1.0.0',
   },
   dataViews: {
-    dashboard: { key: 'core.dashboard.view', version: 1 },
+    dashboard: { key: 'core.dashboard.view', version: '1.0.0' },
   },
   workflows: {
-    onboarding: { key: 'core.onboarding', version: 1 },
+    onboarding: { key: 'core.onboarding', version: '1.0.0' },
   },
-  policies: [{ key: 'core.policy', version: 1 }],
+  policies: [{ key: 'core.policy', version: '1.0.0' }],
   theme: {
-    primary: { key: 'core.theme', version: 1 },
+    primary: { key: 'core.theme', version: '1.0.0' },
   },
   telemetry: {
-    spec: { key: 'core.telemetry', version: 1 },
+    spec: { key: 'core.telemetry', version: '1.0.0' },
   },
   experiments: {
-    active: [{ key: 'core.experiment', version: 1 }],
+    active: [{ key: 'core.experiment', version: '1.0.0' }],
   },
   featureFlags: [{ key: 'beta', enabled: false }],
   routes: [
@@ -367,38 +372,38 @@ const tenantConfig: TenantAppConfig = {
     blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
     environment: 'production',
-    version: 2,
+    version: '2.0.0',
     status: 'published',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   capabilities: {
-    disable: [{ key: 'core.sample', version: 1 }],
-    enable: [{ key: 'core.tenant-extension', version: 1 }],
+    disable: [{ key: 'core.sample', version: '1.0.0' }],
+    enable: [{ key: 'core.tenant-extension', version: '1.0.0' }],
   },
   dataViewOverrides: [
     {
       slot: 'dashboard',
-      pointer: { key: 'core.dashboard.alt', version: 1 },
+      pointer: { key: 'core.dashboard.alt', version: '1.0.0' },
     },
   ],
   workflowOverrides: [
     {
       slot: 'onboarding',
-      pointer: { key: 'core.onboarding.alt', version: 1 },
+      pointer: { key: 'core.onboarding.alt', version: '1.0.0' },
     },
   ],
-  additionalPolicies: [{ key: 'core.policy.tenant', version: 1 }],
+  additionalPolicies: [{ key: 'core.policy.tenant', version: '1.0.0' }],
   themeOverride: {
-    primary: { key: 'core.theme.alt', version: 1 },
+    primary: { key: 'core.theme.alt', version: '1.0.0' },
   },
   telemetryOverride: {
-    spec: { key: 'core.telemetry.alt', version: 1 },
+    spec: { key: 'core.telemetry.alt', version: '1.0.0' },
     disabledEvents: ['core.event'],
   },
   experiments: {
-    paused: [{ key: 'core.experiment', version: 1 }],
-    active: [{ key: 'core.experiment.alt', version: 1 }],
+    paused: [{ key: 'core.experiment', version: '1.0.0' }],
+    active: [{ key: 'core.experiment.alt', version: '1.0.0' }],
   },
   featureFlags: [{ key: 'beta', enabled: true, description: 'Tenant opt-in' }],
   routeOverrides: [
@@ -422,7 +427,7 @@ const tenantConfig: TenantAppConfig = {
   knowledge: [
     {
       spaceKey: 'product-canon',
-      spaceVersion: 1,
+      spaceVersion: '1.0.0',
     },
   ],
   locales: {
@@ -462,10 +467,10 @@ describe('resolveAppConfig', () => {
     expect(resolved.theme?.primary.key).toBe('core.theme.alt');
     expect(resolved.telemetry?.spec?.key).toBe('core.telemetry.alt');
     expect(resolved.experiments.active).toEqual([
-      { key: 'core.experiment.alt', version: 1 },
+      { key: 'core.experiment.alt', version: '1.0.0' },
     ]);
     expect(resolved.experiments.paused).toEqual([
-      { key: 'core.experiment', version: 1 },
+      { key: 'core.experiment', version: '1.0.0' },
     ]);
     expect(resolved.featureFlags[0]?.enabled).toBe(true);
     expect(resolved.routes[0]?.label).toBe('Tenant Dashboard');
@@ -488,7 +493,7 @@ describe('resolveAppConfig', () => {
     );
     expect(resolved.translation.blueprintCatalog).toEqual({
       key: 'core.app.catalog',
-      version: 1,
+      version: '1.0.0',
     });
     expect(resolved.translation.tenantOverrides).toHaveLength(2);
   });
@@ -521,7 +526,7 @@ describe('composeAppConfig', () => {
   it('materializes resolved config against registries', () => {
     const capabilities = new CapabilityRegistry()
       .register(makeCapability())
-      .register(makeCapability('core.tenant-extension', 1));
+      .register(makeCapability('core.tenant-extension', '1.0.0'));
     const features = new FeatureRegistry()
       .register(makeFeature())
       .register(makeFeature('core-shell-optional'));
@@ -535,7 +540,7 @@ describe('composeAppConfig', () => {
       meta: {
         ...ownership,
         key: 'core.policy.tenant',
-        version: 1,
+        version: '1.0.0',
         scope: 'feature',
       },
       rules: [
@@ -645,7 +650,7 @@ describe('composeAppConfig', () => {
         'conn-primary',
         'tenant',
         'core.integration',
-        2
+        '2.0.0'
       ),
     ];
     const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
@@ -670,7 +675,7 @@ describe('composeAppConfig', () => {
       expect.arrayContaining([
         {
           type: 'integrationSpec',
-          identifier: 'spec:core.integration.v2',
+          identifier: 'spec:core.integration.v2.0.0',
         },
         {
           type: 'integrationSlot',
@@ -678,7 +683,7 @@ describe('composeAppConfig', () => {
         },
         {
           type: 'knowledgeSource',
-          identifier: 'product-canon@1',
+          identifier: 'product-canon@1.0.0',
         },
       ])
     );

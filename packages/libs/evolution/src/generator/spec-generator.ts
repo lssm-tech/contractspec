@@ -19,7 +19,7 @@ export interface SpecGeneratorOptions {
   config?: EvolutionConfig;
   logger?: Logger;
   clock?: () => Date;
-  getSpec?: (key: string, version?: number) => AnyOperationSpec | undefined;
+  getSpec?: (key: string, version?: string) => AnyOperationSpec | undefined;
 }
 
 export interface GenerateSpecOptions {

@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'integration-stripe',
-    version: 1,
+    version: '1.0.0',
     title: 'Integration — Stripe Payments',
     description:
       'Wire AppBlueprint + Workflow + TenantAppConfig to enable Stripe-backed payments (spec-first integration pattern).',

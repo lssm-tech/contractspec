@@ -9,7 +9,7 @@ import {
 export const SyncConfigListPresentation: PresentationSpec = {
   meta: {
     key: 'integration.syncConfig.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Sync Config List',
     description: 'List of sync configurations',
     domain: 'integration',
@@ -34,7 +34,7 @@ export const SyncConfigListPresentation: PresentationSpec = {
 export const SyncConfigEditorPresentation: PresentationSpec = {
   meta: {
     key: 'integration.syncConfig.editor',
-    version: 1,
+    version: '1.0.0',
     title: 'Sync Config Editor',
     description: 'Editor for sync configuration settings',
     domain: 'integration',
@@ -59,7 +59,7 @@ export const SyncConfigEditorPresentation: PresentationSpec = {
 export const FieldMappingEditorPresentation: PresentationSpec = {
   meta: {
     key: 'integration.fieldMapping.editor',
-    version: 1,
+    version: '1.0.0',
     title: 'Field Mapping Editor',
     description: 'Visual field mapping editor',
     domain: 'integration',
@@ -84,7 +84,7 @@ export const FieldMappingEditorPresentation: PresentationSpec = {
 export const SyncRunListPresentation: PresentationSpec = {
   meta: {
     key: 'integration.syncRun.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Sync Run History',
     description: 'History of sync runs',
     domain: 'integration',
@@ -109,7 +109,7 @@ export const SyncRunListPresentation: PresentationSpec = {
 export const SyncRunDetailPresentation: PresentationSpec = {
   meta: {
     key: 'integration.syncRun.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Sync Run Details',
     description: 'Detailed view of a sync run with logs',
     domain: 'integration',
@@ -134,7 +134,7 @@ export const SyncRunDetailPresentation: PresentationSpec = {
 export const SyncActivityPresentation: PresentationSpec = {
   meta: {
     key: 'integration.sync.activity',
-    version: 1,
+    version: '1.0.0',
     title: 'Sync Activity Monitor',
     description: 'Real-time sync activity monitor',
     domain: 'integration',

@@ -6,15 +6,15 @@ import {
 } from '@contractspec/lib.contracts/ownership';
 
 const OPEN_BANKING_CAPABILITIES = [
-  { key: 'openbanking.accounts.read', version: 1 },
-  { key: 'openbanking.transactions.read', version: 1 },
-  { key: 'openbanking.balances.read', version: 1 },
+  { key: 'openbanking.accounts.read', version: '1.0.0' },
+  { key: 'openbanking.transactions.read', version: '1.0.0' },
+  { key: 'openbanking.balances.read', version: '1.0.0' },
 ];
 
 export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.generate-openbanking-overview',
-    version: 1,
+    version: '1.0.0',
     title: 'Generate Open Banking Overview',
     description:
       'Produces a derived financial overview and stores it in the operational knowledge space.',
@@ -33,7 +33,10 @@ export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
         description:
           'Aggregate balances, cashflow, and category breakdowns into a knowledge entry.',
         action: {
-          operation: { key: 'pfo.openbanking.generate-overview', version: 1 },
+          operation: {
+            key: 'pfo.openbanking.generate-overview',
+            version: '1.0.0',
+          },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: OPEN_BANKING_CAPABILITIES,

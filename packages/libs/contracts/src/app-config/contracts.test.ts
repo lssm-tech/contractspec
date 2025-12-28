@@ -15,27 +15,27 @@ describe('app-config contracts', () => {
   it('registers branding and translation management contracts', () => {
     const registry = registerAppConfigOperations(new OperationSpecRegistry());
 
-    expect(registry.getSpec('appConfig.updateTenantBranding', 1)).toBe(
+    expect(registry.get('appConfig.updateTenantBranding', '1.0.0')).toBe(
       UpdateTenantBrandingCommand
     );
 
-    expect(registry.getSpec('appConfig.verifyCustomDomain', 1)).toBe(
+    expect(registry.get('appConfig.verifyCustomDomain', '1.0.0')).toBe(
       VerifyCustomDomainCommand
     );
 
     expect(
-      registry.getSpec('appConfig.updateBlueprintTranslationCatalog', 1)
+      registry.get('appConfig.updateBlueprintTranslationCatalog', '1.0.0')
     ).toBe(UpdateBlueprintTranslationCatalogCommand);
 
-    expect(registry.getSpec('appConfig.updateTenantTranslations', 1)).toBe(
+    expect(registry.get('appConfig.updateTenantTranslations', '1.0.0')).toBe(
       UpdateTenantTranslationOverridesCommand
     );
 
-    expect(registry.getSpec('appConfig.getResolvedBranding', 1)).toBe(
+    expect(registry.get('appConfig.getResolvedBranding', '1.0.0')).toBe(
       GetResolvedBrandingQuery
     );
 
-    expect(registry.getSpec('appConfig.resolveMessage', 1)).toBe(
+    expect(registry.get('appConfig.resolveMessage', '1.0.0')).toBe(
       ResolveMessageQuery
     );
   });

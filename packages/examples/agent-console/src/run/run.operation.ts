@@ -21,7 +21,7 @@ const OWNERS = ['@agent-console-team'] as const;
 export const ExecuteAgentCommand = defineCommand({
   meta: {
     key: 'agent.run.execute',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'execute'],
@@ -76,7 +76,7 @@ export const ExecuteAgentCommand = defineCommand({
     emits: [
       {
         key: 'run.started',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['run', 'started'],
@@ -117,7 +117,7 @@ export const ExecuteAgentCommand = defineCommand({
 export const CancelRunCommand = defineCommand({
   meta: {
     key: 'agent.run.cancel',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'cancel'],
@@ -160,7 +160,7 @@ export const CancelRunCommand = defineCommand({
     emits: [
       {
         key: 'run.cancelled',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['run', 'cancelled'],
@@ -201,7 +201,7 @@ export const CancelRunCommand = defineCommand({
 export const GetRunQuery = defineQuery({
   meta: {
     key: 'agent.run.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'get'],
@@ -254,7 +254,7 @@ export const GetRunQuery = defineQuery({
 export const ListRunsQuery = defineQuery({
   meta: {
     key: 'agent.run.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'list'],
@@ -323,7 +323,7 @@ export const ListRunsQuery = defineQuery({
 export const GetRunStepsQuery = defineQuery({
   meta: {
     key: 'agent.run.getSteps',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'steps'],
@@ -371,7 +371,7 @@ export const GetRunStepsQuery = defineQuery({
 export const GetRunLogsQuery = defineQuery({
   meta: {
     key: 'agent.run.getLogs',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'logs'],
@@ -433,7 +433,7 @@ export const GetRunLogsQuery = defineQuery({
 export const GetRunMetricsQuery = defineQuery({
   meta: {
     key: 'agent.run.getMetrics',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['run', 'metrics'],

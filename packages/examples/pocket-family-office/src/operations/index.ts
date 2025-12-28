@@ -61,7 +61,7 @@ export const uploadDocumentContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.documents.upload',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     description:
       'Stores an object in tenant storage and schedules ingestion into the knowledge base.',
@@ -124,7 +124,7 @@ export const schedulePaymentReminderContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.reminders.schedule-payment',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     description:
       'Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold.',
@@ -188,7 +188,7 @@ export const generateFinancialSummaryContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.summary.generate',
-    version: 1,
+    version: '1.0.0',
     kind: 'query',
     description:
       'Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics.',
@@ -245,7 +245,7 @@ export const syncEmailThreadsContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.email.sync-threads',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     description:
       'Triggers ingestion of Gmail threads into the operational knowledge space.',
@@ -304,7 +304,7 @@ export const dispatchFinancialSummaryContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.summary.dispatch',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     description:
       'Delivers the generated summary via email and optionally synthesises a voice note.',
@@ -367,7 +367,7 @@ export const generateOpenBankingOverviewContract: OperationSpec<
 > = {
   meta: {
     key: 'pfo.openbanking.generate-overview',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     description:
       'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
@@ -388,7 +388,7 @@ export const generateOpenBankingOverviewContract: OperationSpec<
     success: {
       event: {
         key: OPENBANKING_TELEMETRY_EVENTS.overviewGenerated,
-        version: 1,
+        version: '1.0.0',
       },
     },
   },

@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const googleCalendarIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'calendar.google',
-    version: 1,
+    version: '1.0.0',
     category: 'calendar',
     title: 'Google Calendar API',
     description:
@@ -16,7 +16,7 @@ export const googleCalendarIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'calendar.events', version: 1 }],
+    provides: [{ key: 'calendar.events', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

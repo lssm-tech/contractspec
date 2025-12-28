@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-quest-challenges',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey — Quest Challenges',
     description:
       'Quest/challenge pattern: multi-step goals with progress events, rewards, and streak hooks.',

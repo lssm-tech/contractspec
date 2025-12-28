@@ -45,5 +45,3 @@ export function LoaderCircular({
     </div>
   );
 }
-
-export default LoaderCircular;

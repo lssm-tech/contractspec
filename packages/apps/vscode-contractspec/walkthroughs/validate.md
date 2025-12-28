@@ -41,7 +41,7 @@ This scans all spec files and provides a summary.
 export const MySpec = defineCommand({
   meta: {
     name: 'user.action',
-    version: 1,
+    version: '1.0.0',
     // description is required!
   },
   // ...
@@ -51,7 +51,7 @@ export const MySpec = defineCommand({
 export const MySpec = defineCommand({
   meta: {
     name: 'user.action',
-    version: 1,
+    version: '1.0.0',
     description: 'Perform user action',
     owners: ['@team'],
   },

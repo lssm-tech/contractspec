@@ -9,7 +9,7 @@ import type { GeneratedRegistryCode } from '../types';
  */
 export interface ExportedWorkflow {
   name: string;
-  version: number;
+  version: string;
   description?: string;
   stability?: string;
   owners?: string[];

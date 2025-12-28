@@ -139,7 +139,7 @@ Contracts are located in:
 Operations follow this pattern:
 \`\`\`typescript
 defineCommand({
-  meta: { name: 'service.action', version: 1, ... },
+  meta: { name: 'service.action', version: '1.0.0', ... },
   io: { input: InputSchema, output: OutputSchema },
   policy: { auth: 'user', ... },
   handler: async (args, ctx) => { ... }

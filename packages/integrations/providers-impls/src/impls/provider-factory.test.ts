@@ -119,7 +119,7 @@ function buildContext({
   const spec: IntegrationSpec = {
     meta: {
       key,
-      version: 1,
+      version: '1.0.0',
       category: key.startsWith('openbanking.')
         ? ('open-banking' as string)
         : (key.split('.')[0] as string),
@@ -181,7 +181,7 @@ function buildContext({
     secretReference: 'mock://secret',
     trace: {
       blueprintName: 'blueprint',
-      blueprintVersion: 1,
+      blueprintVersion: '1.0.0',
       configVersion: 1,
     },
   };

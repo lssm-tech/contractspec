@@ -49,7 +49,7 @@ export type EventParam<
     AnySchemaModel | ResourceRefDescriptor<boolean>
   >,
 > = S extends { sideEffects?: { emits?: readonly (infer E)[] } }
-  ? E extends { key: string; version: number; payload: AnySchemaModel }
+  ? E extends { key: string; version: string; payload: AnySchemaModel }
     ? {
         key: E['key'];
         version: E['version'];
@@ -76,7 +76,7 @@ type AllowedEventUnion<
           }
         : S['sideEffects']['emits'][K] extends {
               key: infer N extends string;
-              version: infer V extends number;
+              version: infer V extends string;
               payload: infer Q extends AnySchemaModel;
             }
           ? { key: N; version: V; payload: z.infer<ReturnType<Q['getZod']>> }
@@ -98,7 +98,7 @@ export function makeEmit<S extends AnyOperationSpec>(
       await ctx.__emitGuard__?.(ev.meta.key, ev.meta.version, payload);
     },
     /** Nom/version explicites (runtime-checked par la guard) */
-    key: async (key: string, version: number, payload: unknown) => {
+    key: async (key: string, version: string, payload: unknown) => {
       await ctx.__emitGuard__?.(key, version, payload);
     },
     /** Compat : objet (bénéficie du typing si votre spec a un tuple `as const`) */

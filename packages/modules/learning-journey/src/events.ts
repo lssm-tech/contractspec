@@ -18,7 +18,7 @@ const CoursePublishedPayload = defineSchemaModel({
 export const CoursePublishedEvent = defineEvent({
   meta: {
     key: 'course.published',
-    version: 1,
+    version: '1.0.0',
     description: 'A course has been published.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -43,7 +43,7 @@ const EnrollmentCreatedPayload = defineSchemaModel({
 export const EnrollmentCreatedEvent = defineEvent({
   meta: {
     key: 'enrollment.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has enrolled in a course.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -71,7 +71,7 @@ const LessonCompletedPayload = defineSchemaModel({
 export const LessonCompletedEvent = defineEvent({
   meta: {
     key: 'lesson.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has completed a lesson.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -97,7 +97,7 @@ const CourseCompletedPayload = defineSchemaModel({
 export const CourseCompletedEvent = defineEvent({
   meta: {
     key: 'course.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has completed a course.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -122,7 +122,7 @@ const OnboardingStartedPayload = defineSchemaModel({
 export const OnboardingStartedEvent = defineEvent({
   meta: {
     key: 'onboarding.started',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has started onboarding.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -150,7 +150,7 @@ const OnboardingStepCompletedPayload = defineSchemaModel({
 export const OnboardingStepCompletedEvent = defineEvent({
   meta: {
     key: 'onboarding.step_completed',
-    version: 1,
+    version: '1.0.0',
     description: 'An onboarding step has been completed.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -174,7 +174,7 @@ const OnboardingCompletedPayload = defineSchemaModel({
 export const OnboardingCompletedEvent = defineEvent({
   meta: {
     key: 'onboarding.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has completed onboarding.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -201,7 +201,7 @@ const CardReviewedPayload = defineSchemaModel({
 export const CardReviewedEvent = defineEvent({
   meta: {
     key: 'flashcard.reviewed',
-    version: 1,
+    version: '1.0.0',
     description: 'A flashcard has been reviewed.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -227,7 +227,7 @@ const QuizStartedPayload = defineSchemaModel({
 export const QuizStartedEvent = defineEvent({
   meta: {
     key: 'quiz.started',
-    version: 1,
+    version: '1.0.0',
     description: 'A quiz attempt has started.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -255,7 +255,7 @@ const QuizCompletedPayload = defineSchemaModel({
 export const QuizCompletedEvent = defineEvent({
   meta: {
     key: 'quiz.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A quiz attempt has been completed.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -282,7 +282,7 @@ const XpEarnedPayload = defineSchemaModel({
 export const XpEarnedEvent = defineEvent({
   meta: {
     key: 'xp.earned',
-    version: 1,
+    version: '1.0.0',
     description: 'XP has been earned.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -306,7 +306,7 @@ const LevelUpPayload = defineSchemaModel({
 export const LevelUpEvent = defineEvent({
   meta: {
     key: 'level.up',
-    version: 1,
+    version: '1.0.0',
     description: 'A learner has leveled up.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -331,7 +331,7 @@ const StreakUpdatedPayload = defineSchemaModel({
 export const StreakUpdatedEvent = defineEvent({
   meta: {
     key: 'streak.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A streak has been updated.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -365,7 +365,7 @@ const AchievementUnlockedPayload = defineSchemaModel({
 export const AchievementUnlockedEvent = defineEvent({
   meta: {
     key: 'achievement.unlocked',
-    version: 1,
+    version: '1.0.0',
     description: 'An achievement has been unlocked.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -389,7 +389,7 @@ const DailyGoalCompletedPayload = defineSchemaModel({
 export const DailyGoalCompletedEvent = defineEvent({
   meta: {
     key: 'daily_goal.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A daily goal has been completed.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
@@ -421,7 +421,7 @@ const CertificateIssuedPayload = defineSchemaModel({
 export const CertificateIssuedEvent = defineEvent({
   meta: {
     key: 'certificate.issued',
-    version: 1,
+    version: '1.0.0',
     description: 'A certificate has been issued.',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],

@@ -7,13 +7,13 @@ import {
 
 const TRANSACTION_CAPABILITY = {
   key: 'openbanking.transactions.read',
-  version: 1,
+  version: '1.0.0',
 };
 
 export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.sync-openbanking-transactions',
-    version: 1,
+    version: '1.0.0',
     title: 'Synchronise Open Banking Transactions',
     description:
       'Fetches recent transactions from Powens for each linked account and stores them in the canonical ledger.',
@@ -32,7 +32,7 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
         description:
           'Call the Powens provider to pull incremental transactions for active accounts.',
         action: {
-          operation: { key: 'openbanking.transactions.sync', version: 1 },
+          operation: { key: 'openbanking.transactions.sync', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [TRANSACTION_CAPABILITY],
@@ -49,7 +49,7 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
         description:
           'Retrieve the canonical transaction list for reporting and downstream analytics.',
         action: {
-          operation: { key: 'openbanking.transactions.list', version: 1 },
+          operation: { key: 'openbanking.transactions.list', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [TRANSACTION_CAPABILITY],

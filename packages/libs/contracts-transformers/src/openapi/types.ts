@@ -161,7 +161,7 @@ export interface ParsedOperation {
   /** ContractSpec extension data if present */
   contractSpecMeta?: {
     name: string;
-    version: number;
+    version: string;
     kind: 'command' | 'query';
   };
 }

@@ -8,7 +8,7 @@ import {
 export const upcomingPaymentsReminderWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.upcoming-payments-reminder',
-    version: 1,
+    version: '1.0.0',
     title: 'Schedule Upcoming Payment Reminder',
     description:
       'Collects payment metadata and schedules multi-channel reminders for bills that are due soon.',
@@ -32,7 +32,10 @@ export const upcomingPaymentsReminderWorkflow: WorkflowSpec = {
         type: 'automation',
         label: 'Schedule Reminder',
         action: {
-          operation: { key: 'pfo.reminders.schedule-payment', version: 1 },
+          operation: {
+            key: 'pfo.reminders.schedule-payment',
+            version: '1.0.0',
+          },
         },
         requiredIntegrations: [
           'emailOutbound',

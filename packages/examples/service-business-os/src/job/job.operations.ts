@@ -33,7 +33,7 @@ export const ListJobsOutputModel = defineSchemaModel({
 export const ListJobsOperation = defineQuery({
   meta: {
     key: 'service.job.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'job', 'list', 'query'],
@@ -73,7 +73,7 @@ export const ListJobsOperation = defineQuery({
 export const ScheduleJobContract = defineCommand({
   meta: {
     key: 'service.job.schedule',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'job', 'schedule'],
@@ -115,7 +115,7 @@ export const ScheduleJobContract = defineCommand({
 export const CompleteJobContract = defineCommand({
   meta: {
     key: 'service.job.complete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'job', 'complete'],

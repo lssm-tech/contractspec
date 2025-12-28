@@ -17,27 +17,27 @@ describe('app-config lifecycle contracts', () => {
       new OperationSpecRegistry()
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.createDraft', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.createDraft', '1.0.0')).toBe(
       CreateTenantConfigDraftCommand
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.promoteToPreview', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.promoteToPreview', '1.0.0')).toBe(
       PromoteTenantConfigToPreviewCommand
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.publish', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.publish', '1.0.0')).toBe(
       PublishTenantConfigCommand
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.rollback', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.rollback', '1.0.0')).toBe(
       RollbackTenantConfigCommand
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.listVersions', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.listVersions', '1.0.0')).toBe(
       ListTenantConfigVersionsQuery
     );
 
-    expect(registry.getSpec('appConfig.lifecycle.getVersion', 1)).toBe(
+    expect(registry.get('appConfig.lifecycle.getVersion', '1.0.0')).toBe(
       GetTenantConfigVersionQuery
     );
   });

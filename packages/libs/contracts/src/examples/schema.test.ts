@@ -37,7 +37,7 @@ describe('ExampleMetaSchema', () => {
   it('should accept valid meta', () => {
     const meta = {
       key: 'test-example',
-      version: 1,
+      version: '1.0.0',
       description: 'Test description',
       stability: 'experimental',
       owners: ['@team'],
@@ -50,7 +50,7 @@ describe('ExampleMetaSchema', () => {
 
   it('should require key', () => {
     const meta = {
-      version: 1,
+      version: '1.0.0',
       description: 'Test',
       stability: 'experimental',
       owners: [],
@@ -64,7 +64,7 @@ describe('ExampleMetaSchema', () => {
   it('should require description', () => {
     const meta = {
       key: 'test',
-      version: 1,
+      version: '1.0.0',
       stability: 'experimental',
       owners: [],
       tags: [],
@@ -77,7 +77,7 @@ describe('ExampleMetaSchema', () => {
   it('should accept optional fields', () => {
     const meta = {
       key: 'test-example',
-      version: 1,
+      version: '1.0.0',
       description: 'Test description',
       stability: 'experimental',
       owners: [],
@@ -98,7 +98,7 @@ describe('ExampleSpecSchema', () => {
   const validSpec = {
     meta: {
       key: 'test-example',
-      version: 1,
+      version: '1.0.0',
       description: 'Test description',
       stability: 'experimental',
       owners: ['@team'],
@@ -151,7 +151,7 @@ describe('ExampleSpecSchema', () => {
   it('should accept optional blueprint as SpecPointer', () => {
     const spec = {
       ...validSpec,
-      blueprint: { key: 'my-blueprint', version: 1 },
+      blueprint: { key: 'my-blueprint', version: '1.0.0' },
     };
     expect(() => ExampleSpecSchema.parse(spec)).not.toThrow();
   });
@@ -170,7 +170,7 @@ describe('parseExampleSpec', () => {
     const spec = {
       meta: {
         key: 'test',
-        version: 1,
+        version: '1.0.0',
         description: 'Test',
         stability: 'experimental',
         owners: [],
@@ -200,7 +200,7 @@ describe('safeParseExampleSpec', () => {
     const spec = {
       meta: {
         key: 'test',
-        version: 1,
+        version: '1.0.0',
         description: 'Test',
         stability: 'experimental',
         owners: [],

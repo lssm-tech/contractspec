@@ -26,7 +26,7 @@ const samplePolicy: PolicySpec = {
     tags: ['policy'],
     stability: StabilityEnum.Experimental,
     key: 'core.sample',
-    version: 1,
+    version: '1.0.0',
   },
   rules: [
     {
@@ -50,7 +50,7 @@ const context: DecisionContext = {
   action: 'read',
   subject: { roles: ['admin'] },
   resource: { type: 'resident' },
-  policies: [{ key: 'core.sample', version: 1 }],
+  policies: [{ key: 'core.sample', version: '1.0.0' }],
 };
 
 const engineDecision: PolicyDecision = {

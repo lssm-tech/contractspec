@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-registry',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey Registry',
     description:
       'Registry of learning journey tracks + presentations + UI mini-app bindings.',

@@ -4,7 +4,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const TeamDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'Team Dashboard',
     description: 'Team hub dashboard with activity overview',
     domain: 'collaboration',
@@ -28,7 +28,7 @@ export const TeamDashboardPresentation: PresentationSpec = {
 export const SpaceListPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.space.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Space List',
     description: 'List of team spaces',
     domain: 'collaboration',
@@ -52,7 +52,7 @@ export const SpaceListPresentation: PresentationSpec = {
 export const TaskBoardPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.task.board',
-    version: 1,
+    version: '1.0.0',
     title: 'Task Board',
     description: 'Task board with kanban view',
     domain: 'collaboration',
@@ -76,7 +76,7 @@ export const TaskBoardPresentation: PresentationSpec = {
 export const TaskDetailPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.task.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Task Details',
     description: 'Task detail with comments and history',
     domain: 'collaboration',
@@ -100,7 +100,7 @@ export const TaskDetailPresentation: PresentationSpec = {
 export const RitualCalendarPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.ritual.calendar',
-    version: 1,
+    version: '1.0.0',
     title: 'Ritual Calendar',
     description: 'Calendar view of team rituals',
     domain: 'collaboration',
@@ -124,7 +124,7 @@ export const RitualCalendarPresentation: PresentationSpec = {
 export const AnnouncementFeedPresentation: PresentationSpec = {
   meta: {
     key: 'team-hub.announcement.feed',
-    version: 1,
+    version: '1.0.0',
     title: 'Announcement Feed',
     description: 'Feed of team announcements',
     domain: 'collaboration',

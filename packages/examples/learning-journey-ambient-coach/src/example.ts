@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-ambient-coach',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey — Ambient Coach',
     description:
       'Ambient coaching pattern: lightweight nudges driven by context and recent progress.',

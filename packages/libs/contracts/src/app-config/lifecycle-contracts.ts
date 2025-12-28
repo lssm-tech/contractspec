@@ -12,12 +12,12 @@ import {
 
 const LifecyclePolicy = {
   auth: 'admin' as const,
-  policies: [{ key: 'platform.app-config.manage', version: 1 }],
+  policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
 };
 
 const LifecycleReadPolicy = {
   auth: 'admin' as const,
-  policies: [{ key: 'platform.app-config.read', version: 1 }],
+  policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
 };
 
 const ConfigVersionRecord = new SchemaModel({
@@ -76,7 +76,7 @@ const CreateDraftOutput = new SchemaModel({
 export const CreateTenantConfigDraftCommand = defineCommand({
   meta: {
     key: 'appConfig.lifecycle.createDraft',
-    version: 1,
+    version: '1.0.0',
     description: 'Creates a new draft tenant config version.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.Hygiene, 'app-config'],
@@ -126,7 +126,7 @@ const PromotePreviewOutput = new SchemaModel({
 export const PromoteTenantConfigToPreviewCommand = defineCommand({
   meta: {
     key: 'appConfig.lifecycle.promoteToPreview',
-    version: 1,
+    version: '1.0.0',
     description: 'Promotes a draft tenant config to preview/testing state.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.Hygiene, 'app-config'],
@@ -178,7 +178,7 @@ const PublishConfigOutput = new SchemaModel({
 export const PublishTenantConfigCommand = defineCommand({
   meta: {
     key: 'appConfig.lifecycle.publish',
-    version: 1,
+    version: '1.0.0',
     description: 'Publishes a preview tenant config to production.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.Hygiene, 'app-config'],
@@ -226,7 +226,7 @@ const RollbackConfigOutput = new SchemaModel({
 export const RollbackTenantConfigCommand = defineCommand({
   meta: {
     key: 'appConfig.lifecycle.rollback',
-    version: 1,
+    version: '1.0.0',
     description: 'Rolls back to a previously published tenant config version.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.Hygiene, 'app-config'],
@@ -273,7 +273,7 @@ const ListVersionsOutput = new SchemaModel({
 export const ListTenantConfigVersionsQuery = defineQuery({
   meta: {
     key: 'appConfig.lifecycle.listVersions',
-    version: 1,
+    version: '1.0.0',
     description: 'Lists all versions of a tenant configuration.',
     owners: [OwnersEnum.PlatformSigil],
     tags: ['app-config', TagsEnum.Hygiene],
@@ -308,7 +308,7 @@ const GetVersionOutput = new SchemaModel({
 export const GetTenantConfigVersionQuery = defineQuery({
   meta: {
     key: 'appConfig.lifecycle.getVersion',
-    version: 1,
+    version: '1.0.0',
     description: 'Fetches a single tenant config version by id.',
     owners: [OwnersEnum.PlatformSigil],
     tags: ['app-config', TagsEnum.Hygiene],

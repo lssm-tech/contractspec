@@ -5,7 +5,7 @@
  */
 
 // Re-export module for convenience
-export * from '@contractspec/module.workspace';
+export * as module from '@contractspec/module.workspace';
 
 // Ports (adapter interfaces)
 export * from './ports/index';
@@ -24,4 +24,4 @@ export * as formatters from './formatters/index';
 
 // Templates (re-export for CLI usage)
 export * as templates from './templates';
-export * as ai from './ai';
+export * from './ai';

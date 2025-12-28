@@ -15,7 +15,7 @@ const pastelTheme: ThemeSpec = {
   meta: {
     ...baseMeta,
     key: 'design.pastel',
-    version: 1,
+    version: '1.0.0',
     scopes: ['tenant'],
   },
   tokens: {
@@ -60,7 +60,7 @@ describe('ThemeRegistry', () => {
   it('registers and retrieves themes by name/version', () => {
     const registry = new ThemeRegistry();
     registry.register(pastelTheme);
-    const stored = registry.get('design.pastel', 1);
+    const stored = registry.get('design.pastel', '1.0.0');
     expect(stored?.meta.key).toBe('design.pastel');
     expect(stored?.tokens.colors?.background?.value).toBe('#fdf2f8');
   });
@@ -70,14 +70,14 @@ describe('ThemeRegistry', () => {
     registry.register(pastelTheme);
     registry.register({
       ...pastelTheme,
-      meta: { ...pastelTheme.meta, version: 2 },
+      meta: { ...pastelTheme.meta, version: '2.0.0' },
     });
     const latest = registry.get('design.pastel');
-    expect(latest?.meta.version).toBe(2);
+    expect(latest?.meta.version).toBe('2.0.0');
   });
 
   it('creates stable theme references', () => {
     const ref = makeThemeRef(pastelTheme);
-    expect(ref).toEqual({ key: 'design.pastel', version: 1 });
+    expect(ref).toEqual({ key: 'design.pastel', version: '1.0.0' });
   });
 });

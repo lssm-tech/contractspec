@@ -20,7 +20,7 @@ const DummyModel = new SchemaModel({
 
 function createOperation(
   key: string,
-  version: number
+  version: string
 ): OperationSpec<typeof DummyModel, typeof DummyModel> {
   return {
     meta: {
@@ -46,7 +46,7 @@ function createOperation(
   };
 }
 
-function createForm(key: string, version: number): FormSpec<typeof DummyModel> {
+function createForm(key: string, version: string): FormSpec<typeof DummyModel> {
   return {
     meta: {
       key,
@@ -67,7 +67,7 @@ function sampleWorkflowSpec(): WorkflowSpec {
   return {
     meta: {
       key: 'sigil.workflow.sample',
-      version: 1,
+      version: '1.0.0',
       title: 'Sample Workflow',
       description: 'Workflow used in tests',
       domain: 'testing',
@@ -82,19 +82,19 @@ function sampleWorkflowSpec(): WorkflowSpec {
           id: 'start',
           type: 'automation',
           label: 'Start',
-          action: { operation: { key: 'sigil.start', version: 1 } },
+          action: { operation: { key: 'sigil.start', version: '1.0.0' } },
         },
         {
           id: 'review',
           type: 'human',
           label: 'Review',
-          action: { form: { key: 'reviewForm', version: 1 } },
+          action: { form: { key: 'reviewForm', version: '1.0.0' } },
         },
         {
           id: 'finish',
           type: 'automation',
           label: 'Finish',
-          action: { operation: { key: 'sigil.finish', version: 1 } },
+          action: { operation: { key: 'sigil.finish', version: '1.0.0' } },
         },
       ],
       transitions: [
@@ -117,19 +117,19 @@ describe('WorkflowRegistry', () => {
 
     const specV2: WorkflowSpec = {
       ...specV1,
-      meta: { ...specV1.meta, version: 2 },
+      meta: { ...specV1.meta, version: '2.0.0' },
     };
     registry.register(specV2);
 
     expect(registry.get(specV1.meta.key)).toEqual(specV2);
-    expect(registry.get(specV1.meta.key, 1)).toEqual(specV1);
+    expect(registry.get(specV1.meta.key, '1.0.0')).toEqual(specV1);
   });
 
   it('rejects duplicate workflow versions', () => {
     const registry = new WorkflowRegistry();
     const spec = sampleWorkflowSpec();
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate workflow/);
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 });
 
@@ -137,10 +137,10 @@ describe('validateWorkflowSpec', () => {
   it('returns no errors for a valid workflow', () => {
     const spec = sampleWorkflowSpec();
     const operations = new OperationSpecRegistry();
-    operations.register(createOperation('sigil.start', 1));
-    operations.register(createOperation('sigil.finish', 1));
+    operations.register(createOperation('sigil.start', '1.0.0'));
+    operations.register(createOperation('sigil.finish', '1.0.0'));
     const forms = new FormRegistry();
-    forms.register(createForm('reviewForm', 1));
+    forms.register(createForm('reviewForm', '1.0.0'));
 
     const issues = validateWorkflowSpec(spec, { operations, forms });
     expect(errors(issues)).toHaveLength(0);
@@ -181,7 +181,7 @@ describe('validateWorkflowSpec', () => {
   it('flags missing operation references when registry provided', () => {
     const spec = sampleWorkflowSpec();
     const operations = new OperationSpecRegistry();
-    operations.register(createOperation('sigil.start', 1));
+    operations.register(createOperation('sigil.start', '1.0.0'));
     const issues = validateWorkflowSpec(spec, { operations });
     expect(
       errors(issues).some((issue) => /unknown operation/.test(issue.message))

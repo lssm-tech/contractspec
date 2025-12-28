@@ -24,7 +24,10 @@ export const verifyLLMCommand = new Command('verify')
     'Verification tier: 1 (structure), 2 (behavior), 3 (ai), all',
     'all'
   )
-  .option('--fail-fast', 'Stop on first tier failure (not implemented for static check yet)')
+  .option(
+    '--fail-fast',
+    'Stop on first tier failure (not implemented for static check yet)'
+  )
   .option('--json', 'Output as JSON')
   .action(async (specFile, implFile, options) => {
     try {
@@ -43,6 +46,9 @@ export const verifyLLMCommand = new Command('verify')
         throw new Error('No spec definitions found');
       }
       const spec = specs[0];
+      if (!spec) {
+        throw new Error('No spec definitions found');
+      }
 
       const implPath = resolve(process.cwd(), implFile);
       if (!existsSync(implPath)) {
@@ -65,16 +71,26 @@ export const verifyLLMCommand = new Command('verify')
         default:
           tiers = ['structure', 'behavior'];
           if (options.tier === '3' || options.tier === 'all') {
-             console.log(chalk.yellow('Note: AI verification (Tier 3) is currently disabled in CLI static mode. Running tiers 1 & 2.'));
+            console.log(
+              chalk.yellow(
+                'Note: AI verification (Tier 3) is currently disabled in CLI static mode. Running tiers 1 & 2.'
+              )
+            );
           }
           break;
       }
 
-      const issues = verifyImplementationAgainstParsedSpec(spec, implementationCode, tiers);
+      const issues = verifyImplementationAgainstParsedSpec(
+        spec,
+        implementationCode,
+        tiers
+      );
 
       // Determine pass/fail
-      const errorCount = issues.filter(i => i.severity === 'error').length;
-      const warningCount = issues.filter(i => i.severity === 'warning').length;
+      const errorCount = issues.filter((i) => i.severity === 'error').length;
+      const warningCount = issues.filter(
+        (i) => i.severity === 'warning'
+      ).length;
       const passed = errorCount === 0;
 
       if (options.json) {
@@ -83,7 +99,7 @@ export const verifyLLMCommand = new Command('verify')
             {
               passed,
               issues,
-              summary: { errors: errorCount, warnings: warningCount }
+              summary: { errors: errorCount, warnings: warningCount },
             },
             null,
             2
@@ -96,13 +112,9 @@ export const verifyLLMCommand = new Command('verify')
         // Summary line
         console.log('');
         if (passed) {
-          console.log(
-            chalk.green(`✓ Verification passed`)
-          );
+          console.log(chalk.green(`✓ Verification passed`));
         } else {
-          console.log(
-            chalk.red(`✗ Verification failed`)
-          );
+          console.log(chalk.red(`✗ Verification failed`));
         }
       }
 

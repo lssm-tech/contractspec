@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'content-generation',
-    version: 1,
+    version: '1.0.0',
     title: 'Content Generation',
     description:
       'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @contractspec/lib.content-gen.',

@@ -315,7 +315,7 @@ const SuccessOutput = defineSchemaModel({
 export const DefineMetricContract = defineCommand({
   meta: {
     key: 'metric.define',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'metric', 'define'],
@@ -346,7 +346,7 @@ export const DefineMetricContract = defineCommand({
 export const UpdateMetricContract = defineCommand({
   meta: {
     key: 'metric.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'metric', 'update'],
@@ -377,7 +377,7 @@ export const UpdateMetricContract = defineCommand({
 export const DeleteMetricContract = defineCommand({
   meta: {
     key: 'metric.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'metric', 'delete'],
@@ -408,7 +408,7 @@ export const DeleteMetricContract = defineCommand({
 export const GetMetricContract = defineQuery({
   meta: {
     key: 'metric.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'metric', 'get'],
@@ -439,7 +439,7 @@ export const GetMetricContract = defineQuery({
 export const ListMetricsContract = defineQuery({
   meta: {
     key: 'metric.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'metric', 'list'],
@@ -462,7 +462,7 @@ export const ListMetricsContract = defineQuery({
 export const RecordUsageContract = defineCommand({
   meta: {
     key: 'usage.record',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'usage', 'record'],
@@ -499,7 +499,7 @@ export const RecordUsageContract = defineCommand({
 export const RecordBatchUsageContract = defineCommand({
   meta: {
     key: 'usage.recordBatch',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'usage', 'batch'],
@@ -522,7 +522,7 @@ export const RecordBatchUsageContract = defineCommand({
 export const GetUsageContract = defineQuery({
   meta: {
     key: 'usage.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'usage', 'get'],
@@ -545,7 +545,7 @@ export const GetUsageContract = defineQuery({
 export const GetUsageSummaryContract = defineQuery({
   meta: {
     key: 'usage.getSummary',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'usage', 'summary'],
@@ -568,7 +568,7 @@ export const GetUsageSummaryContract = defineQuery({
 export const CreateThresholdContract = defineCommand({
   meta: {
     key: 'threshold.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'threshold', 'create'],
@@ -599,7 +599,7 @@ export const CreateThresholdContract = defineCommand({
 export const UpdateThresholdContract = defineCommand({
   meta: {
     key: 'threshold.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'threshold', 'update'],
@@ -630,7 +630,7 @@ export const UpdateThresholdContract = defineCommand({
 export const DeleteThresholdContract = defineCommand({
   meta: {
     key: 'threshold.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'threshold', 'delete'],
@@ -661,7 +661,7 @@ export const DeleteThresholdContract = defineCommand({
 export const ListThresholdsContract = defineQuery({
   meta: {
     key: 'threshold.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['metering', 'threshold', 'list'],

@@ -21,7 +21,7 @@ const baseMeta: Pick<
 export const PlatformTourTrackPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.platform.track',
-    version: 1,
+    version: '1.0.0',
     description: 'Platform primitives tour track detail',
     ...baseMeta,
   },
@@ -37,7 +37,7 @@ export const PlatformTourTrackPresentation: PresentationSpec = {
 export const PlatformTourWidgetPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.platform.widget',
-    version: 1,
+    version: '1.0.0',
     description: 'Compact widget for platform tour progress',
     ...baseMeta,
   },

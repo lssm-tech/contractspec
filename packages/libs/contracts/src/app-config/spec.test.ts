@@ -11,7 +11,7 @@ const baseMeta = {
   stability: StabilityEnum.Experimental,
 } as const;
 
-const makeBlueprint = (version: number): AppBlueprintSpec => ({
+const makeBlueprint = (version: string): AppBlueprintSpec => ({
   meta: {
     ...baseMeta,
     key: 'tenant-a.app',
@@ -23,25 +23,25 @@ const makeBlueprint = (version: number): AppBlueprintSpec => ({
 describe('AppBlueprintRegistry', () => {
   it('registers and retrieves configs', () => {
     const registry = new AppBlueprintRegistry();
-    const spec = makeBlueprint(1);
+    const spec = makeBlueprint('1.0.0');
     registry.register(spec);
-    expect(registry.get('tenant-a.app', 1)).toEqual(spec);
+    expect(registry.get('tenant-a.app', '1.0.0')).toEqual(spec);
   });
 
   it('returns latest version when omitted', () => {
     const registry = new AppBlueprintRegistry();
-    registry.register(makeBlueprint(1));
-    const latest = makeBlueprint(2);
+    registry.register(makeBlueprint('1.0.0'));
+    const latest = makeBlueprint('2.0.0');
     registry.register(latest);
     expect(registry.get('tenant-a.app')).toEqual(latest);
   });
 
   it('throws on duplicate registration', () => {
     const registry = new AppBlueprintRegistry();
-    const spec = makeBlueprint(1);
+    const spec = makeBlueprint('1.0.0');
     registry.register(spec);
     expect(() => registry.register(spec)).toThrowError(
-      /Duplicate AppBlueprint/
+      /Duplicate contract/
     );
   });
 });

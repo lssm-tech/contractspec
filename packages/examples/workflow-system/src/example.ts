@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'workflow-system',
-    version: 1,
+    version: '1.0.0',
     title: 'Workflow / Approval System',
     description:
       'State-machine driven approvals with RBAC, audit trail, notifications, and jobs.',

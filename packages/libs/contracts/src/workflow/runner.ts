@@ -87,7 +87,7 @@ export class WorkflowRunner {
 
   async preFlightCheck(
     workflowName: string,
-    version?: number,
+    version?: string, // Update to string
     resolvedConfig?: ResolvedAppConfig
   ): Promise<WorkflowPreFlightResult> {
     const spec = this.getSpec(workflowName, version);
@@ -96,7 +96,7 @@ export class WorkflowRunner {
 
   async start(
     workflowName: string,
-    version?: number,
+    version?: string,
     initialData?: Record<string, unknown>
   ): Promise<string> {
     const spec = this.getSpec(workflowName, version);
@@ -523,7 +523,7 @@ export class WorkflowRunner {
     return null;
   }
 
-  private getSpec(name: string, version?: number): WorkflowSpec {
+  private getSpec(name: string, version?: string): WorkflowSpec {
     const spec = this.config.registry.get(name, version);
     if (!spec)
       throw new Error(

@@ -30,7 +30,7 @@ const RunStartedPayload = defineSchemaModel({
 export const RunStartedEvent = defineEvent({
   meta: {
     key: 'agent.run.started',
-    version: 1,
+    version: '1.0.0',
     description: 'An agent run was started.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -77,7 +77,7 @@ const RunCompletedPayload = defineSchemaModel({
 export const RunCompletedEvent = defineEvent({
   meta: {
     key: 'agent.run.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'An agent run completed successfully.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -116,7 +116,7 @@ const RunFailedPayload = defineSchemaModel({
 export const RunFailedEvent = defineEvent({
   meta: {
     key: 'agent.run.failed',
-    version: 1,
+    version: '1.0.0',
     description: 'An agent run encountered an error.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -153,7 +153,7 @@ const RunCancelledPayload = defineSchemaModel({
 export const RunCancelledEvent = defineEvent({
   meta: {
     key: 'agent.run.cancelled',
-    version: 1,
+    version: '1.0.0',
     description: 'An agent run was cancelled by the user.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -184,7 +184,7 @@ const ToolInvokedPayload = defineSchemaModel({
 export const ToolInvokedEvent = defineEvent({
   meta: {
     key: 'agent.run.toolInvoked',
-    version: 1,
+    version: '1.0.0',
     description: 'A tool was invoked during an agent run.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -218,7 +218,7 @@ const ToolCompletedPayload = defineSchemaModel({
 export const ToolCompletedEvent = defineEvent({
   meta: {
     key: 'agent.run.toolCompleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A tool invocation completed during an agent run.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -254,7 +254,7 @@ const MessageGeneratedPayload = defineSchemaModel({
 export const MessageGeneratedEvent = defineEvent({
   meta: {
     key: 'agent.run.messageGenerated',
-    version: 1,
+    version: '1.0.0',
     description: 'An agent generated a message during a run.',
     stability: 'stable',
     owners: [...OWNERS],

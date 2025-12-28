@@ -56,7 +56,7 @@ export interface SpecExportResult {
   /** Metadata about the export */
   meta: {
     specName: string;
-    specVersion: number;
+    specVersion: string;
     exportedAt: string;
     wordCount: number;
   };
@@ -84,7 +84,7 @@ export interface ImplementationPlan {
   target: {
     type: 'spec' | 'feature' | 'presentation';
     key: string;
-    version: number;
+    version: string;
   };
   /** Context section */
   context: {
@@ -163,7 +163,7 @@ export interface VerificationReport {
   /** Metadata about the verification */
   meta: {
     specName: string;
-    specVersion: number;
+    specVersion: string;
     implementationPath: string;
     verifiedAt: string;
     duration: number;
@@ -189,7 +189,7 @@ export interface AgentPrompt {
 /** Input for spec lookup */
 export interface SpecLookup {
   name: string;
-  version?: number;
+  version?: string;
 }
 
 /** Input for feature lookup */

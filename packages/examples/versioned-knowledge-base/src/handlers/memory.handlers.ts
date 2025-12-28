@@ -21,7 +21,7 @@ interface RuleVersion {
   ruleId: string;
   jurisdiction: string;
   topicKey: string;
-  version: number;
+  version: string;
   content: string;
   sourceRefs: SourceRef[];
   status: 'draft' | 'approved' | 'rejected';
@@ -111,14 +111,13 @@ export function createMemoryKbHandlers(store: MemoryKbStore): MemoryKbHandlers {
     }
     const next =
       (store.nextRuleVersionNumberByRuleId.get(input.ruleId) ?? 0) + 1;
-    store.nextRuleVersionNumberByRuleId.set(input.ruleId, next);
     const id = stableId('rv', `${input.ruleId}_${next}`);
     const ruleVersion: RuleVersion = {
       id,
       ruleId: input.ruleId,
       jurisdiction: rule.jurisdiction,
       topicKey: rule.topicKey,
-      version: next,
+      version: next.toString(),
       content: input.content,
       sourceRefs: input.sourceRefs,
       status: 'draft',

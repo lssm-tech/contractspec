@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '../features';
 export const AppConfigFeature: FeatureModuleSpec = {
   meta: {
     key: 'app-config',
-    version: 1,
+    version: '1.0.0',
     title: 'App Configuration',
     description:
       'Tenant app configuration lifecycle management with draft, preview, and publish stages',
@@ -27,10 +27,10 @@ export const AppConfigFeature: FeatureModuleSpec = {
 
   // Events emitted by this feature
   events: [
-    { key: 'app_config.draft_created', version: 1 },
-    { key: 'app_config.promoted_to_preview', version: 1 },
-    { key: 'app_config.published', version: 1 },
-    { key: 'app_config.rolled_back', version: 1 },
+    { key: 'app_config.draft_created', version: '1.0.0' },
+    { key: 'app_config.promoted_to_preview', version: '1.0.0' },
+    { key: 'app_config.published', version: '1.0.0' },
+    { key: 'app_config.rolled_back', version: '1.0.0' },
   ],
 
   // No presentations for this library feature
@@ -40,7 +40,7 @@ export const AppConfigFeature: FeatureModuleSpec = {
 
   // Capability definitions
   capabilities: {
-    provides: [{ key: 'app-config', version: 1 }],
+    provides: [{ key: 'app-config', version: '1.0.0' }],
     requires: [],
   },
 };

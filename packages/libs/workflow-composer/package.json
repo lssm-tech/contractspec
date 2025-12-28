@@ -31,7 +31,8 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "compare-versions": "^6.1.1"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

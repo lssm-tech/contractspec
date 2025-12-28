@@ -7,7 +7,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const SubscriptionPresentation: PresentationSpec = {
   meta: {
     key: 'saas.billing.subscription',
-    version: 1,
+    version: '1.0.0',
     title: 'Subscription Status',
     description:
       'Subscription status with plan info, limits, and current usage',
@@ -35,7 +35,7 @@ export const SubscriptionPresentation: PresentationSpec = {
 export const UsageDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'saas.billing.usage',
-    version: 1,
+    version: '1.0.0',
     title: 'Usage Dashboard',
     description: 'Usage metrics and breakdown by resource type',
     domain: 'saas-boilerplate',

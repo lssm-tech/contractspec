@@ -57,17 +57,19 @@ export async function validateImplementationWithAgent(
     }
   }
 
-  if (!implementationPath || !await fs.exists(implementationPath)) {
+  if (!implementationPath || !(await fs.exists(implementationPath))) {
     return {
       success: true, // Not an error if file not found, just nothing to validate
       errors: [],
-      warnings: ['Implementation file not found. Specify with --implementation-path'],
+      warnings: [
+        'Implementation file not found. Specify with --implementation-path',
+      ],
       suggestions: [],
     };
   }
 
   const implementationCode = await fs.readFile(implementationPath);
-  
+
   // Use agent orchestrator to validate
   const orchestrator = new AgentOrchestrator(config);
   const result = await orchestrator.validate(specCode, implementationCode);
@@ -77,6 +79,6 @@ export async function validateImplementationWithAgent(
     errors: result.errors || [],
     warnings: result.warnings || [],
     suggestions: result.suggestions || [],
-    report: result.code
+    report: result.code,
   };
 }

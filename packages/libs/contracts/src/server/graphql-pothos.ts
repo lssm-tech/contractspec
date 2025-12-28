@@ -47,7 +47,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 
   // Build a map of output types we need to register
   const outputTypeCache = new Map<string, AnySchemaModel>();
-  for (const spec of reg.listSpecs()) {
+  for (const spec of reg.list()) {
     const out = spec.io.output as
       | AnySchemaModel
       | ResourceRefDescriptor<boolean>;
@@ -145,7 +145,7 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 
   // parseReturns moved to hydration util
 
-  for (const spec of reg.listSpecs()) {
+  for (const spec of reg.list()) {
     const fieldName =
       spec.transport?.gql?.field ??
       defaultGqlField(spec.meta.key, spec.meta.version);

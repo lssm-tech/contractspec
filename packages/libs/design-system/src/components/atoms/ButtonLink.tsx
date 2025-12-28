@@ -42,5 +42,3 @@ export function ButtonLink({
     </Button>
   );
 }
-
-export default ButtonLink;

@@ -9,7 +9,7 @@ const OWNERS = ['@examples.service-business-os'] as const;
 export const RecordPaymentContract = defineCommand({
   meta: {
     key: 'service.payment.record',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'payment', 'record'],

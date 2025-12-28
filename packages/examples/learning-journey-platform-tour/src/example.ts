@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-journey-platform-tour',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey — Platform Tour',
     description:
       'Learning journey track + contracts + presentations for a platform tour.',

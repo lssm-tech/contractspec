@@ -44,14 +44,14 @@ describe('ExampleSandboxModeEnum', () => {
 describe('isSpecPointer', () => {
   it('should return true for SpecPointer objects', () => {
     expect(isSpecPointer({ key: 'my-blueprint' })).toBe(true);
-    expect(isSpecPointer({ key: 'my-blueprint', version: 1 })).toBe(true);
+    expect(isSpecPointer({ key: 'my-blueprint', version: '1.0.0' })).toBe(true);
   });
 
   it('should return false for AppBlueprintSpec objects', () => {
     const blueprint = {
       meta: {
         key: 'test',
-        version: 1,
+        version: '1.0.0',
         appId: 'test',
         description: 'Test blueprint',
         stability: 'experimental' as const,
@@ -76,7 +76,7 @@ describe('isFeatureRef', () => {
     const feature = {
       meta: {
         key: 'test',
-        version: 1,
+        version: '1.0.0',
         description: 'Test',
         stability: 'experimental' as const,
         owners: [],
@@ -125,7 +125,7 @@ describe('ExampleMeta type', () => {
   it('should allow valid ExampleMeta objects', () => {
     const meta: ExampleMeta = {
       key: 'test-example',
-      version: 1,
+      version: '1.0.0',
       description: 'Test description',
       stability: 'experimental',
       owners: ['@team'],
@@ -140,7 +140,7 @@ describe('ExampleMeta type', () => {
   it('should allow optional fields', () => {
     const meta: ExampleMeta = {
       key: 'test-example',
-      version: 1,
+      version: '1.0.0',
       description: 'Test description',
       stability: 'experimental',
       owners: [],
@@ -161,7 +161,7 @@ describe('ExampleSpec type', () => {
     const spec: ExampleSpec = {
       meta: {
         key: 'test-example',
-        version: 1,
+        version: '1.0.0',
         description: 'Test description',
         stability: 'experimental',
         owners: ['@team'],
@@ -187,7 +187,7 @@ describe('ExampleSpec type', () => {
     const spec: ExampleSpec = {
       meta: {
         key: 'test-example',
-        version: 1,
+        version: '1.0.0',
         description: 'Test description',
         stability: 'experimental',
         owners: [],
@@ -206,7 +206,7 @@ describe('ExampleSpec type', () => {
         feature: './feature',
         contracts: './contracts',
       },
-      blueprint: { key: 'my-blueprint', version: 1 },
+      blueprint: { key: 'my-blueprint', version: '1.0.0' },
       features: [{ key: 'my-feature' }],
     };
     expect(spec.blueprint).toBeDefined();

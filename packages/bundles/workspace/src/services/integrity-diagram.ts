@@ -227,7 +227,7 @@ function generateOrphansDiagram(
   }
 
   // Add linked specs
-  const allLinked: { type: string; key: string; version: number }[] = [];
+  const allLinked: { type: string; key: string; version: string }[] = [];
 
   for (const opKey of linkedOps) {
     const [parsedKey, parsedVersion] = parseSpecKey(opKey);
@@ -399,9 +399,9 @@ function getReferencedSpecs(
   features: FeatureScanResult[],
   field: 'operations' | 'events' | 'presentations',
   _inventory: SpecInventory
-): { key: string; version: number }[] {
+): { key: string; version: string }[] {
   const seen = new Set<string>();
-  const result: { key: string; version: number }[] = [];
+  const result: { key: string; version: string }[] = [];
 
   for (const feature of features) {
     for (const ref of feature[field]) {
@@ -419,10 +419,10 @@ function getReferencedSpecs(
 /**
  * Parse a spec key like "name.v1" into [name, version].
  */
-function parseSpecKey(key: string): [string | undefined, number | undefined] {
+function parseSpecKey(key: string): [string | undefined, string | undefined] {
   const match = key.match(/^(.+)\.v(\d+)$/);
   if (!match) return [undefined, undefined];
-  return [match[1], Number(match[2])];
+  return [match[1], match[2]];
 }
 
 /**

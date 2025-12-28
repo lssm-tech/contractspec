@@ -7,12 +7,12 @@
 
 import {
   type AgentType,
+  loadSpecFromSource,
   type ParsedSpec,
   specToMarkdown,
 } from '@contractspec/module.workspace';
 import { listSpecs } from '../list';
 import type { FsAdapter } from '../../ports/fs';
-import { loadSpecFromSource } from '@contractspec/module.workspace';
 
 export * from './verify-static';
 
@@ -34,7 +34,7 @@ export async function generateFeatureContextMarkdown(
   const allSpecs = await listSpecs(adapters);
 
   // Helper to find and load a spec
-  const loadChild = async (ref: { name: string; version: number }) => {
+  const loadChild = async (ref: { name: string; version: string }) => {
     const found = allSpecs.find(
       (s) => s.key === ref.name && s.version === ref.version
     );

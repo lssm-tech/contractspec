@@ -7,7 +7,7 @@
  * - JSON output
  */
 
-import type { ImpactResult } from '../../index';
+import type { ImpactResult } from '@contractspec/module.workspace';
 import type { CheckRunPayload, PrCommentOptions } from './types';
 
 /**

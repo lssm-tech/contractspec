@@ -56,7 +56,7 @@ const AnnouncementPayload = defineSchemaModel({
 export const SpaceCreatedEvent = defineEvent({
   meta: {
     key: 'team.space.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A space was created.',
     stability: 'stable',
     owners: ['@team-hub'],
@@ -68,7 +68,7 @@ export const SpaceCreatedEvent = defineEvent({
 export const TaskCreatedEvent = defineEvent({
   meta: {
     key: 'team.task.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A task was created.',
     stability: 'stable',
     owners: ['@team-hub'],
@@ -80,7 +80,7 @@ export const TaskCreatedEvent = defineEvent({
 export const TaskStatusChangedEvent = defineEvent({
   meta: {
     key: 'team.task.status_changed',
-    version: 1,
+    version: '1.0.0',
     description: 'A task status changed.',
     stability: 'stable',
     owners: ['@team-hub'],
@@ -92,7 +92,7 @@ export const TaskStatusChangedEvent = defineEvent({
 export const RitualScheduledEvent = defineEvent({
   meta: {
     key: 'team.ritual.scheduled',
-    version: 1,
+    version: '1.0.0',
     description: 'A ritual was scheduled.',
     stability: 'stable',
     owners: ['@team-hub'],
@@ -104,7 +104,7 @@ export const RitualScheduledEvent = defineEvent({
 export const RitualOccurredEvent = defineEvent({
   meta: {
     key: 'team.ritual.occurred',
-    version: 1,
+    version: '1.0.0',
     description: 'A ritual occurrence was logged.',
     stability: 'stable',
     owners: ['@team-hub'],
@@ -116,7 +116,7 @@ export const RitualOccurredEvent = defineEvent({
 export const AnnouncementPostedEvent = defineEvent({
   meta: {
     key: 'team.announcement.posted',
-    version: 1,
+    version: '1.0.0',
     description: 'An announcement was posted.',
     stability: 'stable',
     owners: ['@team-hub'],

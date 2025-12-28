@@ -5,7 +5,8 @@ export const tech_contracts_examples_DocBlocks: DocBlock[] = [
   {
     id: 'docs.tech.contracts.examples',
     title: 'Example Specifications',
-    summary: 'ExampleSpec defines complete, demonstrable ContractSpec applications.',
+    summary:
+      'ExampleSpec defines complete, demonstrable ContractSpec applications.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/contracts/examples',
@@ -33,7 +34,7 @@ import { ExampleRegistry, validateExample } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'saas-boilerplate',
-    version: 1,
+    version: '1.0.0',
     title: 'SaaS Boilerplate',
     description: 'Multi-tenant SaaS foundation with billing and RBAC.',
     kind: 'template',
@@ -139,7 +140,7 @@ const example: ExampleSpec = {
   blueprint: myAppBlueprint,
   
   // Or reference by pointer
-  blueprint: { key: 'core.app', version: 1 },
+  blueprint: { key: 'core.app', version: '1.0.0' },
   
   // Inline features
   features: [MyFeature],

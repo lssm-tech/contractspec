@@ -3,6 +3,7 @@ import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { EventBus } from './eventBus';
 import { decodeEvent } from './eventBus';
 import type { AuditableEventEnvelope } from './auditableBus';
+import { satisfies } from 'compare-versions';
 
 /**
  * Event filter configuration.
@@ -13,7 +14,7 @@ export interface EventFilter {
   /** Filter by domain prefix */
   domain?: string;
   /** Filter by version */
-  version?: number;
+  version?: string;
   /** Filter by actor ID */
   actorId?: string;
   /** Filter by organization ID */
@@ -48,8 +49,10 @@ export function matchesFilter(
   }
 
   // Check version
-  if (filter.version !== undefined && envelope.version !== filter.version) {
-    return false;
+  if (filter.version) {
+    if (!envelope.version || !satisfies(envelope.version, filter.version)) {
+      return false;
+    }
   }
 
   // Check metadata fields

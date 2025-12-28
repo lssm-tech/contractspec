@@ -18,7 +18,7 @@ const TaskCompletedPayload = defineSchemaModel({
 export const TaskCompletedEvent = defineEvent({
   meta: {
     key: 'task.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A task has been completed.',
     stability: 'stable',
     owners: ['@crm-team'],

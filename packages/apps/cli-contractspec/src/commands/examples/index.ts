@@ -97,7 +97,9 @@ export const examplesCommand = new Command('examples')
           'utf8'
         );
 
-        console.log(chalk.green(`✅ Initialized ${example.meta.key} at ${outDir}`));
+        console.log(
+          chalk.green(`✅ Initialized ${example.meta.key} at ${outDir}`)
+        );
       })
   )
   .addCommand(

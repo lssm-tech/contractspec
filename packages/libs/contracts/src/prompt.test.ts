@@ -12,9 +12,12 @@ describe('definePrompt', () => {
     const spec: PromptSpec<z.ZodObject<{ query: z.ZodString }>> = {
       meta: {
         key: 'test.prompt',
-        version: 1,
+        version: '2.0.0',
         title: 'Test Prompt',
         description: 'A test prompt',
+        stability: 'stable',
+        owners: [],
+        tags: [],
       },
       args: [
         {
@@ -37,7 +40,7 @@ describe('definePrompt', () => {
     const spec = definePrompt({
       meta: {
         key: 'full.prompt',
-        version: 2,
+        version: '2.0.0',
         title: 'Full Prompt',
         description: 'A fully configured prompt',
         tags: ['test', 'example'],
@@ -49,7 +52,7 @@ describe('definePrompt', () => {
       render: async () => [{ type: 'text', text: 'Hello' }],
     });
 
-    expect(spec.meta.version).toBe(2);
+    expect(spec.meta.version).toBe('2.0.0');
     expect(spec.meta.tags).toEqual(['test', 'example']);
     expect(spec.meta.stability).toBe('stable');
     expect(spec.meta.owners).toEqual(['platform.core']);
@@ -59,7 +62,7 @@ describe('definePrompt', () => {
     const spec = definePrompt({
       meta: {
         key: 'policy.prompt',
-        version: 1,
+        version: '1.0.0',
         title: 'Policy Prompt',
         description: 'Prompt with policy',
       },
@@ -129,7 +132,7 @@ describe('render function', () => {
     const spec = definePrompt({
       meta: {
         key: 'render.test',
-        version: 1,
+        version: '1.0.0',
         title: 'Render Test',
         description: 'Test render function',
       },

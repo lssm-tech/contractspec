@@ -22,7 +22,7 @@ export function scanExampleSource(
   filePath: string
 ): ExampleScanResult {
   const key = matchStringField(code, 'key') ?? extractKeyFromFilePath(filePath);
-  const versionRaw = matchNumberField(code, 'version');
+  const versionRaw = matchStringField(code, 'version');
   const version = versionRaw ?? undefined;
   const title = matchStringField(code, 'title') ?? undefined;
   const description = matchStringField(code, 'description') ?? undefined;
@@ -196,15 +196,6 @@ function matchStringFieldIn(code: string, field: string): string | null {
   const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*['"]([^'"]+)['"]`);
   const match = code.match(regex);
   return match?.[1] ?? null;
-}
-
-/**
- * Match a number field in source code.
- */
-function matchNumberField(code: string, field: string): number | null {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*(\\d+)`);
-  const match = code.match(regex);
-  return match?.[1] ? Number(match[1]) : null;
 }
 
 /**

@@ -13,7 +13,7 @@ export interface StepExecution {
 export interface WorkflowState {
   workflowId: string;
   workflowName: string;
-  workflowVersion: number;
+  workflowVersion: string;
   currentStep: string;
   data: Record<string, unknown>;
   retryCounts?: Record<string, number>;

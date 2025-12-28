@@ -41,6 +41,9 @@ export const guideLLMCommand = new Command('guide')
       }
 
       const spec = specs[0];
+      if (!spec) {
+        throw new Error('No spec definitions found');
+      }
       const agent = options.agent as AgentType;
 
       let output: string;
@@ -49,7 +52,9 @@ export const guideLLMCommand = new Command('guide')
       if (options.cursorRules) {
         output = generateCursorRulesFromParsedSpec(spec);
         if (options.output && !options.output.endsWith('.mdc')) {
-             console.warn(chalk.yellow('Warning: Cursor rules usually use .mdc extension'));
+          console.warn(
+            chalk.yellow('Warning: Cursor rules usually use .mdc extension')
+          );
         }
       } else {
         // Generate the guide
@@ -62,9 +67,9 @@ export const guideLLMCommand = new Command('guide')
         writeFileSync(outputPath, output, 'utf-8');
         console.log(chalk.green(`✓ Written to ${options.output}`));
         if (options.cursorRules) {
-            console.log(chalk.gray('  Type: Cursor Rules'));
+          console.log(chalk.gray('  Type: Cursor Rules'));
         } else {
-            console.log(chalk.gray(`  Agent: ${agent}`));
+          console.log(chalk.gray(`  Agent: ${agent}`));
         }
       } else {
         console.log(output);

@@ -20,7 +20,7 @@ const OWNERS = ['@example.analytics-dashboard'] as const;
 export const CreateDashboardContract = defineCommand({
   meta: {
     key: 'analytics.dashboard.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['analytics', 'dashboard', 'create'],
@@ -34,7 +34,7 @@ export const CreateDashboardContract = defineCommand({
     emits: [
       {
         key: 'analytics.dashboard.created',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['analytics', 'dashboard', 'created'],
@@ -72,7 +72,7 @@ export const CreateDashboardContract = defineCommand({
 export const AddWidgetContract = defineCommand({
   meta: {
     key: 'analytics.widget.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['analytics', 'widget', 'add'],
@@ -86,7 +86,7 @@ export const AddWidgetContract = defineCommand({
     emits: [
       {
         key: 'analytics.widget.added',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['analytics', 'widget', 'added'],
@@ -125,7 +125,7 @@ export const AddWidgetContract = defineCommand({
 export const ListDashboardsContract = defineQuery({
   meta: {
     key: 'analytics.dashboard.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['analytics', 'dashboard', 'list'],
@@ -160,7 +160,7 @@ export const ListDashboardsContract = defineQuery({
 export const GetDashboardContract = defineQuery({
   meta: {
     key: 'analytics.dashboard.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['analytics', 'dashboard', 'get'],

@@ -5,7 +5,7 @@ import { ChangeCandidateModel, ReviewTaskModel } from './entities/models';
 export const KbDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'kb.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'KB Update Dashboard',
     description: 'Overview of KB change candidates and review tasks.',
     domain: 'knowledge',
@@ -27,7 +27,7 @@ export const KbDashboardPresentation: PresentationSpec = {
 export const KbReviewListPresentation: PresentationSpec = {
   meta: {
     key: 'kb.review.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Review Tasks',
     description: 'List of pending review tasks for the current user.',
     domain: 'knowledge',
@@ -49,7 +49,7 @@ export const KbReviewListPresentation: PresentationSpec = {
 export const KbReviewFormPresentation: PresentationSpec = {
   meta: {
     key: 'kb.review.form',
-    version: 1,
+    version: '1.0.0',
     title: 'Review Change',
     description: 'Form to approve or reject a KB change candidate.',
     domain: 'knowledge',

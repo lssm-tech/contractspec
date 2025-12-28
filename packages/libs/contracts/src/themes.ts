@@ -1,4 +1,5 @@
 import type { OwnerShipMeta } from './ownership';
+import { SpecContractRegistry } from './registry';
 
 export type ThemeScope = 'global' | 'tenant' | 'user';
 
@@ -47,37 +48,12 @@ export interface ThemeSpec {
 
 export interface ThemeRef {
   key: string;
-  version: number;
+  version: string;
 }
 
-const themeKey = (ref: ThemeRef | ThemeMeta) => `${ref.key}.v${ref.version}`;
-
-export class ThemeRegistry {
-  private readonly items = new Map<string, ThemeSpec>();
-
-  register(spec: ThemeSpec): this {
-    const key = themeKey(spec.meta);
-    if (this.items.has(key)) throw new Error(`Duplicate theme ${key}`);
-    this.items.set(key, spec);
-    return this;
-  }
-
-  list(): ThemeSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): ThemeSpec | undefined {
-    if (version != null) return this.items.get(themeKey({ key, version }));
-    let candidate: ThemeSpec | undefined;
-    let max = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== key) continue;
-      if (spec.meta.version > max) {
-        max = spec.meta.version;
-        candidate = spec;
-      }
-    }
-    return candidate;
+export class ThemeRegistry extends SpecContractRegistry<'theme', ThemeSpec> {
+  constructor(items?: ThemeSpec[]) {
+    super('theme', items);
   }
 }
 

@@ -58,7 +58,7 @@ const DealLostPayload = defineSchemaModel({
 export const DealCreatedEvent = defineEvent({
   meta: {
     key: 'deal.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new deal has been created.',
     stability: 'stable',
     owners: ['@crm-team'],
@@ -70,7 +70,7 @@ export const DealCreatedEvent = defineEvent({
 export const DealMovedEvent = defineEvent({
   meta: {
     key: 'deal.moved',
-    version: 1,
+    version: '1.0.0',
     description: 'A deal has been moved to a different stage.',
     stability: 'stable',
     owners: ['@crm-team'],
@@ -82,7 +82,7 @@ export const DealMovedEvent = defineEvent({
 export const DealWonEvent = defineEvent({
   meta: {
     key: 'deal.won',
-    version: 1,
+    version: '1.0.0',
     description: 'A deal has been won.',
     stability: 'stable',
     owners: ['@crm-team'],
@@ -94,7 +94,7 @@ export const DealWonEvent = defineEvent({
 export const DealLostEvent = defineEvent({
   meta: {
     key: 'deal.lost',
-    version: 1,
+    version: '1.0.0',
     description: 'A deal has been lost.',
     stability: 'stable',
     owners: ['@crm-team'],

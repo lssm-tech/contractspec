@@ -13,7 +13,7 @@ const OWNERS = ['@examples.team-hub'] as const;
 export const ScheduleRitualContract = defineCommand({
   meta: {
     key: 'team.ritual.schedule',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'ritual', 'schedule'],
@@ -56,7 +56,7 @@ export const ScheduleRitualContract = defineCommand({
 export const LogRitualOccurrenceContract = defineCommand({
   meta: {
     key: 'team.ritual.logOccurrence',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'ritual', 'log'],

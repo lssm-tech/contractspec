@@ -101,7 +101,7 @@ const ${data.name}Output = defineSchemaModel({
 export const ${data.name}Spec = defineCommand({
   meta: {
     name: '${data.domain}.${data.name}',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@${data.team}'],
     tags: ['${data.tag}'],
@@ -144,7 +144,7 @@ const ${data.name}Payload = defineSchemaModel({
 
 export const ${data.name}Event = defineEvent({
   name: '${data.domain}.${data.name}',
-  version: 1,
+  version: '1.0.0',
   description: '${data.description}',
   payload: ${data.name}Payload,
   pii: [],
@@ -159,7 +159,7 @@ import type { PresentationSpec } from '@contractspec/lib.contracts/presentations
 export const ${data.name}Presentation: PresentationSpec = {
   meta: {
     name: '${data.domain}.${data.name}',
-    version: 1,
+    version: '1.0.0',
     description: '${data.description}',
     owners: ['@${data.team}'],
     tags: ['${data.tag}'],
@@ -178,7 +178,7 @@ import type { FeatureSpec } from '@contractspec/lib.contracts';
 
 export const ${data.name}Feature: FeatureSpec = {
   name: '${data.domain}.${data.name}',
-  version: 1,
+  version: '1.0.0',
   description: '${data.description}',
   stability: 'experimental',
   owners: ['@${data.team}'],
@@ -186,7 +186,7 @@ export const ${data.name}Feature: FeatureSpec = {
 
   operations: [
     // TODO: Reference operation specs
-    // { name: 'domain.operationName', version: 1 }
+    // { name: 'domain.operationName', version: '1.0.0' }
   ],
 
   events: [

@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'saas-boilerplate',
-    version: 1,
+    version: '1.0.0',
     title: 'SaaS Boilerplate',
     description:
       'Multi-tenant SaaS foundation with orgs, projects, settings, billing usage, and RBAC.',

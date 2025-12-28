@@ -7,7 +7,7 @@ const makeSpec = (
 ): IntegrationSpec => ({
   meta: {
     key: 'stripe',
-    version: 1,
+    version: '1.0.0',
     category: 'payments',
     title: 'Stripe Payments',
     description: 'Stripe PSP integration.',
@@ -18,7 +18,7 @@ const makeSpec = (
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'payments.psp', version: 1 }],
+    provides: [{ key: 'payments.psp', version: '1.0.0' }],
   },
   configSchema: {
     schema: {
@@ -49,7 +49,7 @@ describe('IntegrationSpecRegistry', () => {
 
     registry.register(spec);
 
-    expect(registry.get('stripe', 1)).toEqual(spec);
+    expect(registry.get('stripe', '1.0.0')).toEqual(spec);
     expect(registry.get('stripe')).toEqual(spec);
   });
 
@@ -59,7 +59,7 @@ describe('IntegrationSpecRegistry', () => {
 
     registry.register(spec);
     expect(() => registry.register(spec)).toThrowError(
-      /Duplicate IntegrationSpec/
+      /Duplicate contract/
     );
   });
 

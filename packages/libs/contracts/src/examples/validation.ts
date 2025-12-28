@@ -103,7 +103,10 @@ function validateSemantics(
     });
   }
 
-  if (spec.surfaces.sandbox.enabled && spec.surfaces.sandbox.modes.length === 0) {
+  if (
+    spec.surfaces.sandbox.enabled &&
+    spec.surfaces.sandbox.modes.length === 0
+  ) {
     warnings.push({
       exampleKey: key,
       message: 'Sandbox is enabled but has no modes configured',
@@ -215,7 +218,10 @@ export function validateExampleReferences(
   const key = example.meta.key;
 
   // Validate package name exists in workspace
-  if (context.packageNames && !context.packageNames.has(example.entrypoints.packageName)) {
+  if (
+    context.packageNames &&
+    !context.packageNames.has(example.entrypoints.packageName)
+  ) {
     warnings.push({
       exampleKey: key,
       message: `Package "${example.entrypoints.packageName}" not found in workspace`,

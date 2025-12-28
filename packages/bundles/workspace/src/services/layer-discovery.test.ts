@@ -58,7 +58,7 @@ describe('getAllLayerLocations', () => {
     inventory.examples.set('my-example', {
       filePath: '/path/to/example.ts',
       key: 'my-example',
-      version: 1,
+      version: '1.0.0',
       surfaces: {
         templates: false,
         sandbox: { enabled: false, modes: [] },
@@ -73,7 +73,7 @@ describe('getAllLayerLocations', () => {
     expect(locations).toHaveLength(1);
     expect(locations[0]).toEqual({
       key: 'my-example',
-      version: 1,
+      version: '1.0.0',
       file: '/path/to/example.ts',
       type: 'example',
     });
@@ -121,7 +121,7 @@ describe('getAllLayerLocations', () => {
           {
             filePath: '/e1/example.ts',
             key: 'example-1',
-            version: 1,
+            version: '1.0.0',
             surfaces: {
               templates: true,
               sandbox: { enabled: false, modes: [] },
@@ -139,7 +139,7 @@ describe('getAllLayerLocations', () => {
             filePath: '/app-1.app-config.ts',
             specType: 'app-config',
             key: 'app-1',
-            version: 1,
+            version: '1.0.0',
             hasMeta: true,
             hasIo: false,
             hasPolicy: false,
@@ -168,6 +168,8 @@ describe('getAllLayerLocations', () => {
     expect(locations.filter((l) => l.type === 'feature')).toHaveLength(1);
     expect(locations.filter((l) => l.type === 'example')).toHaveLength(1);
     expect(locations.filter((l) => l.type === 'app-config')).toHaveLength(1);
-    expect(locations.filter((l) => l.type === 'workspace-config')).toHaveLength(1);
+    expect(locations.filter((l) => l.type === 'workspace-config')).toHaveLength(
+      1
+    );
   });
 });

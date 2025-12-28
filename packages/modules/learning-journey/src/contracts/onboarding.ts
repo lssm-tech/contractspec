@@ -171,7 +171,7 @@ const RecordOnboardingEventInput = defineSchemaModel({
 export const ListOnboardingTracksContract = defineQuery({
   meta: {
     key: 'learning.onboarding.listTracks',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'onboarding', 'journey'],
@@ -191,7 +191,7 @@ export const ListOnboardingTracksContract = defineQuery({
 export const GetOnboardingProgressContract = defineQuery({
   meta: {
     key: 'learning.onboarding.getProgress',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'onboarding', 'journey'],
@@ -211,7 +211,7 @@ export const GetOnboardingProgressContract = defineQuery({
 export const RecordOnboardingEventContract = defineCommand({
   meta: {
     key: 'learning.onboarding.recordEvent',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'onboarding', 'events'],

@@ -8,9 +8,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
-import {
-  type LLMExportFormat,
-} from '@contractspec/lib.contracts/llm';
+import { type LLMExportFormat } from '@contractspec/lib.contracts/llm';
 import {
   loadSpecFromSource,
   specToMarkdown,
@@ -73,15 +71,19 @@ export const copyLLMCommand = new Command('copy')
         throw new Error('No spec definitions found');
       }
       const spec = specs[0];
+      if (!spec) {
+        throw new Error('No spec definitions found');
+      }
       const format = options.format as LLMExportFormat;
 
       let markdown: string;
       if (spec.specType === 'feature' && format === 'full') {
-         const { createNodeAdapters } = await import('@contractspec/bundle.workspace');
-         const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
-         markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
+        const { createNodeAdapters } =
+          await import('@contractspec/bundle.workspace');
+        const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
+        markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
       } else {
-         markdown = specToMarkdown(spec, format);
+        markdown = specToMarkdown(spec, format);
       }
 
       const copied = await copyToClipboard(markdown);
@@ -89,14 +91,14 @@ export const copyLLMCommand = new Command('copy')
       if (copied) {
         console.log(chalk.green(`✓ Copied to clipboard!`));
         console.log(chalk.gray(`  Format: ${format}`));
-        console.log(
-          chalk.gray(`  Spec: ${spec.meta.key}`)
-        );
+        console.log(chalk.gray(`  Spec: ${spec.meta.key}`));
         console.log(chalk.gray(`  Words: ${markdown.split(/\s+/).length}`));
       } else {
         console.log(chalk.yellow('⚠ Could not copy to clipboard'));
         console.log(chalk.gray('  Clipboard access not available'));
-        console.log(chalk.gray('  Use export --output to write to a file instead'));
+        console.log(
+          chalk.gray('  Use export --output to write to a file instead')
+        );
         console.log('');
         console.log(chalk.dim('--- Content ---'));
         console.log(markdown);

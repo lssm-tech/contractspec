@@ -14,14 +14,14 @@ interface RegistryManifest {
     type: string; // e.g. contractspec:operation
     title: string;
     description: string;
-    version: number;
+    version: string;
   }[];
 }
 
 interface RegistryItem {
   name: string;
   type: string;
-  version: number;
+  version: string;
   title: string;
   description: string;
   files: { path: string; type: string; content?: string }[];

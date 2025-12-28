@@ -1,7 +1,7 @@
 export interface AppKnowledgeBinding {
   /** Which KnowledgeSpace to use. */
   spaceKey: string;
-  spaceVersion?: number;
+  spaceVersion?: string;
   /** Optional: scope to specific workflows/agents. */
   scope?: {
     workflows?: string[];

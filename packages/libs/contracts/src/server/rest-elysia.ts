@@ -20,7 +20,7 @@ export function elysiaPlugin(
     options
   );
 
-  for (const spec of reg.listSpecs()) {
+  for (const spec of reg.list()) {
     const method =
       spec.transport?.rest?.method ??
       (spec.meta.kind === 'query' ? 'GET' : 'POST');

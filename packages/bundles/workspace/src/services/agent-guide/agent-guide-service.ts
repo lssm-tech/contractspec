@@ -87,7 +87,7 @@ export class AgentGuideService {
     // Create a composite plan for the feature
     const firstOp = feature.operations?.[0];
     const spec = firstOp
-      ? deps.specs?.getSpec(firstOp.key, firstOp.version)
+      ? deps.specs?.get(firstOp.key, firstOp.version)
       : undefined;
 
     // Generate base plan from first spec or create feature-level plan
@@ -100,7 +100,7 @@ export class AgentGuideService {
       plan.target = {
         type: 'feature',
         key: feature.meta.key,
-        version: 1,
+        version: '1.0.0',
       };
       plan.context.goal = feature.meta.description ?? plan.context.goal;
     } else {
@@ -109,7 +109,7 @@ export class AgentGuideService {
         target: {
           type: 'feature',
           key: feature.meta.key,
-          version: 1,
+          version: '1.0.0',
         },
         context: {
           goal:

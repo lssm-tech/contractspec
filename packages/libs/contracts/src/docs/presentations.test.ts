@@ -16,6 +16,7 @@ describe('docBlockToPresentationSpec', () => {
     kind: 'goal',
     visibility: 'public',
     route: '/docs/test',
+    version: overrides?.version ?? '1.0.0',
     ...overrides,
   });
 
@@ -25,7 +26,7 @@ describe('docBlockToPresentationSpec', () => {
 
     expect(spec.meta.key).toBe('docs.test');
     expect(spec.meta.title).toBe('Test Documentation');
-    expect(spec.meta.version).toBe(1);
+    expect(spec.meta.version).toBe('1.0.0');
     expect(spec.meta.description).toBe('Test summary');
     expect(spec.source.type).toBe('blocknotejs');
   });
@@ -47,17 +48,17 @@ describe('docBlockToPresentationSpec', () => {
   });
 
   it('should use block version when provided', () => {
-    const block = createDocBlock({ version: 3 });
+    const block = createDocBlock({ version: '3.0.0' });
     const spec = docBlockToPresentationSpec(block);
 
-    expect(spec.meta.version).toBe(3);
+    expect(spec.meta.version).toBe('3.0.0');
   });
 
   it('should use defaultVersion option when block has no version', () => {
     const block = createDocBlock({ version: undefined });
-    const spec = docBlockToPresentationSpec(block, { defaultVersion: 5 });
+    const spec = docBlockToPresentationSpec(block, { defaultVersion: '5.0.0' });
 
-    expect(spec.meta.version).toBe(5);
+    expect(spec.meta.version).toBe('5.0.0');
   });
 
   it('should use block stability when provided', () => {

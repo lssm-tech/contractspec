@@ -7,7 +7,7 @@ export interface WorkflowDefinitionRecord {
   key: string;
   name: string;
   description?: string;
-  version: number;
+  version: string;
   status: 'DRAFT' | 'ACTIVE' | 'DEPRECATED' | 'ARCHIVED';
   triggerType: 'MANUAL' | 'EVENT' | 'SCHEDULED' | 'API';
   initialStepId?: string;

@@ -12,7 +12,7 @@ import {
   generateSnapshot,
   type ContractSnapshot,
   type SpecSnapshot,
-} from '../../index';
+} from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { GitAdapter } from '../../ports/git';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -66,7 +66,7 @@ export async function detectImpact(
     baseSnapshot = generateSnapshot(baseSpecs);
   } else {
     // No baseline means all specs are "new"
-    baseSnapshot = { version: 1, generatedAt: '', specs: [], hash: '' };
+    baseSnapshot = { version: '1.0.0', generatedAt: '', specs: [], hash: '' };
   }
 
   // Compute diffs between snapshots

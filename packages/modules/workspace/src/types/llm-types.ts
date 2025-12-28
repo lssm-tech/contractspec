@@ -29,7 +29,7 @@ export type VerificationTier = 'quick' | 'standard' | 'thorough';
  */
 export interface SpecRef {
   name: string;
-  version: number;
+  version: string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface ParsedSpecMeta {
   /** Unique identifier for the spec */
   key: string;
   /** Version number */
-  version: number;
+  version: string;
   /** Human-readable description */
   description?: string;
   /** Stability level */

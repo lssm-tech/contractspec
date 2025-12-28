@@ -16,7 +16,7 @@ export const NotificationsFeature: FeatureModuleSpec = {
     description:
       'Multi-channel notification delivery with preference management',
     domain: 'platform',
-    version: 1,
+    version: '1.0.0',
     owners: ['@platform.notifications'],
     tags: ['notifications', 'email', 'push', 'in-app'],
     stability: 'stable',
@@ -24,13 +24,13 @@ export const NotificationsFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { key: 'notifications.send', version: 1 },
-    { key: 'notifications.markRead', version: 1 },
-    { key: 'notifications.markAllRead', version: 1 },
-    { key: 'notifications.delete', version: 1 },
-    { key: 'notifications.list', version: 1 },
-    { key: 'notifications.preferences.update', version: 1 },
-    { key: 'notifications.preferences.get', version: 1 },
+    { key: 'notifications.send', version: '1.0.0' },
+    { key: 'notifications.markRead', version: '1.0.0' },
+    { key: 'notifications.markAllRead', version: '1.0.0' },
+    { key: 'notifications.delete', version: '1.0.0' },
+    { key: 'notifications.list', version: '1.0.0' },
+    { key: 'notifications.preferences.update', version: '1.0.0' },
+    { key: 'notifications.preferences.get', version: '1.0.0' },
   ],
 
   // No events for this feature - it consumes events to send notifications
@@ -43,7 +43,7 @@ export const NotificationsFeature: FeatureModuleSpec = {
 
   // Capability definitions
   capabilities: {
-    provides: [{ key: 'notifications', version: 1 }],
-    requires: [{ key: 'identity', version: 1 }],
+    provides: [{ key: 'notifications', version: '1.0.0' }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

@@ -10,7 +10,7 @@ describe('validateFeatureTargetsV2', () => {
   ): FeatureModuleSpec => ({
     meta: {
       key: 'test.feature',
-      version: 1,
+      version: '1.0.0',
       title: 'Test Feature',
       description: 'A test feature',
       stability: StabilityEnum.Stable,
@@ -25,7 +25,7 @@ describe('validateFeatureTargetsV2', () => {
   ): PresentationSpec => ({
     meta: {
       key: 'test.presentation',
-      version: 1,
+      version: '1.0.0',
       title: 'Test Presentation',
       description: 'A test presentation',
       stability: 'stable',
@@ -57,7 +57,7 @@ describe('validateFeatureTargetsV2', () => {
   it('should throw when descriptor not found', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'missing.presentation', version: 1, targets: ['react'] },
+        { key: 'missing.presentation', version: '1.0.0', targets: ['react'] },
       ],
     });
 
@@ -69,7 +69,11 @@ describe('validateFeatureTargetsV2', () => {
   it('should throw when descriptor missing required target', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 1, targets: ['application/xml'] },
+        {
+          key: 'test.presentation',
+          version: '1.0.0',
+          targets: ['application/xml'],
+        },
       ],
     });
 
@@ -85,7 +89,7 @@ describe('validateFeatureTargetsV2', () => {
       presentationsTargets: [
         {
           key: 'test.presentation',
-          version: 1,
+          version: '1.0.0',
           targets: ['react', 'application/xml'],
         },
       ],
@@ -103,7 +107,7 @@ describe('validateFeatureTargetsV2', () => {
       presentationsTargets: [
         {
           key: 'test.presentation',
-          version: 1,
+          version: '1.0.0',
           targets: ['react', 'markdown'],
         },
       ],
@@ -119,8 +123,8 @@ describe('validateFeatureTargetsV2', () => {
   it('should validate multiple presentation targets', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'pres.one', version: 1, targets: ['react'] },
-        { key: 'pres.two', version: 1, targets: ['markdown'] },
+        { key: 'pres.one', version: '1.0.0', targets: ['react'] },
+        { key: 'pres.two', version: '1.0.0', targets: ['markdown'] },
       ],
     });
 
@@ -141,7 +145,7 @@ describe('validateFeatureTargetsV2', () => {
   it('should match on both key and version', () => {
     const feature = createFeature({
       presentationsTargets: [
-        { key: 'test.presentation', version: 2, targets: ['react'] },
+        { key: 'test.presentation', version: '2.0.0', targets: ['react'] },
       ],
     });
 
@@ -150,7 +154,7 @@ describe('validateFeatureTargetsV2', () => {
     ];
 
     expect(() => validateFeatureTargetsV2(feature, descriptors)).toThrow(
-      /V2 descriptor not found test.presentation.v2/
+      /V2 descriptor not found test.presentation.v2.0.0/
     );
   });
 });

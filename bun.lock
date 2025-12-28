@@ -924,6 +924,7 @@
         "@contractspec/lib.knowledge": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.24.3",
         "ai": "catalog:ai",
+        "compare-versions": "^6.1.1",
         "zod": "catalog:",
       },
       "devDependencies": {
@@ -972,6 +973,7 @@
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "compare-versions": "^6.1.1",
       },
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
@@ -1019,6 +1021,7 @@
         "@pothos/plugin-relay": "^4.4.3",
         "@pothos/plugin-tracing": "^1.1.2",
         "@qdrant/js-client-rest": "^1.16.2",
+        "compare-versions": "^6.1.1",
         "googleapis": "^169.0.0",
         "mcp-handler": "^1.0.4",
         "postmark": "^4.0.4",
@@ -1682,6 +1685,7 @@
       "version": "1.44.1",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
+        "compare-versions": "^6.1.1",
       },
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
@@ -1841,6 +1845,7 @@
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "compare-versions": "^6.1.1",
         "zod": "catalog:",
       },
       "devDependencies": {
@@ -4162,6 +4167,8 @@
     "commitizen": ["commitizen@4.3.1", "", { "dependencies": { "cachedir": "2.3.0", "cz-conventional-changelog": "3.3.0", "dedent": "0.7.0", "detect-indent": "6.1.0", "find-node-modules": "^2.1.2", "find-root": "1.1.0", "fs-extra": "9.1.0", "glob": "7.2.3", "inquirer": "8.2.5", "is-utf8": "^0.2.1", "lodash": "4.17.21", "minimist": "1.2.7", "strip-bom": "4.0.0", "strip-json-comments": "3.1.1" }, "bin": { "cz": "bin/git-cz", "git-cz": "bin/git-cz", "commitizen": "bin/commitizen" } }, "sha512-gwAPAVTy/j5YcOOebcCRIijn+mSjWJC+IYKivTu6aG8Ei/scoXgfsMRnuAk6b0GRste2J4NGxVdMN3ZpfNaVaw=="],
 
     "commondir": ["commondir@1.0.1", "", {}, "sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg=="],
+
+    "compare-versions": ["compare-versions@6.1.1", "", {}, "sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg=="],
 
     "compressible": ["compressible@2.0.18", "", { "dependencies": { "mime-db": ">= 1.43.0 < 2" } }, "sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg=="],
 

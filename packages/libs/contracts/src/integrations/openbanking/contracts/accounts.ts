@@ -91,7 +91,7 @@ const OpenBankingSyncAccountsOutput = new SchemaModel({
 export const OpenBankingListAccounts = defineQuery({
   meta: {
     key: 'openbanking.accounts.list',
-    version: 1,
+    version: '1.0.0',
     description:
       'List bank accounts available to a tenant/user via Powens Open Banking.',
     goal: 'Provide downstream workflows with the set of accounts accessible via the configured open banking connection.',
@@ -113,7 +113,7 @@ export const OpenBankingListAccounts = defineQuery({
 export const OpenBankingGetAccount = defineQuery({
   meta: {
     key: 'openbanking.accounts.get',
-    version: 1,
+    version: '1.0.0',
     description:
       'Retrieve the canonical bank account record for the given account identifier.',
     goal: 'Allow user-facing experiences and automations to display up-to-date account metadata.',
@@ -135,7 +135,7 @@ export const OpenBankingGetAccount = defineQuery({
 export const OpenBankingSyncAccounts = defineCommand({
   meta: {
     key: 'openbanking.accounts.sync',
-    version: 1,
+    version: '1.0.0',
     description:
       'Initiate a synchronisation run to refresh bank account metadata from Powens.',
     goal: 'Keep canonical bank account records aligned with the external open banking provider.',

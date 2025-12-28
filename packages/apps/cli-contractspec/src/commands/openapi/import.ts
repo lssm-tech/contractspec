@@ -3,13 +3,11 @@ import chalk from 'chalk';
 import { basename } from 'node:path';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
+import { upsertOpenApiSource } from '../../utils/config-writer';
 import {
-  upsertOpenApiSource,
-} from '../../utils/config-writer';
-import {
-    importFromOpenApiService,
-    formatFiles,
-    createNodeAdapters,
+  importFromOpenApiService,
+  formatFiles,
+  createNodeAdapters,
 } from '@contractspec/bundle.workspace';
 import { parseOpenApi as parseOpenApiTransformer } from '@contractspec/lib.contracts-transformers/openapi';
 import type { FormatterType, SchemaFormat } from '@contractspec/lib.contracts';
@@ -72,30 +70,31 @@ export const importCommand = new Command('import')
       const config = await loadConfig();
 
       const adapters = createNodeAdapters({
-          cwd: process.cwd(),
+        cwd: process.cwd(),
       });
 
-      // Temporary solution: Use 'src/contracts' as default if not specified, 
+      // Temporary solution: Use 'src/contracts' as default if not specified,
       const outputDir = options.outputDir || 'src/contracts';
 
       console.log(chalk.blue(`📥 Importing from OpenAPI: ${source}`));
 
       const result = await importFromOpenApiService(
-          config,
-          {
-              source,
-              outputDir,
-              prefix: options.prefix,
-              tags: options.tags,
-              exclude: options.exclude,
-              defaultStability: options.stability as any,
-              defaultOwners: options.owners,
-              defaultAuth: options.auth as any,
-              dryRun: options.dryRun,
-          },
-          adapters
+        config,
+        {
+          source,
+          outputDir,
+          prefix: options.prefix,
+          tags: options.tags,
+          exclude: options.exclude,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          defaultStability: options.stability as any,
+          defaultOwners: options.owners,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          defaultAuth: options.auth as any,
+          dryRun: options.dryRun,
+        },
+        adapters
       );
-
 
       // Summary
       console.log(
@@ -110,32 +109,37 @@ export const importCommand = new Command('import')
 
       // Formatting
       if (!options.dryRun && !options.noFormat && result.files.length > 0) {
-          const files = result.files.map(f => f.path);
-          // Add registries if they exist? Service doesn't return registry paths.
-          // Service should handle formatting internally?
-          // Previous CLI code formatted everything.
-          // Service I wrote does NOT format.
-          // I need to call formatFiles here using result files.
-          await formatFiles(files, config.formatter, {
-            type: options.formatter,
-            cwd: process.cwd(),
-          });
+        const files = result.files.map((f) => f.path);
+        // Add registries if they exist? Service doesn't return registry paths.
+        // Service should handle formatting internally?
+        // Previous CLI code formatted everything.
+        // Service I wrote does NOT format.
+        // I need to call formatFiles here using result files.
+        await formatFiles(files, config.formatter, {
+          type: options.formatter,
+          cwd: process.cwd(),
+        });
       }
 
       // Save config if requested
       if (options.saveConfig && !options.dryRun) {
-         // Need to parse again to get info? Or trust source?
-         // We can use parseOpenApiTransformer to get title/version if needed.
-         let title = options.name;
-         if (!title) {
-             try {
-                const parsed = await parseOpenApiTransformer(source, { fetch: globalThis.fetch, readFile: async (p) => adapters.fs.readFile(p) });
-                title = parsed.info.title;
-             } catch {}
-         }
-         
-         const sourceName = title || basename(source, '.json');
-         const openApiSource: OpenApiSourceConfig = {
+        // Need to parse again to get info? Or trust source?
+        // We can use parseOpenApiTransformer to get title/version if needed.
+        let title = options.name;
+        if (!title) {
+          try {
+            const parsed = await parseOpenApiTransformer(source, {
+              fetch: globalThis.fetch,
+              readFile: async (p) => adapters.fs.readFile(p),
+            });
+            title = parsed.info.title;
+          } catch {
+            // Ignore parse errors if we just want title
+          }
+        }
+
+        const sourceName = title || basename(source, '.json');
+        const openApiSource: OpenApiSourceConfig = {
           name: sourceName,
           syncMode:
             (options.syncMode as 'import' | 'sync' | 'validate') ?? 'import',
@@ -143,7 +147,9 @@ export const importCommand = new Command('import')
           prefix: options.prefix,
           tags: options.tags,
           exclude: options.exclude,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           defaultStability: options.stability as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           defaultAuth: options.auth as any,
         };
 

@@ -5,14 +5,14 @@ describe('computeSemanticDiff', () => {
   it('should detect breaking changes when name changes', () => {
     const a = `
 export const Spec = defineCommand({
-  meta: { name: 'a.b', version: 1, kind: 'command', stability: 'stable' },
+  meta: { name: 'a.b', version: '1.0.0', kind: 'command', stability: 'stable' },
   io: {},
   policy: {},
 });
 `;
     const b = `
 export const Spec = defineCommand({
-  meta: { name: 'a.c', version: 1, kind: 'command', stability: 'stable' },
+  meta: { name: 'a.c', version: '1.0.0', kind: 'command', stability: 'stable' },
   io: {},
   policy: {},
 });
@@ -27,14 +27,14 @@ export const Spec = defineCommand({
   it('should filter to breaking only when requested', () => {
     const a = `
 export const Spec = defineCommand({
-  meta: { name: 'a.b', version: 1, kind: 'command', stability: 'beta', owners: ['@a'] },
+  meta: { name: 'a.b', version: '1.0.0', kind: 'command', stability: 'beta', owners: ['@a'] },
   io: {},
   policy: {},
 });
 `;
     const b = `
 export const Spec = defineCommand({
-  meta: { name: 'a.b', version: 1, kind: 'command', stability: 'beta', owners: ['@b'] },
+  meta: { name: 'a.b', version: '1.0.0', kind: 'command', stability: 'beta', owners: ['@b'] },
   io: {},
   policy: {},
 });

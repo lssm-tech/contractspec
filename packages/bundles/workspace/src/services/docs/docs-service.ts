@@ -1,61 +1,70 @@
-import { DocRegistry, type DocBlock, defaultDocRegistry } from '@contractspec/lib.contracts/docs';
-import { loadSpecFromSource, convertSpecToDocBlock } from '@contractspec/module.workspace';
+import {
+  type DocBlock,
+  defaultDocRegistry,
+} from '@contractspec/lib.contracts/docs';
+import {
+  loadSpecFromSource,
+  convertSpecToDocBlock,
+} from '@contractspec/module.workspace';
 import type { WorkspaceAdapters } from '../../ports/logger';
-import { resolve } from 'path';
 
 export interface DocsServiceOptions {
-    outputDir?: string;
-    format?: 'markdown' | 'html' | 'json';
+  outputDir?: string;
+  format?: 'markdown' | 'html' | 'json';
 }
 
 export interface DocsServiceResult {
-    blocks: DocBlock[];
-    count: number;
+  blocks: DocBlock[];
+  count: number;
 }
 
 /**
  * Generate documentation from spec files.
  */
 export async function generateDocsFromSpecs(
-    specFiles: string[],
-    options: DocsServiceOptions,
-    adapters: WorkspaceAdapters
+  specFiles: string[],
+  options: DocsServiceOptions,
+  adapters: WorkspaceAdapters
 ): Promise<DocsServiceResult> {
-    const { fs, logger } = adapters;
-    const blocks: DocBlock[] = [];
+  const { fs, logger } = adapters;
+  const blocks: DocBlock[] = [];
 
-    logger.info(`Generating docs for ${specFiles.length} files...`);
+  logger.info(`Generating docs for ${specFiles.length} files...`);
 
-    for (const file of specFiles) {
-        try {
-            const content = await fs.readFile(file);
-            const parsed = loadSpecFromSource(content, file);
-            
-            if (parsed) {
-                const block = convertSpecToDocBlock(parsed);
-                // Register globally? Or locally?
-                // DocRegistry instance
-                defaultDocRegistry.register(block);
-                blocks.push(block);
-                logger.debug(`Generated doc for ${block.id}`);
-            } else {
-                logger.warn(`Could not parse spec from ${file}`);
-            }
-        } catch (error) {
-            logger.error(`Error processing ${file}: ${error instanceof Error ? error.message : String(error)}`);
+  for (const file of specFiles) {
+    try {
+      const content = await fs.readFile(file);
+      const parsedList = await loadSpecFromSource(content);
+
+      if (parsedList && parsedList.length > 0) {
+        for (const parsed of parsedList) {
+          const block = convertSpecToDocBlock(parsed);
+          // Register globally? Or locally?
+          // DocRegistry instance
+          defaultDocRegistry.register(block);
+          blocks.push(block);
+          logger.debug(`Generated doc for ${block.id}`);
         }
+      } else {
+        logger.warn(`Could not parse spec from ${file}`);
+      }
+    } catch (error) {
+      logger.error(
+        `Error processing ${file}: ${error instanceof Error ? error.message : String(error)}`
+      );
     }
+  }
 
-    if (options.outputDir) {
-        // Simple output for now: write each block as MD file
-        await fs.mkdir(options.outputDir);
-        for (const block of blocks) {
-             const filename = `${block.id}.md`; // Or sanitize
-             const path = adapters.fs.join(options.outputDir, filename);
-             await fs.writeFile(path, block.body);
-        }
-        logger.info(`Wrote ${blocks.length} doc files to ${options.outputDir}`);
+  if (options.outputDir) {
+    // Simple output for now: write each block as MD file
+    await fs.mkdir(options.outputDir);
+    for (const block of blocks) {
+      const filename = `${block.id}.md`; // Or sanitize
+      const path = adapters.fs.join(options.outputDir, filename);
+      await fs.writeFile(path, block.body);
     }
+    logger.info(`Wrote ${blocks.length} doc files to ${options.outputDir}`);
+  }
 
-    return { blocks, count: blocks.length };
+  return { blocks, count: blocks.length };
 }

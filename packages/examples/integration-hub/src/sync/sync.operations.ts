@@ -21,7 +21,7 @@ const OWNERS = ['@example.integration-hub'] as const;
 export const CreateSyncConfigContract = defineCommand({
   meta: {
     key: 'integration.syncConfig.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['integration', 'sync', 'config', 'create'],
@@ -35,7 +35,7 @@ export const CreateSyncConfigContract = defineCommand({
     emits: [
       {
         key: 'integration.syncConfig.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Sync config created',
         payload: SyncConfigModel,
       },
@@ -71,7 +71,7 @@ export const CreateSyncConfigContract = defineCommand({
 export const AddFieldMappingContract = defineCommand({
   meta: {
     key: 'integration.fieldMapping.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['integration', 'mapping', 'field'],
@@ -85,7 +85,7 @@ export const AddFieldMappingContract = defineCommand({
     emits: [
       {
         key: 'integration.fieldMapping.added',
-        version: 1,
+        version: '1.0.0',
         when: 'Mapping added',
         payload: FieldMappingModel,
       },
@@ -120,7 +120,7 @@ export const AddFieldMappingContract = defineCommand({
 export const TriggerSyncContract = defineCommand({
   meta: {
     key: 'integration.sync.trigger',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['integration', 'sync', 'trigger'],
@@ -134,7 +134,7 @@ export const TriggerSyncContract = defineCommand({
     emits: [
       {
         key: 'integration.sync.started',
-        version: 1,
+        version: '1.0.0',
         when: 'Sync starts',
         payload: SyncRunModel,
       },
@@ -166,7 +166,7 @@ export const TriggerSyncContract = defineCommand({
 export const ListSyncRunsContract = defineQuery({
   meta: {
     key: 'integration.syncRun.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['integration', 'sync', 'run', 'list'],

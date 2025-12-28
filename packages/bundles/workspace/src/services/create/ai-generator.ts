@@ -12,20 +12,20 @@ import {
   type ProviderName,
 } from '@contractspec/lib.ai-providers';
 import {
-    type WorkspaceConfig,
-    type OpKind,
-    type PresentationKind,
+  type WorkspaceConfig,
+  type PresentationKind,
 } from '@contractspec/module.workspace';
+import type { OpKind } from '@contractspec/lib.contracts';
 import {
-    buildOperationSpecPrompt,
-    buildEventSpecPrompt,
-    buildPresentationSpecPrompt,
-    getSystemPrompt,
-    buildHandlerPrompt,
-    buildComponentPrompt,
-    buildFormPrompt,
-    buildTestPrompt,
-    getCodeGenSystemPrompt,
+  buildOperationSpecPrompt,
+  buildEventSpecPrompt,
+  buildPresentationSpecPrompt,
+  getSystemPrompt,
+  buildHandlerPrompt,
+  buildComponentPrompt,
+  buildFormPrompt,
+  buildTestPrompt,
+  getCodeGenSystemPrompt,
 } from '@contractspec/module.workspace';
 import { getApiKey } from '../config';
 
@@ -37,8 +37,9 @@ export class AIGenerator {
 
   private getModel() {
     const providerName = this.config.aiProvider as ProviderName;
-    const apiKey = this.config.customApiKey || getApiKey(this.config.aiProvider);
-    
+    const apiKey =
+      this.config.customApiKey || getApiKey(this.config.aiProvider);
+
     // Map WorkspaceConfig to ProviderConfig
     const providerConfig: ProviderConfig = {
       provider: (providerName as string) === 'custom' ? 'openai' : providerName, // Fallback custom to openai compatible

@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'marketplace',
-    version: 1,
+    version: '1.0.0',
     title: 'Marketplace (2-sided)',
     description:
       'Two-sided marketplace with stores, products, orders, payouts, and reviews (multi-actor flows).',

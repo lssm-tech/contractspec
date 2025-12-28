@@ -3,7 +3,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'learning-patterns',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Patterns',
     description:
       'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',

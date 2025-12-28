@@ -73,7 +73,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const owners = matchStringArrayField(code, 'owners');
   const tags = matchStringArrayField(code, 'tags');
 
-  const version = matchNumberField(code, 'version');
+  const version = matchVersionField(code, 'version');
   const kind = inferOperationKind(code);
 
   const hasMeta = /meta\s*:\s*{/.test(code);
@@ -122,15 +122,15 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
 export function extractEmittedEvents(code: string): RefInfo[] | undefined {
   const events: RefInfo[] = [];
 
-  // Match inline emit declarations: { key: 'x', version: N, ... }
-  const inlinePattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  // Match inline emit declarations: { key: 'x', version: '1' or 1, ... }
+  const inlinePattern =
+    /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(?:['"]([^'"]+)['"]|(\d+(?:\.\d+)*))/g;
   let match;
   while ((match = inlinePattern.exec(code)) !== null) {
-    if (match[1] && match[2]) {
-      events.push({
-        key: match[1],
-        version: Number(match[2]),
-      });
+    const key = match[1];
+    const version = match[2] || match[3];
+    if (key && version) {
+      events.push({ key, version });
     }
   }
 
@@ -155,18 +155,18 @@ export function extractPolicyRefs(code: string): RefInfo[] | undefined {
   const policies: RefInfo[] = [];
 
   // Match policy ref pattern in policies array
-  const policyPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  const policyPattern =
+    /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(?:['"]([^'"]+)['"]|(\d+(?:\.\d+)*))/g;
 
   // Only look within policy section
   const policySectionMatch = code.match(/policies\s*:\s*\[([\s\S]*?)\]/);
   if (policySectionMatch?.[1]) {
     let match;
     while ((match = policyPattern.exec(policySectionMatch[1])) !== null) {
-      if (match[1] && match[2]) {
-        policies.push({
-          key: match[1],
-          version: Number(match[2]),
-        });
+      const key = match[1];
+      const version = match[2] || match[3];
+      if (key && version) {
+        policies.push({ key, version });
       }
     }
   }
@@ -183,14 +183,14 @@ export function extractTestRefs(code: string): RefInfo[] | undefined {
   // Look for tests array
   const testsSectionMatch = code.match(/tests\s*:\s*\[([\s\S]*?)\]/);
   if (testsSectionMatch?.[1]) {
-    const refPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+    const refPattern =
+      /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(?:['"]([^'"]+)['"]|(\d+(?:\.\d+)*))/g;
     let match;
     while ((match = refPattern.exec(testsSectionMatch[1])) !== null) {
-      if (match[1] && match[2]) {
-        tests.push({
-          key: match[1],
-          version: Number(match[2]),
-        });
+      const key = match[1];
+      const version = match[2] || match[3];
+      if (key && version) {
+        tests.push({ key, version });
       }
     }
   }
@@ -204,12 +204,14 @@ function matchStringField(code: string, field: string): string | null {
   return match?.[1] ?? null;
 }
 
-function matchNumberField(code: string, field: string): number | null {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*(\\d+)`);
+function matchVersionField(code: string, field: string): string | undefined {
+  const regex = new RegExp(
+    `${escapeRegex(field)}\\s*:\\s*(?:['"]([^'"]+)['"]|(\\d+(?:\\.\\d+)*))`
+  );
   const match = code.match(regex);
-  if (!match?.[1]) return null;
-  const parsed = Number(match[1]);
-  return Number.isFinite(parsed) ? parsed : null;
+  if (match?.[1]) return match[1];
+  if (match?.[2]) return match[2];
+  return undefined;
 }
 
 function matchStringArrayField(
@@ -272,10 +274,10 @@ function inferOperationKindFromBlock(block: string): AnalyzedOperationKind {
  */
 function extractMetaFromBlock(
   block: string
-): { key: string; version: number } | null {
+): { key: string; version: string } | null {
   const key = matchStringField(block, 'key');
-  const version = matchNumberField(block, 'version');
-  if (key && version !== null) {
+  const version = matchVersionField(block, 'version');
+  if (key && version !== undefined) {
     return { key, version };
   }
   return null;

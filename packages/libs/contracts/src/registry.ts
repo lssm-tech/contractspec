@@ -1,3 +1,4 @@
+import { compareVersions } from 'compare-versions';
 import { filterBy, getUniqueTags, groupBy } from './registry-utils';
 import type { OwnerShipMeta } from './ownership';
 import type { ContractSpecType } from './types';
@@ -14,7 +15,7 @@ export abstract class SpecContractRegistry<
   ContractType extends ContractSpecType,
   SpecContract extends AnySpecContract,
 > {
-  private items = new Map<string, SpecContract>();
+  protected items = new Map<string, SpecContract>();
 
   protected constructor(
     protected readonly contractType: ContractType,
@@ -41,18 +42,23 @@ export abstract class SpecContractRegistry<
     return [...this.items.values()];
   }
 
-  get(key: string, version?: number): SpecContract | undefined {
+  get(key: string, version?: string): SpecContract | undefined {
     if (version != null) return this.items.get(`${key}.v${version}`);
     let candidate: SpecContract | undefined;
-    let max = -Infinity;
     for (const [k, p] of this.items.entries()) {
       if (!k.startsWith(`${key}.v`)) continue;
-      if (p.meta.version > max) {
-        max = p.meta.version;
+      if (
+        !candidate ||
+        compareVersions(p.meta.version, candidate.meta.version) > 0
+      ) {
         candidate = p;
       }
     }
     return candidate;
+  }
+
+  has(key: string, version?: string): boolean {
+    return !!this.get(key, version);
   }
 
   /** Filter presentations by criteria. */

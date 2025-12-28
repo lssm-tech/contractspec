@@ -8,7 +8,7 @@ import {
 export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
   meta: {
     key: 'artisan.knowledge.product',
-    version: 1,
+    version: '1.0.0',
     appId: 'artisan',
     title: 'ArtisanOS Knowledge – Product Canon',
     description:
@@ -19,7 +19,7 @@ export const artisanKnowledgeBlueprint: AppBlueprintSpec = {
     stability: StabilityEnum.Experimental,
   },
   workflows: {
-    answerFaq: { key: 'artisan.knowledge.answerFaq', version: 1 },
+    answerFaq: { key: 'artisan.knowledge.answerFaq', version: '1.0.0' },
   },
   notes:
     'Workflows and assistants running on this blueprint should bind the Product Canon knowledge space.',

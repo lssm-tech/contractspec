@@ -16,7 +16,7 @@ export const ConfigDraftCreatedEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.draft_created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new tenant config draft was created.',
   },
   payload: new SchemaModel({
@@ -43,7 +43,7 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.promoted_to_preview',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config draft was promoted to preview.',
   },
   payload: new SchemaModel({
@@ -66,7 +66,7 @@ export const ConfigPublishedEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.published',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config version was published to production.',
   },
   payload: new SchemaModel({
@@ -100,7 +100,7 @@ export const ConfigRolledBackEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.rolled_back',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config was rolled back to a previous version.',
   },
   payload: new SchemaModel({

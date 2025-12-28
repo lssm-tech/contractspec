@@ -42,6 +42,7 @@
     "@modelcontextprotocol/sdk": "^1.24.3",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
+    "compare-versions": "^6.1.1",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -21,5 +21,5 @@ export * from './ai-generator';
 export * from './templates';
 
 export function createSpecCreator(config: WorkspaceConfig): SpecCreatorService {
-    return new SpecCreatorService(config);
+  return new SpecCreatorService(config);
 }

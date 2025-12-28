@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "compare-versions": "^6.1.1"
   },
   "peerDependencies": {
     "elysia": "^1.4.19",

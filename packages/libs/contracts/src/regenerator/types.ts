@@ -84,7 +84,7 @@ export interface ProposalTarget {
     | 'unknown';
   reference: {
     key: string;
-    version?: number;
+    version?: string;
   };
   tenantScoped?: boolean;
 }

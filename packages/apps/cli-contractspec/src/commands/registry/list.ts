@@ -45,7 +45,7 @@ export const registryListCommand = new Command('list')
           (item: {
             type: string;
             key: string;
-            version: number;
+            version: string;
             description: string;
           }) => {
             console.log(

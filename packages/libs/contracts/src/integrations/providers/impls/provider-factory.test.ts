@@ -116,7 +116,7 @@ function buildContext({
   const spec: IntegrationSpec = {
     meta: {
       key,
-      version: 1,
+      version: '1.0.0',
       category: (key.startsWith('openbanking.')
         ? 'open-banking'
         : key.split('.')[0]) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -138,7 +138,7 @@ function buildContext({
       id: `conn-${key}`,
       tenantId: 'tenant',
       integrationKey: key,
-      integrationVersion: 1,
+      integrationVersion: '1.0.0',
       label: key,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -180,8 +180,8 @@ function buildContext({
     secretReference: 'mock://secret',
     trace: {
       blueprintName: 'blueprint',
-      blueprintVersion: 1,
-      configVersion: 1,
+      blueprintVersion: '1.0.0',
+      configVersion: '1.0.0',
     },
   };
 }

@@ -14,7 +14,7 @@ import type { LoggerAdapter } from '../../ports/logger';
 import { analyzeIntegrity } from '../integrity';
 import { analyzeDeps } from '../deps';
 import { runDoctor } from '../doctor/doctor-service';
-import { validateImplementationFiles } from '../validate-implementation';
+import { validateImplementationFiles } from '../validate/implementation-validator';
 import { loadWorkspaceConfig } from '../config';
 import { resolveAllImplementations } from '../implementation/resolver';
 import { discoverLayers } from '../layer-discovery';

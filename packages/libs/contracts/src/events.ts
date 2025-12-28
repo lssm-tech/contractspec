@@ -40,14 +40,14 @@ export interface EventEnvelope<T> {
   /** Event name as published (should match spec.name). */
   key: string;
   /** Event version as published (should match spec.version). */
-  version: number;
+  version: string;
   /** Validated payload. */
   payload: T;
 }
 
-export type EventKey = `${string}.v${number}`;
+export type EventKey = `${string}.v${string}`;
 /** Build a stable string key for an event name/version pair. */
-export const eventKey = (key: string, version: number): EventKey =>
+export const eventKey = (key: string, version: string): EventKey =>
   `${key}.v${version}`;
 
 /** In-memory registry for EventSpec. */

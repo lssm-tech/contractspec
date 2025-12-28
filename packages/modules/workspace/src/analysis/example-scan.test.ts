@@ -32,7 +32,7 @@ import type { ExampleSpec } from '@contractspec/lib.contracts';
 const example: ExampleSpec = {
   meta: {
     key: 'test-example',
-    version: 1,
+    version: '1.0.0',
     title: 'Test Example',
     description: 'A test example for testing.',
     kind: 'template',
@@ -59,7 +59,7 @@ export default example;
     const result = scanExampleSource(code, '/examples/test/src/example.ts');
 
     expect(result.key).toBe('test-example');
-    expect(result.version).toBe(1);
+    expect(result.version).toBe('1.0.0');
     expect(result.title).toBe('Test Example');
     expect(result.description).toBe('A test example for testing.');
     expect(result.kind).toBe('template');
@@ -72,7 +72,7 @@ export default example;
   it('should extract entrypoints', () => {
     const code = `
 const example = {
-  meta: { key: 'my-example', version: 1 },
+  meta: { key: 'my-example', version: '1.0.0' },
   entrypoints: {
     packageName: '@my/package',
     feature: './feature',
@@ -96,7 +96,7 @@ const example = {
   it('should extract surfaces', () => {
     const code = `
 const example = {
-  meta: { key: 'surface-example', version: 1 },
+  meta: { key: 'surface-example', version: '1.0.0' },
   entrypoints: { packageName: '@test/pkg' },
   surfaces: {
     templates: true,
@@ -121,7 +121,7 @@ const example = {
   it('should extract docs section', () => {
     const code = `
 const example = {
-  meta: { key: 'docs-example', version: 1 },
+  meta: { key: 'docs-example', version: '1.0.0' },
   docs: {
     rootDocId: 'docs.examples.test',
     goalDocId: 'docs.goals.test',
@@ -140,7 +140,7 @@ const example = {
   it('should fallback to extracting key from file path', () => {
     const code = `
 const example = {
-  meta: { version: 1 },
+  meta: { version: '1.0.0' },
   entrypoints: { packageName: '@test/pkg' },
   surfaces: { templates: false, sandbox: { enabled: false, modes: [] }, studio: { enabled: false, installable: false }, mcp: { enabled: false } },
 };
