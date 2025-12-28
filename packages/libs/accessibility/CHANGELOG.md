@@ -1,5 +1,15 @@
 # @lssm/lib.accessibility
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/lib.design-system@1.43.3
+  - @lssm/lib.ui-kit-web@1.43.2
+  - @lssm/lib.ui-kit@1.43.2
+
 ## 1.43.2
 
 ### Patch Changes

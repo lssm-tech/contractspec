@@ -1,5 +1,19 @@
 # @lssm/module.ai-chat
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/lib.cost-tracking@1.43.2
+  - @lssm/lib.design-system@1.43.3
+  - @lssm/lib.ai-providers@1.43.2
+  - @lssm/lib.ui-kit-web@1.43.2
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.ai-agent@1.43.3
+  - @lssm/lib.metering@1.43.3
+
 ## 1.43.2
 
 ### Patch Changes

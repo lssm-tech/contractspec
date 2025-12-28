@@ -325,6 +325,7 @@ export const initCommand = new Command('init')
               const openApiSourceConfig: OpenApiSourceConfig = {
                 name: sourceName,
                 syncMode: 'sync',
+                schemaFormat: 'contractspec',
               };
 
               if (

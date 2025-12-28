@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.crm-pipeline",
-  "version": "1.43.2",
+  "version": "1.43.3",
   "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
   "type": "module",
   "main": "./dist/index.js",

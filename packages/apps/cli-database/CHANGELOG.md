@@ -1,5 +1,13 @@
 # @lssm/app.cli-database
 
+## 1.43.2
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/lib.schema@1.43.2
+
 ## 1.43.1
 
 ### Patch Changes

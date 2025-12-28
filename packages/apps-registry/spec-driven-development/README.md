@@ -57,11 +57,11 @@ A spec can describe *more than endpoints*.
 
 Typical useful layers:
 
-- **Domain models**: entities, value objects, enums, invariants
-- **Operations**: commands/queries, inputs/outputs, error shapes
-- **Events**: event names, payloads, versioning rules
-- **Policies**: auth rules, PII classification, access constraints
-- **Examples**: representative requests/responses, edge cases
+- **Domain models**: entities, value objects, enums, invariants  
+- **Operations**: commands/queries, inputs/outputs, error shapes  
+- **Events**: event names, payloads, versioning rules  
+- **Policies**: auth rules, PII classification, access constraints  
+- **Examples**: representative requests/responses, edge cases  
 - **UI contracts (optional)**: view models, forms, display schemas
 
 The goal is **coherence**. Your system should have one “truth spine” that everything else attaches to.
@@ -92,10 +92,10 @@ A healthy loop looks like:
    Update the spec as the first PR commit.
 
 2. **Review contract diff**  
-   Humans review *impact*, not just code.
-    - What breaks?
-    - What needs migration?
-    - What needs versioning?
+   Humans review *impact*, not just code.  
+   - What breaks?
+   - What needs migration?
+   - What needs versioning?
 
 3. **Regenerate artifacts**  
    Update SDKs, stubs, docs, types, schemas, fixtures.
@@ -146,3 +146,47 @@ pnpm add spec-driven-development
 yarn add spec-driven-development
 # or
 bun add spec-driven-development
+````
+
+---
+
+## Usage
+
+This package is meant to be used as a CLI/tooling workflow inside your repo.
+
+Start here:
+
+```bash
+npx spec-driven-development --help
+# or
+bunx spec-driven-development --help
+```
+
+If your project/team already uses the canonical tool name, you may also want:
+
+* `contractspec` (same underlying engine, more product/tooling oriented docs)
+
+---
+
+## Practical tips (so SDD doesn’t become “SDD theater”)
+
+* **Make the spec reviewable**: small, composable files beat one mega-spec.
+* **Treat examples as tests**: if examples rot, your spec is lying.
+* **Version events** intentionally**: event drift is the silent killer of systems.
+* **Put PII + auth in the spec**: policies are part of reality, not “later work”.
+* **Gate breaking changes in CI**: humans are fallible, CI is relentless (good).
+
+---
+
+## Who this is for
+
+* Teams shipping APIs + clients who are tired of drift
+* AI-assisted builders who want **constraints and coherence**
+* Platform/tooling folks who want safer change management
+* Anyone who hears “it’s just a rename” and flinches
+
+---
+
+## License
+
+MIT (or see repository for details).

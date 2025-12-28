@@ -1,5 +1,18 @@
 # @lssm/bundle.contractspec-workspace
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/module.contractspec-workspace@1.43.3
+  - @lssm/lib.contracts-transformers@1.43.3
+  - @lssm/lib.ai-providers@1.43.2
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.testing@1.43.3
+  - @lssm/lib.schema@1.43.2
+
 ## 1.43.2
 
 ### Patch Changes

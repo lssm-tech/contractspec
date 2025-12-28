@@ -1,5 +1,11 @@
 # @lssm/lib.cost-tracking
 
+## 1.43.2
+
+### Patch Changes
+
+- 24d9759: improve documentation
+
 ## 1.43.1
 
 ### Patch Changes

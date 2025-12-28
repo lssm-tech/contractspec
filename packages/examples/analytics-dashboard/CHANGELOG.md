@@ -1,5 +1,19 @@
 # @lssm/example.analytics-dashboard
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/module.audit-trail@1.43.3
+  - @lssm/lib.identity-rbac@1.43.3
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.metering@1.43.3
+  - @lssm/lib.schema@1.43.2
+  - @lssm/lib.jobs@1.43.3
+  - @lssm/lib.bus@1.43.3
+
 ## 1.43.2
 
 ### Patch Changes

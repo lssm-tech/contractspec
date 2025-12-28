@@ -1,5 +1,14 @@
 # @lssm/integration.providers-impls
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/integration.runtime@1.43.3
+  - @lssm/lib.contracts@1.43.3
+
 ## 1.43.2
 
 ### Patch Changes

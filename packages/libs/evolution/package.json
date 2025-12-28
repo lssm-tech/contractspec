@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.evolution",
-  "version": "1.43.2",
+  "version": "1.43.3",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -1,5 +1,18 @@
 # @lssm/bundle.lifecycle-managed
 
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/module.lifecycle-advisor@1.43.2
+  - @lssm/module.lifecycle-core@1.43.2
+  - @lssm/lib.observability@1.43.2
+  - @lssm/lib.analytics@1.43.2
+  - @lssm/lib.lifecycle@1.43.2
+  - @lssm/lib.ai-agent@1.43.3
+
 ## 1.43.2
 
 ### Patch Changes

@@ -4,6 +4,17 @@
 
 ### Patch Changes
 
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/lib.content-gen@1.43.3
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.logger@1.43.2
+  - @lssm/lib.schema@1.43.2
+
+## 1.43.2
+
+### Patch Changes
+
 - e147271: fix: improve stability
 - Updated dependencies [e147271]
   - @lssm/lib.content-gen@1.43.2

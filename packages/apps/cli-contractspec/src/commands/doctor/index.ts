@@ -248,6 +248,7 @@ export const doctorCommand = new Command('doctor')
               const newSource: OpenApiSourceConfig = {
                 name: sourceName,
                 syncMode: 'sync',
+                schemaFormat: 'contractspec',
               };
 
               if (
