@@ -1,5 +1,16 @@
 # @lssm/example.kb-update-pipeline
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/module.notifications@1.43.4
+  - @lssm/lib.identity-rbac@1.43.4
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes

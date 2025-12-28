@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.exporter",
-  "version": "1.43.2",
+  "version": "1.43.3",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
   "scripts": {

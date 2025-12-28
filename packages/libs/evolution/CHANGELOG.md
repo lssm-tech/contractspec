@@ -1,5 +1,17 @@
 # @lssm/lib.evolution
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.observability@1.43.3
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.lifecycle@1.43.3
+  - @lssm/lib.ai-agent@1.43.4
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes

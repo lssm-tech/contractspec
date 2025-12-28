@@ -1,5 +1,14 @@
 # @lssm/lib.presentation-runtime-react-native
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.presentation-runtime-core@1.43.3
+  - @lssm/lib.ui-kit@1.43.3
+
 ## 1.43.3
 
 ### Patch Changes
