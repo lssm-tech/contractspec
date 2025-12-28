@@ -1,5 +1,16 @@
 # @lssm/lib.presentation-runtime-react
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.presentation-runtime-core@1.43.3
+  - @lssm/lib.design-system@1.43.4
+  - @lssm/lib.ui-kit-web@1.43.3
+  - @lssm/lib.contracts@1.43.4
+
 ## 1.43.3
 
 ### Patch Changes

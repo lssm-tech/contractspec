@@ -1,5 +1,11 @@
 # @lssm/lib.ui-kit-core
 
+## 1.43.3
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+
 ## 1.43.2
 
 ### Patch Changes

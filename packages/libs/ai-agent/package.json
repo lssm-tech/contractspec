@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.ai-agent",
-  "version": "1.43.3",
+  "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

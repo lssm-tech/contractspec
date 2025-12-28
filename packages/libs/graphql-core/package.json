@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.graphql-core",
-  "version": "1.43.2",
+  "version": "1.43.3",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

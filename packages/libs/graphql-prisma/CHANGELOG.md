@@ -1,5 +1,13 @@
 # @lssm/lib.graphql-prisma
 
+## 1.43.3
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.schema@1.43.3
+
 ## 1.43.2
 
 ### Patch Changes
