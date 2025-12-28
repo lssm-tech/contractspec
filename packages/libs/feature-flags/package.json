@@ -2,6 +2,7 @@
   "name": "@contractspec/lib.feature-flags",
   "version": "1.44.0",
   "description": "Feature flags and experiments module for ContractSpec applications",
+  "keywords": ["contractspec", "feature-flags", "experiments", "toggles", "typescript"],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

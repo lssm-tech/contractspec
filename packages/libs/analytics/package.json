@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.analytics",
   "version": "1.44.0",
+  "description": "Product analytics and growth metrics",
+  "keywords": ["contractspec", "analytics", "metrics", "funnel", "cohort", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

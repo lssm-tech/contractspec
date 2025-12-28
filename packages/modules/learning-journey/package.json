@@ -2,6 +2,7 @@
   "name": "@contractspec/module.learning-journey",
   "version": "1.44.0",
   "description": "Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization",
+  "keywords": ["contractspec", "learning", "onboarding", "gamification", "lms", "typescript"],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

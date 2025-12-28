@@ -2,6 +2,7 @@
   "name": "@contractspec/module.notifications",
   "version": "1.44.0",
   "description": "Notification center module for ContractSpec applications",
+  "keywords": ["contractspec", "notifications", "messaging", "channels", "email", "typescript"],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

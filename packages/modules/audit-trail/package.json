@@ -2,6 +2,7 @@
   "name": "@contractspec/module.audit-trail",
   "version": "1.44.0",
   "description": "Audit trail module for tracking and querying system events",
+  "keywords": ["contractspec", "audit", "logging", "compliance", "events", "typescript"],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",

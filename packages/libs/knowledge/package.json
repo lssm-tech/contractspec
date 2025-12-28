@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.knowledge",
   "version": "1.44.0",
+  "description": "RAG and knowledge base primitives",
+  "keywords": ["contractspec", "rag", "knowledge-base", "embeddings", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

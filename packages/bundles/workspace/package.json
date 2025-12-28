@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/bundle.workspace",
   "version": "1.44.0",
+  "description": "Workspace utilities for monorepo development",
+  "keywords": ["contractspec", "workspace", "monorepo", "typescript", "development"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

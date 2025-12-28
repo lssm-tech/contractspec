@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/integration.providers-impls",
   "version": "1.44.0",
+  "description": "Integration provider implementations for email, payments, storage, and more",
+  "keywords": ["contractspec", "integrations", "providers", "stripe", "twilio", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -2,6 +2,7 @@
   "name": "@contractspec/lib.personalization",
   "version": "1.44.0",
   "description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
+  "keywords": ["contractspec", "personalization", "behavior", "analytics", "adaptation", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

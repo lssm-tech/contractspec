@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/module.ai-chat",
   "version": "1.44.0",
+  "description": "AI chat interface module",
+  "keywords": ["contractspec", "ai", "chat", "conversational", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

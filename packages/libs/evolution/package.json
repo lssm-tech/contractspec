@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.evolution",
   "version": "1.44.0",
+  "description": "AI-powered contract evolution engine",
+  "keywords": ["contractspec", "evolution", "ai", "automation", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

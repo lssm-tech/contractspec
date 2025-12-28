@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.presentation-runtime-core",
   "version": "1.44.0",
+  "description": "Core presentation runtime for contract-driven UIs",
+  "keywords": ["contractspec", "presentation", "runtime", "ui", "core", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

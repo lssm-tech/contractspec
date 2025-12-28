@@ -2,6 +2,7 @@
   "name": "@contractspec/lib.overlay-engine",
   "version": "1.44.0",
   "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
+  "keywords": ["contractspec", "overlay", "personalization", "ui", "rendering", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

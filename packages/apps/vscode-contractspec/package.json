@@ -16,7 +16,7 @@
     "directory": "packages/apps/vscode-contractspec"
   },
   "bugs": {
-    "url": "https://github.com/lssm/contractspec/issues"
+    "url": "https://github.com/lssm-tech/contractspec/issues"
   },
   "homepage": "https://contractspec.io",
   "engines": {

@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react-native",
   "version": "1.44.0",
+  "description": "React Native presentation runtime for mobile apps",
+  "keywords": ["contractspec", "presentation", "react-native", "mobile", "ui", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

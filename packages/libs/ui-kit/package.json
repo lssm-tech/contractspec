@@ -1,6 +1,8 @@
 {
   "name": "@contractspec/lib.ui-kit",
   "version": "1.44.0",
+  "description": "Cross-platform UI components for React Native and web",
+  "keywords": ["contractspec", "ui", "components", "react-native", "expo", "typescript"],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
