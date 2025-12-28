@@ -76,7 +76,7 @@ export const ConfigPublishedEvent = defineEvent({
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
       version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       previousVersion: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: true,
       },
       publishedBy: {
@@ -110,11 +110,11 @@ export const ConfigRolledBackEvent = defineEvent({
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
       newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       rolledBackFrom: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       rolledBackTo: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       rolledBackBy: {

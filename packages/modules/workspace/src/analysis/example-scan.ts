@@ -89,45 +89,39 @@ function extractSurfaces(code: string): ExampleScanResult['surfaces'] {
     mcp: { enabled: false },
   };
 
-  const surfacesMatch = code.match(/surfaces\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/);
-  if (!surfacesMatch?.[1]) return surfaces;
-
-  const surfacesContent = surfacesMatch[1];
-
-  // Check templates
-  surfaces.templates = /templates\s*:\s*true/.test(surfacesContent);
-
-  // Check sandbox
-  const sandboxMatch = surfacesContent.match(
-    /sandbox\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/
+  // Check templates directly in the surfaces section
+  surfaces.templates = /surfaces\s*:\s*\{[\s\S]*?templates\s*:\s*true/.test(
+    code
   );
-  if (sandboxMatch?.[1]) {
-    const sandboxContent = sandboxMatch[1];
-    surfaces.sandbox.enabled = /enabled\s*:\s*true/.test(sandboxContent);
-    const modesMatch = sandboxContent.match(/modes\s*:\s*\[([\s\S]*?)\]/);
-    if (modesMatch?.[1]) {
+
+  // Check sandbox - look for the sandbox object and extract its content
+  const sandboxMatch = code.match(
+    /sandbox\s*:\s*\{\s*enabled\s*:\s*(true|false)\s*,\s*modes\s*:\s*\[([^\]]*)\]/
+  );
+  if (sandboxMatch) {
+    surfaces.sandbox.enabled = sandboxMatch[1] === 'true';
+    if (sandboxMatch[2]) {
       surfaces.sandbox.modes = Array.from(
-        modesMatch[1].matchAll(/['"]([^'"]+)['"]/g)
+        sandboxMatch[2].matchAll(/['"]([^'"]+)['"]/g)
       )
         .map((m) => m[1])
         .filter((v): v is string => typeof v === 'string');
     }
   }
 
-  // Check studio
-  const studioMatch = surfacesContent.match(
-    /studio\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/
+  // Check studio - look for studio object
+  const studioMatch = code.match(
+    /studio\s*:\s*\{\s*enabled\s*:\s*(true|false)\s*,\s*installable\s*:\s*(true|false)/
   );
-  if (studioMatch?.[1]) {
-    const studioContent = studioMatch[1];
-    surfaces.studio.enabled = /enabled\s*:\s*true/.test(studioContent);
-    surfaces.studio.installable = /installable\s*:\s*true/.test(studioContent);
+  if (studioMatch) {
+    surfaces.studio.enabled = studioMatch[1] === 'true';
+    surfaces.studio.installable = studioMatch[2] === 'true';
   }
 
   // Check mcp
-  const mcpMatch = surfacesContent.match(/mcp\s*:\s*\{([\s\S]*?)\}(?=\s*[,}])/);
-  if (mcpMatch?.[1]) {
-    surfaces.mcp.enabled = /enabled\s*:\s*true/.test(mcpMatch[1]);
+  const mcpMatch = code.match(/mcp\s*:\s*\{\s*enabled\s*:\s*(true|false)/);
+  if (mcpMatch) {
+    surfaces.mcp.enabled = mcpMatch[1] === 'true';
   }
 
   return surfaces;

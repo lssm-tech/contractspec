@@ -80,7 +80,7 @@ describe('validateFeatureTargetsV2', () => {
     const descriptors = [createDescriptor({ targets: ['react', 'markdown'] })];
 
     expect(() => validateFeatureTargetsV2(feature, descriptors)).toThrow(
-      /Descriptor test.presentation.v1 missing target application\/xml/
+      /Descriptor test.presentation.v1.0.0 missing target application\/xml/
     );
   });
 

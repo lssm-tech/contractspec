@@ -112,8 +112,10 @@ function extractCapabilities(code: string): {
   const provides: RefInfo[] = [];
   const requires: RefInfo[] = [];
 
-  // Match the capabilities section
-  const capabilitiesMatch = code.match(/capabilities\s*:\s*\{([\s\S]*?)\}/);
+  // Match the capabilities section - need to match nested braces properly
+  const capabilitiesMatch = code.match(
+    /capabilities\s*:\s*\{([\s\S]*?)\}\s*,?\s*(?:opToPresentation|$|\})/
+  );
   if (!capabilitiesMatch?.[1]) {
     return { provides, requires };
   }

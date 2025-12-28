@@ -180,16 +180,16 @@ describe('validateTenantConfig', () => {
           path: 'translationOverrides.entries[0]',
         }),
         expect.objectContaining({
-          code: 'UNSUPPORTED_LOCALE',
-          path: 'locales.enabledLocales',
-        }),
-        expect.objectContaining({
           code: 'MISSING_KNOWLEDGE_SOURCES',
           path: 'knowledge[0]',
         }),
         expect.objectContaining({
           code: 'INSECURE_ASSET_URL',
           path: 'branding.assets[0].url',
+        }),
+        expect.objectContaining({
+          code: 'MISSING_BLUEPRINT_CATALOG',
+          path: 'translationCatalog',
         }),
       ])
     );

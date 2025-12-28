@@ -146,7 +146,7 @@ describe('specToMarkdown', () => {
         'Part of the billing module for order processing'
       );
       expect(result).toContain('## Emitted Events');
-      expect(result).toContain('- `billing.invoiceCreated` (v1)');
+      expect(result).toContain('- `billing.invoiceCreated` (v1.0.0)');
     });
 
     it('should include source block in full mode', () => {
@@ -170,11 +170,11 @@ describe('specToMarkdown', () => {
       const result = specToMarkdown(mockFeatureSpec, 'full');
 
       expect(result).toContain('## Operations (3)');
-      expect(result).toContain('- `billing.createInvoice` (v1)');
+      expect(result).toContain('- `billing.createInvoice` (v1.0.0)');
       expect(result).toContain('## Events (2)');
-      expect(result).toContain('- `billing.invoiceCreated` (v1)');
+      expect(result).toContain('- `billing.invoiceCreated` (v1.0.0)');
       expect(result).toContain('## Presentations (1)');
-      expect(result).toContain('- `billing.invoiceList` (v1)');
+      expect(result).toContain('- `billing.invoiceList` (v1.0.0)');
     });
   });
 
