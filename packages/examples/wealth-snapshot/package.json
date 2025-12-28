@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.wealth-snapshot",
+  "name": "@contractspec/example.wealth-snapshot",
   "version": "1.43.4",
   "description": "Wealth Snapshot mini-app for accounts, assets, liabilities, and goals",
   "main": "./dist/index.js",
@@ -18,17 +18,17 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.bus": "workspace:*",
-    "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/module.audit-trail": "workspace:*",
-    "@lssm/module.notifications": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.bus": "workspace:*",
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/module.audit-trail": "workspace:*",
+    "@contractspec/module.notifications": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

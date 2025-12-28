@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.versioned-knowledge-base",
+  "name": "@contractspec/example.versioned-knowledge-base",
   "version": "1.43.4",
   "description": "Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.",
   "type": "module",
@@ -35,13 +35,13 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

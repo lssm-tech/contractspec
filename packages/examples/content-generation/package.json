@@ -1,7 +1,7 @@
 {
-  "name": "@lssm/example.content-generation",
+  "name": "@contractspec/example.content-generation",
   "version": "1.43.3",
-  "description": "Content generation example using @lssm/lib.content-gen.",
+  "description": "Content generation example using @contractspec/lib.content-gen.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,14 +27,14 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.content-gen": "workspace:*",
-    "@lssm/lib.logger": "workspace:*"
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -6,15 +6,15 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/module.notifications@1.43.4
-  - @lssm/module.audit-trail@1.43.4
-  - @lssm/lib.feature-flags@1.43.4
-  - @lssm/lib.identity-rbac@1.43.4
-  - @lssm/lib.contracts@1.43.4
-  - @lssm/lib.schema@1.43.3
-  - @lssm/lib.files@1.43.4
-  - @lssm/lib.jobs@1.43.4
-  - @lssm/lib.bus@1.43.4
+  - @contractspec/module.notifications@1.43.4
+  - @contractspec/module.audit-trail@1.43.4
+  - @contractspec/lib.feature-flags@1.43.4
+  - @contractspec/lib.identity-rbac@1.43.4
+  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.schema@1.43.3
+  - @contractspec/lib.files@1.43.4
+  - @contractspec/lib.jobs@1.43.4
+  - @contractspec/lib.bus@1.43.4
 
 ## 1.43.3
 

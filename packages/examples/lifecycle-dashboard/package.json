@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.lifecycle-dashboard",
+  "name": "@contractspec/example.lifecycle-dashboard",
   "version": "1.43.4",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
@@ -27,12 +27,12 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*"
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

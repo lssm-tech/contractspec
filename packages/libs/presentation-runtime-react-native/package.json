@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.presentation-runtime-react-native",
+  "name": "@contractspec/lib.presentation-runtime-react-native",
   "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,11 +23,11 @@
     "react-native": "*",
     "react-hook-form": "^7.68.0",
     "zod": "^4.1.13",
-    "@lssm/lib.presentation-runtime-core": "workspace:*"
+    "@contractspec/lib.presentation-runtime-core": "workspace:*"
   },
   "dependencies": {
-    "@lssm/lib.presentation-runtime-core": "workspace:*",
-    "@lssm/lib.ui-kit": "workspace:*"
+    "@contractspec/lib.presentation-runtime-core": "workspace:*",
+    "@contractspec/lib.ui-kit": "workspace:*"
   },
   "files": [
     "dist",

@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey-crm-onboarding",
+  "name": "@contractspec/example.learning-journey-crm-onboarding",
   "version": "1.43.4",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
@@ -30,14 +30,14 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/module.learning-journey": "workspace:*",
-    "@lssm/example.crm-pipeline": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/module.learning-journey": "workspace:*",
+    "@contractspec/example.crm-pipeline": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

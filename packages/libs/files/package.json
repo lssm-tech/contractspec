@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.files",
+  "name": "@contractspec/lib.files",
   "version": "1.43.4",
   "description": "Files, documents and attachments module for ContractSpec applications",
   "main": "./dist/index.js",
@@ -18,13 +18,13 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

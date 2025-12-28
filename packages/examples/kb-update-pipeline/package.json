@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.kb-update-pipeline",
+  "name": "@contractspec/example.kb-update-pipeline",
   "version": "1.43.4",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
@@ -37,15 +37,15 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/module.notifications": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/module.notifications": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

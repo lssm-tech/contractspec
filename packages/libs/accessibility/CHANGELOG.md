@@ -6,9 +6,9 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/lib.design-system@1.43.4
-  - @lssm/lib.ui-kit-web@1.43.3
-  - @lssm/lib.ui-kit@1.43.3
+  - @contractspec/lib.design-system@1.43.4
+  - @contractspec/lib.ui-kit-web@1.43.3
+  - @contractspec/lib.ui-kit@1.43.3
 
 ## 1.43.3
 

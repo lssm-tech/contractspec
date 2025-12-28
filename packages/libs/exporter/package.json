@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.exporter",
+  "name": "@contractspec/lib.exporter",
   "version": "1.43.3",
   "description": "Generic CSV and XML exporters usable across web and mobile.",
   "type": "module",
@@ -16,8 +16,8 @@
     "lint:check": "eslint src"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

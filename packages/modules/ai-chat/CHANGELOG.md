@@ -6,13 +6,13 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/lib.cost-tracking@1.43.3
-  - @lssm/lib.design-system@1.43.4
-  - @lssm/lib.ai-providers@1.43.3
-  - @lssm/lib.ui-kit-web@1.43.3
-  - @lssm/lib.contracts@1.43.4
-  - @lssm/lib.ai-agent@1.43.4
-  - @lssm/lib.metering@1.43.4
+  - @contractspec/lib.cost-tracking@1.43.3
+  - @contractspec/lib.design-system@1.43.4
+  - @contractspec/lib.ai-providers@1.43.3
+  - @contractspec/lib.ui-kit-web@1.43.3
+  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.ai-agent@1.43.4
+  - @contractspec/lib.metering@1.43.4
 
 ## 1.43.3
 

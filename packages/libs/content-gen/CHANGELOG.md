@@ -6,7 +6,7 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/lib.contracts@1.43.4
+  - @contractspec/lib.contracts@1.43.4
 
 ## 1.43.3
 

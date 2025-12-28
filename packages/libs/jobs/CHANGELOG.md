@@ -6,10 +6,10 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/lib.contracts@1.43.4
-  - @lssm/lib.knowledge@1.43.4
-  - @lssm/lib.logger@1.43.3
-  - @lssm/lib.schema@1.43.3
+  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.knowledge@1.43.4
+  - @contractspec/lib.logger@1.43.3
+  - @contractspec/lib.schema@1.43.3
 
 ## 1.43.3
 

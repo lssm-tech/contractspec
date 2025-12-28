@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.graphql-core",
+  "name": "@contractspec/lib.graphql-core",
   "version": "1.43.3",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "main": "./dist/index.js",
@@ -28,8 +28,8 @@
     "graphql": ">=16.0.0"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

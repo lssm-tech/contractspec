@@ -6,14 +6,14 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/example.learning-journey-quest-challenges@1.43.4
-  - @lssm/example.learning-journey-duo-drills@1.43.4
-  - @lssm/example.learning-journey-ui-shared@1.43.4
-  - @lssm/module.learning-journey@1.43.4
-  - @lssm/lib.design-system@1.43.4
-  - @lssm/lib.ui-kit-web@1.43.3
-  - @lssm/lib.contracts@1.43.4
-  - @lssm/lib.schema@1.43.3
+  - @contractspec/example.learning-journey-quest-challenges@1.43.4
+  - @contractspec/example.learning-journey-duo-drills@1.43.4
+  - @contractspec/example.learning-journey-ui-shared@1.43.4
+  - @contractspec/module.learning-journey@1.43.4
+  - @contractspec/lib.design-system@1.43.4
+  - @contractspec/lib.ui-kit-web@1.43.3
+  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.schema@1.43.3
 
 ## 1.43.3
 

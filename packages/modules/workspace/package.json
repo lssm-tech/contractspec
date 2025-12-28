@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/module.contractspec-workspace",
+  "name": "@contractspec/module.workspace",
   "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,13 +23,13 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

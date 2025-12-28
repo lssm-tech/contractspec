@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey-platform-tour",
+  "name": "@contractspec/example.learning-journey-platform-tour",
   "version": "1.43.3",
   "description": "Learning journey track covering ContractSpec platform primitives.",
   "type": "module",
@@ -30,13 +30,13 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/module.learning-journey": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

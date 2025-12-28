@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/app.registry-server",
+  "name": "@contractspec/app.registry-server",
   "version": "1.43.4",
   "type": "module",
   "module": "src/index.ts",
@@ -15,10 +15,10 @@
     "start": "./server"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/server-timing": "^1.4.0",
-    "@lssm/lib.logger": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*",
     "elysia": "^1.4.19"
   },
   "license": "MIT",

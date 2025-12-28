@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.learning-journey-ui-gamified",
+  "name": "@contractspec/example.learning-journey-ui-gamified",
   "version": "1.43.4",
   "description": "Duolingo-style gamified learning UI for drills and quests.",
   "type": "module",
@@ -36,19 +36,19 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/example.learning-journey-ui-shared": "workspace:*",
-    "@lssm/example.learning-journey-duo-drills": "workspace:*",
-    "@lssm/example.learning-journey-quest-challenges": "workspace:*",
-    "@lssm/module.learning-journey": "workspace:*",
-    "@lssm/lib.design-system": "workspace:*",
-    "@lssm/lib.ui-kit-web": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/example.learning-journey-ui-shared": "workspace:*",
+    "@contractspec/example.learning-journey-duo-drills": "workspace:*",
+    "@contractspec/example.learning-journey-quest-challenges": "workspace:*",
+    "@contractspec/module.learning-journey": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*",
     "react": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "@types/react": "^19.1.6",
     "tsdown": "catalog:build",
     "typescript": "catalog:"

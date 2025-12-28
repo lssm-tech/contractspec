@@ -12,7 +12,7 @@
     "models": "models",
     "groupByFeature": true
   },
-  "defaultOwners": ["@lssm-core"],
+  "defaultOwners": ["@contractspec-core"],
   "defaultTags": [],
   "packages": ["packages/modules/*", "packages/libs/*", "packages/apps/*", "packages/examples/*"],
   "excludePackages": ["packages/apps/cli-*"],

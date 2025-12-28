@@ -6,7 +6,7 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/app.cli-contractspec@1.43.4
+  - @contractspec/app.cli-contractspec@1.43.4
 
 ## 1.43.3
 

@@ -174,7 +174,7 @@ If you see warnings about missing workspace dependencies, ensure:
 ### Permission Errors
 
 Ensure you have:
-1. npm account with publish access to `@lssm` scope
+1. npm account with publish access to `@contractspec` scope
 2. Valid npm token (for CI/CD)
 3. Logged in locally (`npm login` for manual publishing)
 
@@ -188,7 +188,7 @@ Ensure you have:
 
 ## Links
 
-- [npm @lssm Organization](https://www.npmjs.com/org/lssm)
+- [npm @contractspec Organization](https://www.npmjs.com/org/contractspec)
 - [Changesets Documentation](https://github.com/changesets/changesets)
 - [npm Publishing Guide](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry)
 

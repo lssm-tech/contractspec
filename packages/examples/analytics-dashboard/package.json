@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.analytics-dashboard",
+  "name": "@contractspec/example.analytics-dashboard",
   "version": "1.43.4",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
   "main": "./dist/index.js",
@@ -18,18 +18,18 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.bus": "workspace:*",
-    "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/lib.metering": "workspace:*",
-    "@lssm/lib.jobs": "workspace:*",
-    "@lssm/module.audit-trail": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.bus": "workspace:*",
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.metering": "workspace:*",
+    "@contractspec/lib.jobs": "workspace:*",
+    "@contractspec/module.audit-trail": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

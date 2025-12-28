@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.policy-safe-knowledge-assistant",
+  "name": "@contractspec/example.policy-safe-knowledge-assistant",
   "version": "1.43.4",
   "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
   "type": "module",
@@ -31,24 +31,24 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/example.locale-jurisdiction-gate": "workspace:*",
-    "@lssm/example.versioned-knowledge-base": "workspace:*",
-    "@lssm/example.kb-update-pipeline": "workspace:*",
-    "@lssm/example.learning-patterns": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/lib.jobs": "workspace:*",
-    "@lssm/lib.feature-flags": "workspace:*",
-    "@lssm/lib.files": "workspace:*",
-    "@lssm/lib.metering": "workspace:*",
-    "@lssm/module.audit-trail": "workspace:*",
-    "@lssm/module.notifications": "workspace:*",
-    "@lssm/module.learning-journey": "workspace:*"
+    "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
+    "@contractspec/example.versioned-knowledge-base": "workspace:*",
+    "@contractspec/example.kb-update-pipeline": "workspace:*",
+    "@contractspec/example.learning-patterns": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.jobs": "workspace:*",
+    "@contractspec/lib.feature-flags": "workspace:*",
+    "@contractspec/lib.files": "workspace:*",
+    "@contractspec/lib.metering": "workspace:*",
+    "@contractspec/module.audit-trail": "workspace:*",
+    "@contractspec/module.notifications": "workspace:*",
+    "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

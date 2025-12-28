@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/integration.providers-impls",
+  "name": "@contractspec/integration.providers-impls",
   "version": "1.43.4",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,8 +23,8 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/integration.runtime": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/integration.runtime": "workspace:*",
     "@elevenlabs/elevenlabs-js": "^2.27.0",
     "@google-cloud/storage": "^7.18.0",
     "@mistralai/mistralai": "^1.11.0",
@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

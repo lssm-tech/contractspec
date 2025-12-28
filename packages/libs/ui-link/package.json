@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.ui-link",
+  "name": "@contractspec/lib.ui-link",
   "version": "1.43.3",
   "type": "module",
   "main": "./dist/link.js",
@@ -18,13 +18,13 @@
     "lint:check": "eslint ui"
   },
   "dependencies": {
-    "@lssm/lib.ui-kit-core": "workspace:*",
+    "@contractspec/lib.ui-kit-core": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

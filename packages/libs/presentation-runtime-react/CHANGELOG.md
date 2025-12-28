@@ -6,10 +6,10 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/lib.presentation-runtime-core@1.43.3
-  - @lssm/lib.design-system@1.43.4
-  - @lssm/lib.ui-kit-web@1.43.3
-  - @lssm/lib.contracts@1.43.4
+  - @contractspec/lib.presentation-runtime-core@1.43.3
+  - @contractspec/lib.design-system@1.43.4
+  - @contractspec/lib.ui-kit-web@1.43.3
+  - @contractspec/lib.contracts@1.43.4
 
 ## 1.43.3
 

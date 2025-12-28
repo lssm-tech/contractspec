@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/lib.contracts-transformers",
+  "name": "@contractspec/lib.contracts-transformers",
   "version": "1.43.4",
   "description": "Contract format transformations: import/export between ContractSpec and external formats (OpenAPI, AsyncAPI, etc.)",
   "type": "module",
@@ -17,15 +17,15 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
     "openapi-types": "^12.1.3",
     "yaml": "^2.7.1",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.tsdown": "workspace:*",
-    "@lssm/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

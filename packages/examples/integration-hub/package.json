@@ -1,5 +1,5 @@
 {
-  "name": "@lssm/example.integration-hub",
+  "name": "@contractspec/example.integration-hub",
   "version": "1.43.4",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
   "main": "./dist/index.js",
@@ -18,20 +18,20 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@lssm/lib.schema": "workspace:*",
-    "@lssm/lib.contracts": "workspace:*",
-    "@lssm/lib.bus": "workspace:*",
-    "@lssm/lib.identity-rbac": "workspace:*",
-    "@lssm/lib.files": "workspace:*",
-    "@lssm/lib.feature-flags": "workspace:*",
-    "@lssm/lib.jobs": "workspace:*",
-    "@lssm/module.audit-trail": "workspace:*",
-    "@lssm/module.notifications": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.bus": "workspace:*",
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.files": "workspace:*",
+    "@contractspec/lib.feature-flags": "workspace:*",
+    "@contractspec/lib.jobs": "workspace:*",
+    "@contractspec/module.audit-trail": "workspace:*",
+    "@contractspec/module.notifications": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@lssm/tool.typescript": "workspace:*",
-    "@lssm/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

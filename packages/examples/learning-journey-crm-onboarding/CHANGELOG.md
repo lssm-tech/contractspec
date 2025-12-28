@@ -6,10 +6,10 @@
 
 - 9216062: fix: cross-platform compatibility
 - Updated dependencies [9216062]
-  - @lssm/module.learning-journey@1.43.4
-  - @lssm/example.crm-pipeline@1.43.4
-  - @lssm/lib.contracts@1.43.4
-  - @lssm/lib.schema@1.43.3
+  - @contractspec/module.learning-journey@1.43.4
+  - @contractspec/example.crm-pipeline@1.43.4
+  - @contractspec/lib.contracts@1.43.4
+  - @contractspec/lib.schema@1.43.3
 
 ## 1.43.3
 
