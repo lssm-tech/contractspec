@@ -590,7 +590,7 @@ contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 
 Make sure `@lssm/lib.contracts` and `@lssm/lib.schema` are installed:
 ```bash
-pnpm add @lssm/lib.contracts @lssm/lib.schema
+bunadd @lssm/lib.contracts @lssm/lib.schema
 ```
 
 ## Contributing
@@ -600,7 +600,7 @@ Contributions welcome! Please:
 1. Follow existing code style
 2. Add tests for new features
 3. Update documentation
-4. Ensure all tests pass: `pnpm test`
+4. Ensure all tests pass: `buntest`
 
 ## Agent Modes Deep Dive
 

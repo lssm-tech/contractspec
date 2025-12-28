@@ -1,5 +1,10 @@
 # @lssm/lib.design-system
 
+[![npm version](https://img.shields.io/npm/v/@lssm/lib.design-system)](https://www.npmjs.com/package/@lssm/lib.design-system)
+[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.design-system)](https://www.npmjs.com/package/@lssm/lib.design-system)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+
+
 Website: https://contractspec.io/
 
 

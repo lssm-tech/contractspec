@@ -1,9 +1,10 @@
 {
   "name": "spec-driven-development",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "bin": {
-    "sdd": "./bin/contractspec.mjs"
+    "sdd": "./bin/contractspec.mjs",
+    "spec-driven-development": "./bin/contractspec.mjs"
   },
   "dependencies": {
     "@lssm/app.cli-contractspec": "workspace:*"

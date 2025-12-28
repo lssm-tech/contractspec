@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 import { generateSchemaModelCode } from './schema-converter';
 import type { OpenApiSchema } from './types';
 import type { ContractsrcConfig } from '@lssm/lib.contracts';
 
-const mockConfig: ContractsrcConfig = {
+const mockConfig = {
   conventions: { models: 'models' },
-} as any;
+} as ContractsrcConfig;
 
 describe('Schema Generators', () => {
   const userSchema: OpenApiSchema = {
@@ -23,7 +23,6 @@ describe('Schema Generators', () => {
     const result = generateSchemaModelCode(
       userSchema,
       'User',
-      0,
       'contractspec',
       mockConfig
     );
@@ -36,13 +35,12 @@ describe('Schema Generators', () => {
     const result = generateSchemaModelCode(
       userSchema,
       'User',
-      0,
       'zod',
       mockConfig
     );
     expect(result.code).toContain('z.object');
     expect(result.code).toContain('z.string().uuid()');
-    expect(result.code).toContain('new ZodSchemaType(UserSchema)');
+    expect(result.code).toContain('new ZodSchemaType(UserSchema, { name:');
     expect(result.name).toBe('User');
     expect(result.imports?.some((i) => i.includes('zod'))).toBe(true);
   });
@@ -51,7 +49,6 @@ describe('Schema Generators', () => {
     const result = generateSchemaModelCode(
       userSchema,
       'User',
-      0,
       'json-schema',
       mockConfig
     );
@@ -65,7 +62,6 @@ describe('Schema Generators', () => {
     const result = generateSchemaModelCode(
       userSchema,
       'User',
-      0,
       'graphql',
       mockConfig
     );
@@ -101,7 +97,6 @@ describe('Nested Models', () => {
     const result = generateSchemaModelCode(
       nestedSchema,
       'UserProfile',
-      0,
       'contractspec',
       mockConfig
     );
@@ -118,7 +113,6 @@ describe('Nested Models', () => {
     const result = generateSchemaModelCode(
       nestedSchema,
       'UserProfile',
-      0,
       'zod',
       mockConfig
     );

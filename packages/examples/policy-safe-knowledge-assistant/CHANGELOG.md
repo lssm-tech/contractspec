@@ -1,5 +1,87 @@
 # @lssm/example.policy-safe-knowledge-assistant
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/example.locale-jurisdiction-gate@1.43.4
+  - @lssm/example.versioned-knowledge-base@1.43.4
+  - @lssm/example.kb-update-pipeline@1.43.4
+  - @lssm/example.learning-patterns@1.43.3
+  - @lssm/module.learning-journey@1.43.4
+  - @lssm/module.notifications@1.43.4
+  - @lssm/module.audit-trail@1.43.4
+  - @lssm/lib.feature-flags@1.43.4
+  - @lssm/lib.identity-rbac@1.43.4
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.metering@1.43.4
+  - @lssm/lib.schema@1.43.3
+  - @lssm/lib.files@1.43.4
+  - @lssm/lib.jobs@1.43.4
+
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/example.locale-jurisdiction-gate@1.43.3
+  - @lssm/example.versioned-knowledge-base@1.43.3
+  - @lssm/example.kb-update-pipeline@1.43.3
+  - @lssm/example.learning-patterns@1.43.2
+  - @lssm/module.learning-journey@1.43.3
+  - @lssm/module.notifications@1.43.3
+  - @lssm/module.audit-trail@1.43.3
+  - @lssm/lib.feature-flags@1.43.3
+  - @lssm/lib.identity-rbac@1.43.3
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.metering@1.43.3
+  - @lssm/lib.schema@1.43.2
+  - @lssm/lib.files@1.43.3
+  - @lssm/lib.jobs@1.43.3
+
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/example.locale-jurisdiction-gate@1.43.2
+  - @lssm/example.versioned-knowledge-base@1.43.2
+  - @lssm/example.kb-update-pipeline@1.43.2
+  - @lssm/example.learning-patterns@1.43.2
+  - @lssm/module.learning-journey@1.43.2
+  - @lssm/module.notifications@1.43.2
+  - @lssm/module.audit-trail@1.43.2
+  - @lssm/lib.feature-flags@1.43.2
+  - @lssm/lib.identity-rbac@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.metering@1.43.2
+  - @lssm/lib.files@1.43.2
+  - @lssm/lib.jobs@1.43.2
+  - @lssm/lib.schema@1.43.1
+
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/example.kb-update-pipeline@1.43.1
+  - @lssm/example.learning-patterns@1.43.1
+  - @lssm/example.locale-jurisdiction-gate@1.43.1
+  - @lssm/example.versioned-knowledge-base@1.43.1
+  - @lssm/lib.feature-flags@1.43.1
+  - @lssm/lib.files@1.43.1
+  - @lssm/lib.identity-rbac@1.43.1
+  - @lssm/lib.jobs@1.43.1
+  - @lssm/lib.metering@1.43.1
+  - @lssm/module.audit-trail@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+  - @lssm/module.notifications@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

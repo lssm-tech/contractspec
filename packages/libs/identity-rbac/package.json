@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.identity-rbac",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "description": "Identity, Organizations, and RBAC module for ContractSpec applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

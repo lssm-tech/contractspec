@@ -1,5 +1,10 @@
 # @lssm/lib.schema
 
+[![npm version](https://img.shields.io/npm/v/@lssm/lib.schema)](https://www.npmjs.com/package/@lssm/lib.schema)
+[![npm downloads](https://img.shields.io/npm/dt/@lssm/lib.schema)](https://www.npmjs.com/package/@lssm/lib.schema)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+
+
 Website: https://contractspec.io/
 
 

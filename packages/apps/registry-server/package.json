@@ -1,6 +1,6 @@
 {
   "name": "@lssm/app.registry-server",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "type": "module",
   "module": "src/index.ts",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@lssm/lib.contracts": "workspace:*",
-    "@elysiajs/cors": "^1.4.0",
+    "@elysiajs/cors": "^1.4.1",
     "@elysiajs/server-timing": "^1.4.0",
     "@lssm/lib.logger": "workspace:*",
     "elysia": "^1.4.19"

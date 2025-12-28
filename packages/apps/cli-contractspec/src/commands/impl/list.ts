@@ -8,12 +8,12 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import {
-  createNodeFsAdapter,
   createConsoleLoggerAdapter,
+  createNodeFsAdapter,
   loadWorkspaceConfig,
+  type ResolvedImplementation,
   resolveImplementations,
   type SpecImplementationResult,
-  type ResolvedImplementation,
 } from '@lssm/bundle.contractspec-workspace';
 import type { ImplListOptions } from './types';
 
@@ -57,7 +57,7 @@ function typeBadge(type: ResolvedImplementation['type']): string {
  * Output as text
  */
 function outputText(result: SpecImplementationResult): void {
-  console.log(`\n${chalk.bold(result.specName)} v${result.specVersion}`);
+  console.log(`\n${chalk.bold(result.specKey)} v${result.specVersion}`);
   console.log(`  ${chalk.gray('Type:')} ${result.specType}`);
   console.log(`  ${chalk.gray('Path:')} ${result.specPath}`);
   console.log(
@@ -99,7 +99,7 @@ function outputJson(result: SpecImplementationResult): void {
  */
 function outputTable(result: SpecImplementationResult): void {
   console.log(
-    `\n${chalk.bold(result.specName)} v${result.specVersion} (${result.specType})`
+    `\n${chalk.bold(result.specKey)} v${result.specVersion} (${result.specType})`
   );
   console.log('─'.repeat(80));
   console.log(

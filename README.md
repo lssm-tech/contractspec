@@ -1,10 +1,19 @@
 # ContractSpec
 
+[![npm version](https://img.shields.io/npm/v/contractspec)](https://www.npmjs.com/package/contractspec)
+[![npm downloads](https://img.shields.io/npm/dt/contractspec)](https://www.npmjs.com/package/contractspec)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
+
+
 Website: [https://contractspec.io](https://contractspec.io)
 
 **Stabilize your AI-generated code**
 
 The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. You keep your app. You own the code. We're the compiler, not the prison.
+
+<p align="center">
+  <img src="https://www.contractspec.io/icon.png" alt="Rulesync Logo" width="600" height="600">
+</p>
 
 ## The Problem
 
@@ -50,7 +59,7 @@ ContractSpec is a **compiler**, not a platform:
 
 ```bash
 # Install the CLI
-pnpm add -D @lssm/app.cli-contractspec
+bunx contractspec init
 
 # Create a contract spec
 contractspec create --type operation

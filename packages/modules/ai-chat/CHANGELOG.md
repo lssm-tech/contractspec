@@ -1,5 +1,57 @@
 # @lssm/module.ai-chat
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/lib.cost-tracking@1.43.3
+  - @lssm/lib.design-system@1.43.4
+  - @lssm/lib.ai-providers@1.43.3
+  - @lssm/lib.ui-kit-web@1.43.3
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.ai-agent@1.43.4
+  - @lssm/lib.metering@1.43.4
+
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/lib.cost-tracking@1.43.2
+  - @lssm/lib.design-system@1.43.3
+  - @lssm/lib.ai-providers@1.43.2
+  - @lssm/lib.ui-kit-web@1.43.2
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.ai-agent@1.43.3
+  - @lssm/lib.metering@1.43.3
+
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/lib.design-system@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.ai-agent@1.43.2
+  - @lssm/lib.metering@1.43.2
+  - @lssm/lib.ai-providers@1.43.1
+  - @lssm/lib.cost-tracking@1.43.1
+  - @lssm/lib.ui-kit-web@1.43.1
+
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/lib.ai-agent@1.43.1
+  - @lssm/lib.design-system@1.43.1
+  - @lssm/lib.metering@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'bun:test';
 import { PowensOpenBankingProvider } from './powens-openbanking';
-import type { OpenBankingAccountSummary, OpenBankingListAccountsResult } from '../openbanking';
+import type { OpenBankingListAccountsResult } from '../openbanking';
 import type { PowensAccount } from './powens-client';
 
 function createResponse(body: unknown, status = 200): Response {

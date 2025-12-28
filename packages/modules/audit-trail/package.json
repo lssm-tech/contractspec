@@ -1,6 +1,6 @@
 {
   "name": "@lssm/module.audit-trail",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "description": "Audit trail module for tracking and querying system events",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -56,7 +56,7 @@ function statusText(status: SpecImplementationResult['status']): string {
 function outputText(results: SpecImplementationResult[]): void {
   for (const result of results) {
     console.log(
-      `\n${statusIcon(result.status)} ${chalk.bold(result.specName)} v${result.specVersion}`
+      `\n${statusIcon(result.status)} ${chalk.bold(result.specKey)} v${result.specVersion}`
     );
     console.log(`  ${chalk.gray('Type:')} ${result.specType}`);
     console.log(`  ${chalk.gray('Status:')} ${statusText(result.status)}`);
@@ -107,7 +107,7 @@ function outputTable(results: SpecImplementationResult[]): void {
 
   for (const result of results) {
     const status = statusText(result.status).padEnd(20); // Includes ANSI codes, so pad more
-    const name = result.specName.substring(0, 38).padEnd(40);
+    const name = result.specKey.substring(0, 38).padEnd(40);
     const type = result.specType.padEnd(15);
     const implCount = `${result.implementations.filter((i) => i.exists).length}/${result.implementations.length}`;
     console.log(`${status} ${name} ${type} ${implCount}`);

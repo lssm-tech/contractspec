@@ -264,7 +264,7 @@ async function runVerify(
       const result = await verifyService.verify(
         {
           meta: {
-            name: resolved.specName,
+            name: resolved.specKey,
             version: resolved.specVersion,
             kind: 'command',
           },
@@ -285,7 +285,7 @@ async function runVerify(
             tier
           );
           await cacheService.store(cacheKey, report, {
-            specName: resolved.specName,
+            specName: resolved.specKey,
             implPath: implToVerify.path,
           });
         }
@@ -297,13 +297,13 @@ async function runVerify(
     // Output results
     switch (options.format) {
       case 'json':
-        outputJson(resolved.specName, reports, cached);
+        outputJson(resolved.specKey, reports, cached);
         break;
       case 'sarif':
         outputSarif(specPath, reports);
         break;
       default:
-        outputText(resolved.specName, reports, cached);
+        outputText(resolved.specKey, reports, cached);
     }
 
     // Exit with error if verification failed

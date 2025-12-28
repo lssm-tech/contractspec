@@ -96,6 +96,7 @@ const testSpec: TestSpec = {
     key: 'math.add.tests',
     version: 1,
     title: 'Math add scenarios',
+    description: 'Test scenarios for math.add operation',
     owners: ['@team.math'],
     tags: ['math', 'contracts'],
     stability: StabilityEnum.Experimental,

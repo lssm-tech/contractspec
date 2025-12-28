@@ -1,5 +1,37 @@
 # contractspec
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/app.cli-contractspec@1.43.4
+
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/app.cli-contractspec@1.43.3
+
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/app.cli-contractspec@1.43.2
+
+## 1.43.1
+
+### Patch Changes
+
+- f28fdad: fix
+- Updated dependencies [f28fdad]
+  - @lssm/app.cli-contractspec@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes

@@ -7,18 +7,14 @@ import type {
 import type { ImportedOperationSpec, ImportResult } from '../../common/types';
 import { toFileName, toSpecKey } from '../../common/utils';
 import { generateSchemaModelCode } from '../schema-converter';
-import {
-  buildInputSchema,
-  buildInputSchemas,
-  getOutputSchema,
-} from './schemas';
+import { buildInputSchemas, getOutputSchema } from './schemas';
 import { generateSpecCode } from './generator';
 import { generateModelCode } from './models';
 import { generateEventCode } from './events';
 import {
-  resolveOperationGroupFolder,
-  resolveModelGroupFolder,
   resolveEventGroupFolder,
+  resolveModelGroupFolder,
+  resolveOperationGroupFolder,
 } from './grouping';
 import type {
   ContractsrcConfig,
@@ -100,7 +96,6 @@ export const importFromOpenApi = (
         ? generateSchemaModelCode(
             inputSchemas.body,
             `${operation.operationId}Input`,
-            0,
             schemaFormat,
             contractspecOptions
           )
@@ -110,7 +105,6 @@ export const importFromOpenApi = (
         ? generateSchemaModelCode(
             inputSchemas.query,
             `${operation.operationId}Query`,
-            0,
             schemaFormat,
             contractspecOptions
           )
@@ -120,7 +114,6 @@ export const importFromOpenApi = (
         ? generateSchemaModelCode(
             inputSchemas.params,
             `${operation.operationId}Params`,
-            0,
             schemaFormat,
             contractspecOptions
           )
@@ -130,7 +123,6 @@ export const importFromOpenApi = (
         ? generateSchemaModelCode(
             inputSchemas.headers,
             `${operation.operationId}Headers`,
-            0,
             schemaFormat,
             contractspecOptions
           )
@@ -142,7 +134,6 @@ export const importFromOpenApi = (
         ? generateSchemaModelCode(
             outputSchema,
             `${operation.operationId}Output`,
-            0,
             schemaFormat,
             contractspecOptions
           )
@@ -221,7 +212,8 @@ export const importFromOpenApi = (
     try {
       const code = generateModelCode(name, schema, {
         ...contractspecOptions,
-        schemaFormat: importOptions.schemaFormat || contractspecOptions.schemaFormat,
+        schemaFormat:
+          importOptions.schemaFormat || contractspecOptions.schemaFormat,
       });
       const fileName = toFileName(toSpecKey(name, importOptions.prefix));
       const groupFolder = resolveModelGroupFolder(
@@ -258,7 +250,8 @@ export const importFromOpenApi = (
     try {
       const code = generateEventCode(event, {
         ...contractspecOptions,
-        schemaFormat: importOptions.schemaFormat || contractspecOptions.schemaFormat,
+        schemaFormat:
+          importOptions.schemaFormat || contractspecOptions.schemaFormat,
       });
       const fileName = toFileName(toSpecKey(event.name, importOptions.prefix));
       const groupFolder = resolveEventGroupFolder(
@@ -324,7 +317,6 @@ export function importOperation(
     ? generateSchemaModelCode(
         inputSchemas.body,
         `${operation.operationId}Input`,
-        0,
         schemaFormat,
         contractspecOptions
       )
@@ -334,7 +326,6 @@ export function importOperation(
     ? generateSchemaModelCode(
         inputSchemas.query,
         `${operation.operationId}Query`,
-        0,
         schemaFormat,
         contractspecOptions
       )
@@ -344,7 +335,6 @@ export function importOperation(
     ? generateSchemaModelCode(
         inputSchemas.params,
         `${operation.operationId}Params`,
-        0,
         schemaFormat,
         contractspecOptions
       )
@@ -354,7 +344,6 @@ export function importOperation(
     ? generateSchemaModelCode(
         inputSchemas.headers,
         `${operation.operationId}Headers`,
-        0,
         schemaFormat,
         contractspecOptions
       )
@@ -365,7 +354,6 @@ export function importOperation(
     ? generateSchemaModelCode(
         outputSchema,
         `${operation.operationId}Output`,
-        0,
         schemaFormat,
         contractspecOptions
       )

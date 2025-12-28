@@ -7,13 +7,14 @@ import {
   importFromOpenApi,
   parseOpenApi,
 } from '@lssm/lib.contracts-transformers/openapi';
-import type { SchemaFormat } from '@lssm/lib.contracts';
+import type { SchemaFormat, FormatterType } from '@lssm/lib.contracts';
 import { getErrorMessage } from '../../utils/errors';
 import { loadConfig, type OpenApiSourceConfig } from '../../utils/config';
 import {
   getOutputDirForSpecType,
   upsertOpenApiSource,
 } from '../../utils/config-writer';
+import { formatFiles } from '@lssm/bundle.contractspec-workspace';
 
 interface ImportOptions {
   outputDir?: string;
@@ -28,6 +29,8 @@ interface ImportOptions {
   name?: string;
   syncMode?: string;
   schemaFormat?: SchemaFormat;
+  noFormat?: boolean;
+  formatter?: FormatterType;
 }
 
 /**
@@ -59,6 +62,11 @@ export const importCommand = new Command('import')
     '--schema-format <format>',
     'Output schema format: contractspec (default), zod, json-schema, graphql',
     'contractspec'
+  )
+  .option('--no-format', 'Skip formatting generated files')
+  .option(
+    '--formatter <type>',
+    'Formatter to use: prettier, eslint, biome, dprint, or custom'
   )
   .action(async (source: string, options: ImportOptions) => {
     console.log('DEBUG: Starting import action');
@@ -207,7 +215,36 @@ export const importCommand = new Command('import')
 
         // Fallback to any export if specific one not found (or for models)
         if (!match) {
-          match = spec.code.match(/export const (\w+)\s*=/);
+          // For Zod format models, prefer the ZodSchemaType wrapper export
+          if (type === 'model' && spec.code.includes('new ZodSchemaType(')) {
+            match = spec.code.match(
+              /export const (\w+)\s*=\s*new ZodSchemaType\(/
+            );
+          }
+          // For JSON Schema format models
+          if (
+            !match &&
+            type === 'model' &&
+            spec.code.includes('new JsonSchemaType(')
+          ) {
+            match = spec.code.match(
+              /export const (\w+)\s*=\s*new JsonSchemaType\(/
+            );
+          }
+          // For GraphQL format models
+          if (
+            !match &&
+            type === 'model' &&
+            spec.code.includes('new GraphQLSchemaType(')
+          ) {
+            match = spec.code.match(
+              /export const (\w+)\s*=\s*new GraphQLSchemaType\(/
+            );
+          }
+          // General fallback
+          if (!match) {
+            match = spec.code.match(/export const (\w+)\s*=/);
+          }
         }
 
         if (match) {
@@ -293,6 +330,28 @@ export const importCommand = new Command('import')
           const indexPath = resolve(dir, 'index.ts');
           await writeFile(indexPath, indexCode, 'utf-8');
           console.log(chalk.green(`✅ Created/Updated index: ${indexPath}`));
+        }
+      }
+
+      // Format generated files if not skipped
+      if (!options.dryRun && !options.noFormat && importedCount > 0) {
+        const allGeneratedFiles: string[] = [];
+        for (const [dir, specs] of specsByDir.entries()) {
+          for (const spec of specs) {
+            allGeneratedFiles.push(resolve(dir, spec.file));
+          }
+          // Also format registry and index files
+          const registryPath = resolve(dir, 'registry.ts');
+          const indexPath = resolve(dir, 'index.ts');
+          if (existsSync(registryPath)) allGeneratedFiles.push(registryPath);
+          if (existsSync(indexPath)) allGeneratedFiles.push(indexPath);
+        }
+
+        if (allGeneratedFiles.length > 0) {
+          await formatFiles(allGeneratedFiles, config.formatter, {
+            type: options.formatter,
+            cwd: process.cwd(),
+          });
         }
       }
 

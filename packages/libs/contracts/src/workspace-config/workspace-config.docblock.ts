@@ -5,7 +5,8 @@ export const tech_workspace_config_DocBlocks: DocBlock[] = [
   {
     id: 'docs.tech.contracts.workspace-config',
     title: 'Workspace Configuration (.contractsrc)',
-    summary: 'Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).',
+    summary:
+      'Configuration-as-code conventions for ContractSpec workspaces (`.contractsrc.json`).',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/contracts/workspace-config',

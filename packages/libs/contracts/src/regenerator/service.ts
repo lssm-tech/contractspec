@@ -1,4 +1,3 @@
-import { setTimeout as delay } from 'node:timers/promises';
 import type {
   ProposalSink,
   RegeneratorSignal,
@@ -12,6 +11,9 @@ import {
   errorToEnvelope,
   behaviorToEnvelope,
 } from './utils';
+
+/** Cross-platform delay that works in browser and Node.js */
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export interface RegeneratorOptions {
   contexts: RegenerationContext[];

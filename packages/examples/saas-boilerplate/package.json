@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.saas-boilerplate",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
   "main": "./dist/index.js",

@@ -11,8 +11,8 @@ import type {
   PaymentIntent,
   PaymentInvoice,
   PaymentRefund,
-  PaymentTransaction,
   PaymentsProvider,
+  PaymentTransaction,
   RefundPaymentInput,
 } from '../payments';
 
@@ -21,7 +21,7 @@ export interface StripePaymentsProviderOptions {
   stripe?: Stripe;
 }
 
-const API_VERSION: Stripe.LatestApiVersion = '2025-10-29.clover';
+const API_VERSION: Stripe.LatestApiVersion = '2025-12-15.clover';
 
 export class StripePaymentsProvider implements PaymentsProvider {
   private readonly stripe: Stripe;

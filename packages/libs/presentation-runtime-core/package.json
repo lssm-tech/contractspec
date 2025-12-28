@@ -1,6 +1,6 @@
 {
   "name": "@lssm/lib.presentation-runtime-core",
-  "version": "1.43.0",
+  "version": "1.43.3",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -1,5 +1,23 @@
 # @lssm/lib.exporter
 
+## 1.43.3
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+
+## 1.43.2
+
+### Patch Changes
+
+- 24d9759: improve documentation
+
+## 1.43.1
+
+### Patch Changes
+
+- e147271: fix: improve stability
+
 ## 1.43.0
 
 ### Minor Changes

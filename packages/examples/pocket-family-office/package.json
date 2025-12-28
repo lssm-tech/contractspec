@@ -1,6 +1,6 @@
 {
   "name": "@lssm/example.pocket-family-office",
-  "version": "1.43.0",
+  "version": "1.43.4",
   "description": "Pocket Family Office example - personal finance automation with open banking",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

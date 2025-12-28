@@ -1,5 +1,43 @@
 # @lssm/example.learning-journey-ambient-coach
 
+## 1.43.4
+
+### Patch Changes
+
+- 9216062: fix: cross-platform compatibility
+- Updated dependencies [9216062]
+  - @lssm/module.learning-journey@1.43.4
+  - @lssm/lib.contracts@1.43.4
+  - @lssm/lib.schema@1.43.3
+
+## 1.43.3
+
+### Patch Changes
+
+- 24d9759: improve documentation
+- Updated dependencies [24d9759]
+  - @lssm/module.learning-journey@1.43.3
+  - @lssm/lib.contracts@1.43.3
+  - @lssm/lib.schema@1.43.2
+
+## 1.43.2
+
+### Patch Changes
+
+- e147271: fix: improve stability
+- Updated dependencies [e147271]
+  - @lssm/module.learning-journey@1.43.2
+  - @lssm/lib.contracts@1.43.2
+  - @lssm/lib.schema@1.43.1
+
+## 1.43.1
+
+### Patch Changes
+
+- Updated dependencies [f28fdad]
+  - @lssm/lib.contracts@1.43.1
+  - @lssm/module.learning-journey@1.43.1
+
 ## 1.43.0
 
 ### Minor Changes
