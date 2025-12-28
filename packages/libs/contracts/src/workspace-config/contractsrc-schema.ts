@@ -232,7 +232,7 @@ export const FormatterConfigSchema = z.object({
   enabled: z.boolean().default(true),
   /** Formatter to use (auto-detected if not specified) */
   type: FormatterTypeSchema.optional(),
-  /** Custom command for 'custom' type (e.g., "npx prettier --write") */
+  /** Custom command for 'custom' type (e.g., "bunx prettier --write") */
   command: z.string().optional(),
   /** Extra arguments to pass to formatter */
   args: z.array(z.string()).optional(),

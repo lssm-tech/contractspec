@@ -275,7 +275,7 @@ If you prefer to run ContractSpec directly without the action:
 ```yaml
 - uses: oven-sh/setup-bun@v2
 - run: bun install
-- run: npx contractspec ci --format sarif --output results.sarif
+- run: bunx contractspec ci --format sarif --output results.sarif
 - uses: github/codeql-action/upload-sarif@v4
   with:
     sarif_file: results.sarif

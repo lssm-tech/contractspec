@@ -166,7 +166,7 @@ runs:
         # Run checks and capture JSON output
         echo "Running: contractspec ci --format --skip doctor - json $ARGS"
         set +e
-        npx contractspec ci --format json --skip doctor $ARGS > .contractspec-ci/results.json 2>&1
+        bunx contractspec ci --format json --skip doctor $ARGS > .contractspec-ci/results.json 2>&1
         EXIT_CODE=$?
         set -e
 
@@ -191,7 +191,7 @@ runs:
         if [ "${{ inputs.upload-sarif }}" = "true" ]; then
           echo "Generating SARIF output..."
           set +e
-          npx contractspec ci --format sarif --skip doctor $ARGS > .contractspec-ci/results.sarif 2>&1
+          bunx contractspec ci --format sarif --skip doctor $ARGS > .contractspec-ci/results.sarif 2>&1
           SARIF_EXIT_CODE=$?
           set -e
           
@@ -213,7 +213,7 @@ runs:
         # Print text summary
         echo ""
         echo "=== ContractSpec CI Results ==="
-        npx contractspec ci --format text --skip doctor $ARGS 2>/dev/null || true
+        bunx contractspec ci --format text --skip doctor $ARGS 2>/dev/null || true
 
         exit $EXIT_CODE
 
@@ -264,7 +264,7 @@ runs:
         
         # Run impact detection
         set +e
-        npx contractspec impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json 2>&1
+        bunx contractspec impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json 2>&1
         EXIT_CODE=$?
         set -e
         
