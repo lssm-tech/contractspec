@@ -1,6 +1,6 @@
 # @contractspec/lib.presentation-runtime-react-native
 
-## 2.0.0
+## 1.45.0
 
 ### Minor Changes
 
@@ -79,11 +79,6 @@
 ### Patch Changes
 
 - f28fdad: fix
-
-## 2.0.0
-
-### Minor Changes
-
 - 042d072: feat: schema declaration using json schema, including zod
 
 ### Patch Changes
