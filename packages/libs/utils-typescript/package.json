@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.utils-typescript",
-  "version": "1.43.3",
+  "version": "1.44.0",
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",

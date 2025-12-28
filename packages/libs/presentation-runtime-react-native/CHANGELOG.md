@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 2.0.0
+
+### Minor Changes
+
+- 5f3a868: chore: isolate branding to contractspec.io
+
+### Patch Changes
+
+- Updated dependencies [5f3a868]
+  - @contractspec/lib.presentation-runtime-core@1.44.0
+  - @contractspec/lib.ui-kit@1.44.0
+
 ## 1.43.4
 
 ### Patch Changes

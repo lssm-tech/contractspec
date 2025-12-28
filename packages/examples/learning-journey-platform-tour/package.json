@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-platform-tour",
-  "version": "1.43.3",
+  "version": "1.44.0",
   "description": "Learning journey track covering ContractSpec platform primitives.",
   "type": "module",
   "main": "./dist/index.js",

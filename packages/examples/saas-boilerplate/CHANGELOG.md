@@ -1,5 +1,22 @@
 # @contractspec/example.saas-boilerplate
 
+## 1.44.0
+
+### Minor Changes
+
+- 5f3a868: chore: isolate branding to contractspec.io
+
+### Patch Changes
+
+- Updated dependencies [5f3a868]
+  - @contractspec/module.notifications@1.44.0
+  - @contractspec/module.audit-trail@1.44.0
+  - @contractspec/lib.identity-rbac@1.44.0
+  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.schema@1.44.0
+  - @contractspec/lib.jobs@1.44.0
+  - @contractspec/lib.bus@1.44.0
+
 ## 1.43.4
 
 ### Patch Changes

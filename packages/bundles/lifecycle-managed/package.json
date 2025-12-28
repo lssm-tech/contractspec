@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.lifecycle-managed",
-  "version": "1.43.4",
+  "version": "1.44.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -1,5 +1,28 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.44.0
+
+### Minor Changes
+
+- 5f3a868: chore: isolate branding to contractspec.io
+
+### Patch Changes
+
+- Updated dependencies [5f3a868]
+  - @contractspec/example.learning-journey-studio-onboarding@1.44.0
+  - @contractspec/example.learning-journey-quest-challenges@1.44.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.44.0
+  - @contractspec/example.learning-journey-ambient-coach@1.44.0
+  - @contractspec/example.learning-journey-platform-tour@1.44.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.44.0
+  - @contractspec/example.learning-journey-ui-coaching@1.44.0
+  - @contractspec/example.learning-journey-ui-gamified@1.44.0
+  - @contractspec/example.learning-journey-duo-drills@1.44.0
+  - @contractspec/example.learning-journey-ui-shared@1.44.0
+  - @contractspec/module.learning-journey@1.44.0
+  - @contractspec/lib.contracts@1.44.0
+  - @contractspec/lib.schema@1.44.0
+
 ## 1.43.4
 
 ### Patch Changes

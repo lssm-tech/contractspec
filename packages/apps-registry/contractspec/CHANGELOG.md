@@ -1,5 +1,16 @@
 # contractspec
 
+## 1.44.0
+
+### Minor Changes
+
+- 5f3a868: chore: isolate branding to contractspec.io
+
+### Patch Changes
+
+- Updated dependencies [5f3a868]
+  - @contractspec/app.cli-contractspec@1.44.0
+
 ## 1.43.4
 
 ### Patch Changes

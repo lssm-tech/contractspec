@@ -1,6 +1,6 @@
 {
   "name": "contractspec",
-  "version": "1.43.2",
+  "version": "1.44.0",
   "description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
   "type": "module",
   "workspaces": {

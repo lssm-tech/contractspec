@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit-core",
-  "version": "1.43.3",
+  "version": "1.44.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
