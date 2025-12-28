@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react",
-  "version": "1.44.1",
+  "version": "2.0.0",
   "description": "React presentation runtime with workflow components",
   "keywords": [
     "contractspec",

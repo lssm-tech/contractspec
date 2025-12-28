@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-core",
-  "version": "1.44.1",
+  "version": "1.45.0",
   "description": "Core presentation runtime for contract-driven UIs",
   "keywords": [
     "contractspec",

@@ -1,5 +1,42 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.45.0
+
+### Minor Changes
+
+- e73ca1d: feat: improve app config and examples contracts
+  feat: Contract layers support (features, examples, app-configs)
+
+  ### New CLI Commands
+  - `contractspec list layers` - List all contract layers with filtering
+
+  ### Enhanced Commands
+  - `contractspec ci` - New `layers` check category validates features/examples/config
+  - `contractspec doctor` - New `layers` health checks
+  - `contractspec integrity` - Now shows layer statistics
+
+  ### New APIs
+  - `discoverLayers()` - Scan workspace for all layer files
+  - `scanExampleSource()` - Parse ExampleSpec from source code
+  - `isExampleFile()` - Check if file is an example spec
+
+### Patch Changes
+
+- Updated dependencies [e73ca1d]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.0
+  - @contractspec/example.learning-journey-quest-challenges@1.45.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.0
+  - @contractspec/example.learning-journey-ambient-coach@1.45.0
+  - @contractspec/example.learning-journey-platform-tour@1.45.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.0
+  - @contractspec/example.learning-journey-ui-coaching@1.45.0
+  - @contractspec/example.learning-journey-ui-gamified@1.45.0
+  - @contractspec/example.learning-journey-duo-drills@1.45.0
+  - @contractspec/example.learning-journey-ui-shared@1.45.0
+  - @contractspec/module.learning-journey@1.45.0
+  - @contractspec/lib.contracts@1.45.0
+  - @contractspec/lib.schema@1.45.0
+
 ## 1.44.1
 
 ### Patch Changes
