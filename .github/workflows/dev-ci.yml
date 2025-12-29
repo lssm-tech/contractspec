@@ -81,7 +81,7 @@ jobs:
 
       - name: Run ContractSpec CI
         id: contractspec
-        uses: ./packages/apps/action-contractspec
+        uses: ./packages/apps/action-validation
         with:
           mode: validate
           skip: doctor
@@ -114,7 +114,7 @@ jobs:
 
       - name: Detect Contract Impact
         id: impact
-        uses: ./packages/apps/action-contractspec
+        uses: ./packages/apps/action-validation
         with:
           mode: impact
           pr-comment: 'true'

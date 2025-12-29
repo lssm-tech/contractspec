@@ -138,7 +138,7 @@ jobs:
       - name: Get GitHub Action version
         id: action-version
         run: |
-          VERSION=$(jq -r .version packages/apps/action-contractspec/package.json)
+          VERSION=$(jq -r .version packages/apps/action-validation/package.json)
           COMMIT_SHA="${{ github.sha }}"
           SHORT_SHA="${COMMIT_SHA:0:7}"
           echo "version=${VERSION}-canary.${SHORT_SHA}" >> $GITHUB_OUTPUT

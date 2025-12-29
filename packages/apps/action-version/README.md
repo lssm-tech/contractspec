@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: ContractSpec Version Bump
-        uses: ./packages/apps/action-contractspec-version
+        uses: ./packages/apps/action-version
         with:
           mode: bump
           auto-bump: true

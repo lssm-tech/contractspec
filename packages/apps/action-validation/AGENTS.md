@@ -1,6 +1,6 @@
 # AI Agent Guide — `@contractspec/action.validation`
 
-Scope: `packages/apps/action-contractspec/*`
+Scope: `packages/apps/action-validation/*`
 
 This is the ContractSpec GitHub Action for CI/CD integration.
 
@@ -29,7 +29,7 @@ When making changes:
 3. Test locally using `act` or by referencing the local action:
 
 ```yaml
-- uses: ./packages/apps/action-contractspec
+- uses: ./packages/apps/action-validation
 ```
 
 ## Inputs/Outputs
