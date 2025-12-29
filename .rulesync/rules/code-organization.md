@@ -1,8 +1,20 @@
 ---
-description: Governs package organization, dependency flow, and component hierarchy across the ContractSpec monorepo.
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: >-
+  Governs package organization, dependency flow, and component hierarchy across
+  the ContractSpec monorepo.
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: >-
+    Governs package organization, dependency flow, and component hierarchy
+    across the ContractSpec monorepo.
+  globs:
+    - '**/*'
 ---
-
 # Code Organization & Dependency Architecture
 
 "Code must live in the right layer: Contracts define behavior, libs provide infrastructure, bundles compose business logic, and apps are thin platform adapters. UI is composed from design tokens — never from raw HTML."

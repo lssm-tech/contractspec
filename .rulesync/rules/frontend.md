@@ -1,8 +1,13 @@
 ---
-description: AI is generating UI components, screens, or flows.
-alwaysApply: false
+targets:
+  - '*'
+root: false
+description: 'AI is generating UI components, screens, or flows.'
+globs: []
+cursor:
+  alwaysApply: false
+  description: 'AI is generating UI components, screens, or flows.'
 ---
-
 # Atomic UX & Intent-Driven Interfaces
 
 "UI is built from atomic, intent-oriented components. Visual hierarchy follows mobile-first principles. Every visual or interactive unit must express a clear user intent, scale across viewports, and be reusable."

@@ -17,7 +17,7 @@
   "packages": ["packages/modules/*", "packages/libs/*", "packages/apps/*", "packages/examples/*"],
   "excludePackages": ["packages/apps/cli-*"],
   "ci": {
-    "checks": ["structure", "integrity", "deps"],
+    "checks": ["structure", "integrity", "deps", "doctor"],
     "uploadSarif": true,
     "failOnWarnings": false
   }

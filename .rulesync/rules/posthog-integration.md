@@ -1,8 +1,16 @@
 ---
+targets:
+  - '*'
+root: false
 description: apply when interacting with PostHog/analytics tasks
-alwaysApply: true
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: apply when interacting with PostHog/analytics tasks
+  globs:
+    - '**/*'
 ---
-
 # Feature flags
 
 A given feature flag should be used in as few places as possible. Do not increase the risk of undefined behavior by scattering the same feature flag across multiple areas of code. If the same feature flag needs to be introduced at multiple callsites, flag this for the developer to inspect carefully.

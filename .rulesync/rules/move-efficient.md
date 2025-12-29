@@ -1,7 +1,14 @@
 ---
-alwaysApply: true
+targets:
+  - '*'
+root: false
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  globs:
+    - '**/*'
 ---
-
 “Do Small Things Now. Track Big Things Systemically.”
 "If a task, decision, or fix is self-contained and low-risk, execute it immediately. If it exceeds the local scope or may impact other systems, log it clearly with context and defer it into the system's prioritization loop."
 

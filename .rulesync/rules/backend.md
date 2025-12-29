@@ -1,8 +1,16 @@
 ---
-description: AI is generating APIs, services, or data workflows.
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: 'AI is generating APIs, services, or data workflows.'
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: 'AI is generating APIs, services, or data workflows.'
+  globs:
+    - '**/*'
 ---
-
 ⚙️ Backend Rule (AI-Context Activated)
 Hexagonal Domain Clarity & Functional Isolation
 "Every backend element must embody hexagonal structure: clean domain logic at the core, infrastructure at the edge. Business logic must never leak. Systems should expose intent via contracts, not implementation."

@@ -1,8 +1,20 @@
 ---
-description: LLMs Guide Policy — every app must expose a single, canonical llms file and URL
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: >-
+  LLMs Guide Policy — every app must expose a single, canonical llms file and
+  URL
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: >-
+    LLMs Guide Policy — every app must expose a single, canonical llms file and
+    URL
+  globs:
+    - '**/*'
 ---
-
 LLMs Guide File (llms)
 
 Intent

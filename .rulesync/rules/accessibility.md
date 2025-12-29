@@ -1,8 +1,16 @@
 ---
-description: Accessibility checklist (ARIA, keyboard, contrast, motion)
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: 'Accessibility checklist (ARIA, keyboard, contrast, motion)'
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: 'Accessibility checklist (ARIA, keyboard, contrast, motion)'
+  globs:
+    - '**/*'
 ---
-
 # Accessibility
 
 Requirements:
@@ -19,16 +27,3 @@ Testing:
 - Run axe (or equivalent) on affected views; fix blocking issues.
 - Verify keyboard-only flows for critical paths.
 - Screen reader smoke test for new dialogs/forms.
-
-
-
-
-
-
-
-
-
-
-
-
-

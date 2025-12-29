@@ -1,8 +1,16 @@
 ---
+targets:
+  - '*'
+root: false
 description: Performance budgets and optimization guardrails
-alwaysApply: true
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: Performance budgets and optimization guardrails
+  globs:
+    - '**/*'
 ---
-
 # Performance Budgets
 
 Budgets (default unless domain specifies tighter):
@@ -23,16 +31,3 @@ Checks:
 
 - Compare against budgets in PRs; call out regressions.
 - When adding dependencies, consider bundle impact; avoid heavy libs for simple tasks.
-
-
-
-
-
-
-
-
-
-
-
-
-

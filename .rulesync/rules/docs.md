@@ -1,8 +1,20 @@
 ---
-description: Documentation governance — keep `docs/` synchronized with the codebase. The agent MUST review docs before code edits and update them after.
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: >-
+  Documentation governance — keep `docs/` synchronized with the codebase. The
+  agent MUST review docs before code edits and update them after.
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: >-
+    Documentation governance — keep `docs/` synchronized with the codebase. The
+    agent MUST review docs before code edits and update them after.
+  globs:
+    - '**/*'
 ---
-
 Docs as First‑Class, Synchronized DocBlocks (colocated, no barrels)
 
 Policy (mandatory)

@@ -1,8 +1,16 @@
 ---
-description: Observability, logging, and tracing standards
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: 'Observability, logging, and tracing standards'
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: 'Observability, logging, and tracing standards'
+  globs:
+    - '**/*'
 ---
-
 # Observability & Logging
 
 Principles:
@@ -31,16 +39,3 @@ Checks:
 
 - Before merging, verify no secrets/PII in logs; ensure sampling for high-volume paths.
 - Add health/readiness endpoints for services; wire them to probes/monitors.
-
-
-
-
-
-
-
-
-
-
-
-
-

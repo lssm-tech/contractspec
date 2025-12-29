@@ -1,8 +1,16 @@
 ---
-description: Security, secrets handling, and PII hygiene
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: 'Security, secrets handling, and PII hygiene'
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: 'Security, secrets handling, and PII hygiene'
+  globs:
+    - '**/*'
 ---
-
 # Security & Secrets
 
 Principles:
@@ -24,16 +32,3 @@ Reviews/checks:
 - Add security notes to PRs when touching auth/crypto/data access.
 - Run dependency audit; patch critical/high vulns before release.
 - Document any new data collected (purpose, retention, access).
-
-
-
-
-
-
-
-
-
-
-
-
-

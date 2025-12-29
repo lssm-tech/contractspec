@@ -119,6 +119,26 @@ async function checkPackageManager(
     }
   }
 
+  // If not found, try looking in parent directory (nested monorepo case)
+  if (!detectedManager) {
+    const parentDir = fs.join(ctx.workspaceRoot, '..');
+    const grandParentDir = fs.join(ctx.workspaceRoot, '../..');
+    const searchDirs = [parentDir, grandParentDir];
+
+    for (const dir of searchDirs) {
+        for (const { file, name } of lockFiles) {
+            const lockPath = fs.join(dir, file);
+            if (await fs.exists(lockPath)) {
+            detectedManager = name;
+            // Optionally update context or just pass?
+            // We'll just use this manager for version check
+            break;
+            }
+        }
+        if (detectedManager) break;
+    }
+  }
+
   if (!detectedManager) {
     return {
       category: 'deps',

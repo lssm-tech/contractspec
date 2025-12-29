@@ -1,7 +1,14 @@
 ---
-alwaysApply: true
+targets:
+  - '*'
+root: false
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  globs:
+    - '**/*'
 ---
-
 Intentful Feedback and Ceremonial Flow
 "All user interactions must express intent clearly, provide meaningful feedback, and contribute to a coherent experiential flow. Ceremonial moments (onboarding, transitions, thresholds) should encode narrative and social meaning, not ornamental fluff."
 

@@ -1,8 +1,20 @@
 ---
-description: Enforce code quality, type safety, dependency hygiene, and innovation practices
-alwaysApply: true
+targets:
+  - '*'
+root: false
+description: >-
+  Enforce code quality, type safety, dependency hygiene, and innovation
+  practices
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: >-
+    Enforce code quality, type safety, dependency hygiene, and innovation
+    practices
+  globs:
+    - '**/*'
 ---
-
 # Code Quality, Stability & Innovation
 
 "Every line of code must be strongly typed, testable, maintainable, and built on the latest stable dependencies. Technical debt is a conscious choice, not an accident. Innovation happens through disciplined iteration, not shortcuts."

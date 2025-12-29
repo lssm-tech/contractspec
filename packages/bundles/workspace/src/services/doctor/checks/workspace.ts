@@ -137,6 +137,16 @@ async function checkContractsDirectory(
     }
   }
 
+  // Not found - check if we are at monorepo root
+  if (ctx.isMonorepo && ctx.packageRoot === ctx.workspaceRoot) {
+    return {
+      category: 'workspace',
+      name: 'Contracts Directory',
+      status: 'pass',
+      message: 'Monorepo root detected (contracts expected in packages)',
+    };
+  }
+
   // Not found - suggest creating in appropriate location
   const createPath = ctx.isMonorepo ? 'src/contracts' : 'src/contracts';
   const locationHint = ctx.isMonorepo
@@ -199,6 +209,16 @@ async function checkContractFiles(
         status: 'pass',
         message: `Found ${files.length} contract file(s)${locationInfo}`,
         details: ctx.verbose ? files.slice(0, 5).join(', ') : undefined,
+      };
+    }
+
+    // Pass if monorepo root and no files (likely empty root)
+    if (ctx.isMonorepo && ctx.packageRoot === ctx.workspaceRoot) {
+      return {
+        category: 'workspace',
+        name: 'Contract Files',
+        status: 'pass',
+        message: 'No contract files in root (expected in packages)',
       };
     }
 
@@ -293,6 +313,20 @@ async function checkOutputDirectory(
         status: 'pass',
         message: `Output directory exists: ${outputDir}${levelInfo}`,
         details: ctx.verbose ? `Resolved to: ${outputPath}` : undefined,
+      };
+    }
+
+    // If default output directory is missing in monorepo root, it's fine
+    if (
+      ctx.isMonorepo &&
+      ctx.packageRoot === ctx.workspaceRoot &&
+      !config.outputDir
+    ) {
+      return {
+        category: 'workspace',
+        name: 'Output Directory',
+        status: 'pass',
+        message: 'Monorepo root detected (using package directories)',
       };
     }
 

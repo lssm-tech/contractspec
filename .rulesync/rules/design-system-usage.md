@@ -1,8 +1,13 @@
 ---
+targets:
+  - '*'
+root: false
 description: Enforce design-system-first UI for marketing/web surfaces.
-alwaysApply: false
+globs: []
+cursor:
+  alwaysApply: false
+  description: Enforce design-system-first UI for marketing/web surfaces.
 ---
-
 # Design System First (No Raw HTML in Apps/Bundles)
 
 Priority order:
@@ -52,13 +57,3 @@ Tests/docs:
 
 - Update relevant DocBlocks when behavior or exports change.
 - Ensure ESLint `prefer-design-system` passes; do not suppress without approval.
-
-
-
-
-
-
-
-
-
-

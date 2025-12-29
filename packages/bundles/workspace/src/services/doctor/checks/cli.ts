@@ -123,6 +123,19 @@ async function checkCliInstallLocation(
       };
     }
 
+    // Check if CLI exists in workspace (monorepo source)
+    if (ctx.isMonorepo && ctx.packageRoot === ctx.workspaceRoot) {
+      const cliPath = fs.join(ctx.workspaceRoot, 'packages/apps/cli-contractspec');
+      if (await fs.exists(cliPath)) {
+        return {
+          category: 'cli',
+          name: 'Local Installation',
+          status: 'pass',
+          message: 'CLI is part of the workspace (source)',
+        };
+      }
+    }
+
     const content = await fs.readFile(packageJsonPath);
     const pkg = JSON.parse(content) as {
       dependencies?: Record<string, string>;

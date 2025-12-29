@@ -1,8 +1,16 @@
 ---
+targets:
+  - '*'
+root: false
 description: AI governance baseline and decision traceability
-alwaysApply: true
+globs:
+  - '**/*'
+cursor:
+  alwaysApply: true
+  description: AI governance baseline and decision traceability
+  globs:
+    - '**/*'
 ---
-
 AI as Modular, Traceable, and Context-Aware Co-Designer
 "AI must act as a modular agent: applying cursor rules contextually, tracing its decisions, and optimizing for composability, explainability, and reversibility. It is not a black box — it is a systemic collaborator."
 
