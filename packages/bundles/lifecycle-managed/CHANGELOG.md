@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/module.lifecycle-advisor@1.45.6
+  - @contractspec/module.lifecycle-core@1.45.6
+  - @contractspec/lib.observability@1.45.6
+  - @contractspec/lib.analytics@1.45.6
+  - @contractspec/lib.lifecycle@1.45.6
+  - @contractspec/lib.ai-agent@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

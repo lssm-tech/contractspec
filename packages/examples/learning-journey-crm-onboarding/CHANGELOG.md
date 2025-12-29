@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/module.learning-journey@1.45.6
+  - @contractspec/example.crm-pipeline@1.45.6
+  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.schema@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

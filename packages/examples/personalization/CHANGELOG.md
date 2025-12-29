@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/lib.workflow-composer@1.45.6
+  - @contractspec/lib.personalization@1.45.6
+  - @contractspec/lib.overlay-engine@1.45.6
+  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.logger@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

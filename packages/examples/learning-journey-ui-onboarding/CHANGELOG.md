@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.6
+  - @contractspec/example.learning-journey-platform-tour@1.45.6
+  - @contractspec/example.learning-journey-ui-shared@1.45.6
+  - @contractspec/module.learning-journey@1.45.6
+  - @contractspec/lib.design-system@1.45.6
+  - @contractspec/lib.ui-kit-core@1.45.6
+  - @contractspec/lib.ui-kit-web@1.45.6
+  - @contractspec/lib.contracts@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

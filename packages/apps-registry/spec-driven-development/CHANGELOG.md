@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/app.cli-contractspec@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.1.4
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+
 ## 0.1.3
 
 ### Patch Changes

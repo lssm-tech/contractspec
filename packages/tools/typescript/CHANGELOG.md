@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+
 ## 1.45.5
 
 ### Patch Changes

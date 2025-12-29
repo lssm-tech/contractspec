@@ -1,5 +1,17 @@
 # @contractspec/example.crm-pipeline
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/module.notifications@1.45.6
+  - @contractspec/module.audit-trail@1.45.6
+  - @contractspec/lib.identity-rbac@1.45.6
+  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.schema@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

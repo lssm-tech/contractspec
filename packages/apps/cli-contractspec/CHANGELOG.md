@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/lib.contracts-transformers@1.45.6
+  - @contractspec/bundle.workspace@1.45.6
+  - @contractspec/lib.ai-providers@1.45.6
+  - @contractspec/module.workspace@1.45.6
+  - @contractspec/module.examples@1.45.6
+  - @contractspec/module.ai-chat@1.45.6
+  - @contractspec/lib.contracts@1.45.6
+  - @contractspec/lib.testing@1.45.6
+  - @contractspec/lib.schema@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes

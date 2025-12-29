@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 1.45.6
+
+### Patch Changes
+
+- a913074: feat: improve ai agents rules management"
+- Updated dependencies [a913074]
+  - @contractspec/lib.presentation-runtime-core@1.45.6
+  - @contractspec/lib.ui-kit@1.45.6
+
 ## 1.45.5
 
 ### Patch Changes
