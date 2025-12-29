@@ -1,4 +1,4 @@
-# AI Agent Guide — `@contractspec/action.contractspec`
+# AI Agent Guide — `@contractspec/action.validation`
 
 Scope: `packages/apps/action-contractspec/*`
 

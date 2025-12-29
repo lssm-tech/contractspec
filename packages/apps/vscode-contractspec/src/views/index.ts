@@ -10,10 +10,12 @@ import {
   LLMToolsTreeDataProvider,
   registerLLMToolsTree,
 } from './llm-tools-tree';
+import { VersionTreeProvider, registerVersionTree } from './version-tree';
 import { registerContextActions } from '../commands/context-actions';
 
 export { BuildResultsTreeDataProvider };
 export { LLMToolsTreeDataProvider, registerLLMToolsTree };
+export { VersionTreeProvider, registerVersionTree };
 
 /**
  * Register all tree view providers.
@@ -26,6 +28,7 @@ export function registerViews(
   depsProvider: DependenciesTreeDataProvider;
   buildResultsProvider: BuildResultsTreeDataProvider;
   llmToolsProvider: LLMToolsTreeDataProvider;
+  versionProvider: VersionTreeProvider;
 } {
   // Specs Explorer
   const specsProvider = new SpecsTreeDataProvider();
@@ -97,10 +100,14 @@ export function registerViews(
   // LLM Tools View
   const llmToolsProvider = registerLLMToolsTree(context, outputChannel);
 
+  // Version Management View
+  const versionProvider = registerVersionTree(context);
+
   return {
     specsProvider,
     depsProvider,
     buildResultsProvider,
     llmToolsProvider,
+    versionProvider,
   };
 }

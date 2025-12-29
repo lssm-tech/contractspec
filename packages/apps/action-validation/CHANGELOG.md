@@ -1,4 +1,4 @@
-# @contractspec/action.contractspec
+# @contractspec/action.validation
 
 ## 1.45.2
 

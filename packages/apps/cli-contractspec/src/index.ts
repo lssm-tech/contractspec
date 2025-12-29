@@ -28,6 +28,8 @@ import { quickstartCommand } from './commands/quickstart/index';
 import { createImpactCommand } from './commands/impact/index';
 import { cicdCommand } from './commands/cicd/index';
 import { createDocsCommand } from './commands/docs/index';
+import { createVersionCommand } from './commands/version/index';
+import { createChangelogCommand } from './commands/changelog/index';
 const program = new Command();
 
 program
@@ -99,6 +101,12 @@ program.addCommand(cicdCommand);
 
 // Impl command (implementation management)
 program.addCommand(createImplCommand());
+
+// Version management (analyze, bump)
+program.addCommand(createVersionCommand());
+
+// Changelog generation
+program.addCommand(createChangelogCommand());
 
 // Create command
 program

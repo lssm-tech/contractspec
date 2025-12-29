@@ -8,16 +8,26 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import {
-  AIClient,
   loadWorkspaceConfig,
   type Config,
+  getAIProvider,
 } from '@contractspec/bundle.workspace';
+import {
+  ChatService,
+  InMemoryConversationStore,
+} from '@contractspec/module.ai-chat/core';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**
  * Chat panel instance (singleton per workspace)
  */
 let chatPanel: vscode.WebviewPanel | undefined;
+
+/**
+ * Chat service instance (preserved across panel reloads if desired, but here attached to panel lifecycle)
+ */
+let chatService: ChatService | undefined;
+let currentConversationId: string | undefined;
 
 /**
  * Open the chat panel
@@ -75,20 +85,37 @@ export async function openChatPanel(
     contextInfo
   );
 
-  // Initialize AI Client
-  const aiClient = new AIClient(config);
+  // Initialize Chat Service
+  const provider = getAIProvider(config);
+
+  // Build system prompt with workspace context
+  const systemPrompt = buildSystemPrompt(workspaceRoot);
+
+  chatService = new ChatService({
+    provider,
+    store: new InMemoryConversationStore(),
+    systemPrompt,
+    onUsage: (usage) => {
+      outputChannel.appendLine(
+        `[AI Chat] Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out`
+      );
+    },
+  });
+
+  // Reset conversation ID when panel is opened (fresh session)
+  // Or could be persistent if we moved store out of openChatPanel
+  currentConversationId = undefined;
 
   // Handle messages from the webview
   chatPanel.webview.onDidReceiveMessage(
     async (message) => {
       switch (message.type) {
         case 'send': {
-          if (chatPanel) {
+          if (chatPanel && chatService) {
             await handleChatMessage(
               chatPanel,
-              aiClient,
+              chatService,
               message.content,
-              workspaceRoot,
               outputChannel
             );
           }
@@ -103,6 +130,11 @@ export async function openChatPanel(
           vscode.window.showInformationMessage('Copied to clipboard');
           break;
         }
+        case 'clear': {
+          currentConversationId = undefined;
+          // Optionally clear store or start fresh
+          break;
+        }
       }
     },
     undefined,
@@ -112,6 +144,8 @@ export async function openChatPanel(
   // Clean up when panel is closed
   chatPanel.onDidDispose(() => {
     chatPanel = undefined;
+    chatService = undefined;
+    currentConversationId = undefined;
   });
 }
 
@@ -120,32 +154,44 @@ export async function openChatPanel(
  */
 async function handleChatMessage(
   panel: vscode.WebviewPanel,
-  aiClient: AIClient,
+  service: ChatService,
   content: string,
-  workspaceRoot: string | undefined,
   outputChannel: vscode.OutputChannel
 ): Promise<void> {
-  // Build system prompt with workspace context
-  const systemPrompt = buildSystemPrompt(workspaceRoot);
-
   try {
     // Stream response
+    const result = await service.stream({
+      conversationId: currentConversationId,
+      content,
+    });
+
+    currentConversationId = result.conversationId;
+
     let fullResponse = '';
 
-    await aiClient.streamChat(
-      [{ role: 'user', content }],
-      (chunk: string) => {
-        fullResponse += chunk;
+    for await (const chunk of result.stream) {
+      // Handle different chunk types if ChatService returns typical AI SDK chunks
+      // Assuming chunk is TextStreamPart or similar from ChatService wrapper
+      if (chunk.type === 'text-delta') {
+        fullResponse += chunk.textDelta;
         panel.webview.postMessage({
           type: 'chunk',
-          chunk,
+          chunk: chunk.textDelta,
           fullText: fullResponse,
         });
-      },
-      systemPrompt
-    );
+      } else if (chunk.type === 'text') {
+        // Some providers/wrappers might offer 'text' property directly
+        fullResponse += chunk.content || ''; // Adjust based on strict ChatStreamChunk type
+        panel.webview.postMessage({
+          type: 'chunk',
+          chunk: chunk.content || '',
+          fullText: fullResponse,
+        });
+      }
+      // Handle tool calls or other events if necessary
+    }
 
-    // Final message to confirm completion (optional, depending on UI needs)
+    // Final message to confirm completion
     panel.webview.postMessage({
       type: 'response',
       content: fullResponse,
@@ -187,6 +233,7 @@ Your capabilities:
 - Generate code that follows ContractSpec patterns and best practices
 - Explain concepts from the ContractSpec documentation
 - Suggest improvements and identify issues in specs and implementations
+- Ask clarifying questions when context is missing
 
 Guidelines:
 - Be concise but thorough

@@ -241,6 +241,62 @@ export const FormatterConfigSchema = z.object({
 });
 
 // ============================================================================
+// Versioning Configuration
+// ============================================================================
+
+/**
+ * Bump strategy for version management.
+ */
+export const BumpStrategySchema = z.enum([
+  'impact', // Based on spec change impact analysis (breaking → major, etc.)
+  'conventional', // Based on conventional commit parsing
+]);
+
+/**
+ * Changelog format template.
+ */
+export const ChangelogFormatSchema = z.enum([
+  'keep-a-changelog', // Keep a Changelog format
+  'conventional', // Conventional Changelog format
+  'custom', // Custom template
+]);
+
+/**
+ * Changelog tier configuration.
+ */
+export const ChangelogTierSchema = z.enum([
+  'spec', // Per-spec changelogs as DocBlocks
+  'library', // Per-library CHANGELOG.md files
+  'monorepo', // Root CHANGELOG.md
+]);
+
+/**
+ * Versioning configuration for changelog and version management.
+ */
+export const VersioningConfigSchema = z.object({
+  /** Enable automated version bumping in CI */
+  autoBump: z.boolean().default(false),
+  /** Strategy for determining version bumps */
+  bumpStrategy: BumpStrategySchema.default('impact'),
+  /** Changelog tiers to generate */
+  changelogTiers: z.array(ChangelogTierSchema).default(['spec', 'library', 'monorepo']),
+  /** Changelog format template */
+  format: ChangelogFormatSchema.default('keep-a-changelog'),
+  /** Commit changes after version bump (CI mode) */
+  commitChanges: z.boolean().default(false),
+  /** Commit message template (supports {version}, {specs}) */
+  commitMessage: z.string().default('chore: bump spec versions'),
+  /** Create git tags for versions */
+  createTags: z.boolean().default(false),
+  /** Tag prefix (e.g., "v" → v1.0.0, "spec-" → spec-1.0.0) */
+  tagPrefix: z.string().default('v'),
+  /** Paths to include for version analysis (glob patterns) */
+  include: z.array(z.string()).optional(),
+  /** Paths to exclude from version analysis (glob patterns) */
+  exclude: z.array(z.string()).optional(),
+});
+
+// ============================================================================
 // Lint Rules Configuration (ESLint-style)
 // ============================================================================
 
@@ -338,6 +394,8 @@ export const ContractsrcSchema = z.object({
   schemaFormat: SchemaFormatSchema.default('contractspec'),
   // Formatter configuration
   formatter: FormatterConfigSchema.optional(),
+  // Versioning configuration
+  versioning: VersioningConfigSchema.optional(),
 });
 
 // Type exports
@@ -361,6 +419,10 @@ export type RulesConfig = z.infer<typeof RulesConfigSchema>;
 export type SchemaFormat = z.infer<typeof SchemaFormatSchema>;
 export type FormatterType = z.infer<typeof FormatterTypeSchema>;
 export type FormatterConfig = z.infer<typeof FormatterConfigSchema>;
+export type BumpStrategy = z.infer<typeof BumpStrategySchema>;
+export type ChangelogFormat = z.infer<typeof ChangelogFormatSchema>;
+export type ChangelogTier = z.infer<typeof ChangelogTierSchema>;
+export type VersioningConfig = z.infer<typeof VersioningConfigSchema>;
 
 /**
  * Default configuration values.

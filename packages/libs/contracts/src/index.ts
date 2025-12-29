@@ -43,6 +43,7 @@ export * from './llm';
 export * from './registry-utils';
 export * from './app-config/validation';
 export * from './examples';
+export * from './versioning';
 
 // Re-export defineSchemaModel for convenience
 export { defineSchemaModel } from '@contractspec/lib.schema';

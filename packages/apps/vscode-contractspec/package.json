@@ -402,6 +402,28 @@
         "title": "List Workspaces (Meta-Repo)",
         "category": "ContractSpec",
         "icon": "$(list-tree)"
+      },
+      {
+        "command": "contractspec.version.analyze",
+        "title": "Analyze Versions",
+        "category": "ContractSpec",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "contractspec.version.bump",
+        "title": "Bump Version...",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.version.changelog",
+        "title": "Generate Changelog",
+        "category": "ContractSpec"
+      },
+      {
+        "command": "contractspec.version.refresh",
+        "title": "Refresh Versions",
+        "category": "ContractSpec",
+        "icon": "$(refresh)"
       }
     ],
     "viewsContainers": {
@@ -438,11 +460,25 @@
         {
           "id": "contractspec.llmToolsView",
           "name": "LLM Tools"
+        },
+        {
+          "id": "contractspec.versionsView",
+          "name": "Version Management"
         }
       ]
     },
     "menus": {
       "view/title": [
+        {
+          "command": "contractspec.version.refresh",
+          "when": "view == contractspec.versionsView",
+          "group": "navigation"
+        },
+        {
+          "command": "contractspec.version.changelog",
+          "when": "view == contractspec.versionsView",
+          "group": "navigation"
+        },
         {
           "command": "contractspec.refreshSpecs",
           "when": "view == contractspec.specsView",
@@ -574,6 +610,11 @@
           "command": "contractspec.linkToFeature",
           "when": "view == contractspec-integrity && viewItem == orphan-spec",
           "group": "navigation@3"
+        },
+        {
+          "command": "contractspec.version.bump",
+          "when": "view == contractspec.versionsView && viewItem == version-spec",
+          "group": "inline"
         }
       ],
       "explorer/context": [

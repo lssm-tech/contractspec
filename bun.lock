@@ -56,9 +56,13 @@
         "@contractspec/app.cli-contractspec": "workspace:*",
       },
     },
-    "packages/apps/action-contractspec": {
-      "name": "@contractspec/action.contractspec",
+    "packages/apps/action-validation": {
+      "name": "@contractspec/action.validation",
       "version": "1.45.2",
+    },
+    "packages/apps/action-version": {
+      "name": "@contractspec/action.version",
+      "version": "0.1.0",
     },
     "packages/apps/cli-contractspec": {
       "name": "@contractspec/app.cli-contractspec",
@@ -2201,7 +2205,9 @@
 
     "@commitlint/types": ["@commitlint/types@20.2.0", "", { "dependencies": { "@types/conventional-commits-parser": "^5.0.0", "chalk": "^5.3.0" } }, "sha512-KTy0OqRDLR5y/zZMnizyx09z/rPlPC/zKhYgH8o/q6PuAjoQAKlRfY4zzv0M64yybQ//6//4H1n14pxaLZfUnA=="],
 
-    "@contractspec/action.contractspec": ["@contractspec/action.contractspec@workspace:packages/apps/action-contractspec"],
+    "@contractspec/action.validation": ["@contractspec/action.validation@workspace:packages/apps/action-validation"],
+
+    "@contractspec/action.version": ["@contractspec/action.version@workspace:packages/apps/action-version"],
 
     "@contractspec/app.cli-contractspec": ["@contractspec/app.cli-contractspec@workspace:packages/apps/cli-contractspec"],
 
