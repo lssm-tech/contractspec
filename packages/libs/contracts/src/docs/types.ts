@@ -7,7 +7,13 @@ export interface DocBlockLink {
   href: string;
 }
 
-export type DocKind = 'goal' | 'how' | 'usage' | 'reference' | 'faq' | 'changelog';
+export type DocKind =
+  | 'goal'
+  | 'how'
+  | 'usage'
+  | 'reference'
+  | 'faq'
+  | 'changelog';
 
 export interface DocBlock {
   /** Globally unique identifier (prefer dotted paths like docs.ops.runbook). */

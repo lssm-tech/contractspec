@@ -174,7 +174,10 @@ export function isVersionEqual(a: string, b: string): boolean {
  * bumpVersion("1.2.3", "minor") // "1.3.0"
  * bumpVersion("1.2.3", "major") // "2.0.0"
  */
-export function bumpVersion(current: string, bumpType: VersionBumpType): string {
+export function bumpVersion(
+  current: string,
+  bumpType: VersionBumpType
+): string {
   const version = parseVersionStrict(current);
 
   switch (bumpType) {

@@ -66,7 +66,11 @@ describe('parseVersion', () => {
 
 describe('parseVersionStrict', () => {
   it('should parse valid version', () => {
-    expect(parseVersionStrict('1.2.3')).toEqual({ major: 1, minor: 2, patch: 3 });
+    expect(parseVersionStrict('1.2.3')).toEqual({
+      major: 1,
+      minor: 2,
+      patch: 3,
+    });
   });
 
   it('should throw for invalid version', () => {

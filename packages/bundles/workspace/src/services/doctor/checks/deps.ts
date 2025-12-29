@@ -235,6 +235,17 @@ async function checkContractsLibrary(
       };
     }
 
+    // In monorepo root, we don't expect the library to be installed directly
+    if (ctx.isMonorepo && ctx.packageRoot === ctx.workspaceRoot) {
+      return {
+        category: 'deps',
+        name: 'ContractSpec Library',
+        status: 'pass',
+        message: 'Monorepo root detected (library check skipped)',
+        details: 'Run doctor in specific packages to verify dependencies',
+      };
+    }
+
     return {
       category: 'deps',
       name: 'ContractSpec Library',

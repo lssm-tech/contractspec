@@ -317,8 +317,6 @@ async function generateChangelogCommand(
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     outputChannel.appendLine(`Error: ${msg}`);
-    vscode.window.showErrorMessage(
-      `Changelog generation failed: ${msg}`
-    );
+    vscode.window.showErrorMessage(`Changelog generation failed: ${msg}`);
   }
 }

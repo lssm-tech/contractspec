@@ -151,18 +151,18 @@ export interface ChangelogResult {
 export interface ChangelogJsonExport {
   generatedAt: string;
   baseline?: string;
-  specs: Array<{
+  specs: {
     key: string;
     version: string;
     path: string;
     entries: ChangelogEntry[];
-  }>;
-  libraries: Array<{
+  }[];
+  libraries: {
     name: string;
     path: string;
     version: string;
     entries: ChangelogEntry[];
-  }>;
+  }[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

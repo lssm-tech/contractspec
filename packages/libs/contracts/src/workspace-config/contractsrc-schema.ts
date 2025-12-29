@@ -279,7 +279,9 @@ export const VersioningConfigSchema = z.object({
   /** Strategy for determining version bumps */
   bumpStrategy: BumpStrategySchema.default('impact'),
   /** Changelog tiers to generate */
-  changelogTiers: z.array(ChangelogTierSchema).default(['spec', 'library', 'monorepo']),
+  changelogTiers: z
+    .array(ChangelogTierSchema)
+    .default(['spec', 'library', 'monorepo']),
   /** Changelog format template */
   format: ChangelogFormatSchema.default('keep-a-changelog'),
   /** Commit changes after version bump (CI mode) */
