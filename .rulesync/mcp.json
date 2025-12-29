@@ -1,5 +1,14 @@
 {
   "mcpServers": {
+    "contractspec-internal": {
+      "url": "https://api.contractspec.io/api/mcp/internal"
+    },
+    "contractspec-docs": {
+      "url": "https://api.contractspec.io/api/mcp/docs"
+    },
+    "contractspec-cli": {
+      "url": "https://api.contractspec.io/api/mcp/cli"
+    },
     "serena": {
       "type": "stdio",
       "command": "uvx",

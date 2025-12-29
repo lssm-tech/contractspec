@@ -52,6 +52,9 @@
   },
   "license": "MIT",
   "scripts": {
+    "rules:all": "bunx rulesync generate --targets \"*\" --features \"*\"",
+    "rules:claude": "bunx rulesync generate --targets claudecode --features \"*\"",
+    "rules:cursor": "bunx rulesync generate --targets cursor --features \"*\"",
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
     "release:publish": "turbo run publish:pkg",
