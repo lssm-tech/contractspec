@@ -56,9 +56,9 @@ export interface FormSpecData extends BaseSpecData {
 
 export interface FeatureSpecData extends BaseSpecData {
   key: string;
-  operations: { name: string; version: number }[];
-  events: { name: string; version: number }[];
-  presentations: { name: string; version: number }[];
+  operations: { name: string; version: string }[];
+  events: { name: string; version: string }[];
+  presentations: { name: string; version: string }[];
 }
 
 export interface WorkflowStepData {
@@ -66,8 +66,8 @@ export interface WorkflowStepData {
   label: string;
   type: StepType;
   description?: string;
-  operation?: { name: string; version: number };
-  form?: { key: string; version: number };
+  operation?: { name: string; version: string };
+  form?: { key: string; version: string };
 }
 
 export interface WorkflowTransitionData {
@@ -101,8 +101,8 @@ export interface DataViewSpecData extends BaseSpecData {
   domain: string;
   entity: string;
   kind: DataViewKind;
-  primaryOperation: { name: string; version: number };
-  itemOperation?: { name: string; version: number };
+  primaryOperation: { name: string; version: string };
+  itemOperation?: { name: string; version: string };
   fields: DataViewFieldData[];
   primaryField?: string;
   secondaryFields?: string[];
@@ -127,7 +127,7 @@ export interface TelemetryAnomalyRuleData {
 
 export interface TelemetryEventData {
   name: string;
-  version: number;
+  version: string;
   what: string;
   who?: string;
   why?: string;
@@ -162,7 +162,7 @@ export interface TelemetrySpecData extends BaseSpecData {
 export interface ExperimentVariantOverrideData {
   type: 'dataView' | 'workflow' | 'theme' | 'policy' | 'presentation';
   target: string;
-  version?: number;
+  version?: string;
 }
 
 export interface ExperimentVariantData {
@@ -176,7 +176,7 @@ export interface ExperimentVariantData {
 export interface TargetingRuleData {
   variantId: string;
   percentage?: number;
-  policy?: { name: string; version?: number };
+  policy?: { name: string; version?: string };
   expression?: string;
 }
 
@@ -205,7 +205,7 @@ export type ExperimentAllocationData =
 export interface ExperimentMetricData {
   name: string;
   eventName: string;
-  eventVersion: number;
+  eventVersion: string;
   aggregation: 'count' | 'avg' | 'p75' | 'p90' | 'p95' | 'p99';
   target?: number;
 }
@@ -221,7 +221,7 @@ export interface ExperimentSpecData extends BaseSpecData {
 export interface AppConfigMappingData {
   slot: string;
   name: string;
-  version?: number;
+  version?: string;
 }
 
 export interface AppConfigFeatureFlagData {
@@ -237,10 +237,10 @@ export interface AppRouteConfigData {
   dataView?: string;
   workflow?: string;
   guardName?: string;
-  guardVersion?: number;
+  guardVersion?: string;
   featureFlag?: string;
   experimentName?: string;
-  experimentVersion?: number;
+  experimentVersion?: string;
 }
 
 export interface AppBlueprintSpecData extends BaseSpecData {
@@ -253,12 +253,12 @@ export interface AppBlueprintSpecData extends BaseSpecData {
   featureExcludes: string[];
   dataViews: AppConfigMappingData[];
   workflows: AppConfigMappingData[];
-  policyRefs: { name: string; version?: number }[];
-  theme?: { name: string; version: number };
-  themeFallbacks: { name: string; version: number }[];
-  telemetry?: { name: string; version?: number };
-  activeExperiments: { name: string; version?: number }[];
-  pausedExperiments: { name: string; version?: number }[];
+  policyRefs: { name: string; version?: string }[];
+  theme?: { name: string; version: string };
+  themeFallbacks: { name: string; version: string }[];
+  telemetry?: { name: string; version?: string };
+  activeExperiments: { name: string; version?: string }[];
+  pausedExperiments: { name: string; version?: string }[];
   featureFlags: AppConfigFeatureFlagData[];
   routes: AppRouteConfigData[];
   notes?: string;
@@ -310,12 +310,12 @@ export type IntegrationHealthCheckMethod = 'ping' | 'list' | 'custom';
 
 export interface IntegrationCapabilityRefData {
   key: string;
-  version: number;
+  version: string;
 }
 
 export interface IntegrationCapabilityRequirementData {
   key: string;
-  version?: number;
+  version?: string;
   optional?: boolean;
   reason?: string;
 }
@@ -368,7 +368,7 @@ export interface KnowledgeSpaceSpecData extends BaseSpecData {
   category: KnowledgeCategoryData;
   retention: KnowledgeRetentionData;
   policyName?: string;
-  policyVersion?: number;
+  policyVersion?: string;
   trustLevel: KnowledgeTrustLevel;
   automationWritable: boolean;
   embeddingModel?: string;

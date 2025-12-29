@@ -34,7 +34,6 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/example.learning-journey-ambient-coach": "workspace:*",
     "@contractspec/example.learning-journey-duo-drills": "workspace:*",

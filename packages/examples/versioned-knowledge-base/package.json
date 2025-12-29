@@ -36,8 +36,7 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

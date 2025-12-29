@@ -207,9 +207,9 @@ export type ExperimentAllocationData =
 export interface ExperimentMetricData {
   name: string;
   eventName: string;
-  eventVersion: number;
+  eventVersion: string;
   aggregation: 'count' | 'avg' | 'p75' | 'p90' | 'p95' | 'p99';
-  target?: number;
+  target?: string;
 }
 
 export interface ExperimentSpecData extends BaseSpecData {
@@ -239,10 +239,10 @@ export interface AppRouteConfigData {
   dataView?: string;
   workflow?: string;
   guardName?: string;
-  guardVersion?: number;
+  guardVersion?: string | number;
   featureFlag?: string;
   experimentName?: string;
-  experimentVersion?: number;
+  experimentVersion?: string | number;
 }
 
 export interface AppBlueprintSpecData extends BaseSpecData {
@@ -370,7 +370,7 @@ export interface KnowledgeSpaceSpecData extends BaseSpecData {
   category: KnowledgeCategoryData;
   retention: KnowledgeRetentionData;
   policyName?: string;
-  policyVersion?: number;
+  policyVersion?: string | number;
   trustLevel: KnowledgeTrustLevel;
   automationWritable: boolean;
   embeddingModel?: string;

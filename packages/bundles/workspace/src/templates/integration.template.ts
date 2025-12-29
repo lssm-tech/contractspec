@@ -18,7 +18,7 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
     .join(', ');
 
   const provides = data.capabilitiesProvided
-    .map((cap) => `      { key: '${cap.key}', version: ${cap.version} }`)
+    .map((cap) => `      { key: '${cap.key}', version: '${cap.version}' }`)
     .join(',\n');
 
   const requires =
@@ -27,7 +27,7 @@ export function generateIntegrationSpec(data: IntegrationSpecData): string {
 ${data.capabilitiesRequired
   .map((req) => {
     const version =
-      typeof req.version === 'number' ? `, version: ${req.version}` : '';
+      req.version !== undefined ? `, version: '${req.version}'` : '';
     const optional = req.optional ? ', optional: true' : '';
     const reason = req.reason ? `, reason: '${escape(req.reason)}'` : '';
     return `      { key: '${req.key}'${version}${optional}${reason} }`;
@@ -55,7 +55,7 @@ import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integr
 export const ${varName}: IntegrationSpec = {
   meta: {
     key: '${data.name}',
-    version: ${data.version},
+    version: ${typeof data.version === 'string' ? `'${data.version}'` : data.version},
     category: '${data.category}',
     displayName: '${escape(data.displayName)}',
     title: '${escape(data.title)}',

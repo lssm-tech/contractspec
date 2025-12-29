@@ -79,6 +79,6 @@ function isBlueprintSpec(value: unknown): value is AppBlueprintSpec {
     value !== null &&
     'meta' in value &&
     typeof (value as AppBlueprintSpec).meta?.key === 'string' &&
-    typeof (value as AppBlueprintSpec).meta?.version === 'number'
+    typeof (value as AppBlueprintSpec).meta?.version === 'string'
   );
 }

@@ -29,7 +29,6 @@
   "dependencies": {
     "@contractspec/lib.support-bot": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },

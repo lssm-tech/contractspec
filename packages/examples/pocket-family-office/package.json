@@ -27,9 +27,8 @@
   },
   "dependencies": {
     "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

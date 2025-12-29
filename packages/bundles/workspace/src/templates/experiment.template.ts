@@ -13,7 +13,7 @@ ${variant.overrides
     (override) => `        {
           type: '${override.type}',
           target: '${escapeString(override.target)}',
-          ${typeof override.version === 'number' ? `version: ${override.version},` : ''}
+          ${typeof override.version === 'string' ? `version: ${override.version},` : ''}
         }`
   )
   .join(',\n')}
@@ -37,7 +37,7 @@ ${data.successMetrics
   .map(
     (metric) => `    {
       name: '${escapeString(metric.name)}',
-      telemetryEvent: { name: '${escapeString(metric.eventName)}', version: ${metric.eventVersion} },
+      telemetryEvent: { name: '${escapeString(metric.eventName)}', version: ${typeof metric.eventVersion === 'string' ? `'${metric.eventVersion}'` : metric.eventVersion} },
       aggregation: '${metric.aggregation}',
       ${typeof metric.target === 'number' ? `target: ${metric.target},` : ''}
     }`
@@ -51,7 +51,7 @@ ${data.successMetrics
 export const ${specVar}: ExperimentSpec = {
   meta: {
     key: '${escapeString(data.name)}',
-    version: ${data.version},
+    version: ${typeof data.version === 'string' ? `'${data.version}'` : data.version},
     title: '${escapeString(data.name)} experiment',
     description: '${escapeString(
       data.description || 'Describe the experiment goal.'
@@ -97,7 +97,7 @@ ${allocation.rules
         ${typeof rule.percentage === 'number' ? `percentage: ${rule.percentage},` : ''}
         ${
           rule.policy
-            ? `policy: { name: '${escapeString(rule.policy.name)}'${typeof rule.policy.version === 'number' ? `, version: ${rule.policy.version}` : ''} },`
+            ? `policy: { name: '${escapeString(rule.policy.name)}'${rule.policy.version !== undefined ? `, version: ${typeof rule.policy.version === 'string' ? `'${rule.policy.version}'` : rule.policy.version}` : ''} },`
             : ''
         }
         ${rule.expression ? `expression: '${escapeString(rule.expression)}',` : ''}

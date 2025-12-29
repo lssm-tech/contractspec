@@ -49,12 +49,9 @@
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
     "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/module.notifications": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

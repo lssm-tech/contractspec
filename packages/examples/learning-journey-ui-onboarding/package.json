@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/example.learning-journey-ui-shared": "workspace:*",
     "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",

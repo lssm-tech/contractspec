@@ -27,7 +27,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"

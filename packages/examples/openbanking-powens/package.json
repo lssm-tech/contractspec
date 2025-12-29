@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@contractspec/integration.providers-impls": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {

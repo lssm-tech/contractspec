@@ -127,8 +127,8 @@ export function defineAgent(spec: AgentSpec): AgentSpec {
   if (!spec.meta?.key) {
     throw new Error('Agent key is required');
   }
-  if (!Number.isFinite(spec.meta.version)) {
-    throw new Error(`Agent ${spec.meta.key} is missing a numeric version`);
+  if (typeof spec.meta.version !== 'string') {
+    throw new Error(`Agent ${spec.meta.key} is missing a string version`);
   }
   if (!spec.instructions?.trim()) {
     throw new Error(`Agent ${spec.meta.key} requires instructions`);

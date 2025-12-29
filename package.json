@@ -103,8 +103,7 @@
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "catalog:build",
-    "semver": "^7.7.3"
+    "turbo": "catalog:build"
   },
   "config": {
     "commitizen": {

@@ -227,7 +227,7 @@ function isBlueprintTranslationCatalog(
     value !== null &&
     'meta' in value &&
     typeof (value as BlueprintTranslationCatalog).meta?.key === 'string' &&
-    typeof (value as BlueprintTranslationCatalog).meta?.version === 'number' &&
+    typeof (value as BlueprintTranslationCatalog).meta?.version === 'string' &&
     Array.isArray((value as BlueprintTranslationCatalog).entries)
   );
 }

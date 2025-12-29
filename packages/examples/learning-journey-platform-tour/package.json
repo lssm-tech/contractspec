@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {

@@ -32,7 +32,6 @@
     "@contractspec/lib.personalization": "workspace:*",
     "@contractspec/lib.overlay-engine": "workspace:*",
     "@contractspec/lib.workflow-composer": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },
