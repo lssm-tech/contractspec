@@ -362,6 +362,12 @@
         "icon": "$(gear)"
       },
       {
+        "command": "contractspec.agentExport",
+        "title": "Export as AI Agent...",
+        "category": "ContractSpec",
+        "icon": "$(export)"
+      },
+      {
         "command": "contractspec.chat",
         "title": "Open AI Chat",
         "category": "ContractSpec",
@@ -661,14 +667,19 @@
           "group": "contractspec-llm@1"
         },
         {
+          "command": "contractspec.agentExport",
+          "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
+          "group": "contractspec-llm@2"
+        },
+        {
           "command": "contractspec.llmGuide",
           "when": "resourceFilename =~ /\\.(operations)\\.ts$/",
-          "group": "contractspec-llm@2"
+          "group": "contractspec-llm@3"
         },
         {
           "command": "contractspec.llmCopy",
           "when": "resourceFilename =~ /\\.(operations|feature)\\.ts$/",
-          "group": "contractspec-llm@3"
+          "group": "contractspec-llm@4"
         }
       ],
       "editor/title": [
@@ -853,7 +864,8 @@
     "@contractspec/module.workspace": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
-    "@contractspec/module.examples": "workspace:*"
+    "@contractspec/module.examples": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",

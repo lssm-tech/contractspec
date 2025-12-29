@@ -27,3 +27,8 @@ export function pickSpecExport(mod: LoadedModule): unknown {
   if (values.length === 1) return values[0];
   return mod;
 }
+
+export async function loadSpecFromFile(filePath: string): Promise<unknown> {
+  const mod = await loadSpecModule(filePath);
+  return pickSpecExport(mod);
+}

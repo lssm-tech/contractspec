@@ -1,4 +1,5 @@
 import type { LanguageModelUsage, ModelMessage, StepResult, ToolSet } from 'ai';
+export type { LanguageModelUsage };
 
 // ============================================================================
 // Tool Call/Result Types (simplified from AI SDK v6)

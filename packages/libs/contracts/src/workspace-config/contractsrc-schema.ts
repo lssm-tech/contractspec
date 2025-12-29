@@ -336,6 +336,52 @@ export const RuleSyncConfigSchema = z.object({
 });
 
 // ============================================================================
+// External Agent SDK Configuration
+// ============================================================================
+
+/**
+ * Claude Agent SDK configuration.
+ */
+export const ClaudeAgentSDKConfigSchema = z.object({
+  /** Enable Claude Agent SDK provider */
+  enabled: z.boolean().default(false),
+  /** API key (defaults to ANTHROPIC_API_KEY env var) */
+  apiKey: z.string().optional(),
+  /** Model to use (defaults to claude-sonnet-4-20250514) */
+  model: z.string().default('claude-sonnet-4-20250514'),
+  /** Enable computer use capabilities */
+  computerUse: z.boolean().default(false),
+  /** Enable extended thinking mode */
+  extendedThinking: z.boolean().default(false),
+});
+
+/**
+ * OpenCode SDK configuration.
+ */
+export const OpenCodeSDKConfigSchema = z.object({
+  /** Enable OpenCode SDK provider */
+  enabled: z.boolean().default(false),
+  /** Server URL (defaults to http://127.0.0.1:4096) */
+  serverUrl: z.string().optional(),
+  /** Server port (alternative to full URL) */
+  port: z.number().optional(),
+  /** Agent type to use */
+  agentType: z.enum(['build', 'plan', 'general', 'explore']).default('general'),
+  /** Model to use */
+  model: z.string().optional(),
+});
+
+/**
+ * External agent SDK configuration section.
+ */
+export const ExternalAgentsConfigSchema = z.object({
+  /** Claude Agent SDK configuration */
+  claudeAgent: ClaudeAgentSDKConfigSchema.optional(),
+  /** OpenCode SDK configuration */
+  openCode: OpenCodeSDKConfigSchema.optional(),
+});
+
+// ============================================================================
 // Lint Rules Configuration (ESLint-style)
 // ============================================================================
 
@@ -415,7 +461,14 @@ export const ContractsrcSchema = z.object({
     .default('claude'),
   aiModel: z.string().optional(),
   agentMode: z
-    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
+    .enum([
+      'simple',
+      'cursor',
+      'claude-code',
+      'openai-codex',
+      'claude-agent-sdk',
+      'opencode-sdk',
+    ])
     .default('simple'),
   customEndpoint: z.url().nullable().optional(),
   customApiKey: z.string().nullable().optional(),
@@ -445,6 +498,8 @@ export const ContractsrcSchema = z.object({
   versioning: VersioningConfigSchema.optional(),
   // Rule synchronization configuration
   ruleSync: RuleSyncConfigSchema.optional(),
+  // External agent SDK configuration
+  externalAgents: ExternalAgentsConfigSchema.optional(),
 });
 
 // Type exports
@@ -475,6 +530,9 @@ export type ChangelogTier = z.infer<typeof ChangelogTierSchema>;
 export type VersioningConfig = z.infer<typeof VersioningConfigSchema>;
 export type RuleSyncTarget = z.infer<typeof RuleSyncTargetSchema>;
 export type RuleSyncConfig = z.infer<typeof RuleSyncConfigSchema>;
+export type ClaudeAgentSDKConfig = z.infer<typeof ClaudeAgentSDKConfigSchema>;
+export type OpenCodeSDKConfig = z.infer<typeof OpenCodeSDKConfigSchema>;
+export type ExternalAgentsConfig = z.infer<typeof ExternalAgentsConfigSchema>;
 
 /**
  * Default configuration values.

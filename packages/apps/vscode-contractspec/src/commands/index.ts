@@ -24,6 +24,8 @@ import {
 import { runSetupWizard, runQuickSetup } from './setup';
 import { runDoctorCheck, runQuickDoctorCheck } from './doctor/index';
 import { registerLLMCommands } from './llm';
+import { registerAgentCommands } from './agent';
+export * from './agent';
 import { registerChatCommands } from './chat';
 import { runQuickstartWizard, runQuickInstall } from './quickstart';
 import { registerImpactCommands } from './impact';
@@ -287,6 +289,7 @@ export function registerCommands(
 
   // LLM integration commands
   registerLLMCommands(context, outputChannel, telemetry);
+  registerAgentCommands(context, outputChannel, telemetry);
 
   // Chat command (AI-powered vibe coding)
   registerChatCommands(context, outputChannel, telemetry);

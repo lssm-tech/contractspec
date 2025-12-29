@@ -113,6 +113,10 @@ program.addCommand(createChangelogCommand());
 // Git hooks
 registerHookCommand(program);
 
+import { agentCommand } from './commands/agent/index';
+// Agent command
+program.addCommand(agentCommand);
+
 // Upgrade command
 program.addCommand(upgradeCommand);
 

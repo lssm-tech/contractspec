@@ -11,6 +11,11 @@ export * from './session';
 export * from './telemetry';
 export * from './approval';
 
+// External SDK integration
+export * from './providers';
+export * from './exporters';
+export * from './interop';
+
 // Re-export commonly used AI SDK types for convenience
 export type {
   LanguageModel,

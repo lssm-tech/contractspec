@@ -45,6 +45,18 @@
     "compare-versions": "^6.1.1",
     "zod": "catalog:"
   },
+  "peerDependencies": {
+    "@anthropic-ai/claude-agent-sdk": ">=0.1.0",
+    "@opencode-ai/sdk": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/claude-agent-sdk": {
+      "optional": true
+    },
+    "@opencode-ai/sdk": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
@@ -56,13 +68,33 @@
     "./agent": "./dist/agent/index.js",
     "./agent/agent-factory": "./dist/agent/agent-factory.js",
     "./agent/contract-spec-agent": "./dist/agent/contract-spec-agent.js",
+    "./agent/unified-agent": "./dist/agent/unified-agent.js",
     "./approval": "./dist/approval/index.js",
     "./approval/workflow": "./dist/approval/workflow.js",
+    "./exporters": "./dist/exporters/index.js",
+    "./exporters/claude-agent-exporter": "./dist/exporters/claude-agent-exporter.js",
+    "./exporters/opencode-exporter": "./dist/exporters/opencode-exporter.js",
+    "./exporters/types": "./dist/exporters/types.js",
+    "./interop": "./dist/interop/index.js",
+    "./interop/spec-consumer": "./dist/interop/spec-consumer.js",
+    "./interop/tool-consumer": "./dist/interop/tool-consumer.js",
+    "./interop/types": "./dist/interop/types.js",
     "./knowledge": "./dist/knowledge/index.js",
     "./knowledge/injector": "./dist/knowledge/injector.js",
     "./memory": "./dist/memory/index.js",
     "./memory/in-memory": "./dist/memory/in-memory.js",
     "./memory/manager": "./dist/memory/manager.js",
+    "./providers": "./dist/providers/index.js",
+    "./providers/claude-agent-sdk": "./dist/providers/claude-agent-sdk/index.js",
+    "./providers/claude-agent-sdk/adapter": "./dist/providers/claude-agent-sdk/adapter.js",
+    "./providers/claude-agent-sdk/session-bridge": "./dist/providers/claude-agent-sdk/session-bridge.js",
+    "./providers/claude-agent-sdk/tool-bridge": "./dist/providers/claude-agent-sdk/tool-bridge.js",
+    "./providers/opencode-sdk": "./dist/providers/opencode-sdk/index.js",
+    "./providers/opencode-sdk/adapter": "./dist/providers/opencode-sdk/adapter.js",
+    "./providers/opencode-sdk/agent-bridge": "./dist/providers/opencode-sdk/agent-bridge.js",
+    "./providers/opencode-sdk/tool-bridge": "./dist/providers/opencode-sdk/tool-bridge.js",
+    "./providers/registry": "./dist/providers/registry.js",
+    "./providers/types": "./dist/providers/types.js",
     "./schema": "./dist/schema/index.js",
     "./schema/json-schema-to-zod": "./dist/schema/json-schema-to-zod.js",
     "./schema/schema-output": "./dist/schema/schema-output.js",
