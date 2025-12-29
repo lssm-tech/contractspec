@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/module.lifecycle-advisor@1.45.3
+  - @contractspec/module.lifecycle-core@1.45.3
+  - @contractspec/lib.observability@1.45.3
+  - @contractspec/lib.analytics@1.45.3
+  - @contractspec/lib.lifecycle@1.45.3
+  - @contractspec/lib.ai-agent@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

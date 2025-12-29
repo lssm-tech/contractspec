@@ -1,5 +1,13 @@
 # contractspec
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/app.cli-contractspec@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

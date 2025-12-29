@@ -1,5 +1,20 @@
 # @contractspec/module.ai-chat
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/lib.cost-tracking@1.45.3
+  - @contractspec/lib.design-system@1.45.3
+  - @contractspec/lib.ai-providers@1.45.3
+  - @contractspec/lib.ui-kit-web@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.ai-agent@1.45.3
+  - @contractspec/lib.metering@1.45.3
+  - @contractspec/lib.schema@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

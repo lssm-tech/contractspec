@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-studio-onboarding
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/module.learning-journey@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.schema@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

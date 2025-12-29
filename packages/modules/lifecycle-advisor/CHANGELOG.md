@@ -1,5 +1,13 @@
 # @contractspec/module.lifecycle-advisor
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/lib.lifecycle@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

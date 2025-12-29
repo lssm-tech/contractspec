@@ -1,5 +1,18 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/example.locale-jurisdiction-gate@1.45.3
+  - @contractspec/example.versioned-knowledge-base@1.45.3
+  - @contractspec/example.kb-update-pipeline@1.45.3
+  - @contractspec/example.learning-patterns@1.45.3
+  - @contractspec/module.learning-journey@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

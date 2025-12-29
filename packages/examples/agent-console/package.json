@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.agent-console",
-  "version": "1.45.2",
+  "version": "1.45.3",
   "description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
   "type": "module",
   "main": "./dist/index.js",

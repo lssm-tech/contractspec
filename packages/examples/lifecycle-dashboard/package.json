@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.lifecycle-dashboard",
-  "version": "1.45.2",
+  "version": "1.45.3",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "main": "./dist/index.js",

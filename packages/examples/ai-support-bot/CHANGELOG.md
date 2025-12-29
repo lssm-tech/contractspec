@@ -1,5 +1,16 @@
 # @contractspec/example.ai-support-bot
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/lib.support-bot@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+  - @contractspec/lib.knowledge@1.45.3
+  - @contractspec/lib.logger@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/lib.presentation-runtime-core@1.45.3
+  - @contractspec/lib.design-system@1.45.3
+  - @contractspec/lib.ui-kit-web@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+
 ## 1.45.2
 
 ### Patch Changes

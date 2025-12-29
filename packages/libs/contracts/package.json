@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts",
-  "version": "1.45.2",
+  "version": "1.45.3",
   "description": "Core contract specification definitions and runtime",
   "keywords": [
     "contractspec",

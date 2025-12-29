@@ -1,5 +1,11 @@
 # @contractspec/lib.schema
 
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+
 ## 1.45.2
 
 ### Patch Changes

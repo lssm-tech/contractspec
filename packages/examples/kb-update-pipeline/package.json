@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.kb-update-pipeline",
-  "version": "1.45.2",
+  "version": "1.45.3",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
   "main": "./dist/index.js",
