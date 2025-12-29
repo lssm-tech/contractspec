@@ -1,5 +1,11 @@
 # @contractspec/action.validation
 
+## 1.45.5
+
+### Patch Changes
+
+- 9ddd7fa: feat: improve versioning
+
 ## 1.45.4
 
 ### Patch Changes

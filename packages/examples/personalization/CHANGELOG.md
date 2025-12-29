@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 1.45.5
+
+### Patch Changes
+
+- 9ddd7fa: feat: improve versioning
+- Updated dependencies [9ddd7fa]
+  - @contractspec/lib.workflow-composer@1.45.5
+  - @contractspec/lib.personalization@1.45.5
+  - @contractspec/lib.overlay-engine@1.45.5
+  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.logger@1.45.5
+
 ## 1.45.4
 
 ### Patch Changes

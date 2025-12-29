@@ -27,9 +27,35 @@ export function defaultRestPath(name: string, version: string) {
   return `/${name.replace(/\./g, '/')}/v${version}`;
 }
 
-/** Helper to derive default MCP tool name */
+/**
+ * Sanitize a name for MCP entities (tools, prompts, resources).
+ * Replaces dots with underscores and ensures compliance with the pattern ^[a-zA-Z0-9_-]{1,64}$.
+ * While MCP spec allows dots, some clients validate against stricter patterns.
+ */
+export function sanitizeMcpName(name: string): string {
+  // Replace dots with underscores
+  const sanitized = name.replace(/\./g, '_');
+  // Truncate to 64 characters if needed
+  return sanitized.slice(0, 64);
+}
+
+/**
+ * Helper to derive default MCP tool name.
+ * Replaces dots with underscores for maximum client compatibility.
+ * While MCP spec allows dots, some clients validate against stricter patterns.
+ */
 export function defaultMcpTool(name: string, version: string) {
-  return `${name}-v${version}`;
+  const safeName = name.replace(/\./g, '_');
+  const safeVersion = version.replace(/\./g, '_');
+  return `${safeName}-v${safeVersion}`;
+}
+
+/**
+ * Helper to derive default MCP prompt name from key.
+ * Replaces dots with underscores for maximum client compatibility.
+ */
+export function defaultMcpPrompt(key: string): string {
+  return sanitizeMcpName(key);
 }
 
 /** Helper to derive default GraphQL field name */

@@ -22,7 +22,6 @@ import {
   versioning,
 } from '@contractspec/bundle.workspace';
 import type { VersionBumpType } from '@contractspec/lib.contracts';
-import type { SpecVersionAnalysis } from '@contractspec/bundle.workspace';
 
 export type VersionOutputFormat = 'text' | 'json' | 'table';
 
@@ -41,6 +40,7 @@ export interface VersionBumpOptions {
   dryRun?: boolean;
   all?: boolean;
   interactive?: boolean;
+  baseline?: string;
 }
 
 /**
@@ -77,7 +77,18 @@ export function createVersionCommand(): Command {
     .option('--dry-run', 'Preview changes without applying')
     .option('--all', 'Bump all specs needing updates')
     .option('-i, --interactive', 'Interactive mode')
+    .option('-b, --baseline <ref>', 'Git ref to compare against (for --all)')
     .action(runVersionBump);
+
+  // version commits - analyze commits for version bump
+  command
+    .command('commits')
+    .description(
+      'Analyze git commits to determine version bump (conventional commits)'
+    )
+    .option('-b, --baseline <ref>', 'Git ref to compare against', 'HEAD~10')
+    .option('-f, --format <format>', 'Output format (text, json)', 'text')
+    .action(runVersionCommits);
 
   return command;
 }
@@ -224,6 +235,95 @@ async function bumpSingleSpec(
 }
 
 /**
+ * Run the version commits command (conventional commit analysis).
+ */
+async function runVersionCommits(options: {
+  baseline?: string;
+  format?: string;
+}): Promise<void> {
+  const fs = createNodeFsAdapter();
+  const git = createNodeGitAdapter();
+  const logger = createConsoleLoggerAdapter();
+
+  try {
+    console.log(
+      chalk.blue(`Analyzing commits since ${options.baseline ?? 'HEAD~10'}...`)
+    );
+
+    const result = await versioning.analyzeVersionsFromCommits(
+      { fs, git, logger },
+      { baseline: options.baseline }
+    );
+
+    if (options.format === 'json') {
+      console.log(JSON.stringify(result, null, 2));
+      return;
+    }
+
+    // Text output
+    console.log('');
+    if (result.totalCommits === 0) {
+      console.log(chalk.yellow('No conventional commits found.'));
+      console.log(
+        chalk.gray('Use conventional commit format: type(scope): description')
+      );
+      return;
+    }
+
+    console.log(
+      chalk.bold(`Analyzed ${result.totalCommits} conventional commits:`)
+    );
+    console.log('');
+
+    for (const commit of result.commits.slice(0, 10)) {
+      const icon = commit.breaking
+        ? '🔴'
+        : commit.type === 'feat'
+          ? '🟢'
+          : '🟡';
+      const scope = commit.scope ? chalk.gray(`(${commit.scope})`) : '';
+      console.log(
+        `  ${icon} ${commit.type}${scope}: ${commit.message.substring(0, 60)}`
+      );
+    }
+
+    if (result.commits.length > 10) {
+      console.log(chalk.gray(`  ... and ${result.commits.length - 10} more`));
+    }
+
+    console.log('');
+
+    if (result.suggestedBumpType) {
+      const bumpColor =
+        result.suggestedBumpType === 'major'
+          ? chalk.red
+          : result.suggestedBumpType === 'minor'
+            ? chalk.yellow
+            : chalk.green;
+      console.log(
+        `Suggested version bump: ${bumpColor(result.suggestedBumpType.toUpperCase())}`
+      );
+
+      if (result.breakingCommits > 0) {
+        console.log(
+          chalk.red(
+            `  ⚠️  ${result.breakingCommits} breaking change(s) detected`
+          )
+        );
+      }
+    } else {
+      console.log(chalk.green('No version bump needed based on commits.'));
+    }
+  } catch (error) {
+    console.error(
+      chalk.red('❌ Error:'),
+      error instanceof Error ? error.message : String(error)
+    );
+    process.exit(1);
+  }
+}
+
+/**
  * Print version analysis as text.
  */
 function printVersionText(
@@ -279,7 +379,7 @@ function printVersionText(
 /**
  * Print version analysis as table.
  */
-function printVersionTable(analyses: SpecVersionAnalysis[]): void {
+function printVersionTable(analyses: versioning.SpecVersionAnalysis[]): void {
   const needsBump = analyses.filter((a) => a.needsBump);
 
   if (needsBump.length === 0) {

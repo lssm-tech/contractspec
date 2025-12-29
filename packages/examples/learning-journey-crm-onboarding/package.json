@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-crm-onboarding",
-  "version": "1.45.4",
+  "version": "1.45.5",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
   "main": "./dist/index.js",

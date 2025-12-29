@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import { type OwnerShipMeta } from './ownership';
 
 export type PromptStability = 'experimental' | 'beta' | 'stable' | 'deprecated';
 
@@ -19,15 +20,7 @@ export type PromptContentPart =
   | { type: 'resource'; uri: string; title?: string };
 
 /** Prompt metadata for discoverability and governance. */
-export interface PromptMeta {
-  key: string; // e.g. "sigil.signup-help"
-  version: string; // bump on breaking change
-  title: string;
-  description: string;
-  tags?: string[];
-  stability?: PromptStability;
-  owners?: string[];
-}
+export type PromptMeta = OwnerShipMeta;
 
 /** Policy constraints for prompts (flags, PII paths, rate limits). */
 export interface PromptPolicy {

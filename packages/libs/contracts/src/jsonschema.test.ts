@@ -3,7 +3,9 @@ import {
   jsonSchemaForSpec,
   defaultRestPath,
   defaultMcpTool,
+  defaultMcpPrompt,
   defaultGqlField,
+  sanitizeMcpName,
 } from './jsonschema';
 import { defineCommand, defineQuery } from './operations';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
@@ -134,9 +136,15 @@ describe('defaultRestPath', () => {
 });
 
 describe('defaultMcpTool', () => {
-  it('should generate MCP tool name from name and version', () => {
-    expect(defaultMcpTool('user.create', '1.0.0')).toBe('user.create-v1.0.0');
-    expect(defaultMcpTool('orders.list', '2.0.0')).toBe('orders.list-v2.0.0');
+  it('should generate MCP tool name from name and version with underscores', () => {
+    expect(defaultMcpTool('user.create', '1.0.0')).toBe('user_create-v1_0_0');
+    expect(defaultMcpTool('orders.list', '2.0.0')).toBe('orders_list-v2_0_0');
+  });
+
+  it('should handle deeply nested namespaces', () => {
+    expect(defaultMcpTool('cli.suggestCommand', '1.0.0')).toBe(
+      'cli_suggestCommand-v1_0_0'
+    );
   });
 });
 
@@ -147,5 +155,34 @@ describe('defaultGqlField', () => {
     expect(defaultGqlField('api.v1.users.get', '3.0.0')).toBe(
       'api_v1_users_get_v3.0.0'
     );
+  });
+});
+
+describe('sanitizeMcpName', () => {
+  it('should replace dots with underscores', () => {
+    expect(sanitizeMcpName('user.create')).toBe('user_create');
+    expect(sanitizeMcpName('cli.suggestCommand')).toBe('cli_suggestCommand');
+    expect(sanitizeMcpName('a.b.c.d')).toBe('a_b_c_d');
+  });
+
+  it('should truncate names longer than 64 characters', () => {
+    const longName = 'a'.repeat(100);
+    expect(sanitizeMcpName(longName)).toHaveLength(64);
+  });
+
+  it('should preserve names without dots', () => {
+    expect(sanitizeMcpName('simple_name')).toBe('simple_name');
+    expect(sanitizeMcpName('with-hyphen')).toBe('with-hyphen');
+  });
+});
+
+describe('defaultMcpPrompt', () => {
+  it('should sanitize prompt keys by replacing dots', () => {
+    expect(defaultMcpPrompt('prompt.assistant')).toBe('prompt_assistant');
+    expect(defaultMcpPrompt('cli.help')).toBe('cli_help');
+  });
+
+  it('should handle keys without dots', () => {
+    expect(defaultMcpPrompt('simple')).toBe('simple');
   });
 });
