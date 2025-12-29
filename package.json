@@ -52,9 +52,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "rules:all": "bunx rulesync generate --targets \"*\" --features \"*\"",
-    "rules:claude": "bunx rulesync generate --targets claudecode --features \"*\"",
-    "rules:cursor": "bunx rulesync generate --targets cursor --features \"*\"",
+    "postinstall": "bun run install:rules:all",
+    "install:rules:all": "bunx rulesync generate --targets \"*\" --features \"*\"",
+    "install:rules:claude": "bunx rulesync generate --targets claudecode --features \"*\"",
+    "install:rules:cursor": "bunx rulesync generate --targets cursor --features \"*\"",
     "release:version:canary": "bun changeset version --snapshot canary --verbose && bun update",
     "release:version": "changeset version --verbose && bun update",
     "release:publish": "turbo run publish:pkg",
