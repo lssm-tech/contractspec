@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.workflow-system",
-  "version": "1.45.1",
+  "version": "1.45.2",
   "description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

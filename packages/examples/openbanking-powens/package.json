@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.openbanking-powens",
-  "version": "1.45.1",
+  "version": "1.45.2",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
   "main": "./dist/index.js",

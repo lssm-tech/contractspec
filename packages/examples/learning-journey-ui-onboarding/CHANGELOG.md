@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.2
+  - @contractspec/example.learning-journey-platform-tour@1.45.2
+  - @contractspec/example.learning-journey-ui-shared@1.45.2
+  - @contractspec/module.learning-journey@1.45.2
+  - @contractspec/lib.design-system@1.45.2
+  - @contractspec/lib.ui-kit-core@1.45.2
+  - @contractspec/lib.ui-kit-web@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

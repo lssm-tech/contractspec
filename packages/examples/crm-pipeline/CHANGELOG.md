@@ -1,5 +1,17 @@
 # @contractspec/example.crm-pipeline
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/module.notifications@1.45.2
+  - @contractspec/module.audit-trail@1.45.2
+  - @contractspec/lib.identity-rbac@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.schema@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

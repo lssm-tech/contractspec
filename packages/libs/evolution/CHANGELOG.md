@@ -1,5 +1,17 @@
 # @contractspec/lib.evolution
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/lib.observability@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.lifecycle@1.45.2
+  - @contractspec/lib.ai-agent@1.45.2
+  - @contractspec/lib.schema@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

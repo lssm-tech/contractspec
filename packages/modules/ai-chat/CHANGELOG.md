@@ -1,5 +1,19 @@
 # @contractspec/module.ai-chat
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/lib.cost-tracking@1.45.2
+  - @contractspec/lib.design-system@1.45.2
+  - @contractspec/lib.ai-providers@1.45.2
+  - @contractspec/lib.ui-kit-web@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+  - @contractspec/lib.ai-agent@1.45.2
+  - @contractspec/lib.metering@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

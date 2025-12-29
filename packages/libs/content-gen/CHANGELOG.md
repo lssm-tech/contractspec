@@ -1,5 +1,13 @@
 # @contractspec/lib.content-gen
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/lib.contracts@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

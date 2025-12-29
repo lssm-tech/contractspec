@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/lib.contracts-transformers@1.45.2
+  - @contractspec/bundle.workspace@1.45.2
+  - @contractspec/module.workspace@1.45.2
+  - @contractspec/module.examples@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

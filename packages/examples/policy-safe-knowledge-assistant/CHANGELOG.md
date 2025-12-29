@@ -1,5 +1,18 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/example.locale-jurisdiction-gate@1.45.2
+  - @contractspec/example.versioned-knowledge-base@1.45.2
+  - @contractspec/example.kb-update-pipeline@1.45.2
+  - @contractspec/example.learning-patterns@1.45.2
+  - @contractspec/module.learning-journey@1.45.2
+  - @contractspec/lib.contracts@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

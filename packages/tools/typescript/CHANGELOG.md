@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+
 ## 1.45.1
 
 ### Patch Changes

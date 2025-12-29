@@ -1,5 +1,13 @@
 # @contractspec/lib.analytics
 
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/lib.lifecycle@1.45.2
+
 ## 1.45.1
 
 ### Patch Changes

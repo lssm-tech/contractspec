@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.crm-pipeline",
-  "version": "1.45.1",
+  "version": "1.45.2",
   "description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
   "type": "module",
   "main": "./dist/index.js",
