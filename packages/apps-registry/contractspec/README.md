@@ -326,7 +326,7 @@ contractspec ci --format json
 contractspec ci --format sarif --output results.sarif
 
 # Skip doctor checks
-contractspec ci --skip doctor
+contractspec ci
 
 # Run only structure and integrity checks
 contractspec ci --checks structure,integrity
