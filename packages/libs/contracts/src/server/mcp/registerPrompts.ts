@@ -4,6 +4,7 @@ import type { McpCtxFactories } from './mcpTypes';
 import type { GetPromptResult } from '@modelcontextprotocol/sdk/types.js';
 import type { ZodRawShapeCompat } from '@modelcontextprotocol/sdk/server/zod-compat.js';
 import z from 'zod';
+import { defaultMcpPrompt } from '../../jsonschema';
 
 function promptArgsSchemaFromPromptArgs(
   args: { name: string; schema: z.ZodType }[]
@@ -19,8 +20,9 @@ export function registerMcpPrompts(
   ctx: Pick<McpCtxFactories, 'promptCtx'>
 ) {
   for (const prompt of prompts.list()) {
+    const promptName = defaultMcpPrompt(prompt.meta.key);
     server.registerPrompt(
-      prompt.meta.key,
+      promptName,
       {
         title: prompt.meta.title,
         description: prompt.meta.description,

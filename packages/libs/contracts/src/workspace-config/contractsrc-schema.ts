@@ -278,6 +278,8 @@ export const VersioningConfigSchema = z.object({
   autoBump: z.boolean().default(false),
   /** Strategy for determining version bumps */
   bumpStrategy: BumpStrategySchema.default('impact'),
+  /** Integrate with Changesets (generate .changeset files) */
+  integrateWithChangesets: z.boolean().default(false),
   /** Changelog tiers to generate */
   changelogTiers: z
     .array(ChangelogTierSchema)
@@ -364,6 +366,12 @@ export const RulesConfigSchema = z.object({
 });
 
 /**
+ * Git hooks configuration.
+ * Maps hook names (e.g., "pre-commit") to a list of commands or checks to run.
+ */
+export const HooksConfigSchema = z.record(z.string(), z.array(z.string()));
+
+/**
  * Full ContractSpec configuration schema (.contractsrc.json).
  */
 export const ContractsrcSchema = z.object({
@@ -392,6 +400,8 @@ export const ContractsrcSchema = z.object({
   metaRepo: MetaRepoConfigSchema.optional(),
   // Lint rules configuration
   rules: RulesConfigSchema.optional(),
+  // Git hooks configuration
+  hooks: HooksConfigSchema.optional(),
   // Schema format for code generation
   schemaFormat: SchemaFormatSchema.default('contractspec'),
   // Formatter configuration
@@ -418,6 +428,7 @@ export type RuleSeverity = z.infer<typeof RuleSeveritySchema>;
 export type SpecKind = z.infer<typeof SpecKindSchema>;
 export type LintRules = z.infer<typeof LintRulesSchema>;
 export type RulesConfig = z.infer<typeof RulesConfigSchema>;
+export type HooksConfig = z.infer<typeof HooksConfigSchema>;
 export type SchemaFormat = z.infer<typeof SchemaFormatSchema>;
 export type FormatterType = z.infer<typeof FormatterTypeSchema>;
 export type FormatterConfig = z.infer<typeof FormatterConfigSchema>;

@@ -9,6 +9,7 @@ import type {
   ChangelogEntry,
   ChangeEntry,
   VersionBumpType,
+  VersioningConfig,
 } from '@contractspec/lib.contracts';
 import type { ChangelogTier } from '@contractspec/lib.contracts';
 
@@ -19,6 +20,7 @@ export type {
   ChangeEntry,
   VersionBumpType,
   ChangelogTier,
+  VersioningConfig,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -51,6 +53,8 @@ export interface VersionBumpOptions {
   changes?: ChangeEntry[];
   /** Dry run (don't write changes) */
   dryRun?: boolean;
+  /** Versioning config (for changesets integration) */
+  config?: VersioningConfig;
 }
 
 /** Options for changelog generation */

@@ -37,7 +37,7 @@
     },
     "packages/apps-registry/contractspec": {
       "name": "contractspec",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "bin": {
         "contractspec": "./bin/contractspec.mjs",
       },
@@ -47,7 +47,7 @@
     },
     "packages/apps-registry/spec-driven-development": {
       "name": "spec-driven-development",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "bin": {
         "sdd": "./bin/contractspec.mjs",
         "spec-driven-development": "./bin/contractspec.mjs",
@@ -58,15 +58,15 @@
     },
     "packages/apps/action-validation": {
       "name": "@contractspec/action.validation",
-      "version": "1.45.2",
+      "version": "1.45.4",
     },
     "packages/apps/action-version": {
       "name": "@contractspec/action.version",
-      "version": "0.1.0",
+      "version": "0.1.2",
     },
     "packages/apps/cli-contractspec": {
       "name": "@contractspec/app.cli-contractspec",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
@@ -99,7 +99,7 @@
     },
     "packages/apps/cli-database": {
       "name": "@contractspec/app.cli-database",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "bin": {
         "database": "dist/cli.js",
       },
@@ -118,7 +118,7 @@
     },
     "packages/apps/cli-databases": {
       "name": "@contractspec/app.cli-databases",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "bin": {
         "databases": "dist/cli.js",
       },
@@ -134,7 +134,7 @@
     },
     "packages/apps/registry-server": {
       "name": "@contractspec/app.registry-server",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
@@ -145,7 +145,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/bundle.workspace": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -164,7 +164,7 @@
     },
     "packages/bundles/lifecycle-managed": {
       "name": "@contractspec/bundle.lifecycle-managed",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.analytics": "workspace:*",
@@ -182,7 +182,7 @@
     },
     "packages/bundles/workspace": {
       "name": "@contractspec/bundle.workspace",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
@@ -206,7 +206,7 @@
     },
     "packages/examples/agent-console": {
       "name": "@contractspec/example.agent-console",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -220,7 +220,7 @@
     },
     "packages/examples/ai-support-bot": {
       "name": "@contractspec/example.ai-support-bot",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
@@ -236,7 +236,7 @@
     },
     "packages/examples/analytics-dashboard": {
       "name": "@contractspec/example.analytics-dashboard",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -249,7 +249,7 @@
     },
     "packages/examples/content-generation": {
       "name": "@contractspec/example.content-generation",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.content-gen": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -264,7 +264,7 @@
     },
     "packages/examples/crm-pipeline": {
       "name": "@contractspec/example.crm-pipeline",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
@@ -281,7 +281,7 @@
     },
     "packages/examples/integration-hub": {
       "name": "@contractspec/example.integration-hub",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -294,7 +294,7 @@
     },
     "packages/examples/integration-stripe": {
       "name": "@contractspec/example.integration-stripe",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -308,7 +308,7 @@
     },
     "packages/examples/kb-update-pipeline": {
       "name": "@contractspec/example.kb-update-pipeline",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -322,7 +322,7 @@
     },
     "packages/examples/knowledge-canon": {
       "name": "@contractspec/example.knowledge-canon",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
       },
@@ -335,7 +335,7 @@
     },
     "packages/examples/learning-journey-ambient-coach": {
       "name": "@contractspec/example.learning-journey-ambient-coach",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/module.learning-journey": "workspace:*",
@@ -349,7 +349,7 @@
     },
     "packages/examples/learning-journey-crm-onboarding": {
       "name": "@contractspec/example.learning-journey-crm-onboarding",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.crm-pipeline": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -365,7 +365,7 @@
     },
     "packages/examples/learning-journey-duo-drills": {
       "name": "@contractspec/example.learning-journey-duo-drills",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/module.learning-journey": "workspace:*",
@@ -379,7 +379,7 @@
     },
     "packages/examples/learning-journey-platform-tour": {
       "name": "@contractspec/example.learning-journey-platform-tour",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -394,7 +394,7 @@
     },
     "packages/examples/learning-journey-quest-challenges": {
       "name": "@contractspec/example.learning-journey-quest-challenges",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/module.learning-journey": "workspace:*",
@@ -408,7 +408,7 @@
     },
     "packages/examples/learning-journey-registry": {
       "name": "@contractspec/example.learning-journey-registry",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.learning-journey-ambient-coach": "workspace:*",
         "@contractspec/example.learning-journey-crm-onboarding": "workspace:*",
@@ -437,7 +437,7 @@
     },
     "packages/examples/learning-journey-studio-onboarding": {
       "name": "@contractspec/example.learning-journey-studio-onboarding",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -452,7 +452,7 @@
     },
     "packages/examples/learning-journey-ui-coaching": {
       "name": "@contractspec/example.learning-journey-ui-coaching",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.learning-journey-ambient-coach": "workspace:*",
         "@contractspec/example.learning-journey-crm-onboarding": "workspace:*",
@@ -476,7 +476,7 @@
     },
     "packages/examples/learning-journey-ui-gamified": {
       "name": "@contractspec/example.learning-journey-ui-gamified",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.learning-journey-duo-drills": "workspace:*",
         "@contractspec/example.learning-journey-quest-challenges": "workspace:*",
@@ -500,7 +500,7 @@
     },
     "packages/examples/learning-journey-ui-onboarding": {
       "name": "@contractspec/example.learning-journey-ui-onboarding",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.learning-journey-platform-tour": "workspace:*",
         "@contractspec/example.learning-journey-studio-onboarding": "workspace:*",
@@ -525,7 +525,7 @@
     },
     "packages/examples/learning-journey-ui-shared": {
       "name": "@contractspec/example.learning-journey-ui-shared",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
@@ -546,7 +546,7 @@
     },
     "packages/examples/learning-patterns": {
       "name": "@contractspec/example.learning-patterns",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/module.learning-journey": "workspace:*",
@@ -560,7 +560,7 @@
     },
     "packages/examples/lifecycle-cli": {
       "name": "@contractspec/example.lifecycle-cli",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/bundle.lifecycle-managed": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -576,7 +576,7 @@
     },
     "packages/examples/lifecycle-dashboard": {
       "name": "@contractspec/example.lifecycle-dashboard",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
       },
@@ -589,7 +589,7 @@
     },
     "packages/examples/locale-jurisdiction-gate": {
       "name": "@contractspec/example.locale-jurisdiction-gate",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -603,7 +603,7 @@
     },
     "packages/examples/marketplace": {
       "name": "@contractspec/example.marketplace",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -616,7 +616,7 @@
     },
     "packages/examples/openbanking-powens": {
       "name": "@contractspec/example.openbanking-powens",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -630,7 +630,7 @@
     },
     "packages/examples/personalization": {
       "name": "@contractspec/example.personalization",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
@@ -647,7 +647,7 @@
     },
     "packages/examples/pocket-family-office": {
       "name": "@contractspec/example.pocket-family-office",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.knowledge": "workspace:*",
@@ -661,7 +661,7 @@
     },
     "packages/examples/policy-safe-knowledge-assistant": {
       "name": "@contractspec/example.policy-safe-knowledge-assistant",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.kb-update-pipeline": "workspace:*",
         "@contractspec/example.learning-patterns": "workspace:*",
@@ -679,7 +679,7 @@
     },
     "packages/examples/saas-boilerplate": {
       "name": "@contractspec/example.saas-boilerplate",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
@@ -697,7 +697,7 @@
     },
     "packages/examples/service-business-os": {
       "name": "@contractspec/example.service-business-os",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -710,7 +710,7 @@
     },
     "packages/examples/team-hub": {
       "name": "@contractspec/example.team-hub",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -723,7 +723,7 @@
     },
     "packages/examples/versioned-knowledge-base": {
       "name": "@contractspec/example.versioned-knowledge-base",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -737,7 +737,7 @@
     },
     "packages/examples/wealth-snapshot": {
       "name": "@contractspec/example.wealth-snapshot",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
@@ -753,7 +753,7 @@
     },
     "packages/examples/workflow-system": {
       "name": "@contractspec/example.workflow-system",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -766,7 +766,7 @@
     },
     "packages/integrations/providers-impls": {
       "name": "@contractspec/integration.providers-impls",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -790,7 +790,7 @@
     },
     "packages/integrations/runtime": {
       "name": "@contractspec/integration.runtime",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
@@ -806,7 +806,7 @@
     },
     "packages/libs/accessibility": {
       "name": "@contractspec/lib.accessibility",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
@@ -825,7 +825,7 @@
     },
     "packages/libs/ai-agent": {
       "name": "@contractspec/lib.ai-agent",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/google": "catalog:ai",
@@ -848,7 +848,7 @@
     },
     "packages/libs/ai-providers": {
       "name": "@contractspec/lib.ai-providers",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/google": "catalog:ai",
@@ -867,7 +867,7 @@
     },
     "packages/libs/analytics": {
       "name": "@contractspec/lib.analytics",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
@@ -881,7 +881,7 @@
     },
     "packages/libs/bus": {
       "name": "@contractspec/lib.bus",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -902,7 +902,7 @@
     },
     "packages/libs/content-gen": {
       "name": "@contractspec/lib.content-gen",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
       },
@@ -915,7 +915,7 @@
     },
     "packages/libs/contracts": {
       "name": "@contractspec/lib.contracts",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@aws-sdk/client-secrets-manager": "^3.958.0",
         "@aws-sdk/client-sqs": "^3.958.0",
@@ -967,7 +967,7 @@
     },
     "packages/libs/contracts-transformers": {
       "name": "@contractspec/lib.contracts-transformers",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -985,7 +985,7 @@
     },
     "packages/libs/cost-tracking": {
       "name": "@contractspec/lib.cost-tracking",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -995,7 +995,7 @@
     },
     "packages/libs/design-system": {
       "name": "@contractspec/lib.design-system",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1025,7 +1025,7 @@
     },
     "packages/libs/error": {
       "name": "@contractspec/lib.error",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -1040,7 +1040,7 @@
     },
     "packages/libs/evolution": {
       "name": "@contractspec/lib.evolution",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1062,7 +1062,7 @@
     },
     "packages/libs/exporter": {
       "name": "@contractspec/lib.exporter",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -1072,7 +1072,7 @@
     },
     "packages/libs/feature-flags": {
       "name": "@contractspec/lib.feature-flags",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1086,7 +1086,7 @@
     },
     "packages/libs/files": {
       "name": "@contractspec/lib.files",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1100,7 +1100,7 @@
     },
     "packages/libs/graphql-core": {
       "name": "@contractspec/lib.graphql-core",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@pothos/core": "^4.9.1",
         "@pothos/plugin-complexity": "^4.1.2",
@@ -1122,7 +1122,7 @@
     },
     "packages/libs/graphql-federation": {
       "name": "@contractspec/lib.graphql-federation",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@apollo/subgraph": "^2.12.2",
         "@pothos/core": "^4.9.1",
@@ -1142,7 +1142,7 @@
     },
     "packages/libs/graphql-prisma": {
       "name": "@contractspec/lib.graphql-prisma",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.schema": "workspace:*",
         "@pothos/core": "^4.9.1",
@@ -1166,7 +1166,7 @@
     },
     "packages/libs/identity-rbac": {
       "name": "@contractspec/lib.identity-rbac",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1180,7 +1180,7 @@
     },
     "packages/libs/jobs": {
       "name": "@contractspec/lib.jobs",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@aws-sdk/client-sqs": "^3.958.0",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1198,7 +1198,7 @@
     },
     "packages/libs/knowledge": {
       "name": "@contractspec/lib.knowledge",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
       },
@@ -1211,7 +1211,7 @@
     },
     "packages/libs/lifecycle": {
       "name": "@contractspec/lib.lifecycle",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -1221,7 +1221,7 @@
     },
     "packages/libs/logger": {
       "name": "@contractspec/lib.logger",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "zone.js": "^0.16.0",
       },
@@ -1240,7 +1240,7 @@
     },
     "packages/libs/metering": {
       "name": "@contractspec/lib.metering",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1254,7 +1254,7 @@
     },
     "packages/libs/observability": {
       "name": "@contractspec/lib.observability",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.lifecycle": "workspace:*",
       },
@@ -1269,7 +1269,7 @@
     },
     "packages/libs/overlay-engine": {
       "name": "@contractspec/lib.overlay-engine",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "fast-json-stable-stringify": "^2.1.0",
@@ -1289,7 +1289,7 @@
     },
     "packages/libs/personalization": {
       "name": "@contractspec/lib.personalization",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.bus": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1310,7 +1310,7 @@
     },
     "packages/libs/presentation-runtime-core": {
       "name": "@contractspec/lib.presentation-runtime-core",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -1323,7 +1323,7 @@
     },
     "packages/libs/presentation-runtime-react": {
       "name": "@contractspec/lib.presentation-runtime-react",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
@@ -1339,7 +1339,7 @@
     },
     "packages/libs/presentation-runtime-react-native": {
       "name": "@contractspec/lib.presentation-runtime-react-native",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
@@ -1354,7 +1354,7 @@
     },
     "packages/libs/schema": {
       "name": "@contractspec/lib.schema",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "graphql": "^16.8.1",
         "zod": "catalog:",
@@ -1368,7 +1368,7 @@
     },
     "packages/libs/support-bot": {
       "name": "@contractspec/lib.support-bot",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1384,7 +1384,7 @@
     },
     "packages/libs/testing": {
       "name": "@contractspec/lib.testing",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1398,7 +1398,7 @@
     },
     "packages/libs/ui-kit": {
       "name": "@contractspec/lib.ui-kit",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ui-kit-core": "workspace:*",
         "@react-native-async-storage/async-storage": "^2.1.2",
@@ -1478,7 +1478,7 @@
     },
     "packages/libs/ui-kit-core": {
       "name": "@contractspec/lib.ui-kit-core",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
@@ -1497,7 +1497,7 @@
     },
     "packages/libs/ui-kit-web": {
       "name": "@contractspec/lib.ui-kit-web",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ui-kit-core": "workspace:*",
         "@hookform/resolvers": "5.2.2",
@@ -1570,7 +1570,7 @@
     },
     "packages/libs/ui-link": {
       "name": "@contractspec/lib.ui-link",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.ui-kit-core": "workspace:*",
         "react": "catalog:",
@@ -1585,7 +1585,7 @@
     },
     "packages/libs/utils-typescript": {
       "name": "@contractspec/lib.utils-typescript",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "@contractspec/tool.tsdown": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -1595,7 +1595,7 @@
     },
     "packages/libs/workflow-composer": {
       "name": "@contractspec/lib.workflow-composer",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "compare-versions": "^6.1.1",
@@ -1609,7 +1609,7 @@
     },
     "packages/modules/ai-chat": {
       "name": "@contractspec/module.ai-chat",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@ai-sdk/react": "catalog:ai",
         "@contractspec/lib.ai-agent": "workspace:*",
@@ -1638,7 +1638,7 @@
     },
     "packages/modules/audit-trail": {
       "name": "@contractspec/module.audit-trail",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.bus": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1653,7 +1653,7 @@
     },
     "packages/modules/examples": {
       "name": "@contractspec/module.examples",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/example.agent-console": "workspace:*",
         "@contractspec/example.ai-support-bot": "workspace:*",
@@ -1701,7 +1701,7 @@
     },
     "packages/modules/learning-journey": {
       "name": "@contractspec/module.learning-journey",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1715,7 +1715,7 @@
     },
     "packages/modules/lifecycle-advisor": {
       "name": "@contractspec/module.lifecycle-advisor",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.lifecycle": "workspace:*",
       },
@@ -1728,7 +1728,7 @@
     },
     "packages/modules/lifecycle-core": {
       "name": "@contractspec/module.lifecycle-core",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.lifecycle": "workspace:*",
       },
@@ -1741,7 +1741,7 @@
     },
     "packages/modules/notifications": {
       "name": "@contractspec/module.notifications",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.bus": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
@@ -1756,7 +1756,7 @@
     },
     "packages/modules/workspace": {
       "name": "@contractspec/module.workspace",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "dependencies": {
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
@@ -1772,7 +1772,7 @@
     },
     "packages/tools/eslint-plugin-design-system": {
       "name": "@contractspec/eslint-plugin-design-system",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "eslint": "catalog:build",
       },
@@ -1782,14 +1782,14 @@
     },
     "packages/tools/tsdown": {
       "name": "@contractspec/tool.tsdown",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "peerDependencies": {
         "tsdown": "^0.18.3",
       },
     },
     "packages/tools/typescript": {
       "name": "@contractspec/tool.typescript",
-      "version": "1.45.2",
+      "version": "1.45.4",
       "devDependencies": {
         "typescript": "catalog:",
       },

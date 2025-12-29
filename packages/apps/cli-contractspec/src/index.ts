@@ -30,6 +30,8 @@ import { cicdCommand } from './commands/cicd/index';
 import { createDocsCommand } from './commands/docs/index';
 import { createVersionCommand } from './commands/version/index';
 import { createChangelogCommand } from './commands/changelog/index';
+import { registerHookCommand } from './commands/hook/index';
+import { upgradeCommand } from './commands/upgrade/index';
 const program = new Command();
 
 program
@@ -107,6 +109,12 @@ program.addCommand(createVersionCommand());
 
 // Changelog generation
 program.addCommand(createChangelogCommand());
+
+// Git hooks
+registerHookCommand(program);
+
+// Upgrade command
+program.addCommand(upgradeCommand);
 
 // Create command
 program

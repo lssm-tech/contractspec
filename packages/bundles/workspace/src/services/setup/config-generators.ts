@@ -31,6 +31,23 @@ export function generateContractsrcConfig(options: SetupOptions): object {
     },
     defaultOwners: options.defaultOwners ?? ['@team'],
     defaultTags: [],
+    // Versioning configuration
+    versioning: {
+      autoBump: false,
+      bumpStrategy: 'impact',
+      changelogTiers: ['spec', 'library', 'monorepo'],
+      format: 'keep-a-changelog',
+      commitChanges: false,
+      createTags: false,
+      integrateWithChangesets: true, // Enable changesets integration by default
+    },
+    // Git hooks configuration (Husky compatible)
+    hooks: {
+      'pre-commit': [
+        'contractspec validate **/*.operation.ts',
+        'contractspec integrity check',
+      ],
+    },
     // Add monorepo hint if at package level
     ...(isPackageLevel && options.packageName
       ? { package: options.packageName }

@@ -5,7 +5,7 @@
 import { execSync } from 'node:child_process';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import type { GitAdapter, GitCleanOptions } from '../ports/git';
+import type { GitAdapter, GitCleanOptions, GitLogEntry } from '../ports/git';
 
 /**
  * Create a Node.js git adapter.
@@ -50,6 +50,34 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
         return true;
       } catch {
         return false;
+      }
+    },
+
+    async log(baseline?: string): Promise<GitLogEntry[]> {
+      const ref = baseline ?? 'HEAD~10';
+      const format = '--format=%H|||%s|||%an|||%aI';
+
+      try {
+        const output = execSync(`git log ${ref}..HEAD ${format}`, {
+          cwd: baseCwd,
+          encoding: 'utf-8',
+          stdio: ['ignore', 'pipe', 'pipe'],
+        });
+
+        const entries: GitLogEntry[] = [];
+
+        for (const line of output.trim().split('\n')) {
+          if (!line) continue;
+          const [hash, message, author, date] = line.split('|||');
+          if (hash && message) {
+            entries.push({ hash, message, author, date });
+          }
+        }
+
+        return entries;
+      } catch {
+        // Return empty if git log fails (e.g., not enough commits)
+        return [];
       }
     },
   };

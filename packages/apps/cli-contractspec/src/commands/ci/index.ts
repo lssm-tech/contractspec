@@ -96,6 +96,29 @@ export const ciCommand = new Command('ci')
     try {
       const adapters = createNodeAdapters({ silent: true });
 
+      // FORCE no-op logger for machine-readable output formats to prevent
+      // any log pollution (e.g. "[INFO] Starting...") from breaking JSON parsing.
+      // This is redundant with silent: true but acts as a safety belt against
+      // logger implementation changes or dependency issues.
+      if (!isTextOutput) {
+        /* eslint-disable @typescript-eslint/no-empty-function */
+        adapters.logger = {
+          debug: () => {},
+          info: () => {},
+          warn: () => {},
+          error: () => {},
+          createProgress: () => ({
+            start: () => {},
+            update: () => {},
+            succeed: () => {},
+            fail: () => {},
+            warn: () => {},
+            stop: () => {},
+          }),
+        };
+        /* eslint-enable @typescript-eslint/no-empty-function */
+      }
+
       // Build check options
       const checkOptions: CICheckOptions = {
         pattern: options.pattern,

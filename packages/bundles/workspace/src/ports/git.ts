@@ -20,6 +20,21 @@ export interface GitAdapter {
    * Check if path is inside a git repository.
    */
   isGitRepo(path?: string): Promise<boolean>;
+
+  /**
+   * Get commit log since a baseline ref.
+   */
+  log(baseline?: string): Promise<GitLogEntry[]>;
+}
+
+/**
+ * Entry from git log.
+ */
+export interface GitLogEntry {
+  hash: string;
+  message: string;
+  author?: string;
+  date?: string;
 }
 
 /**

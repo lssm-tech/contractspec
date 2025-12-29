@@ -11,7 +11,9 @@ import {
   type ChangeEntry,
   type ChangelogEntry,
   type ChangelogDocBlock,
+  type VersionBumpType,
 } from '@contractspec/lib.contracts';
+import { findPackageRoot, getPackageName } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { GitAdapter } from '../../ports/git';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -28,6 +30,11 @@ import {
   formatKeepAChangelog,
   formatChangelogJson,
 } from './changelog-formatter';
+import {
+  parseConventionalCommit,
+  getHighestBumpType,
+  commitsToChangeEntries,
+} from './conventional-commits';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Adapters Type
@@ -147,6 +154,115 @@ export async function analyzeVersions(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Commit-Based Version Analysis
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Options for commit-based version analysis.
+ */
+export interface CommitAnalyzeOptions {
+  /** Git ref to compare against (branch, tag, commit) */
+  baseline?: string;
+  /** Workspace root directory */
+  workspaceRoot?: string;
+  /** Include commits matching these paths (glob patterns) */
+  include?: string[];
+  /** Exclude commits matching these paths (glob patterns) */
+  exclude?: string[];
+}
+
+/**
+ * Result of commit-based version analysis.
+ */
+export interface CommitAnalyzeResult {
+  /** Suggested bump type based on commits */
+  suggestedBumpType: VersionBumpType | null;
+  /** Parsed conventional commits */
+  commits: {
+    hash: string;
+    message: string;
+    type: string;
+    scope?: string;
+    breaking: boolean;
+  }[];
+  /** Change entries for changelog */
+  changes: ChangeEntry[];
+  /** Total commits analyzed */
+  totalCommits: number;
+  /** Breaking commits count */
+  breakingCommits: number;
+}
+
+/**
+ * Analyze version bump based on git commits.
+ *
+ * Parses conventional commits since the baseline and determines
+ * the appropriate version bump type.
+ */
+export async function analyzeVersionsFromCommits(
+  adapters: ServiceAdapters,
+  options: CommitAnalyzeOptions = {}
+): Promise<CommitAnalyzeResult> {
+  const { git, logger } = adapters;
+  const baseline = options.baseline ?? 'HEAD~10';
+
+  logger.info('Analyzing commits for version bump...', { baseline });
+
+  try {
+    // Get commit messages since baseline
+    const commitLog = await git.log(baseline);
+
+    const parsedCommits: CommitAnalyzeResult['commits'] = [];
+    const conventionalCommits = [];
+
+    for (const commit of commitLog) {
+      const parsed = parseConventionalCommit(commit.message);
+
+      if (parsed) {
+        parsedCommits.push({
+          hash: commit.hash,
+          message: commit.message,
+          type: parsed.type,
+          scope: parsed.scope,
+          breaking: parsed.breaking,
+        });
+        conventionalCommits.push(parsed);
+      }
+    }
+
+    const suggestedBumpType = getHighestBumpType(conventionalCommits);
+    const changes = commitsToChangeEntries(conventionalCommits);
+    const breakingCommits = parsedCommits.filter((c) => c.breaking).length;
+
+    logger.info('Commit analysis complete', {
+      totalCommits: parsedCommits.length,
+      breakingCommits,
+      suggestedBumpType,
+    });
+
+    return {
+      suggestedBumpType,
+      commits: parsedCommits,
+      changes,
+      totalCommits: parsedCommits.length,
+      breakingCommits,
+    };
+  } catch (error) {
+    logger.warn('Failed to analyze commits', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+
+    return {
+      suggestedBumpType: null,
+      commits: [],
+      changes: [],
+      totalCommits: 0,
+      breakingCommits: 0,
+    };
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Version Bump
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -160,7 +276,7 @@ export async function applyVersionBump(
   options: VersionBumpOptions
 ): Promise<VersionBumpResult> {
   const { fs, logger } = adapters;
-  const { specPath, dryRun = false } = options;
+  const { specPath, dryRun = false, config } = options;
 
   logger.info('Applying version bump...', {
     specPath,
@@ -221,6 +337,18 @@ export async function applyVersionBump(
       previousVersion: meta.version,
       newVersion,
     });
+
+    // Generate changeset if enabled
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((config as any)?.integrateWithChangesets) {
+      await generateChangeset(adapters, {
+        specPath,
+        bumpType,
+        summary:
+          options.changeDescription ?? `Bump ${meta.key} to ${newVersion}`,
+        dryRun,
+      });
+    }
 
     return {
       success: true,
@@ -560,4 +688,102 @@ function specToChangelogEntry(spec: SpecVersionAnalysis): ChangelogEntry {
     changes: spec.changes,
     breakingChanges: spec.changes.filter((c) => c.type === 'breaking'),
   };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Changeset Generation
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface GenerateChangesetOptions {
+  specPath: string;
+  bumpType: VersionBumpType;
+  summary: string;
+  dryRun?: boolean;
+}
+
+/**
+ * Generate a changeset file for a spec update.
+ */
+async function generateChangeset(
+  adapters: ServiceAdapters,
+  options: GenerateChangesetOptions
+): Promise<void> {
+  const { fs, logger } = adapters;
+  const { specPath, bumpType, summary, dryRun } = options;
+
+  try {
+    const pkgRoot = findPackageRoot(specPath);
+    const pkgName = getPackageName(pkgRoot);
+
+    if (!pkgName) {
+      logger.warn('Could not determine package name for changeset', {
+        specPath,
+      });
+      return;
+    }
+
+    // Find git root to locate .changeset folder
+    // This is a simplification; ideally we find the monorepo root
+    // We'll walk up from pkgRoot until we find a .changeset folder or hit root
+    let currentDir = pkgRoot;
+    let changesetDir: string | null = null;
+
+    while (true) {
+      const candidate = fs.join(currentDir, '.changeset');
+      if (await fs.exists(candidate)) {
+        changesetDir = candidate;
+        break;
+      }
+      const parent = fs.dirname(currentDir);
+      if (parent === currentDir) break;
+      currentDir = parent;
+    }
+
+    if (!changesetDir) {
+      // Create .changeset in package root if not found elsewhere (fallback)
+      // But typically it initiates in workspace root.
+      // We will skip if we absolutely can't find it to avoid polluting non-monorepos unexpected
+      logger.warn(
+        'No .changeset directory found, skipping changeset generation'
+      );
+      return;
+    }
+
+    const fileName = `${generateRandomName()}.md`;
+    const filePath = fs.join(changesetDir, fileName);
+
+    const content = `---
+"${pkgName}": ${bumpType}
+---
+
+${summary}
+`;
+
+    if (!dryRun) {
+      await fs.writeFile(filePath, content);
+      logger.info('Generated changeset', { filePath });
+    } else {
+      logger.info('Would generate changeset', { filePath, content });
+    }
+  } catch (error) {
+    logger.error('Failed to generate changeset', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
+/**
+ * Generate a random human-readable-ish name (simplified).
+ */
+function generateRandomName(): string {
+  const adjectives = ['neat', 'calm', 'wild', 'soft', 'bold', 'fair', 'cool'];
+  const nouns = ['fox', 'cat', 'dog', 'bat', 'ant', 'elk', 'owl'];
+  const verbs = ['run', 'fly', 'hop', 'eat', 'nap', 'cry', 'sing'];
+
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const noun = nouns[Math.floor(Math.random() * nouns.length)];
+  const verb = verbs[Math.floor(Math.random() * verbs.length)];
+  const random = Math.floor(Math.random() * 1000);
+
+  return `${adj}-${noun}-${verb}-${random}`;
 }

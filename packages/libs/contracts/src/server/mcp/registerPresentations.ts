@@ -5,6 +5,7 @@ import {
   registerBasicValidation,
   registerDefaultReactRenderer,
 } from '../../presentations/';
+import { sanitizeMcpName } from '../../jsonschema';
 
 function isEngineRenderOutput(
   x: unknown
@@ -28,7 +29,9 @@ export function registerMcpPresentations(
 
   // Register presentations from PresentationRegistry
   for (const presentationSpec of ctx.presentations.list()) {
-    const baseKey = `presentation.${presentationSpec.meta.key.replace(/\./g, '_')}.v${presentationSpec.meta.version}`;
+    const baseKey = sanitizeMcpName(
+      `presentation_${presentationSpec.meta.key}_v${presentationSpec.meta.version}`
+    );
     const baseUri = `presentation://${presentationSpec.meta.key}/v${presentationSpec.meta.version}`;
 
     ctx.logger.info(`Registering presentation ${baseUri} for ${baseKey}`);

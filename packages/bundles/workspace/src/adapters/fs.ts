@@ -21,7 +21,7 @@ import {
 import { glob as globFn } from 'glob';
 import type { DiscoverOptions, FileStat, FsAdapter } from '../ports/fs';
 
-const DEFAULT_SPEC_PATTERNS = [
+export const DEFAULT_SPEC_PATTERNS = [
   // Standard dot-prefixed naming convention
   '**/*.operation.ts',
   '**/*.operations.ts',
