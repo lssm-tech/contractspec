@@ -9,7 +9,7 @@ const OWNERS = ['@examples.team-hub'] as const;
 export const CreateSpaceContract = defineCommand({
   meta: {
     key: 'team.space.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['team-hub', 'space', 'create'],

@@ -50,7 +50,7 @@ export const ${viewVarName}: DataViewSpec = {
     },
     ${itemOperation}
     refreshEvents: [
-      // { name: 'entity.updated', version: 1 },
+      // { name: 'entity.updated', version: '1.0.0' },
     ],
   },
   view: {
@@ -70,8 +70,8 @@ ${fields}
     ],
   },
   states: {
-    // empty: { name: 'app.data.empty', version: 1 },
-    // error: { name: 'app.data.error', version: 1 },
+    // empty: { name: 'app.data.empty', version: '1.0.0' },
+    // error: { name: 'app.data.error', version: '1.0.0' },
   },
 };
 `;

@@ -75,7 +75,7 @@ export class AgentFactory {
    */
   async create(
     name: string,
-    version?: number,
+    version?: string,
     options?: CreateAgentOptions
   ): Promise<ContractSpecAgent> {
     const spec = this.config.registry.require(name, version);
@@ -129,7 +129,7 @@ export class AgentFactory {
    */
   async getOrCreate(
     name: string,
-    version?: number
+    version?: string
   ): Promise<ContractSpecAgent> {
     const spec = this.config.registry.require(name, version);
     const cacheKey = `${spec.meta.key}.v${spec.meta.version}`;

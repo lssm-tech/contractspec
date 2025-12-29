@@ -5,7 +5,7 @@ import { PayoutModel } from './payout.schema';
 export const PayoutListPresentation: PresentationSpec = {
   meta: {
     key: 'marketplace.payout.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Payout List',
     description: 'List of payouts for sellers',
     domain: 'marketplace',
@@ -30,7 +30,7 @@ export const PayoutListPresentation: PresentationSpec = {
 export const PayoutDetailPresentation: PresentationSpec = {
   meta: {
     key: 'marketplace.payout.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Payout Details',
     description: 'Payout detail with breakdown',
     domain: 'marketplace',

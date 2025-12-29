@@ -57,7 +57,7 @@ const PaymentEventPayload = defineSchemaModel({
 export const QuoteSentEvent = defineEvent({
   meta: {
     key: 'service.quote.sent',
-    version: 1,
+    version: '1.0.0',
     description: 'A quote was sent to the client.',
     stability: 'stable',
     owners: ['@service-os'],
@@ -69,7 +69,7 @@ export const QuoteSentEvent = defineEvent({
 export const QuoteAcceptedEvent = defineEvent({
   meta: {
     key: 'service.quote.accepted',
-    version: 1,
+    version: '1.0.0',
     description: 'A quote was accepted.',
     stability: 'stable',
     owners: ['@service-os'],
@@ -81,7 +81,7 @@ export const QuoteAcceptedEvent = defineEvent({
 export const JobScheduledEvent = defineEvent({
   meta: {
     key: 'service.job.scheduled',
-    version: 1,
+    version: '1.0.0',
     description: 'A job was scheduled.',
     stability: 'stable',
     owners: ['@service-os'],
@@ -93,7 +93,7 @@ export const JobScheduledEvent = defineEvent({
 export const JobCompletedEvent = defineEvent({
   meta: {
     key: 'service.job.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A job was completed.',
     stability: 'stable',
     owners: ['@service-os'],
@@ -105,7 +105,7 @@ export const JobCompletedEvent = defineEvent({
 export const InvoiceIssuedEvent = defineEvent({
   meta: {
     key: 'service.invoice.issued',
-    version: 1,
+    version: '1.0.0',
     description: 'An invoice was issued.',
     stability: 'stable',
     owners: ['@service-os'],
@@ -117,7 +117,7 @@ export const InvoiceIssuedEvent = defineEvent({
 export const PaymentReceivedEvent = defineEvent({
   meta: {
     key: 'service.payment.received',
-    version: 1,
+    version: '1.0.0',
     description: 'A payment was recorded.',
     stability: 'stable',
     owners: ['@service-os'],

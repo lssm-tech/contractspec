@@ -20,7 +20,7 @@ export function expressRouter(
   const router = express.Router();
 
   // For each spec, create a concrete route so Express can match quickly
-  for (const spec of reg.listSpecs()) {
+  for (const spec of reg.list()) {
     const method =
       spec.transport?.rest?.method ??
       (spec.meta.kind === 'query' ? 'GET' : 'POST');

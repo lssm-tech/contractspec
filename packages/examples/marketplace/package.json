@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.marketplace",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,15 +19,7 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.files": "workspace:*",
-    "@contractspec/lib.metering": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",

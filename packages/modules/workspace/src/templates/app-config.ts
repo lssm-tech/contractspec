@@ -24,7 +24,7 @@ export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
 export const ${exportName}: AppBlueprintSpec = {
   meta: {
     key: '${escapeString(data.name)}',
-    version: ${data.version},
+    version: '${data.version}',
     title: '${escapeString(data.title)}',
     description: '${escapeString(data.description)}',
     domain: '${escapeString(data.domain)}',
@@ -78,7 +78,7 @@ function buildMappingSection(
     .map(
       (mapping) => `    ${mapping.slot}: {
       name: '${escapeString(mapping.name)}',
-      ${typeof mapping.version === 'number' ? `version: ${mapping.version},` : ''}
+      version: '${mapping.version}',
     }`
     )
     .join(',\n');
@@ -90,7 +90,8 @@ function buildPolicySection(data: AppBlueprintSpecData): string {
   const entries = data.policyRefs
     .map(
       (policy) => `    {
-      name: '${escapeString(policy.name)}'${typeof policy.version === 'number' ? `,\n      version: ${policy.version}` : ''}
+      name: '${escapeString(policy.name)}',
+      version: '${policy.version}',
     }`
     )
     .join(',\n');
@@ -105,7 +106,7 @@ function buildThemeSection(data: AppBlueprintSpecData): string {
       ? `    fallbacks: [${data.themeFallbacks
           .map(
             (theme) =>
-              `{ name: '${escapeString(theme.name)}', version: ${theme.version} }`
+              `{ name: '${escapeString(theme.name)}', version: '${theme.version}' }`
           )
           .join(', ')}],\n`
       : '';
@@ -117,8 +118,8 @@ function buildTelemetrySection(data: AppBlueprintSpecData): string {
   return `  telemetry: {
     spec: {
       name: '${escapeString(data.telemetry.name)}'${
-        typeof data.telemetry.version === 'number'
-          ? `,\n      version: ${data.telemetry.version}`
+        data.telemetry.version !== undefined
+          ? `,\n      version: '${data.telemetry.version}'`
           : ''
       }
     },
@@ -169,8 +170,8 @@ function buildRoutesSection(data: AppBlueprintSpecData): string {
         route.workflow ? `workflow: '${escapeString(route.workflow)}'` : null,
         route.guardName
           ? `guard: { name: '${escapeString(route.guardName)}'${
-              typeof route.guardVersion === 'number'
-                ? `, version: ${route.guardVersion}`
+              route.guardVersion !== undefined
+                ? `, version: '${route.guardVersion}'`
                 : ''
             } }`
           : null,
@@ -179,8 +180,8 @@ function buildRoutesSection(data: AppBlueprintSpecData): string {
           : null,
         route.experimentName
           ? `experiment: { name: '${escapeString(route.experimentName)}'${
-              typeof route.experimentVersion === 'number'
-                ? `, version: ${route.experimentVersion}`
+              route.experimentVersion !== undefined
+                ? `, version: '${route.experimentVersion}'`
                 : ''
             } }`
           : null,
@@ -195,9 +196,9 @@ function formatCapabilityRef(key: string): string {
   return `{ key: '${escapeString(key)}' }`;
 }
 
-function formatExperimentRef(exp: { name: string; version?: number }): string {
+function formatExperimentRef(exp: { name: string; version?: string }): string {
   const version =
-    typeof exp.version === 'number' ? `, version: ${exp.version}` : '';
+    typeof exp.version === 'string' ? `, version: ${exp.version}` : '';
   return `{ name: '${escapeString(exp.name)}'${version} }`;
 }
 

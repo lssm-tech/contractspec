@@ -7,7 +7,7 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import { existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { readFile } from 'node:fs/promises';
 import type {
   FormatterConfig,
@@ -159,13 +159,13 @@ function getFormatterCommand(
 
   switch (type) {
     case 'prettier':
-      return `npx prettier --write ${extraArgs} ${fileArgs}`;
+      return `bunx prettier --write ${extraArgs} ${fileArgs}`;
     case 'eslint':
-      return `npx eslint --fix ${extraArgs} ${fileArgs}`;
+      return `bunx eslint --fix ${extraArgs} ${fileArgs}`;
     case 'biome':
-      return `npx @biomejs/biome format --write ${extraArgs} ${fileArgs}`;
+      return `bunx @biomejs/biome format --write ${extraArgs} ${fileArgs}`;
     case 'dprint':
-      return `npx dprint fmt ${extraArgs} ${fileArgs}`;
+      return `bunx dprint fmt ${extraArgs} ${fileArgs}`;
     case 'custom':
       if (!config?.command) {
         throw new Error(

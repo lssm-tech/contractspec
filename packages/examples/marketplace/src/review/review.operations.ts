@@ -17,7 +17,7 @@ const OWNERS = ['@example.marketplace'] as const;
 export const CreateReviewContract = defineCommand({
   meta: {
     key: 'marketplace.review.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'review', 'create'],
@@ -31,7 +31,7 @@ export const CreateReviewContract = defineCommand({
     emits: [
       {
         key: 'marketplace.review.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Review is created',
         payload: ReviewModel,
       },
@@ -63,7 +63,7 @@ export const CreateReviewContract = defineCommand({
 export const ListReviewsContract = defineQuery({
   meta: {
     key: 'marketplace.review.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'review', 'list'],

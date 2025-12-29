@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-patterns",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).",
   "type": "module",
   "main": "./dist/index.js",
@@ -32,7 +32,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },

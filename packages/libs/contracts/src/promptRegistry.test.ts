@@ -10,7 +10,7 @@ describe('PromptRegistry', () => {
       const prompt = definePrompt({
         meta: {
           key: 'test.prompt',
-          version: 1,
+          version: '1.0.0',
           title: 'Test',
           description: 'Test prompt',
         },
@@ -28,7 +28,7 @@ describe('PromptRegistry', () => {
       const prompt1 = definePrompt({
         meta: {
           key: 'prompt.one',
-          version: 1,
+          version: '1.0.0',
           title: 'One',
           description: 'First',
         },
@@ -39,7 +39,7 @@ describe('PromptRegistry', () => {
       const prompt2 = definePrompt({
         meta: {
           key: 'prompt.two',
-          version: 1,
+          version: '1.0.0',
           title: 'Two',
           description: 'Second',
         },
@@ -57,7 +57,7 @@ describe('PromptRegistry', () => {
       const prompt1 = definePrompt({
         meta: {
           key: 'duplicate.prompt',
-          version: 1,
+          version: '1.0.0',
           title: 'Original',
           description: 'First',
         },
@@ -68,7 +68,7 @@ describe('PromptRegistry', () => {
       const prompt2 = definePrompt({
         meta: {
           key: 'duplicate.prompt',
-          version: 1,
+          version: '1.0.0',
           title: 'Duplicate',
           description: 'Second',
         },
@@ -86,7 +86,7 @@ describe('PromptRegistry', () => {
       const v1 = definePrompt({
         meta: {
           key: 'versioned.prompt',
-          version: 1,
+          version: '1.0.0',
           title: 'V1',
           description: 'First',
         },
@@ -97,7 +97,7 @@ describe('PromptRegistry', () => {
       const v2 = definePrompt({
         meta: {
           key: 'versioned.prompt',
-          version: 2,
+          version: '2.0.0',
           title: 'V2',
           description: 'Second',
         },
@@ -121,13 +121,23 @@ describe('PromptRegistry', () => {
       const registry = new PromptRegistry();
       const prompts = [
         definePrompt({
-          meta: { key: 'p1', version: 1, title: 'P1', description: 'First' },
+          meta: {
+            key: 'p1',
+            version: '1.0.0',
+            title: 'P1',
+            description: 'First',
+          },
           args: [],
           input: z.object({}),
           render: async () => [],
         }),
         definePrompt({
-          meta: { key: 'p2', version: 1, title: 'P2', description: 'Second' },
+          meta: {
+            key: 'p2',
+            version: '1.0.0',
+            title: 'P2',
+            description: 'Second',
+          },
           args: [],
           input: z.object({}),
           render: async () => [],
@@ -145,7 +155,7 @@ describe('PromptRegistry', () => {
       const prompt = definePrompt({
         meta: {
           key: 'target.prompt',
-          version: 1,
+          version: '1.0.0',
           title: 'Target',
           description: 'Target prompt',
         },
@@ -155,13 +165,13 @@ describe('PromptRegistry', () => {
       });
 
       registry.register(prompt);
-      const result = registry.get('target.prompt', 1);
+      const result = registry.get('target.prompt', '1.0.0');
       expect(result).toBe(prompt);
     });
 
     it('should return undefined for non-existent prompt', () => {
       const registry = new PromptRegistry();
-      expect(registry.get('nonexistent', 1)).toBeUndefined();
+      expect(registry.get('nonexistent', '1.0.0')).toBeUndefined();
     });
   });
 });

@@ -48,7 +48,7 @@ export interface IntegrityAnalysisOptions {
  */
 export interface SpecLocation {
   key: string;
-  version: number;
+  version: string;
   file: string;
   type: AnalyzedSpecType;
   stability?: string;
@@ -141,7 +141,7 @@ export interface IntegrityAnalysisResult {
 /**
  * Build a spec key from name and version.
  */
-function specKey(key: string, version: number): string {
+function specKey(key: string, version: string): string {
   return `${key}.v${version}`;
 }
 

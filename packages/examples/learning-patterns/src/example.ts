@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-patterns',
-  title: 'Learning Patterns',
-  summary:
-    'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',
-  tags: ['learning', 'journey', 'patterns'],
-  kind: 'library',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-patterns',
+    version: '1.0.0',
+    title: 'Learning Patterns',
+    description:
+      'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',
+    kind: 'library',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'journey', 'patterns'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-patterns',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

@@ -13,7 +13,7 @@ const OWNERS = ['@examples.service-business-os'] as const;
 export const CreateQuoteContract = defineCommand({
   meta: {
     key: 'service.quote.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'quote', 'create'],
@@ -54,7 +54,7 @@ export const CreateQuoteContract = defineCommand({
 export const AcceptQuoteContract = defineCommand({
   meta: {
     key: 'service.quote.accept',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['service-business-os', 'quote', 'accept'],

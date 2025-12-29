@@ -15,7 +15,7 @@ export const AuditLogModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     eventName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    eventVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    eventVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     payload: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
     actorId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
     actorType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -133,7 +133,7 @@ export const AuditStatsOutputModel = defineSchemaModel({
 export const QueryAuditLogsContract = defineQuery({
   meta: {
     key: 'audit.logs.query',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['audit', 'logs', 'query'],
@@ -156,7 +156,7 @@ export const QueryAuditLogsContract = defineQuery({
 export const GetAuditLogContract = defineQuery({
   meta: {
     key: 'audit.logs.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['audit', 'logs', 'get'],
@@ -184,7 +184,7 @@ export const GetAuditLogContract = defineQuery({
 export const GetAuditTraceContract = defineQuery({
   meta: {
     key: 'audit.trace.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['audit', 'trace', 'get'],
@@ -217,7 +217,7 @@ export const GetAuditTraceContract = defineQuery({
 export const ExportAuditLogsContract = defineCommand({
   meta: {
     key: 'audit.logs.export',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['audit', 'logs', 'export'],
@@ -240,7 +240,7 @@ export const ExportAuditLogsContract = defineCommand({
 export const GetAuditStatsContract = defineQuery({
   meta: {
     key: 'audit.stats',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['audit', 'stats'],

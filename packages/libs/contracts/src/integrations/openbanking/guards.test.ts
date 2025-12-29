@@ -25,7 +25,7 @@ function buildResolvedConfig(
       id: integration?.meta?.id ?? 'conn-powens',
       tenantId: 'tenant',
       integrationKey: integration?.meta?.integrationKey ?? 'openbanking.powens',
-      integrationVersion: 1,
+      integrationVersion: '1.0.0',
       label: 'Powens',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -40,7 +40,7 @@ function buildResolvedConfig(
   const spec: IntegrationSpec = {
     meta: {
       key: specKey ?? 'openbanking.powens',
-      version: 1,
+      version: '1.0.0',
       category: 'open-banking',
       title: 'Powens Open Banking',
 
@@ -60,8 +60,8 @@ function buildResolvedConfig(
     appId: 'app',
     tenantId: 'tenant',
     blueprintName: 'pfo',
-    blueprintVersion: 1,
-    configVersion: 1,
+    blueprintVersion: '1.0.0',
+    configVersion: '1.0.0',
     capabilities: { enabled: [], disabled: [] },
     features: { include: [], exclude: [] },
     dataViews: {},

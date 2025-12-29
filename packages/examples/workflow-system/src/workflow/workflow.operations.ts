@@ -20,7 +20,7 @@ const OWNERS = ['@example.workflow-system'] as const;
 export const CreateWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.definition.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'create'],
@@ -37,7 +37,7 @@ export const CreateWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.definition.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is created',
         payload: WorkflowDefinitionModel,
       },
@@ -76,7 +76,7 @@ export const CreateWorkflowContract = defineCommand({
 export const UpdateWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.definition.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'update'],
@@ -93,7 +93,7 @@ export const UpdateWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.definition.updated',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is updated',
         payload: WorkflowDefinitionModel,
       },
@@ -128,7 +128,7 @@ export const UpdateWorkflowContract = defineCommand({
 export const AddStepContract = defineCommand({
   meta: {
     key: 'workflow.step.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'step', 'add'],
@@ -145,7 +145,7 @@ export const AddStepContract = defineCommand({
     emits: [
       {
         key: 'workflow.step.added',
-        version: 1,
+        version: '1.0.0',
         when: 'Step is added',
         payload: WorkflowStepModel,
       },
@@ -181,7 +181,7 @@ export const AddStepContract = defineCommand({
 export const PublishWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.definition.publish',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'publish'],
@@ -206,7 +206,7 @@ export const PublishWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.definition.published',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is published',
         payload: WorkflowDefinitionModel,
       },
@@ -238,7 +238,7 @@ export const PublishWorkflowContract = defineCommand({
 export const ListWorkflowsContract = defineQuery({
   meta: {
     key: 'workflow.definition.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'list'],
@@ -302,7 +302,7 @@ export const ListWorkflowsContract = defineQuery({
 export const GetWorkflowContract = defineQuery({
   meta: {
     key: 'workflow.definition.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'definition', 'get'],

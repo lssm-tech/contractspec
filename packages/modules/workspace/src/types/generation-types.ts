@@ -2,7 +2,8 @@
  * Code generation related type definitions.
  */
 
-import type { SpecType, OpKind, PresentationKind } from './spec-types';
+import type { OpKind } from '@contractspec/lib.contracts';
+import type { SpecType, PresentationKind } from './spec-types';
 
 /**
  * AI provider options for generation.

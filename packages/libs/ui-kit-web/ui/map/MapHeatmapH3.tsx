@@ -73,5 +73,3 @@ export function MapHeatmapH3(props: H3HeatmapProps) {
     </Source>
   );
 }
-
-export default MapHeatmapH3;

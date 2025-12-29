@@ -23,16 +23,16 @@ export function jsonSchemaForSpec(
 }
 
 /** Helper to derive default REST path */
-export function defaultRestPath(name: string, version: number) {
+export function defaultRestPath(name: string, version: string) {
   return `/${name.replace(/\./g, '/')}/v${version}`;
 }
 
 /** Helper to derive default MCP tool name */
-export function defaultMcpTool(name: string, version: number) {
+export function defaultMcpTool(name: string, version: string) {
   return `${name}-v${version}`;
 }
 
 /** Helper to derive default GraphQL field name */
-export function defaultGqlField(name: string, version: number) {
+export function defaultGqlField(name: string, version: string) {
   return `${name.replace(/\./g, '_')}_v${version}`;
 }

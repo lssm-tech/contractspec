@@ -172,7 +172,7 @@ export type FieldSpec =
 export interface FormAction {
   key: string;
   labelI18n: string;
-  op?: { name: string; version: number };
+  op?: { name: string; version: string };
   success?: { navigateTo?: string; toastI18n?: string };
 }
 
@@ -199,6 +199,8 @@ export interface FormSpec<M extends AnySchemaModel = AnySchemaModel> {
 
 // ---- Registry
 
+import { compareVersions } from 'compare-versions';
+
 function formKey(meta: FormSpec['meta']) {
   return `${meta.key}.v${meta.version}`;
 }
@@ -217,14 +219,15 @@ export class FormRegistry {
     return [...this.items.values()];
   }
 
-  get(key: string, version?: number) {
+  get(key: string, version?: string) {
     if (version != null) return this.items.get(`${key}.v${version}`);
     let candidate: FormSpec | undefined;
-    let max = -Infinity;
+    
     for (const [k, v] of this.items.entries()) {
-      if (!k.startsWith(`${key}.v`)) continue;
-      if (v.meta.version > max) {
-        max = v.meta.version;
+      // Basic prefix check (can be stricter if needed)
+      if (v.meta.key !== key) continue;
+      
+      if (!candidate || compareVersions(v.meta.version, candidate.meta.version) > 0) {
         candidate = v;
       }
     }

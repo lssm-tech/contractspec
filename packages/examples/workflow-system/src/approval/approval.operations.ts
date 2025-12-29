@@ -14,7 +14,7 @@ const OWNERS = ['@example.workflow-system'] as const;
 export const SubmitDecisionContract = defineCommand({
   meta: {
     key: 'workflow.approval.decide',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'approval', 'decision'],
@@ -42,7 +42,7 @@ export const SubmitDecisionContract = defineCommand({
     emits: [
       {
         key: 'workflow.approval.decided',
-        version: 1,
+        version: '1.0.0',
         when: 'Decision is made',
         payload: ApprovalRequestModel,
       },
@@ -78,7 +78,7 @@ export const SubmitDecisionContract = defineCommand({
 export const DelegateApprovalContract = defineCommand({
   meta: {
     key: 'workflow.approval.delegate',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'approval', 'delegate'],
@@ -108,7 +108,7 @@ export const DelegateApprovalContract = defineCommand({
     emits: [
       {
         key: 'workflow.approval.delegated',
-        version: 1,
+        version: '1.0.0',
         when: 'Approval is delegated',
         payload: ApprovalRequestModel,
       },
@@ -144,7 +144,7 @@ export const DelegateApprovalContract = defineCommand({
 export const AddApprovalCommentContract = defineCommand({
   meta: {
     key: 'workflow.approval.comment.add',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'approval', 'comment'],
@@ -171,7 +171,7 @@ export const AddApprovalCommentContract = defineCommand({
     emits: [
       {
         key: 'workflow.approval.comment.added',
-        version: 1,
+        version: '1.0.0',
         when: 'Comment is added',
         payload: ApprovalCommentModel,
       },
@@ -206,7 +206,7 @@ export const AddApprovalCommentContract = defineCommand({
 export const ListMyApprovalsContract = defineQuery({
   meta: {
     key: 'workflow.approval.list.mine',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'approval', 'list', 'inbox'],
@@ -273,7 +273,7 @@ export const ListMyApprovalsContract = defineQuery({
 export const GetApprovalContract = defineQuery({
   meta: {
     key: 'workflow.approval.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'approval', 'get'],

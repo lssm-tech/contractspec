@@ -14,7 +14,7 @@ const logger = new Logger({
 const BaseWorkflow: WorkflowSpec = {
   meta: {
     key: 'billing.invoiceApproval',
-    version: 1,
+    version: '1.0.0',
     title: 'Invoice Approval',
     owners: [],
     tags: [],

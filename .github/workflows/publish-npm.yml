@@ -150,7 +150,7 @@ jobs:
         if: steps.changesets.outputs.hasChangesets == 'false'
         id: action-version
         run: |
-          VERSION=$(jq -r .version packages/apps/action-contractspec/package.json)
+          VERSION=$(jq -r .version packages/apps/action-validation/package.json)
           MAJOR=$(echo $VERSION | cut -d'.' -f1)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "major=$MAJOR" >> $GITHUB_OUTPUT
@@ -174,7 +174,7 @@ jobs:
 
             ### What's Changed
 
-            See [CHANGELOG](https://github.com/${{ github.repository }}/blob/main/packages/apps/action-contractspec/CHANGELOG.md) for details.
+            See [CHANGELOG](https://github.com/${{ github.repository }}/blob/main/packages/apps/action-validation/CHANGELOG.md) for details.
           draft: false
           prerelease: false
         env:

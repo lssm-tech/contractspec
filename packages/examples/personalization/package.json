@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
   "main": "./dist/index.js",
@@ -32,7 +32,6 @@
     "@contractspec/lib.personalization": "workspace:*",
     "@contractspec/lib.overlay-engine": "workspace:*",
     "@contractspec/lib.workflow-composer": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"
   },

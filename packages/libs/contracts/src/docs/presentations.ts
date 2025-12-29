@@ -16,7 +16,7 @@ export interface DocPresentationOptions {
   /** Default presentation targets. */
   defaultTargets?: PresentationTarget[];
   /** Default version when block.version is not set. */
-  defaultVersion?: number;
+  defaultVersion?: string;
   /** Default stability if not provided on the DocBlock. */
   defaultStability?: Stability;
 }
@@ -29,8 +29,8 @@ export interface DocPresentationRoute {
 
 const DEFAULT_TARGETS: PresentationTarget[] = [
   'markdown',
-  'application/json',
-  'application/xml',
+  // 'application/json',
+  // 'application/xml',
   'react',
 ];
 
@@ -60,7 +60,7 @@ export function docBlockToPresentationSpec(
   options?: DocPresentationOptions
 ): PresentationSpec {
   const targets = options?.defaultTargets ?? DEFAULT_TARGETS;
-  const version = block.version ?? options?.defaultVersion ?? 1;
+  const version = block.version ?? options?.defaultVersion ?? '1.0.0';
   const stability = block.stability ?? options?.defaultStability ?? 'stable';
 
   return {
@@ -87,9 +87,6 @@ export function docBlockToPresentationSpec(
     targets,
   };
 }
-
-/** @deprecated Use docBlockToPresentationSpec instead */
-export const docBlockToPresentationV2 = docBlockToPresentationSpec;
 
 export function docBlocksToPresentationRoutes(
   blocks: DocBlock[],

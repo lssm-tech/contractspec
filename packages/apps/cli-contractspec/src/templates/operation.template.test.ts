@@ -7,7 +7,7 @@ describe('generateOperationSpec', () => {
     const data: OperationSpecData = {
       kind: 'command',
       name: 'user.signup',
-      version: 1,
+      version: '1.0.0',
       description: 'Start user signup flow',
       goal: 'Allow users to create accounts',
       context: 'Email-based signup with magic link',
@@ -26,7 +26,7 @@ describe('generateOperationSpec', () => {
     // Should contain key elements
     expect(code).toContain('defineCommand');
     expect(code).toContain('user.signup');
-    expect(code).toContain('version: 1');
+    expect(code).toContain("version: '1.0.0'");
     expect(code).toContain("stability: 'stable'");
     expect(code).toContain('@team');
     expect(code).toContain('SchemaModel');
@@ -38,7 +38,7 @@ describe('generateOperationSpec', () => {
     const data: OperationSpecData = {
       kind: 'query',
       name: 'user.getProfile',
-      version: 1,
+      version: '1.0.0',
       description: 'Get user profile',
       goal: 'Retrieve user data',
       context: 'Read-only profile access',
@@ -63,7 +63,7 @@ describe('generateOperationSpec', () => {
     const withFlags: OperationSpecData = {
       kind: 'command',
       name: 'test.operation',
-      version: 1,
+      version: '1.0.0',
       description: 'Test',
       goal: 'Test',
       context: 'Test',

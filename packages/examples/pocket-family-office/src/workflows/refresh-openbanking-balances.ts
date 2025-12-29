@@ -5,12 +5,15 @@ import {
   TagsEnum,
 } from '@contractspec/lib.contracts/ownership';
 
-const BALANCE_CAPABILITY = { key: 'openbanking.balances.read', version: 1 };
+const BALANCE_CAPABILITY = {
+  key: 'openbanking.balances.read',
+  version: '1.0.0',
+};
 
 export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.refresh-openbanking-balances',
-    version: 1,
+    version: '1.0.0',
     title: 'Refresh Open Banking Balances',
     description:
       'Refreshes balances for synced accounts to surface the latest cash positions in dashboards.',
@@ -29,7 +32,7 @@ export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
         description:
           'Trigger the Powens provider to obtain current and available balances.',
         action: {
-          operation: { key: 'openbanking.balances.refresh', version: 1 },
+          operation: { key: 'openbanking.balances.refresh', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [BALANCE_CAPABILITY],
@@ -46,7 +49,7 @@ export const refreshOpenBankingBalancesWorkflow: WorkflowSpec = {
         description:
           'Load the canonical balance snapshots for downstream workflows and dashboards.',
         action: {
-          operation: { key: 'openbanking.balances.get', version: 1 },
+          operation: { key: 'openbanking.balances.get', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [BALANCE_CAPABILITY],

@@ -1,11 +1,18 @@
-const example = {
-  id: 'agent-console',
-  title: 'Agent Console',
-  summary:
-    'AI agent ops console: tools, agents, runs, logs, and metrics (spec-first, regenerable).',
-  tags: ['ai', 'agents', 'tools', 'orchestration'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'agent-console',
+    version: '1.0.0',
+    title: 'Agent Console',
+    description:
+      'AI agent ops console: tools, agents, runs, logs, and metrics (spec-first, regenerable).',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['ai', 'agents', 'tools', 'orchestration'],
+  },
   docs: {
     rootDocId: 'docs.examples.agent-console.reference',
     goalDocId: 'docs.examples.agent-console.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

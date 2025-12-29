@@ -10,7 +10,7 @@ import { SchemaModel } from '@contractspec/lib.schema';
 export const TestSpec = defineCommand({
   meta: {
     key: 'test.operation',
-    version: 1,
+    version: '1.0.0',
     kind: 'command',
     stability: 'beta',
     owners: ['@team'],
@@ -33,7 +33,6 @@ export const TestSpec = defineCommand({
       validOperationSpec,
       'test.operation.ts'
     );
-    console.info('result', result);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -61,7 +60,7 @@ import { SchemaModel } from '@contractspec/lib.schema';
 
 export const TestEvent = defineEvent({
   name: 'test.event_created',
-  version: 1,
+  version: '1.0.0',
   description: 'Test event',
   payload: new SchemaModel({}),
 });
@@ -77,7 +76,7 @@ import { defineEvent } from '@contractspec/lib.contracts';
 
 export const TestEvent = defineEvent({
   name: 'test.create_user',
-  version: 1,
+  version: '1.0.0',
   description: 'Test',
   payload: {},
 });

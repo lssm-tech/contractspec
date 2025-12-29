@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.versioned-knowledge-base",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.",
   "type": "module",
   "main": "./dist/index.js",
@@ -36,8 +36,7 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

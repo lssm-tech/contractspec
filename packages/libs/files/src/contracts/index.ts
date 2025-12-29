@@ -37,7 +37,7 @@ export const FileVersionModel = defineSchemaModel({
   fields: {
     id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     fileId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     size: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
     storagePath: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     checksum: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
@@ -263,7 +263,7 @@ const SuccessOutput = defineSchemaModel({
 export const UploadFileContract = defineCommand({
   meta: {
     key: 'file.upload',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'upload'],
@@ -300,7 +300,7 @@ export const UploadFileContract = defineCommand({
 export const UpdateFileContract = defineCommand({
   meta: {
     key: 'file.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'update'],
@@ -331,7 +331,7 @@ export const UpdateFileContract = defineCommand({
 export const DeleteFileContract = defineCommand({
   meta: {
     key: 'file.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'delete'],
@@ -362,7 +362,7 @@ export const DeleteFileContract = defineCommand({
 export const GetFileContract = defineQuery({
   meta: {
     key: 'file.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'get'],
@@ -393,7 +393,7 @@ export const GetFileContract = defineQuery({
 export const ListFilesContract = defineQuery({
   meta: {
     key: 'file.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'list'],
@@ -416,7 +416,7 @@ export const ListFilesContract = defineQuery({
 export const GetDownloadUrlContract = defineQuery({
   meta: {
     key: 'file.downloadUrl',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'download'],
@@ -447,7 +447,7 @@ export const GetDownloadUrlContract = defineQuery({
 export const CreateVersionContract = defineCommand({
   meta: {
     key: 'file.version.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'version', 'create'],
@@ -478,7 +478,7 @@ export const CreateVersionContract = defineCommand({
 export const GetVersionsContract = defineQuery({
   meta: {
     key: 'file.version.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'version', 'list'],
@@ -509,7 +509,7 @@ export const GetVersionsContract = defineQuery({
 export const AttachFileContract = defineCommand({
   meta: {
     key: 'attachment.attach',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'attachment', 'attach'],
@@ -546,7 +546,7 @@ export const AttachFileContract = defineCommand({
 export const DetachFileContract = defineCommand({
   meta: {
     key: 'attachment.detach',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'attachment', 'detach'],
@@ -577,7 +577,7 @@ export const DetachFileContract = defineCommand({
 export const ListAttachmentsContract = defineQuery({
   meta: {
     key: 'attachment.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'attachment', 'list'],
@@ -600,7 +600,7 @@ export const ListAttachmentsContract = defineQuery({
 export const CreatePresignedUrlContract = defineCommand({
   meta: {
     key: 'file.presignedUrl.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['files', 'presigned', 'upload'],

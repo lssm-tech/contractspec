@@ -170,7 +170,7 @@ export async function resolveImplementations(
   const scan = scanSpecSource(specContent, specFile);
 
   const specKey = scan.key ?? fs.basename(specFile).replace(/\.[jt]s$/, '');
-  const specVersion = scan.version ?? 1;
+  const specVersion = scan.version ?? '1.0.0';
   const specType = scan.specType ?? 'operation';
 
   const implementations: ResolvedImplementation[] = [];

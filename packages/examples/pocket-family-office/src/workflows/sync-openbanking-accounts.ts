@@ -5,12 +5,15 @@ import {
   TagsEnum,
 } from '@contractspec/lib.contracts/ownership';
 
-const ACCOUNT_CAPABILITY = { key: 'openbanking.accounts.read', version: 1 };
+const ACCOUNT_CAPABILITY = {
+  key: 'openbanking.accounts.read',
+  version: '1.0.0',
+};
 
 export const syncOpenBankingAccountsWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.sync-openbanking-accounts',
-    version: 1,
+    version: '1.0.0',
     title: 'Synchronise Open Banking Accounts',
     description:
       'Validates Powens connectivity and synchronises bank account metadata into the canonical ledger.',
@@ -29,7 +32,7 @@ export const syncOpenBankingAccountsWorkflow: WorkflowSpec = {
         description:
           'Refresh linked bank accounts via Powens and upsert canonical BankAccount records.',
         action: {
-          operation: { key: 'openbanking.accounts.sync', version: 1 },
+          operation: { key: 'openbanking.accounts.sync', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [ACCOUNT_CAPABILITY],
@@ -46,7 +49,7 @@ export const syncOpenBankingAccountsWorkflow: WorkflowSpec = {
         description:
           'Retrieve the latest canonical account snapshot for downstream consumers.',
         action: {
-          operation: { key: 'openbanking.accounts.list', version: 1 },
+          operation: { key: 'openbanking.accounts.list', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryOpenBanking'],
         requiredCapabilities: [ACCOUNT_CAPABILITY],

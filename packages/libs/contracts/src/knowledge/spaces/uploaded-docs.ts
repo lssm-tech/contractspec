@@ -4,7 +4,7 @@ import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
 export const uploadedDocsKnowledgeSpace: KnowledgeSpaceSpec = {
   meta: {
     key: 'knowledge.uploaded-docs',
-    version: 1,
+    version: '1.0.0',
     category: 'external',
     title: 'Uploaded Knowledge Assets',
     description:
@@ -18,7 +18,7 @@ export const uploadedDocsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: null,
   },
   access: {
-    policy: { key: 'knowledge.access.uploaded-docs', version: 1 },
+    policy: { key: 'knowledge.access.uploaded-docs', version: '1.0.0' },
     trustLevel: 'medium',
     automationWritable: true,
   },

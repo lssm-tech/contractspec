@@ -29,7 +29,7 @@ export interface IntegrationConnectionMeta {
   tenantId: string;
   /** Reference to IntegrationSpec. */
   integrationKey: string;
-  integrationVersion: number;
+  integrationVersion: string;
   /** Human-readable label (e.g., "Production Stripe"). */
   label: string;
   environment?: string;

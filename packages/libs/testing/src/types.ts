@@ -6,7 +6,7 @@ import type { AnySchemaModel } from '@contractspec/lib.schema';
 
 export interface TrafficSnapshot {
   id: string;
-  operation: { name: string; version: number };
+  operation: { name: string; version: string };
   input: unknown;
   output?: unknown;
   error?: {

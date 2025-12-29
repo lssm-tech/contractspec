@@ -5,7 +5,7 @@ import type { DataViewSpec } from './spec';
 describe('DataViewRegistry', () => {
   const createSpec = (
     key: string,
-    version = 1,
+    version = '1.0.0',
     overrides?: Partial<DataViewSpec>
   ): DataViewSpec => ({
     meta: {
@@ -18,7 +18,7 @@ describe('DataViewRegistry', () => {
       tags: ['test'],
       entity: 'entity',
     },
-    source: { primary: { key: `${key}.query`, version: 1 } },
+    source: { primary: { key: `${key}.query`, version: '1.0.0' } },
     view: { kind: 'list', fields: [] },
     ...overrides,
   });
@@ -49,13 +49,13 @@ describe('DataViewRegistry', () => {
 
       registry.register(spec1);
 
-      expect(() => registry.register(spec2)).toThrow(/Duplicate data view/);
+      expect(() => registry.register(spec2)).toThrow(/Duplicate contract/);
     });
 
     it('should allow same key with different versions', () => {
       const registry = new DataViewRegistry();
-      registry.register(createSpec('versioned.view', 1));
-      registry.register(createSpec('versioned.view', 2));
+      registry.register(createSpec('versioned.view', '1.0.0'));
+      registry.register(createSpec('versioned.view', '2.0.0'));
 
       expect(registry.list()).toHaveLength(2);
     });
@@ -80,10 +80,10 @@ describe('DataViewRegistry', () => {
   describe('get', () => {
     it('should get spec by key and version', () => {
       const registry = new DataViewRegistry();
-      const spec = createSpec('target.view', 1);
+      const spec = createSpec('target.view', '1.0.0');
       registry.register(spec);
 
-      expect(registry.get('target.view', 1)).toBe(spec);
+      expect(registry.get('target.view', '1.0.0')).toBe(spec);
     });
 
     it('should return undefined for non-existent spec', () => {
@@ -93,12 +93,12 @@ describe('DataViewRegistry', () => {
 
     it('should get latest version when version not specified', () => {
       const registry = new DataViewRegistry();
-      registry.register(createSpec('multi.version', 1));
-      registry.register(createSpec('multi.version', 3));
-      registry.register(createSpec('multi.version', 2));
+      registry.register(createSpec('multi.version', '1.0.0'));
+      registry.register(createSpec('multi.version', '3.0.0'));
+      registry.register(createSpec('multi.version', '2.0.0'));
 
       const latest = registry.get('multi.version');
-      expect(latest?.meta.version).toBe(3);
+      expect(latest?.meta.version).toBe('3.0.0');
     });
   });
 
@@ -106,10 +106,10 @@ describe('DataViewRegistry', () => {
     it('should filter by stability', () => {
       const registry = new DataViewRegistry();
       registry.register(
-        createSpec('stable.view', 1, {
+        createSpec('stable.view', '1.0.0', {
           meta: {
             key: 'stable.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Stable',
             description: 'Stable',
             stability: 'stable',
@@ -120,10 +120,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('beta.view', 1, {
+        createSpec('beta.view', '1.0.0', {
           meta: {
             key: 'beta.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Beta',
             description: 'Beta',
             stability: 'beta',
@@ -145,10 +145,10 @@ describe('DataViewRegistry', () => {
     it('should filter by tag', () => {
       const registry = new DataViewRegistry();
       registry.register(
-        createSpec('payments.view', 1, {
+        createSpec('payments.view', '1.0.0', {
           meta: {
             key: 'payments.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Payments',
             description: 'Payments view',
             stability: 'stable',
@@ -159,10 +159,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('users.view', 1, {
+        createSpec('users.view', '1.0.0', {
           meta: {
             key: 'users.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Users',
             description: 'Users view',
             stability: 'stable',
@@ -184,10 +184,10 @@ describe('DataViewRegistry', () => {
     it('should filter by owner', () => {
       const registry = new DataViewRegistry();
       registry.register(
-        createSpec('team-a.view', 1, {
+        createSpec('team-a.view', '1.0.0', {
           meta: {
             key: 'team-a.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Team A',
             description: 'Team A view',
             stability: 'stable',
@@ -198,10 +198,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('team-b.view', 1, {
+        createSpec('team-b.view', '1.0.0', {
           meta: {
             key: 'team-b.view',
-            version: 1,
+            version: '1.0.0',
             title: 'Team B',
             description: 'Team B view',
             stability: 'stable',
@@ -223,10 +223,10 @@ describe('DataViewRegistry', () => {
     it('should group by entity', () => {
       const registry = new DataViewRegistry();
       registry.register(
-        createSpec('user.list', 1, {
+        createSpec('user.list', '1.0.0', {
           meta: {
             key: 'user.list',
-            version: 1,
+            version: '1.0.0',
             title: 'User List',
             description: 'List',
             stability: 'stable',
@@ -237,10 +237,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('user.detail', 1, {
+        createSpec('user.detail', '1.0.0', {
           meta: {
             key: 'user.detail',
-            version: 1,
+            version: '1.0.0',
             title: 'User Detail',
             description: 'Detail',
             stability: 'stable',
@@ -251,10 +251,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('order.list', 1, {
+        createSpec('order.list', '1.0.0', {
           meta: {
             key: 'order.list',
-            version: 1,
+            version: '1.0.0',
             title: 'Order List',
             description: 'List',
             stability: 'stable',
@@ -275,10 +275,10 @@ describe('DataViewRegistry', () => {
     it('should return unique tags', () => {
       const registry = new DataViewRegistry();
       registry.register(
-        createSpec('a', 1, {
+        createSpec('a', '1.0.0', {
           meta: {
             key: 'a',
-            version: 1,
+            version: '1.0.0',
             title: 'A',
             description: 'A',
             stability: 'stable',
@@ -289,10 +289,10 @@ describe('DataViewRegistry', () => {
         })
       );
       registry.register(
-        createSpec('b', 1, {
+        createSpec('b', '1.0.0', {
           meta: {
             key: 'b',
-            version: 1,
+            version: '1.0.0',
             title: 'B',
             description: 'B',
             stability: 'stable',
@@ -317,7 +317,7 @@ describe('dataViewKey', () => {
     const spec: DataViewSpec = {
       meta: {
         key: 'residents.list',
-        version: 3,
+        version: '3.0.0',
         title: 'Residents',
         description: 'List',
         stability: 'stable',
@@ -325,10 +325,10 @@ describe('dataViewKey', () => {
         tags: [],
         entity: 'resident',
       },
-      source: { primary: { key: 'q', version: 1 } },
+      source: { primary: { key: 'q', version: '1.0.0' } },
       view: { kind: 'list', fields: [] },
     };
 
-    expect(dataViewKey(spec)).toBe('residents.list.v3');
+    expect(dataViewKey(spec)).toBe('residents.list.v3.0.0');
   });
 });

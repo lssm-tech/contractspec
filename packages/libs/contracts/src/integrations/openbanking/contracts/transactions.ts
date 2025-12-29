@@ -78,7 +78,7 @@ const OpenBankingSyncTransactionsOutput = new SchemaModel({
 export const OpenBankingListTransactions = defineQuery({
   meta: {
     key: 'openbanking.transactions.list',
-    version: 1,
+    version: '1.0.0',
     description:
       'List bank transactions that have been normalised into the canonical ledger.',
     goal: 'Allow downstream analytics and UI surfaces to page through canonical bank transactions.',
@@ -100,7 +100,7 @@ export const OpenBankingListTransactions = defineQuery({
 export const OpenBankingSyncTransactions = defineCommand({
   meta: {
     key: 'openbanking.transactions.sync',
-    version: 1,
+    version: '1.0.0',
     description:
       'Synchronise transactions for a bank account by calling the configured open banking provider.',
     goal: 'Ensure the canonical transaction ledger stays aligned with the external provider.',

@@ -19,7 +19,7 @@ const baseMeta: Pick<
 export const StudioOnboardingTrackPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.studio.track',
-    version: 1,
+    version: '1.0.0',
     description: 'Studio onboarding track detail',
     goal: 'Visualize the onboarding track for the user.',
     context: 'Displayed in the Studio dashboard.',
@@ -37,7 +37,7 @@ export const StudioOnboardingTrackPresentation: PresentationSpec = {
 export const StudioOnboardingWidgetPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.studio.widget',
-    version: 1,
+    version: '1.0.0',
     description: 'Compact widget for Studio onboarding progress',
     goal: 'Show quick progress summary.',
     context: 'Displayed in the Studio sidebar or header.',

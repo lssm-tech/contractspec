@@ -11,7 +11,7 @@ export type SuggestionStatus = 'pending' | 'approved' | 'rejected';
 
 export interface OperationCoordinate {
   key: string;
-  version: number;
+  version: string;
   tenantId?: string;
 }
 

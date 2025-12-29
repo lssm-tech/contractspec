@@ -47,7 +47,7 @@ export const RuleVersionModel = defineSchemaModel({
     ruleId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     jurisdiction: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     topicKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     content: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     sourceRefs: { type: SourceRefModel, isArray: true, isOptional: false },
     status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false }, // draft|approved|rejected

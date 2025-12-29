@@ -11,7 +11,7 @@ const baseMeta = {
   stability: StabilityEnum.Experimental,
 } as const;
 
-function makeSpec(key: string, version: number): CapabilitySpec {
+function makeSpec(key: string, version: string): CapabilitySpec {
   return {
     meta: {
       ...baseMeta,
@@ -23,7 +23,7 @@ function makeSpec(key: string, version: number): CapabilitySpec {
       {
         surface: 'operation',
         key: 'payments.charge.create',
-        version: 1,
+        version: '1.0.0',
       },
     ],
   };
@@ -32,27 +32,27 @@ function makeSpec(key: string, version: number): CapabilitySpec {
 describe('CapabilityRegistry', () => {
   it('registers and retrieves capabilities by key/version', () => {
     const registry = new CapabilityRegistry();
-    registry.register(makeSpec('payments.stripe', 1));
-    const spec = registry.get('payments.stripe', 1);
+    registry.register(makeSpec('payments.stripe', '1.0.0'));
+    const spec = registry.get('payments.stripe', '1.0.0');
     expect(spec?.meta.key).toBe('payments.stripe');
-    expect(spec?.meta.version).toBe(1);
+    expect(spec?.meta.version).toBe('1.0.0');
   });
 
   it('returns the highest version when version is omitted', () => {
     const registry = new CapabilityRegistry();
-    registry.register(makeSpec('payments.stripe', 1));
-    registry.register(makeSpec('payments.stripe', 2));
+    registry.register(makeSpec('payments.stripe', '1.0.0'));
+    registry.register(makeSpec('payments.stripe', '2.0.0'));
     const spec = registry.get('payments.stripe');
-    expect(spec?.meta.version).toBe(2);
+    expect(spec?.meta.version).toBe('2.0.0');
   });
 
   it('ensures capability requirements are satisfied', () => {
     const registry = new CapabilityRegistry();
-    registry.register(makeSpec('payments.stripe', 1));
+    registry.register(makeSpec('payments.stripe', '1.0.0'));
     expect(
       registry.satisfies({
         key: 'payments.stripe',
-        version: 1,
+        version: '1.0.0',
       })
     ).toBe(true);
     expect(
@@ -63,7 +63,7 @@ describe('CapabilityRegistry', () => {
     expect(
       registry.satisfies({
         key: 'payments.stripe',
-        version: 2,
+        version: '2.0.0',
       })
     ).toBe(false);
   });
@@ -77,8 +77,8 @@ describe('CapabilityRegistry', () => {
     expect(optionalResult).toBe(true);
 
     const providedResult = registry.satisfies(
-      { key: 'payments.stripe', version: 1 },
-      [{ key: 'payments.stripe', version: 1 }]
+      { key: 'payments.stripe', version: '1.0.0' },
+      [{ key: 'payments.stripe', version: '1.0.0' }]
     );
     expect(providedResult).toBe(true);
   });

@@ -1,11 +1,18 @@
-const example = {
-  id: 'wealth-snapshot',
-  title: 'Wealth Snapshot',
-  summary:
-    'Simple wealth overview with accounts, assets, liabilities, goals, and net-worth snapshots.',
-  tags: ['finance', 'net-worth', 'goals'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'wealth-snapshot',
+    version: '1.0.0',
+    title: 'Wealth Snapshot',
+    description:
+      'Simple wealth overview with accounts, assets, liabilities, goals, and net-worth snapshots.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['finance', 'net-worth', 'goals'],
+  },
   docs: {
     rootDocId: 'docs.examples.wealth-snapshot',
     goalDocId: 'docs.examples.wealth-snapshot.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

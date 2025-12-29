@@ -49,7 +49,7 @@ export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
  */
 export interface RefInfo {
   key: string;
-  version: number;
+  version: string;
 }
 
 /**
@@ -58,7 +58,7 @@ export interface RefInfo {
 export interface ExtractedRef {
   type: RefType;
   key: string;
-  version: number;
+  version: string;
   sourceFile: string;
   sourceLine?: number;
 }
@@ -70,10 +70,12 @@ export interface SpecScanResult {
   filePath: string;
   specType: AnalyzedSpecType;
   key?: string;
-  version?: number;
+  version?: string;
   kind?: AnalyzedOperationKind;
   stability?: Stability;
   description?: string;
+  goal?: string;
+  context?: string;
   owners?: string[];
   tags?: string[];
 
@@ -89,6 +91,9 @@ export interface SpecScanResult {
   emittedEvents?: RefInfo[];
   policyRefs?: RefInfo[];
   testRefs?: RefInfo[];
+
+  // Extracted source code
+  sourceBlock?: string;
 }
 
 /**
@@ -99,6 +104,8 @@ export interface FeatureScanResult {
   key: string;
   title?: string;
   description?: string;
+  goal?: string;
+  context?: string;
   domain?: string;
   stability?: Stability;
   owners?: string[];
@@ -118,6 +125,54 @@ export interface FeatureScanResult {
 
   // Op to presentation links
   opToPresentationLinks: { op: RefInfo; pres: RefInfo }[];
+
+  // Extracted source code
+  sourceBlock?: string;
+}
+
+/**
+ * Result of scanning an example file.
+ */
+export interface ExampleScanResult {
+  filePath: string;
+  key: string;
+  version?: string;
+  title?: string;
+  description?: string;
+  summary?: string;
+  kind?: string;
+  visibility?: string;
+  stability?: Stability;
+  owners?: string[];
+  tags?: string[];
+  domain?: string;
+
+  // Documentation references
+  docs?: {
+    rootDocId?: string;
+    goalDocId?: string;
+    usageDocId?: string;
+  };
+
+  // Surface support
+  surfaces: {
+    templates: boolean;
+    sandbox: { enabled: boolean; modes: string[] };
+    studio: { enabled: boolean; installable: boolean };
+    mcp: { enabled: boolean };
+  };
+
+  // Entrypoints
+  entrypoints: {
+    packageName: string;
+    feature?: string;
+    blueprint?: string;
+    contracts?: string;
+    presentations?: string;
+    handlers?: string;
+    ui?: string;
+    docs?: string;
+  };
 }
 
 /**

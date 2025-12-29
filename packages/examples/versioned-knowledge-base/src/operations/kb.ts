@@ -86,7 +86,7 @@ export const KbIngestSourceContract = defineCommand({
   meta: {
     key: 'kb.ingestSource',
     title: 'Ingest Source',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'sources', 'ingestion'],
@@ -105,7 +105,7 @@ export const KbUpsertRuleVersionContract = defineCommand({
   meta: {
     key: 'kb.upsertRuleVersion',
     title: 'Upsert Rule Version',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'rules', 'versioning'],
@@ -138,7 +138,7 @@ export const KbApproveRuleVersionContract = defineCommand({
   meta: {
     key: 'kb.approveRuleVersion',
     title: 'Approve Rule Version',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'rules', 'approval'],
@@ -157,7 +157,7 @@ export const KbPublishSnapshotContract = defineCommand({
   meta: {
     key: 'kb.publishSnapshot',
     title: 'Publish Snapshot',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'snapshots', 'publishing'],
@@ -185,7 +185,7 @@ export const KbSearchContract = defineQuery({
   meta: {
     key: 'kb.search',
     title: 'Search KB',
-    version: 1,
+    version: '1.0.0',
     stability: 'experimental',
     owners: ['@examples'],
     tags: ['knowledge', 'search', 'snapshots'],

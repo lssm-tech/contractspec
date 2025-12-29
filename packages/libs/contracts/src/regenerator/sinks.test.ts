@@ -11,7 +11,7 @@ import { resolveAppConfig } from '../app-config/runtime';
 const blueprint: AppBlueprintSpec = {
   meta: {
     key: 'demo.app',
-    version: 1,
+    version: '1.0.0',
     appId: 'demo',
     title: 'Demo',
     description: 'Demo blueprint',
@@ -21,7 +21,7 @@ const blueprint: AppBlueprintSpec = {
     stability: 'experimental',
   },
   capabilities: {
-    enabled: [{ key: 'demo.capability', version: 1 }],
+    enabled: [{ key: 'demo.capability', version: '1.0.0' }],
   },
 };
 
@@ -32,7 +32,7 @@ const tenant: TenantAppConfig = {
     appId: 'demo',
     blueprintName: blueprint.meta.key,
     blueprintVersion: blueprint.meta.version,
-    version: 1,
+    version: '1.0.0',
     status: 'draft',
   },
 };
@@ -52,7 +52,7 @@ const proposal: SpecChangeProposal = {
   rationale: ['Repeated failures'],
   target: {
     specType: 'workflow',
-    reference: { key: 'demo.workflow', version: 1 },
+    reference: { key: 'demo.workflow', version: '1.0.0' },
     tenantScoped: true,
   },
   actions: [{ kind: 'run_tests', tests: ['workflows/onboarding.spec.ts'] }],

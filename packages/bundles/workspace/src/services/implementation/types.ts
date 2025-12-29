@@ -39,7 +39,7 @@ export interface SpecImplementationResult {
   /** Spec key */
   specKey: string;
   /** Spec version */
-  specVersion: number;
+  specVersion: string;
   /** Path to the spec file */
   specPath: string;
   /** Spec type (operation, event, presentation, etc.) */

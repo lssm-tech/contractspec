@@ -74,7 +74,7 @@ const OpenBankingRefreshBalancesOutput = new SchemaModel({
 export const OpenBankingGetBalances = defineQuery({
   meta: {
     key: 'openbanking.balances.get',
-    version: 1,
+    version: '1.0.0',
     description: 'Retrieve the latest cached balances for a bank account.',
     goal: 'Expose current and available balances required by dashboards and analytics.',
     context:
@@ -95,7 +95,7 @@ export const OpenBankingGetBalances = defineQuery({
 export const OpenBankingRefreshBalances = defineCommand({
   meta: {
     key: 'openbanking.balances.refresh',
-    version: 1,
+    version: '1.0.0',
     description:
       'Refresh balances for a bank account via the configured open banking provider.',
     goal: 'Ensure canonical balance records reflect the latest values from Powens.',

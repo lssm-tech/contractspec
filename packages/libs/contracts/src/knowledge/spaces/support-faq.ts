@@ -4,7 +4,7 @@ import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
 export const supportFaqKnowledgeSpace: KnowledgeSpaceSpec = {
   meta: {
     key: 'knowledge.support-faq',
-    version: 1,
+    version: '1.0.0',
     category: 'operational',
     title: 'Support & Success FAQ',
     description: 'Operational knowledge base for customer support and success.',
@@ -18,7 +18,7 @@ export const supportFaqKnowledgeSpace: KnowledgeSpaceSpec = {
     archiveAfterDays: 180,
   },
   access: {
-    policy: { key: 'knowledge.access.support', version: 1 },
+    policy: { key: 'knowledge.access.support', version: '1.0.0' },
     trustLevel: 'medium',
     automationWritable: true,
   },

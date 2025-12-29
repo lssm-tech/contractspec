@@ -8,7 +8,7 @@ import { RunSummaryModel } from './run.schema';
 export const RunListPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.run.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Run List',
     description:
       'List view of agent runs with status, tokens, and duration info',
@@ -35,7 +35,7 @@ export const RunListPresentation: PresentationSpec = {
 export const RunDetailPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.run.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Run Details',
     description: 'Detailed view of an agent run with steps, logs, and metrics',
     goal: 'Allow users to inspect and debug a specific agent run.',

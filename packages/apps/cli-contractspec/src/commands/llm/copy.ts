@@ -8,40 +8,12 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
+import { type LLMExportFormat } from '@contractspec/lib.contracts/llm';
 import {
-  type LLMExportFormat,
-  operationSpecToAgentPrompt,
-  operationSpecToContextMarkdown,
-  operationSpecToFullMarkdown,
-} from '@contractspec/lib.contracts/llm';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function loadSpec(specPath: string): Promise<any> {
-  const fullPath = resolve(process.cwd(), specPath);
-
-  if (!existsSync(fullPath)) {
-    throw new Error(`Spec file not found: ${specPath}`);
-  }
-
-  try {
-    const module = await import(fullPath);
-    for (const [, value] of Object.entries(module)) {
-      if (
-        value &&
-        typeof value === 'object' &&
-        'meta' in value &&
-        'io' in value
-      ) {
-        return value;
-      }
-    }
-    throw new Error('No spec found in module');
-  } catch (error) {
-    throw new Error(
-      `Failed to load spec: ${error instanceof Error ? error.message : String(error)}`
-    );
-  }
-}
+  loadSpecFromSource,
+  specToMarkdown,
+} from '@contractspec/module.workspace';
+import { generateFeatureContextMarkdown } from '@contractspec/bundle.workspace';
 
 async function copyToClipboard(text: string): Promise<boolean> {
   try {
@@ -84,37 +56,34 @@ export const copyLLMCommand = new Command('copy')
     'Export format: context, full, prompt',
     'full'
   )
-  .option(
-    '--task <type>',
-    'Task type for prompt format: implement, test, refactor, review',
-    'implement'
-  )
   .action(async (specFile, options) => {
     try {
       console.log(chalk.blue(`\n📋 Copying ${specFile} to clipboard...\n`));
 
-      const spec = await loadSpec(specFile);
+      const fullPath = resolve(process.cwd(), specFile);
+      if (!existsSync(fullPath)) {
+        throw new Error(`Spec file not found: ${specFile}`);
+      }
+
+      // Load with static analysis
+      const specs = await loadSpecFromSource(fullPath);
+      if (specs.length === 0) {
+        throw new Error('No spec definitions found');
+      }
+      const spec = specs[0];
+      if (!spec) {
+        throw new Error('No spec definitions found');
+      }
       const format = options.format as LLMExportFormat;
 
       let markdown: string;
-
-      switch (format) {
-        case 'context':
-          markdown = operationSpecToContextMarkdown(spec);
-          break;
-        case 'prompt':
-          markdown = operationSpecToAgentPrompt(spec, {
-            taskType: options.task as
-              | 'implement'
-              | 'test'
-              | 'refactor'
-              | 'review',
-          });
-          break;
-        case 'full':
-        default:
-          markdown = operationSpecToFullMarkdown(spec);
-          break;
+      if (spec.specType === 'feature' && format === 'full') {
+        const { createNodeAdapters } =
+          await import('@contractspec/bundle.workspace');
+        const nodeAdapters = createNodeAdapters({ cwd: process.cwd() });
+        markdown = await generateFeatureContextMarkdown(spec, nodeAdapters);
+      } else {
+        markdown = specToMarkdown(spec, format);
       }
 
       const copied = await copyToClipboard(markdown);
@@ -122,14 +91,14 @@ export const copyLLMCommand = new Command('copy')
       if (copied) {
         console.log(chalk.green(`✓ Copied to clipboard!`));
         console.log(chalk.gray(`  Format: ${format}`));
-        console.log(
-          chalk.gray(`  Spec: ${spec.meta.key}.v${spec.meta.version}`)
-        );
+        console.log(chalk.gray(`  Spec: ${spec.meta.key}`));
         console.log(chalk.gray(`  Words: ${markdown.split(/\s+/).length}`));
       } else {
         console.log(chalk.yellow('⚠ Could not copy to clipboard'));
         console.log(chalk.gray('  Clipboard access not available'));
-        console.log(chalk.gray('  Use --output to write to a file instead'));
+        console.log(
+          chalk.gray('  Use export --output to write to a file instead')
+        );
         console.log('');
         console.log(chalk.dim('--- Content ---'));
         console.log(markdown);

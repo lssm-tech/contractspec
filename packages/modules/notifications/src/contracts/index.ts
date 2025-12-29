@@ -163,7 +163,7 @@ export const UpdatePreferencesInputModel = defineSchemaModel({
 export const SendNotificationContract = defineCommand({
   meta: {
     key: 'notifications.send',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'send'],
@@ -196,7 +196,7 @@ export const SendNotificationContract = defineCommand({
     emits: [
       {
         key: 'notification.sent',
-        version: 1,
+        version: '1.0.0',
         when: 'Notification is sent',
         payload: NotificationModel,
       },
@@ -210,7 +210,7 @@ export const SendNotificationContract = defineCommand({
 export const ListNotificationsContract = defineQuery({
   meta: {
     key: 'notifications.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'list'],
@@ -233,7 +233,7 @@ export const ListNotificationsContract = defineQuery({
 export const MarkNotificationReadContract = defineCommand({
   meta: {
     key: 'notifications.markRead',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'read'],
@@ -264,7 +264,7 @@ export const MarkNotificationReadContract = defineCommand({
 export const MarkAllNotificationsReadContract = defineCommand({
   meta: {
     key: 'notifications.markAllRead',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'read'],
@@ -292,7 +292,7 @@ export const MarkAllNotificationsReadContract = defineCommand({
 export const GetNotificationPreferencesContract = defineQuery({
   meta: {
     key: 'notifications.preferences.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'preferences', 'get'],
@@ -315,7 +315,7 @@ export const GetNotificationPreferencesContract = defineQuery({
 export const UpdateNotificationPreferencesContract = defineCommand({
   meta: {
     key: 'notifications.preferences.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'preferences', 'update'],
@@ -338,7 +338,7 @@ export const UpdateNotificationPreferencesContract = defineCommand({
 export const DeleteNotificationContract = defineCommand({
   meta: {
     key: 'notifications.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['notifications', 'delete'],

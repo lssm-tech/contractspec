@@ -10,7 +10,7 @@ describe('App Config Lifecycle Events', () => {
   describe('ConfigDraftCreatedEvent', () => {
     it('should have correct metadata', () => {
       expect(ConfigDraftCreatedEvent.meta.key).toBe('app_config.draft_created');
-      expect(ConfigDraftCreatedEvent.meta.version).toBe(1);
+      expect(ConfigDraftCreatedEvent.meta.version).toBe('1.0.0');
       expect(ConfigDraftCreatedEvent.meta.domain).toBe('app-config.lifecycle');
     });
 
@@ -20,9 +20,9 @@ describe('App Config Lifecycle Events', () => {
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 1,
+        version: '1.0.0',
         blueprintName: 'ecommerce',
-        blueprintVersion: 2,
+        blueprintVersion: '2',
         createdBy: 'user@example.com',
       };
 
@@ -35,9 +35,9 @@ describe('App Config Lifecycle Events', () => {
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 2,
+        version: '1.0.0',
         blueprintName: 'ecommerce',
-        blueprintVersion: 2,
+        blueprintVersion: '2',
         createdBy: 'user@example.com',
         clonedFrom: 1,
       };
@@ -51,7 +51,7 @@ describe('App Config Lifecycle Events', () => {
       expect(ConfigPromotedToPreviewEvent.meta.key).toBe(
         'app_config.promoted_to_preview'
       );
-      expect(ConfigPromotedToPreviewEvent.meta.version).toBe(1);
+      expect(ConfigPromotedToPreviewEvent.meta.version).toBe('1.0.0');
     });
 
     it('should have valid payload schema', () => {
@@ -60,7 +60,7 @@ describe('App Config Lifecycle Events', () => {
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 1,
+        version: '1.0.0',
         promotedBy: 'admin@example.com',
       };
 
@@ -73,7 +73,7 @@ describe('App Config Lifecycle Events', () => {
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 1,
+        version: '1.0.0',
         promotedBy: 'admin@example.com',
         warnings: ['Deprecated feature used', 'Missing recommended config'],
       };
@@ -85,7 +85,7 @@ describe('App Config Lifecycle Events', () => {
   describe('ConfigPublishedEvent', () => {
     it('should have correct metadata', () => {
       expect(ConfigPublishedEvent.meta.key).toBe('app_config.published');
-      expect(ConfigPublishedEvent.meta.version).toBe(1);
+      expect(ConfigPublishedEvent.meta.version).toBe('1.0.0');
     });
 
     it('should have valid payload schema', () => {
@@ -94,7 +94,7 @@ describe('App Config Lifecycle Events', () => {
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 3,
+        version: '3.0.0',
         publishedBy: 'admin@example.com',
       };
 
@@ -107,8 +107,8 @@ describe('App Config Lifecycle Events', () => {
       const payload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        version: 3,
-        previousVersion: 2,
+        version: '3.0.0',
+        previousVersion: '2.0.0',
         publishedBy: 'admin@example.com',
         changeSummary: 'Updated payment settings',
         changedSections: ['payments', 'notifications'],
@@ -121,7 +121,7 @@ describe('App Config Lifecycle Events', () => {
   describe('ConfigRolledBackEvent', () => {
     it('should have correct metadata', () => {
       expect(ConfigRolledBackEvent.meta.key).toBe('app_config.rolled_back');
-      expect(ConfigRolledBackEvent.meta.version).toBe(1);
+      expect(ConfigRolledBackEvent.meta.version).toBe('1.0.0');
     });
 
     it('should have valid payload schema', () => {
@@ -130,9 +130,9 @@ describe('App Config Lifecycle Events', () => {
       const validPayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        newVersion: 4,
-        rolledBackFrom: 3,
-        rolledBackTo: 2,
+        newVersion: '4.0.0',
+        rolledBackFrom: '3.0.0',
+        rolledBackTo: '2.0.0',
         rolledBackBy: 'admin@example.com',
         reason: 'Critical bug in version 3',
       };
@@ -146,7 +146,7 @@ describe('App Config Lifecycle Events', () => {
       const incompletePayload = {
         tenantId: 'tenant-123',
         appId: 'app-456',
-        newVersion: 4,
+        newVersion: '4.0.0',
         // Missing required fields
       };
 

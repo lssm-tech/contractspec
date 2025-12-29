@@ -15,7 +15,7 @@ const ConfigSchema = z.object({
   agentMode: z
     .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
     .default('simple'),
-  customEndpoint: z.string().url().nullable().optional(),
+  customEndpoint: z.url().nullable().optional(),
   customApiKey: z.string().nullable().optional(),
   outputDir: z.string().default('./src'),
   conventions: z.object({
@@ -49,48 +49,6 @@ export async function loadWorkspaceConfig(
   } catch {
     return DEFAULT_WORKSPACE_CONFIG;
   }
-}
-
-/**
- * Merge config with CLI options and environment variables.
- */
-export function mergeWorkspaceConfig(
-  config: WorkspaceConfig,
-  options: {
-    provider?: string;
-    model?: string;
-    agentMode?: string;
-    endpoint?: string;
-    outputDir?: string;
-  }
-): WorkspaceConfig {
-  return {
-    ...config,
-    aiProvider:
-      (options.provider as WorkspaceConfig['aiProvider']) ??
-      (process.env[
-        'CONTRACTSPEC_AI_PROVIDER'
-      ] as WorkspaceConfig['aiProvider']) ??
-      config.aiProvider,
-    aiModel:
-      options.model ?? process.env['CONTRACTSPEC_AI_MODEL'] ?? config.aiModel,
-    agentMode:
-      (options.agentMode as WorkspaceConfig['agentMode']) ??
-      (process.env[
-        'CONTRACTSPEC_AGENT_MODE'
-      ] as WorkspaceConfig['agentMode']) ??
-      config.agentMode,
-    customEndpoint:
-      options.endpoint ??
-      process.env['CONTRACTSPEC_LLM_ENDPOINT'] ??
-      config.customEndpoint ??
-      undefined,
-    customApiKey:
-      process.env['CONTRACTSPEC_LLM_API_KEY'] ??
-      config.customApiKey ??
-      undefined,
-    outputDir: options.outputDir ?? config.outputDir,
-  };
 }
 
 /**

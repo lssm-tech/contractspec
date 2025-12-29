@@ -10,7 +10,7 @@ import { StabilityEnum } from '@contractspec/lib.contracts';
 export const CrmDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'crm.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'CRM Dashboard',
     description:
       'Main CRM dashboard with pipeline overview, deal stats, and activities',
@@ -38,7 +38,7 @@ export const CrmDashboardPresentation: PresentationSpec = {
 export const PipelineMetricsPresentation: PresentationSpec = {
   meta: {
     key: 'crm.pipeline.metrics',
-    version: 1,
+    version: '1.0.0',
     title: 'Pipeline Metrics',
     description: 'Pipeline metrics and forecasting view',
     domain: 'crm-pipeline',

@@ -164,5 +164,3 @@ function formatTextOutput(
 
   return lines.join('\n');
 }
-
-export default createImpactCommand;

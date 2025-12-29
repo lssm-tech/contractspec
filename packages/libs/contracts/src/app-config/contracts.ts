@@ -74,7 +74,10 @@ const UpdateBlueprintTranslationInput = new SchemaModel({
       isOptional: false,
     },
     catalogName: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    catalogVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    catalogVersion: {
+      type: ScalarTypeEnum.String_unsecure(),
+      isOptional: false,
+    },
     defaultLocale: {
       type: ScalarTypeEnum.String_unsecure(),
       isOptional: false,
@@ -132,7 +135,7 @@ const MessageResolutionOutput = new SchemaModel({
 export const UpdateTenantBrandingCommand = defineCommand({
   meta: {
     key: 'appConfig.updateTenantBranding',
-    version: 1,
+    version: '1.0.0',
     description: 'Applies tenant branding overrides (names, assets, domains).',
     owners: [OwnersEnum.PlatformSigil],
     tags: ['branding'],
@@ -147,14 +150,14 @@ export const UpdateTenantBrandingCommand = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: 1 }],
+    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
   },
 });
 
 export const VerifyCustomDomainCommand = defineCommand({
   meta: {
     key: 'appConfig.verifyCustomDomain',
-    version: 1,
+    version: '1.0.0',
     description: 'Validates DNS ownership for tenant custom domains.',
     owners: [OwnersEnum.PlatformSigil],
     tags: ['branding'],
@@ -169,14 +172,14 @@ export const VerifyCustomDomainCommand = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: 1 }],
+    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
   },
 });
 
 export const UpdateBlueprintTranslationCatalogCommand = defineCommand({
   meta: {
     key: 'appConfig.updateBlueprintTranslationCatalog',
-    version: 1,
+    version: '1.0.0',
     description: 'Registers or updates translation entries for a blueprint.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.I18n],
@@ -191,14 +194,14 @@ export const UpdateBlueprintTranslationCatalogCommand = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: 1 }],
+    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
   },
 });
 
 export const UpdateTenantTranslationOverridesCommand = defineCommand({
   meta: {
     key: 'appConfig.updateTenantTranslations',
-    version: 1,
+    version: '1.0.0',
     description: 'Applies tenant-specific translation entries.',
     owners: [OwnersEnum.PlatformSigil],
     tags: [TagsEnum.I18n],
@@ -213,14 +216,14 @@ export const UpdateTenantTranslationOverridesCommand = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.manage', version: 1 }],
+    policies: [{ key: 'platform.app-config.manage', version: '1.0.0' }],
   },
 });
 
 export const GetResolvedBrandingQuery = defineQuery({
   meta: {
     key: 'appConfig.getResolvedBranding',
-    version: 1,
+    version: '1.0.0',
     description: 'Returns the resolved branding for a tenant/app/environment.',
     owners: [OwnersEnum.PlatformSigil],
     tags: ['branding'],
@@ -250,14 +253,14 @@ export const GetResolvedBrandingQuery = defineQuery({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.read', version: 1 }],
+    policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
   },
 });
 
 export const ResolveMessageQuery = defineQuery({
   meta: {
     key: 'appConfig.resolveMessage',
-    version: 1,
+    version: '1.0.0',
     description:
       'Resolves a translation key for a tenant in the requested locale.',
     owners: [OwnersEnum.PlatformSigil],
@@ -273,7 +276,7 @@ export const ResolveMessageQuery = defineQuery({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.app-config.read', version: 1 }],
+    policies: [{ key: 'platform.app-config.read', version: '1.0.0' }],
   },
 });
 

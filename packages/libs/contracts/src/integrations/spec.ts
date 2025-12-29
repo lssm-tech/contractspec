@@ -1,5 +1,6 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
+import { SpecContractRegistry } from '../registry';
 
 export type IntegrationCategory =
   | 'payments'
@@ -84,39 +85,15 @@ export interface IntegrationSpec {
 const integrationKey = (meta: Pick<IntegrationMeta, 'key' | 'version'>) =>
   `${meta.key}.v${meta.version}`;
 
-export class IntegrationSpecRegistry {
-  private readonly items = new Map<string, IntegrationSpec>();
-
-  register(spec: IntegrationSpec): this {
-    const key = integrationKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate IntegrationSpec ${key}`);
-    }
-    this.items.set(key, spec);
-    return this;
+export class IntegrationSpecRegistry extends SpecContractRegistry<
+  'integration',
+  IntegrationSpec
+> {
+  public constructor(items?: IntegrationSpec[]) {
+    super('integration', items);
   }
 
-  list(): IntegrationSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): IntegrationSpec | undefined {
-    if (version != null) {
-      return this.items.get(integrationKey({ key, version }));
-    }
-    let latest: IntegrationSpec | undefined;
-    let maxVersion = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== key) continue;
-      if (spec.meta.version > maxVersion) {
-        maxVersion = spec.meta.version;
-        latest = spec;
-      }
-    }
-    return latest;
-  }
-
-  getByCategory(category: IntegrationCategory): IntegrationSpec[] {
+  public getByCategory(category: IntegrationCategory): IntegrationSpec[] {
     return this.list().filter((spec) => spec.meta.category === category);
   }
 }

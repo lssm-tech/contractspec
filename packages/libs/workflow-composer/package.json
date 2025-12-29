@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.workflow-composer",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
   "keywords": [
     "contractspec",
@@ -31,7 +31,8 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "compare-versions": "^6.1.1"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

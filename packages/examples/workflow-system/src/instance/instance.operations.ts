@@ -19,7 +19,7 @@ const OWNERS = ['@example.workflow-system'] as const;
 export const StartWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.instance.start',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'start'],
@@ -36,13 +36,13 @@ export const StartWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.instance.started',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow starts',
         payload: WorkflowInstanceModel,
       },
       {
         key: 'workflow.step.entered',
-        version: 1,
+        version: '1.0.0',
         when: 'First step entered',
         payload: WorkflowInstanceModel,
       },
@@ -77,7 +77,7 @@ export const StartWorkflowContract = defineCommand({
 export const TransitionWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.instance.transition',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'transition', 'state-machine'],
@@ -94,19 +94,19 @@ export const TransitionWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.step.exited',
-        version: 1,
+        version: '1.0.0',
         when: 'Step is exited',
         payload: WorkflowInstanceModel,
       },
       {
         key: 'workflow.step.entered',
-        version: 1,
+        version: '1.0.0',
         when: 'New step is entered',
         payload: WorkflowInstanceModel,
       },
       {
         key: 'workflow.instance.completed',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow reaches end',
         payload: WorkflowInstanceModel,
       },
@@ -142,7 +142,7 @@ export const TransitionWorkflowContract = defineCommand({
 export const PauseWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.instance.pause',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'pause'],
@@ -168,7 +168,7 @@ export const PauseWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.instance.paused',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is paused',
         payload: WorkflowInstanceModel,
       },
@@ -200,7 +200,7 @@ export const PauseWorkflowContract = defineCommand({
 export const ResumeWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.instance.resume',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'resume'],
@@ -226,7 +226,7 @@ export const ResumeWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.instance.resumed',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is resumed',
         payload: WorkflowInstanceModel,
       },
@@ -258,7 +258,7 @@ export const ResumeWorkflowContract = defineCommand({
 export const CancelWorkflowContract = defineCommand({
   meta: {
     key: 'workflow.instance.cancel',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'cancel'],
@@ -287,7 +287,7 @@ export const CancelWorkflowContract = defineCommand({
     emits: [
       {
         key: 'workflow.instance.cancelled',
-        version: 1,
+        version: '1.0.0',
         when: 'Workflow is cancelled',
         payload: WorkflowInstanceModel,
       },
@@ -319,7 +319,7 @@ export const CancelWorkflowContract = defineCommand({
 export const ListInstancesContract = defineQuery({
   meta: {
     key: 'workflow.instance.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'list'],
@@ -398,7 +398,7 @@ export const ListInstancesContract = defineQuery({
 export const GetInstanceContract = defineQuery({
   meta: {
     key: 'workflow.instance.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['workflow', 'instance', 'get'],

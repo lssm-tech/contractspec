@@ -46,7 +46,7 @@ const testCommand = defineCommand({
   meta: {
     key: 'test.create',
     title: 'Create Test',
-    version: 1,
+    version: '1.0.0',
     description: 'Test create command',
     tags: ['test'],
     stability: StabilityEnum.Stable,
@@ -67,7 +67,7 @@ const testQuery = defineQuery({
   meta: {
     key: 'test.get',
     title: 'Get Test',
-    version: 1,
+    version: '1.0.0',
     description: 'Test get query',
     tags: ['test'],
     stability: StabilityEnum.Stable,
@@ -113,7 +113,7 @@ describe('OpenAPI Exporter', () => {
 
       expect(operation['x-contractspec']).toEqual({
         name: 'test.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
       });
     });
@@ -152,7 +152,7 @@ describe('OpenAPI Exporter', () => {
       const featuresRegistry = new FeatureRegistry().register({
         meta: {
           key: 'test-feature',
-          version: 1,
+          version: '1.0.0',
           title: 'Test Feature',
           description: 'Test feature',
           domain: 'test',
@@ -160,7 +160,7 @@ describe('OpenAPI Exporter', () => {
           tags: ['test'],
           stability: StabilityEnum.Stable,
         },
-        operations: [{ key: 'test.create', version: 1 }],
+        operations: [{ key: 'test.create', version: '1.0.0' }],
       });
 
       const result = exportContractSpec(
@@ -188,7 +188,7 @@ describe('OpenAPI Exporter', () => {
       const featuresRegistry = new FeatureRegistry().register({
         meta: {
           key: 'test-feature',
-          version: 1,
+          version: '1.0.0',
           title: 'Test Feature',
           description: 'Test feature',
           domain: 'test',

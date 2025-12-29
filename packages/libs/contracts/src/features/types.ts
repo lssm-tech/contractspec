@@ -11,21 +11,21 @@ export interface OpRef {
   /** Operation key (OperationSpec.meta.key). */
   key: string;
   /** Operation version (OperationSpec.meta.version). */
-  version: number;
+  version: string;
 }
 
 export interface EventRef {
   /** Event key. */
   key: string;
   /** Event version. */
-  version: number;
+  version: string;
 }
 
 export interface PresentationRef {
   /** Presentation key. */
   key: string;
   /** Presentation version. */
-  version: number;
+  version: string;
 }
 
 /**
@@ -33,7 +33,7 @@ export interface PresentationRef {
  */
 export interface DataViewRef {
   key: string;
-  version: number;
+  version: string;
 }
 
 /**
@@ -41,7 +41,7 @@ export interface DataViewRef {
  */
 export interface FormRef {
   key: string;
-  version: number;
+  version: string;
 }
 
 /** Group operations/events/presentations into an installable feature. */
@@ -67,7 +67,7 @@ export interface FeatureModuleSpec {
     /** Presentation key. */
     key: string;
     /** Presentation version. */
-    version: number;
+    version: string;
     /** Required targets that must be supported by the descriptor. */
     targets: PresentationTarget[];
   }[];

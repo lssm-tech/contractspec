@@ -1,3 +1,4 @@
+import { SpecContractRegistry } from '../registry';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 
@@ -45,39 +46,16 @@ export interface KnowledgeSpaceSpec {
   description?: string;
 }
 
-const knowledgeKey = (meta: Pick<KnowledgeSpaceMeta, 'key' | 'version'>) =>
-  `${meta.key}.v${meta.version}`;
+// ... (imports)
 
-export class KnowledgeSpaceRegistry {
-  private readonly items = new Map<string, KnowledgeSpaceSpec>();
+// ... (interfaces)
 
-  register(spec: KnowledgeSpaceSpec): this {
-    const key = knowledgeKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate KnowledgeSpaceSpec ${key}`);
-    }
-    this.items.set(key, spec);
-    return this;
-  }
-
-  list(): KnowledgeSpaceSpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): KnowledgeSpaceSpec | undefined {
-    if (version != null) {
-      return this.items.get(knowledgeKey({ key, version }));
-    }
-    let latest: KnowledgeSpaceSpec | undefined;
-    let maxVersion = -Infinity;
-    for (const spec of this.items.values()) {
-      if (spec.meta.key !== key) continue;
-      if (spec.meta.version > maxVersion) {
-        maxVersion = spec.meta.version;
-        latest = spec;
-      }
-    }
-    return latest;
+export class KnowledgeSpaceRegistry extends SpecContractRegistry<
+  'knowledge-space',
+  KnowledgeSpaceSpec
+> {
+  constructor(items?: KnowledgeSpaceSpec[]) {
+    super('knowledge-space', items);
   }
 
   getByCategory(category: KnowledgeCategory): KnowledgeSpaceSpec[] {
@@ -86,5 +64,5 @@ export class KnowledgeSpaceRegistry {
 }
 
 export function makeKnowledgeSpaceKey(meta: KnowledgeSpaceMeta) {
-  return knowledgeKey(meta);
+  return `${meta.key}.v${meta.version}`;
 }

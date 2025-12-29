@@ -82,7 +82,7 @@ const ApprovalEscalatedPayload = defineSchemaModel({
 export const ApprovalRequestedEvent = defineEvent({
   meta: {
     key: 'workflow.approval.requested',
-    version: 1,
+    version: '1.0.0',
     description: 'An approval has been requested.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -97,7 +97,7 @@ export const ApprovalRequestedEvent = defineEvent({
 export const ApprovalDecidedEvent = defineEvent({
   meta: {
     key: 'workflow.approval.decided',
-    version: 1,
+    version: '1.0.0',
     description: 'An approval decision has been made.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -112,7 +112,7 @@ export const ApprovalDecidedEvent = defineEvent({
 export const ApprovalDelegatedEvent = defineEvent({
   meta: {
     key: 'workflow.approval.delegated',
-    version: 1,
+    version: '1.0.0',
     description: 'An approval has been delegated.',
     stability: 'stable',
     owners: ['@workflow-team'],
@@ -127,7 +127,7 @@ export const ApprovalDelegatedEvent = defineEvent({
 export const ApprovalEscalatedEvent = defineEvent({
   meta: {
     key: 'workflow.approval.escalated',
-    version: 1,
+    version: '1.0.0',
     description: 'An approval has been escalated.',
     stability: 'stable',
     owners: ['@workflow-team'],

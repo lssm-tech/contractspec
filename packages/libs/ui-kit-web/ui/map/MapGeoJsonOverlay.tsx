@@ -53,5 +53,3 @@ export function MapGeoJsonOverlay(props: GeoJsonOverlayProps) {
     </Source>
   );
 }
-
-export default MapGeoJsonOverlay;

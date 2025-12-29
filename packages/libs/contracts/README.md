@@ -61,7 +61,7 @@ const UserInput = new SchemaModel({
 export const CreateUser = defineCommand({
   meta: {
     name: 'user.create',
-    version: 1,
+    version: '1.0.0',
     description: 'Register a new user',
     owners: ['team-auth'],
     tags: ['auth'],

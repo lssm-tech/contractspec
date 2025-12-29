@@ -10,7 +10,7 @@ export type RuntimeContract = OperationSpec<
 
 export interface SpecVariantResolver {
   resolve(
-    operation: { name: string; version: number; kind: OpKind },
+    operation: { name: string; version: string; kind: OpKind },
     ctx: HandlerCtx
   ): Promise<RuntimeContract | undefined> | RuntimeContract | undefined;
 }

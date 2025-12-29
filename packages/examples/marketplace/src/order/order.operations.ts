@@ -13,7 +13,7 @@ const OWNERS = ['@example.marketplace'] as const;
 export const CreateOrderContract = defineCommand({
   meta: {
     key: 'marketplace.order.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'order', 'create'],
@@ -27,7 +27,7 @@ export const CreateOrderContract = defineCommand({
     emits: [
       {
         key: 'marketplace.order.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Order is created',
         payload: OrderModel,
       },
@@ -62,7 +62,7 @@ export const CreateOrderContract = defineCommand({
 export const UpdateOrderStatusContract = defineCommand({
   meta: {
     key: 'marketplace.order.updateStatus',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'order', 'status'],
@@ -76,7 +76,7 @@ export const UpdateOrderStatusContract = defineCommand({
     emits: [
       {
         key: 'marketplace.order.statusUpdated',
-        version: 1,
+        version: '1.0.0',
         when: 'Status changes',
         payload: OrderModel,
       },

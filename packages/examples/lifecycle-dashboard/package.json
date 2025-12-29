@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.lifecycle-dashboard",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,7 +27,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*"
   },
   "devDependencies": {

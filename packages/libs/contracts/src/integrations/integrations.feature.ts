@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '../features';
 export const IntegrationsFeature: FeatureModuleSpec = {
   meta: {
     key: 'platform.integrations',
-    version: 1,
+    version: '1.0.0',
     title: 'Platform Integrations',
     description:
       'Manage integration connections to external providers (e.g., Stripe, Qdrant)',
@@ -24,11 +24,11 @@ export const IntegrationsFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { key: 'integrations.connection.create', version: 1 },
-    { key: 'integrations.connection.update', version: 1 },
-    { key: 'integrations.connection.delete', version: 1 },
-    { key: 'integrations.connection.list', version: 1 },
-    { key: 'integrations.connection.test', version: 1 },
+    { key: 'integrations.connection.create', version: '1.0.0' },
+    { key: 'integrations.connection.update', version: '1.0.0' },
+    { key: 'integrations.connection.delete', version: '1.0.0' },
+    { key: 'integrations.connection.list', version: '1.0.0' },
+    { key: 'integrations.connection.test', version: '1.0.0' },
   ],
 
   // No events for this feature
@@ -41,7 +41,7 @@ export const IntegrationsFeature: FeatureModuleSpec = {
 
   // Capability definitions
   capabilities: {
-    provides: [{ key: 'integrations', version: 1 }],
-    requires: [{ key: 'identity', version: 1 }],
+    provides: [{ key: 'integrations', version: '1.0.0' }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

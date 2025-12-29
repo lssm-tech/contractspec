@@ -10,7 +10,7 @@ import {
 export const SendMessageContract = defineCommand({
   meta: {
     key: 'ai-chat.send',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'Send a message to the AI chat.',
@@ -32,7 +32,7 @@ const StreamMessageOutputModel = defineSchemaModel({
 export const StreamMessageContract = defineCommand({
   meta: {
     key: 'ai-chat.stream',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'Stream a message response from the AI chat.',
@@ -47,7 +47,7 @@ export const StreamMessageContract = defineCommand({
 export const ListConversationsContract = defineQuery({
   meta: {
     key: 'ai-chat.conversations.list',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'List user conversations.',
@@ -65,7 +65,7 @@ export const ListConversationsContract = defineQuery({
 export const GetConversationContract = defineQuery({
   meta: {
     key: 'ai-chat.conversations.get',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'Get a specific conversation.',
@@ -88,7 +88,7 @@ export const GetConversationContract = defineQuery({
 export const DeleteConversationContract = defineCommand({
   meta: {
     key: 'ai-chat.conversations.delete',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'Delete a conversation.',
@@ -111,7 +111,7 @@ export const DeleteConversationContract = defineCommand({
 export const ListProvidersContract = defineQuery({
   meta: {
     key: 'ai-chat.providers.list',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'List available AI providers.',
@@ -138,7 +138,7 @@ export const ListProvidersContract = defineQuery({
 export const ScanContextContract = defineCommand({
   meta: {
     key: 'ai-chat.context.scan',
-    version: 1,
+    version: '1.0.0',
     owners: ['@ai-team'],
     stability: 'experimental',
     description: 'Scan workspace context.',

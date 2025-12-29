@@ -13,19 +13,19 @@ describe('knowledge contracts', () => {
   it('registers knowledge source management contracts', () => {
     const registry = registerKnowledgeContracts(new OperationSpecRegistry());
 
-    expect(registry.getSpec('knowledge.source.create', 1)).toBe(
+    expect(registry.get('knowledge.source.create', '1.0.0')).toBe(
       CreateKnowledgeSource
     );
-    expect(registry.getSpec('knowledge.source.update', 1)).toBe(
+    expect(registry.get('knowledge.source.update', '1.0.0')).toBe(
       UpdateKnowledgeSource
     );
-    expect(registry.getSpec('knowledge.source.delete', 1)).toBe(
+    expect(registry.get('knowledge.source.delete', '1.0.0')).toBe(
       DeleteKnowledgeSource
     );
-    expect(registry.getSpec('knowledge.source.list', 1)).toBe(
+    expect(registry.get('knowledge.source.list', '1.0.0')).toBe(
       ListKnowledgeSources
     );
-    expect(registry.getSpec('knowledge.source.triggerSync', 1)).toBe(
+    expect(registry.get('knowledge.source.triggerSync', '1.0.0')).toBe(
       TriggerKnowledgeSourceSync
     );
   });

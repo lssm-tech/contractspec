@@ -4,7 +4,7 @@ export * from './types/navigation';
 export * from './renderers';
 export { Cta } from './components/atoms/Cta';
 export { Button } from './components/atoms/Button';
-export { default as ButtonLink } from './components/atoms/ButtonLink';
+export { ButtonLink } from './components/atoms/ButtonLink';
 export { Link } from './components/atoms/Link';
 export { Input } from './components/atoms/Input';
 export { Textarea } from './components/atoms/Textarea';

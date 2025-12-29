@@ -19,13 +19,13 @@ export const LearningJourneyStudioOnboardingFeature: FeatureModuleSpec = {
     owners: ['@examples.learning-journey.studio-onboarding'],
     tags: ['learning', 'onboarding', 'studio', 'journey'],
     stability: 'experimental',
-    version: 1,
+    version: '1.0.0',
   },
 
   // All contract operations included in this feature
   operations: [
-    { key: 'learningJourney.studioOnboarding.recordEvent', version: 1 },
-    { key: 'learningJourney.studioOnboarding.getTrack', version: 1 },
+    { key: 'learningJourney.studioOnboarding.recordEvent', version: '1.0.0' },
+    { key: 'learningJourney.studioOnboarding.getTrack', version: '1.0.0' },
   ],
 
   // Events emitted by this feature
@@ -33,15 +33,18 @@ export const LearningJourneyStudioOnboardingFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { key: 'learning.journey.studio.track', version: 1 },
-    { key: 'learning.journey.studio.widget', version: 1 },
+    { key: 'learning.journey.studio.track', version: '1.0.0' },
+    { key: 'learning.journey.studio.widget', version: '1.0.0' },
   ],
 
   // Link operations to their primary presentations
   opToPresentation: [
     {
-      op: { key: 'learningJourney.studioOnboarding.getTrack', version: 1 },
-      pres: { key: 'learning.journey.studio.track', version: 1 },
+      op: {
+        key: 'learningJourney.studioOnboarding.getTrack',
+        version: '1.0.0',
+      },
+      pres: { key: 'learning.journey.studio.track', version: '1.0.0' },
     },
   ],
 
@@ -49,18 +52,18 @@ export const LearningJourneyStudioOnboardingFeature: FeatureModuleSpec = {
   presentationsTargets: [
     {
       key: 'learning.journey.studio.track',
-      version: 1,
+      version: '1.0.0',
       targets: ['react', 'markdown', 'application/json'],
     },
     {
       key: 'learning.journey.studio.widget',
-      version: 1,
+      version: '1.0.0',
       targets: ['react'],
     },
   ],
 
   // Capability requirements
   capabilities: {
-    requires: [{ key: 'identity', version: 1 }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

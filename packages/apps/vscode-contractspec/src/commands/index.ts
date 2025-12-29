@@ -28,6 +28,7 @@ import { registerChatCommands } from './chat';
 import { runQuickstartWizard, runQuickInstall } from './quickstart';
 import { registerImpactCommands } from './impact';
 import { registerWorkspaceCommands } from './workspace';
+import { registerVersionCommands } from './version';
 
 /**
  * Register all ContractSpec commands.
@@ -315,4 +316,7 @@ export function registerCommands(
 
   // Workspace commands (meta-repo support)
   registerWorkspaceCommands(context, outputChannel);
+
+  // Version management commands
+  registerVersionCommands(context, outputChannel, telemetry);
 }

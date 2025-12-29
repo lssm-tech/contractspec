@@ -27,7 +27,7 @@ export async function handleCreateWorkflow(
     key: input.key,
     name: input.name,
     description: input.description,
-    version: 1,
+    version: '1.0.0',
     status: 'DRAFT',
     triggerType: input.triggerType ?? 'MANUAL',
     featureFlagKey: input.featureFlagKey,

@@ -7,7 +7,7 @@ const registry = new ExperimentRegistry();
 registry.register({
   meta: {
     key: 'sigil.experiment.random',
-    version: 1,
+    version: '1.0.0',
     title: 'Random allocation',
     description: 'Simple random experiment',
     domain: 'core',
@@ -26,7 +26,7 @@ registry.register({
 registry.register({
   meta: {
     key: 'sigil.experiment.sticky',
-    version: 1,
+    version: '1.0.0',
     title: 'Sticky allocation',
     description: 'Sticky assignment by userId',
     domain: 'core',
@@ -45,7 +45,7 @@ registry.register({
 registry.register({
   meta: {
     key: 'sigil.experiment.targeted',
-    version: 1,
+    version: '1.0.0',
     title: 'Targeted allocation',
     description: 'Assign variant when rule matches',
     domain: 'core',

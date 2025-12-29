@@ -12,7 +12,7 @@ import {
 import { StabilityEnum, type Owner, type Tag } from './ownership';
 
 const baseMeta = {
-  version: 1,
+  version: '1.0.0',
   title: 'Stripe Payments Capability' as const,
   description: 'Expose Stripe payment operations.' as const,
   domain: 'payments' as const,
@@ -25,14 +25,14 @@ const capabilitySpec: CapabilitySpec = {
   meta: {
     ...baseMeta,
     key: 'payments.stripe',
-    version: 1,
+    version: '1.0.0',
     kind: 'integration',
   },
   provides: [
     {
       surface: 'operation',
       key: 'payments.charge.create',
-      version: 1,
+      version: '1.0.0',
     },
   ],
 };
@@ -43,7 +43,7 @@ function featureWithCapabilities(
   return {
     meta: {
       key: 'payments_stripe_feature',
-      version: 1,
+      version: '1.0.0',
       title: 'Stripe Payments',
       description: 'Enable Stripe charge operations.',
       domain: 'payments',
@@ -56,7 +56,7 @@ function featureWithCapabilities(
       requires: [
         {
           key: 'payments.stripe',
-          version: 1,
+          version: '1.0.0',
         },
       ],
     },
@@ -90,7 +90,7 @@ describe('installFeature capability validation', () => {
     const features = new FeatureRegistry();
     const capabilities = new CapabilityRegistry();
     capabilities.register(capabilitySpec);
-    const provides = [{ key: 'payments.stripe', version: 1 }];
+    const provides = [{ key: 'payments.stripe', version: '1.0.0' }];
     const spec = featureWithCapabilities(provides);
 
     // Local provide should satisfy requirement when capability is declared

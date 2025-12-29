@@ -5,7 +5,7 @@ import { ChatMessageModel, ChatConversationModel } from './schema';
 export const MessageSentEvent = defineEvent({
   meta: {
     key: 'ai-chat.message.sent',
-    version: 1,
+    version: '1.0.0',
     description: 'Message sent by user',
     stability: 'stable',
     owners: ['@ai-chat'],
@@ -17,7 +17,7 @@ export const MessageSentEvent = defineEvent({
 export const MessageReceivedEvent = defineEvent({
   meta: {
     key: 'ai-chat.message.received',
-    version: 1,
+    version: '1.0.0',
     description: 'Message received from AI',
     stability: 'stable',
     owners: ['@ai-chat'],
@@ -29,7 +29,7 @@ export const MessageReceivedEvent = defineEvent({
 export const ConversationCreatedEvent = defineEvent({
   meta: {
     key: 'ai-chat.conversation.created',
-    version: 1,
+    version: '1.0.0',
     description: 'New conversation created',
     stability: 'stable',
     owners: ['@ai-chat'],
@@ -41,7 +41,7 @@ export const ConversationCreatedEvent = defineEvent({
 export const ConversationDeletedEvent = defineEvent({
   meta: {
     key: 'ai-chat.conversation.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'Conversation deleted',
     stability: 'stable',
     owners: ['@ai-chat'],
@@ -58,7 +58,7 @@ export const ConversationDeletedEvent = defineEvent({
 export const ChatErrorEvent = defineEvent({
   meta: {
     key: 'ai-chat.error',
-    version: 1,
+    version: '1.0.0',
     description: 'Chat error occurred',
     stability: 'stable',
     owners: ['@ai-chat'],

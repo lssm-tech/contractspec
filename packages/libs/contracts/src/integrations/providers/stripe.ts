@@ -5,7 +5,7 @@ import type { IntegrationSpecRegistry } from '../spec';
 export const stripeIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'payments.stripe',
-    version: 1,
+    version: '1.0.0',
     category: 'payments',
     title: 'Stripe Payments',
     description:
@@ -17,7 +17,7 @@ export const stripeIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'payments.psp', version: 1 }],
+    provides: [{ key: 'payments.psp', version: '1.0.0' }],
     requires: [
       {
         key: 'platform.webhooks',

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ai-agent",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "AI agent orchestration with MCP and tool support",
   "keywords": [
     "contractspec",
@@ -42,6 +42,7 @@
     "@modelcontextprotocol/sdk": "^1.24.3",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
+    "compare-versions": "^6.1.1",
     "zod": "catalog:"
   },
   "devDependencies": {

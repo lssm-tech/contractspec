@@ -13,19 +13,19 @@ describe('integration contracts', () => {
   it('registers integration connection management contracts', () => {
     const registry = registerIntegrationContracts(new OperationSpecRegistry());
 
-    expect(registry.getSpec('integrations.connection.create', 1)).toBe(
+    expect(registry.get('integrations.connection.create', '1.0.0')).toBe(
       CreateIntegrationConnection
     );
-    expect(registry.getSpec('integrations.connection.update', 1)).toBe(
+    expect(registry.get('integrations.connection.update', '1.0.0')).toBe(
       UpdateIntegrationConnection
     );
-    expect(registry.getSpec('integrations.connection.delete', 1)).toBe(
+    expect(registry.get('integrations.connection.delete', '1.0.0')).toBe(
       DeleteIntegrationConnection
     );
-    expect(registry.getSpec('integrations.connection.list', 1)).toBe(
+    expect(registry.get('integrations.connection.list', '1.0.0')).toBe(
       ListIntegrationConnections
     );
-    expect(registry.getSpec('integrations.connection.test', 1)).toBe(
+    expect(registry.get('integrations.connection.test', '1.0.0')).toBe(
       TestIntegrationConnection
     );
   });

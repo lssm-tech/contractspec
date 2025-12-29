@@ -37,7 +37,7 @@ const SumCalculatedPayload = new SchemaModel({
 const SumCalculatedEvent = defineEvent({
   meta: {
     key: 'math.sum_calculated',
-    version: 1,
+    version: '1.0.0',
     description: 'Sum calculated',
     stability: StabilityEnum.Experimental,
     owners: ['@team.math'],
@@ -49,7 +49,7 @@ const SumCalculatedEvent = defineEvent({
 const AddNumbersSpec = defineCommand({
   meta: {
     key: 'math.add',
-    version: 1,
+    version: '1.0.0',
     description: 'Adds two numbers',
     goal: 'Verify math operations',
     context: 'Internal testing',
@@ -68,7 +68,7 @@ const AddNumbersSpec = defineCommand({
     emits: [
       {
         key: SumCalculatedEvent.meta.key,
-        version: SumCalculatedEvent.meta.version,
+        version: '1.0.0',
         payload: SumCalculatedEvent.payload,
         when: 'after calculation',
       },
@@ -86,7 +86,7 @@ registry.bind(
   ): Promise<{ sum: number }> => {
     const { a, b } = input ?? { a: 0, b: 0 };
     const sum = Number(a) + Number(b);
-    await ctx.__emitGuard__?.('math.sum_calculated', 1, { sum });
+    await ctx.__emitGuard__?.('math.sum_calculated', '1.0.0', { sum });
     return { sum };
   }
 );
@@ -94,7 +94,7 @@ registry.bind(
 const testSpec: TestSpec = {
   meta: {
     key: 'math.add.tests',
-    version: 1,
+    version: '1.0.0',
     title: 'Math add scenarios',
     description: 'Test scenarios for math.add operation',
     owners: ['@team.math'],
@@ -110,7 +110,7 @@ const testSpec: TestSpec = {
         { type: 'expectOutput', match: { sum: 5 } },
         {
           type: 'expectEvents',
-          events: [{ key: 'math.sum_calculated', version: 1, min: 1 }],
+          events: [{ key: 'math.sum_calculated', version: '1.0.0', min: 1 }],
         },
       ],
     },

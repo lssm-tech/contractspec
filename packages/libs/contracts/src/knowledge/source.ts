@@ -10,7 +10,7 @@ export interface KnowledgeSourceMeta {
   id: string;
   tenantId: string;
   spaceKey: string;
-  spaceVersion: number;
+  spaceVersion: string;
   label: string;
   sourceType: KnowledgeSourceType;
   createdAt: string | Date;

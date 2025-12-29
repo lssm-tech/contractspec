@@ -9,7 +9,7 @@ export function registerMcpTools(
   ops: OperationSpecRegistry,
   ctx: Pick<McpCtxFactories, 'toolCtx'>
 ) {
-  for (const spec of ops.listSpecs()) {
+  for (const spec of ops.list()) {
     if (spec.meta.kind !== 'command') continue; // expose only commands as tools
 
     const toolName =

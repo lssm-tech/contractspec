@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.policy-safe-knowledge-assistant",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.",
   "type": "module",
   "main": "./dist/index.js",
@@ -35,15 +35,7 @@
     "@contractspec/example.versioned-knowledge-base": "workspace:*",
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.learning-patterns": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.jobs": "workspace:*",
-    "@contractspec/lib.feature-flags": "workspace:*",
-    "@contractspec/lib.files": "workspace:*",
-    "@contractspec/lib.metering": "workspace:*",
-    "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
     "@contractspec/module.learning-journey": "workspace:*"
   },
   "devDependencies": {

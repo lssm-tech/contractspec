@@ -7,7 +7,7 @@ export interface TracingMiddlewareOptions {
   resolveOperation?: (input: {
     req: Request;
     res?: Response;
-  }) => { name: string; version: number } | undefined;
+  }) => { name: string; version: string } | undefined;
   onSample?: (sample: TelemetrySample) => void;
   tenantResolver?: (req: Request) => string | undefined;
   actorResolver?: (req: Request) => string | undefined;

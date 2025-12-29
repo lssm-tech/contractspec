@@ -10,7 +10,7 @@ describe('FeatureRegistry', () => {
   ): FeatureModuleSpec => ({
     meta: {
       key,
-      version: 1,
+      version: '1.0.0',
       title: `Feature ${key}`,
       description: `Description for ${key}`,
       stability: StabilityEnum.Stable,
@@ -86,7 +86,7 @@ describe('FeatureRegistry', () => {
         createFeature('payments.stripe', {
           meta: {
             key: 'payments.stripe',
-            version: 1,
+            version: '1.0.0',
             title: 'Stripe',
             description: 'Stripe payments',
             stability: StabilityEnum.Stable,
@@ -99,7 +99,7 @@ describe('FeatureRegistry', () => {
         createFeature('auth.session', {
           meta: {
             key: 'auth.session',
-            version: 1,
+            version: '1.0.0',
             title: 'Session',
             description: 'Session auth',
             stability: StabilityEnum.Stable,
@@ -123,7 +123,7 @@ describe('FeatureRegistry', () => {
         createFeature('payments.stripe', {
           meta: {
             key: 'payments.stripe',
-            version: 1,
+            version: '1.0.0',
             title: 'Stripe',
             description: 'Stripe payments',
             stability: StabilityEnum.Stable,
@@ -136,7 +136,7 @@ describe('FeatureRegistry', () => {
         createFeature('auth.session', {
           meta: {
             key: 'auth.session',
-            version: 1,
+            version: '1.0.0',
             title: 'Session',
             description: 'Session auth',
             stability: StabilityEnum.Stable,
@@ -160,7 +160,7 @@ describe('FeatureRegistry', () => {
         createFeature('payments.stripe', {
           meta: {
             key: 'payments.stripe',
-            version: 1,
+            version: '1.0.0',
             title: 'Stripe',
             description: 'Stripe',
             stability: StabilityEnum.Stable,
@@ -174,7 +174,7 @@ describe('FeatureRegistry', () => {
         createFeature('payments.paypal', {
           meta: {
             key: 'payments.paypal',
-            version: 1,
+            version: '1.0.0',
             title: 'PayPal',
             description: 'PayPal',
             stability: StabilityEnum.Beta,
@@ -188,7 +188,7 @@ describe('FeatureRegistry', () => {
         createFeature('auth.session', {
           meta: {
             key: 'auth.session',
-            version: 1,
+            version: '1.0.0',
             title: 'Session',
             description: 'Session',
             stability: StabilityEnum.Stable,
@@ -212,7 +212,7 @@ describe('FeatureRegistry', () => {
         createFeature('f1', {
           meta: {
             key: 'f1',
-            version: 1,
+            version: '1.0.0',
             title: 'F1',
             description: 'F1',
             stability: StabilityEnum.Stable,
@@ -225,7 +225,7 @@ describe('FeatureRegistry', () => {
         createFeature('f2', {
           meta: {
             key: 'f2',
-            version: 1,
+            version: '1.0.0',
             title: 'F2',
             description: 'F2',
             stability: StabilityEnum.Stable,
@@ -250,7 +250,7 @@ describe('FeatureRegistry', () => {
         createFeature('stable.feature', {
           meta: {
             key: 'stable.feature',
-            version: 1,
+            version: '1.0.0',
             title: 'Stable',
             description: 'Stable',
             stability: StabilityEnum.Stable,
@@ -263,7 +263,7 @@ describe('FeatureRegistry', () => {
         createFeature('beta.feature', {
           meta: {
             key: 'beta.feature',
-            version: 1,
+            version: '1.0.0',
             title: 'Beta',
             description: 'Beta',
             stability: StabilityEnum.Beta,

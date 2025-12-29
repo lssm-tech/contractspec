@@ -17,7 +17,7 @@ const OWNERS = ['@example.marketplace'] as const;
 export const CreateProductContract = defineCommand({
   meta: {
     key: 'marketplace.product.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'product', 'create'],
@@ -31,7 +31,7 @@ export const CreateProductContract = defineCommand({
     emits: [
       {
         key: 'marketplace.product.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Product is created',
         payload: ProductModel,
       },
@@ -72,7 +72,7 @@ export const CreateProductContract = defineCommand({
 export const ListProductsContract = defineQuery({
   meta: {
     key: 'marketplace.product.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['marketplace', 'product', 'list'],

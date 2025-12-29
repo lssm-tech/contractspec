@@ -5,7 +5,7 @@ import { ConnectionModel } from './connection.schema';
 export const ConnectionListPresentation: PresentationSpec = {
   meta: {
     key: 'integration.connection.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Connection List',
     description: 'List of integration connections',
     domain: 'integration',
@@ -30,7 +30,7 @@ export const ConnectionListPresentation: PresentationSpec = {
 export const ConnectionSetupPresentation: PresentationSpec = {
   meta: {
     key: 'integration.connection.setup',
-    version: 1,
+    version: '1.0.0',
     title: 'Connection Setup',
     description: 'Setup wizard for creating integration connections',
     domain: 'integration',

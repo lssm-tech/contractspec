@@ -41,7 +41,7 @@ const QueryEventPayload = defineSchemaModel({
 export const DashboardCreatedEvent = defineEvent({
   meta: {
     key: 'analytics.dashboard.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A dashboard was created.',
     stability: 'stable',
     owners: ['@analytics-team'],
@@ -53,7 +53,7 @@ export const DashboardCreatedEvent = defineEvent({
 export const WidgetAddedEvent = defineEvent({
   meta: {
     key: 'analytics.widget.added',
-    version: 1,
+    version: '1.0.0',
     description: 'A widget was added to a dashboard.',
     stability: 'stable',
     owners: ['@analytics-team'],
@@ -65,7 +65,7 @@ export const WidgetAddedEvent = defineEvent({
 export const QueryCreatedEvent = defineEvent({
   meta: {
     key: 'analytics.query.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A query was created.',
     stability: 'stable',
     owners: ['@analytics-team'],

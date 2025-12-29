@@ -21,7 +21,7 @@ import { AgentRegistry, AgentRunner, ToolExecutor } from '@contractspec/lib.ai-a
 
 const SupportBot = defineSupportBot({
   base: {
-    meta: { name: 'support.bot', version: 1, owners: ['team-support'], domain: 'operations' },
+    meta: { name: 'support.bot', version: '1.0.0', owners: ['team-support'], domain: 'operations' },
     instructions: 'Resolve support tickets with empathy. Escalate if billing or compliance risk.',
     tools: [{ name: 'resolve_ticket' }, { name: 'escalate_ticket' }],
   },

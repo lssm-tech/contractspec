@@ -62,7 +62,7 @@ export class PrismaStateStore implements StateStore {
     return {
       workflowId: record.id,
       workflowName: record.name,
-      workflowVersion: parseInt(record.version, 10),
+      workflowVersion: record.version,
       currentStep: record.currentStep,
       data: record.data as Record<string, unknown>,
       history: record.history as WorkflowState['history'],
@@ -99,7 +99,7 @@ export class PrismaStateStore implements StateStore {
     return {
       workflowId: updated.id,
       workflowName: updated.name,
-      workflowVersion: parseInt(updated.version, 10),
+      workflowVersion: updated.version,
       currentStep: updated.currentStep,
       data: updated.data as Record<string, unknown>,
       history: updated.history as WorkflowState['history'],
@@ -123,7 +123,7 @@ export class PrismaStateStore implements StateStore {
     return records.map((record) => ({
       workflowId: record.id,
       workflowName: record.name,
-      workflowVersion: parseInt(record.version, 10),
+      workflowVersion: record.version,
       currentStep: record.currentStep,
       data: record.data as Record<string, unknown>,
       history: record.history as WorkflowState['history'],

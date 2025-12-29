@@ -22,7 +22,7 @@ export interface AuditableEventEnvelope<T = unknown> extends EventEnvelope<T> {
 export interface AuditRecord {
   id: string;
   eventKey: string;
-  eventVersion: number;
+  eventVersion: string;
   payload: unknown;
   metadata?: EventMetadata;
   occurredAt: string;

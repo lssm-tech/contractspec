@@ -21,7 +21,7 @@ const baseMeta: Pick<
 export const CrmOnboardingTrackPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.crm.track',
-    version: 1,
+    version: '1.0.0',
     description: 'CRM first win track detail',
     ...baseMeta,
   },
@@ -37,7 +37,7 @@ export const CrmOnboardingTrackPresentation: PresentationSpec = {
 export const CrmOnboardingWidgetPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.crm.widget',
-    version: 1,
+    version: '1.0.0',
     description: 'Compact widget for CRM onboarding progress',
     ...baseMeta,
   },

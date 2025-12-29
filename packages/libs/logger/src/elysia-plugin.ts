@@ -133,6 +133,3 @@ export function elysiaLogger<T extends Elysia>(
       }));
   };
 }
-
-// Export convenience functions
-export const createElysiaLogger = elysiaLogger;

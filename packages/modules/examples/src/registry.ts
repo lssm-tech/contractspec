@@ -1,22 +1,41 @@
-import type { ExampleDefinition, ExampleId } from './types';
-import { EXAMPLE_REGISTRY } from './builtins';
+import { ExampleRegistry } from '@contractspec/lib.contracts';
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+import { EXAMPLE_REGISTRY as BUILTIN_EXAMPLES } from './builtins';
 
-export { EXAMPLE_REGISTRY };
+// Export the ExampleRegistry class from contracts
+export { ExampleRegistry } from '@contractspec/lib.contracts';
 
-export function listExamples(): readonly ExampleDefinition[] {
-  return EXAMPLE_REGISTRY.slice().sort((a, b) => a.id.localeCompare(b.id));
+// Create a global registry instance populated with builtins
+const globalRegistry = new ExampleRegistry();
+
+// Register all builtin examples
+for (const example of BUILTIN_EXAMPLES) {
+  globalRegistry.register(example);
 }
 
-export function getExample(id: ExampleId): ExampleDefinition | undefined {
-  return EXAMPLE_REGISTRY.find((ex) => ex.id === id);
+/**
+ * Global registry containing all builtin ContractSpec examples.
+ * @deprecated Prefer using ExampleRegistry directly for custom registrations.
+ */
+export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = globalRegistry.list();
+
+/**
+ * List all registered examples.
+ */
+export function listExamples(): readonly ExampleSpec[] {
+  return globalRegistry.list();
 }
 
-export function searchExamples(query: string): ExampleDefinition[] {
-  const q = query.toLowerCase().trim();
-  if (!q) return [...listExamples()];
-  return listExamples().filter((ex) => {
-    const hay =
-      `${ex.id} ${ex.title} ${ex.summary} ${ex.tags.join(' ')}`.toLowerCase();
-    return hay.includes(q);
-  });
+/**
+ * Get an example by its key.
+ */
+export function getExample(key: string): ExampleSpec | undefined {
+  return globalRegistry.get(key);
+}
+
+/**
+ * Search examples by query (matches key, title, description, tags).
+ */
+export function searchExamples(query: string): ExampleSpec[] {
+  return globalRegistry.search(query);
 }

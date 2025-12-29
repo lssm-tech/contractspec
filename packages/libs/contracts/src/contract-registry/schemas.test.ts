@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
 import {
-  ContractRegistryItemTypeSchema,
   ContractRegistryFileSchema,
   ContractRegistryItemSchema,
+  ContractRegistryItemTypeSchema,
   ContractRegistryManifestSchema,
 } from './schemas';
 import type { ContractRegistryItem, ContractRegistryManifest } from './types';
@@ -84,7 +84,7 @@ describe('ContractRegistryItemSchema', () => {
   const createValidItem = (overrides?: Partial<ContractRegistryItem>) => ({
     key: 'user.create',
     type: 'contractspec:operation',
-    version: 1,
+    version: '1.0.0',
     title: 'Create User',
     description: 'Creates a new user in the system',
     meta: {
@@ -102,7 +102,7 @@ describe('ContractRegistryItemSchema', () => {
 
     expect(result.key).toBe('user.create');
     expect(result.type).toBe('contractspec:operation');
-    expect(result.version).toBe(1);
+    expect(result.version).toBe('1.0.0');
     expect(result.meta.stability).toBe('stable');
   });
 
@@ -160,13 +160,8 @@ describe('ContractRegistryItemSchema', () => {
     expect(() => ContractRegistryItemSchema.parse(item)).toThrow();
   });
 
-  it('should reject negative version', () => {
-    const item = createValidItem({ version: -1 });
-    expect(() => ContractRegistryItemSchema.parse(item)).toThrow();
-  });
-
-  it('should reject non-integer version', () => {
-    const item = createValidItem({ version: 1.5 });
+  it('should reject non-string version', () => {
+    const item = createValidItem({ version: 123 as unknown as string });
     expect(() => ContractRegistryItemSchema.parse(item)).toThrow();
   });
 
@@ -190,7 +185,7 @@ describe('ContractRegistryManifestSchema', () => {
       {
         key: 'test.item',
         type: 'contractspec:operation',
-        version: 1,
+        version: '1.0.0',
         title: 'Test Item',
         description: 'Test description',
         meta: { stability: 'stable', owners: [], tags: [] },
@@ -246,7 +241,7 @@ describe('ContractRegistryManifestSchema', () => {
         {
           key: '', // Invalid: empty key
           type: 'contractspec:operation',
-          version: 1,
+          version: '1.0.0',
           title: 'Bad',
           description: 'Bad item',
           meta: { stability: 'stable', owners: [], tags: [] },

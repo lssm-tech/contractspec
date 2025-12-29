@@ -40,7 +40,7 @@ export const WorkflowDefinitionModel = defineSchemaModel({
     name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     key: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-    version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+    version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
     status: { type: WorkflowStatusEnum, isOptional: false },
     triggerType: { type: TriggerTypeEnum, isOptional: false },
     initialStepId: {

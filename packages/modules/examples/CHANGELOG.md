@@ -1,5 +1,229 @@
 # @contractspec/module.examples
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.4
+  - @contractspec/example.learning-journey-quest-challenges@1.45.4
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.4
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.4
+  - @contractspec/example.learning-journey-ambient-coach@1.45.4
+  - @contractspec/example.learning-journey-platform-tour@1.45.4
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.4
+  - @contractspec/example.learning-journey-ui-coaching@1.45.4
+  - @contractspec/example.learning-journey-ui-gamified@1.45.4
+  - @contractspec/example.learning-journey-duo-drills@1.45.4
+  - @contractspec/example.learning-journey-ui-shared@1.45.4
+  - @contractspec/example.learning-journey-registry@1.45.4
+  - @contractspec/example.locale-jurisdiction-gate@1.45.4
+  - @contractspec/example.versioned-knowledge-base@1.45.4
+  - @contractspec/example.analytics-dashboard@1.45.4
+  - @contractspec/example.lifecycle-dashboard@1.45.4
+  - @contractspec/example.service-business-os@1.45.4
+  - @contractspec/example.content-generation@1.45.4
+  - @contractspec/example.integration-stripe@1.45.4
+  - @contractspec/example.kb-update-pipeline@1.45.4
+  - @contractspec/example.openbanking-powens@1.45.4
+  - @contractspec/example.learning-patterns@1.45.4
+  - @contractspec/example.saas-boilerplate@1.45.4
+  - @contractspec/example.integration-hub@1.45.4
+  - @contractspec/example.knowledge-canon@1.45.4
+  - @contractspec/example.personalization@1.45.4
+  - @contractspec/example.wealth-snapshot@1.45.4
+  - @contractspec/example.workflow-system@1.45.4
+  - @contractspec/example.ai-support-bot@1.45.4
+  - @contractspec/example.agent-console@1.45.4
+  - @contractspec/example.lifecycle-cli@1.45.4
+  - @contractspec/example.crm-pipeline@1.45.4
+  - @contractspec/example.marketplace@1.45.4
+  - @contractspec/example.team-hub@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.3
+  - @contractspec/example.learning-journey-quest-challenges@1.45.3
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.3
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.3
+  - @contractspec/example.learning-journey-ambient-coach@1.45.3
+  - @contractspec/example.learning-journey-platform-tour@1.45.3
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.3
+  - @contractspec/example.learning-journey-ui-coaching@1.45.3
+  - @contractspec/example.learning-journey-ui-gamified@1.45.3
+  - @contractspec/example.learning-journey-duo-drills@1.45.3
+  - @contractspec/example.learning-journey-ui-shared@1.45.3
+  - @contractspec/example.learning-journey-registry@1.45.3
+  - @contractspec/example.locale-jurisdiction-gate@1.45.3
+  - @contractspec/example.versioned-knowledge-base@1.45.3
+  - @contractspec/example.analytics-dashboard@1.45.3
+  - @contractspec/example.lifecycle-dashboard@1.45.3
+  - @contractspec/example.service-business-os@1.45.3
+  - @contractspec/example.content-generation@1.45.3
+  - @contractspec/example.integration-stripe@1.45.3
+  - @contractspec/example.kb-update-pipeline@1.45.3
+  - @contractspec/example.openbanking-powens@1.45.3
+  - @contractspec/example.learning-patterns@1.45.3
+  - @contractspec/example.saas-boilerplate@1.45.3
+  - @contractspec/example.integration-hub@1.45.3
+  - @contractspec/example.knowledge-canon@1.45.3
+  - @contractspec/example.personalization@1.45.3
+  - @contractspec/example.wealth-snapshot@1.45.3
+  - @contractspec/example.workflow-system@1.45.3
+  - @contractspec/example.ai-support-bot@1.45.3
+  - @contractspec/example.agent-console@1.45.3
+  - @contractspec/example.lifecycle-cli@1.45.3
+  - @contractspec/example.crm-pipeline@1.45.3
+  - @contractspec/example.marketplace@1.45.3
+  - @contractspec/example.team-hub@1.45.3
+  - @contractspec/lib.contracts@1.45.3
+
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.2
+  - @contractspec/example.learning-journey-quest-challenges@1.45.2
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.2
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.2
+  - @contractspec/example.learning-journey-ambient-coach@1.45.2
+  - @contractspec/example.learning-journey-platform-tour@1.45.2
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.2
+  - @contractspec/example.learning-journey-ui-coaching@1.45.2
+  - @contractspec/example.learning-journey-ui-gamified@1.45.2
+  - @contractspec/example.learning-journey-duo-drills@1.45.2
+  - @contractspec/example.learning-journey-ui-shared@1.45.2
+  - @contractspec/example.learning-journey-registry@1.45.2
+  - @contractspec/example.locale-jurisdiction-gate@1.45.2
+  - @contractspec/example.versioned-knowledge-base@1.45.2
+  - @contractspec/example.analytics-dashboard@1.45.2
+  - @contractspec/example.lifecycle-dashboard@1.45.2
+  - @contractspec/example.service-business-os@1.45.2
+  - @contractspec/example.content-generation@1.45.2
+  - @contractspec/example.integration-stripe@1.45.2
+  - @contractspec/example.kb-update-pipeline@1.45.2
+  - @contractspec/example.openbanking-powens@1.45.2
+  - @contractspec/example.learning-patterns@1.45.2
+  - @contractspec/example.saas-boilerplate@1.45.2
+  - @contractspec/example.integration-hub@1.45.2
+  - @contractspec/example.knowledge-canon@1.45.2
+  - @contractspec/example.personalization@1.45.2
+  - @contractspec/example.wealth-snapshot@1.45.2
+  - @contractspec/example.workflow-system@1.45.2
+  - @contractspec/example.ai-support-bot@1.45.2
+  - @contractspec/example.agent-console@1.45.2
+  - @contractspec/example.lifecycle-cli@1.45.2
+  - @contractspec/example.crm-pipeline@1.45.2
+  - @contractspec/example.marketplace@1.45.2
+  - @contractspec/example.team-hub@1.45.2
+
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.1
+  - @contractspec/example.learning-journey-quest-challenges@1.45.1
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.1
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.1
+  - @contractspec/example.learning-journey-ambient-coach@1.45.1
+  - @contractspec/example.learning-journey-platform-tour@1.45.1
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.1
+  - @contractspec/example.learning-journey-ui-coaching@1.45.1
+  - @contractspec/example.learning-journey-ui-gamified@1.45.1
+  - @contractspec/example.learning-journey-duo-drills@1.45.1
+  - @contractspec/example.learning-journey-ui-shared@1.45.1
+  - @contractspec/example.learning-journey-registry@1.45.1
+  - @contractspec/example.locale-jurisdiction-gate@1.45.1
+  - @contractspec/example.versioned-knowledge-base@1.45.1
+  - @contractspec/example.analytics-dashboard@1.45.1
+  - @contractspec/example.lifecycle-dashboard@1.45.1
+  - @contractspec/example.service-business-os@1.45.1
+  - @contractspec/example.content-generation@1.45.1
+  - @contractspec/example.integration-stripe@1.45.1
+  - @contractspec/example.kb-update-pipeline@1.45.1
+  - @contractspec/example.openbanking-powens@1.45.1
+  - @contractspec/example.learning-patterns@1.45.1
+  - @contractspec/example.saas-boilerplate@1.45.1
+  - @contractspec/example.integration-hub@1.45.1
+  - @contractspec/example.knowledge-canon@1.45.1
+  - @contractspec/example.personalization@1.45.1
+  - @contractspec/example.wealth-snapshot@1.45.1
+  - @contractspec/example.workflow-system@1.45.1
+  - @contractspec/example.ai-support-bot@1.45.1
+  - @contractspec/example.agent-console@1.45.1
+  - @contractspec/example.lifecycle-cli@1.45.1
+  - @contractspec/example.crm-pipeline@1.45.1
+  - @contractspec/example.marketplace@1.45.1
+  - @contractspec/example.team-hub@1.45.1
+
+## 1.45.0
+
+### Minor Changes
+
+- e73ca1d: feat: improve app config and examples contracts
+  feat: Contract layers support (features, examples, app-configs)
+
+  ### New CLI Commands
+  - `contractspec list layers` - List all contract layers with filtering
+
+  ### Enhanced Commands
+  - `contractspec ci` - New `layers` check category validates features/examples/config
+  - `contractspec doctor` - New `layers` health checks
+  - `contractspec integrity` - Now shows layer statistics
+
+  ### New APIs
+  - `discoverLayers()` - Scan workspace for all layer files
+  - `scanExampleSource()` - Parse ExampleSpec from source code
+  - `isExampleFile()` - Check if file is an example spec
+
+### Patch Changes
+
+- Updated dependencies [e73ca1d]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.0
+  - @contractspec/example.learning-journey-quest-challenges@1.45.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.0
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.0
+  - @contractspec/example.learning-journey-ambient-coach@1.45.0
+  - @contractspec/example.learning-journey-platform-tour@1.45.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.0
+  - @contractspec/example.learning-journey-ui-coaching@1.45.0
+  - @contractspec/example.learning-journey-ui-gamified@1.45.0
+  - @contractspec/example.learning-journey-duo-drills@1.45.0
+  - @contractspec/example.learning-journey-ui-shared@1.45.0
+  - @contractspec/example.learning-journey-registry@1.45.0
+  - @contractspec/example.locale-jurisdiction-gate@1.45.0
+  - @contractspec/example.versioned-knowledge-base@1.45.0
+  - @contractspec/example.analytics-dashboard@1.45.0
+  - @contractspec/example.lifecycle-dashboard@1.45.0
+  - @contractspec/example.service-business-os@1.45.0
+  - @contractspec/example.content-generation@1.45.0
+  - @contractspec/example.integration-stripe@1.45.0
+  - @contractspec/example.kb-update-pipeline@1.45.0
+  - @contractspec/example.openbanking-powens@1.45.0
+  - @contractspec/example.learning-patterns@1.45.0
+  - @contractspec/example.saas-boilerplate@1.45.0
+  - @contractspec/example.integration-hub@1.45.0
+  - @contractspec/example.knowledge-canon@1.45.0
+  - @contractspec/example.personalization@1.45.0
+  - @contractspec/example.wealth-snapshot@1.45.0
+  - @contractspec/example.workflow-system@1.45.0
+  - @contractspec/example.ai-support-bot@1.45.0
+  - @contractspec/example.agent-console@1.45.0
+  - @contractspec/example.lifecycle-cli@1.45.0
+  - @contractspec/example.crm-pipeline@1.45.0
+  - @contractspec/example.marketplace@1.45.0
+  - @contractspec/example.team-hub@1.45.0
+
 ## 1.44.1
 
 ### Patch Changes

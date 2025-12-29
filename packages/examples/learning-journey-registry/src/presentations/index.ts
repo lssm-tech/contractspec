@@ -20,7 +20,7 @@ const baseMeta: Pick<
 export const LearningTrackListPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.track_list',
-    version: 1,
+    version: '1.0.0',
     description: 'List of learning journeys available to the learner.',
     ...baseMeta,
   },
@@ -35,7 +35,7 @@ export const LearningTrackListPresentation: PresentationSpec = {
 export const LearningTrackDetailPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.track_detail',
-    version: 1,
+    version: '1.0.0',
     description: 'Track detail with steps and progress state.',
     ...baseMeta,
   },
@@ -50,7 +50,7 @@ export const LearningTrackDetailPresentation: PresentationSpec = {
 export const LearningTrackProgressWidgetPresentation: PresentationSpec = {
   meta: {
     key: 'learning.journey.progress_widget',
-    version: 1,
+    version: '1.0.0',
     description: 'Compact widget showing progress for active track.',
     ...baseMeta,
   },

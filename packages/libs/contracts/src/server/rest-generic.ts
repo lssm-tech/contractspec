@@ -73,10 +73,10 @@ export function createFetchHandler(
     method: 'GET' | 'POST';
     path: string; // absolute path including basePath
     name: string;
-    version: number;
+    version: string;
   }
 
-  const routes: Route[] = reg.listSpecs().map((spec) => ({
+  const routes: Route[] = reg.list().map((spec) => ({
     method: (spec.transport?.rest?.method ??
       (spec.meta.kind === 'query' ? 'GET' : 'POST')) as 'GET' | 'POST',
     path: joinPath(

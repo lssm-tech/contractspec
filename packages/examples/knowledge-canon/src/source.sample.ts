@@ -5,7 +5,7 @@ export const productCanonNotionSource: KnowledgeSourceConfig = {
     id: 'source-canon-notion',
     tenantId: 'artisan-co',
     spaceKey: 'knowledge.product-canon',
-    spaceVersion: 1,
+    spaceVersion: '1.0.0',
     label: 'Product Canon (Notion)',
     sourceType: 'notion',
     createdAt: '2026-01-01T00:00:00.000Z',

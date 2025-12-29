@@ -7,7 +7,7 @@ import { StabilityEnum } from '../ownership';
 const telemetrySpec: TelemetrySpec = {
   meta: {
     key: 'sigil.telemetry',
-    version: 1,
+    version: '1.0.0',
     title: 'Sigil telemetry',
     description: 'Telemetry events for sigil',
     domain: 'sigil',
@@ -23,7 +23,7 @@ const telemetrySpec: TelemetrySpec = {
   events: [
     {
       key: 'sigil.telemetry.workflow_step',
-      version: 1,
+      version: '1.0.0',
       semantics: { what: 'Workflow step executed' },
       properties: {
         workflow: { type: 'string', required: true },
@@ -67,7 +67,7 @@ describe('TelemetryTracker', () => {
 
     const tracked = await tracker.track(
       'sigil.telemetry.workflow_step',
-      1,
+      '1.0.0',
       { workflow: 'primary', step: '3', durationMs: 1200, userId: 'abc' },
       { tenantId: 'tenant-1', actor: 'user' }
     );
@@ -97,7 +97,7 @@ describe('TelemetryTracker', () => {
 
     const tracked = await tracker.track(
       'sigil.telemetry.workflow_step',
-      1,
+      '1.0.0',
       { workflow: 'primary', step: '3', durationMs: 1200 },
       {}
     );
@@ -119,7 +119,7 @@ describe('TelemetryTracker', () => {
 
     await tracker.track(
       'sigil.telemetry.workflow_step',
-      1,
+      '1.0.0',
       { workflow: 'primary', step: '3', durationMs: 3000 },
       {}
     );

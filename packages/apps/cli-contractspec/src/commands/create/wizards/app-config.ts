@@ -1,8 +1,8 @@
 import { confirm, input, number, select } from '@inquirer/prompts';
 import type {
+  AppBlueprintSpecData,
   AppConfigFeatureFlagData,
   AppConfigMappingData,
-  AppBlueprintSpecData,
   AppRouteConfigData,
   Stability,
 } from '../../../types';

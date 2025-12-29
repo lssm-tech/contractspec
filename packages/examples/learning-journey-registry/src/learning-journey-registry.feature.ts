@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
   meta: {
     key: 'learning-journey-registry',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey Registry',
     description:
       'Shared registry and presentations for learning journey tracks',
@@ -30,9 +30,9 @@ export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
 
   // Presentations associated with this feature
   presentations: [
-    { key: 'learning.journey.track_list', version: 1 },
-    { key: 'learning.journey.track_detail', version: 1 },
-    { key: 'learning.journey.progress_widget', version: 1 },
+    { key: 'learning.journey.track_list', version: '1.0.0' },
+    { key: 'learning.journey.track_detail', version: '1.0.0' },
+    { key: 'learning.journey.progress_widget', version: '1.0.0' },
   ],
 
   // No op to presentation links for registry
@@ -42,23 +42,23 @@ export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
   presentationsTargets: [
     {
       key: 'learning.journey.track_list',
-      version: 1,
+      version: '1.0.0',
       targets: ['react', 'markdown'],
     },
     {
       key: 'learning.journey.track_detail',
-      version: 1,
+      version: '1.0.0',
       targets: ['react', 'markdown', 'application/json'],
     },
     {
       key: 'learning.journey.progress_widget',
-      version: 1,
+      version: '1.0.0',
       targets: ['react'],
     },
   ],
 
   // Capability requirements
   capabilities: {
-    requires: [{ key: 'identity', version: 1 }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

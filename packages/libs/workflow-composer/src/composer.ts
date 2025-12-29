@@ -1,6 +1,7 @@
 import type { WorkflowSpec } from '@contractspec/lib.contracts';
 import { applyWorkflowExtension } from './injector';
 import type { ComposeParams, WorkflowExtension } from './types';
+import { satisfies } from 'compare-versions';
 
 export class WorkflowComposer {
   private readonly extensions: WorkflowExtension[] = [];
@@ -31,7 +32,7 @@ function matches(params: ComposeParams, extension: WorkflowExtension) {
   if (extension.workflow !== params.base.meta.key) return false;
   if (
     extension.baseVersion &&
-    extension.baseVersion !== params.base.meta.version
+    !satisfies(params.base.meta.version, extension.baseVersion)
   ) {
     return false;
   }

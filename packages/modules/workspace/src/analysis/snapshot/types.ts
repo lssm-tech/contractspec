@@ -5,6 +5,8 @@
  * of contracts for comparison and impact detection.
  */
 
+import type { EventRef } from '@contractspec/lib.contracts';
+
 /** Field type in a schema */
 export type FieldType =
   | 'string'
@@ -48,20 +50,20 @@ export interface HttpBindingSnapshot {
 export interface OperationSnapshot {
   type: 'operation';
   key: string;
-  version: number;
+  version: string;
   kind: 'command' | 'query';
   stability: string;
   http?: HttpBindingSnapshot;
   io: IoSnapshot;
   authLevel?: string;
-  emittedEvents?: { key: string; version: number }[];
+  emittedEvents?: EventRef[];
 }
 
 /** Event payload snapshot */
 export interface EventSnapshot {
   type: 'event';
   key: string;
-  version: number;
+  version: string;
   stability: string;
   payload: Record<string, FieldSnapshot>;
 }
@@ -72,7 +74,7 @@ export type SpecSnapshot = OperationSnapshot | EventSnapshot;
 /** Full contract snapshot for a workspace */
 export interface ContractSnapshot {
   /** Schema version for forward compatibility */
-  version: 1;
+  version: '1.0.0';
   /** Generation timestamp (ISO 8601) */
   generatedAt: string;
   /** Git commit SHA if available */

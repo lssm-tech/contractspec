@@ -24,6 +24,8 @@ export function scanFeatureSource(
   const key = matchStringField(code, 'key') ?? extractKeyFromFilePath(filePath);
   const title = matchStringField(code, 'title') ?? undefined;
   const description = matchStringField(code, 'description') ?? undefined;
+  const goal = matchStringField(code, 'goal') ?? undefined;
+  const context = matchStringField(code, 'context') ?? undefined;
   const domain = matchStringField(code, 'domain') ?? undefined;
   const stabilityRaw = matchStringField(code, 'stability');
   const stability = isStability(stabilityRaw) ? stabilityRaw : undefined;
@@ -53,6 +55,8 @@ export function scanFeatureSource(
     key,
     title,
     description,
+    goal,
+    context,
     domain,
     stability,
     owners,
@@ -63,6 +67,7 @@ export function scanFeatureSource(
     experiments,
     capabilities,
     opToPresentationLinks,
+    sourceBlock: code,
   };
 }
 
@@ -81,14 +86,15 @@ function extractRefsFromArray(code: string, fieldName: string): RefInfo[] {
 
   if (!arrayMatch?.[1]) return refs;
 
-  // Extract each { key: 'x', version: N } entry
-  const refPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+  // Extract each { key: 'x', version: 'x.y.z' } entry
+  const refPattern =
+    /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*['"]([^'"]+)['"]/g;
   let match;
   while ((match = refPattern.exec(arrayMatch[1])) !== null) {
     if (match[1] && match[2]) {
       refs.push({
         key: match[1],
-        version: Number(match[2]),
+        version: match[2],
       });
     }
   }
@@ -106,8 +112,10 @@ function extractCapabilities(code: string): {
   const provides: RefInfo[] = [];
   const requires: RefInfo[] = [];
 
-  // Match the capabilities section
-  const capabilitiesMatch = code.match(/capabilities\s*:\s*\{([\s\S]*?)\}/);
+  // Match the capabilities section - need to match nested braces properly
+  const capabilitiesMatch = code.match(
+    /capabilities\s*:\s*\{([\s\S]*?)\}\s*,?\s*(?:opToPresentation|$|\})/
+  );
   if (!capabilitiesMatch?.[1]) {
     return { provides, requires };
   }
@@ -119,13 +127,14 @@ function extractCapabilities(code: string): {
     /provides\s*:\s*\[([\s\S]*?)\]/
   );
   if (providesMatch?.[1]) {
-    const refPattern = /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+    const refPattern =
+      /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*['"]([^'"]+)['"]/g;
     let match;
     while ((match = refPattern.exec(providesMatch[1])) !== null) {
       if (match[1] && match[2]) {
         provides.push({
           key: match[1],
-          version: Number(match[2]),
+          version: match[2],
         });
       }
     }
@@ -138,7 +147,7 @@ function extractCapabilities(code: string): {
   if (requiresMatch?.[1]) {
     // Requires can have key+version or just key
     const refPatternWithVersion =
-      /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)/g;
+      /\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*['"]([^'"]+)['"]/g;
     const refPatternKeyOnly = /\{\s*key:\s*['"]([^'"]+)['"]\s*\}/g;
 
     let match: RegExpExecArray | null = null;
@@ -146,7 +155,7 @@ function extractCapabilities(code: string): {
       if (match[1] && match[2]) {
         requires.push({
           key: match[1],
-          version: Number(match[2]),
+          version: match[2],
         });
       }
     }
@@ -160,7 +169,7 @@ function extractCapabilities(code: string): {
         if (!alreadyExists) {
           requires.push({
             key: match[1],
-            version: 1, // Default version
+            version: '1.0.0', // Default version
           });
         }
       }
@@ -183,16 +192,16 @@ function extractOpToPresentationLinks(
   if (!arrayMatch?.[1]) return links;
 
   // Match each link entry
-  // Pattern: { op: { key: 'x', version: N }, pres: { key: 'y', version: M } }
+  // Pattern: { op: { key: 'x', version: 'N' }, pres: { key: 'y', version: 'M' } }
   const linkPattern =
-    /\{\s*op:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}\s*,\s*pres:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*(\d+)\s*\}/g;
+    /\{\s*op:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*['"]([^'"]+)['"]\s*\}\s*,\s*pres:\s*\{\s*key:\s*['"]([^'"]+)['"]\s*,\s*version:\s*['"]([^'"]+)['"]\s*\}/g;
 
   let match;
   while ((match = linkPattern.exec(arrayMatch[1])) !== null) {
     if (match[1] && match[2] && match[3] && match[4]) {
       links.push({
-        op: { key: match[1], version: Number(match[2]) },
-        pres: { key: match[3], version: Number(match[4]) },
+        op: { key: match[1], version: match[2] },
+        pres: { key: match[3], version: match[4] },
       });
     }
   }

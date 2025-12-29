@@ -183,7 +183,7 @@ export const ListUserOrgsOutputModel = new SchemaModel({
 export const CreateOrgContract = defineCommand({
   meta: {
     key: 'identity.org.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'create'],
@@ -210,7 +210,7 @@ export const CreateOrgContract = defineCommand({
     emits: [
       {
         key: 'org.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Organization is created',
         payload: OrganizationModel,
       },
@@ -225,7 +225,7 @@ export const CreateOrgContract = defineCommand({
 export const GetOrgContract = defineQuery({
   meta: {
     key: 'identity.org.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'get'],
@@ -248,7 +248,7 @@ export const GetOrgContract = defineQuery({
 export const UpdateOrgContract = defineCommand({
   meta: {
     key: 'identity.org.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'update'],
@@ -267,7 +267,7 @@ export const UpdateOrgContract = defineCommand({
     emits: [
       {
         key: 'org.updated',
-        version: 1,
+        version: '1.0.0',
         when: 'Organization is updated',
         payload: OrganizationModel,
       },
@@ -282,7 +282,7 @@ export const UpdateOrgContract = defineCommand({
 export const InviteMemberContract = defineCommand({
   meta: {
     key: 'identity.org.invite',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'invite', 'member'],
@@ -315,7 +315,7 @@ export const InviteMemberContract = defineCommand({
     emits: [
       {
         key: 'org.invite.sent',
-        version: 1,
+        version: '1.0.0',
         when: 'Invitation is sent',
         payload: InvitationModel,
       },
@@ -330,7 +330,7 @@ export const InviteMemberContract = defineCommand({
 export const AcceptInviteContract = defineCommand({
   meta: {
     key: 'identity.org.invite.accept',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'invite', 'accept'],
@@ -363,7 +363,7 @@ export const AcceptInviteContract = defineCommand({
     emits: [
       {
         key: 'org.member.added',
-        version: 1,
+        version: '1.0.0',
         when: 'Member joins org',
         payload: MemberModel,
       },
@@ -378,7 +378,7 @@ export const AcceptInviteContract = defineCommand({
 export const RemoveMemberContract = defineCommand({
   meta: {
     key: 'identity.org.member.remove',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'member', 'remove'],
@@ -405,7 +405,7 @@ export const RemoveMemberContract = defineCommand({
     emits: [
       {
         key: 'org.member.removed',
-        version: 1,
+        version: '1.0.0',
         when: 'Member is removed',
         payload: MemberRemovedPayloadModel,
       },
@@ -420,7 +420,7 @@ export const RemoveMemberContract = defineCommand({
 export const ListMembersContract = defineQuery({
   meta: {
     key: 'identity.org.members.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'member', 'list'],
@@ -443,7 +443,7 @@ export const ListMembersContract = defineQuery({
 export const ListUserOrgsContract = defineQuery({
   meta: {
     key: 'identity.org.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'org', 'list'],

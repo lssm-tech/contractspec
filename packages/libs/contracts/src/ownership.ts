@@ -50,7 +50,7 @@ export const Tags = TagsEnum;
 
 export interface OwnerShipMeta {
   /** Breaking changes => bump version */
-  version: number;
+  version: string;
   /** Fully-qualified spec key (e.g., "sigil.beginSignup") */
   key: string;
   /** Human-friendly spec title (e.g., "Signup begin") */

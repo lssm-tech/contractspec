@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import { ExperimentRegistry, type ExperimentSpec } from './spec';
 import { StabilityEnum } from '../ownership';
 
-const sampleExperiment = (version: number): ExperimentSpec => ({
+const sampleExperiment = (version: string): ExperimentSpec => ({
   meta: {
     key: 'sigil.onboarding.split_form',
     version,
@@ -24,23 +24,23 @@ const sampleExperiment = (version: number): ExperimentSpec => ({
 describe('ExperimentRegistry', () => {
   it('registers and retrieves experiments', () => {
     const registry = new ExperimentRegistry();
-    const spec = sampleExperiment(1);
+    const spec = sampleExperiment('1.0.0');
     registry.register(spec);
-    expect(registry.get('sigil.onboarding.split_form', 1)).toEqual(spec);
+    expect(registry.get('sigil.onboarding.split_form', '1.0.0')).toEqual(spec);
   });
 
   it('returns latest version when version omitted', () => {
     const registry = new ExperimentRegistry();
-    registry.register(sampleExperiment(1));
-    const latest = sampleExperiment(2);
+    registry.register(sampleExperiment('1.0.0'));
+    const latest = sampleExperiment('2.0.0');
     registry.register(latest);
     expect(registry.get('sigil.onboarding.split_form')).toEqual(latest);
   });
 
   it('throws on duplicate registration', () => {
     const registry = new ExperimentRegistry();
-    const spec = sampleExperiment(1);
+    const spec = sampleExperiment('1.0.0');
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate experiment/);
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 });

@@ -9,7 +9,7 @@ import {
 const mk = (over: Partial<PresentationSpec> = {}): PresentationSpec => ({
   meta: {
     key: 'x.test',
-    version: 1,
+    version: '1.0.0',
     description: 'desc',
     domain: 'domain',
     stability: 'stable',
@@ -53,8 +53,11 @@ describe('TransformEngine', () => {
     const engine = registerBasicValidation(
       registerDefaultReactRenderer(createDefaultTransformEngine())
     );
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const bad = mk({ meta: { key: 'a', version: 1, description: '' } as any });
+
+    const bad = mk({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      meta: { key: 'a', version: '1.0.0', description: '' } as any,
+    });
     await expect(engine.render('application/json', bad)).rejects.toThrow();
   });
 });

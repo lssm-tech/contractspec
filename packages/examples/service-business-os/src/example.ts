@@ -1,11 +1,18 @@
-const example = {
-  id: 'service-business-os',
-  title: 'Service Business OS',
-  summary:
-    'Service business operating system: jobs, clients, scheduling, invoicing, and ops dashboards.',
-  tags: ['service-business', 'jobs', 'scheduling', 'invoicing'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'service-business-os',
+    version: '1.0.0',
+    title: 'Service Business OS',
+    description:
+      'Service business operating system: jobs, clients, scheduling, invoicing, and ops dashboards.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['service-business', 'jobs', 'scheduling', 'invoicing'],
+  },
   docs: {
     rootDocId: 'docs.examples.service-business-os',
   },
@@ -26,6 +33,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

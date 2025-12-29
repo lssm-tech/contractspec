@@ -6,9 +6,9 @@ export const artisanKnowledgeTenantConfig: TenantAppConfig = {
     tenantId: 'artisan-co',
     appId: 'artisan',
     blueprintName: 'artisan.knowledge.product',
-    blueprintVersion: 1,
+    blueprintVersion: '1.0.0',
     environment: 'production',
-    version: 1,
+    version: '1.0.0',
     status: 'published',
     createdAt: '2026-01-01T00:00:00.000Z',
     updatedAt: '2026-01-01T00:00:00.000Z',
@@ -16,7 +16,7 @@ export const artisanKnowledgeTenantConfig: TenantAppConfig = {
   knowledge: [
     {
       spaceKey: 'knowledge.product-canon',
-      spaceVersion: 1,
+      spaceVersion: '1.0.0',
       scope: {
         workflows: ['answerFaq'],
         agents: ['productSupportAssistant'],

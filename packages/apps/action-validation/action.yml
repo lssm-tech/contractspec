@@ -1,0 +1,385 @@
+name: 'ContractSpec CI'
+description: 'Run ContractSpec validation checks in your CI/CD pipeline'
+author: 'LSSM'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  checks:
+    description: 'Checks to run (comma-separated: structure,integrity,deps,doctor,handlers,tests) or "all"'
+    required: false
+    default: 'all'
+  skip:
+    description: 'Checks to skip (comma-separated)'
+    required: false
+    default: ''
+  pattern:
+    description: 'Glob pattern for spec discovery'
+    required: false
+    default: ''
+  fail-on-warnings:
+    description: 'Fail the action on warnings (not just errors)'
+    required: false
+    default: 'false'
+  check-handlers:
+    description: 'Include handler implementation checks'
+    required: false
+    default: 'false'
+  check-tests:
+    description: 'Include test coverage checks'
+    required: false
+    default: 'false'
+  upload-sarif:
+    description: 'Upload SARIF results to GitHub Code Scanning'
+    required: false
+    default: 'true'
+  working-directory:
+    description: 'Working directory for running checks'
+    required: false
+    default: '.'
+  bun-version:
+    description: 'Bun version to use'
+    required: false
+    default: 'latest'
+  
+  # Impact detection inputs
+  mode:
+    description: 'Action mode: "validate" (run checks) or "impact" (detect breaking changes)'
+    required: false
+    default: 'validate'
+  baseline:
+    description: 'Git ref to compare against for impact detection (default: base branch from PR context)'
+    required: false
+    default: ''
+  pr-comment:
+    description: 'Post impact results as PR comment'
+    required: false
+    default: 'true'
+  fail-on-breaking:
+    description: 'Fail the action if breaking changes are detected'
+    required: false
+    default: 'true'
+  github-token:
+    description: 'GitHub token for PR comments and check runs'
+    required: false
+    default: '${{ github.token }}'
+
+outputs:
+  success:
+    description: 'Whether all checks passed'
+  errors:
+    description: 'Number of errors found'
+  warnings:
+    description: 'Number of warnings found'
+  sarif-file:
+    description: 'Path to SARIF output file (if uploaded)'
+  json-file:
+    description: 'Path to JSON output file'
+  
+  # Impact detection outputs
+  impact-status:
+    description: 'Impact status: "no-impact" | "non-breaking" | "breaking"'
+  breaking-count:
+    description: 'Number of breaking changes detected'
+  non-breaking-count:
+    description: 'Number of non-breaking changes detected'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+          bun install --frozen-lockfile
+        elif [ -f "package-lock.json" ]; then
+          npm ci
+        elif [ -f "pnpm-lock.yaml" ]; then
+          corepack enable
+          pnpm install --frozen-lockfile
+        elif [ -f "yarn.lock" ]; then
+          corepack enable
+          yarn install --frozen-lockfile
+        else
+          bun install
+        fi
+
+    - name: Build ContractSpec CLI (if local)
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Check if this is the ContractSpec monorepo itself
+        if [ -f "packages/apps/cli-contractspec/package.json" ]; then
+          echo "Building ContractSpec CLI from source..."
+          bun run build --filter=@contractspec/app.cli-contractspec
+        fi
+
+    - name: Run ContractSpec CI checks
+      id: ci-checks
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        CHECKS: ${{ inputs.checks }}
+        SKIP: ${{ inputs.skip }}
+        PATTERN: ${{ inputs.pattern }}
+        FAIL_ON_WARNINGS: ${{ inputs.fail-on-warnings }}
+        CHECK_HANDLERS: ${{ inputs.check-handlers }}
+        CHECK_TESTS: ${{ inputs.check-tests }}
+      run: |
+        # Build command arguments
+        ARGS=""
+
+        if [ "$CHECKS" != "all" ] && [ -n "$CHECKS" ]; then
+          ARGS="$ARGS --checks $CHECKS"
+        fi
+
+        if [ -n "$SKIP" ]; then
+          ARGS="$ARGS --skip $SKIP"
+        fi
+
+        if [ -n "$PATTERN" ]; then
+          ARGS="$ARGS --pattern '$PATTERN'"
+        fi
+
+        if [ "$FAIL_ON_WARNINGS" = "true" ]; then
+          ARGS="$ARGS --fail-on-warnings"
+        fi
+
+        if [ "$CHECK_HANDLERS" = "true" ]; then
+          ARGS="$ARGS --check-handlers"
+        fi
+
+        if [ "$CHECK_TESTS" = "true" ]; then
+          ARGS="$ARGS --check-tests"
+        fi
+
+        # Create output directory
+        mkdir -p .contractspec-ci
+
+        # Run checks and capture JSON output
+        echo "Running: contractspec ci --format - json $ARGS"
+        set +e
+        bunx contractspec ci --format json $ARGS > .contractspec-ci/results.json 2>&1
+        EXIT_CODE=$?
+        set -e
+
+        # Parse results for outputs
+        if [ -f ".contractspec-ci/results.json" ]; then
+          SUCCESS=$(jq -r '.success' .contractspec-ci/results.json 2>/dev/null || echo "false")
+          ERRORS=$(jq -r '.summary.totalErrors // .errors // 0' .contractspec-ci/results.json 2>/dev/null || echo "0")
+          WARNINGS=$(jq -r '.summary.totalWarnings // .warnings // 0' .contractspec-ci/results.json 2>/dev/null || echo "0")
+
+          echo "success=$SUCCESS" >> $GITHUB_OUTPUT
+          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+          echo "warnings=$WARNINGS" >> $GITHUB_OUTPUT
+          echo "json-file=.contractspec-ci/results.json" >> $GITHUB_OUTPUT
+        else
+          echo "success=false" >> $GITHUB_OUTPUT
+          echo "errors=1" >> $GITHUB_OUTPUT
+          echo "warnings=0" >> $GITHUB_OUTPUT
+        fi
+
+
+        # Generate SARIF for upload (capture stderr to see any errors)
+        if [ "${{ inputs.upload-sarif }}" = "true" ]; then
+          echo "Generating SARIF output..."
+          set +e
+          bunx contractspec ci --format sarif $ARGS > .contractspec-ci/results.sarif 2>&1
+          SARIF_EXIT_CODE=$?
+          set -e
+          
+          # Validate SARIF is valid JSON
+          if [ -f ".contractspec-ci/results.sarif" ] && jq empty .contractspec-ci/results.sarif 2>/dev/null; then
+            echo "sarif-file=.contractspec-ci/results.sarif" >> $GITHUB_OUTPUT
+            echo "sarif-valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "Warning: SARIF output is not valid JSON, skipping upload"
+            echo "sarif-valid=false" >> $GITHUB_OUTPUT
+            # If file exists but is invalid, show its contents for debugging
+            if [ -f ".contractspec-ci/results.sarif" ]; then
+              echo "SARIF file contents (first 50 lines):"
+              head -n 50 .contractspec-ci/results.sarif || true
+            fi
+          fi
+        fi
+
+        # Print text summary
+        echo ""
+        echo "=== ContractSpec CI Results ==="
+        bunx contractspec ci --format text $ARGS 2>/dev/null || true
+
+        exit $EXIT_CODE
+
+    - name: Upload SARIF to GitHub Code Scanning
+      if: inputs.upload-sarif == 'true' && steps.ci-checks.outputs.sarif-valid == 'true' && always()
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: ${{ inputs.working-directory }}/.contractspec-ci/results.sarif
+        category: contractspec
+      continue-on-error: true
+
+    - name: Upload results as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: contractspec-ci-results
+        path: |
+          ${{ inputs.working-directory }}/.contractspec-ci/results.json
+          ${{ inputs.working-directory }}/.contractspec-ci/results.sarif
+          ${{ inputs.working-directory }}/.contractspec-ci/impact.json
+        retention-days: 30
+      continue-on-error: true
+
+    # Impact detection mode
+    - name: Run ContractSpec impact detection
+      id: impact-detection
+      if: inputs.mode == 'impact'
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Determine baseline
+        BASELINE="${{ inputs.baseline }}"
+        if [ -z "$BASELINE" ] && [ -n "${{ github.base_ref }}" ]; then
+          BASELINE="origin/${{ github.base_ref }}"
+          # Fetch the base branch
+          git fetch origin "${{ github.base_ref }}" --depth=1 || true
+        fi
+        
+        if [ -z "$BASELINE" ]; then
+          echo "No baseline specified and not in PR context. Comparing against HEAD~1"
+          BASELINE="HEAD~1"
+        fi
+        
+        echo "Comparing against baseline: $BASELINE"
+        
+        # Create output directory
+        mkdir -p .contractspec-ci
+        
+        # Run impact detection
+        set +e
+        bunx contractspec impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json 2>&1
+        EXIT_CODE=$?
+        set -e
+        
+        if [ -f ".contractspec-ci/impact.json" ]; then
+          STATUS=$(jq -r '.status // "no-impact"' .contractspec-ci/impact.json 2>/dev/null || echo "no-impact")
+          BREAKING=$(jq -r '.summary.breaking // 0' .contractspec-ci/impact.json 2>/dev/null || echo "0")
+          NON_BREAKING=$(jq -r '.summary.nonBreaking // 0' .contractspec-ci/impact.json 2>/dev/null || echo "0")
+          
+          echo "impact-status=$STATUS" >> $GITHUB_OUTPUT
+          echo "breaking-count=$BREAKING" >> $GITHUB_OUTPUT
+          echo "non-breaking-count=$NON_BREAKING" >> $GITHUB_OUTPUT
+          
+          # Print summary
+          echo ""
+          echo "=== ContractSpec Impact Analysis ==="
+          if [ "$STATUS" == "breaking" ]; then
+            echo "❌ Breaking changes detected ($BREAKING breaking, $NON_BREAKING non-breaking)"
+          elif [ "$STATUS" == "non-breaking" ]; then
+            echo "⚠️ Contract changed ($NON_BREAKING non-breaking changes)"
+          else
+            echo "✅ No contract impact"
+          fi
+        else
+          echo "impact-status=no-impact" >> $GITHUB_OUTPUT
+          echo "breaking-count=0" >> $GITHUB_OUTPUT
+          echo "non-breaking-count=0" >> $GITHUB_OUTPUT
+        fi
+        
+        # Fail if breaking changes and fail-on-breaking is true
+        if [ "${{ inputs.fail-on-breaking }}" == "true" ] && [ "$STATUS" == "breaking" ]; then
+          echo "::error::Breaking changes detected. Set fail-on-breaking to false to allow."
+          exit 1
+        fi
+
+    - name: Post PR comment with impact results
+      if: inputs.mode == 'impact' && inputs.pr-comment == 'true' && github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const fs = require('fs');
+          const impactFile = '.contractspec-ci/impact.json';
+          
+          let body = '## 📋 ContractSpec Impact Analysis\n\n';
+          
+          try {
+            if (fs.existsSync(impactFile)) {
+              const impact = JSON.parse(fs.readFileSync(impactFile, 'utf8'));
+              
+              if (impact.hasBreaking) {
+                body += '❌ **Breaking changes detected**\n\n';
+              } else if (impact.hasNonBreaking) {
+                body += '⚠️ **Contract changed (non-breaking)**\n\n';
+              } else {
+                body += '✅ **No contract impact**\n\n';
+              }
+              
+              // Summary table
+              if (impact.summary.breaking > 0 || impact.summary.nonBreaking > 0) {
+                body += '### Summary\n\n';
+                body += '| Type | Count |\n';
+                body += '|------|-------|\n';
+                if (impact.summary.breaking > 0) body += `| 🔴 Breaking | ${impact.summary.breaking} |\n`;
+                if (impact.summary.nonBreaking > 0) body += `| 🟡 Non-breaking | ${impact.summary.nonBreaking} |\n`;
+                if (impact.summary.added > 0) body += `| ➕ Added | ${impact.summary.added} |\n`;
+                if (impact.summary.removed > 0) body += `| ➖ Removed | ${impact.summary.removed} |\n`;
+                body += '\n';
+              }
+              
+              // Breaking changes details
+              const breaking = impact.deltas?.filter(d => d.severity === 'breaking') || [];
+              if (breaking.length > 0) {
+                body += '### 🔴 Breaking Changes\n\n';
+                for (const delta of breaking.slice(0, 10)) {
+                  body += `- **${delta.specName}**: ${delta.description}\n`;
+                }
+                if (breaking.length > 10) {
+                  body += `\n_...and ${breaking.length - 10} more_\n`;
+                }
+                body += '\n';
+              }
+            } else {
+              body += '⚠️ Impact analysis results not found.\n';
+            }
+          } catch (e) {
+            body += `⚠️ Error reading impact results: ${e.message}\n`;
+          }
+          
+          body += '\n---\n*Generated by ContractSpec CI*';
+          
+          // Find existing comment
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(c => 
+            c.body?.includes('ContractSpec Impact Analysis') && 
+            c.user?.type === 'Bot'
+          );
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+          }
+      continue-on-error: true

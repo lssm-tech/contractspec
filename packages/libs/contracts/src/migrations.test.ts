@@ -15,7 +15,7 @@ const migration: MigrationSpec = {
   meta: {
     ...baseMeta,
     key: 'core.db.2025_01_add_users',
-    version: 1,
+    version: '1.0.0',
   },
   plan: {
     up: [
@@ -45,7 +45,7 @@ describe('MigrationRegistry', () => {
   it('registers and retrieves migrations by name/version', () => {
     const registry = new MigrationRegistry();
     registry.register(migration);
-    const stored = registry.get('core.db.2025_01_add_users', 1);
+    const stored = registry.get('core.db.2025_01_add_users', '1.0.0');
     expect(stored?.meta.key).toBe('core.db.2025_01_add_users');
     expect(stored?.plan.up).toHaveLength(2);
   });
@@ -55,10 +55,10 @@ describe('MigrationRegistry', () => {
     registry.register(migration);
     registry.register({
       ...migration,
-      meta: { ...migration.meta, version: 2 },
+      meta: { ...migration.meta, version: '2.0.0' },
     });
     const latest = registry.get('core.db.2025_01_add_users');
-    expect(latest?.meta.version).toBe(2);
+    expect(latest?.meta.version).toBe('2.0.0');
   });
 
   it('lists migrations in key order', () => {

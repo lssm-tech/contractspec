@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-studio-onboarding',
-  title: 'Learning Journey — Studio Getting Started',
-  summary:
-    'Onboarding track guiding a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',
-  tags: ['learning', 'onboarding', 'studio'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-studio-onboarding',
+    version: '1.0.0',
+    title: 'Learning Journey — Studio Getting Started',
+    description:
+      'Onboarding track guiding a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'onboarding', 'studio'],
+  },
   docs: {
     rootDocId: 'docs.learning-journey.studio-onboarding',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

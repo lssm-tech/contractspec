@@ -100,7 +100,7 @@ export const ListUsersOutputModel = new SchemaModel({
 export const CreateUserContract = defineCommand({
   meta: {
     key: 'identity.user.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'user', 'create'],
@@ -127,7 +127,7 @@ export const CreateUserContract = defineCommand({
     emits: [
       {
         key: 'user.created',
-        version: 1,
+        version: '1.0.0',
         when: 'User is successfully created',
         payload: UserProfileModel,
       },
@@ -142,7 +142,7 @@ export const CreateUserContract = defineCommand({
 export const GetCurrentUserContract = defineQuery({
   meta: {
     key: 'identity.user.me',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'user', 'profile'],
@@ -165,7 +165,7 @@ export const GetCurrentUserContract = defineQuery({
 export const UpdateUserContract = defineCommand({
   meta: {
     key: 'identity.user.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'user', 'update'],
@@ -184,7 +184,7 @@ export const UpdateUserContract = defineCommand({
     emits: [
       {
         key: 'user.updated',
-        version: 1,
+        version: '1.0.0',
         when: 'User profile is updated',
         payload: UserProfileModel,
       },
@@ -199,7 +199,7 @@ export const UpdateUserContract = defineCommand({
 export const DeleteUserContract = defineCommand({
   meta: {
     key: 'identity.user.delete',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'user', 'delete'],
@@ -220,7 +220,7 @@ export const DeleteUserContract = defineCommand({
     emits: [
       {
         key: 'user.deleted',
-        version: 1,
+        version: '1.0.0',
         when: 'User account is deleted',
         payload: UserDeletedPayloadModel,
       },
@@ -235,7 +235,7 @@ export const DeleteUserContract = defineCommand({
 export const ListUsersContract = defineQuery({
   meta: {
     key: 'identity.user.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['identity', 'user', 'admin', 'list'],

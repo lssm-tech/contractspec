@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.examples",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Example contract specifications collection",
   "keywords": [
     "contractspec",
@@ -31,6 +31,7 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/example.agent-console": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",

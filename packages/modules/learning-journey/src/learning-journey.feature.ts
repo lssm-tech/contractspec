@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
 export const LearningJourneyFeature: FeatureModuleSpec = {
   meta: {
     key: 'learning-journey',
-    version: 1,
+    version: '1.0.0',
     title: 'Learning Journey',
     description:
       'Learning platform with courses, onboarding, flashcards, and gamification',
@@ -25,51 +25,51 @@ export const LearningJourneyFeature: FeatureModuleSpec = {
   // All contract operations included in this feature
   operations: [
     // Onboarding operations
-    { key: 'learning.onboarding.recordEvent', version: 1 },
-    { key: 'learning.onboarding.listTracks', version: 1 },
-    { key: 'learning.onboarding.getProgress', version: 1 },
+    { key: 'learning.onboarding.recordEvent', version: '1.0.0' },
+    { key: 'learning.onboarding.listTracks', version: '1.0.0' },
+    { key: 'learning.onboarding.getProgress', version: '1.0.0' },
 
     // Core learning operations
-    { key: 'learning.enroll', version: 1 },
-    { key: 'learning.completeLesson', version: 1 },
-    { key: 'learning.submitCardReview', version: 1 },
-    { key: 'learning.getDueCards', version: 1 },
-    { key: 'learning.getDashboard', version: 1 },
+    { key: 'learning.enroll', version: '1.0.0' },
+    { key: 'learning.completeLesson', version: '1.0.0' },
+    { key: 'learning.submitCardReview', version: '1.0.0' },
+    { key: 'learning.getDueCards', version: '1.0.0' },
+    { key: 'learning.getDashboard', version: '1.0.0' },
   ],
 
   // Events emitted by this feature
   events: [
     // Course events
-    { key: 'course.published', version: 1 },
-    { key: 'course.completed', version: 1 },
+    { key: 'course.published', version: '1.0.0' },
+    { key: 'course.completed', version: '1.0.0' },
 
     // Enrollment events
-    { key: 'enrollment.created', version: 1 },
+    { key: 'enrollment.created', version: '1.0.0' },
 
     // Progress events
-    { key: 'lesson.completed', version: 1 },
+    { key: 'lesson.completed', version: '1.0.0' },
 
     // Onboarding events
-    { key: 'onboarding.started', version: 1 },
-    { key: 'onboarding.step_completed', version: 1 },
-    { key: 'onboarding.completed', version: 1 },
+    { key: 'onboarding.started', version: '1.0.0' },
+    { key: 'onboarding.step_completed', version: '1.0.0' },
+    { key: 'onboarding.completed', version: '1.0.0' },
 
     // Flashcard events
-    { key: 'flashcard.reviewed', version: 1 },
+    { key: 'flashcard.reviewed', version: '1.0.0' },
 
     // Quiz events
-    { key: 'quiz.started', version: 1 },
-    { key: 'quiz.completed', version: 1 },
+    { key: 'quiz.started', version: '1.0.0' },
+    { key: 'quiz.completed', version: '1.0.0' },
 
     // Gamification events
-    { key: 'xp.earned', version: 1 },
-    { key: 'level.up', version: 1 },
-    { key: 'streak.updated', version: 1 },
-    { key: 'achievement.unlocked', version: 1 },
-    { key: 'daily_goal.completed', version: 1 },
+    { key: 'xp.earned', version: '1.0.0' },
+    { key: 'level.up', version: '1.0.0' },
+    { key: 'streak.updated', version: '1.0.0' },
+    { key: 'achievement.unlocked', version: '1.0.0' },
+    { key: 'daily_goal.completed', version: '1.0.0' },
 
     // Certificate events
-    { key: 'certificate.issued', version: 1 },
+    { key: 'certificate.issued', version: '1.0.0' },
   ],
 
   // No presentations for this module feature
@@ -80,10 +80,10 @@ export const LearningJourneyFeature: FeatureModuleSpec = {
   // Capability definitions
   capabilities: {
     provides: [
-      { key: 'learning-journey', version: 1 },
-      { key: 'onboarding', version: 1 },
-      { key: 'gamification', version: 1 },
+      { key: 'learning-journey', version: '1.0.0' },
+      { key: 'onboarding', version: '1.0.0' },
+      { key: 'gamification', version: '1.0.0' },
     ],
-    requires: [{ key: 'identity', version: 1 }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

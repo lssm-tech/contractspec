@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-registry",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Registry that aggregates learning journey example tracks.",
   "type": "module",
   "main": "./dist/index.js",
@@ -34,7 +34,6 @@
     "lint:check": "eslint src"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/example.learning-journey-ambient-coach": "workspace:*",
     "@contractspec/example.learning-journey-duo-drills": "workspace:*",

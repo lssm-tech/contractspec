@@ -8,6 +8,7 @@ import type {
 } from '@contractspec/lib.contracts';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { z } from 'zod';
+import { compareVersions } from 'compare-versions';
 import type { GeneratedRegistryCode } from '../types';
 
 type OpenApiSchemaObject = Record<string, unknown>;
@@ -15,8 +16,8 @@ type OpenApiSchemaObject = Record<string, unknown>;
 /**
  * Convert a spec name and version to an operationId.
  */
-export function toOperationId(name: string, version: number): string {
-  return `${name.replace(/\./g, '_')}_v${version}`;
+export function toOperationId(name: string, version: string): string {
+  return `${name.replace(/\./g, '_')}_v${version.replace(/\./g, '_')}`;
 }
 
 /**
@@ -25,7 +26,7 @@ export function toOperationId(name: string, version: number): string {
 export function toSchemaName(
   prefix: 'Input' | 'Output',
   name: string,
-  version: number
+  version: string
 ): string {
   return `${prefix}_${toOperationId(name, version)}`;
 }
@@ -44,7 +45,7 @@ export function toHttpMethod(
 /**
  * Generate default REST path from spec name and version.
  */
-export function defaultRestPath(name: string, version: number): string {
+export function defaultRestPath(name: string, version: string): string {
   return `/${name.replace(/\./g, '/')}/v${version}`;
 }
 
@@ -73,7 +74,7 @@ interface SpecJsonSchema {
   output: OpenApiSchemaObject | null;
   meta: {
     key: string;
-    version: number;
+    version: string;
     kind: 'command' | 'query';
     description: string;
     tags: string[];
@@ -115,16 +116,16 @@ export interface OperationsExportResult {
 export function exportOperations(
   registry: OperationSpecRegistry
 ): OperationsExportResult {
-  const specs = registry
-    .listSpecs()
+  const specs = Array.from(registry.list().values())
     .filter(
       (s): s is AnyOperationSpec =>
         s.meta.kind === 'command' || s.meta.kind === 'query'
     )
-    .slice()
     .sort((a, b) => {
       const byName = a.meta.key.localeCompare(b.meta.key);
-      return byName !== 0 ? byName : a.meta.version - b.meta.version;
+      return byName !== 0
+        ? byName
+        : compareVersions(a.meta.version, b.meta.version);
     });
 
   const paths: Record<string, Record<string, unknown>> = {};
@@ -199,14 +200,15 @@ export function exportOperations(
 export function generateOperationsRegistry(
   registry: OperationSpecRegistry
 ): GeneratedRegistryCode {
-  const specs = registry.listSpecs();
+  const specs = Array.from(registry.list().values());
 
   const imports = new Set<string>();
   const registrations: string[] = [];
 
   for (const spec of specs) {
     const specVarName =
-      spec.meta.key.replace(/\./g, '_') + `_v${spec.meta.version}`;
+      spec.meta.key.replace(/\./g, '_') +
+      `_v${spec.meta.version.replace(/\./g, '_')}`;
     imports.add(
       `import { ${specVarName} } from './${spec.meta.key.split('.')[0]}';`
     );

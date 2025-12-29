@@ -1,11 +1,18 @@
-const example = {
-  id: 'marketplace',
-  title: 'Marketplace (2-sided)',
-  summary:
-    'Two-sided marketplace with stores, products, orders, payouts, and reviews (multi-actor flows).',
-  tags: ['marketplace', 'orders', 'payouts', 'reviews'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'marketplace',
+    version: '1.0.0',
+    title: 'Marketplace (2-sided)',
+    description:
+      'Two-sided marketplace with stores, products, orders, payouts, and reviews (multi-actor flows).',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['marketplace', 'orders', 'payouts', 'reviews'],
+  },
   docs: {
     rootDocId: 'docs.examples.marketplace',
     goalDocId: 'docs.examples.marketplace.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

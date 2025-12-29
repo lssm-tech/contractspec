@@ -108,7 +108,7 @@ export function generateSpecCode(
   // Meta
   lines.push('  meta: {');
   lines.push(`    key: '${specKey}',`);
-  lines.push('    version: 1,');
+  lines.push("    version: '1.0.0',");
   lines.push(`    stability: '${options.defaultStability ?? 'stable'}',`);
   lines.push(
     `    owners: [${(options.defaultOwners ?? []).map((o) => `'${o}'`).join(', ')}],`

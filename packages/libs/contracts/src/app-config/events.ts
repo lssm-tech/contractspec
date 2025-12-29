@@ -16,7 +16,7 @@ export const ConfigDraftCreatedEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.draft_created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new tenant config draft was created.',
   },
   payload: new SchemaModel({
@@ -24,13 +24,13 @@ export const ConfigDraftCreatedEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       blueprintName: {
         type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       blueprintVersion: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       createdBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
@@ -43,7 +43,7 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.promoted_to_preview',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config draft was promoted to preview.',
   },
   payload: new SchemaModel({
@@ -51,7 +51,7 @@ export const ConfigPromotedToPreviewEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       promotedBy: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       warnings: {
         type: ScalarTypeEnum.String_unsecure(),
@@ -66,7 +66,7 @@ export const ConfigPublishedEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.published',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config version was published to production.',
   },
   payload: new SchemaModel({
@@ -74,9 +74,9 @@ export const ConfigPublishedEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      version: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       previousVersion: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: true,
       },
       publishedBy: {
@@ -100,7 +100,7 @@ export const ConfigRolledBackEvent = defineEvent({
   meta: {
     ...lifecycleOwnership,
     key: 'app_config.rolled_back',
-    version: 1,
+    version: '1.0.0',
     description: 'A tenant config was rolled back to a previous version.',
   },
   payload: new SchemaModel({
@@ -108,13 +108,13 @@ export const ConfigRolledBackEvent = defineEvent({
     fields: {
       tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
       appId: { type: ScalarTypeEnum.ID(), isOptional: false },
-      newVersion: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
+      newVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
       rolledBackFrom: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       rolledBackTo: {
-        type: ScalarTypeEnum.Int_unsecure(),
+        type: ScalarTypeEnum.String_unsecure(),
         isOptional: false,
       },
       rolledBackBy: {

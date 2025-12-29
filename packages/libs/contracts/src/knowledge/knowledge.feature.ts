@@ -12,7 +12,7 @@ import type { FeatureModuleSpec } from '../features';
 export const KnowledgeFeature: FeatureModuleSpec = {
   meta: {
     key: 'platform.knowledge',
-    version: 1,
+    version: '1.0.0',
     title: 'Knowledge Sources',
     description:
       'Manage knowledge source bindings for ingestion (e.g., Notion, uploads)',
@@ -24,11 +24,11 @@ export const KnowledgeFeature: FeatureModuleSpec = {
 
   // All contract operations included in this feature
   operations: [
-    { key: 'knowledge.source.create', version: 1 },
-    { key: 'knowledge.source.update', version: 1 },
-    { key: 'knowledge.source.delete', version: 1 },
-    { key: 'knowledge.source.list', version: 1 },
-    { key: 'knowledge.source.triggerSync', version: 1 },
+    { key: 'knowledge.source.create', version: '1.0.0' },
+    { key: 'knowledge.source.update', version: '1.0.0' },
+    { key: 'knowledge.source.delete', version: '1.0.0' },
+    { key: 'knowledge.source.list', version: '1.0.0' },
+    { key: 'knowledge.source.triggerSync', version: '1.0.0' },
   ],
 
   // No events for this feature
@@ -41,7 +41,7 @@ export const KnowledgeFeature: FeatureModuleSpec = {
 
   // Capability definitions
   capabilities: {
-    provides: [{ key: 'knowledge', version: 1 }],
-    requires: [{ key: 'identity', version: 1 }],
+    provides: [{ key: 'knowledge', version: '1.0.0' }],
+    requires: [{ key: 'identity', version: '1.0.0' }],
   },
 };

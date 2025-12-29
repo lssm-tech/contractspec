@@ -109,8 +109,8 @@ jobs:
 
       - name: Run ContractSpec CI
         run: |
-          npx contractspec ci --format sarif --output results.sarif
-          npx contractspec ci --format text
+          bunx contractspec ci --format sarif --output results.sarif
+          bunx contractspec ci --format text
 
       - name: Upload SARIF to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4
@@ -140,8 +140,8 @@ contractspec:
   image: oven/bun:latest
   script:
     - bun install
-    - npx contractspec ci --format json --output results.json
-    - npx contractspec ci --format text
+    - bunx contractspec ci --format json --output results.json
+    - bunx contractspec ci --format text
   artifacts:
     reports:
       # GitLab doesn't natively support SARIF, but you can store as artifact
@@ -159,7 +159,7 @@ contractspec-sast:
   image: oven/bun:latest
   script:
     - bun install
-    - npx contractspec ci --format sarif --output gl-sast-report.json
+    - bunx contractspec ci --format sarif --output gl-sast-report.json
   artifacts:
     reports:
       sast: gl-sast-report.json
@@ -190,12 +190,12 @@ pipeline {
             steps {
                 script {
                     def result = sh(
-                        script: 'npx contractspec ci --format json --output results.json',
+                        script: 'bunx contractspec ci --format json --output results.json',
                         returnStatus: true
                     )
 
                     // Also generate human-readable output
-                    sh 'npx contractspec ci --format text || true'
+                    sh 'bunx contractspec ci --format text || true'
 
                     // Archive results
                     archiveArtifacts artifacts: 'results.json', allowEmptyArchive: true
@@ -239,11 +239,11 @@ node {
 
         stage('Validate') {
             def exitCode = sh(
-                script: 'npx contractspec ci --format json --output results.json',
+                script: 'bunx contractspec ci --format json --output results.json',
                 returnStatus: true
             )
 
-            sh 'npx contractspec ci --format text || true'
+            sh 'bunx contractspec ci --format text || true'
 
             archiveArtifacts 'results.json'
 
@@ -274,8 +274,8 @@ phases:
 
   build:
     commands:
-      - npx contractspec ci --format json --output results.json
-      - npx contractspec ci --format text
+      - bunx contractspec ci --format json --output results.json
+      - bunx contractspec ci --format text
 
   post_build:
     commands:
@@ -317,8 +317,8 @@ jobs:
       - run:
           name: Run ContractSpec CI
           command: |
-            npx contractspec ci --format json --output results.json
-            npx contractspec ci --format text
+            bunx contractspec ci --format json --output results.json
+            bunx contractspec ci --format text
       - store_artifacts:
           path: results.json
           destination: contractspec-results
@@ -360,8 +360,8 @@ steps:
     displayName: 'Install dependencies'
 
   - script: |
-      npx contractspec ci --format json --output $(Build.ArtifactStagingDirectory)/results.json
-      npx contractspec ci --format text
+      bunx contractspec ci --format json --output $(Build.ArtifactStagingDirectory)/results.json
+      bunx contractspec ci --format text
     displayName: 'Run ContractSpec CI'
     continueOnError: true
 
@@ -393,8 +393,8 @@ pipelines:
         name: Validate Contracts
         script:
           - bun install
-          - npx contractspec ci --format json --output results.json
-          - npx contractspec ci --format text
+          - bunx contractspec ci --format json --output results.json
+          - bunx contractspec ci --format text
         artifacts:
           - results.json
 
@@ -404,8 +404,8 @@ pipelines:
           name: Validate Contracts
           script:
             - bun install
-            - npx contractspec ci --format json --output results.json
-            - npx contractspec ci --format text
+            - bunx contractspec ci --format json --output results.json
+            - bunx contractspec ci --format text
           artifacts:
             - results.json
 ```

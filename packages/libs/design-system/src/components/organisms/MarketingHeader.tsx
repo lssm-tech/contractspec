@@ -39,6 +39,7 @@ import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 export interface MarketingHeaderProps {
   logo: React.ReactNode;
   nav?: HeaderNavItem[];
+  navLinkClassName?: string;
   userMenu?: {
     name?: string;
     email?: string;
@@ -66,6 +67,7 @@ const headerVariants = cva('flex items-center justify-between gap-4', {
 export function MarketingHeader({
   logo,
   nav = [],
+  navLinkClassName,
   userMenu,
   cta,
   className,
@@ -138,7 +140,9 @@ export function MarketingHeader({
                     <NavItem key={String(item.key ?? item.href ?? item.label)}>
                       {item.items && item.items.length > 0 ? (
                         <>
-                          <NavTrigger>{item.label}</NavTrigger>
+                          <NavTrigger className={navLinkClassName}>
+                            {item.label}
+                          </NavTrigger>
                           <NavContent>
                             <div className="grid w-[760px] grid-cols-3 gap-3 p-3">
                               {item.items.map((link) => (

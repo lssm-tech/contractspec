@@ -1,6 +1,7 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "contractspec",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "The ContractSpec Monorepo. A specification-first framework for building type-safe, AI-native applications.",
   "type": "module",
   "workspaces": {
@@ -102,8 +103,7 @@
   "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
-    "turbo": "^2.7.2",
-    "semver": "^7.7.3"
+    "turbo": "catalog:build"
   },
   "config": {
     "commitizen": {
@@ -137,7 +137,6 @@
   },
   "keywords": [
     "contractspec",
-    "lssm",
     "contracts",
     "specification",
     "type-safe",

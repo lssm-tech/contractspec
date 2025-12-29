@@ -19,7 +19,7 @@ import { LEARNING_JOURNEY_OWNERS } from './shared';
 export const EnrollInCourseContract = defineCommand({
   meta: {
     key: 'learning.enroll',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'enrollment'],
@@ -56,7 +56,7 @@ export const EnrollInCourseContract = defineCommand({
 export const CompleteLessonContract = defineCommand({
   meta: {
     key: 'learning.completeLesson',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'progress'],
@@ -93,7 +93,7 @@ export const CompleteLessonContract = defineCommand({
 export const SubmitCardReviewContract = defineCommand({
   meta: {
     key: 'learning.submitCardReview',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'flashcards'],
@@ -130,7 +130,7 @@ export const SubmitCardReviewContract = defineCommand({
 export const GetDueCardsContract = defineQuery({
   meta: {
     key: 'learning.getDueCards',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'flashcards'],
@@ -153,7 +153,7 @@ export const GetDueCardsContract = defineQuery({
 export const GetLearnerDashboardContract = defineQuery({
   meta: {
     key: 'learning.getDashboard',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...LEARNING_JOURNEY_OWNERS],
     tags: ['learning', 'dashboard'],

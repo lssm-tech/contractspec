@@ -16,7 +16,7 @@ export function makeNextMcpServerFromRegistry(
 ) {
   const handler = createMcpHandler(
     (server) => {
-      for (const spec of reg.listSpecs()) {
+      for (const spec of reg.list()) {
         const { input, meta } = jsonSchemaForSpec(
           spec as unknown as OperationSpec<AnySchemaModel, AnySchemaModel>
         );

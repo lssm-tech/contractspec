@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.workspace",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Workspace discovery and management module",
   "keywords": [
     "contractspec",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
+    "compare-versions": "^6.1.1",
     "zod": "catalog:"
   },
   "devDependencies": {

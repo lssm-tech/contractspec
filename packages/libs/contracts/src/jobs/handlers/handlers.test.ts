@@ -36,7 +36,7 @@ describe('Job handlers', () => {
     await handler({
       id: 'job',
       type: 'gmail-sync',
-      version: 1,
+      version: '1.0.0',
       payload: { label: 'INBOX' },
       status: 'pending',
       priority: 0,
@@ -94,7 +94,7 @@ describe('Job handlers', () => {
     await handler({
       id: 'job',
       type: 'storage-document',
-      version: 1,
+      version: '1.0.0',
       payload: { bucket: 'test', key: 'file.txt' },
       status: 'pending',
       priority: 0,

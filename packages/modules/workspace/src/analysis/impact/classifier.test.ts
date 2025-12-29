@@ -13,7 +13,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -36,7 +36,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -57,7 +57,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -67,7 +67,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -87,7 +87,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.get',
-        version: 1,
+        version: '1.0.0',
         kind: 'query',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -97,7 +97,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.get',
-        version: 1,
+        version: '1.0.0',
         kind: 'query',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -124,7 +124,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.update',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -154,7 +154,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },
@@ -162,7 +162,7 @@ describe('classifyImpact', () => {
       {
         type: 'operation',
         key: 'user.delete',
-        version: 1,
+        version: '1.0.0',
         kind: 'command',
         stability: 'stable',
         io: { input: {}, output: {} },

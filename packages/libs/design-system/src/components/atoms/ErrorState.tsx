@@ -68,5 +68,3 @@ export function ErrorState({
     </Empty>
   );
 }
-
-export default ErrorState;

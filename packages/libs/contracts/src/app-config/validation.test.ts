@@ -10,6 +10,7 @@ import {
   validateBlueprint,
   validateResolvedConfig,
   validateTenantConfig,
+  type ValidationContext,
 } from './validation';
 import { IntegrationSpecRegistry } from '../integrations/spec';
 import type { IntegrationConnection } from '../integrations/connection';
@@ -18,7 +19,7 @@ import { KnowledgeSpaceRegistry } from '../knowledge/spec';
 const baseBlueprint: AppBlueprintSpec = {
   meta: {
     key: 'example.app',
-    version: 1,
+    version: '1.0.0',
     appId: 'example',
     title: 'Example App',
     description: 'Example blueprint for validation tests.',
@@ -32,7 +33,7 @@ const baseBlueprint: AppBlueprintSpec = {
       slotId: 'payments.primary',
       requiredCategory: 'payments',
       allowedModes: ['managed', 'byok'],
-      requiredCapabilities: [{ key: 'payments.charge', version: 1 }],
+      requiredCapabilities: [{ key: 'payments.charge', version: '1.0.0' }],
       required: true,
     },
   ],
@@ -41,7 +42,7 @@ const baseBlueprint: AppBlueprintSpec = {
   },
   translationCatalog: {
     key: 'example.catalog',
-    version: 1,
+    version: '1.0.0',
   },
 };
 
@@ -77,8 +78,8 @@ describe('validateTenantConfig', () => {
         tenantId: 'tenant-a',
         appId: 'example',
         blueprintName: baseBlueprint.meta.key,
-        blueprintVersion: baseBlueprint.meta.version,
-        version: 3,
+        blueprintVersion: '1.0.0',
+        version: '3.0.0',
         status: 'draft',
       },
       integrations: [
@@ -121,7 +122,7 @@ describe('validateTenantConfig', () => {
     const knowledgeRegistry = new KnowledgeSpaceRegistry().register({
       meta: {
         key: 'support.faq',
-        version: 1,
+        version: '1.0.0',
         category: 'external',
         title: 'Support FAQ',
 
@@ -144,7 +145,7 @@ describe('validateTenantConfig', () => {
       existingConfigs: [tenant],
       translationCatalogs: {
         blueprint: {
-          meta: { key: 'example.catalog', version: 1 },
+          meta: { key: 'blueprint.i18n', version: '1.0.0' },
           defaultLocale: 'en',
           supportedLocales: ['en'],
           entries: [
@@ -156,7 +157,7 @@ describe('validateTenantConfig', () => {
       },
       knowledgeSpaces: knowledgeRegistry,
       knowledgeSources: [],
-    };
+    } satisfies ValidationContext;
 
     const result = validateTenantConfig(baseBlueprint, tenant, context);
     expect(result.valid).toBe(false);
@@ -179,16 +180,16 @@ describe('validateTenantConfig', () => {
           path: 'translationOverrides.entries[0]',
         }),
         expect.objectContaining({
-          code: 'UNSUPPORTED_LOCALE',
-          path: 'locales.enabledLocales',
-        }),
-        expect.objectContaining({
           code: 'MISSING_KNOWLEDGE_SOURCES',
           path: 'knowledge[0]',
         }),
         expect.objectContaining({
           code: 'INSECURE_ASSET_URL',
           path: 'branding.assets[0].url',
+        }),
+        expect.objectContaining({
+          code: 'MISSING_BLUEPRINT_CATALOG',
+          path: 'translationCatalog',
         }),
       ])
     );
@@ -214,7 +215,7 @@ describe('validateResolvedConfig', () => {
       tenantId: 'tenant-a',
       blueprintName: baseBlueprint.meta.key,
       blueprintVersion: baseBlueprint.meta.version,
-      configVersion: 4,
+      configVersion: '4.0.0',
       capabilities: { enabled: [], disabled: [] },
       features: { include: [], exclude: [] },
       dataViews: {},

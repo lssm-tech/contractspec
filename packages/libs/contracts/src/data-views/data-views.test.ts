@@ -15,12 +15,12 @@ const spec: DataViewSpec = {
   meta: {
     ...baseMeta,
     key: 'residents.admin.list',
-    version: 1,
+    version: '1.0.0',
     entity: 'resident',
   },
   source: {
-    primary: { key: 'residents.list', version: 1 },
-    refreshEvents: [{ key: 'resident.created', version: 1 }],
+    primary: { key: 'residents.list', version: '1.0.0' },
+    refreshEvents: [{ key: 'resident.created', version: '1.0.0' }],
   },
   view: {
     kind: 'table',
@@ -50,7 +50,7 @@ describe('DataViewRegistry', () => {
   it('registers and retrieves data view specs', () => {
     const registry = new DataViewRegistry();
     registry.register(spec);
-    const stored = registry.get(spec.meta.key, spec.meta.version);
+    const stored = registry.get(spec.meta.key, '1.0.0');
     expect(stored?.meta.entity).toBe('resident');
     expect(stored?.view.kind).toBe('table');
   });
@@ -60,15 +60,15 @@ describe('DataViewRegistry', () => {
     registry.register(spec);
     registry.register({
       ...spec,
-      meta: { ...spec.meta, version: 2 },
+      meta: { ...spec.meta, version: '2.0.0' },
     });
     const latest = registry.get(spec.meta.key);
-    expect(latest?.meta.version).toBe(2);
+    expect(latest?.meta.version).toBe('2.0.0');
   });
 
   it('throws on duplicate key and version', () => {
     const registry = new DataViewRegistry();
     registry.register(spec);
-    expect(() => registry.register(spec)).toThrowError(/Duplicate data view/);
+    expect(() => registry.register(spec)).toThrowError(/Duplicate contract/);
   });
 });

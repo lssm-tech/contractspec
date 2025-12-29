@@ -33,7 +33,7 @@ const ToolCreatedPayload = defineSchemaModel({
 export const ToolCreatedEvent = defineEvent({
   meta: {
     key: 'agent.tool.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new AI tool was created.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -71,7 +71,7 @@ const ToolUpdatedPayload = defineSchemaModel({
 export const ToolUpdatedEvent = defineEvent({
   meta: {
     key: 'agent.tool.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'An AI tool configuration was updated.',
     stability: 'stable',
     owners: [...OWNERS],
@@ -108,7 +108,7 @@ const ToolStatusChangedPayload = defineSchemaModel({
 export const ToolStatusChangedEvent = defineEvent({
   meta: {
     key: 'agent.tool.statusChanged',
-    version: 1,
+    version: '1.0.0',
     description:
       'An AI tool status was changed (activated, deprecated, disabled).',
     stability: 'stable',

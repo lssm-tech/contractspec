@@ -1,5 +1,5 @@
+import { compareVersions } from 'compare-versions';
 import type { OwnerShipMeta } from '../ownership';
-import type { DocId } from '../docs/registry';
 
 export type CapabilityKind = 'api' | 'event' | 'data' | 'ui' | 'integration';
 
@@ -13,23 +13,17 @@ export type CapabilitySurface =
 export interface CapabilitySurfaceRef {
   surface: CapabilitySurface;
   key: string;
-  version: number;
+  version: string;
   description?: string;
 }
 
 export interface CapabilityMeta extends OwnerShipMeta {
-  /** Stable capability slug (e.g., "payments.stripe"). */
-  key: string;
-  /** Increment when the capability shape changes. */
-  version: number;
   kind: CapabilityKind;
-  /** Optional doc block id for governance and navigation. */
-  docId?: DocId[];
 }
 
 export interface CapabilityRequirement {
   key: string;
-  version?: number;
+  version?: string;
   kind?: CapabilityKind;
   optional?: boolean;
   reason?: string;
@@ -37,7 +31,7 @@ export interface CapabilityRequirement {
 
 export interface CapabilityRef {
   key: string;
-  version: number;
+  version: string;
 }
 
 export interface CapabilitySpec {
@@ -46,7 +40,7 @@ export interface CapabilitySpec {
   requires?: CapabilityRequirement[];
 }
 
-const capKey = (key: string, version: number) => `${key}.v${version}`;
+const capKey = (key: string, version: string) => `${key}.v${version}`;
 
 export class CapabilityRegistry {
   private readonly items = new Map<string, CapabilitySpec>();
@@ -62,14 +56,15 @@ export class CapabilityRegistry {
     return [...this.items.values()];
   }
 
-  get(key: string, version?: number): CapabilitySpec | undefined {
+  get(key: string, version?: string): CapabilitySpec | undefined {
     if (version != null) return this.items.get(capKey(key, version));
     let candidate: CapabilitySpec | undefined;
-    let max = -Infinity;
     for (const spec of this.items.values()) {
       if (spec.meta.key !== key) continue;
-      if (spec.meta.version > max) {
-        max = spec.meta.version;
+      if (
+        !candidate ||
+        compareVersions(spec.meta.version, candidate.meta.version) > 0
+      ) {
         candidate = spec;
       }
     }

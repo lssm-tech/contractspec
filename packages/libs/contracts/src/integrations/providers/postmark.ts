@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const postmarkIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'email.postmark',
-    version: 1,
+    version: '1.0.0',
     category: 'email',
     title: 'Postmark Transactional Email',
     description: 'Postmark integration for transactional email delivery.',
@@ -15,7 +15,7 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'email.transactional', version: 1 }],
+    provides: [{ key: 'email.transactional', version: '1.0.0' }],
     requires: [
       {
         key: 'platform.webhooks',

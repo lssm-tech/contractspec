@@ -16,7 +16,7 @@ const AssistantAnswerRequestedPayload = defineSchemaModel({
 export const AssistantAnswerRequestedEvent = defineEvent({
   meta: {
     key: 'assistant.answer.requested',
-    version: 1,
+    version: '1.0.0',
     description: 'Assistant answer requested (policy gate will run).',
     stability: 'experimental',
     owners: ['@examples'],
@@ -38,7 +38,7 @@ const AssistantAnswerBlockedPayload = defineSchemaModel({
 export const AssistantAnswerBlockedEvent = defineEvent({
   meta: {
     key: 'assistant.answer.blocked',
-    version: 1,
+    version: '1.0.0',
     description: 'Assistant answer blocked (fail-closed).',
     stability: 'experimental',
     owners: ['@examples'],
@@ -63,7 +63,7 @@ const AssistantAnswerDeliveredPayload = defineSchemaModel({
 export const AssistantAnswerDeliveredEvent = defineEvent({
   meta: {
     key: 'assistant.answer.delivered',
-    version: 1,
+    version: '1.0.0',
     description:
       'Assistant answer delivered (must include KB snapshot citations).',
     stability: 'experimental',

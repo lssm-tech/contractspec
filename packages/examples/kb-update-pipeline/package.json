@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.kb-update-pipeline",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,10 +38,7 @@
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.identity-rbac": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

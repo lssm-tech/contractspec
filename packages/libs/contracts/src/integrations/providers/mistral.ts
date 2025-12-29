@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const mistralIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'ai-llm.mistral',
-    version: 1,
+    version: '1.0.0',
     category: 'ai-llm',
     title: 'Mistral Large Language Model',
     description:
@@ -17,8 +17,8 @@ export const mistralIntegrationSpec: IntegrationSpec = {
   supportedModes: ['managed', 'byok'],
   capabilities: {
     provides: [
-      { key: 'ai.chat', version: 1 },
-      { key: 'ai.embeddings', version: 1 },
+      { key: 'ai.chat', version: '1.0.0' },
+      { key: 'ai.embeddings', version: '1.0.0' },
     ],
   },
   configSchema: {

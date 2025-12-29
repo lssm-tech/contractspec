@@ -34,7 +34,7 @@ import * as z from "zod";
 
 const SendEmailJob = defineJobType({
   type: 'email.send',
-  version: 1,
+  version: '1.0.0',
   payload: z.object({
     to: z.string().email(),
     subject: z.string(),

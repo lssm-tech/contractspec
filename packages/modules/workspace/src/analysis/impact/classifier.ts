@@ -87,7 +87,7 @@ export function classifyImpact(
 
     deltas.push({
       specKey: specInfo?.key ?? 'unknown',
-      specVersion: specInfo?.version ?? 0,
+      specVersion: specInfo?.version ?? '1.0.0',
       specType: specInfo?.type ?? 'operation',
       path: diff.path,
       severity: matchingRule?.severity ?? mapDiffTypeToSeverity(diff.type),

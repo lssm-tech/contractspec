@@ -5,7 +5,7 @@ import type { IntegrationSpecRegistry } from '../spec';
 export const powensIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'openbanking.powens',
-    version: 1,
+    version: '1.0.0',
     category: 'open-banking',
     title: 'Powens Open Banking (Read)',
     description:
@@ -18,9 +18,9 @@ export const powensIntegrationSpec: IntegrationSpec = {
   supportedModes: ['byok'],
   capabilities: {
     provides: [
-      { key: 'openbanking.accounts.read', version: 1 },
-      { key: 'openbanking.transactions.read', version: 1 },
-      { key: 'openbanking.balances.read', version: 1 },
+      { key: 'openbanking.accounts.read', version: '1.0.0' },
+      { key: 'openbanking.transactions.read', version: '1.0.0' },
+      { key: 'openbanking.balances.read', version: '1.0.0' },
     ],
   },
   configSchema: {

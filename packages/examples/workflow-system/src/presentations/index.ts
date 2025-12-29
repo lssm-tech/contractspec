@@ -15,7 +15,7 @@ import { ApprovalRequestModel } from '../approval/approval.schema';
 export const WorkflowDesignerPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.designer',
-    version: 1,
+    version: '1.0.0',
     title: 'Workflow Designer',
     description: 'Visual workflow designer with drag-and-drop steps',
     domain: 'workflow-system',
@@ -43,7 +43,7 @@ export const WorkflowDesignerPresentation: PresentationSpec = {
 export const WorkflowListPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.definition.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Workflow List',
     description: 'List of workflow definitions with status and actions',
     domain: 'workflow-system',
@@ -71,7 +71,7 @@ export const WorkflowListPresentation: PresentationSpec = {
 export const WorkflowDetailPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.definition.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Workflow Details',
     description: 'Detailed view of a workflow definition with steps',
     domain: 'workflow-system',
@@ -101,7 +101,7 @@ export const WorkflowDetailPresentation: PresentationSpec = {
 export const InstanceListPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.instance.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Instance List',
     description: 'List of workflow instances with status and progress',
     domain: 'workflow-system',
@@ -129,7 +129,7 @@ export const InstanceListPresentation: PresentationSpec = {
 export const InstanceDetailPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.instance.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Instance Details',
     description: 'Detailed view of a workflow instance with step timeline',
     domain: 'workflow-system',
@@ -157,7 +157,7 @@ export const InstanceDetailPresentation: PresentationSpec = {
 export const ProgressTrackerPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.instance.progress',
-    version: 1,
+    version: '1.0.0',
     title: 'Progress Tracker',
     description: 'Visual progress tracker showing current step in workflow',
     domain: 'workflow-system',
@@ -187,7 +187,7 @@ export const ProgressTrackerPresentation: PresentationSpec = {
 export const ApprovalInboxPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.approval.inbox',
-    version: 1,
+    version: '1.0.0',
     title: 'Approval Inbox',
     description: 'Inbox showing pending approval requests for current user',
     domain: 'workflow-system',
@@ -215,7 +215,7 @@ export const ApprovalInboxPresentation: PresentationSpec = {
 export const ApprovalDetailPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.approval.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Approval Details',
     description: 'Detailed approval request view with context and actions',
     domain: 'workflow-system',
@@ -243,7 +243,7 @@ export const ApprovalDetailPresentation: PresentationSpec = {
 export const ApprovalFormPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.approval.form',
-    version: 1,
+    version: '1.0.0',
     title: 'Approval Form',
     description: 'Form for submitting approval decisions',
     domain: 'workflow-system',
@@ -272,7 +272,7 @@ export const ApprovalFormPresentation: PresentationSpec = {
 export const PendingApprovalsBadgePresentation: PresentationSpec = {
   meta: {
     key: 'workflow.approval.badge',
-    version: 1,
+    version: '1.0.0',
     title: 'Pending Approvals Badge',
     description: 'Badge showing count of pending approvals',
     domain: 'workflow-system',
@@ -299,7 +299,7 @@ export const PendingApprovalsBadgePresentation: PresentationSpec = {
 export const WorkflowMetricsPresentation: PresentationSpec = {
   meta: {
     key: 'workflow.metrics',
-    version: 1,
+    version: '1.0.0',
     title: 'Workflow Metrics',
     description: 'Dashboard widget showing workflow metrics and statistics',
     domain: 'workflow-system',

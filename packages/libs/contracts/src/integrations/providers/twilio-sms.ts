@@ -4,7 +4,7 @@ import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
 export const twilioSmsIntegrationSpec: IntegrationSpec = {
   meta: {
     key: 'sms.twilio',
-    version: 1,
+    version: '1.0.0',
     category: 'sms',
     title: 'Twilio Messaging',
     description:
@@ -16,7 +16,7 @@ export const twilioSmsIntegrationSpec: IntegrationSpec = {
   },
   supportedModes: ['managed', 'byok'],
   capabilities: {
-    provides: [{ key: 'sms.outbound', version: 1 }],
+    provides: [{ key: 'sms.outbound', version: '1.0.0' }],
   },
   configSchema: {
     schema: {

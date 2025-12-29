@@ -27,7 +27,7 @@ export const SaveOnboardingDraftOutput = new SchemaModel({
 export const SaveOnboardingDraftBaseSpec = defineCommand({
   meta: {
     key: 'base.onboarding.saveDraft',
-    version: 1,
+    version: '1.0.0',
     stability: StabilityEnum.Beta,
     owners: [OwnersEnum.PlatformSigil],
     tags: ['onboarding', 'draft'],
@@ -66,7 +66,7 @@ export const GetOnboardingDraftOutput = new SchemaModel({
 export const GetOnboardingDraftBaseSpec = defineQuery({
   meta: {
     key: 'base.onboarding.getDraft',
-    version: 1,
+    version: '1.0.0',
     stability: StabilityEnum.Beta,
     owners: [OwnersEnum.PlatformSigil],
     tags: ['onboarding', 'draft'],
@@ -100,7 +100,7 @@ export const DeleteOnboardingDraftOutput = new SchemaModel({
 export const DeleteOnboardingDraftBaseSpec = defineCommand({
   meta: {
     key: 'base.onboarding.deleteDraft',
-    version: 1,
+    version: '1.0.0',
     stability: StabilityEnum.Beta,
     owners: [OwnersEnum.PlatformSigil],
     tags: ['onboarding', 'draft'],
@@ -144,7 +144,7 @@ export const CompleteOnboardingBaseOutput = new SchemaModel({
 export const CompleteOnboardingBaseSpec = defineCommand({
   meta: {
     key: 'base.onboarding.complete',
-    version: 1,
+    version: '1.0.0',
     stability: StabilityEnum.Beta,
     owners: [OwnersEnum.PlatformSigil],
     tags: ['onboarding'],

@@ -107,7 +107,7 @@ const ScheduledJobTriggeredPayload = defineSchemaModel({
 export const JobEnqueuedEvent = defineEvent({
   meta: {
     key: 'job.enqueued',
-    version: 1,
+    version: '1.0.0',
     description: 'A job has been added to the queue.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -122,7 +122,7 @@ export const JobEnqueuedEvent = defineEvent({
 export const JobStartedEvent = defineEvent({
   meta: {
     key: 'job.started',
-    version: 1,
+    version: '1.0.0',
     description: 'A job has started processing.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -137,7 +137,7 @@ export const JobStartedEvent = defineEvent({
 export const JobCompletedEvent = defineEvent({
   meta: {
     key: 'job.completed',
-    version: 1,
+    version: '1.0.0',
     description: 'A job has completed successfully.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -152,7 +152,7 @@ export const JobCompletedEvent = defineEvent({
 export const JobFailedEvent = defineEvent({
   meta: {
     key: 'job.failed',
-    version: 1,
+    version: '1.0.0',
     description: 'A job attempt has failed.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -167,7 +167,7 @@ export const JobFailedEvent = defineEvent({
 export const JobRetryingEvent = defineEvent({
   meta: {
     key: 'job.retrying',
-    version: 1,
+    version: '1.0.0',
     description: 'A job is being scheduled for retry.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -182,7 +182,7 @@ export const JobRetryingEvent = defineEvent({
 export const JobDeadLetteredEvent = defineEvent({
   meta: {
     key: 'job.dead_lettered',
-    version: 1,
+    version: '1.0.0',
     description:
       'A job has exhausted all retries and moved to dead letter queue.',
     stability: StabilityEnum.Stable,
@@ -198,7 +198,7 @@ export const JobDeadLetteredEvent = defineEvent({
 export const JobCancelledEvent = defineEvent({
   meta: {
     key: 'job.cancelled',
-    version: 1,
+    version: '1.0.0',
     description: 'A job has been cancelled.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],
@@ -213,7 +213,7 @@ export const JobCancelledEvent = defineEvent({
 export const ScheduledJobTriggeredEvent = defineEvent({
   meta: {
     key: 'scheduler.job_triggered',
-    version: 1,
+    version: '1.0.0',
     description: 'A scheduled job has been triggered.',
     stability: StabilityEnum.Stable,
     owners: ['@contractspec.libs.jobs'],

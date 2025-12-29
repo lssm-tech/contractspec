@@ -7,6 +7,7 @@ import {
   analyzeIntegrity,
   generateMermaidDiagram,
   type IntegrityAnalysisResult,
+  templates,
 } from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
@@ -327,7 +328,7 @@ export async function linkToFeatureCommand(
  * Create a new feature from orphaned specs.
  */
 export async function createFeatureFromOrphansCommand(
-  orphans: { name: string; version: number; type: string; file: string }[]
+  orphans: { name: string; version: string; type: string; file: string }[]
 ): Promise<void> {
   try {
     // Get feature key from user
@@ -371,14 +372,16 @@ export async function createFeatureFromOrphansCommand(
     const experiments = orphans.filter((o) => o.type === 'experiment');
 
     // Generate feature file content
-    const featureContent = generateFeatureFileContent(
-      featureKey,
-      featureTitle,
+    const featureContent = templates.generateFeatureSpec({
+      key: featureKey,
+      title: featureTitle,
+      owners: [],
+      tags: [],
       operations,
       events,
       presentations,
-      experiments
-    );
+      experiments,
+    });
 
     // Ask where to save the file
     const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -445,69 +448,6 @@ function getArrayNameForSpecType(specType: string): string {
 }
 
 /**
- * Generate feature file content.
- */
-function generateFeatureFileContent(
-  key: string,
-  title: string,
-  operations: { name: string; version: number }[],
-  events: { name: string; version: number }[],
-  presentations: { name: string; version: number }[],
-  experiments: { name: string; version: number }[]
-): string {
-  const formatRefs = (refs: { name: string; version: number }[]) =>
-    refs
-      .map((r) => `    { name: '${r.name}', version: ${r.version} },`)
-      .join('\n');
-
-  return `/**
- * ${title} Feature
- * 
- * Auto-generated feature from orphaned specs.
- */
-
-import { defineFeature } from '@contractspec/lib.contracts';
-
-export const ${toCamelCase(key)}Feature = defineFeature({
-  key: '${key}',
-  title: '${title}',
-  description: 'TODO: Add description',
-  stability: 'alpha',
-  owners: [],
-  tags: [],
-
-  operations: [
-${formatRefs(operations) || '    // Add operations here'}
-  ],
-
-  events: [
-${formatRefs(events) || '    // Add events here'}
-  ],
-
-  presentations: [
-${formatRefs(presentations) || '    // Add presentations here'}
-  ],
-
-  experiments: [
-${formatRefs(experiments) || '    // Add experiments here'}
-  ],
-
-  capabilities: {
-    provides: [],
-    requires: [],
-  },
-});
-`;
-}
-
-/**
- * Convert kebab-case to camelCase.
- */
-function toCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-}
-
-/**
  * Register integrity commands.
  */
 export function registerIntegrityCommands(
@@ -546,7 +486,7 @@ export function registerIntegrityCommands(
     vscode.commands.registerCommand(
       'contractspec.linkToFeature',
       (item: {
-        spec?: { name: string; version: number; type: string; file?: string };
+        spec?: { name: string; version: string; type: string; file?: string };
       }) => {
         if (item?.spec) {
           return linkToFeatureCommand(
@@ -580,7 +520,7 @@ export function registerIntegrityCommands(
 
         // Show quick pick to select which orphans to include
         const items = result.orphanedSpecs.map((spec) => ({
-          label: `${spec.name}.v${spec.version}`,
+          label: `${spec.key}.v${spec.version}`,
           description: spec.type,
           detail: spec.file,
           picked: true,
@@ -596,7 +536,14 @@ export function registerIntegrityCommands(
           return;
         }
 
-        await createFeatureFromOrphansCommand(selected.map((s) => s.spec));
+        await createFeatureFromOrphansCommand(
+          selected.map((s) => ({
+            name: s.spec.key,
+            version: s.spec.version,
+            type: s.spec.type,
+            file: s.spec.file,
+          }))
+        );
       }
     )
   );

@@ -5,7 +5,7 @@ import { ProductModel } from './product.schema';
 export const ProductCatalogPresentation: PresentationSpec = {
   meta: {
     key: 'marketplace.product.catalog',
-    version: 1,
+    version: '1.0.0',
     title: 'Product Catalog',
     description: 'Product catalog with search and filters',
     domain: 'marketplace',
@@ -30,7 +30,7 @@ export const ProductCatalogPresentation: PresentationSpec = {
 export const ProductDetailPresentation: PresentationSpec = {
   meta: {
     key: 'marketplace.product.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Product Details',
     description: 'Product detail page with images and reviews',
     domain: 'marketplace',
@@ -55,7 +55,7 @@ export const ProductDetailPresentation: PresentationSpec = {
 export const ProductEditorPresentation: PresentationSpec = {
   meta: {
     key: 'marketplace.product.editor',
-    version: 1,
+    version: '1.0.0',
     title: 'Product Editor',
     description: 'Product editor for sellers',
     domain: 'marketplace',

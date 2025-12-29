@@ -67,7 +67,7 @@ export function generateSnapshot(
   const hash = computeHash({ specs: sortedSpecs });
 
   return {
-    version: 1,
+    version: '1.0.0',
     generatedAt: new Date().toISOString(),
     specs: sortedSpecs,
     hash,

@@ -23,7 +23,7 @@ export interface IntegrationTelemetryEvent {
   environment?: string;
   slotId?: string;
   integrationKey: string;
-  integrationVersion: number;
+  integrationVersion: string;
   connectionId: string;
   status: 'success' | 'error';
   durationMs?: number;
@@ -57,8 +57,8 @@ export interface IntegrationCallContext {
   appId: string;
   environment?: string;
   blueprintName: string;
-  blueprintVersion: number;
-  configVersion: number;
+  blueprintVersion: string;
+  configVersion: string;
   slotId: string;
   operation: string;
 }

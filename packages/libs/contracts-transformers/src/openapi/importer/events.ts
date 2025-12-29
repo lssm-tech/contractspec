@@ -60,7 +60,7 @@ ${payloadModel.code}
 export const ${eventName} = defineEvent({
   meta: {
     key: '${event.name}',
-    version: 1,
+    version: '1.0.0',
     description: ${JSON.stringify(event.description ?? '')},
   },
   payload: ${payloadModel.name},

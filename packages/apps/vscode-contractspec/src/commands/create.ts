@@ -7,6 +7,11 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { getWorkspaceAdapters } from '../workspace/adapters';
+import {
+  createSpecCreator,
+  loadWorkspaceConfig,
+  SpecCreatorService,
+} from '@contractspec/bundle.workspace';
 
 type SpecType =
   | 'operation'
@@ -34,6 +39,13 @@ interface OperationInputs {
 export async function createSpec(
   outputChannel: vscode.OutputChannel
 ): Promise<void> {
+  const adapters = getWorkspaceAdapters();
+  const config = await loadWorkspaceConfig(
+    adapters.fs,
+    vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
+  );
+  const specCreator = createSpecCreator(config);
+
   outputChannel.appendLine('\n=== Creating new spec ===');
   outputChannel.show(true);
 
@@ -62,10 +74,9 @@ export async function createSpec(
     outputChannel.appendLine(`Output path: ${outputPath}`);
 
     // Step 4: Generate spec content
-    const content = generateSpecContent(specType, inputs);
+    const content = generateSpecContent(specType, inputs, specCreator);
 
     // Step 5: Write file
-    const adapters = getWorkspaceAdapters();
     await adapters.fs.writeFile(outputPath, content);
 
     outputChannel.appendLine(`✅ Created: ${outputPath}`);
@@ -435,157 +446,133 @@ function getSpecExtension(specType: SpecType): string {
 /**
  * Generate spec content based on type and inputs.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function generateSpecContent(specType: SpecType, inputs: any): string {
+function generateSpecContent(
+  specType: SpecType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  inputs: any,
+  specCreator: SpecCreatorService
+): string {
   switch (specType) {
     case 'operation':
-      return generateOperationSpec(inputs);
+      return specCreator.templates.generateOperationSpec({
+        version: '1.0.0',
+        goal: '',
+        context: '',
+        stability: 'experimental',
+        owners: [],
+        tags: inputs.domain ? [inputs.domain] : [],
+        auth: 'user',
+        flags: [],
+        emitsEvents: false,
+        ...inputs,
+      });
     case 'event':
-      return generateEventSpec(inputs);
+      return specCreator.templates.generateEventSpec({
+        ...inputs,
+        version: '1.0.0',
+        stability: 'experimental',
+        owners: [],
+        tags: inputs.domain ? [inputs.domain] : [],
+        piiFields: [],
+      });
     case 'presentation':
-      return generatePresentationSpec(inputs);
+      return specCreator.templates.generatePresentationSpec({
+        ...inputs,
+        version: '1.0.0',
+        stability: 'experimental',
+        owners: [],
+        tags: [],
+        presentationKind: 'web_component', // Default
+      });
+    case 'data-view':
+      return specCreator.templates.generateDataViewSpec({
+        ...inputs,
+        version: '1.0.0',
+        stability: 'experimental',
+        owners: [],
+        tags: [],
+      });
+    case 'workflow':
+      return specCreator.templates.generateWorkflowSpec({
+        ...inputs,
+        version: '1.0.0',
+        stability: 'experimental',
+        owners: [],
+        tags: [],
+      });
+    case 'migration':
+      return specCreator.templates.generateMigrationSpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        steps: [],
+      });
+    case 'telemetry':
+      return specCreator.templates.generateTelemetrySpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        events: [],
+      });
+    case 'experiment':
+      return specCreator.templates.generateExperimentSpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        variants: [],
+        hypothesis: '',
+      });
+    case 'app-config':
+      return specCreator.templates.generateAppBlueprintSpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        appId: inputs.name, // app-config template requires appId
+        capabilitiesEnabled: [],
+        capabilitiesDisabled: [],
+        featureIncludes: [],
+        featureExcludes: [],
+        dataViews: [],
+        workflows: [],
+        policyRefs: [],
+        themeFallbacks: [],
+        activeExperiments: [],
+        pausedExperiments: [],
+        featureFlags: [],
+        routes: [],
+        stability: 'experimental',
+        domain: 'app',
+      });
+    case 'integration':
+      return specCreator.templates.generateIntegrationSpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        provider: 'custom',
+      });
+    case 'knowledge':
+      return specCreator.templates.generateKnowledgeSpaceSpec({
+        ...inputs,
+        version: '1.0.0',
+        owners: [],
+        category: 'documentation',
+        displayName: inputs.name,
+        title: inputs.name,
+        domain: 'knowledge',
+        tags: [],
+        stability: 'experimental',
+        trustLevel: 'green',
+        automationWritable: false,
+        links: [],
+        retention: { ttlDays: null, archiveAfterDays: null },
+      });
     default:
-      return generateGenericSpec(specType, inputs);
+      // Fallback to a basic template if specific one not found, or error
+      // Ideally we should have templates for everything exposed in selectSpecType
+      return ``;
   }
-}
-
-/**
- * Generate operation spec content.
- */
-function generateOperationSpec(inputs: OperationInputs): string {
-  const { name, kind, description, domain } = inputs;
-  const pascalName = toPascalCase(name.split('.')[1] || 'Operation');
-  const method = kind === 'command' ? 'POST' : 'GET';
-  const defineFunc = kind === 'command' ? 'defineCommand' : 'defineQuery';
-
-  return `import { ${defineFunc} } from '@contractspec/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const ${pascalName}Input = defineSchemaModel({
-  name: '${pascalName}Input',
-  fields: {
-    // Add input fields here
-    id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-  },
-});
-
-const ${pascalName}Output = defineSchemaModel({
-  name: '${pascalName}Output',
-  fields: {
-    // Add output fields here
-    ${kind === 'command' ? 'ok' : 'data'}: { type: ScalarTypeEnum.${kind === 'command' ? 'Boolean' : 'String_unsecure'}(), isOptional: false },
-  },
-});
-
-export const ${pascalName}Spec = ${defineFunc}({
-  meta: {
-    key: '${name}',
-    version: 1,
-    stability: 'experimental',
-    owners: ['@team'],
-    tags: ['${domain}'],
-    description: '${description || `${kind === 'command' ? 'Execute' : 'Retrieve'} ${name}`}',
-    goal: '',
-    context: '',
-  },
-
-  io: {
-    input: ${pascalName}Input,
-    output: ${pascalName}Output,
-    errors: {
-      // Define possible errors
-    },
-  },
-
-  policy: {
-    auth: 'user',
-  },
-
-  transport: {
-    rest: { method: '${method}' },
-  },
-});
-`;
-}
-
-/**
- * Generate event spec content.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function generateEventSpec(inputs: any): string {
-  const { name, description } = inputs;
-  const pascalName = toPascalCase(name.replace('.', '_'));
-
-  return `import { defineEvent } from '@contractspec/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const ${pascalName}Payload = defineSchemaModel({
-  name: '${pascalName}Payload',
-  fields: {
-    // Add payload fields here
-    id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-    timestamp: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-  },
-});
-
-export const ${pascalName}Event = defineEvent({
-  name: '${name}',
-  version: 1,
-  description: '${description || `Emitted when ${name}`}',
-  payload: ${pascalName}Payload,
-  pii: [],
-});
-`;
-}
-
-/**
- * Generate presentation spec content.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function generatePresentationSpec(inputs: any): string {
-  const { name, description } = inputs;
-
-  return `import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
-
-export const ${name}Presentation: PresentationSpec = {
-  meta: {
-    key: '${name.toLowerCase()}',
-    version: 1,
-    description: '${description || `Display ${name}`}',
-    owners: ['@team'],
-    tags: [],
-  },
-  content: {
-    kind: 'web_component',
-    componentKey: '${name}',
-    props: {
-      // Define props schema here
-    },
-  },
-};
-`;
-}
-
-/**
- * Generate generic spec content.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function generateGenericSpec(specType: SpecType, inputs: any): string {
-  return `// ${specType} spec: ${inputs.name}
-// ${inputs.description}
-
-// TODO: Implement ${specType} spec
-export const ${toPascalCase(inputs.name)}Spec = {
-  // Add spec definition here
-};
-`;
 }
 
 /**
  * Convert string to PascalCase.
  */
-function toPascalCase(str: string): string {
-  return str
-    .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
-    .replace(/^[a-z]/, (chr) => chr.toUpperCase());
-}

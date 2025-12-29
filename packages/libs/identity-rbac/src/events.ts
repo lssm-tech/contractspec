@@ -203,7 +203,7 @@ const RoleRevokedPayload = new SchemaModel({
 export const UserCreatedEvent = defineEvent({
   meta: {
     key: 'user.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new user has been created.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -218,7 +218,7 @@ export const UserCreatedEvent = defineEvent({
 export const UserUpdatedEvent = defineEvent({
   meta: {
     key: 'user.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A user profile has been updated.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -233,7 +233,7 @@ export const UserUpdatedEvent = defineEvent({
 export const UserDeletedEvent = defineEvent({
   meta: {
     key: 'user.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A user account has been deleted.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -249,7 +249,7 @@ export const UserDeletedEvent = defineEvent({
 export const UserEmailVerifiedEvent = defineEvent({
   meta: {
     key: 'user.email_verified',
-    version: 1,
+    version: '1.0.0',
     description: 'A user has verified their email address.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -266,7 +266,7 @@ export const UserEmailVerifiedEvent = defineEvent({
 export const OrgCreatedEvent = defineEvent({
   meta: {
     key: 'org.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new organization has been created.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -281,7 +281,7 @@ export const OrgCreatedEvent = defineEvent({
 export const OrgUpdatedEvent = defineEvent({
   meta: {
     key: 'org.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'An organization has been updated.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -296,7 +296,7 @@ export const OrgUpdatedEvent = defineEvent({
 export const OrgDeletedEvent = defineEvent({
   meta: {
     key: 'org.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'An organization has been deleted.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -313,7 +313,7 @@ export const OrgDeletedEvent = defineEvent({
 export const OrgMemberAddedEvent = defineEvent({
   meta: {
     key: 'org.member.added',
-    version: 1,
+    version: '1.0.0',
     description: 'A user has joined an organization.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -328,7 +328,7 @@ export const OrgMemberAddedEvent = defineEvent({
 export const OrgMemberRemovedEvent = defineEvent({
   meta: {
     key: 'org.member.removed',
-    version: 1,
+    version: '1.0.0',
     description: 'A user has left or been removed from an organization.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -343,7 +343,7 @@ export const OrgMemberRemovedEvent = defineEvent({
 export const OrgMemberRoleChangedEvent = defineEvent({
   meta: {
     key: 'org.member.role_changed',
-    version: 1,
+    version: '1.0.0',
     description: "A member's role in an organization has changed.",
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -360,7 +360,7 @@ export const OrgMemberRoleChangedEvent = defineEvent({
 export const OrgInviteSentEvent = defineEvent({
   meta: {
     key: 'org.invite.sent',
-    version: 1,
+    version: '1.0.0',
     description: 'An invitation to join an organization has been sent.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -376,7 +376,7 @@ export const OrgInviteSentEvent = defineEvent({
 export const OrgInviteAcceptedEvent = defineEvent({
   meta: {
     key: 'org.invite.accepted',
-    version: 1,
+    version: '1.0.0',
     description: 'An invitation has been accepted.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -391,7 +391,7 @@ export const OrgInviteAcceptedEvent = defineEvent({
 export const OrgInviteDeclinedEvent = defineEvent({
   meta: {
     key: 'org.invite.declined',
-    version: 1,
+    version: '1.0.0',
     description: 'An invitation has been declined.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -408,7 +408,7 @@ export const OrgInviteDeclinedEvent = defineEvent({
 export const RoleAssignedEvent = defineEvent({
   meta: {
     key: 'role.assigned',
-    version: 1,
+    version: '1.0.0',
     description: 'A role has been assigned.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],
@@ -423,7 +423,7 @@ export const RoleAssignedEvent = defineEvent({
 export const RoleRevokedEvent = defineEvent({
   meta: {
     key: 'role.revoked',
-    version: 1,
+    version: '1.0.0',
     description: 'A role has been revoked.',
     stability: 'stable',
     owners: ['@platform.identity-rbac'],

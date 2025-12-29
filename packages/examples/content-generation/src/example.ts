@@ -1,11 +1,18 @@
-const example = {
-  id: 'content-generation',
-  title: 'Content Generation',
-  summary:
-    'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @contractspec/lib.content-gen.',
-  tags: ['content', 'marketing', 'generation', 'ai'],
-  kind: 'script',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'content-generation',
+    version: '1.0.0',
+    title: 'Content Generation',
+    description:
+      'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @contractspec/lib.content-gen.',
+    kind: 'script',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['content', 'marketing', 'generation', 'ai'],
+  },
   docs: {
     rootDocId: 'docs.examples.content-generation',
     usageDocId: 'docs.examples.content-generation.usage',
@@ -20,6 +27,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

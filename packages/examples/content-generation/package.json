@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.content-generation",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "Content generation example using @contractspec/lib.content-gen.",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,7 +27,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.content-gen": "workspace:*",
     "@contractspec/lib.logger": "workspace:*"

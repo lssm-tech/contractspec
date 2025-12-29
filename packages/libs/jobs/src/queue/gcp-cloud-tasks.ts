@@ -75,7 +75,7 @@ export class GcpCloudTasksQueue implements JobQueue {
     return {
       id: randomUUID(),
       type: jobType,
-      version: 1,
+      version: '1.0.0',
       payload,
       status: 'pending',
       priority: options.priority ?? 0,

@@ -22,7 +22,7 @@ export class DataViewRuntime {
     this.config.registry.register(spec);
   }
 
-  getSpec(name: string, version?: number) {
+  getSpec(name: string, version?: string) {
     return this.config.registry.get(name, version);
   }
 

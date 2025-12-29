@@ -12,9 +12,9 @@ export interface ExportedFeature {
   description?: string;
   owners?: string[];
   stability?: string;
-  operations?: { key: string; version: number }[];
-  events?: { key: string; version: number }[];
-  presentations?: { key: string; version: number }[];
+  operations?: { key: string; version: string }[];
+  events?: { key: string; version: string }[];
+  presentations?: { key: string; version: string }[];
 }
 
 /**

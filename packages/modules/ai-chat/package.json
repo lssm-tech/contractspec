@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.ai-chat",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "AI chat interface module",
   "keywords": [
     "contractspec",
@@ -34,6 +34,7 @@
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.metering": "workspace:*",
     "@contractspec/lib.cost-tracking": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",

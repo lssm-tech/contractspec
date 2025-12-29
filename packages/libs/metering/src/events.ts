@@ -135,7 +135,7 @@ const ThresholdApproachingPayload = defineSchemaModel({
 export const MetricDefinedEvent = defineEvent({
   meta: {
     key: 'metric.defined',
-    version: 1,
+    version: '1.0.0',
     description: 'A metric has been defined.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -150,7 +150,7 @@ export const MetricDefinedEvent = defineEvent({
 export const MetricUpdatedEvent = defineEvent({
   meta: {
     key: 'metric.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A metric has been updated.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -165,7 +165,7 @@ export const MetricUpdatedEvent = defineEvent({
 export const UsageRecordedEvent = defineEvent({
   meta: {
     key: 'usage.recorded',
-    version: 1,
+    version: '1.0.0',
     description: 'Usage has been recorded.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -180,7 +180,7 @@ export const UsageRecordedEvent = defineEvent({
 export const UsageBatchRecordedEvent = defineEvent({
   meta: {
     key: 'usage.batch_recorded',
-    version: 1,
+    version: '1.0.0',
     description: 'A batch of usage has been recorded.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -195,7 +195,7 @@ export const UsageBatchRecordedEvent = defineEvent({
 export const UsageAggregatedEvent = defineEvent({
   meta: {
     key: 'usage.aggregated',
-    version: 1,
+    version: '1.0.0',
     description: 'Usage has been aggregated into a summary.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -210,7 +210,7 @@ export const UsageAggregatedEvent = defineEvent({
 export const ThresholdCreatedEvent = defineEvent({
   meta: {
     key: 'threshold.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A usage threshold has been created.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -225,7 +225,7 @@ export const ThresholdCreatedEvent = defineEvent({
 export const ThresholdExceededEvent = defineEvent({
   meta: {
     key: 'threshold.exceeded',
-    version: 1,
+    version: '1.0.0',
     description: 'Usage has exceeded a threshold.',
     stability: 'stable',
     owners: ['@platform.metering'],
@@ -240,7 +240,7 @@ export const ThresholdExceededEvent = defineEvent({
 export const ThresholdApproachingEvent = defineEvent({
   meta: {
     key: 'threshold.approaching',
-    version: 1,
+    version: '1.0.0',
     description: 'Usage is approaching a threshold.',
     stability: 'stable',
     owners: ['@platform.metering'],

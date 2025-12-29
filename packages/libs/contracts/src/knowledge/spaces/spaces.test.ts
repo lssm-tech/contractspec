@@ -26,7 +26,7 @@ describe('knowledge space specs', () => {
     const registry = registerProductCanonKnowledgeSpace(
       new KnowledgeSpaceRegistry()
     );
-    const registered = registry.get('knowledge.product-canon', 1);
+    const registered = registry.get('knowledge.product-canon', '1.0.0');
     expect(registered).toBe(productCanonKnowledgeSpace);
     expect(registered?.access.trustLevel).toBe('high');
     expect(registered?.access.automationWritable).toBe(false);
@@ -36,7 +36,7 @@ describe('knowledge space specs', () => {
     const registry = registerSupportFaqKnowledgeSpace(
       new KnowledgeSpaceRegistry()
     );
-    const registered = registry.get('knowledge.support-faq', 1);
+    const registered = registry.get('knowledge.support-faq', '1.0.0');
     expect(registered).toBe(supportFaqKnowledgeSpace);
     expect(registered?.access.trustLevel).toBe('medium');
     expect(registered?.retention.ttlDays).toBe(365);
@@ -46,7 +46,7 @@ describe('knowledge space specs', () => {
     const registry = registerEmailThreadsKnowledgeSpace(
       new KnowledgeSpaceRegistry()
     );
-    const registered = registry.get('knowledge.email-threads', 1);
+    const registered = registry.get('knowledge.email-threads', '1.0.0');
     expect(registered).toBe(emailThreadsKnowledgeSpace);
     expect(registered?.access.automationWritable).toBe(true);
   });
@@ -55,7 +55,7 @@ describe('knowledge space specs', () => {
     const registry = registerUploadedDocsKnowledgeSpace(
       new KnowledgeSpaceRegistry()
     );
-    const registered = registry.get('knowledge.uploaded-docs', 1);
+    const registered = registry.get('knowledge.uploaded-docs', '1.0.0');
     expect(registered).toBe(uploadedDocsKnowledgeSpace);
     expect(registered?.retention.ttlDays).toBeNull();
   });
@@ -64,7 +64,7 @@ describe('knowledge space specs', () => {
     const registry = registerFinancialDocsKnowledgeSpace(
       new KnowledgeSpaceRegistry()
     );
-    const registered = registry.get('knowledge.financial-docs', 1);
+    const registered = registry.get('knowledge.financial-docs', '1.0.0');
     expect(registered).toBe(financialDocsKnowledgeSpace);
     expect(registered?.access.trustLevel).toBe('high');
   });

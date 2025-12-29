@@ -44,5 +44,3 @@ export function MapMarkers({ points }: { points: MapPoint[] }) {
     </>
   );
 }
-
-export default MapMarkers;

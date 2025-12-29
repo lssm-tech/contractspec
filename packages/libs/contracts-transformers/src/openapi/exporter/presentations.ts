@@ -4,6 +4,7 @@
 import type {
   PresentationSpec,
   PresentationRegistry,
+  Stability,
 } from '@contractspec/lib.contracts';
 import type { GeneratedRegistryCode } from '../types';
 
@@ -12,9 +13,9 @@ import type { GeneratedRegistryCode } from '../types';
  */
 export interface ExportedPresentation {
   name: string;
-  version: number;
-  description?: string;
-  stability?: string;
+  version: string;
+  description: string; // Changed from description?: string;
+  stability: Stability; // Changed from stability?: string;
   sourceType: 'component' | 'blocknotejs';
   targets: string[];
   tags?: string[];

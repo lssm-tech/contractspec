@@ -1,8 +1,8 @@
-import { input, number, select, confirm } from '@inquirer/prompts';
+import { confirm, input, number, select } from '@inquirer/prompts';
 import type {
-  DataViewSpecData,
   DataViewFieldData,
   DataViewKind,
+  DataViewSpecData,
   Stability,
 } from '../../../types';
 

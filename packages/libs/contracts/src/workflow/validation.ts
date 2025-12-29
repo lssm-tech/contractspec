@@ -196,7 +196,7 @@ function validateStepActions(
     const action = step.action;
     if (!action) continue;
     if (action.operation && options.operations) {
-      const op = options.operations.getSpec(
+      const op = options.operations.get(
         action.operation.key,
         action.operation.version
       );

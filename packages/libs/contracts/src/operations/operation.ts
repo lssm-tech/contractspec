@@ -47,7 +47,7 @@ export interface EmitDeclRef {
 // inline (fallback)
 export interface EmitDeclInline {
   key: string;
-  version: number;
+  version: string;
   when: string;
   payload: AnySchemaModel;
 }
@@ -59,7 +59,7 @@ export type EmitDecl = EmitDeclRef | EmitDeclInline;
 export const isEmitDeclRef = (e: EmitDecl): e is EmitDeclRef => 'ref' in e;
 
 export interface TelemetryTrigger {
-  event: { key: string; version?: number };
+  event: { key: string; version?: string };
   properties?: (args: {
     input: unknown;
     output?: unknown;

@@ -19,7 +19,7 @@ const OWNERS = ['@agent-console-team'] as const;
 export const CreateToolCommand = defineCommand({
   meta: {
     key: 'agent.tool.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['tool', 'create'],
@@ -52,7 +52,7 @@ export const CreateToolCommand = defineCommand({
     emits: [
       {
         key: 'tool.created',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['tool', 'created'],
@@ -103,7 +103,7 @@ export const CreateToolCommand = defineCommand({
 export const UpdateToolCommand = defineCommand({
   meta: {
     key: 'agent.tool.update',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['tool', 'update'],
@@ -136,7 +136,7 @@ export const UpdateToolCommand = defineCommand({
     emits: [
       {
         key: 'tool.updated',
-        version: 1,
+        version: '1.0.0',
         stability: 'stable',
         owners: [...OWNERS],
         tags: ['tool', 'updated'],
@@ -176,7 +176,7 @@ export const UpdateToolCommand = defineCommand({
 export const GetToolQuery = defineQuery({
   meta: {
     key: 'agent.tool.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['tool', 'get'],
@@ -232,7 +232,7 @@ export const GetToolQuery = defineQuery({
 export const ListToolsQuery = defineQuery({
   meta: {
     key: 'agent.tool.list',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['tool', 'list'],
@@ -298,7 +298,7 @@ export const ListToolsQuery = defineQuery({
 export const TestToolCommand = defineCommand({
   meta: {
     key: 'agent.tool.test',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['tool', 'test'],

@@ -7,6 +7,16 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import {
+  loadWorkspaceConfig,
+  type Config,
+  getAIProvider,
+} from '@contractspec/bundle.workspace';
+import {
+  ChatService,
+  InMemoryConversationStore,
+} from '@contractspec/module.ai-chat/core';
+import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**
  * Chat panel instance (singleton per workspace)
@@ -14,64 +24,10 @@ import * as fs from 'fs';
 let chatPanel: vscode.WebviewPanel | undefined;
 
 /**
- * Provider configuration
+ * Chat service instance (preserved across panel reloads if desired, but here attached to panel lifecycle)
  */
-interface ProviderConfig {
-  name: string;
-  apiKeyEnvVar: string;
-  models: string[];
-  defaultModel: string;
-}
-
-const PROVIDERS: Record<string, ProviderConfig> = {
-  openai: {
-    name: 'OpenAI',
-    apiKeyEnvVar: 'OPENAI_API_KEY',
-    models: ['gpt-4o', 'gpt-4o-mini', 'o1', 'o1-mini'],
-    defaultModel: 'gpt-4o',
-  },
-  anthropic: {
-    name: 'Anthropic',
-    apiKeyEnvVar: 'ANTHROPIC_API_KEY',
-    models: [
-      'claude-sonnet-4-20250514',
-      'claude-3-5-sonnet-20241022',
-      'claude-3-5-haiku-20241022',
-    ],
-    defaultModel: 'claude-sonnet-4-20250514',
-  },
-  mistral: {
-    name: 'Mistral',
-    apiKeyEnvVar: 'MISTRAL_API_KEY',
-    models: [
-      'mistral-large-latest',
-      'codestral-latest',
-      'mistral-small-latest',
-    ],
-    defaultModel: 'mistral-large-latest',
-  },
-  gemini: {
-    name: 'Google Gemini',
-    apiKeyEnvVar: 'GOOGLE_API_KEY',
-    models: ['gemini-2.0-flash', 'gemini-2.5-pro-preview-06-05'],
-    defaultModel: 'gemini-2.0-flash',
-  },
-};
-
-/**
- * Get available providers based on API keys
- */
-function getAvailableProviders(): {
-  id: string;
-  config: ProviderConfig;
-  available: boolean;
-}[] {
-  return Object.entries(PROVIDERS).map(([id, config]) => ({
-    id,
-    config,
-    available: Boolean(process.env[config.apiKeyEnvVar]),
-  }));
-}
+let chatService: ChatService | undefined;
+let currentConversationId: string | undefined;
 
 /**
  * Open the chat panel
@@ -86,23 +42,15 @@ export async function openChatPanel(
     return;
   }
 
-  // Check for available providers
-  const providers = getAvailableProviders();
-  const availableProviders = providers.filter((p) => p.available);
+  const adapters = getWorkspaceAdapters();
+  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
-  if (availableProviders.length === 0) {
-    const useProxy = await vscode.window.showWarningMessage(
-      'No AI provider API keys found. Set OPENAI_API_KEY, ANTHROPIC_API_KEY, MISTRAL_API_KEY, or GOOGLE_API_KEY environment variable.',
-      'Configure Settings',
-      'Use Managed Keys'
-    );
-
-    if (useProxy === 'Configure Settings') {
-      await vscode.commands.executeCommand(
-        'workbench.action.openSettings',
-        'contractspec.ai'
-      );
-    }
+  // Load config to check for AI provider
+  let config: Config;
+  try {
+    config = await loadWorkspaceConfig(adapters.fs, workspaceRoot);
+  } catch (error) {
+    vscode.window.showErrorMessage(`Failed to load workspace config: ${error}`);
     return;
   }
 
@@ -118,8 +66,6 @@ export async function openChatPanel(
     }
   );
 
-  // Get workspace context
-  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
   const currentFile = vscode.window.activeTextEditor?.document.uri.fsPath;
 
   // Build context info
@@ -135,22 +81,41 @@ export async function openChatPanel(
   chatPanel.webview.html = getChatPanelHtml(
     chatPanel.webview,
     context.extensionUri,
-    availableProviders,
+    config,
     contextInfo
   );
+
+  // Initialize Chat Service
+  const provider = getAIProvider(config);
+
+  // Build system prompt with workspace context
+  const systemPrompt = buildSystemPrompt(workspaceRoot);
+
+  chatService = new ChatService({
+    provider,
+    store: new InMemoryConversationStore(),
+    systemPrompt,
+    onUsage: (usage) => {
+      outputChannel.appendLine(
+        `[AI Chat] Tokens: ${usage.inputTokens} in / ${usage.outputTokens} out`
+      );
+    },
+  });
+
+  // Reset conversation ID when panel is opened (fresh session)
+  // Or could be persistent if we moved store out of openChatPanel
+  currentConversationId = undefined;
 
   // Handle messages from the webview
   chatPanel.webview.onDidReceiveMessage(
     async (message) => {
       switch (message.type) {
         case 'send': {
-          if (chatPanel) {
+          if (chatPanel && chatService) {
             await handleChatMessage(
               chatPanel,
+              chatService,
               message.content,
-              message.provider,
-              message.model,
-              workspaceRoot,
               outputChannel
             );
           }
@@ -165,6 +130,11 @@ export async function openChatPanel(
           vscode.window.showInformationMessage('Copied to clipboard');
           break;
         }
+        case 'clear': {
+          currentConversationId = undefined;
+          // Optionally clear store or start fresh
+          break;
+        }
       }
     },
     undefined,
@@ -174,6 +144,8 @@ export async function openChatPanel(
   // Clean up when panel is closed
   chatPanel.onDidDispose(() => {
     chatPanel = undefined;
+    chatService = undefined;
+    currentConversationId = undefined;
   });
 }
 
@@ -182,47 +154,47 @@ export async function openChatPanel(
  */
 async function handleChatMessage(
   panel: vscode.WebviewPanel,
+  service: ChatService,
   content: string,
-  providerId: string,
-  model: string,
-  workspaceRoot: string | undefined,
   outputChannel: vscode.OutputChannel
 ): Promise<void> {
-  const providerConfig = PROVIDERS[providerId];
-  if (!providerConfig) {
-    panel.webview.postMessage({
-      type: 'error',
-      error: `Unknown provider: ${providerId}`,
-    });
-    return;
-  }
-
-  const apiKey = process.env[providerConfig.apiKeyEnvVar];
-  if (!apiKey) {
-    panel.webview.postMessage({
-      type: 'error',
-      error: `API key not set: ${providerConfig.apiKeyEnvVar}`,
-    });
-    return;
-  }
-
-  // Build system prompt with workspace context
-  const systemPrompt = buildSystemPrompt(workspaceRoot);
-
   try {
-    // Make API call based on provider
-    const response = await callLLMAPI(
-      providerId,
-      model,
-      apiKey,
-      systemPrompt,
-      content
-    );
+    // Stream response
+    const result = await service.stream({
+      conversationId: currentConversationId,
+      content,
+    });
 
-    // Send response back to webview
+    currentConversationId = result.conversationId;
+
+    let fullResponse = '';
+
+    for await (const chunk of result.stream) {
+      // Handle different chunk types if ChatService returns typical AI SDK chunks
+      // Assuming chunk is TextStreamPart or similar from ChatService wrapper
+      if (chunk.type === 'text-delta') {
+        fullResponse += chunk.textDelta;
+        panel.webview.postMessage({
+          type: 'chunk',
+          chunk: chunk.textDelta,
+          fullText: fullResponse,
+        });
+      } else if (chunk.type === 'text') {
+        // Some providers/wrappers might offer 'text' property directly
+        fullResponse += chunk.content || ''; // Adjust based on strict ChatStreamChunk type
+        panel.webview.postMessage({
+          type: 'chunk',
+          chunk: chunk.content || '',
+          fullText: fullResponse,
+        });
+      }
+      // Handle tool calls or other events if necessary
+    }
+
+    // Final message to confirm completion
     panel.webview.postMessage({
       type: 'response',
-      content: response,
+      content: fullResponse,
     });
   } catch (error) {
     outputChannel.appendLine(
@@ -236,6 +208,21 @@ async function handleChatMessage(
 }
 
 /**
+ * Insert code at cursor position
+ */
+async function insertCodeAtCursor(code: string): Promise<void> {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    vscode.window.showWarningMessage('No active editor to insert code');
+    return;
+  }
+
+  await editor.edit((editBuilder) => {
+    editBuilder.insert(editor.selection.active, code);
+  });
+}
+
+/**
  * Build system prompt with workspace context
  */
 function buildSystemPrompt(workspaceRoot: string | undefined): string {
@@ -246,6 +233,7 @@ Your capabilities:
 - Generate code that follows ContractSpec patterns and best practices
 - Explain concepts from the ContractSpec documentation
 - Suggest improvements and identify issues in specs and implementations
+- Ask clarifying questions when context is missing
 
 Guidelines:
 - Be concise but thorough
@@ -277,144 +265,15 @@ Guidelines:
 }
 
 /**
- * Call the LLM API
- */
-async function callLLMAPI(
-  providerId: string,
-  model: string,
-  apiKey: string,
-  systemPrompt: string,
-  userMessage: string
-): Promise<string> {
-  let url: string;
-  let headers: Record<string, string>;
-  let body: unknown;
-
-  switch (providerId) {
-    case 'openai':
-      url = 'https://api.openai.com/v1/chat/completions';
-      headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      };
-      body = {
-        model,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage },
-        ],
-        temperature: 0.7,
-      };
-      break;
-
-    case 'anthropic':
-      url = 'https://api.anthropic.com/v1/messages';
-      headers = {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      };
-      body = {
-        model,
-        max_tokens: 4096,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userMessage }],
-      };
-      break;
-
-    case 'mistral':
-      url = 'https://api.mistral.ai/v1/chat/completions';
-      headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      };
-      body = {
-        model,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage },
-        ],
-      };
-      break;
-
-    case 'gemini':
-      url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      headers = {
-        'Content-Type': 'application/json',
-      };
-      body = {
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ parts: [{ text: userMessage }] }],
-      };
-      break;
-
-    default:
-      throw new Error(`Unknown provider: ${providerId}`);
-  }
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`API error: ${response.status} - ${error}`);
-  }
-
-  const data = (await response.json()) as Record<string, unknown>;
-
-  // Extract content based on provider
-  switch (providerId) {
-    case 'openai':
-    case 'mistral': {
-      const choices = data.choices as {
-        message?: { content?: string };
-      }[];
-      return choices?.[0]?.message?.content ?? '';
-    }
-    case 'anthropic': {
-      const content = data.content as { text?: string }[];
-      return content?.[0]?.text ?? '';
-    }
-    case 'gemini': {
-      const candidates = data.candidates as {
-        content?: { parts?: { text?: string }[] };
-      }[];
-      return candidates?.[0]?.content?.parts?.[0]?.text ?? '';
-    }
-    default:
-      return '';
-  }
-}
-
-/**
- * Insert code at cursor position
- */
-async function insertCodeAtCursor(code: string): Promise<void> {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    vscode.window.showWarningMessage('No active editor to insert code');
-    return;
-  }
-
-  await editor.edit((editBuilder) => {
-    editBuilder.insert(editor.selection.active, code);
-  });
-}
-
-/**
  * Get the HTML for the chat panel
  */
 function getChatPanelHtml(
   _webview: vscode.Webview,
   _extensionUri: vscode.Uri,
-  providers: { id: string; config: ProviderConfig; available: boolean }[],
+  config: Config,
   contextInfo: string
 ): string {
-  const availableProviders = providers.filter((p) => p.available);
-  const defaultProvider = availableProviders[0];
+  const providerName = config.aiProvider || 'configured';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -454,13 +313,12 @@ function getChatPanelHtml(
       flex: 1;
     }
 
-    .provider-select, .model-select {
-      padding: 4px 8px;
-      background: var(--vscode-dropdown-background);
-      color: var(--vscode-dropdown-foreground);
-      border: 1px solid var(--vscode-dropdown-border);
-      border-radius: 4px;
-      font-size: 12px;
+    .provider-badge {
+      padding: 2px 8px;
+      background: var(--vscode-badge-background);
+      color: var(--vscode-badge-foreground);
+      border-radius: 10px;
+      font-size: 11px;
     }
 
     .messages {
@@ -619,22 +477,7 @@ function getChatPanelHtml(
 <body>
   <div class="header">
     <h1>🤖 ContractSpec AI</h1>
-    <select class="provider-select" id="provider">
-      ${availableProviders
-        .map(
-          (p) =>
-            `<option value="${p.id}" ${p.id === defaultProvider?.id ? 'selected' : ''}>${p.config.name}</option>`
-        )
-        .join('')}
-    </select>
-    <select class="model-select" id="model">
-      ${defaultProvider?.config.models
-        .map(
-          (m) =>
-            `<option value="${m}" ${m === defaultProvider?.config.defaultModel ? 'selected' : ''}>${m}</option>`
-        )
-        .join('')}
-    </select>
+    <span class="provider-badge">${providerName}</span>
   </div>
 
   ${contextInfo ? `<div class="context-info">${contextInfo.replace(/\n/g, ' • ')}</div>` : ''}
@@ -662,20 +505,7 @@ function getChatPanelHtml(
     const messagesEl = document.getElementById('messages');
     const inputEl = document.getElementById('input');
     const sendBtn = document.getElementById('send');
-    const providerSelect = document.getElementById('provider');
-    const modelSelect = document.getElementById('model');
-
-    const providers = ${JSON.stringify(
-      Object.fromEntries(availableProviders.map((p) => [p.id, p.config]))
-    )};
-
-    // Update models when provider changes
-    providerSelect.addEventListener('change', () => {
-      const provider = providers[providerSelect.value];
-      modelSelect.innerHTML = provider.models
-        .map(m => \`<option value="\${m}" \${m === provider.defaultModel ? 'selected' : ''}>\${m}</option>\`)
-        .join('');
-    });
+    let currentAssistantMessage = null;
 
     // Auto-resize textarea
     inputEl.addEventListener('input', () => {
@@ -715,8 +545,6 @@ function getChatPanelHtml(
       vscode.postMessage({
         type: 'send',
         content,
-        provider: providerSelect.value,
-        model: modelSelect.value,
       });
     }
 
@@ -766,16 +594,34 @@ function getChatPanelHtml(
     window.addEventListener('message', (e) => {
       const message = e.data;
 
-      // Remove loading indicator
+      // Remove loading indicator on first chunk or response
       const loading = messagesEl.querySelector('.loading');
       if (loading) loading.remove();
 
       sendBtn.disabled = false;
 
       if (message.type === 'response') {
-        addMessage('assistant', message.content);
+        // Final complete message (optional if using chunks)
+         if (currentAssistantMessage) {
+            currentAssistantMessage.innerHTML = formatContent(message.content, true);
+         } else {
+            addMessage('assistant', message.content);
+         }
+         currentAssistantMessage = null; // Reset for next turn
+      } else if (message.type === 'chunk') {
+        if (!currentAssistantMessage) {
+            // Create container for streaming response
+             const div = document.createElement('div');
+             div.className = 'message assistant';
+             messagesEl.appendChild(div);
+             currentAssistantMessage = div;
+        }
+        // Update content. Note: fullText is the accumulated text so far.
+        currentAssistantMessage.innerHTML = formatContent(message.fullText, true);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
       } else if (message.type === 'error') {
         addMessage('error', '❌ Error: ' + message.error);
+        currentAssistantMessage = null;
       }
     });
 

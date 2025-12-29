@@ -18,7 +18,7 @@ const OWNERS = ['@example.saas-boilerplate'] as const;
 export const GetSubscriptionContract = defineQuery({
   meta: {
     key: 'saas.billing.subscription.get',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'billing', 'subscription'],
@@ -62,7 +62,7 @@ export const GetSubscriptionContract = defineQuery({
 export const RecordUsageContract = defineCommand({
   meta: {
     key: 'saas.billing.usage.record',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'billing', 'usage'],
@@ -81,7 +81,7 @@ export const RecordUsageContract = defineCommand({
     emits: [
       {
         key: 'billing.usage.recorded',
-        version: 1,
+        version: '1.0.0',
         when: 'Usage is recorded',
         payload: UsageRecordedPayloadModel,
       },
@@ -112,7 +112,7 @@ export const RecordUsageContract = defineCommand({
 export const GetUsageSummaryContract = defineQuery({
   meta: {
     key: 'saas.billing.usage.summary',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'billing', 'usage'],
@@ -152,7 +152,7 @@ export const GetUsageSummaryContract = defineQuery({
 export const CheckFeatureAccessContract = defineQuery({
   meta: {
     key: 'saas.billing.feature.check',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: [...OWNERS],
     tags: ['saas', 'billing', 'feature'],

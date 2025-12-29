@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.saas-boilerplate",
-  "version": "1.44.1",
+  "version": "1.45.4",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
   "main": "./dist/index.js",
@@ -51,14 +51,12 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.bus": "workspace:*",
     "@contractspec/lib.identity-rbac": "workspace:*",
     "@contractspec/lib.jobs": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
     "@contractspec/module.notifications": "workspace:*",
-    "zod": "catalog:"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

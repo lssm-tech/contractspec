@@ -46,7 +46,7 @@ export interface TelemetryEventDef {
   /** Name of the event (should match EventSpec.key for cross-reference). */
   key: string;
   /** Version of the underlying event. */
-  version: number;
+  version: string;
   /** High-level semantics for docs/analyzers. */
   semantics: {
     who?: string;
@@ -90,78 +90,55 @@ export interface TelemetrySpec {
 
 const telemetryKey = (meta: TelemetryMeta) => `${meta.key}.v${meta.version}`;
 
-export class TelemetryRegistry {
-  private readonly items = new Map<string, TelemetrySpec>();
+import { compareVersions } from 'compare-versions';
+import { SpecContractRegistry } from '../registry';
+
+// ...
+
+export class TelemetryRegistry extends SpecContractRegistry<
+  'telemetry',
+  TelemetrySpec
+> {
   private readonly eventsByKey = new Map<EventKey, TelemetryEventDef>();
   private readonly specByEventKey = new Map<EventKey, TelemetrySpec>();
 
-  register(spec: TelemetrySpec): this {
-    const key = telemetryKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate TelemetrySpec registration for ${key}`);
+  constructor(items?: TelemetrySpec[]) {
+    super('telemetry', items);
+    if (items) {
+      items.forEach((spec) => this.indexEvents(spec));
     }
-    this.items.set(key, spec);
+  }
+
+  // Override register to index events
+  register(spec: TelemetrySpec): this {
+    super.register(spec);
+    this.indexEvents(spec);
+    return this;
+  }
+
+  private indexEvents(spec: TelemetrySpec) {
     for (const event of spec.events) {
       this.eventsByKey.set(`${event.key}.v${event.version}`, event);
       this.specByEventKey.set(`${event.key}.v${event.version}`, spec);
     }
-    return this;
   }
 
-  list(): TelemetrySpec[] {
-    return [...this.items.values()];
-  }
-
-  get(key: string, version?: number): TelemetrySpec | undefined {
-    if (version != null) {
-      return this.items.get(`${key}.v${version}`);
-    }
-    let latest: TelemetrySpec | undefined;
-    let maxVersion = -Infinity;
-    for (const item of this.items.values()) {
-      if (item.meta.key !== key) continue;
-      if (item.meta.version > maxVersion) {
-        maxVersion = item.meta.version;
-        latest = item;
-      }
-    }
-    return latest;
-  }
-
-  findEventDef(name: string, version?: number): TelemetryEventDef | undefined {
+  findEventDef(name: string, version?: string): TelemetryEventDef | undefined {
     if (version != null) {
       return this.eventsByKey.get(`${name}.v${version}`);
     }
     let latest: TelemetryEventDef | undefined;
-    let maxVersion = -Infinity;
-    for (const [key, event] of this.eventsByKey.entries()) {
-      const [eventName, versionPart] = key.split('.v');
-      if (eventName !== name) continue;
-      const ver = Number(versionPart);
-      if (Number.isFinite(ver) && ver > maxVersion) {
-        maxVersion = ver;
+    for (const event of this.eventsByKey.values()) {
+      if (event.key !== name) continue;
+      if (!latest || compareVersions(event.version, latest.version) > 0) {
         latest = event;
       }
     }
     return latest;
   }
 
-  getSpecForEvent(name: string, version?: number): TelemetrySpec | undefined {
-    if (version != null) {
-      return this.specByEventKey.get(`${name}.v${version}`);
-    }
-    let latest: TelemetrySpec | undefined;
-    let maxVersion = -Infinity;
-    for (const [key, spec] of this.specByEventKey.entries()) {
-      const [eventName, versionPart] = key.split('.v');
-      if (eventName !== name) continue;
-      const ver = Number(versionPart);
-      if (Number.isFinite(ver) && ver > maxVersion) {
-        maxVersion = ver;
-        latest = spec;
-      }
-    }
-    return latest;
+  getSpecForEvent(name: string, version: string): TelemetrySpec | undefined {
+    return this.specByEventKey.get(`${name}.v${version}`);
   }
 }
 

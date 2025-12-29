@@ -16,5 +16,3 @@ export function SkeletonCircle({
     <Skeleton className={classes} style={{ width: size, height: size }} />
   );
 }
-
-export default SkeletonCircle;

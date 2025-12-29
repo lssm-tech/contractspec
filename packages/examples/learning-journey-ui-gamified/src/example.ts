@@ -1,11 +1,18 @@
-const example = {
-  id: 'learning-journey-ui-gamified',
-  title: 'Learning Journey UI — Gamified',
-  summary:
-    'UI mini-app for gamified learning: flashcards, mastery ring, calendar.',
-  tags: ['learning', 'ui', 'gamified'],
-  kind: 'ui',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'learning-journey-ui-gamified',
+    version: '1.0.0',
+    title: 'Learning Journey UI — Gamified',
+    description:
+      'UI mini-app for gamified learning: flashcards, mastery ring, calendar.',
+    kind: 'ui',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['learning', 'ui', 'gamified'],
+  },
   docs: {
     rootDocId: 'docs.examples.learning-journey-ui-gamified',
   },
@@ -19,6 +26,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

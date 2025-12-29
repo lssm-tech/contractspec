@@ -10,7 +10,7 @@
  */
 export interface SpecInfo {
   name: string;
-  version: number;
+  version: string;
   type: 'command' | 'query' | 'event' | 'presentation';
   path: string;
   description?: string;

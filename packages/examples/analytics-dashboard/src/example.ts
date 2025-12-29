@@ -1,11 +1,18 @@
-const example = {
-  id: 'analytics-dashboard',
-  title: 'Analytics Dashboard',
-  summary:
-    'Tenant-scoped dashboards, widgets, query builder, and scheduled reports (spec-first widgets/queries).',
-  tags: ['analytics', 'dashboards', 'bi', 'queries'],
-  kind: 'template',
-  visibility: 'public',
+import type { ExampleSpec } from '@contractspec/lib.contracts';
+
+const example: ExampleSpec = {
+  meta: {
+    key: 'analytics-dashboard',
+    version: '1.0.0',
+    title: 'Analytics Dashboard',
+    description:
+      'Tenant-scoped dashboards, widgets, query builder, and scheduled reports (spec-first widgets/queries).',
+    kind: 'template',
+    visibility: 'public',
+    stability: 'experimental',
+    owners: ['@platform.core'],
+    tags: ['analytics', 'dashboards', 'bi', 'queries'],
+  },
   docs: {
     rootDocId: 'docs.examples.analytics-dashboard',
     goalDocId: 'docs.examples.analytics-dashboard.goal',
@@ -29,6 +36,6 @@ const example = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-} as const;
+};
 
 export default example;

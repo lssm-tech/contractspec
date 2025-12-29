@@ -24,20 +24,20 @@ import type { EventRegistry } from './events';
 
 export type ContractSpecType =
   | 'app-config'
-  | 'capability'
-  | 'data-view'
-  | 'experiment'
-  | 'form'
-  | 'integration'
-  | 'knowledge'
+  | 'agent'
   | 'operation'
-  | 'policy'
-  | 'presentation'
-  | 'telemetry'
-  | 'workflow'
   | 'event'
+  | 'presentation'
+  | 'capability'
+  | 'integration'
+  | 'data-view'
   | 'feature'
-  | 'migration';
+  | 'workflow'
+  | 'policy'
+  | 'theme'
+  | 'telemetry'
+  | 'experiment'
+  | 'knowledge-space';
 
 export interface FieldLevelDecision {
   field: string;
@@ -62,7 +62,7 @@ export interface PolicyDecision {
 export interface PolicyDeciderInput {
   service: string; // e.g., "sigil"
   command: string; // e.g., "beginSignup"
-  version: number;
+  version: string;
   actor: Actor;
   channel?: Channel;
   roles?: string[];
@@ -89,7 +89,7 @@ export type TranslationResolver = (
 /** Outbox/bus event publisher (after validation & guarding) */
 export type EventPublisher = (envelope: {
   key: string;
-  version: number;
+  version: string;
   payload: unknown;
   traceId?: string;
 }) => Promise<void>;
@@ -117,7 +117,7 @@ export interface HandlerCtx {
   /** Internal pipe: filled by executor to enforce declared events */
   __emitGuard__?: (
     key: string,
-    version: number,
+    version: string,
     payload: unknown
   ) => Promise<void>;
   /** Resolved application configuration for the current execution context */

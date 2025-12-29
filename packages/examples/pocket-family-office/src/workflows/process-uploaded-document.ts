@@ -8,7 +8,7 @@ import {
 export const processUploadedDocumentWorkflow: WorkflowSpec = {
   meta: {
     key: 'pfo.workflow.process-uploaded-document',
-    version: 1,
+    version: '1.0.0',
     title: 'Process Uploaded Document',
     description:
       'Stores an uploaded invoice/contract, queues ingestion, and records any follow-up reminders.',
@@ -27,7 +27,7 @@ export const processUploadedDocumentWorkflow: WorkflowSpec = {
         description:
           'Persist the document to storage and enqueue the knowledge ingestion pipeline.',
         action: {
-          operation: { key: 'pfo.documents.upload', version: 1 },
+          operation: { key: 'pfo.documents.upload', version: '1.0.0' },
         },
         requiredIntegrations: ['primaryStorage', 'primaryVectorDb'],
         retry: {

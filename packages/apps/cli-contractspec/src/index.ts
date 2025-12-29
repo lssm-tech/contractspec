@@ -27,7 +27,9 @@ import { chatCommand } from './commands/chat/index';
 import { quickstartCommand } from './commands/quickstart/index';
 import { createImpactCommand } from './commands/impact/index';
 import { cicdCommand } from './commands/cicd/index';
-
+import { createDocsCommand } from './commands/docs/index';
+import { createVersionCommand } from './commands/version/index';
+import { createChangelogCommand } from './commands/changelog/index';
 const program = new Command();
 
 program
@@ -36,6 +38,9 @@ program
     'CLI tool for creating, building, and validating contract specifications'
   )
   .version('0.0.1');
+
+// Docs command
+program.addCommand(createDocsCommand());
 
 // List command
 program.addCommand(listCommand);
@@ -96,6 +101,12 @@ program.addCommand(cicdCommand);
 
 // Impl command (implementation management)
 program.addCommand(createImplCommand());
+
+// Version management (analyze, bump)
+program.addCommand(createVersionCommand());
+
+// Changelog generation
+program.addCommand(createChangelogCommand());
 
 // Create command
 program

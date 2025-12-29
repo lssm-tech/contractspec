@@ -55,7 +55,7 @@ export interface StateMachineStep {
 export interface StateMachineDefinition {
   key: string;
   name: string;
-  version: number;
+  version: string;
   initialStepKey: string;
   steps: Record<string, StateMachineStep>;
 }
@@ -369,7 +369,7 @@ export function buildStateMachineDefinition(
   workflow: {
     key: string;
     name: string;
-    version: number;
+    version: string;
     initialStepId: string | null;
   },
   steps: {

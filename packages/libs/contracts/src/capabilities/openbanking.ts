@@ -7,7 +7,7 @@ const TAGS = ['open-banking', 'finance'] as const;
 export const openBankingAccountsReadCapability: CapabilitySpec = {
   meta: {
     key: 'openbanking.accounts.read',
-    version: 1,
+    version: '1.0.0',
     kind: 'integration',
     title: 'Open Banking Accounts (Read)',
     description:
@@ -21,21 +21,21 @@ export const openBankingAccountsReadCapability: CapabilitySpec = {
     {
       surface: 'operation',
       key: 'openbanking.accounts.list',
-      version: 1,
+      version: '1.0.0',
       description:
         'List bank accounts linked to a Powens open banking connection.',
     },
     {
       surface: 'operation',
       key: 'openbanking.accounts.get',
-      version: 1,
+      version: '1.0.0',
       description:
         'Retrieve the canonical bank account record for a specific account.',
     },
     {
       surface: 'operation',
       key: 'openbanking.accounts.sync',
-      version: 1,
+      version: '1.0.0',
       description:
         'Trigger a refresh of bank account metadata from the open banking provider.',
     },
@@ -45,7 +45,7 @@ export const openBankingAccountsReadCapability: CapabilitySpec = {
 export const openBankingTransactionsReadCapability: CapabilitySpec = {
   meta: {
     key: 'openbanking.transactions.read',
-    version: 1,
+    version: '1.0.0',
     kind: 'integration',
     title: 'Open Banking Transactions (Read)',
     description:
@@ -59,14 +59,14 @@ export const openBankingTransactionsReadCapability: CapabilitySpec = {
     {
       surface: 'operation',
       key: 'openbanking.transactions.list',
-      version: 1,
+      version: '1.0.0',
       description:
         'List transactions for a given bank account with optional date filtering.',
     },
     {
       surface: 'operation',
       key: 'openbanking.transactions.sync',
-      version: 1,
+      version: '1.0.0',
       description:
         'Synchronise transactions from the open banking provider into the canonical ledger.',
     },
@@ -76,7 +76,7 @@ export const openBankingTransactionsReadCapability: CapabilitySpec = {
 export const openBankingBalancesReadCapability: CapabilitySpec = {
   meta: {
     key: 'openbanking.balances.read',
-    version: 1,
+    version: '1.0.0',
     kind: 'integration',
     title: 'Open Banking Balances (Read)',
     description:
@@ -90,14 +90,14 @@ export const openBankingBalancesReadCapability: CapabilitySpec = {
     {
       surface: 'operation',
       key: 'openbanking.balances.get',
-      version: 1,
+      version: '1.0.0',
       description:
         'Retrieve the latest known balances for a specified bank account.',
     },
     {
       surface: 'operation',
       key: 'openbanking.balances.refresh',
-      version: 1,
+      version: '1.0.0',
       description: 'Force a balance refresh from the open banking provider.',
     },
   ],

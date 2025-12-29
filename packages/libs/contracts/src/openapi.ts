@@ -5,6 +5,8 @@
  * This file is kept for backwards compatibility.
  */
 
+import { compareVersions } from 'compare-versions';
+
 import type { OperationSpecRegistry } from './operations/registry';
 import type { AnyOperationSpec, OperationSpec } from './operations/';
 import { defaultRestPath, jsonSchemaForSpec } from './jsonschema';
@@ -38,14 +40,14 @@ export interface OpenApiDocument {
   };
 }
 
-function toOperationId(name: string, version: number) {
+function toOperationId(name: string, version: string) {
   return `${name.replace(/\./g, '_')}_v${version}`;
 }
 
 function toSchemaName(
   prefix: 'Input' | 'Output',
   name: string,
-  version: number
+  version: string
 ) {
   return `${prefix}_${toOperationId(name, version)}`;
 }
@@ -67,7 +69,7 @@ export function openApiForRegistry(
   options: OpenApiExportOptions = {}
 ): OpenApiDocument {
   const specs = registry
-    .listSpecs()
+    .list()
     .filter(
       (s): s is AnyOperationSpec =>
         s.meta.kind === 'command' || s.meta.kind === 'query'
@@ -75,7 +77,9 @@ export function openApiForRegistry(
     .slice()
     .sort((a, b) => {
       const byName = a.meta.key.localeCompare(b.meta.key);
-      return byName !== 0 ? byName : a.meta.version - b.meta.version;
+      return byName !== 0
+        ? byName
+        : compareVersions(a.meta.version, b.meta.version);
     });
 
   const doc: OpenApiDocument = {

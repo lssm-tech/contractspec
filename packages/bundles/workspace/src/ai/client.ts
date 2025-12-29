@@ -221,4 +221,48 @@ export class AIClient {
 
     return fullText;
   }
+
+  /**
+   * Chat with the AI model
+   */
+  async chat(
+    messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+    system?: string
+  ): Promise<string> {
+    const model = getAIProvider(this.config);
+
+    const result = await generateText({
+      model,
+      messages,
+      system: system || getSystemPrompt(),
+    });
+
+    return result.text;
+  }
+
+  /**
+   * Stream chat with the AI model
+   */
+  async streamChat(
+    messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+    onChunk: (text: string) => void,
+    system?: string
+  ): Promise<string> {
+    const model = getAIProvider(this.config);
+
+    const result = await streamText({
+      model,
+      messages,
+      system: system || getSystemPrompt(),
+    });
+
+    let fullText = '';
+
+    for await (const chunk of result.textStream) {
+      fullText += chunk;
+      onChunk(chunk);
+    }
+
+    return fullText;
+  }
 }

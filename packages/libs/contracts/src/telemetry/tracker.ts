@@ -20,7 +20,7 @@ export interface TelemetryEventContext {
 export interface TelemetryDispatch {
   id: string;
   name: string;
-  version: number;
+  version: string;
   occurredAt: string;
   properties: Record<string, unknown>;
   privacy: TelemetryEventDef['privacy'];
@@ -88,7 +88,7 @@ export class TelemetryTracker {
 
   async track(
     name: string,
-    version: number,
+    version: string,
     properties: Record<string, unknown>,
     context: TelemetryEventContext = {}
   ): Promise<boolean> {

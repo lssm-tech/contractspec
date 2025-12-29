@@ -28,7 +28,7 @@ describe('jsonSchemaForSpec', () => {
     const spec = defineCommand({
       meta: {
         key: 'user.create',
-        version: 1,
+        version: '1.0.0',
         description: 'Create a user',
         goal: 'Create a new user in the system',
         context: 'Used during signup',
@@ -45,7 +45,7 @@ describe('jsonSchemaForSpec', () => {
     expect(result.input).toBeDefined();
     expect(result.output).toBeDefined();
     expect(result.meta.name).toBe('user.create');
-    expect(result.meta.version).toBe(1);
+    expect(result.meta.version).toBe('1.0.0');
     expect(result.meta.kind).toBe('command');
     expect(result.meta.description).toBe('Create a user');
   });
@@ -61,7 +61,7 @@ describe('jsonSchemaForSpec', () => {
     const spec = defineQuery({
       meta: {
         key: 'system.status',
-        version: 1,
+        version: '1.0.0',
         description: 'Get system status',
         goal: 'Check system health',
         context: 'Health checks',
@@ -98,7 +98,7 @@ describe('jsonSchemaForSpec', () => {
     const spec = defineQuery({
       meta: {
         key: 'item.get',
-        version: 1,
+        version: '1.0.0',
         description: 'Get an item',
         goal: 'Retrieve item from system',
         context: 'Read operations',
@@ -119,29 +119,33 @@ describe('jsonSchemaForSpec', () => {
 
 describe('defaultRestPath', () => {
   it('should generate REST path from name and version', () => {
-    expect(defaultRestPath('user.create', 1)).toBe('/user/create/v1');
-    expect(defaultRestPath('orders.list', 2)).toBe('/orders/list/v2');
-    expect(defaultRestPath('payment.process', 10)).toBe('/payment/process/v10');
+    expect(defaultRestPath('user.create', '1.0.0')).toBe('/user/create/v1.0.0');
+    expect(defaultRestPath('orders.list', '2.0.0')).toBe('/orders/list/v2.0.0');
+    expect(defaultRestPath('payment.process', '10.0.0')).toBe(
+      '/payment/process/v10.0.0'
+    );
   });
 
   it('should handle nested namespaces', () => {
-    expect(defaultRestPath('api.v1.users.list', 1)).toBe(
-      '/api/v1/users/list/v1'
+    expect(defaultRestPath('api.v1.users.list', '1.0.0')).toBe(
+      '/api/v1/users/list/v1.0.0'
     );
   });
 });
 
 describe('defaultMcpTool', () => {
   it('should generate MCP tool name from name and version', () => {
-    expect(defaultMcpTool('user.create', 1)).toBe('user.create-v1');
-    expect(defaultMcpTool('orders.list', 2)).toBe('orders.list-v2');
+    expect(defaultMcpTool('user.create', '1.0.0')).toBe('user.create-v1.0.0');
+    expect(defaultMcpTool('orders.list', '2.0.0')).toBe('orders.list-v2.0.0');
   });
 });
 
 describe('defaultGqlField', () => {
   it('should generate GraphQL field name from name and version', () => {
-    expect(defaultGqlField('user.create', 1)).toBe('user_create_v1');
-    expect(defaultGqlField('orders.list', 2)).toBe('orders_list_v2');
-    expect(defaultGqlField('api.v1.users.get', 3)).toBe('api_v1_users_get_v3');
+    expect(defaultGqlField('user.create', '1.0.0')).toBe('user_create_v1.0.0');
+    expect(defaultGqlField('orders.list', '2.0.0')).toBe('orders_list_v2.0.0');
+    expect(defaultGqlField('api.v1.users.get', '3.0.0')).toBe(
+      'api_v1_users_get_v3.0.0'
+    );
   });
 });

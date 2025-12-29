@@ -185,7 +185,7 @@ export const CreateIntegrationConnection = defineCommand({
   meta: {
     key: 'integrations.connection.create',
     title: 'Create Integration Connection',
-    version: 1,
+    version: '1.0.0',
     description: 'Create a new integration connection for a tenant.',
     goal: 'Provision a tenant-scoped connection to an external provider.',
     context:
@@ -200,7 +200,7 @@ export const CreateIntegrationConnection = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: 1 }],
+    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
   },
 });
 
@@ -208,7 +208,7 @@ export const UpdateIntegrationConnection = defineCommand({
   meta: {
     key: 'integrations.connection.update',
     title: 'Update Integration Connection',
-    version: 1,
+    version: '1.0.0',
     description:
       'Update metadata or credentials for an integration connection.',
     goal: 'Allow secure rotation of credentials and metadata adjustments.',
@@ -224,7 +224,7 @@ export const UpdateIntegrationConnection = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: 1 }],
+    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
   },
 });
 
@@ -232,7 +232,7 @@ export const DeleteIntegrationConnection = defineCommand({
   meta: {
     key: 'integrations.connection.delete',
     title: 'Delete Integration Connection',
-    version: 1,
+    version: '1.0.0',
     description: 'Delete an integration connection for a tenant.',
     goal: 'Safely remove credentials and disable connector usage.',
     context:
@@ -247,7 +247,7 @@ export const DeleteIntegrationConnection = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: 1 }],
+    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
   },
 });
 
@@ -255,7 +255,7 @@ export const ListIntegrationConnections = defineQuery({
   meta: {
     key: 'integrations.connection.list',
     title: 'List Integration Connections',
-    version: 1,
+    version: '1.0.0',
     description: 'List integration connections for a tenant.',
     goal: 'Provide visibility into configured integrations and their status.',
     context:
@@ -270,7 +270,7 @@ export const ListIntegrationConnections = defineQuery({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.integration.read', version: 1 }],
+    policies: [{ key: 'platform.integration.read', version: '1.0.0' }],
   },
 });
 
@@ -278,7 +278,7 @@ export const TestIntegrationConnection = defineCommand({
   meta: {
     key: 'integrations.connection.test',
     title: 'Test Integration Connection',
-    version: 1,
+    version: '1.0.0',
     description:
       'Run a health check against a configured integration connection.',
     goal: 'Validate credentials and connectivity for external providers.',
@@ -294,7 +294,7 @@ export const TestIntegrationConnection = defineCommand({
   },
   policy: {
     auth: 'admin',
-    policies: [{ key: 'platform.integration.manage', version: 1 }],
+    policies: [{ key: 'platform.integration.manage', version: '1.0.0' }],
   },
 });
 

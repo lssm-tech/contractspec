@@ -17,7 +17,7 @@ const baseSpace: KnowledgeSpaceSpec = {
     tags: [],
     stability: 'stable',
     key: 'product-canon',
-    version: 1,
+    version: '1.0.0',
     category: 'canonical',
   },
   retention: { ttlDays: null },
@@ -50,8 +50,8 @@ function makeAppConfig(
     appId: 'demo-app',
     tenantId: 'tenant-1',
     blueprintName: 'demo.blueprint',
-    blueprintVersion: 1,
-    configVersion: 1,
+    blueprintVersion: '1.0.0',
+    configVersion: '1.0.0',
     environment: 'production',
     capabilities: { enabled: [], disabled: [] },
     features: { include: [], exclude: [] },
@@ -66,7 +66,7 @@ function makeAppConfig(
     translation: {
       defaultLocale: 'en',
       supportedLocales: ['en'],
-      blueprintCatalog: { key: 'demo.catalog', version: 1 },
+      blueprintCatalog: { key: 'demo.catalog', version: '1.0.0' },
       tenantOverrides: [],
     },
     branding: {

@@ -15,7 +15,7 @@ export interface ImpactDelta {
   /** Key of the affected spec */
   specKey: string;
   /** Version of the affected spec */
-  specVersion: number;
+  specVersion: string;
   /** Type of the spec (operation, event) */
   specType: 'operation' | 'event';
   /** Path to the changed element */
@@ -54,11 +54,11 @@ export interface ImpactResult {
   /** All classified deltas */
   deltas: ImpactDelta[];
   /** Specs that were added */
-  addedSpecs: { key: string; version: number; type: 'operation' | 'event' }[];
+  addedSpecs: { key: string; version: string; type: 'operation' | 'event' }[];
   /** Specs that were removed */
   removedSpecs: {
     key: string;
-    version: number;
+    version: string;
     type: 'operation' | 'event';
   }[];
   /** Base commit/ref */

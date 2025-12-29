@@ -8,7 +8,7 @@ import { AgentSummaryModel } from './agent.schema';
 export const AgentListPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.agent.list',
-    version: 1,
+    version: '1.0.0',
     title: 'Agent List',
     description:
       'List view of AI agents with status, model provider, and version info',
@@ -35,7 +35,7 @@ export const AgentListPresentation: PresentationSpec = {
 export const AgentDetailPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.agent.detail',
-    version: 1,
+    version: '1.0.0',
     title: 'Agent Details',
     description:
       'Detailed view of an AI agent with configuration, tools, and recent runs',
@@ -61,7 +61,7 @@ export const AgentDetailPresentation: PresentationSpec = {
 export const AgentConsoleDashboardPresentation: PresentationSpec = {
   meta: {
     key: 'agent-console.dashboard',
-    version: 1,
+    version: '1.0.0',
     title: 'Agent Console Dashboard',
     description: 'Dashboard overview of AI agents, runs, and tools',
     goal: 'Provide a high-level overview of the AI platform health and usage.',

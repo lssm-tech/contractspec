@@ -4,7 +4,7 @@ import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
 export const emailThreadsKnowledgeSpace: KnowledgeSpaceSpec = {
   meta: {
     key: 'knowledge.email-threads',
-    version: 1,
+    version: '1.0.0',
     category: 'operational',
     title: 'Operational Email Threads',
     description:
@@ -18,7 +18,7 @@ export const emailThreadsKnowledgeSpace: KnowledgeSpaceSpec = {
     ttlDays: 365,
   },
   access: {
-    policy: { key: 'knowledge.access.email-threads', version: 1 },
+    policy: { key: 'knowledge.access.email-threads', version: '1.0.0' },
     trustLevel: 'medium',
     automationWritable: true,
   },

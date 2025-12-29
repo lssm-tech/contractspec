@@ -17,7 +17,7 @@ export interface ConfigTransition {
   appId: string;
   fromStatus: ConfigStatus;
   toStatus: ConfigStatus;
-  version: number;
+  version: string;
   timestamp: string | Date;
   actor: string;
   reason?: string;
@@ -28,5 +28,5 @@ export interface ConfigVersionHistory {
   appId: string;
   versions: TenantAppConfigVersion[];
   transitions: ConfigTransition[];
-  currentPublished?: number;
+  currentPublished?: string;
 }

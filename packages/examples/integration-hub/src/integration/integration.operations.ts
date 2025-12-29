@@ -10,7 +10,7 @@ import {
 export const CreateIntegrationContract = defineCommand({
   meta: {
     key: 'integration.create',
-    version: 1,
+    version: '1.0.0',
     stability: 'stable',
     owners: ['@example.integration-hub'],
     tags: ['integration', 'create'],
@@ -24,7 +24,7 @@ export const CreateIntegrationContract = defineCommand({
     emits: [
       {
         key: 'integration.created',
-        version: 1,
+        version: '1.0.0',
         when: 'Integration created',
         payload: IntegrationModel,
       },

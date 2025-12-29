@@ -23,7 +23,7 @@ export interface DataViewSpec {
  */
 export interface DataViewRef {
   key: string;
-  version: number;
+  version: string;
 }
 
 /**

@@ -6,6 +6,7 @@
  */
 
 import { createHash } from 'crypto';
+import { compareVersions } from 'compare-versions';
 
 /**
  * Normalize a value for deterministic JSON serialization.
@@ -59,13 +60,13 @@ export function computeHash(value: unknown): string {
 /**
  * Sort specs by key and version for deterministic ordering.
  */
-export function sortSpecs<T extends { key: string; version: number }>(
+export function sortSpecs<T extends { key: string; version: string }>(
   specs: T[]
 ): T[] {
   return [...specs].sort((a, b) => {
     const keyCompare = a.key.localeCompare(b.key);
     if (keyCompare !== 0) return keyCompare;
-    return a.version - b.version;
+    return compareVersions(a.version, b.version);
   });
 }
 

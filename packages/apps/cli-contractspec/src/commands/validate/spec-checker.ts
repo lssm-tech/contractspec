@@ -108,8 +108,8 @@ function validateOperationSpec(
     errors.push('Missing or invalid key field');
   }
 
-  // Check for version
-  if (!code.match(/version:\s*\d+/)) {
+  // Check for version (both numeric and string formats)
+  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
     errors.push('Missing or invalid version field');
   }
 
@@ -209,7 +209,7 @@ function validateEventSpec(code: string, errors: string[], warnings: string[]) {
     errors.push('Missing or invalid name/key field');
   }
 
-  if (!code.match(/version:\s*\d+/)) {
+  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
     errors.push('Missing or invalid version field');
   }
 
@@ -328,7 +328,7 @@ function validateMigrationSpec(
     errors.push('Missing or invalid migration name');
   }
 
-  if (!code.match(/version:\s*\d+/)) {
+  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
     errors.push('Missing or invalid migration version');
   }
 

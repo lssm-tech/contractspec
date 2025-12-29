@@ -1,5 +1,87 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@1.45.4
+  - @contractspec/module.lifecycle-core@1.45.4
+  - @contractspec/lib.observability@1.45.4
+  - @contractspec/lib.analytics@1.45.4
+  - @contractspec/lib.lifecycle@1.45.4
+  - @contractspec/lib.ai-agent@1.45.4
+
+## 1.45.3
+
+### Patch Changes
+
+- e74ea9e: feat: version management
+- Updated dependencies [e74ea9e]
+  - @contractspec/module.lifecycle-advisor@1.45.3
+  - @contractspec/module.lifecycle-core@1.45.3
+  - @contractspec/lib.observability@1.45.3
+  - @contractspec/lib.analytics@1.45.3
+  - @contractspec/lib.lifecycle@1.45.3
+  - @contractspec/lib.ai-agent@1.45.3
+
+## 1.45.2
+
+### Patch Changes
+
+- 39ca241: code cleaning
+- Updated dependencies [39ca241]
+  - @contractspec/module.lifecycle-advisor@1.45.2
+  - @contractspec/module.lifecycle-core@1.45.2
+  - @contractspec/lib.observability@1.45.2
+  - @contractspec/lib.analytics@1.45.2
+  - @contractspec/lib.lifecycle@1.45.2
+  - @contractspec/lib.ai-agent@1.45.2
+
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/module.lifecycle-advisor@1.45.1
+  - @contractspec/module.lifecycle-core@1.45.1
+  - @contractspec/lib.observability@1.45.1
+  - @contractspec/lib.analytics@1.45.1
+  - @contractspec/lib.lifecycle@1.45.1
+  - @contractspec/lib.ai-agent@1.45.1
+
+## 1.45.0
+
+### Minor Changes
+
+- e73ca1d: feat: improve app config and examples contracts
+  feat: Contract layers support (features, examples, app-configs)
+
+  ### New CLI Commands
+  - `contractspec list layers` - List all contract layers with filtering
+
+  ### Enhanced Commands
+  - `contractspec ci` - New `layers` check category validates features/examples/config
+  - `contractspec doctor` - New `layers` health checks
+  - `contractspec integrity` - Now shows layer statistics
+
+  ### New APIs
+  - `discoverLayers()` - Scan workspace for all layer files
+  - `scanExampleSource()` - Parse ExampleSpec from source code
+  - `isExampleFile()` - Check if file is an example spec
+
+### Patch Changes
+
+- Updated dependencies [e73ca1d]
+  - @contractspec/module.lifecycle-advisor@1.45.0
+  - @contractspec/module.lifecycle-core@1.45.0
+  - @contractspec/lib.observability@1.45.0
+  - @contractspec/lib.analytics@1.45.0
+  - @contractspec/lib.lifecycle@1.45.0
+  - @contractspec/lib.ai-agent@1.45.0
+
 ## 1.44.1
 
 ### Patch Changes

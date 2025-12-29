@@ -73,7 +73,7 @@ const ProjectArchivedPayload = defineSchemaModel({
 export const ProjectCreatedEvent = defineEvent({
   meta: {
     key: 'project.created',
-    version: 1,
+    version: '1.0.0',
     description: 'A new project has been created.',
     stability: 'stable',
     owners: ['@saas-team'],
@@ -88,7 +88,7 @@ export const ProjectCreatedEvent = defineEvent({
 export const ProjectUpdatedEvent = defineEvent({
   meta: {
     key: 'project.updated',
-    version: 1,
+    version: '1.0.0',
     description: 'A project has been updated.',
     stability: 'stable',
     owners: ['@saas-team'],
@@ -103,7 +103,7 @@ export const ProjectUpdatedEvent = defineEvent({
 export const ProjectDeletedEvent = defineEvent({
   meta: {
     key: 'project.deleted',
-    version: 1,
+    version: '1.0.0',
     description: 'A project has been deleted.',
     stability: 'stable',
     owners: ['@saas-team'],
@@ -118,7 +118,7 @@ export const ProjectDeletedEvent = defineEvent({
 export const ProjectArchivedEvent = defineEvent({
   meta: {
     key: 'project.archived',
-    version: 1,
+    version: '1.0.0',
     description: 'A project has been archived.',
     stability: 'stable',
     owners: ['@saas-team'],

@@ -59,7 +59,7 @@ type Tag = string; // curated list available in code (e.g., 'auth', 'spots')
 // For presentations, meta is a Partial<OwnerShipMeta> plus description, name, version
 interface PresentationMeta extends Partial<OwnerShipMeta> {
   name: string;
-  version: number;
+  version: string;
   description?: string;
 }
 \`\`\`

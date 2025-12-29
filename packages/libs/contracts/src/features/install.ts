@@ -20,7 +20,7 @@ export function installFeature(
   // Validate referenced ops exist if registry provided
   if (deps.ops && feature.operations) {
     for (const o of feature.operations) {
-      const s = deps.ops.getSpec(o.key, o.version);
+      const s = deps.ops.get(o.key, o.version);
       if (!s)
         throw new Error(
           `installFeature: operation not found ${o.key}.v${o.version}`
@@ -59,7 +59,7 @@ export function installFeature(
   if (feature.opToPresentation && feature.opToPresentation.length > 0) {
     for (const link of feature.opToPresentation) {
       if (deps.ops) {
-        const s = deps.ops.getSpec(link.op.key, link.op.version);
+        const s = deps.ops.get(link.op.key, link.op.version);
         if (!s)
           throw new Error(
             `installFeature: linked op not found ${link.op.key}.v${link.op.version}`

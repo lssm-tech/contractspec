@@ -13,8 +13,8 @@ type OpenApiSchemaObject = Record<string, unknown>;
  */
 export interface ExportedEvent {
   name: string;
-  version: number;
-  description?: string;
+  version: string;
+  description: string;
   payload: OpenApiSchemaObject | null;
   pii?: string[];
 }

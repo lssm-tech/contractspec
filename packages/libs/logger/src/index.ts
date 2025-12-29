@@ -7,4 +7,4 @@ export { LogLevel } from './types';
 export { DevFormatter, ProductionFormatter } from './formatters';
 
 // ElysiaJS specific exports
-export { elysiaLogger, createElysiaLogger } from './elysia-plugin';
+export { elysiaLogger } from './elysia-plugin';

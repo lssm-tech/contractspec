@@ -10,7 +10,7 @@ export interface TranslationEntry {
 
 export interface TranslationCatalogMeta {
   key: string;
-  version: number;
+  version: string;
   description?: string;
 }
 

@@ -28,14 +28,14 @@ describe('ConfigTransition interface', () => {
       appId: 'app-456',
       fromStatus: 'draft',
       toStatus: 'preview',
-      version: 1,
+      version: '1.0.0',
       timestamp: new Date().toISOString(),
       actor: 'user@example.com',
     };
 
     expect(transition.fromStatus).toBe('draft');
     expect(transition.toStatus).toBe('preview');
-    expect(transition.version).toBe(1);
+    expect(transition.version).toBe('1.0.0');
   });
 
   it('should support Date timestamp', () => {
@@ -44,7 +44,7 @@ describe('ConfigTransition interface', () => {
       appId: 'app-456',
       fromStatus: 'preview',
       toStatus: 'published',
-      version: 1,
+      version: '1.0.0',
       timestamp: new Date(),
       actor: 'admin@example.com',
     };
@@ -58,7 +58,7 @@ describe('ConfigTransition interface', () => {
       appId: 'app-456',
       fromStatus: 'published',
       toStatus: 'archived',
-      version: 1,
+      version: '1.0.0',
       timestamp: '2024-01-01T00:00:00Z',
       actor: 'admin@example.com',
       reason: 'Superseded by new version',
@@ -73,7 +73,7 @@ describe('ConfigTransition interface', () => {
       appId: 'app-456',
       fromStatus: 'published',
       toStatus: 'superseded',
-      version: 2,
+      version: '1.0.0',
       timestamp: '2024-01-01T00:00:00Z',
       actor: 'admin@example.com',
       reason: 'Rolling back due to critical issue',
@@ -105,10 +105,10 @@ describe('ConfigVersionHistory interface', () => {
       appId: 'app-456',
       versions: [],
       transitions: [],
-      currentPublished: 3,
+      currentPublished: '3.0.0',
     };
 
-    expect(history.currentPublished).toBe(3);
+    expect(history.currentPublished).toBe('3.0.0');
   });
 
   it('should allow undefined currentPublished for no published version', () => {

@@ -5,7 +5,7 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import type { FsAdapter } from '../../../ports/fs';
-import type { CheckResult, CheckContext, FixResult } from '../types';
+import type { CheckContext, CheckResult, FixResult } from '../types';
 
 const execAsync = promisify(exec);
 
@@ -35,7 +35,7 @@ export async function runCliChecks(
  */
 async function checkCliAccessible(ctx: CheckContext): Promise<CheckResult> {
   try {
-    await execAsync('npx contractspec --version', {
+    await execAsync('bunx contractspec --version', {
       cwd: ctx.workspaceRoot,
       timeout: 10000,
     });
@@ -52,7 +52,7 @@ async function checkCliAccessible(ctx: CheckContext): Promise<CheckResult> {
       name: 'CLI Accessible',
       status: 'fail',
       message: 'ContractSpec CLI is not accessible',
-      details: 'Could not run "npx contractspec --version"',
+      details: 'Could not run "bunx contractspec --version"',
       fix: {
         description: 'Install ContractSpec CLI globally',
         apply: async (): Promise<FixResult> => {
@@ -80,7 +80,7 @@ async function checkCliAccessible(ctx: CheckContext): Promise<CheckResult> {
  */
 async function checkCliVersion(ctx: CheckContext): Promise<CheckResult> {
   try {
-    const { stdout } = await execAsync('npx contractspec --version', {
+    const { stdout } = await execAsync('bunx contractspec --version', {
       cwd: ctx.workspaceRoot,
       timeout: 10000,
     });
