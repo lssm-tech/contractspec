@@ -31,6 +31,7 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/example.agent-console": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",

@@ -27,6 +27,7 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
+    "compare-versions": "^6.1.1",
     "openapi-types": "^12.1.3",
     "yaml": "^2.7.1",
     "zod": "catalog:"

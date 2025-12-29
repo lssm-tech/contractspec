@@ -51,6 +51,10 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.jobs": "workspace:*",
+    "@contractspec/module.audit-trail": "workspace:*",
+    "@contractspec/module.notifications": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*"
   },
