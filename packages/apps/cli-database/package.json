@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cli-database",
-  "version": "1.45.0",
+  "version": "1.45.1",
   "type": "module",
   "bin": {
     "database": "dist/cli.js"

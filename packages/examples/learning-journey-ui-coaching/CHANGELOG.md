@@ -1,5 +1,20 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.1
+  - @contractspec/example.learning-journey-ambient-coach@1.45.1
+  - @contractspec/example.learning-journey-ui-shared@1.45.1
+  - @contractspec/module.learning-journey@1.45.1
+  - @contractspec/lib.design-system@1.45.1
+  - @contractspec/lib.ui-kit-web@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

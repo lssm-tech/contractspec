@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.ui-kit",
-  "version": "1.45.0",
+  "version": "1.45.1",
   "description": "Cross-platform UI components for React Native and web",
   "keywords": [
     "contractspec",

@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.45.1
+  - @contractspec/lib.ui-kit@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

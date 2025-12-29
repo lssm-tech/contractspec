@@ -1,5 +1,18 @@
 # @contractspec/example.personalization
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@1.45.1
+  - @contractspec/lib.personalization@1.45.1
+  - @contractspec/lib.overlay-engine@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.logger@1.45.1
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

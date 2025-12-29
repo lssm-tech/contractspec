@@ -1,5 +1,11 @@
 # @contractspec/action.contractspec
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+
 ## 1.45.0
 
 ### Minor Changes

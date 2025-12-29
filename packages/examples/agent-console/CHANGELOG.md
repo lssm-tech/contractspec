@@ -1,5 +1,17 @@
 # @contractspec/example.agent-console
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/module.audit-trail@1.45.1
+  - @contractspec/lib.identity-rbac@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.schema@1.45.1
+  - @contractspec/lib.jobs@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

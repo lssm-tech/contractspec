@@ -1,5 +1,46 @@
 # @contractspec/module.examples
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.1
+  - @contractspec/example.learning-journey-quest-challenges@1.45.1
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.1
+  - @contractspec/example.policy-safe-knowledge-assistant@1.45.1
+  - @contractspec/example.learning-journey-ambient-coach@1.45.1
+  - @contractspec/example.learning-journey-platform-tour@1.45.1
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.1
+  - @contractspec/example.learning-journey-ui-coaching@1.45.1
+  - @contractspec/example.learning-journey-ui-gamified@1.45.1
+  - @contractspec/example.learning-journey-duo-drills@1.45.1
+  - @contractspec/example.learning-journey-ui-shared@1.45.1
+  - @contractspec/example.learning-journey-registry@1.45.1
+  - @contractspec/example.locale-jurisdiction-gate@1.45.1
+  - @contractspec/example.versioned-knowledge-base@1.45.1
+  - @contractspec/example.analytics-dashboard@1.45.1
+  - @contractspec/example.lifecycle-dashboard@1.45.1
+  - @contractspec/example.service-business-os@1.45.1
+  - @contractspec/example.content-generation@1.45.1
+  - @contractspec/example.integration-stripe@1.45.1
+  - @contractspec/example.kb-update-pipeline@1.45.1
+  - @contractspec/example.openbanking-powens@1.45.1
+  - @contractspec/example.learning-patterns@1.45.1
+  - @contractspec/example.saas-boilerplate@1.45.1
+  - @contractspec/example.integration-hub@1.45.1
+  - @contractspec/example.knowledge-canon@1.45.1
+  - @contractspec/example.personalization@1.45.1
+  - @contractspec/example.wealth-snapshot@1.45.1
+  - @contractspec/example.workflow-system@1.45.1
+  - @contractspec/example.ai-support-bot@1.45.1
+  - @contractspec/example.agent-console@1.45.1
+  - @contractspec/example.lifecycle-cli@1.45.1
+  - @contractspec/example.crm-pipeline@1.45.1
+  - @contractspec/example.marketplace@1.45.1
+  - @contractspec/example.team-hub@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

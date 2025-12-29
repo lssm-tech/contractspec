@@ -1,5 +1,25 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.1
+  - @contractspec/example.learning-journey-quest-challenges@1.45.1
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.1
+  - @contractspec/example.learning-journey-ambient-coach@1.45.1
+  - @contractspec/example.learning-journey-platform-tour@1.45.1
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.1
+  - @contractspec/example.learning-journey-ui-coaching@1.45.1
+  - @contractspec/example.learning-journey-ui-gamified@1.45.1
+  - @contractspec/example.learning-journey-duo-drills@1.45.1
+  - @contractspec/example.learning-journey-ui-shared@1.45.1
+  - @contractspec/module.learning-journey@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.45.1
+  - @contractspec/lib.design-system@1.45.1
+  - @contractspec/lib.ui-kit-web@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+
 ## 2.0.0
 
 ### Minor Changes

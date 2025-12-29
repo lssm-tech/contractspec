@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

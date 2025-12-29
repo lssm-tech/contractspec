@@ -1,5 +1,18 @@
 # @contractspec/bundle.workspace
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.45.1
+  - @contractspec/lib.ai-providers@1.45.1
+  - @contractspec/module.workspace@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.testing@1.45.1
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

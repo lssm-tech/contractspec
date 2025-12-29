@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/module.learning-journey@1.45.1
+  - @contractspec/example.crm-pipeline@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.schema@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

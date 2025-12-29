@@ -1,5 +1,19 @@
 # @contractspec/module.ai-chat
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.cost-tracking@1.45.1
+  - @contractspec/lib.design-system@1.45.1
+  - @contractspec/lib.ai-providers@1.45.1
+  - @contractspec/lib.ui-kit-web@1.45.1
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.ai-agent@1.45.1
+  - @contractspec/lib.metering@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @contractspec/lib.ai-agent
 
+## 1.45.1
+
+### Patch Changes
+
+- feat: improve app config and examples contracts
+- Updated dependencies
+  - @contractspec/lib.contracts@1.45.1
+  - @contractspec/lib.knowledge@1.45.1
+
 ## 1.45.0
 
 ### Minor Changes
