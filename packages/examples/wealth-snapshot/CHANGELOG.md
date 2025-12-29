@@ -1,5 +1,17 @@
 # @contractspec/example.wealth-snapshot
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/module.notifications@1.45.4
+  - @contractspec/module.audit-trail@1.45.4
+  - @contractspec/lib.identity-rbac@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.schema@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

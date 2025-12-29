@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@1.45.4
+  - @contractspec/bundle.workspace@1.45.4
+  - @contractspec/lib.ai-providers@1.45.4
+  - @contractspec/module.workspace@1.45.4
+  - @contractspec/module.examples@1.45.4
+  - @contractspec/module.ai-chat@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.testing@1.45.4
+  - @contractspec/lib.schema@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

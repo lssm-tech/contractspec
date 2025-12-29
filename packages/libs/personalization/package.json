@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.personalization",
-  "version": "1.45.3",
+  "version": "1.45.4",
   "description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
   "keywords": [
     "contractspec",

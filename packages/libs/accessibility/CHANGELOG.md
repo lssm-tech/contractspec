@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.design-system@1.45.4
+  - @contractspec/lib.ui-kit-web@1.45.4
+  - @contractspec/lib.ui-kit@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

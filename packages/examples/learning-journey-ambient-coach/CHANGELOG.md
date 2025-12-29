@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-ambient-coach
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/module.learning-journey@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

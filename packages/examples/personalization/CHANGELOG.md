@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@1.45.4
+  - @contractspec/lib.personalization@1.45.4
+  - @contractspec/lib.overlay-engine@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.logger@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

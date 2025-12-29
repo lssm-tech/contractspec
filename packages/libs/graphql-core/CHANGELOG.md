@@ -1,5 +1,11 @@
 # @contractspec/lib.graphql-core
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+
 ## 1.45.3
 
 ### Patch Changes

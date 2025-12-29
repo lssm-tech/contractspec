@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@1.45.4
+  - @contractspec/lib.ui-kit@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

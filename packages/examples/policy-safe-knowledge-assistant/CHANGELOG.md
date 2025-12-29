@@ -1,5 +1,18 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/example.locale-jurisdiction-gate@1.45.4
+  - @contractspec/example.versioned-knowledge-base@1.45.4
+  - @contractspec/example.kb-update-pipeline@1.45.4
+  - @contractspec/example.learning-patterns@1.45.4
+  - @contractspec/module.learning-journey@1.45.4
+  - @contractspec/lib.contracts@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

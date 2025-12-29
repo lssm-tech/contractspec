@@ -1,5 +1,15 @@
 # @contractspec/module.notifications
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.contracts@1.45.4
+  - @contractspec/lib.schema@1.45.4
+  - @contractspec/lib.bus@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

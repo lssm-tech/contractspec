@@ -1,5 +1,13 @@
 # @contractspec/lib.analytics
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.lifecycle@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

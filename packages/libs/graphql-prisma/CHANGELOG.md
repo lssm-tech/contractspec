@@ -1,5 +1,13 @@
 # @contractspec/lib.graphql-prisma
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/lib.schema@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes

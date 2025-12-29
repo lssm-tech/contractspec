@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 1.45.4
+
+### Patch Changes
+
+- fix: github action
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@1.45.4
+
 ## 1.45.3
 
 ### Patch Changes
