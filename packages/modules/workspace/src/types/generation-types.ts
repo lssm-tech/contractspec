@@ -4,6 +4,7 @@
 
 import type { OpKind } from '@contractspec/lib.contracts';
 import type { SpecType, PresentationKind } from './spec-types';
+import type { RuleSyncConfig } from './rulesync-types';
 
 /**
  * AI provider options for generation.
@@ -79,6 +80,7 @@ export interface WorkspaceConfig {
   };
   defaultOwners: string[];
   defaultTags: string[];
+  ruleSync?: RuleSyncConfig;
 }
 
 /**

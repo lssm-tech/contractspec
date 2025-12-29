@@ -73,8 +73,7 @@
     "build:types": "turbo run build:types",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
     "db:generate": "turbo run db:generate",
-    "db:deploy": "turbo run db:deploy",
-    "postinstall": "rulesync sync"
+    "db:deploy": "turbo run db:deploy"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

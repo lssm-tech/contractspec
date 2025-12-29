@@ -6,3 +6,4 @@ export * from './spec-types';
 export * from './analysis-types';
 export * from './generation-types';
 export * from './llm-types';
+export * from './rulesync-types';

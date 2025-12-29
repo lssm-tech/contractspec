@@ -14,6 +14,8 @@ export {
   ChangelogFormatSchema,
   ChangelogTierSchema,
   VersioningConfigSchema,
+  RuleSyncTargetSchema,
+  RuleSyncConfigSchema,
   DEFAULT_CONTRACTSRC,
   type OpenApiSourceConfig,
   type OpenApiExportConfig,
@@ -27,4 +29,6 @@ export {
   type ChangelogFormat,
   type ChangelogTier,
   type VersioningConfig,
+  type RuleSyncTarget,
+  type RuleSyncConfig,
 } from './contractsrc-schema';

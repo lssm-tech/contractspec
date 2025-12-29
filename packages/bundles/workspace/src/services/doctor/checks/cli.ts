@@ -125,7 +125,10 @@ async function checkCliInstallLocation(
 
     // Check if CLI exists in workspace (monorepo source)
     if (ctx.isMonorepo && ctx.packageRoot === ctx.workspaceRoot) {
-      const cliPath = fs.join(ctx.workspaceRoot, 'packages/apps/cli-contractspec');
+      const cliPath = fs.join(
+        ctx.workspaceRoot,
+        'packages/apps/cli-contractspec'
+      );
       if (await fs.exists(cliPath)) {
         return {
           category: 'cli',

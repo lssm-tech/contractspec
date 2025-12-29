@@ -301,6 +301,41 @@ export const VersioningConfigSchema = z.object({
 });
 
 // ============================================================================
+// RuleSync Configuration
+// ============================================================================
+
+/**
+ * Supported rule synchronization targets.
+ */
+export const RuleSyncTargetSchema = z.enum([
+  'cursor', // .cursorrules
+  'windsurf', // .windsurfrules
+  'cline', // .clinerules
+  'claude-code', // CLAUDE.md
+  'copilot', // .github/copilot-instructions.md
+  'subagent', // .subagent
+  'skill', // .skill
+]);
+
+/**
+ * Configuration for AI agent rules synchronization (rulesync).
+ */
+export const RuleSyncConfigSchema = z.object({
+  /** Enable automated rule synchronization */
+  enabled: z.boolean().default(false),
+  /** Root directory for source rule files */
+  rulesDir: z.string().default('./.rules'),
+  /** Source rule files (glob patterns) */
+  rules: z.array(z.string()).default(['**/*.rule.md']),
+  /** Synchronization targets (tools to generate rules for) */
+  targets: z.array(RuleSyncTargetSchema).default(['cursor', 'windsurf']),
+  /** Automatically synchronize rules on workspace changes or builds */
+  autoSync: z.boolean().default(true),
+  /** Whether to eject/copy source rules instead of generating from Unified Rules */
+  ejectMode: z.boolean().default(false),
+});
+
+// ============================================================================
 // Lint Rules Configuration (ESLint-style)
 // ============================================================================
 
@@ -408,6 +443,8 @@ export const ContractsrcSchema = z.object({
   formatter: FormatterConfigSchema.optional(),
   // Versioning configuration
   versioning: VersioningConfigSchema.optional(),
+  // Rule synchronization configuration
+  ruleSync: RuleSyncConfigSchema.optional(),
 });
 
 // Type exports
@@ -436,6 +473,8 @@ export type BumpStrategy = z.infer<typeof BumpStrategySchema>;
 export type ChangelogFormat = z.infer<typeof ChangelogFormatSchema>;
 export type ChangelogTier = z.infer<typeof ChangelogTierSchema>;
 export type VersioningConfig = z.infer<typeof VersioningConfigSchema>;
+export type RuleSyncTarget = z.infer<typeof RuleSyncTargetSchema>;
+export type RuleSyncConfig = z.infer<typeof RuleSyncConfigSchema>;
 
 /**
  * Default configuration values.
