@@ -29,8 +29,8 @@ export interface DocPresentationRoute {
 
 const DEFAULT_TARGETS: PresentationTarget[] = [
   'markdown',
-  'application/json',
-  'application/xml',
+  // 'application/json',
+  // 'application/xml',
   'react',
 ];
 
