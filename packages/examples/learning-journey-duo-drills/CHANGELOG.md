@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-duo-drills
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/module.learning-journey@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

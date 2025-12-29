@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.contracts-transformers@1.46.0
+  - @contractspec/bundle.workspace@1.46.0
+  - @contractspec/module.workspace@1.46.0
+  - @contractspec/module.examples@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.ai-agent@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

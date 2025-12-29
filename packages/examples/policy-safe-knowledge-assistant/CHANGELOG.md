@@ -1,5 +1,21 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/example.locale-jurisdiction-gate@1.46.0
+  - @contractspec/example.versioned-knowledge-base@1.46.0
+  - @contractspec/example.kb-update-pipeline@1.46.0
+  - @contractspec/example.learning-patterns@1.46.0
+  - @contractspec/module.learning-journey@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

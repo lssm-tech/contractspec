@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/module.lifecycle-advisor@1.46.0
+  - @contractspec/module.lifecycle-core@1.46.0
+  - @contractspec/lib.observability@1.46.0
+  - @contractspec/lib.analytics@1.46.0
+  - @contractspec/lib.lifecycle@1.46.0
+  - @contractspec/lib.ai-agent@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

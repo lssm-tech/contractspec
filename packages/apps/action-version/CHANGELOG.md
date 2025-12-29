@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.2.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
 ## 0.1.4
 
 ### Patch Changes

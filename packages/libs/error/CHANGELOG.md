@@ -1,5 +1,11 @@
 # @contractspec/lib.error
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
 ## 1.45.6
 
 ### Patch Changes

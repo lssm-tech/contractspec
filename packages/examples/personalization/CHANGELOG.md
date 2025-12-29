@@ -1,5 +1,20 @@
 # @contractspec/example.personalization
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.workflow-composer@1.46.0
+  - @contractspec/lib.personalization@1.46.0
+  - @contractspec/lib.overlay-engine@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.logger@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

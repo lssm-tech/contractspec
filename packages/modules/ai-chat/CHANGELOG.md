@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.cost-tracking@1.46.0
+  - @contractspec/lib.design-system@1.46.0
+  - @contractspec/lib.ai-providers@1.46.0
+  - @contractspec/lib.ui-kit-web@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.ai-agent@1.46.0
+  - @contractspec/lib.metering@1.46.0
+  - @contractspec/lib.schema@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/integration.providers-impls
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/integration.runtime@1.46.0
+  - @contractspec/lib.contracts@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

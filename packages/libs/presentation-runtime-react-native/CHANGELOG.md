@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 2.0.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.presentation-runtime-core@1.46.0
+  - @contractspec/lib.ui-kit@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

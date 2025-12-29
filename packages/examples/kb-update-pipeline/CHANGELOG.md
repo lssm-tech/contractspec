@@ -1,5 +1,17 @@
 # @contractspec/example.kb-update-pipeline
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.contracts@1.46.0
+  - @contractspec/lib.schema@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes

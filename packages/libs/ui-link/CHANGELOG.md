@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-link
 
+## 1.46.0
+
+### Minor Changes
+
+- 07cb19b: feat: feat: cleaude code & opencode integrations
+
+### Patch Changes
+
+- Updated dependencies [07cb19b]
+  - @contractspec/lib.ui-kit-core@1.46.0
+
 ## 1.45.6
 
 ### Patch Changes
