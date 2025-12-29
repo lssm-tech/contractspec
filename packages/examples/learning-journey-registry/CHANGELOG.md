@@ -1,5 +1,24 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.45.5
+
+### Patch Changes
+
+- 9ddd7fa: feat: improve versioning
+- Updated dependencies [9ddd7fa]
+  - @contractspec/example.learning-journey-studio-onboarding@1.45.5
+  - @contractspec/example.learning-journey-quest-challenges@1.45.5
+  - @contractspec/example.learning-journey-crm-onboarding@1.45.5
+  - @contractspec/example.learning-journey-ambient-coach@1.45.5
+  - @contractspec/example.learning-journey-platform-tour@1.45.5
+  - @contractspec/example.learning-journey-ui-onboarding@1.45.5
+  - @contractspec/example.learning-journey-ui-coaching@1.45.5
+  - @contractspec/example.learning-journey-ui-gamified@1.45.5
+  - @contractspec/example.learning-journey-duo-drills@1.45.5
+  - @contractspec/example.learning-journey-ui-shared@1.45.5
+  - @contractspec/module.learning-journey@1.45.5
+  - @contractspec/lib.contracts@1.45.5
+
 ## 1.45.4
 
 ### Patch Changes

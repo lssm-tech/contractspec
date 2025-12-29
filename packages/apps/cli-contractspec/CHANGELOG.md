@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.45.5
+
+### Patch Changes
+
+- 9ddd7fa: feat: improve versioning
+- Updated dependencies [9ddd7fa]
+  - @contractspec/lib.contracts-transformers@1.45.5
+  - @contractspec/bundle.workspace@1.45.5
+  - @contractspec/lib.ai-providers@1.45.5
+  - @contractspec/module.workspace@1.45.5
+  - @contractspec/module.examples@1.45.5
+  - @contractspec/module.ai-chat@1.45.5
+  - @contractspec/lib.contracts@1.45.5
+  - @contractspec/lib.testing@1.45.5
+  - @contractspec/lib.schema@1.45.5
+
 ## 1.45.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 1.45.5
+
+### Patch Changes
+
+- 9ddd7fa: feat: improve versioning
+- Updated dependencies [9ddd7fa]
+  - @contractspec/module.learning-journey@1.45.5
+  - @contractspec/lib.design-system@1.45.5
+  - @contractspec/lib.ui-kit-web@1.45.5
+  - @contractspec/lib.contracts@1.45.5
+
 ## 1.45.4
 
 ### Patch Changes
