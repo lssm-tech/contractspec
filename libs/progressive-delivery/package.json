@@ -1,0 +1,44 @@
+{
+  "name": "@contractspec/lib.progressive-delivery",
+  "version": "4.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "peerDependencies": {
+    "@contractspec/lib.observability": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    }
+  }
+}

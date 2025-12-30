@@ -1,0 +1,31 @@
+{
+  "name": "@contractspec/module.analytics",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@contractspec/lib.logger": "workspace:*",
+    "@contractspec/lib.lifecycle": "workspace:*",
+    "@contractspec/lib.database-studio": "workspace:*",
+    "@contractspec/lib.observability": "workspace:*"
+  },
+  "devDependencies": {
+     "@contractspec/tool.tsdown": "workspace:*",
+     "@contractspec/tool.typescript": "workspace:*",
+     "tsdown": "^0.18.3",
+     "typescript": "^5.7.0"
+  }
+}

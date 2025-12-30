@@ -1,0 +1,95 @@
+{
+  "name": "@contractspec/example.integration-hub",
+  "version": "1.46.1",
+  "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "typescript": "^5.7.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./connection": "./dist/connection/index.js",
+    "./connection/connection.enum": "./dist/connection/connection.enum.js",
+    "./connection/connection.operation": "./dist/connection/connection.operation.js",
+    "./connection/connection.presentation": "./dist/connection/connection.presentation.js",
+    "./connection/connection.schema": "./dist/connection/connection.schema.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
+    "./events": "./dist/events.js",
+    "./example": "./dist/example.js",
+    "./integration": "./dist/integration/index.js",
+    "./integration-hub.feature": "./dist/integration-hub.feature.js",
+    "./integration/integration.enum": "./dist/integration/integration.enum.js",
+    "./integration/integration.operations": "./dist/integration/integration.operations.js",
+    "./integration/integration.presentation": "./dist/integration/integration.presentation.js",
+    "./integration/integration.schema": "./dist/integration/integration.schema.js",
+    "./sync": "./dist/sync/index.js",
+    "./sync-engine": "./dist/sync-engine/index.js",
+    "./sync/sync.enum": "./dist/sync/sync.enum.js",
+    "./sync/sync.operations": "./dist/sync/sync.operations.js",
+    "./sync/sync.presentation": "./dist/sync/sync.presentation.js",
+    "./sync/sync.schema": "./dist/sync/sync.schema.js",
+    "./*": "./*"
+  },
+  "module": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./connection": "./dist/connection/index.js",
+      "./connection/connection.contracts": "./dist/connection/connection.operations.js",
+      "./connection/connection.enum": "./dist/connection/connection.enum.js",
+      "./connection/connection.presentation": "./dist/connection/connection.presentation.js",
+      "./connection/connection.schema": "./dist/connection/connection.schema.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
+      "./events": "./dist/events.js",
+      "./example": "./dist/example.js",
+      "./integration": "./dist/integration/index.js",
+      "./integration-hub.feature": "./dist/integration-hub.feature.js",
+      "./integration/integration.contracts": "./dist/integration/integration.operations.js",
+      "./integration/integration.enum": "./dist/integration/integration.enum.js",
+      "./integration/integration.presentation": "./dist/integration/integration.presentation.js",
+      "./integration/integration.schema": "./dist/integration/integration.schema.js",
+      "./sync": "./dist/sync/index.js",
+      "./sync-engine": "./dist/sync-engine/index.js",
+      "./sync/sync.contracts": "./dist/sync/sync.operations.js",
+      "./sync/sync.enum": "./dist/sync/sync.enum.js",
+      "./sync/sync.presentation": "./dist/sync/sync.presentation.js",
+      "./sync/sync.schema": "./dist/sync/sync.schema.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/integration-hub"
+  },
+  "homepage": "https://contractspec.io"
+}

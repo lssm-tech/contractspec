@@ -1,0 +1,44 @@
+{
+  "name": "@contractspec/tool.scaleway-infra",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Infrastructure-as-code tool for Scaleway resources",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "bin": {
+    "scaleway-infra": "./dist/bin/deploy.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "plan": "bun run build && bun dist/bin/deploy.js plan",
+    "apply": "bun run build && bun dist/bin/deploy.js apply",
+    "destroy": "bun run build && bun dist/bin/deploy.js destroy",
+    "status": "bun run build && bun dist/bin/deploy.js status",
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@scaleway/sdk": "^3.1.3",
+    "@vercel/sdk": "^1.18.2",
+    "commander": "^14.0.2",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.0",
+    "typescript": "^5.7.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

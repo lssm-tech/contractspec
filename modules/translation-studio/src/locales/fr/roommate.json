@@ -1,0 +1,265 @@
+{
+  "auth": {
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "backToSignIn": "Retour à la connexion",
+    "checkEmailSubtitle": "Nous avons envoyé un lien de réinitialisation à {{email}}",
+    "checkEmailTitle": "Vérifiez votre email",
+    "createAccount": "Créer un compte",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "forgotPassword": "Mot de passe oublié ?",
+    "hostDesc": "Publiez vos annonces, trouvez des candidats et gérez votre maison.",
+    "hostTitle": "J'ai un logement à louer",
+    "howUse": "Comment souhaitez-vous utiliser HCircle ?",
+    "joinSubtitle": "Créez votre compte pour démarrer votre aventure coliving",
+    "joinTitle": "Rejoindre la communauté",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "resetPasswordSubtitle": "Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+    "seekerDesc": "Créez votre profil, trouvez des maisons compatibles et rejoignez des événements.",
+    "seekerTitle": "Je cherche un logement",
+    "sendResetLink": "Envoyer le lien de réinitialisation",
+    "signIn": "Se connecter",
+    "signInSubtitle": "Connectez-vous pour continuer",
+    "signInTitle": "Connexion",
+    "welcomeBack": "Bon retour",
+    "whatIs": "Qu'est-ce que HCircle ?"
+  },
+  "buttons": {
+    "back": "Retour",
+    "cancel": "Annuler",
+    "chooseThis": "Choisir",
+    "confirm": "Confirmer",
+    "continue": "Continuer",
+    "skipForNow": "Passer pour l'instant"
+  },
+  "conversation": {
+    "inputPlaceholder": "Écrire un message...",
+    "members_one": "conversation.members",
+    "members_many": "conversation.members",
+    "members_other": "conversation.members",
+    "noMessages": "Pas encore de messages. Lancez la conversation !"
+  },
+  "events": {
+    "empty": "Aucun événement prévu. Créez le premier !",
+    "subtitle": "Des moments pour se connecter et partager",
+    "title": "Événements"
+  },
+  "eventsDetail": {
+    "about": "À propos",
+    "bring": "Apporter :",
+    "going": "Je viens",
+    "hostedBy": "Organisé par {{name}}",
+    "intention": "Intention",
+    "loading": "Chargement…",
+    "location": "Lieu",
+    "maybe": "Peut-être",
+    "notFound": "Événement introuvable",
+    "notGoing": "Je ne viens pas",
+    "openInMaps": "Ouvrir dans Plans",
+    "private": "Privé",
+    "public": "Public",
+    "tabs": {
+      "attendees": "Participants",
+      "details": "Détails",
+      "location": "Lieu"
+    },
+    "whatBring": "Que souhaitez-vous apporter ou contribuer ? (optionnel)",
+    "whosComing": "Qui vient",
+    "willYouAttend": "Serez-vous présent ?"
+  },
+  "forms": {
+    "email": "Email",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "password": "Mot de passe",
+    "placeholders": {
+      "email": "Entrez votre email",
+      "firstName": "Entrez votre prénom",
+      "lastName": "Entrez votre nom",
+      "password": "Entrez votre mot de passe"
+    }
+  },
+  "harmony": {
+    "complete": "Terminer"
+  },
+  "home": {
+    "createAccount": "Créer un compte",
+    "learnMore": "En savoir plus",
+    "signIn": "Se connecter",
+    "tagline": "Votre plateforme de coliving. Connectez-vous, partagez et grandissez ensemble.",
+    "welcome": "Bienvenue sur HCircle"
+  },
+  "house": {
+    "communityLife": "Vie communautaire",
+    "houseFeatures": "Fonctionnalités de la maison",
+    "recentActivity": "Activité récente",
+    "viewAll": "Tout voir"
+  },
+  "housemates": {
+    "active": "Actif",
+    "commonArea": "Espace commun",
+    "count_one": "housemates.count",
+    "count_many": "housemates.count",
+    "count_other": "housemates.count",
+    "emptyDefault": "Vous n'avez pas encore de colocataires",
+    "emptyOnline": "Personne n'est en ligne",
+    "emptyTitle": "Aucun colocataire",
+    "joined": "Depuis le {{date}}",
+    "room": "Chambre {{id}}",
+    "tabs": {
+      "all_one": "housemates.tabs.all",
+      "all_many": "housemates.tabs.all",
+      "all_other": "housemates.tabs.all",
+      "online_one": "housemates.tabs.online",
+      "online_many": "housemates.tabs.online",
+      "online_other": "housemates.tabs.online"
+    },
+    "title": "Colocataires"
+  },
+  "messages": {
+    "count_one": "messages.count",
+    "count_many": "messages.count",
+    "count_other": "messages.count",
+    "emptyDefault": "Commencez une nouvelle conversation avec vos colocataires",
+    "emptySearch": "Aucune conversation ne correspond à votre recherche",
+    "emptyTitle": "Aucune conversation",
+    "lastMessagePlaceholder": "Commencez une conversation...",
+    "searchPlaceholder": "Rechercher des conversations...",
+    "startConversation": "Commencer une conversation",
+    "tabAll": "Tous les messages",
+    "title": "Messages"
+  },
+  "messagesNew": {
+    "createGroup_one": "messagesNew.createGroup",
+    "createGroup_many": "messagesNew.createGroup",
+    "createGroup_other": "messagesNew.createGroup",
+    "direct": "Message direct",
+    "group": "Conversation de groupe",
+    "messageHouseChat": "Message au chat de la maison",
+    "quickActions": "Actions rapides",
+    "searchPlaceholder": "Rechercher des colocataires...",
+    "selected_one": "messagesNew.selected",
+    "selected_many": "messagesNew.selected",
+    "selected_other": "messagesNew.selected",
+    "sendToAll": "Envoyer à tous les colocataires",
+    "title": "Nouveau message"
+  },
+  "onboarding": {
+    "aboutYou": "À propos de vous",
+    "addAnother": "Ajouter un autre",
+    "addPhotos": "Ajouter des photos",
+    "addPhotoSubtitle": "Cela aide les colocataires à vous reconnaître. Vous pouvez passer et le faire plus tard.",
+    "addPhotoTitle": "Ajouter une photo de profil",
+    "currency": "Devise",
+    "currencyPlaceholder": "EUR",
+    "description": "Description",
+    "descriptionPlaceholder": "Décrivez votre annonce",
+    "friendN": "Ami #",
+    "friendName": "Nom (optionnel)",
+    "haveFriends": "Avez-vous déjà des amis dans cette recherche ?",
+    "hostFirstListing": "Première annonce",
+    "hostSubtitle": "Nous allons configurer votre organisation et votre première annonce.",
+    "hostTitle": "Onboarding Propriétaire",
+    "houseName": "Nom de la maison",
+    "houseNamePlaceholder": "Maison Principale",
+    "inviteFriends": "Invitez vos amis",
+    "listingTitle": "Titre de l'annonce",
+    "listingTitlePlaceholder": "Belle chambre",
+    "locationPrefs": "Préférences de localisation",
+    "noFriends": "Vous avez indiqué ne pas avoir d'amis à inviter. Vous pourrez les ajouter plus tard.",
+    "notes": "Notes (optionnel)",
+    "notesPlaceholder": "Dites-nous autre chose",
+    "orgName": "Nom de l'organisation",
+    "orgNamePlaceholder": "Mes Maisons",
+    "photos": "Photos",
+    "preview": "Aperçu",
+    "rent": "Loyer mensuel (EUR)",
+    "rentPlaceholder": "800",
+    "seekerSubtitle": "Configurons votre groupe de recherche en quelques étapes.",
+    "seekerTitle": "Trouvez votre groupe"
+  },
+  "overlays": {
+    "creatingAccountSubtitle": "Veuillez patienter pendant la création de votre profil",
+    "creatingAccountTitle": "Création du compte...",
+    "loadingProfile": "Chargement du profil...",
+    "sendingResetSubtitle": "Veuillez patienter pendant l'envoi de l'email",
+    "sendingResetTitle": "Envoi du lien...",
+    "signingInSubtitle": "Veuillez patienter pendant que nous vous connectons",
+    "signingInTitle": "Connexion..."
+  },
+  "profileSetup": {
+    "basicInfoSubtitle": "Nous utilisons ceci pour personnaliser votre expérience",
+    "basicInfoTitle": "Informations de base",
+    "comfortOptions": {
+      "high": "Élevé",
+      "low": "Faible",
+      "medium": "Moyen"
+    },
+    "earliestMoveIn": "Emménagement le plus tôt",
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Entrez votre nom complet",
+    "hostingFrequency": "Fréquence d'accueil",
+    "hostingOptions": {
+      "often": "Souvent",
+      "rare": "Rarement",
+      "sometimes": "Parfois"
+    },
+    "latestMoveIn": "Emménagement le plus tard",
+    "livingHabitsTitle": "Habitudes de vie",
+    "overnightGuestComfort": "Confort avec invités de nuit",
+    "plannedStayMonths": "Durée prévue (mois)",
+    "quietHours": "Préférence heures calmes",
+    "quietOptions": {
+      "balanced": "Équilibré",
+      "flexible": "Flexible",
+      "strict": "Strict"
+    },
+    "sleepOptions": {
+      "balanced": "Équilibré",
+      "early": "Lève-tôt",
+      "late": "Couche-tard"
+    },
+    "sleepSchedule": "Rythme de sommeil",
+    "subtitle": "Parlez-nous de vos besoins et de votre style de vie",
+    "title": "Configurez votre profil"
+  },
+  "searchPrefs": {
+    "and": "ET (étroit)",
+    "cities": "Villes",
+    "combineMode": "Mode de combinaison",
+    "currentZone_one": "Current zone polys: {{count}}",
+    "currentZone_many": "Current zone polys: {{count}}",
+    "currentZone_other": "Current zone polys: {{count}}",
+    "locationFilters": "Filtres de localisation",
+    "noAreaFound": "No compatible area found for your filters",
+    "or": "OU (large)",
+    "postalCodes": "Codes postaux",
+    "save": "Enregistrer",
+    "subtitle": "Mettez à jour vos zones et la combinaison des filtres.",
+    "title": "Préférences de recherche"
+  },
+  "social": {
+    "communityEvents": "Événements communautaires",
+    "nearbyHouses": "Maisons à proximité",
+    "network": "Réseau Communautaire",
+    "seeAll": "Tout voir",
+    "stories": "Histoires de la communauté",
+    "subtitle": "Connectez-vous au-delà de votre maison",
+    "support": "Support Communautaire",
+    "supportSubtitle": "Obtenez de l'aide du réseau de coliving",
+    "trending": "Sujets tendance",
+    "viewCalendar": "Voir le calendrier"
+  },
+  "tabs": {
+    "events": "Événements",
+    "house": "Ma Maison",
+    "housemates": "Colocataires",
+    "messages": "Messages",
+    "profile": "Profil",
+    "rules": "Règles",
+    "search": "Recherche",
+    "settings": "Réglages",
+    "social": "Social",
+    "swipe": "Swipe",
+    "values": "Valeurs"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "@contractspec/example.ai-support-bot",
+  "version": "1.46.1",
+  "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/ai-support-bot.docblock": "./dist/docs/ai-support-bot.docblock.js",
+    "./example": "./dist/example.js",
+    "./setup": "./dist/setup.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.support-bot": "workspace:*",
+    "@contractspec/lib.knowledge": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/ai-support-bot.docblock": "./dist/docs/ai-support-bot.docblock.js",
+      "./example": "./dist/example.js",
+      "./setup": "./dist/setup.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "module": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/ai-support-bot"
+  },
+  "homepage": "https://contractspec.io"
+}

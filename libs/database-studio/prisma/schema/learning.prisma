@@ -1,0 +1,169 @@
+/// Learning Journey / Onboarding data models.
+/// These entities live inside the `lssm_learning` Postgres schema.
+
+enum OnboardingStepStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+
+  @@schema("lssm_learning")
+}
+
+model Learner {
+  id             String   @id @default(cuid())
+  userId         String
+  organizationId String
+  metadata       Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  onboardingProgress OnboardingProgress[]
+
+  @@unique([userId, organizationId])
+  @@index([organizationId])
+  @@index([userId])
+  @@map("learner")
+  @@schema("lssm_learning")
+}
+
+model OnboardingTrack {
+  id               String  @id @default(cuid())
+  trackKey         String  @unique
+  productId        String?
+  name             String
+  description      String?
+  targetUserSegment String?
+  targetRole       String?
+
+  isActive   Boolean @default(true)
+  isRequired Boolean @default(false)
+  canSkip    Boolean @default(true)
+
+  totalXp            Int?
+  completionXpBonus  Int?
+  completionBadgeKey String?
+  streakHoursWindow  Int?
+  streakBonusXp      Int?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  steps    OnboardingStep[]
+  progress OnboardingProgress[]
+
+  @@index([productId, isActive])
+  @@map("onboarding_track")
+  @@schema("lssm_learning")
+}
+
+model OnboardingStep {
+  id      String @id @default(cuid())
+  trackId String
+  stepKey String
+
+  title       String
+  description String?
+  instructions String?
+  helpUrl     String?
+
+  order Int @default(0)
+
+  completionEvent     String
+  completionCondition Json?
+  availability        Json?
+
+  xpReward   Int?     @default(10)
+  isRequired Boolean  @default(true)
+  canSkip    Boolean  @default(true)
+  actionUrl  String?
+  actionLabel String?
+
+  highlightSelector String?
+  tooltipPosition   String?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  track           OnboardingTrack          @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  stepCompletions OnboardingStepCompletion[]
+
+  @@unique([trackId, stepKey])
+  @@index([trackId, order])
+  @@index([completionEvent])
+  @@map("onboarding_step")
+  @@schema("lssm_learning")
+}
+
+model OnboardingProgress {
+  id        String @id @default(cuid())
+  learnerId String
+  trackId   String
+
+  progress    Int     @default(0)
+  isCompleted Boolean @default(false)
+  xpEarned    Int     @default(0)
+
+  startedAt      DateTime @default(now())
+  completedAt    DateTime?
+  lastActivityAt DateTime?
+
+  isDismissed Boolean @default(false)
+  dismissedAt DateTime?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  learner         Learner                 @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  track           OnboardingTrack         @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  stepCompletions OnboardingStepCompletion[]
+
+  @@unique([learnerId, trackId])
+  @@index([learnerId, isCompleted])
+  @@index([trackId])
+  @@map("onboarding_progress")
+  @@schema("lssm_learning")
+}
+
+model OnboardingStepCompletion {
+  id         String              @id @default(cuid())
+  progressId String
+  stepId     String
+
+  status OnboardingStepStatus
+
+  xpEarned Int @default(0)
+
+  triggeringEvent String?
+  eventPayload     Json?
+
+  completedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  progress OnboardingProgress @relation(fields: [progressId], references: [id], onDelete: Cascade)
+  step     OnboardingStep     @relation(fields: [stepId], references: [id], onDelete: Cascade)
+
+  @@unique([progressId, stepId])
+  @@index([completedAt])
+  @@map("onboarding_step_completion")
+  @@schema("lssm_learning")
+}
+
+
+
+
+
+
+
+
+

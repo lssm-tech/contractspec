@@ -1,0 +1,28 @@
+{
+  "name": "@contractspec/jetbrains-contractspec-bridge",
+  "version": "1.42.0",
+  "description": "Node.js bridge server for ContractSpec JetBrains Plugin",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@contractspec/bundle.workspace": "workspace:*",
+    "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/module.examples": "workspace:*",
+    "vscode-jsonrpc": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "homepage": "https://contractspec.io"
+}

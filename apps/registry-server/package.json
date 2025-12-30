@@ -1,0 +1,35 @@
+{
+  "name": "@contractspec/app.registry-server",
+  "version": "1.46.1",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "clean": "rm -rf dist server",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "dev": "bun run --watch src/server.ts",
+    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/server src/index.ts",
+    "start": "./server"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/server-timing": "^1.4.0",
+    "@contractspec/lib.logger": "workspace:*",
+    "elysia": "^1.4.19"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/registry-server"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "homepage": "https://contractspec.io"
+}

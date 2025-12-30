@@ -1,0 +1,35 @@
+{
+  "name": "@contractspec/lib.email",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": "./dist/client.js",
+    "./types": "./dist/types.js",
+    "./utils": "./dist/utils.js",
+    "./*": "./*"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@scaleway/sdk": "^3.1.3",
+    "@scaleway/sdk-client": "^2.1.0",
+    "@contractspec/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "module": "./dist/index.js"
+}

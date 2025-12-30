@@ -1,0 +1,26 @@
+datasource db {
+  provider = "postgresql"
+  schemas  = ["public", "lssm_sigil", "lssm_learning"]
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../../src/generated/prisma"
+
+  engineType             = "client"
+  runtime                = "bun"
+  // runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+}
+
+generator pothos {
+  provider          = "prisma-pothos-types"
+  clientOutput      = "./prisma"
+  output            = "../../src/generated/pothos-types.ts"
+  generateDatamodel = true
+  documentation     = false
+}
+
+// Domain and imported schemas are auto-discovered in this folder

@@ -1,0 +1,17 @@
+{
+  "extends": "@contractspec/tool.typescript/react-library.json",
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": {
+      "@contractspec/lib.personalization/*": ["../../libs/personalization/src/*"],
+      "@contractspec/lib.contracts/*": ["../../libs/contracts/src/*"],
+      "@contractspec/lib.contracts": ["../../libs/contracts/src/index.ts"],
+      "@contractspec/lib.overlay-engine/*": ["../../libs/overlay-engine/src/*"],
+      "@contractspec/lib.overlay-engine": ["../../libs/overlay-engine/src/index.ts"]
+    }
+  }
+}
+
+

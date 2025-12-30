@@ -1,0 +1,60 @@
+{
+  "name": "@contractspec/example.content-generation",
+  "version": "1.46.1",
+  "description": "Content generation example using @contractspec/lib.content-gen.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/content-generation.docblock": "./dist/docs/content-generation.docblock.js",
+    "./example": "./dist/example.js",
+    "./generate": "./dist/generate.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.content-gen": "workspace:*",
+    "@contractspec/lib.logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/content-generation.docblock": "./dist/docs/content-generation.docblock.js",
+      "./example": "./dist/example.js",
+      "./generate": "./dist/generate.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "module": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/content-generation"
+  },
+  "homepage": "https://contractspec.io"
+}

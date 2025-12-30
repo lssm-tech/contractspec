@@ -1,0 +1,56 @@
+import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import {
+  OwnersEnum,
+  StabilityEnum,
+  TagsEnum,
+} from '@contractspec/lib.contracts/ownership';
+
+export const ingestEmailThreadsWorkflow: WorkflowSpec = {
+  meta: {
+    key: 'pfo.workflow.ingest-email-threads',
+    version: '1.0.0',
+    title: 'Ingest Email Threads',
+    description:
+      'Synchronises Gmail threads tagged with finance labels and indexes them into operational knowledge spaces.',
+    domain: 'communications',
+    owners: [OwnersEnum.PlatformMessaging],
+    tags: ['gmail', 'knowledge', TagsEnum.Automation],
+    stability: StabilityEnum.Experimental,
+  },
+  definition: {
+    entryStepId: 'sync',
+    steps: [
+      {
+        id: 'sync',
+        type: 'automation',
+        label: 'Sync Gmail Threads',
+        description:
+          'Fetches Gmail threads and transforms them into knowledge fragments before vector indexing.',
+        action: {
+          operation: { key: 'pfo.email.sync-threads', version: '1.0.0' },
+        },
+        requiredIntegrations: ['emailInbound', 'primaryVectorDb'],
+        retry: {
+          maxAttempts: 3,
+          backoff: 'exponential',
+          delayMs: 1000,
+        },
+      },
+      {
+        id: 'triage',
+        type: 'human',
+        label: 'Triage Exceptions',
+        description:
+          'Operators can resolve sync failures or tag important threads for follow-up.',
+      },
+    ],
+    transitions: [
+      {
+        from: 'sync',
+        to: 'triage',
+        condition: 'output?.syncedThreads === 0',
+        label: 'No new threads',
+      },
+    ],
+  },
+};

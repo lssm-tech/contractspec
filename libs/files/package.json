@@ -1,0 +1,76 @@
+{
+  "name": "@contractspec/lib.files",
+  "version": "1.46.1",
+  "description": "Files, documents and attachments module for ContractSpec applications",
+  "keywords": [
+    "contractspec",
+    "files",
+    "documents",
+    "storage",
+    "attachments",
+    "typescript"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src"
+  },
+  "dependencies": {
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "typescript": "^5.7.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./contracts": "./dist/contracts/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/files.docblock": "./dist/docs/files.docblock.js",
+    "./entities": "./dist/entities/index.js",
+    "./events": "./dist/events.js",
+    "./files.feature": "./dist/files.feature.js",
+    "./storage": "./dist/storage/index.js",
+    "./*": "./*"
+  },
+  "module": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./contracts": "./dist/contracts/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/files.docblock": "./dist/docs/files.docblock.js",
+      "./entities": "./dist/entities/index.js",
+      "./events": "./dist/events.js",
+      "./files.feature": "./dist/files.feature.js",
+      "./storage": "./dist/storage/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/files"
+  },
+  "homepage": "https://contractspec.io"
+}

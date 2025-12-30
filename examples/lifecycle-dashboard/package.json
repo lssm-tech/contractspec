@@ -1,0 +1,58 @@
+{
+  "name": "@contractspec/example.lifecycle-dashboard",
+  "version": "1.46.1",
+  "description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/lifecycle-dashboard.docblock": "./dist/docs/lifecycle-dashboard.docblock.js",
+    "./example": "./dist/example.js",
+    "./snippets/page": "./dist/snippets/page.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/lifecycle-dashboard.docblock": "./dist/docs/lifecycle-dashboard.docblock.js",
+      "./example": "./dist/example.js",
+      "./snippets/page": "./dist/snippets/page.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "module": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/lifecycle-dashboard"
+  },
+  "homepage": "https://contractspec.io"
+}

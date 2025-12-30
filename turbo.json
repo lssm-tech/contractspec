@@ -9,6 +9,8 @@
     "clean": {
       "cache": false
     },
+    "test": {
+    },
     "publish:pkg": {
       "dependsOn": ["build:bundle", "^publish:pkg"],
       "cache": false,

@@ -1,0 +1,57 @@
+/// Auto-evolution tracking for Studio projects.
+
+model EvolutionSession {
+  id             String           @id @default(cuid())
+  projectId      String
+  trigger        EvolutionTrigger
+  status         EvolutionStatus
+  signals        Json
+  context        Json
+  suggestions    Json
+  appliedChanges Json?
+  startedAt      DateTime         @default(now())
+  completedAt    DateTime?
+
+  project StudioProject @relation(fields: [projectId], references: [id])
+
+  @@index([projectId, status])
+  @@map("evolution_session")
+  @@schema("lssm_sigil")
+}
+
+enum EvolutionTrigger {
+  USAGE_PATTERN
+  ANOMALY_DETECTED
+  LIFECYCLE_STAGE_CHANGE
+  MANUAL
+  SCHEDULED
+
+  @@schema("lssm_sigil")
+}
+
+enum EvolutionStatus {
+  ANALYZING
+  SUGGESTIONS_READY
+  APPLYING
+  COMPLETED
+  FAILED
+
+  @@schema("lssm_sigil")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

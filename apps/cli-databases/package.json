@@ -1,0 +1,53 @@
+{
+  "name": "@contractspec/app.cli-databases",
+  "version": "1.46.1",
+  "type": "module",
+  "bin": {
+    "databases": "dist/cli.js"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "tsdown",
+    "dev": "bun run build --watch",
+    "lint": "eslint src --fix"
+  },
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "execa": "^9.6.1"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "tsdown": "^0.18.3"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./cli": "./dist/cli.mjs",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/cli-databases"
+  },
+  "homepage": "https://contractspec.io"
+}

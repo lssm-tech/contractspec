@@ -1,0 +1,100 @@
+/// Lifecycle tracking models for organizations using ContractSpec Studio.
+
+model OrganizationLifecycleProfile {
+  id             String         @id @default(cuid())
+  organizationId String         @unique
+  currentStage   LifecycleStage
+  detectedStage  LifecycleStage
+  confidence     Float
+
+  productPhase String?
+  companyPhase String?
+  capitalPhase String?
+
+  lastAssessment DateTime
+  nextAssessment DateTime?
+
+  metrics Json
+  signals Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization                 @relation(fields: [organizationId], references: [id])
+  assessments  LifecycleAssessment[]
+  milestones   LifecycleMilestoneProgress[]
+
+  @@map("lifecycle_profile")
+  @@schema("lssm_sigil")
+}
+
+model LifecycleAssessment {
+  id         String         @id @default(cuid())
+  profileId  String
+  stage      LifecycleStage
+  confidence Float
+  focusAreas Json
+  signals    Json
+
+  createdAt DateTime @default(now())
+
+  profile OrganizationLifecycleProfile @relation(fields: [profileId], references: [id])
+
+  @@index([profileId, createdAt])
+  @@map("lifecycle_assessment")
+  @@schema("lssm_sigil")
+}
+
+model LifecycleMilestoneProgress {
+  id          String          @id @default(cuid())
+  profileId   String
+  milestoneId String
+  category    String
+  status      MilestoneStatus
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  profile OrganizationLifecycleProfile @relation(fields: [profileId], references: [id])
+
+  @@index([profileId, status])
+  @@map("lifecycle_milestone_progress")
+  @@schema("lssm_sigil")
+}
+
+enum LifecycleStage {
+  EXPLORATION
+  PROBLEM_SOLUTION_FIT
+  MVP_EARLY_TRACTION
+  PRODUCT_MARKET_FIT
+  GROWTH_SCALE_UP
+  EXPANSION_PLATFORM
+  MATURITY_OPTIMIZATION
+
+  @@schema("lssm_sigil")
+}
+
+enum MilestoneStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+
+  @@schema("lssm_sigil")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+{
+  "name": "@contractspec/example.integration-stripe",
+  "version": "1.46.1",
+  "description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./blueprint": "./dist/blueprint.js",
+    "./connection.sample": "./dist/connection.sample.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/integration-stripe.docblock": "./dist/docs/integration-stripe.docblock.js",
+    "./example": "./dist/example.js",
+    "./tenant": "./dist/tenant.js",
+    "./workflow": "./dist/workflow.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./blueprint": "./dist/blueprint.js",
+      "./connection.sample": "./dist/connection.sample.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/integration-stripe.docblock": "./dist/docs/integration-stripe.docblock.js",
+      "./example": "./dist/example.js",
+      "./tenant": "./dist/tenant.js",
+      "./workflow": "./dist/workflow.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "module": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/integration-stripe"
+  },
+  "homepage": "https://contractspec.io"
+}

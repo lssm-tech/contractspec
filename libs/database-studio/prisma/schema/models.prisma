@@ -1,0 +1,509 @@
+// Prisma schema for the **lssm_sigil** module.  This file defines
+// identities, organisations and access control for the Chaman core.  All
+// models are annotated with `@@schema("lssm_sigil")` so that Prisma
+// generates the tables in the `lssm_sigil` Postgres namespace.  See
+// README.md for an overview of the tables and their purpose.
+
+// generator client specifies that Prisma Client should be generated.
+
+/// A user of the platform.  Users hold core profile information and
+/// authenticate via `Account` records.  They may belong to multiple
+/// organisations through `Member`.  Email and phone number are unique to
+/// prevent duplicate accounts.  Additional profile fields can be added
+/// without breaking existing queries.
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  name          String?
+  firstName     String?
+  lastName      String?
+  locale        String? // e.g. "en-US" for i18n; optional
+  timezone      String? // Olson timezone like "Europe/Paris"
+  imageUrl      String? // URL of avatar or profile picture
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  image         String?
+  metadata      Json?
+
+  // Waiting list
+  // waitingListId String?
+  // waitingList   WaitingList? @relation(fields: [waitingListId], references: [id])
+  whitelistedAt DateTime?
+
+  // Onboarding and flow tracking
+  onboardingCompleted Boolean @default(false)
+  onboardingStep      String? // Current step if not completed
+
+  // Admin fields
+  /// The user's role. Defaults to `user`. Admins will have the `admin` role.
+  role       String?   @default("user")
+  /// Indicates whether the user is banned.
+  banned     Boolean   @default(false)
+  /// The reason for the user's ban.
+  banReason  String?
+  /// The date when the user's ban will expire.
+  banExpires DateTime?
+
+  // Phone number authentication
+  phoneNumber         String? @unique
+  phoneNumberVerified Boolean @default(false)
+
+  // Relations
+  sessions        Session[]
+  accounts        Account[]
+  memberships     Member[]
+  invitations     Invitation[]
+  /// Team memberships (Better Auth teams)
+  teamMemberships TeamMember[]
+  policyBindings  PolicyBinding[]
+  apiKeys         ApiKey[]
+  passkeys        Passkey[]
+  /// Enterprise SSO providers linked to this user (optional)
+  ssoProviders    SsoProvider[]
+  /// Learning journey profile(s), scoped per organization.
+  learners        Learner[]
+
+  @@map("user")
+  @@schema("lssm_sigil")
+}
+
+/// Represents a login session (e.g. a web session or API token).  Sessions
+/// record expiration and metadata about the client environment.  Deleting
+/// a session row will effectively log the user out.  Sessions can be
+/// rotated or revoked at any time by the Sigil service.
+model Session {
+  id             String   @id @default(cuid())
+  userId         String
+  expiresAt      DateTime
+  token          String   @unique
+  ipAddress      String?
+  userAgent      String?
+  /// Optional: ID of the admin impersonating this session (Better Auth admin plugin)
+  impersonatedBy String?
+
+  /// Active organization context for the session (set via auth database hook)
+  activeOrganizationId String?
+  /// Active team within organization context for the session (set via auth database hook)
+  activeTeamId         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation to the owning user.  Cascading delete ensures sessions
+  // disappear if the user is removed.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+  @@schema("lssm_sigil")
+}
+
+/// External authentication accounts.  A user can have multiple accounts
+/// (e.g. email/password, Google, GitHub).  Passwords should be hashed
+/// before storage.  Access and refresh tokens from OAuth providers must be
+/// encrypted at rest and never returned to the client.  The provider and
+/// account identifiers are indexed for quick lookup.
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String // unique identifier from provider
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String? // only for password providers
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([accountId, providerId])
+  @@map("account")
+  @@schema("lssm_sigil")
+}
+
+model Verification {
+  id         String   @id @default(uuid(7))
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+  @@schema("lssm_sigil")
+}
+
+enum OrganizationType {
+  PLATFORM_ADMIN
+  CONTRACT_SPEC_CUSTOMER
+
+  @@schema("lssm_sigil")
+}
+
+/// An organisation is a tenant boundary grouping users.  Organisations
+/// represent companies, teams or groups.  The `slug` is a human‑friendly
+/// identifier used in URLs and must be unique.  A metadata field is
+/// provided for storing arbitrary JSON (e.g. billing plan, theme).
+model Organization {
+  id          String           @id @default(cuid())
+  name        String
+  slug        String?          @unique
+  logo        String?
+  description String?
+  metadata    Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  /// Organization type label to mirror Better Auth additional field
+  /// Allowed values: HouseResidents | HousesNetwork | HouseSearchGroup | PlatformAdmin | ServiceProvider
+  type        OrganizationType
+
+  // Onboarding and flow tracking
+  onboardingCompleted Boolean @default(false)
+  onboardingStep      String? // Current step if not completed
+
+  // Relations
+  members            Member[]
+  invitations        Invitation[]
+  /// Teams within the organization (Better Auth teams)
+  teams              Team[]
+  policyBindings     PolicyBinding[]
+  /// Enterprise SSO providers configured for this organization
+  ssoProviders       SsoProvider[]
+  lifecycleProfile   OrganizationLifecycleProfile?
+  // StudioWorkspaces removed: Studio is Organization → Projects; access refined by Teams/RBAC.
+  studioProjects     StudioProject[]
+  studioIntegrations StudioIntegration[]
+  integrationConnections IntegrationConnection[]
+  knowledgeSources   KnowledgeSource[]
+  /// Learning journey learners scoped to this organization.
+  learners           Learner[]
+
+  // Referral system
+  referralCode String? @unique // Unique referral code for this user
+  referredBy   String? // ID of user who referred this user
+
+  // Referral relationships
+  referrals        Referral[]       @relation("ReferrerOrganization")
+  referralReceived Referral?        @relation("ReferredOrganization")
+  referralRewards  ReferralReward[]
+
+  @@map("organization")
+  @@schema("lssm_sigil")
+}
+
+/// Membership of a user in an organisation.  Includes a role string
+/// indicating the user's responsibilities (e.g. "owner", "admin",
+/// "member").  Additional fields like team or department can be added as
+/// needed.  A user can have multiple membership records across different
+/// organisations.  On deletion of either the user or organisation, the
+/// membership is removed.
+model Member {
+  id             String   @id @default(cuid())
+  userId         String
+  organizationId String
+  role           String
+  createdAt      DateTime @default(now())
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+  @@map("member")
+  @@schema("lssm_sigil")
+}
+
+/// An invitation to join an organisation.  Invitations are sent via email
+/// (stored in `invitedEmail`) and can have an expiry date.  On acceptance
+/// the invitation should be marked accepted and a corresponding Member
+/// record created.  Declined or expired invitations can be cleaned up.
+model Invitation {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String       @default("pending") // pending|accepted|declined|expired
+  acceptedAt     DateTime?
+  expiresAt      DateTime?
+  inviterId      String
+  inviter        User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+  teamId         String?
+  team           Team?        @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("invitation")
+  @@schema("lssm_sigil")
+}
+
+/// Team within an organization (Better Auth organization plugin - teams enabled)
+model Team {
+  id             String       @id @default(cuid())
+  name           String
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  members     TeamMember[]
+  invitations Invitation[]
+  studioProjectTeams StudioProjectTeam[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("team")
+  @@schema("lssm_sigil")
+}
+
+/// Team membership for a user
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@map("team_member")
+  @@schema("lssm_sigil")
+}
+
+/// A role defines a named set of permissions.  Use roles to group
+/// permissions into logical units (e.g. "admin", "editor").  Roles can
+/// be assigned at organisation or user scope via PolicyBindings.  The
+/// `permissions` field contains a JSON array of permission identifiers.
+model Role {
+  id            String          @id @default(cuid())
+  name          String          @unique
+  description   String?
+  permissions   String[] // array of permission names
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  PolicyBinding PolicyBinding[]
+
+  @@map("role")
+  @@schema("lssm_sigil")
+}
+
+/// A permission represents an atomic access right (e.g. "createUser",
+/// "readInvoice").  Permissions are assigned to roles and evaluated at
+/// runtime.  Keep permission names consistent across services.
+model Permission {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("permission")
+  @@schema("lssm_sigil")
+}
+
+/// Binds roles to principals (users or organisations).  A PolicyBinding
+/// grants a role at a particular scope.  Use the `targetType` and
+/// `targetId` fields to distinguish between user‑level and organisation‑level
+/// bindings.  Multiple roles can be bound to the same target.
+model PolicyBinding {
+  id         String    @id @default(cuid())
+  roleId     String
+  targetType String // "user" or "organization"
+  targetId   String // ID of User or Organization
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime?
+
+  role           Role          @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  User           User?         @relation(fields: [userId], references: [id])
+  userId         String?
+  Organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+
+  @@index([targetType, targetId])
+  @@map("policy_binding")
+  @@schema("lssm_sigil")
+}
+
+model ApiKey {
+  /// The ID of the API key.
+  id                  String   @id @default(cuid())
+  /// The name of the API key.
+  name                String
+  /// The starting characters of the API key. Useful for showing the first few characters of the API key in the UI for the users to easily identify.
+  start               String
+  /// The API Key prefix. Stored as plain text.
+  prefix              String
+  /// The hashed API key itself.
+  key                 String
+  /// The ID of the user associated with the API key.
+  userId              String
+  /// The interval to refill the key in milliseconds.
+  refillInterval      Int
+  /// The amount to refill the remaining count of the key.
+  refillAmount        Int
+  /// The date and time when the key was last refilled.
+  lastRefillAt        DateTime
+  /// Whether the API key is enabled.
+  enabled             Boolean
+  /// Whether the API key has rate limiting enabled.
+  rateLimitEnabled    Boolean
+  /// The time window in milliseconds for the rate limit.
+  rateLimitTimeWindow Int
+  /// The maximum number of requests allowed within the `rateLimitTimeWindow`.
+  rateLimitMax        Int
+  /// The number of requests made within the `rateLimitTimeWindow`.
+  requestCount        Int
+  /// The number of requests remaining.
+  remaining           Int
+  /// The date and time of the last request made to the key.
+  lastRequest         DateTime
+  /// The date and time when the key will expire.
+  expiresAt           DateTime
+  /// The date and time the API key was created.
+  createdAt           DateTime @default(now())
+  /// The date and time the API key was updated.
+  updatedAt           DateTime @updatedAt
+  /// The permissions of the key.
+  permissions         String[]
+  /// Any additional metadata you want to store with the key.
+  metadata            Json?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_key")
+  @@schema("lssm_sigil")
+}
+
+model Passkey {
+  /// The ID of the passkey.
+  id           String   @id @default(cuid())
+  /// The name of the passkey.
+  name         String
+  /// The public key of the passkey.
+  publicKey    String
+  /// The ID of the user associated with the passkey.
+  userId       String
+  /// The unique identifier of the registered credential.
+  credentialID String
+  /// The counter of the passkey.
+  counter      Int
+  /// The type of device used to register the passkey.
+  deviceType   String
+  /// Whether the passkey is backed up.
+  backedUp     Boolean
+  /// The transports used to register the passkey.
+  transports   String
+  /// The date and time when the passkey was created.
+  createdAt    DateTime @default(now())
+  /// The authenticator's Attestation GUID indicating the type of the authenticator.
+  aaguid       String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("passkey")
+  @@schema("lssm_sigil")
+}
+
+/// Single Sign-On provider configuration (OIDC / SAML) either for an organization
+/// or linked to a specific user. Aligns with STRIT SsoProvider model.
+model SsoProvider {
+  /// The ID of the SSO provider.
+  id             String  @id @default(cuid())
+  /// The issuer identifier.
+  issuer         String
+  /// The domain of the provider.
+  domain         String
+  /// The OIDC configuration (JSON string or URL as string).
+  oidcConfig     String
+  /// The SAML configuration (XML metadata or JSON as string).
+  samlConfig     String
+  /// The ID of the user (optional; when provider is bound at user scope).
+  userId         String?
+  /// An external provider identifier if needed.
+  providerId     String
+  /// The ID of the organization (optional; when provider is org-scoped).
+  organizationId String?
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sso_provider")
+  @@schema("lssm_sigil")
+}
+
+/// OAuth 2.0 client registry for first/third-party applications
+model OAuthApplication {
+  /// The ID of the OAuth application.
+  id           String   @id @default(cuid())
+  /// Unique identifier for each OAuth client
+  clientId     String   @unique
+  /// Secret key for the OAuth client. Optional for public clients using PKCE.
+  clientSecret String?
+  /// Name of the OAuth client
+  name         String
+  /// Comma-separated list of redirect URLs
+  redirectURLs String[]
+  /// Additional metadata for the OAuth client
+  metadata     Json?
+  /// Type of OAuth client (e.g., web, mobile)
+  type         String
+  /// Indicates if the client is disabled
+  disabled     Boolean
+  /// Owner user (optional)
+  userId       String?
+  /// Timestamp of when the OAuth client was created
+  createdAt    DateTime @default(now())
+  /// Timestamp of when the OAuth client was last updated
+  updatedAt    DateTime @updatedAt
+
+  @@map("oauth_application")
+  @@schema("lssm_sigil")
+}
+
+/// OAuth 2.0 access tokens issued for clients/users
+model OAuthAccessToken {
+  /// The ID of the access token.
+  id                    String   @id @default(cuid())
+  /// The access token.
+  accessToken           String
+  /// The refresh token.
+  refreshToken          String
+  /// The expiration date of the access token.
+  accessTokenExpiresAt  DateTime
+  /// The expiration date of the refresh token.
+  refreshTokenExpiresAt DateTime
+  /// The ID of the OAuth application.
+  clientId              String
+  /// The ID of the user.
+  userId                String
+  /// The scopes of the access token.
+  scopes                String[]
+  /// The date and time when the access token was created.
+  createdAt             DateTime @default(now())
+  /// The date and time when the access token was last updated.
+  updatedAt             DateTime @updatedAt
+
+  @@map("oauth_access_token")
+  @@schema("lssm_sigil")
+}
+
+/// OAuth 2.0 consent grants per user/client
+model OAuthConsent {
+  /// The ID of the consent.
+  id           String   @id @default(cuid())
+  /// The ID of the user.
+  userId       String
+  /// The ID of the OAuth application.
+  clientId     String
+  /// The scopes of the consent.
+  scopes       String[]
+  /// The date and time when the consent was given.
+  consentGiven DateTime
+  /// The date and time when the consent was last updated.
+  updatedAt    DateTime @updatedAt
+
+  @@map("oauth_consent")
+  @@schema("lssm_sigil")
+}

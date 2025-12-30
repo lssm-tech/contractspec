@@ -1,0 +1,32 @@
+{
+  "name": "@contractspec/lib.contracts-library",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./templates": "./dist/templates/index.js",
+    "./templates/recipes": "./dist/templates/recipes.js",
+    "./templates/todos": "./dist/templates/todos.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*"
+  },
+  "devDependencies": {
+     "@contractspec/tool.tsdown": "workspace:*",
+     "@contractspec/tool.typescript": "workspace:*",
+     "tsdown": "catalog:build",
+     "typescript": "catalog:"
+  }
+}

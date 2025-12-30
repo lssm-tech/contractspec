@@ -1,0 +1,104 @@
+{
+  "intent": {
+    "admin": {
+      "email": "Email :",
+      "iam": "Je suis :",
+      "message": "Message",
+      "none": "(aucun message)",
+      "preview": "Nouvelle intention – {{intent}} – {{email}}",
+      "received": "Reçue le {{date}}",
+      "title": "Intention utilisateur"
+    },
+    "user": {
+      "email": "Email :",
+      "iam": "Je suis :",
+      "message": "Message",
+      "preview": "Confirmation de votre message – HCircle",
+      "received": "Nous avons bien reçu votre demande le {{date}}.",
+      "title": "Merci pour votre message"
+    }
+  },
+  "operatorLead": {
+    "admin": {
+      "beds": "Lits :",
+      "city": "Ville :",
+      "email": "Email :",
+      "message": "Message",
+      "na": "(n/a)",
+      "name": "Nom :",
+      "none": "(aucun message)",
+      "operator": "Opérateur :",
+      "phone": "Téléphone :",
+      "preview": "Nouvelle demande opérateur – {{operatorName}} – {{email}}",
+      "received": "Reçue le {{date}}",
+      "title": "Demande pilote opérateur"
+    },
+    "user": {
+      "body1": "Nous avons bien reçu votre demande pour le pilote opérateur HCircle{{operatorSuffix}}.",
+      "body2": "Nous revenons vers vous rapidement. Vous pouvez aussi réserver un appel de 20 minutes pour aligner le périmètre et les besoins de données :",
+      "book": "Réserver un appel",
+      "footer": "Vous recevez cet email car vous avez soumis une demande sur HCircle.",
+      "preview": "Merci : votre demande de pilote opérateur est enregistrée.",
+      "title": "Merci, {{name}} !"
+    }
+  },
+  "ownerListing": {
+    "admin": {
+      "city": "Ville :",
+      "description": "Description",
+      "email": "Email :",
+      "eur": "€",
+      "firstName": "Prénom :",
+      "housingType": "Type de logement :",
+      "lastName": "Nom :",
+      "preview": "Nouvelle annonce propriétaire – {{firstName}} {{lastName}}",
+      "received": "Reçue le {{date}}",
+      "rent": "Loyer mensuel :",
+      "title": "Nouvelle annonce propriétaire"
+    },
+    "user": {
+      "city": "Ville :",
+      "email": "Email :",
+      "eur": "€",
+      "firstName": "Prénom :",
+      "housingType": "Type de logement :",
+      "lastName": "Nom :",
+      "preview": "Confirmation de votre annonce – HCircle",
+      "received": "Nous avons bien reçu votre soumission le {{date}}.",
+      "rent": "Loyer mensuel :",
+      "title": "Merci pour votre annonce",
+      "weWillReply": "Nous revenons vers vous rapidement."
+    }
+  },
+  "roommatePreRegister": {
+    "admin": {
+      "city": "Ville :",
+      "email": "Email :",
+      "preview": "Nouvelle pré‑inscription colocataire – {{email}}",
+      "queued": "Un nouveau prospect a été ajouté à la liste d'attente.",
+      "received": "Reçue le {{date}}",
+      "title": "Pré‑inscription colocataire",
+      "type": "Type de colocation :",
+      "unknown": "Non renseigné"
+    },
+    "user": {
+      "city": "Ville :",
+      "email": "Email :",
+      "preview": "Confirmation de votre pré‑inscription – HCircle",
+      "received": "Nous avons bien reçu votre demande le {{date}}.",
+      "title": "Merci pour votre pré‑inscription",
+      "type": "Type de colocation :",
+      "unknown": "Non renseigné",
+      "weWillReply": "Nous revenons vers vous très vite."
+    }
+  },
+  "waitlist": {
+    "user": {
+      "body1": "Nous vous avons ajouté à la liste {{city}}. Nous vous écrirons quand HCircle sera disponible.",
+      "body1FallbackCity": "waitlist.user.body1FallbackCity",
+      "body2": "Vous pouvez répondre à cet email pour mettre à jour votre ville.",
+      "preview": "Vous êtes sur la liste : nous vous préviendrons quand HCircle ouvre dans votre ville.",
+      "title": "Merci d'avoir rejoint la liste d'attente"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "@contractspec/lib.graphql-federation",
+  "version": "1.46.1",
+  "description": "Pothos federation helpers and subgraph schema export utilities",
+  "keywords": [
+    "contractspec",
+    "graphql",
+    "federation",
+    "apollo",
+    "subgraph",
+    "typescript"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "tsdown",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@pothos/core": "^4.9.1",
+    "@pothos/plugin-federation": "^4.0.0",
+    "@pothos/plugin-directives": "^4.2.3",
+    "graphql": "^16.8.1",
+    "@apollo/subgraph": "^2.12.2"
+  },
+  "peerDependencies": {
+    "graphql": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/graphql-federation"
+  },
+  "homepage": "https://contractspec.io"
+}

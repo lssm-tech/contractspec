@@ -1,0 +1,59 @@
+{
+  "name": "@contractspec/example.learning-journey-duo-drills",
+  "version": "1.46.1",
+  "description": "Drill-based learning journey example with SRS, XP, and streak hooks.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./docs": "./dist/docs/index.js",
+    "./docs/duo-drills.docblock": "./dist/docs/duo-drills.docblock.js",
+    "./example": "./dist/example.js",
+    "./track": "./dist/track.js",
+    "./*": "./*"
+  },
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/module.learning-journey": "workspace:*",
+    "@contractspec/lib.contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.7.0"
+  },
+  "module": "./dist/index.js",
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./example": "./dist/example.js",
+      "./track": "./dist/track.js",
+      "./docs": "./dist/docs/index.js",
+      "./docs/duo-drills.docblock": "./dist/docs/duo-drills.docblock.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/examples/learning-journey-duo-drills"
+  },
+  "homepage": "https://contractspec.io"
+}

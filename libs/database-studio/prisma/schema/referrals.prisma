@@ -1,0 +1,74 @@
+enum ReferralStatus {
+  PENDING // Referral link shared but not used yet
+  REGISTERED // Referee has signed up but not completed trial
+  COMPLETED // Referee completed trial period
+  REWARDED // Both parties have received their rewards
+
+  @@schema("public")
+}
+
+enum ReferralRewardType {
+  FREE_MONTH // 1 month free subscription
+  DISCOUNT_PERCENTAGE // Percentage discount
+  DISCOUNT_AMOUNT // Fixed amount discount
+  EXTENDED_TRIAL // Extra trial period
+
+  @@schema("public")
+}
+
+model Referral {
+  id                     String         @id @default(uuid(7))
+  referrerOrganizationId String // User who made the referral
+  referredOrganizationId String?        @unique // User who was referred (null until signup)
+  referralCode           String // The referral code used
+  status                 ReferralStatus @default(PENDING)
+
+  // Attribution tracking
+  utmSource   String? // Where the referral came from
+  utmMedium   String? // Medium (email, social, etc.)
+  utmCampaign String? // Campaign identifier
+
+  // Timestamps
+  createdAt    DateTime  @default(now())
+  registeredAt DateTime? // When referee registered
+  completedAt  DateTime? // When referee completed trial
+  rewardedAt   DateTime? // When rewards were given
+
+  // Relations
+  referrerOrganization Organization     @relation("ReferrerOrganization", fields: [referrerOrganizationId], references: [id], onDelete: Cascade)
+  referredOrganization Organization?    @relation("ReferredOrganization", fields: [referredOrganizationId], references: [id], onDelete: Cascade)
+  rewards              ReferralReward[]
+
+  @@map("referral")
+  @@schema("public")
+}
+
+model ReferralReward {
+  id             String             @id @default(uuid(7))
+  organizationId String // User receiving the reward
+  referralId     String // Associated referral
+  rewardType     ReferralRewardType
+
+  // Reward details
+  description String // Human-readable description
+  value       Float? // Monetary value or percentage
+  months      Int? // Number of free months
+
+  // Status
+  isApplied Boolean   @default(false)
+  appliedAt DateTime?
+  expiresAt DateTime? // When reward expires
+
+  // Stripe integration
+  stripeCouponId String? // Associated Stripe coupon ID
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  referral     Referral     @relation(fields: [referralId], references: [id], onDelete: Cascade)
+
+  @@map("referral_reward")
+  @@schema("public")
+}

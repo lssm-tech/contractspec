@@ -1,0 +1,104 @@
+{
+  "intent": {
+    "admin": {
+      "email": "Email:",
+      "iam": "I am:",
+      "message": "Message",
+      "none": "(no message)",
+      "preview": "New intent – {{intent}} – {{email}}",
+      "received": "Received on {{date}}",
+      "title": "User intent"
+    },
+    "user": {
+      "email": "Email:",
+      "iam": "I am:",
+      "message": "Message",
+      "preview": "Confirmation of your message – HCircle",
+      "received": "We received your request on {{date}}",
+      "title": "Thanks for your message"
+    }
+  },
+  "operatorLead": {
+    "admin": {
+      "beds": "Beds:",
+      "city": "City:",
+      "email": "Email:",
+      "message": "Message",
+      "na": "(n/a)",
+      "name": "Name:",
+      "none": "(no message)",
+      "operator": "Operator:",
+      "phone": "Phone:",
+      "preview": "New operator request – {{operatorName}} – {{email}}",
+      "received": "Received on {{date}}",
+      "title": "Operator pilot request"
+    },
+    "user": {
+      "body1": "We received your request for the HCircle Operator Pilot{{operatorSuffix}}.",
+      "body2": "We’ll get back to you shortly. You can also book a quick 20‑minute call to align on scope and data needs:",
+      "book": "Book a call",
+      "footer": "You’re receiving this because you submitted a request on HCircle.",
+      "preview": "Thanks: your operator pilot request is in.",
+      "title": "Thanks, {{name}}!"
+    }
+  },
+  "ownerListing": {
+    "admin": {
+      "city": "City:",
+      "description": "Description",
+      "email": "Email:",
+      "eur": "€",
+      "firstName": "First name:",
+      "housingType": "Housing type:",
+      "lastName": "Last name:",
+      "preview": "New owner listing – {{firstName}} {{lastName}}",
+      "received": "Received on {{date}}",
+      "rent": "Monthly rent:",
+      "title": "New owner listing"
+    },
+    "user": {
+      "city": "City:",
+      "email": "Email:",
+      "eur": "€",
+      "firstName": "First name:",
+      "housingType": "Housing type:",
+      "lastName": "Last name:",
+      "preview": "Your listing has been received – HCircle",
+      "received": "We received your submission on {{date}}",
+      "rent": "Monthly rent:",
+      "title": "Thanks for your listing",
+      "weWillReply": "We’ll get back to you shortly."
+    }
+  },
+  "roommatePreRegister": {
+    "admin": {
+      "city": "City:",
+      "email": "Email:",
+      "preview": "New roommate pre‑registration – {{email}}",
+      "queued": "A new prospect has been added to the waitlist.",
+      "received": "Received on {{date}}",
+      "title": "Roommate pre‑registration",
+      "type": "Type:",
+      "unknown": "Unknown"
+    },
+    "user": {
+      "city": "City:",
+      "email": "Email:",
+      "preview": "Your pre‑registration is confirmed – HCircle",
+      "received": "We received your request on {{date}}",
+      "title": "Thanks for your pre‑registration",
+      "type": "Type:",
+      "unknown": "Unknown",
+      "weWillReply": "We’ll get back to you very soon."
+    }
+  },
+  "waitlist": {
+    "user": {
+      "body1": "We’ve added you to the {{city}} list. We’ll email you when HCircle is available.",
+      "body1FallbackCity": "",
+      "body2": "You can reply to this email to update your city.",
+      "preview": "You’re on the list: we’ll let you know when HCircle opens in your city.",
+      "title": "Thanks for joining the waitlist"
+    }
+  }
+}

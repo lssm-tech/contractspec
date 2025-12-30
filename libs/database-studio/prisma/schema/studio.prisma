@@ -1,0 +1,196 @@
+/// Studio project management models for ContractSpec Studio.
+/// Stored in the `lssm_sigil` schema alongside core tenant data.
+
+model StudioProject {
+  id             String         @id @default(cuid())
+  organizationId String
+  name           String
+  slug           String
+  description    String?
+  tier           ProjectTier    @default(STARTER)
+  deploymentMode DeploymentMode @default(SHARED)
+
+  // Bring Your Own Key / infra
+  byokEnabled Boolean @default(false)
+  byokConfig  Json?
+
+  // Auto-evolution
+  evolutionEnabled Boolean @default(true)
+  evolutionConfig  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  organization             Organization              @relation(fields: [organizationId], references: [id])
+  // Access control for projects is refined via Teams (see StudioProjectTeam).
+  specs                    StudioSpec[]
+  overlays                 StudioOverlay[]
+  deployments              StudioDeployment[]
+  integrations             StudioIntegration[]
+  knowledgeSources         KnowledgeSource[]
+  evolutionSessions        EvolutionSession[]
+  taskCategories           TaskCategory[]
+  tasks                    Task[]
+  conversations            Conversation[]
+  conversationParticipants ConversationParticipant[]
+  messages                 Message[]
+  recipes                  Recipe[]
+  slugAliases              StudioProjectSlugAlias[]
+  learningEvents           StudioLearningEvent[]
+  teams                    StudioProjectTeam[]
+
+  @@index([organizationId])
+  @@index([organizationId, deletedAt])
+  @@unique([organizationId, slug])
+  @@map("studio_project")
+  @@schema("lssm_sigil")
+}
+
+model StudioProjectTeam {
+  id        String   @id @default(cuid())
+  projectId String
+  teamId    String
+  createdAt DateTime @default(now())
+
+  project StudioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  team    Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, teamId])
+  @@index([projectId])
+  @@index([teamId])
+  @@map("studio_project_team")
+  @@schema("lssm_sigil")
+}
+
+model StudioProjectSlugAlias {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String
+  slug           String
+  createdAt      DateTime @default(now())
+
+  project StudioProject @relation(fields: [projectId], references: [id])
+
+  @@unique([organizationId, slug])
+  @@index([projectId])
+  @@index([organizationId])
+  @@map("studio_project_slug_alias")
+  @@schema("lssm_sigil")
+}
+
+model StudioLearningEvent {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String?
+  name           String
+  payload        Json?
+  createdAt      DateTime @default(now())
+
+  project StudioProject? @relation(fields: [projectId], references: [id])
+
+  @@index([organizationId])
+  @@index([projectId])
+  @@index([organizationId, createdAt])
+  @@map("studio_learning_event")
+  @@schema("lssm_sigil")
+}
+
+model StudioSpec {
+  id        String   @id @default(cuid())
+  projectId String
+  type      SpecType
+  name      String
+  version   String
+  content   Json
+  metadata  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project  StudioProject   @relation(fields: [projectId], references: [id])
+  overlays StudioOverlay[]
+
+  @@index([projectId, type])
+  @@map("studio_spec")
+  @@schema("lssm_sigil")
+}
+
+model StudioOverlay {
+  id        String   @id @default(cuid())
+  projectId String
+  specId    String
+  name      String
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project StudioProject @relation(fields: [projectId], references: [id])
+  spec    StudioSpec    @relation(fields: [specId], references: [id])
+
+  @@index([projectId])
+  @@index([specId])
+  @@map("studio_overlay")
+  @@schema("lssm_sigil")
+}
+
+model StudioDeployment {
+  id               String           @id @default(cuid())
+  projectId        String
+  environment      Environment      @default(DEVELOPMENT)
+  status           DeploymentStatus
+  version          String
+  url              String?
+  infrastructureId String?
+  createdAt        DateTime         @default(now())
+  deployedAt       DateTime?
+
+  project StudioProject @relation(fields: [projectId], references: [id])
+
+  @@index([projectId, environment])
+  @@map("studio_deployment")
+  @@schema("lssm_sigil")
+}
+
+enum ProjectTier {
+  STARTER
+  PROFESSIONAL
+  ENTERPRISE
+
+  @@schema("lssm_sigil")
+}
+
+enum DeploymentMode {
+  SHARED
+  DEDICATED
+
+  @@schema("lssm_sigil")
+}
+
+enum SpecType {
+  CAPABILITY
+  DATAVIEW
+  WORKFLOW
+  POLICY
+  COMPONENT
+
+  @@schema("lssm_sigil")
+}
+
+enum Environment {
+  DEVELOPMENT
+  STAGING
+  PRODUCTION
+
+  @@schema("lssm_sigil")
+}
+
+enum DeploymentStatus {
+  PENDING
+  DEPLOYING
+  DEPLOYED
+  FAILED
+  ROLLED_BACK
+
+  @@schema("lssm_sigil")
+}
