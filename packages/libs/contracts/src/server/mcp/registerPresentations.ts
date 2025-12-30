@@ -71,8 +71,8 @@ export function registerMcpPresentations(
       target: 'markdown' | 'application/json' | 'application/xml';
     }[] = [
       { ext: '.md', target: 'markdown' },
-      { ext: '.json', target: 'application/json' },
-      { ext: '.xml', target: 'application/xml' },
+      // { ext: '.json', target: 'application/json' },
+      // { ext: '.xml', target: 'application/xml' },
     ];
 
     for (const v of variants) {

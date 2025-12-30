@@ -3,12 +3,12 @@ import { registerDocBlocks } from './registry';
 
 export const techContractsDocs: DocBlock[] = [
   {
-    id: 'docs.tech.contracts.presentations-v2',
-    title: 'Presentations V2 — Unified Descriptor & Transform Engine',
+    id: 'docs.tech.contracts.presentations',
+    title: 'Presentations — Unified Descriptor & Transform Engine',
     summary:
       'How PresentationSpec and TransformEngine keep docs/renderers consistent.',
     visibility: 'public',
-    route: '/docs/tech/contracts/presentations-v2',
+    route: '/docs/tech/contracts/presentations',
     kind: 'reference',
     tags: ['presentations', 'docs', 'mcp'],
     body: `## Presentations V2 — Unified Descriptor & Transform Engine
