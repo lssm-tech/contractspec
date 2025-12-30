@@ -1,5 +1,11 @@
 # @contractspec/action.validation
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+
 ## 1.46.0
 
 ### Minor Changes

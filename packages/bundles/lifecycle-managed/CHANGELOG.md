@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/module.lifecycle-advisor@1.46.1
+  - @contractspec/module.lifecycle-core@1.46.1
+  - @contractspec/lib.observability@1.46.1
+  - @contractspec/lib.analytics@1.46.1
+  - @contractspec/lib.lifecycle@1.46.1
+  - @contractspec/lib.ai-agent@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes

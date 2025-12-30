@@ -1,5 +1,18 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/example.locale-jurisdiction-gate@1.46.1
+  - @contractspec/example.versioned-knowledge-base@1.46.1
+  - @contractspec/example.kb-update-pipeline@1.46.1
+  - @contractspec/example.learning-patterns@1.46.1
+  - @contractspec/module.learning-journey@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes

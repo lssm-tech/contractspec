@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 2.0.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/lib.presentation-runtime-core@1.46.1
+  - @contractspec/lib.design-system@1.46.1
+  - @contractspec/lib.ui-kit-web@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+
 ## 2.0.0
 
 ### Minor Changes

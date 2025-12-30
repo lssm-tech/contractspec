@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 2.0.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/lib.presentation-runtime-core@1.46.1
+  - @contractspec/lib.ui-kit@1.46.1
+
 ## 2.0.0
 
 ### Minor Changes

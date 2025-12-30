@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/example.learning-journey-crm-onboarding@1.46.1
+  - @contractspec/example.learning-journey-ambient-coach@1.46.1
+  - @contractspec/example.learning-journey-ui-shared@1.46.1
+  - @contractspec/module.learning-journey@1.46.1
+  - @contractspec/lib.design-system@1.46.1
+  - @contractspec/lib.ui-kit-web@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes

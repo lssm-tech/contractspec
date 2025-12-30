@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.learning-journey-ambient-coach",
-  "version": "1.46.0",
+  "version": "1.46.1",
   "description": "Ambient coach learning journey example with contextual tips and follow-up actions.",
   "type": "module",
   "main": "./dist/index.js",

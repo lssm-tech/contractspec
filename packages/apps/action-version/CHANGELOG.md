@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.2.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+
 ## 0.2.0
 
 ### Minor Changes

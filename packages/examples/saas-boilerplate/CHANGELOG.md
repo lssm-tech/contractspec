@@ -1,5 +1,18 @@
 # @contractspec/example.saas-boilerplate
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/module.notifications@1.46.1
+  - @contractspec/module.audit-trail@1.46.1
+  - @contractspec/lib.identity-rbac@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.schema@1.46.1
+  - @contractspec/lib.jobs@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes

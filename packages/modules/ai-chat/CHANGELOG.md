@@ -1,5 +1,20 @@
 # @contractspec/module.ai-chat
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/lib.cost-tracking@1.46.1
+  - @contractspec/lib.design-system@1.46.1
+  - @contractspec/lib.ai-providers@1.46.1
+  - @contractspec/lib.ui-kit-web@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.ai-agent@1.46.1
+  - @contractspec/lib.metering@1.46.1
+  - @contractspec/lib.schema@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes

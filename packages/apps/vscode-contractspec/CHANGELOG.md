@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.46.1
+
+### Patch Changes
+
+- 2d8a72b: fix: mcp for presentation
+- Updated dependencies [2d8a72b]
+  - @contractspec/lib.contracts-transformers@1.46.1
+  - @contractspec/bundle.workspace@1.46.1
+  - @contractspec/module.workspace@1.46.1
+  - @contractspec/module.examples@1.46.1
+  - @contractspec/lib.contracts@1.46.1
+  - @contractspec/lib.ai-agent@1.46.1
+
 ## 1.46.0
 
 ### Minor Changes
