@@ -1,1 +1,0 @@
-import './wealth-snapshot.docblock';

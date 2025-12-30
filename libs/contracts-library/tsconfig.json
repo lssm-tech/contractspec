@@ -1,4 +1,0 @@
-{
-  "extends": "@contractspec/tool.typescript/base.json",
-  "include": ["src/**/*"]
-}

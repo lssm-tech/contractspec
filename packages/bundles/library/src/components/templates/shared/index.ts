@@ -3,7 +3,6 @@ export * from './LocalDataIndicator';
 export * from './SaveToStudioButton';
 export * from './overlay-types';
 export * from './MarkdownView';
-export * from './BuilderPanel';
 export * from './SpecEditorPanel';
 export * from './EvolutionDashboard';
 export * from './EvolutionSidebar';

@@ -1,1 +1,0 @@
-import './integration-stripe.docblock';

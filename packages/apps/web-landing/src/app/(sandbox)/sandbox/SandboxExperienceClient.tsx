@@ -42,10 +42,10 @@ const MarkdownView = dynamic(
   { ssr: false }
 );
 
-const BuilderPanel = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.BuilderPanel),
-  { ssr: false }
-);
+// const BuilderPanel = dynamic(
+//   () => import('@contractspec/bundle.library').then((m) => m.BuilderPanel),
+//   { ssr: false }
+// );
 
 const SpecEditorPanel = dynamic(
   () => import('@contractspec/bundle.library').then((m) => m.SpecEditorPanel),
@@ -225,14 +225,14 @@ export default function SandboxExperienceClient() {
             SpecEditor={SpecEditorAdapter}
           />
         );
-      case 'builder':
-        return (
-          <BuilderPanel
-            templateId={templateId}
-            onLog={() => void 0}
-            StudioCanvas={StudioCanvasAdapter}
-          />
-        );
+      // case 'builder':
+      //   return (
+      //     <BuilderPanel
+      //       templateId={templateId}
+      //       onLog={() => void 0}
+      //       StudioCanvas={StudioCanvasAdapter}
+      //     />
+      //   );
       case 'markdown':
         return <MarkdownView templateId={templateId} />;
       case 'evolution':

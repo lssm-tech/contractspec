@@ -1,8 +1,0 @@
-{
-  "extends": "@contractspec/tool.typescript/base.json",
-  "include": ["src", "generated"],
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "outDir": "dist"
-  }
-}

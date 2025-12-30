@@ -1,8 +1,0 @@
-[test]
-root = "."
-environment = "node"
-preload = ["./src/__tests__/env-setup.ts", "./src/__tests__/preload.ts"]
-globals = true
-
-[test.env]
-CONTRACTSPEC_STUDIO_POSTGRES_PRISMA_URL = "postgresql://postgres:postgres@localhost:5432/studio"
