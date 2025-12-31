@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/lib.contracts-transformers@1.46.2
+  - @contractspec/bundle.workspace@1.46.2
+  - @contractspec/module.workspace@1.46.2
+  - @contractspec/module.examples@1.46.2
+  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.ai-agent@1.46.2
+
 ## 1.46.1
 
 ### Patch Changes

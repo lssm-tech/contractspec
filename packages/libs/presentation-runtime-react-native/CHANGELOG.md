@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/lib.presentation-runtime-core@1.46.2
+  - @contractspec/lib.ui-kit@1.46.2
+
 ## 2.0.1
 
 ### Patch Changes

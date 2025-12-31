@@ -10,7 +10,10 @@ export * from './dashboard';
 // Export feature and example metadata
 export * from './saas-boilerplate.feature';
 export * from './ui';
-export { createSaasHandlers, type SaasHandlers } from './handlers/saas.handlers';
+export {
+  createSaasHandlers,
+  type SaasHandlers,
+} from './handlers/saas.handlers';
 export { default as example } from './example';
 
 // Import docs for registration

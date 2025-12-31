@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/lib.workflow-composer@1.46.2
+  - @contractspec/lib.personalization@1.46.2
+  - @contractspec/lib.overlay-engine@1.46.2
+  - @contractspec/lib.contracts@1.46.2
+  - @contractspec/lib.logger@1.46.2
+
 ## 1.46.1
 
 ### Patch Changes

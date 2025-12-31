@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.2.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+
 ## 0.2.1
 
 ### Patch Changes

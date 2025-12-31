@@ -8,7 +8,10 @@
 export * from './integration';
 export * from './connection';
 export * from './sync';
-export { createIntegrationHandlers, type IntegrationHandlers } from './handlers/integration.handlers';
+export {
+  createIntegrationHandlers,
+  type IntegrationHandlers,
+} from './handlers/integration.handlers';
 export * from './ui';
 
 // Sync engine exports

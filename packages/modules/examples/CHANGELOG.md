@@ -1,5 +1,48 @@
 # @contractspec/module.examples
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/example.learning-journey-studio-onboarding@1.46.2
+  - @contractspec/example.learning-journey-quest-challenges@1.46.2
+  - @contractspec/example.learning-journey-crm-onboarding@1.46.2
+  - @contractspec/example.policy-safe-knowledge-assistant@1.46.2
+  - @contractspec/example.learning-journey-ambient-coach@1.46.2
+  - @contractspec/example.learning-journey-platform-tour@1.46.2
+  - @contractspec/example.learning-journey-ui-onboarding@1.46.2
+  - @contractspec/example.learning-journey-ui-coaching@1.46.2
+  - @contractspec/example.learning-journey-ui-gamified@1.46.2
+  - @contractspec/example.learning-journey-duo-drills@1.46.2
+  - @contractspec/example.learning-journey-ui-shared@1.46.2
+  - @contractspec/example.learning-journey-registry@1.46.2
+  - @contractspec/example.locale-jurisdiction-gate@1.46.2
+  - @contractspec/example.versioned-knowledge-base@1.46.2
+  - @contractspec/example.analytics-dashboard@1.46.2
+  - @contractspec/example.lifecycle-dashboard@1.46.2
+  - @contractspec/example.service-business-os@1.46.2
+  - @contractspec/example.content-generation@1.46.2
+  - @contractspec/example.integration-stripe@1.46.2
+  - @contractspec/example.kb-update-pipeline@1.46.2
+  - @contractspec/example.openbanking-powens@1.46.2
+  - @contractspec/example.learning-patterns@1.46.2
+  - @contractspec/example.saas-boilerplate@1.46.2
+  - @contractspec/example.integration-hub@1.46.2
+  - @contractspec/example.knowledge-canon@1.46.2
+  - @contractspec/example.personalization@1.46.2
+  - @contractspec/example.wealth-snapshot@1.46.2
+  - @contractspec/example.workflow-system@1.46.2
+  - @contractspec/example.ai-support-bot@1.46.2
+  - @contractspec/example.agent-console@1.46.2
+  - @contractspec/example.lifecycle-cli@1.46.2
+  - @contractspec/example.crm-pipeline@1.46.2
+  - @contractspec/example.marketplace@1.46.2
+  - @contractspec/lib.runtime-sandbox@0.1.1
+  - @contractspec/example.team-hub@1.46.2
+  - @contractspec/lib.contracts@1.46.2
+
 ## 1.46.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.audit-trail",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Audit trail module for tracking and querying system events",
   "keywords": [
     "contractspec",

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.contracts-library",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -24,9 +24,9 @@
     "@contractspec/lib.schema": "workspace:*"
   },
   "devDependencies": {
-     "@contractspec/tool.tsdown": "workspace:*",
-     "@contractspec/tool.typescript": "workspace:*",
-     "tsdown": "catalog:build",
-     "typescript": "catalog:"
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
   }
 }

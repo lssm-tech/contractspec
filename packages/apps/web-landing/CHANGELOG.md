@@ -1,5 +1,30 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.46.2
+  - @contractspec/example.analytics-dashboard@1.46.2
+  - @contractspec/example.saas-boilerplate@1.46.2
+  - @contractspec/lib.progressive-delivery@1.46.2
+  - @contractspec/example.integration-hub@1.46.2
+  - @contractspec/example.workflow-system@1.46.2
+  - @contractspec/example.agent-console@1.46.2
+  - @contractspec/lib.example-shared-ui@1.0.1
+  - @contractspec/example.crm-pipeline@1.46.2
+  - @contractspec/example.marketplace@1.46.2
+  - @contractspec/lib.design-system@1.46.2
+  - @contractspec/bundle.marketing@1.0.1
+  - @contractspec/lib.ui-kit-core@1.46.2
+  - @contractspec/module.examples@1.46.2
+  - @contractspec/bundle.library@1.0.1
+  - @contractspec/lib.ui-kit-web@1.46.2
+  - @contractspec/lib.ui-link@1.46.2
+  - @contractspec/lib.ui-kit@1.46.2
+
 ## 0.2.4
 
 ### Patch Changes
