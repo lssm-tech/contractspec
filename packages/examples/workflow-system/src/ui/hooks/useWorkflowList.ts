@@ -18,8 +18,8 @@ export interface WorkflowStats {
 }
 
 export function useWorkflowList(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime();
-  const workflow = handlers.workflow as WorkflowHandlers;
+  const { handlers } = useTemplateRuntime<{ workflow: WorkflowHandlers }>();
+  const workflow = handlers.workflow;
   const [definitions, setDefinitions] = useState<WorkflowDefinition[]>([]);
   const [instances, setInstances] = useState<WorkflowInstance[]>([]);
   const [loading, setLoading] = useState(true);

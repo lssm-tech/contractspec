@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import {
+  type CrmHandlers,
   type Deal as RuntimeDeal,
   type ListDealsOutput as RuntimeListDealsOutput,
   type Stage,
@@ -26,7 +27,7 @@ export interface UseDealListOptions {
 }
 
 export function useDealList(options: UseDealListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{ crm: CrmHandlers }>();
   const { crm } = handlers;
 
   const [data, setData] = useState<ListDealsOutput | null>(null);

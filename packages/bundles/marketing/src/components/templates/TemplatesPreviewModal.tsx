@@ -10,7 +10,10 @@ import type { TemplateId } from '@contractspec/module.examples';
 
 // Dynamically import template components with ssr: false
 const TemplateShell = dynamic(
-  () => import('@contractspec/lib.example-shared-ui').then((mod) => mod.TemplateShell),
+  () =>
+    import('@contractspec/lib.example-shared-ui').then(
+      (mod) => mod.TemplateShell
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
@@ -33,24 +36,34 @@ const RecipesExperience = dynamic(
 );
 
 const SaasDashboard = dynamic(
-  () => import('@contractspec/example.saas-boilerplate').then((mod) => mod.SaasDashboard),
+  () =>
+    import('@contractspec/example.saas-boilerplate').then(
+      (mod) => mod.SaasDashboard
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const CrmDashboard = dynamic(
-  () => import('@contractspec/example.crm-pipeline').then((mod) => mod.CrmDashboard),
+  () =>
+    import('@contractspec/example.crm-pipeline').then(
+      (mod) => mod.CrmDashboard
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const AgentDashboard = dynamic(
   () =>
-    import('@contractspec/example.agent-console/ui').then((mod) => mod.AgentDashboard),
+    import('@contractspec/example.agent-console/ui').then(
+      (mod) => mod.AgentDashboard
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const WorkflowDashboard = dynamic(
   () =>
-    import('@contractspec/example.workflow-system/ui').then((mod) => mod.WorkflowDashboard),
+    import('@contractspec/example.workflow-system/ui').then(
+      (mod) => mod.WorkflowDashboard
+    ),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 

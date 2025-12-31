@@ -8,6 +8,7 @@ import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import type {
   Project as RuntimeProject,
   Subscription as RuntimeSubscription,
+  SaasHandlers,
 } from '../../handlers/saas.handlers';
 
 // Re-export types for convenience
@@ -26,7 +27,7 @@ export interface UseProjectListOptions {
 }
 
 export function useProjectList(options: UseProjectListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{saas: SaasHandlers}>();
   const { saas } = handlers;
 
   const [data, setData] = useState<ListProjectsOutput | null>(null);

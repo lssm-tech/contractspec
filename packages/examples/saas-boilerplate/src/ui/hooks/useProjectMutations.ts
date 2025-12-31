@@ -12,6 +12,7 @@ import type {
   CreateProjectInput,
   Project,
   UpdateProjectInput,
+  SaasHandlers,
 } from '../../handlers/saas.handlers';
 
 export interface MutationState<T> {
@@ -26,7 +27,7 @@ export interface UseProjectMutationsOptions {
 }
 
 export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{saas: SaasHandlers}>();
   const { saas } = handlers;
 
   const [createState, setCreateState] = useState<MutationState<Project>>({

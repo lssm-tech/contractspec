@@ -9,6 +9,7 @@ import type {
   ListRunsOutput as RuntimeListRunsOutput,
   Run as RuntimeRun,
   RunMetrics as RuntimeRunMetrics,
+  AgentHandlers,
 } from '../../handlers/agent.handlers';
 
 // Re-export types for convenience
@@ -23,7 +24,7 @@ export interface UseRunListOptions {
 }
 
 export function useRunList(options: UseRunListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListRunsOutput | null>(null);

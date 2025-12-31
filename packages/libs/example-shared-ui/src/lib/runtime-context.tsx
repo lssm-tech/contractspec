@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import type { ApolloClient } from '@apollo/client';
 import type { TransformEngine } from '@contractspec/lib.contracts';
-import type { TemplateDefinition, TemplateId } from './types';
+import type { TemplateDefinition, TemplateId, TemplateInstaller } from './types';
 
 // Generic interface for handlers to avoid circular dependencies
 // Real types are defined in @contractspec/module.examples or specific example packages
@@ -12,7 +12,7 @@ export interface TemplateRuntimeContextValue<
 > {
   template: TemplateDefinition;
   runtime: unknown; // LocalRuntimeServices
-  installer: unknown; // TemplateInstaller
+  installer: TemplateInstaller;
   client: ApolloClient;
   components?: unknown; // TemplateComponentRegistration
   /** @deprecated use template.id */
@@ -29,14 +29,16 @@ export interface TemplateRuntimeContextValue<
 export const TemplateRuntimeContext =
   createContext<TemplateRuntimeContextValue | null>(null);
 
-export function useTemplateRuntime(): TemplateRuntimeContextValue {
+export function useTemplateRuntime<
+  THandlers = GenericTemplateHandlers,
+>(): TemplateRuntimeContextValue<THandlers> {
   const context = useContext(TemplateRuntimeContext);
   if (!context) {
     throw new Error(
       'useTemplateRuntime must be used within a TemplateRuntimeProvider'
     );
   }
-  return context;
+  return context as TemplateRuntimeContextValue<THandlers>;
 }
 
 export interface TemplateRuntimeProviderProps {

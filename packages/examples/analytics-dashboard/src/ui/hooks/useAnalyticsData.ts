@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type {
+  AnalyticsHandlers,
   Dashboard,
   Query,
   Widget,
@@ -16,7 +17,7 @@ export interface AnalyticsStats {
 }
 
 export function useAnalyticsData(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime();
+  const { handlers } = useTemplateRuntime<{ analytics: AnalyticsHandlers }>();
   const analytics = handlers.analytics;
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [queries, setQueries] = useState<Query[]>([]);
@@ -33,8 +34,8 @@ export function useAnalyticsData(projectId = 'local-project') {
       setError(null);
 
       const [dashResult, queryResult] = await Promise.all([
-        handlers.listDashboards({ projectId, limit: 100 }),
-        handlers.listQueries({ projectId, limit: 100 }),
+        analytics.listDashboards({ projectId, limit: 100 }),
+        analytics.listQueries({ projectId, limit: 100 }),
       ]);
 
       setDashboards(dashResult.dashboards);
@@ -45,7 +46,7 @@ export function useAnalyticsData(projectId = 'local-project') {
         const first = dashResult.dashboards[0];
         if (first) {
           setSelectedDashboard(first);
-          const dashboardWidgets = await handlers.getWidgets(first.id);
+          const dashboardWidgets = await analytics.getWidgets(first.id);
           setWidgets(dashboardWidgets);
         }
       }
@@ -56,7 +57,7 @@ export function useAnalyticsData(projectId = 'local-project') {
     } finally {
       setLoading(false);
     }
-  }, [handlers, projectId, selectedDashboard]);
+  }, [analytics, projectId, selectedDashboard]);
 
   useEffect(() => {
     fetchData();
@@ -65,10 +66,10 @@ export function useAnalyticsData(projectId = 'local-project') {
   const selectDashboard = useCallback(
     async (dashboard: Dashboard) => {
       setSelectedDashboard(dashboard);
-      const dashboardWidgets = await handlers.getWidgets(dashboard.id);
+      const dashboardWidgets = await analytics.getWidgets(dashboard.id);
       setWidgets(dashboardWidgets);
     },
-    [handlers]
+    [analytics]
   );
 
   const stats: AnalyticsStats = {

@@ -19,7 +19,7 @@ const example: ExampleSpec = {
   },
   entrypoints: {
     packageName: '@contractspec/example.policy-safe-knowledge-assistant',
-    feature: './feature',
+    feature: './policy-safe-knowledge-assistant.feature',
     docs: './docs',
   },
   surfaces: {

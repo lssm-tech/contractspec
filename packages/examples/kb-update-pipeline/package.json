@@ -14,7 +14,6 @@
     "./entities/models": "./dist/entities/models.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
-    "./feature": "./dist/feature.js",
     "./handlers": "./dist/handlers/index.js",
     "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
     "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type {
   Connection,
   Integration,
+  IntegrationHandlers,
   SyncConfig,
 } from '../../handlers/integration.handlers';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
@@ -18,8 +19,8 @@ export interface IntegrationStats {
 }
 
 export function useIntegrationData(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime();
-  // const integration = handlers.integration;
+  const { handlers } = useTemplateRuntime<{ integration: IntegrationHandlers }>();
+  const integration = handlers.integration;
   const [integrations, setIntegrations] = useState<Integration[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [syncConfigs, setSyncConfigs] = useState<SyncConfig[]>([]);
@@ -32,9 +33,9 @@ export function useIntegrationData(projectId = 'local-project') {
       setError(null);
 
       const [integResult, connResult, syncResult] = await Promise.all([
-        handlers.listIntegrations({ projectId, limit: 100 }),
-        handlers.listConnections({ limit: 100 }),
-        handlers.listSyncConfigs({ limit: 100 }),
+        integration.listIntegrations({ projectId, limit: 100 }),
+        integration.listConnections({ limit: 100 }),
+        integration.listSyncConfigs({ limit: 100 }),
       ]);
 
       setIntegrations(integResult.integrations);
@@ -47,7 +48,7 @@ export function useIntegrationData(projectId = 'local-project') {
     } finally {
       setLoading(false);
     }
-  }, [handlers, projectId]);
+  }, [integration, projectId]);
 
   useEffect(() => {
     fetchData();

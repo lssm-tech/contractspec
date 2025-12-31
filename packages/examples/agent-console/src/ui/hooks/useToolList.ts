@@ -8,6 +8,7 @@ import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import type {
   ListToolsOutput as RuntimeListToolsOutput,
   Tool as RuntimeTool,
+  AgentHandlers,
 } from '../../handlers/agent.handlers';
 
 // Re-export types for convenience
@@ -25,7 +26,7 @@ export interface UseToolListOptions {
 }
 
 export function useToolList(options: UseToolListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListToolsOutput | null>(null);

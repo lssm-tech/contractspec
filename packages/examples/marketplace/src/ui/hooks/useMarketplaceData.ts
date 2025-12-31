@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type {
+  MarketplaceHandlers,
   Order,
   Product,
   Store,
@@ -18,7 +19,7 @@ export interface MarketplaceStats {
 }
 
 export function useMarketplaceData(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime();
+  const { handlers } = useTemplateRuntime<{ marketplace: MarketplaceHandlers }>();
   const marketplace = handlers.marketplace;
   const [stores, setStores] = useState<Store[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -33,9 +34,9 @@ export function useMarketplaceData(projectId = 'local-project') {
       setError(null);
 
       const [storeResult, productResult, orderResult] = await Promise.all([
-        handlers.listStores({ projectId, limit: 100 }),
-        handlers.listProducts({ limit: 100 }),
-        handlers.listOrders({ projectId, limit: 100 }),
+        marketplace.listStores({ projectId, limit: 100 }),
+        marketplace.listProducts({ limit: 100 }),
+        marketplace.listOrders({ projectId, limit: 100 }),
       ]);
 
       setStores(storeResult.stores);
@@ -49,7 +50,7 @@ export function useMarketplaceData(projectId = 'local-project') {
     } finally {
       setLoading(false);
     }
-  }, [handlers, projectId]);
+  }, [marketplace, projectId]);
 
   useEffect(() => {
     fetchData();

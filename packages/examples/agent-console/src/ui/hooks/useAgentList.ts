@@ -9,6 +9,7 @@ import type {
   Agent as RuntimeAgent,
   ListAgentsOutput as RuntimeListAgentsOutput,
 } from '../../handlers/agent.handlers';
+import type { AgentHandlers } from '../../handlers/agent.handlers';
 
 // Re-export types for convenience
 export type Agent = RuntimeAgent;
@@ -21,7 +22,7 @@ export interface UseAgentListOptions {
 }
 
 export function useAgentList(options: UseAgentListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListAgentsOutput | null>(null);

@@ -11,6 +11,7 @@ import { useCallback, useState } from 'react';
 import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import type {
   CreateDealInput,
+  CrmHandlers,
   Deal,
   LoseDealInput,
   MoveDealInput,
@@ -29,7 +30,7 @@ export interface UseDealMutationsOptions {
 }
 
 export function useDealMutations(options: UseDealMutationsOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{ crm: CrmHandlers }>();
   const { crm } = handlers;
 
   const [createState, setCreateState] = useState<MutationState<Deal>>({

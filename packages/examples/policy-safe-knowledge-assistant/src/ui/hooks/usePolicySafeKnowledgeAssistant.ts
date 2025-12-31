@@ -58,8 +58,12 @@ function toCitations(value: unknown): CitationLike[] {
   }));
 }
 
+import type { PolicySafeKnowledgeAssistantHandlers } from '../../handlers/policy-safe-knowledge-assistant.handlers';
+
 export function usePolicySafeKnowledgeAssistant() {
-  const { handlers, projectId } = useTemplateRuntime();
+  const { handlers, projectId } = useTemplateRuntime<{
+    policySafeKnowledgeAssistant: PolicySafeKnowledgeAssistantHandlers;
+  }>();
   const api = handlers.policySafeKnowledgeAssistant;
 
   const [state, setState] = useState<UsePolicySafeKnowledgeAssistantState>({

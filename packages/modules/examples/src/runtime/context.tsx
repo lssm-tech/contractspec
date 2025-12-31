@@ -1,20 +1,10 @@
 'use client';
 
-import {
-  createContext,
-  type PropsWithChildren,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { type ApolloClient } from '@apollo/client';
+import { type PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { ApolloProvider } from '@apollo/client/react';
 import { web } from '@contractspec/lib.runtime-sandbox';
 
-const {
-  LocalRuntimeServices,
-} = web;
+const { LocalRuntimeServices } = web;
 
 import { type TransformEngine } from '@contractspec/lib.contracts/presentations';
 
@@ -53,11 +43,7 @@ import {
 } from '@contractspec/example.policy-safe-knowledge-assistant';
 
 import { TemplateInstaller } from './installer';
-import {
-  getTemplate,
-  type TemplateDefinition,
-  type TemplateId,
-} from './registry';
+import { getTemplate, type TemplateId } from './registry';
 import { getTemplateEngine } from './engine';
 
 import {
@@ -65,7 +51,7 @@ import {
   type TemplateRuntimeContextValue,
   type TemplateRuntimeProviderProps,
   useTemplateRuntime,
-  useTemplateComponents
+  useTemplateComponents,
 } from '@contractspec/lib.example-shared-ui';
 
 export type { TemplateId };
@@ -107,7 +93,9 @@ export function TemplateRuntimeProvider({
   lazy = false,
   children,
 }: PropsWithChildren<TemplateRuntimeProviderProps>) {
-  const [context, setContext] = useState<TemplateRuntimeContextValue | null>(null);
+  const [context, setContext] = useState<TemplateRuntimeContextValue | null>(
+    null
+  );
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -150,15 +138,19 @@ export function TemplateRuntimeProvider({
         handlers.marketplace = createMarketplaceHandlers(runtime.db);
         handlers.integration = createIntegrationHandlers(runtime.db);
         handlers.analytics = createAnalyticsHandlers(runtime.db);
-        handlers.policySafeKnowledgeAssistant = createPolicySafeKnowledgeAssistantHandlers(runtime.db);
-
+        handlers.policySafeKnowledgeAssistant =
+          createPolicySafeKnowledgeAssistantHandlers(runtime.db);
 
         // Create data fetcher using the initialized handlers
         const fetchData = async (presentationName: string) => {
           // CRM Pipeline
           if (presentationName === 'crm-pipeline.dashboard') {
             const [dealsResult, stages] = await Promise.all([
-              handlers.crm.listDeals({ projectId, pipelineId: 'pipeline-1', limit: 50 }),
+              handlers.crm.listDeals({
+                projectId,
+                pipelineId: 'pipeline-1',
+                limit: 50,
+              }),
               handlers.crm.getPipelineStages({ pipelineId: 'pipeline-1' }),
             ]);
             return {
@@ -170,12 +162,20 @@ export function TemplateRuntimeProvider({
                   totalValue: dealsResult.totalValue,
                 },
               },
-              metadata: { total: dealsResult.total, timestamp: new Date(), source: 'crm-pipeline' },
+              metadata: {
+                total: dealsResult.total,
+                timestamp: new Date(),
+                source: 'crm-pipeline',
+              },
             };
           }
           if (presentationName === 'crm-pipeline.deal.pipeline') {
-             const [dealsResult, stages] = await Promise.all([
-              handlers.crm.listDeals({ projectId, pipelineId: 'pipeline-1', limit: 100 }),
+            const [dealsResult, stages] = await Promise.all([
+              handlers.crm.listDeals({
+                projectId,
+                pipelineId: 'pipeline-1',
+                limit: 100,
+              }),
               handlers.crm.getPipelineStages({ pipelineId: 'pipeline-1' }),
             ]);
             return {
@@ -185,13 +185,17 @@ export function TemplateRuntimeProvider({
                 total: dealsResult.total,
                 totalValue: dealsResult.totalValue,
               },
-               metadata: { total: dealsResult.total, timestamp: new Date(), source: 'crm-pipeline' },
+              metadata: {
+                total: dealsResult.total,
+                timestamp: new Date(),
+                source: 'crm-pipeline',
+              },
             };
           }
 
           // SaaS Boilerplate
           if (presentationName === 'saas-boilerplate.dashboard') {
-             const [projectsResult, subscription] = await Promise.all([
+            const [projectsResult, subscription] = await Promise.all([
               handlers.saas.listProjects({ projectId, limit: 10 }),
               handlers.saas.getSubscription({ projectId }),
             ]);
@@ -201,30 +205,51 @@ export function TemplateRuntimeProvider({
                 subscription,
                 summary: { totalProjects: projectsResult.total },
               },
-               metadata: { total: projectsResult.total, timestamp: new Date(), source: 'saas-boilerplate' },
+              metadata: {
+                total: projectsResult.total,
+                timestamp: new Date(),
+                source: 'saas-boilerplate',
+              },
             };
           }
-           if (presentationName === 'saas-boilerplate.project.list') {
-            const result = await handlers.saas.listProjects({ projectId, limit: 50 });
+          if (presentationName === 'saas-boilerplate.project.list') {
+            const result = await handlers.saas.listProjects({
+              projectId,
+              limit: 50,
+            });
             return {
               data: result.items,
-              metadata: { total: result.total, timestamp: new Date(), source: 'saas-boilerplate' },
+              metadata: {
+                total: result.total,
+                timestamp: new Date(),
+                source: 'saas-boilerplate',
+              },
             };
           }
           if (presentationName === 'saas-boilerplate.billing.settings') {
-             const subscription = await handlers.saas.getSubscription({ projectId });
-             return {
+            const subscription = await handlers.saas.getSubscription({
+              projectId,
+            });
+            return {
               data: subscription,
-               metadata: { timestamp: new Date(), source: 'saas-boilerplate' },
-             };
+              metadata: { timestamp: new Date(), source: 'saas-boilerplate' },
+            };
           }
 
           // Agent Console
           if (presentationName === 'agent-console.dashboard') {
-             const [agentsResult, runsResult, toolsResult] = await Promise.all([
-              handlers.agent.listAgents({ projectId, organizationId: 'demo-org', limit: 10 }),
+            const [agentsResult, runsResult, toolsResult] = await Promise.all([
+              handlers.agent.listAgents({
+                projectId,
+                organizationId: 'demo-org',
+                limit: 10,
+              }),
               handlers.agent.listRuns({ projectId, limit: 10 }),
-              handlers.agent.listTools({ projectId, organizationId: 'demo-org', limit: 10 }),
+              handlers.agent.listTools({
+                projectId,
+                organizationId: 'demo-org',
+                limit: 10,
+              }),
             ]);
             return {
               data: {
@@ -237,34 +262,62 @@ export function TemplateRuntimeProvider({
                   totalTools: toolsResult.total,
                 },
               },
-               metadata: { timestamp: new Date(), source: 'agent-console' },
+              metadata: { timestamp: new Date(), source: 'agent-console' },
             };
           }
           if (presentationName === 'agent-console.agent.list') {
-            const result = await handlers.agent.listAgents({ projectId, organizationId: 'demo-org', limit: 50 });
+            const result = await handlers.agent.listAgents({
+              projectId,
+              organizationId: 'demo-org',
+              limit: 50,
+            });
             return {
               data: result.items,
-               metadata: { total: result.total, timestamp: new Date(), source: 'agent-console' },
+              metadata: {
+                total: result.total,
+                timestamp: new Date(),
+                source: 'agent-console',
+              },
             };
           }
-           if (presentationName === 'agent-console.run.list') {
-             const result = await handlers.agent.listRuns({ projectId, limit: 50 });
+          if (presentationName === 'agent-console.run.list') {
+            const result = await handlers.agent.listRuns({
+              projectId,
+              limit: 50,
+            });
             return {
               data: result.items,
-               metadata: { total: result.total, timestamp: new Date(), source: 'agent-console' },
+              metadata: {
+                total: result.total,
+                timestamp: new Date(),
+                source: 'agent-console',
+              },
             };
-           }
-           if (presentationName === 'agent-console.tool.registry') {
-              const result = await handlers.agent.listTools({ projectId, organizationId: 'demo-org', limit: 50 });
-               return {
+          }
+          if (presentationName === 'agent-console.tool.registry') {
+            const result = await handlers.agent.listTools({
+              projectId,
+              organizationId: 'demo-org',
+              limit: 50,
+            });
+            return {
               data: result.items,
-               metadata: { total: result.total, timestamp: new Date(), source: 'agent-console' },
+              metadata: {
+                total: result.total,
+                timestamp: new Date(),
+                source: 'agent-console',
+              },
             };
-           }
+          }
 
           // Default fallback
-           console.warn(`No data fetcher found for presentation: ${presentationName}`);
-           return { data: null, metadata: { timestamp: new Date(), source: 'unknown' } };
+          console.warn(
+            `No data fetcher found for presentation: ${presentationName}`
+          );
+          return {
+            data: null,
+            metadata: { timestamp: new Date(), source: 'unknown' },
+          };
         };
 
         if (mounted) {
@@ -283,7 +336,9 @@ export function TemplateRuntimeProvider({
       } catch (err) {
         logBootstrapFailure(err);
         if (mounted) {
-          setError(err instanceof Error ? err : new Error('Unknown runtime error'));
+          setError(
+            err instanceof Error ? err : new Error('Unknown runtime error')
+          );
         }
       }
     }
@@ -309,16 +364,16 @@ export function TemplateRuntimeProvider({
 
   if (error) {
     return (
-      <div className="p-4 text-red-500 bg-red-50 rounded border border-red-200">
+      <div className="rounded border border-red-200 bg-red-50 p-4 text-red-500">
         <h3 className="font-bold">Runtime Error</h3>
-        <pre className="mt-2 text-xs overflow-auto">{error.message}</pre>
+        <pre className="mt-2 overflow-auto text-xs">{error.message}</pre>
       </div>
     );
   }
 
   if (!contextValue) {
     return (
-      <div className="p-12 text-center text-gray-400 animate-pulse">
+      <div className="animate-pulse p-12 text-center text-gray-400">
         Initializing runtime environment...
       </div>
     );
@@ -333,7 +388,6 @@ export function TemplateRuntimeProvider({
   );
 }
 
-
 // Hook to access the TransformEngine for rendering presentations
 export function useTemplateEngine(): TransformEngine {
   return useTemplateRuntime().engine;
@@ -341,7 +395,7 @@ export function useTemplateEngine(): TransformEngine {
 
 // Hook to access the database-backed template handlers
 export function useTemplateHandlers(): TemplateHandlers {
-  return useTemplateRuntime().handlers;
+  return useTemplateRuntime<TemplateHandlers>().handlers;
 }
 
 // Hook to access CRM-specific handlers
