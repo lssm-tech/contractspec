@@ -27,7 +27,7 @@ export interface UseProjectMutationsOptions {
 }
 
 export function useProjectMutations(options: UseProjectMutationsOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{saas: SaasHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{ saas: SaasHandlers }>();
   const { saas } = handlers;
 
   const [createState, setCreateState] = useState<MutationState<Project>>({

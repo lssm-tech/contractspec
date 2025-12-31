@@ -1,7 +1,11 @@
 import { createContext, useContext } from 'react';
 import type { ApolloClient } from '@apollo/client';
 import type { TransformEngine } from '@contractspec/lib.contracts';
-import type { TemplateDefinition, TemplateId, TemplateInstaller } from './types';
+import type {
+  TemplateDefinition,
+  TemplateId,
+  TemplateInstaller,
+} from './types';
 
 // Generic interface for handlers to avoid circular dependencies
 // Real types are defined in @contractspec/module.examples or specific example packages

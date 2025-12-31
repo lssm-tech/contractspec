@@ -19,7 +19,9 @@ export interface IntegrationStats {
 }
 
 export function useIntegrationData(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime<{ integration: IntegrationHandlers }>();
+  const { handlers } = useTemplateRuntime<{
+    integration: IntegrationHandlers;
+  }>();
   const integration = handlers.integration;
   const [integrations, setIntegrations] = useState<Integration[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);

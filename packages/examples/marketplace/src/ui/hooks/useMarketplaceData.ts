@@ -19,7 +19,9 @@ export interface MarketplaceStats {
 }
 
 export function useMarketplaceData(projectId = 'local-project') {
-  const { handlers } = useTemplateRuntime<{ marketplace: MarketplaceHandlers }>();
+  const { handlers } = useTemplateRuntime<{
+    marketplace: MarketplaceHandlers;
+  }>();
   const marketplace = handlers.marketplace;
   const [stores, setStores] = useState<Store[]>([]);
   const [products, setProducts] = useState<Product[]>([]);

@@ -22,7 +22,9 @@ export interface UseAgentListOptions {
 }
 
 export function useAgentList(options: UseAgentListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{
+    agent: AgentHandlers;
+  }>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListAgentsOutput | null>(null);

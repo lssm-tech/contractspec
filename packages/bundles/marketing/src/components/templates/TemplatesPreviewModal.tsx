@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { Dialog, DialogContent } from '@contractspec/lib.ui-kit-web/ui/dialog';
 import { ScrollArea } from '@contractspec/lib.ui-kit-web/ui/scroll-area';
 import { LoadingSpinner } from '@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner';
-import type { TemplateId } from '@contractspec/module.examples';
+import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 
 // Dynamically import template components with ssr: false
 const TemplateShell = dynamic(

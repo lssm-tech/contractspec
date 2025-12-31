@@ -26,7 +26,9 @@ export interface UseAgentMutationsOptions {
 }
 
 export function useAgentMutations(options: UseAgentMutationsOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{
+    agent: AgentHandlers;
+  }>();
   const { agent } = handlers;
 
   const [createState, setCreateState] = useState<MutationState<Agent>>({

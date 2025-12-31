@@ -26,7 +26,9 @@ export interface UseToolListOptions {
 }
 
 export function useToolList(options: UseToolListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{
+    agent: AgentHandlers;
+  }>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListToolsOutput | null>(null);

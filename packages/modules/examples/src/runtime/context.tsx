@@ -43,7 +43,7 @@ import {
 } from '@contractspec/example.policy-safe-knowledge-assistant';
 
 import { TemplateInstaller } from './installer';
-import { getTemplate, type TemplateId } from './registry';
+import { getTemplate } from './registry';
 import { getTemplateEngine } from './engine';
 
 import {
@@ -53,8 +53,6 @@ import {
   useTemplateRuntime,
   useTemplateComponents,
 } from '@contractspec/lib.example-shared-ui';
-
-export type { TemplateId };
 
 function logBootstrapFailure(error: unknown) {
   console.error(

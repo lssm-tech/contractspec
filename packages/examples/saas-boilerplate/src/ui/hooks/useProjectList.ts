@@ -27,7 +27,7 @@ export interface UseProjectListOptions {
 }
 
 export function useProjectList(options: UseProjectListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{saas: SaasHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{ saas: SaasHandlers }>();
   const { saas } = handlers;
 
   const [data, setData] = useState<ListProjectsOutput | null>(null);

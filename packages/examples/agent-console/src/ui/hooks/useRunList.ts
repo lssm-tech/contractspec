@@ -24,7 +24,9 @@ export interface UseRunListOptions {
 }
 
 export function useRunList(options: UseRunListOptions = {}) {
-  const { handlers, projectId } = useTemplateRuntime<{agent: AgentHandlers}>();
+  const { handlers, projectId } = useTemplateRuntime<{
+    agent: AgentHandlers;
+  }>();
   const { agent } = handlers;
 
   const [data, setData] = useState<ListRunsOutput | null>(null);

@@ -13,10 +13,8 @@ import {
   MarketingSection,
 } from '@contractspec/lib.design-system';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import {
-  listTemplates,
-  type TemplateDefinition,
-} from '@contractspec/module.examples';
+import { listTemplates } from '@contractspec/module.examples';
+import type { TemplateDefinition } from '@contractspec/lib.example-shared-ui';
 
 function matchesQuery(t: TemplateDefinition, query: string): boolean {
   const q = query.trim().toLowerCase();
@@ -92,7 +90,7 @@ export function TemplatesMarketingPage() {
                 <MarketingCardContent>
                   <VStack gap="md">
                     <HStack gap="sm" wrap="wrap">
-                      {t.tags.slice(0, 6).map((tag) => (
+                      {t.tags.slice(0, 6).map((tag: string) => (
                         <ButtonLink
                           key={`${t.id}-${tag}`}
                           href={`/templates?tag=${encodeURIComponent(tag)}`}

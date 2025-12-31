@@ -12,3 +12,4 @@ export * from './hooks';
 export * from './utils';
 export * from './lib/runtime-context';
 export * from './lib/component-registry';
+export * from './lib/types';

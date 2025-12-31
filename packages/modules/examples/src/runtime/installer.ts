@@ -1,12 +1,14 @@
 'use client';
 
-import {
-  getTemplate,
-  TEMPLATE_REGISTRY,
-  type TemplateDefinition,
-  type TemplateFilter,
-  type TemplateId,
-} from './registry';
+import { getTemplate, TEMPLATE_REGISTRY } from './registry';
+import type {
+  TemplateDefinition,
+  TemplateFilter,
+  TemplateId,
+  InstallTemplateOptions,
+  SaveTemplateOptions,
+  SaveTemplateResult,
+} from '@contractspec/lib.example-shared-ui';
 import {
   ContractSpecRegistryClient,
   type RegistryTemplateSummary,
@@ -25,29 +27,12 @@ const SAVE_TEMPLATE_MUTATION = `
   }
 `;
 
-export interface InstallTemplateOptions {
-  projectId?: string;
-}
-
-export interface SaveTemplateOptions {
-  endpoint?: string;
-  token?: string;
-  projectName: string;
-  organizationId: string;
-  templateId: TemplateId;
-}
-
 export interface TemplateInstallerOptions {
   runtime?: LocalRuntimeServices;
   endpoint?: string;
   /** Optional registry server base URL (enables listing remote/community templates) */
   registryUrl?: string;
   fetchImpl?: typeof fetch;
-}
-
-export interface SaveTemplateResult {
-  projectId: string;
-  status: string;
 }
 
 export class TemplateInstaller {

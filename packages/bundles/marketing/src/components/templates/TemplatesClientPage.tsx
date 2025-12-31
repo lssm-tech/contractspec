@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import Link from 'next/link';
-import type { TemplateId } from '@contractspec/module.examples';
+import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 import { getTemplate } from '@contractspec/module.examples';
 import { useRegistryTemplates } from '@contractspec/lib.example-shared-ui';
 import {
