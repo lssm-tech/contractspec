@@ -5,5 +5,5 @@ export interface TemplateDefinition {
   name: string;
   description: string;
   presentations?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }

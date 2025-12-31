@@ -4,7 +4,9 @@ import type { TemplateDefinition, TemplateId } from '../lib/types';
  * Generate TypeScript spec code from a template's definition.
  * Converts FeatureModuleSpec contracts to TypeScript spec code.
  */
-export function generateSpecFromTemplate(template: TemplateDefinition | null): string {
+export function generateSpecFromTemplate(
+  template: TemplateDefinition | null
+): string {
   const templateId = template?.id ?? 'unknown';
 
   if (!template) {

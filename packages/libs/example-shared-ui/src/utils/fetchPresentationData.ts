@@ -21,9 +21,12 @@ export interface PresentationDataResult {
 /**
  * @deprecated Use fetchData from TemplateRuntimeContext instead.
  */
+/**
+ * @deprecated Use fetchData from TemplateRuntimeContext instead.
+ */
 export async function fetchPresentationData(
-  presentationName: string,
-  templateId: TemplateId
+  _presentationName: string,
+  _templateId: TemplateId
 ): Promise<PresentationDataResult> {
   throw new Error(
     'fetchPresentationData is deprecated. Use fetchData from TemplateRuntimeContext.'
@@ -33,7 +36,7 @@ export async function fetchPresentationData(
 /**
  * @deprecated
  */
-export function hasPresentationDataFetcher(presentationName: string): boolean {
+export function hasPresentationDataFetcher(_presentationName: string): boolean {
   return false;
 }
 

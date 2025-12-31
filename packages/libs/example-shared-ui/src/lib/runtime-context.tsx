@@ -5,28 +5,29 @@ import type { TemplateDefinition, TemplateId } from './types';
 
 // Generic interface for handlers to avoid circular dependencies
 // Real types are defined in @contractspec/module.examples or specific example packages
-export type GenericTemplateHandlers = any;
+export type GenericTemplateHandlers = unknown;
 
 export interface TemplateRuntimeContextValue<
   THandlers = GenericTemplateHandlers,
 > {
   template: TemplateDefinition;
-  runtime: any; // LocalRuntimeServices
-  installer: any; // TemplateInstaller
+  runtime: unknown; // LocalRuntimeServices
+  installer: unknown; // TemplateInstaller
   client: ApolloClient;
-  components?: any; // TemplateComponentRegistration
+  components?: unknown; // TemplateComponentRegistration
   /** @deprecated use template.id */
   templateId: TemplateId;
   projectId: string;
   engine: TransformEngine;
-  fetchData: (presentationName: string) => Promise<{ data: unknown; metadata?: any }>;
+  fetchData: (
+    presentationName: string
+  ) => Promise<{ data: unknown; metadata?: unknown }>;
   handlers: THandlers;
-  resolvePresentation?: (presentationName: string) => any;
+  resolvePresentation?: (presentationName: string) => unknown;
 }
 
-export const TemplateRuntimeContext = createContext<TemplateRuntimeContextValue | null>(
-  null
-);
+export const TemplateRuntimeContext =
+  createContext<TemplateRuntimeContextValue | null>(null);
 
 export function useTemplateRuntime(): TemplateRuntimeContextValue {
   const context = useContext(TemplateRuntimeContext);
