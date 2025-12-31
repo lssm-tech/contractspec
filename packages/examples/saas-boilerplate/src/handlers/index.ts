@@ -18,3 +18,6 @@ export {
   mockUpdateProjectHandler,
   mockDeleteProjectHandler,
 } from '../project/project.handler';
+
+// Runtime handlers (PGLite)
+export * from './saas.handlers';

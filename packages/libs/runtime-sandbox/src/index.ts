@@ -37,3 +37,5 @@ export async function createPGLiteAdapter(): Promise<
   const { PGLiteDatabaseAdapter } = await import('./adapters/pglite');
   return new PGLiteDatabaseAdapter();
 }
+
+export * as web from './web';

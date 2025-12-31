@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.9.0",
-    "@types/react-dom": "^19.0.14",
+    "@types/react-dom": "^19.2.2",
     "@types/jest": "catalog:testing",
     "jest": "catalog:testing",
     "storybook": "catalog:testing",

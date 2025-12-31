@@ -16,7 +16,7 @@ import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
   listTemplates,
   type TemplateDefinition,
-} from '@contractspec/bundle.library/lib/registry';
+} from '@contractspec/module.examples';
 
 function matchesQuery(t: TemplateDefinition, query: string): boolean {
   const q = query.trim().toLowerCase();

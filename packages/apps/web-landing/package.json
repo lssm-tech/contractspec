@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.web-landing",
-  "version": "0.2.4",
+  "version": "1.46.1",
   "private": true,
   "scripts": {
     "clean": "rimraf .next dist .turbo",
@@ -22,6 +22,15 @@
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@contractspec/lib.ui-link": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/example.saas-boilerplate": "workspace:*",
+    "@contractspec/example.crm-pipeline": "workspace:*",
+    "@contractspec/example.agent-console": "workspace:*",
+    "@contractspec/example.workflow-system": "workspace:*",
+    "@contractspec/example.marketplace": "workspace:*",
+    "@contractspec/example.integration-hub": "workspace:*",
+    "@contractspec/example.analytics-dashboard": "workspace:*",
+    "@contractspec/example.policy-safe-knowledge-assistant": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@posthog/react": "^1.5.2",
     "@tanstack/react-query": "^5.90.15",

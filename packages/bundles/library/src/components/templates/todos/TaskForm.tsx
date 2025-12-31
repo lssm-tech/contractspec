@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 
-import { useTemplateRuntime } from '../../../lib/runtime';
+import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import { type TaskCategory, type TaskPriority } from './types';
 
 const CREATE_TASK = gql`

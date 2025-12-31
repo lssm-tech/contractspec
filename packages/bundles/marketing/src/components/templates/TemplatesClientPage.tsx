@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import Link from 'next/link';
-import type { TemplateId } from '@contractspec/bundle.library/lib/registry';
-import { getTemplate } from '@contractspec/bundle.library/lib/registry';
-import { useRegistryTemplates } from '@contractspec/bundle.library/hooks';
+import type { TemplateId } from '@contractspec/module.examples';
+import { getTemplate } from '@contractspec/module.examples';
+import { useRegistryTemplates } from '@contractspec/lib.example-shared-ui';
 import {
   Tooltip,
   TooltipContent,

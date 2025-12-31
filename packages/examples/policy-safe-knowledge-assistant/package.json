@@ -12,9 +12,15 @@
     "./docs/policy-safe-knowledge-assistant.docblock": "./dist/docs/policy-safe-knowledge-assistant.docblock.js",
     "./example": "./dist/example.js",
     "./feature": "./dist/feature.js",
+    "./handlers": "./dist/handlers/index.js",
+    "./handlers/policy-safe-knowledge-assistant.handlers": "./dist/handlers/policy-safe-knowledge-assistant.handlers.js",
     "./orchestrator/buildAnswer": "./dist/orchestrator/buildAnswer.js",
     "./seed": "./dist/seed/index.js",
     "./seed/fixtures": "./dist/seed/fixtures.js",
+    "./seeders": "./dist/seeders/index.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/hooks/usePolicySafeKnowledgeAssistant": "./dist/ui/hooks/usePolicySafeKnowledgeAssistant.js",
+    "./ui/PolicySafeKnowledgeAssistantDashboard": "./dist/ui/PolicySafeKnowledgeAssistantDashboard.js",
     "./*": "./*"
   },
   "scripts": {
@@ -36,13 +42,20 @@
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.learning-patterns": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/module.learning-journey": "workspace:*"
+    "@contractspec/module.learning-journey": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   },
   "publishConfig": {
     "access": "public",

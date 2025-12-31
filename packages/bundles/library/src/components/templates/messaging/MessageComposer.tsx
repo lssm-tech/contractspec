@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 import { Send } from 'lucide-react';
-import { useTemplateRuntime } from '../../../lib/runtime';
+import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import { MESSAGES_QUERY } from './MessageThread';
 
 const SEND_MESSAGE = gql`

@@ -19,12 +19,19 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -42,6 +49,8 @@
     "./entities/step": "./dist/entities/step.js",
     "./entities/workflow": "./dist/entities/workflow.js",
     "./example": "./dist/example.js",
+    "./handlers": "./dist/handlers/index.js",
+    "./handlers/workflow.handlers": "./dist/handlers/workflow.handlers.js",
     "./instance": "./dist/instance/index.js",
     "./instance/instance.enum": "./dist/instance/instance.enum.js",
     "./instance/instance.event": "./dist/instance/instance.event.js",
@@ -49,10 +58,17 @@
     "./instance/instance.operations": "./dist/instance/instance.operations.js",
     "./instance/instance.schema": "./dist/instance/instance.schema.js",
     "./presentations": "./dist/presentations/index.js",
+    "./seeders": "./dist/seeders/index.js",
     "./shared": "./dist/shared/index.js",
     "./shared/mock-data": "./dist/shared/mock-data.js",
     "./shared/types": "./dist/shared/types.js",
     "./state-machine": "./dist/state-machine/index.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useWorkflowList": "./dist/ui/hooks/useWorkflowList.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/workflow.markdown": "./dist/ui/renderers/workflow.markdown.js",
+    "./ui/WorkflowDashboard": "./dist/ui/WorkflowDashboard.js",
     "./workflow": "./dist/workflow/index.js",
     "./workflow-system.feature": "./dist/workflow-system.feature.js",
     "./workflow/workflow.enum": "./dist/workflow/workflow.enum.js",

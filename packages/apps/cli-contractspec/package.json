@@ -54,7 +54,7 @@
     "@contractspec/tool.typescript": "workspace:*",
     "@types/node": "^22.10.2",
     "rimraf": "catalog:build",
-    "eslint": "catalog:build"
+    "eslint": "^9.39.2"
   },
   "keywords": [
     "cli",

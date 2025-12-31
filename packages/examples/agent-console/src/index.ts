@@ -20,6 +20,8 @@ export * from './agent';
 export * from './run';
 export * from './tool';
 export * from './shared';
+export * from './ui';
+export { createAgentHandlers, type AgentHandlers } from './handlers/agent.handlers';
 
 // Feature spec export
 export * from './agent.feature';

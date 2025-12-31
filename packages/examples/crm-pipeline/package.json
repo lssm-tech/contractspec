@@ -25,12 +25,30 @@
     "./events/task.event": "./dist/events/task.event.js",
     "./example": "./dist/example.js",
     "./handlers": "./dist/handlers/index.js",
+    "./handlers/crm.handlers": "./dist/handlers/crm.handlers.js",
     "./handlers/deal.handlers": "./dist/handlers/deal.handlers.js",
     "./handlers/mock-data": "./dist/handlers/mock-data.js",
     "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
     "./presentations/dashboard.presentation": "./dist/presentations/dashboard.presentation.js",
     "./presentations/pipeline.presentation": "./dist/presentations/pipeline.presentation.js",
+    "./seeders": "./dist/seeders/index.js",
+    "./shared/overlay-types": "./dist/shared/overlay-types.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/CrmDashboard": "./dist/ui/CrmDashboard.js",
+    "./ui/CrmDealCard": "./dist/ui/CrmDealCard.js",
+    "./ui/CrmPipelineBoard": "./dist/ui/CrmPipelineBoard.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useDealList": "./dist/ui/hooks/useDealList.js",
+    "./ui/hooks/useDealMutations": "./dist/ui/hooks/useDealMutations.js",
+    "./ui/modals": "./dist/ui/modals/index.js",
+    "./ui/modals/CreateDealModal": "./dist/ui/modals/CreateDealModal.js",
+    "./ui/modals/DealActionsModal": "./dist/ui/modals/DealActionsModal.js",
+    "./ui/overlays": "./dist/ui/overlays/index.js",
+    "./ui/overlays/demo-overlays": "./dist/ui/overlays/demo-overlays.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/pipeline.markdown": "./dist/ui/renderers/pipeline.markdown.js",
+    "./ui/renderers/pipeline.renderer": "./dist/ui/renderers/pipeline.renderer.js",
     "./*": "./*"
   },
   "scripts": {
@@ -51,13 +69,20 @@
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.identity-rbac": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
-    "@contractspec/module.notifications": "workspace:*"
+    "@contractspec/module.notifications": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   },
   "module": "./dist/index.js",
   "publishConfig": {

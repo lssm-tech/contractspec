@@ -1,11 +1,8 @@
 'use client';
 
-import {
-  listTemplates,
-  type TemplateId,
-  WorkspaceProjectShellLayout,
-} from '@contractspec/bundle.library';
-import { listExamples } from '@contractspec/module.examples';
+import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library';
+import { type TemplateId } from '@contractspec/lib.runtime-sandbox';
+import { listExamples, listTemplates } from '@contractspec/module.examples';
 import {
   FileText,
   GraduationCap,
@@ -33,12 +30,12 @@ export type ExampleSandboxMode =
   | 'evolution';
 
 const TemplateShell = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.TemplateShell),
+  () => import('@contractspec/lib.example-shared-ui').then((m) => m.TemplateShell),
   { ssr: false }
 );
 
 const MarkdownView = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.MarkdownView),
+  () => import('@contractspec/lib.example-shared-ui').then((m) => m.MarkdownView),
   { ssr: false }
 );
 
@@ -48,13 +45,13 @@ const MarkdownView = dynamic(
 // );
 
 const SpecEditorPanel = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.SpecEditorPanel),
+  () => import('@contractspec/lib.example-shared-ui').then((m) => m.SpecEditorPanel),
   { ssr: false }
 );
 
 const EvolutionDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((m) => m.EvolutionDashboard),
+    import('@contractspec/lib.example-shared-ui').then((m) => m.EvolutionDashboard),
   { ssr: false }
 );
 
@@ -75,46 +72,46 @@ const RecipesExperience = dynamic(
 );
 
 const SaasDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.SaasDashboard),
+  () => import('@contractspec/example.saas-boilerplate').then((m) => m.SaasDashboard),
   { ssr: false }
 );
 
 const CrmDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.CrmDashboard),
+  () => import('@contractspec/example.crm-pipeline').then((m) => m.CrmDashboard),
   { ssr: false }
 );
 
 const AgentDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.AgentDashboard),
+  () => import('@contractspec/example.agent-console/ui').then((m) => m.AgentDashboard),
   { ssr: false }
 );
 
 const WorkflowDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.WorkflowDashboard),
+  () => import('@contractspec/example.workflow-system/ui').then((m) => m.WorkflowDashboard),
   { ssr: false }
 );
 
 const MarketplaceDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((m) => m.MarketplaceDashboard),
+    import('@contractspec/example.marketplace/ui').then((m) => m.MarketplaceDashboard),
   { ssr: false }
 );
 
 const IntegrationDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((m) => m.IntegrationDashboard),
+    import('@contractspec/example.integration-hub/ui').then((m) => m.IntegrationDashboard),
   { ssr: false }
 );
 
 const AnalyticsDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((m) => m.AnalyticsDashboard),
+    import('@contractspec/example.analytics-dashboard').then((m) => m.AnalyticsDashboard),
   { ssr: false }
 );
 
 const PolicySafeKnowledgeAssistantDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then(
+    import('@contractspec/example.policy-safe-knowledge-assistant').then(
       (m) => m.PolicySafeKnowledgeAssistantDashboard
     ),
   { ssr: false }
@@ -208,7 +205,6 @@ export default function SandboxExperienceClient() {
       case 'playground':
         return (
           <TemplateShell
-            templateId={templateId}
             title={displayName}
             description="Local runtime (in-browser) preview."
             projectId="sandbox"

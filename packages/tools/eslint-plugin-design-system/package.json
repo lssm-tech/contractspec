@@ -19,7 +19,7 @@
     "eslint": "^9.39.2"
   },
   "devDependencies": {
-    "eslint": "catalog:build"
+    "eslint": "^9.39.2"
   },
   "license": "MIT",
   "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps",

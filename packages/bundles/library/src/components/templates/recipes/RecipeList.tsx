@@ -7,7 +7,7 @@ import { gql } from '@apollo/client';
 import {
   registerTemplateComponents,
   useTemplateRuntime,
-} from '../../../lib/runtime';
+} from '@contractspec/lib.example-shared-ui';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { RecipeCard } from './RecipeCard';
 import { RecipeDetail } from './RecipeDetail';

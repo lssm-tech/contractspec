@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 import { useEffect, useRef } from 'react';
 
-import { useTemplateRuntime } from '../../../lib/runtime';
+import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 import { type Message } from './types';
 
 export const MESSAGES_QUERY = gql`

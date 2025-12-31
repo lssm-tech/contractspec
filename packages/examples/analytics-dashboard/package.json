@@ -19,12 +19,19 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -38,12 +45,21 @@
     "./docs/analytics-dashboard.docblock": "./dist/docs/analytics-dashboard.docblock.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
+    "./handlers": "./dist/handlers/index.js",
+    "./handlers/analytics.handlers": "./dist/handlers/analytics.handlers.js",
     "./query": "./dist/query/index.js",
     "./query-engine": "./dist/query-engine/index.js",
     "./query/query.enum": "./dist/query/query.enum.js",
     "./query/query.operation": "./dist/query/query.operation.js",
     "./query/query.presentation": "./dist/query/query.presentation.js",
     "./query/query.schema": "./dist/query/query.schema.js",
+    "./seeders": "./dist/seeders/index.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/AnalyticsDashboard": "./dist/ui/AnalyticsDashboard.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useAnalyticsData": "./dist/ui/hooks/useAnalyticsData.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/analytics.markdown": "./dist/ui/renderers/analytics.markdown.js",
     "./*": "./*"
   },
   "module": "./dist/index.js",

@@ -7,7 +7,7 @@ import { gql } from '@apollo/client';
 import {
   registerTemplateComponents,
   useTemplateRuntime,
-} from '../../../lib/runtime';
+} from '@contractspec/lib.example-shared-ui';
 import { FilterBar, type FilterState } from './FilterBar';
 import { TaskForm } from './TaskForm';
 import { TaskItem } from './TaskItem';

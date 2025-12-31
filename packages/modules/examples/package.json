@@ -66,6 +66,7 @@
     "@contractspec/example.team-hub": "workspace:*",
     "@contractspec/example.wealth-snapshot": "workspace:*",
     "@contractspec/example.workflow-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

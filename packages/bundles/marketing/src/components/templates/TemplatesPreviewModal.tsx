@@ -6,11 +6,11 @@ import dynamic from 'next/dynamic';
 import { Dialog, DialogContent } from '@contractspec/lib.ui-kit-web/ui/dialog';
 import { ScrollArea } from '@contractspec/lib.ui-kit-web/ui/scroll-area';
 import { LoadingSpinner } from '@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner';
-import type { TemplateId } from '@contractspec/bundle.library/lib/registry';
+import type { TemplateId } from '@contractspec/module.examples';
 
 // Dynamically import template components with ssr: false
 const TemplateShell = dynamic(
-  () => import('@contractspec/bundle.library').then((mod) => mod.TemplateShell),
+  () => import('@contractspec/lib.example-shared-ui').then((mod) => mod.TemplateShell),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
@@ -33,30 +33,30 @@ const RecipesExperience = dynamic(
 );
 
 const SaasDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((mod) => mod.SaasDashboard),
+  () => import('@contractspec/example.saas-boilerplate').then((mod) => mod.SaasDashboard),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const CrmDashboard = dynamic(
-  () => import('@contractspec/bundle.library').then((mod) => mod.CrmDashboard),
+  () => import('@contractspec/example.crm-pipeline').then((mod) => mod.CrmDashboard),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const AgentDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((mod) => mod.AgentDashboard),
+    import('@contractspec/example.agent-console/ui').then((mod) => mod.AgentDashboard),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const WorkflowDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((mod) => mod.WorkflowDashboard),
+    import('@contractspec/example.workflow-system/ui').then((mod) => mod.WorkflowDashboard),
   { ssr: false, loading: () => <LoadingSpinner /> }
 );
 
 const MarketplaceDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then(
+    import('@contractspec/example.marketplace/ui').then(
       (mod) => mod.MarketplaceDashboard
     ),
   { ssr: false, loading: () => <LoadingSpinner /> }
@@ -64,7 +64,7 @@ const MarketplaceDashboard = dynamic(
 
 const IntegrationDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then(
+    import('@contractspec/example.integration-hub/ui').then(
       (mod) => mod.IntegrationDashboard
     ),
   { ssr: false, loading: () => <LoadingSpinner /> }
@@ -72,7 +72,7 @@ const IntegrationDashboard = dynamic(
 
 const AnalyticsDashboard = dynamic(
   () =>
-    import('@contractspec/bundle.library').then(
+    import('@contractspec/example.analytics-dashboard').then(
       (mod) => mod.AnalyticsDashboard
     ),
   { ssr: false, loading: () => <LoadingSpinner /> }
@@ -108,7 +108,6 @@ export const TemplatePreviewModal = ({
       case 'todos-app':
         return (
           <TemplateShell
-            templateId="todos-app"
             title="Starter tasks"
             description="Track work items with filters, priorities, and per-tenant data isolation."
             showSaveAction={false}
@@ -119,7 +118,6 @@ export const TemplatePreviewModal = ({
       case 'messaging-app':
         return (
           <TemplateShell
-            templateId="messaging-app"
             title="Messaging workspace"
             description="Realtime-ready messaging surface with optimistic delivery."
             showSaveAction={false}
@@ -130,7 +128,6 @@ export const TemplatePreviewModal = ({
       case 'recipe-app-i18n':
         return (
           <TemplateShell
-            templateId="recipe-app-i18n"
             title="Ceremony recipes"
             description="Switch locales and preview how rituals translate across teams."
             showSaveAction={false}
@@ -141,7 +138,6 @@ export const TemplatePreviewModal = ({
       case 'saas-boilerplate':
         return (
           <TemplateShell
-            templateId="saas-boilerplate"
             title="SaaS Boilerplate"
             description="Multi-tenant organizations, projects, settings, and billing usage tracking."
             showSaveAction={false}
@@ -152,7 +148,6 @@ export const TemplatePreviewModal = ({
       case 'crm-pipeline':
         return (
           <TemplateShell
-            templateId="crm-pipeline"
             title="CRM Pipeline"
             description="Sales CRM with contacts, companies, deals, and pipeline stages."
             showSaveAction={false}
@@ -163,7 +158,6 @@ export const TemplatePreviewModal = ({
       case 'agent-console':
         return (
           <TemplateShell
-            templateId="agent-console"
             title="AI Agent Console"
             description="AI agent orchestration with tools, agents, runs, and execution logs."
             showSaveAction={false}
@@ -174,7 +168,6 @@ export const TemplatePreviewModal = ({
       case 'workflow-system':
         return (
           <TemplateShell
-            templateId="workflow-system"
             title="Workflow System"
             description="Multi-step workflows with role-based approvals."
             showSaveAction={false}
@@ -185,7 +178,6 @@ export const TemplatePreviewModal = ({
       case 'marketplace':
         return (
           <TemplateShell
-            templateId="marketplace"
             title="Marketplace"
             description="Two-sided marketplace with stores, products, and orders."
             showSaveAction={false}
@@ -196,7 +188,6 @@ export const TemplatePreviewModal = ({
       case 'integration-hub':
         return (
           <TemplateShell
-            templateId="integration-hub"
             title="Integration Hub"
             description="Third-party integrations with sync and field mapping."
             showSaveAction={false}
@@ -207,7 +198,6 @@ export const TemplatePreviewModal = ({
       case 'analytics-dashboard':
         return (
           <TemplateShell
-            templateId="analytics-dashboard"
             title="Analytics Dashboard"
             description="Custom dashboards with widgets and queries."
             showSaveAction={false}

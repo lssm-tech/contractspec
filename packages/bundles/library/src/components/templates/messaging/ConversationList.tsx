@@ -4,7 +4,7 @@ import { MessageCircle, Users } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { type Conversation } from './types';
-import { useTemplateRuntime } from '../../../lib/runtime';
+import { useTemplateRuntime } from '@contractspec/lib.example-shared-ui';
 
 const CONVERSATIONS_QUERY = gql`
   query Conversations($projectId: ID!) {

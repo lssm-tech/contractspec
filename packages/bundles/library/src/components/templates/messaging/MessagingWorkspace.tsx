@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { registerTemplateComponents } from '../../../lib/runtime';
+import { registerTemplateComponents } from '@contractspec/lib.example-shared-ui';
 import { ConversationList } from './ConversationList';
 import { MessageThread } from './MessageThread';
 import { MessageComposer } from './MessageComposer';
