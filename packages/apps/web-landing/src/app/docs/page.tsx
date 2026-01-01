@@ -120,7 +120,7 @@ export default function DocsIndexPage() {
           </p>
           <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`# Install the CLI and core libraries
-pnpm add -D @contractspec/app.cli-contractspec
+pnpm add -D contractspec
 pnpm add @contractspec/lib.contracts @contractspec/lib.schema
 
 # Create your first contract

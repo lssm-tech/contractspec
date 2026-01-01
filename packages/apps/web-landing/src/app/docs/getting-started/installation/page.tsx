@@ -27,7 +27,6 @@ export default function InstallationPage() {
           <ul className="text-muted-foreground space-y-2">
             <li>• Node.js 20+ (or Bun 1.0+)</li>
             <li>• Existing Next.js app or Bun HTTP server</li>
-            <li>• PostgreSQL database (for persistence)</li>
           </ul>
         </div>
 
@@ -39,10 +38,10 @@ export default function InstallationPage() {
           <div className="space-y-4">
             <CommandTabs
               commands={{
+                bun: 'bun add @contractspec/lib.contracts @contractspec/lib.schema',
                 npm: 'npm install @contractspec/lib.contracts @contractspec/lib.schema',
                 pnpm: 'pnpm add @contractspec/lib.contracts @contractspec/lib.schema',
                 yarn: 'yarn add @contractspec/lib.contracts @contractspec/lib.schema',
-                bun: 'bun add @contractspec/lib.contracts @contractspec/lib.schema',
               }}
             />
             <p className="text-muted-foreground text-sm">
@@ -50,10 +49,10 @@ export default function InstallationPage() {
             </p>
             <CommandTabs
               commands={{
+                bun: 'bun add @contractspec/lib.contracts',
                 npm: 'npm install @contractspec/lib.contracts',
                 pnpm: 'pnpm add @contractspec/lib.contracts',
                 yarn: 'yarn add @contractspec/lib.contracts',
-                bun: 'bun add @contractspec/lib.contracts',
               }}
             />
             <p className="text-muted-foreground text-sm">
@@ -61,10 +60,10 @@ export default function InstallationPage() {
             </p>
             <CommandTabs
               commands={{
+                bun: 'bun add @contractspec/app.cli-database prisma @prisma/client',
                 npm: 'npm install @contractspec/app.cli-database prisma @prisma/client',
                 pnpm: 'pnpm add @contractspec/app.cli-database prisma @prisma/client',
                 yarn: 'yarn add @contractspec/app.cli-database prisma @prisma/client',
-                bun: 'bun add @contractspec/app.cli-database prisma @prisma/client',
               }}
             />
           </div>
@@ -84,7 +83,9 @@ mkdir -p app/api/ops`}
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Initialize the database</h2>
+          <h2 className="text-2xl font-bold">
+            Initialize the database (Optional)
+          </h2>
           <p className="text-muted-foreground">
             If using Prisma, set up your schema and generate the client:
           </p>
@@ -112,7 +113,7 @@ yarn dlx prisma migrate dev --name init`,
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Developer Tools (Optional)</h2>
+          <h2 className="text-2xl font-bold">Developer Tools</h2>
           <p className="text-muted-foreground">
             Enhance your workflow with the ContractSpec CLI and VS Code
             extension:
@@ -120,10 +121,10 @@ yarn dlx prisma migrate dev --name init`,
           <div className="space-y-4">
             <CommandTabs
               commands={{
-                bun: 'bun add -D @contractspec/app.cli-contractspec',
-                npm: 'npm install -D @contractspec/app.cli-contractspec',
-                pnpm: 'pnpm add -D @contractspec/app.cli-contractspec',
-                yarn: 'yarn add -D @contractspec/app.cli-contractspec',
+                bun: 'bun add -D contractspec',
+                npm: 'npm install -D contractspec',
+                pnpm: 'pnpm add -D contractspec',
+                yarn: 'yarn add -D contractspec',
               }}
               initialPreference="bun"
             />

@@ -37,6 +37,7 @@ export default function Header() {
         />
       }
       nav={navItems}
+      navLinkClassName="rounded-md"
       cta={{ label: 'Join the waitlist', href: '/contact#waitlist' }}
       right={
         <ButtonLink variant="ghost" href="/contact#call" size="sm">

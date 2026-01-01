@@ -13,7 +13,7 @@ interface CommandTabsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function CommandTabs({
   commands,
-  initialPreference = 'npm',
+  initialPreference = 'bun',
   className,
   ...props
 }: CommandTabsProps) {

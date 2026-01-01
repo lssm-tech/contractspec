@@ -124,7 +124,7 @@ export default function DeveloperToolsPage() {
               CLI
             </p>
             <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-              <pre>bun add -D @contractspec/app.cli-contractspec</pre>
+              <pre>bun add -D contractspec</pre>
             </div>
           </div>
           <div>

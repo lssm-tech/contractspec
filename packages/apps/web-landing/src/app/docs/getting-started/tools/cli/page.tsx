@@ -67,10 +67,10 @@ export default function CLIPage() {
           <h2 className="text-2xl font-bold">Installation</h2>
           <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
             <pre>{`# Install as dev dependency
-bun add -D @contractspec/app.cli-contractspec
+bun add -D contractspec
 
 # Or with npm
-npm install -D @contractspec/app.cli-contractspec`}</pre>
+npm install -D contractspec`}</pre>
           </div>
         </div>
 

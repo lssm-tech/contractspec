@@ -1,7 +1,6 @@
 'use client';
 
 import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library';
-import { type TemplateId } from '@contractspec/lib.runtime-sandbox';
 import { listExamples, listTemplates } from '@contractspec/module.examples';
 import {
   FileText,
@@ -14,6 +13,7 @@ import {
 import dynamic from 'next/dynamic';
 import type React from 'react';
 import { useMemo, useState } from 'react';
+import { TemplateId } from '@contractspec/lib.example-shared-ui';
 
 // Studio dependencies removed for public split
 // import {
@@ -230,7 +230,7 @@ export default function SandboxExperienceClient() {
           <TemplateShell
             title={displayName}
             description="Local runtime (in-browser) preview."
-            projectId="sandbox"
+            // projectId="sandbox"
             showSaveAction={false}
           >
             {playground}
