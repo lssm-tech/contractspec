@@ -13,6 +13,7 @@ import '../workflow/overview.docblock';
 import './tech/mcp-endpoints.docblock';
 import './tech/vscode-extension.docblock';
 import './tech/telemetry-ingest.docblock';
+import './tech/contracts/README.docblock';
 import './tech/contracts/openapi-export.docblock';
 import './tech/contracts/openapi-import.docblock';
 import '../workspace-config/workspace-config.docblock';
@@ -26,3 +27,5 @@ import './tech/studio/learning-journeys.docblock';
 import './tech/studio/project-access-teams.docblock';
 import './tech/studio/team-invitations.docblock';
 import './tech/llm/llm-integration.docblock';
+import './tech/cli.docblock';
+

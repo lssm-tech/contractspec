@@ -1,11 +1,5 @@
 import Link from '@contractspec/lib.ui-link';
 
-// export const metadata: Metadata = {
-//   title: 'Overlay Editor | ContractSpec Docs',
-//   description:
-//     'Guide to the drag-and-drop overlay editor and signing workflow.',
-// };
-
 export function AdvancedOverlayEditorPage() {
   return (
     <div className="space-y-8">

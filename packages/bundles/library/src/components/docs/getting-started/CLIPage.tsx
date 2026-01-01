@@ -1,117 +1,191 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-// export const metadata = {
-//   title: 'CLI Reference: ContractSpec Docs',
-//   description: 'Complete reference for the ContractSpec CLI commands.',
-// };
-
 export function CLIPage() {
   const commands = [
     {
-      name: 'prisma',
-      description: 'Standard Prisma CLI for database management',
-      usage: 'bunx prisma <command>',
-      examples: [
-        'bunx prisma generate           # Generate client from schema',
-        'bunx prisma migrate dev         # Create and apply migration',
-        'bunx prisma migrate deploy      # Apply migrations in production',
-        'bunx prisma db seed             # Run seed script',
-        'bunx prisma studio              # Open database GUI',
-      ],
+      name: 'create',
+      description: 'Interactive wizard to create contract specifications',
+      usage: 'contractspec create [--type operation] [--ai]',
     },
     {
-      name: 'Custom database scripts',
+      name: 'build',
       description:
-        'Project-specific database helpers (if using @contractspec/app.cli-database)',
-      usage: 'bun database <command>',
-      examples: [
-        'bun database generate          # Wrapper for prisma generate',
-        'bun database migrate:dev       # Dev migrations with extras',
-        'bun database seed              # Custom seeding logic',
-      ],
+        'Generate implementation code from contract specs using AI agents',
+      usage: 'contractspec build <spec-file> [--agent-mode claude-code]',
+    },
+    {
+      name: 'validate',
+      description: 'Validate contract specifications and implementations',
+      usage: 'contractspec validate <spec-file> [--check-implementation]',
+    },
+    {
+      name: 'list',
+      description: 'List all contract specifications in the project',
+      usage: 'contractspec list [--type operation] [--json]',
+    },
+    {
+      name: 'watch',
+      description: 'Watch specs and auto-regenerate on changes',
+      usage: 'contractspec watch [--build] [--validate]',
+    },
+    {
+      name: 'sync',
+      description: 'Sync contracts by building all discovered specs',
+      usage: 'contractspec sync [--dry-run]',
+    },
+    {
+      name: 'ci',
+      description: 'Run all validation checks for CI/CD pipelines',
+      usage: 'contractspec ci [--format sarif] [--output results.sarif]',
+    },
+    {
+      name: 'deps',
+      description: 'Analyze contract dependencies and relationships',
+      usage: 'contractspec deps [--circular] [--format dot]',
+    },
+    {
+      name: 'diff',
+      description: 'Compare contract specifications and show differences',
+      usage: 'contractspec diff <spec1> <spec2> [--breaking]',
     },
   ];
 
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Database & Development Tools</h1>
+        <h1 className="text-4xl font-bold">ContractSpec CLI</h1>
         <p className="text-muted-foreground text-lg">
-          ContractSpec has no proprietary CLI. Use standard tools like Prisma,
-          tsc, and your build system. Specs are pure TypeScript served at
-          runtime.
+          Command-line interface for creating, building, and validating contract
+          specifications with AI-powered code generation.
         </p>
       </div>
 
       <div className="space-y-6">
-        <div className="card-subtle space-y-4 p-6">
-          <h3 className="font-bold">No Code Generation Required</h3>
-          <p className="text-muted-foreground text-sm">
-            Unlike GraphQL or gRPC, ContractSpec specs are TypeScript modules
-            that get imported directly. There's no compilation step, no codegen,
-            no CLI to install. Just write your spec, register it, and serve it
-            with an adapter like <code>makeNextAppHandler</code>.
-          </p>
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">Installation</h2>
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
+            <pre>{`# Install as dev dependency
+bun add -D contractspec
+
+# Or with npm
+npm install -D contractspec`}</pre>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">Quick Start</h2>
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
+            <pre>{`# Create a new contract spec with AI
+contractspec create --ai
+
+# Build handler from spec
+contractspec build src/contracts/signup.contracts.ts
+
+# Validate all specs
+contractspec validate 'src/contracts/**/*.ts'
+
+# Watch for changes
+contractspec watch --build`}</pre>
+          </div>
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Database Management</h2>
-          <p className="text-muted-foreground">
-            Use Prisma CLI directly for all database operations:
-          </p>
-          {commands.map((cmd, i) => (
-            <div key={i} className="card-subtle space-y-3 p-6">
-              <h3 className="text-lg font-bold">{cmd.name}</h3>
-              <p className="text-muted-foreground text-sm">{cmd.description}</p>
-              <div className="space-y-2">
-                <div>
-                  <p className="text-muted-foreground text-xs font-medium">
-                    Usage:
-                  </p>
-                  <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-                    <pre>{cmd.usage}</pre>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-muted-foreground text-xs font-medium">
-                    Common commands:
-                  </p>
-                  <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-                    <pre>{cmd.examples.join('\n')}</pre>
-                  </div>
+          <h2 className="text-2xl font-bold">Commands</h2>
+          <div className="grid gap-4">
+            {commands.map((cmd) => (
+              <div key={cmd.name} className="card-subtle space-y-2 p-4">
+                <h3 className="font-mono font-bold text-violet-400">
+                  {cmd.name}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  {cmd.description}
+                </p>
+                <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-2 font-mono text-xs">
+                  <code>{cmd.usage}</code>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Development Workflow</h2>
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">AI Agent Modes</h2>
+          <p className="text-muted-foreground">
+            The CLI supports multiple AI agent modes for different use cases:
+          </p>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="card-subtle p-4">
+              <h4 className="font-bold">simple</h4>
+              <p className="text-muted-foreground text-sm">
+                Direct LLM API calls, fast and straightforward. Best for rapid
+                prototyping.
+              </p>
+            </div>
+            <div className="card-subtle p-4">
+              <h4 className="font-bold">claude-code</h4>
+              <p className="text-muted-foreground text-sm">
+                Extended thinking with Claude. Best for production-quality code.
+              </p>
+            </div>
+            <div className="card-subtle p-4">
+              <h4 className="font-bold">openai-codex</h4>
+              <p className="text-muted-foreground text-sm">
+                GPT-4o/o1 models. Excellent for algorithms and optimization.
+              </p>
+            </div>
+            <div className="card-subtle p-4">
+              <h4 className="font-bold">cursor</h4>
+              <p className="text-muted-foreground text-sm">
+                Leverages Cursor agentic capabilities. Requires Cursor
+                environment.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">CI/CD Integration</h2>
+          <p className="text-muted-foreground">
+            Run all validation checks in CI/CD with machine-readable output:
+          </p>
           <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# 1. Start your dev server (Next.js, Bun, etc.)
-npm run dev
+            <pre>{`# GitHub Actions example
+- name: Validate Contracts
+  run: contractspec ci --format sarif --output results.sarif
 
-# 2. Make database schema changes
-# Edit prisma/schema.prisma
+- name: Upload SARIF
+  uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: results.sarif`}</pre>
+          </div>
+        </div>
 
-# 3. Apply migrations
-bunx prisma migrate dev --name add_user_roles
-
-# 4. Write specs and handlers in TypeScript
-# No CLI needed—just import and register
-
-# 5. Test your operations
-curl -X POST http://localhost:3000/api/ops/billing.capturePayment \\
-  -H "Content-Type: application/json" \\
-  -d '{"invoiceId": "inv_123", "amount": 99.99}'`}</pre>
+        <div className="card-subtle space-y-4 p-6">
+          <h3 className="font-bold">Configuration</h3>
+          <p className="text-muted-foreground text-sm">
+            Create a <code>.contractsrc.json</code> file in your project root:
+          </p>
+          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
+            <pre>{`{
+  "aiProvider": "claude",
+  "agentMode": "claude-code",
+  "outputDir": "./src",
+  "conventions": {
+    "operations": "interactions/commands|queries",
+    "events": "events"
+  }
+}`}</pre>
           </div>
         </div>
       </div>
 
       <div className="flex items-center gap-4 pt-4">
-        <Link href="/docs/specs/capabilities" className="btn-primary">
-          Next: Capabilities <ChevronRight size={16} />
+        <Link href="/docs/getting-started/tools/vscode" className="btn-primary">
+          Next: VS Code Extension <ChevronRight size={16} />
+        </Link>
+        <Link href="/docs/getting-started/tools" className="btn-ghost">
+          Back to Tools
         </Link>
       </div>
     </div>

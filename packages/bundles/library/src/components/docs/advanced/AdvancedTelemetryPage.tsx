@@ -1,12 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-// export const metadata = {
-//   title: 'Telemetry: ContractSpec Docs',
-//   description:
-//     'Learn how to configure observability, metrics, logs, and traces in ContractSpec using TelemetrySpec.',
-// };
-
 export function AdvancedTelemetryPage() {
   return (
     <div className="space-y-8">

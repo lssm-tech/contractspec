@@ -1,6 +1,6 @@
 'use client';
 
-import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library';
+import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library/components/shell';
 import { listExamples, listTemplates } from '@contractspec/module.examples';
 import {
   FileText,

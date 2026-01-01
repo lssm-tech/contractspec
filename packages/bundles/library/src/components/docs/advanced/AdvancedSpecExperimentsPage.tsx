@@ -1,9 +1,3 @@
-// export const metadata: Metadata = {
-//   title: 'Spec Experiments | ContractSpec',
-//   description:
-//     'Deterministic rollouts, guardrails, and automatic rollback for ContractSpec operations.',
-// };
-
 export function AdvancedSpecExperimentsPage() {
   return (
     <div className="space-y-8">

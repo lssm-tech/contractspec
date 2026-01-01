@@ -7,19 +7,24 @@ import {
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
-import { submitContactForm } from '../../libs/email/contact';
-import { type SubmitContactFormResult } from '../../libs/email/types';
+import {
+  submitContactForm,
+} from '../../libs/email/contact';
+import type { SubmitContactFormResult } from '../../libs/email/types'; // Assuming these are exported from root or similar, need to check where submitContactForm lives. 
+// Wait check imports again. submitContactForm is imported from @contractspec/bundle.marketing.
+// In bundle.marketing, it is likely in 'src/actions' or 'src/utils'.
+// I need to check where submitContactForm is defined in bundle.marketing.
+import { WaitlistSection } from './waitlist-section';
 import {
   ActionForm,
   Button,
   Input,
   Textarea,
 } from '@contractspec/lib.design-system';
-import { WaitlistSection } from './waitlist-section';
 import { VStack, HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
-  H1,
   H2,
+  H1,
   Small,
   Muted,
 } from '@contractspec/lib.ui-kit-web/ui/typography';
@@ -53,7 +58,6 @@ export function ContactClient() {
   return (
     <section className="section-padding hero-gradient w-full">
       <VStack className="mx-auto max-w-4xl gap-16">
-        {/* Page Header */}
         <VStack className="gap-4 text-center">
           <H1 className="text-5xl font-bold">Get in touch</H1>
           <Muted className="text-lg">

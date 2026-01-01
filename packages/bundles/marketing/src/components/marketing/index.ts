@@ -4,5 +4,7 @@ export { PricingClient } from './PricingClient';
 export { ContactClient } from './ContactClient';
 export { ChangelogPage } from './ChangelogPage';
 export { CofounderPage } from './CofounderPage';
+export { ContributePage } from './ContributePage';
+export { DesignPartnerPage } from './DesignPartnerPage';
 export { WaitlistSection } from './waitlist-section';
 export { PricingThinkingModal } from './pricing-thinking-modal';

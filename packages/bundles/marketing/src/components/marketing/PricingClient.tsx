@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from '@contractspec/lib.ui-link';
+import Link from 'next/link';
 import { CheckCircle, ChevronDown, ChevronRight } from 'lucide-react';
+
 import { WaitlistSection } from './waitlist-section';
 import { PricingThinkingModal } from './pricing-thinking-modal';
 
@@ -34,7 +35,7 @@ const faqs: FAQ[] = [
   },
 ];
 
-export const PricingClient = () => {
+export function PricingClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
 
@@ -49,10 +50,9 @@ export const PricingClient = () => {
     <main className="pt-24">
       {/* Hero */}
       <section className="section-padding hero-gradient relative">
-        <div className="mx-auto max-w-6xl space-y-6 text-center">
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
           <h1 className="text-5xl leading-tight font-bold md:text-6xl">
-            {/*Transparent, usage-based pricing – after we earn it.*/}
-            Transparent, usage-based pricing
+            Transparent, usage-based pricing – after we earn it.
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             ContractSpec is in design-partner early access. You can't pay us
@@ -89,11 +89,8 @@ export const PricingClient = () => {
               </h2>
               <p className="text-muted-foreground text-sm">
                 We work closely with a small group of teams building serious
-                products with AI.
-                <span className="mt-2 block">
-                  You bring real-world complexity, we bring the spec-first
-                  engine and a lot of attention.
-                </span>
+                products with AI. You bring real-world complexity, we bring the
+                spec-first engine and a lot of attention.
               </p>
             </div>
             <div className="flex-1 space-y-4">
@@ -391,4 +388,4 @@ export const PricingClient = () => {
       />
     </main>
   );
-};
+}

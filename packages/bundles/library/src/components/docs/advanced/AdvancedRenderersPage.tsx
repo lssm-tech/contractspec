@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-// export const metadata = {
-//   title: 'Custom Renderers: ContractSpec Docs',
-//   description: 'Build custom renderers for different platforms and frameworks.',
-// };
-
 export function AdvancedRenderersPage() {
   return (
     <div className="space-y-8">

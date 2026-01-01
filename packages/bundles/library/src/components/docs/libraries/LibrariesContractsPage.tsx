@@ -1,124 +1,77 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-// export const metadata = {
-//   title: '@contractspec/lib.contracts: ContractSpec Docs',
-//   description:
-//     'Complete reference for the contracts library—define operations, events, and policies in pure TypeScript.',
-// };
-
 export function LibrariesContractsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">@contractspec/lib.contracts</h1>
-        <p className="text-muted-foreground">
-          Unified specifications for Operations, Events, Presentations, and
-          Features. The core library for defining what your application can do.
+        <p className="text-muted-foreground text-lg">
+          The core library for defining what your application can do. Unified specifications for Operations, Events, Presentations, and Features.
         </p>
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
         <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.contracts @contractspec/lib.schema
-# or
-bun add @contractspec/lib.contracts @contractspec/lib.schema`}</pre>
+          <pre>{`npm install @contractspec/lib.contracts @contractspec/lib.schema`}</pre>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Key Concepts</h2>
+        <h2 className="text-2xl font-bold">What lives where</h2>
+        <ul className="text-muted-foreground list-inside list-disc space-y-2">
+            <li>
+                <strong>@contractspec/lib.contracts</strong> (root): The core contracts definitions (OperationSpec, PresentationSpec, Registry).
+            </li>
+            <li>
+                <strong>@contractspec/lib.contracts/client</strong>: Browser-safe helpers (React renderers, client SDK). Import this for web/React Native.
+            </li>
+            <li>
+                <strong>@contractspec/lib.contracts/server</strong>: HTTP/MCP adapters, registries, integrations (Node-only).
+            </li>
+            <li>
+                <strong>@contractspec/lib.schema</strong>: Schema dictionary (SchemaModel, FieldType) for I/O definitions.
+            </li>
+        </ul>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Core Concepts</h2>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
-            <strong>Spec-First, TypeScript-First</strong>: Define operations in
-            pure TypeScript (no YAML).
+            <strong>OperationSpec</strong>: Immutable description of an operation (Command or Query). Defines I/O, policy, and metadata.
           </li>
           <li>
-            <strong>Runtime Adapters</strong>: The `OperationSpecRegistry` is
-            passed to adapters to serve APIs dynamically. There is no
-            intermediate "compile" step.
+            <strong>OperationSpecRegistry</strong>: Registry of specs + handlers. Use <code className="font-mono text-xs">installOp</code> to attach a handler.
           </li>
           <li>
-            <strong>Capabilities</strong>: `defineCommand` (writes) and
-            `defineQuery` (reads) with Zod-backed I/O.
+            <strong>CapabilitySpec</strong>: Canonical capability declaration (requires/provides).
           </li>
           <li>
-            <strong>Events</strong>: `defineEvent` for type-safe side effects.
+            <strong>PolicySpec</strong>: Declarative policy rules (ABAC/ReBAC, rate limits).
           </li>
           <li>
-            <strong>Presentations</strong>: (V2) Describe how data is rendered
-            (Web Components, Markdown, Data).
+            <strong>TelemetrySpec</strong>: Analytics definitions and privacy levels.
+          </li>
+          <li>
+            <strong>PresentationSpec (V2)</strong>: Describes how data is rendered (Web Components, Markdown, Data).
           </li>
         </ul>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Define a Command</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineCommand } from '@contractspec/lib.contracts';
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const UserInput = new SchemaModel({
-  name: 'UserInput',
-  fields: {
-    email: { type: ScalarTypeEnum.Email(), isOptional: false },
-  }
-});
-
-const UserOutput = new SchemaModel({
-  name: 'UserOutput',
-  fields: {
-    id: { type: ScalarTypeEnum.String(), isOptional: false },
-  }
-});
-
-export const CreateUser = defineCommand({
-  meta: {
-    key: 'user.create',
-    version: '1.0.0',
-    description: 'Register a new user',
-    owners: ['team-auth'],
-    tags: ['auth'],
-    goal: 'Onboard users',
-    context: 'Public registration',
-    stability: 'stable',
-  },
-  io: {
-    input: UserInput,
-    output: UserOutput,
-  },
-  policy: {
-    auth: 'anonymous',
-  },
-});`}</pre>
-        </div>
+        <h2 className="text-2xl font-bold">Lifecycle</h2>
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2">
+            <li><strong>Define</strong> the spec (I/O via SchemaModel or Zod).</li>
+            <li><strong>Register</strong> it: <code className="font-mono text-xs">installOp(registry, spec, handler)</code>.</li>
+            <li><strong>Expose</strong> it via an adapter (REST, GraphQL, MCP).</li>
+            <li><strong>Validate</strong> at runtime automatically.</li>
+        </ol>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Register and Serve</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
-import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
-
-const reg = new OperationSpecRegistry();
-
-installOp(reg, CreateUser, async (input, ctx) => {
-  // Implementation logic here
-  return { id: '123' };
-});
-
-// Serve via Next.js App Router
-export const handler = makeNextAppHandler(reg, (req) => ({ 
-  actor: 'anonymous' 
-}));
-
-export { handler as GET, handler as POST };`}</pre>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Available Adapters</h2>
+        <h2 className="text-2xl font-bold">Adapters</h2>
         <ul className="text-muted-foreground space-y-2">
           <li>
             <code className="bg-background/50 rounded px-2 py-1">
@@ -137,12 +90,6 @@ export { handler as GET, handler as POST };`}</pre>
               server/graphql-pothos
             </code>
             : GraphQL schema generator
-          </li>
-          <li>
-            <code className="bg-background/50 rounded px-2 py-1">
-              server/rest-elysia
-            </code>
-            : Elysia (Bun) adapter
           </li>
         </ul>
       </div>

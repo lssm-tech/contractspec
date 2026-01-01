@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext } from 'react';
 import type { ApolloClient } from '@apollo/client';
 import type { TransformEngine } from '@contractspec/lib.contracts';

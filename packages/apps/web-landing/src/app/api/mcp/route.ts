@@ -1,10 +1,7 @@
 import { Elysia } from 'elysia';
 import {
-  createCliMcpHandler,
   createDocsMcpHandler,
-  createInternalMcpHandler,
-} from '@contractspec/bundle.library/application/mcp';
-import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
+} from '@contractspec/bundle.library/application/mcp/docsMcp';
 
 export const mcpHandler = new Elysia({
   prefix: '/api',

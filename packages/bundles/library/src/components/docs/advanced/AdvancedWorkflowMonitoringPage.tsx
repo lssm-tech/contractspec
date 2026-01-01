@@ -1,8 +1,3 @@
-// export const metadata: Metadata = {
-//   title: 'Workflow Monitoring | ContractSpec',
-//   description: 'Monitor SLAs, detect anomalies, and trace workflow execution.',
-// };
-
 export function AdvancedWorkflowMonitoringPage() {
   return (
     <div className="space-y-8">
