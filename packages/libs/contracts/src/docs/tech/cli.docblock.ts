@@ -1,7 +1,6 @@
 import type { DocBlock } from '../types';
 import { registerDocBlocks } from '../registry';
 
-
 export const tech_cli_DocBlocks: DocBlock[] = [
   {
     id: 'docs.tech.cli.contractspec',

@@ -6,14 +6,9 @@ import {
   techContractsDocs,
 } from '@contractspec/lib.contracts/docs';
 import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
-import { opsLifecycleDocs } from '../components/docs/ops/ops-lifecycle.docblocks';
-import { opsRunbookDocsA } from '../components/docs/ops/ops-runbooks-a.docblocks';
-import { opsRunbookDocsB } from '../components/docs/ops/ops-runbooks-b.docblocks';
-import { opsSloTenantDocs } from '../components/docs/ops/ops-slo-tenant.docblocks';
-import { opsTopDocs } from '../components/docs/ops/ops-top.docs';
-import { opsDocBlocks } from '../components/docs/ops/ops.docs';
-import { productDocs } from '../components/docs/product/product.docblocks';
-import { techContractsDocBlocks } from '../components/docs/tech/contracts/tech-docs.docblocks';
+import {opsDocBlocks} from '@contractspec/bundle.library/components/docs/ops/ops.docs';
+import { productDocs } from '@contractspec/bundle.library/components/docs/product/product.docblocks';
+import { techContractsDocBlocks } from '@contractspec/bundle.library/components/docs/tech/contracts/tech-docs.docblocks';
 import type { ComponentMap } from './types';
 
 // Import sub-registries
@@ -47,11 +42,6 @@ export const presentationRegistry = new Map<string, PresentationSpec>([
 const docRoutes: DocPresentationRoute[] = docBlocksToPresentationRoutes(
   [
     ...opsDocBlocks,
-    ...opsTopDocs,
-    ...opsLifecycleDocs,
-    ...opsRunbookDocsA,
-    ...opsRunbookDocsB,
-    ...opsSloTenantDocs,
     ...productDocs,
     ...techContractsDocBlocks,
     ...techContractsDocs,

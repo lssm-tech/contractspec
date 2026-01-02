@@ -7,7 +7,8 @@ export function LibrariesContractsPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">@contractspec/lib.contracts</h1>
         <p className="text-muted-foreground text-lg">
-          The core library for defining what your application can do. Unified specifications for Operations, Events, Presentations, and Features.
+          The core library for defining what your application can do. Unified
+          specifications for Operations, Events, Presentations, and Features.
         </p>
       </div>
 
@@ -21,18 +22,23 @@ export function LibrariesContractsPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">What lives where</h2>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
-            <li>
-                <strong>@contractspec/lib.contracts</strong> (root): The core contracts definitions (OperationSpec, PresentationSpec, Registry).
-            </li>
-            <li>
-                <strong>@contractspec/lib.contracts/client</strong>: Browser-safe helpers (React renderers, client SDK). Import this for web/React Native.
-            </li>
-            <li>
-                <strong>@contractspec/lib.contracts/server</strong>: HTTP/MCP adapters, registries, integrations (Node-only).
-            </li>
-            <li>
-                <strong>@contractspec/lib.schema</strong>: Schema dictionary (SchemaModel, FieldType) for I/O definitions.
-            </li>
+          <li>
+            <strong>@contractspec/lib.contracts</strong> (root): The core
+            contracts definitions (OperationSpec, PresentationSpec, Registry).
+          </li>
+          <li>
+            <strong>@contractspec/lib.contracts/client</strong>: Browser-safe
+            helpers (React renderers, client SDK). Import this for web/React
+            Native.
+          </li>
+          <li>
+            <strong>@contractspec/lib.contracts/server</strong>: HTTP/MCP
+            adapters, registries, integrations (Node-only).
+          </li>
+          <li>
+            <strong>@contractspec/lib.schema</strong>: Schema dictionary
+            (SchemaModel, FieldType) for I/O definitions.
+          </li>
         </ul>
       </div>
 
@@ -40,22 +46,29 @@ export function LibrariesContractsPage() {
         <h2 className="text-2xl font-bold">Core Concepts</h2>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
           <li>
-            <strong>OperationSpec</strong>: Immutable description of an operation (Command or Query). Defines I/O, policy, and metadata.
+            <strong>OperationSpec</strong>: Immutable description of an
+            operation (Command or Query). Defines I/O, policy, and metadata.
           </li>
           <li>
-            <strong>OperationSpecRegistry</strong>: Registry of specs + handlers. Use <code className="font-mono text-xs">installOp</code> to attach a handler.
+            <strong>OperationSpecRegistry</strong>: Registry of specs +
+            handlers. Use <code className="font-mono text-xs">installOp</code>{' '}
+            to attach a handler.
           </li>
           <li>
-            <strong>CapabilitySpec</strong>: Canonical capability declaration (requires/provides).
+            <strong>CapabilitySpec</strong>: Canonical capability declaration
+            (requires/provides).
           </li>
           <li>
-            <strong>PolicySpec</strong>: Declarative policy rules (ABAC/ReBAC, rate limits).
+            <strong>PolicySpec</strong>: Declarative policy rules (ABAC/ReBAC,
+            rate limits).
           </li>
           <li>
-            <strong>TelemetrySpec</strong>: Analytics definitions and privacy levels.
+            <strong>TelemetrySpec</strong>: Analytics definitions and privacy
+            levels.
           </li>
           <li>
-            <strong>PresentationSpec (V2)</strong>: Describes how data is rendered (Web Components, Markdown, Data).
+            <strong>PresentationSpec (V2)</strong>: Describes how data is
+            rendered (Web Components, Markdown, Data).
           </li>
         </ul>
       </div>
@@ -63,10 +76,22 @@ export function LibrariesContractsPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Lifecycle</h2>
         <ol className="text-muted-foreground list-inside list-decimal space-y-2">
-            <li><strong>Define</strong> the spec (I/O via SchemaModel or Zod).</li>
-            <li><strong>Register</strong> it: <code className="font-mono text-xs">installOp(registry, spec, handler)</code>.</li>
-            <li><strong>Expose</strong> it via an adapter (REST, GraphQL, MCP).</li>
-            <li><strong>Validate</strong> at runtime automatically.</li>
+          <li>
+            <strong>Define</strong> the spec (I/O via SchemaModel or Zod).
+          </li>
+          <li>
+            <strong>Register</strong> it:{' '}
+            <code className="font-mono text-xs">
+              installOp(registry, spec, handler)
+            </code>
+            .
+          </li>
+          <li>
+            <strong>Expose</strong> it via an adapter (REST, GraphQL, MCP).
+          </li>
+          <li>
+            <strong>Validate</strong> at runtime automatically.
+          </li>
         </ol>
       </div>
 

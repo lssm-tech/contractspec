@@ -12,119 +12,119 @@ import type { ComponentMap } from './types';
 // Note: Imports are relative to src/registry (../components/docs/...)
 
 // Advanced
-import { AdvancedMCPPage } from '../components/docs/advanced/AdvancedMCPPage';
-import { AdvancedOverlayEditorPage } from '../components/docs/advanced/AdvancedOverlayEditorPage';
-import { AdvancedRenderersPage } from '../components/docs/advanced/AdvancedRenderersPage';
-import { AdvancedSpecExperimentsPage } from '../components/docs/advanced/AdvancedSpecExperimentsPage';
-import { AdvancedTelemetryPage } from '../components/docs/advanced/AdvancedTelemetryPage';
-import { AdvancedWorkflowMonitoringPage } from '../components/docs/advanced/AdvancedWorkflowMonitoringPage';
+import { AdvancedMCPPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedMCPPage';
+import { AdvancedOverlayEditorPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedOverlayEditorPage';
+import { AdvancedRenderersPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedRenderersPage';
+import { AdvancedSpecExperimentsPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedSpecExperimentsPage';
+import { AdvancedTelemetryPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedTelemetryPage';
+import { AdvancedWorkflowMonitoringPage } from '@contractspec/bundle.library/components/docs/advanced/AdvancedWorkflowMonitoringPage';
 
 // Architecture
-import { ArchitectureAppConfigPage } from '../components/docs/architecture/ArchitectureAppConfigPage';
-import { ArchitectureIntegrationBindingPage } from '../components/docs/architecture/ArchitectureIntegrationBindingPage';
-import { ArchitectureKnowledgeBindingPage } from '../components/docs/architecture/ArchitectureKnowledgeBindingPage';
-import { ArchitectureMultiTenancyPage } from '../components/docs/architecture/ArchitectureMultiTenancyPage';
-import { ArchitectureOverviewPage } from '../components/docs/architecture/ArchitectureOverviewPage';
+import { ArchitectureAppConfigPage } from '@contractspec/bundle.library/components/docs/architecture/ArchitectureAppConfigPage';
+import { ArchitectureIntegrationBindingPage } from '@contractspec/bundle.library/components/docs/architecture/ArchitectureIntegrationBindingPage';
+import { ArchitectureKnowledgeBindingPage } from '@contractspec/bundle.library/components/docs/architecture/ArchitectureKnowledgeBindingPage';
+import { ArchitectureMultiTenancyPage } from '@contractspec/bundle.library/components/docs/architecture/ArchitectureMultiTenancyPage';
+import { ArchitectureOverviewPage } from '@contractspec/bundle.library/components/docs/architecture/ArchitectureOverviewPage';
 
 // Comparison
-import { ComparisonAutomationPlatformsPage } from '../components/docs/comparison/ComparisonAutomationPlatformsPage';
-import { ComparisonEnterprisePlatformsPage } from '../components/docs/comparison/ComparisonEnterprisePlatformsPage';
-import { ComparisonInternalToolBuildersPage } from '../components/docs/comparison/ComparisonInternalToolBuildersPage';
-import { ComparisonOverviewPage } from '../components/docs/comparison/ComparisonOverviewPage';
-import { ComparisonWindmillPage } from '../components/docs/comparison/ComparisonWindmillPage';
-import { ComparisonWorkflowEnginesPage } from '../components/docs/comparison/ComparisonWorkflowEnginesPage';
+import { ComparisonAutomationPlatformsPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonAutomationPlatformsPage';
+import { ComparisonEnterprisePlatformsPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonEnterprisePlatformsPage';
+import { ComparisonInternalToolBuildersPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonInternalToolBuildersPage';
+import { ComparisonOverviewPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonOverviewPage';
+import { ComparisonWindmillPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonWindmillPage';
+import { ComparisonWorkflowEnginesPage } from '@contractspec/bundle.library/components/docs/comparison/ComparisonWorkflowEnginesPage';
 
 // Getting Started
-import { CLIPage } from '../components/docs/getting-started/CLIPage';
-import { DataViewTutorialPage } from '../components/docs/getting-started/DataViewTutorialPage';
-import { HelloWorldPage } from '../components/docs/getting-started/HelloWorldPage';
-import { InstallationPage } from '../components/docs/getting-started/InstallationPage';
+import { CLIPage } from '@contractspec/bundle.library/components/docs/getting-started/CLIPage';
+import { DataViewTutorialPage } from '@contractspec/bundle.library/components/docs/getting-started/DataViewTutorialPage';
+import { HelloWorldPage } from '@contractspec/bundle.library/components/docs/getting-started/HelloWorldPage';
+import { InstallationPage } from '@contractspec/bundle.library/components/docs/getting-started/InstallationPage';
 
 // Integrations
-import { IntegrationsCircuitBreakersPage } from '../components/docs/integrations/IntegrationsCircuitBreakersPage';
-import { IntegrationsElevenLabsPage } from '../components/docs/integrations/IntegrationsElevenLabsPage';
-import { IntegrationsGmailPage } from '../components/docs/integrations/IntegrationsGmailPage';
-import { IntegrationsGoogleCalendarPage } from '../components/docs/integrations/IntegrationsGoogleCalendarPage';
-import { IntegrationsOpenAIPage } from '../components/docs/integrations/IntegrationsOpenAIPage';
-import { IntegrationsOverviewPage } from '../components/docs/integrations/IntegrationsOverviewPage';
-import { IntegrationsPostmarkPage } from '../components/docs/integrations/IntegrationsPostmarkPage';
-import { IntegrationsPowensPage } from '../components/docs/integrations/IntegrationsPowensPage';
-import { IntegrationsQdrantPage } from '../components/docs/integrations/IntegrationsQdrantPage';
-import { IntegrationsResendPage } from '../components/docs/integrations/IntegrationsResendPage';
-import { IntegrationsS3Page } from '../components/docs/integrations/IntegrationsS3Page';
-import { IntegrationsSpecModelPage } from '../components/docs/integrations/IntegrationsSpecModelPage';
-import { IntegrationsStripePage } from '../components/docs/integrations/IntegrationsStripePage';
-import { IntegrationsTwilioPage } from '../components/docs/integrations/IntegrationsTwilioPage';
+import { IntegrationsCircuitBreakersPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsCircuitBreakersPage';
+import { IntegrationsElevenLabsPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsElevenLabsPage';
+import { IntegrationsGmailPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsGmailPage';
+import { IntegrationsGoogleCalendarPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsGoogleCalendarPage';
+import { IntegrationsOpenAIPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsOpenAIPage';
+import { IntegrationsOverviewPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsOverviewPage';
+import { IntegrationsPostmarkPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsPostmarkPage';
+import { IntegrationsPowensPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsPowensPage';
+import { IntegrationsQdrantPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsQdrantPage';
+import { IntegrationsResendPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsResendPage';
+import { IntegrationsS3Page } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsS3Page';
+import { IntegrationsSpecModelPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsSpecModelPage';
+import { IntegrationsStripePage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsStripePage';
+import { IntegrationsTwilioPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsTwilioPage';
 
 // Knowledge
-import { KnowledgeCategoriesPage } from '../components/docs/knowledge/KnowledgeCategoriesPage';
-import { KnowledgeExamplesPage } from '../components/docs/knowledge/KnowledgeExamplesPage';
-import { KnowledgeOverviewPage } from '../components/docs/knowledge/KnowledgeOverviewPage';
-import { KnowledgeSourcesPage } from '../components/docs/knowledge/KnowledgeSourcesPage';
-import { KnowledgeSpacesPage } from '../components/docs/knowledge/KnowledgeSpacesPage';
+import { KnowledgeCategoriesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeCategoriesPage';
+import { KnowledgeExamplesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeExamplesPage';
+import { KnowledgeOverviewPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeOverviewPage';
+import { KnowledgeSourcesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeSourcesPage';
+import { KnowledgeSpacesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeSpacesPage';
 
 // Libraries
-import { LibrariesAccessibilityPage } from '../components/docs/libraries/LibrariesAccessibilityPage';
-import { LibrariesAiAgentPage } from '../components/docs/libraries/LibrariesAiAgentPage';
-import { LibrariesAnalyticsPage } from '../components/docs/libraries/LibrariesAnalyticsPage';
-import { LibrariesContentGenPage } from '../components/docs/libraries/LibrariesContentGenPage';
-import { LibrariesContractsPage } from '../components/docs/libraries/LibrariesContractsPage';
-import { LibrariesCostTrackingPage } from '../components/docs/libraries/LibrariesCostTrackingPage';
-import { LibrariesDataBackendPage } from '../components/docs/libraries/LibrariesDataBackendPage';
-import { LibrariesDataViewsPage } from '../components/docs/libraries/LibrariesDataViewsPage';
-import { LibrariesDesignSystemPage } from '../components/docs/libraries/LibrariesDesignSystemPage';
-import { LibrariesEvolutionPage } from '../components/docs/libraries/LibrariesEvolutionPage';
-import { LibrariesGraphQLPage } from '../components/docs/libraries/LibrariesGraphQLPage';
-import { LibrariesGrowthPage } from '../components/docs/libraries/LibrariesGrowthPage';
-import { LibrariesMultiTenancyPage } from '../components/docs/libraries/LibrariesMultiTenancyPage';
-import { LibrariesObservabilityPage } from '../components/docs/libraries/LibrariesObservabilityPage';
-import { LibrariesOverlayEnginePage } from '../components/docs/libraries/LibrariesOverlayEnginePage';
-import { LibrariesOverviewPage } from '../components/docs/libraries/LibrariesOverviewPage';
-import { LibrariesPersonalizationPage } from '../components/docs/libraries/LibrariesPersonalizationPage';
-import { LibrariesProgressiveDeliveryPage } from '../components/docs/libraries/LibrariesProgressiveDeliveryPage';
-import { LibrariesResiliencePage } from '../components/docs/libraries/LibrariesResiliencePage';
-import { LibrariesRuntimePage } from '../components/docs/libraries/LibrariesRuntimePage';
-import { LibrariesSchemaPage } from '../components/docs/libraries/LibrariesSchemaPage';
-import { LibrariesSLOPage } from '../components/docs/libraries/LibrariesSLOPage';
-import { LibrariesSupportBotPage } from '../components/docs/libraries/LibrariesSupportBotPage';
-import { LibrariesTestingPage } from '../components/docs/libraries/LibrariesTestingPage';
-import { LibrariesUIKitPage } from '../components/docs/libraries/LibrariesUIKitPage';
-import { LibrariesWorkflowComposerPage } from '../components/docs/libraries/LibrariesWorkflowComposerPage';
-import { LibrariesWorkflowsPage } from '../components/docs/libraries/LibrariesWorkflowsPage';
+import { LibrariesAccessibilityPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAccessibilityPage';
+import { LibrariesAiAgentPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAiAgentPage';
+import { LibrariesAnalyticsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAnalyticsPage';
+import { LibrariesContentGenPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContentGenPage';
+import { LibrariesContractsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContractsPage';
+import { LibrariesCostTrackingPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesCostTrackingPage';
+import { LibrariesDataBackendPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDataBackendPage';
+import { LibrariesDataViewsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDataViewsPage';
+import { LibrariesDesignSystemPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDesignSystemPage';
+import { LibrariesEvolutionPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesEvolutionPage';
+import { LibrariesGraphQLPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesGraphQLPage';
+import { LibrariesGrowthPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesGrowthPage';
+import { LibrariesMultiTenancyPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesMultiTenancyPage';
+import { LibrariesObservabilityPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesObservabilityPage';
+import { LibrariesOverlayEnginePage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesOverlayEnginePage';
+import { LibrariesOverviewPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesOverviewPage';
+import { LibrariesPersonalizationPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesPersonalizationPage';
+import { LibrariesProgressiveDeliveryPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesProgressiveDeliveryPage';
+import { LibrariesResiliencePage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesResiliencePage';
+import { LibrariesRuntimePage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesRuntimePage';
+import { LibrariesSchemaPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesSchemaPage';
+import { LibrariesSLOPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesSLOPage';
+import { LibrariesSupportBotPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesSupportBotPage';
+import { LibrariesTestingPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesTestingPage';
+import { LibrariesUIKitPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesUIKitPage';
+import { LibrariesWorkflowComposerPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesWorkflowComposerPage';
+import { LibrariesWorkflowsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesWorkflowsPage';
 
 // Manifesto
-import { ManifestoPage } from '../components/docs/manifesto/ManifestoPage';
+import { ManifestoPage } from '@contractspec/bundle.library/components/docs/manifesto/ManifestoPage';
 
 // Ops
-import { OpsAutoEvolutionPage } from '../components/docs/ops/AutoEvolutionOpsPage';
-import { OpsDistributedTracingPage } from '../components/docs/ops/DistributedTracingOpsPage';
+import { OpsAutoEvolutionPage } from '@contractspec/bundle.library/components/docs/ops/AutoEvolutionOpsPage';
+import { OpsDistributedTracingPage } from '@contractspec/bundle.library/components/docs/ops/DistributedTracingOpsPage';
 
 // Safety
-import { SafetyAuditingPage } from '../components/docs/safety/SafetyAuditingPage';
-import { SafetyMigrationsPage } from '../components/docs/safety/SafetyMigrationsPage';
-import { SafetyOverviewPage } from '../components/docs/safety/SafetyOverviewPage';
-import { SafetyPDPPage } from '../components/docs/safety/SafetyPDPPage';
-import { SafetySigningPage } from '../components/docs/safety/SafetySigningPage';
-import { SafetyTenantIsolationPage } from '../components/docs/safety/SafetyTenantIsolationPage';
+import { SafetyAuditingPage } from '@contractspec/bundle.library/components/docs/safety/SafetyAuditingPage';
+import { SafetyMigrationsPage } from '@contractspec/bundle.library/components/docs/safety/SafetyMigrationsPage';
+import { SafetyOverviewPage } from '@contractspec/bundle.library/components/docs/safety/SafetyOverviewPage';
+import { SafetyPDPPage } from '@contractspec/bundle.library/components/docs/safety/SafetyPDPPage';
+import { SafetySigningPage } from '@contractspec/bundle.library/components/docs/safety/SafetySigningPage';
+import { SafetyTenantIsolationPage } from '@contractspec/bundle.library/components/docs/safety/SafetyTenantIsolationPage';
 
 // Specs
-import { SpecsCapabilitiesPage } from '../components/docs/specs/SpecsCapabilitiesPage';
-import { SpecsDataViewsPage } from '../components/docs/specs/SpecsDataViewsPage';
-import { SpecsOverlaysPage } from '../components/docs/specs/SpecsOverlaysPage';
-import { SpecsOverviewPage } from '../components/docs/specs/SpecsOverviewPage';
-import { SpecsPolicyPage } from '../components/docs/specs/SpecsPolicyPage';
-import { SpecsWorkflowsPage } from '../components/docs/specs/SpecsWorkflowsPage';
+import { SpecsCapabilitiesPage } from '@contractspec/bundle.library/components/docs/specs/SpecsCapabilitiesPage';
+import { SpecsDataViewsPage } from '@contractspec/bundle.library/components/docs/specs/SpecsDataViewsPage';
+import { SpecsOverlaysPage } from '@contractspec/bundle.library/components/docs/specs/SpecsOverlaysPage';
+import { SpecsOverviewPage } from '@contractspec/bundle.library/components/docs/specs/SpecsOverviewPage';
+import { SpecsPolicyPage } from '@contractspec/bundle.library/components/docs/specs/SpecsPolicyPage';
+import { SpecsWorkflowsPage } from '@contractspec/bundle.library/components/docs/specs/SpecsWorkflowsPage';
 
 // Studio
-import { StudioBYOKPage } from '../components/docs/studio/StudioBYOKPage';
-import { StudioDeploymentsPage } from '../components/docs/studio/StudioDeploymentsPage';
-import { StudioGettingStartedPage } from '../components/docs/studio/StudioGettingStartedPage';
-import { StudioIntegrationsPage } from '../components/docs/studio/StudioIntegrationsPage';
-import { StudioOverviewPage } from '../components/docs/studio/StudioOverviewPage';
-import { StudioVisualBuilderPage } from '../components/docs/studio/StudioVisualBuilderPage';
+import { StudioBYOKPage } from '@contractspec/bundle.library/components/docs/studio/StudioBYOKPage';
+import { StudioDeploymentsPage } from '@contractspec/bundle.library/components/docs/studio/StudioDeploymentsPage';
+import { StudioGettingStartedPage } from '@contractspec/bundle.library/components/docs/studio/StudioGettingStartedPage';
+import { StudioIntegrationsPage } from '@contractspec/bundle.library/components/docs/studio/StudioIntegrationsPage';
+import { StudioOverviewPage } from '@contractspec/bundle.library/components/docs/studio/StudioOverviewPage';
+import { StudioVisualBuilderPage } from '@contractspec/bundle.library/components/docs/studio/StudioVisualBuilderPage';
 
 // Docs Index
-import { DocsIndexPage } from '../components/docs/DocsIndexPage';
+import { DocsIndexPage } from '@contractspec/bundle.library/components/docs/DocsIndexPage';
 
 /**
  * Component map for documentation page React rendering.
