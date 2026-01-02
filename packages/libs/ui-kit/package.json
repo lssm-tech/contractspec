@@ -29,8 +29,9 @@
   },
   "dependencies": {
     "@contractspec/lib.ui-kit-core": "workspace:*",
-    "@react-native-community/datetimepicker": "^8.4.5",
+    "@hookform/resolvers": "^5.2.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-community/datetimepicker": "^8.4.5",
     "@react-navigation/native": "^7.1.26",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
@@ -79,10 +80,12 @@
     "expo-system-ui": "~5.0.7",
     "expo-updates": "~0.28.15",
     "expo-web-browser": "^14.2.0",
+    "lucide-react": "^0.562.0",
     "lucide-react-native": "^0.562.0",
     "nativewind": "5.0.0-preview.2",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-hook-form": "^7.69.0",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -94,12 +97,14 @@
     "react-use": "^17.6.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "catalog:build",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
-    "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "react-native-css": "^3.0.0",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -32,10 +32,12 @@
     "test": "bun run"
   },
   "dependencies": {
+    "@ai-sdk/provider-utils": "^4.0.2",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*"
+    "@contractspec/lib.schema": "workspace:*",
+    "zod": "^4.3.4"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

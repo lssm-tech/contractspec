@@ -66,5 +66,8 @@
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/presentation-runtime-react"
   },
-  "homepage": "https://contractspec.io"
+  "homepage": "https://contractspec.io",
+  "devDependencies": {
+    "react-native-css": "^3.0.0"
+  }
 }

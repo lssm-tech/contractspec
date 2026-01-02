@@ -50,6 +50,7 @@
     "@pothos/plugin-tracing": "^1.1.2",
     "@qdrant/js-client-rest": "^1.16.2",
     "compare-versions": "^6.1.1",
+    "google-gax": "^5.0.6",
     "googleapis": "^169.0.0",
     "mcp-handler": "^1.0.4",
     "postmark": "^4.0.4",

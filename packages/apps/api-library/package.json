@@ -16,7 +16,8 @@
     "@contractspec/bundle.marketing": "workspace:*",
     "@contractspec/bundle.workspace": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "elysia": "^1.4.19"
+    "elysia": "^1.4.19",
+    "zod": "^4.3.4"
   },
   "devDependencies": {},
   "module": "src/index.ts",

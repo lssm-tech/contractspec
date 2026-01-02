@@ -6,7 +6,7 @@ import {
   techContractsDocs,
 } from '@contractspec/lib.contracts/docs';
 import type { PresentationSpec } from '@contractspec/lib.contracts/presentations';
-import {opsDocBlocks} from '@contractspec/bundle.library/components/docs/ops/ops.docs';
+import { opsDocBlocks } from '@contractspec/bundle.library/components/docs/ops/ops.docs';
 import { productDocs } from '@contractspec/bundle.library/components/docs/product/product.docblocks';
 import { techContractsDocBlocks } from '@contractspec/bundle.library/components/docs/tech/contracts/tech-docs.docblocks';
 import type { ComponentMap } from './types';

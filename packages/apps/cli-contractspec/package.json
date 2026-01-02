@@ -28,11 +28,10 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
-    "ai": "catalog:ai",
     "@ai-sdk/anthropic": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
-    "ollama-ai-provider": "catalog:ai",
     "@contractspec/bundle.workspace": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
@@ -41,10 +40,12 @@
     "@contractspec/module.ai-chat": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
     "@contractspec/module.workspace": "workspace:*",
-    "glob": "catalog:build",
-    "commander": "^14.0.2",
     "@inquirer/prompts": "^8.1.0",
+    "ai": "catalog:ai",
     "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "glob": "catalog:build",
+    "ollama-ai-provider": "catalog:ai",
     "ora": "^9.0.0",
     "typescript": "catalog:",
     "zod": "catalog:"

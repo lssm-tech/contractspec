@@ -65,14 +65,15 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.identity-rbac": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*",
     "@contractspec/module.audit-trail": "workspace:*",
     "@contractspec/module.notifications": "workspace:*",
-    "@contractspec/lib.example-shared-ui": "workspace:*",
-    "@contractspec/lib.design-system": "workspace:*",
-    "@contractspec/lib.runtime-sandbox": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

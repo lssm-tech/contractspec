@@ -37,15 +37,16 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
-    "@contractspec/example.versioned-knowledge-base": "workspace:*",
     "@contractspec/example.kb-update-pipeline": "workspace:*",
     "@contractspec/example.learning-patterns": "workspace:*",
+    "@contractspec/example.locale-jurisdiction-gate": "workspace:*",
+    "@contractspec/example.versioned-knowledge-base": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/module.learning-journey": "workspace:*",
-    "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
     "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "@contractspec/lib.ui-kit-web": "workspace:*",
+    "@contractspec/module.learning-journey": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

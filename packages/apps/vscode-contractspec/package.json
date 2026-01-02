@@ -861,11 +861,12 @@
   },
   "dependencies": {
     "@contractspec/bundle.workspace": "workspace:*",
-    "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/module.ai-chat": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
-    "@contractspec/lib.ai-agent": "workspace:*"
+    "@contractspec/module.workspace": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",

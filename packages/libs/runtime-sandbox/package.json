@@ -60,5 +60,10 @@
       "./adapters/pglite": "./dist/adapters/pglite/index.mjs",
       "./*": "./*"
     }
+  },
+  "dependencies": {
+    "@apollo/client": "^4.0.11",
+    "@graphql-tools/schema": "^10.0.30",
+    "graphql": "^16.12.0"
   }
 }

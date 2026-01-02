@@ -30,6 +30,7 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
+    "react-native-css": "^3.0.0",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

@@ -81,6 +81,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
+    "@contractspec/eslint-plugin-design-system": "workspace:*",
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
