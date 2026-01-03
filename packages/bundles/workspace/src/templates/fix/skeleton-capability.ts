@@ -54,7 +54,6 @@ export const ${specVarName} = defineCapability({
     owners: [${owners}],
     tags: [${tags}],
     description: '${description}',
-    goal: '${goal}',
   },
 
   provides: [
