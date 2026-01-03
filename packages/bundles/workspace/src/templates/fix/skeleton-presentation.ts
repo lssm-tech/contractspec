@@ -6,15 +6,7 @@
 
 import type { SpecGenerationContext } from '../../services/fix/types';
 
-/**
- * Convert a string to PascalCase.
- */
-function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
-}
+import { toPascalCase, generateMetaProperties } from './utils';
 
 /**
  * Infer presentation kind from key name.
@@ -53,15 +45,7 @@ export function generateSkeletonPresentation(
   const specVarName = toPascalCase(namePart) + 'PresentationSpec';
   const presentationKind = inferPresentationKind(ctx.key);
 
-  const owners = ctx.enrichment?.owners?.length
-    ? ctx.enrichment.owners.map((o) => `'${o}'`).join(', ')
-    : "'@team'";
-
-  const tags = ctx.enrichment?.tags?.length
-    ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
-    : '';
-
-  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
+  const metaProps = generateMetaProperties(ctx);
 
   return `/**
  * Presentation: ${ctx.key}
@@ -76,12 +60,7 @@ import { definePresentation } from '@contractspec/lib.contracts';
 
 export const ${specVarName} = definePresentation({
   meta: {
-    key: '${ctx.key}',
-    version: '${ctx.version}',
-    stability: '${ctx.stability}',
-    owners: [${owners}],
-    tags: [${tags}],
-    description: '${description}',
+    ${metaProps}
   },
 
   kind: '${presentationKind}',
@@ -91,7 +70,7 @@ export const ${specVarName} = definePresentation({
     // For web_component:
     // component: 'MyComponent',
     // props: {},
-
+    
     // For markdown:
     // template: '# Title\\n\\nContent here...',
 
@@ -100,7 +79,7 @@ export const ${specVarName} = definePresentation({
   },
 
   // TODO: Define targets (platforms where this renders)
-  targets: ['web'],
+  targets: ['react', 'markdown'],
 
   // TODO: Define accessibility requirements
   // a11y: {

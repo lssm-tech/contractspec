@@ -57,9 +57,7 @@ export const fixCommand = new Command('fix')
         } catch {
           // Argument is likely a glob pattern
           scanOptions = { pattern: target };
-          console.log(
-            chalk.blue(`Scanning pattern: ${target}`)
-          );
+          console.log(chalk.blue(`Scanning pattern: ${target}`));
         }
 
         // @ts-ignore - signature updated in source but maybe not emitted yet
@@ -124,7 +122,6 @@ export const fixCommand = new Command('fix')
         if (strategyType) {
           // Legacy AI Override (can keep for safety or remove, but logic above handles it)
           // ...
-
 
           if (options.dryRun) {
             console.log(

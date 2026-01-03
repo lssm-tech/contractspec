@@ -6,33 +6,16 @@
 
 import type { SpecGenerationContext } from '../../services/fix/types';
 
-/**
- * Convert a string to PascalCase.
- */
-function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
-}
+import { defineCapability } from '@contractspec/lib.contracts';
+import { toPascalCase, generateMetaProperties } from './utils';
 
-/**
- * Generate a minimal capability spec skeleton.
- */
 export function generateSkeletonCapability(ctx: SpecGenerationContext): string {
   const namePart = ctx.key.split('.').pop() || 'Unknown';
   const specVarName = toPascalCase(namePart) + 'Spec';
-  
-  const owners = ctx.enrichment?.owners?.length
-    ? ctx.enrichment.owners.map((o) => `'${o}'`).join(', ')
-    : "'@team'";
 
-  const tags = ctx.enrichment?.tags?.length
-    ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
-    : '';
-
-  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
-  const goal = ctx.enrichment?.goal || 'TODO: Define the capability goal';
+  const metaProps = generateMetaProperties(ctx, {
+    kind: "'api'", // Default kind, quoted
+  });
 
   return `/**
  * Capability: ${ctx.key}
@@ -47,13 +30,7 @@ import { defineCapability } from '@contractspec/lib.contracts';
 
 export const ${specVarName} = defineCapability({
   meta: {
-    key: '${ctx.key}',
-    version: '${ctx.version}',
-    stability: '${ctx.stability}',
-    kind: 'api', // Default kind, change to event|data|ui|integration as needed
-    owners: [${owners}],
-    tags: [${tags}],
-    description: '${description}',
+    ${metaProps}
   },
 
   provides: [
