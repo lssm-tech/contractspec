@@ -22,8 +22,7 @@ function toPascalCase(str: string): string {
 export function generateSkeletonCapability(ctx: SpecGenerationContext): string {
   const namePart = ctx.key.split('.').pop() || 'Unknown';
   const specVarName = toPascalCase(namePart) + 'Spec';
-  const dataSchemaName = specVarName.replace('Spec', 'Data');
-
+  
   const owners = ctx.enrichment?.owners?.length
     ? ctx.enrichment.owners.map((o) => `'${o}'`).join(', ')
     : "'@team'";
@@ -45,40 +44,39 @@ export function generateSkeletonCapability(ctx: SpecGenerationContext): string {
  */
 
 import { defineCapability } from '@contractspec/lib.contracts';
-import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-
-// TODO: Define capability data schema
-export const ${dataSchemaName} = new SchemaModel({
-  name: '${dataSchemaName}',
-  description: 'Data model for ${ctx.key}',
-  fields: {
-    // Add your data fields here
-    // Example:
-    // isEnabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-  },
-});
 
 export const ${specVarName} = defineCapability({
   meta: {
     key: '${ctx.key}',
     version: '${ctx.version}',
     stability: '${ctx.stability}',
+    kind: 'api', // Default kind, change to event|data|ui|integration as needed
     owners: [${owners}],
     tags: [${tags}],
     description: '${description}',
     goal: '${goal}',
   },
 
-  data: ${dataSchemaName},
+  provides: [
+    // TODO: Define surfaces provided by this capability
+    // example:
+    // {
+    //   surface: 'operation',
+    //   key: 'some.operation',
+    //   version: '1.0.0',
+    //   description: 'Provides some operation',
+    // }
+  ],
 
-  actions: {
-    // TODO: Define actions provided by this capability
-    // exampleAction: {
-    //   description: 'Perform an example action',
-    //   input: SomeInputSchema,
-    //   output: SomeOutputSchema,
-    // },
-  },
+  requires: [
+    // TODO: Define requirements
+    // example:
+    // {
+    //   key: 'other.capability',
+    //   version: '1.0.0',
+    //   optional: false,
+    // }
+  ],
 });
 `;
 }
