@@ -169,9 +169,12 @@ export class FixService {
   /**
    * Scan for integrity issues and return fixable ones.
    */
-  async scanAndGetFixables(pattern = '.'): Promise<FixableIssue[]> {
+  async scanAndGetFixables(
+    options: { pattern?: string; cwd?: string } = {}
+  ): Promise<FixableIssue[]> {
     const scanResult = await analyzeIntegrity(this.adapters, {
-      pattern,
+      pattern: options.pattern,
+      cwd: options.cwd,
     });
 
     return scanResult.issues

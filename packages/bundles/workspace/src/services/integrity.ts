@@ -26,6 +26,10 @@ export interface IntegrityAnalysisOptions {
    * Glob pattern for file discovery.
    */
   pattern?: string;
+  /**
+   * Working directory for scanning.
+   */
+  cwd?: string;
 
   /**
    * Scan all packages in monorepo.
@@ -208,7 +212,7 @@ export async function analyzeIntegrity(
   logger.info('Starting integrity analysis...', { options });
 
   // Discover all spec and feature files
-  const files = await fs.glob({ pattern: options.pattern });
+  const files = await fs.glob({ pattern: options.pattern, cwd: options.cwd });
 
   const inventory = createEmptyInventory();
   const features: FeatureScanResult[] = [];
@@ -216,6 +220,10 @@ export async function analyzeIntegrity(
 
   // Scan all files
   for (const file of files) {
+    // Skip directories to avoid EISDIR
+    const stats = await fs.stat(file);
+    if (stats.isDirectory) continue;
+
     const content = await fs.readFile(file);
 
     if (isFeatureFile(file)) {

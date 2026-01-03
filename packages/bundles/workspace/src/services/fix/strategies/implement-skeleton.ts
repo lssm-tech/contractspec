@@ -16,7 +16,9 @@ import {
   generateSkeletonOperation,
   generateSkeletonEvent,
   generateSkeletonPresentation,
+  generateSkeletonCapability,
 } from '../../../templates/fix';
+import { resolveOutputPath } from '../path-resolver';
 import { FIX_STRATEGY_STABILITY } from '../types';
 import path from 'node:path';
 
@@ -55,7 +57,7 @@ export async function implementSkeletonStrategy(
     }
 
     // Determine output path
-    const filePath = resolveOutputPath(ref.key, specType, options);
+    const filePath = resolveOutputPath(issue, options);
 
     const filesChanged: FixFileChange[] = [];
 
@@ -108,67 +110,11 @@ function generateSpecCode(ctx: SpecGenerationContext): string | undefined {
       return generateSkeletonEvent(ctx);
     case 'presentation':
       return generateSkeletonPresentation(ctx);
+    case 'capability':
+      return generateSkeletonCapability(ctx);
     default:
       return undefined;
   }
 }
 
-/**
- * Resolve the output file path for a new spec.
- */
-function resolveOutputPath(
-  key: string,
-  specType: string,
-  options: FixOptions
-): string {
-  const baseDir = options.outputDir || options.workspaceRoot;
 
-  // Convert key to file name: "docs.search" -> "docs-search"
-  const fileName = key.replace(/\./g, '-').toLowerCase();
-
-  // Get file extension based on spec type
-  const extension = getFileExtension(specType);
-
-  // Determine subdirectory based on spec type
-  const subDir = getSubDirectory(specType);
-
-  return path.join(baseDir, subDir, `${fileName}${extension}`);
-}
-
-/**
- * Get file extension for a spec type.
- */
-function getFileExtension(specType: string): string {
-  const extensions: Record<string, string> = {
-    operation: '.contracts.ts',
-    event: '.event.ts',
-    presentation: '.presentation.ts',
-    workflow: '.workflow.ts',
-    'data-view': '.data-view.ts',
-    form: '.form.ts',
-    migration: '.migration.ts',
-    experiment: '.experiment.ts',
-    capability: '.capability.ts',
-  };
-
-  return extensions[specType] || '.ts';
-}
-
-/**
- * Get subdirectory for a spec type.
- */
-function getSubDirectory(specType: string): string {
-  const dirs: Record<string, string> = {
-    operation: 'operations',
-    event: 'events',
-    presentation: 'presentations',
-    workflow: 'workflows',
-    'data-view': 'data-views',
-    form: 'forms',
-    migration: 'migrations',
-    experiment: 'experiments',
-    capability: 'capabilities',
-  };
-
-  return dirs[specType] || 'specs';
-}

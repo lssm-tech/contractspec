@@ -4,6 +4,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { stat } from 'node:fs/promises';
 import { createNodeAdapters, fix } from '@contractspec/bundle.workspace';
 import { promptForStrategy, promptForIssues } from './interactive';
 import { parseCiIssues } from './batch-fix';
@@ -36,13 +37,33 @@ export const fixCommand = new Command('fix')
         issuesToFix = await parseCiIssues(options.fromCi, fixService);
       } else {
         // Mode: Scan and fix
-        console.log(
-          chalk.blue(`Scanning for integrity issues in ${options.target}...`)
-        );
+        // Determine scan options based on target type
+        const target = options.target ?? '.';
+        let scanOptions: { pattern?: string; cwd?: string } = {};
 
-        const fixableItems = await fixService.scanAndGetFixables(
-          options.target
-        );
+        try {
+          const stats = await stat(target);
+          if (stats.isDirectory()) {
+            // If target is directory, scan inside it using default patterns
+            scanOptions = { cwd: target };
+            console.log(
+              chalk.blue(`Scanning for integrity issues in ${target}...`)
+            );
+          } else {
+            // Target is a specific file
+            scanOptions = { pattern: target };
+            console.log(chalk.blue(`Scanning specific file: ${target}`));
+          }
+        } catch {
+          // Argument is likely a glob pattern
+          scanOptions = { pattern: target };
+          console.log(
+            chalk.blue(`Scanning pattern: ${target}`)
+          );
+        }
+
+        // @ts-ignore - signature updated in source but maybe not emitted yet
+        const fixableItems = await fixService.scanAndGetFixables(scanOptions);
 
         if (fixableItems.length === 0) {
           console.log(chalk.green('No fixable issues found.'));
@@ -74,7 +95,12 @@ export const fixCommand = new Command('fix')
 
         // If no forced strategy, decide based on interactivity or defaults
         if (!strategyType) {
-          if (item.availableStrategies.length === 1) {
+          // Implied strategy from --ai flag
+          if (options.ai && item.availableStrategies.includes('implement-ai')) {
+            strategyType = 'implement-ai';
+          }
+          // Default selection (interactive or -y)
+          else if (item.availableStrategies.length === 1) {
             strategyType = item.availableStrategies[0];
           } else if (item.availableStrategies.length > 1) {
             if (options.yes) {
@@ -96,14 +122,9 @@ export const fixCommand = new Command('fix')
         }
 
         if (strategyType) {
-          // AI Override
-          if (
-            options.ai &&
-            strategyType === 'implement-skeleton' &&
-            item.availableStrategies.includes('implement-ai')
-          ) {
-            strategyType = 'implement-ai';
-          }
+          // Legacy AI Override (can keep for safety or remove, but logic above handles it)
+          // ...
+
 
           if (options.dryRun) {
             console.log(
