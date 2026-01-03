@@ -1,24 +1,36 @@
-# Project Overview
+# AI Agent Guide (AGENTS.md)
 
-## General Guidelines
+This repository is **ContractSpec**: the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. **You keep your app. You own the code.** ContractSpec is the compiler, not the prison.
 
-- Use TypeScript for all new code
-- Follow consistent naming conventions
-- Write self-documenting code with clear variable and function names
-- Prefer composition over inheritance
-- Use meaningful comments for complex business logic
+If you’re an AI agent working in this repo, use these instructions as your default operating rules. More specific rules may exist in nested `AGENTS.md` files.
 
-## Code Style
+## Mission (do not drift)
 
-- Use 2 spaces for indentation
-- Use semicolons
-- Use double quotes for strings
-- Use trailing commas in multi-line objects and arrays
+**ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.**
 
-## Architecture Principles
+Keep changes aligned with `.cursor/rules/contractspec-mission.mdc`: prefer spec-first work, enforce invariants, avoid lock-in, and keep outputs ejectable and based on standard tech.
 
-- Organize code by feature, not by file type
-- Keep related files close together
-- Use dependency injection for better testability
-- Implement proper error handling
-- Follow single responsibility principle
+## How to make changes (repo-wide)
+
+- Prefer updating **contracts/specs** over editing generated artifacts; ContractSpec should remain the source of truth across surfaces.
+- Keep behavior **deterministic** (no hidden state, timestamped outputs, or “magic” runtime dependencies).
+- Favor **incremental adoption** patterns: stabilize one module/endpoint/model at a time.
+- Avoid introducing proprietary formats, hidden runtimes, or abstractions that reduce ejectability.
+- When touching code, keep edits minimal and consistent with surrounding style; run the narrowest relevant checks (lint/build) if available.
+
+## Monorepo basics
+
+- Package manager: `bun` (see `package.json#packageManager`).
+- Task runner: `turbo` (`bun run dev`, `bun run build`, `bun run lint`, etc.).
+- Workspace layout:
+    - `packages/apps/*`: runnable apps (API, web, CLIs, workers)
+    - `packages/examples/*`: ready-to-clone examples projects focused on specific use cases
+    - `packages/bundles/*`: composed “product” bundles used by apps
+    - `packages/modules/*`: self-contained set of features.
+    - `packages/libs/*`: core libraries (contracts, schema, docs, etc.)
+
+## Nested `AGENTS.md` (important)
+
+`AGENTS.md` files are **scoped to the directory tree they live in**. When working in a subdirectory, check for a closer (nested) `AGENTS.md` and follow it in preference to this file.
+
+Add nested `AGENTS.md` files when a package/module needs extra constraints (e.g., generation boundaries, code style rules, or run/test commands).

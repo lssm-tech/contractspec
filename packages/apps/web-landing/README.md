@@ -30,12 +30,22 @@ bun start
 - 📧 **Email** — Newsletter and waitlist integration
 - 📊 **Analytics** — PostHog and Vercel Analytics
 
-## Dependencies
+## dependencies
 
 - `@contractspec/bundle.marketing` — Marketing pages and email templates
 - `@contractspec/bundle.library` — Shared library components
 - `@contractspec/bundle.studio` — Studio components for sandbox
 - `@contractspec/lib.design-system` — Design tokens and atoms
+
+## Contributing
+
+This application is a **thin adapter**. 
+
+- **Want to change the design or content?** 
+  - Go to `packages/bundles/marketing` for landing pages.
+  - Go to `packages/bundles/library` for documentation and templates.
+- **Want to change the routing or config?**
+  - Edit this package.
 
 ## Package Structure
 
