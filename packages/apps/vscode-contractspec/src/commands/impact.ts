@@ -170,7 +170,7 @@ async function runImpactDetection(
     outputChannel.appendLine(`❌ Error: ${errorMessage}`);
     vscode.window.showErrorMessage(`Impact detection failed: ${errorMessage}`);
 
-    telemetryReporter?.sendTelemetryErrorEvent('contractspec.impact.error', {
+    telemetryReporter?.sendTelemetryEvent('contractspec.impact.error', {
       error: errorMessage,
     });
   }
@@ -238,7 +238,7 @@ function displayImpactResults(
     if (breaking.length > 0) {
       outputChannel.appendLine('  🔴 BREAKING CHANGES:');
       breaking.slice(0, 10).forEach((delta) => {
-        outputChannel.appendLine(`     • ${delta.specName}`);
+        outputChannel.appendLine(`     • ${delta.specKey}`);
         outputChannel.appendLine(`       ${delta.description}`);
       });
       if (breaking.length > 10) {
@@ -250,7 +250,7 @@ function displayImpactResults(
     if (nonBreaking.length > 0) {
       outputChannel.appendLine('  🟡 NON-BREAKING CHANGES:');
       nonBreaking.slice(0, 10).forEach((delta) => {
-        outputChannel.appendLine(`     • ${delta.specName}`);
+        outputChannel.appendLine(`     • ${delta.specKey}`);
         outputChannel.appendLine(`       ${delta.description}`);
       });
       if (nonBreaking.length > 10) {
@@ -265,7 +265,7 @@ function displayImpactResults(
       outputChannel.appendLine('  🔵 INFO:');
       info.forEach((delta) => {
         outputChannel.appendLine(
-          `     • ${delta.specName}: ${delta.description}`
+          `     • ${delta.specKey}: ${delta.description}`
         );
       });
       outputChannel.appendLine('');

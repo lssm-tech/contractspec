@@ -19,14 +19,24 @@ function toPascalCase(str: string): string {
 /**
  * Infer presentation kind from key name.
  */
-function inferPresentationKind(key: string): 'web_component' | 'markdown' | 'data' {
+function inferPresentationKind(
+  key: string
+): 'web_component' | 'markdown' | 'data' {
   const lowerKey = key.toLowerCase();
 
-  if (lowerKey.includes('doc') || lowerKey.includes('guide') || lowerKey.includes('readme')) {
+  if (
+    lowerKey.includes('doc') ||
+    lowerKey.includes('guide') ||
+    lowerKey.includes('readme')
+  ) {
     return 'markdown';
   }
 
-  if (lowerKey.includes('data') || lowerKey.includes('api') || lowerKey.includes('export')) {
+  if (
+    lowerKey.includes('data') ||
+    lowerKey.includes('api') ||
+    lowerKey.includes('export')
+  ) {
     return 'data';
   }
 
@@ -36,7 +46,9 @@ function inferPresentationKind(key: string): 'web_component' | 'markdown' | 'dat
 /**
  * Generate a minimal presentation spec skeleton.
  */
-export function generateSkeletonPresentation(ctx: SpecGenerationContext): string {
+export function generateSkeletonPresentation(
+  ctx: SpecGenerationContext
+): string {
   const namePart = ctx.key.split('.').pop() || 'Unknown';
   const specVarName = toPascalCase(namePart) + 'PresentationSpec';
   const presentationKind = inferPresentationKind(ctx.key);
@@ -49,8 +61,7 @@ export function generateSkeletonPresentation(ctx: SpecGenerationContext): string
     ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
     : '';
 
-  const description =
-    ctx.description || `TODO: Add description for ${ctx.key}`;
+  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
 
   return `/**
  * Presentation: ${ctx.key}

@@ -17,6 +17,35 @@ import {
   InMemoryConversationStore,
 } from '@contractspec/module.ai-chat/core';
 import { getWorkspaceAdapters } from '../workspace/adapters';
+import type {
+  Provider,
+  ProviderName,
+  ProviderMode,
+  ModelInfo,
+} from '@contractspec/lib.ai-providers';
+import type { LanguageModel } from 'ai';
+
+class WrappedProvider implements Provider {
+  constructor(
+    private _model: LanguageModel,
+    public name: ProviderName
+  ) {}
+
+  get model(): string {
+    return (this._model as unknown as { modelId: string }).modelId || 'unknown';
+  }
+  readonly mode: ProviderMode = 'managed';
+
+  getModel(): LanguageModel {
+    return this._model;
+  }
+  async listModels(): Promise<ModelInfo[]> {
+    return [];
+  }
+  async validate(): Promise<{ valid: boolean; error?: string }> {
+    return { valid: true };
+  }
+}
 
 /**
  * Chat panel instance (singleton per workspace)
@@ -91,8 +120,16 @@ export async function openChatPanel(
   // Build system prompt with workspace context
   const systemPrompt = buildSystemPrompt(workspaceRoot);
 
+  // Create provider wrapper
+  // We assume 'custom' maps to openai-compatible, others map directly if possible
+  const providerName =
+    config.aiProvider === 'custom'
+      ? 'openai'
+      : (config.aiProvider as ProviderName);
+  const wrappedProvider = new WrappedProvider(provider, providerName);
+
   chatService = new ChatService({
-    provider,
+    provider: wrappedProvider,
     store: new InMemoryConversationStore(),
     systemPrompt,
     onUsage: (usage) => {
@@ -170,16 +207,7 @@ async function handleChatMessage(
     let fullResponse = '';
 
     for await (const chunk of result.stream) {
-      // Handle different chunk types if ChatService returns typical AI SDK chunks
-      // Assuming chunk is TextStreamPart or similar from ChatService wrapper
-      if (chunk.type === 'text-delta') {
-        fullResponse += chunk.textDelta;
-        panel.webview.postMessage({
-          type: 'chunk',
-          chunk: chunk.textDelta,
-          fullText: fullResponse,
-        });
-      } else if (chunk.type === 'text') {
+      if (chunk.type === 'text') {
         // Some providers/wrappers might offer 'text' property directly
         fullResponse += chunk.content || ''; // Adjust based on strict ChatStreamChunk type
         panel.webview.postMessage({

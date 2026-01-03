@@ -231,7 +231,7 @@ export async function showDependenciesCommand(): Promise<void> {
  */
 export async function linkToFeatureCommand(
   specName: string,
-  specVersion: number,
+  specVersion: string,
   specType: string,
   specFile?: string
 ): Promise<void> {
@@ -300,7 +300,7 @@ export async function linkToFeatureCommand(
         const position = document.positionAt(match.index + match[0].length);
 
         // Create the ref to insert
-        const refText = `\n    { name: '${specName}', version: ${specVersion} },`;
+        const refText = `\n    { key: '${specName}', version: ${specVersion} },`;
 
         // Insert the ref
         await editor.edit((editBuilder) => {
@@ -314,7 +314,7 @@ export async function linkToFeatureCommand(
       } else {
         // Couldn't find the array, show manual instruction
         void vscode.window.showWarningMessage(
-          `Please add { name: '${specName}', version: ${specVersion} } to the ${arrayName} array manually.`
+          `Please add { key: '${specName}', version: ${specVersion} } to the ${arrayName} array manually.`
         );
       }
     }

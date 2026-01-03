@@ -350,7 +350,8 @@ export async function importFromOpenApiCommand(
         const config = await loadWorkspaceConfig(adapters.fs, rootPath);
 
         const result = await importFromOpenApiService(
-          config,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          config as any,
           {
             source,
             outputDir,

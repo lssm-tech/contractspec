@@ -37,3 +37,4 @@ export type { SpecVersionAnalysis } from './versioning/types';
 export * as upgrade from './upgrade/index';
 export * as hooks from './hooks/index';
 export * from './rulesync';
+export * as fix from './fix';

@@ -63,8 +63,7 @@ export function generateSkeletonOperation(ctx: SpecGenerationContext): string {
     ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
     : '';
 
-  const description =
-    ctx.description || `TODO: Add description for ${ctx.key}`;
+  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
   const goal = ctx.enrichment?.goal || 'TODO: Define the business goal';
   const context = ctx.enrichment?.context || 'TODO: Provide context';
 

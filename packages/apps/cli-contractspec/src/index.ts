@@ -120,6 +120,10 @@ program.addCommand(agentCommand);
 // Upgrade command
 program.addCommand(upgradeCommand);
 
+import { fixCommand } from './commands/fix/index';
+// Fix command
+program.addCommand(fixCommand);
+
 // Create command
 program
   .command('create')

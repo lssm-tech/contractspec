@@ -851,7 +851,9 @@
   },
   "scripts": {
     "vscode:prepublish": "bun run build",
-    "build": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+    "build": "bun run build:types && bun run build:bundle",
+    "build:bundle": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+    "build:types": "tsc --noEmit",
     "dev": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch",
     "lint": "eslint src --fix",
     "lint:check": "eslint src",

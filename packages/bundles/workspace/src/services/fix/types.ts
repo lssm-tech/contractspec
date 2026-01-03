@@ -50,6 +50,10 @@ export interface FixableIssue {
   featureFile: string;
   /** Feature key that has the broken reference. */
   featureKey: string;
+  /** Available strategies for this issue. */
+  availableStrategies: FixStrategyType[];
+  /** Deprecated: kept for compatibility if needed, or remove if unused */
+  strategies: unknown[];
 }
 
 /**
@@ -76,6 +80,8 @@ export interface FixResult {
   issue: FixableIssue;
   /** Files that were changed. */
   filesChanged: FixFileChange[];
+  /** Message describing the outcome. */
+  message?: string;
   /** Error message if fix failed. */
   error?: string;
 }
@@ -213,4 +219,19 @@ export interface CIIssueWithFixLinks {
   context?: Record<string, unknown>;
   /** Fix links for this issue. */
   fixLinks?: FixLink[];
+}
+
+/**
+ * Interface for a fix strategy implementation.
+ */
+export interface FixStrategy {
+  /**
+   * type of the strategy
+   */
+  readonly type: FixStrategyType;
+
+  /**
+   * Apply the fix.
+   */
+  fix(issue: FixableIssue, options: FixOptions): Promise<FixResult>;
 }

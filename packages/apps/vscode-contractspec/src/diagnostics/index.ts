@@ -158,7 +158,7 @@ function findRelevantRange(
   const patterns: { pattern: RegExp; search: string }[] = [
     { pattern: /Missing (meta|io|policy) section/, search: 'export' },
     { pattern: /Missing defineCommand or defineQuery/, search: 'export const' },
-    { pattern: /Missing.*name field/, search: 'name:' },
+    { pattern: /Missing.*key field/, search: 'key:' },
     { pattern: /Missing.*version field/, search: 'version:' },
     { pattern: /Missing.*kind field/, search: 'kind:' },
     { pattern: /Missing payload/, search: 'payload:' },
@@ -226,6 +226,13 @@ export function updateIntegrityResult(
   result: IntegrityAnalysisResult | undefined
 ): void {
   integrityResult = result;
+}
+
+/**
+ * Get the cached integrity result.
+ */
+export function getIntegrityResult(): IntegrityAnalysisResult | undefined {
+  return integrityResult;
 }
 
 /**
@@ -310,16 +317,16 @@ export function addIntegrityDiagnosticsForDocument(
 
     // Check for unresolved refs in this feature
     const checkRefs = (
-      refs: { name: string; version: string }[],
+      refs: { key: string; version: string }[],
       inventory: Map<string, unknown>,
       refType: string
     ) => {
       for (const ref of refs) {
-        const key = `${ref.name}.v${ref.version}`;
+        const key = `${ref.key}.v${ref.version}`;
         if (!inventory.has(key)) {
           const diagnostic = new vscode.Diagnostic(
-            findRefRange(document, ref.name),
-            `${refType} ${ref.name}.v${ref.version} not found`,
+            findRefRange(document, ref.key),
+            `${refType} ${ref.key}.v${ref.version} not found`,
             vscode.DiagnosticSeverity.Error
           );
           diagnostic.source = INTEGRITY_SOURCE;
@@ -353,10 +360,10 @@ export function addIntegrityDiagnosticsForDocument(
   if (isSpecFile(filePath)) {
     const spec = scanSpecSource(code, filePath);
 
-    if (spec.name && spec.version !== undefined) {
+    if (spec.key && spec.version !== undefined) {
       const isOrphaned = integrityResult.orphanedSpecs.some(
         (orphan) =>
-          orphan.name === spec.name &&
+          orphan.key === spec.key &&
           orphan.version === spec.version &&
           orphan.file === filePath
       );
@@ -472,7 +479,7 @@ export function updateImplementationDiagnostics(
   if (result.status === 'missing') {
     const diagnostic = new vscode.Diagnostic(
       findNameRange(document),
-      `No implementations found for ${result.specName}`,
+      `No implementations found for ${result.specKey}`,
       vscode.DiagnosticSeverity.Warning
     );
     diagnostic.source = IMPLEMENTATION_SOURCE;
@@ -528,7 +535,7 @@ export function createImplementationDiagnostics(
   if (result.status === 'missing') {
     const diagnostic = new vscode.Diagnostic(
       findNameRange(document),
-      `No implementations found for ${result.specName}`,
+      `No implementations found for ${result.specKey}`,
       vscode.DiagnosticSeverity.Warning
     );
     diagnostic.source = IMPLEMENTATION_SOURCE;

@@ -4,7 +4,12 @@
  * Removes a broken reference from a feature file.
  */
 
-import type { FixableIssue, FixOptions, FixResult, FixFileChange } from '../types';
+import type {
+  FixableIssue,
+  FixOptions,
+  FixResult,
+  FixFileChange,
+} from '../types';
 import type { FsAdapter } from '../../../ports/fs';
 
 /**

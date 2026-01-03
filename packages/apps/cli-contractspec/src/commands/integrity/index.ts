@@ -15,6 +15,7 @@ import {
   createNodeAdapters,
   generateMermaidDiagram,
   discoverLayers,
+  fix,
   type IntegrityAnalysisResult,
 } from '@contractspec/bundle.workspace';
 
@@ -191,6 +192,12 @@ async function outputText(
 
       console.log(`  ${icon} ${typeLabel} ${issue.message}`);
       console.log(chalk.gray(`     ${issue.file}`));
+
+      // Show fix hint if available
+      const links = fix.generateFixLinks(issue);
+      if (links.cli) {
+        console.log(chalk.gray(`     Fix: ${links.cli}`));
+      }
     }
   }
 
@@ -257,7 +264,10 @@ function outputJson(
       presentations: f.presentations.length,
     })),
     orphanedSpecs: result.orphanedSpecs,
-    issues,
+    issues: issues.map((issue) => ({
+      ...issue,
+      fixLinks: fix.generateFixLinks(issue),
+    })),
     inventory: inventoryObj,
   };
 

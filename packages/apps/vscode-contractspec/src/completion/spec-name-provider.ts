@@ -77,9 +77,9 @@ async function discoverSpecs(): Promise<CachedSpec[]> {
           const results = scanAllSpecsFromSource(content, filePath);
 
           for (const result of results) {
-            if (result.name && result.version !== undefined) {
+            if (result.key && result.version !== undefined) {
               specs.push({
-                name: result.name,
+                name: result.key,
                 version: result.version,
                 type: result.specType,
                 file: filePath,
@@ -244,7 +244,7 @@ export class SpecNameCompletionProvider
       );
 
       // Insert the full object syntax
-      item.insertText = `{ name: '${spec.name}', version: ${spec.version} }`;
+      item.insertText = `{ key: '${spec.name}', version: ${spec.version} }`;
 
       // Sort by name
       item.sortText = spec.name;

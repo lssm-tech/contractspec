@@ -56,7 +56,9 @@ export async function implementAiStrategy(
         // Continue with unenriched context
       }
     } else {
-      logger.info('No AI config provided, using skeleton with experimental stability');
+      logger.info(
+        'No AI config provided, using skeleton with experimental stability'
+      );
     }
 
     // Generate the spec code
@@ -119,13 +121,16 @@ export async function implementAiStrategy(
  */
 async function enrichWithAI(
   ctx: SpecGenerationContext,
-  options: FixOptions,
+  _options: FixOptions,
   logger: LoggerAdapter
 ): Promise<SpecGenerationContext> {
   // TODO: Integrate with existing AIGenerator from services/create/ai-generator.ts
   // For now, generate reasonable defaults based on the key
 
-  logger.info('Generating AI content for spec', { key: ctx.key, type: ctx.specType });
+  logger.info('Generating AI content for spec', {
+    key: ctx.key,
+    type: ctx.specType,
+  });
 
   const enrichment = inferEnrichmentFromKey(ctx.key, ctx.specType);
 
@@ -161,7 +166,17 @@ function inferEnrichmentFromKey(
   const actionKeywords = action.toLowerCase().split(' ');
 
   // Add relevant tags based on action keywords
-  const tagKeywords = ['auth', 'user', 'admin', 'api', 'data', 'search', 'create', 'update', 'delete'];
+  const tagKeywords = [
+    'auth',
+    'user',
+    'admin',
+    'api',
+    'data',
+    'search',
+    'create',
+    'update',
+    'delete',
+  ];
   const matchedTags = tagKeywords.filter((tag) =>
     actionKeywords.some((kw) => kw.includes(tag))
   );

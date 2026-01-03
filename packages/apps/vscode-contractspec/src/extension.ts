@@ -28,6 +28,8 @@ import {
   invalidateWorkspaceCache,
 } from './workspace/adapters';
 import { registerCompletionProviders } from './completion/index';
+import { registerFixCommands } from './commands/fix';
+import { FixCodeActionProvider } from './code-actions/fix-provider';
 
 let telemetryReporter: TelemetryReporter | undefined;
 let workspaceStatusBarItem: vscode.StatusBarItem | undefined;
@@ -86,7 +88,20 @@ export async function activate(
     })
   );
 
-  // Watch for workspace changes to update status
+  // Register fix command
+  registerFixCommands(context);
+
+  // Register code action provider for fixes
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      { scheme: 'file', language: 'typescript' }, // Adjust selector as needed, or check isSpecFile
+      new FixCodeActionProvider(),
+      {
+        providedCodeActionKinds: FixCodeActionProvider.providedCodeActionKinds,
+      }
+    )
+  );
+
   context.subscriptions.push(
     vscode.workspace.onDidChangeWorkspaceFolders(() => {
       invalidateWorkspaceCache();

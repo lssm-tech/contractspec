@@ -32,8 +32,7 @@ export function generateSkeletonEvent(ctx: SpecGenerationContext): string {
     ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
     : '';
 
-  const description =
-    ctx.description || `TODO: Add description for ${ctx.key}`;
+  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
 
   return `/**
  * Event: ${ctx.key}
