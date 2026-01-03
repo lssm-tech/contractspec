@@ -9,7 +9,10 @@ import { createNodeAdapters, fix } from '@contractspec/bundle.workspace';
 import { promptForStrategy, promptForIssues } from './interactive';
 import { parseCiIssues } from './batch-fix';
 import type { FixCommandOptions } from './types';
-import type { FixStrategyType } from '@contractspec/bundle.workspace/services/fix/types';
+import type {
+  FixStrategyType,
+  FixableIssue,
+} from '@contractspec/bundle.workspace/services/fix/types';
 
 export const fixCommand = new Command('fix')
   .description('Fix integrity issues in contract specs')
@@ -37,28 +40,15 @@ export const fixCommand = new Command('fix')
         issuesToFix = await parseCiIssues(options.fromCi, fixService);
       } else {
         // Mode: Scan and fix
-        // Determine scan options based on target type
         const target = options.target ?? '.';
-        let scanOptions: { pattern?: string; cwd?: string } = {};
-
-        try {
-          const stats = await stat(target);
-          if (stats.isDirectory()) {
-            // If target is directory, scan inside it using default patterns
-            scanOptions = { cwd: target };
-            console.log(
-              chalk.blue(`Scanning for integrity issues in ${target}...`)
-            );
-          } else {
-            // Target is a specific file
-            scanOptions = { pattern: target };
-            console.log(chalk.blue(`Scanning specific file: ${target}`));
-          }
-        } catch {
-          // Argument is likely a glob pattern
-          scanOptions = { pattern: target };
-          console.log(chalk.blue(`Scanning pattern: ${target}`));
-        }
+        
+        // Use shared logic for determining scan options
+        const scanOptions = await fixService.determineScanOptions(target);
+        console.log(
+          chalk.blue(
+            `Scanning for integrity issues in ${scanOptions.cwd || scanOptions.pattern || target}...`
+          )
+        );
 
         const fixableItems = await fixService.scanAndGetFixables(scanOptions);
 
@@ -88,40 +78,19 @@ export const fixCommand = new Command('fix')
       let failCount = 0;
 
       for (const item of issuesToFix) {
-        let strategyType: FixStrategyType | undefined = options.strategy;
-
-        // If no forced strategy, decide based on interactivity or defaults
-        if (!strategyType) {
-          // Implied strategy from --ai flag
-          if (options.ai && item.availableStrategies.includes('implement-ai')) {
-            strategyType = 'implement-ai';
-          }
-          // Default selection (interactive or -y)
-          else if (item.availableStrategies.length === 1) {
-            strategyType = item.availableStrategies[0];
-          } else if (item.availableStrategies.length > 1) {
-            if (options.yes) {
-              // Default to first strategy (usually the most compliant)
-              strategyType = item.availableStrategies[0];
-            } else {
-              const selected = await promptForStrategy(
-                item,
-                item.availableStrategies
-              );
-              if (selected) {
-                strategyType = selected;
-              } else {
-                console.log(chalk.gray(`Skipped ${item.issue.message}`));
-                continue;
-              }
-            }
-          }
-        }
+        // Use shared strategy resolution logic
+        // We pass a 'select' callback for interactive mode
+        const strategyType = await fixService.resolveStrategy(item, {
+          forceStrategy: options.strategy,
+          preferAi: options.ai,
+          select: options.yes
+            ? undefined
+            : async (issue: FixableIssue, strategies: FixStrategyType[]) => {
+                return promptForStrategy(issue, strategies);
+              },
+        });
 
         if (strategyType) {
-          // Legacy AI Override (can keep for safety or remove, but logic above handles it)
-          // ...
-
           if (options.dryRun) {
             console.log(
               chalk.cyan(

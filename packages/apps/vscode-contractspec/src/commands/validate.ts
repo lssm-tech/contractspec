@@ -9,6 +9,7 @@ import {
   validateSpec,
   validateSpecs,
 } from '@contractspec/bundle.workspace';
+import { inferSpecTypeFromFilePath } from '@contractspec/module.workspace';
 
 /**
  * Validate the currently active spec file.
@@ -164,21 +165,7 @@ export async function validateWorkspace(
  * Check if a file is a ContractSpec file.
  */
 function isSpecFile(filePath: string): boolean {
-  const specExtensions = [
-    '.contracts.ts',
-    '.event.ts',
-    '.presentation.ts',
-    '.workflow.ts',
-    '.data-view.ts',
-    '.migration.ts',
-    '.telemetry.ts',
-    '.experiment.ts',
-    '.app-config.ts',
-    '.integration.ts',
-    '.knowledge.ts',
-  ];
-
-  return specExtensions.some((ext) => filePath.endsWith(ext));
+  return inferSpecTypeFromFilePath(filePath) !== 'unknown';
 }
 
 /**

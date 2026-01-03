@@ -25,3 +25,6 @@ export * as formatters from './formatters/index';
 // Templates (re-export for CLI usage)
 export * as templates from './templates';
 export * from './ai';
+
+// Utilities
+export * as utils from './utils/index';

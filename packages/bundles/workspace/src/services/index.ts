@@ -2,7 +2,8 @@
  * Workspace services (use-cases).
  */
 
-export * from './validate';
+export * from './validate/index';
+export * as features from './features';
 export * from './diff';
 export * from './deps';
 export * from './list';

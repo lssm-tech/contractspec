@@ -19,6 +19,7 @@ export function inferSpecTypeFromFilePath(filePath: string): AnalyzedSpecType {
   // Check more specific patterns first
   // Operation patterns: .contracts. OR /contracts/ directory
   if (
+    filePath.includes('.contracts.') ||
     filePath.includes('.operations.') ||
     filePath.includes('/operations/') ||
     filePath.includes('.operation.') ||

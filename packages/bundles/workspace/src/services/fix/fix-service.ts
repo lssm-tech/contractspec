@@ -195,6 +195,75 @@ export class FixService {
   }
 
   /**
+   * Determine the best strategy for an issue.
+   *
+   * Logic moved from CLI to be shared.
+   */
+  resolveStrategy(
+    issue: FixableIssue,
+    options: {
+      forceStrategy?: FixStrategyType;
+      preferAi?: boolean;
+      interactive?: boolean;
+      // Optional callback for interactive selection if environment supports it
+      select?: (
+        issue: FixableIssue,
+        strategies: FixStrategyType[]
+      ) => Promise<FixStrategyType | undefined>;
+    }
+  ): Promise<FixStrategyType | undefined> {
+    const { forceStrategy, preferAi, select } = options;
+
+    // 1. Forced strategy
+    if (forceStrategy) {
+      // Validate it's available? Or trust caller?
+      // For now, trust caller or checks downstream
+      return Promise.resolve(forceStrategy);
+    }
+
+    // 2. AI Preference
+    if (preferAi && issue.availableStrategies.includes('implement-ai')) {
+      return Promise.resolve('implement-ai');
+    }
+
+    // 3. Single strategy available
+    if (issue.availableStrategies.length === 1) {
+      return Promise.resolve(issue.availableStrategies[0]);
+    }
+
+    // 4. Multiple strategies
+    if (issue.availableStrategies.length > 1) {
+      if (typeof select === 'function') {
+        return select(issue, issue.availableStrategies);
+      }
+      // Default to first if non-interactive or no selector provided
+      // Usually the most standard compliant/safest one is first
+      return Promise.resolve(issue.availableStrategies[0]);
+    }
+
+    return Promise.resolve(undefined);
+  }
+
+  /**
+   * Determine scan options based on input target.
+   */
+  async determineScanOptions(
+    target: string
+  ): Promise<{ pattern?: string; cwd?: string }> {
+    try {
+      const stats = await this.adapters.fs.stat(target);
+      if (stats.isDirectory) {
+        return { cwd: target };
+      } else {
+        return { pattern: target };
+      }
+    } catch {
+      // Likely a glob pattern or non-existent path (treated as pattern)
+      return { pattern: target };
+    }
+  }
+
+  /**
    * Parse CI output JSON into FixableIssues.
    */
   parseIssuesFromCIResult(ciIssues: unknown[]): FixableIssue[] {
