@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "contractspec-internal": {
+      "url": "https://api.contractspec.io/api/mcp/internal"
+    },
+    "contractspec-docs": {
+      "url": "https://api.contractspec.io/api/mcp/docs"
+    },
+    "contractspec-cli": {
+      "url": "https://api.contractspec.io/api/mcp/cli"
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--enable-web-dashboard",
+        "false",
+        "--project",
+        "."
+      ],
+      "env": {}
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {}
+    }
+  }
+}
