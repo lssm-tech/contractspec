@@ -44,7 +44,7 @@ Accessibility & UX:
 
 Dependency flow:
 
-- Apps → bundles → libs; never import bundles from apps or libs.
+- Apps → bundles → modules → libs; never import bundles from apps or libs.
 - Do not import `@contractspec/lib.ui-kit` (native) in web code.
 
 When adding new DS primitives:
