@@ -60,7 +60,6 @@ export const fixCommand = new Command('fix')
           console.log(chalk.blue(`Scanning pattern: ${target}`));
         }
 
-        // @ts-ignore - signature updated in source but maybe not emitted yet
         const fixableItems = await fixService.scanAndGetFixables(scanOptions);
 
         if (fixableItems.length === 0) {

@@ -90,7 +90,7 @@ function buildPath(baseDir: string, key: string, specType: string): string {
   // Simple for now: normalized key
   // "docs.search" -> "docs-search"
   // "search" -> "search"
-  let fileName = key.replace(/\./g, '-').toLowerCase();
+  const fileName = key.replace(/\./g, '-').toLowerCase();
 
   // Optimization: if the key has multiple parts (domain.name), and we are placing it inside a domain folder?
   // Current requirement: just place in src/[type]s/

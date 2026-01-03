@@ -97,16 +97,7 @@ export class FixService {
   /**
    * Fix a single issue.
    */
-  async fixIssue(
-    issue: FixableIssue,
-    options: {
-      strategy: FixStrategyType;
-      dryRun?: boolean;
-      aiConfig?: unknown;
-      outputDir?: string;
-      workspaceRoot: string;
-    } // Using inline type to match what strategies expect
-  ): Promise<FixResult> {
+  async fixIssue(issue: FixableIssue, options: FixOptions): Promise<FixResult> {
     const strategy = this.strategies.get(options.strategy);
 
     if (!strategy) {
@@ -126,7 +117,7 @@ export class FixService {
       }
     );
 
-    return strategy.fix(issue, options as unknown as FixOptions);
+    return strategy.fix(issue, options);
   }
 
   /**

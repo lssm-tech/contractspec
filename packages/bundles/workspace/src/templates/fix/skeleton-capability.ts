@@ -6,7 +6,6 @@
 
 import type { SpecGenerationContext } from '../../services/fix/types';
 
-import { defineCapability } from '@contractspec/lib.contracts';
 import { toPascalCase, generateMetaProperties } from './utils';
 
 export function generateSkeletonCapability(ctx: SpecGenerationContext): string {

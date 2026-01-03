@@ -44,17 +44,19 @@ export async function applyFormatting(
       // We assume cwd is workspaceRoot or just run where we are.
       // Ideally we use the user's workspaceRoot.
       const cwd = options.workspaceRoot || process.cwd();
-      
+
       // Use --write to fix in place
       // Use --ignore-unknown to avoid errors on unsupported extensions
       await execAsync(`bunx prettier --write "${file}" --ignore-unknown`, {
         cwd,
       });
-      
+
       logger.debug(`Formatted ${file}`);
     } catch (error) {
       // Log warning but don't fail the fix
-      logger.warn(`Failed to format ${file}: ${error instanceof Error ? error.message : String(error)}`);
+      logger.warn(
+        `Failed to format ${file}: ${error instanceof Error ? error.message : String(error)}`
+      );
     }
   }
 }

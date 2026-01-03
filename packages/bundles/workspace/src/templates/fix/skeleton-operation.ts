@@ -51,8 +51,8 @@ export function generateSkeletonOperation(ctx: SpecGenerationContext): string {
   const context = ctx.enrichment?.context || 'TODO: Provide context';
 
   const metaProps = generateMetaProperties(ctx, {
-      goal: `'${goal}'`,
-      context: `'${context}'`,
+    goal: `'${goal}'`,
+    context: `'${context}'`,
   });
 
   return `/**

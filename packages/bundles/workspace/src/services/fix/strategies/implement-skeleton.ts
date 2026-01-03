@@ -116,5 +116,3 @@ function generateSpecCode(ctx: SpecGenerationContext): string | undefined {
       return undefined;
   }
 }
-
-
