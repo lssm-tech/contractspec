@@ -242,21 +242,19 @@ program
   });
 
 const testProgram = program
-  .command('test')
-  .description('Run TestSpec scenarios against a OperationSpecRegistry')
-  .argument('<spec-file>', 'Path to TestSpec file')
-  .option(
-    '-r, --registry <path>',
-    'Path to module exporting a OperationSpecRegistry or factory'
-  )
-  .option('--json', 'Output JSON results')
+  .command('test <specFile>')
+  .description('Run test specs')
+  .option('-r, --registry <path>', 'Path to registry module')
+  .option('-j, --json', 'Output results as JSON')
+  .option('-g, --generate', 'Generate tests using AI')
+  .option('-l, --list', 'List available tests')
   .action(async (specFile, options) => {
+    const config = await loadConfig();
     try {
-      const config = await loadConfig();
       await testCommand(specFile, options, config);
     } catch (error) {
       console.error(
-        chalk.red('\n❌ Error:'),
+        chalk.red('Error running tests:'),
         error instanceof Error ? error.message : String(error)
       );
       process.exit(1);

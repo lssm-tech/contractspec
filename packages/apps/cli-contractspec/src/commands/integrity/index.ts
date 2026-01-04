@@ -31,6 +31,7 @@ interface IntegrityOptions {
   all?: boolean;
   diagram?: DiagramType;
   json?: boolean;
+  requireTests?: string[];
 }
 
 /**
@@ -57,6 +58,10 @@ export const integrityCommand = new Command('integrity')
     'Generate Mermaid diagram: feature-map, orphans, dependencies, full'
   )
   .option('--json', 'Output results as JSON')
+  .option(
+    '--require-tests <types...>',
+    'Require tests for specific spec types (e.g. operation presentation)'
+  )
   .action(async (options: IntegrityOptions) => {
     try {
       await runIntegrityAnalysis(options);
@@ -92,6 +97,7 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
     {
       all: options.all,
       featureKey: options.feature,
+      requireTestsFor: options.requireTests as any, // Cast to proper enum type in implementation
     }
   );
 
@@ -160,9 +166,10 @@ async function outputText(
       percent === 100 ? chalk.green : percent >= 80 ? chalk.yellow : chalk.red;
     const orphanedNote =
       stats.orphaned > 0 ? ` - ${stats.orphaned} orphaned` : '';
+    const missingTestNote = stats.missingTest ? ` - ${stats.missingTest} missing tests` : '';
 
     console.log(
-      `  ${type.padEnd(15)} ${color(`${stats.covered}/${stats.total} (${percent}%)`)}${orphanedNote}`
+      `  ${type.padEnd(15)} ${color(`${stats.covered}/${stats.total} (${percent}%)`)}${orphanedNote}${chalk.red(missingTestNote)}`
     );
   }
 
@@ -262,6 +269,7 @@ function outputJson(
       operations: f.operations.length,
       events: f.events.length,
       presentations: f.presentations.length,
+      
     })),
     orphanedSpecs: result.orphanedSpecs,
     issues: issues.map((issue) => ({

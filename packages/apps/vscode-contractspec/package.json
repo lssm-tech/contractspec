@@ -430,6 +430,18 @@
         "title": "Refresh Versions",
         "category": "ContractSpec",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.generateTests",
+        "title": "Generate Tests for Spec",
+        "category": "ContractSpec",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "contractspec.runSpecTests",
+        "title": "Run Tests for Spec",
+        "category": "ContractSpec",
+        "icon": "$(play)"
       }
     ],
     "viewsContainers": {

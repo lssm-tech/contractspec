@@ -45,6 +45,11 @@ export interface IntegrityAnalysisOptions {
    * Filter by spec type.
    */
   specType?: AnalyzedSpecType;
+
+  /**
+   * Require tests for specific spec types.
+   */
+  requireTestsFor?: AnalyzedSpecType[];
 }
 
 /**
@@ -84,7 +89,12 @@ export interface SpecInventory {
  */
 export interface IntegrityIssue {
   severity: 'error' | 'warning';
-  type: 'orphaned' | 'unresolved-ref' | 'missing-feature' | 'broken-link';
+  type:
+    | 'orphaned'
+    | 'unresolved-ref'
+    | 'missing-feature'
+    | 'broken-link'
+    | 'missing-test';
   message: string;
   file: string;
   specKey?: string;
@@ -100,6 +110,7 @@ export interface CoverageByType {
   total: number;
   covered: number;
   orphaned: number;
+  missingTest?: number;
 }
 
 /**
@@ -123,6 +134,7 @@ export interface IntegrityAnalysisResult {
     total: number;
     linkedToFeature: number;
     orphaned: number;
+    missingTest: number;
     byType: Record<string, CoverageByType>;
   };
 
@@ -135,12 +147,13 @@ export interface IntegrityAnalysisResult {
    * Specs not linked to any feature.
    */
   orphanedSpecs: SpecLocation[];
-
+  
   /**
    * Overall health status.
    */
   healthy: boolean;
 }
+
 
 /**
  * Build a spec key from name and version.
@@ -420,6 +433,7 @@ export async function analyzeIntegrity(
 
   // Calculate coverage metrics
   const coverageByType: Record<string, CoverageByType> = {};
+  let totalMissingTests = 0;
 
   for (const type of typesThatCanBeOrphaned) {
     const map = getInventoryMap(inventory, type);
@@ -427,10 +441,34 @@ export async function analyzeIntegrity(
 
     const total = map.size;
     let covered = 0;
+    let missingTest = 0;
 
-    for (const key of map.keys()) {
+    const requireTest = options.requireTestsFor?.includes(type);
+
+    for (const [key, location] of map) {
       if (referencedSpecs.has(`${type}:${key}`)) {
         covered++;
+      }
+
+      if (requireTest) {
+        // Standard convention: test spec key is {specKey}.test
+        // or check if any test targets this spec
+        // For now, simple convention check:
+        const testKey = `${key}.test`;
+        const testExists = inventory.testSpecs.has(specKey(testKey, location.version));
+        
+        if (!testExists) {
+            missingTest++;
+            totalMissingTests++;
+            issues.push({
+                severity: 'warning',
+                type: 'missing-test',
+                message: `${type} ${location.key}.v${location.version} is missing a test spec`,
+                file: location.file,
+                specKey: location.key,
+                specType: location.type,
+            });
+        }
       }
     }
 
@@ -438,6 +476,7 @@ export async function analyzeIntegrity(
       total,
       covered,
       orphaned: total - covered,
+      missingTest: requireTest ? missingTest : 0,
     };
   }
 
@@ -454,6 +493,7 @@ export async function analyzeIntegrity(
     total: totalSpecs,
     linkedToFeature: coveredSpecs,
     orphaned: totalSpecs - coveredSpecs,
+    missingTest: totalMissingTests,
     byType: coverageByType,
   };
 

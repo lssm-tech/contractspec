@@ -10,6 +10,7 @@ import type { WorkspaceAdapters } from '../../ports/logger';
 
 export interface TestServiceOptions {
   registry?: string;
+  pattern?: string;
 }
 
 export interface TestServiceResult {
@@ -109,6 +110,31 @@ export async function runTestSpecs(
   return { results, passed: allPassed };
 }
 
+/**
+ * List all available tests in the given files.
+ */
+export async function listTests(
+  specFiles: string[],
+  adapters: WorkspaceAdapters
+): Promise<TestSpec[]> {
+  const specs: TestSpec[] = [];
+
+  for (const specFile of specFiles) {
+    try {
+      const resolvedPath = resolve(specFile);
+      const exports = await loadTypeScriptModule(resolvedPath);
+      const fileSpecs = extractTestSpecs(exports);
+      specs.push(...fileSpecs);
+    } catch (error) {
+      adapters.logger.warn(
+        `Failed to load tests from ${specFile}: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  return specs;
+}
+
 function extractTestSpecs(exports: Record<string, unknown>): TestSpec[] {
   const specs: TestSpec[] = [];
   for (const value of Object.values(exports)) {
@@ -162,3 +188,4 @@ async function loadRegistry(
     `Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
   );
 }
+

@@ -31,6 +31,8 @@ import { runQuickstartWizard, runQuickInstall } from './quickstart';
 import { registerImpactCommands } from './impact';
 import { registerWorkspaceCommands } from './workspace';
 import { registerVersionCommands } from './version';
+import { registerGenerateDocsCommand } from './docs';
+import { generateTestsCommand, runSpecTestsCommand } from './test';
 
 /**
  * Register all ContractSpec commands.
@@ -38,9 +40,21 @@ import { registerVersionCommands } from './version';
 export function registerCommands(
   context: vscode.ExtensionContext,
   outputChannel: vscode.OutputChannel,
-  telemetry: TelemetryReporter | undefined,
-  statusBarItem?: vscode.StatusBarItem
+  telemetryReporter: TelemetryReporter | undefined,
+  statusBarItem: vscode.StatusBarItem
 ): void {
+  // ... existing registrations
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.generateTests', (uri) =>
+      generateTestsCommand(uri, context)
+    )
+  );
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.runSpecTests', (uri) =>
+      runSpecTestsCommand(uri, context)
+    )
+  );
+
   // Validate current spec
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.validate', async () => {
