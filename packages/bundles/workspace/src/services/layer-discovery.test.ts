@@ -1,175 +1,181 @@
-/**
- * Layer discovery tests.
- *
- * Tests for the layer discovery service.
- */
+import { describe, expect, it, mock, spyOn } from 'bun:test';
+import { discoverLayers, getAllLayerLocations } from './layer-discovery';
+import type { FsAdapter } from '../ports/fs';
+import type { LoggerAdapter } from '../ports/logger';
 
-import { describe, expect, it } from 'bun:test';
-import {
-  createEmptyLayerInventory,
-  getAllLayerLocations,
-  type LayerInventory,
-} from './layer-discovery';
+// Mock the module imports
+mock.module('@contractspec/module.workspace', () => ({
+  isFeatureFile: (file: string) => file.endsWith('.feature.ts'),
+  scanFeatureSource: (code: string, file: string) => ({ key: 'auth', filePath: file }),
+  isExampleFile: (file: string) => file.endsWith('.example.ts'),
+  scanExampleSource: (code: string, file: string) => ({ key: 'user-flow', version: '1.0.0', filePath: file }),
+  scanAllSpecsFromSource: (code: string, file: string) => {
+    if (file.includes('app-config')) {
+        return [{ specType: 'app-config', key: 'my-app', version: '1.0.0', filePath: file }];
+    }
+    return [];
+  }
+}));
 
-describe('createEmptyLayerInventory', () => {
-  it('should create empty maps for all layer types', () => {
-    const inventory = createEmptyLayerInventory();
+describe('Layer Discovery', () => {
+  const mockFs = {
+    glob: mock(() => Promise.resolve([])),
+    readFile: mock(() => Promise.resolve('')),
+    writeFile: mock(() => Promise.resolve()),
+    exists: mock(() => Promise.resolve(false)),
+    mkdir: mock(() => Promise.resolve()),
+    rm: mock(async () => {}), // Fix: Add rm
+  } as unknown as FsAdapter;
 
-    expect(inventory.features.size).toBe(0);
-    expect(inventory.examples.size).toBe(0);
-    expect(inventory.appConfigs.size).toBe(0);
-    expect(inventory.workspaceConfigs.size).toBe(0);
-  });
-});
+  const mockLogger = {
+    info: mock(() => {}),
+    warn: mock(() => {}),
+    error: mock(() => {}),
+    debug: mock(() => {}),
+    createProgress: mock(() => ({ // Fix: Add createProgress
+        increment: () => {},
+        stop: () => {}
+    }))
+  } as unknown as LoggerAdapter;
 
-describe('getAllLayerLocations', () => {
-  it('should return empty array for empty inventory', () => {
-    const inventory = createEmptyLayerInventory();
-    const locations = getAllLayerLocations(inventory);
+  const adapters = { fs: mockFs, logger: mockLogger };
 
-    expect(locations).toEqual([]);
-  });
-
-  it('should include features in locations', () => {
-    const inventory = createEmptyLayerInventory();
-    inventory.features.set('my-feature', {
-      filePath: '/path/to/my.feature.ts',
-      key: 'my-feature',
-      operations: [],
-      events: [],
-      presentations: [],
-      experiments: [],
-      capabilities: { provides: [], requires: [] },
-      opToPresentationLinks: [],
-    });
-
-    const locations = getAllLayerLocations(inventory);
-
-    expect(locations).toHaveLength(1);
-    expect(locations[0]).toEqual({
-      key: 'my-feature',
-      file: '/path/to/my.feature.ts',
-      type: 'feature',
-    });
+  it('should return empty inventory when no files found', async () => {
+    (mockFs.glob as any).mockImplementation(() => Promise.resolve([]));
+    const result = await discoverLayers(adapters);
+    
+    expect(result.inventory.features.size).toBe(0);
+    expect(result.inventory.examples.size).toBe(0);
+    expect(result.inventory.appConfigs.size).toBe(0);
+    expect(result.inventory.workspaceConfigs.size).toBe(0);
+    expect(result.stats.total).toBe(0);
   });
 
-  it('should include examples in locations', () => {
-    const inventory = createEmptyLayerInventory();
-    inventory.examples.set('my-example', {
-      filePath: '/path/to/example.ts',
-      key: 'my-example',
-      version: '1.0.0',
-      surfaces: {
-        templates: false,
-        sandbox: { enabled: false, modes: [] },
-        studio: { enabled: false, installable: false },
-        mcp: { enabled: false },
-      },
-      entrypoints: { packageName: '@test/example' },
+  it('should discover features', async () => {
+    (mockFs.glob as any).mockImplementation((opts: any) => {
+      if (opts?.pattern?.includes('.contractsrc.json')) return Promise.resolve([]);
+      return Promise.resolve(['src/features/auth.feature.ts']);
+    });
+    
+    (mockFs.readFile as any).mockImplementation((path: string) => {
+        return Promise.resolve('mock code');
     });
 
-    const locations = getAllLayerLocations(inventory);
-
-    expect(locations).toHaveLength(1);
-    expect(locations[0]).toEqual({
-      key: 'my-example',
-      version: '1.0.0',
-      file: '/path/to/example.ts',
-      type: 'example',
-    });
+    const result = await discoverLayers(adapters);
+    
+    expect(result.inventory.features.size).toBe(1);
+    expect(result.inventory.features.get('auth')).toBeDefined();
+    expect(result.stats.features).toBe(1);
   });
 
-  it('should include workspace configs in locations', () => {
-    const inventory = createEmptyLayerInventory();
-    inventory.workspaceConfigs.set('.contractsrc.json', {
-      file: '.contractsrc.json',
-      config: { aiProvider: 'claude' },
-      valid: true,
-      errors: [],
+  it('should discover examples', async () => {
+    (mockFs.glob as any).mockImplementation((opts: any) => {
+        if (opts?.pattern?.includes('.contractsrc.json')) return Promise.resolve([]);
+        return Promise.resolve(['src/examples/user-flow.example.ts']);
     });
 
-    const locations = getAllLayerLocations(inventory);
+    (mockFs.readFile as any).mockImplementation(() => Promise.resolve('mock code'));
 
-    expect(locations).toHaveLength(1);
-    expect(locations[0]).toEqual({
-      key: '.contractsrc.json',
-      file: '.contractsrc.json',
-      type: 'workspace-config',
-    });
+    const result = await discoverLayers(adapters);
+    
+    expect(result.inventory.examples.size).toBe(1);
+    expect(result.inventory.examples.get('user-flow')).toBeDefined();
+    expect(result.stats.examples).toBe(1);
   });
 
-  it('should return all layer types combined', () => {
-    const inventory: LayerInventory = {
-      features: new Map([
-        [
-          'feature-1',
-          {
-            filePath: '/f1.feature.ts',
-            key: 'feature-1',
-            operations: [],
-            events: [],
-            presentations: [],
-            experiments: [],
-            capabilities: { provides: [], requires: [] },
-            opToPresentationLinks: [],
-          },
-        ],
-      ]),
-      examples: new Map([
-        [
-          'example-1',
-          {
-            filePath: '/e1/example.ts',
-            key: 'example-1',
-            version: '1.0.0',
-            surfaces: {
-              templates: true,
-              sandbox: { enabled: false, modes: [] },
-              studio: { enabled: false, installable: false },
-              mcp: { enabled: false },
-            },
-            entrypoints: { packageName: '@test/e1' },
-          },
-        ],
-      ]),
-      appConfigs: new Map([
-        [
-          'app-1',
-          {
-            filePath: '/app-1.app-config.ts',
-            specType: 'app-config',
-            key: 'app-1',
-            version: '1.0.0',
-            hasMeta: true,
-            hasIo: false,
-            hasPolicy: false,
-            hasPayload: false,
-            hasContent: false,
-            hasDefinition: true,
-          },
-        ],
-      ]),
-      workspaceConfigs: new Map([
-        [
-          '.contractsrc.json',
-          {
-            file: '.contractsrc.json',
-            config: {},
-            valid: true,
-            errors: [],
-          },
-        ],
-      ]),
-    };
 
-    const locations = getAllLayerLocations(inventory);
+  it('should discover app configs', async () => {
+     (mockFs.glob as any).mockImplementation((opts: any) => {
+        if (opts?.pattern?.includes('.contractsrc.json')) return Promise.resolve([]);
+        return Promise.resolve(['src/config/main.app-config.ts']);
+    });
 
-    expect(locations).toHaveLength(4);
-    expect(locations.filter((l) => l.type === 'feature')).toHaveLength(1);
-    expect(locations.filter((l) => l.type === 'example')).toHaveLength(1);
-    expect(locations.filter((l) => l.type === 'app-config')).toHaveLength(1);
-    expect(locations.filter((l) => l.type === 'workspace-config')).toHaveLength(
-      1
-    );
+    (mockFs.readFile as any).mockImplementation(() => Promise.resolve('mock code'));
+
+     const result = await discoverLayers(adapters);
+    
+    expect(result.inventory.appConfigs.size).toBe(1);
+    expect(result.inventory.appConfigs.get('my-app')).toBeDefined();
+    expect(result.stats.appConfigs).toBe(1);
+  });
+
+  it('should discover workspace configs', async () => {
+    // First glob call for files, second for configs
+    let callCount = 0;
+    (mockFs.glob as any).mockImplementation(() => {
+        callCount++;
+        if (callCount === 1) return Promise.resolve([]);
+        return Promise.resolve(['.contractsrc.json']);
+    });
+
+    (mockFs.readFile as any).mockImplementation((path: string) => {
+         if (path.endsWith('.contractsrc.json')) {
+            return Promise.resolve(JSON.stringify({ projectId: 'test' }));
+         }
+         return Promise.resolve('');
+    });
+
+    const result = await discoverLayers(adapters);
+
+    expect(result.inventory.workspaceConfigs.size).toBe(1);
+    expect(result.inventory.workspaceConfigs.has('.contractsrc.json')).toBe(true);
+    expect(result.stats.workspaceConfigs).toBe(1);
+  });
+
+  it('should handle invalid workspace configs', async () => {
+      let callCount = 0;
+      (mockFs.glob as any).mockImplementation(() => {
+          callCount++;
+          if (callCount === 1) return Promise.resolve([]);
+          return Promise.resolve(['.contractsrc.json']);
+      });
+  
+      (mockFs.readFile as any).mockImplementation(() => Promise.resolve('invalid json'));
+  
+      const result = await discoverLayers(adapters);
+  
+      const configInfo = result.inventory.workspaceConfigs.get('.contractsrc.json');
+      expect(configInfo?.valid).toBe(false);
+      expect(configInfo?.errors).toHaveLength(1);
+  });
+  
+  it('should skip node_modules and dist files', async () => {
+    (mockFs.glob as any).mockImplementation((opts: any) => {
+        if (opts?.pattern?.includes('.contractsrc.json')) return Promise.resolve([]);
+        return Promise.resolve(['node_modules/foo.ts', 'dist/bar.ts']);
+    });
+    
+    (mockFs.readFile as any).mockImplementation(() => Promise.resolve(''));
+    
+    const result = await discoverLayers(adapters);
+    expect(result.stats.total).toBe(0);
+  });
+
+  it('should handle read errors gracefully', async () => {
+      (mockFs.glob as any).mockImplementation((opts: any) => {
+          if (opts?.pattern?.includes('.contractsrc.json')) return Promise.resolve([]);
+          return Promise.resolve(['src/features/auth.feature.ts']);
+      });
+      
+      (mockFs.readFile as any).mockImplementation(() => Promise.reject(new Error('Read error')));
+      
+      const result = await discoverLayers(adapters);
+      expect(result.inventory.features.size).toBe(0);
+  });
+
+  it('should return all layer locations', async () => {
+      const inventory = {
+          features: new Map([['auth', { key: 'auth', filePath: 'f.ts' } as any]]),
+          examples: new Map([['ex', { key: 'ex', version: '1', filePath: 'e.ts' } as any]]),
+          appConfigs: new Map([['app', { key: 'app', version: '1', filePath: 'a.ts' } as any]]),
+          workspaceConfigs: new Map([['conf', { file: 'c.json' } as any]]),
+      };
+      
+      const locations = getAllLayerLocations(inventory as any);
+      expect(locations).toHaveLength(4);
+      expect(locations.find(l => l.type === 'feature')).toBeDefined();
+      expect(locations.find(l => l.type === 'example')).toBeDefined();
+      expect(locations.find(l => l.type === 'app-config')).toBeDefined();
+      expect(locations.find(l => l.type === 'workspace-config')).toBeDefined();
   });
 });

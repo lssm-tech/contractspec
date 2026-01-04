@@ -289,8 +289,8 @@ function extractMetaFromBlock(
  */
 const DEFINE_FUNCTION_PATTERNS = [
   // Operations
-  { pattern: /defineCommand\s*\(\s*\{/g, type: 'operation' as const },
-  { pattern: /defineQuery\s*\(\s*\{/g, type: 'operation' as const },
+  { pattern: /defineCommand\s*\(\s*\{/g, type: 'operation' as const, kind: 'command' as const },
+  { pattern: /defineQuery\s*\(\s*\{/g, type: 'operation' as const, kind: 'query' as const },
   // Events
   { pattern: /defineEvent\s*\(\s*\{/g, type: 'event' as const },
   // Presentations (both v1 and v2 patterns)
@@ -386,7 +386,8 @@ export function scanAllSpecsFromSource(
   // Track positions we've already processed to avoid duplicates
   const processedPositions = new Set<number>();
 
-  for (const { pattern, type } of DEFINE_FUNCTION_PATTERNS) {
+  for (const entry of DEFINE_FUNCTION_PATTERNS) {
+    const { pattern, type } = entry;
     // Reset the regex lastIndex
     pattern.lastIndex = 0;
 
@@ -430,8 +431,16 @@ export function scanAllSpecsFromSource(
       const hasDefinition = /\bdefinition\s*:\s*{/.test(block);
 
       // Infer kind for operations
-      const kind =
-        type === 'operation' ? inferOperationKindFromBlock(block) : 'unknown';
+      let kind = 'unknown' as AnalyzedOperationKind;
+      if (type === 'operation') {
+        // @ts-ignore
+        if (entry.kind) {
+           // @ts-ignore
+           kind = entry.kind;
+        } else {
+           kind = inferOperationKindFromBlock(block);
+        }
+      }
 
       // Extract references from operations
       const emittedEvents =
