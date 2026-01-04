@@ -1,4 +1,3 @@
-
 import type { FeatureScanResult } from '@contractspec/module.workspace';
 import type { SpecInventory } from '../integrity';
 
@@ -45,6 +44,6 @@ export function validateFeatureRefs(
   checkRefs(feature.presentations, inventory.presentations, 'Presentation');
   checkRefs(feature.experiments, inventory.experiments, 'Experiment');
   // Check workflows if/when supported in inventory
-  
+
   return errors;
 }

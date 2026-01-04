@@ -1,4 +1,3 @@
-
 import type { AnalyzedSpecType } from '@contractspec/module.workspace';
 
 /**
@@ -11,7 +10,7 @@ export interface FeatureContext {
 
 /**
  * Detect which array context the cursor is in within a feature file.
- * 
+ *
  * @param textBeforeCursor Text from start of file to cursor position.
  * @param textAfterCursor Text from cursor position to end of file (or reasonable lookahead).
  */
@@ -21,9 +20,21 @@ export function detectFeatureContext(
 ): FeatureContext | null {
   // Find the last occurrence of each array type
   const patterns = [
-    { type: 'operations' as const, regex: /operations\s*:\s*\[/g, specType: 'operation' as AnalyzedSpecType },
-    { type: 'events' as const, regex: /events\s*:\s*\[/g, specType: 'event' as AnalyzedSpecType },
-    { type: 'presentations' as const, regex: /presentations\s*:\s*\[/g, specType: 'presentation' as AnalyzedSpecType },
+    {
+      type: 'operations' as const,
+      regex: /operations\s*:\s*\[/g,
+      specType: 'operation' as AnalyzedSpecType,
+    },
+    {
+      type: 'events' as const,
+      regex: /events\s*:\s*\[/g,
+      specType: 'event' as AnalyzedSpecType,
+    },
+    {
+      type: 'presentations' as const,
+      regex: /presentations\s*:\s*\[/g,
+      specType: 'presentation' as AnalyzedSpecType,
+    },
   ];
 
   let lastMatch: {
@@ -48,22 +59,23 @@ export function detectFeatureContext(
   }
 
   // Check if we're still inside the array (no closing bracket yet)
-  const relevantText = textBeforeCursor.slice(lastMatch.index) + textAfterCursor;
+  const relevantText =
+    textBeforeCursor.slice(lastMatch.index) + textAfterCursor;
   // We only care about checking if the bracket matches.
   // Actually, simpler logic: verify we haven't closed the array *before* the cursor.
   // But wait, the cursor is at `textBeforeCursor.length`.
   // The array starts at `lastMatch.index` (plus length of match).
   // We need to count brackets from start of array content.
-  
+
   // Re-extract match to know length
   const typeStr = lastMatch.type;
   const arrayStartRegex = new RegExp(`${typeStr}\\s*:\\s*\\[`);
   const startMatch = arrayStartRegex.exec(relevantText); // this matches at 0 effectively since we sliced?
   // No, relevantText starts at lastMatch.index.
   // So validation:
-  
+
   const textFromMatch = textBeforeCursor.slice(lastMatch.index);
-  
+
   let depth = 0;
   let inString = false;
   let stringChar = '';
@@ -101,7 +113,7 @@ export function detectFeatureContext(
   if (depth > 0) {
     return {
       type: lastMatch.type,
-      specType: lastMatch.specType
+      specType: lastMatch.specType,
     };
   }
 

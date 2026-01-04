@@ -1,5 +1,8 @@
 import type { SemanticDiffItem } from './types';
-import { scanSpecSource, type SpecScanResult } from '@contractspec/module.workspace';
+import {
+  scanSpecSource,
+  type SpecScanResult,
+} from '@contractspec/module.workspace';
 
 export function computeSemanticDiff(
   aCode: string,

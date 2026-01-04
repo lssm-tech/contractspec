@@ -21,7 +21,7 @@ export function computeAddSpecEdit(
   spec: { key: string; version: string | number; type: string }
 ): FeatureEdit | null {
   const arrayName = getArrayNameForSpecType(spec.type);
-  
+
   // Find the array in the document
   const arrayPattern = new RegExp(`${arrayName}\\s*:\\s*\\[`, 'g');
   const match = arrayPattern.exec(content);
@@ -29,9 +29,10 @@ export function computeAddSpecEdit(
   if (match) {
     // Insert after the opening bracket
     const insertIndex = match.index + match[0].length;
-    
+
     // Format the reference
-    const versionStr = typeof spec.version === 'string' ? `'${spec.version}'` : spec.version;
+    const versionStr =
+      typeof spec.version === 'string' ? `'${spec.version}'` : spec.version;
     const refText = `\n    { key: '${spec.key}', version: ${versionStr} },`;
 
     return {

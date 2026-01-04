@@ -1,8 +1,5 @@
-
 import * as vscode from 'vscode';
-import {
-  type AnalyzedSpecType,
-} from '@contractspec/module.workspace';
+import { type AnalyzedSpecType } from '@contractspec/module.workspace';
 import { features, getAllSpecs } from '@contractspec/bundle.workspace';
 import { getIntegrityResult } from '../diagnostics/index';
 
@@ -23,16 +20,16 @@ interface CachedSpec {
 async function discoverSpecs(): Promise<CachedSpec[]> {
   // Use cached integrity result if available
   const result = getIntegrityResult();
-  
+
   if (result) {
     const allSpecs = getAllSpecs(result.inventory);
-    
-    return allSpecs.map(spec => ({
+
+    return allSpecs.map((spec) => ({
       name: spec.key,
       version: spec.version,
       type: spec.type,
       file: spec.file,
-      relativePath: vscode.workspace.asRelativePath(spec.file)
+      relativePath: vscode.workspace.asRelativePath(spec.file),
     }));
   }
 
@@ -73,7 +70,7 @@ export class SpecNameCompletionProvider
     // But detectFeatureContext expects textBefore and textAfter.
     // Let's pass simple "after"
     const textAfter = document.getText(
-        new vscode.Range(position, new vscode.Position(document.lineCount, 0))
+      new vscode.Range(position, new vscode.Position(document.lineCount, 0))
     );
 
     const context = features.detectFeatureContext(textBefore, textAfter);
@@ -85,7 +82,9 @@ export class SpecNameCompletionProvider
     const allSpecs = await discoverSpecs();
 
     // Filter by type
-    const filteredSpecs = allSpecs.filter((spec) => spec.type === context.specType);
+    const filteredSpecs = allSpecs.filter(
+      (spec) => spec.type === context.specType
+    );
 
     // Create completion items
     const items: vscode.CompletionItem[] = [];

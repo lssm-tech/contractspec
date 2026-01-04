@@ -1,4 +1,3 @@
-
 import { describe, expect, it } from 'bun:test';
 import { detectFeatureContext } from './completion';
 
@@ -49,8 +48,8 @@ describe('detectFeatureContext', () => {
   });
 
   it('detects context in nested object inside array', () => {
-     // Cursor inside an object in the array
-     const before = `
+    // Cursor inside an object in the array
+    const before = `
       export const feature = defineFeature({
         operations: [
           { 

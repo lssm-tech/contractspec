@@ -299,7 +299,10 @@ export function addIntegrityDiagnosticsForDocument(
     const feature = scanFeatureSource(code, filePath);
 
     // Validate feature refs against inventory
-    const errors = features.validateFeatureRefs(feature, integrityResult.inventory);
+    const errors = features.validateFeatureRefs(
+      feature,
+      integrityResult.inventory
+    );
 
     for (const error of errors) {
       const diagnostic = new vscode.Diagnostic(

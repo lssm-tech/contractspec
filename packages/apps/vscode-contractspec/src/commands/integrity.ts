@@ -427,8 +427,6 @@ export async function createFeatureFromOrphansCommand(
   }
 }
 
-
-
 /**
  * Register integrity commands.
  */

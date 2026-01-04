@@ -46,7 +46,9 @@ describe('validateSpecStructure', () => {
     `;
     const result = validateSpecStructure(code, 'my.operation.ts');
     expect(result.valid).toBe(false);
-    expect(result.errors).toContain('Missing defineCommand or defineQuery call');
+    expect(result.errors).toContain(
+      'Missing defineCommand or defineQuery call'
+    );
   });
 
   it('should detect missing meta section', () => {
@@ -126,7 +128,9 @@ describe('validateSpecStructure', () => {
       });
     `;
     const result = validateSpecStructure(code, 'my.operation.ts');
-    expect(result.warnings).toContain('Contains TODO items that need completion');
+    expect(result.warnings).toContain(
+      'Contains TODO items that need completion'
+    );
   });
 
   it('should validate owners format', () => {
@@ -165,7 +169,7 @@ describe('validateSpecStructure', () => {
   });
 
   it('should detect improper event names', () => {
-     const code = `
+    const code = `
       import { defineEvent } from '@contractspec/lib.contracts';
       export const e = defineEvent({
         meta: { key: 'k', version: '1', name: 'User.save' },
@@ -177,7 +181,6 @@ describe('validateSpecStructure', () => {
       'Event name should use past tense (e.g., "created", "updated")'
     );
   });
-
 
   it('should validate migration with string version', () => {
     const code = `
@@ -228,13 +231,15 @@ describe('validateSpecStructure', () => {
   });
 
   it('should detect missing experiment fields', () => {
-     const code = `
+    const code = `
       import { ExperimentSpec } from '@contractspec/lib.contracts';
       export const e: ExperimentSpec = {
       };
     `;
     const result = validateSpecStructure(code, 'my.experiment.ts');
-    expect(result.errors).toContain('ExperimentSpec must declare controlVariant');
+    expect(result.errors).toContain(
+      'ExperimentSpec must declare controlVariant'
+    );
     expect(result.errors).toContain('ExperimentSpec must declare variants');
     expect(result.warnings).toContain(
       'ExperimentSpec missing allocation configuration'
@@ -261,7 +266,9 @@ describe('validateSpecStructure', () => {
       };
     `;
     const result = validateSpecStructure(code, 'my.app-config.ts');
-    expect(result.warnings).toContain('AppBlueprint meta missing appId assignment');
+    expect(result.warnings).toContain(
+      'AppBlueprint meta missing appId assignment'
+    );
     expect(result.warnings).toContain(
       'App blueprint spec does not declare capabilities'
     );
@@ -282,7 +289,7 @@ describe('validateSpecStructure', () => {
   });
 
   it('should detect missing data view fields', () => {
-     const code = `
+    const code = `
       import { DataViewSpec } from '@contractspec/lib.contracts';
       export const v: DataViewSpec = {
       };

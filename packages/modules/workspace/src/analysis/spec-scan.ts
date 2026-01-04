@@ -289,8 +289,16 @@ function extractMetaFromBlock(
  */
 const DEFINE_FUNCTION_PATTERNS = [
   // Operations
-  { pattern: /defineCommand\s*\(\s*\{/g, type: 'operation' as const, kind: 'command' as const },
-  { pattern: /defineQuery\s*\(\s*\{/g, type: 'operation' as const, kind: 'query' as const },
+  {
+    pattern: /defineCommand\s*\(\s*\{/g,
+    type: 'operation' as const,
+    kind: 'command' as const,
+  },
+  {
+    pattern: /defineQuery\s*\(\s*\{/g,
+    type: 'operation' as const,
+    kind: 'query' as const,
+  },
   // Events
   { pattern: /defineEvent\s*\(\s*\{/g, type: 'event' as const },
   // Presentations (both v1 and v2 patterns)
@@ -433,12 +441,10 @@ export function scanAllSpecsFromSource(
       // Infer kind for operations
       let kind = 'unknown' as AnalyzedOperationKind;
       if (type === 'operation') {
-        // @ts-ignore
         if (entry.kind) {
-           // @ts-ignore
-           kind = entry.kind;
+          kind = entry.kind;
         } else {
-           kind = inferOperationKindFromBlock(block);
+          kind = inferOperationKindFromBlock(block);
         }
       }
 

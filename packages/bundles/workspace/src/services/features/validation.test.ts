@@ -1,4 +1,3 @@
-
 import { describe, expect, it } from 'bun:test';
 import { validateFeatureRefs } from './validation';
 import type { FeatureScanResult } from '@contractspec/module.workspace';

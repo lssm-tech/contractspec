@@ -1,25 +1,42 @@
-
 import { describe, expect, it } from 'bun:test';
-import { inferSpecTypeFromFilePath, scanSpecSource, scanAllSpecsFromSource } from './spec-scan';
+import {
+  inferSpecTypeFromFilePath,
+  scanSpecSource,
+  scanAllSpecsFromSource,
+} from './spec-scan';
 
 describe('inferSpecTypeFromFilePath', () => {
   it('identifies operation specs', () => {
-    expect(inferSpecTypeFromFilePath('src/domain/my-op.contracts.ts')).toBe('operation');
-    expect(inferSpecTypeFromFilePath('src/domain/operations/my-op.ts')).toBe('operation');
+    expect(inferSpecTypeFromFilePath('src/domain/my-op.contracts.ts')).toBe(
+      'operation'
+    );
+    expect(inferSpecTypeFromFilePath('src/domain/operations/my-op.ts')).toBe(
+      'operation'
+    );
   });
 
   it('identifies event specs', () => {
-    expect(inferSpecTypeFromFilePath('src/domain/my-event.event.ts')).toBe('event');
-    expect(inferSpecTypeFromFilePath('src/domain/events/my-event.ts')).toBe('event');
+    expect(inferSpecTypeFromFilePath('src/domain/my-event.event.ts')).toBe(
+      'event'
+    );
+    expect(inferSpecTypeFromFilePath('src/domain/events/my-event.ts')).toBe(
+      'event'
+    );
   });
 
   it('identifies presentation specs', () => {
-    expect(inferSpecTypeFromFilePath('src/domain/my-pres.presentation.ts')).toBe('presentation');
-    expect(inferSpecTypeFromFilePath('src/domain/presentations/my-pres.ts')).toBe('presentation');
+    expect(
+      inferSpecTypeFromFilePath('src/domain/my-pres.presentation.ts')
+    ).toBe('presentation');
+    expect(
+      inferSpecTypeFromFilePath('src/domain/presentations/my-pres.ts')
+    ).toBe('presentation');
   });
 
   it('identifies feature specs', () => {
-    expect(inferSpecTypeFromFilePath('src/domain/my-feature.feature.ts')).toBe('feature');
+    expect(inferSpecTypeFromFilePath('src/domain/my-feature.feature.ts')).toBe(
+      'feature'
+    );
   });
 });
 
@@ -58,7 +75,10 @@ describe('scanSpecSource', () => {
     const result = scanSpecSource(code, 'src/test.contracts.ts');
     expect(result.emittedEvents).toHaveLength(2);
     expect(result.emittedEvents?.[0]).toEqual({ key: 'event.a', version: '1' });
-    expect(result.emittedEvents?.[1]).toEqual({ key: 'event.b', version: '2.0' });
+    expect(result.emittedEvents?.[1]).toEqual({
+      key: 'event.b',
+      version: '2.0',
+    });
   });
 });
 
@@ -75,7 +95,7 @@ describe('scanAllSpecsFromSource', () => {
     `;
     const results = scanAllSpecsFromSource(code, 'src/multi.contracts.ts');
     expect(results).toHaveLength(2);
-    
+
     // Sort by key to be deterministic
     results.sort((a, b) => (a.key || '').localeCompare(b.key || ''));
 

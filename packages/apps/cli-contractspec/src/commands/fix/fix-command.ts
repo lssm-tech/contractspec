@@ -4,7 +4,6 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { stat } from 'node:fs/promises';
 import { createNodeAdapters, fix } from '@contractspec/bundle.workspace';
 import { promptForStrategy, promptForIssues } from './interactive';
 import { parseCiIssues } from './batch-fix';
@@ -41,7 +40,7 @@ export const fixCommand = new Command('fix')
       } else {
         // Mode: Scan and fix
         const target = options.target ?? '.';
-        
+
         // Use shared logic for determining scan options
         const scanOptions = await fixService.determineScanOptions(target);
         console.log(
