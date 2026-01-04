@@ -2,8 +2,6 @@
  * Feature file editing services.
  */
 
-import type { AnalyzedSpecType } from '@contractspec/module.workspace';
-
 /**
  * Result of a computation to edit a feature file.
  */

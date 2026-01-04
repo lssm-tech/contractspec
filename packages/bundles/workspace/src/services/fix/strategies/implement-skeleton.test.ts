@@ -4,20 +4,24 @@ import type { FixableIssue, FixOptions } from '../types';
 import type { FsAdapter } from '../../../ports/fs';
 
 describe('implementSkeletonStrategy', () => {
-  let mockFs: any;
+  let mockFs: {
+    exists: ReturnType<typeof mock>;
+    writeFile: ReturnType<typeof mock>;
+    mkdir: ReturnType<typeof mock>;
+  };
   let adapters: { fs: FsAdapter };
 
   beforeEach(() => {
     mockFs = {
       exists: mock(async () => false),
-      writeFile: mock(async () => {}),
-      mkdir: mock(async () => {}),
+      writeFile: mock(async () => Promise.resolve()),
+      mkdir: mock(async () => Promise.resolve()),
     };
     adapters = { fs: mockFs as unknown as FsAdapter };
   });
 
   const createIssue = (
-    specType: any = 'operation',
+    specType = 'operation',
     dryRun = false
   ): { issue: FixableIssue; options: FixOptions } => ({
     issue: {
@@ -28,8 +32,8 @@ describe('implementSkeletonStrategy', () => {
         severity: 'error',
         featureKey: 'feature',
       },
-      ref: { key: 'newSpec', version: '1' } as any,
-      specType,
+      ref: { key: 'newSpec', version: '1' } as FixableIssue['ref'],
+      specType: specType as FixableIssue['specType'],
       featureFile: '/test/feature.ts',
       featureKey: 'feature',
       availableStrategies: [],
@@ -48,10 +52,10 @@ describe('implementSkeletonStrategy', () => {
 
     expect(result.success).toBe(true);
     expect(mockFs.writeFile).toHaveBeenCalled();
-    const content = mockFs.writeFile.mock.calls[0][1];
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
     expect(content).toContain('defineCommand');
     expect(result.filesChanged).toHaveLength(1);
-    expect(result.filesChanged[0].action).toBe('created');
+    expect(result.filesChanged?.[0]?.action).toBe('created');
   });
 
   it('should handle dry run correctly', async () => {
@@ -62,11 +66,11 @@ describe('implementSkeletonStrategy', () => {
     expect(mockFs.writeFile).not.toHaveBeenCalled();
     expect(mockFs.mkdir).not.toHaveBeenCalled();
     expect(result.filesChanged).toHaveLength(1);
-    expect(result.filesChanged[0].action).toBe('created');
+    expect(result.filesChanged?.[0]?.action).toBe('created');
   });
 
   it('should fail for unsupported spec type', async () => {
-    const { issue, options } = createIssue('unknown-type' as any);
+    const { issue, options } = createIssue('unknown-type');
     const result = await implementSkeletonStrategy(issue, options, adapters);
 
     expect(result.success).toBe(false);
@@ -88,7 +92,7 @@ describe('implementSkeletonStrategy', () => {
     const result = await implementSkeletonStrategy(issue, options, adapters);
 
     expect(result.success).toBe(true);
-    const content = mockFs.writeFile.mock.calls[0][1];
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
     expect(content).toContain('defineEvent');
   });
 
@@ -97,7 +101,7 @@ describe('implementSkeletonStrategy', () => {
     const result = await implementSkeletonStrategy(issue, options, adapters);
 
     expect(result.success).toBe(true);
-    const content = mockFs.writeFile.mock.calls[0][1];
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
     expect(content).toContain('definePresentation');
   });
 
@@ -106,7 +110,7 @@ describe('implementSkeletonStrategy', () => {
     const result = await implementSkeletonStrategy(issue, options, adapters);
 
     expect(result.success).toBe(true);
-    const content = mockFs.writeFile.mock.calls[0][1];
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
     expect(content).toContain('defineCapability');
   });
 });

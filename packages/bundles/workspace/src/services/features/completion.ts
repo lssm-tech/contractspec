@@ -70,7 +70,7 @@ export function detectFeatureContext(
   // Re-extract match to know length
   const typeStr = lastMatch.type;
   const arrayStartRegex = new RegExp(`${typeStr}\\s*:\\s*\\[`);
-  const startMatch = arrayStartRegex.exec(relevantText); // this matches at 0 effectively since we sliced?
+  arrayStartRegex.exec(relevantText); // this matches at 0 effectively since we sliced?
   // No, relevantText starts at lastMatch.index.
   // So validation:
 

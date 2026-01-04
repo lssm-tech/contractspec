@@ -99,9 +99,13 @@ describe('scanAllSpecsFromSource', () => {
     // Sort by key to be deterministic
     results.sort((a, b) => (a.key || '').localeCompare(b.key || ''));
 
-    expect(results[0].key).toBe('op-1');
-    expect(results[0].kind).toBe('command');
-    expect(results[1].key).toBe('op-2');
-    expect(results[1].kind).toBe('query');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(results[0]!.key).toBe('op-1');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(results[0]!.kind).toBe('command');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(results[1]!.key).toBe('op-2');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(results[1]!.kind).toBe('query');
   });
 });
