@@ -2,8 +2,6 @@
   "name": "@contractspec/lib.progressive-delivery",
   "version": "1.46.2",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",

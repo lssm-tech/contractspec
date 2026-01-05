@@ -59,7 +59,7 @@ export const listCommand = new Command('list')
           stability: scan.stability,
           owners: scan.owners,
           tags: scan.tags,
-          version: scan.version,
+          version: scan.version as number | undefined,
           kind: scan.kind,
         };
 

@@ -2,7 +2,6 @@
   "name": "@contractspec/example.marketplace",
   "version": "1.46.2",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -86,7 +85,6 @@
     "./ui/renderers/marketplace.markdown": "./dist/ui/renderers/marketplace.markdown.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

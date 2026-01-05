@@ -14,6 +14,8 @@ export type CICheckCategory =
   | 'doctor'
   | 'handlers'
   | 'tests'
+  | 'test-refs'
+  | 'coverage'
   | 'implementation'
   | 'layers';
 
@@ -27,6 +29,8 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
   'doctor',
   'handlers',
   'tests',
+  'test-refs',
+  'coverage',
   'implementation',
   'layers',
 ];
@@ -41,6 +45,8 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
   doctor: 'Installation Health',
   handlers: 'Handler Implementation',
   tests: 'Test Coverage',
+  'test-refs': 'Test Reference Validation',
+  coverage: 'Coverage Goal Enforcement',
   implementation: 'Implementation Verification',
   layers: 'Contract Layers Validation',
 };

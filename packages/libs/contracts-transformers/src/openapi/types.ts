@@ -4,20 +4,6 @@
 
 import type { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 import type { SpecSource, TransportHints } from '../common/types';
-import type {
-  FolderConventions,
-  OpenApiSourceConfig,
-} from '@contractspec/lib.contracts';
-
-// Re-export config types for convenience
-export type { OpenApiSourceConfig, FolderConventions };
-
-/**
- * OpenAPI import options (alias for OpenApiSource from config).
- * @deprecated Use OpenApiSource from @contractspec/lib.contracts instead
- */
-export type OpenApiImportOptions = Partial<OpenApiSourceConfig>;
-
 /**
  * Supported OpenAPI versions.
  */

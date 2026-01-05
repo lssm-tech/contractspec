@@ -3,7 +3,6 @@
   "version": "1.46.2",
   "description": "Learning journey track for first 30 minutes in ContractSpec Studio.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -40,7 +39,6 @@
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

@@ -17,6 +17,11 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
+import {
+  buildTestIndex,
+  type ExtractedTestTarget,
+  type TestSpecScanResult,
+} from './test-link';
 
 /**
  * Options for integrity analysis.
@@ -61,6 +66,8 @@ export interface SpecLocation {
   file: string;
   type: AnalyzedSpecType;
   stability?: string;
+  /** Test target for test-spec files (extracted from TestSpec.target) */
+  testTarget?: ExtractedTestTarget;
 }
 
 /**
@@ -258,6 +265,8 @@ export async function analyzeIntegrity(
               file: spec.filePath,
               type: spec.specType,
               stability: spec.stability,
+              // Include testTarget for test-spec files
+              testTarget: (spec as TestSpecScanResult).testTarget,
             });
           }
         }
@@ -430,6 +439,25 @@ export async function analyzeIntegrity(
     }
   }
 
+  // Build test-to-target index for contract-first test discovery
+  const testSpecScans: TestSpecScanResult[] = [];
+  for (const [, location] of inventory.testSpecs) {
+    testSpecScans.push({
+      filePath: location.file,
+      specType: 'test-spec',
+      key: location.key,
+      version: location.version,
+      testTarget: location.testTarget,
+      hasMeta: true,
+      hasIo: false,
+      hasPolicy: false,
+      hasPayload: false,
+      hasContent: false,
+      hasDefinition: false,
+    });
+  }
+  const testIndex = buildTestIndex(testSpecScans, inventory);
+
   // Calculate coverage metrics
   const coverageByType: Record<string, CoverageByType> = {};
   let totalMissingTests = 0;
@@ -450,21 +478,24 @@ export async function analyzeIntegrity(
       }
 
       if (requireTest) {
-        // Standard convention: test spec key is {specKey}.test
-        // or check if any test targets this spec
-        // For now, simple convention check:
-        const testKey = `${location.key}.test`;
-        const testExists = inventory.testSpecs.has(
-          specKey(testKey, location.version)
+        const targetKey = specKey(location.key, location.version);
+
+        // Primary: Check if any TestSpec targets this spec via TestSpec.target
+        const hasTargetedTest = testIndex.targetToTests.has(targetKey);
+
+        // Backwards compatibility: Also check naming convention ({specKey}.test)
+        const conventionTestKey = `${location.key}.test`;
+        const hasConventionTest = inventory.testSpecs.has(
+          specKey(conventionTestKey, location.version)
         );
 
-        if (!testExists) {
+        if (!hasTargetedTest && !hasConventionTest) {
           missingTest++;
           totalMissingTests++;
           issues.push({
             severity: 'warning',
             type: 'missing-test',
-            message: `${type} ${location.key}.v${location.version} is missing a test spec`,
+            message: `${type} ${location.key}.v${location.version} is missing a test spec (no TestSpec.target or naming convention match)`,
             file: location.file,
             specKey: location.key,
             specType: location.type,

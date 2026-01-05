@@ -53,6 +53,16 @@ export interface RefInfo {
 }
 
 /**
+ * Test target extracted from a TestSpec.
+ * Matches the TestTarget type from @contractspec/lib.contracts.
+ */
+export interface ExtractedTestTarget {
+  type: 'operation' | 'workflow';
+  key: string;
+  version?: string;
+}
+
+/**
  * A reference extracted from source code with location context.
  */
 export interface ExtractedRef {
@@ -91,6 +101,9 @@ export interface SpecScanResult {
   emittedEvents?: RefInfo[];
   policyRefs?: RefInfo[];
   testRefs?: RefInfo[];
+
+  // Test target (for test-spec files)
+  testTarget?: ExtractedTestTarget;
 
   // Extracted source code
   sourceBlock?: string;

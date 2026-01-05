@@ -97,7 +97,8 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
     {
       all: options.all,
       featureKey: options.feature,
-      requireTestsFor: options.requireTests as string[],
+      requireTestsFor: (options.requireTests ??
+        []) as import('@contractspec/module.workspace').SpecType[],
     }
   );
 
@@ -203,6 +204,8 @@ async function outputText(
       console.log(chalk.gray(`     ${issue.file}`));
 
       // Show fix hint if available
+      // Note: generateFixLinks may handle context differently based on current signature
+      // Assuming it takes issue and options
       const links = fix.generateFixLinks(issue, { includeCli: true });
       const cliLink = links.find((l) => l.type === 'cli');
       if (cliLink) {
@@ -276,7 +279,7 @@ function outputJson(
     orphanedSpecs: result.orphanedSpecs,
     issues: issues.map((issue) => ({
       ...issue,
-      fixLinks: fix.generateFixLinks(issue),
+      fixLinks: fix.generateFixLinks(issue, { includeCli: true }),
     })),
     inventory: inventoryObj,
   };

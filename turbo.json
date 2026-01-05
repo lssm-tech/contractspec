@@ -1,10 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "envMode": "strict",
-  "globalEnv": [
-    "VSCE_PAT",
-    "OVSX_PAT"
-  ],
   "tasks": {
     "clean": {
       "cache": false
@@ -14,12 +10,12 @@
     "publish:pkg": {
       "dependsOn": ["build:bundle", "^publish:pkg"],
       "cache": false,
-      "env": ["NPM_CONFIG_TOKEN"]
+      "env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
     },
     "publish:pkg:canary": {
       "dependsOn": ["build:bundle", "^publish:pkg:canary"],
       "cache": false,
-      "env": ["NPM_CONFIG_TOKEN"]
+      "env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
     },
     "build": {
       "cache": true,

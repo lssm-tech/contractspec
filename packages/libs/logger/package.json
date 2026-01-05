@@ -40,7 +40,6 @@
   "dependencies": {
     "zone.js": "^0.16.0"
   },
-  "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "files": [
     "dist",
@@ -64,7 +63,6 @@
     "./types": "./dist/types.mjs",
     "./*": "./*"
   },
-  "module": "./dist/index.mjs",
   "publishConfig": {
     "access": "public",
     "exports": {

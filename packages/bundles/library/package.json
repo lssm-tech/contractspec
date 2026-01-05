@@ -210,7 +210,6 @@
     "./presentation/features/organisms/FeatureDiscovery/types": "./src/presentation/features/organisms/FeatureDiscovery/types.ts",
     "./*": "./*"
   },
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
     "react": "catalog:"
@@ -231,16 +230,16 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@electric-sql/pglite": "^0.3.14",
-    "@scaleway/sdk": "^3.1.3",
+    "@scaleway/sdk": "^3.1.4",
     "@scaleway/sdk-client": "^2.1.0",
-    "drizzle-orm": "^0.38.4",
+    "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
-    "framer-motion": "^12.23.26",
+    "framer-motion": "^12.24.0",
     "lucide-react": "^0.562.0",
     "posthog-js": "^1.313.0",
     "posthog-node": "^5.18.1",
     "posthog-react-native": "^4.17.1",
-    "react-hook-form": "^7.50.0",
+    "react-hook-form": "^7.70.0",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -251,7 +250,6 @@
     "typescript": "catalog:",
     "@types/bun": "~1.3.5"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

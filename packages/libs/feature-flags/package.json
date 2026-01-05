@@ -9,7 +9,6 @@
     "toggles",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -45,7 +44,6 @@
     "./feature-flags.feature": "./dist/feature-flags.feature.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

@@ -191,40 +191,6 @@ jobs:
           git tag -fa action-v${{ steps.action-version.outputs.major }} -m "Update action-v${{ steps.action-version.outputs.major }} to ${{ steps.action-version.outputs.version }}"
           git push origin action-v${{ steps.action-version.outputs.major }} --force
 
-      - name: Deploy via bastion
-        uses: appleboy/ssh-action@v1
-        with:
-          # Target instance
-          host: ${{ secrets.SCALEWAY_HOST }}
-          username: ${{ secrets.SCALEWAY_USER }}
-          port: 22
-
-          # SSH key used for BOTH bastion and target
-          key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
-
-          # Bastion hop
-          #proxy_host: ${{ secrets.SCALEWAY_BASTION_HOST }}
-          #proxy_port: ${{ secrets.SCALEWAY_BASTION_PORT }}
-          #proxy_username: ${{ secrets.SCALEWAY_BASTION_USER }}
-
-          script: |
-            set -euo pipefail
-
-            mkdir -p /srv/lssm/contractspec
-            cd /srv/lssm/contractspec
-
-            if [ ! -d .git ]; then
-              git clone git@github.com:lssm-tech/contractspec.git .
-            fi
-
-            git fetch origin main
-            git reset --hard origin/main
-
-            /home/deploy/.bun/bin/bun install --frozen-lockfile
-            /home/deploy/.bun/bin/bun run build:server --concurrency 1
-
-            sudo systemctl restart contractspec-library-api
-            sudo systemctl status contractspec-library-api --no-pager
       - name: "Notify Vercel"
         uses: "vercel/repository-dispatch/actions/status@v1"
         with:

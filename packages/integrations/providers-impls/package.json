@@ -11,8 +11,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -34,7 +32,7 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/integration.runtime": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.27.0",
+    "@elevenlabs/elevenlabs-js": "^2.29.0",
     "@google-cloud/storage": "^7.18.0",
     "@mistralai/mistralai": "^1.11.0",
     "@qdrant/js-client-rest": "^1.16.2",

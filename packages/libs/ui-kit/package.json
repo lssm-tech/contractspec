@@ -11,8 +11,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -85,7 +83,7 @@
     "nativewind": "5.0.0-preview.2",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.69.0",
+    "react-hook-form": "^7.70.0",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -98,7 +96,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.3.4"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

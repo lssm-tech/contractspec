@@ -3,7 +3,6 @@
   "version": "1.46.2",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -89,7 +88,6 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

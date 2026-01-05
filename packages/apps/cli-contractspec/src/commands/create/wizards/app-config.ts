@@ -96,7 +96,7 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
 
   return {
     name,
-    version,
+    version: String(version),
     title,
     description,
     domain,

@@ -10,7 +10,6 @@
     "orm",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -44,7 +43,6 @@
     "typescript": "catalog:"
   },
   "type": "module",
-  "module": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./*": "./*"

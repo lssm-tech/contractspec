@@ -11,7 +11,7 @@ import type { FixCommandOptions } from './types';
 import type {
   FixStrategyType,
   FixableIssue,
-} from '@contractspec/bundle.workspace/services/fix/types';
+} from '@contractspec/bundle.workspace';
 
 export const fixCommand = new Command('fix')
   .description('Fix integrity issues in contract specs')
@@ -85,7 +85,8 @@ export const fixCommand = new Command('fix')
           select: options.yes
             ? undefined
             : async (issue: FixableIssue, strategies: FixStrategyType[]) => {
-                return promptForStrategy(issue, strategies);
+                const choice = await promptForStrategy(issue, strategies);
+                return choice || undefined;
               },
         });
 

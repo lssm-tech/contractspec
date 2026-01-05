@@ -33,11 +33,11 @@
     "typescript": "catalog:"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.958.0",
-    "@aws-sdk/client-sqs": "^3.958.0",
+    "@aws-sdk/client-secrets-manager": "^3.962.0",
+    "@aws-sdk/client-sqs": "^3.962.0",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "@elevenlabs/elevenlabs-js": "^2.27.0",
+    "@elevenlabs/elevenlabs-js": "^2.29.0",
     "@google-cloud/secret-manager": "^6.1.1",
     "@google-cloud/storage": "^7.18.0",
     "@mistralai/mistralai": "^1.11.0",
@@ -52,7 +52,7 @@
     "compare-versions": "^6.1.1",
     "google-gax": "^5.0.6",
     "googleapis": "^169.0.0",
-    "mcp-handler": "^1.0.4",
+    "mcp-handler": "^1.0.6",
     "postmark": "^4.0.4",
     "stripe": "^20.1.0",
     "turndown": "^7.2.2",
@@ -62,7 +62,7 @@
   "peerDependencies": {
     "@pothos/core": "^4.9.1",
     "@pothos/plugin-relay": "^4.4.3",
-    "elysia": "^1.4.19",
+    "elysia": "^1.4.21",
     "express": "^5.2.1",
     "graphql-scalars": "^1.24.2",
     "next": "16.1.1",
@@ -70,12 +70,10 @@
     "@blocknote/react": "^0.45.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-hook-form": "^7.68.0",
+    "react-hook-form": "^7.70.0",
     "@hookform/resolvers": "^5.2.2"
   },
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",

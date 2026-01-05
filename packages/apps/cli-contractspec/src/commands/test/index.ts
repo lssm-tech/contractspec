@@ -85,13 +85,25 @@ export async function testCommand(
       const generator = new TestGeneratorService(adapters.logger, model);
 
       for (const op of operations) {
-        adapters.logger.info(`Generating test for ${op.key}...`);
+        // OperationSpec usually has meta { name, ... } or key
+        // Checking definition... assuming spec.meta.name if available or fallback
+        const opLegacy = op as unknown as {
+          meta?: { name?: string };
+          key?: string;
+        };
+        const name = opLegacy.meta?.name || opLegacy.key || 'unknown';
+        adapters.logger.info(`Generating test for ${name}...`);
         const testSpec = await generator.generateTests(op);
 
         if (options.json) {
           console.log(JSON.stringify(testSpec, null, 2));
         } else {
-          console.log(chalk.green(`Generated test for ${op.key}`));
+          const opLegacy = op as unknown as {
+            meta?: { name?: string };
+            key?: string;
+          };
+          const name = opLegacy.meta?.name || opLegacy.key || 'unknown';
+          console.log(chalk.green(`Generated test for ${name}`));
           console.log(JSON.stringify(testSpec, null, 2)); // Print to stdout for pipe
         }
       }

@@ -10,7 +10,6 @@
     "saas",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -46,7 +45,6 @@
     "./metering.feature": "./dist/metering.feature.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

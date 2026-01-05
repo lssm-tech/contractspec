@@ -6,6 +6,7 @@
 import type {
   AnalyzedOperationKind,
   AnalyzedSpecType,
+  ExtractedTestTarget,
   RefInfo,
   SpecScanResult,
 } from '../types/analysis-types';
@@ -91,6 +92,10 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     specType === 'operation' ? extractPolicyRefs(code) : undefined;
   const testRefs = extractTestRefs(code);
 
+  // Extract test target for test-spec files
+  const testTarget =
+    specType === 'test-spec' ? extractTestTarget(code) : undefined;
+
   return {
     filePath,
     specType,
@@ -112,6 +117,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     emittedEvents,
     policyRefs,
     testRefs,
+    testTarget,
     sourceBlock: code,
   };
 }
@@ -197,6 +203,56 @@ export function extractTestRefs(code: string): RefInfo[] | undefined {
   }
 
   return tests.length > 0 ? tests : undefined;
+}
+
+/**
+ * Extract test target from a TestSpec source.
+ * Parses the `target: { type: 'operation', operation: { key, version } }` field.
+ */
+export function extractTestTarget(
+  code: string
+): ExtractedTestTarget | undefined {
+  // Match target block: target: { type: 'operation', operation: { key: '...', version: '...' } }
+  // or target: { type: 'workflow', workflow: { key: '...', version: '...' } }
+
+  // First, find the target block
+  const targetBlockMatch = code.match(/target\s*:\s*\{([\s\S]*?)\}/);
+  if (!targetBlockMatch?.[1]) return undefined;
+
+  const targetBlock = targetBlockMatch[1];
+
+  // Extract the type
+  const typeMatch = targetBlock.match(/type\s*:\s*['"](\w+)['"]/);
+  if (!typeMatch?.[1]) return undefined;
+
+  const type = typeMatch[1];
+  if (type !== 'operation' && type !== 'workflow') return undefined;
+
+  // Extract the nested ref (operation or workflow block)
+  const refBlockMatch = targetBlock.match(
+    new RegExp(`${type}\\s*:\\s*\\{([\\s\\S]*?)\\}`)
+  );
+  if (!refBlockMatch?.[1]) return undefined;
+
+  const refBlock = refBlockMatch[1];
+
+  // Extract key and version from the ref block
+  const keyMatch = refBlock.match(/key\s*:\s*['"]([^'"]+)['"]/);
+  if (!keyMatch?.[1]) return undefined;
+
+  const key = keyMatch[1];
+
+  // Version is optional - extract if present
+  const versionMatch = refBlock.match(
+    /version\s*:\s*(?:['"]([^'"]+)['"]|(\d+(?:\.\d+)*))/
+  );
+  const version = versionMatch?.[1] || versionMatch?.[2];
+
+  return {
+    type,
+    key,
+    version,
+  };
 }
 
 function matchStringField(code: string, field: string): string | null {
@@ -455,6 +511,10 @@ export function scanAllSpecsFromSource(
         type === 'operation' ? extractPolicyRefs(block) : undefined;
       const testRefs = extractTestRefs(block);
 
+      // Extract test target for test-spec files
+      const testTarget =
+        type === 'test-spec' ? extractTestTarget(block) : undefined;
+
       results.push({
         filePath,
         specType: type,
@@ -476,6 +536,7 @@ export function scanAllSpecsFromSource(
         emittedEvents,
         policyRefs,
         testRefs,
+        testTarget,
         sourceBlock: block,
       });
     }

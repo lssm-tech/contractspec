@@ -11,8 +11,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -32,12 +30,12 @@
     "test": "bun run"
   },
   "dependencies": {
-    "@ai-sdk/provider-utils": "^4.0.2",
+    "@ai-sdk/provider-utils": "^4.0.3",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
-    "zod": "^4.3.4"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",

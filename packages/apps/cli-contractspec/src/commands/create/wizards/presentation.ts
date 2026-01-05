@@ -34,7 +34,7 @@ export async function presentationWizard(
 
   const version = await number({
     message: 'Version:',
-    default: defaults?.version || 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     required: true,
     validate: (input: number) => {
       if (!Number.isInteger(input) || input < 1) {
@@ -94,7 +94,7 @@ export async function presentationWizard(
   return {
     presentationKind,
     name,
-    version,
+    version: String(version),
     description,
     stability,
     owners,

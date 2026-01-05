@@ -10,7 +10,6 @@
     "organizations",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -51,7 +50,6 @@
     "./policies/engine": "./dist/policies/engine.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

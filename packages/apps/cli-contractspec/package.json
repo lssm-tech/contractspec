@@ -15,11 +15,11 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:all",
+    "build": "bun run build:types && bun run build:all",
     "build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts",
     "build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
     "build:all": "bun run build:bun && bun run build:node",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "build:types": "tsc --noEmit",
     "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
     "dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
     "clean": "rimraf dist",
@@ -53,7 +53,7 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/node": "^22.10.2",
+    "@types/node": "^25.0.3",
     "rimraf": "catalog:build",
     "eslint": "^9.39.2"
   },

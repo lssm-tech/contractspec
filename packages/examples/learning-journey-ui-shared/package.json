@@ -3,7 +3,6 @@
   "version": "1.46.2",
   "description": "Shared UI components and hooks for learning journey mini-apps.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -50,7 +49,6 @@
   "peerDependencies": {
     "react": "^19.2.3"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

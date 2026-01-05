@@ -79,7 +79,7 @@ export async function integrationWizard(
 
   const version = await number({
     message: 'Version:',
-    default: defaults?.version ?? 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     required: true,
     validate: positiveInt,
   });
@@ -201,7 +201,7 @@ export async function integrationWizard(
 
   return {
     name,
-    version,
+    version: String(version),
     description,
     owners: splitList(ownersInput),
     tags: splitList(tagsInput),

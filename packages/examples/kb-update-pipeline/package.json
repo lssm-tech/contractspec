@@ -3,8 +3,6 @@
   "version": "1.46.2",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",

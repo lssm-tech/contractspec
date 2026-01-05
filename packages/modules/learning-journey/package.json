@@ -10,7 +10,6 @@
     "lms",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -61,7 +60,6 @@
     "./track-spec": "./dist/track-spec.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"
