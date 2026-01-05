@@ -15,7 +15,9 @@ describe('generateEventSpec', () => {
 
   it('generates an event spec', () => {
     const code = generateEventSpec(baseData);
-    expect(code).toContain("import { defineEvent } from '@contractspec/lib.contracts'");
+    expect(code).toContain(
+      "import { defineEvent } from '@contractspec/lib.contracts'"
+    );
     expect(code).toContain('export const Test_eventV1 = defineEvent({');
     expect(code).toContain("name: 'test.event'");
     expect(code).toContain('version: 1');

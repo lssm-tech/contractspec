@@ -188,4 +188,3 @@ async function loadRegistry(
     `Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
   );
 }
-

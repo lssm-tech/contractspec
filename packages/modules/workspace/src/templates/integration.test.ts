@@ -24,8 +24,12 @@ describe('generateIntegrationSpec', () => {
 
   it('generates an integration spec', () => {
     const code = generateIntegrationSpec(baseData);
-    expect(code).toContain("import { StabilityEnum } from '@contractspec/lib.contracts/ownership'");
-    expect(code).toContain('export const Test_integrationIntegrationSpec: IntegrationSpec = {');
+    expect(code).toContain(
+      "import { StabilityEnum } from '@contractspec/lib.contracts/ownership'"
+    );
+    expect(code).toContain(
+      'export const Test_integrationIntegrationSpec: IntegrationSpec = {'
+    );
     expect(code).toContain("category: 'custom'");
     expect(code).toContain("supportedModes: ['managed']");
   });
@@ -37,9 +41,9 @@ describe('generateIntegrationSpec', () => {
       capabilitiesRequired: [{ key: 'cap.b', version: '1' }],
     };
     const code = generateIntegrationSpec(data);
-    expect(code).toContain("provides: [");
+    expect(code).toContain('provides: [');
     expect(code).toContain("key: 'cap.a'");
-    expect(code).toContain("requires: [");
+    expect(code).toContain('requires: [');
     expect(code).toContain("key: 'cap.b'");
   });
 
@@ -62,7 +66,7 @@ describe('generateIntegrationSpec', () => {
       byokRequiredScopes: ['scope.read'],
     };
     const code = generateIntegrationSpec(data);
-    expect(code).toContain("byokSetup: {");
+    expect(code).toContain('byokSetup: {');
     expect(code).toContain("setupInstructions: 'Enter your keys'");
     expect(code).toContain("requiredScopes: ['scope.read']");
   });

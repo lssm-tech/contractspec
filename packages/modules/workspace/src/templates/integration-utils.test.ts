@@ -9,7 +9,7 @@ describe('Integration Utils', () => {
   describe('renderConfigSchema', () => {
     it('renders empty schema', () => {
       const code = renderConfigSchema([]);
-      expect(code).toContain('type: \'object\'');
+      expect(code).toContain("type: 'object'");
       expect(code).not.toContain('required:');
     });
 

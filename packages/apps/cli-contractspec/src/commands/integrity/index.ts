@@ -97,7 +97,7 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
     {
       all: options.all,
       featureKey: options.feature,
-      requireTestsFor: options.requireTests as any, // Cast to proper enum type in implementation
+      requireTestsFor: options.requireTests as string[],
     }
   );
 
@@ -166,7 +166,9 @@ async function outputText(
       percent === 100 ? chalk.green : percent >= 80 ? chalk.yellow : chalk.red;
     const orphanedNote =
       stats.orphaned > 0 ? ` - ${stats.orphaned} orphaned` : '';
-    const missingTestNote = stats.missingTest ? ` - ${stats.missingTest} missing tests` : '';
+    const missingTestNote = stats.missingTest
+      ? ` - ${stats.missingTest} missing tests`
+      : '';
 
     console.log(
       `  ${type.padEnd(15)} ${color(`${stats.covered}/${stats.total} (${percent}%)`)}${orphanedNote}${chalk.red(missingTestNote)}`
@@ -201,9 +203,10 @@ async function outputText(
       console.log(chalk.gray(`     ${issue.file}`));
 
       // Show fix hint if available
-      const links = fix.generateFixLinks(issue);
-      if (links.cli) {
-        console.log(chalk.gray(`     Fix: ${links.cli}`));
+      const links = fix.generateFixLinks(issue, { includeCli: true });
+      const cliLink = links.find((l) => l.type === 'cli');
+      if (cliLink) {
+        console.log(chalk.gray(`     Fix: ${cliLink.value}`));
       }
     }
   }
@@ -269,7 +272,6 @@ function outputJson(
       operations: f.operations.length,
       events: f.events.length,
       presentations: f.presentations.length,
-      
     })),
     orphanedSpecs: result.orphanedSpecs,
     issues: issues.map((issue) => ({

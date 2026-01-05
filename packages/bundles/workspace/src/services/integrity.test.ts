@@ -1,4 +1,3 @@
-
 import { describe, expect, it, mock } from 'bun:test';
 import { analyzeIntegrity } from './integrity';
 import type { FsAdapter } from '../ports/fs';
@@ -20,7 +19,7 @@ const mockFs = {
       `;
     }
     if (path === 'test.ts') {
-        return `
+      return `
             export const test = {
                 meta: { key: 'test.op.test', version: '1.0.0' },
                 target: { type: 'operation', operation: { key: 'test.op' } }, // target logic not fully parsed by mock scanner
@@ -36,27 +35,31 @@ const mockFs = {
 mock.module('@contractspec/module.workspace', () => ({
   isFeatureFile: () => false,
   scanFeatureSource: mock(),
-  scanAllSpecsFromSource: (content: string, file: string) => {
+  scanAllSpecsFromSource: (_content: string, file: string) => {
     if (file === 'spec.ts') {
-        return [{
-            specType: 'operation',
-            key: 'test.op',
-            version: '1.0.0',
-            filePath: file,
-            stability: 'stable'
-        }];
+      return [
+        {
+          specType: 'operation',
+          key: 'test.op',
+          version: '1.0.0',
+          filePath: file,
+          stability: 'stable',
+        },
+      ];
     }
     if (file === 'test.ts') {
-        return [{
-            specType: 'test-spec',
-            key: 'test.op.test',
-            version: '1.0.0',
-            filePath: file,
-            stability: 'experimental'
-        }];
+      return [
+        {
+          specType: 'test-spec',
+          key: 'test.op.test',
+          version: '1.0.0',
+          filePath: file,
+          stability: 'experimental',
+        },
+      ];
     }
     return [];
-  }
+  },
 }));
 
 describe('IntegrityService', () => {
@@ -70,26 +73,25 @@ describe('IntegrityService', () => {
 
   it('should detect missing tests when required', async () => {
     const result = await analyzeIntegrity(adapters, {
-        requireTestsFor: ['operation'],
-        // Mock scenario where test.ts is NOT present or fails to link
-        // To simplify, we rely on the mocked scanner above which DOES find a test.
-        // Let's force a scenario where test is NOT found by changing globs or content logic if we could,
-        // but since we hardcoded mocks, let's verify POSITIVE case first.
+      requireTestsFor: ['operation'],
+      // Mock scenario where test.ts is NOT present or fails to link
+      // To simplify, we rely on the mocked scanner above which DOES find a test.
+      // Let's force a scenario where test is NOT found by changing globs or content logic if we could,
+      // but since we hardcoded mocks, let's verify POSITIVE case first.
     });
-    
+
     // With 'test.ts' present and key matching convention 'test.op.test', it should be covered.
     expect(result.coverage.missingTest).toBe(0);
   });
 
   it('should flag missing test if convention not met', async () => {
-      // Modify mock behavior for this test - cleaner way would be separate describes or factory
-      // but bun test mocks are global-ish.
-      // Let's dry run a "missing" case by requiring test for 'event' which has no spec in our mock, 
-      // wait, 'event' has no spec in mock so it won't be checked.
-      // We need an operation WITHOUT a corresponding test.
-      // We have 'test.op' and 'test.op.test'.
-      // If we require tests for 'operation', it passes.
-      // If we change the operation key in a new file...
+    // Modify mock behavior for this test - cleaner way would be separate describes or factory
+    // but bun test mocks are global-ish.
+    // Let's dry run a "missing" case by requiring test for 'event' which has no spec in our mock,
+    // wait, 'event' has no spec in mock so it won't be checked.
+    // We need an operation WITHOUT a corresponding test.
+    // We have 'test.op' and 'test.op.test'.
+    // If we require tests for 'operation', it passes.
+    // If we change the operation key in a new file...
   });
-
 });

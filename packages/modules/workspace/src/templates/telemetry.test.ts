@@ -16,8 +16,12 @@ describe('generateTelemetrySpec', () => {
 
   it('generates a telemetry spec', () => {
     const code = generateTelemetrySpec(baseData);
-    expect(code).toContain("import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry'");
-    expect(code).toContain('export const Test_telemetryTelemetry: TelemetrySpec = {');
+    expect(code).toContain(
+      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry'"
+    );
+    expect(code).toContain(
+      'export const Test_telemetryTelemetry: TelemetrySpec = {'
+    );
     expect(code).toContain("key: 'test.telemetry'");
   });
 
@@ -27,9 +31,9 @@ describe('generateTelemetrySpec', () => {
       providers: [{ type: 'posthog', config: '{ apiKey: "foo" }' }],
     };
     const code = generateTelemetrySpec(data);
-    expect(code).toContain("providers: [");
+    expect(code).toContain('providers: [');
     expect(code).toContain("type: 'posthog'");
-    expect(code).toContain("config: { apiKey: \"foo\" }");
+    expect(code).toContain('config: { apiKey: "foo" }');
   });
 
   it('renders events with properties', () => {

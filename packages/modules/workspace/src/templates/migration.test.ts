@@ -19,8 +19,12 @@ describe('generateMigrationSpec', () => {
 
   it('generates a migration spec', () => {
     const code = generateMigrationSpec(baseData);
-    expect(code).toContain("import type { MigrationSpec } from '@contractspec/lib.contracts/migrations'");
-    expect(code).toContain('export const Test_migrationMigration: MigrationSpec = {');
+    expect(code).toContain(
+      "import type { MigrationSpec } from '@contractspec/lib.contracts/migrations'"
+    );
+    expect(code).toContain(
+      'export const Test_migrationMigration: MigrationSpec = {'
+    );
     expect(code).toContain('up: [');
   });
 
@@ -31,7 +35,7 @@ describe('generateMigrationSpec', () => {
     };
     const code = generateMigrationSpec(data);
     expect(code).toContain("kind: 'schema'");
-    expect(code).toContain("sql: `CREATE TABLE foo;`");
+    expect(code).toContain('sql: `CREATE TABLE foo;`');
   });
 
   it('renders data steps', () => {
@@ -41,7 +45,7 @@ describe('generateMigrationSpec', () => {
     };
     const code = generateMigrationSpec(data);
     expect(code).toContain("kind: 'data'");
-    expect(code).toContain("script: `updateUsers()`");
+    expect(code).toContain('script: `updateUsers()`');
   });
 
   it('renders validation steps', () => {
@@ -51,7 +55,7 @@ describe('generateMigrationSpec', () => {
     };
     const code = generateMigrationSpec(data);
     expect(code).toContain("kind: 'validation'");
-    expect(code).toContain("assertion: `count > 0`");
+    expect(code).toContain('assertion: `count > 0`');
   });
 
   it('renders dependencies', () => {

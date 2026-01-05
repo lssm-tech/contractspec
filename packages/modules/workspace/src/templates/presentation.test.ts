@@ -21,14 +21,20 @@ describe('generatePresentationSpec', () => {
   });
 
   it('generates a markdown spec', () => {
-    const data: PresentationSpecData = { ...baseData, presentationKind: 'markdown' };
+    const data: PresentationSpecData = {
+      ...baseData,
+      presentationKind: 'markdown',
+    };
     const code = generatePresentationSpec(data);
     expect(code).toContain("kind: 'markdown'");
     expect(code).toContain('TODO: Add markdown content here');
   });
 
   it('generates a data spec', () => {
-    const data: PresentationSpecData = { ...baseData, presentationKind: 'data' };
+    const data: PresentationSpecData = {
+      ...baseData,
+      presentationKind: 'data',
+    };
     const code = generatePresentationSpec(data);
     expect(code).toContain("kind: 'data'");
     expect(code).toContain("mimeType: 'application/json'");

@@ -21,8 +21,12 @@ describe('generateExperimentSpec', () => {
 
   it('generates an experiment spec', () => {
     const code = generateExperimentSpec(baseData);
-    expect(code).toContain("import type { ExperimentSpec } from '@contractspec/lib.contracts/experiments'");
-    expect(code).toContain('export const Test_expExperiment: ExperimentSpec = {');
+    expect(code).toContain(
+      "import type { ExperimentSpec } from '@contractspec/lib.contracts/experiments'"
+    );
+    expect(code).toContain(
+      'export const Test_expExperiment: ExperimentSpec = {'
+    );
     expect(code).toContain("controlVariant: 'control'");
     expect(code).toContain("type: 'random'");
   });
@@ -39,7 +43,7 @@ describe('generateExperimentSpec', () => {
       ],
     };
     const code = generateExperimentSpec(data);
-    expect(code).toContain("overrides: [");
+    expect(code).toContain('overrides: [');
     expect(code).toContain("type: 'theme'");
     expect(code).toContain("target: 'dark-theme'");
   });
@@ -82,6 +86,8 @@ describe('generateExperimentSpec', () => {
     };
     const code = generateExperimentSpec(data);
     expect(code).toContain("name: 'conversion'");
-    expect(code).toContain("telemetryEvent: { name: 'event.signup', version: 1 }");
+    expect(code).toContain(
+      "telemetryEvent: { name: 'event.signup', version: 1 }"
+    );
   });
 });

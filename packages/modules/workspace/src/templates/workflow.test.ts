@@ -19,8 +19,12 @@ describe('generateWorkflowSpec', () => {
 
   it('generates a workflow spec', () => {
     const code = generateWorkflowSpec(baseData);
-    expect(code).toContain("import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow'");
-    expect(code).toContain('export const Test_workflowWorkflow: WorkflowSpec = {');
+    expect(code).toContain(
+      "import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow'"
+    );
+    expect(code).toContain(
+      'export const Test_workflowWorkflow: WorkflowSpec = {'
+    );
     expect(code).toContain("title: 'Test Workflow'");
   });
 
@@ -48,9 +52,7 @@ describe('generateWorkflowSpec', () => {
   it('renders transitions', () => {
     const data: WorkflowSpecData = {
       ...baseData,
-      transitions: [
-        { from: 'step1', to: 'step2', condition: 'valid' },
-      ],
+      transitions: [{ from: 'step1', to: 'step2', condition: 'valid' }],
     };
     const code = generateWorkflowSpec(data);
     expect(code).toContain("from: 'step1'");

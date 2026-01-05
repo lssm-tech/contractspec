@@ -1,7 +1,7 @@
-
 import { describe, expect, it, mock } from 'bun:test';
 import { TestGeneratorService } from './test-generator-service';
 import type { OperationSpec } from '@contractspec/lib.contracts';
+import type { LanguageModel } from '@contractspec/lib.ai-agent';
 import type { LoggerAdapter } from '../../ports/logger';
 
 // Mock lib.ai-agent
@@ -31,16 +31,33 @@ describe('TestGeneratorService', () => {
     warn: mock(),
   } as unknown as LoggerAdapter;
 
-  const service = new TestGeneratorService(logger, {} as any);
+  const service = new TestGeneratorService(
+    logger,
+    {} as unknown as LanguageModel
+  );
 
-  const sampleOp: OperationSpec = {
-    kind: 'operation',
-    key: 'test.op',
-    version: '1.0.0',
-    owners: ['@team'],
-    stability: 'stable',
-    type: 'command',
-    title: 'Test Operation',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sampleOp: OperationSpec<any, any> = {
+    meta: {
+      kind: 'command',
+      key: 'test.op',
+      version: '1.0.0',
+      owners: ['@team'],
+      stability: 'stable',
+      title: 'Test Operation',
+      description: 'Test description',
+      tags: [],
+      goal: 'Test goal',
+      context: 'Test context',
+    },
+    io: {
+      input: null,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      output: {} as any,
+    },
+    policy: {
+      auth: 'user',
+    },
   };
 
   it('should generate a valid TestSpec from an Operation', async () => {
@@ -50,7 +67,7 @@ describe('TestGeneratorService', () => {
     expect(result.meta.key).toBe('test.op.test');
     expect(result.target.type).toBe('operation');
     expect(result.scenarios).toHaveLength(1);
-    expect(result.scenarios[0].key).toBe('happy_path');
+    expect(result.scenarios[0]?.key).toBe('happy_path');
     expect(mockGenerateText).toHaveBeenCalled();
   });
 

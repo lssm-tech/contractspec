@@ -1,8 +1,8 @@
-
 import { describe, expect, it, mock } from 'bun:test';
-import { listTests, runTestSpecs, runTests } from './test-service';
+import { listTests, runTests } from './test-service';
 import type { WorkspaceAdapters } from '../../ports/logger';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts';
+import type { TestSpec } from '@contractspec/lib.contracts/tests';
 
 // Mock dependencies
 const mockLoadModule = mock(async (path: string) => {
@@ -54,17 +54,17 @@ describe('TestService', () => {
 
   describe('runTests', () => {
     it('should execute tests using runner', async () => {
-        const registry = new OperationSpecRegistry();
-        const spec: any = {
-            meta: { key: 'test', version: '1' },
-            scenarios: [], // empty scenarios pass
-            target: { type: 'operation', operation: { key: 'op'} }
-        };
-        
-        const result = await runTests([spec], registry);
-        expect(result.results).toHaveLength(1);
-        expect(result.results[0].passed).toBe(0); // 0 passed because 0 scenarios
-        expect(result.results[0].failed).toBe(0);
+      const registry = new OperationSpecRegistry();
+      const spec = {
+        meta: { key: 'test', version: '1' },
+        scenarios: [], // empty scenarios pass
+        target: { type: 'operation', operation: { key: 'op' } },
+      } as unknown as TestSpec;
+
+      const result = await runTests([spec], registry);
+      expect(result.results).toHaveLength(1);
+      expect(result.results[0].passed).toBe(0); // 0 passed because 0 scenarios
+      expect(result.results[0].failed).toBe(0);
     });
   });
 });

@@ -147,13 +147,12 @@ export interface IntegrityAnalysisResult {
    * Specs not linked to any feature.
    */
   orphanedSpecs: SpecLocation[];
-  
+
   /**
    * Overall health status.
    */
   healthy: boolean;
 }
-
 
 /**
  * Build a spec key from name and version.
@@ -455,19 +454,21 @@ export async function analyzeIntegrity(
         // or check if any test targets this spec
         // For now, simple convention check:
         const testKey = `${key}.test`;
-        const testExists = inventory.testSpecs.has(specKey(testKey, location.version));
-        
+        const testExists = inventory.testSpecs.has(
+          specKey(testKey, location.version)
+        );
+
         if (!testExists) {
-            missingTest++;
-            totalMissingTests++;
-            issues.push({
-                severity: 'warning',
-                type: 'missing-test',
-                message: `${type} ${location.key}.v${location.version} is missing a test spec`,
-                file: location.file,
-                specKey: location.key,
-                specType: location.type,
-            });
+          missingTest++;
+          totalMissingTests++;
+          issues.push({
+            severity: 'warning',
+            type: 'missing-test',
+            message: `${type} ${location.key}.v${location.version} is missing a test spec`,
+            file: location.file,
+            specKey: location.key,
+            specType: location.type,
+          });
         }
       }
     }

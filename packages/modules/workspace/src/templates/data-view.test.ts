@@ -20,7 +20,9 @@ describe('generateDataViewSpec', () => {
 
   it('generates a data view spec', () => {
     const code = generateDataViewSpec(baseData);
-    expect(code).toContain("import type { DataViewSpec } from '@contractspec/lib.contracts/data-views'");
+    expect(code).toContain(
+      "import type { DataViewSpec } from '@contractspec/lib.contracts/data-views'"
+    );
     expect(code).toContain('export const Test_viewDataView: DataViewSpec = {');
     expect(code).toContain("kind: 'list'");
     expect(code).toContain("entity: 'User'");

@@ -1,12 +1,11 @@
-
-import type { LanguageModel, LanguageModelUsage } from '@contractspec/lib.ai-agent';
-import { generateText } from '@contractspec/lib.ai-agent';
+import type {
+  LanguageModel,
+  LanguageModelUsage,
+} from '@contractspec/lib.ai-agent';
+import { generateText } from 'ai';
 import {
   type TestSpec,
   type TestTarget,
-  type TestScenario,
-  type Fixture,
-  makeTestKey,
 } from '@contractspec/lib.contracts/tests';
 import type { OperationSpec } from '@contractspec/lib.contracts';
 import type { LoggerAdapter } from '../../ports/logger';
@@ -43,7 +42,8 @@ export class TestGeneratorService {
   ) {}
 
   async generateTests(
-    spec: OperationSpec,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    spec: OperationSpec<any, any>, // Use any to satisfy generics for now
     options: TestGeneratorOptions = {}
   ): Promise<TestSpec> {
     const model = options.model ?? this.defaultModel;
@@ -51,7 +51,7 @@ export class TestGeneratorService {
       throw new Error('No AI model provided for test generation');
     }
 
-    this.logger.info(`Generating tests for operation ${spec.key}...`);
+    this.logger.info(`Generating tests for operation ${spec.meta.key}...`);
 
     const prompt = `
 Generate a TestSpec for the following Operation:
@@ -76,7 +76,7 @@ Do not include markdown formatting or explanations, just the JSON.
       const generated = this.parseResponse(text);
       return this.enrichSpec(generated, spec);
     } catch (error) {
-      this.logger.error('Failed to generate tests', error);
+      this.logger.error('Failed to generate tests', { error });
       throw error;
     }
   }
@@ -86,26 +86,27 @@ Do not include markdown formatting or explanations, just the JSON.
       // clean markdown code blocks if present
       const cleaned = text.replace(/```json\n?|\n?```/g, '');
       return JSON.parse(cleaned);
-    } catch (e) {
+    } catch (_e) {
       throw new Error('Failed to parse AI response as JSON');
     }
   }
 
   private enrichSpec(
     generated: Partial<TestSpec>,
-    target: OperationSpec
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    target: OperationSpec<any, any>
   ): TestSpec {
     const meta = {
-      key: `${target.key}.test`,
-      version: target.version ?? '0.0.1',
-      owners: target.owners ?? [],
+      key: `${target.meta.key}.test`,
+      version: target.meta.version ?? '0.0.1',
+      owners: target.meta.owners ?? [],
     };
 
     const targetRef: TestTarget = {
       type: 'operation',
       operation: {
-        key: target.key,
-        version: target.version,
+        key: target.meta.key,
+        version: target.meta.version,
       },
     };
 
@@ -119,8 +120,11 @@ Do not include markdown formatting or explanations, just the JSON.
   }
 
   private logUsage(usage: LanguageModelUsage) {
+    // Cast to any to avoid type issues with different AI SDK versions
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const u = usage as any;
     this.logger.debug(
-      `AI Usage: ${usage.promptTokens} prompt + ${usage.completionTokens} completion = ${usage.totalTokens} total tokens`
+      `AI Usage: ${u.promptTokens} prompt + ${u.completionTokens} completion = ${u.totalTokens} total tokens`
     );
   }
 }

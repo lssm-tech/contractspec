@@ -22,7 +22,9 @@ describe('generateOperationSpec', () => {
 
   it('generates a command spec', () => {
     const code = generateOperationSpec(baseData);
-    expect(code).toContain("import { defineCommand } from '@contractspec/lib.contracts'");
+    expect(code).toContain(
+      "import { defineCommand } from '@contractspec/lib.contracts'"
+    );
     expect(code).toContain('export const OpSpec = defineCommand({');
     expect(code).toContain("key: 'test.op'");
     expect(code).toContain("goal: 'Test goal'");
@@ -32,7 +34,9 @@ describe('generateOperationSpec', () => {
   it('generates a query spec', () => {
     const data: OperationSpecData = { ...baseData, kind: 'query' };
     const code = generateOperationSpec(data);
-    expect(code).toContain("import { defineQuery } from '@contractspec/lib.contracts'");
+    expect(code).toContain(
+      "import { defineQuery } from '@contractspec/lib.contracts'"
+    );
     expect(code).toContain('export const OpSpec = defineQuery({');
     expect(code).toContain("method: 'GET'");
   });

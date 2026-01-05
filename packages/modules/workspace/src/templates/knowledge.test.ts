@@ -21,8 +21,12 @@ describe('generateKnowledgeSpaceSpec', () => {
 
   it('generates a knowledge space spec', () => {
     const code = generateKnowledgeSpaceSpec(baseData);
-    expect(code).toContain("import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts/knowledge/spec'");
-    expect(code).toContain('export const Test_knowledgeKnowledgeSpace: KnowledgeSpaceSpec = {');
+    expect(code).toContain(
+      "import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts/knowledge/spec'"
+    );
+    expect(code).toContain(
+      'export const Test_knowledgeKnowledgeSpace: KnowledgeSpaceSpec = {'
+    );
     expect(code).toContain("category: 'operational'");
     expect(code).toContain("trustLevel: 'high'");
   });
@@ -45,7 +49,7 @@ describe('generateKnowledgeSpaceSpec', () => {
       vectorDbIntegration: 'vec.db',
     };
     const code = generateKnowledgeSpaceSpec(data);
-    expect(code).toContain("indexing: {");
+    expect(code).toContain('indexing: {');
     expect(code).toContain("embeddingModel: 'text-embedding-3-small'");
     expect(code).toContain('chunkSize: 512');
     expect(code).toContain("vectorDbIntegration: 'vec.db'");
