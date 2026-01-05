@@ -8,6 +8,7 @@ import type {
   AnalyzedSpecType,
   RefInfo,
   SpecScanResult,
+  TestTargetRef,
 } from '../types/analysis-types';
 import type { Stability } from '../types/spec-types';
 
@@ -90,6 +91,8 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   const policyRefs =
     specType === 'operation' ? extractPolicyRefs(code) : undefined;
   const testRefs = extractTestRefs(code);
+  const testTargets =
+    specType === 'test-spec' ? extractTestTargets(code) : undefined;
 
   return {
     filePath,
@@ -112,6 +115,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     emittedEvents,
     policyRefs,
     testRefs,
+    testTargets,
     sourceBlock: code,
   };
 }
@@ -197,6 +201,37 @@ export function extractTestRefs(code: string): RefInfo[] | undefined {
   }
 
   return tests.length > 0 ? tests : undefined;
+}
+
+/**
+ * Extract test target refs from test spec source.
+ */
+export function extractTestTargets(
+  code: string
+): TestTargetRef[] | undefined {
+  const targets: TestTargetRef[] = [];
+  const targetPattern = /target\s*:\s*\{/g;
+  let match;
+
+  while ((match = targetPattern.exec(code)) !== null) {
+    const openBracePos = code.indexOf('{', match.index);
+    if (openBracePos === -1) continue;
+
+    const closeBracePos = findMatchingBrace(code, openBracePos);
+    if (closeBracePos === -1) continue;
+
+    const block = code.slice(openBracePos, closeBracePos + 1);
+    const typeRaw = matchStringField(block, 'type');
+    if (typeRaw !== 'operation' && typeRaw !== 'workflow') continue;
+
+    const key = matchStringField(block, 'key');
+    const version = matchVersionField(block, 'version');
+    if (key && version !== undefined) {
+      targets.push({ type: typeRaw, key, version });
+    }
+  }
+
+  return targets.length > 0 ? targets : undefined;
 }
 
 function matchStringField(code: string, field: string): string | null {
@@ -454,6 +489,8 @@ export function scanAllSpecsFromSource(
       const policyRefs =
         type === 'operation' ? extractPolicyRefs(block) : undefined;
       const testRefs = extractTestRefs(block);
+      const testTargets =
+        type === 'test-spec' ? extractTestTargets(block) : undefined;
 
       results.push({
         filePath,
@@ -476,6 +513,7 @@ export function scanAllSpecsFromSource(
         emittedEvents,
         policyRefs,
         testRefs,
+        testTargets,
         sourceBlock: block,
       });
     }

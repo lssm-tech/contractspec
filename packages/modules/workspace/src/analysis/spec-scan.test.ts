@@ -108,4 +108,23 @@ describe('scanAllSpecsFromSource', () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(results[1]!.kind).toBe('query');
   });
+
+  it('extracts test targets from test specs', () => {
+    const code = `
+      export const spec = defineTestSpec({
+        meta: { key: 'tests.api.auth', version: '1.0.0' },
+        target: {
+          type: 'operation',
+          key: 'auth.login',
+          version: '2.1.0'
+        }
+      });
+    `;
+    const results = scanAllSpecsFromSource(code, 'src/auth.test-spec.ts');
+    expect(results).toHaveLength(1);
+    expect(results[0]?.specType).toBe('test-spec');
+    expect(results[0]?.testTargets).toEqual([
+      { type: 'operation', key: 'auth.login', version: '2.1.0' },
+    ]);
+  });
 });

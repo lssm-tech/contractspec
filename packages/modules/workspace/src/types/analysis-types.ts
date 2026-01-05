@@ -53,6 +53,13 @@ export interface RefInfo {
 }
 
 /**
+ * Test target information (operation/workflow).
+ */
+export interface TestTargetRef extends RefInfo {
+  type: 'operation' | 'workflow';
+}
+
+/**
  * A reference extracted from source code with location context.
  */
 export interface ExtractedRef {
@@ -91,6 +98,7 @@ export interface SpecScanResult {
   emittedEvents?: RefInfo[];
   policyRefs?: RefInfo[];
   testRefs?: RefInfo[];
+  testTargets?: TestTargetRef[];
 
   // Extracted source code
   sourceBlock?: string;

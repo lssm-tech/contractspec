@@ -12,6 +12,7 @@ import {
   type FeatureScanResult,
   isFeatureFile,
   type RefInfo,
+  type TestTargetRef,
   scanAllSpecsFromSource,
   scanFeatureSource,
 } from '@contractspec/module.workspace';
@@ -229,6 +230,14 @@ export async function analyzeIntegrity(
   const inventory = createEmptyInventory();
   const features: FeatureScanResult[] = [];
   const issues: IntegrityIssue[] = [];
+  const testTargetsByType: Record<
+    TestTargetRef['type'],
+    Set<string>
+  > = {
+    operation: new Set(),
+    workflow: new Set(),
+  };
+  let hasParsedTestTargets = false;
 
   // Scan all files
   for (const file of files) {
@@ -259,6 +268,14 @@ export async function analyzeIntegrity(
               type: spec.specType,
               stability: spec.stability,
             });
+          }
+        }
+
+        if (spec.specType === 'test-spec' && spec.testTargets?.length) {
+          hasParsedTestTargets = true;
+          for (const target of spec.testTargets) {
+            const key = specKey(target.key, target.version);
+            testTargetsByType[target.type].add(key);
           }
         }
       }
@@ -410,6 +427,9 @@ export async function analyzeIntegrity(
     'presentation',
     'experiment',
   ];
+  const typesForCoverage = Array.from(
+    new Set([...typesThatCanBeOrphaned, ...(options.requireTestsFor ?? [])])
+  );
 
   for (const type of typesThatCanBeOrphaned) {
     const map = getInventoryMap(inventory, type);
@@ -434,7 +454,7 @@ export async function analyzeIntegrity(
   const coverageByType: Record<string, CoverageByType> = {};
   let totalMissingTests = 0;
 
-  for (const type of typesThatCanBeOrphaned) {
+  for (const type of typesForCoverage) {
     const map = getInventoryMap(inventory, type);
     if (!map) continue;
 
@@ -450,13 +470,18 @@ export async function analyzeIntegrity(
       }
 
       if (requireTest) {
-        // Standard convention: test spec key is {specKey}.test
-        // or check if any test targets this spec
-        // For now, simple convention check:
-        const testKey = `${location.key}.test`;
-        const testExists = inventory.testSpecs.has(
-          specKey(testKey, location.version)
-        );
+        let testExists = false;
+        if (
+          hasParsedTestTargets &&
+          (type === 'operation' || type === 'workflow')
+        ) {
+          testExists = testTargetsByType[type].has(key);
+        } else {
+          const testKey = `${location.key}.test`;
+          testExists = inventory.testSpecs.has(
+            specKey(testKey, location.version)
+          );
+        }
 
         if (!testExists) {
           missingTest++;
