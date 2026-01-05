@@ -17,12 +17,12 @@ describe('generateTelemetrySpec', () => {
   it('generates a telemetry spec', () => {
     const code = generateTelemetrySpec(baseData);
     expect(code).toContain(
-      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry'"
+      "import type { TelemetrySpec } from '@contractspec/lib.contracts/telemetry';"
     );
     expect(code).toContain(
-      'export const Test_telemetryTelemetry: TelemetrySpec = {'
+      'export const TelemetryTelemetry: TelemetrySpec = {'
     );
-    expect(code).toContain("key: 'test.telemetry'");
+    expect(code).toContain("    key: 'test.telemetry',");
   });
 
   it('renders providers', () => {

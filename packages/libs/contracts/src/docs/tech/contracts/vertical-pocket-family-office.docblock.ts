@@ -11,7 +11,112 @@ export const tech_contracts_vertical_pocket_family_office_DocBlocks: DocBlock[] 
       visibility: 'public',
       route: '/docs/tech/contracts/vertical-pocket-family-office',
       tags: ['tech', 'contracts', 'vertical-pocket-family-office'],
-      body: '# Pocket Family Office Vertical\n\nPocket Family Office is a ContractSpec reference vertical that\ndemonstrates finance automation atop the integration and knowledge\nlayers. It is optimised for the hackathon stack (Google Cloud, Mistral,\nQdrant, ElevenLabs) while remaining provider-agnostic.\n\n## Goals\n\n- Ingest household financial documents (uploads + Gmail threads).\n- Generate AI summaries and optionally deliver them as voice notes.\n- Schedule multi-channel reminders for upcoming bills.\n- Showcase spec-first composition of integrations, knowledge spaces, and\n  workflows.\n\n## Blueprint Overview\n\nSource: `packages/verticals/pocket-family-office/blueprint.ts`\n\n- **Integration slots**\n  - `primaryLLM` \u2192 Mistral chat/embeddings\n  - `primaryVectorDb` \u2192 Qdrant\n  - `primaryStorage` \u2192 Google Cloud Storage\n  - `primaryOpenBanking` \u2192 Powens BYOK project for account aggregation\n  - `emailInbound` / `emailOutbound` \u2192 Gmail + Postmark\n  - `calendarScheduling` \u2192 Google Calendar\n  - `voicePlayback` \u2192 ElevenLabs (optional)\n  - `smsNotifications` \u2192 Twilio (optional)\n  - `paymentsProcessing` \u2192 Stripe (optional)\n- **Workflows**\n  - `process-uploaded-document`\n  - `upcoming-payments-reminder`\n  - `generate-financial-summary`\n  - `ingest-email-threads`\n  - `sync-openbanking-accounts`\n  - `sync-openbanking-transactions`\n  - `refresh-openbanking-balances`\n  - `generate-openbanking-overview`\n- **Policies/Telemetry** \u2013 references tenant policy specs and\n  `pfo.telemetry` for observability.\n\n## Tenant Sample\n\n`tenant.sample.ts` binds each slot to sample connections defined in\n`connections/samples.ts`. Key details:\n\n- Uses Google Cloud Secret Manager URIs for all credentials.\n- Enables knowledge spaces `knowledge.financial-docs` and\n  `knowledge.email-threads`, plus the derived summaries space\n  `knowledge.financial-overview` populated by open banking workflows.\n- Keeps `voicePlayback` and `paymentsProcessing` optional so tenants can\n  enable them incrementally.\n\n## Contracts\n\n`contracts/index.ts` defines command/query specs that power the\nworkflows:\n\n- `pfo.documents.upload` \u2013 store object + enqueue ingestion.\n- `pfo.reminders.schedule-payment` \u2013 send email/SMS/calendar reminders.\n- `pfo.summary.generate` \u2013 run RAG over knowledge spaces.\n- `pfo.summary.dispatch` \u2013 deliver summaries via email / voice.\n- `pfo.email.sync-threads` \u2013 ingest Gmail threads.\n\n## Workflows\n\n- **Process Uploaded Document**\n  1. Upload to storage / queue ingestion.\n  2. Optional human review step.\n- **Upcoming Payments Reminder**\n  1. Human review (confirm due date / channel).\n  2. Automation schedules reminders (email/SMS/calendar).\n- **Generate Financial Summary**\n  1. Run RAG to produce Markdown summary.\n  2. Dispatch summary (email + optional ElevenLabs voice note).\n- **Ingest Email Threads**\n  1. Sync Gmail threads into knowledge space.\n  2. Triage step for operators when nothing new is ingested.\n\n## Knowledge & Jobs\n\n- Knowledge spaces registered via\n  `registerFinancialDocsKnowledgeSpace` and\n  `registerEmailThreadsKnowledgeSpace`.\n- Ingestion adapters (`GmailIngestionAdapter`, `StorageIngestionAdapter`)\n  and job handlers (`createGmailSyncHandler`,\n  `createStorageDocumentHandler`) wire Gmail labels & GCS prefixes into\n  Qdrant.\n- `KnowledgeQueryService` provides summarisation + references for the\n  summary generation workflow.\n\n## Tests & Usage\n\n`tests/pocket-family-office.test.ts` exercises:\n\n- Blueprint validation + config composition.\n- In-memory ingestion of a sample invoice.\n- Retrieval augmented generation producing a summary with references.\n\nUse these files as scaffolding for new tenants or as a template for the\nhackathon deliverable. Replace the sample connection metadata with\ntenant-specific IDs/secret references before deploying.\n\n\n\n',
+      body: `# Pocket Family Office Vertical
+
+Pocket Family Office is a ContractSpec reference vertical that
+demonstrates finance automation atop the integration and knowledge
+layers. It is optimised for the hackathon stack (Google Cloud, Mistral,
+Qdrant, ElevenLabs) while remaining provider-agnostic.
+
+## Goals
+
+- Ingest household financial documents (uploads + Gmail threads).
+- Generate AI summaries and optionally deliver them as voice notes.
+- Schedule multi-channel reminders for upcoming bills.
+- Showcase spec-first composition of integrations, knowledge spaces, and
+  workflows.
+
+## Blueprint Overview
+
+Source: \`packages/examples/pocket-family-office/blueprint.ts\`
+
+- **Integration slots**
+  - \`primaryLLM\` \u2192 Mistral chat/embeddings
+  - \`primaryVectorDb\` \u2192 Qdrant
+  - \`primaryStorage\` \u2192 Google Cloud Storage
+  - \`primaryOpenBanking\` \u2192 Powens BYOK project for account aggregation
+  - \`emailInbound\` / \`emailOutbound\` \u2192 Gmail + Postmark
+  - \`calendarScheduling\` \u2192 Google Calendar
+  - \`voicePlayback\` \u2192 ElevenLabs (optional)
+  - \`smsNotifications\` \u2192 Twilio (optional)
+  - \`paymentsProcessing\` \u2192 Stripe (optional)
+- **Workflows**
+  - \`process-uploaded-document\`
+  - \`upcoming-payments-reminder\`
+  - \`generate-financial-summary\`
+  - \`ingest-email-threads\`
+  - \`sync-openbanking-accounts\`
+  - \`sync-openbanking-transactions\`
+  - \`refresh-openbanking-balances\`
+  - \`generate-openbanking-overview\`
+- **Policies/Telemetry** \u2013 references tenant policy specs and
+  \`pfo.telemetry\` for observability.
+
+## Tenant Sample
+
+\`tenant.sample.ts\` binds each slot to sample connections defined in
+\`connections/samples.ts\`. Key details:
+
+- Uses Google Cloud Secret Manager URIs for all credentials.
+- Enables knowledge spaces \`knowledge.financial-docs\` and
+  \`knowledge.email-threads\`, plus the derived summaries space
+  \`knowledge.financial-overview\` populated by open banking workflows.
+- Keeps \`voicePlayback\` and \`paymentsProcessing\` optional so tenants can
+  enable them incrementally.
+
+## Contracts
+
+\`contracts/index.ts\` defines command/query specs that power the
+workflows:
+
+- \`pfo.documents.upload\` \u2013 store object + enqueue ingestion.
+- \`pfo.reminders.schedule-payment\` \u2013 send email/SMS/calendar reminders.
+- \`pfo.summary.generate\` \u2013 run RAG over knowledge spaces.
+- \`pfo.summary.dispatch\` \u2013 deliver summaries via email / voice.
+- \`pfo.email.sync-threads\` \u2013 ingest Gmail threads.
+
+## Workflows
+
+- **Process Uploaded Document**
+  1. Upload to storage / queue ingestion.
+  2. Optional human review step.
+- **Upcoming Payments Reminder**
+  1. Human review (confirm due date / channel).
+  2. Automation schedules reminders (email/SMS/calendar).
+- **Generate Financial Summary**
+  1. Run RAG to produce Markdown summary.
+  2. Dispatch summary (email + optional ElevenLabs voice note).
+- **Ingest Email Threads**
+  1. Sync Gmail threads into knowledge space.
+  2. Triage step for operators when nothing new is ingested.
+
+## Knowledge & Jobs
+
+- Knowledge spaces registered via
+  \`registerFinancialDocsKnowledgeSpace\` and
+  \`registerEmailThreadsKnowledgeSpace\`.
+- Ingestion adapters (\`GmailIngestionAdapter\`, \`StorageIngestionAdapter\`)
+  and job handlers (\`createGmailSyncHandler\`,
+  \`createStorageDocumentHandler\`) wire Gmail labels & GCS prefixes into
+  Qdrant.
+- \`KnowledgeQueryService\` provides summarisation + references for the
+  summary generation workflow.
+
+## Tests & Usage
+
+\`tests/pocket-family-office.test.ts\` exercises:
+
+- Blueprint validation + config composition.
+- In-memory ingestion of a sample invoice.
+- Retrieval augmented generation producing a summary with references.
+
+Use these files as scaffolding for new tenants or as a template for the
+hackathon deliverable. Replace the sample connection metadata with
+tenant-specific IDs/secret references before deploying.
+
+
+
+`,
     },
   ];
 registerDocBlocks(tech_contracts_vertical_pocket_family_office_DocBlocks);

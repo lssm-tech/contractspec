@@ -26,7 +26,7 @@ export function registerMcpResources(
   ctx: Pick<McpCtxFactories, 'logger' | 'resourceCtx'>
 ) {
   for (const resource of resources.listTemplates()) {
-    ctx.logger.info('Registering resource: ' + resource.meta.uriTemplate);
+    ctx.logger.debug('Registering resource: ' + resource.meta.uriTemplate);
 
     server.registerResource(
       // IMPORTANT: must be unique across templates; use full uriTemplate (not just scheme).
@@ -61,6 +61,6 @@ export function registerMcpResources(
       }
     );
 
-    ctx.logger.info('Registered resource: ' + resource.meta.uriTemplate);
+    ctx.logger.debug('Registered resource: ' + resource.meta.uriTemplate);
   }
 }

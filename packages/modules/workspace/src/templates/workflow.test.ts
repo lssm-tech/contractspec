@@ -22,9 +22,7 @@ describe('generateWorkflowSpec', () => {
     expect(code).toContain(
       "import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow'"
     );
-    expect(code).toContain(
-      'export const Test_workflowWorkflow: WorkflowSpec = {'
-    );
+    expect(code).toContain('export const WorkflowWorkflow: WorkflowSpec = {');
     expect(code).toContain("title: 'Test Workflow'");
   });
 

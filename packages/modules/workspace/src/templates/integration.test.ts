@@ -28,7 +28,7 @@ describe('generateIntegrationSpec', () => {
       "import { StabilityEnum } from '@contractspec/lib.contracts/ownership'"
     );
     expect(code).toContain(
-      'export const Test_integrationIntegrationSpec: IntegrationSpec = {'
+      'export const IntegrationIntegrationSpec: IntegrationSpec = {'
     );
     expect(code).toContain("category: 'custom'");
     expect(code).toContain("supportedModes: ['managed']");

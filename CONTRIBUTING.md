@@ -5,35 +5,32 @@ Welcome! We're building the safety layer for AI-native software. We believe in k
 ## 🤖 AI-Native Workflow
 
 We embrace AI agents (like Cursor, Claude, Windsurf) as first-class contributors. Our repo is designed to be easily understood and modified by AI.
-- **Context is King**: We maintain `AGENTS.md` and the `.rulesync/` folder to help AI agents understand the codebase.
+- **Context is King**: We maintain `AGENTS.md` - **READ THIS FILE FIRST**. It contains the definitive map of the repository, architecture rules, and dependency flows.
 - **Rule Synchronization**: We use [rulesync](https://github.com/dyoshikawa/rulesync) to generate agent configurations.
   - **Do not edit `.agent/` directly.**
   - Edit files in `.rulesync/` instead.
   - Run `bun run rulessync:all` to regenerate rules.
 - **Validation**: We rely on `contractspec ci` to enforce rules, rather than human nitpicking.
 
+### 🧠 AI Tools & Resources
+
+If you are using an AI agent (Cursor, Windsurf, etc.), you can configure it to use our helper MCP server:
+
+- **ContractSpec Docs MCP**: `https://api.contractspec.io/api/mcp/docs`
+  - Provides direct access to system documentation and specs.
+
 ## 🏗️ Repository Structure
 
-This monorepo follows a strict layered architecture to ensure separation of concerns:
+This monorepo follows a strict layered architecture. **See `AGENTS.md` for the detailed map and dependency rules.**
 
 ### 1. `packages/apps/*` (Thin Adapters)
-**Goal**: Entry points and platform adapters.
-- **No business logic allowed.**
-- These are thin wrappers (Next.js apps, CLIs) that wire together bundles.
-- Examples: `web-landing` (Next.js), `api-library` (Elysia), `cli-contractspec`.
+Entry points and platform adapters. **No business logic allowed.** (e.g., `web-landing`, `cli-contractspec`).
 
 ### 2. `packages/bundles/*` (The Workhorses)
-**Goal**: Domain specific logic, features, and UI.
-- **This is where 90% of your code should go.**
-- Organized by business domain (e.g., `marketing`, `studio`, `library`).
-- Contains: UI components, data fetching, business rules, and integrations.
+Domain specific logic, features, and UI. **90% of code goes here.** Organized by domain (e.g., `studio`, `marketing`).
 
 ### 3. `packages/libs/*` (Shared Infrastructure)
-**Goal**: Reusable utilities and contracts.
-- **`contracts`**: The core ContractSpec definitions.
-- **`design-system`**: Shared UI atoms and tokens.
-- **`database`**: Prisma schemas and clients.
-- **`ai-agent`**: LLM integration utilities.
+Reusable utilities, contracts, and the design system. (e.g., `contracts`, `design-system`).
 
 ## 🚀 Getting Started
 

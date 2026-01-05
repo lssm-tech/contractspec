@@ -55,6 +55,7 @@ mock.module('@contractspec/module.workspace', () => ({
           version: '1.0.0',
           filePath: file,
           stability: 'experimental',
+          target: { type: 'operation', operation: { key: 'test.op' } },
         },
       ];
     }
@@ -74,10 +75,6 @@ describe('IntegrityService', () => {
   it('should detect missing tests when required', async () => {
     const result = await analyzeIntegrity(adapters, {
       requireTestsFor: ['operation'],
-      // Mock scenario where test.ts is NOT present or fails to link
-      // To simplify, we rely on the mocked scanner above which DOES find a test.
-      // Let's force a scenario where test is NOT found by changing globs or content logic if we could,
-      // but since we hardcoded mocks, let's verify POSITIVE case first.
     });
 
     // With 'test.ts' present and key matching convention 'test.op.test', it should be covered.

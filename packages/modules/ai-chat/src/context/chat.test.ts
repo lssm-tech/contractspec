@@ -49,8 +49,8 @@ describe('ContextBuilder', () => {
     const builder = new ContextBuilder(mockContext);
     const context = builder.build({ includeSpecs: ['Spec1'] });
     expect(context.entries).toHaveLength(1);
-    expect(context.entries[0].type).toBe('spec');
-    expect(context.entries[0].path).toBe('/path/to/spec1');
+    expect(context.entries[0]?.type).toBe('spec');
+    expect(context.entries[0]?.path).toBe('/path/to/spec1');
     expect(context.summary).toContain('Relevant Specs');
     expect(context.summary).toContain('Spec1');
   });
@@ -59,8 +59,8 @@ describe('ContextBuilder', () => {
     const builder = new ContextBuilder(mockContext);
     const context = builder.build({ includeFiles: ['/path/to/file1.ts'] });
     expect(context.entries).toHaveLength(1);
-    expect(context.entries[0].type).toBe('file');
-    expect(context.entries[0].path).toBe('/path/to/file1.ts');
+    expect(context.entries[0]?.type).toBe('file');
+    expect(context.entries[0]?.path).toBe('/path/to/file1.ts');
     expect(context.summary).toContain('Relevant Files');
     expect(context.summary).toContain('file1.ts');
   });

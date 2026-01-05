@@ -123,8 +123,6 @@
     "./docs/tech-contracts.docs": "./dist/docs/tech-contracts.docs.js",
     "./docs/tech/auth/better-auth-nextjs.docblock": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
     "./docs/tech/cli.docblock": "./dist/docs/tech/cli.docblock.js",
-    "./docs/tech/contracts/create-subscription.docblock": "./dist/docs/tech/contracts/create-subscription.docblock.js",
-    "./docs/tech/contracts/graphql-typed-outputs.docblock": "./dist/docs/tech/contracts/graphql-typed-outputs.docblock.js",
     "./docs/tech/contracts/migrations.docblock": "./dist/docs/tech/contracts/migrations.docblock.js",
     "./docs/tech/contracts/openapi-export.docblock": "./dist/docs/tech/contracts/openapi-export.docblock.js",
     "./docs/tech/contracts/openapi-import.docblock": "./dist/docs/tech/contracts/openapi-import.docblock.js",

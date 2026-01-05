@@ -23,7 +23,7 @@ describe('generateMigrationSpec', () => {
       "import type { MigrationSpec } from '@contractspec/lib.contracts/migrations'"
     );
     expect(code).toContain(
-      'export const Test_migrationMigration: MigrationSpec = {'
+      'export const MigrationMigration: MigrationSpec = {'
     );
     expect(code).toContain('up: [');
   });

@@ -24,9 +24,7 @@ describe('generateExperimentSpec', () => {
     expect(code).toContain(
       "import type { ExperimentSpec } from '@contractspec/lib.contracts/experiments'"
     );
-    expect(code).toContain(
-      'export const Test_expExperiment: ExperimentSpec = {'
-    );
+    expect(code).toContain('export const ExpExperiment: ExperimentSpec = {');
     expect(code).toContain("controlVariant: 'control'");
     expect(code).toContain("type: 'random'");
   });

@@ -32,9 +32,7 @@ describe('generateAppBlueprintSpec', () => {
     expect(code).toContain(
       "import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config'"
     );
-    expect(code).toContain(
-      'export const Test_appAppConfig: AppBlueprintSpec = {'
-    );
+    expect(code).toContain('export const AppAppConfig: AppBlueprintSpec = {');
     expect(code).toContain("key: 'test.app'");
     expect(code).toContain("appId: 'app-123'");
   });

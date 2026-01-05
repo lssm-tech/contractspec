@@ -5,9 +5,16 @@ import type { AgentKnowledgeRef } from '../spec/spec';
 
 const mockRetriever: KnowledgeRetriever = {
   retrieve: mock(async () => [
-    { content: 'Test content', score: 0.9, metadata: {} },
+    {
+      content: 'Test content',
+      score: 0.9,
+      metadata: {},
+      source: 'test-source',
+    },
   ]),
   supportsSpace: mock(() => true),
+  getStatic: mock(async () => null),
+  listSpaces: mock(() => []),
 };
 
 describe('createKnowledgeQueryTool', () => {
@@ -39,6 +46,7 @@ describe('createKnowledgeQueryTool', () => {
 
     if (!tool) throw new Error('Tool not created');
 
+    if (!tool.execute) throw new Error('Tool execute missing');
     const result = await tool.execute(
       { query: 'test' },
       { toolCallId: '1', messages: [] }

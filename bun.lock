@@ -347,6 +347,7 @@
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
+        "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",

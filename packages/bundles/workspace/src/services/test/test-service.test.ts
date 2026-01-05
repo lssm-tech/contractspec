@@ -35,7 +35,7 @@ describe('TestService', () => {
     it('should list tests from valid files', async () => {
       const tests = await listTests(['valid-spec.ts'], adapters);
       expect(tests).toHaveLength(1);
-      expect(tests[0].meta.key).toBe('test.op');
+      expect(tests[0]?.meta.key).toBe('test.op');
     });
 
     it('should handle empty files', async () => {
@@ -63,8 +63,8 @@ describe('TestService', () => {
 
       const result = await runTests([spec], registry);
       expect(result.results).toHaveLength(1);
-      expect(result.results[0].passed).toBe(0); // 0 passed because 0 scenarios
-      expect(result.results[0].failed).toBe(0);
+      expect(result.results[0]?.passed).toBe(0); // 0 passed because 0 scenarios
+      expect(result.results[0]?.failed).toBe(0);
     });
   });
 });

@@ -19,7 +19,7 @@ const mockGenerateText = mock(async () => ({
   usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 },
 }));
 
-mock.module('@contractspec/lib.ai-agent', () => ({
+mock.module('ai', () => ({
   generateText: mockGenerateText,
 }));
 

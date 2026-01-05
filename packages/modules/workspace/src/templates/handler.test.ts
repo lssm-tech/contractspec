@@ -13,7 +13,7 @@ describe('Handler Templates', () => {
         "import type { ContractHandler } from '@contractspec/lib.contracts'"
       );
       expect(code).toContain(
-        'export const testOpHandler: ContractHandler<typeof TestOpSpec>'
+        'export const opHandler: ContractHandler<typeof OpSpec>'
       );
       expect(code).toContain('// TODO: Implement command logic');
     });

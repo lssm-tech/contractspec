@@ -25,7 +25,7 @@ describe('generateKnowledgeSpaceSpec', () => {
       "import type { KnowledgeSpaceSpec } from '@contractspec/lib.contracts/knowledge/spec'"
     );
     expect(code).toContain(
-      'export const Test_knowledgeKnowledgeSpace: KnowledgeSpaceSpec = {'
+      'export const KnowledgeKnowledgeSpace: KnowledgeSpaceSpec = {'
     );
     expect(code).toContain("category: 'operational'");
     expect(code).toContain("trustLevel: 'high'");

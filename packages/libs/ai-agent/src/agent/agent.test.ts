@@ -1,5 +1,6 @@
 import { describe, it, expect, mock } from 'bun:test';
 import { MockLanguageModelV3 } from 'ai/test';
+
 import { ContractSpecAgent } from './contract-spec-agent';
 import { agentKey } from '../spec/spec';
 import type { AgentSpec } from '../spec/spec';
@@ -18,17 +19,30 @@ const mockSpec: AgentSpec = {
   knowledge: [],
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockGenerateResult = (text: string): any => ({
+  finishReason: 'stop',
+  usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
+  content: [{ type: 'text', text }],
+  warnings: [],
+  rawCall: { rawPrompt: null, rawSettings: {} },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockToolResult = (text: string, toolCall: any): any => ({
+  finishReason: 'stop',
+  usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
+  content: [{ type: 'text', text }],
+  toolCalls: [toolCall],
+  warnings: [],
+  rawCall: { rawPrompt: null, rawSettings: {} },
+});
 describe('ContractSpecAgent', () => {
   it('should initialize correctly via create', async () => {
     const agent = await ContractSpecAgent.create({
       spec: mockSpec,
       model: new MockLanguageModelV3({
-        doGenerate: async () => ({
-          finishReason: 'stop' as const,
-          usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
-          content: [{ type: 'text', text: 'Hello, world!' }],
-          warnings: [],
-        }),
+        doGenerate: async () => mockGenerateResult('Hello, world!'),
       }),
       toolHandlers: new Map(),
     });
@@ -41,12 +55,7 @@ describe('ContractSpecAgent', () => {
     const agent = await ContractSpecAgent.create({
       spec: mockSpec,
       model: new MockLanguageModelV3({
-        doGenerate: async () => ({
-          finishReason: 'stop' as const,
-          usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
-          content: [{ type: 'text', text: 'Hello from mock!' }],
-          warnings: [],
-        }),
+        doGenerate: async () => mockGenerateResult('Hello from mock!'),
       }),
       toolHandlers: new Map(),
     });
@@ -87,20 +96,13 @@ describe('ContractSpecAgent', () => {
     const agent = await ContractSpecAgent.create({
       spec: specWithTool,
       model: new MockLanguageModelV3({
-        doGenerate: async () => ({
-          finishReason: 'stop' as const,
-          usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
-          content: [{ type: 'text', text: 'Calling tool' }],
-          toolCalls: [
-            {
-              type: 'tool-call',
-              toolCallId: 'call_1',
-              toolName: 'test_tool',
-              args: { input: 'test' },
-            },
-          ],
-          warnings: [],
-        }),
+        doGenerate: async () =>
+          mockToolResult('Calling tool', {
+            type: 'tool-call',
+            toolCallId: 'call_1',
+            toolName: 'test_tool',
+            args: '{"input": "test"}',
+          }),
       }),
       toolHandlers,
     });

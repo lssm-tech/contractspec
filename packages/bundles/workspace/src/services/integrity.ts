@@ -453,7 +453,7 @@ export async function analyzeIntegrity(
         // Standard convention: test spec key is {specKey}.test
         // or check if any test targets this spec
         // For now, simple convention check:
-        const testKey = `${key}.test`;
+        const testKey = `${location.key}.test`;
         const testExists = inventory.testSpecs.has(
           specKey(testKey, location.version)
         );
