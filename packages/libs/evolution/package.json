@@ -47,7 +47,7 @@
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./*": "./*"
   },
   "publishConfig": {

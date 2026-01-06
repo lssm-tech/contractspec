@@ -59,7 +59,9 @@ describe('Layer Discovery', () => {
     createProgress: mock(() => ({
       // Fix: Add createProgress
       increment: () => void 0,
-      stop: () => void 0,
+      succeed: mock(),
+      fail: mock(),
+      warn: mock(),
     })),
   } as unknown as LoggerAdapter;
 

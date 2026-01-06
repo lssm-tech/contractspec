@@ -26,6 +26,7 @@ export type ContractSpecType =
   | 'app-config'
   | 'agent'
   | 'operation'
+  | 'example'
   | 'event'
   | 'presentation'
   | 'capability'
