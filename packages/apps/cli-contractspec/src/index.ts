@@ -39,6 +39,7 @@ import { registerHookCommand } from './commands/hook/index';
 import { upgradeCommand } from './commands/upgrade/index';
 import { agentCommand } from './commands/agent/index';
 import { fixCommand } from './commands/fix/index';
+import { vibeCommand } from './commands/vibe/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -450,6 +451,9 @@ const regeneratorCmd = program
     }
   });
 withCategory(regeneratorCmd, CATEGORY_OPERATIONS);
+
+// Vibe
+program.addCommand(withCategory(vibeCommand, CATEGORY_ESSENTIALS));
 
 // Parse CLI arguments
 export function run() {
