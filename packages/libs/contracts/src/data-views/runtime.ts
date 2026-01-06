@@ -1,7 +1,10 @@
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
+import { OperationSpecRegistry } from '../operations';
+import type { HandlerCtx } from '../types';
 
 export interface DataViewRuntimeConfig {
   registry: DataViewRegistry;
+  operationRegistry: OperationSpecRegistry;
   // eventBus?: EventBus; // To be integrated with actual bus implementation
 }
 
@@ -10,6 +13,21 @@ export interface DataViewResult<T = unknown> {
   total: number;
   loading: boolean;
   error?: Error;
+}
+
+// Helper guard for paginated results
+interface PaginatedResult {
+  items: unknown[];
+  total?: number;
+}
+
+function isPaginatedResult(value: unknown): value is PaginatedResult {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'items' in value &&
+    Array.isArray((value as { items: unknown }).items)
+  );
 }
 
 export class DataViewRuntime {
@@ -26,26 +44,66 @@ export class DataViewRuntime {
     return this.config.registry.get(name, version);
   }
 
-  // Simulating query execution for now as we don't have a full backend context here
-  // In a real app, this would call the backend API via an adapter
-
   async executeQuery(
     specName: string,
-    _params: unknown
+    params: unknown,
+    ctx: HandlerCtx
   ): Promise<DataViewResult> {
     const spec = this.getSpec(specName);
     if (!spec) {
       throw new Error(`DataView spec not found: ${specName}`);
     }
 
-    // TODO: Implement actual data fetching via Operation runtime
-    // For now, return empty or cached data
+    const opRef = spec.source.primary;
+    if (!opRef) {
+      throw new Error(`DataView spec ${specName} missing primary source`);
+    }
 
-    return {
-      data: [],
-      total: 0,
-      loading: false,
-    };
+    try {
+      const result = await this.config.operationRegistry.execute(
+        opRef.key,
+        opRef.version,
+        params,
+        ctx
+      );
+
+      // Runtime validation and normalization to DataViewResult shape.
+      // Current Adapter Logic:
+      // 1. Array -> { data: result, total: length }
+      // 2. Paginated { items: [], total? } -> { data: items, total: total ?? length }
+      // 3. Single -> { data: [result], total: 1 }
+
+      if (Array.isArray(result)) {
+        return {
+          data: result,
+          total: result.length,
+          loading: false,
+        };
+      }
+
+      // Handle common paginated response shape { items: [], total: number }
+      if (isPaginatedResult(result)) {
+        return {
+          data: result.items,
+          total: result.total ?? result.items.length,
+          loading: false,
+        };
+      }
+
+      // Fallback for unknown shapes
+      return {
+        data: [result],
+        total: 1,
+        loading: false,
+      };
+    } catch (error) {
+      return {
+        data: [],
+        total: 0,
+        loading: false,
+        error: error instanceof Error ? error : new Error(String(error)),
+      };
+    }
   }
 
   invalidate(specName: string) {

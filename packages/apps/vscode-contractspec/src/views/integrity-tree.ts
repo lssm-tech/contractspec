@@ -104,6 +104,7 @@ const ISSUE_TYPE_META: Record<IssueType, { label: string; icon: string }> = {
   'missing-feature': { label: 'Missing Features', icon: 'error' },
   'broken-link': { label: 'Broken Links', icon: 'link' },
   'missing-test': { label: 'Missing Tests', icon: 'warning' },
+  'missing-test-coverage': { label: 'Missing Test Coverage', icon: 'beaker' },
 };
 
 /**

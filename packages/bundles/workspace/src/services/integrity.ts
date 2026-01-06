@@ -68,6 +68,8 @@ export interface SpecLocation {
   stability?: string;
   /** Test target for test-spec files (extracted from TestSpec.target) */
   testTarget?: ExtractedTestTarget;
+  /** Test coverage info (extracted from TestSpec.scenarios) */
+  testCoverage?: { hasSuccess: boolean; hasError: boolean };
 }
 
 /**
@@ -101,7 +103,8 @@ export interface IntegrityIssue {
     | 'unresolved-ref'
     | 'missing-feature'
     | 'broken-link'
-    | 'missing-test';
+    | 'missing-test'
+    | 'missing-test-coverage';
   message: string;
   file: string;
   specKey?: string;
@@ -266,7 +269,8 @@ export async function analyzeIntegrity(
               type: spec.specType,
               stability: spec.stability,
               // Include testTarget for test-spec files
-              testTarget: (spec as TestSpecScanResult).testTarget,
+              testTarget: spec.testTarget,
+              testCoverage: spec.testCoverage,
             });
           }
         }
@@ -409,6 +413,24 @@ export async function analyzeIntegrity(
         });
       }
     }
+
+    // Check presentations targets
+    if (feature.presentationsTargets) {
+      for (const pt of feature.presentationsTargets) {
+        const presKey = specKey(pt.key, pt.version);
+        if (!inventory.presentations.has(presKey)) {
+          issues.push({
+            severity: 'error',
+            type: 'broken-link',
+            message: `Targeted presentation ${pt.key}.v${pt.version} not found`,
+            file: feature.filePath,
+            featureKey: feature.key,
+            specType: 'presentation',
+            ref: { key: pt.key, version: pt.version },
+          });
+        }
+      }
+    }
   }
 
   // Find orphaned specs (not referenced by any feature)
@@ -457,6 +479,43 @@ export async function analyzeIntegrity(
     });
   }
   const testIndex = buildTestIndex(testSpecScans, inventory);
+
+  // Check test coverage for linked operations
+  for (const feature of relevantFeatures) {
+    for (const link of feature.opToPresentationLinks) {
+      const opKey = specKey(link.op.key, link.op.version);
+      const tests = testIndex.targetToTests.get(opKey);
+
+      let hasSuccess = false;
+      let hasError = false;
+
+      if (tests) {
+        for (const testKey of tests) {
+          const testSpec = inventory.testSpecs.get(testKey);
+          if (testSpec?.testCoverage) {
+            if (testSpec.testCoverage.hasSuccess) hasSuccess = true;
+            if (testSpec.testCoverage.hasError) hasError = true;
+          }
+        }
+      }
+
+      if (!tests || !hasSuccess || !hasError) {
+        const missing: string[] = [];
+        if (!hasSuccess) missing.push('success scenario');
+        if (!hasError) missing.push('error scenario');
+
+        issues.push({
+          severity: 'error',
+          type: 'missing-test-coverage',
+          message: `Operation ${link.op.key}.v${link.op.version} linked to presentation requires tests covering: ${missing.join(', ')}`,
+          file: feature.filePath,
+          featureKey: feature.key,
+          specType: 'operation',
+          ref: link.op,
+        });
+      }
+    }
+  }
 
   // Calculate coverage metrics
   const coverageByType: Record<string, CoverageByType> = {};

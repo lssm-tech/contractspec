@@ -3,6 +3,15 @@
  * Extracted from cli-contractspec/src/commands/validate/spec-checker.ts
  */
 
+import {
+  Project,
+  Node,
+  SyntaxKind,
+  SourceFile,
+  ObjectLiteralExpression,
+  InitializerExpressionGetableNode,
+  PropertyAssignment,
+} from 'ts-morph';
 import type { ValidationResult } from '../../types/analysis-types';
 
 export type { ValidationResult };
@@ -56,8 +65,16 @@ export function validateSpecStructure(
   const errors: string[] = [];
   const warnings: string[] = [];
 
+  const project = new Project({ useInMemoryFileSystem: true });
+  const sourceFile = project.createSourceFile(fileName, code);
+
   // Check for required exports (any export is sufficient for validity check)
-  const hasExport = /export\s/.test(code);
+  const hasExport =
+    sourceFile.getExportAssignments().length > 0 ||
+    sourceFile.getVariableStatements().some((s) => s.isExported()) ||
+    sourceFile.getFunctions().some((f) => f.isExported()) ||
+    sourceFile.getClasses().some((c) => c.isExported());
+
   if (!hasExport) {
     errors.push('No exported spec found');
   }
@@ -69,45 +86,45 @@ export function validateSpecStructure(
     fileName.includes('.operations.') ||
     fileName.includes('.operation.')
   ) {
-    validateOperationSpec(code, errors, warnings, rulesConfig);
+    validateOperationSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   // Validate event specs
   if (fileName.includes('.event.')) {
-    validateEventSpec(code, errors, warnings, rulesConfig);
+    validateEventSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   // Validate presentation specs
   if (fileName.includes('.presentation.')) {
-    validatePresentationSpec(code, errors, warnings);
+    validatePresentationSpec(sourceFile, errors, warnings);
   }
 
   if (fileName.includes('.workflow.')) {
-    validateWorkflowSpec(code, errors, warnings, rulesConfig);
+    validateWorkflowSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.data-view.')) {
-    validateDataViewSpec(code, errors, warnings, rulesConfig);
+    validateDataViewSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.migration.')) {
-    validateMigrationSpec(code, errors, warnings, rulesConfig);
+    validateMigrationSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.telemetry.')) {
-    validateTelemetrySpec(code, errors, warnings, rulesConfig);
+    validateTelemetrySpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.experiment.')) {
-    validateExperimentSpec(code, errors, warnings, rulesConfig);
+    validateExperimentSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   if (fileName.includes('.app-config.')) {
-    validateAppConfigSpec(code, errors, warnings, rulesConfig);
+    validateAppConfigSpec(sourceFile, errors, warnings, rulesConfig);
   }
 
   // Common validations
-  validateCommonFields(code, fileName, errors, warnings, rulesConfig);
+  validateCommonFields(sourceFile, fileName, errors, warnings, rulesConfig);
 
   return {
     valid: errors.length === 0,
@@ -140,74 +157,123 @@ function emitRule(
  * Validate operation spec
  */
 function validateOperationSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  // Check for defineCommand or defineQuery
-  const hasDefine = /define(Command|Query)/.test(code);
+  // Check for defineCommand or defineQuery calls
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const hasDefine = callExpressions.some((call) => {
+    const text = call.getExpression().getText();
+    return text === 'defineCommand' || text === 'defineQuery';
+  });
+
   if (!hasDefine) {
     errors.push('Missing defineCommand or defineQuery call');
   }
 
-  // Check for required meta fields
-  if (!code.includes('meta:')) {
-    errors.push('Missing meta section');
+  // To check fields inside defineCommand/Query({ ... }), we find the object literal passed as argument
+  let specObject: ObjectLiteralExpression | undefined;
+  for (const call of callExpressions) {
+    const text = call.getExpression().getText();
+    if (text === 'defineCommand' || text === 'defineQuery') {
+      const args = call.getArguments();
+      if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+        specObject = args[0];
+        break;
+      }
+    }
   }
 
-  if (!code.includes('io:')) {
-    errors.push('Missing io section');
+  if (specObject && Node.isObjectLiteralExpression(specObject)) {
+    // Check for required meta fields
+    if (!specObject.getProperty('meta')) {
+      errors.push('Missing meta section');
+    }
+
+    if (!specObject.getProperty('io')) {
+      errors.push('Missing io section');
+    }
+
+    if (!specObject.getProperty('policy')) {
+      errors.push('Missing policy section');
+    }
+
+    const metaProp = specObject.getProperty('meta');
+    let hasKey = false;
+    let hasVersion = false;
+
+    if (metaProp && Node.isPropertyAssignment(metaProp)) {
+      const metaObj = metaProp.getInitializer();
+      if (metaObj && Node.isObjectLiteralExpression(metaObj)) {
+        if (metaObj.getProperty('key')) hasKey = true;
+        if (metaObj.getProperty('version')) hasVersion = true;
+      }
+    }
+
+    if (!hasKey) {
+      // Double check if top level
+      if (specObject.getProperty('key')) hasKey = true;
+    }
+
+    if (!hasKey) {
+      errors.push('Missing or invalid key field');
+    }
+
+    if (!hasVersion) {
+      if (specObject.getProperty('version')) hasVersion = true;
+    }
+
+    if (!hasVersion) {
+      errors.push('Missing or invalid version field');
+    }
+
+    // Check for kind
+    const hasExplicitKind = specObject.getProperty('kind');
+    const callText = callExpressions
+      .find((c) => {
+        const t = c.getExpression().getText();
+        return t === 'defineCommand' || t === 'defineQuery';
+      })
+      ?.getExpression()
+      .getText();
+
+    if (!callText && !hasExplicitKind) {
+      errors.push(
+        'Missing kind: use defineCommand(), defineQuery(), or explicit kind field'
+      );
+    }
+
+    // Configurable warnings
+    if (!specObject.getProperty('acceptance')) {
+      emitRule(
+        'require-acceptance',
+        'operation',
+        'No acceptance scenarios defined',
+        errors,
+        warnings,
+        rulesConfig
+      );
+    }
+
+    if (!specObject.getProperty('examples')) {
+      emitRule(
+        'require-examples',
+        'operation',
+        'No examples provided',
+        errors,
+        warnings,
+        rulesConfig
+      );
+    }
   }
 
-  if (!code.includes('policy:')) {
-    errors.push('Missing policy section');
-  }
-
-  // Check for name
-  if (!code.match(/key:\s*['"][^'"]+['"]/)) {
-    errors.push('Missing or invalid key field');
-  }
-
-  // Check for version
-  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
-    errors.push('Missing or invalid version field');
-  }
-
-  // Check for kind (defineCommand/defineQuery set it automatically, or explicit kind field)
-  const hasDefineCommand = /defineCommand\s*\(/.test(code);
-  const hasDefineQuery = /defineQuery\s*\(/.test(code);
-  const hasExplicitKind = /kind:\s*['"](?:command|query)['"]/.test(code);
-  if (!hasDefineCommand && !hasDefineQuery && !hasExplicitKind) {
-    errors.push(
-      'Missing kind: use defineCommand(), defineQuery(), or explicit kind field'
-    );
-  }
-
-  // Configurable warnings
-  if (!code.includes('acceptance:')) {
-    emitRule(
-      'require-acceptance',
-      'operation',
-      'No acceptance scenarios defined',
-      errors,
-      warnings,
-      rulesConfig
-    );
-  }
-
-  if (!code.includes('examples:')) {
-    emitRule(
-      'require-examples',
-      'operation',
-      'No examples provided',
-      errors,
-      warnings,
-      rulesConfig
-    );
-  }
-
-  if (code.includes('TODO')) {
+  // TODO check
+  const fullText = sourceFile.getFullText();
+  if (fullText.includes('TODO')) {
     emitRule(
       'no-todo',
       'operation',
@@ -220,51 +286,70 @@ function validateOperationSpec(
 }
 
 function validateTelemetrySpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*TelemetrySpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'TelemetrySpec');
+
+  if (!specObject) {
     errors.push('Missing TelemetrySpec type annotation');
+    return;
   }
 
-  if (!code.match(/meta:\s*{[\s\S]*name:/)) {
-    errors.push('TelemetrySpec.meta is required');
-  }
+  if (specObject) {
+    // Check meta.name
+    const metaProp = specObject.getProperty('meta');
+    let hasName = false;
+    if (metaProp && Node.isPropertyAssignment(metaProp)) {
+      const metaObj = metaProp.getInitializer();
+      if (Node.isObjectLiteralExpression(metaObj)) {
+        if (metaObj.getProperty('name')) hasName = true;
+      }
+    }
+    if (!hasName) {
+      errors.push('TelemetrySpec.meta is required');
+    }
 
-  if (!code.includes('events:')) {
-    errors.push('TelemetrySpec must declare events');
-  }
+    if (!specObject.getProperty('events')) {
+      errors.push('TelemetrySpec must declare events');
+    }
 
-  if (!code.match(/privacy:\s*'(public|internal|pii|sensitive)'/)) {
-    emitRule(
-      'telemetry-privacy',
-      'telemetry',
-      'No explicit privacy classification found',
-      errors,
-      warnings,
-      rulesConfig
-    );
+    const privacyProp = specObject.getProperty('privacy');
+    if (!privacyProp) {
+      emitRule(
+        'telemetry-privacy',
+        'telemetry',
+        'No explicit privacy classification found',
+        errors,
+        warnings,
+        rulesConfig
+      );
+    }
   }
 }
 
 function validateExperimentSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*ExperimentSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'ExperimentSpec');
+
+  if (!specObject) {
     errors.push('Missing ExperimentSpec type annotation');
+    return;
   }
-  if (!code.includes('controlVariant')) {
+
+  if (!specObject.getProperty('controlVariant')) {
     errors.push('ExperimentSpec must declare controlVariant');
   }
-  if (!code.includes('variants:')) {
+  if (!specObject.getProperty('variants')) {
     errors.push('ExperimentSpec must declare variants');
   }
-  if (!code.match(/allocation:\s*{/)) {
+  if (!specObject.getProperty('allocation')) {
     emitRule(
       'experiment-allocation',
       'experiment',
@@ -277,28 +362,38 @@ function validateExperimentSpec(
 }
 
 function validateAppConfigSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*AppBlueprintSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'AppBlueprintSpec');
+
+  if (!specObject) {
     errors.push('Missing AppBlueprintSpec type annotation');
+    return;
   }
-  if (!code.includes('meta:')) {
+
+  const metaProp = specObject.getProperty('meta');
+  if (!metaProp) {
     errors.push('AppBlueprintSpec must define meta');
+  } else if (Node.isPropertyAssignment(metaProp)) {
+    const metaObj = metaProp.getInitializer();
+    if (Node.isObjectLiteralExpression(metaObj)) {
+      if (!metaObj.getProperty('appId')) {
+        emitRule(
+          'app-config-appid',
+          'app-config',
+          'AppBlueprint meta missing appId assignment',
+          errors,
+          warnings,
+          rulesConfig
+        );
+      }
+    }
   }
-  if (!code.includes('appId')) {
-    emitRule(
-      'app-config-appid',
-      'app-config',
-      'AppBlueprint meta missing appId assignment',
-      errors,
-      warnings,
-      rulesConfig
-    );
-  }
-  if (!code.includes('capabilities')) {
+
+  if (!specObject.getProperty('capabilities')) {
     emitRule(
       'app-config-capabilities',
       'app-config',
@@ -314,40 +409,110 @@ function validateAppConfigSpec(
  * Validate event spec
  */
 function validateEventSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.includes('defineEvent')) {
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const defineEventCall = callExpressions.find(
+    (c) => c.getExpression().getText() === 'defineEvent'
+  );
+
+  if (!defineEventCall) {
     errors.push('Missing defineEvent call');
+    return;
   }
 
-  if (!code.match(/key:\s*['"][^'"]+['"]/)) {
-    errors.push('Missing or invalid key field');
+  let specObject: ObjectLiteralExpression | undefined;
+  const args = defineEventCall.getArguments();
+  if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+    specObject = args[0];
   }
 
-  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
-    errors.push('Missing or invalid version field');
-  }
+  if (specObject && Node.isObjectLiteralExpression(specObject)) {
+    const metaProp = specObject.getProperty('meta');
+    let hasKey = false;
+    let hasVersion = false;
 
-  if (!code.includes('payload:')) {
-    errors.push('Missing payload field');
-  }
+    if (metaProp && Node.isPropertyAssignment(metaProp)) {
+      const metaObj = metaProp.getInitializer();
+      if (Node.isObjectLiteralExpression(metaObj)) {
+        const keyP = metaObj.getProperty('key');
+        if (keyP && Node.isPropertyAssignment(keyP)) {
+          const init = keyP.getInitializer();
+          if (init && Node.isStringLiteral(init)) {
+            hasKey = true;
+          }
+        }
+        if (metaObj.getProperty('version')) hasVersion = true;
+      }
+    }
 
-  // Check for past tense naming convention
-  const nameMatch = code.match(/name:\s*['"]([^'"]+)['"]/);
-  if (nameMatch?.[1]) {
-    const eventName = nameMatch[1].split('.').pop() ?? '';
-    if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
-      emitRule(
-        'event-past-tense',
-        'event',
-        'Event name should use past tense (e.g., "created", "updated")',
-        errors,
-        warnings,
-        rulesConfig
-      );
+    if (!hasKey) {
+      const kp = specObject.getProperty('key');
+      if (kp && Node.isPropertyAssignment(kp)) {
+        const init = kp.getInitializer();
+        if (init && Node.isStringLiteral(init)) {
+          hasKey = true;
+        }
+      }
+    }
+    if (!hasVersion && specObject.getProperty('version')) hasVersion = true;
+
+    if (!hasKey) {
+      errors.push('Missing or invalid key field');
+    }
+
+    if (!hasVersion) {
+      errors.push('Missing or invalid version field');
+    }
+
+    if (!specObject.getProperty('payload')) {
+      errors.push('Missing payload field');
+    }
+
+    let name = '';
+    const getName = (
+      obj: InitializerExpressionGetableNode & PropertyAssignment
+    ) => {
+      const init = obj.getInitializer();
+      if (init && Node.isStringLiteral(init)) {
+        return init.getLiteralText();
+      }
+      return '';
+    };
+
+    if (metaProp && Node.isPropertyAssignment(metaProp)) {
+      const metaObj = metaProp.getInitializer();
+      if (Node.isObjectLiteralExpression(metaObj)) {
+        const nameP = metaObj.getProperty('name');
+        if (nameP && Node.isPropertyAssignment(nameP)) {
+          name = getName(nameP);
+        }
+      }
+    }
+    if (!name) {
+      const nameP = specObject.getProperty('name');
+      if (nameP && Node.isPropertyAssignment(nameP)) {
+        name = getName(nameP);
+      }
+    }
+
+    if (name) {
+      const eventName = name.split('.').pop() ?? '';
+      if (!eventName.match(/(ed|created|updated|deleted|completed)$/i)) {
+        emitRule(
+          'event-past-tense',
+          'event',
+          'Event name should use past tense (e.g., "created", "updated")',
+          errors,
+          warnings,
+          rulesConfig
+        );
+      }
     }
   }
 }
@@ -356,69 +521,107 @@ function validateEventSpec(
  * Validate presentation spec (V2 format)
  */
 function validatePresentationSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   _warnings: string[]
 ) {
-  if (!code.match(/:\s*PresentationSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'PresentationSpec');
+
+  if (!specObject) {
     errors.push('Missing PresentationSpec type annotation');
+    return;
   }
 
-  if (!code.includes('meta:')) {
+  if (!specObject.getProperty('meta')) {
     errors.push('Missing meta section');
   }
 
-  if (!code.includes('source:')) {
+  const sourceProp = specObject.getProperty('source');
+  if (!sourceProp) {
     errors.push('Missing source section');
+  } else if (Node.isPropertyAssignment(sourceProp)) {
+    const sourceObj = sourceProp.getInitializer();
+    if (Node.isObjectLiteralExpression(sourceObj)) {
+      const typeProp = sourceObj.getProperty('type');
+      if (!typeProp) {
+        errors.push('Missing or invalid source.type field');
+      } else if (Node.isPropertyAssignment(typeProp)) {
+        const init = typeProp.getInitializer();
+        if (init && Node.isStringLiteral(init)) {
+          const val = init.getLiteralText();
+          if (val !== 'component' && val !== 'blocknotejs') {
+            errors.push('Missing or invalid source.type field');
+          }
+        }
+      }
+    }
   }
 
-  if (!code.match(/type:\s*['"](?:component|blocknotejs)['"]/)) {
-    errors.push('Missing or invalid source.type field');
-  }
-
-  if (!code.includes('targets:')) {
+  if (!specObject.getProperty('targets')) {
     errors.push('Missing targets section');
   }
 }
 
 function validateWorkflowSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*WorkflowSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'WorkflowSpec');
+
+  if (!specObject) {
     errors.push('Missing WorkflowSpec type annotation');
+    return;
   }
 
-  if (!code.includes('definition:')) {
+  if (!specObject.getProperty('definition')) {
     errors.push('Missing definition section');
+  } else {
+    const defProp = specObject.getProperty('definition');
+    if (defProp && Node.isPropertyAssignment(defProp)) {
+      const defObj = defProp.getInitializer();
+      if (Node.isObjectLiteralExpression(defObj)) {
+        if (!defObj.getProperty('steps')) {
+          errors.push('Workflow must declare steps');
+        }
+        if (!defObj.getProperty('transitions')) {
+          emitRule(
+            'workflow-transitions',
+            'workflow',
+            'No transitions declared; workflow will complete after first step.',
+            errors,
+            warnings,
+            rulesConfig
+          );
+        }
+      }
+    }
   }
 
-  if (!code.includes('steps:')) {
-    errors.push('Workflow must declare steps');
+  let titleFound = false;
+  let domainFound = false;
+
+  const metaProp = specObject.getProperty('meta');
+  if (metaProp && Node.isPropertyAssignment(metaProp)) {
+    const metaObj = metaProp.getInitializer();
+    if (Node.isObjectLiteralExpression(metaObj)) {
+      if (metaObj.getProperty('title')) titleFound = true;
+      if (metaObj.getProperty('domain')) domainFound = true;
+    }
   }
 
-  if (!code.includes('transitions:')) {
-    emitRule(
-      'workflow-transitions',
-      'workflow',
-      'No transitions declared; workflow will complete after first step.',
-      errors,
-      warnings,
-      rulesConfig
-    );
-  }
+  if (!titleFound && specObject.getProperty('title')) titleFound = true;
+  if (!domainFound && specObject.getProperty('domain')) domainFound = true;
 
-  if (!code.match(/title:\s*['"][^'"]+['"]/)) {
+  if (!titleFound) {
     warnings.push('Missing workflow title');
   }
-
-  if (!code.match(/domain:\s*['"][^'"]+['"]/)) {
+  if (!domainFound) {
     warnings.push('Missing domain field');
   }
 
-  if (code.includes('TODO')) {
+  if (sourceFile.getFullText().includes('TODO')) {
     emitRule(
       'no-todo',
       'workflow',
@@ -431,32 +634,54 @@ function validateWorkflowSpec(
 }
 
 function validateMigrationSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*MigrationSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'MigrationSpec');
+
+  if (!specObject) {
     errors.push('Missing MigrationSpec type annotation');
+    return;
   }
 
-  if (!code.includes('plan:')) {
+  const planProp = specObject.getProperty('plan');
+  if (!planProp) {
     errors.push('Missing plan section');
-  } else {
-    if (!code.includes('up:')) {
-      errors.push('Migration must define at least one up step');
+  } else if (Node.isPropertyAssignment(planProp)) {
+    const planObj = planProp.getInitializer();
+    if (Node.isObjectLiteralExpression(planObj)) {
+      if (!planObj.getProperty('up')) {
+        errors.push('Migration must define at least one up step');
+      }
     }
   }
 
-  if (!code.match(/name:\s*['"][^'"]+['"]/)) {
+  let nameFound = false;
+  let versionFound = false;
+
+  const metaProp = specObject.getProperty('meta');
+  if (metaProp && Node.isPropertyAssignment(metaProp)) {
+    const metaObj = metaProp.getInitializer();
+    if (Node.isObjectLiteralExpression(metaObj)) {
+      if (metaObj.getProperty('name')) nameFound = true;
+      if (metaObj.getProperty('version')) versionFound = true;
+    }
+  }
+
+  if (!nameFound && specObject.getProperty('name')) nameFound = true;
+  if (!versionFound && specObject.getProperty('version')) versionFound = true;
+
+  if (!nameFound) {
     errors.push('Missing or invalid migration name');
   }
 
-  if (!code.match(/version:\s*(?:\d+|['"][^'"]+['"])/)) {
+  if (!versionFound) {
     errors.push('Missing or invalid migration version');
   }
 
-  if (code.includes('TODO')) {
+  if (sourceFile.getFullText().includes('TODO')) {
     emitRule(
       'no-todo',
       'migration',
@@ -472,113 +697,196 @@ function validateMigrationSpec(
  * Validate common fields across all spec types
  */
 function validateCommonFields(
-  code: string,
+  sourceFile: SourceFile,
   fileName: string,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
+  const code = sourceFile.getFullText();
+
   // Skip import checks for internal library files that define the types
   const isInternalLib =
     fileName.includes('/libs/contracts/') ||
     fileName.includes('/libs/contracts-transformers/') ||
     fileName.includes('/libs/schema/');
 
-  // Check for SchemaModel import (skip for internal schema lib)
-  if (
-    code.includes('SchemaModel') &&
-    !/from\s+['"]@contractspec\/lib\.schema(\/[^'"]+)?['"]/.test(code) &&
-    !isInternalLib
-  ) {
-    errors.push('Missing import for SchemaModel from @contractspec/lib.schema');
+  if (code.includes('SchemaModel') && !isInternalLib) {
+    const imports = sourceFile.getImportDeclarations();
+    const hasSchemaImport = imports.some((i) =>
+      i.getModuleSpecifierValue().includes('@contractspec/lib.schema')
+    );
+
+    if (!hasSchemaImport) {
+      errors.push(
+        'Missing import for SchemaModel from @contractspec/lib.schema'
+      );
+    }
   }
 
-  // Check for contracts import only if spec types are used
-  // Skip for files that define the types themselves (inside lib.contracts)
   const usesSpecTypes =
-    code.includes(': OperationSpec') ||
-    code.includes(': PresentationSpec') ||
-    code.includes(': EventSpec') ||
-    code.includes(': FeatureSpec') ||
-    code.includes(': WorkflowSpec') ||
-    code.includes(': DataViewSpec') ||
-    code.includes(': MigrationSpec') ||
-    code.includes(': TelemetrySpec') ||
-    code.includes(': ExperimentSpec') ||
-    code.includes(': AppBlueprintSpec') ||
-    code.includes('defineCommand(') ||
-    code.includes('defineQuery(') ||
-    code.includes('defineEvent(');
+    code.includes('OperationSpec') ||
+    code.includes('PresentationSpec') ||
+    code.includes('EventSpec') ||
+    code.includes('FeatureSpec') ||
+    code.includes('WorkflowSpec') ||
+    code.includes('DataViewSpec') ||
+    code.includes('MigrationSpec') ||
+    code.includes('TelemetrySpec') ||
+    code.includes('ExperimentSpec') ||
+    code.includes('AppBlueprintSpec') ||
+    code.includes('defineCommand') ||
+    code.includes('defineQuery') ||
+    code.includes('defineEvent');
 
-  if (
-    usesSpecTypes &&
-    !/from\s+['"]@contractspec\/lib\.contracts(\/[^'"]+)?['"]/.test(code) &&
-    !isInternalLib
-  ) {
-    errors.push('Missing import from @contractspec/lib.contracts');
+  if (usesSpecTypes && !isInternalLib) {
+    const imports = sourceFile.getImportDeclarations();
+    const hasContractsImport = imports.some((i) =>
+      i.getModuleSpecifierValue().includes('@contractspec/lib.contracts')
+    );
+
+    if (!hasContractsImport) {
+      errors.push('Missing import from @contractspec/lib.contracts');
+    }
   }
 
-  // Check owners format
-  const ownersMatch = code.match(/owners:\s*\[(.*?)\]/s);
-  if (ownersMatch?.[1]) {
-    const ownersContent = ownersMatch[1];
-    // Allow @ mentions, OwnersEnum usage, or other constants (CAPS/PascalCase)
-    if (
-      !ownersContent.includes('@') &&
-      !ownersContent.includes('Enum') &&
-      !ownersContent.match(/[A-Z][a-zA-Z0-9_]+/)
-    ) {
+  const specObject = findMainExportedObject(sourceFile);
+
+  if (specObject && Node.isObjectLiteralExpression(specObject)) {
+    // Check owners format
+    const ownersProp = specObject.getProperty('owners');
+    // If owners in meta?
+    let ownersArr = undefined;
+
+    const checkOwners = (prop: Node) => {
+      if (Node.isPropertyAssignment(prop)) {
+        const init = prop.getInitializer();
+        if (init && Node.isArrayLiteralExpression(init)) {
+          return init;
+        }
+      }
+      return undefined;
+    };
+
+    if (ownersProp) ownersArr = checkOwners(ownersProp);
+
+    if (!ownersArr) {
+      // Check meta.owners
+      const metaProp = specObject.getProperty('meta');
+      if (metaProp && Node.isPropertyAssignment(metaProp)) {
+        const metaObj = metaProp.getInitializer();
+        if (metaObj && Node.isObjectLiteralExpression(metaObj)) {
+          const o = metaObj.getProperty('owners');
+          if (o) ownersArr = checkOwners(o);
+        }
+      }
+    }
+
+    if (ownersArr) {
+      for (const elem of ownersArr.getElements()) {
+        if (Node.isStringLiteral(elem)) {
+          const val = elem.getLiteralText();
+          if (
+            !val.includes('@') &&
+            !val.includes('Enum') &&
+            !val.match(/[A-Z][a-zA-Z0-9_]+/)
+          ) {
+            emitRule(
+              'require-owners-format',
+              'operation',
+              'Owners should start with @ or use an Enum/Constant',
+              errors,
+              warnings,
+              rulesConfig
+            );
+          }
+        }
+      }
+    }
+
+    // Check for stability
+    // Similar logic: top level or meta
+    let stabilityFound = false;
+    const stabilityProp = specObject.getProperty('stability');
+    if (stabilityProp) stabilityFound = true;
+
+    if (!stabilityFound) {
+      const metaProp = specObject.getProperty('meta');
+      if (metaProp && Node.isPropertyAssignment(metaProp)) {
+        const metaObj = metaProp.getInitializer();
+        if (Node.isObjectLiteralExpression(metaObj)) {
+          if (metaObj.getProperty('stability')) stabilityFound = true;
+        }
+      }
+    }
+
+    if (!stabilityFound) {
       emitRule(
-        'require-owners-format',
+        'require-stability',
         'operation',
-        'Owners should start with @ or use an Enum/Constant',
+        'Missing or invalid stability field',
         errors,
         warnings,
         rulesConfig
       );
     }
   }
-
-  // Check for stability
-  // Allow standard string literals, Enum usage (e.g. StabilityEnum.Beta), or Constants
-  if (
-    !code.match(
-      /stability:\s*(?:['"](?:experimental|beta|stable|deprecated)['"]|[A-Z][a-zA-Z0-9_]+(?:\.[a-zA-Z0-9_]+)?)/
-    )
-  ) {
-    emitRule(
-      'require-stability',
-      'operation',
-      'Missing or invalid stability field',
-      errors,
-      warnings,
-      rulesConfig
-    );
-  }
 }
 
 function validateDataViewSpec(
-  code: string,
+  sourceFile: SourceFile,
   errors: string[],
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  if (!code.match(/:\s*DataViewSpec\s*=/)) {
+  const specObject = getSpecObject(sourceFile, 'DataViewSpec');
+
+  if (!specObject) {
     errors.push('Missing DataViewSpec type annotation');
+    return;
   }
-  if (!code.includes('meta:')) {
+  if (!specObject.getProperty('meta')) {
     errors.push('Missing meta section');
   }
-  if (!code.includes('source:')) {
+  if (!specObject.getProperty('source')) {
     errors.push('Missing source section');
   }
-  if (!code.includes('view:')) {
+
+  const viewProp = specObject.getProperty('view');
+  if (!viewProp) {
     errors.push('Missing view section');
-  }
-  if (!code.match(/kind:\s*['"](list|table|detail|grid)['"]/)) {
+    // Ensure missing kind warning is also triggered for strict validation
     errors.push('Missing or invalid view.kind (list/table/detail/grid)');
+  } else if (Node.isPropertyAssignment(viewProp)) {
+    const viewObj = viewProp.getInitializer();
+    if (Node.isObjectLiteralExpression(viewObj)) {
+      const kindProp = viewObj.getProperty('kind');
+      if (!kindProp) {
+        errors.push('Missing or invalid view.kind (list/table/detail/grid)');
+      } else if (Node.isPropertyAssignment(kindProp)) {
+        const init = kindProp.getInitializer();
+        if (init && Node.isStringLiteral(init)) {
+          const val = init.getLiteralText();
+          if (!['list', 'table', 'detail', 'grid'].includes(val)) {
+            errors.push(
+              'Missing or invalid view.kind (list/table/detail/grid)'
+            );
+          }
+        }
+      }
+    }
   }
-  if (!code.match(/fields:\s*\[/)) {
+
+  let fieldsFound = false;
+  if (viewProp && Node.isPropertyAssignment(viewProp)) {
+    const viewObj = viewProp.getInitializer();
+    if (Node.isObjectLiteralExpression(viewObj)) {
+      if (viewObj.getProperty('fields')) fieldsFound = true;
+    }
+  }
+  if (!fieldsFound && specObject.getProperty('fields')) fieldsFound = true;
+
+  if (!fieldsFound) {
     emitRule(
       'data-view-fields',
       'data-view',
@@ -588,4 +896,81 @@ function validateDataViewSpec(
       rulesConfig
     );
   }
+}
+
+// Helper to find spec object with specific type annotation
+function getSpecObject(
+  sourceFile: SourceFile,
+  typeName: string
+): ObjectLiteralExpression | undefined {
+  const varStmts = sourceFile.getVariableStatements();
+  for (const stmt of varStmts) {
+    if (stmt.isExported()) {
+      for (const decl of stmt.getDeclarations()) {
+        const typeNode = decl.getTypeNode();
+        if (typeNode && typeNode.getText().includes(typeName)) {
+          const init = decl.getInitializer();
+          if (init && Node.isObjectLiteralExpression(init)) {
+            return init;
+          }
+        }
+      }
+    }
+  }
+  const exportAssign = sourceFile.getExportAssignment(
+    (d) => !d.isExportEquals()
+  );
+  if (exportAssign) {
+    const expr = exportAssign.getExpression();
+    if (Node.isAsExpression(expr)) {
+      if (expr.getTypeNode()?.getText().includes(typeName)) {
+        const inner = expr.getExpression();
+        if (Node.isObjectLiteralExpression(inner)) return inner;
+      }
+    }
+    if (Node.isObjectLiteralExpression(expr)) {
+      return expr;
+    }
+  }
+  return undefined;
+}
+
+function findMainExportedObject(
+  sourceFile: SourceFile
+): ObjectLiteralExpression | undefined {
+  // Return any object that looks like it could be the main spec
+  const varStmts = sourceFile.getVariableStatements();
+  for (const stmt of varStmts) {
+    if (stmt.isExported()) {
+      for (const decl of stmt.getDeclarations()) {
+        const init = decl.getInitializer();
+        if (init) {
+          if (Node.isObjectLiteralExpression(init)) return init;
+          if (Node.isCallExpression(init)) {
+            const args = init.getArguments();
+            if (args.length > 0 && Node.isObjectLiteralExpression(args[0]))
+              return args[0];
+          }
+        }
+      }
+    }
+  }
+  const exportAssign = sourceFile.getExportAssignment(
+    (d) => !d.isExportEquals()
+  );
+  if (exportAssign) {
+    const expr = exportAssign.getExpression();
+    if (Node.isObjectLiteralExpression(expr)) return expr;
+    if (
+      Node.isAsExpression(expr) &&
+      Node.isObjectLiteralExpression(expr.getExpression())
+    )
+      return expr.getExpression() as ObjectLiteralExpression;
+    if (Node.isCallExpression(expr)) {
+      const args = expr.getArguments();
+      if (args.length > 0 && Node.isObjectLiteralExpression(args[0]))
+        return args[0];
+    }
+  }
+  return undefined;
 }

@@ -31,8 +31,8 @@
   "dependencies": {
     "@ai-sdk/anthropic": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
-    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
     "@contractspec/module.workspace": "workspace:*",
@@ -42,6 +42,7 @@
     "glob": "catalog:build",
     "ollama-ai-provider": "catalog:ai",
     "ora": "^9.0.0",
+    "ts-morph": "^27.0.2",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -1,11 +1,10 @@
-/**
- * Example file scanning utilities.
- *
- * Extracts ExampleSpec metadata from source code without execution.
- */
-
+import {
+  isStability,
+  matchStringArrayField,
+  matchStringField,
+  matchStringFieldIn,
+} from './utils/matchers';
 import type { ExampleScanResult } from '../types/analysis-types';
-import type { Stability } from '../types/spec-types';
 
 /**
  * Check if a file is an example file based on naming conventions.
@@ -172,62 +171,4 @@ function extractKeyFromFilePath(filePath: string): string {
   return fileName
     .replace(/\.example\.[jt]s$/, '')
     .replace(/[^a-zA-Z0-9-]/g, '-');
-}
-
-/**
- * Match a string field in source code.
- */
-function matchStringField(code: string, field: string): string | null {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*['"]([^'"]+)['"]`);
-  const match = code.match(regex);
-  return match?.[1] ?? null;
-}
-
-/**
- * Match a string field within a limited scope.
- */
-function matchStringFieldIn(code: string, field: string): string | null {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*['"]([^'"]+)['"]`);
-  const match = code.match(regex);
-  return match?.[1] ?? null;
-}
-
-/**
- * Match a string array field in source code.
- */
-function matchStringArrayField(
-  code: string,
-  field: string
-): string[] | undefined {
-  const regex = new RegExp(`${escapeRegex(field)}\\s*:\\s*\\[([\\s\\S]*?)\\]`);
-  const match = code.match(regex);
-  if (!match?.[1]) return undefined;
-
-  const inner = match[1];
-  const items = Array.from(inner.matchAll(/['"]([^'"]+)['"]/g))
-    .map((m) => m[1])
-    .filter(
-      (value): value is string => typeof value === 'string' && value.length > 0
-    );
-
-  return items.length > 0 ? items : undefined;
-}
-
-/**
- * Check if a value is a valid stability.
- */
-function isStability(value: string | null): value is Stability {
-  return (
-    value === 'experimental' ||
-    value === 'beta' ||
-    value === 'stable' ||
-    value === 'deprecated'
-  );
-}
-
-/**
- * Escape regex special characters.
- */
-function escapeRegex(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

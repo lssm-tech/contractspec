@@ -25,6 +25,7 @@ export type AnalyzedSpecType =
   | 'app-config'
   | 'policy'
   | 'test-spec'
+  | 'type'
   | 'unknown';
 
 /**
@@ -104,6 +105,10 @@ export interface SpecScanResult {
 
   // Test target (for test-spec files)
   testTarget?: ExtractedTestTarget;
+  testCoverage?: {
+    hasSuccess: boolean;
+    hasError: boolean;
+  };
 
   // Extracted source code
   sourceBlock?: string;
@@ -115,6 +120,7 @@ export interface SpecScanResult {
 export interface FeatureScanResult {
   filePath: string;
   key: string;
+  version?: string;
   title?: string;
   description?: string;
   goal?: string;
@@ -138,6 +144,13 @@ export interface FeatureScanResult {
 
   // Op to presentation links
   opToPresentationLinks: { op: RefInfo; pres: RefInfo }[];
+
+  // Presentation target requirements
+  presentationsTargets?: {
+    key: string;
+    version: string;
+    targets: Record<string, unknown>[]; // untyped structure to decouple
+  }[];
 
   // Extracted source code
   sourceBlock?: string;

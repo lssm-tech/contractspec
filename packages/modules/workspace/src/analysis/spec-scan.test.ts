@@ -80,6 +80,53 @@ describe('scanSpecSource', () => {
       version: '2.0',
     });
   });
+  it('extracts test coverage info', () => {
+    const code = `
+      defineTestSpec({
+        meta: { key: 'my-test', version: '1.0.0' },
+        scenarios: [
+          {
+            when: { ... },
+            then: [
+              { type: 'expectOutput', match: {} }
+            ]
+          },
+          {
+            when: { ... },
+            then: [
+              { type: 'expectError' }
+            ]
+          }
+        ]
+      });
+    `;
+    const result = scanSpecSource(code, 'src/my.test-spec.ts');
+    expect(result.testCoverage).toEqual({
+      hasSuccess: true,
+      hasError: true,
+    });
+  });
+
+  it('detects missing test coverage scenarios', () => {
+    const code = `
+      defineTestSpec({
+        meta: { key: 'my-test', version: '1.0.0' },
+        scenarios: [
+          {
+            when: { ... },
+            then: [
+              { type: 'expectOutput', match: {} }
+            ]
+          }
+        ]
+      });
+    `;
+    const result = scanSpecSource(code, 'src/my.test-spec.ts');
+    expect(result.testCoverage).toEqual({
+      hasSuccess: true,
+      hasError: false,
+    });
+  });
 });
 
 describe('scanAllSpecsFromSource', () => {
