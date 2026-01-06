@@ -1,16 +1,14 @@
 import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
 import { createNodeGitAdapter } from './git';
-import * as childProcess from 'node:child_process';
-import * as fs from 'node:fs/promises';
 
 describe('Git Adapter', () => {
-  const mockExecSync = mock((command: string) => '');
-  const mockAccess = mock((path: string) => Promise.resolve());
+  const mockExecSync = mock((_command: string) => '');
+  const mockAccess = mock((_path: string) => Promise.resolve());
 
   beforeEach(() => {
     mockExecSync.mockClear();
     mockAccess.mockClear();
-    
+
     // Patch globals/modules
     mock.module('node:child_process', () => ({
       execSync: mockExecSync,
@@ -18,7 +16,7 @@ describe('Git Adapter', () => {
     mock.module('node:fs/promises', () => ({
       access: mockAccess,
     }));
-    
+
     // Reset implementations
     mockExecSync.mockImplementation(() => '');
   });
@@ -82,12 +80,13 @@ describe('Git Adapter', () => {
 
   describe('log', () => {
     it('should return parsed log entries', async () => {
-      const logOutput = 'hash1|||msg1|||user1|||2025-01-01\n' +
-                        'hash2|||msg2|||user2|||2025-01-02';
+      const logOutput =
+        'hash1|||msg1|||user1|||2025-01-01\n' +
+        'hash2|||msg2|||user2|||2025-01-02';
       mockExecSync.mockReturnValue(logOutput);
 
       const entries = await adapter.log();
-      
+
       expect(entries).toHaveLength(2);
       expect(entries[0]).toEqual({
         hash: 'hash1',

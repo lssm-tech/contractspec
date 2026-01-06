@@ -1,5 +1,7 @@
 import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
 import { compareSpecs } from './diff';
+import type { FsAdapter } from '../ports/fs';
+import type { GitAdapter } from '../ports/git';
 
 const mockComputeSemanticDiff = mock(() => []);
 
@@ -29,11 +31,11 @@ describe('Diff Service', () => {
   });
 
   it('should compare two local files', async () => {
-    const result = await compareSpecs(
-      'spec1.ts',
-      'spec2.ts',
-      { fs: mockFs as any, git: mockGit as any }
-    );
+    const result = await compareSpecs('spec1.ts', 'spec2.ts', {
+      fs: mockFs as unknown as FsAdapter,
+
+      git: mockGit as unknown as GitAdapter,
+    });
 
     expect(result.spec1).toBe('spec1.ts');
     expect(result.spec2).toBe('spec2.ts');
@@ -46,7 +48,11 @@ describe('Diff Service', () => {
     const result = await compareSpecs(
       'spec1.ts',
       'spec1.ts',
-      { fs: mockFs as any, git: mockGit as any },
+      {
+        fs: mockFs as unknown as FsAdapter,
+
+        git: mockGit as unknown as GitAdapter,
+      },
       { baseline: 'HEAD' }
     );
 
@@ -58,11 +64,13 @@ describe('Diff Service', () => {
 
   it('should throw if file does not exist', async () => {
     mockFs.exists.mockResolvedValue(false);
-    
-    expect(compareSpecs(
-      'missing.ts',
-      'spec2.ts',
-      { fs: mockFs as any, git: mockGit as any }
-    )).rejects.toThrow('Spec file not found');
+
+    expect(
+      compareSpecs('missing.ts', 'spec2.ts', {
+        fs: mockFs as unknown as FsAdapter,
+
+        git: mockGit as unknown as GitAdapter,
+      })
+    ).rejects.toThrow('Spec file not found');
   });
 });

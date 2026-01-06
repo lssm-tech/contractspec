@@ -42,38 +42,42 @@ describe('Text Formatter', () => {
   describe('formatAsTextLines', () => {
     it('should generate header and summary', () => {
       const lines = formatAsTextLines(mockResult);
-      
-      const header = lines.find((l) => l.text.includes('ContractSpec CI Check Results'));
+
+      const header = lines.find((l) =>
+        l.text.includes('ContractSpec CI Check Results')
+      );
       expect(header).toBeDefined();
-      
+
       const failure = lines.find((l) => l.text.includes('CI checks failed'));
       expect(failure).toBeDefined();
     });
 
     it('should include category contents', () => {
       const lines = formatAsTextLines(mockResult);
-      const categoryLine = lines.find((l) => l.text.includes('Structure: 1 error(s)'));
+      const categoryLine = lines.find((l) =>
+        l.text.includes('Structure: 1 error(s)')
+      );
       expect(categoryLine).toBeDefined();
     });
 
     it('should format issues', () => {
       const lines = formatAsTextLines(mockResult);
-      
+
       const errorLine = lines.find((l) => l.text.includes('Error message'));
       expect(errorLine).toBeDefined();
-      expect(errorLine!.style).toBe('error');
-      
+      expect(errorLine?.style).toBe('error');
+
       const warningLine = lines.find((l) => l.text.includes('Warning message'));
       expect(warningLine).toBeDefined();
-      expect(warningLine!.style).toBe('warning');
+      expect(warningLine?.style).toBe('warning');
     });
 
     it('should support grouping by file', () => {
       const lines = formatAsTextLines(mockResult, { groupByFile: true });
-      
+
       const fileLine = lines.find((l) => l.text.includes('spec.ts'));
       expect(fileLine).toBeDefined();
-      
+
       const noFileLine = lines.find((l) => l.text.includes('(no file)'));
       expect(noFileLine).toBeDefined();
     });

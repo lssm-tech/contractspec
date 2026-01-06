@@ -1,6 +1,11 @@
 import { describe, expect, it, mock, beforeEach, afterEach } from 'bun:test';
 import { buildSpec } from './build';
-import type { SpecScanResult } from '@contractspec/module.workspace';
+import type {
+  SpecScanResult,
+  WorkspaceConfig,
+} from '@contractspec/module.workspace';
+import type { FsAdapter } from '../ports/fs';
+import type { LoggerAdapter } from '../ports/logger';
 
 // Mock module.workspace
 const mockScanSpecSource = mock();
@@ -15,7 +20,7 @@ const mockWorkspace = {
   generateHandlerTemplate: mockGenerateHandler,
   generateComponentTemplate: mockGenerateComponent,
   generateTestTemplate: mockGenerateTest,
-} as any;
+} as unknown;
 
 describe('Build Service', () => {
   const mockFs = {
@@ -63,20 +68,24 @@ describe('Build Service', () => {
     outputDir: 'src',
     contracts: {},
     ignore: [],
-  } as any;
+  } as unknown;
 
   it('should build handler for operation spec', async () => {
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
-    
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
+
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config as any
+      config as unknown as WorkspaceConfig
     );
 
     // buildSpec returns BuildSpecResult which doesn't have success property directly
@@ -89,16 +98,20 @@ describe('Build Service', () => {
 
   it('should build component for presentation spec', async () => {
     mockInferSpecType.mockReturnValue('presentation');
-    mockScanSpecSource.mockReturnValue({ key: 'my.component', description: 'desc' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      key: 'my.component',
+      description: 'desc',
+    } as SpecScanResult);
 
     const result = await buildSpec(
       'specs/my.component.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config as any
+      config as unknown as WorkspaceConfig
     );
 
     expect(result.results).toHaveLength(1);
@@ -108,17 +121,21 @@ describe('Build Service', () => {
 
   it('should skip existing files unless overwrite is true', async () => {
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
     mockFs.exists.mockResolvedValueOnce(true);
 
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config as any
+      config as unknown as WorkspaceConfig
     );
 
     expect(result.results[0]?.skipped).toBe(true);
@@ -127,16 +144,20 @@ describe('Build Service', () => {
 
   it('should generate tests when requested', async () => {
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
 
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config as any,
+      config as unknown as WorkspaceConfig,
       { targets: ['handler', 'test'] }
     );
 
@@ -147,16 +168,20 @@ describe('Build Service', () => {
   it('should skip overwrite if file exists', async () => {
     mockFs.exists.mockResolvedValue(true);
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
 
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config as any
+      config as unknown as WorkspaceConfig
     );
 
     expect(result.results[0]?.skipped).toBe(true);
@@ -165,17 +190,21 @@ describe('Build Service', () => {
 
   it('should overwrite existing files if overwrite is true', async () => {
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
     mockFs.exists.mockResolvedValueOnce(true);
 
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
-        fs: mockFs as any,
-        logger: mockLogger as any,
-        workspace: mockWorkspace,
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config,
+      config as unknown as WorkspaceConfig,
       { overwrite: true }
     );
 
@@ -186,16 +215,22 @@ describe('Build Service', () => {
 
   it('should respect dryRun', async () => {
     mockInferSpecType.mockReturnValue('operation');
-    mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
 
     const result = await buildSpec(
       'specs/my.cmd.ts',
       {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         fs: mockFs as any,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         logger: mockLogger as any,
-        workspace: mockWorkspace,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
       },
-      config,
+      config as unknown as WorkspaceConfig,
       { dryRun: true }
     );
 
@@ -206,30 +241,45 @@ describe('Build Service', () => {
   it('should handle errors gracefully', async () => {
     mockInferSpecType.mockReturnValue('operation');
     mockScanSpecSource.mockImplementation(() => {
-        throw new Error('Scan failed');
+      throw new Error('Scan failed');
     });
 
     // scanSpecSource exception bubbles up if it happens before the loop
-    expect(buildSpec(
+    expect(
+      buildSpec(
         'specs/my.cmd.ts',
-        { fs: mockFs as any, logger: mockLogger, workspace: mockWorkspace },
-        config
-    )).rejects.toThrow('Scan failed');
+        {
+          fs: mockFs as unknown as FsAdapter,
+          logger: mockLogger as unknown as LoggerAdapter,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          workspace: mockWorkspace as unknown as any,
+        },
+        config as unknown as WorkspaceConfig
+      )
+    ).rejects.toThrow('Scan failed');
   });
-  
+
   it('should handle build errors for specific targets', async () => {
-      mockInferSpecType.mockReturnValue('operation');
-      mockScanSpecSource.mockReturnValue({ kind: 'command', key: 'my.cmd' } as SpecScanResult);
-      mockFs.writeFile.mockRejectedValue(new Error('Write failed'));
-      
-      const result = await buildSpec(
-        'specs/my.cmd.ts',
-        { fs: mockFs as any, logger: mockLogger, workspace: mockWorkspace },
-        config,
-        { targets: ['handler'] }
-      );
-      
-      expect(result.results[0]?.success).toBe(false);
-      expect(result.results[0]?.error).toBe('Write failed');
+    mockInferSpecType.mockReturnValue('operation');
+    mockScanSpecSource.mockReturnValue({
+      kind: 'command',
+      key: 'my.cmd',
+    } as SpecScanResult);
+    mockFs.writeFile.mockRejectedValue(new Error('Write failed'));
+
+    const result = await buildSpec(
+      'specs/my.cmd.ts',
+      {
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workspace: mockWorkspace as unknown as any,
+      },
+      config as unknown as WorkspaceConfig,
+      { targets: ['handler'] }
+    );
+
+    expect(result.results[0]?.success).toBe(false);
+    expect(result.results[0]?.error).toBe('Write failed');
   });
 });

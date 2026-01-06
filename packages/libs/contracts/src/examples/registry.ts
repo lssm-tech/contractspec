@@ -1,5 +1,3 @@
-import { compareVersions } from 'compare-versions';
-import { filterBy, getUniqueTags, groupBy } from '../registry-utils';
 import type { ExampleSpec, ExampleKind, ExampleVisibility } from './types';
 import { SpecContractRegistry } from '../registry';
 
@@ -18,7 +16,10 @@ import { SpecContractRegistry } from '../registry';
  * const publicExamples = registry.listByVisibility('public');
  * ```
  */
-export class ExampleRegistry extends SpecContractRegistry<'example', ExampleSpec> {
+export class ExampleRegistry extends SpecContractRegistry<
+  'example',
+  ExampleSpec
+> {
   public constructor(items?: ExampleSpec[]) {
     super('example', items);
   }

@@ -1,12 +1,16 @@
 import { describe, expect, it, mock } from 'bun:test';
 import { watchSpecs } from './watch';
+import type { FsAdapter } from '../ports/fs';
+import type { WorkspaceConfig } from '@contractspec/module.workspace';
+import type { LoggerAdapter } from '../ports/logger';
+import type { WatcherAdapter } from '../ports/watcher';
 
 describe('Watch Service', () => {
   const mockWatcher = {
     watch: mock(() => mockWatcherInstance),
   };
 
-  const handlers: ((event: any) => void)[] = [];
+  const handlers: ((event: unknown) => void)[] = [];
   const mockWatcherInstance = {
     on: mock((cb) => handlers.push(cb)),
     close: mock(),
@@ -32,11 +36,15 @@ describe('Watch Service', () => {
     outputDir: 'src',
     contracts: {},
     ignore: [],
-  } as any;
+  } as unknown as WorkspaceConfig;
 
   it('should register watcher', () => {
     watchSpecs(
-      { watcher: mockWatcher as any, fs: {} as any, logger: mockLogger },
+      {
+        watcher: mockWatcher as unknown as WatcherAdapter,
+        fs: {} as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { pattern: '**/*.ts' }
     );
@@ -50,7 +58,11 @@ describe('Watch Service', () => {
     const mockBuild = mock();
 
     watchSpecs(
-      { watcher: mockWatcher as any, fs: {} as any, logger: mockLogger },
+      {
+        watcher: mockWatcher as unknown as WatcherAdapter,
+        fs: {} as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { pattern: '**/*.ts', runValidate: true, runBuild: true },
       { validate: mockValidate, build: mockBuild }
@@ -59,13 +71,13 @@ describe('Watch Service', () => {
     // Simulate change event
     const changeHandler = handlers[handlers.length - 1];
     expect(changeHandler).toBeDefined();
-    await changeHandler!({ type: 'change', path: 'spec.ts' });
+    await changeHandler?.({ type: 'change', path: 'spec.ts' });
 
     expect(mockValidate).toHaveBeenCalledWith('spec.ts');
     expect(mockBuild).toHaveBeenCalledWith('spec.ts');
     expect(mockLogger.info).toHaveBeenCalledWith(
-        'watchSpecs.changed', 
-        expect.objectContaining({ path: 'spec.ts' })
+      'watchSpecs.changed',
+      expect.objectContaining({ path: 'spec.ts' })
     );
   });
 
@@ -73,7 +85,11 @@ describe('Watch Service', () => {
     const mockBuild = mock();
 
     watchSpecs(
-      { watcher: mockWatcher as any, fs: {} as any, logger: mockLogger },
+      {
+        watcher: mockWatcher as unknown as WatcherAdapter,
+        fs: {} as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { pattern: '**/*.ts', runBuild: true, dryRun: true },
       { build: mockBuild }
@@ -81,12 +97,12 @@ describe('Watch Service', () => {
 
     const changeHandler = handlers[handlers.length - 1];
     expect(changeHandler).toBeDefined();
-    await changeHandler!({ type: 'change', path: 'spec.ts' });
+    await changeHandler?.({ type: 'change', path: 'spec.ts' });
 
     expect(mockBuild).not.toHaveBeenCalled();
     expect(mockLogger.info).toHaveBeenCalledWith(
-        expect.stringContaining('[dry-run]'), 
-        expect.anything()
+      expect.stringContaining('[dry-run]'),
+      expect.anything()
     );
   });
 });

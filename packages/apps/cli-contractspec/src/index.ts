@@ -18,6 +18,11 @@ import { openapiCommand } from './commands/openapi/index';
 import { examplesCommand } from './commands/examples/index';
 import { workspaceCommand } from './commands/workspace/index';
 import { integrityCommand } from './commands/integrity/index';
+import { viewCommand } from './commands/view/index';
+import { generateCommand } from './commands/generate/index';
+import { extractCommand } from './commands/extract/index';
+import { gapCommand } from './commands/gap/index';
+import { applyCommand } from './commands/apply/index';
 import { initCommand } from './commands/init/index';
 import { doctorCommand } from './commands/doctor/index';
 import { ciCommand } from './commands/ci/index';
@@ -153,6 +158,11 @@ program.addCommand(withCategory(createDocsCommand(), CATEGORY_OTHER));
 program.addCommand(withCategory(listCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(quickstartCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(workspaceCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(viewCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(generateCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(extractCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(gapCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(applyCommand, CATEGORY_ESSENTIALS));
 
 // Development
 program.addCommand(withCategory(watchCommand, CATEGORY_DEVELOPMENT));

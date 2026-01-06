@@ -39,6 +39,10 @@ export async function listSpecs(
     const content = await fs.readFile(file);
     const result = scan(content, file);
 
+    if (result.specType === 'unknown') {
+      continue;
+    }
+
     if (options.type && result.specType !== options.type) {
       continue;
     }

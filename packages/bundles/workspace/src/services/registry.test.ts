@@ -6,6 +6,7 @@ import {
   listFromRegistry,
   searchRegistry,
 } from './registry';
+import type { LoggerAdapter } from '../ports/logger';
 
 describe('Registry Service', () => {
   const mockFetch = mock(() =>
@@ -31,7 +32,7 @@ describe('Registry Service', () => {
     mockFetch.mockClear();
     mockLogger.info.mockClear();
     global.fetch = mockFetch as unknown as typeof fetch;
-    
+
     // Reset to default success response
     mockFetch.mockResolvedValue(
       new Response(JSON.stringify([]), { status: 200 })
@@ -44,7 +45,7 @@ describe('Registry Service', () => {
 
   describe('RegistryClient', () => {
     it('should resolve URL correctly', () => {
-      const client = new RegistryClient({ registryUrl: 'http://foo.com/' });
+      new RegistryClient({ registryUrl: 'http://foo.com/' });
       // client.getJson uses resolved URL
     });
 
@@ -66,13 +67,17 @@ describe('Registry Service', () => {
         new Response('Not Found', { status: 404, statusText: 'Not Found' })
       );
       const client = new RegistryClient({ registryUrl: 'http://foo.com' });
-      expect(client.getJson('/path')).rejects.toThrow('Registry request failed: 404');
+      expect(client.getJson('/path')).rejects.toThrow(
+        'Registry request failed: 404'
+      );
     });
 
     it('should throw on fetch failure', async () => {
       mockFetch.mockRejectedValue(new Error('Network error'));
       const client = new RegistryClient({ registryUrl: 'http://foo.com' });
-      expect(client.getJson('/path')).rejects.toThrow('Registry request failed');
+      expect(client.getJson('/path')).rejects.toThrow(
+        'Registry request failed'
+      );
     });
   });
 
@@ -97,7 +102,11 @@ describe('Registry Service', () => {
 
   describe('High-level functions', () => {
     it('addToRegistry should call correct endpoint', async () => {
-      await addToRegistry('specs/foo.yaml', {}, { logger: mockLogger });
+      await addToRegistry(
+        'specs/foo.yaml',
+        {},
+        { logger: mockLogger as unknown as LoggerAdapter }
+      );
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/specs/add?path='),
         expect.anything()
@@ -109,7 +118,10 @@ describe('Registry Service', () => {
       mockFetch.mockResolvedValue(
         new Response(JSON.stringify(['spec1']), { status: 200 })
       );
-      const specs = await listFromRegistry({}, { logger: mockLogger });
+      const specs = await listFromRegistry(
+        {},
+        { logger: mockLogger as unknown as LoggerAdapter }
+      );
       expect(specs).toEqual(['spec1']);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/specs'),
@@ -121,7 +133,11 @@ describe('Registry Service', () => {
       mockFetch.mockResolvedValue(
         new Response(JSON.stringify(['found']), { status: 200 })
       );
-      const results = await searchRegistry('query', {}, { logger: mockLogger });
+      const results = await searchRegistry(
+        'query',
+        {},
+        { logger: mockLogger as unknown as LoggerAdapter }
+      );
       expect(results).toEqual(['found']);
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/specs/search?q=query'),

@@ -72,17 +72,24 @@ export interface BuildSpecResult {
  */
 export async function buildSpec(
   specPath: string,
-  adapters: { fs: FsAdapter; logger: LoggerAdapter; workspace?: typeof import('@contractspec/module.workspace') },
+  adapters: {
+    fs: FsAdapter;
+    logger: LoggerAdapter;
+    workspace?: typeof import('@contractspec/module.workspace');
+  },
   config: WorkspaceConfig,
   options: BuildSpecOptions = {}
 ): Promise<BuildSpecResult> {
   const { fs, logger, workspace } = adapters;
-  
+
   // Use injected modules or defaults
   const scan = workspace?.scanSpecSource ?? scanSpecSource;
-  const inferType = workspace?.inferSpecTypeFromFilePath ?? inferSpecTypeFromFilePath;
-  const genHandler = workspace?.generateHandlerTemplate ?? generateHandlerTemplate;
-  const genComponent = workspace?.generateComponentTemplate ?? generateComponentTemplate;
+  const inferType =
+    workspace?.inferSpecTypeFromFilePath ?? inferSpecTypeFromFilePath;
+  const genHandler =
+    workspace?.generateHandlerTemplate ?? generateHandlerTemplate;
+  const genComponent =
+    workspace?.generateComponentTemplate ?? generateComponentTemplate;
   const genTest = workspace?.generateTestTemplate ?? generateTestTemplate;
 
   const {
@@ -276,7 +283,10 @@ async function buildTarget(
 /**
  * Detect default targets based on spec type.
  */
-function detectDefaultTargets(specPath: string, inferType: typeof inferSpecTypeFromFilePath): BuildTarget[] {
+function detectDefaultTargets(
+  specPath: string,
+  inferType: typeof inferSpecTypeFromFilePath
+): BuildTarget[] {
   const specType = inferType(specPath);
 
   switch (specType) {

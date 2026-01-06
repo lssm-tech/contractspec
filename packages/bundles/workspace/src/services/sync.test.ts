@@ -1,5 +1,8 @@
 import { describe, expect, it, mock, beforeEach } from 'bun:test';
 import { syncSpecs } from './sync';
+import type { FsAdapter } from '../ports/fs';
+import type { WorkspaceConfig } from '@contractspec/module.workspace';
+import type { LoggerAdapter } from '../ports/logger';
 
 describe('Sync Service', () => {
   const mockFs = {
@@ -26,7 +29,7 @@ describe('Sync Service', () => {
     outputDir: 'src',
     contracts: {},
     ignore: [],
-  } as any;
+  } as unknown as WorkspaceConfig;
 
   beforeEach(() => {
     mockFs.glob.mockClear();
@@ -35,11 +38,17 @@ describe('Sync Service', () => {
   });
 
   it('should sync all specs with overrides', async () => {
-    const mockValidate = mock((specPath) => Promise.resolve({ valid: true, specPath } as any));
-    const mockBuild = mock((specPath) => Promise.resolve({ success: true }));
+    const mockValidate = mock((specPath) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Promise.resolve({ valid: true, specPath } as unknown as any)
+    );
+    const mockBuild = mock((_specPath) => Promise.resolve({ success: true }));
 
     const result = await syncSpecs(
-      { fs: mockFs as any, logger: mockLogger },
+      {
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { validate: true },
       { validate: mockValidate, build: mockBuild }
@@ -49,7 +58,7 @@ describe('Sync Service', () => {
     expect(result.runs).toHaveLength(2);
     expect(mockValidate).toHaveBeenCalledTimes(2);
     expect(mockBuild).toHaveBeenCalledTimes(2);
-    
+
     // Check validation results populated
     expect(result.runs[0]?.validation).toBeDefined();
     expect(result.runs[0]?.build).toBeDefined();
@@ -59,7 +68,10 @@ describe('Sync Service', () => {
     const mockBuild = mock();
 
     await syncSpecs(
-      { fs: mockFs as any, logger: mockLogger },
+      {
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { outputDirs: ['dir1', 'dir2'] },
       { build: mockBuild }
@@ -73,7 +85,10 @@ describe('Sync Service', () => {
     const mockBuild = mock();
 
     await syncSpecs(
-      { fs: mockFs as any, logger: mockLogger },
+      {
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { dryRun: true },
       { build: mockBuild }
@@ -81,16 +96,21 @@ describe('Sync Service', () => {
 
     expect(mockBuild).not.toHaveBeenCalled();
     expect(mockLogger.info).toHaveBeenCalledWith(
-        expect.stringContaining('[dry-run]'), 
-        expect.anything()
+      expect.stringContaining('[dry-run]'),
+      expect.anything()
     );
   });
 
   it('should capture errors', async () => {
-    const mockValidate = mock(() => Promise.reject(new Error('Validation failed')));
+    const mockValidate = mock(() =>
+      Promise.reject(new Error('Validation failed'))
+    );
 
     const result = await syncSpecs(
-      { fs: mockFs as any, logger: mockLogger },
+      {
+        fs: mockFs as unknown as FsAdapter,
+        logger: mockLogger as unknown as LoggerAdapter,
+      },
       config,
       { validate: true },
       { validate: mockValidate }

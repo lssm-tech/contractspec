@@ -1,4 +1,3 @@
-
 import { describe, it, expect, mock, beforeEach } from 'bun:test';
 import { runCIChecks } from './ci-check-service';
 import type { FsAdapter } from '../../ports/fs';
@@ -6,52 +5,66 @@ import type { LoggerAdapter } from '../../ports/logger';
 
 // Mock dependencies
 const mockAnalyzeIntegrity = mock(() => Promise.resolve({ issues: [] }));
-const mockAnalyzeDeps = mock(() => Promise.resolve({ cycles: [], missing: [] }));
+const mockAnalyzeDeps = mock(() =>
+  Promise.resolve({ cycles: [], missing: [] })
+);
 const mockRunDoctor = mock(() => Promise.resolve({ checks: [] }));
-const mockValidateImplementationFiles = mock(() => Promise.resolve({ errors: [], warnings: [] } as { errors: string[], warnings: string[] }));
-const mockLoadWorkspaceConfig = mock(() => Promise.resolve({ outputDir: 'dist' }));
+const mockValidateImplementationFiles = mock(() =>
+  Promise.resolve({ errors: [], warnings: [] } as {
+    errors: string[];
+    warnings: string[];
+  })
+);
+const mockLoadWorkspaceConfig = mock(() =>
+  Promise.resolve({ outputDir: 'dist' })
+);
 const mockResolveAllImplementations = mock(() => Promise.resolve([]));
 const mockDiscoverLayers = mock(() => Promise.resolve([]));
-const mockValidateTestRefs = mock(() => Promise.resolve({ errors: [], missingTests: [] }));
-const mockValidateSpecStructure = mock(() => ({ errors: [], warnings: [] } as { errors: string[], warnings: string[] }));
+const mockValidateTestRefs = mock(() =>
+  Promise.resolve({ errors: [], missingTests: [] })
+);
+const mockValidateSpecStructure = mock(
+  () =>
+    ({ errors: [], warnings: [] }) as { errors: string[]; warnings: string[] }
+);
 
 // Mock external modules
 mock.module('../integrity', () => ({
-  analyzeIntegrity: mockAnalyzeIntegrity
+  analyzeIntegrity: mockAnalyzeIntegrity,
 }));
 
 mock.module('../deps', () => ({
-  analyzeDeps: mockAnalyzeDeps
+  analyzeDeps: mockAnalyzeDeps,
 }));
 
 mock.module('../doctor/doctor-service', () => ({
-  runDoctor: mockRunDoctor
+  runDoctor: mockRunDoctor,
 }));
 
 mock.module('../validate/implementation-validator', () => ({
-  validateImplementationFiles: mockValidateImplementationFiles
+  validateImplementationFiles: mockValidateImplementationFiles,
 }));
 
 mock.module('../config', () => ({
-  loadWorkspaceConfig: mockLoadWorkspaceConfig
+  loadWorkspaceConfig: mockLoadWorkspaceConfig,
 }));
 
 mock.module('../implementation/resolver', () => ({
-  resolveAllImplementations: mockResolveAllImplementations
+  resolveAllImplementations: mockResolveAllImplementations,
 }));
 
 mock.module('../layer-discovery', () => ({
-  discoverLayers: mockDiscoverLayers
+  discoverLayers: mockDiscoverLayers,
 }));
 
 mock.module('../test-link', () => ({
-  validateTestRefs: mockValidateTestRefs
+  validateTestRefs: mockValidateTestRefs,
 }));
 
 mock.module('@contractspec/module.workspace', () => ({
   isFeatureFile: (f: string) => f.endsWith('.feature.ts'),
   scanAllSpecsFromSource: () => [],
-  validateSpecStructure: mockValidateSpecStructure
+  validateSpecStructure: mockValidateSpecStructure,
 }));
 
 describe('runCIChecks', () => {
@@ -67,7 +80,7 @@ describe('runCIChecks', () => {
     mockResolveAllImplementations.mockClear();
     mockDiscoverLayers.mockClear();
     mockValidateTestRefs.mockClear();
-    // Validate spec structure is a function returning object, not a promise mock in my setup, 
+    // Validate spec structure is a function returning object, not a promise mock in my setup,
     // but the mock itself is a fn so I can clear it possibly or just re-impl
     mockValidateSpecStructure.mockClear();
 
@@ -118,10 +131,13 @@ describe('runCIChecks', () => {
   });
 
   it('should fail on warnings if failOnWarnings is true', async () => {
-    mockValidateSpecStructure.mockImplementationOnce(() => ({
-      errors: [],
-      warnings: ['some warning']
-    } as any));
+    mockValidateSpecStructure.mockImplementationOnce(
+      () =>
+        ({
+          errors: [],
+          warnings: ['some warning'],
+        }) as unknown as { errors: string[]; warnings: string[] }
+    );
 
     const result = await runCIChecks(
       { fs: mockFs, logger: mockLogger },

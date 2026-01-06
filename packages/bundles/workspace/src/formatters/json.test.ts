@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import {
-  formatAsJson,
-  formatAsJsonCompact,
-  formatAsJsonFull,
-} from './json';
+import { formatAsJson, formatAsJsonCompact, formatAsJsonFull } from './json';
 import type { CICheckResult } from '../services/ci-check/types';
 
 describe('JSON Formatter', () => {
@@ -55,7 +51,7 @@ describe('JSON Formatter', () => {
       expect(output.warnings).toBe(1);
       expect(output.timestamp).toBe(mockDate);
       expect(output.commit).toBe('abc1234');
-      
+
       expect(output.issues).toHaveLength(2);
       expect(output.issues[0]).toEqual({
         rule: 'error-rule',
@@ -75,10 +71,10 @@ describe('JSON Formatter', () => {
 
       expect(output.success).toBe(false);
       expect(output.summary.totalErrors).toBe(1);
-      
+
       expect(output.categories).toHaveLength(1);
       expect(output.categories[0]?.category).toBe('structure');
-      
+
       expect(output.issues).toHaveLength(2);
       expect(output.issues[0]?.category).toBe('structure');
     });
