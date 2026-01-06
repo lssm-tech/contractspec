@@ -73,7 +73,8 @@ export function validateSpecStructure(
     sourceFile.getExportAssignments().length > 0 ||
     sourceFile.getVariableStatements().some((s) => s.isExported()) ||
     sourceFile.getFunctions().some((f) => f.isExported()) ||
-    sourceFile.getClasses().some((c) => c.isExported());
+    sourceFile.getClasses().some((c) => c.isExported()) ||
+    sourceFile.getExportDeclarations().length > 0;
 
   if (!hasExport) {
     errors.push('No exported spec found');
