@@ -27,7 +27,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@contractspec/lib.ai-agent": "workspace:*",

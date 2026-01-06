@@ -1,0 +1,1813 @@
+bun test v1.3.5 (1e86cebd)
+
+packages/tools/eslint-plugin-design-system/tests/prefer-design-system.test.js:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'eslint-visitor-keys' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/node_modules/@eslint-community/eslint-utils/index.js'
+-------------------------------
+
+
+packages/libs/contracts/src/ownership.test.ts:
+(pass) StabilityEnum > should have all stability values
+(pass) StabilityEnum > should allow type-safe stability values
+(pass) OwnersEnum > should have platform owner values
+(pass) OwnersEnum > should have backwards-compatible Owners alias
+(pass) OwnersEnum > should allow custom string owners
+(pass) TagsEnum > should have all tag values
+(pass) TagsEnum > should have backwards-compatible Tags alias
+(pass) TagsEnum > should allow custom string tags
+(pass) OwnerShipMeta interface > should properly structure ownership metadata [0.21ms]
+(pass) OwnerShipMeta interface > should allow optional fields
+
+packages/libs/contracts/src/features.capabilities.test.ts:
+(pass) installFeature capability validation > throws when capability requirement is not satisfied [0.69ms]
+(pass) installFeature capability validation > allows instal when capability registry contains the required capability [0.10ms]
+(pass) installFeature capability validation > allows capability requirements satisfied by locally provided capability [0.03ms]
+
+packages/libs/contracts/src/themes.test.ts:
+(pass) ThemeRegistry > registers and retrieves themes by name/version
+(pass) ThemeRegistry > returns latest version when version omitted [0.56ms]
+(pass) ThemeRegistry > creates stable theme references
+
+packages/libs/contracts/src/jsonschema.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/jsonschema.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/events.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/events.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/prompt.test.ts:
+(pass) definePrompt > should return the prompt spec unchanged [0.67ms]
+(pass) definePrompt > should preserve metadata fields [0.09ms]
+(pass) definePrompt > should preserve policy configuration [0.47ms]
+(pass) PromptArg interface > should define argument with required fields [0.01ms]
+(pass) PromptArg interface > should define argument with all fields [0.12ms]
+(pass) PromptContentPart types > should support text content
+(pass) PromptContentPart types > should support resource content
+(pass) render function > should receive args and context [0.26ms]
+
+packages/libs/contracts/src/model-registry.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/model-registry.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/registry-utils.test.ts:
+(pass) Registry Utils > filterBy > should filter by single tag [0.05ms]
+(pass) Registry Utils > filterBy > should filter by multiple tags (OR) [0.05ms]
+(pass) Registry Utils > filterBy > should filter by owner [0.03ms]
+(pass) Registry Utils > filterBy > should filter by stability [0.01ms]
+(pass) Registry Utils > filterBy > should filter by domain [0.04ms]
+(pass) Registry Utils > filterBy > should filter by name pattern with wildcard [0.05ms]
+(pass) Registry Utils > filterBy > should combine multiple criteria with AND [0.05ms]
+(pass) Registry Utils > filterBy > should return all items with empty criteria
+(pass) Registry Utils > groupBy > should group items by key function
+(pass) Registry Utils > groupBy > should group by first tag [0.07ms]
+(pass) Registry Utils > groupBy > should group by owner [0.03ms]
+(pass) Registry Utils > groupBy > should group by stability
+(pass) Registry Utils > groupByToArray > should return array format [0.14ms]
+(pass) Registry Utils > getUniqueTags > should return unique tags sorted [0.04ms]
+(pass) Registry Utils > getUniqueOwners > should return unique owners sorted [0.01ms]
+(pass) Registry Utils > getUniqueDomains > should return unique domains sorted
+(pass) Registry Utils > GroupingStrategies.byUrlPath > should group by URL path level [0.08ms]
+
+packages/libs/contracts/src/migrations.test.ts:
+(pass) MigrationRegistry > registers and retrieves migrations by name/version [0.12ms]
+(pass) MigrationRegistry > returns latest version when version omitted
+(pass) MigrationRegistry > lists migrations in key order [0.35ms]
+
+packages/libs/contracts/src/promptRegistry.test.ts:
+(pass) PromptRegistry > register > should register a prompt [0.13ms]
+(pass) PromptRegistry > register > should return this for chaining [0.07ms]
+(pass) PromptRegistry > register > should throw on duplicate key+version [0.08ms]
+(pass) PromptRegistry > register > should allow same key with different versions [0.05ms]
+(pass) PromptRegistry > list > should return empty array for empty registry [0.01ms]
+(pass) PromptRegistry > list > should return all registered prompts
+(pass) PromptRegistry > get > should get prompt by name and version
+(pass) PromptRegistry > get > should return undefined for non-existent prompt [0.18ms]
+
+packages/libs/schema/src/JsonSchemaType.test.ts:
+(pass) JsonSchemaType > constructor > should create with JSON schema definition [0.09ms]
+(pass) JsonSchemaType > constructor > should accept options with name [0.03ms]
+(pass) JsonSchemaType > getZod > additionalProperties handling > should handle additionalProperties: true as record [0.60ms]
+(pass) JsonSchemaType > getZod > additionalProperties handling > should handle additionalProperties: false as strict object [0.63ms]
+(pass) JsonSchemaType > getZod > additionalProperties handling > should handle typed additionalProperties
+(pass) JsonSchemaType > getZod > explicit properties handling > should handle object with properties [0.77ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert string type [0.04ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert number type
+(pass) JsonSchemaType > getZod > property type conversion > should convert integer type [0.27ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert boolean type [0.21ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert array type with items [0.26ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert nested object type [0.18ms]
+(pass) JsonSchemaType > getZod > property type conversion > should convert null type [0.15ms]
+(pass) JsonSchemaType > getZod > property type conversion > should handle unknown type as z.unknown [0.12ms]
+(pass) JsonSchemaType > getZod > should return passthrough object for empty schema [0.03ms]
+(pass) JsonSchemaType > getJsonSchema > should return the original JSON schema
+(pass) JsonSchemaType > getPothos > should return JSON type with name [0.09ms]
+(pass) JsonSchemaType > getPothos > should return JSON type without name
+(pass) JsonSchemaType > getName > should return configured name
+(pass) JsonSchemaType > getName > should return undefined when no name configured
+(pass) fromJsonSchema helper > should create JsonSchemaType instance
+(pass) fromJsonSchema helper > should pass options to constructor
+(pass) fromJsonSchema helper > should work for metadata schema example from docs [0.20ms]
+
+packages/libs/schema/src/SchemaModelType.test.ts:
+(pass) SchemaModelType interface > should be implementable with getZod method [0.10ms]
+(pass) SchemaModelType interface > should support optional getPothos method [0.03ms]
+(pass) SchemaModelType interface > should support optional getJsonSchema method [0.03ms]
+(pass) isSchemaType > should return true for objects with getZod method [0.01ms]
+(pass) isSchemaType > should return true for objects with all methods [0.02ms]
+(pass) isSchemaType > should return false for null [0.01ms]
+(pass) isSchemaType > should return false for undefined
+(pass) isSchemaType > should return false for primitives
+(pass) isSchemaType > should return false for objects without getZod
+(pass) isSchemaType > should return false when getZod is not a function [0.02ms]
+
+packages/libs/schema/src/ScalarTypeEnum.test.ts:
+(pass) ScalarTypeEnum > primitive scalars > String_unsecure > should validate strings [0.22ms]
+(pass) ScalarTypeEnum > primitive scalars > String_unsecure > should have correct JSON schema [0.14ms]
+(pass) ScalarTypeEnum > primitive scalars > Int_unsecure > should validate integers [0.29ms]
+(pass) ScalarTypeEnum > primitive scalars > Int_unsecure > should have correct JSON schema
+(pass) ScalarTypeEnum > primitive scalars > Float_unsecure > should validate floats
+(pass) ScalarTypeEnum > primitive scalars > Float_unsecure > should have correct JSON schema [0.51ms]
+(pass) ScalarTypeEnum > primitive scalars > Boolean > should validate booleans [0.04ms]
+(pass) ScalarTypeEnum > primitive scalars > Boolean > should have correct JSON schema [0.02ms]
+(pass) ScalarTypeEnum > primitive scalars > ID > should validate ID strings [0.04ms]
+(pass) ScalarTypeEnum > primitive scalars > ID > should have correct JSON schema [0.03ms]
+(pass) ScalarTypeEnum > custom scalars > JSON > should accept any value [0.08ms]
+(pass) ScalarTypeEnum > custom scalars > JSONObject > should validate objects [0.06ms]
+(pass) ScalarTypeEnum > custom scalars > JSONObject > should have correct JSON schema
+(pass) ScalarTypeEnum > custom scalars > Date > should parse and serialize dates [0.06ms]
+(pass) ScalarTypeEnum > custom scalars > Date > should have correct JSON schema
+(pass) ScalarTypeEnum > custom scalars > DateTime > should parse and serialize datetime [0.12ms]
+(pass) ScalarTypeEnum > custom scalars > DateTime > should have correct JSON schema
+(pass) ScalarTypeEnum > custom scalars > Time > should validate time format [0.21ms]
+(pass) ScalarTypeEnum > custom scalars > EmailAddress > should validate email format [0.16ms]
+(pass) ScalarTypeEnum > custom scalars > EmailAddress > should have correct JSON schema [0.07ms]
+(pass) ScalarTypeEnum > custom scalars > URL > should validate URL format [0.19ms]
+(pass) ScalarTypeEnum > custom scalars > URL > should have correct JSON schema [0.06ms]
+(pass) ScalarTypeEnum > custom scalars > PhoneNumber > should validate phone number format
+(pass) ScalarTypeEnum > custom scalars > NonEmptyString > should reject empty strings [0.19ms]
+(pass) ScalarTypeEnum > custom scalars > NonEmptyString > should have correct JSON schema [0.12ms]
+(pass) ScalarTypeEnum > custom scalars > Locale > should validate locale format [0.05ms]
+(pass) ScalarTypeEnum > custom scalars > TimeZone > should validate timezone format
+(pass) ScalarTypeEnum > custom scalars > Latitude > should validate latitude range [0.29ms]
+(pass) ScalarTypeEnum > custom scalars > Latitude > should have correct JSON schema
+(pass) ScalarTypeEnum > custom scalars > Longitude > should validate longitude range [0.20ms]
+(pass) ScalarTypeEnum > custom scalars > Longitude > should have correct JSON schema
+(pass) ScalarTypeEnum > custom scalars > Currency > should validate currency code format
+(pass) ScalarTypeEnum > custom scalars > CountryCode > should validate country code format
+(pass) ScalarTypeEnum > GraphQL integration > should return GraphQL scalar from getPothos [0.30ms]
+(pass) ScalarTypeEnum > GraphQL integration > should serialize and parse values correctly [0.26ms]
+
+packages/libs/schema/src/SchemaModel.test.ts:
+(pass) SchemaModel > constructor > should create a schema model with fields
+(pass) SchemaModel > constructor > should support description
+(pass) SchemaModel > getZod > should generate a valid zod object schema
+(pass) SchemaModel > getZod > should handle optional fields
+(pass) SchemaModel > getZod > should handle array fields
+(pass) SchemaModel > getZod > should handle enum fields [1.44ms]
+(pass) SchemaModel > getZod > should handle nested SchemaModel fields [0.41ms]
+(pass) SchemaModel > getPothosInput > should return the model name
+(pass) isSchemaModel > should return true for SchemaModel instances
+(pass) isSchemaModel > should return false for null/undefined
+(pass) isSchemaModel > should return false for non-SchemaModel objects
+(pass) defineSchemaModel helper > should create a SchemaModel instance
+(pass) defineSchemaModel helper > should be equivalent to direct constructor call [0.23ms]
+
+packages/libs/schema/src/FieldType.test.ts:
+(pass) FieldType > constructor and basic methods > should create a field type with all required config [0.96ms]
+(pass) FieldType > getZod > should return the attached zod schema [0.19ms]
+(pass) FieldType > getZod > should work with number schema [0.10ms]
+(pass) FieldType > getPothos > should return the GraphQL scalar instance
+(pass) FieldType > getJson / getJsonSchema > should return the JSON schema definition [0.06ms]
+(pass) FieldType > getJson / getJsonSchema > should evaluate factory function for JSON schema [0.04ms]
+(pass) FieldType > getJson / getJsonSchema > should deep resolve nested factories in getJsonSchema [0.04ms]
+(pass) FieldType > GraphQL scalar behavior > should serialize values correctly
+(pass) FieldType > GraphQL scalar behavior > should parse literal values when parseLiteral is provided [0.08ms]
+
+packages/libs/schema/src/EnumType.test.ts:
+(pass) EnumType > constructor and basic methods > should create an enum with specified name and values [0.06ms]
+(pass) EnumType > constructor and basic methods > should create enum with minimum one value [0.02ms]
+(pass) EnumType > getZod > should return a valid zod enum schema
+(pass) EnumType > getZod > should reject invalid enum values [0.17ms]
+(pass) EnumType > getPothos > should return a GraphQL enum type [0.03ms]
+(pass) EnumType > getPothos > should have correct enum values in GraphQL type
+(pass) EnumType > getJson / getJsonSchema > should return JSON Schema representation
+(pass) EnumType > getJson / getJsonSchema > should return same result from getJson and getJsonSchema
+(pass) defineEnum helper > should create an EnumType instance
+(pass) defineEnum helper > should be equivalent to direct constructor call
+
+packages/libs/schema/src/ZodSchemaType.test.ts:
+(pass) ZodSchemaType > constructor > should wrap a Zod schema
+(pass) ZodSchemaType > constructor > should accept options
+(pass) ZodSchemaType > getZod > should return the wrapped Zod schema [0.36ms]
+(pass) ZodSchemaType > getZod > should validate data correctly [0.15ms]
+(pass) ZodSchemaType > getJsonSchema > should convert Zod schema to JSON Schema [0.93ms]
+(pass) ZodSchemaType > getJsonSchema > should handle primitive types [0.14ms]
+(pass) ZodSchemaType > getPothos > should return JSON type for complex schemas
+(pass) ZodSchemaType > getPothos > should return JSON type without name [0.06ms]
+(pass) ZodSchemaType > getName > should return configured name
+(pass) ZodSchemaType > getName > should return undefined when no name configured
+(pass) ZodSchemaType > getDescription > should return configured description [0.09ms]
+(pass) ZodSchemaType > getDescription > should return undefined when no description configured
+(pass) fromZod helper > should create ZodSchemaType instance
+(pass) fromZod helper > should pass options to constructor
+(pass) fromZod helper > should work for address schema example from docs [0.28ms]
+(pass) fromZod helper > should work for user schema example from docs
+
+packages/libs/schema/src/GraphQLSchemaType.test.ts:
+(pass) GraphQLSchemaType > constructor > should create with type definition and name
+(pass) GraphQLSchemaType > constructor > should set _isSchemaType marker
+(pass) GraphQLSchemaType > getZod > should return z.unknown for runtime validation
+(pass) GraphQLSchemaType > implements SchemaModelType > should be usable as SchemaModelType
+(pass) GraphQLSchemaType > typeDef property > should store complete GraphQL type definition
+
+packages/examples/learning-journey-ambient-coach/src/track.test.ts:
+(pass) ambient coach track > completes steps when tips are acted upon [0.21ms]
+
+packages/examples/learning-patterns/src/learning-patterns.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/module.learning-journey/engines/srs' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/learning-patterns/src/learning-patterns.test.ts'
+-------------------------------
+
+
+packages/examples/learning-journey-registry/src/api.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/example.learning-journey-crm-onboarding/track' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/learning-journey-registry/src/tracks.ts'
+-------------------------------
+
+
+packages/examples/learning-journey-duo-drills/src/track.test.ts:
+(pass) duo drills track > advances on session completion, accuracy counts, and SRS mastery [0.39ms]
+
+packages/examples/learning-journey-quest-challenges/src/track.test.ts:
+(pass) quest challenges track > unlocks by day and completes within window [0.33ms]
+
+packages/examples/policy-safe-knowledge-assistant/src/integration.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/example.versioned-knowledge-base/handlers/memory.handlers' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/policy-safe-knowledge-assistant/src/integration.test.ts'
+-------------------------------
+
+
+packages/modules/examples/src/registry.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/examples/src/registry.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/regenerator/executor.test.ts:
+(pass) ProposalExecutor > executes supported actions when dependencies provided [0.67ms]
+(pass) ProposalExecutor > skips actions when dependency missing [0.10ms]
+(pass) ProposalExecutor > records failure when dependency throws [0.16ms]
+(pass) ProposalExecutor > observes dry run mode and skips execution [0.10ms]
+
+packages/libs/contracts/src/regenerator/service.test.ts:
+(pass) RegeneratorService > collects signals and emits proposals through rules [0.70ms]
+(pass) RegeneratorService > respects strict rules and ignores empty results
+
+packages/libs/contracts/src/regenerator/sinks.test.ts:
+(pass) ExecutorProposalSink > invokes executor and result handler [0.28ms]
+(pass) ExecutorProposalSink > propagates errors and logs failure [0.09ms]
+(pass) ExecutorProposalSink > passes dry-run flag through to executor
+
+packages/libs/contracts/src/workspace-config/contractsrc-schema.test.ts:
+(pass) TestingConfigSchema > should parse valid testing config [0.47ms]
+(pass) TestingConfigSchema > should accept defaults [0.07ms]
+(pass) TestingConfigSchema > should reject invalid runner [0.05ms]
+(pass) ContractsrcSchema with testing > should allow testing section in full config [0.85ms]
+
+packages/libs/contracts/src/capabilities/capabilities.test.ts:
+(pass) CapabilityRegistry > registers and retrieves capabilities by key/version [0.41ms]
+(pass) CapabilityRegistry > returns the highest version when version is omitted
+(pass) CapabilityRegistry > ensures capability requirements are satisfied [0.07ms]
+(pass) CapabilityRegistry > respects optional requirements and local provisions
+
+packages/libs/contracts/src/experiments/evaluator.test.ts:
+(pass) ExperimentEvaluator > returns random variant [0.24ms]
+(pass) ExperimentEvaluator > returns sticky variant consistently [0.24ms]
+(pass) ExperimentEvaluator > applies targeting rules [0.28ms]
+
+packages/libs/contracts/src/experiments/spec.test.ts:
+(pass) ExperimentRegistry > registers and retrieves experiments [0.52ms]
+(pass) ExperimentRegistry > returns latest version when version omitted
+(pass) ExperimentRegistry > throws on duplicate registration [0.10ms]
+
+packages/libs/contracts/src/features/install.test.ts:
+(pass) installFeature > basic registration > should register feature in registry [0.04ms]
+(pass) installFeature > basic registration > should return the registry for chaining
+(pass) installFeature > capability validation > should throw when capability requirement is not satisfied [0.07ms]
+(pass) installFeature > capability validation > should allow install when capability is registered
+(pass) installFeature > capability validation > should allow capability requirements satisfied by locally provided capability
+(pass) installFeature > capability validation > should throw when capability is provided but not registered [0.09ms]
+(pass) installFeature > capability validation > should throw when requires present but no capability registry [0.03ms]
+(pass) installFeature > presentation targets validation > should validate V2 descriptor exists [0.03ms]
+(pass) installFeature > presentation targets validation > should validate V2 descriptor has required targets [0.01ms]
+(pass) installFeature > presentation targets validation > should pass when descriptor has all required targets
+
+packages/libs/contracts/src/features/types.test.ts:
+(pass) OpRef > should define operation reference [0.02ms]
+(pass) EventRef > should define event reference [0.02ms]
+(pass) PresentationRef > should define presentation reference [0.01ms]
+(pass) FeatureRef > should define feature reference
+(pass) FeatureModuleMeta > should extend OwnerShipMeta
+(pass) FeatureModuleSpec > should define minimal feature
+(pass) FeatureModuleSpec > should support operations
+(pass) FeatureModuleSpec > should support events
+(pass) FeatureModuleSpec > should support presentations
+(pass) FeatureModuleSpec > should support capabilities
+(pass) FeatureModuleSpec > should support opToPresentation links
+(pass) FeatureModuleSpec > should support presentationsTargets
+(pass) FeatureModuleSpec > should support implementations
+
+packages/libs/contracts/src/features/registry.test.ts:
+(pass) FeatureRegistry > register > should register a feature [0.04ms]
+(pass) FeatureRegistry > register > should return this for chaining
+(pass) FeatureRegistry > register > should throw on duplicate key
+(pass) FeatureRegistry > list > should return empty array for new registry
+(pass) FeatureRegistry > list > should return all registered features
+(pass) FeatureRegistry > get > should get feature by key
+(pass) FeatureRegistry > get > should return undefined for non-existent key
+(pass) FeatureRegistry > listByTag > should filter features by tag
+(pass) FeatureRegistry > listByOwner > should filter features by owner
+(pass) FeatureRegistry > groupBy > should group features by key function
+(pass) FeatureRegistry > getUniqueTags > should return unique tags across all features
+(pass) FeatureRegistry > filter > should filter features by criteria
+
+packages/libs/contracts/src/features/validation.test.ts:
+(pass) validateFeatureTargetsV2 > should return true when no presentationsTargets defined [0.08ms]
+(pass) validateFeatureTargetsV2 > should return true when presentationsTargets is empty [0.02ms]
+(pass) validateFeatureTargetsV2 > should throw when descriptor not found [0.10ms]
+(pass) validateFeatureTargetsV2 > should throw when descriptor missing required target [0.05ms]
+(pass) validateFeatureTargetsV2 > should throw when any required target is missing
+(pass) validateFeatureTargetsV2 > should return true when all targets are present
+(pass) validateFeatureTargetsV2 > should validate multiple presentation targets [0.14ms]
+(pass) validateFeatureTargetsV2 > should match on both key and version
+
+packages/libs/contracts/src/tests/runner.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/tests/runner.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/tests/spec.test.ts:
+(pass) TestRegistry > registers and retrieves test specs
+(pass) TestRegistry > returns latest version when version omitted
+(pass) TestRegistry > throws on duplicate registration [0.42ms]
+(pass) TestRegistry > creates stable keys
+
+packages/libs/contracts/src/server/provider-mcp.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@modelcontextprotocol/sdk/server/mcp.js' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/server/provider-mcp.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/docs/presentations.test.ts:
+(pass) docBlockToPresentationSpec > should convert doc block to presentation spec [0.08ms]
+(pass) docBlockToPresentationSpec > should use title when summary is not provided
+(pass) docBlockToPresentationSpec > should apply namespace option
+(pass) docBlockToPresentationSpec > should use block version when provided
+(pass) docBlockToPresentationSpec > should use defaultVersion option when block has no version [0.02ms]
+(pass) docBlockToPresentationSpec > should use block stability when provided
+(pass) docBlockToPresentationSpec > should use defaultStability option when block has no stability [0.02ms]
+(pass) docBlockToPresentationSpec > should include policy flags for non-public visibility
+(pass) docBlockToPresentationSpec > should not include policy for public visibility
+(pass) docBlockToPresentationSpec > should use default targets
+(pass) docBlockToPresentationSpec > should use custom targets from options
+(pass) docBlockToPresentationSpec > should include tags and owners from block
+(pass) docBlocksToPresentationRoutes > should convert blocks to routes [0.20ms]
+(pass) docBlocksToPresentationRoutes > should include block reference in route [0.02ms]
+(pass) docBlocksToPresentationRoutes > should derive route from id when route not provided
+(pass) docBlocksToPresentationRoutes > should use custom route prefix
+(pass) docBlocksToPresentationSpecs > should convert blocks to specs
+(pass) mapDocRoutes > should map routes to tuples
+
+packages/libs/contracts/src/docs/registry.test.ts:
+(pass) DocRegistry > constructor > should create empty registry
+(pass) DocRegistry > constructor > should initialize with doc blocks [0.40ms]
+(pass) DocRegistry > constructor > should accept options during initialization [0.08ms]
+(pass) DocRegistry > register > should register a doc block [0.01ms]
+(pass) DocRegistry > register > should return this for chaining
+(pass) DocRegistry > register > should create presentation route from doc block
+(pass) DocRegistry > get > should get route by id [0.08ms]
+(pass) DocRegistry > get > should return undefined for non-existent id [0.02ms]
+(pass) DocRegistry > list > should return all registered routes [0.04ms]
+(pass) DocRegistry > toRouteTuples > should return route/descriptor tuples [0.02ms]
+(pass) DocRegistry > toPresentationSpecs > should return presentation specs
+(pass) DocRegistry > toPresentationSpecs > should apply options when converting [0.10ms]
+(pass) registerDocBlocks > should throw when required field is missing [0.08ms]
+(pass) docId > should throw for unregistered doc
+
+packages/libs/contracts/src/contract-registry/schemas.test.ts:
+(pass) ContractRegistryItemTypeSchema > should accept valid item types [0.04ms]
+(pass) ContractRegistryItemTypeSchema > should reject invalid item types [0.08ms]
+(pass) ContractRegistryFileSchema > should accept valid file [0.31ms]
+(pass) ContractRegistryFileSchema > should accept file with content [0.02ms]
+(pass) ContractRegistryFileSchema > should reject empty path [0.07ms]
+(pass) ContractRegistryFileSchema > should reject empty type
+(pass) ContractRegistryItemSchema > should accept valid item [0.37ms]
+(pass) ContractRegistryItemSchema > should accept all stability values [0.06ms]
+(pass) ContractRegistryItemSchema > should accept optional dependencies [0.08ms]
+(pass) ContractRegistryItemSchema > should accept optional schema [0.14ms]
+(pass) ContractRegistryItemSchema > should require at least one file
+(pass) ContractRegistryItemSchema > should reject empty key [0.14ms]
+(pass) ContractRegistryItemSchema > should reject non-string version
+(pass) ContractRegistryItemSchema > should default empty arrays for owners and tags [0.09ms]
+(pass) ContractRegistryManifestSchema > should accept valid manifest [0.16ms]
+(pass) ContractRegistryManifestSchema > should accept optional $schema
+(pass) ContractRegistryManifestSchema > should accept optional homepage [0.04ms]
+(pass) ContractRegistryManifestSchema > should accept empty items array [0.02ms]
+(pass) ContractRegistryManifestSchema > should reject empty name [0.06ms]
+(pass) ContractRegistryManifestSchema > should validate nested items [0.02ms]
+
+packages/libs/contracts/src/data-views/types.test.ts:
+(pass) DataViewKind > should support list, detail, table, grid kinds
+(pass) DataViewMeta > should extend OwnerShipMeta with entity field [0.07ms]
+(pass) DataViewSource > should define primary query operation [0.02ms]
+(pass) DataViewSource > should support item operation and mutations [0.03ms]
+(pass) DataViewFieldFormat > should support all format types [0.02ms]
+(pass) DataViewField > should define field structure [0.02ms]
+(pass) DataViewField > should support presentation override [0.01ms]
+(pass) DataViewFilter > should define filter structure
+(pass) DataViewAction > should support navigation and operation kinds
+(pass) DataViewSections > should define section structure
+(pass) DataViewConfig > should support list config [0.07ms]
+(pass) DataViewConfig > should support detail config with sections
+(pass) DataViewConfig > should support table config with columns [0.03ms]
+(pass) DataViewConfig > should support grid config
+(pass) DataViewConfig > should be a union type for DataViewConfig [0.02ms]
+(pass) DataViewStates > should define state presentations [0.03ms]
+
+packages/libs/contracts/src/data-views/data-views.test.ts:
+(pass) DataViewRegistry > registers and retrieves data view specs [0.06ms]
+(pass) DataViewRegistry > returns highest version when version omitted [0.03ms]
+(pass) DataViewRegistry > throws on duplicate key and version
+
+packages/libs/contracts/src/data-views/registry.test.ts:
+(pass) DataViewRegistry > register > should register a data view [0.40ms]
+(pass) DataViewRegistry > register > should return this for chaining
+(pass) DataViewRegistry > register > should throw on duplicate key
+(pass) DataViewRegistry > register > should allow same key with different versions
+(pass) DataViewRegistry > list > should return empty array for new registry
+(pass) DataViewRegistry > list > should return all registered specs
+(pass) DataViewRegistry > get > should get spec by key and version [0.20ms]
+(pass) DataViewRegistry > get > should return undefined for non-existent spec [0.02ms]
+(pass) DataViewRegistry > get > should get latest version when version not specified
+(pass) DataViewRegistry > filter > should filter by stability [0.08ms]
+(pass) DataViewRegistry > listByTag > should filter by tag
+(pass) DataViewRegistry > listByOwner > should filter by owner [0.07ms]
+(pass) DataViewRegistry > groupBy > should group by entity [0.09ms]
+(pass) DataViewRegistry > getUniqueTags > should return unique tags [0.07ms]
+(pass) dataViewKey > should generate key from spec [0.03ms]
+
+packages/libs/contracts/src/data-views/runtime.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/data-views/runtime.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/data-views/spec.test.ts:
+(pass) DataViewSpec > should define a complete data view spec [0.02ms]
+(pass) DataViewSpec > should support optional states
+(pass) DataViewSpec > should support optional policy
+(pass) DataViewSpec > should support optional experiments
+(pass) DataViewRef > should define a reference to a data view
+(pass) defineDataView > should return the spec unchanged [0.20ms]
+(pass) defineDataView > should provide type safety [0.02ms]
+
+packages/libs/contracts/src/integrations/runtime.test.ts:
+(pass) IntegrationCallGuard > returns failure when slot is not bound [0.46ms]
+(pass) IntegrationCallGuard > fails when the integration connection is disconnected [0.22ms]
+(pass) IntegrationCallGuard > executes the integration call successfully and records telemetry [0.26ms]
+(pass) IntegrationCallGuard > retries when executor throws retryable error [0.29ms]
+(pass) IntegrationCallGuard > stops retrying when error is not retryable [0.21ms]
+
+packages/libs/contracts/src/integrations/operations.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/integrations/operations.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/health.test.ts:
+(pass) IntegrationHealthService > reports successful checks and emits telemetry [0.10ms]
+(pass) IntegrationHealthService > captures errors and reports telemetry [0.29ms]
+
+packages/libs/contracts/src/integrations/spec.test.ts:
+(pass) IntegrationSpecRegistry > registers and retrieves specs by key/version
+(pass) IntegrationSpecRegistry > throws when registering duplicate specs
+(pass) IntegrationSpecRegistry > filters by category (payments)
+(pass) IntegrationSpecRegistry > filters by category (email)
+(pass) IntegrationSpecRegistry > filters by category (calendar)
+(pass) IntegrationSpecRegistry > filters by category (ai-llm)
+
+packages/libs/contracts/src/presentations/transform-engine.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/schema-to-markdown.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/knowledge/runtime.test.ts:
+(pass) KnowledgeAccessGuard > denies access when space is not bound in resolved app config [0.07ms]
+(pass) KnowledgeAccessGuard > blocks writes to external spaces
+(pass) KnowledgeAccessGuard > requires workflow binding when configured
+(pass) KnowledgeAccessGuard > allows access for authorized workflow
+(pass) KnowledgeAccessGuard > flags ephemeral read access with warning severity [0.36ms]
+
+packages/libs/contracts/src/knowledge/operations.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/knowledge/operations.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/knowledge/spec.test.ts:
+(pass) KnowledgeSpaceRegistry > registers and retrieves specs [0.11ms]
+(pass) KnowledgeSpaceRegistry > throws when registering duplicate specs [0.06ms]
+(pass) KnowledgeSpaceRegistry > filters by category (canonical) [0.04ms]
+(pass) KnowledgeSpaceRegistry > filters by category (operational)
+(pass) KnowledgeSpaceRegistry > filters by category (external) [0.02ms]
+(pass) KnowledgeSpaceRegistry > filters by category (ephemeral)
+
+packages/libs/contracts/src/examples/schema.test.ts:
+(pass) ExampleKindSchema > should accept valid kinds
+(pass) ExampleKindSchema > should reject invalid kinds [0.17ms]
+(pass) ExampleVisibilitySchema > should accept valid visibility values [0.08ms]
+(pass) ExampleVisibilitySchema > should reject invalid visibility values [0.02ms]
+(pass) ExampleMetaSchema > should accept valid meta [0.30ms]
+(pass) ExampleMetaSchema > should require key [0.21ms]
+(pass) ExampleMetaSchema > should require description [0.07ms]
+(pass) ExampleMetaSchema > should accept optional fields [0.03ms]
+(pass) ExampleSpecSchema > should accept valid spec [0.75ms]
+(pass) ExampleSpecSchema > should require meta
+(pass) ExampleSpecSchema > should require surfaces [0.04ms]
+(pass) ExampleSpecSchema > should require entrypoints [0.03ms]
+(pass) ExampleSpecSchema > should accept optional docs [0.13ms]
+(pass) ExampleSpecSchema > should accept optional blueprint as SpecPointer [0.15ms]
+(pass) ExampleSpecSchema > should accept optional features as array [0.06ms]
+(pass) parseExampleSpec > should return parsed spec for valid input [0.06ms]
+(pass) parseExampleSpec > should throw for invalid input
+(pass) safeParseExampleSpec > should return success for valid input [0.07ms]
+(pass) safeParseExampleSpec > should return failure for invalid input
+
+packages/libs/contracts/src/examples/types.test.ts:
+(pass) ExampleKindEnum > should have all expected values [0.03ms]
+(pass) ExampleVisibilityEnum > should have all expected values
+(pass) ExampleSandboxModeEnum > should have all expected values [0.02ms]
+(pass) isSpecPointer > should return true for SpecPointer objects [0.01ms]
+(pass) isSpecPointer > should return false for AppBlueprintSpec objects
+(pass) isSpecPointer > should return false for undefined [0.06ms]
+(pass) isFeatureRef > should return true for FeatureRef objects [0.02ms]
+(pass) isFeatureRef > should return false for FeatureModuleSpec objects [0.01ms]
+(pass) isExampleKind > should return true for valid kinds [0.03ms]
+(pass) isExampleKind > should return false for invalid kinds
+(pass) isExampleVisibility > should return true for valid visibility values
+(pass) isExampleVisibility > should return false for invalid visibility values
+(pass) ExampleMeta type > should allow valid ExampleMeta objects
+(pass) ExampleMeta type > should allow optional fields [0.11ms]
+(pass) ExampleSpec type > should allow valid ExampleSpec objects
+(pass) ExampleSpec type > should allow optional blueprint and features
+
+packages/libs/contracts/src/examples/registry.test.ts:
+(pass) ExampleRegistry > register > should register an example [0.15ms]
+(pass) ExampleRegistry > register > should throw on duplicate key [0.06ms]
+(pass) ExampleRegistry > register > should allow chaining
+(pass) ExampleRegistry > list > should return all registered examples
+(pass) ExampleRegistry > list > should return empty array when no examples registered
+(pass) ExampleRegistry > get > should return example by key
+(pass) ExampleRegistry > get > should return undefined for unknown key
+(pass) ExampleRegistry > has > should return true for registered example
+(pass) ExampleRegistry > has > should return false for unknown key
+(pass) ExampleRegistry > clear > should clear all examples [0.18ms]
+(pass) ExampleRegistry > listByKind > should filter by kind [0.06ms]
+(pass) ExampleRegistry > listByVisibility > should filter by visibility
+(pass) ExampleRegistry > listByTag > should filter by tag
+(pass) ExampleRegistry > listByOwner > should filter by owner
+(pass) ExampleRegistry > listByDomain > should filter by domain
+(pass) ExampleRegistry > listBySurface > should filter by templates surface
+(pass) ExampleRegistry > listBySurface > should filter by studio surface
+(pass) ExampleRegistry > listInstallable > should list only installable examples [0.27ms]
+(pass) ExampleRegistry > getUniqueTags > should return unique tags from all examples
+(pass) ExampleRegistry > getUniqueKinds > should return unique kinds from all examples
+(pass) ExampleRegistry > search > should search by key [0.15ms]
+(pass) ExampleRegistry > search > should search by title [0.06ms]
+(pass) ExampleRegistry > search > should search by tags
+(pass) ExampleRegistry > search > should return all when query is empty [0.05ms]
+(pass) ExampleRegistry > groupByKind > should group examples by kind [0.07ms]
+
+packages/libs/contracts/src/examples/validation.test.ts:
+(pass) validateExample > should validate a correct example [0.30ms]
+(pass) validateExample > should fail for missing required fields
+(pass) validateExample > should fail for invalid meta.kind
+(pass) validateExample > should warn for unscoped package name [0.26ms]
+(pass) validateExample > should error when studio.installable is true but studio.enabled is false [0.04ms]
+(pass) validateExample > should warn when sandbox is enabled but has no modes
+(pass) validateExample > should warn when features present but no feature entrypoint [0.06ms]
+(pass) validateExample > should warn for public example in idea stability [0.06ms]
+(pass) validateExamples > should validate multiple examples [0.07ms]
+(pass) validateExamples > should detect duplicate keys [0.03ms]
+(pass) validateExamples > should collect errors from all examples
+(pass) validateExampleReferences > should warn when package name not in workspace [0.12ms]
+(pass) validateExampleReferences > should not warn when package name is in workspace
+(pass) validateExampleReferences > should warn when feature ref not found [0.02ms]
+(pass) validateExampleReferences > should warn when blueprint ref not found
+(pass) validateExampleReferences > should return valid result when all references exist
+
+packages/libs/contracts/src/workflow/runner.test.ts:
+(pass) WorkflowRunner > executes automation and human steps until completion [2.12ms]
+(pass) WorkflowRunner > provides resolved app config context to the operation executor
+(pass) WorkflowRunner > invokes capability enforcement hook before executing operation [0.30ms]
+(pass) WorkflowRunner > fails to start when a required integration slot is not bound [0.16ms]
+(pass) WorkflowRunner > fails to start when required capabilities are missing [0.04ms]
+(pass) WorkflowRunner > allows workflow start when pre-flight requirements are satisfied [0.31ms]
+(pass) WorkflowRunner > rejects step execution when guard evaluates to false [0.23ms]
+(pass) WorkflowRunner > cancels a workflow [0.03ms]
+
+packages/libs/contracts/src/workflow/expression.test.ts:
+(pass) evaluateExpression > compares equality on data [0.46ms]
+(pass) evaluateExpression > handles numeric comparisons and conjunctions [0.10ms]
+(pass) evaluateExpression > supports negation [0.10ms]
+(pass) evaluateExpression > reads from input and output contexts
+(pass) evaluateExpression > defaults to truthy evaluation when no comparator is provided
+
+packages/libs/contracts/src/workflow/validation.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/workflow/validation.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/telemetry/tracker.test.ts:
+(pass) TelemetryTracker > dispatches events to providers with redacted fields [0.64ms]
+(pass) TelemetryTracker > respects sampling rate [0.10ms]
+(pass) TelemetryTracker > invokes anomaly monitor when thresholds exceeded [0.14ms]
+
+packages/libs/contracts/src/telemetry/anomaly.test.ts:
+(pass) TelemetryAnomalyMonitor > emits anomalies when value exceeds threshold [0.33ms]
+
+packages/libs/contracts/src/telemetry/spec.test.ts:
+(pass) TelemetryRegistry > registers and retrieves specs [0.02ms]
+(pass) TelemetryRegistry > returns latest version when version omitted [0.09ms]
+(pass) TelemetryRegistry > finds event definitions
+(pass) TelemetryRegistry > throws on duplicate registration [0.07ms]
+
+packages/libs/contracts/src/app-config/events.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/app-config/events.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/app-config/lifecycle-contracts.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/app-config/lifecycle-contracts.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/app-config/branding.test.ts:
+(pass) BrandingAssetRef interface > should define logo type
+(pass) BrandingAssetRef interface > should define all asset types
+(pass) BrandingAssetRef interface > should support dimensions
+(pass) BrandingDefaults interface > should define required appNameKey
+(pass) BrandingDefaults interface > should support assets array
+(pass) BrandingDefaults interface > should support color tokens
+(pass) TenantBrandingAsset interface > should require url
+(pass) TenantBrandingAsset interface > should support metadata
+(pass) TenantBrandingConfig interface > should support localized app names
+(pass) TenantBrandingConfig interface > should support custom domain
+(pass) TenantBrandingConfig interface > should support subdomain
+(pass) TenantBrandingConfig interface > should support colors
+(pass) ResolvedBranding interface > should have all required fields [0.02ms]
+(pass) ResolvedBranding interface > should allow optional asset urls
+
+packages/libs/contracts/src/app-config/runtime.test.ts:
+(pass) resolveAppConfig > merges blueprint and tenant config [0.23ms]
+(pass) resolveAppConfig > resolves integrations and knowledge when dependencies provided [0.10ms]
+(pass) composeAppConfig > materializes resolved config against registries [0.62ms]
+(pass) composeAppConfig > records missing references when registries are absent [0.32ms]
+(pass) composeAppConfig > reports missing integration and knowledge dependencies when incomplete [0.11ms]
+(pass) composeAppConfig > throws when strict mode and references missing
+
+packages/libs/contracts/src/app-config/lifecycle.test.ts:
+(pass) ConfigStatus type > should support all valid statuses
+(pass) ConfigTransition interface > should define a valid transition
+(pass) ConfigTransition interface > should support Date timestamp
+(pass) ConfigTransition interface > should support optional reason
+(pass) ConfigTransition interface > should allow rollback transitions [0.11ms]
+(pass) ConfigVersionHistory interface > should track version history
+(pass) ConfigVersionHistory interface > should track current published version
+(pass) ConfigVersionHistory interface > should allow undefined currentPublished for no published version
+
+packages/libs/contracts/src/app-config/contracts.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/app-config/contracts.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/app-config/validation.test.ts:
+(pass) validateBlueprint > reports duplicate integration slots [0.15ms]
+(pass) validateTenantConfig > captures integration, branding, locale, and translation issues [0.78ms]
+(pass) validateResolvedConfig > ensures required integration slots are satisfied in resolved config [0.17ms]
+
+packages/libs/contracts/src/app-config/spec.test.ts:
+(pass) AppBlueprintRegistry > registers and retrieves configs
+(pass) AppBlueprintRegistry > returns latest version when omitted
+(pass) AppBlueprintRegistry > throws on duplicate registration
+
+packages/libs/contracts/src/jobs/queue.test.ts:
+(pass) Job queues > processes jobs in memory queue [31.51ms]
+(pass) Job queues > enqueues tasks to Cloud Tasks [0.41ms]
+(pass) Job queues > publishes messages to Pub/Sub [0.25ms]
+
+packages/libs/contracts/src/versioning/utils.test.ts:
+(pass) parseVersion > should parse simple semver [0.12ms]
+(pass) parseVersion > should parse version with prerelease [0.02ms]
+(pass) parseVersion > should parse version with build metadata
+(pass) parseVersion > should parse version with prerelease and build
+(pass) parseVersion > should return null for invalid versions
+(pass) parseVersion > should handle whitespace in input
+(pass) parseVersionStrict > should parse valid version
+(pass) parseVersionStrict > should throw for invalid version
+(pass) formatVersion > should format simple version [0.14ms]
+(pass) formatVersion > should format version with prerelease [0.02ms]
+(pass) formatVersion > should format version with build
+(pass) formatVersion > should format version with prerelease and build [0.01ms]
+(pass) compareVersions > should return 0 for equal versions [0.03ms]
+(pass) compareVersions > should compare major versions [0.02ms]
+(pass) compareVersions > should compare minor versions [0.01ms]
+(pass) compareVersions > should compare patch versions [0.01ms]
+(pass) compareVersions > should handle prerelease versions [0.02ms]
+(pass) isVersionGreater / isVersionLess / isVersionEqual > isVersionGreater should work correctly
+(pass) isVersionGreater / isVersionLess / isVersionEqual > isVersionLess should work correctly [0.02ms]
+(pass) isVersionGreater / isVersionLess / isVersionEqual > isVersionEqual should work correctly [0.01ms]
+(pass) bumpVersion > should bump patch version [0.03ms]
+(pass) bumpVersion > should bump minor version and reset patch [0.03ms]
+(pass) bumpVersion > should bump major version and reset minor/patch
+(pass) bumpVersion > should handle 0.x versions [0.05ms]
+(pass) determineBumpType > should return major for breaking changes [0.02ms]
+(pass) determineBumpType > should return minor for non-breaking changes
+(pass) determineBumpType > should return patch when no significant changes
+(pass) getBumpTypePriority > should return correct priorities [0.02ms]
+(pass) getMaxBumpType > should return null for empty array [0.02ms]
+(pass) getMaxBumpType > should return the maximum bump type
+(pass) isValidVersion > should return true for valid versions
+(pass) isValidVersion > should return false for invalid versions
+(pass) validateVersion > should return empty array for valid versions [0.02ms]
+(pass) validateVersion > should return errors for invalid versions
+(pass) validateVersion > should detect whitespace issues
+(pass) validateVersion > should handle non-string input
+
+packages/libs/contracts/src/policy/engine.test.ts:
+(pass) PolicyEngine > allows matching admin subject [0.01ms]
+(pass) PolicyEngine > denies suspended users even if another policy allows
+(pass) PolicyEngine > provides field-level decisions
+(pass) PolicyEngine > requires consent before export [0.53ms]
+(pass) PolicyEngine > applies rate limits and allows when consent granted
+(pass) PolicyEngine > honors relationship requirements [0.14ms]
+(pass) PolicyEngine > denies when relationship requirements are not met [0.07ms]
+
+packages/libs/contracts/src/policy/opa-adapter.test.ts:
+(pass) OPAPolicyAdapter > builds OPA input with decision and policies [0.05ms]
+(pass) OPAPolicyAdapter > merges OPA evaluation result with engine decision
+
+packages/libs/contracts-transformers/src/openapi/exporter.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts-transformers/src/openapi/exporter.test.ts'
+-------------------------------
+
+
+packages/libs/contracts-transformers/src/openapi/schema-generators.test.ts:
+(pass) Schema Generators > generates ContractSpec schema by default [0.87ms]
+(pass) Schema Generators > generates Zod schema [0.27ms]
+(pass) Schema Generators > generates JSON schema [0.05ms]
+(pass) Schema Generators > generates GraphQL schema [0.19ms]
+(pass) Nested Models > generates nested models for ContractSpec [0.07ms]
+(pass) Nested Models > generates nested models for Zod (inline)
+
+packages/libs/schema/src/entity/defineEntity.test.ts:
+(pass) defineEntity > should create an entity spec with fields
+(pass) defineEntity > should support description and schema
+(pass) defineEntity > should support indexes [0.14ms]
+(pass) defineEntityEnum > should create an enum definition [0.02ms]
+(pass) defineEntityEnum > should support schema and description [0.02ms]
+(pass) field helpers > scalar fields > should create string field [0.02ms]
+(pass) field helpers > scalar fields > should create string field with options [0.01ms]
+(pass) field helpers > scalar fields > should create int field [0.01ms]
+(pass) field helpers > scalar fields > should create float field
+(pass) field helpers > scalar fields > should create boolean field
+(pass) field helpers > scalar fields > should create dateTime field
+(pass) field helpers > scalar fields > should create json field
+(pass) field helpers > scalar fields > should create bigInt field
+(pass) field helpers > scalar fields > should create decimal field [0.09ms]
+(pass) field helpers > scalar fields > should create bytes field
+(pass) field helpers > common patterns > should create id field with cuid default [0.02ms]
+(pass) field helpers > common patterns > should create uuid field
+(pass) field helpers > common patterns > should create autoIncrement field
+(pass) field helpers > common patterns > should create createdAt field
+(pass) field helpers > common patterns > should create updatedAt field [0.04ms]
+(pass) field helpers > common patterns > should create email field with zod validation [0.06ms]
+(pass) field helpers > common patterns > should create url field with zod validation
+(pass) field helpers > enum fields > should create enum field
+(pass) field helpers > enum fields > should create inline enum field
+(pass) field helpers > relation fields > should create hasOne relation
+(pass) field helpers > relation fields > should create hasMany relation
+(pass) field helpers > relation fields > should create belongsTo relation [0.18ms]
+(pass) field helpers > relation fields > should create belongsTo with options [0.02ms]
+(pass) field helpers > relation fields > should create foreignKey field [0.01ms]
+(pass) index helpers > should create regular index
+(pass) index helpers > should create unique index
+(pass) index helpers > should create compound index with sort
+(pass) index helpers > should support index options
+
+packages/libs/schema/src/entity/generator.test.ts:
+(pass) generatePrismaSchema > should generate basic Prisma schema [0.27ms]
+(pass) generatePrismaSchema > should include schema attribute when entity has schema
+(pass) generatePrismaSchema > should generate optional fields correctly
+(pass) generatePrismaSchema > should generate array fields correctly
+(pass) generatePrismaSchema > should generate unique constraint [0.29ms]
+(pass) generatePrismaSchema > should generate map attribute [0.05ms]
+(pass) generatePrismaSchema > should generate indexes [0.10ms]
+(pass) generatePrismaSchema > should generate enum fields and definitions [0.09ms]
+(pass) generatePrismaSchema > should generate inline enums [0.05ms]
+(pass) generatePrismaSchema > should generate relations [0.07ms]
+(pass) generatePrismaSchema > should include Pothos generator by default [0.01ms]
+(pass) generatePrismaSchema > should exclude Pothos generator when disabled [0.03ms]
+(pass) generatePrismaSchema > should generate description comments
+(pass) generatePrismaSchema > should generate updatedAt attribute
+(pass) generatePrismaSchema > should generate dbType attribute [0.08ms]
+(pass) composeModuleSchemas > should merge entities from multiple modules [0.07ms]
+(pass) composeModuleSchemas > should merge enums from multiple modules [0.07ms]
+(pass) generateEntityFragment > should generate only the model block
+(pass) generateEnumFragment > should generate only the enum block
+
+packages/libs/ai-agent/src/tools/tools.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'ai' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/ai-agent/src/tools/knowledge-tool.ts'
+-------------------------------
+
+
+packages/libs/ai-agent/src/memory/memory.test.ts:
+(pass) InMemoryAgentMemory > should save and load session
+(pass) InMemoryAgentMemory > should return null for non-existent session
+(pass) InMemoryAgentMemory > should evict expired sessions [0.33ms]
+
+packages/libs/ai-agent/src/agent/agent.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module 'ai/test' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/ai-agent/src/agent/agent.test.ts'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/google-calendar.test.ts:
+(pass) GoogleCalendarProvider > lists events [0.53ms]
+(pass) GoogleCalendarProvider > creates events with reminders [0.19ms]
+(pass) GoogleCalendarProvider > updates events [0.33ms]
+(pass) GoogleCalendarProvider > deletes events [0.03ms]
+
+packages/integrations/providers-impls/src/impls/mistral-llm.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'zod-to-json-schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/node_modules/@mistralai/mistralai/extra/structChat.js'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/gmail-outbound.test.ts:
+(pass) GmailOutboundProvider > sends email with correct payload [0.72ms]
+
+packages/integrations/providers-impls/src/impls/postmark-email.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'postmark' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/integrations/providers-impls/src/impls/postmark-email.ts'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/gcs-storage.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'html-entities' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/node_modules/@google-cloud/storage/build/esm/src/nodejs-common/util.js'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/elevenlabs-voice.test.ts:
+(pass) ElevenLabsVoiceProvider > lists available voices [0.62ms]
+(pass) ElevenLabsVoiceProvider > synthesizes audio into a buffer [0.57ms]
+
+packages/integrations/providers-impls/src/impls/gmail-inbound.test.ts:
+(pass) GmailInboundProvider > lists and transforms threads [0.95ms]
+(pass) GmailInboundProvider > retrieves messages since a timestamp [3.91ms]
+
+packages/integrations/providers-impls/src/impls/stripe-payments.test.ts:
+(pass) StripePaymentsProvider > creates and retrieves customers [0.26ms]
+(pass) StripePaymentsProvider > handles payment intents lifecycle [0.29ms]
+(pass) StripePaymentsProvider > creates refunds [0.19ms]
+(pass) StripePaymentsProvider > lists invoices and transactions [0.30ms]
+
+packages/integrations/providers-impls/src/impls/provider-factory.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/mistral-embedding.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/qdrant-vector.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@qdrant/js-client-rest' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/integrations/providers-impls/src/impls/qdrant-vector.ts'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/powens-openbanking.test.ts:
+(pass) PowensOpenBankingProvider > maps Powens account payloads to canonical summaries [1.26ms]
+(pass) PowensOpenBankingProvider > maps Powens balances to canonical balance records [0.45ms]
+(pass) PowensOpenBankingProvider > throws when userId is not provided for account listing [0.15ms]
+
+packages/integrations/providers-impls/src/impls/twilio-sms.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'axios' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/node_modules/twilio/lib/base/RequestClient.js'
+-------------------------------
+
+
+packages/integrations/providers-impls/src/impls/powens-client.test.ts:
+(pass) PowensClient > fetches and caches OAuth tokens before issuing API requests [0.41ms]
+(pass) PowensClient > throws PowensClientError when API responds with non-2xx [0.19ms]
+
+packages/examples/pocket-family-office/src/tests/pocket-family-office.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts/integrations/spec' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/pocket-family-office/src/tests/pocket-family-office.test.ts'
+-------------------------------
+
+
+packages/examples/learning-journey-platform-tour/src/operations/index.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/learning-journey-platform-tour/src/operations/index.ts'
+-------------------------------
+
+
+packages/examples/learning-journey-crm-onboarding/src/operations/index.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/learning-journey-crm-onboarding/src/operations/index.ts'
+-------------------------------
+
+
+packages/examples/learning-journey-studio-onboarding/src/operations/index.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.schema' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/examples/learning-journey-studio-onboarding/src/operations/index.ts'
+-------------------------------
+
+
+packages/examples/kb-update-pipeline/src/handlers/memory.handlers.test.ts:
+(pass) @contractspec/example.kb-update-pipeline memory handlers > high-risk change cannot be approved by curator role [0.37ms]
+(pass) @contractspec/example.kb-update-pipeline memory handlers > fires a notification when review is requested
+(pass) @contractspec/example.kb-update-pipeline memory handlers > publishing fails if any included rule versions are not approved [0.24ms]
+
+packages/examples/locale-jurisdiction-gate/src/handlers/demo.handlers.test.ts:
+(pass) @contractspec/example.locale-jurisdiction-gate demo handlers > blocks when locale is missing [0.11ms]
+(pass) @contractspec/example.locale-jurisdiction-gate demo handlers > blocks when kbSnapshotId is missing [0.23ms]
+(pass) @contractspec/example.locale-jurisdiction-gate demo handlers > blocks education_only answers that include buy/sell language [0.13ms]
+
+packages/examples/locale-jurisdiction-gate/src/policy/guard.test.ts:
+(pass) locale/jurisdiction gate policy > blocks unsupported locale
+(pass) locale/jurisdiction gate policy > blocks answer without citations
+
+packages/examples/versioned-knowledge-base/src/handlers/memory.handlers.test.ts:
+(pass) @contractspec/example.versioned-knowledge-base memory handlers > requires sourceRefs for rule versions (traceability) [0.27ms]
+(pass) @contractspec/example.versioned-knowledge-base memory handlers > snapshot includes only approved rule versions for that jurisdiction [0.20ms]
+(pass) @contractspec/example.versioned-knowledge-base memory handlers > search is scoped to snapshot + jurisdiction [0.43ms]
+
+packages/modules/workspace/src/analysis/feature-scan.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'ts-morph' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/workspace/src/analysis/feature-extractor.ts'
+-------------------------------
+
+
+packages/modules/workspace/src/analysis/example-scan.test.ts:
+(pass) isExampleFile > should return true for example.ts files [0.13ms]
+(pass) isExampleFile > should return true for .example.ts files
+(pass) isExampleFile > should return false for non-example files
+(pass) scanExampleSource > should extract basic meta fields [0.77ms]
+(pass) scanExampleSource > should extract entrypoints [0.08ms]
+(pass) scanExampleSource > should extract surfaces [0.07ms]
+(pass) scanExampleSource > should extract docs section [0.06ms]
+(pass) scanExampleSource > should fallback to extracting key from file path [0.04ms]
+(pass) scanExampleSource > should handle minimal example spec [0.08ms]
+
+packages/modules/workspace/src/analysis/spec-scan.test.ts:
+(pass) inferSpecTypeFromFilePath > identifies operation specs
+(pass) inferSpecTypeFromFilePath > identifies event specs
+(pass) inferSpecTypeFromFilePath > identifies presentation specs
+(pass) inferSpecTypeFromFilePath > identifies feature specs
+(pass) scanSpecSource > extracts metadata from operation spec [0.50ms]
+(pass) scanSpecSource > extracts emitted events [0.07ms]
+(pass) scanSpecSource > extracts test coverage info [0.04ms]
+(pass) scanSpecSource > detects missing test coverage scenarios [0.01ms]
+(pass) scanAllSpecsFromSource > extracts multiple specs from a single file [0.20ms]
+
+packages/modules/workspace/src/formatters/spec-markdown.test.ts:
+(pass) specToMarkdown > context format > should format operation spec in context mode [0.56ms]
+(pass) specToMarkdown > context format > should format feature spec in context mode
+(pass) specToMarkdown > context format > should format query spec in context mode
+(pass) specToMarkdown > prompt format > should format operation spec in prompt mode
+(pass) specToMarkdown > prompt format > should format feature spec in prompt mode
+(pass) specToMarkdown > full format > should format operation spec in full mode [0.44ms]
+(pass) specToMarkdown > full format > should include source block in full mode [0.08ms]
+(pass) specToMarkdown > full format > should include feature sections in full mode [0.05ms]
+(pass) specToMarkdown > depth handling > should increase header level with depth [0.07ms]
+(pass) specToMarkdown > depth handling > should cap header level at 6
+(pass) generateSpecsSummaryHeader > should generate summary header for multiple specs [0.09ms]
+(pass) combineSpecMarkdowns > should combine multiple specs with header and separators [0.05ms]
+
+packages/modules/workspace/src/templates/operation.test.ts:
+(pass) generateOperationSpec > generates a command spec [0.28ms]
+(pass) generateOperationSpec > generates a query spec [0.11ms]
+(pass) generateOperationSpec > includes flags if present [0.04ms]
+(pass) generateOperationSpec > includes event emission section if enabled [0.03ms]
+
+packages/modules/workspace/src/templates/telemetry.test.ts:
+(pass) generateTelemetrySpec > generates a telemetry spec [0.09ms]
+(pass) generateTelemetrySpec > renders providers [0.06ms]
+(pass) generateTelemetrySpec > renders events with properties [0.10ms]
+(pass) generateTelemetrySpec > renders anomaly rules [0.09ms]
+
+packages/modules/workspace/src/templates/utils.test.ts:
+(pass) Template Utils > toCamelCase > converts to camelCase
+(pass) Template Utils > toPascalCase > converts to PascalCase
+(pass) Template Utils > toKebabCase > converts to kebab-case [0.01ms]
+(pass) Template Utils > capitalize > capitalizes first letter [0.03ms]
+(pass) Template Utils > escapeString > escapes single quotes [0.02ms]
+
+packages/modules/workspace/src/templates/data-view.test.ts:
+(pass) generateDataViewSpec > generates a data view spec [0.26ms]
+(pass) generateDataViewSpec > includes fields [0.10ms]
+(pass) generateDataViewSpec > includes secondary fields [0.03ms]
+(pass) generateDataViewSpec > includes item operation if present [0.03ms]
+
+packages/modules/workspace/src/templates/workflow-runner.test.ts:
+(pass) generateWorkflowRunnerTemplate > generates a workflow runner [0.08ms]
+
+packages/modules/workspace/src/templates/experiment.test.ts:
+(pass) generateExperimentSpec > generates an experiment spec [0.19ms]
+(pass) generateExperimentSpec > generates variants with overrides [0.06ms]
+(pass) generateExperimentSpec > supports sticky allocation [0.01ms]
+(pass) generateExperimentSpec > supports targeted allocation [0.10ms]
+(pass) generateExperimentSpec > includes success metrics [0.04ms]
+
+packages/modules/workspace/src/templates/event.test.ts:
+(pass) generateEventSpec > generates an event spec [0.09ms]
+(pass) generateEventSpec > includes pii fields if present
+(pass) generateEventSpec > comments out empty pii fields [0.10ms]
+
+packages/modules/workspace/src/templates/knowledge.test.ts:
+(pass) generateKnowledgeSpaceSpec > generates a knowledge space spec [0.17ms]
+(pass) generateKnowledgeSpaceSpec > renders retention policy [0.09ms]
+(pass) generateKnowledgeSpaceSpec > renders indexing options [0.05ms]
+(pass) generateKnowledgeSpaceSpec > renders policy reference
+
+packages/modules/workspace/src/templates/migration.test.ts:
+(pass) generateMigrationSpec > generates a migration spec
+(pass) generateMigrationSpec > renders schema steps
+(pass) generateMigrationSpec > renders data steps [0.37ms]
+(pass) generateMigrationSpec > renders validation steps [0.03ms]
+(pass) generateMigrationSpec > renders dependencies
+
+packages/modules/workspace/src/templates/presentation.test.ts:
+(pass) generatePresentationSpec > generates a web_component spec [0.04ms]
+(pass) generatePresentationSpec > generates a markdown spec
+(pass) generatePresentationSpec > generates a data spec
+
+packages/modules/workspace/src/templates/app-config.test.ts:
+(pass) generateAppBlueprintSpec > generates a basic app config [0.21ms]
+(pass) generateAppBlueprintSpec > includes capabilities
+(pass) generateAppBlueprintSpec > includes features [0.02ms]
+(pass) generateAppBlueprintSpec > includes data views mapping [0.02ms]
+(pass) generateAppBlueprintSpec > includes routes
+
+packages/modules/workspace/src/templates/integration-utils.test.ts:
+(pass) Integration Utils > renderConfigSchema > renders empty schema
+(pass) Integration Utils > renderConfigSchema > renders fields and required array
+(pass) Integration Utils > renderConstraints > renders nothing if no limits
+(pass) Integration Utils > renderConstraints > renders rate limits
+(pass) Integration Utils > stabilityToEnum > converts stability strings to enums
+
+packages/modules/workspace/src/templates/workflow.test.ts:
+(pass) generateWorkflowSpec > generates a workflow spec [0.14ms]
+(pass) generateWorkflowSpec > renders steps [0.08ms]
+(pass) generateWorkflowSpec > renders transitions [0.06ms]
+(pass) generateWorkflowSpec > renders policy flags [0.01ms]
+
+packages/modules/workspace/src/templates/handler.test.ts:
+(pass) Handler Templates > generateHandlerTemplate > generates a handler template
+(pass) Handler Templates > generateComponentTemplate > generates a component template
+(pass) Handler Templates > generateTestTemplate > generates a handler test [0.36ms]
+(pass) Handler Templates > generateTestTemplate > generates a component test
+
+packages/modules/workspace/src/templates/integration.test.ts:
+(pass) generateIntegrationSpec > generates an integration spec [0.19ms]
+(pass) generateIntegrationSpec > includes capabilities
+(pass) generateIntegrationSpec > renders config and secret schemas [0.22ms]
+(pass) generateIntegrationSpec > renders byok setup if mode is supported [0.03ms]
+
+packages/modules/ai-chat/src/context/chat.test.ts:
+(pass) ContextBuilder > should build empty context if no options provided [0.15ms]
+(pass) ContextBuilder > should include explicitly requested specs [0.09ms]
+(pass) ContextBuilder > should include explicitly requested files [0.02ms]
+(pass) ContextBuilder > should score and include relevant specs based on query
+
+packages/modules/lifecycle-advisor/src/__tests__/recommendation-engine.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.lifecycle' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/lifecycle-advisor/src/__tests__/recommendation-engine.test.ts'
+-------------------------------
+
+
+packages/modules/lifecycle-core/src/__tests__/stage-scorer.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.lifecycle' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/lifecycle-core/src/__tests__/stage-scorer.test.ts'
+-------------------------------
+
+
+packages/apps/cli-contractspec/src/templates/operation.template.test.ts:
+(pass) generateOperationSpec > should generate valid command spec [0.27ms]
+(pass) generateOperationSpec > should generate valid query spec [0.05ms]
+(pass) generateOperationSpec > should handle flags correctly [0.03ms]
+
+packages/bundles/workspace/src/adapters/fs.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'glob' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/adapters/fs.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/adapters/workspace.test.ts:
+(pass) Workspace Detection > findPackageRoot > should find the nearest package.json directory [1.27ms]
+(pass) Workspace Detection > findPackageRoot > should return start directory when no package.json found [0.24ms]
+(pass) Workspace Detection > findWorkspaceRoot > should find monorepo root with workspaces field [0.95ms]
+(pass) Workspace Detection > findWorkspaceRoot > should find monorepo root with pnpm-workspace.yaml [1.17ms]
+(pass) Workspace Detection > isMonorepo > should return true for workspace with workspaces field [0.48ms]
+(pass) Workspace Detection > isMonorepo > should return false for single package [0.32ms]
+(pass) Workspace Detection > isMonorepo > should return true for pnpm-workspace.yaml [0.61ms]
+(pass) Workspace Detection > isMonorepo > should return true for turbo.json [0.47ms]
+(pass) Workspace Detection > parseGitModules > should parse .gitmodules file correctly [1.19ms]
+(pass) Workspace Detection > parseGitModules > should return empty array when no .gitmodules exists [0.26ms]
+(pass) Workspace Detection > findMetaRepoRoot > should find meta-repo root with .gitmodules [0.75ms]
+(pass) Workspace Detection > findMetaRepoRoot > should return undefined when no .gitmodules found [0.26ms]
+(pass) Workspace Detection > detectRepositoryType > should detect meta-repo type [0.31ms]
+(pass) Workspace Detection > detectRepositoryType > should detect monorepo type [0.35ms]
+(pass) Workspace Detection > detectRepositoryType > should detect classic type [0.27ms]
+(pass) Workspace Detection > getWorkspaceInfo > should return complete workspace info for meta-repo [1.66ms]
+(pass) Workspace Detection > getWorkspaceInfo > should return complete workspace info for monorepo [1.11ms]
+(pass) Workspace Detection > getWorkspaceInfo > should return complete workspace info for classic repo [0.81ms]
+
+packages/bundles/workspace/src/adapters/logger.test.ts:
+(pass) Logger Adapter > Console Logger > should log info [0.06ms]
+(pass) Logger Adapter > Console Logger > should log warn
+(pass) Logger Adapter > Console Logger > should log error
+(pass) Logger Adapter > Console Logger > should log debug [0.09ms]
+(pass) Logger Adapter > Console Logger > should support context [0.02ms]
+(pass) Logger Adapter > Noop Logger > should not throw
+
+packages/bundles/workspace/src/adapters/factory.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/bundles/workspace/src/templates/feature.template.test.ts:
+(pass) generateFeatureSpec > should generate a feature spec with basic params [0.20ms]
+(pass) generateFeatureSpec > should include references [0.05ms]
+(pass) generateFeatureSpec > should use defaults [0.02ms]
+
+packages/bundles/workspace/src/templates/operation.template.test.ts:
+(pass) generateOperationSpec > should generate valid command spec [0.29ms]
+(pass) generateOperationSpec > should generate valid query spec [0.02ms]
+(pass) generateOperationSpec > should handle flags correctly [0.02ms]
+
+packages/bundles/workspace/src/templates/handler.template.test.ts:
+(pass) Handler Template > generateHandlerTemplate > should generate a command handler
+(pass) Handler Template > generateHandlerTemplate > should generate a query handler
+(pass) Handler Template > generateComponentTemplate > should generate a component
+(pass) Handler Template > generateTestTemplate > should generate a handler test
+(pass) Handler Template > generateTestTemplate > should generate a component test
+
+packages/bundles/workspace/src/services/rulesync.test.ts:
+(pass) RuleSyncService > should skip sync if disabled [0.29ms]
+(pass) RuleSyncService > should return error if rules directory does not exist [0.04ms]
+(pass) RuleSyncService > should sync to targets if enabled
+(pass) RuleSyncService > should generate valid rulesync config
+
+packages/bundles/workspace/src/services/layer-discovery.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/module.workspace' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/layer-discovery.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/integrity.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/module.workspace' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/integrity.ts'
+-------------------------------
+
+
+packages/bundles/lifecycle-managed/src/__tests__/assessment-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.lifecycle' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/lifecycle-managed/src/__tests__/assessment-service.test.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/secrets/provider.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@js-sdsl/ordered-map' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/node_modules/@grpc/grpc-js/build/src/channelz.js'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/providers.test.ts:
+(pass) integration provider specs > registers Stripe integration
+(pass) integration provider specs > registers Postmark integration [0.31ms]
+(pass) integration provider specs > registers Qdrant integration
+
+packages/libs/contracts/src/integrations/openbanking/guards.test.ts:
+(pass) ensurePrimaryOpenBankingIntegration > returns error when primaryOpenBanking is unbound
+(pass) ensurePrimaryOpenBankingIntegration > returns error when connection status is error [0.04ms]
+(pass) ensurePrimaryOpenBankingIntegration > returns integration when connection is healthy [0.04ms]
+
+packages/libs/contracts/src/knowledge/ingestion/ingestion.test.ts:
+(pass) Knowledge ingestion services > processes plain text documents [0.23ms]
+(pass) Knowledge ingestion services > embeds fragments in batches [0.12ms]
+(pass) Knowledge ingestion services > indexes embeddings into vector store [0.20ms]
+(pass) Knowledge ingestion services > ingests gmail threads [0.34ms]
+(pass) Knowledge ingestion services > ingests storage objects [0.03ms]
+
+packages/libs/contracts/src/knowledge/spaces/spaces.test.ts:
+(pass) knowledge space specs > registers Product Canon knowledge space [0.10ms]
+(pass) knowledge space specs > registers Support FAQ knowledge space [0.06ms]
+(pass) knowledge space specs > registers Email Threads knowledge space
+(pass) knowledge space specs > registers Uploaded Docs knowledge space [0.05ms]
+(pass) knowledge space specs > registers Financial Docs knowledge space
+
+packages/libs/contracts/src/knowledge/query/service.test.ts:
+(pass) KnowledgeQueryService > performs RAG query combining vector search and LLM [0.46ms]
+
+packages/libs/contracts/src/jobs/handlers/handlers.test.ts:
+(pass) Job handlers > invokes Gmail ingestion adapter [0.19ms]
+(pass) Job handlers > downloads object and delegates to storage adapter [0.02ms]
+
+packages/modules/workspace/src/analysis/snapshot/snapshot.test.ts:
+(pass) normalizer > normalizeValue > should sort object keys alphabetically [0.15ms]
+(pass) normalizer > normalizeValue > should remove undefined values [0.03ms]
+(pass) normalizer > normalizeValue > should preserve null values
+(pass) normalizer > normalizeValue > should normalize nested objects [0.05ms]
+(pass) normalizer > normalizeValue > should normalize arrays [0.03ms]
+(pass) normalizer > toCanonicalJson > should produce identical output for equivalent objects with different key order [0.03ms]
+(pass) normalizer > computeHash > should produce identical hash for equivalent objects [0.09ms]
+(pass) normalizer > computeHash > should produce different hash for different objects
+(pass) normalizer > sortSpecs > should sort specs by key then version [0.07ms]
+(pass) generateSnapshot > should generate snapshot for operation spec [0.47ms]
+(pass) generateSnapshot > should generate deterministic snapshots [0.10ms]
+(pass) generateSnapshot > should filter by spec types [0.16ms]
+
+packages/modules/workspace/src/analysis/validate/spec-structure.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'ts-morph' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/workspace/src/analysis/validate/spec-structure.ts'
+-------------------------------
+
+
+packages/modules/workspace/src/analysis/diff/deep-diff.test.ts:
+(pass) computeIoDiff > should detect removed input field as breaking [0.30ms]
+(pass) computeIoDiff > should detect added required input field as breaking
+(pass) computeIoDiff > should detect added optional input field as non-breaking [0.15ms]
+(pass) computeIoDiff > should detect removed output field as breaking [0.03ms]
+(pass) computeIoDiff > should detect type change as breaking [0.03ms]
+(pass) computeFieldsDiff > should detect removed field as breaking [0.02ms]
+(pass) computeFieldsDiff > should detect added required field as breaking [0.03ms]
+(pass) computeFieldsDiff > should detect added optional field as non-breaking [0.04ms]
+(pass) computeFieldsDiff > should detect changed field properties [0.02ms]
+(pass) computeFieldDiff > should detect required to optional as non-breaking [0.03ms]
+(pass) computeFieldDiff > should detect optional to required as breaking [0.03ms]
+(pass) computeFieldDiff > should detect removed enum value as breaking [0.03ms]
+(pass) computeFieldDiff > should detect added enum value as non-breaking [0.03ms]
+
+packages/modules/workspace/src/analysis/impact/classifier.test.ts:
+(pass) classifyImpact > should detect removed operation as breaking [0.23ms]
+(pass) classifyImpact > should detect added operation as non-breaking [0.05ms]
+(pass) classifyImpact > should report no-impact when specs are identical [0.04ms]
+(pass) classifyImpact > should classify field removal as breaking via diff [0.11ms]
+(pass) classifyImpact > should classify type change as breaking [0.05ms]
+(pass) classifyImpact > should include summary counts [0.02ms]
+
+packages/modules/ai-chat/src/presentation/hooks/use-chat.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.ai-providers' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/modules/ai-chat/src/presentation/hooks/useChat.tsx'
+-------------------------------
+
+
+packages/apps/cli-contractspec/src/ai/agents/unified-adapter.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.ai-agent' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/apps/cli-contractspec/src/ai/agents/unified-adapter.ts'
+-------------------------------
+
+
+packages/apps/cli-contractspec/src/commands/diff/semantic.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/module.workspace' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/apps/cli-contractspec/src/commands/diff/semantic.ts'
+-------------------------------
+
+
+packages/apps/cli-contractspec/src/commands/deps/graph.test.ts:
+(pass) deps graph > detectCycles finds simple cycle [0.21ms]
+(pass) deps graph > toDot emits edges [0.15ms]
+
+packages/apps/cli-contractspec/src/commands/build/index.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@ai-sdk/anthropic' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/apps/cli-contractspec/src/ai/providers.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/templates/fix/skeletons.test.ts:
+(pass) Skeleton Templates > generateSkeletonCapability should include default kind and NOT goal [0.21ms]
+(pass) Skeleton Templates > generateSkeletonPresentation should have correct targets
+(pass) Skeleton Templates > generateSkeletonOperation should include goal and context in meta [0.20ms]
+(pass) Skeleton Templates > generateSkeletonEvent should generate valid meta [0.03ms]
+
+packages/bundles/workspace/src/services/test/test-generator-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'ai' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/test/test-generator-service.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/test/test-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/test/test-service.test.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/verify/verify-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/lib.contracts/operations' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/verify/structure-verifier.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/doctor/doctor-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/bundles/workspace/src/services/features/completion.test.ts:
+(pass) detectFeatureContext > detects operations context [0.24ms]
+(pass) detectFeatureContext > detects events context [0.04ms]
+(pass) detectFeatureContext > returns null if array is closed [0.02ms]
+(pass) detectFeatureContext > detects context in nested object inside array [0.03ms]
+
+packages/bundles/workspace/src/services/features/validation.test.ts:
+(pass) validateFeatureRefs > reports no errors for valid refs [0.12ms]
+(pass) validateFeatureRefs > reports errors for missing refs [0.03ms]
+
+packages/bundles/workspace/src/services/setup/setup-service.test.ts:
+(pass) Setup Service > should run setup for all targets when none specified [0.53ms]
+(pass) Setup Service > should run setup for specific targets [0.08ms]
+(pass) Setup Service > should prompt for targets in interactive mode [0.12ms]
+(pass) Setup Service > should handle monorepo scope selection in interactive mode [0.14ms]
+
+packages/bundles/workspace/src/services/ci-check/ci-check-service.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@contractspec/module.workspace' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/ci-check/ci-check-service.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/versioning/conventional-commits.test.ts:
+(pass) conventional-commits > parseConventionalCommit > should parse a simple feat commit [0.11ms]
+(pass) conventional-commits > parseConventionalCommit > should parse a commit with scope [0.03ms]
+(pass) conventional-commits > parseConventionalCommit > should parse a breaking change with ! [0.04ms]
+(pass) conventional-commits > parseConventionalCommit > should parse a breaking change with scope and !
+(pass) conventional-commits > parseConventionalCommit > should parse BREAKING CHANGE in body [0.04ms]
+(pass) conventional-commits > parseConventionalCommit > should return null for non-conventional commit [0.03ms]
+(pass) conventional-commits > parseConventionalCommit > should return null for empty message
+(pass) conventional-commits > isConventionalCommit > should return true for valid conventional commit [0.02ms]
+(pass) conventional-commits > isConventionalCommit > should return false for invalid commit
+(pass) conventional-commits > getBumpTypeFromCommit > should return major for breaking changes [0.02ms]
+(pass) conventional-commits > getBumpTypeFromCommit > should return minor for feat
+(pass) conventional-commits > getBumpTypeFromCommit > should return patch for fix [0.01ms]
+(pass) conventional-commits > getBumpTypeFromCommit > should return null for docs [0.02ms]
+(pass) conventional-commits > getBumpTypeFromCommit > should return null for chore [0.02ms]
+(pass) conventional-commits > getBumpTypeFromCommit > should use custom type map
+(pass) conventional-commits > getHighestBumpType > should return major if any commit is breaking [0.07ms]
+(pass) conventional-commits > getHighestBumpType > should return minor if highest is feat [0.04ms]
+(pass) conventional-commits > getHighestBumpType > should return patch if only fixes [0.02ms]
+(pass) conventional-commits > getHighestBumpType > should return null if no bumpable commits [0.01ms]
+(pass) conventional-commits > commitToChangeEntry > should convert feat to added [0.04ms]
+(pass) conventional-commits > commitToChangeEntry > should convert fix to fixed
+(pass) conventional-commits > commitToChangeEntry > should convert breaking to breaking [0.03ms]
+(pass) conventional-commits > commitToChangeEntry > should include scope as path
+(pass) conventional-commits > filterCommitsByScope > should filter commits by scope [0.04ms]
+(pass) conventional-commits > filterCommitsByScope > should be case insensitive [0.04ms]
+(pass) conventional-commits > filterBumpableCommits > should filter out non-bumpable commits [0.04ms]
+
+packages/bundles/library/src/libs/email/client.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@scaleway/sdk' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/library/src/libs/email/client.ts'
+-------------------------------
+
+
+packages/bundles/marketing/src/libs/email/client.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@scaleway/sdk' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/marketing/src/libs/email/client.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/google-calendar.test.ts:
+(pass) GoogleCalendarProvider > lists events [0.20ms]
+(pass) GoogleCalendarProvider > creates events with reminders [0.05ms]
+(pass) GoogleCalendarProvider > updates events [0.02ms]
+(pass) GoogleCalendarProvider > deletes events
+
+packages/libs/contracts/src/integrations/providers/impls/mistral-llm.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/gmail-outbound.test.ts:
+(pass) GmailOutboundProvider > sends email with correct payload [0.50ms]
+
+packages/libs/contracts/src/integrations/providers/impls/postmark-email.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'postmark' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/integrations/providers/impls/postmark-email.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/gcs-storage.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/elevenlabs-voice.test.ts:
+(pass) ElevenLabsVoiceProvider > lists available voices [0.36ms]
+(pass) ElevenLabsVoiceProvider > synthesizes audio into a buffer [0.33ms]
+
+packages/libs/contracts/src/integrations/providers/impls/gmail-inbound.test.ts:
+(pass) GmailInboundProvider > lists and transforms threads [0.94ms]
+(pass) GmailInboundProvider > retrieves messages since a timestamp [0.24ms]
+
+packages/libs/contracts/src/integrations/providers/impls/stripe-payments.test.ts:
+(pass) StripePaymentsProvider > creates and retrieves customers [0.31ms]
+(pass) StripePaymentsProvider > handles payment intents lifecycle [0.24ms]
+(pass) StripePaymentsProvider > creates refunds [0.12ms]
+(pass) StripePaymentsProvider > lists invoices and transactions [0.27ms]
+
+packages/libs/contracts/src/integrations/providers/impls/provider-factory.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/mistral-embedding.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/qdrant-vector.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module '@qdrant/js-client-rest' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/libs/contracts/src/integrations/providers/impls/qdrant-vector.ts'
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/powens-openbanking.test.ts:
+(pass) PowensOpenBankingProvider > maps Powens account payloads to canonical summaries [0.59ms]
+(pass) PowensOpenBankingProvider > maps Powens balances to canonical balance records [0.25ms]
+(pass) PowensOpenBankingProvider > throws when userId is not provided for account listing [0.07ms]
+
+packages/libs/contracts/src/integrations/providers/impls/twilio-sms.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+-------------------------------
+
+
+packages/libs/contracts/src/integrations/providers/impls/powens-client.test.ts:
+(pass) PowensClient > fetches and caches OAuth tokens before issuing API requests [0.44ms]
+(pass) PowensClient > throws PowensClientError when API responds with non-2xx
+
+packages/bundles/workspace/src/services/implementation/resolver/status.test.ts:
+(pass) status > determineStatus > should return missing if no implementations [0.05ms]
+(pass) status > determineStatus > should return missing if only test implementations exist [0.03ms]
+(pass) status > determineStatus > should return missing if implementations missing [0.04ms]
+(pass) status > determineStatus > should return implemented if all exist
+(pass) status > determineStatus > should return partial if some exist
+(pass) status > getImplementationSummary > should calculate summary correctly [0.09ms]
+
+packages/bundles/workspace/src/services/implementation/resolver/parsers.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find package 'ts-morph' from '/Users/tboutron/Documents/clients/lssm/monorepo-lssm/packages/contractspec/packages/bundles/workspace/src/services/implementation/resolver/parsers.ts'
+-------------------------------
+
+
+packages/bundles/workspace/src/services/implementation/resolver/conventions.test.ts:
+(pass) conventions > toKebabCase > should convert PascalCase to kebab-case [0.05ms]
+(pass) conventions > toKebabCase > should handle dot notation
+(pass) conventions > getConventionPaths > should return handler and test for operation
+(pass) conventions > getConventionPaths > should return component and test for presentation
+(pass) conventions > getConventionPaths > should return form and test for form
+
+packages/bundles/workspace/src/services/fix/strategies/implement-skeleton.test.ts:
+(pass) implementSkeletonStrategy > should create a skeleton operation file [0.52ms]
+(pass) implementSkeletonStrategy > should handle dry run correctly [0.09ms]
+(pass) implementSkeletonStrategy > should fail for unsupported spec type [0.02ms]
+(pass) implementSkeletonStrategy > should handle file system errors [0.13ms]
+(pass) implementSkeletonStrategy > should generate skeleton for event [0.06ms]
+(pass) implementSkeletonStrategy > should generate skeleton for presentation [0.05ms]
+(pass) implementSkeletonStrategy > should generate skeleton for capability [0.03ms]
+
+packages/bundles/workspace/src/services/fix/strategies/remove-reference.test.ts:
+(pass) removeReferenceStrategy > should remove a reference from a feature file [0.45ms]
+
+61 tests failed:
+------------------------------------------------------------------------------------|---------|---------|-------------------
+File                                                                                | % Funcs | % Lines | Uncovered Line #s
+------------------------------------------------------------------------------------|---------|---------|-------------------
+All files                                                                           |   82.23 |   86.48 |
+ packages/apps/cli-contractspec/src/commands/deps/graph.ts                          |   60.00 |   58.57 | 10-25,62-74
+ packages/apps/cli-contractspec/src/templates/operation.template.ts                 |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/adapters/logger.ts                                  |   70.00 |   32.86 | 34,61-94,101-112
+ packages/bundles/workspace/src/adapters/workspace.ts                               |   77.78 |   75.92 | 189,227-230,244,286-287,289-299,311-315,318,332,335,374-375,388,391,422,427,455,498-509,517-528,536-549
+ packages/bundles/workspace/src/services/features/completion.ts                     |  100.00 |   94.52 | 58,107,118
+ packages/bundles/workspace/src/services/features/validation.ts                     |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/fix/path-resolver.ts                       |  100.00 |   94.44 | 21,28,51
+ packages/bundles/workspace/src/services/fix/strategies/implement-skeleton.ts       |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/fix/strategies/remove-reference.ts         |  100.00 |   77.78 | 38-44,57,59-61,71-78
+ packages/bundles/workspace/src/services/fix/types.ts                               |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/implementation/resolver/conventions.ts     |  100.00 |   84.91 | 62-69
+ packages/bundles/workspace/src/services/implementation/resolver/status.ts          |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/rulesync.ts                                |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/setup/config-generators.ts                 |    0.00 |    3.24 | 14-54,61-70,77-84,92-99,108-165,180-222,288-298
+ packages/bundles/workspace/src/services/setup/file-merger.ts                       |    0.00 |    5.00 | 11-33,41-64,71-75,83-86
+ packages/bundles/workspace/src/services/setup/setup-service.ts                     |   70.00 |   93.52 | 38,160-165
+ packages/bundles/workspace/src/services/setup/targets/agents-md.ts                 |    0.00 |    1.89 | 18-69
+ packages/bundles/workspace/src/services/setup/targets/cli-config.ts                |    0.00 |    2.74 | 19-89
+ packages/bundles/workspace/src/services/setup/targets/cursor-rules.ts              |    0.00 |    1.69 | 16-73
+ packages/bundles/workspace/src/services/setup/targets/index.ts                     |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/setup/targets/mcp-claude.ts                |    0.00 |    2.70 | 21-92
+ packages/bundles/workspace/src/services/setup/targets/mcp-cursor.ts                |    0.00 |    2.70 | 17-88
+ packages/bundles/workspace/src/services/setup/targets/vscode-settings.ts           |    0.00 |    2.47 | 20-98
+ packages/bundles/workspace/src/services/setup/types.ts                             |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/services/versioning/conventional-commits.ts         |   90.00 |   80.15 | 123,244-261,263-266,274-276
+ packages/bundles/workspace/src/templates/feature.template.ts                       |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/fix/index.ts                              |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/fix/skeleton-capability.ts                |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/fix/skeleton-event.ts                     |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/fix/skeleton-operation.ts                 |  100.00 |   98.08 | 
+ packages/bundles/workspace/src/templates/fix/skeleton-presentation.ts              |  100.00 |   94.12 | 31-32
+ packages/bundles/workspace/src/templates/fix/utils.ts                              |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/handler.template.ts                       |  100.00 |  100.00 | 
+ packages/bundles/workspace/src/templates/operation.template.ts                     |  100.00 |  100.00 | 
+ packages/examples/kb-update-pipeline/src/handlers/memory.handlers.ts               |   94.12 |   91.43 | 73-77,111,155,173-174
+ packages/examples/learning-journey-ambient-coach/src/track.ts                      |  100.00 |  100.00 | 
+ packages/examples/learning-journey-duo-drills/src/track.ts                         |  100.00 |  100.00 | 
+ packages/examples/learning-journey-quest-challenges/src/track.ts                   |  100.00 |  100.00 | 
+ packages/examples/locale-jurisdiction-gate/src/handlers/demo.handlers.ts           |   75.00 |   71.59 | 126,128-138,143-155
+ packages/examples/locale-jurisdiction-gate/src/policy/guard.ts                     |  100.00 |   78.67 | 34-37,46-49,64,79-82,85,100-101
+ packages/examples/versioned-knowledge-base/src/handlers/memory.handlers.ts         |   95.45 |   91.60 | 91-96,110,138,158
+ packages/integrations/providers-impls/src/impls/elevenlabs-voice.ts                |  100.00 |  100.00 | 
+ packages/integrations/providers-impls/src/impls/gmail-inbound.ts                   |   96.88 |   96.44 | 218-226
+ packages/integrations/providers-impls/src/impls/gmail-outbound.ts                  |   60.00 |   70.31 | 64,79,111-134,146-157
+ packages/integrations/providers-impls/src/impls/google-calendar.ts                 |   77.27 |   87.96 | 100-104,107-109,206-217,233-235
+ packages/integrations/providers-impls/src/impls/powens-client.ts                   |   75.00 |   83.75 | 185-214,222-230
+ packages/integrations/providers-impls/src/impls/powens-openbanking.ts              |   61.90 |   46.67 | 68-104,123-141,176-188,192-217,273-284,289-301,306-321
+ packages/integrations/providers-impls/src/impls/stripe-payments.ts                 |   96.77 |  100.00 | 
+ packages/libs/ai-agent/src/memory/in-memory.ts                                     |   87.50 |   69.05 | 44-56
+ packages/libs/ai-agent/src/memory/manager.ts                                       |    0.00 |    4.90 | 41-60,67-84,91-102,107-132,137-147,152-161
+ packages/libs/contracts-transformers/src/common/utils.ts                           |   30.77 |   29.58 | 17-18,35-38,50,58-59,66,73-94,101-110,118-119,126-131
+ packages/libs/contracts-transformers/src/openapi/schema-converter.ts               |   83.33 |   70.52 | 90-91,103-109,120-126,131-146,162-168,213,224-228,281,283-287
+ packages/libs/contracts-transformers/src/openapi/schema-generators/index.ts        |   68.75 |   94.87 | 43-44,176-189,744-757
+ packages/libs/contracts/src/app-config/runtime.ts                                  |   97.78 |   86.39 | 394,444-447,450,519,522-525,618-619,622-623,626-627,634-635,669-673,683-686,703-706,714-718,734-738,742-746,753-758,766-771,821-822,845-851,858-859,896-900,924-925,955-959,986-990,1007,1015-1018,1024-1027,1031-1039,1050,1061-1064,1089-1093
+ packages/libs/contracts/src/app-config/spec.ts                                     |   33.33 |   77.78 | 103
+ packages/libs/contracts/src/app-config/validation.ts                               |   72.55 |   88.54 | 174-185,227-235,309-318,337-346,351-360,363-372,579-583,902,906-912,916-923,955-959
+ packages/libs/contracts/src/capabilities/capabilities.ts                           |   60.00 |   94.44 | 55,105
+ packages/libs/contracts/src/capabilities/index.ts                                  |  100.00 |  100.00 | 
+ packages/libs/contracts/src/capabilities/openbanking.ts                            |    0.00 |   94.29 | 106-111
+ packages/libs/contracts/src/contract-registry/schemas.ts                           |  100.00 |  100.00 | 
+ packages/libs/contracts/src/data-views/data-views.ts                               |  100.00 |  100.00 | 
+ packages/libs/contracts/src/data-views/index.ts                                    |  100.00 |  100.00 | 
+ packages/libs/contracts/src/data-views/registry.ts                                 |  100.00 |  100.00 | 
+ packages/libs/contracts/src/data-views/spec.ts                                     |  100.00 |  100.00 | 
+ packages/libs/contracts/src/docs/presentations.ts                                  |  100.00 |  100.00 | 
+ packages/libs/contracts/src/docs/registry.ts                                       |   91.67 |   97.87 | 
+ packages/libs/contracts/src/examples/registry.ts                                   |   86.67 |   89.22 | 75,123-125,155-161
+ packages/libs/contracts/src/examples/schema.ts                                     |   33.33 |   96.33 | 176,181,186
+ packages/libs/contracts/src/examples/types.ts                                      |  100.00 |  100.00 | 
+ packages/libs/contracts/src/examples/validation.ts                                 |  100.00 |   96.00 | 129-134
+ packages/libs/contracts/src/experiments/evaluator.ts                               |  100.00 |  100.00 | 
+ packages/libs/contracts/src/experiments/spec.ts                                    |   33.33 |   87.50 | 
+ packages/libs/contracts/src/features/index.ts                                      |    0.00 |   80.00 | 
+ packages/libs/contracts/src/features/install.ts                                    |  100.00 |   63.41 | 22-28,32-38,60-75
+ packages/libs/contracts/src/features/registry.ts                                   |   91.67 |  100.00 | 
+ packages/libs/contracts/src/features/validation.ts                                 |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/health.ts                                 |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/openbanking/guards.ts                     |   66.67 |   61.54 | 38-42,48-57
+ packages/libs/contracts/src/integrations/providers/impls/elevenlabs-voice.ts       |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/providers/impls/gmail-inbound.ts          |   96.88 |   96.43 | 217-225
+ packages/libs/contracts/src/integrations/providers/impls/gmail-outbound.ts         |   60.00 |   70.31 | 64,79,111-134,146-157
+ packages/libs/contracts/src/integrations/providers/impls/google-calendar.ts        |   77.27 |   87.96 | 100-104,107-109,206-217,233-235
+ packages/libs/contracts/src/integrations/providers/impls/powens-client.ts          |   75.00 |   83.75 | 185-214,222-230
+ packages/libs/contracts/src/integrations/providers/impls/powens-openbanking.ts     |   61.90 |   46.67 | 68-104,124-142,177-189,193-218,274-285,290-302,307-322
+ packages/libs/contracts/src/integrations/providers/impls/stripe-payments.ts        |   96.77 |  100.00 | 
+ packages/libs/contracts/src/integrations/providers/postmark.ts                     |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/providers/qdrant.ts                       |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/providers/stripe.ts                       |  100.00 |  100.00 | 
+ packages/libs/contracts/src/integrations/runtime.ts                                |   84.21 |   92.88 | 117-119,375-380,384-393
+ packages/libs/contracts/src/integrations/spec.ts                                   |   60.00 |   81.82 | 85
+ packages/libs/contracts/src/jobs/gcp-cloud-tasks.ts                                |   50.00 |   85.00 | 88-91,95-99
+ packages/libs/contracts/src/jobs/gcp-pubsub.ts                                     |   50.00 |   79.07 | 57-60,64-68
+ packages/libs/contracts/src/jobs/handlers/gmail-sync-handler.ts                    |  100.00 |  100.00 | 
+ packages/libs/contracts/src/jobs/handlers/storage-document-handler.ts              |  100.00 |   80.00 | 20-22
+ packages/libs/contracts/src/jobs/memory-queue.ts                                   |   91.67 |  100.00 | 
+ packages/libs/contracts/src/jobs/queue.ts                                          |    0.00 |   30.77 | 146-160,178-180
+ packages/libs/contracts/src/knowledge/ingestion/document-processor.ts              |   85.71 |   66.13 | 65-85
+ packages/libs/contracts/src/knowledge/ingestion/embedding-service.ts               |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/ingestion/gmail-adapter.ts                   |   90.91 |   98.08 | 
+ packages/libs/contracts/src/knowledge/ingestion/storage-adapter.ts                 |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/ingestion/vector-indexer.ts                  |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/query/service.ts                             |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/runtime.ts                                   |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spaces/email-threads.ts                      |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spaces/financial-docs.ts                     |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spaces/product-canon.ts                      |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spaces/support-faq.ts                        |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spaces/uploaded-docs.ts                      |  100.00 |  100.00 | 
+ packages/libs/contracts/src/knowledge/spec.ts                                      |   75.00 |   88.89 | 
+ packages/libs/contracts/src/migrations.ts                                          |   83.33 |  100.00 | 
+ packages/libs/contracts/src/ownership.ts                                           |  100.00 |  100.00 | 
+ packages/libs/contracts/src/policy/engine.ts                                       |   79.31 |   86.82 | 276,281-292,354-378
+ packages/libs/contracts/src/policy/opa-adapter.ts                                  |   88.89 |  100.00 | 
+ packages/libs/contracts/src/policy/registry.ts                                     |  100.00 |  100.00 | 
+ packages/libs/contracts/src/prompt.ts                                              |  100.00 |  100.00 | 
+ packages/libs/contracts/src/promptRegistry.ts                                      |   75.00 |  100.00 | 
+ packages/libs/contracts/src/regenerator/executor.ts                                |  100.00 |  100.00 | 
+ packages/libs/contracts/src/regenerator/service.ts                                 |   68.42 |   87.50 | 50-55,59-64,131
+ packages/libs/contracts/src/regenerator/sinks.ts                                   |  100.00 |  100.00 | 
+ packages/libs/contracts/src/regenerator/utils.ts                                   |   42.86 |   38.60 | 24-32,36-44,59-62,66-73,79-83
+ packages/libs/contracts/src/registry-utils.ts                                      |   88.89 |   83.76 | 64,185-202
+ packages/libs/contracts/src/registry.ts                                            |   80.00 |   96.00 | 37
+ packages/libs/contracts/src/telemetry/anomaly.ts                                   |   66.67 |   98.11 | 
+ packages/libs/contracts/src/telemetry/spec.ts                                      |   62.50 |   97.37 | 
+ packages/libs/contracts/src/telemetry/tracker.ts                                   |   66.67 |   95.70 | 54-55,81
+ packages/libs/contracts/src/tests/spec.ts                                          |   83.33 |  100.00 | 
+ packages/libs/contracts/src/themes.ts                                              |  100.00 |  100.00 | 
+ packages/libs/contracts/src/versioning/utils.ts                                    |  100.00 |   98.56 | 39
+ packages/libs/contracts/src/workflow/adapters/memory-store.ts                      |   69.23 |   83.93 | 47-54
+ packages/libs/contracts/src/workflow/expression.ts                                 |   88.89 |   87.50 | 54,56-57,71-72,80-81,83,96-99,140-142
+ packages/libs/contracts/src/workflow/runner.ts                                     |   87.80 |   80.36 | 86-93,266-344
+ packages/libs/contracts/src/workflow/spec.ts                                       |  100.00 |  100.00 | 
+ packages/libs/contracts/src/workspace-config/contractsrc-schema.ts                 |  100.00 |  100.00 | 
+ packages/libs/schema/src/EnumType.ts                                               |  100.00 |  100.00 | 
+ packages/libs/schema/src/FieldType.ts                                              |   75.00 |   96.77 | 
+ packages/libs/schema/src/GraphQLSchemaType.ts                                      |  100.00 |  100.00 | 
+ packages/libs/schema/src/JsonSchemaType.ts                                         |  100.00 |  100.00 | 
+ packages/libs/schema/src/ScalarTypeEnum.ts                                         |   36.92 |   91.71 | 28-29,44-45,55-56,60-62,74-75,87-88,135-138
+ packages/libs/schema/src/SchemaModel.ts                                            |  100.00 |  100.00 | 
+ packages/libs/schema/src/SchemaModelType.ts                                        |  100.00 |  100.00 | 
+ packages/libs/schema/src/ZodSchemaType.ts                                          |  100.00 |  100.00 | 
+ packages/libs/schema/src/entity/defineEntity.ts                                    |  100.00 |  100.00 | 
+ packages/libs/schema/src/entity/generator.ts                                       |  100.00 |   92.47 | 142,204-205,238-242,282,285,293,297,301,305,326,334,346,350,376,380
+ packages/modules/ai-chat/src/context/context-builder.ts                            |   75.00 |   97.86 | 253-255
+ packages/modules/workspace/src/analysis/diff/deep-diff.ts                          |   60.00 |   79.41 | 147-156,197-200,209-212,221-237
+ packages/modules/workspace/src/analysis/example-scan.ts                            |  100.00 |  100.00 | 
+ packages/modules/workspace/src/analysis/impact/classifier.ts                       |   76.92 |   90.00 | 166-176,202-203
+ packages/modules/workspace/src/analysis/impact/rules.ts                            |   22.73 |   87.66 | 39-40,47-48,55-56,63,70,77-78,85,98-99,112,119-120,127-128
+ packages/modules/workspace/src/analysis/snapshot/normalizer.ts                     |  100.00 |  100.00 | 
+ packages/modules/workspace/src/analysis/snapshot/snapshot.ts                       |  100.00 |   94.41 | 85,115,236-242
+ packages/modules/workspace/src/analysis/spec-parsing-utils.ts                      |   80.00 |   40.86 | 46-48,50-64,73-109
+ packages/modules/workspace/src/analysis/spec-scan.ts                               |  100.00 |   85.48 | 54-57,95-96,98-99,101-102,104-105,168,172-176
+ packages/modules/workspace/src/analysis/utils/matchers.ts                          |  100.00 |   95.45 | 42,113
+ packages/modules/workspace/src/formatters/spec-markdown.ts                         |   92.31 |   90.55 | 229-234,239-244,357-369,378-381
+ packages/modules/workspace/src/templates/app-config.ts                             |   73.08 |   69.14 | 90-93,96-98,103-108,110-113,118,120-123,135-144,149-154,157-159,172-174,182-184,199-201
+ packages/modules/workspace/src/templates/data-view.ts                              |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/event.ts                                  |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/experiment.ts                             |   90.00 |   95.29 | 112,120-122
+ packages/modules/workspace/src/templates/handler.ts                                |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/integration-utils.ts                      |  100.00 |   95.80 | 81-83,145,159
+ packages/modules/workspace/src/templates/integration.ts                            |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/knowledge.ts                              |  100.00 |   93.42 | 89,93-95
+ packages/modules/workspace/src/templates/migration.ts                              |  100.00 |   97.96 | 
+ packages/modules/workspace/src/templates/operation.ts                              |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/presentation.ts                           |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/telemetry.ts                              |   90.91 |   92.78 | 59,79,86-88,139-140
+ packages/modules/workspace/src/templates/utils.ts                                  |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/workflow-runner.ts                        |  100.00 |  100.00 | 
+ packages/modules/workspace/src/templates/workflow.ts                               |  100.00 |   98.21 | 
+------------------------------------------------------------------------------------|---------|---------|-------------------
+
+ 897 pass
+ 61 fail
+ 61 errors
+ 1951 expect() calls
+Ran 958 tests across 188 files. [1.86s]

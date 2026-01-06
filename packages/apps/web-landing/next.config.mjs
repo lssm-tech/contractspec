@@ -63,15 +63,6 @@ const nextConfig = {
         source: '/studio/:path*',
         destination: 'https://www.contractspec.studio/:path*',
       },
-      {
-        source: '/api/chat',
-        destination:
-          process.env.API_LIBRARY_URL || 'https://api.contractspec.io/api/chat',
-      },
-      // {
-      //   source: '/api/graphql',
-      //   destination: 'https://api.contractspec.io/graphql',
-      // },
       // LLM guide file (static, no auth)
       {
         source: '/llms',

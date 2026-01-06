@@ -27,7 +27,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@ai-sdk/provider-utils": "^4.0.3",

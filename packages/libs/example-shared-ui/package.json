@@ -16,7 +16,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@apollo/client": "^4.0.11",
