@@ -261,7 +261,7 @@ export const TemplatesPage = () => {
 
   return (
     <TooltipProvider>
-      <main className="pt-24">
+      <main className="">
         {/* Hero */}
         <section className="section-padding hero-gradient border-border relative border-b">
           <div className="mx-auto max-w-4xl space-y-6 text-center">

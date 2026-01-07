@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Overlay Engine | ContractSpec',
-//   description: 'Signed overlays with cryptographic safety and React hooks.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesOverlayEnginePage() {
   return (
@@ -15,9 +14,15 @@ export function LibrariesOverlayEnginePage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.overlay-engine" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Define + Sign</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { defineOverlay } from '@contractspec/lib.overlay-engine/spec';
+        <CodeBlock
+          language="typescript"
+          code={`import { defineOverlay } from '@contractspec/lib.overlay-engine/spec';
 import { signOverlay } from '@contractspec/lib.overlay-engine/signer';
 
 const overlay = defineOverlay({
@@ -28,17 +33,18 @@ const overlay = defineOverlay({
 });
 
 const signed = await signOverlay(overlay, privateKeyPem);`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Runtime</h2>
-        <p>
+        <p className="text-muted-foreground">
           `OverlayRegistry` stores signed overlays with specificity scoring.
           `OverlayEngine` merges modifications and emits audit events.
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const registry = new OverlayRegistry();
+        <CodeBlock
+          language="typescript"
+          code={`const registry = new OverlayRegistry();
 registry.register(signed);
 
 const engine = new OverlayEngine({
@@ -51,22 +57,31 @@ const result = engine.apply({
   capability: 'billing.createOrder',
   tenantId: 'acme',
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">React Hooks</h2>
-        <p>Render overlays in React/React Native via `useOverlay`.</p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { useOverlay } from '@contractspec/lib.overlay-engine/react';
+        <p className="text-muted-foreground">Render overlays in React/React Native via `useOverlay`.</p>
+        <CodeBlock
+          language="typescript"
+          code={`import { useOverlay } from '@contractspec/lib.overlay-engine/react';
 
 const { target } = useOverlay(engine, {
   target: { fields },
   capability: 'billing.createOrder',
   tenantId: 'acme',
-});
-`}
-        </pre>
+});`}
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/workflow-composer" className="btn-primary">
+          Next: Workflow Composer <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

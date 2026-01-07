@@ -1,11 +1,6 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'App Configuration: ContractSpec Docs',
-//   description:
-//     'Learn about AppBlueprintSpec, TenantAppConfig, and ResolvedAppConfig in ContractSpec.',
-// };
 
 export function ArchitectureAppConfigPage() {
   return (
@@ -26,8 +21,9 @@ export function ArchitectureAppConfigPage() {
           definition of your application. It contains no tenant-specific
           information and is stored in version control.
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type AppBlueprintSpec = {
+        <CodeBlock
+          language="typescript"
+          code={`type AppBlueprintSpec = {
   id: string;
   version: string;
   name: string;
@@ -64,8 +60,8 @@ export function ArchitectureAppConfigPage() {
   
   // Schema evolution
   migrations: MigrationSpec[];
-};`}</pre>
-        </div>
+};`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -75,8 +71,9 @@ export function ArchitectureAppConfigPage() {
           per-environment configuration that customizes how a specific tenant
           uses the app.
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type TenantAppConfig = {
+        <CodeBlock
+          language="typescript"
+          code={`type TenantAppConfig = {
   tenantId: string;
   blueprintId: string;
   blueprintVersion: string;
@@ -107,8 +104,8 @@ export function ArchitectureAppConfigPage() {
   metadata: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
-};`}</pre>
-        </div>
+};`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -117,8 +114,9 @@ export function ArchitectureAppConfigPage() {
           Defines how a tenant connects specific integration instances to
           satisfy capabilities and workflows.
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type AppIntegrationBinding = {
+        <CodeBlock
+          language="typescript"
+          code={`type AppIntegrationBinding = {
   slotId: string;          // References AppIntegrationSlot.slotId
   connectionId: string;    // References IntegrationConnection.meta.id
   scope?: {
@@ -138,8 +136,8 @@ export function ArchitectureAppConfigPage() {
     operations: ["payments.stripe.*"]
   },
   priority: 1
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -147,8 +145,9 @@ export function ArchitectureAppConfigPage() {
         <p className="text-muted-foreground">
           Defines which knowledge spaces a tenant's app can access and how.
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type AppKnowledgeBinding = {
+        <CodeBlock
+          language="typescript"
+          code={`type AppKnowledgeBinding = {
   spaceId: string;
   enabled: boolean;
   
@@ -178,8 +177,8 @@ export function ArchitectureAppConfigPage() {
   },
   allowedCategories: ["canonical", "operational"],
   sources: ["src_notion_product_docs", "src_database_schema"]
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -189,8 +188,9 @@ export function ArchitectureAppConfigPage() {
           merging AppBlueprintSpec with TenantAppConfig. It's computed on-demand
           and never persisted.
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`type ResolvedAppConfig = {
+        <CodeBlock
+          language="typescript"
+          code={`type ResolvedAppConfig = {
   appId: string;
   tenantId: string;
   blueprintName: string;
@@ -217,8 +217,8 @@ export function ArchitectureAppConfigPage() {
   knowledge: ResolvedKnowledge[];       // [{ binding, space, sources }]
   branding: ResolvedBranding;           // { appName, assets, colors, domain }
   notes?: string;
-};`}</pre>
-        </div>
+};`}
+        />
       </div>
 
       <div className="space-y-4">

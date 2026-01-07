@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Personalization Library | ContractSpec',
-//   description: 'Behavior tracking and insights for overlay automation.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesPersonalizationPage() {
   return (
@@ -17,13 +16,19 @@ export function LibrariesPersonalizationPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.personalization" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Tracker</h2>
-        <p>
+        <p className="text-muted-foreground">
           Buffer events per tenant/user and emit OpenTelemetry counters
           automatically.
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { createBehaviorTracker } from '@contractspec/lib.personalization';
+        <CodeBlock
+          language="typescript"
+          code={`import { createBehaviorTracker } from '@contractspec/lib.personalization';
 
 const tracker = createBehaviorTracker({
   store,
@@ -32,36 +37,47 @@ const tracker = createBehaviorTracker({
 
 tracker.trackFieldAccess({ operation: 'billing.createOrder', field: 'items' });
 tracker.trackWorkflowStep({ workflow: 'invoice', step: 'review', status: 'entered' });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Analyzer</h2>
-        <p>
+        <p className="text-muted-foreground">
           Summarize events and highlight unused UI, frequent fields, and
           workflow bottlenecks.
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { BehaviorAnalyzer } from '@contractspec/lib.personalization/analyzer';
+        <CodeBlock
+          language="typescript"
+          code={`import { BehaviorAnalyzer } from '@contractspec/lib.personalization/analyzer';
 
 const analyzer = new BehaviorAnalyzer(store);
 const insights = await analyzer.analyze({ tenantId: 'acme', userId: 'ops-42' });
 // { unusedFields: ['internalNotes'], workflowBottlenecks: [...] }`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Adapter</h2>
-        <p>Convert insights into overlays or workflow extension hints.</p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { insightsToOverlaySuggestion } from '@contractspec/lib.personalization/adapter';
+        <p className="text-muted-foreground">Convert insights into overlays or workflow extension hints.</p>
+        <CodeBlock
+          language="typescript"
+          code={`import { insightsToOverlaySuggestion } from '@contractspec/lib.personalization/adapter';
 
 const overlay = insightsToOverlaySuggestion(insights, {
   overlayId: 'acme-order-form',
   tenantId: 'acme',
   capability: 'billing.createOrder',
 });`}
-        </pre>
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/overlay-engine" className="btn-primary">
+          Next: Overlay Engine <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

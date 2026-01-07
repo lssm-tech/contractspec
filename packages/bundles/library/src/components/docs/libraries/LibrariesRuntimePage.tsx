@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Runtime Libraries: ContractSpec Docs',
-//   description:
-//     'Presentation runtimes for rendering ContractSpec workflows and UIs.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesRuntimePage() {
   return (
@@ -17,6 +12,11 @@ export function LibrariesRuntimePage() {
           ContractSpec-defined UIs. They handle state management, validation,
           step navigation, and component rendering for Workflows and DataViews.
         </p>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.presentation-runtime-react" />
       </div>
 
       <div className="space-y-4">
@@ -61,8 +61,9 @@ export function LibrariesRuntimePage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: React Workflow</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { useWorkflow, WorkflowStepRenderer } from '@contractspec/lib.presentation-runtime-react';
+        <CodeBlock
+          language="tsx"
+          code={`import { useWorkflow, WorkflowStepRenderer } from '@contractspec/lib.presentation-runtime-react';
 import { OnboardingFlow } from './specs/onboarding';
 
 export function OnboardingPage() {
@@ -102,8 +103,8 @@ export function OnboardingPage() {
       </div>
     </div>
   );
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">

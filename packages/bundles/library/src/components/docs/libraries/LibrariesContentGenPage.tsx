@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Content Generation Library | ContractSpec',
-//   description:
-//     'Generate blog posts, landing pages, emails, social posts, and SEO metadata.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesContentGenPage() {
   return (
@@ -15,10 +13,16 @@ export function LibrariesContentGenPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.content-gen" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">One brief, many assets</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import {
+        <CodeBlock
+          language="typescript"
+          code={`import {
   BlogGenerator,
   LandingPageGenerator,
   EmailCampaignGenerator,
@@ -39,7 +43,7 @@ const landing = await new LandingPageGenerator().generate(brief);
 const email = await new EmailCampaignGenerator().generate({ brief, variant: 'announcement' });
 const social = await new SocialPostGenerator().generate(brief);
 const seo = new SeoOptimizer().optimize(brief);`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
@@ -52,6 +56,15 @@ const seo = new SeoOptimizer().optimize(brief);`}
           </li>
           <li>Generate SEO metadata + Schema.org markup alongside content.</li>
         </ul>
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/support-bot" className="btn-primary">
+          Next: Support Bot <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

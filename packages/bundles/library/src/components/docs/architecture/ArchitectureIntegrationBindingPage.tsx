@@ -1,11 +1,6 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Integration Binding: ContractSpec Docs',
-//   description:
-//     'Learn how apps bind to integrations through AppIntegrationBinding in ContractSpec.',
-// };
 
 export function ArchitectureIntegrationBindingPage() {
   return (
@@ -50,8 +45,9 @@ export function ArchitectureIntegrationBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 1: Blueprint declares requirement
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// AppBlueprintSpec
+          <CodeBlock
+            language="typescript"
+            code={`// AppBlueprintSpec
 {
   meta: { name: "invoice-app", version: '1.0.0', appId: "invoice" },
   integrationSlots: [
@@ -75,16 +71,17 @@ export function ArchitectureIntegrationBindingPage() {
     assets: [{ type: "logo", url: "https://cdn.acme.dev/logo.png" }],
     colorTokens: { primary: "colors.brand.primary" }
   }
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 2: Tenant creates connection
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// IntegrationConnection
+          <CodeBlock
+            language="typescript"
+            code={`// IntegrationConnection
 {
   meta: {
     id: "conn_stripe_acme_prod",
@@ -104,16 +101,17 @@ export function ArchitectureIntegrationBindingPage() {
   },
   secretRef: "vault://integrations/acme/conn_stripe_acme_prod",
   status: "active"
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 3: TenantAppConfig binds connection
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// TenantAppConfig
+          <CodeBlock
+            language="typescript"
+            code={`// TenantAppConfig
 {
   meta: {
     tenantId: "acme-corp",
@@ -139,16 +137,17 @@ export function ArchitectureIntegrationBindingPage() {
     customDomain: "billing.acme.com",
     assets: [{ type: "logo", url: "https://assets.acme.com/logo.svg" }]
   }
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 4: Runtime resolves and executes
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// ResolvedAppConfig (runtime)
+          <CodeBlock
+            language="typescript"
+            code={`// ResolvedAppConfig (runtime)
 {
   integrations: {
     "payments.createPaymentIntent": {
@@ -165,8 +164,8 @@ const result = await executeCapability(
   { amount: 5000, currency: "usd" },
   resolvedConfig
 );
-// → Uses Stripe connection automatically`}</pre>
-          </div>
+// → Uses Stripe connection automatically`}
+          />
         </div>
       </div>
 
@@ -176,8 +175,9 @@ const result = await executeCapability(
           A single app can use multiple integrations across different
           categories:
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`integrations: [
+        <CodeBlock
+          language="typescript"
+          code={`integrations: [
   {
     slotId: "payments.primary",
     connectionId: "conn_stripe_prod",
@@ -203,8 +203,8 @@ const result = await executeCapability(
       workflows: ["semantic-search", "rag-query"]
     }
   }
-]`}</pre>
-        </div>
+]`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -213,8 +213,9 @@ const result = await executeCapability(
           Tenants typically maintain separate connections for sandbox and
           production environments:
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`// Sandbox environment
+        <CodeBlock
+          language="typescript"
+          code={`// Sandbox environment
 {
   meta: { environment: "sandbox", status: "preview" },
   integrations: [
@@ -234,8 +235,8 @@ const result = await executeCapability(
       connectionId: "conn_stripe_acme_prod"
     }
   ]
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">

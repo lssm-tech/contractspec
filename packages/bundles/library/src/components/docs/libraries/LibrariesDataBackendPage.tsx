@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Data & Backend Libraries: ContractSpec Docs',
-//   description:
-//     'Essential backend utilities for database, logging, error handling, and events.',
-// };
+import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function LibrariesDataBackendPage() {
   return (
@@ -72,8 +67,9 @@ export function LibrariesDataBackendPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Unified Backend Flow</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { logger } from '@contractspec/lib.logger';
+        <CodeBlock
+          language="typescript"
+          code={`import { logger } from '@contractspec/lib.logger';
 import { AppError } from '@contractspec/lib.error';
 import { db } from '@contractspec/app.cli-database';
 import { EventBus } from '@contractspec/lib.bus';
@@ -91,8 +87,8 @@ export async function createUser(email: string) {
   await EventBus.publish('user.created', { userId: user.id });
   
   return user;
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="flex items-center gap-4 pt-4">

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export function DesignPartnerPage() {
   return (
-    <main className="flex grow flex-col pt-24">
+    <main className="flex grow flex-col">
       {/* Hero Section */}
       <section className="section-padding relative overflow-hidden">
         <div className="container mx-auto max-w-5xl">

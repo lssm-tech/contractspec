@@ -12,7 +12,6 @@ export const docsSections = [
       { title: 'Installation', href: '/docs/getting-started/installation' },
       { title: 'Hello World', href: '/docs/getting-started/hello-world' },
       { title: 'DataView Tutorial', href: '/docs/getting-started/dataviews' },
-      { title: 'Database Tools', href: '/docs/getting-started/database' },
       { title: 'Developer Tools', href: '/docs/getting-started/tools' },
     ],
   },

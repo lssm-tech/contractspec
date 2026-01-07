@@ -112,7 +112,6 @@ The provider should wrap the documentation layout so all `CommandTabs` and `Inst
    - InstallationPage.tsx - Add package manager tabs
    - HelloWorldPage.tsx - Syntax highlighting
    - CLIPage.tsx - Command syntax highlighting
-   - DatabaseToolsPage.tsx
    - DeveloperToolsPage.tsx
    - DataViewTutorialPage.tsx
    - VSCodeExtensionPage.tsx
