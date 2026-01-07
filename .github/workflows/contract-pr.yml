@@ -2,9 +2,9 @@ name: ContractSpec PR Summary
 
 on:
   pull_request:
-    paths:
-      - 'contracts/**'
-      - 'generated/**'
+#    paths:
+#      - 'contracts/**'
+#      - 'generated/**'
 
 jobs:
   pr-comment:
@@ -23,6 +23,12 @@ jobs:
 
       - name: Install Dependencies
         run: bun install
+
+      - name: Build packages
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run build
 
       - name: Generate Views
         id: views

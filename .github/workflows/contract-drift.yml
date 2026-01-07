@@ -20,6 +20,12 @@ jobs:
       - name: Install Dependencies
         run: bun install
 
+      - name: Build packages
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run build
+
       - name: Validate Drift
         run: |
           # Run validation which checks structural integrity
