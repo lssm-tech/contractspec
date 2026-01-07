@@ -76,7 +76,6 @@
     "build:server": "turbo run build --filter=\"@contractspec/app.api-*\" --filter=\"@contractspec/app.worker-*\"",
     "build:types": "turbo run build:types",
     "build:not-apps": "turbo run build --filter=\"!@contractspec/app.*\"",
-    "db:generate": "turbo run db:generate",
     "db:deploy": "turbo run db:deploy"
   },
   "devDependencies": {
