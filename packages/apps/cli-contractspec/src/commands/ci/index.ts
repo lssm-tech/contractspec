@@ -29,6 +29,7 @@ interface CICommandOptions {
   checks?: string;
   checkHandlers?: boolean;
   checkTests?: boolean;
+  checkDrift?: boolean;
   verbose?: boolean;
 }
 
@@ -88,151 +89,160 @@ export const ciCommand = new Command('ci')
   .option('--checks <checks>', 'Only run specific checks (comma-separated)')
   .option('--check-handlers', 'Include handler implementation checks', false)
   .option('--check-tests', 'Include test coverage checks', false)
+  .option('--check-drift', 'Include drift detection checks', false)
   .option('-v, --verbose', 'Verbose output', false)
-  .action(async (options: CICommandOptions) => {
-    const isTextOutput = options.format === 'text' || !options.format;
-    const spinner = isTextOutput ? ora('Running CI checks...').start() : null;
+  .action(runCiCommand);
 
-    try {
-      const adapters = createNodeAdapters({ silent: true });
+export async function runCiCommand(options: CICommandOptions) {
+  const isTextOutput = options.format === 'text' || !options.format;
+  const spinner = isTextOutput ? ora('Running CI checks...').start() : null;
 
-      // FORCE no-op logger for machine-readable output formats to prevent
-      // any log pollution (e.g. "[INFO] Starting...") from breaking JSON parsing.
-      // This is redundant with silent: true but acts as a safety belt against
-      // logger implementation changes or dependency issues.
-      if (!isTextOutput) {
-        /* eslint-disable @typescript-eslint/no-empty-function */
-        adapters.logger = {
-          debug: () => {},
-          info: () => {},
+  try {
+    const adapters = createNodeAdapters({ silent: true });
+
+    // FORCE no-op logger for machine-readable output formats to prevent
+    // any log pollution (e.g. "[INFO] Starting...") from breaking JSON parsing.
+    // This is redundant with silent: true but acts as a safety belt against
+    // logger implementation changes or dependency issues.
+    if (!isTextOutput) {
+      /* eslint-disable @typescript-eslint/no-empty-function */
+      adapters.logger = {
+        debug: () => {},
+        info: () => {},
+        warn: () => {},
+        error: () => {},
+        createProgress: () => ({
+          start: () => {},
+          update: () => {},
+          succeed: () => {},
+          fail: () => {},
           warn: () => {},
-          error: () => {},
-          createProgress: () => ({
-            start: () => {},
-            update: () => {},
-            succeed: () => {},
-            fail: () => {},
-            warn: () => {},
-            stop: () => {},
-          }),
-        };
-        /* eslint-enable @typescript-eslint/no-empty-function */
-      }
+          stop: () => {},
+        }),
+      };
+      /* eslint-enable @typescript-eslint/no-empty-function */
+    }
 
-      // Build check options
-      const checkOptions: CICheckOptions = {
-        pattern: options.pattern,
-        checkHandlers: options.checkHandlers,
-        checkTests: options.checkTests,
-        failOnWarnings: options.failOnWarnings,
-        workspaceRoot: process.cwd(),
+    // Build check options
+    const checkOptions: CICheckOptions = {
+      pattern: options.pattern,
+      checkHandlers: options.checkHandlers,
+      checkTests: options.checkTests,
+      checkDrift: options.checkDrift,
+      failOnWarnings: options.failOnWarnings,
+      workspaceRoot: process.cwd(),
+    };
+
+    // Parse check categories
+    if (options.checks) {
+      checkOptions.checks = parseCheckCategories(options.checks);
+    }
+    if (options.skip) {
+      checkOptions.skip = parseCheckCategories(options.skip);
+    }
+
+    // Run checks
+    const result = await runCIChecks(adapters, checkOptions);
+
+    spinner?.stop();
+
+    // Format output
+    let output: string;
+    switch (options.format) {
+      case 'json':
+        output = formatters.formatAsJson(result, { pretty: true });
+        break;
+      case 'sarif': {
+        const sarif = formatters.formatAsSarif(result, {
+          toolName: 'ContractSpec',
+          toolVersion: '1.0.0',
+          workingDirectory: process.cwd(),
+          repositoryUri: getRepositoryUri(),
+        });
+        output = formatters.sarifToJson(sarif);
+        break;
+      }
+      case 'text':
+      default:
+        output = formatOutput(result, options.verbose ?? false);
+        break;
+    }
+
+    // Write output
+    if (options.output) {
+      await writeFile(options.output, output, 'utf-8');
+      if (isTextOutput) {
+        console.log(chalk.green(`✓ Results written to ${options.output}`));
+      }
+    } else {
+      console.log(output);
+    }
+
+    // Exit with appropriate code
+    if (!result.success) {
+      process.exit(1);
+    } else if (options.failOnWarnings && result.totalWarnings > 0) {
+      process.exit(2);
+    }
+  } catch (error) {
+    spinner?.fail('CI checks failed');
+
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    // For structured formats, output a valid error result
+    if (options.format === 'json' || options.format === 'sarif') {
+      // Construct a partial result that mimics CICheckResult enough for the formatter
+      const errorResult = {
+        success: false,
+        totalErrors: 1,
+        totalWarnings: 0,
+        totalNotes: 0,
+        issues: [
+          {
+            ruleId: 'ci-internal-error',
+            severity: 'error' as const,
+            message: `CI check execution failed: ${errorMessage}`,
+            category: 'doctor' as const,
+            file: undefined,
+            line: undefined,
+            context: undefined,
+          },
+        ],
+        categories: [], // Empty categories
+        durationMs: 0,
+        timestamp: new Date().toISOString(),
+        commitSha: undefined,
+        branch: undefined,
       };
 
-      // Parse check categories
-      if (options.checks) {
-        checkOptions.checks = parseCheckCategories(options.checks);
-      }
-      if (options.skip) {
-        checkOptions.skip = parseCheckCategories(options.skip);
-      }
-
-      // Run checks
-      const result = await runCIChecks(adapters, checkOptions);
-
-      spinner?.stop();
-
-      // Format output
-      let output: string;
-      switch (options.format) {
-        case 'json':
-          output = formatters.formatAsJson(result, { pretty: true });
-          break;
-        case 'sarif': {
-          const sarif = formatters.formatAsSarif(result, {
-            toolName: 'ContractSpec',
-            toolVersion: '1.0.0',
-            workingDirectory: process.cwd(),
-            repositoryUri: getRepositoryUri(),
-          });
-          output = formatters.sarifToJson(sarif);
-          break;
-        }
-        case 'text':
-        default:
-          output = formatOutput(result, options.verbose ?? false);
-          break;
-      }
-
-      // Write output
-      if (options.output) {
-        await writeFile(options.output, output, 'utf-8');
-        if (isTextOutput) {
-          console.log(chalk.green(`✓ Results written to ${options.output}`));
-        }
-      } else {
-        console.log(output);
-      }
-
-      // Exit with appropriate code
-      if (!result.success) {
-        process.exit(1);
-      } else if (options.failOnWarnings && result.totalWarnings > 0) {
-        process.exit(2);
-      }
-    } catch (error) {
-      spinner?.fail('CI checks failed');
-
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-
-      // For structured formats, output a valid error result
-      if (options.format === 'json' || options.format === 'sarif') {
-        const errorResult = {
-          success: false,
-          totalErrors: 1,
-          totalWarnings: 0,
-          totalNotes: 0,
-          issues: [
-            {
-              ruleId: 'ci-internal-error',
-              severity: 'error' as const,
-              message: `CI check execution failed: ${errorMessage}`,
-              category: 'doctor' as const,
-            },
-          ],
-          categories: [],
-          durationMs: 0,
-          timestamp: new Date().toISOString(),
-        };
-
-        if (options.format === 'json') {
-          const output = formatters.formatAsJson(errorResult, { pretty: true });
-          if (options.output) {
-            await writeFile(options.output, output, 'utf-8');
-          } else {
-            console.log(output);
-          }
+      if (options.format === 'json') {
+        const output = formatters.formatAsJson(errorResult, { pretty: true });
+        if (options.output) {
+          await writeFile(options.output, output, 'utf-8');
         } else {
-          const sarif = formatters.formatAsSarif(errorResult, {
-            toolName: 'ContractSpec',
-            toolVersion: '1.0.0',
-            workingDirectory: process.cwd(),
-            repositoryUri: getRepositoryUri(),
-          });
-          const output = formatters.sarifToJson(sarif);
-          if (options.output) {
-            await writeFile(options.output, output, 'utf-8');
-          } else {
-            console.log(output);
-          }
+          console.log(output);
         }
       } else {
-        console.error(chalk.red('\n❌ Error:'), errorMessage);
+        const sarif = formatters.formatAsSarif(errorResult, {
+          toolName: 'ContractSpec',
+          toolVersion: '1.0.0',
+          workingDirectory: process.cwd(),
+          repositoryUri: getRepositoryUri(),
+        });
+        const output = formatters.sarifToJson(sarif);
+        if (options.output) {
+          await writeFile(options.output, output, 'utf-8');
+        } else {
+          console.log(output);
+        }
       }
-
-      process.exit(1);
+    } else {
+      console.error(chalk.red('\n❌ Error:'), errorMessage);
     }
-  });
+
+    process.exit(1);
+  }
+}
 
 /**
  * Format result as colored text output.

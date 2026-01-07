@@ -1,215 +1,197 @@
-ROLE: Product Owner / Product Manager
-AUDIENCE: Coding agent implementing features in the ContractSpec CLI repo
-GOAL: Design + implement “contractspec vibe” as a guided, BMAD-inspired workflow layer that orchestrates existing ContractSpec primitives (extract/gap/apply/impact/ci/clean/view), reduces cognitive load, and enforces “single source of truth” (canonical contracts) while keeping scaffolding disposable.
+AUDIENCE: Coding agent implementing features in the ContractSpec repository (CL + VSCodeI + workflows + CI integration)
+GOAL: Make ContractSpec “YC-ready” by turning it into an inevitable PR/CI wedge: deterministic contract diffs, breaking-change detection, drift enforcement, and a single guided workflow entrypoint (`contractspec vibe`) that orchestrates existing primitives reliably.
 
-========================
-1) Problem / Why this exists
-========================
-ContractSpec already has the right primitives (extract, gap, apply, impact, ci, clean, view), but new users face a “verb soup” CLI that does not reveal the golden path.
-We want a single, memorable entrypoint that:
-- Makes the correct lifecycle obvious (especially for brownfield/baseline import work)
-- Implements “spec-driven discipline without spec sprawl”: canonical contracts are truth, everything else is derived or disposable
-- Brings BMAD-style “tracks, preferences, workflows, packs” to ContractSpec without becoming bureaucracy
-- Increases adoption and repeat usage by making the workflow feel inevitable in PR/CI
+CONTEXT (already implemented):
+- `contractspec vibe` command group + workflow runner
+- YAML parsing for configs/workflows (previously JSON/TS)
+- Pack install supports remote registries
+- More built-in workflows (release, migration, etc.)
+- Interactive mode for manual checkpoints (currently simple confirmation)
 
-Business outcomes:
-- Higher conversion (install → first success)
-- Faster time-to-value (brownfield import + consistent regeneration)
-- Reduced drift incidents (CI fails on drift, enforced boundaries)
-- Better distribution story (“vibe coding, but with contracts and guardrails”)
+NOW: stop expanding features. Focus on reliability, determinism, and distribution-quality PR/CI integration.
 
-========================
-2) Core product principle
-========================
-Single source of truth:
-- Canonical (persisted and reviewed): contracts/** (or configured canonical root)
-- Disposable scaffolding: .contractspec/work/** (always safe to delete)
-- Generated artifacts: configurable generated root (e.g. src/generated/**) never edited by hand
+=================================================
+1) PRODUCT PRINCIPLES (non-negotiable)
+=================================================
+Single source of truth boundaries:
+- Canonical: contracts/** (or configured canonical root)
+- Work/scaffolding: .contractspec/work/** (disposable)
+- Generated: configurable generated root (e.g., src/generated/**), never hand-edited
 
 Enforcement:
-- CLI should make these boundaries explicit and default behaviors should follow them.
-- CI should be able to detect drift: canonical contracts vs derived outputs.
+- CI must detect drift (canonical contracts vs derived outputs) and fail when required.
+- Contract changes must be summarized in a structured, machine-readable way.
+- Outputs must be deterministic and stable (JSON schemas with versioning).
 
-========================
-3) Scope (P0 vs P1)
-========================
-P0 (must ship first):
-- New top-level command group: `contractspec vibe`
-- Subcommands:
-  1) `contractspec vibe init`
-  2) `contractspec vibe run <workflow>`
-  3) `contractspec vibe pack install <name>` (minimal stub to integrate with existing registry or local packs)
-  4) `contractspec vibe context export` (optional P0-lite: produce a safe, allowlisted “context bundle” for LLMs/agents)
-- Provide at least 2 built-in workflows:
-  - `brownfield.openapi-import`
-  - `change.feature`
-- Track support: `--track quick|product|regulated` modifies depth/strictness + generated outputs
-- Deterministic, machine-readable output options: `--json`, `--dry-run`, `--no-clean`, `--fail-fast`
+=================================================
+2) P0 DELIVERABLES (must ship)
+=================================================
 
-P1 (nice-to-have after P0):
-- More workflows (`release`, `hotfix`, `migration`)
-- Pack marketplace browsing/search
-- IDE integrations (Cursor/Claude Code slash commands generated from workflows)
-- Advanced context packer: shard/index output, redaction policy, token budgets
+2.1) Deterministic machine-readable outputs everywhere (stability first)
+Implement and/or standardize `--json` outputs for:
+- `contractspec impact --json`
+- `contractspec diff --json`
+- `contractspec ci --json`
+- `contractspec vibe run <workflow> --json`
 
-Non-goals:
-- Replacing existing commands or removing functionality
-- Implementing a full multi-agent framework inside ContractSpec
-- Bundling proprietary BMAD artifacts or copying their branding
+Requirements:
+- Add `schemaVersion` to every JSON payload.
+- Ensure keys/structure are stable; avoid human-oriented strings in JSON mode.
+- Provide minimal, structured fields that downstream automation can rely on.
 
-========================
-4) User stories
-========================
-US1: As a new user with an OpenAPI API, I run one command path to get canonical contracts + generated outputs and a clear next step list.
-US2: As a dev, I edit contracts/** and run a single command to regenerate derived artifacts and validate drift.
-US3: As a team, we run `contractspec vibe run … --track regulated` in CI to enforce stricter validation and compliance-related outputs.
-US4: As a user of coding agents, I can export a safe “context bundle” that contains only allowlisted docs/contracts to feed an agent.
+2.2) Drift enforcement (the wedge)
+ContractSpec must be able to:
+- Rebuild derived artifacts deterministically from canonical contracts.
+- Detect drift between:
+  - canonical contracts vs derived artifacts (generated outputs)
+  - canonical contracts vs implementation (if supported)
+- Provide a single command suitable for CI:
+  - `contractspec ci --json` with strict exit codes.
+- Add flags:
+  - `--fail-on-warn` (optional)
+  - `--fail-on-drift` (default in CI mode)
+  - `--non-interactive` (default for CI)
 
-========================
-5) CLI UX requirements
-========================
-Command: `contractspec vibe`
-Positioning:
-- “Vibe coding, but with contracts and guardrails.”
-- Provide a boring alias for enterprise if possible: `contractspec flow` (alias to vibe). If aliasing is cheap and non-breaking, do it.
+2.3) PR/CI integration (GitHub Action template)
+Ship a first-party GitHub Action workflow template that:
+- Runs `contractspec ci --json`
+- Produces a PR comment summarizing:
+  - contract diff summary
+  - breaking-change flag
+  - drift status
+- Fails the check when drift/breaking policies are violated.
 
-`contractspec vibe init`
-- Creates:
-  - .contractspec/vibe/technical-preferences.md  (agent guidance; stable project preferences)
-  - .contractspec/vibe/config.(json|yaml)        (always-inject file list + defaults)
-  - .contractspec/work/                          (scaffolding directory)
-  - Optionally: contracts/ if missing (or respect existing config)
-- Must not overwrite without `--force`
-- Prints “next steps” with exact commands
+Must support:
+- posting a new comment OR updating an existing comment (idempotent behavior)
+- running on pull_request events
+- minimal config; works out-of-the-box
 
-`contractspec vibe run <workflow>`
-- Orchestrates existing commands with correct ordering.
-- Supports:
-  - `--track quick|product|regulated` (default: product)
-  - `--dry-run` (print plan, do not execute)
-  - `--json` (machine output for automation)
-  - `--no-clean` (keep scaffolding)
-  - `--workdir` override
-  - `--canonical-root` override (if not already in config)
-  - `--generated-root` override
-- Must exit non-zero on failure.
-- Should output a concise summary:
-  - steps executed
-  - artifacts touched
-  - drift/breaking-change status if available
+2.4) `contractspec vibe` is the golden path (reliability + clarity)
+`contractspec vibe` should orchestrate primitives with rock-solid behavior:
+- `contractspec vibe init`
+  - creates: .contractspec/vibe/*, .contractspec/work/*
+  - idempotent, no overwrite without `--force`
+  - prints next steps (exact commands)
 
-`contractspec vibe pack install <name>`
-- P0 minimal:
-  - Support local packs via path: `contractspec vibe pack install ./packs/foo`
-  - If registry exists: allow `contractspec vibe pack install registry:foo` (wire to existing `registry` command if possible)
-- Pack contains:
-  - workflows/*.yaml
-  - templates/*
-  - optional: ide-snippets/*
+- `contractspec vibe run <workflow>`
+  - supports: `--track quick|product|regulated` (default: product)
+  - supports: `--dry-run` (prints plan only)
+  - supports: `--json`
+  - supports: `--fail-fast`
+  - supports: `--no-clean`
+  - supports: `--non-interactive` (no prompts; fail with actionable errors)
+  - must exit non-zero on any step failure
 
-`contractspec vibe context export`
-- Produce a safe bundle for agents:
-  - allowlist-based (config-controlled)
-  - respects .gitignore
-  - excludes secrets: .env, keys, node_modules, dist, etc.
-  - output:
-    - .contractspec/context/index.json
-    - .contractspec/context/files/** (copied or referenced)
-    - optional: single concatenated file behind `--single` (P1)
-- This is NOT OCR. This is NOT “dump the whole repo.”
+Built-in workflows (minimum set):
+- `brownfield.openapi-import`
+- `change.feature`
+(If release/migration already exist, keep them, but do not add more for P0.)
 
-========================
-6) Workflow definitions (built-in)
-========================
-Workflow 1: brownfield.openapi-import
-Goal: import OpenAPI into draft contracts (work), promote to canonical (user edits), regenerate, validate, clean.
+2.5) Docs that match reality (copy/paste runnable)
+Ship 2 tutorials that exactly match the tool behavior:
+- “10-minute brownfield OpenAPI import → canonical contracts → regenerate → ci”
+- “Daily workflow: edit contracts → apply/generate → PR/CI checks”
 
-Recommended step plan:
-1) extract: `contractspec extract --from openapi --out .contractspec/work/openapi-import`
-2) user action checkpoint (P0: just print instructions; P1: interactive mode):
-   - “Review and move selected drafts into contracts/**”
-3) gap: `contractspec gap`
-4) apply: `contractspec apply` (or `generate` for all)
-5) impact: `contractspec impact` (breaking vs non-breaking)
-6) ci: `contractspec ci`
-7) clean: `contractspec clean --work` (default on unless `--no-clean`)
+=================================================
+3) WHAT NOT TO DO (explicit anti-scope list)
+=================================================
+- No new workflows unless required to support PR/CI wedge.
+- No new registry UX. Remote pack install already exists.
+- No multi-agent framework. `vibe` is a workflow runner, not a chatbot product.
+- No “dump the whole repo” exporter by default.
+- No Studio work for P0.
 
-Workflow 2: change.feature
-Goal: for day-to-day contract edits
-1) impact (or diff against main if available)
-2) apply (regenerate derived)
-3) ci
-4) optional: changelog/version hooks (P1)
+=================================================
+4) ACCEPTANCE CRITERIA (Definition of Done)
+=================================================
 
-Track behaviors:
-- quick:
-  - minimal validations, skip expensive checks, skip optional docs generation
-- product:
-  - default validations + docs views
-- regulated:
-  - strict integrity checks, drift checks, enforce generated marker policy, require machine-readable reports, fail on warnings
+A) JSON stability
+- Every `--json` command includes `schemaVersion`.
+- Snapshot tests verify JSON schemas are stable across runs.
+- JSON mode contains no human-only prose fields except in a dedicated `message` field (optional).
 
-========================
-7) Implementation requirements (engineering)
-========================
-- Must reuse existing internal modules/commands rather than shelling out if the CLI codebase supports it.
-  - If not feasible, shell out to `contractspec <cmd>` with robust error handling and streaming logs.
-- Deterministic outputs:
-  - For `--json`, output structured records of steps + statuses; avoid human-only strings in JSON mode.
-- Config:
-  - Extend existing .contractsrc.json (preferred) OR create .contractspec/vibe/config.yaml but keep a single source.
-  - Config fields (minimum):
-    - canonicalRoot
-    - workRoot
-    - generatedRoot
-    - alwaysInjectFiles[]
-    - contextExportAllowlist[]
+B) Drift + CI
+- `contractspec ci` returns:
+  - exit code 0 when all checks pass and no drift
+  - exit code non-zero on drift or failed validations
+- Drift detection is deterministic and reproducible.
+
+C) PR integration template works
+- In a sample repository fixture (or integration test setup):
+  - PR triggers workflow
+  - workflow runs `contractspec ci --json`
+  - PR comment includes:
+    - breaking flag
+    - summary of changes
+    - drift status
+  - workflow fails when drift exists
+
+D) `vibe` UX
+- `vibe init` and `vibe run` operate without manual fixes.
+- `--dry-run` prints a step plan and does not modify files.
+- `--non-interactive` never prompts, but fails with actionable instructions.
+
+E) Docs
+- Tutorials are copy/paste runnable and verified against tests or a demo fixture.
+
+=================================================
+5) ENGINEERING REQUIREMENTS
+=================================================
+- Prefer calling internal modules instead of shelling out; if shelling out:
+  - safe argument handling
+  - stream logs
+  - capture structured outputs cleanly
 - Safety:
-  - Never export secrets in context export.
-  - Never delete outside .contractspec/work unless user explicitly requests.
-- DX:
-  - `contractspec vibe --help` must be short and show golden path, not the whole CLI universe.
-  - Keep the main CLI list untouched for backwards compatibility.
-- Logging:
-  - Human mode: readable, step-based, minimal spam.
-  - JSON mode: stable schema, versioned.
+  - `clean` must never delete outside `.contractspec/work/**` unless explicit flags.
+- Performance:
+  - CI path should be as fast as possible (skip expensive optional steps unless `--track regulated`).
+- Backwards compatibility:
+  - Existing commands remain functional; `vibe` is additive.
+  - YAML config support must not break existing JSON/TS configs.
 
-========================
-8) Acceptance criteria (Definition of Done)
-========================
-Functional:
-- `contractspec vibe init` creates the expected files with sane defaults and is idempotent.
-- `contractspec vibe run brownfield.openapi-import` runs the orchestrated steps and handles the “human checkpoint” clearly.
-- `contractspec vibe run change.feature` works on a repo with existing contracts and regenerates + validates.
-- `contractspec vibe pack install ./packs/foo` installs workflows and makes them runnable.
-- `contractspec vibe context export` produces a bundle that excludes common secret patterns and ignored files.
+=================================================
+6) JSON SCHEMA GUIDELINES (example; implement and freeze)
+=================================================
+impact.json:
+{
+  "schemaVersion": "1.0",
+  "breaking": true|false,
+  "changes": [
+    {"type": "...", "path": "...", "summary": "...", "severity": "low|medium|high"}
+  ]
+}
 
-Quality:
-- Unit tests for workflow planner + config resolution + step execution ordering
-- Snapshot tests for `--json` schema stability
-- Docs: README section “Vibe workflows” with 2 copy/paste examples
-- No breaking changes to existing CLI commands
+ci.json:
+{
+  "schemaVersion": "1.0",
+  "checks": [{"name": "...", "status": "pass|fail|warn", "details": {...}}],
+  "drift": {"status": "none|detected", "files": ["..."]},
+  "summary": {"pass": 0, "fail": 0, "warn": 0}
+}
 
-========================
-9) Deliverables
-========================
-- CLI implementation (new command group + workflow runner)
-- Workflow definition format (YAML/JSON) + built-in workflows
-- Config schema + migration strategy (if needed)
-- Context export implementation + redaction rules
-- Tests + docs
+vibe-run.json:
+{
+  "schemaVersion": "1.0",
+  "workflow": "...",
+  "track": "...",
+  "steps": [
+    {"name": "...", "status": "pass|fail|skip", "command": "...", "artifactsTouched": ["..."]}
+  ],
+  "result": {"status": "pass|fail", "exitCode": 0}
+}
 
-========================
-10) Notes on naming and positioning
-========================
-- Use `vibe` as the marketing-friendly guided workflow mode.
-- Optional alias: `flow` for enterprise or serious contexts.
-- Do not call it `sdd` in user-facing UX (can appear in docs as “spec-driven discipline” but not as the command name).
+=================================================
+7) IMMEDIATE TASK LIST (start here, in order)
+=================================================
+1) Audit current `--json` outputs for impact/diff/ci/vibe and standardize + add schemaVersion.
+2) Add snapshot tests for JSON outputs to prevent regressions.
+3) Implement drift detection + `ci` strict exit codes + `--non-interactive`.
+4) Ship GitHub Action workflow template + PR comment renderer (idempotent).
+5) Validate against a sample repo fixture + fix papercuts.
+6) Write the 2 tutorials and verify they match actual outputs.
 
-========================
-11) Success metrics (instrumentation optional, but plan it)
-========================
-- Time-to-first-success (init → first run)
-- Number of users running vibe vs raw commands
-- CI drift failure rate (should drop after adoption)
-- Pack installs count
+DELIVERABLES TO COMMIT:
+- code changes
+- tests (including JSON snapshots)
+- GitHub Action template
+- documentation tutorials

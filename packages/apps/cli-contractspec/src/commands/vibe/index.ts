@@ -11,6 +11,3 @@ export const vibeCommand = new Command('vibe')
   .addCommand(vibeRunCommand)
   .addCommand(vibeContextCommand)
   .addCommand(vibePackCommand);
-
-
-

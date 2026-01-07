@@ -35,6 +35,11 @@ export interface PrCommentOptions {
   repositoryUrl?: string;
   /** Commit SHA for links */
   commitSha?: string;
+  /** Drift detection result */
+  drift?: {
+    hasDrift: boolean;
+    files: string[];
+  };
 }
 
 /** GitHub check run payload */

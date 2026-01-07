@@ -2,13 +2,14 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 import { confirm } from '@inquirer/prompts';
-import { createNodeFsAdapter, findWorkspaceRoot } from '@contractspec/bundle.workspace';
+import { findWorkspaceRoot } from '@contractspec/bundle.workspace';
 
 export const vibeInitCommand = new Command('init')
   .description('Initialize ContractSpec Vibe in your project')
   .option('-f, --force', 'Overwrite existing Vibe configuration', false)
+  .option('--non-interactive', 'Skip all prompts (use defaults)', false)
   .action(async (options) => {
     const cwd = process.cwd();
     const root = findWorkspaceRoot(cwd) || cwd;
@@ -19,15 +20,17 @@ export const vibeInitCommand = new Command('init')
 
     console.log(chalk.bold('\n🌊 ContractSpec Vibe Initialization\n'));
 
-    // Check if checks exist
+    // Check if already initialized
     if (existsSync(vibeDir) && !options.force) {
-      console.log(chalk.yellow('Vibe is already initialized. Use --force to overwrite.'));
+      console.log(
+        chalk.yellow('Vibe is already initialized. Use --force to overwrite.')
+      );
       return;
     }
 
     // Interactive confirmation if overwriting
-    if (existsSync(vibeDir) && options.force) {
-       const shouldOverwrite = await confirm({
+    if (existsSync(vibeDir) && options.force && !options.nonInteractive) {
+      const shouldOverwrite = await confirm({
         message: 'This will overwrite existing Vibe configuration. Continue?',
         default: false,
       });
@@ -70,17 +73,21 @@ This file guides AI agents on project-specific patterns and constraints.
 
       // 4. Create config.json
       const configPath = join(vibeDir, 'config.json');
-      const configContent = JSON.stringify({
-        canonicalRoot: 'contracts',
-        workRoot: '.contractspec/work',
-        generatedRoot: 'src/generated',
-        alwaysInjectFiles: ['.contractspec/vibe/technical-preferences.md'],
-        contextExportAllowlist: [
-          'README.md',
-          'package.json',
-          'contracts/**/*.ts'
-        ]
-      }, null, 2);
+      const configContent = JSON.stringify(
+        {
+          canonicalRoot: 'contracts',
+          workRoot: '.contractspec/work',
+          generatedRoot: 'src/generated',
+          alwaysInjectFiles: ['.contractspec/vibe/technical-preferences.md'],
+          contextExportAllowlist: [
+            'README.md',
+            'package.json',
+            'contracts/**/*.ts',
+          ],
+        },
+        null,
+        2
+      );
       await writeFile(configPath, configContent);
       console.log(chalk.green(`✓ Created ${configPath}`));
 
@@ -95,9 +102,12 @@ This file guides AI agents on project-specific patterns and constraints.
       }
 
       console.log(chalk.bold('\n🚀 Vibe Initialized! Next steps:\n'));
-      console.log(`  1. Review ${chalk.cyan('.contractspec/vibe/config.json')}`);
-      console.log(`  2. Run a workflow: ${chalk.cyan('contractspec vibe run brownfield.openapi-import')}`);
-
+      console.log(
+        `  1. Review ${chalk.cyan('.contractspec/vibe/config.json')}`
+      );
+      console.log(
+        `  2. Run a workflow: ${chalk.cyan('contractspec vibe run brownfield.openapi-import')}`
+      );
     } catch (error) {
       console.error(chalk.red('Initialization failed:'), error);
       process.exit(1);

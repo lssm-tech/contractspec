@@ -17,7 +17,8 @@ export type CICheckCategory =
   | 'test-refs'
   | 'coverage'
   | 'implementation'
-  | 'layers';
+  | 'layers'
+  | 'drift';
 
 /**
  * All available CI check categories.
@@ -33,6 +34,7 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
   'coverage',
   'implementation',
   'layers',
+  'drift',
 ];
 
 /**
@@ -49,6 +51,7 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
   coverage: 'Coverage Goal Enforcement',
   implementation: 'Implementation Verification',
   layers: 'Contract Layers Validation',
+  drift: 'Drift Detection',
 };
 
 /**
@@ -142,6 +145,8 @@ export interface CICheckOptions {
   checkHandlers?: boolean;
   /** Include test coverage checks. */
   checkTests?: boolean;
+  /** Include drift detection checks. */
+  checkDrift?: boolean;
   /** Fail on warnings (treat warnings as errors). */
   failOnWarnings?: boolean;
   /** Workspace root directory. */

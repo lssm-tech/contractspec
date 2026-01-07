@@ -1,104 +1,106 @@
 import { describe, expect, it } from 'bun:test';
-import { formatAsJson, formatAsJsonCompact, formatAsJsonFull } from './json';
+import { formatAsJson } from './json';
 import type { CICheckResult } from '../services/ci-check/types';
 
 describe('JSON Formatter', () => {
-  const mockDate = '2025-01-01T00:00:00.000Z';
   const mockResult: CICheckResult = {
     success: false,
     totalErrors: 1,
     totalWarnings: 1,
     totalNotes: 0,
     durationMs: 100,
-    timestamp: mockDate,
+    timestamp: '2025-01-01T00:00:00.000Z',
     commitSha: 'abc1234',
     branch: 'main',
     categories: [
       {
         category: 'structure',
         label: 'Structure',
+        passed: true,
+        errors: 0,
+        warnings: 0,
+        notes: 0,
+        durationMs: 50,
+      },
+      {
+        category: 'integrity',
+        label: 'Integrity',
         passed: false,
         errors: 1,
-        warnings: 0,
+        warnings: 1,
         notes: 0,
         durationMs: 50,
       },
     ],
     issues: [
       {
-        ruleId: 'error-rule',
+        ruleId: 'struct-001',
         severity: 'error',
-        message: 'Error message',
+        message: 'Structure error',
         category: 'structure',
         file: 'spec.ts',
         line: 10,
+        context: { detail: 'info' },
       },
       {
-        ruleId: 'warning-rule',
+        ruleId: 'integ-001',
         severity: 'warning',
-        message: 'Warning message',
-        category: 'structure',
+        message: 'Integrity warning',
+        category: 'integrity',
+        file: 'spec.ts',
+        line: 20,
       },
     ],
   };
 
-  describe('formatAsJsonCompact', () => {
-    it('should format minimal output', () => {
-      const output = formatAsJsonCompact(mockResult);
+  it('should format as valid JSON with v1.0 schema', () => {
+    const json = formatAsJson(mockResult);
+    const parsed = JSON.parse(json);
 
-      expect(output.success).toBe(false);
-      expect(output.errors).toBe(1);
-      expect(output.warnings).toBe(1);
-      expect(output.timestamp).toBe(mockDate);
-      expect(output.commit).toBe('abc1234');
-
-      expect(output.issues).toHaveLength(2);
-      expect(output.issues[0]).toEqual({
-        rule: 'error-rule',
-        severity: 'error',
-        message: 'Error message',
-        file: 'spec.ts',
-        line: 10,
-      });
-      // Should omit undefined fields
-      expect(output.issues[1]?.file).toBeUndefined();
+    expect(parsed).toEqual({
+      schemaVersion: '1.0',
+      checks: [
+        {
+          name: 'struct-001',
+          status: 'fail',
+          category: 'structure',
+          message: 'Structure error',
+          file: 'spec.ts',
+          line: 10,
+          details: { detail: 'info' },
+        },
+        {
+          name: 'integ-001',
+          status: 'warn',
+          category: 'integrity',
+          message: 'Integrity warning',
+          file: 'spec.ts',
+          line: 20,
+        },
+      ],
+      drift: {
+        status: 'none',
+        files: [],
+      },
+      summary: {
+        pass: 0,
+        fail: 1,
+        warn: 1,
+        total: 2,
+        durationMs: 100,
+        timestamp: '2025-01-01T00:00:00.000Z',
+      },
+      details: {
+        commit: 'abc1234',
+        branch: 'main',
+      },
     });
   });
 
-  describe('formatAsJsonFull', () => {
-    it('should format detailed output', () => {
-      const output = formatAsJsonFull(mockResult);
-
-      expect(output.success).toBe(false);
-      expect(output.summary.totalErrors).toBe(1);
-
-      expect(output.categories).toHaveLength(1);
-      expect(output.categories[0]?.category).toBe('structure');
-
-      expect(output.issues).toHaveLength(2);
-      expect(output.issues[0]?.category).toBe('structure');
-    });
-  });
-
-  describe('formatAsJson', () => {
-    it('should return pretty JSON by default', () => {
-      const json = formatAsJson(mockResult);
-      expect(json).toContain('\n');
-      expect(json).toContain('"success": false');
-    });
-
-    it('should return compact JSON when pretty is false', () => {
-      const json = formatAsJson(mockResult, { pretty: false });
-      expect(json).not.toContain('\n');
-    });
-
-    it('should support toggle between full and compact details', () => {
-      const fullJson = formatAsJson(mockResult, { includeDetails: true });
-      const compactJson = formatAsJson(mockResult, { includeDetails: false });
-
-      expect(JSON.parse(fullJson)).toHaveProperty('summary');
-      expect(JSON.parse(compactJson)).not.toHaveProperty('summary');
-      expect(JSON.parse(compactJson)).toHaveProperty('errors');
-    });
+  it('should support compact output (no pretty print)', () => {
+    const json = formatAsJson(mockResult, { pretty: false });
+    expect(json).not.toContain('\n');
+    const parsed = JSON.parse(json);
+    expect(parsed.schemaVersion).toBe('1.0');
   });
 });
