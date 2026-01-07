@@ -62,7 +62,9 @@ const result = engine.apply({
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">React Hooks</h2>
-        <p className="text-muted-foreground">Render overlays in React/React Native via `useOverlay`.</p>
+        <p className="text-muted-foreground">
+          Render overlays in React/React Native via `useOverlay`.
+        </p>
         <CodeBlock
           language="typescript"
           code={`import { useOverlay } from '@contractspec/lib.overlay-engine/react';

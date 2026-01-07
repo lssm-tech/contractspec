@@ -40,7 +40,9 @@ const result = await breaker.execute(async () => {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Retry</h2>
-        <p className="text-muted-foreground">Automatically retry transient failures with exponential backoff.</p>
+        <p className="text-muted-foreground">
+          Automatically retry transient failures with exponential backoff.
+        </p>
         <CodeBlock
           language="typescript"
           code={`import { retry } from '@contractspec/lib.resilience/retry';

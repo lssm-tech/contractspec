@@ -58,7 +58,9 @@ const insights = await analyzer.analyze({ tenantId: 'acme', userId: 'ops-42' });
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Adapter</h2>
-        <p className="text-muted-foreground">Convert insights into overlays or workflow extension hints.</p>
+        <p className="text-muted-foreground">
+          Convert insights into overlays or workflow extension hints.
+        </p>
         <CodeBlock
           language="typescript"
           code={`import { insightsToOverlaySuggestion } from '@contractspec/lib.personalization/adapter';

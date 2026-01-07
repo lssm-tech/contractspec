@@ -93,7 +93,9 @@ export function SignupForm() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Example: Code Block with Package Manager Tabs</h2>
+        <h2 className="text-2xl font-bold">
+          Example: Code Block with Package Manager Tabs
+        </h2>
         <CodeBlock
           language="tsx"
           code={`import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';

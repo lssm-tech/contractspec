@@ -1,5 +1,5 @@
 import Link from '@contractspec/lib.ui-link';
-import { Activity, BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
+import { BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 
 // export const metadata: Metadata = {
 //   title: 'Documentation – ContractSpec',

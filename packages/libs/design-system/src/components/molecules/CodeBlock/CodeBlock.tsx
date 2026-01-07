@@ -62,7 +62,7 @@ export function CodeBlock({
           <div
             className={cn(
               'overflow-x-auto p-4 font-mono text-[13px] leading-6',
-              '[&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0',
+              '[&_pre]:!m-0 [&_pre]:!bg-transparent [&_pre]:!p-0',
               '[&_code]:!bg-transparent',
               showLineNumbers && 'line-numbers'
             )}

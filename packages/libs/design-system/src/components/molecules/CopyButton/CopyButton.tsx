@@ -5,7 +5,12 @@ import { Check, Copy } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import type { CopyButtonProps } from './types';
 
-export function CopyButton({ value, onCopy, className, ...props }: CopyButtonProps) {
+export function CopyButton({
+  value,
+  onCopy,
+  className,
+  ...props
+}: CopyButtonProps) {
   const [hasCopied, setHasCopied] = useState(false);
 
   useEffect(() => {
@@ -33,7 +38,7 @@ export function CopyButton({ value, onCopy, className, ...props }: CopyButtonPro
         'relative z-10 inline-flex h-6 w-6 items-center justify-center rounded-md',
         'border border-zinc-700 bg-zinc-800 text-zinc-400',
         'transition-all hover:bg-zinc-700 hover:text-zinc-100',
-        'focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-900',
+        'focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:outline-none',
         className
       )}
       onClick={copyToClipboard}

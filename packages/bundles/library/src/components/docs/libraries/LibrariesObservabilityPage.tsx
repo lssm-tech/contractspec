@@ -47,7 +47,9 @@ latencyHistogram.record(0.123);`}
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Middleware</h2>
-        <p className="text-muted-foreground">Automatically instrument your HTTP handlers:</p>
+        <p className="text-muted-foreground">
+          Automatically instrument your HTTP handlers:
+        </p>
         <CodeBlock
           language="typescript"
           code={`import { createTracingMiddleware } from '@contractspec/lib.observability/tracing/middleware';

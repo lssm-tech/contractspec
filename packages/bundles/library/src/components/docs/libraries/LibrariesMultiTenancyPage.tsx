@@ -57,7 +57,10 @@ await service.provision({
         <Link href="/docs/libraries" className="btn-ghost">
           Back to Libraries
         </Link>
-        <Link href="/docs/libraries/progressive-delivery" className="btn-primary">
+        <Link
+          href="/docs/libraries/progressive-delivery"
+          className="btn-primary"
+        >
           Next: Progressive Delivery <ChevronRight size={16} />
         </Link>
       </div>

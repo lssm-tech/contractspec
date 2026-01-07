@@ -58,7 +58,7 @@ await runner.executeStep(workflowId);`}
           The runner relies on a <code>StateStore</code> to persist workflow
           execution history. ContractSpec ships with:
         </p>
-        <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>InMemoryStateStore</code> - for testing and development.
           </li>
@@ -70,8 +70,10 @@ await runner.executeStep(workflowId);`}
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Events</h2>
-        <p className="text-muted-foreground">The runner emits events that you can subscribe to for monitoring:</p>
-        <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+        <p className="text-muted-foreground">
+          The runner emits events that you can subscribe to for monitoring:
+        </p>
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>workflow.started</code>
           </li>

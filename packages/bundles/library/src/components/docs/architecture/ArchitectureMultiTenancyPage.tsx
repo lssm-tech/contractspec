@@ -15,8 +15,8 @@ export function ArchitectureMultiTenancyPage() {
         <h1 className="text-4xl font-bold">Multi-Tenancy</h1>
         <p className="text-muted-foreground">
           ContractSpec is designed from the ground up for multi-tenancy. Apps
-          built with ContractSpec can serve multiple organizations (tenants) from
-          a single deployment, while ensuring strict data isolation and
+          built with ContractSpec can serve multiple organizations (tenants)
+          from a single deployment, while ensuring strict data isolation and
           configuration separation.
         </p>
       </div>
@@ -47,8 +47,12 @@ export function ArchitectureMultiTenancyPage() {
           request based on:
         </p>
         <ul className="text-muted-foreground list-inside list-disc space-y-2">
-          <li>Subdomain (e.g., <code>acme.app.com</code>)</li>
-          <li>Custom Domain (e.g., <code>portal.acme.com</code>)</li>
+          <li>
+            Subdomain (e.g., <code>acme.app.com</code>)
+          </li>
+          <li>
+            Custom Domain (e.g., <code>portal.acme.com</code>)
+          </li>
           <li>
             Header (e.g., <code>x-tenant-id: acme-corp</code>)
           </li>

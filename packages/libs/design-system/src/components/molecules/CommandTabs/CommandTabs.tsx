@@ -58,9 +58,9 @@ export function CommandTabs({
   if (packageManagers.length === 0) return null;
 
   // Use selected if available, otherwise fallback to first available
-  const effectiveSelected = commands[selected] ? selected : packageManagers[0]!;
+  const effectiveSelected = commands[selected] ? selected : packageManagers[0];
+  if (!effectiveSelected) return null;
   const currentCommand = commands[effectiveSelected];
-
   if (!currentCommand) return null;
 
   return (
@@ -86,8 +86,9 @@ export function CommandTabs({
             className={cn(
               'rounded-t-md border-t border-r border-l border-transparent px-4 py-2 text-xs font-medium text-zinc-400',
               'transition-colors hover:text-zinc-100',
-              'focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-1 focus:ring-offset-zinc-900',
-              effectiveSelected === pm && 'border-zinc-800 bg-zinc-950 text-zinc-100'
+              'focus:ring-2 focus:ring-zinc-600 focus:ring-offset-1 focus:ring-offset-zinc-900 focus:outline-none',
+              effectiveSelected === pm &&
+                'border-zinc-800 bg-zinc-950 text-zinc-100'
             )}
           >
             {pm}

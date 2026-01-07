@@ -15,7 +15,9 @@ import type {
 
 const STORAGE_KEY = 'package-manager-preference';
 
-const PackageManagerContext = createContext<PackageManagerContextValue | null>(null);
+const PackageManagerContext = createContext<PackageManagerContextValue | null>(
+  null
+);
 
 export interface PackageManagerProviderProps {
   children: ReactNode;
@@ -31,7 +33,8 @@ export function PackageManagerProvider({
   children,
   defaultPreference = 'bun',
 }: PackageManagerProviderProps) {
-  const [preference, setPreferenceState] = useState<PackageManager>(defaultPreference);
+  const [preference, setPreferenceState] =
+    useState<PackageManager>(defaultPreference);
 
   // Hydrate from localStorage on mount
   useEffect(() => {

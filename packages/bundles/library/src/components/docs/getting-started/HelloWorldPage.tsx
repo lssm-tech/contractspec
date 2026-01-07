@@ -167,8 +167,7 @@ export { handler as GET, handler as POST };`}
               <code>/api/ops/billing.capturePayment</code>
             </li>
             <li>
-              Automatic input validation (amount must be positive, IDs
-              required)
+              Automatic input validation (amount must be positive, IDs required)
             </li>
             <li>Policy enforcement—only invoice owner can pay</li>
             <li>Stripe integration with error handling</li>

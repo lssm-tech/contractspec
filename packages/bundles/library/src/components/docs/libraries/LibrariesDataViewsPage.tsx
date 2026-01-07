@@ -17,7 +17,12 @@ export function LibrariesDataViewsPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package={['@contractspec/lib.contracts', '@contractspec/lib.design-system']} />
+        <InstallCommand
+          package={[
+            '@contractspec/lib.contracts',
+            '@contractspec/lib.design-system',
+          ]}
+        />
       </div>
 
       <div className="space-y-4">
@@ -46,7 +51,7 @@ export function UserPage() {
         />
 
         <h3 className="text-xl font-semibold">Props</h3>
-        <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>spec</code>: The DataViewSpec definition.
           </li>

@@ -15,7 +15,9 @@ export function LibrariesContractsPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <InstallCommand package={['@contractspec/lib.contracts', '@contractspec/lib.schema']} />
+        <InstallCommand
+          package={['@contractspec/lib.contracts', '@contractspec/lib.schema']}
+        />
       </div>
 
       <div className="space-y-4">
