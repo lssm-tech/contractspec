@@ -166,7 +166,7 @@ runs:
         # Run checks and capture JSON output
         echo "Running: contractspec ci --format - json $ARGS"
         set +e
-        bunx contractspec ci --format json $ARGS > .contractspec-ci/results.json 2>&1
+        bunx contractspec ci --format json $ARGS > .contractspec-ci/results.json
         EXIT_CODE=$?
         set -e
 
@@ -191,7 +191,7 @@ runs:
         if [ "${{ inputs.upload-sarif }}" = "true" ]; then
           echo "Generating SARIF output..."
           set +e
-          bunx contractspec ci --format sarif $ARGS > .contractspec-ci/results.sarif 2>&1
+          bunx contractspec ci --format sarif $ARGS > .contractspec-ci/results.sarif
           SARIF_EXIT_CODE=$?
           set -e
           
@@ -264,7 +264,7 @@ runs:
         
         # Run impact detection
         set +e
-        bunx contractspec impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json 2>&1
+        bunx contractspec impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json
         EXIT_CODE=$?
         set -e
         
