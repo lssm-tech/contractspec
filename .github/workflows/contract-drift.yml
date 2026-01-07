@@ -29,7 +29,7 @@ jobs:
       - name: Validate Drift
         run: |
           # Run validation which checks structural integrity
-          bun contractspec validate contracts/**/*.ts
+          bun contractspec validate
           
           # Check if generated artifacts match
           # We run generate and check for git diff

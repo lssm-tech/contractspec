@@ -93,7 +93,7 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    // const apiUrl = process.env.API_CONTRACTSPEC_URL || 'https://api.contractspec.tech';
+    // const apiUrl = process.env.API_CONTRACTSPEC_URL || 'https://api.contractspec.io';
     const apiLlmsUrl =
       process.env.API_CONTRACTSPEC_URL || `https://llms.contractspec.io`;
     return [

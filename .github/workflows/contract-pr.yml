@@ -34,8 +34,8 @@ jobs:
         id: views
         run: |
           # Generate audience views
-          bun contractspec view contracts/**/*.ts --audience product > product-view.md
-          bun contractspec view contracts/**/*.ts --audience eng > eng-view.md
+          bun contractspec view --audience product > product-view.md
+          bun contractspec view --audience eng > eng-view.md
           
           # Capture output to variables (handling multiline)
           echo "PRODUCT_VIEW<<EOF" >> $GITHUB_ENV

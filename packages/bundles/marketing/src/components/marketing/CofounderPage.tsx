@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react';
 
-const COFOUNDER_EMAIL = 'tboutron@contractspec.tech';
+const COFOUNDER_EMAIL = 'tboutron@contractspec.io';
 const APPLY_SUBJECT = 'Co-founder application: ContractSpec';
 const APPLY_BODY = `Hi Theo,
 

@@ -10,12 +10,12 @@ import type {
 } from './types';
 
 const DEFAULT_FROM: EmailAddress = {
-  email: 'noreply@transactional.contractspec.tech',
+  email: 'noreply@transactional.contractspec.io',
   name: 'ContractSpec',
 };
 
 const DEFAULT_TEAM_INBOX: EmailAddress = {
-  email: 'contact@contractspec.tech',
+  email: 'contact@contractspec.io',
   name: 'ContractSpec Team',
 };
 
@@ -52,7 +52,7 @@ export const getEmailConfig = (): EmailConfigResult => {
     return {
       ok: false,
       errorMessage:
-        'Email service is not configured. Please contact us directly at contact@contractspec.tech.',
+        'Email service is not configured. Please contact us directly at contact@contractspec.io.',
     };
   }
 

@@ -5,9 +5,9 @@ import { escapeHtml, formatMultilineHtml } from './utils';
 import type { SubmitContactFormResult } from './types';
 
 const CONTACT_MISSING_CONFIG =
-  'Email service is not configured. Please contact us directly at contact@contractspec.tech.';
+  'Email service is not configured. Please contact us directly at contact@contractspec.io.';
 const CONTACT_SEND_ERROR =
-  'Failed to send message. Please contact us directly at contact@contractspec.tech.';
+  'Failed to send message. Please contact us directly at contact@contractspec.io.';
 
 export const submitContactForm = async (
   formData: FormData

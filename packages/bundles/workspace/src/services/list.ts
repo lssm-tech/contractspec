@@ -7,6 +7,7 @@ import {
   type SpecScanResult,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
 
 /**
  * Options for listing specs.
@@ -21,6 +22,11 @@ export interface ListSpecsOptions {
    * Filter by spec type.
    */
   type?: string;
+
+  /**
+   * Workspace configuration
+   */
+  config?: ContractsrcConfig;
 }
 
 /**
@@ -32,22 +38,41 @@ export async function listSpecs(
 ): Promise<SpecScanResult[]> {
   const { fs, scan = scanSpecSource } = adapters;
 
-  const files = await fs.glob({ pattern: options.pattern });
+  // Default to all TS files if no pattern provided
+  const pattern = options.pattern ?? '**/*.{ts,tsx}';
+  const files = await fs.glob({ pattern });
   const results: SpecScanResult[] = [];
 
   for (const file of files) {
-    const content = await fs.readFile(file);
-    const result = scan(content, file);
-
-    if (result.specType === 'unknown') {
+    // Skip node_modules and dist
+    if (file.includes('node_modules') || file.includes('/dist/')) {
       continue;
     }
 
-    if (options.type && result.specType !== options.type) {
+    // If excluding packages via config
+    if (
+      options.config?.excludePackages &&
+      options.config.excludePackages.some((pkg) => file.includes(pkg))
+    ) {
       continue;
     }
 
-    results.push(result);
+    try {
+      const content = await fs.readFile(file);
+      const result = scan(content, file);
+
+      if (result.specType === 'unknown') {
+        continue;
+      }
+
+      if (options.type && result.specType !== options.type) {
+        continue;
+      }
+
+      results.push(result);
+    } catch {
+      // Ignore read errors
+    }
   }
 
   return results;

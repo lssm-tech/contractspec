@@ -10,8 +10,11 @@ import {
   validateBlueprint,
   validateTenantConfig,
   validateImplementationWithAgent,
+  listSpecs,
 } from '@contractspec/bundle.workspace';
+import type { FsAdapter, LoggerAdapter } from '@contractspec/bundle.workspace';
 import type { AppBlueprintSpec } from '@contractspec/lib.contracts/app-config';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
 import type { Config } from '../../utils/config';
 
 interface ValidateOptions {
@@ -32,7 +35,7 @@ interface ValidateOptions {
  * Main validate command implementation
  */
 export async function validateCommand(
-  specFile: string,
+  specFiles: string | string[] | undefined,
   options: ValidateOptions,
   config: Config
 ) {
@@ -45,9 +48,6 @@ export async function validateCommand(
   });
 
   // 0. Blueprint & Tenant Validation (Independent of spec file if arguments provided)
-  // Logic from original: Blueprint validation happens if options.blueprint is set.
-  // Tenant validation happens if options.tenantConfig AND blueprintResult exists.
-
   let blueprintSpec: AppBlueprintSpec | undefined;
   let blueprintValid = true;
   let tenantValid = true;
@@ -67,8 +67,6 @@ export async function validateCommand(
       console.log(chalk.green('  ✅ Blueprint validation passed'));
     } else {
       console.log(chalk.red('  ❌ Blueprint validation failed'));
-      // Errors printed by original implementation were quite detailed.
-      // My service returns strings.
       result.errors.forEach((e) => console.log(chalk.red(`   • ${e}`)));
       blueprintValid = false;
     }
@@ -93,10 +91,28 @@ export async function validateCommand(
     }
   }
 
-  // Validate spec file exists
-  if (!existsSync(specFile)) {
-    console.error(chalk.red(`❌ Spec file not found: ${specFile}`));
-    process.exit(1);
+  // Resolve files to validate
+  let filesToValidate: string[] = [];
+  if (Array.isArray(specFiles) && specFiles.length > 0) {
+    filesToValidate = specFiles;
+  } else if (typeof specFiles === 'string' && specFiles) {
+    filesToValidate = [specFiles];
+  } else {
+    // Scan workspace
+    console.log(chalk.cyan('Scanning workspace for contracts...'));
+    const specs = await listSpecs(
+      { fs: adapters.fs },
+      { config: config as ContractsrcConfig }
+    );
+    filesToValidate = specs.map((s) => s.filePath);
+    console.log(
+      chalk.gray(`Found ${filesToValidate.length} contracts to validate.`)
+    );
+  }
+
+  if (filesToValidate.length === 0) {
+    console.log(chalk.yellow('No specs found to validate.'));
+    return;
   }
 
   // Interactive Prompt for Implementation check
@@ -105,7 +121,7 @@ export async function validateCommand(
 
   if (shouldPrompt && process.stdout.isTTY) {
     const choice = await select({
-      message: 'Validate only the spec or also the implementation?',
+      message: 'Validate only the spec(s) or also the implementation?',
       default: 'spec',
       choices: [
         { name: 'Spec file only', value: 'spec' },
@@ -119,10 +135,52 @@ export async function validateCommand(
 
   let hasErrors = !blueprintValid || !tenantValid;
 
-  console.log(chalk.gray(`Validating: ${specFile}\n`));
+  for (const specFile of filesToValidate) {
+    const result = await validateSingleSpec(
+      specFile,
+      validateImplementation,
+      options,
+      config,
+      adapters,
+      filesToValidate.length > 1
+    );
+    if (!result) hasErrors = true;
+  }
+
+  // Summary
+  console.log();
+  if (hasErrors) {
+    console.log(chalk.red('❌ Validation failed'));
+    process.exit(1);
+  }
+
+  console.log(chalk.green('✅ Validation passed'));
+}
+
+async function validateSingleSpec(
+  specFile: string,
+  validateImplementation: boolean,
+  options: ValidateOptions,
+  config: Config,
+  adapters: { fs: FsAdapter; logger: LoggerAdapter },
+  isBatch: boolean
+): Promise<boolean> {
+  // Validate spec file exists
+  if (!existsSync(specFile)) {
+    console.error(chalk.red(`❌ Spec file not found: ${specFile}`));
+    return false;
+  }
+
+  if (isBatch) {
+    console.log(chalk.bold(`\n📄 ${specFile}`));
+  } else {
+    console.log(chalk.gray(`Validating: ${specFile}\n`));
+  }
+
+  let isValid = true;
 
   // 1. Spec validation (Structure)
-  console.log(chalk.cyan('📋 Checking spec structure...'));
+  if (!isBatch) console.log(chalk.cyan('📋 Checking spec structure...'));
 
   const skipSpecStructure =
     options.blueprint &&
@@ -138,9 +196,9 @@ export async function validateCommand(
     specResult.errors.forEach((error) =>
       console.log(chalk.red(`     • ${error}`))
     );
-    hasErrors = true;
+    isValid = false;
   } else if (!skipSpecStructure) {
-    console.log(chalk.green('  ✅ Spec structure is valid'));
+    if (!isBatch) console.log(chalk.green('  ✅ Spec structure is valid'));
   } else {
     console.log(
       chalk.yellow('⚠️  Skipping spec-structure checks (blueprint file).')
@@ -155,11 +213,10 @@ export async function validateCommand(
   }
 
   // 2. Implementation validation (if requested)
-  // specResult.code should be available now from our previous optimization!
   if (validateImplementation && specResult.code) {
     console.log(chalk.cyan('\n🤖 Validating implementation with AI...'));
 
-    // Config casting might be needed if types mismatch, but we assume structural compatibility
+    // Config casting might be needed if types mismatch
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bundleConfig = config as any;
 
@@ -180,7 +237,7 @@ export async function validateCommand(
         );
       }
     } else {
-      hasErrors = true;
+      isValid = false;
       console.log(chalk.red('  ❌ Implementation has issues:'));
       implResult.errors.forEach((e) => console.log(chalk.red(`     • ${e}`)));
 
@@ -218,7 +275,7 @@ export async function validateCommand(
     );
 
     if (!result.valid) {
-      hasErrors = true;
+      isValid = false;
       result.errors.forEach((err) => console.log(chalk.red(`  ❌ ${err}`)));
     } else {
       console.log(chalk.green('  ✅ Handler check passed'));
@@ -238,7 +295,7 @@ export async function validateCommand(
     );
 
     if (!result.valid) {
-      hasErrors = true;
+      isValid = false;
       result.errors.forEach((err) => console.log(chalk.red(`  ❌ ${err}`)));
     } else {
       console.log(chalk.green('  ✅ Test check passed'));
@@ -246,14 +303,7 @@ export async function validateCommand(
     result.warnings.forEach((w) => console.log(chalk.yellow(`  ⚠️  ${w}`)));
   }
 
-  // Summary
-  console.log();
-  if (hasErrors) {
-    console.log(chalk.red('❌ Validation failed'));
-    process.exit(1);
-  }
-
-  console.log(chalk.green('✅ Validation passed'));
+  return isValid;
 }
 
 export { type ValidateOptions };
