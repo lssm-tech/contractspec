@@ -1,5 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight, ExternalLink } from 'lucide-react';
+import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function VSCodeExtensionPage() {
   const features = [
@@ -95,9 +96,10 @@ export function VSCodeExtensionPage() {
             <p className="text-muted-foreground text-sm">
               <strong>Option 1:</strong> Install from VS Code Marketplace
             </p>
-            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-              <pre>code --install-extension lssm.vscode-contractspec</pre>
-            </div>
+            <CodeBlock
+              language="bash"
+              code="code --install-extension lssm.vscode-contractspec"
+            />
             <p className="text-muted-foreground mt-4 text-sm">
               <strong>Option 2:</strong> Search for &quot;ContractSpec&quot; in
               VS Code Extensions (Ctrl/Cmd+Shift+X)
@@ -119,7 +121,7 @@ export function VSCodeExtensionPage() {
                       key={item}
                       className="text-muted-foreground flex items-start gap-2 text-sm"
                     >
-                      <span className="mt-1 text-violet-400">→</span>
+                      <span className="mt-1 text-violet-400">-</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -188,15 +190,12 @@ export function VSCodeExtensionPage() {
           <ol className="text-muted-foreground list-inside list-decimal space-y-2">
             <li>Install the extension from VS Code Marketplace</li>
             <li>Open a workspace with ContractSpec files (or create one)</li>
-            <li>Start the walkthrough: Help → Welcome → ContractSpec</li>
+            <li>Start the walkthrough: Help - Welcome - ContractSpec</li>
             <li>
               Create your first spec: Click <strong>+</strong> in Specs Explorer
               or run <code>ContractSpec: Create New Spec</code>
             </li>
-            <li>
-              Build from it: Click the <strong>🔨</strong> icon in the editor
-              title bar
-            </li>
+            <li>Build from it: Click the build icon in the editor title bar</li>
           </ol>
         </div>
 

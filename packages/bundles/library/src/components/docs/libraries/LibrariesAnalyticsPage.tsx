@@ -1,8 +1,4 @@
-// export const metadata: Metadata = {
-//   title: 'Analytics Library | ContractSpec',
-//   description:
-//     'Funnels, cohorts, churn, and hypotheses without spinning up a warehouse.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesAnalyticsPage() {
   return (
@@ -15,10 +11,16 @@ export function LibrariesAnalyticsPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.analytics" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Funnels in memory</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { FunnelAnalyzer } from '@contractspec/lib.analytics/funnel';
+        <CodeBlock
+          language="typescript"
+          code={`import { FunnelAnalyzer } from '@contractspec/lib.analytics/funnel';
 
 const analyzer = new FunnelAnalyzer();
 const report = analyzer.analyze(events, {
@@ -29,30 +31,32 @@ const report = analyzer.analyze(events, {
     { id: 'verified', eventName: 'account.verified' },
   ],
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Cohorts & churn</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { CohortTracker } from '@contractspec/lib.analytics/cohort';
+        <CodeBlock
+          language="typescript"
+          code={`import { CohortTracker } from '@contractspec/lib.analytics/cohort';
 import { ChurnPredictor } from '@contractspec/lib.analytics/churn';
 
 const cohorts = new CohortTracker().analyze(events, { bucket: 'week', periods: 8 });
 const churn = new ChurnPredictor().score(events);`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Growth hypotheses</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { GrowthHypothesisGenerator } from '@contractspec/lib.analytics/growth';
+        <CodeBlock
+          language="typescript"
+          code={`import { GrowthHypothesisGenerator } from '@contractspec/lib.analytics/growth';
 
 const ideas = new GrowthHypothesisGenerator().generate([
   { name: 'Activation rate', current: 0.42, previous: 0.55, target: 0.6 },
   { name: 'Expansion ARPU', current: 1.2, previous: 0.9 },
 ]);`}
-        </pre>
+        />
       </div>
     </div>
   );

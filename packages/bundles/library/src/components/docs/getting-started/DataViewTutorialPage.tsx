@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata: Metadata = {
-//   title: 'Getting Started with DataViews | ContractSpec',
-//   description: 'Learn how to create and render your first DataView.',
-// };
+import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function DataViewTutorialPage() {
   return (
@@ -22,9 +18,10 @@ export function DataViewTutorialPage() {
         <p className="text-muted-foreground">
           First, create a query operation to fetch the data:
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`// lib/specs/billing/list-transactions.ts
-import { defineQuery } from '@contractspec/lib.contracts';
+        <CodeBlock
+          language="typescript"
+          filename="lib/specs/billing/list-transactions.ts"
+          code={`import { defineQuery } from '@contractspec/lib.contracts';
 
 export const ListTransactions = defineQuery({
   meta: {
@@ -38,7 +35,7 @@ export const ListTransactions = defineQuery({
   },
   policy: { auth: 'user' },
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
@@ -46,9 +43,10 @@ export const ListTransactions = defineQuery({
         <p className="text-muted-foreground">
           Wrap your query with presentation metadata:
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`// lib/specs/billing/transaction-history.data-view.ts
-import { defineDataView } from '@contractspec/lib.contracts';
+        <CodeBlock
+          language="typescript"
+          filename="lib/specs/billing/transaction-history.data-view.ts"
+          code={`import { defineDataView } from '@contractspec/lib.contracts';
 import { ListTransactions } from './list-transactions';
 
 export const TransactionHistory = defineDataView({
@@ -69,37 +67,37 @@ export const TransactionHistory = defineDataView({
   view: {
     kind: 'list',
     fields: [
-      { 
-        key: 'date', 
-        label: 'Date', 
-        dataPath: 'createdAt', 
+      {
+        key: 'date',
+        label: 'Date',
+        dataPath: 'createdAt',
         format: 'date',
-        sortable: true 
+        sortable: true
       },
-      { 
-        key: 'description', 
-        label: 'Description', 
-        dataPath: 'description' 
+      {
+        key: 'description',
+        label: 'Description',
+        dataPath: 'description'
       },
-      { 
-        key: 'amount', 
-        label: 'Amount', 
-        dataPath: 'amount', 
+      {
+        key: 'amount',
+        label: 'Amount',
+        dataPath: 'amount',
         format: 'currency',
-        sortable: true 
+        sortable: true
       },
-      { 
-        key: 'status', 
-        label: 'Status', 
-        dataPath: 'status', 
-        format: 'badge' 
+      {
+        key: 'status',
+        label: 'Status',
+        dataPath: 'status',
+        format: 'badge'
       },
     ],
     filters: [
-      { 
-        key: 'status', 
-        label: 'Status', 
-        field: 'status', 
+      {
+        key: 'status',
+        label: 'Status',
+        field: 'status',
         type: 'enum',
         options: [
           { value: 'succeeded', label: 'Paid' },
@@ -118,7 +116,7 @@ export const TransactionHistory = defineDataView({
     pagination: { pageSize: 25 },
   },
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
@@ -126,9 +124,10 @@ export const TransactionHistory = defineDataView({
         <p className="text-muted-foreground">
           Use the runtime renderer in your React or React Native app:
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`// app/dashboard/transactions/page.tsx
-'use client';
+        <CodeBlock
+          language="tsx"
+          filename="app/dashboard/transactions/page.tsx"
+          code={`'use client';
 
 import { DataViewRenderer } from '@contractspec/lib.design-system';
 import { TransactionHistory } from '@/lib/specs/billing/transaction-history.data-view';
@@ -143,7 +142,7 @@ export function TransactionsPage() {
   return (
     <div className="container py-8">
       <h1 className="text-3xl font-bold mb-6">Payment History</h1>
-      <DataViewRenderer 
+      <DataViewRenderer
         spec={TransactionHistory}
         data={data?.items ?? []}
         loading={isLoading}
@@ -154,17 +153,17 @@ export function TransactionsPage() {
     </div>
   );
 }`}
-        </pre>
+        />
       </div>
 
       <div className="card-subtle space-y-4 p-6">
         <h3 className="font-bold">Why DataViews?</h3>
         <ul className="text-muted-foreground space-y-2 text-sm">
-          <li>✓ Same spec renders on web (React) and mobile (React Native)</li>
-          <li>✓ Filters, sorting, and pagination handled automatically</li>
-          <li>✓ Format rules (currency, dates, badges) applied consistently</li>
-          <li>✓ Export to CSV/PDF using the same spec</li>
-          <li>✓ A/B test different layouts without touching the backend</li>
+          <li>Same spec renders on web (React) and mobile (React Native)</li>
+          <li>Filters, sorting, and pagination handled automatically</li>
+          <li>Format rules (currency, dates, badges) applied consistently</li>
+          <li>Export to CSV/PDF using the same spec</li>
+          <li>A/B test different layouts without touching the backend</li>
         </ul>
       </div>
 

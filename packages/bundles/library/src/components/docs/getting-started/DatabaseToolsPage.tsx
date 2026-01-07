@@ -1,5 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function DatabaseToolsPage() {
   const commands = [
@@ -70,17 +71,13 @@ export function DatabaseToolsPage() {
                   <p className="text-muted-foreground text-xs font-medium">
                     Usage:
                   </p>
-                  <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-                    <pre>{cmd.usage}</pre>
-                  </div>
+                  <CodeBlock language="bash" code={cmd.usage} showCopyButton={false} />
                 </div>
                 <div>
                   <p className="text-muted-foreground text-xs font-medium">
                     Common commands:
                   </p>
-                  <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-                    <pre>{cmd.examples.join('\n')}</pre>
-                  </div>
+                  <CodeBlock language="bash" code={cmd.examples.join('\n')} />
                 </div>
               </div>
             </div>
@@ -89,8 +86,9 @@ export function DatabaseToolsPage() {
 
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">Development Workflow</h2>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# 1. Start your dev server (Next.js, Bun, etc.)
+          <CodeBlock
+            language="bash"
+            code={`# 1. Start your dev server (Next.js, Bun, etc.)
 npm run dev
 
 # 2. Make database schema changes
@@ -105,8 +103,8 @@ bunx prisma migrate dev --name add_user_roles
 # 5. Test your operations
 curl -X POST http://localhost:3000/api/ops/billing.capturePayment \\
   -H "Content-Type: application/json" \\
-  -d '{"invoiceId": "inv_123", "amount": 99.99}'`}</pre>
-          </div>
+  -d '{"invoiceId": "inv_123", "amount": 99.99}'`}
+          />
         </div>
       </div>
 

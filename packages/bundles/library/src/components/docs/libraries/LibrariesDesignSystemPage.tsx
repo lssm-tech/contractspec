@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: '@contractspec/lib.design-system: ContractSpec Docs',
-//   description:
-//     'High-level design system components, patterns, and layouts for LSSM applications.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesDesignSystemPage() {
   return (
@@ -20,11 +15,7 @@ export function LibrariesDesignSystemPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.design-system
-# or
-bun add @contractspec/lib.design-system`}</pre>
-        </div>
+        <InstallCommand package="@contractspec/lib.design-system" />
       </div>
 
       <div className="space-y-4">
@@ -46,6 +37,10 @@ bun add @contractspec/lib.design-system`}</pre>
             <strong>Forms</strong>: Zod-integrated form layouts and components
           </li>
           <li>
+            <strong>Code Display</strong>: Syntax-highlighted code blocks with
+            package manager tabs
+          </li>
+          <li>
             <strong>Platform Utilities</strong>: Hooks for responsive and
             adaptive design
           </li>
@@ -58,9 +53,10 @@ bun add @contractspec/lib.design-system`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: App Layout</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { AppLayout } from '@contractspec/lib.design-system/components/organisms/AppLayout';
-import { AppSidebar } from '@contractspec/lib.design-system/components/organisms/AppSidebar';
+        <CodeBlock
+          language="tsx"
+          code={`import { AppLayout } from '@contractspec/lib.design-system';
+import { AppSidebar } from '@contractspec/lib.design-system';
 
 export function Layout({ children }) {
   return (
@@ -68,14 +64,15 @@ export function Layout({ children }) {
       {children}
     </AppLayout>
   );
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Zod Form</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { ZodForm } from '@contractspec/lib.design-system/components/forms/ZodForm';
+        <CodeBlock
+          language="tsx"
+          code={`import { ZodForm } from '@contractspec/lib.design-system';
 import * as z from "zod";
 
 const schema = z.object({
@@ -91,8 +88,27 @@ export function SignupForm() {
       submitLabel="Sign Up"
     />
   );
-}`}</pre>
-        </div>
+}`}
+        />
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Example: Code Block with Package Manager Tabs</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+
+// For installation commands with package manager tabs
+<InstallCommand package="my-package" />
+<InstallCommand package={["react", "react-dom"]} dev />
+
+// For code examples with syntax highlighting
+<CodeBlock
+  language="typescript"
+  code={\`const hello = "world";\`}
+  filename="example.ts"
+/>`}
+        />
       </div>
 
       <div className="space-y-4">
@@ -112,6 +128,21 @@ export function SignupForm() {
               <li>DataViewRenderer</li>
               <li>ZodForm</li>
               <li>FormLayout, FormDialog</li>
+            </ul>
+          </div>
+          <div className="card-subtle p-4">
+            <h3 className="mb-2 font-semibold">Code Display</h3>
+            <ul className="text-muted-foreground space-y-1 text-sm">
+              <li>CodeBlock (syntax highlighting)</li>
+              <li>CommandTabs (package manager tabs)</li>
+              <li>InstallCommand (convenience wrapper)</li>
+              <li>CopyButton</li>
+            </ul>
+          </div>
+          <div className="card-subtle p-4">
+            <h3 className="mb-2 font-semibold">Providers</h3>
+            <ul className="text-muted-foreground space-y-1 text-sm">
+              <li>PackageManagerProvider</li>
             </ul>
           </div>
         </div>

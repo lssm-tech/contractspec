@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Installation: ContractSpec Docs',
-//   description:
-//     'Install the ContractSpec CLI and set up your development environment.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function InstallationPage() {
   return (
@@ -22,9 +17,9 @@ export function InstallationPage() {
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Prerequisites</h2>
           <ul className="text-muted-foreground space-y-2">
-            <li>• Node.js 20+ (or Bun 1.0+)</li>
-            <li>• Existing Next.js app or Bun HTTP server</li>
-            <li>• PostgreSQL database (for persistence)</li>
+            <li>Node.js 20+ (or Bun 1.0+)</li>
+            <li>Existing Next.js app or Bun HTTP server</li>
+            <li>PostgreSQL database (for persistence)</li>
           </ul>
         </div>
 
@@ -33,16 +28,28 @@ export function InstallationPage() {
           <p className="text-muted-foreground">
             Add the contracts runtime and your choice of adapter:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# Core libraries
-npm install @contractspec/lib.contracts @contractspec/lib.schema
+          <InstallCommand
+            package={[
+              '@contractspec/lib.contracts',
+              '@contractspec/lib.schema',
+            ]}
+          />
+        </div>
 
-# For Next.js projects
-npm install @contractspec/lib.contracts
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">For Next.js projects</h2>
+          <InstallCommand package="@contractspec/lib.contracts" />
+        </div>
 
-# For database models
-npm install @contractspec/app.cli-database prisma @prisma/client`}</pre>
-          </div>
+        <div className="space-y-3">
+          <h2 className="text-2xl font-bold">For database models</h2>
+          <InstallCommand
+            package={[
+              '@contractspec/app.cli-database',
+              'prisma',
+              '@prisma/client',
+            ]}
+          />
         </div>
 
         <div className="space-y-3">
@@ -50,11 +57,12 @@ npm install @contractspec/app.cli-database prisma @prisma/client`}</pre>
           <p className="text-muted-foreground">
             Create directories for your specs and implementations:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`mkdir -p lib/specs
+          <CodeBlock
+            language="bash"
+            code={`mkdir -p lib/specs
 mkdir -p lib/registry
-mkdir -p app/api/ops`}</pre>
-          </div>
+mkdir -p app/api/ops`}
+          />
         </div>
 
         <div className="space-y-3">
@@ -62,12 +70,13 @@ mkdir -p app/api/ops`}</pre>
           <p className="text-muted-foreground">
             If using Prisma, set up your schema and generate the client:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`bunx prisma init
+          <CodeBlock
+            language="bash"
+            code={`bunx prisma init
 # Edit prisma/schema.prisma with your models
 bunx prisma generate
-bunx prisma migrate dev --name init`}</pre>
-          </div>
+bunx prisma migrate dev --name init`}
+          />
         </div>
 
         <div className="card-subtle space-y-4 p-6">

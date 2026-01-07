@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: '@contractspec/lib.schema: ContractSpec Docs',
-//   description:
-//     'Type-safe schema models that export to Zod, GraphQL, and JSON Schema.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesSchemaPage() {
   return (
@@ -20,11 +15,7 @@ export function LibrariesSchemaPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.schema
-# or
-bun add @contractspec/lib.schema`}</pre>
-        </div>
+        <InstallCommand package="@contractspec/lib.schema" />
       </div>
 
       <div className="space-y-4">
@@ -59,8 +50,9 @@ bun add @contractspec/lib.schema`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Basic Schema</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+        <CodeBlock
+          language="typescript"
+          code={`import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 export const CreateSpotInput = new SchemaModel({
   name: 'CreateSpotInput',
@@ -78,14 +70,15 @@ const zodSchema = CreateSpotInput.getZod();
 const pothosName = CreateSpotInput.getPothosInput();
 
 // Get JSON Schema
-const jsonSchema = CreateSpotInput.getJsonSchema();`}</pre>
-        </div>
+const jsonSchema = CreateSpotInput.getJsonSchema();`}
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Enums</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { defineEnum, SchemaModel } from '@contractspec/lib.schema';
+        <CodeBlock
+          language="typescript"
+          code={`import { defineEnum, SchemaModel } from '@contractspec/lib.schema';
 
 const Weekday = defineEnum('Weekday', [
   'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU',
@@ -94,14 +87,14 @@ const Weekday = defineEnum('Weekday', [
 const RecurrenceRule = new SchemaModel({
   name: 'RecurrenceRule',
   fields: {
-    frequency: { 
+    frequency: {
       type: defineEnum('Frequency', ['DAILY', 'WEEKLY', 'MONTHLY'] as const),
-      isOptional: false 
+      isOptional: false
     },
     byWeekday: { type: Weekday, isOptional: true, isArray: true },
   },
-});`}</pre>
-        </div>
+});`}
+        />
       </div>
 
       <div className="space-y-4">

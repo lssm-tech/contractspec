@@ -32,6 +32,26 @@ export { NavUser } from './components/molecules/NavUser';
 export { ApprovalQueue } from './components/agent/ApprovalQueue';
 export { AgentMonitor } from './components/agent/AgentMonitor';
 
+// Code display components
+export { CodeBlock, type CodeBlockProps, type CodeLanguage } from './components/molecules/CodeBlock';
+export { CopyButton, type CopyButtonProps } from './components/molecules/CopyButton';
+export {
+  CommandTabs,
+  type CommandTabsProps,
+  type PackageManager,
+  type PackageManagerContextValue,
+} from './components/molecules/CommandTabs';
+export {
+  InstallCommand,
+  type InstallCommandProps,
+  type InstallCommandType,
+} from './components/molecules/InstallCommand';
+export {
+  PackageManagerProvider,
+  usePackageManager,
+  type PackageManagerProviderProps,
+} from './components/providers/PackageManagerProvider';
+
 // Organisms
 export { AppSidebar } from './components/organisms/AppSidebar';
 export {

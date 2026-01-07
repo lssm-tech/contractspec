@@ -1,5 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function CLIPage() {
   const commands = [
@@ -64,19 +65,14 @@ export function CLIPage() {
       <div className="space-y-6">
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Installation</h2>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# Install as dev dependency
-bun add -D contractspec
-
-# Or with npm
-npm install -D contractspec`}</pre>
-          </div>
+          <InstallCommand package="contractspec" dev />
         </div>
 
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Quick Start</h2>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# Create a new contract spec with AI
+          <CodeBlock
+            language="bash"
+            code={`# Create a new contract spec with AI
 contractspec create --ai
 
 # Build handler from spec
@@ -86,8 +82,8 @@ contractspec build src/contracts/signup.contracts.ts
 contractspec validate 'src/contracts/**/*.ts'
 
 # Watch for changes
-contractspec watch --build`}</pre>
-          </div>
+contractspec watch --build`}
+          />
         </div>
 
         <div className="space-y-4">
@@ -101,9 +97,11 @@ contractspec watch --build`}</pre>
                 <p className="text-muted-foreground text-sm">
                   {cmd.description}
                 </p>
-                <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-2 font-mono text-xs">
-                  <code>{cmd.usage}</code>
-                </div>
+                <CodeBlock
+                  language="bash"
+                  code={cmd.usage}
+                  showCopyButton={false}
+                />
               </div>
             ))}
           </div>
@@ -149,16 +147,17 @@ contractspec watch --build`}</pre>
           <p className="text-muted-foreground">
             Run all validation checks in CI/CD with machine-readable output:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# GitHub Actions example
-- name: Validate Contracts
+          <CodeBlock
+            language="yaml"
+            filename=".github/workflows/validate.yml"
+            code={`- name: Validate Contracts
   run: contractspec ci --format sarif --output results.sarif
 
 - name: Upload SARIF
   uses: github/codeql-action/upload-sarif@v3
   with:
-    sarif_file: results.sarif`}</pre>
-          </div>
+    sarif_file: results.sarif`}
+          />
         </div>
 
         <div className="card-subtle space-y-4 p-6">
@@ -166,8 +165,10 @@ contractspec watch --build`}</pre>
           <p className="text-muted-foreground text-sm">
             Create a <code>.contractsrc.json</code> file in your project root:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-            <pre>{`{
+          <CodeBlock
+            language="json"
+            filename=".contractsrc.json"
+            code={`{
   "aiProvider": "claude",
   "agentMode": "claude-code",
   "outputDir": "./src",
@@ -175,8 +176,8 @@ contractspec watch --build`}</pre>
     "operations": "interactions/commands|queries",
     "events": "events"
   }
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
       </div>
 

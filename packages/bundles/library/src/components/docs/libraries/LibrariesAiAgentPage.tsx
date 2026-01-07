@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'AI Agent Library | ContractSpec',
-//   description:
-//     'Build safe AI copilots with specs, tools, memory, and approval workflows.',
-// };
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesAiAgentPage() {
   return (
@@ -16,10 +14,16 @@ export function LibrariesAiAgentPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.ai-agent" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Define & register</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { defineAgent, AgentRegistry } from '@contractspec/lib.ai-agent';
+        <CodeBlock
+          language="typescript"
+          code={`import { defineAgent, AgentRegistry } from '@contractspec/lib.ai-agent';
 
 const SupportBot = defineAgent({
   meta: { name: 'support.bot', version: '1.0.0' },
@@ -32,13 +36,14 @@ const SupportBot = defineAgent({
 });
 
 const registry = new AgentRegistry().register(SupportBot);`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Run with approvals</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { AgentRunner, ToolExecutor, ApprovalWorkflow } from '@contractspec/lib.ai-agent';
+        <CodeBlock
+          language="typescript"
+          code={`import { AgentRunner, ToolExecutor, ApprovalWorkflow } from '@contractspec/lib.ai-agent';
 
 const runner = new AgentRunner({
   registry,
@@ -51,7 +56,7 @@ const result = await runner.run({ agent: 'support.bot', input: ticket.body });
 if (result.approvalRequestId) {
   // show in ApprovalQueue UI
 }`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
@@ -72,6 +77,15 @@ if (result.approvalRequestId) {
             human-in-the-loop reviews
           </li>
         </ul>
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/support-bot" className="btn-primary">
+          Next: Support Bot <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

@@ -1,89 +1,86 @@
-# AI Agent Guide (`AGENTS.md`)
+Please also reference the following rules as needed. The list below is provided in TOON format, and `@` stands for the project root directory.
 
-> **Role**: You are an expert software engineer and architect working on the **ContractSpec** monorepo.
-> **Mission**: Build the safety layer for AI-native software. Stabilization, not replacement.
-> **Source of Truth**: This file defines the map of the territory, rules of engagement, and available tools.
+rules[21]:
+  - path: @.codex/memories/accessibility.md
+    description: "Accessibility checklist (ARIA, keyboard, contrast, motion)"
+    applyTo[1]: **/*
+  - path: @.codex/memories/ai-agent.md
+    description: AI governance baseline and decision traceability
+    applyTo[1]: **/*
+  - path: @.codex/memories/backend.md
+    description: "AI is generating APIs, services, or data workflows."
+    applyTo[1]: **/*
+  - path: @.codex/memories/code-quality-practices.md
+    description: "Enforce code quality standards, testing requirements, and innovation practices"
+    applyTo[1]: **/*
+  - path: @.codex/memories/code-splitting.md
+    description: "Governs file size limits, splitting strategies, and code reusability patterns across the ContractSpec monorepo."
+    applyTo[1]: **/*
+  - path: @.codex/memories/contractspec-mission.md
+    applyTo[1]: **/*
+  - path: @.codex/memories/design-system-usage.md
+    description: Enforce design-system-first UI for marketing/web surfaces.
+  - path: @.codex/memories/docs.md
+    description: Documentation governance — keep `docs/` synchronized with the codebase. The agent MUST review docs before code edits and update them after.
+    applyTo[1]: **/*
+  - path: @.codex/memories/frontend.md
+    description: "AI is generating UI components, screens, or flows."
+  - path: @.codex/memories/llms-guide.md
+    description: "LLMs Guide Policy — every app must expose a single, canonical llms file and URL"
+    applyTo[1]: **/*
+  - path: @.codex/memories/move-efficient.md
+    applyTo[1]: **/*
+  - path: @.codex/memories/observability.md
+    description: "Observability, logging, and tracing standards"
+    applyTo[1]: **/*
+  - path: @.codex/memories/package-architecture.md
+    description: "Governs package responsibilities, component hierarchy, and dependency flow across the ContractSpec monorepo."
+    applyTo[1]: **/*
+  - path: @.codex/memories/performance.md
+    description: Performance budgets and optimization guardrails
+    applyTo[1]: **/*
+  - path: @.codex/memories/plan-coding.md
+    description: When following instruction of a plan in mardkown file PLAN_VNEXT.md
+  - path: @.codex/memories/plan-done.md
+  - path: @.codex/memories/posthog-integration.md
+    description: apply when interacting with PostHog/analytics tasks
+    applyTo[1]: **/*
+  - path: @.codex/memories/security.md
+    description: "Security, secrets handling, and PII hygiene"
+    applyTo[1]: **/*
+  - path: @.codex/memories/type-safety-dependencies.md
+    description: Enforce strict type safety and dependency hygiene across the codebase
+    applyTo[1]: **/*
+  - path: @.codex/memories/user.md
+    applyTo[1]: **/*
+  - path: @.codex/memories/ux.md
+    applyTo[1]: **/*
 
-## 🗺️ Map of the Territory
+# Additional Conventions Beyond the Built-in Functions
 
-This monorepo uses a strict layered architecture. You must understand where code lives to avoid circular dependencies and architectural drift.
+As this project's AI coding tool, you must follow the additional conventions below, in addition to the built-in functions.
 
-### 1. `packages/libs/*` (Infrastructure & Contracts)
-**Purpose**: Shared infrastructure, pure utilities, and core contracts.
-- **Dependencies**: Can ONLY depend on other `libs`. NEVER depend on `bundles` or `apps`.
-- **Key Packages**:
-  - `contracts`: Core ContractSpec definitions (the "DNA" of the system).
-  - `design-system`: UI atoms and tokens. **Source of truth for UI.**
-  - `ui-kit` / `ui-kit-web`: Platform-specific UI implementations.
-  - `ai-agent`: LLM integration and orchestration utilities.
-  - `database`: Prisma schemas and clients.
+# Project Overview
 
-### 2. `packages/bundles/*` (Business Domains)
-**Purpose**: The core "features" of the system. Organized by **Business Domain**, not technical layer.
-- **Dependencies**: Can depend on `libs`. NEVER depend on `apps`.
-- **Structure**:
-  - `contractspec-studio`: The main visual builder business logic.
-  - `marketing`: content and implementation for the landing page.
-  - `workspace`: domain logic for workspace management.
-- **Internal Structure** (Domain-First):
-  - `src/domain`: Pure business logic & entities.
-  - `src/application`: Services & use cases.
-  - `src/infrastructure`: Adapters (GraphQL, DB, API).
-  - `src/presentation`: Reusable UI components (molecules/organisms).
+## General Guidelines
 
-### 3. `packages/apps/*` (Platform Adapters)
-**Purpose**: Thin entry points that wire bundles together.
-- **Dependencies**: Depend on `bundles` and `libs`.
-- **Rule**: **NO BUSINESS LOGIC HERE.** Only routing, config, and wiring.
-- **Key Apps**:
-  - `web-landing`: Next.js marketing site.
-  - `cli-contractspec`: The main CLI tool.
-  - `api-library`: Elysia-based API server.
+- Use TypeScript for all new code
+- Follow consistent naming conventions
+- Write self-documenting code with clear variable and function names
+- Prefer composition over inheritance
+- Use meaningful comments for complex business logic
 
-### 4. `packages/modules/*`
-**Purpose**: Self-contained lifecycle or feature modules that don't fit into the main bundle monoliths but aren't generic enough for `libs`.
-- Examples: `ai-chat`, `lifecycle-advisor`.
+## Code Style
 
-## 🚦 Dependency Flow & Rules
+- Use 2 spaces for indentation
+- Use semicolons
+- Use double quotes for strings
+- Use trailing commas in multi-line objects and arrays
 
-1.  **Strict Direction**: `apps` -> `bundles` -> `libs`. **Never Upward.**
-2.  **No Raw HTML**: In `apps` and `bundles`, you MUST use `@contractspec/lib.design-system` components.
-    - ❌ `<div className="p-4">...</div>`
-    - ✅ `<Box padding="4">...</Box>`
-3.  **File Size**:
-    - Components: Max 150 lines.
-    - Services: Max 200 lines.
-    - Split immediately if limits are reached.
-4.  **No `any`**: Strict TypeScript. Use `unknown` with type guards if necessary.
+## Architecture Principles
 
-## 🤖 Tools & Resources for Agents
-
-### MCP Servers
-You currently have access to the following MCP servers to assist you:
-
--   **`contractspec-docs`**:
-    -   **URL**: `https://api.contractspec.io/api/mcp/docs`
-    -   **Usage**: Use this to query the official documentation, specs, and architectural decisions of the ContractSpec system. If you are unsure about a contract definition or a core concept, **ask this server first**.
-
-### Rule Synchronization (`rulesync`)
-- We use `rulesync` (defined in `.rulesync/`) to generate `.cursorrules` and other agent configs.
-- **DO NOT** edit files in `.agent/` directly. Edit the source in `.rulesync/` and run the sync command if instructed.
-
-## 📝 Coding Standards (Summary)
-
--   **Language**: TypeScript (Strict).
--   **Style**: Prettier + ESLint (Standard).
--   **Style**: Prettier + ESLint (Standard).
--   **Linting**: Run `bun lint` to check for issues. Fix all errors before submitting.
--   **Testing**:
-    -   Run `bun test` to execute tests.
-    -   **Requirement**: All new logic must have unit tests.
-    -   **Approach**: Test behavior and public contracts, not implementation details.
-    -   **Verification**: Run `bun test` after changes to ensure no regressions.
--   **Naming**:
-    -   Files: `kebab-case.ts` (utilities), `PascalCase.tsx` (components).
-    -   Variables: `camelCase`.
-    -   Types/Interfaces: `PascalCase`.
-
----
-*If you are ever unsure, referring to this file and the `package-architecture.md` memory is your best path to correctness.*
+- Organize code by feature, not by file type
+- Keep related files close together
+- Use dependency injection for better testability
+- Implement proper error handling
+- Follow single responsibility principle
