@@ -11,7 +11,6 @@ import {
 } from '@contractspec/lib.contracts';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import z from 'zod';
-import { Elysia } from 'elysia';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
 
