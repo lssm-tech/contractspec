@@ -31,6 +31,7 @@ import {
 } from './checks';
 
 import { createCategorySummary, getChecksToRun, getGitInfo } from './utils';
+import { isTestFile } from '../../utils';
 
 /**
  * Run all CI checks and return structured results.
@@ -53,7 +54,7 @@ export async function runCIChecks(
   // Discover spec files
   const files = await fs.glob({ pattern: options.pattern });
   const specFiles = files.filter(
-    (f) => !isFeatureFile(f) && !f.includes('.test.') && !f.includes('.spec.')
+    (f) => !isFeatureFile(f) && !isTestFile(f, options.config)
   );
 
   // Run spec structure validation

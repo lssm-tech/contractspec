@@ -4,6 +4,8 @@
  * Types for CI/CD validation checks with support for multiple output formats.
  */
 
+import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+
 /**
  * Categories of CI checks.
  */
@@ -162,6 +164,10 @@ export interface CICheckOptions {
     /** Allow partial implementations. */
     allowPartial?: boolean;
   };
+  /**
+   * Workspace configuration
+   */
+  config?: ContractsrcConfig;
 }
 
 /**

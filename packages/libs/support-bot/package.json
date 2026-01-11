@@ -30,7 +30,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@ai-sdk/provider-utils": "^4.0.3",
+    "@ai-sdk/provider-utils": "^4.0.4",
     "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",

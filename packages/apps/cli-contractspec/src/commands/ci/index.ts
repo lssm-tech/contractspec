@@ -9,6 +9,7 @@ import { Command } from 'commander';
 import { writeFile } from 'fs/promises';
 import chalk from 'chalk';
 import ora from 'ora';
+import { loadConfig } from '../../utils/config';
 import {
   ALL_CI_CHECK_CATEGORIES,
   type CICheckCategory,
@@ -123,6 +124,9 @@ export async function runCiCommand(options: CICommandOptions) {
       /* eslint-enable @typescript-eslint/no-empty-function */
     }
 
+    // Load configuration
+    const config = await loadConfig();
+
     // Build check options
     const checkOptions: CICheckOptions = {
       pattern: options.pattern,
@@ -131,6 +135,7 @@ export async function runCiCommand(options: CICommandOptions) {
       checkDrift: options.checkDrift,
       failOnWarnings: options.failOnWarnings,
       workspaceRoot: process.cwd(),
+      config,
     };
 
     // Parse check categories

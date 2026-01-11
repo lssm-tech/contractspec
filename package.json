@@ -24,7 +24,7 @@
     },
     "catalogs": {
       "build": {
-        "tsdown": "^0.19.0-beta.3",
+        "tsdown": "^0.19.0",
         "turbo": "^2.7.3",
         "@changesets/cli": "^2.29.7",
         "postcss": "^8.5",
@@ -39,13 +39,13 @@
         "storybook": "^10.1.11"
       },
       "ai": {
-        "ai": "6.0.11",
-        "@ai-sdk/mcp": "1.0.3",
-        "@ai-sdk/anthropic": "3.0.6",
-        "@ai-sdk/google": "3.0.3",
-        "@ai-sdk/mistral": "3.0.4",
-        "@ai-sdk/openai": "3.0.4",
-        "@ai-sdk/react": "3.0.11",
+        "ai": "6.0.27",
+        "@ai-sdk/mcp": "1.0.5",
+        "@ai-sdk/anthropic": "3.0.9",
+        "@ai-sdk/google": "3.0.6",
+        "@ai-sdk/mistral": "3.0.5",
+        "@ai-sdk/openai": "3.0.7",
+        "@ai-sdk/react": "3.0.29",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -93,7 +93,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.0.0",
-    "knip": "^5.80.0",
+    "knip": "^5.80.2",
     "memoirist": "^0.4.0",
     "next": "catalog:",
     "patch-package": "^8.0.1",
@@ -101,7 +101,7 @@
     "prettier": "3.7.4",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "rulesync": "^5.1.1",
+    "rulesync": "^5.2.1",
     "turbo-ignore": "^2.7.3",
     "typescript-eslint": "^8.52.0"
   },
@@ -159,5 +159,8 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
+  },
+  "patchedDependencies": {
+    "elysia-mcp@0.1.0": "patches/elysia-mcp@0.1.0.patch"
   }
 }

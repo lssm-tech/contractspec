@@ -82,7 +82,7 @@
     "@scaleway/sdk": "^3.1.4",
     "@scaleway/sdk-client": "^2.1.0",
     "class-variance-authority": "^0.7.1",
-    "framer-motion": "^12.24.0",
+    "framer-motion": "^12.25.0",
     "lucide-react": "^0.562.0",
     "next": "catalog:",
     "react": "catalog:",
@@ -90,7 +90,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.7",
+    "@types/react": "~19.2.8",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",

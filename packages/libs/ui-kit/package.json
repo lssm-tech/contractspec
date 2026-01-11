@@ -29,7 +29,7 @@
     "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-native-community/datetimepicker": "^8.4.5",
+    "@react-native-community/datetimepicker": "^8.6.0",
     "@react-navigation/native": "^7.1.26",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",

@@ -8,6 +8,8 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+import micromatch from 'micromatch';
+import { isTestFile } from '../utils';
 
 /**
  * Options for listing specs.
@@ -38,8 +40,9 @@ export async function listSpecs(
 ): Promise<SpecScanResult[]> {
   const { fs, scan = scanSpecSource } = adapters;
 
-  // Default to all TS files if no pattern provided
-  const pattern = options.pattern ?? '**/*.{ts,tsx}';
+  // Use pattern if provided, otherwise let fs.glob use its defaults (DEFAULT_SPEC_PATTERNS)
+  // This aligns listSpecs behavior with the CI command behavior
+  const pattern = options.pattern;
   const files = await fs.glob({ pattern });
   const results: SpecScanResult[] = [];
 
@@ -52,8 +55,15 @@ export async function listSpecs(
     // If excluding packages via config
     if (
       options.config?.excludePackages &&
-      options.config.excludePackages.some((pkg) => file.includes(pkg))
+      micromatch.isMatch(file, options.config.excludePackages, {
+        contains: true,
+      })
     ) {
+      continue;
+    }
+
+    // Exclude test files
+    if (isTestFile(file, options.config)) {
       continue;
     }
 
