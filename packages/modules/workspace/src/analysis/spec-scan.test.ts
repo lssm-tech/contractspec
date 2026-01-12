@@ -165,4 +165,18 @@ describe('scanAllSpecsFromSource', () => {
     // Should include the closing );
     expect(results[0]!.sourceBlock).toBe(code);
   });
+
+  it('resolves spread variables in source block', () => {
+    const code = `
+const OWNERS = ['alice', 'bob'];
+export const op = defineCommand({
+  meta: { key: 'op-1', version: '1', owners: [...OWNERS] }
+});`;
+    const results = scanAllSpecsFromSource(code, 'src/test.contracts.ts');
+    expect(results).toHaveLength(1);
+    const block = results[0]!.sourceBlock;
+    expect(block).toContain("owners: ['alice', 'bob']");
+    expect(block).not.toContain('...OWNERS');
+    expect(results[0]!.owners).toEqual(['alice', 'bob']);
+  });
 });

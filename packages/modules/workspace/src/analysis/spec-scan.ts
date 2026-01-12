@@ -5,6 +5,10 @@
  */
 
 import type { SpecScanResult } from '../types/analysis-types';
+import {
+  extractArrayConstants,
+  resolveVariablesInBlock,
+} from './utils/variables';
 
 import {
   findMatchingDelimiter,
@@ -31,6 +35,9 @@ export function scanAllSpecsFromSource(
   filePath: string
 ): SpecScanResult[] {
   const results: SpecScanResult[] = [];
+  
+  // Pre-scan for variables available in file scope
+  const variables = extractArrayConstants(code);
 
   // Match export definitions: export const X = defineXXX calls
   const definitionRegex =
@@ -50,9 +57,16 @@ export function scanAllSpecsFromSource(
     }
 
     const block = code.substring(start, finalEnd + 1);
-    const result = scanSpecSource(block, filePath);
+    
+    // Resolve variables in the block
+    const resolvedBlock = resolveVariablesInBlock(block, variables);
+    
+    const result = scanSpecSource(resolvedBlock, filePath);
     if (result) {
-      results.push(result);
+      results.push({
+        ...result,
+        sourceBlock: resolvedBlock // Ensure the result has the resolved block
+      });
     }
   }
 
@@ -60,7 +74,10 @@ export function scanAllSpecsFromSource(
   if (results.length === 0 && filePath.includes('.spec.')) {
     const result = scanSpecSource(code, filePath);
     if (result.key !== 'unknown') {
-      results.push(result);
+      // Try to resolve globally even for fallback (though scope is harder)
+       const resolvedBlock = resolveVariablesInBlock(code, variables);
+       const result = scanSpecSource(resolvedBlock, filePath);
+       results.push(result);
     }
   }
 
