@@ -25,10 +25,10 @@ describe('generateIntegrationSpec', () => {
   it('generates an integration spec', () => {
     const code = generateIntegrationSpec(baseData);
     expect(code).toContain(
-      "import { StabilityEnum } from '@contractspec/lib.contracts/ownership'"
+      "import { StabilityEnum, defineIntegration } from '@contractspec/lib.contracts';"
     );
     expect(code).toContain(
-      'export const IntegrationIntegrationSpec: IntegrationSpec = {'
+      'export const IntegrationIntegrationSpec = defineIntegration({'
     );
     expect(code).toContain("category: 'custom'");
     expect(code).toContain("supportedModes: ['managed']");

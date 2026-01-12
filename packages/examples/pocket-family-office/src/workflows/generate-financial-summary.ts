@@ -1,11 +1,11 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts';
 
-export const generateFinancialSummaryWorkflow: WorkflowSpec = {
+export const generateFinancialSummaryWorkflow = defineWorkflow({
   meta: {
     key: 'pfo.workflow.generate-financial-summary',
     version: '1.0.0',
@@ -55,4 +55,4 @@ export const generateFinancialSummaryWorkflow: WorkflowSpec = {
     ],
     transitions: [{ from: 'summarise', to: 'distribute' }],
   },
-};
+});

@@ -16,7 +16,7 @@ ${transition.condition ? `      condition: '${escapeString(transition.condition)
     )
     .join(',\n');
 
-  return `import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow';
+  return `import { defineWorkflow } from '@contractspec/lib.contracts';
 
 /**
  * Workflow generated via contractspec CLI.
@@ -26,7 +26,7 @@ ${transition.condition ? `      condition: '${escapeString(transition.condition)
  *  - Provide form renderers for human steps.
  *  - Add guards/conditions as needed.
  */
-export const ${specVarName}: WorkflowSpec = {
+export const ${specVarName} = defineWorkflow({
   meta: {
     key: '${data.name}',
     version: ${data.version},
@@ -52,7 +52,7 @@ ${transitionsCode}
   },`
       : '// policy: { flags: [] },'
   }
-};
+});
 `;
 }
 

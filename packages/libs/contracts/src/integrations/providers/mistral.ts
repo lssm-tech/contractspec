@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const mistralIntegrationSpec: IntegrationSpec = {
+export const mistralIntegrationSpec = defineIntegration({
   meta: {
     key: 'ai-llm.mistral',
     version: '1.0.0',
@@ -71,7 +71,7 @@ export const mistralIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Generate an API key within the Mistral console and ensure the selected models are enabled for the account.',
   },
-};
+});
 
 export function registerMistralIntegration(
   registry: IntegrationSpecRegistry

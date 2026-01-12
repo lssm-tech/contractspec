@@ -1,11 +1,11 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts';
 
-export const ingestEmailThreadsWorkflow: WorkflowSpec = {
+export const ingestEmailThreadsWorkflow = defineWorkflow({
   meta: {
     key: 'pfo.workflow.ingest-email-threads',
     version: '1.0.0',
@@ -53,4 +53,4 @@ export const ingestEmailThreadsWorkflow: WorkflowSpec = {
       },
     ],
   },
-};
+});

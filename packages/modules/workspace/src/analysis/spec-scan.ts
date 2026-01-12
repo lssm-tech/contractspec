@@ -35,13 +35,13 @@ export function scanAllSpecsFromSource(
   filePath: string
 ): SpecScanResult[] {
   const results: SpecScanResult[] = [];
-  
+
   // Pre-scan for variables available in file scope
   const variables = extractArrayConstants(code);
 
   // Match export definitions: export const X = defineXXX calls
   const definitionRegex =
-    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type)\s*\(/g;
+    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow)\s*\(/g;
   let match;
 
   while ((match = definitionRegex.exec(code)) !== null) {
@@ -57,15 +57,15 @@ export function scanAllSpecsFromSource(
     }
 
     const block = code.substring(start, finalEnd + 1);
-    
+
     // Resolve variables in the block
     const resolvedBlock = resolveVariablesInBlock(block, variables);
-    
+
     const result = scanSpecSource(resolvedBlock, filePath);
     if (result) {
       results.push({
         ...result,
-        sourceBlock: resolvedBlock // Ensure the result has the resolved block
+        sourceBlock: resolvedBlock, // Ensure the result has the resolved block
       });
     }
   }
@@ -75,9 +75,9 @@ export function scanAllSpecsFromSource(
     const result = scanSpecSource(code, filePath);
     if (result.key !== 'unknown') {
       // Try to resolve globally even for fallback (though scope is harder)
-       const resolvedBlock = resolveVariablesInBlock(code, variables);
-       const result = scanSpecSource(resolvedBlock, filePath);
-       results.push(result);
+      const resolvedBlock = resolveVariablesInBlock(code, variables);
+      const result = scanSpecSource(resolvedBlock, filePath);
+      results.push(result);
     }
   }
 
@@ -124,9 +124,20 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   } else if (code.includes('defineCapability')) {
     specType = 'capability';
     kind = 'capability';
-  } else if (code.includes('defineType')) {
     specType = 'type';
     kind = 'type';
+  } else if (code.includes('defineExample')) {
+    specType = 'example';
+    kind = 'example';
+  } else if (code.includes('defineAppConfig')) {
+    specType = 'app-config';
+    kind = 'app-config';
+  } else if (code.includes('defineIntegration')) {
+    specType = 'integration';
+    kind = 'integration';
+  } else if (code.includes('defineWorkflow')) {
+    specType = 'workflow';
+    kind = 'workflow';
   }
 
   // Check feature flags/sections
@@ -196,6 +207,21 @@ export function inferSpecTypeFromFilePath(
   }
   if (filePath.includes('.type.') || /\/types?\//.test(filePath)) {
     return 'type';
+  }
+  if (filePath.includes('.example.') || /\/examples?\//.test(filePath)) {
+    return 'example';
+  }
+  if (filePath.includes('.app-config.')) {
+    return 'app-config';
+  }
+  if (filePath.includes('.workflow.') || /\/workflows?\//.test(filePath)) {
+    return 'workflow';
+  }
+  if (
+    filePath.includes('.integration.') ||
+    /\/integrations?\//.test(filePath)
+  ) {
+    return 'integration';
   }
   return 'unknown';
 }

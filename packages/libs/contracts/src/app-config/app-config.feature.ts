@@ -3,13 +3,13 @@
  *
  * Defines the feature module for tenant app configuration lifecycle.
  */
-import type { FeatureModuleSpec } from '../features';
+import { defineAppConfig } from './spec';
 
 /**
  * App Config feature module that bundles tenant configuration
  * lifecycle events for draft, preview, publish, and rollback stages.
  */
-export const AppConfigFeature: FeatureModuleSpec = {
+export const AppConfigFeature = defineAppConfig({
   meta: {
     key: 'app-config',
     version: '1.0.0',
@@ -43,4 +43,4 @@ export const AppConfigFeature: FeatureModuleSpec = {
     provides: [{ key: 'app-config', version: '1.0.0' }],
     requires: [],
   },
-};
+});

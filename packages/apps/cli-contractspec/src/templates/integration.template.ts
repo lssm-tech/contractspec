@@ -48,11 +48,9 @@ ${data.capabilitiesRequired
     data.byokRequiredScopes
   );
 
-  return `import { StabilityEnum } from '@contractspec/lib.contracts/ownership';
-import type { IntegrationSpec } from '@contractspec/lib.contracts/integrations/spec';
-import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts/integrations/spec';
+  return `import { StabilityEnum, defineIntegration, IntegrationSpecRegistry } from '@contractspec/lib.contracts';
 
-export const ${varName}: IntegrationSpec = {
+export const ${varName} = defineIntegration({
   meta: {
     key: '${data.name}',
     version: ${data.version},
@@ -83,7 +81,7 @@ ${docsUrl}${constraints}${byokSetup}  healthCheck: {
     method: '${data.healthCheckMethod}',
     timeoutMs: ${data.healthCheckTimeoutMs},
   },
-};
+});
 
 export function ${registerFn}(
   registry: IntegrationSpecRegistry

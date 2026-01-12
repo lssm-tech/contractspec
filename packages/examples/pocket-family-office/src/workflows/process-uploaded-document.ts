@@ -1,11 +1,11 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts';
 
-export const processUploadedDocumentWorkflow: WorkflowSpec = {
+export const processUploadedDocumentWorkflow = defineWorkflow({
   meta: {
     key: 'pfo.workflow.process-uploaded-document',
     version: '1.0.0',
@@ -51,4 +51,4 @@ export const processUploadedDocumentWorkflow: WorkflowSpec = {
       },
     ],
   },
-};
+});

@@ -60,6 +60,36 @@ describe('scanSpecSource', () => {
     expect(result.stability).toBe('stable');
   });
 
+  it('identifies example spec', () => {
+    const code =
+      'export const example = defineExample({ meta: { key: "ex" } });';
+    const result = scanSpecSource(code, 'src/test.example.ts');
+    expect(result.specType).toBe('example');
+    expect(result.kind).toBe('example');
+  });
+
+  it('identifies app-config spec', () => {
+    const code =
+      'export const app = defineAppConfig({ meta: { key: "app" } });';
+    const result = scanSpecSource(code, 'src/test.app-config.ts');
+    expect(result.specType).toBe('app-config');
+    expect(result.kind).toBe('app-config');
+  });
+
+  it('identifies workflow spec', () => {
+    const code = 'export const wf = defineWorkflow({ meta: { key: "wf" } });';
+    const result = scanSpecSource(code, 'src/test.workflow.ts');
+    expect(result.specType).toBe('workflow');
+    expect(result.kind).toBe('workflow');
+  });
+
+  it('identifies integration spec', () => {
+    const code =
+      'export const integration = defineIntegration({ meta: { key: "int" } });';
+    const result = scanSpecSource(code, 'src/test.integration.ts');
+    expect(result.specType).toBe('integration');
+    expect(result.kind).toBe('integration');
+  });
   it('extracts emitted events', () => {
     const code = `
       export const op = defineCommand({
@@ -146,14 +176,10 @@ describe('scanAllSpecsFromSource', () => {
     // Sort by key to be deterministic
     results.sort((a, b) => (a.key || '').localeCompare(b.key || ''));
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(results[0]!.key).toBe('op-1');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(results[0]!.kind).toBe('command');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(results[1]!.key).toBe('op-2');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(results[1]!.kind).toBe('query');
+    expect(results[0]?.key).toBe('op-1');
+    expect(results[0]?.kind).toBe('command');
+    expect(results[1]?.key).toBe('op-2');
+    expect(results[1]?.kind).toBe('query');
   });
 
   it('captured sourceBlock includes closing parenthesis', () => {
@@ -163,7 +189,7 @@ describe('scanAllSpecsFromSource', () => {
     const results = scanAllSpecsFromSource(code, 'src/test.contracts.ts');
     expect(results).toHaveLength(1);
     // Should include the closing );
-    expect(results[0]!.sourceBlock).toBe(code);
+    expect(results[0]?.sourceBlock).toBe(code);
   });
 
   it('resolves spread variables in source block', () => {
@@ -174,9 +200,9 @@ export const op = defineCommand({
 });`;
     const results = scanAllSpecsFromSource(code, 'src/test.contracts.ts');
     expect(results).toHaveLength(1);
-    const block = results[0]!.sourceBlock;
+    const block = results[0]?.sourceBlock;
     expect(block).toContain("owners: ['alice', 'bob']");
     expect(block).not.toContain('...OWNERS');
-    expect(results[0]!.owners).toEqual(['alice', 'bob']);
+    expect(results[0]?.owners).toEqual(['alice', 'bob']);
   });
 });

@@ -101,3 +101,9 @@ export class IntegrationSpecRegistry extends SpecContractRegistry<
 export function makeIntegrationSpecKey(meta: IntegrationMeta) {
   return integrationKey(meta);
 }
+
+/**
+ * Helper to define an Integration.
+ */
+export const defineIntegration = (spec: IntegrationSpec): IntegrationSpec =>
+  spec;

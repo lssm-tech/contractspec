@@ -19,12 +19,12 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.11",
+    "@apollo/client": "^4.0.12",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
     "@contractspec/lib.ui-kit-web": "workspace:*",
     "@tanstack/react-query": "^5.90.16",
-    "framer-motion": "^12.25.0",
+    "framer-motion": "^12.26.1",
     "lucide-react": "^0.300.0",
     "react": "catalog:",
     "react-dom": "catalog:"

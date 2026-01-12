@@ -99,7 +99,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
+    "@babel/core": "^7.28.6",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "react-native-css": "^3.0.0",

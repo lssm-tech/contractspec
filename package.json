@@ -25,7 +25,7 @@
     "catalogs": {
       "build": {
         "tsdown": "^0.19.0",
-        "turbo": "^2.7.3",
+        "turbo": "^2.7.4",
         "@changesets/cli": "^2.29.7",
         "postcss": "^8.5",
         "tailwindcss": "4.1.18",
@@ -39,13 +39,13 @@
         "storybook": "^10.1.11"
       },
       "ai": {
-        "ai": "6.0.27",
+        "ai": "6.0.29",
         "@ai-sdk/mcp": "1.0.5",
-        "@ai-sdk/anthropic": "3.0.9",
+        "@ai-sdk/anthropic": "3.0.11",
         "@ai-sdk/google": "3.0.6",
         "@ai-sdk/mistral": "3.0.5",
-        "@ai-sdk/openai": "3.0.7",
-        "@ai-sdk/react": "3.0.29",
+        "@ai-sdk/openai": "3.0.8",
+        "@ai-sdk/react": "3.0.31",
         "ollama-ai-provider": "^1.2.0"
       }
     }
@@ -102,8 +102,8 @@
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "rulesync": "^5.2.1",
-    "turbo-ignore": "^2.7.3",
-    "typescript-eslint": "^8.52.0"
+    "turbo-ignore": "^2.7.4",
+    "typescript-eslint": "^8.53.0"
   },
   "dependencies": {
     "react": "catalog:",

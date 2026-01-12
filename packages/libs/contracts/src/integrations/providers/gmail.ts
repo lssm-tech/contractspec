@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const gmailIntegrationSpec: IntegrationSpec = {
+export const gmailIntegrationSpec = defineIntegration({
   meta: {
     key: 'email.gmail',
     version: '1.0.0',
@@ -85,7 +85,7 @@ export const gmailIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Create an OAuth consent screen and credentials within Google Cloud Console, then authorize the Gmail scopes and store the resulting refresh token.',
   },
-};
+});
 
 export function registerGmailIntegration(
   registry: IntegrationSpecRegistry

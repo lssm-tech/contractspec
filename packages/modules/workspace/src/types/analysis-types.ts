@@ -21,7 +21,9 @@ export type AnalyzedSpecType =
   | 'experiment'
   | 'integration'
   | 'knowledge'
+  | 'knowledge'
   | 'telemetry'
+  | 'example'
   | 'app-config'
   | 'policy'
   | 'test-spec'
@@ -41,9 +43,22 @@ export type RefType =
   | 'test';
 
 /**
+/**
  * Operation kind detected from file analysis.
  */
-export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
+export type AnalyzedOperationKind =
+  | 'command'
+  | 'query'
+  | 'event'
+  | 'presentation'
+  | 'capability'
+  | 'policy'
+  | 'type'
+  | 'example'
+  | 'app-config'
+  | 'integration'
+  | 'workflow'
+  | 'unknown';
 
 /**
  * Reference information (name + version).

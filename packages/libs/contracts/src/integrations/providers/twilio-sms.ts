@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const twilioSmsIntegrationSpec: IntegrationSpec = {
+export const twilioSmsIntegrationSpec = defineIntegration({
   meta: {
     key: 'sms.twilio',
     version: '1.0.0',
@@ -66,7 +66,7 @@ export const twilioSmsIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Provide a Twilio account SID, auth token, and verify the outbound sending numbers used by the integration.',
   },
-};
+});
 
 export function registerTwilioSmsIntegration(
   registry: IntegrationSpecRegistry
