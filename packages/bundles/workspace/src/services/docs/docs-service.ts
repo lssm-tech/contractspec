@@ -11,6 +11,7 @@ import type { WorkspaceAdapters } from '../../ports/logger';
 export interface DocsServiceOptions {
   outputDir?: string;
   format?: 'markdown' | 'html' | 'json';
+  rootPath?: string;
 }
 
 export interface DocsServiceResult {
@@ -37,7 +38,9 @@ export async function generateDocsFromSpecs(
 
       if (parsedList && parsedList.length > 0) {
         for (const parsed of parsedList) {
-          const block = convertSpecToDocBlock(parsed);
+          const block = convertSpecToDocBlock(parsed, {
+            rootPath: options.rootPath,
+          });
           // Register globally? Or locally?
           // DocRegistry instance
           defaultDocRegistry.register(block);

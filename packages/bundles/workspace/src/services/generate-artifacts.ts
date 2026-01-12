@@ -11,7 +11,8 @@ export interface GenerateArtifactsResult {
 export async function generateArtifacts(
   adapters: WorkspaceAdapters,
   contractsDir: string,
-  generatedDir: string
+  generatedDir: string,
+  rootPath?: string
 ): Promise<GenerateArtifactsResult> {
   // Check if contracts directory exists
   if (!(await adapters.fs.exists(contractsDir))) {
@@ -34,7 +35,7 @@ export async function generateArtifacts(
   // We assume adapters passed are compatible with what gen docs needs
   const docsResult = await generateDocsFromSpecs(
     specFiles,
-    { outputDir: docsDir, format: 'markdown' },
+    { outputDir: docsDir, format: 'markdown', rootPath },
     adapters
   );
 

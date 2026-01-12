@@ -31,7 +31,8 @@ export const generateCommand = new Command('generate')
       const result = await generateArtifacts(
         adapters,
         contractsDir,
-        generatedDir
+        generatedDir,
+        cwd
       );
 
       if (result.specsCount === 0) {

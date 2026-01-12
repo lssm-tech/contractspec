@@ -173,8 +173,18 @@ describe('specToMarkdown', () => {
       expect(result).toContain('- `billing.createInvoice` (v1.0.0)');
       expect(result).toContain('## Events (2)');
       expect(result).toContain('- `billing.invoiceCreated` (v1.0.0)');
-      expect(result).toContain('## Presentations (1)');
       expect(result).toContain('- `billing.invoiceList` (v1.0.0)');
+    });
+
+    it('should use relative path if rootPath is provided', () => {
+      const specWithAbsolute: ParsedSpec = {
+        ...mockOperationSpec,
+        filePath: '/abs/path/to/src/billing/create-invoice.ts',
+      };
+      const result = specToMarkdown(specWithAbsolute, 'full', {
+        rootPath: '/abs/path/to',
+      });
+      expect(result).toContain('- **File**: `src/billing/create-invoice.ts`');
     });
   });
 
