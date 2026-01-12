@@ -155,4 +155,14 @@ describe('scanAllSpecsFromSource', () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(results[1]!.kind).toBe('query');
   });
+
+  it('captured sourceBlock includes closing parenthesis', () => {
+    const code = `export const op = defineCommand({
+  meta: { key: 'op-1', version: '1' }
+});`;
+    const results = scanAllSpecsFromSource(code, 'src/test.contracts.ts');
+    expect(results).toHaveLength(1);
+    // Should include the closing );
+    expect(results[0]!.sourceBlock).toBe(code);
+  });
 });

@@ -7,7 +7,7 @@
 import type { SpecScanResult } from '../types/analysis-types';
 
 import {
-  findMatchingBrace,
+  findMatchingDelimiter,
   isStability,
   matchStringArrayField,
   matchStringField,
@@ -39,10 +39,17 @@ export function scanAllSpecsFromSource(
 
   while ((match = definitionRegex.exec(code)) !== null) {
     const start = match.index;
-    const end = findMatchingBrace(code, start + match[0].length);
+    const openParenIndex = start + match[0].length - 1;
+    const end = findMatchingDelimiter(code, openParenIndex, '(', ')');
     if (end === -1) continue;
 
-    const block = code.substring(start, end + 1);
+    // Optional: include trailing semicolon
+    let finalEnd = end;
+    if (code[finalEnd + 1] === ';') {
+      finalEnd++;
+    }
+
+    const block = code.substring(start, finalEnd + 1);
     const result = scanSpecSource(block, filePath);
     if (result) {
       results.push(result);

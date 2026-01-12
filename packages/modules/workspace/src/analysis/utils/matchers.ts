@@ -77,10 +77,15 @@ export function isStability(value: string | null): value is Stability {
 }
 
 /**
- * Find matching closing brace for an opening brace.
- * Returns the index of the closing brace or -1 if not found.
+ * Find matching closing delimiter for an opening delimiter.
+ * Returns the index of the closing delimiter or -1 if not found.
  */
-export function findMatchingBrace(code: string, startIndex: number): number {
+export function findMatchingDelimiter(
+  code: string,
+  startIndex: number,
+  openChar: string,
+  closeChar: string
+): number {
   let depth = 0;
   let inString = false;
   let stringChar = '';
@@ -102,9 +107,9 @@ export function findMatchingBrace(code: string, startIndex: number): number {
 
     if (inString) continue;
 
-    if (char === '{') {
+    if (char === openChar) {
       depth++;
-    } else if (char === '}') {
+    } else if (char === closeChar) {
       depth--;
       if (depth === 0) {
         return i;
@@ -113,4 +118,12 @@ export function findMatchingBrace(code: string, startIndex: number): number {
   }
 
   return -1;
+}
+
+/**
+ * Find matching closing brace for an opening brace.
+ * Returns the index of the closing brace or -1 if not found.
+ */
+export function findMatchingBrace(code: string, startIndex: number): number {
+  return findMatchingDelimiter(code, startIndex, '{', '}');
 }
