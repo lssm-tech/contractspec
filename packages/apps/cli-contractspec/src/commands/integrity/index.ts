@@ -15,6 +15,7 @@ import {
   createNodeAdapters,
   generateMermaidDiagram,
   discoverLayers,
+  fix,
   type IntegrityAnalysisResult,
 } from '@contractspec/bundle.workspace';
 
@@ -30,6 +31,7 @@ interface IntegrityOptions {
   all?: boolean;
   diagram?: DiagramType;
   json?: boolean;
+  requireTests?: string[];
 }
 
 /**
@@ -56,6 +58,10 @@ export const integrityCommand = new Command('integrity')
     'Generate Mermaid diagram: feature-map, orphans, dependencies, full'
   )
   .option('--json', 'Output results as JSON')
+  .option(
+    '--require-tests <types...>',
+    'Require tests for specific spec types (e.g. operation presentation)'
+  )
   .action(async (options: IntegrityOptions) => {
     try {
       await runIntegrityAnalysis(options);
@@ -91,6 +97,8 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
     {
       all: options.all,
       featureKey: options.feature,
+      requireTestsFor: (options.requireTests ??
+        []) as import('@contractspec/module.workspace').SpecType[],
     }
   );
 
@@ -159,9 +167,12 @@ async function outputText(
       percent === 100 ? chalk.green : percent >= 80 ? chalk.yellow : chalk.red;
     const orphanedNote =
       stats.orphaned > 0 ? ` - ${stats.orphaned} orphaned` : '';
+    const missingTestNote = stats.missingTest
+      ? ` - ${stats.missingTest} missing tests`
+      : '';
 
     console.log(
-      `  ${type.padEnd(15)} ${color(`${stats.covered}/${stats.total} (${percent}%)`)}${orphanedNote}`
+      `  ${type.padEnd(15)} ${color(`${stats.covered}/${stats.total} (${percent}%)`)}${orphanedNote}${chalk.red(missingTestNote)}`
     );
   }
 
@@ -191,6 +202,15 @@ async function outputText(
 
       console.log(`  ${icon} ${typeLabel} ${issue.message}`);
       console.log(chalk.gray(`     ${issue.file}`));
+
+      // Show fix hint if available
+      // Note: generateFixLinks may handle context differently based on current signature
+      // Assuming it takes issue and options
+      const links = fix.generateFixLinks(issue, { includeCli: true });
+      const cliLink = links.find((l) => l.type === 'cli');
+      if (cliLink) {
+        console.log(chalk.gray(`     Fix: ${cliLink.value}`));
+      }
     }
   }
 
@@ -257,7 +277,10 @@ function outputJson(
       presentations: f.presentations.length,
     })),
     orphanedSpecs: result.orphanedSpecs,
-    issues,
+    issues: issues.map((issue) => ({
+      ...issue,
+      fixLinks: fix.generateFixLinks(issue, { includeCli: true }),
+    })),
     inventory: inventoryObj,
   };
 

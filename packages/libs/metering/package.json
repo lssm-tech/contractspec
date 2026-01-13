@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.metering",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Usage metering and billing core module for ContractSpec applications",
   "keywords": [
     "contractspec",
@@ -10,7 +10,6 @@
     "saas",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -43,10 +42,10 @@
     "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
     "./entities": "./dist/entities/index.js",
     "./events": "./dist/events.js",
+    "./metering.capability": "./dist/metering.capability.js",
     "./metering.feature": "./dist/metering.feature.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

@@ -39,6 +39,13 @@ describe('scanFeatureSource', () => {
             pres: { key: 'pres.one', version: '3.0.0' },
           },
         ],
+        presentationsTargets: [
+          {
+            key: 'pres.one',
+            version: '3.0.0',
+            targets: ['web', 'flutter'],
+          },
+        ],
       });
     `;
 
@@ -64,6 +71,13 @@ describe('scanFeatureSource', () => {
       {
         op: { key: 'op.one', version: '1.2.3' },
         pres: { key: 'pres.one', version: '3.0.0' },
+      },
+    ]);
+    expect(result.presentationsTargets).toEqual([
+      {
+        key: 'pres.one',
+        version: '3.0.0',
+        targets: ['web', 'flutter'] as unknown as Record<string, unknown>[],
       },
     ]);
   });

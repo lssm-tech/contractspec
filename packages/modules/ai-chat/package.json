@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.ai-chat",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "AI chat interface module",
   "keywords": [
     "contractspec",
@@ -10,8 +10,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -48,7 +46,7 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.0.14",
+    "@types/react": "^19.2.8",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },

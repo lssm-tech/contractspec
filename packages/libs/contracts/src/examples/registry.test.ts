@@ -65,7 +65,7 @@ describe('ExampleRegistry', () => {
     it('should register an example', () => {
       const example = createTestExample({ key: 'test-1' });
       registry.register(example);
-      expect(registry.size).toBe(1);
+      expect(registry.count()).toBe(1);
       const found = registry.get(example.meta.key);
       expect(found?.meta.version).toBe('1.0.0');
     });
@@ -75,7 +75,7 @@ describe('ExampleRegistry', () => {
       const example2 = createTestExample({ key: 'test-1' });
       registry.register(example1);
       expect(() => registry.register(example2)).toThrow(
-        'Duplicate example: test-1'
+        'Duplicate contract `example` test-1.v1.0.0'
       );
     });
 
@@ -84,7 +84,7 @@ describe('ExampleRegistry', () => {
       const example2 = createTestExample({ key: 'test-2' });
       const result = registry.register(example1).register(example2);
       expect(result).toBe(registry);
-      expect(registry.size).toBe(2);
+      expect(registry.count()).toBe(2);
     });
   });
 
@@ -123,16 +123,6 @@ describe('ExampleRegistry', () => {
 
     it('should return false for unknown key', () => {
       expect(registry.has('unknown')).toBe(false);
-    });
-  });
-
-  describe('clear', () => {
-    it('should clear all examples', () => {
-      registry.register(createTestExample({ key: 'test-1' }));
-      registry.register(createTestExample({ key: 'test-2' }));
-      expect(registry.size).toBe(2);
-      registry.clear();
-      expect(registry.size).toBe(0);
     });
   });
 

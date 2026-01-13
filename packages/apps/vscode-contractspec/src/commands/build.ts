@@ -60,7 +60,7 @@ export async function buildCurrentSpec(
       overwrite,
     });
 
-    outputChannel.appendLine(`Name: ${result.specInfo.name ?? 'unknown'}`);
+    outputChannel.appendLine(`Name: ${result.specInfo.key ?? 'unknown'}`);
 
     const generatedFiles: string[] = [];
     for (const targetResult of result.results) {

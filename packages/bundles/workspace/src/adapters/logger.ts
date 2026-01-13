@@ -61,7 +61,7 @@ export function createNoopLoggerAdapter(): LoggerAdapter {
 function createConsoleProgressReporter(): ProgressReporter {
   return {
     start(message: string): void {
-      console.log(`⏳ ${message}`);
+      console.warn(`⏳ ${message}`);
     },
 
     update(update: {
@@ -74,11 +74,11 @@ function createConsoleProgressReporter(): ProgressReporter {
           ? ` (${update.current}/${update.total})`
           : '';
 
-      console.log(`   ${update.message}${progress}`);
+      console.warn(`   ${update.message}${progress}`);
     },
 
     succeed(message?: string): void {
-      console.log(`✅ ${message ?? 'Done'}`);
+      console.warn(`✅ ${message ?? 'Done'}`);
     },
 
     fail(message?: string): void {

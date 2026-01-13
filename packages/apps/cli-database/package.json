@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cli-database",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "type": "module",
   "bin": {
     "database": "dist/cli.js"
@@ -36,8 +36,6 @@
     "@types/minimist": "^1.2.5",
     "tsdown": "catalog:build"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "files": [
     "dist",

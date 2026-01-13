@@ -34,7 +34,7 @@ export function registerMcpPresentations(
     );
     const baseUri = `presentation://${presentationSpec.meta.key}/v${presentationSpec.meta.version}`;
 
-    ctx.logger.info(`Registering presentation ${baseUri} for ${baseKey}`);
+    ctx.logger.debug(`Registering presentation ${baseUri} for ${baseKey}`);
 
     server.registerResource(
       baseKey,

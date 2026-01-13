@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/eslint-plugin-design-system",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "private": false,
   "type": "module",
   "main": "src/index.js",
@@ -19,7 +19,7 @@
     "eslint": "^9.39.2"
   },
   "devDependencies": {
-    "eslint": "catalog:build"
+    "eslint": "^9.39.2"
   },
   "license": "MIT",
   "description": "Design-system ESLint rules (prefer-design-system) for LSSM apps",

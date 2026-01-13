@@ -3,13 +3,13 @@
  *
  * Defines the feature module for learning, onboarding, and gamification.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey feature module that bundles course enrollment,
  * onboarding tracks, flashcard review, and gamification capabilities.
  */
-export const LearningJourneyFeature: FeatureModuleSpec = {
+export const LearningJourneyFeature = defineFeature({
   meta: {
     key: 'learning-journey',
     version: '1.0.0',
@@ -86,4 +86,4 @@ export const LearningJourneyFeature: FeatureModuleSpec = {
     ],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

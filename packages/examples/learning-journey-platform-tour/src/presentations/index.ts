@@ -1,8 +1,4 @@
-import type {
-  PresentationSpecMeta,
-  PresentationSpec,
-} from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum, type PresentationSpecMeta } from '@contractspec/lib.contracts';
 import { PlatformTourTrackModel } from '../operations';
 
 const baseMeta: Pick<
@@ -18,7 +14,7 @@ const baseMeta: Pick<
   context: 'Used in platform tour dashboard and widgets',
 };
 
-export const PlatformTourTrackPresentation: PresentationSpec = {
+export const PlatformTourTrackPresentation = definePresentation({
   meta: {
     key: 'learning.journey.platform.track',
     version: '1.0.0',
@@ -32,9 +28,9 @@ export const PlatformTourTrackPresentation: PresentationSpec = {
     props: PlatformTourTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
-};
+});
 
-export const PlatformTourWidgetPresentation: PresentationSpec = {
+export const PlatformTourWidgetPresentation = definePresentation({
   meta: {
     key: 'learning.journey.platform.widget',
     version: '1.0.0',
@@ -47,7 +43,7 @@ export const PlatformTourWidgetPresentation: PresentationSpec = {
     componentKey: 'LearningTrackProgressWidget',
   },
   targets: ['react'],
-};
+});
 
 export const platformTourPresentations = [
   PlatformTourTrackPresentation,

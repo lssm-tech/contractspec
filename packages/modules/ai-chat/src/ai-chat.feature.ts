@@ -3,13 +3,13 @@
  *
  * Defines the feature module for AI-powered vibe coding chat.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * AI Chat feature module that bundles conversational AI assistance
  * for ContractSpec development across CLI, VSCode, and Studio.
  */
-export const AiChatFeature: FeatureModuleSpec = {
+export const AiChatFeature = defineFeature({
   meta: {
     key: 'ai-chat',
     version: '1.0.0',
@@ -55,4 +55,4 @@ export const AiChatFeature: FeatureModuleSpec = {
       { key: 'metering', version: '1.0.0' },
     ],
   },
-};
+});

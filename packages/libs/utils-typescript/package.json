@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.utils-typescript",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "TypeScript utility types and helpers",
   "keywords": [
     "contractspec",
@@ -28,8 +28,6 @@
     "typescript": "catalog:"
   },
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",

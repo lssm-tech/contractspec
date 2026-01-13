@@ -25,3 +25,6 @@ export {
   mockListToolsHandler,
   type ToolSummary,
 } from '../tool/tool.handler';
+
+// Runtime handlers (PGLite)
+export * from './agent.handlers';

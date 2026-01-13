@@ -1,5 +1,11 @@
 # @contractspec/lib.ai-providers
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+
 ## 1.46.1
 
 ### Patch Changes

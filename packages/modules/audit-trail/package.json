@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/module.audit-trail",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Audit trail module for tracking and querying system events",
   "keywords": [
     "contractspec",
@@ -10,7 +10,6 @@
     "events",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -38,13 +37,13 @@
   },
   "exports": {
     ".": "./dist/index.js",
+    "./audit-trail.capability": "./dist/audit-trail.capability.js",
     "./audit-trail.feature": "./dist/audit-trail.feature.js",
     "./contracts": "./dist/contracts/index.js",
     "./entities": "./dist/entities/index.js",
     "./storage": "./dist/storage/index.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

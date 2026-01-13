@@ -3,13 +3,13 @@
  *
  * Defines the feature module for managing knowledge sources.
  */
-import type { FeatureModuleSpec } from '../features';
+import { defineFeature } from '../features';
 
 /**
  * Knowledge Sources feature module that bundles
  * knowledge source management capabilities.
  */
-export const KnowledgeFeature: FeatureModuleSpec = {
+export const KnowledgeFeature = defineFeature({
   meta: {
     key: 'platform.knowledge',
     version: '1.0.0',
@@ -44,4 +44,4 @@ export const KnowledgeFeature: FeatureModuleSpec = {
     provides: [{ key: 'knowledge', version: '1.0.0' }],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

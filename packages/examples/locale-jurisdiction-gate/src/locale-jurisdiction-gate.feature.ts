@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const LocaleJurisdictionGateFeature: FeatureModuleSpec = {
+export const LocaleJurisdictionGateFeature = defineFeature({
   meta: {
     key: 'locale-jurisdiction-gate',
     version: '1.0.0',
@@ -27,4 +27,4 @@ export const LocaleJurisdictionGateFeature: FeatureModuleSpec = {
   capabilities: {
     requires: [{ key: 'knowledge', version: '1.0.0' }],
   },
-};
+});

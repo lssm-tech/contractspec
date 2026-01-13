@@ -36,7 +36,7 @@ export async function compareSpecFiles(
 
     // Create quick pick items
     const items = specs.map((spec) => ({
-      label: spec.name || spec.filePath.split(/[/\\]/).pop() || spec.filePath,
+      label: spec.key || spec.filePath.split(/[/\\]/).pop() || spec.filePath,
       description: spec.specType,
       detail: spec.filePath,
       spec,

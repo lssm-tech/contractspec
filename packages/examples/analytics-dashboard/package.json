@@ -1,8 +1,7 @@
 {
   "name": "@contractspec/example.analytics-dashboard",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -19,12 +18,19 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.2"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -34,19 +40,29 @@
     "./dashboard/dashboard.operation": "./dist/dashboard/dashboard.operation.js",
     "./dashboard/dashboard.presentation": "./dist/dashboard/dashboard.presentation.js",
     "./dashboard/dashboard.schema": "./dist/dashboard/dashboard.schema.js",
+    "./dashboard/dashboard.test-spec": "./dist/dashboard/dashboard.test-spec.js",
     "./docs": "./dist/docs/index.js",
     "./docs/analytics-dashboard.docblock": "./dist/docs/analytics-dashboard.docblock.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
+    "./handlers": "./dist/handlers/index.js",
+    "./handlers/analytics.handlers": "./dist/handlers/analytics.handlers.js",
     "./query": "./dist/query/index.js",
     "./query-engine": "./dist/query-engine/index.js",
     "./query/query.enum": "./dist/query/query.enum.js",
     "./query/query.operation": "./dist/query/query.operation.js",
     "./query/query.presentation": "./dist/query/query.presentation.js",
     "./query/query.schema": "./dist/query/query.schema.js",
+    "./query/query.test-spec": "./dist/query/query.test-spec.js",
+    "./seeders": "./dist/seeders/index.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/AnalyticsDashboard": "./dist/ui/AnalyticsDashboard.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useAnalyticsData": "./dist/ui/hooks/useAnalyticsData.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/analytics.markdown": "./dist/ui/renderers/analytics.markdown.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

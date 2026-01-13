@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.pocket-family-office",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Pocket Family Office example - personal finance automation with open banking",
   "keywords": [
     "contractspec",
@@ -42,6 +42,8 @@
     "./contracts": "./dist/contracts/index.js",
     "./knowledge/sources.sample": "./dist/knowledge/sources.sample.js",
     "./pocket-family-office.feature": "./dist/pocket-family-office.feature.js",
+    "./example": "./dist/example.js",
+    "./docs": "./dist/docs/index.js",
     "./telemetry": "./dist/telemetry.js",
     "./tenant.sample": "./dist/tenant.sample.js",
     "./workflows": "./dist/workflows/index.js",
@@ -69,6 +71,8 @@
       "./contracts": "./dist/contracts/index.js",
       "./knowledge/sources.sample": "./dist/knowledge/sources.sample.js",
       "./pocket-family-office.feature": "./dist/pocket-family-office.feature.js",
+      "./example": "./dist/example.js",
+      "./docs": "./dist/docs/index.js",
       "./telemetry": "./dist/telemetry.js",
       "./tenant.sample": "./dist/tenant.sample.js",
       "./workflows": "./dist/workflows/index.js",

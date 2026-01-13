@@ -195,7 +195,7 @@ export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureE
     // Linked specs children: individual refs
     if (element.type === 'linked-specs') {
       return element.refs.map((ref) => {
-        const specKey = `${ref.name}.v${ref.version}`;
+        const refKey = `${ref.key}.v${ref.version}`;
         const inventory =
           element.category === 'operations'
             ? element.result.inventory.operations
@@ -209,7 +209,7 @@ export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureE
           type: 'spec-ref' as const,
           ref,
           category: element.category,
-          location: inventory.get(specKey),
+          location: inventory.get(refKey),
         };
       });
     }
@@ -312,7 +312,7 @@ export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureE
 
   private createSpecRefItem(element: SpecRefNode): vscode.TreeItem {
     const { ref, location } = element;
-    const label = `${ref.name}.v${ref.version}`;
+    const label = `${ref.key}.v${ref.version}`;
 
     const item = new vscode.TreeItem(
       label,
@@ -365,7 +365,7 @@ export class FeatureExplorerProvider implements vscode.TreeDataProvider<FeatureE
 
   private createCapabilityRefItem(element: CapabilityRefNode): vscode.TreeItem {
     const { ref } = element;
-    const label = `${ref.name}.v${ref.version}`;
+    const label = `${ref.key}.v${ref.version}`;
 
     const item = new vscode.TreeItem(
       label,

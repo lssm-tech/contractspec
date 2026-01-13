@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.workspace",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Workspace utilities for monorepo development",
   "keywords": [
     "contractspec",
@@ -10,8 +10,6 @@
     "development"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -28,30 +26,36 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "catalog:ai",
     "@ai-sdk/openai": "catalog:ai",
-    "ollama-ai-provider": "catalog:ai",
-    "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
+    "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
-    "@contractspec/lib.ai-providers": "workspace:*",
+    "@contractspec/module.workspace": "workspace:*",
     "ai": "catalog:ai",
-    "zod": "catalog:",
+    "chalk": "^5.6.2",
+    "chokidar": "^5.0.0",
     "glob": "catalog:build",
-    "chokidar": "^5.0.0"
+    "micromatch": "^4.0.8",
+    "ollama-ai-provider": "catalog:ai",
+    "ora": "^9.0.0",
+    "ts-morph": "^27.0.2",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/node": "^22.10.2",
+    "@types/micromatch": "^4.0.10",
+    "@types/node": "^25.0.6",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./*": "./*"
   },
   "publishConfig": {

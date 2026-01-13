@@ -1,0 +1,67 @@
+{
+  "name": "@contractspec/lib.runtime-sandbox",
+  "version": "0.1.1",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "bun run lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "build": "bun run build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun run build:bundle --watch"
+  },
+  "peerDependencies": {
+    "@electric-sql/pglite": "^0.3.14",
+    "drizzle-orm": "^0.38.4"
+  },
+  "peerDependenciesMeta": {
+    "@electric-sql/pglite": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@contractspec/tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "typescript": "catalog:",
+    "@electric-sql/pglite": "^0.3.14",
+    "drizzle-orm": "^0.45.1",
+    "tsdown": "catalog:build",
+    "@types/bun": "~1.3.6"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./ports": "./dist/ports/index.mjs",
+      "./types": "./dist/types/index.mjs",
+      "./adapters/pglite": "./dist/adapters/pglite/index.mjs",
+      "./*": "./*"
+    }
+  },
+  "dependencies": {
+    "@apollo/client": "^4.0.12",
+    "@graphql-tools/schema": "^10.0.31",
+    "graphql": "^16.12.0"
+  }
+}

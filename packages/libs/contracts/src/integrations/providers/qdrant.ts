@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const qdrantIntegrationSpec: IntegrationSpec = {
+export const qdrantIntegrationSpec = defineIntegration({
   meta: {
     key: 'vectordb.qdrant',
     version: '1.0.0',
@@ -78,7 +78,7 @@ export const qdrantIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Provide the HTTPS endpoint of your Qdrant cluster and generate an API key with read/write access to the collections that will be managed.',
   },
-};
+});
 
 export function registerQdrantIntegration(
   registry: IntegrationSpecRegistry

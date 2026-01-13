@@ -7,6 +7,8 @@
 // Domain exports
 export * from './dashboard.feature';
 export * from './query';
+export * from './handlers/analytics.handlers';
+export * from './ui';
 
 // Query engine exports
 export * from './query-engine';

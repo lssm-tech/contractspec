@@ -1,8 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec } from '../spec';
-import type { IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const powensIntegrationSpec: IntegrationSpec = {
+export const powensIntegrationSpec = defineIntegration({
   meta: {
     key: 'openbanking.powens',
     version: '1.0.0',
@@ -108,7 +107,7 @@ export const powensIntegrationSpec: IntegrationSpec = {
       'Create a Powens BYOK project, generate OAuth credentials, and optionally configure webhook delivery for account/transaction updates.',
     requiredScopes: ['accounts:read', 'transactions:read', 'balances:read'],
   },
-};
+});
 
 export function registerPowensIntegration(
   registry: IntegrationSpecRegistry

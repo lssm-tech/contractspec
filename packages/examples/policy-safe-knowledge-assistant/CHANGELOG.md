@@ -1,5 +1,21 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/example.locale-jurisdiction-gate@1.46.2
+  - @contractspec/example.versioned-knowledge-base@1.46.2
+  - @contractspec/example.kb-update-pipeline@1.46.2
+  - @contractspec/example.learning-patterns@1.46.2
+  - @contractspec/module.learning-journey@1.46.2
+  - @contractspec/lib.example-shared-ui@1.0.1
+  - @contractspec/lib.runtime-sandbox@0.1.1
+  - @contractspec/lib.design-system@1.46.2
+  - @contractspec/lib.contracts@1.46.2
+
 ## 1.46.1
 
 ### Patch Changes

@@ -31,10 +31,10 @@ export async function browseExamples(
     ? fetchExamplesViaInternalMcp(apiBaseUrl, query ?? '')
     : Promise.resolve(
         (query ? searchExamples(query) : [...listExamples()]).map((e) => ({
-          id: e.id,
-          title: e.title,
-          summary: e.summary,
-          tags: e.tags,
+          id: e.meta.key,
+          title: e.meta.title,
+          summary: e.meta.summary || '',
+          tags: e.meta.tags || [],
         }))
       ));
 
@@ -45,7 +45,7 @@ export async function browseExamples(
 
   const selected = await vscode.window.showQuickPick(
     items.map((e) => ({
-      label: e.title,
+      label: e.title || 'Untitled',
       description: e.id,
       detail: e.summary,
       example: e,
@@ -56,8 +56,8 @@ export async function browseExamples(
   if (!selected) return;
 
   outputChannel.appendLine(`\n=== Example: ${selected.example.id} ===`);
-  outputChannel.appendLine(selected.example.title);
-  outputChannel.appendLine(selected.example.summary);
+  outputChannel.appendLine(selected.example.title || '');
+  outputChannel.appendLine(selected.example.summary || '');
   outputChannel.show(true);
 
   const full = apiBaseUrl
@@ -76,10 +76,10 @@ export async function initExampleIntoWorkspace(
 ): Promise<void> {
   const picked = await vscode.window.showQuickPick(
     [...listExamples()].map((e) => ({
-      label: e.title,
-      description: e.id,
-      detail: e.summary,
-      id: e.id,
+      label: e.meta.title || e.meta.key,
+      description: e.meta.key,
+      detail: e.meta.summary,
+      id: e.meta.key,
     })),
     { placeHolder: 'Choose an example to initialize into this workspace' }
   );
@@ -101,7 +101,7 @@ export async function initExampleIntoWorkspace(
     root,
     '.contractspec',
     'examples',
-    example.id
+    example.meta.key
   );
   await vscode.workspace.fs.createDirectory(targetDir);
 
@@ -116,11 +116,11 @@ export async function initExampleIntoWorkspace(
     readmeFile,
     Buffer.from(
       [
-        `# ${example.title}`,
+        `# ${example.meta.title}`,
         '',
-        example.summary,
+        example.meta.summary || '',
         '',
-        `- id: \`${example.id}\``,
+        `- id: \`${example.meta.key}\``,
         `- package: \`${example.entrypoints.packageName}\``,
         '',
         'This folder is a lightweight workspace stub that references an example manifest.',
@@ -131,7 +131,7 @@ export async function initExampleIntoWorkspace(
   );
 
   outputChannel.appendLine(
-    `✅ Initialized example "${example.id}" into ${targetDir.fsPath}`
+    `✅ Initialized example "${example.meta.key}" into ${targetDir.fsPath}`
   );
   outputChannel.show(true);
 

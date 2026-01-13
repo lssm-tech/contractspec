@@ -7,6 +7,9 @@ import {
   type SpecScanResult,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+import micromatch from 'micromatch';
+import { isTestFile } from '../utils';
 
 /**
  * Options for listing specs.
@@ -21,29 +24,65 @@ export interface ListSpecsOptions {
    * Filter by spec type.
    */
   type?: string;
+
+  /**
+   * Workspace configuration
+   */
+  config?: ContractsrcConfig;
 }
 
 /**
  * List all spec files in the workspace.
  */
 export async function listSpecs(
-  adapters: { fs: FsAdapter },
+  adapters: { fs: FsAdapter; scan?: typeof scanSpecSource },
   options: ListSpecsOptions = {}
 ): Promise<SpecScanResult[]> {
-  const { fs } = adapters;
+  const { fs, scan = scanSpecSource } = adapters;
 
-  const files = await fs.glob({ pattern: options.pattern });
+  // Use pattern if provided, otherwise let fs.glob use its defaults (DEFAULT_SPEC_PATTERNS)
+  // This aligns listSpecs behavior with the CI command behavior
+  const pattern = options.pattern;
+  const files = await fs.glob({ pattern });
   const results: SpecScanResult[] = [];
 
   for (const file of files) {
-    const content = await fs.readFile(file);
-    const result = scanSpecSource(content, file);
-
-    if (options.type && result.specType !== options.type) {
+    // Skip node_modules and dist
+    if (file.includes('node_modules') || file.includes('/dist/')) {
       continue;
     }
 
-    results.push(result);
+    // If excluding packages via config
+    if (
+      options.config?.excludePackages &&
+      micromatch.isMatch(file, options.config.excludePackages, {
+        contains: true,
+      })
+    ) {
+      continue;
+    }
+
+    // Exclude test files
+    if (isTestFile(file, options.config)) {
+      continue;
+    }
+
+    try {
+      const content = await fs.readFile(file);
+      const result = scan(content, file);
+
+      if (result.specType === 'unknown') {
+        continue;
+      }
+
+      if (options.type && result.specType !== options.type) {
+        continue;
+      }
+
+      results.push(result);
+    } catch {
+      // Ignore read errors
+    }
   }
 
   return results;

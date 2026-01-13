@@ -1,12 +1,20 @@
+import { resolve } from 'path';
+import chalk from 'chalk';
 import type { Config } from '../../utils/config';
 import {
   runTestSpecs,
   createNodeAdapters,
+  TestGeneratorService,
+  listTests,
 } from '@contractspec/bundle.workspace';
+import { loadTypeScriptModule } from '../../utils/module-loader';
+import type { OperationSpec } from '@contractspec/lib.contracts';
 
 interface TestCommandOptions {
   registry?: string;
   json?: boolean;
+  generate?: boolean;
+  list?: boolean;
 }
 
 export async function testCommand(
@@ -16,32 +24,107 @@ export async function testCommand(
 ) {
   const adapters = createNodeAdapters({
     cwd: process.cwd(),
+    silent: options.json,
   });
 
+  if (options.list) {
+    const specs = await listTests([specFile], adapters); // TODO: Support glob expansion if specFile is pattern
+    if (options.json) {
+      console.log(JSON.stringify(specs, null, 2));
+    } else {
+      console.log(chalk.blue(`Found ${specs.length} tests:`));
+      for (const spec of specs) {
+        console.log(`- ${spec.meta.key} (v${spec.meta.version})`);
+      }
+    }
+    return;
+  }
+
+  if (options.generate) {
+    // Generate tests logic
+    adapters.logger.info(`Generating tests for ${specFile}...`);
+
+    // 1. Load the spec file to find TARGET operations
+    // This is basic implementation: specific file -> generate test for it
+    try {
+      const resolvedPath = resolve(specFile);
+      const exports = await loadTypeScriptModule(resolvedPath);
+
+      // Find OperationSpecs
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const operations: OperationSpec<any, any>[] = [];
+      for (const value of Object.values(exports)) {
+        if (isOperationSpec(value)) {
+          operations.push(value);
+        }
+      }
+
+      if (operations.length === 0) {
+        adapters.logger.warn(
+          'No operations found in file to generate tests for.'
+        );
+        return;
+      }
+
+      // 2. Initialize Generator
+      // For AI provider, we reuse config or default to OpenAI/Anthropic env vars
+      // In real app, we'd load provider from config
+      // Here we pass a dummy model for now or ensure one is configured in workspace services
+      // BUT TestGeneratorService needs a model.
+      // We'll throw if no model configured?
+      // Let's assume user HAS configured it.
+      // We need to construct LanguageModel.
+      // For this iteration, I'll log a todo/warning if model creation isn't fully wired,
+      // or instantiate a default one if key is present.
+
+      // Temporary: rely on environment or throw
+      const { createOpenAI } = await import('@ai-sdk/openai');
+      const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      const model = openai('gpt-4-turbo');
+
+      const generator = new TestGeneratorService(adapters.logger, model);
+
+      for (const op of operations) {
+        // OperationSpec usually has meta { name, ... } or key
+        // Checking definition... assuming spec.meta.name if available or fallback
+        const opLegacy = op as unknown as {
+          meta?: { name?: string };
+          key?: string;
+        };
+        const name = opLegacy.meta?.name || opLegacy.key || 'unknown';
+        adapters.logger.info(`Generating test for ${name}...`);
+        const testSpec = await generator.generateTests(op);
+
+        if (options.json) {
+          console.log(JSON.stringify(testSpec, null, 2));
+        } else {
+          const opLegacy = op as unknown as {
+            meta?: { name?: string };
+            key?: string;
+          };
+          const name = opLegacy.meta?.name || opLegacy.key || 'unknown';
+          console.log(chalk.green(`Generated test for ${name}`));
+          console.log(JSON.stringify(testSpec, null, 2)); // Print to stdout for pipe
+        }
+      }
+    } catch (error) {
+      adapters.logger.error(
+        `Generation failed: ${error instanceof Error ? error.message : String(error)}`
+      );
+      process.exit(1);
+    }
+    return;
+  }
+
+  // Run tests
   const result = await runTestSpecs(
-    [specFile], // Service supports multiple, CLI arg is single glob? Or file? Commander says: argument('<specFile>').
-    // CLI 'test' command usually takes a file or glob.
-    // If it's a glob, resolving it to files is better done by CLI or Service?
-    // `testCommand` argument `specFile` is a string.
-    // Service expects `specFiles: string[]`.
-    // I will pass `[specFile]`.
-    // Wait, does service handle globs?
-    // My service impl: `const resolvedPath = resolve(specFile);`
-    // It expects a FILE path.
-    // If user passes glob, CLI should resolve it?
-    // `testCommand` implementation in Step 618: `path.resolve(specFile)`.
-    // It seems it handled single file?
-    // `const specExports = await loadTypeScriptModule(resolvedSpecPath);`
-    // Yes, single file.
+    [specFile],
     {
       registry: options.registry,
+      pattern: undefined, // Could add pattern option to CLI later
     },
     adapters
   );
-
-  if (!result.passed) {
-    process.exit(1);
-  }
 
   if (options.json) {
     console.log(
@@ -66,4 +149,17 @@ export async function testCommand(
       )
     );
   }
+
+  if (!result.passed) {
+    process.exit(1);
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isOperationSpec(value: unknown): value is OperationSpec<any, any> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    (value as { kind?: unknown }).kind === 'operation'
+  );
 }

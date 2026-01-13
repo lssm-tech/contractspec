@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.identity-rbac",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Identity, Organizations, and RBAC module for ContractSpec applications",
   "keywords": [
     "contractspec",
@@ -10,7 +10,6 @@
     "organizations",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -46,12 +45,12 @@
     "./entities/rbac": "./dist/entities/rbac.js",
     "./entities/user": "./dist/entities/user.js",
     "./events": "./dist/events.js",
+    "./identity-rbac.capability": "./dist/identity-rbac.capability.js",
     "./identity-rbac.feature": "./dist/identity-rbac.feature.js",
     "./policies": "./dist/policies/index.js",
     "./policies/engine": "./dist/policies/engine.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

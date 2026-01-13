@@ -4,7 +4,11 @@ import {
   ScalarTypeEnum,
   type ZodSchemaModel,
 } from '@contractspec/lib.schema';
-import type { OperationSpec } from '@contractspec/lib.contracts/operations';
+import {
+  defineCommand,
+  defineQuery,
+  type OperationSpec,
+} from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
@@ -55,14 +59,10 @@ export type UploadDocumentOutput = ZodSchemaModel<
   typeof UploadDocumentOutputModel
 >;
 
-export const uploadDocumentContract: OperationSpec<
-  typeof UploadDocumentInputModel,
-  typeof UploadDocumentOutputModel
-> = {
+export const uploadDocumentContract = defineCommand({
   meta: {
     key: 'pfo.documents.upload',
     version: '1.0.0',
-    kind: 'command',
     description:
       'Stores an object in tenant storage and schedules ingestion into the knowledge base.',
     goal: 'Allow users to ingest financial documents for processing.',
@@ -84,7 +84,7 @@ export const uploadDocumentContract: OperationSpec<
     },
   },
   // Telemetry events removed as new spec does not support 'events' list in telemetry block
-};
+});
 
 const PaymentReminderInputModel = defineSchemaModel({
   name: 'PaymentReminderInput',
@@ -118,14 +118,10 @@ export type PaymentReminderOutput = ZodSchemaModel<
   typeof PaymentReminderOutputModel
 >;
 
-export const schedulePaymentReminderContract: OperationSpec<
-  typeof PaymentReminderInputModel,
-  typeof PaymentReminderOutputModel
-> = {
+export const schedulePaymentReminderContract = defineCommand({
   meta: {
     key: 'pfo.reminders.schedule-payment',
     version: '1.0.0',
-    kind: 'command',
     description:
       'Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold.',
     goal: 'Ensure bills are paid on time by notifying users.',
@@ -142,7 +138,7 @@ export const schedulePaymentReminderContract: OperationSpec<
   policy: {
     auth: 'user',
   },
-};
+});
 
 const FinancialSummaryInputModel = defineSchemaModel({
   name: 'FinancialSummaryInput',
@@ -182,14 +178,10 @@ export type FinancialSummaryOutput = ZodSchemaModel<
   typeof FinancialSummaryOutputModel
 >;
 
-export const generateFinancialSummaryContract: OperationSpec<
-  typeof FinancialSummaryInputModel,
-  typeof FinancialSummaryOutputModel
-> = {
+export const generateFinancialSummaryContract = defineQuery({
   meta: {
     key: 'pfo.summary.generate',
     version: '1.0.0',
-    kind: 'query',
     description:
       'Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics.',
     goal: 'Provide a quick overview of financial status and recent activity.',
@@ -206,7 +198,7 @@ export const generateFinancialSummaryContract: OperationSpec<
   policy: {
     auth: 'user',
   },
-};
+});
 
 const SyncEmailThreadsInputModel = defineSchemaModel({
   name: 'SyncEmailThreadsInput',
@@ -239,14 +231,10 @@ export type SyncEmailThreadsOutput = ZodSchemaModel<
   typeof SyncEmailThreadsOutputModel
 >;
 
-export const syncEmailThreadsContract: OperationSpec<
-  typeof SyncEmailThreadsInputModel,
-  typeof SyncEmailThreadsOutputModel
-> = {
+export const syncEmailThreadsContract = defineCommand({
   meta: {
     key: 'pfo.email.sync-threads',
     version: '1.0.0',
-    kind: 'command',
     description:
       'Triggers ingestion of Gmail threads into the operational knowledge space.',
     goal: 'Keep knowledge base up to date with email communications.',
@@ -263,7 +251,7 @@ export const syncEmailThreadsContract: OperationSpec<
   policy: {
     auth: 'user',
   },
-};
+});
 
 const SummaryDispatchInputModel = defineSchemaModel({
   name: 'SummaryDispatchInput',
@@ -298,14 +286,10 @@ export type SummaryDispatchOutput = ZodSchemaModel<
   typeof SummaryDispatchOutputModel
 >;
 
-export const dispatchFinancialSummaryContract: OperationSpec<
-  typeof SummaryDispatchInputModel,
-  typeof SummaryDispatchOutputModel
-> = {
+export const dispatchFinancialSummaryContract = defineCommand({
   meta: {
     key: 'pfo.summary.dispatch',
     version: '1.0.0',
-    kind: 'command',
     description:
       'Delivers the generated summary via email and optionally synthesises a voice note.',
     goal: 'Deliver financial insights to users proactively.',
@@ -322,7 +306,7 @@ export const dispatchFinancialSummaryContract: OperationSpec<
   policy: {
     auth: 'user',
   },
-};
+});
 
 const OpenBankingOverviewInputModel = defineSchemaModel({
   name: 'OpenBankingOverviewInput',
@@ -361,14 +345,10 @@ export type OpenBankingOverviewOutput = ZodSchemaModel<
   typeof OpenBankingOverviewOutputModel
 >;
 
-export const generateOpenBankingOverviewContract: OperationSpec<
-  typeof OpenBankingOverviewInputModel,
-  typeof OpenBankingOverviewOutputModel
-> = {
+export const generateOpenBankingOverviewContract = defineCommand({
   meta: {
     key: 'pfo.openbanking.generate-overview',
     version: '1.0.0',
-    kind: 'command',
     description:
       'Aggregates balances and transactions into a derived financial overview stored in the knowledge layer.',
     goal: 'Create a periodic financial snapshot.',
@@ -392,7 +372,7 @@ export const generateOpenBankingOverviewContract: OperationSpec<
       },
     },
   },
-};
+});
 
 export const pocketFamilyOfficeContracts = {
   'pfo.documents.upload': uploadDocumentContract,

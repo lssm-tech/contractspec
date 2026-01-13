@@ -8,6 +8,7 @@ import {
   generateMermaidDiagram,
   type IntegrityAnalysisResult,
   templates,
+  features,
 } from '@contractspec/bundle.workspace';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 import {
@@ -231,7 +232,7 @@ export async function showDependenciesCommand(): Promise<void> {
  */
 export async function linkToFeatureCommand(
   specName: string,
-  specVersion: number,
+  specVersion: string,
   specType: string,
   specFile?: string
 ): Promise<void> {
@@ -289,22 +290,21 @@ export async function linkToFeatureCommand(
       const editor = await vscode.window.showTextDocument(document);
 
       // Find the appropriate array to add to based on spec type
-      const arrayName = getArrayNameForSpecType(specType);
+      const arrayName = features.getArrayNameForSpecType(specType);
       const text = document.getText();
 
-      // Find the array in the document
-      const arrayPattern = new RegExp(`${arrayName}\\s*:\\s*\\[`, 'g');
-      const match = arrayPattern.exec(text);
+      // Compute edit
+      const edit = features.computeAddSpecEdit(text, {
+        key: specName,
+        version: specVersion,
+        type: specType,
+      });
 
-      if (match) {
-        const position = document.positionAt(match.index + match[0].length);
-
-        // Create the ref to insert
-        const refText = `\n    { name: '${specName}', version: ${specVersion} },`;
-
+      if (edit) {
         // Insert the ref
         await editor.edit((editBuilder) => {
-          editBuilder.insert(position, refText);
+          const position = document.positionAt(edit.index);
+          editBuilder.insert(position, edit.text);
         });
 
         // Show success message
@@ -314,7 +314,7 @@ export async function linkToFeatureCommand(
       } else {
         // Couldn't find the array, show manual instruction
         void vscode.window.showWarningMessage(
-          `Please add { name: '${specName}', version: ${specVersion} } to the ${arrayName} array manually.`
+          `Please add { key: '${specName}', version: ${specVersion} } to the ${arrayName} array manually.`
         );
       }
     }
@@ -424,26 +424,6 @@ export async function createFeatureFromOrphansCommand(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     void vscode.window.showErrorMessage(`ContractSpec: ${message}`);
-  }
-}
-
-/**
- * Get array name in feature spec for a given spec type.
- */
-function getArrayNameForSpecType(specType: string): string {
-  switch (specType) {
-    case 'operation':
-    case 'command':
-    case 'query':
-      return 'operations';
-    case 'event':
-      return 'events';
-    case 'presentation':
-      return 'presentations';
-    case 'experiment':
-      return 'experiments';
-    default:
-      return 'operations';
   }
 }
 

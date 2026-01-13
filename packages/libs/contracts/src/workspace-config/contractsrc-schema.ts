@@ -437,6 +437,51 @@ export const LintRulesSchema = z.object({
 });
 
 /**
+ * Test linking strategy for discovering test coverage.
+ */
+export const TestLinkingStrategySchema = z.enum([
+  /** Use TestSpec.target as primary, fall back to naming convention */
+  'target-first',
+  /** Only use {specKey}.test naming convention */
+  'convention-only',
+  /** Accept both target and naming convention (default) */
+  'both',
+]);
+
+/**
+ * Test linking configuration for contract-first test discovery.
+ */
+export const TestLinkingConfigSchema = z.object({
+  /** Strategy for linking tests to specs */
+  strategy: TestLinkingStrategySchema.default('both'),
+  /** Warn when tests only use naming convention (no TestSpec.target) */
+  warnOnConvention: z.boolean().default(false),
+});
+
+/**
+ * Testing configuration section.
+ */
+export const TestingConfigSchema = z.object({
+  /** Test runner to use */
+  runner: z.enum(['internal', 'jest', 'vitest', 'bun']).default('internal'),
+  /** Glob patterns for matching test files */
+  testMatch: z.array(z.string()).default(['**/*.{test,spec}.{ts,js}']),
+  /** Enable automatic test generation */
+  autoGenerate: z.boolean().default(false),
+  /** Integrity requirements for testing */
+  integrity: z
+    .object({
+      /** Spec types that require test coverage */
+      requireTestsFor: z.array(SpecKindSchema).optional(),
+      /** Minimum coverage percentage (if supported) */
+      minCoverage: z.number().optional(),
+    })
+    .optional(),
+  /** Test linking configuration for contract-first test discovery */
+  testLinking: TestLinkingConfigSchema.optional(),
+});
+
+/**
  * Full rules configuration with global defaults and per-kind overrides.
  */
 export const RulesConfigSchema = z.object({
@@ -488,6 +533,8 @@ export const ContractsrcSchema = z.object({
   metaRepo: MetaRepoConfigSchema.optional(),
   // Lint rules configuration
   rules: RulesConfigSchema.optional(),
+  // Testing configuration
+  testing: TestingConfigSchema.optional(),
   // Git hooks configuration
   hooks: HooksConfigSchema.optional(),
   // Schema format for code generation
@@ -520,6 +567,9 @@ export type RuleSeverity = z.infer<typeof RuleSeveritySchema>;
 export type SpecKind = z.infer<typeof SpecKindSchema>;
 export type LintRules = z.infer<typeof LintRulesSchema>;
 export type RulesConfig = z.infer<typeof RulesConfigSchema>;
+export type TestingConfig = z.infer<typeof TestingConfigSchema>;
+export type TestLinkingStrategy = z.infer<typeof TestLinkingStrategySchema>;
+export type TestLinkingConfig = z.infer<typeof TestLinkingConfigSchema>;
 export type HooksConfig = z.infer<typeof HooksConfigSchema>;
 export type SchemaFormat = z.infer<typeof SchemaFormatSchema>;
 export type FormatterType = z.infer<typeof FormatterTypeSchema>;

@@ -5,27 +5,33 @@
  * Returns structured results suitable for multiple output formats.
  */
 
-import {
-  isFeatureFile,
-  validateSpecStructure,
-} from '@contractspec/module.workspace';
+import { isFeatureFile } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
-import { analyzeIntegrity } from '../integrity';
-import { analyzeDeps } from '../deps';
-import { runDoctor } from '../doctor/doctor-service';
-import { validateImplementationFiles } from '../validate/implementation-validator';
-import { loadWorkspaceConfig } from '../config';
-import { resolveAllImplementations } from '../implementation/resolver';
-import { discoverLayers } from '../layer-discovery';
 
 import type {
-  CICheckCategory,
   CICheckCategorySummary,
   CICheckOptions,
   CICheckResult,
   CIIssue,
 } from './types';
+
+import {
+  runStructureChecks,
+  runIntegrityChecks,
+  runDepsChecks,
+  runDoctorChecks,
+  runHandlerChecks,
+  runTestChecks,
+  runTestRefsChecks,
+  runCoverageChecks,
+  runImplementationChecks,
+  runLayerChecks,
+  runDriftChecks,
+} from './checks';
+
+import { createCategorySummary, getChecksToRun, getGitInfo } from './utils';
+import { isTestFile } from '../../utils';
 
 /**
  * Run all CI checks and return structured results.
@@ -48,7 +54,7 @@ export async function runCIChecks(
   // Discover spec files
   const files = await fs.glob({ pattern: options.pattern });
   const specFiles = files.filter(
-    (f) => !isFeatureFile(f) && !f.includes('.test.') && !f.includes('.spec.')
+    (f) => !isFeatureFile(f) && !isTestFile(f, options.config)
   );
 
   // Run spec structure validation
@@ -123,6 +129,38 @@ export async function runCIChecks(
     );
   }
 
+  // Run test-refs checks (validate OperationSpec.tests references)
+  if (checksToRun.includes('test-refs')) {
+    const categoryStart = Date.now();
+    const testRefIssues = await runTestRefsChecks(adapters, specFiles);
+    issues.push(...testRefIssues);
+    categorySummaries.push(
+      createCategorySummary(
+        'test-refs',
+        testRefIssues,
+        Date.now() - categoryStart
+      )
+    );
+  }
+
+  // Run coverage checks (validate TestSpec.coverage requirements)
+  if (checksToRun.includes('coverage')) {
+    const categoryStart = Date.now();
+    const coverageIssues = await runCoverageChecks(
+      adapters,
+      specFiles,
+      options
+    );
+    issues.push(...coverageIssues);
+    categorySummaries.push(
+      createCategorySummary(
+        'coverage',
+        coverageIssues,
+        Date.now() - categoryStart
+      )
+    );
+  }
+
   // Run implementation checks
   if (checksToRun.includes('implementation')) {
     const categoryStart = Date.now();
@@ -148,6 +186,16 @@ export async function runCIChecks(
     issues.push(...layerIssues);
     categorySummaries.push(
       createCategorySummary('layers', layerIssues, Date.now() - categoryStart)
+    );
+  }
+
+  // Run drift checks
+  if (checksToRun.includes('drift')) {
+    const categoryStart = Date.now();
+    const driftIssues = await runDriftChecks(adapters, options);
+    issues.push(...driftIssues);
+    categorySummaries.push(
+      createCategorySummary('drift', driftIssues, Date.now() - categoryStart)
     );
   }
 
@@ -184,554 +232,4 @@ export async function runCIChecks(
   });
 
   return result;
-}
-
-/**
- * Determine which checks to run based on options.
- */
-function getChecksToRun(options: CICheckOptions): CICheckCategory[] {
-  const allCategories: CICheckCategory[] = [
-    'structure',
-    'integrity',
-    'deps',
-    'doctor',
-  ];
-
-  // Add optional checks if explicitly requested
-  if (options.checkHandlers) {
-    allCategories.push('handlers');
-  }
-  if (options.checkTests) {
-    allCategories.push('tests');
-  }
-  if (options.implementation) {
-    allCategories.push('implementation');
-  }
-
-  // If specific checks are requested, use those
-  if (options.checks && options.checks.length > 0) {
-    return options.checks;
-  }
-
-  // Otherwise, use all minus skipped
-  if (options.skip && options.skip.length > 0) {
-    return allCategories.filter((c) => !options.skip?.includes(c));
-  }
-
-  return allCategories;
-}
-
-/**
- * Run spec structure validation checks.
- */
-async function runStructureChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
-): Promise<CIIssue[]> {
-  const { fs } = adapters;
-  const issues: CIIssue[] = [];
-
-  for (const file of specFiles) {
-    const content = await fs.readFile(file);
-    const result = validateSpecStructure(content, file);
-
-    for (const error of result.errors) {
-      issues.push({
-        ruleId: 'spec-structure-error',
-        severity: 'error',
-        message: error,
-        category: 'structure',
-        file,
-      });
-    }
-
-    for (const warning of result.warnings) {
-      issues.push({
-        ruleId: 'spec-structure-warning',
-        severity: 'warning',
-        message: warning,
-        category: 'structure',
-        file,
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run integrity analysis checks.
- */
-async function runIntegrityChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  options: CICheckOptions
-): Promise<CIIssue[]> {
-  const issues: CIIssue[] = [];
-
-  const result = await analyzeIntegrity(adapters, {
-    pattern: options.pattern,
-    all: true,
-  });
-
-  for (const issue of result.issues) {
-    issues.push({
-      ruleId: `integrity-${issue.type}`,
-      severity: issue.severity === 'error' ? 'error' : 'warning',
-      message: issue.message,
-      category: 'integrity',
-      file: issue.file,
-      context: {
-        specKey: issue.specKey,
-        specType: issue.specType,
-        featureKey: issue.featureKey,
-        ref: issue.ref,
-      },
-    });
-  }
-
-  return issues;
-}
-
-/**
- * Run dependency analysis checks.
- */
-async function runDepsChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  options: CICheckOptions
-): Promise<CIIssue[]> {
-  const issues: CIIssue[] = [];
-
-  const result = await analyzeDeps(adapters, {
-    pattern: options.pattern,
-  });
-
-  // Report circular dependencies as errors
-  for (const cycle of result.cycles) {
-    issues.push({
-      ruleId: 'deps-circular',
-      severity: 'error',
-      message: `Circular dependency detected: ${cycle.join(' → ')}`,
-      category: 'deps',
-      context: { cycle },
-    });
-  }
-
-  // Report missing dependencies as errors
-  for (const item of result.missing) {
-    for (const missing of item.missing) {
-      issues.push({
-        ruleId: 'deps-missing',
-        severity: 'error',
-        message: `Missing dependency: ${item.contract} requires ${missing}`,
-        category: 'deps',
-        context: { contract: item.contract, missing },
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run doctor checks (skipping AI in CI).
- */
-async function runDoctorChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  options: CICheckOptions
-): Promise<CIIssue[]> {
-  const issues: CIIssue[] = [];
-
-  const workspaceRoot = options.workspaceRoot ?? process.cwd();
-
-  const result = await runDoctor(adapters, {
-    workspaceRoot,
-    skipAi: true, // Always skip AI in CI
-    categories: ['cli', 'config', 'deps', 'workspace'], // Skip AI and MCP
-  });
-
-  for (const check of result.checks) {
-    if (check.status === 'fail') {
-      issues.push({
-        ruleId: `doctor-${check.category}-${check.name.toLowerCase().replace(/\s+/g, '-')}`,
-        severity: 'error',
-        message: `${check.name}: ${check.message}`,
-        category: 'doctor',
-        context: { details: check.details },
-      });
-    } else if (check.status === 'warn') {
-      issues.push({
-        ruleId: `doctor-${check.category}-${check.name.toLowerCase().replace(/\s+/g, '-')}`,
-        severity: 'warning',
-        message: `${check.name}: ${check.message}`,
-        category: 'doctor',
-        context: { details: check.details },
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run handler implementation checks.
- */
-async function runHandlerChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
-): Promise<CIIssue[]> {
-  const { fs } = adapters;
-  const issues: CIIssue[] = [];
-
-  const config = await loadWorkspaceConfig(fs);
-
-  for (const specFile of specFiles) {
-    // Only check operation specs
-    if (!specFile.includes('.operation.')) continue;
-
-    const result = await validateImplementationFiles(specFile, { fs }, config, {
-      checkHandlers: true,
-      outputDir: config.outputDir,
-    });
-
-    for (const error of result.errors) {
-      issues.push({
-        ruleId: 'handler-missing',
-        severity: 'warning', // Handler missing is a warning, not error
-        message: error,
-        category: 'handlers',
-        file: specFile,
-      });
-    }
-
-    for (const warning of result.warnings) {
-      issues.push({
-        ruleId: 'handler-warning',
-        severity: 'warning',
-        message: warning,
-        category: 'handlers',
-        file: specFile,
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run test coverage checks.
- */
-async function runTestChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[]
-): Promise<CIIssue[]> {
-  const { fs } = adapters;
-  const issues: CIIssue[] = [];
-
-  const config = await loadWorkspaceConfig(fs);
-
-  for (const specFile of specFiles) {
-    // Only check operation specs
-    if (!specFile.includes('.operation.')) continue;
-
-    const result = await validateImplementationFiles(specFile, { fs }, config, {
-      checkTests: true,
-      outputDir: config.outputDir,
-    });
-
-    for (const error of result.errors) {
-      issues.push({
-        ruleId: 'test-missing',
-        severity: 'warning', // Test missing is a warning, not error
-        message: error,
-        category: 'tests',
-        file: specFile,
-      });
-    }
-
-    for (const warning of result.warnings) {
-      issues.push({
-        ruleId: 'test-warning',
-        severity: 'warning',
-        message: warning,
-        category: 'tests',
-        file: specFile,
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run implementation verification checks.
- */
-async function runImplementationChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  specFiles: string[],
-  options: CICheckOptions
-): Promise<CIIssue[]> {
-  const { fs } = adapters;
-  const issues: CIIssue[] = [];
-
-  const config = await loadWorkspaceConfig(fs);
-  const implOptions = options.implementation ?? {};
-
-  // Only check operation specs by default
-  const operationSpecs = specFiles.filter((f) => f.includes('.operation.'));
-
-  // Resolve implementations for all specs
-  const results = await resolveAllImplementations(
-    operationSpecs,
-    { fs },
-    config,
-    {
-      computeHashes: implOptions.useCache ?? true,
-    }
-  );
-
-  for (const result of results) {
-    // Check if implementation is required
-    if (implOptions.requireImplemented && result.status === 'missing') {
-      issues.push({
-        ruleId: 'impl-missing',
-        severity: 'error',
-        message: `Spec ${result.specKey} has no implementation`,
-        category: 'implementation',
-        file: result.specPath,
-        context: {
-          specKey: result.specKey,
-          specVersion: result.specVersion,
-          status: result.status,
-        },
-      });
-    } else if (result.status === 'missing') {
-      issues.push({
-        ruleId: 'impl-missing',
-        severity: 'warning',
-        message: `Spec ${result.specKey} has no implementation`,
-        category: 'implementation',
-        file: result.specPath,
-        context: {
-          specKey: result.specKey,
-          specVersion: result.specVersion,
-          status: result.status,
-        },
-      });
-    }
-
-    // Check for partial implementations
-    if (!implOptions.allowPartial && result.status === 'partial') {
-      const missingImpls = result.implementations
-        .filter((i) => !i.exists && i.type !== 'test')
-        .map((i) => i.path);
-
-      issues.push({
-        ruleId: 'impl-partial',
-        severity: 'warning',
-        message: `Spec ${result.specKey} has partial implementation: missing ${missingImpls.join(', ')}`,
-        category: 'implementation',
-        file: result.specPath,
-        context: {
-          specKey: result.specKey,
-          specVersion: result.specVersion,
-          status: result.status,
-          missingFiles: missingImpls,
-        },
-      });
-    }
-
-    // Report missing tests
-    const missingTests = result.implementations.filter(
-      (i) => !i.exists && i.type === 'test'
-    );
-    if (missingTests.length > 0) {
-      issues.push({
-        ruleId: 'impl-missing-tests',
-        severity: 'note',
-        message: `Spec ${result.specKey} missing test files: ${missingTests.map((t) => t.path).join(', ')}`,
-        category: 'implementation',
-        file: result.specPath,
-        context: {
-          specKey: result.specKey,
-          missingTests: missingTests.map((t) => t.path),
-        },
-      });
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Run layer validation checks.
- */
-async function runLayerChecks(
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
-  _options: CICheckOptions
-): Promise<CIIssue[]> {
-  const issues: CIIssue[] = [];
-
-  // Discover all layers
-  const result = await discoverLayers(adapters, {});
-
-  // Validate features
-  for (const [key, feature] of result.inventory.features) {
-    // Check required meta fields
-    if (!feature.key) {
-      issues.push({
-        ruleId: 'layer-feature-missing-key',
-        severity: 'error',
-        message: `Feature missing required 'key' field`,
-        category: 'layers',
-        file: feature.filePath,
-        context: { key },
-      });
-    }
-
-    if (!feature.owners?.length) {
-      issues.push({
-        ruleId: 'layer-feature-missing-owners',
-        severity: 'warning',
-        message: `Feature '${key}' missing 'owners' field`,
-        category: 'layers',
-        file: feature.filePath,
-        context: { key },
-      });
-    }
-
-    // Check for empty features
-    if (
-      feature.operations.length === 0 &&
-      feature.events.length === 0 &&
-      feature.presentations.length === 0
-    ) {
-      issues.push({
-        ruleId: 'layer-feature-empty',
-        severity: 'warning',
-        message: `Feature '${key}' has no operations, events, or presentations`,
-        category: 'layers',
-        file: feature.filePath,
-        context: { key },
-      });
-    }
-  }
-
-  // Validate examples
-  for (const [key, example] of result.inventory.examples) {
-    // Check required entrypoints
-    if (!example.entrypoints.packageName) {
-      issues.push({
-        ruleId: 'layer-example-missing-package',
-        severity: 'error',
-        message: `Example '${key}' missing 'packageName' in entrypoints`,
-        category: 'layers',
-        file: example.filePath,
-        context: { key },
-      });
-    }
-
-    // Check required surfaces
-    if (
-      !example.surfaces.templates &&
-      !example.surfaces.sandbox.enabled &&
-      !example.surfaces.studio.enabled &&
-      !example.surfaces.mcp.enabled
-    ) {
-      issues.push({
-        ruleId: 'layer-example-no-surfaces',
-        severity: 'warning',
-        message: `Example '${key}' has no enabled surfaces`,
-        category: 'layers',
-        file: example.filePath,
-        context: { key },
-      });
-    }
-  }
-
-  // Validate workspace configs
-  for (const config of result.inventory.workspaceConfigs.values()) {
-    if (!config.valid) {
-      for (const error of config.errors) {
-        issues.push({
-          ruleId: 'layer-workspace-config-invalid',
-          severity: 'error',
-          message: `Invalid workspace config: ${error}`,
-          category: 'layers',
-          file: config.file,
-        });
-      }
-    }
-  }
-
-  return issues;
-}
-
-/**
- * Create a category summary from issues.
- */
-function createCategorySummary(
-  category: CICheckCategory,
-  issues: CIIssue[],
-  durationMs: number
-): CICheckCategorySummary {
-  const categoryLabels: Record<CICheckCategory, string> = {
-    structure: 'Spec Structure Validation',
-    integrity: 'Contract Integrity Analysis',
-    deps: 'Dependency Analysis',
-    doctor: 'Installation Health',
-    handlers: 'Handler Implementation',
-    tests: 'Test Coverage',
-    implementation: 'Implementation Verification',
-    layers: 'Contract Layers Validation',
-  };
-
-  const errors = issues.filter((i) => i.severity === 'error').length;
-  const warnings = issues.filter((i) => i.severity === 'warning').length;
-  const notes = issues.filter((i) => i.severity === 'note').length;
-
-  return {
-    category,
-    label: categoryLabels[category],
-    errors,
-    warnings,
-    notes,
-    passed: errors === 0,
-    durationMs,
-  };
-}
-
-/**
- * Get git information if available.
- */
-async function getGitInfo(
-  fs: FsAdapter
-): Promise<{ commitSha?: string; branch?: string }> {
-  try {
-    // Try to read from .git/HEAD and refs
-    const gitHeadPath = '.git/HEAD';
-    if (!(await fs.exists(gitHeadPath))) {
-      return {};
-    }
-
-    const headContent = await fs.readFile(gitHeadPath);
-    const refMatch = headContent.match(/^ref: (.+)$/m);
-
-    if (refMatch) {
-      const branch = refMatch[1]?.replace('refs/heads/', '');
-      const refPath = `.git/${refMatch[1]}`;
-
-      if (await fs.exists(refPath)) {
-        const commitSha = (await fs.readFile(refPath)).trim();
-        return { commitSha, branch };
-      }
-
-      return { branch };
-    }
-
-    // Detached HEAD - content is the SHA
-    const commitSha = headContent.trim();
-    return { commitSha };
-  } catch {
-    return {};
-  }
 }

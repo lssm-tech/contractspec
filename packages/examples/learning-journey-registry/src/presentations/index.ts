@@ -1,8 +1,4 @@
-import type {
-  PresentationSpecMeta,
-  PresentationSpec,
-} from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum, type PresentationSpecMeta } from '@contractspec/lib.contracts';
 
 const baseMeta: Pick<
   PresentationSpecMeta,
@@ -17,7 +13,7 @@ const baseMeta: Pick<
   context: 'Learning journey section',
 };
 
-export const LearningTrackListPresentation: PresentationSpec = {
+export const LearningTrackListPresentation = definePresentation({
   meta: {
     key: 'learning.journey.track_list',
     version: '1.0.0',
@@ -30,9 +26,9 @@ export const LearningTrackListPresentation: PresentationSpec = {
     componentKey: 'LearningTrackList',
   },
   targets: ['react', 'markdown'],
-};
+});
 
-export const LearningTrackDetailPresentation: PresentationSpec = {
+export const LearningTrackDetailPresentation = definePresentation({
   meta: {
     key: 'learning.journey.track_detail',
     version: '1.0.0',
@@ -45,9 +41,9 @@ export const LearningTrackDetailPresentation: PresentationSpec = {
     componentKey: 'LearningTrackDetail',
   },
   targets: ['react', 'markdown', 'application/json'],
-};
+});
 
-export const LearningTrackProgressWidgetPresentation: PresentationSpec = {
+export const LearningTrackProgressWidgetPresentation = definePresentation({
   meta: {
     key: 'learning.journey.progress_widget',
     version: '1.0.0',
@@ -60,7 +56,7 @@ export const LearningTrackProgressWidgetPresentation: PresentationSpec = {
     componentKey: 'LearningTrackProgressWidget',
   },
   targets: ['react'],
-};
+});
 
 export const learningJourneyPresentations = [
   LearningTrackListPresentation,

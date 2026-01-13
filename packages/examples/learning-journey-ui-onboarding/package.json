@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.learning-journey-ui-onboarding",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Developer onboarding UI with checklists and journey maps.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -49,14 +48,13 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.2.8",
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
   "peerDependencies": {
     "react": "^19.2.3"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

@@ -106,6 +106,7 @@ export class IntegrationProviderFactory {
             'Qdrant apiUrl config is required'
           ),
           apiKey: secrets.apiKey as string | undefined,
+          clientParams: context.config as Record<string, unknown>,
         });
       default:
         throw new Error(

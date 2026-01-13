@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command, Help } from 'commander';
 import chalk from 'chalk';
 import { loadConfig, mergeConfig } from './utils/config';
 import { createCommand } from './commands/create/index';
@@ -18,6 +18,11 @@ import { openapiCommand } from './commands/openapi/index';
 import { examplesCommand } from './commands/examples/index';
 import { workspaceCommand } from './commands/workspace/index';
 import { integrityCommand } from './commands/integrity/index';
+import { viewCommand } from './commands/view/index';
+import { generateCommand } from './commands/generate/index';
+import { extractCommand } from './commands/extract/index';
+import { gapCommand } from './commands/gap/index';
+import { applyCommand } from './commands/apply/index';
 import { initCommand } from './commands/init/index';
 import { doctorCommand } from './commands/doctor/index';
 import { ciCommand } from './commands/ci/index';
@@ -32,6 +37,106 @@ import { createVersionCommand } from './commands/version/index';
 import { createChangelogCommand } from './commands/changelog/index';
 import { registerHookCommand } from './commands/hook/index';
 import { upgradeCommand } from './commands/upgrade/index';
+import { agentCommand } from './commands/agent/index';
+import { fixCommand } from './commands/fix/index';
+import { vibeCommand } from './commands/vibe/index';
+
+// Define categories
+const CATEGORY_ESSENTIALS = 'Essentials';
+const CATEGORY_DEVELOPMENT = 'Development';
+const CATEGORY_TESTING = 'Testing & Quality';
+const CATEGORY_AI = 'AI & Assistants';
+const CATEGORY_OPERATIONS = 'Operations';
+const CATEGORY_INTEGRATION = 'Integration';
+const CATEGORY_OTHER = 'Other';
+
+const CATEGORY_ORDER = [
+  CATEGORY_ESSENTIALS,
+  CATEGORY_DEVELOPMENT,
+  CATEGORY_TESTING,
+  CATEGORY_AI,
+  CATEGORY_OPERATIONS,
+  CATEGORY_INTEGRATION,
+  CATEGORY_OTHER,
+];
+
+// Custom Help class to group commands
+class GroupedHelp extends Help {
+  formatHelp(cmd: Command, helper: Help): string {
+    // Get standard help output using base Help class
+    // We create a new instance to avoid recursive calls if we called super.formatHelp (which might be bound)
+    const raw = new Help().formatHelp(cmd, helper);
+
+    // Split at "Commands:" to replace the list
+    // The standard output puts Commands at the end or before options?
+    // Usually usage -> options -> commands or usage -> commands -> options.
+    // Commander 14 usually does usage -> options -> commands.
+
+    const splitTag = '\nCommands:\n';
+    if (!raw.includes(splitTag)) {
+      // Maybe it has no commands or different format, just return raw
+      return raw;
+    }
+
+    const [preCommands] = raw.split(splitTag);
+
+    // There might be content AFTER commands (like arguments description?),
+    // but usually Commands is the last section or followed by nothing.
+    // However, if we split by "Commands:", postCommands contains the list.
+    // If there is another section after, it would be in postCommands.
+    // For specific grouping, we want to REPLACE the command list.
+    // Since we don't know easily where the list ends if there are other sections,
+    // we assume Commands is the last big section or we just regenerate strictly the command list
+    // and ignore potentially lost footer info (which is rare).
+    // Actually, let's just use the `preCommands` and append our groups.
+
+    const formattedGroups = this.formatCommandGroups(cmd, helper);
+    return `${preCommands}${splitTag}${formattedGroups}`;
+  }
+
+  formatCommandGroups(cmd: Command, helper: Help): string {
+    const commands = helper.visibleCommands(cmd);
+    if (!commands.length) return '';
+
+    // Calculate global width to align all groups
+    const termWidth = helper.padWidth(cmd, helper);
+
+    // Create a scoped helper that enforces the global width
+    const scopedHelper = Object.create(helper);
+    scopedHelper.padWidth = () => termWidth;
+
+    const groups: Record<string, Command[]> = {};
+    commands.forEach((c) => {
+      const cat =
+        (c as Command & { category?: string }).category || CATEGORY_OTHER;
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(c);
+    });
+
+    return CATEGORY_ORDER.filter((cat) => groups[cat] && groups[cat].length > 0)
+      .map((cat) => {
+        const groupCmds = groups[cat] || [];
+        // Create a dummy command to use standard formatter for this group
+        const dummyCmd = new Command();
+        groupCmds.forEach((c) => dummyCmd.addCommand(c));
+
+        // Use the base Help formatHelp to get the full help info for this dummy command
+        // Then extract just the commands list
+        const dummyHelp = new Help().formatHelp(dummyCmd, scopedHelper);
+        const split = dummyHelp.split('\nCommands:\n');
+
+        // If we found the commands section, take it. Otherwise fallback to raw (shouldn't happen if commands exist)
+        const subsetOutput = split[1] || dummyHelp;
+
+        // Strip trailing newlines/misc
+        const cleanOutput = subsetOutput.replace(/\n+$/, '');
+
+        return `${chalk.yellow.bold(cat)}\n${cleanOutput}`;
+      })
+      .join('\n\n');
+  }
+}
+
 const program = new Command();
 
 program
@@ -39,89 +144,68 @@ program
   .description(
     'CLI tool for creating, building, and validating contract specifications'
   )
-  .version('0.0.1');
+  .version('0.0.1')
+  .configureHelp(new GroupedHelp());
 
-// Docs command
-program.addCommand(createDocsCommand());
+// Helper to set category
+function withCategory(cmd: Command, category: string): Command {
+  (cmd as Command & { category: string }).category = category;
+  return cmd;
+}
 
-// List command
-program.addCommand(listCommand);
+// Essentials
+program.addCommand(withCategory(initCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(createDocsCommand(), CATEGORY_OTHER));
+program.addCommand(withCategory(listCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(quickstartCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(workspaceCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(viewCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(generateCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(extractCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(gapCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(applyCommand, CATEGORY_ESSENTIALS));
 
-// Watch command
-program.addCommand(watchCommand);
+// Development
+program.addCommand(withCategory(watchCommand, CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(syncCommand, CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(cleanCommand, CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(depsCommand, CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(diffCommand, CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(createImplCommand(), CATEGORY_DEVELOPMENT));
+program.addCommand(withCategory(fixCommand, CATEGORY_DEVELOPMENT));
 
-// Sync command
-program.addCommand(syncCommand);
+// Testing & Quality
+program.addCommand(withCategory(integrityCommand, CATEGORY_TESTING));
+program.addCommand(withCategory(doctorCommand, CATEGORY_TESTING));
+program.addCommand(withCategory(ciCommand, CATEGORY_TESTING));
 
-// Clean command
-program.addCommand(cleanCommand);
+// AI
+program.addCommand(withCategory(llmCommand, CATEGORY_AI));
+program.addCommand(withCategory(chatCommand, CATEGORY_AI));
+program.addCommand(withCategory(agentCommand, CATEGORY_AI));
 
-// Deps command
-program.addCommand(depsCommand);
+// Operations
+program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
+program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
 
-// Diff command
-program.addCommand(diffCommand);
-
-// Registry command
-program.addCommand(registryCommand);
-
-// OpenAPI export command
-program.addCommand(openapiCommand);
-
-// Examples command
-program.addCommand(examplesCommand);
-
-// Workspace command
-program.addCommand(workspaceCommand);
-
-// Integrity command
-program.addCommand(integrityCommand);
-
-// Init command (setup ContractSpec in a project)
-program.addCommand(initCommand);
-
-// Doctor command (diagnose and fix issues)
-program.addCommand(doctorCommand);
-
-// CI command (run all checks for CI/CD)
-program.addCommand(ciCommand);
-
-// LLM command (LLM integration tools)
-program.addCommand(llmCommand);
-
-// Chat command (AI-powered vibe coding)
-program.addCommand(chatCommand);
-
-// Quickstart command (install dependencies)
-program.addCommand(quickstartCommand);
-
-// Impact command (breaking change detection)
-program.addCommand(createImpactCommand());
-
-// CICD workflow management
-program.addCommand(cicdCommand);
-
-// Impl command (implementation management)
-program.addCommand(createImplCommand());
-
-// Version management (analyze, bump)
-program.addCommand(createVersionCommand());
-
-// Changelog generation
-program.addCommand(createChangelogCommand());
-
-// Git hooks
+// Register Hook command (special case as it's a function)
 registerHookCommand(program);
+const hookCmd = program.commands.find((c) => c.name() === 'hook');
+if (hookCmd) withCategory(hookCmd, CATEGORY_OPERATIONS);
 
-import { agentCommand } from './commands/agent/index';
-// Agent command
-program.addCommand(agentCommand);
+program.addCommand(withCategory(upgradeCommand, CATEGORY_OPERATIONS));
 
-// Upgrade command
-program.addCommand(upgradeCommand);
+// Integration
+program.addCommand(withCategory(registryCommand, CATEGORY_INTEGRATION));
+program.addCommand(withCategory(openapiCommand, CATEGORY_INTEGRATION));
+program.addCommand(withCategory(examplesCommand, CATEGORY_INTEGRATION));
+
+// Inline Commands
 
 // Create command
-program
+const createCmd = program
   .command('create')
   .description('Create a new contract specification')
   .option(
@@ -149,9 +233,10 @@ program
       process.exit(1);
     }
   });
+withCategory(createCmd, CATEGORY_ESSENTIALS);
 
 // Build command
-program
+const buildCmd = program
   .command('build')
   .description('Generate implementation code from a spec')
   .argument('<spec-file>', 'Path to spec file')
@@ -180,14 +265,18 @@ program
       process.exit(1);
     }
   });
+withCategory(buildCmd, CATEGORY_DEVELOPMENT);
 
 // Validate command
-program
+const validateCmd = program
   .command('validate')
   .description(
     'Validate a contract specification and optionally its implementation'
   )
-  .argument('<spec-file>', 'Path to spec file')
+  .argument(
+    '[spec-files...]',
+    'Path to spec files (defaults to workspace scan)'
+  )
   .option(
     '--blueprint <path>',
     'Path to AppBlueprintSpec module for validation'
@@ -223,11 +312,12 @@ program
   .option('--check-handlers', 'Verify handler implementations exist')
   .option('--check-tests', 'Verify test coverage')
   .option('-i, --interactive', 'Interactive mode - prompt for what to validate')
-  .action(async (specFile, options) => {
+  .action(async (specFiles, options) => {
     try {
       const config = await loadConfig();
       const mergedConfig = mergeConfig(config, options);
-      await validateCommand(specFile, options, mergedConfig);
+      // specFiles is string[] from variadic arg
+      await validateCommand(specFiles, options, mergedConfig);
     } catch (error) {
       console.error(
         chalk.red('\n❌ Error:'),
@@ -236,28 +326,29 @@ program
       process.exit(1);
     }
   });
+withCategory(validateCmd, CATEGORY_DEVELOPMENT);
 
+// Test command
 const testProgram = program
-  .command('test')
-  .description('Run TestSpec scenarios against a OperationSpecRegistry')
-  .argument('<spec-file>', 'Path to TestSpec file')
-  .option(
-    '-r, --registry <path>',
-    'Path to module exporting a OperationSpecRegistry or factory'
-  )
-  .option('--json', 'Output JSON results')
+  .command('test <specFile>')
+  .description('Run test specs')
+  .option('-r, --registry <path>', 'Path to registry module')
+  .option('-j, --json', 'Output results as JSON')
+  .option('-g, --generate', 'Generate tests using AI')
+  .option('-l, --list', 'List available tests')
   .action(async (specFile, options) => {
+    const config = await loadConfig();
     try {
-      const config = await loadConfig();
       await testCommand(specFile, options, config);
     } catch (error) {
       console.error(
-        chalk.red('\n❌ Error:'),
+        chalk.red('Error running tests:'),
         error instanceof Error ? error.message : String(error)
       );
       process.exit(1);
     }
   });
+withCategory(testProgram, CATEGORY_TESTING);
 
 testProgram
   .command('generate')
@@ -310,7 +401,7 @@ testProgram
   });
 
 // Regenerator command
-program
+const regeneratorCmd = program
   .command('regenerator')
   .description('Operate the Regenerator daemon')
   .argument('<blueprint-file>', 'Path to AppBlueprintSpec file')
@@ -363,6 +454,10 @@ program
       process.exit(1);
     }
   });
+withCategory(regeneratorCmd, CATEGORY_OPERATIONS);
+
+// Vibe
+program.addCommand(withCategory(vibeCommand, CATEGORY_ESSENTIALS));
 
 // Parse CLI arguments
 export function run() {

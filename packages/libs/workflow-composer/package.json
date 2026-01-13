@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.workflow-composer",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Tenant-aware workflow composition helpers for ContractSpec.",
   "keywords": [
     "contractspec",
@@ -10,8 +10,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -28,7 +26,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",

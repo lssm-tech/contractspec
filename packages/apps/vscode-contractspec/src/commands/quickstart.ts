@@ -59,7 +59,7 @@ export async function runQuickstartWizard(
     return;
   }
 
-  const workspaceRoot = workspaceFolders[0]?.fsPath;
+  const workspaceRoot = workspaceFolders[0]?.uri.fsPath;
   if (!workspaceRoot) {
     vscode.window.showWarningMessage('Could not determine workspace root');
     return;
@@ -214,7 +214,7 @@ export async function runQuickInstall(
     return;
   }
 
-  const workspaceRoot = workspaceFolders[0]?.fsPath;
+  const workspaceRoot = workspaceFolders[0]?.uri.fsPath;
   if (!workspaceRoot) {
     vscode.window.showWarningMessage('Could not determine workspace root');
     return;

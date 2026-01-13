@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { ProductModel } from './product.schema';
 
-export const ProductCatalogPresentation: PresentationSpec = {
+export const ProductCatalogPresentation = definePresentation({
   meta: {
     key: 'marketplace.product.catalog',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const ProductCatalogPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.products.enabled'],
   },
-};
+});
 
-export const ProductDetailPresentation: PresentationSpec = {
+export const ProductDetailPresentation = definePresentation({
   meta: {
     key: 'marketplace.product.detail',
     version: '1.0.0',
@@ -50,9 +49,9 @@ export const ProductDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.products.enabled'],
   },
-};
+});
 
-export const ProductEditorPresentation: PresentationSpec = {
+export const ProductEditorPresentation = definePresentation({
   meta: {
     key: 'marketplace.product.editor',
     version: '1.0.0',
@@ -75,4 +74,4 @@ export const ProductEditorPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.seller.enabled'],
   },
-};
+});

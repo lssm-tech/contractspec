@@ -2,7 +2,7 @@
   "name": "vscode-contractspec",
   "displayName": "ContractSpec",
   "description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "publisher": "lssm",
   "license": "MIT",
   "icon": "assets/icon.png",
@@ -430,6 +430,18 @@
         "title": "Refresh Versions",
         "category": "ContractSpec",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "contractspec.generateTests",
+        "title": "Generate Tests for Spec",
+        "category": "ContractSpec",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "contractspec.runSpecTests",
+        "title": "Run Tests for Spec",
+        "category": "ContractSpec",
+        "icon": "$(play)"
       }
     ],
     "viewsContainers": {
@@ -851,7 +863,9 @@
   },
   "scripts": {
     "vscode:prepublish": "bun run build",
-    "build": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+    "build": "bun run build:types && bun run build:bundle",
+    "build:bundle": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+    "build:types": "tsc --noEmit",
     "dev": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch",
     "lint": "eslint src --fix",
     "lint:check": "eslint src",
@@ -861,14 +875,15 @@
   },
   "dependencies": {
     "@contractspec/bundle.workspace": "workspace:*",
-    "@contractspec/module.workspace": "workspace:*",
+    "@contractspec/lib.ai-agent": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/module.ai-chat": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
-    "@contractspec/lib.ai-agent": "workspace:*"
+    "@contractspec/module.workspace": "workspace:*"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
+    "@types/vscode": "^1.108.1",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.2.2",

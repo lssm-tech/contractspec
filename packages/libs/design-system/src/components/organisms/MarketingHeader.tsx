@@ -152,7 +152,12 @@ export function MarketingHeader({
                           </NavContent>
                         </>
                       ) : (
-                        <NavLink href={item.href || '#'}>{item.label}</NavLink>
+                        <NavLink
+                          className={navLinkClassName}
+                          href={item.href || '#'}
+                        >
+                          {item.label}
+                        </NavLink>
                       )}
                     </NavItem>
                   ))}

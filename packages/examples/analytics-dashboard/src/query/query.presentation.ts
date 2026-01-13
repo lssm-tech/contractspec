@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { QueryModel } from './query.schema';
 
-export const QueriesListPresentation: PresentationSpec = {
+export const QueriesListPresentation = definePresentation({
   meta: {
     key: 'analytics.query.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const QueriesListPresentation: PresentationSpec = {
   policy: {
     flags: ['analytics.queries.enabled'],
   },
-};
+});
 
-export const QueryBuilderPresentation: PresentationSpec = {
+export const QueryBuilderPresentation = definePresentation({
   meta: {
     key: 'analytics.query.builder',
     version: '1.0.0',
@@ -50,4 +49,4 @@ export const QueryBuilderPresentation: PresentationSpec = {
   policy: {
     flags: ['analytics.queries.enabled'],
   },
-};
+});

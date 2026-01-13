@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.graphql-core",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Shared GraphQL core: Pothos builder factory, scalars, tracing & complexity",
   "keywords": [
     "contractspec",
@@ -10,7 +10,6 @@
     "tracing",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -42,7 +41,6 @@
     "typescript": "catalog:"
   },
   "type": "module",
-  "module": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./*": "./*"

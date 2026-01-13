@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.openbanking-powens",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -50,7 +49,6 @@
     },
     "registry": "https://registry.npmjs.org/"
   },
-  "module": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",

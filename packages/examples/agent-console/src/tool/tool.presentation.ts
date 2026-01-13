@@ -1,11 +1,10 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
 import { ToolSummaryModel } from './tool.schema';
 
 /**
  * Presentation for displaying a list of tools.
  */
-export const ToolListPresentation: PresentationSpec = {
+export const ToolListPresentation = definePresentation({
   meta: {
     key: 'agent-console.tool.list',
     version: '1.0.0',
@@ -27,12 +26,12 @@ export const ToolListPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown', 'application/json'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});
 
 /**
  * Presentation for tool detail view.
  */
-export const ToolDetailPresentation: PresentationSpec = {
+export const ToolDetailPresentation = definePresentation({
   meta: {
     key: 'agent-console.tool.detail',
     version: '1.0.0',
@@ -53,4 +52,4 @@ export const ToolDetailPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});

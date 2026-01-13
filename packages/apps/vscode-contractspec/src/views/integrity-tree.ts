@@ -54,14 +54,14 @@ interface FeatureNode {
 interface SpecGroupNode {
   type: 'spec-group';
   groupType: 'operations' | 'events' | 'presentations' | 'experiments';
-  specs: { name: string; version: string }[];
+  specs: { key: string; version: string }[];
   feature: FeatureScanResult;
   result: IntegrityAnalysisResult;
 }
 
 interface SpecNode {
   type: 'spec';
-  name: string;
+  key: string;
   version: string;
   specType: string;
   file?: string;
@@ -103,6 +103,8 @@ const ISSUE_TYPE_META: Record<IssueType, { label: string; icon: string }> = {
   'unresolved-ref': { label: 'Unresolved References', icon: 'warning' },
   'missing-feature': { label: 'Missing Features', icon: 'error' },
   'broken-link': { label: 'Broken Links', icon: 'link' },
+  'missing-test': { label: 'Missing Tests', icon: 'warning' },
+  'missing-test-coverage': { label: 'Missing Test Coverage', icon: 'beaker' },
 };
 
 /**
@@ -276,7 +278,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
     if (element.type === 'spec-group') {
       return element.specs.map((spec) => {
         // Check if spec is resolved
-        const specKey = `${spec.name}.v${spec.version}`;
+        const specKey = `${spec.key}.v${spec.version}`;
         const inventory =
           element.groupType === 'operations'
             ? element.result.inventory.operations
@@ -290,7 +292,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
 
         return {
           type: 'spec' as const,
-          name: spec.name,
+          key: spec.key,
           version: spec.version,
           specType: element.groupType.slice(0, -1), // Remove trailing 's'
           file: location?.file,
@@ -497,7 +499,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
 
     // Count unresolved specs
     const unresolvedCount = element.specs.filter((spec) => {
-      const specKey = `${spec.name}.v${spec.version}`;
+      const specKey = `${spec.key}.v${spec.version}`;
       const inventory =
         element.groupType === 'operations'
           ? element.result.inventory.operations
@@ -527,7 +529,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
   }
 
   private createSpecItem(element: SpecNode): vscode.TreeItem {
-    const label = `${element.name}.v${element.version}`;
+    const label = `${element.key}.v${element.version}`;
     const item = new vscode.TreeItem(
       label,
       vscode.TreeItemCollapsibleState.None
@@ -590,7 +592,7 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
 
   private createOrphanSpecItem(element: OrphanSpecNode): vscode.TreeItem {
     const { spec } = element;
-    const label = `${spec.name}.v${spec.version}`;
+    const label = `${spec.key}.v${spec.version}`;
     const item = new vscode.TreeItem(
       label,
       vscode.TreeItemCollapsibleState.None
@@ -695,8 +697,8 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
           );
 
     // Show relevant context in description
-    if (issue.specName) {
-      item.description = `${issue.specName}`;
+    if (issue.specKey) {
+      item.description = `${issue.specKey}`;
     } else if (issue.featureKey) {
       item.description = `in ${issue.featureKey}`;
     }
@@ -707,8 +709,8 @@ export class IntegrityTreeProvider implements vscode.TreeDataProvider<IntegrityN
       issue.message,
     ];
 
-    if (issue.specName) {
-      tooltipParts.push('', `**Spec:** ${issue.specName}`);
+    if (issue.specKey) {
+      tooltipParts.push('', `**Spec:** ${issue.specKey}`);
     }
     if (issue.featureKey) {
       tooltipParts.push(`**Feature:** ${issue.featureKey}`);

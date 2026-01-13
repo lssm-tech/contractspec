@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.knowledge-canon",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -53,7 +52,6 @@
     },
     "registry": "https://registry.npmjs.org/"
   },
-  "module": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",

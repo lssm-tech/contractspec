@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.presentation-runtime-react",
-  "version": "2.0.1",
+  "version": "1.46.2",
   "description": "React presentation runtime with workflow components",
   "keywords": [
     "contractspec",
@@ -11,8 +11,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -28,8 +26,8 @@
   },
   "peerDependencies": {
     "react": "^19.2.3",
-    "react-hook-form": "^7.68.0",
-    "zod": "^4.1.13",
+    "react-hook-form": "^7.70.0",
+    "zod": "^4.3.5",
     "@contractspec/lib.presentation-runtime-core": "workspace:*"
   },
   "dependencies": {
@@ -66,5 +64,8 @@
     "url": "https://github.com/lssm-tech/contractspec.git",
     "directory": "packages/libs/presentation-runtime-react"
   },
-  "homepage": "https://contractspec.io"
+  "homepage": "https://contractspec.io",
+  "devDependencies": {
+    "react-native-css": "^3.0.0"
+  }
 }

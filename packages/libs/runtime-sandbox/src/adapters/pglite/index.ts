@@ -1,0 +1,1 @@
+export { PGLiteDatabaseAdapter } from './adapter';

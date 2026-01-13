@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { ConnectionModel } from './connection.schema';
 
-export const ConnectionListPresentation: PresentationSpec = {
+export const ConnectionListPresentation = definePresentation({
   meta: {
     key: 'integration.connection.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const ConnectionListPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.enabled'],
   },
-};
+});
 
-export const ConnectionSetupPresentation: PresentationSpec = {
+export const ConnectionSetupPresentation = definePresentation({
   meta: {
     key: 'integration.connection.setup',
     version: '1.0.0',
@@ -50,4 +49,4 @@ export const ConnectionSetupPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.enabled'],
   },
-};
+});

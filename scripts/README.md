@@ -12,7 +12,6 @@ This directory contains scripts for publishing packages to npm.
 ### Test Publishing (Dry Run)
 
 ```bash
-cd packages/contractspec
 DRY_RUN=true node scripts/publish-packages.js
 ```
 

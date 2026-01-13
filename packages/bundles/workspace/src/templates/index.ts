@@ -15,3 +15,4 @@ export * from './integration.template';
 export * from './knowledge.template';
 export * from './handler.template';
 export * from './workflow-runner.template';
+export * from './feature.template';

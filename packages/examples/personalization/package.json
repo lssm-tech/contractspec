@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.personalization",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Personalization examples: behavior tracking, overlay customization, workflow extension.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -55,7 +54,6 @@
     },
     "registry": "https://registry.npmjs.org/"
   },
-  "module": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",

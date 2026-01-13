@@ -1,5 +1,24 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.46.2
+
+### Patch Changes
+
+- 7e21625: feat: library services (landing page & api)
+- Updated dependencies [7e21625]
+  - @contractspec/example.learning-journey-studio-onboarding@1.46.2
+  - @contractspec/example.learning-journey-quest-challenges@1.46.2
+  - @contractspec/example.learning-journey-crm-onboarding@1.46.2
+  - @contractspec/example.learning-journey-ambient-coach@1.46.2
+  - @contractspec/example.learning-journey-platform-tour@1.46.2
+  - @contractspec/example.learning-journey-ui-onboarding@1.46.2
+  - @contractspec/example.learning-journey-ui-coaching@1.46.2
+  - @contractspec/example.learning-journey-ui-gamified@1.46.2
+  - @contractspec/example.learning-journey-duo-drills@1.46.2
+  - @contractspec/example.learning-journey-ui-shared@1.46.2
+  - @contractspec/module.learning-journey@1.46.2
+  - @contractspec/lib.contracts@1.46.2
+
 ## 1.46.1
 
 ### Patch Changes

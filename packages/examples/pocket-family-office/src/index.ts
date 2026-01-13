@@ -6,3 +6,6 @@ export * from './operations';
 export * from './workflows';
 export * from './telemetry';
 export * from './pocket-family-office.feature';
+export { default as example } from './example';
+
+import './docs';

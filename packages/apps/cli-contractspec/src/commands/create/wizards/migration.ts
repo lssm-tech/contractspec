@@ -31,7 +31,7 @@ export async function migrationWizard(
 
   const versionInput = await number({
     message: 'Version:',
-    default: defaults?.version ?? 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     validate: (value?: number) =>
       typeof value === 'number' && Number.isInteger(value) && value > 0
         ? true
@@ -101,7 +101,7 @@ export async function migrationWizard(
 
   return {
     name,
-    version,
+    version: String(version),
     title,
     description,
     domain,

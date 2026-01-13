@@ -18,8 +18,8 @@ import {
   loadWorkspaceConfig,
   resolveImplementations,
   type SpecImplementationResult,
-  type SpecScanResult,
 } from '@contractspec/bundle.workspace';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 
 /**
  * Grouping mode for the specs tree view.
@@ -206,8 +206,8 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
           const enriched: SpecWithPackage = { ...spec };
 
           // Extract namespace from spec name (e.g., 'user.createUser' -> 'user')
-          if (spec.name) {
-            const parts = spec.name.split('.');
+          if (spec.key) {
+            const parts = spec.key.split('.');
             if (parts.length > 1) {
               enriched.namespace = parts[0];
             } else {
@@ -360,7 +360,7 @@ export class SpecsTreeDataProvider implements vscode.TreeDataProvider<SpecTreeIt
    * Create a spec tree item.
    */
   private createSpecItem(spec: SpecWithPackage): SpecTreeItem {
-    const name = spec.name || path.basename(spec.filePath);
+    const name = spec.key || path.basename(spec.filePath);
     const version = spec.version ? ` v${spec.version}` : '';
     const stability = spec.stability ? ` [${spec.stability}]` : '';
 

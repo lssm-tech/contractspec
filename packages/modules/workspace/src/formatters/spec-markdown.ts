@@ -11,6 +11,7 @@ import type {
   SpecRef,
   SpecToMarkdownOptions,
 } from '../types/llm-types';
+import * as path from 'node:path';
 
 /**
  * Generate markdown from a parsed spec.
@@ -23,8 +24,15 @@ import type {
 export function specToMarkdown(
   spec: ParsedSpec,
   format: LLMExportFormat,
-  depth = 0
+  optionsOrDepth: number | { depth?: number; rootPath?: string } = 0
 ): string {
+  const options =
+    typeof optionsOrDepth === 'number'
+      ? { depth: optionsOrDepth }
+      : optionsOrDepth;
+  const depth = options.depth ?? 0;
+  const rootPath = options.rootPath;
+
   const lines: string[] = [];
   const indent = depth > 0 ? '  '.repeat(depth) : '';
   const headerLevel = Math.min(depth + 1, 6);
@@ -51,7 +59,7 @@ export function specToMarkdown(
   }
 
   // ===== FULL FORMAT: Complete with source code =====
-  return formatFullMode(spec, lines, indent);
+  return formatFullMode(spec, lines, indent, rootPath);
 }
 
 /**
@@ -172,7 +180,8 @@ function formatPromptMode(
 function formatFullMode(
   spec: ParsedSpec,
   lines: string[],
-  indent: string
+  indent: string,
+  rootPath?: string
 ): string {
   // Full metadata section
   lines.push(`${indent}## Metadata`);
@@ -191,7 +200,10 @@ function formatFullMode(
     lines.push(`${indent}- **Tags**: ${spec.meta.tags.join(', ')}`);
   }
   if (spec.filePath) {
-    lines.push(`${indent}- **File**: \`${spec.filePath}\``);
+    const displayPath = rootPath
+      ? path.relative(rootPath, spec.filePath)
+      : spec.filePath;
+    lines.push(`${indent}- **File**: \`${displayPath}\``);
   }
   lines.push('');
 

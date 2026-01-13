@@ -64,7 +64,19 @@ export interface ParsedSpec {
   /** Type of spec (operation, event, feature, etc.) */
   specType: string;
   /** For operations: command or query */
-  kind?: 'command' | 'query' | 'unknown';
+  kind?:
+    | 'command'
+    | 'query'
+    | 'event'
+    | 'presentation'
+    | 'capability'
+    | 'policy'
+    | 'type'
+    | 'example'
+    | 'app-config'
+    | 'integration'
+    | 'workflow'
+    | 'unknown';
   /** Whether the spec defines input/output schemas */
   hasIo?: boolean;
   /** Whether the spec defines policy rules */

@@ -53,7 +53,7 @@ describe('IntegrationProviderFactory', () => {
     const provider = await factory.createVectorStoreProvider(
       buildContext({
         key: 'vectordb.qdrant',
-        config: { apiUrl: 'https://example.com' },
+        config: { apiUrl: 'https://example.com', checkCompatibility: false },
         secret: { apiKey: 'qdrant-key' },
       })
     );

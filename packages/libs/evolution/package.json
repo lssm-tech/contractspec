@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.evolution",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "AI-powered contract evolution engine",
   "keywords": [
     "contractspec",
@@ -10,8 +10,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -49,7 +47,7 @@
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./*": "./*"
   },
   "publishConfig": {

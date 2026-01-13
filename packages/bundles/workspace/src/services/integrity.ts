@@ -17,6 +17,11 @@ import {
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
+import {
+  buildTestIndex,
+  type ExtractedTestTarget,
+  type TestSpecScanResult,
+} from './test-link';
 
 /**
  * Options for integrity analysis.
@@ -26,6 +31,10 @@ export interface IntegrityAnalysisOptions {
    * Glob pattern for file discovery.
    */
   pattern?: string;
+  /**
+   * Working directory for scanning.
+   */
+  cwd?: string;
 
   /**
    * Scan all packages in monorepo.
@@ -41,6 +50,11 @@ export interface IntegrityAnalysisOptions {
    * Filter by spec type.
    */
   specType?: AnalyzedSpecType;
+
+  /**
+   * Require tests for specific spec types.
+   */
+  requireTestsFor?: AnalyzedSpecType[];
 }
 
 /**
@@ -52,6 +66,10 @@ export interface SpecLocation {
   file: string;
   type: AnalyzedSpecType;
   stability?: string;
+  /** Test target for test-spec files (extracted from TestSpec.target) */
+  testTarget?: ExtractedTestTarget;
+  /** Test coverage info (extracted from TestSpec.scenarios) */
+  testCoverage?: { hasSuccess: boolean; hasError: boolean };
 }
 
 /**
@@ -80,7 +98,13 @@ export interface SpecInventory {
  */
 export interface IntegrityIssue {
   severity: 'error' | 'warning';
-  type: 'orphaned' | 'unresolved-ref' | 'missing-feature' | 'broken-link';
+  type:
+    | 'orphaned'
+    | 'unresolved-ref'
+    | 'missing-feature'
+    | 'broken-link'
+    | 'missing-test'
+    | 'missing-test-coverage';
   message: string;
   file: string;
   specKey?: string;
@@ -96,6 +120,7 @@ export interface CoverageByType {
   total: number;
   covered: number;
   orphaned: number;
+  missingTest?: number;
 }
 
 /**
@@ -119,6 +144,7 @@ export interface IntegrityAnalysisResult {
     total: number;
     linkedToFeature: number;
     orphaned: number;
+    missingTest: number;
     byType: Record<string, CoverageByType>;
   };
 
@@ -208,7 +234,7 @@ export async function analyzeIntegrity(
   logger.info('Starting integrity analysis...', { options });
 
   // Discover all spec and feature files
-  const files = await fs.glob({ pattern: options.pattern });
+  const files = await fs.glob({ pattern: options.pattern, cwd: options.cwd });
 
   const inventory = createEmptyInventory();
   const features: FeatureScanResult[] = [];
@@ -216,6 +242,10 @@ export async function analyzeIntegrity(
 
   // Scan all files
   for (const file of files) {
+    // Skip directories to avoid EISDIR
+    const stats = await fs.stat(file);
+    if (stats.isDirectory) continue;
+
     const content = await fs.readFile(file);
 
     if (isFeatureFile(file)) {
@@ -238,6 +268,9 @@ export async function analyzeIntegrity(
               file: spec.filePath,
               type: spec.specType,
               stability: spec.stability,
+              // Include testTarget for test-spec files
+              testTarget: spec.testTarget,
+              testCoverage: spec.testCoverage,
             });
           }
         }
@@ -380,6 +413,24 @@ export async function analyzeIntegrity(
         });
       }
     }
+
+    // Check presentations targets
+    if (feature.presentationsTargets) {
+      for (const pt of feature.presentationsTargets) {
+        const presKey = specKey(pt.key, pt.version);
+        if (!inventory.presentations.has(presKey)) {
+          issues.push({
+            severity: 'error',
+            type: 'broken-link',
+            message: `Targeted presentation ${pt.key}.v${pt.version} not found`,
+            file: feature.filePath,
+            featureKey: feature.key,
+            specType: 'presentation',
+            ref: { key: pt.key, version: pt.version },
+          });
+        }
+      }
+    }
   }
 
   // Find orphaned specs (not referenced by any feature)
@@ -410,8 +461,65 @@ export async function analyzeIntegrity(
     }
   }
 
+  // Build test-to-target index for contract-first test discovery
+  const testSpecScans: TestSpecScanResult[] = [];
+  for (const [, location] of inventory.testSpecs) {
+    testSpecScans.push({
+      filePath: location.file,
+      specType: 'test-spec',
+      key: location.key,
+      version: location.version,
+      testTarget: location.testTarget,
+      hasMeta: true,
+      hasIo: false,
+      hasPolicy: false,
+      hasPayload: false,
+      hasContent: false,
+      hasDefinition: false,
+    });
+  }
+  const testIndex = buildTestIndex(testSpecScans, inventory);
+
+  // Check test coverage for linked operations
+  for (const feature of relevantFeatures) {
+    for (const link of feature.opToPresentationLinks) {
+      const opKey = specKey(link.op.key, link.op.version);
+      const tests = testIndex.targetToTests.get(opKey);
+
+      let hasSuccess = false;
+      let hasError = false;
+
+      if (tests) {
+        for (const testKey of tests) {
+          const testSpec = inventory.testSpecs.get(testKey);
+          if (testSpec?.testCoverage) {
+            if (testSpec.testCoverage.hasSuccess) hasSuccess = true;
+            if (testSpec.testCoverage.hasError) hasError = true;
+          }
+        }
+      }
+
+      if (!tests || !hasSuccess || !hasError) {
+        const missing: string[] = [];
+        if (!hasSuccess) missing.push('success scenario');
+        if (!hasError) missing.push('error scenario');
+
+        issues.push({
+          severity: 'error',
+          type: 'missing-test-coverage',
+          message: `Operation ${link.op.key}.v${link.op.version} linked to presentation requires tests covering: ${missing.join(', ')}`,
+          file: feature.filePath,
+          featureKey: feature.key,
+          specType: 'operation',
+          ref: link.op,
+        });
+      }
+    }
+  }
+
   // Calculate coverage metrics
   const coverageByType: Record<string, CoverageByType> = {};
+  let totalMissingTests = 0;
 
   for (const type of typesThatCanBeOrphaned) {
     const map = getInventoryMap(inventory, type);
@@ -419,10 +527,39 @@ export async function analyzeIntegrity(
 
     const total = map.size;
     let covered = 0;
+    let missingTest = 0;
 
-    for (const key of map.keys()) {
+    const requireTest = options.requireTestsFor?.includes(type);
+
+    for (const [key, location] of map) {
       if (referencedSpecs.has(`${type}:${key}`)) {
         covered++;
+      }
+
+      if (requireTest) {
+        const targetKey = specKey(location.key, location.version);
+
+        // Primary: Check if any TestSpec targets this spec via TestSpec.target
+        const hasTargetedTest = testIndex.targetToTests.has(targetKey);
+
+        // Backwards compatibility: Also check naming convention ({specKey}.test)
+        const conventionTestKey = `${location.key}.test`;
+        const hasConventionTest = inventory.testSpecs.has(
+          specKey(conventionTestKey, location.version)
+        );
+
+        if (!hasTargetedTest && !hasConventionTest) {
+          missingTest++;
+          totalMissingTests++;
+          issues.push({
+            severity: 'warning',
+            type: 'missing-test',
+            message: `${type} ${location.key}.v${location.version} is missing a test spec (no TestSpec.target or naming convention match)`,
+            file: location.file,
+            specKey: location.key,
+            specType: location.type,
+          });
+        }
       }
     }
 
@@ -430,6 +567,7 @@ export async function analyzeIntegrity(
       total,
       covered,
       orphaned: total - covered,
+      missingTest: requireTest ? missingTest : 0,
     };
   }
 
@@ -446,6 +584,7 @@ export async function analyzeIntegrity(
     total: totalSpecs,
     linkedToFeature: coveredSpecs,
     orphaned: totalSpecs - coveredSpecs,
+    missingTest: totalMissingTests,
     byType: coverageByType,
   };
 

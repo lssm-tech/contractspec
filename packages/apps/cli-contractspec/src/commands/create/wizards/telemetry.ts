@@ -143,7 +143,7 @@ export async function telemetryWizard(): Promise<TelemetrySpecData> {
 
   return {
     name,
-    version,
+    version: String(version),
     description,
     domain,
     owners: splitList(ownersInput),

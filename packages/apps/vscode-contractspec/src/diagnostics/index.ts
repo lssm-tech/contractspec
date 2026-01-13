@@ -12,7 +12,9 @@ import {
   scanFeatureSource,
   scanSpecSource,
   validateSpecStructure,
+  inferSpecTypeFromFilePath,
 } from '@contractspec/module.workspace';
+import { features } from '@contractspec/bundle.workspace';
 import type {
   IntegrityAnalysisResult,
   SpecImplementationResult,
@@ -158,7 +160,7 @@ function findRelevantRange(
   const patterns: { pattern: RegExp; search: string }[] = [
     { pattern: /Missing (meta|io|policy) section/, search: 'export' },
     { pattern: /Missing defineCommand or defineQuery/, search: 'export const' },
-    { pattern: /Missing.*name field/, search: 'name:' },
+    { pattern: /Missing.*key field/, search: 'key:' },
     { pattern: /Missing.*version field/, search: 'version:' },
     { pattern: /Missing.*kind field/, search: 'kind:' },
     { pattern: /Missing payload/, search: 'payload:' },
@@ -189,26 +191,7 @@ function findRelevantRange(
  * Check if a file is a ContractSpec file.
  */
 function isSpecFile(filePath: string): boolean {
-  const specExtensions = [
-    '.contracts.ts',
-    '.event.ts',
-    '.presentation.ts',
-    '.feature.ts',
-    '.capability.ts',
-    '.workflow.ts',
-    '.data-view.ts',
-    '.form.ts',
-    '.migration.ts',
-    '.telemetry.ts',
-    '.experiment.ts',
-    '.app-config.ts',
-    '.integration.ts',
-    '.knowledge.ts',
-    '.policy.ts',
-    '.test-spec.ts',
-  ];
-
-  return specExtensions.some((ext) => filePath.endsWith(ext));
+  return inferSpecTypeFromFilePath(filePath) !== 'unknown';
 }
 
 /**
@@ -226,6 +209,13 @@ export function updateIntegrityResult(
   result: IntegrityAnalysisResult | undefined
 ): void {
   integrityResult = result;
+}
+
+/**
+ * Get the cached integrity result.
+ */
+export function getIntegrityResult(): IntegrityAnalysisResult | undefined {
+  return integrityResult;
 }
 
 /**
@@ -308,43 +298,22 @@ export function addIntegrityDiagnosticsForDocument(
   if (isFeatureFile(filePath)) {
     const feature = scanFeatureSource(code, filePath);
 
-    // Check for unresolved refs in this feature
-    const checkRefs = (
-      refs: { name: string; version: string }[],
-      inventory: Map<string, unknown>,
-      refType: string
-    ) => {
-      for (const ref of refs) {
-        const key = `${ref.name}.v${ref.version}`;
-        if (!inventory.has(key)) {
-          const diagnostic = new vscode.Diagnostic(
-            findRefRange(document, ref.name),
-            `${refType} ${ref.name}.v${ref.version} not found`,
-            vscode.DiagnosticSeverity.Error
-          );
-          diagnostic.source = INTEGRITY_SOURCE;
-          diagnostic.code = 'unresolved-ref';
-          diagnostics.push(diagnostic);
-        }
-      }
-    };
+    // Validate feature refs against inventory
+    const errors = features.validateFeatureRefs(
+      feature,
+      integrityResult.inventory
+    );
 
-    checkRefs(
-      feature.operations,
-      integrityResult.inventory.operations,
-      'Operation'
-    );
-    checkRefs(feature.events, integrityResult.inventory.events, 'Event');
-    checkRefs(
-      feature.presentations,
-      integrityResult.inventory.presentations,
-      'Presentation'
-    );
-    checkRefs(
-      feature.experiments,
-      integrityResult.inventory.experiments,
-      'Experiment'
-    );
+    for (const error of errors) {
+      const diagnostic = new vscode.Diagnostic(
+        findRefRange(document, error.key),
+        error.message,
+        vscode.DiagnosticSeverity.Error
+      );
+      diagnostic.source = INTEGRITY_SOURCE;
+      diagnostic.code = 'unresolved-ref';
+      diagnostics.push(diagnostic);
+    }
 
     return;
   }
@@ -353,10 +322,10 @@ export function addIntegrityDiagnosticsForDocument(
   if (isSpecFile(filePath)) {
     const spec = scanSpecSource(code, filePath);
 
-    if (spec.name && spec.version !== undefined) {
+    if (spec.key && spec.version !== undefined) {
       const isOrphaned = integrityResult.orphanedSpecs.some(
         (orphan) =>
-          orphan.name === spec.name &&
+          orphan.key === spec.key &&
           orphan.version === spec.version &&
           orphan.file === filePath
       );
@@ -472,7 +441,7 @@ export function updateImplementationDiagnostics(
   if (result.status === 'missing') {
     const diagnostic = new vscode.Diagnostic(
       findNameRange(document),
-      `No implementations found for ${result.specName}`,
+      `No implementations found for ${result.specKey}`,
       vscode.DiagnosticSeverity.Warning
     );
     diagnostic.source = IMPLEMENTATION_SOURCE;
@@ -528,7 +497,7 @@ export function createImplementationDiagnostics(
   if (result.status === 'missing') {
     const diagnostic = new vscode.Diagnostic(
       findNameRange(document),
-      `No implementations found for ${result.specName}`,
+      `No implementations found for ${result.specKey}`,
       vscode.DiagnosticSeverity.Warning
     );
     diagnostic.source = IMPLEMENTATION_SOURCE;

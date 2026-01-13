@@ -13,7 +13,18 @@ import {
   exportToClaudeAgent,
   exportToOpenCode,
 } from '@contractspec/lib.ai-agent/exporters';
+import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
 import { extractFilePath } from './context-actions';
+
+function isAgentSpec(spec: unknown): spec is AgentSpec {
+  return (
+    typeof spec === 'object' &&
+    spec !== null &&
+    'meta' in spec &&
+    'instructions' in spec &&
+    Array.isArray((spec as unknown as { tools: unknown }).tools)
+  );
+}
 
 /**
  * Export current spec to Agent format.
@@ -79,8 +90,17 @@ export async function exportAgent(
     // 5. Export
     outputChannel.appendLine(`Exporting agent to ${outputDir}...`);
 
+    if (!isAgentSpec(spec)) {
+      vscode.window.showErrorMessage(
+        'Selected spec does not appear to be a valid Agent spec (missing instructions or tools).'
+      );
+      return;
+    }
+
     if (format.value === 'claude') {
-      const result = exportToClaudeAgent(spec, { generateClaudeMd: true });
+      const result = exportToClaudeAgent(spec, {
+        generateClaudeMd: true,
+      });
       if (result.claudeMd) {
         fs.writeFileSync(path.join(outputDir, 'CLAUDE.md'), result.claudeMd);
         vscode.window.showInformationMessage(
@@ -89,16 +109,16 @@ export async function exportAgent(
       }
     } else if (format.value === 'opencode') {
       const result = exportToOpenCode(spec);
-      if (result.agentConfig) {
+      if (result.jsonConfig) {
         fs.writeFileSync(
           path.join(outputDir, 'agent.json'),
-          JSON.stringify(result.agentConfig, null, 2)
+          JSON.stringify(result.jsonConfig, null, 2)
         );
       }
-      if (result.agentMarkdown) {
+      if (result.markdownConfig) {
         fs.writeFileSync(
           path.join(outputDir, `${spec.meta.key}.md`),
-          result.agentMarkdown
+          result.markdownConfig
         );
       }
       vscode.window.showInformationMessage(

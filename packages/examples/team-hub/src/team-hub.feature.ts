@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const TeamHubFeature: FeatureModuleSpec = {
+export const TeamHubFeature = defineFeature({
   meta: {
     key: 'team-hub',
     title: 'Team Hub',
@@ -64,4 +64,4 @@ export const TeamHubFeature: FeatureModuleSpec = {
       { key: 'announcements', version: '1.0.0' },
     ],
   },
-};
+});

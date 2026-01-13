@@ -6,3 +6,4 @@ export * from './lifecycle';
 export * from './events';
 export * from './lifecycle-contracts';
 export * from './app-config.feature';
+export * from './app-config.capability';

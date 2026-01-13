@@ -3,13 +3,13 @@
  *
  * Defines the feature module for feature flag and experiment management.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Feature Flags feature module that bundles flag management,
  * targeting rules, and A/B experiment capabilities.
  */
-export const FeatureFlagsFeature: FeatureModuleSpec = {
+export const FeatureFlagsFeature = defineFeature({
   meta: {
     key: 'feature-flags',
     version: '1.0.0',
@@ -77,4 +77,4 @@ export const FeatureFlagsFeature: FeatureModuleSpec = {
     ],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

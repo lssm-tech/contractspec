@@ -1,8 +1,7 @@
 {
   "name": "@contractspec/example.integration-hub",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -19,12 +18,19 @@
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
-    "@contractspec/lib.contracts": "workspace:*"
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.2"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -37,21 +43,31 @@
     "./docs/integration-hub.docblock": "./dist/docs/integration-hub.docblock.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
+    "./handlers": "./dist/handlers/index.js",
+    "./handlers/integration.handlers": "./dist/handlers/integration.handlers.js",
     "./integration": "./dist/integration/index.js",
+    "./integration-hub.capability": "./dist/integration-hub.capability.js",
     "./integration-hub.feature": "./dist/integration-hub.feature.js",
     "./integration/integration.enum": "./dist/integration/integration.enum.js",
     "./integration/integration.operations": "./dist/integration/integration.operations.js",
     "./integration/integration.presentation": "./dist/integration/integration.presentation.js",
     "./integration/integration.schema": "./dist/integration/integration.schema.js",
+    "./seeders": "./dist/seeders/index.js",
     "./sync": "./dist/sync/index.js",
     "./sync-engine": "./dist/sync-engine/index.js",
     "./sync/sync.enum": "./dist/sync/sync.enum.js",
     "./sync/sync.operations": "./dist/sync/sync.operations.js",
     "./sync/sync.presentation": "./dist/sync/sync.presentation.js",
     "./sync/sync.schema": "./dist/sync/sync.schema.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useIntegrationData": "./dist/ui/hooks/useIntegrationData.js",
+    "./ui/IntegrationDashboard": "./dist/ui/IntegrationDashboard.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/integration.markdown": "./dist/ui/renderers/integration.markdown.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

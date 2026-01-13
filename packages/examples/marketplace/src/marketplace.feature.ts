@@ -1,13 +1,13 @@
 /**
  * Marketplace Feature Module Specification
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Marketplace feature module that bundles multi-vendor marketplace
  * capabilities including stores, products, orders, payouts, and reviews.
  */
-export const MarketplaceFeature: FeatureModuleSpec = {
+export const MarketplaceFeature = defineFeature({
   meta: {
     key: 'marketplace',
     version: '1.0.0',
@@ -172,4 +172,4 @@ export const MarketplaceFeature: FeatureModuleSpec = {
       { key: 'payments', version: '1.0.0' },
     ],
   },
-};
+});

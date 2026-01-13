@@ -29,7 +29,9 @@ Studio access control is **organization-first** with optional **team-based shari
 
 ## GraphQL surfaces
 
-- Read:\n  - \`myStudioProjects\` (returns only projects you can access)\n  - \`studioProjectBySlug(slug)\` (enforces the same access rules)\n  - \`myTeams\`\n  - \`projectTeams(projectId)\`\n\n- Write:\n  - \`createStudioProject(input.teamIds?)\` (teamIds optional)\n  - \`setProjectTeams(projectId, teamIds)\` (admin-only)\n
+- Read:
+  - \`myStudioProjects\` (returns only projects you can access)\n  - \`studioProjectBySlug(slug)\` (enforces the same access rules)\n  - \`myTeams\`\n  - \`projectTeams(projectId)\`\n\n- Write:\n  - \`createStudioProject(input.teamIds?)\` (teamIds optional)\n  - \`setProjectTeams(projectId, teamIds)\` (admin-only)\n
+
 ## Related\n+\n+- Team administration + invitations: see \`/docs/tech/studio/team-invitations\`.\n+
 ## Notes
 

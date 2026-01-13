@@ -52,6 +52,9 @@ export const DEFAULT_SPEC_PATTERNS = [
   // Directory index patterns (/events/index.ts, /presentations/index.ts)
   '**/events/index.ts',
   '**/presentations/index.ts',
+  // Test specs in tests directory
+  '**/tests/*.ts',
+  '**/tests/*.test-spec.ts',
 ];
 
 const DEFAULT_IGNORES = [

@@ -51,14 +51,13 @@ export async function validateSpec(
   }
 
   const specCode = await fs.readFile(specFile);
-  const fileName = fs.basename(specFile);
 
   const allErrors: string[] = [];
   const allWarnings: string[] = [];
   let structureResult: ValidationResult | undefined;
 
   if (!options.skipStructure) {
-    structureResult = validateSpecStructure(specCode, fileName);
+    structureResult = validateSpecStructure(specCode, specFile);
     allErrors.push(...structureResult.errors);
     allWarnings.push(...structureResult.warnings);
   }

@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { DashboardModel } from './dashboard.schema';
 
-export const DashboardsListPresentation: PresentationSpec = {
+export const DashboardsListPresentation = definePresentation({
   meta: {
     key: 'analytics.dashboard.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const DashboardsListPresentation: PresentationSpec = {
   policy: {
     flags: ['analytics.dashboards.enabled'],
   },
-};
+});
 
-export const DashboardViewPresentation: PresentationSpec = {
+export const DashboardViewPresentation = definePresentation({
   meta: {
     key: 'analytics.dashboard.view',
     version: '1.0.0',
@@ -50,9 +49,9 @@ export const DashboardViewPresentation: PresentationSpec = {
   policy: {
     flags: ['analytics.dashboards.enabled'],
   },
-};
+});
 
-export const DashboardEditorPresentation: PresentationSpec = {
+export const DashboardEditorPresentation = definePresentation({
   meta: {
     key: 'analytics.dashboard.editor',
     version: '1.0.0',
@@ -75,4 +74,4 @@ export const DashboardEditorPresentation: PresentationSpec = {
   policy: {
     flags: ['analytics.dashboards.enabled'],
   },
-};
+});

@@ -1,8 +1,7 @@
 /**
  * Workflow System Presentation Descriptors
  */
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
 import { WorkflowInstanceModel } from '../instance/instance.schema';
 import { ApprovalRequestModel } from '../approval/approval.schema';
@@ -12,7 +11,7 @@ import { ApprovalRequestModel } from '../approval/approval.schema';
 /**
  * Workflow designer canvas for building workflows.
  */
-export const WorkflowDesignerPresentation: PresentationSpec = {
+export const WorkflowDesignerPresentation = definePresentation({
   meta: {
     key: 'workflow.designer',
     version: '1.0.0',
@@ -35,12 +34,12 @@ export const WorkflowDesignerPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.designer.enabled'],
   },
-};
+});
 
 /**
  * List of workflow definitions.
  */
-export const WorkflowListPresentation: PresentationSpec = {
+export const WorkflowListPresentation = definePresentation({
   meta: {
     key: 'workflow.definition.list',
     version: '1.0.0',
@@ -63,12 +62,12 @@ export const WorkflowListPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.enabled'],
   },
-};
+});
 
 /**
  * Workflow definition detail view.
  */
-export const WorkflowDetailPresentation: PresentationSpec = {
+export const WorkflowDetailPresentation = definePresentation({
   meta: {
     key: 'workflow.definition.detail',
     version: '1.0.0',
@@ -91,14 +90,14 @@ export const WorkflowDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.enabled'],
   },
-};
+});
 
 // ============ Workflow Instance Presentations ============
 
 /**
  * List of running workflow instances.
  */
-export const InstanceListPresentation: PresentationSpec = {
+export const InstanceListPresentation = definePresentation({
   meta: {
     key: 'workflow.instance.list',
     version: '1.0.0',
@@ -121,12 +120,12 @@ export const InstanceListPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.enabled'],
   },
-};
+});
 
 /**
  * Workflow instance detail view with timeline.
  */
-export const InstanceDetailPresentation: PresentationSpec = {
+export const InstanceDetailPresentation = definePresentation({
   meta: {
     key: 'workflow.instance.detail',
     version: '1.0.0',
@@ -149,12 +148,12 @@ export const InstanceDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.enabled'],
   },
-};
+});
 
 /**
  * Workflow progress tracker widget.
  */
-export const ProgressTrackerPresentation: PresentationSpec = {
+export const ProgressTrackerPresentation = definePresentation({
   meta: {
     key: 'workflow.instance.progress',
     version: '1.0.0',
@@ -177,14 +176,14 @@ export const ProgressTrackerPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.enabled'],
   },
-};
+});
 
 // ============ Approval Presentations ============
 
 /**
  * Approval inbox - list of pending approvals.
  */
-export const ApprovalInboxPresentation: PresentationSpec = {
+export const ApprovalInboxPresentation = definePresentation({
   meta: {
     key: 'workflow.approval.inbox',
     version: '1.0.0',
@@ -207,12 +206,12 @@ export const ApprovalInboxPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.approvals.enabled'],
   },
-};
+});
 
 /**
  * Approval request detail view.
  */
-export const ApprovalDetailPresentation: PresentationSpec = {
+export const ApprovalDetailPresentation = definePresentation({
   meta: {
     key: 'workflow.approval.detail',
     version: '1.0.0',
@@ -235,12 +234,12 @@ export const ApprovalDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.approvals.enabled'],
   },
-};
+});
 
 /**
  * Approval decision form.
  */
-export const ApprovalFormPresentation: PresentationSpec = {
+export const ApprovalFormPresentation = definePresentation({
   meta: {
     key: 'workflow.approval.form',
     version: '1.0.0',
@@ -262,14 +261,14 @@ export const ApprovalFormPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.approvals.enabled'],
   },
-};
+});
 
 // ============ Dashboard Widgets ============
 
 /**
  * Pending approvals count badge.
  */
-export const PendingApprovalsBadgePresentation: PresentationSpec = {
+export const PendingApprovalsBadgePresentation = definePresentation({
   meta: {
     key: 'workflow.approval.badge',
     version: '1.0.0',
@@ -291,12 +290,12 @@ export const PendingApprovalsBadgePresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.approvals.enabled'],
   },
-};
+});
 
 /**
  * Workflow metrics dashboard widget.
  */
-export const WorkflowMetricsPresentation: PresentationSpec = {
+export const WorkflowMetricsPresentation = definePresentation({
   meta: {
     key: 'workflow.metrics',
     version: '1.0.0',
@@ -318,7 +317,7 @@ export const WorkflowMetricsPresentation: PresentationSpec = {
   policy: {
     flags: ['workflow.metrics.enabled'],
   },
-};
+});
 
 // ============ All Presentations ============
 

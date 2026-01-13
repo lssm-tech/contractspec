@@ -25,3 +25,6 @@ export {
   type ListDealsInput,
   type ListDealsOutput,
 } from './deal.handlers';
+
+// Runtime handlers (PGLite)
+export * from './crm.handlers';

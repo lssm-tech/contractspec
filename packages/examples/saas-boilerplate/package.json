@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.saas-boilerplate",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -21,6 +20,7 @@
     "./docs/saas-boilerplate.docblock": "./dist/docs/saas-boilerplate.docblock.js",
     "./example": "./dist/example.js",
     "./handlers": "./dist/handlers/index.js",
+    "./handlers/saas.handlers": "./dist/handlers/saas.handlers.js",
     "./presentations": "./dist/presentations/index.js",
     "./project": "./dist/project/index.js",
     "./project/project.entity": "./dist/project/project.entity.js",
@@ -31,10 +31,28 @@
     "./project/project.presentation": "./dist/project/project.presentation.js",
     "./project/project.schema": "./dist/project/project.schema.js",
     "./saas-boilerplate.feature": "./dist/saas-boilerplate.feature.js",
+    "./seeders": "./dist/seeders/index.js",
     "./settings": "./dist/settings/index.js",
     "./settings/settings.entity": "./dist/settings/settings.entity.js",
     "./settings/settings.enum": "./dist/settings/settings.enum.js",
     "./shared/mock-data": "./dist/shared/mock-data.js",
+    "./shared/overlay-types": "./dist/shared/overlay-types.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
+    "./ui": "./dist/ui/index.js",
+    "./ui/hooks": "./dist/ui/hooks/index.js",
+    "./ui/hooks/useProjectList": "./dist/ui/hooks/useProjectList.js",
+    "./ui/hooks/useProjectMutations": "./dist/ui/hooks/useProjectMutations.js",
+    "./ui/modals": "./dist/ui/modals/index.js",
+    "./ui/modals/CreateProjectModal": "./dist/ui/modals/CreateProjectModal.js",
+    "./ui/modals/ProjectActionsModal": "./dist/ui/modals/ProjectActionsModal.js",
+    "./ui/overlays": "./dist/ui/overlays/index.js",
+    "./ui/overlays/demo-overlays": "./dist/ui/overlays/demo-overlays.js",
+    "./ui/renderers": "./dist/ui/renderers/index.js",
+    "./ui/renderers/project-list.markdown": "./dist/ui/renderers/project-list.markdown.js",
+    "./ui/renderers/project-list.renderer": "./dist/ui/renderers/project-list.renderer.js",
+    "./ui/SaasDashboard": "./dist/ui/SaasDashboard.js",
+    "./ui/SaasProjectList": "./dist/ui/SaasProjectList.js",
+    "./ui/SaasSettingsPanel": "./dist/ui/SaasSettingsPanel.js",
     "./*": "./*"
   },
   "scripts": {
@@ -48,7 +66,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@contractspec/lib.identity-rbac": "workspace:*",
@@ -56,15 +74,21 @@
     "@contractspec/module.audit-trail": "workspace:*",
     "@contractspec/module.notifications": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
-    "@contractspec/lib.schema": "workspace:*"
+    "@contractspec/lib.schema": "workspace:*",
+    "@contractspec/lib.example-shared-ui": "workspace:*",
+    "@contractspec/lib.design-system": "workspace:*",
+    "@contractspec/lib.runtime-sandbox": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.2"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

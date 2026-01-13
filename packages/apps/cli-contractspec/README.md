@@ -221,6 +221,32 @@ contractspec openapi import --file api.json --output ./zod --schema-format zod
 contractspec openapi import --file api.json --output ./gql --schema-format graphql
 ```
 
+### `contractspec vibe`
+
+Guided workflows for "Vibe Coding" with safeguards and discipline.
+
+**Subcommands:**
+- `init` - Initialize Vibe directories and config
+- `run <workflow>` - Run a managed workflow
+- `pack install <path>` - Install a local workflow pack
+- `context export` - Export safe context for AI agents
+
+**Examples:**
+
+```bash
+# Initialize
+contractspec vibe init
+
+# Run OpenAPI import workflow
+contractspec vibe run brownfield.openapi-import
+
+# Run with stricter tracking
+contractspec vibe run change.feature --track regulated
+
+# Export context for AI
+contractspec vibe context export
+```
+
 ### `contractspec create`
 
 Interactive wizard to create contract specifications.

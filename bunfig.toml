@@ -1,0 +1,6 @@
+[test]
+coveragePathIgnorePatterns = [
+  "**/*.spec.ts",
+  "**/*.test.ts",
+  "**/dist/**"
+]

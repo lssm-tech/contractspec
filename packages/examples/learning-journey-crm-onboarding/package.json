@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.learning-journey-crm-onboarding",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Learning journey track that onboards users to the CRM pipeline example.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -14,6 +13,7 @@
     "./learning-journey-crm-onboarding.feature": "./dist/learning-journey-crm-onboarding.feature.js",
     "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./track": "./dist/track.js",
     "./*": "./*"
   },
@@ -41,7 +41,6 @@
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

@@ -1,6 +1,6 @@
-import type { ExampleSpec } from '@contractspec/lib.contracts';
+import { defineExample } from '@contractspec/lib.contracts';
 
-const example: ExampleSpec = {
+const example = defineExample({
   meta: {
     key: 'learning-journey-platform-tour',
     version: '1.0.0',
@@ -28,6 +28,6 @@ const example: ExampleSpec = {
     studio: { enabled: true, installable: true },
     mcp: { enabled: true },
   },
-};
+});
 
 export default example;

@@ -1,10 +1,8 @@
 {
   "name": "@contractspec/example.kb-update-pipeline",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -14,13 +12,13 @@
     "./entities/models": "./dist/entities/models.js",
     "./events": "./dist/events.js",
     "./example": "./dist/example.js",
-    "./feature": "./dist/feature.js",
     "./handlers": "./dist/handlers/index.js",
     "./handlers/memory.handlers": "./dist/handlers/memory.handlers.js",
     "./kb-update-pipeline.feature": "./dist/kb-update-pipeline.feature.js",
     "./operations": "./dist/operations/index.js",
     "./operations/pipeline": "./dist/operations/pipeline.js",
     "./presentations": "./dist/presentations.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./*": "./*"
   },
   "scripts": {

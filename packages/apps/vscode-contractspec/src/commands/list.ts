@@ -40,7 +40,7 @@ export async function listAllSpecs(
       outputChannel.appendLine(`\n📁 ${specType} (${typeSpecs.length})`);
 
       for (const spec of typeSpecs) {
-        const name = spec.name ?? getFileName(spec.filePath);
+        const name = spec.key ?? getFileName(spec.filePath);
         const stability = spec.stability ? ` [${spec.stability}]` : '';
         const version = spec.version ? ` v${spec.version}` : '';
 
@@ -55,7 +55,7 @@ export async function listAllSpecs(
 
     // Show quick pick for navigation
     const items = specs.map((spec) => ({
-      label: spec.name ?? getFileName(spec.filePath),
+      label: spec.key ?? getFileName(spec.filePath),
       description: spec.specType,
       detail: spec.filePath,
       spec,

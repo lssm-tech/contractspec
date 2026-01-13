@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.schema",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Schema utilities for Zod, JSON Schema, and GraphQL",
   "keywords": [
     "contractspec",
@@ -38,8 +38,6 @@
     "README.md"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",

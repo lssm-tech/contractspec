@@ -20,7 +20,10 @@ import type {
 function getService(config: Config): SpecCreatorService {
   // Config needs to match WorkspaceConfig
   // Assuming Config has necessary fields
-  return createSpecCreator(config);
+
+  return createSpecCreator(
+    config as unknown as import('@contractspec/module.workspace').WorkspaceConfig
+  );
 }
 
 /**
@@ -41,7 +44,7 @@ export async function aiGenerateOperation(
 
     return {
       name: result.name,
-      version: result.version,
+      version: String(result.version),
       description: result.description,
       goal: result.goal,
       context: result.context,
@@ -78,7 +81,7 @@ export async function aiGenerateEvent(
 
     return {
       name: result.name,
-      version: result.version,
+      version: String(result.version),
       description: result.description,
       stability: result.stability,
       owners: result.owners,
@@ -109,7 +112,7 @@ export async function aiGeneratePresentation(
 
     return {
       name: result.name,
-      version: result.version,
+      version: String(result.version),
       description: result.description,
       stability: result.stability,
       owners: result.owners,

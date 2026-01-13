@@ -3,13 +3,13 @@
  *
  * Defines the feature module for workflow and approval capabilities.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Workflow System feature module that bundles workflow definition,
  * instance management, and approval handling into an installable feature.
  */
-export const WorkflowSystemFeature: FeatureModuleSpec = {
+export const WorkflowSystemFeature = defineFeature({
   meta: {
     key: 'workflow-system',
     title: 'Workflow & Approval System',
@@ -172,4 +172,4 @@ export const WorkflowSystemFeature: FeatureModuleSpec = {
       { key: 'state-machine', version: '1.0.0' },
     ],
   },
-};
+});

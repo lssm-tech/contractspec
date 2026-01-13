@@ -72,13 +72,28 @@ export interface BuildSpecResult {
  */
 export async function buildSpec(
   specPath: string,
-  adapters: { fs: FsAdapter; logger: LoggerAdapter },
+  adapters: {
+    fs: FsAdapter;
+    logger: LoggerAdapter;
+    workspace?: typeof import('@contractspec/module.workspace');
+  },
   config: WorkspaceConfig,
   options: BuildSpecOptions = {}
 ): Promise<BuildSpecResult> {
-  const { fs, logger } = adapters;
+  const { fs, logger, workspace } = adapters;
+
+  // Use injected modules or defaults
+  const scan = workspace?.scanSpecSource ?? scanSpecSource;
+  const inferType =
+    workspace?.inferSpecTypeFromFilePath ?? inferSpecTypeFromFilePath;
+  const genHandler =
+    workspace?.generateHandlerTemplate ?? generateHandlerTemplate;
+  const genComponent =
+    workspace?.generateComponentTemplate ?? generateComponentTemplate;
+  const genTest = workspace?.generateTestTemplate ?? generateTestTemplate;
+
   const {
-    targets = detectDefaultTargets(specPath),
+    targets = detectDefaultTargets(specPath, inferType),
     outputDir = config.outputDir,
     overwrite = false,
     dryRun = false,
@@ -86,8 +101,8 @@ export async function buildSpec(
 
   // Read and scan spec
   const specCode = await fs.readFile(specPath);
-  const specInfo = scanSpecSource(specCode, specPath);
-  const specType = inferSpecTypeFromFilePath(specPath);
+  const specInfo = scan(specCode, specPath);
+  const specType = inferType(specPath);
 
   logger.info(`Building from spec: ${specPath}`, { specType });
 
@@ -104,7 +119,8 @@ export async function buildSpec(
         { fs, logger },
         outputDir,
         overwrite,
-        dryRun
+        dryRun,
+        { genHandler, genComponent, genTest }
       );
       results.push(result);
     } catch (error) {
@@ -113,6 +129,7 @@ export async function buildSpec(
         outputPath: '',
         success: false,
         error: error instanceof Error ? error.message : String(error),
+        skipped: false, // Default to false unless overridden
       });
     }
   }
@@ -136,9 +153,15 @@ async function buildTarget(
   adapters: { fs: FsAdapter; logger: LoggerAdapter },
   outputDir: string,
   overwrite: boolean,
-  dryRun: boolean
+  dryRun: boolean,
+  generators: {
+    genHandler: typeof generateHandlerTemplate;
+    genComponent: typeof generateComponentTemplate;
+    genTest: typeof generateTestTemplate;
+  }
 ): Promise<BuildTargetResult> {
   const { fs, logger } = adapters;
+  const { genHandler, genComponent, genTest } = generators;
 
   let code: string;
   let outputPath: string;
@@ -160,7 +183,7 @@ async function buildTarget(
           ? specInfo.kind
           : 'command';
 
-      code = generateHandlerTemplate(specInfo.key ?? 'unknown', kind);
+      code = genHandler(specInfo.key ?? 'unknown', kind);
       outputPath = resolveOutputPath(
         specPath,
         outputDir,
@@ -183,7 +206,7 @@ async function buildTarget(
         };
       }
 
-      code = generateComponentTemplate(
+      code = genComponent(
         specInfo.key ?? 'unknown',
         specInfo.description ?? ''
       );
@@ -200,7 +223,7 @@ async function buildTarget(
 
     case 'test': {
       const testType = specType === 'operation' ? 'handler' : 'component';
-      code = generateTestTemplate(specInfo.key ?? 'unknown', testType);
+      code = genTest(specInfo.key ?? 'unknown', testType);
       outputPath = resolveOutputPath(
         specPath,
         outputDir,
@@ -260,8 +283,11 @@ async function buildTarget(
 /**
  * Detect default targets based on spec type.
  */
-function detectDefaultTargets(specPath: string): BuildTarget[] {
-  const specType = inferSpecTypeFromFilePath(specPath);
+function detectDefaultTargets(
+  specPath: string,
+  inferType: typeof inferSpecTypeFromFilePath
+): BuildTarget[] {
+  const specType = inferType(specPath);
 
   switch (specType) {
     case 'operation':

@@ -1,11 +1,10 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
 import { AgentSummaryModel } from './agent.schema';
 
 /**
  * Presentation for displaying a list of AI agents.
  */
-export const AgentListPresentation: PresentationSpec = {
+export const AgentListPresentation = definePresentation({
   meta: {
     key: 'agent-console.agent.list',
     version: '1.0.0',
@@ -27,12 +26,12 @@ export const AgentListPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown', 'application/json'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});
 
 /**
  * Presentation for agent detail view.
  */
-export const AgentDetailPresentation: PresentationSpec = {
+export const AgentDetailPresentation = definePresentation({
   meta: {
     key: 'agent-console.agent.detail',
     version: '1.0.0',
@@ -53,12 +52,12 @@ export const AgentDetailPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});
 
 /**
  * Dashboard presentation for Agent Console - overview of agents, runs, and tools.
  */
-export const AgentConsoleDashboardPresentation: PresentationSpec = {
+export const AgentConsoleDashboardPresentation = definePresentation({
   meta: {
     key: 'agent-console.dashboard',
     version: '1.0.0',
@@ -78,4 +77,4 @@ export const AgentConsoleDashboardPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});

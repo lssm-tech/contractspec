@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.ai-support-bot",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -50,7 +49,6 @@
     },
     "registry": "https://registry.npmjs.org/"
   },
-  "module": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",

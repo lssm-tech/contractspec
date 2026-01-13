@@ -3,19 +3,19 @@
  *
  * Defines the feature module for file management capabilities.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
- * Files feature module that bundles file upload, versioning,
- * and attachment management capabilities.
+ * Files feature module that bundles file storage,
+ * attachments, and media processing capabilities.
  */
-export const FilesFeature: FeatureModuleSpec = {
+export const FilesFeature = defineFeature({
   meta: {
     key: 'files',
     version: '1.0.0',
     title: 'File Management',
     description:
-      'File upload, versioning, and attachment management with presigned URLs',
+      'File storage, attachments, and media processing with presigned URLs',
     domain: 'platform',
     owners: ['@platform.files'],
     tags: ['files', 'upload', 'attachments', 'storage'],
@@ -73,4 +73,4 @@ export const FilesFeature: FeatureModuleSpec = {
     ],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

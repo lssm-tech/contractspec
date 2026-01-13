@@ -1,9 +1,8 @@
 {
   "name": "@contractspec/example.learning-journey-platform-tour",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "description": "Learning journey track covering ContractSpec platform primitives.",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -14,6 +13,7 @@
     "./learning-journey-platform-tour.feature": "./dist/learning-journey-platform-tour.feature.js",
     "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./track": "./dist/track.js",
     "./*": "./*"
   },
@@ -40,7 +40,6 @@
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
