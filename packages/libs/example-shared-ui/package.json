@@ -18,6 +18,10 @@
     "lint:check": "eslint src",
     "test": "bun test"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@apollo/client": "^4.0.12",
     "@contractspec/lib.contracts": "workspace:*",

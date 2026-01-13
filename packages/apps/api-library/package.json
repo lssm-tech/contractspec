@@ -1,6 +1,7 @@
 {
   "name": "@contractspec/app.api-library",
   "version": "1.0.51",
+  "private": true,
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "bun run lint:fix",
