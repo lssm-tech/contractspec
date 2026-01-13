@@ -11,15 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+      DO_NOT_TRACK: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Needed for diff against base
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: '1.3.6'
 
       - name: Install Dependencies
         run: bun install
@@ -43,7 +46,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Comment on PR
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const productView = process.env.PRODUCT_VIEW;
