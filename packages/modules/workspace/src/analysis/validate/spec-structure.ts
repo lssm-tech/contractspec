@@ -388,7 +388,9 @@ function validateAppConfigSpec(
   }
 
   if (!specObject) {
-    errors.push('Missing defineAppConfig call or AppBlueprintSpec type annotation');
+    errors.push(
+      'Missing defineAppConfig call or AppBlueprintSpec type annotation'
+    );
     return;
   }
 

@@ -1,4 +1,3 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
 import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
 import { RunSummaryModel } from './run.schema';
 
