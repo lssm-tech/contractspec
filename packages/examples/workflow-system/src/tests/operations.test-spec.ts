@@ -1,8 +1,4 @@
-import type { TestSpec } from '@contractspec/lib.contracts';
-
-function defineTestSpec(spec: TestSpec) {
-  return spec;
-}
+import { defineTestSpec } from '@contractspec/lib.contracts';
 
 export const DefinitionListTest = defineTestSpec({
   meta: {

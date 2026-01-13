@@ -1,8 +1,4 @@
-import type { TestSpec } from '@contractspec/lib.contracts';
-
-function defineTestSpec(spec: TestSpec) {
-  return spec;
-}
+import { defineTestSpec } from '@contractspec/lib.contracts';
 
 export const GetTrackTest = defineTestSpec({
   meta: {
@@ -15,7 +11,10 @@ export const GetTrackTest = defineTestSpec({
   },
   target: {
     type: 'operation',
-    operation: { key: 'learningJourney.crmOnboarding.getTrack', version: '1.0.0' },
+    operation: {
+      key: 'learningJourney.crmOnboarding.getTrack',
+      version: '1.0.0',
+    },
   },
   scenarios: [
     {
