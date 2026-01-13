@@ -3,7 +3,6 @@ import {
   Node,
   SyntaxKind,
   type ObjectLiteralExpression,
-  type CallExpression,
 } from 'ts-morph';
 import type { RefInfo } from '../types/analysis-types';
 
@@ -80,9 +79,11 @@ export function extractFeatureRefs(code: string): {
 
   for (const call of callExpressions) {
     if (
-      (call as CallExpression).getExpression().getText() === 'defineFeature'
+      ['defineFeature', 'defineAppConfig', 'defineAppBlueprint'].includes(
+        call.getExpression().getText()
+      )
     ) {
-      const args = (call as CallExpression).getArguments();
+      const args = call.getArguments();
       if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
         const obj = args[0];
 

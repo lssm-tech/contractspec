@@ -125,8 +125,6 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   } else if (code.includes('defineCapability')) {
     specType = 'capability';
     kind = 'capability';
-    specType = 'type';
-    kind = 'type';
   } else if (code.includes('defineExample')) {
     specType = 'example';
     kind = 'example';
