@@ -42,7 +42,7 @@ export function scanAllSpecsFromSource(
 
   // Match export definitions: export const X = defineXXX calls
   const definitionRegex =
-    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec)\s*\(/g;
+    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec|Feature)\s*\(/g;
   let match;
 
   while ((match = definitionRegex.exec(code)) !== null) {
@@ -140,6 +140,9 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   } else if (code.includes('defineTestSpec')) {
     specType = 'test-spec';
     kind = 'test-spec';
+  } else if (code.includes('defineFeature')) {
+    specType = 'feature';
+    kind = 'feature';
   }
 
   // Check feature flags/sections
