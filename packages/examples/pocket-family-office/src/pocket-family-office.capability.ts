@@ -7,7 +7,7 @@ export const PocketFamilyOfficeCapability = defineCapability({
     kind: 'ui',
     stability: StabilityEnum.Experimental,
     description: 'Personal family office management',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['family-office', 'wealth', 'personal'],
   },
 });

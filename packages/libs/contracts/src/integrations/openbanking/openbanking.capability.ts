@@ -8,7 +8,7 @@ export const OpenBankingCapability = defineCapability({
     kind: 'integration',
     stability: StabilityEnum.Experimental,
     description: 'Open Banking integrations capability',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['openbanking', 'finance', 'integrations'],
   },
 });

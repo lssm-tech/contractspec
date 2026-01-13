@@ -7,7 +7,7 @@ export const FeatureFlagsCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Feature flag management and evaluation',
-    owners: ['platform.featureflags'],
+    owners: ['@platform.featureflags'],
     tags: ['feature-flags', 'configuration'],
   },
 });
@@ -19,7 +19,7 @@ export const ExperimentsCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'A/B testing and experimentation platform',
-    owners: ['platform.featureflags'],
+    owners: ['@platform.featureflags'],
     tags: ['experiments', 'ab-testing'],
   },
 });

@@ -7,7 +7,7 @@ export const NotificationsCapability = defineCapability({
     kind: 'ui',
     stability: StabilityEnum.Experimental,
     description: 'User notifications and alerts',
-    owners: ['platform.messaging'],
+    owners: ['@platform.messaging'],
     tags: ['notifications', 'messaging', 'alerts'],
   },
 });

@@ -7,7 +7,7 @@ export const AuditTrailCapability = defineCapability({
     kind: 'data',
     stability: StabilityEnum.Experimental,
     description: 'Audit logging and compliance tracking',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['audit', 'logging', 'compliance'],
   },
 });

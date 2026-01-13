@@ -8,7 +8,7 @@ export const KnowledgeCapability = defineCapability({
     kind: 'data',
     stability: StabilityEnum.Experimental,
     description: 'Knowledge base and content management capability',
-    owners: ['platform.content'],
+    owners: ['@platform.content'],
     tags: ['knowledge', 'content', 'data'],
   },
 });

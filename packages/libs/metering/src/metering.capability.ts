@@ -7,7 +7,7 @@ export const MeteringCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Usage metering and tracking',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['metering', 'usage', 'billing'],
   },
 });
@@ -19,7 +19,7 @@ export const ThresholdsCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Usage threshold alerts and limits',
-    owners: ['platform.finance'],
+    owners: ['@platform.finance'],
     tags: ['thresholds', 'limits', 'metering'],
   },
 });

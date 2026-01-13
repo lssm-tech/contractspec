@@ -1,8 +1,3 @@
-
-import { describe, expect, it } from 'bun:test';
-import { GetAgentQuery, ListAgentsQuery } from './agent.operation';
-import type { TestSpec } from '@contractspec/lib.contracts';
-
 function defineTestSpec(spec: TestSpec) {
   return spec;
 }

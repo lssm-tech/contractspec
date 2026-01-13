@@ -7,7 +7,7 @@ export const FilesCapability = defineCapability({
     kind: 'data',
     stability: StabilityEnum.Experimental,
     description: 'File storage and management',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['files', 'storage'],
   },
 });
@@ -19,7 +19,7 @@ export const AttachmentsCapability = defineCapability({
     kind: 'data',
     stability: StabilityEnum.Experimental,
     description: 'File attachments for entities',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['attachments', 'files'],
   },
 });

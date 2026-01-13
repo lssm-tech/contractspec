@@ -74,14 +74,18 @@ export function extractTestRefs(
  */
 export function extractTestTarget(
   code: string
-): { type: 'operation' | 'workflow'; key: string; version: string | undefined } | undefined {
+):
+  | { type: 'operation' | 'workflow'; key: string; version: string | undefined }
+  | undefined {
   // Find target block start
   const targetStartMatch = code.match(/target\s*:\s*\{/);
-  if (!targetStartMatch || targetStartMatch.index === undefined) return undefined;
+  if (!targetStartMatch || targetStartMatch.index === undefined)
+    return undefined;
 
-  const openBraceIndex = targetStartMatch.index + targetStartMatch[0].length - 1;
+  const openBraceIndex =
+    targetStartMatch.index + targetStartMatch[0].length - 1;
   const closeBraceIndex = findMatchingDelimiter(code, openBraceIndex, '{', '}');
-  
+
   if (closeBraceIndex === -1) return undefined;
 
   const targetBlock = code.substring(openBraceIndex + 1, closeBraceIndex);
@@ -108,7 +112,7 @@ export function extractTestTarget(
   const refBlockMatch = targetBlock.match(
     new RegExp(`${type}\\s*:\\s*\\{([\\s\\S]*?)\\}`)
   );
-  
+
   if (!refBlockMatch?.[1]) return undefined;
 
   const refBlock = refBlockMatch[1];
@@ -140,13 +144,13 @@ export function extractTestCoverage(code: string): {
   // Check new format: expectOutput: or expectError: as keys
   const hasSuccessNew = /expectOutput\s*:/.test(code);
   const hasErrorNew = /expectError\s*:/.test(code);
-  
+
   // Check old format: { type: 'expectOutput' } or { type: 'expectError' }
   const hasSuccessOld = /(['"]?)type\1\s*:\s*['"]expectOutput['"]/.test(code);
   const hasErrorOld = /(['"]?)type\1\s*:\s*['"]expectError['"]/.test(code);
 
-  return { 
-    hasSuccess: hasSuccessNew || hasSuccessOld, 
-    hasError: hasErrorNew || hasErrorOld 
+  return {
+    hasSuccess: hasSuccessNew || hasSuccessOld,
+    hasError: hasErrorNew || hasErrorOld,
   };
 }

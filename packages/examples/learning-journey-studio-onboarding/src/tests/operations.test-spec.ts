@@ -15,7 +15,10 @@ export const GetTrackTest = defineTestSpec({
   },
   target: {
     type: 'operation',
-    operation: { key: 'learningJourney.studioOnboarding.getTrack', version: '1.0.0' },
+    operation: {
+      key: 'learningJourney.studioOnboarding.getTrack',
+      version: '1.0.0',
+    },
   },
   scenarios: [
     {

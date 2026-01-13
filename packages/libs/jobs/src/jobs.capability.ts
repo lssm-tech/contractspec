@@ -7,7 +7,7 @@ export const JobsCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Background job processing',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['jobs', 'background', 'async'],
   },
 });
@@ -19,7 +19,7 @@ export const SchedulerCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Scheduled job execution',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['scheduler', 'cron', 'jobs'],
   },
 });

@@ -7,7 +7,7 @@ export const IdentityCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'User identity and authentication',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['identity', 'auth'],
   },
 });
@@ -19,7 +19,7 @@ export const RbacCapability = defineCapability({
     kind: 'api',
     stability: StabilityEnum.Experimental,
     description: 'Role-based access control',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['rbac', 'permissions', 'auth'],
   },
 });

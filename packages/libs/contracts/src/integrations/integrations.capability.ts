@@ -8,7 +8,7 @@ export const IntegrationsCapability = defineCapability({
     kind: 'integration',
     stability: StabilityEnum.Experimental,
     description: 'Core integrations capability for third-party connections',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['integrations', 'platform'],
   },
 });

@@ -1,11 +1,4 @@
-
-import { describe, expect, it } from 'bun:test';
-import { ListDealsContract, MoveDealContract } from './deal.operation';
-import type { TestSpec } from '@contractspec/lib.contracts';
-
-function defineTestSpec(spec: TestSpec) {
-  return spec;
-}
+import { defineTestSpec } from '@contractspec/lib.contracts';
 
 export const dealListTest = defineTestSpec({
   meta: {

@@ -5,7 +5,7 @@ import { RunSummaryModel } from './run.schema';
 /**
  * Presentation for displaying a list of agent runs.
  */
-export const RunListPresentation = definePresentation({
+export const RunListPresentation: PresentationSpec = definePresentation({
   meta: {
     key: 'agent-console.run.list',
     version: '1.0.0',
@@ -32,7 +32,7 @@ export const RunListPresentation = definePresentation({
 /**
  * Presentation for run detail view.
  */
-export const RunDetailPresentation = definePresentation({
+export const RunDetailPresentation: PresentationSpec = definePresentation({
   meta: {
     key: 'agent-console.run.detail',
     version: '1.0.0',

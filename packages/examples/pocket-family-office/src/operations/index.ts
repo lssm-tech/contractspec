@@ -4,7 +4,11 @@ import {
   ScalarTypeEnum,
   type ZodSchemaModel,
 } from '@contractspec/lib.schema';
-import { defineCommand, defineQuery, type OperationSpec } from '@contractspec/lib.contracts';
+import {
+  defineCommand,
+  defineQuery,
+  type OperationSpec,
+} from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,

@@ -7,7 +7,7 @@ export const AiChatCapability = defineCapability({
     kind: 'ui',
     stability: StabilityEnum.Experimental,
     description: 'AI-powered chat interface',
-    owners: ['platform.core'],
+    owners: ['@platform.core'],
     tags: ['ai', 'chat', 'ui'],
   },
 });
