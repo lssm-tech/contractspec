@@ -368,10 +368,27 @@ function validateAppConfigSpec(
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  const specObject = getSpecObject(sourceFile, 'AppBlueprintSpec');
+  // Check for defineAppConfig call first
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const defineCall = callExpressions.find(
+    (c) => c.getExpression().getText() === 'defineAppConfig'
+  );
+
+  let specObject: ObjectLiteralExpression | undefined;
+
+  if (defineCall) {
+    const args = defineCall.getArguments();
+    if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+      specObject = args[0];
+    }
+  } else {
+    specObject = getSpecObject(sourceFile, 'AppBlueprintSpec');
+  }
 
   if (!specObject) {
-    errors.push('Missing AppBlueprintSpec type annotation');
+    errors.push('Missing defineAppConfig call or AppBlueprintSpec type annotation');
     return;
   }
 
@@ -526,10 +543,29 @@ function validatePresentationSpec(
   errors: string[],
   _warnings: string[]
 ) {
-  const specObject = getSpecObject(sourceFile, 'PresentationSpec');
+  // Check for definePresentation call first
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const defineCall = callExpressions.find(
+    (c) => c.getExpression().getText() === 'definePresentation'
+  );
+
+  let specObject: ObjectLiteralExpression | undefined;
+
+  if (defineCall) {
+    const args = defineCall.getArguments();
+    if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+      specObject = args[0];
+    }
+  } else {
+    specObject = getSpecObject(sourceFile, 'PresentationSpec');
+  }
 
   if (!specObject) {
-    errors.push('Missing PresentationSpec type annotation');
+    errors.push(
+      'Missing definePresentation call or PresentationSpec type annotation'
+    );
     return;
   }
 
@@ -569,10 +605,27 @@ function validateWorkflowSpec(
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  const specObject = getSpecObject(sourceFile, 'WorkflowSpec');
+  // Check for defineWorkflow call first
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const defineCall = callExpressions.find(
+    (c) => c.getExpression().getText() === 'defineWorkflow'
+  );
+
+  let specObject: ObjectLiteralExpression | undefined;
+
+  if (defineCall) {
+    const args = defineCall.getArguments();
+    if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+      specObject = args[0];
+    }
+  } else {
+    specObject = getSpecObject(sourceFile, 'WorkflowSpec');
+  }
 
   if (!specObject) {
-    errors.push('Missing WorkflowSpec type annotation');
+    errors.push('Missing defineWorkflow call or WorkflowSpec type annotation');
     return;
   }
 
@@ -738,7 +791,15 @@ function validateCommonFields(
     code.includes('AppBlueprintSpec') ||
     code.includes('defineCommand') ||
     code.includes('defineQuery') ||
-    code.includes('defineEvent');
+    code.includes('defineEvent') ||
+    code.includes('definePresentation') ||
+    code.includes('defineWorkflow') ||
+    code.includes('defineDataView') ||
+    code.includes('defineAppConfig') ||
+    code.includes('defineFeature') || // Assuming features are validated elsewhere
+    code.includes('defineExperiment') ||
+    code.includes('defineTelemetry') ||
+    code.includes('defineMigration');
 
   if (usesSpecTypes && !isInternalLib) {
     const imports = sourceFile.getImportDeclarations();
@@ -840,10 +901,27 @@ function validateDataViewSpec(
   warnings: string[],
   rulesConfig: RulesConfig
 ) {
-  const specObject = getSpecObject(sourceFile, 'DataViewSpec');
+  // Check for defineDataView call first
+  const callExpressions = sourceFile.getDescendantsOfKind(
+    SyntaxKind.CallExpression
+  );
+  const defineCall = callExpressions.find(
+    (c) => c.getExpression().getText() === 'defineDataView'
+  );
+
+  let specObject: ObjectLiteralExpression | undefined;
+
+  if (defineCall) {
+    const args = defineCall.getArguments();
+    if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+      specObject = args[0];
+    }
+  } else {
+    specObject = getSpecObject(sourceFile, 'DataViewSpec');
+  }
 
   if (!specObject) {
-    errors.push('Missing DataViewSpec type annotation');
+    errors.push('Missing defineDataView call or DataViewSpec type annotation');
     return;
   }
   if (!specObject.getProperty('meta')) {

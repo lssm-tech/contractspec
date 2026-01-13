@@ -1,7 +1,7 @@
 import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { StoreModel } from './store.schema';
 
-export const StoreProfilePresentation: PresentationSpec = definePresentation({
+export const StoreProfilePresentation = definePresentation({
   meta: {
     key: 'marketplace.store.profile',
     version: '1.0.0',
@@ -26,7 +26,7 @@ export const StoreProfilePresentation: PresentationSpec = definePresentation({
   },
 });
 
-export const SellerDashboardPresentation: PresentationSpec = definePresentation(
+export const SellerDashboardPresentation = definePresentation(
   {
     meta: {
       key: 'marketplace.seller.dashboard',
