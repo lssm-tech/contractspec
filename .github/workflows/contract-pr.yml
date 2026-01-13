@@ -39,33 +39,40 @@ jobs:
           # Generate audience views
           bun contractspec view --audience product > product-view.md
           bun contractspec view --audience eng > eng-view.md
-          
-          # Capture output to variables (handling multiline)
-          echo "PRODUCT_VIEW<<EOF" >> $GITHUB_ENV
-          cat product-view.md >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
       - name: Comment on PR
         uses: actions/github-script@v8
         with:
           script: |
-            const productView = process.env.PRODUCT_VIEW;
-            
+            const fs = require('fs');
+            const path = 'product-view.md';
+            let productView = '';
+            if (fs.existsSync(path)) {
+              productView = fs.readFileSync(path, 'utf8');
+              // truncate to avoid massive comments
+              const maxLen = 60000;
+              if (productView.length > maxLen) {
+                productView = productView.slice(0, maxLen) + '\n\n*(output truncated — view full file in the CI artifact or repo)*';
+              }
+            } else {
+              productView = '_No product view generated._';
+            }
+
             const body = `### 📋 ContractSpec Change Summary
-            
+
             This PR modifies contracts. Here is the generated product view:
-            
+
             <details>
             <summary>Product View (User Flow & Capabilities)</summary>
-            
+
             ${productView}
-            
+
             </details>
-            
+
             Run \`contractspec view <file> --audience product\` locally to see details.
             `;
             
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
