@@ -3,13 +3,13 @@
  *
  * Defines the feature module for usage metering and threshold management.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
- * Metering feature module that bundles metric definitions,
- * usage tracking, and threshold alerting capabilities.
+ * Metering feature module that bundles usage tracking,
+ * metrics definitions, and billing capabilities.
  */
-export const MeteringFeature: FeatureModuleSpec = {
+export const MeteringFeature = defineFeature({
   meta: {
     key: 'metering',
     version: '1.0.0',
@@ -73,4 +73,4 @@ export const MeteringFeature: FeatureModuleSpec = {
     ],
     requires: [],
   },
-};
+});

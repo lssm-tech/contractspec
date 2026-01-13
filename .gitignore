@@ -99,3 +99,4 @@ build-*.apk
 **/WARP.md
 **/modular-mcp.json
 !.rulesync/.aiignore
+.grepai/

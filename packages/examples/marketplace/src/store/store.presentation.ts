@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { StoreModel } from './store.schema';
 
-export const StoreProfilePresentation: PresentationSpec = {
+export const StoreProfilePresentation = definePresentation({
   meta: {
     key: 'marketplace.store.profile',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const StoreProfilePresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.stores.enabled'],
   },
-};
+});
 
-export const SellerDashboardPresentation: PresentationSpec = {
+export const SellerDashboardPresentation = definePresentation({
   meta: {
     key: 'marketplace.seller.dashboard',
     version: '1.0.0',
@@ -50,4 +49,4 @@ export const SellerDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.seller.enabled'],
   },
-};
+});

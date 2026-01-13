@@ -485,6 +485,8 @@ export async function analyzeIntegrity(
     for (const link of feature.opToPresentationLinks) {
       const opKey = specKey(link.op.key, link.op.version);
       const tests = testIndex.targetToTests.get(opKey);
+      
+
 
       let hasSuccess = false;
       let hasError = false;

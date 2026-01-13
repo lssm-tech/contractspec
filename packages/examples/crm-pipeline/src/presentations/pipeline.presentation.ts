@@ -1,14 +1,13 @@
 /**
  * Pipeline Presentation Descriptors
  */
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { DealModel } from '../deal/deal.schema';
 
 /**
  * Kanban board presentation for the sales pipeline.
  */
-export const PipelineKanbanPresentation: PresentationSpec = {
+export const PipelineKanbanPresentation = definePresentation({
   meta: {
     key: 'crm.pipeline.kanban',
     version: '1.0.0',
@@ -31,12 +30,12 @@ export const PipelineKanbanPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.pipeline.enabled'],
   },
-};
+});
 
 /**
  * List view of deals with filtering.
  */
-export const DealListPresentation: PresentationSpec = {
+export const DealListPresentation = definePresentation({
   meta: {
     key: 'crm.deal.list',
     version: '1.0.0',
@@ -59,12 +58,12 @@ export const DealListPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.deals.enabled'],
   },
-};
+});
 
 /**
  * Deal detail presentation.
  */
-export const DealDetailPresentation: PresentationSpec = {
+export const DealDetailPresentation = definePresentation({
   meta: {
     key: 'crm.deal.detail',
     version: '1.0.0',
@@ -87,12 +86,12 @@ export const DealDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.deals.enabled'],
   },
-};
+});
 
 /**
  * Deal card for kanban board.
  */
-export const DealCardPresentation: PresentationSpec = {
+export const DealCardPresentation = definePresentation({
   meta: {
     key: 'crm.deal.card',
     version: '1.0.0',
@@ -115,4 +114,4 @@ export const DealCardPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.deals.enabled'],
   },
-};
+});

@@ -37,6 +37,7 @@
   },
   "exports": {
     ".": "./dist/index.js",
+    "./audit-trail.capability": "./dist/audit-trail.capability.js",
     "./audit-trail.feature": "./dist/audit-trail.feature.js",
     "./contracts": "./dist/contracts/index.js",
     "./entities": "./dist/entities/index.js",

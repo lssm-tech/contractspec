@@ -38,6 +38,7 @@
     "./handlers": "./dist/handlers/index.js",
     "./operations": "./dist/operations/index.js",
     "./presentations": "./dist/presentations/index.js",
+    "./wealth-snapshot.capability": "./dist/wealth-snapshot.capability.js",
     "./wealth-snapshot.feature": "./dist/wealth-snapshot.feature.js",
     "./*": "./*"
   },

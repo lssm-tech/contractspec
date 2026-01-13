@@ -41,6 +41,7 @@
     "./entities": "./dist/entities/index.js",
     "./evaluation": "./dist/evaluation/index.js",
     "./events": "./dist/events.js",
+    "./feature-flags.capability": "./dist/feature-flags.capability.js",
     "./feature-flags.feature": "./dist/feature-flags.feature.js",
     "./*": "./*"
   },

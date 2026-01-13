@@ -45,6 +45,7 @@
     "./entities/rbac": "./dist/entities/rbac.js",
     "./entities/user": "./dist/entities/user.js",
     "./events": "./dist/events.js",
+    "./identity-rbac.capability": "./dist/identity-rbac.capability.js",
     "./identity-rbac.feature": "./dist/identity-rbac.feature.js",
     "./policies": "./dist/policies/index.js",
     "./policies/engine": "./dist/policies/engine.js",

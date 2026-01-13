@@ -37,6 +37,7 @@
     "./settings/settings.enum": "./dist/settings/settings.enum.js",
     "./shared/mock-data": "./dist/shared/mock-data.js",
     "./shared/overlay-types": "./dist/shared/overlay-types.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./ui": "./dist/ui/index.js",
     "./ui/hooks": "./dist/ui/hooks/index.js",
     "./ui/hooks/useProjectList": "./dist/ui/hooks/useProjectList.js",

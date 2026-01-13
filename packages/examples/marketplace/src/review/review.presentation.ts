@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { ReviewModel } from './review.schema';
 
-export const ReviewListPresentation: PresentationSpec = {
+export const ReviewListPresentation = definePresentation({
   meta: {
     key: 'marketplace.review.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const ReviewListPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.reviews.enabled'],
   },
-};
+});
 
-export const ReviewFormPresentation: PresentationSpec = {
+export const ReviewFormPresentation = definePresentation({
   meta: {
     key: 'marketplace.review.form',
     version: '1.0.0',
@@ -50,4 +49,4 @@ export const ReviewFormPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.reviews.enabled'],
   },
-};
+});

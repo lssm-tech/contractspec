@@ -3,13 +3,13 @@
  *
  * Defines the feature module for audit logging and compliance.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Audit Trail feature module that bundles audit log querying,
  * export, and statistics capabilities.
  */
-export const AuditTrailFeature: FeatureModuleSpec = {
+export const AuditTrailFeature = defineFeature({
   meta: {
     key: 'audit-trail',
     title: 'Audit Trail',
@@ -43,4 +43,4 @@ export const AuditTrailFeature: FeatureModuleSpec = {
     provides: [{ key: 'audit-trail', version: '1.0.0' }],
     requires: [],
   },
-};
+});

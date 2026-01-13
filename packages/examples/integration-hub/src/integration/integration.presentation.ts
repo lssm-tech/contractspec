@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { IntegrationModel } from './integration.schema';
 
-export const IntegrationListPresentation: PresentationSpec = {
+export const IntegrationListPresentation = definePresentation({
   meta: {
     key: 'integration.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const IntegrationListPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.enabled'],
   },
-};
+});
 
-export const IntegrationDetailPresentation: PresentationSpec = {
+export const IntegrationDetailPresentation = definePresentation({
   meta: {
     key: 'integration.detail',
     version: '1.0.0',
@@ -50,9 +49,9 @@ export const IntegrationDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.enabled'],
   },
-};
+});
 
-export const IntegrationHealthPresentation: PresentationSpec = {
+export const IntegrationHealthPresentation = definePresentation({
   meta: {
     key: 'integration.health',
     version: '1.0.0',
@@ -74,4 +73,4 @@ export const IntegrationHealthPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.monitoring.enabled'],
   },
-};
+});

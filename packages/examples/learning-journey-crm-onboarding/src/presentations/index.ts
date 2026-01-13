@@ -1,8 +1,4 @@
-import type {
-  PresentationSpecMeta,
-  PresentationSpec,
-} from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum, type PresentationSpecMeta } from '@contractspec/lib.contracts';
 import { CrmOnboardingTrackModel } from '../operations';
 
 const baseMeta: Pick<
@@ -18,7 +14,7 @@ const baseMeta: Pick<
   context: 'CRM onboarding journey',
 };
 
-export const CrmOnboardingTrackPresentation: PresentationSpec = {
+export const CrmOnboardingTrackPresentation = definePresentation({
   meta: {
     key: 'learning.journey.crm.track',
     version: '1.0.0',
@@ -32,9 +28,9 @@ export const CrmOnboardingTrackPresentation: PresentationSpec = {
     props: CrmOnboardingTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
-};
+});
 
-export const CrmOnboardingWidgetPresentation: PresentationSpec = {
+export const CrmOnboardingWidgetPresentation = definePresentation({
   meta: {
     key: 'learning.journey.crm.widget',
     version: '1.0.0',
@@ -47,7 +43,7 @@ export const CrmOnboardingWidgetPresentation: PresentationSpec = {
     componentKey: 'LearningTrackProgressWidget',
   },
   targets: ['react'],
-};
+});
 
 export const crmOnboardingPresentations = [
   CrmOnboardingTrackPresentation,

@@ -50,6 +50,7 @@
     "./quote": "./dist/quote/index.js",
     "./quote/quote.operations": "./dist/quote/quote.operations.js",
     "./quote/quote.schema": "./dist/quote/quote.schema.js",
+    "./service-business-os.capability": "./dist/service-business-os.capability.js",
     "./service.feature": "./dist/service.feature.js",
     "./*": "./*"
   },

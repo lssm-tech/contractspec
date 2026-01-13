@@ -42,6 +42,7 @@
     "./docs/metering.docblock": "./dist/docs/metering.docblock.js",
     "./entities": "./dist/entities/index.js",
     "./events": "./dist/events.js",
+    "./metering.capability": "./dist/metering.capability.js",
     "./metering.feature": "./dist/metering.feature.js",
     "./*": "./*"
   },

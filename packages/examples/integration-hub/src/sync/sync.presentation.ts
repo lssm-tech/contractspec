@@ -1,12 +1,11 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import {
   SyncConfigModel,
   SyncRunModel,
   FieldMappingModel,
 } from './sync.schema';
 
-export const SyncConfigListPresentation: PresentationSpec = {
+export const SyncConfigListPresentation = definePresentation({
   meta: {
     key: 'integration.syncConfig.list',
     version: '1.0.0',
@@ -29,9 +28,9 @@ export const SyncConfigListPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});
 
-export const SyncConfigEditorPresentation: PresentationSpec = {
+export const SyncConfigEditorPresentation = definePresentation({
   meta: {
     key: 'integration.syncConfig.editor',
     version: '1.0.0',
@@ -54,9 +53,9 @@ export const SyncConfigEditorPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});
 
-export const FieldMappingEditorPresentation: PresentationSpec = {
+export const FieldMappingEditorPresentation = definePresentation({
   meta: {
     key: 'integration.fieldMapping.editor',
     version: '1.0.0',
@@ -79,9 +78,9 @@ export const FieldMappingEditorPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});
 
-export const SyncRunListPresentation: PresentationSpec = {
+export const SyncRunListPresentation = definePresentation({
   meta: {
     key: 'integration.syncRun.list',
     version: '1.0.0',
@@ -104,9 +103,9 @@ export const SyncRunListPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});
 
-export const SyncRunDetailPresentation: PresentationSpec = {
+export const SyncRunDetailPresentation = definePresentation({
   meta: {
     key: 'integration.syncRun.detail',
     version: '1.0.0',
@@ -129,9 +128,9 @@ export const SyncRunDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});
 
-export const SyncActivityPresentation: PresentationSpec = {
+export const SyncActivityPresentation = definePresentation({
   meta: {
     key: 'integration.sync.activity',
     version: '1.0.0',
@@ -153,4 +152,4 @@ export const SyncActivityPresentation: PresentationSpec = {
   policy: {
     flags: ['integration.sync.enabled'],
   },
-};
+});

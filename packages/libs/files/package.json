@@ -41,6 +41,7 @@
     "./docs/files.docblock": "./dist/docs/files.docblock.js",
     "./entities": "./dist/entities/index.js",
     "./events": "./dist/events.js",
+    "./files.capability": "./dist/files.capability.js",
     "./files.feature": "./dist/files.feature.js",
     "./storage": "./dist/storage/index.js",
     "./*": "./*"

@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const ServiceBusinessFeature: FeatureModuleSpec = {
+export const ServiceBusinessFeature = defineFeature({
   meta: {
     key: 'service-business-os',
     title: 'Service Business OS',
@@ -69,4 +69,4 @@ export const ServiceBusinessFeature: FeatureModuleSpec = {
       { key: 'invoices', version: '1.0.0' },
     ],
   },
-};
+});

@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const VersionedKnowledgeBaseFeature: FeatureModuleSpec = {
+export const VersionedKnowledgeBaseFeature = defineFeature({
   meta: {
     key: 'versioned-knowledge-base',
     version: '1.0.0',
@@ -31,4 +31,4 @@ export const VersionedKnowledgeBaseFeature: FeatureModuleSpec = {
   capabilities: {
     requires: [{ key: 'knowledge', version: '1.0.0' }],
   },
-};
+});

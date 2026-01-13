@@ -1,10 +1,9 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 
 /**
  * Main dashboard presentation for the SaaS application.
  */
-export const SaasDashboardPresentation: PresentationSpec = {
+export const SaasDashboardPresentation = definePresentation({
   meta: {
     key: 'saas.dashboard',
     version: '1.0.0',
@@ -27,12 +26,12 @@ export const SaasDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.enabled'],
   },
-};
+});
 
 /**
  * Settings panel presentation.
  */
-export const SettingsPanelPresentation: PresentationSpec = {
+export const SettingsPanelPresentation = definePresentation({
   meta: {
     key: 'saas.settings',
     version: '1.0.0',
@@ -54,4 +53,4 @@ export const SettingsPanelPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.enabled'],
   },
-};
+});

@@ -23,6 +23,7 @@ import {
   extractRefList,
   extractTestRefs,
   extractTestCoverage,
+  extractTestTarget,
 } from './spec-parsing-utils';
 
 export { extractTestTarget, extractTestCoverage } from './spec-parsing-utils';
@@ -41,7 +42,7 @@ export function scanAllSpecsFromSource(
 
   // Match export definitions: export const X = defineXXX calls
   const definitionRegex =
-    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow)\s*\(/g;
+    /export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec)\s*\(/g;
   let match;
 
   while ((match = definitionRegex.exec(code)) !== null) {
@@ -138,6 +139,9 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
   } else if (code.includes('defineWorkflow')) {
     specType = 'workflow';
     kind = 'workflow';
+  } else if (code.includes('defineTestSpec')) {
+    specType = 'test-spec';
+    kind = 'test-spec';
   }
 
   // Check feature flags/sections
@@ -176,6 +180,7 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
     emittedEvents,
     policyRefs,
     testRefs,
+    testTarget: extractTestTarget(code),
     testCoverage: extractTestCoverage(code),
     sourceBlock: code,
   };

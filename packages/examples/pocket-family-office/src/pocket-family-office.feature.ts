@@ -3,13 +3,13 @@
  *
  * Defines the feature module for personal finance automation.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Pocket Family Office feature module that bundles financial document
  * management, open banking integration, and automated summaries.
  */
-export const PocketFamilyOfficeFeature: FeatureModuleSpec = {
+export const PocketFamilyOfficeFeature = defineFeature({
   meta: {
     key: 'pocket-family-office',
     version: '1.0.0',
@@ -47,4 +47,4 @@ export const PocketFamilyOfficeFeature: FeatureModuleSpec = {
       { key: 'openbanking', version: '1.0.0' },
     ],
   },
-};
+});

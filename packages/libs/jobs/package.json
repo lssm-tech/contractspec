@@ -47,6 +47,7 @@
     "./handlers/gmail-sync-handler": "./dist/handlers/gmail-sync-handler.js",
     "./handlers/ping-job": "./dist/handlers/ping-job.js",
     "./handlers/storage-document-handler": "./dist/handlers/storage-document-handler.js",
+    "./jobs.capability": "./dist/jobs.capability.js",
     "./jobs.feature": "./dist/jobs.feature.js",
     "./queue": "./dist/queue/index.js",
     "./queue/gcp-cloud-tasks": "./dist/queue/gcp-cloud-tasks.js",

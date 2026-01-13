@@ -11,6 +11,7 @@
     "./deal/deal.enum": "./dist/deal/deal.enum.js",
     "./deal/deal.operation": "./dist/deal/deal.operation.js",
     "./deal/deal.schema": "./dist/deal/deal.schema.js",
+    "./deal/deal.test-spec": "./dist/deal/deal.test-spec.js",
     "./docs": "./dist/docs/index.js",
     "./docs/crm-pipeline.docblock": "./dist/docs/crm-pipeline.docblock.js",
     "./entities": "./dist/entities/index.js",

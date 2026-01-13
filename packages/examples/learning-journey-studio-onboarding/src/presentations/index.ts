@@ -1,8 +1,4 @@
-import type {
-  PresentationSpecMeta,
-  PresentationSpec,
-} from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum, type PresentationSpecMeta } from '@contractspec/lib.contracts';
 import { StudioOnboardingTrackModel } from '../operations';
 
 const baseMeta: Pick<
@@ -16,7 +12,7 @@ const baseMeta: Pick<
   stability: StabilityEnum.Experimental,
 };
 
-export const StudioOnboardingTrackPresentation: PresentationSpec = {
+export const StudioOnboardingTrackPresentation = definePresentation({
   meta: {
     key: 'learning.journey.studio.track',
     version: '1.0.0',
@@ -32,9 +28,9 @@ export const StudioOnboardingTrackPresentation: PresentationSpec = {
     props: StudioOnboardingTrackModel,
   },
   targets: ['react', 'markdown', 'application/json'],
-};
+});
 
-export const StudioOnboardingWidgetPresentation: PresentationSpec = {
+export const StudioOnboardingWidgetPresentation = definePresentation({
   meta: {
     key: 'learning.journey.studio.widget',
     version: '1.0.0',
@@ -49,7 +45,7 @@ export const StudioOnboardingWidgetPresentation: PresentationSpec = {
     componentKey: 'LearningTrackProgressWidget',
   },
   targets: ['react'],
-};
+});
 
 export const studioOnboardingPresentations = [
   StudioOnboardingTrackPresentation,

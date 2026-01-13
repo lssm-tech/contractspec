@@ -3,13 +3,13 @@
  *
  * Defines the feature module for identity management and role-based access control.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
- * Identity RBAC feature module that bundles user, organization,
- * and role-based access control capabilities.
+ * Identity & RBAC feature module that bundles user management,
+ * organization tenancy, and role-based access control.
  */
-export const IdentityRbacFeature: FeatureModuleSpec = {
+export const IdentityRbacFeature = defineFeature({
   meta: {
     key: 'identity-rbac',
     version: '1.0.0',
@@ -91,4 +91,4 @@ export const IdentityRbacFeature: FeatureModuleSpec = {
     ],
     requires: [],
   },
-};
+});
