@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.ai-support-bot",
-  "version": "1.46.2",
+  "version": "1.47.0",
   "description": "AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.",
   "type": "module",
   "types": "./dist/index.d.ts",
