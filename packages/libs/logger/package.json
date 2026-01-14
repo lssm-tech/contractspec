@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.logger",
-  "version": "1.46.2",
+  "version": "1.47.0",
   "description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
   "keywords": [
     "contractspec",
