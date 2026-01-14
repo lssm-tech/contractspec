@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.analytics-dashboard",
-  "version": "1.46.2",
+  "version": "1.47.0",
   "description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",
