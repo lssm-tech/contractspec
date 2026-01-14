@@ -352,6 +352,7 @@
     "./workflow/validation": "./dist/workflow/validation.js",
     "./workspace-config": "./dist/workspace-config/index.js",
     "./workspace-config/contractsrc-schema": "./dist/workspace-config/contractsrc-schema.js",
+    "./workspace-config/contractsrc-types": "./dist/workspace-config/contractsrc-types.js",
     "./workspace-config/workspace-config.docblock": "./dist/workspace-config/workspace-config.docblock.js",
     "./*": "./*"
   },

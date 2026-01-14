@@ -17,7 +17,7 @@ import {
   resolveOperationGroupFolder,
 } from './grouping';
 import type {
-  ContractsrcConfig,
+  ResolvedContractsrcConfig,
   OpenApiSourceConfig,
 } from '@contractspec/lib.contracts';
 
@@ -33,7 +33,7 @@ export * from './grouping';
  */
 export const importFromOpenApi = (
   parseResult: ParseResult,
-  contractspecOptions: ContractsrcConfig,
+  contractspecOptions: ResolvedContractsrcConfig,
   importOptions: Partial<OpenApiSourceConfig> = {}
 ): ImportResult => {
   const { tags, exclude = [], include } = importOptions;
@@ -305,7 +305,7 @@ export const importFromOpenApi = (
 export function importOperation(
   operation: ParsedOperation,
   options: Partial<OpenApiSourceConfig> = {},
-  contractspecOptions: ContractsrcConfig
+  contractspecOptions: ResolvedContractsrcConfig
 ): string {
   // Build input schemas
   const inputSchemas = buildInputSchemas(operation);

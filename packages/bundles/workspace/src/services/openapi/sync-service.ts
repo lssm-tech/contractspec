@@ -13,14 +13,14 @@ import type {
   OpenApiSyncServiceResult,
 } from './types';
 import { dirname, join } from 'path';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Sync ContractSpec specs with OpenAPI sources.
  */
 export async function syncWithOpenApiService(
   options: OpenApiSyncServiceOptions,
-  config: ContractsrcConfig,
+  config: ResolvedContractsrcConfig,
   adapters: { fs: FsAdapter; logger: LoggerAdapter }
 ): Promise<OpenApiSyncServiceResult> {
   const { fs, logger } = adapters;

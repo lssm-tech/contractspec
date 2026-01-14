@@ -184,5 +184,5 @@ export function buildOutputPath(
  * Determine if feature-based grouping should be applied.
  */
 export function shouldGroupByFeature(conventions: FolderConventions): boolean {
-  return conventions.groupByFeature;
+  return conventions.groupByFeature ?? false;
 }

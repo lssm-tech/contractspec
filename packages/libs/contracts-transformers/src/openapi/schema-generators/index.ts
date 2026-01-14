@@ -7,7 +7,7 @@
  */
 
 import type {
-  ContractsrcConfig,
+  ResolvedContractsrcConfig,
   SchemaFormat,
 } from '@contractspec/lib.contracts';
 import type { OpenApiSchema } from '../types';
@@ -119,7 +119,7 @@ export interface SchemaGenerator {
  */
 export function createSchemaGenerator(
   format: SchemaFormat,
-  config?: ContractsrcConfig
+  config?: ResolvedContractsrcConfig
 ): SchemaGenerator {
   switch (format) {
     case 'zod':
@@ -140,9 +140,9 @@ export function createSchemaGenerator(
 
 export class ContractSpecSchemaGenerator implements SchemaGenerator {
   format: SchemaFormat = 'contractspec';
-  config?: ContractsrcConfig;
+  config?: ResolvedContractsrcConfig;
 
-  constructor(config?: ContractsrcConfig) {
+  constructor(config?: ResolvedContractsrcConfig) {
     this.config = config;
   }
 
@@ -475,9 +475,9 @@ export class ContractSpecSchemaGenerator implements SchemaGenerator {
 
 export class ZodSchemaGenerator implements SchemaGenerator {
   format: SchemaFormat = 'zod';
-  config?: ContractsrcConfig;
+  config?: ResolvedContractsrcConfig;
 
-  constructor(config?: ContractsrcConfig) {
+  constructor(config?: ResolvedContractsrcConfig) {
     this.config = config;
   }
 
@@ -683,9 +683,9 @@ export class ZodSchemaGenerator implements SchemaGenerator {
 
 export class JsonSchemaGenerator implements SchemaGenerator {
   format: SchemaFormat = 'json-schema';
-  config?: ContractsrcConfig;
+  config?: ResolvedContractsrcConfig;
 
-  constructor(config?: ContractsrcConfig) {
+  constructor(config?: ResolvedContractsrcConfig) {
     this.config = config;
   }
 
@@ -769,9 +769,9 @@ export class JsonSchemaGenerator implements SchemaGenerator {
 
 export class GraphQLSchemaGenerator implements SchemaGenerator {
   format: SchemaFormat = 'graphql';
-  config?: ContractsrcConfig;
+  config?: ResolvedContractsrcConfig;
 
-  constructor(config?: ContractsrcConfig) {
+  constructor(config?: ResolvedContractsrcConfig) {
     this.config = config;
   }
 

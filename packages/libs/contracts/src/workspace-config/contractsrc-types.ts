@@ -116,10 +116,10 @@ export interface OpenApiExportConfig {
   /** API description for export */
   description?: string;
   /** Server URLs to include in export */
-  servers?: Array<{
+  servers?: {
     url: string;
     description?: string;
-  }>;
+  }[];
 }
 
 export interface OpenApiConfig {
@@ -374,7 +374,11 @@ export type HooksConfig = Record<string, string[]>;
 /**
  * Full ContractSpec configuration (.contractsrc.json).
  */
-export interface ContractsrcConfig {
+/**
+ * Full ContractSpec configuration (.contractsrc.json).
+ * All fields are optional as they come from user configuration.
+ */
+export interface ContractsrcFileConfig {
   aiProvider?: 'claude' | 'openai' | 'ollama' | 'custom';
   aiModel?: string;
   agentMode?:
@@ -417,3 +421,38 @@ export interface ContractsrcConfig {
   // External agent SDK configuration
   externalAgents?: ExternalAgentsConfig;
 }
+
+/**
+ * Resolved configuration with guaranteed defaults.
+ * This is what the application uses at runtime.
+ */
+export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
+  aiProvider: 'claude' | 'openai' | 'ollama' | 'custom';
+  agentMode:
+    | 'simple'
+    | 'cursor'
+    | 'claude-code'
+    | 'openai-codex'
+    | 'claude-agent-sdk'
+    | 'opencode-sdk';
+  outputDir: string;
+  conventions: {
+    models: string;
+    operations: string;
+    events: string;
+    presentations: string;
+    forms: string;
+    groupByFeature: boolean;
+    operationsGrouping?: GroupingRule;
+    modelsGrouping?: GroupingRule;
+    eventsGrouping?: GroupingRule;
+  };
+  defaultOwners: string[];
+  defaultTags: string[];
+  schemaFormat: SchemaFormat;
+}
+
+/**
+ * @deprecated Use ContractsrcFileConfig for file inputs or ResolvedContractsrcConfig for app usage.
+ */
+export type ContractsrcConfig = ContractsrcFileConfig;

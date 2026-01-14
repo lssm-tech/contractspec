@@ -1,14 +1,14 @@
 import type { ParsedEvent } from '../types';
 import { generateImports, generateSchemaModelCode } from '../schema-converter';
 import { toPascalCase, toValidIdentifier } from '../../common/utils';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Generate code for an event.
  */
 export function generateEventCode(
   event: ParsedEvent,
-  options: ContractsrcConfig
+  options: ResolvedContractsrcConfig
 ): string {
   const eventName = toValidIdentifier(event.name);
   const modelName = toPascalCase(eventName) + 'Payload';

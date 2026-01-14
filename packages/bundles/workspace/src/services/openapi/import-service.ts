@@ -13,7 +13,7 @@ import type {
   OpenApiImportServiceResult,
 } from './types';
 import { dirname, join, basename } from 'path';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 /**
  * Get output directory for spec type
@@ -21,7 +21,7 @@ import type { ContractsrcConfig } from '@contractspec/lib.contracts';
 function getOutputDir(
   type: 'operation' | 'event' | 'model',
   options: OpenApiImportServiceOptions,
-  config: ContractsrcConfig
+  config: ResolvedContractsrcConfig
 ): string {
   // If outputDir is explicitly set in options, use it for all types
   if (options.outputDir) {
@@ -29,11 +29,8 @@ function getOutputDir(
   }
 
   // Default base
-  const baseDir = config.outputDir ?? 'src';
-  const conventions = config.conventions ?? {
-    operations: 'operations',
-    events: 'events',
-  };
+  const baseDir = config.outputDir;
+  const conventions = config.conventions;
 
   switch (type) {
     case 'operation':
@@ -43,7 +40,7 @@ function getOutputDir(
         conventions.operations.split('|')[0] ?? 'operations'
       );
     case 'event':
-      return join(baseDir, conventions.events ?? 'events');
+      return join(baseDir, conventions.events);
     case 'model':
       return join(baseDir, 'models'); // Standardize on 'models' for now
     default:
@@ -55,7 +52,7 @@ function getOutputDir(
  * Import ContractSpec specs from an OpenAPI document.
  */
 export async function importFromOpenApiService(
-  contractspecOptions: ContractsrcConfig,
+  contractspecOptions: ResolvedContractsrcConfig,
   options: OpenApiImportServiceOptions,
   adapters: { fs: FsAdapter; logger: LoggerAdapter }
 ): Promise<OpenApiImportServiceResult> {

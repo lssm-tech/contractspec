@@ -40,6 +40,7 @@ import type {
   TestLinkingConfig,
   TestLinkingStrategy,
   VersioningConfig,
+  ResolvedContractsrcConfig,
 } from './contractsrc-types';
 
 export * from './contractsrc-types';
@@ -58,56 +59,61 @@ export const SchemaFormatSchema: z.ZodType<SchemaFormat> = z.enum([
 /**
  * OpenAPI source configuration for import/sync/validate operations.
  */
-export const OpenApiSourceConfigSchema: z.ZodType<OpenApiSourceConfig> = z.object({
-  /** Friendly name for the source */
-  name: z.string(),
-  /** Remote URL to fetch OpenAPI spec from */
-  url: z.string().url().optional(),
-  /** Local file path to OpenAPI spec */
-  file: z.string().optional(),
-  /** Sync mode: import (one-time), sync (update), validate (check only) */
-  syncMode: z.enum(['import', 'sync', 'validate']).default('validate').optional(),
-  /** Only import operations with these tags */
-  tags: z.array(z.string()).optional(),
-  /** Exclude operations with these operationIds */
-  exclude: z.array(z.string()).optional(),
-  /** Include operations with these operationIds (overrides exclude) */
-  include: z.array(z.string()).optional(),
-  /** Prefix for generated spec names */
-  prefix: z.string().optional(),
-  /** Default stability for imported specs */
-  defaultStability: z
-    .enum(['experimental', 'beta', 'stable', 'deprecated'])
-    .optional(),
-  /** Default auth level for imported specs */
-  defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
-  /** Default owners for imported specs */
-  defaultOwners: z.array(z.string()).optional(),
-  /** Output schema format for generated models */
-  schemaFormat: SchemaFormatSchema.default('contractspec').optional(),
-});
+export const OpenApiSourceConfigSchema: z.ZodType<OpenApiSourceConfig> =
+  z.object({
+    /** Friendly name for the source */
+    name: z.string(),
+    /** Remote URL to fetch OpenAPI spec from */
+    url: z.string().url().optional(),
+    /** Local file path to OpenAPI spec */
+    file: z.string().optional(),
+    /** Sync mode: import (one-time), sync (update), validate (check only) */
+    syncMode: z
+      .enum(['import', 'sync', 'validate'])
+      .default('validate')
+      .optional(),
+    /** Only import operations with these tags */
+    tags: z.array(z.string()).optional(),
+    /** Exclude operations with these operationIds */
+    exclude: z.array(z.string()).optional(),
+    /** Include operations with these operationIds (overrides exclude) */
+    include: z.array(z.string()).optional(),
+    /** Prefix for generated spec names */
+    prefix: z.string().optional(),
+    /** Default stability for imported specs */
+    defaultStability: z
+      .enum(['experimental', 'beta', 'stable', 'deprecated'])
+      .optional(),
+    /** Default auth level for imported specs */
+    defaultAuth: z.enum(['anonymous', 'user', 'admin']).optional(),
+    /** Default owners for imported specs */
+    defaultOwners: z.array(z.string()).optional(),
+    /** Output schema format for generated models */
+    schemaFormat: SchemaFormatSchema.default('contractspec').optional(),
+  });
 
-export const OpenApiExportConfigSchema: z.ZodType<OpenApiExportConfig> = z.object({
-  /** Output path for exported OpenAPI document */
-  outputPath: z.string().default('./openapi.json').optional(),
-  /** Output format */
-  format: z.enum(['json', 'yaml']).default('json').optional(),
-  /** API title for export */
-  title: z.string().optional(),
-  /** API version for export */
-  version: z.string().optional(),
-  /** API description for export */
-  description: z.string().optional(),
-  /** Server URLs to include in export */
-  servers: z
-    .array(
-      z.object({
-        url: z.string(),
-        description: z.string().optional(),
-      })
-    )
-    .optional(),
-});
+export const OpenApiExportConfigSchema: z.ZodType<OpenApiExportConfig> =
+  z.object({
+    /** Output path for exported OpenAPI document */
+    outputPath: z.string().default('./openapi.json').optional(),
+    /** Output format */
+    format: z.enum(['json', 'yaml']).default('json').optional(),
+    /** API title for export */
+    title: z.string().optional(),
+    /** API version for export */
+    version: z.string().optional(),
+    /** API description for export */
+    description: z.string().optional(),
+    /** Server URLs to include in export */
+    servers: z
+      .array(
+        z.object({
+          url: z.string(),
+          description: z.string().optional(),
+        })
+      )
+      .optional(),
+  });
 
 /**
  * OpenAPI configuration section.
@@ -206,7 +212,10 @@ export const ImpactConfigSchema: z.ZodType<ImpactConfig> = z.object({
  */
 export const CiConfigSchema: z.ZodType<CiConfig> = z.object({
   /** Default checks to run */
-  checks: z.array(z.string()).default(['structure', 'integrity', 'deps']).optional(),
+  checks: z
+    .array(z.string())
+    .default(['structure', 'integrity', 'deps'])
+    .optional(),
   /** Checks to skip */
   skipChecks: z.array(z.string()).optional(),
   /** Fail CI on warnings */
@@ -321,7 +330,8 @@ export const VersioningConfigSchema: z.ZodType<VersioningConfig> = z.object({
   /** Changelog tiers to generate */
   changelogTiers: z
     .array(ChangelogTierSchema)
-    .default(['spec', 'library', 'monorepo']).optional(),
+    .default(['spec', 'library', 'monorepo'])
+    .optional(),
   /** Changelog format template */
   format: ChangelogFormatSchema.default('keep-a-changelog').optional(),
   /** Commit changes after version bump (CI mode) */
@@ -366,7 +376,10 @@ export const RuleSyncConfigSchema: z.ZodType<RuleSyncConfig> = z.object({
   /** Source rule files (glob patterns) */
   rules: z.array(z.string()).default(['**/*.rule.md']).optional(),
   /** Synchronization targets (tools to generate rules for) */
-  targets: z.array(RuleSyncTargetSchema).default(['cursor', 'windsurf']).optional(),
+  targets: z
+    .array(RuleSyncTargetSchema)
+    .default(['cursor', 'windsurf'])
+    .optional(),
   /** Automatically synchronize rules on workspace changes or builds */
   autoSync: z.boolean().default(true).optional(),
   /** Whether to eject/copy source rules instead of generating from Unified Rules */
@@ -380,18 +393,19 @@ export const RuleSyncConfigSchema: z.ZodType<RuleSyncConfig> = z.object({
 /**
  * Claude Agent SDK configuration.
  */
-export const ClaudeAgentSDKConfigSchema: z.ZodType<ClaudeAgentSDKConfig> = z.object({
-  /** Enable Claude Agent SDK provider */
-  enabled: z.boolean().default(false).optional(),
-  /** API key (defaults to ANTHROPIC_API_KEY env var) */
-  apiKey: z.string().optional(),
-  /** Model to use (defaults to claude-sonnet-4-20250514) */
-  model: z.string().default('claude-sonnet-4-20250514').optional(),
-  /** Enable computer use capabilities */
-  computerUse: z.boolean().default(false).optional(),
-  /** Enable extended thinking mode */
-  extendedThinking: z.boolean().default(false).optional(),
-});
+export const ClaudeAgentSDKConfigSchema: z.ZodType<ClaudeAgentSDKConfig> =
+  z.object({
+    /** Enable Claude Agent SDK provider */
+    enabled: z.boolean().default(false).optional(),
+    /** API key (defaults to ANTHROPIC_API_KEY env var) */
+    apiKey: z.string().optional(),
+    /** Model to use (defaults to claude-sonnet-4-20250514) */
+    model: z.string().default('claude-sonnet-4-20250514').optional(),
+    /** Enable computer use capabilities */
+    computerUse: z.boolean().default(false).optional(),
+    /** Enable extended thinking mode */
+    extendedThinking: z.boolean().default(false).optional(),
+  });
 
 /**
  * OpenCode SDK configuration.
@@ -404,7 +418,10 @@ export const OpenCodeSDKConfigSchema: z.ZodType<OpenCodeSDKConfig> = z.object({
   /** Server port (alternative to full URL) */
   port: z.number().optional(),
   /** Agent type to use */
-  agentType: z.enum(['build', 'plan', 'general', 'explore']).default('general').optional(),
+  agentType: z
+    .enum(['build', 'plan', 'general', 'explore'])
+    .default('general')
+    .optional(),
   /** Model to use */
   model: z.string().optional(),
 });
@@ -412,12 +429,13 @@ export const OpenCodeSDKConfigSchema: z.ZodType<OpenCodeSDKConfig> = z.object({
 /**
  * External agent SDK configuration section.
  */
-export const ExternalAgentsConfigSchema: z.ZodType<ExternalAgentsConfig> = z.object({
-  /** Claude Agent SDK configuration */
-  claudeAgent: ClaudeAgentSDKConfigSchema.optional(),
-  /** OpenCode SDK configuration */
-  openCode: OpenCodeSDKConfigSchema.optional(),
-});
+export const ExternalAgentsConfigSchema: z.ZodType<ExternalAgentsConfig> =
+  z.object({
+    /** Claude Agent SDK configuration */
+    claudeAgent: ClaudeAgentSDKConfigSchema.optional(),
+    /** OpenCode SDK configuration */
+    openCode: OpenCodeSDKConfigSchema.optional(),
+  });
 
 // ============================================================================
 // Lint Rules Configuration (ESLint-style)
@@ -426,7 +444,11 @@ export const ExternalAgentsConfigSchema: z.ZodType<ExternalAgentsConfig> = z.obj
 /**
  * Rule severity levels (inspired by ESLint).
  */
-export const RuleSeveritySchema: z.ZodType<RuleSeverity> = z.enum(['off', 'warn', 'error']);
+export const RuleSeveritySchema: z.ZodType<RuleSeverity> = z.enum([
+  'off',
+  'warn',
+  'error',
+]);
 
 /**
  * Contract kinds for per-kind rule overrides.
@@ -477,14 +499,16 @@ export const LintRulesSchema: z.ZodType<LintRules> = z.object({
 /**
  * Test linking strategy for discovering test coverage.
  */
-export const TestLinkingStrategySchema: z.ZodType<TestLinkingStrategy> = z.enum([
-  /** Use TestSpec.target as primary, fall back to naming convention */
-  'target-first',
-  /** Only use {specKey}.test naming convention */
-  'convention-only',
-  /** Accept both target and naming convention (default) */
-  'both',
-]);
+export const TestLinkingStrategySchema: z.ZodType<TestLinkingStrategy> = z.enum(
+  [
+    /** Use TestSpec.target as primary, fall back to naming convention */
+    'target-first',
+    /** Only use {specKey}.test naming convention */
+    'convention-only',
+    /** Accept both target and naming convention (default) */
+    'both',
+  ]
+);
 
 /**
  * Test linking configuration for contract-first test discovery.
@@ -501,9 +525,15 @@ export const TestLinkingConfigSchema: z.ZodType<TestLinkingConfig> = z.object({
  */
 export const TestingConfigSchema: z.ZodType<TestingConfig> = z.object({
   /** Test runner to use */
-  runner: z.enum(['internal', 'jest', 'vitest', 'bun']).default('internal').optional(),
+  runner: z
+    .enum(['internal', 'jest', 'vitest', 'bun'])
+    .default('internal')
+    .optional(),
   /** Glob patterns for matching test files */
-  testMatch: z.array(z.string()).default(['**/*.{test,spec}.{ts,js}']).optional(),
+  testMatch: z
+    .array(z.string())
+    .default(['**/*.{test,spec}.{ts,js}'])
+    .optional(),
   /** Enable automatic test generation */
   autoGenerate: z.boolean().default(false).optional(),
   /** Integrity requirements for testing */
@@ -534,7 +564,10 @@ export const RulesConfigSchema: z.ZodType<RulesConfig> = z.object({
  * Git hooks configuration.
  * Maps hook names (e.g., "pre-commit") to a list of commands or checks to run.
  */
-export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(z.string(), z.array(z.string()));
+export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(
+  z.string(),
+  z.array(z.string())
+);
 
 /**
  * Full ContractSpec configuration schema (.contractsrc.json).
@@ -542,7 +575,8 @@ export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(z.string(), z.
 export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
   aiProvider: z
     .enum(['claude', 'openai', 'ollama', 'custom'])
-    .default('claude').optional(),
+    .default('claude')
+    .optional(),
   aiModel: z.string().optional(),
   agentMode: z
     .enum([
@@ -553,8 +587,9 @@ export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
       'claude-agent-sdk',
       'opencode-sdk',
     ])
-    .default('simple').optional(),
-  customEndpoint: z.string().url().nullable().optional(), // z.url() implies string
+    .default('simple')
+    .optional(),
+  customEndpoint: z.url().nullable().optional(), // z.url() implies string
   customApiKey: z.string().nullable().optional(),
   outputDir: z.string().default('./src').optional(),
   conventions: FolderConventionsSchema.optional(),
@@ -591,7 +626,7 @@ export const ContractsrcSchema: z.ZodType<ContractsrcConfig> = z.object({
 /**
  * Default configuration values.
  */
-export const DEFAULT_CONTRACTSRC: ContractsrcConfig = {
+export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
   aiProvider: 'claude',
   agentMode: 'simple',
   outputDir: './src',

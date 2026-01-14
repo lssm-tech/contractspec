@@ -10,7 +10,7 @@ import {
   type RepositoryType,
 } from '@contractspec/bundle.workspace';
 import {
-  type ContractsrcConfig,
+  type ResolvedContractsrcConfig,
   ContractsrcSchema,
   DEFAULT_CONTRACTSRC,
   type FolderConventions,
@@ -20,7 +20,7 @@ import {
 
 // Re-export types for convenience
 export type { OpenApiSourceConfig, OpenApiConfig, FolderConventions };
-export type Config = ContractsrcConfig;
+export type Config = ResolvedContractsrcConfig;
 
 /**
  * Configuration with workspace context.
@@ -72,7 +72,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
   const workspaceRoot = findWorkspaceRoot(cwd);
 
   // Try to load workspace config first (as base)
-  let config = { ...DEFAULT_CONTRACTSRC };
+  let config: ResolvedContractsrcConfig = { ...DEFAULT_CONTRACTSRC };
 
   if (workspaceRoot !== packageRoot) {
     const workspaceConfigPath = join(workspaceRoot, '.contractsrc.json');
@@ -82,7 +82,10 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
         const parsed = JSON.parse(content);
         const validated = ContractsrcSchema.safeParse(parsed);
         if (validated.success) {
-          config = { ...config, ...validated.data };
+          config = {
+            ...config,
+            ...validated.data,
+          } as ResolvedContractsrcConfig;
         }
       } catch {
         // Ignore parse errors for workspace config
@@ -98,7 +101,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<Config> {
       const parsed = JSON.parse(content);
       const validated = ContractsrcSchema.safeParse(parsed);
       if (validated.success) {
-        config = { ...config, ...validated.data };
+        config = { ...config, ...validated.data } as ResolvedContractsrcConfig;
       }
     } catch (error) {
       console.warn(
