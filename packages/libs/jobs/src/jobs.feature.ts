@@ -3,13 +3,13 @@
  *
  * Defines the feature module for background job processing and scheduling.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
- * Jobs feature module that bundles job queue management,
- * background processing, and scheduled task capabilities.
+ * Jobs feature module that bundles background job processing,
+ * queues, and scheduling capabilities.
  */
-export const JobsFeature: FeatureModuleSpec = {
+export const JobsFeature = defineFeature({
   meta: {
     key: 'jobs',
     title: 'Background Jobs',
@@ -63,4 +63,4 @@ export const JobsFeature: FeatureModuleSpec = {
     ],
     requires: [],
   },
-};
+});

@@ -26,7 +26,7 @@ export async function workflowWizard(
   const version = await number({
     message: 'Version:',
     required: true,
-    default: defaults?.version ?? 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     validate: validatePositiveInteger,
   });
 
@@ -95,7 +95,7 @@ export async function workflowWizard(
   return {
     name,
     title,
-    version,
+    version: String(version),
     description,
     domain,
     stability,

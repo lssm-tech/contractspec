@@ -3,13 +3,13 @@
  *
  * Defines the feature module for managing integration connections.
  */
-import type { FeatureModuleSpec } from '../features';
+import { defineFeature } from '../features';
 
 /**
  * Platform Integrations feature module that bundles
  * integration connection management capabilities.
  */
-export const IntegrationsFeature: FeatureModuleSpec = {
+export const IntegrationsFeature = defineFeature({
   meta: {
     key: 'platform.integrations',
     version: '1.0.0',
@@ -44,4 +44,4 @@ export const IntegrationsFeature: FeatureModuleSpec = {
     provides: [{ key: 'integrations', version: '1.0.0' }],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

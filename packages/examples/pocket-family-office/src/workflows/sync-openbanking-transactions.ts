@@ -1,16 +1,16 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts';
 
 const TRANSACTION_CAPABILITY = {
   key: 'openbanking.transactions.read',
   version: '1.0.0',
 };
 
-export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
+export const syncOpenBankingTransactionsWorkflow = defineWorkflow({
   meta: {
     key: 'pfo.workflow.sync-openbanking-transactions',
     version: '1.0.0',
@@ -62,4 +62,4 @@ export const syncOpenBankingTransactionsWorkflow: WorkflowSpec = {
     ],
     transitions: [{ from: 'sync-transactions', to: 'list-transactions' }],
   },
-};
+});

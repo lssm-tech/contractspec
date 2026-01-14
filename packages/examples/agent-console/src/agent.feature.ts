@@ -4,12 +4,13 @@
  * Defines the feature module for agent orchestration capabilities.
  */
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Agent Console feature module that bundles all agent, tool, and run
  * operations, events, and presentations into an installable feature.
  */
-export const AgentConsoleFeature: FeatureModuleSpec = {
+export const AgentConsoleFeature: FeatureModuleSpec = defineFeature({
   meta: {
     key: 'agent-console',
     version: '1.0.0',
@@ -143,4 +144,4 @@ export const AgentConsoleFeature: FeatureModuleSpec = {
     ],
     provides: [{ key: 'agent', version: '1.0.0' }],
   },
-};
+});

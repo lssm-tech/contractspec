@@ -3,7 +3,6 @@
   "version": "1.46.2",
   "description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -38,6 +37,7 @@
     "./settings/settings.enum": "./dist/settings/settings.enum.js",
     "./shared/mock-data": "./dist/shared/mock-data.js",
     "./shared/overlay-types": "./dist/shared/overlay-types.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./ui": "./dist/ui/index.js",
     "./ui/hooks": "./dist/ui/hooks/index.js",
     "./ui/hooks/useProjectList": "./dist/ui/hooks/useProjectList.js",
@@ -66,7 +66,7 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
     "@contractspec/lib.identity-rbac": "workspace:*",
@@ -86,10 +86,9 @@
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:",
-    "@types/react": "^19.2.2",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.2"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",

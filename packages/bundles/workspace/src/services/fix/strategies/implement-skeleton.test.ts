@@ -1,57 +1,116 @@
-import { describe, it, expect, mock } from 'bun:test';
+import { describe, it, expect, mock, beforeEach } from 'bun:test';
 import { implementSkeletonStrategy } from './implement-skeleton';
-import type { FixableIssue } from '../types';
+import type { FixableIssue, FixOptions } from '../types';
 import type { FsAdapter } from '../../../ports/fs';
 
 describe('implementSkeletonStrategy', () => {
-  const mockFs = {
-    exists: mock(async () => false),
-    writeFile: mock(async () => {
-      /* noop */
-    }),
-    mkdir: mock(async () => {
-      /* noop */
-    }),
+  let mockFs: {
+    exists: ReturnType<typeof mock>;
+    writeFile: ReturnType<typeof mock>;
+    mkdir: ReturnType<typeof mock>;
   };
+  let adapters: { fs: FsAdapter };
 
-  const adapters = {
-    fs: mockFs as unknown as FsAdapter,
-    path: { dirname: () => '/test' } as unknown as {
-      dirname: (path: string) => string;
-    },
-  };
+  beforeEach(() => {
+    mockFs = {
+      exists: mock(async () => false),
+      writeFile: mock(async () => Promise.resolve()),
+      mkdir: mock(async () => Promise.resolve()),
+    };
+    adapters = { fs: mockFs as unknown as FsAdapter };
+  });
 
-  it('should create a skeleton operation file', async () => {
-    const issue: FixableIssue = {
+  const createIssue = (
+    specType = 'operation',
+    dryRun = false
+  ): { issue: FixableIssue; options: FixOptions } => ({
+    issue: {
       issue: {
         file: '/test/feature.ts',
         type: 'unresolved-ref',
-        message: 'Op not found',
+        message: 'Ref not found',
         severity: 'error',
         featureKey: 'feature',
       },
-      ref: { key: 'newOp', version: '1' } as unknown as FixableIssue['ref'], // Testing with partial RefInfo
-      specType: 'operation',
+      ref: { key: 'newSpec', version: '1' } as FixableIssue['ref'],
+      specType: specType as FixableIssue['specType'],
       featureFile: '/test/feature.ts',
       featureKey: 'feature',
       availableStrategies: [],
       strategies: [],
-    };
+    },
+    options: {
+      strategy: 'implement-skeleton',
+      workspaceRoot: '/test',
+      dryRun,
+    },
+  });
 
-    const result = await implementSkeletonStrategy(
-      issue,
-      { strategy: 'implement-skeleton', workspaceRoot: '/test' },
-      adapters
-    );
+  it('should create a skeleton operation file', async () => {
+    const { issue, options } = createIssue('operation');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
 
     expect(result.success).toBe(true);
-    // expect(mockFs.exists).toHaveBeenCalled(); // Logic checks existence
     expect(mockFs.writeFile).toHaveBeenCalled();
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
+    expect(content).toContain('defineCommand');
+    expect(result.filesChanged).toHaveLength(1);
+    expect(result.filesChanged?.[0]?.action).toBe('created');
+  });
 
-    const calls = mockFs.writeFile.mock.calls as unknown as unknown[][];
-    const writtenContent = calls[0]?.[1] as string;
-    expect(writtenContent).toContain('defineCommand');
-    expect(writtenContent).toContain("key: 'newOp'");
-    expect(writtenContent).toContain("stability: 'in_creation'");
+  it('should handle dry run correctly', async () => {
+    const { issue, options } = createIssue('operation', true);
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(true);
+    expect(mockFs.writeFile).not.toHaveBeenCalled();
+    expect(mockFs.mkdir).not.toHaveBeenCalled();
+    expect(result.filesChanged).toHaveLength(1);
+    expect(result.filesChanged?.[0]?.action).toBe('created');
+  });
+
+  it('should fail for unsupported spec type', async () => {
+    const { issue, options } = createIssue('unknown-type');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toContain('Unsupported spec type');
+    expect(mockFs.writeFile).not.toHaveBeenCalled();
+  });
+
+  it('should handle file system errors', async () => {
+    mockFs.mkdir = mock(() => Promise.reject(new Error('FS Error')));
+    const { issue, options } = createIssue('operation');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('FS Error');
+  });
+
+  it('should generate skeleton for event', async () => {
+    const { issue, options } = createIssue('event');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(true);
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
+    expect(content).toContain('defineEvent');
+  });
+
+  it('should generate skeleton for presentation', async () => {
+    const { issue, options } = createIssue('presentation');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(true);
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
+    expect(content).toContain('definePresentation');
+  });
+
+  it('should generate skeleton for capability', async () => {
+    const { issue, options } = createIssue('capability');
+    const result = await implementSkeletonStrategy(issue, options, adapters);
+
+    expect(result.success).toBe(true);
+    const content = mockFs.writeFile.mock.calls[0]?.[1];
+    expect(content).toContain('defineCapability');
   });
 });

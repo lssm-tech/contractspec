@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const elevenLabsIntegrationSpec: IntegrationSpec = {
+export const elevenLabsIntegrationSpec = defineIntegration({
   meta: {
     key: 'ai-voice.elevenlabs',
     version: '1.0.0',
@@ -62,7 +62,7 @@ export const elevenLabsIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Create an ElevenLabs API key and ensure the desired voices are accessible to the key scope.',
   },
-};
+});
 
 export function registerElevenLabsIntegration(
   registry: IntegrationSpecRegistry

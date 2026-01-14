@@ -44,7 +44,6 @@
     "./components/docs/DocsIndexPage": "./src/components/docs/DocsIndexPage.tsx",
     "./components/docs/getting-started": "./src/components/docs/getting-started/index.ts",
     "./components/docs/getting-started/CLIPage": "./src/components/docs/getting-started/CLIPage.tsx",
-    "./components/docs/getting-started/DatabaseToolsPage": "./src/components/docs/getting-started/DatabaseToolsPage.tsx",
     "./components/docs/getting-started/DataViewTutorialPage": "./src/components/docs/getting-started/DataViewTutorialPage.tsx",
     "./components/docs/getting-started/DeveloperToolsPage": "./src/components/docs/getting-started/DeveloperToolsPage.tsx",
     "./components/docs/getting-started/HelloWorldPage": "./src/components/docs/getting-started/HelloWorldPage.tsx",
@@ -210,13 +209,12 @@
     "./presentation/features/organisms/FeatureDiscovery/types": "./src/presentation/features/organisms/FeatureDiscovery/types.ts",
     "./*": "./*"
   },
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
     "react": "catalog:"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.10",
+    "@apollo/client": "^4.0.12",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-library": "workspace:*",
     "@contractspec/lib.design-system": "workspace:*",
@@ -231,27 +229,26 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@electric-sql/pglite": "^0.3.14",
-    "@scaleway/sdk": "^3.1.3",
+    "@scaleway/sdk": "^3.1.5",
     "@scaleway/sdk-client": "^2.1.0",
-    "drizzle-orm": "^0.38.4",
+    "drizzle-orm": "^0.45.1",
     "elysia-mcp": "^0.1.0",
-    "framer-motion": "^12.23.26",
+    "framer-motion": "^12.26.1",
     "lucide-react": "^0.562.0",
-    "posthog-js": "^1.313.0",
-    "posthog-node": "^5.18.1",
-    "posthog-react-native": "^4.17.1",
-    "react-hook-form": "^7.50.0",
+    "posthog-js": "^1.319.0",
+    "posthog-node": "^5.20.0",
+    "posthog-react-native": "^4.17.3",
+    "react-hook-form": "^7.70.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.2.7",
+    "@types/react": "~19.2.8",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:",
     "@types/bun": "~1.3.5"
   },
-  "module": "./dist/index.js",
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
@@ -285,7 +282,6 @@
       "./components/docs/DocsIndexPage": "./dist/components/docs/DocsIndexPage.js",
       "./components/docs/getting-started": "./dist/components/docs/getting-started/index.js",
       "./components/docs/getting-started/CLIPage": "./dist/components/docs/getting-started/CLIPage.js",
-      "./components/docs/getting-started/DatabaseToolsPage": "./dist/components/docs/getting-started/DatabaseToolsPage.js",
       "./components/docs/getting-started/DataViewTutorialPage": "./dist/components/docs/getting-started/DataViewTutorialPage.js",
       "./components/docs/getting-started/DeveloperToolsPage": "./dist/components/docs/getting-started/DeveloperToolsPage.js",
       "./components/docs/getting-started/HelloWorldPage": "./dist/components/docs/getting-started/HelloWorldPage.js",

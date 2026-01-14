@@ -1,13 +1,12 @@
 /**
  * CRM Dashboard Presentation Descriptor
  */
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 
 /**
  * Main CRM dashboard presentation.
  */
-export const CrmDashboardPresentation: PresentationSpec = {
+export const CrmDashboardPresentation = definePresentation({
   meta: {
     key: 'crm.dashboard',
     version: '1.0.0',
@@ -30,12 +29,12 @@ export const CrmDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.enabled'],
   },
-};
+});
 
 /**
  * Pipeline metrics presentation.
  */
-export const PipelineMetricsPresentation: PresentationSpec = {
+export const PipelineMetricsPresentation = definePresentation({
   meta: {
     key: 'crm.pipeline.metrics',
     version: '1.0.0',
@@ -57,4 +56,4 @@ export const PipelineMetricsPresentation: PresentationSpec = {
   policy: {
     flags: ['crm.metrics.enabled'],
   },
-};
+});

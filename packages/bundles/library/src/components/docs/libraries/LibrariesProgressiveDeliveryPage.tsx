@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Progressive Delivery Library',
-//   description:
-//     'Stage-based rollouts with traffic shifting, guardrails, and auto-rollback.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesProgressiveDeliveryPage() {
   return (
@@ -17,9 +15,15 @@ export function LibrariesProgressiveDeliveryPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.progressive-delivery" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Define a Strategy</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { DeploymentCoordinator, createDefaultCanaryController, TrafficShifter, RollbackManager } from '@contractspec/lib.progressive-delivery';
+        <CodeBlock
+          language="typescript"
+          code={`import { DeploymentCoordinator, createDefaultCanaryController, TrafficShifter, RollbackManager } from '@contractspec/lib.progressive-delivery';
 
 const strategy = {
   target: { name: 'billing.createInvoice', version: 7 },
@@ -30,13 +34,14 @@ const strategy = {
     latencyP95: 250,
   },
 };`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Run the Coordinator</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const eventBus = new DeploymentEventBus();
+        <CodeBlock
+          language="typescript"
+          code={`const eventBus = new DeploymentEventBus();
 const controller = createDefaultCanaryController(strategy, fetchMetrics, eventBus);
 const coordinator = new DeploymentCoordinator({
   strategy,
@@ -48,7 +53,7 @@ const coordinator = new DeploymentCoordinator({
 });
 
 const result = await coordinator.run();`}
-        </pre>
+        />
         <p className="text-muted-foreground text-sm">
           The coordinator emits <code>stage_started</code>,{' '}
           <code>stage_failed</code>, and <code>rolled_back</code> events, making
@@ -63,6 +68,15 @@ const result = await coordinator.run();`}
           parallel and cut over once smoke tests pass. The same guardrails apply
           before the final swap.
         </p>
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/resilience" className="btn-primary">
+          Next: Resilience <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

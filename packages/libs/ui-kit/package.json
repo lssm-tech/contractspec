@@ -11,8 +11,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -31,7 +29,7 @@
     "@contractspec/lib.ui-kit-core": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-native-community/datetimepicker": "^8.4.5",
+    "@react-native-community/datetimepicker": "^8.6.0",
     "@react-navigation/native": "^7.1.26",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
@@ -85,7 +83,7 @@
     "nativewind": "5.0.0-preview.2",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.69.0",
+    "react-hook-form": "^7.70.0",
     "react-native": "0.81.4",
     "react-native-device-info": "^14.1.1",
     "react-native-localize": "^3.5.2",
@@ -98,10 +96,10 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "catalog:build",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.3.4"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
+    "@babel/core": "^7.28.6",
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "react-native-css": "^3.0.0",

@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const postmarkIntegrationSpec: IntegrationSpec = {
+export const postmarkIntegrationSpec = defineIntegration({
   meta: {
     key: 'email.postmark',
     version: '1.0.0',
@@ -73,7 +73,7 @@ export const postmarkIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Create a Postmark server token with outbound send permissions and configure allowed from addresses.',
   },
-};
+});
 
 export function registerPostmarkIntegration(
   registry: IntegrationSpecRegistry

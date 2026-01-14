@@ -43,7 +43,7 @@ export async function dataViewWizard(
 
   const version = await number({
     message: 'Version:',
-    default: defaults?.version ?? 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     required: true,
     validate: (value: number) =>
       Number.isInteger(value) && value > 0
@@ -160,7 +160,7 @@ export async function dataViewWizard(
   return {
     entity,
     name,
-    version,
+    version: String(version),
     title,
     description,
     domain,

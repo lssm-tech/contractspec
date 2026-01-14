@@ -24,7 +24,6 @@
     "lint:check": "eslint src"
   },
   "type": "module",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "tree-shake": true,
@@ -40,7 +39,8 @@
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.69.0",
+    "react-hook-form": "^7.70.0",
+    "shiki": "^3.21.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "catalog:"
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/node": "^24.9.0",
+    "@types/node": "^25.0.6",
     "@types/react-dom": "^19.0.14",
     "postcss": "catalog:build",
     "postcss-load-config": "^6.0.1",
@@ -58,7 +58,6 @@
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

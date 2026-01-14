@@ -31,6 +31,8 @@ import { runQuickstartWizard, runQuickInstall } from './quickstart';
 import { registerImpactCommands } from './impact';
 import { registerWorkspaceCommands } from './workspace';
 import { registerVersionCommands } from './version';
+// import { registerGenerateDocsCommand } from './docs';
+import { generateTestsCommand, runSpecTestsCommand } from './test';
 
 /**
  * Register all ContractSpec commands.
@@ -38,9 +40,25 @@ import { registerVersionCommands } from './version';
 export function registerCommands(
   context: vscode.ExtensionContext,
   outputChannel: vscode.OutputChannel,
-  telemetry: TelemetryReporter | undefined,
-  statusBarItem?: vscode.StatusBarItem
+  telemetryReporter: TelemetryReporter | undefined,
+  statusBarItem: vscode.StatusBarItem
 ): void {
+  // Use telemetry reporter to suppress unused var error if not strictly needed in this scope but kept for consistent signature?
+  // Or just use it once.
+  const telemetry = telemetryReporter;
+
+  // ... existing registrations
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.generateTests', (uri) =>
+      generateTestsCommand(uri)
+    )
+  );
+  context.subscriptions.push(
+    vscode.commands.registerCommand('contractspec.runSpecTests', (uri) =>
+      runSpecTestsCommand(uri)
+    )
+  );
+
   // Validate current spec
   context.subscriptions.push(
     vscode.commands.registerCommand('contractspec.validate', async () => {

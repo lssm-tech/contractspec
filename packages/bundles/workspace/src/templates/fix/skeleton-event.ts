@@ -6,15 +6,7 @@
 
 import type { SpecGenerationContext } from '../../services/fix/types';
 
-/**
- * Convert a string to PascalCase.
- */
-function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
-}
+import { toPascalCase, generateMetaProperties } from './utils';
 
 /**
  * Generate a minimal event spec skeleton.
@@ -24,15 +16,7 @@ export function generateSkeletonEvent(ctx: SpecGenerationContext): string {
   const specVarName = toPascalCase(namePart) + 'EventSpec';
   const payloadName = specVarName.replace('Spec', 'Payload');
 
-  const owners = ctx.enrichment?.owners?.length
-    ? ctx.enrichment.owners.map((o) => `'${o}'`).join(', ')
-    : "'@team'";
-
-  const tags = ctx.enrichment?.tags?.length
-    ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
-    : '';
-
-  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
+  const metaProps = generateMetaProperties(ctx);
 
   return `/**
  * Event: ${ctx.key}
@@ -60,12 +44,7 @@ export const ${payloadName} = new SchemaModel({
 
 export const ${specVarName} = defineEvent({
   meta: {
-    key: '${ctx.key}',
-    version: '${ctx.version}',
-    stability: '${ctx.stability}',
-    owners: [${owners}],
-    tags: [${tags}],
-    description: '${description}',
+    ${metaProps}
   },
 
   payload: ${payloadName},

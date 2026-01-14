@@ -1,5 +1,5 @@
 import Link from '@contractspec/lib.ui-link';
-import { Activity, BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
+import { BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 
 // export const metadata: Metadata = {
 //   title: 'Documentation – ContractSpec',
@@ -142,26 +142,27 @@ contractspec build src/contracts/mySpec.ts`}</pre>
               First contract tutorial
             </Link>
           </div>
-          <Link
-            href="/docs/libraries/ai-agent"
-            className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-semibold tracking-[0.2em] text-violet-500 uppercase">
-                  Featured
-                </p>
-                <h3 className="text-lg font-bold transition-colors group-hover:text-violet-400">
-                  AI Governance
-                </h3>
-                <p className="text-muted-foreground mt-1 text-sm">
-                  Constrain what AI agents can change. Enforce contracts they
-                  must respect. Human-in-the-loop guardrails.
-                </p>
-              </div>
-              <Activity size={20} className="shrink-0 text-violet-400" />
-            </div>
-          </Link>
+
+          {/*<Link*/}
+          {/*  href="/docs/libraries/ai-agent"*/}
+          {/*  className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"*/}
+          {/*>*/}
+          {/*  <div className="flex items-start justify-between">*/}
+          {/*    <div>*/}
+          {/*      <p className="text-xs font-semibold tracking-[0.2em] text-violet-500 uppercase">*/}
+          {/*        Featured*/}
+          {/*      </p>*/}
+          {/*      <h3 className="text-lg font-bold transition-colors group-hover:text-violet-400">*/}
+          {/*        AI Governance*/}
+          {/*      </h3>*/}
+          {/*      <p className="text-muted-foreground mt-1 text-sm">*/}
+          {/*        Constrain what AI agents can change. Enforce contracts they*/}
+          {/*        must respect. Human-in-the-loop guardrails.*/}
+          {/*      </p>*/}
+          {/*    </div>*/}
+          {/*    <Activity size={20} className="shrink-0 text-violet-400" />*/}
+          {/*  </div>*/}
+          {/*</Link>*/}
         </div>
       </div>
 

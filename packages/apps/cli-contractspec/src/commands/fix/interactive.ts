@@ -46,5 +46,7 @@ export async function promptForIssues(
     })),
   });
 
-  return selectedIndices.map((index) => issues[index]);
+  return selectedIndices
+    .map((index) => issues[index])
+    .filter((i): i is fix.FixableIssue => !!i);
 }

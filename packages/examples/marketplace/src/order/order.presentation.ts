@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { OrderModel } from './order.schema';
 
-export const OrderListPresentation: PresentationSpec = {
+export const OrderListPresentation = definePresentation({
   meta: {
     key: 'marketplace.order.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const OrderListPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.orders.enabled'],
   },
-};
+});
 
-export const OrderDetailPresentation: PresentationSpec = {
+export const OrderDetailPresentation = definePresentation({
   meta: {
     key: 'marketplace.order.detail',
     version: '1.0.0',
@@ -51,9 +50,9 @@ export const OrderDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.orders.enabled'],
   },
-};
+});
 
-export const CheckoutPresentation: PresentationSpec = {
+export const CheckoutPresentation = definePresentation({
   meta: {
     key: 'marketplace.checkout',
     version: '1.0.0',
@@ -76,4 +75,4 @@ export const CheckoutPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.checkout.enabled'],
   },
-};
+});

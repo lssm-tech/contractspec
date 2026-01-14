@@ -32,7 +32,7 @@ export async function operationWizard(
   const version = await number({
     message: 'Version:',
     required: true,
-    default: defaults?.version || 1,
+    default: defaults?.version ? Number(defaults.version) : 1,
     validate: (input: number) => {
       if (!Number.isInteger(input) || input < 1) {
         return 'Version must be a positive integer';
@@ -125,7 +125,7 @@ export async function operationWizard(
   return {
     kind,
     name,
-    version,
+    version: String(version),
     description,
     goal,
     context,

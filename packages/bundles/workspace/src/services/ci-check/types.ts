@@ -4,6 +4,8 @@
  * Types for CI/CD validation checks with support for multiple output formats.
  */
 
+import type { ContractsrcConfig } from '@contractspec/lib.contracts/workspace-config';
+
 /**
  * Categories of CI checks.
  */
@@ -14,8 +16,11 @@ export type CICheckCategory =
   | 'doctor'
   | 'handlers'
   | 'tests'
+  | 'test-refs'
+  | 'coverage'
   | 'implementation'
-  | 'layers';
+  | 'layers'
+  | 'drift';
 
 /**
  * All available CI check categories.
@@ -27,8 +32,11 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
   'doctor',
   'handlers',
   'tests',
+  'test-refs',
+  'coverage',
   'implementation',
   'layers',
+  'drift',
 ];
 
 /**
@@ -41,8 +49,11 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
   doctor: 'Installation Health',
   handlers: 'Handler Implementation',
   tests: 'Test Coverage',
+  'test-refs': 'Test Reference Validation',
+  coverage: 'Coverage Goal Enforcement',
   implementation: 'Implementation Verification',
   layers: 'Contract Layers Validation',
+  drift: 'Drift Detection',
 };
 
 /**
@@ -136,6 +147,8 @@ export interface CICheckOptions {
   checkHandlers?: boolean;
   /** Include test coverage checks. */
   checkTests?: boolean;
+  /** Include drift detection checks. */
+  checkDrift?: boolean;
   /** Fail on warnings (treat warnings as errors). */
   failOnWarnings?: boolean;
   /** Workspace root directory. */
@@ -151,6 +164,10 @@ export interface CICheckOptions {
     /** Allow partial implementations. */
     allowPartial?: boolean;
   };
+  /**
+   * Workspace configuration
+   */
+  config?: ContractsrcConfig;
 }
 
 /**

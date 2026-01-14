@@ -1,10 +1,9 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 
 /**
  * Presentation for subscription overview.
  */
-export const SubscriptionPresentation: PresentationSpec = {
+export const SubscriptionPresentation = definePresentation({
   meta: {
     key: 'saas.billing.subscription',
     version: '1.0.0',
@@ -27,12 +26,12 @@ export const SubscriptionPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.billing.enabled'],
   },
-};
+});
 
 /**
  * Presentation for usage dashboard.
  */
-export const UsageDashboardPresentation: PresentationSpec = {
+export const UsageDashboardPresentation = definePresentation({
   meta: {
     key: 'saas.billing.usage',
     version: '1.0.0',
@@ -54,4 +53,4 @@ export const UsageDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.billing.enabled'],
   },
-};
+});

@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Testing Library | ContractSpec',
-//   description:
-//     'Capture production traffic and generate golden tests from real requests.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesTestingPage() {
   return (
@@ -16,10 +14,16 @@ export function LibrariesTestingPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.testing" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Record traffic</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import {
+        <CodeBlock
+          language="typescript"
+          code={`import {
   TrafficRecorder,
   InMemoryTrafficStore,
 } from '@contractspec/lib.testing/recorder';
@@ -40,13 +44,14 @@ await recorder.record({
   success: true,
   tenantId: ctx.organizationId ?? undefined,
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Generate suites</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { GoldenTestGenerator } from '@contractspec/lib.testing';
+        <CodeBlock
+          language="typescript"
+          code={`import { GoldenTestGenerator } from '@contractspec/lib.testing';
 
 const generator = new GoldenTestGenerator();
 const code = generator.generate(snapshots, {
@@ -55,13 +60,14 @@ const code = generator.generate(snapshots, {
   runnerFunction: 'runOrdersCommand',
   framework: 'vitest',
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">CLI workflow</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`contractspec test generate \\
+        <CodeBlock
+          language="bash"
+          code={`contractspec test generate \\
   --operation orders.create \\
   --output tests/orders.create.golden.test.ts \\
   --runner-import ./tests/run-operation \\
@@ -69,7 +75,7 @@ const code = generator.generate(snapshots, {
   --from-production \\
   --days 7 \\
   --sample-rate 0.05`}
-        </pre>
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -90,6 +96,15 @@ const code = generator.generate(snapshots, {
             <p className="text-muted-foreground text-sm">{card.description}</p>
           </div>
         ))}
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/resilience" className="btn-primary">
+          Next: Resilience <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

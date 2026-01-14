@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const ProductClientPage = () => (
-  <main className="pt-24">
+  <main className="">
     {/* Hero */}
     <section className="section-padding hero-gradient relative">
       <div className="mx-auto max-w-4xl space-y-6 text-center">

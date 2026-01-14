@@ -1,8 +1,7 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { PayoutModel } from './payout.schema';
 
-export const PayoutListPresentation: PresentationSpec = {
+export const PayoutListPresentation = definePresentation({
   meta: {
     key: 'marketplace.payout.list',
     version: '1.0.0',
@@ -25,9 +24,9 @@ export const PayoutListPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.payouts.enabled'],
   },
-};
+});
 
-export const PayoutDetailPresentation: PresentationSpec = {
+export const PayoutDetailPresentation = definePresentation({
   meta: {
     key: 'marketplace.payout.detail',
     version: '1.0.0',
@@ -50,4 +49,4 @@ export const PayoutDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['marketplace.payouts.enabled'],
   },
-};
+});

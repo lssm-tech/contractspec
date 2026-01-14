@@ -67,6 +67,17 @@ export interface DiscoveryOptions {
 }
 
 /**
+ * Options for resolving implementations.
+ */
+export interface ResolverOptions {
+  includeExplicit?: boolean;
+  includeDiscovered?: boolean;
+  includeConvention?: boolean;
+  computeHashes?: boolean;
+  outputDir?: string;
+}
+
+/**
  * Result of scanning for spec references in a file.
  */
 export interface SpecReferenceMatch {

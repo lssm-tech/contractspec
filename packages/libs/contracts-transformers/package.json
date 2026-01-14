@@ -38,13 +38,11 @@
     "tsdown": "catalog:build",
     "typescript": "catalog:"
   },
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
-  "module": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./common": "./dist/common/index.js",

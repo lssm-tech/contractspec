@@ -18,6 +18,7 @@ export type { Config, AiProvider, AgentMode } from './types/config';
 
 // Services (use-cases)
 export * from './services/index';
+export type { FixStrategyType, FixableIssue } from './services/fix/types';
 
 // Formatters (CI output formats)
 export * as formatters from './formatters/index';
@@ -25,3 +26,6 @@ export * as formatters from './formatters/index';
 // Templates (re-export for CLI usage)
 export * as templates from './templates';
 export * from './ai';
+
+// Utilities
+export * as utils from './utils/index';

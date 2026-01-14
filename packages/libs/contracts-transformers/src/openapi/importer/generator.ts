@@ -3,7 +3,7 @@ import { toPascalCase, toSpecKey, toValidIdentifier } from '../../common/utils';
 import { type GeneratedModel, generateImports } from '../schema-converter';
 import { inferAuthLevel, inferOpKind } from './analyzer';
 import type {
-  ContractsrcConfig,
+  ResolvedContractsrcConfig,
   OpenApiSourceConfig,
 } from '@contractspec/lib.contracts';
 
@@ -12,7 +12,7 @@ import type {
  */
 export function generateSpecCode(
   operation: ParsedOperation,
-  contractspecConfig: ContractsrcConfig,
+  contractspecConfig: ResolvedContractsrcConfig,
   options: Partial<OpenApiSourceConfig> = {},
   inputModel: GeneratedModel | null,
   outputModel: GeneratedModel | null,

@@ -10,7 +10,6 @@
     "background",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -30,7 +29,7 @@
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.logger": "workspace:*",
     "@contractspec/lib.knowledge": "workspace:*",
-    "@aws-sdk/client-sqs": "^3.958.0",
+    "@aws-sdk/client-sqs": "^3.966.0",
     "zod": "catalog:",
     "cron-parser": "^5.4.0"
   },
@@ -48,6 +47,7 @@
     "./handlers/gmail-sync-handler": "./dist/handlers/gmail-sync-handler.js",
     "./handlers/ping-job": "./dist/handlers/ping-job.js",
     "./handlers/storage-document-handler": "./dist/handlers/storage-document-handler.js",
+    "./jobs.capability": "./dist/jobs.capability.js",
     "./jobs.feature": "./dist/jobs.feature.js",
     "./queue": "./dist/queue/index.js",
     "./queue/gcp-cloud-tasks": "./dist/queue/gcp-cloud-tasks.js",
@@ -59,7 +59,6 @@
     "./scheduler": "./dist/scheduler/index.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

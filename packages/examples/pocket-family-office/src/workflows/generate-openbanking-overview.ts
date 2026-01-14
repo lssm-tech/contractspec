@@ -1,9 +1,9 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts/workflow/spec';
+import { defineWorkflow } from '@contractspec/lib.contracts';
 import {
   OwnersEnum,
   StabilityEnum,
   TagsEnum,
-} from '@contractspec/lib.contracts/ownership';
+} from '@contractspec/lib.contracts';
 
 const OPEN_BANKING_CAPABILITIES = [
   { key: 'openbanking.accounts.read', version: '1.0.0' },
@@ -11,7 +11,7 @@ const OPEN_BANKING_CAPABILITIES = [
   { key: 'openbanking.balances.read', version: '1.0.0' },
 ];
 
-export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
+export const generateOpenBankingOverviewWorkflow = defineWorkflow({
   meta: {
     key: 'pfo.workflow.generate-openbanking-overview',
     version: '1.0.0',
@@ -49,4 +49,4 @@ export const generateOpenBankingOverviewWorkflow: WorkflowSpec = {
     ],
     transitions: [],
   },
-};
+});

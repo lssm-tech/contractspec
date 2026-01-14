@@ -1,5 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight, Code2, Cpu, Layers, Terminal } from 'lucide-react';
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function DeveloperToolsPage() {
   const tools = [
@@ -97,7 +98,7 @@ export function DeveloperToolsPage() {
                     key={highlight}
                     className="text-muted-foreground flex items-center gap-2 text-sm"
                   >
-                    <span className="text-violet-400">→</span>
+                    <span className="text-violet-400">-</span>
                     {highlight}
                   </li>
                 ))}
@@ -122,17 +123,16 @@ export function DeveloperToolsPage() {
             <p className="text-muted-foreground mb-2 text-xs font-medium">
               CLI
             </p>
-            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-              <pre>bun add -D contractspec</pre>
-            </div>
+            <InstallCommand package="contractspec" dev />
           </div>
           <div>
             <p className="text-muted-foreground mb-2 text-xs font-medium">
               VS Code Extension
             </p>
-            <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded border p-3 font-mono text-sm">
-              <pre>code --install-extension lssm.vscode-contractspec</pre>
-            </div>
+            <CodeBlock
+              language="bash"
+              code="code --install-extension lssm.vscode-contractspec"
+            />
           </div>
         </div>
       </div>

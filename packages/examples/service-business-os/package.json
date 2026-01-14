@@ -2,7 +2,6 @@
   "name": "@contractspec/example.service-business-os",
   "version": "1.46.2",
   "description": "Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -51,10 +50,10 @@
     "./quote": "./dist/quote/index.js",
     "./quote/quote.operations": "./dist/quote/quote.operations.js",
     "./quote/quote.schema": "./dist/quote/quote.schema.js",
+    "./service-business-os.capability": "./dist/service-business-os.capability.js",
     "./service.feature": "./dist/service.feature.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

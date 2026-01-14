@@ -123,3 +123,7 @@ export class TestRegistry {
 export function makeTestKey(meta: TestSpecMeta) {
   return testKey(meta);
 }
+
+export function defineTestSpec(spec: TestSpec) {
+  return spec;
+}

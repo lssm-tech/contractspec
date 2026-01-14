@@ -16,7 +16,6 @@ import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type {
   ContractSpecOpenApiDocument,
   OpenApiExportOptions,
-  OpenApiServer,
   ContractSpecExportOptions,
   ContractSpecExportResult,
 } from './types';
@@ -284,12 +283,3 @@ function jsonToYaml(obj: unknown, indent = 0): string {
 
   return yaml;
 }
-
-// Re-export types for convenience
-export type {
-  OpenApiExportOptions,
-  OpenApiServer,
-  ContractSpecOpenApiDocument,
-  ContractSpecExportOptions,
-  ContractSpecExportResult,
-};

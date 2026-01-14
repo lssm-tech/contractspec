@@ -24,6 +24,7 @@ export type {
   StepResult,
   LanguageModelUsage,
   ToolSet,
+  generateText,
 } from 'ai';
 
 // Re-export AI SDK v6 Agent

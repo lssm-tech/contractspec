@@ -10,7 +10,6 @@
     "lms",
     "typescript"
   ],
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -57,11 +56,11 @@
     "./entities/onboarding": "./dist/entities/onboarding.js",
     "./entities/quiz": "./dist/entities/quiz.js",
     "./events": "./dist/events.js",
+    "./learning-journey.capability": "./dist/learning-journey.capability.js",
     "./learning-journey.feature": "./dist/learning-journey.feature.js",
     "./track-spec": "./dist/track-spec.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

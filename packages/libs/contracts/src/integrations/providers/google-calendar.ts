@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const googleCalendarIntegrationSpec: IntegrationSpec = {
+export const googleCalendarIntegrationSpec = defineIntegration({
   meta: {
     key: 'calendar.google',
     version: '1.0.0',
@@ -67,7 +67,7 @@ export const googleCalendarIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Create a Google service account with Calendar access and share the target calendars with the service account email.',
   },
-};
+});
 
 export function registerGoogleCalendarIntegration(
   registry: IntegrationSpecRegistry

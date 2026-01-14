@@ -31,4 +31,6 @@ export {
   type VersioningConfig,
   type RuleSyncTarget,
   type RuleSyncConfig,
+  type ContractsrcFileConfig,
+  type ResolvedContractsrcConfig,
 } from './contractsrc-schema';

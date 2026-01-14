@@ -6,15 +6,7 @@
 
 import type { SpecGenerationContext } from '../../services/fix/types';
 
-/**
- * Convert a string to PascalCase.
- */
-function toPascalCase(str: string): string {
-  return str
-    .split(/[-_.]/)
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
-}
+import { toPascalCase, generateMetaProperties } from './utils';
 
 /**
  * Infer operation kind from key name.
@@ -55,17 +47,13 @@ export function generateSkeletonOperation(ctx: SpecGenerationContext): string {
   const opKind = inferOpKind(ctx.key);
   const defineFunc = opKind === 'query' ? 'defineQuery' : 'defineCommand';
 
-  const owners = ctx.enrichment?.owners?.length
-    ? ctx.enrichment.owners.map((o) => `'${o}'`).join(', ')
-    : "'@team'";
-
-  const tags = ctx.enrichment?.tags?.length
-    ? ctx.enrichment.tags.map((t) => `'${t}'`).join(', ')
-    : '';
-
-  const description = ctx.description || `TODO: Add description for ${ctx.key}`;
   const goal = ctx.enrichment?.goal || 'TODO: Define the business goal';
   const context = ctx.enrichment?.context || 'TODO: Provide context';
+
+  const metaProps = generateMetaProperties(ctx, {
+    goal: `'${goal}'`,
+    context: `'${context}'`,
+  });
 
   return `/**
  * Operation: ${ctx.key}
@@ -101,14 +89,7 @@ export const ${outputSchemaName} = new SchemaModel({
 
 export const ${specVarName} = ${defineFunc}({
   meta: {
-    key: '${ctx.key}',
-    version: '${ctx.version}',
-    stability: '${ctx.stability}',
-    owners: [${owners}],
-    tags: [${tags}],
-    description: '${description}',
-    goal: '${goal}',
-    context: '${context}',
+    ${metaProps}
   },
 
   io: {

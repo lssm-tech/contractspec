@@ -3,8 +3,6 @@
   "version": "1.46.2",
   "description": "Example: KB update automation pipeline with HITL review and auditability.",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
@@ -20,6 +18,7 @@
     "./operations": "./dist/operations/index.js",
     "./operations/pipeline": "./dist/operations/pipeline.js",
     "./presentations": "./dist/presentations.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./*": "./*"
   },
   "scripts": {

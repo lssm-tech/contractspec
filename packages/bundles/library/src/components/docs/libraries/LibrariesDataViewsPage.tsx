@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'DataView Library | ContractSpec',
-//   description: 'Runtime and components for rendering DataViews.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesDataViewsPage() {
   return (
@@ -18,25 +17,25 @@ export function LibrariesDataViewsPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <pre className="bg-muted rounded-lg border p-4">
-          <code>
-            npm install @contractspec/lib.contracts
-            @contractspec/lib.design-system
-          </code>
-        </pre>
+        <InstallCommand
+          package={[
+            '@contractspec/lib.contracts',
+            '@contractspec/lib.design-system',
+          ]}
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">DataViewRenderer</h2>
-        <p>
+        <p className="text-muted-foreground">
           The primary component for rendering any DataView. It automatically
           selects the correct layout (List, Table, Grid, Detail) based on the
           spec.
         </p>
 
-        <div className="bg-muted rounded-lg border p-4">
-          <pre className="text-sm">
-            {`import { DataViewRenderer } from '@contractspec/lib.design-system';
+        <CodeBlock
+          language="tsx"
+          code={`import { DataViewRenderer } from '@contractspec/lib.design-system';
 import { MyUserList } from './specs/users.data-view';
 
 export function UserPage() {
@@ -49,11 +48,10 @@ export function UserPage() {
     />
   );
 }`}
-          </pre>
-        </div>
+        />
 
         <h3 className="text-xl font-semibold">Props</h3>
-        <ul className="list-disc space-y-2 pl-6">
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>spec</code>: The DataViewSpec definition.
           </li>
@@ -78,14 +76,14 @@ export function UserPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Query Generation</h2>
-        <p>
+        <p className="text-muted-foreground">
           The <code>DataViewQueryGenerator</code> utility helps translate
           DataView parameters (filters, sorting, pagination) into query
           arguments for your backend.
         </p>
-        <div className="bg-muted rounded-lg border p-4">
-          <pre className="text-sm">
-            {`import { DataViewQueryGenerator } from '@contractspec/lib.contracts/data-views/query-generator';
+        <CodeBlock
+          language="typescript"
+          code={`import { DataViewQueryGenerator } from '@contractspec/lib.contracts/data-views/query-generator';
 
 const generator = new DataViewQueryGenerator(MyUserList);
 const query = generator.generate({
@@ -94,8 +92,16 @@ const query = generator.generate({
 });
 
 // query.input contains { skip: 0, take: 20, role: 'admin' }`}
-          </pre>
-        </div>
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/data-backend" className="btn-primary">
+          Next: Data & Backend <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

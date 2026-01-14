@@ -2,7 +2,6 @@
   "name": "@contractspec/example.marketplace",
   "version": "1.46.2",
   "description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -30,7 +29,7 @@
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:",
-    "@types/react": "^19.2.2",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.2"
   },
   "exports": {
@@ -46,6 +45,7 @@
     "./example": "./dist/example.js",
     "./handlers": "./dist/handlers/index.js",
     "./handlers/marketplace.handlers": "./dist/handlers/marketplace.handlers.js",
+    "./marketplace.capability": "./dist/marketplace.capability.js",
     "./marketplace.feature": "./dist/marketplace.feature.js",
     "./order": "./dist/order/index.js",
     "./order/order.enum": "./dist/order/order.enum.js",
@@ -78,6 +78,7 @@
     "./store/store.operations": "./dist/store/store.operations.js",
     "./store/store.presentation": "./dist/store/store.presentation.js",
     "./store/store.schema": "./dist/store/store.schema.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./ui": "./dist/ui/index.js",
     "./ui/hooks": "./dist/ui/hooks/index.js",
     "./ui/hooks/useMarketplaceData": "./dist/ui/hooks/useMarketplaceData.js",
@@ -86,7 +87,6 @@
     "./ui/renderers/marketplace.markdown": "./dist/ui/renderers/marketplace.markdown.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

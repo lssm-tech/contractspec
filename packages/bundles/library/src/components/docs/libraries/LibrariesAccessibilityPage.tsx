@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: '@contractspec/lib.accessibility: ContractSpec Docs',
-//   description: 'Accessibility primitives for WCAG compliance.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesAccessibilityPage() {
   return (
@@ -19,11 +15,7 @@ export function LibrariesAccessibilityPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.accessibility
-# or
-bun add @contractspec/lib.accessibility`}</pre>
-        </div>
+        <InstallCommand package="@contractspec/lib.accessibility" />
       </div>
 
       <div className="space-y-4">
@@ -72,8 +64,9 @@ bun add @contractspec/lib.accessibility`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: App Setup</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import {
+        <CodeBlock
+          language="tsx"
+          code={`import {
   SRLiveRegionProvider,
   RouteAnnouncer,
   SkipLink
@@ -93,14 +86,15 @@ export function RootLayout({ children }) {
       </body>
     </html>
   );
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example: Live Announcements</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { useSRLiveRegion } from '@contractspec/lib.accessibility';
+        <CodeBlock
+          language="tsx"
+          code={`import { useSRLiveRegion } from '@contractspec/lib.accessibility';
 
 export function TodoList() {
   const { announce } = useSRLiveRegion();
@@ -111,8 +105,8 @@ export function TodoList() {
   };
 
   return <button onClick={addTodo}>Add Todo</button>;
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">

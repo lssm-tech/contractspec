@@ -3,10 +3,11 @@ import ora from 'ora';
 import type { AgentOrchestrator } from '../../ai/agents/index';
 import type { AgentResult } from '../../ai/agents/types';
 import type { GenerationTarget, TestTarget } from './types';
+import type { ContractsrcConfig } from '@contractspec/lib.contracts';
 
 export async function generateWithAgent(
   orchestrator: AgentOrchestrator | null,
-  agentMode: string,
+  agentMode: ContractsrcConfig['agentMode'],
   task: {
     label: string;
     target: GenerationTarget;
@@ -49,7 +50,7 @@ export async function generateWithAgent(
 
 export async function generateTestsWithAgent(
   orchestrator: AgentOrchestrator | null,
-  agentMode: string,
+  agentMode: ContractsrcConfig['agentMode'],
   task: {
     specCode: string;
     existingCode: string;

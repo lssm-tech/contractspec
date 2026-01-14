@@ -129,7 +129,6 @@ const BillingUsageEntity = defineEntity({
 
 ```bash
 cd packages/examples/saas-boilerplate
-bun run db:generate
 ```
 
 ### Load as Studio Template

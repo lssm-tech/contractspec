@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Hello World: ContractSpec Docs',
-//   description: 'Create your first ContractSpec app in 5 minutes.',
-// };
+import { CodeBlock } from '@contractspec/lib.design-system';
 
 export function HelloWorldPage() {
   return (
@@ -32,8 +28,10 @@ export function HelloWorldPage() {
           <p className="text-muted-foreground">
             Create <code>lib/specs/billing/capture-payment.ts</code>:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`import { defineCommand } from '@contractspec/lib.contracts';
+          <CodeBlock
+            language="typescript"
+            filename="lib/specs/billing/capture-payment.ts"
+            code={`import { defineCommand } from '@contractspec/lib.contracts';
 import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
 const CapturePaymentInput = new SchemaModel({
@@ -76,8 +74,8 @@ export const CapturePayment = defineCommand({
       { resource: 'invoice', action: 'pay', condition: 'owner' },
     ],
   },
-});`}</pre>
-          </div>
+});`}
+          />
         </div>
 
         <div className="space-y-3">
@@ -85,8 +83,10 @@ export const CapturePayment = defineCommand({
           <p className="text-muted-foreground">
             Create <code>lib/handlers/billing/capture-payment.ts</code>:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`import { CapturePayment } from '@/lib/specs/billing/capture-payment';
+          <CodeBlock
+            language="typescript"
+            filename="lib/handlers/billing/capture-payment.ts"
+            code={`import { CapturePayment } from '@/lib/specs/billing/capture-payment';
 import { stripe } from '@/lib/integrations/stripe';
 import { db } from '@/lib/db';
 
@@ -95,7 +95,7 @@ export async function handleCapturePayment(input, ctx) {
   const invoice = await db.invoice.findUnique({
     where: { id: input.invoiceId, userId: ctx.userId },
   });
-  
+
   if (!invoice) throw new Error('Invoice not found');
   if (invoice.status === 'paid') throw new Error('Already paid');
 
@@ -111,8 +111,8 @@ export async function handleCapturePayment(input, ctx) {
   // 3. Update invoice status
   await db.invoice.update({
     where: { id: input.invoiceId },
-    data: { 
-      status: 'paid', 
+    data: {
+      status: 'paid',
       paidAt: new Date(),
       transactionId: paymentIntent.id,
     },
@@ -123,8 +123,8 @@ export async function handleCapturePayment(input, ctx) {
     status: paymentIntent.status,
     receiptUrl: paymentIntent.charges.data[0]?.receipt_url,
   };
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
@@ -133,17 +133,20 @@ export async function handleCapturePayment(input, ctx) {
             Wire it up in <code>lib/registry.ts</code> and{' '}
             <code>app/api/ops/[...route]/route.ts</code>:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// lib/registry.ts
-import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
+          <CodeBlock
+            language="typescript"
+            filename="lib/registry.ts"
+            code={`import { OperationSpecRegistry, installOp } from '@contractspec/lib.contracts';
 import { CapturePayment } from './specs/billing/capture-payment';
 import { handleCapturePayment } from './handlers/billing/capture-payment';
 
 export const registry = new OperationSpecRegistry();
-installOp(registry, CapturePayment, handleCapturePayment);
-
-// app/api/ops/[...route]/route.ts
-import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
+installOp(registry, CapturePayment, handleCapturePayment);`}
+          />
+          <CodeBlock
+            language="typescript"
+            filename="app/api/ops/[...route]/route.ts"
+            code={`import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
 import { registry } from '@/lib/registry';
 import { auth } from '@/lib/auth';
 
@@ -152,25 +155,24 @@ const handler = makeNextAppHandler(registry, async (req) => {
   return { actor: 'user', userId: session.userId, tenantId: session.tenantId };
 });
 
-export { handler as GET, handler as POST };`}</pre>
-          </div>
+export { handler as GET, handler as POST };`}
+          />
         </div>
 
         <div className="card-subtle space-y-4 p-6">
           <h3 className="font-bold">What you just built:</h3>
           <ul className="text-muted-foreground space-y-2 text-sm">
             <li>
-              ✓ Type-safe API endpoint at{' '}
+              Type-safe API endpoint at{' '}
               <code>/api/ops/billing.capturePayment</code>
             </li>
             <li>
-              ✓ Automatic input validation (amount must be positive, IDs
-              required)
+              Automatic input validation (amount must be positive, IDs required)
             </li>
-            <li>✓ Policy enforcement—only invoice owner can pay</li>
-            <li>✓ Stripe integration with error handling</li>
-            <li>✓ Database transaction with audit trail</li>
-            <li>✓ Same spec works with GraphQL, MCP, or webhooks</li>
+            <li>Policy enforcement—only invoice owner can pay</li>
+            <li>Stripe integration with error handling</li>
+            <li>Database transaction with audit trail</li>
+            <li>Same spec works with GraphQL, MCP, or webhooks</li>
           </ul>
         </div>
 

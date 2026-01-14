@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 import { generateSchemaModelCode } from './schema-converter';
 import type { OpenApiSchema } from './types';
-import type { ContractsrcConfig } from '@contractspec/lib.contracts';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts';
 
 const mockConfig = {
   conventions: { models: 'models' },
-} as ContractsrcConfig;
+} as unknown as ResolvedContractsrcConfig;
 
 describe('Schema Generators', () => {
   const userSchema: OpenApiSchema = {

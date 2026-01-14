@@ -8,11 +8,11 @@
  * and presentations into an installable feature following FeatureModuleSpec.
  */
 
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 // ============ Feature Definition ============
 
-export const AnalyticsDashboardFeature: FeatureModuleSpec = {
+export const AnalyticsDashboardFeature = defineFeature({
   meta: {
     key: 'analytics-dashboard',
     version: '1.0.0',
@@ -121,4 +121,4 @@ export const AnalyticsDashboardFeature: FeatureModuleSpec = {
       { key: 'audit-trail', version: '1.0.0' },
     ],
   },
-};
+});

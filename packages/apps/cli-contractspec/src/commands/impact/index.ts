@@ -60,7 +60,12 @@ export function createImpactCommand(): Command {
 /**
  * Run the impact command.
  */
-async function runImpactCommand(options: ImpactCommandOptions): Promise<void> {
+/**
+ * Run the impact command.
+ */
+export async function runImpactCommand(
+  options: ImpactCommandOptions
+): Promise<void> {
   const fs = createNodeFsAdapter();
   const git = createNodeGitAdapter();
   const logger = createConsoleLoggerAdapter();

@@ -3,13 +3,13 @@
  *
  * Defines the feature module for Studio onboarding journey.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey Studio Onboarding feature module that bundles
  * Studio-specific onboarding track operations and presentations.
  */
-export const LearningJourneyStudioOnboardingFeature: FeatureModuleSpec = {
+export const LearningJourneyStudioOnboardingFeature = defineFeature({
   meta: {
     key: 'learning-journey-studio-onboarding',
     title: 'Learning Journey: Studio Onboarding',
@@ -66,4 +66,4 @@ export const LearningJourneyStudioOnboardingFeature: FeatureModuleSpec = {
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

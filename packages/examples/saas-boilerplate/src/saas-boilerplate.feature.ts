@@ -3,13 +3,13 @@
  *
  * Defines the feature module for the SaaS application foundation.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * SaaS Boilerplate feature module that bundles project management,
  * billing, and settings operations into an installable feature.
  */
-export const SaasBoilerplateFeature: FeatureModuleSpec = {
+export const SaasBoilerplateFeature = defineFeature({
   meta: {
     key: 'saas-boilerplate',
     title: 'SaaS Boilerplate',
@@ -110,4 +110,4 @@ export const SaasBoilerplateFeature: FeatureModuleSpec = {
       { key: 'notifications', version: '1.0.0' },
     ],
   },
-};
+});

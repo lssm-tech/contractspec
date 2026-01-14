@@ -19,7 +19,7 @@
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/server-timing": "^1.4.0",
     "@contractspec/lib.logger": "workspace:*",
-    "elysia": "^1.4.19"
+    "elysia": "^1.4.21"
   },
   "license": "MIT",
   "repository": {

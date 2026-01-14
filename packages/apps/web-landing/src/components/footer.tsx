@@ -147,7 +147,7 @@ export default function Footer() {
                 <Linkedin size={20} />
               </Link>
               <Link
-                href="mailto:contact@contractspec.tech"
+                href="mailto:contact@contractspec.io"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail size={20} />

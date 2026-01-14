@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const WealthSnapshotFeature: FeatureModuleSpec = {
+export const WealthSnapshotFeature = defineFeature({
   meta: {
     key: 'wealth-snapshot',
     version: '1.0.0',
@@ -67,4 +67,4 @@ export const WealthSnapshotFeature: FeatureModuleSpec = {
       { key: 'goals', version: '1.0.0' },
     ],
   },
-};
+});

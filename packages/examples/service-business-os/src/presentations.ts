@@ -1,7 +1,6 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 
-export const ServiceDashboardPresentation: PresentationSpec = {
+export const ServiceDashboardPresentation = definePresentation({
   meta: {
     key: 'service-business-os.dashboard',
     version: '1.0.0',
@@ -23,9 +22,9 @@ export const ServiceDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['service.dashboard.enabled'],
   },
-};
+});
 
-export const ClientListPresentation: PresentationSpec = {
+export const ClientListPresentation = definePresentation({
   meta: {
     key: 'service-business-os.client.list',
     version: '1.0.0',
@@ -47,9 +46,9 @@ export const ClientListPresentation: PresentationSpec = {
   policy: {
     flags: ['service.clients.enabled'],
   },
-};
+});
 
-export const QuoteListPresentation: PresentationSpec = {
+export const QuoteListPresentation = definePresentation({
   meta: {
     key: 'service-business-os.quote.list',
     version: '1.0.0',
@@ -71,9 +70,9 @@ export const QuoteListPresentation: PresentationSpec = {
   policy: {
     flags: ['service.quotes.enabled'],
   },
-};
+});
 
-export const QuoteDetailPresentation: PresentationSpec = {
+export const QuoteDetailPresentation = definePresentation({
   meta: {
     key: 'service-business-os.quote.detail',
     version: '1.0.0',
@@ -95,9 +94,9 @@ export const QuoteDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['service.quotes.enabled'],
   },
-};
+});
 
-export const JobBoardPresentation: PresentationSpec = {
+export const JobBoardPresentation = definePresentation({
   meta: {
     key: 'service-business-os.job.board',
     version: '1.0.0',
@@ -119,9 +118,9 @@ export const JobBoardPresentation: PresentationSpec = {
   policy: {
     flags: ['service.jobs.enabled'],
   },
-};
+});
 
-export const InvoiceListPresentation: PresentationSpec = {
+export const InvoiceListPresentation = definePresentation({
   meta: {
     key: 'service-business-os.invoice.list',
     version: '1.0.0',
@@ -143,9 +142,9 @@ export const InvoiceListPresentation: PresentationSpec = {
   policy: {
     flags: ['service.invoices.enabled'],
   },
-};
+});
 
-export const PaymentListPresentation: PresentationSpec = {
+export const PaymentListPresentation = definePresentation({
   meta: {
     key: 'service-business-os.payment.list',
     version: '1.0.0',
@@ -167,4 +166,4 @@ export const PaymentListPresentation: PresentationSpec = {
   policy: {
     flags: ['service.payments.enabled'],
   },
-};
+});

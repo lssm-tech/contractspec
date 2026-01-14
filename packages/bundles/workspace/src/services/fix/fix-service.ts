@@ -97,16 +97,7 @@ export class FixService {
   /**
    * Fix a single issue.
    */
-  async fixIssue(
-    issue: FixableIssue,
-    options: {
-      strategy: FixStrategyType;
-      dryRun?: boolean;
-      aiConfig?: unknown;
-      outputDir?: string;
-      workspaceRoot: string;
-    } // Using inline type to match what strategies expect
-  ): Promise<FixResult> {
+  async fixIssue(issue: FixableIssue, options: FixOptions): Promise<FixResult> {
     const strategy = this.strategies.get(options.strategy);
 
     if (!strategy) {
@@ -126,7 +117,7 @@ export class FixService {
       }
     );
 
-    return strategy.fix(issue, options as unknown as FixOptions);
+    return strategy.fix(issue, options);
   }
 
   /**
@@ -169,9 +160,12 @@ export class FixService {
   /**
    * Scan for integrity issues and return fixable ones.
    */
-  async scanAndGetFixables(pattern = '.'): Promise<FixableIssue[]> {
+  async scanAndGetFixables(
+    options: { pattern?: string; cwd?: string } = {}
+  ): Promise<FixableIssue[]> {
     const scanResult = await analyzeIntegrity(this.adapters, {
-      pattern,
+      pattern: options.pattern,
+      cwd: options.cwd,
     });
 
     return scanResult.issues
@@ -198,6 +192,75 @@ export class FixService {
       availableStrategies: strategies,
       strategies: [], // Strategies are managed by service, not attached to issue object in this implementation
     } as FixableIssue;
+  }
+
+  /**
+   * Determine the best strategy for an issue.
+   *
+   * Logic moved from CLI to be shared.
+   */
+  resolveStrategy(
+    issue: FixableIssue,
+    options: {
+      forceStrategy?: FixStrategyType;
+      preferAi?: boolean;
+      interactive?: boolean;
+      // Optional callback for interactive selection if environment supports it
+      select?: (
+        issue: FixableIssue,
+        strategies: FixStrategyType[]
+      ) => Promise<FixStrategyType | undefined>;
+    }
+  ): Promise<FixStrategyType | undefined> {
+    const { forceStrategy, preferAi, select } = options;
+
+    // 1. Forced strategy
+    if (forceStrategy) {
+      // Validate it's available? Or trust caller?
+      // For now, trust caller or checks downstream
+      return Promise.resolve(forceStrategy);
+    }
+
+    // 2. AI Preference
+    if (preferAi && issue.availableStrategies.includes('implement-ai')) {
+      return Promise.resolve('implement-ai');
+    }
+
+    // 3. Single strategy available
+    if (issue.availableStrategies.length === 1) {
+      return Promise.resolve(issue.availableStrategies[0]);
+    }
+
+    // 4. Multiple strategies
+    if (issue.availableStrategies.length > 1) {
+      if (typeof select === 'function') {
+        return select(issue, issue.availableStrategies);
+      }
+      // Default to first if non-interactive or no selector provided
+      // Usually the most standard compliant/safest one is first
+      return Promise.resolve(issue.availableStrategies[0]);
+    }
+
+    return Promise.resolve(undefined);
+  }
+
+  /**
+   * Determine scan options based on input target.
+   */
+  async determineScanOptions(
+    target: string
+  ): Promise<{ pattern?: string; cwd?: string }> {
+    try {
+      const stats = await this.adapters.fs.stat(target);
+      if (stats.isDirectory) {
+        return { cwd: target };
+      } else {
+        return { pattern: target };
+      }
+    } catch {
+      // Likely a glob pattern or non-existent path (treated as pattern)
+      return { pattern: target };
+    }
   }
 
   /**

@@ -1,11 +1,10 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { ProjectModel } from './project.schema';
 
 /**
  * Presentation for displaying a list of projects.
  */
-export const ProjectListPresentation: PresentationSpec = {
+export const ProjectListPresentation = definePresentation({
   meta: {
     key: 'saas.project.list',
     version: '1.0.0',
@@ -29,12 +28,12 @@ export const ProjectListPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.projects.enabled'],
   },
-};
+});
 
 /**
  * Presentation for project detail view.
  */
-export const ProjectDetailPresentation: PresentationSpec = {
+export const ProjectDetailPresentation = definePresentation({
   meta: {
     key: 'saas.project.detail',
     version: '1.0.0',
@@ -56,4 +55,4 @@ export const ProjectDetailPresentation: PresentationSpec = {
   policy: {
     flags: ['saas.projects.enabled'],
   },
-};
+});

@@ -3,13 +3,13 @@
  *
  * Defines the feature module for open banking integrations.
  */
-import type { FeatureModuleSpec } from '../../features';
+import { defineFeature } from '../../features';
 
 /**
  * OpenBanking feature module that bundles account, balance,
  * and transaction synchronization capabilities.
  */
-export const OpenBankingFeature: FeatureModuleSpec = {
+export const OpenBankingFeature = defineFeature({
   meta: {
     key: 'openbanking',
     version: '1.0.0',
@@ -51,4 +51,4 @@ export const OpenBankingFeature: FeatureModuleSpec = {
     provides: [{ key: 'openbanking', version: '1.0.0' }],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

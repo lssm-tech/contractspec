@@ -2,7 +2,8 @@
  * Workspace services (use-cases).
  */
 
-export * from './validate';
+export * from './validate/index';
+export * as features from './features';
 export * from './diff';
 export * from './deps';
 export * from './list';
@@ -38,3 +39,8 @@ export * as upgrade from './upgrade/index';
 export * as hooks from './hooks/index';
 export * from './rulesync';
 export * as fix from './fix';
+export * from './view/index';
+export * from './gap';
+export * from './generate-artifacts';
+export * from './extract';
+export * as vibe from './vibe/index';

@@ -1,7 +1,4 @@
 import { defineFeature } from '@contractspec/lib.contracts';
-import { initOperation } from '../operations/init.operation';
-import { validateOperation } from '../operations/validate.operation';
-import { testOperation } from '../operations/test.operation';
 
 export const cliFeature = defineFeature({
   meta: {
@@ -13,5 +10,9 @@ export const cliFeature = defineFeature({
     tags: ['cli', 'core'],
     owners: ['@lssm/core'],
   },
-  operations: [initOperation.meta, validateOperation.meta, testOperation.meta],
+  operations: [
+    { key: 'init', version: '1.0.0' },
+    { key: 'validate', version: '1.0.0' },
+    { key: 'test', version: '1.0.0' },
+  ],
 });

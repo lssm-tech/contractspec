@@ -3,13 +3,13 @@
  *
  * Defines the feature module for notification management.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Notifications feature module that bundles notification sending,
  * listing, marking as read, and preference management capabilities.
  */
-export const NotificationsFeature: FeatureModuleSpec = {
+export const NotificationsFeature = defineFeature({
   meta: {
     key: 'notifications',
     title: 'Notifications',
@@ -46,4 +46,4 @@ export const NotificationsFeature: FeatureModuleSpec = {
     provides: [{ key: 'notifications', version: '1.0.0' }],
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

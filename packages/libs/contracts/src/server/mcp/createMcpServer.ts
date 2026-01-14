@@ -19,7 +19,7 @@ export function createMcpServer(
   prompts: PromptRegistry,
   ctxFactories: McpCtxFactories
 ) {
-  ctxFactories.logger.info('Creating MCP server');
+  ctxFactories.logger.debug('Creating MCP server');
 
   registerMcpTools(server, ops, { toolCtx: ctxFactories.toolCtx });
   registerMcpResources(server, resources, {

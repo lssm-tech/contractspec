@@ -1,5 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesContractsPage() {
   return (
@@ -14,9 +15,9 @@ export function LibrariesContractsPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.contracts @contractspec/lib.schema`}</pre>
-        </div>
+        <InstallCommand
+          package={['@contractspec/lib.contracts', '@contractspec/lib.schema']}
+        />
       </div>
 
       <div className="space-y-4">
@@ -40,6 +41,36 @@ export function LibrariesContractsPage() {
             (SchemaModel, FieldType) for I/O definitions.
           </li>
         </ul>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Quick Example</h2>
+        <CodeBlock
+          language="typescript"
+          code={`import { defineCommand } from '@contractspec/lib.contracts';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
+const CreateUserInput = new SchemaModel({
+  name: 'CreateUserInput',
+  fields: {
+    email: { type: ScalarTypeEnum.Email(), isOptional: false },
+    name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+  },
+});
+
+export const CreateUser = defineCommand({
+  meta: {
+    key: 'users.createUser',
+    version: '1.0.0',
+    description: 'Create a new user account',
+  },
+  io: {
+    input: CreateUserInput,
+    output: /* ... */,
+  },
+  policy: { auth: 'admin' },
+});`}
+        />
       </div>
 
       <div className="space-y-4">

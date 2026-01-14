@@ -21,10 +21,13 @@ export type AnalyzedSpecType =
   | 'experiment'
   | 'integration'
   | 'knowledge'
+  | 'knowledge'
   | 'telemetry'
+  | 'example'
   | 'app-config'
   | 'policy'
   | 'test-spec'
+  | 'type'
   | 'unknown';
 
 /**
@@ -40,9 +43,22 @@ export type RefType =
   | 'test';
 
 /**
+/**
  * Operation kind detected from file analysis.
  */
-export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
+export type AnalyzedOperationKind =
+  | 'command'
+  | 'query'
+  | 'event'
+  | 'presentation'
+  | 'capability'
+  | 'policy'
+  | 'type'
+  | 'example'
+  | 'app-config'
+  | 'integration'
+  | 'workflow'
+  | 'unknown';
 
 /**
  * Reference information (name + version).
@@ -50,6 +66,16 @@ export type AnalyzedOperationKind = 'command' | 'query' | 'unknown';
 export interface RefInfo {
   key: string;
   version: string;
+}
+
+/**
+ * Test target extracted from a TestSpec.
+ * Matches the TestTarget type from @contractspec/lib.contracts.
+ */
+export interface ExtractedTestTarget {
+  type: 'operation' | 'workflow';
+  key: string;
+  version?: string;
 }
 
 /**
@@ -92,6 +118,13 @@ export interface SpecScanResult {
   policyRefs?: RefInfo[];
   testRefs?: RefInfo[];
 
+  // Test target (for test-spec files)
+  testTarget?: ExtractedTestTarget;
+  testCoverage?: {
+    hasSuccess: boolean;
+    hasError: boolean;
+  };
+
   // Extracted source code
   sourceBlock?: string;
 }
@@ -102,6 +135,7 @@ export interface SpecScanResult {
 export interface FeatureScanResult {
   filePath: string;
   key: string;
+  version?: string;
   title?: string;
   description?: string;
   goal?: string;
@@ -125,6 +159,13 @@ export interface FeatureScanResult {
 
   // Op to presentation links
   opToPresentationLinks: { op: RefInfo; pres: RefInfo }[];
+
+  // Presentation target requirements
+  presentationsTargets?: {
+    key: string;
+    version: string;
+    targets: Record<string, unknown>[]; // untyped structure to decouple
+  }[];
 
   // Extracted source code
   sourceBlock?: string;

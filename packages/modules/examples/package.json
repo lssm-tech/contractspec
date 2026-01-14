@@ -10,8 +10,6 @@
     "typescript"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -28,10 +26,10 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun run"
+    "test": "bun test"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.11",
+    "@apollo/client": "^4.0.12",
     "@contractspec/example.agent-console": "workspace:*",
     "@contractspec/example.ai-support-bot": "workspace:*",
     "@contractspec/example.analytics-dashboard": "workspace:*",

@@ -3,13 +3,13 @@
  *
  * Defines the feature module for CRM and sales pipeline capabilities.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * CRM Pipeline feature module that bundles deal management,
  * pipeline operations, and contact management into an installable feature.
  */
-export const CrmPipelineFeature: FeatureModuleSpec = {
+export const CrmPipelineFeature = defineFeature({
   meta: {
     key: 'crm-pipeline',
     title: 'CRM Pipeline',
@@ -97,4 +97,4 @@ export const CrmPipelineFeature: FeatureModuleSpec = {
       { key: 'notifications', version: '1.0.0' },
     ],
   },
-};
+});

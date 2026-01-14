@@ -8,7 +8,6 @@ import './tech/lifecycle-stage-system.docblock';
 import './tech/presentation-runtime.docblock';
 import './tech/auth/better-auth-nextjs.docblock';
 import './tech/schema/README.docblock';
-import './tech/templates/runtime.docblock';
 import '../workflow/overview.docblock';
 import './tech/mcp-endpoints.docblock';
 import './tech/vscode-extension.docblock';

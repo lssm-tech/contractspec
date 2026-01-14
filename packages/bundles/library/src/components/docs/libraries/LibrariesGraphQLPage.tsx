@@ -1,11 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'GraphQL Libraries: ContractSpec Docs',
-//   description:
-//     'Generate production-ready GraphQL schemas from ContractSpec definitions.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesGraphQLPage() {
   return (
@@ -56,9 +51,13 @@ export function LibrariesGraphQLPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.graphql-core @contractspec/lib.graphql-prisma @contractspec/lib.graphql-federation`}</pre>
-        </div>
+        <InstallCommand
+          package={[
+            '@contractspec/lib.graphql-core',
+            '@contractspec/lib.graphql-prisma',
+            '@contractspec/lib.graphql-federation',
+          ]}
+        />
       </div>
 
       <div className="space-y-4">
@@ -66,8 +65,9 @@ export function LibrariesGraphQLPage() {
         <p className="text-muted-foreground">
           Here's how to assemble a federated GraphQL schema from your specs:
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { builder } from '@contractspec/lib.graphql-core';
+        <CodeBlock
+          language="typescript"
+          code={`import { builder } from '@contractspec/lib.graphql-core';
 import { registerContractsOnBuilder } from '@contractspec/lib.contracts/server/graphql-pothos';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts';
 import { MySpecs } from './specs';
@@ -81,8 +81,8 @@ registerContractsOnBuilder(builder, registry);
 
 // 3. Build and print schema
 const schema = builder.toSchema();
-console.log(printSchema(schema));`}</pre>
-        </div>
+console.log(printSchema(schema));`}
+        />
       </div>
 
       <div className="space-y-4">

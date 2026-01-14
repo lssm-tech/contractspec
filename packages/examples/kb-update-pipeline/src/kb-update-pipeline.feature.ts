@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const KbUpdatePipelineFeature: FeatureModuleSpec = {
+export const KbUpdatePipelineFeature = defineFeature({
   meta: {
     key: 'kb-update-pipeline',
     version: '1.0.0',
@@ -56,4 +56,4 @@ export const KbUpdatePipelineFeature: FeatureModuleSpec = {
       { key: 'audit-trail', version: '1.0.0' },
     ],
   },
-};
+});

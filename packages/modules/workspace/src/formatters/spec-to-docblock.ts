@@ -5,8 +5,11 @@ import { specToMarkdown } from './spec-markdown';
 /**
  * Convert a parsed spec to a DocBlock for documentation generation.
  */
-export function convertSpecToDocBlock(spec: ParsedSpec): DocBlock {
-  const body = specToMarkdown(spec, 'full');
+export function convertSpecToDocBlock(
+  spec: ParsedSpec,
+  options?: { rootPath?: string }
+): DocBlock {
+  const body = specToMarkdown(spec, 'full', { rootPath: options?.rootPath });
 
   return {
     id: spec.meta.key,

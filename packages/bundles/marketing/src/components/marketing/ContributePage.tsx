@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export function ContributePage() {
   return (
-    <main className="flex grow flex-col items-center justify-center pt-24">
+    <main className="flex grow flex-col items-center justify-center">
       <section className="section-padding">
         <div className="prose prose-invert mx-auto max-w-2xl">
           <h1 className="mb-8 text-4xl font-bold">

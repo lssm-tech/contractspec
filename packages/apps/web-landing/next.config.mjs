@@ -6,6 +6,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ['elysia-mcp', '@contractspec/bundle.library'],
+
   // Configure Turbopack to handle sql.js properly
   turbopack: {
     resolveAlias: {
@@ -63,15 +65,6 @@ const nextConfig = {
         source: '/studio/:path*',
         destination: 'https://www.contractspec.studio/:path*',
       },
-      {
-        source: '/api/chat',
-        destination:
-          process.env.API_LIBRARY_URL || 'https://api.contractspec.io/api/chat',
-      },
-      // {
-      //   source: '/api/graphql',
-      //   destination: 'https://api.contractspec.io/graphql',
-      // },
       // LLM guide file (static, no auth)
       {
         source: '/llms',
@@ -102,7 +95,7 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    // const apiUrl = process.env.API_CONTRACTSPEC_URL || 'https://api.contractspec.tech';
+    // const apiUrl = process.env.API_CONTRACTSPEC_URL || 'https://api.contractspec.io';
     const apiLlmsUrl =
       process.env.API_CONTRACTSPEC_URL || `https://llms.contractspec.io`;
     return [

@@ -2,7 +2,6 @@
   "name": "@contractspec/example.workflow-system",
   "version": "1.46.2",
   "description": "Workflow and approval system example for ContractSpec - State machine with role-based transitions",
-  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -30,7 +29,7 @@
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
     "typescript": "catalog:",
-    "@types/react": "^19.2.2",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.2"
   },
   "exports": {
@@ -63,6 +62,7 @@
     "./shared/mock-data": "./dist/shared/mock-data.js",
     "./shared/types": "./dist/shared/types.js",
     "./state-machine": "./dist/state-machine/index.js",
+    "./tests/operations.test-spec": "./dist/tests/operations.test-spec.js",
     "./ui": "./dist/ui/index.js",
     "./ui/hooks": "./dist/ui/hooks/index.js",
     "./ui/hooks/useWorkflowList": "./dist/ui/hooks/useWorkflowList.js",
@@ -70,6 +70,7 @@
     "./ui/renderers/workflow.markdown": "./dist/ui/renderers/workflow.markdown.js",
     "./ui/WorkflowDashboard": "./dist/ui/WorkflowDashboard.js",
     "./workflow": "./dist/workflow/index.js",
+    "./workflow-system.capability": "./dist/workflow-system.capability.js",
     "./workflow-system.feature": "./dist/workflow-system.feature.js",
     "./workflow/workflow.enum": "./dist/workflow/workflow.enum.js",
     "./workflow/workflow.event": "./dist/workflow/workflow.event.js",
@@ -78,7 +79,6 @@
     "./workflow/workflow.schema": "./dist/workflow/workflow.schema.js",
     "./*": "./*"
   },
-  "module": "./dist/index.js",
   "files": [
     "dist",
     "README.md"

@@ -3,13 +3,13 @@
  *
  * Defines the feature module for the learning journey registry.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey Registry feature module that bundles
  * the shared presentations for learning journey tracks.
  */
-export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
+export const LearningJourneyRegistryFeature = defineFeature({
   meta: {
     key: 'learning-journey-registry',
     version: '1.0.0',
@@ -61,4 +61,4 @@ export const LearningJourneyRegistryFeature: FeatureModuleSpec = {
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

@@ -1,8 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec } from '../spec';
-import type { IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const stripeIntegrationSpec: IntegrationSpec = {
+export const stripeIntegrationSpec = defineIntegration({
   meta: {
     key: 'payments.stripe',
     version: '1.0.0',
@@ -81,7 +80,7 @@ export const stripeIntegrationSpec: IntegrationSpec = {
       'Create a restricted Stripe API key with write access to Charges and provide a webhook signing secret.',
     requiredScopes: ['charges:write', 'customers:read'],
   },
-};
+});
 
 export function registerStripeIntegration(
   registry: IntegrationSpecRegistry

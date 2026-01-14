@@ -3,13 +3,13 @@
  *
  * Defines the feature module for CRM first-win onboarding journey.
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
 /**
  * Learning Journey CRM Onboarding feature module that bundles
  * CRM-specific onboarding track operations and presentations.
  */
-export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
+export const LearningJourneyCrmOnboardingFeature = defineFeature({
   meta: {
     key: 'learning-journey-crm-onboarding',
     title: 'Learning Journey: CRM Onboarding',
@@ -63,4 +63,4 @@ export const LearningJourneyCrmOnboardingFeature: FeatureModuleSpec = {
   capabilities: {
     requires: [{ key: 'identity', version: '1.0.0' }],
   },
-};
+});

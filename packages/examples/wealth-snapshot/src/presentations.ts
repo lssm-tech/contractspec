@@ -1,7 +1,6 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 
-export const WealthDashboardPresentation: PresentationSpec = {
+export const WealthDashboardPresentation = definePresentation({
   meta: {
     key: 'wealth-snapshot.dashboard',
     version: '1.0.0',
@@ -23,9 +22,9 @@ export const WealthDashboardPresentation: PresentationSpec = {
   policy: {
     flags: ['wealth.dashboard.enabled'],
   },
-};
+});
 
-export const AccountsListPresentation: PresentationSpec = {
+export const AccountsListPresentation = definePresentation({
   meta: {
     key: 'wealth-snapshot.accounts.list',
     version: '1.0.0',
@@ -47,9 +46,9 @@ export const AccountsListPresentation: PresentationSpec = {
   policy: {
     flags: ['wealth.accounts.enabled'],
   },
-};
+});
 
-export const AssetsListPresentation: PresentationSpec = {
+export const AssetsListPresentation = definePresentation({
   meta: {
     key: 'wealth-snapshot.assets.list',
     version: '1.0.0',
@@ -71,9 +70,9 @@ export const AssetsListPresentation: PresentationSpec = {
   policy: {
     flags: ['wealth.assets.enabled'],
   },
-};
+});
 
-export const LiabilitiesListPresentation: PresentationSpec = {
+export const LiabilitiesListPresentation = definePresentation({
   meta: {
     key: 'wealth-snapshot.liabilities.list',
     version: '1.0.0',
@@ -95,9 +94,9 @@ export const LiabilitiesListPresentation: PresentationSpec = {
   policy: {
     flags: ['wealth.liabilities.enabled'],
   },
-};
+});
 
-export const GoalsListPresentation: PresentationSpec = {
+export const GoalsListPresentation = definePresentation({
   meta: {
     key: 'wealth-snapshot.goals.list',
     version: '1.0.0',
@@ -119,4 +118,4 @@ export const GoalsListPresentation: PresentationSpec = {
   policy: {
     flags: ['wealth.goals.enabled'],
   },
-};
+});

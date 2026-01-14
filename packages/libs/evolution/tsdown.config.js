@@ -3,7 +3,7 @@ import { moduleLibrary } from '@contractspec/tool.tsdown';
 
 export default defineConfig(() => ({
   ...moduleLibrary,
-  platform: 'neutral',
+  platform: 'node',
   entry: ['src/index.ts'],
 }));
 

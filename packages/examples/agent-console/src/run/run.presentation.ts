@@ -1,11 +1,10 @@
-import type { PresentationSpec } from '@contractspec/lib.contracts';
-import { StabilityEnum } from '@contractspec/lib.contracts';
+import { StabilityEnum, definePresentation } from '@contractspec/lib.contracts';
 import { RunSummaryModel } from './run.schema';
 
 /**
  * Presentation for displaying a list of agent runs.
  */
-export const RunListPresentation: PresentationSpec = {
+export const RunListPresentation = definePresentation({
   meta: {
     key: 'agent-console.run.list',
     version: '1.0.0',
@@ -27,12 +26,12 @@ export const RunListPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown', 'application/json'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});
 
 /**
  * Presentation for run detail view.
  */
-export const RunDetailPresentation: PresentationSpec = {
+export const RunDetailPresentation = definePresentation({
   meta: {
     key: 'agent-console.run.detail',
     version: '1.0.0',
@@ -52,4 +51,4 @@ export const RunDetailPresentation: PresentationSpec = {
   },
   targets: ['react', 'markdown'],
   policy: { flags: ['agent-console.enabled'] },
-};
+});

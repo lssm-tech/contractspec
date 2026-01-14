@@ -4,7 +4,7 @@
  * Lazy-loads individual seeders to avoid bundle bloat.
  */
 import type { DatabasePort } from '@contractspec/lib.runtime-sandbox';
-import type { TemplateId } from '../../../../lib/registry';
+import type { TemplateId } from '../services';
 
 export interface SeedTemplateParams {
   templateId: TemplateId;

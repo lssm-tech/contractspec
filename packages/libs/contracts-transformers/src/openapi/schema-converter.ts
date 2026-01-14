@@ -6,7 +6,7 @@
 import { createSchemaGenerator } from './schema-generators';
 import type {
   SchemaFormat,
-  ContractsrcConfig,
+  ResolvedContractsrcConfig,
 } from '@contractspec/lib.contracts';
 import type { OpenApiSchema } from './types';
 import { toPascalCase } from '../common/utils';
@@ -239,7 +239,7 @@ export function generateSchemaModelCode(
   schema: OpenApiSchema,
   modelName: string,
   schemaFormat: SchemaFormat = 'contractspec',
-  config?: ContractsrcConfig
+  config?: ResolvedContractsrcConfig
 ): GeneratedModel {
   const generator = createSchemaGenerator(schemaFormat, config);
   const result = generator.generateModel(schema, modelName, {
@@ -260,7 +260,7 @@ export function generateSchemaModelCode(
  */
 export function generateImports(
   fields: SchemaField[],
-  options: ContractsrcConfig,
+  options: ResolvedContractsrcConfig,
   sameDirectory = true
 ): string {
   const imports = new Set<string>();

@@ -7,3 +7,4 @@
 export { generateSkeletonOperation } from './skeleton-operation';
 export { generateSkeletonEvent } from './skeleton-event';
 export { generateSkeletonPresentation } from './skeleton-presentation';
+export { generateSkeletonCapability } from './skeleton-capability';

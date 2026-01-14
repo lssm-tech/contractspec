@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Workflow Library | ContractSpec',
-//   description: 'Runtime orchestration engine for ContractSpec Workflows.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesWorkflowsPage() {
   return (
@@ -16,15 +15,20 @@ export function LibrariesWorkflowsPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.contracts" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">WorkflowRunner</h2>
-        <p>
+        <p className="text-muted-foreground">
           The runner manages execution state, step transitions, retries, and
           compensation.
         </p>
 
-        <div className="bg-muted rounded-lg border p-4">
-          <pre className="text-sm">
-            {`import { WorkflowRunner } from '@contractspec/lib.contracts/workflow/runner';
+        <CodeBlock
+          language="typescript"
+          code={`import { WorkflowRunner } from '@contractspec/lib.contracts/workflow/runner';
 import { InMemoryStateStore } from '@contractspec/lib.contracts/workflow/adapters/memory-store';
 import { WorkflowRegistry } from '@contractspec/lib.contracts/workflow/spec';
 
@@ -45,17 +49,16 @@ const workflowId = await runner.start('my.workflow', 1, { userId: '123' });
 
 // Execute next step (usually called by a worker or queue consumer)
 await runner.executeStep(workflowId);`}
-          </pre>
-        </div>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">State Persistence</h2>
-        <p>
+        <p className="text-muted-foreground">
           The runner relies on a <code>StateStore</code> to persist workflow
           execution history. ContractSpec ships with:
         </p>
-        <ul className="list-disc space-y-2 pl-6">
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>InMemoryStateStore</code> - for testing and development.
           </li>
@@ -67,8 +70,10 @@ await runner.executeStep(workflowId);`}
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Events</h2>
-        <p>The runner emits events that you can subscribe to for monitoring:</p>
-        <ul className="list-disc space-y-2 pl-6">
+        <p className="text-muted-foreground">
+          The runner emits events that you can subscribe to for monitoring:
+        </p>
+        <ul className="text-muted-foreground list-disc space-y-2 pl-6">
           <li>
             <code>workflow.started</code>
           </li>
@@ -91,6 +96,15 @@ await runner.executeStep(workflowId);`}
             <code>workflow.compensation_step_completed</code>
           </li>
         </ul>
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/data-views" className="btn-primary">
+          Next: Data Views <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

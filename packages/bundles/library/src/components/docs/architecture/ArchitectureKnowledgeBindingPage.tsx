@@ -1,11 +1,6 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: 'Knowledge Binding: ContractSpec Docs',
-//   description:
-//     'Learn how apps bind to knowledge spaces through AppKnowledgeBinding in ContractSpec.',
-// };
 
 export function ArchitectureKnowledgeBindingPage() {
   return (
@@ -51,8 +46,9 @@ export function ArchitectureKnowledgeBindingPage() {
           <h3 className="text-lg font-semibold">
             Step 1: Blueprint declares knowledge needs
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// AppBlueprintSpec
+          <CodeBlock
+            language="typescript"
+            code={`// AppBlueprintSpec
 {
   id: "support-app",
   version: "1.0.0",
@@ -76,16 +72,17 @@ export function ArchitectureKnowledgeBindingPage() {
       purpose: "Third-party integration documentation"
     }
   ]
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 2: Tenant configures sources
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// KnowledgeSourceConfig (per-tenant)
+          <CodeBlock
+            language="typescript"
+            code={`// KnowledgeSourceConfig (per-tenant)
 [
   {
     id: "src_notion_product_docs",
@@ -114,16 +111,17 @@ export function ArchitectureKnowledgeBindingPage() {
     syncPolicy: { interval: "24h" },
     lastSyncedAt: "2025-01-15T00:00:00Z"
   }
-]`}</pre>
-          </div>
+]`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 3: TenantAppConfig binds spaces
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// TenantAppConfig
+          <CodeBlock
+            language="typescript"
+            code={`// TenantAppConfig
 {
   tenantId: "acme-corp",
   blueprintId: "support-app",
@@ -159,16 +157,17 @@ export function ArchitectureKnowledgeBindingPage() {
       sources: ["src_stripe_docs"]
     }
   ]
-}`}</pre>
-          </div>
+}`}
+          />
         </div>
 
         <div className="space-y-3">
           <h3 className="text-lg font-semibold">
             Step 4: Workflow uses knowledge
           </h3>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`// WorkflowSpec
+          <CodeBlock
+            language="yaml"
+            code={`// WorkflowSpec
 workflowId: answer-question
 version: '1.0.0'.0.0
 
@@ -176,20 +175,20 @@ steps:
   - id: generate-embedding
     capability: openai-embeddings
     inputs:
-      text: $\{input.question}
+      text: \${input.question}
   
   - id: search-canonical
     capability: vector.search
     inputs:
       collection: "product-canon"
-      vector: $\{steps.generate-embedding.output.embedding}
+      vector: \${steps.generate-embedding.output.embedding}
       limit: 5
   
   - id: search-support-history
     capability: vector.search
     inputs:
       collection: "support-history"
-      vector: $\{steps.generate-embedding.output.embedding}
+      vector: \${steps.generate-embedding.output.embedding}
       limit: 3
   
   - id: generate-answer
@@ -204,14 +203,14 @@ steps:
             Only use external docs for integration questions.
         - role: "user"
           content: |
-            Question: $\{input.question}
+            Question: \${input.question}
             
             Canonical docs:
-            $\{steps.search-canonical.output.results}
+            \${steps.search-canonical.output.results}
             
             Support history:
-            $\{steps.search-support-history.output.results}`}</pre>
-          </div>
+            \${steps.search-support-history.output.results}`}
+          />
         </div>
       </div>
 
@@ -274,8 +273,9 @@ steps:
         <p className="text-muted-foreground">
           Workflows can query multiple knowledge spaces and combine results:
         </p>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`knowledgeBindings: [
+        <CodeBlock
+          language="typescript"
+          code={`knowledgeBindings: [
   {
     spaceId: "product-canon",
     enabled: true,
@@ -303,8 +303,8 @@ steps:
     allowedCategories: ["operational"],
     sources: ["src_crm_data", "src_past_invoices"]
   }
-]`}</pre>
-        </div>
+]`}
+        />
       </div>
 
       <div className="space-y-4">

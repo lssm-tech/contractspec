@@ -1,8 +1,7 @@
-import { StabilityEnum } from '@contractspec/lib.contracts';
-import type { PresentationSpec } from '@contractspec/lib.contracts';
+import { definePresentation, StabilityEnum } from '@contractspec/lib.contracts';
 import { ChangeCandidateModel, ReviewTaskModel } from './entities/models';
 
-export const KbDashboardPresentation: PresentationSpec = {
+export const KbDashboardPresentation = definePresentation({
   meta: {
     key: 'kb.dashboard',
     version: '1.0.0',
@@ -22,9 +21,9 @@ export const KbDashboardPresentation: PresentationSpec = {
     props: ChangeCandidateModel, // Simplified props mapping for example
   },
   targets: ['react', 'markdown'],
-};
+});
 
-export const KbReviewListPresentation: PresentationSpec = {
+export const KbReviewListPresentation = definePresentation({
   meta: {
     key: 'kb.review.list',
     version: '1.0.0',
@@ -44,9 +43,9 @@ export const KbReviewListPresentation: PresentationSpec = {
     props: ReviewTaskModel,
   },
   targets: ['react', 'markdown'],
-};
+});
 
-export const KbReviewFormPresentation: PresentationSpec = {
+export const KbReviewFormPresentation = definePresentation({
   meta: {
     key: 'kb.review.form',
     version: '1.0.0',
@@ -66,4 +65,4 @@ export const KbReviewFormPresentation: PresentationSpec = {
     props: ReviewTaskModel,
   },
   targets: ['react'],
-};
+});

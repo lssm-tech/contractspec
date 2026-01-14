@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
-
-// export const metadata = {
-//   title: '@contractspec/lib.ui-kit: ContractSpec Docs',
-//   description: 'Universal UI components for React Native and Web.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 
 export function LibrariesUIKitPage() {
   return (
@@ -19,11 +15,7 @@ export function LibrariesUIKitPage() {
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Installation</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`npm install @contractspec/lib.ui-kit
-# or
-bun add @contractspec/lib.ui-kit`}</pre>
-        </div>
+        <InstallCommand package="@contractspec/lib.ui-kit" />
       </div>
 
       <div className="space-y-4">
@@ -50,8 +42,9 @@ bun add @contractspec/lib.ui-kit`}</pre>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Example Usage</h2>
-        <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-          <pre>{`import { Button } from '@contractspec/lib.ui-kit/ui/button';
+        <CodeBlock
+          language="tsx"
+          code={`import { Button } from '@contractspec/lib.ui-kit/ui/button';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { Card, CardHeader, CardTitle, CardContent } from '@contractspec/lib.ui-kit/ui/card';
 
@@ -69,8 +62,8 @@ export function MyComponent() {
       </CardContent>
     </Card>
   );
-}`}</pre>
-        </div>
+}`}
+        />
       </div>
 
       <div className="space-y-4">

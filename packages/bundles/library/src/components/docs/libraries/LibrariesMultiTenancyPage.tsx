@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Multi-Tenancy Library | ContractSpec',
-//   description: 'Utilities for RLS, provisioning, and isolation.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesMultiTenancyPage() {
   return (
@@ -15,27 +14,34 @@ export function LibrariesMultiTenancyPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.multi-tenancy" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Prisma RLS Middleware</h2>
-        <p>
+        <p className="text-muted-foreground">
           Automatically injects <code>tenantId</code> into all queries.
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { createRlsMiddleware } from '@contractspec/lib.multi-tenancy/rls';
+        <CodeBlock
+          language="typescript"
+          code={`import { createRlsMiddleware } from '@contractspec/lib.multi-tenancy/rls';
 import { prisma } from './db';
 import { getTenantId } from './context';
 
 prisma.$use(createRlsMiddleware(() => getTenantId()));`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Provisioning Service</h2>
-        <p>
+        <p className="text-muted-foreground">
           Automates the creation of new tenants, including database setup and
           default user creation.
         </p>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { TenantProvisioningService } from '@contractspec/lib.multi-tenancy/provisioning';
+        <CodeBlock
+          language="typescript"
+          code={`import { TenantProvisioningService } from '@contractspec/lib.multi-tenancy/provisioning';
 
 const service = new TenantProvisioningService({ db: prisma });
 await service.provision({
@@ -44,7 +50,19 @@ await service.provision({
   slug: 'acme',
   ownerEmail: 'admin@acme.com'
 });`}
-        </pre>
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link
+          href="/docs/libraries/progressive-delivery"
+          className="btn-primary"
+        >
+          Next: Progressive Delivery <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

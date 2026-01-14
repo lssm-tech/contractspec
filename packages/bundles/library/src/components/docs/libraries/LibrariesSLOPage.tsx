@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'SLO Library',
-//   description:
-//     'Define and monitor availability + latency targets with burn-rate alerts.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesSLOPage() {
   return (
@@ -17,29 +15,36 @@ export function LibrariesSLOPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.slo" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Define Targets</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const definition: SLODefinition = {
+        <CodeBlock
+          language="typescript"
+          code={`const definition: SLODefinition = {
   id: 'billing.createInvoice.availability',
   targetAvailability: 0.999,
   latencyP99TargetMs: 500,
   rollingWindowMs: 7 * 24 * 60 * 60 * 1000,
   alerts: { fastBurnThreshold: 14, slowBurnThreshold: 6 },
 };`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Monitor Burn Rate</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const monitor = new SLOMonitor({ definition, incidentManager });
+        <CodeBlock
+          language="typescript"
+          code={`const monitor = new SLOMonitor({ definition, incidentManager });
 const { snapshot, burnRate } = monitor.recordWindow({
   good: 12500,
   bad: 3,
   latencyP99: 420,
   latencyP95: 210,
 });`}
-        </pre>
+        />
         <p className="text-muted-foreground text-sm">
           When burn rate exceeds the configured thresholds the monitor calls
           your
@@ -55,6 +60,15 @@ const { snapshot, burnRate } = monitor.recordWindow({
           can show trends without hitting a warehouse. Prisma models persist
           everything for long-term audits.
         </p>
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/cost-tracking" className="btn-primary">
+          Next: Cost Tracking <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

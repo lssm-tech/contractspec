@@ -1,6 +1,6 @@
 import type { OwnerShipMeta } from '../ownership';
 import type { CapabilityRef } from '../capabilities';
-import type { FeatureRef } from '../features';
+import type { FeatureRef, FeatureModuleSpec } from '../features';
 import type { PolicyRef } from '../policy/spec';
 import type { ThemeRef } from '../themes';
 import type { ExperimentRef } from '../experiments/spec';
@@ -191,3 +191,9 @@ export interface TenantAppConfig {
   branding?: TenantBrandingConfig;
   notes?: string;
 }
+
+/**
+ * Helper to define an AppConfig.
+ */
+export const defineAppConfig = (spec: FeatureModuleSpec): FeatureModuleSpec =>
+  spec;

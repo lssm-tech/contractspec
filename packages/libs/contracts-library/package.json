@@ -11,6 +11,10 @@
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./templates": "./dist/templates/index.js",

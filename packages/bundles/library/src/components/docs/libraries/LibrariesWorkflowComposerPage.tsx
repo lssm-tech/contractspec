@@ -1,7 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Workflow Composer | ContractSpec',
-//   description: 'Tenant-aware workflow extensions without forking specs.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesWorkflowComposerPage() {
   return (
@@ -16,9 +15,15 @@ export function LibrariesWorkflowComposerPage() {
       </div>
 
       <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.workflow-composer" />
+      </div>
+
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Register extensions</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const composer = new WorkflowComposer();
+        <CodeBlock
+          language="typescript"
+          code={`const composer = new WorkflowComposer();
 
 composer.register({
   workflow: 'billing.invoiceApproval',
@@ -36,19 +41,29 @@ composer.register({
   ],
   hiddenSteps: ['internal-audit'],
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Compose at runtime</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`const tenantWorkflow = composer.compose({
+        <CodeBlock
+          language="typescript"
+          code={`const tenantWorkflow = composer.compose({
   base: BaseInvoiceWorkflow,
   tenantId: 'acme',
 });
 
 workflowRunner.execute(tenantWorkflow, ctx);`}
-        </pre>
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/workflows" className="btn-primary">
+          Next: Workflow Runtime <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

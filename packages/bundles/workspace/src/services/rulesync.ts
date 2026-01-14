@@ -21,7 +21,8 @@ export class RuleSyncService implements RuleSyncPort {
   ) {}
 
   async sync(options: RuleSyncOptions): Promise<RuleSyncResult> {
-    const { config, cwd, targets = config.targets } = options;
+    const { config, cwd } = options;
+    const targets = options.targets ?? config.targets ?? [];
 
     if (!config.enabled && !options.targets) {
       return {
@@ -37,7 +38,7 @@ export class RuleSyncService implements RuleSyncPort {
 
     try {
       // 1. Ensure rules directory exists
-      const rulesDir = this.fs.join(cwd, config.rulesDir);
+      const rulesDir = this.fs.join(cwd, config.rulesDir ?? '.rules');
       const rulesDirExists = await this.fs.exists(rulesDir);
       if (!rulesDirExists) {
         return {
@@ -98,7 +99,9 @@ export class RuleSyncService implements RuleSyncPort {
 
     // Convert our ContractSpec RuleSyncConfig to rulesync's config format
     const rulesyncConfig = {
-      rules: config.rules.map((r: string) => this.fs.join(config.rulesDir, r)),
+      rules: (config.rules ?? []).map((r: string) =>
+        this.fs.join(config.rulesDir ?? '.rules', r)
+      ),
       targets: options.targets || config.targets,
       // Add other rulesync specific options here
     };

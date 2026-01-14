@@ -12,7 +12,9 @@ import {
   scanFeatureSource,
   scanSpecSource,
   validateSpecStructure,
+  inferSpecTypeFromFilePath,
 } from '@contractspec/module.workspace';
+import { features } from '@contractspec/bundle.workspace';
 import type {
   IntegrityAnalysisResult,
   SpecImplementationResult,
@@ -189,26 +191,7 @@ function findRelevantRange(
  * Check if a file is a ContractSpec file.
  */
 function isSpecFile(filePath: string): boolean {
-  const specExtensions = [
-    '.contracts.ts',
-    '.event.ts',
-    '.presentation.ts',
-    '.feature.ts',
-    '.capability.ts',
-    '.workflow.ts',
-    '.data-view.ts',
-    '.form.ts',
-    '.migration.ts',
-    '.telemetry.ts',
-    '.experiment.ts',
-    '.app-config.ts',
-    '.integration.ts',
-    '.knowledge.ts',
-    '.policy.ts',
-    '.test-spec.ts',
-  ];
-
-  return specExtensions.some((ext) => filePath.endsWith(ext));
+  return inferSpecTypeFromFilePath(filePath) !== 'unknown';
 }
 
 /**
@@ -315,43 +298,22 @@ export function addIntegrityDiagnosticsForDocument(
   if (isFeatureFile(filePath)) {
     const feature = scanFeatureSource(code, filePath);
 
-    // Check for unresolved refs in this feature
-    const checkRefs = (
-      refs: { key: string; version: string }[],
-      inventory: Map<string, unknown>,
-      refType: string
-    ) => {
-      for (const ref of refs) {
-        const key = `${ref.key}.v${ref.version}`;
-        if (!inventory.has(key)) {
-          const diagnostic = new vscode.Diagnostic(
-            findRefRange(document, ref.key),
-            `${refType} ${ref.key}.v${ref.version} not found`,
-            vscode.DiagnosticSeverity.Error
-          );
-          diagnostic.source = INTEGRITY_SOURCE;
-          diagnostic.code = 'unresolved-ref';
-          diagnostics.push(diagnostic);
-        }
-      }
-    };
+    // Validate feature refs against inventory
+    const errors = features.validateFeatureRefs(
+      feature,
+      integrityResult.inventory
+    );
 
-    checkRefs(
-      feature.operations,
-      integrityResult.inventory.operations,
-      'Operation'
-    );
-    checkRefs(feature.events, integrityResult.inventory.events, 'Event');
-    checkRefs(
-      feature.presentations,
-      integrityResult.inventory.presentations,
-      'Presentation'
-    );
-    checkRefs(
-      feature.experiments,
-      integrityResult.inventory.experiments,
-      'Experiment'
-    );
+    for (const error of errors) {
+      const diagnostic = new vscode.Diagnostic(
+        findRefRange(document, error.key),
+        error.message,
+        vscode.DiagnosticSeverity.Error
+      );
+      diagnostic.source = INTEGRITY_SOURCE;
+      diagnostic.code = 'unresolved-ref';
+      diagnostics.push(diagnostic);
+    }
 
     return;
   }

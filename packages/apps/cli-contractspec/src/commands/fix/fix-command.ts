@@ -8,7 +8,10 @@ import { createNodeAdapters, fix } from '@contractspec/bundle.workspace';
 import { promptForStrategy, promptForIssues } from './interactive';
 import { parseCiIssues } from './batch-fix';
 import type { FixCommandOptions } from './types';
-import type { FixStrategyType } from '@contractspec/bundle.workspace/services/fix/types';
+import type {
+  FixStrategyType,
+  FixableIssue,
+} from '@contractspec/bundle.workspace';
 
 export const fixCommand = new Command('fix')
   .description('Fix integrity issues in contract specs')
@@ -36,13 +39,17 @@ export const fixCommand = new Command('fix')
         issuesToFix = await parseCiIssues(options.fromCi, fixService);
       } else {
         // Mode: Scan and fix
+        const target = options.target ?? '.';
+
+        // Use shared logic for determining scan options
+        const scanOptions = await fixService.determineScanOptions(target);
         console.log(
-          chalk.blue(`Scanning for integrity issues in ${options.target}...`)
+          chalk.blue(
+            `Scanning for integrity issues in ${scanOptions.cwd || scanOptions.pattern || target}...`
+          )
         );
 
-        const fixableItems = await fixService.scanAndGetFixables(
-          options.target
-        );
+        const fixableItems = await fixService.scanAndGetFixables(scanOptions);
 
         if (fixableItems.length === 0) {
           console.log(chalk.green('No fixable issues found.'));
@@ -70,41 +77,20 @@ export const fixCommand = new Command('fix')
       let failCount = 0;
 
       for (const item of issuesToFix) {
-        let strategyType: FixStrategyType | undefined = options.strategy;
-
-        // If no forced strategy, decide based on interactivity or defaults
-        if (!strategyType) {
-          if (item.availableStrategies.length === 1) {
-            strategyType = item.availableStrategies[0];
-          } else if (item.availableStrategies.length > 1) {
-            if (options.yes) {
-              // Default to first strategy (usually the most compliant)
-              strategyType = item.availableStrategies[0];
-            } else {
-              const selected = await promptForStrategy(
-                item,
-                item.availableStrategies
-              );
-              if (selected) {
-                strategyType = selected;
-              } else {
-                console.log(chalk.gray(`Skipped ${item.issue.message}`));
-                continue;
-              }
-            }
-          }
-        }
+        // Use shared strategy resolution logic
+        // We pass a 'select' callback for interactive mode
+        const strategyType = await fixService.resolveStrategy(item, {
+          forceStrategy: options.strategy,
+          preferAi: options.ai,
+          select: options.yes
+            ? undefined
+            : async (issue: FixableIssue, strategies: FixStrategyType[]) => {
+                const choice = await promptForStrategy(issue, strategies);
+                return choice || undefined;
+              },
+        });
 
         if (strategyType) {
-          // AI Override
-          if (
-            options.ai &&
-            strategyType === 'implement-skeleton' &&
-            item.availableStrategies.includes('implement-ai')
-          ) {
-            strategyType = 'implement-ai';
-          }
-
           if (options.dryRun) {
             console.log(
               chalk.cyan(

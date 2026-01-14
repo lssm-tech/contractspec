@@ -1,0 +1,45 @@
+name: ContractSpec Drift Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-contracts:
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+      DO_NOT_TRACK: 1
+    steps:
+      - uses: actions/checkout@v6
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.6'
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build packages
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+        run: bun run build
+
+      - name: Validate Drift
+        run: |
+          # Run validation which checks structural integrity
+          bun contractspec validate
+          
+          # Check if generated artifacts match
+          # We run generate and check for git diff
+          bun contractspec generate
+          
+          if [[ -n $(git status --porcelain generated/) ]]; then
+            echo "::error::Drift detected in generated artifacts! Please run 'contractspec generate' and commit the changes."
+            git status --porcelain generated/
+            exit 1
+          fi

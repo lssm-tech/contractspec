@@ -1,10 +1,5 @@
-import { compareVersions } from 'compare-versions';
-import { filterBy, getUniqueTags, groupBy } from '../registry-utils';
 import type { ExampleSpec, ExampleKind, ExampleVisibility } from './types';
-
-function exampleKey(meta: ExampleSpec['meta']) {
-  return `${meta.key}.v${meta.version}`;
-}
+import { SpecContractRegistry } from '../registry';
 
 /**
  * In-memory registry for ExampleSpec.
@@ -21,59 +16,12 @@ function exampleKey(meta: ExampleSpec['meta']) {
  * const publicExamples = registry.listByVisibility('public');
  * ```
  */
-export class ExampleRegistry {
-  private items = new Map<string, ExampleSpec>();
-
-  /** Register an example. Throws when the key already exists. */
-  register(spec: ExampleSpec): this {
-    const key = exampleKey(spec.meta);
-    if (this.items.has(key)) {
-      throw new Error(`Duplicate example: ${key}`);
-    }
-    this.items.set(key, spec);
-    return this;
-  }
-
-  /** List all registered examples. */
-  list(): ExampleSpec[] {
-    return [...this.items.values()];
-  }
-
-  /** Get an example by its key. */
-  get(key: string, version?: string): ExampleSpec | undefined {
-    if (version != null) return this.items.get(`${key}.v${version}`);
-    // find highest version
-    let candidate: ExampleSpec | undefined;
-    for (const [_k, v] of this.items.entries()) {
-      if (v.meta.key !== key) continue; // Basic prefix check
-      if (
-        !candidate ||
-        compareVersions(v.meta.version, candidate.meta.version) > 0
-      ) {
-        candidate = v;
-      }
-    }
-    return candidate;
-  }
-
-  /** Check if an example with the given key exists. */
-  has(key: string, version?: string): boolean {
-    return !!this.get(key, version);
-  }
-
-  /** Get the number of registered examples. */
-  get size(): number {
-    return this.items.size;
-  }
-
-  /** Clear all registered examples. */
-  clear(): void {
-    this.items.clear();
-  }
-
-  /** Filter examples by criteria. */
-  filter(criteria: import('../registry-utils').RegistryFilter): ExampleSpec[] {
-    return filterBy(this.list(), criteria);
+export class ExampleRegistry extends SpecContractRegistry<
+  'example',
+  ExampleSpec
+> {
+  public constructor(items?: ExampleSpec[]) {
+    super('example', items);
   }
 
   /** List examples by kind. */
@@ -84,16 +32,6 @@ export class ExampleRegistry {
   /** List examples by visibility. */
   listByVisibility(visibility: ExampleVisibility): ExampleSpec[] {
     return this.list().filter((spec) => spec.meta.visibility === visibility);
-  }
-
-  /** List examples with specific tag. */
-  listByTag(tag: string): ExampleSpec[] {
-    return this.list().filter((spec) => spec.meta.tags.includes(tag));
-  }
-
-  /** List examples by owner. */
-  listByOwner(owner: string): ExampleSpec[] {
-    return this.list().filter((spec) => spec.meta.owners.includes(owner));
   }
 
   /** List examples by domain. */
@@ -119,13 +57,6 @@ export class ExampleRegistry {
     return this.list().filter((spec) => spec.surfaces.studio.installable);
   }
 
-  /** Group examples by key function. */
-  groupBy(
-    keyFn: import('../registry-utils').GroupKeyFn<ExampleSpec>
-  ): Map<string, ExampleSpec[]> {
-    return groupBy(this.list(), keyFn);
-  }
-
   /** Group examples by kind. */
   groupByKind(): Map<ExampleKind, ExampleSpec[]> {
     const result = new Map<ExampleKind, ExampleSpec[]>();
@@ -135,11 +66,6 @@ export class ExampleRegistry {
       result.set(spec.meta.kind, existing);
     }
     return result;
-  }
-
-  /** Get unique tags from all examples. */
-  getUniqueTags(): string[] {
-    return getUniqueTags(this.list());
   }
 
   /** Get unique kinds from all examples. */

@@ -15,11 +15,11 @@
   "scripts": {
     "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
     "publish:pkg:canary": "bun publish:pkg --tag canary",
-    "build": "bun run build:all",
+    "build": "bun run build:types && bun run build:all",
     "build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts",
     "build:node": "bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts",
     "build:all": "bun run build:bun && bun run build:node",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "build:types": "tsc --noEmit",
     "dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch",
     "dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch",
     "clean": "rimraf dist",
@@ -40,11 +40,12 @@
     "@contractspec/module.ai-chat": "workspace:*",
     "@contractspec/module.examples": "workspace:*",
     "@contractspec/module.workspace": "workspace:*",
-    "@inquirer/prompts": "^8.1.0",
+    "@inquirer/prompts": "^8.2.0",
     "ai": "catalog:ai",
     "chalk": "^5.6.2",
     "commander": "^14.0.2",
     "glob": "catalog:build",
+    "js-yaml": "^4.1.1",
     "ollama-ai-provider": "catalog:ai",
     "ora": "^9.0.0",
     "typescript": "catalog:",
@@ -53,9 +54,10 @@
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
-    "@types/node": "^22.10.2",
-    "rimraf": "catalog:build",
-    "eslint": "^9.39.2"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.0.6",
+    "eslint": "^9.39.2",
+    "rimraf": "catalog:build"
   },
   "keywords": [
     "cli",

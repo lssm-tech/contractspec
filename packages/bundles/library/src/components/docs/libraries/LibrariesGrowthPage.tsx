@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Growth Experiments Library | ContractSpec',
-//   description:
-//     'Deterministic experiment registry, assignment, tracking, and stats.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesGrowthPage() {
   return (
@@ -15,10 +13,16 @@ export function LibrariesGrowthPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.growth" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Register + assign</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { ExperimentRegistry, ExperimentRunner } from '@contractspec/lib.growth/experiments';
+        <CodeBlock
+          language="typescript"
+          code={`import { ExperimentRegistry, ExperimentRunner } from '@contractspec/lib.growth/experiments';
 
 const registry = new ExperimentRegistry().register({
   key: 'pricing.cta',
@@ -33,13 +37,14 @@ const registry = new ExperimentRegistry().register({
 
 const runner = new ExperimentRunner();
 const assignment = runner.assign(registry.get('pricing.cta')!, 'user_123');`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Track + analyze</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { ExperimentTracker } from '@contractspec/lib.growth/tracker';
+        <CodeBlock
+          language="typescript"
+          code={`import { ExperimentTracker } from '@contractspec/lib.growth/tracker';
 import { StatsEngine } from '@contractspec/lib.growth/stats';
 
 const tracker = new ExperimentTracker(new InMemoryTrackerStore());
@@ -56,7 +61,16 @@ const stats = new StatsEngine().summarize(
   await tracker.getSamples(assignment.experimentKey, 'demo_booked'),
   'demo_booked'
 );`}
-        </pre>
+        />
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/analytics" className="btn-primary">
+          Next: Analytics <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

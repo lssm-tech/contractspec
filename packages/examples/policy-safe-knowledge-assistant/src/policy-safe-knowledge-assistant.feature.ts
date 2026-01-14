@@ -1,6 +1,6 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const PolicySafeKnowledgeAssistantFeature: FeatureModuleSpec = {
+export const PolicySafeKnowledgeAssistantFeature = defineFeature({
   meta: {
     key: 'policy-safe-knowledge-assistant',
     version: '1.0.0',
@@ -55,4 +55,4 @@ export const PolicySafeKnowledgeAssistantFeature: FeatureModuleSpec = {
       { key: 'learning-journey', version: '1.0.0' },
     ],
   },
-};
+});

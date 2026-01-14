@@ -1,9 +1,9 @@
 /**
  * Integration Hub Feature Module Specification
  */
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts';
+import { defineFeature } from '@contractspec/lib.contracts';
 
-export const IntegrationHubFeature: FeatureModuleSpec = {
+export const IntegrationHubFeature = defineFeature({
   meta: {
     key: 'integration-hub',
     version: '1.0.0',
@@ -118,4 +118,4 @@ export const IntegrationHubFeature: FeatureModuleSpec = {
       { key: 'etl', version: '1.0.0' },
     ],
   },
-};
+});

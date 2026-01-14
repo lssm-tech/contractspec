@@ -48,7 +48,7 @@ const changes = [
 
 export function ChangelogPage() {
   return (
-    <main className="pt-24">
+    <main>
       {/* Hero */}
       <section className="section-padding hero-gradient border-border relative border-b">
         <div className="mx-auto max-w-4xl space-y-6 text-center">

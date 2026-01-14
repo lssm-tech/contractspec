@@ -1,8 +1,6 @@
-// export const metadata: Metadata = {
-//   title: 'Evolution Library | ContractSpec',
-//   description:
-//     'Adaptive spec suggestions, approvals, and variant orchestration for auto-evolving apps.',
-// };
+import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import Link from '@contractspec/lib.ui-link';
+import { ChevronRight } from 'lucide-react';
 
 export function LibrariesEvolutionPage() {
   return (
@@ -16,10 +14,16 @@ export function LibrariesEvolutionPage() {
         </p>
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Installation</h2>
+        <InstallCommand package="@contractspec/lib.evolution" />
+      </div>
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">From telemetry to intent</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { SpecAnalyzer } from '@contractspec/lib.evolution/analyzer';
+        <CodeBlock
+          language="typescript"
+          code={`import { SpecAnalyzer } from '@contractspec/lib.evolution/analyzer';
 import { EvolutionPipeline } from '@contractspec/lib.observability';
 
 const analyzer = new SpecAnalyzer();
@@ -35,13 +39,14 @@ pipeline.ingest({
   timestamp: new Date(),
   errorCode: 'VALIDATION_FAILED',
 });`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Generate & approve suggestions</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import {
+        <CodeBlock
+          language="typescript"
+          code={`import {
   SpecGenerator,
   SpecSuggestionOrchestrator,
   InMemorySpecSuggestionRepository,
@@ -56,13 +61,14 @@ const suggestion = generator.generateFromIntent(intentPattern, {
 });
 
 await orchestrator.submit(suggestion, sessionState);`}
-        </pre>
+        />
       </div>
 
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">Write approved specs back to git</h2>
-        <pre className="bg-muted rounded-lg border p-4 text-sm">
-          {`import { FileSystemSuggestionWriter } from '@contractspec/lib.evolution/approval';
+        <CodeBlock
+          language="typescript"
+          code={`import { FileSystemSuggestionWriter } from '@contractspec/lib.evolution/approval';
 
 const writer = new FileSystemSuggestionWriter({
   outputDir:
@@ -74,7 +80,7 @@ await writer.write({
   status: 'approved',
   approvals: { reviewer: 'ops@contractspec', decidedAt: new Date() },
 });`}
-        </pre>
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -82,7 +88,7 @@ await writer.write({
           {
             title: 'Approvals by default',
             description:
-              'Every suggestion flows through @contractspec/lib.ai-agent’s ApprovalWorkflow. Tune auto-approval thresholds per environment.',
+              "Every suggestion flows through @contractspec/lib.ai-agent's ApprovalWorkflow. Tune auto-approval thresholds per environment.",
           },
           {
             title: 'Pluggable storage',
@@ -95,6 +101,15 @@ await writer.write({
             <p className="text-muted-foreground text-sm">{card.description}</p>
           </div>
         ))}
+      </div>
+
+      <div className="flex items-center gap-4 pt-4">
+        <Link href="/docs/libraries" className="btn-ghost">
+          Back to Libraries
+        </Link>
+        <Link href="/docs/libraries/observability" className="btn-primary">
+          Next: Observability <ChevronRight size={16} />
+        </Link>
       </div>
     </div>
   );

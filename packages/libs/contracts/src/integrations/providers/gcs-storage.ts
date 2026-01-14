@@ -1,7 +1,7 @@
 import { StabilityEnum } from '../../ownership';
-import type { IntegrationSpec, IntegrationSpecRegistry } from '../spec';
+import { defineIntegration, IntegrationSpecRegistry } from '../spec';
 
-export const gcsStorageIntegrationSpec: IntegrationSpec = {
+export const gcsStorageIntegrationSpec = defineIntegration({
   meta: {
     key: 'storage.gcs',
     version: '1.0.0',
@@ -73,7 +73,7 @@ export const gcsStorageIntegrationSpec: IntegrationSpec = {
     setupInstructions:
       'Create a Google Cloud service account with Storage Object Admin role and upload the JSON credentials to the secret store.',
   },
-};
+});
 
 export function registerGcsStorageIntegration(
   registry: IntegrationSpecRegistry
