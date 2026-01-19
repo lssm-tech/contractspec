@@ -9,10 +9,16 @@ export const docsSections = [
   {
     title: 'Getting Started',
     items: [
+      { title: 'Start Here', href: '/docs/getting-started/start-here' },
+      { title: 'Compatibility', href: '/docs/getting-started/compatibility' },
       { title: 'Installation', href: '/docs/getting-started/installation' },
       { title: 'Hello World', href: '/docs/getting-started/hello-world' },
       { title: 'DataView Tutorial', href: '/docs/getting-started/dataviews' },
       { title: 'Developer Tools', href: '/docs/getting-started/tools' },
+      {
+        title: 'Troubleshooting',
+        href: '/docs/getting-started/troubleshooting',
+      },
     ],
   },
   {

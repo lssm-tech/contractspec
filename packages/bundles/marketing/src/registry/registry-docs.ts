@@ -39,6 +39,9 @@ import { CLIPage } from '@contractspec/bundle.library/components/docs/getting-st
 import { DataViewTutorialPage } from '@contractspec/bundle.library/components/docs/getting-started/DataViewTutorialPage';
 import { HelloWorldPage } from '@contractspec/bundle.library/components/docs/getting-started/HelloWorldPage';
 import { InstallationPage } from '@contractspec/bundle.library/components/docs/getting-started/InstallationPage';
+import { StartHerePage } from '@contractspec/bundle.library/components/docs/getting-started/StartHerePage';
+import { TroubleshootingPage } from '@contractspec/bundle.library/components/docs/getting-started/TroubleshootingPage';
+import { CompatibilityPage } from '@contractspec/bundle.library/components/docs/getting-started/CompatibilityPage';
 
 // Integrations
 import { IntegrationsCircuitBreakersPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsCircuitBreakersPage';
@@ -133,6 +136,9 @@ export const docsComponentMap: ComponentMap = {
   DocsIndexPage,
   // Getting Started
   InstallationPage,
+  StartHerePage,
+  TroubleshootingPage,
+  CompatibilityPage,
   HelloWorldPage,
   CLIPage,
   DataViewTutorialPage,
@@ -266,6 +272,24 @@ export const docsPresentations: [string, PresentationSpec][] = [
   ),
 
   // Getting Started
+  docsEntry(
+    '/docs/getting-started/start-here',
+    'web-landing.docs.start-here',
+    'StartHerePage',
+    'ContractSpec start here onboarding guide'
+  ),
+  docsEntry(
+    '/docs/getting-started/troubleshooting',
+    'web-landing.docs.troubleshooting',
+    'TroubleshootingPage',
+    'ContractSpec getting started troubleshooting'
+  ),
+  docsEntry(
+    '/docs/getting-started/compatibility',
+    'web-landing.docs.compatibility',
+    'CompatibilityPage',
+    'ContractSpec compatibility and requirements'
+  ),
   docsEntry(
     '/docs/getting-started/installation',
     'web-landing.docs.installation',
