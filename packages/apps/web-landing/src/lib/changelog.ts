@@ -66,7 +66,7 @@ export async function getAggregatedChangelog(): Promise<ChangelogEntry[]> {
   for (const file of files) {
     const content = fs.readFileSync(file, 'utf-8');
     const packageName = getPackageName(file);
-    const parsed = parseChangelog(content, file, packageName);
+    const parsed = parseChangelog(content, packageName);
     allDetails.push(...parsed);
   }
 
@@ -116,11 +116,7 @@ function getPackageName(changelogPath: string): string {
   return path.basename(dir);
 }
 
-function parseChangelog(
-  content: string,
-  filePath: string,
-  packageName: string
-): RawDetail[] {
+function parseChangelog(content: string, packageName: string): RawDetail[] {
   const results: RawDetail[] = [];
   const lines = content.split('\n');
 
