@@ -2,6 +2,10 @@
 
 import Link from '@contractspec/lib.ui-link';
 import {
+  analyticsEventNames,
+  captureAnalyticsEvent,
+} from '@contractspec/bundle.library/libs/posthog/client';
+import {
   CheckCircle,
   ChevronRight,
   Database,
@@ -29,6 +33,11 @@ export const ProductClientPage = () => (
         <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
           <Link
             href="/install"
+            onClick={() =>
+              captureAnalyticsEvent(analyticsEventNames.CTA_INSTALL_CLICK, {
+                surface: 'product-hero',
+              })
+            }
             className="btn-primary inline-flex items-center gap-2"
           >
             Install OSS Core <ChevronRight size={16} />

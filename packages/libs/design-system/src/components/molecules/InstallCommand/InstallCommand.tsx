@@ -91,6 +91,7 @@ export function InstallCommand({
   type = 'add',
   dev = false,
   global = false,
+  onCopy,
   ...props
 }: InstallCommandProps) {
   const packageNames = useMemo(
@@ -108,5 +109,5 @@ export function InstallCommand({
     [packageNames, type, dev, global]
   );
 
-  return <CommandTabs commands={commands} {...props} />;
+  return <CommandTabs commands={commands} onCopy={onCopy} {...props} />;
 }

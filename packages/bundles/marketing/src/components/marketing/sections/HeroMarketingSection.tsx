@@ -1,6 +1,10 @@
 'use client';
 
 import { ButtonLink, MarketingSection } from '@contractspec/lib.design-system';
+import {
+  analyticsEventNames,
+  captureAnalyticsEvent,
+} from '@contractspec/bundle.library/libs/posthog/client';
 import { Box, HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Lead, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 import { ChevronRight } from 'lucide-react';
@@ -28,10 +32,25 @@ export function HeroMarketingSection() {
         </Lead>
 
         <HStack gap="md" justify="center" wrap="wrap">
-          <ButtonLink href="/install">
+          <ButtonLink
+            href="/install"
+            onClick={() =>
+              captureAnalyticsEvent(analyticsEventNames.CTA_INSTALL_CLICK, {
+                surface: 'hero',
+              })
+            }
+          >
             Install OSS <ChevronRight size={16} />
           </ButtonLink>
-          <ButtonLink variant="ghost" href="/contact#waitlist">
+          <ButtonLink
+            variant="ghost"
+            href="/contact#waitlist"
+            onClick={() =>
+              captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+                surface: 'hero',
+              })
+            }
+          >
             Join Studio Waitlist
           </ButtonLink>
         </HStack>

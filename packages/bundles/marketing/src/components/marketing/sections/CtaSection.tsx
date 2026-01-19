@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { MarketingSection, ButtonLink } from '@contractspec/lib.design-system';
+import {
+  analyticsEventNames,
+  captureAnalyticsEvent,
+} from '@contractspec/bundle.library/libs/posthog/client';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H2, Lead } from '@contractspec/lib.ui-kit-web/ui/typography';
 
@@ -24,8 +28,26 @@ export function CtaSection() {
           align="center"
           className="pt-2 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
         >
-          <ButtonLink href="/pricing#waitlist">Join waitlist</ButtonLink>
-          <ButtonLink variant="ghost" href="/contact">
+          <ButtonLink
+            href="/pricing#waitlist"
+            onClick={() =>
+              captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+                surface: 'cta-section',
+              })
+            }
+          >
+            Join waitlist
+          </ButtonLink>
+          <ButtonLink
+            variant="ghost"
+            href="/contact"
+            onClick={() =>
+              captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+                surface: 'cta-section',
+                variant: 'contact',
+              })
+            }
+          >
             Book a call
           </ButtonLink>
         </VStack>

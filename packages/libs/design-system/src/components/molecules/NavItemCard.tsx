@@ -20,6 +20,7 @@ export function NavItemCard({ item, className }: NavItemCardProps) {
       aria-label={typeof item.label === 'string' ? item.label : item.ariaLabel}
       target={item.target}
       rel={item.external ? 'noopener noreferrer' : undefined}
+      onClick={item.onClick}
     >
       <div className="flex items-center gap-3">
         {item.imageSrc ? (

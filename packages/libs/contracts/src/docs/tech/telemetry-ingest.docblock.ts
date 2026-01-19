@@ -76,6 +76,16 @@ The endpoint requires \`POSTHOG_PROJECT_KEY\` environment variable to be set. If
 
 ## Events
 
+### OSS Adoption Funnel
+
+| Event | Description | Properties |
+|-------|-------------|------------|
+| \`cta_install_click\` | Clicked Install OSS CTA | \`surface\` |
+| \`cta_studio_click\` | Clicked Studio waitlist CTA | \`surface\`, \`variant\` |
+| \`docs_quickstart_view\` | Entered quickstart docs path | \`surface\`, \`destination\` |
+| \`copy_command_click\` | Copied a command block | \`surface\`, \`language\`, \`filename\`, \`packageManager\` |
+| \`example_repo_open\` | Selected a template/example | \`surface\`, \`templateId\`, \`source\` |
+
 ### Extension Events
 
 | Event | Description | Properties |

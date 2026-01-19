@@ -6,6 +6,10 @@ import {
   MarketingHeader,
   NavBrand,
 } from '@contractspec/lib.design-system';
+import {
+  analyticsEventNames,
+  captureAnalyticsEvent,
+} from '@contractspec/bundle.library/libs/posthog/client';
 import Image from 'next/image';
 import appLogo from '../../public/logo-no-bg.png';
 
@@ -40,9 +44,25 @@ export default function Header() {
       }
       nav={navItems}
       navLinkClassName="rounded-md"
-      cta={{ label: 'Install OSS Core', href: '/install' }}
+      cta={{
+        label: 'Install OSS Core',
+        href: '/install',
+        onClick: () =>
+          captureAnalyticsEvent(analyticsEventNames.CTA_INSTALL_CLICK, {
+            surface: 'header',
+          }),
+      }}
       right={
-        <ButtonLink variant="ghost" href="/contact#waitlist" size="sm">
+        <ButtonLink
+          variant="ghost"
+          href="/contact#waitlist"
+          size="sm"
+          onClick={() =>
+            captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+              surface: 'header',
+            })
+          }
+        >
           Studio Waitlist
         </ButtonLink>
       }

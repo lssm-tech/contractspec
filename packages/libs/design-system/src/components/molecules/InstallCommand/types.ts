@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'react';
+import type { PackageManager } from '../CommandTabs/types';
 
 export type InstallCommandType = 'add' | 'install' | 'create' | 'run' | 'exec';
 
@@ -14,4 +15,6 @@ export interface InstallCommandProps extends Omit<
   dev?: boolean;
   /** Whether this is a global installation (adds -g flag) */
   global?: boolean;
+  /** Optional callback when copy succeeds */
+  onCopy?: (data: { command: string; packageManager: PackageManager }) => void;
 }

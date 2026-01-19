@@ -12,6 +12,7 @@ export interface NavLink {
   imageSrc?: string;
   imageAlt?: string;
   categories?: string[];
+  onClick?: (event?: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export interface NavSection {

@@ -31,4 +31,6 @@ export interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
   showLineNumbers?: boolean;
   /** Whether to show the copy button */
   showCopyButton?: boolean;
+  /** Optional callback when copy succeeds */
+  onCopy?: () => void;
 }

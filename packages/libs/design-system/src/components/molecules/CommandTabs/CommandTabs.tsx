@@ -12,6 +12,7 @@ export function CommandTabs({
   commands,
   initialPreference = 'bun',
   className,
+  onCopy,
   ...props
 }: CommandTabsProps) {
   const context = usePackageManager();
@@ -63,6 +64,13 @@ export function CommandTabs({
   const currentCommand = commands[effectiveSelected];
   if (!currentCommand) return null;
 
+  const handleCopy = () => {
+    onCopy?.({
+      command: currentCommand,
+      packageManager: effectiveSelected,
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -96,7 +104,11 @@ export function CommandTabs({
         ))}
       </div>
       <div className="relative p-4" role="tabpanel">
-        <CopyButton value={currentCommand} className="absolute top-3 right-3" />
+        <CopyButton
+          value={currentCommand}
+          className="absolute top-3 right-3"
+          onCopy={handleCopy}
+        />
         <pre className="overflow-x-auto pr-10 font-mono text-[13px] leading-6 text-white">
           <code>{currentCommand}</code>
         </pre>

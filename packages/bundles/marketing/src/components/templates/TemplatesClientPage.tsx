@@ -17,6 +17,10 @@ import {
   TooltipTrigger,
 } from '@contractspec/lib.ui-kit-web/ui/tooltip';
 import {
+  analyticsEventNames,
+  captureAnalyticsEvent,
+} from '@contractspec/bundle.library/libs/posthog/client';
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -438,7 +442,17 @@ export const TemplatesPage = () => {
                           <TooltipTrigger asChild>
                             <button
                               className="btn-primary flex-1 text-center text-xs"
-                              onClick={() => setSelectedTemplateForCommand(t)}
+                              onClick={() => {
+                                captureAnalyticsEvent(
+                                  analyticsEventNames.EXAMPLE_REPO_OPEN,
+                                  {
+                                    surface: 'templates',
+                                    templateId: t.id,
+                                    source: 'registry',
+                                  }
+                                );
+                                setSelectedTemplateForCommand(t);
+                              }}
                             >
                               Use Template
                             </button>
@@ -512,9 +526,17 @@ export const TemplatesPage = () => {
                         <TooltipTrigger asChild>
                           <button
                             className="btn-primary flex-1 text-center text-xs"
-                            onClick={() =>
-                              setSelectedTemplateForCommand(template)
-                            }
+                            onClick={() => {
+                              captureAnalyticsEvent(
+                                analyticsEventNames.EXAMPLE_REPO_OPEN,
+                                {
+                                  surface: 'templates',
+                                  templateId: template.templateId,
+                                  source: 'local',
+                                }
+                              );
+                              setSelectedTemplateForCommand(template);
+                            }}
                           >
                             Use Template
                           </button>
@@ -605,7 +627,6 @@ export const TemplatesPage = () => {
       <TemplatePreviewModal
         templateId={preview}
         onClose={() => {
-          console.log('on close');
           setPreview(null);
         }}
       />
@@ -646,7 +667,14 @@ export const TemplatesPage = () => {
                   navigator.clipboard.writeText(
                     `npx contractspec init --template ${commandId}`
                   );
-                  // Optionally show toast
+                  captureAnalyticsEvent(
+                    analyticsEventNames.COPY_COMMAND_CLICK,
+                    {
+                      surface: 'templates',
+                      templateId: commandId,
+                      filename: 'templates-cli',
+                    }
+                  );
                 }}
               >
                 Copy Command
@@ -665,6 +693,10 @@ export const TemplatesPage = () => {
             <button
               className="btn-ghost w-full text-sm"
               onClick={() => {
+                captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
+                  surface: 'templates',
+                  templateId: commandId,
+                });
                 setSelectedTemplateForCommand(null);
                 setWaitlistModalOpen(true);
               }}

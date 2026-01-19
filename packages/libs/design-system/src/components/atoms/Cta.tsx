@@ -44,21 +44,6 @@ export const Cta = React.forwardRef<
       if (ctaName) {
         try {
           if (capture) capture(ctaName);
-          // Optional PostHog fallback if present globally
-          const ph = (globalThis as unknown as { posthog?: unknown }).posthog;
-          if (
-            ph &&
-            typeof (ph as { capture?: unknown }).capture === 'function'
-          ) {
-            (
-              ph as {
-                capture: (
-                  event: string,
-                  props?: Record<string, unknown>
-                ) => void;
-              }
-            ).capture('cta_click', { cta: ctaName });
-          }
         } catch {
           /* noop */
         }

@@ -11,10 +11,15 @@ export function CodeBlock({
   filename,
   showLineNumbers = false,
   showCopyButton = true,
+  onCopy,
   className,
   ...props
 }: CodeBlockProps) {
   const [highlightedHtml, setHighlightedHtml] = useState<string | null>(null);
+
+  const handleCopy = () => {
+    onCopy?.();
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -57,7 +62,11 @@ export function CodeBlock({
       )}
       <div className="relative">
         {showCopyButton && (
-          <CopyButton value={code} className="absolute top-3 right-3" />
+          <CopyButton
+            value={code}
+            className="absolute top-3 right-3"
+            onCopy={handleCopy}
+          />
         )}
         {highlightedHtml ? (
           <div

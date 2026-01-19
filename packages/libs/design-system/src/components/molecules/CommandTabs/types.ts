@@ -7,6 +7,8 @@ export interface CommandTabsProps extends HTMLAttributes<HTMLDivElement> {
   commands: Partial<Record<PackageManager, string>>;
   /** Initial package manager preference (overridden by context if available) */
   initialPreference?: PackageManager;
+  /** Optional callback when copy succeeds */
+  onCopy?: (data: { command: string; packageManager: PackageManager }) => void;
 }
 
 export interface PackageManagerContextValue {

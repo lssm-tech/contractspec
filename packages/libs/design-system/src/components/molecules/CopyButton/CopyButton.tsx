@@ -26,8 +26,8 @@ export function CopyButton({
       await navigator.clipboard.writeText(value);
       setHasCopied(true);
       onCopy?.();
-    } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
+    } catch {
+      return;
     }
   }, [value, onCopy]);
 

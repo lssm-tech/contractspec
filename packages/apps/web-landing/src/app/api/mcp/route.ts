@@ -3,7 +3,7 @@ import { createDocsMcpHandler } from '@contractspec/bundle.library/application/m
 
 const mcpHandler = new Elysia({
   prefix: '/api',
-}).use(createDocsMcpHandler('/mcp'));
+}).use(createDocsMcpHandler('/docs'));
 
 export const GET = mcpHandler.handle;
 export const POST = mcpHandler.handle;
