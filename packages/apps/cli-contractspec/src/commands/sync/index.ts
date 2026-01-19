@@ -9,7 +9,7 @@ import {
 } from '@contractspec/bundle.workspace';
 import { loadConfig, mergeConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
-import { buildCommand } from '../build';
+import { buildCommand } from '../build-cmd';
 
 export const syncCommand = new Command('sync')
   .description('Sync contracts by building all discovered specs')

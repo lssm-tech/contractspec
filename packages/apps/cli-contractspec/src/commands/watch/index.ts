@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import path from 'node:path';
 import { createNodeAdapters } from '@contractspec/bundle.workspace';
-import { buildCommand } from '../build';
+import { buildCommand } from '../build-cmd';
 import { validateCommand } from '../validate';
 import { loadConfig, mergeConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';

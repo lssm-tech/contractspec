@@ -2,7 +2,7 @@ import { Command, Help } from 'commander';
 import chalk from 'chalk';
 import { loadConfig, mergeConfig } from './utils/config';
 import { createCommand } from './commands/create/index';
-import { buildCommand } from './commands/build/index';
+import { buildCommand } from './commands/build-cmd/index';
 import { validateCommand } from './commands/validate/index';
 import { testCommand } from './commands/test/index';
 import { generateGoldenTestsCommand } from './commands/test/generate';
@@ -40,6 +40,7 @@ import { upgradeCommand } from './commands/upgrade/index';
 import { agentCommand } from './commands/agent/index';
 import { fixCommand } from './commands/fix/index';
 import { vibeCommand } from './commands/vibe/index';
+import { importCommand } from './commands/import/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -164,6 +165,7 @@ program.addCommand(withCategory(generateCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(extractCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(gapCommand, CATEGORY_ESSENTIALS));
 program.addCommand(withCategory(applyCommand, CATEGORY_ESSENTIALS));
+program.addCommand(withCategory(importCommand, CATEGORY_ESSENTIALS));
 
 // Development
 program.addCommand(withCategory(watchCommand, CATEGORY_DEVELOPMENT));

@@ -1,0 +1,71 @@
+{
+  "name": "@contractspec/lib.source-extractors",
+  "version": "0.1.0",
+  "description": "Extract contract candidates from TypeScript source code across multiple frameworks (NestJS, Express, Fastify, Hono, Elysia, tRPC, Next.js)",
+  "keywords": [
+    "contractspec",
+    "source-extraction",
+    "nestjs",
+    "express",
+    "fastify",
+    "hono",
+    "elysia",
+    "trpc",
+    "typescript"
+  ],
+  "type": "module",
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "dev": "bun build:bundle --watch",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "@contractspec/lib.schema": "workspace:*",
+    "typescript": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./codegen": "./dist/codegen/index.js",
+    "./extractors": "./dist/extractors/index.js",
+    "./types": "./dist/types.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./types": "./dist/types.js",
+      "./extractors": "./dist/extractors/index.js",
+      "./codegen": "./dist/codegen/index.js",
+      "./*": "./*"
+    },
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/libs/source-extractors"
+  },
+  "homepage": "https://contractspec.io"
+}
