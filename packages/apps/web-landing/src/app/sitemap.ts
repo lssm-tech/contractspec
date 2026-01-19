@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://contractspec.io';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_APP_URL || 'https://www.contractspec.io';
 
 // Marketing/Landing pages
 const MARKETING_ROUTES = [

@@ -1,54 +1,265 @@
-ContractSpec — LLM Guide (web-landing)
+# ContractSpec — LLM Guide
 
-Purpose
-- ContractSpec is the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.
-- This app (packages/apps/web-landing) is the public marketing + docs + Studio entry surface.
+> Stabilize your AI-generated code. Define contracts once, generate consistent code across API, DB, UI, and events.
 
-Repository structure (high-level)
-- packages/apps/web-landing: Next.js App Router site (this app)
-- packages/apps/api-contractspec: API server (Elysia) including MCP endpoints
-- packages/libs/contracts: core ContractSpec library (OperationSpecRegistry specs, adapters, docs DocBlocks)
-- packages/bundles/contractspec-workspace: reusable workspace services (build/validate/diff/list/sync/watch/clean/test/regenerator wrapper)
+## What is ContractSpec?
 
-Key routes / entry points (web-landing)
-- Marketing: / (and /product, /pricing, /templates, /changelog, /contact, /legal/*)
-- Docs: /docs/*
-- Studio entry: /studio (auth-protected), /studio/features (public)
-- API routes: /api/graphql/*, /api/auth/*, /api/organizations/*
+ContractSpec is a **spec-first compiler** for AI-generated software. It provides:
 
-Authentication
-- Uses Better Auth via `@contractspec/bundle.studio/application/services/auth`.
-- Studio routes require a valid session (see auth route handlers under `src/app/api/auth/...`).
+- **Single Source of Truth**: Define contracts in TypeScript that generate API endpoints, database schemas, UI types, events, and MCP tools
+- **Safe Regeneration**: Update specs, regenerate code—invariants are enforced, breaking changes caught at compile time
+- **Multi-Surface Consistency**: One spec generates REST, GraphQL, Prisma, React components, and AI agent tools
+- **No Lock-in**: Generated code is standard TypeScript you can read, modify, and eject from anytime
 
-API surfaces (base paths)
-- GraphQL: `/api/graphql`
-- MCP (served by api-contractspec app): see `@contractspec/lib.contracts/docs/tech/mcp-endpoints.docblock`
+## Installation
 
-Feature flags / experiments
-- Prefer centralized enums/consts for flag names and analytics props; avoid scattering.
-- Look for feature flag usage in bundles and libs (not apps).
+```bash
+# Install the CLI
+bun add -D @contractspec/app.cli-contractspec
 
-Data stores (conceptual)
-- This app is mostly a UI surface. Data access is mediated via GraphQL/auth services.
+# Install core libraries
+bun add @contractspec/lib.contracts @contractspec/lib.schema
+```
 
-Docs source of truth
-- Canonical docs are DocBlocks under `packages/libs/contracts/src/docs/**` (not /docs markdown).
-- LLM guide endpoint(s):
-  - /llms serves this file (rewrite)
-  - /llms.txt serves this file (static)
-  - /llms.md and /llms.mdx alias to this file
-  - llms.contractspec.io aliases to this file
+## Core Concepts
 
-Operational notes
-- No secrets in code. Env vars are required for auth + telemetry + API URLs; do not log them.
-- Logging: use approved structured logging utilities; avoid console.* in server/runtime paths.
+### Operations (Commands & Queries)
 
+Operations are the primary building blocks. Commands mutate state; queries read state.
 
+```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts';
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 
+// Command (write operation)
+export const CreateUser = defineCommand({
+  meta: {
+    name: 'user.create',
+    version: '1.0.0',
+    description: 'Register a new user',
+    goal: 'Onboard users to the platform',
+    context: 'Public registration flow',
+    owners: ['team-auth'],
+    tags: ['auth', 'users'],
+  },
+  io: {
+    input: new SchemaModel({
+      name: 'CreateUserInput',
+      fields: {
+        email: { type: ScalarTypeEnum.Email(), isOptional: false },
+        name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
+      },
+    }),
+    output: new SchemaModel({
+      name: 'CreateUserOutput',
+      fields: {
+        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
+      },
+    }),
+    errors: {
+      EMAIL_EXISTS: {
+        description: 'Email already registered',
+        http: 409,
+        when: 'User with this email already exists',
+      },
+    },
+  },
+  policy: {
+    auth: 'anonymous',
+  },
+});
 
+// Query (read operation)
+export const GetUser = defineQuery({
+  meta: {
+    name: 'user.get',
+    version: '1.0.0',
+    description: 'Get user by ID',
+    goal: 'Retrieve user details',
+    context: 'User profile access',
+    owners: ['team-auth'],
+    tags: ['auth', 'users'],
+  },
+  io: {
+    input: new SchemaModel({
+      name: 'GetUserInput',
+      fields: {
+        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
+      },
+    }),
+    output: new SchemaModel({
+      name: 'GetUserOutput',
+      fields: {
+        id: { type: ScalarTypeEnum.UUID(), isOptional: false },
+        email: { type: ScalarTypeEnum.Email(), isOptional: false },
+        name: { type: ScalarTypeEnum.String(), isOptional: false },
+      },
+    }),
+  },
+  policy: {
+    auth: 'user',
+  },
+});
+```
 
+### Events
 
+Events represent things that happened in the system.
 
+```typescript
+import { defineEvent } from '@contractspec/lib.contracts';
 
+export const UserCreated = defineEvent({
+  meta: {
+    key: 'user.created',
+    version: '1.0.0',
+    description: 'Emitted when a new user registers',
+    owners: ['team-auth'],
+    tags: ['auth', 'users'],
+  },
+  payload: new SchemaModel({
+    name: 'UserCreatedPayload',
+    fields: {
+      userId: { type: ScalarTypeEnum.UUID(), isOptional: false },
+      email: { type: ScalarTypeEnum.Email(), isOptional: false },
+      createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+    },
+  }),
+});
+```
 
+### Schema Types
 
+ContractSpec uses `SchemaModel` with `ScalarTypeEnum` for type-safe schemas:
+
+```typescript
+import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
+// Available scalar types
+ScalarTypeEnum.String()           // Basic string
+ScalarTypeEnum.NonEmptyString()   // Non-empty string
+ScalarTypeEnum.Email()            // Email validation
+ScalarTypeEnum.UUID()             // UUID format
+ScalarTypeEnum.Int()              // Integer
+ScalarTypeEnum.Float()            // Float
+ScalarTypeEnum.Boolean()          // Boolean
+ScalarTypeEnum.DateTime()         // ISO datetime
+ScalarTypeEnum.Date()             // Date only
+ScalarTypeEnum.URL()              // URL validation
+ScalarTypeEnum.JSON()             // Arbitrary JSON
+```
+
+## CLI Commands
+
+### Create specs
+
+```bash
+# Interactive wizard
+contractspec create
+
+# With AI assistance
+contractspec create --ai --provider claude
+```
+
+### Build implementations
+
+```bash
+# Generate handlers from specs
+contractspec build src/contracts/user.contracts.ts
+
+# Use Claude Code agent for production quality
+contractspec build src/contracts/user.contracts.ts --agent-mode claude-code
+```
+
+### Validate specs
+
+```bash
+# Validate spec structure
+contractspec validate src/contracts/user.contracts.ts
+
+# Validate implementation against spec
+contractspec validate src/contracts/user.contracts.ts --check-implementation
+```
+
+### Sync all contracts
+
+```bash
+# Build all discovered specs
+contractspec sync
+
+# Preview changes
+contractspec sync --dry-run
+```
+
+### CI/CD integration
+
+```bash
+# Run all validation checks
+contractspec ci
+
+# Output SARIF for GitHub Code Scanning
+contractspec ci --format sarif --output results.sarif
+```
+
+## Runtime Adapters
+
+ContractSpec generates runtime adapters for multiple surfaces:
+
+### REST API (Next.js)
+
+```typescript
+import { makeNextAppHandler } from '@contractspec/lib.contracts/server/rest-next-app';
+
+const handler = makeNextAppHandler(registry, (req) => ({ actor: 'anonymous' }));
+export { handler as GET, handler as POST };
+```
+
+### GraphQL (Pothos)
+
+```typescript
+import { makePothosSchema } from '@contractspec/lib.contracts/server/graphql-pothos';
+
+const schema = makePothosSchema(registry);
+```
+
+### MCP (AI Agents)
+
+```typescript
+import { makeMcpServer } from '@contractspec/lib.contracts/server/provider-mcp';
+
+const server = makeMcpServer(registry);
+```
+
+## Project Structure
+
+Recommended organization:
+
+```
+src/
+├── contracts/
+│   ├── operations/
+│   │   ├── user-create.contracts.ts
+│   │   └── user-get.contracts.ts
+│   ├── events/
+│   │   └── user-created.event.ts
+│   └── presentations/
+│       └── user-profile.presentation.ts
+├── handlers/           # Generated handlers
+├── components/         # Generated UI components
+└── generated/          # Other generated artifacts
+```
+
+## Key Principles
+
+1. **Spec → Implementation**: Always define the contract first, then implement
+2. **Contracts are TypeScript**: No YAML, no DSL—just typed TypeScript
+3. **AI reads specs**: AI agents use contracts as their source of truth
+4. **Safe regeneration**: Regenerate code anytime without breaking invariants
+5. **Incremental adoption**: Start with one module, expand gradually
+
+## Resources
+
+- Website: https://contractspec.io
+- Documentation: https://contractspec.io/docs
+- npm: https://www.npmjs.com/package/@contractspec/lib.contracts
+- GitHub: https://github.com/lssm-tech/contractspec

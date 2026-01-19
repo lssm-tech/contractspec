@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/sandbox/'],
       },
     ],
-    sitemap: 'https://contractspec.io/sitemap.xml',
+    sitemap: 'https://www.contractspec.io/sitemap.xml',
   };
 }

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'ContractSpec: The Regenerative App Engine',
   description:
     'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase-policy-safe with signed overlays and one-click rollback.',
-  metadataBase: new URL('https://contractspec.io'),
+  metadataBase: new URL('https://www.contractspec.io'),
   keywords: [
     'regenerative app engine',
     'auto-evolutive codebase',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: 'ContractSpec – The Regenerative App Engine',
     description:
       'ContractSpec turns intents into a customized & personalized, auto-evolutive codebase: policy-safe with signed overlays and one-click rollback.',
-    url: 'https://contractspec.io',
+    url: 'https://www.contractspec.io',
     siteName: 'ContractSpec',
     images: [
       {
@@ -56,7 +56,41 @@ export default function RootLayout({
       <body
         className={`${geist.className} flex min-h-screen flex-col antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@graph': [
+                  {
+                    '@type': 'Organization',
+                    '@id': 'https://www.contractspec.io/#organization',
+                    name: 'ContractSpec',
+                    url: 'https://www.contractspec.io',
+                    logo: 'https://www.contractspec.io/logo.png',
+                    sameAs: [
+                      'https://www.linkedin.com/company/contractspec/',
+                      'https://www.github.com/lssm-tech',
+                      'https://www.github.com/lssm-tech/contractspec',
+                    ],
+                  },
+                  {
+                    '@type': 'WebSite',
+                    '@id': 'https://www.contractspec.io/#website',
+                    url: 'https://www.contractspec.io',
+                    name: 'ContractSpec',
+                    description: 'The Regenerative App Engine',
+                    publisher: {
+                      '@id': 'https://www.contractspec.io/#organization',
+                    },
+                  },
+                ],
+              }),
+            }}
+          />
+        </QueryProvider>
       </body>
     </html>
   );

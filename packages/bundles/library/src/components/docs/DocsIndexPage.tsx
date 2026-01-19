@@ -1,3 +1,4 @@
+import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
 
@@ -117,8 +118,9 @@ export function DocsIndexPage() {
           <p className="text-muted-foreground">
             Add ContractSpec to your project and define your first contract:
           </p>
-          <div className="bg-background/50 border-border text-muted-foreground overflow-x-auto rounded-lg border p-4 font-mono text-sm">
-            <pre>{`# Install the CLI and core libraries
+          <CodeBlock
+            language="bash"
+            code={`# Install the CLI and core libraries
 pnpm add -D contractspec
 pnpm add @contractspec/lib.contracts @contractspec/lib.schema
 
@@ -126,8 +128,8 @@ pnpm add @contractspec/lib.contracts @contractspec/lib.schema
 contractspec create --type operation
 
 # Generate implementation
-contractspec build src/contracts/mySpec.ts`}</pre>
-          </div>
+contractspec build src/contracts/mySpec.ts`}
+          />
           <div className="flex flex-wrap gap-2">
             <Link
               href="/docs/getting-started/installation"
