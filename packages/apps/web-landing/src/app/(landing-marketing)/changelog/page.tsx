@@ -1,5 +1,5 @@
-import { ChangelogPage } from '@contractspec/bundle.marketing';
-
+import { ChangelogPage } from '@contractspec/bundle.marketing/components/marketing/ChangelogPage';
+import { getAggregatedChangelog } from '@/lib/changelog';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -17,4 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default ChangelogPage;
+export default async function Page() {
+  const entries = await getAggregatedChangelog();
+  return <ChangelogPage entries={entries} />;
+}

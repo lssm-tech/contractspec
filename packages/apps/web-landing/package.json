@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next dist .turbo",
-    "prebuild": "bun run scripts/aggregate-changelog.ts",
     "build": "bun --bun next build",
     "build:types": "tsc --noEmit",
     "dev": "bun --bun next dev",
