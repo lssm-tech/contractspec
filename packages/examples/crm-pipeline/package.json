@@ -62,7 +62,8 @@
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
     "lint:check": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "validate": "contractspec validate src/contracts/user.ts"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
