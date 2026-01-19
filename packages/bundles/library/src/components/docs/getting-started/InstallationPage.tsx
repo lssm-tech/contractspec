@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
-import {
-  analyticsEventNames,
-  captureAnalyticsEvent,
-} from '../../libs/posthog/client';
 
 export function InstallationPage() {
   return (
@@ -37,30 +33,12 @@ export function InstallationPage() {
               '@contractspec/lib.contracts',
               '@contractspec/lib.schema',
             ]}
-            onCopy={({ packageManager }) =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'installation',
-                location: 'core-libraries',
-                packageManager,
-                filename: 'installation-core-libraries',
-              })
-            }
           />
         </div>
 
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">For Next.js projects</h2>
-          <InstallCommand
-            package="@contractspec/lib.contracts"
-            onCopy={({ packageManager }) =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'installation',
-                location: 'nextjs',
-                packageManager,
-                filename: 'installation-nextjs',
-              })
-            }
-          />
+          <InstallCommand package="@contractspec/lib.contracts" />
         </div>
 
         <div className="space-y-3">
@@ -71,14 +49,6 @@ export function InstallationPage() {
               'prisma',
               '@prisma/client',
             ]}
-            onCopy={({ packageManager }) =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'installation',
-                location: 'database',
-                packageManager,
-                filename: 'installation-database',
-              })
-            }
           />
         </div>
 
@@ -90,13 +60,6 @@ export function InstallationPage() {
           <CodeBlock
             language="bash"
             filename="installation-init"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'installation',
-                location: 'init',
-                filename: 'installation-init',
-              })
-            }
             code={`bunx contractspec init
 # Follow the interactive prompts to configure your project`}
           />
@@ -110,13 +73,6 @@ export function InstallationPage() {
           <CodeBlock
             language="bash"
             filename="installation-prisma"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'installation',
-                location: 'prisma',
-                filename: 'installation-prisma',
-              })
-            }
             code={`bunx prisma init
 # Edit prisma/schema.prisma with your models
 bunx prisma generate

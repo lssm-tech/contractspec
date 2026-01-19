@@ -1,10 +1,6 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { BookOpen, ChevronRight, Shield, Zap } from 'lucide-react';
-import {
-  analyticsEventNames,
-  captureAnalyticsEvent,
-} from '../../libs/posthog/client';
 
 // export const metadata: Metadata = {
 //   title: 'Documentation – ContractSpec',
@@ -47,12 +43,6 @@ export function DocsIndexPage() {
       <div className="grid gap-6 md:grid-cols-3">
         <Link
           href="/docs/getting-started/installation"
-          onClick={() =>
-            captureAnalyticsEvent(analyticsEventNames.DOCS_QUICKSTART_VIEW, {
-              surface: 'docs-index',
-              destination: 'installation',
-            })
-          }
           className="card-subtle group space-y-3 p-6 transition-colors hover:border-violet-500/50"
         >
           <div className="flex items-start justify-between">
@@ -131,13 +121,6 @@ export function DocsIndexPage() {
           <CodeBlock
             language="bash"
             filename="docs-quick-start"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'docs-index',
-                location: 'quick-start',
-                filename: 'docs-quick-start',
-              })
-            }
             code={`# Install the CLI and core libraries
 pnpm add -D contractspec
 pnpm add @contractspec/lib.contracts @contractspec/lib.schema
@@ -152,30 +135,12 @@ contractspec build src/contracts/mySpec.ts`}
           <div className="flex flex-wrap gap-2">
             <Link
               href="/docs/getting-started/installation"
-              onClick={() =>
-                captureAnalyticsEvent(
-                  analyticsEventNames.DOCS_QUICKSTART_VIEW,
-                  {
-                    surface: 'docs-index',
-                    destination: 'installation',
-                  }
-                )
-              }
               className="btn-primary text-sm"
             >
               Installation guide <ChevronRight size={16} />
             </Link>
             <Link
               href="/docs/getting-started/hello-world"
-              onClick={() =>
-                captureAnalyticsEvent(
-                  analyticsEventNames.DOCS_QUICKSTART_VIEW,
-                  {
-                    surface: 'docs-index',
-                    destination: 'hello-world',
-                  }
-                )
-              }
               className="btn-ghost text-sm"
             >
               First contract tutorial

@@ -22,7 +22,10 @@ const shouldCaptureAnalytics = () => {
   const nav = window.navigator as Navigator & {
     msDoNotTrack?: string;
   };
-  const dnt = nav.doNotTrack ?? nav.msDoNotTrack ?? window.doNotTrack;
+  const dntWindow = window as Window & {
+    doNotTrack?: string;
+  };
+  const dnt = nav.doNotTrack ?? nav.msDoNotTrack ?? dntWindow.doNotTrack;
   return dnt !== '1' && dnt !== 'yes';
 };
 

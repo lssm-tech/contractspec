@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
-import {
-  analyticsEventNames,
-  captureAnalyticsEvent,
-} from '../../libs/posthog/client';
 
 export function StartHerePage() {
   return (
@@ -19,18 +15,7 @@ export function StartHerePage() {
       <div className="space-y-6">
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Install the CLI</h2>
-          <InstallCommand
-            package="contractspec"
-            dev
-            onCopy={({ packageManager }) =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'start-here',
-                location: 'cli',
-                packageManager,
-                filename: 'start-here-cli',
-              })
-            }
-          />
+          <InstallCommand package="contractspec" dev />
         </div>
 
         <div className="space-y-3">
@@ -40,14 +25,6 @@ export function StartHerePage() {
               '@contractspec/lib.contracts',
               '@contractspec/lib.schema',
             ]}
-            onCopy={({ packageManager }) =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'start-here',
-                location: 'core-libraries',
-                packageManager,
-                filename: 'start-here-core-libraries',
-              })
-            }
           />
         </div>
 
@@ -56,13 +33,6 @@ export function StartHerePage() {
           <CodeBlock
             language="bash"
             filename="start-here-init"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'start-here',
-                location: 'init',
-                filename: 'start-here-init',
-              })
-            }
             code={`bunx contractspec init`}
           />
         </div>
@@ -72,13 +42,6 @@ export function StartHerePage() {
           <CodeBlock
             language="bash"
             filename="start-here-create"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'start-here',
-                location: 'create',
-                filename: 'start-here-create',
-              })
-            }
             code={`contractspec create --type operation`}
           />
         </div>
@@ -88,13 +51,6 @@ export function StartHerePage() {
           <CodeBlock
             language="bash"
             filename="start-here-build"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'start-here',
-                location: 'build',
-                filename: 'start-here-build',
-              })
-            }
             code={`contractspec build src/contracts/mySpec.ts
 contractspec validate src/contracts/mySpec.ts`}
           />

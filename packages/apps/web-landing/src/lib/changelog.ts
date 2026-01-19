@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { spawnSync } from 'child_process';
 
 const MONOREPO_ROOT = path.resolve(process.cwd(), '../../..');
 
@@ -22,31 +21,35 @@ interface RawDetail {
   changes: string[];
 }
 
-// Recursive file search to avoid finding node_modules
-function findChangelogs(dir: string, fileList: string[] = []) {
-  if (!fs.existsSync(dir)) return fileList;
-  const files = fs.readdirSync(dir);
+// Scan workspace package folders for changelogs.
+function findChangelogs(packagesDir: string): string[] {
+  if (!fs.existsSync(packagesDir)) return [];
 
-  for (const file of files) {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
+  const results: string[] = [];
+  const scopeDirs = fs.readdirSync(packagesDir, { withFileTypes: true });
 
-    if (stat.isDirectory()) {
-      if (
-        file !== 'node_modules' &&
-        file !== '.git' &&
-        file !== '.next' &&
-        file !== 'dist'
-      ) {
-        findChangelogs(filePath, fileList);
-      }
-    } else {
-      if (file === 'CHANGELOG.md') {
-        fileList.push(filePath);
+  for (const scopeDir of scopeDirs) {
+    if (!scopeDir.isDirectory()) continue;
+
+    const scopePath = path.join(packagesDir, scopeDir.name);
+    const packageDirs = fs.readdirSync(scopePath, { withFileTypes: true });
+
+    for (const packageDir of packageDirs) {
+      if (!packageDir.isDirectory()) continue;
+
+      const changelogPath = path.join(
+        scopePath,
+        packageDir.name,
+        'CHANGELOG.md'
+      );
+
+      if (fs.existsSync(changelogPath)) {
+        results.push(changelogPath);
       }
     }
   }
-  return fileList;
+
+  return results;
 }
 
 export async function getAggregatedChangelog(): Promise<ChangelogEntry[]> {
@@ -132,7 +135,7 @@ function parseChangelog(
     if (currentVersion && currentChanges.length > 0) {
       const valid = filterChanges(currentChanges);
       if (valid.length > 0) {
-        const date = getDateForVersion(filePath, currentVersion);
+        const date = getDateForVersion(content, currentVersion);
         results.push({
           version: currentVersion,
           date,
@@ -173,21 +176,19 @@ function filterChanges(changes: string[]): string[] {
   });
 }
 
-function getDateForVersion(filePath: string, version: string): string {
-  try {
-    const res = spawnSync(
-      'git',
-      ['log', '-S', `## ${version}`, '-1', '--format=%as', '--', filePath],
-      {
-        cwd: MONOREPO_ROOT,
-        encoding: 'utf-8',
-      }
-    );
-    if (res.stdout && res.stdout.trim()) {
-      return res.stdout.trim();
-    }
-  } catch {
-    // ignore
+function getDateForVersion(content: string, version: string): string {
+  const lines = content.split('\n');
+  const versionHeader = new RegExp(`^## \\[?${version}\\]?`);
+
+  for (let index = 0; index < lines.length; index += 1) {
+    if (!versionHeader.test(lines[index])) continue;
+
+    const possibleDate = lines[index + 1]?.trim();
+    if (!possibleDate) break;
+
+    const dateMatch = possibleDate.match(/\d{4}-\d{2}-\d{2}/);
+    if (dateMatch) return dateMatch[0];
   }
-  return '2025-01-01'; // fallback
+
+  return '2025-01-01';
 }

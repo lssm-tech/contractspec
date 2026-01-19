@@ -1,11 +1,7 @@
 'use client';
 
 import type { HeaderNavItem } from '@contractspec/lib.design-system';
-import {
-  ButtonLink,
-  MarketingHeader,
-  NavBrand,
-} from '@contractspec/lib.design-system';
+import { MarketingHeader, NavBrand } from '@contractspec/lib.design-system';
 import {
   analyticsEventNames,
   captureAnalyticsEvent,
@@ -53,10 +49,9 @@ export default function Header() {
           }),
       }}
       right={
-        <ButtonLink
-          variant="ghost"
+        <a
+          className="btn-ghost"
           href="/contact#waitlist"
-          size="sm"
           onClick={() =>
             captureAnalyticsEvent(analyticsEventNames.CTA_STUDIO_CLICK, {
               surface: 'header',
@@ -64,7 +59,7 @@ export default function Header() {
           }
         >
           Studio Waitlist
-        </ButtonLink>
+        </a>
       }
       commandPaletteGroups={[]}
       langSwitchProps={langSwitchProps}

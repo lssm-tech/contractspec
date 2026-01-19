@@ -5,7 +5,7 @@ export type InstallCommandType = 'add' | 'install' | 'create' | 'run' | 'exec';
 
 export interface InstallCommandProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
-  'children'
+  'children' | 'onCopy'
 > {
   /** The package name(s) to install */
   package: string | string[];

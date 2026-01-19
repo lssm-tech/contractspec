@@ -1,10 +1,6 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 import { CodeBlock } from '@contractspec/lib.design-system';
-import {
-  analyticsEventNames,
-  captureAnalyticsEvent,
-} from '../../libs/posthog/client';
 
 export function TroubleshootingPage() {
   return (
@@ -51,13 +47,6 @@ export function TroubleshootingPage() {
           <CodeBlock
             language="bash"
             filename="troubleshooting-diagnostics"
-            onCopy={() =>
-              captureAnalyticsEvent(analyticsEventNames.COPY_COMMAND_CLICK, {
-                surface: 'troubleshooting',
-                location: 'diagnostics',
-                filename: 'troubleshooting-diagnostics',
-              })
-            }
             code={`contractspec --version
 contractspec list
 contractspec validate src/contracts/mySpec.ts`}
