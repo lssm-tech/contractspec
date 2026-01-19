@@ -77,9 +77,14 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) for full u
 
 ContractSpec Studio is a visual builder and managed control plane for your contracts.
 
-- Visual spec editor
-- Deployment pipelines
-- Hosted registry
+- **Visual Builder + Specs**: Drag-and-drop canvas synced to specs with mobile-first UI.
+- **Progressive Delivery & QA**: Canary rollouts, traffic mirroring, and golden tests.
+- **Auto-evolution**: Safe regeneration analyzing telemetry to evolve specs.
+- **Lifecycle Advisor**: Guidance layer for learning paths and recommendations.
+- **AI Growth Engine**: Experiment orchestration and automated content generation.
+- **AI Support Desk**: Production-ready support automation with RAG pipelines.
+- **Integration & Knowledge**: BYOK credential manager and knowledge source indexing.
+- **Security & Governance**: Per-tenant encryption, audit logs, and feature flags.
 
 [**Join the Waitlist**](https://contractspec.io/contact#waitlist)
 
