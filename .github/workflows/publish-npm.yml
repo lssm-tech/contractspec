@@ -190,8 +190,3 @@ jobs:
           git config user.email github-actions[bot]@users.noreply.github.com
           git tag -fa action-v${{ steps.action-version.outputs.major }} -m "Update action-v${{ steps.action-version.outputs.major }} to ${{ steps.action-version.outputs.version }}"
           git push origin action-v${{ steps.action-version.outputs.major }} --force
-
-      - name: "Notify Vercel"
-        uses: "vercel/repository-dispatch/actions/status@v1"
-        with:
-          name: "Vercel - contractspec: deploy backend (services and db)"
