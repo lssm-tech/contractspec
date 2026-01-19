@@ -43,7 +43,27 @@ const crmPipelineDocBlocks: DocBlock[] = [
 ## Guardrails
 - Emit events for stage moves and task completions; log to Audit Trail.
 - Keep required fields enforced in contracts; avoid freeform state.
-- Redact contact PII in markdown/JSON outputs.`,
+- Redact contact PII in markdown/JSON outputs.
+
+## Adoption narrative
+
+### Before
+- A CRM app with hand-written data models and handler logic.
+- Pipeline stage rules live in code and drift across UI/API/events.
+- Regeneration is risky because specs and implementations are not aligned.
+
+### After
+- Contracts define deals, stages, and tasks as the source of truth.
+- Regeneration keeps UI/API/events in sync when stages change.
+- Compliance surfaces (audits, notifications) stay consistent with specs.
+
+### Minimal adoption steps
+1) Add ContractSpec CLI and core libraries.
+2) Define one operation (for example, deal/create).
+3) Run contractspec build to generate handlers and types.
+4) Wire the generated handler into your existing router.
+5) Expand to events and presentations as you add surface areas.
+`,
   },
   {
     id: 'docs.examples.crm-pipeline.reference',

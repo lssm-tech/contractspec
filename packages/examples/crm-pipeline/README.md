@@ -2,7 +2,6 @@
 
 Website: https://contractspec.io/
 
-
 A complete CRM (Customer Relationship Management) application demonstrating ContractSpec principles.
 
 ## What's Included
@@ -116,14 +115,14 @@ const StageEntity = defineEntity({
 
 ## Events
 
-| Event | Description |
-|-------|-------------|
-| contact.created | New contact added |
-| deal.created | New deal created |
-| deal.moved | Deal moved to new stage |
-| deal.won | Deal marked as won |
-| deal.lost | Deal marked as lost |
-| task.completed | Task marked complete |
+| Event           | Description             |
+| --------------- | ----------------------- |
+| contact.created | New contact added       |
+| deal.created    | New deal created        |
+| deal.moved      | Deal moved to new stage |
+| deal.won        | Deal marked as won      |
+| deal.lost       | Deal marked as lost     |
+| task.completed  | Task marked complete    |
 
 ## Usage
 
@@ -137,3 +136,24 @@ This example is registered as `crm-pipeline` in the ContractSpec Studio.
 npx degit lssm/contractspec/packages/examples/crm-pipeline my-crm-app
 ```
 
+## Adoption narrative
+
+### Before
+
+- A CRM app with hand-written data models and handler logic.
+- Pipeline stage rules live in code and drift across UI/API/events.
+- Regeneration is risky because specs and implementations are not aligned.
+
+### After
+
+- Contracts define deals, stages, and tasks as the source of truth.
+- Regeneration keeps UI/API/events in sync when stages change.
+- Compliance surfaces (audits, notifications) stay consistent with specs.
+
+### Minimal adoption steps
+
+1. Add ContractSpec CLI and core libraries.
+2. Define one operation (for example, `deal/create`).
+3. Run `contractspec build` to generate handlers and types.
+4. Wire the generated handler into your existing router.
+5. Expand to events and presentations as you add surface areas.
