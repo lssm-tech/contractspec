@@ -6,239 +6,10 @@ import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import Link from 'next/link';
 import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 import { getTemplate } from '@contractspec/module.examples';
+import type { RegistryTemplate } from '@contractspec/lib.example-shared-ui';
 import { useRegistryTemplates } from '@contractspec/lib.example-shared-ui';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/tooltip';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@contractspec/lib.ui-kit-web/ui/dialog';
-import { WaitlistSection } from '../marketing';
-import { TemplatePreviewModal } from './TemplatesPreviewModal';
 
-const templates = [
-  {
-    id: 'minimal-example',
-    templateId: 'todos-app' as TemplateId,
-    title: 'Minimal Example',
-    description:
-      'A minimal template to get you running in minutes. Perfect for exploring the engine.',
-    tags: ['Getting Started'],
-    capabilities: 'Basic Forms, Auth',
-    isStarter: true,
-    previewUrl: '/sandbox?template=minimal-example',
-    docsUrl: '/docs/getting-started/hello-world',
-  },
-  // ============================================
-  // Phase 1 Examples (using cross-cutting modules)
-  // ============================================
-  {
-    id: 'saas-boilerplate',
-    templateId: 'saas-boilerplate' as TemplateId,
-    title: 'SaaS Boilerplate',
-    description:
-      'Complete SaaS foundation with multi-tenant orgs, projects, settings, and billing usage.',
-    tags: ['Getting Started', 'SaaS', 'Business'],
-    capabilities: 'Multi-tenancy, RBAC, Projects, Billing',
-    isNew: true,
-    previewUrl: '/sandbox?template=saas-boilerplate',
-    docsUrl: '/docs/templates/saas-boilerplate',
-  },
-  {
-    id: 'crm-pipeline',
-    templateId: 'crm-pipeline' as TemplateId,
-    title: 'CRM Pipeline',
-    description:
-      'Sales CRM with contacts, companies, deals, pipeline stages, and task management.',
-    tags: ['CRM', 'Business'],
-    capabilities: 'Contacts, Deals, Pipelines, Tasks',
-    isNew: true,
-    previewUrl: '/sandbox?template=crm-pipeline',
-    docsUrl: '/docs/templates/crm-pipeline',
-  },
-  {
-    id: 'agent-console',
-    templateId: 'agent-console' as TemplateId,
-    title: 'AI Agent Console',
-    description:
-      'AI agent orchestration platform with tools, agents, runs, and execution logs.',
-    tags: ['AI', 'Ops'],
-    capabilities: 'Tools, Agents, Runs, Metrics',
-    isNew: true,
-    previewUrl: '/sandbox?template=agent-console',
-    docsUrl: '/docs/templates/agent-console',
-  },
-  // ============================================
-  // Phase 2-4 Examples
-  // ============================================
-  {
-    id: 'workflow-system',
-    templateId: 'workflow-system' as TemplateId,
-    title: 'Workflow / Approval System',
-    description:
-      'Multi-step workflows with role-based approvals and state transitions.',
-    tags: ['Business', 'Ops'],
-    capabilities: 'Workflows, Approvals, State Machine',
-    isNew: true,
-    previewUrl: '/sandbox?template=workflow-system',
-    docsUrl: '/docs/templates/workflow-system',
-  },
-  {
-    id: 'marketplace',
-    templateId: 'marketplace' as TemplateId,
-    title: 'Marketplace',
-    description:
-      'Two-sided marketplace with stores, products, orders, and payouts.',
-    tags: ['Business', 'Payments'],
-    capabilities: 'Stores, Products, Orders, Payouts',
-    isNew: true,
-    previewUrl: '/sandbox?template=marketplace',
-    docsUrl: '/docs/templates/marketplace',
-  },
-  {
-    id: 'integration-hub',
-    templateId: 'integration-hub' as TemplateId,
-    title: 'Integration Hub',
-    description:
-      'Third-party integrations with connections, sync configs, and field mapping.',
-    tags: ['Ops', 'AI'],
-    capabilities: 'Integrations, Connections, Sync',
-    isNew: true,
-    previewUrl: '/sandbox?template=integration-hub',
-    docsUrl: '/docs/templates/integration-hub',
-  },
-  // ============================================
-  // Learning Journeys
-  // ============================================
-  {
-    id: 'learning-journey-studio-onboarding',
-    templateId: 'learning-journey-studio-onboarding' as TemplateId,
-    title: 'Learning Journey — Studio Getting Started',
-    description:
-      'First 30 minutes in Studio: choose template, edit spec, regenerate, playground, evolution.',
-    tags: ['Learning', 'Onboarding'],
-    capabilities: 'Spec-first onboarding, XP/streak, progress widget',
-    isNew: true,
-    previewUrl: '/sandbox?template=learning-journey-studio-onboarding',
-    docsUrl: '/docs/templates/learning-journey-studio-onboarding',
-  },
-  {
-    id: 'learning-journey-platform-tour',
-    templateId: 'learning-journey-platform-tour' as TemplateId,
-    title: 'Learning Journey — Platform Primitives Tour',
-    description:
-      'Touch identity, audit, notifications, jobs, flags, files, metering once with guided steps.',
-    tags: ['Learning', 'Platform'],
-    capabilities: 'Cross-module tour with event-driven completion',
-    isNew: true,
-    previewUrl: '/sandbox?template=learning-journey-platform-tour',
-    docsUrl: '/docs/templates/learning-journey-platform-tour',
-  },
-  {
-    id: 'learning-journey-crm-onboarding',
-    templateId: 'learning-journey-crm-onboarding' as TemplateId,
-    title: 'Learning Journey — CRM First Win',
-    description:
-      'Get to first closed-won deal: pipeline, contact/company, deal, stages, follow-up.',
-    tags: ['Learning', 'CRM'],
-    capabilities: 'CRM onboarding with XP/streak/badge',
-    isNew: true,
-    previewUrl: '/sandbox?template=learning-journey-crm-onboarding',
-    docsUrl: '/docs/templates/learning-journey-crm-onboarding',
-  },
-  {
-    id: 'analytics-dashboard',
-    templateId: 'analytics-dashboard' as TemplateId,
-    title: 'Analytics Dashboard',
-    description:
-      'Custom dashboards with widgets, saved queries, and real-time visualization.',
-    tags: ['Business', 'Ops'],
-    capabilities: 'Dashboards, Widgets, Queries',
-    isNew: true,
-    previewUrl: '/sandbox?template=analytics-dashboard',
-    docsUrl: '/docs/templates/analytics-dashboard',
-  },
-  // ============================================
-  // Classic Templates
-  // ============================================
-  {
-    id: 'plumber-ops',
-    templateId: 'messaging-app' as TemplateId,
-    title: 'Plumber Ops',
-    description:
-      'Complete workflow: Quotes → Deposit → Job → Invoice → Payment. Policy-enforced approvals.',
-    tags: ['Trades', 'Payments'],
-    capabilities: 'Quotes, Jobs, Invoicing, Payments',
-    previewUrl: '/sandbox?template=plumber-ops',
-    docsUrl: '/docs/specs/workflows',
-  },
-  {
-    id: 'coliving-management',
-    templateId: 'recipe-app-i18n' as TemplateId,
-    title: 'Coliving Management',
-    description:
-      'Coliving management: Onboarding, chores, shared wallet. Multi-party approvals built-in.',
-    tags: ['Coliving', 'Finance'],
-    capabilities: 'Tasks, Approvals, Payments',
-    previewUrl: '/sandbox?template=coliving-management',
-    docsUrl: '/docs/specs/workflows',
-  },
-  {
-    id: 'chores-allowance',
-    templateId: 'todos-app' as TemplateId,
-    title: 'Chores & Allowance',
-    description:
-      'Family task management with approval workflows. Teach financial accountability safely.',
-    tags: ['Family', 'Ops'],
-    capabilities: 'Tasks, Approvals, Notifications',
-    previewUrl: '/sandbox?template=chores-allowance',
-    docsUrl: '/docs/specs/workflows',
-  },
-  {
-    id: 'service-dispatch',
-    templateId: 'messaging-app' as TemplateId,
-    title: 'Service Dispatch',
-    description:
-      'Field service scheduling, routing, and invoicing. Real-time coordination with policy gates.',
-    tags: ['Ops', 'Trades'],
-    capabilities: 'Scheduling, Maps, Invoicing',
-    previewUrl: '/sandbox?template=service-dispatch',
-    docsUrl: '/docs/specs/workflows',
-  },
-  {
-    id: 'content-review',
-    templateId: 'todos-app' as TemplateId,
-    title: 'Content Review',
-    description:
-      'Multi-stage approval workflow for content. Audit trail for every decision.',
-    tags: ['Ops'],
-    capabilities: 'Workflows, Approvals, Comments',
-    previewUrl: '/sandbox?template=content-review',
-    docsUrl: '/docs/specs/workflows',
-  },
-];
-
-const allTags = [
-  'Getting Started',
-  'SaaS',
-  'Business',
-  'CRM',
-  'AI',
-  'Trades',
-  'Coliving',
-  'Family',
-  'Ops',
-  'Payments',
-  'Learning',
-  'Platform',
-];
+type LocalTemplate = (typeof templates)[number];
 
 export const TemplatesPage = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -246,7 +17,9 @@ export const TemplatesPage = () => {
   const [preview, setPreview] = useState<TemplateId | null>(null);
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
   const [source, setSource] = useState<'local' | 'registry'>('local');
-  const [selectedTemplateForCommand, setSelectedTemplateForCommand] = useState<any | null>(null);
+  const [selectedTemplateForCommand, setSelectedTemplateForCommand] = useState<
+    RegistryTemplate | LocalTemplate | null
+  >(null);
 
   const { data: registryTemplates = [], isLoading: registryLoading } =
     useRegistryTemplates();
@@ -476,46 +249,48 @@ export const TemplatesPage = () => {
                           <span
                             key={tag}
                             className="rounded border border-violet-500/20 bg-violet-500/10 px-2 py-1 text-xs text-violet-300"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="flex gap-2 pt-4">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              className="btn-ghost flex-1 text-center text-xs"
-                              onClick={() => setPreview(template.templateId)}
-                            >
-                              Preview
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Preview this template in a modal</p>
-                          </TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              className="btn-primary flex-1 text-center text-xs"
-                              onClick={() => setSelectedTemplateForCommand(template)}
-                            >
-                              Use Template
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Get CLI command</p>
-                          </TooltipContent>
-                        </Tooltip>
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
+                    <div className="flex gap-2 pt-4">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            className="btn-ghost flex-1 text-center text-xs"
+                            onClick={() => setPreview(template.templateId)}
+                          >
+                            Preview
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Preview this template in a modal</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            className="btn-primary flex-1 text-center text-xs"
+                            onClick={() =>
+                              setSelectedTemplateForCommand(template)
+                            }
+                          >
+                            Use Template
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Get CLI command</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* Extend with Integrations & Knowledge */}
         <section className="section-padding border-border bg-striped border-t">
@@ -602,51 +377,63 @@ export const TemplatesPage = () => {
           <DialogHeader>
             <DialogTitle>Early Access Required</DialogTitle>
             <DialogDescription>
-              ContractSpec Studio is in early access. Join the waitlist
-              to deploy projects to our managed cloud.
+              ContractSpec Studio is in early access. Join the waitlist to
+              deploy projects to our managed cloud.
             </DialogDescription>
           </DialogHeader>
           <WaitlistSection variant="compact" />
         </DialogContent>
       </Dialog>
 
-      <Dialog open={!!selectedTemplateForCommand} onOpenChange={() => setSelectedTemplateForCommand(null)}>
+      <Dialog
+        open={!!selectedTemplateForCommand}
+        onOpenChange={() => setSelectedTemplateForCommand(null)}
+      >
         <DialogContent className="max-w-md">
-           <DialogHeader>
+          <DialogHeader>
             <DialogTitle>Use this template</DialogTitle>
             <DialogDescription>
-               Initialize a new project with this template using the CLI.
+              Initialize a new project with this template using the CLI.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 pt-4">
-             <div className="rounded-md bg-zinc-950 p-4 font-mono text-sm text-zinc-50 border border-zinc-800">
-                npx contractspec init --template {selectedTemplateForCommand?.id || selectedTemplateForCommand?.templateId}
-             </div>
-             <div className="flex gap-2">
-                 <button className="btn-secondary w-full" onClick={() => {
-                    navigator.clipboard.writeText(`npx contractspec init --template ${selectedTemplateForCommand?.id || selectedTemplateForCommand?.templateId}`);
-                    // Optionally show toast
-                 }}>
-                    Copy Command
-                 </button>
-             </div>
-             <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-border" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">Or</span>
-                </div>
-              </div>
+            <div className="rounded-md border border-zinc-800 bg-zinc-950 p-4 font-mono text-sm text-zinc-50">
+              npx contractspec init --template{' '}
+              {selectedTemplateForCommand?.id ||
+                selectedTemplateForCommand?.templateId}
+            </div>
+            <div className="flex gap-2">
               <button
-                className="btn-ghost w-full text-sm"
+                className="btn-secondary w-full"
                 onClick={() => {
-                   setSelectedTemplateForCommand(null);
-                   setWaitlistModalOpen(true);
+                  navigator.clipboard.writeText(
+                    `npx contractspec init --template ${selectedTemplateForCommand?.id || selectedTemplateForCommand?.templateId}`
+                  );
+                  // Optionally show toast
                 }}
               >
-                Deploy to Studio (Waitlist)
+                Copy Command
               </button>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="border-border w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background text-muted-foreground px-2">
+                  Or
+                </span>
+              </div>
+            </div>
+            <button
+              className="btn-ghost w-full text-sm"
+              onClick={() => {
+                setSelectedTemplateForCommand(null);
+                setWaitlistModalOpen(true);
+              }}
+            >
+              Deploy to Studio (Waitlist)
+            </button>
           </div>
         </DialogContent>
       </Dialog>
