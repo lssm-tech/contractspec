@@ -23,30 +23,28 @@ The primary workspace for store owners.
 ## Source Definition
 
 ```typescript
-export const SellerDashboardPresentation = definePresentation(
-  {
-    meta: {
-      key: 'marketplace.seller.dashboard',
-      version: '1.0.0',
-      title: 'Seller Dashboard',
-      description: 'Seller dashboard with sales and analytics',
-      domain: 'marketplace',
-      owners: ['@marketplace-team'],
-      tags: ['marketplace', 'seller', 'dashboard'],
-      stability: StabilityEnum.Experimental,
-      goal: 'Provide sellers with an overview of their business performance.',
-      context: 'The primary workspace for store owners.',
-    },
-    source: {
-      type: 'component',
-      framework: 'react',
-      componentKey: 'SellerDashboard',
-      props: StoreModel,
-    },
-    targets: ['react'],
-    policy: {
-      flags: ['marketplace.seller.enabled'],
-    },
-  }
-);
+export const SellerDashboardPresentation = definePresentation({
+  meta: {
+    key: 'marketplace.seller.dashboard',
+    version: '1.0.0',
+    title: 'Seller Dashboard',
+    description: 'Seller dashboard with sales and analytics',
+    domain: 'marketplace',
+    owners: ['@marketplace-team'],
+    tags: ['marketplace', 'seller', 'dashboard'],
+    stability: StabilityEnum.Experimental,
+    goal: 'Provide sellers with an overview of their business performance.',
+    context: 'The primary workspace for store owners.',
+  },
+  source: {
+    type: 'component',
+    framework: 'react',
+    componentKey: 'SellerDashboard',
+    props: StoreModel,
+  },
+  targets: ['react'],
+  policy: {
+    flags: ['marketplace.seller.enabled'],
+  },
+});
 ```
