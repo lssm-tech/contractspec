@@ -21,32 +21,26 @@
 //   },
 // };
 
-const changes = [
-  {
-    version: 'canary',
-    date: 'Jan 2026',
-    breaking: false,
-    highlights: [
-      'Policy decision points (PDP)',
-      'Intent → specs compiler',
-      'Audit log export (CSV/JSON)',
-      'Policy decision replay',
-    ],
-  },
-  {
-    version: 'v1.46.0',
-    date: 'Dec 2025',
-    breaking: true,
-    highlights: [
-      'Initial public version',
-      'Multi-layer support (presentations, mcp, endpoints, operations, events, ...)',
-      'JsonSchema and OpenAPI support',
-      'Multi AI-agent providers integrations',
-    ],
-  },
-];
+// export const metadata: Metadata = {
+//   title: 'Changelog: ContractSpec',
+//   ...
+// };
 
-export function ChangelogPage() {
+export interface ChangelogEntry {
+  version: string;
+  date: string;
+  isBreaking: boolean;
+  packages: {
+    name: string;
+    changes: string[];
+  }[];
+}
+
+interface ChangelogPageProps {
+  entries: ChangelogEntry[];
+}
+
+export function ChangelogPage({ entries }: ChangelogPageProps) {
   return (
     <main>
       {/* Hero */}
@@ -63,31 +57,42 @@ export function ChangelogPage() {
 
       {/* Timeline */}
       <section className="section-padding">
-        <div className="mx-auto max-w-2xl space-y-6">
-          {changes.map((change, i) => (
-            <div key={i} className="card-subtle space-y-4 p-6">
-              <div className="flex items-center gap-4">
-                <div>
-                  <h3 className="text-lg font-bold">{change.version}</h3>
-                  <p className="text-muted-foreground text-sm">{change.date}</p>
+        <div className="mx-auto max-w-3xl space-y-8">
+          {entries.map((entry, i) => (
+            <div key={i} className="card-subtle flex flex-col gap-6 p-8 md:flex-row md:items-start">
+              {/* Left: Version & Date */}
+              <div className="md:w-48 md:flex-shrink-0">
+                <div className="sticky top-24">
+                  <h3 className="text-2xl font-bold tracking-tight">{entry.version}</h3>
+                  <time className="text-muted-foreground mt-1 block text-sm font-medium">
+                    {entry.date}
+                  </time>
+                  {entry.isBreaking && (
+                    <span className="mt-2 inline-flex items-center rounded-full border border-red-500/50 bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-500">
+                      Breaking Change
+                    </span>
+                  )}
                 </div>
-                {change.breaking && (
-                  <span className="rounded border border-red-500/50 bg-red-500/20 px-3 py-1 text-xs font-bold text-red-300">
-                    BREAKING
-                  </span>
-                )}
               </div>
-              <ul className="space-y-2">
-                {change.highlights.map((highlight, j) => (
-                  <li
-                    key={j}
-                    className="text-muted-foreground flex items-start gap-3 text-sm"
-                  >
-                    <span className="flex-shrink-0 text-violet-400">→</span>
-                    <span>{highlight}</span>
-                  </li>
+
+              {/* Right: Changes per package */}
+              <div className="flex-1 space-y-6">
+                {entry.packages.map((pkg, j) => (
+                  <div key={j} className="space-y-3">
+                    <h4 className="font-mono text-sm font-semibold text-violet-400">
+                      {pkg.name}
+                    </h4>
+                    <ul className="space-y-2">
+                      {pkg.changes.map((change, k) => (
+                        <li key={k} className="text-muted-foreground flex items-start gap-3 text-base leading-relaxed">
+                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500/50" />
+                          <span>{change}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
