@@ -1,15 +1,19 @@
 {
   "mcpServers": {
     "contractspec-internal": {
+      "description": "ContractSpec internal API for project management, specs, and deployments",
       "url": "https://api.contractspec.io/api/mcp/internal"
     },
     "contractspec-docs": {
+      "description": "ContractSpec documentation and DocBlocks API for reading and updating docs",
       "url": "https://api.contractspec.io/api/mcp/docs"
     },
     "contractspec-cli": {
+      "description": "ContractSpec CLI operations for code generation, validation, and migrations",
       "url": "https://api.contractspec.io/api/mcp/cli"
     },
     "serena": {
+      "description": "Serena IDE assistant for semantic code understanding and refactoring",
       "type": "stdio",
       "command": "uvx",
       "args": [
@@ -27,6 +31,7 @@
       "env": {}
     },
     "context7": {
+      "description": "Context7 for library documentation lookup and up-to-date API references",
       "type": "stdio",
       "command": "npx",
       "args": [

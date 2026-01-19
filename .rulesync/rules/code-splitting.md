@@ -344,5 +344,5 @@ export const CardContent = ({ children }) => (
 ## References
 
 - See `package-architecture.md` for where code should live (libs vs bundles vs apps)
-- See `backend.mdc` for hexagonal architecture within bundles
-- See `frontend.mdc` for atomic design and component patterns
+- See `backend.md` for hexagonal architecture within bundles
+- See `frontend.md` for atomic design and component patterns

@@ -12,7 +12,7 @@ Website: [https://contractspec.io](https://contractspec.io)
 The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. You keep your app. You own the code. We're the compiler, not the prison.
 
 <p align="center">
-  <img src="https://www.contractspec.io/icon.png" alt="Rulesync Logo" width="600" height="600">
+  <img src="https://www.contractspec.io/icon.png" alt="ContractSpec Logo" width="300" height="300">
 </p>
 
 ## The Problem
@@ -114,32 +114,25 @@ export const CreateUser = defineCommand({
 
 ### Core
 
-| Package                                                             | Description                                      |
-| ------------------------------------------------------------------- | ------------------------------------------------ |
-| [`@contractspec/lib.contracts`](packages/libs/contracts/README.md)          | Core contract definitions and runtime adapters   |
-| [`@contractspec/lib.schema`](packages/libs/schema/README.md)                | Schema definitions for multi-surface consistency |
-| [`@contractspec/app.cli-contractspec`](packages/apps/cli-contractspec/README.md) | CLI for creating, building, and validating specs |
+| npm                                                                                                                                                  | Package                                                             | Description                                      |
+|------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------| ------------------------------------------------ |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.contracts)](https://www.npmjs.com/package/@contractspec/lib.contracts)               |  [`@contractspec/lib.contracts`](packages/libs/contracts/README.md) | Core contract definitions and runtime adapters                                    |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.schema)](https://www.npmjs.com/package/@contractspec/lib.schema)                     |  [`@contractspec/lib.schema`](packages/libs/schema/README.md)                                                                          | Schema definitions for multi-surface consistency                    |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/app.cli-contractspec)](https://www.npmjs.com/package/@contractspec/app.cli-contractspec) |  [`@contractspec/app.cli-contractspec`](packages/apps/cli-contractspec/README.md)                                                     | CLI for creating, building, and validating specs                    |
 
 ### AI & Evolution
 
-| Package                                                    | Description                                     |
-| ---------------------------------------------------------- | ----------------------------------------------- |
-| [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)   | AI agent orchestration with contract governance |
-| [`@contractspec/lib.evolution`](packages/libs/evolution/README.md) | Auto-evolution and safe regeneration            |
+| npm                                                                                                                                    | Package                                                             | Description                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------| ----------------------------------------------- |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.ai-agent)](https://www.npmjs.com/package/@contractspec/lib.ai-agent)   | [`@contractspec/lib.ai-agent`](packages/libs/ai-agent/README.md)    | AI agent orchestration with contract governance |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.evolution)](https://www.npmjs.com/package/@contractspec/lib.evolution) | [`@contractspec/lib.evolution`](packages/libs/evolution/README.md)  | Auto-evolution and safe regeneration            |
 
 ### Testing & Quality
 
-| Package                                                            | Description                                     |
-| ------------------------------------------------------------------ | ----------------------------------------------- |
-| [`@contractspec/lib.testing`](packages/libs/testing/README.md)             | Golden tests for safe regeneration verification |
-| [`@contractspec/lib.observability`](packages/libs/observability/README.md) | Tracing, metrics, and structured logging        |
-
-### Infrastructure
-
-| Package                                                                          | Description                     |
-| -------------------------------------------------------------------------------- | ------------------------------- |
-| [`@contractspec/lib.progressive-delivery`](packages/libs/progressive-delivery/README.md) | Canary deployments and rollback |
-| [`@contractspec/lib.multi-tenancy`](packages/libs/multi-tenancy/README.md)               | Tenant isolation utilities      |
+| npm                                                                                                                                            | Package                                                                       | Description                                     |
+|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------| ----------------------------------------------- |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.testing)](https://www.npmjs.com/package/@contractspec/lib.testing)             | [`@contractspec/lib.testing`](packages/libs/testing/README.md)                | Golden tests for safe regeneration verification |
+| [![npm version](https://img.shields.io/npm/dt/@contractspec/lib.observability)](https://www.npmjs.com/package/@contractspec/lib.observability) | [`@contractspec/lib.observability`](packages/libs/observability/README.md)    | Tracing, metrics, and structured logging        |
 
 ## Who It's For
 

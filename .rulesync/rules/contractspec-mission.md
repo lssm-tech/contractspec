@@ -282,5 +282,5 @@ You don't rewrite your app. You introduce contracts module by module. Start with
 
 - See `docs/` for detailed technical documentation
 - See `examples/` for implementation patterns
-- See `code-organization.mdc` for package structure and dependency rules
+- See `package-architecture.md` for package structure and dependency rules
 - See `packages/libs/contracts/README.md` for core contract definitions

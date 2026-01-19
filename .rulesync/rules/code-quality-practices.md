@@ -388,5 +388,5 @@ bun run tsc --noEmit
 - See `type-safety-dependencies.md` for type safety and dependency management
 - See `code-splitting.md` for file size limits and splitting strategies
 - See `package-architecture.md` for dependency flow and component hierarchy
-- See `backend.mdc` for hexagonal architecture and domain logic
-- See `frontend.mdc` for component patterns and UI structure
+- See `backend.md` for hexagonal architecture and domain logic
+- See `frontend.md` for component patterns and UI structure

@@ -321,7 +321,7 @@ apps/web-landing
 
 ## Enforcement Notes
 
-- Raw HTML prohibition is centralized here; see `frontend.mdc` for accessibility/state handling.
+- Raw HTML prohibition is centralized here; see `frontend.md` for accessibility/state handling.
 - **Existing code**: Refactor opportunistically during feature work or dedicated cleanup tasks.
 - **New code**: Must follow these rules from day one.
 - **Code review**: Reviewers should flag violations with reference to this rule.
@@ -332,6 +332,6 @@ apps/web-landing
 ## References
 
 - See `code-splitting.md` for file size limits and splitting strategies
-- See `backend.mdc` for hexagonal architecture within bundles
-- See `frontend.mdc` for atomic design and component patterns
-- See `contractspec-mission.mdc` for mission and context guidelines
+- See `backend.md` for hexagonal architecture within bundles
+- See `frontend.md` for atomic design and component patterns
+- See `contractspec-mission.md` for mission and context guidelines
