@@ -1,5 +1,23 @@
 # @contractspec/bundle.library
 
+## 1.3.0
+
+### Minor Changes
+
+- c560ee7: Add onboarding and documentation surfaces across the library and marketing bundles, plus small tracking, telemetry, and UI copy refinements to support adoption workflows.
+
+### Patch Changes
+
+- c560ee7: Document the CRM pipeline adoption narrative and keep the docs registry aligned with the new onboarding pages.
+- 1536bf3: Improve static rendering for marketing/docs pages, streamline changelog aggregation, and keep the header interactions compatible with static builds.
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.example-shared-ui@1.2.1
+  - @contractspec/lib.contracts-library@1.48.1
+  - @contractspec/module.examples@1.48.1
+
 ## 1.2.0
 
 ### Minor Changes

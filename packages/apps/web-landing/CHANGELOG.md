@@ -1,5 +1,27 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.48.1
+
+### Patch Changes
+
+- 1536bf3: Improve static rendering for marketing/docs pages, streamline changelog aggregation, and keep the header interactions compatible with static builds.
+- Updated dependencies [c560ee7]
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/bundle.marketing@1.3.0
+  - @contractspec/bundle.library@1.3.0
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/example.agent-console@1.48.1
+  - @contractspec/example.analytics-dashboard@1.48.1
+  - @contractspec/example.crm-pipeline@1.48.1
+  - @contractspec/example.integration-hub@1.48.1
+  - @contractspec/example.marketplace@1.48.1
+  - @contractspec/example.policy-safe-knowledge-assistant@1.48.1
+  - @contractspec/example.saas-boilerplate@1.48.1
+  - @contractspec/example.workflow-system@1.48.1
+  - @contractspec/lib.example-shared-ui@1.2.1
+  - @contractspec/module.examples@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

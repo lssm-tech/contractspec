@@ -1,5 +1,12 @@
 # contractspec
 
+## 1.48.1
+
+### Patch Changes
+
+- c560ee7: Tidy contributor guidance, automation rules, and repo onboarding metadata to keep documentation and project setup consistent.
+  - @contractspec/app.cli-contractspec@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

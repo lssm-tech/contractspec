@@ -1,5 +1,17 @@
 # @contractspec/bundle.workspace
 
+## 1.48.1
+
+### Patch Changes
+
+- c560ee7: Add onboarding and documentation surfaces across the library and marketing bundles, plus small tracking, telemetry, and UI copy refinements to support adoption workflows.
+- Updated dependencies [c560ee7]
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.ai-agent@1.48.1
+  - @contractspec/lib.contracts-transformers@1.48.1
+  - @contractspec/lib.source-extractors@0.2.1
+  - @contractspec/module.workspace@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

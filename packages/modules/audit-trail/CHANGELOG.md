@@ -1,5 +1,13 @@
 # @contractspec/module.audit-trail
 
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.bus@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes
