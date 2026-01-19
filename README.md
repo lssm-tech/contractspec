@@ -55,23 +55,33 @@ ContractSpec is a **compiler**, not a platform:
 - ✅ **No proprietary runtime** — eject anytime, keep everything
 - ✅ **Incremental adoption** — start with one module, expand at your pace
 
-## Quick Start
+## Quick Start: OSS Core
 
 ```bash
-# Install the CLI
+# Initialize project
 bunx contractspec init
 
-# Create a contract spec
+# Create a spec
 contractspec create --type operation
 
 # Generate implementation
 contractspec build src/contracts/mySpec.ts
 
-# Validate spec
+# Validate
 contractspec validate src/contracts/mySpec.ts
 ```
 
 See the [CLI documentation](packages/apps/cli-contractspec/README.md) for full usage.
+
+## ContractSpec Studio
+
+ContractSpec Studio is a visual builder and managed control plane for your contracts.
+
+- Visual spec editor
+- Deployment pipelines
+- Hosted registry
+
+[**Join the Waitlist**](https://contractspec.io/contact#waitlist)
 
 ## Example Contract
 

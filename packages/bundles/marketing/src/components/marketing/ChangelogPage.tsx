@@ -59,11 +59,16 @@ export function ChangelogPage({ entries }: ChangelogPageProps) {
       <section className="section-padding">
         <div className="mx-auto max-w-3xl space-y-8">
           {entries.map((entry, i) => (
-            <div key={i} className="card-subtle flex flex-col gap-6 p-8 md:flex-row md:items-start">
+            <div
+              key={i}
+              className="card-subtle flex flex-col gap-6 p-8 md:flex-row md:items-start"
+            >
               {/* Left: Version & Date */}
               <div className="md:w-48 md:flex-shrink-0">
                 <div className="sticky top-24">
-                  <h3 className="text-2xl font-bold tracking-tight">{entry.version}</h3>
+                  <h3 className="text-2xl font-bold tracking-tight">
+                    {entry.version}
+                  </h3>
                   <time className="text-muted-foreground mt-1 block text-sm font-medium">
                     {entry.date}
                   </time>
@@ -84,7 +89,10 @@ export function ChangelogPage({ entries }: ChangelogPageProps) {
                     </h4>
                     <ul className="space-y-2">
                       {pkg.changes.map((change, k) => (
-                        <li key={k} className="text-muted-foreground flex items-start gap-3 text-base leading-relaxed">
+                        <li
+                          key={k}
+                          className="text-muted-foreground flex items-start gap-3 text-base leading-relaxed"
+                        >
                           <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500/50" />
                           <span>{change}</span>
                         </li>

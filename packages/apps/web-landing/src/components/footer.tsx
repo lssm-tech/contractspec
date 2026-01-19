@@ -87,11 +87,11 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 font-bold">Company</h3>
             <ul className="text-muted-foreground space-y-2 text-sm">
-              {/* <li>
+              <li>
                 <Link href="/changelog" className="hover:text-foreground">
                   Changelog
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link href="/docs/manifesto" className="hover:text-foreground">
                   Manifesto
@@ -112,7 +112,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-2 font-bold">
               <Link
-                href="/docs/getting-started/tools"
+                href="/install"
                 className="hover:text-primary transition-colors"
               >
                 Install

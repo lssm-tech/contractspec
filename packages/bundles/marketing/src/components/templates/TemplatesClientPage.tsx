@@ -246,6 +246,7 @@ export const TemplatesPage = () => {
   const [preview, setPreview] = useState<TemplateId | null>(null);
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
   const [source, setSource] = useState<'local' | 'registry'>('local');
+  const [selectedTemplateForCommand, setSelectedTemplateForCommand] = useState<any | null>(null);
 
   const { data: registryTemplates = [], isLoading: registryLoading } =
     useRegistryTemplates();
@@ -408,7 +409,7 @@ export const TemplatesPage = () => {
                               onClick={() => {
                                 const local = getTemplate(t.id as TemplateId);
                                 if (!local) {
-                                  setWaitlistModalOpen(true);
+                                  setSelectedTemplateForCommand(t);
                                   return;
                                 }
                                 setPreview(t.id as TemplateId);
@@ -425,13 +426,13 @@ export const TemplatesPage = () => {
                           <TooltipTrigger asChild>
                             <button
                               className="btn-primary flex-1 text-center text-xs"
-                              onClick={() => setWaitlistModalOpen(true)}
+                              onClick={() => setSelectedTemplateForCommand(t)}
                             >
-                              Try now
+                              Use Template
                             </button>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Join waitlist for early access</p>
+                            <p>Get CLI command</p>
                           </TooltipContent>
                         </Tooltip>
                       </div>
@@ -475,46 +476,46 @@ export const TemplatesPage = () => {
                           <span
                             key={tag}
                             className="rounded border border-violet-500/20 bg-violet-500/10 px-2 py-1 text-xs text-violet-300"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-4">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              className="btn-ghost flex-1 text-center text-xs"
+                              onClick={() => setPreview(template.templateId)}
+                            >
+                              Preview
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Preview this template in a modal</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              className="btn-primary flex-1 text-center text-xs"
+                              onClick={() => setSelectedTemplateForCommand(template)}
+                            >
+                              Use Template
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Get CLI command</p>
+                          </TooltipContent>
+                        </Tooltip>
                       </div>
                     </div>
-                    <div className="flex gap-2 pt-4">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            className="btn-ghost flex-1 text-center text-xs"
-                            onClick={() => setPreview(template.templateId)}
-                          >
-                            Preview
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Preview this template in a modal</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            className="btn-primary flex-1 text-center text-xs"
-                            onClick={() => setWaitlistModalOpen(true)}
-                          >
-                            Try now
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Join waitlist for early access</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
 
         {/* Extend with Integrations & Knowledge */}
         <section className="section-padding border-border bg-striped border-t">
@@ -601,11 +602,52 @@ export const TemplatesPage = () => {
           <DialogHeader>
             <DialogTitle>Early Access Required</DialogTitle>
             <DialogDescription>
-              ContractSpec is in design-partner early access. Join the waitlist
-              to get access to try templates and build with ContractSpec.
+              ContractSpec Studio is in early access. Join the waitlist
+              to deploy projects to our managed cloud.
             </DialogDescription>
           </DialogHeader>
           <WaitlistSection variant="compact" />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!selectedTemplateForCommand} onOpenChange={() => setSelectedTemplateForCommand(null)}>
+        <DialogContent className="max-w-md">
+           <DialogHeader>
+            <DialogTitle>Use this template</DialogTitle>
+            <DialogDescription>
+               Initialize a new project with this template using the CLI.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+             <div className="rounded-md bg-zinc-950 p-4 font-mono text-sm text-zinc-50 border border-zinc-800">
+                npx contractspec init --template {selectedTemplateForCommand?.id || selectedTemplateForCommand?.templateId}
+             </div>
+             <div className="flex gap-2">
+                 <button className="btn-secondary w-full" onClick={() => {
+                    navigator.clipboard.writeText(`npx contractspec init --template ${selectedTemplateForCommand?.id || selectedTemplateForCommand?.templateId}`);
+                    // Optionally show toast
+                 }}>
+                    Copy Command
+                 </button>
+             </div>
+             <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">Or</span>
+                </div>
+              </div>
+              <button
+                className="btn-ghost w-full text-sm"
+                onClick={() => {
+                   setSelectedTemplateForCommand(null);
+                   setWaitlistModalOpen(true);
+                }}
+              >
+                Deploy to Studio (Waitlist)
+              </button>
+          </div>
         </DialogContent>
       </Dialog>
     </TooltipProvider>

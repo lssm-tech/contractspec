@@ -28,10 +28,10 @@ export const ProductClientPage = () => (
         </p>
         <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
           <Link
-            href="/docs/quickstart"
+            href="/install"
             className="btn-primary inline-flex items-center gap-2"
           >
-            Get started <ChevronRight size={16} />
+            Install OSS Core <ChevronRight size={16} />
           </Link>
           <Link href="/pricing" className="btn-ghost">
             View pricing
@@ -367,13 +367,13 @@ export const ProductClientPage = () => (
         </p>
         <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
           <Link
-            href="/docs/quickstart"
+            href="/install"
             className="btn-primary inline-flex items-center gap-2"
           >
-            Get started free <ChevronRight size={16} />
+            Install OSS Core <ChevronRight size={16} />
           </Link>
-          <Link href="/contact" className="btn-ghost">
-            Book a demo
+          <Link href="/contact#waitlist" className="btn-ghost">
+            Join Studio Waitlist
           </Link>
         </div>
       </div>

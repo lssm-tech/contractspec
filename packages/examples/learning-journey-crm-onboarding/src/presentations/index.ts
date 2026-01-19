@@ -1,4 +1,8 @@
-import { definePresentation, StabilityEnum, type PresentationSpecMeta } from '@contractspec/lib.contracts';
+import {
+  definePresentation,
+  StabilityEnum,
+  type PresentationSpecMeta,
+} from '@contractspec/lib.contracts';
 import { CrmOnboardingTrackModel } from '../operations';
 
 const baseMeta: Pick<

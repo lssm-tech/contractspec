@@ -72,17 +72,17 @@ export function CLIPage() {
           <h2 className="text-2xl font-bold">Quick Start</h2>
           <CodeBlock
             language="bash"
-            code={`# Create a new contract spec with AI
-contractspec create --ai
+            code={`# Initialize project
+bunx contractspec init
 
-# Build handler from spec
-contractspec build src/contracts/signup.contracts.ts
+# Create a spec
+contractspec create --type operation
 
-# Validate all specs
-contractspec validate 'src/contracts/**/*.ts'
+# Generate code
+contractspec build src/contracts/mySpec.ts
 
-# Watch for changes
-contractspec watch --build`}
+# Validate
+contractspec validate src/contracts/mySpec.ts`}
           />
         </div>
 

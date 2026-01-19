@@ -13,10 +13,10 @@ export {
 
 export {
   verifyImportedContracts,
-  type VerifyOptions,
-  type VerifyResult,
+  type VerifyOptions as ImportVerifyOptions,
+  type VerifyResult as ImportVerifyResult,
   type EndpointVerification,
-  type VerificationIssue,
+  type VerificationIssue as ImportVerificationIssue,
 } from './verify-service';
 
 export {

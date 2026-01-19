@@ -3,7 +3,7 @@
 import { ButtonLink, MarketingSection } from '@contractspec/lib.design-system';
 import { Box, HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Lead, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
-import { Calendar, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 const heroChips = ['Multi-Surface Sync', 'No Lock-in', 'Standard Tech'];
 
@@ -11,6 +11,13 @@ export function HeroMarketingSection() {
   return (
     <MarketingSection tone="gradient" padding="spacious" align="center">
       <VStack gap="lg" align="center" className="text-center">
+        <Box
+          as="div"
+          role="presentation"
+          className="bg-muted text-muted-foreground inline-flex items-center rounded-full px-3 py-1 text-xs font-medium tracking-wider uppercase"
+        >
+          Open Source Core
+        </Box>
         <H1 className="text-4xl leading-tight font-bold text-balance md:text-5xl">
           Stabilize your AI-generated code
         </H1>
@@ -21,12 +28,11 @@ export function HeroMarketingSection() {
         </Lead>
 
         <HStack gap="md" justify="center" wrap="wrap">
-          <ButtonLink href="/pricing#waitlist">
-            Join waitlist <ChevronRight size={16} />
+          <ButtonLink href="/install">
+            Install OSS <ChevronRight size={16} />
           </ButtonLink>
-          <ButtonLink variant="ghost" href="/contact">
-            <Calendar size={16} />
-            Book a call
+          <ButtonLink variant="ghost" href="/contact#waitlist">
+            Join Studio Waitlist
           </ButtonLink>
         </HStack>
 

@@ -1,14 +1,12 @@
 'use client';
 
-import {
-  subscribeToNewsletter,
-  type SubmitNewsletterResult,
-} from '@contractspec/bundle.marketing';
+import type { SubmitNewsletterResult } from '@contractspec/bundle.marketing/libs/email/types';
+import { subscribeToNewsletter } from '@contractspec/bundle.marketing/libs/email/newsletter';
 import { useActionState } from 'react';
-import { Mail, CheckCircle, AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Mail } from 'lucide-react';
 import { ActionForm, Link as DSLink } from '@contractspec/lib.design-system';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import { Small, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
+import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 
 import {
   InputGroup,

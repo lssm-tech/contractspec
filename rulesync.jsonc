@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/dyoshikawa/rulesync/refs/heads/main/config-schema.json",
-   "targets": ["cursor", "claudecode", "geminicli", "opencode", "codexcli"],  
+  "targets": ["cursor", "claudecode", "geminicli", "opencode", "codexcli"],
   "features": [
     "*"
   ],

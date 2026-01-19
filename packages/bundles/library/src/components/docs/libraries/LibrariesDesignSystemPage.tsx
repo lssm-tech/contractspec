@@ -85,7 +85,7 @@ export function SignupForm() {
     <ZodForm
       schema={schema}
       onSubmit={(data) => console.log(data)}
-      submitLabel="Sign Up"
+      submitLabel="Submit"
     />
   );
 }`}

@@ -8,5 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [],
-  "publish": "./scripts/changeset-publish.mjs"
+  "publish": "./scripts/changeset-publish.mjs",
+  "privatePackages": { "version": true, "tag": true }
 }

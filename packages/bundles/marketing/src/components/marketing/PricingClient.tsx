@@ -55,21 +55,22 @@ export function PricingClient() {
             Transparent, usage-based pricing – after we earn it.
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-            ContractSpec is in design-partner early access. You can't pay us
-            yet. You can, however, help shape the compiler that will run your
-            AI-native stack.
+            ContractSpec Core (the OSS compiler) is and always will be free.
+            ContractSpec Studio (the managed platform) is in early access.
           </p>
-
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <button
-              onClick={scrollToWaitlist}
+            <Link
+              href="/install"
               className="btn-primary inline-flex items-center gap-2"
             >
-              Apply as a design partner <ChevronRight size={16} />
-            </button>
-            <Link href="/contact" className="btn-ghost">
-              Talk to us
+              Install OSS Core <ChevronRight size={16} />
             </Link>
+            <button
+              onClick={scrollToWaitlist}
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              Join Studio waitlist
+            </button>
           </div>
         </div>
       </section>
@@ -146,6 +147,56 @@ export function PricingClient() {
       <section className="section-padding border-border border-b">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-6 md:grid-cols-3">
+            {/* OSS Core (Forever Free) */}
+            <div className="card-subtle col-span-3 space-y-6 border-violet-500/20 p-6">
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold">OSS Core</h2>
+                <div className="space-y-1">
+                  <div className="text-2xl font-bold">Free Forever</div>
+                  <p className="text-muted-foreground text-xs">
+                    Apache 2.0 / MIT License
+                  </p>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                The complete spec-first compiler. Generate API, DB, and UI code
+                locally.
+              </p>
+              <ul className="space-y-3">
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Unlimited local regenerations
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  All standard generators included
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Run in your own CI/CD
+                </li>
+                <li className="text-muted-foreground flex gap-3 text-sm">
+                  <CheckCircle
+                    size={16}
+                    className="mt-0.5 shrink-0 text-violet-400"
+                  />
+                  Community support
+                </li>
+              </ul>
+              <Link href="/install" className="btn-ghost w-full">
+                Install now
+              </Link>
+            </div>
+
             {/* Design Partner (Current) */}
             <div className="card-subtle relative space-y-6 bg-violet-500/5 p-6 ring-2 ring-violet-500">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">

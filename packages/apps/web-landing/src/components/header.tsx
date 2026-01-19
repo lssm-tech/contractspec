@@ -13,7 +13,9 @@ const navItems: HeaderNavItem[] = [
   { label: 'Product', href: '/product' },
   { label: 'Templates', href: '/templates' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Changelog', href: '/changelog' },
   { label: 'Docs', href: '/docs' },
+  { label: 'GitHub', href: 'https://github.com/lssm-tech/contractspec' },
 ];
 
 const langSwitchProps = {
@@ -38,10 +40,10 @@ export default function Header() {
       }
       nav={navItems}
       navLinkClassName="rounded-md"
-      cta={{ label: 'Join the waitlist', href: '/contact#waitlist' }}
+      cta={{ label: 'Install OSS Core', href: '/install' }}
       right={
-        <ButtonLink variant="ghost" href="/contact#call" size="sm">
-          Book a demo
+        <ButtonLink variant="ghost" href="/contact#waitlist" size="sm">
+          Studio Waitlist
         </ButtonLink>
       }
       commandPaletteGroups={[]}

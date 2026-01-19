@@ -53,15 +53,14 @@ export function InstallationPage() {
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">Set up your project structure</h2>
+          <h2 className="text-2xl font-bold">Set up your project</h2>
           <p className="text-muted-foreground">
-            Create directories for your specs and implementations:
+            Initialize a new ContractSpec project structure:
           </p>
           <CodeBlock
             language="bash"
-            code={`mkdir -p lib/specs
-mkdir -p lib/registry
-mkdir -p app/api/ops`}
+            code={`bunx contractspec init
+# Follow the interactive prompts to configure your project`}
           />
         </div>
 
@@ -77,18 +76,6 @@ mkdir -p app/api/ops`}
 bunx prisma generate
 bunx prisma migrate dev --name init`}
           />
-        </div>
-
-        <div className="card-subtle space-y-4 p-6">
-          <h3 className="font-bold">Why No Global CLI?</h3>
-          <p className="text-muted-foreground text-sm">
-            ContractSpec specs are pure TypeScript modules served by runtime
-            adapters. There's no code generation step or deployment CLI—just
-            import your specs and pass them to <code>makeNextAppHandler</code>{' '}
-            or
-            <code>makeElysiaHandler</code>. Database migrations use standard
-            Prisma CLI commands.
-          </p>
         </div>
 
         <div className="flex items-center gap-4 pt-4">

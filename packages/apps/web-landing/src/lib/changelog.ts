@@ -72,15 +72,16 @@ export async function getAggregatedChangelog(): Promise<ChangelogEntry[]> {
 
   for (const d of allDetails) {
     const key = d.version;
-    if (!map.has(key)) {
-      map.set(key, {
+    let entry = map.get(key);
+    if (!entry) {
+      entry = {
         version: d.version,
         date: d.date,
         isBreaking: d.isBreaking,
         packages: [],
-      });
+      };
+      map.set(key, entry);
     }
-    const entry = map.get(key)!;
     // Keep most recent date if conflict
     if (d.date > entry.date) entry.date = d.date;
     if (d.isBreaking) entry.isBreaking = true;
@@ -105,7 +106,9 @@ function getPackageName(changelogPath: string): string {
     try {
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
       return pkg.name;
-    } catch {}
+    } catch {
+      // ignore
+    }
   }
   return path.basename(dir);
 }
@@ -183,6 +186,8 @@ function getDateForVersion(filePath: string, version: string): string {
     if (res.stdout && res.stdout.trim()) {
       return res.stdout.trim();
     }
-  } catch {}
+  } catch {
+    // ignore
+  }
   return '2025-01-01'; // fallback
 }

@@ -125,11 +125,11 @@ export function ManifestoPage() {
           </span>
         </p>
         <div className="flex flex-wrap gap-4 pt-4">
-          <a href="/docs/getting-started/installation" className="btn-primary">
-            Get started
+          <a href="/install" className="btn-primary">
+            Install OSS Core
           </a>
-          <a href="/contact" className="btn-ghost">
-            Get in touch
+          <a href="/contact#waitlist" className="btn-ghost">
+            Join Studio Waitlist
           </a>
         </div>
       </div>
