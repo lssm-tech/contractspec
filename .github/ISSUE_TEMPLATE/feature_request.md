@@ -1,20 +1,19 @@
 ---
 name: Feature Request
 about: Suggest an idea for this project
-title: "[FEAT] "
+title: '[FEAT] '
 labels: enhancement
 assignees: ''
-
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex: I'm always frustrated when [...]
+**Problem to solve**
+What problem are you trying to solve, and why does it matter?
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Proposed solution**
+Describe the outcome you want and how it should behave.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Alternatives considered**
+What else did you try or consider?
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

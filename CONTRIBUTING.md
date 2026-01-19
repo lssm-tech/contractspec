@@ -5,6 +5,7 @@ Welcome! We're building the safety layer for AI-native software. We believe in k
 ## 🤖 AI-Native Workflow
 
 We embrace AI agents (like Cursor, Claude, Windsurf) as first-class contributors. Our repo is designed to be easily understood and modified by AI.
+
 - **Context is King**: We maintain `AGENTS.md` - **READ THIS FILE FIRST**. It contains the definitive map of the repository, architecture rules, and dependency flows.
 - **Rule Synchronization**: We use [rulesync](https://github.com/dyoshikawa/rulesync) to generate agent configurations.
   - **Do not edit `.agent/` directly.**
@@ -24,17 +25,21 @@ If you are using an AI agent (Cursor, Windsurf, etc.), you can configure it to u
 This monorepo follows a strict layered architecture. **See `AGENTS.md` for the detailed map and dependency rules.**
 
 ### 1. `packages/apps/*` (Thin Adapters)
+
 Entry points and platform adapters. **No business logic allowed.** (e.g., `web-landing`, `cli-contractspec`).
 
 ### 2. `packages/bundles/*` (The Workhorses)
+
 Domain specific logic, features, and UI. **90% of code goes here.** Organized by domain (e.g., `studio`, `marketing`).
 
 ### 3. `packages/libs/*` (Shared Infrastructure)
+
 Reusable utilities, contracts, and the design system. (e.g., `contracts`, `design-system`).
 
 ## 🚀 Getting Started
 
 1.  **Install dependencies**:
+
     ```bash
     bun install
     ```
@@ -44,6 +49,12 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
     bun dev
     ```
     (This starts all apps. To start a specific app, use `bun dev --filter=@contractspec/app.web-landing`)
+
+## 🧪 Local Checks
+
+- Run `bunx contractspec ci` for contract validation and rules.
+- Run `bun run lint` for linting.
+- Run `bun run test` for unit tests (when touching modules with tests).
 
 ## 🤝 Contribution Workflow
 
@@ -76,4 +87,6 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 ## ❓ Need Help?
 
 - Check **Discussions** for Q&A.
-- Open an **Issue** if you find a bug.
+- Open a **Docs issue** if a guide is unclear or outdated.
+- Open a **Bug report** for incorrect behavior or crashes.
+- Open a **Feature request** for problem-first ideas.
