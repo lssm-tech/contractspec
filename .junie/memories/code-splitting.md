@@ -1,6 +1,3 @@
----
-trigger: always_on
----
 # Code Splitting & File Organization
 
 "Files and components must be small, focused, and composable. Large files are a code smell. Every piece of logic should be designed for reuse across features and platforms."

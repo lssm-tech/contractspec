@@ -1,0 +1,7 @@
+Code style: TypeScript strict, 2 spaces, semicolons, double quotes, trailing commas. No `any`, explicit types, proper guards. File size limits: components <=150 LOC, services <=200 LOC, utilities <=100 LOC, any file <=250 LOC; split when exceeding. Naming: components PascalCase.tsx, hooks usePrefix camelCase.ts, utilities kebab-case.ts, constants UPPER_SNAKE_CASE; classes/interfaces PascalCase. Prefer domain-driven organization; use design system components for UI (no raw HTML in marketing/web surfaces).
+
+Docs governance: Do NOT use /docs markdown; use colocated DocBlocks in packages/libs/contracts/src/docs/** and module-specific *.docblock.ts; read relevant DocBlocks before edits, update after changes; ensure docId registration and required fields (id/title/body/kind/route/visibility). No barrel doc registries.
+
+Contracts-first: define contracts in packages/libs/contracts (operations/events/capabilities/etc.) before implementations; register in registries; use SchemaModel. Observability/logging: no console.log in production paths; use approved logging, avoid PII; feature flags for risky changes. Analytics/posthog: use approved SDK, env keys, respect DNT, avoid PII; define event/property enums if reused.
+
+Commit style: Conventional Commits (feat/fix/etc.).

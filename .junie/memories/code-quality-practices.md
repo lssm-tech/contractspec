@@ -1,6 +1,3 @@
----
-trigger: always_on
----
 # Code Quality Practices & Standards
 
 "Code that's hard to test is code that's hard to maintain. Innovation happens through disciplined iteration, not shortcuts. Every feature must be measurable, every change must be reversible."

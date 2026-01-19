@@ -1,6 +1,3 @@
----
-trigger: always_on
----
 # ContractSpec Mission & Context
 
 "AI must understand that ContractSpec is NOT just codegen. It's the deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable. Every decision should reinforce this positioning: we're the safety layer for AI-coded systems."

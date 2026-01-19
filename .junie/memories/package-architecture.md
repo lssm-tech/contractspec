@@ -1,6 +1,3 @@
----
-trigger: always_on
----
 # Package Architecture & Dependency Flow
 
 "Code must live in the right layer: Contracts define behavior, libs provide infrastructure, bundles compose business logic, and apps are thin platform adapters. UI is composed from design tokens — never from raw HTML."
