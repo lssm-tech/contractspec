@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/lib.cost-tracking@1.48.0
+  - @contractspec/lib.design-system@1.48.0
+  - @contractspec/lib.ai-providers@1.48.0
+  - @contractspec/lib.ui-kit-web@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.ai-agent@1.48.0
+  - @contractspec/lib.metering@1.48.0
+  - @contractspec/lib.schema@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

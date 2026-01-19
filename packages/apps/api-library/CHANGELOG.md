@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.2.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/bundle.marketing@1.2.0
+  - @contractspec/bundle.workspace@1.48.0
+  - @contractspec/bundle.library@1.2.0
+  - @contractspec/lib.contracts@1.48.0
+
 ## 1.1.0
 
 ### Minor Changes

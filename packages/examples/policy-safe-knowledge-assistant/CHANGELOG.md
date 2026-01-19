@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/example.locale-jurisdiction-gate@1.48.0
+  - @contractspec/example.versioned-knowledge-base@1.48.0
+  - @contractspec/example.kb-update-pipeline@1.48.0
+  - @contractspec/example.learning-patterns@1.48.0
+  - @contractspec/module.learning-journey@1.48.0
+  - @contractspec/lib.example-shared-ui@1.2.0
+  - @contractspec/lib.runtime-sandbox@0.3.0
+  - @contractspec/lib.design-system@1.48.0
+  - @contractspec/lib.ui-kit-web@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

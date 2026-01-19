@@ -1,5 +1,20 @@
 # @contractspec/lib.personalization
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/lib.overlay-engine@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.knowledge@1.48.0
+  - @contractspec/lib.schema@1.48.0
+  - @contractspec/lib.bus@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

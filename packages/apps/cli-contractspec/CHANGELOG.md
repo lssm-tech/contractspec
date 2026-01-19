@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/lib.contracts-transformers@1.48.0
+  - @contractspec/bundle.workspace@1.48.0
+  - @contractspec/lib.ai-providers@1.48.0
+  - @contractspec/module.workspace@1.48.0
+  - @contractspec/module.examples@1.48.0
+  - @contractspec/module.ai-chat@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.ai-agent@1.48.0
+  - @contractspec/lib.testing@1.48.0
+  - @contractspec/lib.schema@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

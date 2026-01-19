@@ -1,5 +1,33 @@
 # @contractspec/bundle.marketing
 
+## 1.2.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/example.analytics-dashboard@1.48.0
+  - @contractspec/example.saas-boilerplate@1.48.0
+  - @contractspec/example.integration-hub@1.48.0
+  - @contractspec/example.workflow-system@1.48.0
+  - @contractspec/example.agent-console@1.48.0
+  - @contractspec/lib.example-shared-ui@1.2.0
+  - @contractspec/example.crm-pipeline@1.48.0
+  - @contractspec/example.marketplace@1.48.0
+  - @contractspec/lib.runtime-sandbox@0.3.0
+  - @contractspec/lib.design-system@1.48.0
+  - @contractspec/lib.ui-kit-core@1.48.0
+  - @contractspec/module.examples@1.48.0
+  - @contractspec/bundle.library@1.2.0
+  - @contractspec/lib.ui-kit-web@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.ui-link@1.48.0
+  - @contractspec/lib.logger@1.48.0
+  - @contractspec/lib.email@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 2.0.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/lib.observability@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

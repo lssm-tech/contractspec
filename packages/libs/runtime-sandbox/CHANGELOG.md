@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.3.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
 ## 0.2.0
 
 ### Minor Changes

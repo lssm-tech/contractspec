@@ -1,5 +1,20 @@
 # @contractspec/example.agent-console
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/lib.example-shared-ui@1.2.0
+  - @contractspec/lib.runtime-sandbox@0.3.0
+  - @contractspec/lib.design-system@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.schema@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes

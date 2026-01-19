@@ -1,5 +1,18 @@
 # @contractspec/example.learning-journey-studio-onboarding
 
+## 1.48.0
+
+### Minor Changes
+
+- b0444a4: feat: reduce adoption's friction by allowing generation of contracts from an analyse of the codebase
+
+### Patch Changes
+
+- Updated dependencies [b0444a4]
+  - @contractspec/module.learning-journey@1.48.0
+  - @contractspec/lib.contracts@1.48.0
+  - @contractspec/lib.schema@1.48.0
+
 ## 1.47.0
 
 ### Minor Changes
