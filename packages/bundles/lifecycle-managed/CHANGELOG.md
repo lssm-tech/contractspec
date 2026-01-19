@@ -1,5 +1,11 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.48.1
+
+### Patch Changes
+
+- @contractspec/lib.ai-agent@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

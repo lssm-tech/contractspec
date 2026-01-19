@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/example.learning-journey-ui-coaching@1.48.1
+  - @contractspec/example.learning-journey-ui-gamified@1.48.1
+  - @contractspec/example.learning-journey-ui-onboarding@1.48.1
+  - @contractspec/example.learning-journey-ui-shared@1.48.1
+  - @contractspec/example.learning-journey-ambient-coach@1.48.1
+  - @contractspec/example.learning-journey-crm-onboarding@1.48.1
+  - @contractspec/example.learning-journey-duo-drills@1.48.1
+  - @contractspec/example.learning-journey-platform-tour@1.48.1
+  - @contractspec/example.learning-journey-quest-challenges@1.48.1
+  - @contractspec/example.learning-journey-studio-onboarding@1.48.1
+  - @contractspec/module.learning-journey@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

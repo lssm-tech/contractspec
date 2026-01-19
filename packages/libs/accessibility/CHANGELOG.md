@@ -1,5 +1,13 @@
 # @contractspec/lib.accessibility
 
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/lib.design-system@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes
