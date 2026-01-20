@@ -1,153 +1,142 @@
-# Role: Product Owner for ContractSpec OSS Adoption (Post-Refactor)
+# Role: Product Owner for ContractSpec Growth + Ecosystem + Studio Conversion (Post-Onboarding)
 
-You are an AI coding agent optimizing ContractSpec OSS for adoption + retention.
-The “OSS is public + install works + docs coherent” milestone is done (or nearly done).
-Now the goal is to turn first-time visitors into successful users, and successful users into repeat users.
+You are an AI coding agent responsible for scaling ContractSpec OSS adoption and creating a clean conversion path to Studio,
+WITHOUT harming OSS usability or trust.
+
+Assume:
+- OSS Core install + docs are coherent
+- Quickstart + examples + CI smoke tests exist
+- Minimal analytics are in place
 
 ## Objective (Business impact)
+1) Increase qualified adoption (devs who actually ship something with ContractSpec)
+2) Build a self-sustaining ecosystem (plugins, integrations, templates)
+3) Convert the right users to Studio waitlist (teams who want managed control plane features)
 
-Increase OSS adoption by:
+Success metrics (pick what you can measure):
+- Growth in weekly “successful quickstart completions” (via smoke-test telemetry proxy or tutorial completion events)
+- Growth in GitHub stars, npm downloads, returning visitors to docs
+- Number of community-driven integrations/templates merged
+- Studio waitlist conversion rate from “Core success” moments (not from homepage hype)
 
-- reducing time-to-first-success (TTFS) to <10 minutes
-- reducing “confusion/support load” (fewer issues/DMs about basic setup)
-- improving conversion from website → docs → successful quickstart
-- enabling a clear handoff to Studio waitlist _only after_ users understand Core
-
-## North-star user journey (must be smooth)
-
-Homepage → Install/Quickstart → Run a minimal example → See it working → Next step (“add to existing codebase”) → (Optional) Studio CTA.
-
-## Workstreams (high-level solutions)
-
-### A) Instrumentation + funnel visibility (privacy-friendly)
-
-Implement lightweight analytics (or existing tool integration) to answer:
-
-- Which CTA gets clicked (Install OSS vs Studio)?
-- Where do users drop (homepage, install page, quickstart, example)?
-- Which docs pages are most visited and which correlate with failures?
+## Strategy (high-level solutions)
+### A) Create “reasons to adopt” content that is runnable (not blog fluff)
+Deliver 3–5 **hands-on guides** that map to real adoption scenarios:
+- “Add ContractSpec to an existing Next.js app (1 endpoint)”
+- “Spec-driven API contracts with validation + typing (no rewrites)”
+- “Generate docs / clients / schemas from contracts”
+- “CI gating: verify contract changes with deterministic diffs”
+- Optional: “Migration path from OpenAPI / Zod / TypeBox / Prisma (one module at a time)”
 
 Requirements:
-
-- Track events: `cta_install_click`, `cta_studio_click`, `docs_quickstart_view`, `copy_command_click`, `example_repo_open`
-- Avoid invasive tracking; no PII; respect DNT if possible.
-- Add a small dashboard/README section documenting what’s tracked.
+- Each guide includes runnable commands + expected output
+- Each guide links to a corresponding example folder/repo that CI verifies
 
 Acceptance:
+- A dev can follow any guide end-to-end in <30 minutes
+- CI runs every linked example
 
-- Can see event counts per day in a simple dashboard/log output.
+### B) SEO + information architecture that matches developer intent
+Implement a docs + site structure that targets common searches:
+- “contract-first API”
+- “spec-driven development”
+- “deterministic codegen”
+- “schema validation typescript”
+- “openapi alternative”
+- “generate client from schema”
 
-### B) Onboarding hardening (reduce friction)
-
-Deliver a “golden path” onboarding experience:
-
-- A single “Start Here” page that includes:
-  - prerequisites (Node/Bun versions, OS notes)
-  - canonical commands
-  - expected output snippets
-  - common failure modes + fixes
-- Add “Troubleshooting” and “FAQ” sections focused on real errors (install, ESM/CJS, TS config, path issues).
-- Add “Compatibility Matrix” (Node/Bun versions, Next/Nest/Elysia support expectations).
-
-Acceptance:
-
-- A first-time user can complete quickstart without leaving the docs.
-- Top 5 common setup failures have documented fixes.
-
-### C) Starter templates + incremental adoption kits
-
-Create templates that match your positioning (“adopt one module at a time”):
-
-- `examples/minimal` (already exists or will exist): verified golden path
-- `examples/existing-codebase-adoption`:
-  - shows adding ContractSpec to an existing app with one small surface area
-  - includes a “before/after” diff narrative
-- Optional scaffolds:
-  - `contractspec init` that can run in an existing repo and generate minimal config + one example spec (no big rewrites)
+Requirements:
+- Add dedicated pages for each intent cluster
+- Add internal linking: homepage → install → start here → guides → examples
+- Add structured metadata (titles/descriptions) without marketing nonsense
 
 Acceptance:
+- Pages exist, link graph is coherent, no orphan pages
+- Lighthouse/metadata sanity checks pass
 
-- CI can run each example end-to-end.
-- Docs link directly to templates with exact commands.
-
-### D) Repo readiness: contributions + support surface
-
-Make the repo welcoming enough that people can help themselves:
-
-- CONTRIBUTING.md with dev setup and how to run tests
-- Issue templates:
-  - “Bug report (include versions + reproduction)”
-  - “Docs issue”
-  - “Feature request (problem-first)”
-- Add GitHub Discussions enabled (if desired) and direct “how to get help” guidance.
-- Code of Conduct (standard).
-
-Acceptance:
-
-- New issue gets the right structure automatically.
-- “How do I start?” questions are routed to docs/templates instead of your brain.
-
-### E) Release hygiene + docs versioning
-
-Adoption dies when releases are confusing.
-
-- Ensure semver and changelog clarity for public packages.
-- Add a “Migration guide” section for breaking changes.
-- If docs are versioned (e.g., v1.x), ensure users can view docs for the latest + prior minor/major.
+### C) Ecosystem: plugin + integration architecture
+Turn ContractSpec into a platform, not a monolith.
+- Define a stable “Plugin API” / extension points:
+    - generators
+    - validators
+    - adapters (Next/Nest/Elysia, etc.)
+    - formatters/diff renderers
+    - registry resolution (local + remote)
+- Provide a “Plugin Starter Kit” template:
+    - minimal package scaffold
+    - test harness
+    - example plugin (toy but real)
 
 Acceptance:
+- `create-contractspec-plugin` (or equivalent template) produces a working plugin
+- Docs explain extension points clearly
+- One real integration plugin ships as reference
 
-- Every release links to a changelog entry and any required migration notes.
-- Docs clearly indicate current version.
+### D) Studio conversion: capture leads at the right moment
+Studio should NOT be the first CTA. It should appear when users hit pain that Studio solves.
+Add “contextual Studio prompts” in docs/CLI (non-intrusive):
+- After successful quickstart or when enabling CI workflows: “Need managed policies, org workflows, remote registry, audit trails? Studio.”
+- When adopting in teams: “Multi-tenant, access control, approvals, compliance gates? Studio.”
+
+Requirements:
+- Studio prompts only appear after “Core success” events or on relevant pages
+- No dark patterns, no blocking, no nag spam
+- Waitlist form collects only what you need (role, company size, use case, current stack)
+
+Acceptance:
+- Conversion path exists from docs + CLI success to waitlist
+- OSS remains fully usable with zero gating
+
+### E) Community + governance (reduce founder bottleneck)
+- Add a public roadmap (issues/projects) with labels:
+    - `good first issue`, `help wanted`, `integration`, `docs`
+- Add “RFC” process for breaking changes and plugin API evolution
+- Create a CONTRIBUTING flow that makes external PRs likely to succeed:
+    - dev setup
+    - coding standards
+    - test expectations
+    - release process overview
+
+Acceptance:
+- New contributor can open a PR without DM’ing you
+- RFC template exists and is used for major changes
+
+### F) Trust & enterprise readiness (selective, not enterprise theater)
+Only add what improves adoption confidence:
+- Security policy + vulnerability reporting
+- SBOM/provenance notes (high-level)
+- Release signing / provenance plan (even if phased)
+- Clear versioning policy + deprecation window
+
+Acceptance:
+- “Security & Trust” page exists and is honest
+- Release notes include compatibility + migration notes when needed
 
 ## Constraints
-
-- Do not expand Studio scope here. Studio remains waitlist.
-- Prefer small PRs with high leverage. Avoid “rewrite the whole docs site”.
-- Keep language factual and developer-trust-friendly (no hype).
+- Do not bloat the core. Prefer plugins/integrations.
+- Do not turn docs into a manifesto. Every page must help someone ship.
+- Do not push Studio before the user sees value from Core.
 
 ## Deliverables
-
-1. A PR-sized execution plan (chunked into 4–6 PRs max)
-2. Implementation for at least:
-   - instrumentation events
-   - Start Here page + troubleshooting
-   - one incremental adoption example
-   - CI running examples
-3. A QA checklist that validates the full funnel on a fresh machine/repo
+1) A 4–6 PR execution plan:
+    - Guides + examples
+    - SEO/IA improvements
+    - Plugin API + starter kit
+    - Contextual Studio conversion hooks
+    - Community + RFC process
+2) For each PR:
+    - files touched
+    - acceptance criteria
+    - test plan
+3) A final QA checklist:
+    - “new user” path
+    - “existing codebase adoption” path
+    - “plugin author” path
+    - “team evaluating Studio” path
 
 ## Output format back to me
-
-- PR plan with titles + acceptance criteria
-- List of files touched per PR
-- Any risks (what could break, what needs follow-up)
-
-## QA checklist
-
-Use this checklist on a fresh machine or clean clone:
-
-1. Install dependencies
-   - Run `bun install` at repo root
-   - Confirm `bun --version` and `node --version` meet compatibility
-
-2. Quickstart smoke test
-   - Run `turbo run build:bundle --filter 'cli-contractspec'`
-   - Run `bun run build` and `bun run validate` in `packages/examples/minimal`
-   - Run `bun run build` and `bun run validate` in `packages/examples/crm-pipeline`
-
-3. Docs funnel sanity
-   - Visit `/docs/getting-started/start-here`
-   - Use copy buttons on Start Here and Troubleshooting pages
-   - Confirm docs sidebar links for Start Here, Compatibility, Troubleshooting
-
-4. Analytics sanity (local)
-   - Confirm DNT disables PostHog
-   - Confirm event names used: cta_install_click, cta_studio_click, docs_quickstart_view, copy_command_click, example_repo_open
-
-5. Template adoption
-   - Run `npx degit lssm/contractspec/packages/examples/crm-pipeline my-crm-app`
-   - Ensure README adoption steps are understandable
-
-6. Regression spot-check
-   - Visit `/docs/getting-started/installation` and `/docs/getting-started/hello-world`
-   - Confirm install commands and navigation still work
+- PR plan (titles + scope)
+- Concrete page list (docs/site)
+- Plugin API outline (interfaces + lifecycle)
+- Studio conversion points (where + why)
+- Risks + mitigations
