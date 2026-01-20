@@ -9,17 +9,13 @@ import {
 } from '@contractspec/lib.design-system';
 import { VStack, HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import { LayoutGrid, List, Star, ChevronDown } from 'lucide-react';
+import { LayoutGrid, List, Star } from 'lucide-react';
 import { useFeatureRegistry } from '../../hooks/useFeatureRegistry';
 import { useFeatureFilters } from '../../hooks/useFeatureFilters';
 import { FeatureCard } from '../../molecules/FeatureCard';
 import { FeatureFiltersBar } from '../../molecules/FeatureFilters';
 import { FeatureCategoryHeader } from '../../molecules/FeatureCategoryHeader';
-import type {
-  FeatureDiscoveryProps,
-  FeatureViewMode,
-  FeatureGroupBy,
-} from './types';
+import type { FeatureDiscoveryProps, FeatureViewMode } from './types';
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
 
 // Group features by domain
