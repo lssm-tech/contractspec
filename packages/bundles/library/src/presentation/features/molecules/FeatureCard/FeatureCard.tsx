@@ -2,6 +2,9 @@
 
 import { EntityCard, StatusChip } from '@contractspec/lib.design-system';
 import { HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
+import { Zap, Radio, Layout, Shield } from 'lucide-react';
+import { FeatureIcon, getFeatureIconTone } from '../../atoms/FeatureIcon';
+import { FeatureHoverPreview } from '../FeatureHoverPreview';
 import type { FeatureCardProps } from './types';
 
 const stabilityTone = {
@@ -12,20 +15,29 @@ const stabilityTone = {
 };
 
 /**
- * Card component for displaying a feature module.
- * Shows title, description, stability badge, and counts.
+ * Enhanced card component for displaying a feature module.
+ * Shows icon, title, description, stability badge, stats, and capability indicators.
+ * Includes hover preview with full feature details.
  */
 export function FeatureCard({
   feature,
   onSelect,
   className,
 }: FeatureCardProps) {
-  const { meta, operations, events, presentations } = feature;
+  const { meta, operations, events, presentations, capabilities } = feature;
 
   const tone =
     stabilityTone[meta.stability as keyof typeof stabilityTone] ?? 'neutral';
 
+  const iconTone = getFeatureIconTone(meta.stability);
+
+  // Use strong emphasis for stable features for visual highlight
+  const emphasis = meta.stability === 'stable' ? 'strong' : 'default';
+
   const handleClick = onSelect ? () => onSelect(feature) : undefined;
+
+  const hasCapabilities =
+    capabilities?.provides?.length || capabilities?.requires?.length;
 
   return (
     <EntityCard
@@ -33,6 +45,16 @@ export function FeatureCard({
       cardSubtitle={meta.key}
       className={className}
       onClick={handleClick}
+      emphasis={emphasis}
+      icon={
+        <FeatureIcon
+          domain={meta.domain}
+          tags={meta.tags}
+          stability={meta.stability}
+          size="md"
+        />
+      }
+      iconTone={iconTone}
       chips={
         <StatusChip tone={tone} label={meta.stability ?? 'unknown'} size="sm" />
       }
@@ -43,13 +65,39 @@ export function FeatureCard({
           </span>
         ) : undefined
       }
+      preview={<FeatureHoverPreview feature={feature} />}
       footer={
-        <HStack gap="sm" className="text-muted-foreground text-xs">
-          {operations?.length ? <span>{operations.length} ops</span> : null}
-          {events?.length ? <span>{events.length} events</span> : null}
-          {presentations?.length ? (
-            <span>{presentations.length} presentations</span>
-          ) : null}
+        <HStack
+          gap="md"
+          className="text-muted-foreground w-full justify-between text-xs"
+        >
+          <HStack gap="sm">
+            {operations?.length ? (
+              <span className="flex items-center gap-1">
+                <Zap className="h-3 w-3 text-amber-500" />
+                {operations.length}
+              </span>
+            ) : null}
+            {events?.length ? (
+              <span className="flex items-center gap-1">
+                <Radio className="h-3 w-3 text-blue-500" />
+                {events.length}
+              </span>
+            ) : null}
+            {presentations?.length ? (
+              <span className="flex items-center gap-1">
+                <Layout className="h-3 w-3 text-purple-500" />
+                {presentations.length}
+              </span>
+            ) : null}
+          </HStack>
+          {hasCapabilities && (
+            <span className="flex items-center gap-1">
+              <Shield className="h-3 w-3 text-emerald-500" />
+              {(capabilities?.provides?.length ?? 0) +
+                (capabilities?.requires?.length ?? 0)}
+            </span>
+          )}
         </HStack>
       }
     />
