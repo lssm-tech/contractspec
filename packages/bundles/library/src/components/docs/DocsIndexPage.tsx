@@ -189,6 +189,11 @@ contractspec build src/contracts/mySpec.ts`}
               href: '/docs/guides',
             },
             {
+              title: 'Intent Pages',
+              description: 'SEO-optimized pages for specific developer needs',
+              href: '/docs/intent',
+            },
+            {
               title: 'Core Contracts',
               description:
                 'Commands, queries, events, presentations, workflows',

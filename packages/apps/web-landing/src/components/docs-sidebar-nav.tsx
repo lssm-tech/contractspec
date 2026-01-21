@@ -96,6 +96,32 @@ export const docsSections = [
     ],
   },
   {
+    title: 'Intent Pages',
+    items: [
+      { title: 'Contract-first API', href: '/docs/intent/contract-first-api' },
+      {
+        title: 'Spec-driven Development',
+        href: '/docs/intent/spec-driven-development',
+      },
+      {
+        title: 'Deterministic Codegen',
+        href: '/docs/intent/deterministic-codegen',
+      },
+      {
+        title: 'Schema Validation + TypeScript',
+        href: '/docs/intent/schema-validation-typescript',
+      },
+      {
+        title: 'OpenAPI Alternative',
+        href: '/docs/intent/openapi-alternative',
+      },
+      {
+        title: 'Generate Client from Schema',
+        href: '/docs/intent/generate-client-from-schema',
+      },
+    ],
+  },
+  {
     title: 'Integrations',
     items: [
       { title: 'Overview', href: '/docs/integrations' },

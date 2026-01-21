@@ -27,6 +27,9 @@ export * from './integrations';
 // Guides
 export * from './guides';
 
+// Intent Pages
+export * from './intent';
+
 // Knowledge
 export * from './knowledge';
 
