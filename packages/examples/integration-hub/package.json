@@ -14,7 +14,8 @@
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "validate": "contractspec validate"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@contractspec/tool.typescript": "workspace:*",
     "@contractspec/tool.tsdown": "workspace:*",
+    "contractspec": "workspace:*",
     "typescript": "catalog:",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.2"

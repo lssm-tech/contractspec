@@ -184,6 +184,11 @@ contractspec build src/contracts/mySpec.ts`}
               href: '/docs/getting-started/installation',
             },
             {
+              title: 'Guides',
+              description: 'Runnable adoption scenarios with examples',
+              href: '/docs/guides',
+            },
+            {
               title: 'Core Contracts',
               description:
                 'Commands, queries, events, presentations, workflows',

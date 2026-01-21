@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { FeatureDiscovery } from '@contractspec/bundle.library/presentation/features';
+import { FeatureDiscoveryClient } from './client';
 
 export const metadata: Metadata = {
   title: 'Features | ContractSpec',
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function FeaturesPage() {
-  return <FeatureDiscovery />;
+  return <FeatureDiscoveryClient />;
 }

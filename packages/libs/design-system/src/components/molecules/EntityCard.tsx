@@ -201,7 +201,7 @@ export function EntityCard({
       const { HoverPreview } =
         require('./HoverPreview') as typeof import('./HoverPreview');
       /* eslint-enable @typescript-eslint/no-require-imports */
-      return <HoverPreview trigger={cardContent} content={preview} />;
+      return <HoverPreview className='bg-red-500' trigger={cardContent} content={preview} />;
     } catch {
       return cardContent;
     }

@@ -74,6 +74,28 @@ export const docsSections = [
     ],
   },
   {
+    title: 'Guides',
+    items: [
+      { title: 'Overview', href: '/docs/guides' },
+      {
+        title: 'Next.js One Endpoint',
+        href: '/docs/guides/nextjs-one-endpoint',
+      },
+      {
+        title: 'Spec Validation + Typing',
+        href: '/docs/guides/spec-validation-and-typing',
+      },
+      {
+        title: 'Generate Docs + Clients',
+        href: '/docs/guides/generate-docs-clients-schemas',
+      },
+      {
+        title: 'CI Diff Gating',
+        href: '/docs/guides/ci-contract-diff-gating',
+      },
+    ],
+  },
+  {
     title: 'Integrations',
     items: [
       { title: 'Overview', href: '/docs/integrations' },

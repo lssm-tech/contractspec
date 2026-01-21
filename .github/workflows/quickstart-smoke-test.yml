@@ -44,3 +44,13 @@ jobs:
           bun run build
           # Validate the spec
           bun run validate
+
+      - name: Verify Integration Hub Example
+        run: |
+          cd packages/examples/integration-hub
+          # Ensure dependencies are linked
+          bun install
+          # Run the build command (which uses the contractspec CLI)
+          bun run build
+          # Validate the spec
+          bun run validate
