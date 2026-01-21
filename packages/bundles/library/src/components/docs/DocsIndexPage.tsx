@@ -194,6 +194,11 @@ contractspec build src/contracts/mySpec.ts`}
               href: '/docs/intent',
             },
             {
+              title: 'Ecosystem',
+              description: 'Plugin API, templates, and integrations',
+              href: '/docs/ecosystem/plugins',
+            },
+            {
               title: 'Core Contracts',
               description:
                 'Commands, queries, events, presentations, workflows',

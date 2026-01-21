@@ -122,6 +122,15 @@ export const docsSections = [
     ],
   },
   {
+    title: 'Ecosystem',
+    items: [
+      { title: 'Plugin API', href: '/docs/ecosystem/plugins' },
+      { title: 'Integrations', href: '/docs/ecosystem/integrations' },
+      { title: 'Templates', href: '/docs/ecosystem/templates' },
+      { title: 'Registry', href: '/docs/ecosystem/registry' },
+    ],
+  },
+  {
     title: 'Integrations',
     items: [
       { title: 'Overview', href: '/docs/integrations' },
