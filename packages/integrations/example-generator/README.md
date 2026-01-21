@@ -1,4 +1,4 @@
-# @contractspec/lib.plugin.example-generator
+# @contractspec/integration.example-generator
 
 Example plugin for ContractSpec that generates markdown documentation from ContractSpec specifications.
 
@@ -18,7 +18,7 @@ This plugin demonstrates how to create a ContractSpec generator plugin. It trans
 ## Installation
 
 ```bash
-npm install @contractspec/lib.plugin.example-generator
+npm install @contractspec/integration.example-generator
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ npm install @contractspec/lib.plugin.example-generator
 ### Basic Usage
 
 ```typescript
-import { ExampleGeneratorPlugin } from "@contractspec/lib.plugin.example-generator";
+import { ExampleGeneratorPlugin } from "@contractspec/integration.example-generator";
 
 const generator = new ExampleGeneratorPlugin({
   outputDir: "./docs",
@@ -41,7 +41,7 @@ await generator.generateFromSpec(specPath, outputPath);
 ### Advanced Configuration
 
 ```typescript
-import { ExampleGeneratorPlugin } from "@contractspec/lib.plugin.example-generator";
+import { ExampleGeneratorPlugin } from "@contractspec/integration.example-generator";
 
 const generator = new ExampleGeneratorPlugin({
   outputDir: "./docs",

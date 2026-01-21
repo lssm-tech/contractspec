@@ -8,7 +8,7 @@ export function createExampleGeneratorTemplate() {
   return {
     files: {
       "package.json": `{
-  "name": "{{packageName}}",
+  "name": "{{integrationPackageName}}",
   "version": "{{version}}",
   "description": "{{description}}",
   "keywords": [
@@ -89,7 +89,7 @@ export function createExampleGeneratorTemplate() {
   }
 }`,
 
-      "README.md": `# {{packageName}}
+      "README.md": `# {{integrationPackageName}}
 
 {{description}}
 
@@ -109,7 +109,7 @@ This is a ContractSpec plugin that generates markdown documentation from Contrac
 ## Installation
 
 \`\`\`bash
-npm install {{packageName}}
+npm install {{integrationPackageName}}
 \`\`\`
 
 ## Usage
@@ -117,7 +117,7 @@ npm install {{packageName}}
 ### Basic Usage
 
 \`\`\`typescript
-import { {{className}} } from "{{packageName}}";
+import { {{className}} } from "{{integrationPackageName}}";
 
 const generator = new {{className}}({
   outputDir: "./docs",
@@ -132,7 +132,7 @@ await generator.generateFromSpec(specPath, outputPath);
 ### Advanced Configuration
 
 \`\`\`typescript
-import { {{className}} } from "{{packageName}}";
+import { {{className}} } from "{{integrationPackageName}}";
 
 const generator = new {{className}}({
   outputDir: "./docs",
@@ -242,8 +242,9 @@ MIT © {{author}}
 - 💬 [Discussions](https://github.com/lssm-tech/contractspec/discussions)`,
 
       "src/index.ts": `/**
- * {{packageName}}
- * {{description}}
+  * {{integrationPackageName}}
+  * {{description}}
+
  */
 
 export { {{className}} } from "./generator.js";
@@ -435,7 +436,7 @@ export class {{className}} {
   constructor(config: Partial<{{className}}Config> = {}) {
     this.metadata = {
       id: "{{name}}",
-      name: "{{packageName}}",
+      name: "{{integrationPackageName}}",
       version: "{{version}}",
       description: "{{description}}",
       author: "{{author}}",
@@ -692,7 +693,7 @@ describe("{{className}}", () => {
       const metadata = generator.getMetadata();
       
       expect(metadata.id).toBe("{{name}}");
-      expect(metadata.name).toBe("{{packageName}}");
+      expect(metadata.name).toBe("{{integrationPackageName}}");
       expect(metadata.description).toBe("{{description}}");
       expect(metadata.author).toBe("{{author}}");
     });

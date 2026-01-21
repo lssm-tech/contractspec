@@ -1,5 +1,5 @@
 ---
-'@contractspec/lib.plugin.example-generator': patch
+'@contractspec/integration.example-generator': patch
 '@contractspec/tool.create-contractspec-plugin': patch
 ---
 

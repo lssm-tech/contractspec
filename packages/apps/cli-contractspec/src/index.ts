@@ -41,6 +41,7 @@ import { agentCommand } from './commands/agent/index';
 import { fixCommand } from './commands/fix/index';
 import { vibeCommand } from './commands/vibe/index';
 import { importCommand } from './commands/import/index';
+import { pluginsCommand } from './commands/plugins/index';
 
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
@@ -49,6 +50,7 @@ const CATEGORY_TESTING = 'Testing & Quality';
 const CATEGORY_AI = 'AI & Assistants';
 const CATEGORY_OPERATIONS = 'Operations';
 const CATEGORY_INTEGRATION = 'Integration';
+const CATEGORY_ECOSYSTEM = 'Ecosystem';
 const CATEGORY_OTHER = 'Other';
 
 const CATEGORY_ORDER = [
@@ -58,6 +60,7 @@ const CATEGORY_ORDER = [
   CATEGORY_AI,
   CATEGORY_OPERATIONS,
   CATEGORY_INTEGRATION,
+  CATEGORY_ECOSYSTEM,
   CATEGORY_OTHER,
 ];
 
@@ -203,6 +206,9 @@ program.addCommand(withCategory(upgradeCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(registryCommand, CATEGORY_INTEGRATION));
 program.addCommand(withCategory(openapiCommand, CATEGORY_INTEGRATION));
 program.addCommand(withCategory(examplesCommand, CATEGORY_INTEGRATION));
+
+// Ecosystem
+program.addCommand(withCategory(pluginsCommand, CATEGORY_ECOSYSTEM));
 
 // Inline Commands
 

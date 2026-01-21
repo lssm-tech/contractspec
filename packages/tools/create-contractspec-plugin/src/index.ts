@@ -138,6 +138,7 @@ async function collectPluginConfig(options: any) {
   const template = options.template;
 
   const packageName = `@contractspec/plugin.${name}`;
+  const integrationPackageName = `@contractspec/integration.${name}`;
   const className =
     name
       .split('-')
@@ -149,6 +150,7 @@ async function collectPluginConfig(options: any) {
   return {
     name,
     packageName,
+    integrationPackageName,
     className,
     description,
     author,

@@ -35,6 +35,7 @@
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/lib.plugins": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.testing": "workspace:*",
     "@contractspec/module.ai-chat": "workspace:*",
