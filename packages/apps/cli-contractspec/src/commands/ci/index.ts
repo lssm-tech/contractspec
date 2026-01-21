@@ -189,6 +189,17 @@ export async function runCiCommand(options: CICommandOptions) {
     } else if (options.failOnWarnings && result.totalWarnings > 0) {
       process.exit(2);
     }
+
+    if (result.success && isTextOutput) {
+      console.log();
+      console.log(chalk.bold('Looking for managed CI gates?'));
+      console.log(
+        '  Studio adds policy approvals, drift dashboards, and audit trails.'
+      );
+      console.log(
+        '  Join the waitlist: https://contractspec.io/contact#waitlist'
+      );
+    }
   } catch (error) {
     spinner?.fail('CI checks failed');
 

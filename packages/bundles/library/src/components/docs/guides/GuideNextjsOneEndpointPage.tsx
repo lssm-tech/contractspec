@@ -1,6 +1,7 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function GuideNextjsOneEndpointPage() {
   return (
@@ -155,6 +156,11 @@ contractspec examples show lifecycle-dashboard
 contractspec examples validate --repo-root .`}
           />
         </div>
+
+        <StudioPrompt
+          title="Need team approvals for new endpoints?"
+          body="Studio adds review gates, shared registries, and audit trails after you ship your first endpoint."
+        />
       </div>
 
       <div className="flex items-center gap-4 pt-4">

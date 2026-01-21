@@ -1,6 +1,7 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function GuideCIDiffGatingPage() {
   return (
@@ -34,6 +35,7 @@ export function GuideCIDiffGatingPage() {
             language="bash"
             filename="ci-copy"
             code={`cp node_modules/@contractspec/app.cli-contractspec/templates/github-action.yml .github/workflows/contractspec.yml`}
+
           />
           <p className="text-muted-foreground text-sm">
             Expected output: new workflow file in <code>.github/workflows</code>
@@ -83,6 +85,11 @@ bun run build
 bun run validate`}
           />
         </div>
+
+        <StudioPrompt
+          title="Need managed CI policy gates?"
+          body="Studio adds policy approvals, drift dashboards, and audit trails after CI checks pass."
+        />
       </div>
 
       <div className="flex items-center gap-4 pt-4">

@@ -1,6 +1,7 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function GuideGenerateDocsClientsSchemasPage() {
   return (
@@ -82,6 +83,11 @@ export function GuideGenerateDocsClientsSchemasPage() {
 contractspec openapi export --registry ./src/contracts/registry.ts --out ./generated/openapi.json`}
           />
         </div>
+
+        <StudioPrompt
+          title="Want managed schema releases?"
+          body="Studio can publish OpenAPI, SDKs, and release notes automatically with approvals."
+        />
       </div>
 
       <div className="flex items-center gap-4 pt-4">

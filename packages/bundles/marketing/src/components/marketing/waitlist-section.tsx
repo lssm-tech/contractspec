@@ -37,6 +37,8 @@ const designPartnerSchema = z.object({
   email: z.email('Please enter a valid email address'),
   company: z.string().optional(),
   role: z.string().optional(),
+  useCase: z.string().optional(),
+  currentStack: z.string().optional(),
   whatBuilding: z.string().min(1, 'Please tell us what you are building'),
   whatSolving: z
     .string()
@@ -82,6 +84,8 @@ export function WaitlistSection({
       email: '',
       company: '',
       role: '',
+      useCase: '',
+      currentStack: '',
       whatBuilding: '',
       whatSolving: '',
       teamSize: '',
@@ -153,6 +157,8 @@ export function WaitlistSection({
       formData.set('name', data.name);
       if (data.company) formData.set('company', data.company);
       if (data.role) formData.set('role', data.role);
+      if (data.useCase) formData.set('useCase', data.useCase);
+      if (data.currentStack) formData.set('currentStack', data.currentStack);
       formData.set('whatBuilding', data.whatBuilding);
       formData.set('whatSolving', data.whatSolving);
       if (data.teamSize) formData.set('teamSize', data.teamSize);
@@ -338,6 +344,52 @@ export function WaitlistSection({
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="waitlist-use-case"
+                  className="text-sm font-medium"
+                >
+                  Primary use case
+                </Label>
+                <Select
+                  value={designPartnerForm.watch('useCase') || ''}
+                  onValueChange={(value) =>
+                    designPartnerForm.setValue('useCase', value)
+                  }
+                  disabled={isPending || submitResult?.success}
+                >
+                  <SelectTrigger id="waitlist-use-case" className="w-full">
+                    <SelectValue placeholder="Select a use case" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="api-platform">API platform</SelectItem>
+                    <SelectItem value="ai-ops">AI operations</SelectItem>
+                    <SelectItem value="integration-hub">Integration hub</SelectItem>
+                    <SelectItem value="internal-tools">Internal tools</SelectItem>
+                    <SelectItem value="data-pipelines">Data pipelines</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label
+                  htmlFor="waitlist-current-stack"
+                  className="text-sm font-medium"
+                >
+                  Current stack
+                </Label>
+                <Input
+                  id="waitlist-current-stack"
+                  {...designPartnerForm.register('currentStack')}
+                  type="text"
+                  placeholder="e.g. Next.js, Postgres, OpenAPI"
+                  disabled={isPending || submitResult?.success}
+                />
               </div>
             </div>
 

@@ -1,6 +1,7 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function GuideSpecValidationTypingPage() {
   return (
@@ -134,6 +135,11 @@ bun run build
 bun run validate`}
           />
         </div>
+
+        <StudioPrompt
+          title="Need shared validation policies?"
+          body="Studio lets teams enforce validation policies and review changes before they ship."
+        />
       </div>
 
       <div className="flex items-center gap-4 pt-4">

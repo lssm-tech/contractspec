@@ -1,6 +1,7 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
+import { StudioPrompt } from '../shared/StudioPrompt';
 
 export function EcosystemTemplatesPage() {
   return (
@@ -46,9 +47,14 @@ export function EcosystemTemplatesPage() {
 bun publish
 
 # install in a ContractSpec workspace
-bun add @contractspec/plugin.markdown-generator`}
+bun add @contractspec/integration.markdown-generator`}
         />
       </div>
+
+      <StudioPrompt
+        title="Need managed plugin distribution?"
+        body="Studio can host private plugin registries, approvals, and policy gates for teams."
+      />
 
       <div className="flex items-center gap-4 pt-4">
         <Link href="/docs/ecosystem/plugins" className="btn-primary">

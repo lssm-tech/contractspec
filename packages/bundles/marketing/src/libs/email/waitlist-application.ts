@@ -16,10 +16,13 @@ export const submitWaitlistApplication = async (
   const name = (formData.get('name') ?? '').toString().trim();
   const company = (formData.get('company') ?? '').toString().trim();
   const role = (formData.get('role') ?? '').toString().trim();
+  const useCase = (formData.get('useCase') ?? '').toString().trim();
+  const currentStack = (formData.get('currentStack') ?? '').toString().trim();
   const whatBuilding = (formData.get('whatBuilding') ?? '').toString().trim();
   const whatSolving = (formData.get('whatSolving') ?? '').toString().trim();
   const teamSize = (formData.get('teamSize') ?? '').toString().trim();
   const timeline = (formData.get('timeline') ?? '').toString().trim();
+
   const openToSessions = formData.get('openToSessions') === 'on';
   const okayWithCaseStudies = formData.get('okayWithCaseStudies') === 'on';
 
@@ -123,6 +126,8 @@ ${whatBuilding}
 - What do you hope ContractSpec will solve for you?
 ${whatSolving}
 
+- Primary use case: ${useCase || 'Not specified'}
+- Current stack: ${currentStack || 'Not specified'}
 - Team Size: ${teamSize || 'Not specified'}
 - Timeline: ${timeline || 'Not specified'}
 
@@ -154,6 +159,8 @@ Submitted via ContractSpec waitlist application form
         ${formatMultilineHtml(whatSolving)}
       </div>
       <ul style="padding-left: 16px; line-height: 1.6; margin: 16px 0;">
+        <li>Primary use case: ${escapeHtml(useCase || 'Not specified')}</li>
+        <li>Current stack: ${escapeHtml(currentStack || 'Not specified')}</li>
         <li>Team Size: ${escapeHtml(teamSize || 'Not specified')}</li>
         <li>Timeline: ${escapeHtml(timeline || 'Not specified')}</li>
       </ul>
