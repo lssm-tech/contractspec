@@ -37,7 +37,7 @@ export interface PluginRegistryItem {
 export interface PluginRegistryConfig {
   plugins: PluginRegistryItem[];
   registry?: {
-    resolutionOrder: Array<'workspace' | 'npm' | 'remote'>;
+    resolutionOrder: ('workspace' | 'npm' | 'remote')[];
     allowPrerelease?: boolean;
     sources?: Record<string, string>;
   };

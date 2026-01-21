@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { Command } from 'commander';
 import { PluginRegistries } from '@contractspec/lib.plugins';
 
 export const pluginsCommand = new Command('plugins')
@@ -66,10 +67,10 @@ pluginsCommand
 
 function listPlugins(): void {
   const registries = new PluginRegistries();
-  const sections: Array<{
+  const sections: {
     title: string;
     list: { id: string; description?: string }[];
-  }> = [
+  }[] = [
     {
       title: 'Generators',
       list: registries.generators.list(),

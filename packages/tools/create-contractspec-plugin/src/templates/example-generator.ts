@@ -56,7 +56,7 @@ export function createExampleGeneratorTemplate() {
   },
   "devDependencies": {
     "@contractspec/tool.tsdown": "workspace:*",
-    "@contractspec.tool.typescript": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:",
     "@types/node": "^22.0.0",
@@ -74,7 +74,7 @@ export function createExampleGeneratorTemplate() {
   "repository": {
     "type": "git",
     "url": "https://github.com/lssm-tech/contractspec.git",
-    "directory": "packages/libs/plugins/{{name}}"
+    "directory": "packages/integrations/{{name}}"
   },
   "homepage": "https://contractspec.io",
   "bugs": {

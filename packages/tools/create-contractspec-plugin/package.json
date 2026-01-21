@@ -49,8 +49,8 @@
     "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@contractspec.tool.tsdown": "workspace:*",
-    "@contractspec.tool.typescript": "workspace:*",
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/mustache": "^4.2.5",
