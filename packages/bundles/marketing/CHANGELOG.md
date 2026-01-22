@@ -1,5 +1,19 @@
 # @contractspec/bundle.marketing
 
+## 1.3.1
+
+### Patch Changes
+
+- 86423e8: Add contextual Studio prompts and extend waitlist application details.
+- Updated dependencies [918deb7]
+- Updated dependencies [ea245ef]
+- Updated dependencies [2016af0]
+- Updated dependencies [54b778e]
+- Updated dependencies [86423e8]
+  - @contractspec/bundle.library@1.3.1
+  - @contractspec/example.integration-hub@1.48.2
+  - @contractspec/module.examples@1.48.2
+
 ## 1.3.0
 
 ### Minor Changes

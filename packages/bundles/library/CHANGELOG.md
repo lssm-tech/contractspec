@@ -1,5 +1,16 @@
 # @contractspec/bundle.library
 
+## 1.3.1
+
+### Patch Changes
+
+- 918deb7: Add security policy, roadmap, RFC template, and Security & Trust docs page.
+- ea245ef: Add ecosystem documentation pages for plugins, integrations, templates, and registry resolution.
+- 2016af0: Add runnable docs guides, wire new docs routes, and validate the integration-hub example in CI.
+- 54b778e: Add SEO-optimized intent pages for developer search queries.
+- 86423e8: Add contextual Studio prompts and extend waitlist application details.
+  - @contractspec/module.examples@1.48.2
+
 ## 1.3.0
 
 ### Minor Changes
