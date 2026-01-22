@@ -149,49 +149,53 @@ export function PricingClient() {
           <div className="grid gap-6 md:grid-cols-3">
             {/* OSS Core (Forever Free) */}
             <div className="card-subtle col-span-3 space-y-6 border-violet-500/20 p-6">
-              <div className="space-y-2">
-                <h2 className="text-2xl font-bold">OSS Core</h2>
-                <div className="space-y-1">
-                  <div className="text-2xl font-bold">Free Forever</div>
-                  <p className="text-muted-foreground text-xs">
-                    Apache 2.0 / MIT License
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-500 px-3 py-1 text-xs font-medium text-white">
+                <div className="text-1xl font-bold">Free Forever</div>
+                <p className="text-muted-foreground text-xs">
+                  Apache 2.0 / MIT License
+                </p>
+              </div>
+              <div className="flex flex-row justify-around">
+                <div className="w-1/2">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-bold">OSS Core</h2>
+                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    The complete spec-first compiler. Generate API, DB, and UI
+                    code locally.
                   </p>
                 </div>
+                <ul className="space-y-3">
+                  <li className="text-muted-foreground flex gap-3 text-sm">
+                    <CheckCircle
+                      size={16}
+                      className="mt-0.5 shrink-0 text-violet-400"
+                    />
+                    Unlimited local regenerations
+                  </li>
+                  <li className="text-muted-foreground flex gap-3 text-sm">
+                    <CheckCircle
+                      size={16}
+                      className="mt-0.5 shrink-0 text-violet-400"
+                    />
+                    All standard generators included
+                  </li>
+                  <li className="text-muted-foreground flex gap-3 text-sm">
+                    <CheckCircle
+                      size={16}
+                      className="mt-0.5 shrink-0 text-violet-400"
+                    />
+                    Run in your own CI/CD
+                  </li>
+                  <li className="text-muted-foreground flex gap-3 text-sm">
+                    <CheckCircle
+                      size={16}
+                      className="mt-0.5 shrink-0 text-violet-400"
+                    />
+                    Community support
+                  </li>
+                </ul>
               </div>
-              <p className="text-muted-foreground text-sm">
-                The complete spec-first compiler. Generate API, DB, and UI code
-                locally.
-              </p>
-              <ul className="space-y-3">
-                <li className="text-muted-foreground flex gap-3 text-sm">
-                  <CheckCircle
-                    size={16}
-                    className="mt-0.5 shrink-0 text-violet-400"
-                  />
-                  Unlimited local regenerations
-                </li>
-                <li className="text-muted-foreground flex gap-3 text-sm">
-                  <CheckCircle
-                    size={16}
-                    className="mt-0.5 shrink-0 text-violet-400"
-                  />
-                  All standard generators included
-                </li>
-                <li className="text-muted-foreground flex gap-3 text-sm">
-                  <CheckCircle
-                    size={16}
-                    className="mt-0.5 shrink-0 text-violet-400"
-                  />
-                  Run in your own CI/CD
-                </li>
-                <li className="text-muted-foreground flex gap-3 text-sm">
-                  <CheckCircle
-                    size={16}
-                    className="mt-0.5 shrink-0 text-violet-400"
-                  />
-                  Community support
-                </li>
-              </ul>
               <Link href="/install" className="btn-ghost w-full">
                 Install now
               </Link>

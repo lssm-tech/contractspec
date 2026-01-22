@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.48.2
+
+### Patch Changes
+
+- 566f813: Add plugin API core types and CLI plugin command scaffold.
+- 86423e8: Add contextual Studio prompts and extend waitlist application details.
+- Updated dependencies [566f813]
+  - @contractspec/lib.plugins@1.48.1
+  - @contractspec/module.examples@1.48.2
+
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+  - @contractspec/bundle.workspace@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/module.ai-chat@1.48.1
+  - @contractspec/lib.ai-agent@1.48.1
+  - @contractspec/lib.contracts-transformers@1.48.1
+  - @contractspec/lib.testing@1.48.1
+  - @contractspec/module.examples@1.48.1
+  - @contractspec/module.workspace@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

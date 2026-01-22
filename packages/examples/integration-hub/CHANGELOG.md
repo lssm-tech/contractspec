@@ -1,5 +1,21 @@
 # @contractspec/example.integration-hub
 
+## 1.48.2
+
+### Patch Changes
+
+- 2016af0: Add runnable docs guides, wire new docs routes, and validate the integration-hub example in CI.
+
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.example-shared-ui@1.2.1
+
 ## 1.48.0
 
 ### Minor Changes

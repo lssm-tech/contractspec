@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/example.integration-hub",
-  "version": "1.48.0",
+  "version": "1.48.2",
   "description": "Integration Hub example with sync engine and field mappings for ContractSpec",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -14,7 +14,8 @@
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",
-    "lint:check": "eslint src"
+    "lint:check": "eslint src",
+    "validate": "contractspec validate"
   },
   "dependencies": {
     "@contractspec/lib.schema": "workspace:*",

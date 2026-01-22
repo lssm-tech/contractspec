@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.48.2
+
+### Patch Changes
+
+- @contractspec/module.examples@1.48.2
+
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+  - @contractspec/bundle.workspace@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/module.ai-chat@1.48.1
+  - @contractspec/lib.ai-agent@1.48.1
+  - @contractspec/lib.contracts-transformers@1.48.1
+  - @contractspec/module.examples@1.48.1
+  - @contractspec/module.workspace@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

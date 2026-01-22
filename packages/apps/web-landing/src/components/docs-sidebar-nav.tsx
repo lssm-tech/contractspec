@@ -74,6 +74,63 @@ export const docsSections = [
     ],
   },
   {
+    title: 'Guides',
+    items: [
+      { title: 'Overview', href: '/docs/guides' },
+      {
+        title: 'Next.js One Endpoint',
+        href: '/docs/guides/nextjs-one-endpoint',
+      },
+      {
+        title: 'Spec Validation + Typing',
+        href: '/docs/guides/spec-validation-and-typing',
+      },
+      {
+        title: 'Generate Docs + Clients',
+        href: '/docs/guides/generate-docs-clients-schemas',
+      },
+      {
+        title: 'CI Diff Gating',
+        href: '/docs/guides/ci-contract-diff-gating',
+      },
+    ],
+  },
+  {
+    title: 'Intent Pages',
+    items: [
+      { title: 'Contract-first API', href: '/docs/intent/contract-first-api' },
+      {
+        title: 'Spec-driven Development',
+        href: '/docs/intent/spec-driven-development',
+      },
+      {
+        title: 'Deterministic Codegen',
+        href: '/docs/intent/deterministic-codegen',
+      },
+      {
+        title: 'Schema Validation + TypeScript',
+        href: '/docs/intent/schema-validation-typescript',
+      },
+      {
+        title: 'OpenAPI Alternative',
+        href: '/docs/intent/openapi-alternative',
+      },
+      {
+        title: 'Generate Client from Schema',
+        href: '/docs/intent/generate-client-from-schema',
+      },
+    ],
+  },
+  {
+    title: 'Ecosystem',
+    items: [
+      { title: 'Plugin API', href: '/docs/ecosystem/plugins' },
+      { title: 'Integrations', href: '/docs/ecosystem/integrations' },
+      { title: 'Templates', href: '/docs/ecosystem/templates' },
+      { title: 'Registry', href: '/docs/ecosystem/registry' },
+    ],
+  },
+  {
     title: 'Integrations',
     items: [
       { title: 'Overview', href: '/docs/integrations' },
@@ -113,6 +170,7 @@ export const docsSections = [
       { title: 'Audit Logs', href: '/docs/safety/auditing' },
       { title: 'Tenant Isolation', href: '/docs/safety/tenant-isolation' },
       { title: 'Migrations', href: '/docs/safety/migrations' },
+      { title: 'Security & Trust', href: '/docs/safety/security-trust' },
     ],
   },
   {

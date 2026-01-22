@@ -173,6 +173,15 @@ export const quickstartCommand = new Command('quickstart')
         console.log(`  3. Check your setup:`);
         console.log(`     ${chalk.cyan('contractspec doctor')}`);
         console.log();
+
+        console.log(chalk.bold('Ready for Studio-scale workflows?'));
+        console.log(
+          '  Studio adds managed policy gates, shared registries, and audit trails.'
+        );
+        console.log(
+          '  Join the waitlist: https://contractspec.io/contact#waitlist'
+        );
+        console.log();
       }
 
       if (!result.success) {

@@ -1,5 +1,20 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/lib.example-shared-ui@1.2.1
+  - @contractspec/example.kb-update-pipeline@1.48.1
+  - @contractspec/example.learning-patterns@1.48.1
+  - @contractspec/example.locale-jurisdiction-gate@1.48.1
+  - @contractspec/example.versioned-knowledge-base@1.48.1
+  - @contractspec/module.learning-journey@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

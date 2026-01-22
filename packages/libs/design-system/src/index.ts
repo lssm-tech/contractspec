@@ -101,7 +101,11 @@ export { NavBrand } from './components/atoms/NavBrand';
 export { Breadcrumbs } from './components/molecules/Breadcrumbs';
 export { CommandSearchTrigger } from './components/molecules/CommandSearchTrigger';
 export { StatusChip } from './components/molecules/StatusChip';
-export { EntityCard } from './components/molecules/EntityCard';
+export {
+  EntityCard,
+  type EntityCardProps,
+  type EntityCardIconTone,
+} from './components/molecules/EntityCard';
 export { StatCard, StatCardGroup } from './components/molecules/StatCard';
 export { OverviewCard } from './components/molecules/OverviewCard';
 export { HoverPreview } from './components/molecules/HoverPreview';

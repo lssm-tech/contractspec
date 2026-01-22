@@ -24,6 +24,15 @@ export * from './safety';
 // Integrations
 export * from './integrations';
 
+// Guides
+export * from './guides';
+
+// Intent Pages
+export * from './intent';
+
+// Ecosystem
+export * from './ecosystem';
+
 // Knowledge
 export * from './knowledge';
 

@@ -4,7 +4,11 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/*": ["../../*"]
+    }
   }
 }
 

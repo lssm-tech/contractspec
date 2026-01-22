@@ -1,6 +1,5 @@
 import {
   defaultDocRegistry,
-  defineCommand,
   definePrompt,
   defineResourceTemplate,
   installOp,
@@ -8,11 +7,11 @@ import {
   PromptRegistry,
   ResourceRegistry,
 } from '@contractspec/lib.contracts';
-import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import z from 'zod';
 import type { DocPresentationRoute } from '@contractspec/lib.contracts/docs';
 import { createMcpElysiaHandler } from './common';
 import { appLogger } from '../../infrastructure/elysia/logger';
+import { docsSearchSpec } from '../../features/docs';
 
 const DOC_OWNERS = ['@contractspec'];
 const DOC_TAGS = ['docs', 'mcp'];
@@ -137,71 +136,8 @@ function buildDocPrompts() {
 function buildDocOps(routes: DocPresentationRoute[]) {
   const registry = new OperationSpecRegistry();
 
-  const DocSummaryModel = defineSchemaModel({
-    name: 'DocSummary',
-    fields: {
-      id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      title: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-      summary: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      route: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      visibility: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-      },
-      tags: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-        isArray: true,
-      },
-    },
-  });
-
-  const DocSearchInput = defineSchemaModel({
-    name: 'DocSearchInput',
-    fields: {
-      query: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-      tag: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-        isArray: true,
-      },
-      visibility: {
-        type: ScalarTypeEnum.String_unsecure(),
-        isOptional: true,
-      },
-    },
-  });
-
-  const DocSearchOutput = defineSchemaModel({
-    name: 'DocSearchOutput',
-    fields: {
-      docs: { type: DocSummaryModel, isOptional: false, isArray: true },
-    },
-  });
-
-  const searchSpec = defineCommand({
-    meta: {
-      key: 'docs.search',
-      version: '1.0.0',
-      stability: 'stable',
-      owners: DOC_OWNERS,
-      tags: DOC_TAGS,
-      description:
-        'Filter DocBlocks by query, tag, or visibility for MCP discovery.',
-      goal: 'Expose ContractSpec documentation to AI agents safely.',
-      context:
-        'Used by the docs MCP to keep AI agents on the canonical DocBlocks.',
-    },
-    io: {
-      input: DocSearchInput,
-      output: DocSearchOutput,
-    },
-    policy: {
-      auth: 'anonymous',
-    },
-  });
-
-  installOp(registry, searchSpec, async (args) => {
+  // Use the module-level spec from docs.contracts.ts
+  installOp(registry, docsSearchSpec, async (args) => {
     const query = args.query?.toLowerCase().trim();
     const tagsFilter = args.tag?.map((t) => t.toLowerCase().trim()) ?? [];
     const visibility = args.visibility?.toLowerCase().trim();

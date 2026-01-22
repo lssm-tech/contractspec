@@ -1,5 +1,44 @@
 # @contractspec/bundle.marketing
 
+## 1.3.1
+
+### Patch Changes
+
+- 86423e8: Add contextual Studio prompts and extend waitlist application details.
+- Updated dependencies [918deb7]
+- Updated dependencies [ea245ef]
+- Updated dependencies [2016af0]
+- Updated dependencies [54b778e]
+- Updated dependencies [86423e8]
+  - @contractspec/bundle.library@1.3.1
+  - @contractspec/example.integration-hub@1.48.2
+  - @contractspec/module.examples@1.48.2
+
+## 1.3.0
+
+### Minor Changes
+
+- c560ee7: Add onboarding and documentation surfaces across the library and marketing bundles, plus small tracking, telemetry, and UI copy refinements to support adoption workflows.
+
+### Patch Changes
+
+- c560ee7: Document the CRM pipeline adoption narrative and keep the docs registry aligned with the new onboarding pages.
+- Updated dependencies [c560ee7]
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/bundle.library@1.3.0
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/example.agent-console@1.48.1
+  - @contractspec/example.analytics-dashboard@1.48.1
+  - @contractspec/example.crm-pipeline@1.48.1
+  - @contractspec/example.integration-hub@1.48.1
+  - @contractspec/example.marketplace@1.48.1
+  - @contractspec/example.saas-boilerplate@1.48.1
+  - @contractspec/example.workflow-system@1.48.1
+  - @contractspec/lib.example-shared-ui@1.2.1
+  - @contractspec/module.examples@1.48.1
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,10 +1,14 @@
 import type { ExperimentRef } from '../experiments/spec';
+import type { DataViewRef } from '../features/types';
 import type {
   DataViewConfig,
   DataViewMeta,
   DataViewSource,
   DataViewStates,
 } from './types';
+
+// Re-export for backwards compatibility
+export type { DataViewRef };
 
 /**
  * Complete specification for a data view.
@@ -16,14 +20,6 @@ export interface DataViewSpec {
   states?: DataViewStates;
   policy?: { flags?: string[]; pii?: string[] };
   experiments?: ExperimentRef[];
-}
-
-/**
- * Reference to a data view spec.
- */
-export interface DataViewRef {
-  key: string;
-  version: string;
 }
 
 /**

@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 1.48.1
+
+### Patch Changes
+
+- Updated dependencies [c560ee7]
+- Updated dependencies [1536bf3]
+  - @contractspec/lib.design-system@1.48.1
+  - @contractspec/lib.contracts@1.48.1
+  - @contractspec/module.learning-journey@1.48.1
+
 ## 1.48.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/app.cli-contractspec",
-  "version": "1.48.0",
+  "version": "1.48.2",
   "description": "CLI tool for creating, building, and validating contract specifications",
   "type": "module",
   "main": "./dist/index.js",
@@ -35,6 +35,7 @@
     "@contractspec/lib.ai-providers": "workspace:*",
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.contracts-transformers": "workspace:*",
+    "@contractspec/lib.plugins": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
     "@contractspec/lib.testing": "workspace:*",
     "@contractspec/module.ai-chat": "workspace:*",

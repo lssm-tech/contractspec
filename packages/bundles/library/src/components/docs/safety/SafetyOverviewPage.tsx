@@ -154,6 +154,9 @@ export function SafetyOverviewPage() {
           <Link href="/docs/safety/migrations" className="btn-ghost">
             Migrations <ChevronRight size={16} className="inline" />
           </Link>
+          <Link href="/docs/safety/security-trust" className="btn-ghost">
+            Security & Trust <ChevronRight size={16} className="inline" />
+          </Link>
         </div>
       </div>
     </div>
