@@ -34,10 +34,9 @@ Reference integrations demonstrate how to extend ContractSpec with real-world pl
     visibility: 'public',
     route: '/docs/ecosystem/templates',
     tags: ['ecosystem', 'templates'],
-    body: `# Plugin templates
-
-Use \\`create-contractspec-plugin\\` to scaffold a new plugin package with tests, documentation, and CI wiring.`,
+    body: '# Plugin templates\n\nUse `create-contractspec-plugin` to scaffold a new plugin package with tests, documentation, and CI wiring.',
   },
+
   {
     id: 'docs.ecosystem.registry',
     title: 'Registry resolution',
@@ -46,9 +45,7 @@ Use \\`create-contractspec-plugin\\` to scaffold a new plugin package with tests
     visibility: 'public',
     route: '/docs/ecosystem/registry',
     tags: ['ecosystem', 'registry'],
-    body: `# Registry resolution
-
-Plugins can be resolved from local workspaces, npm packages, or remote registries. Configure resolution order in \\`.contractsrc.json\\` and use registry resolver plugins for custom sources.`,
+    body: '# Registry resolution\n\nPlugins can be resolved from local workspaces, npm packages, or remote registries. Configure resolution order in `.contractsrc.json` and use registry resolver plugins for custom sources.',
   },
 ];
 

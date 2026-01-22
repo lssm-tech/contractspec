@@ -3,12 +3,11 @@
   "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "noEmit": false,
     "outDir": "dist",
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@contractspec/*": ["../../*"]
-    }
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true
   }
 }
-

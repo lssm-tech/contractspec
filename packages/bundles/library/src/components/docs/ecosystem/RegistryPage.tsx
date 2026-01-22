@@ -8,14 +8,16 @@ export function EcosystemRegistryPage() {
       <div className="space-y-3">
         <h1 className="text-4xl font-bold">Registry resolution</h1>
         <p className="text-muted-foreground text-lg">
-          Resolve plugins from local workspaces, npm packages, or remote registries.
+          Resolve plugins from local workspaces, npm packages, or remote
+          registries.
         </p>
       </div>
 
       <div className="card-subtle space-y-4 p-6">
         <h2 className="text-2xl font-bold">Resolution order</h2>
         <p className="text-muted-foreground text-sm">
-          Control where ContractSpec loads plugins and how versions are resolved.
+          Control where ContractSpec loads plugins and how versions are
+          resolved.
         </p>
         <CodeBlock
           language="json"
@@ -62,7 +64,9 @@ export const PrivateRegistryResolver: RegistryResolverPlugin = {
   },
   resolve: async (request) => {
     // Fetch plugin package metadata from private registry
-    const result = await fetch(`https://registry.acme.io/${request.package}`);
+    const result = await fetch(
+      "https://registry.acme.io/" + request.package
+    );
     return result.json();
   },
 };`}

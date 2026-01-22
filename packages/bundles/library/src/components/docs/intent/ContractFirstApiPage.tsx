@@ -5,10 +5,11 @@ import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
-export function ContractFirstApiPage() {
-  const seo = new SeoOptimizer();
-  const metadata = seo.optimize(contractFirstApiBrief);
+export const metadata: Metadata = new SeoOptimizer().optimize(
+  contractFirstApiBrief
+);
 
+export function ContractFirstApiPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-3">

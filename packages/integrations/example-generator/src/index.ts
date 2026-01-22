@@ -4,6 +4,7 @@
  */
 
 export { ExampleGeneratorPlugin } from './generator.js';
+
 export type {
   ExampleGeneratorPluginConfig,
   GeneratorResult,

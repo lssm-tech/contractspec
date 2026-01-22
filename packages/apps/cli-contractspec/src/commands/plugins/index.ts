@@ -1,7 +1,9 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { Command } from 'commander';
-import { PluginRegistries } from '@contractspec/lib.plugins';
+import {
+  PluginRegistries,
+  type RegistryResolverCapability,
+} from '@contractspec/lib.plugins';
 
 export const pluginsCommand = new Command('plugins')
   .description('Manage ContractSpec plugins')
@@ -49,7 +51,10 @@ pluginsCommand
         .map((cap) => ({ type: 'formatter', cap })),
       ...registries.registryResolvers
         .list()
-        .map((cap) => ({ type: 'registryResolver', cap })),
+        .map((cap: RegistryResolverCapability) => ({
+          type: 'registryResolver',
+          cap,
+        })),
     ];
 
     const match = allCapabilities.find((entry) => entry.cap.id === id);

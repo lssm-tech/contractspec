@@ -1,5 +1,5 @@
-import { EcosystemRegistryPage } from '@contractspec/bundle.library/components/docs/ecosystem/RegistryPage';
+import { EcosystemRegistryPage as EcosystemRegistryPageComponent } from '@contractspec/bundle.library/components/docs/ecosystem/RegistryPage';
 
 export default function EcosystemRegistryPage() {
-  return <EcosystemRegistryPage />;
+  return <EcosystemRegistryPageComponent />;
 }

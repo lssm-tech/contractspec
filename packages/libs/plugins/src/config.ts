@@ -8,8 +8,16 @@ export function mergePluginConfig(
     ...defaultPluginRegistryConfig,
     ...config,
     registry: {
-      ...defaultPluginRegistryConfig.registry,
+      ...(defaultPluginRegistryConfig.registry ?? {
+        resolutionOrder: ['workspace', 'npm', 'remote'],
+      }),
       ...config?.registry,
+      resolutionOrder: config?.registry?.resolutionOrder ??
+        defaultPluginRegistryConfig.registry?.resolutionOrder ?? [
+          'workspace',
+          'npm',
+          'remote',
+        ],
       sources: {
         ...(defaultPluginRegistryConfig.registry?.sources ?? {}),
         ...(config?.registry?.sources ?? {}),

@@ -1,5 +1,6 @@
-import type { SpecDefinition } from '@contractspec/lib.contracts';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
+
+export type SpecDefinition = unknown;
 
 export type PluginCapabilityType =
   | 'generator'

@@ -3,18 +3,21 @@ import * as mustache from 'mustache';
 /**
  * Render a template string with provided data
  */
-export function renderTemplate(
-  template: string,
-  data: Record<string, any>
-): string {
-  return mustache.render(template, data);
+export type TemplateData = Record<string, string | number | boolean>;
+
+export function renderTemplate(template: string, data: TemplateData): string {
+  return (
+    mustache as unknown as {
+      render: (tpl: string, ctx: TemplateData) => string;
+    }
+  ).render(template, data);
 }
 
 /**
  * Format date for templates
  */
 export function formatDate(date: Date = new Date()): string {
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split('T')[0] ?? '';
 }
 
 /**

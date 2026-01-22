@@ -368,9 +368,15 @@ export function WaitlistSection({
                   <SelectContent>
                     <SelectItem value="api-platform">API platform</SelectItem>
                     <SelectItem value="ai-ops">AI operations</SelectItem>
-                    <SelectItem value="integration-hub">Integration hub</SelectItem>
-                    <SelectItem value="internal-tools">Internal tools</SelectItem>
-                    <SelectItem value="data-pipelines">Data pipelines</SelectItem>
+                    <SelectItem value="integration-hub">
+                      Integration hub
+                    </SelectItem>
+                    <SelectItem value="internal-tools">
+                      Internal tools
+                    </SelectItem>
+                    <SelectItem value="data-pipelines">
+                      Data pipelines
+                    </SelectItem>
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>

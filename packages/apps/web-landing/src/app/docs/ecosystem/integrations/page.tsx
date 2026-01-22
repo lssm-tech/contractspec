@@ -1,5 +1,5 @@
-import { EcosystemIntegrationsPage } from '@contractspec/bundle.library/components/docs/ecosystem/IntegrationsPage';
+import { EcosystemIntegrationsPage as EcosystemIntegrationsPageComponent } from '@contractspec/bundle.library/components/docs/ecosystem/IntegrationsPage';
 
 export default function EcosystemIntegrationsPage() {
-  return <EcosystemIntegrationsPage />;
+  return <EcosystemIntegrationsPageComponent />;
 }

@@ -1,5 +1,5 @@
-import { GenerateClientFromSchemaPage } from '@contractspec/bundle.library/components/docs/intent/GenerateClientFromSchemaPage';
+import { GenerateClientFromSchemaPage as GenerateClientFromSchemaPageComponent } from '@contractspec/bundle.library/components/docs/intent/GenerateClientFromSchemaPage';
 
 export default function GenerateClientFromSchemaPage() {
-  return <GenerateClientFromSchemaPage />;
+  return <GenerateClientFromSchemaPageComponent />;
 }

@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
 import { deterministicCodegenBrief } from '@contractspec/bundle.library/components/docs/intent/intent-pages.docblocks';
 import { SeoOptimizer } from '@contractspec/lib.content-gen/seo';
+
+export const metadata: Metadata = new SeoOptimizer().optimize(
+  deterministicCodegenBrief
+);
 import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function DeterministicCodegenPage() {
-  const seo = new SeoOptimizer();
-  const metadata = seo.optimize(deterministicCodegenBrief);
-
   return (
     <div className="space-y-8">
       <div className="space-y-3">

@@ -5,10 +5,12 @@ import { FeatureDiscovery } from '@contractspec/bundle.library/presentation/feat
 
 export function FeatureDiscoveryClient() {
   const router = useRouter();
-  
+
   return (
-    <FeatureDiscovery 
-      onSelectFeature={(feature) => router.push(`/features/${feature.meta.key}`)}
+    <FeatureDiscovery
+      onSelectFeature={(feature) =>
+        router.push(`/features/${feature.meta.key}`)
+      }
     />
   );
 }

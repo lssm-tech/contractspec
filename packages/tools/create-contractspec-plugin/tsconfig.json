@@ -4,11 +4,6 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist",
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@contractspec/*": ["../../*"]
-    }
+    "rootDir": "src"
   }
 }
-

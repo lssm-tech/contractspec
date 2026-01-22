@@ -1,5 +1,5 @@
-import { EcosystemTemplatesPage } from '@contractspec/bundle.library/components/docs/ecosystem/TemplatesPage';
+import { EcosystemTemplatesPage as EcosystemTemplatesPageComponent } from '@contractspec/bundle.library/components/docs/ecosystem/TemplatesPage';
 
 export default function EcosystemTemplatesPage() {
-  return <EcosystemTemplatesPage />;
+  return <EcosystemTemplatesPageComponent />;
 }

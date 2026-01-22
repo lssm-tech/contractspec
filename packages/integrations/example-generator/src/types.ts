@@ -1,5 +1,5 @@
 import type { AnySchemaModel } from '@contractspec/lib.schema';
-import type { SpecDefinition } from '@contractspec/lib.contracts';
+export type SpecDefinition = unknown;
 
 /**
  * Configuration for the ExampleGeneratorPlugin

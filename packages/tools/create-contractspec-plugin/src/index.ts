@@ -8,10 +8,12 @@
  */
 
 import { Command } from 'commander';
-import inquirer from 'inquirer';
+import { input, select } from '@inquirer/prompts';
 import chalk from 'chalk';
+import { execSync } from 'child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join, dirname } from 'path';
+import { dirname, join } from 'path';
+import type { TemplateData } from './utils.js';
 import { renderTemplate } from './utils.js';
 import { createExampleGeneratorTemplate } from './templates/example-generator.js';
 
@@ -69,13 +71,35 @@ program
     console.log('  custom-event       - Custom event handler');
   });
 
-async function collectPluginConfig(options: any) {
-  const questions = [];
+interface PluginConfig {
+  name: string;
+  packageName: string;
+  integrationPackageName: string;
+  className: string;
+  description: string;
+  author: string;
+  type: string;
+  template: string;
+  packageDir: string;
+  version: string;
+  currentYear: number;
+}
 
-  if (!options.name) {
-    questions.push({
-      type: 'input',
-      name: 'name',
+interface CreateOptions {
+  name?: string;
+  type?: string;
+  description?: string;
+  author?: string;
+  template: string;
+  dryRun?: boolean;
+}
+
+async function collectPluginConfig(
+  options: CreateOptions
+): Promise<PluginConfig> {
+  const name =
+    options.name ??
+    (await input({
       message: 'Plugin name (kebab-case):',
       validate: (input: string) => {
         if (!input.trim()) return 'Plugin name is required';
@@ -84,38 +108,33 @@ async function collectPluginConfig(options: any) {
         }
         return true;
       },
-    });
-  }
+    }));
 
-  if (!options.description) {
-    questions.push({
-      type: 'input',
-      name: 'description',
+  const description =
+    options.description ??
+    (await input({
       message: 'Plugin description:',
-      validate: (input: string) => input.trim().length > 0,
-    });
-  }
+      validate: (input: string) =>
+        input.trim().length > 0 || 'Description is required',
+    }));
 
-  if (!options.author) {
-    questions.push({
-      type: 'input',
-      name: 'author',
+  const defaultAuthor = (() => {
+    try {
+      return execSync('git config user.name', {
+        encoding: 'utf8',
+      }).trim();
+    } catch (_err) {
+      return '';
+    }
+  })();
+  const author =
+    options.author ??
+    (await input({
       message: 'Author name:',
-      default: () => {
-        try {
-          // Try to get git user name
-          const { execSync } = require('child_process');
-          return execSync('git config user.name', { encoding: 'utf8' }).trim();
-        } catch {
-          return '';
-        }
-      },
-    });
-  }
+      default: defaultAuthor,
+    }));
 
-  questions.push({
-    type: 'list',
-    name: 'type',
+  const type = await select({
     message: 'Plugin type:',
     choices: [
       { name: 'Generator - Creates artifacts from specs', value: 'generator' },
@@ -129,12 +148,6 @@ async function collectPluginConfig(options: any) {
     default: options.type,
   });
 
-  const answers = await inquirer.prompt(questions);
-
-  const name = options.name || answers.name;
-  const description = options.description || answers.description;
-  const author = options.author || answers.author;
-  const type = options.type || answers.type;
   const template = options.template;
 
   const packageName = `@contractspec/plugin.${name}`;
@@ -158,6 +171,7 @@ async function collectPluginConfig(options: any) {
     template,
     packageDir,
     version: '1.0.0',
+    currentYear: new Date().getFullYear(),
   };
 }
 
@@ -174,7 +188,14 @@ function selectTemplate(templateName: string) {
   return templateFactory();
 }
 
-async function createPlugin(config: any, template: any) {
+interface PluginTemplate {
+  files: Record<string, string>;
+}
+
+async function createPlugin(
+  config: PluginConfig,
+  template: PluginTemplate
+): Promise<void> {
   console.log(chalk.blue(`📦 Creating plugin: ${config.packageName}`));
 
   // Create directory structure
@@ -200,7 +221,10 @@ async function createPlugin(config: any, template: any) {
   // Generate files from template
   for (const [file, content] of Object.entries(template.files)) {
     const filePath = join(config.packageDir, file);
-    const renderedContent = renderTemplate(content, config);
+    const renderedContent = renderTemplate(
+      content,
+      config as unknown as TemplateData
+    );
 
     const dir = dirname(filePath);
     if (!existsSync(dir)) {

@@ -41,9 +41,9 @@
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
     "@contractspec/lib.schema": "workspace:*",
+    "@inquirer/prompts": "^8.2.0",
     "zod": "catalog:",
     "commander": "^12.1.0",
-    "inquirer": "^10.2.2",
     "chalk": "^5.3.0",
     "fs-extra": "^11.2.0",
     "mustache": "^4.2.0"
@@ -52,7 +52,6 @@
     "@contractspec/tool.tsdown": "workspace:*",
     "@contractspec/tool.typescript": "workspace:*",
     "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^9.0.7",
     "@types/mustache": "^4.2.5",
     "tsdown": "catalog:build",
     "typescript": "catalog:"

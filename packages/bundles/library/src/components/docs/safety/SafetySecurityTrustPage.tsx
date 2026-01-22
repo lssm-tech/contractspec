@@ -8,8 +8,8 @@ export function SafetySecurityTrustPage() {
         <h1 className="text-4xl font-bold">Security & Trust</h1>
         <p className="text-muted-foreground">
           ContractSpec focuses on deterministic, auditable software delivery.
-          This page summarizes our security posture and trust commitments so teams
-          can adopt with clarity.
+          This page summarizes our security posture and trust commitments so
+          teams can adopt with clarity.
         </p>
       </div>
 
@@ -28,8 +28,8 @@ export function SafetySecurityTrustPage() {
         <div className="card-subtle space-y-3 p-6">
           <h3 className="text-lg font-semibold">Release hygiene</h3>
           <p className="text-muted-foreground text-sm">
-            We ship with deterministic CI, changesets, and contract validation so
-            teams can trust every release.
+            We ship with deterministic CI, changesets, and contract validation
+            so teams can trust every release.
           </p>
           <ul className="text-muted-foreground space-y-2 text-sm">
             <li>Changesets required for published packages.</li>
@@ -56,7 +56,8 @@ export function SafetySecurityTrustPage() {
         <div className="card-subtle space-y-3 p-6">
           <h3 className="text-lg font-semibold">Supply chain</h3>
           <p className="text-muted-foreground text-sm">
-            We track dependency updates and keep the monorepo build reproducible.
+            We track dependency updates and keep the monorepo build
+            reproducible.
           </p>
           <ul className="text-muted-foreground space-y-2 text-sm">
             <li>Dependabot + Renovate-style updates where available.</li>
@@ -82,8 +83,8 @@ export function SafetySecurityTrustPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Next steps</h2>
         <p className="text-muted-foreground">
-          Explore the broader safety controls or read the roadmap to see upcoming
-          trust investments.
+          Explore the broader safety controls or read the roadmap to see
+          upcoming trust investments.
         </p>
         <div className="flex flex-wrap gap-4 pt-4">
           <Link href="/docs/safety" className="btn-ghost">

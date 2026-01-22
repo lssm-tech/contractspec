@@ -35,7 +35,6 @@ export function GuideCIDiffGatingPage() {
             language="bash"
             filename="ci-copy"
             code={`cp node_modules/@contractspec/app.cli-contractspec/templates/github-action.yml .github/workflows/contractspec.yml`}
-
           />
           <p className="text-muted-foreground text-sm">
             Expected output: new workflow file in <code>.github/workflows</code>

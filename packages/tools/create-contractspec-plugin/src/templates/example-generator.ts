@@ -1,5 +1,3 @@
-import { formatDate, kebabToPascal, kebabToCamel } from "../utils.js";
-
 /**
  * Template for the example-generator plugin
  * Creates a markdown documentation generator from ContractSpec specs
@@ -7,7 +5,7 @@ import { formatDate, kebabToPascal, kebabToCamel } from "../utils.js";
 export function createExampleGeneratorTemplate() {
   return {
     files: {
-      "package.json": `{
+      'package.json': `{
   "name": "{{integrationPackageName}}",
   "version": "{{version}}",
   "description": "{{description}}",
@@ -89,7 +87,7 @@ export function createExampleGeneratorTemplate() {
   }
 }`,
 
-      "README.md": `# {{integrationPackageName}}
+      'README.md': `# {{integrationPackageName}}
 
 {{description}}
 
@@ -241,7 +239,7 @@ MIT © {{author}}
 - 🐛 [Issues](https://github.com/lssm-tech/contractspec/issues)
 - 💬 [Discussions](https://github.com/lssm-tech/contractspec/discussions)`,
 
-      "src/index.ts": `/**
+      'src/index.ts': `/**
   * {{integrationPackageName}}
   * {{description}}
 
@@ -251,7 +249,7 @@ export { {{className}} } from "./generator.js";
 export type { {{className}}Config, GeneratorResult } from "./types.js";
 export { defaultConfig } from "./config.js";`,
 
-      "src/types.ts": `import type { AnySchemaModel } from "@contractspec/lib.schema";
+      'src/types.ts': `import type { AnySchemaModel } from "@contractspec/lib.schema";
 import type { SpecDefinition } from "@contractspec/lib.contracts";
 
 /**
@@ -367,7 +365,7 @@ export class GenerationError extends {{className}}Error {
   }
 }`,
 
-      "src/config.ts": `import type { {{className}}Config } from "./types.js";
+      'src/config.ts': `import type { {{className}}Config } from "./types.js";
 
 /**
  * Default configuration for the {{className}} plugin
@@ -411,7 +409,7 @@ export function validateConfig(config: {{className}}Config): void {
   }
 }`,
 
-      "src/generator.ts": `import { existsSync, mkdirSync, writeFileSync } from "fs";
+      'src/generator.ts': `import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import type { 
   {{className}}Config, 
@@ -549,7 +547,9 @@ export class {{className}} {
       .replace(/-+/g, "-")
       .toLowerCase();
     
-    return fileName.endsWith(".md") ? fileName : \`\${fileName}.md\`;
+    return fileName.endsWith(".md")
+      ? fileName
+      : fileName + ".md";
   }
 
   /**
@@ -580,7 +580,9 @@ export class {{className}} {
   }
 }`,
 
-      "src/utils/test-utils.ts": `import type { AnySchemaModel } from "@contractspec/lib.schema";
+      'src/utils/test-utils.ts': `
+
+import type { AnySchemaModel } from "@contractspec/lib.schema";
 import type { {{className}}Config } from "../types.js";
 
 /**
@@ -608,19 +610,20 @@ export function createMockSchema(overrides: Partial<AnySchemaModel> = {}): AnySc
  */
 export function createMockData(count: number = 3) {
   return Array.from({ length: count }, (_, i) => ({
-    id: \`item-\${i + 1}\`,
-    name: \`Test Item \${i + 1}\`,
-    description: \`Description for test item \${i + 1}\`,
+    id: "item-" + (i + 1),
+    name: "Test Item " + (i + 1),
+    description: "Description for test item " + (i + 1),
     status: i % 2 === 0 ? "active" : "inactive",
     createdAt: new Date(2024, 0, i + 1),
     updatedAt: i % 3 === 0 ? undefined : new Date(2024, 0, i + 2),
   }));
 }
 
+
 /**
  * Create test configuration
  */
-export function createTestConfig(overrides: Partial<{{className}}Config> = {}): {{className}}Config {
+export function createTestConfig(overrides: Partial<Config> = {}): {{className}}Config {
   return {
     outputDir: "./test-docs",
     format: "table",
@@ -631,7 +634,7 @@ export function createTestConfig(overrides: Partial<{{className}}Config> = {}): 
   };
 }`,
 
-      "tests/generator.test.ts": `import { describe, it, expect, beforeEach, afterEach } from "bun:test";
+      'tests/generator.test.ts': `import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { existsSync, unlinkSync, readFileSync } from "fs";
 import { join } from "path";
 import { {{className}}, ConfigurationError, GenerationError } from "../src/generator.js";
@@ -652,7 +655,7 @@ describe("{{className}}", () => {
     // Clean up test files
     if (existsSync(testOutputDir)) {
       // In a real implementation, you'd recursively delete the directory
-      console.log(\`Cleaning up test directory: \${testOutputDir}\`);
+      console.log("Cleaning up test directory: " + testOutputDir);
     }
   });
 
@@ -776,7 +779,7 @@ describe("{{className}}", () => {
   });
 });`,
 
-      "tests/utils.test.ts": `import { describe, it, expect } from "bun:test";
+      'tests/utils.test.ts': `import { describe, it, expect } from "bun:test";
 import { createMockSchema, createMockData, createTestConfig } from "../src/utils/test-utils.js";
 import type { {{className}}Config } from "../src/types.js";
 
@@ -846,7 +849,7 @@ describe("Test Utils", () => {
   });
 });`,
 
-      ".github/workflows/ci.yml": `name: CI
+      '.github/workflows/ci.yml': `name: CI
 
 on:
   push:
@@ -909,7 +912,7 @@ jobs:
       env:
         NPM_TOKEN: \${{ secrets.NPM_TOKEN }}`,
 
-      ".eslintrc.json": `{
+      '.eslintrc.json': `{
   "extends": [
     "@contractspec/eslint-config-typescript"
   ],
@@ -922,7 +925,7 @@ jobs:
   }
 }`,
 
-      "tsconfig.json": `{
+      'tsconfig.json': `{
   "extends": "@contractspec/tsconfig-base",
   "compilerOptions": {
     "outDir": "./dist",
@@ -941,7 +944,7 @@ jobs:
   ]
 }`,
 
-      "tsdown.config.js": `import { defineConfig } from "tsdown";
+      'tsdown.config.js': `import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -951,9 +954,9 @@ export default defineConfig({
   sourcemap: true,
 });`,
 
-      "LICENSE": `MIT License
+      LICENSE: `MIT License
 
-Copyright (c) ${formatDate()} {{author}}
+Copyright (c) {{currentYear}} {{author}}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -972,18 +975,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.`,
-    },
-  };
-}`,
 
-      "src/templates/index.ts": `/**
+      'src/templates/index.ts': `/**
  * Template registry for the create-contractspec-plugin tool
  */
 
 export { createExampleGeneratorTemplate } from "./example-generator.js";
 export type { Template, TemplateFile } from "./types.js";`,
 
-      "src/templates/types.ts": `/**
+      'src/templates/types.ts': `/**
  * Template types
  */
 
@@ -1000,7 +1000,6 @@ export interface Template {
   devDependencies?: string[];
 }
 `,
-
-    };
+    },
   };
 }

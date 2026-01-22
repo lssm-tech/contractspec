@@ -1,5 +1,5 @@
-import { SafetySecurityTrustPage } from '@contractspec/bundle.library/components/docs/safety/SafetySecurityTrustPage';
+import { SafetySecurityTrustPage as SafetySecurityTrustPageComponent } from '@contractspec/bundle.library/components/docs/safety/SafetySecurityTrustPage';
 
 export default function SafetySecurityTrustPage() {
-  return <SafetySecurityTrustPage />;
+  return <SafetySecurityTrustPageComponent />;
 }

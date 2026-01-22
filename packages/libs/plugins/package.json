@@ -19,7 +19,7 @@
     "publish:pkg:canary": "bun publish:pkg --tag canary",
     "build": "bun build:types && bun build:bundle",
     "build:bundle": "tsdown",
-    "build:types": "tsc --noEmit",
+    "build:types": "tsc -p tsconfig.json",
     "dev": "bun build:bundle --watch",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
@@ -38,10 +38,10 @@
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./registry": "./dist/registry.js",
-    "./types": "./dist/types.js",
-    "./config": "./dist/config.js",
+    ".": "./dist/index.mjs",
+    "./registry": "./dist/registry.mjs",
+    "./types": "./dist/types.mjs",
+    "./config": "./dist/config.mjs",
     "./*": "./*"
   },
   "files": [
