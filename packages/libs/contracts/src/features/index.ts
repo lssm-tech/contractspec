@@ -4,6 +4,8 @@ export type {
   OpRef,
   EventRef,
   PresentationRef,
+  DataViewRef,
+  FormRef,
   FeatureModuleSpec,
   FeatureRef,
 } from './types';

@@ -6,7 +6,7 @@ import {
 } from '@contractspec/lib.design-system';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import type { FeatureListTemplateProps } from './types';
+import type { FeatureListTemplateProps } from '../types';
 import { FeatureEventsList } from '../../organisms/FeatureEventsList';
 
 export function FeatureEventsTemplate({

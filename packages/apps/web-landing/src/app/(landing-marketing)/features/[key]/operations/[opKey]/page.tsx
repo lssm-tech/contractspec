@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getContractSpecFeatureRegistry } from '@contractspec/bundle.library/features';
-import { FeatureOperationDetailClient } from '../../client';
-import { OperationSpecRegistry } from '@contractspec/lib.contracts';
+import {
+  getContractSpecFeatureRegistry,
+  resolveSerializedOperationSpec,
+} from '@contractspec/bundle.library/features';
+import { FeatureOperationDetailClient } from '../../../client';
 
 interface PageProps {
   params: Promise<{ key: string; opKey: string }>;
@@ -22,9 +24,8 @@ export default async function FeatureOperationDetailPage({
 
   const operation = feature.operations?.find((op) => op.key === decodedOpKey);
 
-  // Try to find the actual spec if it's a known ContractSpec operation
-  const opRegistry = new OperationSpecRegistry(); // This should ideally be a global or passed in
-  const spec = opRegistry.get(decodedOpKey);
+  // Resolve and serialize the operation spec for client component transfer
+  const spec = resolveSerializedOperationSpec(decodedOpKey, operation?.version);
 
   return (
     <FeatureOperationDetailClient

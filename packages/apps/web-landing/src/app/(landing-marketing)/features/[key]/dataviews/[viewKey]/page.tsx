@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getContractSpecFeatureRegistry } from '@contractspec/bundle.library/features';
-import { FeatureDataViewDetailClient } from '../../client';
+import {
+  getContractSpecFeatureRegistry,
+  resolveSerializedDataViewSpec,
+} from '@contractspec/bundle.library/features';
+import { FeatureDataViewDetailClient } from '../../../client';
 
 interface PageProps {
   params: Promise<{ key: string; viewKey: string }>;
@@ -19,11 +22,15 @@ export default async function FeatureDataViewDetailPage({ params }: PageProps) {
 
   const view = feature.dataViews?.find((v) => v.key === decodedViewKey);
 
+  // Resolve and serialize the data view spec for client component transfer
+  const spec = resolveSerializedDataViewSpec(decodedViewKey, view?.version);
+
   return (
     <FeatureDataViewDetailClient
       feature={feature}
       viewKey={decodedViewKey}
       view={view}
+      spec={spec}
     />
   );
 }

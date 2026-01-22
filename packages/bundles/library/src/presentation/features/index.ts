@@ -43,6 +43,9 @@ export {
   FeatureDetail,
   type FeatureDetailProps,
 } from './organisms/FeatureDetail';
+export { FeatureOperationsList } from './organisms/FeatureOperationsList';
+export { FeatureEventsList } from './organisms/FeatureEventsList';
+export { FeaturePresentationsList } from './organisms/FeaturePresentationsList';
 
 // Templates
 export {
@@ -51,15 +54,12 @@ export {
 } from './templates/FeatureOverviewTemplate';
 export {
   FeatureOperationsTemplate,
-  type FeatureOperationsTemplateProps,
 } from './templates/FeatureOperationsTemplate';
 export {
   FeatureEventsTemplate,
-  type FeatureEventsTemplateProps,
 } from './templates/FeatureEventsTemplate';
 export {
   FeaturePresentationsTemplate,
-  type FeaturePresentationsTemplateProps,
 } from './templates/FeaturePresentationsTemplate';
 export {
   FeatureOperationDetailTemplate,
@@ -81,3 +81,4 @@ export {
   FeatureFormDetailTemplate,
   type FeatureFormDetailTemplateProps,
 } from './templates/FeatureFormDetailTemplate';
+export type { FeatureListTemplateProps } from './templates/types';
