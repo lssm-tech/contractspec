@@ -1,14 +1,23 @@
 // Features
+export * from './docs';
 export { DocsFeature } from './docs.feature';
 export { MCPFeature } from './mcp.feature';
 export { PresentationsFeature } from './presentations.feature';
 
-// Registry
+// Feature Registry
 export {
   createContractSpecFeatureRegistry,
   getContractSpecFeatureRegistry,
   resetContractSpecFeatureRegistry,
 } from './registry';
+
+// Contracts Registry (for resolving OpRef/EventRef/PresentationRef to full specs)
+export {
+  createContractSpecOperationRegistry,
+  getContractSpecOperationRegistry,
+  resetContractSpecOperationRegistry,
+  resolveOperationSpec,
+} from './contracts-registry';
 
 // Re-export types and utilities from lib.contracts
 export type {

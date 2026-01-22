@@ -45,7 +45,8 @@ export function createExampleGeneratorTemplate() {
     "lint:check": "eslint src",
     "test": "bun test",
     "test:watch": "bun test --watch",
-    "test:coverage": "bun test --coverage"
+    "test:coverage": "bun test --coverage",
+    "test:smoke": "bun test/smoke.test.ts"
   },
   "dependencies": {
     "@contractspec/lib.contracts": "workspace:*",
@@ -858,6 +859,22 @@ on:
     branches: [ main ]
 
 jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+    
+    - name: Install dependencies
+      run: bun install
+    
+    - name: Run smoke test
+      run: bun run test:smoke
+
   test:
     runs-on: ubuntu-latest
     
@@ -911,6 +928,82 @@ jobs:
       run: bun run publish:pkg
       env:
         NPM_TOKEN: \${{ secrets.NPM_TOKEN }}`,
+
+      'tests/smoke.test.ts': `import { describe, it, expect, beforeAll, afterAll } from "bun:test";
+import { existsSync, mkdirSync, rmSync } from "fs";
+import { {{className}} } from "../src/generator.js";
+
+const SMOKE_OUTPUT_DIR = "./.smoke-test-output";
+
+describe("{{className}} Smoke Test", () => {
+  beforeAll(() => {
+    if (!existsSync(SMOKE_OUTPUT_DIR)) {
+      mkdirSync(SMOKE_OUTPUT_DIR, { recursive: true });
+    }
+  });
+
+  afterAll(() => {
+    if (existsSync(SMOKE_OUTPUT_DIR)) {
+      rmSync(SMOKE_OUTPUT_DIR, { recursive: true, force: true });
+    }
+  });
+
+  it("should instantiate without errors", () => {
+    const generator = new {{className}}({ outputDir: SMOKE_OUTPUT_DIR });
+    expect(generator).toBeDefined();
+    expect(typeof generator.generate).toBe("function");
+    expect(typeof generator.getMetadata).toBe("function");
+    expect(typeof generator.getConfig).toBe("function");
+    expect(typeof generator.cleanup).toBe("function");
+  });
+
+  it("should generate output file", async () => {
+    const generator = new {{className}}({ outputDir: SMOKE_OUTPUT_DIR });
+    
+    const result = await generator.generate({
+      spec: { id: "smoke-test-spec" } as any,
+      schemas: {
+        TestEntity: {
+          config: {
+            fields: {
+              id: { type: "string", isOptional: false },
+              name: { type: "string", isOptional: false },
+            },
+          },
+        },
+      },
+      data: [{ id: "test-1", name: "Smoke Test Entity" }],
+    });
+
+    expect(result.outputPath).toBeDefined();
+    expect(result.itemCount).toBe(1);
+    expect(existsSync(result.outputPath)).toBe(true);
+  });
+
+  it("should handle config updates", () => {
+    const generator = new {{className}}();
+    generator.updateConfig({ format: "list", maxItems: 50 });
+    const config = generator.getConfig();
+    expect(config.format).toBe("list");
+    expect(config.maxItems).toBe(50);
+  });
+
+  it("should provide valid metadata", () => {
+    const generator = new {{className}}();
+    const metadata = generator.getMetadata();
+    expect(metadata.id).toBeDefined();
+    expect(metadata.name).toBeDefined();
+    expect(metadata.version).toBeDefined();
+    expect(typeof metadata.id).toBe("string");
+    expect(typeof metadata.name).toBe("string");
+    expect(typeof metadata.version).toBe("string");
+  });
+
+  it("should cleanup without errors", async () => {
+    const generator = new {{className}}({ outputDir: SMOKE_OUTPUT_DIR });
+    await expect(generator.cleanup()).resolves.not.toThrow();
+  });
+});`,
 
       '.eslintrc.json': `{
   "extends": [

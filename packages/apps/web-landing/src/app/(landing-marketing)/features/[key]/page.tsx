@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getContractSpecFeatureRegistry } from '@contractspec/bundle.library/features';
-import { FeatureDetail } from '@contractspec/bundle.library/presentation/features';
+import { FeatureOverviewTemplate } from '@contractspec/bundle.library/presentation/features';
 
 interface PageProps {
   params: Promise<{ key: string }>;
@@ -10,8 +10,8 @@ interface PageProps {
 export async function generateStaticParams() {
   const registry = getContractSpecFeatureRegistry();
   const features = registry.list();
-  return features.map((feature) => ({
-    key: feature.meta.key,
+  return features.map((f) => ({
+    key: f.meta.key,
   }));
 }
 
@@ -25,12 +25,12 @@ export async function generateMetadata({
 
   if (!feature) {
     return {
-      title: 'Feature Not Found | ContractSpec',
+      title: 'Feature Not Found',
     };
   }
 
   return {
-    title: `${feature.meta.title} | ContractSpec Features`,
+    title: `${feature.meta.title || feature.meta.key} | ContractSpec`,
     description: feature.meta.description,
   };
 }
@@ -45,12 +45,5 @@ export default async function FeatureDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Server-side redirect for onBack is not possible in a component prop callback directly
-  // handled by generic UI logic or valid link
-
-  return (
-    <div className="flex w-full justify-center px-6 py-8">
-      <FeatureDetail feature={feature} className="w-full max-w-5xl" />
-    </div>
-  );
+  return <FeatureOverviewTemplate feature={feature} />;
 }

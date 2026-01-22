@@ -12,7 +12,10 @@ export {
   useFeatureFilters,
   type UseFeatureFiltersReturn,
   type FeatureFilters,
+  useContractsRegistry,
+  type UseContractsRegistryReturn,
 } from './hooks';
+export { useRelatedDocs } from './hooks/useRelatedDocs';
 
 // Molecules
 export { FeatureCard, type FeatureCardProps } from './molecules/FeatureCard';
@@ -40,3 +43,41 @@ export {
   FeatureDetail,
   type FeatureDetailProps,
 } from './organisms/FeatureDetail';
+
+// Templates
+export {
+  FeatureOverviewTemplate,
+  type FeatureOverviewTemplateProps,
+} from './templates/FeatureOverviewTemplate';
+export {
+  FeatureOperationsTemplate,
+  type FeatureOperationsTemplateProps,
+} from './templates/FeatureOperationsTemplate';
+export {
+  FeatureEventsTemplate,
+  type FeatureEventsTemplateProps,
+} from './templates/FeatureEventsTemplate';
+export {
+  FeaturePresentationsTemplate,
+  type FeaturePresentationsTemplateProps,
+} from './templates/FeaturePresentationsTemplate';
+export {
+  FeatureOperationDetailTemplate,
+  type FeatureOperationDetailTemplateProps,
+} from './templates/FeatureOperationDetailTemplate';
+export {
+  FeatureEventDetailTemplate,
+  type FeatureEventDetailTemplateProps,
+} from './templates/FeatureEventDetailTemplate';
+export {
+  FeaturePresentationDetailTemplate,
+  type FeaturePresentationDetailTemplateProps,
+} from './templates/FeaturePresentationDetailTemplate';
+export {
+  FeatureDataViewDetailTemplate,
+  type FeatureDataViewDetailTemplateProps,
+} from './templates/FeatureDataViewDetailTemplate';
+export {
+  FeatureFormDetailTemplate,
+  type FeatureFormDetailTemplateProps,
+} from './templates/FeatureFormDetailTemplate';
