@@ -170,6 +170,7 @@ export const docsSections = [
       { title: 'Audit Logs', href: '/docs/safety/auditing' },
       { title: 'Tenant Isolation', href: '/docs/safety/tenant-isolation' },
       { title: 'Migrations', href: '/docs/safety/migrations' },
+      { title: 'Security & Trust', href: '/docs/safety/security-trust' },
     ],
   },
   {
