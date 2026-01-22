@@ -54,21 +54,11 @@ export {
   FeatureOverviewTemplate,
   type FeatureOverviewTemplateProps,
 } from './templates/FeatureOverviewTemplate';
-export {
-  FeatureOperationsTemplate,
-} from './templates/FeatureOperationsTemplate';
-export {
-  FeatureEventsTemplate,
-} from './templates/FeatureEventsTemplate';
-export {
-  FeaturePresentationsTemplate,
-} from './templates/FeaturePresentationsTemplate';
-export {
-  FeatureDataViewsTemplate,
-} from './templates/FeatureDataViewsTemplate';
-export {
-  FeatureFormsTemplate,
-} from './templates/FeatureFormsTemplate';
+export { FeatureOperationsTemplate } from './templates/FeatureOperationsTemplate';
+export { FeatureEventsTemplate } from './templates/FeatureEventsTemplate';
+export { FeaturePresentationsTemplate } from './templates/FeaturePresentationsTemplate';
+export { FeatureDataViewsTemplate } from './templates/FeatureDataViewsTemplate';
+export { FeatureFormsTemplate } from './templates/FeatureFormsTemplate';
 export {
   FeatureOperationDetailTemplate,
   type FeatureOperationDetailTemplateProps,

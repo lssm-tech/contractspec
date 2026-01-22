@@ -3,7 +3,7 @@ import {
   getContractSpecFeatureRegistry,
   resolveSerializedOperationSpec,
 } from '@contractspec/bundle.library/features';
-import { FeatureOperationDetailClient } from '../../../client';
+import { FeatureOperationDetailClient } from '../../../clients';
 
 interface PageProps {
   params: Promise<{ key: string; opKey: string }>;

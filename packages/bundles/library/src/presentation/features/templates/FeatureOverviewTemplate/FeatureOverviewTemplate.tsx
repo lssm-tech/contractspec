@@ -1,6 +1,9 @@
 'use client';
 
-import { PageHeaderResponsive, Breadcrumbs } from '@contractspec/lib.design-system';
+import {
+  PageHeaderResponsive,
+  Breadcrumbs,
+} from '@contractspec/lib.design-system';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { FeatureDetail } from '../../organisms/FeatureDetail';
@@ -16,7 +19,7 @@ export function FeatureOverviewTemplate({
   className,
 }: FeatureOverviewTemplateProps) {
   return (
-    <VStack gap="lg" className={cn('w-full max-w-5xl mx-auto p-6', className)}>
+    <VStack gap="lg" className={cn('mx-auto w-full max-w-5xl p-6', className)}>
       <PageHeaderResponsive
         title={feature.meta.title || feature.meta.key}
         subtitle={feature.meta.description || 'Feature overview'}

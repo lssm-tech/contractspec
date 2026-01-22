@@ -14,7 +14,7 @@ export function FeatureFormsTemplate({
   className,
 }: FeatureListTemplateProps) {
   return (
-    <VStack gap="lg" className={cn('w-full max-w-5xl mx-auto p-6', className)}>
+    <VStack gap="lg" className={cn('mx-auto w-full max-w-5xl p-6', className)}>
       <PageHeaderResponsive
         title="Forms"
         subtitle={`Forms defined in ${feature.meta.title ?? feature.meta.key}`}
@@ -22,7 +22,10 @@ export function FeatureFormsTemplate({
           <Breadcrumbs
             items={[
               { label: 'Features', href: '/features' },
-              { label: feature.meta.title || feature.meta.key, href: `/features/${feature.meta.key}` },
+              {
+                label: feature.meta.title || feature.meta.key,
+                href: `/features/${feature.meta.key}`,
+              },
               { label: 'Forms' },
             ]}
           />

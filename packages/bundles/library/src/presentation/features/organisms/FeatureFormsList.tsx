@@ -5,11 +5,7 @@ import { FormInput } from 'lucide-react';
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
 import { resolveSerializedFormSpec } from '../../../features';
 
-export function FeatureFormsList({
-  feature,
-}: {
-  feature: FeatureModuleSpec;
-}) {
+export function FeatureFormsList({ feature }: { feature: FeatureModuleSpec }) {
   if (!feature.forms?.length) return null;
 
   return (

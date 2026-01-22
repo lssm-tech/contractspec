@@ -1,16 +1,11 @@
 import type { CapabilityRef } from '../capabilities';
 import type { OwnerShipMeta } from '../ownership';
-import type { OpRef } from '../features';
+import type { OpRef, FormRef } from '../features';
 import type { ExperimentRef } from '../experiments/spec';
 import { SpecContractRegistry } from '../registry';
 
-/**
- * Reference to a form spec declared in {@link FormRegistry}.
- */
-export interface FormRef {
-  key: string;
-  version: string;
-}
+// Re-export for backwards compatibility
+export type { FormRef };
 
 export type StepType = 'human' | 'automation' | 'decision';
 

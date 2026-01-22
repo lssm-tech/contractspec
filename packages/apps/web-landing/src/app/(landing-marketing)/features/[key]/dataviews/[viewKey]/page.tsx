@@ -3,7 +3,7 @@ import {
   getContractSpecFeatureRegistry,
   resolveSerializedDataViewSpec,
 } from '@contractspec/bundle.library/features';
-import { FeatureDataViewDetailClient } from '../../../client';
+import { FeatureDataViewDetailClient } from '../../../clients';
 
 interface PageProps {
   params: Promise<{ key: string; viewKey: string }>;

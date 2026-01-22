@@ -1,10 +1,13 @@
-import type { FeatureRef, OpRef, FeatureModuleSpec, DataViewSpec } from '@contractspec/lib.contracts/features';
+import type {
+  FeatureModuleSpec,
+  OpRef,
+} from '@contractspec/lib.contracts/features';
+import type { SerializedOperationSpec } from '@contractspec/lib.contracts/serialization';
 
 export interface FeatureOperationDetailTemplateProps {
   feature: FeatureModuleSpec;
   operationKey: string;
   operation?: OpRef;
-  spec?: any; // The full OperationSpec if available
-  onBack?: () => void;
+  spec?: SerializedOperationSpec;
   className?: string;
 }

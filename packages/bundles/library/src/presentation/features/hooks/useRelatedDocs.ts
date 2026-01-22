@@ -13,13 +13,13 @@ export function useRelatedDocs(key: string, tags?: string[]) {
       return allDocs
         .filter(({ block }) => {
           // Match by key in ID or title
-          const keyMatch = 
-            block.id.toLowerCase().includes(key.toLowerCase()) || 
+          const keyMatch =
+            block.id.toLowerCase().includes(key.toLowerCase()) ||
             block.title.toLowerCase().includes(key.toLowerCase());
-          
+
           // Match by tags
-          const tagMatch = tags?.some(t => 
-            block.tags?.some(bt => bt.toLowerCase().includes(t.toLowerCase()))
+          const tagMatch = tags?.some((t) =>
+            block.tags?.some((bt) => bt.toLowerCase().includes(t.toLowerCase()))
           );
 
           return keyMatch || tagMatch;

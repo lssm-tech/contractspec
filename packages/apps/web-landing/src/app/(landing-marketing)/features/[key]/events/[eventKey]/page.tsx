@@ -3,7 +3,7 @@ import {
   getContractSpecFeatureRegistry,
   resolveSerializedEventSpec,
 } from '@contractspec/bundle.library/features';
-import { FeatureEventDetailClient } from '../../../client';
+import { FeatureEventDetailClient } from '../../../clients';
 
 interface PageProps {
   params: Promise<{ key: string; eventKey: string }>;

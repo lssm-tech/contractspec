@@ -3,7 +3,7 @@ import {
   getContractSpecFeatureRegistry,
   resolveSerializedFormSpec,
 } from '@contractspec/bundle.library/features';
-import { FeatureFormDetailClient } from '../../../client';
+import { FeatureFormDetailClient } from '../../../clients';
 
 interface PageProps {
   params: Promise<{ key: string; formKey: string }>;

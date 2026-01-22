@@ -19,162 +19,27 @@ import {
 import { PresentationRegistry } from '@contractspec/lib.contracts/presentations';
 import { DataViewRegistry } from '@contractspec/lib.contracts/data-views';
 import { FormRegistry } from '@contractspec/lib.contracts/forms';
-import type { AnySchemaModel } from '@contractspec/lib.schema';
+import {
+  serializeOperationSpec,
+  serializeEventSpec,
+  serializePresentationSpec,
+  serializeDataViewSpec,
+  serializeFormSpec,
+} from '@contractspec/lib.contracts/serialization';
+
+// Re-export serialization types from lib.contracts for convenience
+export type {
+  SerializedSchemaModel,
+  SerializedFieldConfig,
+  SerializedOperationSpec,
+  SerializedEventSpec,
+  SerializedPresentationSpec,
+  SerializedDataViewSpec,
+  SerializedFormSpec,
+} from '@contractspec/lib.contracts/serialization';
 
 // Import all operation specs from features
 import { docsSearchSpec } from './docs';
-
-// ============================================================================
-// Serialization Types (for Server -> Client Component transfer)
-// ============================================================================
-
-/** Serialized schema model that can be passed to client components */
-export interface SerializedSchemaModel {
-  name: string;
-  description?: string | null;
-  fields: Record<string, SerializedFieldConfig>;
-}
-
-export interface SerializedFieldConfig {
-  typeName: string;
-  isOptional: boolean;
-  isArray?: boolean;
-}
-
-/** Serialized operation spec for client components */
-export interface SerializedOperationSpec {
-  meta: {
-    key: string;
-    version: string;
-    stability?: string;
-    owners?: string[];
-    tags?: string[];
-    description?: string;
-    goal?: string;
-    context?: string;
-  };
-  io: {
-    input: SerializedSchemaModel | null;
-    output: SerializedSchemaModel | null;
-  };
-  policy?: {
-    auth?: string;
-  };
-}
-
-/** Serialized event spec for client components */
-export interface SerializedEventSpec {
-  meta: {
-    key: string;
-    version: string;
-    stability?: string;
-    owners?: string[];
-    tags?: string[];
-    description?: string;
-  };
-  payload: SerializedSchemaModel | null;
-}
-
-/** Serialized presentation spec for client components */
-export interface SerializedPresentationSpec {
-  meta: {
-    key: string;
-    version: string;
-    stability?: string;
-    owners?: string[];
-    tags?: string[];
-    description?: string;
-    goal?: string;
-    context?: string;
-  };
-  source: {
-    type: string;
-    framework?: string;
-    componentKey?: string;
-  };
-  targets?: string[];
-}
-
-/** Serialized data view spec for client components */
-export interface SerializedDataViewSpec {
-  meta: {
-    key: string;
-    version: string;
-    stability?: string;
-    owners?: string[];
-    tags?: string[];
-    description?: string;
-    title?: string;
-  };
-}
-
-/** Serialized form spec for client components */
-export interface SerializedFormSpec {
-  meta: {
-    key: string;
-    version?: string;
-    stability?: string;
-    owners?: string[];
-    tags?: string[];
-    description?: string;
-    title?: string;
-  };
-}
-
-// ============================================================================
-// Serialization Helpers
-// ============================================================================
-
-function serializeSchemaModel(
-  model: AnySchemaModel | null | undefined
-): SerializedSchemaModel | null {
-  if (!model) return null;
-
-  // Check if it's a SchemaModel with config
-  if ('config' in model && model.config) {
-    const config = model.config as {
-      name: string;
-      description?: string | null;
-      fields: Record<string, { type: unknown; isOptional: boolean; isArray?: boolean }>;
-    };
-    return {
-      name: config.name,
-      description: config.description,
-      fields: Object.fromEntries(
-        Object.entries(config.fields).map(([key, field]) => [
-          key,
-          {
-            typeName: getTypeName(field.type),
-            isOptional: field.isOptional,
-            isArray: field.isArray,
-          },
-        ])
-      ),
-    };
-  }
-
-  // Fallback for other schema types
-  return {
-    name: 'unknown',
-    fields: {},
-  };
-}
-
-function getTypeName(type: unknown): string {
-  if (!type) return 'unknown';
-  if (typeof type === 'string') return type;
-  if (typeof type === 'object') {
-    // Check for SchemaModel
-    if ('config' in type && (type as { config?: { name?: string } }).config?.name) {
-      return (type as { config: { name: string } }).config.name;
-    }
-    // Check for FieldType or EnumType with name
-    if ('name' in type && typeof (type as { name: unknown }).name === 'string') {
-      return (type as { name: string }).name;
-    }
-  }
-  return 'unknown';
-}
 
 // ============================================================================
 // Operation Registry
@@ -319,53 +184,17 @@ export function resolveFormSpec(
  * Resolve and serialize an operation spec for passing to client components.
  * Returns a plain JSON-serializable object.
  */
-export function resolveSerializedOperationSpec(
-  key: string,
-  version?: string
-): SerializedOperationSpec | undefined {
+export function resolveSerializedOperationSpec(key: string, version?: string) {
   const spec = resolveOperationSpec(key, version);
-  if (!spec) return undefined;
-
-  return {
-    meta: {
-      key: spec.meta.key,
-      version: spec.meta.version,
-      stability: spec.meta.stability,
-      owners: spec.meta.owners,
-      tags: spec.meta.tags,
-      description: spec.meta.description,
-      goal: spec.meta.goal,
-      context: spec.meta.context,
-    },
-    io: {
-      input: serializeSchemaModel(spec.io.input),
-      output: serializeSchemaModel(spec.io.output),
-    },
-    policy: spec.policy ? { auth: spec.policy.auth } : undefined,
-  };
+  return serializeOperationSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize an event spec for passing to client components.
  */
-export function resolveSerializedEventSpec(
-  key: string,
-  version?: string
-): SerializedEventSpec | undefined {
+export function resolveSerializedEventSpec(key: string, version?: string) {
   const spec = resolveEventSpec(key, version);
-  if (!spec) return undefined;
-
-  return {
-    meta: {
-      key: spec.meta.key,
-      version: spec.meta.version,
-      stability: spec.meta.stability,
-      owners: spec.meta.owners,
-      tags: spec.meta.tags,
-      description: spec.meta.description,
-    },
-    payload: serializeSchemaModel(spec.payload),
-  };
+  return serializeEventSpec(spec) ?? undefined;
 }
 
 /**
@@ -374,74 +203,25 @@ export function resolveSerializedEventSpec(
 export function resolveSerializedPresentationSpec(
   key: string,
   version?: string
-): SerializedPresentationSpec | undefined {
+) {
   const spec = resolvePresentationSpec(key, version);
-  if (!spec) return undefined;
-
-  return {
-    meta: {
-      key: spec.meta.key,
-      version: spec.meta.version,
-      stability: spec.meta.stability,
-      owners: spec.meta.owners,
-      tags: spec.meta.tags,
-      description: spec.meta.description,
-      goal: spec.meta.goal,
-      context: spec.meta.context,
-    },
-    source: {
-      type: spec.source.type,
-      framework: spec.source.type === 'component' ? spec.source.framework : undefined,
-      componentKey: spec.source.type === 'component' ? spec.source.componentKey : undefined,
-    },
-    targets: spec.targets,
-  };
+  return serializePresentationSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize a data view spec for passing to client components.
  */
-export function resolveSerializedDataViewSpec(
-  key: string,
-  version?: string
-): SerializedDataViewSpec | undefined {
+export function resolveSerializedDataViewSpec(key: string, version?: string) {
   const spec = resolveDataViewSpec(key, version);
-  if (!spec) return undefined;
-
-  return {
-    meta: {
-      key: spec.meta.key,
-      version: spec.meta.version,
-      stability: spec.meta.stability,
-      owners: spec.meta.owners,
-      tags: spec.meta.tags,
-      description: spec.meta.description,
-      title: spec.meta.title,
-    },
-  };
+  return serializeDataViewSpec(spec) ?? undefined;
 }
 
 /**
  * Resolve and serialize a form spec for passing to client components.
  */
-export function resolveSerializedFormSpec(
-  key: string,
-  version?: string
-): SerializedFormSpec | undefined {
+export function resolveSerializedFormSpec(key: string, version?: string) {
   const spec = resolveFormSpec(key, version);
-  if (!spec) return undefined;
-
-  return {
-    meta: {
-      key: spec.meta.key,
-      version: spec.meta.version,
-      stability: spec.meta.stability,
-      owners: spec.meta.owners,
-      tags: spec.meta.tags,
-      description: spec.meta.description,
-      title: spec.meta.title,
-    },
-  };
+  return serializeFormSpec(spec) ?? undefined;
 }
 
 // ============================================================================

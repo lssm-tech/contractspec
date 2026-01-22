@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { FeatureDiscoveryClient } from './client';
+import { FeatureDiscoveryClient } from './clients';
 
 export const metadata: Metadata = {
   title: 'Features | ContractSpec',

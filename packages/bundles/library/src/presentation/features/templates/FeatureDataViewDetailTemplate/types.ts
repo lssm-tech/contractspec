@@ -1,11 +1,13 @@
-import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
-import type { DataViewRef } from '@contractspec/lib.contracts';
+import type {
+  FeatureModuleSpec,
+  DataViewRef,
+} from '@contractspec/lib.contracts/features';
+import type { SerializedDataViewSpec } from '@contractspec/lib.contracts/serialization';
 
 export interface FeatureDataViewDetailTemplateProps {
   feature: FeatureModuleSpec;
   viewKey: string;
   view?: DataViewRef;
-  spec?: any; 
-  onBack?: () => void;
+  spec?: SerializedDataViewSpec;
   className?: string;
 }
