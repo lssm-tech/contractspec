@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/integration.example-generator",
-  "version": "1.48.0",
+  "version": "1.48.1",
   "description": "Example plugin: Markdown documentation generator for ContractSpec specs",
   "keywords": [
     "contractspec",

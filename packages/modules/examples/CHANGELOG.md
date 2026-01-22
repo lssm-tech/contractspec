@@ -1,5 +1,12 @@
 # @contractspec/module.examples
 
+## 1.48.2
+
+### Patch Changes
+
+- Updated dependencies [2016af0]
+  - @contractspec/example.integration-hub@1.48.2
+
 ## 1.48.1
 
 ### Patch Changes

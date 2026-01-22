@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.48.2
+
+### Patch Changes
+
+- @contractspec/module.examples@1.48.2
+
 ## 1.48.1
 
 ### Patch Changes

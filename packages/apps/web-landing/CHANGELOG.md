@@ -1,5 +1,23 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.48.2
+
+### Patch Changes
+
+- 918deb7: Add security policy, roadmap, RFC template, and Security & Trust docs page.
+- ea245ef: Add ecosystem documentation pages for plugins, integrations, templates, and registry resolution.
+- 2016af0: Add runnable docs guides, wire new docs routes, and validate the integration-hub example in CI.
+- 54b778e: Add SEO-optimized intent pages for developer search queries.
+- Updated dependencies [918deb7]
+- Updated dependencies [ea245ef]
+- Updated dependencies [2016af0]
+- Updated dependencies [54b778e]
+- Updated dependencies [86423e8]
+  - @contractspec/bundle.library@1.3.1
+  - @contractspec/example.integration-hub@1.48.2
+  - @contractspec/bundle.marketing@1.3.1
+  - @contractspec/module.examples@1.48.2
+
 ## 1.48.1
 
 ### Patch Changes
