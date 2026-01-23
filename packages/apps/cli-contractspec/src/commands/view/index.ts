@@ -3,8 +3,52 @@ import chalk from 'chalk';
 import {
   createNodeAdapters,
   generateViews,
+  type GenerateViewsResult,
   type ViewAudience,
 } from '@contractspec/bundle.workspace';
+
+/**
+ * Handle result status and log appropriate messages.
+ * Returns true if processing should continue, false if should exit.
+ */
+function handleResultStatus(
+  result: GenerateViewsResult,
+  baseline?: string
+): boolean {
+  switch (result.status) {
+    case 'no_changes':
+      console.error(chalk.green('No contract changes detected.'));
+      return false;
+
+    case 'no_changed_specs':
+      if (result.changedFilesCount !== undefined) {
+        console.error(
+          chalk.gray(
+            `Found ${result.changedFilesCount} changed files since ${baseline}.`
+          )
+        );
+      }
+      console.error(chalk.green('No contract specs changed.'));
+      return false;
+
+    case 'no_specs':
+      console.error(chalk.yellow('No specs found.'));
+      return false;
+
+    case 'success':
+      if (baseline && result.changedFilesCount !== undefined) {
+        console.error(
+          chalk.gray(
+            `Found ${result.changedFilesCount} changed files since ${baseline}.`
+          )
+        );
+        console.error(
+          chalk.gray(`${result.views.length} contract specs changed.`)
+        );
+      }
+      return true;
+  }
+}
 
 export const viewCommand = new Command('view')
   .description('Generate audience-specific views of the contract')
@@ -39,43 +83,9 @@ export const viewCommand = new Command('view')
         console.error(chalk.gray(`Found ${result.totalSpecs} contracts.`));
       }
 
-      // Handle different result statuses
-      switch (result.status) {
-        case 'no_changes':
-          console.error(chalk.green('No contract changes detected.'));
-          process.exit(0);
-          break;
-
-        case 'no_changed_specs':
-          if (result.changedFilesCount !== undefined) {
-            console.error(
-              chalk.gray(
-                `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
-              )
-            );
-          }
-          console.error(chalk.green('No contract specs changed.'));
-          process.exit(0);
-          break;
-
-        case 'no_specs':
-          console.error(chalk.yellow('No specs found.'));
-          process.exit(0);
-          break;
-
-        case 'success':
-          // Log baseline filtering info
-          if (options.baseline && result.changedFilesCount !== undefined) {
-            console.error(
-              chalk.gray(
-                `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
-              )
-            );
-            console.error(
-              chalk.gray(`${result.views.length} contract specs changed.`)
-            );
-          }
-          break;
+      // Handle result status
+      if (!handleResultStatus(result, options.baseline)) {
+        process.exit(0);
       }
 
       // Output views
