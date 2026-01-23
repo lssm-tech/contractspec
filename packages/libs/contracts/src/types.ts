@@ -1,7 +1,33 @@
 /**
- * Common runtime types: execution context, policy decision & event emission.
+ * Common runtime types for ContractSpec execution.
+ *
+ * Provides types for execution context, policy decisions, event emission,
+ * and handler context passed through the contracts runtime.
+ *
+ * @module types
+ */
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Actor & Channel Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Actor type representing the entity making a request.
+ *
+ * - `anonymous`: Unauthenticated request
+ * - `user`: Authenticated end-user
+ * - `admin`: Administrative/system user with elevated privileges
  */
 export type Actor = 'anonymous' | 'user' | 'admin';
+
+/**
+ * Channel through which a request originates.
+ *
+ * - `web`: Browser/web application
+ * - `mobile`: Native mobile application
+ * - `job`: Background job/scheduled task
+ * - `agent`: AI agent or automated system
+ */
 export type Channel = 'web' | 'mobile' | 'job' | 'agent';
 
 import type {

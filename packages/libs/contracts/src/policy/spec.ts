@@ -1,5 +1,7 @@
 import type { OwnerShipMeta } from '../ownership';
+import type { VersionedSpecRef } from '../versioning';
 
+/** Effect of a policy rule: allow or deny access. */
 export type PolicyEffect = 'allow' | 'deny';
 
 export interface RelationshipDefinition {
@@ -113,7 +115,8 @@ export interface PolicySpec {
   opa?: PolicyOPAConfig;
 }
 
-export interface PolicyRef {
-  key: string;
-  version: string;
-}
+/**
+ * Reference to a policy spec.
+ * Uses key and version to identify a specific policy.
+ */
+export type PolicyRef = VersionedSpecRef;

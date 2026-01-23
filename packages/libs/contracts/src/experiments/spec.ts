@@ -2,13 +2,16 @@ import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import { SpecContractRegistry } from '../registry';
 import type { TelemetryEventDef } from '../telemetry/spec';
+import type { OptionalVersionedSpecRef } from '../versioning';
 
+/** Metadata for an experiment spec. */
 export type ExperimentMeta = OwnerShipMeta;
 
-export interface ExperimentRef {
-  key: string;
-  version?: string;
-}
+/**
+ * Reference to an experiment spec.
+ * Version is optional; when omitted, refers to the latest version.
+ */
+export type ExperimentRef = OptionalVersionedSpecRef;
 
 export type ExperimentOverrideType =
   | 'dataView'
