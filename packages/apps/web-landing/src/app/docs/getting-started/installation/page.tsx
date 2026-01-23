@@ -27,4 +27,6 @@ export const metadata: Metadata = {
   },
 };
 
+import { ArticleStructuredData } from '@/components/structured-data';
+
 export default InstallationPage;

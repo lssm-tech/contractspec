@@ -139,34 +139,6 @@ export default function RootLayout({
                     publisher: {
                       '@id': 'https://www.contractspec.io/#organization',
                     },
-                    potentialAction: {
-                      '@type': 'SearchAction',
-                      target: {
-                        '@type': 'EntryPoint',
-                        urlTemplate:
-                          'https://www.contractspec.io/docs?q={search_term_string}',
-                      },
-                      'query-input': 'required name=search_term_string',
-                    },
-                  },
-                  {
-                    '@type': 'SoftwareApplication',
-                    '@id': 'https://www.contractspec.io/#software',
-                    name: 'ContractSpec',
-                    description:
-                      'The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.',
-                    applicationCategory: 'DeveloperApplication',
-                    operatingSystem: 'Web Browser',
-                    offers: {
-                      '@type': 'Offer',
-                      price: '0',
-                      priceCurrency: 'USD',
-                    },
-                    aggregateRating: {
-                      '@type': 'AggregateRating',
-                      ratingValue: '4.8',
-                      reviewCount: '50',
-                    },
                   },
                 ],
               }),
