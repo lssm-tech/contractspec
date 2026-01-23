@@ -130,42 +130,44 @@ export default function RootLayout({
                       'https://www.github.com/lssm-tech/contractspec',
                     ],
                   },
-                   {
-                     '@type': 'WebSite',
-                     '@id': 'https://www.contractspec.io/#website',
-                     url: 'https://www.contractspec.io',
-                     name: 'ContractSpec',
-                     description: 'The Regenerative App Engine',
-                     publisher: {
-                       '@id': 'https://www.contractspec.io/#organization',
-                     },
-                     potentialAction: {
-                       '@type': 'SearchAction',
-                       target: {
-                         '@type': 'EntryPoint',
-                         urlTemplate': 'https://www.contractspec.io/docs?q={search_term_string}',
-                       },
-                       'query-input': 'required name=search_term_string',
-                     },
-                   },
-                   {
-                     '@type': 'SoftwareApplication',
-                     '@id': 'https://www.contractspec.io/#software',
-                     name: 'ContractSpec',
-                     description: 'The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.',
-                     applicationCategory: 'DeveloperApplication',
-                     operatingSystem: 'Web Browser',
-                     offers: {
-                       '@type': 'Offer',
-                       price: '0',
-                       priceCurrency: 'USD',
-                     },
-                     aggregateRating: {
-                       '@type': 'AggregateRating',
-                       ratingValue: '4.8',
-                       reviewCount: '50',
-                     },
-                   },
+                  {
+                    '@type': 'WebSite',
+                    '@id': 'https://www.contractspec.io/#website',
+                    url: 'https://www.contractspec.io',
+                    name: 'ContractSpec',
+                    description: 'The Regenerative App Engine',
+                    publisher: {
+                      '@id': 'https://www.contractspec.io/#organization',
+                    },
+                    potentialAction: {
+                      '@type': 'SearchAction',
+                      target: {
+                        '@type': 'EntryPoint',
+                        urlTemplate:
+                          'https://www.contractspec.io/docs?q={search_term_string}',
+                      },
+                      'query-input': 'required name=search_term_string',
+                    },
+                  },
+                  {
+                    '@type': 'SoftwareApplication',
+                    '@id': 'https://www.contractspec.io/#software',
+                    name: 'ContractSpec',
+                    description:
+                      'The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.',
+                    applicationCategory: 'DeveloperApplication',
+                    operatingSystem: 'Web Browser',
+                    offers: {
+                      '@type': 'Offer',
+                      price: '0',
+                      priceCurrency: 'USD',
+                    },
+                    aggregateRating: {
+                      '@type': 'AggregateRating',
+                      ratingValue: '4.8',
+                      reviewCount: '50',
+                    },
+                  },
                 ],
               }),
             }}
