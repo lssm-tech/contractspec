@@ -25,6 +25,12 @@ export interface GitAdapter {
    * Get commit log since a baseline ref.
    */
   log(baseline?: string): Promise<GitLogEntry[]>;
+
+  /**
+   * Get list of files changed between baseline and HEAD.
+   * Uses three-dot diff (baseline...HEAD) to show changes since branches diverged.
+   */
+  diffFiles(baseline: string, patterns?: string[]): Promise<string[]>;
 }
 
 /**

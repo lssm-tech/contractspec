@@ -3,10 +3,9 @@ import chalk from 'chalk';
 import {
   createNodeAdapters,
   generateView,
+  listSpecs,
   type ViewAudience,
 } from '@contractspec/bundle.workspace';
-
-import { listSpecs } from '@contractspec/bundle.workspace';
 
 export const viewCommand = new Command('view')
   .description('Generate audience-specific views of the contract')
@@ -16,6 +15,10 @@ export const viewCommand = new Command('view')
   )
   .requiredOption('--audience <type>', 'Audience type: product, eng, qa')
   .option('--json', 'Output as JSON')
+  .option(
+    '--baseline <ref>',
+    'Git ref to compare against (only show changed specs since baseline)'
+  )
   .action(async (specFiles: string[], options) => {
     try {
       const adapters = createNodeAdapters({ silent: true });
@@ -45,6 +48,42 @@ export const viewCommand = new Command('view')
         const specs = await listSpecs({ fs: adapters.fs });
         filesToProcess = specs.map((s) => s.filePath);
         console.error(chalk.gray(`Found ${filesToProcess.length} contracts.`));
+      }
+
+      // Filter to only changed specs if baseline is provided
+      if (options.baseline) {
+        const changedFiles = await adapters.git.diffFiles(options.baseline);
+
+        if (changedFiles.length === 0) {
+          console.error(chalk.green('No contract changes detected.'));
+          process.exit(0);
+        }
+
+        console.error(
+          chalk.gray(
+            `Found ${changedFiles.length} changed files since ${options.baseline}.`
+          )
+        );
+
+        // Filter to specs that match changed files
+        filesToProcess = filesToProcess.filter((specPath) =>
+          changedFiles.some(
+            (changed) =>
+              specPath.endsWith(changed) ||
+              changed.endsWith(specPath) ||
+              specPath.includes(changed) ||
+              changed.includes(specPath)
+          )
+        );
+
+        if (filesToProcess.length === 0) {
+          console.error(chalk.green('No contract specs changed.'));
+          process.exit(0);
+        }
+
+        console.error(
+          chalk.gray(`${filesToProcess.length} contract specs changed.`)
+        );
       }
 
       if (filesToProcess.length === 0) {

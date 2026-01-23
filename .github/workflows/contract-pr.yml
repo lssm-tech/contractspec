@@ -36,9 +36,9 @@ jobs:
       - name: Generate Views
         id: views
         run: |
-          # Generate audience views
-          bun contractspec view --audience product > product-view.md
-          bun contractspec view --audience eng > eng-view.md
+          # Generate audience views for changed contracts only
+          bun contractspec view --audience product --baseline "origin/${{ github.base_ref }}" > product-view.md
+          bun contractspec view --audience eng --baseline "origin/${{ github.base_ref }}" > eng-view.md
 
       - name: Comment on PR
         uses: actions/github-script@v8
@@ -60,10 +60,10 @@ jobs:
 
             const body = `### 📋 ContractSpec Change Summary
 
-            This PR modifies contracts. Here is the generated product view:
+            This PR modifies contracts. Here are the changed contracts:
 
             <details>
-            <summary>Product View (User Flow & Capabilities)</summary>
+            <summary>Product View (Changed Contracts)</summary>
 
             ${productView}
 
