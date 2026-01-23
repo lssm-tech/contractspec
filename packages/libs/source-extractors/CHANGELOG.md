@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.3.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.schema@1.49.0
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @contractspec/app.api-library
 
+## 1.3.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/bundle.marketing@1.4.0
+  - @contractspec/bundle.workspace@1.49.0
+  - @contractspec/bundle.library@1.4.0
+  - @contractspec/lib.contracts@1.49.0
+
 ## 1.2.2
 
 ### Patch Changes
