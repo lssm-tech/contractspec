@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.5.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
 ## 0.4.0
 
 ### Minor Changes
