@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.48.3
+
+### Patch Changes
+
+- e18bf1f: Fix impact command to use silent logger for JSON output format to prevent log messages from corrupting machine-readable output in CI pipelines.
+
 ## 1.48.2
 
 ### Patch Changes
