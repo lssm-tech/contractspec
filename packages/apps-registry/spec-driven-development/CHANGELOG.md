@@ -1,5 +1,12 @@
 # spec-driven-development
 
+## 1.48.3
+
+### Patch Changes
+
+- Updated dependencies [e18bf1f]
+  - @contractspec/app.cli-contractspec@1.48.3
+
 ## 1.48.2
 
 ### Patch Changes

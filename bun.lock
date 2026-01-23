@@ -32,14 +32,14 @@
         "prettier": "3.7.4",
         "prettier-plugin-prisma": "^5.0.0",
         "prettier-plugin-tailwindcss": "^0.7.2",
-        "rulesync": "^5.4.0",
+        "rulesync": "^5.8.0",
         "turbo-ignore": "^2.7.5",
         "typescript-eslint": "^8.53.1",
       },
     },
     "packages/apps-registry/contractspec": {
       "name": "contractspec",
-      "version": "1.48.2",
+      "version": "1.48.3",
       "bin": {
         "contractspec": "./bin/contractspec.mjs",
       },
@@ -49,7 +49,7 @@
     },
     "packages/apps-registry/spec-driven-development": {
       "name": "spec-driven-development",
-      "version": "1.48.2",
+      "version": "1.48.3",
       "bin": {
         "sdd": "./bin/contractspec.mjs",
         "spec-driven-development": "./bin/contractspec.mjs",
@@ -80,7 +80,7 @@
     },
     "packages/apps/cli-contractspec": {
       "name": "@contractspec/app.cli-contractspec",
-      "version": "1.48.2",
+      "version": "1.48.3",
       "dependencies": {
         "@ai-sdk/anthropic": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
