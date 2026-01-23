@@ -16,6 +16,7 @@
 import { Command } from 'commander';
 import {
   createConsoleLoggerAdapter,
+  createNoopLoggerAdapter,
   createNodeFsAdapter,
   createNodeGitAdapter,
   impact,
@@ -68,7 +69,11 @@ export async function runImpactCommand(
 ): Promise<void> {
   const fs = createNodeFsAdapter();
   const git = createNodeGitAdapter();
-  const logger = createConsoleLoggerAdapter();
+  // Use noop logger for machine-readable formats to keep stdout clean
+  const isTextOutput = options.format === 'text' || !options.format;
+  const logger = isTextOutput
+    ? createConsoleLoggerAdapter()
+    : createNoopLoggerAdapter();
 
   try {
     const result = await impact.detectImpact(
