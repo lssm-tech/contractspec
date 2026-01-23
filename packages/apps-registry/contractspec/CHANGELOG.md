@@ -1,5 +1,16 @@
 # contractspec
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/app.cli-contractspec@1.49.0
+
 ## 1.48.3
 
 ### Patch Changes

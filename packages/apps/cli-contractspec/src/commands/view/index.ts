@@ -2,8 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import {
   createNodeAdapters,
-  generateView,
-  listSpecsForView,
+  generateViews,
   type ViewAudience,
 } from '@contractspec/bundle.workspace';
 
@@ -23,88 +22,80 @@ export const viewCommand = new Command('view')
     try {
       const adapters = createNodeAdapters({ silent: true });
 
-      // Validate audience
-      const validAudiences = ['product', 'eng', 'qa'];
-      if (!validAudiences.includes(options.audience)) {
-        throw new Error(
-          `Invalid audience: ${options.audience}. Must be one of: ${validAudiences.join(', ')}`
-        );
-      }
-
-      // Resolve files
-      let filesToProcess: string[] = [];
-      if (specFiles && specFiles.length > 0) {
-        filesToProcess = specFiles;
-      } else {
+      // Log scanning message if not using explicit files
+      if (!specFiles || specFiles.length === 0) {
         console.error(chalk.cyan('Scanning workspace for contracts...'));
+      }
 
-        // Use bundle service to list specs with optional baseline filtering
-        const result = await listSpecsForView(adapters, {
-          baseline: options.baseline,
-        });
+      // Generate views using bundle service
+      const result = await generateViews(adapters, {
+        audience: options.audience as ViewAudience,
+        specFiles: specFiles?.length > 0 ? specFiles : undefined,
+        baseline: options.baseline,
+      });
 
+      // Log scan results
+      if (result.totalSpecs !== undefined) {
         console.error(chalk.gray(`Found ${result.totalSpecs} contracts.`));
+      }
 
-        // Handle baseline filtering results
-        if (options.baseline) {
-          if (result.changedFilesCount === 0) {
-            console.error(chalk.green('No contract changes detected.'));
-            process.exit(0);
+      // Handle different result statuses
+      switch (result.status) {
+        case 'no_changes':
+          console.error(chalk.green('No contract changes detected.'));
+          process.exit(0);
+          break;
+
+        case 'no_changed_specs':
+          if (result.changedFilesCount !== undefined) {
+            console.error(
+              chalk.gray(
+                `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
+              )
+            );
           }
+          console.error(chalk.green('No contract specs changed.'));
+          process.exit(0);
+          break;
 
-          console.error(
-            chalk.gray(
-              `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
-            )
-          );
+        case 'no_specs':
+          console.error(chalk.yellow('No specs found.'));
+          process.exit(0);
+          break;
 
-          if (result.specFiles.length === 0) {
-            console.error(chalk.green('No contract specs changed.'));
-            process.exit(0);
+        case 'success':
+          // Log baseline filtering info
+          if (options.baseline && result.changedFilesCount !== undefined) {
+            console.error(
+              chalk.gray(
+                `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
+              )
+            );
+            console.error(
+              chalk.gray(`${result.views.length} contract specs changed.`)
+            );
           }
-
-          console.error(
-            chalk.gray(`${result.specFiles.length} contract specs changed.`)
-          );
-        }
-
-        filesToProcess = result.specFiles;
+          break;
       }
 
-      if (filesToProcess.length === 0) {
-        console.error(chalk.yellow('No specs found.'));
-        process.exit(0);
-      }
-
-      const views: unknown[] = [];
-
-      for (const specFile of filesToProcess) {
-        const view = await generateView(
-          specFile,
-          options.audience as ViewAudience,
-          adapters
-        );
-        views.push(view);
-      }
-
+      // Output views
       if (options.json) {
-        // If single file and original behavior expected single object?
-        // But now we support multiple. Array output seems safer for consistency?
-        // Or if single file input -> single object output?
-        if (
-          filesToProcess.length === 1 &&
+        const firstView = result.views[0];
+        const isSingleExplicitFile =
+          result.views.length === 1 &&
           specFiles &&
-          specFiles.length === 1
-        ) {
-          console.log(JSON.stringify(views[0], null, 2));
-        } else {
-          console.log(JSON.stringify(views, null, 2));
-        }
+          specFiles.length === 1 &&
+          firstView;
+        const output = isSingleExplicitFile
+          ? firstView.content
+          : result.views.map((v) => v.content);
+        console.log(JSON.stringify(output, null, 2));
       } else {
-        views.forEach((v, i) => {
-          if (views.length > 1)
-            console.log(chalk.bold(`\n📄 ${filesToProcess[i]}`));
-          console.log(v);
+        result.views.forEach((view) => {
+          if (result.views.length > 1) {
+            console.log(chalk.bold(`\n📄 ${view.filePath}`));
+          }
+          console.log(view.content);
         });
       }
     } catch (error) {

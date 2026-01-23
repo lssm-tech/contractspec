@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/module.lifecycle-advisor@1.49.0
+  - @contractspec/module.lifecycle-core@1.49.0
+  - @contractspec/lib.observability@1.49.0
+  - @contractspec/lib.analytics@1.49.0
+  - @contractspec/lib.lifecycle@1.49.0
+  - @contractspec/lib.ai-agent@1.49.0
+
 ## 1.48.1
 
 ### Patch Changes

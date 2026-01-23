@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/example.locale-jurisdiction-gate@1.49.0
+  - @contractspec/example.versioned-knowledge-base@1.49.0
+  - @contractspec/example.kb-update-pipeline@1.49.0
+  - @contractspec/example.learning-patterns@1.49.0
+  - @contractspec/module.learning-journey@1.49.0
+  - @contractspec/lib.example-shared-ui@1.3.0
+  - @contractspec/lib.runtime-sandbox@0.4.0
+  - @contractspec/lib.design-system@1.49.0
+  - @contractspec/lib.ui-kit-web@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+
 ## 1.48.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 3.0.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.presentation-runtime-core@1.49.0
+  - @contractspec/lib.ui-kit@1.49.0
+
 ## 2.0.0
 
 ### Minor Changes

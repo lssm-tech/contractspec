@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.4.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
 ## 0.3.0
 
 ### Minor Changes
