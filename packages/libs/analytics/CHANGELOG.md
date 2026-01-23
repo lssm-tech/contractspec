@@ -1,5 +1,16 @@
 # @contractspec/lib.analytics
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.lifecycle@1.49.0
+
 ## 1.48.0
 
 ### Minor Changes

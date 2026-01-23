@@ -1,5 +1,20 @@
 # @contractspec/example.wealth-snapshot
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/module.notifications@1.49.0
+  - @contractspec/module.audit-trail@1.49.0
+  - @contractspec/lib.identity-rbac@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.schema@1.49.0
+
 ## 1.48.1
 
 ### Patch Changes

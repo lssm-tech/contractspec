@@ -1,5 +1,11 @@
 # @contractspec/lib.lifecycle
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
 ## 1.48.0
 
 ### Minor Changes

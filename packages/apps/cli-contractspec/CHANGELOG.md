@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.contracts-transformers@1.49.0
+  - @contractspec/bundle.workspace@1.49.0
+  - @contractspec/lib.ai-providers@1.49.0
+  - @contractspec/module.workspace@1.49.0
+  - @contractspec/module.examples@1.49.0
+  - @contractspec/module.ai-chat@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.ai-agent@1.49.0
+  - @contractspec/lib.plugins@1.49.0
+  - @contractspec/lib.testing@1.49.0
+  - @contractspec/lib.schema@1.49.0
+
+## 1.48.3
+
+### Patch Changes
+
+- e18bf1f: Fix impact command to use silent logger for JSON output format to prevent log messages from corrupting machine-readable output in CI pipelines.
+
 ## 1.48.2
 
 ### Patch Changes

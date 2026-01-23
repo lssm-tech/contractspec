@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.3.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.logger@1.49.0
+
 ## 1.2.0
 
 ### Minor Changes

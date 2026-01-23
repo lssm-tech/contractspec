@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 3.0.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.presentation-runtime-core@1.49.0
+  - @contractspec/lib.design-system@1.49.0
+  - @contractspec/lib.ui-kit-web@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+
 ## 2.0.1
 
 ### Patch Changes
