@@ -269,5 +269,8 @@ export function parseVersionedRefKey(
 ): VersionedSpecRef | undefined {
   const match = refKey.match(/^(.+)\.v(\d+\.\d+\.\d+(?:-.+)?)$/);
   if (!match) return undefined;
-  return { key: match[1], version: match[2] };
+  const key = match[1];
+  const version = match[2];
+  if (!key || !version) return undefined;
+  return { key, version };
 }

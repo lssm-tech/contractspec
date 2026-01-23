@@ -339,6 +339,7 @@
     "./translations/tenant": "./dist/translations/tenant.js",
     "./types": "./dist/types.js",
     "./versioning": "./dist/versioning/index.js",
+    "./versioning/refs": "./dist/versioning/refs.js",
     "./versioning/types": "./dist/versioning/types.js",
     "./versioning/utils": "./dist/versioning/utils.js",
     "./workflow": "./dist/workflow/index.js",
