@@ -3,8 +3,95 @@ import {
   type ParsedSpec,
 } from '@contractspec/module.workspace';
 import type { WorkspaceAdapters } from '../../ports/logger';
+import { listSpecs } from '../list';
 
 export type ViewAudience = 'product' | 'eng' | 'qa';
+
+/**
+ * Options for listing specs for view generation.
+ */
+export interface ListSpecsForViewOptions {
+  /**
+   * Git ref to compare against (only include specs changed since baseline).
+   */
+  baseline?: string;
+}
+
+/**
+ * Result of listing specs for view generation.
+ */
+export interface ListSpecsForViewResult {
+  /**
+   * List of spec file paths to process.
+   */
+  specFiles: string[];
+  /**
+   * Total number of specs found in workspace.
+   */
+  totalSpecs: number;
+  /**
+   * Number of changed files (when baseline is provided).
+   */
+  changedFilesCount?: number;
+  /**
+   * Whether any changes were detected (when baseline is provided).
+   */
+  hasChanges?: boolean;
+}
+
+/**
+ * List spec files for view generation, with optional baseline filtering.
+ *
+ * When a baseline is provided, only specs that changed since the baseline
+ * are included in the result.
+ */
+export async function listSpecsForView(
+  adapters: WorkspaceAdapters,
+  options: ListSpecsForViewOptions = {}
+): Promise<ListSpecsForViewResult> {
+  // Get all specs in workspace
+  const specs = await listSpecs({ fs: adapters.fs });
+  const allSpecFiles = specs.map((s) => s.filePath);
+  const totalSpecs = allSpecFiles.length;
+
+  // If no baseline, return all specs
+  if (!options.baseline) {
+    return {
+      specFiles: allSpecFiles,
+      totalSpecs,
+    };
+  }
+
+  // Get changed files since baseline
+  const changedFiles = await adapters.git.diffFiles(options.baseline);
+
+  if (changedFiles.length === 0) {
+    return {
+      specFiles: [],
+      totalSpecs,
+      changedFilesCount: 0,
+      hasChanges: false,
+    };
+  }
+
+  // Filter to specs that match changed files
+  const filteredSpecs = allSpecFiles.filter((specPath) =>
+    changedFiles.some(
+      (changed) =>
+        specPath.endsWith(changed) ||
+        changed.endsWith(specPath) ||
+        specPath.includes(changed) ||
+        changed.includes(specPath)
+    )
+  );
+
+  return {
+    specFiles: filteredSpecs,
+    totalSpecs,
+    changedFilesCount: changedFiles.length,
+    hasChanges: filteredSpecs.length > 0,
+  };
+}
 
 /**
  * Generate an audience-specific view of a spec file.

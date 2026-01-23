@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import {
   createNodeAdapters,
   generateView,
-  listSpecs,
+  listSpecsForView,
   type ViewAudience,
 } from '@contractspec/bundle.workspace';
 
@@ -37,53 +37,38 @@ export const viewCommand = new Command('view')
         filesToProcess = specFiles;
       } else {
         console.error(chalk.cyan('Scanning workspace for contracts...'));
-        // We need config, but it's not passed to action directly in Command setup usually without .hook or context
-        // Assuming we can load it or passed as global option?
-        // Wait, validateCommand received `config` because it was hooked in index.ts
-        // But viewCommand is defined using .action().
 
-        // We'll load config locally if needed or assume defaults
-        // Adapters has fs, we can try to load config
-        // Actually, we can just use defaults for listSpecs if config is missing
-        const specs = await listSpecs({ fs: adapters.fs });
-        filesToProcess = specs.map((s) => s.filePath);
-        console.error(chalk.gray(`Found ${filesToProcess.length} contracts.`));
-      }
+        // Use bundle service to list specs with optional baseline filtering
+        const result = await listSpecsForView(adapters, {
+          baseline: options.baseline,
+        });
 
-      // Filter to only changed specs if baseline is provided
-      if (options.baseline) {
-        const changedFiles = await adapters.git.diffFiles(options.baseline);
+        console.error(chalk.gray(`Found ${result.totalSpecs} contracts.`));
 
-        if (changedFiles.length === 0) {
-          console.error(chalk.green('No contract changes detected.'));
-          process.exit(0);
+        // Handle baseline filtering results
+        if (options.baseline) {
+          if (result.changedFilesCount === 0) {
+            console.error(chalk.green('No contract changes detected.'));
+            process.exit(0);
+          }
+
+          console.error(
+            chalk.gray(
+              `Found ${result.changedFilesCount} changed files since ${options.baseline}.`
+            )
+          );
+
+          if (result.specFiles.length === 0) {
+            console.error(chalk.green('No contract specs changed.'));
+            process.exit(0);
+          }
+
+          console.error(
+            chalk.gray(`${result.specFiles.length} contract specs changed.`)
+          );
         }
 
-        console.error(
-          chalk.gray(
-            `Found ${changedFiles.length} changed files since ${options.baseline}.`
-          )
-        );
-
-        // Filter to specs that match changed files
-        filesToProcess = filesToProcess.filter((specPath) =>
-          changedFiles.some(
-            (changed) =>
-              specPath.endsWith(changed) ||
-              changed.endsWith(specPath) ||
-              specPath.includes(changed) ||
-              changed.includes(specPath)
-          )
-        );
-
-        if (filesToProcess.length === 0) {
-          console.error(chalk.green('No contract specs changed.'));
-          process.exit(0);
-        }
-
-        console.error(
-          chalk.gray(`${filesToProcess.length} contract specs changed.`)
-        );
+        filesToProcess = result.specFiles;
       }
 
       if (filesToProcess.length === 0) {
