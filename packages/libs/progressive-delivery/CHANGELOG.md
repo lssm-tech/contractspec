@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 4.0.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.observability@1.50.0
+
 ## 3.0.0
 
 ### Minor Changes

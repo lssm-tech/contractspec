@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/example.kb-update-pipeline@1.50.0
+  - @contractspec/example.learning-patterns@1.50.0
+  - @contractspec/example.locale-jurisdiction-gate@1.50.0
+  - @contractspec/example.versioned-knowledge-base@1.50.0
+  - @contractspec/lib.design-system@1.50.0
+  - @contractspec/lib.example-shared-ui@1.4.0
+  - @contractspec/lib.runtime-sandbox@0.5.0
+  - @contractspec/lib.ui-kit-web@1.50.0
+  - @contractspec/module.learning-journey@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes
