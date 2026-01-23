@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.6.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
 ## 0.5.0
 
 ### Minor Changes

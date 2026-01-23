@@ -1,5 +1,17 @@
 # @contractspec/lib.source-extractors
 
+## 0.4.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.schema@1.50.0
+
 ## 0.3.0
 
 ### Minor Changes

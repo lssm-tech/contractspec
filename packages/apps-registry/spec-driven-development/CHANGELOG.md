@@ -1,5 +1,17 @@
 # spec-driven-development
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+- Updated dependencies [81a703b]
+  - @contractspec/app.cli-contractspec@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes
