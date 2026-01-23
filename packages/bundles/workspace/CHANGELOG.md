@@ -1,5 +1,21 @@
 # @contractspec/bundle.workspace
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/lib.contracts-transformers@1.49.0
+  - @contractspec/lib.source-extractors@0.3.0
+  - @contractspec/lib.ai-providers@1.49.0
+  - @contractspec/module.workspace@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+  - @contractspec/lib.ai-agent@1.49.0
+
 ## 1.48.1
 
 ### Patch Changes

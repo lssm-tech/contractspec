@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.49.0
+
+### Minor Changes
+
+- cafd041: fix: impact report comments within github action
+
+### Patch Changes
+
+- Updated dependencies [cafd041]
+  - @contractspec/example.learning-journey-studio-onboarding@1.49.0
+  - @contractspec/example.learning-journey-quest-challenges@1.49.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.49.0
+  - @contractspec/example.learning-journey-ambient-coach@1.49.0
+  - @contractspec/example.learning-journey-platform-tour@1.49.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.49.0
+  - @contractspec/example.learning-journey-ui-coaching@1.49.0
+  - @contractspec/example.learning-journey-ui-gamified@1.49.0
+  - @contractspec/example.learning-journey-duo-drills@1.49.0
+  - @contractspec/example.learning-journey-ui-shared@1.49.0
+  - @contractspec/module.learning-journey@1.49.0
+  - @contractspec/lib.contracts@1.49.0
+
 ## 1.48.1
 
 ### Patch Changes
