@@ -8,6 +8,7 @@ import type { ResourceRefDescriptor } from '../resources';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { TestSpecRef } from '../tests/spec';
+import type { CapabilityRef } from '../capabilities/capabilities';
 
 /**
  * Distinguishes between state-changing operations (command) and read-only operations (query).
@@ -90,6 +91,12 @@ export interface OperationSpec<
     | undefined,
 > {
   meta: OperationSpecMeta;
+
+  /**
+   * Optional reference to the capability that provides this operation.
+   * Used for bidirectional linking between capabilities and operations.
+   */
+  capability?: CapabilityRef;
 
   io: {
     /** Zod schema for input body payload */

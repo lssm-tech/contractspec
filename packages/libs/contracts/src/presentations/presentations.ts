@@ -1,6 +1,7 @@
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { OwnerShipMeta } from '../ownership';
 import type { BlockConfig } from '@blocknote/core';
+import type { CapabilityRef } from '../capabilities/capabilities';
 
 /** Supported render targets for the transform engine and descriptors. */
 export type PresentationTarget =
@@ -48,6 +49,11 @@ export type PresentationSource =
  */
 export interface PresentationSpec {
   meta: PresentationSpecMeta;
+  /**
+   * Optional reference to the capability that provides this presentation.
+   * Used for bidirectional linking between capabilities and presentations.
+   */
+  capability?: CapabilityRef;
   policy?: { flags?: string[]; pii?: string[] };
   source: PresentationSource;
   targets: PresentationTarget[]; // which outputs are supported by transforms
