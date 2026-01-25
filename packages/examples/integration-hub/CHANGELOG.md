@@ -1,5 +1,20 @@
 # @contractspec/example.integration-hub
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.design-system@1.50.0
+  - @contractspec/lib.example-shared-ui@1.4.0
+  - @contractspec/lib.runtime-sandbox@0.5.0
+  - @contractspec/lib.schema@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes

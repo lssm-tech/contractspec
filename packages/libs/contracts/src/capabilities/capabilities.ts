@@ -1,8 +1,11 @@
 import { compareVersions } from 'compare-versions';
 import type { OwnerShipMeta } from '../ownership';
+import type { VersionedSpecRef } from '../versioning';
 
+/** Classification of capability types. */
 export type CapabilityKind = 'api' | 'event' | 'data' | 'ui' | 'integration';
 
+/** Surfaces where capabilities can be exposed or consumed. */
 export type CapabilitySurface =
   | 'operation'
   | 'event'
@@ -10,29 +13,49 @@ export type CapabilitySurface =
   | 'presentation'
   | 'resource';
 
+/**
+ * Reference to a capability on a specific surface.
+ * Extends VersionedSpecRef with surface and description context.
+ */
 export interface CapabilitySurfaceRef {
+  /** The surface type where this capability is exposed. */
   surface: CapabilitySurface;
+  /** Unique key identifying the capability. */
   key: string;
+  /** Semantic version of the capability. */
   version: string;
+  /** Optional description of what this capability provides. */
   description?: string;
 }
 
+/** Metadata for a capability spec, extending ownership with kind. */
 export interface CapabilityMeta extends OwnerShipMeta {
+  /** The kind/category of this capability. */
   kind: CapabilityKind;
 }
 
+/**
+ * Requirement for a capability dependency.
+ * Used to declare what capabilities a spec needs.
+ */
 export interface CapabilityRequirement {
+  /** Unique key of the required capability. */
   key: string;
+  /** Optional specific version required. */
   version?: string;
+  /** Optional kind filter for the requirement. */
   kind?: CapabilityKind;
+  /** If true, the requirement is optional and won't block if missing. */
   optional?: boolean;
+  /** Human-readable reason why this capability is required. */
   reason?: string;
 }
 
-export interface CapabilityRef {
-  key: string;
-  version: string;
-}
+/**
+ * Reference to a capability spec.
+ * Uses key and version to identify a specific capability.
+ */
+export type CapabilityRef = VersionedSpecRef;
 
 export interface CapabilitySpec {
   meta: CapabilityMeta;

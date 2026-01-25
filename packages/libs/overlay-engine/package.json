@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.overlay-engine",
-  "version": "1.49.0",
+  "version": "1.50.0",
   "description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
   "keywords": [
     "contractspec",

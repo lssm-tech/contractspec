@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.source-extractors",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Extract contract candidates from TypeScript source code across multiple frameworks (NestJS, Express, Fastify, Hono, Elysia, tRPC, Next.js)",
   "keywords": [
     "contractspec",

@@ -2,11 +2,53 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import {
   createNodeAdapters,
-  generateView,
+  generateViews,
+  type GenerateViewsResult,
   type ViewAudience,
 } from '@contractspec/bundle.workspace';
 
-import { listSpecs } from '@contractspec/bundle.workspace';
+/**
+ * Handle result status and log appropriate messages.
+ * Returns true if processing should continue, false if should exit.
+ */
+function handleResultStatus(
+  result: GenerateViewsResult,
+  baseline?: string
+): boolean {
+  switch (result.status) {
+    case 'no_changes':
+      console.error(chalk.green('No contract changes detected.'));
+      return false;
+
+    case 'no_changed_specs':
+      if (result.changedFilesCount !== undefined) {
+        console.error(
+          chalk.gray(
+            `Found ${result.changedFilesCount} changed files since ${baseline}.`
+          )
+        );
+      }
+      console.error(chalk.green('No contract specs changed.'));
+      return false;
+
+    case 'no_specs':
+      console.error(chalk.yellow('No specs found.'));
+      return false;
+
+    case 'success':
+      if (baseline && result.changedFilesCount !== undefined) {
+        console.error(
+          chalk.gray(
+            `Found ${result.changedFilesCount} changed files since ${baseline}.`
+          )
+        );
+        console.error(
+          chalk.gray(`${result.views.length} contract specs changed.`)
+        );
+      }
+      return true;
+  }
+}
 
 export const viewCommand = new Command('view')
   .description('Generate audience-specific views of the contract')
@@ -16,71 +58,54 @@ export const viewCommand = new Command('view')
   )
   .requiredOption('--audience <type>', 'Audience type: product, eng, qa')
   .option('--json', 'Output as JSON')
+  .option(
+    '--baseline <ref>',
+    'Git ref to compare against (only show changed specs since baseline)'
+  )
   .action(async (specFiles: string[], options) => {
     try {
       const adapters = createNodeAdapters({ silent: true });
 
-      // Validate audience
-      const validAudiences = ['product', 'eng', 'qa'];
-      if (!validAudiences.includes(options.audience)) {
-        throw new Error(
-          `Invalid audience: ${options.audience}. Must be one of: ${validAudiences.join(', ')}`
-        );
-      }
-
-      // Resolve files
-      let filesToProcess: string[] = [];
-      if (specFiles && specFiles.length > 0) {
-        filesToProcess = specFiles;
-      } else {
+      // Log scanning message if not using explicit files
+      if (!specFiles || specFiles.length === 0) {
         console.error(chalk.cyan('Scanning workspace for contracts...'));
-        // We need config, but it's not passed to action directly in Command setup usually without .hook or context
-        // Assuming we can load it or passed as global option?
-        // Wait, validateCommand received `config` because it was hooked in index.ts
-        // But viewCommand is defined using .action().
-
-        // We'll load config locally if needed or assume defaults
-        // Adapters has fs, we can try to load config
-        // Actually, we can just use defaults for listSpecs if config is missing
-        const specs = await listSpecs({ fs: adapters.fs });
-        filesToProcess = specs.map((s) => s.filePath);
-        console.error(chalk.gray(`Found ${filesToProcess.length} contracts.`));
       }
 
-      if (filesToProcess.length === 0) {
-        console.error(chalk.yellow('No specs found.'));
+      // Generate views using bundle service
+      const result = await generateViews(adapters, {
+        audience: options.audience as ViewAudience,
+        specFiles: specFiles?.length > 0 ? specFiles : undefined,
+        baseline: options.baseline,
+      });
+
+      // Log scan results
+      if (result.totalSpecs !== undefined) {
+        console.error(chalk.gray(`Found ${result.totalSpecs} contracts.`));
+      }
+
+      // Handle result status
+      if (!handleResultStatus(result, options.baseline)) {
         process.exit(0);
       }
 
-      const views: unknown[] = [];
-
-      for (const specFile of filesToProcess) {
-        const view = await generateView(
-          specFile,
-          options.audience as ViewAudience,
-          adapters
-        );
-        views.push(view);
-      }
-
+      // Output views
       if (options.json) {
-        // If single file and original behavior expected single object?
-        // But now we support multiple. Array output seems safer for consistency?
-        // Or if single file input -> single object output?
-        if (
-          filesToProcess.length === 1 &&
+        const firstView = result.views[0];
+        const isSingleExplicitFile =
+          result.views.length === 1 &&
           specFiles &&
-          specFiles.length === 1
-        ) {
-          console.log(JSON.stringify(views[0], null, 2));
-        } else {
-          console.log(JSON.stringify(views, null, 2));
-        }
+          specFiles.length === 1 &&
+          firstView;
+        const output = isSingleExplicitFile
+          ? firstView.content
+          : result.views.map((v) => v.content);
+        console.log(JSON.stringify(output, null, 2));
       } else {
-        views.forEach((v, i) => {
-          if (views.length > 1)
-            console.log(chalk.bold(`\n📄 ${filesToProcess[i]}`));
-          console.log(v);
+        result.views.forEach((view) => {
+          if (result.views.length > 1) {
+            console.log(chalk.bold(`\n📄 ${view.filePath}`));
+          }
+          console.log(view.content);
         });
       }
     } catch (error) {

@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+- 81a703b: feat: add --baseline option to view command for PR change summaries
+  - Add `diffFiles()` method to GitAdapter for listing changed files between refs
+  - Add `generateViews()` service function with baseline filtering and audience validation
+  - Add `listSpecsForView()` helper for spec file resolution
+  - Add `--baseline <ref>` option to `contractspec view` command
+  - Update GitHub Actions workflow to show only changed contracts in PR comments
+  - Refactor CLI to delegate all business logic to bundle service
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+- Updated dependencies [81a703b]
+  - @contractspec/bundle.workspace@1.50.0
+  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/lib.ai-agent@1.50.0
+  - @contractspec/lib.ai-providers@1.50.0
+  - @contractspec/lib.contracts-transformers@1.50.0
+  - @contractspec/lib.plugins@1.50.0
+  - @contractspec/lib.schema@1.50.0
+  - @contractspec/lib.testing@1.50.0
+  - @contractspec/module.ai-chat@1.50.0
+  - @contractspec/module.examples@1.50.0
+  - @contractspec/module.workspace@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes

@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.ai-agent@1.50.0
+  - @contractspec/lib.analytics@1.50.0
+  - @contractspec/lib.lifecycle@1.50.0
+  - @contractspec/lib.observability@1.50.0
+  - @contractspec/module.lifecycle-advisor@1.50.0
+  - @contractspec/module.lifecycle-core@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes

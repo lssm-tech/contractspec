@@ -1,5 +1,20 @@
 # @contractspec/app.api-library
 
+## 1.4.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+- Updated dependencies [81a703b]
+  - @contractspec/bundle.workspace@1.50.0
+  - @contractspec/lib.contracts@1.50.0
+  - @contractspec/bundle.library@1.5.0
+  - @contractspec/bundle.marketing@1.5.0
+
 ## 1.3.0
 
 ### Minor Changes

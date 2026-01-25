@@ -1,5 +1,11 @@
 # @contractspec/eslint-plugin-design-system
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
 ## 1.49.0
 
 ### Minor Changes

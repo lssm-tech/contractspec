@@ -3,46 +3,40 @@ import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
 import type { ExperimentRef } from '../experiments/spec';
 import type { ImplementationRef } from '../operations/';
 import type { PresentationTarget } from '../presentations/presentations';
+import type { VersionedSpecRef, SpecKeyRef } from '../versioning';
 
 /** Minimal metadata to identify and categorize a feature module. */
 export type FeatureModuleMeta = OwnerShipMeta;
 
-export interface OpRef {
-  /** Operation key (OperationSpec.meta.key). */
-  key: string;
-  /** Operation version (OperationSpec.meta.version). */
-  version: string;
-}
+/**
+ * Reference to an operation spec.
+ * Uses key (OperationSpec.meta.key) and version (OperationSpec.meta.version).
+ */
+export type OpRef = VersionedSpecRef;
 
-export interface EventRef {
-  /** Event key. */
-  key: string;
-  /** Event version. */
-  version: string;
-}
+/**
+ * Reference to an event spec.
+ * Uses key (EventSpec.meta.key) and version (EventSpec.meta.version).
+ */
+export type EventRef = VersionedSpecRef;
 
-export interface PresentationRef {
-  /** Presentation key. */
-  key: string;
-  /** Presentation version. */
-  version: string;
-}
+/**
+ * Reference to a presentation spec.
+ * Uses key (PresentationSpec.meta.key) and version (PresentationSpec.meta.version).
+ */
+export type PresentationRef = VersionedSpecRef;
 
 /**
  * Reference to a data view spec.
+ * Uses key (DataViewSpec.meta.key) and version (DataViewSpec.meta.version).
  */
-export interface DataViewRef {
-  key: string;
-  version: string;
-}
+export type DataViewRef = VersionedSpecRef;
 
 /**
  * Reference to a form spec.
+ * Uses key (FormSpec.meta.key) and version (FormSpec.meta.version).
  */
-export interface FormRef {
-  key: string;
-  version: string;
-}
+export type FormRef = VersionedSpecRef;
 
 /** Group operations/events/presentations into an installable feature. */
 export interface FeatureModuleSpec {
@@ -85,6 +79,8 @@ export interface FeatureModuleSpec {
   forms?: FormRef[];
 }
 
-export interface FeatureRef {
-  key: string;
-}
+/**
+ * Reference to a feature (unversioned).
+ * Features are identified by key only, without version pinning.
+ */
+export type FeatureRef = SpecKeyRef;

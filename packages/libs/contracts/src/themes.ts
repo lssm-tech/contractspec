@@ -1,6 +1,8 @@
 import type { OwnerShipMeta } from './ownership';
 import { SpecContractRegistry } from './registry';
+import type { VersionedSpecRef } from './versioning';
 
+/** Scope at which a theme can be applied. */
 export type ThemeScope = 'global' | 'tenant' | 'user';
 
 export interface ThemeToken<T> {
@@ -46,10 +48,11 @@ export interface ThemeSpec {
   overrides?: ThemeOverride[];
 }
 
-export interface ThemeRef {
-  key: string;
-  version: string;
-}
+/**
+ * Reference to a theme spec.
+ * Uses key and version to identify a specific theme.
+ */
+export type ThemeRef = VersionedSpecRef;
 
 export class ThemeRegistry extends SpecContractRegistry<'theme', ThemeSpec> {
   constructor(items?: ThemeSpec[]) {

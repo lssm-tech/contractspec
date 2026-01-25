@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.5.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
 ## 0.4.0
 
 ### Minor Changes

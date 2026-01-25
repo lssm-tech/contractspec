@@ -7,7 +7,7 @@ index f8ef96b2ad5c041eb3ff412be6a2df2372a8682f..f2e183cbfbf4398fbb481d62e6d26e90
    "license": "MIT",
    "dependencies": {
 -    "@modelcontextprotocol/sdk": "^1.22.0"
-+    "@modelcontextprotocol/sdk": "^1.25.2"
++    "@modelcontextprotocol/sdk": "^1.25.3"
    },
    "peerDependencies": {
 -    "elysia": ">=1.0.0"

@@ -80,5 +80,28 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
         return [];
       }
     },
+
+    async diffFiles(baseline: string, patterns?: string[]): Promise<string[]> {
+      try {
+        const pathSpecs =
+          patterns && patterns.length > 0
+            ? `-- ${patterns.map((p) => `'${p}'`).join(' ')}`
+            : '';
+
+        const output = execSync(
+          `git diff --name-only ${baseline}...HEAD ${pathSpecs}`,
+          {
+            cwd: baseCwd,
+            encoding: 'utf-8',
+            stdio: ['ignore', 'pipe', 'pipe'],
+          }
+        );
+
+        return output.trim().split('\n').filter(Boolean);
+      } catch {
+        // Return empty array if diff fails (e.g., baseline doesn't exist)
+        return [];
+      }
+    },
   };
 }

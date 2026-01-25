@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 4.0.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.presentation-runtime-core@1.50.0
+  - @contractspec/lib.ui-kit@1.50.0
+
 ## 3.0.0
 
 ### Minor Changes

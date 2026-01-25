@@ -1,15 +1,18 @@
 import { compareVersions } from 'compare-versions';
 import type { OwnerShipMeta } from '../ownership';
+import type { OptionalVersionedSpecRef } from '../versioning';
 
-export interface OperationTargetRef {
-  key: string;
-  version?: string;
-}
+/**
+ * Reference to an operation to be tested.
+ * Version is optional; when omitted, refers to the latest version.
+ */
+export type OperationTargetRef = OptionalVersionedSpecRef;
 
-export interface WorkflowTargetRef {
-  key: string;
-  version?: string;
-}
+/**
+ * Reference to a workflow to be tested.
+ * Version is optional; when omitted, refers to the latest version.
+ */
+export type WorkflowTargetRef = OptionalVersionedSpecRef;
 
 export type TestTarget =
   | { type: 'operation'; operation: OperationTargetRef }
@@ -79,10 +82,11 @@ export interface TestSpec {
   coverage?: CoverageRequirement;
 }
 
-export interface TestSpecRef {
-  key: string;
-  version?: string;
-}
+/**
+ * Reference to a test spec.
+ * Version is optional; when omitted, refers to the latest version.
+ */
+export type TestSpecRef = OptionalVersionedSpecRef;
 
 const testKey = (meta: OwnerShipMeta) => `${meta.key}.v${meta.version}`;
 

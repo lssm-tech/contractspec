@@ -1,5 +1,18 @@
 # @contractspec/lib.accessibility
 
+## 1.50.0
+
+### Minor Changes
+
+- 5325d6b: feat: improve seo
+
+### Patch Changes
+
+- Updated dependencies [5325d6b]
+  - @contractspec/lib.design-system@1.50.0
+  - @contractspec/lib.ui-kit@1.50.0
+  - @contractspec/lib.ui-kit-web@1.50.0
+
 ## 1.49.0
 
 ### Minor Changes
