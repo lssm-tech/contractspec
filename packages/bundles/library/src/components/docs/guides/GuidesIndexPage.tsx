@@ -18,6 +18,13 @@ const guides = [
     time: '25 min',
   },
   {
+    title: 'Import existing codebase',
+    description:
+      'Add ContractSpec to an existing codebase by analysing the codebase.',
+    href: '/docs/guides/import-existing-codebase',
+    time: '10 min',
+  },
+  {
     title: 'Spec-driven validation + typing',
     description:
       'Define operations with SchemaModel, generate types, and enforce validation without rewrites.',
