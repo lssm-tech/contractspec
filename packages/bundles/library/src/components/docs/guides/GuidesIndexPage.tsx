@@ -18,11 +18,11 @@ const guides = [
     time: '25 min',
   },
   {
-    title: 'Import existing codebase',
+    title: 'Import existing codebases',
     description:
-      'Add ContractSpec to an existing codebase by analysing the codebase.',
-    href: '/docs/guides/import-existing-codebase',
-    time: '10 min',
+      'Convert your existing API endpoints into ContractSpec contracts for fast onboarding.',
+    href: '/docs/guides/import-existing-codebases',
+    time: '20 min',
   },
   {
     title: 'Spec-driven validation + typing',
