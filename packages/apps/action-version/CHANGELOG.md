@@ -1,5 +1,11 @@
 # @contractspec/action.version
 
+## 0.7.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
 ## 0.6.0
 
 ### Minor Changes

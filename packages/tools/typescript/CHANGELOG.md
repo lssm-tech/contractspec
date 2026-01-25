@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
 ## 1.50.0
 
 ### Minor Changes

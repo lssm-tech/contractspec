@@ -1,5 +1,35 @@
 # @contractspec/bundle.marketing
 
+## 1.6.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [23e46e9]
+- Updated dependencies [ad1f852]
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/example.analytics-dashboard@1.51.0
+  - @contractspec/example.saas-boilerplate@1.51.0
+  - @contractspec/example.integration-hub@1.51.0
+  - @contractspec/example.workflow-system@1.51.0
+  - @contractspec/example.agent-console@1.51.0
+  - @contractspec/lib.example-shared-ui@1.5.0
+  - @contractspec/example.crm-pipeline@1.51.0
+  - @contractspec/example.marketplace@1.51.0
+  - @contractspec/lib.runtime-sandbox@0.6.0
+  - @contractspec/lib.design-system@1.51.0
+  - @contractspec/lib.ui-kit-core@1.51.0
+  - @contractspec/module.examples@1.51.0
+  - @contractspec/bundle.library@1.6.0
+  - @contractspec/lib.ui-kit-web@1.51.0
+  - @contractspec/lib.ui-link@1.51.0
+  - @contractspec/lib.logger@1.51.0
+  - @contractspec/lib.email@1.5.0
+
 ## 1.5.0
 
 ### Minor Changes
