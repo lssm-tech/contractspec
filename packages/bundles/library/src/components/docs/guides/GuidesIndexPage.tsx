@@ -4,6 +4,13 @@ import { ArrowRight, BookOpen, CheckCircle2 } from 'lucide-react';
 
 const guides = [
   {
+    title: 'Contract types overview',
+    description:
+      'Learn about the different contract types and when to use each one.',
+    href: '/docs/guides/contract-types',
+    time: '15 min',
+  },
+  {
     title: 'Next.js: one endpoint',
     description:
       'Add ContractSpec to an existing Next.js app by wiring one operation end-to-end.',
