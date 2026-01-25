@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 0.6.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
 ## 0.5.0
 
 ### Minor Changes

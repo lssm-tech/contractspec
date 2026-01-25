@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/bundle.library",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",
@@ -61,7 +61,9 @@
     "./components/docs/getting-started/VSCodeExtensionPage": "./src/components/docs/getting-started/VSCodeExtensionPage.tsx",
     "./components/docs/guides": "./src/components/docs/guides/index.ts",
     "./components/docs/guides/GuideCIDiffGatingPage": "./src/components/docs/guides/GuideCIDiffGatingPage.tsx",
+    "./components/docs/guides/GuideContractTypesPage": "./src/components/docs/guides/GuideContractTypesPage.tsx",
     "./components/docs/guides/GuideGenerateDocsClientsSchemasPage": "./src/components/docs/guides/GuideGenerateDocsClientsSchemasPage.tsx",
+    "./components/docs/guides/GuideImportExistingCodebasesPage": "./src/components/docs/guides/GuideImportExistingCodebasesPage.tsx",
     "./components/docs/guides/GuideNextjsOneEndpointPage": "./src/components/docs/guides/GuideNextjsOneEndpointPage.tsx",
     "./components/docs/guides/guides.docblocks": "./src/components/docs/guides/guides.docblocks.ts",
     "./components/docs/guides/GuidesIndexPage": "./src/components/docs/guides/GuidesIndexPage.tsx",
@@ -371,7 +373,9 @@
       "./components/docs/getting-started/VSCodeExtensionPage": "./dist/components/docs/getting-started/VSCodeExtensionPage.js",
       "./components/docs/guides": "./dist/components/docs/guides/index.js",
       "./components/docs/guides/GuideCIDiffGatingPage": "./dist/components/docs/guides/GuideCIDiffGatingPage.js",
+      "./components/docs/guides/GuideContractTypesPage": "./dist/components/docs/guides/GuideContractTypesPage.js",
       "./components/docs/guides/GuideGenerateDocsClientsSchemasPage": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js",
+      "./components/docs/guides/GuideImportExistingCodebasesPage": "./dist/components/docs/guides/GuideImportExistingCodebasesPage.js",
       "./components/docs/guides/GuideNextjsOneEndpointPage": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js",
       "./components/docs/guides/guides.docblocks": "./dist/components/docs/guides/guides.docblocks.js",
       "./components/docs/guides/GuidesIndexPage": "./dist/components/docs/guides/GuidesIndexPage.js",

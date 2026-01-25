@@ -284,3 +284,321 @@ function detectCycles(
 
   for (const node of adjacency.keys()) dfs(node);
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Cross-Registry Validation
+// ─────────────────────────────────────────────────────────────────────────────
+
+import type { WorkflowRegistry } from './spec';
+import type { EventRegistry } from '../events';
+import type { CapabilityRegistry } from '../capabilities/capabilities';
+
+export interface WorkflowConsistencyDeps {
+  workflows: WorkflowRegistry;
+  operations?: OperationSpecRegistry;
+  forms?: FormRegistry;
+  events?: EventRegistry;
+  capabilities?: CapabilityRegistry;
+}
+
+export interface WorkflowValidationResult {
+  valid: boolean;
+  issues: WorkflowValidationIssue[];
+}
+
+/**
+ * Validate workflow consistency across registries.
+ *
+ * Checks that:
+ * - All workflow specs are internally valid
+ * - Operations referenced by steps exist
+ * - Forms referenced by steps exist
+ * - Capabilities required by steps exist
+ *
+ * @param deps - Registry dependencies
+ * @returns Validation result
+ */
+export function validateWorkflowConsistency(
+  deps: WorkflowConsistencyDeps
+): WorkflowValidationResult {
+  const issues: WorkflowValidationIssue[] = [];
+
+  // Validate each workflow spec
+  for (const workflow of deps.workflows.list()) {
+    const specOptions: ValidateWorkflowSpecOptions = {
+      operations: deps.operations,
+      forms: deps.forms,
+    };
+    const specIssues = validateWorkflowSpec(workflow, specOptions);
+    issues.push(
+      ...specIssues.map((i) => ({
+        ...i,
+        message: `[${workflow.meta.key}.v${workflow.meta.version}] ${i.message}`,
+      }))
+    );
+
+    // Validate capability references
+    if (deps.capabilities) {
+      for (const step of workflow.definition.steps) {
+        for (const capRef of step.requiredCapabilities ?? []) {
+          const cap = deps.capabilities.get(capRef.key, capRef.version);
+          if (!cap) {
+            issues.push({
+              level: 'error',
+              message: `[${workflow.meta.key}.v${workflow.meta.version}] Step "${step.id}" references unknown capability "${capRef.key}.v${capRef.version}"`,
+              context: { stepId: step.id, capability: capRef },
+            });
+          }
+        }
+      }
+    }
+
+    // Validate compensation operations
+    if (workflow.definition.compensation && deps.operations) {
+      for (const compStep of workflow.definition.compensation.steps) {
+        const op = deps.operations.get(
+          compStep.operation.key,
+          compStep.operation.version
+        );
+        if (!op) {
+          issues.push({
+            level: 'error',
+            message: `[${workflow.meta.key}.v${workflow.meta.version}] Compensation for step "${compStep.stepId}" references unknown operation "${compStep.operation.key}.v${compStep.operation.version}"`,
+            context: { stepId: compStep.stepId, operation: compStep.operation },
+          });
+        }
+      }
+    }
+
+    // Validate SLA step references
+    if (workflow.definition.sla?.stepDurationMs) {
+      const stepIds = new Set(workflow.definition.steps.map((s) => s.id));
+      for (const stepId of Object.keys(
+        workflow.definition.sla.stepDurationMs
+      )) {
+        if (!stepIds.has(stepId)) {
+          issues.push({
+            level: 'warning',
+            message: `[${workflow.meta.key}.v${workflow.meta.version}] SLA references unknown step "${stepId}"`,
+            context: { stepId },
+          });
+        }
+      }
+    }
+  }
+
+  return {
+    valid: issues.filter((i) => i.level === 'error').length === 0,
+    issues,
+  };
+}
+
+/**
+ * Assert workflow consistency across registries.
+ *
+ * @param deps - Registry dependencies
+ * @throws {WorkflowValidationError} If validation fails
+ */
+export function assertWorkflowConsistency(deps: WorkflowConsistencyDeps): void {
+  const result = validateWorkflowConsistency(deps);
+  if (!result.valid) {
+    throw new WorkflowValidationError(
+      'Workflow consistency check failed',
+      result.issues
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Additional Validation Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Validate SLA configuration is reasonable.
+ *
+ * @param spec - Workflow spec to validate
+ * @returns Array of validation issues
+ */
+export function validateSlaConfig(
+  spec: WorkflowSpec
+): WorkflowValidationIssue[] {
+  const issues: WorkflowValidationIssue[] = [];
+  const sla = spec.definition.sla;
+  if (!sla) return issues;
+
+  // Check total duration is positive
+  if (sla.totalDurationMs !== undefined && sla.totalDurationMs <= 0) {
+    issues.push({
+      level: 'error',
+      message: 'SLA totalDurationMs must be positive',
+      context: { totalDurationMs: sla.totalDurationMs },
+    });
+  }
+
+  // Check step durations are positive
+  if (sla.stepDurationMs) {
+    for (const [stepId, duration] of Object.entries(sla.stepDurationMs)) {
+      if (duration <= 0) {
+        issues.push({
+          level: 'error',
+          message: `SLA stepDurationMs for "${stepId}" must be positive`,
+          context: { stepId, duration },
+        });
+      }
+    }
+
+    // Warn if total duration is less than sum of step durations
+    const stepDurationsSum = Object.values(sla.stepDurationMs).reduce(
+      (sum, d) => sum + d,
+      0
+    );
+    if (sla.totalDurationMs && stepDurationsSum > sla.totalDurationMs) {
+      issues.push({
+        level: 'warning',
+        message: `Sum of step durations (${stepDurationsSum}ms) exceeds total duration (${sla.totalDurationMs}ms)`,
+        context: { stepDurationsSum, totalDurationMs: sla.totalDurationMs },
+      });
+    }
+  }
+
+  return issues;
+}
+
+/**
+ * Validate compensation configuration.
+ *
+ * @param spec - Workflow spec to validate
+ * @returns Array of validation issues
+ */
+export function validateCompensation(
+  spec: WorkflowSpec
+): WorkflowValidationIssue[] {
+  const issues: WorkflowValidationIssue[] = [];
+  const compensation = spec.definition.compensation;
+  if (!compensation) return issues;
+
+  const stepIds = new Set(spec.definition.steps.map((s) => s.id));
+  const coveredSteps = new Set<string>();
+
+  for (const compStep of compensation.steps) {
+    // Check step exists
+    if (!stepIds.has(compStep.stepId)) {
+      issues.push({
+        level: 'error',
+        message: `Compensation references unknown step "${compStep.stepId}"`,
+        context: { stepId: compStep.stepId },
+      });
+    }
+
+    // Check for duplicate compensation
+    if (coveredSteps.has(compStep.stepId)) {
+      issues.push({
+        level: 'warning',
+        message: `Multiple compensation handlers for step "${compStep.stepId}"`,
+        context: { stepId: compStep.stepId },
+      });
+    }
+    coveredSteps.add(compStep.stepId);
+
+    // Check operation reference
+    if (!compStep.operation?.key || !compStep.operation?.version) {
+      issues.push({
+        level: 'error',
+        message: `Compensation for step "${compStep.stepId}" must specify operation with key and version`,
+        context: { stepId: compStep.stepId },
+      });
+    }
+  }
+
+  // Warn about automation steps without compensation
+  const automationSteps = spec.definition.steps.filter(
+    (s) => s.type === 'automation'
+  );
+  for (const step of automationSteps) {
+    if (!coveredSteps.has(step.id)) {
+      issues.push({
+        level: 'warning',
+        message: `Automation step "${step.id}" has no compensation handler`,
+        context: { stepId: step.id },
+      });
+    }
+  }
+
+  return issues;
+}
+
+/**
+ * Validate retry configuration.
+ *
+ * @param spec - Workflow spec to validate
+ * @returns Array of validation issues
+ */
+export function validateRetryConfig(
+  spec: WorkflowSpec
+): WorkflowValidationIssue[] {
+  const issues: WorkflowValidationIssue[] = [];
+
+  for (const step of spec.definition.steps) {
+    if (!step.retry) continue;
+
+    if (step.retry.maxAttempts <= 0) {
+      issues.push({
+        level: 'error',
+        message: `Step "${step.id}" retry maxAttempts must be positive`,
+        context: { stepId: step.id, maxAttempts: step.retry.maxAttempts },
+      });
+    }
+
+    if (step.retry.delayMs <= 0) {
+      issues.push({
+        level: 'error',
+        message: `Step "${step.id}" retry delayMs must be positive`,
+        context: { stepId: step.id, delayMs: step.retry.delayMs },
+      });
+    }
+
+    if (
+      step.retry.maxDelayMs !== undefined &&
+      step.retry.maxDelayMs < step.retry.delayMs
+    ) {
+      issues.push({
+        level: 'warning',
+        message: `Step "${step.id}" retry maxDelayMs (${step.retry.maxDelayMs}) is less than delayMs (${step.retry.delayMs})`,
+        context: { stepId: step.id },
+      });
+    }
+  }
+
+  return issues;
+}
+
+/**
+ * Perform comprehensive workflow validation.
+ *
+ * @param spec - Workflow spec to validate
+ * @param options - Validation options
+ * @returns Validation result
+ */
+export function validateWorkflowComprehensive(
+  spec: WorkflowSpec,
+  options: ValidateWorkflowSpecOptions = {}
+): WorkflowValidationResult {
+  const issues: WorkflowValidationIssue[] = [];
+
+  // Basic validation
+  issues.push(...validateWorkflowSpec(spec, options));
+
+  // SLA validation
+  issues.push(...validateSlaConfig(spec));
+
+  // Compensation validation
+  issues.push(...validateCompensation(spec));
+
+  // Retry validation
+  issues.push(...validateRetryConfig(spec));
+
+  return {
+    valid: issues.filter((i) => i.level === 'error').length === 0,
+    issues,
+  };
+}

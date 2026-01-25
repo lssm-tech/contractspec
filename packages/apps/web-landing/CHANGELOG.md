@@ -1,5 +1,33 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/example.policy-safe-knowledge-assistant@1.51.0
+  - @contractspec/example.analytics-dashboard@1.51.0
+  - @contractspec/example.saas-boilerplate@1.51.0
+  - @contractspec/lib.progressive-delivery@5.0.0
+  - @contractspec/example.integration-hub@1.51.0
+  - @contractspec/example.workflow-system@1.51.0
+  - @contractspec/example.agent-console@1.51.0
+  - @contractspec/lib.example-shared-ui@1.5.0
+  - @contractspec/example.crm-pipeline@1.51.0
+  - @contractspec/example.marketplace@1.51.0
+  - @contractspec/lib.design-system@1.51.0
+  - @contractspec/bundle.marketing@1.6.0
+  - @contractspec/lib.ui-kit-core@1.51.0
+  - @contractspec/module.examples@1.51.0
+  - @contractspec/bundle.library@1.6.0
+  - @contractspec/lib.ui-kit-web@1.51.0
+  - @contractspec/lib.ui-link@1.51.0
+  - @contractspec/lib.ui-kit@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/module.lifecycle-advisor@1.51.0
+  - @contractspec/module.lifecycle-core@1.51.0
+  - @contractspec/lib.observability@1.51.0
+  - @contractspec/lib.analytics@1.51.0
+  - @contractspec/lib.lifecycle@1.51.0
+  - @contractspec/lib.ai-agent@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

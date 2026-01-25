@@ -1,6 +1,6 @@
 {
   "name": "@contractspec/lib.progressive-delivery",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": [

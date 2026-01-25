@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/sandbox/'],
+        disallow: ['/sandbox/'],
       },
     ],
     sitemap: 'https://www.contractspec.io/sitemap.xml',

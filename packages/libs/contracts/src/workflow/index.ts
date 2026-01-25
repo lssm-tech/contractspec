@@ -4,6 +4,8 @@ export * from './state';
 export * from './runner';
 export * from './expression';
 export * from './adapters';
+export * from './context';
+export * from './sla-monitor';
 
 import type { WorkflowSpec } from './spec';
 

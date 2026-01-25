@@ -6,12 +6,201 @@ export const tech_contracts_capabilities_DocBlocks: DocBlock[] = [
     id: 'docs.tech.contracts.capabilities',
     title: 'CapabilitySpec Overview',
     summary:
-      'Capability specs provide a canonical, versioned contract for what a module offers (`provides`) and what it depends on (`requires`). They enable safe composition across features, automated validation during `installFeature`, and consistent documentation for shared surfaces (APIs, events, workflows, UI, resources).',
+      'Capability specs define what a module provides (operations, events, presentations) and requires (dependencies). They enable bidirectional linking, inheritance, runtime enforcement, and automated validation.',
     kind: 'reference',
     visibility: 'public',
     route: '/docs/tech/contracts/capabilities',
     tags: ['tech', 'contracts', 'capabilities'],
-    body: "# CapabilitySpec Overview\n\n## Purpose\n\nCapability specs provide a canonical, versioned contract for what a module offers (`provides`) and what it depends on (`requires`). They enable safe composition across features, automated validation during `installFeature`, and consistent documentation for shared surfaces (APIs, events, workflows, UI, resources).\n\n## Schema\n\nDefined in `@contractspec/lib.contracts/src/capabilities.ts`.\n\n```ts\nexport interface CapabilitySpec {\n  meta: CapabilityMeta;              // ownership metadata + { key, version, kind }\n  provides?: CapabilitySurfaceRef[]; // what concrete surfaces this capability exposes\n  requires?: CapabilityRequirement[];// capabilities that must already exist\n}\n```\n\n- **CapabilityMeta**\n  - `key`: stable slug (e.g., `payments.stripe`)\n  - `version`: bump on breaking changes\n  - `kind`: `'api' | 'event' | 'data' | 'ui' | 'integration'`\n  - ownership fields (`title`, `description`, `domain`, `owners`, `tags`, `stability`)\n- **CapabilitySurfaceRef**\n  - `surface`: `'operation' | 'event' | 'workflow' | 'presentation' | 'resource'`\n  - `name` / `version`: points to the declared contract (operation name, event name, etc.)\n  - optional `description`\n- **CapabilityRequirement**\n  - `key`: capability slug to satisfy\n  - `version?`: pin to an exact version when required (defaults to highest registered)\n  - `kind?`: extra guard if the same key hosts multiple kinds\n  - `optional?`: skip strict enforcement (informational requirement)\n  - `reason?`: why this dependency exists (docs + tooling)\n\n## Registry\n\n`CapabilityRegistry` provides:\n\n- `register(spec)`: register a capability (`key + version` must be unique)\n- `get(key, version?)`: retrieve the exact or highest version\n- `list()`: inspect all capabilities\n- `satisfies(requirement, additional?)`: check if a requirement is met (includes locally provided capabilities passed via `additional`)\n\n## Feature Integration\n\n`FeatureModuleSpec` now accepts:\n\n```ts\ncapabilities?: {\n  provides?: CapabilityRef[];    // capabilities this feature exposes\n  requires?: CapabilityRequirement[]; // capabilities the feature needs\n};\n```\n\nDuring `installFeature`:\n\n1. `provides` entries must exist in the `CapabilityRegistry`.\n2. `requires` entries must be satisfied either by:\n   - the same feature\u2019s `provides`,\n   - or existing capabilities already registered in the global registry.\n\nErrors are thrown when dependencies cannot be satisfied, preventing unsafe module composition.\n\n## Authoring Guidelines\n\n1. **Register capability specs** in a shared package (e.g., `packages/.../capabilities`) before referencing them in features.\n2. **Version consciously**: bump capability versions when the provided surfaces or contract semantics change.\n3. **Document dependencies** via `reason` strings to help operators understand why a capability is required.\n4. **Prefer stable keys** that map to business/technical domains (`billing.invoices`, `payments.stripe`, `cms.assets`).\n5. When introducing new capability kinds, update the `CapabilityKind` union and accompanying docs/tests.\n\n## Tooling (Roadmap)\n\n- CLI validation warns when feature specs reference missing capabilities.\n- Future build steps will leverage capability data to scaffold adapters and enforce policy in generated code.\n- Capability metadata will surface in docs/LLM guides to describe module marketplaces and installation flows.\n\n",
+    body: `# CapabilitySpec Overview
+
+## Purpose
+
+Capabilities are **module interfaces** that define:
+1. What operations, events, and presentations a module exposes (\`provides\`)
+2. What other capabilities it depends on (\`requires\`)
+3. Inheritance hierarchies via \`extends\`
+
+They enable:
+- **Bidirectional linking**: Specs reference capabilities, capabilities list their specs
+- **Dependency validation**: Features can't install without satisfying requirements
+- **Runtime enforcement**: Check capabilities before executing operations
+- **Inheritance**: Build capability hierarchies with shared requirements
+
+## Schema
+
+\`\`\`ts
+export interface CapabilitySpec {
+  meta: CapabilityMeta;              // ownership metadata + { key, version, kind }
+  extends?: CapabilityRef;           // NEW: inherit from parent capability
+  provides?: CapabilitySurfaceRef[]; // surfaces this capability exposes
+  requires?: CapabilityRequirement[];// capabilities that must exist
+}
+\`\`\`
+
+### Bidirectional Linking
+
+Operations, events, and presentations can now declare their capability:
+
+\`\`\`ts
+// In OperationSpec
+{
+  meta: { key: 'payments.charge.create', ... },
+  capability: { key: 'payments', version: '1.0.0' }, // Links to capability
+  io: { ... }
+}
+
+// In CapabilitySpec
+{
+  meta: { key: 'payments', version: '1.0.0', ... },
+  provides: [
+    { surface: 'operation', key: 'payments.charge.create' }
+  ]
+}
+\`\`\`
+
+Validation ensures both sides match via \`validateCapabilityConsistency()\`.
+
+## Registry Query Methods
+
+The \`CapabilityRegistry\` now provides rich query capabilities:
+
+\`\`\`ts
+// Forward lookups: Capability → Specs
+registry.getOperationsFor('payments');      // ['payments.charge.create', ...]
+registry.getEventsFor('payments');          // ['payments.charge.succeeded', ...]
+registry.getPresentationsFor('payments');   // ['payments.dashboard', ...]
+
+// Reverse lookups: Spec → Capabilities
+registry.getCapabilitiesForOperation('payments.charge.create');
+registry.getCapabilitiesForEvent('payments.charge.succeeded');
+registry.getCapabilitiesForPresentation('payments.dashboard');
+
+// Inheritance
+registry.getAncestors('payments.stripe');           // Parent chain
+registry.getEffectiveRequirements('payments.stripe'); // Includes inherited
+registry.getEffectiveSurfaces('payments.stripe');     // Includes inherited
+\`\`\`
+
+## Inheritance
+
+Capabilities can extend other capabilities:
+
+\`\`\`ts
+// Base capability
+defineCapability({
+  meta: { key: 'payments.base', version: '1.0.0', ... },
+  requires: [{ key: 'auth', version: '1.0.0' }],
+  provides: [{ surface: 'operation', key: 'payments.list' }]
+});
+
+// Child capability inherits requirements
+defineCapability({
+  meta: { key: 'payments.stripe', version: '1.0.0', ... },
+  extends: { key: 'payments.base', version: '1.0.0' },
+  requires: [{ key: 'encryption', version: '1.0.0' }], // Added
+  provides: [{ surface: 'operation', key: 'payments.stripe.charge' }]
+});
+
+// getEffectiveRequirements('payments.stripe') returns:
+// [{ key: 'auth', ... }, { key: 'encryption', ... }]
+\`\`\`
+
+## Runtime Enforcement
+
+Use \`CapabilityContext\` for opt-in runtime checks:
+
+\`\`\`ts
+import { createCapabilityContext, assertCapabilityForOperation } from '@contractspec/lib.contracts';
+
+// Create context from user's enabled capabilities
+const ctx = createCapabilityContext(user.capabilities);
+
+// Check capability
+if (ctx.hasCapability('payments')) {
+  // User can access payments features
+}
+
+// Assert capability (throws if missing)
+ctx.requireCapability('payments');
+
+// Guard an operation
+assertCapabilityForOperation(ctx, paymentOperation);
+
+// Filter operations by enabled capabilities
+const allowedOps = filterOperationsByCapability(ctx, allOperations);
+\`\`\`
+
+## Validation
+
+Validate bidirectional consistency between capabilities and specs:
+
+\`\`\`ts
+import { validateCapabilityConsistency, findOrphanSpecs } from '@contractspec/lib.contracts';
+
+const result = validateCapabilityConsistency({
+  capabilities: capabilityRegistry,
+  operations: operationRegistry,
+  events: eventRegistry,
+  presentations: presentationRegistry,
+});
+
+if (!result.valid) {
+  console.error('Validation errors:', result.errors);
+}
+
+// Find specs without capability assignment (informational)
+const orphans = findOrphanSpecs({ capabilities, operations });
+\`\`\`
+
+## Feature Integration
+
+During \`installFeature()\`:
+1. \`provides\` capabilities must exist in the registry
+2. \`requires\` must be satisfied by registered capabilities or local \`provides\`
+3. Referenced operations/events/presentations must exist
+
+## Authoring Guidelines
+
+1. **Register capabilities first** before referencing them in features
+2. **Use bidirectional linking** - set \`capability\` on specs and list them in \`provides\`
+3. **Version consciously** - bump versions on breaking changes
+4. **Document dependencies** with \`reason\` strings
+5. **Use inheritance** for capability families with shared requirements
+6. **Validate during CI** with \`validateCapabilityConsistency()\`
+
+## Error Handling
+
+\`\`\`ts
+import { CapabilityMissingError } from '@contractspec/lib.contracts';
+
+try {
+  ctx.requireCapability('premium-features');
+} catch (err) {
+  if (err instanceof CapabilityMissingError) {
+    console.log('Missing:', err.capabilityKey);
+    console.log('Required version:', err.requiredVersion);
+  }
+}
+\`\`\`
+
+## API Reference
+
+### Types
+- \`CapabilitySpec\` - Capability definition
+- \`CapabilityRef\` - Reference to a capability (key + version)
+- \`CapabilitySurfaceRef\` - Reference to a provided surface
+- \`CapabilityRequirement\` - Dependency requirement
+- \`CapabilityContext\` - Runtime capability context
+- \`CapabilityValidationResult\` - Validation result
+
+### Functions
+- \`defineCapability(spec)\` - Define a capability spec
+- \`createCapabilityContext(caps)\` - Create runtime context
+- \`validateCapabilityConsistency(deps)\` - Validate bidirectional links
+- \`findOrphanSpecs(deps)\` - Find specs without capability assignment
+- \`assertCapabilityForOperation/Event/Presentation(ctx, spec)\` - Guards
+- \`filterOperationsByCapability(ctx, ops)\` - Filter by enabled capabilities
+`,
   },
 ];
 registerDocBlocks(tech_contracts_capabilities_DocBlocks);

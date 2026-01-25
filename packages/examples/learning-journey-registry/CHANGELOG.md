@@ -1,5 +1,29 @@
 # @contractspec/example.learning-journey-registry
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [23e46e9]
+- Updated dependencies [ad1f852]
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/example.learning-journey-studio-onboarding@1.51.0
+  - @contractspec/example.learning-journey-quest-challenges@1.51.0
+  - @contractspec/example.learning-journey-crm-onboarding@1.51.0
+  - @contractspec/example.learning-journey-ambient-coach@1.51.0
+  - @contractspec/example.learning-journey-platform-tour@1.51.0
+  - @contractspec/example.learning-journey-ui-onboarding@1.51.0
+  - @contractspec/example.learning-journey-ui-coaching@1.51.0
+  - @contractspec/example.learning-journey-ui-gamified@1.51.0
+  - @contractspec/example.learning-journey-duo-drills@1.51.0
+  - @contractspec/example.learning-journey-ui-shared@1.51.0
+  - @contractspec/module.learning-journey@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

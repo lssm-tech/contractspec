@@ -37,6 +37,7 @@ import { type AnySchemaModel } from '@contractspec/lib.schema';
 import type { OwnerShipMeta } from './ownership';
 import type { DocId } from './docs/registry';
 import { SpecContractRegistry } from './registry';
+import type { CapabilityRef } from './capabilities/capabilities';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Event Spec Types
@@ -63,6 +64,11 @@ export interface EventSpecMeta extends Omit<OwnerShipMeta, 'docId'> {
 export interface EventSpec<T extends AnySchemaModel> {
   /** Event metadata including key, version, and ownership. */
   meta: EventSpecMeta;
+  /**
+   * Optional reference to the capability that provides this event.
+   * Used for bidirectional linking between capabilities and events.
+   */
+  capability?: CapabilityRef;
   /**
    * JSON paths to PII fields that should be redacted in logs/exports.
    * @example ['email', 'user.phone', 'billing.address']
