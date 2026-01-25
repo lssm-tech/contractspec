@@ -1,5 +1,16 @@
 # @contractspec/lib.email
 
+## 1.5.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.logger@1.51.0
+
 ## 1.4.0
 
 ### Minor Changes

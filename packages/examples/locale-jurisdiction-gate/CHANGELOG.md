@@ -1,5 +1,19 @@
 # @contractspec/example.locale-jurisdiction-gate
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [23e46e9]
+- Updated dependencies [ad1f852]
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.schema@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.4.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
 ## 0.3.0
 
 ### Minor Changes

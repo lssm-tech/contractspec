@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [23e46e9]
+- Updated dependencies [ad1f852]
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.contracts@1.51.0
+  - @contractspec/lib.contracts-transformers@1.51.0
+  - @contractspec/bundle.workspace@1.51.0
+  - @contractspec/module.workspace@1.51.0
+  - @contractspec/module.examples@1.51.0
+  - @contractspec/module.ai-chat@1.51.0
+  - @contractspec/lib.ai-agent@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

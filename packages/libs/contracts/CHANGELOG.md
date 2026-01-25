@@ -1,5 +1,64 @@
 # @contractspec/lib.contracts
 
+## 1.51.0
+
+### Minor Changes
+
+- 23e46e9: feat(capabilities): robustify capabilities with bidirectional linking and runtime enforcement
+  - Add optional `capability` field to OperationSpec, EventSpec, and PresentationSpec for bidirectional linking
+  - Add `extends` field to CapabilitySpec for capability inheritance
+  - Add registry query methods: getOperationsFor, getEventsFor, getPresentationsFor, getCapabilitiesForOperation/Event/Presentation
+  - Add inheritance methods: getAncestors, getEffectiveRequirements, getEffectiveSurfaces
+  - Create validation.ts with validateCapabilityConsistency() for bidirectional validation
+  - Create context.ts with CapabilityContext for opt-in runtime capability checks
+  - Create guards.ts with assertCapabilityForOperation/Event/Presentation guards
+  - Add comprehensive tests (50 new tests)
+  - Update capabilities docblock with full documentation
+
+- ad1f852: feat(contracts): robustify policy, workflow, and translations modules
+
+  Phase 2 of the contracts library robustification:
+
+  **Policy Module (Phase 2.1):**
+  - Add `PolicyContext` for runtime RBAC/ABAC enforcement with role/permission checks
+  - Add `PolicyViolationError` with detailed violation types
+  - Add policy guards: `checkPolicyForOperation`, `assertPolicyForOperation`, `filterOperationsByPolicy`
+  - Add role/permission guards: `checkRole`, `assertRole`, `checkPermission`, `assertPermission`
+  - Add rate limiting support with sliding window algorithm
+  - Add audit trail integration
+  - Add `validatePolicySpec` and `validatePolicyConsistency` for policy validation
+  - 128 new tests
+
+  **Workflow Module (Phase 2.2):**
+  - Add `WorkflowContext` interface for state management, transitions, and SLA tracking
+  - Add `WorkflowContextError` with typed error categories
+  - Add compensation/rollback support hints
+  - Add helper utilities: `calculateWorkflowProgress`, `getWorkflowDuration`, `getAverageStepDuration`
+  - Enhance validation with cross-registry consistency checks
+  - Add `validateWorkflowConsistency` for operations/events integration
+  - Add `validateSlaConfig`, `validateCompensation`, `validateRetryConfig`
+  - 64 new tests
+
+  **Translations Module (Phase 2.3):**
+  - Add full `TranslationSpec` with placeholders, plural rules, and message variants
+  - Add `TranslationRegistry` with locale-aware lookup and fallback chains
+  - Add `defineTranslation` factory function
+  - Add ICU message format validation with `validateICUFormat`
+  - Add missing translation detection with `findMissingTranslations`, `findAllMissingTranslations`
+  - Add `validateTranslationSpec` and `validateTranslationRegistry`
+  - Add `TranslationValidationError` for assertion helpers
+  - 77 new tests
+
+  Total: 890 tests across 93 files, all passing.
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.logger@1.51.0
+  - @contractspec/lib.schema@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes

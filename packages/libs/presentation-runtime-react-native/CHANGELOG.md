@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 5.0.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.presentation-runtime-core@1.51.0
+  - @contractspec/lib.ui-kit@1.51.0
+
 ## 4.0.0
 
 ### Minor Changes
