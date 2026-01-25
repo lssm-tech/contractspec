@@ -17,7 +17,11 @@ const createTestSpec = (overrides?: Partial<WorkflowSpec>): WorkflowSpec => ({
   meta: {
     key: 'test.workflow',
     version: '1.0.0',
-    owners: [{ team: 'test' }],
+    title: 'Test Workflow',
+    description: 'A test workflow for testing purposes',
+    stability: 'experimental',
+    owners: ['test-team'],
+    tags: [],
   },
   definition: {
     steps: [
@@ -252,8 +256,8 @@ describe('WorkflowContext Transitions', () => {
 
       const transitions = ctx.getAvailableTransitions();
       expect(transitions).toHaveLength(1);
-      expect(transitions[0].from).toBe('step1');
-      expect(transitions[0].to).toBe('step2');
+      expect(transitions[0]?.from).toBe('step1');
+      expect(transitions[0]?.to).toBe('step2');
     });
 
     it('should return empty array for terminal step', () => {
@@ -485,14 +489,14 @@ describe('WorkflowContext Events', () => {
       const events = ctx.getEvents();
 
       expect(events).toHaveLength(4);
-      expect(events[0].type).toBe('step_started');
-      expect(events[0].stepId).toBe('step1');
-      expect(events[1].type).toBe('step_completed');
-      expect(events[1].stepId).toBe('step1');
-      expect(events[2].type).toBe('step_started');
-      expect(events[2].stepId).toBe('step2');
-      expect(events[3].type).toBe('step_failed');
-      expect(events[3].error).toBe('Something went wrong');
+      expect(events[0]?.type).toBe('step_started');
+      expect(events[0]?.stepId).toBe('step1');
+      expect(events[1]?.type).toBe('step_completed');
+      expect(events[1]?.stepId).toBe('step1');
+      expect(events[2]?.type).toBe('step_started');
+      expect(events[2]?.stepId).toBe('step2');
+      expect(events[3]?.type).toBe('step_failed');
+      expect(events[3]?.error).toBe('Something went wrong');
     });
 
     it('should return empty array for no history', () => {

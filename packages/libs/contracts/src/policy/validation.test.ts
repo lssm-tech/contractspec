@@ -19,7 +19,10 @@ const validPolicy: PolicySpec = {
   meta: {
     key: 'test.policy',
     version: '1.0.0',
-    owners: [{ team: 'platform' }],
+    owners: ['platform-team'],
+    description: 'Test policy for testing',
+    stability: 'experimental',
+    tags: [],
   },
   rules: [
     {
@@ -67,7 +70,10 @@ const createOperation = (
       kind: 'command',
       goal: 'Test operation',
       context: 'Testing',
-      owners: [{ team: 'test' }],
+      owners: ['test-team'],
+      description: 'Test operation for testing',
+      stability: 'experimental',
+      tags: [],
     },
     io: {
       input: null,
@@ -611,7 +617,14 @@ describe('validatePolicyConsistency', () => {
 
   it('should validate policy specs in registry', () => {
     const invalidPolicy: PolicySpec = {
-      meta: { key: '', version: '1.0.0', owners: [] },
+      meta: {
+        key: '',
+        version: '1.0.0',
+        owners: [],
+        description: '',
+        stability: 'experimental',
+        tags: [],
+      },
       rules: [],
     };
     const policies = new PolicyRegistry([invalidPolicy]);
@@ -639,7 +652,14 @@ describe('assertPolicySpecValid', () => {
 
   it('should throw PolicyValidationError for invalid policy', () => {
     const invalid: PolicySpec = {
-      meta: { key: '', version: '', owners: [] },
+      meta: {
+        key: '',
+        version: '',
+        owners: [],
+        description: '',
+        stability: 'experimental',
+        tags: [],
+      },
       rules: [],
     };
 
@@ -656,7 +676,14 @@ describe('assertPolicyConsistency', () => {
 
   it('should throw PolicyValidationError for inconsistent registries', () => {
     const invalid: PolicySpec = {
-      meta: { key: '', version: '', owners: [] },
+      meta: {
+        key: '',
+        version: '',
+        owners: [],
+        description: '',
+        stability: 'experimental',
+        tags: [],
+      },
       rules: [],
     };
     const policies = new PolicyRegistry([invalid]);

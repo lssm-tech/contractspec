@@ -51,7 +51,10 @@ const createOperation = (
       kind: 'command',
       goal: 'Test operation',
       context: 'Testing',
-      owners: [{ team: 'test' }],
+      owners: ['test-team'],
+      description: 'Test operation for testing',
+      stability: 'experimental',
+      tags: [],
     },
     io: {
       input: null,
@@ -182,8 +185,8 @@ describe('filterOperationsByPolicy', () => {
     const filtered = filterOperationsByPolicy(userCtx, ops);
 
     expect(filtered).toHaveLength(2);
-    expect(filtered[0].policy.auth).toBe('anonymous');
-    expect(filtered[1].policy.auth).toBe('user');
+    expect(filtered[0]?.policy.auth).toBe('anonymous');
+    expect(filtered[1]?.policy.auth).toBe('user');
   });
 
   it('should filter by feature flags', () => {

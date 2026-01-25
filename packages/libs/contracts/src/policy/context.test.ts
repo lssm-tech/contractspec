@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'bun:test';
 import {
-  createPolicyContext,
+  type AuditEntry,
   createAnonymousPolicyContext,
   createBypassPolicyContext,
-  PolicyViolationError,
+  createPolicyContext,
   type PolicyUser,
-  type AuditEntry,
+  PolicyViolationError,
 } from './context';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -73,7 +73,7 @@ describe('createBypassPolicyContext', () => {
     expect(ctx.hasRole('super')).toBe(true);
     expect(ctx.hasPermission('read:all')).toBe(true);
     expect(ctx.hasPermission('write:all')).toBe(true);
-    expect(ctx.getAttribute('bypass')).toBe(true);
+    expect(ctx.getAttribute('bypass')).toBeTrue();
   });
 });
 
@@ -218,9 +218,9 @@ describe('PolicyContext ABAC', () => {
 
   describe('getAttribute', () => {
     it('should return attribute value', () => {
-      expect(ctx.getAttribute('department')).toBe('engineering');
-      expect(ctx.getAttribute('level')).toBe(5);
-      expect(ctx.getAttribute('active')).toBe(true);
+      expect(ctx.getAttribute<string>('department')).toBe('engineering');
+      expect(ctx.getAttribute<number>('level')).toBe(5);
+      expect(ctx.getAttribute<boolean>('active')).toBe(true);
     });
 
     it('should return undefined for non-existing attribute', () => {
@@ -360,7 +360,7 @@ describe('PolicyContext Audit', () => {
     await new Promise((r) => setTimeout(r, 10));
 
     expect(auditHandler).toHaveBeenCalledTimes(1);
-    const entry: AuditEntry = auditHandler.mock.calls[0][0];
+    const entry: AuditEntry = auditHandler.mock.calls[0]?.[0] as AuditEntry;
     expect(entry.operation).toBe('article.create');
     expect(entry.result).toBe('allowed');
     expect(entry.userId).toBe('user-123');
@@ -376,7 +376,7 @@ describe('PolicyContext Audit', () => {
 
     await new Promise((r) => setTimeout(r, 10));
 
-    const entry: AuditEntry = auditHandler.mock.calls[0][0];
+    const entry: AuditEntry = auditHandler.mock.calls[0]?.[0] as AuditEntry;
     expect(entry.result).toBe('denied');
     expect(entry.reason).toBe('Missing permission');
   });

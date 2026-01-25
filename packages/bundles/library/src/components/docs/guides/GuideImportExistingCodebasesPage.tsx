@@ -62,7 +62,9 @@ export function GuideImportExistingCodebasesPage() {
       <div className="card-subtle space-y-4 p-6">
         <h2 className="text-2xl font-bold">What you'll learn</h2>
         <ul className="text-muted-foreground space-y-2 text-sm">
-          <li>How to import existing API endpoints as ContractSpec contracts.</li>
+          <li>
+            How to import existing API endpoints as ContractSpec contracts.
+          </li>
           <li>Framework-specific patterns and auto-detection.</li>
           <li>Customizing imports with scopes, dry-run, and output options.</li>
           <li>Registering imported contracts and adding handlers.</li>
@@ -101,7 +103,9 @@ export function GuideImportExistingCodebasesPage() {
                   <p className="text-muted-foreground text-xs">
                     {fw.description}
                   </p>
-                  <code className="text-xs text-violet-400">--framework {fw.flag}</code>
+                  <code className="text-xs text-violet-400">
+                    --framework {fw.flag}
+                  </code>
                 </div>
               </div>
             ))}
@@ -229,7 +233,9 @@ export async function POST(request: Request) {
 
         {/* Section 5: Generated Output */}
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">3) Understanding generated contracts</h2>
+          <h2 className="text-2xl font-bold">
+            3) Understanding generated contracts
+          </h2>
           <p className="text-muted-foreground text-sm">
             The import command generates ContractSpec operations with TODO
             placeholders for fields it cannot infer:
@@ -358,7 +364,9 @@ export const CreateUserCommand = defineCommand({
                   <td className="py-2 pr-4">
                     <code>--analyze</code>
                   </td>
-                  <td className="py-2 pr-4">Analysis only, no code generation</td>
+                  <td className="py-2 pr-4">
+                    Analysis only, no code generation
+                  </td>
                   <td className="py-2">
                     <code>--analyze</code>
                   </td>
@@ -394,7 +402,9 @@ contractspec import ./src --json > import-result.json`}
 
         {/* Section 7: Registration */}
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">5) Registering imported contracts</h2>
+          <h2 className="text-2xl font-bold">
+            5) Registering imported contracts
+          </h2>
           <p className="text-muted-foreground text-sm">
             After import, register contracts and add handlers:
           </p>
