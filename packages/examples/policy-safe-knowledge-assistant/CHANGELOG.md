@@ -1,5 +1,25 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/example.locale-jurisdiction-gate@1.52.0
+  - @contractspec/example.versioned-knowledge-base@1.52.0
+  - @contractspec/example.kb-update-pipeline@1.52.0
+  - @contractspec/example.learning-patterns@1.52.0
+  - @contractspec/module.learning-journey@1.52.0
+  - @contractspec/lib.example-shared-ui@1.6.0
+  - @contractspec/lib.runtime-sandbox@0.7.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.ui-kit-web@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes
