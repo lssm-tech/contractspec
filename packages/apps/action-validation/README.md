@@ -1,6 +1,6 @@
 # ContractSpec CI GitHub Action
 
-> Note: This action is now an internal helper. Prefer the reusable workflows in `.github/workflows/contractspec-pr.yml` and `.github/workflows/contractspec-drift.yml`.
+> Note: This action is now an internal helper. Prefer `packages/apps/action-pr` and `packages/apps/action-drift`.
 
 Website: https://contractspec.io/
 

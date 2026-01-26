@@ -1,0 +1,23 @@
+{
+  "name": "@contractspec/action.drift",
+  "version": "0.1.0",
+  "description": "GitHub Action for ContractSpec drift detection",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/apps/action-drift"
+  },
+  "keywords": [
+    "github-action",
+    "contractspec",
+    "drift",
+    "generate"
+  ],
+  "author": "LSSM",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "homepage": "https://contractspec.io"
+}

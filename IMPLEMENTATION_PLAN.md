@@ -36,50 +36,50 @@ STEP 1 — Audit & map current behaviors
     Status: complete (see docs/contractspec-workflows.md).
 
 STEP 2 — Define the new public surface (inputs/outputs)
-Create 2 reusable workflows under:
+Create 2 composite actions under:
 
-- .github/workflows/contractspec-pr.yml
-- .github/workflows/contractspec-drift.yml
+- packages/apps/action-pr
+- packages/apps/action-drift
 
 Define a minimal, product-friendly input API (with defaults):
-PR workflow inputs:
+PR action inputs:
 
-- package_manager (bun|npm|pnpm|yarn) default: bun
-- working_directory default: .
-- report_mode (summary|comment|both|off) default: summary
-- enable_drift (true|false) default: true
-- fail_on (breaking|drift|any|never) default: any
-- generate_command (string) required only if enable_drift=true
-- validate_command (string) optional override
-- contracts_dir or contracts_glob (optional)
+- package-manager (bun|npm|pnpm|yarn) default: bun
+- working-directory default: .
+- report-mode (summary|comment|both|off) default: summary
+- enable-drift (true|false) default: true
+- fail-on (breaking|drift|any|never) default: any
+- generate-command (string) required only if enable-drift=true
+- validate-command (string) optional override
+- contracts-dir or contracts-glob (optional)
 - token default: ${{ github.token }}
 
-Drift workflow inputs:
+Drift action inputs:
 
-- package_manager default: bun
-- working_directory default: .
-- generate_command (string) REQUIRED
-- on_drift (fail|issue|pr) default: fail
-- drift_paths_allowlist (optional)
+- package-manager default: bun
+- working-directory default: .
+- generate-command (string) REQUIRED
+- on-drift (fail|issue|pr) default: fail
+- drift-paths-allowlist (optional)
 - token default: ${{ github.token }}
 
-Outputs (both workflows):
+Outputs (both actions):
 
 - Always write a markdown report to $GITHUB_STEP_SUMMARY.
-- If report_mode includes comment (PR workflow), post the same report as a PR comment (only if permissions allow).
-- Provide machine-readable outputs as workflow outputs if feasible (e.g., drift_detected, breaking_change_detected).
+- If report-mode includes comment (PR action), post the same report as a PR comment (only if permissions allow).
+- Provide machine-readable outputs as action outputs if feasible (e.g., drift-detected, breaking-change-detected).
 
-Deliverable: workflow definitions + a short README section listing inputs and defaults.
-Status: complete (see .github/workflows/contractspec-pr.yml, .github/workflows/contractspec-drift.yml, README.md).
+Deliverable: action definitions + a short README section listing inputs and defaults.
+Status: complete (see packages/apps/action-pr, packages/apps/action-drift, README.md).
 
-STEP 3 — Refactor existing repo workflows to direct reusable workflows
+STEP 3 — Refactor existing repo workflows to call actions
 
-- Remove wrapper workflows so only two workflow files remain.
-- Add direct triggers to the reusable workflows (PR and main drift) while keeping workflow_call for reuse.
+- Keep only two workflow files that call the new actions.
+- Ensure the actions remain the public entrypoint for reuse.
 - Ensure safe behavior on forks (do not attempt PR comments if not allowed).
 
-Deliverable: only two workflow files remain (contractspec-pr.yml, contractspec-drift.yml).
-Status: complete (wrappers removed; direct triggers added).
+Deliverable: only two workflow files remain and they call packages/apps actions.
+Status: complete (see .github/workflows/contractspec-pr.yml, .github/workflows/contractspec-drift.yml).
 
 STEP 4 — Consolidate or deprecate existing actions
 Decision rule:
@@ -105,8 +105,8 @@ Sections:
 - Ensure the summary is readable in GitHub UI with links to files when possible.
 - Keep under ~200 lines of markdown.
 
-Deliverable: a single shared report generator (script) invoked by both workflows.
-Status: complete (see .github/scripts/contractspec-report.cjs).
+Deliverable: a report generator script invoked by the actions.
+Status: complete (see packages/apps/action-pr/report.js, packages/apps/action-drift/report.js).
 
 STEP 6 — Documentation for copy-paste adoption
 Update README (or docs site) with:
@@ -117,7 +117,7 @@ Update README (or docs site) with:
 - Example screenshots (optional) or sample output markdown
 
 Deliverable: docs that a random repo owner can adopt in <5 minutes.
-Status: complete (README quickstart + inputs table).
+Status: complete (README quickstart + inputs table updated for actions).
 
 STEP 7 — Acceptance tests (definition of done)
 
@@ -130,7 +130,7 @@ STEP 7 — Acceptance tests (definition of done)
 - Ensure workflows succeed on a clean repo state and fail with actionable errors on misconfig.
 
 Deliverable: checklist + evidence in PR description.
-Status: in progress (PR open; rerun pending after drift-filter update).
+Status: in progress (PR open; rerun pending after action migration).
 
 NON-GOALS (do not do)
 

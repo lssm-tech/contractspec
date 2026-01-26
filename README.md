@@ -74,6 +74,8 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) for full u
 
 ## GitHub Actions Quickstart
 
+Use the ContractSpec actions directly; this repo's workflows are thin wrappers around them.
+
 ### PR checks
 
 ```yaml
@@ -81,12 +83,17 @@ name: ContractSpec PR
 on: pull_request
 jobs:
   contractspec:
-    uses: lssm-tech/contractspec/.github/workflows/contractspec-pr.yml@main
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
-    with:
-      generate_command: 'bun contractspec generate'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ContractSpec PR checks
+        uses: lssm-tech/contractspec/packages/apps/action-pr@main
+        with:
+          generate-command: 'bun contractspec generate'
 ```
 
 ### Drift check
@@ -98,28 +105,35 @@ on:
     branches: [main]
 jobs:
   contractspec:
-    uses: lssm-tech/contractspec/.github/workflows/contractspec-drift.yml@main
-    with:
-      generate_command: 'bun contractspec generate'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ContractSpec drift check
+        uses: lssm-tech/contractspec/packages/apps/action-drift@main
+        with:
+          generate-command: 'bun contractspec generate'
 ```
 
 Notes: add `pull-requests: write` permissions for PR comments, and add `contents: write` + `pull-requests: write` for drift PR creation.
 
 ### Inputs (defaults)
 
-| Workflow | Input                   | Default   | Notes                               |
-| -------- | ----------------------- | --------- | ----------------------------------- |
-| PR       | `package_manager`       | `bun`     | `bun`, `npm`, `pnpm`, `yarn`        |
-| PR       | `working_directory`     | `.`       | Repo root or package path           |
-| PR       | `report_mode`           | `summary` | `summary`, `comment`, `both`, `off` |
-| PR       | `enable_drift`          | `true`    | Runs generate + drift check         |
-| PR       | `fail_on`               | `any`     | `breaking`, `drift`, `any`, `never` |
-| PR       | `generate_command`      | required  | Required when drift enabled         |
-| PR       | `contracts_dir`         | empty     | Directory for contract changes      |
-| PR       | `contracts_glob`        | empty     | Glob for contract changes           |
-| Drift    | `generate_command`      | required  | Regenerate artifacts                |
-| Drift    | `on_drift`              | `fail`    | `fail`, `issue`, `pr`               |
-| Drift    | `drift_paths_allowlist` | empty     | Comma-separated globs               |
+| Action | Input                   | Default   | Notes                               |
+| ------ | ----------------------- | --------- | ----------------------------------- |
+| PR     | `package-manager`       | `bun`     | `bun`, `npm`, `pnpm`, `yarn`        |
+| PR     | `working-directory`     | `.`       | Repo root or package path           |
+| PR     | `report-mode`           | `summary` | `summary`, `comment`, `both`, `off` |
+| PR     | `enable-drift`          | `true`    | Runs generate + drift check         |
+| PR     | `fail-on`               | `any`     | `breaking`, `drift`, `any`, `never` |
+| PR     | `generate-command`      | required  | Required when drift enabled         |
+| PR     | `contracts-dir`         | empty     | Directory for contract changes      |
+| PR     | `contracts-glob`        | empty     | Glob for contract changes           |
+| Drift  | `generate-command`      | required  | Regenerate artifacts                |
+| Drift  | `on-drift`              | `fail`    | `fail`, `issue`, `pr`               |
+| Drift  | `drift-paths-allowlist` | empty     | Comma-separated globs               |
 
 ### Sample output
 

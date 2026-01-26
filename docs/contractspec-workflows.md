@@ -52,33 +52,45 @@
 - Failure conditions: CLI failures, git errors
 - Permissions: contents: write (push), pull-requests: write (PR), GH token required
 
-## Future Reusable Workflows (target state)
+## Future Actions + Workflows (target state)
 
-### .github/workflows/contractspec-pr.yml (new)
+### packages/apps/action-pr (new)
 
-- Trigger: workflow_call
+- Trigger: composite action (workflow-defined)
 - Responsibilities: view + validation + optional drift
-- Inputs: package manager, working directory, report mode, drift toggle, fail_on, commands
-- Outputs: drift_detected, breaking_change_detected, validation_failed
+- Inputs: package manager, working directory, report mode, drift toggle, fail-on, commands
+- Outputs: drift-detected, breaking-change-detected, validation-failed
 - Report: always write summary; optional PR comment
 - Permissions: contents: read; pull-requests: write required for comments
 
-### .github/workflows/contractspec-drift.yml (new)
+### packages/apps/action-drift (new)
 
-- Trigger: workflow_call
+- Trigger: composite action (workflow-defined)
 - Responsibilities: detect drift on main/nightly + report + optional issue/PR
-- Inputs: package manager, working directory, generate_command, on_drift, allowlist
-- Outputs: drift_detected
+- Inputs: package manager, working directory, generate-command, on-drift, allowlist
+- Outputs: drift-detected
 - Report: always write summary; optional issue/PR
 - Permissions: contents: read; contents: write + pull-requests: write required for PR creation
 
+### .github/workflows/contractspec-pr.yml (wrapper)
+
+- Trigger: pull_request
+- Calls: packages/apps/action-pr
+- Permissions: contents: read; pull-requests: write
+
+### .github/workflows/contractspec-drift.yml (wrapper)
+
+- Trigger: push to main
+- Calls: packages/apps/action-drift
+- Permissions: contents: read
+
 ## Current -> Future Mapping
 
-| Concern           | Current Location                       | Future Location                                             |
-| ----------------- | -------------------------------------- | ----------------------------------------------------------- |
-| PR contract view  | contract-pr.yml                        | contractspec-pr.yml (report generator)                      |
-| PR comment        | contract-pr.yml                        | contractspec-pr.yml (report_mode=comment/both)              |
-| Validation checks | contract-drift.yml + action-validation | contractspec-pr.yml (validate_command)                      |
-| Drift check       | contract-drift.yml                     | contractspec-pr.yml (enable_drift) + contractspec-drift.yml |
-| Impact detection  | action-validation                      | contractspec-pr.yml (contractspec impact)                   |
-| Drift reporting   | job logs                               | report generator + summary/issue/PR                         |
+| Concern           | Current Location                       | Future Location                                        |
+| ----------------- | -------------------------------------- | ------------------------------------------------------ |
+| PR contract view  | contract-pr.yml                        | packages/apps/action-pr (report generator)             |
+| PR comment        | contract-pr.yml                        | packages/apps/action-pr (report-mode=comment/both)     |
+| Validation checks | contract-drift.yml + action-validation | packages/apps/action-pr (validate-command)             |
+| Drift check       | contract-drift.yml                     | packages/apps/action-pr + packages/apps/action-drift   |
+| Impact detection  | action-validation                      | packages/apps/action-pr (contractspec impact)          |
+| Drift reporting   | job logs                               | report generator + summary/issue/PR (via action-drift) |

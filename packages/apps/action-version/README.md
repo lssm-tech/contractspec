@@ -1,6 +1,6 @@
 # ContractSpec Version Manager Action
 
-> Note: This action is now an internal helper. Prefer the reusable workflows for ContractSpec automation.
+> Note: This action is now an internal helper. Prefer `packages/apps/action-pr` and `packages/apps/action-drift`.
 
 Automate versioning and changelogs for your ContractSpec workspace.
 

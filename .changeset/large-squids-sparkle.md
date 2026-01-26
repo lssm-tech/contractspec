@@ -2,4 +2,4 @@
 'contractspec': patch
 ---
 
-Fix ContractSpec workflow defaults, impact status handling, and report failure messaging.
+Move ContractSpec automation into reusable actions and improve report failure messaging.
