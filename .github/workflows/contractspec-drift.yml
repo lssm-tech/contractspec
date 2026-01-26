@@ -129,10 +129,12 @@ jobs:
           status_lines = Path(".contractspec-ci/drift-status.txt").read_text().splitlines()
           files = [line[3:] for line in status_lines if line.strip()]
 
+          def is_ignored(path: str) -> bool:
+            return path == ".contractspec-ci" or path.startswith(".contractspec-ci/")
+
+          filtered = [path for path in files if path and not is_ignored(path)]
           if allowlist:
-            filtered = [path for path in files if any(fnmatch.fnmatch(path, pattern) for pattern in allowlist)]
-          else:
-            filtered = files
+            filtered = [path for path in filtered if any(fnmatch.fnmatch(path, pattern) for pattern in allowlist)]
 
           Path(".contractspec-ci/drift-files.txt").write_text("\n".join(filtered))
           PY

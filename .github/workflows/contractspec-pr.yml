@@ -256,7 +256,12 @@ jobs:
 
           status_lines = Path(".contractspec-ci/drift-status.txt").read_text().splitlines()
           files = [line[3:] for line in status_lines if line.strip()]
-          Path(".contractspec-ci/drift-files.txt").write_text("\n".join(files))
+
+          def is_ignored(path: str) -> bool:
+            return path == ".contractspec-ci" or path.startswith(".contractspec-ci/")
+
+          filtered = [path for path in files if path and not is_ignored(path)]
+          Path(".contractspec-ci/drift-files.txt").write_text("\n".join(filtered))
           PY
           if [ -s ".contractspec-ci/drift-files.txt" ]; then
             echo "DRIFT_STATUS=fail" >> $GITHUB_ENV

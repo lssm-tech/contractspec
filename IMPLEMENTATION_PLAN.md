@@ -130,7 +130,7 @@ STEP 7 — Acceptance tests (definition of done)
 - Ensure workflows succeed on a clean repo state and fail with actionable errors on misconfig.
 
 Deliverable: checklist + evidence in PR description.
-Status: in progress (PR open; rerun pending after workflow updates).
+Status: in progress (PR open; rerun pending after drift-filter update).
 
 NON-GOALS (do not do)
 
