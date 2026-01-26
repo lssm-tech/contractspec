@@ -355,6 +355,56 @@ jobs:
           if report["drift"]["status"] == "fail":
             report["nextSteps"].append("Run the generate command locally and commit drift fixes.")
 
+          fail_on = os.environ.get("FAIL_ON", "any")
+          validation_failed = report["validation"]["status"] == "fail"
+          drift_failed = report["drift"]["status"] == "fail"
+          impact_unknown = impact_status == "unknown"
+          breaking_detected = bool(derived.get("breaking"))
+
+          reasons = []
+          should_fail = False
+          if fail_on == "breaking":
+            if breaking_detected:
+              reasons.append("breaking changes detected")
+            if impact_unknown:
+              reasons.append("impact status unknown")
+          elif fail_on == "drift":
+            if drift_failed:
+              reasons.append("drift detected")
+            if impact_unknown:
+              reasons.append("impact status unknown")
+          elif fail_on == "any":
+            if breaking_detected:
+              reasons.append("breaking changes detected")
+            if drift_failed:
+              reasons.append("drift detected")
+            if validation_failed:
+              reasons.append("validation failed")
+            if impact_unknown:
+              reasons.append("impact status unknown")
+          elif fail_on == "never":
+            reasons = []
+          else:
+            reasons = [f"invalid fail_on value ({fail_on})"]
+
+          if reasons and fail_on != "never":
+            should_fail = True
+
+          if should_fail:
+            reason_list = ", ".join(reasons)
+            report["nextSteps"].insert(0, f"CI failed: {reason_list} (fail_on={fail_on}).")
+
+          Path(".contractspec-ci/fail-status.json").write_text(
+            json.dumps(
+              {
+                "shouldFail": should_fail,
+                "reasons": reasons,
+                "failOn": fail_on,
+              },
+              indent=2,
+            )
+          )
+
           Path(".contractspec-ci/report-data.json").write_text(json.dumps(report, indent=2))
           PY
 
@@ -445,42 +495,37 @@ jobs:
           PY
 
           BREAKING_CHANGE_DETECTED=$(cat .contractspec-ci/breaking-status.txt)
-          IMPACT_STATUS=$(cat .contractspec-ci/impact-status.txt)
-          IMPACT_UNKNOWN="false"
-          if [ "$IMPACT_STATUS" = "unknown" ]; then
-            IMPACT_UNKNOWN="true"
-          fi
           echo "drift_detected=$DRIFT_DETECTED" >> $GITHUB_OUTPUT
           echo "breaking_change_detected=$BREAKING_CHANGE_DETECTED" >> $GITHUB_OUTPUT
           echo "validation_failed=$VALIDATION_FAILED" >> $GITHUB_OUTPUT
 
           SHOULD_FAIL="false"
-          case "$FAIL_ON" in
-            breaking)
-              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
-                SHOULD_FAIL="true"
-              fi
-              ;;
-            drift)
-              if [ "$DRIFT_DETECTED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
-                SHOULD_FAIL="true"
-              fi
-              ;;
-            any)
-              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$DRIFT_DETECTED" = "true" ] || [ "$VALIDATION_FAILED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
-                SHOULD_FAIL="true"
-              fi
-              ;;
-            never)
-              SHOULD_FAIL="false"
-              ;;
-            *)
-              echo "::error::Unknown fail_on value: $FAIL_ON"
-              SHOULD_FAIL="true"
-              ;;
-          esac
+          FAIL_REASONS=""
+          if [ -f ".contractspec-ci/fail-status.json" ]; then
+            SHOULD_FAIL=$(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path(".contractspec-ci/fail-status.json").read_text())
+          print("true" if data.get("shouldFail") else "false")
+          PY
+            )
+            FAIL_REASONS=$(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path(".contractspec-ci/fail-status.json").read_text())
+          reasons = data.get("reasons", [])
+          print(", ".join(reasons))
+          PY
+            )
+          fi
 
           if [ "$SHOULD_FAIL" = "true" ]; then
-            echo "::error::ContractSpec checks failed based on fail_on=$FAIL_ON."
+            if [ -n "$FAIL_REASONS" ]; then
+              echo "::error::ContractSpec checks failed: $FAIL_REASONS (fail_on=$FAIL_ON)."
+            else
+              echo "::error::ContractSpec checks failed based on fail_on=$FAIL_ON."
+            fi
             exit 1
           fi
