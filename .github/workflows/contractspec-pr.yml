@@ -1,0 +1,405 @@
+name: ContractSpec PR Workflow
+
+on:
+  workflow_call:
+    inputs:
+      package_manager:
+        description: 'Package manager to use (bun|npm|pnpm|yarn)'
+        type: string
+        default: bun
+      working_directory:
+        description: 'Working directory for running commands'
+        type: string
+        default: '.'
+      report_mode:
+        description: 'Report output mode (summary|comment|both|off)'
+        type: string
+        default: summary
+      enable_drift:
+        description: 'Run drift detection after generate'
+        type: boolean
+        default: true
+      fail_on:
+        description: 'Fail on breaking, drift, any, or never'
+        type: string
+        default: any
+      generate_command:
+        description: 'Command to regenerate artifacts (required when enable_drift=true)'
+        type: string
+        required: false
+      validate_command:
+        description: 'Override validation command'
+        type: string
+        required: false
+      contracts_dir:
+        description: 'Directory containing contract specs'
+        type: string
+        required: false
+      contracts_glob:
+        description: 'Glob pattern for contract specs'
+        type: string
+        required: false
+      token:
+        description: 'GitHub token for comments'
+        type: string
+        default: ${{ github.token }}
+    outputs:
+      drift_detected:
+        description: 'Whether drift was detected'
+        value: ${{ jobs.contractspec.outputs.drift_detected }}
+      breaking_change_detected:
+        description: 'Whether breaking changes were detected'
+        value: ${{ jobs.contractspec.outputs.breaking_change_detected }}
+      validation_failed:
+        description: 'Whether validation failed'
+        value: ${{ jobs.contractspec.outputs.validation_failed }}
+
+jobs:
+  contractspec:
+    runs-on: ubuntu-latest
+    outputs:
+      drift_detected: ${{ steps.result.outputs.drift_detected }}
+      breaking_change_detected: ${{ steps.result.outputs.breaking_change_detected }}
+      validation_failed: ${{ steps.result.outputs.validation_failed }}
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+      DO_NOT_TRACK: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        if: inputs.package_manager == 'bun'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.6'
+
+      - name: Setup Node
+        if: inputs.package_manager != 'bun'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure ContractSpec command
+        shell: bash
+        run: |
+          case "${{ inputs.package_manager }}" in
+            bun)
+              echo "CONTRACTSPEC_CMD=bunx contractspec" >> $GITHUB_ENV
+              ;;
+            npm)
+              echo "CONTRACTSPEC_CMD=npx contractspec" >> $GITHUB_ENV
+              ;;
+            pnpm)
+              echo "CONTRACTSPEC_CMD=pnpm dlx contractspec" >> $GITHUB_ENV
+              ;;
+            yarn)
+              echo "CONTRACTSPEC_CMD=yarn dlx contractspec" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "::error::Unsupported package_manager: ${{ inputs.package_manager }}"
+              exit 1
+              ;;
+          esac
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          case "${{ inputs.package_manager }}" in
+            bun)
+              if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+                bun install --frozen-lockfile
+              else
+                bun install
+              fi
+              ;;
+            npm)
+              if [ -f "package-lock.json" ]; then
+                npm ci
+              else
+                npm install
+              fi
+              ;;
+            pnpm)
+              corepack enable
+              pnpm install --frozen-lockfile
+              ;;
+            yarn)
+              corepack enable
+              yarn install --frozen-lockfile
+              ;;
+          esac
+
+      - name: Build local ContractSpec CLI (if present)
+        if: inputs.package_manager == 'bun'
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          if [ -f "packages/apps/cli-contractspec/package.json" ]; then
+            bun run build --filter=@contractspec/app.cli-contractspec
+          fi
+
+      - name: Collect contract changes
+        id: changes
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        env:
+          CONTRACTS_DIR: ${{ inputs.contracts_dir }}
+          CONTRACTS_GLOB: ${{ inputs.contracts_glob }}
+        run: |
+          mkdir -p .contractspec-ci
+          BASELINE="${{ github.base_ref }}"
+          if [ -n "$BASELINE" ]; then
+            git fetch origin "$BASELINE" --depth=1 || true
+            BASELINE="origin/$BASELINE"
+          else
+            BASELINE="HEAD~1"
+          fi
+          echo "BASELINE=$BASELINE" >> $GITHUB_ENV
+          git diff --name-only "$BASELINE"...HEAD > .contractspec-ci/changed-files.txt
+          python - <<'PY'
+          import fnmatch
+          import os
+          from pathlib import Path
+
+          contracts_dir = os.environ.get("CONTRACTS_DIR") or ""
+          contracts_glob = os.environ.get("CONTRACTS_GLOB") or ""
+          changed = Path(".contractspec-ci/changed-files.txt").read_text().splitlines()
+          filtered = []
+
+          if contracts_dir:
+            prefix = contracts_dir.rstrip("/") + "/"
+            filtered = [path for path in changed if path.startswith(prefix)]
+          elif contracts_glob:
+            filtered = [path for path in changed if fnmatch.fnmatch(path, contracts_glob)]
+          else:
+            filtered = changed
+
+          Path(".contractspec-ci/contract-changes.txt").write_text("\n".join(filtered))
+          PY
+
+      - name: Generate contract view
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          set +e
+          $CONTRACTSPEC_CMD view --audience product --baseline "$BASELINE" > .contractspec-ci/product-view.md
+          VIEW_EXIT=$?
+          set -e
+          if [ $VIEW_EXIT -ne 0 ]; then
+            echo "Contract view failed (exit $VIEW_EXIT)." > .contractspec-ci/product-view.md
+          fi
+
+      - name: Run impact analysis
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          set +e
+          $CONTRACTSPEC_CMD impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json
+          IMPACT_EXIT=$?
+          set -e
+          if [ $IMPACT_EXIT -ne 0 ]; then
+            echo "{}" > .contractspec-ci/impact.json
+          fi
+
+      - name: Validate contracts
+        id: validate
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          set +e
+          if [ -n "${{ inputs.validate_command }}" ]; then
+            bash -lc "${{ inputs.validate_command }}" 2>&1 | tee .contractspec-ci/validation.txt
+          else
+            $CONTRACTSPEC_CMD validate 2>&1 | tee .contractspec-ci/validation.txt
+          fi
+          VALIDATION_EXIT=${PIPESTATUS[0]}
+          set -e
+          if [ $VALIDATION_EXIT -eq 0 ]; then
+            echo "VALIDATION_STATUS=pass" >> $GITHUB_ENV
+            echo "VALIDATION_FAILED=false" >> $GITHUB_ENV
+          else
+            echo "VALIDATION_STATUS=fail" >> $GITHUB_ENV
+            echo "VALIDATION_FAILED=true" >> $GITHUB_ENV
+          fi
+
+      - name: Run generate command
+        if: inputs.enable_drift
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          if [ -z "${{ inputs.generate_command }}" ]; then
+            echo "::error::generate_command is required when enable_drift=true"
+            exit 1
+          fi
+          bash -lc "${{ inputs.generate_command }}"
+
+      - name: Check drift
+        if: inputs.enable_drift
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          git status --porcelain > .contractspec-ci/drift-status.txt
+          python - <<'PY'
+          from pathlib import Path
+
+          status_lines = Path(".contractspec-ci/drift-status.txt").read_text().splitlines()
+          files = [line[3:] for line in status_lines if line.strip()]
+          Path(".contractspec-ci/drift-files.txt").write_text("\n".join(files))
+          PY
+          if [ -s ".contractspec-ci/drift-files.txt" ]; then
+            echo "DRIFT_STATUS=fail" >> $GITHUB_ENV
+            echo "DRIFT_DETECTED=true" >> $GITHUB_ENV
+          else
+            echo "DRIFT_STATUS=pass" >> $GITHUB_ENV
+            echo "DRIFT_DETECTED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Mark drift as skipped
+        if: inputs.enable_drift == false
+        shell: bash
+        run: |
+          echo "DRIFT_STATUS=skipped" >> $GITHUB_ENV
+          echo "DRIFT_DETECTED=false" >> $GITHUB_ENV
+
+      - name: Build report data
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          contract_changes_path = Path(".contractspec-ci/contract-changes.txt")
+          changes = contract_changes_path.read_text().splitlines() if contract_changes_path.exists() else []
+          summary = "No contract files changed." if not changes else f"{len(changes)} contract file(s) changed."
+
+          impact_path = Path(".contractspec-ci/impact.json")
+          impact = json.loads(impact_path.read_text()) if impact_path.exists() else {}
+          summary_data = impact.get("summary", {}) if isinstance(impact, dict) else {}
+
+          report = {
+            "whatChanged": {
+              "summary": summary,
+              "detailsPath": ".contractspec-ci/product-view.md",
+            },
+            "risk": {
+              "status": impact.get("status", "unknown"),
+              "breaking": summary_data.get("breaking", 0),
+              "nonBreaking": summary_data.get("nonBreaking", 0),
+            },
+            "validation": {
+              "status": os.environ.get("VALIDATION_STATUS", "skipped"),
+              "outputPath": ".contractspec-ci/validation.txt",
+            },
+            "drift": {
+              "status": os.environ.get("DRIFT_STATUS", "skipped"),
+              "files": Path(".contractspec-ci/drift-files.txt").read_text().splitlines() if Path(".contractspec-ci/drift-files.txt").exists() else [],
+            },
+            "nextSteps": [],
+          }
+
+          if report["validation"]["status"] == "fail":
+            report["nextSteps"].append("Fix validation errors and rerun the workflow.")
+          if report["risk"]["status"] == "breaking":
+            report["nextSteps"].append("Review breaking changes and plan a migration.")
+          if report["drift"]["status"] == "fail":
+            report["nextSteps"].append("Run the generate command locally and commit drift fixes.")
+
+          Path(".contractspec-ci/report-data.json").write_text(json.dumps(report, indent=2))
+          PY
+
+      - name: Generate report
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          node .github/scripts/contractspec-report.js --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && (inputs.report_mode == 'comment' || inputs.report_mode == 'both') && !github.event.pull_request.head.repo.fork
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ inputs.token }}
+          script: |
+            const fs = require("fs");
+            const body = fs.readFileSync("${{ inputs.working_directory }}/.contractspec-ci/report.md", "utf8");
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find((comment) =>
+              comment.body?.includes("## ContractSpec Report") && comment.user?.type === "Bot",
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+        continue-on-error: true
+
+      - name: Finalize results
+        id: result
+        shell: bash
+        run: |
+          DRIFT_DETECTED="${DRIFT_DETECTED:-false}"
+          VALIDATION_FAILED="${VALIDATION_FAILED:-false}"
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          impact_path = Path(".contractspec-ci/impact.json")
+          impact = json.loads(impact_path.read_text()) if impact_path.exists() else {}
+          breaking = "true" if impact.get("status") == "breaking" else "false"
+          Path(".contractspec-ci/breaking-status.txt").write_text(breaking)
+          PY
+
+          BREAKING_CHANGE_DETECTED=$(cat .contractspec-ci/breaking-status.txt)
+          echo "drift_detected=$DRIFT_DETECTED" >> $GITHUB_OUTPUT
+          echo "breaking_change_detected=$BREAKING_CHANGE_DETECTED" >> $GITHUB_OUTPUT
+          echo "validation_failed=$VALIDATION_FAILED" >> $GITHUB_OUTPUT
+
+          SHOULD_FAIL="false"
+          case "${{ inputs.fail_on }}" in
+            breaking)
+              if [ "$BREAKING_CHANGE_DETECTED" = "true" ]; then SHOULD_FAIL="true"; fi
+              ;;
+            drift)
+              if [ "$DRIFT_DETECTED" = "true" ]; then SHOULD_FAIL="true"; fi
+              ;;
+            any)
+              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$DRIFT_DETECTED" = "true" ] || [ "$VALIDATION_FAILED" = "true" ]; then
+                SHOULD_FAIL="true"
+              fi
+              ;;
+            never)
+              SHOULD_FAIL="false"
+              ;;
+            *)
+              echo "::error::Unknown fail_on value: ${{ inputs.fail_on }}"
+              SHOULD_FAIL="true"
+              ;;
+          esac
+
+          if [ "$SHOULD_FAIL" = "true" ]; then
+            echo "::error::ContractSpec checks failed based on fail_on=${{ inputs.fail_on }}."
+            exit 1
+          fi

@@ -2,96 +2,19 @@ name: ContractSpec PR Summary
 
 on:
   pull_request:
-#    paths:
-#      - 'contracts/**'
-#      - 'generated/**'
 
 jobs:
-  pr-comment:
-    runs-on: ubuntu-latest
+  contractspec:
+    uses: ./.github/workflows/contractspec-pr.yml
     permissions:
+      contents: read
       pull-requests: write
-    env:
-      TURBO_TELEMETRY_DISABLED: 1
-      DO_NOT_TRACK: 1
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0 # Needed for diff against base
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: '1.3.6'
-
-      - name: Install Dependencies
-        run: bun install
-
-      - name: Build packages
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-        run: bun run build
-
-      - name: Generate Views
-        id: views
-        run: |
-          # Generate audience views for changed contracts only
-          bun contractspec view --audience product --baseline "origin/${{ github.base_ref }}" > product-view.md
-          bun contractspec view --audience eng --baseline "origin/${{ github.base_ref }}" > eng-view.md
-
-      - name: Comment on PR
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const fs = require('fs');
-            const path = 'product-view.md';
-            let productView = '';
-            let hasChanges = false;
-
-            if (fs.existsSync(path)) {
-              productView = fs.readFileSync(path, 'utf8');
-              hasChanges = productView.trim().length > 0;
-              
-              // truncate to avoid massive comments
-              const maxLen = 60000;
-              if (productView.length > maxLen) {
-                productView = productView.slice(0, maxLen) + '\n\n*(output truncated — view full file in the CI artifact or repo)*';
-              }
-            }
-
-            let body;
-            if (hasChanges) {
-              body = `### 📋 ContractSpec Change Summary
-
-              This PR modifies contracts. Here are the changed contracts:
-
-              <details>
-              <summary>Product View (Changed Contracts)</summary>
-
-              ${productView}
-
-              </details>
-
-              Run \`contractspec view <file> --audience product\` locally to see details.
-              `;
-            } else {
-              body = `### 📋 ContractSpec Change Summary
-
-              ✅ No contract changes detected in this PR.
-              `;
-            }
-
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
-
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+    with:
+      package_manager: bun
+      working_directory: '.'
+      report_mode: both
+      enable_drift: true
+      fail_on: any
+      generate_command: 'bun contractspec generate'
+      validate_command: 'bun contractspec validate'
+      token: ${{ github.token }}
