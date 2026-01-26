@@ -1,6 +1,7 @@
 name: ContractSpec PR Workflow
 
 on:
+  pull_request:
   workflow_call:
     inputs:
       package_manager:
@@ -64,6 +65,16 @@ jobs:
     env:
       TURBO_TELEMETRY_DISABLED: 1
       DO_NOT_TRACK: 1
+      PACKAGE_MANAGER: ${{ inputs.package_manager || 'bun' }}
+      WORKING_DIRECTORY: ${{ inputs.working_directory || '.' }}
+      REPORT_MODE: ${{ inputs.report_mode || (github.event_name == 'pull_request' && 'both') || 'summary' }}
+      ENABLE_DRIFT: ${{ inputs.enable_drift == false && 'false' || 'true' }}
+      FAIL_ON: ${{ inputs.fail_on || 'any' }}
+      GENERATE_COMMAND: ${{ inputs.generate_command || (github.event_name != 'workflow_call' && 'bun contractspec generate') || '' }}
+      VALIDATE_COMMAND: ${{ inputs.validate_command || (github.event_name != 'workflow_call' && 'bun contractspec validate') || '' }}
+      CONTRACTS_DIR: ${{ inputs.contracts_dir }}
+      CONTRACTS_GLOB: ${{ inputs.contracts_glob }}
+      COMMENT_TOKEN: ${{ inputs.token || github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -71,13 +82,13 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Bun
-        if: inputs.package_manager == 'bun'
+        if: env.PACKAGE_MANAGER == 'bun'
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.3.6'
 
       - name: Setup Node
-        if: inputs.package_manager != 'bun'
+        if: env.PACKAGE_MANAGER != 'bun'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -85,7 +96,7 @@ jobs:
       - name: Configure ContractSpec command
         shell: bash
         run: |
-          case "${{ inputs.package_manager }}" in
+          case "$PACKAGE_MANAGER" in
             bun)
               echo "CONTRACTSPEC_CMD=bunx contractspec" >> $GITHUB_ENV
               ;;
@@ -99,16 +110,16 @@ jobs:
               echo "CONTRACTSPEC_CMD=yarn dlx contractspec" >> $GITHUB_ENV
               ;;
             *)
-              echo "::error::Unsupported package_manager: ${{ inputs.package_manager }}"
+              echo "::error::Unsupported package_manager: $PACKAGE_MANAGER"
               exit 1
               ;;
           esac
 
       - name: Install dependencies
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          case "${{ inputs.package_manager }}" in
+          case "$PACKAGE_MANAGER" in
             bun)
               if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
                 bun install --frozen-lockfile
@@ -134,9 +145,9 @@ jobs:
           esac
 
       - name: Build local ContractSpec CLI (if present)
-        if: inputs.package_manager == 'bun'
+        if: env.PACKAGE_MANAGER == 'bun'
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           if [ -f "packages/apps/cli-contractspec/package.json" ]; then
             bun run build --filter=@contractspec/app.cli-contractspec
@@ -145,10 +156,7 @@ jobs:
       - name: Collect contract changes
         id: changes
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
-        env:
-          CONTRACTS_DIR: ${{ inputs.contracts_dir }}
-          CONTRACTS_GLOB: ${{ inputs.contracts_glob }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           mkdir -p .contractspec-ci
           BASELINE="${{ github.base_ref }}"
@@ -183,7 +191,7 @@ jobs:
 
       - name: Generate contract view
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           set +e
           $CONTRACTSPEC_CMD view --audience product --baseline "$BASELINE" > .contractspec-ci/product-view.md
@@ -195,7 +203,7 @@ jobs:
 
       - name: Run impact analysis
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           set +e
           $CONTRACTSPEC_CMD impact --baseline "$BASELINE" --format json > .contractspec-ci/impact.json
@@ -208,11 +216,11 @@ jobs:
       - name: Validate contracts
         id: validate
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           set +e
-          if [ -n "${{ inputs.validate_command }}" ]; then
-            bash -lc "${{ inputs.validate_command }}" 2>&1 | tee .contractspec-ci/validation.txt
+          if [ -n "$VALIDATE_COMMAND" ]; then
+            bash -lc "$VALIDATE_COMMAND" 2>&1 | tee .contractspec-ci/validation.txt
           else
             $CONTRACTSPEC_CMD validate 2>&1 | tee .contractspec-ci/validation.txt
           fi
@@ -227,20 +235,20 @@ jobs:
           fi
 
       - name: Run generate command
-        if: inputs.enable_drift
+        if: env.ENABLE_DRIFT == 'true'
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          if [ -z "${{ inputs.generate_command }}" ]; then
+          if [ -z "$GENERATE_COMMAND" ]; then
             echo "::error::generate_command is required when enable_drift=true"
             exit 1
           fi
-          bash -lc "${{ inputs.generate_command }}"
+          bash -lc "$GENERATE_COMMAND"
 
       - name: Check drift
-        if: inputs.enable_drift
+        if: env.ENABLE_DRIFT == 'true'
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           git status --porcelain > .contractspec-ci/drift-status.txt
           python - <<'PY'
@@ -259,7 +267,7 @@ jobs:
           fi
 
       - name: Mark drift as skipped
-        if: inputs.enable_drift == false
+        if: env.ENABLE_DRIFT != 'true'
         shell: bash
         run: |
           echo "DRIFT_STATUS=skipped" >> $GITHUB_ENV
@@ -267,7 +275,7 @@ jobs:
 
       - name: Build report data
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           python - <<'PY'
           import json
@@ -315,18 +323,18 @@ jobs:
 
       - name: Generate report
         shell: bash
-        working-directory: ${{ inputs.working_directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           node .github/scripts/contractspec-report.cjs --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
 
       - name: Comment on PR
-        if: github.event_name == 'pull_request' && (inputs.report_mode == 'comment' || inputs.report_mode == 'both') && !github.event.pull_request.head.repo.fork
+        if: ${{ github.event.pull_request && (env.REPORT_MODE == 'comment' || env.REPORT_MODE == 'both') && !github.event.pull_request.head.repo.fork }}
         uses: actions/github-script@v7
         with:
-          github-token: ${{ inputs.token }}
+          github-token: ${{ env.COMMENT_TOKEN }}
           script: |
             const fs = require("fs");
-            const body = fs.readFileSync("${{ inputs.working_directory }}/.contractspec-ci/report.md", "utf8");
+            const body = fs.readFileSync("${{ env.WORKING_DIRECTORY }}/.contractspec-ci/report.md", "utf8");
 
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -378,7 +386,7 @@ jobs:
           echo "validation_failed=$VALIDATION_FAILED" >> $GITHUB_OUTPUT
 
           SHOULD_FAIL="false"
-          case "${{ inputs.fail_on }}" in
+          case "$FAIL_ON" in
             breaking)
               if [ "$BREAKING_CHANGE_DETECTED" = "true" ]; then SHOULD_FAIL="true"; fi
               ;;
@@ -394,12 +402,12 @@ jobs:
               SHOULD_FAIL="false"
               ;;
             *)
-              echo "::error::Unknown fail_on value: ${{ inputs.fail_on }}"
+              echo "::error::Unknown fail_on value: $FAIL_ON"
               SHOULD_FAIL="true"
               ;;
           esac
 
           if [ "$SHOULD_FAIL" = "true" ]; then
-            echo "::error::ContractSpec checks failed based on fail_on=${{ inputs.fail_on }}."
+            echo "::error::ContractSpec checks failed based on fail_on=$FAIL_ON."
             exit 1
           fi

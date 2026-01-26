@@ -72,14 +72,14 @@ Outputs (both workflows):
 Deliverable: workflow definitions + a short README section listing inputs and defaults.
 Status: complete (see .github/workflows/contractspec-pr.yml, .github/workflows/contractspec-drift.yml, README.md).
 
-STEP 3 — Refactor existing repo workflows to consumers of reusable workflows
+STEP 3 — Refactor existing repo workflows to direct reusable workflows
 
-- Replace .github/workflows/contract-pr.yml and contract-drift.yml logic with thin wrappers that call the new reusable workflows via `jobs.<id>.uses`.
-- Keep the same triggers as before.
-- Ensure minimal permissions and safe behavior on forks (do not attempt PR comments if not allowed).
+- Remove wrapper workflows so only two workflow files remain.
+- Add direct triggers to the reusable workflows (PR and main drift) while keeping workflow_call for reuse.
+- Ensure safe behavior on forks (do not attempt PR comments if not allowed).
 
-Deliverable: old workflows become ~10–20 line wrappers.
-Status: complete (see .github/workflows/contract-pr.yml, .github/workflows/contract-drift.yml).
+Deliverable: only two workflow files remain (contractspec-pr.yml, contractspec-drift.yml).
+Status: complete (wrappers removed; direct triggers added).
 
 STEP 4 — Consolidate or deprecate existing actions
 Decision rule:
@@ -130,7 +130,7 @@ STEP 7 — Acceptance tests (definition of done)
 - Ensure workflows succeed on a clean repo state and fail with actionable errors on misconfig.
 
 Deliverable: checklist + evidence in PR description.
-Status: in progress (local report generator test passed; PR creation blocked because `gh` is unavailable; GitHub workflow tests pending).
+Status: in progress (PR open; rerun pending after workflow updates).
 
 NON-GOALS (do not do)
 
