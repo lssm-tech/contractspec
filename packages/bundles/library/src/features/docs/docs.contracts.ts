@@ -67,7 +67,7 @@ export const docsSearchSpec = defineCommand({
     owners: DOC_OWNERS,
     tags: DOC_TAGS,
     description:
-      'Filter DocBlocks by query, tag, or visibility for MCP discovery.',
+      'Filter DocBlocks by query, tag, or visibility for MCP search.',
     goal: 'Expose ContractSpec documentation to AI agents safely.',
     context:
       'Used by the docs MCP to keep AI agents on the canonical DocBlocks.',
