@@ -1,5 +1,11 @@
 # contractspec-example-minimal
 
+## 0.5.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
 ## 0.4.0
 
 ### Minor Changes

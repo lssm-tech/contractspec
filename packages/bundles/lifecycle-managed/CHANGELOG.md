@@ -1,5 +1,21 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/module.lifecycle-advisor@1.52.0
+  - @contractspec/module.lifecycle-core@1.52.0
+  - @contractspec/lib.observability@1.52.0
+  - @contractspec/lib.analytics@1.52.0
+  - @contractspec/lib.lifecycle@1.52.0
+  - @contractspec/lib.ai-agent@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes

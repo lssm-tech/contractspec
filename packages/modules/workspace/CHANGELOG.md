@@ -1,5 +1,17 @@
 # @contractspec/module.workspace
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.schema@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes
