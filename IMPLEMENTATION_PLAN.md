@@ -130,7 +130,7 @@ STEP 7 — Acceptance tests (definition of done)
 - Ensure workflows succeed on a clean repo state and fail with actionable errors on misconfig.
 
 Deliverable: checklist + evidence in PR description.
-Status: in progress (local report generator test passed; GitHub workflow tests pending).
+Status: in progress (local report generator test passed; PR creation blocked because `gh` is unavailable; GitHub workflow tests pending).
 
 NON-GOALS (do not do)
 
