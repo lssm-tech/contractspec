@@ -175,7 +175,7 @@ jobs:
         shell: bash
         working-directory: ${{ inputs.working_directory }}
         run: |
-          node .github/scripts/contractspec-report.js --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
+          node .github/scripts/contractspec-report.cjs --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
 
       - name: Create issue
         if: env.DRIFT_DETECTED == 'true' && inputs.on_drift == 'issue'

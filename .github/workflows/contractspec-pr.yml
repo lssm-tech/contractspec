@@ -317,7 +317,7 @@ jobs:
         shell: bash
         working-directory: ${{ inputs.working_directory }}
         run: |
-          node .github/scripts/contractspec-report.js --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
+          node .github/scripts/contractspec-report.cjs --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
 
       - name: Comment on PR
         if: github.event_name == 'pull_request' && (inputs.report_mode == 'comment' || inputs.report_mode == 'both') && !github.event.pull_request.head.repo.fork
