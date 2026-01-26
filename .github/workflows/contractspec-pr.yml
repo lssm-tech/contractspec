@@ -68,7 +68,7 @@ jobs:
       PACKAGE_MANAGER: ${{ inputs.package_manager || 'bun' }}
       WORKING_DIRECTORY: ${{ inputs.working_directory || '.' }}
       REPORT_MODE: ${{ inputs.report_mode || (github.event_name == 'pull_request' && 'both') || 'summary' }}
-      ENABLE_DRIFT: ${{ inputs.enable_drift == false && 'false' || 'true' }}
+      ENABLE_DRIFT: ${{ github.event_name == 'workflow_call' && inputs.enable_drift == false && 'false' || 'true' }}
       FAIL_ON: ${{ inputs.fail_on || 'any' }}
       GENERATE_COMMAND: ${{ inputs.generate_command || (github.event_name != 'workflow_call' && 'bun contractspec generate') || '' }}
       VALIDATE_COMMAND: ${{ inputs.validate_command || (github.event_name != 'workflow_call' && 'bun contractspec validate') || '' }}
@@ -287,8 +287,38 @@ jobs:
           summary = "No contract files changed." if not changes else f"{len(changes)} contract file(s) changed."
 
           impact_path = Path(".contractspec-ci/impact.json")
-          impact = json.loads(impact_path.read_text()) if impact_path.exists() else {}
+          impact = {}
+          if impact_path.exists():
+            try:
+              impact = json.loads(impact_path.read_text())
+            except json.JSONDecodeError:
+              impact = {}
+
           summary_data = impact.get("summary", {}) if isinstance(impact, dict) else {}
+          breaking_count = int(summary_data.get("breaking", 0) or 0)
+          non_breaking_count = int(summary_data.get("nonBreaking", 0) or 0)
+          total_count = summary_data.get("total")
+          if total_count is None:
+            total_count = breaking_count + non_breaking_count
+
+          impact_breaking = bool(impact.get("breaking")) if isinstance(impact, dict) else False
+          impact_status = "unknown"
+          if isinstance(impact, dict) and impact:
+            if impact_breaking or breaking_count > 0:
+              impact_status = "breaking"
+            elif non_breaking_count > 0:
+              impact_status = "non-breaking"
+            elif total_count == 0:
+              impact_status = "no-impact"
+
+          derived = {
+            "status": impact_status,
+            "breaking": impact_breaking or breaking_count > 0,
+            "breakingCount": breaking_count,
+            "nonBreakingCount": non_breaking_count,
+            "total": total_count,
+          }
+          Path(".contractspec-ci/impact-derived.json").write_text(json.dumps(derived, indent=2))
 
           report = {
             "whatChanged": {
@@ -296,9 +326,9 @@ jobs:
               "detailsPath": ".contractspec-ci/product-view.md",
             },
             "risk": {
-              "status": impact.get("status", "unknown"),
-              "breaking": summary_data.get("breaking", 0),
-              "nonBreaking": summary_data.get("nonBreaking", 0),
+              "status": impact_status,
+              "breaking": breaking_count,
+              "nonBreaking": non_breaking_count,
             },
             "validation": {
               "status": os.environ.get("VALIDATION_STATUS", "skipped"),
@@ -315,6 +345,8 @@ jobs:
             report["nextSteps"].append("Fix validation errors and rerun the workflow.")
           if report["risk"]["status"] == "breaking":
             report["nextSteps"].append("Review breaking changes and plan a migration.")
+          if report["risk"]["status"] == "unknown":
+            report["nextSteps"].append("Re-run impact detection or check contractspec impact output.")
           if report["drift"]["status"] == "fail":
             report["nextSteps"].append("Run the generate command locally and commit drift fixes.")
 
@@ -374,13 +406,45 @@ jobs:
           import json
           from pathlib import Path
 
+          derived_path = Path(".contractspec-ci/impact-derived.json")
           impact_path = Path(".contractspec-ci/impact.json")
-          impact = json.loads(impact_path.read_text()) if impact_path.exists() else {}
-          breaking = "true" if impact.get("status") == "breaking" else "false"
-          Path(".contractspec-ci/breaking-status.txt").write_text(breaking)
+          impact_status = "unknown"
+          breaking = False
+
+          if derived_path.exists():
+            derived = json.loads(derived_path.read_text())
+            impact_status = derived.get("status", "unknown")
+            breaking = bool(derived.get("breaking"))
+          elif impact_path.exists():
+            try:
+              impact = json.loads(impact_path.read_text())
+            except json.JSONDecodeError:
+              impact = {}
+            summary = impact.get("summary", {}) if isinstance(impact, dict) else {}
+            breaking_count = int(summary.get("breaking", 0) or 0)
+            non_breaking_count = int(summary.get("nonBreaking", 0) or 0)
+            total_count = summary.get("total")
+            if total_count is None:
+              total_count = breaking_count + non_breaking_count
+
+            breaking = bool(impact.get("breaking")) if isinstance(impact, dict) else False
+            if breaking or breaking_count > 0:
+              impact_status = "breaking"
+            elif non_breaking_count > 0:
+              impact_status = "non-breaking"
+            elif total_count == 0:
+              impact_status = "no-impact"
+
+          Path(".contractspec-ci/breaking-status.txt").write_text("true" if breaking else "false")
+          Path(".contractspec-ci/impact-status.txt").write_text(impact_status)
           PY
 
           BREAKING_CHANGE_DETECTED=$(cat .contractspec-ci/breaking-status.txt)
+          IMPACT_STATUS=$(cat .contractspec-ci/impact-status.txt)
+          IMPACT_UNKNOWN="false"
+          if [ "$IMPACT_STATUS" = "unknown" ]; then
+            IMPACT_UNKNOWN="true"
+          fi
           echo "drift_detected=$DRIFT_DETECTED" >> $GITHUB_OUTPUT
           echo "breaking_change_detected=$BREAKING_CHANGE_DETECTED" >> $GITHUB_OUTPUT
           echo "validation_failed=$VALIDATION_FAILED" >> $GITHUB_OUTPUT
@@ -388,13 +452,17 @@ jobs:
           SHOULD_FAIL="false"
           case "$FAIL_ON" in
             breaking)
-              if [ "$BREAKING_CHANGE_DETECTED" = "true" ]; then SHOULD_FAIL="true"; fi
+              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
+                SHOULD_FAIL="true"
+              fi
               ;;
             drift)
-              if [ "$DRIFT_DETECTED" = "true" ]; then SHOULD_FAIL="true"; fi
+              if [ "$DRIFT_DETECTED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
+                SHOULD_FAIL="true"
+              fi
               ;;
             any)
-              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$DRIFT_DETECTED" = "true" ] || [ "$VALIDATION_FAILED" = "true" ]; then
+              if [ "$BREAKING_CHANGE_DETECTED" = "true" ] || [ "$DRIFT_DETECTED" = "true" ] || [ "$VALIDATION_FAILED" = "true" ] || [ "$IMPACT_UNKNOWN" = "true" ]; then
                 SHOULD_FAIL="true"
               fi
               ;;
