@@ -47,31 +47,48 @@ jobs:
             const fs = require('fs');
             const path = 'product-view.md';
             let productView = '';
+            let hasChanges = false;
+
             if (fs.existsSync(path)) {
               productView = fs.readFileSync(path, 'utf8');
+              hasChanges = productView.trim().length > 0;
+              
               // truncate to avoid massive comments
               const maxLen = 60000;
               if (productView.length > maxLen) {
                 productView = productView.slice(0, maxLen) + '\n\n*(output truncated — view full file in the CI artifact or repo)*';
               }
-            } else {
-              productView = '_No product view generated._';
             }
 
-            const body = `### 📋 ContractSpec Change Summary
+            let body;
+            if (hasChanges) {
+              body = `### 📋 ContractSpec Change Summary
 
-            This PR modifies contracts. Here are the changed contracts:
+              This PR modifies contracts. Here are the changed contracts:
 
-            <details>
-            <summary>Product View (Changed Contracts)</summary>
+              <details>
+              <summary>Product View (Changed Contracts)</summary>
 
-            ${productView}
+              ${productView}
 
-            </details>
+              </details>
 
-            Run \`contractspec view <file> --audience product\` locally to see details.
-            `;
-            
+              Run \`contractspec view <file> --audience product\` locally to see details.
+              `;
+            } else {
+              body = `### 📋 ContractSpec Change Summary
+
+              ✅ No contract changes detected in this PR.
+              `;
+            }
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
+
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
