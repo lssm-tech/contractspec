@@ -102,7 +102,7 @@
     "prettier": "3.7.4",
     "prettier-plugin-prisma": "^5.0.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "rulesync": "^5.9.0",
+    "rulesync": "^5.9.1",
     "turbo-ignore": "^2.7.6",
     "typescript-eslint": "^8.53.1"
   },

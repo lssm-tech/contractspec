@@ -1,5 +1,11 @@
 # @contractspec/lib.logger
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
 ## 1.51.0
 
 ### Minor Changes

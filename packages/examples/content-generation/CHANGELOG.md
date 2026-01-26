@@ -1,5 +1,18 @@
 # @contractspec/example.content-generation
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/lib.content-gen@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.logger@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes

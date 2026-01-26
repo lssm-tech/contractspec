@@ -1,5 +1,19 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 6.0.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/lib.presentation-runtime-core@1.52.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.ui-kit-web@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+
 ## 5.0.0
 
 ### Minor Changes

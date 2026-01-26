@@ -1,5 +1,16 @@
 # spec-driven-development
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/app.cli-contractspec@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes

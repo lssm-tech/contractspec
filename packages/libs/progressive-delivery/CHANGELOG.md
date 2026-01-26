@@ -1,5 +1,16 @@
 # @contractspec/lib.progressive-delivery
 
+## 6.0.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/lib.observability@1.52.0
+
 ## 5.0.0
 
 ### Minor Changes
