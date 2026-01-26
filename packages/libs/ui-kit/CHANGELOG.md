@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 1.51.0
+
+### Minor Changes
+
+- e6faefb: feat: add guide to import existing codebase
+
+### Patch Changes
+
+- Updated dependencies [e6faefb]
+  - @contractspec/lib.ui-kit-core@1.51.0
+
 ## 1.50.0
 
 ### Minor Changes
