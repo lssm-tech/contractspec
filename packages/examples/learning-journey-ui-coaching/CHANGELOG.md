@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/example.learning-journey-crm-onboarding@1.52.0
+  - @contractspec/example.learning-journey-ambient-coach@1.52.0
+  - @contractspec/example.learning-journey-ui-shared@1.52.0
+  - @contractspec/module.learning-journey@1.52.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.ui-kit-web@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes

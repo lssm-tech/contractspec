@@ -1,5 +1,22 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/example.learning-journey-quest-challenges@1.52.0
+  - @contractspec/example.learning-journey-duo-drills@1.52.0
+  - @contractspec/example.learning-journey-ui-shared@1.52.0
+  - @contractspec/module.learning-journey@1.52.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.ui-kit-web@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes

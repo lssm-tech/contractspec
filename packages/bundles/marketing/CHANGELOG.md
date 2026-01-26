@@ -1,5 +1,33 @@
 # @contractspec/bundle.marketing
 
+## 1.7.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/example.analytics-dashboard@1.52.0
+  - @contractspec/example.saas-boilerplate@1.52.0
+  - @contractspec/example.integration-hub@1.52.0
+  - @contractspec/example.workflow-system@1.52.0
+  - @contractspec/example.agent-console@1.52.0
+  - @contractspec/lib.example-shared-ui@1.6.0
+  - @contractspec/example.crm-pipeline@1.52.0
+  - @contractspec/example.marketplace@1.52.0
+  - @contractspec/lib.runtime-sandbox@0.7.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.ui-kit-core@1.52.0
+  - @contractspec/module.examples@1.52.0
+  - @contractspec/bundle.library@1.7.0
+  - @contractspec/lib.ui-kit-web@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.ui-link@1.52.0
+  - @contractspec/lib.logger@1.52.0
+  - @contractspec/lib.email@1.6.0
+
 ## 1.6.0
 
 ### Minor Changes

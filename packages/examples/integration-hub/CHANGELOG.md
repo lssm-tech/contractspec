@@ -1,5 +1,20 @@
 # @contractspec/example.integration-hub
 
+## 1.52.0
+
+### Minor Changes
+
+- d93e6a9: fix: improve website
+
+### Patch Changes
+
+- Updated dependencies [d93e6a9]
+  - @contractspec/lib.example-shared-ui@1.6.0
+  - @contractspec/lib.runtime-sandbox@0.7.0
+  - @contractspec/lib.design-system@1.52.0
+  - @contractspec/lib.contracts@1.52.0
+  - @contractspec/lib.schema@1.52.0
+
 ## 1.51.0
 
 ### Minor Changes
