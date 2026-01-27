@@ -7,6 +7,7 @@ import { SimpleAgent } from './simple-agent';
 import { CursorAgent } from './cursor-agent';
 import { ClaudeCodeAgent } from './claude-code-agent';
 import { OpenAICodexAgent } from './openai-codex-agent';
+import { UnifiedAgentAdapter } from './unified-adapter';
 import type { Config } from '../../types/config';
 import type { AgentMode, AgentProvider, AgentResult, AgentTask } from './types';
 import chalk from 'chalk';
@@ -31,6 +32,14 @@ export class AgentOrchestrator {
     this.agents.set('openai-codex', openaiAgent);
 
     this.defaultAgent = simpleAgent;
+
+    // Register 3rd party SDK agents via UnifiedAgentAdapter
+    this.agents.set(
+      'opencode-sdk',
+      new UnifiedAgentAdapter('opencode-sdk', {
+        backend: 'opencode-sdk',
+      })
+    );
   }
 
   /**
@@ -200,6 +209,7 @@ export class AgentOrchestrator {
       'claude-code': 'openai-codex',
       'openai-codex': 'simple',
       simple: 'simple',
+      'opencode-sdk': 'claude-code',
     };
 
     return fallbacks[mode];

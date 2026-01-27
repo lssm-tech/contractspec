@@ -10,7 +10,12 @@ export type AiProvider = 'claude' | 'openai' | 'ollama' | 'custom';
 /**
  * Agent mode types.
  */
-export type AgentMode = 'simple' | 'cursor' | 'claude-code' | 'openai-codex';
+export type AgentMode =
+  | 'simple'
+  | 'cursor'
+  | 'claude-code'
+  | 'openai-codex'
+  | 'opencode-sdk';
 
 /**
  * Configuration for ContractSpec CLI and services.

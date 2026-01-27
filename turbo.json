@@ -33,7 +33,8 @@
         "generated/**",
         ".next/**",
         "!.next/cache/**",
-        "src/generated/**"
+        "src/generated/**",
+        "src/handlers/**"
       ]
     },
     "build:bundle": {
@@ -53,7 +54,8 @@
         "generated/**",
         ".next/**",
         "!.next/cache/**",
-        "src/generated/**"
+        "src/generated/**",
+        "src/handlers/**"
       ]
     },
     "build:types": {

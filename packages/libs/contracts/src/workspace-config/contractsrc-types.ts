@@ -317,7 +317,7 @@ export interface LintRules {
   'require-owners-format'?: RuleSeverity;
   /** Require event names to use past tense */
   'event-past-tense'?: RuleSeverity;
-  /** Warn on TODO comments */
+  /** Warn on placeholder comments */
   'no-todo'?: RuleSeverity;
   /** Require workflow transitions */
   'workflow-transitions'?: RuleSeverity;
@@ -387,6 +387,7 @@ export interface ContractsrcFileConfig {
     | 'claude-code'
     | 'openai-codex'
     | 'claude-agent-sdk'
+    | 'opencode'
     | 'opencode-sdk';
   customEndpoint?: string | null;
   customApiKey?: string | null;
@@ -434,6 +435,7 @@ export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
     | 'claude-code'
     | 'openai-codex'
     | 'claude-agent-sdk'
+    | 'opencode'
     | 'opencode-sdk';
   outputDir: string;
   conventions: {

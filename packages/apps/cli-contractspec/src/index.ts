@@ -256,7 +256,7 @@ const buildCmd = program
   .option('--model <model>', 'AI model to use')
   .option(
     '--agent-mode <mode>',
-    'Agent mode: simple, cursor, claude-code, openai-codex'
+    'Agent mode: simple, cursor, claude-code, openai-codex, opencode'
   )
   .option('--no-tests', 'Skip test generation')
   .option('--no-agent', 'Disable AI agent (use basic templates)')
@@ -315,7 +315,7 @@ const validateCmd = program
   )
   .option(
     '--agent-mode <mode>',
-    'Agent mode for validation: simple, claude-code, openai-codex'
+    'Agent mode for validation: simple, claude-code, openai-codex, opencode'
   )
   .option('--check-handlers', 'Verify handler implementations exist')
   .option('--check-tests', 'Verify test coverage')

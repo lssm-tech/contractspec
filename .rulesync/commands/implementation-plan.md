@@ -31,6 +31,7 @@ Execute the implementation plan with full traceability:
 5. **Implement tasks in order**:
    - Read relevant files and follow existing patterns
    - Keep changes minimal and reversible
+   - Remove placeholder comments in changed files (implement or delete them)
    - If a step is ambiguous or blocked, stop and ask one targeted question
 
 6. **Quality gates**:
@@ -40,6 +41,7 @@ Execute the implementation plan with full traceability:
      - `turbo lint`
      - `turbo test`
    - If the repo mandates validation, run `bunx contractspec ci`
+   - Run build verification last: `turbo run build`
    - Report failures with file:line references and suggested fixes
 
 7. **Changeset handling**:

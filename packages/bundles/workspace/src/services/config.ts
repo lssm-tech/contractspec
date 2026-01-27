@@ -13,7 +13,14 @@ const ConfigSchema = z.object({
     .default('claude'),
   aiModel: z.string().optional(),
   agentMode: z
-    .enum(['simple', 'cursor', 'claude-code', 'openai-codex'])
+    .enum([
+      'simple',
+      'cursor',
+      'claude-code',
+      'openai-codex',
+      'opencode',
+      'opencode-sdk',
+    ])
     .default('simple'),
   customEndpoint: z.url().nullable().optional(),
   customApiKey: z.string().nullable().optional(),
@@ -45,7 +52,18 @@ export async function loadWorkspaceConfig(
   try {
     const content = await fs.readFile(configPath);
     const parsed = JSON.parse(content);
-    return ConfigSchema.parse(parsed) as WorkspaceConfig;
+    const resolved = ConfigSchema.parse(parsed) as Omit<
+      WorkspaceConfig,
+      'agentMode'
+    > & {
+      agentMode?: WorkspaceConfig['agentMode'] | 'opencode';
+    };
+
+    return {
+      ...resolved,
+      agentMode:
+        resolved.agentMode === 'opencode' ? 'opencode-sdk' : resolved.agentMode,
+    } as WorkspaceConfig;
   } catch {
     return DEFAULT_WORKSPACE_CONFIG;
   }
