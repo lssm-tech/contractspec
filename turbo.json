@@ -5,8 +5,7 @@
     "clean": {
       "cache": false
     },
-    "test": {
-    },
+    "test": {},
     "publish:pkg": {
       "dependsOn": ["build:bundle", "^publish:pkg"],
       "cache": false,
@@ -74,6 +73,9 @@
       "persistent": true
     },
     "lint": {
+      "outputLogs": "new-only"
+    },
+    "lint:check": {
       "outputLogs": "new-only"
     }
   }

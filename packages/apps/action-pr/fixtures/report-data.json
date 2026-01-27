@@ -1,0 +1,20 @@
+{
+  "whatChanged": {
+    "summary": "1 contract file(s) changed.",
+    "detailsPath": "fixtures/product-view.md"
+  },
+  "risk": {
+    "status": "non-breaking",
+    "breaking": 0,
+    "nonBreaking": 1
+  },
+  "validation": {
+    "status": "pass",
+    "outputPath": "fixtures/validation.txt"
+  },
+  "drift": {
+    "status": "fail",
+    "files": ["generated/docs/example.md"]
+  },
+  "nextSteps": ["Run the generate command locally and commit drift fixes."]
+}

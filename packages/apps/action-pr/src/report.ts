@@ -1,19 +1,48 @@
-#!/usr/bin/env node
-
-const fs = require('fs');
+import fs from 'node:fs';
 
 const MAX_DETAIL_CHARS = 60000;
 const MAX_LIST_ITEMS = 20;
 
+interface WhatChangedData {
+  summary?: string;
+  detailsPath?: string;
+}
+
+interface RiskData {
+  status?: string;
+  breaking?: number;
+  nonBreaking?: number;
+}
+
+interface ValidationData {
+  status?: string;
+  outputPath?: string;
+}
+
+interface DriftData {
+  status?: string;
+  files?: string[];
+}
+
+interface ReportData {
+  whatChanged?: WhatChangedData;
+  risk?: RiskData;
+  validation?: ValidationData;
+  drift?: DriftData;
+  nextSteps?: string[];
+}
+
 const args = process.argv.slice(2);
-const argMap = new Map();
+const argMap = new Map<string, string>();
 
 for (let i = 0; i < args.length; i += 1) {
   const arg = args[i];
-  if (arg.startsWith('--')) {
+  if (arg?.startsWith('--')) {
     const key = arg.replace(/^--/, '');
     const value = args[i + 1];
-    argMap.set(key, value);
+    if (value) {
+      argMap.set(key, value);
+    }
     i += 1;
   }
 }
@@ -32,18 +61,18 @@ if (!dataPath) {
   process.exit(1);
 }
 
-const readFileIfExists = (filePath) => {
+const readFileIfExists = (filePath?: string): string => {
   if (!filePath) return '';
   if (!fs.existsSync(filePath)) return '';
   return fs.readFileSync(filePath, 'utf8');
 };
 
-const truncate = (value, maxChars = MAX_DETAIL_CHARS) => {
+const truncate = (value: string, maxChars = MAX_DETAIL_CHARS): string => {
   if (value.length <= maxChars) return value;
   return `${value.slice(0, maxChars)}\n\n*(output truncated)*`;
 };
 
-const formatList = (items) => {
+const formatList = (items?: string[]): string => {
   if (!items || items.length === 0) return '- None';
   return items
     .slice(0, MAX_LIST_ITEMS)
@@ -51,17 +80,15 @@ const formatList = (items) => {
     .join('\n');
 };
 
-const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+const data = JSON.parse(fs.readFileSync(dataPath, 'utf8')) as ReportData;
 
-const viewContent = truncate(
-  readFileIfExists(data.whatChanged?.detailsPath || '')
-);
+const viewContent = truncate(readFileIfExists(data.whatChanged?.detailsPath));
 const validationOutput = truncate(
-  readFileIfExists(data.validation?.outputPath || '')
+  readFileIfExists(data.validation?.outputPath)
 );
-const driftFiles = data.drift?.files || [];
+const driftFiles = data.drift?.files ?? [];
 
-const lines = [];
+const lines: string[] = [];
 
 lines.push('## ContractSpec Report');
 lines.push('');

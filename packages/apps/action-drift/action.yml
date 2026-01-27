@@ -187,7 +187,7 @@ runs:
       shell: bash
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        node "${{ github.action_path }}/report.js" --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
+        node "${{ github.action_path }}/dist/report.js" --data .contractspec-ci/report-data.json --output .contractspec-ci/report.md
 
     - name: Create issue
       if: env.DRIFT_DETECTED == 'true' && env.ON_DRIFT == 'issue'
