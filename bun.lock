@@ -865,6 +865,14 @@
         "typescript": "catalog:",
       },
     },
+    "packages/examples/opencode-cli": {
+      "name": "contractspec-example-opencode-cli",
+      "version": "0.1.0",
+      "devDependencies": {
+        "contractspec": "workspace:*",
+        "typescript": "^5.0.0",
+      },
+    },
     "packages/examples/personalization": {
       "name": "@contractspec/example.personalization",
       "version": "1.52.0",
@@ -4841,6 +4849,8 @@
     "contractspec": ["contractspec@workspace:packages/apps-registry/contractspec"],
 
     "contractspec-example-minimal": ["contractspec-example-minimal@workspace:packages/examples/minimal"],
+
+    "contractspec-example-opencode-cli": ["contractspec-example-opencode-cli@workspace:packages/examples/opencode-cli"],
 
     "conventional-commit-types": ["conventional-commit-types@3.0.0", "", {}, "sha512-SmmCYnOniSsAa9GqWOeLqc179lfr5TRu5b4QFDkbsrJ5TZjPJx85wtOr3zn+1dbeNiXDKGPbZ72IKbPhLXh/Lg=="],
 

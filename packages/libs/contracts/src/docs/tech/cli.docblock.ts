@@ -58,12 +58,22 @@ Generate implementation code from contract specs using AI agents or templates.
 contractspec build src/contracts/signup.contracts.ts --agent-mode claude-code
 \`\`\`
 
+Available agent modes: simple, cursor, claude-code, openai-codex, opencode (alias for opencode-sdk).
+
+OpenCode uses \`@opencode-ai/sdk\` via dynamic import and is ideal for teams running a self-hosted, open backend.
+
 ### \`validate\`
 
 Validate contract specifications and verify implementations.
 
 \`\`\`bash
 contractspec validate src/contracts/signup.contracts.ts --check-implementation
+\`\`\`
+
+You can also validate with OpenCode:
+
+\`\`\`bash
+contractspec validate src/contracts/signup.contracts.ts --check-implementation --agent-mode opencode
 \`\`\`
 
 ### \`watch\`

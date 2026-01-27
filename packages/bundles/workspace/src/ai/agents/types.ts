@@ -2,7 +2,12 @@
  * Agent types and interfaces for code generation and validation
  */
 
-export type AgentMode = 'simple' | 'cursor' | 'claude-code' | 'openai-codex';
+export type AgentMode =
+  | 'simple'
+  | 'cursor'
+  | 'claude-code'
+  | 'openai-codex'
+  | 'opencode-sdk';
 
 export interface AgentTask {
   type: 'generate' | 'validate' | 'refactor' | 'test';

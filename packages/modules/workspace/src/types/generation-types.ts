@@ -59,7 +59,12 @@ export type SpecBuildType =
 export interface WorkspaceConfig {
   aiProvider: 'claude' | 'openai' | 'ollama' | 'custom';
   aiModel?: string;
-  agentMode: 'simple' | 'cursor' | 'claude-code' | 'openai-codex';
+  agentMode:
+    | 'simple'
+    | 'cursor'
+    | 'claude-code'
+    | 'openai-codex'
+    | 'opencode-sdk';
   customEndpoint?: string | null;
   customApiKey?: string | null;
   outputDir: string;

@@ -146,6 +146,20 @@ export function mergeConfig(
     outputDir?: string;
   }
 ): Config {
+  const resolveAgentMode = (
+    mode: string | undefined
+  ): Config['agentMode'] | undefined => {
+    if (!mode) return undefined;
+    if (mode === 'opencode') return 'opencode-sdk';
+    return mode as Config['agentMode'];
+  };
+
+  const agentMode =
+    resolveAgentMode(options.agentMode) ??
+    resolveAgentMode(process.env.CONTRACTSPEC_AGENT_MODE) ??
+    resolveAgentMode(config.agentMode) ??
+    config.agentMode;
+
   return {
     ...config,
     aiProvider:
@@ -154,10 +168,7 @@ export function mergeConfig(
       config.aiProvider,
     aiModel:
       options.model || process.env.CONTRACTSPEC_AI_MODEL || config.aiModel,
-    agentMode:
-      (options.agentMode as Config['agentMode']) ||
-      (process.env.CONTRACTSPEC_AGENT_MODE as Config['agentMode']) ||
-      config.agentMode,
+    agentMode,
     customEndpoint:
       options.endpoint ||
       process.env.CONTRACTSPEC_LLM_ENDPOINT ||

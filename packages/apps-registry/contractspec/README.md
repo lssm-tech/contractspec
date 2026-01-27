@@ -4,9 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dt/contractspec)](https://www.npmjs.com/package/contractspec)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lssm-tech/contractspec)
 
-
 Website: https://contractspec.io/
-
 
 **Stabilize your AI-generated code** — Define contracts once, generate consistent code across API, DB, UI, and events. Safe regeneration. No lock-in.
 
@@ -41,6 +39,7 @@ contractspec validate src/contracts/mySpec.ts
 List all contract specifications in the project with filtering options.
 
 **Options:**
+
 - `--pattern <pattern>` - File pattern to search (glob)
 - `--deep` - Load spec modules to extract richer metadata (executes spec modules)
 - `--type <type>` - Filter by spec type (operation, event, presentation, etc.)
@@ -70,6 +69,7 @@ contractspec list --json
 Watch contract specifications and auto-regenerate on changes.
 
 **Options:**
+
 - `--pattern <pattern>` - File pattern to watch (default: `**/*.contracts.ts`)
 - `--build` - Auto-run build command on changes
 - `--validate` - Auto-run validate command on changes
@@ -95,6 +95,7 @@ contractspec watch --pattern 'src/**/*.ts' --debounce 1000
 Sync contracts by building all discovered specs.
 
 **Options:**
+
 - `--pattern <pattern>` - File pattern to search (glob)
 - `--buckets <buckets>` - Optional output buckets (comma-separated). Builds repeat into `./generated/<bucket>/`
 - `--surfaces <surfaces>` - (deprecated) Alias for `--buckets`
@@ -119,6 +120,7 @@ contractspec sync --dry-run
 Clean generated files and build artifacts.
 
 **Options:**
+
 - `--dry-run` - Show what would be deleted without deleting
 - `--generated-only` - Only clean generated directories (generated/, dist/, .turbo/, outputDir artifacts)
 - `--older-than <days>` - Only clean files older than specified days
@@ -146,6 +148,7 @@ contractspec clean --git-clean
 Analyze contract dependencies and relationships.
 
 **Options:**
+
 - `--pattern <pattern>` - File pattern to search (glob)
 - `--entry <name>` - Focus on a specific contract name
 - `--format <format>` - text|json|dot (default: text)
@@ -175,9 +178,11 @@ contractspec deps --format dot > deps.dot
 Compare contract specifications and show differences.
 
 **Arguments:**
+
 - `<spec1> <spec2>` - Two spec files to compare
 
 **Options:**
+
 - `--breaking` - Only show breaking changes
 - `--semantic` - Show semantic differences (not just text)
 - `--json` - Output as JSON for scripting
@@ -204,6 +209,7 @@ contractspec diff spec1.ts spec2.ts --semantic
 Interactive wizard to create contract specifications.
 
 **Options:**
+
 - `--type <type>` - Spec type: operation, event, presentation, form, feature
 - `--ai` - Use AI to generate spec from description
 - `--provider <provider>` - AI provider: claude, openai, ollama, custom
@@ -227,10 +233,11 @@ contractspec create --ai --provider ollama --model codellama
 Generate implementation code from contract specs using AI agents with automatic fallbacks.
 
 **Options:**
+
 - `--output-dir <dir>` - Output directory (default: ./generated)
 - `--provider <provider>` - AI provider: claude, openai, ollama, custom
 - `--model <model>` - AI model to use
-- `--agent-mode <mode>` - Agent mode: simple, cursor, claude-code, openai-codex
+- `--agent-mode <mode>` - Agent mode: simple, cursor, claude-code, openai-codex, opencode
 - `--no-tests` - Skip test generation
 - `--no-agent` - Disable AI (use basic templates)
 
@@ -257,9 +264,10 @@ contractspec build src/contracts/simple.contracts.ts --no-agent
 Validate contract specifications and optionally verify implementations against specs using AI.
 
 **Options:**
+
 - `--check-implementation` - Validate implementation against spec using AI
 - `--implementation-path <path>` - Path to implementation (auto-detected if not specified)
-- `--agent-mode <mode>` - Agent mode for validation: simple, claude-code, openai-codex
+- `--agent-mode <mode>` - Agent mode for validation: simple, claude-code, openai-codex, opencode
 - `--check-handlers` - Verify handler implementations exist
 - `--check-tests` - Verify test coverage
 - `-i, --interactive` - Interactive mode - prompt for what to validate
@@ -290,6 +298,7 @@ contractspec validate src/contracts/signup.contracts.ts \
 Run all validation checks for CI/CD pipelines with machine-readable output formats.
 
 **Options:**
+
 - `--pattern <glob>` - Glob pattern for spec discovery
 - `--format <format>` - Output format: text, json, sarif (default: text)
 - `--output <file>` - Write results to file
@@ -301,6 +310,7 @@ Run all validation checks for CI/CD pipelines with machine-readable output forma
 - `--verbose` - Verbose output
 
 **Available Checks:**
+
 - `structure` - Spec structure validation (meta, io, policy)
 - `integrity` - Contract integrity (orphaned specs, broken refs)
 - `deps` - Dependency analysis (circular deps, missing refs)
@@ -309,6 +319,7 @@ Run all validation checks for CI/CD pipelines with machine-readable output forma
 - `tests` - Test file existence
 
 **Exit Codes:**
+
 - `0` - All checks passed
 - `1` - Errors found
 - `2` - Warnings found (with `--fail-on-warnings`)
@@ -366,6 +377,7 @@ The CLI supports multiple AI agent modes for different use cases:
 - **cursor** - Leverages Windsurf/Cursor agentic capabilities (requires Cursor environment)
 - **claude-code** - Uses Claude with extended thinking, best for production code and validation
 - **openai-codex** - Uses GPT-4o/o1 models, excellent for algorithms and optimization
+- **opencode** (alias for opencode-sdk) - Uses OpenCode SDK for self-hosted backends (requires `@opencode-ai/sdk`)
 
 See [AGENT_MODES.md](./AGENT_MODES.md) for detailed comparison and usage guide.
 
@@ -536,16 +548,19 @@ src/
 ### "Provider not available" error
 
 **Claude:**
+
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 **OpenAI:**
+
 ```bash
 export OPENAI_API_KEY=sk-...
 ```
 
 **Ollama:**
+
 ```bash
 # Install Ollama from https://ollama.ai
 ollama serve
@@ -555,11 +570,13 @@ ollama pull codellama
 ### Slow generation
 
 For faster local generation, use smaller models:
+
 ```bash
 contractspec create --ai --provider ollama --model codellama:7b
 ```
 
 For cloud, use faster models:
+
 ```bash
 contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 ```
@@ -567,6 +584,7 @@ contractspec build spec.ts --provider openai --model gpt-3.5-turbo
 ### Import errors in generated code
 
 Make sure `@contractspec/lib.contracts` and `@contractspec/lib.schema` are installed:
+
 ```bash
 bun add @contractspec/lib.contracts @contractspec/lib.schema
 ```
@@ -585,23 +603,27 @@ Contributions welcome! Please:
 ### When to Use Each Mode
 
 **Simple Mode** - Default, good for:
+
 - Rapid prototyping
 - Basic implementations
 - Quick iterations
 - CI/CD pipelines (fast)
 
 **Cursor Mode** - Best for:
+
 - Working in Windsurf/Cursor IDE
 - Complex, iterative development
 - Context-aware code generation
 
 **Claude Code Mode** - Best for:
+
 - Production-quality implementations
 - Critical business logic
 - Comprehensive code validation
 - Detailed code reviews
 
 **OpenAI Codex Mode** - Best for:
+
 - Algorithmic problems
 - Performance optimization
 - Mathematical computations
@@ -612,7 +634,7 @@ For more details, see [AGENT_MODES.md](./AGENT_MODES.md).
 ## Roadmap
 
 - [x] AI-powered code generation
-- [x] Multiple agent modes (simple, cursor, claude-code, openai-codex)
+- [x] Multiple agent modes (simple, cursor, claude-code, openai-codex, opencode)
 - [x] AI-powered implementation validation
 - [x] Contract listing and discovery (`contractspec list`)
 - [x] Watch mode for auto-regeneration (`contractspec watch`)
@@ -633,4 +655,3 @@ For more details, see [AGENT_MODES.md](./AGENT_MODES.md).
 ## License
 
 MIT
-

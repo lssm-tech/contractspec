@@ -199,6 +199,7 @@ export class AgentOrchestrator {
   private getAgentMode(): AgentMode {
     // Check config for agent mode
     const mode = this.config.agentMode || 'simple';
+    if (mode === 'opencode') return 'opencode-sdk';
     return mode;
   }
 
