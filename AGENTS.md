@@ -44,7 +44,7 @@
 
 When working with AI assistants:
 - Rules are applied contextually based on file type
-- Conflicts resolved by: Security > Compliance > Safety > Quality > UX > Performance
+- Conflicts resolved by: Security > Compliance > Safety/Privacy > Stability/Quality > UX > Performance > Convenience
 - All decisions should be traceable and reversible
 - Use `/ai-audit` to verify governance compliance
 
@@ -56,6 +56,8 @@ When working with AI assistants:
 - `/fix` - Auto-fix common issues
 - `/explain` - Understand code
 - `/refactor` - Guided refactoring
+- `/implementation-plan` - Execute implementation plan with tracking
+- `/plan-adapt` - Adapt plan to ContractSpec
 - `/review-pr` - Code review
 - `/ai-audit` - Governance check
 
