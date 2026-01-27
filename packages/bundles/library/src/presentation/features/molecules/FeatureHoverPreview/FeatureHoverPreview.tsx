@@ -2,47 +2,35 @@
 
 import * as React from 'react';
 import { StatusChip } from '@contractspec/lib.design-system';
-import { VStack, HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
+import { HStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
-  Zap,
-  Radio,
-  Layout,
-  Shield,
   ArrowRight,
+  Layout,
+  Radio,
+  Shield,
   Tag,
   Users,
+  Zap,
 } from 'lucide-react';
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts/features';
 
 export interface FeatureHoverPreviewProps {
   /** The feature to preview */
   feature: FeatureModuleSpec;
-  /** Additional class name */
-  className?: string;
 }
 
 /**
  * Rich hover preview content for feature cards.
  * Shows detailed stats, capabilities, and tags.
  */
-export function FeatureHoverPreview({
-  feature,
-  className,
-}: FeatureHoverPreviewProps) {
+export function FeatureHoverPreview({ feature }: FeatureHoverPreviewProps) {
   const { meta, operations, events, presentations, capabilities } = feature;
 
   const hasCapabilities =
     capabilities?.provides?.length || capabilities?.requires?.length;
 
   return (
-    <VStack
-      gap="sm"
-      className={cn(
-        'border-border bg-popover text-popover-foreground w-72 rounded-lg border p-4 shadow-lg',
-        className
-      )}
-    >
+    <>
       {/* Description */}
       {meta.description && (
         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -150,6 +138,6 @@ export function FeatureHoverPreview({
           <span>{meta.owners.join(', ')}</span>
         </HStack>
       ) : null}
-    </VStack>
+    </>
   );
 }
