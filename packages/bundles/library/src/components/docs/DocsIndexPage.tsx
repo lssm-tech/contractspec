@@ -122,14 +122,14 @@ export function DocsIndexPage() {
             language="bash"
             filename="docs-quick-start"
             code={`# Install the CLI and core libraries
-pnpm add -D contractspec
-pnpm add @contractspec/lib.contracts @contractspec/lib.schema
+bun add -D contractspec
+bun add @contractspec/lib.contracts @contractspec/lib.schema
 
 # Create your first contract
-contractspec create --type operation
+bun contractspec create --type operation
 
 # Generate implementation
-contractspec build src/contracts/mySpec.ts`}
+bun contractspec build src/contracts/mySpec.ts`}
           />
 
           <div className="flex flex-wrap gap-2">
