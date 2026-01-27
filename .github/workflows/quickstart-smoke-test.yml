@@ -26,13 +26,13 @@ jobs:
         run: bun turbo build --filter 'contractspec'
 
       - name: Build ContractSpec Actions
-        run: turbo run build --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+        run: bun turbo run build --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
 
       - name: Lint ContractSpec Actions
-        run: turbo run lint:check --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+        run: bun turbo run lint:check --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
 
       - name: Test ContractSpec Actions
-        run: turbo run test --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+        run: bun turbo run test --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
 
       - name: Verify Minimal Example
         run: |
