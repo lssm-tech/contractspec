@@ -1,0 +1,28 @@
+name: ContractSpec PR Workflow
+
+on:
+  pull_request:
+
+jobs:
+  contractspec:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: ContractSpec PR checks
+        uses: ./packages/apps/action-pr
+        with:
+          package-manager: bun
+          working-directory: '.'
+          report-mode: both
+          enable-drift: true
+          fail-on: any
+          generate-command: 'bun contractspec generate'
+          validate-command: 'bun contractspec validate'
+          token: ${{ github.token }}

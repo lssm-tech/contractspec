@@ -25,6 +25,15 @@ jobs:
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
         run: bun turbo build --filter 'contractspec'
 
+      - name: Build ContractSpec Actions
+        run: bun turbo run build --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+
+      - name: Lint ContractSpec Actions
+        run: bun turbo run lint:check --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+
+      - name: Test ContractSpec Actions
+        run: bun turbo run test --filter="@contractspec/action.pr" --filter="@contractspec/action.drift"
+
       - name: Verify Minimal Example
         run: |
           cd packages/examples/minimal

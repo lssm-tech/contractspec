@@ -1,0 +1,139 @@
+CONTEXT (problem to solve)
+
+- Today our GitHub automations are fragmented: some logic lives in published actions (action-validation, action-version) but other key workflows (contract-pr, contract-drift) are hardcoded inside this repo.
+- The result: too many entrypoints, low readability, low adoption, and poor reuse across other repos/projects.
+- Product goal: “2 commands to rule them all.” Users should be able to copy-paste minimal YAML and get value immediately.
+
+PRODUCT OUTCOME (what success looks like)
+
+1. A user integrating ContractSpec into any repo should only need ONE small workflow file for PRs and ONE for drift (optional).
+2. Documentation shows copy-paste snippets with < 20 lines each.
+3. Outputs are human-friendly: a clear report in GitHub Job Summary, and optionally a PR comment.
+4. Everything is reusable across repos: no bespoke YAML logic hidden in this repo.
+
+SCOPE: Build 2 reusable workflows (primary deliverable)
+A) contracts PR workflow: “view + validation + drift (optional)”
+B) drift workflow: “detect drift on main/nightly + report + optional issue/PR”
+
+Keep current behavior parity as much as possible, but simplify the interface.
+
+---
+
+STEP 1 — Audit & map current behaviors
+
+- Read these existing implementations and write a short map:
+  - packages/apps/action-validation
+  - packages/apps/action-version
+  - .github/workflows/contract-pr.yml
+  - .github/workflows/contract-drift.yml
+- Produce an inventory:
+  - triggers (on: pull_request, push, schedule)
+  - steps executed (commands, scripts)
+  - outputs generated (artifacts, summaries, comments)
+  - failure conditions
+  - permissions required (pull-requests: write, contents: read, etc.)
+    Deliverable: a concise “current → future mapping” in markdown.
+    Status: complete (see docs/contractspec-workflows.md).
+
+STEP 2 — Define the new public surface (inputs/outputs)
+Create 2 composite actions under:
+
+- packages/apps/action-pr
+- packages/apps/action-drift
+
+Define a minimal, product-friendly input API (with defaults):
+PR action inputs:
+
+- package-manager (bun|npm|pnpm|yarn) default: bun
+- working-directory default: .
+- report-mode (summary|comment|both|off) default: summary
+- enable-drift (true|false) default: true
+- fail-on (breaking|drift|any|never) default: any
+- generate-command (string) required only if enable-drift=true
+- validate-command (string) optional override
+- contracts-dir or contracts-glob (optional)
+- token default: ${{ github.token }}
+
+Drift action inputs:
+
+- package-manager default: bun
+- working-directory default: .
+- generate-command (string) REQUIRED
+- on-drift (fail|issue|pr) default: fail
+- drift-paths-allowlist (optional)
+- token default: ${{ github.token }}
+
+Outputs (both actions):
+
+- Always write a markdown report to $GITHUB_STEP_SUMMARY.
+- If report-mode includes comment (PR action), post the same report as a PR comment (only if permissions allow).
+- Provide machine-readable outputs as action outputs if feasible (e.g., drift-detected, breaking-change-detected).
+
+Deliverable: action definitions + a short README section listing inputs and defaults.
+Status: complete (see packages/apps/action-pr, packages/apps/action-drift, README.md).
+
+STEP 3 — Refactor existing repo workflows to call actions
+
+- Keep only two workflow files that call the new actions.
+- Ensure the actions remain the public entrypoint for reuse.
+- Ensure safe behavior on forks (do not attempt PR comments if not allowed).
+
+Deliverable: only two workflow files remain and they call packages/apps actions.
+Status: complete (see .github/workflows/contractspec-pr.yml, .github/workflows/contractspec-drift.yml).
+
+STEP 4 — Consolidate or deprecate existing actions
+Decision rule:
+
+- If action-validation and action-version are still useful as low-level building blocks, keep them but mark them “internal” and stop marketing them as primary integration.
+- If they duplicate logic now inside reusable workflows, reduce them to helpers or deprecate.
+
+Deliverable:
+
+- Either keep as internal helpers (documented minimally), or create a deprecation note.
+  Status: complete (internal helper notes added to action READMEs).
+
+STEP 5 — Report UX (critical for adoption)
+Implement a stable report template used in both workflows:
+Sections:
+
+1. What changed (contracts/spec diff summary)
+2. Risk classification (breaking / non-breaking / docs-only)
+3. Validation results (pass/fail + key errors)
+4. Drift results (pass/fail + where diff is)
+5. Next steps (regen / bump / migration notes)
+
+- Ensure the summary is readable in GitHub UI with links to files when possible.
+- Keep under ~200 lines of markdown.
+
+Deliverable: a report generator script invoked by the actions.
+Status: complete (see packages/apps/action-pr/report.js, packages/apps/action-drift/report.js).
+
+STEP 6 — Documentation for copy-paste adoption
+Update README (or docs site) with:
+
+- “Quickstart: PR checks” snippet (<20 lines)
+- “Quickstart: Drift check” snippet (<20 lines)
+- Explanation of inputs in a compact table
+- Example screenshots (optional) or sample output markdown
+
+Deliverable: docs that a random repo owner can adopt in <5 minutes.
+Status: complete (README quickstart + inputs table updated for actions).
+
+STEP 7 — Acceptance tests (definition of done)
+
+- Open a test PR that changes contracts and verify:
+  - summary appears
+  - validation fails when expected
+  - drift fails when expected
+  - optional PR comment works when permissions allow
+- Push to main or simulate schedule to verify drift workflow.
+- Ensure workflows succeed on a clean repo state and fail with actionable errors on misconfig.
+
+Deliverable: checklist + evidence in PR description.
+Status: in progress (PR open; static action report tests added; rerun pending).
+
+NON-GOALS (do not do)
+
+- Do not create more than 2 public workflows.
+- Do not add new “actions” unless necessary for a shared helper.
+- Do not over-engineer configuration. Defaults should work for this repo and most users.

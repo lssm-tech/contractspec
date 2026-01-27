@@ -1,7 +1,8 @@
 # ContractSpec CI GitHub Action
 
-Website: https://contractspec.io/
+> Note: This action is now an internal helper. Prefer `packages/apps/action-pr` and `packages/apps/action-drift`.
 
+Website: https://contractspec.io/
 
 Run ContractSpec validation checks in your CI/CD pipeline with automatic SARIF upload to GitHub Code Scanning.
 
@@ -39,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write  # Required for SARIF upload
+      security-events: write # Required for SARIF upload
     steps:
       - uses: actions/checkout@v4
 
@@ -86,29 +87,28 @@ jobs:
 
 ### Validation Mode Inputs
 
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `mode` | Action mode: `validate` or `impact` | No | `validate` |
-| `checks` | Checks to run (comma-separated) or "all" | No | `all` |
-| `skip` | Checks to skip (comma-separated) | No | `''` |
-| `pattern` | Glob pattern for spec discovery | No | `''` |
-| `fail-on-warnings` | Fail the action on warnings | No | `false` |
-| `check-handlers` | Include handler implementation checks | No | `false` |
-| `check-tests` | Include test coverage checks | No | `false` |
-| `upload-sarif` | Upload SARIF to GitHub Code Scanning | No | `true` |
-| `working-directory` | Working directory for running checks | No | `.` |
-| `bun-version` | Bun version to use | No | `latest` |
+| Input               | Description                              | Required | Default    |
+| ------------------- | ---------------------------------------- | -------- | ---------- |
+| `mode`              | Action mode: `validate` or `impact`      | No       | `validate` |
+| `checks`            | Checks to run (comma-separated) or "all" | No       | `all`      |
+| `skip`              | Checks to skip (comma-separated)         | No       | `''`       |
+| `pattern`           | Glob pattern for spec discovery          | No       | `''`       |
+| `fail-on-warnings`  | Fail the action on warnings              | No       | `false`    |
+| `check-handlers`    | Include handler implementation checks    | No       | `false`    |
+| `check-tests`       | Include test coverage checks             | No       | `false`    |
+| `upload-sarif`      | Upload SARIF to GitHub Code Scanning     | No       | `true`     |
+| `working-directory` | Working directory for running checks     | No       | `.`        |
+| `bun-version`       | Bun version to use                       | No       | `latest`   |
 
 ### Impact Detection Inputs
 
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `mode` | Set to `impact` for breaking change detection | No | `validate` |
-| `baseline` | Git ref to compare against (auto-detected from PR) | No | `''` |
-| `pr-comment` | Post impact results as PR comment | No | `true` |
-| `fail-on-breaking` | Fail action if breaking changes detected | No | `true` |
-| `github-token` | GitHub token for PR comments and check runs | No | `${{ github.token }}` |
-
+| Input              | Description                                        | Required | Default               |
+| ------------------ | -------------------------------------------------- | -------- | --------------------- |
+| `mode`             | Set to `impact` for breaking change detection      | No       | `validate`            |
+| `baseline`         | Git ref to compare against (auto-detected from PR) | No       | `''`                  |
+| `pr-comment`       | Post impact results as PR comment                  | No       | `true`                |
+| `fail-on-breaking` | Fail action if breaking changes detected           | No       | `true`                |
+| `github-token`     | GitHub token for PR comments and check runs        | No       | `${{ github.token }}` |
 
 ### Available Checks
 
@@ -123,21 +123,21 @@ jobs:
 
 ### Validation Mode Outputs
 
-| Output | Description |
-|--------|-------------|
-| `success` | Whether all checks passed (`true`/`false`) |
-| `errors` | Number of errors found |
-| `warnings` | Number of warnings found |
-| `sarif-file` | Path to SARIF output file |
-| `json-file` | Path to JSON output file |
+| Output       | Description                                |
+| ------------ | ------------------------------------------ |
+| `success`    | Whether all checks passed (`true`/`false`) |
+| `errors`     | Number of errors found                     |
+| `warnings`   | Number of warnings found                   |
+| `sarif-file` | Path to SARIF output file                  |
+| `json-file`  | Path to JSON output file                   |
 
 ### Impact Detection Outputs
 
-| Output | Description |
-|--------|-------------|
-| `impact-status` | Impact status: `no-impact`, `non-breaking`, or `breaking` |
-| `breaking-count` | Number of breaking changes detected |
-| `non-breaking-count` | Number of non-breaking changes detected |
+| Output               | Description                                               |
+| -------------------- | --------------------------------------------------------- |
+| `impact-status`      | Impact status: `no-impact`, `non-breaking`, or `breaking` |
+| `breaking-count`     | Number of breaking changes detected                       |
+| `non-breaking-count` | Number of non-breaking changes detected                   |
 
 ## Impact Detection
 
@@ -158,10 +158,10 @@ When `pr-comment: true`, the action posts a comment like:
 
 ### Summary
 
-| Type | Count |
-|------|-------|
-| 🔴 Breaking | 2 |
-| 🟡 Non-breaking | 3 |
+| Type            | Count |
+| --------------- | ----- |
+| 🔴 Breaking     | 2     |
+| 🟡 Non-breaking | 3     |
 
 ### 🔴 Breaking Changes
 
@@ -187,11 +187,11 @@ permissions:
 
 ## Exit Codes
 
-| Code | Description |
-|------|-------------|
-| `0` | All checks passed |
-| `1` | Errors found (or breaking changes with `fail-on-breaking: true`) |
-| `2` | Warnings found (with `fail-on-warnings: true`) |
+| Code | Description                                                      |
+| ---- | ---------------------------------------------------------------- |
+| `0`  | All checks passed                                                |
+| `1`  | Errors found (or breaking changes with `fail-on-breaking: true`) |
+| `2`  | Warnings found (with `fail-on-warnings: true`)                   |
 
 ## Examples
 
@@ -226,8 +226,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for git history comparison
-      
+          fetch-depth: 0 # Required for git history comparison
+
       - uses: lssm-tech/contractspec@action-v1
         with:
           mode: impact
@@ -284,7 +284,3 @@ If you prefer to run ContractSpec directly without the action:
 ## License
 
 MIT
-
-
-
-
