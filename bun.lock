@@ -32,7 +32,7 @@
         "prettier": "3.7.4",
         "prettier-plugin-prisma": "^5.0.0",
         "prettier-plugin-tailwindcss": "^0.7.2",
-        "rulesync": "^5.9.0",
+        "rulesync": "^5.9.1",
         "turbo-ignore": "^2.7.6",
         "typescript-eslint": "^8.53.1",
       },
@@ -57,6 +57,14 @@
       "dependencies": {
         "@contractspec/app.cli-contractspec": "workspace:*",
       },
+    },
+    "packages/apps/action-drift": {
+      "name": "@contractspec/action.drift",
+      "version": "0.1.0",
+    },
+    "packages/apps/action-pr": {
+      "name": "@contractspec/action.pr",
+      "version": "0.1.0",
     },
     "packages/apps/action-validation": {
       "name": "@contractspec/action.validation",
@@ -2655,6 +2663,10 @@
     "@commitlint/resolve-extends": ["@commitlint/resolve-extends@20.3.1", "", { "dependencies": { "@commitlint/config-validator": "^20.3.1", "@commitlint/types": "^20.3.1", "global-directory": "^4.0.1", "import-meta-resolve": "^4.0.0", "lodash.mergewith": "^4.6.2", "resolve-from": "^5.0.0" } }, "sha512-iGTGeyaoDyHDEZNjD8rKeosjSNs8zYanmuowY4ful7kFI0dnY4b5QilVYaFQJ6IM27S57LAeH5sKSsOHy4bw5w=="],
 
     "@commitlint/types": ["@commitlint/types@20.3.1", "", { "dependencies": { "@types/conventional-commits-parser": "^5.0.0", "chalk": "^5.3.0" } }, "sha512-VmIFV/JkBRhDRRv7N5B7zEUkNZIx9Mp+8Pe65erz0rKycXLsi8Epcw0XJ+btSeRXgTzE7DyOyA9bkJ9mn/yqVQ=="],
+
+    "@contractspec/action.drift": ["@contractspec/action.drift@workspace:packages/apps/action-drift"],
+
+    "@contractspec/action.pr": ["@contractspec/action.pr@workspace:packages/apps/action-pr"],
 
     "@contractspec/action.validation": ["@contractspec/action.validation@workspace:packages/apps/action-validation"],
 
