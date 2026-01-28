@@ -74,6 +74,9 @@
       "cache": false,
       "persistent": true
     },
+    "docs:generate": {
+      "outputLogs": "new-only"
+    },
     "lint": {
       "outputLogs": "new-only"
     },

@@ -22,8 +22,12 @@ export async function copyTextFile(
   await writeText(destPath, content);
 }
 
-export async function listMarkdownFiles(rootDir: string): Promise<string[]> {
+export async function listMarkdownFiles(
+  rootDir: string,
+  options?: { excludeDirs?: string[] }
+): Promise<string[]> {
   const files: string[] = [];
+  const exclude = new Set(options?.excludeDirs ?? []);
 
   async function walk(current: string): Promise<void> {
     const entries = await readdir(current, { withFileTypes: true });
@@ -31,6 +35,9 @@ export async function listMarkdownFiles(rootDir: string): Promise<string[]> {
     for (const entry of entries) {
       const fullPath = join(current, entry.name);
       if (entry.isDirectory()) {
+        if (exclude.has(entry.name)) {
+          continue;
+        }
         await walk(fullPath);
         continue;
       }

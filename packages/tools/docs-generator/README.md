@@ -27,6 +27,9 @@ bun docs:generate
 
 The generator writes a typed index manifest plus markdown content.
 
+Note: the `docblocks/` folder under the content root is ignored when scanning
+source markdown to avoid re-indexing DocBlocks on subsequent runs.
+
 Content is stored under `--content-root` (defaults to `--source`). If
 `--version` is provided, both the index and content are nested under that
 version subdirectory.
