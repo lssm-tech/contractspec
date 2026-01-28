@@ -1,0 +1,210 @@
+[
+  {
+    "id": "feature-flags/experiment.create",
+    "title": "experiment.create",
+    "summary": "Create an A/B test experiment. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, experiment, create - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/experiment.create",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.create.md"
+  },
+  {
+    "id": "feature-flags/experiment.created",
+    "title": "experiment.created",
+    "summary": "An experiment has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiment, create - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/experiment.created",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.created.md"
+  },
+  {
+    "id": "feature-flags/experiment.get",
+    "title": "experiment.get",
+    "summary": "Get experiment details. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, experiment, get - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/experiment.get",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.get.md"
+  },
+  {
+    "id": "feature-flags/experiment.start",
+    "title": "experiment.start",
+    "summary": "Start an experiment. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, experiment, start - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/experiment.start",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.start.md"
+  },
+  {
+    "id": "feature-flags/experiment.started",
+    "title": "experiment.started",
+    "summary": "An experiment has started. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiment, start - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/experiment.started",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.started.md"
+  },
+  {
+    "id": "feature-flags/experiment.stop",
+    "title": "experiment.stop",
+    "summary": "Stop an experiment. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, experiment, stop - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/experiment.stop",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.stop.md"
+  },
+  {
+    "id": "feature-flags/experiment.stopped",
+    "title": "experiment.stopped",
+    "summary": "An experiment has stopped. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiment, stop - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/experiment.stopped",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.stopped.md"
+  },
+  {
+    "id": "feature-flags/experiment.variant_assigned",
+    "title": "experiment.variant_assigned",
+    "summary": "A subject has been assigned to an experiment variant. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiment, variant",
+    "route": "/docs/reference/feature-flags/experiment.variant_assigned",
+    "source": "generated",
+    "contentPath": "feature-flags/experiment.variant_assigned.md"
+  },
+  {
+    "id": "feature-flags/experiments",
+    "title": "experiments",
+    "summary": "A/B testing and experimentation platform - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.featureflags - **Tags**: experiments, ab-testing - **File**: `packages/libs/feature-flags/src/feature-flags.capability.ts`",
+    "route": "/docs/reference/feature-flags/experiments",
+    "source": "generated",
+    "contentPath": "feature-flags/experiments.md"
+  },
+  {
+    "id": "feature-flags/feature-flags",
+    "title": "feature-flags",
+    "summary": "Feature flag management with targeting rules and A/B experiments - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, experiments, targeting",
+    "route": "/docs/reference/feature-flags/feature-flags",
+    "source": "generated",
+    "contentPath": "feature-flags/feature-flags.md"
+  },
+  {
+    "id": "feature-flags/flag.create",
+    "title": "flag.create",
+    "summary": "Create a new feature flag. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, create - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.create",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.create.md"
+  },
+  {
+    "id": "feature-flags/flag.created",
+    "title": "flag.created",
+    "summary": "A feature flag has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, create - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.created",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.created.md"
+  },
+  {
+    "id": "feature-flags/flag.delete",
+    "title": "flag.delete",
+    "summary": "Delete a feature flag. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, delete - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.delete",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.delete.md"
+  },
+  {
+    "id": "feature-flags/flag.deleted",
+    "title": "flag.deleted",
+    "summary": "A feature flag has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, delete - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.deleted",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.deleted.md"
+  },
+  {
+    "id": "feature-flags/flag.evaluate",
+    "title": "flag.evaluate",
+    "summary": "Evaluate a feature flag for a given context. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, evaluate - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.evaluate",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.evaluate.md"
+  },
+  {
+    "id": "feature-flags/flag.evaluated",
+    "title": "flag.evaluated",
+    "summary": "A feature flag has been evaluated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, evaluate - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.evaluated",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.evaluated.md"
+  },
+  {
+    "id": "feature-flags/flag.get",
+    "title": "flag.get",
+    "summary": "Get a feature flag by key. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, get - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.get",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.get.md"
+  },
+  {
+    "id": "feature-flags/flag.list",
+    "title": "flag.list",
+    "summary": "List all feature flags. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, list - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.list",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.list.md"
+  },
+  {
+    "id": "feature-flags/flag.rule_created",
+    "title": "flag.rule_created",
+    "summary": "A targeting rule has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, rule, create - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.rule_created",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.rule_created.md"
+  },
+  {
+    "id": "feature-flags/flag.rule_deleted",
+    "title": "flag.rule_deleted",
+    "summary": "A targeting rule has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, rule, delete - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.rule_deleted",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.rule_deleted.md"
+  },
+  {
+    "id": "feature-flags/flag.rule.create",
+    "title": "flag.rule.create",
+    "summary": "Create a targeting rule for a flag. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, rule, create - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.rule.create",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.rule.create.md"
+  },
+  {
+    "id": "feature-flags/flag.rule.delete",
+    "title": "flag.rule.delete",
+    "summary": "Delete a targeting rule. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, rule, delete - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.rule.delete",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.rule.delete.md"
+  },
+  {
+    "id": "feature-flags/flag.toggle",
+    "title": "flag.toggle",
+    "summary": "Toggle a feature flag status. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, toggle - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.toggle",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.toggle.md"
+  },
+  {
+    "id": "feature-flags/flag.toggled",
+    "title": "flag.toggled",
+    "summary": "A feature flag status has been toggled. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, toggle - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.toggled",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.toggled.md"
+  },
+  {
+    "id": "feature-flags/flag.update",
+    "title": "flag.update",
+    "summary": "Update an existing feature flag. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.feature-flags - **Tags**: feature-flags, update - **File**: `packages/libs/feature-flags/src/contracts/index.ts`",
+    "route": "/docs/reference/feature-flags/flag.update",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.update.md"
+  },
+  {
+    "id": "feature-flags/flag.updated",
+    "title": "flag.updated",
+    "summary": "A feature flag has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.feature-flags - **Tags**: feature-flags, update - **File**: `packages/libs/feature-flags/src/events.ts`",
+    "route": "/docs/reference/feature-flags/flag.updated",
+    "source": "generated",
+    "contentPath": "feature-flags/flag.updated.md"
+  }
+]

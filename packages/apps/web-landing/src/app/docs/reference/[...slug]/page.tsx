@@ -12,7 +12,8 @@ interface DocsReferenceSlugPageProps {
 }
 
 export async function generateStaticParams() {
-  return listGeneratedDocs().map((doc) => ({ slug: doc.id.split('/') }));
+  const docs = await listGeneratedDocs();
+  return docs.map((doc) => ({ slug: doc.id.split('/') }));
 }
 
 export default async function DocsReferenceSlugPage({

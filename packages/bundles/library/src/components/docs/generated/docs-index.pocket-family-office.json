@@ -1,0 +1,122 @@
+[
+  {
+    "id": "pocket-family-office/pfo.documents.upload",
+    "title": "pfo.documents.upload",
+    "summary": "Stores an object in tenant storage and schedules ingestion into the knowledge base. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: documents, ingestion - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.documents.upload",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.documents.upload.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.email.sync-threads",
+    "title": "pfo.email.sync-threads",
+    "summary": "Triggers ingestion of Gmail threads into the operational knowledge space. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: gmail, knowledge - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.email.sync-threads",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.email.sync-threads.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.openbanking.generate-overview",
+    "title": "pfo.openbanking.generate-overview",
+    "summary": "Aggregates balances and transactions into a derived financial overview stored in the knowledge layer. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: open-banking, summary - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.openbanking.generate-overview",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.openbanking.generate-overview.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.reminders.schedule-payment",
+    "title": "pfo.reminders.schedule-payment",
+    "summary": "Queues outbound email/SMS reminders for upcoming bills and adds an optional calendar hold. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: payments, reminders - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.reminders.schedule-payment",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.reminders.schedule-payment.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.summary.dispatch",
+    "title": "pfo.summary.dispatch",
+    "summary": "Delivers the generated summary via email and optionally synthesises a voice note. - **Type**: operation (command) - **Version**: 1.0.0 - **Tags**: summary, communications - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.summary.dispatch",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.summary.dispatch.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.summary.generate",
+    "title": "pfo.summary.generate",
+    "summary": "Runs RAG over financial documents and email threads to provide a natural-language summary with key metrics. - **Type**: operation (query) - **Version**: 1.0.0 - **Tags**: summary, ai - **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.summary.generate",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.summary.generate.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.generate-financial-summary",
+    "title": "pfo.workflow.generate-financial-summary",
+    "summary": "Retrieves the latest financial signals, generates an AI summary, and optionally distributes it by voice or email. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: summary, ai - **File**: `packages/examples/pocket-family-office/src/workflows/generate-financial-summary.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.generate-financial-summary",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.generate-financial-summary.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.generate-openbanking-overview",
+    "title": "pfo.workflow.generate-openbanking-overview",
+    "summary": "Produces a derived financial overview and stores it in the operational knowledge space. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: open-banking, summary - **File**: `packages/examples/pocket-family-office/src/workflows/generate-openbanking-overview.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.generate-openbanking-overview",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.generate-openbanking-overview.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.ingest-email-threads",
+    "title": "pfo.workflow.ingest-email-threads",
+    "summary": "Synchronises Gmail threads tagged with finance labels and indexes them into operational knowledge spaces. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: gmail, knowledge - **File**: `packages/examples/pocket-family-office/src/workflows/ingest-email-threads.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.ingest-email-threads",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.ingest-email-threads.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.process-uploaded-document",
+    "title": "pfo.workflow.process-uploaded-document",
+    "summary": "Stores an uploaded invoice/contract, queues ingestion, and records any follow-up reminders. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: documents, ingestion - **File**: `packages/examples/pocket-family-office/src/workflows/process-uploaded-document.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.process-uploaded-document",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.process-uploaded-document.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.refresh-openbanking-balances",
+    "title": "pfo.workflow.refresh-openbanking-balances",
+    "summary": "Refreshes balances for synced accounts to surface the latest cash positions in dashboards. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: open-banking, powens - **File**: `packages/examples/pocket-family-office/src/workflows/refresh-openbanking-balances.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.refresh-openbanking-balances",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.refresh-openbanking-balances.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.sync-openbanking-accounts",
+    "title": "pfo.workflow.sync-openbanking-accounts",
+    "summary": "Validates Powens connectivity and synchronises bank account metadata into the canonical ledger. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: open-banking, powens - **File**: `packages/examples/pocket-family-office/src/workflows/sync-openbanking-accounts.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.sync-openbanking-accounts",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.sync-openbanking-accounts.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.sync-openbanking-transactions",
+    "title": "pfo.workflow.sync-openbanking-transactions",
+    "summary": "Fetches recent transactions from Powens for each linked account and stores them in the canonical ledger. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: open-banking, powens - **File**: `packages/examples/pocket-family-office/src/workflows/sync-openbanking-transactions.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.sync-openbanking-transactions",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.sync-openbanking-transactions.md"
+  },
+  {
+    "id": "pocket-family-office/pfo.workflow.upcoming-payments-reminder",
+    "title": "pfo.workflow.upcoming-payments-reminder",
+    "summary": "Collects payment metadata and schedules multi-channel reminders for bills that are due soon. - **Type**: workflow (workflow) - **Version**: 1.0.0 - **Tags**: payments, reminders - **File**: `packages/examples/pocket-family-office/src/workflows/upcoming-payments-reminder.ts`",
+    "route": "/docs/reference/pocket-family-office/pfo.workflow.upcoming-payments-reminder",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pfo.workflow.upcoming-payments-reminder.md"
+  },
+  {
+    "id": "pocket-family-office/pocket-family-office",
+    "title": "pocket-family-office",
+    "summary": "Personal finance automation with document ingestion, open banking, and AI summaries - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @platform.finance - **Tags**: finance, open-banking, documents, automation, family-office",
+    "route": "/docs/reference/pocket-family-office/pocket-family-office",
+    "source": "generated",
+    "contentPath": "pocket-family-office/pocket-family-office.md"
+  }
+]

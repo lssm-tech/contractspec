@@ -1,0 +1,314 @@
+[
+  {
+    "id": "identity-rbac/identity",
+    "title": "identity",
+    "summary": "User identity and authentication - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: identity, auth - **File**: `packages/libs/identity-rbac/src/identity-rbac.capability.ts`",
+    "route": "/docs/reference/identity-rbac/identity",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.md"
+  },
+  {
+    "id": "identity-rbac/identity-rbac",
+    "title": "identity-rbac",
+    "summary": "User identity, organization management, and role-based access control - **Type**: feature - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, users, organizations, permissions",
+    "route": "/docs/reference/identity-rbac/identity-rbac",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity-rbac.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.create",
+    "title": "identity.org.create",
+    "summary": "Create a new organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, create - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.create",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.create.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.get",
+    "title": "identity.org.get",
+    "summary": "Get organization details. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, get - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.get",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.get.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.invite",
+    "title": "identity.org.invite",
+    "summary": "Invite a user to join the organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, invite, member - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.invite",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.invite.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.invite.accept",
+    "title": "identity.org.invite.accept",
+    "summary": "Accept an organization invitation. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, invite, accept - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.invite.accept",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.invite.accept.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.list",
+    "title": "identity.org.list",
+    "summary": "List organizations the current user belongs to. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, list - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.list",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.list.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.member.remove",
+    "title": "identity.org.member.remove",
+    "summary": "Remove a member from the organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, member, remove - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.member.remove",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.member.remove.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.members.list",
+    "title": "identity.org.members.list",
+    "summary": "List organization members. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, member, list - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.members.list",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.members.list.md"
+  },
+  {
+    "id": "identity-rbac/identity.org.update",
+    "title": "identity.org.update",
+    "summary": "Update organization details. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, org, update - **File**: `packages/libs/identity-rbac/src/contracts/organization.ts`",
+    "route": "/docs/reference/identity-rbac/identity.org.update",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.org.update.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.assign",
+    "title": "identity.rbac.assign",
+    "summary": "Assign a role to a user or organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, assign - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.assign",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.assign.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.check",
+    "title": "identity.rbac.check",
+    "summary": "Check if a user has a specific permission. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, check, permission",
+    "route": "/docs/reference/identity-rbac/identity.rbac.check",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.check.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.permissions",
+    "title": "identity.rbac.permissions",
+    "summary": "List all permissions for a user in a context. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, permissions, user",
+    "route": "/docs/reference/identity-rbac/identity.rbac.permissions",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.permissions.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.revoke",
+    "title": "identity.rbac.revoke",
+    "summary": "Revoke a role from a user or organization. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, revoke - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.revoke",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.revoke.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.role.create",
+    "title": "identity.rbac.role.create",
+    "summary": "Create a new role with permissions. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, role, create - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.role.create",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.role.create.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.role.delete",
+    "title": "identity.rbac.role.delete",
+    "summary": "Delete an existing role. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, role, delete - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.role.delete",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.role.delete.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.role.list",
+    "title": "identity.rbac.role.list",
+    "summary": "List all available roles. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, role, list - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.role.list",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.role.list.md"
+  },
+  {
+    "id": "identity-rbac/identity.rbac.role.update",
+    "title": "identity.rbac.role.update",
+    "summary": "Update an existing role. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: identity, rbac, role, update - **File**: `packages/libs/identity-rbac/src/contracts/rbac.ts`",
+    "route": "/docs/reference/identity-rbac/identity.rbac.role.update",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.rbac.role.update.md"
+  },
+  {
+    "id": "identity-rbac/identity.user.create",
+    "title": "identity.user.create",
+    "summary": "Create a new user account. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, user, create - **File**: `packages/libs/identity-rbac/src/contracts/user.ts`",
+    "route": "/docs/reference/identity-rbac/identity.user.create",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.user.create.md"
+  },
+  {
+    "id": "identity-rbac/identity.user.delete",
+    "title": "identity.user.delete",
+    "summary": "Delete user account and all associated data. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, user, delete - **File**: `packages/libs/identity-rbac/src/contracts/user.ts`",
+    "route": "/docs/reference/identity-rbac/identity.user.delete",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.user.delete.md"
+  },
+  {
+    "id": "identity-rbac/identity.user.list",
+    "title": "identity.user.list",
+    "summary": "List all users (admin only). - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, user, admin, list - **File**: `packages/libs/identity-rbac/src/contracts/user.ts`",
+    "route": "/docs/reference/identity-rbac/identity.user.list",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.user.list.md"
+  },
+  {
+    "id": "identity-rbac/identity.user.me",
+    "title": "identity.user.me",
+    "summary": "Get the current authenticated user profile. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, user, profile - **File**: `packages/libs/identity-rbac/src/contracts/user.ts`",
+    "route": "/docs/reference/identity-rbac/identity.user.me",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.user.me.md"
+  },
+  {
+    "id": "identity-rbac/identity.user.update",
+    "title": "identity.user.update",
+    "summary": "Update user profile information. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: platform.identity-rbac - **Tags**: identity, user, update - **File**: `packages/libs/identity-rbac/src/contracts/user.ts`",
+    "route": "/docs/reference/identity-rbac/identity.user.update",
+    "source": "generated",
+    "contentPath": "identity-rbac/identity.user.update.md"
+  },
+  {
+    "id": "identity-rbac/org.created",
+    "title": "org.created",
+    "summary": "A new organization has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, created, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.created",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.created.md"
+  },
+  {
+    "id": "identity-rbac/org.deleted",
+    "title": "org.deleted",
+    "summary": "An organization has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, deleted, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.deleted",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.deleted.md"
+  },
+  {
+    "id": "identity-rbac/org.invite.accepted",
+    "title": "org.invite.accepted",
+    "summary": "An invitation has been accepted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, invite, accepted, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.invite.accepted",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.invite.accepted.md"
+  },
+  {
+    "id": "identity-rbac/org.invite.declined",
+    "title": "org.invite.declined",
+    "summary": "An invitation has been declined. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, invite, declined, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.invite.declined",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.invite.declined.md"
+  },
+  {
+    "id": "identity-rbac/org.invite.sent",
+    "title": "org.invite.sent",
+    "summary": "An invitation to join an organization has been sent. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, invite, sent, identity",
+    "route": "/docs/reference/identity-rbac/org.invite.sent",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.invite.sent.md"
+  },
+  {
+    "id": "identity-rbac/org.member.added",
+    "title": "org.member.added",
+    "summary": "A user has joined an organization. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, member, added, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.member.added",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.member.added.md"
+  },
+  {
+    "id": "identity-rbac/org.member.removed",
+    "title": "org.member.removed",
+    "summary": "A user has left or been removed from an organization. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, member, removed, identity",
+    "route": "/docs/reference/identity-rbac/org.member.removed",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.member.removed.md"
+  },
+  {
+    "id": "identity-rbac/org.member.role_changed",
+    "title": "org.member.role_changed",
+    "summary": "A member - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, member, role, changed, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.member.role_changed",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.member.role_changed.md"
+  },
+  {
+    "id": "identity-rbac/org.updated",
+    "title": "org.updated",
+    "summary": "An organization has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: org, updated, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/org.updated",
+    "source": "generated",
+    "contentPath": "identity-rbac/org.updated.md"
+  },
+  {
+    "id": "identity-rbac/rbac",
+    "title": "rbac",
+    "summary": "Role-based access control - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: @platform.core - **Tags**: rbac, permissions, auth - **File**: `packages/libs/identity-rbac/src/identity-rbac.capability.ts`",
+    "route": "/docs/reference/identity-rbac/rbac",
+    "source": "generated",
+    "contentPath": "identity-rbac/rbac.md"
+  },
+  {
+    "id": "identity-rbac/role.assigned",
+    "title": "role.assigned",
+    "summary": "A role has been assigned. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: role, assigned, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/role.assigned",
+    "source": "generated",
+    "contentPath": "identity-rbac/role.assigned.md"
+  },
+  {
+    "id": "identity-rbac/role.revoked",
+    "title": "role.revoked",
+    "summary": "A role has been revoked. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: role, revoked, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/role.revoked",
+    "source": "generated",
+    "contentPath": "identity-rbac/role.revoked.md"
+  },
+  {
+    "id": "identity-rbac/user.created",
+    "title": "user.created",
+    "summary": "A new user has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: user, created, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/user.created",
+    "source": "generated",
+    "contentPath": "identity-rbac/user.created.md"
+  },
+  {
+    "id": "identity-rbac/user.deleted",
+    "title": "user.deleted",
+    "summary": "A user account has been deleted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: user, deleted, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/user.deleted",
+    "source": "generated",
+    "contentPath": "identity-rbac/user.deleted.md"
+  },
+  {
+    "id": "identity-rbac/user.email_verified",
+    "title": "user.email_verified",
+    "summary": "A user has verified their email address. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: user, verified, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/user.email_verified",
+    "source": "generated",
+    "contentPath": "identity-rbac/user.email_verified.md"
+  },
+  {
+    "id": "identity-rbac/user.updated",
+    "title": "user.updated",
+    "summary": "A user profile has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @platform.identity-rbac - **Tags**: user, updated, identity - **File**: `packages/libs/identity-rbac/src/events.ts`",
+    "route": "/docs/reference/identity-rbac/user.updated",
+    "source": "generated",
+    "contentPath": "identity-rbac/user.updated.md"
+  }
+]

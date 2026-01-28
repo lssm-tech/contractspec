@@ -1,0 +1,130 @@
+[
+  {
+    "id": "kb-update-pipeline/kb-update-pipeline",
+    "title": "kb-update-pipeline",
+    "summary": "Automation proposes KB patches; humans verify; publishing is blocked until approvals are complete. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, pipeline, hitl, audit, notifications",
+    "route": "/docs/reference/kb-update-pipeline/kb-update-pipeline",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb-update-pipeline.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.change.detected",
+    "title": "kb.change.detected",
+    "summary": "KB source change detected. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/kb-update-pipeline/src/events.ts` ```typescript export const KbChangeDetectedEvent = defineEvent({",
+    "route": "/docs/reference/kb-update-pipeline/kb.change.detected",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.change.detected.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.change.summarized",
+    "title": "kb.change.summarized",
+    "summary": "KB change summarized. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/kb-update-pipeline/src/events.ts` ```typescript export const KbChangeSummarizedEvent = defineEvent({ meta: {",
+    "route": "/docs/reference/kb-update-pipeline/kb.change.summarized",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.change.summarized.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.dashboard",
+    "title": "kb.dashboard",
+    "summary": "Overview of KB change candidates and review tasks. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @examples - **Tags**: dashboard, knowledge - **File**: `packages/examples/kb-update-pipeline/src/presentations.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kb.dashboard",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.dashboard.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.patch.proposed",
+    "title": "kb.patch.proposed",
+    "summary": "KB rule patch proposed (draft versions created). - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/kb-update-pipeline/src/events.ts` ```typescript export const KbPatchProposedEvent = defineEvent({",
+    "route": "/docs/reference/kb-update-pipeline/kb.patch.proposed",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.patch.proposed.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.review.decided",
+    "title": "kb.review.decided",
+    "summary": "KB review decided. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/kb-update-pipeline/src/events.ts` ```typescript export const KbReviewDecidedEvent = defineEvent({ meta: {",
+    "route": "/docs/reference/kb-update-pipeline/kb.review.decided",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.review.decided.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.review.form",
+    "title": "kb.review.form",
+    "summary": "Form to approve or reject a KB change candidate. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @examples - **Tags**: form, review - **File**: `packages/examples/kb-update-pipeline/src/presentations.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kb.review.form",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.review.form.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.review.list",
+    "title": "kb.review.list",
+    "summary": "List of pending review tasks for the current user. - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @examples - **Tags**: list, review - **File**: `packages/examples/kb-update-pipeline/src/presentations.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kb.review.list",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.review.list.md"
+  },
+  {
+    "id": "kb-update-pipeline/kb.review.requested",
+    "title": "kb.review.requested",
+    "summary": "KB review requested. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/kb-update-pipeline/src/events.ts` ```typescript export const KbReviewRequestedEvent = defineEvent({ meta: {",
+    "route": "/docs/reference/kb-update-pipeline/kb.review.requested",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kb.review.requested.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.createReviewTask",
+    "title": "kbPipeline.createReviewTask",
+    "summary": "Create a review task for a detected change. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, pipeline, hitl - **File**: `packages/examples/kb-update-pipeline/src/operations/pipeline.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.createReviewTask",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.createReviewTask.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.createReviewTask.test",
+    "title": "kbPipeline.createReviewTask.test",
+    "summary": "Test for creating review task - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.kb-update-pipeline - **Tags**: test - **File**: `packages/examples/kb-update-pipeline/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.createReviewTask.test",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.createReviewTask.test.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.publishIfReady",
+    "title": "kbPipeline.publishIfReady",
+    "summary": "Publish snapshot if ready (all approvals satisfied). - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, pipeline, publishing",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.publishIfReady",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.publishIfReady.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.runWatch",
+    "title": "kbPipeline.runWatch",
+    "summary": "Detect source changes and create change candidates. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, pipeline, jobs - **File**: `packages/examples/kb-update-pipeline/src/operations/pipeline.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.runWatch",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.runWatch.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.runWatch.test",
+    "title": "kbPipeline.runWatch.test",
+    "summary": "Test for run watch operation - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.kb-update-pipeline - **Tags**: test - **File**: `packages/examples/kb-update-pipeline/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.runWatch.test",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.runWatch.test.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.submitDecision",
+    "title": "kbPipeline.submitDecision",
+    "summary": "Submit approve/reject decision for a review task. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, pipeline, hitl, rbac - **File**: `packages/examples/kb-update-pipeline/src/operations/pipeline.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.submitDecision",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.submitDecision.md"
+  },
+  {
+    "id": "kb-update-pipeline/kbPipeline.submitDecision.test",
+    "title": "kbPipeline.submitDecision.test",
+    "summary": "Test for submitting decision - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.kb-update-pipeline - **Tags**: test - **File**: `packages/examples/kb-update-pipeline/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/kb-update-pipeline/kbPipeline.submitDecision.test",
+    "source": "generated",
+    "contentPath": "kb-update-pipeline/kbPipeline.submitDecision.test.md"
+  }
+]
