@@ -16,7 +16,7 @@
     "build": "bun build:types && bun build:bundle",
     "build:bundle": "tsdown",
     "build:types": "tsc --noEmit",
-    "docs:generate": "bun src/index.ts generate",
+    "docs:generate": "bun src/index.ts generate --source \"../../../generated/docs\" --out \"../../../packages/bundles/library/src/components/docs/generated\" --content-root \"../../../generated/docs\"",
     "clean": "rimraf dist .turbo",
     "lint": "bun lint:fix",
     "lint:fix": "eslint src --fix",

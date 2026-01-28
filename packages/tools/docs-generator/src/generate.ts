@@ -109,7 +109,9 @@ export async function generateDocs(
     await ensureDir(contentRoot);
   }
 
-  const markdownFiles = await listMarkdownFiles(options.sourceDir);
+  const markdownFiles = await listMarkdownFiles(options.sourceDir, {
+    excludeDirs: ['docblocks'],
+  });
   const entries: DocsIndexEntry[] = [];
 
   for (const filePath of markdownFiles) {
