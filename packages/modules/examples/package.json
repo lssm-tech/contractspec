@@ -83,7 +83,10 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./*": "./*"
+      "./registry": "./dist/registry.js",
+      "./runtime/registry": "./dist/runtime/registry.js",
+      "./runtime/*": "./dist/runtime/*",
+      "./*": "./dist/*"
     },
     "registry": "https://registry.npmjs.org/"
   },

@@ -2,45 +2,49 @@
 
 # docs.search
 
-Filter DocBlocks by query, tag, or visibility for MCP search.
+Search and filter DocBlocks by query, tag, or visibility.
 
 ## Metadata
 
-- **Type**: operation (command)
+- **Type**: operation (query)
 - **Version**: 1.0.0
-- **Stability**: stable
-- **File**: `packages/bundles/library/src/features/docs/docs.contracts.ts`
+- **Tags**: search, index
+- **File**: `packages/libs/contracts/src/docs/queries/docsIndex.query.ts`
 
 ## Goal
 
-Expose ContractSpec documentation to AI agents safely.
+Provide a consistent index of documentation entries for UI and MCP.
 
 ## Context
 
-Used by the docs MCP to keep AI agents on the canonical DocBlocks.
+Used by docs surfaces to list and filter DocBlocks without coupling to storage.
 
 ## Source Definition
 
 ```typescript
-export const docsSearchSpec = defineCommand({
+export const DocsIndexQuery = defineQuery({
   meta: {
     key: 'docs.search',
+    title: 'Docs Index',
     version: '1.0.0',
-    stability: 'stable',
-    owners: DOC_OWNERS,
-    tags: DOC_TAGS,
-    description:
-      'Filter DocBlocks by query, tag, or visibility for MCP search.',
-    goal: 'Expose ContractSpec documentation to AI agents safely.',
+    description: 'Search and filter DocBlocks by query, tag, or visibility.',
+    goal: 'Provide a consistent index of documentation entries for UI and MCP.',
     context:
-      'Used by the docs MCP to keep AI agents on the canonical DocBlocks.',
+      'Used by docs surfaces to list and filter DocBlocks without coupling to storage.',
+    domain: DOCS_DOMAIN,
+    owners: DOCS_OWNERS,
+    tags: [...DOCS_TAGS, 'search', 'index'],
+    stability: DOCS_STABILITY,
+    docId: [docId('docs.tech.docs-search')],
   },
+  capability: DOCS_CAPABILITY_REF,
   io: {
-    input: DocSearchInput,
-    output: DocSearchOutput,
+    input: DocsIndexInput,
+    output: DocsIndexOutput,
   },
   policy: {
     auth: 'anonymous',
+    pii: [],
   },
 });
 ```

@@ -90,6 +90,3 @@
 - Business: confirm contract goals and context align with adoption and documentation outcomes.
 - Technical: run Greptile/Graphite review if configured and summarize findings; ensure `contractspec impact` reports no unexpected breaking changes.
 
-## Plan Execution
-
-- Hand off to `/implementation-plan` once this plan is approved.

@@ -27,6 +27,15 @@ export * from './integrations';
 // Guides
 export * from './guides';
 
+// Examples
+export * from './examples';
+
+// Reference
+export * from './reference';
+
+// Generated reference artifacts
+export * from './generated';
+
 // Intent Pages
 export * from './intent';
 
