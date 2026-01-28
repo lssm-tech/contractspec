@@ -38,6 +38,10 @@ export const docsSections = [
         href: '/docs/guides/generate-docs-clients-schemas',
       },
       {
+        title: 'Docs Pipeline',
+        href: '/docs/guides/docs-generation-pipeline',
+      },
+      {
         title: 'CI Diff Gating',
         href: '/docs/guides/ci-contract-diff-gating',
       },
