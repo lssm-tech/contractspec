@@ -26,6 +26,20 @@ import {
   serializeDataViewSpec,
   serializeFormSpec,
 } from '@contractspec/lib.contracts/serialization';
+import {
+  ContractReferenceDataView,
+  ContractReferenceQuery,
+  DocsGeneratedEvent,
+  DocsGenerateCommand,
+  DocsIndexDataView,
+  DocsIndexQuery,
+  DocsLayoutPresentation,
+  DocsPublishedEvent,
+  DocsPublishCommand,
+  DocsReferencePagePresentation,
+  DocsSearchForm,
+  ExampleCatalogDataView,
+} from '@contractspec/lib.contracts/docs';
 
 // Re-export serialization types from lib.contracts for convenience
 export type {
@@ -38,9 +52,6 @@ export type {
   SerializedFormSpec,
 } from '@contractspec/lib.contracts/serialization';
 
-// Import all operation specs from features
-import { docsSearchSpec } from './docs';
-
 // ============================================================================
 // Operation Registry
 // ============================================================================
@@ -49,8 +60,11 @@ let operationRegistry: OperationSpecRegistry | null = null;
 
 export function createContractSpecOperationRegistry(): OperationSpecRegistry {
   const registry = new OperationSpecRegistry();
-  registry.register(docsSearchSpec);
-  // TODO: Register additional operation specs as they are extracted
+  registry
+    .register(DocsIndexQuery)
+    .register(ContractReferenceQuery)
+    .register(DocsGenerateCommand)
+    .register(DocsPublishCommand);
   return registry;
 }
 
@@ -76,8 +90,7 @@ let eventRegistry: EventRegistry | null = null;
 
 export function createContractSpecEventRegistry(): EventRegistry {
   const registry = new EventRegistry();
-  // TODO: Register event specs as they are extracted to module level
-  // registry.register(someEventSpec);
+  registry.register(DocsGeneratedEvent).register(DocsPublishedEvent);
   return registry;
 }
 
@@ -103,8 +116,9 @@ let presentationRegistry: PresentationRegistry | null = null;
 
 export function createContractSpecPresentationRegistry(): PresentationRegistry {
   const registry = new PresentationRegistry();
-  // TODO: Register presentation specs as they are extracted to module level
-  // registry.register(somePresentationSpec);
+  registry
+    .register(DocsLayoutPresentation)
+    .register(DocsReferencePagePresentation);
   return registry;
 }
 
@@ -130,8 +144,10 @@ let dataViewRegistry: DataViewRegistry | null = null;
 
 export function createContractSpecDataViewRegistry(): DataViewRegistry {
   const registry = new DataViewRegistry();
-  // TODO: Register data view specs as they are extracted to module level
-  // registry.register(someDataViewSpec);
+  registry
+    .register(DocsIndexDataView)
+    .register(ContractReferenceDataView)
+    .register(ExampleCatalogDataView);
   return registry;
 }
 
@@ -157,8 +173,7 @@ let formRegistry: FormRegistry | null = null;
 
 export function createContractSpecFormRegistry(): FormRegistry {
   const registry = new FormRegistry();
-  // TODO: Register form specs as they are extracted to module level
-  // registry.register(someFormSpec);
+  registry.register(DocsSearchForm);
   return registry;
 }
 

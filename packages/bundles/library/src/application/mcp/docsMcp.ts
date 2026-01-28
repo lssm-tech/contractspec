@@ -168,7 +168,11 @@ function buildDocOps(routes: DocPresentationRoute[]) {
         return matchesQuery && matchesTags && matchesVisibility;
       });
 
-    return { docs };
+    return {
+      docs,
+      items: docs,
+      total: docs.length,
+    };
   });
 
   return registry;

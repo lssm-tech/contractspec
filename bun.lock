@@ -2236,6 +2236,23 @@
         "typescript": "catalog:",
       },
     },
+    "packages/tools/docs-generator": {
+      "name": "@contractspec/tool.docs-generator",
+      "version": "1.52.0",
+      "bin": {
+        "contractspec-docs": "./dist/index.js",
+      },
+      "dependencies": {
+        "@contractspec/lib.contracts": "workspace:*",
+        "commander": "^12.1.0",
+      },
+      "devDependencies": {
+        "@contractspec/tool.tsdown": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "tsdown": "catalog:build",
+        "typescript": "catalog:",
+      },
+    },
     "packages/tools/eslint-plugin-design-system": {
       "name": "@contractspec/eslint-plugin-design-system",
       "version": "1.52.0",
@@ -2901,6 +2918,8 @@
     "@contractspec/module.workspace": ["@contractspec/module.workspace@workspace:packages/modules/workspace"],
 
     "@contractspec/tool.create-contractspec-plugin": ["@contractspec/tool.create-contractspec-plugin@workspace:packages/tools/create-contractspec-plugin"],
+
+    "@contractspec/tool.docs-generator": ["@contractspec/tool.docs-generator@workspace:packages/tools/docs-generator"],
 
     "@contractspec/tool.tsdown": ["@contractspec/tool.tsdown@workspace:packages/tools/tsdown"],
 
@@ -7385,6 +7404,8 @@
     "@contractspec/lib.example-shared-ui/lucide-react": ["lucide-react@0.300.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0" } }, "sha512-rQxUUCmWAvNLoAsMZ5j04b2+OJv6UuNLYMY7VK0eVlm4aTwUEjEEHc09/DipkNIlhXUSDn2xoyIzVT0uh7dRsg=="],
 
     "@contractspec/tool.create-contractspec-plugin/commander": ["commander@12.1.0", "", {}, "sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA=="],
+
+    "@contractspec/tool.docs-generator/commander": ["commander@12.1.0", "", {}, "sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA=="],
 
     "@eslint-community/eslint-utils/eslint-visitor-keys": ["eslint-visitor-keys@3.4.3", "", {}, "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag=="],
 
