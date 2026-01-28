@@ -15,14 +15,21 @@ function buildGeneratedRoute(routePrefix: string, id: string): string {
   return `${cleanPrefix}/${id}`;
 }
 
-function buildIndexFile(
-  entries: DocsIndexEntry[],
-  version?: string,
-  contentRoot?: string
-): string {
-  const serialized = JSON.stringify(entries, null, 2);
-  const generatedAt = new Date().toISOString();
+interface DocsIndexChunk {
+  key: string;
+  file: string;
+  total: number;
+}
 
+interface DocsIndexManifest {
+  generatedAt: string;
+  total: number;
+  version: string | null;
+  contentRoot: string | null;
+  chunks: DocsIndexChunk[];
+}
+
+function buildIndexTypesFile(): string {
   return [
     "export type DocsIndexSource = 'generated' | 'docblock';",
     '',
@@ -40,16 +47,45 @@ function buildIndexFile(
     '  owners?: string[];',
     '};',
     '',
-    `export const docsIndex = ${serialized} as const;`,
-    '',
-    'export const docsIndexMeta = {',
-    `  generatedAt: ${JSON.stringify(generatedAt)},`,
-    `  total: ${entries.length},`,
-    `  version: ${JSON.stringify(version ?? null)},`,
-    `  contentRoot: ${JSON.stringify(contentRoot ?? null)},`,
+    'export type DocsIndexChunk = {',
+    '  key: string;',
+    '  file: string;',
+    '  total: number;',
     '};',
     '',
+    'export type DocsIndexManifest = {',
+    '  generatedAt: string;',
+    '  total: number;',
+    '  version: string | null;',
+    '  contentRoot: string | null;',
+    '  chunks: DocsIndexChunk[];',
+    '};',
+    '',
+    'export const DOCS_INDEX_MANIFEST = "docs-index.manifest.json";',
+    '',
   ].join('\n');
+}
+
+function chunkKeyForId(id: string): string {
+  if (!id) return '_common';
+  if (id.includes('/')) {
+    const [prefix] = id.split('/');
+    return prefix || '_common';
+  }
+  return '_common';
+}
+
+function buildChunkFileName(
+  key: string,
+  usedNames: Map<string, number>
+): string {
+  const safeKey = key.replace(/[^a-zA-Z0-9-_]/g, '-');
+  const baseName = `docs-index.${safeKey || 'common'}.json`;
+  const count = usedNames.get(baseName) ?? 0;
+  const fileName =
+    count === 0 ? baseName : baseName.replace(/\.json$/, `-${count}.json`);
+  usedNames.set(baseName, count + 1);
+  return fileName;
 }
 
 export async function generateDocs(
@@ -68,6 +104,7 @@ export async function generateDocs(
   const shouldCopyContent = resolvedContentRoot !== resolvedSourceDir;
   const contentRootRelative =
     relative(resolvedOutputDir, resolvedContentRoot) || '.';
+  await ensureDir(outputDir);
   if (shouldCopyContent) {
     await ensureDir(contentRoot);
   }
@@ -133,12 +170,48 @@ export async function generateDocs(
     }
   }
 
-  const indexFile = buildIndexFile(
-    entries,
-    options.version,
-    contentRootRelative
+  const generatedAt = new Date().toISOString();
+  const chunkMap = new Map<string, DocsIndexEntry[]>();
+  for (const entry of entries) {
+    const key = chunkKeyForId(entry.id);
+    const bucket = chunkMap.get(key) ?? [];
+    bucket.push(entry);
+    chunkMap.set(key, bucket);
+  }
+
+  const usedNames = new Map<string, number>();
+  const chunks: DocsIndexChunk[] = [];
+  for (const [key, chunkEntries] of chunkMap) {
+    chunkEntries.sort((a, b) => a.id.localeCompare(b.id));
+    const file = buildChunkFileName(key, usedNames);
+    await writeText(
+      join(outputDir, file),
+      JSON.stringify(chunkEntries, null, 2)
+    );
+    chunks.push({
+      key,
+      file,
+      total: chunkEntries.length,
+    });
+  }
+
+  chunks.sort((a, b) => a.key.localeCompare(b.key));
+
+  const manifest: DocsIndexManifest = {
+    generatedAt,
+    total: entries.length,
+    version: options.version ?? null,
+    contentRoot: contentRootRelative || null,
+    chunks,
+  };
+
+  await writeText(
+    join(outputDir, 'docs-index.manifest.json'),
+    JSON.stringify(manifest, null, 2)
   );
-  await writeText(join(outputDir, 'docs-index.generated.ts'), indexFile);
+
+  const indexTypes = buildIndexTypesFile();
+  await writeText(join(outputDir, 'docs-index.generated.ts'), indexTypes);
 
   return {
     total: entries.length,

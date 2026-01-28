@@ -1,0 +1,418 @@
+[
+  {
+    "id": "workflow-system/approval",
+    "title": "approval",
+    "summary": "Approval workflows and user decisions - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: approval, workflow - **File**: `packages/examples/workflow-system/src/workflow-system.capability.ts`",
+    "route": "/docs/reference/workflow-system/approval",
+    "source": "generated",
+    "contentPath": "workflow-system/approval.md"
+  },
+  {
+    "id": "workflow-system/state-machine",
+    "title": "state-machine",
+    "summary": "State machine orchestration and transitions - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: state-machine, workflow - **File**: `packages/examples/workflow-system/src/workflow-system.capability.ts`",
+    "route": "/docs/reference/workflow-system/state-machine",
+    "source": "generated",
+    "contentPath": "workflow-system/state-machine.md"
+  },
+  {
+    "id": "workflow-system/workflow",
+    "title": "workflow",
+    "summary": "Workflow definitions and orchestration - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: workflow, automation - **File**: `packages/examples/workflow-system/src/workflow-system.capability.ts`",
+    "route": "/docs/reference/workflow-system/workflow",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.md"
+  },
+  {
+    "id": "workflow-system/workflow-system",
+    "title": "workflow-system",
+    "summary": "State machine-based workflow engine with role-based approvals, delegation, and escalation - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @workflow-team - **Tags**: workflow, approval, state-machine, automation",
+    "route": "/docs/reference/workflow-system/workflow-system",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow-system.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.badge",
+    "title": "workflow.approval.badge",
+    "summary": "Badge showing count of pending approvals - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, approval, badge, widget - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.badge",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.badge.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.comment.add",
+    "title": "workflow.approval.comment.add",
+    "summary": "Add a comment to an approval request. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, approval, comment - **File**: `packages/examples/workflow-system/src/approval/approval.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.comment.add",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.comment.add.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.decide",
+    "title": "workflow.approval.decide",
+    "summary": "Submit an approval decision (approve/reject). - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, approval, decision",
+    "route": "/docs/reference/workflow-system/workflow.approval.decide",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.decide.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.decide.test",
+    "title": "workflow.approval.decide.test",
+    "summary": "Test for deciding on approval - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.workflow-system - **Tags**: test - **File**: `packages/examples/workflow-system/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.decide.test",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.decide.test.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.decided",
+    "title": "workflow.approval.decided",
+    "summary": "An approval decision has been made. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, approval, decided - **File**: `packages/examples/workflow-system/src/approval/approval.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.decided",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.decided.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.delegate",
+    "title": "workflow.approval.delegate",
+    "summary": "Delegate an approval request to another user. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, approval, delegate",
+    "route": "/docs/reference/workflow-system/workflow.approval.delegate",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.delegate.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.delegated",
+    "title": "workflow.approval.delegated",
+    "summary": "An approval has been delegated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, approval, delegated - **File**: `packages/examples/workflow-system/src/approval/approval.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.delegated",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.delegated.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.detail",
+    "title": "workflow.approval.detail",
+    "summary": "Detailed approval request view with context and actions - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, approval, detail - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.detail",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.detail.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.escalated",
+    "title": "workflow.approval.escalated",
+    "summary": "An approval has been escalated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, approval, escalated - **File**: `packages/examples/workflow-system/src/approval/approval.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.escalated",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.escalated.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.form",
+    "title": "workflow.approval.form",
+    "summary": "Form for submitting approval decisions - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, approval, form - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.form",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.form.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.get",
+    "title": "workflow.approval.get",
+    "summary": "Get an approval request with details. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, approval, get - **File**: `packages/examples/workflow-system/src/approval/approval.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.get",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.get.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.inbox",
+    "title": "workflow.approval.inbox",
+    "summary": "Inbox showing pending approval requests for current user - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, approval, inbox - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.inbox",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.inbox.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.list.mine",
+    "title": "workflow.approval.list.mine",
+    "summary": "List approval requests assigned to current user. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, approval, list, inbox",
+    "route": "/docs/reference/workflow-system/workflow.approval.list.mine",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.list.mine.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.list.mine.test",
+    "title": "workflow.approval.list.mine.test",
+    "summary": "Test for listing my approvals - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.workflow-system - **Tags**: test - **File**: `packages/examples/workflow-system/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.list.mine.test",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.list.mine.test.md"
+  },
+  {
+    "id": "workflow-system/workflow.approval.requested",
+    "title": "workflow.approval.requested",
+    "summary": "An approval has been requested. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, approval, requested - **File**: `packages/examples/workflow-system/src/approval/approval.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.approval.requested",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.approval.requested.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.create",
+    "title": "workflow.definition.create",
+    "summary": "Create a new workflow definition. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, definition, create - **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.create",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.create.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.created",
+    "title": "workflow.definition.created",
+    "summary": "A new workflow definition has been created. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, definition, created - **File**: `packages/examples/workflow-system/src/workflow/workflow.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.created",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.created.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.detail",
+    "title": "workflow.definition.detail",
+    "summary": "Detailed view of a workflow definition with steps - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, detail - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.detail",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.detail.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.get",
+    "title": "workflow.definition.get",
+    "summary": "Get a workflow definition with all steps. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, definition, get - **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.get",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.get.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.list",
+    "title": "workflow.definition.list",
+    "summary": "List workflow definitions with filtering. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, definition, list - **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.list",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.list.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.list.test",
+    "title": "workflow.definition.list.test",
+    "summary": "Test for listing workflow definitions - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.workflow-system - **Tags**: test - **File**: `packages/examples/workflow-system/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.list.test",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.list.test.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.publish",
+    "title": "workflow.definition.publish",
+    "summary": "Publish a workflow definition to make it available for use. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, definition, publish",
+    "route": "/docs/reference/workflow-system/workflow.definition.publish",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.publish.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.published",
+    "title": "workflow.definition.published",
+    "summary": "A workflow definition has been published and is now active. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, definition, published",
+    "route": "/docs/reference/workflow-system/workflow.definition.published",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.published.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.update",
+    "title": "workflow.definition.update",
+    "summary": "Update an existing workflow definition. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, definition, update - **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.update",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.update.md"
+  },
+  {
+    "id": "workflow-system/workflow.definition.updated",
+    "title": "workflow.definition.updated",
+    "summary": "A workflow definition has been updated. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, definition, updated - **File**: `packages/examples/workflow-system/src/workflow/workflow.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.definition.updated",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.definition.updated.md"
+  },
+  {
+    "id": "workflow-system/workflow.designer",
+    "title": "workflow.designer",
+    "summary": "Visual workflow designer with drag-and-drop steps - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, designer, admin - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.designer",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.designer.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.cancel",
+    "title": "workflow.instance.cancel",
+    "summary": "Cancel a workflow instance. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, cancel - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.cancel",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.cancel.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.cancelled",
+    "title": "workflow.instance.cancelled",
+    "summary": "A workflow instance has been cancelled. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, cancelled - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.cancelled",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.cancelled.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.completed",
+    "title": "workflow.instance.completed",
+    "summary": "A workflow instance has completed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, completed - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.completed",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.completed.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.detail",
+    "title": "workflow.instance.detail",
+    "summary": "Detailed view of a workflow instance with step timeline - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, instance, detail, timeline - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.detail",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.detail.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.failed",
+    "title": "workflow.instance.failed",
+    "summary": "A workflow instance has failed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, failed - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.failed",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.failed.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.get",
+    "title": "workflow.instance.get",
+    "summary": "Get a workflow instance with details. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, get - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.get",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.get.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.list",
+    "title": "workflow.instance.list",
+    "summary": "List of workflow instances with status and progress - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, instance, list - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.list",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.list.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.list.test",
+    "title": "workflow.instance.list.test",
+    "summary": "Test for listing workflow instances - **Type**: test-spec (test-spec) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @example.workflow-system - **Tags**: test - **File**: `packages/examples/workflow-system/src/tests/operations.test-spec.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.list.test",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.list.test.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.pause",
+    "title": "workflow.instance.pause",
+    "summary": "Pause a running workflow instance. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, pause - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.pause",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.pause.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.paused",
+    "title": "workflow.instance.paused",
+    "summary": "A workflow instance has been paused. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, paused - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.paused",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.paused.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.progress",
+    "title": "workflow.instance.progress",
+    "summary": "Visual progress tracker showing current step in workflow - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, progress, widget - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.progress",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.progress.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.resume",
+    "title": "workflow.instance.resume",
+    "summary": "Resume a paused workflow instance. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, resume - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.resume",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.resume.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.resumed",
+    "title": "workflow.instance.resumed",
+    "summary": "A workflow instance has been resumed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, resumed - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.resumed",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.resumed.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.start",
+    "title": "workflow.instance.start",
+    "summary": "Start a new workflow instance. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, start - **File**: `packages/examples/workflow-system/src/instance/instance.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.start",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.start.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.started",
+    "title": "workflow.instance.started",
+    "summary": "A new workflow instance has been started. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, started - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.started",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.started.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.timedOut",
+    "title": "workflow.instance.timedOut",
+    "summary": "A workflow instance has timed out. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, instance, timeout - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.instance.timedOut",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.timedOut.md"
+  },
+  {
+    "id": "workflow-system/workflow.instance.transition",
+    "title": "workflow.instance.transition",
+    "summary": "Transition a workflow instance to the next step. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, instance, transition, state-machine",
+    "route": "/docs/reference/workflow-system/workflow.instance.transition",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.instance.transition.md"
+  },
+  {
+    "id": "workflow-system/workflow.metrics",
+    "title": "workflow.metrics",
+    "summary": "Dashboard widget showing workflow metrics and statistics - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @workflow-team - **Tags**: workflow, metrics, dashboard - **File**: `packages/examples/workflow-system/src/presentations/index.ts`",
+    "route": "/docs/reference/workflow-system/workflow.metrics",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.metrics.md"
+  },
+  {
+    "id": "workflow-system/workflow.step.add",
+    "title": "workflow.step.add",
+    "summary": "Add a step to a workflow definition. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @example.workflow-system - **Tags**: workflow, step, add - **File**: `packages/examples/workflow-system/src/workflow/workflow.operations.ts`",
+    "route": "/docs/reference/workflow-system/workflow.step.add",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.step.add.md"
+  },
+  {
+    "id": "workflow-system/workflow.step.added",
+    "title": "workflow.step.added",
+    "summary": "A step has been added to a workflow definition. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, step, added - **File**: `packages/examples/workflow-system/src/workflow/workflow.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.step.added",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.step.added.md"
+  },
+  {
+    "id": "workflow-system/workflow.step.entered",
+    "title": "workflow.step.entered",
+    "summary": "A workflow instance has entered a new step. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, step, entered - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.step.entered",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.step.entered.md"
+  },
+  {
+    "id": "workflow-system/workflow.step.exited",
+    "title": "workflow.step.exited",
+    "summary": "A workflow instance has exited a step. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @workflow-team - **Tags**: workflow, step, exited - **File**: `packages/examples/workflow-system/src/instance/instance.event.ts`",
+    "route": "/docs/reference/workflow-system/workflow.step.exited",
+    "source": "generated",
+    "contentPath": "workflow-system/workflow.step.exited.md"
+  }
+]

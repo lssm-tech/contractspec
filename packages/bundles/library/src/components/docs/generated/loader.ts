@@ -1,32 +1,80 @@
 import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { docsIndex, docsIndexMeta } from './docs-index.generated';
-import type { DocsIndexEntry } from './docs-index.generated';
-
-interface DocsIndexMeta {
-  contentRoot?: string | null;
-}
+import { DOCS_INDEX_MANIFEST } from './docs-index.generated';
+import type { DocsIndexEntry, DocsIndexManifest } from './docs-index.generated';
 
 const baseDir = dirname(fileURLToPath(import.meta.url));
-const contentRoot = (() => {
-  const meta = docsIndexMeta as DocsIndexMeta;
-  const root = meta.contentRoot ?? '.';
-  return join(baseDir, root);
-})();
+let manifestPromise: Promise<DocsIndexManifest> | null = null;
+let docsPromise: Promise<DocsIndexEntry[]> | null = null;
+const chunkCache = new Map<string, Promise<DocsIndexEntry[]>>();
 
-export function listGeneratedDocs(): readonly DocsIndexEntry[] {
-  return docsIndex;
+function chunkKeyForId(id: string): string {
+  if (!id) return '_common';
+  if (id.includes('/')) {
+    const [prefix] = id.split('/');
+    return prefix || '_common';
+  }
+  return '_common';
+}
+
+async function loadManifest(): Promise<DocsIndexManifest> {
+  if (!manifestPromise) {
+    manifestPromise = readFile(join(baseDir, DOCS_INDEX_MANIFEST), 'utf8').then(
+      (content) => JSON.parse(content) as DocsIndexManifest
+    );
+  }
+  return manifestPromise;
+}
+
+function resolveContentRoot(manifest: DocsIndexManifest): string {
+  const root = manifest.contentRoot ?? '.';
+  return join(baseDir, root);
+}
+
+async function loadChunk(fileName: string): Promise<DocsIndexEntry[]> {
+  const cached = chunkCache.get(fileName);
+  if (cached) return cached;
+
+  const load = readFile(join(baseDir, fileName), 'utf8').then(
+    (content) => JSON.parse(content) as DocsIndexEntry[]
+  );
+  chunkCache.set(fileName, load);
+  return load;
+}
+
+export async function listGeneratedDocs(): Promise<readonly DocsIndexEntry[]> {
+  if (!docsPromise) {
+    docsPromise = (async () => {
+      const manifest = await loadManifest();
+      const chunks = await Promise.all(
+        manifest.chunks.map((chunk) => loadChunk(chunk.file))
+      );
+      return chunks.flat();
+    })();
+  }
+
+  return docsPromise;
+}
+
+export async function getDocsIndexManifest(): Promise<DocsIndexManifest> {
+  return loadManifest();
 }
 
 export async function getGeneratedDocById(id: string): Promise<{
   entry: DocsIndexEntry;
   content: string;
 } | null> {
-  const entry = docsIndex.find((doc) => doc.id === id);
+  const manifest = await loadManifest();
+  const key = chunkKeyForId(id);
+  const chunk = manifest.chunks.find((item) => item.key === key);
+  if (!chunk) return null;
+
+  const entries = await loadChunk(chunk.file);
+  const entry = entries.find((doc) => doc.id === id);
   if (!entry || !entry.contentPath) return null;
 
-  const contentPath = join(contentRoot, entry.contentPath);
+  const contentPath = join(resolveContentRoot(manifest), entry.contentPath);
   try {
     const content = await readFile(contentPath, 'utf8');
     return { entry, content };

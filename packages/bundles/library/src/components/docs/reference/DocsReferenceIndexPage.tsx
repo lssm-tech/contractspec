@@ -1,6 +1,7 @@
-import { docsIndex } from '../generated/docs-index.generated';
+import { listGeneratedDocs } from '../generated/loader';
 import { DocsReferenceIndexClient } from './DocsReferenceIndexClient';
 
-export function DocsReferenceIndexPage() {
-  return <DocsReferenceIndexClient entries={docsIndex} />;
+export async function DocsReferenceIndexPage() {
+  const entries = await listGeneratedDocs();
+  return <DocsReferenceIndexClient entries={entries} />;
 }

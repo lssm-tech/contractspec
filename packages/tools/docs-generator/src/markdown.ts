@@ -8,7 +8,8 @@ export function extractTitle(content: string, fallback: string): string {
 export function extractSummary(content: string): string | undefined {
   const lines = content.split(/\r?\n/).map((line) => line.trim());
   const filtered = lines.filter(
-    (line) => line.length > 0 && !line.startsWith('#')
+    (line) =>
+      line.length > 0 && !line.startsWith('#') && !line.startsWith('<!--')
   );
 
   if (!filtered.length) return undefined;

@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-01-28T11:59:20.407Z",
+  "total": 659,
+  "version": null,
+  "contentRoot": "../../../../../../../generated/docs",
+  "chunks": [
+    {
+      "key": "_common",
+      "file": "docs-index._common.json",
+      "total": 57
+    },
+    {
+      "key": "agent-console",
+      "file": "docs-index.agent-console.json",
+      "total": 46
+    },
+    {
+      "key": "ai-chat",
+      "file": "docs-index.ai-chat.json",
+      "total": 13
+    },
+    {
+      "key": "analytics-dashboard",
+      "file": "docs-index.analytics-dashboard.json",
+      "total": 20
+    },
+    {
+      "key": "app-config",
+      "file": "docs-index.app-config.json",
+      "total": 17
+    },
+    {
+      "key": "audit-trail",
+      "file": "docs-index.audit-trail.json",
+      "total": 6
+    },
+    {
+      "key": "crm-pipeline",
+      "file": "docs-index.crm-pipeline.json",
+      "total": 19
+    },
+    {
+      "key": "feature-flags",
+      "file": "docs-index.feature-flags.json",
+      "total": 26
+    },
+    {
+      "key": "files",
+      "file": "docs-index.files.json",
+      "total": 22
+    },
+    {
+      "key": "identity-rbac",
+      "file": "docs-index.identity-rbac.json",
+      "total": 39
+    },
+    {
+      "key": "integration-hub",
+      "file": "docs-index.integration-hub.json",
+      "total": 32
+    },
+    {
+      "key": "jobs",
+      "file": "docs-index.jobs.json",
+      "total": 17
+    },
+    {
+      "key": "kb-update-pipeline",
+      "file": "docs-index.kb-update-pipeline.json",
+      "total": 16
+    },
+    {
+      "key": "learning-journey",
+      "file": "docs-index.learning-journey.json",
+      "total": 27
+    },
+    {
+      "key": "learning-journey-crm-onboarding",
+      "file": "docs-index.learning-journey-crm-onboarding.json",
+      "total": 6
+    },
+    {
+      "key": "learning-journey-platform-tour",
+      "file": "docs-index.learning-journey-platform-tour.json",
+      "total": 6
+    },
+    {
+      "key": "learning-journey-registry",
+      "file": "docs-index.learning-journey-registry.json",
+      "total": 4
+    },
+    {
+      "key": "learning-journey-studio-onboarding",
+      "file": "docs-index.learning-journey-studio-onboarding.json",
+      "total": 6
+    },
+    {
+      "key": "locale-jurisdiction-gate",
+      "file": "docs-index.locale-jurisdiction-gate.json",
+      "total": 6
+    },
+    {
+      "key": "marketplace",
+      "file": "docs-index.marketplace.json",
+      "total": 40
+    },
+    {
+      "key": "metering",
+      "file": "docs-index.metering.json",
+      "total": 23
+    },
+    {
+      "key": "notifications",
+      "file": "docs-index.notifications.json",
+      "total": 8
+    },
+    {
+      "key": "openbanking",
+      "file": "docs-index.openbanking.json",
+      "total": 8
+    },
+    {
+      "key": "platform.integrations",
+      "file": "docs-index.platform-integrations.json",
+      "total": 17
+    },
+    {
+      "key": "platform.knowledge",
+      "file": "docs-index.platform-knowledge.json",
+      "total": 7
+    },
+    {
+      "key": "pocket-family-office",
+      "file": "docs-index.pocket-family-office.json",
+      "total": 15
+    },
+    {
+      "key": "policy-safe-knowledge-assistant",
+      "file": "docs-index.policy-safe-knowledge-assistant.json",
+      "total": 1
+    },
+    {
+      "key": "saas-boilerplate",
+      "file": "docs-index.saas-boilerplate.json",
+      "total": 26
+    },
+    {
+      "key": "service-business-os",
+      "file": "docs-index.service-business-os.json",
+      "total": 24
+    },
+    {
+      "key": "team-hub",
+      "file": "docs-index.team-hub.json",
+      "total": 23
+    },
+    {
+      "key": "versioned-knowledge-base",
+      "file": "docs-index.versioned-knowledge-base.json",
+      "total": 10
+    },
+    {
+      "key": "wealth-snapshot",
+      "file": "docs-index.wealth-snapshot.json",
+      "total": 19
+    },
+    {
+      "key": "workflow-system",
+      "file": "docs-index.workflow-system.json",
+      "total": 52
+    },
+    {
+      "key": "workspace-cli",
+      "file": "docs-index.workspace-cli.json",
+      "total": 1
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "service-business-os/invoices",
+    "title": "invoices",
+    "summary": "Invoice creation and payment tracking - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: invoices, billing - **File**: `packages/examples/service-business-os/src/service-business-os.capability.ts`",
+    "route": "/docs/reference/service-business-os/invoices",
+    "source": "generated",
+    "contentPath": "service-business-os/invoices.md"
+  },
+  {
+    "id": "service-business-os/quotes",
+    "title": "quotes",
+    "summary": "Quote generation and management for service businesses - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.core - **Tags**: quotes, service, business - **File**: `packages/examples/service-business-os/src/service-business-os.capability.ts`",
+    "route": "/docs/reference/service-business-os/quotes",
+    "source": "generated",
+    "contentPath": "service-business-os/quotes.md"
+  },
+  {
+    "id": "service-business-os/service-business-os",
+    "title": "service-business-os",
+    "summary": "Quotes → jobs → invoices → payments for field services and agencies. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @service-os - **Tags**: services, quotes, jobs, invoices, payments",
+    "route": "/docs/reference/service-business-os/service-business-os",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.client.list",
+    "title": "service-business-os.client.list",
+    "summary": "List of service clients - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, clients, list - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.client.list",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.client.list.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.dashboard",
+    "title": "service-business-os.dashboard",
+    "summary": "Service business dashboard with overview metrics - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, dashboard - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.dashboard",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.dashboard.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.invoice.list",
+    "title": "service-business-os.invoice.list",
+    "summary": "List of invoices with payment status - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, invoices, list - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.invoice.list",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.invoice.list.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.job.board",
+    "title": "service-business-os.job.board",
+    "summary": "Job board with kanban view - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, jobs, board, kanban - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.job.board",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.job.board.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.payment.list",
+    "title": "service-business-os.payment.list",
+    "summary": "List of payments received - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, payments, list - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.payment.list",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.payment.list.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.quote.detail",
+    "title": "service-business-os.quote.detail",
+    "summary": "Quote detail with line items - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, quote, detail - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.quote.detail",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.quote.detail.md"
+  },
+  {
+    "id": "service-business-os/service-business-os.quote.list",
+    "title": "service-business-os.quote.list",
+    "summary": "List of quotes with status - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @service-os - **Tags**: services, quotes, list - **File**: `packages/examples/service-business-os/src/presentations.ts`",
+    "route": "/docs/reference/service-business-os/service-business-os.quote.list",
+    "source": "generated",
+    "contentPath": "service-business-os/service-business-os.quote.list.md"
+  },
+  {
+    "id": "service-business-os/service.client.create",
+    "title": "service.client.create",
+    "summary": "Create a new client. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, client, create - **File**: `packages/examples/service-business-os/src/client/client.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.client.create",
+    "source": "generated",
+    "contentPath": "service-business-os/service.client.create.md"
+  },
+  {
+    "id": "service-business-os/service.invoice.issue",
+    "title": "service.invoice.issue",
+    "summary": "Issue an invoice for a job. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, invoice, issue - **File**: `packages/examples/service-business-os/src/invoice/invoice.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.invoice.issue",
+    "source": "generated",
+    "contentPath": "service-business-os/service.invoice.issue.md"
+  },
+  {
+    "id": "service-business-os/service.invoice.issued",
+    "title": "service.invoice.issued",
+    "summary": "An invoice was issued. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, invoice, issued - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.invoice.issued",
+    "source": "generated",
+    "contentPath": "service-business-os/service.invoice.issued.md"
+  },
+  {
+    "id": "service-business-os/service.job.complete",
+    "title": "service.job.complete",
+    "summary": "Mark a job as complete. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, job, complete - **File**: `packages/examples/service-business-os/src/job/job.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.job.complete",
+    "source": "generated",
+    "contentPath": "service-business-os/service.job.complete.md"
+  },
+  {
+    "id": "service-business-os/service.job.completed",
+    "title": "service.job.completed",
+    "summary": "A job was completed. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, job, completed - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.job.completed",
+    "source": "generated",
+    "contentPath": "service-business-os/service.job.completed.md"
+  },
+  {
+    "id": "service-business-os/service.job.list",
+    "title": "service.job.list",
+    "summary": "List all jobs with filtering - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, job, list, query - **File**: `packages/examples/service-business-os/src/job/job.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.job.list",
+    "source": "generated",
+    "contentPath": "service-business-os/service.job.list.md"
+  },
+  {
+    "id": "service-business-os/service.job.schedule",
+    "title": "service.job.schedule",
+    "summary": "Schedule a job. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, job, schedule - **File**: `packages/examples/service-business-os/src/job/job.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.job.schedule",
+    "source": "generated",
+    "contentPath": "service-business-os/service.job.schedule.md"
+  },
+  {
+    "id": "service-business-os/service.job.scheduled",
+    "title": "service.job.scheduled",
+    "summary": "A job was scheduled. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, job, scheduled - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.job.scheduled",
+    "source": "generated",
+    "contentPath": "service-business-os/service.job.scheduled.md"
+  },
+  {
+    "id": "service-business-os/service.payment.received",
+    "title": "service.payment.received",
+    "summary": "A payment was recorded. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, payment, received - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.payment.received",
+    "source": "generated",
+    "contentPath": "service-business-os/service.payment.received.md"
+  },
+  {
+    "id": "service-business-os/service.payment.record",
+    "title": "service.payment.record",
+    "summary": "Record a payment. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, payment, record - **File**: `packages/examples/service-business-os/src/payment/payment.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.payment.record",
+    "source": "generated",
+    "contentPath": "service-business-os/service.payment.record.md"
+  },
+  {
+    "id": "service-business-os/service.quote.accept",
+    "title": "service.quote.accept",
+    "summary": "Accept a quote. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, quote, accept - **File**: `packages/examples/service-business-os/src/quote/quote.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.quote.accept",
+    "source": "generated",
+    "contentPath": "service-business-os/service.quote.accept.md"
+  },
+  {
+    "id": "service-business-os/service.quote.accepted",
+    "title": "service.quote.accepted",
+    "summary": "A quote was accepted. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, quote, accepted - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.quote.accepted",
+    "source": "generated",
+    "contentPath": "service-business-os/service.quote.accepted.md"
+  },
+  {
+    "id": "service-business-os/service.quote.create",
+    "title": "service.quote.create",
+    "summary": "Create a quote/proposal. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @examples.service-business-os - **Tags**: service-business-os, quote, create - **File**: `packages/examples/service-business-os/src/quote/quote.operations.ts`",
+    "route": "/docs/reference/service-business-os/service.quote.create",
+    "source": "generated",
+    "contentPath": "service-business-os/service.quote.create.md"
+  },
+  {
+    "id": "service-business-os/service.quote.sent",
+    "title": "service.quote.sent",
+    "summary": "A quote was sent to the client. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: @service-os - **Tags**: service, quote, sent - **File**: `packages/examples/service-business-os/src/events.ts`",
+    "route": "/docs/reference/service-business-os/service.quote.sent",
+    "source": "generated",
+    "contentPath": "service-business-os/service.quote.sent.md"
+  }
+]

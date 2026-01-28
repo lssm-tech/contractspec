@@ -1,0 +1,82 @@
+[
+  {
+    "id": "versioned-knowledge-base/kb.approveRuleVersion",
+    "title": "kb.approveRuleVersion",
+    "summary": "Approve a draft rule version. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, rules, approval - **File**: `packages/examples/versioned-knowledge-base/src/operations/kb.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.approveRuleVersion",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.approveRuleVersion.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.ingestSource",
+    "title": "kb.ingestSource",
+    "summary": "Ingest immutable source document metadata. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, sources, ingestion - **File**: `packages/examples/versioned-knowledge-base/src/operations/kb.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.ingestSource",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.ingestSource.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.publishSnapshot",
+    "title": "kb.publishSnapshot",
+    "summary": "Publish a KB snapshot for a jurisdiction. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, snapshots, publishing - **File**: `packages/examples/versioned-knowledge-base/src/operations/kb.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.publishSnapshot",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.publishSnapshot.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.ruleVersion.approved",
+    "title": "kb.ruleVersion.approved",
+    "summary": "Rule version approved (human verified). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge - **File**: `packages/examples/versioned-knowledge-base/src/events.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.ruleVersion.approved",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.ruleVersion.approved.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.ruleVersion.created",
+    "title": "kb.ruleVersion.created",
+    "summary": "Rule version created (draft). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge - **File**: `packages/examples/versioned-knowledge-base/src/events.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.ruleVersion.created",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.ruleVersion.created.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.search",
+    "title": "kb.search",
+    "summary": "Search within a published KB snapshot. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, search, snapshots - **File**: `packages/examples/versioned-knowledge-base/src/operations/kb.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.search",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.search.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.snapshot.published",
+    "title": "kb.snapshot.published",
+    "summary": "KB snapshot published. - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge - **File**: `packages/examples/versioned-knowledge-base/src/events.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.snapshot.published",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.snapshot.published.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.source.ingested",
+    "title": "kb.source.ingested",
+    "summary": "Source document ingested (immutable). - **Type**: event (event) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge - **File**: `packages/examples/versioned-knowledge-base/src/events.ts`",
+    "route": "/docs/reference/versioned-knowledge-base/kb.source.ingested",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.source.ingested.md"
+  },
+  {
+    "id": "versioned-knowledge-base/kb.upsertRuleVersion",
+    "title": "kb.upsertRuleVersion",
+    "summary": "Create a new draft rule version with source references. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, rules, versioning",
+    "route": "/docs/reference/versioned-knowledge-base/kb.upsertRuleVersion",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/kb.upsertRuleVersion.md"
+  },
+  {
+    "id": "versioned-knowledge-base/versioned-knowledge-base",
+    "title": "versioned-knowledge-base",
+    "summary": "Curated KB with immutable sources, rule versions, and published snapshots. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @examples - **Tags**: knowledge, versioning, snapshots",
+    "route": "/docs/reference/versioned-knowledge-base/versioned-knowledge-base",
+    "source": "generated",
+    "contentPath": "versioned-knowledge-base/versioned-knowledge-base.md"
+  }
+]

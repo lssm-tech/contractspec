@@ -1,0 +1,154 @@
+[
+  {
+    "id": "wealth-snapshot/accounts",
+    "title": "accounts",
+    "summary": "Financial accounts tracking and aggregation - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: accounts, finance, wealth - **File**: `packages/examples/wealth-snapshot/src/wealth-snapshot.capability.ts`",
+    "route": "/docs/reference/wealth-snapshot/accounts",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/accounts.md"
+  },
+  {
+    "id": "wealth-snapshot/goals",
+    "title": "goals",
+    "summary": "Financial goal setting and progress tracking - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: goals, planning, wealth - **File**: `packages/examples/wealth-snapshot/src/wealth-snapshot.capability.ts`",
+    "route": "/docs/reference/wealth-snapshot/goals",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/goals.md"
+  },
+  {
+    "id": "wealth-snapshot/net-worth",
+    "title": "net-worth",
+    "summary": "Net worth visualization and tracking - **Type**: capability (capability) - **Version**: 1.0.0 - **Owners**: platform.finance - **Tags**: net-worth, wealth, dashboard - **File**: `packages/examples/wealth-snapshot/src/wealth-snapshot.capability.ts`",
+    "route": "/docs/reference/wealth-snapshot/net-worth",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/net-worth.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot",
+    "title": "wealth-snapshot",
+    "summary": "Mini-app for accounts, assets, liabilities, goals, and net worth. - **Type**: feature - **Version**: 1.0.0 - **Stability**: experimental - **Owners**: @wealth-snapshot - **Tags**: finance, net-worth, goals",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot.accounts.list",
+    "title": "wealth-snapshot.accounts.list",
+    "summary": "List of financial accounts - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @wealth-snapshot - **Tags**: finance, accounts, list - **File**: `packages/examples/wealth-snapshot/src/presentations.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot.accounts.list",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.accounts.list.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot.assets.list",
+    "title": "wealth-snapshot.assets.list",
+    "summary": "List of assets with valuations - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @wealth-snapshot - **Tags**: finance, assets, list - **File**: `packages/examples/wealth-snapshot/src/presentations.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot.assets.list",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.assets.list.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot.dashboard",
+    "title": "wealth-snapshot.dashboard",
+    "summary": "Wealth snapshot dashboard with net worth overview - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @wealth-snapshot - **Tags**: finance, wealth, dashboard - **File**: `packages/examples/wealth-snapshot/src/presentations.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot.dashboard",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.dashboard.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot.goals.list",
+    "title": "wealth-snapshot.goals.list",
+    "summary": "List of financial goals with progress - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @wealth-snapshot - **Tags**: finance, goals, list - **File**: `packages/examples/wealth-snapshot/src/presentations.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot.goals.list",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.goals.list.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth-snapshot.liabilities.list",
+    "title": "wealth-snapshot.liabilities.list",
+    "summary": "List of liabilities and debts - **Type**: presentation (presentation) - **Version**: 1.0.0 - **Owners**: @wealth-snapshot - **Tags**: finance, liabilities, list - **File**: `packages/examples/wealth-snapshot/src/presentations.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth-snapshot.liabilities.list",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth-snapshot.liabilities.list.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.account.create",
+    "title": "wealth.account.create",
+    "summary": "Create a financial account. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, account, create - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.account.create",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.account.create.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.asset.add",
+    "title": "wealth.asset.add",
+    "summary": "Add an asset position. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, asset, add - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.asset.add",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.asset.add.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.asset.added",
+    "title": "wealth.asset.added",
+    "summary": "An asset was added or updated. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/wealth-snapshot/src/events.ts` ```typescript export const AssetAddedEvent = defineEvent({ meta: {",
+    "route": "/docs/reference/wealth-snapshot/wealth.asset.added",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.asset.added.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.goal.create",
+    "title": "wealth.goal.create",
+    "summary": "Create a financial goal. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, goal, create - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.goal.create",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.goal.create.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.goal.update",
+    "title": "wealth.goal.update",
+    "summary": "Update goal progress. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, goal, update - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.goal.update",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.goal.update.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.goal.updated",
+    "title": "wealth.goal.updated",
+    "summary": "A goal was updated. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/wealth-snapshot/src/events.ts` ```typescript export const GoalUpdatedEvent = defineEvent({ meta: { key: 'wealth.goal.updated',",
+    "route": "/docs/reference/wealth-snapshot/wealth.goal.updated",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.goal.updated.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.liability.add",
+    "title": "wealth.liability.add",
+    "summary": "Add a liability. - **Type**: operation (command) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, liability, add - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.liability.add",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.liability.add.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.liability.added",
+    "title": "wealth.liability.added",
+    "summary": "A liability was added or updated. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/wealth-snapshot/src/events.ts` ```typescript export const LiabilityAddedEvent = defineEvent({",
+    "route": "/docs/reference/wealth-snapshot/wealth.liability.added",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.liability.added.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.networth.get",
+    "title": "wealth.networth.get",
+    "summary": "Get net worth snapshots for a period. - **Type**: operation (query) - **Version**: 1.0.0 - **Stability**: stable - **Owners**: examples.wealth-snapshot - **Tags**: wealth, networth - **File**: `packages/examples/wealth-snapshot/src/operations/index.ts`",
+    "route": "/docs/reference/wealth-snapshot/wealth.networth.get",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.networth.get.md"
+  },
+  {
+    "id": "wealth-snapshot/wealth.networth.snapshot_created",
+    "title": "wealth.networth.snapshot_created",
+    "summary": "A net worth snapshot was generated. - **Type**: event (event) - **Version**: 1.0.0 - **File**: `packages/examples/wealth-snapshot/src/events.ts` ```typescript export const NetWorthSnapshotCreatedEvent = defineEvent({",
+    "route": "/docs/reference/wealth-snapshot/wealth.networth.snapshot_created",
+    "source": "generated",
+    "contentPath": "wealth-snapshot/wealth.networth.snapshot_created.md"
+  }
+]
