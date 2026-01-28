@@ -66,6 +66,7 @@
     "lint": "turbo run lint",
     "lint:check": "turbo run lint:check",
     "lint:fix": "turbo run lint:fix",
+    "docs:generate": "turbo run docs:generate --filter=\"@contractspec/tool.docs-generator\"",
     "dev": "turbo run dev --filter=\"!@contractspec/app.*\"",
     "dev:web": "turbo run dev --filter=\"@contractspec/app.web-*\"",
     "dev:api": "turbo run dev --filter=\"@contractspec/app.api-*\"",

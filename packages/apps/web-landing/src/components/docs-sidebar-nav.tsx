@@ -44,6 +44,14 @@ export const docsSections = [
     ],
   },
   {
+    title: 'Reference',
+    items: [{ title: 'Contract Reference', href: '/docs/reference' }],
+  },
+  {
+    title: 'Examples',
+    items: [{ title: 'Catalog', href: '/docs/examples' }],
+  },
+  {
     title: 'Architecture',
     items: [
       { title: 'Overview', href: '/docs/architecture' },

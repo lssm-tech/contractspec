@@ -1,0 +1,58 @@
+{
+  "name": "@contractspec/tool.docs-generator",
+  "version": "1.52.0",
+  "type": "module",
+  "description": "CLI tool for generating docs artifacts from ContractSpec specs and DocBlocks",
+  "keywords": [
+    "contractspec",
+    "docs",
+    "generator",
+    "cli",
+    "documentation"
+  ],
+  "scripts": {
+    "publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+    "publish:pkg:canary": "bun publish:pkg --tag canary",
+    "build": "bun build:types && bun build:bundle",
+    "build:bundle": "tsdown",
+    "build:types": "tsc --noEmit",
+    "docs:generate": "bun src/index.ts generate",
+    "clean": "rimraf dist .turbo",
+    "lint": "bun lint:fix",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "test": "bun test"
+  },
+  "bin": {
+    "contractspec-docs": "./dist/index.js"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "dependencies": {
+    "@contractspec/lib.contracts": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@contractspec/tool.tsdown": "workspace:*",
+    "@contractspec/tool.typescript": "workspace:*",
+    "tsdown": "catalog:build",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lssm-tech/contractspec.git",
+    "directory": "packages/tools/docs-generator"
+  },
+  "homepage": "https://contractspec.io"
+}

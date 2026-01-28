@@ -63,18 +63,26 @@ const EvolutionDashboard = dynamic(
 );
 
 const TodosTaskList = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.TaskList),
+  () =>
+    import('@contractspec/bundle.library/components/templates/todos/TaskList').then(
+      (m) => m.TaskList
+    ),
   { ssr: false }
 );
 
 const MessagingWorkspace = dynamic(
   () =>
-    import('@contractspec/bundle.library').then((m) => m.MessagingWorkspace),
+    import('@contractspec/bundle.library/components/templates/messaging/MessagingWorkspace').then(
+      (m) => m.MessagingWorkspace
+    ),
   { ssr: false }
 );
 
 const RecipesExperience = dynamic(
-  () => import('@contractspec/bundle.library').then((m) => m.RecipeList),
+  () =>
+    import('@contractspec/bundle.library/components/templates/recipes/RecipeList').then(
+      (m) => m.RecipeList
+    ),
   { ssr: false }
 );
 
